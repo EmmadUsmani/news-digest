@@ -88,3 +88,13 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - No runtime/source/query/cap/schema/UI changes, paid verification or protected-window deployment/restart; handbook/NEEDS_FROM_HUMAN unchanged. Metrics recovery trial still waits until after 16:00.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes.
 - Next: review actual 15:00 edition first; then after 16:00 deploy/measure CPU-only metrics trial before gated publisher merge.
+
+## 2026-11-07: iteration 1199 — retain X failure completion evidence
+
+- Clean main/no leftovers. Nov 7 Gaming/World unconfirmed production searches exposed missing diagnostics: saved queries discarded provider tool status.
+- Adapter now preserves optional provider-reported tool status with exact input; missing/malformed status stays unknown. No inferred completion, retry, search, model, cap or accounting changes.
+- Daily discovery report exposes saved execution and tool calls independently of billing status; existing JSONB storage needs no migration. Read-only live report confirms six succeeded calls, four unconfirmed/two completed, $0.166127/zero holds; historical discarded statuses stay unknown.
+- Offline regressions cover failed/completed/in-progress/absent/malformed status, unchanged zero-fetch usage, ledger persistence and succeeded-but-unconfirmed report evidence. Handbook/TASKS updated.
+- Health: alert snapshot clear, all 14 services/36 sources healthy; /healthz database/Redis OK. No paid calls, UI changes or protected-window deployment/restart. Runtime change awaits post-16:00 deployment.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/227 integration tests pass, four rehearsals skipped. Handbook filter and git diff --check pass.
+- Next: actual 15:00 edition review, then after 16:00 CPU-only metrics trial and pending diagnostic deployment; publisher merge still gated on committed review.

@@ -25,10 +25,11 @@ export interface XSearchRequest {
   fromDate: string;
   toDate: string;
 }
-// Exact provider-reported tool input; absent fields stay unknown.
+// Exact provider-reported tool evidence; absent fields stay unknown.
 export interface XSearchToolCall {
   name: string;
   input: string;
+  status?: string;
 }
 export interface XSearchPort {
   search(request: XSearchRequest): Promise<{

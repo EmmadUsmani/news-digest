@@ -231,10 +231,19 @@ export class DirectXSearch implements XSearchPort {
                 type: z.literal('custom_tool_call'),
                 name: z.string(),
                 input: z.string(),
+                status: z.string().optional().catch(undefined),
               })
               .safeParse(item);
             return call.success
-              ? [{ name: call.data.name, input: call.data.input }]
+              ? [
+                  {
+                    name: call.data.name,
+                    input: call.data.input,
+                    ...(call.data.status === undefined
+                      ? {}
+                      : { status: call.data.status }),
+                  },
+                ]
               : [];
           })
         : [],

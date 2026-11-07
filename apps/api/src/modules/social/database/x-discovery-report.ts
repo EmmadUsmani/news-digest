@@ -18,6 +18,8 @@ interface DiscoveryCallEvidence {
   requestedTopic: { id: string; name: string } | null;
   searchType: XDiscoverySearchType | null;
   status: string;
+  execution: string | null;
+  toolCalls: unknown;
   createdAt: Date;
   costMicros: number | null;
   heldMicros: number;
@@ -169,6 +171,8 @@ export async function readXDiscoveryReport(
       >`${calls.requestedTopic}`,
       searchType: sql<DiscoveryCallEvidence['searchType']>`${calls.searchType}`,
       status: calls.status,
+      execution: calls.execution,
+      toolCalls: calls.toolCalls,
       createdAt: calls.createdAt,
       costMicros: sql<number | null>`${calls.costMicros}::float8`,
       heldMicros: sql<number>`CASE WHEN ${calls.status} IN ('pending','uncertain') THEN ${calls.reservedMicros} ELSE 0 END::float8`,

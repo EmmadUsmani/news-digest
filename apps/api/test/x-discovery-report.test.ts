@@ -36,7 +36,19 @@ void test('X daily evidence preserves zero-yield calls, counts cost once and use
     await client.query(`INSERT INTO social_posts(platform,external_id,canonical_url,author,author_url,published_at,embed_html) VALUES
       ('x','887711','https://x.com/a/status/887711','a','https://x.com/a','2032-01-01T12:00:00Z','fixture'),
       ('x','887712','https://x.com/a/status/887712','a','https://x.com/a',NULL,'fixture')`);
+    const toolCalls = [
+      { name: 'x_keyword_search', input: '{}', status: 'failed' },
+    ];
+    await client.query(
+      'UPDATE x_discovery_calls SET execution=$2, tool_calls=$3 WHERE id=$1',
+      [ids[0], 'unconfirmed', JSON.stringify(toolCalls)],
+    );
     const report = await readXDiscoveryReport(client, '2032-01-02');
+    assert.equal(report.calls[0].status, 'succeeded');
+    assert.equal(report.calls[0].execution, 'unconfirmed');
+    assert.deepEqual(report.calls[0].toolCalls, toolCalls);
+    assert.equal(report.calls[1].execution, null);
+    assert.equal(report.calls[1].toolCalls, null);
     assert.equal(report.calls.length, 4);
     assert.ok(report.calls[0].createdAt instanceof Date);
     assert.equal(

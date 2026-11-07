@@ -928,6 +928,44 @@ void test('actual custom tool calls survive empty or invalid citation content wi
   assert.deepEqual((await empty.search(request)).toolCalls, []);
 });
 
+void test('tool status survives failed searches without changing accounting or inferring completion', async () => {
+  for (const status of ['failed', 'completed', 'in_progress', undefined, 42]) {
+    const adapter = new DirectXSearch(
+      'fixture-key',
+      async () =>
+        new Response(
+          JSON.stringify({
+            ...fixture(),
+            usage: { input_tokens: 1000, output_tokens: 100 },
+            output: [
+              {
+                type: 'custom_tool_call',
+                name: 'x_keyword_search',
+                input: '{}',
+                status,
+              },
+            ],
+          }),
+        ),
+    );
+    const result = await adapter.search(request);
+    assert.deepEqual(result.toolCalls, [
+      {
+        name: 'x_keyword_search',
+        input: '{}',
+        ...(typeof status === 'string' ? { status } : {}),
+      },
+    ]);
+    assert.equal(
+      result.execution,
+      status === 'completed' ? 'completed' : 'unconfirmed',
+    );
+    assert.equal(result.usage.postsFetched, 0);
+    assert.equal(result.usage.inputTokens, 1000);
+    assert.deepEqual(result.links, []);
+  }
+});
+
 void test('direct adapter sends fixed A/B operators and preserves settlement evidence without live calls', async () => {
   for (const style of ['reactions', 'trending'] as const) {
     const fixed = {

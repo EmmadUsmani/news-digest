@@ -40,9 +40,9 @@ flowchart LR
   One search per topic; at most one admitted retry for a failed call.
 - **Curated accounts:** editable in **Manage topics → Edit → X accounts**;
   keyword discovery searches all accounts. See [Sources](../../SOURCES.md).
-- **Reports:** `scripts/report-x-discovery.ts` (one day) and
-  `report-x-week.ts` (seven days) show spend and new verified posts by topic
-  and search type, including posts from authors outside the account lists.
+- **Reports:** daily `scripts/report-x-discovery.ts` and weekly `report-x-week.ts`
+  show spend, new verified posts and outside-list authors by topic/search type.
+  Daily evidence includes billing, execution, tool inputs and provider status.
 
 X triage receives the author, reported likes when available (labelled as
 unverified hints), and whether the verified text includes a media link. Missing

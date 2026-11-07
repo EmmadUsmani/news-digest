@@ -65,6 +65,7 @@ void test('X ledger serializes separate caps, retains uncertainty, reconciles us
     const toolCalls = [
       {
         name: 'x_keyword_search',
+        status: 'failed',
         input: '{"query":"NBA min_faves:100","mode":"Top"}',
       },
     ];
