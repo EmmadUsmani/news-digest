@@ -134,3 +134,14 @@
 - pnpm build passed with existing chunk warning. No UI/source/schema/system-flow changes, paid calls or edition writes; screenshots, SOURCES and handbook unchanged.
 - pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. API/worker restarted; health DB/Redis OK and alerts clear; final reader scan passed against rebuilt app.
 - Remaining item 33 work: loaded-embed NBA/Gaming page length and all-route screenshot refresh, then close and begin B2.
+
+## 2026-11-07: iteration 1074 — refresh every spec route screenshot
+
+- Clean main, no leftover work; alerts clear, /healthz DB/Redis OK, sources 36/36 healthy. Nov 7 keyword/Bluesky acceptance still awaits publication.
+- Added read-only scripts/capture-spec-routes.ts: 14 routes × desktop/mobile × light/dark = 56 saved-production-data screenshots; indexed in docs/screenshots/ui/spec-routes.md. Includes latest/archive/past edition, not-found and all ten admin routes.
+- Capture passed all four layouts: zero writes, browser errors or horizontal overflow; admin token stays in the existing server-side local bridge. External requests blocked; these fallback-card screenshots are not loaded-embed length evidence.
+- Inspected overview desktop light, topic editor desktop dark, not-found mobile light and new-edition mobile dark. No product/source/schema/system-flow changes; SOURCES and handbook unchanged.
+- Initial capture needed the admin header selector corrected; next attempt overlapped rebuild and hit an admin 404. Restarted services, reran against stable build; all 56 captures passed.
+- pnpm build passed with existing chunk warning; pnpm exec tsx scripts/smoke-reader-labels.ts and scripts/smoke-admin-gate.ts passed; saved edition unchanged. Proxy header replacement proof remains required before public access.
+- Initial concurrent lint:fix/check processes ended with signal 143 during lint, no diagnostic; sequential pnpm lint:fix and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. pnpm format and git diff --check passed.
+- Next: reduce real loaded-embed NBA/Gaming desktop length, measure all topics, close item 33, then start B2. No paid calls or edition writes.
