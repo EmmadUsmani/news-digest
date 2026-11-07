@@ -80,11 +80,16 @@ export class DirectXSearch implements XSearchPort {
         },
         request.fixedSearch?.style === 'trending' ? viralXSearchResultLimit : 5,
       );
-      this.log.info(
+      const logResult =
+        result.execution === 'completed'
+          ? this.log.info.bind(this.log)
+          : this.log.warn.bind(this.log);
+      logResult(
         {
           ...fields,
           status,
           outcome: 'success',
+          execution: result.execution,
           durationMs: Math.round(performance.now() - started),
           usage: {
             input: result.usage.inputTokens,

@@ -113,11 +113,37 @@ void test('xAI logs one safe contextual outcome per attempt including protocol a
   const success = lines
     .map((line) => JSON.parse(line))
     .find((line) => line.event === 'external.call');
+  assert.equal(success.execution, 'unconfirmed');
+  assert.equal(success.level, 40);
   assert.equal(success.usage.input, 30);
   assert.equal(success.usage.output, 10);
   assert.equal(success.postsFetched, 2);
   assert.equal(success.profilesFetched, 1);
   assert.equal(success.citedLinks, 0);
+  await new DirectXSearch(
+    'private-key',
+    async () =>
+      new Response(
+        JSON.stringify({
+          usage: { input_tokens: 3, output_tokens: 1 },
+          output: [
+            {
+              type: 'custom_tool_call',
+              name: 'x_keyword_search',
+              status: 'completed',
+            },
+          ],
+        }),
+      ),
+    log,
+  ).search(request);
+  const completed = lines
+    .map((line) => JSON.parse(line))
+    .filter((line) => line.event === 'external.call')
+    .at(-1);
+  assert.equal(completed.execution, 'completed');
+  assert.equal(completed.level, 30);
+  assert.equal(completed.postsFetched, 0);
   assert.doesNotMatch(lines.join(''), /private|guidance|Authorization|https:/i);
   await assert.rejects(
     new DirectXSearch('key', cases[0][0], log).search({
@@ -127,7 +153,7 @@ void test('xAI logs one safe contextual outcome per attempt including protocol a
   );
   assert.equal(
     lines.filter((line) => JSON.parse(line).event === 'external.call').length,
-    cases.length,
+    cases.length + 1,
     'invalid local requests never call the provider',
   );
 });

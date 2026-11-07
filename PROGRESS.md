@@ -98,3 +98,12 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Health: alert snapshot clear, all 14 services/36 sources healthy; /healthz database/Redis OK. No paid calls, UI changes or protected-window deployment/restart. Runtime change awaits post-16:00 deployment.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/227 integration tests pass, four rehearsals skipped. Handbook filter and git diff --check pass.
 - Next: actual 15:00 edition review, then after 16:00 CPU-only metrics trial and pending diagnostic deployment; publisher merge still gated on committed review.
+
+## 2026-11-07: iteration 1200 — distinguish unconfirmed X execution in logs
+
+- Clean main/no leftovers. Paid X responses logged only transport success, hiding Gaming/World-style unconfirmed searches from warning-level operational searches.
+- External-call logs now include execution separately from transport outcome and warn when execution is unconfirmed. Confirmed empty searches stay informational; billing, retries, queries, models and caps unchanged.
+- Offline log regression verifies unconfirmed execution despite positive fetched usage, completed empty execution, correlation, one event per attempt and private-data exclusion. Handbook and pending-deployment task updated.
+- Orientation: alerts clear, services 14/14, sources 36/36, /healthz database/Redis healthy. No paid calls or production writes/restarts; protected-window deployment remains deferred until after 16:00 UTC.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/227 integration tests pass, four rehearsals skipped. Targeted log test, handbook filter and git diff --check pass.
+- Next: actual 15:00 edition review; after 16:00 measure CPU-only metrics trial and deploy queued X diagnostics. Publisher merge remains gated on committed review.

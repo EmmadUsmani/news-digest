@@ -47,6 +47,7 @@ Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing obse
 - **Correlated:** each request returns an `X-Request-Id`, and job, run and
   edition IDs are carried on every related line. For example,
   `pnpm obs logs --edition <id>` shows one edition's whole run.
+- **X execution:** paid responses log `execution` separately from transport `outcome`; unconfirmed searches warn, confirmed empty searches stay informational.
 - **Private by design:** logs and metrics never hold secrets, prompts, AI
   responses, article text, URLs or SQL. Redaction is tested.
 
