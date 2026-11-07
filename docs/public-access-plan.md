@@ -177,11 +177,18 @@ can read them.
 
 1. Read-only inventory: count editions by `scheduled_key` and date, and record
    how snapshot shapes changed over time.
-2. Set `kind` and `published_at`: editions with a `scheduled_key` are
-   `scheduled` and published at `created_at`. Other editions are `manual` and
-   unpublished, **except days the owner confirms**. List every manual edition
-   on a day without a scheduled edition, with evidence, for the owner.
-3. Turn on the published-only reader filter only after that confirmation.
+2. Set `kind` and `published_at` (**owner decision, Nov 7**, after the
+   [inventory](edition-reviews/2026-11-07-publication-inventory.md) found 65
+   `integration:` test editions):
+   - **Published:** editions with a `scheduled_key` that doesn't start with
+     `integration:`, created on or after 2026-11-03 (UTC). Today that's the five
+     Nov 3–7 daily editions. Every future scheduled edition is published when
+     it's saved.
+   - **Not published:** everything else, including all of Nov 1–2. Their `kind`
+     is `test` for `integration:` keys and `manual` for the rest. They stay
+     visible in admin.
+3. Turn on the published-only reader filter once the backfill and the
+   comparison below pass.
 4. IDs and `/editions/:id` links don't change.
 5. **Proof:** render every published edition with the new model off and on, and
    compare topic, story and post counts. Load a sample on desktop and mobile.
