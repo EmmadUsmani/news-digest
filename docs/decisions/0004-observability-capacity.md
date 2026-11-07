@@ -252,3 +252,29 @@ counter invalidates the run rather than reporting misleading deltas. Optional
 arguments select interval count and seconds; defaults reproduce the baseline.
 This is an operator measurement tool, not a scheduled collector or an automatic
 recovery verdict; the query, alert-evaluation and compaction checks still apply.
+
+### Compaction and alert evaluation before the trial (iteration 1197)
+
+At approximately 14:30 UTC, the direct `/metrics/metrics` endpoint reported
+zero active merges, 4,587 completed small-storage merges and 120,564,972 rows
+merged. The journal records a 30,284-row merge completing at 14:16:28 UTC
+in 40.300 seconds. Four slow-query warnings occurred at 14:15–14:16;
+no queue-rejection warning occurred in the inspected journal after 14:15.
+The backup-staleness rule evaluated successfully at 14:30:22 UTC in 0.177 s,
+with empty lastError and its cumulative rule-error counter still one.
+This establishes successful evaluation after a small compaction, not recovery
+across the five-million-row compaction associated with the earlier outage.
+
+The store reports cumulative select-limit hits 450 and queue timeouts 66.
+These are a new pre-trial baseline, not new failures in this observation window;
+compare deltas within each process lifetime, since restart resets them.
+Serial uncached service-status query latency was 2.499 s with one series.
+An initial self-scrape query used the nonexistent job `victoria-metrics` and
+returned zero series; discard that latency as a health measurement. The correct
+scrape job is `metrics-store`; its corrected uncached query timed out at the
+20-second client deadline around 14:31 UTC. A subsequent alert snapshot showed
+`ScrapeTargetDown` pending since 14:31:00 UTC for `metrics-store`, corroborating
+continuing scrape/query failure. Production remains at 1% CPU until after 16:00.
+
+By the 14:34:50 UTC alert snapshot the pending scrape alert had cleared
+without intervention. This transient clearance does not close the incident.

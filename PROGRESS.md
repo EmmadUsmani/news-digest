@@ -68,3 +68,12 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Capacity decision documents the command for the post-16:00 before/after trial. TASKS updated; no source/UI/schema/provider/handbook flow changes or protected-window restart/deployment.
 - Health: alerts clear, 14 services and 36 sources healthy; /healthz database/Redis OK. Next: actual 15:00 edition acceptance, then CPU trial after 16:00; publisher merge remains gated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes; formatted sampler rerun passes. Runtime unchanged; no restart during protected window.
+
+## 2026-11-07: iteration 1197 — confirm metrics failure recurs before trial
+
+- Clean main/no leftovers. Read-only incident check finds corrected uncached `up{job="metrics-store"}` query timing out at its 20 s client deadline around 14:31 UTC; subsequent alert snapshot has ScrapeTargetDown pending since 14:31. Incident stays open, not a recovery claim.
+- Direct metrics baseline: select-limit hits/timeouts 450/66; zero active merges, 4,587 small-storage merges/120,564,972 rows. Journal since 14:15 has four slow queries and a 30,284-row merge completing 14:16:28 in 40.300 s, no queue rejection warning.
+- Backup rule healthy at 14:30:22, 0.177 s, empty lastError, cumulative errors still one: successful evaluation after small compaction, not large-compaction acceptance. Service-status uncached query 2.499 s/one series. Discarded initial wrong-job empty-series query.
+- TASKS/capacity evidence updated. Services 14/14, sources 36/36, /healthz database/Redis healthy at orientation; no app/source/provider changes, paid calls or protected-window deployment/restart. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: review actual 15:00 edition; after 16:00 deploy/measure staged CPU-only metrics trial before publisher merge (also gated on committed review).
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes. Scrape alert cleared by 14:34:50 without intervention; runtime unchanged, no protected-window restart.
