@@ -97,8 +97,8 @@ pnpm obs metric 'up' --since 1h --step 60s
   - Start/stop hooks allow 512/544 MB and 50% CPU temporarily; readiness
     restores 448/512 MB and 3% CPU. Cold executable cache needs this headroom.
   - The host exporter has a 2% CPU ceiling and a 10-second scrape deadline.
-  - The total target is about 500 MB RAM and under 5% of one CPU. Grafana
-    currently needs more headroom; stack memory exceeds that target.
+  - The total target is about 800 MiB RAM and under 5% of one CPU. The
+    measured 754 MiB stack fits this target.
 - **Install or reconcile:** run `ops/observability/install*.sh`.
   - Releases are pinned and SHA-256 checked.
   - The installers never restart the app, Postgres or Redis. The one

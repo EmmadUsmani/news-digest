@@ -11,5 +11,5 @@ restarted 22:33 UTC on Nov 6. Lead check at 00:43 UTC on Nov 7: health 200 in
 1. Confirm Grafana stays healthy until at least 22:33 UTC on Nov 7.
 2. Check `obs alerts` shows `GrafanaHealthFailed` clear.
 
-**Open:** the whole stack uses about 754 MiB against the 500 MiB target from
-item 24. The owner needs to decide whether to raise the target.
+**Budget:** the owner raised the whole-stack RAM target to about 800 MiB on Nov 7
+(item 45). The stack uses about 754 MiB. CPU and disk budgets are unchanged.

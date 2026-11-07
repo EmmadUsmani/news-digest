@@ -32,7 +32,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
-- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM versus ~500 MiB target, 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor limits; target remains unmet.
+- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM within the owner-approved ~800 MiB target (45), 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor existing limits.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
 ## Latest verified step
@@ -41,4 +41,4 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: review the first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition; continue the approved reader rebuild while publication is pending.
+- Next (STEERING 45): compare the real saved reader against the spec once, record only real gaps, finish that list and close item 33, then begin B2 backups while publication checks wait. RAM documentation updated (1071); unit limits unchanged.

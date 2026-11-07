@@ -11,7 +11,7 @@ with other projects, so item 37 now caps this bucket at 3 GB (alert at 2 GB) wit
 tiered retention. The owner already set the lifecycle to "Keep only the last
 version".
 
-**Next:** the agent builds item 37 last in Current order (smoke check passed
+**Next:** the agent starts item 37 once item 33 closes (item 45; smoke check passed
 Nov 6: key valid and bucket-limited; `age`/`aws` missing on the VM). After the
 first uploads, check the ack (size against budget), the 26-hour alert and a
 Mac-side decrypt test.

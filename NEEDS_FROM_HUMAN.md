@@ -85,12 +85,3 @@ World already has a distinct Bluesky pick through an open slot.
 [Review and estimate](docs/edition-reviews/2026-11-06.md).
 
 Nov 6 update (1051): saved-baseline comparison completes the authorized decision: keywords nine usable vs old search zero; semantic zero additions, dropped. No owner action needed. Production rollout and three-edition acceptance remain agent work; fixed search OFF until verified rollout. Post-fix keyword failures 5/9 attempts are recorded in the [decision](docs/edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).
-
-## Grafana RAM target — Nov 6, iteration 1059
-
-The approximate 500 MiB whole-stack target remains unmet: a cold-executable
-test needs a larger Grafana allowance to avoid repeated disk reads and health
-timeouts. Runtime reclaim/maximum are 448/512 MiB, Go target 96 MiB; start/stop
-briefly allow 512/544 MiB and 50% CPU, returning to 3% after HTTP health.
-The eight-unit stack uses 754.1 MiB at the 30-minute check. This restores reliability
-without new services or spending; reducing the stack to 500 MiB remains open.

@@ -6,8 +6,9 @@ Date: 2026-11-04. Status: accepted capacity decision for O11; no installation.
 
 Keep the existing request/job/run IDs, structured logs and dashboards. Defer
 both optional O11 additions: a trace collector/store and a Caddy front door.
-The current stack already exceeded the approximate 500 MiB memory target in
-the observed day. A second proxy would also add routing and access-control
+The stack exceeded the then-approved approximate 500 MiB memory target in
+the observed day. On Nov 7 the owner raised that target to about 800 MiB
+(STEERING item 45); CPU and disk budgets remain unchanged. A second proxy would also add routing and access-control
 configuration for an outage case already covered by documented SSH forwards.
 No production service, port, proxy or edition behavior changes.
 
@@ -85,8 +86,9 @@ Start/stop hooks allow 512/544 MiB and 50% CPU; an HTTP/database health wait
 precedes restoring 3% CPU and the runtime limits. Grafana's systemd READY
 notification arrives before HTTP is ready, so it cannot replace that probe.
 The final cold start read about 398 MiB, without ongoing reclaim thrashing.
-The eight-unit stack is 754.1 MiB at the 30-minute check: the approximate 500 MiB target remains
-unmet and is recorded in NEEDS_FROM_HUMAN.md; no service or paid traffic added.
+The eight-unit stack is 754.1 MiB at the 30-minute check, within the approximate
+800 MiB whole-stack target approved on Nov 7 (STEERING item 45). No unit limits
+changed for that approval; no service or paid traffic added.
 
 At 23:03:50 UTC (30.43 minutes after the final cold start), 61/61 health probes
 passed, with a 203 ms maximum and 37 ms final response. Grafana used 416.7 MiB

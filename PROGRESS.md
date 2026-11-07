@@ -205,6 +205,7 @@
 - pnpm exec tsx scripts/smoke-reader-layout.ts passed all four layouts, contents/deep links/coverage/overflow. Initial run overlapped rebuilding and timed out on navigation; rerun after the final build passed. Discarded unrelated screenshot churn.
 - Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - API/worker restarted; curl --retry /healthz DB/Redis OK after startup; pnpm obs alerts clear, sources 36/36 healthy, digest queue zero failed. Saved edition four topics/20 stories/17 posts.
-- No paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- No paid calls or edition writes. No source/schema/system-flow changes; SOURCES unchanged.
 - Initial push rejected: concurrent lead status-doc commit 7cb32a12 on origin/main. Merged without rewriting history; no application overlap.
-- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
+- Second push rejected by concurrent owner steering 69445946; preserved item 45 and completed its step 1: ~800 MiB RAM target documented in decision/handbook, resolved human request removed, limits unchanged; check-handbook passed.
+- Next: item 45 real-edition/spec gap checklist, close item 33, then B2 backups; scheduled X/Bluesky acceptance still awaits publication.
