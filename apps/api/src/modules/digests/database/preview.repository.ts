@@ -56,24 +56,40 @@ export class PostgresPreviewRepository
   readonly db = database();
   private readonly orm = drizzle(this.db);
   readonly editorial = editorialServices(this.db);
+  private publicationFilter(publishedOnly: boolean) {
+    // Metadata migration is staged separately: the default-off reader must
+    // work before these columns exist. Remove this SQL escape after registration.
+    return publishedOnly
+      ? sql`${digestPreviews}.${sql.identifier('published_at')} IS NOT NULL AND ${digestPreviews}.${sql.identifier('kind')} <> 'test'`
+      : undefined;
+  }
   cost(id: string) {
     return readEditionCost(this.db, id);
   }
-  async latest(): Promise<DigestPreview | null> {
-    const [row] = await this.orm
-      .select({ snapshot: digestPreviews.snapshot })
-      .from(digestPreviews)
-      .where(eq(digestPreviews.profileId, profileId))
-      .orderBy(desc(digestPreviews.createdAt), desc(digestPreviews.id))
-      .limit(1);
-    return (row?.snapshot as DigestPreview | undefined) ?? null;
-  }
-  async find(id: string): Promise<DigestPreview | null> {
+  async latest(publishedOnly = false): Promise<DigestPreview | null> {
     const [row] = await this.orm
       .select({ snapshot: digestPreviews.snapshot })
       .from(digestPreviews)
       .where(
-        and(eq(digestPreviews.profileId, profileId), eq(digestPreviews.id, id)),
+        and(
+          eq(digestPreviews.profileId, profileId),
+          this.publicationFilter(publishedOnly),
+        ),
+      )
+      .orderBy(desc(digestPreviews.createdAt), desc(digestPreviews.id))
+      .limit(1);
+    return (row?.snapshot as DigestPreview | undefined) ?? null;
+  }
+  async find(id: string, publishedOnly = false): Promise<DigestPreview | null> {
+    const [row] = await this.orm
+      .select({ snapshot: digestPreviews.snapshot })
+      .from(digestPreviews)
+      .where(
+        and(
+          eq(digestPreviews.profileId, profileId),
+          eq(digestPreviews.id, id),
+          this.publicationFilter(publishedOnly),
+        ),
       );
     return (row?.snapshot as DigestPreview | undefined) ?? null;
   }
@@ -89,7 +105,10 @@ export class PostgresPreviewRepository
       );
     return row ?? null;
   }
-  async history(offset: number): Promise<PreviewHistory> {
+  async history(
+    offset: number,
+    publishedOnly = false,
+  ): Promise<PreviewHistory> {
     const rows = await this.orm
       .select({
         id: digestPreviews.id,
@@ -102,7 +121,12 @@ export class PostgresPreviewRepository
         >`${digestPreviews.snapshot}->>'method'`,
       })
       .from(digestPreviews)
-      .where(eq(digestPreviews.profileId, profileId))
+      .where(
+        and(
+          eq(digestPreviews.profileId, profileId),
+          this.publicationFilter(publishedOnly),
+        ),
+      )
       .orderBy(desc(digestPreviews.createdAt), desc(digestPreviews.id))
       .limit(21)
       .offset(offset);

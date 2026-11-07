@@ -22,8 +22,14 @@ export abstract class PreviewRepository {
     reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview>;
   abstract findByGenerationKey(key: string): Promise<{ id: string } | null>;
-  abstract history(offset: number): Promise<PreviewHistory>;
-  abstract find(id: string): Promise<DigestPreview | null>;
+  abstract history(
+    offset: number,
+    publishedOnly?: boolean,
+  ): Promise<PreviewHistory>;
+  abstract find(
+    id: string,
+    publishedOnly?: boolean,
+  ): Promise<DigestPreview | null>;
   abstract cost(id: string): Promise<EditionCost>;
-  abstract latest(): Promise<DigestPreview | null>;
+  abstract latest(publishedOnly?: boolean): Promise<DigestPreview | null>;
 }

@@ -23,6 +23,7 @@ const integration = new Set([
   'migration-runner.test.ts',
   'operations.test.ts',
   'preview-history.test.ts',
+  'published-reader.test.ts',
   'profile-repository.test.ts',
   'reddit-collection.test.ts',
   'reddit-communities.test.ts',
@@ -71,6 +72,7 @@ export function testEnvironment() {
     ANTHROPIC_API_KEY: '',
     XAI_API_KEY: '',
     LLM_LIVE: '',
+    READER_PUBLISHED_ONLY: '',
     NEWS_DIGEST_ISOLATED_TEST: '0',
   };
 }

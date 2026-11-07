@@ -70,7 +70,10 @@ export class ReaderEditionController {
       throw new BadRequestException(
         'Use a nonnegative offset of at most 9999999',
       );
-    const history = await this.repository.history(Number(offset));
+    const history = await this.repository.history(
+      Number(offset),
+      process.env.READER_PUBLISHED_ONLY === '1',
+    );
     return readerEditionHistorySchema.parse({
       ...history,
       entries: history.entries.map((entry) => ({
@@ -81,12 +84,17 @@ export class ReaderEditionController {
   }
 
   @Get('latest') async latest() {
-    const snapshot = await this.repository.latest();
+    const snapshot = await this.repository.latest(
+      process.env.READER_PUBLISHED_ONLY === '1',
+    );
     return snapshot ? readerEdition(snapshot) : null;
   }
 
   @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
-    const snapshot = await this.repository.find(id);
+    const snapshot = await this.repository.find(
+      id,
+      process.env.READER_PUBLISHED_ONLY === '1',
+    );
     if (!snapshot) throw new NotFoundException('Edition not found');
     return readerEdition(snapshot);
   }

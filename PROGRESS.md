@@ -139,3 +139,14 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 578 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five reader fingerprints still match. Updated TASKS/DATABASE-VERIFICATION; no handbook/source behavior change.
 - Next: register metadata migration/future writes in the permitted window, then pools/test editions and new-model API/browser comparison; Nov 8 15:00 UTC acceptance/first-week report due. Passive metrics probe remains due no earlier than 23:17 UTC.
+
+## 2026-11-07: iteration 1258 — prepare published-only reader behind switch
+
+- Clean main/no leftovers; initial alerts clear and health database/Redis OK. Generation cutoff respected: no schema/writer/generation changes or provider calls; live reader switch remains off.
+- Added `READER_PUBLISHED_ONLY=1` to reader latest/history/direct links; publication filtering precedes pagination/ordering, excludes tests and preserves profile isolation. Admin repository reads retain unpublished editions. Default-off reads work without candidate columns.
+- Isolated HTTP test applies candidate metadata only inside disposable Postgres, covers 23 published scheduled/manual rows, four newer private manual/test rows, tied timestamps, archive pagination, direct-link 404s, admin access and switch rollback. Test environment clears inherited rollout switch.
+- `pnpm check` typecheck/lint/format/boundaries and 578 unit tests pass; initial integration attempt exposed year-2200 fixture collision in unfiltered latest assertion. Moved fixtures to 9998/9999, cleanup by inserted IDs; `pnpm test:integration` rerun passes 230 tests/four expected skips.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and `pnpm exec tsx scripts/check-handbook.ts 08-operations` pass. Four app services restarted/active; `/healthz` database/Redis OK, alerts clear, five saved-reader fingerprints match after restart; 36/36 enabled sources healthy/nonempty/recent.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 1` at 23:17 UTC: 23 healthy rules, four uncached queries ≤0.192 s, zero new evaluator errors/misses, zero merges; recovery open, next passive check ≥00:17 UTC Nov 8.
+- Updated TASKS and operations handbook; no source/schema metadata change. Actual saved-edition new-model API/browser comparison remains pending migration.
+- Next: register metadata migration/future writes in the permitted window, finish pools/test editions and compare saved reader with switch off/on. Nov 8 15:00 UTC acceptance/first-week report due.
