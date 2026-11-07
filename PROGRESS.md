@@ -128,3 +128,12 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Verification: targeted editor tests 21/21; pnpm format, pnpm lint:fix, pnpm check and pnpm build pass. Full suite: 544 unit/227 integration pass, four rehearsals skipped; git diff --check passes.
 - pnpm obs alerts clear; services/sources checks healthy; /healthz database/Redis OK. No paid calls, live content mutations, UI changes or protected-window restart; test/docs-only commit requires no runtime deployment.
 - Next: after 16:00 UTC metrics CPU-only trial and queued X diagnostic deployment, then publisher merge; next scheduled NBA output remains quality acceptance evidence.
+
+## 2026-11-07: iteration 1203 — identify schema rejection categories safely
+
+- Clean main/no leftovers. Alerts clear; services 14/14 and sources 36/36 healthy; /healthz reports database/Redis OK. Metrics trial and deployments remain protected until after 16:00 UTC.
+- NBA's unknown Haiku schema failure motivates fixed Zod issue-code diagnostics on initial/repair/cache rejection; unknown runtime codes become unknown, duplicate codes collapse. No rejected text, paths, expected values, custom metadata or messages retained.
+- Diagnostic snapshots copy issue arrays so callers cannot mutate stored evidence. Offline tests cover mixed schema failures, custom/unknown codes, cache errors, repair and exactly two existing calls. Synthetic NBA failure now exposes invalid_type/too_big; this is not recovered production evidence.
+- No prompt, validation guard, provider, model, budget, retry or UI changes. Handbook and production-acceptance task updated; exact Nov 7 production schema cause remains unknown.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 546 unit/227 integration tests pass, four rehearsals skipped. Targeted llm/editor tests 50/50, handbook filter (18 pages/one unchanged diagram/28 tables) and git diff --check pass.
+- Runtime changes queued with X diagnostics for deployment after 16:00 UTC; no protected-window restart or paid calls. Next: metrics CPU-only trial/recovery, diagnostic deployment, then publisher merge.

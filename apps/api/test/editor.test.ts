@@ -286,7 +286,11 @@ void test('editor advertises enforced text bounds and repairs overlong fields wi
     assert.ok(await h.editor.edit(topic, candidates, 1, 'length-repair'));
     assert.equal(h.calls.length, 2);
     assert.deepEqual(h.diagnostics(), [
-      { attempt: 'initial', category: 'invalid-schema' },
+      {
+        attempt: 'initial',
+        category: 'invalid-schema',
+        schemaIssues: ['too_big'],
+      },
     ]);
     for (const request of h.calls) {
       assert.ok(request.instructions.includes('headline 1–240 characters'));
@@ -775,7 +779,11 @@ void test('NBA mixed validation failures exhaust four calls while supported repa
       field: 'summary',
       absenceMarker: 'negative-contraction',
     },
-    { attempt: 'initial', category: 'invalid-schema' },
+    {
+      attempt: 'initial',
+      category: 'invalid-schema',
+      schemaIssues: ['invalid_type', 'too_big'],
+    },
     {
       attempt: 'repair',
       category: 'unsupported-absence',

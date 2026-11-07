@@ -11,6 +11,7 @@ import type { LlmLedger } from '../domain/llm-ledger.port';
 import { llmFingerprint } from './llm-fingerprint';
 import {
   LlmValidationFailure,
+  schemaIssueCategories,
   type ValidationDiagnostic,
 } from './validation-failure';
 
@@ -28,7 +29,12 @@ export type LlmJsonOutcome<T> =
 export class BudgetedLlm {
   private readonly failures: ValidationDiagnostic[] = [];
   validationDiagnostics(): ValidationDiagnostic[] {
-    return this.failures.map((failure) => ({ ...failure }));
+    return this.failures.map((failure) => ({
+      ...failure,
+      ...(failure.schemaIssues
+        ? { schemaIssues: [...failure.schemaIssues] }
+        : {}),
+    }));
   }
   private recordFailure(
     request: LlmRequest,
@@ -63,9 +69,11 @@ export class BudgetedLlm {
       )
         diagnostic.absenceMarker = error.absenceMarker;
     }
+    if (error instanceof ZodError && !invalidJson)
+      diagnostic.schemaIssues = schemaIssueCategories(error.issues);
     this.failures.push(diagnostic);
     // Persist only fixed categories and identifiers, never rejected output,
-    // source text, exception messages, schema details or repair feedback.
+    // source text, exception messages, schema paths/values or repair feedback.
     this.log.info(
       {
         event: 'llm.validation',

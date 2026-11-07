@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import type { Job } from 'bullmq';
-import { z } from 'zod';
+import { z, ZodError } from 'zod';
 
 import { createLogger, logJob } from '../src/libs/observability/logging';
 import {
@@ -472,8 +472,20 @@ void test('validation diagnostics distinguish parse, schema and semantic failure
     assert.ok(!lines.join('').includes(request.prompt));
     assert.ok(!lines.join('').includes(request.instructions));
     assert.deepEqual(llm.validationDiagnostics(), [
-      { attempt: 'initial', category: entry.category },
-      { attempt: 'repair', category: entry.category },
+      {
+        attempt: 'initial',
+        category: entry.category,
+        ...(entry.category === 'invalid-schema'
+          ? { schemaIssues: ['invalid_type'] }
+          : {}),
+      },
+      {
+        attempt: 'repair',
+        category: entry.category,
+        ...(entry.category === 'invalid-schema'
+          ? { schemaIssues: ['invalid_type'] }
+          : {}),
+      },
     ]);
     assert.equal(provider.count(), 2);
     assert.equal(ledger.values.size, 0);
@@ -524,6 +536,7 @@ void test('diagnostics survive successful repair/cache reuse and classify invali
   assert.deepEqual(llm.validationDiagnostics().at(-1), {
     attempt: 'cache',
     category: 'invalid-schema',
+    schemaIssues: ['invalid_value'],
   });
   const rejected = lines
     .map((line) => JSON.parse(line) as Record<string, unknown>)
@@ -1069,4 +1082,91 @@ void test('a refused repair retains the budget cause without leaking rejected ou
   );
   assert.equal(provider.count(), 1);
   assert.equal(ledger.values.size, 0);
+});
+
+void test('schema diagnostics identify fixed issue categories without rejected values or paths', async () => {
+  const lines: string[] = [];
+  const log = createLogger(
+    'test',
+    {
+      write: (line) => {
+        lines.push(line);
+      },
+    },
+    [],
+  );
+  const ledger = new MemoryLedger();
+  const llm = new BudgetedLlm(fake(['{}', '{}']).llm, ledger, log);
+  const schema = z
+    .object({
+      privateField: z.string(),
+      privateList: z.array(z.string()).max(1),
+      privateEnum: z.enum(['private-choice']),
+    })
+    .strict();
+  const rejected = {
+    privateField: 42,
+    privateList: ['private-a', 'private-b'],
+    privateEnum: 'private-c',
+    privateExtra: true,
+  };
+  assert.equal(await llm.json(request, () => schema.parse(rejected)), null);
+  const expected = ['initial', 'repair'].map((attempt) => ({
+    attempt,
+    category: 'invalid-schema',
+    schemaIssues: [
+      'invalid_type',
+      'invalid_value',
+      'too_big',
+      'unrecognized_keys',
+    ],
+  }));
+  assert.deepEqual(llm.validationDiagnostics(), expected);
+  const events = lines
+    .map((line) => JSON.parse(line) as Record<string, unknown>)
+    .filter((line) => line.event === 'llm.validation');
+  assert.deepEqual(
+    events.map(({ attempt, category, schemaIssues }) => ({
+      attempt,
+      category,
+      schemaIssues,
+    })),
+    expected,
+  );
+  assert.ok(!lines.join('').includes('private'));
+  assert.ok(!JSON.stringify(llm.validationDiagnostics()).includes('private'));
+  llm.validationDiagnostics()[0].schemaIssues!.push('mutated');
+  assert.deepEqual(llm.validationDiagnostics(), expected);
+  assert.equal(ledger.calls.length, 2, 'diagnostics must not add calls');
+});
+
+void test('schema diagnostic categories exclude custom issue text and unknown runtime codes', async () => {
+  const llm = new BudgetedLlm(fake(['{}']).llm, new MemoryLedger());
+  const error = new ZodError([
+    {
+      code: 'custom',
+      path: ['private-path'],
+      message: 'private-message',
+      params: { secret: 'private-value' },
+    },
+    { code: 'private-code', path: [], message: 'private-message' } as never,
+    { code: 'custom', path: [], message: 'private-duplicate' },
+  ]);
+  assert.equal(
+    await llm.json(
+      request,
+      () => {
+        throw error;
+      },
+      { repair: false },
+    ),
+    null,
+  );
+  assert.deepEqual(llm.validationDiagnostics(), [
+    {
+      attempt: 'initial',
+      category: 'invalid-schema',
+      schemaIssues: ['custom', 'unknown'],
+    },
+  ]);
 });

@@ -55,9 +55,36 @@ export class LlmValidationFailure extends Error {
 }
 
 // Closed categories only: never retain exception messages, JSON paths, IDs or text.
+const schemaIssueCodes = new Set([
+  'invalid_type',
+  'too_big',
+  'too_small',
+  'invalid_format',
+  'not_multiple_of',
+  'unrecognized_keys',
+  'invalid_union',
+  'invalid_key',
+  'invalid_element',
+  'invalid_value',
+  'custom',
+]);
+
+// Zod issue messages, paths, expected values and custom metadata can contain
+// source/model text. Project only a bounded set of library-owned categories.
+export function schemaIssueCategories(
+  issues: readonly { code: string }[],
+): string[] {
+  return [
+    ...new Set(
+      issues.map(({ code }) => (schemaIssueCodes.has(code) ? code : 'unknown')),
+    ),
+  ].sort();
+}
+
 export type ValidationDiagnostic = {
   field?: ValidationField;
   absenceMarker?: AbsenceMarker;
+  schemaIssues?: string[];
   attempt: 'initial' | 'repair' | 'cache';
   category:
     | 'invalid-json'
