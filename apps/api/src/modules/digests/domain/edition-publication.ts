@@ -11,3 +11,32 @@ export function historicalEditionPublication(
     return { kind: 'scheduled', publishedAt: createdAt.toISOString() };
   return { kind: 'manual', publishedAt: null };
 }
+
+export type EditionPublication = {
+  kind: 'scheduled' | 'manual' | 'test';
+  publishedAt: string | null;
+};
+
+/** Future saves use explicit intent, independent of the historical cutoff.
+ * Test intent wins even when a caller supplies a real scheduled key.
+ * Integration keys remain private while legacy test callers are migrated.
+ * Manual publication is a separate admin action, never an insertion default.
+ */
+export function newEditionPublication(
+  intent: 'scheduled' | 'manual' | 'test',
+  scheduledKey: string | null,
+  savedAt: Date,
+): EditionPublication {
+  if (!Number.isFinite(savedAt.getTime()))
+    throw new Error('Invalid edition save time');
+  if (intent === 'test' || scheduledKey?.startsWith('integration:'))
+    return { kind: 'test', publishedAt: null };
+  if (intent === 'manual') {
+    if (scheduledKey !== null)
+      throw new Error('Manual editions cannot have a scheduled key');
+    return { kind: 'manual', publishedAt: null };
+  }
+  if (scheduledKey === null || scheduledKey.trim().length === 0)
+    throw new Error('Scheduled editions require a scheduled key');
+  return { kind: 'scheduled', publishedAt: savedAt.toISOString() };
+}

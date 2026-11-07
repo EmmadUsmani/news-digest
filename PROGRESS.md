@@ -117,3 +117,13 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - Actual reader complete-response comparison passes for all five saved candidates. Local status reports 36/36 active sources healthy/nonempty/recent. Four app services restarted; final health and alerts clear.
 - Updated TASKS/publication inventory/DATABASE-VERIFICATION; archived progress 1243–1246 to keep the log below 25 KB. No handbook/source behavior change.
 - Next: register metadata migration/future writes before noon, then pools/test editions and new-model API/browser comparison. Nov 8 scheduled acceptance/first-week report due; passive metrics probe ≥23:17 UTC. No blockers.
+
+## 2026-11-07: iteration 1256 — prepare future edition publication policy
+
+- Clean main/no leftovers; initial alerts clear and health database/Redis OK. Development spend $0; generation cutoff respected, production schema/reader/generation unchanged.
+- Added isolated `newEditionPublication` domain policy for future writer wiring: scheduled saves publish at save time, manual saves remain private, explicit tests and legacy integration keys never publish. Reject missing scheduled keys, keyed manual intent and invalid save timestamps before persistence.
+- Five targeted publication tests pass, including three new cases covering explicit test precedence, UTC save timestamps independent of the historical cutoff, and ambiguous requests. Helper has no runtime callers; migration/writer wiring remains pending the allowed deployment window.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 578 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Complete reader fingerprint comparison passes for all five actual Nov 3–7 editions; read-only source query confirms 36/36 enabled sources healthy/nonempty within two hours. No new editions or provider calls.
+- Four app services restarted/active; post-restart `/healthz` database/Redis OK, alerts clear and all five reader fingerprints still match. Updated TASKS; no handbook/source behavior change. No owner-controlled files edited.
+- Next: register metadata migration and wire future saves in the permitted window, then pools/test editions and new-model API/browser comparison. Nov 8 scheduled acceptance/first-week report remain due; passive metrics probe no earlier than 23:17 UTC.
