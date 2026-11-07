@@ -1,7 +1,8 @@
 # X search
 
-**Status:** keyword search is switched on in production. First eligible
-window is Nov 7, 14:30–14:55 UTC. Three-edition acceptance is still open.
+**Status:** acceptance edition 1 of 3 done (Nov 7). Tech and NBA searches
+completed; Gaming and World failed twice each (unconfirmed execution). Three
+new Tech picks made the edition. Cost $0.166; experiment total $1.75 of $2.50.
 
 **Goal:** find viral posts the news hasn't picked up. Free links from articles
 already cover press-linked posts. See [the plan](../../x-search-plan.md).
@@ -17,8 +18,8 @@ likes minimums stay. After the fix, 5 of 9 keyword attempts failed.
 
 **Next:**
 
-- Check the Nov 7 window: which topics got usable posts, and the real cost.
-- Acceptance needs three editions. Report World separately.
+- Nov 8 and Nov 9 editions: Gaming/World failure rate, picks, cost.
+- Watch the $2.50 total: at about $0.17 a day, two more editions fit.
 
 **Open decisions:** none. The meaning-based question is settled.
 
