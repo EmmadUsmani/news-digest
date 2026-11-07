@@ -116,3 +116,14 @@ Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-itera
 - First full pnpm check passed 538 unit tests but caught a stale synthetic publication fingerprint in integration. Verified the old request hash before updating only its editor fingerprint for v13; authored response/golden content unchanged, no re-recording or provider calls. pnpm test:integration rerun passes all 226 tests.
 - pnpm format, pnpm lint:fix, typecheck/lint/format/boundaries and git diff --check pass; pnpm build passes with existing bundle warning. API/worker restarted; startup health retry passes DB/Redis, 13 services healthy and alerts clear. Same saved four topics/20 stories/17 posts retained.
 - Next: Nov 7 15:00 keyword-X/Bluesky acceptance, NBA story/post significance and Tech diversity review. No experiment reruns.
+
+## 2026-11-07: iteration 1089 — close the owner-approved reader length trial
+
+- Clean main at owner steering commit 0ad78f68 No leftovers; followed new item 47 step 1 before rehearsals. No generation/editor changes.
+- pnpm obs alerts clear; /healthz DB/Redis OK, services --check 13 healthy and sources --check 36 healthy. Read-only scheduled report: zero failed jobs; latest Nov 6 completed, next Nov 7 15:00 UTC.
+- Updated length smoke to 5.2 screens at 1440×1100 and UI spec; removed resolved owner blocker, closed item 46 and its Current order line, queued item 47 rehearsals in TASKS.
+- pnpm exec tsx scripts/smoke-reader-length.ts passes both themes with all 17 posts/16 X embeds: Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens; every post page-reachable without an inner scrollbar. Refreshed eight loaded screenshots and reviewed Gaming light visually.
+- pnpm exec tsx scripts/smoke-reader-layout.ts initially found stale outlet-only assertion from 1081; corrected it to include article count. Rerun passes all four device/theme views; refreshed layout screenshots. No content shortened/hidden/capped.
+- pnpm format, pnpm lint:fix and pnpm build pass (existing bundle warning only); full pnpm check passes: 538 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. No schema/source/system-flow changes, provider spend or edition writes; handbook/SOURCES unchanged.
+- systemctl --user restart news-digest-api.service news-digest-worker.service completed outside protected window; curl /healthz passes DB/Redis, pnpm obs alerts clear and services --check all 13 healthy. Disk 66%; no rehearsal files/containers created.
+- Next: item 47 exactly four isolated failure rehearsals, then scratch backup rebuild and M6/M7 scope settlement. Nov 7 production review takes priority once published; no paid experiments or editor changes before it.

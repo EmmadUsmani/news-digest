@@ -525,7 +525,7 @@ async function smoke() {
             ) {
               assert.equal(
                 await sources.locator('summary').innerText(),
-                `+${expected.size - 2} ${expected.size === 3 ? 'outlet' : 'outlets'}`,
+                `${story.coverage.length} articles · +${expected.size - 2} ${expected.size === 3 ? 'outlet' : 'outlets'}`,
               );
             }
             if (primary && story.sources[0] !== primary.sources[0]) {

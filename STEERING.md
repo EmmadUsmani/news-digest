@@ -17,8 +17,6 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
-3. Close the desktop posts scroll box work at the new length limit (item 46,
-   item 47 step 1). Small: do it next.
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 6. Tonight's reliability work, then publisher names on a branch (item 47).
@@ -2009,3 +2007,5 @@ line: what would have gone wrong for the reader, and what changed.
 Deploy nothing that touches edition generation after 12:00 UTC on Nov 7 unless it
 fixes a breakage. Keep disk under the 80% alert, and remove rehearsal containers
 and files when finished.
+
+ack: 2026-11-07 item 46 closed / item 47 step 1 — iteration 1089 accepts the owner trial of 5.2 desktop screens, updates the length smoke/spec and removes the resolved owner blocker. All 17 posts/16 loaded X embeds retained; Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens in both themes at 1440×1100, no desktop inner scrolling. Reader content unchanged; item 33 stays closed.

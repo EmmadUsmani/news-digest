@@ -100,8 +100,8 @@ async function smoke() {
       await page.close();
     }
     assert.ok(
-      lengths.every((height) => height <= 3960),
-      'Every topic must fit 3.6 desktop screens; see measurements above',
+      lengths.every((height) => height <= 5.2 * 1100),
+      'Every topic must fit 5.2 desktop screens; see measurements above',
     );
   } finally {
     await browser.close();

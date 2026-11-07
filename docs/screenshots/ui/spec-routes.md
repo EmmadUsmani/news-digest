@@ -39,8 +39,8 @@ with no inner posts scrollbar. All 17 posts remain available.
 Both themes loaded all 16 X frames. These are viewport captures at each posts
 section; the route images above retain full-page coverage.
 
-Iteration 1079: loading every embed exceeds the 3.6-screen acceptance limit for
-Tech, NBA and Gaming. The length smoke check retains that limit and fails;
-the earlier 3.52/3.35-screen figures used partially loaded embeds.
+Iteration 1089: all four topics fit the owner-approved trial limit of 5.2
+desktop screens at 1440 × 1100, with every embed loaded (STEERING 47).
+The earlier 3.52/3.35-screen figures used partially loaded embeds.
 
 Iteration 1081: saved Gaming multi-outlet coverage shows article and extra-outlet counts before expansion: [desktop light](reader-coverage-count-desktop-light.png), [desktop dark](reader-coverage-count-desktop-dark.png), [mobile light](reader-coverage-count-mobile-light.png), [mobile dark](reader-coverage-count-mobile-dark.png).

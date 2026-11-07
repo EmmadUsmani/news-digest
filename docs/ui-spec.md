@@ -272,8 +272,9 @@ Long explanations go in a muted `?` tooltip, not in paragraphs.
    - A test that scans rendered reader pages for the forbidden terms above.
    - A test that non-admin requests to `/admin` and `/api/admin/*` get 404.
    - Keyboard focus visible; no layout shift when embeds load.
-   - The edition page with real data is **no more than about 3 desktop
-     screens per topic**.
+   - The edition page with real data is **no more than 5.2 desktop
+     screens per topic** at 1440×1100 with every embed loaded (owner trial,
+     STEERING 47). Posts flow with the page without an inner scrollbar.
 
 **Guardrails:**
 

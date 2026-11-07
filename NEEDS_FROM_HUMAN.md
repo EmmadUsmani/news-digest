@@ -85,13 +85,3 @@ World already has a distinct Bluesky pick through an open slot.
 [Review and estimate](docs/edition-reviews/2026-11-06.md).
 
 Nov 6 update (1051): saved-baseline comparison completes the authorized decision: keywords nine usable vs old search zero; semantic zero additions, dropped. No owner action needed. Production rollout and three-edition acceptance remain agent work; fixed search OFF until verified rollout. Post-fix keyword failures 5/9 attempts are recorded in the [decision](docs/edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).
-
-## Desktop length acceptance — item 46 (2026-11-07, iteration 1079)
-
-Scroll-box removal is deployed. With all 17 saved posts and 16 official X embeds
-loaded on Nov 6 at 1440×1100, Tech/NBA/Gaming/World measure
-4.94/4.42/4.98/2.03 screens. Earlier 3.52/3.35 figures used partial lazy loading.
-The 3.6-screen smoke check remains enforced and fails for three topics.
-Item 46 forbids shortening, hiding, capping posts or bounding the page; its
-length target cannot be met by the prescribed removal alone. Owner decision
-needed on the full-embed length acceptance. No alternate layout added.
