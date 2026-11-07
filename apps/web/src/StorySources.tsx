@@ -45,7 +45,7 @@ export function StorySources({
             aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering this story`}
           >
             {sources.length > 2
-              ? `+${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`
+              ? `${articles.length} ${articles.length === 1 ? 'article' : 'articles'} · +${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`
               : `${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
           </summary>
           <ul className="my-3 list-none space-y-3 pl-0">

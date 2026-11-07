@@ -2,64 +2,7 @@
 
 Earlier entries: [iterations 1062–1069](docs/progress-archive/2026-11-07-iterations-1062-1069.md).
 
-## 2026-11-07: iteration 1070 — keep publisher links on the primary report
-
-- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; alerts clear, health DB/Redis OK, sources 36/36 healthy; digest queue zero failed.
-- Reader weakness reproduced in browser: with two reports from one publisher, its source-row link opened secondary coverage instead of the headline article. Prefer the primary report for matching source labels; expanded coverage retains every article and its own destination.
-- pnpm exec tsx scripts/smoke-reader-primary-source.ts failed against the old build with secondary/primary URL mismatch, then passed desktop/mobile light/dark after rebuilding. Four destination screenshots saved; mobile light inspected. Synthetic coverage over saved edition, GET-only/external requests blocked.
-- pnpm exec tsx scripts/smoke-reader-layout.ts passed saved-content/navigation/coverage checks in all four layouts after updating its stale whole-post X link selector for the linked-text cards. Discarded unrelated layout screenshot churn.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- systemctl --user restart news-digest-api news-digest-worker completed; curl --retry /healthz DB/Redis OK after startup; pnpm exec tsx scripts/obs.ts alerts clear and sources 36/36 healthy.
-- No paid calls or edition writes. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
-
-## 2026-11-07: iteration 1071 — read full post context on mobile
-
-- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; health/alerts clear and sources 36/36 healthy.
-- Reader weakness: compact post context exposed its full text only on hover, leaving touch readers unable to read truncated notes. Native disclosures now expand/collapse by touch, Enter or Space while retaining one-line collapsed notes and duplicate-text suppression.
-- pnpm exec tsx scripts/smoke-reader-post-context.ts passed touch/keyboard/collapse/wrapping checks in desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Synthetic context over a saved edition, GET-only/external traffic blocked.
-- Initial targeted smoke caught missing truncation; corrected the layout. Screenshot inspection caught bottom-aligned disclosure marker; replaced it with a top-aligned chevron. Final targeted replay passed.
-- pnpm exec tsx scripts/smoke-reader-layout.ts passed all four layouts, contents/deep links/coverage/overflow. Initial run overlapped rebuilding and timed out on navigation; rerun after the final build passed. Discarded unrelated screenshot churn.
-- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- API/worker restarted; curl --retry /healthz DB/Redis OK after startup; pnpm obs alerts clear, sources 36/36 healthy, digest queue zero failed. Saved edition four topics/20 stories/17 posts.
-- No paid calls or edition writes. No source/schema/system-flow changes; SOURCES unchanged.
-- Initial push rejected: concurrent lead status-doc commit 7cb32a12 on origin/main. Merged without rewriting history; no application overlap.
-- Second push rejected by concurrent owner steering 69445946; preserved item 45 and completed its step 1: ~800 MiB RAM target documented in decision/handbook, resolved human request removed, limits unchanged; check-handbook passed.
-- Next: item 45 real-edition/spec gap checklist, close item 33, then B2 backups; scheduled X/Bluesky acceptance still awaits publication.
-
-## 2026-11-07: iteration 1072 — freeze the real-reader acceptance list
-
-- Clean main, no leftover work. Followed item 45 step 2 while Nov 7 scheduled X/Bluesky checks wait until publication; no paid calls or edition writes.
-- Compared real saved Nov 6 edition `1c83e78b-47f9-4a6f-bfb4-93820a691aea` (four topics/20 stories/17 posts) with ui-spec and item 33 Done when; TASKS now has one remaining list, not open-ended reader polishing.
-- One-off read-only Playwright measurement at 1440×1100 with external requests blocked: topic heights Tech/NBA/Gaming/World 2832/2719/2517/1974 px (2.57/2.47/2.29/1.79 screens). External embeds enabled and topics scrolled: 2832/3873/3690/2237 px (2.57/3.52/3.35/2.03), eight frames present. Partial lazy loading is sufficient to demonstrate NBA/Gaming exceed the target; don't use blocked-embed measurements for acceptance.
-- Remaining list: reduce real loaded-embed length, refresh every route's four screenshots, complete forbidden-label scan coverage. Existing reader/archive scans cover subsets; a raw scan matched “independent” only inside saved content, which the spec exempts. No new product feature or synthetic-only gap.
-- pnpm exec tsx scripts/smoke-reader-layout.ts and scripts/smoke-reader-archive.ts passed desktop/mobile light/dark, saved-content/navigation/coverage/overflow and archive recovery. Refreshed eight reader/archive route screenshots; inspected desktop/mobile reader. Discarded 26 incidental detail screenshot refreshes.
-- pnpm exec tsx scripts/smoke-admin-gate.ts passed 24 protected GET/HEAD paths, identity/cache/forwarded-token checks; saved edition unchanged. Pre-public proxy header replacement proof still required, private rollout unchanged.
-- pnpm build passed (existing chunk-size warning). API/worker restarted; curl --retry /healthz DB/Redis OK, pnpm obs alerts clear, sources --check 36/36 healthy, digest-generation queue available/zero failed/next run 15:00 UTC.
-- Archived older PROGRESS entries above 25 KB. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- Next: finish only the three acceptance items, close item 33, then begin approved B2 backups. Scheduled keyword-X/reserved-Bluesky acceptance still waits for Nov 7 publication.
-
-## 2026-11-07: iteration 1073 — complete reader forbidden-label coverage
-
-- Clean main, no leftover work; alerts clear, /healthz DB/Redis OK and sources 36/36 healthy. Scheduled Nov 7 acceptance still awaits publication.
-- Added scripts/smoke-reader-labels.ts for the actual saved latest edition, archive and a distinct past edition, desktop/mobile light/dark, plus mobile contents sheets. Scans text and accessible labels while exempting editorial text, including coverage headlines; surrounding controls remain scanned.
-- pnpm exec tsx scripts/smoke-reader-labels.ts passed all routes/layouts; injected AI-edited label rejection control passed. First attempt exposed a CJS top-level-await incompatibility; corrected. Initial scan caught saved Claude coverage headline, correctly exempted under the spec.
-- pnpm exec tsx scripts/smoke-admin-gate.ts passed 24 protected GET/HEAD paths, identity/cache and forwarded-token checks; saved edition unchanged. Proxy header replacement proof remains required before public access.
-- pnpm build passed with existing chunk warning. No UI/source/schema/system-flow changes, paid calls or edition writes; screenshots, SOURCES and handbook unchanged.
-- pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. API/worker restarted; health DB/Redis OK and alerts clear; final reader scan passed against rebuilt app.
-- Remaining item 33 work: loaded-embed NBA/Gaming page length and all-route screenshot refresh, then close and begin B2.
-
-## 2026-11-07: iteration 1074 — refresh every spec route screenshot
-
-- Clean main, no leftover work; alerts clear, /healthz DB/Redis OK, sources 36/36 healthy. Nov 7 keyword/Bluesky acceptance still awaits publication.
-- Added read-only scripts/capture-spec-routes.ts: 14 routes × desktop/mobile × light/dark = 56 saved-production-data screenshots; indexed in docs/screenshots/ui/spec-routes.md. Includes latest/archive/past edition, not-found and all ten admin routes.
-- Capture passed all four layouts: zero writes, browser errors or horizontal overflow; admin token stays in the existing server-side local bridge. External requests blocked; these fallback-card screenshots are not loaded-embed length evidence.
-- Inspected overview desktop light, topic editor desktop dark, not-found mobile light and new-edition mobile dark. No product/source/schema/system-flow changes; SOURCES and handbook unchanged.
-- Initial capture needed the admin header selector corrected; next attempt overlapped rebuild and hit an admin 404. Restarted services, reran against stable build; all 56 captures passed.
-- pnpm build passed with existing chunk warning; pnpm exec tsx scripts/smoke-reader-labels.ts and scripts/smoke-admin-gate.ts passed; saved edition unchanged. Proxy header replacement proof remains required before public access.
-- Initial concurrent lint:fix/check processes ended with signal 143 during lint, no diagnostic; sequential pnpm lint:fix and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. pnpm format and git diff --check passed.
-- Next: reduce real loaded-embed NBA/Gaming desktop length, measure all topics, close item 33, then start B2. No paid calls or edition writes.
+Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-iterations-1070-1074.md).
 
 ## 2026-11-07: iteration 1075 — close reader rebuild with bounded desktop posts
 
@@ -131,3 +74,13 @@ Earlier entries: [iterations 1062–1069](docs/progress-archive/2026-11-07-itera
 - Extended existing GET-only saved-edition Playwright replay to assert spacing, exact text/destinations, focus and no overflow on desktop/mobile light/dark. New assertion fails against the previous build (zero margin), then passes after rebuild. Refreshed four reader-x-links screenshots; inspected desktop/mobile output.
 - pnpm format, pnpm lint:fix, git diff --check, full pnpm check and pnpm build passed; 537 unit/226 isolated integration tests. API/worker restarted; health, services, sources and alerts clear. No handbook/system-flow/schema/source changes.
 - Corrected TASKS' stale completed marker claiming desktop inner scrolling. Item 46 full-embed length conflict still awaits owner decision; next production acceptance is Nov 7 15:00 UTC for keyword X/Bluesky. No new prompt changes stacked.
+
+## 2026-11-07: iteration 1081 — show multi-outlet article counts
+
+- Clean main/no leftovers. pnpm obs alerts, health/services/sources --check pass: DB/Redis OK, 13 services and 36 sources healthy. Digest queue available, zero failed jobs; Nov 7 scheduled run remains due at 15:00 UTC.
+- Advanced item 42 while 39/34/40 await production evidence: read all four saved topics. Tech repetition and headline-only prose already have deployed fixes awaiting publication; no additional prompt changes stacked.
+- Reader weakness: Gaming's ten-report Unity story showed only “+8 outlets” before expansion. Multi-outlet disclosures now include the article count, so coverage depth is visible without opening the report list.
+- pnpm exec tsx scripts/smoke-reader-coverage-count.ts failed against the prior build (“+8 outlets”), then passed after pnpm build and after service restart: real saved coverage, all ten report destinations retained, desktop/mobile light/dark, no overflow/page errors/writes. Four screenshots saved; mobile light/desktop dark inspected.
+- Archived iterations 1070–1074 to keep PROGRESS small. No source/schema/system-flow changes, provider calls or saved-edition writes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
+- pnpm format, pnpm lint:fix, git diff --check and full pnpm check pass: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. Initial check stopped on new archive formatting; corrected and full rerun passed. pnpm build passes with existing bundle warnings; API/worker restarted and health/services/alerts clear.
+- Next: Nov 7 15:00 keyword-X/Bluesky acceptance; item 46 full-embed length remains blocked on owner constraints. No new feature or paid experiment work.

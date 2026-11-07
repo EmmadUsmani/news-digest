@@ -35,6 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1081): Gaming multi-outlet coverage now shows article count alongside extra outlets; saved Unity ten-report story verified on desktop/mobile light/dark.
+
 - [x] STEERING 42 (1080): visually separate inline source URLs joined to saved X prose; original text/destinations preserved. Three affected saved Tech/Gaming posts; desktop/mobile light/dark browser verification.
 
 - [x] STEERING 46 (1079) implementation: posts scroll with the page; all-post reachability/layout verified, handbook/eight loaded screenshots updated. Full-embed length acceptance remains open above.

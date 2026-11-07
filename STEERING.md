@@ -1657,6 +1657,8 @@ ack: 2026-11-06 item 42 — iteration 1019: thin Tech summaries prompted a feed 
 
 ack: 2026-11-07 item 42 — iteration 1080: reader pass found source URLs joined to words in three saved Tech/Gaming X posts. Added visual link spacing while preserving saved text and destinations; desktop/mobile light/dark verified. Tech repetition still awaits the deployed selection change at scheduled publication; no spend.
 
+ack: 2026-11-07 item 42 — iteration 1081: Gaming’s ten-report Unity story hid the article count behind “+8 outlets”. Show both counts before expansion; saved report links and responsive layout verified in desktop/mobile light/dark. Existing content fixes await publication; no spend or edition writes.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen
