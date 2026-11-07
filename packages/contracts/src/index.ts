@@ -88,11 +88,17 @@ export const contentGroupSchema = z.object({
 });
 export type ContentGroup = z.infer<typeof contentGroupSchema>;
 
+export const publisherSchema = z.object({
+  name: z.string().trim().min(1).max(200),
+  url: z.string().url().nullable(),
+});
+
 export const rankedStorySchema = z.object({
   id: z.string().uuid(),
   title: z.string(),
   url: z.string().url(),
   excerpt: z.string(),
+  publisher: publisherSchema.nullable().optional(),
   evidence: z
     .array(
       z.object({
@@ -100,6 +106,7 @@ export const rankedStorySchema = z.object({
         title: z.string(),
         url: z.string().url(),
         excerpt: z.string(),
+        publisher: publisherSchema.nullable().optional(),
         sources: z.array(z.string()),
         publishedAt: z.string(),
       }),
@@ -128,6 +135,7 @@ export const rankedStorySchema = z.object({
         id: z.string().uuid(),
         title: z.string(),
         url: z.string().url(),
+        publisher: publisherSchema.nullable().optional(),
         sources: z.array(z.string()),
         publishedAt: z.string(),
       }),
@@ -345,6 +353,7 @@ export type DigestPreview = z.infer<typeof digestPreviewSchema>;
 
 // Reader contracts are explicit allowlists: new operational fields stay private.
 export const readerStorySchema = rankedStorySchema.pick({
+  publisher: true,
   id: true,
   title: true,
   url: true,

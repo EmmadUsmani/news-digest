@@ -10,9 +10,25 @@ export function StorySources({
   children: ReactNode;
 }) {
   // Preserve the primary outlet first, then show each publisher once.
-  const outlets = new Map<string, { name: string; url: string }>();
+  const outlets = new Map<
+    string,
+    { name: string; url: string; via?: string }
+  >();
   const primary = story.coverage?.find((article) => article.url === story.url);
   for (const article of [primary ?? story, story, ...(story.coverage ?? [])]) {
+    if (article.publisher) {
+      const { name } = article.publisher;
+      const key = `publisher:${name.trim().toLocaleLowerCase()}`;
+      if (!outlets.has(key))
+        outlets.set(key, {
+          name,
+          url: article.url,
+          via: article.sources.filter(isDiscovery).join(', ') || undefined,
+        });
+      continue;
+    }
+    // With per-report evidence, the aggregate source list is provenance only.
+    if (article === story && primary?.publisher) continue;
     for (const name of article.sources) {
       const sourceName = name.trim().toLocaleLowerCase();
       if (!sourceName) continue;
@@ -67,9 +83,22 @@ export function StorySources({
                     })}
                   </time>
                   {/* Feed sections describe discovery, not extra publishers. */}
-                  {article.sources.slice(0, 1).map((name) => (
-                    <SourceLink key={name} name={name} url={article.url} />
-                  ))}
+                  {article.publisher ? (
+                    <SourceLink
+                      name={article.publisher.name}
+                      url={article.url}
+                      via={
+                        article.sources.filter(isDiscovery).join(', ') ||
+                        undefined
+                      }
+                    />
+                  ) : (
+                    article.sources
+                      .slice(0, 1)
+                      .map((name) => (
+                        <SourceLink key={name} name={name} url={article.url} />
+                      ))
+                  )}
                 </span>
               </li>
             ))}
@@ -84,7 +113,19 @@ export function StorySources({
   );
 }
 
-function SourceLink({ name, url }: { name: string; url: string }) {
+function isDiscovery(name: string) {
+  return name === 'Hacker News' || name.startsWith('Google News:');
+}
+
+function SourceLink({
+  name,
+  url,
+  via,
+}: {
+  name: string;
+  url: string;
+  via?: string;
+}) {
   const origin = new URL(url);
   const favicon = ['https:', 'http:'].includes(origin.protocol)
     ? `${origin.origin}/favicon.ico`
@@ -111,9 +152,10 @@ function SourceLink({ name, url }: { name: string; url: string }) {
         />
       )}
       <span className="text-xs break-words">
-        {name === 'Hacker News' || name.startsWith('Google News:')
-          ? `via ${name}`
-          : name}
+        {isDiscovery(name) ? `via ${name}` : name}
+        {via && (
+          <span className="text-xs text-[var(--secondary)]"> · via {via}</span>
+        )}
       </span>
     </a>
   );

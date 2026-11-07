@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
+import { loadArticleCandidates } from '../src/modules/digests/database/article-candidates';
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from '../src/modules/ingestion/adapters/hn.adapter';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
@@ -366,6 +367,34 @@ void test('Postgres ingestion is idempotent and records failure without losing l
       'https://x.com/i/web/status/123456789',
     );
     assert.deepEqual(citations.rows[0].citing_engagement, { points: 42 });
+    const readPublisher = async () =>
+      (
+        await repository.db.query(
+          'SELECT publisher FROM content_items WHERE canonical_url=$1',
+          [item.url],
+        )
+      ).rows[0].publisher;
+    assert.equal(await readPublisher(), null);
+    const publisher = { name: 'Reuters', url: 'https://www.reuters.com/' };
+    await repository.store(source, [{ ...item, publisher }]);
+    assert.deepEqual(await readPublisher(), publisher);
+    // A title-only or direct feed observing the same URL must not erase evidence.
+    await repository.store(source, [item]);
+    assert.deepEqual(await readPublisher(), publisher);
+    const updatedPublisher = { name: 'Reuters', url: null };
+    await repository.store(source, [{ ...item, publisher: updatedPublisher }]);
+    assert.deepEqual(await readPublisher(), updatedPublisher);
+    const published = new Date(item.publishedAt).getTime();
+    const candidates = await loadArticleCandidates(
+      repository.db,
+      source.topicId,
+      new Date(published),
+      new Date(published + 1),
+    );
+    assert.deepEqual(
+      candidates.find((candidate) => candidate.url === item.url)?.publisher,
+      updatedPublisher,
+    );
     const empty = { collect: async () => [] };
     await assert.rejects(
       ingest(repository, { feed: empty, hn: empty }, id),

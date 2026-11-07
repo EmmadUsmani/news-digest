@@ -74,6 +74,7 @@ export class PostgresContentRepository
               publishedAt: item.publishedAt,
               imageUrl: item.imageUrl,
               engagement: item.engagement,
+              publisher: item.publisher ?? null,
             })
             .onConflictDoUpdate({
               target: contentItems.canonicalUrl,
@@ -82,6 +83,7 @@ export class PostgresContentRepository
                 // Title-only feeds must not erase text collected from another source.
                 excerpt: sql`CASE WHEN btrim(excluded.excerpt) = '' THEN ${contentItems.excerpt} ELSE excluded.excerpt END`,
                 engagement: sql`${contentItems.engagement} || excluded.engagement`,
+                publisher: sql`coalesce(excluded.publisher, ${contentItems.publisher})`,
               },
             })
             .returning({ id: contentItems.id });

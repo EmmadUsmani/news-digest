@@ -156,8 +156,11 @@ evidence and owner approval; do not repeat the completed availability checks.
   labels when structured evidence is available; missing metadata remains
   honest, expanded links stay intact, and historical snapshots still render.
   Do not rewrite old editions or resolve Google redirects for this proposal.
-- Status: proposal under item 38, pending owner review. World breadth and the
-  Nov 6 quality/cost gates remain ahead of this work; no runtime change.
+- Status: authorized by STEERING 47 and merged into main after the Nov 7
+  review/time gates. Structured RSS evidence survives repeat observations and
+  future immutable snapshots; reader rows show publisher labels with discovery
+  provenance. Unknown attribution and historical editions stay intact.
+  Live migration/deployment awaits metrics recovery.
 
 ## Connect reporting to the original posts in the same edition
 

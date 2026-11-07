@@ -45,6 +45,12 @@ export function parseFeed(xml: string): ContentItem[] {
       if (!url || !title || !Number.isFinite(date.getTime())) return [];
       const media =
         list(entry['media:content'])[0] ?? list(entry['media:thumbnail'])[0];
+      // RSS source is publisher evidence; Atom source describes the origin feed.
+      // Neither title suffixes nor destination hosts establish a publisher.
+      const publisherName = doc.rss ? plainText(text(entry.source), 200) : '';
+      const publisherUrl = canonicalUrl(
+        String((entry.source as Node)?.['@_url'] ?? ''),
+      );
       return [
         {
           url,
@@ -70,6 +76,9 @@ export function parseFeed(xml: string): ContentItem[] {
           publishedAt: date.toISOString(),
           imageUrl: canonicalUrl(String(media?.['@_url'] ?? '')),
           engagement: {},
+          ...(publisherName
+            ? { publisher: { name: publisherName, url: publisherUrl } }
+            : {}),
           xLinks: extractXLinks(
             [
               link,

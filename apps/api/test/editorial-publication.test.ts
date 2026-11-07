@@ -155,6 +155,7 @@ async function harness(
             row.url,
             row.excerpt,
             null,
+            null, // structured publisher unknown in this fixture
             row.publishedAt.toISOString(),
             row.sources,
             String(row.points),

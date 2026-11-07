@@ -39,7 +39,9 @@ actual review is committed.
 `publisher-attribution` is pushed through `0ba83c73` (iterations 1097–1100).
 It contains parsing, persistence/migration, immutable snapshot propagation and
 reader labels; branch checks and four-layout browser evidence are recorded in
-that branch's PROGRESS.md. Main has none of those runtime changes yet.
+[archived branch evidence](../progress-archive/2026-11-07-publisher-1097-1100.md).
+Merged into main in iteration 1209 after both time/review gates passed; live
+migration and runtime deployment still wait for metrics recovery.
 
 Merge/deploy only **after 16:00 UTC Nov 7 and a committed actual Nov 7 review**.
 Reconcile this main-side task/status update when merging. Follow normal migration,

@@ -39,3 +39,50 @@ void test('recorded Google News RSS preserves real article titles, dates and Goo
     assert.ok(!item.excerpt.includes('<a'));
   }
 });
+
+void test('recorded RSS exposes structured publishers separately from Google discovery URLs', () => {
+  const items = parseFeed(
+    readFileSync('apps/api/test/fixtures/google-news.xml', 'utf8'),
+  );
+  assert.deepEqual(
+    items.map((item) => item.publisher),
+    [
+      { name: 'Futurism', url: 'https://futurism.com/' },
+      { name: "Tom's Hardware", url: 'https://www.tomshardware.com/' },
+    ],
+  );
+  assert.ok(
+    items.every((item) => new URL(item.url).hostname === 'news.google.com'),
+  );
+});
+void test('RSS publisher evidence never comes from titles, authors or link hosts', () => {
+  const entry = (source: string) =>
+    `<rss><channel><item><title>Report - Reuters</title><link>https://news.google.com/report</link><pubDate>Sat, 31 Oct 2026 10:53:00 GMT</pubDate><author>CNBC</author>${source}</item></channel></rss>`;
+  assert.equal(parseFeed(entry(''))[0].publisher, undefined);
+  assert.equal(
+    parseFeed(entry('<source url="https://reuters.com"/>'))[0].publisher,
+    undefined,
+  );
+  for (const url of [
+    'javascript:alert(1)',
+    'https://user:secret@example.com',
+    'invalid',
+  ]) {
+    assert.deepEqual(
+      parseFeed(
+        entry(`<source url="${url}">Reuters &amp; Partners</source>`),
+      )[0].publisher,
+      { name: 'Reuters & Partners', url: null },
+    );
+  }
+  assert.deepEqual(parseFeed(entry('<source>Reuters</source>'))[0].publisher, {
+    name: 'Reuters',
+    url: null,
+  });
+});
+void test('Atom origin feed metadata is not RSS publisher evidence', () => {
+  const [item] = parseFeed(
+    `<feed><entry><title>Report</title><link href="https://example.com/report"/><updated>2026-10-31T10:53:00Z</updated><source><title>Origin feed</title></source></entry></feed>`,
+  );
+  assert.equal(item.publisher, undefined);
+});

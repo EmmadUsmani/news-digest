@@ -99,3 +99,14 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm check passes (547 unit, 227 integration/four expected skips), pnpm build passes; pnpm format and pnpm lint:fix run. Read-only capacity sampler, repeated direct queries/rules, services/sources/jobs/alerts checks pass.
 - No paid calls, runtime/config/data changes or restarts; live runtime deliberately retains the isolated trial while app deployments wait. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged because behavior and owner requirements did not change.
 - Next: inspect natural comparable compaction and continued query/alert health; then queued diagnostic/reader deployment and publisher merge, respecting owner deployment restrictions.
+
+## 2026-11-07: iteration 1209 — integrate verified publisher attribution
+
+- Owner value: future editions can distinguish CNBC/Reuters publisher labels from Google News discovery provenance, without rewriting old editions.
+- Clean main/no leftovers; alerts clear, 14 services/36 sources healthy, /healthz database/Redis OK and scheduled queue available. Metrics admission/timeouts remain zero; merged small-storage rows 266,819, large-storage zero, so comparable-compaction recovery remains open.
+- Both owner merge gates met: after 16:00 UTC and actual Nov 7 review committed in 1201. Merged publisher-attribution through 0ba83c73; resolved only TASKS/PROGRESS conflicts by retaining current main status and archiving branch evidence.
+- Nullable publisher migration, RSS parsing/upsert preservation, immutable snapshot propagation and reader provenance labels integrated with later diagnostics/fallback changes. No title/hostname inference, external calls or historical rewrites.
+- Local Vite preview + pnpm exec tsx scripts/smoke-reader-publisher.ts pass desktop/mobile light/dark: CNBC/Reuters labels, all three report links, unknown historical metadata and no console errors. Four screenshots refreshed; visually inspected desktop light/mobile dark. This is synthetic replay, not live publisher evidence.
+- pnpm build and pnpm exec tsx scripts/check-handbook.ts 07-data-model pass; data-model page explicitly marks deployment pending. No diagram/schema-meta change: no tables/relations added. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Live migration and API/worker restarts remain deliberately deferred to preserve the isolated metrics CPU trial. Next: natural comparable compaction health evidence, then migrate/deploy queued publisher/diagnostic/reader changes; Nov 8 second scheduled acceptance.
+- Final verification: pnpm check passes (551 unit, 228 integration; four expected skips); pnpm format, pnpm lint:fix, pnpm build, handbook validation and git diff --check pass. No paid calls or live migration/restart.

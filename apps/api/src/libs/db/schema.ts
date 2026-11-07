@@ -79,6 +79,7 @@ export const contentItems = pgTable(
       .notNull(),
     imageUrl: text('image_url'),
     engagement: jsonb().default({}).notNull(),
+    publisher: jsonb().$type<{ name: string; url: string | null }>(),
   },
   (table) => [
     index('content_items_published').using(

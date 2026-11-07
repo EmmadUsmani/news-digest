@@ -13,6 +13,8 @@ export interface ContentItem {
   publishedAt: string;
   imageUrl: string | null;
   engagement: Record<string, number>;
+  /** Publisher reported by structured RSS metadata, separate from discovery source. */
+  publisher?: { name: string; url: string | null };
   xLinks?: import('./x-links').XLink[];
 }
 export interface HttpPort {
