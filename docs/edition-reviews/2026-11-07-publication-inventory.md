@@ -89,3 +89,21 @@ published-only switch is enabled.
 - Private receipt: `~/backups/news-digest/publication-rehearsal-proof.json`.
   No production migration or reader flag change. This rehearses candidate DDL;
   the registered migration, future-write behavior and browser comparison remain.
+
+## Reader baseline — iteration 1253
+
+Reproduce before and after the metadata/reader change, reusing the same inventory:
+
+```sh
+pnpm exec tsx scripts/inventory-editions.ts > /tmp/publication-inventory.json
+pnpm exec tsx scripts/smoke-publication-candidates.ts /tmp/publication-inventory.json
+```
+
+An optional second argument selects another app origin for the flagged deployment.
+The November 3–7 candidates pass all 20 desktop/mobile light/dark views. Each
+edition API matches inventory totals; every topic renders its saved story/post
+counts and every saved story title. No horizontal page overflow or browser errors.
+Browser contexts start with empty preferences, block external requests and reject
+non-GET/HEAD requests. No provider calls or production writes. This establishes
+the current-model baseline only; rerun with the new model before enabling the
+published-only reader. No new-model equivalence is claimed.

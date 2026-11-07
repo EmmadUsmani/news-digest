@@ -693,3 +693,13 @@ The private rehearsal verifies the named constraint rejects that INSERT, while
 unpublished test/manual and published manual/scheduled INSERTs succeed. All five
 probes roll back; a full-row fingerprint verifies no saved metadata or snapshot
 changed, and immutability is checked again. This remains an undeployed candidate.
+
+### Published-candidate reader baseline (iteration 1253)
+
+`scripts/smoke-publication-candidates.ts` accepts the saved read-only inventory
+JSON and an optional app origin. It checks each proposed published edition API
+against inventory totals, then checks every topic's rendered story/post counts
+and story titles on desktop/mobile light/dark. Fresh contexts leave all topics
+visible, block external traffic and reject writes. Reuse the same inventory
+against the new-model app to complete the off/on comparison; the current-model
+baseline alone does not satisfy that rollout gate.
