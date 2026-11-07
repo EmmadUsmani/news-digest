@@ -1674,6 +1674,8 @@ ack: 2026-11-07 iteration 1219: NBA editor exhaustion discarded complete triage 
 
 ack: 2026-11-07 iteration 1220: traced thin Tech summaries to saved evidence: four empty HN excerpts and one headline-only Google News excerpt across five stories. Recorded source limitation and Nov 8 comparison; stopped prompt investigation. No new sources/full-article work or runtime changes; existing deferrals stand.
 
+ack: 2026-11-07 iteration 1222: prepared word-safe fallback excerpt cutoff with an ellipsis after Nov 7 NBA ended mid-name at “Windhor”; short source text stays exact, future snapshots only, deployment awaits metrics recovery.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

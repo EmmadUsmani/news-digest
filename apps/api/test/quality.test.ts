@@ -288,3 +288,31 @@ void test('scored fallback preserves validated coverage as one slot', () => {
     ['lead', 'support'],
   );
 });
+
+void test('fallback excerpts mark omitted text without splitting words or Unicode', () => {
+  const start = new Date('2026-11-06T15:00:00Z');
+  const end = new Date('2026-11-07T15:00:00Z');
+  const candidate: Candidate = {
+    id: 'excerpt',
+    title: 'Wizards weigh Anthony Davis extension',
+    url: 'https://example.org/story',
+    excerpt: '',
+    publishedAt: '2026-11-07T13:58:31Z',
+    sources: ['RealGM Basketball'],
+    points: 0,
+  };
+  const excerpt = (text: string) =>
+    rank([{ ...candidate, excerpt: text }], start, end, 1)[0].excerpt;
+  // Nov 7 reader failure: a capped attribution ended in "Windhor".
+  const lead = 'a'.repeat(592) + ' ';
+  assert.equal(excerpt(lead + 'Windhorst said more.'), 'a'.repeat(592) + '…');
+  assert.equal(excerpt('a'.repeat(598) + ' more'), 'a'.repeat(598) + '…');
+  assert.equal(excerpt('a'.repeat(599) + ' more'), 'a'.repeat(599) + '…');
+  assert.equal(excerpt('a'.repeat(598) + '😀more'), 'a'.repeat(598) + '…');
+  for (const text of ['', 'Short source excerpt.', 'a'.repeat(600)])
+    assert.equal(excerpt(text), text);
+  const longToken = excerpt('😀'.repeat(400));
+  assert.ok(longToken.length <= 600);
+  assert.equal(longToken, '😀'.repeat(299) + '…');
+  assert.equal(candidate.excerpt, '');
+});

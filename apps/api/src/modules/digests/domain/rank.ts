@@ -21,6 +21,16 @@ function safeImageUrl(value: string | null | undefined): string | null {
     return null;
   }
 }
+// Keep source wording, but make omitted fallback text visible to readers.
+function fallbackExcerpt(text: string): string {
+  if (text.length <= 600) return text;
+  let prefix = text.slice(0, 599).replace(/[\uD800-\uDBFF]$/, '');
+  if (/\S$/.test(prefix) && /\S/.test(text[prefix.length])) {
+    const boundary = prefix.search(/\s+\S*$/);
+    if (boundary > 0) prefix = prefix.slice(0, boundary);
+  }
+  return prefix.trimEnd() + '…';
+}
 // Signals are deliberately transparent; editorial judgement remains a separate step.
 export function rank(
   candidates: Candidate[],
@@ -70,7 +80,7 @@ export function rank(
         id: item.id,
         title: item.title,
         url: item.url,
-        excerpt: item.excerpt.slice(0, 600),
+        excerpt: fallbackExcerpt(item.excerpt),
         publishedAt: item.publishedAt,
         sources: item.sources,
         score,

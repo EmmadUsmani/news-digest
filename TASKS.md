@@ -43,6 +43,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1222), prepared: fallback excerpt cutoff preserves word boundaries and marks omitted text, replacing the Nov 7 NBA mid-name “Windhor” failure in future snapshots. Short text stays exact; Unicode/cap boundaries verified. Deployment remains gated by metrics recovery.
+
 - [x] STEERING 42 (1221), prepared: recover full official Bluesky link targets from UTF-8 facets into display text while preserving original text; future saved selections retain clickable survey/article links. Two real Nov 7 records, adapter/selection/storage checks and eight browser views verified; historical editions unchanged, deployment gated by metrics recovery.
 
 - [x] STEERING 42 (1219), prepared: editor exhaustion now retains complete triage importance order and validated groups instead of reverting to recency. Saved NBA preview scored below the shortlist threshold; unedited excerpt fallback, incomplete-triage isolation and valid-empty behavior verified offline. Deployment remains gated by metrics recovery.
