@@ -9,12 +9,10 @@ failed validation four times and fell back to non-AI ranking.
   routine debut story and a dated game preview. Review:
   [docs/edition-reviews/2026-11-07.md](../../edition-reviews/2026-11-07.md).
 - Fixes for the NBA failure (repair hints, preview exclusion, excerpt cutoff)
-  are built but not deployed: they wait behind the metrics-recovery gate
-  (see observability.md).
+  deployed at 19:20 UTC Nov 7 (item 49).
 
 **Next:**
 
-- Check item 49 deployed the queued fixes before the Nov 8 edition.
 - Nov 8: does NBA story editing stay AI-edited? Cost against the cap.
 - Item 42: while other items wait, the agent reads the edition as a reader and
   fixes the biggest weakness. Check its PROGRESS.md entries.
