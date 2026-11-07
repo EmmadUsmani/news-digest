@@ -99,8 +99,7 @@ pnpm obs metric 'up' --since 1h --step 60s
 
 - **Resources:** `obs-*` system units have memory and CPU caps. Grafana uses
   512 MB, logs 160 MB, metrics 112 MB, others 80 MB or less. Metrics has a
-  2% CPU cap. Total target:
-  about 800 MiB and under 5% of one CPU; measured stack: 754 MiB.
+  2% CPU cap. Target: about 800 MiB and under 5% CPU; measured stack: 754 MiB.
 - **Grafana startup:** start/stop hooks allow 512/544 MB and 50% CPU;
   readiness restores 448/512 MB and 3%. Cold executable cache needs this headroom.
 - **Install or reconcile:** `ops/observability/install*.sh`; releases are pinned

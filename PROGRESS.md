@@ -175,4 +175,5 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Small-storage 14,118-row/indexdb 6,528-row merges completed; new-process admission hits/timeouts remain zero. All 23 rules healthy; backup-staleness evaluates at 16:03:48 in 0.099 s. Recovery remains open pending comparable large compaction and sustained evaluation.
 - Verification: pnpm check passes (547 unit/227 integration, four expected skips), pnpm build, pnpm format, pnpm lint:fix; direct metrics/rules/Grafana health/app health and cgroup sampler. Updated capacity decision and affected handbook resource cap.
 - No paid calls, production data/settings changes or app restart. Queued diagnostics/reader and publisher deployment stay deferred until recovery evidence; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Handbook check initially found 101 lines; condensed the resource paragraph to meet the 100-line limit and rechecked.
 - Next: check large-compaction/query/alert stability at 2%, then deploy queued diagnostics/reader and merge publisher branch.
