@@ -792,10 +792,46 @@ void test('NBA mixed validation failures exhaust four calls while supported repa
     },
   ]);
   assert.ok(h.calls[1].prompt.includes('failed the absence-support check'));
-  // Fallback starts fresh; a schema failure supplies only generic JSON feedback.
+  // Fixed factual guidance survives the model fallback and its schema repair.
   assert.equal(h.calls[2].prompt, h.calls[0].prompt);
-  assert.ok(!h.calls[3].prompt.includes('failed the absence-support check'));
+  for (const call of h.calls.slice(2)) {
+    assert.ok(call.instructions.includes('failed the absence-support check'));
+    assert.ok(call.instructions.includes('The rejected field was summary.'));
+    assert.ok(!call.instructions.includes(negative.stories[0].summary));
+    assert.ok(!call.instructions.includes(contraction.stories[0].summary));
+  }
+  assert.equal(
+    h.calls[2].instructions.split('failed the absence-support check').length,
+    2,
+  );
   assert.ok(h.calls[3].prompt.includes('Return only valid JSON'));
+  const fallbackRepair = harness([
+    negative,
+    contraction,
+    invalidSchema,
+    output(evidence),
+  ]);
+  assert.equal(
+    (await fallbackRepair.editor.edit(nba, inputs, 1, 'nba-fallback-repair'))
+      ?.model,
+    'claude-haiku-5-5',
+  );
+  assert.equal(fallbackRepair.calls.length, 4);
+  assert.ok(
+    fallbackRepair.calls[3].instructions.includes(
+      'failed the absence-support check',
+    ),
+  );
+  // Feedback belongs to this edit only, even when the same editor is reused.
+  assert.equal(
+    (await fallbackRepair.editor.edit(nba, inputs, 1, 'nba-next-edit'))?.model,
+    'claude-sonnet-5-5',
+  );
+  assert.equal(fallbackRepair.calls.length, 5);
+  assert.equal(
+    fallbackRepair.calls[4].instructions,
+    fallbackRepair.calls[0].instructions,
+  );
   for (const corrected of [
     output(evidence),
     output('The team provided an injury update.'),

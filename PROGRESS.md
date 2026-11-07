@@ -120,3 +120,15 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm check passes (551 unit, 228 integration/four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Updated capacity decision/TASKS; no application behavior, schema, sources or owner requirements changed.
 - No paid calls, runtime/data/config changes or restarts; retained isolated trial deliberately. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
 - Next: natural comparable compaction evidence, then deploy queued changes subject to owner edition-generation restrictions; Nov 8 scheduled acceptance.
+
+## 2026-11-07: iteration 1211 — preserve factual repair feedback across fallback
+
+- Owner value: NBA story editing should retain its specific factual correction guidance when falling back to Haiku, improving its chance to avoid another excerpt-only edition.
+- Clean main/no leftovers; alerts clear, 14 services/36 sources and digest queue healthy; /healthz database/Redis OK. Metrics admission/timeouts/slow queries zero; no comparable large compaction observed, deployments remain queued.
+- Followed STEERING 22/38 rather than another status-only iteration: fixed the observed loss of Sonnet absence-check hints across Haiku fallback and its schema repair.
+- Editor retains only deduplicated application-owned hints within one edit; no rejected text, extra calls, validation relaxation, model/provider/budget change or historical rewrite. Fallback instruction changes separate cache fingerprints automatically.
+- Offline NBA regression verifies four bad responses still fail closed, a supported fourth response succeeds, both Haiku attempts retain factual guidance after schema failure, and the next edit starts clean.
+- Targeted editor tests pass 21/21; initial added assertion used an obsolete model name, corrected to configured Haiku 5.5 before verification. Synthetic results establish transport, not production improvement.
+- Capacity spot sample (60.052 s): 1.165% stack CPU/746.43 MiB peak, zero metrics memory-high/OOM events; all 23 alert rules healthy. No comparable compaction; this does not close recovery.
+- pnpm check passes: 551 unit/228 integration tests, four expected skips; pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Bug fix needs no handbook/screenshot/schema/SOURCES/NEEDS_FROM_HUMAN changes; edition review and TASKS updated.
+- No paid calls, runtime/config/data changes or restarts; retained isolated metrics trial deliberately. Next: comparable natural compaction, then queued deployment and Nov 8 scheduled acceptance.

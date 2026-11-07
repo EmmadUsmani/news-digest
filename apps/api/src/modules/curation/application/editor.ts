@@ -67,7 +67,7 @@ export class ShortlistEditor {
     if (budget === 0 || candidates.length === 0)
       return { brief: [], stories: [], model: 'none' };
     const ids = new Set(candidates.map((c) => c.id));
-    const validate = (value: unknown) => {
+    const validateOutput = (value: unknown) => {
       const parsed = editSchema.parse(value);
       if (
         parsed.stories.length > budget ||
@@ -109,6 +109,18 @@ export class ShortlistEditor {
         assertAbsenceSupport(bullet, selectedEvidence, 'brief');
       return parsed;
     };
+    // Retain only fixed application-owned hints across the model fallback.
+    // A later schema error must not erase an earlier factual-support failure.
+    const validationHints = new Set<string>();
+    const validate = (value: unknown) => {
+      try {
+        return validateOutput(value);
+      } catch (error) {
+        if (error instanceof LlmValidationFailure && error.feedback)
+          validationHints.add(error.feedback);
+        throw error;
+      }
+    };
     const prompt = JSON.stringify({
       topic: {
         id: topic.id.slice(0, 200),
@@ -133,7 +145,7 @@ export class ShortlistEditor {
           purpose: 'shortlist-editor-v13',
           runId,
           topicId: topic.id,
-          instructions,
+          instructions: instructions + [...validationHints].join(''),
           prompt,
           maxOutputTokens: 4000,
         },
