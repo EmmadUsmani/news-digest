@@ -15,7 +15,7 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44).
+   (item 44) and deploying the held app changes tonight (item 49).
 2. X search: reliability fixes and test rounds (items 39, 34).
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
@@ -2094,3 +2094,40 @@ ack: 2026-11-07 item 42 — iteration 1216: Nov 7 repeated LeBron return, BioWar
 ack: 2026-11-07 item 42 — iteration 1221: saved Gaming survey/World article links are shortened and inert because collection discards official link facets. Prepared UTF-8-aware display expansion preserves original text and full official targets through snapshots and reader; recorded adapter/selection/storage and desktop/mobile light/dark verification. Historical editions unchanged; deployment remains queued behind metrics recovery. No paid calls.
 
 ack: 2026-11-07 item 42/43 — iteration 1228: Nov 7 Tech Bluesky dropped two unsupported claims then selected none; prepared sanitizer now preserves fixed field-specific absence guidance for entirely rejected replies instead of generic selection hints. Offline repair/privacy/cache/exhaustion verified; no paid calls, deployment waits for metrics recovery.
+
+## 49. NOW: stop holding app deployments behind metrics recovery (2026-11-07)
+
+**Why:** since 16:00 UTC Nov 7, every prepared app change has been held until a
+natural five-million-row compaction is seen under the 2% metrics CPU trial. That
+compaction has no schedule, so the hold has no end. The metrics store and the app
+are separate services, and an app deploy doesn't change the metrics store. The
+held fixes (NBA editor repair hints, dated-preview exclusion, triage-order
+fallback, excerpt cutoff, Bluesky links, publisher names, schema diagnostics)
+must be live for the Nov 8 edition, or its review can't test them.
+
+**Priority:** part of Current order line 1. Do it in the next iteration. It replaces only the deployment hold in decision 0004 and TASKS.md. The
+metrics incident itself stays open under item 44.
+
+**What to do:**
+
+1. Deploy everything queued on `main` now, including the publisher-names
+   migration, using the normal deploy path. Finish by 23:00 UTC Nov 7.
+2. After the deploy, check: services, sources and jobs pass, app and Grafana
+   health pass, the reader renders the Nov 7 edition, and the migration applied.
+3. Remove the "deployment waits for metrics recovery" wording from `TASKS.md`
+   and decision 0004, pointing to this item.
+4. Keep the metrics CPU trial running. Watch it passively, at most one short
+   check per hour. Don't spend whole iterations waiting for a compaction.
+
+**What not to do:**
+
+- Don't force a compaction, or change metrics limits, to unblock anything.
+- Don't fix forward inside the window. If the deploy breaks something, roll back
+  to the previous revision and ack what broke.
+
+**Done when:** the queued changes are live and the checks in step 2 pass. Ack the
+deployed commit, migration result, check results, and anything rolled back.
+
+**Limits:** no new spend. No restarts or deploys between 13:00 and 16:00 UTC.
+Deploy nothing that touches edition generation after 12:00 UTC on Nov 8 unless
+it fixes a breakage.
