@@ -166,3 +166,13 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm exec tsx scripts/report-x-discovery.ts 2026-11-07 and scripts/report-x-week.ts 2026-11-07; independent Python assertions confirm daily/weekly topic agreement and totals. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (547 unit/227 integration; four rehearsals skipped); git diff --check passes.
 - Documentation only; no paid calls, settings/edition writes, UI changes or runtime restart. Existing queued artifacts remain deliberately undeployed during 13:00–16:00 UTC. No handbook or owner-input change needed.
 - Next after 16:00 UTC: metrics CPU-only recovery trial, queued diagnostic/reader deployment, then publisher merge; Nov 8 daily and second-edition acceptance next.
+
+## 2026-11-07: iteration 1207 — deploy isolated metrics CPU trial
+
+- Clean main/no leftovers; alerts, services, sources and app health pass. Waited until after 16:00 UTC; restarted only obs-metrics at 16:00:24 with CPUQuota 1→2%. Memory, query admission and deadlines unchanged.
+- Valid 600.551 s pre-restart baseline: whole stack 1.708% CPU/766.69 MiB peak; metrics 3,408/4,259 periods throttled, 75 memory-high events, zero OOM. Checks/build overlapped part of baseline.
+- Subsequent 180.155 s sample: whole stack 1.895% CPU/733.32 MiB peak; metrics 426/859 throttled, zero memory-high/OOM. Uncached real self-scrape/API-unit queries improve from startup 1.375/1.002 s to 0.017/0.001 s, one series each.
+- Small-storage 14,118-row/indexdb 6,528-row merges completed; new-process admission hits/timeouts remain zero. All 23 rules healthy; backup-staleness evaluates at 16:03:48 in 0.099 s. Recovery remains open pending comparable large compaction and sustained evaluation.
+- Verification: pnpm check passes (547 unit/227 integration, four expected skips), pnpm build, pnpm format, pnpm lint:fix; direct metrics/rules/Grafana health/app health and cgroup sampler. Updated capacity decision and affected handbook resource cap.
+- No paid calls, production data/settings changes or app restart. Queued diagnostics/reader and publisher deployment stay deferred until recovery evidence; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: check large-compaction/query/alert stability at 2%, then deploy queued diagnostics/reader and merge publisher branch.

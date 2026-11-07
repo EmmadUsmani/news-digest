@@ -12,8 +12,8 @@ Restart=always
 RestartSec=5
 MemoryHigh=88M
 MemoryMax=112M
-# Prepared for the Nov 7 scrape/alert-evaluation outage. Install only after
-# 16:00 UTC; validate latency and whole-stack CPU before closing the incident.
+# CPU headroom trial for the Nov 7 scrape/alert-evaluation outage.
+# Keep query admission and memory unchanged while recovery is evaluated.
 CPUQuota=2%
 CPUWeight=10
 IOWeight=10

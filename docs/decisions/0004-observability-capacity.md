@@ -319,3 +319,38 @@ Evidence commands: `sudo journalctl -u obs-metrics --since '2026-11-07 13:00:00'
 `systemctl show obs-metrics -p CPUQuotaPerSecUSec -p NRestarts
 -p ActiveEnterTimestamp`. Keep the incident open and perform the prepared
 post-16:00 trial before deploying queued application diagnostics.
+
+### CPU-only trial deployed (iteration 1207)
+
+Installed only the repository metrics unit and restarted it at 16:00:24 UTC
+on Nov 7, outside the protected window. CPUQuota changed from 1% to 2%;
+memory limits, GOMAXPROCS, query concurrency and deadlines are unchanged.
+No application, database, Redis or other observability service was restarted.
+
+The valid pre-restart 600.551-second cgroup sample ended before the restart:
+whole-stack mean CPU 1.708%, sampled peak memory 766.69 MiB; metrics mean
+CPU 0.655%, 3,408/4,259 active periods throttled, 75 memory-high events,
+zero OOM events. CI checks/build ran during part of this observation.
+The prior 60-second baseline was 1.420% CPU/765.75 MiB peak, metrics
+299/398 periods throttled and six memory-high events.
+
+The first post-start minute measured 2.107% whole-stack CPU/728.79 MiB peak;
+metrics used 0.936% CPU, throttled 246/351 periods, with no memory-high or
+OOM events. Direct uncached self-scrape/API-unit queries returned one series
+each: initially 1.375/1.002 seconds, later 0.017/0.001 seconds. All 23 rules
+were healthy; backup staleness evaluated successfully after startup.
+
+Counters reset with the new process; pre-restart 457 admission-limit hits
+and 66 timeouts are not comparable directly with post-restart zeroes.
+The subsequent 180.155-second sample measured 1.895% whole-stack CPU and
+733.32 MiB peak; metrics used 0.638% CPU, throttled 426/859 periods, with
+zero memory-high/OOM events. Small-storage merged 14,118 rows and indexdb
+6,528 rows by 16:03:04; admission-limit hits/timeouts remained zero. All
+23 rules were healthy at 16:03:49, with backup staleness evaluated at
+16:03:48 in 0.099 seconds. Keep recovery open until a comparable large
+compaction and sustained alert evaluation are verified. This short trial does not establish that CPU headroom fixes the
+intermittent outage. Queued application deployments remain deferred.
+
+Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`,
+then `6 10` and `18 10`; direct `/metrics/metrics`, uncached
+`/metrics/api/v1/query`, vmalert `/api/v1/rules`; `systemctl show obs-metrics`.
