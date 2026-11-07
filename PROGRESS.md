@@ -162,3 +162,14 @@
 - API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; pnpm obs jobs --check digest queue available/zero failed. Saved edition four topics/20 stories/17 posts.
 - Corrected stale TASKS next-step note: keyword X and reserved Bluesky slot are enabled. No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks; continue approved reader work meanwhile. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1068 — recover Bluesky images after thumbnail failure
+
+- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
+- Reader weakness: a failed Bluesky thumbnail immediately hid the image despite a saved full-size URL. Image cards now try that original once before retaining the accessible unavailable-image link; identical URLs are not retried and video behavior stays intact.
+- pnpm exec tsx scripts/smoke-reader-bluesky-image-recovery.ts passed 16 loaded/recovered/both-failed/same-URL cases across desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Synthetic media over saved edition, GET-only/external requests blocked; no paid calls or edition writes.
+- pnpm exec tsx scripts/smoke-reader-bluesky-video.ts passed 12 loaded/failed/missing-preview cases. Discarded unrelated video screenshot churn.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial lint flagged a test DOM type assertion; corrected to a typed query selector before final verification.
+- Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- Sources 36/36 healthy; digest queue available/zero failed. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.

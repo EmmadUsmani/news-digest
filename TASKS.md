@@ -37,7 +37,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1067): source links in saved post text recognize uppercase/mixed-case HTTP schemes and preserve case-sensitive paths and query values.
+- [x] STEERING 33/43 (1068): Bluesky image cards recover failed thumbnails using the saved full-size image before showing the unavailable-image link.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -407,12 +407,15 @@ function BlueskyImage({
   src,
   alt,
   video,
+  fullsize,
 }: {
   src: string;
+  fullsize?: string;
   alt: string;
   video: boolean;
 }) {
   const [failed, setFailed] = React.useState(false);
+  const [useOriginal, setUseOriginal] = React.useState(false);
   return failed ? (
     <span className="block text-sm text-[var(--secondary)] underline underline-offset-2">
       {video ? 'Preview unavailable' : 'Image unavailable · Open image ↗'}
@@ -421,11 +424,15 @@ function BlueskyImage({
   ) : (
     <span className="relative block">
       <img
-        src={src}
+        src={useOriginal ? fullsize : src}
         alt={alt}
         loading="lazy"
         referrerPolicy="no-referrer"
-        onError={() => setFailed(true)}
+        onError={() => {
+          if (!useOriginal && fullsize && fullsize !== src)
+            setUseOriginal(true);
+          else setFailed(true);
+        }}
       />
       {video && (
         <span
@@ -482,7 +489,8 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           >
             {media.thumbnail && (
               <BlueskyImage
-                key={media.thumbnail}
+                key={`${media.thumbnail}:${media.type === 'image' ? media.fullsize : 'video'}`}
+                fullsize={media.type === 'image' ? media.fullsize : undefined}
                 video={media.type === 'video'}
                 src={media.thumbnail}
                 alt={
