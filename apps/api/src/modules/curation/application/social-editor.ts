@@ -179,6 +179,7 @@ export class SocialPostEditor {
         unsupportedClaim: 0,
         overBudget: 0,
       };
+      let absenceFailure: LlmValidationFailure | undefined;
       const posts: z.infer<typeof selectionSchema>['posts'] = [];
       const seen = new Set<string>();
       for (const entry of envelope.posts) {
@@ -207,6 +208,7 @@ export class SocialPostEditor {
           assertAbsenceSupport(post.rationale, [original.text], 'rationale');
         } catch (error) {
           if (!(error instanceof LlmValidationFailure)) throw error;
+          absenceFailure ??= error;
           droppedPosts.unsupportedClaim++;
           continue;
         }
@@ -219,7 +221,11 @@ export class SocialPostEditor {
       }
       countDrops(droppedPosts);
       if (envelope.posts.length && !posts.length)
-        throw new LlmValidationFailure('invalid-social-selection');
+        // Preserve fixed factual-support guidance for the repair when every
+        // pick was rejected. Partial selections still return without retrying.
+        throw (
+          absenceFailure ?? new LlmValidationFailure('invalid-social-selection')
+        );
       return { posts, droppedPosts: { ...modelDrops } };
     };
     const validate = (

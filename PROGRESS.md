@@ -149,3 +149,15 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: services 14/14, sources 36/36, jobs healthy, no active alerts. App database/Redis and Grafana HTTP/database healthy. Updated TASKS and capacity evidence; no production writes or paid calls.
 - Verification: pnpm check (560 unit/229 integration passing, four expected skips), pnpm build, pnpm format, pnpm lint:fix, pnpm format:check and git diff --check pass.
 - Deployment/restarts remain deferred behind recovery gate. Next: capture comparable natural compaction, deploy queued fixes, then Nov 8 scheduled keyword/Bluesky quality/cost/speed acceptance and first-week report.
+
+## 2026-11-07: iteration 1228 — preserve Bluesky absence-repair feedback
+
+- Owner impact (STEERING 42/43, following waiting 39/34/33): help Bluesky repairs address unsupported claims instead of wasting attempts on ID guidance; Nov 7 Tech dropped two claims before selecting none. Clean main/no leftovers.
+- Entirely rejected Bluesky replies now preserve the first fixed absence-support error and field hint. Partial valid picks and deliberate empty replies keep existing behavior; rejected text never enters feedback. No model, provider, budget, concurrency or retry-count change.
+- Fake-provider tests cover significance/rationale repair, feedback privacy, sanitized cache reuse and four-call exhaustion/drop counts; existing partial/empty/selection tests pass. No recovered production output or paid calls; next deployed scheduled edition must establish reader benefit.
+- Updated TASKS, STEERING ack and Nov 7 review. Deployment/restarts remain deferred behind metrics recovery; historical editions unchanged.
+- `sample-metrics-recovery.ts 6 30` at 18:58:35–19:01:37 UTC: six small merges/58,271 rows, no big merges; 23 healthy/fresh rules, 14 queries pass/max 0.403 s; admission hits unchanged at two, zero timeouts/slow queries. Comparable natural compaction remains unobserved.
+- `sample-observability-capacity.ts 6 10`: 60.053 s, 1.351% whole-stack CPU/674.29 MiB peak; metrics 0.395% CPU, 72/223 periods throttled, all units zero memory-high/OOM events. Trial unchanged since 16:00:24 UTC, zero restarts.
+- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`, app/Grafana health: 14/14 services, 36/36 sources and jobs healthy; no active alerts, database/Redis/Grafana database OK.
+- Verification: `pnpm check` passes (562 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, targeted social-editor tests and `git diff --check` pass. No UI change or service restart.
+- Next: comparable natural compaction evidence, queued deployment, then Nov 8 scheduled keyword/Bluesky quality/cost/speed acceptance and first-week report.

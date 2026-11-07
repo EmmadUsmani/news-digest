@@ -494,3 +494,39 @@ void test('Bluesky retries an entirely invalid reply, but accepts deliberate emp
     4,
   );
 });
+
+void test('Bluesky all-rejected absence claims retain field-specific repair guidance', async () => {
+  const input = candidates.map((c) => ({ ...c, platform: 'bluesky' as const }));
+  for (const field of ['whyItMatters', 'rationale'] as const) {
+    const rejectedText = 'There is no private-untrusted-release-marker.';
+    const h = harness([{ posts: [{ ...post, [field]: rejectedText }] }, valid]);
+    const result = await h.editor.edit(topic, input, 1, 'absence-repair');
+    assert.deepEqual(result?.posts, valid.posts);
+    assert.equal(result?.droppedPosts?.unsupportedClaim, 1);
+    assert.equal(h.calls.length, 2);
+    const repair = h.calls[1].prompt.slice(h.calls[0].prompt.length);
+    assert.match(repair, /failed the absence-support check/);
+    assert.ok(repair.includes(`The rejected field was ${field}.`));
+    assert.ok(!repair.includes(rejectedText));
+    assert.ok(!repair.includes('private-untrusted-release-marker'));
+    assert.equal(h.diagnostics()[0].category, 'unsupported-absence');
+    assert.equal(h.diagnostics()[0].field, field);
+    assert.deepEqual(await h.editor.edit(topic, input, 1, 'cached'), result);
+    assert.equal(h.calls.length, 2);
+  }
+});
+
+void test('Bluesky absence exhaustion remains bounded and counts all rejected picks', async () => {
+  const input = candidates.map((c) => ({ ...c, platform: 'bluesky' as const }));
+  const h = harness([
+    { posts: [{ ...post, rationale: 'No release date exists.' }] },
+  ]);
+  const result = await h.editor.editOutcome(topic, input, 1, 'exhausted');
+  assert.equal(result.status, 'failed');
+  assert.equal(
+    result.status === 'failed' && result.droppedPosts?.unsupportedClaim,
+    4,
+  );
+  assert.equal(h.calls.length, 4);
+  assert.ok(h.diagnostics().every((d) => d.category === 'unsupported-absence'));
+});
