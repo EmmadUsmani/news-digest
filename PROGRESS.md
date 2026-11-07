@@ -91,3 +91,14 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - pnpm check passes static checks, 543 unit tests and 226 integration tests (four already-passed failure rehearsals skipped). pnpm build passes (existing bundle warnings); handbook 09-observability validation passes, no changed diagrams. API/worker restarted; /healthz DB/Redis OK, reader HTTP 200/four saved topics, alerts clear and 14 monitored units healthy.
 - Live monitor fix: systemd clears the exit timestamp during activation; accept a bounded in-progress run rather than briefly reporting it down. Two extra offline cases cover normal activation and a hung run; seven monitor tests pass. Final pnpm format/pnpm lint:fix and git diff --check pass.
 - Next: publisher-attribution branch; no merge before committed Nov 7 production review and 16:00 UTC. Scheduled X/Bluesky acceptance due 15:00 UTC takes priority once published.
+
+## 2026-11-07: iteration 1101 — reconcile publisher handoff and publication acceptance
+
+- Clean main/no leftovers. Owner value: prevent finished branch work being repeated or deployed before the actual production review; give the next iteration one concrete acceptance checklist.
+- Main TASKS still called the publisher branch next despite four completed/pushed commits (1097–1100). Updated it to identify `0ba83c73`, retain the merge gate and link the pending production checklist.
+- Added docs/edition-reviews/2026-11-07-acceptance-plan.md: existing read-only report commands, exact Nov 7 window check, per-topic keyword/Bluesky selection and cost evidence, reader comparisons and merge gates. Explicitly not an edition review; no acceptance claimed before publication.
+- Initial pnpm obs alerts clear; /healthz DB/Redis OK, pnpm obs sources --check reports 36/36 healthy; digest-generation queue has zero failed jobs. Saved latest reader remains Nov 6/four topics. Retained ingestion failures remain two with all sources currently healthy.
+- No editor/runtime/schema/source/provider changes; publisher branch remains unmerged and migration unapplied. SOURCES/NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: actual Nov 7 15:00 UTC edition review first; publisher merge only after that review is committed and 16:00 UTC. No further experiment reruns or editor changes before review.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit tests and 226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. No UI changes, so no new browser screenshots.
+- Restarted API/worker on main artifacts outside protected hours; /healthz DB/Redis OK, alerts clear and saved reader HTTP 200/four topics/20 stories. Publisher branch tip exactly matches origin/publisher-attribution; no branch build or migration deployed.
