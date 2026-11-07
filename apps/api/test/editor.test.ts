@@ -421,7 +421,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(
       h.calls[0].instructions,
@@ -477,7 +477,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -626,7 +626,7 @@ void test('editor preserves practical release qualifications in both headline an
     );
     assert.deepEqual(result?.stories, output.stories);
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v12');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
     assert.match(
       h.calls[0].instructions,
       /qualifications.*both headline and summary/,
@@ -678,6 +678,44 @@ void test('editor does not infer personal pronouns from a name or role', async (
     assert.match(
       h.calls[0].instructions,
       /never infer gender or pronouns from a name, title or outside knowledge/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
+
+void test('routine roster guidance reaches both editors and allows unfilled story budgets', async () => {
+  const input = [
+    {
+      id: 'one',
+      title: 'Lakers assign Bronny James to G League',
+      excerpt:
+        'The Lakers assigned Bronny James to their G League affiliate after limited NBA playing time early this season.',
+      sources: ['Yahoo Sports NBA'],
+    },
+  ];
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([{ brief: [], stories: [] }], refused);
+    const result = await h.editor.edit(topic, input, 5, 'routine-roster');
+    assert.deepEqual(result?.stories, []);
+    assert.deepEqual(result?.brief, []);
+    assert.equal(h.calls.length, 1);
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
+    assert.match(
+      h.calls[0].instructions,
+      /supplied facts establish a substantial development/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /familiar name, timely report or reputable outlet alone/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Keep serious new injuries, consequential trades and exceptional performances eligible/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Leave slots empty when only routine updates remain/,
     );
     assert.deepEqual(h.diagnostics(), []);
   }

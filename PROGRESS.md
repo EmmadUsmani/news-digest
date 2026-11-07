@@ -105,3 +105,14 @@ Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-itera
 - Updated operations handbook command description; pnpm exec tsx scripts/check-handbook.ts 08-operations passes. No diagrams, schema or source changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. pnpm build passed with existing bundle warnings. API/worker restarted; health, all 13 services/36 sources and alerts clear. No provider spend or edition writes.
 - Next: Nov 7 15:00 scheduled keyword-X/Bluesky acceptance using the expanded report; review first three reserved-slot editions, NBA selection and Tech diversity/prose.
+
+## 2026-11-07: iteration 1084 — reserve NBA story slots for substantial developments
+
+- Clean main/no leftovers. Alerts clear, health DB/Redis OK, services/sources --check pass. Read-only scheduled report: zero failed digest jobs, next run Nov 7 15:00 UTC, Nov 6 cost $0.286904 with zero holds.
+- Followed item 42 while 39/34/40 await scheduled evidence; read all four saved topics. NBA's routine Bronny G League assignment occupies one of five story slots without a substantial consequence in its saved summary. The 1082 social-editor change does not reach stories.
+- Article editor v13 requires substantial supplied news for routine roster/availability updates; familiarity/freshness/outlet alone do not establish importance. Serious injuries, consequential trades and exceptional performances remain eligible; unused slots allowed. No grouping rules or player-name filters.
+- pnpm exec tsx --test apps/api/test/editor.test.ts: 20 pass, including both-model guidance and empty-budget acceptance. Initial combined direct golden invocation hit its isolated-environment guard (four failures, no DB access); golden verification belongs to the full isolated suite. No paid replay, new source fetch or edition write; model selection quality awaits publication.
+- Updated TASKS, item-42 ack and saved-edition review. No UI/schema/source/system-flow changes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged. Item 46 length conflict remains owner-blocked; item 33 stays closed.
+- First full pnpm check passed 538 unit tests but caught a stale synthetic publication fingerprint in integration. Verified the old request hash before updating only its editor fingerprint for v13; authored response/golden content unchanged, no re-recording or provider calls. pnpm test:integration rerun passes all 226 tests.
+- pnpm format, pnpm lint:fix, typecheck/lint/format/boundaries and git diff --check pass; pnpm build passes with existing bundle warning. API/worker restarted; startup health retry passes DB/Redis, 13 services healthy and alerts clear. Same saved four topics/20 stories/17 posts retained.
+- Next: Nov 7 15:00 keyword-X/Bluesky acceptance, NBA story/post significance and Tech diversity review. No experiment reruns.

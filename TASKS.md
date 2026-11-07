@@ -35,6 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1084): NBA routine G League assignment occupied a top-story slot; article editor v13 requires substantial supplied developments for routine roster/availability news. Both-model offline contracts pass; compare next scheduled NBA stories.
+
 - [x] STEERING 39/40 (1083): scheduled-edition report now retains saved X reported engagement/ranking and external IDs plus Bluesky slot outcomes/replacement IDs/drop counts. Historical nulls preserved; next production acceptance due Nov 7 15:00 UTC.
 
 - [x] STEERING 42 (1082): NBA routine availability posts consumed two saved slots; social editor v7 requires a substantial supplied development for routine lists/status/minor transactions, preserving serious injury news. Offline contracts pass; scheduled selection acceptance pending.

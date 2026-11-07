@@ -53,7 +53,7 @@ for (const mode of ['non-ai', 'ai'] as const) {
         async complete(request) {
           calls.push(request.purpose);
           assert.ok(
-            ['candidate-triage-v1', 'shortlist-editor-v12'].includes(
+            ['candidate-triage-v1', 'shortlist-editor-v13'].includes(
               request.purpose,
             ),
           );
@@ -151,7 +151,7 @@ for (const mode of ['non-ai', 'ai'] as const) {
       // The second generation must reproduce the snapshot from cached results.
       assert.deepEqual(
         calls,
-        mode === 'ai' ? ['candidate-triage-v1', 'shortlist-editor-v12'] : [],
+        mode === 'ai' ? ['candidate-triage-v1', 'shortlist-editor-v13'] : [],
       );
     } finally {
       await adapter.db.query(
