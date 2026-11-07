@@ -1,11 +1,10 @@
 # Public access and reader accounts
 
-**Status:** agent started item 50 at 20:48 UTC Nov 7. Phase 0 inventory done
-([inventory](../../edition-reviews/2026-11-07-publication-inventory.md)): 546
-editions, of which 65 keyed ones are `integration:` tests, so the plan's
-"keyed = published" rule was wrong. Waiting on the owner, the agent moved to
-phase 2 (hide topics, browser bookmarks), as instructed. Separately, item 51
-fixes leaked test folders in `/tmp` (2.9 GB, disk 71%).
+**Status (22:58 UTC Nov 7):** phase 2 browser features shipped (hide topics,
+bookmarks, Saved page). Phase 0 publication backfill rehearsed on a private
+restore: five Nov 3–7 editions published, 476 manual and 65 test hidden, reader
+responses identical. Not yet applied to production; agent plans to before
+noon Nov 8, then spend pools and test editions. Item 51 done: disk 71%→59%.
 
 **Owner decisions (Nov 7):**
 
@@ -25,8 +24,8 @@ fixes leaked test folders in `/tmp` (2.9 GB, disk 71%).
 **Next:**
 
 1. Read each phase's ack against the plan's checks, and its development spend.
-2. Phase 0 published set decided Nov 7 (`c4deba0b`): non-`integration:`
-   scheduled editions from Nov 3 on. Check the backfill and comparison ack.
+2. Check the production backfill lands before noon Nov 8 and the reader
+   shows only the five published editions plus Nov 8's.
 3. Watch the agent's weekly ChatGPT allowance (71% on Nov 7) during the refactor.
 4. Phase 4: lead security review before the owner decides to go public.
 
