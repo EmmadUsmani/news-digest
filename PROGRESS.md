@@ -110,3 +110,13 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - pnpm build and pnpm exec tsx scripts/check-handbook.ts 07-data-model pass; data-model page explicitly marks deployment pending. No diagram/schema-meta change: no tables/relations added. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Live migration and API/worker restarts remain deliberately deferred to preserve the isolated metrics CPU trial. Next: natural comparable compaction health evidence, then migrate/deploy queued publisher/diagnostic/reader changes; Nov 8 second scheduled acceptance.
 - Final verification: pnpm check passes (551 unit, 228 integration; four expected skips); pnpm format, pnpm lint:fix, pnpm build, handbook validation and git diff --check pass. No paid calls or live migration/restart.
+
+## 2026-11-07: iteration 1210 — thirty-minute metrics trial evidence
+
+- Clean main/no leftover work. Breakage remains first priority; 14 services/36 sources, scheduled queue, Grafana and /healthz healthy; alerts clear.
+- Unchanged CPU-only trial active >30 minutes, NRestarts=0. Ten-minute sample: 1.577% whole-stack CPU/745.42 MiB peak; metrics 0.504% CPU, 1,018/2,482 periods throttled, zero memory-high/OOM. Checks/build overlapped sample.
+- All 21 thirty-second probes pass: all 23 rules healthy, both uncached selectors return one series, max query 0.294 s. Backup rule advances to 16:31:19 in 0.098 s; admission hits/timeouts/slow queries remain zero.
+- Cumulative small-storage merges 1,382,722 rows/indexdb 6,528; large-storage zero. No comparable single five-million-row compaction observed: recovery and queued publisher/reader/diagnostic deployment remain open.
+- Verification: pnpm check passes (551 unit, 228 integration/four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Updated capacity decision/TASKS; no application behavior, schema, sources or owner requirements changed.
+- No paid calls, runtime/data/config changes or restarts; retained isolated trial deliberately. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
+- Next: natural comparable compaction evidence, then deploy queued changes subject to owner edition-generation restrictions; Nov 8 scheduled acceptance.

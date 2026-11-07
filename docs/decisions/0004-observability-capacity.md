@@ -387,3 +387,25 @@ A preliminary API-unit selector used the wrong metric name and returned
 zero series; it was discarded before restarting all nine probes with the
 correct selector. A Grafana probe at the default port 3000 was likewise
 invalid; the configured port 3001 passed.
+
+### Thirty-minute uptime follow-up (iteration 1210)
+
+The unchanged 2% CPU trial remained active from 16:00:24 through 16:31 UTC,
+with NRestarts=0. A 600.534-second sample starting at 16:21:17 measured
+1.577% whole-stack mean CPU and 745.42 MiB sampled peak memory. Metrics
+averaged 0.504% CPU, throttled 1,018/2,482 active periods, and recorded zero
+memory-high, OOM or OOM-kill events. Checks and build overlapped the sample.
+
+All 21 thirty-second probes found all 23 rules healthy and both uncached
+selectors returning exactly one series; maximum query latency was 0.294 s.
+Backup-staleness evaluation advanced to 16:31:19, taking 0.098 s. Grafana
+health and app health passed. Admission-limit hits, queue timeouts and slow
+queries remained zero. Small-storage merged 1,382,722 cumulative rows and
+indexdb 6,528; large-storage remained zero. The cumulative small-merge total
+is not evidence of a single comparable five-million-row compaction.
+
+Recovery and queued deployments remain open. No service, configuration or
+production data changed. Commands: `pnpm exec tsx
+scripts/sample-observability-capacity.ts 60 10`, repeated vmalert rules and
+uncached query probes, direct metrics counters, Grafana/app health,
+`pnpm obs services --check`, `sources --check`, `jobs --check`, and `alerts`.
