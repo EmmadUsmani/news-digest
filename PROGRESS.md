@@ -156,3 +156,4 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Four saved-transcript screenshots updated; mobile light inspected, unrelated regenerated images discarded. No handbook system-flow change.
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; rebuilt API restarted healthy. `pnpm check` passes: 563 unit and 229 integration tests, four expected skips.
 - Next: Nov 8 scheduled X/Bluesky/quality/cost/speed acceptance and first-week report. Metrics recovery remains open, passive check no sooner than 20:14 UTC.
+- Initial push rejected: owner handbook palette commits landed remotely. Merged all three without rewriting history; docs-site typecheck/tests pass and docs service restarted. Reader verification remains applicable.
