@@ -36,7 +36,7 @@ async function main() {
         author: 'Synthetic author (example.test)',
         publishedAt: '2026-11-03T02:00:00Z',
         observedAt: '2026-11-03T03:00:00Z',
-        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text. Also (https://example.org/story), [https://example.net/read]. Balanced https://en.wikipedia.org/wiki/News_(disambiguation). Quoted “https://example.org/quoted”. ASCII "https://example.org/ascii". Apostrophe https://example.org/it’s-news and https://example.org/it\'s-news.',
+        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text. Uppercase HTTPS://example.org/UpperCase?ID=AbC and mixed HttpS://example.org/MixedCase. Also (https://example.org/story), [https://example.net/read]. Balanced https://en.wikipedia.org/wiki/News_(disambiguation). Quoted “https://example.org/quoted”. ASCII "https://example.org/ascii". Apostrophe https://example.org/it’s-news and https://example.org/it\'s-news.',
         metrics: { likes: 1200, reposts: 84, replies: 12 },
         media: [
           {
@@ -195,6 +195,8 @@ async function main() {
       );
       assert.equal(await linkedSource.getAttribute('target'), '_blank');
       for (const url of [
+        'HTTPS://example.org/UpperCase?ID=AbC',
+        'HttpS://example.org/MixedCase',
         'https://example.org/story',
         'https://example.net/read',
         'https://en.wikipedia.org/wiki/News_(disambiguation)',

@@ -1800,3 +1800,5 @@ ack: 2026-11-06 item 33/43 — iteration 1063: readers can distinguish Bluesky v
 ack: 2026-11-06 item 33/43 — iteration 1064: readers can follow failed Bluesky video previews without a play badge covering the fallback text; loaded/failed/missing previews checked on desktop/mobile in both themes. No paid calls.
 
 ack: 2026-11-06 item 33/43 — iteration 1066: readers see small Bluesky images across the available media width; portrait previews remain fully visible and compact. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-bluesky-grid-small-mobile-light.png); no paid calls.
+
+ack: 2026-11-07 item 33/43 — iteration 1067: readers can open cited source URLs beginning with uppercase or mixed-case HTTP schemes from saved post text; path/query case and original text stay intact. Desktop/mobile light/dark browser replay verified; no paid calls.

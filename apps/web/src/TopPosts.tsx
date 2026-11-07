@@ -364,8 +364,8 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
 }
 
 function LinkedPostText({ text, postUrl }: { text: string; postUrl: string }) {
-  return text.split(/(https?:\/\/[^\s<>]+)/g).map((part, index) => {
-    if (!/^https?:\/\//.test(part))
+  return text.split(/(https?:\/\/[^\s<>]+)/gi).map((part, index) => {
+    if (!/^https?:\/\//i.test(part))
       return part ? (
         <a key={index} href={postUrl} target="_blank" rel="noreferrer">
           {part}

@@ -150,3 +150,15 @@
 - API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, pnpm obs sources --check 36/36 healthy; digest-generation queue available, zero failed. Saved edition remains four topics/20 stories/17 posts.
 - No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1067 — recognize mixed-case source URL schemes
+
+- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
+- Reader weakness reproduced in synthetic replay: uppercase HTTPS source URLs became ordinary post-text links to the social original. Shared X/Bluesky text rendering now recognizes HTTP schemes case-insensitively, preserving case-sensitive paths/query values and saved prose.
+- Expanded pnpm exec tsx scripts/smoke-bluesky-cards.ts with uppercase/mixed-case URLs; desktop/mobile light/dark passed, eight screenshots refreshed; mobile light inspected. Synthetic fixtures only, no paid calls or edition writes.
+- pnpm exec tsx scripts/smoke-reader-x-media.ts passed loading/failure/retry, resize and theme recovery. Initial final API read overlapped service restart and failed; rerun passed. Unrelated X screenshot churn discarded.
+- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial full check terminated with SIGTERM during integration, without assertion failure; reran via temporary systemd user unit to outlive command session.
+- Final pnpm check passed: 536 unit/226 isolated integration tests; typecheck/lint/format/boundaries green.
+- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; pnpm obs jobs --check digest queue available/zero failed. Saved edition four topics/20 stories/17 posts.
+- Corrected stale TASKS next-step note: keyword X and reserved Bluesky slot are enabled. No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks; continue approved reader work meanwhile. Observability RAM target remains unmet.

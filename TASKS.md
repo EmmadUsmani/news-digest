@@ -37,8 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1066): small Bluesky image previews fill the media column; portrait images remain contained within the compact height limit.
+- [x] STEERING 33/43 (1067): source links in saved post text recognize uppercase/mixed-case HTTP schemes and preserve case-sensitive paths and query values.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: compare saved Nov 5/6 production X baselines and decide under the plan; reserved Bluesky slot now approved by owner; enable without changing the daily cap. Tech repetition correction prepared (1013): social editor v6 distinguishes launch details from independently newsworthy developments; deployed/restarted after 16:00 UTC (1018); inspect next scheduled picks. Fixed search stays off.
+- Next: review the first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition; continue the approved reader rebuild while publication is pending.
