@@ -21,6 +21,9 @@ flowchart LR
 - **Navigation is the folder structure:** `NN-section/README.md` is a section's
   overview (its `#` title names the section), and `NN-page.md` files are
   ordered by number.
+- **Search is ⌘K (Ctrl K, or `/`):** it jumps to any page or tool and finds
+  words in any section. Each `#`–`####` heading is a search result, so clear
+  headings make pages easier to find.
 - **The DB explorer is generated** from the live database. Only grouping,
   short notes and relations without a foreign key are written by hand, in
   `docs/schema-meta.json`. Tables it doesn't mention show up as "Unassigned",
