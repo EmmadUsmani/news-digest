@@ -155,3 +155,14 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - Updated capacity decision/TASKS with evidence; no source/schema/UI/handbook changes needed. pnpm check passes: 552 unit, 228 integration/four expected skips; pnpm build passes.
 - pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, production data/config changes or restarts; deliberately retained the isolated trial rather than invalidating observation with deployment.
 - Next: comparable natural compaction evidence, then queued deployment subject to edition protection; Nov 8 second scheduled acceptance.
+
+## 2026-11-07: iteration 1214 — one-hour metrics trial observation
+
+- Clean main/no leftovers; prioritized open metrics incident. Alerts clear; services, sources, jobs, app /healthz and Grafana health pass.
+- Unchanged CPU-only trial reached 65 minutes without restart. Ten-minute cgroup sample: 1.685% whole-stack CPU/756.21 MiB peak; metrics 0.547% CPU, 1,122/2,617 periods throttled, zero memory-high/OOM.
+- Shipper recorded one memory-high event; all other units zero, no OOM/OOM kills anywhere. Checks/build overlapped sample.
+- All 21 thirty-second probes pass: 23 healthy rules, both uncached selectors return one series; max latency 0.101 s. Backup rule advances successfully; admission/timeouts/slow queries zero.
+- Small merged rows 2,194,548 cumulative/indexdb 13,122/large zero. No comparable single five-million-row merge: recovery/deployment gate remains open.
+- pnpm check passes: 552 unit/228 integration tests, four expected skips; pnpm build passes. pnpm format, pnpm lint:fix and git diff --check pass.
+- Capacity record updated; condensed TASKS incident summary preserves linked history. No source/schema/handbook/UI changes; no paid calls or runtime/config/data changes.
+- Deliberately retained isolated trial rather than restart into queued main changes. Next: comparable natural compaction, then deployment; Nov 8 scheduled acceptance remains due.
