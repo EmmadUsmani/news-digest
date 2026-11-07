@@ -47,6 +47,30 @@ async function smoke() {
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
+        // Topic writes must preserve the bounded bookmark envelope for /saved.
+        await page.evaluate(() => {
+          localStorage.setItem(
+            'news-digest.reader-preferences.v1',
+            JSON.stringify({
+              version: 1,
+              hiddenTopics: {},
+              bookmarks: {
+                'story:regression': {
+                  updatedAt: 1,
+                  copy: {
+                    title: 'Storage regression fixture',
+                    url: 'https://example.org/story',
+                    attribution: 'Offline fixture',
+                    excerpt: 'Not live content',
+                    platform: 'story',
+                    editionId: 'fixture-edition',
+                  },
+                },
+              },
+            }),
+          );
+        });
+        await page.reload();
         await expect(page.locator('.digest-topic')).toHaveCount(
           edition.topics.length,
         );
@@ -57,6 +81,15 @@ async function smoke() {
           .uncheck();
         await expect(page.locator('.digest-topic')).toHaveCount(
           edition.topics.length - 1,
+        );
+        assert.equal(
+          await page.evaluate(
+            () =>
+              JSON.parse(
+                localStorage.getItem('news-digest.reader-preferences.v1')!,
+              ).bookmarks['story:regression'].copy.title,
+          ),
+          'Storage regression fixture',
         );
         await page.keyboard.press('Escape');
         await page.reload();
