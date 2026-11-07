@@ -95,3 +95,13 @@ Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-itera
 - pnpm format, pnpm lint:fix, git diff --check, full pnpm check and pnpm build pass: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. Existing bundle warnings only.
 - API/worker restarted outside protected window. Initial immediate health probe raced startup; follow-up passes, both units active, alerts clear and 13 services/36 sources healthy. Same saved edition retains four topics/20 stories/17 posts. No provider spend.
 - Next: Nov 7 15:00 keyword-X/Bluesky acceptance and NBA selection review; no paid experiment reruns or additional tuning before evidence.
+
+## 2026-11-07: iteration 1083 — expose saved production social acceptance evidence
+
+- Clean main/no leftovers. pnpm obs alerts clear; health DB/Redis OK, services/sources --check passed. Scheduled report confirms zero failed digest jobs and next run Nov 7 15:00 UTC.
+- Advanced items 39/34/40: existing scheduled report omitted saved Bluesky slot outcomes and X reported engagement/ranking, preventing direct review of the upcoming keyword/reserved-slot acceptance. Added immutable fields and external IDs; missing historical evidence stays null, unknown counts stay distinct from zero. No collection, inference or writes.
+- Read all four saved topics; Tech repetition/headline-only prose and NBA routine availability have deployed fixes awaiting publication. No additional editorial tuning. Item 46 length conflict still awaits owner decision; item 33 remains closed.
+- pnpm exec tsx --test apps/api/test/scheduled-timing-report.test.ts: 8 pass, including conflicting reported/observed counts preserved separately. Live report --scheduled-only --limit 1 reproduces Nov 6 no-slot outcomes for Tech/NBA/Gaming, World one pick/one unsupported drop and $0.286904 total cost; historical data is not post-activation acceptance.
+- Updated operations handbook command description; pnpm exec tsx scripts/check-handbook.ts 08-operations passes. No diagrams, schema or source changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. pnpm build passed with existing bundle warnings. API/worker restarted; health, all 13 services/36 sources and alerts clear. No provider spend or edition writes.
+- Next: Nov 7 15:00 scheduled keyword-X/Bluesky acceptance using the expanded report; review first three reserved-slot editions, NBA selection and Tech diversity/prose.

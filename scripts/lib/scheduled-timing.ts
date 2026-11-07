@@ -8,11 +8,16 @@ export function selectedPostEvidence(posts: SelectedSocialPost[] | undefined) {
   return {
     counts,
     selections: posts.map((post) => ({
+      externalId: post.externalId,
       platform: post.platform,
       url: post.url,
       author: post.author,
       publishedAt: post.publishedAt,
       metrics: post.metrics,
+      xTriageEvidence:
+        post.platform === 'x' ? (post.xTriageEvidence ?? null) : null,
+      xSearchRanking:
+        post.platform === 'x' ? (post.xSearchRanking ?? null) : null,
       observedAt: 'observedAt' in post ? post.observedAt : null,
     })),
   };

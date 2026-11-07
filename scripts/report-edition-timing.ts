@@ -65,6 +65,7 @@ async function main() {
               : null,
             postCount: topic.posts?.length ?? 0,
             postEvidence: selectedPostEvidence(topic.posts),
+            blueskySelection: topic.blueskySelection ?? null,
             postEditorial: topic.postEditorial
               ? {
                   mode: topic.postEditorial.mode,

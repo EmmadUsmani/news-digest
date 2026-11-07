@@ -1459,6 +1459,8 @@ check. Don't change the daily cap. Everything else in step 3 and **Don't** still
 applies, including the three-clean-editions stop. In the ack, report each
 topic's outcome and the edition's cost against the cap.
 
+ack: 2026-11-07 items 39/40 — iteration 1083: existing read-only scheduled report now exposes saved X reported likes/ranking and external IDs, plus Bluesky slot outcomes/replaced X/drop counts. Nov 6 live snapshot verified without inference; first post-activation acceptance remains due Nov 7 15:00 UTC.
+
 ## 41. NEXT, small: alert when Bluesky fails or goes quiet (2026-11-05)
 
 **Why:** item 40 saves a Bluesky result for every topic, but someone still has

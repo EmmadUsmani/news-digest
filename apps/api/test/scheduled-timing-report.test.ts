@@ -254,7 +254,13 @@ void test('post evidence preserves platform counts and saved engagement without 
   };
   const posts = [
     { ...base, platform: 'x', metrics: {} },
-    { ...base, platform: 'x', metrics: { likes: 0 } },
+    {
+      ...base,
+      platform: 'x',
+      metrics: { likes: 0 },
+      xTriageEvidence: { reportedLikes: 91, media: 'linked' },
+      xSearchRanking: { bonus: 1, reason: 'Saved keyword evidence' },
+    },
     {
       ...base,
       platform: 'bluesky',
@@ -284,6 +290,17 @@ void test('post evidence preserves platform counts and saved engagement without 
     [null, null, '2026-11-03T13:00:00Z', '2026-11-03T13:00:00Z'],
   );
   assert.equal(evidence.selections[2].url, posts[2].url);
+  assert.equal(evidence.selections[0].externalId, 'fixture');
+  assert.equal(evidence.selections[0].xTriageEvidence, null);
+  assert.deepEqual(evidence.selections[1].xTriageEvidence, {
+    reportedLikes: 91,
+    media: 'linked',
+  });
+  assert.deepEqual(evidence.selections[1].xSearchRanking, {
+    bonus: 1,
+    reason: 'Saved keyword evidence',
+  });
+  assert.equal(evidence.selections[2].xTriageEvidence, null);
   assert.equal(
     JSON.stringify(evidence).includes('Private fixture text'),
     false,

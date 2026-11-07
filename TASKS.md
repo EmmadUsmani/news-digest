@@ -35,6 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 39/40 (1083): scheduled-edition report now retains saved X reported engagement/ranking and external IDs plus Bluesky slot outcomes/replacement IDs/drop counts. Historical nulls preserved; next production acceptance due Nov 7 15:00 UTC.
+
 - [x] STEERING 42 (1082): NBA routine availability posts consumed two saved slots; social editor v7 requires a substantial supplied development for routine lists/status/minor transactions, preserving serious injury news. Offline contracts pass; scheduled selection acceptance pending.
 
 - [x] STEERING 42 (1081): Gaming multi-outlet coverage now shows article count alongside extra outlets; saved Unity ten-report story verified on desktop/mobile light/dark.
