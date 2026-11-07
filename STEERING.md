@@ -2017,6 +2017,8 @@ ack: 2026-11-07 item 47 step 2, case 2 — iteration 1091: SIGKILL during isolat
 
 ack: 2026-11-07 item 47 step 2, case 3 — iteration 1092: fake Anthropic transport outage still publishes one readable non-AI edition; duplicate delivery adds no provider calls or charges, uncertain-call holds retained unchanged. No runtime fix needed; all-X-fail case remains.
 
+ack: 2026-11-07 item 47 step 2, case 4 — iteration 1093: all four scheduled topic searches rejected by fake X provider; durable admission prevents duplicate calls, zero charges/holds, one readable source-text fallback edition with no fabricated posts. No runtime fix needed; four named cases now pass, scratch rebuild next.
+
 ## 48. NEXT: generic alert system that logs to a file (2026-11-07)
 
 **Why:** alerts reach nobody. `obs-alerts` runs vmalert with `-notifier.blackhole`,
