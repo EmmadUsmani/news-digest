@@ -101,3 +101,12 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - Clean main/no leftovers. App health, services, sources and jobs checks pass; alerts clear, all 23 rules healthy. CPU trial unchanged since 16:00:24 UTC, zero restarts; admission/timeouts/slow queries zero, small merged rows 4,184,515 cumulative, large zero. Comparable natural compaction still unobserved.
 - Updated TASKS, item 42 ack, Nov 7 evidence and affected handbook; archived iterations 1208–1214 to keep progress bounded. Verification: pnpm check passes (558 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Deployment/restart deferred to preserve metrics recovery gate. Next: comparable natural compaction, queued deployment, then Nov 8 scheduled acceptance and first-week report.
+
+## 2026-11-07: iteration 1223 — two-hour metrics recovery observation
+
+- Highest-priority breakage: verify unchanged CPU trial before queued reader/editor deployment. Clean main/no leftovers; no runtime or production-data changes.
+- Trial remains active since 16:00:24 UTC, zero restarts. Three-minute cgroup sample: 1.335% whole-stack CPU/715.40 MiB peak; metrics 0.450% CPU, 269/684 periods throttled; every sampled unit zero memory-high/OOM events.
+- Services 14/14, sources 36/36, jobs checks, app/Grafana health pass; alerts clear. All 23 rules healthy at both endpoint checks; backup staleness evaluated successfully at 18:20:48 UTC (0.099 s).
+- Uncached self-scrape/API selectors one series each (0.235/0.002 s); admission/timeouts/slow-query counters zero. Small merged rows 4,362,390 cumulative, indexdb 20,222, large zero; comparable single five-million-row compaction unobserved. Recovery stays open.
+- Updated TASKS and capacity evidence. Verification: pnpm check passes (558 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- Deployment/restart deferred to preserve the existing recovery gate. Next: comparable natural compaction, queued deployment, Nov 8 scheduled acceptance/first-week report. No paid calls.
