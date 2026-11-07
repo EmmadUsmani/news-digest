@@ -1867,3 +1867,5 @@ uploaded size against the 3 GB budget.
 B2 use. Budgets, the 13:00–16:00 UTC window and edition protection still apply.
 
 ack: 2026-11-07 item 45 step 1 — iteration 1071: documented the owner-approved approximate 800 MiB whole-stack RAM target and removed the resolved Grafana RAM request; unit limits unchanged.
+
+ack: 2026-11-07 item 45 step 2 — iteration 1072: compared the real Nov 6 saved reader with the approved spec and item 33 acceptance. TASKS.md now holds the single remaining list: loaded-embed NBA/Gaming length (3.52/3.35 desktop screens at 1440×1100), all-route screenshot refresh, and complete forbidden-label coverage. Admin-404 and reader/archive layout checks pass; item 33 remains open. No synthetic-only gap added.

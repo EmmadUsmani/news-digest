@@ -19,7 +19,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Reader contents, mobile chips/sheet and compact story cards shipped (923); source rows/favicons shipped (924); date switching shipped (928); X saved-text links and redundant footer cleanup shipped (926); delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
   - Single-image Bluesky media fills wide cards (1062); multiple images retain the responsive grid. Video previews now show a play cue and original-post action (1063).
   - Date navigation failure recovery shipped (1060): retry history reads in the header without losing the edition; keyboard focus restored after recovery.
-  - Next: finish post cards (responsive X width shipped in 930; Bluesky text/timestamp links and compact footer shipped in 1044; failed-image links shipped in 1045; X timestamp originals shipped in 1046; failed-image accessible descriptions shipped in 1047; prose-wrapped external links repaired in 1048; full-width mobile media shipped in 1049; saved X source links shipped in 1058); archive recovery scripts now use rebuilt routes (failed-page 929; cached-refresh 932; delayed archive 933; invalid-data recovery also ported). Private rollout authorized by STEERING 36; forged-header proxy check is required before any future public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
+  - Item 45 one-time real-edition review (1072), remaining list only:
+    - [ ] Reduce real loaded-embed desktop length: at 1440×1100, NBA at least 3,873 px / 3.52 screens and Gaming 3,690 px / 3.35 screens exceed about three; Tech 2.57 and World 2.03. Preserve saved stories/posts and full-width embeds.
+    - [ ] Refresh every spec route in desktop/mobile light/dark; reader/archive refreshed in 1072, admin/past-edition/not-found route coverage still needs a complete current set.
+    - [ ] Complete forbidden-label scan across reader routes (current scripts cover only subsets); admin-404 smoke passes. Story/post text is exempt from label bans. Then close item 33 with screenshot links/results; begin B2.
+  - Review used saved Nov 6 edition `1c83e78b-47f9-4a6f-bfb4-93820a691aea` (20 stories/17 posts). No other real-edition spec gap found in typography, sources, contents, date navigation, archive or cards. Private rollout remains authorized; forged-header proxy check required before public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
@@ -37,7 +41,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1071): compact post context notes expand by touch or keyboard, making the full saved note readable on mobile.
+- [x] STEERING 45 step 2 (1072): reviewed the real saved reader against the spec; remaining acceptance list recorded above, including loaded-embed page length.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
