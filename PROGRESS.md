@@ -143,3 +143,14 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - No runtime/provider/UI/schema/source changes or protected-window restart. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged: current deployed behavior unchanged; publisher merge remains gated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass (four rehearsals skipped). git diff --check passes.
 - Next: review Nov 7 edition at 15:00 UTC; after 16:00 deploy/measure the CPU-only metrics trial before closing recovery. Publisher requires committed Nov 7 review and the time gate.
+
+## 2026-11-07: iteration 1195 — establish the metrics trial resource baseline
+
+- Clean main/no leftovers. Owner value: judge the proposed monitoring repair against measured whole-stack headroom while protecting the scheduled edition.
+- Python read-only cgroup sampling via systemctl ControlGroup/ActiveState and cpu.stat/memory.current/memory.events: eight units, seven snapshots over 60.325 s; 2.194% of one core, 752.91→754.62 MiB, sampled peak 757.81 MiB. Scope excludes app/containers/transient collectors/host overhead.
+- Metrics alone consumed 0.941% CPU; throttled 553/573 active periods, memory-high +1, OOM +0. No other unit added high/OOM events. Installed CPU remains 1%; repo-only 2% trial remains undeployed.
+- curl vmalert /api/v1/rules: backup-staleness rule health=ok/empty lastError on two evaluations, 0.299/0.100 s; rule errors remain one. journalctl warning query since 13:46:44 finds no entries. Sustained recovery across compaction remains unverified.
+- pnpm obs alerts clear; pnpm obs services --check 14/14 and pnpm obs sources --check 36/36 healthy; curl /healthz database/Redis OK. Capacity decision and TASKS updated with baseline and measurement method.
+- No runtime/UI/schema/source/provider changes, paid calls or protected-window restart/deployment. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged; live runtime unchanged.
+- Next: review Nov 7 15:00 edition, then after 16:00 deploy/measure CPU-only metrics trial; publisher merge still needs the committed actual review and time gate.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes. Docs-only change; protected-window services stay on unchanged runtime.

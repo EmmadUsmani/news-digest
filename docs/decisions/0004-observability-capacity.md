@@ -198,3 +198,44 @@ through a compaction, then check whole-stack ~800 MiB/<5% CPU usage. If the
 trial fails, retain the open incident and use measured deltas to choose the
 next change; do not call a quiet short sample recovery. The additional one
 percentage point is a ceiling, not evidence of actual CPU consumption.
+
+### Pre-trial whole-stack baseline (iteration 1195)
+
+Before deployment, a 60.325-second read-only sample around 14:15 UTC measured
+all eight observability system units directly through their cgroups. Aggregate
+CPU was 2.194% of one core. Aggregate memory started at 752.91 MiB, ended at
+754.62 MiB and peaked at 757.81 MiB among seven ten-second samples. These
+figures include cgroup file cache. They exclude the app, database containers,
+short-lived collectors and host overhead, matching the eight-unit scope above.
+
+| Unit              | Mean CPU (% of one core) | Ending memory (MiB) |
+| ----------------- | ------------------------ | ------------------- |
+| alerts            | 0.090                    | 7.55                |
+| Grafana           | 0.548                    | 419.73              |
+| logs              | 0.255                    | 125.32              |
+| metrics           | 0.941                    | 83.24               |
+| node exporter     | 0.064                    | 29.60               |
+| Postgres exporter | 0.019                    | 24.76               |
+| Redis exporter    | 0.165                    | 16.24               |
+| shipper           | 0.113                    | 48.18               |
+
+The metrics unit throttled in 553/573 active CPU periods and added one
+memory-high event; no other unit added high events and none added OOM events.
+Installed metrics limits remain CPU 1%, MemoryHigh 88 MiB and MemoryMax 112 MiB.
+The observed aggregate leaves approximately 42 MiB below the 800 MiB target
+at its sampled peak; it does not establish peak or edition-time headroom.
+
+Measurement used Python with `systemctl show <unit> -p ControlGroup -p ActiveState`
+to locate each active cgroup under `/sys/fs/cgroup`, then read `cpu.stat`,
+`memory.current` and `memory.events` seven times, ten seconds apart. Compute
+aggregate CPU from summed `usage_usec` deltas divided by monotonic elapsed
+microseconds, times 100; sum memory within each snapshot before taking its
+maximum. Counters were read sequentially, not atomically. Use the same method
+after the trial rather than substituting process RSS or summed unit peaks.
+
+Read-only `GET http://127.0.0.1:8880/api/v1/rules` showed
+`OffsiteDatabaseBackupStale` healthy with empty lastError at 14:14:51.760 UTC
+(0.299 s) and 14:15:20.460 UTC (0.100 s). Its cumulative rule error counter
+remains one; vmalert's warning journal after 13:46:44 contains no entries.
+These successful evaluations establish current recovery of that rule, not
+sustained recovery across compaction. The CPU trial and incident remain open.
