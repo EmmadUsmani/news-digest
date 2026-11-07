@@ -74,7 +74,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v6/);
+  assert.match(h.calls[0].instructions, /Social editor v7/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -90,13 +90,19 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   );
   assert.deepEqual(candidates[0].text, 'A company announced a model.');
 });
-void test('firsthand selection guidance reaches Sonnet and capped Haiku without inventing provenance', async () => {
+void test('originality and substantial-development guidance reaches Sonnet and capped Haiku', async () => {
   for (const refuse of [[], ['claude-sonnet-5-5']]) {
     const h = harness([valid], refuse);
     assert.ok(await h.editor.edit(topic, candidates, 1, 'originality'));
     assert.equal(h.calls.length, 1);
     const prompt = h.calls[0].instructions;
     assert.match(prompt, /Prefer firsthand announcements/);
+    assert.match(
+      prompt,
+      /Routine availability lists, questionable\/probable status updates/,
+    );
+    assert.match(prompt, /supplied text establishes a substantial development/);
+    assert.match(prompt, /not a blanket exclusion of injury or roster news/);
     assert.match(
       prompt,
       /newsletter excerpts, generic news roundups or secondhand recaps/,

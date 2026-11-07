@@ -35,6 +35,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1082): NBA routine availability posts consumed two saved slots; social editor v7 requires a substantial supplied development for routine lists/status/minor transactions, preserving serious injury news. Offline contracts pass; scheduled selection acceptance pending.
+
 - [x] STEERING 42 (1081): Gaming multi-outlet coverage now shows article count alongside extra outlets; saved Unity ten-report story verified on desktop/mobile light/dark.
 
 - [x] STEERING 42 (1080): visually separate inline source URLs joined to saved X prose; original text/destinations preserved. Three affected saved Tech/Gaming posts; desktop/mobile light/dark browser verification.

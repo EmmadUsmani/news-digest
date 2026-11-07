@@ -1659,6 +1659,8 @@ ack: 2026-11-07 item 42 — iteration 1080: reader pass found source URLs joined
 
 ack: 2026-11-07 item 42 — iteration 1081: Gaming’s ten-report Unity story hid the article count behind “+8 outlets”. Show both counts before expansion; saved report links and responsive layout verified in desktop/mobile light/dark. Existing content fixes await publication; no spend or edition writes.
 
+ack: 2026-11-07 item 42 — iteration 1082: NBA’s saved routine OUT list and questionable-status update consume two of five posts. Social editor v7 requires a substantial supplied development for routine availability/minor transactions, retaining serious injuries; offline primary/fallback contracts pass, scheduled quality evidence pending. No spend.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

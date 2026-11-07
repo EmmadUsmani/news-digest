@@ -84,3 +84,14 @@ Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-itera
 - Archived iterations 1070–1074 to keep PROGRESS small. No source/schema/system-flow changes, provider calls or saved-edition writes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
 - pnpm format, pnpm lint:fix, git diff --check and full pnpm check pass: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. Initial check stopped on new archive formatting; corrected and full rerun passed. pnpm build passes with existing bundle warnings; API/worker restarted and health/services/alerts clear.
 - Next: Nov 7 15:00 keyword-X/Bluesky acceptance; item 46 full-embed length remains blocked on owner constraints. No new feature or paid experiment work.
+
+## 2026-11-07: iteration 1082 — require substantial news from routine social updates
+
+- Clean main/no leftovers. Alerts clear; health DB/Redis OK, 13 services/36 sources healthy. Digest queue zero failed jobs; Nov 7 keyword/Bluesky production acceptance still due at 15:00 UTC. Historical ingestion/social failures remain with healthy subsequent collection.
+- Followed item 42 while 39/34/40 await scheduled evidence; item 33 stays closed. Read all four saved topics: Tech repetition/headline prose have deployed fixes pending publication. NBA weakness: routine Jazz OUT list and Davis questionable-status update occupy two of five post slots.
+- Owner-visible goal: reserve limited NBA post slots for substantial developments. Social editor v7 requires routine availability/status/minor transactions to establish substantial news in supplied text; serious new injuries, consequential trades and exceptional performances remain eligible. No name-based significance or unseen-media inference.
+- Extended existing primary/capped-fallback prompt contracts; pnpm exec tsx --test apps/api/test/social-editor.test.ts passes 14 tests. These verify transport/instructions, not model selection quality; compare next scheduled NBA picks. No paid replay, new source fetch, score/cap change or edition write.
+- Updated saved-edition review, TASKS and item-42 ack. No UI/schema/system-flow/source changes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged. Item 46 full-embed length remains blocked on owner constraints.
+- pnpm format, pnpm lint:fix, git diff --check, full pnpm check and pnpm build pass: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. Existing bundle warnings only.
+- API/worker restarted outside protected window. Initial immediate health probe raced startup; follow-up passes, both units active, alerts clear and 13 services/36 sources healthy. Same saved edition retains four topics/20 stories/17 posts. No provider spend.
+- Next: Nov 7 15:00 keyword-X/Bluesky acceptance and NBA selection review; no paid experiment reruns or additional tuning before evidence.
