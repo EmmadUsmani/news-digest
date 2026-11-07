@@ -579,3 +579,27 @@ Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 20 30` paired with
 `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`;
 `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
 app/Grafana health and metrics unit identity checks.
+
+### Full trial history gap check (iteration 1229)
+
+Read-only uncached metrics range queries cover 16:01:00–19:05:30 UTC on
+Nov 7 at thirty-second steps (370 returned points per series). This checks
+between the earlier short observation windows. Small-storage merged rows
+rose from zero to 5,415,018 across 353 merges; the largest adjacent-point
+increase was 908,421 rows at 16:24:00, followed by 653,727 at 17:32:30.
+Big-storage merged rows stayed zero. No interval reached the five-million-row
+candidate threshold; cumulative rows across many merges do not meet the gate.
+
+The stored process-start series was constant at 1794067225, and every returned
+self-scrape up value was one. Admission-limit hits rose twice, at 18:38:30 and
+18:54:30; query timeouts and slow queries stayed zero. These are sampled stored
+values, not continuous availability evidence. Alert execution/error counters
+have no stored series under the queried names, so this history cannot establish
+absence of rule-evaluation failures. Current rules are checked separately.
+The metrics unit reports the unchanged 16:00:24 start and zero restarts.
+Recovery and queued deployment remain open; no forced compaction or runtime change.
+
+Command: Python urllib requests to local `/metrics/api/v1/query_range` with
+`start=1794067260`, `end=1794078330`, `step=30s`, `nocache=1` for
+`vm_rows_merged_total` (small/big), `vm_merges_total` (small), process start,
+self-scrape up, admission-limit, queue-timeout and slow-query counters.
