@@ -1,5 +1,32 @@
 # Content source inventory
 
+### Nov 7 pre-publication keyword production — iteration 1198
+
+Read-only snapshot at 14:38 UTC, before the 15:00 edition. This is partial
+production evidence, not the Nov 7 edition review or publisher merge approval.
+
+| Topic     | Attempts | Confirmed tool completion |      Cost | Fetched | New verified outside-list |
+| --------- | -------: | ------------------------: | --------: | ------: | ------------------------: |
+| Gaming    |        2 |                         0 | $0.017667 |       0 |                         0 |
+| World     |        2 |                         0 | $0.018293 |       0 |                         0 |
+| NBA       |        1 |                         1 | $0.064192 |      10 |                         9 |
+| Tech & AI |        1 |                         1 | $0.065975 |      10 |                        10 |
+| Total     |        6 |                         2 | $0.166127 |      20 |                        19 |
+
+All six ledger calls say `succeeded`, but Gaming/World each exhausted the
+initial attempt and retry with `execution=unconfirmed`, zero fetched posts and
+no citations. Their recorded `x_keyword_search` inputs do not establish tool
+completion or a genuinely empty search. NBA/Tech have `execution=completed`;
+all 20 cited posts are currently verified and outside the curated author lists,
+including one existing NBA candidate. Current holds and profile fetches are zero.
+Calls began 14:30:04–14:32:15 UTC. No extra searches or provider requests were made.
+
+Source: `pnpm exec tsx scripts/report-x-discovery.ts 2026-11-07`, plus a read-only
+Drizzle selection of that day's stored `execution`/`toolCalls` from
+`x_discovery_calls`. Saved selection, engagement quality, free-link overlap and
+Bluesky outcomes still require the published edition. Keep caps/query/runtime
+unchanged; the first three scheduled editions remain the acceptance window.
+
 ### Nov 6 daily production X report — iteration 1077
 
 | Topic     | Open-topic cost / fetched | Reaction cost / fetched | New verified outside-list | Cited posts selected that day |

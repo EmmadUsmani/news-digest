@@ -77,3 +77,14 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - TASKS/capacity evidence updated. Services 14/14, sources 36/36, /healthz database/Redis healthy at orientation; no app/source/provider changes, paid calls or protected-window deployment/restart. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: review actual 15:00 edition; after 16:00 deploy/measure staged CPU-only metrics trial before publisher merge (also gated on committed review).
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes. Scrape alert cleared by 14:34:50 without intervention; runtime unchanged, no protected-window restart.
+
+## 2026-11-07: iteration 1198 — record first keyword production results
+
+- Clean main/no leftovers. Read-only Nov 7 production report and Drizzle execution/tool-input inspection distinguish paid transport success from confirmed search completion before the edition.
+- Six calls at 14:30–14:32 settled $0.166127, zero holds/profile fetches. NBA/Tech completed: ten fetched each, 19 new verified outside-list candidates combined; all 20 citations currently verified.
+- Gaming/World each exhausted initial attempt plus retry, zero fetched/citations and execution=unconfirmed despite ledger status=succeeded. Recorded keyword inputs do not prove completion or an empty search. No extra provider calls or retries.
+- SOURCES and TASKS record partial production evidence. Saved picks, engagement/overlap, Bluesky slot outcomes and actual Nov 7 review remain pending 15:00; this entry does not satisfy the publisher merge gate.
+- pnpm obs alerts clear; pnpm obs services --check 14/14 and pnpm obs sources --check 36/36 healthy; curl /healthz database/Redis OK.
+- No runtime/source/query/cap/schema/UI changes, paid verification or protected-window deployment/restart; handbook/NEEDS_FROM_HUMAN unchanged. Metrics recovery trial still waits until after 16:00.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass, four rehearsals skipped. git diff --check passes.
+- Next: review actual 15:00 edition first; then after 16:00 deploy/measure CPU-only metrics trial before gated publisher merge.
