@@ -126,4 +126,5 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 578 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - Complete reader fingerprint comparison passes for all five actual Nov 3–7 editions; read-only source query confirms 36/36 enabled sources healthy/nonempty within two hours. No new editions or provider calls.
 - Four app services restarted/active; post-restart `/healthz` database/Redis OK, alerts clear and all five reader fingerprints still match. Updated TASKS; no handbook/source behavior change. No owner-controlled files edited.
+- Initial push rejected (remote owner documentation commit); fetched and merged `d94c760e` without rewriting history. No application changes in the remote commit.
 - Next: register metadata migration and wire future saves in the permitted window, then pools/test editions and new-model API/browser comparison. Nov 8 scheduled acceptance/first-week report remain due; passive metrics probe no earlier than 23:17 UTC.
