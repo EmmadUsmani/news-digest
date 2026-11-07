@@ -156,8 +156,10 @@ evidence and owner approval; do not repeat the completed availability checks.
   labels when structured evidence is available; missing metadata remains
   honest, expanded links stay intact, and historical snapshots still render.
   Do not rewrite old editions or resolve Google redirects for this proposal.
-- Status: proposal under item 38, pending owner review. World breadth and the
-  Nov 6 quality/cost gates remain ahead of this work; no runtime change.
+- Status: authorized by STEERING 47, staged on `publisher-attribution`. The
+  RSS parser exposes structured publisher names and safe optional URLs; storage,
+  immutable snapshots and reader attribution remain to implement. No deployment
+  before the committed Nov 7 review and 16:00 UTC; historical editions stay intact.
 
 ## Connect reporting to the original posts in the same edition
 
