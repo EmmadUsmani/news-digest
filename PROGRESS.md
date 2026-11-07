@@ -145,3 +145,14 @@ Earlier entries: [iterations 1200–1207](docs/progress-archive/2026-11-07-itera
 - Updated TASKS, item 42 ack, Nov 7 evidence, Nov 8 acceptance checklist and affected handbook page; handbook checker passes (18 pages, one diagram, 28 tables), no diagram change.
 - Verification: pnpm check passes (555 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, source/schema/UI or production-data changes.
 - Deployment/restart deliberately deferred to preserve the isolated metrics trial. Next: natural compaction recovery, queued deployment, Nov 8 acceptance; check importance/grouped fallback on the next natural editor failure.
+
+## 2026-11-07: iteration 1220 — identify the Tech summary evidence limit
+
+- Owner benefit: named why Tech reads like headlines, so the next review can distinguish missing reporting from editor omissions without speculative prompt tuning.
+- Clean main/no leftovers. Read all five saved Tech summaries and their complete evidence lists: four HN excerpts empty; one Google News excerpt repeats its headline/publisher; one evidence article per story.
+- HN adapter maps official item text and does not fetch linked articles; feed adapter maps supplied feed text. No evidence in this sample that supplied detail was discarded. Stopped diagnosis at that cause.
+- Recorded evidence in Nov 7 review/docs/SOURCES, added Nov 8 evidence-depth comparison and TASKS follow-up; source balance remains paused/full-article work deferred. No new sources, prompts, paid calls, article-page fetches or saved-edition writes.
+- Triage: services 14/14, sources 36/36, jobs checks and /healthz pass; alerts clear, all 23 rules healthy. Metrics trial unchanged since 16:00:24 UTC; admission/timeouts/slow queries zero, small merged rows 3,809,910 cumulative, large zero. Comparable natural compaction unobserved.
+- Verification: read-only authenticated immutable-edition GET, adapter inspection and documentation target checks pass. pnpm check passes (555 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- Deployment/restart deferred to preserve the unchanged metrics trial and existing recovery gate; this step changes documentation only.
+- Next: natural compaction evidence, queued deployment, Nov 8 second-of-three acceptance and Nov 2–8 first-week report; compare Tech evidence depth before further editor changes.

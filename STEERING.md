@@ -1672,6 +1672,8 @@ ack: 2026-11-07 item 42 — iteration 1218: Nov 7 NBA fallback spent a slot on a
 
 ack: 2026-11-07 iteration 1219: NBA editor exhaustion discarded complete triage priorities and validated groups; prepared source-excerpt fallback now retains both, avoiding low-importance recency filler. Offline priority/group/refusal/partial-coverage checks; deployment awaits metrics recovery.
 
+ack: 2026-11-07 iteration 1220: traced thin Tech summaries to saved evidence: four empty HN excerpts and one headline-only Google News excerpt across five stories. Recorded source limitation and Nov 8 comparison; stopped prompt investigation. No new sources/full-article work or runtime changes; existing deferrals stand.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

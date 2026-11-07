@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM within the owner-approved ~800 MiB target (45), 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor existing limits.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
+- [ ] Tech evidence depth (1220): Nov 7's five stories have four empty HN excerpts and one headline-only Google News excerpt; fuller summaries need more supplied reporting. Source balance remains paused/full articles deferred. Compare evidence depth on Nov 8 before further editor tuning. [Diagnosis](docs/edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220).
+
 ## Latest verified step
 
 - [x] STEERING 42 (1219), prepared: editor exhaustion now retains complete triage importance order and validated groups instead of reverting to recency. Saved NBA preview scored below the shortlist threshold; unedited excerpt fallback, incomplete-triage isolation and valid-empty behavior verified offline. Deployment remains gated by metrics recovery.

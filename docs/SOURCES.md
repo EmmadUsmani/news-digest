@@ -2262,3 +2262,15 @@ Enabled `X_FIXED_SEARCH_ENABLED=1` after the approved decision, keyword-only cle
 - Four cited picks: Tech three new IDs with reported likes 839/875/974; NBA one already-verified ID with 2,026 likes. Thus three selected novel candidates, not four incremental paid discoveries. Provider reports are unverified; remaining 11 selected X posts have unknown likes.
 - First reserved-slot edition: NBA/Gaming/World each saved one distinct Bluesky post; Tech chose none after two unsupported-claim drops. No X replacement; attributed Bluesky scoring/editing $0.061842. Two more scheduled acceptance reviews remain.
 - Edition mixed because NBA story validation exhausted all four attempts; source-text fallback readable. No source/query/model/cap changes or paid verification.
+
+## Nov 7 Tech evidence depth — iteration 1220
+
+The [saved-edition diagnosis](edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220)
+finds four selected Hacker News stories with empty excerpts and one Google News
+story whose excerpt repeats its headline. All five Tech stories have one saved
+evidence article each, with no additional reporting detail for fuller summaries.
+HN collection uses official item text; it does not fetch destination articles.
+This is a selected-edition measurement, not an inventory-wide source rating.
+Existing source status, collection and budgets are unchanged. Source balancing
+remains paused; full-article work remains deferred. Next scheduled review should
+compare evidence depth before treating brief summaries as an editor defect.

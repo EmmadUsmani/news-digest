@@ -34,6 +34,13 @@ Write actual findings in a separate `2026-11-08.md` review after publication.
 
 ## Acceptance comparisons
 
+For Tech summary depth, first classify every selected story's supplied evidence
+as empty, headline-only or substantive. Nov 7 had four empty HN excerpts and one
+headline-only Google News excerpt across all five stories. Assess whether the
+summary omits supplied facts separately from missing source detail; see the
+[diagnosis](2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220). Do not
+fetch full articles or change sources to manufacture this comparison.
+
 | Area              | What to record                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NBA stories       | Brief presence, five or fewer substantive stories, AI/fallback outcome and validation categories. Nov 7 had an empty brief, routine debut/preview slots and four failed edit attempts. If deployed, confirm the dated matchup-preview filter removes the Nov 7 Knicks–Cavaliers format and assess the feedback/schema repair changes. If editing fails after complete triage, check retained importance order and grouped source excerpts; do not infer the historical rejected text. |
