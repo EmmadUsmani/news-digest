@@ -9,6 +9,22 @@ async function smoke() {
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
   );
+  const history = await (
+    await fetch(`${origin}/api/editions?limit=20&offset=0`)
+  ).json();
+  const older = history.entries.find(
+    (entry: { id: string }) => entry.id !== edition.id,
+  );
+  assert.ok(older, 'a historical edition is required');
+  const historical = readerEditionSchema.parse(
+    await (await fetch(`${origin}/api/editions/${older.id}`)).json(),
+  );
+  const historicalStory = historical.topics.flatMap(
+    (topic) => topic.stories,
+  )[0];
+  const historicalPost = historical.topics.flatMap((topic) => topic.posts)[0];
+  assert.ok(historicalStory);
+  assert.ok(historicalPost);
   const story = edition.topics[0].stories[0];
   const browser = await chromium.launch();
   try {
@@ -139,6 +155,55 @@ async function smoke() {
           path: `docs/screenshots/ui/bookmark-${device}-${theme}.png`,
           fullPage: true,
         });
+        // Old editions use their own saved display copy and edition link.
+        await page.goto(`${origin}/editions/${historical.id}`);
+        const oldControls = [
+          {
+            name: `Save story: ${historicalStory.title}`,
+            title: historicalStory.title,
+            url: historicalStory.url,
+          },
+          {
+            name: `Save post on ${historicalPost.platform} from ${historicalPost.author}, ${historicalPost.publishedAt}`,
+            title:
+              historicalPost.platform === 'reddit'
+                ? historicalPost.title
+                : `${historicalPost.platform === 'x' ? 'X' : 'Bluesky'} post from ${historicalPost.author}`,
+            url: historicalPost.url,
+          },
+        ];
+        for (const item of oldControls) {
+          const control = page.getByRole('button', {
+            name: item.name,
+            exact: true,
+          });
+          // A stable item may already be saved from the latest edition.
+          if ((await control.getAttribute('aria-pressed')) === 'true')
+            await control.click();
+          await control.click();
+          await page.reload();
+          await expect(control).toHaveAttribute('aria-pressed', 'true');
+          await other.reload();
+          const card = other.locator('li').filter({
+            has: other.getByRole('link', { name: item.title, exact: true }),
+          });
+          await expect(
+            card.getByRole('link', { name: item.title, exact: true }),
+          ).toHaveAttribute('href', item.url);
+          await expect(
+            card.getByRole('link', { name: 'View edition', exact: true }),
+          ).toHaveAttribute('href', `/editions/${historical.id}`);
+          await card
+            .getByRole('button', {
+              name: `Remove saved item: ${item.title}`,
+              exact: true,
+            })
+            .click();
+          await expect(control).toHaveAttribute('aria-pressed', 'false');
+          await page.reload();
+          await expect(control).toHaveAttribute('aria-pressed', 'false');
+        }
+        await page.goto(`${origin}/editions/${edition.id}`);
         await page.evaluate(() => {
           Storage.prototype.setItem = () => {
             throw new Error('Storage blocked by smoke test');
@@ -151,7 +216,7 @@ async function smoke() {
         assert.deepEqual(writes, []);
         await context.close();
         console.log(
-          `${device}/${theme}: save/reload/copy/destination/remove/cross-tab/layout pass`,
+          `${device}/${theme}: save/reload/copy/destination/remove/cross-tab/layout and historical ${historical.id} story/post pass`,
         );
       }
     }
