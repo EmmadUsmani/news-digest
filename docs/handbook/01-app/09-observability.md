@@ -34,8 +34,7 @@ flowchart LR
 | [Metrics](/metrics/vmui/)  | Raw metric queries (PromQL)                                                                                         |
 | [Jobs](/queues/)           | BullMQ queues, schedules and retained runs; no retry or delete buttons                                              |
 
-Dashboards are defined in `ops/observability/grafana/` and can't be edited in
-the UI. Empty panels mean "nothing observed", not "zero".
+Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing observed".
 
 ## What is collected
 
@@ -53,8 +52,22 @@ the UI. Empty panels mean "nothing observed", not "zero".
 
 ## Alerts
 
-vmalert evaluates every 30 s. Nothing is emailed: alerts show in
-`pnpm obs alerts`, which the agent runs at the start of every iteration.
+vmalert evaluates every 30 s. A separate user timer polls it every minute,
+including when the API or worker is down. `pnpm obs alerts` includes the last
+five file events alongside current alerts. Nothing is emailed.
+
+- **File:** `~/.local/state/news-digest/alerts/alerts.jsonl`; JSON events contain
+  time, firing/resolved state, name, severity, summary and a delivery ID.
+  Rotation keeps the current file and one old copy, each at most 5 MB.
+- **Changes only:** pending alerts are ignored; disk state prevents repeats
+  after restart. Evaluator outages and recovery also produce events.
+- **Destinations:** implement `AlertDestination.send`, then import the adapter
+  and add it to the list in `scripts/dispatch-alerts.ts` (two wiring lines).
+  Failed deliveries retry on the next run without blocking other destinations.
+- **Timer:** `news-digest-alert-dispatch.timer`; install with
+  `sh ops/alerting/install.sh` outside 13:00–16:00 UTC. An independent user timer
+  feeds its active state, latest result and three-minute freshness into the
+  existing ServiceDown rule. No root-owned monitoring configuration changes.
 
 | Alert             | Fires when                                                                                                       |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -68,12 +81,9 @@ vmalert evaluates every 30 s. Nothing is emailed: alerts show in
 | Spend             | Anthropic or xAI reaches 90% of a daily or monthly cap                                                           |
 
 The existing service collector probes Grafana’s `/grafana/api/health` every
-30 seconds with a two-second timeout. Failed, timed-out or missing probes
-raise `GrafanaHealthFailed` after one minute, even when its unit is active.
+30 seconds with a two-second timeout; failures raise `GrafanaHealthFailed` after one minute.
 
 ## Command line
-
-Run these on the VM, from the repo:
 
 ```sh
 pnpm obs alerts                                  # pending and firing alerts
@@ -86,24 +96,14 @@ pnpm obs metric 'up' --since 1h --step 60s
 
 ## Resources and operations
 
-- **Units:** `obs-*` system units, each with a memory and CPU cap:
-  Grafana 512 MB, logs 160 MB, metrics 112 MB, everything else 80 MB or
-  less, and 0.5–3% of a core each.
-  - Unit files start memory reclaim at 88 MB for metrics, 128 MB for logs
-    and 64 MB for the shipper, below its 80 MB ceiling; Grafana starts
-    reclaim at 448 MB and limits its Go runtime to 96 MiB.
-  - Grafana uses one index worker, no snapshots or Kubernetes dashboard UI,
-    and hourly dashboard cleanup.
-  - Start/stop hooks allow 512/544 MB and 50% CPU temporarily; readiness
-    restores 448/512 MB and 3% CPU. Cold executable cache needs this headroom.
-  - The host exporter has a 2% CPU ceiling and a 10-second scrape deadline.
-  - The total target is about 800 MiB RAM and under 5% of one CPU. The
-    measured 754 MiB stack fits this target.
-- **Install or reconcile:** run `ops/observability/install*.sh`.
-  - Releases are pinned and SHA-256 checked.
-  - The installers never restart the app, Postgres or Redis. The one
-    exception is the first query-statistics install, which waits for a
-    safe window.
+- **Resources:** `obs-*` system units have memory and CPU caps. Grafana uses
+  512 MB, logs 160 MB, metrics 112 MB, others 80 MB or less. Total target:
+  about 800 MiB and under 5% of one CPU; measured stack: 754 MiB.
+- **Grafana startup:** start/stop hooks allow 512/544 MB and 50% CPU;
+  readiness restores 448/512 MB and 3%. Cold executable cache needs this headroom.
+- **Install or reconcile:** `ops/observability/install*.sh`; releases are pinned
+  and checksum-checked. App, Postgres and Redis are not restarted, except the
+  first query-statistics install, which waits for a safe window.
 - **Check:** `systemctl status 'obs-*'`, and
   `pnpm exec tsx scripts/check-observability.ts` for a full read-only check.
   Flags like `--verify-grafana` and `--verify-alerts` check one area.
@@ -113,5 +113,4 @@ pnpm obs metric 'up' --since 1h --step 60s
   `localhost:3001/grafana/`. The other ports are 9428 (logs) and 8428
   (metrics).
 
-Background: [observability plan](../../observability-plan.md) and
-[capacity decision](../../decisions/0004-observability-capacity.md).
+Background: [capacity decision](../../decisions/0004-observability-capacity.md).

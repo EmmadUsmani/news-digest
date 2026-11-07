@@ -1,0 +1,10 @@
+[Unit]
+Description=Monitor alert dispatch independently every thirty seconds
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=30s
+Unit=news-digest-alert-monitor.service
+
+[Install]
+WantedBy=timers.target

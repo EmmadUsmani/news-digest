@@ -425,8 +425,8 @@ void test('service health requires every scoped unit and a fresh collector snaps
   });
   const summary = serviceSummary(body([active, snapshot]), now);
   assert.equal(summary.healthy, false);
-  assert.equal(summary.total, 13);
-  assert.equal(summary.unhealthy, 12);
+  assert.equal(summary.total, 14);
+  assert.equal(summary.unhealthy, 13);
   const complete = summary.services.map((unit) =>
     row('news_digest_unit_active', '1', unit.unit, unit.scope),
   );
@@ -461,7 +461,7 @@ void test('service health requires every scoped unit and a fresh collector snaps
     [active, active, snapshot],
     [{ ...active, metric: { ...active.metric, scope: 'system' } }, snapshot],
   ]) {
-    assert.equal(serviceSummary(body(rows), now).unhealthy, 13);
+    assert.equal(serviceSummary(body(rows), now).unhealthy, 14);
   }
   const inactive = serviceSummary(
     body([{ ...active, value: [now / 1000, '0'] }, snapshot]),
@@ -480,7 +480,7 @@ void test('service health requires every scoped unit and a fresh collector snaps
   const output = JSON.parse(
     await runObs(['services'], async () => Response.json(body([]))),
   );
-  assert.equal(output.unhealthy, 13);
+  assert.equal(output.unhealthy, 14);
 });
 
 void test('CLI check preserves health JSON and fails unhealthy summaries only when opted in', async () => {
@@ -719,7 +719,17 @@ void test('alerts queries local evaluator and bounds active results with firing 
   }));
   const read = (async () =>
     Response.json({ status: 'success', data: { alerts } })) as typeof fetch;
-  const output = JSON.parse(await runObs(['alerts'], read));
+  const recent = [
+    {
+      time: '2026-11-07T01:00:00Z',
+      state: 'resolved' as const,
+      name: 'SyntheticTest',
+      severity: 'warning',
+      summary: 'Synthetic only',
+    },
+  ];
+  const output = JSON.parse(await runObs(['alerts'], read, async () => recent));
+  assert.deepEqual(output.recentEvents, recent);
   assert.equal(output.total, 55);
   assert.equal(output.firing, 1);
   assert.equal(output.pending, 54);

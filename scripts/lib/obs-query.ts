@@ -3,6 +3,9 @@ import {
   operationsStatusSchema,
 } from '@digest/contracts';
 
+import type { AlertEvent } from './alerting/dispatcher';
+import { recentAlertEvents } from './alerting/file-destination';
+
 const queueNames = [
   'operations',
   'ingestion',
@@ -179,6 +182,7 @@ export async function runObsCli(
 export async function runObs(
   args: string[],
   read: typeof fetch = fetch,
+  events: () => Promise<AlertEvent[]> = recentAlertEvents,
 ): Promise<string> {
   const request = obsRequest(args);
   const response = await read(request.url, {
@@ -208,7 +212,10 @@ export async function runObs(
   if (!response.ok)
     throw new Error(`Local query failed: HTTP ${response.status}`);
   if (args[0] === 'alerts') {
-    return JSON.stringify(alertSummary(await response.json()));
+    return JSON.stringify({
+      ...alertSummary(await response.json()),
+      recentEvents: await events(),
+    });
   }
   if (args[0] === 'services') {
     return JSON.stringify(serviceSummary(await response.json(), Date.now()));
@@ -469,6 +476,7 @@ export function serviceSummary(body: unknown, now: number) {
       ? now / 1000 - timestamp
       : null;
   const expected = [
+    { unit: 'news-digest-alert-dispatch.timer', scope: 'user' },
     ...['api', 'worker', 'docs', 'schema', 'agent'].map((role) => ({
       unit: `news-digest-${role}.service`,
       scope: 'user',

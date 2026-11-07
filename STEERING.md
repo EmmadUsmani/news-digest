@@ -2074,3 +2074,5 @@ Ack what the file shows and how many lines of code adding a destination takes.
 small: no new long-running service, and no memory added to the `obs-*` budget.
 
 ack: 2026-11-07 item 47 step 4 — iteration 1095 compares original M6/M7 scope with shipped UI, scheduler/status/publication adapter and existing test/browser/rehearsal evidence; both closed in TASKS.md. No missing original-scope feature or reader change; no new checks added. Alert dispatcher next, production quality reviews remain open.
+
+ack: 2026-11-07 item 48 — iteration 1096 installs the standalone minute dispatcher and independent thirty-second user monitor; both ran successfully outside the protected window. The rotating JSONL file currently has zero lines (no firing alerts); pnpm obs alerts shows recentEvents: [], and services includes the healthy dispatcher timer. Fake-response tests cover changes, restart, evaluator outage/recovery, isolated destination failure/retry and rotation; no production fake alerts or external notifications. Adding a destination requires its adapter implementation plus two wiring lines (import and list entry). No root-owned files or alert rules changed.

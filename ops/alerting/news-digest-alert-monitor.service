@@ -1,0 +1,8 @@
+[Unit]
+Description=Check alert dispatch timer and last run
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/news-digest/ops/alerting/monitor.py
+TimeoutStartSec=15
+NoNewPrivileges=true

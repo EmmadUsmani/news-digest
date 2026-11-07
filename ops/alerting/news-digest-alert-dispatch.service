@@ -1,0 +1,10 @@
+[Unit]
+Description=Dispatch local alert changes to configured destinations
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/news-digest
+ExecStart=/usr/bin/env pnpm exec tsx scripts/dispatch-alerts.ts
+TimeoutStartSec=45
+UMask=0077
+NoNewPrivileges=true
