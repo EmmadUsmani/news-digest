@@ -123,3 +123,34 @@ still saturates), and verify query latency, self-scrape/alert recovery and
 whole-stack usage against the existing ~800 MiB/<5% CPU budget. Do not
 restart the app or generation worker to repair the metrics store. The Nov 7
 production edition review remains required before the publisher merge.
+
+### Protected-window follow-up (iteration 1192)
+
+The dispatcher recorded resolution at 13:47:01 UTC, without a restart or
+configuration change (`NRestarts=0`, process start Nov 5). At 13:53,
+`pnpm obs services --check` passed all 14 units and `pnpm obs alerts` had
+zero pending/firing alerts. Resolution does not close the latency incident:
+serial direct PromQL probes took 0.635 s for self-scrape (`up=1`), 4.803 s
+for the service-status query, 11.597 s for aggregate process RSS and 3.403 s
+for aggregate process CPU. The last two queries cover instrumented processes,
+not the complete observability stack, so they are not budget measurements.
+
+Across those probes plus a 15-second wait, all 355 additional CPU periods
+were throttled. Memory high events rose 7,144→7,157, with no OOM; current
+memory fell 85,610,496→84,336,640 bytes and full pressure avg60 fell
+0.27→0.15%. CPU contention remains present even below the reclaim ceiling.
+These samples cannot establish how much extra CPU or memory is sufficient.
+
+The journal records a 5,043,833-row merge lasting 481.399 seconds and ending
+at 13:46:41 UTC, then another merge ending at 13:46:56. Both precede alert
+resolution. Compaction competing with queries under the 1% CPU quota is a
+plausible contributor, not an isolated causal result. After 16:00, measure
+query latency and cgroup deltas under modest CPU headroom before deciding
+whether memory also needs changing; verify the whole-stack budget separately.
+Do not weaken scrape/alert deadlines or disable compaction to hide this outage.
+
+App health still reports DB/Redis OK, 36/36 sources are healthy, the saved
+Nov 6 reader has four topics and digest-generation has zero failed jobs with
+the next scheduled run at Nov 7 15:00 UTC. Two retained ingestion failures
+remain historical while all current source checks pass. No runtime change,
+provider request, restart or deployment was made during this investigation.

@@ -112,3 +112,15 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - No runtime changes, restart or deployment during protected 13:00–16:00 UTC. Publisher branch remains gated on actual Nov 7 review plus 16:00 UTC. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged; no system behavior/source changes or owner action needed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit tests and 226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. No UI changes/screenshots; docs-only commit keeps live runtime on main.
 - Next: prioritize Nov 7 publication review when saved; after 16:00 diagnose current metrics CPU/reclaim deltas, tune modestly and verify self-scrape/query latency/alert recovery plus ~800 MiB/<5% whole-stack budget before publisher deployment.
+
+## 2026-11-07: iteration 1192 — distinguish scrape recovery from metrics latency
+
+- Clean main/no leftovers. Owner value: preserve trustworthy monitoring and a concrete post-window repair instead of treating a cleared alert as recovery.
+- Initial pnpm obs alerts: zero pending/firing; dispatcher records automatic resolution at 13:47:01. No restart (NRestarts=0, process start Nov 5); all 14 service checks now pass.
+- Direct serial PromQL probes: self-scrape up=1 in 0.635 s, service status 4.803 s, aggregate process RSS 11.597 s, aggregate process CPU 3.403 s. Aggregate process metrics are not whole-stack budget evidence.
+- Across probes plus 15 s: 355/355 periods throttled, high events +13, zero OOM; current memory 85,610,496→84,336,640 bytes. CPU contention persists below memory ceiling; repair remains open.
+- Journal: 5,043,833-row merge ran 481.399 s, ended 13:46:41; another ended 13:46:56 before alert resolution. Compaction is a plausible contributor, not proven cause. Updated capacity decision and top TASKS handoff.
+- curl /healthz DB/Redis OK; pnpm obs sources --check 36/36 healthy; authenticated localAdminJson status digest-generation failed=0, next Nov 7 15:00 UTC. Reader HTTP 200/four saved Nov 6 topics; two historical ingestion failures retained.
+- No runtime/UI/schema/source changes, paid requests or protected-window restarts/deploys. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged; publisher remains gated.
+- Next: Nov 7 production review on publication; after 16:00 measure modest CPU headroom first, then decide memory changes and verify ~800 MiB/<5% whole-stack usage before publisher deployment.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 543 unit/226 integration tests pass (four previously passed rehearsals skipped). git diff --check passes. Docs-only step; protected-window services remain on unchanged main runtime.

@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Breakage (1191, Nov 7 13:45 UTC): VictoriaMetrics `ScrapeTargetDown` firing; `pnpm obs services --check` times out and direct status query takes 12.96 s. CPU quota 1% fully throttled in sampled interval; memory at 88 MiB reclaim ceiling, no OOM. App health/reader OK. Diagnose/tune metrics limits first after 16:00 UTC; no protected-window restart/deploy. [Incident evidence](docs/decisions/0004-observability-capacity.md#nov-7-metrics-store-scrape-outage-iteration-1191).
+- [ ] Breakage (1191–1192, Nov 7): metrics-store scrape alert fired 13:45 and resolved 13:47 without intervention, but direct queries still take 0.635–11.597 s and all 355 sampled CPU periods throttle. A 5-million-row compaction finished just before resolution; causal contribution unproven. Services/source checks currently pass; app/reader and digest queue healthy. Keep recovery open: diagnose/tune metrics headroom after 16:00 UTC; no protected-window restart/deploy. [Incident evidence](docs/decisions/0004-observability-capacity.md#nov-7-metrics-store-scrape-outage-iteration-1191).
 
 - [x] STEERING 46 / 47 step 1 (1089): owner-approved 5.2-screen trial; all 17 posts/16 X embeds retained, Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens in both themes, no inner scrolling. Length blocker removed; item 33 stays closed.
 - [x] STEERING 48 (1096): minute dispatcher and independent timer monitor installed/running; durable per-destination retries, 5 MB JSONL rotation and recentEvents CLI shipped. Offline lifecycle/restart/outage/failure/rotation tests pass; live file empty with clear alerts.
