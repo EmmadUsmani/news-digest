@@ -120,3 +120,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - Updated TASKS, ideas and data-model handbook; reader labels/browser acceptance remain next. No new table/relation, diagram or source behavior changes; schema metadata/SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm check pass (547 unit/227 integration tests, four previously passed rehearsals skipped). pnpm build and handbook 07-data-model check pass (18 pages/3 unchanged diagrams/28 tables); git diff --check passes.
 - Branch remains unmerged: no production migration or branch service restart. Merge/deploy requires committed Nov 7 review and 16:00 UTC; restore main checkout/build after push.
+
+## 2026-11-07: iteration 1100 — publisher labels and historical reader replay
+
+- Clean main/no leftovers; continued authorized publisher-attribution branch. Initial alerts clear; /healthz DB/Redis OK, monitored services and sources healthy. Production remains on main.
+- Reader source rows deduplicate structured publisher names separately from shared redirect hosts; CNBC and Reuters retain their individual saved report destinations with Google News provenance. Expanded coverage preserves all report links and unknown metadata keeps its discovery label.
+- Browser acceptance: pnpm exec tsx scripts/smoke-reader-publisher.ts passes desktop/mobile light/dark with synthetic CNBC/Reuters/unknown coverage, followed by historical replay without publisher fields. Four screenshots in docs/screenshots/ui/reader-publisher-evidence-*.png; visually inspected desktop dark/mobile light. No live-content or historical-rewrite claim.
+- Initial browser run used stale compiled contracts and stripped the new fields; rebuilt contracts. Corrected unknown-label assertion to count its single expanded row. Discovery text size corrected after screenshot inspection; browser replay passes again.
+- Updated TASKS, ideas and data-model handbook. No source/schema/editor/provider change, live migration or branch service restart; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Merge/deploy remains gated on committed Nov 7 edition review and 16:00 UTC. Next: scheduled keyword/Bluesky acceptance at 15:00 UTC, then branch merge/deployment when authorized gates pass.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass (547 unit/227 integration tests; four already-passed failure rehearsals skipped). Browser replay passes four layouts; git diff --check passes. Branch build/handbook validation completed before commit; main build restored after push.

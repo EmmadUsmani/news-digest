@@ -159,8 +159,8 @@ evidence and owner approval; do not repeat the completed availability checks.
 - Status: authorized by STEERING 47, staged on `publisher-attribution`. The
   RSS parser exposes structured publisher names and safe optional URLs; article
   storage retains that evidence across repeat observations. Future immutable
-  snapshots and reader contracts preserve per-report evidence; reader labels
-  remain to implement. No deployment
+  snapshots and reader contracts preserve per-report evidence; reader rows show structured publisher labels with discovery provenance, retaining
+  unknown labels and report destinations. Historical rendering remains compatible. No deployment
   before the committed Nov 7 review and 16:00 UTC; historical editions stay intact.
 
 ## Connect reporting to the original posts in the same edition
