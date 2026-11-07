@@ -4,6 +4,10 @@ Postgres holds about 24 tables in five areas. Most of the app's state is
 simple: settings, collected content, ledgers, and editions as immutable
 snapshots.
 
+Articles can retain a publisher name and URL supplied by structured RSS metadata,
+separately from the feed that discovered them. Missing metadata stays unknown;
+a later observation without metadata preserves previously collected evidence.
+
 > [!TIP]
 > For every table, column, key and index, open the live
 > **[DB schema explorer](https://news-digest.exe.xyz/db/)**. It reads the

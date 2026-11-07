@@ -100,3 +100,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - Storage, migrations, immutable snapshots and CNBC/Reuters reader acceptance remain unfinished; existing editions untouched. No UI/schema/runtime/source deployment, so handbook/schema metadata/SOURCES/NEEDS_FROM_HUMAN unchanged. docs/ideas.md and TASKS.md reflect authorized staged work.
 - Verification: pnpm format, pnpm lint:fix, pnpm check pass (546 unit tests, 226 integration tests; four previously passed rehearsals skipped); pnpm build passes with existing bundle warnings. git diff --check passes. One initial obs jobs command combined unsupported --check/filter options; corrected unfiltered status query confirms healthy scheduled queue.
 - Branch remains unmerged; no branch migration or service restart. Merge/deploy only after committed Nov 7 review and 16:00 UTC. Next: persist structured evidence through repository and future snapshots, then reader outlet labels and historical rendering acceptance.
+
+## 2026-11-07: iteration 1098 — publisher evidence persistence on branch
+
+- Clean main/no leftovers; continued authorized publisher-attribution branch. Initial alerts clear, 14 services/36 sources healthy; /healthz DB/Redis OK and latest reader has four topics.
+- Added nullable structured publisher JSON to articles with generated Drizzle migration/snapshot. Inserts retain RSS evidence; repeated observations without metadata preserve it, while supplied evidence replaces it. Existing rows remain unknown; no title/host inference or historical edition rewrite.
+- Extended isolated repository integration coverage for unknown, collected, preserved and replaced publisher evidence. No external/provider calls or live migration. Snapshot propagation and reader CNBC/Reuters acceptance remain next.
+- Updated data-model handbook, ideas and TASKS. No tables/relations added, so schema-meta unchanged; no source behavior or owner blockers changed. No diagrams changed.
+- First full check found new schema field ordered before engagement while PostgreSQL appends it; corrected schema order to preserve strict column-position parity.
+- Verification: pnpm format, pnpm lint:fix, pnpm check pass: static checks, 546 unit and 226 integration tests; four previously passed rehearsals skipped. pnpm build and pnpm exec tsx scripts/check-handbook.ts 07-data-model pass (18 pages/3 unchanged diagrams/28 tables). git diff --check passes.
+- Branch migration remains unapplied to production; no branch service restart. Restore clean main checkout/build after push. Merge/deploy remains gated on committed Nov 7 edition review and 16:00 UTC; snapshots and reader labels next.

@@ -366,6 +366,23 @@ void test('Postgres ingestion is idempotent and records failure without losing l
       'https://x.com/i/web/status/123456789',
     );
     assert.deepEqual(citations.rows[0].citing_engagement, { points: 42 });
+    const readPublisher = async () =>
+      (
+        await repository.db.query(
+          'SELECT publisher FROM content_items WHERE canonical_url=$1',
+          [item.url],
+        )
+      ).rows[0].publisher;
+    assert.equal(await readPublisher(), null);
+    const publisher = { name: 'Reuters', url: 'https://www.reuters.com/' };
+    await repository.store(source, [{ ...item, publisher }]);
+    assert.deepEqual(await readPublisher(), publisher);
+    // A title-only or direct feed observing the same URL must not erase evidence.
+    await repository.store(source, [item]);
+    assert.deepEqual(await readPublisher(), publisher);
+    const updatedPublisher = { name: 'Reuters', url: null };
+    await repository.store(source, [{ ...item, publisher: updatedPublisher }]);
+    assert.deepEqual(await readPublisher(), updatedPublisher);
     const empty = { collect: async () => [] };
     await assert.rejects(
       ingest(repository, { feed: empty, hn: empty }, id),
