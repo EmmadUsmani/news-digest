@@ -120,3 +120,12 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - Clean main/no leftovers initially; services 14/14, sources 36/36, jobs and /healthz pass, alerts clear. Updated TASKS and capacity evidence; item 33 closed and items 39/34 await Nov 8 production evidence.
 - Verification: pnpm check passes (560 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Grafana health HTTP 200/database OK.
 - Deployment/restart remains deferred to preserve the recovery gate. Next: use correlated probe alongside cgroup sampling through natural comparable compaction, then queued deployment and Nov 8 acceptance/first-week report.
+
+## 2026-11-07: iteration 1225 — paired recovery observation
+
+- Clean main/no leftovers. Highest-priority metrics recovery gate remains open; no runtime changes, forced compaction, production writes or paid calls.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` at 18:31:04–18:34:06 UTC: seven small merges/46,332 rows, no big merges; all 23 rules healthy/fresh, fourteen uncached queries passed/max 0.581 s; admission/timeouts/slow queries zero.
+- Paired `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`: 180.177 s, 1.297% whole-stack CPU/723.57 MiB sampled peak; metrics 0.421% CPU, 232/653 periods throttled; every unit zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts.
+- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: 14/14 services, 36/36 sources, jobs healthy, no active alerts. App health/database/Redis and Grafana HTTP/database OK; initial Grafana probe used wrong port, corrected to configured 3001.
+- Updated TASKS and capacity evidence. Verification: pnpm check (560 unit/229 integration, four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
+- Deployment/restarts remain deferred: comparable natural five-million-row compaction unobserved. Next: capture recovery evidence, deploy queued changes, then Nov 8 scheduled acceptance/first-week report.

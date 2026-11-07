@@ -523,3 +523,21 @@ zero. A separate 60.038-second cgroup sample starting 18:24:32 measured
 periods throttled; every unit had zero memory-high/OOM events. CPU trial
 still starts at 16:00:24 with no restarts. No comparable merge observed;
 recovery and queued deployment remain open.
+
+### Paired three-minute observation (iteration 1225)
+
+At 18:31:04–18:34:06 UTC, six thirty-second recovery intervals captured
+seven small merges totaling 46,332 rows and no big merges. All 23 rules
+remained healthy/fresh; fourteen uncached queries passed, maximum 0.581 s.
+Admission-limit, queue-timeout and slow-query counters stayed zero.
+The paired 180.177-second cgroup sample measured 1.297% whole-stack CPU
+and 723.57 MiB sampled peak memory; metrics averaged 0.421% CPU with
+232/653 active periods throttled. Every unit had zero memory-high/OOM events.
+The trial still starts at 16:00:24 UTC with zero restarts. Services 14/14,
+sources 36/36, jobs and app/Grafana health passed. No comparable natural
+five-million-row compaction occurred; recovery and queued deployment stay open.
+
+Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` and
+`pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
+`pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
+app/Grafana health and metrics unit/journal checks. No runtime changes or paid calls.
