@@ -69,3 +69,13 @@ Earlier entries: [iterations 1075–1084](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm format, pnpm lint:fix and pnpm exec tsx scripts/check-handbook.ts 10-backups pass (18 pages/28 tables, no diagrams changed). pnpm check passes static checks, 538 unit tests and 226 integration tests (four already-passed failure rehearsals skipped). Clean-clone build passes.
 - Final pnpm format/pnpm lint:fix pass; API/worker restarted outside protected window, /healthz DB/Redis OK after startup retry and pnpm obs alerts clear. git diff --check passes.
 - Next: item 47 step 4 settle M6/M7, then item 48 alert dispatcher before publisher branch; Nov 7 15:00 production acceptance remains due.
+
+## 2026-11-07: iteration 1095 — settle original M6/M7 scope
+
+- Clean main/no leftovers. Initial pnpm obs alerts clear; /healthz DB/Redis OK, 36 sources fresh, saved reader HTTP 200/four topics, digest queue zero failures. Retained ingestion/social failed counts are two each; all sources currently fresh.
+- STEERING 47 step 4: compared original archived scope with shipped topic/source settings, schedule/budgets, custom-window generation/history, daily scheduler, status pages and DigestPublished log adapter. M6 and M7 closed in TASKS.md; docs/milestone-acceptance.md maps each requirement to existing implementation/test/browser evidence. No new checks or runtime changes.
+- Existing reader/admin separation removes the stale M6 admin gap; durable recovery 851–864 and named rehearsals 1090–1093 settle M7 reliability scope. Editorial quality/X/Bluesky/latency reviews and item 48 remain separate open work. No external notification delivery claimed.
+- pnpm format, pnpm lint:fix, pnpm check pass: static checks, 538 unit tests and 226 integration tests; four already-passed rehearsals skipped. pnpm build passes (existing bundle warnings). pnpm exec tsx scripts/check-handbook.ts passes: 18 pages/22 diagrams/28 tables, no diagram changes.
+- Initial direct admin fetch was denied without credentials; authenticated existing localAdminJson helper succeeds. No secrets printed or provider calls. Handbook/SOURCES/NEEDS_FROM_HUMAN unchanged because runtime/source behavior unchanged.
+- Next: item 48 standalone file alert dispatcher before publisher branch. Nov 7 15:00 UTC production acceptance takes priority once published; publisher merge only after committed review and 16:00 UTC.
+- Final API/worker restart outside protected window: /healthz DB/Redis OK and pnpm obs alerts clear; git diff --check passes.

@@ -2072,3 +2072,5 @@ Ack what the file shows and how many lines of code adding a destination takes.
 
 **Limits:** no new spend or vendors. Install only outside 13:00–16:00 UTC. Keep it
 small: no new long-running service, and no memory added to the `obs-*` budget.
+
+ack: 2026-11-07 item 47 step 4 — iteration 1095 compares original M6/M7 scope with shipped UI, scheduler/status/publication adapter and existing test/browser/rehearsal evidence; both closed in TASKS.md. No missing original-scope feature or reader change; no new checks added. Alert dispatcher next, production quality reviews remain open.
