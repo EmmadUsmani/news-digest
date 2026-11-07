@@ -173,3 +173,14 @@
 - Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
 - Sources 36/36 healthy; digest queue available/zero failed. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1069 — keep Japanese punctuation out of post links
+
+- Advanced STEERING 33/43 while scheduled Nov 7 X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
+- Reader weakness reproduced: Japanese closing quotes/full stops became part of saved-post source URLs. Shared X/Bluesky rendering now excludes sentence punctuation and unmatched full-width closers, retaining original text, Japanese paths and balanced URL brackets.
+- pnpm exec tsx scripts/smoke-bluesky-cards.ts reproduced the missing clean Japanese link before the fix; final desktop/mobile light/dark replay passed six new Unicode cases plus existing links/media. Eight screenshots updated; mobile light inspected.
+- Initial post-fix browser run overlapped the asset rebuild and could not load a card; rerun after build passed. pnpm exec tsx scripts/smoke-reader-x-media.ts passed loading/failure/retry/theme/resize checks; unrelated X screenshot churn discarded.
+- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; digest-generation queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
+- Synthetic browser data only; no paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.

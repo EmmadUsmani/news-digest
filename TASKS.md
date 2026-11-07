@@ -37,7 +37,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1068): Bluesky image cards recover failed thumbnails using the saved full-size image before showing the unavailable-image link.
+- [x] STEERING 33/43 (1069): saved X/Bluesky source links exclude Japanese sentence punctuation and unmatched full-width closing brackets, preserving original text and balanced URL paths.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -36,7 +36,7 @@ async function main() {
         author: 'Synthetic author (example.test)',
         publishedAt: '2026-11-03T02:00:00Z',
         observedAt: '2026-11-03T03:00:00Z',
-        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text. Uppercase HTTPS://example.org/UpperCase?ID=AbC and mixed HttpS://example.org/MixedCase. Also (https://example.org/story), [https://example.net/read]. Balanced https://en.wikipedia.org/wiki/News_(disambiguation). Quoted “https://example.org/quoted”. ASCII "https://example.org/ascii". Apostrophe https://example.org/it’s-news and https://example.org/it\'s-news.',
+        text: 'Synthetic Bluesky card — browser verification\nFull original text, including <script>literal markup</script>. Read https://example.com/story?item=1&source=post. Unsafe javascript:alert(1) stays text. Uppercase HTTPS://example.org/UpperCase?ID=AbC and mixed HttpS://example.org/MixedCase. Also (https://example.org/story), [https://example.net/read]. Balanced https://en.wikipedia.org/wiki/News_(disambiguation). Quoted “https://example.org/quoted”. ASCII "https://example.org/ascii". 日本語「https://example.org/japanese」。 全角（https://example.org/fullwidth）。 日本語パス https://example.org/日本語。 括弧付き https://example.org/作品（新作）。 角括弧【https://example.org/bracket】。 入れ子『https://example.org/nested（）。』 Apostrophe https://example.org/it’s-news and https://example.org/it\'s-news.',
         metrics: { likes: 1200, reposts: 84, replies: 12 },
         media: [
           {
@@ -202,6 +202,12 @@ async function main() {
         'https://en.wikipedia.org/wiki/News_(disambiguation)',
         'https://example.org/quoted',
         'https://example.org/ascii',
+        'https://example.org/japanese',
+        'https://example.org/fullwidth',
+        'https://example.org/日本語',
+        'https://example.org/作品（新作）',
+        'https://example.org/bracket',
+        'https://example.org/nested（）',
         'https://example.org/it’s-news',
         "https://example.org/it's-news",
       ]) {

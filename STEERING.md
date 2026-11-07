@@ -1724,6 +1724,8 @@ ack: 2026-11-06 item 33/43 — iteration 1044: readers can open saved Bluesky po
 
 ack: 2026-11-06 item 33/43 — iteration 1060: readers can retry unavailable edition dates directly in the header while continuing to read; restored arrows regain keyboard focus. Desktop/mobile light/dark [screenshots](docs/screenshots/ui/reader-date-recovery-mobile-light.png) verified; no paid calls.
 
+ack: 2026-11-07 item 33/43 — iteration 1069: readers can open source links surrounded by Japanese punctuation in saved X/Bluesky posts; original text and balanced Unicode URL paths remain intact. Browser replay includes desktop/mobile light/dark [screenshots](docs/screenshots/bluesky-card-mobile.png); no paid calls.
+
 ## 44. NOW: Grafana is hung, fix it and make alerts catch it (2026-11-06)
 
 **Why.** On Nov 6 around 19:20 UTC the owner saw Grafana down. `obs-grafana`
