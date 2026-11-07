@@ -34,7 +34,7 @@ journalctl --user -u news-digest-worker -n 100     # recent worker logs
 docker compose ps                                  # Postgres + Redis
 ```
 
-Backups: `~/backups/news-digest/`; [nightly timers and restore](10-backups.md).
+Backups: `~/backups/news-digest/` plus encrypted B2 copies; [timers and recovery](10-backups.md). B2 snapshot Nov 7: **8,366,001 / 3,000,000,000 bytes (0.279%)**. Storage estimate: $0.000058/month before the shared free tier; expected $0 within the account’s 10 GB free allowance. B2 alert activation awaits the owner’s root-file deployment.
 
 ## How to tell if things are healthy
 

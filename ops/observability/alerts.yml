@@ -37,6 +37,34 @@ groups:
           severity: warning
         annotations:
           summary: No successful database backup in the last 26 hours
+      - alert: OffsiteDatabaseBackupStale
+        expr: (time() - news_digest_offsite_database_success_timestamp_seconds > 93600) or absent(news_digest_offsite_database_success_timestamp_seconds)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: No successful B2 database upload in 26 hours
+      - alert: OffsiteVmBackupStale
+        expr: (time() - news_digest_offsite_vm_success_timestamp_seconds > 691200) or absent(news_digest_offsite_vm_success_timestamp_seconds)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: No successful B2 VM bundle upload in 8 days
+      - alert: OffsiteBackupFailed
+        expr: news_digest_offsite_last_attempt_success == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: B2 backup attempt failed or storage admission refused
+      - alert: OffsiteBackupStorageWarning
+        expr: (news_digest_offsite_bucket_bytes > 2000000000) or (news_digest_offsite_projected_60d_bytes > 3000000000)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: B2 bucket exceeds 2 GB or projects exceeding 3 GB within 60 days
       - alert: UnitSnapshotStale
         expr: (time() - news_digest_unit_snapshot_timestamp_seconds > 120) or absent(news_digest_unit_snapshot_timestamp_seconds)
         for: 1m

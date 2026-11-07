@@ -1,91 +1,6 @@
 # Progress
 
-## 2026-11-06: iteration 1062 — fill single-image Bluesky cards
-
-- Advanced item 33/43 while Nov 7 X/Bluesky acceptance waits. Clean main; no leftovers; initial health/alerts clear and 36/36 sources healthy.
-- Reader weakness: one Bluesky image occupied half a wide card because its grid always had two columns. Single-image posts now use the full row; multiple images retain two wide-screen columns and one mobile column.
-- Saved World post currently has no media. Explicit synthetic one/two-image variants over saved data passed eight desktop/mobile light/dark cases; external requests blocked, GET-only, no paid calls or edition writes.
-- Passed pnpm exec tsx scripts/smoke-reader-bluesky-grid.ts; four screenshots saved, desktop light inspected. Browser fixture initially used HTTP media rejected by contracts; corrected to intercepted HTTPS URLs and validated fixtures before navigation.
-- First pnpm check stopped on formatting of the newly moved progress archive; formatted it and reran. Archived iterations 1044–1052 to keep this log small.
-- No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Passed pnpm format, pnpm lint:fix, pnpm build, final pnpm check (536 unit/226 isolated integration, zero failures), scripts/smoke-bluesky-cards.ts and git diff --check; desktop light/mobile dark screenshots inspected.
-- API/worker restarted; health DB/Redis OK, alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
-- Next: continue final reader work; Nov 7 fixed-keyword X and reserved-slot Bluesky acceptance await the scheduled edition. Observability RAM target remains unmet.
-
-## 2026-11-06: iteration 1063 — identify Bluesky videos in the reader
-
-- Advanced STEERING 33/43 while X/Bluesky scheduled acceptance waits for Nov 7. Clean main; no leftovers; initial health and alerts clear.
-- Reader benefit: video thumbnails looked like still images. Added a contrasting play cue over previews and a compact underlined original-post action; videos without thumbnails retain their text action.
-- Passed pnpm exec tsx scripts/smoke-reader-bluesky-video.ts: synthetic video over saved edition, desktop/mobile light/dark, original URL/target, play cue and no overflow; four screenshots saved, mobile light/desktop dark inspected.
-- Synthetic media was intercepted locally, external requests blocked and GET-only; no paid calls or edition writes. No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear; saved edition remains four topics/20 stories/17 posts.
-- Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.
-
-## 2026-11-06: iteration 1064 — keep failed video previews readable
-
-- Advanced STEERING 33/43 while Nov 7 X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
-- Reader weakness reproduced against the previous build: failed Bluesky video thumbnails left an absolute play badge over the short fallback. The badge now belongs to the preview; unavailable previews keep a clear original-post action on its own line.
-- Expanded scripts/smoke-reader-bluesky-video.ts to 12 loaded/failed/missing-preview cases, desktop/mobile light/dark; checks link targets, badge state, fallback spacing and overflow. Synthetic fixtures only; no paid calls or edition writes.
-- Browser fixture initially used undefined for a nullable thumbnail; corrected to null. Screenshot inspection caught touching fallback/action text; made fallback block-level and added a spacing assertion. Final browser replay and existing image-grid replay passed; four failure screenshots saved, mobile light/desktop dark inspected.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, 36/36 sources healthy, digest queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
-- No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: continue final reader work; Nov 7 keyword X and reserved-slot Bluesky acceptance await publication. Observability RAM target remains unmet.
-
-## 2026-11-06: iteration 1065 — repair quoted source URLs in post text
-
-- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
-- Reader weakness: closing straight/curly quotation marks became part of cited URLs, sending readers to a different destination. Link parsing now leaves closing quotes in prose while preserving internal apostrophes, balanced parentheses and saved text.
-- Expanded scripts/smoke-bluesky-cards.ts with quoted URL and internal-apostrophe cases; desktop/mobile light/dark passed, screenshots refreshed and mobile light inspected. Synthetic fixtures only; no paid calls or edition writes.
-- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- API/worker restarted after verification; /healthz DB/Redis OK and alerts clear. Sources 36/36 healthy; saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.
-
-## 2026-11-07: iteration 1066 — fill small Bluesky image previews
-
-- Advanced STEERING 33/43 while scheduled X/Bluesky acceptance awaits Nov 7 publication. Clean main, no leftovers; initial health and alerts clear.
-- Reader weakness reproduced: media links filled the card but small thumbnails stayed at their intrinsic width. Images now fill the media column, retaining contain sizing and the 320 px height cap so portrait images stay fully visible.
-- Expanded pnpm exec tsx scripts/smoke-reader-bluesky-grid.ts to 24 wide/small/portrait, single/multiple, desktop/mobile light/dark cases; all passed. Eight screenshots saved; small mobile light and portrait desktop dark inspected.
-- pnpm exec tsx scripts/smoke-reader-bluesky-video.ts passed all 12 loaded/failed/missing-preview cases. Synthetic media over saved data, external requests blocked, GET-only; no paid calls or edition writes.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial pnpm check stopped on script formatting after lint:fix; corrected with Prettier. Final pnpm check: 536 unit/226 isolated integration passes; typecheck/lint/format/boundaries green.
-- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, pnpm obs sources --check 36/36 healthy; digest-generation queue available, zero failed. Saved edition remains four topics/20 stories/17 posts.
-- No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Next: continue final reader work; inspect first scheduled keyword X and reserved-slot Bluesky picks Nov 7. Observability RAM target remains unmet.
-
-## 2026-11-07: iteration 1067 — recognize mixed-case source URL schemes
-
-- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
-- Reader weakness reproduced in synthetic replay: uppercase HTTPS source URLs became ordinary post-text links to the social original. Shared X/Bluesky text rendering now recognizes HTTP schemes case-insensitively, preserving case-sensitive paths/query values and saved prose.
-- Expanded pnpm exec tsx scripts/smoke-bluesky-cards.ts with uppercase/mixed-case URLs; desktop/mobile light/dark passed, eight screenshots refreshed; mobile light inspected. Synthetic fixtures only, no paid calls or edition writes.
-- pnpm exec tsx scripts/smoke-reader-x-media.ts passed loading/failure/retry, resize and theme recovery. Initial final API read overlapped service restart and failed; rerun passed. Unrelated X screenshot churn discarded.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial full check terminated with SIGTERM during integration, without assertion failure; reran via temporary systemd user unit to outlive command session.
-- Final pnpm check passed: 536 unit/226 isolated integration tests; typecheck/lint/format/boundaries green.
-- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; pnpm obs jobs --check digest queue available/zero failed. Saved edition four topics/20 stories/17 posts.
-- Corrected stale TASKS next-step note: keyword X and reserved Bluesky slot are enabled. No source/schema/system-flow changes; handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
-- Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks; continue approved reader work meanwhile. Observability RAM target remains unmet.
-
-## 2026-11-07: iteration 1068 — recover Bluesky images after thumbnail failure
-
-- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
-- Reader weakness: a failed Bluesky thumbnail immediately hid the image despite a saved full-size URL. Image cards now try that original once before retaining the accessible unavailable-image link; identical URLs are not retried and video behavior stays intact.
-- pnpm exec tsx scripts/smoke-reader-bluesky-image-recovery.ts passed 16 loaded/recovered/both-failed/same-URL cases across desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Synthetic media over saved edition, GET-only/external requests blocked; no paid calls or edition writes.
-- pnpm exec tsx scripts/smoke-reader-bluesky-video.ts passed 12 loaded/failed/missing-preview cases. Discarded unrelated video screenshot churn.
-- Passed pnpm format, pnpm lint:fix, pnpm build and git diff --check. Initial lint flagged a test DOM type assertion; corrected to a typed query selector before final verification.
-- Full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- Sources 36/36 healthy; digest queue available/zero failed. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Next: inspect first Nov 7 scheduled keyword X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
-
-## 2026-11-07: iteration 1069 — keep Japanese punctuation out of post links
-
-- Advanced STEERING 33/43 while scheduled Nov 7 X/Bluesky acceptance waits. Clean main, no leftovers; initial health/alerts clear.
-- Reader weakness reproduced: Japanese closing quotes/full stops became part of saved-post source URLs. Shared X/Bluesky rendering now excludes sentence punctuation and unmatched full-width closers, retaining original text, Japanese paths and balanced URL brackets.
-- pnpm exec tsx scripts/smoke-bluesky-cards.ts reproduced the missing clean Japanese link before the fix; final desktop/mobile light/dark replay passed six new Unicode cases plus existing links/media. Eight screenshots updated; mobile light inspected.
-- Initial post-fix browser run overlapped the asset rebuild and could not load a card; rerun after build passed. pnpm exec tsx scripts/smoke-reader-x-media.ts passed loading/failure/retry/theme/resize checks; unrelated X screenshot churn discarded.
-- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
-- API/worker restarted; /healthz DB/Redis OK, pnpm obs alerts clear, sources 36/36 healthy; digest-generation queue available/zero failed. Saved edition remains four topics/20 stories/17 posts.
-- Synthetic browser data only; no paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
-- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
+Earlier entries: [iterations 1062–1069](docs/progress-archive/2026-11-07-iterations-1062-1069.md).
 
 ## 2026-11-07: iteration 1070 — keep publisher links on the primary report
 
@@ -158,3 +73,15 @@
 - Item 33 closed with linked screenshots and results; removed its completed Current order line. Item 37 B2 backups is next while X/Bluesky publication checks wait; reviewed its encryption, retention and 3 GB limits.
 - pnpm build passed (existing chunk warning); API/worker restarted. pnpm format, pnpm lint:fix and git diff --check passed. First full check ended with signal 143 during integration without a diagnostic; sequential pnpm check rerun passed 536 unit/226 isolated integration tests, typecheck/lint/format/boundaries green.
 - pnpm obs services --check reports 13/13 healthy; pnpm obs jobs --check passes, digest-generation available/one worker/zero failed. Health and alerts remain clear. No source changes, edition writes or new blocker.
+
+## 2026-11-07: iteration 1076 — first encrypted off-VM B2 backups
+
+- Owner value: losing this VM no longer loses the database, secrets or recovery state. Clean main/no leftover work; /healthz DB/Redis OK, alerts clear, sources healthy and digest queue available. Nov 7 X/Bluesky acceptance still awaits publication.
+- Read documented exe.dev VM backup support: AWS-federated disk export does not fit the approved B2 setup; implemented the approved recovery bundle. Installed official age v1.3.2 under ~/.local/bin after verifying its published GitHub asset SHA256; no private key on VM.
+- Added SDK-free S3 SigV4/curl adapter (signed headers over stdin), encrypted database/VM uploads, download-SHA256 proof, permanent-version pruning, tiered retention, all-version bucket accounting and single 3,000,000,000-byte cap. Budget refusals preserve newest copies and local backups. Last-30-day upload sizes feed a conservative 60-day growth projection.
+- Live database 6,734,672 bytes and VM 345,943 bytes uploaded/download-verified. Encrypted deletion proofs passed through curl; admission also permanently pruned the superseded same-day database version and preserved the newest copies. Fresh listings confirmed disappearance. Ran bash ops/backups/install.sh and systemctl --user start news-digest-backup.service: fresh 28-table local dump plus 8,020,058-byte encrypted upload succeeded. Existing timer now uploads nightly and bundles weekly; no new service.
+- Bucket 8,366,001/3,000,000,000 bytes (0.279%); $0.000058/month before shared free allowance, expected $0 within it. VM bundle excludes local dump history, logs, metrics, caches and symlinks. Added Mac download/decrypt/pg_restore-list commands and rebuild guide; Operations records size/budget/cost.
+- python3 ops/backups/test_database.py (4) and test_offsite.py (9) passed: under/over/still-over budgets, retention tiers, newest/foreign protection, deletion confirmation, checksum rejection, bundle contents, 30-day projection and signed-header isolation. Added offsite suite to pnpm check. systemd-analyze --user verify passed.
+- Prepared stale-database/VM, failed-upload and storage/projection alerts; /opt/news-digest-observability/vmalert-tool-prod unittest -files=ops/observability/alerts.test.yml passed including threshold crossings. Metrics are live; active rules file is root-owned. STEERING 37 explicitly requires stopping at root: no root action attempted; exact owner deployment commands in NEEDS_FROM_HUMAN.md. Item 37 remains open for active-rule verification; partial ack only.
+- pnpm build passed (existing chunk warning); pnpm format, pnpm lint:fix, git diff --check and full pnpm check passed: 537 unit/226 isolated integration tests, typecheck/lint/format/boundaries green. Nine offsite checks and real curl listing/download/PUT/DELETE proofs passed after transport verification. Handbook checks passed (18 pages/28 tables, no metadata warnings); no diagrams changed. Archived progress 1062–1069 and shortened task history.
+- API/worker restarted after build; /healthz DB/Redis OK after readiness, 13/13 services healthy, alerts clear and saved edition API returns real topics. No app LLM/X spend, source/schema changes or edition writes. Next: owner activates B2 rules, then verify/close 37; while waiting follow item 42 and scheduled Nov 7 acceptance.

@@ -741,3 +741,132 @@ tests:
         alertname: BlueskyNoPicks
         groupname: app-outcomes
         exp_alerts: []
+
+  - name: OffsiteDatabaseBackupStale absent
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OffsiteDatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: No successful B2 database upload in 26 hours
+  - name: OffsiteDatabaseBackupStale healthy
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_database_success_timestamp_seconds'
+        values: '946684800+30x8'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: OffsiteDatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts: []
+
+  - name: OffsiteVmBackupStale absent
+    interval: 30s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OffsiteVmBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: No successful B2 VM bundle upload in 8 days
+  - name: OffsiteVmBackupStale healthy
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_vm_success_timestamp_seconds'
+        values: '946684800+30x8'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: OffsiteVmBackupStale
+        groupname: host-and-services
+        exp_alerts: []
+
+  - name: OffsiteBackupFailed last_attempt_success
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_last_attempt_success'
+        values: '0+0x8'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OffsiteBackupFailed
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: B2 backup attempt failed or storage admission refused
+
+  - name: OffsiteBackupStorageWarning bucket_bytes
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_bucket_bytes'
+        values: '2000000001+0x8'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OffsiteBackupStorageWarning
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: B2 bucket exceeds 2 GB or projects exceeding 3 GB within 60 days
+
+  - name: OffsiteBackupStorageWarning projected_60d_bytes
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_projected_60d_bytes'
+        values: '3000000001+0x8'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OffsiteBackupStorageWarning
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: B2 bucket exceeds 2 GB or projects exceeding 3 GB within 60 days
+
+  - name: OffsiteDatabaseBackupStale crosses threshold
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_database_success_timestamp_seconds'
+        values: '946591230+0x8'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: OffsiteDatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: OffsiteDatabaseBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: No successful B2 database upload in 26 hours
+
+  - name: OffsiteVmBackupStale crosses threshold
+    interval: 30s
+    input_series:
+      - series: 'news_digest_offsite_vm_success_timestamp_seconds'
+        values: '945993630+0x8'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: OffsiteVmBackupStale
+        groupname: host-and-services
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: OffsiteVmBackupStale
+        groupname: host-and-services
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+            exp_annotations:
+              summary: No successful B2 VM bundle upload in 8 days

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/../.."
+if [[ ! -x "$HOME/.local/bin/age" ]]; then
+  bash ops/backups/install-age.sh
+fi
 install -d -m 700 "$HOME/backups/news-digest"
 install -d "$HOME/.config/systemd/user"
 install -m 644 ops/backups/*.service ops/backups/*.timer "$HOME/.config/systemd/user/"

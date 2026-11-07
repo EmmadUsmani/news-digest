@@ -85,3 +85,20 @@ World already has a distinct Bluesky pick through an open slot.
 [Review and estimate](docs/edition-reviews/2026-11-06.md).
 
 Nov 6 update (1051): saved-baseline comparison completes the authorized decision: keywords nine usable vs old search zero; semantic zero additions, dropped. No owner action needed. Production rollout and three-edition acceptance remain agent work; fixed search OFF until verified rollout. Post-fix keyword failures 5/9 attempts are recorded in the [decision](docs/edition-reviews/2026-11-06-x-experiment-review.md#baseline-comparison-and-decision--iteration-1051).
+
+## B2 alert activation — Nov 7, iteration 1076
+
+Encrypted database/VM uploads and the nightly hook are live. B2 alert rules
+are tested in `ops/observability/alerts.yml`, but their active copy is
+root-owned. STEERING 37 says “If something truly needs root or a new service,
+stop and put it in NEEDS_FROM_HUMAN.md.” No root operation was attempted.
+Owner action from `~/news-digest`:
+
+```bash
+sudo install -m 644 ops/observability/alerts.yml /etc/news-digest-observability/alerts.yml
+sudo systemctl restart obs-alerts.service
+```
+
+Then the next agent verifies active rule names and closes item 37. Bucket
+8,366,001 / 3,000,000,000 bytes (0.279%); expected storage $0/month within
+the shared 10 GB free tier ($0.000058/month at list price before that allowance).

@@ -1239,6 +1239,8 @@ expect roughly 230 MB in total. The owner already set the bucket lifecycle to
 - **The owner may also set a B2 account storage cap.** That is theirs; don't
   try to set it.
 
+ack: 2026-11-07 item 37 partial — iteration 1076: encrypted database (latest 8,020,058 bytes) and VM (345,943 bytes) uploaded and download-SHA256 verified; real permanent-version deletion confirmed. Tier retention and 3 GB admission tested; existing nightly service now uploads dumps and weekly bundles without failing local backups. Bucket 8,366,001/3,000,000,000 bytes (0.279%); $0.000058/month before the shared free allowance, expected $0 within it. Recovery commands are in the handbook. Prepared vmalert rules pass, but activation needs the root-owned rules file; stopped at item 37's explicit root boundary and recorded the owner command in NEEDS_FROM_HUMAN.md. Item remains open until active alerts are verified.
+
 ## 38. Never idle, and choose work that matters (2026-11-05)
 
 Item 28's rule stands: **never stop and never wait.** The list below replaces
