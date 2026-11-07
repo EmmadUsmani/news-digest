@@ -278,3 +278,44 @@ continuing scrape/query failure. Production remains at 1% CPU until after 16:00.
 
 By the 14:34:50 UTC alert snapshot the pending scrape alert had cleared
 without intervention. This transient clearance does not close the incident.
+
+### Query contention scope before the trial (iteration 1204)
+
+A read-only review at 15:27 UTC of the metrics journal since 13:00 found
+122 slow-query warnings, totaling 1,280.131 seconds of logged request duration.
+Durations overlap and include waiting; their sum is not CPU time. The warnings
+cover simple instant selectors as well as longer range expressions:
+
+| Query/rule                                   | Slow warnings | Maximum logged duration |
+| -------------------------------------------- | ------------: | ----------------------: |
+| Schedule observed-due 48-hour comparison     |            11 |                27.200 s |
+| Provider spend near cap                      |            12 |                21.302 s |
+| Offsite backup last-attempt failure selector |             7 |                65.902 s |
+| Host available-memory ratio                  |             7 |                20.701 s |
+| Service inactive selector                    |             1 |                49.803 s |
+
+This broad contention does not isolate the schedule range expression as the
+cause. Keep the first trial limited to CPU headroom rather than changing alert
+semantics or concurrency at the same time. No cardinality attribution was
+established by this journal review.
+
+The journal also records a 167,309-row compaction finishing at 14:38:14 UTC
+in 35.698 seconds, after the previously recorded 30,284-row compaction.
+All 23 rules (11 app-outcomes, 12 host-and-services) reported healthy in the
+15:27 snapshot. OffsiteDatabaseBackupStale last evaluated at 15:26:50 UTC
+in 0.0006013 seconds with empty lastError. This is current successful evaluation
+after another compaction, not sustained recovery through a comparable large merge.
+
+Direct metrics counters at approximately 15:27 were 457 select-limit hits and
+66 queue timeouts: seven additional admission-limit hits since iteration 1197,
+with no additional timeout. The installed process has not restarted (active
+since Nov 5 11:34:23 UTC, NRestarts=0) and still has a 1% CPU ceiling.
+No unit, rule, scrape configuration or production data changed.
+
+Evidence commands: `sudo journalctl -u obs-metrics --since '2026-11-07 13:00:00'
+-o cat --no-pager` (parse slow-query duration and decoded request query),
+`curl -fsS --max-time 15 http://127.0.0.1:8428/metrics/metrics`,
+`curl -fsS --max-time 10 http://127.0.0.1:8880/api/v1/rules`, and
+`systemctl show obs-metrics -p CPUQuotaPerSecUSec -p NRestarts
+-p ActiveEnterTimestamp`. Keep the incident open and perform the prepared
+post-16:00 trial before deploying queued application diagnostics.

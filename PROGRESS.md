@@ -137,3 +137,12 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - No prompt, validation guard, provider, model, budget, retry or UI changes. Handbook and production-acceptance task updated; exact Nov 7 production schema cause remains unknown.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 546 unit/227 integration tests pass, four rehearsals skipped. Targeted llm/editor tests 50/50, handbook filter (18 pages/one unchanged diagram/28 tables) and git diff --check pass.
 - Runtime changes queued with X diagnostics for deployment after 16:00 UTC; no protected-window restart or paid calls. Next: metrics CPU-only trial/recovery, diagnostic deployment, then publisher merge.
+
+## 2026-11-07: iteration 1204 — scope metrics contention before CPU trial
+
+- Clean main/no leftovers. Read-only incident analysis found 122 slow-query warnings since 13:00 UTC; simple backup-failure selector peaked at 65.902 s, schedule 48-hour expression at 27.200 s. Logged durations overlap and are not CPU time.
+- Broad contention supports the prepared isolated CPU trial; no single-rule or cardinality cause established. Added evidence to capacity decision and immediate TASKS entry; no alert semantics or settings changed.
+- Another 167,309-row merge completed at 14:38:14 UTC. All 23 rules healthy at the 15:27 snapshot, backup-staleness evaluation successful. Select-limit hits 457 (+7), timeouts 66 (unchanged); same process remains at 1% CPU. Incident stays open.
+- Verification: direct metrics/rules HTTP snapshots, decoded slow-query journal aggregation, systemctl limits/process lifetime; /healthz database/Redis OK, services/sources checks pass, alerts clear. pnpm format, pnpm lint:fix, pnpm check (546 unit/227 integration pass; four rehearsals skipped), pnpm build and git diff --check pass.
+- No paid calls, production data changes, UI changes or protected-window deployment/restart. Running artifacts unchanged by documentation-only step; SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
+- Next after 16:00 UTC: CPU-only metrics trial with compaction/alert-evaluation and whole-stack resource verification, deploy queued diagnostics, then publisher merge.
