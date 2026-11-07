@@ -25,6 +25,32 @@ type Provider = 'anthropic' | 'xai';
 export class PostgresDevelopmentSpendRepository {
   constructor(private readonly pool: Pool) {}
 
+  /** One statement gives a consistent view while reservations settle concurrently. */
+  async status(provider: Provider) {
+    developmentSpendAllowance(provider, 0, 0);
+    const [usage] = await drizzle(this.pool)
+      .select({
+        cap: pools.cap,
+        chargedMicros: sql<number>`coalesce(sum(${reservations.cost}), 0)::float8`,
+        heldMicros: sql<number>`coalesce(sum(case when ${reservations.cost} is null then ${reservations.reserved} else 0 end), 0)::float8`,
+        unresolvedCount: sql<number>`count(${reservations.id}) filter (where ${reservations.cost} is null)::float8`,
+      })
+      .from(pools)
+      .leftJoin(reservations, eq(reservations.provider, pools.provider))
+      .where(eq(pools.provider, provider))
+      .groupBy(pools.provider, pools.cap);
+    if (!usage) throw new Error('Missing development pool');
+    const committedMicros = usage.chargedMicros + usage.heldMicros;
+    return {
+      provider,
+      chargedMicros: usage.chargedMicros,
+      heldMicros: usage.heldMicros,
+      unresolvedCount: usage.unresolvedCount,
+      committedMicros,
+      ...developmentSpendAllowance(provider, usage.cap, committedMicros),
+    };
+  }
+
   async reserve(id: string, provider: Provider, amount: number) {
     developmentSpendAllowance(provider, 0, 0); // Validate before opening a connection.
     if (!Number.isSafeInteger(amount) || amount <= 0)

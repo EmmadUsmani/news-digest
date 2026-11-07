@@ -12,6 +12,17 @@ void test('candidate development ledger serializes lifetime holds and preserves 
   const id = () => crypto.randomUUID();
   try {
     await db.query(readFileSync('ops/backups/development_pools.sql', 'utf8'));
+    assert.deepEqual(await repository.status('anthropic'), {
+      provider: 'anthropic',
+      chargedMicros: 0,
+      heldMicros: 0,
+      unresolvedCount: 0,
+      committedMicros: 0,
+      capMicros: 5_000_000,
+      stopAtMicros: 3_750_000,
+      availableMicros: 3_750_000,
+      mustReport: false,
+    });
     // Three concurrent requests fit the 75% threshold, the fourth cannot race through.
     const ids = Array.from({ length: 4 }, id);
     const outcomes = await Promise.all(
@@ -19,6 +30,10 @@ void test('candidate development ledger serializes lifetime holds and preserves 
     );
     assert.equal(outcomes.filter((result) => result.admitted).length, 3);
     assert.equal(outcomes.filter((result) => result.mustReport).length, 2);
+    const held = await repository.status('anthropic');
+    assert.equal(held.heldMicros, 3_750_000);
+    assert.equal(held.unresolvedCount, 3);
+    assert.equal(held.mustReport, true);
     const accepted = ids[outcomes.findIndex((result) => result.admitted)];
     assert.deepEqual(
       await repository.reserve(accepted, 'anthropic', 1_250_000),
@@ -42,6 +57,12 @@ void test('candidate development ledger serializes lifetime holds and preserves 
     );
     await repository.settle(accepted, 250_000);
     await repository.settle(accepted, 250_000);
+    const charged = await repository.status('anthropic');
+    assert.equal(charged.chargedMicros, 250_000);
+    assert.equal(charged.heldMicros, 2_500_000);
+    assert.equal(charged.committedMicros, 2_750_000);
+    assert.equal(charged.unresolvedCount, 2);
+    assert.equal(charged.availableMicros, 1_000_000);
     await assert.rejects(repository.settle(accepted, 0), /Conflicting/);
     assert.equal(
       (await repository.reserve(id(), 'anthropic', 1_000_000)).admitted,
@@ -54,6 +75,12 @@ void test('candidate development ledger serializes lifetime holds and preserves 
       true,
     );
     assert.equal((await repository.settle(x, 2_100_000)).mustReport, true);
+    const overrun = await repository.status('xai');
+    assert.equal(overrun.chargedMicros, 2_100_000);
+    assert.equal(overrun.heldMicros, 0);
+    assert.equal(overrun.unresolvedCount, 0);
+    assert.equal(overrun.availableMicros, 0);
+    assert.equal(overrun.mustReport, true);
     assert.deepEqual(await repository.reserve(id(), 'xai', 1), {
       admitted: false,
       mustReport: true,
@@ -91,6 +118,10 @@ void test('candidate development ledger serializes lifetime holds and preserves 
       true,
     );
     assert.equal((await repository.settle(released, 0)).mustReport, false);
+    const releasedStatus = await repository.status('anthropic');
+    assert.equal(releasedStatus.chargedMicros, 250_000);
+    assert.equal(releasedStatus.heldMicros, 2_250_000);
+    assert.equal(releasedStatus.unresolvedCount, 2);
     // A lowered/disabled pool is respected; release requires explicit confirmed zero cost.
     await db.query(
       "UPDATE development_spend_pools SET cap_micros = 0 WHERE provider = 'anthropic'",
@@ -99,6 +130,7 @@ void test('candidate development ledger serializes lifetime holds and preserves 
       (await repository.reserve(id(), 'anthropic', 1)).admitted,
       false,
     );
+    assert.equal((await repository.status('anthropic')).mustReport, true);
   } finally {
     await db.query(
       'DROP TABLE IF EXISTS development_spend_reservations, development_spend_pools',

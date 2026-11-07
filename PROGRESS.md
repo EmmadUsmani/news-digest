@@ -169,3 +169,13 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - Updated TASKS and DATABASE-VERIFICATION; no production source/handbook/schema metadata change. Five complete saved-reader fingerprints match; 36/36 enabled sources healthy/nonempty.
 - Next: register publication metadata/future writes and pool migration/runtime wiring in permitted window; compare actual saved-reader off/on before switch. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 231 integration passes/four expected skips; typecheck/lint/format/boundaries green. Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five full reader fingerprints match.
+
+## 2026-11-07: iteration 1261 — prepare lifetime development-pool status
+
+- Clean main/no leftovers; initial `pnpm obs alerts` clear and `/healthz` database/Redis OK. Generation cutoff respected; no live schema, runtime wiring, reader switch or provider calls.
+- Candidate development ledger now exposes a single-statement consistent status: confirmed charges, unresolved holds/count, total commitments, configured/code ceiling, remaining allowance and 75% stop/report threshold. Empty pools remain visible; no date reset.
+- Disposable Postgres assertions cover empty pools, concurrent holds, confirmed settlement/retry without double counting, confirmed-zero release, over-estimate charges, provider separation and disabled-pool reporting. Adapter remains unwired.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 231 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- `pnpm exec tsx scripts/compare-publication-content.ts compare /tmp/publication-inventory-1257.json docs/edition-reviews/2026-11-07-publication-content-baseline.json` verifies all five complete saved responses. Read-only admin source snapshot: 36/36 enabled sources error-free/nonempty/successful within two hours.
+- Updated TASKS and DATABASE-VERIFICATION; no public behavior/source/schema metadata change. Next: register metadata/future writes and pool migration/runtime wiring after midnight UTC; actual saved-reader off/on comparison remains due. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.
+- Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five complete saved-reader fingerprints still match. Final `pnpm format`/`pnpm lint:fix` and diff checks pass.

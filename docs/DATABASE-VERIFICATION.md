@@ -753,3 +753,9 @@ above estimates remain recorded and stop further admission at the lifetime
 threshold. Separate xAI accounting, database cap ceilings and disabled pools
 are exercised. Neither the candidate tables nor the adapter are live; moving
 the tables into the authoritative schema and migration remains pending.
+
+Iteration 1261 adds a single-statement status query to the candidate adapter.
+The same disposable-database test checks empty pools, unresolved hold counts,
+confirmed charges without retry double counting, explicit zero-cost releases,
+overage charges and disabled pools. Status uses the same lifetime allowance
+policy as admission and never resets by date. No runtime endpoint is wired.
