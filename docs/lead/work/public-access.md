@@ -1,6 +1,7 @@
 # Public access and reader accounts
 
-**Status:** plan drafted, awaiting owner review. Nothing steered.
+**Status:** steered Nov 7 as STEERING item 50 (`3472574a`), Current order line 2
+behind breakages; the daily edition review stays above it. Phase 0 starts now.
 Plan: [docs/public-access-plan.md](../../public-access-plan.md).
 
 **Owner decisions (Nov 7):**
@@ -20,8 +21,10 @@ Plan: [docs/public-access-plan.md](../../public-access-plan.md).
 
 **Next:**
 
-1. Owner reviews the plan and the draft steering item, and picks its rank.
-2. On approval: steer, then read each phase's ack against the plan's checks.
+1. Read each phase's ack against the plan's checks, and its development spend.
+2. Phase 0: owner confirms which manual editions count as published.
+3. Watch the agent's weekly ChatGPT allowance (71% on Nov 7) during the refactor.
+4. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up
