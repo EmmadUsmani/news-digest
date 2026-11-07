@@ -318,13 +318,8 @@ async function smoke() {
           expectedContexts,
         );
         for (const note of await page.locator('.post-context').all()) {
-          assert.equal(
-            await note.getAttribute('title'),
-            await note.innerText(),
-            'Full editorial note remains available on hover',
-          );
           assert.ok(
-            await note.evaluate((element) => {
+            await note.locator('.post-context-text').evaluate((element) => {
               const style = getComputedStyle(element);
               return (
                 style.whiteSpace === 'nowrap' &&
@@ -336,7 +331,7 @@ async function smoke() {
             'Editorial notes occupy at most one line on desktop and mobile',
           );
           assert.ok(
-            await note.evaluate((element) => {
+            await note.locator('.post-context-text').evaluate((element) => {
               const card = element.closest('.post-card')!;
               const text = card.querySelector('.post-text')!;
               return (

@@ -195,3 +195,15 @@
 - systemctl --user restart news-digest-api news-digest-worker completed; curl --retry /healthz DB/Redis OK after startup; pnpm exec tsx scripts/obs.ts alerts clear and sources 36/36 healthy.
 - No paid calls or edition writes. Saved edition four topics/20 stories/17 posts. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
 - Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.
+
+## 2026-11-07: iteration 1071 — read full post context on mobile
+
+- Advanced STEERING 33/43 while Nov 7 scheduled X/Bluesky acceptance waits. Clean main, no leftovers; health/alerts clear and sources 36/36 healthy.
+- Reader weakness: compact post context exposed its full text only on hover, leaving touch readers unable to read truncated notes. Native disclosures now expand/collapse by touch, Enter or Space while retaining one-line collapsed notes and duplicate-text suppression.
+- pnpm exec tsx scripts/smoke-reader-post-context.ts passed touch/keyboard/collapse/wrapping checks in desktop/mobile light/dark. Four screenshots saved; mobile light inspected. Synthetic context over a saved edition, GET-only/external traffic blocked.
+- Initial targeted smoke caught missing truncation; corrected the layout. Screenshot inspection caught bottom-aligned disclosure marker; replaced it with a top-aligned chevron. Final targeted replay passed.
+- pnpm exec tsx scripts/smoke-reader-layout.ts passed all four layouts, contents/deep links/coverage/overflow. Initial run overlapped rebuilding and timed out on navigation; rerun after the final build passed. Discarded unrelated screenshot churn.
+- Passed pnpm format, pnpm lint:fix, pnpm build, git diff --check and full pnpm check: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green.
+- API/worker restarted; curl --retry /healthz DB/Redis OK after startup; pnpm obs alerts clear, sources 36/36 healthy, digest queue zero failed. Saved edition four topics/20 stories/17 posts.
+- No paid calls or edition writes. No source/schema/system-flow changes; SOURCES, NEEDS_FROM_HUMAN and handbook unchanged.
+- Next: review first Nov 7 scheduled keyword-X and reserved-slot Bluesky picks, costs and Tech repetition. Observability RAM target remains unmet.

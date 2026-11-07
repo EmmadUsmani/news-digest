@@ -37,7 +37,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 33/43 (1070): publisher links prefer the headline article when coverage contains multiple reports from that publisher; expanded coverage retains every article.
+- [x] STEERING 33/43 (1071): compact post context notes expand by touch or keyboard, making the full saved note readable on mobile.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

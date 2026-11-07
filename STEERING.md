@@ -1806,3 +1806,5 @@ ack: 2026-11-06 item 33/43 — iteration 1066: readers see small Bluesky images 
 ack: 2026-11-07 item 33/43 — iteration 1067: readers can open cited source URLs beginning with uppercase or mixed-case HTTP schemes from saved post text; path/query case and original text stay intact. Desktop/mobile light/dark browser replay verified; no paid calls.
 
 ack: 2026-11-07 item 33/43 — iteration 1068: readers can see saved full-size Bluesky images when thumbnails fail; bounded recovery preserves image links and accessible unavailable states. Desktop/mobile light/dark synthetic replay verified; no paid calls.
+
+ack: 2026-11-07 item 33/43 — iteration 1071: readers can expand a compact post context note by touch or keyboard to read its full saved text, then collapse it; repeated post text remains omitted.

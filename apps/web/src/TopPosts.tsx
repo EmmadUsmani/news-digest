@@ -123,12 +123,16 @@ function PostContext({ post }: { post: ReaderPost }) {
   )
     return null;
   return (
-    <p
-      className="post-context min-w-0 truncate text-sm text-[var(--secondary)]"
-      title={note}
-    >
-      <span className="post-context-text">{note}</span>
-    </p>
+    <details className="post-context group min-w-0 text-sm text-[var(--secondary)]">
+      <summary className="flex cursor-pointer list-none items-start gap-2 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
+        <span aria-hidden="true" className="shrink-0 group-open:rotate-90">
+          ›
+        </span>
+        <span className="post-context-text min-w-0 flex-1 truncate group-open:whitespace-normal group-open:[overflow-wrap:anywhere]">
+          {note}
+        </span>
+      </summary>
+    </details>
   );
 }
 
