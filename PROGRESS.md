@@ -16,77 +16,7 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 
 Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-iterations-1215-1222.md).
 
-## 2026-11-07: iteration 1223 — two-hour metrics recovery observation
-
-- Highest-priority breakage: verify unchanged CPU trial before queued reader/editor deployment. Clean main/no leftovers; no runtime or production-data changes.
-- Trial remains active since 16:00:24 UTC, zero restarts. Three-minute cgroup sample: 1.335% whole-stack CPU/715.40 MiB peak; metrics 0.450% CPU, 269/684 periods throttled; every sampled unit zero memory-high/OOM events.
-- Services 14/14, sources 36/36, jobs checks, app/Grafana health pass; alerts clear. All 23 rules healthy at both endpoint checks; backup staleness evaluated successfully at 18:20:48 UTC (0.099 s).
-- Uncached self-scrape/API selectors one series each (0.235/0.002 s); admission/timeouts/slow-query counters zero. Small merged rows 4,362,390 cumulative, indexdb 20,222, large zero; comparable single five-million-row compaction unobserved. Recovery stays open.
-- Updated TASKS and capacity evidence. Verification: pnpm check passes (558 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
-- Deployment/restart deferred to preserve the existing recovery gate. Next: comparable natural compaction, queued deployment, Nov 8 scheduled acceptance/first-week report. No paid calls.
-
-## 2026-11-07: iteration 1224 — correlate compaction recovery evidence
-
-- Highest-priority breakage: added bounded, read-only `scripts/sample-metrics-recovery.ts` to correlate small/big merge deltas, process identity, uncached queries, query-failure totals and fresh rule evaluations. No settings changes, forced compaction or provider calls.
-- Large interval totals are candidates requiring journal confirmation, never automatic recovery; offline tests reject cumulative-total confusion, resets, invalid counters and changed processes. Invalid CLI arguments rejected before sampling.
-- Live `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` at 18:25:09–18:26:09 UTC: 171,517/3,476 small rows in one merge each, big zero, all 23 rules healthy/fresh, six queries healthy/max 0.167 s; admission/timeouts/slow queries zero.
-- `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`: 60.038 s, 1.592% CPU/717.79 MiB peak; metrics 0.619% CPU/145 of 265 periods throttled; all units zero memory-high/OOM events. CPU trial unchanged since 16:00:24, zero restarts; no comparable large compaction.
-- Clean main/no leftovers initially; services 14/14, sources 36/36, jobs and /healthz pass, alerts clear. Updated TASKS and capacity evidence; item 33 closed and items 39/34 await Nov 8 production evidence.
-- Verification: pnpm check passes (560 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Grafana health HTTP 200/database OK.
-- Deployment/restart remains deferred to preserve the recovery gate. Next: use correlated probe alongside cgroup sampling through natural comparable compaction, then queued deployment and Nov 8 acceptance/first-week report.
-
-## 2026-11-07: iteration 1225 — paired recovery observation
-
-- Clean main/no leftovers. Highest-priority metrics recovery gate remains open; no runtime changes, forced compaction, production writes or paid calls.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` at 18:31:04–18:34:06 UTC: seven small merges/46,332 rows, no big merges; all 23 rules healthy/fresh, fourteen uncached queries passed/max 0.581 s; admission/timeouts/slow queries zero.
-- Paired `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`: 180.177 s, 1.297% whole-stack CPU/723.57 MiB sampled peak; metrics 0.421% CPU, 232/653 periods throttled; every unit zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts.
-- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: 14/14 services, 36/36 sources, jobs healthy, no active alerts. App health/database/Redis and Grafana HTTP/database OK; initial Grafana probe used wrong port, corrected to configured 3001.
-- Updated TASKS and capacity evidence. Verification: pnpm check (560 unit/229 integration, four expected skips), pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
-- Deployment/restarts remain deferred: comparable natural five-million-row compaction unobserved. Next: capture recovery evidence, deploy queued changes, then Nov 8 scheduled acceptance/first-week report.
-
-## 2026-11-07: iteration 1226 — identify Nov 7 publication critical path
-
-- Owner-visible reason: reduce the wait for editions by targeting the actual slow topic; Nov 7 changed from Tech to NBA. Clean main/no leftovers; recovery waiting on natural evidence, so followed STEERING 38 to available speed work.
-- Exported 71 allowlisted real worker events/51 Anthropic HTTP calls into an offline timeline fixture; no prompts, outputs, credentials, new provider calls or production writes. Excluded concurrent ingestion events.
-- NBA: 42.508 s triage, 90.426 s story stage, 47.583 s posts. Last-topic tail 42.522 s includes X triage/absence repair and Bluesky triage/editing; 41.986 s HTTP, 0.536 s other work. Four-call occupancy 71.84%; conserved 582,862 ms HTTP work and 180,540 ms edition span.
-- Recorded findings in Nov 7 latency review; updated TASKS, Nov 7 review and Nov 8 acceptance comparison. Keep concurrency/admission unchanged; queued story-repair fixes need deployed production evidence.
-- Recovery probe `sample-metrics-recovery.ts 6 30` (18:36:47–18:39:50): four small merges/25,021 rows, big zero, 23 healthy/fresh rules, 14 healthy queries/max 0.561 s. First post-restart admission-limit hit (one); no queue timeout/slow query. Recovery remains open, no comparable compaction.
-- `sample-observability-capacity.ts 6 10`: 60.052 s, 1.838% CPU/721.63 MiB peak; metrics 0.612% CPU, 128/278 periods throttled; all units zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts. Services 14/14, sources 36/36, jobs and app/Grafana health pass.
-- Verification: pnpm check passed typecheck/lint then stopped on new PROGRESS formatting; corrected with pnpm format. pnpm format:check, pnpm boundaries and pnpm test pass (560 unit/229 integration, four expected skips); pnpm build, pnpm lint:fix, offline timeline conservation/allowlist/link checks and git diff --check pass. No runtime code changes; restarts/deployment remain deferred behind metrics recovery.
-- Next: natural comparable compaction evidence, queued deployment, then Nov 8 scheduled quality/cost/speed acceptance and first-week report.
-
-## 2026-11-07: iteration 1227 — ten-minute paired metrics observation
-
-- Owner impact: establish whether the metrics CPU trial protects alerts before queued reader/editor changes deploy. Clean main/no leftovers; highest-priority recovery remains open.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 20 30`, 18:45:27–18:55:36 UTC: fourteen small merges/130,682 rows, no big merges, 23 healthy/fresh rules, 42 successful uncached queries/max 1.076 s. Admission-limit hits 1→2 at 18:54:34; zero queue timeouts/slow queries. No comparable natural five-million-row compaction.
-- Paired `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`: 600.547 s, 1.680% whole-stack CPU/672.95 MiB sampled peak; metrics 0.573% CPU, 1,220/2,670 periods throttled. Every unit zero memory-high/OOM events; CI/build overlapped. Trial unchanged since 16:00:24, zero restarts.
-- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`: services 14/14, sources 36/36, jobs healthy, no active alerts. App database/Redis and Grafana HTTP/database healthy. Updated TASKS and capacity evidence; no production writes or paid calls.
-- Verification: pnpm check (560 unit/229 integration passing, four expected skips), pnpm build, pnpm format, pnpm lint:fix, pnpm format:check and git diff --check pass.
-- Deployment/restarts remain deferred behind recovery gate. Next: capture comparable natural compaction, deploy queued fixes, then Nov 8 scheduled keyword/Bluesky quality/cost/speed acceptance and first-week report.
-
-## 2026-11-07: iteration 1228 — preserve Bluesky absence-repair feedback
-
-- Owner impact (STEERING 42/43, following waiting 39/34/33): help Bluesky repairs address unsupported claims instead of wasting attempts on ID guidance; Nov 7 Tech dropped two claims before selecting none. Clean main/no leftovers.
-- Entirely rejected Bluesky replies now preserve the first fixed absence-support error and field hint. Partial valid picks and deliberate empty replies keep existing behavior; rejected text never enters feedback. No model, provider, budget, concurrency or retry-count change.
-- Fake-provider tests cover significance/rationale repair, feedback privacy, sanitized cache reuse and four-call exhaustion/drop counts; existing partial/empty/selection tests pass. No recovered production output or paid calls; next deployed scheduled edition must establish reader benefit.
-- Updated TASKS, STEERING ack and Nov 7 review. Deployment/restarts remain deferred behind metrics recovery; historical editions unchanged.
-- `sample-metrics-recovery.ts 6 30` at 18:58:35–19:01:37 UTC: six small merges/58,271 rows, no big merges; 23 healthy/fresh rules, 14 queries pass/max 0.403 s; admission hits unchanged at two, zero timeouts/slow queries. Comparable natural compaction remains unobserved.
-- `sample-observability-capacity.ts 6 10`: 60.053 s, 1.351% whole-stack CPU/674.29 MiB peak; metrics 0.395% CPU, 72/223 periods throttled, all units zero memory-high/OOM events. Trial unchanged since 16:00:24 UTC, zero restarts.
-- `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`, app/Grafana health: 14/14 services, 36/36 sources and jobs healthy; no active alerts, database/Redis/Grafana database OK.
-- Verification: `pnpm check` passes (562 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, targeted social-editor tests and `git diff --check` pass. No UI change or service restart.
-- Next: comparable natural compaction evidence, queued deployment, then Nov 8 scheduled keyword/Bluesky quality/cost/speed acceptance and first-week report.
-
-## 2026-11-07: iteration 1229 — check gaps in metrics recovery history
-
-- Owner impact (Current order 1): check whether an unobserved large compaction already permits queued reader/editor deployment. Clean main/no leftovers; recovery remains unfinished, not a re-check of closed work.
-- Queried stored metrics across 16:01:00–19:05:30 UTC at 30-second steps (370 points). Small-storage total 5,415,018 rows/353 merges; largest interval 908,421 rows. Big-storage zero; no five-million-row candidate between earlier probes. Updated TASKS and capacity evidence.
-- Stored process start unchanged, sampled self-scrape up always one; admission hits two, timeouts/slow queries zero. Rule-error metrics have no stored series under queried names, so no historical rule-error conclusion. No production writes, paid calls or forced compaction.
-- Current recovery probe `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`: 23 healthy/fresh rules, six successful queries/max 0.4724 s; admission hits unchanged/two, no timeout/slow query or big merge.
-- Paired `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`: 60.051 s, 1.243% whole-stack CPU/674.29 MiB peak; metrics 0.448% CPU, 92/223 periods throttled. Every unit zero memory-high/OOM events. Trial unchanged since 16:00:24, zero restarts.
-- Services 14/14, sources 36/36 and jobs healthy; no active alerts, `/healthz` database/Redis OK. Recovery and deployment/restarts stay deferred; items 39/34 production acceptance await Nov 8, item 33 remains closed.
-- Archived progress entries 1215–1222 after PROGRESS exceeded 25 KB; current history retains archive links. `pnpm check` passes (562 unit/229 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, changed-document Prettier checks and `git diff --check` pass. App/Grafana health healthy.
-- Initial push rejected because owner lead-status commit `90d75baf` landed remotely. Fetched and merged without changing owner files or rewriting history; retrying push.
-- Next: comparable natural compaction evidence, queued deployment, Nov 8 scheduled acceptance and first-week report. Prefer reader work while waiting; do not mistake many small merges for one comparable merge.
+Earlier entries: [iterations 1223–1229](docs/progress-archive/2026-11-07-iterations-1223-1229.md).
 
 ## 2026-11-07: iteration 1230 — retain cleared evaluator failures in recovery evidence
 
@@ -166,3 +96,13 @@ Earlier entries: [iterations 1215–1222](docs/progress-archive/2026-11-07-itera
 - Metrics unchanged since 16:00:24 UTC/zero restarts. Updated decision 0004/TASKS with evidence and next passive check ≥21:15 UTC. No service restart needed for evidence-only changes; deployed app stays unchanged.
 - Initial Grafana health request assumed port 3000 and failed; repository config identifies 3001/grafana, corrected health request passes.
 - Verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 563 unit/229 integration tests, four expected skips; typecheck/lint/format/boundaries green. Evidence-only change, no rebuild required.
+
+## 2026-11-07: iteration 1237 — preserve keyboard focus through X recovery
+
+- STEERING 42/43 reader weakness: after loaded X media failed during replacement, keyboard retry focused saved prose that hides on recovery. Actual saved-post browser reproduction failed the focus assertion before the fix.
+- Retry now focuses the visible saved-transcript control, falling back to saved prose on first load. Keyboard readers retain their place while collapsed text stays collapsed. No generation/provider/budget changes or paid calls.
+- Clean main/no leftover work. Initial alerts clear; services 14/14, sources 36/36 and jobs healthy; latest edition completed, social collection returns data. `/healthz` database/Redis OK. No metrics probe inside hourly limit.
+- `pnpm exec tsx scripts/smoke-reader-x-media.ts` passes saved-post loading/failure/retry, theme/resize and keyboard replacement recovery on desktop/mobile light/dark; GET-only, external calls blocked, successful media is explicitly a local stub. Four recovery screenshots added; desktop/mobile inspected, unrelated regenerated screenshots discarded.
+- `pnpm build` passes; rebuilt API restarted and health passes. Older progress entries archived; no handbook system-flow change.
+- `pnpm check`: typecheck/lint/format/boundaries, 563 unit and 229 integration tests pass/four expected skips; outer command exited 143 after coverage. Separate `pnpm test:integration` rerun exits 0 with 229 pass/four skips. Final `pnpm format`, `pnpm lint:fix` and `git diff --check` pass.
+- Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check ≥21:15 UTC.

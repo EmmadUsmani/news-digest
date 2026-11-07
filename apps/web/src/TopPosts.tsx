@@ -308,7 +308,10 @@ function Post({
             type="button"
             className="min-h-8 border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
             onClick={() => {
-              savedText.current?.querySelector('a')?.focus();
+              const transcript = savedText.current;
+              const summary = transcript?.querySelector('summary');
+              if (summary && !summary.hidden) summary.focus();
+              else transcript?.querySelector('a')?.focus();
               setAttempt((value) => value + 1);
             }}
           >

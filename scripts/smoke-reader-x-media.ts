@@ -53,6 +53,7 @@ async function smoke() {
               body: `
               window.twttr = {widgets: {createTweet: async (id, target, options) => {
                 await window.mediaReplacementGate;
+                if (window.failNextMedia === id) { window.failNextMedia = undefined; return undefined; }
                 const frame = document.createElement('iframe');
                 frame.title = 'Local media recovery stub';
                 frame.dataset.theme = options.theme;
@@ -245,6 +246,27 @@ async function smoke() {
           false,
           'Collapsed saved text remains collapsed after rebuilding X media',
         );
+        // Reproduce a failed replacement after the reader collapsed saved text.
+        await page.evaluate((id) => {
+          (window as Window & { failNextMedia?: string }).failNextMedia = id;
+        }, post.externalId);
+        await page
+          .getByRole('button', { name: `Switch to ${nextTheme} theme` })
+          .click();
+        await card.scrollIntoViewIfNeeded();
+        await status.filter({ hasText: 'X media unavailable.' }).waitFor();
+        const retry = card.getByRole('button', {
+          name: 'Retry X post',
+          exact: true,
+        });
+        await retry.focus();
+        await page.keyboard.press('Enter');
+        await card.locator(`iframe[data-theme="${nextTheme}"]`).waitFor();
+        await expect(disclosure).toBeFocused();
+        assert.equal(await card.locator('.post-text').isVisible(), false);
+        await page.screenshot({
+          path: `docs/screenshots/ui/x-media-keyboard-recovery-${device}-${theme}.png`,
+        });
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth,

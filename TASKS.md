@@ -47,6 +47,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 42 (1237): keyboard retry after a failed X media replacement keeps focus on the saved-transcript control through recovery; actual saved-post reproduction and desktop/mobile light/dark checks pass with local media stub.
+
 - [x] STEERING 42 (1235): saved X transcript controls identify author and exact publication time; all 15 saved Nov 7 labels and keyboard/recovery behavior checked in desktop/mobile light/dark.
 
 - [x] STEERING 42 (1233): article-coverage controls name their story for screen-reader navigation; all 20 saved Nov 7 controls checked for keyboard expansion, destinations and layout on desktop/mobile light/dark.
