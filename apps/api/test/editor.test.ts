@@ -720,3 +720,84 @@ void test('routine roster guidance reaches both editors and allows unfilled stor
     assert.deepEqual(h.diagnostics(), []);
   }
 });
+
+// Synthetic diagnosis of Nov 7's recorded category sequence, not provider replay.
+void test('NBA mixed validation failures exhaust four calls while supported repair recovers', async () => {
+  const nba = { ...topic, id: 'nba', name: 'NBA' };
+  const evidence = 'The team has not announced a return date.';
+  const inputs = [
+    {
+      ...candidates[0],
+      title: 'Team provides injury update',
+      excerpt: `The team provided an injury update. A player remains sidelined. ${evidence}`,
+    },
+  ];
+  const output = (summary: string) => ({
+    brief: [
+      'The team provided an injury update.',
+      'A player remains sidelined.',
+    ],
+    stories: [
+      {
+        ...story,
+        headline: 'Team provides injury update',
+        summary,
+        whyItMatters: 'The update concerns player availability.',
+        rationale: 'Injury update.',
+      },
+    ],
+  });
+  const negative = output('The team has not confirmed a return date.');
+  const contraction = output("The team hasn't announced a return date.");
+  const invalidSchema = { ...output(evidence), brief: 'An injury update.' };
+  const h = harness([negative, contraction, invalidSchema, contraction]);
+  assert.equal(await h.editor.edit(nba, inputs, 1, 'nba-synthetic'), null);
+  assert.equal(h.calls.length, 4);
+  assert.deepEqual(
+    h.calls.map((call) => call.model.id),
+    [
+      'claude-sonnet-5-5',
+      'claude-sonnet-5-5',
+      'claude-haiku-5-5',
+      'claude-haiku-5-5',
+    ],
+  );
+  assert.deepEqual(h.diagnostics(), [
+    {
+      attempt: 'initial',
+      category: 'unsupported-absence',
+      field: 'summary',
+      absenceMarker: 'negative-word',
+    },
+    {
+      attempt: 'repair',
+      category: 'unsupported-absence',
+      field: 'summary',
+      absenceMarker: 'negative-contraction',
+    },
+    { attempt: 'initial', category: 'invalid-schema' },
+    {
+      attempt: 'repair',
+      category: 'unsupported-absence',
+      field: 'summary',
+      absenceMarker: 'negative-contraction',
+    },
+  ]);
+  assert.ok(h.calls[1].prompt.includes('failed the absence-support check'));
+  // Fallback starts fresh; a schema failure supplies only generic JSON feedback.
+  assert.equal(h.calls[2].prompt, h.calls[0].prompt);
+  assert.ok(!h.calls[3].prompt.includes('failed the absence-support check'));
+  assert.ok(h.calls[3].prompt.includes('Return only valid JSON'));
+  for (const corrected of [
+    output(evidence),
+    output('The team provided an injury update.'),
+  ]) {
+    const repaired = harness([negative, corrected]);
+    assert.equal(
+      (await repaired.editor.edit(nba, inputs, 1, 'nba-repair'))?.model,
+      'claude-sonnet-5-5',
+    );
+    assert.equal(repaired.calls.length, 2);
+    assert.deepEqual(repaired.diagnostics(), [h.diagnostics()[0]]);
+  }
+});

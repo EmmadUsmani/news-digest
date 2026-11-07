@@ -118,3 +118,13 @@ Earlier entries: [iterations 1089–1101](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm check (543 unit/227 integration pass; four rehearsals skipped), pnpm build; read-only timing/discovery/week reports, worker journal and Drizzle snapshot/cache/citation SELECTs. Playwright 1440×1100/390×844: 20 headings/non-empty text, 18 posts, zero page errors; screenshots visually checked.
 - pnpm obs alerts clear; services 14/14, sources 36/36 healthy; /healthz database/Redis OK. pnpm format, pnpm lint:fix and git diff --check pass. Handbook/NEEDS_FROM_HUMAN unchanged.
 - No protected-window deployment/restart; documentation-only step leaves running artifacts unchanged. After 16:00 metrics CPU trial/deploy queued diagnostics first, then gated publisher merge; review gate now satisfied once pushed.
+
+## 2026-11-07: iteration 1202 — diagnose NBA validation fallback offline
+
+- Clean main/no leftovers. Prioritized the actual NBA story-editing failure while metrics tuning/deployment remain protected until after 16:00 UTC.
+- Added synthetic real-editor/BudgetedLlm regression reproducing the observed Sonnet absence/absence then Haiku schema/absence sequence: exactly four calls, no AI result. This is not recovered provider output.
+- Complete supplied negative sentence and supported positive summary each recover on Sonnet repair in two calls; contraction paraphrase fails the existing verbatim guard. No prompt, validation, retry, model, budget or runtime changes.
+- Confirmed Haiku starts fresh; its schema repair receives generic JSON feedback without Sonnet's absence-specific feedback. Production causality and exact rejected text/schema defect remain unknown; review/TASKS updated.
+- Verification: targeted editor tests 21/21; pnpm format, pnpm lint:fix, pnpm check and pnpm build pass. Full suite: 544 unit/227 integration pass, four rehearsals skipped; git diff --check passes.
+- pnpm obs alerts clear; services/sources checks healthy; /healthz database/Redis OK. No paid calls, live content mutations, UI changes or protected-window restart; test/docs-only commit requires no runtime deployment.
+- Next: after 16:00 UTC metrics CPU-only trial and queued X diagnostic deployment, then publisher merge; next scheduled NBA output remains quality acceptance evidence.
