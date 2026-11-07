@@ -31,7 +31,9 @@ export function ReaderSaved() {
         <p role="alert">{preferences.bookmarkError}</p>
       )}
       {saved.length === 0 && (
-        <p>No saved items yet. Use Save beside a story in an edition.</p>
+        <p>
+          No saved items yet. Use Save beside a story or post in an edition.
+        </p>
       )}
       <ul className="list-none space-y-6 pl-0">
         {saved.map(
@@ -47,7 +49,9 @@ export function ReaderSaved() {
                   </a>
                 </h2>
                 <p className="mt-2 text-sm text-[var(--secondary)]">
-                  {copy.attribution}
+                  {copy.platform === 'story'
+                    ? copy.attribution
+                    : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
                 </p>
                 {copy.excerpt && (
                   <p className="my-3 leading-7">{copy.excerpt}</p>

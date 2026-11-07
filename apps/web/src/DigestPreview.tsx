@@ -219,7 +219,42 @@ export function DigestPreview() {
                   tabIndex={-1}
                   className="scroll-mt-36 lg:scroll-mt-24"
                 >
-                  <TopPosts posts={topic.posts} />
+                  <TopPosts
+                    posts={topic.posts}
+                    bookmark={
+                      preferencesEnabled
+                        ? {
+                            isSaved: (post) =>
+                              !!preferences.bookmarks[
+                                `post:${JSON.stringify([post.platform, post.externalId])}`
+                              ]?.copy,
+                            toggle: (post) => {
+                              const id = `post:${JSON.stringify([post.platform, post.externalId])}`;
+                              const text =
+                                post.platform === 'reddit'
+                                  ? post.title
+                                  : post.text;
+                              preferences.setBookmark(
+                                id,
+                                preferences.bookmarks[id]?.copy
+                                  ? null
+                                  : {
+                                      title:
+                                        post.platform === 'reddit'
+                                          ? post.title
+                                          : `${post.platform === 'x' ? 'X' : 'Bluesky'} post from ${post.author}`,
+                                      url: post.url,
+                                      attribution: post.author,
+                                      excerpt: post.displayText ?? text,
+                                      platform: post.platform,
+                                      editionId: preview.id,
+                                    },
+                              );
+                            },
+                          }
+                        : undefined
+                    }
+                  />
                 </div>
               </article>
             ))}

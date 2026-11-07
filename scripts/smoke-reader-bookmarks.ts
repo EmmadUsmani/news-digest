@@ -80,6 +80,61 @@ async function smoke() {
         await expect(
           other.getByRole('link', { name: story.title, exact: true }),
         ).toBeVisible();
+        for (const post of edition.topics.flatMap((topic) => topic.posts)) {
+          const control = page.getByRole('button', {
+            name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
+            exact: true,
+          });
+          await control.click();
+          await expect(control).toHaveAttribute('aria-pressed', 'true');
+          await page.reload();
+          await expect(control).toHaveAttribute('aria-pressed', 'true');
+          const title =
+            post.platform === 'reddit'
+              ? post.title
+              : `${post.platform === 'x' ? 'X' : 'Bluesky'} post from ${post.author}`;
+          const link = other
+            .locator('a')
+            .filter({ hasText: title })
+            .and(other.locator(`a[href=${JSON.stringify(post.url)}]`));
+          await expect(link).toHaveAttribute('href', post.url);
+          await expect(
+            other.getByText(post.author, { exact: false }).first(),
+          ).toBeVisible();
+          await other
+            .getByRole('button', {
+              name: `Remove saved item: ${title}`,
+              exact: true,
+            })
+            .click();
+          await expect(control).toHaveAttribute('aria-pressed', 'false');
+          await control.click();
+          await expect(link).toBeVisible();
+          await control.click();
+          await expect(link).toHaveCount(0);
+        }
+        // Leave actual X and Bluesky copies visible for saved-page screenshots.
+        for (const platform of ['x', 'bluesky']) {
+          const post = edition.topics
+            .flatMap((topic) => topic.posts)
+            .find((post) => post.platform === platform);
+          assert.ok(post, `actual ${platform} post required`);
+          await page
+            .getByRole('button', {
+              name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
+              exact: true,
+            })
+            .click();
+        }
+        await other.screenshot({
+          path: `docs/screenshots/ui/saved-${device}-${theme}.png`,
+          fullPage: true,
+        });
+        assert.ok(
+          await other.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        );
         await page.screenshot({
           path: `docs/screenshots/ui/bookmark-${device}-${theme}.png`,
           fullPage: true,

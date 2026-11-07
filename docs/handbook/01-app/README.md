@@ -47,7 +47,7 @@ flowchart LR
 
 - Open **Topics** in an edition to hide or restore its topics. Choices apply
   to current and past editions in this browser; new topics appear automatically.
-- Use **Save** beside a story, then **Saved items** to read its bounded copy at
+- Use **Save** beside a story or post, then **Saved items** to read its bounded copy at
   `/saved`, open the original or its edition, or remove it. Saves survive reloads.
 - This browser holds up to 1,000 saved identities, including removal records.
 - Choices are stored locally and shared between tabs. No account is needed.

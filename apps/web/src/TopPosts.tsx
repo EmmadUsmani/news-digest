@@ -1,6 +1,7 @@
 import type { ReaderEdition } from '@digest/contracts';
 import React from 'react';
 
+import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { StoryTime } from './StoryTime';
 
@@ -78,7 +79,16 @@ function currentTheme(): 'light' | 'dark' {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 
-export function TopPosts({ posts }: { posts: ReaderPost[] }) {
+export function TopPosts({
+  posts,
+  bookmark,
+}: {
+  posts: ReaderPost[];
+  bookmark?: {
+    isSaved: (post: ReaderPost) => boolean;
+    toggle: (post: ReaderPost) => void;
+  };
+}) {
   const theme = React.useSyncExternalStore(subscribeTheme, currentTheme);
   return (
     <section
@@ -94,15 +104,31 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
         </p>
       ) : (
         <div className="post-grid grid grid-cols-1 gap-4">
-          {posts.map((post) =>
-            post.platform === 'bluesky' ? (
-              <BlueskyPost key={`bluesky:${post.externalId}`} post={post} />
-            ) : post.platform === 'reddit' ? (
-              <RedditPost key={`reddit:${post.externalId}`} post={post} />
-            ) : (
-              <Post key={`x:${post.externalId}`} post={post} theme={theme} />
-            ),
-          )}
+          {posts.map((post) => (
+            <div
+              key={JSON.stringify([post.platform, post.externalId])}
+              className="min-w-0"
+            >
+              {post.platform === 'bluesky' ? (
+                <BlueskyPost post={post} />
+              ) : post.platform === 'reddit' ? (
+                <RedditPost post={post} />
+              ) : (
+                <Post post={post} theme={theme} />
+              )}
+              {bookmark && (
+                <Button
+                  variant="ghost"
+                  className="mt-2 px-2 text-sm"
+                  aria-label={`Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`}
+                  aria-pressed={bookmark.isSaved(post)}
+                  onClick={() => bookmark.toggle(post)}
+                >
+                  {bookmark.isSaved(post) ? 'Saved' : 'Save'}
+                </Button>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </section>
