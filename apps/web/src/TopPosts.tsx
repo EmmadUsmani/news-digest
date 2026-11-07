@@ -143,6 +143,7 @@ function Post({
   post: SelectedPost;
   theme: 'light' | 'dark';
 }) {
+  const postIdentity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
   const host = React.useRef<HTMLDivElement>(null);
   const savedText = React.useRef<HTMLDetailsElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
@@ -300,12 +301,14 @@ function Post({
             href={post.url}
             target="_blank"
             rel="noreferrer"
+            aria-label={`Open original on X ${postIdentity}`}
             className="inline-flex min-h-8 items-center px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
           >
             Open original on X
           </a>
           <button
             type="button"
+            aria-label={`Retry X post ${postIdentity}`}
             className="min-h-8 border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
             onClick={() => {
               const transcript = savedText.current;

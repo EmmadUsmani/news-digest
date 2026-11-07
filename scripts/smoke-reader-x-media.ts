@@ -86,13 +86,38 @@ async function smoke() {
         releaseInitial();
         await status.filter({ hasText: 'X media unavailable.' }).waitFor();
         assert.equal(await status.innerText(), 'X media unavailable.');
+        for (const savedPost of posts) {
+          const failedCard = page.locator('.post-card').filter({
+            has: page.locator(`.byline a[href="${savedPost.url}"]`),
+          });
+          await failedCard.scrollIntoViewIfNeeded();
+          const identity = `from ${savedPost.author}, ${new Date(savedPost.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
+          await expect(failedCard.getByRole('button')).toHaveAccessibleName(
+            `Retry X post ${identity}`,
+          );
+          await expect(
+            failedCard.locator('.x-media-error a'),
+          ).toHaveAccessibleName(`Open original on X ${identity}`);
+          await expect(failedCard.locator('.x-media-error a')).toHaveAttribute(
+            'href',
+            savedPost.url,
+          );
+        }
+        await card.scrollIntoViewIfNeeded();
+        const identity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
         const failureRow = card.locator('.x-media-error');
+        await expect(failureRow.getByRole('button')).toHaveAccessibleName(
+          `Retry X post ${identity}`,
+        );
+        await expect(failureRow.getByRole('link')).toHaveAccessibleName(
+          `Open original on X ${identity}`,
+        );
         assert.ok(
           (await failureRow.boundingBox())!.height <= 72,
           'Unavailable media, original link and retry fit in two compact rows',
         );
         const original = failureRow.getByRole('link', {
-          name: 'Open original on X',
+          name: /^Open original on X from /,
           exact: true,
         });
         await expect(original).toHaveAttribute('href', post.url);
@@ -116,7 +141,7 @@ async function smoke() {
         });
         recover = true;
         await card
-          .getByRole('button', { name: 'Retry X post', exact: true })
+          .getByRole('button', { name: /^Retry X post from /, exact: true })
           .click();
         await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
@@ -256,7 +281,7 @@ async function smoke() {
         await card.scrollIntoViewIfNeeded();
         await status.filter({ hasText: 'X media unavailable.' }).waitFor();
         const retry = card.getByRole('button', {
-          name: 'Retry X post',
+          name: /^Retry X post from /,
           exact: true,
         });
         await retry.focus();

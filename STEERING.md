@@ -1684,6 +1684,8 @@ ack: 2026-11-07 item 42 — iteration 1234: fixed saved-story reload drift cause
 
 ack: 2026-11-07 item 42 — iteration 1235: X saved-text controls identify author and exact publication time for screen-reader navigation; all 15 saved Nov 7 labels and keyboard recovery verified in four device/theme views. No paid calls.
 
+ack: 2026-11-07 item 42 — iteration 1238: failed X media controls repeated identical names across saved cards. Retry and original-post accessible names now identify author and exact publication time; all 15 saved posts and keyboard recovery pass desktop/mobile light/dark. No paid calls or generation changes.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 **Why:** in the 12 hours to 16:35 UTC on Nov 6, 88 commits landed. About a dozen

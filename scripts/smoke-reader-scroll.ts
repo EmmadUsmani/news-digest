@@ -46,7 +46,7 @@ async function smoke() {
             )
           ) {
             await card
-              .getByRole('button', { name: 'Retry X post', exact: true })
+              .getByRole('button', { name: /^Retry X post from /, exact: true })
               .waitFor();
           }
         }

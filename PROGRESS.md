@@ -106,3 +106,13 @@ Earlier entries: [iterations 1223–1229](docs/progress-archive/2026-11-07-itera
 - `pnpm build` passes; rebuilt API restarted and health passes. Older progress entries archived; no handbook system-flow change.
 - `pnpm check`: typecheck/lint/format/boundaries, 563 unit and 229 integration tests pass/four expected skips; outer command exited 143 after coverage. Separate `pnpm test:integration` rerun exits 0 with 229 pass/four skips. Final `pnpm format`, `pnpm lint:fix` and `git diff --check` pass.
 - Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report. Metrics recovery remains open; next passive check ≥21:15 UTC.
+
+## 2026-11-07: iteration 1238 — identify failed X media actions
+
+- STEERING 42/43 reader weakness: failed X cards repeated identical retry/original link names in the screen-reader control list. Accessible names now include saved author and exact publication time; visible labels and destinations remain unchanged.
+- Clean main/no leftover work. Initial `pnpm obs alerts`, services/sources/jobs checks and `/healthz` pass; 14 services/36 sources healthy, latest edition completed and Nov 8 15:00 UTC queued. No paid calls or generation changes; metrics probe not due until ≥21:15 UTC.
+- `pnpm exec tsx scripts/smoke-reader-x-media.ts` reproduces the missing identity before the fix, then passes all 15 saved X action labels/destinations plus loading/failure/keyboard retry/theme/resize recovery in desktop/mobile light/dark. GET-only, external requests blocked; successful media is an explicit local stub.
+- `pnpm exec tsx scripts/smoke-reader-scroll.ts` passes forward/backward saved-story navigation in all four views. Four failure screenshots refreshed; desktop dark/mobile light inspected, unrelated regenerated screenshots discarded. No handbook system-flow change.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. API restarted after the completed build; database/Redis health and final alerts/services/sources checks pass.
+- Full `pnpm check` exits 0: typecheck/lint/format/boundaries, 563 unit tests and 229 integration tests pass; four expected integration skips.
+- Next: Nov 8 scheduled X/Bluesky/content/cost/speed acceptance and first-week report. Metrics recovery stays open; next passive check ≥21:15 UTC.
