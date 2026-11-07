@@ -179,3 +179,13 @@ Earlier entries: [iterations 1243–1246](docs/progress-archive/2026-11-07-itera
 - `pnpm exec tsx scripts/compare-publication-content.ts compare /tmp/publication-inventory-1257.json docs/edition-reviews/2026-11-07-publication-content-baseline.json` verifies all five complete saved responses. Read-only admin source snapshot: 36/36 enabled sources error-free/nonempty/successful within two hours.
 - Updated TASKS and DATABASE-VERIFICATION; no public behavior/source/schema metadata change. Next: register metadata/future writes and pool migration/runtime wiring after midnight UTC; actual saved-reader off/on comparison remains due. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.
 - Four app services restarted/active; post-restart health database/Redis OK, alerts clear and all five complete saved-reader fingerprints still match. Final `pnpm format`/`pnpm lint:fix` and diff checks pass.
+
+## 2026-11-07: iteration 1262 — prepare development-ledger application boundary
+
+- Clean main/no leftovers; initial alerts clear and health database/Redis OK. Generation cutoff respected: no live schema, runtime wiring, reader switch or provider calls.
+- Added framework-free `DevelopmentSpendPort` with typed lifetime status, allowance, reservation outcomes and confirmed settlement. Explicit replay outcome documents that callers must not repeat provider calls; unknown billing retains holds.
+- Candidate Drizzle adapter implements the port; its disposable-Postgres characterization now uses the port type. Existing concurrency, replay/conflict, settlement, release, independent-provider and threshold assertions pass unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 582 unit tests, 231 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Complete saved-reader comparison: all five Nov 3–7 responses match committed fingerprints. Read-only admin source snapshot: 36/36 enabled sources error-free/nonempty/successful within two hours.
+- Updated TASKS and DATABASE-VERIFICATION; no source, handbook or schema behavior change. Four app services restarted/active; post-restart health and alerts clear and five saved-reader fingerprints match.
+- Next: register metadata/future writes and pool migration/runtime wiring after midnight UTC, then actual saved-reader off/on comparison. Nov 8 15:00 UTC acceptance/first-week report due; passive metrics probe no earlier than 00:17 UTC.

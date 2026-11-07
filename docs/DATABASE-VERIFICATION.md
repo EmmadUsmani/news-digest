@@ -759,3 +759,9 @@ The same disposable-database test checks empty pools, unresolved hold counts,
 confirmed charges without retry double counting, explicit zero-cost releases,
 overage charges and disabled pools. Status uses the same lifetime allowance
 policy as admission and never resets by date. No runtime endpoint is wired.
+
+Iteration 1262 runs that characterization through `DevelopmentSpendPort`, the
+framework-free domain contract for reservation, status and confirmed settlement.
+The adapter implements it explicitly; the reservation union distinguishes
+denial, first admission and replay so callers can avoid duplicate provider calls.
+No runtime wiring or database behavior changes.

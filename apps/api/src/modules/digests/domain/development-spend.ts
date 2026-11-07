@@ -1,3 +1,8 @@
+import type {
+  DevelopmentAllowance,
+  DevelopmentProvider,
+} from './development-spend.port';
+
 /** Phase-0 development pools are lifetime totals, in integer microdollars.
  * Callers must include settled charges and outstanding/uncertain reservations.
  * No clock input: these pools never renew at a day or month boundary.
@@ -6,15 +11,10 @@
 const ceilings = Object.freeze({ anthropic: 5_000_000, xai: 2_000_000 });
 
 export function developmentSpendAllowance(
-  provider: 'anthropic' | 'xai',
+  provider: DevelopmentProvider,
   configuredCap: number,
   committedMicros: number,
-): {
-  capMicros: number;
-  stopAtMicros: number;
-  availableMicros: number;
-  mustReport: boolean;
-} {
+): DevelopmentAllowance {
   if (
     !Object.hasOwn(ceilings, provider) ||
     !Number.isSafeInteger(configuredCap) ||

@@ -4,6 +4,13 @@ import { integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import type { Pool } from 'pg';
 
 import { developmentSpendAllowance } from '../domain/development-spend';
+import type {
+  DevelopmentAllowance,
+  DevelopmentProvider,
+  DevelopmentReservation,
+  DevelopmentSpendPort,
+  DevelopmentSpendStatus,
+} from '../domain/development-spend.port';
 
 // Candidate schema only. No runtime callers until the additive migration lands.
 const pools = pgTable('development_spend_pools', {
@@ -16,17 +23,16 @@ const reservations = pgTable('development_spend_reservations', {
   reserved: integer('reserved_micros').notNull(),
   cost: integer('cost_micros'),
 });
-type Provider = 'anthropic' | 'xai';
 
 /** Lifetime ledger isolated from production reserves, dates and provider calls.
  * Null cost retains the full hold, including calls with unknown outcomes.
  * Settle only with confirmed billing; zero explicitly releases an unspent hold.
  */
-export class PostgresDevelopmentSpendRepository {
+export class PostgresDevelopmentSpendRepository implements DevelopmentSpendPort {
   constructor(private readonly pool: Pool) {}
 
   /** One statement gives a consistent view while reservations settle concurrently. */
-  async status(provider: Provider) {
+  async status(provider: DevelopmentProvider): Promise<DevelopmentSpendStatus> {
     developmentSpendAllowance(provider, 0, 0);
     const [usage] = await drizzle(this.pool)
       .select({
@@ -51,7 +57,11 @@ export class PostgresDevelopmentSpendRepository {
     };
   }
 
-  async reserve(id: string, provider: Provider, amount: number) {
+  async reserve(
+    id: string,
+    provider: DevelopmentProvider,
+    amount: number,
+  ): Promise<DevelopmentReservation> {
     developmentSpendAllowance(provider, 0, 0); // Validate before opening a connection.
     if (!Number.isSafeInteger(amount) || amount <= 0)
       throw new Error('Invalid development reservation');
@@ -93,7 +103,7 @@ export class PostgresDevelopmentSpendRepository {
     });
   }
 
-  async settle(id: string, cost: number) {
+  async settle(id: string, cost: number): Promise<DevelopmentAllowance> {
     if (!Number.isSafeInteger(cost) || cost < 0 || cost > 2147483647)
       throw new Error('Invalid development charge');
     return drizzle(this.pool).transaction(async (tx) => {
@@ -125,7 +135,7 @@ export class PostgresDevelopmentSpendRepository {
         .from(reservations)
         .where(eq(reservations.provider, entry.provider));
       return developmentSpendAllowance(
-        entry.provider as Provider,
+        entry.provider as DevelopmentProvider,
         pool.cap,
         usage.total,
       );

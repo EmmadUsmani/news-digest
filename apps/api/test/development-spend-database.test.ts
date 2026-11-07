@@ -4,11 +4,13 @@ import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
 import { PostgresDevelopmentSpendRepository } from '../src/modules/digests/database/development-spend.repository';
+import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
 
 void test('candidate development ledger serializes lifetime holds and preserves confirmed charges', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const db = database();
-  const repository = new PostgresDevelopmentSpendRepository(db);
+  const repository: DevelopmentSpendPort =
+    new PostgresDevelopmentSpendRepository(db);
   const id = () => crypto.randomUUID();
   try {
     await db.query(readFileSync('ops/backups/development_pools.sql', 'utf8'));
