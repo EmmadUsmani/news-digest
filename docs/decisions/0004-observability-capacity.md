@@ -453,3 +453,26 @@ Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 60 10`;
 21 vmalert rules/uncached query probes using the selectors above; metrics
 counters; Grafana/app health; `pnpm obs services --check`, `sources --check`,
 `jobs --check`, and `alerts`. `pnpm check` and `pnpm build` passed.
+
+### Seventy-minute follow-up (iteration 1215)
+
+From 17:08:02 UTC, a 300.271-second cgroup sample measured 1.322%
+whole-stack CPU and 754.98 MiB sampled peak memory. Metrics averaged
+0.411% CPU, with 364/1,114 active periods throttled. Every sampled unit
+recorded zero memory-high, OOM and OOM-kill events. Checks/build overlapped
+the sample; the CPU-only trial remained unchanged without restart.
+
+Nine thirty-second probes found all 23 rules healthy and both uncached
+selectors returning one series. Maximum latency was 0.401 seconds; backup
+staleness evaluated successfully at 17:11:48 UTC. Admission-limit hits,
+queue timeouts and slow queries remained zero. Small-storage merged rows
+reached 2,281,811 cumulatively, indexdb 13,122 and large-storage zero.
+No comparable single five-million-row compaction was observed; recovery
+and queued deployment remain open. Services, sources, jobs and both
+app/Grafana health endpoints passed. No paid calls or runtime changes.
+
+Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 30 10`;
+vmalert rules and uncached selectors above; metrics counters;
+`pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`;
+app/Grafana health; `pnpm check`, `pnpm build`, `pnpm format`,
+`pnpm lint:fix`, `git diff --check`.
