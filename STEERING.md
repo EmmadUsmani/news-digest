@@ -19,9 +19,6 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 2. X search: reliability fixes and test rounds (items 39, 34).
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
-6. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Start as
-   soon as item 33 is closed, whenever items 2, 4 and 5 are waiting on a time or
-   on evidence. The owner's settings are on the VM.
 7. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
@@ -303,6 +300,8 @@ Do this before any other item, and ack it when done.
 ack: 2026-11-03 item 7 measurement — iteration 425 observed the scheduled edition (777fdd95-0bcd-4ca7-9ea6-36c654effcca): 231.829 s worker duration, 748 article candidates, $0.339524 Anthropic/43 calls. The under-60-second target is NOT met; keep item 7 open. Three story sections used AI, NBA stories fell back despite complete triage, and World selected no posts. Investigate editor validation/admission and latency offline before another paid run.
 
 ack: 2026-11-06 item 7 — iteration 970: replayed Nov 5 topic stages and HTTP occupancy; Tech post selection takes 55.895 s, and the final 8.804 s has at most one active call (social triage then Bluesky editing). Recorded the serialized slot dependency and a budget-preserving scoring-split candidate for after the Nov 6 gate; no paid calls or runtime changes. Speed target remains open.
+
+ack: 2026-11-07 item 7/42 — iteration 1078: Nov 6 timeline now attributes the final 14.141 s to Tech X editing and its unsupported-absence repair, rather than Bluesky. Total HTTP work 490,055 ms/37 calls; four-slot lower bound 122,514 ms. Tech launch repetition remains the biggest reader weakness; social editor v6 already awaits Nov 7 publication. No speculative scheduling/prompt change or paid calls; [evidence](docs/edition-reviews/2026-11-05-social-latency.md#nov-6-comparison--iteration-1078).
 
 ## 8. PARKED by the owner (see item 14): Reddit, the owner's #2 social source (2026-11-02)
 
@@ -1242,6 +1241,8 @@ expect roughly 230 MB in total. The owner already set the bucket lifecycle to
   try to set it.
 
 ack: 2026-11-07 item 37 partial — iteration 1076: encrypted database (latest 8,020,058 bytes) and VM (345,943 bytes) uploaded and download-SHA256 verified; real permanent-version deletion confirmed. Tier retention and 3 GB admission tested; existing nightly service now uploads dumps and weekly bundles without failing local backups. Bucket 8,366,001/3,000,000,000 bytes (0.279%); $0.000058/month before the shared free allowance, expected $0 within it. Recovery commands are in the handbook. Prepared vmalert rules pass, but activation needs the root-owned rules file; stopped at item 37's explicit root boundary and recorded the owner command in NEEDS_FROM_HUMAN.md. Item remains open until active alerts are verified.
+
+ack: 2026-11-07 item 37 closed — iteration 1078: owner activated the prepared rules and restarted obs-alerts at 01:45:44 UTC; all four Offsite rules now evaluate healthy/inactive, active file exactly matches the repository, threshold tests pass and live bucket metric is 8,366,001/3,000,000,000 bytes (0.279%). Encrypted uploads, nightly/weekly hooks, retention, recovery guide and active alerts complete. No agent root action or provider spend. Removed the completed Current order line.
 
 ## 38. Never idle, and choose work that matters (2026-11-05)
 

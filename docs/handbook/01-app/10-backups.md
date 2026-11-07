@@ -35,8 +35,8 @@ nightly run. Encrypted uploads are downloaded and checked before success is reco
 | B2 attempt            | Latest attempt failed, including a storage refusal                           |
 | B2 storage            | Above 2 GB, or last-30-day upload sizes project crossing 3 GB within 60 days |
 
-The local alert is active. B2 metrics are exported; activation of the prepared
-B2 alert rules awaits the owner deploying the root-owned rules file.
+Local and B2 alerts are active. The Operations page shows backup status;
+the observability stack evaluates the exported metrics every 30 seconds.
 
 ## Download and decrypt on a Mac
 

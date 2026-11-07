@@ -113,3 +113,56 @@ Do not keep revisiting this ordering question without such an implementation.
 The Nov 6 review supersedes the Nov 5 slot situation: three topics had no open
 slot and only World scored Bluesky. Its reserved-slot cost gate failed; that
 flag remains off. No latency gain or production admission change is claimed.
+
+## Nov 6 comparison — iteration 1078
+
+Immutable edition `1c83e78b-47f9-4a6f-bfb4-93820a691aea` changes the
+critical tail. Exported 57 allowlisted events and 37 call-usage records from
+the worker journal, Nov 6 15:00–15:03 UTC. Fixtures contain no prompts,
+responses, headers, fingerprints or secrets. Reproduce offline:
+
+```sh
+pnpm exec tsx apps/api/scripts/evaluate-edition-timeline.ts apps/api/test/fixtures/edition-timeline-2026-11-06.json
+pnpm exec tsx apps/api/scripts/evaluate-call-tokens.ts apps/api/test/fixtures/edition-call-usage-2026-11-06.json
+```
+
+The edition span is 137,030 ms; the queue's 137,059 ms includes surrounding
+work. Offsets below use `edition.start` at 15:00:00.091 UTC.
+
+| Topic     | Article triage ms | Grouping/story editing ms | Posts ms | Ready offset ms |
+| --------- | ----------------: | ------------------------: | -------: | --------------: |
+| Tech & AI |            72,536 |                    20,776 |   43,687 |         137,011 |
+| NBA       |            17,649 |                    71,585 |   25,052 |         114,298 |
+| Gaming    |            54,461 |                    49,089 |   15,935 |         119,497 |
+| World     |            61,996 |                    24,353 |   36,528 |         122,889 |
+
+World finishes second-last. The remaining **14,141 ms** has one HTTP call
+active for 13,975 ms and none for 166 ms. Both intersecting calls are X editing:
+
+| Purpose          | Start offset ms | End offset ms |
+| ---------------- | --------------: | ------------: |
+| social-editor-v2 |         111,576 |       127,139 |
+| social-editor-v2 |         127,274 |       136,999 |
+
+Unlike Nov 5, Bluesky scoring/editing does not occupy this final tail. The
+worker's validation event at offset 127,142 explicitly identifies Tech,
+initial Sonnet, unsupported absence in `rationale` (`negative-word`). This
+establishes the topic and repair cause independently of overlapping calls.
+The subsequent repair takes 9,725 HTTP ms; it succeeds and Tech becomes ready
+12 ms after it ends. This is necessary validation work in the observed run,
+not permission to weaken the validator or remove repairs.
+
+Total HTTP work falls from 550,600 to 490,055 ms (11.0%); calls fall from
+46 to 37. Four calls overlap for 111,907 ms (81.7% of the edition span),
+with no observed overlap above four. All 37 calls have usage and succeed at
+the provider; none stops at the output limit. Aggregate output is 109,290
+tokens. Article/social triage consumes 327,413 HTTP ms (66.8% of work).
+The work-only four-slot lower bound is 122,514 ms, still over 60 seconds.
+
+**Next:** inspect the Nov 7 run after the already-deployed social editor v6
+and reserved-slot changes. Early cache-only Bluesky scoring cannot remove
+Nov 6's final X-editor dependency, so no speculative scheduling or prompt
+change was added. Paid earlier scoring still has the admission-order failure
+proved above. The largest saved reader weakness remains Tech's repeated
+launch posts; its deployed fix awaits publication. No paid calls or edition
+writes were made for this comparison.
