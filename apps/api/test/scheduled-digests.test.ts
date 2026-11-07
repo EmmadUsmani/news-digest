@@ -1,8 +1,16 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { Queue, QueueEvents, Worker } from 'bullmq';
+
+import { redis } from '../src/libs/db/connections';
+import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { DigestPublished } from '../src/modules/digests/domain/digest-published';
+import { ReaderEditionController } from '../src/modules/digests/reader-edition.controller';
+import { coverageWindow } from '../src/modules/profiles/domain/schedule';
+import { scheduledSlot } from '../src/modules/profiles/domain/scheduled-slot';
+import { runScheduledBudgetAttempt } from '../src/scheduled-budget-attempt';
 
 void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
   const events: DigestPublished[] = [];
@@ -153,6 +161,149 @@ void test(
       );
     } finally {
       await Promise.all([failed.onModuleDestroy(), retry.onModuleDestroy()]);
+    }
+  },
+);
+
+void test(
+  'morning rehearsal: worker absent across scheduled time publishes once on return',
+  { timeout: 20000 },
+  async () => {
+    assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+    assert.equal(process.env.ANTHROPIC_API_KEY, '');
+    assert.equal(process.env.XAI_API_KEY, '');
+    const connection = redis();
+    const workerConnection = connection.duplicate({
+      maxRetriesPerRequest: null,
+    });
+    const eventConnection = connection.duplicate({
+      maxRetriesPerRequest: null,
+    });
+    const name = `morning-rehearsal-${crypto.randomUUID()}`;
+    const queue = new Queue(name, { connection });
+    const events = new QueueEvents(name, { connection: eventConnection });
+    const publications: DigestPublished[] = [];
+    const repository = new PostgresPreviewRepository({
+      async published(event) {
+        publications.push(event);
+      },
+    });
+    // The existing non-AI adapter path makes no provider calls.
+    Object.defineProperty(repository, 'editorial', { value: null });
+    const budgets = new PostgresScheduledBudgetRepository(repository.db);
+    let worker: Worker | undefined;
+    let runId: string | undefined;
+    let itemId: string | undefined;
+    try {
+      await events.waitUntilReady();
+      itemId = crypto.randomUUID();
+      await repository.db.query(
+        `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at)
+      VALUES($1,$2,'New AI developer tool released','Synthetic recovery report with readable source text',$3)`,
+        [itemId, `https://example.org/${itemId}`, new Date(Date.now() - 10000)],
+      );
+      await repository.db.query(
+        "INSERT INTO content_observations(item_id,source_id) VALUES($1,'hn')",
+        [itemId],
+      );
+      const scheduled = await queue.upsertJobScheduler(
+        'morning',
+        { pattern: '* * * * * *', limit: 1, startDate: Date.now() + 1000 },
+        { name: 'generate', data: {}, opts: { attempts: 3 } },
+      );
+      assert.ok(scheduled);
+      const timestamp = scheduled.opts.prevMillis;
+      assert.ok(timestamp);
+      runId = `00000000-0000-4000-8000-000000000001:${timestamp}`;
+      await budgets.register(new Date(timestamp), runId);
+      // No worker exists until after the due time; Redis retains the scheduled job.
+      await new Promise((resolve) =>
+        setTimeout(resolve, Math.max(0, timestamp - Date.now()) + 100),
+      );
+      assert.equal(await queue.getActiveCount(), 0);
+      assert.equal(publications.length, 0);
+      assert.equal(
+        (await budgets.read(new Date(timestamp).toISOString().slice(0, 10)))
+          ?.state,
+        'pending',
+      );
+      worker = new Worker(
+        name,
+        async (job) => {
+          const slot = scheduledSlot(job.opts.prevMillis, Date.now());
+          assert.ok(slot.ok);
+          assert.equal(slot.value.skip, undefined);
+          const window = coverageWindow(new Date(slot.value.timestamp), 'P1D');
+          assert.ok(window.ok);
+          const edition = await runScheduledBudgetAttempt(
+            budgets,
+            new Date(timestamp),
+            runId!,
+            job.attemptsStarted,
+            job.attemptsMade,
+            job.opts.attempts ?? 1,
+            () =>
+              repository.generate(
+                window.value.windowStart,
+                window.value.windowEnd,
+                runId,
+              ),
+          );
+          return { editionId: edition.id };
+        },
+        { connection: workerConnection },
+      );
+      const result = await scheduled.waitUntilFinished(events, 10000);
+      assert.equal(publications.length, 1);
+      const page = await new ReaderEditionController(repository).find(
+        result.editionId,
+      );
+      assert.ok(
+        page.topics.some((topic) =>
+          topic.stories.some(
+            (story) =>
+              story.id === itemId &&
+              story.summary.includes('Synthetic recovery report'),
+          ),
+        ),
+      );
+      assert.equal(page.windowEnd, new Date(timestamp).toISOString());
+      assert.equal(
+        (
+          await repository.db.query(
+            'SELECT count(*)::int AS count FROM digest_previews WHERE scheduled_key=$1',
+            [runId],
+          )
+        ).rows[0].count,
+        1,
+      );
+      assert.equal(
+        (
+          await repository.db.query(
+            'SELECT count(*)::int AS count FROM llm_calls WHERE run_id=$1',
+            [result.editionId],
+          )
+        ).rows[0].count,
+        0,
+      );
+      assert.equal(
+        (await budgets.read(new Date(timestamp).toISOString().slice(0, 10)))
+          ?.state,
+        'succeeded',
+      );
+      assert.equal(await queue.getCompletedCount(), 1);
+    } finally {
+      await worker?.close();
+      await events.close();
+      await queue.obliterate({ force: true });
+      await queue.close();
+      await Promise.all([
+        connection.quit(),
+        workerConnection.quit(),
+        eventConnection.quit(),
+      ]);
+      // The disposable database owns fixture rows, including immutable editions.
+      await repository.onModuleDestroy();
     }
   },
 );

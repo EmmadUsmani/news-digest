@@ -2011,6 +2011,8 @@ and files when finished.
 
 ack: 2026-11-07 item 46 closed / item 47 step 1 — iteration 1089 accepts the owner trial of 5.2 desktop screens, updates the length smoke/spec and removes the resolved owner blocker. All 17 posts/16 loaded X embeds retained; Tech/NBA/Gaming/World 4.94/4.42/4.98/2.03 screens in both themes at 1440×1100, no desktop inner scrolling. Reader content unchanged; item 33 stays closed.
 
+ack: 2026-11-07 item 47 step 2, case 1 — iteration 1090: isolated cron slot survives absent worker; returning worker publishes exactly one readable fallback edition with original window, settled reserve and zero provider charges. No runtime fix needed; remaining three named cases pending.
+
 ## 48. NEXT: generic alert system that logs to a file (2026-11-07)
 
 **Why:** alerts reach nobody. `obs-alerts` runs vmalert with `-notifier.blackhole`,
