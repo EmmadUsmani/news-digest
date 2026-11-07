@@ -110,3 +110,13 @@ Earlier entries: [iterations 1208–1214](docs/progress-archive/2026-11-07-itera
 - Uncached self-scrape/API selectors one series each (0.235/0.002 s); admission/timeouts/slow-query counters zero. Small merged rows 4,362,390 cumulative, indexdb 20,222, large zero; comparable single five-million-row compaction unobserved. Recovery stays open.
 - Updated TASKS and capacity evidence. Verification: pnpm check passes (558 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Deployment/restart deferred to preserve the existing recovery gate. Next: comparable natural compaction, queued deployment, Nov 8 scheduled acceptance/first-week report. No paid calls.
+
+## 2026-11-07: iteration 1224 — correlate compaction recovery evidence
+
+- Highest-priority breakage: added bounded, read-only `scripts/sample-metrics-recovery.ts` to correlate small/big merge deltas, process identity, uncached queries, query-failure totals and fresh rule evaluations. No settings changes, forced compaction or provider calls.
+- Large interval totals are candidates requiring journal confirmation, never automatic recovery; offline tests reject cumulative-total confusion, resets, invalid counters and changed processes. Invalid CLI arguments rejected before sampling.
+- Live `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` at 18:25:09–18:26:09 UTC: 171,517/3,476 small rows in one merge each, big zero, all 23 rules healthy/fresh, six queries healthy/max 0.167 s; admission/timeouts/slow queries zero.
+- `pnpm exec tsx scripts/sample-observability-capacity.ts 6 10`: 60.038 s, 1.592% CPU/717.79 MiB peak; metrics 0.619% CPU/145 of 265 periods throttled; all units zero memory-high/OOM events. CPU trial unchanged since 16:00:24, zero restarts; no comparable large compaction.
+- Clean main/no leftovers initially; services 14/14, sources 36/36, jobs and /healthz pass, alerts clear. Updated TASKS and capacity evidence; item 33 closed and items 39/34 await Nov 8 production evidence.
+- Verification: pnpm check passes (560 unit/229 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass. Grafana health HTTP 200/database OK.
+- Deployment/restart remains deferred to preserve the recovery gate. Next: use correlated probe alongside cgroup sampling through natural comparable compaction, then queued deployment and Nov 8 acceptance/first-week report.

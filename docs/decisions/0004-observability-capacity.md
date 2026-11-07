@@ -496,3 +496,30 @@ open. No runtime settings, services or production records changed.
 Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
 vmalert rules, uncached selectors and metrics counters; Grafana/app health;
 `pnpm obs services --check`, `sources --check`, `jobs --check`, `alerts`.
+
+### Correlated recovery probe (iteration 1224)
+
+`pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` now emits a baseline
+and six thirty-second JSONL observations from local read-only endpoints.
+Each observation records small/big storage merge counters, process start,
+query admission/timeouts/slow-query totals, rule health and uncached
+self-scrape/API-unit query latency. Pair it with the existing cgroup sampler
+for resource evidence. Neither command changes settings or forces merges.
+
+The probe fails on HTTP/query failures, absent counters, process changes,
+counter resets, unhealthy rules or rule evaluations older than two minutes.
+Per-interval row deltas identify windows worth inspecting in the journal;
+even five million rows in one interval can represent multiple merges and
+non-atomic counters, so the output explicitly requires journal confirmation.
+Cumulative totals alone never mark recovery. Offline tests cover cumulative
+versus interval totals, multiple-merge ambiguity, resets and process changes.
+
+Live verification (`2 30`) at 18:25:09–18:26:09 UTC captured small-storage
+intervals of 171,517 and 3,476 rows, one merge each; big-storage remained
+zero. All 23 rules stayed healthy/fresh; six uncached queries returned one
+healthy series, maximum 0.167 seconds. Admission/timeouts/slow queries were
+zero. A separate 60.038-second cgroup sample starting 18:24:32 measured
+1.592% whole-stack CPU/717.79 MiB peak, metrics 0.619% CPU and 145/265
+periods throttled; every unit had zero memory-high/OOM events. CPU trial
+still starts at 16:00:24 with no restarts. No comparable merge observed;
+recovery and queued deployment remain open.
