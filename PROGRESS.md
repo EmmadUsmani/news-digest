@@ -144,3 +144,14 @@ Earlier entries: [iterations 1191–1199](docs/progress-archive/2026-11-07-itera
 - Verification: pnpm check passes (552 unit/228 integration, four expected skips); pnpm build, pnpm format, pnpm lint:fix and git diff --check pass.
 - Edition review/TASKS updated; internal repair fix needs no handbook/schema/SOURCES/NEEDS_FROM_HUMAN or screenshot changes. No paid calls, runtime changes or restarts.
 - Next: natural comparable compaction, then queued deployment; Nov 8 second scheduled acceptance.
+
+## 2026-11-07: iteration 1213 — verify sustained metrics trial health
+
+- Clean main/no leftovers; prioritized the open metrics incident before queued product deployment.
+- Alerts clear; 14 services/36 sources and scheduled digest queue healthy; /healthz database/Redis and Grafana database OK. Latest free-social collection verified ten posts without discovery/verification errors.
+- Unchanged CPU-only trial reached 52 minutes, NRestarts=0. Three-minute sample: 1.316% whole-stack CPU/750.21 MiB peak; metrics 0.427% CPU, 243/669 throttled periods, zero memory-high/OOM events. Checks/build overlapped sample.
+- Seven thirty-second probes pass: all 23 rules healthy, both uncached selectors return one series, max query 0.299 s. Backup rule advances to 16:52:18; admission/timeouts/slow queries remain zero.
+- Small-storage merged rows 1,914,990 cumulative; large-storage zero. No comparable single five-million-row compaction observed; recovery and queued publisher/reader/diagnostic deployment remain open.
+- Updated capacity decision/TASKS with evidence; no source/schema/UI/handbook changes needed. pnpm check passes: 552 unit, 228 integration/four expected skips; pnpm build passes.
+- pnpm format, pnpm lint:fix and git diff --check pass. No paid calls, production data/config changes or restarts; deliberately retained the isolated trial rather than invalidating observation with deployment.
+- Next: comparable natural compaction evidence, then queued deployment subject to edition protection; Nov 8 second scheduled acceptance.

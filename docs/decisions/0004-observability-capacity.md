@@ -409,3 +409,24 @@ production data changed. Commands: `pnpm exec tsx
 scripts/sample-observability-capacity.ts 60 10`, repeated vmalert rules and
 uncached query probes, direct metrics counters, Grafana/app health,
 `pnpm obs services --check`, `sources --check`, `jobs --check`, and `alerts`.
+
+### Fifty-minute uptime follow-up (iteration 1213)
+
+At 16:52 UTC the unchanged CPU-only trial had run for 52 minutes without
+a restart. A 180.177-second sample starting at 16:49:09 measured 1.316%
+whole-stack mean CPU and 750.21 MiB sampled peak memory. Metrics averaged
+0.427% CPU, throttled 243/669 active periods, and recorded zero memory-high,
+OOM or OOM-kill events. Checks and build overlapped the sample.
+
+Seven thirty-second probes found all 23 rules healthy and both uncached
+selectors returning one series; maximum query latency was 0.299 s. Backup
+staleness evaluation advanced to 16:52:18 UTC without error. Admission-limit
+hits, queue timeouts and slow queries remained zero. Cumulative small-storage
+merged rows reached 1,914,990; indexdb remained 6,528 and large-storage zero.
+No comparable single five-million-row merge was observed; recovery and queued
+deployment remain open. No service restart or runtime change was made.
+
+Commands: `pnpm exec tsx scripts/sample-observability-capacity.ts 18 10`;
+seven vmalert rules/uncached query probes using the selectors above; metrics
+counters; Grafana/app health; `pnpm obs services --check`, `sources --check`,
+`jobs --check`, and `alerts`. Full checks and build also passed.
