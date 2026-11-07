@@ -93,7 +93,12 @@ export function TopPosts({ posts }: { posts: ReaderPost[] }) {
           No standout posts today.
         </p>
       ) : (
-        <div className="post-grid grid grid-cols-1 gap-4">
+        <div
+          className="post-grid grid grid-cols-1 gap-4 lg:max-h-[1400px] lg:overflow-y-auto lg:overscroll-y-contain lg:[scrollbar-gutter:stable] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+          role="region"
+          aria-label="Posts — scroll for more"
+          tabIndex={0}
+        >
           {posts.map((post) =>
             post.platform === 'bluesky' ? (
               <BlueskyPost key={`bluesky:${post.externalId}`} post={post} />

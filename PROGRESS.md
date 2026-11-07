@@ -145,3 +145,16 @@
 - pnpm build passed with existing chunk warning; pnpm exec tsx scripts/smoke-reader-labels.ts and scripts/smoke-admin-gate.ts passed; saved edition unchanged. Proxy header replacement proof remains required before public access.
 - Initial concurrent lint:fix/check processes ended with signal 143 during lint, no diagnostic; sequential pnpm lint:fix and full pnpm check passed: 536 unit/226 isolated integration tests, zero failures; typecheck/lint/format/boundaries green. pnpm format and git diff --check passed.
 - Next: reduce real loaded-embed NBA/Gaming desktop length, measure all topics, close item 33, then start B2. No paid calls or edition writes.
+
+## 2026-11-07: iteration 1075 — close reader rebuild with bounded desktop posts
+
+- Clean main, no leftover work; health DB/Redis OK, alerts clear, sources 36/36 healthy. Nov 7 scheduled acceptance still awaits publication.
+- Fully loaded baseline exceeded the earlier partial-load estimate: Tech/NBA/Gaming 5436/4863/5482 px. Bounded desktop posts to a keyboard-accessible 1400 px scroll area; every saved card and full-width official embed remains available. Mobile keeps continuous page flow.
+- pnpm exec tsx scripts/smoke-reader-length.ts passed light/dark with all 16 X frames and 17 saved posts: Tech/NBA/Gaming/World 2849/2849/2877/2237 px (2.03–2.62 screens). End-key scrolling, later-card access, no horizontal overflow and unbounded mobile posts passed. Repeated after correcting screenshot positioning.
+- pnpm exec tsx scripts/smoke-reader-layout.ts passed four device/theme views, saved content, navigation and coverage; width assertion accounts for the reserved scrollbar gutter. Discarded incidental detail-image refreshes; kept four reader overview captures.
+- pnpm exec tsx scripts/capture-spec-routes.ts refreshed 56 route captures; no browser writes/errors/overflow. Added eight loaded-post screenshots and inspected NBA light/Gaming dark. Index links both sets.
+- pnpm exec tsx scripts/smoke-reader-labels.ts and scripts/smoke-admin-gate.ts passed; saved edition unchanged (20 stories/17 posts). Public proxy identity proof remains required before public access.
+- Updated affected handbook page; pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime passed (18 pages/28 tables, no metadata warnings). No diagram/source/schema changes or paid calls.
+- Item 33 closed with linked screenshots and results; removed its completed Current order line. Item 37 B2 backups is next while X/Bluesky publication checks wait; reviewed its encryption, retention and 3 GB limits.
+- pnpm build passed (existing chunk warning); API/worker restarted. pnpm format, pnpm lint:fix and git diff --check passed. First full check ended with signal 143 during integration without a diagnostic; sequential pnpm check rerun passed 536 unit/226 isolated integration tests, typecheck/lint/format/boundaries green.
+- pnpm obs services --check reports 13/13 healthy; pnpm obs jobs --check passes, digest-generation available/one worker/zero failed. Health and alerts remain clear. No source changes, edition writes or new blocker.

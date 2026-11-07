@@ -17,8 +17,6 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44).
 2. X search: reliability fixes and test rounds (items 39, 34).
-3. UI rebuild: check the reader against the spec, finish what's left and close
-   item 33 (items 33, 45). Raised by the owner on Nov 6 (item 43).
 4. Nov 6 edition review: World stories, cost (item 36).
 5. Bluesky in editions: show why, fix failures, hold a slot, alerts (items 40, 41).
 6. Off-VM Backblaze B2 backups (item 37), with a 3 GB storage budget. Start as
@@ -1025,6 +1023,8 @@ The owner finds the current UI busy and low quality. The home page is about
 
 ack: 2026-11-06 item 33 — iteration 971: repaired the existing selected-edition replay after compact mobile dates changed; saved stories, post text and original links remain selected through delayed latest success/error across desktop/mobile light/dark. No runtime or spend changes.
 
+ack: 2026-11-07 item 33 closed — iteration 1075: [all-route and loaded-post screenshots](docs/screenshots/ui/spec-routes.md); label scan and admin-404 tests pass. All 16 X embeds loaded in both themes: Tech/NBA/Gaming/World 2849/2849/2877/2237 px at 1440×1100 (2.03–2.62 screens). Desktop posts use a keyboard-accessible 1400 px scroll area, preserving every full-width card/embed and all 17 saved posts; mobile remains continuous. Reader layout checks pass; private access unchanged.
+
 ## 34. NOW: X search redesigned around viral posts (2026-11-04)
 
 The owner clarified the goal, and the plan changed. **Paid search exists to find
@@ -1869,3 +1869,5 @@ B2 use. Budgets, the 13:00–16:00 UTC window and edition protection still apply
 ack: 2026-11-07 item 45 step 1 — iteration 1071: documented the owner-approved approximate 800 MiB whole-stack RAM target and removed the resolved Grafana RAM request; unit limits unchanged.
 
 ack: 2026-11-07 item 45 step 2 — iteration 1072: compared the real Nov 6 saved reader with the approved spec and item 33 acceptance. TASKS.md now holds the single remaining list: loaded-embed NBA/Gaming length (3.52/3.35 desktop screens at 1440×1100), all-route screenshot refresh, and complete forbidden-label coverage. Admin-404 and reader/archive layout checks pass; item 33 remains open. No synthetic-only gap added.
+
+ack: 2026-11-07 item 45 steps 3–4 — iteration 1075: finished the remaining real-edition gap, refreshed all-route screenshots, passed label/admin-404/layout checks and measured every fully loaded topic below three desktop screens in both themes. Item 33 is closed; item 37 is next while scheduled Nov 7 acceptance waits.

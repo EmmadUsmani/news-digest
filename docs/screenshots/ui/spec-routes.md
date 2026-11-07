@@ -22,3 +22,19 @@ cards and do not measure loaded external embeds. No generation or paid calls.
 | Schedule | `/admin/schedule` | [View](spec-admin-schedule-desktop-light.png) | [View](spec-admin-schedule-desktop-dark.png) | [View](spec-admin-schedule-mobile-light.png) | [View](spec-admin-schedule-mobile-dark.png) |
 | Spend | `/admin/spend` | [View](spec-admin-spend-desktop-light.png) | [View](spec-admin-spend-desktop-dark.png) | [View](spec-admin-spend-mobile-light.png) | [View](spec-admin-spend-mobile-dark.png) |
 | Tools | `/admin/tools` | [View](spec-admin-tools-desktop-light.png) | [View](spec-admin-tools-desktop-dark.png) | [View](spec-admin-tools-mobile-light.png) | [View](spec-admin-tools-mobile-dark.png) |
+
+## Loaded desktop posts
+
+`pnpm exec tsx scripts/smoke-reader-length.ts` enables third-party embeds and
+scrolls through every saved post. Desktop posts use a keyboard-accessible scroll
+area; mobile stays in the normal page flow. All 17 posts remain available.
+
+| Topic | Height at 1440 × 1100 | Light | Dark |
+| --- | --- | --- | --- |
+| Tech & AI | 2849 px / 2.59 screens | [View](loaded-tech-desktop-light.png) | [View](loaded-tech-desktop-dark.png) |
+| NBA | 2849 px / 2.59 screens | [View](loaded-nba-desktop-light.png) | [View](loaded-nba-desktop-dark.png) |
+| Gaming | 2877 px / 2.62 screens | [View](loaded-gaming-desktop-light.png) | [View](loaded-gaming-desktop-dark.png) |
+| World | 2237 px / 2.03 screens | [View](loaded-world-desktop-light.png) | [View](loaded-world-desktop-dark.png) |
+
+Both themes loaded all 16 X frames. These are viewport captures at each posts
+section; the route images above retain full-page coverage.

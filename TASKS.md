@@ -16,19 +16,12 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report: Nov 5 $0.143191/19 fetched/18 new verified outside-list posts; prior Nov 3 $0.137056/18, Nov 4 $0.149447/19. Four topics weakest-first, $0.10 per-topic hold, unchanged $0.40/day/$12/month cap. Per-topic figures: [Sources](docs/SOURCES.md).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Quality/diversity acceptance remains open; World phrase shortlist empty. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [ ] STEERING 33 UI rebuild: follow the five steps in the [approved spec](docs/ui-spec.md). Foundations, navigation, admin pages and topic/source controls shipped (875–899); reader archive shipped (900). Reader contents, mobile chips/sheet and compact story cards shipped (923); source rows/favicons shipped (924); date switching shipped (928); X saved-text links and redundant footer cleanup shipped (926); delete replaced screens as each lands. Prior implementation detail is in PROGRESS and its archive.
-  - Single-image Bluesky media fills wide cards (1062); multiple images retain the responsive grid. Video previews now show a play cue and original-post action (1063).
-  - Date navigation failure recovery shipped (1060): retry history reads in the header without losing the edition; keyboard focus restored after recovery.
-  - Item 45 one-time real-edition review (1072), remaining list only:
-    - [ ] Reduce real loaded-embed desktop length: at 1440×1100, NBA at least 3,873 px / 3.52 screens and Gaming 3,690 px / 3.35 screens exceed about three; Tech 2.57 and World 2.03. Preserve saved stories/posts and full-width embeds.
-    - [x] Refresh every spec route in desktop/mobile light/dark (1074): 56 read-only saved-data captures across 14 routes, including admin detail/new-edition and not-found. [Screenshot index](docs/screenshots/ui/spec-routes.md).
-    - [x] Complete forbidden-label scan across all three reader routes (1073): desktop/mobile light/dark and mobile contents pass; saved editorial text exempt; injected forbidden label is rejected. Admin-404 smoke passes. Close item 33 after the two remaining items, then begin B2.
-  - Review used saved Nov 6 edition `1c83e78b-47f9-4a6f-bfb4-93820a691aea` (20 stories/17 posts). No other real-edition spec gap found in typography, sources, contents, date navigation, archive or cards. Private rollout remains authorized; forged-header proxy check required before public access. [Access decision](docs/decisions/2026-11-05-admin-access.md).
+- [x] STEERING 33/45 UI rebuild closed (1075): all acceptance gaps finished; [56 route screenshots and eight loaded-post views](docs/screenshots/ui/spec-routes.md). Loaded topics 2.03–2.62 desktop screens in both themes, all 16 X embeds/17 saved posts retained. Desktop posts scroll in a keyboard-accessible area; mobile remains continuous. Label/admin-404/layout checks pass. Private rollout remains authorized; proxy header replacement proof required before public access.
 - [ ] STEERING 28 incremental triage OFF: default-off runtime, shared admission, reserve-safe scoring, exact pools/cutoffs and sibling draining verified. Reassessed after full-AI acceptance (865): Nov 6 morning allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible in post-publication pool. Keep OFF; do not reduce protection. Actual waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
 
-- [ ] STEERING 37 LOW: off-VM Backblaze B2 backups (switched from R2 on Nov 6) B2 settings are on the VM and smoke-checked; owner added a hard 3 GB bucket budget and tiered retention (Nov 6). Build last, after everything above.
+- [ ] STEERING 37 NEXT: off-VM Backblaze B2 backups (switched from R2 on Nov 6) B2 settings are on the VM and smoke-checked; owner added a hard 3 GB bucket budget and tiered retention (Nov 6). Start now that item 33 is closed, while scheduled publication checks wait.
 
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [ ] M6: topic CRUD/reorder/enable, source/schedule/budgets and on-demand UI connected; broader acceptance and admin separation open. Replay coverage through 846 in archived task detail.
@@ -41,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] STEERING 45 step 2 (1072): reviewed the real saved reader against the spec; remaining acceptance list recorded above, including loaded-embed page length.
+- [x] STEERING 45 steps 3–4 (1075): completed loaded-embed length acceptance and closed item 33; B2 backups next.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

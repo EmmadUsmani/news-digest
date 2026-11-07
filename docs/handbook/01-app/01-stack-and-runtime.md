@@ -18,7 +18,11 @@
 The SPA bundles Inter locally and uses Tailwind v4 with shadcn/ui button
 primitives. Light and dark themes follow the system setting until the header
 toggle saves a preference in the browser. Open tabs share that preference.
-Existing layouts remain in a legacy CSS layer during the rebuild.
+Existing layouts remain in a legacy CSS layer.
+
+On desktop, each topic’s posts scroll within a bounded area; focus it and use
+the arrow keys, Page Down or End to reach later posts. Cards and official X
+embeds keep the full column width. Mobile shows posts in the normal page flow.
 
 Topic settings, incoming articles and connection health share a validated browser
 cache. Saved editions and each history page use the same cache, with separate

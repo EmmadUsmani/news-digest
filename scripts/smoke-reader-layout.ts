@@ -243,7 +243,10 @@ async function smoke() {
             const gridBounds = await grid.boundingBox();
             assert.ok(gridBounds);
             assert.ok(
-              Math.abs(bounds.width - gridBounds.width) < 2,
+              Math.abs(
+                bounds.width -
+                  (await grid.evaluate((node) => node.clientWidth)),
+              ) < 2,
               'Each post fills the reader column',
             );
             previousBottom = bounds.y + bounds.height;
