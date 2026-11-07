@@ -2019,6 +2019,8 @@ ack: 2026-11-07 item 47 step 2, case 3 — iteration 1092: fake Anthropic transp
 
 ack: 2026-11-07 item 47 step 2, case 4 — iteration 1093: all four scheduled topic searches rejected by fake X provider; durable admission prevents duplicate calls, zero charges/holds, one readable source-text fallback edition with no fabricated posts. No runtime fix needed; four named cases now pass, scratch rebuild next.
 
+ack: 2026-11-07 item 47 step 3 — iteration 1094: throwaway-key encrypted dump and real VM bundle decrypted/extracted privately; isolated Postgres restored 28 tables/41,637 rows matching snapshot. Clean main clone/frozen offline install/build and scratch API health/SPA/latest/saved four-topic edition pass. Guide now gives app-unit startup and cluster-role/lingering requirements. Scratch secrets/key/files/containers deleted. Root provisioning, owner-key/B2 download, login grants, new-host systemd/worker schedules and backup/observability timers not tested; details in PROGRESS.md.
+
 ## 48. NEXT: generic alert system that logs to a file (2026-11-07)
 
 **Why:** alerts reach nobody. `obs-alerts` runs vmalert with `-notifier.blackhole`,

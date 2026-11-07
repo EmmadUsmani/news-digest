@@ -65,10 +65,28 @@ Run these commands in Bash; replace the identity path with the owner's file.
 
 ## Rebuild from nothing
 
-1. Create an Ubuntu VM and clone this repo to `~/news-digest` on `main`. Install Docker, Node and pnpm using the [stack guide](01-stack-and-runtime.md).
+1. Create an Ubuntu VM and clone this repo to `~/news-digest` on `main`. Install Docker with Compose, Node 22 and pnpm 10.28.2; see the [stack guide](01-stack-and-runtime.md).
 2. Download and decrypt both backups with the commands above. Extract the bundle into a private staging directory: `mkdir -m 700 recovery; tar -xzf vm.tar.gz -C recovery`.
-3. Restore `.config/news-digest/env` with mode 600 and its directory with mode 700. Restore `.local/state/news-digest/` and the user units to their original paths. Keep the age private key off the VM.
-4. Start Postgres and Redis with `docker compose up -d postgres redis`. Restore into an empty `news_digest` database: `docker compose exec -T postgres pg_restore --exit-on-error --no-owner --no-privileges -U postgres -d news_digest < database.dump`. Reapply owner login grants.
-5. Run `pnpm install --frozen-lockfile` and `pnpm build`. Follow the [runtime guide](01-stack-and-runtime.md) to start app services. Check `/healthz` and the saved reader.
+3. Restore `.config/news-digest/env` with mode 600 and its directory with mode 700. Restore `.local/state/news-digest/` and the user units to their original paths. Keep restored timers stopped until configuration is ready. Keep the age private key off the VM.
+4. Start Postgres and Redis with `docker compose up -d postgres redis`. Restore into an empty `news_digest` database: `docker compose exec -T postgres pg_restore --exit-on-error --no-owner --no-privileges -U postgres -d news_digest < database.dump`. Recreate database logins and grants for the owner and observability using the restored credentials; a database dump does not include cluster roles.
+5. Run `pnpm install --frozen-lockfile` and `pnpm build`, then start the app services below. Check `/healthz`, `/api/editions/latest` and the saved reader before starting the worker.
 6. Reinstall observability from `ops/observability/` and restore its saved configuration from the bundle's `system/etc/` directory. Root-owned units and configuration need the owner's intervention.
 7. Run `bash ops/backups/install-age.sh` and `bash ops/backups/install.sh`; confirm timers, take a new backup and run the restore check. Check B2 upload receipts and alerts.
+
+From `~/news-digest`, install the current app units and start the reader first:
+
+```bash
+install -d -m 700 ~/.config/systemd/user
+install -m 644 ops/services/*.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now news-digest-api news-digest-docs news-digest-schema
+curl --fail http://localhost:8000/healthz
+curl --fail --silent http://localhost:8000/api/editions/latest -o /dev/null
+# After checking the saved reader and provider/budget configuration:
+systemctl --user enable --now news-digest-worker
+```
+
+Redis starts empty: saved editions and application settings return from Postgres;
+the worker recreates recurring schedules. Historical Redis job payloads are not
+in the database backup. Enable user lingering for services to survive logout
+(`sudo loginctl enable-linger "$USER"`, owner/root step).
