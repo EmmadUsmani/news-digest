@@ -2013,6 +2013,8 @@ ack: 2026-11-07 item 46 closed / item 47 step 1 — iteration 1089 accepts the o
 
 ack: 2026-11-07 item 47 step 2, case 1 — iteration 1090: isolated cron slot survives absent worker; returning worker publishes exactly one readable fallback edition with original window, settled reserve and zero provider charges. No runtime fix needed; remaining three named cases pending.
 
+ack: 2026-11-07 item 47 step 2, case 2 — iteration 1091: SIGKILL during isolated publication releases the database lock; replacement worker redelivers stalled job and saves exactly one readable edition, reserve attempt 2 succeeds, zero provider calls. No runtime fix needed. Passed cases are explicitly selected to avoid reruns; Anthropic and all-X failures remain.
+
 ## 48. NEXT: generic alert system that logs to a file (2026-11-07)
 
 **Why:** alerts reach nobody. `obs-alerts` runs vmalert with `-notifier.blackhole`,

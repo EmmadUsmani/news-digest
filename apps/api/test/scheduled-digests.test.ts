@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { fork } from 'node:child_process';
+import { once } from 'node:events';
 import { test } from 'node:test';
 
 import { Queue, QueueEvents, Worker } from 'bullmq';
@@ -167,7 +169,7 @@ void test(
 
 void test(
   'morning rehearsal: worker absent across scheduled time publishes once on return',
-  { timeout: 20000 },
+  { timeout: 20000, skip: process.env.MORNING_REHEARSAL_CASE !== 'absent' },
   async () => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
     assert.equal(process.env.ANTHROPIC_API_KEY, '');
@@ -303,6 +305,158 @@ void test(
         eventConnection.quit(),
       ]);
       // The disposable database owns fixture rows, including immutable editions.
+      await repository.onModuleDestroy();
+    }
+  },
+);
+
+void test(
+  'morning rehearsal: SIGKILL during publication recovers one readable edition',
+  { timeout: 25000, skip: process.env.MORNING_REHEARSAL_CASE !== 'dies' },
+  async () => {
+    assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+    assert.equal(process.env.ANTHROPIC_API_KEY, '');
+    assert.equal(process.env.XAI_API_KEY, '');
+    const connection = redis();
+    const workerConnection = connection.duplicate({
+      maxRetriesPerRequest: null,
+    });
+    const eventConnection = connection.duplicate({
+      maxRetriesPerRequest: null,
+    });
+    const name = `dying-worker-${crypto.randomUUID()}`;
+    const queue = new Queue(name, { connection });
+    const events = new QueueEvents(name, { connection: eventConnection });
+    const publications: DigestPublished[] = [];
+    const repository = new PostgresPreviewRepository({
+      async published(event) {
+        publications.push(event);
+      },
+    });
+    Object.defineProperty(repository, 'editorial', { value: null });
+    const budgets = new PostgresScheduledBudgetRepository(repository.db);
+    const end = new Date('2026-10-29T15:00:00Z');
+    const runId = `00000000-0000-4000-8000-000000000001:${end.getTime()}`;
+    let replacement: Worker | undefined;
+    const child = fork('apps/api/test/fixtures/rehearsal/dying-worker.ts', [], {
+      execArgv: ['--import', 'tsx'],
+      env: { ...process.env, REHEARSAL_QUEUE: name },
+      stdio: ['ignore', 'ignore', 'pipe', 'ipc'],
+    });
+    let childErrors = '';
+    child.stderr?.on('data', (chunk) => {
+      childErrors += String(chunk).slice(0, 1000);
+    });
+    const exited = once(child, 'exit');
+    try {
+      await events.waitUntilReady();
+      const itemId = crypto.randomUUID();
+      await repository.db.query(
+        `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at)
+         VALUES($1,$2,'New AI developer tool released','Synthetic mid-run recovery source text',$3)`,
+        [
+          itemId,
+          `https://example.org/${itemId}`,
+          new Date(end.getTime() - 1000),
+        ],
+      );
+      await repository.db.query(
+        "INSERT INTO content_observations(item_id,source_id) VALUES($1,'hn')",
+        [itemId],
+      );
+      await budgets.register(end, runId);
+      const reached = once(child, 'message');
+      const job = await queue.add(
+        'generate',
+        { timestamp: end.getTime(), runId },
+        { attempts: 3 },
+      );
+      const message = await Promise.race([
+        reached,
+        exited.then(() => {
+          throw new Error(`Worker exited before publication: ${childErrors}`);
+        }),
+      ]);
+      assert.equal(message[0], 'publishing');
+      assert.equal((await budgets.read('2026-10-29'))?.state, 'running');
+      assert.equal(publications.length, 0);
+      child.kill('SIGKILL');
+      assert.equal((await exited)[1], 'SIGKILL');
+      replacement = new Worker(
+        name,
+        async (retry) => {
+          const edition = await runScheduledBudgetAttempt(
+            budgets,
+            end,
+            runId,
+            retry.attemptsStarted,
+            retry.attemptsMade,
+            retry.opts.attempts ?? 1,
+            () =>
+              repository.generate(
+                new Date(end.getTime() - 86400000),
+                end,
+                runId,
+              ),
+          );
+          return { editionId: edition.id };
+        },
+        {
+          connection: workerConnection,
+          lockDuration: 1000,
+          stalledInterval: 1000,
+        },
+      );
+      const result = await job.waitUntilFinished(events, 15000);
+      assert.equal(publications.length, 1);
+      const page = await new ReaderEditionController(repository).find(
+        result.editionId,
+      );
+      assert.equal(page.windowEnd, end.toISOString());
+      assert.ok(
+        page.topics.some((topic) =>
+          topic.stories.some(
+            (story) =>
+              story.id === itemId &&
+              story.summary.includes('Synthetic mid-run recovery'),
+          ),
+        ),
+      );
+      assert.equal((await budgets.read('2026-10-29'))?.state, 'succeeded');
+      assert.equal((await budgets.read('2026-10-29'))?.attempt, 2);
+      assert.equal(
+        (
+          await repository.db.query(
+            'SELECT count(*)::int AS count FROM digest_previews WHERE scheduled_key=$1',
+            [runId],
+          )
+        ).rows[0].count,
+        1,
+      );
+      assert.equal(
+        (
+          await repository.db.query(
+            'SELECT count(*)::int AS count FROM llm_calls WHERE run_id=$1',
+            [result.editionId],
+          )
+        ).rows[0].count,
+        0,
+      );
+      assert.equal((await queue.getJob(job.id!))?.attemptsStarted, 2);
+      assert.equal(await queue.getCompletedCount(), 1);
+    } finally {
+      if (child.exitCode === null && child.signalCode === null)
+        child.kill('SIGKILL');
+      await exited;
+      await replacement?.close();
+      await events.close();
+      await queue.obliterate({ force: true });
+      await queue.close();
+      await Promise.all([
+        connection.quit(),
+        workerConnection.quit(),
+        eventConnection.quit(),
+      ]);
       await repository.onModuleDestroy();
     }
   },

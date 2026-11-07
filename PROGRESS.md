@@ -139,3 +139,13 @@ Earlier entries: [iterations 1070–1074](docs/progress-archive/2026-11-07-itera
 - pnpm build passes (existing bundle warning). Final format/lint/typecheck verification and service checks recorded below. No UI/schema/source/system-flow changes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged. Disk 66%; no provider spend.
 - Remaining: exactly three named cases (worker dies mid-run, Anthropic unavailable, all X searches fail), then scratch rebuild and M6/M7 settlement. Nov 7 production acceptance takes priority at publication.
 - Final pnpm format, pnpm lint:fix, pnpm typecheck and git diff --check pass. API/worker restarted outside protected window; /healthz passes after startup retry, 13 services healthy and alerts clear. Only production Postgres/Redis containers remain.
+
+## 2026-11-07: iteration 1091 — rehearse worker death during publication
+
+- Clean main/no leftovers. Initial alerts clear, /healthz DB/Redis OK, 13 services/36 sources healthy; scheduled queue has zero retained failures and next slot Nov 7 15:00 UTC.
+- Item 47 step 2 case 2: disposable worker subprocess reaches publishing while holding the database lock; parent sends SIGKILL. Real BullMQ stalled-job recovery redelivers to a replacement worker using real scheduled-budget/publication orchestration, with non-AI fallback explicitly selected and provider keys empty.
+- Pass: one completed job, exactly two attempts started, one saved edition/publication, original window and synthetic source text readable through reader controller; reserve attempt 2 succeeds, zero provider calls/charges. No runtime fix required; this case does not interrupt an in-flight paid provider request.
+- Both named rehearsals now opt in with MORNING_REHEARSAL_CASE=absent or dies, so routine integration runs do not repeat passed cases. Exactly Anthropic-unavailable and all-X-fail cases remain; no additional cases added.
+- pnpm format and pnpm lint:fix pass. MORNING_REHEARSAL_CASE=dies pnpm check passes typecheck/lint/format/boundaries, 538 unit tests and 227 integration tests; worker-absent case skipped as instructed. pnpm build passes with existing bundle warning. git diff --check clean.
+- API/worker restarted outside protected window; curl /healthz DB/Redis OK, pnpm obs alerts clear, services --check 13 healthy. Disposable containers cleaned; only production Postgres/Redis remain, disk 66%. No production queue/data disruption, provider spend or UI/schema/source/system-flow changes; handbook/SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: remaining two isolated rehearsals, scratch backup rebuild, then M6/M7 settlement and alert dispatcher. Nov 7 15:00 production acceptance takes priority once published; no editor changes or experiment reruns.
