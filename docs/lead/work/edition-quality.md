@@ -14,7 +14,7 @@ failed validation four times and fell back to non-AI ranking.
 
 **Next:**
 
-- Check the queued fixes are deployed before the protected window ahead of the Nov 8 15:00 UTC edition.
+- Check item 49 deployed the queued fixes before the Nov 8 edition.
 - Nov 8: does NBA story editing stay AI-edited? Cost against the cap.
 - Item 42: while other items wait, the agent reads the edition as a reader and
   fixes the biggest weakness. Check its PROGRESS.md entries.
