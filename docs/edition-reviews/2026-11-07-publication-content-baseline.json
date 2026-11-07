@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "editions": [
+    {
+      "id": "0b73eb47-19cf-48e8-8190-f9500c140fa4",
+      "sha256": "ed3f450e40c41a4e39b48ae60695eab13b7345ecb8d18a584aa4efd8e7411fc7"
+    },
+    {
+      "id": "1c83e78b-47f9-4a6f-bfb4-93820a691aea",
+      "sha256": "315322fd32b737236b5f94f356bd31efb4dc15c5b96059ed246f5233763bd735"
+    },
+    {
+      "id": "3bf10f5b-4c00-48b2-85bd-8e6dac7e3238",
+      "sha256": "e74c6e04ea459754df436128e2de3db6901810e2f0273a23a82c0bf2789e3094"
+    },
+    {
+      "id": "777fdd95-0bcd-4ca7-9ea6-36c654effcca",
+      "sha256": "36dde0e4d0b2b92fa6794a42d97e496480bc6ae86412ee8b716154affc93a6e0"
+    },
+    {
+      "id": "7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7",
+      "sha256": "0dfade1312a65bbcb2e1ba8fac6f35db326807aacb1696cb5fce1546be36245b"
+    }
+  ]
+}

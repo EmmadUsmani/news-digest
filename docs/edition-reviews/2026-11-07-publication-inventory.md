@@ -107,3 +107,16 @@ Browser contexts start with empty preferences, block external requests and rejec
 non-GET/HEAD requests. No provider calls or production writes. This establishes
 the current-model baseline only; rerun with the new model before enabling the
 published-only reader. No new-model equivalence is claimed.
+
+Iteration 1254 also captures every complete reader response as a SHA-256 hash
+in `2026-11-07-publication-content-baseline.json`. Object key order is ignored;
+array order and all response fields are retained. Capture refuses replacement.
+Run this against each model using the same candidate inventory:
+
+```sh
+pnpm exec tsx scripts/compare-publication-content.ts compare /tmp/publication-inventory.json docs/edition-reviews/2026-11-07-publication-content-baseline.json
+```
+
+An optional final origin targets the flagged app. All five old-model responses
+match; altered-hash and missing-candidate probes fail as required. Keep the
+browser comparison too: API equality alone does not check rendering.

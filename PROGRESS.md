@@ -131,3 +131,13 @@ Archived: [iterations 1235–1242](docs/progress-archive/2026-11-07-iterations-1
 - Four app services restarted/active; health database/Redis OK, alerts clear. Read-only source query: 36/36 enabled sources healthy/nonempty/recent. Actual candidate edition APIs and rendering pass; no new edition generated.
 - Updated TASKS/publication inventory/DATABASE-VERIFICATION. Archived progress 1235–1242 to keep this file below 25 KB. No handbook/source behavior change.
 - Next: register additive metadata migration/future scheduled writes before noon, then pools/test editions and new-model comparison. Nov 8 daily acceptance/first-week report remain due; passive metrics probe ≥23:17 UTC. No blockers.
+
+## 2026-11-07: iteration 1254 — complete publication reader fingerprints
+
+- Clean main/no leftovers; initial alerts clear, health database/Redis OK. Development spend $0; generation cutoff respected, production schema/reader/generation unchanged.
+- Added GET-only `scripts/compare-publication-content.ts capture|compare`: schema-validates every candidate, hashes the complete response with sorted object keys/preserved array order, refuses baseline overwrite and rejects content/candidate drift. Requests have 15-second timeouts and reject redirects.
+- `pnpm exec tsx scripts/inventory-editions.ts > /tmp/publication-inventory-1254.json`; capture and compare pass for all five actual Nov 3–7 reader responses. Committed baseline contains IDs/hashes only. Python subprocess probes confirm overwrite, altered hash and missing candidate fail; post-restart compare passes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 575 unit tests, 229 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Four app services restarted/active; final `/healthz` database/Redis OK and `pnpm obs alerts` clear. Read-only source query confirms 36/36 enabled sources healthy/nonempty/recent. All five actual candidate APIs remain readable.
+- Updated TASKS/publication inventory/DATABASE-VERIFICATION. No handbook/source behavior change; full-response comparison supplements the existing browser count/title baseline and does not claim new-model equality.
+- Next: register metadata migration/future writes before noon, then spend pools/test editions and new-model API/browser comparisons. Nov 8 scheduled acceptance/first-week report due; next passive metrics probe ≥23:17 UTC. No blockers.

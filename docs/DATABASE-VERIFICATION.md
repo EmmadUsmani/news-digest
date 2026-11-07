@@ -703,3 +703,16 @@ and story titles on desktop/mobile light/dark. Fresh contexts leave all topics
 visible, block external traffic and reject writes. Reuse the same inventory
 against the new-model app to complete the off/on comparison; the current-model
 baseline alone does not satisfy that rollout gate.
+
+### Complete reader content fingerprints (iteration 1254)
+
+`scripts/compare-publication-content.ts capture|compare inventory.json baseline.json
+[origin]` checks every candidate with GET requests and fingerprints the complete
+reader JSON response, sorting object keys while preserving array order. The
+committed `docs/edition-reviews/2026-11-07-publication-content-baseline.json`
+contains the five old-model IDs and SHA-256 hashes, with no article/post text.
+Capture refuses to overwrite an existing file. Compare rejects changed content
+or candidate membership; changed-hash, missing-candidate and overwrite probes
+pass. Repeat compare against the flagged app alongside the browser smoke before
+switching the reader. Current-model capture/compare passes; new-model equality
+is still pending.
