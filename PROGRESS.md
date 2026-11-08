@@ -107,3 +107,12 @@
 - Initial temporary script failed CJS top-level await, then an incorrectly scoped locator timed out; corrected both and all browser checks pass. Removed temporary scripts. No application change, paid calls, fetches to sources or data writes.
 - Updated daily review, source acceptance and TASKS. Keyword paid novelty and phase acknowledgments remain next; Nov 9 third-edition acceptance stays open. No deployment/restart during protected 13:00–16:00 window (evidence/docs/screenshots only).
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Browser link check (`node scripts/.iteration-1384-links.cjs`, removed after use), settlement-sum assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.
+
+## 2026-11-08: iteration 1385 — verify selected keyword novelty and engagement
+
+- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts.
+- Matched eight immutable saved selections to Nov 8 keyword citations: all recorded new candidates, zero earlier search citations, six outside current lists. No retained link/feed/Reddit citation rows for any selected ID; deleted historical provenance remains unknown.
+- All 40 candidates have provider-reported likes; selected likes 1,017–40,141. All 12 saved X posts have empty official metrics; verified virality, account-relative reach and velocity remain unknown. World partisan/aggregator posts do not independently verify underlying events.
+- Saved allowlisted query evidence and updated daily review, SOURCES and TASKS. Assertions verify eight new/six outside-list/zero retained free rows, 40 candidates and empty saved selected metrics. Temporary query script initially hit CJS top-level-await; wrapped main, reran successfully and removed it.
+- No provider calls, source fetches, data writes or deployment/restart during protected 13:00–16:00 window. Evidence/docs only; live application unchanged. Phase acknowledgments next; Nov 9 third-edition acceptance remains open.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Read-only novelty assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.

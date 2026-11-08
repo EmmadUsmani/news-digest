@@ -1,0 +1,249 @@
+{
+  "editionId": "f9af996b-f647-4994-836e-054964a93b74",
+  "engagementSource": "Unverified xai_search reports; saved official metrics empty",
+  "candidateEngagement": [
+    {
+      "topic": "Tech & AI",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 505,
+        "median": 1013,
+        "max": 1769
+      }
+    },
+    {
+      "topic": "NBA",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 1371,
+        "median": 2276.5,
+        "max": 26884
+      }
+    },
+    {
+      "topic": "Gaming",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 613,
+        "median": 1008,
+        "max": 5041
+      }
+    },
+    {
+      "topic": "World news & politics",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 2075,
+        "median": 5456,
+        "max": 40141
+      }
+    }
+  ],
+  "selected": [
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:32:39.223919+00",
+      "topic": "Tech & AI",
+      "id": "2119203243054023129",
+      "author": "Google Cloud Tech",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 1258,
+        "views": 86564,
+        "replies": 63,
+        "reposts": 143,
+        "externalId": "2119203243054023129",
+        "observedAt": "2026-11-08T14:32:39.208Z",
+        "publishedAt": "2026-11-07T23:00:00Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "Check out Google's Elephant-Goldfish Model, our new open-source plugin → Draft specs with deep-context agents and stress-test them with zero-context subagents before writing code. You make the architectural decisions and approve the spec before… pic.twitter.com/RlGjrPAEcQ",
+      "context": ""
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:32:39.223919+00",
+      "topic": "Tech & AI",
+      "id": "2119341048367665201",
+      "author": "tetsuo",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 1017,
+        "views": 34442,
+        "replies": 176,
+        "reposts": 172,
+        "externalId": "2119341048367665201",
+        "observedAt": "2026-11-08T14:32:39.208Z",
+        "publishedAt": "2026-11-08T08:07:36Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "ATTENTION IS ALL YOU NEED The most complex AgenC video yet. • 26 hours 51 minutes, from the first lyrics to the final file • 10.1 billion tokens • 131 agents, 23,354 model calls Music • Piano written by me, the melody inspired by \"Gouryella\" by Gouryella • Finished in… pic.twitter.com/LIq1VlXwet",
+      "context": ""
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:33:06.985571+00",
+      "topic": "NBA",
+      "id": "2119288667860611407",
+      "author": "NBA",
+      "outsideList": false,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 26884,
+        "views": 1168674,
+        "replies": 248,
+        "reposts": 3752,
+        "externalId": "2119288667860611407",
+        "observedAt": "2026-11-08T14:33:06.967Z",
+        "publishedAt": "2026-11-08T04:39:27Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "STEPH DROPS 41, WARRIORS WIN 7TH IN A ROW! HE TIES OSCAR ROBERTSON FOR THE 8TH-MOST 40-POINT GAMES IN NBA HISTORY 🤯 pic.twitter.com/PjiI7QFI3i",
+      "context": ""
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:33:06.985571+00",
+      "topic": "NBA",
+      "id": "2119281365396930820",
+      "author": "NBA",
+      "outsideList": false,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 1743,
+        "views": 98151,
+        "replies": 24,
+        "reposts": 181,
+        "externalId": "2119281365396930820",
+        "observedAt": "2026-11-08T14:33:06.967Z",
+        "publishedAt": "2026-11-08T04:10:26Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "SGA 30-PIECE. THUNDER WIN FOURTH STRAIGHT. 30 PTS | 9 AST | 3 3PM | 29 MIN The @okcthunder improve to 8-2 on the season! pic.twitter.com/KDWA0nn0Ir",
+      "context": ""
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:31:59.654309+00",
+      "topic": "Gaming",
+      "id": "2119121728525709463",
+      "author": "Zack Shutt",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 1397,
+        "views": 29956,
+        "replies": 37,
+        "reposts": 166,
+        "externalId": "2119121728525709463",
+        "observedAt": "2026-11-08T14:31:59.637Z",
+        "publishedAt": "2026-11-07T17:36:06Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "EA found a storage room nobody remembered, with nearly 20,000 old tapes, reels and discs inside. Two years later, Road Rash and six Wing Commander games are back on Steam and GOG. Whatever else is in that room, I want it. pic.twitter.com/FwoyGOK8Zk",
+      "context": ""
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:31:29.14512+00",
+      "topic": "World news & politics",
+      "id": "2119109412593758437",
+      "author": "Politics UK",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 8774,
+        "views": 3382349,
+        "replies": 581,
+        "reposts": 1310,
+        "externalId": "2119109412593758437",
+        "observedAt": "2026-11-08T14:31:29.121Z",
+        "publishedAt": "2026-11-07T16:47:09Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "🚨 NEW: The Government's \"Black Sky\" contingency plans for a national water or power blackout - Around 100 BBC staff would be deployed to run an emergency RM radio studio stocked with enough food, water and fuel to keep it running for 3 days - The BBC would broadcast… pic.twitter.com/arkWp1OkDF",
+      "context": "Continuity of public broadcasting during a major utility outage is a public-safety question."
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:31:29.14512+00",
+      "topic": "World news & politics",
+      "id": "2119274196874436857",
+      "author": "Democrats Deliver",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 40141,
+        "views": 413640,
+        "replies": 122,
+        "reposts": 3439,
+        "externalId": "2119274196874436857",
+        "observedAt": "2026-11-08T14:31:29.121Z",
+        "publishedAt": "2026-11-08T03:41:57Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "🚨 BREAKING: Montana has now completely banned corporate spending in politics. Republicans are now suing to reverse it. pic.twitter.com/Ef2dDC5caA",
+      "context": "Montana's ban is now the subject of a legal challenge, making it a live test of campaign finance rules."
+    },
+    {
+      "freeLinks": [],
+      "feeds": [],
+      "reddit": [],
+      "discoveredAt": "2026-11-08 14:31:29.14512+00",
+      "topic": "World news & politics",
+      "id": "2119111340342288415",
+      "author": "🪖MilitaryNewsUA🇺🇦",
+      "outsideList": true,
+      "newCandidate": true,
+      "priorCitations": 0,
+      "reported": {
+        "likes": 5557,
+        "views": 105171,
+        "replies": 104,
+        "reposts": 993,
+        "externalId": "2119111340342288415",
+        "observedAt": "2026-11-08T14:31:29.121Z",
+        "publishedAt": "2026-11-07T16:54:49Z",
+        "reported_by": "xai_search"
+      },
+      "savedMetrics": {},
+      "text": "❗️Democrats in the US Congress are preparing a new military aid package for Ukraine of about $15 billion, which they may try to include in the National Defense Authorization Act (NDAA) before the end of the current congressional session. They are also strengthening sanctions… pic.twitter.com/b6YMGHTGbS",
+      "context": "The package could be attached to the annual defense bill, linking Ukraine aid to that legislative vehicle."
+    }
+  ],
+  "checkedDay": "2026-11-08"
+}

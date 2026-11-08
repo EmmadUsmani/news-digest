@@ -2,6 +2,13 @@
 
 ### Nov 8 daily and first-week production X report — iteration 1381
 
+Iteration 1385 selected-citation review: all eight picks have recorded new-candidate
+baselines and no earlier search or retained free-link/feed/Reddit citations;
+six are outside current account lists. All 40 candidates have unverified
+provider-reported likes; all 12 selected X posts have empty official metrics.
+[Novelty, engagement and saved IDs](edition-reviews/2026-11-08.md#selected-keyword-novelty-and-engagement--iteration-1385).
+Third scheduled-edition acceptance still awaits Nov 9.
+
 Read-only post-publication ledger snapshot, Nov 8 15:05 UTC, using
 `report-x-discovery.ts 2026-11-08` and `report-x-week.ts 2026-11-08`.
 The seven-day report covers Nov 2–8; Nov 8 remains an incomplete UTC day.
