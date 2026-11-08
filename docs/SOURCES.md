@@ -1,5 +1,33 @@
 # Content source inventory
 
+### Nov 8 daily and first-week production X report — iteration 1381
+
+Read-only post-publication ledger snapshot, Nov 8 15:05 UTC, using
+`report-x-discovery.ts 2026-11-08` and `report-x-week.ts 2026-11-08`.
+The seven-day report covers Nov 2–8; Nov 8 remains an incomplete UTC day.
+
+| Topic                             | Nov 8 cost | New verified / outside-list | Nov 2–8 cost | New verified / outside-list |
+| --------------------------------- | ---------: | --------------------------: | -----------: | --------------------------: |
+| Tech & AI                         |  $0.066438 |                     10 / 10 |    $0.271168 |                     37 / 34 |
+| NBA                               |  $0.064175 |                      10 / 5 |    $0.291355 |                     39 / 32 |
+| Gaming                            |  $0.064925 |                     10 / 10 |    $0.234287 |                     30 / 28 |
+| World                             |  $0.064569 |                     10 / 10 |    $0.216593 |                     25 / 21 |
+| Unattributed historical call      |          — |                           — |    $0.023382 |                     unknown |
+| Total attributed yield / all cost |  $0.260107 |                     40 / 35 |    $1.036785 |                   131 / 115 |
+
+First week: 28 production calls, 137 fetched posts, zero remaining holds.
+Nov 2's two fetched posts lack topic attribution; historical search types vary.
+Counts use saved discovery baselines and current verification, not unique
+people or causal paid yield. No additional provider requests were made.
+
+Today all four keyword tools report completed execution, with no retries.
+Eight citations appear in the scheduled selection (Tech/NBA/Gaming/World
+2/2/1/3), six outside curated lists. Novelty versus free links and engagement
+quality still need review. World now has ten newly verified outside-list
+candidates and three selected citations, after Nov 7's unconfirmed searches.
+See the [scheduled review](edition-reviews/2026-11-08.md). Keep the three-edition
+keyword acceptance open through Nov 9; budgets, models and settings unchanged.
+
 ### Nov 7 pre-publication keyword production — iteration 1198
 
 Read-only snapshot at 14:38 UTC, before the 15:00 edition. This is partial
