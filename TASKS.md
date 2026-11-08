@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1271): opt-in development X runtime reserves isolated funds before direct xAI, settles fixed-tier token/fetched-item costs and retains uncertain holds without retries. Five offline cases pass; test-edition routing remains next.
+
 - [x] STEERING 50 (1270): opt-in development Anthropic runtime composes durable ledger/guard/provider with fixed model pricing and no retries; offline HTTP/accounting checks pass. Test-edition routes and xAI composition remain next.
 
 - [x] STEERING 50 (1269): explicit development LLM bridge bounds UTF-8 input/cache pricing and settles actual usage through the durable guard; offline refusal/replay/error checks pass. Runtime/test-edition composition remains next.

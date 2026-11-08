@@ -80,5 +80,8 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
 - Reservations persist until confirmed billing replaces the hold; admission stops
   at 75% of the allowance and never resets by date.
 - A separate Anthropic runtime requires `LLM_LIVE=1`, uses fixed Haiku/Sonnet
-  pricing and never retries calls. Admin test-edition routes are not connected
+  pricing and never retries calls. A separate direct-xAI runtime requires
+  `X_SEARCH_LIVE=1`, holds $0.40 before each call and settles all reported token
+  and fetched-item costs at fixed prices without retries.
+- Admin test-edition routes are not connected
   yet; current manual generations still use production accounting.
