@@ -115,8 +115,8 @@ def verify(container, socket_directory):
                'schedule_parity': True, 'foreign_keys_preserved': True,
                'nullable_ownership_columns': 4,
                'actual_migration_runner': True, 'runner_idempotent': True,
-               'adapter_read_parity': True, 'read_only_fingerprints_preserved': True,
-               'scope': 'SQL rollback, actual runner and adapter read parity; HTTP and AI acceptance remain separate'}
+               'adapter_read_parity': True, 'reader_http_parity': True, 'read_only_fingerprints_preserved': True,
+               'scope': 'SQL rollback, actual runner, adapter and reader HTTP parity; AI acceptance remains separate'}
     (database.DIRECTORY / 'system-ownership-proof.json').write_text(json.dumps(receipt) + '\n')
     print(f'System SQL rehearsal verified: {len(before)} original table fingerprints; rollback; actual runner twice; schedule parity; four nullable ownership columns')
 

@@ -78,7 +78,9 @@ mapped to profiles, and profiles go away.
   Restored-copy adapter comparisons also pass for all 550 saved editions (complete latest,
   direct and paginated history with both publication filters), topics and settings across
   flag off/on/off. Read-only sessions and unchanged fingerprints protect the restored copy.
-  Restored-copy HTTP and AI-off/recorded-AI-on acceptance remain separate gates.
+  Restored-copy reader HTTP comparisons also cover complete latest, every direct response
+  (including private 404s) and all history pages across the same flags and publication filters.
+  AI-off/recorded-AI-on acceptance remains a separate gate.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
   404s) and all original history entries across every page across flag off/on/rollback, with publication
   filtering enabled and disabled; these pass without provider calls.

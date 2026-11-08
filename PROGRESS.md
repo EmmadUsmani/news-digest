@@ -118,3 +118,16 @@
 - Full check totals: 629 unit and 239 integration passes; four expected integration skips.
 - No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
 - Next: restored-copy HTTP comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1397 — restored-copy reader HTTP preservation
+
+- Clean main/no leftovers; alerts zero, live database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Extended the private restore harness with the production Nest reader controller/repository, bound only to loopback without worker/provider composition.
+- Complete latest/direct/history HTTP responses for all 550 saved editions match ownership off/on/off with publication filtering enabled and disabled, including private 404s and terminating pagination.
+- Fresh backup `news-digest-20261108T173745Z`: 30 tables/54,528 rows restored; read-only sessions and unchanged complete data/ledger fingerprints verified. Actual migration runner twice and injected rollback still pass.
+- First rehearsal passed comparisons but failed cleanup because Nest and the script both closed the repository pool; removed duplicate close. Final rehearsal exits zero, writes the private receipt and cleans scratch resources.
+- Four backup unit tests pass; scheduled-reader command: `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`.
+- Updated TASKS, rollout plan and backup handbook. Handbook check (`backups`) checks 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
+- No provider calls, live data writes, migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
+- Next: AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.
