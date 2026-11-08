@@ -199,3 +199,10 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Fresh inventory plus `compare-publication-content.ts compare` verifies all five complete published responses unchanged. Added phase-0/phase-2 scheduled gates, served web preference flag, browser commands and original-five-ID hash comparison to the Nov 8 handoff; executed the documented jq/hash commands successfully.
 - `pnpm build` and handbook check pass (18 pages/22 diagrams/30 tables). Full `pnpm check` result recorded below; required format/lint fixes and diff verification before commit. No app behavior changed; phase 0/phase 2 still await a normal scheduled publication, VM stays private.
 - Final `pnpm check` passes: 625 unit/233 integration, four expected integration skips. Committing/pushing and restarting four app services before final health/alerts; next scheduled acceptance remains 15:00 UTC.
+
+## 2026-11-08: iteration 1291 — passive metrics recovery evidence
+
+- Clean main/no leftovers; alerts clear, `pnpm obs health --check` passes and `sources --check` reports all 36 healthy. Corrected unknown queue `digest` to `digest-generation`; failed-job read confirms zero failures and next run 15:00 UTC.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` (04:21 UTC): 23 healthy rules, four uncached queries ≤0.406 s, zero new evaluator errors/missed iterations, no small/big merges. Admission-limit hits remain 2; zero queue timeouts/slow queries. Recovery stays open without comparable compaction evidence; next passive check ≥05:21 UTC.
+- Phase 0/phase 2 wait for normal scheduled publication; no later phase started, no provider calls/spend, VM stays private. Updated stale recovery handoff in TASKS.md; no application behavior changed.
+- Required `pnpm format`/`pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Committing/pushing and restarting four app services before final health/alerts.
