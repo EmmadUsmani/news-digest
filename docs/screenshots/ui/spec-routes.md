@@ -48,3 +48,5 @@ Iteration 1081: saved Gaming multi-outlet coverage shows article and extra-outle
 Iteration 1299: `smoke-reader-bookmarks.ts` verifies Saved items removal feedback in desktop/mobile light/dark. A polite, atomic status announces the removed title and remaining count, including the empty list; keyboard focus stays on the neighboring removal control or the heading. This screen-reader feedback does not change the saved-page appearance.
 
 Iteration 1300: story and post Save buttons have touch targets of at least 44 × 44 pixels, checked by `smoke-reader-bookmarks.ts` in all four viewport/theme combinations: [desktop light](reader-save-target-desktop-light.png), [desktop dark](reader-save-target-desktop-dark.png), [mobile light](reader-save-target-mobile-light.png), [mobile dark](reader-save-target-mobile-dark.png).
+
+Iteration 1301: Saved items Remove and View edition actions have at least 44 × 44 pixel touch targets for stories, X and Bluesky copies, verified in desktop/mobile light/dark. Refreshed the four saved-page screenshots above.

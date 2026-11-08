@@ -79,12 +79,13 @@ export function ReaderSaved() {
                     to="/editions/$id"
                     params={{ id: copy.editionId }}
                     aria-label={`View edition containing saved item: ${copy.title}`}
-                    className="text-sm text-[var(--accent)]"
+                    className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     View edition
                   </Link>
                   <Button
                     variant="ghost"
+                    className="min-h-11 min-w-11"
                     aria-label={`Remove saved item: ${copy.title}`}
                     ref={(button) => {
                       if (button) removeButtons.current.set(id, button);

@@ -180,3 +180,11 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` to measure story and every saved-edition post control. Desktop/mobile light/dark checks pass with persistence, historical copies, removal and cross-tab behavior. Four focused screenshots added, four edition screenshots refreshed; inspected desktop/mobile light.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` verified before commit; 625 unit/233 integration pass with four expected skips. No handbook flow change, backend writes, provider calls or spend.
 - Commit/push and four-service restart follow verification; VM remains private. Scheduled phase acceptance still waits for Nov 8 15:00 UTC.
+
+## 2026-11-08: iteration 1301 — easier Saved items actions on mobile
+
+- Clean main/no leftover work. Alerts/health pass; all 36 sources have successful collection and no current errors. Digest-generation has zero failed jobs and next run 15:00 UTC; metrics probe not due until ≥06:22 UTC.
+- Reader weakness under item 50 phase 2: Saved items Remove and View edition targets were smaller than the edition Save controls. Both now offer at least 44 × 44 px targets; the edition link also has a visible keyboard-focus outline. The owner can revisit or remove bookmarks more easily on mobile.
+- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark with actual saved stories, X and Bluesky copies, historical editions, persistence, cross-tab updates and removal focus/announcements. Refreshed four saved-page screenshots; inspected desktop/mobile light. Discarded unrelated screenshot rendering noise.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. No handbook flow change, backend writes, provider calls or spend.
+- Scheduled phase acceptance remains due Nov 8 15:00 UTC; VM remains private. Commit/push and four-service restart follow verification.

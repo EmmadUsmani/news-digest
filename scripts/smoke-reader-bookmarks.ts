@@ -193,6 +193,20 @@ async function smoke() {
             })
             .click();
         }
+        for (const action of await other
+          .getByRole('button', { name: /^Remove saved item:/ })
+          .or(
+            other.getByRole('link', {
+              name: /^View edition containing saved item:/,
+            }),
+          )
+          .all()) {
+          const bounds = await action.boundingBox();
+          assert.ok(
+            bounds && bounds.width >= 44 && bounds.height >= 44,
+            'saved item actions offer at least 44 × 44 pixel touch targets',
+          );
+        }
         await other.screenshot({
           path: `docs/screenshots/ui/saved-${device}-${theme}.png`,
           fullPage: true,
