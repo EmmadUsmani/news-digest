@@ -120,3 +120,14 @@
 - Updated TASKS, rollout plan and affected handbook callout. No UI/source changes, provider calls or secret access.
 - No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
 - Next: private backup/restored-copy rehearsal, every-edition response preservation and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1393 — rehearse system ownership on private restore
+
+- Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Added `python3 ops/backups/rehearse_system.py`: fresh private snapshot backup, checksum/count-verified networkless restore, pending 0011/0012 SQL in one transaction, unconditional container cleanup.
+- Final rehearsal: backup `news-digest-20261108T165928Z`, 30 tables/54,484 rows restored; all 29 original data-table full-row fingerprints and existing foreign keys unchanged. Schedule copied exactly; four ownership columns nullable.
+- Injected failure after both migration files rolls back DDL, data and ledger entries. Receipt links backup/migration SHA256 checksums at `~/backups/news-digest/system-ownership-proof.json` (600); no row content printed, provider calls or secret reads.
+- SQL rehearsal does not run the TypeScript migration runner or adapter/HTTP/AI acceptance; those remain separate gates. Updated TASKS, rollout plan and backup handbook command.
+- Verification: four backup unit tests pass; handbook check passes (18 pages, no changed diagrams), with two existing unapplied edition_settings metadata warnings. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
+- No live migration/deployment/restart: STEERING 50's after-noon generation cutoff remains in force. Scratch container removed; live health remains green.
+- Next: every-edition preserved-response comparisons, actual runner/adapter checks and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.

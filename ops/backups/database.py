@@ -110,7 +110,7 @@ def backup():
             session.wait()
 
 
-def restore():
+def restore(verify=None):
     manifests = sorted(DIRECTORY.glob('news-digest-*.json'))
     if not manifests:
         raise RuntimeError('No completed backup')
@@ -145,6 +145,8 @@ def restore():
                 session.wait()
         if actual != manifest['tables']:
             raise RuntimeError('Restored table counts differ')
+        if verify is not None:
+            verify(container)
         receipt = {'checked_at': time.time(), 'backup': path.stem, 'tables_compared': len(actual),
                    'rows_compared': sum(actual.values())}
         (DIRECTORY / 'restore-proof.json').write_text(json.dumps(receipt) + '\n')

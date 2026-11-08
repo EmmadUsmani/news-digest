@@ -69,6 +69,12 @@ mapped to profiles, and profiles go away.
   system scope with the flag on, preserving publication filters and saved snapshots;
   new editions keep default-profile ownership for rollback;
   do not enable the flag or deploy this code before the migrations.
+  The private restored-copy SQL rehearsal passes for both pending migrations:
+  original-table fingerprints and foreign keys remain intact, schedule parity
+  holds, and an injected failure rolls back DDL, data and ledger entries.
+  Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt
+  identifies the backup and migration checksums. Actual migration-runner,
+  adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous
