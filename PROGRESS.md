@@ -84,3 +84,12 @@
 - Updated rollout plan and schema metadata; archived progress entries 1412–1421 to keep orientation small. No handbook behavior changed because storage remains unapplied.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 670 unit tests, 252 integration passes/four expected skips, schema parity and static checks green. Handbook plan check reports only expected notes for unapplied tables.
 - Saved-reader check verifies four topics/19 stories/17 posts. Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync repository and bounded merge preparation, then Phase 1 rollout in its allowed window.
+
+## 2026-11-08: iteration 1431 — bounded reader sync merge policy
+
+- Clean main/no leftovers; alerts clear, health good, all 36 sources healthy. Digest queue has zero failed jobs and next run Nov 9 15:00 UTC.
+- Prepared server merge validates bounded keys, timestamps and display copies; latest changes win with browser-compatible ties. Removal tombstones survive and count toward 1,000 bookmark/1,000 topic key limits; invalid or over-capacity unions reject without changing inputs.
+- Offline coverage verifies browser parity, convergence, equal-clock removals, newest topic choices, prototype-shaped keys, copy isolation and fail-closed validation/capacity. Persistence must serialize read/merge/write per reader before wiring.
+- Accounts remain disabled; VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; no handbook behavior changed.
+- Initial build caught TypeScript indexed narrowing; lint caught missing void on tests. Both corrected. Targeted tests (4), pnpm format, pnpm lint:fix and final pnpm build pass; handbook plan check has only expected unapplied-table notes.
+- Final pnpm check passes: static checks, 674 unit passes, 252 integration passes/four expected skips. git diff --check passes. Saved-reader check retains four topics/19 stories/17 posts. Commit/push then restart API/worker and repeat health/reader checks to match main. Next: per-reader locking sync repository, then Phase 1 pre-noon backup/rollout and scheduled acceptance.

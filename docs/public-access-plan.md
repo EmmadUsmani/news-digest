@@ -233,7 +233,11 @@ keys and JSON size are bounded. Topic/item keys deliberately have no content for
 key so historical preferences survive source removal. Both tables cascade with
 identity deletion and deny PUBLIC and operational reader roles. Storage acceptance
 covers cascade, rollback, surviving accounts, tombstones and inherited grants.
-Sync repositories, merge limits and HTTP/browser wiring remain pending.
+Prepared server merge policy matches browser timestamp/tie ordering, retains tombstones,
+and rejects invalid changes or a union exceeding 1,000 bookmark keys or 1,000
+topic keys (including removal records). Display copies use the browser field limits;
+rejection preserves both inputs. Sync repositories must serialize read/merge/write
+per reader; persistence, HTTP/browser wiring and account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

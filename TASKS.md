@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1430: Unapplied sync-storage migration adds per-reader hidden topics and bookmark/tombstone rows with identity cascades and operational-reader denial. Deletion/isolation, rollback, bounds and inherited-grant checks covered; sync repositories and main registration pending; accounts disabled.
+- [x] Iteration 1431: Prepared server sync merge preserves tombstones, matches browser conflict ordering and rejects invalid/over-capacity unions atomically. Limits: 1,000 bookmark and 1,000 topic keys including removals. Persistence/locking and HTTP/browser wiring pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
