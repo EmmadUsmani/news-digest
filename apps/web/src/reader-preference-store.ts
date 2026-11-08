@@ -81,10 +81,10 @@ export function parsePreferences(raw: string | null): PreferenceStore {
       }
     }
     if (record(value.bookmarks)) {
-      for (const [id, change] of Object.entries(value.bookmarks).slice(
-        0,
-        bookmarkLimit,
-      )) {
+      // Concurrent tabs can each admit a final save before seeing the other.
+      // Preserve their union, including tombstones, when reloading. Capacity
+      // blocks new identities in changeBookmark; reading must not discard data.
+      for (const [id, change] of Object.entries(value.bookmarks)) {
         if (
           !id ||
           id.length > 400 ||

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1313: Successful cross-tab storage recovery clears stale preference warnings even when no repair write is needed.
+- [x] Iteration 1314: Concurrent saves at browser capacity survive reload with all saved items and removal records retained; new identities remain blocked at capacity.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

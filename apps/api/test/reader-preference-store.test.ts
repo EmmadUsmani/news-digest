@@ -155,3 +155,24 @@ void test('simultaneous bookmark changes converge across merge order without res
       .bookmarks['story:one'].copy,
   );
 });
+
+void test('concurrent saves at capacity survive reload without dropping removals', () => {
+  const base = emptyStore();
+  for (let i = 0; i < bookmarkLimit - 1; i++)
+    base.bookmarks[`story:removed-${i}`] = { copy: null, updatedAt: 1 };
+  const left = changeBookmark(base, 'story:left', copy, 2);
+  const right = changeBookmark(base, 'story:right', copy, 3);
+  const union = mergePreferences(left, right);
+  const restored = parsePreferences(JSON.stringify(union));
+  assert.deepEqual(restored, union);
+  assert.throws(() => changeBookmark(restored, 'story:new', copy, 4), /limit/);
+  const removed = changeBookmark(restored, 'story:right', null, 4);
+  assert.equal(
+    parsePreferences(JSON.stringify(removed)).bookmarks['story:right'].copy,
+    null,
+  );
+  assert.equal(
+    mergePreferences(left, removed).bookmarks['story:right'].copy,
+    null,
+  );
+});
