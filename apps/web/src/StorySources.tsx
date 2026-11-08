@@ -135,7 +135,7 @@ function SourceLink({
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex max-w-full items-center gap-1.5 text-xs font-normal hover:text-[var(--accent)]"
+      className="inline-flex min-h-11 min-w-11 max-w-full items-center gap-1.5 rounded-md text-xs font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
     >
       {favicon && (
         <img
