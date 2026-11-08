@@ -24,8 +24,14 @@ import {
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { prepareDevelopmentLlmRuntime } from '../../../development-llm-runtime';
+import { prepareDevelopmentXRuntime } from '../../../development-x-runtime';
+import { developmentXSelection } from '../../../development-x-selection';
 import { database } from '../../../libs/db/connections';
-import { digestPreviews, topics as topicTable } from '../../../libs/db/schema';
+import {
+  digestPreviews,
+  topics as topicTable,
+  xSearchTopicSettings,
+} from '../../../libs/db/schema';
 import { developmentEditorialServices } from '../../curation/public/development-editorial';
 import { readEditionCost } from '../../curation/public/edition-cost';
 import { editorialServices } from '../../curation/public/editorial';
@@ -215,6 +221,9 @@ export class PostgresPreviewRepository
   readonly developmentRuntime = () =>
     prepareDevelopmentLlmRuntime({ db: this.db });
 
+  readonly developmentXRuntime = () =>
+    prepareDevelopmentXRuntime({ db: this.db });
+
   generateTest(
     start: Date,
     end: Date,
@@ -223,6 +232,7 @@ export class PostgresPreviewRepository
       editionId: string,
     ) => ReturnType<typeof developmentEditorialServices>,
     developmentPosts?: (editionId: string) => DevelopmentPostSelection,
+    paidXSearch = false,
   ): Promise<DigestPreview> {
     const editionId = crypto.randomUUID();
     if (aiEditing) {
@@ -232,6 +242,17 @@ export class PostgresPreviewRepository
           'Development AI editing is disabled',
         );
       development = (id) => developmentEditorialServices(runtime, id);
+    }
+    if (paidXSearch) {
+      const runtime = this.developmentXRuntime();
+      developmentPosts = (id) =>
+        developmentXSelection(runtime, id, async (topicId) => {
+          const [settings] = await this.orm
+            .select()
+            .from(xSearchTopicSettings)
+            .where(eq(xSearchTopicSettings.topicId, topicId));
+          return settings ?? null;
+        });
     }
     return this.generateEdition(
       start,

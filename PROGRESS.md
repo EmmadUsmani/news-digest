@@ -157,3 +157,12 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Extended disposable-database HTTP characterization covers exact windows/budget, edition identity, one topic callback, supplied X snapshot content, reader exclusion/private metadata and rollback on discovery failure. No live provider calls or spend.
 - `pnpm build` passes; inventory plus complete publication-content comparison verifies five published reader responses unchanged. Handbook check passes (18 pages/schema metadata); no diagram/UI changes.
 - `pnpm check` passes (623 unit/233 integration, four expected skips); required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four app services before final health/alerts. Runtime/HTTP X wiring remains next; VM stays private.
+
+## 2026-11-08: iteration 1286 — private test X runtime composition
+
+- Clean main/no leftovers; health/alerts clear, enabled sources current, digest queue has no failures; Nov 8 scheduled acceptance remains due at 15:00 UTC.
+- Explicit private-test paid-X generation now composes the isolated development runtime, saved topic keyword settings and official embeds. Disabled runtime refuses before persistence; missing settings/zero budgets skip spending. HTTP paid-X remains disabled pending its wiring.
+- One discovery supplies independent lexical fallback and semantic editorial pools, preserving broader editorial candidates without another search. Per-edition sharing and stop latch remain intact; no production discovery/cache writes.
+- Seven focused offline tests pass; disposable-database characterization verifies disabled-runtime refusal/no save and configured-runtime private snapshot/reader exclusion. No live provider calls or spend.
+- `pnpm check` passes (625 unit, 233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix`, handbook check (18 pages/schema metadata) and diff checks pass. Inventory plus publication-content comparison verifies all five complete published reader responses unchanged.
+- Committing/pushing and restarting four app services before final health/alerts. Next: HTTP paid-X wiring and normal scheduled acceptance; VM remains private.

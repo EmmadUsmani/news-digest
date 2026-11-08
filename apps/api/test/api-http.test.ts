@@ -817,8 +817,89 @@ void test('free admin test editions stay private and bypass production editorial
     ).rows[0],
     { kind: 'test', published_at: null },
   );
+  Object.defineProperty(adapter, 'developmentXRuntime', {
+    value: () => null,
+    configurable: true,
+  });
+  const beforeDisabledX = (
+    await db.query('select count(*) from digest_previews')
+  ).rows[0].count;
+  await assert.rejects(
+    async () =>
+      adapter.generateTest(
+        new Date(window.windowStart),
+        new Date(window.windowEnd),
+        false,
+        undefined,
+        undefined,
+        true,
+      ),
+    /Development X search is disabled/,
+  );
+  assert.equal(
+    (await db.query('select count(*) from digest_previews')).rows[0].count,
+    beforeDisabledX,
+  );
   // Isolated X pools reach only the private snapshot; failure saves nothing.
   await db.query('update topics set post_budget=1 where id=$1', [topicId]);
+  await db.query(
+    'insert into x_search_topic_settings(topic_id,reaction_min_faves,trending_min_faves,exclusions) values($1,0,42,ARRAY[]::text[])',
+    [topicId],
+  );
+  let isolatedSearchCalls = 0;
+  Object.defineProperty(adapter, 'developmentXRuntime', {
+    configurable: true,
+    value: () => ({
+      search: async (
+        request: {
+          topic: string;
+          fixedSearch?: { settings: { trendingMinFaves: number } };
+        },
+        attempt: string,
+      ) => {
+        if (request.topic === 'Free test science') {
+          isolatedSearchCalls++;
+          assert.equal(request.fixedSearch?.settings.trendingMinFaves, 42);
+        }
+        assert.match(attempt, /:search:\d+$/);
+        return {
+          status: 'complete',
+          mustReport: false,
+          value: {
+            links: [],
+            usage: {
+              inputTokens: 1,
+              outputTokens: 1,
+              postsFetched: 0,
+              profilesFetched: 0,
+            },
+          },
+        };
+      },
+    }),
+  });
+  const runtimeX = await adapter.generateTest(
+    new Date(window.windowStart),
+    new Date(window.windowEnd),
+    false,
+    undefined,
+    undefined,
+    true,
+  );
+  assert.equal(isolatedSearchCalls, 1);
+  assert.equal(
+    (await fetch(`${base}/api/editions/${runtimeX.id}`)).status,
+    404,
+  );
+  assert.deepEqual(
+    (
+      await db.query(
+        'select kind,published_at from digest_previews where id=$1',
+        [runtimeX.id],
+      )
+    ).rows[0],
+    { kind: 'test', published_at: null },
+  );
   const isolatedPost = {
     platform: 'x' as const,
     externalId: 'isolated-offline-science',

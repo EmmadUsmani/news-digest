@@ -21,11 +21,12 @@ export async function developmentXCandidates(
   mode: 'lexical' | 'semantic-candidates' = 'lexical',
 ): Promise<{
   posts: SelectedPost[];
+  candidates: SelectedPost[];
   verified: number;
   verificationErrors: number;
 }> {
   if (!Number.isInteger(budget) || budget <= 0)
-    return { posts: [], verified: 0, verificationErrors: 0 };
+    return { posts: [], candidates: [], verified: 0, verificationErrors: 0 };
   const result = await search.search(request);
   if (result.execution === 'unconfirmed')
     throw new Error('Development X search stopped: unconfirmed');
@@ -60,6 +61,14 @@ export async function developmentXCandidates(
   }
   return {
     posts: selectXPosts(rows, policy, start, end, budget, mode),
+    candidates: selectXPosts(
+      rows,
+      policy,
+      start,
+      end,
+      200,
+      'semantic-candidates',
+    ),
     verified: rows.length,
     verificationErrors,
   };

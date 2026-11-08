@@ -88,6 +88,10 @@ void test('development search candidates use official evidence, dedupe verificat
     result.posts.map((p) => p.externalId),
     ['1'],
   );
+  assert.deepEqual(result.candidates.map((p) => p.externalId).sort(), [
+    '1',
+    '5',
+  ]);
   assert.equal(result.posts[0].text, 'AI official news 1');
   assert.deepEqual(result.posts[0].metrics, {});
 });
@@ -121,7 +125,7 @@ void test('development verification bounds network work and invalid budgets neve
         end,
         budget,
       ),
-      { posts: [], verified: 0, verificationErrors: 0 },
+      { posts: [], candidates: [], verified: 0, verificationErrors: 0 },
     );
   }
   assert.equal(searches, 0);

@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [x] STEERING 50 (1286): explicit private-test paid-X option now composes the isolated runtime, saved keyword settings and official verification; one discovery supplies independent lexical fallback and semantic editorial pools. Disabled runtime refuses without persistence; missing settings skip spending. HTTP paid-X wiring remains next.
+
 - [x] STEERING 50 (1284): per-edition isolated X composition pins UTC windows, shares concurrent/repeated topic discovery and verification, rejects conflicting inputs and retains budget stops. Offline checks pass; HTTP/snapshot wiring remains next.
 
 - [x] STEERING 50 (1283): isolated X candidate bridge joins stopped-pool search to bounded official verification and shared selection; offline dedupe, unavailable/invalid evidence, bounds and stop checks pass. Paid X snapshot/HTTP composition remains next.
