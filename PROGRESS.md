@@ -172,3 +172,12 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - `pnpm exec tsx --test apps/api/test/development-smoke.test.ts`: 2/2 pass; disabled CLI exits 1 before DB/provider access. `pnpm build` and affected handbook check pass; all five complete reader fingerprints unchanged.
 - Updated handbook/public-access plan/TASKS. Full checks and final deployment results follow. Next: migrate manual edition callers and compose paid X tests; normal scheduled acceptance remains due. VM stays private.
 - Final verification: `pnpm check` passes (610 unit/233 integration, four expected skips) and rebuild passes. Initial runs caught post-lint formatting and the disabled CLI message contract; both corrected. Required format/lint-fix pass; five reader fingerprints and handbook check pass. Committing/pushing and restarting four services, then verifying health/alerts.
+
+## 2026-11-08: iteration 1278 — private development preview smoke
+
+- Clean main/no leftovers; alerts and health clear, all 36 enabled sources healthy, no failed digest runs. Nov 8 scheduled review remains due at 15:00 UTC.
+- Migrated preview smoke from two production-accounted manual editions to one private test edition; default is free, `LLM_LIVE=1` explicitly enables development AI, paid X stays off. Removed the obsolete shared-production-cache repeat assertion.
+- Offline request/refusal coverage verifies private route, forced options and no retries/production fallback. Real stored-content smoke saved test `35106034-6979-49da-8420-e2af4a117a27`: four topics/20 stories, non-AI, private metadata/reader 404, unchanged latest, full admin history verified. No provider calls or spend.
+- Updated affected handbook/public-access plan/TASKS. Five full reader fingerprints unchanged; affected handbook check passes. Full check/build and deployment results follow.
+- Next: paid X test composition and admin manual-edition caller migration; normal scheduled acceptance remains due. VM stays private.
+- Final verification: `pnpm check` passes (611 unit/233 integration, four expected skips); `pnpm build`, affected handbook check, five complete reader fingerprints and `git diff --check` pass. Final format/lint-fix precede commit/push and four-service restart; no provider spend.

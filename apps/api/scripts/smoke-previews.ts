@@ -1,24 +1,38 @@
-// Explicit budgeted publication check using stored real content and the configured LLM.
+// Private test-edition check over stored real content; AI is an explicit opt-in.
 import assert from 'node:assert/strict';
+import { pathToFileURL } from 'node:url';
 
-import {
-  digestPreviewSchema,
-  operationsStatusSchema,
-  previewHistorySchema,
-} from '@digest/contracts';
+import { digestPreviewSchema, previewHistorySchema } from '@digest/contracts';
 
 import { localAdminFetch } from '../../../scripts/lib/local-admin-fetch';
 import { database } from '../src/libs/db/connections';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
-async function smoke() {
-  const endpoint = 'http://127.0.0.1:8000/api/admin/digest-previews';
-  const post = (body: unknown) =>
-    localAdminFetch(endpoint, {
+export function createTestEditionPost(read: typeof fetch, aiEditing = false) {
+  return (body: unknown) =>
+    read('http://127.0.0.1:8000/api/admin/digest-previews/tests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        ...(body as Record<string, unknown>),
+        aiEditing,
+        paidXSearch: false,
+      }),
     });
+}
+
+async function smoke() {
+  const endpoint = 'http://127.0.0.1:8000/api/admin/digest-previews';
+  const post = createTestEditionPost(
+    localAdminFetch,
+    process.env.LLM_LIVE === '1',
+  );
+  const readerLatest = async () => {
+    const response = await fetch('http://127.0.0.1:8000/api/editions/latest');
+    assert.equal(response.status, 200);
+    return response.json() as Promise<unknown>;
+  };
+  const before = await readerLatest();
   const end = new Date(),
     start = new Date(end.getTime() - 86400000);
   const window = {
@@ -38,26 +52,6 @@ async function smoke() {
   const firstResponse = await post(window);
   assert.equal(firstResponse.status, 201);
   const first = digestPreviewSchema.parse(await firstResponse.json());
-  const callCount = async () =>
-    operationsStatusSchema
-      .parse(
-        await (
-          await localAdminFetch('http://127.0.0.1:8000/api/admin/status')
-        ).json(),
-      )
-      .llm.models.reduce((n, model) => n + model.calls, 0);
-  const beforeRepeat = await callCount();
-  const second = digestPreviewSchema.parse(await (await post(window)).json());
-  const fullyEdited = first.topics.every(
-    (t) => t.editorial?.mode === 'ai' && t.editorial.unscoredIds.length === 0,
-  );
-  if (fullyEdited)
-    assert.equal(
-      await callCount(),
-      beforeRepeat,
-      'Identical regeneration must make no new LLM calls',
-    );
-  assert.notEqual(first.id, second.id);
   assert.equal(first.topics.length, 4);
   assert.equal(first.method, 'editorial-v1');
   for (const topic of first.topics) {
@@ -114,18 +108,25 @@ async function smoke() {
   }
   assert.ok(first.topics.flatMap((t) => t.stories).length > 0);
   assert.ok(first.topics.every((t) => t.stories.length <= 5));
-  if (fullyEdited) assert.deepEqual(first.topics, second.topics);
+  assert.deepEqual(await readerLatest(), before);
+  assert.equal(
+    (await fetch(`http://127.0.0.1:8000/api/editions/${first.id}`)).status,
+    404,
+  );
   const db = database();
   try {
     const saved = (
-      await db.query('SELECT snapshot FROM digest_previews WHERE id=$1', [
-        first.id,
-      ])
-    ).rows[0].snapshot;
-    assert.deepEqual(saved, first);
+      await db.query(
+        'SELECT snapshot,kind,published_at FROM digest_previews WHERE id=$1',
+        [first.id],
+      )
+    ).rows[0];
+    assert.equal(saved.kind, 'test');
+    assert.equal(saved.published_at, null);
+    assert.deepEqual(saved.snapshot, first);
     assert.deepEqual(
       await (await localAdminFetch(`${endpoint}/latest`)).json(),
-      second,
+      first,
     );
     for (const offset of ['-1', '1.5', 'foo', '10000000'])
       assert.equal(
@@ -172,7 +173,9 @@ async function smoke() {
     assert.equal(new Set(ids).size, expected.length);
     console.log(
       JSON.stringify({
-        versions: [first.id, second.id],
+        testEdition: first.id,
+        aiEditing: process.env.LLM_LIVE === '1',
+        readerUnchanged: true,
         topics: first.topics.map((t) => ({
           name: t.name,
           candidates: t.candidateCount,
@@ -189,4 +192,14 @@ async function smoke() {
     await db.end();
   }
 }
-void smoke();
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  void smoke().catch(() => {
+    console.error(
+      'Private test-edition smoke stopped; inspect local service logs and development pool status.',
+    );
+    process.exitCode = 1;
+  });
+}
