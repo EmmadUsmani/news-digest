@@ -639,3 +639,29 @@ Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`;
 `systemctl show obs-metrics.service -p ActiveEnterTimestamp -p NRestarts`;
 `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check`;
 app and Grafana health endpoints.
+
+### Overnight recovery history and hourly probe (iteration 1337)
+
+Nov 7 19:05:30–Nov 8 10:25:30 UTC: eight uncached range queries returned
+1,841 points each at 30-second steps, with no returned timestamp gaps or
+counter resets. Small-storage merged rows increased 34,728,242 across 2,002
+merges. The largest adjacent increase was 4,454,018 rows; no interval met the
+five-million-row candidate threshold. Big-storage rows stayed zero. Process
+identity stayed constant, sampled self-scrape values were all one, admission
+hits stayed two, and query timeouts/slow queries stayed zero. This fills the
+overnight stored-history gap; it does not establish continuous availability or
+historical evaluator health (those counters are not scraped).
+
+Nov 8 10:26:09–10:26:40 UTC: all 23 rules healthy/fresh, four uncached queries
+passed (maximum 0.803 s), zero new evaluator errors/missed iterations, and no
+small/big merges. Metrics retains its Nov 7 16:00:24 start with zero restarts.
+Recovery remains open pending comparable natural compaction. No limits or
+configuration changed; next passive probe no earlier than 11:26 UTC.
+
+Commands: Python urllib GETs to local `/metrics/api/v1/query_range` with
+`start=1794078330`, `end=1794133530`, `step=30s`, `nocache=1`, querying small
+rows/merges, big rows, process start, self-scrape up, admission hits, queue
+timeouts and slow queries; `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`;
+`systemctl show obs-metrics.service -p ActiveEnterTimestamp -p NRestarts`;
+`pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check`;
+app `/healthz` and Grafana's configured local `/grafana/api/health`.

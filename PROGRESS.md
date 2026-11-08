@@ -109,3 +109,13 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-contents-controls.ts` pass: 1440/390/320px, both themes, target sizes, keyboard focus, Escape/trigger focus return, archive navigation and no overflow/page errors. Six screenshots saved; 320px dark inspected.
 - Browser uses published content, GET/HEAD-only traffic and blocked external requests. No provider spend, publication or backend changes. VM stays private; phase acceptance waits for 15:00 UTC. Next passive metrics check remains ≥10:26 UTC.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. First full-check process received SIGTERM during lint without diagnostic; full rerun passed. Normal API/worker/docs/schema restart follows commit/push.
+
+## 2026-11-08: iteration 1337 — overnight metrics recovery evidence
+
+- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks pass. Read all four published topic headline lists; known editorial fixes and phase acceptance await the normal 15:00 UTC publication.
+- Owner benefit: the morning edition's metrics dependency now has an overnight history check rather than only isolated short probes; the recovery gate stays honest. No product/runtime change or provider spend.
+- Eight uncached local range queries, Nov 7 19:05:30–Nov 8 10:25:30: 1,841 returned points each, no timestamp gaps/resets; 34,728,242 small rows across 2,002 merges, largest adjacent increase 4,454,018 rows. No five-million-row candidate/big merge; process identity constant, sampled up=1, admission hits=2, timeouts/slow queries=0. Historical evaluator counters remain unavailable.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 10:26:09–10:26:40: 23 healthy/fresh rules, four queries ≤0.803 s, zero new evaluator errors/missed iterations, no merges. Metrics has zero restarts since Nov 7 16:00:24. Recovery remains open; next passive probe ≥11:26 UTC.
+- App `/healthz` and configured Grafana health pass. Initial Grafana checks used the wrong port/unauthenticated proxy; corrected to configured local port 3001, database=ok. No service failure.
+- Recorded evidence in capacity decision and TASKS; VM remains private, no phase acknowledgment. Next: normal 15:00 scheduled acceptance and first-week report.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. No UI change, so no browser/screenshot change. Normal API/worker/docs/schema restart follows commit/push.
