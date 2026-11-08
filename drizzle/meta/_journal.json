@@ -71,6 +71,13 @@
       "when": 1794096048482,
       "tag": "0009_edition_publication",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794097828372,
+      "tag": "0010_development_spend",
+      "breakpoints": true
     }
   ]
 }

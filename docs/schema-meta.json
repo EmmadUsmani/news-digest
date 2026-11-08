@@ -41,7 +41,9 @@
         "llm_calls",
         "llm_cache",
         "llm_provider_blocks",
-        "scheduled_ai_budget_days"
+        "scheduled_ai_budget_days",
+        "development_spend_pools",
+        "development_spend_reservations"
       ]
     },
     {
@@ -119,7 +121,9 @@
     "bluesky_observations": "Immutable per-topic Bluesky snapshots with observation time, engagement, text and media.",
     "x_search_topic_settings": "Per-topic X search reaction/trending like thresholds and exclusion operators.",
     "edition_job_failures": "Failed on-demand edition job IDs and duration, retained after Redis history pruning; no exception text.",
-    "edition_job_requests": "Accepted on-demand job IDs retained to explain jobs missing from Redis without regenerating."
+    "edition_job_requests": "Accepted on-demand job IDs retained to explain jobs missing from Redis without regenerating.",
+    "development_spend_pools": "Nonrenewing development allowances per provider; hard code and database ceilings.",
+    "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves."
   },
   "relations": [
     {

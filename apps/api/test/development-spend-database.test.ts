@@ -1,19 +1,17 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
 import { PostgresDevelopmentSpendRepository } from '../src/modules/digests/database/development-spend.repository';
 import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
 
-void test('candidate development ledger serializes lifetime holds and preserves confirmed charges', async () => {
+void test('migrated development ledger serializes lifetime holds and preserves confirmed charges', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const db = database();
   const repository: DevelopmentSpendPort =
     new PostgresDevelopmentSpendRepository(db);
   const id = () => crypto.randomUUID();
   try {
-    await db.query(readFileSync('ops/backups/development_pools.sql', 'utf8'));
     const productionSnapshot = async () => {
       const snapshots = [];
       for (const table of [
@@ -235,8 +233,9 @@ void test('candidate development ledger serializes lifetime holds and preserves 
     );
     assert.equal((await repository.status('anthropic')).mustReport, true);
   } finally {
+    await db.query('DELETE FROM development_spend_reservations');
     await db.query(
-      'DROP TABLE IF EXISTS development_spend_reservations, development_spend_pools',
+      "UPDATE development_spend_pools SET cap_micros = CASE provider WHEN 'anthropic' THEN 5000000 ELSE 2000000 END",
     );
     await db.end();
   }

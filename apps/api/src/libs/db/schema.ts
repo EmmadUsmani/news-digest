@@ -910,3 +910,50 @@ export const editionJobRequests = pgTable('edition_job_requests', {
     .defaultNow()
     .notNull(),
 });
+
+export const developmentSpendPools = pgTable(
+  'development_spend_pools',
+  {
+    provider: text().primaryKey().notNull(),
+    cap: integer('cap_micros').notNull(),
+  },
+  (table) => [
+    check(
+      'development_spend_pools_provider_check',
+      sql`${table.provider} IN ('anthropic', 'xai')`,
+    ),
+    check(
+      'development_spend_pools_cap_micros_check',
+      sql`${table.cap} >= 0 AND ${table.cap} <= CASE ${table.provider} WHEN 'anthropic' THEN 5000000 ELSE 2000000 END`,
+    ),
+  ],
+);
+
+export const developmentSpendReservations = pgTable(
+  'development_spend_reservations',
+  {
+    id: uuid().primaryKey().notNull(),
+    provider: text().notNull(),
+    reserved: integer('reserved_micros').notNull(),
+    cost: integer('cost_micros'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.provider],
+      foreignColumns: [developmentSpendPools.provider],
+      name: 'development_spend_provider_fk',
+    }),
+    check(
+      'development_spend_reservations_reserved_micros_check',
+      sql`${table.reserved} > 0`,
+    ),
+    check(
+      'development_spend_reservations_cost_micros_check',
+      sql`${table.cost} >= 0`,
+    ),
+    index('development_spend_provider').on(table.provider),
+  ],
+);

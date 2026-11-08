@@ -148,3 +148,15 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - Updated TASKS and DATABASE-VERIFICATION. `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime` and complete saved-reader comparison (five responses) pass.
 - Next: authoritative development-pool migration/runtime/test-edition wiring. Phase-0/2 scheduled acceptance and Nov 8 15:00 UTC review/first-week report remain due; public sharing stays private.
 - `pnpm check` passes: 582 unit/232 integration passes/four expected skips; typecheck/lint/format/boundaries green. Final `pnpm format`, `pnpm lint:fix` and diff checks pass.
+
+## 2026-11-08: iteration 1267 — install authoritative development ledger
+
+- Clean main/no leftovers; alerts/health clear, all 36 enabled sources healthy and jobs snapshot passes. No failed scheduled edition; Nov 8 acceptance remains due at 15:00 UTC.
+- Added Drizzle migration/schema for separate lifetime development pools and persistent reservations; adapter now imports authoritative tables, disposable tests no longer create/drop candidate tables. Removed candidate SQL; provider/runtime/test-edition callers remain unwired.
+- Initial integration parity caught PostgreSQL truncating an auto-generated foreign-key name; explicit short name fixes it. Regenerated snapshot formatting corrected before the final full check.
+- Private backup `news-digest-20261108T002621Z` completed. Scratch-restore helper needed bounded row hashing and quoting corrections; corrected migration rehearsal preserves all 28 existing table fingerprints, seeds two pools and leaves zero reservations.
+- `pnpm check` passes: 582 unit/232 integration passes/four expected skips, including complete schema/snapshot parity and zero proposed Drizzle changes. `pnpm build` passes; final formatting/lint and diff checks pass.
+- `pnpm migrate` applied `drizzle/0010_development_spend.sql`; live Anthropic/xAI caps are $5/$2 with zero reservations. No provider calls, production cap changes or publication changes.
+- Handbook budget page, schema metadata, public-access plan, DATABASE-VERIFICATION and TASKS updated. `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets` passes: 30 tables, no metadata warnings.
+- All five complete saved-reader fingerprints unchanged after migration. Four app services restarted/active; health database/Redis OK and alerts zero.
+- Next: development-pool runtime/provider/test-edition wiring; phase-0/2 normal-scheduled acceptance and Nov 8 review/first-week report still due. VM sharing stays private.

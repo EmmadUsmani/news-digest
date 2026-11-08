@@ -746,16 +746,15 @@ checks exercise candidate persistence SQL, not the unwired runtime repository.
 
 ### Candidate development pools (iteration 1260)
 
-`development-spend-database.test.ts` applies `ops/backups/development_pools.sql`
-only to disposable Postgres and drops it before the next suite file. The
-unwired Drizzle adapter locks one provider pool while admitting or settling
-reservations. Three concurrent Anthropic holds reach exactly $3.75; a fourth
-is refused. Null costs retain holds across dates, confirmed costs replace
-holds, confirmed zero releases them, and conflicting retries fail. Charges
-above estimates remain recorded and stop further admission at the lifetime
-threshold. Separate xAI accounting, database cap ceilings and disabled pools
-are exercised. Neither the candidate tables nor the adapter are live; moving
-the tables into the authoritative schema and migration remains pending.
+`development-spend-database.test.ts` exercises the authoritative migrated
+ledger in disposable Postgres. Migration `0010_development_spend` creates and
+seeds the two lifetime pools with Anthropic $5/xAI $2 ceilings; the Drizzle
+schema and adapter share the same table definitions. The adapter remains
+unwired to provider callers. Three concurrent Anthropic holds reach $3.75;
+a fourth is refused. Unknown outcomes retain holds across dates and pool
+reconnects; confirmed costs replace holds, zero releases them and conflicting
+retries fail. Production ledger/reserve fingerprints remain unchanged. The
+test cleans its reservations and restores caps without dropping migrated tables.
 
 Iteration 1261 adds a single-statement status query to the candidate adapter.
 The same disposable-database test checks empty pools, unresolved hold counts,

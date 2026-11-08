@@ -1,8 +1,11 @@
 import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import type { Pool } from 'pg';
 
+import {
+  developmentSpendPools as pools,
+  developmentSpendReservations as reservations,
+} from '../../../libs/db/schema';
 import { developmentSpendAllowance } from '../domain/development-spend';
 import type {
   DevelopmentAllowance,
@@ -11,18 +14,6 @@ import type {
   DevelopmentSpendPort,
   DevelopmentSpendStatus,
 } from '../domain/development-spend.port';
-
-// Candidate schema only. No runtime callers until the additive migration lands.
-const pools = pgTable('development_spend_pools', {
-  provider: text().primaryKey(),
-  cap: integer('cap_micros').notNull(),
-});
-const reservations = pgTable('development_spend_reservations', {
-  id: uuid().primaryKey(),
-  provider: text().notNull(),
-  reserved: integer('reserved_micros').notNull(),
-  cost: integer('cost_micros'),
-});
 
 /** Lifetime ledger isolated from production reserves, dates and provider calls.
  * Null cost retains the full hold, including calls with unknown outcomes.

@@ -73,3 +73,11 @@ sequenceDiagram
 
 Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
 `x_discovery_calls` (see [Data model](07-data-model.md)).
+
+## Development allowance storage
+
+- Separate development tables hold lifetime allowances: Anthropic $5 and xAI $2.
+- Reservations persist until confirmed billing replaces the hold; admission stops
+  at 75% of the allowance and never resets by date.
+- The ledger is installed but provider callers are not connected yet. Current
+  manual generations still use production accounting.
