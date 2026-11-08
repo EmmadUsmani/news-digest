@@ -88,3 +88,12 @@
 - Distinguished extra coverage links from declared evidence; verified Tom's Hardware, Guardian and CNBC saved publisher attribution. Updated daily review and TASKS; richer reporting stays deferred. Remaining social/phase acceptance stays open.
 - No provider calls, data writes, source fetches, deployment or restart; preserved STEERING 50's 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC; no repeated probe.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Archived iterations 1331–1336 to keep PROGRESS small. Docs-only commit; protected-window restart exception applies. Next: remaining scheduled/phase acceptance, metrics probe ≥15:31 UTC.
+
+## 2026-11-08: iteration 1383 — compare scheduled latency and accounting
+
+- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. Scheduled reader latest/direct/history passes: four topics, 19 stories/17 posts.
+- Exported 63 allowlisted Nov 8 worker events (43 Anthropic calls) for offline timing; no prompts, responses, fingerprints or credentials retained. Timeline duration/occupancy conservation and ledger sum/unresolved assertions pass.
+- NBA story editing recovers 90.426→34.299 s, AI brief/four stories, zero recorded validation rejections. World now last, with 29.671 s final social tail; nine validation rejections overall. Tech/World story editing uses Haiku after Sonnet rejection; no rejected text inferred.
+- Recorded per-purpose $0.320864/43 settled calls/zero unresolved or holds, down $0.059309. Overall 162.339 s/420 candidates, both speed targets unmet; different workload prevents causal speedup claims.
+- No provider calls, data writes, deployment or restart; preserved 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC. Selection/Bluesky cost/phase acceptance remains open; no phase ack.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Offline timeline evaluator, conservation/ledger assertions, scheduled-reader check and `git diff --check` pass. Evidence/docs only; protected-window restart exception applies. Next: saved social novelty/Bluesky selection and cost comparisons, then phase gates.
