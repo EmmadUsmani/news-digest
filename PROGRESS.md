@@ -135,3 +135,12 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Verification: targeted tests 5/5, `pnpm build`, budget handbook check and all five complete published-reader response comparisons pass. Full check/final deployment results follow.
 - Nov 8 normal scheduled phase-0/2 acceptance, daily edition review and first-week report remain due; VM stays private.
 - Final results: `pnpm check` passes (605 unit/233 integration, four expected skips); format/lint-fix and diff checks pass. Four rebuilt services restarted healthy, `/healthz` reports database/Redis OK and alerts remain clear.
+
+## 2026-11-08: iteration 1274 — isolated development editorial composition
+
+- Clean main/no leftovers; health/alerts clear. Source/job checks pass; scheduled Nov 8 acceptance remains due at 15:00 UTC.
+- Composed article/social triage and editors plus opt-in grouping over one development JSON bridge, fixed model prices and a shared stop latch. Per-edition memory cache never accesses production scores or persists between tests.
+- Three offline cases verify cache reuse/edition and content-type isolation, real editor success with distinct attempts, and refusal propagation across triage and both editors. No provider calls or spend; paid HTTP options remain disabled.
+- Updated TASKS/public-access plan. `pnpm exec tsx --test apps/api/test/development-editorial.test.ts` passes 3/3; `pnpm build` passes; five complete published-reader fingerprints unchanged.
+- Initial full check caught two unnecessary async cache methods; replaced them with resolved promises. Full checks and final deployment results follow. Next: connect isolated paid test-edition options, then retire production-accounted manual test calls. VM stays private.
+- Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm format`, `pnpm lint:fix`, rebuilt app and diff checks pass. Committing/pushing and restarting four app services, then checking health/alerts.

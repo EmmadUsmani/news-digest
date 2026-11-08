@@ -182,7 +182,9 @@ can read them.
 - The free admin endpoint `/api/admin/digest-previews/tests` now reuses stored
   content with no AI, provider calls, production alerts or notifications, and
   persists private test editions. Paid options are rejected until isolated
-  composition is connected.
+  composition is connected. The isolated editor composition now shares one
+  development stop latch across article/social triage and editing, with a
+  per-edition memory cache that never reads or writes production scores.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything
