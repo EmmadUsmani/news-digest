@@ -12,6 +12,7 @@ const DAY = 86_400_000;
 function fixture(
   recipients: RecipientCoordination = { run: async (_email, work) => work() },
   onWrite: () => Promise<void> = async () => {},
+  onSession: () => Promise<void> = async () => {},
 ) {
   const tokens = new CryptoSessionTokens();
   const rows = new Map<string, SignInLink>();
@@ -29,6 +30,12 @@ function fixture(
         if (failAudit) throw new Error('Audit unavailable');
         rows.set(link.tokenHash, link);
         audit.push(issuer);
+      },
+      async findRecipient(hash, now) {
+        const row = rows.get(hash);
+        return row && now >= row.createdAt && now < row.expiresAt
+          ? row.email
+          : null;
       },
       async consume(hash, now) {
         consumes++;
@@ -52,6 +59,7 @@ function fixture(
           : null;
       },
       async issueVerifiedIdentity(userId, email) {
+        await onSession();
         if (failSession) throw new Error('Session unavailable');
         sessions.push({ userId, email });
         return { sessionId: 'new-session', cookie: 'secure-cookie' };
@@ -242,4 +250,93 @@ void test('link issuance holds coordination through the audit write and fails cl
     await unavailable.service.issue('A'.repeat(43), 'invalid', NOW),
     null,
   );
+});
+
+void test('redemption waits for recipient coordination and rechecks consumption after deletion', async () => {
+  let enter!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    enter = resolve;
+  });
+  let wait = false;
+  const locked: string[] = [];
+  const f = fixture({
+    run: async (email, work) => {
+      locked.push(email);
+      if (wait) await gate;
+      return work();
+    },
+  });
+  const link = await f.service.issue(
+    'A'.repeat(43),
+    'friend@example.test',
+    NOW,
+  );
+  assert.ok(link);
+  wait = true;
+  const pending = f.service.redeem('POST', link.token, NOW);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(locked, ['friend@example.test', 'friend@example.test']);
+  assert.equal(f.consumes(), 0);
+  assert.deepEqual(f.identities, []);
+  f.rows.clear(); // Account deletion invalidates outstanding links while we wait.
+  enter();
+  assert.equal(await pending, null);
+  assert.equal(f.consumes(), 1);
+  assert.deepEqual(f.identities, []);
+  assert.deepEqual(f.sessions, []);
+});
+
+void test('redemption holds the lock through session persistence and lock errors consume nothing', async () => {
+  let held = false;
+  let failLock = false;
+  let finish!: () => void;
+  let started!: () => void;
+  const writing = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  const gate = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  const f = fixture(
+    {
+      run: async (_email, work) => {
+        if (failLock) throw new Error('Lock unavailable');
+        held = true;
+        try {
+          return await work();
+        } finally {
+          held = false;
+        }
+      },
+    },
+    async () => {},
+    async () => {
+      assert.equal(held, true);
+      started();
+      await gate;
+      assert.equal(held, true);
+    },
+  );
+  const link = await f.service.issue(
+    'A'.repeat(43),
+    'friend@example.test',
+    NOW,
+  );
+  assert.ok(link);
+  failLock = true;
+  await assert.rejects(
+    f.service.redeem('POST', link.token, NOW),
+    /Lock unavailable/,
+  );
+  assert.equal(f.consumes(), 0);
+  assert.equal(f.rows.size, 1);
+  failLock = false;
+  const pending = f.service.redeem('POST', link.token, NOW);
+  await writing;
+  assert.equal(held, true);
+  assert.equal(f.sessions.length, 0);
+  finish();
+  assert.ok(await pending);
+  assert.equal(held, false);
+  assert.equal(f.sessions.length, 1);
 });

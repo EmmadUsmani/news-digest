@@ -31,6 +31,21 @@ export class PostgresSignInLinkRepository
     });
   }
 
+  async findRecipient(tokenHash: string, now: Date): Promise<string | null> {
+    const [row] = await this.db
+      .select({ email: signInLinks.email })
+      .from(signInLinks)
+      .where(
+        and(
+          eq(signInLinks.tokenHash, tokenHash),
+          eq(signInLinks.consumed, false),
+          lte(signInLinks.createdAt, now.toISOString()),
+          gt(signInLinks.expiresAt, now.toISOString()),
+        ),
+      );
+    return row?.email ?? null;
+  }
+
   async consume(tokenHash: string, now: Date): Promise<string | null> {
     const [row] = await this.db
       .update(signInLinks)

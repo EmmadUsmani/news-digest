@@ -53,6 +53,14 @@ void test('friend links atomically audit issuance and consume once across connec
       ).rowCount,
       1,
     );
+    assert.equal(await a.findRecipient('0'.repeat(64), now), null);
+    assert.equal(
+      await a.findRecipient(link.tokenHash, new Date(now.getTime() - 1)),
+      null,
+    );
+    assert.equal(await a.findRecipient(link.tokenHash, link.expiresAt), null);
+    assert.equal(await a.findRecipient(link.tokenHash, now), email);
+    assert.equal(await b.findRecipient(link.tokenHash, now), email);
     assert.equal(await a.consume('0'.repeat(64), now), null);
     assert.equal(
       await a.consume(link.tokenHash, new Date(now.getTime() - 1)),
@@ -66,6 +74,7 @@ void test('friend links atomically audit issuance and consume once across connec
     );
     assert.deepEqual(winners.filter(Boolean), [email]);
     assert.equal(await b.consume(link.tokenHash, now), null);
+    assert.equal(await a.findRecipient(link.tokenHash, now), null);
     for (const invalid of [
       { tokenHash: 'raw-secret' },
       { tokenHash: '2'.repeat(64), email: 'Upper@example.test' },

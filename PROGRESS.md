@@ -145,3 +145,13 @@
 - Updated TASKS and rollout plan. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and handbook plan check pass (expected metadata notes for unapplied tables). Targeted tests: 6 passes. Full `pnpm check`: static checks, 668 unit passes, 251 integration passes/four expected skips.
 - API/worker restarted; health passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. Commit/push then restart/check again to match main.
 - Next: coordinate link redemption and deletion before activation; Phase 1 rollout still awaits the pre-noon backup/migration window and scheduled acceptance.
+
+## 2026-11-08: iteration 1427 — coordinated sign-in-link redemption
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources healthy; scheduled digest completed, retained ingestion/social failures unchanged.
+- Prepared link redemption reads the stored recipient to select the shared lock, rechecks atomic consumption after waiting, and holds coordination through identity/session persistence. A deletion while waiting prevents identity recreation; lock failure consumes nothing.
+- Added read-only recipient lookup to the unregistered repository. Offline tests cover waiting/deletion, lock errors, session-write coverage and single-use replay; isolated storage checks cover validity boundaries, repeatable lookup and consumed links.
+- Accounts remain disabled and VM private. No live migration, generation change or provider call. Deletion coordination remains pending before activation; Phase 1 awaits the pre-noon rollout window.
+- Updated TASKS and rollout plan. Targeted tests pass (10); build and handbook plan check pass (expected metadata notes for unapplied tables). Saved-reader verification retains four topics/19 stories/17 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: static checks, 670 unit passes, 251 integration passes/four expected skips. API/worker restarted; health and scheduled-reader verification pass. Commit/push then repeat restart/check to match main.
+- Next: coordinate deletion before activation; pre-noon Phase 1 backup/rollout and scheduled acceptance remain next for deployment.

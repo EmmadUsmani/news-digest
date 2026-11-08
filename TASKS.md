@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1426: Prepared sign-in-link issuance holds recipient coordination through audit/write and rechecks issuer authorization after waiting; lock failure creates no link. Link redemption/deletion coordination remains pending; accounts disabled.
+- [x] Iteration 1427: Prepared sign-in-link redemption selects the stored recipient lock, rechecks consumption after waiting and holds coordination through identity/session persistence; lock failure consumes nothing. Deletion coordination remains pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

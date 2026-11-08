@@ -68,6 +68,10 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
             assert.equal(issuer, 'verified-user');
             link = value;
           },
+          findRecipient: async (hash, time) =>
+            link && link.tokenHash === hash && time < link.expiresAt
+              ? link.email
+              : null,
           consume: async (hash, time) => {
             if (!link || link.tokenHash !== hash || time >= link.expiresAt)
               return null;

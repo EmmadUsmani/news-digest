@@ -12,6 +12,8 @@ export abstract class SignInLinkRepository {
     link: SignInLink,
     issuerUserId: string,
   ): Promise<void>;
+  // Read only to choose the coordination key; consumption must recheck validity.
+  abstract findRecipient(tokenHash: string, now: Date): Promise<string | null>;
   // Atomically consume once, only when createdAt <= now < expiresAt. Return
   // the stored recipient, never an identity supplied by the redeeming client.
   abstract consume(tokenHash: string, now: Date): Promise<string | null>;

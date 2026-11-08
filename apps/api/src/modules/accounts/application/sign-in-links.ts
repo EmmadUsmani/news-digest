@@ -51,10 +51,16 @@ export class SignInLinks {
 
   async redeem(method: string, token: string, now: Date) {
     if (method !== 'POST' || !TOKEN.test(token)) return null;
-    const email = await this.repository.consume(this.tokens.hash(token), now);
+    const hash = this.tokens.hash(token);
+    const email = await this.repository.findRecipient(hash, now);
     if (!email) return null;
-    const userId = await this.identities.findOrCreateVerified(email, now);
-    // A failed identity/session write leaves the link consumed: fail closed.
-    return this.sessions.issueVerifiedIdentity(userId, email, now);
+    return this.recipients.run(email, async () => {
+      // Lookup only selects the lock. Deletion or another redemption while
+      // waiting must prevent identity/session creation.
+      if ((await this.repository.consume(hash, now)) !== email) return null;
+      const userId = await this.identities.findOrCreateVerified(email, now);
+      // A failed identity/session write leaves the link consumed: fail closed.
+      return this.sessions.issueVerifiedIdentity(userId, email, now);
+    });
   }
 }

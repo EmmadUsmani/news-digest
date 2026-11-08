@@ -40,6 +40,8 @@ void test('private link HTTP issuance and redemption enforce admin, origin, prev
         storedHash = link.tokenHash;
         audits++;
       },
+      findRecipient: async (hash) =>
+        hash === storedHash && !consumed ? 'friend@example.com' : null,
       consume: async (hash) => {
         if (hash !== storedHash || consumed) return null;
         consumed = true;
