@@ -138,7 +138,12 @@ modes; `invite` permits configured admins to bootstrap through codes. Friends
 will enter through separately verified admin-issued links. Unknown modes and
 open signup with stand-in delivery are rejected during policy construction;
 identity lookup failures deny eligibility. The policy is not registered and
-no login endpoint is exposed. Operational reader roles and PUBLIC
+no login endpoint is exposed. Disconnected account handlers now compose the request
+boundary, code exchange and session lifecycle: invalid writes stop before side
+effects, successful redemption returns only the secure cookie, and session JSON
+excludes bearer tokens and internal identity/session IDs. All-device logout uses
+the authenticated identity. Registration and verified proxy client wiring remain
+pending; no account HTTP routes are exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
 
 ## Target design

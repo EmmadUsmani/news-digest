@@ -179,3 +179,13 @@
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Updated TASKS and rollout plan.
 - No provider calls or migrations. API/worker restart and health/reader checks complete after commit; accounts remain disabled and VM private.
 - Next: pre-noon phase 1 private backup/rollout/live checks, then scheduled acceptance; prepare account routes with flag off while waiting.
+
+## 2026-11-08: iteration 1409 — disconnected account transport orchestration
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` healthy, no failed user services. All 36 active sources have recent successful collection/no current errors; scheduled digest completed and next run queued.
+- Prepared unregistered account handlers composing request checks, code request/redemption, current session and single/all-device logout. No account routes exposed or flags enabled.
+- Three offline tests cover side-effect-free boundary rejection, privilege injection, generic code rejection, cookie-only exchange, credential-free session JSON and authenticated all-device identity.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 651 unit/247 integration passes, four expected skips; targeted handler tests pass 3/3. Initial lint caught missing `void` on test promises; corrected before rerunning.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. `git diff --check` passes.
+- Updated TASKS and rollout plan. No provider calls, migrations or generation changes; accounts disabled, VM private. API/worker restart and health/reader checks follow commit.
+- Next: pre-noon phase 1 private backup/rollout/live checks, then normal scheduled acceptance; prepare account route registration with flag off while waiting.
