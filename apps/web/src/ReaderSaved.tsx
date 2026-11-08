@@ -77,7 +77,12 @@ export function ReaderSaved() {
                 className="rounded-lg border border-[var(--border)] p-5 [overflow-wrap:anywhere]"
               >
                 <h2 className="font-sans text-lg font-semibold">
-                  <a href={copy.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={copy.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex min-h-11 min-w-11 items-center rounded-md hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                  >
                     {copy.title}
                   </a>
                 </h2>

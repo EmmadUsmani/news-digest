@@ -1,27 +1,3 @@
-## 2026-11-08: iteration 1308 — retain concurrent saves after reload
-
-- Clean main/no leftover work. Alerts/health pass; all 36 sources have no current error and digest-generation has zero failed jobs. Next scheduled publication remains 15:00 UTC; hourly metrics probe not due until ≥07:23 UTC.
-- Reproduced a phase-2 reader weakness: a concurrent stale tab write leaves the saved card visible in another tab, but storage has zero bookmarks, so reload loses it. Storage-event merges now persist the union, retain independent topic changes and settle without repeated cross-tab writes. A synchronous ref also keeps event handlers on the latest merged state.
-- New `pnpm exec tsx scripts/smoke-reader-preference-race.ts`: failed before fix (expected one stored bookmark, got zero); passes desktop/mobile light/dark after build. Uses actual published content, GET-only app traffic and blocked external requests. Four recovery screenshots added; desktop light/mobile dark inspected.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Existing `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` and `pnpm exec tsx scripts/smoke-reader-preferences.ts` pass all four desktop/mobile light/dark variants, including removals, historical editions, blocked storage and cross-tab choices. Discarded unrelated screenshot rendering noise. `pnpm check` passes: 627 unit and 233 integration passes, four expected skips.
-- No provider calls/spend, backend/data-flow change or public-access change. VM stays private; phase 0/2 scheduled acceptance still waits for 15:00 UTC. Commit/push and four-service restart follow passing checks.
-
-## 2026-11-08: iteration 1309 — warn when saved preferences cannot be read
-
-- Clean main/no leftover work. Alerts/health pass; published reader serves four topics, 20 stories and 18 posts. Metrics probe remains due ≥07:23 UTC; scheduled acceptance waits for 15:00 UTC.
-- Fixed a phase-2 reader weakness: opening Saved items when browser storage reads are blocked silently showed an empty list. Initial read failure now displays the existing storage warning immediately; failed storage-event reads preserve current choices without attempting a repair write.
-- Extended `pnpm exec tsx scripts/smoke-reader-preferences.ts`: new direct Saved-page blocked-read assertion failed against deployed code, then passes after build in desktop/mobile light/dark. Four warning screenshots added; desktop light/mobile dark inspected. Discarded unrelated screenshot rendering noise.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass: 627 unit and 233 integration passes, four expected skips. `pnpm exec tsx scripts/smoke-reader-preference-race.ts` passes all four device/theme combinations; concurrent saves still survive reload and storage settles.
-- No provider calls/spend, backend/data-flow change or public-access change; VM remains private. Commit/push and four-service restart follow passing checks. Next: hourly metrics probe ≥07:23 UTC and scheduled phase-0/2 acceptance at 15:00 UTC.
-
-## 2026-11-08: iteration 1310 — connect archive and saved-item navigation
-
-- Clean main/no leftover work. Alerts/health pass, all 36 sources healthy, zero failed digest jobs; next scheduled publication 15:00 UTC. Metrics probe not due until ≥07:23 UTC.
-- Reader-visible weakness: Past editions and Saved items required a detour through the latest edition to reach each other. Added direct header links with labelled navigation, visible keyboard focus and 44px touch targets; readers can browse history and their saves directly.
-- `pnpm build` passes after correcting the archive link's required page parameter. `pnpm exec tsx scripts/smoke-reader-navigation.ts` passes desktop/mobile light/dark with actual published history, keyboard activation, no overflow/errors/writes; corrected smoke URL expectation to accept the valid page query. Eight screenshots added; desktop light archive/mobile dark saved inspected.
-- `pnpm format`, `pnpm lint:fix`, targeted smoke-script ESLint and `git diff --check` pass. No provider calls/spend, backend/data-flow change or public-access change; VM remains private. Scheduled phase-0/2 acceptance waits for 15:00 UTC. Commit/push and four-service restart follow passing verification.
-- Existing `pnpm exec tsx scripts/smoke-reader-archive.ts` passes all four viewport/theme variants after fixing its old assumption that page 3 must contain published entries; recovery now accepts an empty page. Updated four archive screenshots and discarded unrelated date-switcher screenshot noise. First full-check process ended with signal 15 before finishing; clean full-check rerun passes: 627 unit and 233 integration passes, four expected skips.
-
 ## 2026-11-08: iteration 1311 — recover saved destinations in hidden topics
 
 - Clean main/no leftover work. Alerts/health pass; 36 sources have no current error and no failed digest-generation jobs. Published reader has four topics, 20 stories and 18 posts. Scheduled acceptance waits for 15:00 UTC; metrics probe is not due until ≥07:23 UTC.
@@ -130,3 +106,12 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-coverage-labels.ts` pass: all 20 published story coverage controls, report destinations, touch targets, focus outlines and layout in desktop/mobile light/dark. Four screenshots refreshed; mobile dark inspected. GET-only traffic, external requests blocked, no provider spend.
 - Latest reader endpoint returns four topics, 20 stories and 18 posts; `/healthz` passes. No data-flow or public-access change; VM stays private.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit and 233 integration passes, four expected skips. Normal four-service restart follows commit/push. Next: metrics probe ≥09:25 UTC and scheduled phase-0/phase-2 acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1323 — accessible saved headlines
+
+- Clean main/no leftover work. Alerts, services, sources and jobs pass: no active alerts, 14 services/36 sources healthy; `/healthz` passes. Scheduled acceptance waits until 15:00 UTC; metrics next due ≥09:25 UTC.
+- Owner-visible weakness: saved-item headline links lacked the touch-target sizing and clear focus treatment used by adjacent controls. Headlines now occupy at least 44px height and show an explicit keyboard outline.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-saved-excerpt.ts` pass in desktop/mobile light/dark: published headline destination, flex layout, 44px target and keyboard focus verified; existing explicitly offline long-excerpt/reload checks retained. Four published-content screenshots saved; mobile dark inspected.
+- GET/HEAD-only browser traffic, external requests blocked; no provider spend. Existing thin Tech evidence and historical cutoff causes already have deployed changes awaiting publication; no editorial retuning.
+- Final `pnpm check` passes: 629 unit/233 integration passes, four expected skips. Initial combined run received signal 15; first standalone rerun caught newly archived progress formatting, corrected with Prettier before the successful full run. `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; older progress archived to keep orientation small.
+- Reader latest endpoint retains four topics/20 stories/18 posts. Commit/push and normal four-service restart follow passing checks; VM stays private. Next: metrics probe ≥09:25 UTC; scheduled phase-0/phase-2 acceptance at 15:00 UTC.

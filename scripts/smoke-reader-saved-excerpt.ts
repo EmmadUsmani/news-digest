@@ -94,6 +94,33 @@ async function smoke() {
         await expect(page.locator('p.whitespace-pre-line')).toHaveText(
           story.summary,
         );
+        const headline = page.getByRole('link', {
+          name: story.title,
+          exact: true,
+        });
+        assert.equal(
+          await headline.evaluate((node) => getComputedStyle(node).display),
+          'flex',
+        );
+        const bounds = await headline.boundingBox();
+        assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44);
+        assert.equal(await headline.getAttribute('href'), story.url);
+        await headline.focus();
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Shift+Tab');
+        assert.ok(
+          await headline.evaluate((node) => document.activeElement === node),
+        );
+        assert.equal(
+          await headline.evaluate(
+            (node) => getComputedStyle(node).outlineStyle,
+          ),
+          'solid',
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/saved-headline-${device}-${theme}.png`,
+          fullPage: true,
+        });
         assert.deepEqual(errors, []);
         console.log(
           `${device}/${theme}: offline fixture excerpt shortened visibly and preserved on reload`,
