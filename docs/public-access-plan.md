@@ -182,7 +182,10 @@ can read them.
   content with no AI, provider calls, production alerts or notifications, and
   persists private test editions. Explicit `aiEditing: true` uses the isolated
   development runtime when `LLM_LIVE=1`; disabled runtime returns 503.
-  Paid X search remains rejected. The isolated editor composition shares one
+  Paid X search remains rejected. A prepared per-edition search bridge serializes
+  topic calls and stops queued/future searches on accounting refusal, replay,
+  uncertain execution, provider errors or the reporting threshold; snapshot
+  composition is still pending. The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The
   snapshot builder accepts an explicit per-edition development factory; omitted

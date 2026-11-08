@@ -116,3 +116,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Five focused runtime tests pass. Added recorded-provider/disposable-Postgres coverage for actual UUID admission, exact 35,023-micro settlement, fresh-runtime replay suppression and unchanged production ledger/reserves. No live provider calls/spend.
 - Five complete published reader responses unchanged via inventory and compare commands. Archived iterations 1264–1271 to keep this file small.
 - `pnpm check` passes (611 unit/233 integration, four expected skips); five runtime tests and five reader fingerprints pass. `pnpm build`, required format/lint-fix and diff checks pass; committing/pushing and restarting four services before final health/alerts check. Next: paid X test-edition composition; scheduled phase-0/2 acceptance/daily review remain due. VM stays private.
+
+## 2026-11-08: iteration 1281 — stopped-pool development X search bridge
+
+- Clean main/no leftovers; alerts and health clear, all 36 sources healthy, no failed digest runs. Nov 8 scheduled review remains due at 15:00 UTC.
+- Prepared a per-test-edition X search port: serialized topic admission, distinct attempt identities and a stop latch for refusal/replay/report threshold/unconfirmed execution/provider errors. Queued and future calls cannot continue after a stop; no production storage or accounting path is introduced.
+- Four focused offline tests pass, including actual development-runtime composition with a recorded xAI response: full 35,023-micro settlement precedes threshold stop, with exactly one reserve/HTTP/settlement across queued topics. No live provider calls or spend.
+- Five complete published reader responses unchanged via inventory/content comparison; build passes. Updated public-access plan/TASKS; snapshot/HTTP paid X composition remains next, with paid X still rejected by the admin route.
+- `pnpm check` passes: 615 unit tests, 233 integration tests and four expected skips; typecheck/lint/format/boundaries pass. `pnpm build`, required format/lint-fix and diff checks pass. Committing/pushing and restarting four services before final health/alerts. VM stays private; phase-0/2 scheduled acceptance remains due.
