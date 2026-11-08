@@ -246,7 +246,10 @@ exceed login payload limits), and returns private, uncached state with cookie
 renewal when needed. Invalid state rejects before persistence; storage failures
 return no details. HTTP acceptance covers disabled routes, forged identity fields,
 unauthenticated/cross-origin writes, stale updates, body limits and private failures.
-Runtime injection, browser wiring and account activation remain pending.
+Prepared runtime composition now requires the sync repository alongside sessions and
+account deletion. Isolated cross-runtime acceptance verifies persisted changes, stale
+update handling, reader isolation and rejection after deletion. Browser wiring and
+account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

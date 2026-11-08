@@ -7,6 +7,7 @@ import test from 'node:test';
 import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account-runtime';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import type { LoginCodeChallenge } from '../src/modules/accounts/domain/login-code';
+import { mergeReaderSync } from '../src/modules/accounts/domain/reader-sync';
 import type { ReaderSession } from '../src/modules/accounts/domain/session';
 import type { SignInLink } from '../src/modules/accounts/domain/sign-in-link';
 
@@ -53,6 +54,13 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
     const handlers = prepareAccountHandlers(
       { ...env, ACCOUNT_MAILBOX_PATH: directory },
       (cleanup) => ({
+        sync: {
+          merge: async (_userId, changes) =>
+            mergeReaderSync(
+              { version: 1, hiddenTopics: {}, bookmarks: {} },
+              changes,
+            ),
+        },
         deletion: {
           deleteForSession: async (hash) => {
             if (!saved || saved.tokenHash !== hash) return false;

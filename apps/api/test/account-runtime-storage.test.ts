@@ -10,6 +10,7 @@ import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-log
 import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 import { PostgresLoginCodeRepository } from '../src/modules/accounts/database/login-code.repository';
+import { PostgresReaderSyncRepository } from '../src/modules/accounts/database/reader-sync.repository';
 import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
 import { PostgresSessionRepository } from '../src/modules/accounts/database/session.repository';
 import { PostgresSignInLinkRepository } from '../src/modules/accounts/database/sign-in-link.repository';
@@ -21,6 +22,7 @@ void test('composed accounts persist mailbox login and single-use friend session
   const codes = new PostgresLoginCodeRepository();
   const sessions = new PostgresSessionRepository();
   const links = new PostgresSignInLinkRepository();
+  const sync = new PostgresReaderSyncRepository();
   const recipients = new PostgresRecipientCoordination();
   const cache = redis();
   const now = new Date();
@@ -43,6 +45,7 @@ void test('composed accounts persist mailbox login and single-use friend session
       deletions.push(deletion);
       return {
         deletion,
+        sync,
         recipients,
         identities,
         codes,
@@ -106,6 +109,37 @@ void test('composed accounts persist mailbox login and single-use friend session
       signedIn: true,
       isAdmin: false,
     });
+    const empty = { version: 1 as const, hiddenTopics: {}, bookmarks: {} };
+    const changes = {
+      ...empty,
+      hiddenTopics: { tech: { hidden: true, updatedAt: now.getTime() } },
+      bookmarks: { 'story:saved': { copy: null, updatedAt: now.getTime() } },
+    };
+    assert.equal((await first.syncReader(request(changes), now)).status, 401);
+    assert.deepEqual(
+      (await first.syncReader(request(changes, cookie), now)).body,
+      changes,
+    );
+    assert.deepEqual(
+      (await second.syncReader(request(empty, cookie), now)).body,
+      changes,
+    );
+    assert.deepEqual(
+      (await second.syncReader(request(empty, friendCookie), now)).body,
+      empty,
+    );
+    const removed = {
+      ...changes,
+      hiddenTopics: { tech: { hidden: false, updatedAt: now.getTime() + 1 } },
+    };
+    assert.deepEqual(
+      (await second.syncReader(request(removed, cookie), now)).body,
+      removed,
+    );
+    assert.deepEqual(
+      (await first.syncReader(request(changes, cookie), now)).body,
+      removed,
+    );
     assert.equal(
       (
         await second.issueLink(
@@ -140,13 +174,17 @@ void test('composed accounts persist mailbox login and single-use friend session
     );
     assert.equal((await first.current(cookie, now)).body.signedIn, false);
     assert.equal(
+      (await second.syncReader(request(empty, cookie), now)).status,
+      401,
+    );
+    assert.equal(
       (await first.deleteAccount(request({ confirmation: 'DELETE' }, cookie)))
         .status,
       401,
     );
   } finally {
     await Promise.all(
-      [identities, codes, sessions, links, recipients, ...deletions].map(
+      [identities, codes, sessions, links, sync, recipients, ...deletions].map(
         (repository) => repository.onModuleDestroy(),
       ),
     );

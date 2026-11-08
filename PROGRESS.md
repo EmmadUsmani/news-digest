@@ -111,3 +111,12 @@
 - Accounts remain disabled and VM private; runtime injection/browser wiring pending. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; no live handbook behavior changed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook plan check pass (expected unapplied-table notes). `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. Final `pnpm check` passes: static checks, 675 unit passes, 253 integration passes/four expected skips. `git diff --check` passes.
 - Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync runtime injection and browser wiring preparation; Phase 1 rollout remains gated on its permitted window.
+
+## 2026-11-08: iteration 1434 — prepared reader sync runtime injection
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All sources pass `pnpm obs sources --check`; digest-generation has zero failures and next run Nov 9 15:00 UTC.
+- Prepared account runtime now requires and injects the reader sync repository, retaining lazy disabled composition. Extended isolated runtime acceptance covers shared persisted state, stale changes, reader isolation and rejection after account deletion.
+- Accounts remain disabled and VM private; browser wiring and main registration pending. No live migration, provider call or edition-generation change. Phase 1 rollout awaits its pre-noon window and scheduled acceptance.
+- Updated TASKS and rollout plan; no live handbook behavior changed. Targeted account runtime tests pass (2); handbook plan check has only expected unapplied-table notes. Saved-reader check retains four topics/19 stories/17 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 675 unit tests, 253 integration passes/four expected skips, static checks and schema parity green. `git diff --check` passes.
+- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: browser account-sync wiring preparation, then Phase 1 rollout in its permitted window.

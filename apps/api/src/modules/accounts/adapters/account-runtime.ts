@@ -14,6 +14,7 @@ import type {
 } from '../domain/account-deletion';
 import type { ReaderIdentityRepository } from '../domain/identity';
 import type { LoginCodeRepository } from '../domain/login-code';
+import type { ReaderSyncRepository } from '../domain/reader-sync';
 import type { RecipientCoordination } from '../domain/recipient-coordination';
 import type { SessionRepository } from '../domain/session';
 import type { SignInLinkRepository } from '../domain/sign-in-link';
@@ -26,6 +27,7 @@ import { CryptoSessionTokens } from './session-tokens';
 
 type Dependencies = {
   deletion: AccountDeletionRepository;
+  sync: ReaderSyncRepository;
   recipients: RecipientCoordination;
   identities: ReaderIdentityRepository;
   codes: LoginCodeRepository;
@@ -104,5 +106,6 @@ export function prepareAccountHandlers(
       ports.recipients,
     ),
     new DeleteAccount(ports.deletion, new CryptoSessionTokens()),
+    ports.sync,
   );
 }

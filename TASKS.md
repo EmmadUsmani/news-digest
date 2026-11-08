@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1433: Prepared authenticated POST sync transport with cookie-only identity, strict state validation, bounded streaming and private responses. Offline HTTP checks pass; runtime injection/browser wiring pending, accounts disabled.
+- [x] Iteration 1434: Injected reader sync into prepared account runtime. Cross-runtime storage checks cover shared state, stale changes, reader isolation and rejection after deletion; browser wiring pending, accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
