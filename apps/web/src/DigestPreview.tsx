@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation, useParams } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -29,6 +30,20 @@ export function DigestPreview() {
   }
   const edition = useQuery(editionQuery(id));
   const preview = edition.data;
+  const content = useRef<HTMLElement>(null);
+  const recovering = useRef(false);
+  useEffect(() => {
+    if (!recovering.current || edition.isFetching || !edition.isSuccess) return;
+    recovering.current = false;
+    const destination =
+      content.current?.querySelector<HTMLElement>('.digest-topic h2') ??
+      content.current?.querySelector<HTMLElement>('h1');
+    destination?.focus();
+  }, [edition.isFetching, edition.isSuccess]);
+  const retryEdition = () => {
+    recovering.current = true;
+    void edition.refetch();
+  };
   const preferences = useReaderPreferences();
   const preferencesEnabled = import.meta.env.VITE_READER_PREFERENCES !== '0';
   const visibleTopics =
@@ -49,7 +64,10 @@ export function DigestPreview() {
       )
     : undefined;
   return (
-    <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
+    <main
+      ref={content}
+      className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6"
+    >
       {visibleTopics[0] && (
         <ReaderSkipLink target={`topic-${visibleTopics[0].id}`} />
       )}
@@ -102,10 +120,7 @@ export function DigestPreview() {
                 The edition could not be refreshed. Showing the saved edition
                 already loaded.
               </p>
-              <Button
-                className="min-h-11"
-                onClick={() => void edition.refetch()}
-              >
+              <Button className="min-h-11" onClick={retryEdition}>
                 Try loading edition again
               </Button>
             </>
@@ -125,10 +140,7 @@ export function DigestPreview() {
           ) : (
             <>
               <p>Could not load the edition.</p>
-              <Button
-                className="min-h-11"
-                onClick={() => void edition.refetch()}
-              >
+              <Button className="min-h-11" onClick={retryEdition}>
                 Try loading edition again
               </Button>
             </>
@@ -140,7 +152,7 @@ export function DigestPreview() {
       )}
       {preview && (
         <div className="flex gap-6 pt-20 lg:pt-10">
-          <h1 className="sr-only">
+          <h1 tabIndex={-1} className="sr-only">
             News Digest —{' '}
             {new Date(preview.windowEnd).toLocaleDateString(undefined, {
               dateStyle: 'long',

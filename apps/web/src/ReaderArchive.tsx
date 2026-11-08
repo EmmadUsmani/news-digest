@@ -13,6 +13,12 @@ export function ReaderArchive() {
   const history = useQuery(editionHistoryQuery((page - 1) * 20));
   const heading = useRef<HTMLHeadingElement>(null);
   const previousPage = useRef(page);
+  const recovering = useRef(false);
+  useEffect(() => {
+    if (!recovering.current || history.isFetching || !history.isSuccess) return;
+    recovering.current = false;
+    heading.current?.focus();
+  }, [history.isFetching, history.isSuccess]);
   useEffect(() => {
     // Wait for the new dates (or retry control) before resuming keyboard reading.
     if (previousPage.current === page || history.isPending) return;
@@ -71,7 +77,13 @@ export function ReaderArchive() {
                 ? 'Past editions could not be refreshed. Showing saved links already loaded.'
                 : 'Could not load past editions.'}
             </p>
-            <Button className="min-h-11" onClick={() => void history.refetch()}>
+            <Button
+              className="min-h-11"
+              onClick={() => {
+                recovering.current = true;
+                void history.refetch();
+              }}
+            >
               Try again
             </Button>
           </div>

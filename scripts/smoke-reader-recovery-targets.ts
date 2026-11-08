@@ -82,6 +82,20 @@ async function smoke() {
             await expect(page.locator('main li').first()).toBeVisible();
           else
             await expect(page.locator('.digest-topic').first()).toBeVisible();
+          if (scenario !== 'missing') {
+            const destination =
+              scenario === 'archive'
+                ? page.getByRole('heading', {
+                    name: 'Past editions',
+                    exact: true,
+                  })
+                : page.locator('.digest-topic h2').first();
+            await expect(destination).toBeFocused();
+            if (device === 'narrow')
+              await page.screenshot({
+                path: `docs/screenshots/ui/reader-recovered-focus-${scenario}-${theme}.png`,
+              });
+          }
           assert.deepEqual(errors, []);
           await context.close();
         }
