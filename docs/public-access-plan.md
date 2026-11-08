@@ -107,7 +107,14 @@ prepared. Offline tests cover renewal races, old reader sessions and admin chang
 The prepared Drizzle session adapter joins identities, atomically claims renewal,
 and supports single/all-device revocation. Isolated database tests cover concurrent
 renewal, identity mapping, revocation isolation and account deletion. Account routes
-and sync remain unimplemented; the adapter is unregistered and accounts stay disabled. Operational reader roles and PUBLIC receive no access to either table.
+and sync remain unimplemented; the adapter is unregistered and accounts stay disabled.
+Unconnected login-code application logic now normalizes emails, applies admission
+ports to requests and redemption, and issues ten-minute six-digit challenges.
+Keyed SHA-256 hashes bind codes to emails; comparison uses constant-time crypto.
+The repository contract requires atomic five-attempt accounting and single use.
+Offline tests cover expiry, replay, malformed guesses and admission denial.
+Database enforcement, Redis limits, mailbox delivery and account exchange are
+still unimplemented; no login endpoint is exposed. Operational reader roles and PUBLIC receive no access to either table.
 
 ## Target design
 

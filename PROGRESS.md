@@ -102,3 +102,14 @@
 - Updated rollout plan/TASKS and archived iterations 1386–1392 to keep PROGRESS small. Initial orientation output was overbroad; subsequent reads were narrowed.
 - No live migration or restart: the after-noon generation deployment cutoff remains in force. Prepared code is unregistered; running behavior unchanged.
 - Next: pre-noon phase 1 backup/rollout/live test acceptance and scheduled acceptance first; prepare account identity/code exchange while waiting, with flags off.
+
+## 2026-11-08: iteration 1402 — offline login-code lifecycle
+
+- Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units. Initial orientation output was overbroad; subsequent reads narrowed.
+- Prepared disconnected login-code application and admission/delivery/repository ports: normalized emails, generic request response, ten-minute challenges, per-email/client admission and eligibility on request/redemption.
+- Crypto uses unbiased six-digit generation, email-bound keyed SHA-256 hashes and constant-time comparison; configuration requires a separate key of at least 32 bytes. No key configured or printed.
+- Repository contract requires atomic expiry/future checks, five-attempt accounting and single consumption. Database implementation, Redis limits, mailbox and verified account exchange remain next; in-memory tests do not establish database concurrency safety.
+- Six offline tests cover replay, exact expiry, malformed guesses, attempt limits, admission denial and key/email binding. Initial lint failures corrected (test promises and unnecessary assertions).
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 641 unit/244 integration passes, four expected skips. Scheduled-reader check: four topics, 19 stories/17 posts. No provider calls or live writes.
+- Updated TASKS and public-access plan. No migration/restart under the after-noon generation cutoff; account code remains disconnected and disabled.
+- Next: phase 1 pre-noon private backup/rollout/live test acceptance and scheduled acceptance first; prepare atomic login-code persistence and stand-in mailbox while waiting.
