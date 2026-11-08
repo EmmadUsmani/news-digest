@@ -1,6 +1,8 @@
+import type { DeleteAccount } from '../application/delete-account';
 import type { LoginCodes } from '../application/login-codes';
 import type { LoginExchange } from '../application/login-exchange';
 import type { ReaderSessions } from '../application/sessions';
+import { clearSessionCookie } from '../application/sessions';
 import type { SignInLinks } from '../application/sign-in-links';
 import type { AccountRequestBoundary } from './account-request';
 
@@ -23,6 +25,7 @@ export class AccountHandlers {
       'authenticate' | 'signOut' | 'signOutAllDevices'
     >,
     private readonly links?: Pick<SignInLinks, 'issue' | 'redeem'>,
+    private readonly deletion?: Pick<DeleteAccount, 'execute'>,
   ) {}
 
   async requestCode(request: Request, client: string, now: Date) {
@@ -89,6 +92,25 @@ export class AccountHandlers {
     return result
       ? { status: 204, cookie: result.cookie }
       : { status: 401, body: { error: 'Invalid or expired link' } };
+  }
+
+  async deleteAccount(request: Request) {
+    if (!this.deletion) return { status: 404 };
+    if (!this.boundary.acceptsWrite(request.origin, request.contentType))
+      return { status: 400, body: { error: 'Invalid request' } };
+    const body = request.body;
+    if (
+      body === null ||
+      typeof body !== 'object' ||
+      Array.isArray(body) ||
+      Object.keys(body).length !== 1 ||
+      !Object.hasOwn(body, 'confirmation') ||
+      (body as { confirmation: unknown }).confirmation !== 'DELETE'
+    )
+      return { status: 400, body: { error: 'Invalid request' } };
+    const token = this.boundary.sessionToken(request.cookie);
+    if (!token || !(await this.deletion.execute(token))) return { status: 401 };
+    return { status: 204, cookie: clearSessionCookie() };
   }
 
   async current(cookie: unknown, now: Date) {

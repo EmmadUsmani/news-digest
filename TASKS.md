@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1419: Prepared session-owned transactional account deletion with isolated concurrency/rollback/privacy acceptance; transport, mailbox/sync cleanup and in-flight issuance coordination pending; accounts remain disabled.
+- [x] Iteration 1420: Prepared uninstalled account-deletion POST with strict confirmation, session-only ownership and secure cookie clearing; loopback refusal/failure/replay checks pass. Cleanup/issuance coordination and runtime injection remain pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

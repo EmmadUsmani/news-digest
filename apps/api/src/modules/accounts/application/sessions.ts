@@ -68,6 +68,6 @@ function sessionCookie(token: string) {
   return `__Host-reader_session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${COOKIE_MAX_AGE_SECONDS}`;
 }
 
-function clearSessionCookie() {
+export function clearSessionCookie() {
   return '__Host-reader_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0';
 }

@@ -50,6 +50,7 @@ export function accountHttp(options: {
           await options.handlers.current(request.headers.cookie, now),
         );
       const routes = [
+        '/api/account/delete',
         '/api/account/links',
         '/api/account/link-redeem',
         '/api/account/code',
@@ -82,6 +83,8 @@ export function accountHttp(options: {
         cookie: request.headers.cookie,
         body,
       };
+      if (path === '/api/account/delete')
+        return send(await options.handlers.deleteAccount(input));
       if (path === '/api/account/links')
         return send(await options.handlers.issueLink(input, now));
       if (path === '/api/account/link-redeem')

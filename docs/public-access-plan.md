@@ -195,9 +195,13 @@ one transaction. It locks/rechecks the session, removes pending email codes and
 recipient links/audit rows, and deletes the identity with cascading sessions and
 issuer audit rows. Isolated storage acceptance covers concurrent two-device
 requests, revoked/unknown credentials, rollback and another account's isolation.
-This adapter and application service remain unregistered. Route confirmation,
-mailbox cleanup, sync-data cascades and coordination with in-flight login/link
-issuance must be completed before enabling deletion.
+The prepared, uninstalled POST `/api/account/delete` transport requires exact
+same-origin JSON, a body containing only `{"confirmation":"DELETE"}` and one
+unambiguous session cookie. It accepts no caller identity, clears the secure cookie
+only after successful deletion and hides dependency failures. The runtime does not
+inject deletion, and main still installs no account routes. Mailbox cleanup,
+sync-data cascades and coordination with in-flight login/link issuance must be
+completed before enabling deletion.
 
 ## Target design
 

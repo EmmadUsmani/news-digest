@@ -127,3 +127,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check`: static checks/660 unit tests pass; initial integration run caught a test assertion inspecting Drizzle’s wrapper instead of its cause. Corrected assertion; `pnpm test:integration` exits 0 with 250 passes/four expected skips. Final format/lint pass.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook public-access check reports existing metadata for unapplied edition/account tables; no handbook behavior or diagrams changed.
 - Updated TASKS/rollout plan. After commit/push, restart API/worker and repeat health/reader checks. Next: pre-noon phase 1 rollout/acceptance, then account registration, sync and verified proxy wiring.
+
+## 2026-11-08: iteration 1420 — prepared account-deletion transport
+
+- Clean main/no leftovers; alerts zero, health good, no failed user services; all 36 active sources healthy and digest queue has zero failures.
+- Prepared uninstalled POST `/api/account/delete`: exact Origin/JSON, explicit single-field DELETE confirmation and unambiguous cookie required. Ownership comes only from the session credential; caller identity fields are rejected before side effects.
+- Deletion dependency is optional/uninjected. Successful deletion alone clears the secure host-only cookie; revoked/replayed credentials return 401 and dependency failures return private 503 without clearing it. Main still exposes no account routes.
+- Loopback HTTP checks cover disabled/uninjected routes, non-POST methods, malformed confirmation, injected identities, cross-origin/content-type rejection, absent/duplicate credentials, unknown clients, revoked credentials, failure privacy, success and replay.
+- Accounts remain disabled and VM private. No live migration, provider call or generation change. Mailbox cleanup, sync cascades and in-flight issuance coordination remain activation prerequisites; phase 1 waits for pre-noon rollout and scheduled acceptance.
+- `pnpm exec tsx --test apps/api/test/account-http.test.ts` passes both loopback tests. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: static checks, 661 unit tests and 250 integration tests, four expected skips. Final format/lint pass.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics, 19 stories/17 posts. Updated TASKS and rollout plan; no current handbook behavior changed. After commit/push, restart API/worker and repeat health/reader checks.
+- Next: pre-noon phase 1 backup/rollout and scheduled acceptance; finish deletion cleanup/issuance coordination before runtime injection.
