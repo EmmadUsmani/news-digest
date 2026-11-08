@@ -105,3 +105,11 @@
 - Latest edition still has the previously diagnosed thin Tech reporting and historical Davis cutoff; no duplicate editorial tuning. Archived older progress entries to keep this file small.
 - Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and standalone `pnpm check` pass: 629 unit, 233 integration passes/four expected skips. Combined initial check received signal 15 during unit tests; full standalone rerun passed. Header also checked at 320/390/1440px: no overflow (brand shortens at 320px).
 - Latest published edition retains four topics/20 stories/18 posts. Commit/push and four-service restart follow passing verification; no public-access or backend/data-flow change. Next: metrics probe ≥08:24 UTC; scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1320 — readable desktop contents
+
+- Clean main/no leftover work. Alerts, services, sources, jobs and `/healthz` pass; 36 healthy sources. Scheduled phase-0/phase-2 acceptance waits until 15:00 UTC; metrics probe due ≥08:24 UTC.
+- Reader weakness: desktop Contents clipped published titles, hiding distinguishing details (including the Anthropic IPO headline). Full titles now wrap, with explicit keyboard focus outlines, matching the mobile improvement.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-desktop-contents-titles.ts` pass at 1024/1440px light/dark against actual published content; full title wrapping, keyboard focus/activation and no overflow/browser errors. Four screenshots saved; 1024px dark inspected.
+- Latest published edition retains four topics/20 stories/18 posts. Thin Tech evidence and the historical Davis cutoff already have documented causes and deployed future-publication changes; no further editorial tuning or provider spend.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and standalone `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Initial full check received signal 15 during unit tests; complete standalone rerun passed. Mobile regression smoke also passes all four variants. Commit/push and four-service restart follow passing checks; VM stays private. Next: passive metrics probe ≥08:24 UTC; scheduled acceptance at 15:00 UTC.

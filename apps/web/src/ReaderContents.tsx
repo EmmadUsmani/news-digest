@@ -160,7 +160,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
 
                 title={text}
                 aria-current={active === id ? 'location' : undefined}
-                className={`flex min-w-0 items-center gap-1 rounded py-1 text-sm leading-6 hover:text-[var(--accent)] ${mobile ? 'min-h-11 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]' : ''} ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
+                className={`flex min-w-0 items-center gap-1 rounded py-1 text-sm leading-6 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${mobile ? 'min-h-11' : ''} ${nested ? 'pl-3 font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
               >
                 <span aria-hidden="true" className="w-3 shrink-0 text-center">
                   {nested
@@ -171,15 +171,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
                       ? '▾'
                       : '›'}
                 </span>
-                <span
-                  className={
-                    mobile
-                      ? 'min-w-0 [overflow-wrap:anywhere]'
-                      : 'min-w-0 truncate'
-                  }
-                >
-                  {text}
-                </span>
+                <span className="min-w-0 [overflow-wrap:anywhere]">{text}</span>
               </a>
             );
             return mobile ? <SheetClose asChild>{anchor}</SheetClose> : anchor;

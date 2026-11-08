@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1319: Mobile contents show full story titles with larger touch targets; reader header fits 320px screens. Four browser variants verify keyboard navigation.
+- [x] Iteration 1320: Desktop Contents shows complete story titles and explicit keyboard focus. Four desktop browser variants verify published-title wrapping and navigation; mobile regression checked.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
