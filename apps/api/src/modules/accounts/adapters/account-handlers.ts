@@ -59,6 +59,7 @@ export class AccountHandlers {
           status: 201,
           body: {
             token: result.token,
+            url: this.boundary.signInLink(result.token),
             expiresAt: result.expiresAt.toISOString(),
           },
         }

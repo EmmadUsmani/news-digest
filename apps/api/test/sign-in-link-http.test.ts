@@ -100,10 +100,29 @@ void test('private link HTTP issuance and redemption enforce admin, origin, prev
     assert.equal(issued.status, 201);
     assert.equal(issued.headers.get('cache-control'), 'no-store');
     const result = (await issued.json()) as {
+      url: string;
       token: string;
       expiresAt: string;
     };
     assert.match(result.token, /^[A-Za-z0-9_-]{43}$/);
+    assert.equal(
+      result.url,
+      `https://reader.example/account/sign-in#${result.token}`,
+    );
+    const link = new URL(result.url);
+    assert.equal(link.search, '');
+    assert.equal(link.pathname.includes(result.token), false);
+    const preview = await fetch(
+      base.replace('/api/account/', '/account/sign-in'),
+    );
+    assert.equal(preview.status, 200);
+    assert.match(
+      preview.headers.get('content-security-policy') ?? '',
+      /frame-ancestors 'none'/,
+    );
+    assert.equal(preview.headers.get('referrer-policy'), 'no-referrer');
+    assert.equal((await preview.text()).includes(result.token), false);
+    assert.equal(consumed, false);
     assert.notEqual(storedHash, result.token);
     assert.equal(audits, 1);
     for (const method of ['GET', 'HEAD'])

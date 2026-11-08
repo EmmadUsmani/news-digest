@@ -9,6 +9,12 @@ export class AccountRequestBoundary {
     this.origin = origin;
   }
 
+  signInLink(token: string): string {
+    if (!/^[A-Za-z0-9_-]{43}$/.test(token))
+      throw new Error('Invalid link token');
+    return `${this.origin}/account/sign-in#${token}`;
+  }
+
   acceptsWrite(origin: unknown, contentType: unknown): boolean {
     return (
       origin === this.origin &&

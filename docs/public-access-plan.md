@@ -170,7 +170,12 @@ Origin/JSON checks, bounded strict bodies, private responses and preview rejecti
 apply; successful redemption returns only a secure session cookie. The prepared runtime now injects the link repository and composes link issuance
 and redemption with the same identity/session services as code login. Offline
 composition verifies admin issuance, hash-only storage, non-admin friend sessions
-and replay rejection. Main registration, confirmation UI and fragment-based URLs
+and replay rejection. Prepared issuance now includes an origin-pinned URL carrying the
+bearer only in its fragment. An uninstalled confirmation page clears that fragment
+before interaction and redeems only after an explicit button POST. It uses no
+remote resources or browser storage, forbids framing and referrers, and discards
+tokens after any attempt. Isolated desktop/mobile browser checks cover preview,
+success, replay and reload behavior. Main registration and verified proxy wiring
 remain pending; accounts stay disabled.
 
 ## Target design
