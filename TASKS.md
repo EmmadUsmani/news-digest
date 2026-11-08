@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1311: Hidden-topic story/post destinations offer an explicit Show topic action, restoring the item and keyboard focus.
+- [x] Iteration 1312: Failed browser-storage reads keep preference changes in memory, preserving unseen saves until a successful read can merge them.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

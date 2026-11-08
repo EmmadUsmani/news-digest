@@ -58,7 +58,8 @@ export function useReaderPreferences() {
   const setHidden = (id: string, hidden: boolean) => {
     // Re-read before updating so another tab's changes are retained. False is a
     // tombstone, not deletion: future account sync needs the restoration time.
-    const merged = mergePreferences(currentStore.current, read().store);
+    const stored = read();
+    const merged = mergePreferences(currentStore.current, stored.store);
     const next: PreferenceStore = {
       ...merged,
       hiddenTopics: {
@@ -73,6 +74,10 @@ export function useReaderPreferences() {
       },
     };
     setStore(next);
+    if (stored.failed) {
+      setStorageFailed(true);
+      return;
+    }
     try {
       localStorage.setItem(storageKey, JSON.stringify(next));
       setStorageFailed(false);
@@ -83,13 +88,18 @@ export function useReaderPreferences() {
   const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   const setBookmark = (id: string, copy: BookmarkCopy | null) => {
     try {
+      const stored = read();
       const next = changeBookmark(
-        mergePreferences(currentStore.current, read().store),
+        mergePreferences(currentStore.current, stored.store),
         id,
         copy,
       );
       setStore(next);
       setBookmarkError(null);
+      if (stored.failed) {
+        setStorageFailed(true);
+        return;
+      }
       try {
         localStorage.setItem(storageKey, JSON.stringify(next));
         setStorageFailed(false);
