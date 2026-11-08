@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
+import { DevelopmentCall } from '../src/modules/digests/application/development-call';
 import { PostgresDevelopmentSpendRepository } from '../src/modules/digests/database/development-spend.repository';
 import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
 
@@ -222,6 +223,49 @@ void test('migrated development ledger serializes lifetime holds and preserves c
     } finally {
       await secondConnection.end();
     }
+    // Independent runners racing the same durable attempt execute once.
+    const runner = new DevelopmentCall(repository);
+    const attempt = {
+      enabled: true,
+      id: id(),
+      provider: 'anthropic' as const,
+      maxCostMicros: 1,
+    };
+    let calls = 0;
+    const call = async () => {
+      calls++;
+      return { value: 'offline fixture', costMicros: 1 };
+    };
+    const beforeCalls = await repository.status('anthropic');
+    const results = await Promise.all([
+      runner.run(attempt, call),
+      new DevelopmentCall(repository).run(attempt, call),
+    ]);
+    assert.equal(calls, 1);
+    assert.deepEqual(results.map((result) => result.status).sort(), [
+      'complete',
+      'replay',
+    ]);
+    assert.equal(
+      (await repository.status('anthropic')).chargedMicros,
+      beforeCalls.chargedMicros + 1,
+    );
+    const uncertain = { ...attempt, id: id() };
+    await assert.rejects(
+      runner.run(uncertain, async () => {
+        throw new Error('uncertain transport');
+      }),
+      /uncertain transport/,
+    );
+    assert.deepEqual(
+      await new DevelopmentCall(repository).run(uncertain, call),
+      { status: 'replay' },
+    );
+    assert.equal(calls, 1);
+    assert.equal(
+      (await repository.status('anthropic')).heldMicros,
+      beforeCalls.heldMicros + 1,
+    );
     assert.deepEqual(await productionSnapshot(), productionBefore);
     // A lowered/disabled pool is respected; release requires explicit confirmed zero cost.
     await db.query(

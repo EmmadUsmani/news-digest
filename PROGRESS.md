@@ -160,3 +160,13 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - Handbook budget page, schema metadata, public-access plan, DATABASE-VERIFICATION and TASKS updated. `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets` passes: 30 tables, no metadata warnings.
 - All five complete saved-reader fingerprints unchanged after migration. Four app services restarted/active; health database/Redis OK and alerts zero.
 - Next: development-pool runtime/provider/test-edition wiring; phase-0/2 normal-scheduled acceptance and Nov 8 review/first-week report still due. VM sharing stays private.
+
+## 2026-11-08: iteration 1268 — guard isolated development calls
+
+- Clean main/no leftovers; health/alerts clear, all 36 enabled sources healthy and digest queue has no failures. Nov 8 scheduled acceptance remains due at 15:00 UTC.
+- Added development-only call orchestration: explicit opt-in, durable reserve-before-call, replay/refusal suppression, confirmed-cost settlement and threshold reporting. Unknown provider outcomes/invalid billing/settlement failures retain holds; no automatic retry or release.
+- Five offline cases cover both providers, zero and unexpectedly high actual bills, database/provider errors and replay protection. Disposable Postgres races independent runners, proves exactly one callback/charge and retains uncertain holds; production ledger/reserve fingerprints unchanged.
+- Provider/test-edition composition remains unwired; no live provider calls, schema changes or production-budget changes. Updated TASKS, public-access plan and DATABASE-VERIFICATION.
+- Verification: `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, complete saved-reader fingerprint comparison and final format/lint/diff checks (results below).
+- Next: compose provider/test-edition runtime with conservative per-provider bounds; normal-scheduled phase-0/2 acceptance and Nov 8 edition review/first-week report remain due. VM sharing stays private.
+- Results: `pnpm check` passes (587 unit, 232 integration, four expected skips); build/handbook/five complete reader comparisons pass. Final `pnpm format`, `pnpm lint:fix` and diff checks pass.

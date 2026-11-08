@@ -804,3 +804,15 @@ the five published IDs, latest is Nov 7, and all 541 private editions return rea
 archive views pass; screenshots are `docs/screenshots/ui/published-archive-*.png`.
 The inventory must be refreshed when a new scheduled edition arrives. No content,
 IDs, provider budgets, sharing settings or generation policy changed.
+
+## Development call guard — iteration 1268
+
+`development-call.test.ts` checks explicit opt-in, refusal and replay suppression,
+reserve-before-call ordering, confirmed zero/actual billing, limit reporting,
+uncertain provider outcomes and settlement failures. No failure automatically
+releases a hold or retries a provider. Confirmed bills above the estimate are
+charged in full. The database suite races independent runners with one attempt
+ID, checks exactly one offline callback and one charge, and verifies an uncertain
+attempt remains held and cannot execute again. Production ledger/reserve
+fingerprints remain unchanged. This application guard is prepared; provider and
+test-edition runtime composition remain unwired. No live calls are used.

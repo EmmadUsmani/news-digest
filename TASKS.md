@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1268): development call guard reserves before execution, suppresses durable replays and retains uncertain holds; offline/database races verify single execution and production isolation. Provider/test-edition composition remains next.
+
 - [x] STEERING 50 (1267): authoritative development-ledger migration and shared Drizzle schema replace candidate SQL; private-restore rehearsal preserves all 28 existing table fingerprints. Provider/runtime/test-edition wiring remains next.
 
 - [x] STEERING 50 (1266): candidate development ledger retains unresolved holds across independent connection-pool reconnects; reservation/settlement retries remain idempotent and production ledger/reserve fingerprints stay unchanged in disposable Postgres. Authoritative migration and runtime wiring remain next.
