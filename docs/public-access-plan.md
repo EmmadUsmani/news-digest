@@ -74,7 +74,10 @@ mapped to profiles, and profiles go away.
   holds, and an injected failure rolls back DDL, data and ledger entries.
   Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt
   identifies the backup and migration checksums. Actual migration-runner,
-  adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
+  restored-copy adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
+  Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
+  404s) and all original history entries across every page across flag off/on/rollback, with publication
+  filtering enabled and disabled; these pass without provider calls.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous

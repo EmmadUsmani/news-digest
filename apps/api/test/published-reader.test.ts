@@ -16,6 +16,8 @@ void test('published reader filters before pagination and ID lookup while admin 
   const repository = new PostgresPreviewRepository();
   const insertedIds: string[] = [];
   const previous = process.env.READER_PUBLISHED_ONLY;
+  const previousOwnership = process.env.SYSTEM_OWNERSHIP;
+  delete process.env.SYSTEM_OWNERSHIP;
   const app = await NestFactory.create(AppModule, { logger: false });
   try {
     await app.listen(0, '127.0.0.1');
@@ -85,6 +87,70 @@ void test('published reader filters before pagination and ID lookup while admin 
       assert.equal((await fetch(`${base}/${snapshot.id}`)).status, 404);
       assert.deepEqual(await repository.find(snapshot.id), snapshot);
     }
+    // Compare complete HTTP bodies for every original owner edition, including
+    // private 404s, and original history entries across all pages. Foreign-owned
+    // fixtures intentionally join system history; do not mistake expansion for drift. This is isolated fixture acceptance only;
+    // restored production response preservation remains a separate rollout gate.
+    const stored = await repository.db.query<{ id: string }>(
+      'SELECT id FROM digest_previews WHERE profile_id=$1 ORDER BY id',
+      [profile],
+    );
+    const originalIds = new Set(stored.rows.map((row) => row.id));
+    const total = await repository.db.query<{ count: number }>(
+      'SELECT count(*)::int AS count FROM digest_previews',
+    );
+    const capture = async () => {
+      const responses: { path: string; status: number; body: unknown }[] = [];
+      const record = async (path: string) => {
+        const response = await fetch(base + path);
+        const body = await response.json();
+        // Nest's 404 body contains stable status/message/path, no request time.
+        responses.push({ path, status: response.status, body });
+        return body;
+      };
+      await record('/latest');
+      let offset = 0;
+      const history: unknown[] = [];
+      for (;;) {
+        const response = await fetch(`${base}?offset=${offset}`);
+        assert.equal(response.status, 200);
+        const page = await response.json();
+        assert.ok(Array.isArray(page.entries));
+        history.push(
+          ...page.entries.filter((entry: { id: string }) =>
+            originalIds.has(entry.id),
+          ),
+        );
+        if (!page.hasMore) break;
+        assert.ok(page.entries.length > 0, 'history pagination must advance');
+        offset += page.entries.length;
+        assert.ok(offset <= total.rows[0].count, 'history must terminate');
+      }
+      responses.push({
+        path: 'complete-original-history',
+        status: 200,
+        body: history,
+      });
+      for (const row of stored.rows) await record(`/${row.id}`);
+      return responses;
+    };
+    for (const publishedOnly of ['1', '0']) {
+      process.env.READER_PUBLISHED_ONLY = publishedOnly;
+      delete process.env.SYSTEM_OWNERSHIP;
+      const original = await capture();
+      process.env.SYSTEM_OWNERSHIP = '1';
+      assert.deepEqual(
+        await capture(),
+        original,
+        'system scope preserves full HTTP responses',
+      );
+      delete process.env.SYSTEM_OWNERSHIP;
+      assert.deepEqual(
+        await capture(),
+        original,
+        'flag rollback preserves full HTTP responses',
+      );
+    }
     delete process.env.READER_PUBLISHED_ONLY;
     const adminLatest = await repository.latest();
     assert.ok(hidden.some((snapshot) => snapshot.id === adminLatest?.id));
@@ -96,6 +162,8 @@ void test('published reader filters before pagination and ID lookup while admin 
   } finally {
     if (previous === undefined) delete process.env.READER_PUBLISHED_ONLY;
     else process.env.READER_PUBLISHED_ONLY = previous;
+    if (previousOwnership === undefined) delete process.env.SYSTEM_OWNERSHIP;
+    else process.env.SYSTEM_OWNERSHIP = previousOwnership;
     await app.close();
     // The next test file sees exactly the original migrated schema and rows.
     await repository.db.query(

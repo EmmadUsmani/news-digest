@@ -131,3 +131,16 @@
 - Verification: four backup unit tests pass; handbook check passes (18 pages, no changed diagrams), with two existing unapplied edition_settings metadata warnings. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
 - No live migration/deployment/restart: STEERING 50's after-noon generation cutoff remains in force. Scratch container removed; live health remains green.
 - Next: every-edition preserved-response comparisons, actual runner/adapter checks and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1394 — system ownership HTTP preservation
+
+- Clean main/no leftovers; alerts zero, health database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Extended isolated Nest HTTP acceptance to capture complete latest/direct/history responses for every original-owner fixture edition and all original history entries across every page, including private-edition 404s.
+- Deep comparisons cover SYSTEM_OWNERSHIP off/on/off rollback with publication filtering enabled and disabled. Pagination must advance and terminate; original flag values restored after test.
+- Initial full check exposed intentional foreign-owner history expansion from earlier fixtures; comparison now preserves original-owner entries while checking all pages and termination.
+- This verifies isolated fixtures only; restored-production response preservation, actual restored-copy runner/adapter and AI-off/recorded-AI-on acceptance remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
+- `pnpm exec tsx scripts/check-handbook.ts public-access` checks 18 pages/no diagrams; exits 1 only for the two existing unapplied edition_settings metadata warnings. No handbook behavior changed.
+- Updated TASKS and rollout plan. No provider calls, source/UI changes, secret reads or live data writes.
+- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
+- Next: restored-copy migration runner and every-edition HTTP comparisons, then AI acceptance before pre-noon rollout. Phase 1 remains open.
