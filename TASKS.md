@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1314: Concurrent saves at browser capacity survive reload with all saved items and removal records retained; new identities remain blocked at capacity.
+- [x] Iteration 1315: Bounded saved-item prose now marks omissions with an ellipsis, preserves word boundaries where available and avoids splitting emoji; labelled offline browser fixture and unchanged published copy verified.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -27,6 +27,15 @@ const timestamp = (value: unknown): value is number =>
   Number.isSafeInteger(value) &&
   value >= 0 &&
   value <= 8_640_000_000_000_000;
+function shortenProse(text: string, limit: number): string {
+  if (text.length <= limit) return text;
+  const prefix = text.slice(0, limit - 1);
+  const boundary = prefix.search(/\s+\S*$/u);
+  // Keep useful text even for languages or identifiers without spaces.
+  const shortened = boundary > limit / 2 ? prefix.slice(0, boundary) : prefix;
+  return shortened.replace(/[\uD800-\uDBFF]$/u, '').trimEnd() + '…';
+}
+
 export function boundBookmarkCopy(value: unknown): BookmarkCopy | null {
   if (!record(value)) return null;
   const limits = {
@@ -43,7 +52,9 @@ export function boundBookmarkCopy(value: unknown): BookmarkCopy | null {
     if (typeof field !== 'string') return null;
     if ((key === 'url' || key === 'editionId') && field.length > limit)
       return null;
-    result[key] = field.slice(0, limit);
+    result[key] = ['title', 'excerpt', 'attribution'].includes(key)
+      ? shortenProse(field, limit)
+      : field.slice(0, limit);
   }
   try {
     const url = new URL(result.url);

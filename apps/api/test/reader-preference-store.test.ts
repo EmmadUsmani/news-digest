@@ -176,3 +176,33 @@ void test('concurrent saves at capacity survive reload without dropping removals
     null,
   );
 });
+
+void test('shortened saved prose marks omissions, preserves words and survives reload', () => {
+  const excerpt = 'Reporting from the published edition. '.repeat(30);
+  const saved = changeBookmark(
+    emptyStore(),
+    'story:long',
+    { ...copy, excerpt },
+    1,
+  );
+  const shortened = saved.bookmarks['story:long'].copy!.excerpt;
+  assert.ok(shortened.length <= 600);
+  assert.ok(shortened.endsWith('…'));
+  assert.ok(excerpt.startsWith(shortened.slice(0, -1)));
+  assert.match(excerpt.slice(shortened.length - 1), /^\s/u);
+  assert.deepEqual(parsePreferences(JSON.stringify(saved)), saved);
+  assert.equal(
+    changeBookmark(emptyStore(), 'story:short', copy, 1).bookmarks[
+      'story:short'
+    ].copy?.excerpt,
+    copy.excerpt,
+  );
+  const emoji = changeBookmark(
+    emptyStore(),
+    'story:emoji',
+    { ...copy, title: '😀'.repeat(200) },
+    1,
+  ).bookmarks['story:emoji'].copy!.title;
+  assert.ok(emoji.endsWith('…'));
+  assert.doesNotMatch(emoji, /[\uD800-\uDBFF]…$/u);
+});
