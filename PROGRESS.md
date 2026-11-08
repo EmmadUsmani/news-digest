@@ -113,3 +113,12 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-desktop-contents-titles.ts` pass at 1024/1440px light/dark against actual published content; full title wrapping, keyboard focus/activation and no overflow/browser errors. Four screenshots saved; 1024px dark inspected.
 - Latest published edition retains four topics/20 stories/18 posts. Thin Tech evidence and the historical Davis cutoff already have documented causes and deployed future-publication changes; no further editorial tuning or provider spend.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and standalone `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Initial full check received signal 15 during unit tests; complete standalone rerun passed. Mobile regression smoke also passes all four variants. Commit/push and four-service restart follow passing checks; VM stays private. Next: passive metrics probe ≥08:24 UTC; scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1321 — hourly metrics trial evidence
+
+- Clean main/no leftovers. Due passive check: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passed at 08:24:11–08:24:41 UTC.
+- All 23 rules healthy; four uncached queries ≤0.576 s; zero new evaluator errors/missed runs. One small merge/16,188 rows, zero big merges; comparable five-million-row compaction still unobserved. Admission-limit hits 2, queue timeouts/slow queries 0.
+- `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check` pass: zero alerts, 14 services and 36 sources healthy; latest free-social collection verified 10 posts without errors. Scheduled edition remains queued for 15:00 UTC.
+- App `/healthz` and Grafana `:3001/grafana/api/health` pass. Initial Grafana check used the wrong port 3000; corrected to documented 3001. Metrics process has zero restarts since Nov 7 16:00:24 UTC.
+- Updated recovery handoff only; no code, provider calls, limits or edition-generation changes. Next passive check ≥09:25 UTC; scheduled phase-0/phase-2 acceptance at 15:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit, 233 integration, four expected skips. Documentation-only commit; existing runtime build retained; normal four-service restart follows push.
