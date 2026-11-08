@@ -131,3 +131,10 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - Extended existing actual-content bookmark browser checks for current/historical edition link names across desktop/mobile light/dark; screenshots refreshed. No provider calls or backend writes.
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (625 unit/233 integration, four expected skips). `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes all four views; saved desktop screenshot inspected.
 - `compare-publication-content.ts compare` verifies five complete reader responses unchanged; `git diff --check` clean. No handbook flow change. Committing/pushing and restarting four app services; VM remains private, no spend.
+
+## 2026-11-08: iteration 1295 — accurate phase acceptance handoff
+
+- Clean main/no leftover work. Alerts clear, health passes, all 36 sources healthy; digest-generation has zero failed jobs and next run Nov 8 15:00 UTC.
+- TASKS.md had accumulated 33.9 KB of checkpoints, including obsolete claims that deployed development runtimes were unwired. Consolidated phase-0/phase-2 status and the remaining scheduled-publication gate; archived completed checkpoints without losing their evidence.
+- TASKS.md is now about 9 KB. Verified every local link in the updated task list and archive; archive links now resolve from their new location. No application behavior or owner priority changes; phase 1 remains gated, VM private, no provider calls/spend.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Committing/pushing and restarting four services against main; final health/alerts follow. Next: passive metrics check ≥05:21 UTC, scheduled phase acceptance at 15:00 UTC.
