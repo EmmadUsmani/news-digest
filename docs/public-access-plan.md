@@ -133,7 +133,12 @@ replay rejection, admission denial, concurrent redemption, identity reuse, secur
 cookies and hashed storage. A disconnected request boundary prepares exact HTTPS Origin and JSON checks, bounded
 login bodies rejecting caller identity/permission fields, and strict session-cookie
 parsing that rejects duplicate cookies. Offline tests cover cross-origin requests,
-malformed bodies and ambiguous credentials. No login endpoint is exposed. Operational reader roles and PUBLIC
+malformed bodies and ambiguous credentials. Prepared signup eligibility preserves existing-account login in `off` and `invite`
+modes; `invite` permits configured admins to bootstrap through codes. Friends
+will enter through separately verified admin-issued links. Unknown modes and
+open signup with stand-in delivery are rejected during policy construction;
+identity lookup failures deny eligibility. The policy is not registered and
+no login endpoint is exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
 
 ## Target design

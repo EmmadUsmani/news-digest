@@ -168,3 +168,14 @@
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts.
 - Updated TASKS and rollout plan. No provider calls/live writes/migrations/restarts; disconnected preparation leaves runtime unchanged and respects generation deployment cutoff.
 - Next: pre-noon phase 1 backup/rollout/live checks and scheduled acceptance first; connect account HTTP routes and signup policy with flags off while waiting.
+
+## 2026-11-08: iteration 1408 — signup eligibility preparation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user services.
+- Prepared disconnected signup policy: existing readers retain login with signup off/invite; invite code bootstrap permits only configured admins. Friends require separately verified admin links (still pending).
+- Unknown modes/open stand-in signup rejected at construction; malformed identities and lookup failures denied. No runtime registration or account activation.
+- Three offline tests verify mode matrix, normalized lookup, exact admin matching, malformed identities and fail-closed storage errors.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 648 unit/247 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Updated TASKS and rollout plan.
+- No provider calls or migrations. API/worker restart and health/reader checks complete after commit; accounts remain disabled and VM private.
+- Next: pre-noon phase 1 private backup/rollout/live checks, then scheduled acceptance; prepare account routes with flag off while waiting.
