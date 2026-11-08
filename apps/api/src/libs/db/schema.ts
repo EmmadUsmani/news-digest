@@ -53,6 +53,52 @@ export const users = pgTable(
   ],
 );
 
+// Prepared sync storage: topic/item keys outlive their source edition.
+export const userHiddenTopics = pgTable(
+  'user_hidden_topics',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    topicId: text('topic_id').notNull(),
+    hidden: boolean().notNull(),
+    updatedAt: timestamp('updated_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId, table.topicId] }),
+    check(
+      'user_hidden_topics_key_check',
+      sql`length(topic_id) BETWEEN 1 AND 200`,
+    ),
+  ],
+);
+
+export const bookmarks = pgTable(
+  'bookmarks',
+  {
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    itemKey: text('item_key').notNull(),
+    copy: jsonb().$type<Record<string, string>>(),
+    updatedAt: timestamp('updated_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId, table.itemKey] }),
+    check('bookmarks_key_check', sql`length(item_key) BETWEEN 1 AND 2048`),
+    check(
+      'bookmarks_copy_check',
+      sql`copy IS NULL OR (jsonb_typeof(copy) = 'object' AND octet_length(copy::text) <= 16384)`,
+    ),
+  ],
+);
+
 export const loginCodes = pgTable(
   'login_codes',
   {

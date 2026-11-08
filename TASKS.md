@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1429: Prepared runtime injects deletion and supplies configured mailbox cleanup to its dependency factory. Cross-runtime storage acceptance covers revocation, mailbox cleanup, replay and account isolation; sync-data cascades and main registration remain pending; accounts disabled.
+- [x] Iteration 1430: Unapplied sync-storage migration adds per-reader hidden topics and bookmark/tombstone rows with identity cascades and operational-reader denial. Deletion/isolation, rollback, bounds and inherited-grant checks covered; sync repositories and main registration pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

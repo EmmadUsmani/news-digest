@@ -108,7 +108,7 @@ void test('account migration denies operational readers even with inherited defa
   try {
     await client.query('BEGIN');
     await client.query(
-      'DROP TABLE admin_audit_log, sign_in_links, sessions, users',
+      'DROP TABLE user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, sessions, users',
     );
     await client.query(
       'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics',
@@ -125,10 +125,18 @@ void test('account migration denies operational readers even with inherited defa
         '',
       ),
     );
+    await client.query(
+      (await readFile('drizzle/0016_reader_sync.sql', 'utf8')).replaceAll(
+        '--> statement-breakpoint',
+        '',
+      ),
+    );
     for (const role of ['grafana_product', 'postgres_metrics']) {
       await client.query(`SET LOCAL ROLE ${role}`);
       for (const table of [
         'users',
+        'user_hidden_topics',
+        'bookmarks',
         'sessions',
         'sign_in_links',
         'admin_audit_log',
@@ -228,6 +236,97 @@ void test('session repository persists identities, arbitrates renewal and isolat
   } finally {
     await pool.query('DELETE FROM users WHERE id=ANY($1::uuid[])', [ids]);
     await repository.onModuleDestroy();
+    await pool.end();
+  }
+});
+
+void test('sync storage preserves per-user tombstones and rejects malformed or unbounded rows', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const user = (
+      await client.query(
+        "INSERT INTO users(email) VALUES ('sync-schema@example.test') RETURNING id",
+      )
+    ).rows[0].id;
+    const reject = async (
+      query: string,
+      values: unknown[],
+      pattern: RegExp,
+    ) => {
+      await client.query('SAVEPOINT invalid');
+      await assert.rejects(client.query(query, values), pattern);
+      await client.query('ROLLBACK TO SAVEPOINT invalid');
+    };
+    for (const key of ['', 'x'.repeat(2049)]) {
+      await reject(
+        'INSERT INTO bookmarks(user_id,item_key,updated_at) VALUES ($1,$2,now())',
+        [user, key],
+        /check constraint/,
+      );
+    }
+    for (const copy of [[], 'text', { title: 'x'.repeat(16384) }]) {
+      await reject(
+        "INSERT INTO bookmarks(user_id,item_key,copy,updated_at) VALUES ($1,'invalid',$2,now())",
+        [user, JSON.stringify(copy)],
+        /check constraint/,
+      );
+    }
+    await reject(
+      "INSERT INTO user_hidden_topics(user_id,topic_id,hidden,updated_at) VALUES ($1,'',true,now())",
+      [user],
+      /check constraint/,
+    );
+    await reject(
+      "INSERT INTO bookmarks(user_id,item_key,updated_at) VALUES ($1,'orphan',now())",
+      ['ffffffff-ffff-4fff-8fff-ffffffffffff'],
+      /foreign key/,
+    );
+    await client.query(
+      "INSERT INTO bookmarks(user_id,item_key,copy,updated_at) VALUES ($1,'story:old',$2,$3)",
+      [
+        user,
+        JSON.stringify({ title: 'Saved after edition removal' }),
+        '2026-11-01T01:00:00+01:00',
+      ],
+    );
+    await reject(
+      "INSERT INTO bookmarks(user_id,item_key,updated_at) VALUES ($1,'story:old',now())",
+      [user],
+      /unique constraint/,
+    );
+    await client.query('UPDATE bookmarks SET copy=NULL WHERE user_id=$1', [
+      user,
+    ]);
+    const row = (
+      await client.query(
+        'SELECT copy,updated_at FROM bookmarks WHERE user_id=$1',
+        [user],
+      )
+    ).rows[0];
+    assert.equal(row.copy, null);
+    assert.equal(row.updated_at.toISOString(), '2026-11-01T00:00:00.000Z');
+    await client.query(
+      "INSERT INTO user_hidden_topics(user_id,topic_id,hidden,updated_at) VALUES ($1,'deleted-topic',false,now())",
+      [user],
+    );
+    await client.query('DELETE FROM users WHERE id=$1', [user]);
+    for (const table of ['bookmarks', 'user_hidden_topics']) {
+      assert.equal(
+        (
+          await client.query(
+            `SELECT count(*)::int AS n FROM ${table} WHERE user_id=$1`,
+            [user],
+          )
+        ).rows[0].n,
+        0,
+      );
+    }
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
     await pool.end();
   }
 });

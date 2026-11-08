@@ -77,6 +77,17 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         [ids[1].id, recipient],
       );
     }
+    // Real sync rows (including tombstones) must disappear only for the deleted user.
+    for (const { id } of ids) {
+      await pool.query(
+        "INSERT INTO user_hidden_topics(user_id,topic_id,hidden,updated_at) VALUES ($1,'historical-topic',false,now())",
+        [id],
+      );
+      await pool.query(
+        "INSERT INTO bookmarks(user_id,item_key,copy,updated_at) VALUES ($1,'story:saved',$2,now()),($1,'x:removed',NULL,now())",
+        [id, JSON.stringify({ title: 'Retained display copy' })],
+      );
+    }
     const now = new Date();
     const expiry = new Date(now.getTime() + 600_000);
     await mailbox.deliver(email, '123456', expiry);
@@ -163,6 +174,17 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
       ).rows[0].n,
       1,
     );
+    for (const table of ['user_hidden_topics', 'bookmarks']) {
+      assert.equal(
+        (
+          await pool.query(
+            `SELECT count(*)::int AS n FROM ${table} WHERE user_id=$1`,
+            [ids[0].id],
+          )
+        ).rows[0].n,
+        table === 'bookmarks' ? 2 : 1,
+      );
+    }
     const results = await Promise.all([
       deletion.execute(token),
       new DeleteAccount(other, tokens).execute(second),
@@ -220,6 +242,26 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
       ).rows[0].n,
       1,
     );
+    for (const table of ['user_hidden_topics', 'bookmarks']) {
+      assert.equal(
+        (
+          await pool.query(
+            `SELECT count(*)::int AS n FROM ${table} WHERE user_id=$1`,
+            [ids[0].id],
+          )
+        ).rows[0].n,
+        0,
+      );
+      assert.equal(
+        (
+          await pool.query(
+            `SELECT count(*)::int AS n FROM ${table} WHERE user_id=$1`,
+            [ids[1].id],
+          )
+        ).rows[0].n,
+        table === 'bookmarks' ? 2 : 1,
+      );
+    }
   } finally {
     await pool.query('DROP TRIGGER IF EXISTS reject_account_delete ON users');
     await pool.query('DROP FUNCTION IF EXISTS reject_account_delete()');

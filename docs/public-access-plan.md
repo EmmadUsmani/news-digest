@@ -209,8 +209,7 @@ the account; a later database failure leaves a usable account whose next login
 request can issue a fresh code. Isolated tests cover both failures, retry and
 recipient isolation. Production composition remains disconnected. The repository requires the shared
 recipient boundary before starting its deletion transaction, preventing in-flight
-delivery from recreating a mailbox message after cleanup. Sync-data cascades
-must be completed before enabling deletion.
+delivery from recreating a mailbox message after cleanup. Prepared migration 0016 adds cascading sync-data ownership; it remains unapplied.
 Iteration 1423 prepares a shared recipient-coordination port and PostgreSQL
 transaction-scoped advisory-lock adapter. Independent connections serialize the
 same normalized recipient while other recipients progress; callback failures
@@ -228,7 +227,13 @@ identity/session persistence. Deletion resolves the recipient from the stored
 session, acquires that same boundary and rechecks ownership inside its transaction
 after waiting; coordination failure removes nothing. Runtime deletion injection is prepared: isolated cross-runtime acceptance verifies
 session revocation, mailbox cleanup, repeat rejection and another account remaining
-usable. Sync-data cascades remain pending before activation.
+usable. Prepared migration 0016 adds per-user hidden-topic changes and bookmark
+display copies, with null-copy removal tombstones. Composite keys isolate readers;
+keys and JSON size are bounded. Topic/item keys deliberately have no content foreign
+key so historical preferences survive source removal. Both tables cascade with
+identity deletion and deny PUBLIC and operational reader roles. Storage acceptance
+covers cascade, rollback, surviving accounts, tombstones and inherited grants.
+Sync repositories, merge limits and HTTP/browser wiring remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
