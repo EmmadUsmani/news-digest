@@ -185,7 +185,10 @@ can read them.
   Paid X search remains rejected. A prepared per-edition search bridge serializes
   topic calls and stops queued/future searches on accounting refusal, replay,
   uncertain execution, provider errors or the reporting threshold; snapshot
-  composition is still pending. The isolated editor composition shares one
+  composition is still pending. An isolated candidate bridge verifies at most 20
+  distinct discovered posts through official embeds, skips unavailable or
+  undated posts, and uses the shared selector without storing discoveries.
+  Search stops propagate before verification. The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The
   snapshot builder accepts an explicit per-edition development factory; omitted

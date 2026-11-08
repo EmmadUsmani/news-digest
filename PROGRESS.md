@@ -132,3 +132,12 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Three focused offline tests cover official paragraph evidence/display links, unknown metrics, time boundaries, safety/positive-phrase rules, semantic candidates, duplicates, deterministic ties, bounded budgets and input immutability. No live provider calls or spend.
 - `pnpm exec tsx scripts/inventory-editions.ts` plus `compare-publication-content.ts compare` verifies all five complete published reader responses unchanged. `pnpm obs sources --check`, health and alerts pass; corrected unsupported combined jobs-check options and used digest queue filter.
 - `pnpm check` passes (618 unit, 233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four services before final health/alerts. VM remains private.
+
+## 2026-11-08: iteration 1283 — isolated development X official candidates
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources current, digest queue has no failed jobs; scheduled review due at 15:00 UTC.
+- Added isolated search→official-embed→shared-selection bridge: at most 20 distinct verifications, no repository/cache writes, unavailable/undated/mismatched posts omitted, stopped/unconfirmed searches abort before verification. Paid X HTTP/snapshot composition stays unwired.
+- Three focused offline tests pass for official-only evidence, duplicate discovery, verification failures/identity/time, network bounds, invalid budgets and stopped-pool propagation. No provider calls or spend.
+- `pnpm build` passes; inventory plus content comparison verifies five complete published reader responses unchanged. Updated public-access plan/TASKS.
+- Verification initially used unsupported jobs-check/filter combinations and omitted content-comparison arguments; corrected to `pnpm obs jobs --queue digest-generation --state failed --limit 1` and explicit inventory/baseline files.
+- Final verification: `pnpm check` passes (621 unit/233 integration, four expected skips); handbook check (18 pages, schema metadata), full format/lint-fix and diff checks pass. Committing/pushing and restarting four services before health/alerts. Next: paid X snapshot/HTTP composition; normal scheduled acceptance remains due. VM stays private.
