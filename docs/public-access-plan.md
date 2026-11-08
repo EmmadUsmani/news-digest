@@ -150,6 +150,13 @@ no-store and returns generic dependency failures. Loopback HTTP tests exercise t
 disabled gate, origin rejection, oversized/malformed bodies, cookie-only redemption
 and private failure responses. Main does not install it; no account HTTP routes are exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
+Prepared runtime composition now joins the account services through injected repository
+and Redis ports. Disabled configuration creates no dependencies; enabled configuration
+requires an exact HTTPS `ACCOUNT_ORIGIN`, a 64-hex-character `ACCOUNT_SECRET_KEY`,
+an absolute `ACCOUNT_MAILBOX_PATH`, valid `ADMIN_EMAILS` and a closed/invite
+`SIGNUP_MODE`. Code hashing and admission keys are derived separately from the
+secret. Main does not call this factory; registration and verified client wiring
+remain pending. Offline composition checks use a temporary stand-in mailbox.
 
 ## Target design
 
