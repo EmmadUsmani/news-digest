@@ -34,88 +34,7 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 
 Earlier entries: [iterations 1283–1291](docs/progress-archive/2026-11-08-iterations-1283-1291.md).
 
-## 2026-11-08: iteration 1292 — visible development allowances
-
-- Owner-visible improvement: paid private-test options now have matching lifetime allowance figures on admin Spend, including charges, unresolved holds, caps, 75% stop thresholds, available funds and stop/report warnings.
-- Clean main/no leftovers; alerts/health clear, all 36 sources healthy and zero failed digest jobs. Normal scheduled publication remains due at 15:00 UTC; metrics passive check not yet due (≥05:21 UTC).
-- Added read-only development totals through the digests public boundary and typed operations contract; production ledger and admission behavior unchanged. Handbook updated in the same change.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build`, handbook check and `git diff --check` pass. First check caught import ordering in the updated test; fixed before the successful full rerun.
-- `pnpm exec tsx scripts/smoke-development-spend.ts` passes four desktop/mobile light/dark views: real totals, fixture stop/unavailable states, no overflow/errors/writes. Screenshots updated and mobile light/desktop dark inspected; published-content comparison verifies all five complete reader responses unchanged.
-- Four app services restarted; health/alerts clear. Archived iterations 1272–1282 to keep PROGRESS.md small. Committing/pushing and restarting services against main; no provider calls/spend, VM private, phase 0/2 scheduled acceptance still open.
-
-## 2026-11-08: iteration 1293 — actionable private-test refusals
-
-- Clean main/no leftovers; alerts/health clear, all 36 sources healthy, zero failed digest jobs. Phase 0/2 scheduled acceptance remains due at 15:00 UTC; metrics passive check not due until ≥05:21 UTC.
-- Private-test form previously treated disabled development providers as an uncertain save. Exact known AI/X refusals now explain the disabled option, retry action and that no test was saved; unknown failures retain duplicate-prevention guidance. Linked development allowances beside the paid options.
-- Updated pipeline handbook and four screenshots. `pnpm exec tsx scripts/smoke-test-edition-form.ts` passes desktop/mobile light/dark with intercepted real saved snapshot, both disabled-provider refusals, unknown-error fallback and no actual writes/provider calls; mobile light screenshot inspected.
-- `pnpm build`, web rebuild and `check-handbook.ts 04-edition-pipeline` pass; full five-response publication comparison unchanged. Required `pnpm format`/`pnpm lint:fix` run; full check result below.
-- Four app services restarted and health passes. VM stays private, no provider spend or later-phase work.
-- Final `pnpm check` passes: 625 unit/233 integration, four expected skips; `git diff --check` clean. Committing/pushing, then restarting four services against main and checking health/alerts. Next: passive metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.
-
-## 2026-11-08: iteration 1294 — identifiable saved-edition links
-
-- Clean main/no leftovers; alerts/health clear, all 36 sources healthy and zero failed digest jobs. Normal scheduled acceptance remains due at 15:00 UTC; passive metrics check ≥05:21 UTC.
-- Saved cards repeated the same accessible “View edition” link name. Each link now includes its saved story/post title, so assistive navigation identifies the destination context. Visible text and saved copies unchanged.
-- Extended existing actual-content bookmark browser checks for current/historical edition link names across desktop/mobile light/dark; screenshots refreshed. No provider calls or backend writes.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (625 unit/233 integration, four expected skips). `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes all four views; saved desktop screenshot inspected.
-- `compare-publication-content.ts compare` verifies five complete reader responses unchanged; `git diff --check` clean. No handbook flow change. Committing/pushing and restarting four app services; VM remains private, no spend.
-
-## 2026-11-08: iteration 1295 — accurate phase acceptance handoff
-
-- Clean main/no leftover work. Alerts clear, health passes, all 36 sources healthy; digest-generation has zero failed jobs and next run Nov 8 15:00 UTC.
-- TASKS.md had accumulated 33.9 KB of checkpoints, including obsolete claims that deployed development runtimes were unwired. Consolidated phase-0/phase-2 status and the remaining scheduled-publication gate; archived completed checkpoints without losing their evidence.
-- TASKS.md is now about 9 KB. Verified every local link in the updated task list and archive; archive links now resolve from their new location. No application behavior or owner priority changes; phase 1 remains gated, VM private, no provider calls/spend.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Committing/pushing and restarting four services against main; final health/alerts follow. Next: passive metrics check ≥05:21 UTC, scheduled phase acceptance at 15:00 UTC.
-
-## 2026-11-08: iteration 1296 — readable saved post formatting
-
-- Clean main/no leftover work. Alerts clear, health passes and source checks pass; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check not due until ≥05:21 UTC.
-- Reader weakness: Saved items collapsed original post line breaks, flattening paragraphs/lists. Preserve excerpt newlines and wrap long links within cards. The owner would notice saved posts retain their readable structure on mobile and desktop.
-- Extended actual-content bookmark browser verification for excerpt whitespace and post overflow; no provider calls, backend writes, publication or selection changes. No handbook flow change.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. First combined format/lint/check process was terminated during unit tests without a reported test failure; standalone full check rerun passed.
-- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark, current/historical copies, cross-tab updates, formatting and overflow. Refreshed four saved-page screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise.
-- Committing/pushing and restarting four app services against main; final health/alerts checked after restart. VM private, no provider spend. Next: metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.
-
-## 2026-11-08: iteration 1297 — easier topic selection on touch screens
-
-- Clean main/no leftover work. Alerts/health and source checks pass; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check not due until ≥05:21 UTC.
-- Reader weakness: topic-picker labels had small touch targets. Each full row now offers at least 44 pixels of height, a larger checkbox and a visible keyboard-focus outline. The owner can hide/restore topics more easily on mobile.
-- Extended `pnpm exec tsx scripts/smoke-reader-preferences.ts`: verifies every target's dimensions and restores a topic by tapping row padding. All desktop/mobile light/dark checks pass, including persistence, historical editions, cross-tab changes and blocked storage.
-- Refreshed four topic-menu screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise. No backend writes/provider calls or handbook flow changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. Committing/pushing and restarting four services against main; scheduled phase acceptance remains due at 15:00 UTC, VM private.
-
-## 2026-11-08: iteration 1298 — keyboard shortcut for Saved items
-
-- Clean main/no leftover work. Alerts/health pass, all 36 sources healthy; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check completed below.
-- Reader weakness: Saved items lacked the keyboard skip shortcut available on the edition/archive. Added the shared shortcut targeting its focusable heading; keyboard readers can bypass the repeated header in populated and empty lists.
-- Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` for first-Tab access and heading focus in both states across desktop/mobile light/dark; four focused-shortcut screenshots added, desktop light inspected. Initial browser attempt pressed Tab before React rendered; explicit attached-state wait fixes the check.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass (625 unit/233 integration, four expected skips). Discarded unrelated bookmark screenshot rendering noise. No handbook flow change, backend writes, provider calls or spend.
-- Committing/pushing and restarting four app services against main; final health/alerts follow. VM remains private; scheduled phase acceptance still waits for Nov 8 15:00 UTC.
-- Due hourly probe `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` (05:21:08–39): 23 healthy rules, four uncached queries ≤0.263 s, zero new evaluator errors/misses; one small merge/3,491 rows, no big merge. Admission hits 2, queue timeouts/slow queries 0; comparable compaction still open. Next ≥06:22 UTC.
-
-## 2026-11-08: iteration 1299 — announce Saved items removal
-
-- Clean main/no leftover work. Alerts and health pass; all 36 sources have successful collection and no current errors. Digest-generation has zero failed jobs and next run 15:00 UTC. Metrics probe not due until ≥06:22 UTC.
-- Reader weakness under item 50 phase 2: removing a saved item moved focus but gave no screen-reader confirmation. Added a polite atomic status naming the removed item and remaining count, including the empty list; readers can confirm the action without searching the page.
-- Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts`: removed title/count and last-item announcement pass with existing focus, persistence, historical-copy and cross-tab checks in desktop/mobile light/dark. Inspected mobile light screenshot; discarded unrelated raster rendering noise and updated screenshot index for this nonvisual change.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. No handbook flow change, backend writes, provider calls or spend.
-- Committing/pushing and restarting four app services against main; final health/alerts follow. VM private; scheduled phase acceptance remains due Nov 8 15:00 UTC.
-
-## 2026-11-08: iteration 1300 — larger Save touch targets
-
-- Clean main/no leftover work. Alerts/health pass; all 36 sources have successful collection and no current errors. Digest-generation has zero failed jobs, next run 15:00 UTC; metrics probe not due until ≥06:22 UTC.
-- Reader weakness under item 50 phase 2: story/post Save controls were only 36 px tall. Both now have at least 44 × 44 px touch targets; mobile readers can bookmark more easily without needing precise taps.
-- Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` to measure story and every saved-edition post control. Desktop/mobile light/dark checks pass with persistence, historical copies, removal and cross-tab behavior. Four focused screenshots added, four edition screenshots refreshed; inspected desktop/mobile light.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` verified before commit; 625 unit/233 integration pass with four expected skips. No handbook flow change, backend writes, provider calls or spend.
-- Commit/push and four-service restart follow verification; VM remains private. Scheduled phase acceptance still waits for Nov 8 15:00 UTC.
-
-## 2026-11-08: iteration 1301 — easier Saved items actions on mobile
-
-- Clean main/no leftover work. Alerts/health pass; all 36 sources have successful collection and no current errors. Digest-generation has zero failed jobs and next run 15:00 UTC; metrics probe not due until ≥06:22 UTC.
-- Reader weakness under item 50 phase 2: Saved items Remove and View edition targets were smaller than the edition Save controls. Both now offer at least 44 × 44 px targets; the edition link also has a visible keyboard-focus outline. The owner can revisit or remove bookmarks more easily on mobile.
-- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark with actual saved stories, X and Bluesky copies, historical editions, persistence, cross-tab updates and removal focus/announcements. Refreshed four saved-page screenshots; inspected desktop/mobile light. Discarded unrelated screenshot rendering noise.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. No handbook flow change, backend writes, provider calls or spend.
-- Scheduled phase acceptance remains due Nov 8 15:00 UTC; VM remains private. Commit/push and four-service restart follow verification.
+Earlier entries: [iterations 1292–1301](docs/progress-archive/2026-11-08-iterations-1292-1301.md).
 
 ## 2026-11-08: iteration 1302 — return from empty Saved items
 
@@ -185,3 +104,11 @@ Earlier entries: [iterations 1283–1291](docs/progress-archive/2026-11-08-itera
 - `pnpm build` passes after correcting the archive link's required page parameter. `pnpm exec tsx scripts/smoke-reader-navigation.ts` passes desktop/mobile light/dark with actual published history, keyboard activation, no overflow/errors/writes; corrected smoke URL expectation to accept the valid page query. Eight screenshots added; desktop light archive/mobile dark saved inspected.
 - `pnpm format`, `pnpm lint:fix`, targeted smoke-script ESLint and `git diff --check` pass. No provider calls/spend, backend/data-flow change or public-access change; VM remains private. Scheduled phase-0/2 acceptance waits for 15:00 UTC. Commit/push and four-service restart follow passing verification.
 - Existing `pnpm exec tsx scripts/smoke-reader-archive.ts` passes all four viewport/theme variants after fixing its old assumption that page 3 must contain published entries; recovery now accepts an empty page. Updated four archive screenshots and discarded unrelated date-switcher screenshot noise. First full-check process ended with signal 15 before finishing; clean full-check rerun passes: 627 unit and 233 integration passes, four expected skips.
+
+## 2026-11-08: iteration 1311 — recover saved destinations in hidden topics
+
+- Clean main/no leftover work. Alerts/health pass; 36 sources have no current error and no failed digest-generation jobs. Published reader has four topics, 20 stories and 18 posts. Scheduled acceptance waits for 15:00 UTC; metrics probe is not due until ≥07:23 UTC.
+- Reader-visible weakness: View edition on a saved item can lead to an absent destination when its topic is hidden. The reader now explains the hidden topic and offers an explicit Show topic action; it restores that preference, scrolls to the requested story/post and places keyboard focus there.
+- New `pnpm exec tsx scripts/smoke-reader-hidden-destination.ts` reproduced the missing recovery action before the fix and passes desktop/mobile light/dark afterward, including persistence, focus, 44px controls and overflow. Fixed partial router decoding of post anchors found during verification. Four screenshots added; desktop light/mobile dark inspected. Uses actual published content with GET-only traffic and blocked external requests.
+- `pnpm build`, subsequent web build/typecheck, `pnpm check` and `git diff --check` pass: 627 unit and 233 integration passes, four expected skips. Existing bookmark smoke initially timed out removing a historical saved post; rerun results recorded below. No provider calls/spend, backend/data-flow change or public-access change; VM stays private.
+- Existing `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` rerun passes all four viewport/theme combinations, including historical story/post destinations and removals. Discarded unrelated screenshot rendering noise. Final `pnpm format`/`pnpm lint:fix` run before commit; commit/push and four-service restart follow passing verification.

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, useParams } from '@tanstack/react-router';
+import { Link, useLocation, useParams } from '@tanstack/react-router';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -17,6 +17,16 @@ import { useReaderPreferences } from './use-reader-preferences';
 
 export function DigestPreview() {
   const { id } = useParams({ strict: false });
+  const routeHash = useLocation({ select: (location) => location.hash });
+  // Router hashes can be partly decoded; post anchors use encoded JSON identities.
+  let hash = routeHash;
+  if (routeHash.startsWith('post-')) {
+    try {
+      hash = `post-${encodeURIComponent(decodeURIComponent(routeHash.slice(5)))}`;
+    } catch {
+      // A malformed external fragment has no matching saved destination.
+    }
+  }
   const edition = useQuery(editionQuery(id));
   const preview = edition.data;
   const preferences = useReaderPreferences();
@@ -26,6 +36,18 @@ export function DigestPreview() {
       (topic) =>
         !preferencesEnabled || !preferences.hiddenTopics[topic.id]?.hidden,
     ) ?? [];
+  const hiddenDestination = preferencesEnabled
+    ? preview?.topics.find(
+        (topic) =>
+          preferences.hiddenTopics[topic.id]?.hidden &&
+          (topic.stories.some((story) => hash === `story-${story.id}`) ||
+            topic.posts.some(
+              (post) =>
+                hash ===
+                `post-${encodeURIComponent(JSON.stringify([post.platform, post.externalId]))}`,
+            )),
+      )
+    : undefined;
   return (
     <main className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6">
       {visibleTopics[0] && (
@@ -117,6 +139,33 @@ export function DigestPreview() {
           </h1>
           <ReaderContents key={preview.id} topics={visibleTopics} />
           <div className="min-w-0 max-w-2xl flex-1 space-y-16">
+            {hiddenDestination && (
+              <div
+                role="status"
+                className="space-y-3 rounded-lg border border-[var(--border)] p-5"
+              >
+                <p>
+                  This item is in {hiddenDestination.name}, which you have
+                  hidden.
+                </p>
+                <Button
+                  className="min-h-11"
+                  onClick={() => {
+                    preferences.setHidden(hiddenDestination.id, false);
+                    requestAnimationFrame(() => {
+                      const target = document.getElementById(hash);
+                      target?.scrollIntoView({
+                        behavior: 'instant',
+                        block: 'center',
+                      });
+                      target?.focus({ preventScroll: true });
+                    });
+                  }}
+                >
+                  Show {hiddenDestination.name}
+                </Button>
+              </div>
+            )}
             {preview.topics.length > 0 && visibleTopics.length === 0 && (
               <p role="status">
                 All topics are hidden. Open Topics to show them again.
