@@ -27,10 +27,14 @@ pnpm exec tsx scripts/report-edition-timing.ts --scheduled-only --limit 1
 pnpm exec tsx scripts/report-x-discovery.ts 2026-11-08
 pnpm exec tsx scripts/report-x-week.ts 2026-11-08
 pnpm obs alerts
+pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z
 ```
 
 Use immutable saved selections and recorded call evidence, not today's inventory.
 Write actual findings in a separate `2026-11-08.md` review after publication.
+The reader check exits 2 (`pending`) while latest still predates the requested
+window, 1 on failure, and 0 when latest/direct/history agree for that window.
+It does not replace the job/publication metadata and quality checks below.
 
 ## Public-reader phase gates (STEERING 50)
 
