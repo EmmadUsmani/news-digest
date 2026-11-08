@@ -106,3 +106,12 @@
 - Live Nov 7 window passes (four topics/20 stories/18 posts); Nov 8 returns pending/exit 2. Older-than-latest, invalid input, missing input and invalid calendar date return exit 1. Five original response hashes unchanged; private test direct link remains 404. No provider calls, writes or phase acknowledgment.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Targeted script typecheck/lint/format pass; broad ad-hoc script typecheck first hit unrelated existing test/config errors, then isolated config passed. Normal four-service restart follows commit/push.
 - Next: passive metrics probe ≥11:26 UTC and scheduled publication/first-week acceptance at 15:00 UTC; VM remains private.
+
+## 2026-11-08: iteration 1343 — hourly metrics-recovery evidence
+
+- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks pass. No failed digest runs; next scheduled publication 15:00 UTC. Nov 7 reader gate passes: four topics/20 stories/18 posts.
+- Reader review still finds thin Tech evidence and NBA fallback the largest weaknesses; deployed fixes await the scheduled edition. No additional generation or save-control change justified. Owner benefit: current evidence keeps the open metrics incident visible without changing the protected edition or claiming recovery prematurely.
+- At the due hourly check, eight uncached stored-history queries (10:25:30–11:26:00 UTC, 122 points each) show 2,287,725 rows/122 small merges, largest 30-second increase 965,106 rows. No gaps/resets or comparable candidate; sampled scrape values all one, admission hits two, timeouts/slow queries zero.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 23 healthy/fresh rules, four queries ≤0.278 s, zero new evaluator errors/missed iterations, 31,684 rows/two small merges, no big merge. Metrics systemd start unchanged/zero restarts; Grafana database healthy. Updated decision 0004 and TASKS; next probe ≥12:26 UTC.
+- No provider calls, publication, configuration/limit changes or phase acknowledgments; VM remains private. Scheduled acceptance and first-week report remain due at 15:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. A targeted format check initially ran before the full formatter reached PROGRESS; final targeted check passes. Normal four-service restart follows commit/push.

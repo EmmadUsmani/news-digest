@@ -665,3 +665,25 @@ timeouts and slow queries; `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 3
 `systemctl show obs-metrics.service -p ActiveEnterTimestamp -p NRestarts`;
 `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check`;
 app `/healthz` and Grafana's configured local `/grafana/api/health`.
+
+### Nov 8 late-morning recovery history (iteration 1343)
+
+Nov 8 10:25:30–11:26:00 UTC: eight uncached range queries returned 122
+points each at 30-second steps, without returned timestamp gaps or counter
+resets. Small-storage merged rows increased 2,287,725 across 122 merges;
+the largest adjacent increase was 965,106 rows. No interval met the
+five-million-row candidate threshold; big-storage rows stayed zero. Process
+identity stayed constant, sampled self-scrape values were all one, admission
+hits stayed two, and query timeouts/slow queries stayed zero.
+
+Commands: the same eight local `/metrics/api/v1/query_range` GETs as iteration
+1337, with `start=1794133530`, `end=1794137160`, `step=30s`, `nocache=1`.
+Recovery remains open pending comparable natural compaction; no configuration
+or limits changed.
+
+Nov 8 11:26:07–11:26:37 UTC: `pnpm exec tsx
+scripts/sample-metrics-recovery.ts 1 30` reports all 23 rules healthy/fresh,
+four uncached queries passing (maximum 0.278 s), zero new evaluator errors
+or missed iterations, and 31,684 rows across two small merges. No big merges.
+Metrics retains its Nov 7 16:00:24 systemd start with zero restarts. App and
+Grafana health pass. Next passive check no earlier than 12:26 UTC.
