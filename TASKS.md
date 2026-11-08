@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1308: Concurrent tab preference merges persist to browser storage, so saved items survive reload alongside independent topic choices.
+- [x] Iteration 1309: Saved items immediately warns when browser storage cannot be read; failed cross-tab reads retain current choices.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

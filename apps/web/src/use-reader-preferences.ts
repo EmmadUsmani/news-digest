@@ -10,26 +10,34 @@ import {
   storageKey,
 } from './reader-preference-store';
 
-function read(): PreferenceStore {
+function read(): { store: PreferenceStore; failed: boolean } {
   try {
-    return parsePreferences(localStorage.getItem(storageKey));
+    return {
+      store: parsePreferences(localStorage.getItem(storageKey)),
+      failed: false,
+    };
   } catch {
-    return emptyStore();
+    return { store: emptyStore(), failed: true };
   }
 }
 
 export function useReaderPreferences() {
-  const [store, setRenderedStore] = useState(read);
+  const [initial] = useState(read);
+  const [store, setRenderedStore] = useState(initial.store);
   const currentStore = useRef(store);
   const setStore = (next: PreferenceStore) => {
     currentStore.current = next;
     setRenderedStore(next);
   };
-  const [storageFailed, setStorageFailed] = useState(false);
+  const [storageFailed, setStorageFailed] = useState(initial.failed);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
       if (event.key !== storageKey && event.key !== null) return;
-      const stored = read();
+      const { store: stored, failed } = read();
+      if (failed) {
+        setStorageFailed(true);
+        return;
+      }
       // Start with storage's ordering so identical unions do not bounce writes
       // between tabs. Retain changes absent from a concurrent stale write.
       const merged = mergePreferences(stored, currentStore.current);
@@ -50,7 +58,7 @@ export function useReaderPreferences() {
   const setHidden = (id: string, hidden: boolean) => {
     // Re-read before updating so another tab's changes are retained. False is a
     // tombstone, not deletion: future account sync needs the restoration time.
-    const merged = mergePreferences(currentStore.current, read());
+    const merged = mergePreferences(currentStore.current, read().store);
     const next: PreferenceStore = {
       ...merged,
       hiddenTopics: {
@@ -76,7 +84,7 @@ export function useReaderPreferences() {
   const setBookmark = (id: string, copy: BookmarkCopy | null) => {
     try {
       const next = changeBookmark(
-        mergePreferences(currentStore.current, read()),
+        mergePreferences(currentStore.current, read().store),
         id,
         copy,
       );

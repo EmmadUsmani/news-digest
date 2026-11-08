@@ -172,6 +172,17 @@ async function smoke() {
         await page.getByRole('button', { name: 'Topics', exact: true }).click();
         await dialog.getByRole('checkbox').first().uncheck();
         await expect(dialog.getByRole('alert')).toContainText('could not save');
+        await page.addInitScript(() => {
+          Storage.prototype.getItem = () => {
+            throw new DOMException('blocked');
+          };
+        });
+        await page.goto(`${origin}/saved`);
+        await expect(page.getByRole('alert')).toContainText('could not save');
+        await page.screenshot({
+          path: `docs/screenshots/reader-storage-blocked-${device}-${theme}.png`,
+          fullPage: true,
+        });
         assert.deepEqual(writes, []);
         assert.deepEqual(errors, []);
         await context.close();
