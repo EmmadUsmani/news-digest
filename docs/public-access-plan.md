@@ -44,7 +44,10 @@ mapped to profiles, and profiles go away.
   an explicit development LLM bridge now estimates and settles Anthropic calls through
   the guard. An explicit `LLM_LIVE=1` runtime composes the isolated ledger and
   Anthropic adapter with fixed model/rate pairs and retries disabled. Free test
-  editions have a separate admin route; paid test composition and migration of
+  editions have a separate admin route. An isolated JSON bridge now lets existing
+  editors use development calls with separate holds and stops further calls on
+  refusal, uncertain errors or report thresholds; it is not installed in runtime.
+  Paid test composition and migration of
   existing manual callers remain unwired. The opt-in `X_SEARCH_LIVE=1`
   development runtime uses direct xAI, fixed pricing and an isolated $0.40 hold;
   confirmed fetched-item/token bills settle in full, including above the estimate. Edition

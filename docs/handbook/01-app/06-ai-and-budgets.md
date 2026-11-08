@@ -83,5 +83,6 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
   pricing and never retries calls. A separate direct-xAI runtime requires
   `X_SEARCH_LIVE=1`, holds $0.40 before each call and settles all reported token
   and fetched-item costs at fixed prices without retries.
-- Admin test-edition routes are not connected
-  yet; current manual generations still use production accounting.
+- Paid test-edition options remain disabled until isolated composition is ready.
+- Free admin test editions reuse stored content without provider calls; existing
+  manual generations still use production accounting.

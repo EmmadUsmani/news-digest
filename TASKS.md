@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1273): isolated development JSON editor bridge maps fixed model roles, allocates distinct parallel-call holds, validates completed output without repair calls and latches off on refusal/report/uncertain results. Existing shortlist editor verified offline; paid HTTP options remain disabled pending full composition.
+
 - [x] STEERING 50 (1272): free admin test-edition endpoint reuses stored content with AI/paid X off, saves unpublished `kind=test`, and bypasses production generation context/alerts/notifications. Paid options reject until isolated composition ships; normal scheduled acceptance remains due.
 
 - [x] STEERING 50 (1271): opt-in development X runtime reserves isolated funds before direct xAI, settles fixed-tier token/fetched-item costs and retains uncertain holds without retries. Five offline cases pass; test-edition routing remains next.

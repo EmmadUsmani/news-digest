@@ -124,3 +124,14 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Next: connect isolated paid test options and retire production-accounted manual test calls; phase-0/2 normal scheduled acceptance and Nov 8 daily review/first-week report remain due. VM stays private.
 - Final verification: `pnpm check` passes (600 unit/233 integration, four expected skips); `pnpm build`, handbook, format/lint-fix and diff checks pass. Four app services restarted healthy.
 - Explicit live free-test smoke created private test `b931e39b-4384-4089-9a2e-f12a7076cb14` from stored content: four topics/20 stories/15 posts, all non-AI, reader 404/admin 200; all three provider/development ledger counts unchanged. Five published response fingerprints unchanged; health/alerts clear.
+
+## 2026-11-08: iteration 1273 — isolated development editor JSON bridge
+
+- Clean main/no leftovers; health/alerts clear, all 36 enabled sources healthy, no failed digest jobs; next scheduled edition remains Nov 8 15:00 UTC.
+- Added per-test-edition JSON bridge for existing editorial classes: fixed Haiku/Sonnet role mapping, unique concurrent-call attempt IDs, no production cache/ledger or automatic repair calls.
+- Refusal, replay, disabled/input-limit, provider uncertainty and report-required outcomes latch off further calls and throw past editor model fallback. Invalid completed output stays charged and may use a separately reserved fallback.
+- Five offline cases cover concurrency, invalid JSON/schema, every stopped result, uncertain errors and real shortlist-editor success/fallback/stop behavior. Initial fixture lacked topic guidance; corrected before verification. No provider calls or spend.
+- Updated public-access plan/TASKS and corrected stale budget handbook text about free test editions. Paid HTTP options remain disabled; full test-edition composition/manual-call migration is next.
+- Verification: targeted tests 5/5, `pnpm build`, budget handbook check and all five complete published-reader response comparisons pass. Full check/final deployment results follow.
+- Nov 8 normal scheduled phase-0/2 acceptance, daily edition review and first-week report remain due; VM stays private.
+- Final results: `pnpm check` passes (605 unit/233 integration, four expected skips); format/lint-fix and diff checks pass. Four rebuilt services restarted healthy, `/healthz` reports database/Redis OK and alerts remain clear.
