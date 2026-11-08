@@ -124,3 +124,12 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-home-links.ts` pass: both routes, desktop/mobile light/dark, target dimensions, keyboard outline/activation, no horizontal overflow or browser errors. Eight screenshots saved; mobile dark archive inspected.
 - Initial smoke script used unsupported top-level await; wrapped its entry point and reran successfully. Browser requests limited to GET/HEAD and external traffic blocked; no provider spend.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal four-service restart follows push. VM stays private; no publication or data-flow changes.
+
+## 2026-11-08: iteration 1325 — easier edition date navigation
+
+- Clean main/no leftovers. Alerts, services, sources and jobs checks pass; no active alerts or stalled sources. Scheduled acceptance remains 15:00 UTC; next metrics probe ≥09:25 UTC, not sampled early.
+- Published reader retains four topics/20 stories/18 posts. Known thin reporting and historical selection issues already have documented causes or deployed changes awaiting publication; no editorial retuning.
+- Reader-visible weakness: edition navigation arrows had 28×36px targets. Arrows now offer 44×44px targets; the archive date link is also 44px tall, with explicit keyboard focus on all date links.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-date-targets.ts` pass: published older/newer edition and archive navigation, target sizes, focus outlines, no overflow or browser errors at 1440/390/320px in light/dark. Six screenshots saved; 320px dark inspected.
+- Browser traffic GET/HEAD-only with external requests blocked; no provider spend. No data flow or public access change; VM stays private.
+- Final verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal four-service restart follows commit/push.

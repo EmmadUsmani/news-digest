@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1324: Saved items and Past editions home links have 44px touch targets and visible keyboard focus; desktop/mobile light/dark return navigation verified.
+- [x] Iteration 1325: Edition date arrows and archive date link have 44px targets and explicit keyboard focus; published-edition navigation verified through 320px in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

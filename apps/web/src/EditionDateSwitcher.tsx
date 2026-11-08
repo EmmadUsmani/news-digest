@@ -56,7 +56,7 @@ export function EditionDateSwitcher({
     navigation.current?.querySelector<HTMLAnchorElement>('a')?.focus();
   }, [neighbors.isFetching, neighbors.isError, retrying]);
   const linkClass =
-    'flex h-9 w-7 items-center justify-center rounded-md text-[var(--secondary)] hover:bg-[var(--muted)]';
+    'flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-[var(--secondary)] hover:bg-[var(--muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]';
   return (
     <nav
       ref={navigation}
@@ -93,7 +93,7 @@ export function EditionDateSwitcher({
           />
         </Button>
       ) : (
-        <span className="w-7" />
+        <span className="w-11 shrink-0" />
       )}
       <Link
         to="/editions"
@@ -106,7 +106,7 @@ export function EditionDateSwitcher({
               })
             : undefined
         }
-        className="text-sm font-normal whitespace-nowrap text-[var(--secondary)]"
+        className="inline-flex min-h-11 items-center rounded-md text-sm font-normal whitespace-nowrap text-[var(--secondary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         {edition ? (
           <time dateTime={edition.windowEnd}>
@@ -142,7 +142,7 @@ export function EditionDateSwitcher({
           ›
         </Link>
       ) : (
-        <span className="w-7" />
+        <span className="w-11 shrink-0" />
       )}
     </nav>
   );
