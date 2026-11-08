@@ -128,3 +128,5 @@ Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-
 - [x] STEERING 50 (1280): development X attempts now map to deterministic provider-namespaced UUIDs required by the durable ledger; recorded-provider/database coverage verifies exact settlement, fresh-runtime replay suppression and production isolation. Paid X test-edition composition remains next.
 
 - [x] STEERING 50 (1281): prepared per-test-edition X search port with serialized admission and a stop latch; queued/future calls stop on refusal, replay, uncertainty, errors or reporting threshold. Recorded xAI composition proves settlement before stop with no second call. Snapshot/HTTP paid X wiring remains next.
+
+- [x] STEERING 50 (1282): extracted shared in-memory X candidate selection from the database reader, preparing private development results without production writes. Official-text, time/safety, duplicate, semantic/lexical and bounded deterministic ranking checks pass offline; paid X snapshot/HTTP composition remains next.

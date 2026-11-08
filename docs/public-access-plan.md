@@ -47,7 +47,7 @@ mapped to profiles, and profiles go away.
   editions have a separate admin route. An isolated JSON bridge now lets existing
   editors use development calls with separate holds and stops further calls on
   refusal, uncertain errors or report thresholds. Explicit AI test editions and
-  the preview smoke command use this runtime; the admin edition form uses private test editions, free by default. Paid X test composition remains unwired. The opt-in `X_SEARCH_LIVE=1`
+  the preview smoke command use this runtime; the admin edition form uses private test editions, free by default. X post selection now accepts in-memory official-embed candidates through the same safety/ranking path as stored posts. Paid X test composition remains unwired. The opt-in `X_SEARCH_LIVE=1`
   development runtime uses direct xAI, fixed pricing and an isolated $0.40 hold;
   confirmed fetched-item/token bills settle in full, including above the estimate. Edition
   publication metadata and future-save policy are deployed; the reader now

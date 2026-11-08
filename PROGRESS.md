@@ -124,3 +124,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Four focused offline tests pass, including actual development-runtime composition with a recorded xAI response: full 35,023-micro settlement precedes threshold stop, with exactly one reserve/HTTP/settlement across queued topics. No live provider calls or spend.
 - Five complete published reader responses unchanged via inventory/content comparison; build passes. Updated public-access plan/TASKS; snapshot/HTTP paid X composition remains next, with paid X still rejected by the admin route.
 - `pnpm check` passes: 615 unit tests, 233 integration tests and four expected skips; typecheck/lint/format/boundaries pass. `pnpm build`, required format/lint-fix and diff checks pass. Committing/pushing and restarting four services before final health/alerts. VM stays private; phase-0/2 scheduled acceptance remains due.
+
+## 2026-11-08: iteration 1282 — shared in-memory X candidate selection
+
+- Clean main/no leftovers; alerts and health clear, all 36 enabled sources healthy; digest queue has no failures and Nov 8 review remains due at 15:00 UTC. Two retained ingestion failures coexist with successful current sources.
+- Extracted X screening/ranking into a database-independent selector, shared by the existing stored-post path and future isolated development results. No production query, ranking or publication behavior changed; paid X snapshot/HTTP composition remains next.
+- Three focused offline tests cover official paragraph evidence/display links, unknown metrics, time boundaries, safety/positive-phrase rules, semantic candidates, duplicates, deterministic ties, bounded budgets and input immutability. No live provider calls or spend.
+- `pnpm exec tsx scripts/inventory-editions.ts` plus `compare-publication-content.ts compare` verifies all five complete published reader responses unchanged. `pnpm obs sources --check`, health and alerts pass; corrected unsupported combined jobs-check options and used digest queue filter.
+- `pnpm check` passes (618 unit, 233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four services before final health/alerts. VM remains private.
