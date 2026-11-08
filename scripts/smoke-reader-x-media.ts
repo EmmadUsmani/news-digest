@@ -193,6 +193,29 @@ async function smoke() {
           await expect(savedLink).toBeFocused();
         }
         const disclosure = card.locator('.saved-post-text summary');
+        const disclosureBounds = await disclosure.boundingBox();
+        assert.ok(
+          disclosureBounds &&
+            disclosureBounds.height >= 44 &&
+            disclosureBounds.width >= 44,
+        );
+        await disclosure.focus();
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Shift+Tab');
+        await expect(disclosure).toBeFocused();
+        assert.equal(
+          await disclosure.evaluate(
+            (node) => getComputedStyle(node).outlineStyle,
+          ),
+          'solid',
+        );
+        await disclosure.tap();
+        await expect(card.locator('.post-text')).toBeHidden();
+        await page.keyboard.press('Enter');
+        await expect(card.locator('.post-text')).toBeVisible();
+        await card.screenshot({
+          path: `docs/screenshots/ui/x-saved-text-${device}-${theme}.png`,
+        });
         for (const savedPost of posts) {
           const transcript = page
             .locator('.post-card')

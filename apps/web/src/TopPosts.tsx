@@ -303,6 +303,7 @@ function Post({
       >
         <summary
           hidden={!hasEmbedded}
+          className="min-h-11 min-w-11 content-center rounded-md px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           aria-label={`Saved post text from ${post.author} on X, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`}
         >
           Saved post text

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1332: X media failure actions now have 44px tap targets and visible keyboard focus; saved-text/retry recovery verified at 1440/390/320px in both themes.
+- [x] Iteration 1333: loaded X embeds’ saved-text disclosures now have 44px tap targets and visible keyboard focus; touch/keyboard expansion verified at 1440/390/320px in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
