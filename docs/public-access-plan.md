@@ -210,6 +210,13 @@ recipient isolation. Production composition remains disconnected. Its caller mus
 with in-flight delivery before invoking it, to prevent a later rename from
 recreating the message. Sync-data cascades and coordination
 with in-flight login/link issuance must be completed before enabling deletion.
+Iteration 1423 prepares a shared recipient-coordination port and PostgreSQL
+transaction-scoped advisory-lock adapter. Independent connections serialize the
+same normalized recipient while other recipients progress; callback failures
+release the lock, and contention fails closed after five seconds. The lock stores
+no recipient text. This primitive is unregistered: issuance, delivery, redemption
+and deletion still need a common boundary and policy rechecks after waiting.
+It does not make the adapters' separate transactions atomic.
 
 ## Target design
 

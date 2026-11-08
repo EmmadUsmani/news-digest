@@ -9,6 +9,7 @@ import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-log
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { DeleteAccount } from '../src/modules/accounts/application/delete-account';
 import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
+import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
 
 void test('account deletion is session-owned, atomic, concurrent and isolated', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -196,5 +197,74 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
       other.onModuleDestroy(),
       pool.end(),
     ]);
+  }
+});
+
+void test('recipient coordination serializes independent clients and releases on failure', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const first = new PostgresRecipientCoordination();
+  const second = new PostgresRecipientCoordination();
+  const email = 'coordination@example.test';
+  let enter!: () => void;
+  const entered = new Promise<void>((resolve) => {
+    enter = resolve;
+  });
+  let unlock!: () => void;
+  const release = new Promise<void>((resolve) => {
+    unlock = resolve;
+  });
+  let queued: Promise<void> | undefined;
+  let held: Promise<void> | undefined;
+  try {
+    let active = false;
+    held = first.run(email, async () => {
+      active = true;
+      enter();
+      await release;
+      active = false;
+    });
+    await entered;
+    let timedOutWork = false;
+    await assert.rejects(
+      second.run(email, async () => {
+        timedOutWork = true;
+      }),
+      (error: unknown) =>
+        error instanceof Error &&
+        (error.cause as { code?: string } | undefined)?.code === '55P03',
+    );
+    assert.equal(timedOutWork, false);
+    let completed = false;
+    queued = second.run(email, async () => {
+      assert.equal(active, false);
+      completed = true;
+    });
+    // Another recipient can progress while this recipient remains locked.
+    await second.run('other-coordination@example.test', async () => {
+      assert.equal(active, true);
+      assert.equal(completed, false);
+    });
+    unlock();
+    await Promise.all([held, queued]);
+    assert.equal(completed, true);
+    await assert.rejects(
+      first.run(email, async () => {
+        throw new Error('injected work failure');
+      }),
+      /injected work failure/,
+    );
+    assert.equal(await second.run(email, async () => 'released'), 'released');
+    let invoked = false;
+    await assert.rejects(
+      first.run(' Unnormalized@example.test', async () => {
+        invoked = true;
+      }),
+      /normalized email/,
+    );
+    assert.equal(invoked, false);
+  } finally {
+    unlock();
+    await Promise.allSettled([held, queued]);
+    await Promise.all([first.onModuleDestroy(), second.onModuleDestroy()]);
   }
 });

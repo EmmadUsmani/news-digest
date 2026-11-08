@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1422: Prepared required mailbox cleanup before account-deletion commit; cleanup failure preserves identity, database failure permits idempotent retry, concurrent requests isolate recipients. Issuance coordination, sync cascades and runtime injection remain pending; accounts disabled.
+- [x] Iteration 1423: Prepared shared recipient-coordination port/PostgreSQL advisory lock; independent-client serialization, recipient isolation and release after failure verified. Wiring issuance/delivery/redemption/deletion and policy rechecks remain pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
