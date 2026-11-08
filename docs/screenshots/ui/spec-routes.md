@@ -52,3 +52,5 @@ Iteration 1300: story and post Save buttons have touch targets of at least 44 ×
 Iteration 1301: Saved items Remove and View edition actions have at least 44 × 44 pixel touch targets for stories, X and Bluesky copies, verified in desktop/mobile light/dark. Refreshed the four saved-page screenshots above.
 
 Iteration 1302: the empty Saved items page links directly to the latest edition. Keyboard activation and the destination story are checked in desktop/mobile light/dark: [desktop light](saved-empty-desktop-light.png), [desktop dark](saved-empty-desktop-dark.png), [mobile light](saved-empty-mobile-light.png), [mobile dark](saved-empty-mobile-dark.png).
+
+Iteration 1303: edition Saved items navigation sits below the fixed mobile topic bar and has at least a 44 × 44 pixel touch target and visible keyboard focus. Keyboard activation opens the saved list in desktop/mobile light/dark: [desktop light](reader-saved-navigation-desktop-light.png), [desktop dark](reader-saved-navigation-desktop-dark.png), [mobile light](reader-saved-navigation-mobile-light.png), [mobile dark](reader-saved-navigation-mobile-dark.png).

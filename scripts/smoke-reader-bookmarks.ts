@@ -73,6 +73,41 @@ async function smoke() {
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         );
+        const savedLink = page.getByRole('link', {
+          name: 'Saved items',
+          exact: true,
+        });
+        const savedLinkBounds = await savedLink.boundingBox();
+        assert.ok(
+          savedLinkBounds &&
+            savedLinkBounds.width >= 44 &&
+            savedLinkBounds.height >= 44,
+        );
+        await page.evaluate(() =>
+          window.scrollTo({ top: 0, behavior: 'instant' }),
+        );
+        await savedLink.focus();
+        assert.ok(
+          await savedLink.evaluate((element) => {
+            const box = element.getBoundingClientRect();
+            return element.contains(
+              document.elementFromPoint(
+                box.x + box.width / 2,
+                box.y + box.height / 2,
+              ),
+            );
+          }),
+          'saved navigation must not be covered by the fixed topic bar',
+        );
+        await expect(savedLink).toBeFocused();
+        await page.screenshot({
+          path: `docs/screenshots/ui/reader-saved-navigation-${device}-${theme}.png`,
+        });
+        await page.keyboard.press('Enter');
+        await expect(
+          page.getByRole('heading', { name: 'Saved items', exact: true }),
+        ).toBeVisible();
+        await page.goto(`${origin}/editions/${edition.id}`);
         const other = await context.newPage();
         await other.goto(`${origin}/saved`);
         await other
