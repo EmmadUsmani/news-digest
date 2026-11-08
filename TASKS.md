@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1318: Topic chooser fits narrow/zoomed viewports without clipping its close button; six browser variants verify persisted topic choices and keyboard close/focus return.
+- [x] Iteration 1319: Mobile contents show full story titles with larger touch targets; reader header fits 320px screens. Four browser variants verify keyboard navigation.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

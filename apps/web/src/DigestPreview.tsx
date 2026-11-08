@@ -53,14 +53,14 @@ export function DigestPreview() {
       {visibleTopics[0] && (
         <ReaderSkipLink target={`topic-${visibleTopics[0].id}`} />
       )}
-      <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)] bg-[var(--background)] py-0">
+      <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-1 border-b border-[var(--border)] bg-[var(--background)] py-0">
         <Link
           to="/"
-          className="text-base font-semibold tracking-tight whitespace-nowrap sm:text-lg"
+          className="min-w-0 truncate text-base font-semibold tracking-tight sm:text-lg"
         >
           News Digest
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-0 sm:gap-2">
           {preview && preferencesEnabled && (
             <ReaderPreferences
               topics={preview.topics}
