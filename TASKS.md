@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1303: edition Saved items navigation clears the fixed mobile topic bar and has a 44 × 44 px minimum touch target and visible keyboard focus; actual saved-item destination checked in desktop/mobile light/dark.
+- [x] Iteration 1304: Saved items View edition links jump directly to the saved story or post, including historical editions; desktop/mobile light/dark browser verification and focused screenshots.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

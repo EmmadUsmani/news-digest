@@ -97,7 +97,8 @@ limits reader endpoints to published editions and is enabled. The browser uses t
 endpoints for both edition content and history. Stories use compact cards in a
 672 px column, with expandable grouped articles. Desktop contents follow the
 current topic and story; mobile uses topic chips and a contents sheet. Story
-links retain their hash when a saved edition is reopened. The reader makes no operational API requests. Management starts with the operations overview at `/admin`. Shared desktop/mobile
+links retain their hash when a saved edition is reopened. Saved items’ View edition
+links jump directly to the bookmarked story or post. The reader makes no operational API requests. Management starts with the operations overview at `/admin`. Shared desktop/mobile
 navigation opens Editions, Sources, Topics, Schedule, Spend and Tools. These
 dedicated pages replace the old combined management screen.
 

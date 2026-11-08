@@ -107,7 +107,9 @@ export function TopPosts({
           {posts.map((post) => (
             <div
               key={JSON.stringify([post.platform, post.externalId])}
-              className="min-w-0"
+              id={`post-${encodeURIComponent(JSON.stringify([post.platform, post.externalId]))}`}
+              tabIndex={-1}
+              className="min-w-0 scroll-mt-36 lg:scroll-mt-24"
             >
               {post.platform === 'bluesky' ? (
                 <BlueskyPost post={post} />

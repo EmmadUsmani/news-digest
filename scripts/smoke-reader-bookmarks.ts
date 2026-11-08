@@ -132,7 +132,7 @@ async function smoke() {
             name: `View edition containing saved item: ${story.title}`,
             exact: true,
           }),
-        ).toHaveAttribute('href', `/editions/${edition.id}`);
+        ).toHaveAttribute('href', `/editions/${edition.id}#story-${story.id}`);
         await other.screenshot({
           path: `docs/screenshots/ui/saved-${device}-${theme}.png`,
           fullPage: true,
@@ -327,6 +327,7 @@ async function smoke() {
             name: `Save story: ${historicalStory.title}`,
             title: historicalStory.title,
             url: historicalStory.url,
+            anchor: `story-${historicalStory.id}`,
           },
           {
             name: `Save post on ${historicalPost.platform} from ${historicalPost.author}, ${historicalPost.publishedAt}`,
@@ -335,6 +336,7 @@ async function smoke() {
                 ? historicalPost.title
                 : `${historicalPost.platform === 'x' ? 'X' : 'Bluesky'} post from ${historicalPost.author}`,
             url: historicalPost.url,
+            anchor: `post-${encodeURIComponent(JSON.stringify([historicalPost.platform, historicalPost.externalId]))}`,
           },
         ];
         for (const item of oldControls) {
@@ -360,7 +362,20 @@ async function smoke() {
               name: `View edition containing saved item: ${item.title}`,
               exact: true,
             }),
-          ).toHaveAttribute('href', `/editions/${historical.id}`);
+          ).toHaveAttribute(
+            'href',
+            `/editions/${historical.id}#${item.anchor}`,
+          );
+          const editionLink = card.getByRole('link', {
+            name: /^View edition containing saved item:/,
+          });
+          await editionLink.click();
+          const target = other.locator(`[id="${item.anchor}"]`);
+          await expect(target).toBeInViewport();
+          await other.screenshot({
+            path: `docs/screenshots/ui/saved-jump-${item.anchor.startsWith('story-') ? 'story' : 'post'}-${device}-${theme}.png`,
+          });
+          await other.goto(`${origin}/saved`);
           await card
             .getByRole('button', {
               name: `Remove saved item: ${item.title}`,

@@ -86,6 +86,11 @@ export function ReaderSaved() {
                   <Link
                     to="/editions/$id"
                     params={{ id: copy.editionId }}
+                    hash={
+                      id.startsWith('story:')
+                        ? `story-${id.slice(6)}`
+                        : `post-${encodeURIComponent(id.slice(5))}`
+                    }
                     aria-label={`View edition containing saved item: ${copy.title}`}
                     className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
