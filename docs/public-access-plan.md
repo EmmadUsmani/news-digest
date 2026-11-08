@@ -248,8 +248,12 @@ return no details. HTTP acceptance covers disabled routes, forged identity field
 unauthenticated/cross-origin writes, stale updates, body limits and private failures.
 Prepared runtime composition now requires the sync repository alongside sessions and
 account deletion. Isolated cross-runtime acceptance verifies persisted changes, stale
-update handling, reader isolation and rejection after deletion. Browser wiring and
-account activation remain pending.
+update handling, reader isolation and rejection after deletion. Prepared browser sync
+transport sends same-origin cookie-authenticated state, validates bounded responses,
+merges edits made during requests and preserves local choices on failures. Stopping
+the client aborts requests and rejects late responses before account data is cleared.
+Offline tests cover concurrent requests, delayed logout responses and retry. Account
+UI/store wiring and account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
