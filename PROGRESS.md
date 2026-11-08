@@ -115,3 +115,11 @@
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 23 healthy/fresh rules, four queries ≤0.278 s, zero new evaluator errors/missed iterations, 31,684 rows/two small merges, no big merge. Metrics systemd start unchanged/zero restarts; Grafana database healthy. Updated decision 0004 and TASKS; next probe ≥12:26 UTC.
 - No provider calls, publication, configuration/limit changes or phase acknowledgments; VM remains private. Scheduled acceptance and first-week report remain due at 15:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. A targeted format check initially ran before the full formatter reached PROGRESS; final targeted check passes. Normal four-service restart follows commit/push.
+
+## 2026-11-08: iteration 1344 — clarify deployed test-edition accounting
+
+- Clean main/no leftovers. Alerts empty; `/healthz`, 14 services, 36 sources and jobs checks pass. No failed digest runs. Metrics probe not due until ≥12:26 UTC; no repeated probe.
+- Read saved story summaries and post excerpts: thin Tech evidence and NBA fallback remain the largest reader weaknesses. Their deployed fixes await 15:00 UTC; no further generation tuning justified.
+- Advanced item 50 documentation: replaced the plan's accumulated implementation narrative and stale “until development wiring ships” wording with current behavior. The admin form uses free private tests; optional AI/X use development pools, while legacy manual routes retain production accounting. Preserved owner decisions and acceptance gates.
+- Verified the description against AdminNewEdition, PreviewController and generateTest runtime composition. No provider calls, publication, flags, schema or application code changed; VM remains private.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts` passes (18 pages/22 diagrams/30 tables); no diagram changes. Normal four-service restart follows push. Scheduled phase acceptance and the Nov 2–8 report remain due at 15:00 UTC.

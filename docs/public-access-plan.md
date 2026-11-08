@@ -38,21 +38,21 @@ mapped to profiles, and profiles go away.
   tables reference it: `topics`, `digest_schedules` (primary key `profile_id`),
   `digest_previews` (editions), `edition_job_requests`, `edition_job_failures`.
   Sources and topic–source connections hang off topics.
-- Manual editions already exist (`POST /api/admin/digest-previews` and `/jobs`).
-  They still spend the production budget until development wiring ships. Separate
-  lifetime development pool tables and a reservation-first call guard are installed;
-  an explicit development LLM bridge now estimates and settles Anthropic calls through
-  the guard. An explicit `LLM_LIVE=1` runtime composes the isolated ledger and
-  Anthropic adapter with fixed model/rate pairs and retries disabled. Free test
-  editions have a separate admin route. An isolated JSON bridge now lets existing
-  editors use development calls with separate holds and stops further calls on
-  refusal, uncertain errors or report thresholds. Explicit AI test editions and
-  the preview smoke command use this runtime; the admin edition form uses private test editions, free by default. X post selection now accepts in-memory official-embed candidates through the same safety/ranking path as stored posts. Private test generation now composes the isolated X runtime with saved topic keyword settings; HTTP accepts explicit boolean paid-X opt-in; free defaults remain unchanged. The opt-in `X_SEARCH_LIVE=1`
-  development runtime uses direct xAI, fixed pricing and an isolated $0.40 hold;
-  confirmed fetched-item/token bills settle in full, including above the estimate. Edition
-  publication metadata and future-save policy are deployed; the reader now
-  filters latest, history and direct links to published editions only. Five
-  Nov 3–7 scheduled editions are published; 541 manual/test editions stay in admin.
+- The admin edition form creates private tests through
+  `POST /api/admin/digest-previews/tests`, using stored content for free by
+  default. AI editing and paid X search are independent opt-ins, funded by
+  separate lifetime development allowances. Legacy manual-generation routes
+  still use production accounting; they are not the admin form's test path.
+- Development AI requires `LLM_LIVE=1`; paid X requires `X_SEARCH_LIVE=1`
+  and uses direct xAI. Both reserve funds before calling a provider and stop
+  on refusal, uncertain errors or reporting thresholds. X reserves $0.40 per
+  call and settles confirmed token/fetched-item charges in full, including
+  charges above the estimate. Tests do not read or write production scores.
+- Publication metadata is deployed. Reader latest, history and direct links
+  return published editions only; private tests remain available in admin.
+  The Nov 3–7 scheduled editions are published. The next phase-0 acceptance
+  gate is the normal Nov 8 scheduled publication, followed by the
+  [scheduled acceptance checklist](edition-reviews/2026-11-08-acceptance-plan.md).
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous
   Viewer access, and its Postgres role has column-level grants only

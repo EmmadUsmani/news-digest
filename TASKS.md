@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1343: Updated open metrics-recovery evidence with the next hourly probe and stored history; healthy rules/queries, no comparable compaction. Scheduled acceptance still awaits 15:00 UTC.
+- [x] Iteration 1344: Reconciled phase-0 status documentation with the deployed free/private admin test path, separate development opt-ins and remaining scheduled acceptance gate.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
