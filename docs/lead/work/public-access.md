@@ -22,7 +22,9 @@ Nov 3–8. Phase 1 (accounts) not begun. Dev spend $0 so far (agent's figure).
 **Next:**
 
 1. Read phase 1's ack against the plan's checks, and its development spend.
-2. Watch the agent's weekly ChatGPT allowance (81% on Nov 8, 71% Nov 7).
+2. Steered Nov 8 (owner update in item 50): phase 1 now, build the next phase
+   with its flag off while waiting, no more phase 2 polish. Check tonight's
+   commits are phase 1, not reader tweaks.
 3. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
