@@ -141,3 +141,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - `pnpm build` passes; inventory plus content comparison verifies five complete published reader responses unchanged. Updated public-access plan/TASKS.
 - Verification initially used unsupported jobs-check/filter combinations and omitted content-comparison arguments; corrected to `pnpm obs jobs --queue digest-generation --state failed --limit 1` and explicit inventory/baseline files.
 - Final verification: `pnpm check` passes (621 unit/233 integration, four expected skips); handbook check (18 pages, schema metadata), full format/lint-fix and diff checks pass. Committing/pushing and restarting four services before health/alerts. Next: paid X snapshot/HTTP composition; normal scheduled acceptance remains due. VM stays private.
+
+## 2026-11-08: iteration 1284 — per-edition isolated X composition
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, no failed digest jobs. Scheduled Nov 8 acceptance/review remains due at 15:00 UTC.
+- Added explicit per-private-edition X composition: exact UTC windows, one shared discovery/verification per topic, conflicting-input rejection and independent consumer copies. Concurrent/retained budget stops cannot admit another search. HTTP/snapshot paid X remains disabled pending wiring.
+- Two focused offline tests pass for concurrent sharing, request bounds, input/result isolation, conflicting inputs, invalid windows and queued/repeated refusal. No live provider calls or spend.
+- `pnpm check` passes (623 unit/233 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, handbook check (18 pages/22 diagrams) and diff checks pass. Inventory/content comparison verifies all five complete published reader responses unchanged.
+- Committing/pushing and restarting four app services before final health/alerts. Next: snapshot/HTTP paid X wiring and normal scheduled phase-0/2 acceptance. VM remains private.

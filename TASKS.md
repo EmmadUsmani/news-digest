@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [x] STEERING 50 (1284): per-edition isolated X composition pins UTC windows, shares concurrent/repeated topic discovery and verification, rejects conflicting inputs and retains budget stops. Offline checks pass; HTTP/snapshot wiring remains next.
+
 - [x] STEERING 50 (1283): isolated X candidate bridge joins stopped-pool search to bounded official verification and shared selection; offline dedupe, unavailable/invalid evidence, bounds and stop checks pass. Paid X snapshot/HTTP composition remains next.
 
 - [x] STEERING 51 (1248): removed 41 unused integration temp roots (2.81 GiB), disk 71%→59%; startup reaps >1-hour owned roots only after live-runner/process-reference checks. Killed-child/recent/active/unrelated/symlink regression coverage added.

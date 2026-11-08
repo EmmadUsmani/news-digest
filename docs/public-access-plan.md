@@ -188,7 +188,10 @@ can read them.
   composition is still pending. An isolated candidate bridge verifies at most 20
   distinct discovered posts through official embeds, skips unavailable or
   undated posts, and uses the shared selector without storing discoveries.
-  Search stops propagate before verification. The isolated editor composition shares one
+  Search stops propagate before verification. A per-edition composition pins exact
+  UTC windows and shares repeated topic discovery/verification, rejecting conflicting
+  inputs; stopped results remain stopped. HTTP/snapshot wiring remains pending.
+  The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The
   snapshot builder accepts an explicit per-edition development factory; omitted
