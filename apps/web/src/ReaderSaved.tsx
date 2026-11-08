@@ -18,7 +18,10 @@ export function ReaderSaved() {
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16">
       <ReaderSkipLink target="saved-content" />
       <header className="flex h-[65px] items-center justify-between border-b border-[var(--border)]">
-        <Link to="/" className="font-semibold">
+        <Link
+          to="/"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-md font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
           News Digest
         </Link>
         <nav aria-label="Reader navigation" className="flex items-center gap-3">

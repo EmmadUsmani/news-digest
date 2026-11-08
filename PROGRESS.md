@@ -115,3 +115,12 @@
 - GET/HEAD-only browser traffic, external requests blocked; no provider spend. Existing thin Tech evidence and historical cutoff causes already have deployed changes awaiting publication; no editorial retuning.
 - Final `pnpm check` passes: 629 unit/233 integration passes, four expected skips. Initial combined run received signal 15; first standalone rerun caught newly archived progress formatting, corrected with Prettier before the successful full run. `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; older progress archived to keep orientation small.
 - Reader latest endpoint retains four topics/20 stories/18 posts. Commit/push and normal four-service restart follow passing checks; VM stays private. Next: metrics probe ≥09:25 UTC; scheduled phase-0/phase-2 acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1324 — easier return to the edition
+
+- Clean main/no leftovers. Alerts, services, sources and jobs healthy; `/healthz` passes. Metrics probe not due until ≥09:25 UTC; scheduled acceptance remains 15:00 UTC.
+- Read latest published content: thin Tech evidence, NBA fallback/cutoff and repeated posts already have documented causes or deployed changes awaiting publication; no new editorial tuning or spend.
+- Reader-visible gap: News Digest home links in Saved items and Past editions had small hit areas and lacked explicit keyboard focus. Both now offer 44px targets and clear outlines, making return to the edition easier.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-home-links.ts` pass: both routes, desktop/mobile light/dark, target dimensions, keyboard outline/activation, no horizontal overflow or browser errors. Eight screenshots saved; mobile dark archive inspected.
+- Initial smoke script used unsupported top-level await; wrapped its entry point and reran successfully. Browser requests limited to GET/HEAD and external traffic blocked; no provider spend.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal four-service restart follows push. VM stays private; no publication or data-flow changes.

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1323: Saved-item headline links have 44px minimum touch targets and visible keyboard focus; published destinations and desktop/mobile light/dark rendering verified.
+- [x] Iteration 1324: Saved items and Past editions home links have 44px touch targets and visible keyboard focus; desktop/mobile light/dark return navigation verified.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
