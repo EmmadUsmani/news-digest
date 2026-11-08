@@ -4,6 +4,7 @@ import type {
   LoginCodeRepository,
   LoginCodeSecrets,
 } from '../domain/login-code';
+import type { RecipientCoordination } from '../domain/recipient-coordination';
 
 const TEN_MINUTES_MS = 600_000;
 
@@ -13,12 +14,15 @@ export class LoginCodes {
     private readonly secrets: LoginCodeSecrets,
     private readonly delivery: LoginCodeDelivery,
     private readonly admission: LoginCodeAdmission,
+    private readonly recipients: RecipientCoordination,
   ) {}
 
   async request(emailInput: string, clientAddress: string, now: Date) {
     const email = normalizeEmail(emailInput);
     if (email && (await this.admission.allow(email, clientAddress))) {
-      if (await this.admission.eligible(email)) {
+      await this.recipients.run(email, async () => {
+        // Eligibility may change while another process holds this recipient.
+        if (!(await this.admission.eligible(email))) return;
         const code = this.secrets.generate();
         const expiresAt = new Date(now.getTime() + TEN_MINUTES_MS);
         await this.repository.replace({
@@ -28,7 +32,7 @@ export class LoginCodes {
           expiresAt,
         });
         await this.delivery.deliver(email, code, expiresAt);
-      }
+      });
     }
     // Same response for ineligible, throttled and eligible identities.
     return { accepted: true as const };

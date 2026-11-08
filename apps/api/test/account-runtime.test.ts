@@ -76,6 +76,7 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
             return email;
           },
         },
+        recipients: { run: async (_email, work) => work() },
         existingIdentity: async () => false,
         cache: { eval: async () => 1 },
         codes: {

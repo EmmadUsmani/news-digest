@@ -116,3 +116,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: static checks, 662 unit tests and 251 integration passes/four expected skips. New isolated lock test verifies serialization, recipient isolation, five-second timeout, failure release and invalid-input rejection.
 - API/worker restarted; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. Archived iterations 1407–1411 to keep PROGRESS below 25 KB. Final format/lint before commit; push then restart again so live matches main.
 - Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; wire the shared recipient boundary with post-lock eligibility rechecks before account activation.
+
+## 2026-11-08: iteration 1424 — coordinated login-code issuance
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources healthy; digest-generation has zero failures, retained ingestion/social failures unchanged.
+- Prepared login-code issuance now requires recipient coordination around challenge replacement and awaited mailbox delivery. Eligibility is evaluated after acquiring the lock, so a policy change while waiting prevents issuance.
+- Prepared runtime composition requires an explicit coordination port; no production registration or fallback bypass. Exchange/session creation, link operations and deletion still need the common boundary before activation.
+- Offline tests verify normalized lock identity, no writes while waiting, changed eligibility, lock held through delayed delivery and fail-closed lock errors. Accounts disabled, VM private; no migration, live provider call or generation change.
+- Updated TASKS and rollout plan; current handbook behavior unchanged. Targeted code/runtime tests pass (10); `pnpm format`, `pnpm lint:fix` and `pnpm build` pass. Initial overlapping check caught import ordering before autofix finished; reran after fixes.
+- Initial full-suite attempt exposed a missed storage-test composition dependency (250 integration passes/one failure); wired the real PostgreSQL coordinator there and included pool cleanup. Final `pnpm check` passes: static checks, 664 unit tests and 251 integration passes/four expected skips.
+- `pnpm exec tsx scripts/check-handbook.ts public-access-plan` passes (expected metadata notes for unapplied tables); `git diff --check` passes. Scheduled-reader check verifies four topics/19 stories/17 posts. Commit/push, then restart API/worker and repeat health/reader checks.
+- Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; coordinate complete proof-to-session exchange, links and deletion before activating accounts.

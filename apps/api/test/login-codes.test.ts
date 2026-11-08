@@ -6,12 +6,17 @@ import { LoginCodes } from '../src/modules/accounts/application/login-codes';
 import type { LoginCodeChallenge } from '../src/modules/accounts/domain/login-code';
 
 const now = new Date('2026-11-08T18:00:00Z');
-function fixture() {
+function fixture(
+  recipients = {
+    run: async <T>(_email: string, work: () => Promise<T>) => work(),
+  },
+) {
   const secrets = new CryptoLoginCodeSecrets(Buffer.alloc(32, 7));
   let row:
     (LoginCodeChallenge & { attempts: number; consumed: boolean }) | null =
     null;
   const sent: { email: string; code: string; expiresAt: Date }[] = [];
+  let onDelivery = async () => {};
   const admission = {
     allowed: true,
     permitted: true,
@@ -47,14 +52,23 @@ function fixture() {
     },
     secrets,
     {
-      deliver(email, code, expiresAt) {
+      async deliver(email, code, expiresAt) {
         sent.push({ email, code, expiresAt });
-        return Promise.resolve();
+        await onDelivery();
       },
     },
     admission,
+    recipients,
   );
-  return { service, sent, admission, row: () => row };
+  return {
+    service,
+    sent,
+    admission,
+    row: () => row,
+    delivery: (work: () => Promise<void>) => {
+      onDelivery = work;
+    },
+  };
 }
 
 void test('codes normalize identity, store only keyed hash, and redeem once', async () => {
@@ -185,4 +199,78 @@ void test('keyed digests bind email and key; comparison rejects malformed hashes
     false,
   );
   assert.equal(crypto.matches('z'.repeat(64), hash), false);
+});
+
+void test('issuance rechecks eligibility after waiting and keeps delivery inside coordination', async () => {
+  let enter!: () => void;
+  let release!: () => void;
+  const entered = new Promise<void>((resolve) => {
+    enter = resolve;
+  });
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let locked = false;
+  const f = fixture({
+    async run<T>(email: string, work: () => Promise<T>) {
+      assert.equal(email, 'reader@example.com');
+      enter();
+      await gate;
+      locked = true;
+      try {
+        return await work();
+      } finally {
+        locked = false;
+      }
+    },
+  });
+  const pending = f.service.request(' READER@example.com ', 'client', now);
+  await entered;
+  assert.equal(f.row(), null);
+  assert.equal(f.sent.length, 0);
+  f.admission.permitted = false;
+  release();
+  assert.deepEqual(await pending, { accepted: true });
+  assert.equal(f.row(), null);
+  assert.equal(f.sent.length, 0);
+  f.admission.permitted = true;
+  f.admission.eligible = () => {
+    assert.equal(locked, true);
+    return Promise.resolve(true);
+  };
+  let delivered!: () => void;
+  let finish!: () => void;
+  const deliveryStarted = new Promise<void>((resolve) => {
+    delivered = resolve;
+  });
+  const deliveryDone = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  f.delivery(async () => {
+    assert.equal(locked, true);
+    delivered();
+    await deliveryDone;
+    assert.equal(locked, true);
+  });
+  const issuing = f.service.request('reader@example.com', 'client', now);
+  await deliveryStarted;
+  assert.equal(locked, true);
+  finish();
+  await issuing;
+  assert.equal(f.sent.length, 1);
+  assert.equal(locked, false);
+});
+
+void test('coordination failure prevents challenge replacement and delivery', async () => {
+  const f = fixture({
+    run: async () => {
+      throw new Error('lock unavailable');
+    },
+  });
+  await assert.rejects(
+    f.service.request('reader@example.com', 'client', now),
+    /lock unavailable/,
+  );
+  assert.equal(f.row(), null);
+  assert.equal(f.sent.length, 0);
 });

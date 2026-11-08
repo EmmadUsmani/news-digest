@@ -214,8 +214,11 @@ Iteration 1423 prepares a shared recipient-coordination port and PostgreSQL
 transaction-scoped advisory-lock adapter. Independent connections serialize the
 same normalized recipient while other recipients progress; callback failures
 release the lock, and contention fails closed after five seconds. The lock stores
-no recipient text. This primitive is unregistered: issuance, delivery, redemption
-and deletion still need a common boundary and policy rechecks after waiting.
+no recipient text. Prepared login-code issuance now requires this boundary around
+challenge replacement and awaited delivery, and checks eligibility after acquiring
+it. Composition requires an explicit coordination dependency; main remains
+disconnected. Redemption, identity/session exchange, link operations and deletion
+still need the same boundary and post-lock policy rechecks before activation.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

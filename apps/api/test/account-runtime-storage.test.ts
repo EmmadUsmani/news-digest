@@ -9,6 +9,7 @@ import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 import { PostgresLoginCodeRepository } from '../src/modules/accounts/database/login-code.repository';
+import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
 import { PostgresSessionRepository } from '../src/modules/accounts/database/session.repository';
 import { PostgresSignInLinkRepository } from '../src/modules/accounts/database/sign-in-link.repository';
 
@@ -19,6 +20,7 @@ void test('composed accounts persist mailbox login and single-use friend session
   const codes = new PostgresLoginCodeRepository();
   const sessions = new PostgresSessionRepository();
   const links = new PostgresSignInLinkRepository();
+  const recipients = new PostgresRecipientCoordination();
   const cache = redis();
   const now = new Date();
   const origin = 'https://reader.example';
@@ -32,6 +34,7 @@ void test('composed accounts persist mailbox login and single-use friend session
   };
   const compose = () =>
     prepareAccountHandlers(env, () => ({
+      recipients,
       identities,
       codes,
       sessions,
@@ -113,7 +116,7 @@ void test('composed accounts persist mailbox login and single-use friend session
     assert.equal((await second.current(cookie, now)).body.isAdmin, true);
   } finally {
     await Promise.all(
-      [identities, codes, sessions, links].map((repository) =>
+      [identities, codes, sessions, links, recipients].map((repository) =>
         repository.onModuleDestroy(),
       ),
     );

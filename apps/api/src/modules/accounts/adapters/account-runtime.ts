@@ -9,6 +9,7 @@ import { SignInLinks } from '../application/sign-in-links';
 import { SignupPolicy } from '../application/signup-policy';
 import type { ReaderIdentityRepository } from '../domain/identity';
 import type { LoginCodeRepository } from '../domain/login-code';
+import type { RecipientCoordination } from '../domain/recipient-coordination';
 import type { SessionRepository } from '../domain/session';
 import type { SignInLinkRepository } from '../domain/sign-in-link';
 import { AccountHandlers } from './account-handlers';
@@ -19,6 +20,7 @@ import { RedisLoginCodeAdmission } from './redis-login-code-admission';
 import { CryptoSessionTokens } from './session-tokens';
 
 type Dependencies = {
+  recipients: RecipientCoordination;
   identities: ReaderIdentityRepository;
   codes: LoginCodeRepository;
   sessions: SessionRepository;
@@ -76,6 +78,7 @@ export function prepareAccountHandlers(
       derive('login-admission-v1').toString('hex'),
       (email) => policy.eligible(email),
     ),
+    ports.recipients,
   );
   const sessions = new ReaderSessions(
     ports.sessions,

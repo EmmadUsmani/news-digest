@@ -41,6 +41,7 @@ void test('verified exchange creates one identity, rejects replay and issues pri
       allow: () => Promise.resolve(allowed),
       eligible: () => Promise.resolve(true),
     },
+    { run: async (_email, work) => work() },
   );
   const exchange = new LoginExchange(codes, identities, sessions);
   const redeem = (value = code) =>

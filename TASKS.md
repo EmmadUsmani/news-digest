@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1423: Prepared shared recipient-coordination port/PostgreSQL advisory lock; independent-client serialization, recipient isolation and release after failure verified. Wiring issuance/delivery/redemption/deletion and policy rechecks remain pending; accounts disabled.
+- [x] Iteration 1424: Prepared login-code issuance holds required recipient coordination through challenge replacement/delivery and rechecks eligibility after waiting. Runtime composition requires the port; exchange/link/deletion coordination remains pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
