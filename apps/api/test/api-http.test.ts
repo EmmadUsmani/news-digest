@@ -817,6 +817,78 @@ void test('free admin test editions stay private and bypass production editorial
     ).rows[0],
     { kind: 'test', published_at: null },
   );
+  // Isolated X pools reach only the private snapshot; failure saves nothing.
+  await db.query('update topics set post_budget=1 where id=$1', [topicId]);
+  const isolatedPost = {
+    platform: 'x' as const,
+    externalId: 'isolated-offline-science',
+    url: 'https://x.com/fixture/status/123',
+    author: 'Offline fixture',
+    authorUrl: 'https://x.com/fixture',
+    publishedAt: '2000-01-01T12:00:00.000Z',
+    text: 'Scientists discover a new planet',
+    metrics: {},
+    reasons: ['Offline supplied candidate'],
+  };
+  let discoveryId = '';
+  let topicCalls = 0;
+  const discovered = await adapter.generateTest(
+    new Date(window.windowStart),
+    new Date(window.windowEnd),
+    false,
+    undefined,
+    (id) => {
+      discoveryId = id;
+      return async (input) => {
+        if (input.topicId !== topicId) return { posts: [], candidates: [] };
+        topicCalls++;
+        assert.equal(input.start.toISOString(), '2000-01-01T00:00:00.000Z');
+        assert.equal(input.end.toISOString(), '2000-01-02T00:00:00.000Z');
+        assert.equal(input.budget, 1);
+        return { posts: [isolatedPost], candidates: [isolatedPost] };
+      };
+    },
+  );
+  assert.equal(discovered.id, discoveryId);
+  assert.equal(topicCalls, 1);
+  assert.equal(
+    discovered.topics.find((topic) => topic.id === topicId)?.posts[0]
+      ?.externalId,
+    isolatedPost.externalId,
+  );
+  assert.equal(
+    (await fetch(`${base}/api/editions/${discovered.id}`)).status,
+    404,
+  );
+  assert.deepEqual(
+    (
+      await db.query(
+        'select kind,published_at from digest_previews where id=$1',
+        [discovered.id],
+      )
+    ).rows[0],
+    { kind: 'test', published_at: null },
+  );
+  const beforeDiscoveryFailure = (
+    await db.query('select count(*) from digest_previews')
+  ).rows[0].count;
+  await assert.rejects(
+    adapter.generateTest(
+      new Date(window.windowStart),
+      new Date(window.windowEnd),
+      false,
+      undefined,
+      () => async () => {
+        throw new Error('Development X search stopped');
+      },
+    ),
+    /Development X search stopped/,
+  );
+  assert.equal(
+    (await db.query('select count(*) from digest_previews')).rows[0].count,
+    beforeDiscoveryFailure,
+  );
+  await db.query('update topics set post_budget=0 where id=$1', [topicId]);
   Object.defineProperty(adapter, 'developmentRuntime', {
     value: () => null,
     configurable: true,

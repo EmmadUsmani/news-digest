@@ -1,7 +1,9 @@
 import {
   type DigestPreview,
   type PreviewHistory,
+  type RelevancePolicy,
   relevancePolicySchema,
+  type SelectedPost,
   type SelectedSocialPost,
 } from '@digest/contracts';
 import {
@@ -58,6 +60,17 @@ import { qualityRejection } from '../domain/quality';
 import { rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 import { loadArticleCandidates } from './article-candidates';
+/** Explicit, per-test-edition discovery only. Both pools come from one shared
+ * discovery so fallback and editorial selection cannot trigger separate calls. */
+export type DevelopmentPostSelection = (input: {
+  topicId: string;
+  name: string;
+  guidance: string;
+  policy: RelevancePolicy;
+  start: Date;
+  end: Date;
+  budget: number;
+}) => Promise<{ posts: SelectedPost[]; candidates: SelectedPost[] }>;
 const profileId = '00000000-0000-4000-8000-000000000001';
 @Injectable()
 export class PostgresPreviewRepository
@@ -209,6 +222,7 @@ export class PostgresPreviewRepository
     development?: (
       editionId: string,
     ) => ReturnType<typeof developmentEditorialServices>,
+    developmentPosts?: (editionId: string) => DevelopmentPostSelection,
   ): Promise<DigestPreview> {
     const editionId = crypto.randomUUID();
     if (aiEditing) {
@@ -227,6 +241,7 @@ export class PostgresPreviewRepository
       undefined,
       true,
       development?.(editionId),
+      developmentPosts?.(editionId),
     );
   }
   private async generateEdition(
@@ -237,6 +252,7 @@ export class PostgresPreviewRepository
     reportProgress?: ReportEditionProgress,
     testEdition = false,
     development?: ReturnType<typeof developmentEditorialServices>,
+    developmentPosts?: DevelopmentPostSelection,
   ): Promise<DigestPreview> {
     const editorialServices = testEdition
       ? (development ?? null)
@@ -457,17 +473,32 @@ export class PostgresPreviewRepository
               end,
               Number(topic.post_budget) > 0 ? 200 : 0,
             );
-            const posts: SelectedSocialPost[] = await selectTopicPosts(
-              client,
-              topic.id,
-              policy,
-              start,
-              end,
-              Number(topic.post_budget),
-            );
+            const isolatedPosts =
+              testEdition && developmentPosts && topic.post_budget > 0
+                ? await developmentPosts({
+                    topicId: topic.id,
+                    name: topic.name,
+                    guidance: `${topic.include_guidance}\nExclude: ${topic.exclude_guidance}`,
+                    policy,
+                    start: new Date(start),
+                    end: new Date(end),
+                    budget: Number(topic.post_budget),
+                  })
+                : undefined;
+            const posts: SelectedSocialPost[] = isolatedPosts
+              ? structuredClone(isolatedPosts.posts)
+              : await selectTopicPosts(
+                  client,
+                  topic.id,
+                  policy,
+                  start,
+                  end,
+                  Number(topic.post_budget),
+                );
             posts.push(...redditPosts);
-            const postCandidates: SelectedSocialPost[] =
-              topic.post_budget > 0
+            const postCandidates: SelectedSocialPost[] = isolatedPosts
+              ? structuredClone(isolatedPosts.candidates)
+              : topic.post_budget > 0
                 ? await selectTopicPosts(
                     client,
                     topic.id,

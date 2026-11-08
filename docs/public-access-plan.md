@@ -190,7 +190,9 @@ can read them.
   undated posts, and uses the shared selector without storing discoveries.
   Search stops propagate before verification. A per-edition composition pins exact
   UTC windows and shares repeated topic discovery/verification, rejecting conflicting
-  inputs; stopped results remain stopped. HTTP/snapshot wiring remains pending.
+  inputs; stopped results remain stopped. The snapshot builder accepts an explicit
+  per-edition X factory supplying fallback and editorial pools together; discovery
+  failures roll back the private test snapshot. Runtime/HTTP wiring remains pending.
   The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The

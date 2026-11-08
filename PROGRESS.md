@@ -149,3 +149,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Two focused offline tests pass for concurrent sharing, request bounds, input/result isolation, conflicting inputs, invalid windows and queued/repeated refusal. No live provider calls or spend.
 - `pnpm check` passes (623 unit/233 integration, four expected skips); `pnpm build`, `pnpm format`, `pnpm lint:fix`, handbook check (18 pages/22 diagrams) and diff checks pass. Inventory/content comparison verifies all five complete published reader responses unchanged.
 - Committing/pushing and restarting four app services before final health/alerts. Next: snapshot/HTTP paid X wiring and normal scheduled phase-0/2 acceptance. VM remains private.
+
+## 2026-11-08: iteration 1285 — isolated X snapshot selection hook
+
+- Clean main/no leftovers; health/alerts clear, all 36 enabled sources healthy, digest queue has no failures. Nov 8 scheduled review remains due at 15:00 UTC.
+- Private snapshot builder now accepts an explicit per-edition X factory. One positive-budget-topic callback supplies both fallback and editorial pools; omitted factories retain stored-post behavior. Paid runtime/HTTP composition remains disabled/pending.
+- Extended disposable-database HTTP characterization covers exact windows/budget, edition identity, one topic callback, supplied X snapshot content, reader exclusion/private metadata and rollback on discovery failure. No live provider calls or spend.
+- `pnpm build` passes; inventory plus complete publication-content comparison verifies five published reader responses unchanged. Handbook check passes (18 pages/schema metadata); no diagram/UI changes.
+- `pnpm check` passes (623 unit/233 integration, four expected skips); required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four app services before final health/alerts. Runtime/HTTP X wiring remains next; VM stays private.
