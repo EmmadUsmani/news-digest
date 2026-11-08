@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   type BookmarkCopy,
@@ -19,12 +19,30 @@ function read(): PreferenceStore {
 }
 
 export function useReaderPreferences() {
-  const [store, setStore] = useState(read);
+  const [store, setRenderedStore] = useState(read);
+  const currentStore = useRef(store);
+  const setStore = (next: PreferenceStore) => {
+    currentStore.current = next;
+    setRenderedStore(next);
+  };
   const [storageFailed, setStorageFailed] = useState(false);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
-      if (event.key === storageKey || event.key === null)
-        setStore((current) => mergePreferences(current, read()));
+      if (event.key !== storageKey && event.key !== null) return;
+      const stored = read();
+      // Start with storage's ordering so identical unions do not bounce writes
+      // between tabs. Retain changes absent from a concurrent stale write.
+      const merged = mergePreferences(stored, currentStore.current);
+      currentStore.current = merged;
+      setRenderedStore(merged);
+      if (JSON.stringify(merged) !== JSON.stringify(stored)) {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(merged));
+          setStorageFailed(false);
+        } catch {
+          setStorageFailed(true);
+        }
+      }
     };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
@@ -32,7 +50,7 @@ export function useReaderPreferences() {
   const setHidden = (id: string, hidden: boolean) => {
     // Re-read before updating so another tab's changes are retained. False is a
     // tombstone, not deletion: future account sync needs the restoration time.
-    const merged = mergePreferences(store, read());
+    const merged = mergePreferences(currentStore.current, read());
     const next: PreferenceStore = {
       ...merged,
       hiddenTopics: {
@@ -57,7 +75,11 @@ export function useReaderPreferences() {
   const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   const setBookmark = (id: string, copy: BookmarkCopy | null) => {
     try {
-      const next = changeBookmark(mergePreferences(store, read()), id, copy);
+      const next = changeBookmark(
+        mergePreferences(currentStore.current, read()),
+        id,
+        copy,
+      );
       setStore(next);
       setBookmarkError(null);
       try {

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1307: Equal-time bookmark changes converge across merge order; removals win ties and later explicit saves remain possible.
+- [x] Iteration 1308: Concurrent tab preference merges persist to browser storage, so saved items survive reload alongside independent topic choices.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
