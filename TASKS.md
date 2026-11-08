@@ -124,3 +124,5 @@ Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-
 - [x] STEERING 50 (1278): preview smoke migrated from two production-accounted manual saves to one private test edition, free by default; `LLM_LIVE=1` explicitly selects development AI. Real stored-content smoke verifies private metadata, reader exclusion, unchanged latest and complete admin history. Paid X composition/admin manual UI migration remain next.
 
 - [x] STEERING 50 (1279): admin edition form now creates private test editions, free by default with explicit development AI; paid X stays off. Legacy queued-job recovery retained. Four device/theme intercepted browser checks pass; paid X composition remains next.
+
+- [x] STEERING 50 (1280): development X attempts now map to deterministic provider-namespaced UUIDs required by the durable ledger; recorded-provider/database coverage verifies exact settlement, fresh-runtime replay suppression and production isolation. Paid X test-edition composition remains next.

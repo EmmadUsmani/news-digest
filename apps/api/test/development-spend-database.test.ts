@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { developmentLlmAttemptId } from '../src/development-llm-runtime';
+import {
+  developmentXAttemptId,
+  prepareDevelopmentXRuntime,
+} from '../src/development-x-runtime';
 import { database } from '../src/libs/db/connections';
 import { DevelopmentCall } from '../src/modules/digests/application/development-call';
 import { PostgresDevelopmentSpendRepository } from '../src/modules/digests/database/development-spend.repository';
@@ -28,6 +33,67 @@ void test('migrated development ledger serializes lifetime holds and preserves c
       return snapshots;
     };
     const productionBefore = await productionSnapshot();
+    // Exercise the real UUID ledger with an arbitrary caller identity and a
+    // recorded provider response. A fresh runtime must suppress a durable replay.
+    let xRequests = 0;
+    const xDeps = {
+      db,
+      env: { X_SEARCH_LIVE: '1', XAI_API_KEY: 'offline-fixture' },
+      fetch: async () => {
+        xRequests++;
+        return new Response(
+          JSON.stringify({
+            status: 'completed',
+            output: [],
+            usage: {
+              input_tokens: 10,
+              output_tokens: 4,
+              server_side_tool_usage_details: {
+                x_posts_fetched: 3,
+                x_users_fetched: 2,
+              },
+            },
+          }),
+        );
+      },
+    };
+    const xRequest = {
+      topic: 'Technology',
+      guidance: 'Technology news',
+      fromDate: '2026-11-06',
+      toDate: '2026-11-07',
+      fixedSearch: {
+        style: 'trending' as const,
+        rankedStoryTitles: [],
+        settings: {
+          trendingMinFaves: 100,
+          reactionMinFaves: 100,
+          exclusions: [],
+        },
+      },
+    };
+    const xAttempt = 'private-test:technology:trending';
+    assert.notEqual(
+      developmentXAttemptId(xAttempt),
+      developmentLlmAttemptId(xAttempt),
+    );
+    assert.equal(
+      (await prepareDevelopmentXRuntime(xDeps)!.search(xRequest, xAttempt))
+        .status,
+      'complete',
+    );
+    assert.deepEqual(
+      await prepareDevelopmentXRuntime(xDeps)!.search(xRequest, xAttempt),
+      { status: 'replay' },
+    );
+    assert.equal(xRequests, 1);
+    assert.equal((await repository.status('xai')).chargedMicros, 35023);
+    assert.equal((await repository.status('xai')).heldMicros, 0);
+    assert.deepEqual(await productionSnapshot(), productionBefore);
+    await db.query('DELETE FROM development_spend_reservations WHERE id = $1', [
+      developmentXAttemptId(xAttempt),
+    ]);
+
     assert.deepEqual(await repository.status('anthropic'), {
       provider: 'anthropic',
       chargedMicros: 0,

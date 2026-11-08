@@ -3,7 +3,10 @@ import { test } from 'node:test';
 
 import type { Pool } from 'pg';
 
-import { prepareDevelopmentXRuntime } from '../src/development-x-runtime';
+import {
+  developmentXAttemptId,
+  prepareDevelopmentXRuntime,
+} from '../src/development-x-runtime';
 import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
 
 const request = {
@@ -97,9 +100,9 @@ void test('development X reserves first and settles all fetched items at fixed t
     assert.equal(result.status, 'complete');
     if (result.status === 'complete') assert.equal(result.mustReport, true);
     assert.deepEqual(h.events, [
-      ['reserve', 'offline', 'xai', 400000],
+      ['reserve', developmentXAttemptId('offline'), 'xai', 400000],
       'http',
-      ['settle', 'offline', expected],
+      ['settle', developmentXAttemptId('offline'), expected],
     ]);
   }
 });
@@ -133,6 +136,9 @@ void test('development X suppresses replay and refused attempts', async () => {
 void test('development X transport/usage failures retain holds without retries', async () => {
   for (const h of [harness(10, 429), harness(-1)]) {
     await assert.rejects(h.runtime.search(request, 'offline'));
-    assert.deepEqual(h.events, [['reserve', 'offline', 'xai', 400000], 'http']);
+    assert.deepEqual(h.events, [
+      ['reserve', developmentXAttemptId('offline'), 'xai', 400000],
+      'http',
+    ]);
   }
 });

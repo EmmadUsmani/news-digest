@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import type { Pool } from 'pg';
 
 import { DevelopmentCall } from './modules/digests/application/development-call';
@@ -26,7 +28,7 @@ export function prepareDevelopmentXRuntime(
       return guard.run(
         {
           enabled: true,
-          id: attemptId,
+          id: developmentXAttemptId(attemptId),
           provider: 'xai',
           // Same conservative hold as a production manual call, not a provider
           // billing ceiling: fetched items are unbounded. Settle the entire bill.
@@ -48,4 +50,12 @@ export function prepareDevelopmentXRuntime(
       );
     },
   };
+}
+
+/** Stable, provider-namespaced UUID for durable reservation/replay identity. */
+export function developmentXAttemptId(attemptId: string): string {
+  const hex = createHash('sha256')
+    .update('development-xai:' + attemptId)
+    .digest('hex');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-8${hex.slice(13, 16)}-a${hex.slice(17, 20)}-${hex.slice(20, 32)}`;
 }
