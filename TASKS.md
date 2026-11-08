@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1435: Prepared browser account-sync transport with strict bounded responses, in-flight edit retention, coalesced requests, safe retry and logout cancellation. Account UI/store wiring pending; accounts disabled.
+- [x] Iteration 1436: Prepared account-sync lifecycle with store subscriptions, automatic queued-edit uploads, failure status/retry and cancellation before logout clearing. React store/account UI wiring pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

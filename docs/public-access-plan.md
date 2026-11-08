@@ -253,7 +253,10 @@ transport sends same-origin cookie-authenticated state, validates bounded respon
 merges edits made during requests and preserves local choices on failures. Stopping
 the client aborts requests and rejects late responses before account data is cleared.
 Offline tests cover concurrent requests, delayed logout responses and retry. Account
-UI/store wiring and account activation remain pending.
+lifecycle subscribes to store changes, drains edits made during requests, suppresses
+server-write loops and exposes safe retry status. Logout cancellation precedes
+local clearing. Offline acceptance covers queued edits, outages and late responses.
+React store/account UI wiring and account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

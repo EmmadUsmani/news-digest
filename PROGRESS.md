@@ -130,3 +130,12 @@
 - `pnpm format`, `pnpm lint:fix`, targeted tests (4), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader verification retains four topics/19 stories/17 posts. Final `pnpm check` passes: 679 unit tests, 253 integration passes/four expected skips; static checks and schema parity green. `git diff --check` passes.
 - Two initial observability invocations used unsupported command/flag order; corrected to `pnpm obs jobs --queue digest-generation --limit 2`, which confirmed the healthy queue above.
 - Commit/push then restart API/worker and repeat health/reader checks to match main. Next: account UI/store sync wiring preparation, then Phase 1 rollout in its permitted window.
+
+## 2026-11-08: iteration 1436 — prepared browser sync lifecycle
+
+- Clean main/no leftovers; alerts clear, health good and no failed user units. Sources healthy; digest-generation has zero failed jobs and next run Nov 9 15:00 UTC.
+- Prepared disconnected account-sync lifecycle subscribes to store changes, uploads edits made during requests, suppresses server-write loops and reports failure with explicit/next-edit retry. Outages do not trigger repeated requests.
+- Logout teardown cancels transport and unsubscribes before local clearing; offline tests verify queued uploads, retained choices after failure and late-response isolation. React store/account UI wiring remains pending.
+- Accounts remain disabled and VM private; no migration, provider call or edition-generation change. Phase 1 awaits its pre-noon rollout window. Updated TASKS and rollout plan; no live handbook behavior changed.
+- `pnpm format`, `pnpm lint:fix`, targeted lifecycle tests (3), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check retains four topics/19 stories/17 posts. `pnpm check` passes: static checks, 682 unit tests and 253 integration tests/four expected skips. `git diff --check` passes.
+- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: React store/account UI integration with accounts disabled, then Phase 1 rollout in its permitted window.
