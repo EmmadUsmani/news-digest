@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1438: React preferences expose stable account read/write/subscribe/clear bridge; controller integration, persistence and blocked-storage handling verified offline. Account UI wiring pending; accounts disabled.
+- [x] Iteration 1439: prepared gated React account hook owns session discovery, visible-tab refresh and teardown; offline lifecycle checks pass. Account UI wiring pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

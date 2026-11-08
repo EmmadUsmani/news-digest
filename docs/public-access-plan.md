@@ -265,8 +265,11 @@ acceptance covers those transitions, malformed sessions and teardown. React
 preferences now expose a stable account bridge: local and cross-tab changes notify
 sync, merged server state updates the reader and browser storage, and confirmed
 logout removes persisted choices. Blocked storage reports failure while updating
-the active reader. Controller-to-bridge offline acceptance passes; account UI
-wiring and activation remain pending.
+the active reader. Prepared React account hook owns the gated controller, discovers
+sessions on mount, refreshes on visible tab returns and removes browser listeners
+and cancels requests on teardown. Disabled binding makes no requests or preference
+changes. Offline acceptance covers disabled, hidden/visible, coalesced events and
+delayed discovery after unmount. Account UI wiring and activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
