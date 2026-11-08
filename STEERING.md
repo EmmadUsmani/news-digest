@@ -2206,6 +2206,10 @@ until phase 7. Back up privately before each migration.
 unpublished and visible in admin. The plan's backfill section is updated to
 match. This answers the request in `NEEDS_FROM_HUMAN.md`; mark it resolved.
 
+ack: 2026-11-08 item 50 phase 0 — iteration 1386: normal Nov 8 publication with READER_PUBLISHED_ONLY enabled passes latest/direct/history (four topics, 19 stories/17 posts, full-AI); five original complete reader responses unchanged and private tests excluded. Owner's Nov 3+ scheduled-only backfill, isolated lifetime pools and independent AI/X test opt-ins retained. Recorded-provider acceptance (1289) settles both providers to development without production changes; deployed stored-content free test (1290) remains private. Live development charged/held/unresolved: Anthropic $0/$0/0, xAI $0/$0/0; no paid verification. Detailed editorial/accounting comparisons are in docs/edition-reviews/2026-11-08.md. Phase 0 complete; VM remains private, phases 5–7 owner-gated.
+
+ack: 2026-11-08 item 50 phase 2 — iteration 1386: normal Nov 8 publication with served reader preferences enabled; iteration 1381 desktop/mobile light/dark checks verify topic hiding and story/post bookmarks across reload, cross-tab and historical editions, with inspected refreshed screenshots. Choices: browser-local storage, no account/backend dependency; live development spend $0 for both providers. Phase 2 complete; phase 1 next, no public-access authorization.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`

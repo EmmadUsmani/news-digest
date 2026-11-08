@@ -116,3 +116,12 @@
 - Saved allowlisted query evidence and updated daily review, SOURCES and TASKS. Assertions verify eight new/six outside-list/zero retained free rows, 40 candidates and empty saved selected metrics. Temporary query script initially hit CJS top-level-await; wrapped main, reran successfully and removed it.
 - No provider calls, source fetches, data writes or deployment/restart during protected 13:00–16:00 window. Evidence/docs only; live application unchanged. Phase acknowledgments next; Nov 9 third-edition acceptance remains open.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Read-only novelty assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.
+
+## 2026-11-08: iteration 1386 — accept publication and browser-preference phases
+
+- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units; all 36 sources healthy.
+- Completed STEERING 50 phase 0/2 acknowledgments after the Nov 8 scheduled publication and detailed editorial/accounting comparisons. Updated plan/current tasks; phase 1 is next, keyword/Bluesky third-edition acceptance still awaits Nov 9.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` again passes: four topics, 19 stories/17 posts. Documented original-ID jq extraction plus `compare-publication-content.ts compare` again verifies all five original complete reader responses unchanged.
+- GET-only admin status via `localAdminJson` confirms both development providers charged/held/unresolved $0/$0/0. Retained recorded-provider accounting acceptance (1289), deployed free-test exclusion (1290), inspected browser acceptance (1381); no duplicate paid verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. `git diff --check` passes. Orientation output was initially overbroad; subsequent reads were narrowed.
+- Evidence/docs only: no provider calls, source fetches, data writes, deployment or restart during protected 13:00–16:00 UTC window; live application unchanged. VM stays private; phases 5–7 remain owner-gated. Next: additive phase-1 ownership/settings preparation, respecting migration/deployment restrictions.
