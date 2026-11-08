@@ -94,6 +94,13 @@ mapped to profiles, and profiles go away.
   read-only. `/logs` and `/metrics` proxy the raw VictoriaLogs and
   VictoriaMetrics HTTP APIs.
 
+Prepared client admission follows [exe.dev’s documented append behavior](https://exe.dev/docs/proxy.md):
+only the final `X-Forwarded-For` address is used, and only from an explicitly
+trusted immediate socket peer. Duplicate headers, malformed addresses and unknown
+peers fail closed; equivalent IPv4/IPv6 spellings share a bucket. The parser is
+unregistered. Verify the live peer and forged-prefix behavior before configuring
+trust or activating accounts; no proxy address or network is assumed trusted.
+
 Phase 3 preparation has begun while phase 1 awaits its pre-noon rollout and
 scheduled acceptance. Unapplied migration `0013` adds independent `users` and
 `sessions`: normalized unique emails, unique SHA-256 token hashes, cascading

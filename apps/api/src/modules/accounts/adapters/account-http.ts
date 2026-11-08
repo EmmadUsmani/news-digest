@@ -6,7 +6,7 @@ import { signInPage, signInPagePolicy } from './sign-in-page';
 type Result = { status: number; body?: unknown; cookie?: string | null };
 
 // Prepared middleware only: main does not install it. Client admission must be
-// supplied by the deployment's verified proxy boundary, never forwarded headers.
+// supplied by the deployment's verified proxy boundary, never raw header values.
 // Install before any body parser so the stream limit applies before allocation.
 export function accountHttp(options: {
   enabled: boolean;

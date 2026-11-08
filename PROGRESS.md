@@ -98,3 +98,13 @@
 - Targeted account HTTP/runtime tests pass (4); `pnpm build`, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. Full `pnpm check` static checks/658 unit/248 integration tests pass, four expected skips, but wrapper exits 143 after coverage/cleanup; `pnpm test:integration` rerun exits 0 with 248 passes/four skips and clean container cleanup.
 - Saved-reader check for Nov 8 passes: four topics, 19 stories/17 posts. Handbook checker renders 18 pages/three unchanged diagrams; exits 1 only for existing metadata entries for unapplied edition/account tables.
 - Updated TASKS/rollout plan and archived progress iterations 1399–1406 to keep orientation small. `systemctl --user restart news-digest-api.service news-digest-worker.service` succeeds; both active, health and saved-reader checks pass. Next: pre-noon phase 1 rollout/acceptance, then main registration and verified proxy wiring.
+
+## 2026-11-08: iteration 1417 — prepared trusted-proxy client admission
+
+- Clean main/no leftovers; alerts zero, health good, no failed user services. All 36 active sources healthy; digest queue zero failures, two retained ingestion/social failures each unchanged.
+- Read documented exe.dev proxy behavior: observed client is appended to X-Forwarded-For. Prepared unregistered parser requires explicit immediate socket-peer trust and uses only the final address; no network or proxy address is assumed trusted.
+- Canonical IPv6 and IPv4-mapped forms share admission buckets. Offline tests reject untrusted peers, duplicate/missing/oversized headers, invalid final addresses and zone identifiers; forged prefixes cannot change the bucket. Live peer/forged-prefix verification remains pending before wiring.
+- `pnpm exec tsx --test apps/api/test/proxy-client.test.ts` passes both tests. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: 660 unit/248 integration passes, four expected skips; static checks green and clean exit 0.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. `pnpm exec tsx scripts/check-handbook.ts public-access` exits 0 with existing metadata notes for unapplied edition/account tables; no handbook behavior or diagrams changed.
+- Updated TASKS/rollout plan. No migrations, provider calls or activation; accounts disabled and VM private. Phase 1 rollout waits for the next pre-noon window, then scheduled acceptance; prepared phase 3 remains off until acceptance.
+- After commit/push, restart API/worker and repeat health/reader checks so live matches main.
