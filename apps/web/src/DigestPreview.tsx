@@ -102,7 +102,10 @@ export function DigestPreview() {
                 The edition could not be refreshed. Showing the saved edition
                 already loaded.
               </p>
-              <Button onClick={() => void edition.refetch()}>
+              <Button
+                className="min-h-11"
+                onClick={() => void edition.refetch()}
+              >
                 Try loading edition again
               </Button>
             </>
@@ -112,14 +115,20 @@ export function DigestPreview() {
               <h1 className="font-sans text-2xl tracking-tight">
                 Edition not found
               </h1>
-              <Link to="/" className="text-sm text-[var(--accent)]">
+              <Link
+                to="/"
+                className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              >
                 Back to latest edition
               </Link>
             </>
           ) : (
             <>
               <p>Could not load the edition.</p>
-              <Button onClick={() => void edition.refetch()}>
+              <Button
+                className="min-h-11"
+                onClick={() => void edition.refetch()}
+              >
                 Try loading edition again
               </Button>
             </>

@@ -136,3 +136,12 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-footer.ts` pass: latest/historical editions at 1440/390/320px, both themes (12 cases), target size, keyboard focus/Enter, archive destination and no overflow/page errors. Twelve small footer screenshots saved; narrow dark inspected.
 - GET/HEAD-only published reader traffic, external requests blocked; no provider spend, publication or backend changes. VM remains private; scheduled phase/X/Bluesky acceptance stays open.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` rerun and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial full check received SIGTERM during unit tests without a failure report; complete rerun passed. Normal API/worker/docs/schema restart follows commit/push.
+
+## 2026-11-08: iteration 1340 — easier reader recovery
+
+- Clean main/no leftovers. Alerts empty; health, services and 36 sources healthy. No failed digest runs; next scheduled publication 15:00 UTC. Retained ingestion/social failures have subsequent successful collections. Metrics probe stays due ≥11:26 UTC.
+- Read all four published story headline/summary lists. Thin Tech evidence and NBA fallback remain the largest content weaknesses; prepared fixes await scheduled evidence, so no additional generation changes.
+- Reader benefit under items 38/42: edition/archive retry buttons and the missing-edition return link now have 44px touch targets; the return link also has explicit keyboard focus. This makes loading recovery easier on phones and keyboards.
+- Browser verification uses deliberately invalid JSON/404 responses intercepted locally, then real published GET responses for recovery; external requests and server writes blocked. No provider spend or publication. VM stays private; phase acceptance remains open.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-recovery-targets.ts` pass: 18 recovery cases at 1440/390/320px in both themes, target size, visible keyboard focus/Enter and no overflow/page errors. Six screenshots saved; narrow light retry and dark missing-edition views inspected.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Fixed new-script formatting after lint import sorting; subsequent run received SIGTERM during unit tests without a failure, complete rerun passed. Normal four-service restart follows push.

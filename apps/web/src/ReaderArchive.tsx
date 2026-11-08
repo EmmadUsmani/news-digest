@@ -71,7 +71,9 @@ export function ReaderArchive() {
                 ? 'Past editions could not be refreshed. Showing saved links already loaded.'
                 : 'Could not load past editions.'}
             </p>
-            <Button onClick={() => void history.refetch()}>Try again</Button>
+            <Button className="min-h-11" onClick={() => void history.refetch()}>
+              Try again
+            </Button>
           </div>
         )}
         {history.data && (
