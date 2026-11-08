@@ -262,7 +262,11 @@ and invalidates delayed discovery before logout, clears account choices only aft
 success or confirmed session loss, and retains choices with syncing paused after
 failed logout. Initial anonymous discovery preserves browser-local choices. Offline
 acceptance covers those transitions, malformed sessions and teardown. React
-store/account UI wiring and account activation remain pending.
+preferences now expose a stable account bridge: local and cross-tab changes notify
+sync, merged server state updates the reader and browser storage, and confirmed
+logout removes persisted choices. Blocked storage reports failure while updating
+the active reader. Controller-to-bridge offline acceptance passes; account UI
+wiring and activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

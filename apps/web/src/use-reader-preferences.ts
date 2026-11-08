@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { createReaderPreferenceAccountBridge } from './reader-preference-account-bridge';
 import {
   type BookmarkCopy,
   changeBookmark,
@@ -27,12 +28,28 @@ export function useReaderPreferences() {
   const [initial] = useState(read);
   const [store, setRenderedStore] = useState(initial.store);
   const currentStore = useRef(store);
+  const [storageFailed, setStorageFailed] = useState(initial.failed);
+  const [bookmarkError, setBookmarkError] = useState<string | null>(null);
+  const [accountStore] = useState(() =>
+    createReaderPreferenceAccountBridge({
+      read: () => currentStore.current,
+      render: (next) => {
+        currentStore.current = next;
+        setRenderedStore(next);
+        setBookmarkError(null);
+      },
+      storage: {
+        setItem: (key, value) => localStorage.setItem(key, value),
+        removeItem: (key) => localStorage.removeItem(key),
+      },
+      storageFailed: setStorageFailed,
+    }),
+  );
   const setStore = (next: PreferenceStore) => {
     currentStore.current = next;
     setRenderedStore(next);
+    accountStore.notifyLocalChange();
   };
-  const [storageFailed, setStorageFailed] = useState(initial.failed);
-  const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
       if (event.key !== storageKey && event.key !== null) return;
@@ -49,6 +66,7 @@ export function useReaderPreferences() {
         setRenderedStore(stored);
         setStorageFailed(false);
         setBookmarkError(null);
+        accountStore.notifyLocalChange();
         return;
       }
       // Start with storage's ordering so identical unions do not bounce writes
@@ -56,6 +74,7 @@ export function useReaderPreferences() {
       const merged = mergePreferences(stored, currentStore.current);
       currentStore.current = merged;
       setRenderedStore(merged);
+      accountStore.notifyLocalChange();
       if (JSON.stringify(merged) !== JSON.stringify(stored)) {
         try {
           localStorage.setItem(storageKey, JSON.stringify(merged));
@@ -70,7 +89,7 @@ export function useReaderPreferences() {
     };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
-  }, []);
+  }, [accountStore]);
   const setHidden = (id: string, hidden: boolean) => {
     // Re-read before updating so another tab's changes are retained. False is a
     // tombstone, not deletion: future account sync needs the restoration time.
@@ -128,6 +147,7 @@ export function useReaderPreferences() {
     }
   };
   return {
+    accountStore,
     hiddenTopics: store.hiddenTopics,
     bookmarks: store.bookmarks,
     setHidden,

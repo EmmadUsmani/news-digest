@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1437: Prepared browser account controller connects session discovery, automatic sync and single/all-device sign-out; delayed responses, failed logout and session-loss clearing verified offline. React store/account UI wiring pending; accounts disabled.
+- [x] Iteration 1438: React preferences expose stable account read/write/subscribe/clear bridge; controller integration, persistence and blocked-storage handling verified offline. Account UI wiring pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

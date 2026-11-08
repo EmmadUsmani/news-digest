@@ -149,3 +149,13 @@
 - `pnpm format`, `pnpm lint:fix`, targeted controller tests (7), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check retains four topics/19 stories/17 posts.
 - Initial full check caught unsafe test-only request stringification; corrected the helper and reran targeted lint/tests plus the complete check. Final `pnpm check` passes: static checks, 689 unit tests and 253 integration tests/four expected skips; schema parity green. `git diff --check` passes.
 - Commit/push then restart API/worker and repeat health/reader checks to match main. Next: React store/account UI wiring with accounts disabled, then Phase 1 rollout in its permitted window.
+
+## 2026-11-08: iteration 1438 — prepared React account preference bridge
+
+- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failures and next run Nov 9 15:00 UTC.
+- React preferences now expose a stable account read/write/subscribe/clear bridge. Local edits and cross-tab changes notify sync; server merges render and persist; confirmed logout removes browser storage. Blocked storage reports failure while updating the active reader.
+- Three offline tests verify persistence/subscription teardown, blocked storage and the actual controller-to-bridge sync/logout path. Initial test callback lint errors corrected before the final complete check.
+- Accounts remain disabled and VM private; no migration, provider call or edition-generation change. Updated TASKS and rollout plan; account UI wiring pending, Phase 1 awaits its pre-noon window. No live handbook behavior changed.
+- `pnpm format`, `pnpm lint:fix`, targeted tests (3), `pnpm build` and plan handbook check pass (expected unapplied-table notes). `pnpm check` passes: 692 unit tests, 253 integration passes/four expected skips; static checks/schema parity green.
+- `pnpm exec tsx scripts/smoke-reader-storage-reset.ts` passes desktop/mobile in both themes; four screenshots refreshed and mobile light inspected. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. API/worker restarted healthy; `git diff --check` passes.
+- Commit/push then repeat service restart and health/reader checks to match main. Next: account UI wiring with accounts disabled, then Phase 1 rollout in its permitted window.
