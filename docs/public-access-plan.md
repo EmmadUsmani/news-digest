@@ -157,6 +157,12 @@ an absolute `ACCOUNT_MAILBOX_PATH`, valid `ADMIN_EMAILS` and a closed/invite
 `SIGNUP_MODE`. Code hashing and admission keys are derived separately from the
 secret. Main does not call this factory; registration and verified client wiring
 remain pending. Offline composition checks use a temporary stand-in mailbox.
+Prepared sign-in-link lifecycle now requires an authenticated fresh admin, normalizes
+the recipient, stores only a random 32-byte token hash and requires atomic issuance
+audit. Links last 24 hours; only POST redemption can consume one. The repository
+contract requires atomic single use, and identity/session failures leave links consumed.
+No link routes, database adapter or runtime registration exist yet; confirmation UI,
+fragment-based URLs, request-boundary checks and persistent audit remain pending.
 
 ## Target design
 

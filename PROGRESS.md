@@ -140,3 +140,13 @@
 - `pnpm format`, corrected `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 654 unit/247 integration passes, four expected skips; initial lint found an unnecessary async validation callback, corrected before final checks.
 - Scheduled reader check for Nov 8 passes: four topics, 19 stories/17 posts. Handbook checker exits zero; existing metadata warnings match unapplied edition/account tables. Updated TASKS and rollout plan.
 - After verified commit: push main and restart API/worker; repeat health/reader checks. VM remains private. Phase 1 generation rollout waits for pre-noon window; activation waits for scheduled acceptance.
+
+## 2026-11-08: iteration 1412 — disconnected friend sign-in-link lifecycle
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` healthy, no failed user services. Status confirms 36 active sources recently successful/no errors and zero failed digest jobs.
+- Prepared unregistered link service and repository contract: fresh authenticated admin issuance, normalized recipient, random 32-byte hash-only token, 24-hour expiry and required atomic issuance audit.
+- Redemption refuses GET/HEAD previews and malformed tokens before storage access; atomic consume returns the stored recipient for verified identity/session creation. Failed session creation leaves the link consumed.
+- Three offline tests pass for authorization, hash-only storage, audit failure, previews, expiry/future bounds, concurrent single use, replay and failed session exchange. Persistence and HTTP/UI integration remain pending; no claim of database concurrency verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and targeted `pnpm exec tsx --test apps/api/test/sign-in-links.test.ts` pass. Full `pnpm check` passes: 657 unit/247 integration passes, four expected skips; typecheck, lint, formatting and boundaries green.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Updated TASKS and rollout plan; no handbook behavior changes.
+- No provider calls, migrations or generation changes; accounts disabled, VM private. After commit/push, restart API/worker and repeat health/reader checks. Phase 1 awaits pre-noon rollout and scheduled acceptance; link persistence/transport remain next preparation work.
