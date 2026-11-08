@@ -108,7 +108,9 @@ export class PostgresPreviewRepository
       .from(digestPreviews)
       .where(
         and(
-          eq(digestPreviews.profileId, profileId),
+          process.env.SYSTEM_OWNERSHIP === '1'
+            ? undefined
+            : eq(digestPreviews.profileId, profileId),
           this.publicationFilter(publishedOnly),
         ),
       )
@@ -122,7 +124,9 @@ export class PostgresPreviewRepository
       .from(digestPreviews)
       .where(
         and(
-          eq(digestPreviews.profileId, profileId),
+          process.env.SYSTEM_OWNERSHIP === '1'
+            ? undefined
+            : eq(digestPreviews.profileId, profileId),
           eq(digestPreviews.id, id),
           this.publicationFilter(publishedOnly),
         ),
@@ -135,7 +139,9 @@ export class PostgresPreviewRepository
       .from(digestPreviews)
       .where(
         and(
-          eq(digestPreviews.profileId, profileId),
+          process.env.SYSTEM_OWNERSHIP === '1'
+            ? undefined
+            : eq(digestPreviews.profileId, profileId),
           eq(digestPreviews.scheduledKey, key),
         ),
       );
@@ -159,7 +165,9 @@ export class PostgresPreviewRepository
       .from(digestPreviews)
       .where(
         and(
-          eq(digestPreviews.profileId, profileId),
+          process.env.SYSTEM_OWNERSHIP === '1'
+            ? undefined
+            : eq(digestPreviews.profileId, profileId),
           this.publicationFilter(publishedOnly),
         ),
       )
@@ -314,7 +322,9 @@ export class PostgresPreviewRepository
             .from(topicTable)
             .where(
               and(
-                eq(topicTable.profileId, profileId),
+                process.env.SYSTEM_OWNERSHIP === '1'
+                  ? undefined
+                  : eq(topicTable.profileId, profileId),
                 eq(topicTable.enabled, true),
               ),
             )

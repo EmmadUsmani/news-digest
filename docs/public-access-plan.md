@@ -65,7 +65,9 @@ mapped to profiles, and profiles go away.
   catalog with the flag on; new topics retain the default profile for rollback,
   and flag-off queries retain profile isolation. Prepared durable-job reads include all
   ownership with the flag on; new request/failure records retain default-profile
-  ownership for rollback. Edition reads still need flag support;
+  ownership for rollback. Prepared edition reads and generation topic selection use
+  system scope with the flag on, preserving publication filters and saved snapshots;
+  new editions keep default-profile ownership for rollback;
   do not enable the flag or deploy this code before the migrations.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog

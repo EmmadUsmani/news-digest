@@ -319,3 +319,147 @@ for (const mode of ['fallback', 'synthetic-ai'] as const) {
     }
   });
 }
+
+void test('system edition scope preserves publication filters, replay and rollback-compatible generation', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresPreviewRepository();
+  const previous = process.env.SYSTEM_OWNERSHIP;
+  const owner = '00000000-0000-4000-8000-000000000001';
+  const foreign = crypto.randomUUID();
+  const ids = Array.from({ length: 3 }, () => crypto.randomUUID());
+  const topicIds = Array.from({ length: 2 }, () => crypto.randomUUID());
+  const created: string[] = [...ids];
+  const originals = (await adapter.db.query('SELECT id, enabled FROM topics'))
+    .rows;
+  try {
+    await adapter.db.query('INSERT INTO profiles (id, name) VALUES ($1, $2)', [
+      foreign,
+      'System scope fixture',
+    ]);
+    await adapter.db.query('UPDATE topics SET enabled=false');
+    for (let i = 0; i < topicIds.length; i++)
+      await adapter.db.query(
+        `INSERT INTO topics (id, profile_id, name, description, include_guidance, position, story_budget, post_budget)
+         VALUES ($1,$2,$3,'','', $4,0,0)`,
+        [topicIds[i], i === 0 ? null : foreign, `Shared ${i}`, 100 + i],
+      );
+    for (let i = 0; i < ids.length; i++) {
+      const snapshot = {
+        id: ids[i],
+        createdAt: `2090-01-0${i + 1}T00:00:00.000Z`,
+        windowStart: '2089-12-31T00:00:00.000Z',
+        windowEnd: '2090-01-01T00:00:00.000Z',
+        method: 'editorial-v1',
+        topics: [],
+      };
+      await adapter.db.query(
+        `INSERT INTO digest_previews (id, profile_id, created_at, window_start, window_end, snapshot, scheduled_key, kind, published_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+        [
+          ids[i],
+          i === 0 ? owner : i === 1 ? null : foreign,
+          snapshot.createdAt,
+          snapshot.windowStart,
+          snapshot.windowEnd,
+          snapshot,
+          `integration:scope:${ids[i]}`,
+          i === 2 ? 'test' : 'scheduled',
+          i === 2 ? null : snapshot.createdAt,
+        ],
+      );
+    }
+    delete process.env.SYSTEM_OWNERSHIP;
+    assert.equal((await adapter.latest())?.id, ids[0]);
+    assert.equal(await adapter.find(ids[1]), null);
+    assert.equal(
+      await adapter.findByGenerationKey(`integration:scope:${ids[1]}`),
+      null,
+    );
+    process.env.SYSTEM_OWNERSHIP = '1';
+    assert.equal((await adapter.latest())?.id, ids[2]);
+    assert.equal((await adapter.latest(true))?.id, ids[1]);
+    assert.equal(await adapter.find(ids[2], true), null);
+    assert.equal((await adapter.find(ids[1], true))?.id, ids[1]);
+    assert.deepEqual(
+      await adapter.findByGenerationKey(`integration:scope:${ids[1]}`),
+      { id: ids[1] },
+    );
+    assert.deepEqual(
+      (await adapter.history(0)).entries.slice(0, 3).map((e) => e.id),
+      [...ids].reverse(),
+    );
+    assert.deepEqual(
+      (await adapter.history(0, true)).entries.slice(0, 2).map((e) => e.id),
+      [ids[1], ids[0]],
+    );
+    const start = new Date('2091-01-01T00:00:00Z');
+    const end = new Date('2091-01-02T00:00:00Z');
+    const shared = await adapter.generateTest(start, end);
+    created.push(shared.id);
+    assert.deepEqual(
+      shared.topics.map((t) => t.id),
+      topicIds,
+    );
+    assert.deepEqual(await adapter.find(shared.id), shared);
+    assert.deepEqual(
+      (
+        await adapter.db.query(
+          'SELECT profile_id FROM digest_previews WHERE id=$1',
+          [shared.id],
+        )
+      ).rows,
+      [{ profile_id: owner }],
+    );
+    const replay = await adapter.generate(
+      start,
+      end,
+      `integration:scope:${ids[1]}`,
+    );
+    assert.equal(replay.id, ids[1]);
+    delete process.env.SYSTEM_OWNERSHIP;
+    assert.deepEqual(await adapter.find(shared.id), shared);
+    assert.equal(await adapter.find(ids[2]), null);
+    assert.equal(
+      (await adapter.history(0)).entries.some(
+        (e) => e.id === ids[1] || e.id === ids[2],
+      ),
+      false,
+    );
+    const legacy = await adapter.generateTest(start, end);
+    created.push(legacy.id);
+    assert.deepEqual(legacy.topics, []);
+  } finally {
+    if (previous === undefined) delete process.env.SYSTEM_OWNERSHIP;
+    else process.env.SYSTEM_OWNERSHIP = previous;
+    const cleanup = await adapter.db.connect();
+    try {
+      await cleanup.query('BEGIN');
+      await cleanup.query(
+        'ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query(
+        'DELETE FROM digest_previews WHERE id=ANY($1::uuid[])',
+        [created],
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query('COMMIT');
+    } catch (error) {
+      await cleanup.query('ROLLBACK');
+      throw error;
+    } finally {
+      cleanup.release();
+    }
+    await adapter.db.query('DELETE FROM topics WHERE id=ANY($1::uuid[])', [
+      topicIds,
+    ]);
+    await adapter.db.query('DELETE FROM profiles WHERE id=$1', [foreign]);
+    for (const row of originals)
+      await adapter.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
+        row.id,
+        row.enabled,
+      ]);
+    await adapter.onModuleDestroy();
+  }
+});

@@ -14,7 +14,9 @@ snapshots.
 > Prepared topic operations use the shared catalog with the flag on; new topics
 > retain default-profile ownership so flag-off reads still find them. Durable-job
 > reads also use system scope with the flag on; new records keep compatibility
-> ownership for rollback. These adapters are not deployed. See the [rollout plan](../../public-access-plan.md).
+> ownership for rollback. Edition reads and generation topic selection also use
+> system scope when flagged on; new editions keep compatibility ownership.
+> These adapters are not deployed. See the [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain

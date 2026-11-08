@@ -108,3 +108,15 @@
 - Updated rollout plan, handbook callout and TASKS; archived iterations 1337–1344 to keep PROGRESS small. No UI/source changes, provider calls or secret access.
 - No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
 - Next: edition system reads and generation topic scope, preserved responses, private backup/restored-copy rehearsal and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1392 — prepare system edition scope
+
+- Clean main/no leftovers. Alerts zero; `/healthz` database/Redis healthy; no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Prepared `SYSTEM_OWNERSHIP=1` latest/direct/history/generation-key reads and generation topic selection across null/foreign ownership. Publication filters and saved snapshots remain intact; flag-off reads retain profile isolation.
+- New editions retain default-profile ownership for rollback. Isolated coverage verifies ordering, publication exclusion, shared-topic generation, scheduled replay and recovery after flag-off.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
+- Initial integration attempts exposed fixture cleanup against the immutable-edition trigger and an invalid published test fixture; corrected transactional cleanup and publication metadata, then full check passed.
+- `pnpm exec tsx scripts/check-handbook.ts data-model` passes: 18 pages/three unchanged diagrams, two existing unapplied edition_settings warnings. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes.
+- Updated TASKS, rollout plan and affected handbook callout. No UI/source changes, provider calls or secret access.
+- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
+- Next: private backup/restored-copy rehearsal, every-edition response preservation and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
