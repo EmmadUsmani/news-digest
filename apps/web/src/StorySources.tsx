@@ -56,7 +56,7 @@ export function StorySources({
       {articles.length > 0 && (
         <details className="coverage order-2 max-w-full text-xs open:order-4 open:w-full">
           <summary
-            className="cursor-pointer text-xs"
+            className="min-h-11 min-w-11 cursor-pointer content-center rounded-md px-2 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
             aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering ${story.title}`}
           >

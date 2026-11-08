@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1316: Archive pagination now has 44-pixel touch targets and visible keyboard focus; desktop/mobile light/dark browser navigation verified.
+- [x] Iteration 1317: Article-coverage disclosures now have 44-pixel targets and visible keyboard focus; opening/closing real published coverage verified on desktop/mobile in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
