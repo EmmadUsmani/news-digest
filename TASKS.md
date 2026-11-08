@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1431: Prepared server sync merge preserves tombstones, matches browser conflict ordering and rejects invalid/over-capacity unions atomically. Limits: 1,000 bookmark and 1,000 topic keys including removals. Persistence/locking and HTTP/browser wiring pending; accounts disabled.
+- [x] Iteration 1432: Prepared sync repository serializes per-reader merge with identity-row locking, preserves tombstones and rolls back failed writes/capacity rejection. Concurrent-device and deletion checks pass; HTTP/browser wiring pending, accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

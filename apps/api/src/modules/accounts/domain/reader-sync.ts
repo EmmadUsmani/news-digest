@@ -144,3 +144,9 @@ export function mergeReaderSync(
   // Do not let a caller mutate persisted state through a merged display copy.
   return structuredClone(merged);
 }
+
+// The application supplies an authenticated identity; transports must never
+// accept this identifier from a request body.
+export abstract class ReaderSyncRepository {
+  abstract merge(userId: string, incoming: unknown): Promise<ReaderSyncState>;
+}

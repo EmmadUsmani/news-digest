@@ -93,3 +93,12 @@
 - Accounts remain disabled; VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; no handbook behavior changed.
 - Initial build caught TypeScript indexed narrowing; lint caught missing void on tests. Both corrected. Targeted tests (4), pnpm format, pnpm lint:fix and final pnpm build pass; handbook plan check has only expected unapplied-table notes.
 - Final pnpm check passes: static checks, 674 unit passes, 252 integration passes/four expected skips. git diff --check passes. Saved-reader check retains four topics/19 stories/17 posts. Commit/push then restart API/worker and repeat health/reader checks to match main. Next: per-reader locking sync repository, then Phase 1 pre-noon backup/rollout and scheduled acceptance.
+
+## 2026-11-08: iteration 1432 — prepared locking reader sync repository
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources have no current errors; digest queue has zero failures and next scheduled run Nov 9 15:00 UTC. Retained ingestion/social failures unchanged.
+- Prepared unregistered repository locks the identity row across read/merge/write, serializing first sync, concurrent devices and account deletion. Validates/copies incoming changes before waiting; bounded replacement preserves display copies and tombstones.
+- Isolated acceptance passes for concurrent devices, millisecond display-copy round trips, stale updates, reader isolation, capacity/validation rejection, injected write rollback and deleted-identity rejection.
+- Accounts remain disabled and VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; HTTP/browser sync wiring remains pending. Phase 1 still awaits pre-noon backup/rollout and scheduled acceptance.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check verifies four topics/19 stories/17 posts. Final `pnpm check` passes: static checks, 674 unit passes, 253 integration passes/four expected skips. `git diff --check` passes.
+- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync application/HTTP wiring preparation, then Phase 1 rollout in its permitted window.

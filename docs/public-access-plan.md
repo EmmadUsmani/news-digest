@@ -236,8 +236,10 @@ covers cascade, rollback, surviving accounts, tombstones and inherited grants.
 Prepared server merge policy matches browser timestamp/tie ordering, retains tombstones,
 and rejects invalid changes or a union exceeding 1,000 bookmark keys or 1,000
 topic keys (including removal records). Display copies use the browser field limits;
-rejection preserves both inputs. Sync repositories must serialize read/merge/write
-per reader; persistence, HTTP/browser wiring and account activation remain pending.
+rejection preserves both inputs. Prepared sync persistence locks the identity row across read/merge/write, including
+first sync, and serializes with account deletion. Isolated acceptance covers concurrent
+devices, tombstones, reader isolation, capacity rejection and write rollback.
+HTTP/browser wiring and account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
