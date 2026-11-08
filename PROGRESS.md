@@ -170,3 +170,13 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - Verification: `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, complete saved-reader fingerprint comparison and final format/lint/diff checks (results below).
 - Next: compose provider/test-edition runtime with conservative per-provider bounds; normal-scheduled phase-0/2 acceptance and Nov 8 edition review/first-week report remain due. VM sharing stays private.
 - Results: `pnpm check` passes (587 unit, 232 integration, four expected skips); build/handbook/five complete reader comparisons pass. Final `pnpm format`, `pnpm lint:fix` and diff checks pass.
+
+## 2026-11-08: iteration 1269 — bridge development LLM billing
+
+- Clean main/no leftovers; alerts/health clear, all 36 sources healthy and scheduled queue has no failures. Nov 8 scheduled review remains due at 15:00 UTC.
+- Added explicit development-only LLM composition through the durable call guard: conservative UTF-8/input-envelope/worst-cache estimate, under-100k input ceiling and actual token-cost settlement. No production ledger/cache/fallback dependencies or automatic retries.
+- Three offline tests verify reservation before execution, exact usage billing, stop/report propagation, disabled/input-limit/refusal/replay suppression and retained holds on transport or invalid billing outcomes.
+- Runtime/test-edition routes remain unwired; no live provider calls, schema changes or spend. Public-access plan and TASKS updated.
+- Verification: targeted tests 3/3; `pnpm build` and handbook budget check pass; five complete saved-reader fingerprints unchanged. Full `pnpm check` result recorded below.
+- Next: compose development runtime/test-edition routes and xAI bounds; phase-0/2 normal scheduled acceptance and Nov 8 review remain due. VM stays private.
+- Final results: `pnpm check` passes (590 unit/232 integration passes, four expected skips); `pnpm format`, `pnpm lint:fix` and diff checks pass. Build and handbook checks pass.

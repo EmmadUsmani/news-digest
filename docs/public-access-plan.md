@@ -41,7 +41,8 @@ mapped to profiles, and profiles go away.
 - Manual editions already exist (`POST /api/admin/digest-previews` and `/jobs`).
   They still spend the production budget until development wiring ships. Separate
   lifetime development pool tables and a reservation-first call guard are installed;
-  provider callers remain unwired. Edition
+  an explicit development LLM bridge now estimates and settles Anthropic calls through
+  the guard. Runtime callers and test-edition routes remain unwired. Edition
   publication metadata and future-save policy are deployed; the reader now
   filters latest, history and direct links to published editions only. Five
   Nov 3–7 scheduled editions are published; 541 manual/test editions stay in admin.
