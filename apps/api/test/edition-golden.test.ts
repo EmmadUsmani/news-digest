@@ -10,6 +10,7 @@ import { ShortlistEditor } from '../src/modules/curation/application/editor';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import { developmentEditorialServices } from '../src/modules/curation/public/development-editorial';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
 import type { Candidate, rank } from '../src/modules/digests/domain/rank';
@@ -22,13 +23,22 @@ const fixture = (name: string) =>
     ),
   );
 
-for (const mode of ['non-ai', 'ai'] as const) {
-  void test(`${mode} edition matches the golden snapshot through publication and retrieval`, async () => {
+for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
+  (['non-ai', 'ai'] as const).map((mode) => ({ systemTest, mode })),
+)) {
+  void test(`${mode} ${systemTest ? 'system private test' : 'edition'} matches the golden snapshot through publication and retrieval`, async (t) => {
+    const previous = process.env.SYSTEM_OWNERSHIP;
+    process.env.SYSTEM_OWNERSHIP = systemTest ? '1' : '0';
+    t.after(() => {
+      if (previous === undefined) delete process.env.SYSTEM_OWNERSHIP;
+      else process.env.SYSTEM_OWNERSHIP = previous;
+    });
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
     assert.equal(process.env.ANTHROPIC_API_KEY, '');
     const adapter = new PostgresPreviewRepository();
     const repository: PreviewRepository = adapter;
     const calls: string[] = [];
+    let replay: LlmPort | undefined;
     if (mode === 'ai') {
       // Synthetic LlmPort responses exercise real parsing, triage and editing.
       // A fresh cache per test makes the first publication exercise both calls.
@@ -79,6 +89,7 @@ for (const mode of ['non-ai', 'ai'] as const) {
           };
         },
       };
+      replay = provider;
       const config = llmConfig({});
       const llm = new BudgetedLlm(provider, ledger);
       Object.defineProperty(adapter, 'editorial', {
@@ -136,22 +147,74 @@ for (const mode of ['non-ai', 'ai'] as const) {
       const editions = [];
       for (let i = 0; i < 2; i++) {
         const edition = digestPreviewSchema.parse(
-          await repository.generate(
-            new Date(expected.windowStart),
-            new Date(expected.windowEnd),
-          ),
+          await (systemTest
+            ? adapter.generateTest(
+                new Date(expected.windowStart),
+                new Date(expected.windowEnd),
+                false,
+                false,
+                replay
+                  ? (id) =>
+                      developmentEditorialServices(
+                        {
+                          complete: async (request) => ({
+                            status: 'complete',
+                            mustReport: false,
+                            value: await replay.complete({
+                              ...request,
+                              model:
+                                request.role === 'haiku'
+                                  ? llmConfig({}).haiku
+                                  : llmConfig({}).sonnet,
+                              purpose:
+                                request.role === 'haiku'
+                                  ? 'candidate-triage-v1'
+                                  : 'shortlist-editor-v13',
+                            }),
+                          }),
+                        },
+                        id,
+                      )
+                  : undefined,
+              )
+            : repository.generate(
+                new Date(expected.windowStart),
+                new Date(expected.windowEnd),
+              )),
         );
         assert.deepEqual(await repository.find(edition.id), edition);
+        if (systemTest) {
+          assert.equal(await repository.find(edition.id, true), null);
+          const row = (
+            await adapter.db.query(
+              'SELECT kind,published_at,profile_id FROM digest_previews WHERE id=$1',
+              [edition.id],
+            )
+          ).rows[0];
+          assert.deepEqual(row, {
+            kind: 'test',
+            published_at: null,
+            profile_id: '00000000-0000-4000-8000-000000000001',
+          });
+          process.env.SYSTEM_OWNERSHIP = '0';
+          assert.deepEqual(await repository.find(edition.id), edition);
+          process.env.SYSTEM_OWNERSHIP = '1';
+        }
         const { id: _id, createdAt: _createdAt, ...stable } = edition;
         assert.deepEqual(stable, expected);
         editions.push(edition);
       }
       assert.notEqual(editions[0].id, editions[1].id);
       assert.deepEqual(await repository.find(editions[0].id), editions[0]);
-      // The second generation must reproduce the snapshot from cached results.
+      // Production repeats use the cache; private tests get a fresh per-edition cache.
       assert.deepEqual(
         calls,
-        mode === 'ai' ? ['candidate-triage-v1', 'shortlist-editor-v13'] : [],
+        mode === 'ai'
+          ? Array.from({ length: systemTest ? 2 : 1 }, () => [
+              'candidate-triage-v1',
+              'shortlist-editor-v13',
+            ]).flat()
+          : [],
       );
     } finally {
       await adapter.db.query(

@@ -131,3 +131,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
 - No provider calls, live data writes, migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
 - Next: AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.
+
+## 2026-11-08: iteration 1398 — isolated system test-edition generation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
+- Extended edition golden integration cases with SYSTEM_OWNERSHIP on: AI-off and synthetic fixture-AI private test editions preserve complete expected topic/story snapshots across two generations.
+- Tests assert kind=test, unpublished state, published-reader exclusion and default-profile ownership; flag-off retrieval preserves the complete saved response.
+- Development editors use a fresh per-edition cache; production repeats retain their existing cache assertions. No provider calls or live data writes.
+- Initial checks found the fixture bridge omitted model/purpose stripped by development-json; first replacement missed formatted source, then corrected reconstruction from the development role.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/241 integration passes, four expected skips. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff applies. Live flag-on test runs and normal scheduled acceptance remain open; synthetic fixtures do not close phase 1.
+- Next: pre-noon private backup/migration/rollout and live test acceptance, then normal scheduled publication before phase 3 activation.
