@@ -160,3 +160,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, final `pnpm typecheck` and `git diff --check` pass. Handbook checker rendered 18 pages/three diagrams, exits 1 solely for metadata entries for unapplied edition/account tables; no diagram edits.
 - Scheduled reader check for Nov 8 passes: four topics, 19 stories/17 posts. Updated rollout plan, data-model note, schema metadata and TASKS. No provider calls or live migration; accounts disabled, VM private.
 - After commit/push, restart API/worker and repeat health/reader checks. Next: pre-noon phase 1 rollout and scheduled acceptance; friend-link transport, confirmation UI and runtime/proxy wiring remain pending.
+
+## 2026-11-08: iteration 1414 — private friend-link HTTP preparation
+
+- Clean main/no leftovers; alerts zero, health good and no failed user services. All 36 active sources recently successful/no current errors; digest queue has zero failures. Ingestion/social queues retain two failed jobs each; all active sources currently collect successfully.
+- Prepared uninstalled link HTTP routes: fresh-admin issuance through the session cookie and strict POST redemption with exact Origin/JSON checks, bounded bodies and one token field. Issuance returns the secret only after atomic audited storage; redemption returns only a secure session cookie.
+- Offline loopback test composes the real link service with memory ports: missing/stale admin, cross-origin writes, GET/HEAD previews, extra fields and replay are refused; issuance is hashed and single-use exchange succeeds. Existing disabled routing remains unchanged; runtime injection, confirmation UI and fragment URLs remain pending.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, targeted link HTTP test and `git diff --check` pass. Full `pnpm check` passes: 658 unit/248 integration tests, four expected skips; typecheck, lint, formatting and boundaries green.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook check reports only existing metadata entries for unapplied edition/account tables; no diagrams changed.
+- Updated TASKS and rollout plan. No provider calls, migrations or generation changes; accounts disabled and VM private. Phase 1 waits for pre-noon rollout and scheduled acceptance.
+- After verified commit/push, restart API/worker and repeat health/reader checks so live matches main.

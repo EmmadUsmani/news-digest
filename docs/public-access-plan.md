@@ -164,8 +164,11 @@ contract requires atomic single use, and identity/session failures leave links c
 Unapplied migration `0015` and an unregistered database adapter now prepare private
 hash-only link storage and issuance audit in one transaction. Database redemption
 uses a conditional update so concurrent requests have one winner. Both new tables
-exclude PUBLIC and operational reader roles. No link routes or runtime registration
-exist yet; confirmation UI, fragment-based URLs and request-boundary checks remain pending.
+exclude PUBLIC and operational reader roles. Prepared, uninstalled HTTP routes now
+issue links through fresh-admin sessions and redeem through guarded POSTs. Exact
+Origin/JSON checks, bounded strict bodies, private responses and preview rejection
+apply; successful redemption returns only a secure session cookie. Runtime injection,
+confirmation UI and fragment-based URLs remain pending; accounts stay disabled.
 
 ## Target design
 

@@ -1,6 +1,7 @@
 import type { LoginCodes } from '../application/login-codes';
 import type { LoginExchange } from '../application/login-exchange';
 import type { ReaderSessions } from '../application/sessions';
+import type { SignInLinks } from '../application/sign-in-links';
 import type { AccountRequestBoundary } from './account-request';
 
 type Request = {
@@ -21,6 +22,7 @@ export class AccountHandlers {
       ReaderSessions,
       'authenticate' | 'signOut' | 'signOutAllDevices'
     >,
+    private readonly links?: Pick<SignInLinks, 'issue' | 'redeem'>,
   ) {}
 
   async requestCode(request: Request, client: string, now: Date) {
@@ -43,6 +45,49 @@ export class AccountHandlers {
     return result
       ? { status: 204, cookie: result.cookie }
       : { status: 401, body: { error: 'Invalid or expired code' } };
+  }
+
+  async issueLink(request: Request, now: Date) {
+    if (!this.links) return { status: 404 };
+    const payload = this.payload(request, false);
+    if (!payload) return { status: 400, body: { error: 'Invalid request' } };
+    const token = this.boundary.sessionToken(request.cookie);
+    if (!token) return { status: 401 };
+    const result = await this.links.issue(token, payload.email, now);
+    return result
+      ? {
+          status: 201,
+          body: {
+            token: result.token,
+            expiresAt: result.expiresAt.toISOString(),
+          },
+        }
+      : { status: 403 };
+  }
+
+  async redeemLink(request: Request, now: Date) {
+    if (!this.links) return { status: 404 };
+    if (!this.boundary.acceptsWrite(request.origin, request.contentType))
+      return { status: 400, body: { error: 'Invalid request' } };
+    const body = request.body;
+    if (
+      body === null ||
+      typeof body !== 'object' ||
+      Array.isArray(body) ||
+      Object.keys(body).length !== 1 ||
+      !Object.hasOwn(body, 'token') ||
+      typeof (body as { token: unknown }).token !== 'string' ||
+      !/^[A-Za-z0-9_-]{43}$/.test((body as { token: string }).token)
+    )
+      return { status: 400, body: { error: 'Invalid request' } };
+    const result = await this.links.redeem(
+      'POST',
+      (body as { token: string }).token,
+      now,
+    );
+    return result
+      ? { status: 204, cookie: result.cookie }
+      : { status: 401, body: { error: 'Invalid or expired link' } };
   }
 
   async current(cookie: unknown, now: Date) {

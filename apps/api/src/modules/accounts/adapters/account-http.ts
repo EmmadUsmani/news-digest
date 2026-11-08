@@ -37,6 +37,8 @@ export function accountHttp(options: {
           await options.handlers.current(request.headers.cookie, now),
         );
       const routes = [
+        '/api/account/links',
+        '/api/account/link-redeem',
         '/api/account/code',
         '/api/account/redeem',
         '/api/account/logout',
@@ -67,6 +69,10 @@ export function accountHttp(options: {
         cookie: request.headers.cookie,
         body,
       };
+      if (path === '/api/account/links')
+        return send(await options.handlers.issueLink(input, now));
+      if (path === '/api/account/link-redeem')
+        return send(await options.handlers.redeemLink(input, now));
       if (path === '/api/account/code')
         return send(await options.handlers.requestCode(input, client, now));
       if (path === '/api/account/redeem')
