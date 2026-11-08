@@ -23,7 +23,10 @@ export const emptyStore = (): PreferenceStore => ({
 const record = (value: unknown): value is Record<string, unknown> =>
   !!value && typeof value === 'object' && !Array.isArray(value);
 const timestamp = (value: unknown): value is number =>
-  typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+  typeof value === 'number' &&
+  Number.isSafeInteger(value) &&
+  value >= 0 &&
+  value <= 8_640_000_000_000_000;
 export function boundBookmarkCopy(value: unknown): BookmarkCopy | null {
   if (!record(value)) return null;
   const limits = {
@@ -152,6 +155,7 @@ export function changeBookmark(
     throw new Error('Invalid bookmark display copy');
   // Keep removal records: silently evicting them would resurrect saves on sync.
   const updatedAt = Math.max(now, (store.bookmarks[id]?.updatedAt ?? -1) + 1);
+  if (!timestamp(updatedAt)) throw new Error('Invalid bookmark time');
   return {
     ...store,
     bookmarks: { ...store.bookmarks, [id]: { copy: bounded, updatedAt } },

@@ -397,6 +397,38 @@ async function smoke() {
           await page.reload();
           await expect(control).toHaveAttribute('aria-pressed', 'false');
         }
+        const validSavedCount = await other.locator('li').count();
+        assert.ok(validSavedCount > 0);
+        await other.evaluate(() => {
+          const key = 'news-digest.reader-preferences.v1';
+          const store = JSON.parse(localStorage.getItem(key)!);
+          store.bookmarks['story:invalid-date'] = {
+            updatedAt: Number.MAX_SAFE_INTEGER,
+            copy: {
+              title: 'Invalid saved date',
+              url: 'https://example.org/',
+              attribution: 'Invalid',
+              excerpt: '',
+              platform: 'story',
+              editionId: 'invalid',
+            },
+          };
+          localStorage.setItem(key, JSON.stringify(store));
+        });
+        await other.goto(`${origin}/saved`);
+        await expect(
+          other.getByRole('heading', { name: 'Saved items', exact: true }),
+        ).toBeVisible();
+        await expect(
+          other.getByRole('heading', {
+            name: 'Invalid saved date',
+            exact: true,
+          }),
+        ).toHaveCount(0);
+        await expect(other.locator('li')).toHaveCount(validSavedCount);
+        await other.screenshot({
+          path: `docs/screenshots/ui/saved-date-recovery-${device}-${theme}.png`,
+        });
         await page.goto(`${origin}/editions/${edition.id}`);
         await page.evaluate(() => {
           Storage.prototype.setItem = () => {

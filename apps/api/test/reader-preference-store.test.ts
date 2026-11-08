@@ -102,3 +102,29 @@ void test('corrupt values and prototype-shaped identities cannot corrupt the sto
     restored.bookmarks['__proto__'],
   );
 });
+
+void test('out-of-range saved dates are discarded without losing valid bookmarks', () => {
+  const restored = parsePreferences(
+    JSON.stringify({
+      version: 1,
+      hiddenTopics: {},
+      bookmarks: {
+        'story:valid': { copy, updatedAt: 1234 },
+        'story:invalid': { copy, updatedAt: Number.MAX_SAFE_INTEGER },
+      },
+    }),
+  );
+  assert.deepEqual(Object.keys(restored.bookmarks), ['story:valid']);
+  assert.equal(
+    new Date(restored.bookmarks['story:valid'].updatedAt).toISOString(),
+    '1970-01-01T00:00:01.234Z',
+  );
+  assert.throws(() =>
+    changeBookmark(
+      emptyStore(),
+      'story:invalid',
+      copy,
+      Number.MAX_SAFE_INTEGER,
+    ),
+  );
+});
