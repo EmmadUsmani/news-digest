@@ -18,7 +18,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    (item 44) and the leaked test folders (item 51). The review after each
    scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`.
+   `docs/public-access-plan.md`. Phase 1 now, then 3 and 4; no more phase 2
+   polish (Nov 8 owner update).
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2205,6 +2206,23 @@ until phase 7. Back up privately before each migration.
 2026-11-03 UTC, plus every future scheduled edition. All of Nov 1–2 stays
 unpublished and visible in admin. The plan's backfill section is updated to
 match. This answers the request in `NEEDS_FROM_HUMAN.md`; mark it resolved.
+
+**Owner update (Nov 8): move through the remaining phases; stop polishing
+phase 2.** Phases 0 and 2 were accepted on Nov 8. This replaces "While waiting"
+above.
+
+- Make no more changes to reader topic hiding or bookmarks unless something is
+  broken. Of the 62 commits in the 12 hours to 16:00 UTC Nov 8, about 35 were
+  small tweaks to them (tap targets, focus, labels) after phase 2 had shipped.
+  Put any further idea in `NEEDS_FROM_HUMAN.md` as one line and move on.
+- Start phase 1 now, then phases 3 and 4, in order.
+- While a phase waits for its scheduled edition, build and test the next phase
+  with its flag off. Turn its flag on only after the previous phase is accepted.
+- When phase 3 is ready for its check, add the owner's two-device sign-in test
+  to `NEEDS_FROM_HUMAN.md` with exact steps.
+- All the limits above still apply: no deploys, restarts or migrations between
+  13:00 and 16:00 UTC, a private backup before each migration, phases accepted
+  in order, and phases 5–7 wait for the owner.
 
 ack: 2026-11-08 item 50 phase 0 — iteration 1386: normal Nov 8 publication with READER_PUBLISHED_ONLY enabled passes latest/direct/history (four topics, 19 stories/17 posts, full-AI); five original complete reader responses unchanged and private tests excluded. Owner's Nov 3+ scheduled-only backfill, isolated lifetime pools and independent AI/X test opt-ins retained. Recorded-provider acceptance (1289) settles both providers to development without production changes; deployed stored-content free test (1290) remains private. Live development charged/held/unresolved: Anthropic $0/$0/0, xAI $0/$0/0; no paid verification. Detailed editorial/accounting comparisons are in docs/edition-reviews/2026-11-08.md. Phase 0 complete; VM remains private, phases 5–7 owner-gated.
 
