@@ -53,6 +53,33 @@ export const users = pgTable(
   ],
 );
 
+export const loginCodes = pgTable(
+  'login_codes',
+  {
+    email: text().primaryKey().notNull(),
+    codeHash: text('code_hash').notNull(),
+    createdAt: timestamp('created_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    expiresAt: timestamp('expires_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    attempts: integer().default(0).notNull(),
+    consumed: boolean().default(false).notNull(),
+  },
+  () => [
+    check(
+      'login_codes_email_check',
+      sql`email = lower(btrim(email)) AND length(email) BETWEEN 3 AND 254`,
+    ),
+    check('login_codes_hash_check', sql`code_hash ~ '^[0-9a-f]{64}$'`),
+    check('login_codes_attempts_check', sql`attempts BETWEEN 0 AND 5`),
+    check('login_codes_expiry_check', sql`expires_at > created_at`),
+  ],
+);
+
 export const sessions = pgTable(
   'sessions',
   {

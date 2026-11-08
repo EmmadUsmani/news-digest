@@ -9,6 +9,7 @@ const integration = new Set([
   'api-http.test.ts',
   'accounts-schema.test.ts',
   'login-code-admission.test.ts',
+  'login-code-repository.test.ts',
   'citing-stories.test.ts',
   'content-repository.test.ts',
   'console.test.ts',

@@ -121,8 +121,13 @@ Prepared Redis admission shares atomic per-email (10) and per-client (50) limits
 across code requests and redemption in a ten-minute window. Keys use keyed hashes,
 blocked attempts count in both dimensions, and Redis failures deny admission.
 The adapter remains unregistered; client addresses must come from the verified proxy boundary.
-Database challenge enforcement and account exchange remain unimplemented;
-no login endpoint is exposed. Operational reader roles and PUBLIC receive no access to either table.
+Unapplied migration `0014` and an unregistered Drizzle adapter prepare login
+challenge persistence: row locks serialize guesses and redemption, five attempts
+exhaust a challenge, and replacement resets it. Expired/future/consumed challenges
+are rejected; comparison failure rolls back the attempt. Isolated tests cover
+concurrent single use and exhaustion across two adapters. Account exchange remains
+unimplemented; no login endpoint is exposed. Operational reader roles and PUBLIC
+receive no access to the three account tables.
 
 ## Target design
 

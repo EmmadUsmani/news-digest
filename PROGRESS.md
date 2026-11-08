@@ -134,3 +134,15 @@
 - Scheduled-reader check passes: four topics, 19 stories/17 posts. No provider calls, live writes or migrations; accounts remain disabled.
 - No restart: disconnected adapter does not change runtime behavior; generation deployment remains barred after noon. Updated TASKS and rollout plan.
 - Next: pre-noon phase 1 private backup/rollout/live tests and scheduled acceptance; prepare atomic database challenges/account exchange with flags off while waiting.
+
+## 2026-11-08: iteration 1405 — atomic database login challenge preparation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
+- Prepared unapplied additive migration 0014 and unregistered Drizzle challenge adapter: keyed hashes only, normalized email, expiry/attempt constraints and explicit operational-role/PUBLIC denial.
+- Row locks serialize guesses and successful consumption across adapters; replacement resets attempts and consumed state. Comparison exceptions roll back.
+- Isolated PostgreSQL test verifies twelve competing redemptions yield one winner, twelve bad guesses stop at five, exact expiry/future rejection, replacement, rollback and no reader-role grants.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 642 unit/246 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. No provider calls or live writes.
+- Handbook `check-handbook.ts 07-data-model`: pages/diagrams checked; metadata warnings remain for deliberately unapplied edition_settings/users/sessions/login_codes tables. Updated account table metadata and preparation note.
+- No migration/restart: accounts remain disconnected and disabled; generation deployment cutoff respected. Updated TASKS and rollout plan.
+- Next: pre-noon phase 1 private backup/rollout/live checks and scheduled acceptance first; account exchange/routes with flags off while waiting.

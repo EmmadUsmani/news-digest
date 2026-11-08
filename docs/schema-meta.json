@@ -98,7 +98,7 @@
       "name": "Reader accounts",
       "color": "#9333ea",
       "description": "Private reader identity and hashed sessions; prepared, not enabled.",
-      "tables": ["users", "sessions"]
+      "tables": ["users", "sessions", "login_codes"]
     }
   ],
   "tables": {
@@ -134,6 +134,7 @@
     "development_spend_pools": "Nonrenewing development allowances per provider; hard code and database ceilings.",
     "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves.",
     "users": "Normalized unique reader emails; independent of the owner profile.",
+    "login_codes": "Private keyed login challenges with expiry, attempt counts and single-use consumption; accounts remain disabled.",
     "sessions": "Hashed reader session tokens, sign-in admin eligibility and cookie renewal times; removed with the user."
   },
   "relations": [
