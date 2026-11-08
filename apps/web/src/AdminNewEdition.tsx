@@ -1,12 +1,10 @@
-import { editionJobIdSchema } from '@digest/contracts';
-import { useQuery } from '@tanstack/react-query';
+import { digestPreviewSchema, editionJobIdSchema } from '@digest/contracts';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { z } from 'zod';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
-import { statusQuery } from './queries';
 const editionJobStatusSchema = z.object({
   id: editionJobIdSchema,
   state: z.enum([
@@ -42,17 +40,7 @@ export function AdminNewEdition() {
     sessionStorage.getItem('edition-job'),
   );
   const [jobMessage, setJobMessage] = React.useState('');
-  const {
-    data: status,
-    isError: budgetError,
-    refetch: refreshBudgetNotice,
-  } = useQuery(statusQuery);
-  const reserve = status?.llm.scheduledReserve;
-  const budgetNotice = budgetError
-    ? 'AI budget availability could not be checked. Scheduled edition protection still applies; manual runs may use labeled non-AI ranking.'
-    : reserve?.enabled && reserve.limitedByReserve
-      ? `AI budget reserved for the scheduled edition. Manual runs have $${(reserve.otherAvailableMicros / 1e6).toFixed(6)} available for AI; some or all topics may use labeled non-AI ranking. See Spend for budget details.`
-      : '';
+  const [aiEditing, setAiEditing] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   const working = busy || jobId !== null;
   const [error, setError] = React.useState('');
@@ -154,24 +142,24 @@ export function AdminNewEdition() {
     setProgress([]);
     setJobMessage('');
     try {
-      await refreshBudgetNotice();
-      const response = await fetch('/api/admin/digest-previews/jobs', {
+      const response = await fetch('/api/admin/digest-previews/tests', {
         method: 'POST',
-        signal: AbortSignal.timeout(15_000),
+        signal: AbortSignal.timeout(600_000),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           windowStart: start.toISOString(),
           windowEnd: end.toISOString(),
+          aiEditing,
+          paidXSearch: false,
         }),
       });
       if (!response.ok) throw new Error();
-      const job = await response.json();
-      if (!editionJobIdSchema.safeParse(job.id).success) throw new Error();
-      setJobMessage('Edition queued. Waiting for the worker…');
-      setJobId(job.id);
+      const edition = digestPreviewSchema.parse(await response.json());
+      setResultId(edition.id);
+      setJobMessage('Private test edition ready.');
     } catch {
       setError(
-        'Could not confirm whether your edition was queued. It may still be created. Check saved editions before trying again to avoid a duplicate run.',
+        'Could not confirm whether your test edition was saved. Check saved editions before trying again to avoid a duplicate run.',
       );
     } finally {
       setBusy(false);
@@ -183,14 +171,10 @@ export function AdminNewEdition() {
       className="grid max-w-2xl gap-5 p-0"
     >
       <p className="m-0 text-sm text-[var(--secondary)]">
-        Create an edition from already collected content. This spends AI budget;
-        the scheduled edition reserve remains protected.
+        Create a private test edition from already collected content. Free by
+        default; it stays out of the reader and uses no scheduled edition
+        budget.
       </p>
-      {budgetNotice && (
-        <p role="status" aria-label="Manual edition AI budget">
-          {budgetNotice}
-        </p>
-      )}
       <Card>
         {' '}
         <form
@@ -247,10 +231,25 @@ export function AdminNewEdition() {
               Uses already collected articles; older coverage may be incomplete.
               Quiet periods stay empty.
             </p>
+            <label htmlFor="test-ai-editing">AI editing</label>
+            <select
+              id="test-ai-editing"
+              value={aiEditing ? 'on' : 'off'}
+              onChange={(event) => setAiEditing(event.target.value === 'on')}
+              aria-describedby="test-ai-help"
+            >
+              <option value="off">Off · free</option>
+              <option value="on">On · development budget</option>
+            </select>
+            <p id="test-ai-help">
+              AI editing uses the limited development allowance and must be
+              enabled on the server. Paid X search is off; stored posts are
+              reused.
+            </p>
             <Button type="submit">
               {working
                 ? 'Creating edition…'
-                : `Create edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
+                : `Create test edition · ${windowChoice === 'custom' ? 'custom period' : windowChoice === '168' ? 'last 7 days' : `last ${windowChoice} hours`}`}
             </Button>
           </fieldset>
           {windowError && <p role="alert">{windowError}</p>}
@@ -263,7 +262,7 @@ export function AdminNewEdition() {
         </h2>
         <p role="status">
           {jobMessage ||
-            'Choose a window to start. You can leave this page and return while a job runs.'}
+            'Choose a window to start. Keep this page open until the test edition is ready.'}
         </p>
         {!!progress.length && (
           <ul className="grid gap-3 pl-5">

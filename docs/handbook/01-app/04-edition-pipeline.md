@@ -72,7 +72,8 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   `aiEditing: true` for isolated development-funded editing when `LLM_LIVE=1`.
   Tests appear only in admin and emit no edition alerts. Paid X is unavailable.
   The preview smoke command uses this endpoint, free by default; `LLM_LIVE=1`
-  enables development AI and creates one private test edition.
+  enables development AI and creates one private test edition. The admin form
+  also creates private tests, with AI off by default and an explicit AI option.
 - **History:** every edition is kept. The UI can browse and reopen any past
   edition by its id.
 

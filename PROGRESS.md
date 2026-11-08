@@ -181,3 +181,13 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Updated affected handbook/public-access plan/TASKS. Five full reader fingerprints unchanged; affected handbook check passes. Full check/build and deployment results follow.
 - Next: paid X test composition and admin manual-edition caller migration; normal scheduled acceptance remains due. VM stays private.
 - Final verification: `pnpm check` passes (611 unit/233 integration, four expected skips); `pnpm build`, affected handbook check, five complete reader fingerprints and `git diff --check` pass. Final format/lint-fix precede commit/push and four-service restart; no provider spend.
+
+## 2026-11-08: iteration 1279 — private admin test-edition form
+
+- Clean main/no leftovers; alerts and `/healthz` clear. Scheduled Nov 8 acceptance remains due at 15:00 UTC.
+- Admin edition form moved from production jobs to private test endpoint; free default, explicit development AI, paid X off. Existing queued-job status recovery retained; new tests wait on the page and never retry uncertain saves.
+- `pnpm exec tsx scripts/smoke-test-edition-form.ts` passes four desktop/mobile light/dark views: default/explicit AI request, success/refusal, no production writes/retries, no overflow/page errors. Requests intercepted using a real saved snapshot; no live provider calls/spend. Four screenshots saved and mobile dark inspected.
+- Five complete reader fingerprints unchanged (`inventory-editions.ts` and `compare-publication-content.ts compare`). Updated affected handbook/public-access plan/TASKS.
+- Initial browser script exposed CommonJS top-level-await incompatibility; corrected. Handbook first attempt interrupted by API restart; rerun after healthy startup.
+- Full check/build and final deployment verification follow. Next: paid X test composition, normal scheduled acceptance/daily review. VM remains private.
+- Final verification: `pnpm check` passes (611 unit/233 integration, four expected skips); `pnpm build`, full handbook check (18 pages/22 diagrams), final format/lint-fix and diff checks pass. All 36 enabled sources recent/error-free; digest queue has no failures. Committing/pushing and restarting four services before final health/alert check.

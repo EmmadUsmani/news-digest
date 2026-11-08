@@ -122,3 +122,5 @@ Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-
 - [x] STEERING 50 (1277): Anthropic live smoke moved off production accounting onto isolated development admission, fixed Haiku pricing and durable replay protection; offline HTTP/refusal/threshold checks pass. Manual edition callers and paid X composition remain next.
 
 - [x] STEERING 50 (1278): preview smoke migrated from two production-accounted manual saves to one private test edition, free by default; `LLM_LIVE=1` explicitly selects development AI. Real stored-content smoke verifies private metadata, reader exclusion, unchanged latest and complete admin history. Paid X composition/admin manual UI migration remain next.
+
+- [x] STEERING 50 (1279): admin edition form now creates private test editions, free by default with explicit development AI; paid X stays off. Legacy queued-job recovery retained. Four device/theme intercepted browser checks pass; paid X composition remains next.

@@ -47,8 +47,7 @@ mapped to profiles, and profiles go away.
   editions have a separate admin route. An isolated JSON bridge now lets existing
   editors use development calls with separate holds and stops further calls on
   refusal, uncertain errors or report thresholds. Explicit AI test editions and
-  the preview smoke command use this runtime; the admin manual-edition UI still
-  uses production accounting. Paid X test composition remains unwired. The opt-in `X_SEARCH_LIVE=1`
+  the preview smoke command use this runtime; the admin edition form uses private test editions, free by default. Paid X test composition remains unwired. The opt-in `X_SEARCH_LIVE=1`
   development runtime uses direct xAI, fixed pricing and an isolated $0.40 hold;
   confirmed fetched-item/token bills settle in full, including above the estimate. Edition
   publication metadata and future-save policy are deployed; the reader now
@@ -192,7 +191,7 @@ can read them.
   The Anthropic live smoke command now uses the development runtime, one Haiku
   call and durable replay protection. The preview smoke command now creates one
   private test edition, free by default, with development AI only under `LLM_LIVE=1`;
-  the admin manual-edition UI still uses production accounting.
+  the admin edition form now creates private tests, free by default, with explicit development AI.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything

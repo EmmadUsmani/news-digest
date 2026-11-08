@@ -29,7 +29,7 @@ flowchart TB
 - **Daily cap** = what's left of the month divided by the days left, at most
   $1. Unspent money rolls forward.
 - **Reserve:** until the morning edition runs, manual editions and tests
-  can't eat into its share. The UI says when a manual run is limited by this.
+  can't eat into its share. The admin form creates private development tests.
 - **Background triage:** its prepared entry point is disabled by default
   (`LLM_INCREMENTAL_TRIAGE_ENABLED=0`). When enabled, the worker checks once
   a minute, rotates topics and prepares at most 25 pending articles per pass,
@@ -87,5 +87,5 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
   verifies durable replay suppression without production accounting.
 - Admin test editions accept `aiEditing: true` through the isolated Anthropic
   runtime. Paid X search remains unavailable.
-- Free admin test editions reuse stored content without provider calls; existing
-  manual generations still use production accounting.
+- The admin edition form defaults to free private tests using stored content.
+  AI editing explicitly uses development funds; paid X search stays off.
