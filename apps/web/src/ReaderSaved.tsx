@@ -50,7 +50,7 @@ export function ReaderSaved() {
             copy && (
               <li
                 key={id}
-                className="rounded-lg border border-[var(--border)] p-5"
+                className="rounded-lg border border-[var(--border)] p-5 [overflow-wrap:anywhere]"
               >
                 <h2 className="font-sans text-lg font-semibold">
                   <a href={copy.url} target="_blank" rel="noreferrer">
@@ -63,7 +63,9 @@ export function ReaderSaved() {
                     : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
                 </p>
                 {copy.excerpt && (
-                  <p className="my-3 leading-7">{copy.excerpt}</p>
+                  <p className="my-3 whitespace-pre-line leading-7">
+                    {copy.excerpt}
+                  </p>
                 )}
                 <div className="flex items-center justify-between gap-4">
                   <Link

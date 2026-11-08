@@ -138,3 +138,12 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - TASKS.md had accumulated 33.9 KB of checkpoints, including obsolete claims that deployed development runtimes were unwired. Consolidated phase-0/phase-2 status and the remaining scheduled-publication gate; archived completed checkpoints without losing their evidence.
 - TASKS.md is now about 9 KB. Verified every local link in the updated task list and archive; archive links now resolve from their new location. No application behavior or owner priority changes; phase 1 remains gated, VM private, no provider calls/spend.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Committing/pushing and restarting four services against main; final health/alerts follow. Next: passive metrics check ≥05:21 UTC, scheduled phase acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1296 — readable saved post formatting
+
+- Clean main/no leftover work. Alerts clear, health passes and source checks pass; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check not due until ≥05:21 UTC.
+- Reader weakness: Saved items collapsed original post line breaks, flattening paragraphs/lists. Preserve excerpt newlines and wrap long links within cards. The owner would notice saved posts retain their readable structure on mobile and desktop.
+- Extended actual-content bookmark browser verification for excerpt whitespace and post overflow; no provider calls, backend writes, publication or selection changes. No handbook flow change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. First combined format/lint/check process was terminated during unit tests without a reported test failure; standalone full check rerun passed.
+- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark, current/historical copies, cross-tab updates, formatting and overflow. Refreshed four saved-page screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise.
+- Committing/pushing and restarting four app services against main; final health/alerts checked after restart. VM private, no provider spend. Next: metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.

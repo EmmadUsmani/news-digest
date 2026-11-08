@@ -117,6 +117,17 @@ async function smoke() {
             .filter({ hasText: title })
             .and(other.locator(`a[href=${JSON.stringify(post.url)}]`));
           await expect(link).toHaveAttribute('href', post.url);
+          const card = link.locator('xpath=ancestor::li');
+          const excerpt = card.locator('p.whitespace-pre-line');
+          if (await excerpt.count()) {
+            await expect(excerpt).toHaveCSS('white-space', 'pre-line');
+          }
+          assert.ok(
+            await other.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth,
+            ),
+            'saved post text stays within the viewport',
+          );
           await expect(
             other.getByText(post.author, { exact: false }).first(),
           ).toBeVisible();
