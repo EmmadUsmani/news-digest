@@ -10,14 +10,16 @@ import {
   storageKey,
 } from './reader-preference-store';
 
-function read(): { store: PreferenceStore; failed: boolean } {
+function read(): { store: PreferenceStore; failed: boolean; missing: boolean } {
   try {
+    const raw = localStorage.getItem(storageKey);
     return {
-      store: parsePreferences(localStorage.getItem(storageKey)),
+      store: parsePreferences(raw),
       failed: false,
+      missing: raw === null,
     };
   } catch {
-    return { store: emptyStore(), failed: true };
+    return { store: emptyStore(), failed: true, missing: false };
   }
 }
 
@@ -30,12 +32,23 @@ export function useReaderPreferences() {
     setRenderedStore(next);
   };
   const [storageFailed, setStorageFailed] = useState(initial.failed);
+  const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
       if (event.key !== storageKey && event.key !== null) return;
-      const { store: stored, failed } = read();
+      const { store: stored, failed, missing } = read();
       if (failed) {
         setStorageFailed(true);
+        return;
+      }
+      // Removing the key or clearing site data is an explicit browser reset.
+      // Do not restore the deleted choices from this tab's in-memory copy.
+      // Read current storage so a newer write still wins over a queued reset.
+      if (missing) {
+        currentStore.current = stored;
+        setRenderedStore(stored);
+        setStorageFailed(false);
+        setBookmarkError(null);
         return;
       }
       // Start with storage's ordering so identical unions do not bounce writes
@@ -88,7 +101,6 @@ export function useReaderPreferences() {
       setStorageFailed(true);
     }
   };
-  const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   const setBookmark = (id: string, copy: BookmarkCopy | null) => {
     try {
       const stored = read();

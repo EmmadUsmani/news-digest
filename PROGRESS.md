@@ -133,3 +133,14 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-date-targets.ts` pass: published older/newer edition and archive navigation, target sizes, focus outlines, no overflow or browser errors at 1440/390/320px in light/dark. Six screenshots saved; 320px dark inspected.
 - Browser traffic GET/HEAD-only with external requests blocked; no provider spend. No data flow or public access change; VM stays private.
 - Final verification: `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal four-service restart follows commit/push.
+
+## 2026-11-08: iteration 1326 — respect browser storage resets
+
+- Clean main/no leftovers. Alerts, 14 services, 36 sources, jobs and `/healthz` healthy. Scheduled acceptance waits for 15:00 UTC; passive metrics check remains due ≥09:25 UTC.
+- Read latest published story data and phase-2 preferences. Reader-visible cause reproduced: clearing the preference key in one tab caused another tab to merge and persist its old saved story/hidden topic, undoing the reset.
+- Storage-event handling now discards in-memory choices when current storage is absent; reads current storage first so queued reset events cannot discard a newer stored write. Ordinary entry removals retain tombstone merging.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-storage-reset.ts` pass: actual published story, separate reader/saved/control tabs, key deletion and site-storage clear, restored topic, empty saved list, absent storage key and reload in desktop/mobile light/dark. Original smoke failed before the fix.
+- Four reset screenshots saved; mobile dark inspected. Browser-only local preference writes; network GET/HEAD-only, external requests blocked, no provider spend. Handbook explains resets across tabs.
+- Existing `smoke-reader-preferences.ts` and `smoke-reader-bookmarks.ts` pass in desktop/mobile light/dark, including cross-tab saves/removals, tombstones, historical destinations, corrupt/blocked storage and reloads. `check-handbook.ts 01-app/README` passes (18 pages/30 tables).
+- Initial lint/full-check stopped at a setter declaration-order error in the new reset branch; moved its state declaration above the effect. Final build and reset smoke pass again.
+- Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal four-service restart follows commit/push; VM stays private. Next: metrics ≥09:25 UTC, scheduled acceptance 15:00 UTC.

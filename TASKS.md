@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1325: Edition date arrows and archive date link have 44px targets and explicit keyboard focus; published-edition navigation verified through 320px in both themes.
+- [x] Iteration 1326: Clearing browser preference storage now resets saved items and hidden topics in open tabs instead of restoring deleted choices; two-tab reset/reload checks pass.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
