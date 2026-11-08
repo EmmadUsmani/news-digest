@@ -104,8 +104,10 @@ cookies capped at 400 days. Daily renewal is claimed atomically through a reposi
 port without changing sign-in time; admin access requires eligibility at sign-in,
 current allowlisting and age below seven days. Single/all-device revocation is
 prepared. Offline tests cover renewal races, old reader sessions and admin changes.
-The database adapter, account routes and sync remain unimplemented; accounts stay
-disabled. Operational reader roles and PUBLIC receive no access to either table.
+The prepared Drizzle session adapter joins identities, atomically claims renewal,
+and supports single/all-device revocation. Isolated database tests cover concurrent
+renewal, identity mapping, revocation isolation and account deletion. Account routes
+and sync remain unimplemented; the adapter is unregistered and accounts stay disabled. Operational reader roles and PUBLIC receive no access to either table.
 
 ## Target design
 

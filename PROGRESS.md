@@ -1,78 +1,3 @@
-## 2026-11-08: iteration 1386 — accept publication and browser-preference phases
-
-- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units; all 36 sources healthy.
-- Completed STEERING 50 phase 0/2 acknowledgments after the Nov 8 scheduled publication and detailed editorial/accounting comparisons. Updated plan/current tasks; phase 1 is next, keyword/Bluesky third-edition acceptance still awaits Nov 9.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` again passes: four topics, 19 stories/17 posts. Documented original-ID jq extraction plus `compare-publication-content.ts compare` again verifies all five original complete reader responses unchanged.
-- GET-only admin status via `localAdminJson` confirms both development providers charged/held/unresolved $0/$0/0. Retained recorded-provider accounting acceptance (1289), deployed free-test exclusion (1290), inspected browser acceptance (1381); no duplicate paid verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. `git diff --check` passes. Orientation output was initially overbroad; subsequent reads were narrowed.
-- Evidence/docs only: no provider calls, source fetches, data writes, deployment or restart during protected 13:00–16:00 UTC window; live application unchanged. VM stays private; phases 5–7 remain owner-gated. Next: additive phase-1 ownership/settings preparation, respecting migration/deployment restrictions.
-
-## 2026-11-08: iteration 1387 — prepare the system-settings foundation
-
-- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy, no failed user units. Scheduled-reader Nov 8 check passes: four topics, 19 stories/17 posts.
-- Prepared generated migration `0011_system_edition_settings`, schema snapshot and explorer metadata: one constrained system settings row copies the actual configured owner schedule; missing owner schedule aborts the transaction. Existing profile reads/writes are unchanged.
-- Isolated PostgreSQL test verifies custom timezone/window/budget backfill, foreign-schedule exclusion, singleton and budget/null constraints, and missing-schedule DDL rollback. Complete schema parity and strict Drizzle no-change tests pass.
-- Updated rollout plan, handbook callout and TASKS. Phase 1 remains open: nullable ownership, SYSTEM_OWNERSHIP reads and transactional dual writes are next; do not apply this foundation alone and let it become stale before those writes exist.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check`, `git diff --check` pass: 629 unit/234 integration passes, four expected skips. Offline `drizzle-kit generate --name=system_edition_settings` used; no provider calls.
-- `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams render; only two expected metadata warnings for the prepared, unapplied edition_settings table. No changed diagrams or reader UI.
-- No live migration, source fetch, deployment or restart: STEERING 50 prohibits generation changes after noon (and all migrations/restarts 13:00–16:00). Live runtime remains unchanged; private backup and restored-copy rehearsal required before a future pre-noon migration. No phase ack or public access change.
-- Initial push rejected because origin gained lead-only status commit d797fe90; fetched and merged without editing owner files or rewriting history, then retried push. Runtime code and verification inputs unchanged.
-
-## 2026-11-08: iteration 1388 — prepare nullable system ownership
-
-- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy, no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Prepared offline migration `0012_nullable_system_ownership`, schema and snapshot: topics, editions and durable job requests/failures accept null ownership; existing ownership, foreign keys, schedule primary key and immutable edition guard remain intact.
-- Added isolated migration coverage for complete row preservation, null ownership and invalid-profile rejection across all four tables. First test attempt updated an immutable edition and failed; corrected it to insert a new system-owned edition, retaining the production guard. Full rerun passes.
-- Updated rollout plan, handbook callout and TASKS. SYSTEM_OWNERSHIP reads and transactional dual writes remain next; migrations 0011/0012 must wait for that work, private backup and restored-copy rehearsal.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/235 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams pass; only two existing warnings for unapplied edition_settings metadata.
-- No live migration, provider call, source fetch, deployment or restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Live runtime remains unchanged; no phase ack or public-access change.
-- Orientation output was initially overbroad; subsequent reads were narrowed. No secrets or owner-controlled files changed.
-- Initial push rejected because origin gained owner steering commit fc71a5f7. Fetched and merged without conflicts/history changes; new instructions confirm phase 1, then 3/4 with flags off while acceptance waits. Verification inputs unchanged; retried push.
-
-## 2026-11-08: iteration 1389 — prepare atomic system schedule settings
-
-- Clean main/no leftovers. Alerts zero; `/healthz` database/Redis healthy; no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Prepared `SYSTEM_OWNERSHIP=1` schedule reads from edition_settings; flag-off reads retain the legacy schedule. Compatibility profile identity remains pending the wider ownership refactor.
-- Schedule updates now write both settings tables in one transaction regardless of flag; missing singleton or system-side constraint failure rolls back the legacy write. Rollback keeps either read mode usable.
-- Added isolated flag-switch, dual-write, system-side rejection and missing-singleton coverage. Full `pnpm check` passes: 629 unit/236 integration passes, four expected skips; build passes.
-- `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams pass; two existing metadata warnings for unapplied edition_settings.
-- Updated rollout plan, affected handbook callout and TASKS. No UI/source changes, provider calls or secret access. Initial orientation output was overbroad; subsequent reads narrowed.
-- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Migrations 0011/0012 are required before deploying this adapter; private backup/restored-copy rehearsal still required. Live runtime remains unchanged.
-- Next: topic/edition/durable-job system reads and remaining compatibility writes, then preservation comparisons and AI-off/recorded-AI-on acceptance before a pre-noon rollout. Phase 1 remains open; flag stays off.
-
-## 2026-11-08: iteration 1390 — prepare system topic operations
-
-- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy; no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Prepared `SYSTEM_OWNERSHIP=1` topic reads and mutations against the shared catalog, including nullable/foreign ownership. Flag-off operations retain default-profile isolation; new topics retain the default profile for rollback.
-- Isolated coverage checks unchanged original reads, flag-off mutation refusal, system updates/connections/custom feeds, preserved ownership, compatibility creation, complete reorder validation and contiguous deletion positions.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/237 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts data-model` and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` pass.
-- Updated TASKS, rollout plan and affected handbook callout. Handbook validation passes: 18 pages/three unchanged diagrams; two existing metadata warnings for unapplied edition_settings. No UI/source changes or provider calls.
-- No live migration/deployment/restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Prepared migrations and ownership adapters remain undeployed; flag stays off.
-- Next: edition/durable-job system reads and remaining compatibility writes, then private backup/restored-copy rehearsal and preserved-response/AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
-
-## 2026-11-08: iteration 1391 — prepare system durable-job recovery
-
-- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy; no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Prepared `SYSTEM_OWNERSHIP=1` request/failure reads across null and foreign ownership. Flag-off reads retain default-profile isolation; new records retain compatibility ownership for rollback.
-- Isolated test verifies missing records, both ownership types, idempotent inserts without ownership/duration changes, and flag-off recovery of newly written records.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/238 integration passes, four expected skips. First check stopped on a trailing blank line introduced during progress archival; corrected and full rerun passed.
-- `pnpm exec tsx scripts/check-handbook.ts data-model` passes: 18 pages/three unchanged diagrams, two existing unapplied edition_settings metadata warnings. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes.
-- Updated rollout plan, handbook callout and TASKS; archived iterations 1337–1344 to keep PROGRESS small. No UI/source changes, provider calls or secret access.
-- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
-- Next: edition system reads and generation topic scope, preserved responses, private backup/restored-copy rehearsal and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
-
-## 2026-11-08: iteration 1392 — prepare system edition scope
-
-- Clean main/no leftovers. Alerts zero; `/healthz` database/Redis healthy; no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Prepared `SYSTEM_OWNERSHIP=1` latest/direct/history/generation-key reads and generation topic selection across null/foreign ownership. Publication filters and saved snapshots remain intact; flag-off reads retain profile isolation.
-- New editions retain default-profile ownership for rollback. Isolated coverage verifies ordering, publication exclusion, shared-topic generation, scheduled replay and recovery after flag-off.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
-- Initial integration attempts exposed fixture cleanup against the immutable-edition trigger and an invalid published test fixture; corrected transactional cleanup and publication metadata, then full check passed.
-- `pnpm exec tsx scripts/check-handbook.ts data-model` passes: 18 pages/three unchanged diagrams, two existing unapplied edition_settings warnings. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes.
-- Updated TASKS, rollout plan and affected handbook callout. No UI/source changes, provider calls or secret access.
-- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
-- Next: private backup/restored-copy rehearsal, every-edition response preservation and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
-
 ## 2026-11-08: iteration 1393 — rehearse system ownership on private restore
 
 - Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
@@ -166,3 +91,14 @@
 - Initial lint found floating test promises/unnecessary assertions; corrected them. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 635 unit/243 integration passes, four expected skips. `git diff --check` passes.
 - Scheduled-reader check: four topics, 19 stories/17 posts. No provider calls, live writes, migrations or restarts; after-noon generation deployment cutoff remains in force.
 - Updated TASKS and rollout plan. Next: prepare session database adapter while waiting; phase 1 rollout/live test editions/scheduled acceptance remain first. Accounts stay disabled.
+
+## 2026-11-08: iteration 1401 — isolated session database adapter
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
+- Prepared unregistered Drizzle session repository: joined identity reads, transactional creation, atomic renewal claims and single/all-device revocation; accounts stay disabled.
+- Isolated Postgres checks cover timestamp/identity mapping, eight competing renewals with one winner, preserved sign-in age, idempotent sign-out, user isolation, revoked-session renewal refusal, cascading deletion and rejected invalid creation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 635 unit/244 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`: four topics, 19 stories/17 posts. No provider calls or live writes.
+- Updated rollout plan/TASKS and archived iterations 1386–1392 to keep PROGRESS small. Initial orientation output was overbroad; subsequent reads were narrowed.
+- No live migration or restart: the after-noon generation deployment cutoff remains in force. Prepared code is unregistered; running behavior unchanged.
+- Next: pre-noon phase 1 backup/rollout/live test acceptance and scheduled acceptance first; prepare account identity/code exchange while waiting, with flags off.
