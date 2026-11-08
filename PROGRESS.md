@@ -129,3 +129,13 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - `compare-publication-content.ts compare` verifies all five complete saved-reader responses; `smoke-publication-candidates.ts` verifies their API/per-topic counts and titles in 20 desktop/mobile light/dark views after migration. No paid calls or production cap changes.
 - Next: actual saved-reader off/on comparison before enabling filtering; development-pool authoritative migration/runtime/test-edition wiring. Phase-0 and phase-2 normal-scheduled-edition acceptance remain due; Nov 8 15:00 UTC review/first-week report still due.
 - `pnpm build`, final `pnpm format`/`pnpm lint:fix` and diff checks pass. Four app services restarted/active; deployed health/alerts clear, all five fingerprints and 20 browser views pass again. Archived iterations 1247–1254 to keep this file below 25 KB.
+
+## 2026-11-08: iteration 1265 — enable the published-only reader
+
+- Clean main/no leftovers; initial health/alerts clear. All 36 enabled sources healthy/nonempty/successful within two hours; digest queue has zero failures.
+- Compared all five Nov 3–7 published editions before/after enabling `READER_PUBLISHED_ONLY=1` in the private env and restarting API: complete response fingerprints unchanged; API/inventory/per-topic counts and titles pass in 20 desktop/mobile light/dark views per state.
+- New GET-only `smoke-publication-visibility.ts` verifies latest/history contain exactly those five IDs; all 541 private reader links return 404 while every original admin ID remains accessible. Four archive browser views pass; screenshots saved and mobile light inspected.
+- Initial post-restart comparison raced API startup and returned fetch failed; retried after healthy startup, all comparisons pass. No content/ID/schema/generation/sharing changes or provider calls.
+- Updated TASKS, publication plan, runtime handbook and DATABASE-VERIFICATION. `pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime`, `pnpm build` and diff checks pass.
+- Next: authoritative development-pool migration/runtime/test-edition wiring. Phase 0/2 normal scheduled acceptance and Nov 8 15:00 UTC review/first-week report remain due; public sharing stays private.
+- `pnpm check` passes: 582 unit/232 integration passes/four expected skips; typecheck/lint/format/boundaries green. Final `pnpm format`, `pnpm lint:fix` and diff checks pass. Four app services restarted/active; deployed health/alerts clear, all five fingerprints and private/admin/archive acceptance pass again.

@@ -26,7 +26,7 @@ skipping an edition. End state:
 This supersedes `MISSION.md` "Profiles now, accounts later": readers are not
 mapped to profiles, and profiles go away.
 
-## Where things stand (verified 2026-11-07)
+## Where things stand (verified 2026-11-08)
 
 - Privacy comes only from exe.dev's proxy, which makes visitors log in to
   exe.dev first. The reader routes have no authentication of their own.
@@ -39,8 +39,10 @@ mapped to profiles, and profiles go away.
   `digest_previews` (editions), `edition_job_requests`, `edition_job_failures`.
   Sources and topic–source connections hang off topics.
 - Manual editions already exist (`POST /api/admin/digest-previews` and `/jobs`).
-  They spend the production budget, and the reader's `latest` and history
-  include them, because neither filters on `scheduled_key`.
+  They still spend the production budget until development wiring ships. Edition
+  publication metadata and future-save policy are deployed; the reader now
+  filters latest, history and direct links to published editions only. Five
+  Nov 3–7 scheduled editions are published; 541 manual/test editions stay in admin.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous
   Viewer access, and its Postgres role has column-level grants only

@@ -783,3 +783,18 @@ scheduled saves with the exact saved timestamp, and unpublished legacy integrati
 saves. Fresh-container schema parity and generated-migration checks cover the
 registered columns and both publication constraints. The reader switch remains
 off pending the actual saved-reader comparison with filtering enabled.
+
+## Published-only reader activation — iteration 1265
+
+`READER_PUBLISHED_ONLY=1` is enabled in the private runtime env. Before and after
+the API restart, `compare-publication-content.ts compare` matched all five
+committed complete-response fingerprints, and `smoke-publication-candidates.ts`
+matched API/inventory and per-topic rendered counts/titles in 20 views per state.
+
+`pnpm exec tsx scripts/smoke-publication-visibility.ts /tmp/publication-inventory-1254.json`
+checks the actual saved inventory with GET requests only: history contains exactly
+the five published IDs, latest is Nov 7, and all 541 private editions return reader
+404 while their admin endpoints retain the same IDs. Four desktop/mobile light/dark
+archive views pass; screenshots are `docs/screenshots/ui/published-archive-*.png`.
+The inventory must be refreshed when a new scheduled edition arrives. No content,
+IDs, provider budgets, sharing settings or generation policy changed.
