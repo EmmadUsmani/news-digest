@@ -44,3 +44,5 @@ desktop screens at 1440 × 1100, with every embed loaded (STEERING 47).
 The earlier 3.52/3.35-screen figures used partially loaded embeds.
 
 Iteration 1081: saved Gaming multi-outlet coverage shows article and extra-outlet counts before expansion: [desktop light](reader-coverage-count-desktop-light.png), [desktop dark](reader-coverage-count-desktop-dark.png), [mobile light](reader-coverage-count-mobile-light.png), [mobile dark](reader-coverage-count-mobile-dark.png).
+
+Iteration 1299: `smoke-reader-bookmarks.ts` verifies Saved items removal feedback in desktop/mobile light/dark. A polite, atomic status announces the removed title and remaining count, including the empty list; keyboard focus stays on the neighboring removal control or the heading. This screen-reader feedback does not change the saved-page appearance.

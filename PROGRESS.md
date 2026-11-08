@@ -164,3 +164,11 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass (625 unit/233 integration, four expected skips). Discarded unrelated bookmark screenshot rendering noise. No handbook flow change, backend writes, provider calls or spend.
 - Committing/pushing and restarting four app services against main; final health/alerts follow. VM remains private; scheduled phase acceptance still waits for Nov 8 15:00 UTC.
 - Due hourly probe `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` (05:21:08–39): 23 healthy rules, four uncached queries ≤0.263 s, zero new evaluator errors/misses; one small merge/3,491 rows, no big merge. Admission hits 2, queue timeouts/slow queries 0; comparable compaction still open. Next ≥06:22 UTC.
+
+## 2026-11-08: iteration 1299 — announce Saved items removal
+
+- Clean main/no leftover work. Alerts and health pass; all 36 sources have successful collection and no current errors. Digest-generation has zero failed jobs and next run 15:00 UTC. Metrics probe not due until ≥06:22 UTC.
+- Reader weakness under item 50 phase 2: removing a saved item moved focus but gave no screen-reader confirmation. Added a polite atomic status naming the removed item and remaining count, including the empty list; readers can confirm the action without searching the page.
+- Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts`: removed title/count and last-item announcement pass with existing focus, persistence, historical-copy and cross-tab checks in desktop/mobile light/dark. Inspected mobile light screenshot; discarded unrelated raster rendering noise and updated screenshot index for this nonvisual change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. No handbook flow change, backend writes, provider calls or spend.
+- Committing/pushing and restarting four app services against main; final health/alerts follow. VM private; scheduled phase acceptance remains due Nov 8 15:00 UTC.

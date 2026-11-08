@@ -204,7 +204,12 @@ async function smoke() {
         const previousName = await removals
           .nth((await removals.count()) - 2)
           .getAttribute('aria-label');
+        const removedName = await removals.last().getAttribute('aria-label');
+        const remainingCount = (await removals.count()) - 1;
         await other.keyboard.press('Enter');
+        await expect(other.getByRole('status')).toHaveText(
+          `Removed ${removedName!.replace('Remove saved item: ', '')}. ${remainingCount} saved items remaining.`,
+        );
         await expect(
           other.getByRole('button', { name: previousName!, exact: true }),
         ).toBeFocused();
@@ -218,7 +223,11 @@ async function smoke() {
           ).toBeFocused();
         }
         await removals.first().focus();
+        const finalName = await removals.first().getAttribute('aria-label');
         await other.keyboard.press('Enter');
+        await expect(other.getByRole('status')).toHaveText(
+          `Removed ${finalName!.replace('Remove saved item: ', '')}. No saved items remaining.`,
+        );
         await expect(
           other.getByRole('heading', { name: 'Saved items', exact: true }),
         ).toBeFocused();

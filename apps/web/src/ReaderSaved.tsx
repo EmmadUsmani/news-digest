@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -8,6 +8,7 @@ import { useReaderPreferences } from './use-reader-preferences';
 
 export function ReaderSaved() {
   const preferences = useReaderPreferences();
+  const [announcement, setAnnouncement] = useState('');
   const heading = useRef<HTMLHeadingElement>(null);
   const removeButtons = useRef(new Map<string, HTMLButtonElement>());
   const saved = Object.entries(preferences.bookmarks)
@@ -42,6 +43,9 @@ export function ReaderSaved() {
       {preferences.bookmarkError && (
         <p role="alert">{preferences.bookmarkError}</p>
       )}
+      <p role="status" aria-atomic="true" className="sr-only">
+        {announcement}
+      </p>
       {saved.length === 0 && (
         <p>
           No saved items yet. Use Save beside a story or post in an edition.
@@ -93,6 +97,10 @@ export function ReaderSaved() {
                         : heading.current;
                       target?.focus();
                       preferences.setBookmark(id, null);
+                      const remaining = saved.length - 1;
+                      setAnnouncement(
+                        `Removed ${copy.title}. ${remaining === 0 ? 'No saved items remaining.' : `${remaining} saved ${remaining === 1 ? 'item' : 'items'} remaining.`}`,
+                      );
                     }}
                   >
                     Remove

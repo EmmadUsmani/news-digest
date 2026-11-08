@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1298: Saved items now offers the reader keyboard skip shortcut; populated/empty desktop/mobile light/dark focus checks pass. Scheduled acceptance remains due at 15:00 UTC.
+- [x] Iteration 1299: Saved items announces bookmark removal and the remaining count to screen readers; desktop/mobile light/dark removal and focus checks pass. Scheduled acceptance remains due at 15:00 UTC.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
