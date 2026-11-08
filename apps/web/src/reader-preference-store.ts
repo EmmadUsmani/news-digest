@@ -115,12 +115,15 @@ export function mergePreferences(
   const newest = <T extends { updatedAt: number }>(
     left: Record<string, T>,
     right: Record<string, T>,
+    tieKey: (change: T) => string,
   ) => {
     const merged = { ...left };
     for (const [id, change] of Object.entries(right)) {
       if (
         !Object.hasOwn(merged, id) ||
-        change.updatedAt >= merged[id].updatedAt
+        change.updatedAt > merged[id].updatedAt ||
+        (change.updatedAt === merged[id].updatedAt &&
+          tieKey(change) > tieKey(merged[id]))
       )
         Object.defineProperty(merged, id, {
           value: change,
@@ -133,8 +136,24 @@ export function mergePreferences(
   };
   return {
     version: 1,
-    hiddenTopics: newest(a.hiddenTopics, b.hiddenTopics),
-    bookmarks: newest(a.bookmarks, b.bookmarks),
+    hiddenTopics: newest(a.hiddenTopics, b.hiddenTopics, (change) =>
+      String(change.hidden),
+    ),
+    // Equal clocks can occur in separate tabs. Resolve ties identically in
+    // either direction; removals win so a stale save cannot resurrect them.
+    bookmarks: newest(a.bookmarks, b.bookmarks, (change) =>
+      change.copy === null
+        ? '1'
+        : '0' +
+          JSON.stringify([
+            change.copy.title,
+            change.copy.url,
+            change.copy.attribution,
+            change.copy.excerpt,
+            change.copy.platform,
+            change.copy.editionId,
+          ]),
+    ),
   };
 }
 export function changeBookmark(

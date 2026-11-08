@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1306: Saved items recover from malformed out-of-range dates without losing valid bookmarks; regression and desktop/mobile light/dark browser checks.
+- [x] Iteration 1307: Equal-time bookmark changes converge across merge order; removals win ties and later explicit saves remain possible.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

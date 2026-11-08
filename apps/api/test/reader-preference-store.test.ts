@@ -128,3 +128,30 @@ void test('out-of-range saved dates are discarded without losing valid bookmarks
     ),
   );
 });
+
+void test('simultaneous bookmark changes converge across merge order without resurrecting removals', () => {
+  const saved = changeBookmark(emptyStore(), 'story:one', copy, 20);
+  const removed = changeBookmark(emptyStore(), 'story:one', null, 20);
+  assert.deepEqual(
+    mergePreferences(saved, removed),
+    mergePreferences(removed, saved),
+  );
+  assert.equal(
+    mergePreferences(removed, saved).bookmarks['story:one'].copy,
+    null,
+  );
+  const alternative = changeBookmark(
+    emptyStore(),
+    'story:one',
+    { ...copy, title: 'Other copy' },
+    20,
+  );
+  assert.deepEqual(
+    mergePreferences(saved, alternative),
+    mergePreferences(alternative, saved),
+  );
+  assert.ok(
+    changeBookmark(mergePreferences(removed, saved), 'story:one', copy, 21)
+      .bookmarks['story:one'].copy,
+  );
+});
