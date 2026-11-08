@@ -4,6 +4,10 @@ import type { LoginExchange } from '../application/login-exchange';
 import type { ReaderSessions } from '../application/sessions';
 import { clearSessionCookie } from '../application/sessions';
 import type { SignInLinks } from '../application/sign-in-links';
+import {
+  mergeReaderSync,
+  type ReaderSyncRepository,
+} from '../domain/reader-sync';
 import type { AccountRequestBoundary } from './account-request';
 
 type Request = {
@@ -26,6 +30,7 @@ export class AccountHandlers {
     >,
     private readonly links?: Pick<SignInLinks, 'issue' | 'redeem'>,
     private readonly deletion?: Pick<DeleteAccount, 'execute'>,
+    private readonly sync?: ReaderSyncRepository,
   ) {}
 
   async requestCode(request: Request, client: string, now: Date) {
@@ -111,6 +116,28 @@ export class AccountHandlers {
     const token = this.boundary.sessionToken(request.cookie);
     if (!token || !(await this.deletion.execute(token))) return { status: 401 };
     return { status: 204, cookie: clearSessionCookie() };
+  }
+
+  async syncReader(request: Request, now: Date) {
+    if (!this.sync) return { status: 404 };
+    if (!this.boundary.acceptsWrite(request.origin, request.contentType))
+      return { status: 400 };
+    const token = this.boundary.sessionToken(request.cookie);
+    const session = token ? await this.sessions.authenticate(token, now) : null;
+    if (!session) return { status: 401 };
+    let changes;
+    try {
+      changes = mergeReaderSync(
+        { version: 1, hiddenTopics: {}, bookmarks: {} },
+        request.body,
+      );
+    } catch {
+      return { status: 400 };
+    }
+    // Identity is derived exclusively from the authenticated cookie. The
+    // repository serializes merges with other devices and identity deletion.
+    const state = await this.sync.merge(session.userId, changes);
+    return { status: 200, body: state, cookie: session.cookie };
   }
 
   async current(cookie: unknown, now: Date) {

@@ -50,6 +50,7 @@ export function accountHttp(options: {
           await options.handlers.current(request.headers.cookie, now),
         );
       const routes = [
+        '/api/account/sync',
         '/api/account/delete',
         '/api/account/links',
         '/api/account/link-redeem',
@@ -68,7 +69,8 @@ export function accountHttp(options: {
       for await (const chunk of request) {
         const bytes = Buffer.from(chunk as Uint8Array);
         size += bytes.length;
-        if (size > 2048) return send({ status: 413 });
+        if (size > (path === '/api/account/sync' ? 16 * 1024 * 1024 : 2048))
+          return send({ status: 413 });
         chunks.push(bytes);
       }
       let body: unknown;
@@ -83,6 +85,8 @@ export function accountHttp(options: {
         cookie: request.headers.cookie,
         body,
       };
+      if (path === '/api/account/sync')
+        return send(await options.handlers.syncReader(input, now));
       if (path === '/api/account/delete')
         return send(await options.handlers.deleteAccount(input));
       if (path === '/api/account/links')
