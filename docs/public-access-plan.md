@@ -61,7 +61,9 @@ mapped to profiles, and profiles go away.
   ownership values. Both migrations remain unapplied. Prepared schedule reads
   use `edition_settings` with `SYSTEM_OWNERSHIP=1`; schedule updates write both
   settings tables in one transaction, including with the flag off. Missing system
-  settings abort the write. Topic/edition/job reads still need flag support;
+  settings abort the write. Prepared topic reads and mutations use the shared
+  catalog with the flag on; new topics retain the default profile for rollback,
+  and flag-off queries retain profile isolation. Edition/job reads still need flag support;
   do not enable the flag or deploy this code before the migrations.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog

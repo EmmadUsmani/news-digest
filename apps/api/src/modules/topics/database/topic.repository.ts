@@ -25,8 +25,12 @@ import {
 import { TopicRepository } from '../domain/topic.repository';
 
 const profileId = '00000000-0000-4000-8000-000000000001';
-const owned = (id: string) =>
-  and(eq(topics.id, id), eq(topics.profileId, profileId));
+// System topics share one catalog; retain legacy ownership on writes for rollback.
+const scope = () =>
+  process.env.SYSTEM_OWNERSHIP === '1'
+    ? undefined
+    : eq(topics.profileId, profileId);
+const owned = (id: string) => and(eq(topics.id, id), scope());
 
 @Injectable()
 export class PostgresTopicRepository
@@ -72,7 +76,7 @@ export class PostgresTopicRepository
         xSearchTopicSettings,
         eq(xSearchTopicSettings.topicId, topics.id),
       )
-      .where(eq(topics.profileId, profileId))
+      .where(scope())
       .orderBy(topics.position, topics.id);
     return rows as Topic[];
   }
@@ -213,7 +217,7 @@ export class PostgresTopicRepository
               ),
           })
           .from(topics)
-          .where(eq(topics.profileId, profileId))
+          .where(scope())
           .as('ordered');
         await tx
           .update(topics)
@@ -240,7 +244,7 @@ export class PostgresTopicRepository
         const [last] = await tx
           .select({ position: max(topics.position) })
           .from(topics)
-          .where(eq(topics.profileId, profileId));
+          .where(scope());
         await tx.insert(topics).values({
           ...fields,
           id,
@@ -271,7 +275,7 @@ export class PostgresTopicRepository
         const current = await tx
           .select({ id: topics.id })
           .from(topics)
-          .where(eq(topics.profileId, profileId))
+          .where(scope())
           .orderBy(topics.id)
           .for('update');
         if (
@@ -285,9 +289,7 @@ export class PostgresTopicRepository
           .update(topics)
           .set({ position: sql`(ordering.ordinality - 1)::int` })
           .from(ordering)
-          .where(
-            and(sql`${topics.id}=ordering.id`, eq(topics.profileId, profileId)),
-          );
+          .where(and(sql`${topics.id}=ordering.id`, scope()));
         return true;
       }),
     );

@@ -158,3 +158,13 @@
 - Updated rollout plan, affected handbook callout and TASKS. No UI/source changes, provider calls or secret access. Initial orientation output was overbroad; subsequent reads narrowed.
 - No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Migrations 0011/0012 are required before deploying this adapter; private backup/restored-copy rehearsal still required. Live runtime remains unchanged.
 - Next: topic/edition/durable-job system reads and remaining compatibility writes, then preservation comparisons and AI-off/recorded-AI-on acceptance before a pre-noon rollout. Phase 1 remains open; flag stays off.
+
+## 2026-11-08: iteration 1390 — prepare system topic operations
+
+- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy; no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Prepared `SYSTEM_OWNERSHIP=1` topic reads and mutations against the shared catalog, including nullable/foreign ownership. Flag-off operations retain default-profile isolation; new topics retain the default profile for rollback.
+- Isolated coverage checks unchanged original reads, flag-off mutation refusal, system updates/connections/custom feeds, preserved ownership, compatibility creation, complete reorder validation and contiguous deletion positions.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/237 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts data-model` and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` pass.
+- Updated TASKS, rollout plan and affected handbook callout. Handbook validation passes: 18 pages/three unchanged diagrams; two existing metadata warnings for unapplied edition_settings. No UI/source changes or provider calls.
+- No live migration/deployment/restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Prepared migrations and ownership adapters remain undeployed; flag stays off.
+- Next: edition/durable-job system reads and remaining compatibility writes, then private backup/restored-copy rehearsal and preserved-response/AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
