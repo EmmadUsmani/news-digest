@@ -256,7 +256,13 @@ Offline tests cover concurrent requests, delayed logout responses and retry. Acc
 lifecycle subscribes to store changes, drains edits made during requests, suppresses
 server-write loops and exposes safe retry status. Logout cancellation precedes
 local clearing. Offline acceptance covers queued edits, outages and late responses.
-React store/account UI wiring and account activation remain pending.
+Prepared browser account controller connects bounded, credential-free session discovery
+to automatic sync, explicit retry and single/all-device sign-out. It stops uploads
+and invalidates delayed discovery before logout, clears account choices only after
+success or confirmed session loss, and retains choices with syncing paused after
+failed logout. Initial anonymous discovery preserves browser-local choices. Offline
+acceptance covers those transitions, malformed sessions and teardown. React
+store/account UI wiring and account activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
