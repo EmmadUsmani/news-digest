@@ -19,11 +19,14 @@ async function smoke() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          reducedMotion: 'reduce',
+          hasTouch: true,
         });
         let recover = false;
         let releaseInitial!: () => void;
@@ -122,6 +125,20 @@ async function smoke() {
         });
         await expect(original).toHaveAttribute('href', post.url);
         await expect(original).toHaveAttribute('target', '_blank');
+        for (const action of [original, failureRow.getByRole('button')]) {
+          const bounds = await action.boundingBox();
+          assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+          await action.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          await expect(action).toBeFocused();
+          assert.equal(
+            await action.evaluate(
+              (node) => getComputedStyle(node).outlineStyle,
+            ),
+            'solid',
+          );
+        }
         await original.focus();
         await expect(original).toBeFocused();
         assert.ok(
@@ -142,7 +159,7 @@ async function smoke() {
         recover = true;
         await card
           .getByRole('button', { name: /^Retry X post from /, exact: true })
-          .click();
+          .tap();
         await status.filter({ hasText: 'Loading X post…' }).waitFor();
         assert.equal(await card.locator('.x-media-error').count(), 0);
         assert.ok(await card.locator('.post-text').isVisible());
@@ -310,7 +327,7 @@ async function smoke() {
       saved,
     );
     console.log(
-      'Saved X media loading/failure/retry and saved-text theme persistence: desktop/mobile light/dark passed; local widget stub, no writes or external calls.',
+      'Saved X media loading/failure/retry and saved-text theme persistence: desktop/mobile/narrow light/dark passed; local widget stub, no writes or external calls.',
     );
   } finally {
     await browser.close();

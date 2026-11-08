@@ -322,7 +322,10 @@ function Post({
       )}
       {failed && (
         <div className="x-media-error flex flex-wrap items-center gap-x-2 gap-y-1">
-          <p role="status" className="m-0 text-xs text-[var(--secondary)]">
+          <p
+            role="status"
+            className="m-0 w-full text-xs text-[var(--secondary)]"
+          >
             X media unavailable.
           </p>
           <a
@@ -330,14 +333,14 @@ function Post({
             target="_blank"
             rel="noreferrer"
             aria-label={`Open original on X ${postIdentity}`}
-            className="inline-flex min-h-8 items-center px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
+            className="inline-flex min-h-11 items-center rounded px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Open original on X
           </a>
           <button
             type="button"
             aria-label={`Retry X post ${postIdentity}`}
-            className="min-h-8 border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)]"
+            className="min-h-11 rounded border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             onClick={() => {
               const transcript = savedText.current;
               const summary = transcript?.querySelector('summary');

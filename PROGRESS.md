@@ -135,3 +135,13 @@
 - `pnpm exec tsx scripts/smoke-reader-post-context.ts` passes long synthetic-note touch/keyboard expansion; four replay screenshots refreshed. Initial new smoke lacked touch emulation; corrected `hasTouch` before successful rerun.
 - Browser requests GET/HEAD-only, external traffic blocked; no provider calls/spend or publication/data-flow changes. VM remains private; no phase acknowledgment before scheduled acceptance.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push; next metrics probe ≥10:26 UTC and scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1332 — easier X media recovery
+
+- Clean main/no leftovers. Alerts empty; health/services/sources/jobs checks pass: 14 services/36 sources healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
+- Read the latest four-topic edition (20 stories/18 posts); known editorial fixes await scheduled evidence. Reader-visible weakness: failed X embeds exposed 32px recovery actions. Original-link and retry controls now have 44px targets and explicit keyboard focus; status takes its own row so actions fit on narrow phones.
+- Owner benefit: opening the original or retrying unavailable X media is easier by touch and keyboard, advancing the existing reader under items 38/42 without new features.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-x-media.ts` pass: 1440/390/320px light/dark, target dimensions/focus, touch retry, saved text/context, resize/theme/replacement recovery and no overflow/errors/writes. Screenshots refreshed; narrow dark inspected. Recovery uses a labelled local widget stub; external requests blocked, no provider spend.
+- Initial smoke raced the build and saw old target dimensions; rerun after build passed all six configurations.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips; normal four-service restart follows push. VM stays private; no phase acknowledgment before scheduled acceptance.
+- Next: metrics probe ≥10:26 UTC; 15:00 scheduled phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
