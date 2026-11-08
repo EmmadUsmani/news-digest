@@ -23,7 +23,8 @@ snapshots.
 > sessions, with deletion cascading from a reader to their sessions.
 > A further prepared migration stores private hashed login challenges with expiry,
 > attempt counts and single-use consumption. These tables are not live;
-> account sign-in remains disabled. See the
+> A prepared exchange maps verified codes to independent identities and hashed
+> sessions; account sign-in remains disabled. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

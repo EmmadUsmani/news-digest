@@ -125,8 +125,12 @@ Unapplied migration `0014` and an unregistered Drizzle adapter prepare login
 challenge persistence: row locks serialize guesses and redemption, five attempts
 exhaust a challenge, and replacement resets it. Expired/future/consumed challenges
 are rejected; comparison failure rolls back the attempt. Isolated tests cover
-concurrent single use and exhaustion across two adapters. Account exchange remains
-unimplemented; no login endpoint is exposed. Operational reader roles and PUBLIC
+concurrent single use and exhaustion across two adapters. A prepared, disconnected exchange consumes a verified code before finding or
+creating an independent reader identity and issuing a hashed session. Concurrent
+first-login identity creation preserves the original identity and creation time;
+failed identity/session storage requires a fresh code. Isolated checks exercise
+replay rejection, admission denial, concurrent redemption, identity reuse, secure
+cookies and hashed storage. No login endpoint is exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
 
 ## Target design

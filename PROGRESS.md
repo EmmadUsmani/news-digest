@@ -146,3 +146,15 @@
 - Handbook `check-handbook.ts 07-data-model`: pages/diagrams checked; metadata warnings remain for deliberately unapplied edition_settings/users/sessions/login_codes tables. Updated account table metadata and preparation note.
 - No migration/restart: accounts remain disconnected and disabled; generation deployment cutoff respected. Updated TASKS and rollout plan.
 - Next: pre-noon phase 1 private backup/rollout/live checks and scheduled acceptance first; account exchange/routes with flags off while waiting.
+
+## 2026-11-08: iteration 1406 — verified login exchange preparation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user services.
+- Prepared disconnected code-to-session exchange: only the normalized identity proven by an atomically consumed challenge can create a reader session. No caller identity/admin flags accepted.
+- Added unregistered Drizzle identity adapter; concurrent first logins reuse one identity and preserve creation time. No migration needed beyond pending 0013/0014.
+- Isolated test covers competing first logins/redemptions, replay and admission rejection, identity reuse, secure cookies, hashed session storage, revocation and consumed-proof rejection after storage failure.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 642 unit/247 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts.
+- `pnpm exec tsx scripts/check-handbook.ts 07-data-model`: 18 pages/three diagrams checked; expected metadata warnings remain for deliberately unapplied tables. Updated affected handbook and rollout plan.
+- No provider calls/live writes/migrations/restarts: adapters remain disconnected and accounts disabled; edition-generation deployment cutoff respected.
+- Next: pre-noon phase 1 backup/rollout/live checks and scheduled acceptance first; prepare flag-off account HTTP boundary and signup policy while waiting.
