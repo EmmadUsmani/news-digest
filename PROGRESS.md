@@ -148,3 +148,13 @@
 - `pnpm exec tsx --test apps/api/test/file-login-code-delivery.test.ts` passes two tests. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: 662 unit tests, 250 integration tests/four expected skips.
 - API/worker restart and health pass; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. Final format/lint before commit; push and restart again so live matches main.
 - Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; coordinate issuance/deletion and cleanup before deletion runtime injection.
+
+## 2026-11-08: iteration 1422 — prepared fail-closed deletion cleanup
+
+- Clean main/no leftovers. Alerts clear, health good, no failed user units; all 36 sources healthy, digest-generation queue has zero failures. Retained ingestion/social failures remain two each.
+- The unregistered deletion repository now requires an idempotent external-cleanup port and removes the recipient mailbox entry while session ownership is locked, before committing identity deletion.
+- Extended isolated storage acceptance with real owner-only mailbox files: cleanup failure preserves the account/message; a later database failure rolls back identity/proof removal and retry tolerates the already-removed message; concurrent two-device deletion never removes another recipient's message. Unknown credentials invoke no cleanup.
+- Accounts remain disabled and VM private; no live migration, provider call or generation change. In-flight login/link issuance coordination, sync-data cascades and runtime injection still precede activation. Phase 1 rollout awaits the pre-noon window.
+- Updated TASKS and rollout plan; current handbook behavior unchanged. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: 662 unit tests, 250 integration tests/four expected skips.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. API/worker restarted; health and the same reader check pass. Final format/lint pass; commit/push then repeat restart/health so live matches main.
+- Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; finish cross-process issuance/deletion coordination before activation.

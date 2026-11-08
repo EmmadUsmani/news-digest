@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1421: Prepared idempotent recipient mailbox cleanup; recipient isolation, retry, symlink and unsafe-directory checks pass. Cleanup orchestration/issuance coordination and deletion runtime injection remain pending; accounts disabled.
+- [x] Iteration 1422: Prepared required mailbox cleanup before account-deletion commit; cleanup failure preserves identity, database failure permits idempotent retry, concurrent requests isolate recipients. Issuance coordination, sync cascades and runtime injection remain pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

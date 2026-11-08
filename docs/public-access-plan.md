@@ -202,9 +202,13 @@ only after successful deletion and hides dependency failures. The runtime does n
 inject deletion, and main still installs no account routes. The stand-in mailbox
 now prepares idempotent recipient cleanup: it checks the private directory and
 unlinks only the hashed recipient entry, without following symlinks or removing
-directories. Cleanup is not connected to deletion yet. Its caller must coordinate
+directories. The prepared deletion repository now requires an idempotent cleanup port and removes
+the mailbox entry before committing identity deletion. Cleanup failure preserves
+the account; a later database failure leaves a usable account whose next login
+request can issue a fresh code. Isolated tests cover both failures, retry and
+recipient isolation. Production composition remains disconnected. Its caller must coordinate
 with in-flight delivery before invoking it, to prevent a later rename from
-recreating the message. Cleanup orchestration, sync-data cascades and coordination
+recreating the message. Sync-data cascades and coordination
 with in-flight login/link issuance must be completed before enabling deletion.
 
 ## Target design

@@ -10,7 +10,10 @@ import {
   signInLinks,
   users,
 } from '../../../libs/db/schema';
-import { AccountDeletionRepository } from '../domain/account-deletion';
+import {
+  AccountDeletionCleanup,
+  AccountDeletionRepository,
+} from '../domain/account-deletion';
 
 // Prepared only: no account route or runtime registers this adapter.
 @Injectable()
@@ -20,6 +23,10 @@ export class PostgresAccountDeletionRepository
 {
   private readonly pool = database();
   private readonly db = drizzle(this.pool);
+
+  constructor(private readonly cleanup: AccountDeletionCleanup) {
+    super();
+  }
 
   async deleteForSession(tokenHash: string): Promise<boolean> {
     return this.db.transaction(async (tx) => {
@@ -38,6 +45,9 @@ export class PostgresAccountDeletionRepository
         .where(eq(sessions.tokenHash, tokenHash))
         .for('update');
       if (!session) return false;
+      // Fail closed before deleting the identity. Cleanup cannot be rolled back;
+      // if the transaction later fails, a retry must tolerate missing files.
+      await this.cleanup.remove(owner.email);
       await tx.delete(loginCodes).where(eq(loginCodes.email, owner.email));
       await tx.delete(signInLinks).where(eq(signInLinks.email, owner.email));
       await tx

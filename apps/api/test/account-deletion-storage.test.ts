@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import { database } from '../src/libs/db/connections';
+import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { DeleteAccount } from '../src/modules/accounts/application/delete-account';
 import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
@@ -9,8 +13,19 @@ import { PostgresAccountDeletionRepository } from '../src/modules/accounts/datab
 void test('account deletion is session-owned, atomic, concurrent and isolated', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const pool = database();
-  const repository = new PostgresAccountDeletionRepository();
-  const other = new PostgresAccountDeletionRepository();
+  const directory = await mkdtemp(join(tmpdir(), 'account-deletion-mail-'));
+  const mailbox = new FileLoginCodeDelivery(directory);
+  let failCleanup = false;
+  const cleanupCalls: string[] = [];
+  const cleanup = {
+    remove: async (recipient: string) => {
+      cleanupCalls.push(recipient);
+      if (failCleanup) throw new Error('injected cleanup failure');
+      await mailbox.remove(recipient);
+    },
+  };
+  const repository = new PostgresAccountDeletionRepository(cleanup);
+  const other = new PostgresAccountDeletionRepository(cleanup);
   const tokens = new CryptoSessionTokens();
   const deletion = new DeleteAccount(repository, tokens);
   const email = 'deletion@example.test';
@@ -49,8 +64,26 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         [ids[1].id, recipient],
       );
     }
+    const now = new Date();
+    const expiry = new Date(now.getTime() + 600_000);
+    await mailbox.deliver(email, '123456', expiry);
+    await mailbox.deliver(survivor, '654321', expiry);
     assert.equal(await deletion.execute('malformed'), false);
     assert.equal(await deletion.execute(tokens.generate()), false);
+    assert.deepEqual(cleanupCalls, []);
+    failCleanup = true;
+    await assert.rejects(deletion.execute(token), /injected cleanup failure/);
+    assert.equal(await mailbox.latest(email, now), '123456');
+    assert.equal(
+      (
+        await pool.query(
+          'SELECT count(*)::int AS n FROM users WHERE email=$1',
+          [email],
+        )
+      ).rows[0].n,
+      1,
+    );
+    failCleanup = false;
     // A failed final delete must roll back removal of pending credentials/audit.
     await pool.query(
       "CREATE FUNCTION reject_account_delete() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'injected deletion failure'; END $$",
@@ -65,6 +98,7 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         error.cause instanceof Error &&
         /injected deletion failure/.test(error.cause.message),
     );
+    assert.equal(await mailbox.latest(email, now), null);
     await pool.query('DROP TRIGGER reject_account_delete ON users');
     await pool.query('DROP FUNCTION reject_account_delete()');
     for (const table of ['users', 'login_codes', 'sign_in_links']) {
@@ -92,6 +126,9 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
       new DeleteAccount(other, tokens).execute(second),
     ]);
     assert.deepEqual(results.sort(), [false, true]);
+    assert.deepEqual(cleanupCalls, [email, email, email]);
+    assert.equal(await mailbox.latest(email, now), null);
+    assert.equal(await mailbox.latest(survivor, now), '654321');
     assert.equal(await deletion.execute(token), false);
     assert.equal(await deletion.execute(second), false);
     for (const table of ['users', 'login_codes', 'sign_in_links']) {
@@ -153,6 +190,7 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
     await pool.query('DELETE FROM sign_in_links WHERE email=ANY($1::text[])', [
       [email, survivor],
     ]);
+    await rm(directory, { recursive: true, force: true });
     await Promise.all([
       repository.onModuleDestroy(),
       other.onModuleDestroy(),
