@@ -63,6 +63,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1294): saved-item edition links identify their story/post for assistive navigation; current and historical real-content browser checks cover desktop/mobile light/dark.
+
 - [x] STEERING 50 (1292): admin Spend now separates lifetime development charges/holds, caps, 75% stop thresholds and remaining allowance by provider; real read-only totals and browser stop/unavailable states verified without provider calls. Scheduled phase acceptance remains due at 15:00 UTC.
 
 - [x] STEERING 50 (1288): admin private test editions now offer independent AI editing and paid-X opt-ins, both off by default. Four intercepted desktop/mobile light/dark browser checks cover all combinations, refusal/no retry and private-only writes; screenshots updated. Phase-0 scheduled acceptance remains open.

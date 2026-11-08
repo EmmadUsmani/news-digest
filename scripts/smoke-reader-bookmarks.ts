@@ -70,7 +70,10 @@ async function smoke() {
           other.getByRole('link', { name: story.title, exact: true }),
         ).toHaveAttribute('href', story.url);
         await expect(
-          other.getByRole('link', { name: 'View edition', exact: true }),
+          other.getByRole('link', {
+            name: `View edition containing saved item: ${story.title}`,
+            exact: true,
+          }),
         ).toHaveAttribute('href', `/editions/${edition.id}`);
         await other.screenshot({
           path: `docs/screenshots/ui/saved-${device}-${theme}.png`,
@@ -228,7 +231,10 @@ async function smoke() {
             card.getByRole('link', { name: item.title, exact: true }),
           ).toHaveAttribute('href', item.url);
           await expect(
-            card.getByRole('link', { name: 'View edition', exact: true }),
+            card.getByRole('link', {
+              name: `View edition containing saved item: ${item.title}`,
+              exact: true,
+            }),
           ).toHaveAttribute('href', `/editions/${historical.id}`);
           await card
             .getByRole('button', {

@@ -123,3 +123,11 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - `pnpm build`, web rebuild and `check-handbook.ts 04-edition-pipeline` pass; full five-response publication comparison unchanged. Required `pnpm format`/`pnpm lint:fix` run; full check result below.
 - Four app services restarted and health passes. VM stays private, no provider spend or later-phase work.
 - Final `pnpm check` passes: 625 unit/233 integration, four expected skips; `git diff --check` clean. Committing/pushing, then restarting four services against main and checking health/alerts. Next: passive metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1294 — identifiable saved-edition links
+
+- Clean main/no leftovers; alerts/health clear, all 36 sources healthy and zero failed digest jobs. Normal scheduled acceptance remains due at 15:00 UTC; passive metrics check ≥05:21 UTC.
+- Saved cards repeated the same accessible “View edition” link name. Each link now includes its saved story/post title, so assistive navigation identifies the destination context. Visible text and saved copies unchanged.
+- Extended existing actual-content bookmark browser checks for current/historical edition link names across desktop/mobile light/dark; screenshots refreshed. No provider calls or backend writes.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (625 unit/233 integration, four expected skips). `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes all four views; saved desktop screenshot inspected.
+- `compare-publication-content.ts compare` verifies five complete reader responses unchanged; `git diff --check` clean. No handbook flow change. Committing/pushing and restarting four app services; VM remains private, no spend.

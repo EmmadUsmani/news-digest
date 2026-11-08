@@ -69,6 +69,7 @@ export function ReaderSaved() {
                   <Link
                     to="/editions/$id"
                     params={{ id: copy.editionId }}
+                    aria-label={`View edition containing saved item: ${copy.title}`}
                     className="text-sm text-[var(--accent)]"
                   >
                     View edition
