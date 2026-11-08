@@ -86,6 +86,6 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
 - The Anthropic smoke command uses one development-funded Haiku call and
   verifies durable replay suppression without production accounting.
 - Admin test editions accept `aiEditing: true` through the isolated Anthropic
-  runtime. Paid X search remains unavailable.
+  runtime; `paidXSearch: true` selects the separate development X runtime.
 - The admin edition form defaults to free private tests using stored content.
   AI editing explicitly uses development funds; paid X search stays off.

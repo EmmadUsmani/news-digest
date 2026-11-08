@@ -57,6 +57,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1287): HTTP private test editions accept explicit boolean paid-X opt-in through the isolated runtime; free defaults retained. Offline HTTP checks cover disabled-runtime refusal, private saves/reader exclusion and stopped-search rollback. Admin paid-X UI remains next.
+
 - [x] STEERING 50 (1274): isolated development editorial composition shares one stop latch across article/social triage, editors and optional grouping, with per-edition triage cache only. Offline isolation/success/stop checks pass; paid HTTP wiring remains next.
 
 - [x] STEERING 50 (1273): isolated development JSON editor bridge maps fixed model roles, allocates distinct parallel-call holds, validates completed output without repair calls and latches off on refusal/report/uncertain results. Existing shortlist editor verified offline; paid HTTP options remain disabled pending full composition.

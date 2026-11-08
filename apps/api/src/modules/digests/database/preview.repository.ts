@@ -228,11 +228,11 @@ export class PostgresPreviewRepository
     start: Date,
     end: Date,
     aiEditing = false,
+    paidXSearch = false,
     development?: (
       editionId: string,
     ) => ReturnType<typeof developmentEditorialServices>,
     developmentPosts?: (editionId: string) => DevelopmentPostSelection,
-    paidXSearch = false,
   ): Promise<DigestPreview> {
     const editionId = crypto.randomUUID();
     if (aiEditing) {

@@ -166,3 +166,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Seven focused offline tests pass; disposable-database characterization verifies disabled-runtime refusal/no save and configured-runtime private snapshot/reader exclusion. No live provider calls or spend.
 - `pnpm check` passes (625 unit, 233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix`, handbook check (18 pages/schema metadata) and diff checks pass. Inventory plus publication-content comparison verifies all five complete published reader responses unchanged.
 - Committing/pushing and restarting four app services before final health/alerts. Next: HTTP paid-X wiring and normal scheduled acceptance; VM remains private.
+
+## 2026-11-08: iteration 1287 — private paid-X HTTP option
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, no failed digest jobs. Nov 8 scheduled acceptance remains due at 15:00 UTC.
+- Private test-edition HTTP now accepts explicit boolean paid-X opt-in through the isolated development runtime; free defaults and production caps unchanged. Updated repository port and affected handbook/plan pages.
+- Offline HTTP/database characterization verifies invalid options, disabled-runtime 503/no save, configured discovery/private snapshot/reader exclusion and budget-stop rollback. No live provider calls or spend; no UI changes.
+- `pnpm check` passes (625 unit/233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix`, handbook check (18 pages/22 diagrams) and diff checks pass. Inventory/content comparison verifies all five complete published reader responses unchanged.
+- Committing/pushing and restarting four app services before final health/alerts. Next: admin paid-X opt-in UI and normal scheduled acceptance; VM stays private.

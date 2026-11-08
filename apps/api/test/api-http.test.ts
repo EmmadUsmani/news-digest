@@ -726,7 +726,7 @@ void test('free admin test editions stay private and bypass production editorial
     ).rows;
   const before = await accounting();
   for (const options of [
-    { paidXSearch: true },
+    { paidXSearch: 'true' },
     { aiEditing: 'false' },
     { paidXSearch: null },
     { kind: 'scheduled' },
@@ -780,6 +780,7 @@ void test('free admin test editions stay private and bypass production editorial
     new Date(window.windowStart),
     new Date(window.windowEnd),
     false,
+    false,
     (id) => {
       factoryId = id;
       return developmentEditorialServices(
@@ -824,18 +825,7 @@ void test('free admin test editions stay private and bypass production editorial
   const beforeDisabledX = (
     await db.query('select count(*) from digest_previews')
   ).rows[0].count;
-  await assert.rejects(
-    async () =>
-      adapter.generateTest(
-        new Date(window.windowStart),
-        new Date(window.windowEnd),
-        false,
-        undefined,
-        undefined,
-        true,
-      ),
-    /Development X search is disabled/,
-  );
+  assert.equal((await post({ ...window, paidXSearch: true })).status, 503);
   assert.equal(
     (await db.query('select count(*) from digest_previews')).rows[0].count,
     beforeDisabledX,
@@ -878,14 +868,9 @@ void test('free admin test editions stay private and bypass production editorial
       },
     }),
   });
-  const runtimeX = await adapter.generateTest(
-    new Date(window.windowStart),
-    new Date(window.windowEnd),
-    false,
-    undefined,
-    undefined,
-    true,
-  );
+  const runtimeXResponse = await post({ ...window, paidXSearch: true });
+  assert.equal(runtimeXResponse.status, 201);
+  const runtimeX = digestPreviewSchema.parse(await runtimeXResponse.json());
   assert.equal(isolatedSearchCalls, 1);
   assert.equal(
     (await fetch(`${base}/api/editions/${runtimeX.id}`)).status,
@@ -899,6 +884,21 @@ void test('free admin test editions stay private and bypass production editorial
       )
     ).rows[0],
     { kind: 'test', published_at: null },
+  );
+  const beforeStoppedX = (
+    await db.query('select count(*) from digest_previews')
+  ).rows[0].count;
+  Object.defineProperty(adapter, 'developmentXRuntime', {
+    configurable: true,
+    value: () => ({
+      search: async () => ({ status: 'budget-refused', mustReport: true }),
+    }),
+  });
+  assert.equal((await post({ ...window, paidXSearch: true })).status, 500);
+  assert.equal(
+    (await db.query('select count(*) from digest_previews')).rows[0].count,
+    beforeStoppedX,
+    'Stopped HTTP X discovery saves no private edition',
   );
   const isolatedPost = {
     platform: 'x' as const,
@@ -916,6 +916,7 @@ void test('free admin test editions stay private and bypass production editorial
   const discovered = await adapter.generateTest(
     new Date(window.windowStart),
     new Date(window.windowEnd),
+    false,
     false,
     undefined,
     (id) => {
@@ -957,6 +958,7 @@ void test('free admin test editions stay private and bypass production editorial
     adapter.generateTest(
       new Date(window.windowStart),
       new Date(window.windowEnd),
+      false,
       false,
       undefined,
       () => async () => {
@@ -1016,6 +1018,7 @@ void test('free admin test editions stay private and bypass production editorial
     adapter.generateTest(
       new Date(window.windowStart),
       new Date(window.windowEnd),
+      false,
       false,
       (id) =>
         developmentEditorialServices(

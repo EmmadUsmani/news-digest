@@ -70,7 +70,8 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   `/api/admin/digest-previews/tests`. AI editing and paid X search default off;
   stored articles and X/Reddit posts use non-AI ranking by default. Set
   `aiEditing: true` for isolated development-funded editing when `LLM_LIVE=1`.
-  Tests appear only in admin and emit no edition alerts. Paid X is unavailable.
+  Set `paidXSearch: true` for isolated X discovery when `X_SEARCH_LIVE=1`.
+  Tests appear only in admin and emit no edition alerts.
   The preview smoke command uses this endpoint, free by default; `LLM_LIVE=1`
   enables development AI and creates one private test edition. The admin form
   also creates private tests, with AI off by default and an explicit AI option.

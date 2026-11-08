@@ -25,6 +25,7 @@ export abstract class PreviewRepository {
     start: Date,
     end: Date,
     aiEditing?: boolean,
+    paidXSearch?: boolean,
   ): Promise<DigestPreview>;
   abstract findByGenerationKey(key: string): Promise<{ id: string } | null>;
   abstract history(

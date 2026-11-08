@@ -49,7 +49,6 @@ export class PreviewController {
   }
   @Post('tests')
   generateTest(@Body() body: unknown) {
-    // Paid X stays closed until its isolated test-edition path is connected.
     if (
       !body ||
       typeof body !== 'object' ||
@@ -61,10 +60,10 @@ export class PreviewController {
           ),
       ) ||
       ('aiEditing' in body && typeof body.aiEditing !== 'boolean') ||
-      ('paidXSearch' in body && body.paidXSearch !== false)
+      ('paidXSearch' in body && typeof body.paidXSearch !== 'boolean')
     )
       throw new BadRequestException(
-        'Provide boolean AI editing and keep paid X search off',
+        'Provide boolean AI editing and paid X search options',
       );
     const { start, end } = this.window({
       windowStart: 'windowStart' in body ? body.windowStart : undefined,
@@ -74,6 +73,7 @@ export class PreviewController {
       start,
       end,
       'aiEditing' in body && body.aiEditing === true,
+      'paidXSearch' in body && body.paidXSearch === true,
     );
   }
   @Post('jobs')
