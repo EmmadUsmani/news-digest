@@ -1109,7 +1109,60 @@ void test('free admin test editions stay private and bypass production editorial
     },
     configurable: true,
   });
-  const durableResponse = await post({ ...window, aiEditing: true });
+  const { prepareDevelopmentXRuntime, developmentXAttemptId } =
+    require('../dist/development-x-runtime.js') as typeof import('../src/development-x-runtime');
+  const xReservationIds: string[] = [];
+  let xProviderCalls = 0;
+  Object.defineProperty(adapter, 'developmentXRuntime', {
+    configurable: true,
+    value: () => {
+      const runtime = prepareDevelopmentXRuntime({
+        db,
+        env: { X_SEARCH_LIVE: '1', XAI_API_KEY: 'offline-fixture' },
+        fetch: async () => {
+          xProviderCalls++;
+          return new Response(
+            JSON.stringify({
+              status: 'completed',
+              output: [
+                {
+                  type: 'custom_tool_call',
+                  name: 'x_keyword_search',
+                  status: 'completed',
+                  input: '{}',
+                },
+              ],
+              usage: {
+                input_tokens: 10,
+                output_tokens: 3,
+                server_side_tool_usage_details: {
+                  x_posts_fetched: 0,
+                  x_users_fetched: 0,
+                },
+              },
+            }),
+            { headers: { 'content-type': 'application/json' } },
+          );
+        },
+      })!;
+      return {
+        search: (
+          request: Parameters<typeof runtime.search>[0],
+          attempt: string,
+        ) => {
+          const id = developmentXAttemptId(attempt);
+          xReservationIds.push(id);
+          reservationIds.push(id);
+          return runtime.search(request, attempt);
+        },
+      };
+    },
+  });
+  const durableResponse = await post({
+    ...window,
+    aiEditing: true,
+    paidXSearch: true,
+  });
   assert.equal(
     durableResponse.status,
     201,
@@ -1119,16 +1172,39 @@ void test('free admin test editions stay private and bypass production editorial
     await durableResponse.json(),
   );
   assert.ok(providerCalls > 0);
-  assert.equal(providerCalls, reservationIds.length);
+  assert.equal(providerCalls + xProviderCalls, reservationIds.length);
+  assert.ok(xProviderCalls > 0);
+  assert.equal(new Set(xReservationIds).size, xProviderCalls);
+  assert.equal(xReservationIds.length, xProviderCalls);
   const charges = (
     await db.query(
       'select provider, cost_micros from development_spend_reservations where id = any($1::uuid[])',
       [reservationIds],
     )
   ).rows;
-  assert.equal(charges.length, providerCalls);
-  assert.ok(
-    charges.every((row) => row.provider === 'anthropic' && row.cost_micros > 0),
+  assert.equal(charges.length, providerCalls + xProviderCalls);
+  assert.ok(charges.every((row) => row.cost_micros > 0));
+  assert.equal(
+    charges.filter((row) => row.provider === 'anthropic').length,
+    providerCalls,
+  );
+  assert.equal(
+    charges.filter((row) => row.provider === 'xai').length,
+    xProviderCalls,
+  );
+  assert.equal(
+    charges.find((row) => row.provider === 'xai')?.cost_micros,
+    20,
+    'Recorded X token usage settles at fixed development pricing',
+  );
+  assert.deepEqual(
+    (
+      await db.query(
+        'select kind,published_at from digest_previews where id=$1',
+        [durableSnapshot.id],
+      )
+    ).rows[0],
+    { kind: 'test', published_at: null },
   );
   assert.equal(
     (await fetch(`${base}/api/editions/${durableSnapshot.id}`)).status,

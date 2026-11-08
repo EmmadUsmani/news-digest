@@ -183,3 +183,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - `pnpm build` and handbook check (18 pages/22 diagrams/schema metadata) pass. Inventory plus publication-content comparison verifies all five complete published reader responses unchanged.
 - First `pnpm check` ended with SIGTERM during unit output, without a reported test failure; full rerun started to obtain complete verification.
 - Full rerun `pnpm check` passes (625 unit/233 integration, four expected skips); required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four app services before final health/alerts. Next: phase-0 acceptance and normal scheduled review; VM remains private.
+
+## 2026-11-08: iteration 1289 — combined development-provider acceptance
+
+- Clean main/no leftovers; health/alerts clear, sources healthy, no failed digest jobs; next scheduled edition Nov 8 15:00 UTC. Unsupported combined jobs-check options corrected to the queue-filtered read command.
+- Extended disposable-Postgres admin HTTP acceptance to request AI and paid X together through real runtime compositions with recorded HTTP responses. Both providers must settle positive development charges; provider-call/reservation counts match, reader direct access stays 404 and production ledgers remain unchanged.
+- No live provider calls or spend. Phase 0 remains open until a normal scheduled publication; no phase-1 work started.
+- Inventory/content comparison verifies all five complete published reader responses unchanged; `pnpm build` passes. Initial checks exposed two test-fixture assumptions (missing completed-search evidence, then one call assumed despite four eligible topics); corrected both. Final `pnpm check` passes (625 unit/233 integration, four expected skips).
+- Required `pnpm format`/`pnpm lint:fix` and diff checks before commit; committing/pushing, then restarting four app services and checking health/alerts. No UI/handbook behavior changed. Next: phase-0/phase-2 scheduled acceptance at 15:00 UTC.
