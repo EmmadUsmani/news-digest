@@ -8,6 +8,7 @@ const integration = new Set([
   'bluesky-storage.test.ts',
   'api-http.test.ts',
   'accounts-schema.test.ts',
+  'account-deletion-storage.test.ts',
   'account-runtime-storage.test.ts',
   'login-code-admission.test.ts',
   'login-code-repository.test.ts',

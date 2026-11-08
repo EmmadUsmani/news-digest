@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1418: Added isolated composed account-storage acceptance for mailbox login, cross-runtime sessions, concurrent friend redemption and logout isolation; accounts remain disabled.
+- [x] Iteration 1419: Prepared session-owned transactional account deletion with isolated concurrency/rollback/privacy acceptance; transport, mailbox/sync cleanup and in-flight issuance coordination pending; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

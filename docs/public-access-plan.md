@@ -190,6 +190,15 @@ tokens after any attempt. Isolated desktop/mobile browser checks cover preview,
 success, replay and reload behavior. Main registration and verified proxy wiring
 remain pending; accounts stay disabled.
 
+Prepared account deletion now derives ownership only from a session hash inside
+one transaction. It locks/rechecks the session, removes pending email codes and
+recipient links/audit rows, and deletes the identity with cascading sessions and
+issuer audit rows. Isolated storage acceptance covers concurrent two-device
+requests, revoked/unknown credentials, rollback and another account's isolation.
+This adapter and application service remain unregistered. Route confirmation,
+mailbox cleanup, sync-data cascades and coordination with in-flight login/link
+issuance must be completed before enabling deletion.
+
 ## Target design
 
 ### System-level data

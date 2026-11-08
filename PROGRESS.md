@@ -117,3 +117,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check`: static checks/660 unit/249 integration tests pass, four expected skips.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook public-access check reports existing metadata for unapplied edition/account tables (exit 1); no handbook behavior or diagrams changed.
 - Updated TASKS/rollout plan. Next: pre-noon phase 1 backup/rollout and scheduled acceptance, then account registration and verified proxy wiring. Restart API/worker after commit/push and repeat health/reader checks.
+
+## 2026-11-08: iteration 1419 — prepared session-owned account deletion
+
+- Clean main/no leftovers; alerts zero, health good, no failed user services; all 36 active sources healthy. Digest queue zero failures; retained ingestion/social failures unchanged at two each.
+- Prepared disconnected deletion application/port and Drizzle transaction: derive identity from session hash, lock/recheck ownership, remove pending codes/links and personal audit rows, cascade all sessions through identity deletion. No caller user ID is accepted.
+- Added isolated storage acceptance for unknown/revoked tokens, concurrent two-device requests, another account's isolation and rollback after an injected final-delete failure. Route confirmation, mailbox/sync cleanup and in-flight issuance coordination remain prerequisites to activation.
+- Accounts remain disabled/unregistered and VM private; no live migration, generation change or provider call. Phase 1 rollout waits for the next pre-noon window.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check`: static checks/660 unit tests pass; initial integration run caught a test assertion inspecting Drizzle’s wrapper instead of its cause. Corrected assertion; `pnpm test:integration` exits 0 with 250 passes/four expected skips. Final format/lint pass.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook public-access check reports existing metadata for unapplied edition/account tables; no handbook behavior or diagrams changed.
+- Updated TASKS/rollout plan. After commit/push, restart API/worker and repeat health/reader checks. Next: pre-noon phase 1 rollout/acceptance, then account registration, sync and verified proxy wiring.
