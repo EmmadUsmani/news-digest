@@ -56,14 +56,25 @@ async function main() {
           const links = card.locator('details.coverage li > a');
           assert.equal(await links.count(), count);
           for (let index = 0; index < count; index++) {
+            const report = links.nth(index);
+            const bounds = await report.boundingBox();
+            assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44);
+            await report.focus();
+            await page.keyboard.press('Tab');
+            await page.keyboard.press('Shift+Tab');
             assert.equal(
-              await links.nth(index).getAttribute('href'),
+              await report.evaluate((el) => getComputedStyle(el).outlineStyle),
+              'solid',
+            );
+            assert.equal(
+              await report.getAttribute('href'),
               story.coverage![index].url,
             );
           }
           assert.ok(
             await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
           );
+          await control.focus();
           await page.keyboard.press('Enter');
           assert.equal(
             await card.locator('details.coverage').getAttribute('open'),
@@ -80,7 +91,7 @@ async function main() {
       }
     }
     console.log(
-      `${stories.length} saved coverage controls name their story; keyboard expansion, report destinations and layout pass desktop/mobile light/dark. GET-only; external traffic blocked.`,
+      `${stories.length} saved coverage controls name their story; keyboard expansion, 44px report targets, focus outlines, destinations and layout pass desktop/mobile light/dark. GET-only; external traffic blocked.`,
     );
   } finally {
     await browser.close();

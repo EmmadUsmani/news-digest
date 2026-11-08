@@ -122,3 +122,11 @@
 - App `/healthz` and Grafana `:3001/grafana/api/health` pass. Initial Grafana check used the wrong port 3000; corrected to documented 3001. Metrics process has zero restarts since Nov 7 16:00:24 UTC.
 - Updated recovery handoff only; no code, provider calls, limits or edition-generation changes. Next passive check ≥09:25 UTC; scheduled phase-0/phase-2 acceptance at 15:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit, 233 integration, four expected skips. Documentation-only commit; existing runtime build retained; normal four-service restart follows push.
+
+## 2026-11-08: iteration 1322 — easier report links in expanded coverage
+
+- Clean main/no leftovers. `pnpm obs alerts`, `services --check`, `sources --check`, `jobs --check` pass: no active alerts, 14 services and 36 sources healthy; scheduled edition queued for 15:00 UTC. Metrics next due ≥09:25 UTC, not sampled early.
+- Read published edition: thin Tech reporting and historical Davis cutoff already have documented causes/future fixes. Reader-visible improvement: expanded coverage report titles now have 44px minimum touch targets and explicit keyboard focus, making original reports easier to open.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-coverage-labels.ts` pass: all 20 published story coverage controls, report destinations, touch targets, focus outlines and layout in desktop/mobile light/dark. Four screenshots refreshed; mobile dark inspected. GET-only traffic, external requests blocked, no provider spend.
+- Latest reader endpoint returns four topics, 20 stories and 18 posts; `/healthz` passes. No data-flow or public-access change; VM stays private.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit and 233 integration passes, four expected skips. Normal four-service restart follows commit/push. Next: metrics probe ≥09:25 UTC and scheduled phase-0/phase-2 acceptance at 15:00 UTC.

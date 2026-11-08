@@ -71,7 +71,7 @@ export function StorySources({
                   href={article.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="block text-sm font-normal hover:text-[var(--accent)]"
+                  className="flex min-h-11 min-w-11 items-center rounded-md py-2 text-sm font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 >
                   {article.title}
                 </a>
