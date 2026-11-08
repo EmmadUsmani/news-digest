@@ -23,14 +23,15 @@ export function ReaderPreferences({
       <p className="text-sm text-[var(--secondary)]">
         Choose topics to show in this browser. New topics appear automatically.
       </p>
-      <div className="space-y-4 py-4">
+      <div className="space-y-2 py-4">
         {topics.map((topic) => (
           <label
             key={topic.id}
-            className="flex cursor-pointer items-center gap-3"
+            className="flex min-h-11 cursor-pointer items-center gap-3 rounded-md px-3 py-2 hover:bg-[var(--muted)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--accent)]"
           >
             <input
               type="checkbox"
+              className="size-4 shrink-0 accent-[var(--accent)]"
               checked={!preferences.hiddenTopics[topic.id]?.hidden}
               onChange={(event) =>
                 preferences.setHidden(topic.id, !event.target.checked)

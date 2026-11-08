@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1296: saved excerpts preserve post line breaks and contain long links; actual-content browser checks cover desktop/mobile light/dark. Scheduled acceptance remains due at 15:00 UTC.
+- [x] Iteration 1297: topic picker rows offer 44-pixel touch targets and keyboard focus outlines; verify padding taps and saved preferences across desktop/mobile light/dark. Scheduled acceptance remains due at 15:00 UTC.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

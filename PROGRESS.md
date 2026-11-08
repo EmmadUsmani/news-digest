@@ -147,3 +147,11 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. First combined format/lint/check process was terminated during unit tests without a reported test failure; standalone full check rerun passed.
 - `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark, current/historical copies, cross-tab updates, formatting and overflow. Refreshed four saved-page screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise.
 - Committing/pushing and restarting four app services against main; final health/alerts checked after restart. VM private, no provider spend. Next: metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1297 — easier topic selection on touch screens
+
+- Clean main/no leftover work. Alerts/health and source checks pass; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check not due until ≥05:21 UTC.
+- Reader weakness: topic-picker labels had small touch targets. Each full row now offers at least 44 pixels of height, a larger checkbox and a visible keyboard-focus outline. The owner can hide/restore topics more easily on mobile.
+- Extended `pnpm exec tsx scripts/smoke-reader-preferences.ts`: verifies every target's dimensions and restores a topic by tapping row padding. All desktop/mobile light/dark checks pass, including persistence, historical editions, cross-tab changes and blocked storage.
+- Refreshed four topic-menu screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise. No backend writes/provider calls or handbook flow changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. Committing/pushing and restarting four services against main; scheduled phase acceptance remains due at 15:00 UTC, VM private.

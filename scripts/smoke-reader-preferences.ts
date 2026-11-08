@@ -105,14 +105,21 @@ async function smoke() {
         ).toHaveCount(0);
         await page.goto(`${origin}/editions/${edition.id}`);
         await page.getByRole('button', { name: 'Topics', exact: true }).click();
+        for (const checkbox of await dialog.getByRole('checkbox').all()) {
+          const target = checkbox.locator('..');
+          const bounds = await target.boundingBox();
+          assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+        }
         for (const checkbox of await dialog.getByRole('checkbox').all())
           await checkbox.uncheck();
         await expect(
           page.getByRole('status', { includeHidden: true }),
         ).toContainText('All topics are hidden');
+        // Tap the row padding, outside the checkbox and text.
         await dialog
           .getByRole('checkbox', { name: edition.topics[0].name, exact: true })
-          .check();
+          .locator('..')
+          .click({ position: { x: 4, y: 4 } });
         await page.screenshot({
           path: `docs/screenshots/reader-topics-menu-${device}-${theme}.png`,
         });
