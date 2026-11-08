@@ -2313,3 +2313,13 @@ display copy; malformed facets leave text unchanged. No extra hourly queries,
 media fetches, paid calls or source additions. New observation snapshots and
 selected editions carry the display copy; historical editions stay immutable.
 [Diagnosis and verification](edition-reviews/2026-11-07.md#prepared-bluesky-link-recovery--iteration-1221).
+
+### Nov 8 Bluesky acceptance — iteration 1384
+
+Scheduled edition: 2,376 read, 15 shortlisted, five selected across Tech/NBA/World;
+Gaming had no shortlist. No X replacement or selection drop. Scoring/editing
+cost $0.036338, versus Nov 7 $0.061842. Saved engagement varies from 213 likes
+(Tech) to one (World); strong viral quality remains unestablished. Newly saved
+Global News shortened-link expansion passes served-reader desktop/mobile checks;
+Stuff supplies a homepage only. [Selection, cost and screenshots](edition-reviews/2026-11-08.md#bluesky-selection-cost-and-links--iteration-1384).
+Nov 9 third-edition acceptance remains due; no source or runtime setting changed.

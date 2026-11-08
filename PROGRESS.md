@@ -97,3 +97,13 @@
 - Recorded per-purpose $0.320864/43 settled calls/zero unresolved or holds, down $0.059309. Overall 162.339 s/420 candidates, both speed targets unmet; different workload prevents causal speedup claims.
 - No provider calls, data writes, deployment or restart; preserved 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC. Selection/Bluesky cost/phase acceptance remains open; no phase ack.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Offline timeline evaluator, conservation/ledger assertions, scheduled-reader check and `git diff --check` pass. Evidence/docs only; protected-window restart exception applies. Next: saved social novelty/Bluesky selection and cost comparisons, then phase gates.
+
+## 2026-11-08: iteration 1384 — review saved Bluesky picks and link destinations
+
+- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. Scheduled-reader latest/direct/history passes: four topics, 19 stories/17 posts.
+- Read every saved original post/reason. Five distinct Bluesky picks fill open slots, zero X replacements; all 17 posts have no repeated development. NBA still includes a routine availability list; World's low-engagement secondhand picks leave viral quality unestablished.
+- Worker per-topic settlements attribute Bluesky scoring $0.010052/editing $0.026286, total $0.036338 (Nov 7 $0.061842); editing sum matches ledger. Gaming spends $0.002639 on triage without a shortlist. Zero saved drops/refusals/holds.
+- Temporary GET/HEAD-only Playwright check verifies actual Nov 8 Global News article and Stuff homepage hrefs on desktop/mobile light/dark, zero page errors or text overflow; external traffic blocked. Inspected two real-content screenshots. Original shortened text remains saved; homepage is not an article link.
+- Initial temporary script failed CJS top-level await, then an incorrectly scoped locator timed out; corrected both and all browser checks pass. Removed temporary scripts. No application change, paid calls, fetches to sources or data writes.
+- Updated daily review, source acceptance and TASKS. Keyword paid novelty and phase acknowledgments remain next; Nov 9 third-edition acceptance stays open. No deployment/restart during protected 13:00–16:00 window (evidence/docs/screenshots only).
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Browser link check (`node scripts/.iteration-1384-links.cjs`, removed after use), settlement-sum assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.
