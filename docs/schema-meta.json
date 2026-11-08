@@ -9,6 +9,7 @@
       "tables": [
         "profiles",
         "digest_schedules",
+        "edition_settings",
         "topics",
         "topic_source_connections",
         "x_search_topic_settings"
@@ -95,6 +96,7 @@
   ],
   "tables": {
     "profiles": "The single owner profile. Everything hangs off it.",
+    "edition_settings": "System-wide schedule and default edition budgets; a single row copied from the owner schedule during phase 1 migration.",
     "digest_schedules": "When editions are generated (cron + timezone), the coverage window and default story/post budgets.",
     "topics": "A digest section (Tech & AI, NBA, …): guidance, budgets, curated X accounts, a Bluesky search query and relevance rules.",
     "topic_source_connections": "Many-to-many: which sources feed which topic. Only connected sources are collected.",

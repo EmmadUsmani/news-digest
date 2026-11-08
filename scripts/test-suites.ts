@@ -26,6 +26,7 @@ const integration = new Set([
   'preview-history.test.ts',
   'published-reader.test.ts',
   'profile-repository.test.ts',
+  'system-settings-migration.test.ts',
   'reddit-collection.test.ts',
   'reddit-communities.test.ts',
   'relevance.test.ts',

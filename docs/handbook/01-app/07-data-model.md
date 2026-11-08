@@ -4,6 +4,11 @@ Postgres holds about 24 tables in five areas. Most of the app's state is
 simple: settings, collected content, ledgers, and editions as immutable
 snapshots.
 
+> [!NOTE]
+> The prepared phase-1 migration adds `edition_settings`, a single system
+> schedule copied from the current owner schedule. It is not applied live;
+> the app still uses the profile schedule. See the [rollout plan](../../public-access-plan.md).
+
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain
 the discovery label.

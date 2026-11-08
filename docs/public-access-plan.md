@@ -53,7 +53,11 @@ mapped to profiles, and profiles go away.
   The Nov 3–8 scheduled editions are published. Phases 0 and 2 passed the
   normal Nov 8 scheduled acceptance, including original-response comparisons
   and browser preferences/bookmarks. [Acceptance record](edition-reviews/2026-11-08.md#phase-0-and-phase-2-acceptance--iteration-1386).
-  Phase 1 is next; public access remains owner-gated.
+  Phase 1 foundation is prepared in migration `0011`: a single-row
+  `edition_settings` table copies the configured owner schedule and refuses a
+  missing schedule. It is not applied live; profile reads/writes remain
+  authoritative. Nullable ownership and flagged reads/dual writes are next.
+  Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous
   Viewer access, and its Postgres role has column-level grants only

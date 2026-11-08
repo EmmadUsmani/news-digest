@@ -125,3 +125,13 @@
 - GET-only admin status via `localAdminJson` confirms both development providers charged/held/unresolved $0/$0/0. Retained recorded-provider accounting acceptance (1289), deployed free-test exclusion (1290), inspected browser acceptance (1381); no duplicate paid verification.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. `git diff --check` passes. Orientation output was initially overbroad; subsequent reads were narrowed.
 - Evidence/docs only: no provider calls, source fetches, data writes, deployment or restart during protected 13:00–16:00 UTC window; live application unchanged. VM stays private; phases 5–7 remain owner-gated. Next: additive phase-1 ownership/settings preparation, respecting migration/deployment restrictions.
+
+## 2026-11-08: iteration 1387 — prepare the system-settings foundation
+
+- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy, no failed user units. Scheduled-reader Nov 8 check passes: four topics, 19 stories/17 posts.
+- Prepared generated migration `0011_system_edition_settings`, schema snapshot and explorer metadata: one constrained system settings row copies the actual configured owner schedule; missing owner schedule aborts the transaction. Existing profile reads/writes are unchanged.
+- Isolated PostgreSQL test verifies custom timezone/window/budget backfill, foreign-schedule exclusion, singleton and budget/null constraints, and missing-schedule DDL rollback. Complete schema parity and strict Drizzle no-change tests pass.
+- Updated rollout plan, handbook callout and TASKS. Phase 1 remains open: nullable ownership, SYSTEM_OWNERSHIP reads and transactional dual writes are next; do not apply this foundation alone and let it become stale before those writes exist.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check`, `git diff --check` pass: 629 unit/234 integration passes, four expected skips. Offline `drizzle-kit generate --name=system_edition_settings` used; no provider calls.
+- `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams render; only two expected metadata warnings for the prepared, unapplied edition_settings table. No changed diagrams or reader UI.
+- No live migration, source fetch, deployment or restart: STEERING 50 prohibits generation changes after noon (and all migrations/restarts 13:00–16:00). Live runtime remains unchanged; private backup and restored-copy rehearsal required before a future pre-noon migration. No phase ack or public access change.

@@ -62,6 +62,30 @@ export const digestSchedules = pgTable(
   ],
 );
 
+// Phase 1 foundation; profile reads remain authoritative until SYSTEM_OWNERSHIP.
+export const editionSettings = pgTable(
+  'edition_settings',
+  {
+    id: integer().primaryKey().default(1).notNull(),
+    cadence: text().notNull(),
+    timezone: text().notNull(),
+    coverageWindow: text('coverage_window').notNull(),
+    storyBudget: integer('story_budget').notNull(),
+    postBudget: integer('post_budget').notNull(),
+  },
+  () => [
+    check('edition_settings_singleton_check', sql`id = 1`),
+    check(
+      'edition_settings_story_budget_check',
+      sql`story_budget BETWEEN 0 AND 20`,
+    ),
+    check(
+      'edition_settings_post_budget_check',
+      sql`post_budget BETWEEN 0 AND 20`,
+    ),
+  ],
+);
+
 export const contentItems = pgTable(
   'content_items',
   {
