@@ -108,3 +108,12 @@
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. `pnpm exec tsx scripts/check-handbook.ts public-access` exits 0 with existing metadata notes for unapplied edition/account tables; no handbook behavior or diagrams changed.
 - Updated TASKS/rollout plan. No migrations, provider calls or activation; accounts disabled and VM private. Phase 1 rollout waits for the next pre-noon window, then scheduled acceptance; prepared phase 3 remains off until acceptance.
 - After commit/push, restart API/worker and repeat health/reader checks so live matches main.
+
+## 2026-11-08: iteration 1418 — composed account storage acceptance
+
+- Clean main/no leftovers; alerts zero, health good, no failed user services; all 36 active sources healthy. Digest queue zero failures; two retained ingestion/social failures each unchanged.
+- Added isolated composition acceptance with actual Postgres repositories, Redis admission and owner-only stand-in mailbox. Two runtime instances share persisted admin login and sessions; replay fails, concurrent friend-link redemption creates exactly one non-admin session, friend issuance is refused and all-device logout preserves the admin session.
+- Registered the check in the integration suite; runtime remains unregistered, accounts disabled and VM private. No migration, provider calls or live generation changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check`: static checks/660 unit/249 integration tests pass, four expected skips.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook public-access check reports existing metadata for unapplied edition/account tables (exit 1); no handbook behavior or diagrams changed.
+- Updated TASKS/rollout plan. Next: pre-noon phase 1 backup/rollout and scheduled acceptance, then account registration and verified proxy wiring. Restart API/worker after commit/push and repeat health/reader checks.

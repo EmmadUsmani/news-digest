@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1417: Prepared proxy client admission parser; forged-prefix, untrusted-peer, duplicate/malformed header and canonical IP tests pass. Unregistered; accounts disabled; phase 1 rollout and acceptance remain first.
+- [x] Iteration 1418: Added isolated composed account-storage acceptance for mailbox login, cross-runtime sessions, concurrent friend redemption and logout isolation; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

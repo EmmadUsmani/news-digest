@@ -101,6 +101,11 @@ peers fail closed; equivalent IPv4/IPv6 spellings share a bucket. The parser is
 unregistered. Verify the live peer and forged-prefix behavior before configuring
 trust or activating accounts; no proxy address or network is assumed trusted.
 
+An isolated composed-storage check now exercises stand-in mailbox login through
+real Postgres and Redis, cross-runtime session authentication, concurrent single-use
+friend redemption, non-admin issuance refusal and all-device logout isolation.
+This does not register routes or enable accounts.
+
 Phase 3 preparation has begun while phase 1 awaits its pre-noon rollout and
 scheduled acceptance. Unapplied migration `0013` adds independent `users` and
 `sessions`: normalized unique emails, unique SHA-256 token hashes, cascading
