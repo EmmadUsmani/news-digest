@@ -50,3 +50,5 @@ Iteration 1299: `smoke-reader-bookmarks.ts` verifies Saved items removal feedbac
 Iteration 1300: story and post Save buttons have touch targets of at least 44 × 44 pixels, checked by `smoke-reader-bookmarks.ts` in all four viewport/theme combinations: [desktop light](reader-save-target-desktop-light.png), [desktop dark](reader-save-target-desktop-dark.png), [mobile light](reader-save-target-mobile-light.png), [mobile dark](reader-save-target-mobile-dark.png).
 
 Iteration 1301: Saved items Remove and View edition actions have at least 44 × 44 pixel touch targets for stories, X and Bluesky copies, verified in desktop/mobile light/dark. Refreshed the four saved-page screenshots above.
+
+Iteration 1302: the empty Saved items page links directly to the latest edition. Keyboard activation and the destination story are checked in desktop/mobile light/dark: [desktop light](saved-empty-desktop-light.png), [desktop dark](saved-empty-desktop-dark.png), [mobile light](saved-empty-mobile-light.png), [mobile dark](saved-empty-mobile-dark.png).

@@ -47,9 +47,17 @@ export function ReaderSaved() {
         {announcement}
       </p>
       {saved.length === 0 && (
-        <p>
-          No saved items yet. Use Save beside a story or post in an edition.
-        </p>
+        <div className="space-y-4">
+          <p>
+            No saved items yet. Use Save beside a story or post in an edition.
+          </p>
+          <Link
+            to="/"
+            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          >
+            Browse the latest edition
+          </Link>
+        </div>
       )}
       <ul className="list-none space-y-6 pl-0">
         {saved.map(

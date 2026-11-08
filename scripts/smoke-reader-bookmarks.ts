@@ -129,6 +129,25 @@ async function smoke() {
         await expect(
           other.getByText('No saved items yet.', { exact: false }),
         ).toBeVisible();
+        const browse = other.getByRole('link', {
+          name: 'Browse the latest edition',
+        });
+        await expect(browse).toHaveAttribute('href', '/');
+        await other.keyboard.press('Tab');
+        await expect(browse).toBeFocused();
+        await other.screenshot({
+          path: `docs/screenshots/ui/saved-empty-${device}-${theme}.png`,
+          fullPage: true,
+        });
+        await browse.press('Enter');
+        await expect(other).toHaveURL(`${origin}/`);
+        await expect(
+          other.getByRole('button', {
+            name: `Save story: ${story.title}`,
+            exact: true,
+          }),
+        ).toBeVisible();
+        await other.goto(`${origin}/saved`);
         await save.click();
         await expect(
           other.getByRole('link', { name: story.title, exact: true }),

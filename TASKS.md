@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1301: Saved items Remove/View edition controls now offer 44 × 44 pixel minimum touch targets and visible edition-link keyboard focus; actual-edition browser checks cover desktop/mobile light/dark. Scheduled acceptance remains due at 15:00 UTC.
+- [x] Iteration 1302: empty Saved items now links to the latest edition; keyboard navigation and actual-edition destination verified on desktop/mobile light/dark. Scheduled acceptance remains due at 15:00 UTC.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
