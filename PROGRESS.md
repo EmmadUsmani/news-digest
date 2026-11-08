@@ -1,73 +1,3 @@
-## 2026-11-08: iteration 1393 — rehearse system ownership on private restore
-
-- Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Added `python3 ops/backups/rehearse_system.py`: fresh private snapshot backup, checksum/count-verified networkless restore, pending 0011/0012 SQL in one transaction, unconditional container cleanup.
-- Final rehearsal: backup `news-digest-20261108T165928Z`, 30 tables/54,484 rows restored; all 29 original data-table full-row fingerprints and existing foreign keys unchanged. Schedule copied exactly; four ownership columns nullable.
-- Injected failure after both migration files rolls back DDL, data and ledger entries. Receipt links backup/migration SHA256 checksums at `~/backups/news-digest/system-ownership-proof.json` (600); no row content printed, provider calls or secret reads.
-- SQL rehearsal does not run the TypeScript migration runner or adapter/HTTP/AI acceptance; those remain separate gates. Updated TASKS, rollout plan and backup handbook command.
-- Verification: four backup unit tests pass; handbook check passes (18 pages, no changed diagrams), with two existing unapplied edition_settings metadata warnings. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
-- No live migration/deployment/restart: STEERING 50's after-noon generation cutoff remains in force. Scratch container removed; live health remains green.
-- Next: every-edition preserved-response comparisons, actual runner/adapter checks and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
-
-## 2026-11-08: iteration 1394 — system ownership HTTP preservation
-
-- Clean main/no leftovers; alerts zero, health database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Extended isolated Nest HTTP acceptance to capture complete latest/direct/history responses for every original-owner fixture edition and all original history entries across every page, including private-edition 404s.
-- Deep comparisons cover SYSTEM_OWNERSHIP off/on/off rollback with publication filtering enabled and disabled. Pagination must advance and terminate; original flag values restored after test.
-- Initial full check exposed intentional foreign-owner history expansion from earlier fixtures; comparison now preserves original-owner entries while checking all pages and termination.
-- This verifies isolated fixtures only; restored-production response preservation, actual restored-copy runner/adapter and AI-off/recorded-AI-on acceptance remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
-- `pnpm exec tsx scripts/check-handbook.ts public-access` checks 18 pages/no diagrams; exits 1 only for the two existing unapplied edition_settings metadata warnings. No handbook behavior changed.
-- Updated TASKS and rollout plan. No provider calls, source/UI changes, secret reads or live data writes.
-- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
-- Next: restored-copy migration runner and every-edition HTTP comparisons, then AI acceptance before pre-noon rollout. Phase 1 remains open.
-
-## 2026-11-08: iteration 1395 — actual migration runner on private restore
-
-- Clean main/no leftovers; alerts zero, live health database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Extended `python3 ops/backups/rehearse_system.py` to execute the production TypeScript migration entry point twice against a fresh networkless restored backup, through a private Unix socket with no live configuration/provider credentials.
-- Final backup `news-digest-20261108T172201Z`: 30 tables/54,514 rows restored; 29 original data-table fingerprints, foreign keys and schedule parity preserved; four ownership columns nullable. Second run preserves complete data and migration-ledger fingerprints including timestamps.
-- Existing injected SQL failure still rolls back both pending migrations. Private receipt records actual-runner/idempotence checks and backup/migration hashes. Initial cleanup permission failure fixed; final run exits zero and removes scratch container/socket directory.
-- Four backup unit tests pass. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
-- Handbook check (`backups`) renders 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings. Updated affected backup handbook, rollout plan and TASKS; archived iterations 1381–1385 to keep PROGRESS small.
-- No provider calls, source/UI changes, live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
-- Next: restored-copy adapter/HTTP response comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.
-
-## 2026-11-08: iteration 1396 — restored-copy adapter preservation
-
-- Clean main/no leftovers; alerts zero, healthy live database/Redis, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Added private restored-copy read-adapter acceptance to `python3 ops/backups/rehearse_system.py`: all 550 stored editions, complete latest/direct/paginated history with both publication filters, topics and schedule settings match SYSTEM_OWNERSHIP off/on/off.
-- Fresh backup `news-digest-20261108T173020Z` restores 30 tables/54,524 rows; migration runner twice and injected rollback still pass. PostgreSQL enforces read-only comparison sessions; all data/ledger fingerprints unchanged after comparisons. Private receipt records parity; scratch socket/container removed.
-- No restored content printed, provider calls or live writes. Updated TASKS, rollout plan and affected backup handbook; restored-copy HTTP and AI acceptance remain separate gates.
-- Verification: four backup unit tests, `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass. Handbook (`backups`) checks 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings.
-- Full check totals: 629 unit and 239 integration passes; four expected integration skips.
-- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
-- Next: restored-copy HTTP comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
-
-## 2026-11-08: iteration 1397 — restored-copy reader HTTP preservation
-
-- Clean main/no leftovers; alerts zero, live database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- Extended the private restore harness with the production Nest reader controller/repository, bound only to loopback without worker/provider composition.
-- Complete latest/direct/history HTTP responses for all 550 saved editions match ownership off/on/off with publication filtering enabled and disabled, including private 404s and terminating pagination.
-- Fresh backup `news-digest-20261108T173745Z`: 30 tables/54,528 rows restored; read-only sessions and unchanged complete data/ledger fingerprints verified. Actual migration runner twice and injected rollback still pass.
-- First rehearsal passed comparisons but failed cleanup because Nest and the script both closed the repository pool; removed duplicate close. Final rehearsal exits zero, writes the private receipt and cleans scratch resources.
-- Four backup unit tests pass; scheduled-reader command: `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`.
-- Updated TASKS, rollout plan and backup handbook. Handbook check (`backups`) checks 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
-- No provider calls, live data writes, migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
-- Next: AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.
-
-## 2026-11-08: iteration 1398 — isolated system test-edition generation
-
-- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
-- Extended edition golden integration cases with SYSTEM_OWNERSHIP on: AI-off and synthetic fixture-AI private test editions preserve complete expected topic/story snapshots across two generations.
-- Tests assert kind=test, unpublished state, published-reader exclusion and default-profile ownership; flag-off retrieval preserves the complete saved response.
-- Development editors use a fresh per-edition cache; production repeats retain their existing cache assertions. No provider calls or live data writes.
-- Initial checks found the fixture bridge omitted model/purpose stripped by development-json; first replacement missed formatted source, then corrected reconstruction from the development role.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/241 integration passes, four expected skips. Scheduled-reader check passes: four topics, 19 stories/17 posts.
-- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff applies. Live flag-on test runs and normal scheduled acceptance remain open; synthetic fixtures do not close phase 1.
-- Next: pre-noon private backup/migration/rollout and live test acceptance, then normal scheduled publication before phase 3 activation.
-
 ## 2026-11-08: iteration 1399 — private reader identity/session schema preparation
 
 - Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
@@ -189,3 +119,14 @@
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. `git diff --check` passes.
 - Updated TASKS and rollout plan. No provider calls, migrations or generation changes; accounts disabled, VM private. API/worker restart and health/reader checks follow commit.
 - Next: pre-noon phase 1 private backup/rollout/live checks, then normal scheduled acceptance; prepare account route registration with flag off while waiting.
+
+## 2026-11-08: iteration 1410 — guarded account HTTP adapter preparation
+
+- Clean main/no leftovers; alerts zero, health/database/Redis good, no failed user services. All 36 active sources healthy; no failed digest runs.
+- Added uninstalled HTTP adapter for code request/redemption, session lookup and single/all-device logout. Accounts remain disabled; main does not install routes.
+- Explicit enable gate, injected verified client key, streamed 2 KiB JSON limit, no-store/cookie variance and generic dependency failures; no forwarded-header identity trust.
+- Loopback HTTP test verifies disabled routes, denied client/origin, malformed/oversized payloads, cookie-only redemption, session privacy and suppressed exception details.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 652 unit/247 integration passes, four expected skips. Targeted HTTP test passes; `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Jobs query confirms next digest Nov 9 15:00 UTC; initial unsupported filtered `--check` invocation corrected to read-only jobs query.
+- Updated TASKS/rollout plan; archived iterations 1393–1398 as PROGRESS exceeded 25 KB. No provider calls, migrations or generation changes; VM private.
+- Next: pre-noon phase 1 backup/rollout/live checks and scheduled acceptance; runtime account registration/proxy verification remains pending. API/worker restart and health/reader checks follow commit.

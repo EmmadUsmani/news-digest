@@ -143,7 +143,12 @@ boundary, code exchange and session lifecycle: invalid writes stop before side
 effects, successful redemption returns only the secure cookie, and session JSON
 excludes bearer tokens and internal identity/session IDs. All-device logout uses
 the authenticated identity. Registration and verified proxy client wiring remain
-pending; no account HTTP routes are exposed. Operational reader roles and PUBLIC
+pending. An uninstalled HTTP adapter now prepares code request/redemption, session lookup
+and single/all-device logout routes. It requires an explicit enable flag and an
+injected verified client key, bounds streamed JSON bodies to 2 KiB, marks responses
+no-store and returns generic dependency failures. Loopback HTTP tests exercise the
+disabled gate, origin rejection, oversized/malformed bodies, cookie-only redemption
+and private failure responses. Main does not install it; no account HTTP routes are exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
 
 ## Target design
