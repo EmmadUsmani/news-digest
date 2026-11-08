@@ -158,3 +158,13 @@
 - `pnpm exec tsx scripts/check-handbook.ts 07-data-model`: 18 pages/three diagrams checked; expected metadata warnings remain for deliberately unapplied tables. Updated affected handbook and rollout plan.
 - No provider calls/live writes/migrations/restarts: adapters remain disconnected and accounts disabled; edition-generation deployment cutoff respected.
 - Next: pre-noon phase 1 backup/rollout/live checks and scheduled acceptance first; prepare flag-off account HTTP boundary and signup policy while waiting.
+
+## 2026-11-08: iteration 1407 — account request boundary preparation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user services.
+- Prepared disconnected transport checks: exact configured HTTPS Origin, JSON-only writes, bounded login bodies rejecting caller identity/permission fields, strict host-session cookie parsing rejecting duplicates and encoding ambiguity.
+- Three offline tests cover cross-origin requests, content types, privilege injection, malformed guesses and ambiguous credentials. No route/module registration; accounts remain disabled.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 645 unit/247 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts.
+- Updated TASKS and rollout plan. No provider calls/live writes/migrations/restarts; disconnected preparation leaves runtime unchanged and respects generation deployment cutoff.
+- Next: pre-noon phase 1 backup/rollout/live checks and scheduled acceptance first; connect account HTTP routes and signup policy with flags off while waiting.

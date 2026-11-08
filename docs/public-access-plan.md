@@ -130,7 +130,10 @@ creating an independent reader identity and issuing a hashed session. Concurrent
 first-login identity creation preserves the original identity and creation time;
 failed identity/session storage requires a fresh code. Isolated checks exercise
 replay rejection, admission denial, concurrent redemption, identity reuse, secure
-cookies and hashed storage. No login endpoint is exposed. Operational reader roles and PUBLIC
+cookies and hashed storage. A disconnected request boundary prepares exact HTTPS Origin and JSON checks, bounded
+login bodies rejecting caller identity/permission fields, and strict session-cookie
+parsing that rejects duplicate cookies. Offline tests cover cross-origin requests,
+malformed bodies and ambiguous credentials. No login endpoint is exposed. Operational reader roles and PUBLIC
 receive no access to the three account tables.
 
 ## Target design
