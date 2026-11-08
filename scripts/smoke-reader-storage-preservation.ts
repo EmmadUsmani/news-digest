@@ -122,12 +122,36 @@ async function smoke() {
           2,
         );
         assert.equal(stored.hiddenTopics[topic.id].hidden, false);
+        // A transient event read failure must clear after an identical successful
+        // read, even when the union needs no repair write.
+        await page.evaluate(`
+          const workingRead = Storage.prototype.getItem;
+          Storage.prototype.getItem = function(name) {
+            if (name === 'news-digest.reader-preferences.v1') throw new DOMException('Temporary read failure');
+            return workingRead.call(this, name);
+          };
+          window.dispatchEvent(new StorageEvent('storage', { key: 'news-digest.reader-preferences.v1' }));
+        `);
+        await expect(page.getByRole('dialog').getByRole('alert')).toContainText(
+          'could not save',
+        );
+        await page.evaluate(`
+          window.restoreStorageRead();
+          window.dispatchEvent(new StorageEvent('storage', { key: 'news-digest.reader-preferences.v1' }));
+        `);
+        await expect(page.getByRole('dialog').getByRole('alert')).toHaveCount(
+          0,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/storage-read-recovered-${device}-${theme}.png`,
+        });
+
         assert.deepEqual(errors, []);
         await page.close();
       }
     }
     console.log(
-      'Read-only storage failure preserves existing saves and later merges pending choices: desktop/mobile light/dark pass.',
+      'Storage read failure preserves saves, merges pending choices and clears warnings after recovery: desktop/mobile light/dark pass.',
     );
   } finally {
     await browser.close();

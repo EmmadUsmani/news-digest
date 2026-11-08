@@ -50,6 +50,9 @@ export function useReaderPreferences() {
         } catch {
           setStorageFailed(true);
         }
+      } else {
+        // A successful read confirms all current choices are already durable.
+        setStorageFailed(false);
       }
     };
     window.addEventListener('storage', sync);
