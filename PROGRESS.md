@@ -191,3 +191,11 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - No live provider calls or spend. Phase 0 remains open until a normal scheduled publication; no phase-1 work started.
 - Inventory/content comparison verifies all five complete published reader responses unchanged; `pnpm build` passes. Initial checks exposed two test-fixture assumptions (missing completed-search evidence, then one call assumed despite four eligible topics); corrected both. Final `pnpm check` passes (625 unit/233 integration, four expected skips).
 - Required `pnpm format`/`pnpm lint:fix` and diff checks before commit; committing/pushing, then restarting four app services and checking health/alerts. No UI/handbook behavior changed. Next: phase-0/phase-2 scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1290 — deployed free-test acceptance and scheduled phase handoff
+
+- Clean main/no leftovers; `pnpm obs alerts`, `health --check`, `sources --check` clear: all 36 sources healthy. Queue-filtered jobs read confirms zero failed digest jobs/next run 15:00 UTC. Corrected unsupported combined jobs-check options before the successful read.
+- `LLM_LIVE=0 X_SEARCH_LIVE=0 pnpm exec tsx apps/api/scripts/smoke-previews.ts` passes over real stored content: private test `a49bc894-1134-4025-93c4-2daa985a89b1`, four topics/433 candidates/20 non-AI stories; saved test metadata, full admin history, direct reader 404 and unchanged latest verified. No paid provider calls requested.
+- Fresh inventory plus `compare-publication-content.ts compare` verifies all five complete published responses unchanged. Added phase-0/phase-2 scheduled gates, served web preference flag, browser commands and original-five-ID hash comparison to the Nov 8 handoff; executed the documented jq/hash commands successfully.
+- `pnpm build` and handbook check pass (18 pages/22 diagrams/30 tables). Full `pnpm check` result recorded below; required format/lint fixes and diff verification before commit. No app behavior changed; phase 0/phase 2 still await a normal scheduled publication, VM stays private.
+- Final `pnpm check` passes: 625 unit/233 integration, four expected integration skips. Committing/pushing and restarting four app services before final health/alerts; next scheduled acceptance remains 15:00 UTC.

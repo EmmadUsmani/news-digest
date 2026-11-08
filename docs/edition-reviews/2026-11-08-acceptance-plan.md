@@ -32,6 +32,48 @@ pnpm obs alerts
 Use immutable saved selections and recorded call evidence, not today's inventory.
 Write actual findings in a separate `2026-11-08.md` review after publication.
 
+## Public-reader phase gates (STEERING 50)
+
+Phase 0 and phase 2 also need this normal scheduled publication before either
+can be acked. Do not begin phase 1 from the offline checks alone.
+
+- Record `READER_PUBLISHED_ONLY=1` for the API and confirm topic hiding and
+  bookmarks appear in the served reader. The web build uses
+  `VITE_READER_PREFERENCES`, not a runtime API preference flag.
+- Match the completed scheduled job to the saved edition, its Nov 8 window,
+  `kind=scheduled` and non-null `published_at`. Check reader latest, history
+  and the direct link all return that edition; admin latest can instead be a
+  newer private test. Keep every private test absent from reader history.
+- Recheck the original five published response hashes using the **original
+  five IDs**. A fresh inventory after publication includes Nov 8 and cannot
+  be compared directly with the five-edition baseline. Never replace it:
+
+```bash
+jq '{editions: [.editions[] | {id, proposedPublication: {publishedAt: "baseline"}}]}' \
+  docs/edition-reviews/2026-11-07-publication-content-baseline.json \
+  > /tmp/nov8-original-publication-ids.json
+pnpm exec tsx scripts/compare-publication-content.ts compare \
+  /tmp/nov8-original-publication-ids.json \
+  docs/edition-reviews/2026-11-07-publication-content-baseline.json
+pnpm exec tsx scripts/smoke-reader-preferences.ts
+pnpm exec tsx scripts/smoke-reader-bookmarks.ts
+```
+
+- The browser checks read the actual latest and an older edition on desktop
+  and mobile in light/dark; they exercise local reload/cross-tab behavior and
+  block external requests/server writes. Inspect and commit their refreshed
+  screenshots after publication. Record the actual edition IDs in the review.
+- Phase-0 development accounting acceptance: iteration 1289's recorded-provider
+  HTTP/database check settles both providers to development, leaves production
+  accounting unchanged and keeps the saved test private. No live paid rerun is
+  needed. Iteration 1290's deployed free smoke saved test
+  `a49bc894-1134-4025-93c4-2daa985a89b1` from real stored content: four topics,
+  433 candidates and 20 stories, non-AI throughout; direct reader link 404,
+  reader latest unchanged and all five original response hashes match.
+- In the phase acknowledgments, record actual scheduled outcome, comparison
+  and browser results, development spend and remaining owner gates. Keep the
+  VM private; a successful publication alone does not authorize public access.
+
 ## Acceptance comparisons
 
 For speed, compare the [Nov 7 recorded critical path](2026-11-07-social-latency.md):
