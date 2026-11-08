@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1338: Theme switch now has a 44px touch target; 24 reader route/viewport/theme combinations verify keyboard focus, switching, reload persistence and no overflow.
+- [x] Iteration 1339: End-of-edition archive link now has a 44px target and visible keyboard focus; latest/historical navigation passes at desktop/mobile/narrow widths in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

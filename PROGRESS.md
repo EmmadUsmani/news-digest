@@ -128,3 +128,11 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-theme-target.ts` pass: latest/historical editions, archive and Saved items at 1440/390/320px, both themes (24 cases); target, keyboard Enter/Space, visible focus, reload persistence and no overflow/page errors. Six header screenshots saved; narrow dark inspected.
 - Browser used published content with GET/HEAD-only local requests and external requests blocked. No provider spend, feature or backend change. VM remains private; no phase acknowledgment before scheduled acceptance.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Corrected initial new-script formatting failure; one existing cleanup test conservatively skipped deletion during the next run, then passed in isolation and the complete rerun. No cleanup behavior changed. Normal four-service restart follows push.
+
+## 2026-11-08: iteration 1339 — easier archive access after reading
+
+- Clean main/no leftovers. Alerts empty; health, 14 services and 36 sources healthy; no failed digest jobs, next publication 15:00 UTC. Metrics probe remains due ≥11:26 UTC.
+- Read the latest four topic story titles/summaries and post excerpts (20 stories/18 posts); known content fixes await scheduled acceptance. Reader benefit: the end-of-edition Past editions link now has a 44px tap target and explicit keyboard focus, making the archive easier to open after reading.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-footer.ts` pass: latest/historical editions at 1440/390/320px, both themes (12 cases), target size, keyboard focus/Enter, archive destination and no overflow/page errors. Twelve small footer screenshots saved; narrow dark inspected.
+- GET/HEAD-only published reader traffic, external requests blocked; no provider spend, publication or backend changes. VM remains private; scheduled phase/X/Bluesky acceptance stays open.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` rerun and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial full check received SIGTERM during unit tests without a failure report; complete rerun passed. Normal API/worker/docs/schema restart follows commit/push.

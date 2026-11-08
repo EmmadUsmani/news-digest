@@ -316,7 +316,7 @@ export function DigestPreview() {
             <Link
               to="/editions"
               search={{ page: 1 }}
-              className="block text-sm font-medium text-[var(--accent)]"
+              className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               Past editions →
             </Link>
