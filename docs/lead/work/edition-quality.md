@@ -1,7 +1,7 @@
 # Edition quality
 
-**Status:** mixed. Nov 7 held five stories per topic, but NBA story editing
-failed validation four times and fell back to non-AI ranking.
+**Status:** better. Nov 8 was fully AI-edited in all four topics (NBA recovered),
+$0.321 of the $0.516 cap, 162 seconds. Tech summaries still headline-level.
 
 **Latest:**
 
@@ -13,7 +13,7 @@ failed validation four times and fell back to non-AI ranking.
 
 **Next:**
 
-- Nov 8: does NBA story editing stay AI-edited? Cost against the cap.
+- Nov 9: NBA stays AI-edited a second day; Tech summary depth.
 - Item 42: while other items wait, the agent reads the edition as a reader and
   fixes the biggest weakness. Check its PROGRESS.md entries.
 

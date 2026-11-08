@@ -1,10 +1,8 @@
 # Public access and reader accounts
 
-**Status (01:05 UTC Nov 8):** published-only reader live since 00:15 UTC (lead
-checked: archive lists exactly the five Nov 3–7 editions). Phase 2 browser
-features shipped. Development budget built as separate ledger tables, with the
-$5/$2 ceilings enforced in the database; test-edition routes not wired yet.
-Item 51 done: disk 71%→59%.
+**Status (16:00 UTC Nov 8):** phases 0 and 2 accepted by the agent after the Nov 8
+scheduled edition published by itself. Lead checked: archive lists six editions,
+Nov 3–8. Phase 1 (accounts) not begun. Dev spend $0 so far (agent's figure).
 
 **Owner decisions (Nov 7):**
 
@@ -23,11 +21,9 @@ Item 51 done: disk 71%→59%.
 
 **Next:**
 
-1. Read each phase's ack against the plan's checks, and its development spend.
-2. After the Nov 8 edition: it is published automatically and the archive shows
-   six editions.
-3. Watch the agent's weekly ChatGPT allowance (71% on Nov 7) during the refactor.
-4. Phase 4: lead security review before the owner decides to go public.
+1. Read phase 1's ack against the plan's checks, and its development spend.
+2. Watch the agent's weekly ChatGPT allowance (81% on Nov 8, 71% Nov 7).
+3. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up

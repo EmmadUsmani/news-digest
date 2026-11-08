@@ -1,8 +1,8 @@
 # X search
 
-**Status:** acceptance edition 1 of 3 done (Nov 7). Tech and NBA searches
-completed; Gaming and World failed twice each (unconfirmed execution). Three
-new Tech picks made the edition. Cost $0.166; experiment total $1.75 of $2.50.
+**Status:** acceptance edition 2 of 3 done (Nov 8). All four keyword searches
+completed first try, Gaming/World included. 8 cited picks, 6 from outside the
+free list. Cost $0.260 (agent's figures, [review](../../edition-reviews/2026-11-08.md)).
 
 **Goal:** find viral posts the news hasn't picked up. Free links from articles
 already cover press-linked posts. See [the plan](../../x-search-plan.md).
@@ -18,8 +18,8 @@ likes minimums stay. After the fix, 5 of 9 keyword attempts failed.
 
 **Next:**
 
-- Nov 8 and Nov 9 editions: Gaming/World failure rate, picks, cost.
-- Watch the $2.50 total: at about $0.17 a day, two more editions fit.
+- Nov 9 edition: third acceptance run; failure rate, picks, cost.
+- Watch the $2.50 total: Nov 8 cost $0.26, so check the journal fits Nov 9.
 
 **Open decisions:** none. The meaning-based question is settled.
 
