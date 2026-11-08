@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1304: Saved items View edition links jump directly to the saved story or post, including historical editions; desktop/mobile light/dark browser verification and focused screenshots.
+- [x] Iteration 1305: Saved items show the local date they were saved, with semantic timestamps and desktop/mobile light/dark browser checks.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

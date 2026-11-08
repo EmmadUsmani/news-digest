@@ -61,7 +61,7 @@ export function ReaderSaved() {
       )}
       <ul className="list-none space-y-6 pl-0">
         {saved.map(
-          ([id, { copy }], index) =>
+          ([id, { copy, updatedAt }], index) =>
             copy && (
               <li
                 key={id}
@@ -76,6 +76,16 @@ export function ReaderSaved() {
                   {copy.platform === 'story'
                     ? copy.attribution
                     : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
+                </p>
+                <p className="mt-1 text-sm text-[var(--secondary)]">
+                  Saved on{' '}
+                  <time dateTime={new Date(updatedAt).toISOString()}>
+                    {new Date(updatedAt).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
                 </p>
                 {copy.excerpt && (
                   <p className="my-3 whitespace-pre-line leading-7">

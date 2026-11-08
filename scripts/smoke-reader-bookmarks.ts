@@ -261,6 +261,17 @@ async function smoke() {
             'saved item actions offer at least 44 × 44 pixel touch targets',
           );
         }
+        const savedDates = other.locator('li time');
+        assert.equal(
+          await savedDates.count(),
+          await other.locator('li').count(),
+        );
+        for (const date of await savedDates.all()) {
+          const timestamp = await date.getAttribute('datetime');
+          assert.ok(timestamp && Number.isFinite(Date.parse(timestamp)));
+          assert.ok((await date.innerText()).trim().length > 0);
+          await expect(date.locator('..')).toContainText('Saved on');
+        }
         await other.screenshot({
           path: `docs/screenshots/ui/saved-${device}-${theme}.png`,
           fullPage: true,
