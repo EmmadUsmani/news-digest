@@ -155,3 +155,12 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - Extended `pnpm exec tsx scripts/smoke-reader-preferences.ts`: verifies every target's dimensions and restores a topic by tapping row padding. All desktop/mobile light/dark checks pass, including persistence, historical editions, cross-tab changes and blocked storage.
 - Refreshed four topic-menu screenshots; inspected mobile light. Discarded unrelated reader screenshot rendering noise. No backend writes/provider calls or handbook flow changes.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` (625 unit/233 integration pass, four expected skips) and `git diff --check` pass. Committing/pushing and restarting four services against main; scheduled phase acceptance remains due at 15:00 UTC, VM private.
+
+## 2026-11-08: iteration 1298 — keyboard shortcut for Saved items
+
+- Clean main/no leftover work. Alerts/health pass, all 36 sources healthy; digest-generation has zero failed jobs and next run 15:00 UTC. Metrics passive check completed below.
+- Reader weakness: Saved items lacked the keyboard skip shortcut available on the edition/archive. Added the shared shortcut targeting its focusable heading; keyboard readers can bypass the repeated header in populated and empty lists.
+- Extended `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` for first-Tab access and heading focus in both states across desktop/mobile light/dark; four focused-shortcut screenshots added, desktop light inspected. Initial browser attempt pressed Tab before React rendered; explicit attached-state wait fixes the check.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass (625 unit/233 integration, four expected skips). Discarded unrelated bookmark screenshot rendering noise. No handbook flow change, backend writes, provider calls or spend.
+- Committing/pushing and restarting four app services against main; final health/alerts follow. VM remains private; scheduled phase acceptance still waits for Nov 8 15:00 UTC.
+- Due hourly probe `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` (05:21:08–39): 23 healthy rules, four uncached queries ≤0.263 s, zero new evaluator errors/misses; one small merge/3,491 rows, no big merge. Admission hits 2, queue timeouts/slow queries 0; comparable compaction still open. Next ≥06:22 UTC.

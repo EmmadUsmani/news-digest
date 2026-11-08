@@ -66,6 +66,20 @@ async function smoke() {
         );
         const other = await context.newPage();
         await other.goto(`${origin}/saved`);
+        await other
+          .getByRole('link', { name: 'Skip to content' })
+          .waitFor({ state: 'attached' });
+        await other.keyboard.press('Tab');
+        await expect(
+          other.getByRole('link', { name: 'Skip to content' }),
+        ).toBeFocused();
+        await other.screenshot({
+          path: `docs/screenshots/ui/reader-skip-saved-${device}-${theme}.png`,
+        });
+        await other.keyboard.press('Enter');
+        await expect(
+          other.getByRole('heading', { name: 'Saved items', exact: true }),
+        ).toBeFocused();
         await expect(
           other.getByRole('link', { name: story.title, exact: true }),
         ).toHaveAttribute('href', story.url);
@@ -91,7 +105,18 @@ async function smoke() {
           })
           .click();
         await expect(save).toHaveAttribute('aria-pressed', 'false');
-        await other.reload();
+        await other.goto(`${origin}/saved`);
+        await other
+          .getByRole('link', { name: 'Skip to content' })
+          .waitFor({ state: 'attached' });
+        await other.keyboard.press('Tab');
+        await expect(
+          other.getByRole('link', { name: 'Skip to content' }),
+        ).toBeFocused();
+        await other.keyboard.press('Enter');
+        await expect(
+          other.getByRole('heading', { name: 'Saved items', exact: true }),
+        ).toBeFocused();
         await expect(
           other.getByText('No saved items yet.', { exact: false }),
         ).toBeVisible();

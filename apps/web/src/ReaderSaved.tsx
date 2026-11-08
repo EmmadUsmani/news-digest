@@ -3,6 +3,7 @@ import { useRef } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
+import { ReaderSkipLink } from './ReaderSkipLink';
 import { useReaderPreferences } from './use-reader-preferences';
 
 export function ReaderSaved() {
@@ -14,6 +15,7 @@ export function ReaderSaved() {
     .sort((a, b) => b[1].updatedAt - a[1].updatedAt);
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16">
+      <ReaderSkipLink target="saved-content" />
       <header className="flex h-[65px] items-center justify-between border-b border-[var(--border)]">
         <Link to="/" className="font-semibold">
           News Digest
@@ -22,6 +24,7 @@ export function ReaderSaved() {
       </header>
       <h1
         ref={heading}
+        id="saved-content"
         tabIndex={-1}
         className="mt-8 font-sans text-2xl font-semibold"
       >
