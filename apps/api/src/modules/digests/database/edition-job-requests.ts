@@ -6,6 +6,7 @@ import { database } from '../../../libs/db/connections';
 import { editionJobRequests } from '../../../libs/db/schema';
 import { EditionJobRequests } from '../domain/edition-job-requests';
 
+// Retain compatibility ownership on new records so flag-off recovery still works.
 const profileId = '00000000-0000-4000-8000-000000000001';
 
 @Injectable()
@@ -28,7 +29,9 @@ export class PostgresEditionJobRequests
       .where(
         and(
           eq(editionJobRequests.jobId, id),
-          eq(editionJobRequests.profileId, profileId),
+          process.env.SYSTEM_OWNERSHIP === '1'
+            ? undefined
+            : eq(editionJobRequests.profileId, profileId),
         ),
       );
     return !!row;

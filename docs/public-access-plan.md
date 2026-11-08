@@ -63,7 +63,9 @@ mapped to profiles, and profiles go away.
   settings tables in one transaction, including with the flag off. Missing system
   settings abort the write. Prepared topic reads and mutations use the shared
   catalog with the flag on; new topics retain the default profile for rollback,
-  and flag-off queries retain profile isolation. Edition/job reads still need flag support;
+  and flag-off queries retain profile isolation. Prepared durable-job reads include all
+  ownership with the flag on; new request/failure records retain default-profile
+  ownership for rollback. Edition reads still need flag support;
   do not enable the flag or deploy this code before the migrations.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog

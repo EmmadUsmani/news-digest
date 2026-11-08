@@ -619,3 +619,88 @@ void test(
     }
   },
 );
+
+void test('system job history reads all ownership and retains rollback-compatible writes', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const { database } = await import('../src/libs/db/connections');
+  const pool = database();
+  const requests = new PostgresEditionJobRequests();
+  const failures = new PostgresEditionJobFailures();
+  const originalFlag = process.env.SYSTEM_OWNERSHIP;
+  const owner = '00000000-0000-4000-8000-000000000001';
+  const foreignProfile = crypto.randomUUID();
+  const ids = [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()];
+  try {
+    await pool.query('INSERT INTO profiles(id,name) VALUES($1,$2)', [
+      foreignProfile,
+      'System job fixture',
+    ]);
+    for (const [index, profile] of [null, foreignProfile].entries()) {
+      await pool.query(
+        'INSERT INTO edition_job_requests(job_id,profile_id) VALUES($1,$2)',
+        [ids[index], profile],
+      );
+      await pool.query(
+        'INSERT INTO edition_job_failures(job_id,profile_id,duration_ms) VALUES($1,$2,$3)',
+        [ids[index], profile, 10 + index],
+      );
+    }
+    delete process.env.SYSTEM_OWNERSHIP;
+    for (const id of ids) {
+      assert.equal(await requests.exists(id), false);
+      assert.equal(await failures.find(id), null);
+    }
+    process.env.SYSTEM_OWNERSHIP = '1';
+    for (const [index, id] of ids.slice(0, 2).entries()) {
+      assert.equal(await requests.exists(id), true);
+      assert.deepEqual(await failures.find(id), { durationMs: 10 + index });
+      await requests.record(id);
+      await failures.record(id, 999);
+      assert.deepEqual(await failures.find(id), { durationMs: 10 + index });
+    }
+    assert.equal(await requests.exists(ids[2]), false);
+    assert.equal(await failures.find(ids[2]), null);
+    await requests.record(ids[2]);
+    await failures.record(ids[2], 42.4);
+    const ownership = await pool.query(
+      'SELECT profile_id FROM edition_job_requests WHERE job_id=$1 UNION ALL SELECT profile_id FROM edition_job_failures WHERE job_id=$1',
+      [ids[2]],
+    );
+    assert.deepEqual(ownership.rows, [
+      { profile_id: owner },
+      { profile_id: owner },
+    ]);
+    delete process.env.SYSTEM_OWNERSHIP;
+    assert.equal(await requests.exists(ids[2]), true);
+    assert.deepEqual(await failures.find(ids[2]), { durationMs: 42 });
+    for (const id of ids.slice(0, 2)) {
+      assert.equal(await requests.exists(id), false);
+      assert.equal(await failures.find(id), null);
+    }
+    const preserved = await pool.query(
+      'SELECT profile_id FROM edition_job_requests WHERE job_id=$1 UNION ALL SELECT profile_id FROM edition_job_failures WHERE job_id=$1',
+      [ids[1]],
+    );
+    assert.deepEqual(preserved.rows, [
+      { profile_id: foreignProfile },
+      { profile_id: foreignProfile },
+    ]);
+  } finally {
+    if (originalFlag === undefined) delete process.env.SYSTEM_OWNERSHIP;
+    else process.env.SYSTEM_OWNERSHIP = originalFlag;
+    await pool.query(
+      'DELETE FROM edition_job_failures WHERE job_id = ANY($1::text[])',
+      [ids],
+    );
+    await pool.query(
+      'DELETE FROM edition_job_requests WHERE job_id = ANY($1::text[])',
+      [ids],
+    );
+    await pool.query('DELETE FROM profiles WHERE id=$1', [foreignProfile]);
+    await Promise.all([
+      pool.end(),
+      requests.onModuleDestroy(),
+      failures.onModuleDestroy(),
+    ]);
+  }
+});

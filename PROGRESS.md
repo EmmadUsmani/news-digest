@@ -1,74 +1,3 @@
-## 2026-11-08: iteration 1337 — overnight metrics recovery evidence
-
-- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks pass. Read all four published topic headline lists; known editorial fixes and phase acceptance await the normal 15:00 UTC publication.
-- Owner benefit: the morning edition's metrics dependency now has an overnight history check rather than only isolated short probes; the recovery gate stays honest. No product/runtime change or provider spend.
-- Eight uncached local range queries, Nov 7 19:05:30–Nov 8 10:25:30: 1,841 returned points each, no timestamp gaps/resets; 34,728,242 small rows across 2,002 merges, largest adjacent increase 4,454,018 rows. No five-million-row candidate/big merge; process identity constant, sampled up=1, admission hits=2, timeouts/slow queries=0. Historical evaluator counters remain unavailable.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 10:26:09–10:26:40: 23 healthy/fresh rules, four queries ≤0.803 s, zero new evaluator errors/missed iterations, no merges. Metrics has zero restarts since Nov 7 16:00:24. Recovery remains open; next passive probe ≥11:26 UTC.
-- App `/healthz` and configured Grafana health pass. Initial Grafana checks used the wrong port/unauthenticated proxy; corrected to configured local port 3001, database=ok. No service failure.
-- Recorded evidence in capacity decision and TASKS; VM remains private, no phase acknowledgment. Next: normal 15:00 scheduled acceptance and first-week report.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. No UI change, so no browser/screenshot change. Normal API/worker/docs/schema restart follows commit/push.
-
-## 2026-11-08: iteration 1338 — easier theme switching
-
-- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and digest jobs healthy. Scheduled acceptance remains 15:00 UTC; next passive metrics probe ≥11:26 UTC.
-- Read all four published topic titles/summaries and saved post excerpts. Known content fixes await scheduled evidence. Reader benefit: the theme switch now has a 44px touch target instead of 36px, making it easier to tap across reader pages.
-- Initial keyboard-navigation suspicion was disproved by a browser check: native Contents anchors already focus their destination. No navigation change made.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-theme-target.ts` pass: latest/historical editions, archive and Saved items at 1440/390/320px, both themes (24 cases); target, keyboard Enter/Space, visible focus, reload persistence and no overflow/page errors. Six header screenshots saved; narrow dark inspected.
-- Browser used published content with GET/HEAD-only local requests and external requests blocked. No provider spend, feature or backend change. VM remains private; no phase acknowledgment before scheduled acceptance.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Corrected initial new-script formatting failure; one existing cleanup test conservatively skipped deletion during the next run, then passed in isolation and the complete rerun. No cleanup behavior changed. Normal four-service restart follows push.
-
-## 2026-11-08: iteration 1339 — easier archive access after reading
-
-- Clean main/no leftovers. Alerts empty; health, 14 services and 36 sources healthy; no failed digest jobs, next publication 15:00 UTC. Metrics probe remains due ≥11:26 UTC.
-- Read the latest four topic story titles/summaries and post excerpts (20 stories/18 posts); known content fixes await scheduled acceptance. Reader benefit: the end-of-edition Past editions link now has a 44px tap target and explicit keyboard focus, making the archive easier to open after reading.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-footer.ts` pass: latest/historical editions at 1440/390/320px, both themes (12 cases), target size, keyboard focus/Enter, archive destination and no overflow/page errors. Twelve small footer screenshots saved; narrow dark inspected.
-- GET/HEAD-only published reader traffic, external requests blocked; no provider spend, publication or backend changes. VM remains private; scheduled phase/X/Bluesky acceptance stays open.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` rerun and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial full check received SIGTERM during unit tests without a failure report; complete rerun passed. Normal API/worker/docs/schema restart follows commit/push.
-
-## 2026-11-08: iteration 1340 — easier reader recovery
-
-- Clean main/no leftovers. Alerts empty; health, services and 36 sources healthy. No failed digest runs; next scheduled publication 15:00 UTC. Retained ingestion/social failures have subsequent successful collections. Metrics probe stays due ≥11:26 UTC.
-- Read all four published story headline/summary lists. Thin Tech evidence and NBA fallback remain the largest content weaknesses; prepared fixes await scheduled evidence, so no additional generation changes.
-- Reader benefit under items 38/42: edition/archive retry buttons and the missing-edition return link now have 44px touch targets; the return link also has explicit keyboard focus. This makes loading recovery easier on phones and keyboards.
-- Browser verification uses deliberately invalid JSON/404 responses intercepted locally, then real published GET responses for recovery; external requests and server writes blocked. No provider spend or publication. VM stays private; phase acceptance remains open.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-recovery-targets.ts` pass: 18 recovery cases at 1440/390/320px in both themes, target size, visible keyboard focus/Enter and no overflow/page errors. Six screenshots saved; narrow light retry and dark missing-edition views inspected.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Fixed new-script formatting after lint import sorting; subsequent run received SIGTERM during unit tests without a failure, complete rerun passed. Normal four-service restart follows push.
-
-## 2026-11-08: iteration 1341 — resume reading after recovery
-
-- Clean main/no leftovers. Alerts empty; health, 14 services and 36 sources healthy. No failed digest runs; next scheduled publication 15:00 UTC. Metrics probe remains due ≥11:26 UTC.
-- Read the published topics and post excerpts: thin Tech evidence and NBA fallback remain the largest content weaknesses; prepared fixes await scheduled evidence. Reader benefit: successful edition/archive retries now focus recovered content, so keyboard readers can continue without restarting navigation.
-- Browser reproduced lost focus on the previous build. Updated `pnpm exec tsx scripts/smoke-reader-recovery-targets.ts` passes all 18 cases at 1440/390/320px in both themes, including content focus, targets, keyboard activation and no overflow/page errors. Four recovery-focus screenshots saved; narrow edition dark and archive light inspected.
-- Initial attempt to test repeated failed retries raced the request; removed that extra test step before recording the baseline focus failure. Recovery replay uses local intercepted invalid JSON/404 responses followed by real published GET responses; external traffic/writes blocked, no provider spend.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Live reader remains four topics/20 stories/18 posts. VM stays private; phase acceptance remains open.
-- First full-check wrapper exited SIGTERM after all test reports passed; complete rerun exits 0. Archived iterations 1325–1330 to keep PROGRESS.md below 25 KB. Normal API/worker/docs/schema restart follows commit/push. Next: scheduled acceptance at 15:00 UTC; first-week report and passive metrics probe when due.
-
-## 2026-11-08: iteration 1342 — require the right scheduled reader window
-
-- Clean main/no leftovers. `pnpm obs alerts`, health, services/sources checks: zero alerts, healthy API/database/Redis, 14 services and 36 sources. Jobs report no failed digest runs; next publication 15:00 UTC. Corrected unsupported obs CLI forms without changing services.
-- Read all four published story/summary lists and post excerpts. Thin Tech evidence and NBA fallback remain the largest weaknesses; prepared fixes await publication. Owner benefit: scheduled acceptance now has a command that cannot count yesterday's latest reader response as today's result.
-- Added GET-only `scripts/check-scheduled-reader.ts` and its acceptance-plan command: exact requested UTC window, matching latest/direct content and history window/topics. Exit 2 means pending; exit 1 means invalid input or failure. Job/publication metadata and editorial review remain separate gates.
-- Live Nov 7 window passes (four topics/20 stories/18 posts); Nov 8 returns pending/exit 2. Older-than-latest, invalid input, missing input and invalid calendar date return exit 1. Five original response hashes unchanged; private test direct link remains 404. No provider calls, writes or phase acknowledgment.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Targeted script typecheck/lint/format pass; broad ad-hoc script typecheck first hit unrelated existing test/config errors, then isolated config passed. Normal four-service restart follows commit/push.
-- Next: passive metrics probe ≥11:26 UTC and scheduled publication/first-week acceptance at 15:00 UTC; VM remains private.
-
-## 2026-11-08: iteration 1343 — hourly metrics-recovery evidence
-
-- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks pass. No failed digest runs; next scheduled publication 15:00 UTC. Nov 7 reader gate passes: four topics/20 stories/18 posts.
-- Reader review still finds thin Tech evidence and NBA fallback the largest weaknesses; deployed fixes await the scheduled edition. No additional generation or save-control change justified. Owner benefit: current evidence keeps the open metrics incident visible without changing the protected edition or claiming recovery prematurely.
-- At the due hourly check, eight uncached stored-history queries (10:25:30–11:26:00 UTC, 122 points each) show 2,287,725 rows/122 small merges, largest 30-second increase 965,106 rows. No gaps/resets or comparable candidate; sampled scrape values all one, admission hits two, timeouts/slow queries zero.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 23 healthy/fresh rules, four queries ≤0.278 s, zero new evaluator errors/missed iterations, 31,684 rows/two small merges, no big merge. Metrics systemd start unchanged/zero restarts; Grafana database healthy. Updated decision 0004 and TASKS; next probe ≥12:26 UTC.
-- No provider calls, publication, configuration/limit changes or phase acknowledgments; VM remains private. Scheduled acceptance and first-week report remain due at 15:00 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. A targeted format check initially ran before the full formatter reached PROGRESS; final targeted check passes. Normal four-service restart follows commit/push.
-
-## 2026-11-08: iteration 1344 — clarify deployed test-edition accounting
-
-- Clean main/no leftovers. Alerts empty; `/healthz`, 14 services, 36 sources and jobs checks pass. No failed digest runs. Metrics probe not due until ≥12:26 UTC; no repeated probe.
-- Read saved story summaries and post excerpts: thin Tech evidence and NBA fallback remain the largest reader weaknesses. Their deployed fixes await 15:00 UTC; no further generation tuning justified.
-- Advanced item 50 documentation: replaced the plan's accumulated implementation narrative and stale “until development wiring ships” wording with current behavior. The admin form uses free private tests; optional AI/X use development pools, while legacy manual routes retain production accounting. Preserved owner decisions and acceptance gates.
-- Verified the description against AdminNewEdition, PreviewController and generateTest runtime composition. No provider calls, publication, flags, schema or application code changed; VM remains private.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts` passes (18 pages/22 diagrams/30 tables); no diagram changes. Normal four-service restart follows push. Scheduled phase acceptance and the Nov 2–8 report remain due at 15:00 UTC.
-
 ## 2026-11-08: iteration 1381 — observe scheduled publication and first-week totals
 
 - Clean main/no leftovers. Alerts empty; health, 14 services and 36 sources pass. Observed normal scheduled job, no manual generation/provider requests; protected window preserved, no deployment/restart.
@@ -168,3 +97,14 @@
 - Updated TASKS, rollout plan and affected handbook callout. Handbook validation passes: 18 pages/three unchanged diagrams; two existing metadata warnings for unapplied edition_settings. No UI/source changes or provider calls.
 - No live migration/deployment/restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Prepared migrations and ownership adapters remain undeployed; flag stays off.
 - Next: edition/durable-job system reads and remaining compatibility writes, then private backup/restored-copy rehearsal and preserved-response/AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1391 — prepare system durable-job recovery
+
+- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy; no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Prepared `SYSTEM_OWNERSHIP=1` request/failure reads across null and foreign ownership. Flag-off reads retain default-profile isolation; new records retain compatibility ownership for rollback.
+- Isolated test verifies missing records, both ownership types, idempotent inserts without ownership/duration changes, and flag-off recovery of newly written records.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/238 integration passes, four expected skips. First check stopped on a trailing blank line introduced during progress archival; corrected and full rerun passed.
+- `pnpm exec tsx scripts/check-handbook.ts data-model` passes: 18 pages/three unchanged diagrams, two existing unapplied edition_settings metadata warnings. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes.
+- Updated rollout plan, handbook callout and TASKS; archived iterations 1337–1344 to keep PROGRESS small. No UI/source changes, provider calls or secret access.
+- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Prepared migrations/adapters remain undeployed; system flag stays off.
+- Next: edition system reads and generation topic scope, preserved responses, private backup/restored-copy rehearsal and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.
