@@ -79,7 +79,7 @@ export function ReaderArchive() {
                   <Link
                     to="/editions/$id"
                     params={{ id: entry.id }}
-                    className="block rounded-md py-5 hover:bg-[var(--muted)]"
+                    className="block rounded-md py-5 hover:bg-[var(--muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     <time
                       dateTime={entry.windowEnd}
@@ -130,7 +130,7 @@ export function ReaderArchive() {
             <Link
               to="/editions"
               search={{ page: page - 1 }}
-              className="text-sm font-medium text-[var(--accent)]"
+              className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               ← Newer editions
             </Link>
@@ -142,7 +142,7 @@ export function ReaderArchive() {
             <Link
               to="/editions"
               search={{ page: page + 1 }}
-              className="text-sm font-medium text-[var(--accent)]"
+              className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               Older editions →
             </Link>

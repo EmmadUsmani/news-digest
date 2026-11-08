@@ -55,6 +55,20 @@ async function smoke() {
         ] as const) {
           const link = page.getByRole('link', { name });
           await link.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          const target = await link.boundingBox();
+          assert.ok(target && target.width >= 44 && target.height >= 44);
+          assert.equal(
+            await link.evaluate(
+              (element) => getComputedStyle(element).outlineStyle,
+            ),
+            'solid',
+            'Keyboard navigation has a visible focus outline',
+          );
+          await page.screenshot({
+            path: `docs/screenshots/ui/archive-pagination-${number}-${device}-${theme}.png`,
+          });
           await page.keyboard.press('Enter');
           await page.waitForFunction((number) => {
             const heading = document.getElementById('archive-content');
