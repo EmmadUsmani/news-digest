@@ -110,4 +110,5 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Updated owner budget page/public-access plan/TASKS; archived iterations 1255–1263 to keep PROGRESS small. Test-edition routing remains unwired; VM stays private.
 - Verification: targeted test 5/5; full checks/build/handbook/reader results recorded below when complete.
 - Next: free-default admin test-edition routing, then isolated paid options; Nov 8 normal scheduled phase-0/2 acceptance and edition review/first-week report remain due.
+- Initial push rejected a concurrent lead-docs commit; fetched/merged without rewriting history. No code or owner-priority changes; retrying the push.
 - Final results: `pnpm check` passes (600 unit and 232 integration passes, four expected skips); `pnpm build`, handbook budget check and five complete saved-reader comparisons pass. `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; four app services restarted after push with healthy endpoints/alerts.
