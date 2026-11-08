@@ -220,7 +220,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
               aria-current={
                 activeTopic?.id === topic.id ? 'location' : undefined
               }
-              className={`shrink-0 rounded-full px-3 py-1 text-sm font-medium ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
+              className={`inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-full px-3 py-1 text-sm font-medium focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--accent)] ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
             >
               {topic.name}
             </a>

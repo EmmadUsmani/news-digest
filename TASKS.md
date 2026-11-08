@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1327: Publisher/source attribution links now have 44px tap targets and visible keyboard focus, including expanded coverage; published-content desktop/mobile checks pass.
+- [x] Iteration 1328: Mobile topic chips now have 44px tap targets and inset keyboard focus; published four-topic navigation and active-chip reveal pass at 390/320px in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -98,3 +98,12 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-source-targets.ts` pass against published content at 1440/390/320px in light/dark: link dimensions, keyboard focus, no overflow or browser errors. Six screenshots saved; 320px dark inspected. Browser traffic GET/HEAD-only, external requests blocked.
 - Archived iterations 1311–1316 to keep PROGRESS.md under 25 KB. Initial unsupported `obs status` and filtered `jobs --check` invocations corrected to documented commands; health checks pass.
 - Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Commit/push and normal API/worker/docs/schema restart follow; no publication or data-flow changes. VM remains private.
+
+## 2026-11-08: iteration 1328 — easier mobile topic navigation
+
+- Clean main/no leftovers. Alerts empty; 14 services, 36 sources, jobs and `/healthz` healthy. Metrics probe not yet due (≥09:25 UTC); scheduled acceptance remains 15:00 UTC.
+- Read latest published titles across all four topics (20 stories/18 posts). Known evidence-depth/selection fixes await scheduled publication; no new editorial tuning or provider calls.
+- Reader-visible weakness: mobile topic chips had short tap targets and no explicit keyboard outline. Chips now have 44px targets and inset focus outlines that remain inside the horizontal scrolling row; the owner can navigate topics more easily by touch or keyboard.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-topic-targets.ts` pass: actual published four-topic keyboard navigation, target dimensions, focus, active-chip reveal and no page overflow/errors at 390/320px in light/dark. Four screenshots saved; 320px dark inspected.
+- Initial smoke raced smooth scrolling while tabbing between chips; deterministic keyboard/geometry verification uses reduced motion and waits for fonts. Browser requests GET/HEAD-only, external traffic blocked; no provider spend or publication/data-flow change.
+- Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Commit/push and normal API/worker/docs/schema restart follow; VM stays private. Next iteration: metrics probe now due, scheduled acceptance at 15:00 UTC.
