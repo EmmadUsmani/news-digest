@@ -3,12 +3,16 @@ import { test } from 'node:test';
 
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { SignInLinks } from '../src/modules/accounts/application/sign-in-links';
+import type { RecipientCoordination } from '../src/modules/accounts/domain/recipient-coordination';
 import type { SignInLink } from '../src/modules/accounts/domain/sign-in-link';
 
 const NOW = new Date('2026-11-08T20:00:00Z');
 const DAY = 86_400_000;
 
-function fixture() {
+function fixture(
+  recipients: RecipientCoordination = { run: async (_email, work) => work() },
+  onWrite: () => Promise<void> = async () => {},
+) {
   const tokens = new CryptoSessionTokens();
   const rows = new Map<string, SignInLink>();
   const audit: string[] = [];
@@ -21,6 +25,7 @@ function fixture() {
   const service = new SignInLinks(
     {
       async issueWithAudit(link, issuer) {
+        await onWrite();
         if (failAudit) throw new Error('Audit unavailable');
         rows.set(link.tokenHash, link);
         audit.push(issuer);
@@ -52,6 +57,7 @@ function fixture() {
         return { sessionId: 'new-session', cookie: 'secure-cookie' };
       },
     },
+    recipients,
   );
   return {
     service,
@@ -160,4 +166,80 @@ void test('a failed session exchange leaves the invitation consumed', async () =
   await assert.rejects(f.service.redeem('POST', link.token, NOW));
   assert.equal(await f.service.redeem('POST', link.token, NOW), null);
   assert.equal(f.identities.length, 1);
+});
+
+void test('link issuance waits for the normalized recipient lock and rechecks admin authorization', async () => {
+  let enter!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    enter = resolve;
+  });
+  const locked: string[] = [];
+  const f = fixture({
+    run: async (email, work) => {
+      locked.push(email);
+      await gate;
+      return work();
+    },
+  });
+  const pending = f.service.issue('A'.repeat(43), ' Friend@Example.Test ', NOW);
+  assert.deepEqual(locked, ['friend@example.test']);
+  assert.equal(f.rows.size, 0);
+  f.setAdmin(false);
+  enter();
+  assert.equal(await pending, null);
+  assert.equal(f.rows.size, 0);
+  assert.deepEqual(f.audit, []);
+});
+
+void test('link issuance holds coordination through the audit write and fails closed on lock errors', async () => {
+  let held = false;
+  let finish!: () => void;
+  let started!: () => void;
+  const writing = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  const gate = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  const f = fixture(
+    {
+      run: async (_email, work) => {
+        held = true;
+        try {
+          return await work();
+        } finally {
+          held = false;
+        }
+      },
+    },
+    async () => {
+      assert.equal(held, true);
+      started();
+      await gate;
+      assert.equal(held, true);
+    },
+  );
+  const pending = f.service.issue('A'.repeat(43), 'friend@example.test', NOW);
+  await writing;
+  assert.equal(held, true);
+  assert.equal(f.rows.size, 0);
+  finish();
+  assert.ok(await pending);
+  assert.equal(held, false);
+  assert.equal(f.audit.length, 1);
+  const unavailable = fixture({
+    run: async () => {
+      throw new Error('Lock unavailable');
+    },
+  });
+  await assert.rejects(
+    unavailable.service.issue('A'.repeat(43), 'friend@example.test', NOW),
+    /Lock unavailable/,
+  );
+  assert.equal(unavailable.rows.size, 0);
+  assert.deepEqual(unavailable.audit, []);
+  assert.equal(
+    await unavailable.service.issue('A'.repeat(43), 'invalid', NOW),
+    null,
+  );
 });

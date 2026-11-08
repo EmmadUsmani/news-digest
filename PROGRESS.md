@@ -136,3 +136,12 @@
 - Accounts remain disabled and VM private. No live migration, generation change or provider call. Link operations/deletion still need the common boundary before activation; Phase 1 rollout waits for pre-noon.
 - Updated TASKS and rollout plan; current handbook behavior unchanged. Targeted exchange tests pass (2); build and handbook check pass (expected metadata notes for unapplied tables). Full pnpm check passes: static checks, 666 unit tests, 251 integration passes/four expected skips. pnpm format, pnpm lint:fix and git diff --check pass.
 - API/worker restarted; health and scheduled-reader check verify four topics/19 stories/17 posts. Commit/push then repeat restart/health to match main. Next: finish link/deletion coordination and pre-noon Phase 1 backup/rollout.
+
+## 2026-11-08: iteration 1426 — coordinated sign-in-link issuance
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources healthy; digest queue has no failures, retained ingestion/social failures unchanged.
+- Prepared link issuance now requires shared recipient coordination through audited persistence. Normalized recipients share the login boundary; issuer session/admin eligibility is checked after waiting. Runtime supplies the required port; main remains disconnected.
+- Offline tests verify waiting, changed admin eligibility, lock held through delayed audit/write and fail-closed lock errors. Accounts disabled, VM private; no migration, provider call or edition-generation change.
+- Updated TASKS and rollout plan. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and handbook plan check pass (expected metadata notes for unapplied tables). Targeted tests: 6 passes. Full `pnpm check`: static checks, 668 unit passes, 251 integration passes/four expected skips.
+- API/worker restarted; health passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. Commit/push then restart/check again to match main.
+- Next: coordinate link redemption and deletion before activation; Phase 1 rollout still awaits the pre-noon backup/migration window and scheduled acceptance.

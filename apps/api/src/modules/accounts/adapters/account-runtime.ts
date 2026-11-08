@@ -95,6 +95,7 @@ export function prepareAccountHandlers(
       new CryptoSessionTokens(),
       ports.identities,
       sessions,
+      ports.recipients,
     ),
   );
 }

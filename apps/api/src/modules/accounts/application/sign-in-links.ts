@@ -1,6 +1,8 @@
 import type { ReaderIdentityRepository } from '../domain/identity';
+import type { RecipientCoordination } from '../domain/recipient-coordination';
 import type { SessionTokens } from '../domain/session';
 import type { SignInLinkRepository } from '../domain/sign-in-link';
+import { normalizeEmail } from './login-codes';
 import type { ReaderSessions } from './sessions';
 
 const TOKEN = /^[A-Za-z0-9_-]{43}$/;
@@ -18,24 +20,33 @@ export class SignInLinks {
       ReaderSessions,
       'authenticate' | 'issueVerifiedIdentity'
     >,
+    private readonly recipients: RecipientCoordination,
   ) {}
 
   async issue(adminToken: string, recipient: string, now: Date) {
     if (!TOKEN.test(adminToken)) return null;
-    const admin = await this.sessions.authenticate(adminToken, now);
-    if (!admin?.isAdmin) return null;
-    const email = recipient.trim().toLowerCase();
-    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      return null;
-    const token = this.tokens.generate();
-    const expiresAt = new Date(now.getTime() + DAY_MS);
-    await this.repository.issueWithAudit(
-      { email, tokenHash: this.tokens.hash(token), createdAt: now, expiresAt },
-      admin.userId,
-    );
-    // Return only after the audit and hashed link are durably written. The
-    // eventual URL should carry this secret in its fragment, not its query.
-    return { token, expiresAt };
+    const email = normalizeEmail(recipient);
+    if (!email) return null;
+    return this.recipients.run(email, async () => {
+      // Recheck the issuer after waiting: revocation or an admin-policy change
+      // must prevent a queued invitation from being written.
+      const admin = await this.sessions.authenticate(adminToken, now);
+      if (!admin?.isAdmin) return null;
+      const token = this.tokens.generate();
+      const expiresAt = new Date(now.getTime() + DAY_MS);
+      await this.repository.issueWithAudit(
+        {
+          email,
+          tokenHash: this.tokens.hash(token),
+          createdAt: now,
+          expiresAt,
+        },
+        admin.userId,
+      );
+      // Return only after both the audit and hashed link are durably written.
+      // The eventual URL carries this secret in its fragment, not its query.
+      return { token, expiresAt };
+    });
   }
 
   async redeem(method: string, token: string, now: Date) {

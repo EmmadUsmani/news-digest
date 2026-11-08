@@ -219,8 +219,10 @@ challenge replacement and awaited delivery, and checks eligibility after acquiri
 it. Composition requires an explicit coordination dependency; main remains
 disconnected. Prepared code exchange now holds that same boundary through proof
 consumption, identity lookup and session creation, with eligibility checked after
-waiting. Link operations and deletion still need the boundary and policy rechecks
-before activation.
+waiting. Prepared sign-in-link issuance now uses the same boundary around its
+audit/write, rechecking issuer session and admin eligibility after waiting.
+Link redemption and deletion still need the boundary and policy rechecks before
+activation.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design
