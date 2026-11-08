@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1270): opt-in development Anthropic runtime composes durable ledger/guard/provider with fixed model pricing and no retries; offline HTTP/accounting checks pass. Test-edition routes and xAI composition remain next.
+
 - [x] STEERING 50 (1269): explicit development LLM bridge bounds UTF-8 input/cache pricing and settles actual usage through the durable guard; offline refusal/replay/error checks pass. Runtime/test-edition composition remains next.
 
 - [x] STEERING 50 (1268): development call guard reserves before execution, suppresses durable replays and retains uncertain holds; offline/database races verify single execution and production isolation. Provider/test-edition composition remains next.

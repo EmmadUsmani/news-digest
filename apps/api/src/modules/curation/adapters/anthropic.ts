@@ -49,6 +49,7 @@ export class AnthropicLlmAdapter extends LlmPort {
     private readonly wait: (ms: number) => Promise<void> = (ms) =>
       new Promise((resolve) => setTimeout(resolve, ms)),
     private readonly log = logger,
+    private readonly rateLimitRetries = 2,
   ) {
     super();
     // Only explicit, rejected rate-limit requests may retry within a reservation.
@@ -148,7 +149,7 @@ export class AnthropicLlmAdapter extends LlmPort {
         if (
           error instanceof Anthropic.APIError &&
           error.status === 429 &&
-          attempt < 2
+          attempt < this.rateLimitRetries
         ) {
           const headers: unknown = error.headers;
           const delay = rateLimitDelay(

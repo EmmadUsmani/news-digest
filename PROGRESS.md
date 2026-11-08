@@ -180,3 +180,14 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - Verification: targeted tests 3/3; `pnpm build` and handbook budget check pass; five complete saved-reader fingerprints unchanged. Full `pnpm check` result recorded below.
 - Next: compose development runtime/test-edition routes and xAI bounds; phase-0/2 normal scheduled acceptance and Nov 8 review remain due. VM stays private.
 - Final results: `pnpm check` passes (590 unit/232 integration passes, four expected skips); `pnpm format`, `pnpm lint:fix` and diff checks pass. Build and handbook checks pass.
+
+## 2026-11-08: iteration 1270 — compose isolated development Anthropic runtime
+
+- Clean main/no leftovers; alerts/health clear, all 36 sources healthy and scheduled queue has no failures. Nov 8 scheduled acceptance remains due at 15:00 UTC.
+- Added explicit `LLM_LIVE=1` runtime composing authoritative development repository, durable guard and Anthropic bridge. Disabled composition touches neither key nor database; enabled composition requires a key.
+- Runtime fixes known Haiku/Sonnet model-price pairs independently of production env overrides, validates output/attempt inputs and disables adapter retries without changing production retry defaults.
+- Five offline HTTP tests cover both model reservations/actual charges, stop/report propagation, opt-in/key gates, refusal/replay/input suppression and one-attempt 429 retention. Initial lint caught unsafe fixture-body stringification; corrected to a checked string.
+- Test-edition routes and xAI composition remain unwired. No live provider calls, spend, schema changes or production-budget changes; VM remains private.
+- Verification: targeted tests 5/5; `pnpm build`, handbook budget check and five complete saved-reader fingerprint comparisons pass. Full check and final service results below.
+- Next: compose test-edition generation with free defaults and isolated paid options; phase-0/2 normal scheduled acceptance and Nov 8 edition review/first-week report remain due.
+- Final results: `pnpm check` passes (595 unit/232 integration passes, four expected skips); final `pnpm format`, `pnpm lint:fix`, build, handbook and diff checks pass. Four app services restarted healthy after push; health and alerts rechecked below.

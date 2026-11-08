@@ -79,5 +79,6 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
 - Separate development tables hold lifetime allowances: Anthropic $5 and xAI $2.
 - Reservations persist until confirmed billing replaces the hold; admission stops
   at 75% of the allowance and never resets by date.
-- The ledger is installed but provider callers are not connected yet. Current
-  manual generations still use production accounting.
+- A separate Anthropic runtime requires `LLM_LIVE=1`, uses fixed Haiku/Sonnet
+  pricing and never retries calls. Admin test-edition routes are not connected
+  yet; current manual generations still use production accounting.
