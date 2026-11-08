@@ -156,7 +156,13 @@ async function smoke() {
         await page.getByRole('alert').waitFor();
         await page.unroute('**/api/editions?offset=*');
         await page.getByRole('button', { name: 'Try again' }).click();
-        await page.locator('li').first().waitFor();
+        // Published-only history can legitimately have no entries on page 3.
+        const recovered = await (
+          await fetch(`${origin}/api/editions?offset=40`)
+        ).json();
+        if (recovered.entries.length)
+          await page.locator('li').first().waitFor();
+        else await page.getByText('No editions on this page.').waitFor();
         assert.equal(await page.getByRole('alert').count(), 0);
         assert.deepEqual(errors, []);
         assert.deepEqual(forbidden, []);

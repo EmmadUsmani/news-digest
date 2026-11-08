@@ -27,7 +27,15 @@ export function ReaderArchive() {
         <Link to="/" className="text-lg font-semibold tracking-tight">
           News Digest
         </Link>
-        <ThemeToggle />
+        <nav aria-label="Reader navigation" className="flex items-center gap-3">
+          <Link
+            to="/saved"
+            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          >
+            Saved items
+          </Link>
+          <ThemeToggle />
+        </nav>
       </header>
       <div className="pt-12">
         <h1
