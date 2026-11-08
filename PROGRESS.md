@@ -1,58 +1,3 @@
-## 2026-11-08: iteration 1331 — easier post context expansion
-
-- Clean main/no leftovers. Alerts empty; `pnpm obs health`, `services --check`, `sources --check` and `jobs --check` pass: 14 services/36 sources healthy, scheduled edition due 15:00 UTC. Metrics probe not due until ≥10:26 UTC.
-- Read latest published titles across four topics; known evidence-depth/selection fixes await scheduled acceptance. Reader-visible weakness: post context notes had text-height tap targets, making explanations hard to open on phones. Their summaries now provide 44px targets with padding and retain visible keyboard focus.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-context-targets.ts` pass: all four published notes retain their wording, touch/keyboard expansion, focus and no overflow/errors at 1440/390/320px in both themes. Six screenshots saved; 320px dark inspected.
-- `pnpm exec tsx scripts/smoke-reader-post-context.ts` passes long synthetic-note touch/keyboard expansion; four replay screenshots refreshed. Initial new smoke lacked touch emulation; corrected `hasTouch` before successful rerun.
-- Browser requests GET/HEAD-only, external traffic blocked; no provider calls/spend or publication/data-flow changes. VM remains private; no phase acknowledgment before scheduled acceptance.
-- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push; next metrics probe ≥10:26 UTC and scheduled acceptance at 15:00 UTC.
-
-## 2026-11-08: iteration 1332 — easier X media recovery
-
-- Clean main/no leftovers. Alerts empty; health/services/sources/jobs checks pass: 14 services/36 sources healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
-- Read the latest four-topic edition (20 stories/18 posts); known editorial fixes await scheduled evidence. Reader-visible weakness: failed X embeds exposed 32px recovery actions. Original-link and retry controls now have 44px targets and explicit keyboard focus; status takes its own row so actions fit on narrow phones.
-- Owner benefit: opening the original or retrying unavailable X media is easier by touch and keyboard, advancing the existing reader under items 38/42 without new features.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-x-media.ts` pass: 1440/390/320px light/dark, target dimensions/focus, touch retry, saved text/context, resize/theme/replacement recovery and no overflow/errors/writes. Screenshots refreshed; narrow dark inspected. Recovery uses a labelled local widget stub; external requests blocked, no provider spend.
-- Initial smoke raced the build and saw old target dimensions; rerun after build passed all six configurations.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips; normal four-service restart follows push. VM stays private; no phase acknowledgment before scheduled acceptance.
-- Next: metrics probe ≥10:26 UTC; 15:00 scheduled phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
-
-## 2026-11-08: iteration 1333 — easier saved X text expansion
-
-- Clean main/no leftovers. Alerts empty; health/services/sources/jobs checks pass: 14 services/36 sources healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
-- Read latest published titles across four topics; known editorial fixes await scheduled evidence. Loaded X embeds still exposed a text-height saved-text disclosure. It now has a 44px target and explicit keyboard focus. Owner benefit: easier access to the saved transcript beside an embedded post on phones and by keyboard.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-x-media.ts` pass: 1440/390/320px light/dark, target dimensions/focus, touch collapse/keyboard expansion, text preservation, recovery/resize/theme behavior and no overflow/errors/writes. Six disclosure screenshots added; related screenshots refreshed; narrow dark inspected.
-- Browser media uses a labelled local widget stub; external requests blocked, no provider spend or publication/data-flow changes. VM remains private; no phase acknowledgment before scheduled acceptance.
-- `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. `pnpm check` passed typecheck/lint/format/boundaries and 629 unit tests, then received SIGTERM during integration (no assertion failure). Separate `pnpm test:integration` passes: 233 passed/four expected skips. Older progress archived to keep this file small. Normal four-service restart follows push.
-- Next: metrics probe ≥10:26 UTC; 15:00 scheduled phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
-
-## 2026-11-08: iteration 1334 — easier post author and original links
-
-- Clean main/no leftovers. Alerts empty; health/services/sources/jobs checks pass: 14 services/36 sources healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
-- Read latest published titles across all four topics; known evidence-depth/selection fixes await scheduled acceptance. X and Bluesky author/timestamp links still had text-height targets. They now provide 44px targets and explicit keyboard focus. Owner benefit: easier access to authors and original posts on phones and by keyboard.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-post-byline.ts` pass: 18 published posts at 1440/390/320px in both themes; target dimensions, destinations, keyboard focus, no overflow/page errors. Six screenshots saved; narrow dark inspected. Initial smoke counted before content loaded; added visibility wait and reran successfully.
-- Extra `smoke-reader-x-links.ts` could not run: latest edition has no saved post matching its joined-prose/URL prerequisite; no product failure observed. Browser traffic GET/HEAD-only with external requests blocked; no provider calls/spend or publication changes.
-- VM remains private; no phase acknowledgment before scheduled acceptance. Next: metrics probe ≥10:26 UTC; 15:00 phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push.
-
-## 2026-11-08: iteration 1335 — accessible Bluesky media recovery
-
-- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
-- Read latest published titles across all four topics and saved Bluesky posts. Known editorial fixes await scheduled evidence. Bluesky media links had no explicit keyboard focus and collapsed to a text-height target when images failed.
-- Media links now retain a 44px target and visible keyboard focus. Owner benefit: easier image/video access by keyboard and easier failed-image recovery on phones; no new feature or editorial change.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-bluesky-image-recovery.ts` pass: 24 loaded/recovered/failed/same-URL cases at 1440/390/320px in both themes; dimensions, focus, destinations, recovery and no overflow/errors verified. Screenshots refreshed/added; narrow dark failure inspected.
-- `pnpm exec tsx scripts/smoke-reader-bluesky-video.ts` passes loaded/failed/missing previews at desktop/mobile in both themes. Media variants are synthetic, based on a saved edition; GET-only browser traffic and external requests blocked, no provider spend.
-- VM stays private; phase-0/phase-2 acceptance waits for the normal 15:00 scheduled publication. Next metrics probe ≥10:26 UTC, then daily acceptance and first-week report.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial pipeline terminated during lint without diagnostic; standalone lint and full check rerun passed. Published byline smoke also passes all six viewports/themes. Normal four-service restart follows push.
-
-## 2026-11-08: iteration 1336 — easier contents and archive navigation
-
-- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and digest jobs healthy. An initial service snapshot caught the previous handbook restart; direct systemd status and refreshed snapshot confirm recovery.
-- Read the four published topics (20 stories/18 posts). Known content fixes await scheduled acceptance. Reader Contents button and its archive link still had small tap targets; archive link lacked explicit keyboard focus. Both now have 44px targets and the link has visible focus, making the existing navigation easier on phones/by keyboard.
-- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-contents-controls.ts` pass: 1440/390/320px, both themes, target sizes, keyboard focus, Escape/trigger focus return, archive navigation and no overflow/page errors. Six screenshots saved; 320px dark inspected.
-- Browser uses published content, GET/HEAD-only traffic and blocked external requests. No provider spend, publication or backend changes. VM stays private; phase acceptance waits for 15:00 UTC. Next passive metrics check remains ≥10:26 UTC.
-- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. First full-check process received SIGTERM during lint without diagnostic; full rerun passed. Normal API/worker/docs/schema restart follows commit/push.
-
 ## 2026-11-08: iteration 1337 — overnight metrics recovery evidence
 
 - Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks pass. Read all four published topic headline lists; known editorial fixes and phase acceptance await the normal 15:00 UTC publication.
@@ -134,3 +79,12 @@
 - `smoke-reader-preferences.ts` and `smoke-reader-bookmarks.ts` pass desktop/mobile/light/dark, including historical selections. Inspected refreshed mobile preference/desktop bookmark screenshots; kept these two and deliberately restored other generated screenshots to avoid redundant churn.
 - Corrected two report field assumptions (`runs`, numeric citations); unavailable psql replaced by read-only Drizzle metadata query. No application data changed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Documentation/screenshots only; no restart/deploy during 13:00–16:00 UTC. Next: finish detailed scheduled/phase acceptance; passive metrics probe no earlier than 15:31 UTC.
+
+## 2026-11-08: iteration 1382 — compare Tech supplied evidence
+
+- Clean main/no leftovers. Alerts empty; `/healthz`, 14 services, 36 sources and all four queues available; no failed digest jobs. Reader latest/direct/history passes for Nov 8: four topics, 19 stories/17 posts.
+- Read immutable admin edition `f9af996b-f647-4994-836e-054964a93b74` via local authenticated GET and compared every Tech story's saved evidence with its reader summary. No mutable inventory substituted.
+- Five evidence excerpts: one empty, one link-only, three headline-only, zero substantive (Nov 7 also zero substantive). Recorded omitted “Don't Ask Again” setting and unknown-address detail; no further prompt change justified.
+- Distinguished extra coverage links from declared evidence; verified Tom's Hardware, Guardian and CNBC saved publisher attribution. Updated daily review and TASKS; richer reporting stays deferred. Remaining social/phase acceptance stays open.
+- No provider calls, data writes, source fetches, deployment or restart; preserved STEERING 50's 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC; no repeated probe.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Archived iterations 1331–1336 to keep PROGRESS small. Docs-only commit; protected-window restart exception applies. Next: remaining scheduled/phase acceptance, metrics probe ≥15:31 UTC.

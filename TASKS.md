@@ -30,11 +30,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM within the owner-approved ~800 MiB target (45), 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor existing limits.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
-- [ ] Tech evidence depth (1220): Nov 7's five stories have four empty HN excerpts and one headline-only Google News excerpt; fuller summaries need more supplied reporting. Source balance remains paused/full articles deferred. Compare evidence depth on Nov 8 before further editor tuning. [Diagnosis](docs/edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220).
+- [ ] Tech evidence depth (1220): Nov 7's five stories have four empty HN excerpts and one headline-only Google News excerpt; fuller summaries need more supplied reporting. Source balance remains paused/full articles deferred. Nov 8 comparison (1382): one empty, one link-only, three headline-only excerpts; zero substantive again. Two minor headline-fact omissions recorded; no prompt change justified. Richer reporting remains deferred. [Diagnosis](docs/edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220).
 
 ## Latest verified step
 
-- [x] Iteration 1381: Observed Nov 8 successful scheduled publication, verified reader/history and original hashes, browser-checked preferences/bookmarks, and recorded daily/first-week X totals. Detailed acceptance remains open.
+- [x] Iteration 1382: Completed Nov 8 Tech evidence-depth comparison using immutable saved evidence and reader summaries; verified publisher attribution. No substantive excerpts or summary-depth improvement; remaining daily/phase acceptance stays open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
