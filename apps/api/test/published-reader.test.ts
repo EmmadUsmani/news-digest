@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { test } from 'node:test';
 
@@ -19,11 +18,6 @@ void test('published reader filters before pagination and ID lookup while admin 
   const previous = process.env.READER_PUBLISHED_ONLY;
   const app = await NestFactory.create(AppModule, { logger: false });
   try {
-    // Candidate metadata is deliberately unregistered until the allowed window.
-    // This database belongs exclusively to the integration test container.
-    await repository.db.query(
-      await readFile('ops/backups/publication_metadata.sql', 'utf8'),
-    );
     await app.listen(0, '127.0.0.1');
     const base = `${await app.getUrl()}/api/editions`;
     const published: DigestPreview[] = [];
@@ -114,8 +108,7 @@ void test('published reader filters before pagination and ID lookup while admin 
     await repository.db.query(`
       ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview;
 
-      ALTER TABLE digest_previews DROP COLUMN published_at;
-      ALTER TABLE digest_previews DROP COLUMN kind;
+
     `);
     await repository.onModuleDestroy();
   }

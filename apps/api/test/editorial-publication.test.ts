@@ -49,6 +49,7 @@ const edit = {
 };
 async function harness(
   options: {
+    scheduledKey?: string;
     incomplete?: boolean;
     refused?: boolean;
     quiet?: boolean;
@@ -161,8 +162,20 @@ async function harness(
             String(row.points),
           ]),
         };
-      if (sql.startsWith('insert into "digest_previews"'))
+      if (sql.startsWith('insert into "digest_previews"')) {
         stored.push(JSON.parse(String(args?.[5])));
+        const test = options.scheduledKey?.startsWith('integration:');
+        assert.equal(
+          args?.[7],
+          test ? 'test' : options.scheduledKey ? 'scheduled' : 'manual',
+        );
+        assert.equal(
+          args?.[8],
+          options.scheduledKey && !test
+            ? JSON.parse(String(args?.[5])).createdAt
+            : null,
+        );
+      }
       return { rows: [] };
     },
     release() {},
@@ -275,9 +288,14 @@ async function harness(
   });
   const progress: EditionProgress[] = [];
   const snapshot = digestPreviewSchema.parse(
-    await repository.generate(start, end, undefined, async (value) => {
-      progress.push(value);
-    }),
+    await repository.generate(
+      start,
+      end,
+      options.scheduledKey,
+      async (value) => {
+        progress.push(value);
+      },
+    ),
   );
   assert.equal(progress[0].stage, 'topics');
   assert.ok(progress[0].topics.every((topic) => topic.stage === 'triage'));
@@ -429,4 +447,9 @@ void test('opted-in publication persists grouped coverage in one edited story sl
     new Set(topic.stories[0].coverage?.map((item) => item.url)),
     new Set([candidate.url, 'https://example.org/support']),
   );
+});
+
+void test('future scheduled saves publish and legacy integration saves stay private', async () => {
+  await harness({ scheduledKey: 'daily:2026-11-08:offline' });
+  await harness({ scheduledKey: 'integration:publication-metadata' });
 });

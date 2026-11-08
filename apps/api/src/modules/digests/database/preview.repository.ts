@@ -5,7 +5,16 @@ import {
   type SelectedSocialPost,
 } from '@digest/contracts';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { and, asc, desc, DrizzleQueryError, eq, sql } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  desc,
+  DrizzleQueryError,
+  eq,
+  isNotNull,
+  ne,
+  sql,
+} from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
@@ -29,6 +38,7 @@ import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import { articleTriageInput } from '../domain/article-triage-input';
 import { DigestNotifications } from '../domain/digest-published';
+import { newEditionPublication } from '../domain/edition-publication';
 import {
   editorialShortlist,
   scoredFallback,
@@ -57,10 +67,11 @@ export class PostgresPreviewRepository
   private readonly orm = drizzle(this.db);
   readonly editorial = editorialServices(this.db);
   private publicationFilter(publishedOnly: boolean) {
-    // Metadata migration is staged separately: the default-off reader must
-    // work before these columns exist. Remove this SQL escape after registration.
     return publishedOnly
-      ? sql`${digestPreviews}.${sql.identifier('published_at')} IS NOT NULL AND ${digestPreviews}.${sql.identifier('kind')} <> 'test'`
+      ? and(
+          isNotNull(digestPreviews.publishedAt),
+          ne(digestPreviews.kind, 'test'),
+        )
       : undefined;
   }
   cost(id: string) {
@@ -496,6 +507,11 @@ export class PostgresPreviewRepository
             windowEnd: end.toISOString(),
             snapshot,
             scheduledKey: scheduledKey ?? null,
+            ...newEditionPublication(
+              scheduledKey ? 'scheduled' : 'manual',
+              scheduledKey ?? null,
+              new Date(snapshot.createdAt),
+            ),
           });
           return snapshot;
         },

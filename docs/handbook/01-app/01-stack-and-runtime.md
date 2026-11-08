@@ -90,7 +90,10 @@ all its changes. The baseline makes no schema or content changes.
 Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.
 `/api/editions?offset=0` lists 20 saved editions per page with dates, topic names and a
-next-page flag, excluding generation methods. The browser uses these reader
+next-page flag, excluding generation methods. Saved editions carry a scheduled,
+manual or test kind and a publication timestamp; scheduled saves publish immediately,
+manual saves stay private and tests cannot publish. `READER_PUBLISHED_ONLY=1`
+limits reader endpoints to published editions; it remains off during rollout. The browser uses these reader
 endpoints for both edition content and history. Stories use compact cards in a
 672 px column, with expandable grouped articles. Desktop contents follow the
 current topic and story; mobile uses topic chips and a contents sheet. Story

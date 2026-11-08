@@ -108,6 +108,11 @@ export const digestPreviews = pgTable(
     }).notNull(),
     snapshot: jsonb().notNull(),
     scheduledKey: text('scheduled_key'),
+    kind: text().default('manual').notNull(),
+    publishedAt: timestamp('published_at', {
+      withTimezone: true,
+      mode: 'string',
+    }),
   },
   (table) => [
     index('digest_previews_latest').using(
@@ -122,6 +127,14 @@ export const digestPreviews = pgTable(
     }),
     unique('digest_previews_scheduled_key_key').on(table.scheduledKey),
     check('digest_previews_check', sql`window_start < window_end`),
+    check(
+      'digest_previews_kind_check',
+      sql`kind IN ('scheduled', 'manual', 'test')`,
+    ),
+    check(
+      'digest_previews_test_unpublished',
+      sql`kind <> 'test' OR published_at IS NULL`,
+    ),
   ],
 );
 

@@ -684,7 +684,10 @@ with the immutability trigger disabled: before and after the metadata UPDATE.
 Each failed session must roll back both columns, preserve every original edition
 field and reject snapshot UPDATE and DELETE again. The same transaction then
 commits successfully and rechecks the guard and owner publication policy.
-The candidate is not registered as an application migration yet.
+Iteration 1264 registers the rehearsed backfill in `drizzle/0009_edition_publication.sql`
+and the authoritative schema. The migration runner owns the transaction, including
+the temporary trigger disable and restoration. Reader HTTP tests now use the
+fully migrated schema rather than installing and dropping candidate columns.
 
 ### Test-edition publication constraint (iteration 1252)
 
@@ -771,3 +774,12 @@ Six callers produce one new hold and five replays; six identical settlements
 record one charge. Competing confirmed amounts produce one winner and one
 conflict, retaining the winning charge and unrelated unresolved holds; replay
 of that winner leaves status unchanged. All checks use disposable Postgres.
+
+### Publication metadata runtime (iteration 1264)
+
+Future-save publication policy now runs at the repository insert boundary.
+Offline publication harness assertions verify private manual saves, published
+scheduled saves with the exact saved timestamp, and unpublished legacy integration
+saves. Fresh-container schema parity and generated-migration checks cover the
+registered columns and both publication constraints. The reader switch remains
+off pending the actual saved-reader comparison with filtering enabled.
