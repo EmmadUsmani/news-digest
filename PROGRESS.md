@@ -82,3 +82,12 @@
 - Browser media uses a labelled local widget stub; external requests blocked, no provider spend or publication/data-flow changes. VM remains private; no phase acknowledgment before scheduled acceptance.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. `pnpm check` passed typecheck/lint/format/boundaries and 629 unit tests, then received SIGTERM during integration (no assertion failure). Separate `pnpm test:integration` passes: 233 passed/four expected skips. Older progress archived to keep this file small. Normal four-service restart follows push.
 - Next: metrics probe ≥10:26 UTC; 15:00 scheduled phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
+
+## 2026-11-08: iteration 1334 — easier post author and original links
+
+- Clean main/no leftovers. Alerts empty; health/services/sources/jobs checks pass: 14 services/36 sources healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
+- Read latest published titles across all four topics; known evidence-depth/selection fixes await scheduled acceptance. X and Bluesky author/timestamp links still had text-height targets. They now provide 44px targets and explicit keyboard focus. Owner benefit: easier access to authors and original posts on phones and by keyboard.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-post-byline.ts` pass: 18 published posts at 1440/390/320px in both themes; target dimensions, destinations, keyboard focus, no overflow/page errors. Six screenshots saved; narrow dark inspected. Initial smoke counted before content loaded; added visibility wait and reran successfully.
+- Extra `smoke-reader-x-links.ts` could not run: latest edition has no saved post matching its joined-prose/URL prerequisite; no product failure observed. Browser traffic GET/HEAD-only with external requests blocked; no provider calls/spend or publication changes.
+- VM remains private; no phase acknowledgment before scheduled acceptance. Next: metrics probe ≥10:26 UTC; 15:00 phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push.
