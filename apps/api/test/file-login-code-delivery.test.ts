@@ -1,5 +1,14 @@
 import assert from 'node:assert/strict';
-import { chmod, mkdtemp, readdir, rm, stat, symlink } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import {
+  chmod,
+  mkdir,
+  mkdtemp,
+  readdir,
+  rm,
+  stat,
+  symlink,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -57,6 +66,54 @@ void test('stand-in mailbox isolates recipients, replaces atomically and enforce
       new FileLoginCodeDelivery(link).latest('one@example.test', now),
       /owner-only/,
     );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+void test('mailbox deletion removes only the recipient entry and fails closed on unsafe directories', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'login-mailbox-cleanup-'));
+  const directory = join(root, 'mail');
+  const mailbox = new FileLoginCodeDelivery(directory);
+  const now = new Date('2026-11-08T18:00:00Z');
+  const expiry = new Date(now.getTime() + 600_000);
+  const email = 'deleted@example.test';
+  const entry = join(
+    directory,
+    `${createHash('sha256').update(email).digest('hex')}.json`,
+  );
+  try {
+    await mailbox.deliver(email, '123456', expiry);
+    await mailbox.deliver('retained@example.test', '654321', expiry);
+    await mailbox.remove(email);
+    await mailbox.remove(email); // Retrying cleanup after a partial failure is safe.
+    assert.equal(await mailbox.latest(email, now), null);
+    assert.equal(await mailbox.latest('retained@example.test', now), '654321');
+    assert.equal((await readdir(directory)).length, 1);
+
+    // A replaced entry must not cause deletion outside the mailbox.
+    const target = join(root, 'protected');
+    await mkdir(target);
+    await symlink(target, entry);
+    await mailbox.remove(email);
+    assert.equal((await stat(target)).isDirectory(), true);
+    await mkdir(entry);
+    await assert.rejects(mailbox.remove(email));
+    assert.equal((await stat(entry)).isDirectory(), true);
+    await rm(entry, { recursive: true });
+
+    await mailbox.deliver(email, '123456', expiry);
+    await chmod(directory, 0o755);
+    await assert.rejects(mailbox.remove(email), /owner-only/);
+    await chmod(directory, 0o700);
+    assert.equal(await mailbox.latest(email, now), '123456');
+    const alias = join(root, 'alias');
+    await symlink(directory, alias);
+    await assert.rejects(
+      new FileLoginCodeDelivery(alias).remove(email),
+      /owner-only/,
+    );
+    assert.equal(await mailbox.latest(email, now), '123456');
   } finally {
     await rm(root, { recursive: true, force: true });
   }

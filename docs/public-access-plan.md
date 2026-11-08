@@ -199,9 +199,13 @@ The prepared, uninstalled POST `/api/account/delete` transport requires exact
 same-origin JSON, a body containing only `{"confirmation":"DELETE"}` and one
 unambiguous session cookie. It accepts no caller identity, clears the secure cookie
 only after successful deletion and hides dependency failures. The runtime does not
-inject deletion, and main still installs no account routes. Mailbox cleanup,
-sync-data cascades and coordination with in-flight login/link issuance must be
-completed before enabling deletion.
+inject deletion, and main still installs no account routes. The stand-in mailbox
+now prepares idempotent recipient cleanup: it checks the private directory and
+unlinks only the hashed recipient entry, without following symlinks or removing
+directories. Cleanup is not connected to deletion yet. Its caller must coordinate
+with in-flight delivery before invoking it, to prevent a later rename from
+recreating the message. Cleanup orchestration, sync-data cascades and coordination
+with in-flight login/link issuance must be completed before enabling deletion.
 
 ## Target design
 

@@ -138,3 +138,13 @@
 - `pnpm exec tsx --test apps/api/test/account-http.test.ts` passes both loopback tests. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: static checks, 661 unit tests and 250 integration tests, four expected skips. Final format/lint pass.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics, 19 stories/17 posts. Updated TASKS and rollout plan; no current handbook behavior changed. After commit/push, restart API/worker and repeat health/reader checks.
 - Next: pre-noon phase 1 backup/rollout and scheduled acceptance; finish deletion cleanup/issuance coordination before runtime injection.
+
+## 2026-11-08: iteration 1421 — prepared recipient mailbox cleanup
+
+- Clean main/no leftovers. Alerts clear, health good, no failed user units; all 36 sources healthy and digest-generation queue has zero failures. Initial unsupported `obs status` and `--queue digest` queries were corrected to documented local commands; no mutations.
+- Prepared idempotent recipient removal in the stand-in mailbox. It validates the owner-only directory, removes only the hashed recipient entry and never follows a symlink target or recursively removes a directory.
+- Tests cover recipient isolation, repeated removal, symlink target preservation, refusal of directory entries and unsafe/symlink mailbox roots. Issuance coordination is explicitly required: an in-flight delivery can otherwise recreate a removed message.
+- Cleanup remains disconnected; accounts disabled, VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; current handbook behavior unchanged.
+- `pnpm exec tsx --test apps/api/test/file-login-code-delivery.test.ts` passes two tests. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and full `pnpm check` pass: 662 unit tests, 250 integration tests/four expected skips.
+- API/worker restart and health pass; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` verifies four topics/19 stories/17 posts. Final format/lint before commit; push and restart again so live matches main.
+- Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; coordinate issuance/deletion and cleanup before deletion runtime injection.

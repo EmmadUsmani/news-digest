@@ -68,6 +68,14 @@ export class FileLoginCodeDelivery extends LoginCodeDelivery {
     }
   }
 
+  // Prepared deletion cleanup. The caller must coordinate with code issuance:
+  // a delivery already in flight could otherwise rename a new message afterward.
+  async remove(email: string): Promise<void> {
+    await this.checkDirectory();
+    // No recursion: unlink this recipient's entry, never a symlink target or tree.
+    await rm(this.filename(email), { force: true });
+  }
+
   private filename(email: string): string {
     return join(
       this.directory,
