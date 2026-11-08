@@ -112,3 +112,15 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Next: free-default admin test-edition routing, then isolated paid options; Nov 8 normal scheduled phase-0/2 acceptance and edition review/first-week report remain due.
 - Initial push rejected a concurrent lead-docs commit; fetched/merged without rewriting history. No code or owner-priority changes; retrying the push.
 - Final results: `pnpm check` passes (600 unit and 232 integration passes, four expected skips); `pnpm build`, handbook budget check and five complete saved-reader comparisons pass. `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; four app services restarted after push with healthy endpoints/alerts.
+
+## 2026-11-08: iteration 1272 — free admin test editions
+
+- Clean main/no leftovers; `/healthz` and alert snapshot healthy. Nov 8 scheduled acceptance remains due at 15:00 UTC; no provider spend or schema changes.
+- Added `POST /api/admin/digest-previews/tests`: past-window validation, AI/paid-X defaults off, explicit false accepted and paid/unknown options rejected until isolated wiring exists.
+- Shared snapshot builder selects stored articles and X/Reddit posts without editorial services; saves unpublished `kind=test` outside production run context, edition metrics and notifications. Existing manual/scheduled routes keep their behavior.
+- Disposable-Postgres HTTP coverage checks stored synthetic content, omitted/false defaults, invalid windows/options, poisoned production editorial access, private reader 404/admin access and unchanged provider/development ledger counts. Fixtures are offline, not live content.
+- Owner pipeline handbook/public-access plan updated. Five complete published-reader response fingerprints unchanged; handbook check passes. Full check/build/deployment results follow.
+- Initial checks caught explicit-false options reaching the strict window schema; route now validates only window fields there. Fixed offline publication-filter setup and fixture FK cleanup/pool-finally after failed runs; targeted disposable HTTP suite passes 4/4. No application-service fault.
+- Next: connect isolated paid test options and retire production-accounted manual test calls; phase-0/2 normal scheduled acceptance and Nov 8 daily review/first-week report remain due. VM stays private.
+- Final verification: `pnpm check` passes (600 unit/233 integration, four expected skips); `pnpm build`, handbook, format/lint-fix and diff checks pass. Four app services restarted healthy.
+- Explicit live free-test smoke created private test `b931e39b-4384-4089-9a2e-f12a7076cb14` from stored content: four topics/20 stories/15 posts, all non-AI, reader 404/admin 200; all three provider/development ledger counts unchanged. Five published response fingerprints unchanged; health/alerts clear.

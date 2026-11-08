@@ -47,6 +47,32 @@ export class PreviewController {
     if (!job) throw new NotFoundException('Job not found');
     return job;
   }
+  @Post('tests')
+  generateTest(@Body() body: unknown) {
+    // Paid test options are unavailable until isolated runtime wiring ships.
+    // Reject them rather than silently falling back to production accounting.
+    if (
+      !body ||
+      typeof body !== 'object' ||
+      Array.isArray(body) ||
+      Object.keys(body).some(
+        (key) =>
+          !['windowStart', 'windowEnd', 'aiEditing', 'paidXSearch'].includes(
+            key,
+          ),
+      ) ||
+      ('aiEditing' in body && body.aiEditing !== false) ||
+      ('paidXSearch' in body && body.paidXSearch !== false)
+    )
+      throw new BadRequestException(
+        'Test editions currently require AI editing and paid X search off',
+      );
+    const { start, end } = this.window({
+      windowStart: 'windowStart' in body ? body.windowStart : undefined,
+      windowEnd: 'windowEnd' in body ? body.windowEnd : undefined,
+    });
+    return this.repository.generateTest(start, end);
+  }
   @Post('jobs')
   @HttpCode(202)
   enqueue(@Body() body: unknown) {

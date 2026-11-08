@@ -190,13 +190,28 @@ export class PostgresPreviewRepository
       ),
     );
   }
+  // Free admin test runs bypass production context, metrics and notifications.
+  // The shared snapshot builder receives no editorial services, even if the
+  // process has production credentials and cached services installed.
+  generateTest(start: Date, end: Date): Promise<DigestPreview> {
+    return this.generateEdition(
+      start,
+      end,
+      crypto.randomUUID(),
+      undefined,
+      undefined,
+      true,
+    );
+  }
   private async generateEdition(
     start: Date,
     end: Date,
     runId: string,
     scheduledKey?: string,
     reportProgress?: ReportEditionProgress,
+    testEdition = false,
   ): Promise<DigestPreview> {
+    const editorialServices = testEdition ? null : this.editorial;
     const client = await this.db.connect();
     const session = drizzle(client);
     try {
@@ -305,10 +320,10 @@ export class PostgresPreviewRepository
                   ? 'Non-AI ranking: topic story budget is zero.'
                   : 'Non-AI ranking: editorial service unavailable.',
             };
-            if (this.editorial && topic.story_budget > 0) {
+            if (editorialServices && topic.story_budget > 0) {
               const { topic: context, candidates: triageCandidates } =
                 articleTriageInput(topic, candidates);
-              const triage = await this.editorial.triage.score(
+              const triage = await editorialServices.triage.score(
                 context,
                 triageCandidates,
                 runId,
@@ -330,13 +345,13 @@ export class PostgresPreviewRepository
                 );
                 await topicStage(topic.id, 'editing');
                 const matches = await groupShortlist(
-                  this.editorial.grouping,
+                  editorialServices.grouping,
                   topic.id,
                   shortlist,
                   runId,
                 );
                 const ranked = rank(shortlist, start, end, 10, matches);
-                const result = await this.editorial.editor.edit(
+                const result = await editorialServices.editor.edit(
                   context,
                   ranked,
                   Math.min(10, topic.story_budget),
@@ -436,7 +451,7 @@ export class PostgresPreviewRepository
                 : [];
             postCandidates.push(...redditPosts);
             const postSelection = await editTopicPosts(
-              this.editorial,
+              editorialServices,
               {
                 id: String(topic.id),
                 name: String(topic.name),
@@ -450,7 +465,7 @@ export class PostgresPreviewRepository
             );
             const bluesky = await selectEditionBlueskyPosts(
               client,
-              this.editorial,
+              editorialServices,
               {
                 topic: {
                   id: String(topic.id),
@@ -508,7 +523,7 @@ export class PostgresPreviewRepository
             snapshot,
             scheduledKey: scheduledKey ?? null,
             ...newEditionPublication(
-              scheduledKey ? 'scheduled' : 'manual',
+              testEdition ? 'test' : scheduledKey ? 'scheduled' : 'manual',
               scheduledKey ?? null,
               new Date(snapshot.createdAt),
             ),

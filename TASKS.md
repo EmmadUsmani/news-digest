@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1272): free admin test-edition endpoint reuses stored content with AI/paid X off, saves unpublished `kind=test`, and bypasses production generation context/alerts/notifications. Paid options reject until isolated composition ships; normal scheduled acceptance remains due.
+
 - [x] STEERING 50 (1271): opt-in development X runtime reserves isolated funds before direct xAI, settles fixed-tier token/fetched-item costs and retains uncertain holds without retries. Five offline cases pass; test-edition routing remains next.
 
 - [x] STEERING 50 (1270): opt-in development Anthropic runtime composes durable ledger/guard/provider with fixed model pricing and no retries; offline HTTP/accounting checks pass. Test-edition routes and xAI composition remain next.

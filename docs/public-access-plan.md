@@ -43,8 +43,9 @@ mapped to profiles, and profiles go away.
   lifetime development pool tables and a reservation-first call guard are installed;
   an explicit development LLM bridge now estimates and settles Anthropic calls through
   the guard. An explicit `LLM_LIVE=1` runtime composes the isolated ledger and
-  Anthropic adapter with fixed model/rate pairs and retries disabled. Test-edition
-  routes and scheduled/manual callers remain unwired. The opt-in `X_SEARCH_LIVE=1`
+  Anthropic adapter with fixed model/rate pairs and retries disabled. Free test
+  editions have a separate admin route; paid test composition and migration of
+  existing manual callers remain unwired. The opt-in `X_SEARCH_LIVE=1`
   development runtime uses direct xAI, fixed pricing and an isolated $0.40 hold;
   confirmed fetched-item/token bills settle in full, including above the estimate. Edition
   publication metadata and future-save policy are deployed; the reader now
@@ -175,6 +176,10 @@ can read them.
   $14 a month and $1 a day, X $0.40 a day and $12 a month. **Development pools
   for this project: Anthropic $5 and xAI $2, total and not renewing**, with code
   ceilings so a database edit can't exceed them. Raising one needs the owner.
+- The free admin endpoint `/api/admin/digest-previews/tests` now reuses stored
+  content with no AI, provider calls, production alerts or notifications, and
+  persists private test editions. Paid options are rejected until isolated
+  composition is connected.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything

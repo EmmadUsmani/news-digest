@@ -251,7 +251,7 @@ void test('digest HTTP publication, history and async jobs use real isolated per
     windowEnd: '2000-01-02T00:00:00.000Z',
   };
   const before = await request('');
-  for (const path of ['', '/jobs']) {
+  for (const path of ['', '/jobs', '/tests']) {
     for (const invalid of [
       {},
       { ...window, windowStart: 'invalid' },
@@ -633,4 +633,145 @@ void test('admin routes use real controllers and deny unauthenticated reads and 
   const reader = await fetch(`${base}/api/editions`);
   assert.equal(reader.status, 200);
   readerEditionHistorySchema.parse(await reader.json());
+});
+
+void test('free admin test editions stay private and bypass production editorial services', async (t) => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const previousReaderFilter = process.env.READER_PUBLISHED_ONLY;
+  process.env.READER_PUBLISHED_ONLY = '1';
+  t.after(() => {
+    if (previousReaderFilter === undefined)
+      delete process.env.READER_PUBLISHED_ONLY;
+    else process.env.READER_PUBLISHED_ONLY = previousReaderFilter;
+  });
+  const { PreviewRepository } =
+    require('../dist/modules/digests/domain/preview.repository.js') as typeof import('../src/modules/digests/domain/preview.repository');
+  const { database } = await import('../src/libs/db/connections');
+  const db = database();
+  const topicId = crypto.randomUUID(),
+    sourceId = crypto.randomUUID(),
+    itemId = crypto.randomUUID();
+  t.after(async () => {
+    try {
+      await db.query('DELETE FROM content_observations WHERE item_id=$1', [
+        itemId,
+      ]);
+      await db.query('DELETE FROM content_items WHERE id=$1', [itemId]);
+      await db.query(
+        'DELETE FROM topic_source_connections WHERE source_id=$1',
+        [sourceId],
+      );
+      await db.query('DELETE FROM content_sources WHERE id=$1', [sourceId]);
+      await db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    } finally {
+      await db.end();
+    }
+  });
+  await db.query(
+    `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,story_budget,post_budget)
+    VALUES($1,'00000000-0000-4000-8000-000000000001','Free test science','Synthetic fixture','',999,2,0)`,
+    [topicId],
+  );
+  await db.query(
+    `INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,'Offline science','feed','https://example.org/free-test/feed')`,
+    [sourceId, topicId],
+  );
+  await db.query(
+    'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+    [topicId, sourceId],
+  );
+  await db.query(
+    `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at,engagement)
+    VALUES($1,'https://example.org/free-test/science','Scientists discover a new planet','A synthetic offline discovery report.','2000-01-01T12:00:00Z','{}')`,
+    [itemId],
+  );
+  await db.query(
+    'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2)',
+    [sourceId, itemId],
+  );
+  const app = await NestFactory.create(AppModule, { logger: false });
+  t.after(() => app.close());
+  const repository = app.get(PreviewRepository);
+  // Installed services must never receive a call, even with credentials set.
+  const forbidden = () => {
+    throw new Error('Production editorial called');
+  };
+  Object.defineProperty(repository, 'editorial', {
+    value: {
+      triage: { score: forbidden },
+      editor: { edit: forbidden },
+      socialTriage: { score: forbidden },
+      socialEditor: { edit: forbidden, editOutcome: forbidden },
+      grouping: { group: forbidden },
+    },
+  });
+  await app.listen(0, '127.0.0.1');
+  const base = await app.getUrl();
+  const window = {
+    windowStart: '2000-01-01T00:00:00Z',
+    windowEnd: '2000-01-02T00:00:00Z',
+  };
+  const post = (body: unknown) =>
+    fetch(`${base}/api/admin/digest-previews/tests`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  const accounting = async () =>
+    (
+      await db.query(`select
+    (select count(*) from llm_calls)::text as llm,
+    (select count(*) from x_discovery_calls)::text as x,
+    (select count(*) from development_spend_reservations)::text as development`)
+    ).rows;
+  const before = await accounting();
+  for (const options of [
+    { aiEditing: true },
+    { paidXSearch: true },
+    { aiEditing: 'false' },
+    { paidXSearch: null },
+    { kind: 'scheduled' },
+  ])
+    assert.equal((await post({ ...window, ...options })).status, 400);
+  for (const options of [{}, { aiEditing: false, paidXSearch: false }]) {
+    const response = await post({ ...window, ...options });
+    assert.equal(
+      response.status,
+      201,
+      response.status === 201 ? undefined : await response.text(),
+    );
+    const snapshot = digestPreviewSchema.parse(await response.json());
+    assert.equal(
+      snapshot.topics.find((topic) => topic.id === topicId)?.stories[0]?.id,
+      itemId,
+      'Stored fixture content reaches the test snapshot',
+    );
+    assert.ok(
+      snapshot.topics.every((topic) => topic.editorial?.mode === 'non-ai'),
+    );
+    const row = (
+      await db.query(
+        'select kind, published_at, scheduled_key from digest_previews where id=$1',
+        [snapshot.id],
+      )
+    ).rows[0];
+    assert.deepEqual(row, {
+      kind: 'test',
+      published_at: null,
+      scheduled_key: null,
+    });
+    assert.equal(
+      (await fetch(`${base}/api/editions/${snapshot.id}`)).status,
+      404,
+    );
+    assert.equal(
+      (await fetch(`${base}/api/admin/digest-previews/${snapshot.id}`)).status,
+      200,
+    );
+  }
+  assert.deepEqual(
+    await accounting(),
+    before,
+    'Free tests never write provider or development accounting',
+  );
 });
