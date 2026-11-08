@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1337: Filled the overnight metrics-recovery evidence gap; 1,841 samples/series and hourly live probe remain healthy, but no comparable natural compaction yet.
+- [x] Iteration 1338: Theme switch now has a 44px touch target; 24 reader route/viewport/theme combinations verify keyboard focus, switching, reload persistence and no overflow.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

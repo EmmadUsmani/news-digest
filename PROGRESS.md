@@ -119,3 +119,12 @@
 - App `/healthz` and configured Grafana health pass. Initial Grafana checks used the wrong port/unauthenticated proxy; corrected to configured local port 3001, database=ok. No service failure.
 - Recorded evidence in capacity decision and TASKS; VM remains private, no phase acknowledgment. Next: normal 15:00 scheduled acceptance and first-week report.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. No UI change, so no browser/screenshot change. Normal API/worker/docs/schema restart follows commit/push.
+
+## 2026-11-08: iteration 1338 — easier theme switching
+
+- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and digest jobs healthy. Scheduled acceptance remains 15:00 UTC; next passive metrics probe ≥11:26 UTC.
+- Read all four published topic titles/summaries and saved post excerpts. Known content fixes await scheduled evidence. Reader benefit: the theme switch now has a 44px touch target instead of 36px, making it easier to tap across reader pages.
+- Initial keyboard-navigation suspicion was disproved by a browser check: native Contents anchors already focus their destination. No navigation change made.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-theme-target.ts` pass: latest/historical editions, archive and Saved items at 1440/390/320px, both themes (24 cases); target, keyboard Enter/Space, visible focus, reload persistence and no overflow/page errors. Six header screenshots saved; narrow dark inspected.
+- Browser used published content with GET/HEAD-only local requests and external requests blocked. No provider spend, feature or backend change. VM remains private; no phase acknowledgment before scheduled acceptance.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Corrected initial new-script formatting failure; one existing cleanup test conservatively skipped deletion during the next run, then passed in isolation and the complete rerun. No cleanup behavior changed. Normal four-service restart follows push.
