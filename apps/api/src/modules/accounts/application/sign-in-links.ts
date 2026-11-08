@@ -6,7 +6,7 @@ import type { ReaderSessions } from './sessions';
 const TOKEN = /^[A-Za-z0-9_-]{43}$/;
 const DAY_MS = 86_400_000;
 
-// Prepared only: no routes, runtime registration or database adapter yet.
+// Prepared only: no routes or runtime registration yet.
 // The eventual HTTP adapter must apply the account request boundary to POSTs
 // and display a confirmation button on GET without calling this service.
 export class SignInLinks {

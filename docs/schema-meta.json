@@ -97,8 +97,14 @@
       "id": "accounts",
       "name": "Reader accounts",
       "color": "#9333ea",
-      "description": "Private reader identity and hashed sessions; prepared, not enabled.",
-      "tables": ["users", "sessions", "login_codes"]
+      "description": "Private reader identity, authentication challenges and issuance audit; prepared, not enabled.",
+      "tables": [
+        "users",
+        "sessions",
+        "login_codes",
+        "sign_in_links",
+        "admin_audit_log"
+      ]
     }
   ],
   "tables": {
@@ -135,7 +141,9 @@
     "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves.",
     "users": "Normalized unique reader emails; independent of the owner profile.",
     "login_codes": "Private keyed login challenges with expiry, attempt counts and single-use consumption; accounts remain disabled.",
-    "sessions": "Hashed reader session tokens, sign-in admin eligibility and cookie renewal times; removed with the user."
+    "sessions": "Hashed reader session tokens, sign-in admin eligibility and cookie renewal times; removed with the user.",
+    "sign_in_links": "Private hashed 24-hour friend sign-in links with atomic single use; accounts disabled.",
+    "admin_audit_log": "Private sign-in-link issuance audit tied to the issuing user; contains no bearer tokens."
   },
   "relations": [
     {

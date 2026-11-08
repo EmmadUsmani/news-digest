@@ -22,7 +22,8 @@ snapshots.
 > A prepared accounts migration adds independent reader identities and hashed
 > sessions, with deletion cascading from a reader to their sessions.
 > A further prepared migration stores private hashed login challenges with expiry,
-> attempt counts and single-use consumption. These tables are not live;
+> attempt counts and single-use consumption. Prepared friend-link tables add
+> hashed 24-hour tokens and private issuance audit. These tables are not live;
 > A prepared exchange maps verified codes to independent identities and hashed
 > sessions; account sign-in remains disabled. See the
 > [rollout plan](../../public-access-plan.md).

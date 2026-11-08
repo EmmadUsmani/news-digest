@@ -10,6 +10,7 @@ const integration = new Set([
   'accounts-schema.test.ts',
   'login-code-admission.test.ts',
   'login-code-repository.test.ts',
+  'sign-in-link-repository.test.ts',
   'login-exchange.test.ts',
   'citing-stories.test.ts',
   'content-repository.test.ts',

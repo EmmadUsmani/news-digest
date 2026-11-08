@@ -80,6 +80,57 @@ export const loginCodes = pgTable(
   ],
 );
 
+export const signInLinks = pgTable(
+  'sign_in_links',
+  {
+    tokenHash: text('token_hash').primaryKey().notNull(),
+    email: text().notNull(),
+    createdAt: timestamp('created_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    expiresAt: timestamp('expires_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    consumed: boolean().default(false).notNull(),
+  },
+  () => [
+    check('sign_in_links_hash_check', sql`token_hash ~ '^[0-9a-f]{64}$'`),
+    check(
+      'sign_in_links_email_check',
+      sql`email = lower(btrim(email)) AND length(email) BETWEEN 3 AND 254`,
+    ),
+    check(
+      'sign_in_links_expiry_check',
+      sql`expires_at > created_at AND expires_at <= created_at + interval '24 hours'`,
+    ),
+  ],
+);
+
+export const adminAuditLog = pgTable(
+  'admin_audit_log',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    issuerUserId: uuid('issuer_user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    action: text().notNull(),
+    recipientEmail: text('recipient_email').notNull(),
+    createdAt: timestamp('created_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+  },
+  () => [
+    check('admin_audit_log_action_check', sql`action = 'sign_in_link_issued'`),
+    check(
+      'admin_audit_log_email_check',
+      sql`recipient_email = lower(btrim(recipient_email)) AND length(recipient_email) BETWEEN 3 AND 254`,
+    ),
+  ],
+);
+
 export const sessions = pgTable(
   'sessions',
   {

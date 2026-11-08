@@ -161,8 +161,11 @@ Prepared sign-in-link lifecycle now requires an authenticated fresh admin, norma
 the recipient, stores only a random 32-byte token hash and requires atomic issuance
 audit. Links last 24 hours; only POST redemption can consume one. The repository
 contract requires atomic single use, and identity/session failures leave links consumed.
-No link routes, database adapter or runtime registration exist yet; confirmation UI,
-fragment-based URLs, request-boundary checks and persistent audit remain pending.
+Unapplied migration `0015` and an unregistered database adapter now prepare private
+hash-only link storage and issuance audit in one transaction. Database redemption
+uses a conditional update so concurrent requests have one winner. Both new tables
+exclude PUBLIC and operational reader roles. No link routes or runtime registration
+exist yet; confirmation UI, fragment-based URLs and request-boundary checks remain pending.
 
 ## Target design
 

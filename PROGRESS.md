@@ -150,3 +150,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and targeted `pnpm exec tsx --test apps/api/test/sign-in-links.test.ts` pass. Full `pnpm check` passes: 657 unit/247 integration passes, four expected skips; typecheck, lint, formatting and boundaries green.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Updated TASKS and rollout plan; no handbook behavior changes.
 - No provider calls, migrations or generation changes; accounts disabled, VM private. After commit/push, restart API/worker and repeat health/reader checks. Phase 1 awaits pre-noon rollout and scheduled acceptance; link persistence/transport remain next preparation work.
+
+## 2026-11-08: iteration 1413 — private friend-link persistence preparation
+
+- Clean main/no leftovers; alerts zero, health good, no failed user services. Authenticated status confirms 36 recently successful sources/no current errors and zero failed digest jobs; unauthenticated admin status correctly returned 404.
+- Prepared unapplied migration 0015 and unregistered Drizzle adapter: private hash-only links, bounded 24-hour expiry and single-use conditional update; link insertion and issuer audit commit or roll back together.
+- Isolated storage checks cover 16 concurrent attempts/one winner, unknown/future/expired/replayed tokens, invalid rows, duplicate issuance and failed-audit rollback. Extended inherited-default-grant privacy rehearsal to both new tables.
+- Initial full `pnpm check`: static checks and 657 unit tests pass; integration exposed outdated table-drop dependency and assertions ignoring Drizzle's wrapped cause. Corrected both; fresh `pnpm test:integration` rerun passes 248 tests/four expected skips.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, final `pnpm typecheck` and `git diff --check` pass. Handbook checker rendered 18 pages/three diagrams, exits 1 solely for metadata entries for unapplied edition/account tables; no diagram edits.
+- Scheduled reader check for Nov 8 passes: four topics, 19 stories/17 posts. Updated rollout plan, data-model note, schema metadata and TASKS. No provider calls or live migration; accounts disabled, VM private.
+- After commit/push, restart API/worker and repeat health/reader checks. Next: pre-noon phase 1 rollout and scheduled acceptance; friend-link transport, confirmation UI and runtime/proxy wiring remain pending.

@@ -107,7 +107,9 @@ void test('account migration denies operational readers even with inherited defa
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    await client.query('DROP TABLE sessions, users');
+    await client.query(
+      'DROP TABLE admin_audit_log, sign_in_links, sessions, users',
+    );
     await client.query(
       'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics',
     );
@@ -117,9 +119,20 @@ void test('account migration denies operational readers even with inherited defa
     await client.query(
       await readFile('drizzle/0013_reader_sessions.sql', 'utf8'),
     );
+    await client.query(
+      (await readFile('drizzle/0015_sign_in_links.sql', 'utf8')).replaceAll(
+        '--> statement-breakpoint',
+        '',
+      ),
+    );
     for (const role of ['grafana_product', 'postgres_metrics']) {
       await client.query(`SET LOCAL ROLE ${role}`);
-      for (const table of ['users', 'sessions']) {
+      for (const table of [
+        'users',
+        'sessions',
+        'sign_in_links',
+        'admin_audit_log',
+      ]) {
         await client.query('SAVEPOINT denied');
         await assert.rejects(
           client.query(`SELECT * FROM ${table}`),
