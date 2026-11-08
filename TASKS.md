@@ -114,3 +114,5 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
 - Next: Nov 8 scheduled keyword/Bluesky acceptance at 15:00 UTC and Nov 2–8 first-week report; queued publisher/diagnostic/editor changes deployed under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
+
+- [x] STEERING 50 (1275): test snapshot builder accepts explicit per-edition development editors, keeps free defaults and production services isolated, and rolls back stopped editing. Paid HTTP/runtime wiring remains next.

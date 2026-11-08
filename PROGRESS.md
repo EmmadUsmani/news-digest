@@ -144,3 +144,12 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Updated TASKS/public-access plan. `pnpm exec tsx --test apps/api/test/development-editorial.test.ts` passes 3/3; `pnpm build` passes; five complete published-reader fingerprints unchanged.
 - Initial full check caught two unnecessary async cache methods; replaced them with resolved promises. Full checks and final deployment results follow. Next: connect isolated paid test-edition options, then retire production-accounted manual test calls. VM stays private.
 - Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm format`, `pnpm lint:fix`, rebuilt app and diff checks pass. Committing/pushing and restarting four app services, then checking health/alerts.
+
+## 2026-11-08: iteration 1275 — isolated editors in private test snapshots
+
+- Clean main/no leftovers; health/alerts clear, all 36 enabled sources healthy and digest queue has zero failed runs. Nov 8 scheduled review remains due at 15:00 UTC.
+- Test snapshot builder now accepts an explicit factory keyed by the saved edition ID. Omitted factories stay free; supplied development editors bypass production context, editorial services, metrics and notifications.
+- Expanded disposable-Postgres HTTP case exercises isolated editor calls over stored synthetic content, fallback persistence, private reader 404, unchanged provider/development ledger counts and rollback on report-required budget refusal. No provider calls or spend.
+- Updated TASKS/public-access plan; paid HTTP options remain disabled. Next: compose development runtime at the admin boundary, then migrate production-accounted manual callers.
+- Five published-reader fingerprints unchanged; handbook check passes. Full check/build and final deployment results follow. VM remains private.
+- Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm build`, handbook check and five complete published-reader comparisons pass. Required final format/lint-fix running before commit/push and four-service restart.

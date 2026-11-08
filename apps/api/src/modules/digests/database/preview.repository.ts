@@ -19,6 +19,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
 import { digestPreviews, topics as topicTable } from '../../../libs/db/schema';
+import type { developmentEditorialServices } from '../../curation/public/development-editorial';
 import { readEditionCost } from '../../curation/public/edition-cost';
 import { editorialServices } from '../../curation/public/editorial';
 import { withEditionRun } from '../../curation/public/scheduled-context';
@@ -190,17 +191,25 @@ export class PostgresPreviewRepository
       ),
     );
   }
-  // Free admin test runs bypass production context, metrics and notifications.
-  // The shared snapshot builder receives no editorial services, even if the
-  // process has production credentials and cached services installed.
-  generateTest(start: Date, end: Date): Promise<DigestPreview> {
+  // Admin tests bypass production context, metrics and notifications. An
+  // explicit per-edition factory may supply isolated development editors;
+  // omitted factories always stay free, regardless of production credentials.
+  generateTest(
+    start: Date,
+    end: Date,
+    development?: (
+      editionId: string,
+    ) => ReturnType<typeof developmentEditorialServices>,
+  ): Promise<DigestPreview> {
+    const editionId = crypto.randomUUID();
     return this.generateEdition(
       start,
       end,
-      crypto.randomUUID(),
+      editionId,
       undefined,
       undefined,
       true,
+      development?.(editionId),
     );
   }
   private async generateEdition(
@@ -210,8 +219,11 @@ export class PostgresPreviewRepository
     scheduledKey?: string,
     reportProgress?: ReportEditionProgress,
     testEdition = false,
+    development?: ReturnType<typeof developmentEditorialServices>,
   ): Promise<DigestPreview> {
-    const editorialServices = testEdition ? null : this.editorial;
+    const editorialServices = testEdition
+      ? (development ?? null)
+      : this.editorial;
     const client = await this.db.connect();
     const session = drizzle(client);
     try {

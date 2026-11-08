@@ -769,6 +769,78 @@ void test('free admin test editions stay private and bypass production editorial
       200,
     );
   }
+  // Real snapshot persistence with isolated editors; no production services,
+  // provider calls or ledger writes. Empty triage intentionally uses fallback.
+  const { developmentEditorialServices } =
+    require('../dist/modules/curation/public/development-editorial.js') as typeof import('../src/modules/curation/public/development-editorial');
+  const adapter =
+    repository as import('../src/modules/digests/database/preview.repository').PostgresPreviewRepository;
+  let factoryId = '';
+  const attempts: string[] = [];
+  const edited = await adapter.generateTest(
+    new Date(window.windowStart),
+    new Date(window.windowEnd),
+    (id) => {
+      factoryId = id;
+      return developmentEditorialServices(
+        {
+          complete: async (_request, attempt) => {
+            attempts.push(attempt);
+            return {
+              status: 'complete',
+              mustReport: false,
+              value: {
+                text: '{"items":[]}',
+                usage: { input: 1, output: 1, cacheRead: 0, cacheWrite: 0 },
+              },
+            };
+          },
+        },
+        id,
+      );
+    },
+  );
+  assert.equal(edited.id, factoryId);
+  assert.ok(attempts.length > 0, 'Isolated editorial runtime is called');
+  assert.ok(attempts.every((id) => id.includes(factoryId)));
+  assert.equal(
+    edited.topics.find((topic) => topic.id === topicId)?.stories[0]?.id,
+    itemId,
+  );
+  assert.equal((await fetch(`${base}/api/editions/${edited.id}`)).status, 404);
+  assert.deepEqual(
+    (
+      await db.query(
+        'select kind, published_at from digest_previews where id=$1',
+        [edited.id],
+      )
+    ).rows[0],
+    { kind: 'test', published_at: null },
+  );
+  const savedBeforeFailure = (
+    await db.query('select count(*) from digest_previews')
+  ).rows[0].count;
+  await assert.rejects(
+    adapter.generateTest(
+      new Date(window.windowStart),
+      new Date(window.windowEnd),
+      (id) =>
+        developmentEditorialServices(
+          {
+            complete: async () => ({
+              status: 'budget-refused',
+              mustReport: true,
+            }),
+          },
+          id,
+        ),
+    ),
+    /Development editing stopped: report required/,
+  );
+  assert.equal(
+    (await db.query('select count(*) from digest_previews')).rows[0].count,
+    savedBeforeFailure,
+  );
   assert.deepEqual(
     await accounting(),
     before,

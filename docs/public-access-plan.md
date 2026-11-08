@@ -184,7 +184,10 @@ can read them.
   persists private test editions. Paid options are rejected until isolated
   composition is connected. The isolated editor composition now shares one
   development stop latch across article/social triage and editing, with a
-  per-edition memory cache that never reads or writes production scores.
+  per-edition memory cache that never reads or writes production scores. The
+  snapshot builder accepts an explicit per-edition development factory; omitted
+  factories stay free, and stopped development editing rolls back the snapshot.
+  The HTTP paid-option gate remains closed until runtime wiring is complete.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything
