@@ -107,3 +107,13 @@
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-topic-targets.ts` pass: actual published four-topic keyboard navigation, target dimensions, focus, active-chip reveal and no page overflow/errors at 390/320px in light/dark. Four screenshots saved; 320px dark inspected.
 - Initial smoke raced smooth scrolling while tabbing between chips; deterministic keyboard/geometry verification uses reduced motion and waits for fonts. Browser requests GET/HEAD-only, external traffic blocked; no provider spend or publication/data-flow change.
 - Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Commit/push and normal API/worker/docs/schema restart follow; VM stays private. Next iteration: metrics probe now due, scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1329 — easier topic-panel controls
+
+- Clean main/no leftovers. Alerts empty; 14 services, 36 sources, jobs and `/healthz` healthy. Scheduled acceptance remains 15:00 UTC.
+- Due passive metrics probe (`sample-metrics-recovery.ts 1 30`): 23 healthy rules, four uncached queries ≤0.103 s, zero new evaluator errors/misses; one small merge/1,436 rows, no big merges. Admission hits 2, no queue timeouts/slow queries, zero restarts. Comparable compaction still unobserved; next check ≥10:26 UTC.
+- Reader weakness: Topics trigger and sheet close button were only 36px high. Both now have 44px targets; sheet title reserves room for the larger close button. Shared sheet close sizing also benefits mobile contents and admin menus.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-topic-panel-targets.ts` pass: published four-topic choices, hiding/restoration, persistence, focus return, target dimensions and no overflow/errors at 1440/390/320px in both themes. Six screenshots saved; narrow dark inspected.
+- Browser traffic GET/HEAD-only with external requests blocked; local preference writes only. No provider spend, publication or data-flow change.
+- Existing `smoke-reader-preferences.ts` and `smoke-reader-contents-titles.ts` pass: cross-tab/reload/history/all-hidden recovery, blocked/corrupt storage and narrow-screen contents keyboard destinations. Refreshed their screenshots for the shared sheet change.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Latest published reader retains 20 stories/18 posts across four topics. Normal four-service restart follows commit/push; VM stays private.
