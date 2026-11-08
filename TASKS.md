@@ -118,3 +118,5 @@ Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-
 - [x] STEERING 50 (1275): test snapshot builder accepts explicit per-edition development editors, keeps free defaults and production services isolated, and rolls back stopped editing. Paid HTTP/runtime wiring remains next.
 
 - [x] STEERING 50 (1276): admin test editions accept explicit AI editing through the isolated development runtime; disabled runtime returns 503 and paid X stays off. Deterministic UUID attempt mapping fixes the durable-ledger integration. Recorded-provider HTTP/database checks cover development charges, private reader exclusion and refusal rollback; manual caller migration and paid X composition remain next.
+
+- [x] STEERING 50 (1277): Anthropic live smoke moved off production accounting onto isolated development admission, fixed Haiku pricing and durable replay protection; offline HTTP/refusal/threshold checks pass. Manual edition callers and paid X composition remain next.

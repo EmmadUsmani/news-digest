@@ -83,6 +83,8 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
   pricing and never retries calls. A separate direct-xAI runtime requires
   `X_SEARCH_LIVE=1`, holds $0.40 before each call and settles all reported token
   and fetched-item costs at fixed prices without retries.
+- The Anthropic smoke command uses one development-funded Haiku call and
+  verifies durable replay suppression without production accounting.
 - Admin test editions accept `aiEditing: true` through the isolated Anthropic
   runtime. Paid X search remains unavailable.
 - Free admin test editions reuse stored content without provider calls; existing

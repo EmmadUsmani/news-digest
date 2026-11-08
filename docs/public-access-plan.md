@@ -189,6 +189,8 @@ can read them.
   snapshot builder accepts an explicit per-edition development factory; omitted
   factories stay free, and stopped development editing rolls back the snapshot.
   The HTTP AI option is connected; stopped development editing saves no edition.
+  The Anthropic live smoke command now uses the development runtime, one Haiku
+  call and durable replay protection; manual edition callers still await migration.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything

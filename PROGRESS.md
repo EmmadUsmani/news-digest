@@ -163,3 +163,12 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Updated affected handbook pages/public-access plan/TASKS. Five complete published-reader fingerprints unchanged; handbook check passes. Initial full check caught import sorting during the runtime fix; final format/lint-fix and full checks rerun below.
 - Next: paid X test-edition composition and migration of production-accounted manual callers; normal scheduled phase-0/2 acceptance and daily review remain due. VM stays private.
 - Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm build`, full handbook check (18 pages/22 diagrams), five reader fingerprints and diff checks pass. Final format/lint-fix precede commit/push and four-service restart; no provider spend.
+
+## 2026-11-08: iteration 1277 — development-funded Anthropic smoke
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue has no failures. Nov 8 scheduled review remains due at 15:00 UTC.
+- Migrated `smoke-anthropic.ts` from production ledger/cache to explicit development runtime: one fixed-price Haiku call, no repairs/retries, unique invocation ID and durable replay suppression.
+- Added offline real-adapter/recorded-HTTP coverage for development reservation/settlement and single execution; refusal and 75% report threshold stop without retry. No live provider calls or spend.
+- `pnpm exec tsx --test apps/api/test/development-smoke.test.ts`: 2/2 pass; disabled CLI exits 1 before DB/provider access. `pnpm build` and affected handbook check pass; all five complete reader fingerprints unchanged.
+- Updated handbook/public-access plan/TASKS. Full checks and final deployment results follow. Next: migrate manual edition callers and compose paid X tests; normal scheduled acceptance remains due. VM stays private.
+- Final verification: `pnpm check` passes (610 unit/233 integration, four expected skips) and rebuild passes. Initial runs caught post-lint formatting and the disabled CLI message contract; both corrected. Required format/lint-fix pass; five reader fingerprints and handbook check pass. Committing/pushing and restarting four services, then verifying health/alerts.
