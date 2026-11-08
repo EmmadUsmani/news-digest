@@ -640,7 +640,20 @@ export const socialCollectionResultSchema = z.object({
   }),
 });
 
+export const developmentSpendStatusSchema = z.object({
+  provider: z.enum(['anthropic', 'xai']),
+  chargedMicros: z.number().int().nonnegative(),
+  heldMicros: z.number().int().nonnegative(),
+  unresolvedCount: z.number().int().nonnegative(),
+  committedMicros: z.number().int().nonnegative(),
+  capMicros: z.number().int().nonnegative(),
+  stopAtMicros: z.number().int().nonnegative(),
+  availableMicros: z.number().int().nonnegative(),
+  mustReport: z.boolean(),
+});
+
 export const operationsStatusSchema = z.object({
+  developmentSpend: z.array(developmentSpendStatusSchema).optional(),
   coverage: z
     .object({
       start: z.string().datetime(),

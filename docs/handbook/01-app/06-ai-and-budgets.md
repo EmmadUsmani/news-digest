@@ -89,3 +89,6 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
   runtime; `paidXSearch: true` selects the separate development X runtime.
 - The admin edition form defaults to free private tests using stored content.
   AI editing and paid X search have independent opt-ins using development funds.
+
+- Admin → Spend shows each development provider’s charged amount, unresolved
+  holds, cap, 75% stop threshold and remaining allowance before that stop.

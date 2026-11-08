@@ -112,6 +112,47 @@ export function AdminSpend() {
       )}
       {status && (
         <>
+          <Card
+            className="min-w-0"
+            role="region"
+            aria-label="Development allowances"
+          >
+            <h2 className="mt-0 font-sans text-base font-semibold">
+              Development allowances
+            </h2>
+            <p className="text-sm">
+              Private test editions only · lifetime totals, never reset. Calls
+              stop at 75% of each cap. Unresolved holds count toward that limit.
+            </p>
+            {status.developmentSpend ? (
+              status.developmentSpend.map((pool) => (
+                <div key={pool.provider} className="mb-4 text-sm">
+                  <h3 className="font-semibold">
+                    {pool.provider === 'anthropic' ? 'Anthropic' : 'xAI'}
+                  </h3>
+                  <p>
+                    Charged: {dollars(pool.chargedMicros)} · Held:{' '}
+                    {dollars(pool.heldMicros)} ({pool.unresolvedCount}{' '}
+                    unresolved)
+                  </p>
+                  <p>
+                    Cap: {dollars(pool.capMicros)} · Stop at:{' '}
+                    {dollars(pool.stopAtMicros)} · Available before stop:{' '}
+                    {dollars(pool.availableMicros)}
+                  </p>
+                  {pool.mustReport && (
+                    <p role="alert">
+                      {pool.provider === 'anthropic' ? 'Anthropic' : 'xAI'}{' '}
+                      development allowance stopped. Report usage before further
+                      paid tests.
+                    </p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p role="status">Development allowance figures unavailable.</p>
+            )}
+          </Card>
           <div className="grid gap-4 lg:grid-cols-2">
             <Card className="min-w-0">
               <h2 className="mt-0 font-sans text-base font-semibold">
@@ -236,8 +277,8 @@ export function AdminSpend() {
                 </p>
                 {reserve.limitedByReserve && (
                   <p role="status">
-                    The scheduled edition reserve limits manual and development
-                    runs.
+                    The scheduled edition reserve limits other production-funded
+                    runs. Private tests use the separate development allowances.
                   </p>
                 )}
                 {reserve.lastOutcome && (

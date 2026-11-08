@@ -4,6 +4,7 @@ import { Queue } from 'bullmq';
 
 import { database, redis } from '../../../libs/db/connections';
 import { readLlmUsage } from '../../curation/public/usage';
+import { readDevelopmentSpend } from '../../digests/public/development-spend';
 import { readXDiscoveryUsage } from '../../social/public/usage';
 import { readSourceStatus } from '../database/source-status';
 import { readTopicCoverage } from '../database/topic-coverage';
@@ -131,6 +132,7 @@ export class OperationsStatus
       queues,
       llm: await readLlmUsage(this.db),
       xDiscovery: await readXDiscoveryUsage(this.db),
+      developmentSpend: await readDevelopmentSpend(this.db),
     };
   }
   async onModuleDestroy() {

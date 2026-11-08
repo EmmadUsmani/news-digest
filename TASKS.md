@@ -61,6 +61,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1292): admin Spend now separates lifetime development charges/holds, caps, 75% stop thresholds and remaining allowance by provider; real read-only totals and browser stop/unavailable states verified without provider calls. Scheduled phase acceptance remains due at 15:00 UTC.
+
 - [x] STEERING 50 (1288): admin private test editions now offer independent AI editing and paid-X opt-ins, both off by default. Four intercepted desktop/mobile light/dark browser checks cover all combinations, refusal/no retry and private-only writes; screenshots updated. Phase-0 scheduled acceptance remains open.
 
 - [x] STEERING 50 (1287): HTTP private test editions accept explicit boolean paid-X opt-in through the isolated runtime; free defaults retained. Offline HTTP checks cover disabled-runtime refusal, private saves/reader exclusion and stopped-search rollback. Admin paid-X UI remains next.

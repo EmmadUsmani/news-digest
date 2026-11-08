@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { developmentSpendStatusSchema } from '@digest/contracts';
+
 import { developmentLlmAttemptId } from '../src/development-llm-runtime';
 import {
   developmentXAttemptId,
@@ -10,6 +12,7 @@ import { database } from '../src/libs/db/connections';
 import { DevelopmentCall } from '../src/modules/digests/application/development-call';
 import { PostgresDevelopmentSpendRepository } from '../src/modules/digests/database/development-spend.repository';
 import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
+import { readDevelopmentSpend } from '../src/modules/digests/public/development-spend';
 
 void test('migrated development ledger serializes lifetime holds and preserves confirmed charges', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -342,6 +345,15 @@ void test('migrated development ledger serializes lifetime holds and preserves c
       false,
     );
     assert.equal((await repository.status('anthropic')).mustReport, true);
+    const totals = await readDevelopmentSpend(db);
+    assert.deepEqual(
+      totals.map((pool) => developmentSpendStatusSchema.parse(pool)),
+      [await repository.status('anthropic'), await repository.status('xai')],
+    );
+    assert.equal(totals[0].mustReport, true);
+    assert.ok(totals[0].heldMicros > 0);
+    assert.equal(totals[0].availableMicros, 0);
+    assert.deepEqual(await productionSnapshot(), productionBefore);
   } finally {
     await db.query('DELETE FROM development_spend_reservations');
     await db.query(
