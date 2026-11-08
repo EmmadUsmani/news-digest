@@ -4,7 +4,11 @@ import {
   relevancePolicySchema,
   type SelectedSocialPost,
 } from '@digest/contracts';
-import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import {
+  Injectable,
+  OnModuleDestroy,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import {
   and,
   asc,
@@ -17,9 +21,10 @@ import {
 } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
+import { prepareDevelopmentLlmRuntime } from '../../../development-llm-runtime';
 import { database } from '../../../libs/db/connections';
 import { digestPreviews, topics as topicTable } from '../../../libs/db/schema';
-import type { developmentEditorialServices } from '../../curation/public/development-editorial';
+import { developmentEditorialServices } from '../../curation/public/development-editorial';
 import { readEditionCost } from '../../curation/public/edition-cost';
 import { editorialServices } from '../../curation/public/editorial';
 import { withEditionRun } from '../../curation/public/scheduled-context';
@@ -193,15 +198,27 @@ export class PostgresPreviewRepository
   }
   // Admin tests bypass production context, metrics and notifications. An
   // explicit per-edition factory may supply isolated development editors;
-  // omitted factories always stay free, regardless of production credentials.
+  // AI is opt-in; the default stays free regardless of production credentials.
+  readonly developmentRuntime = () =>
+    prepareDevelopmentLlmRuntime({ db: this.db });
+
   generateTest(
     start: Date,
     end: Date,
+    aiEditing = false,
     development?: (
       editionId: string,
     ) => ReturnType<typeof developmentEditorialServices>,
   ): Promise<DigestPreview> {
     const editionId = crypto.randomUUID();
+    if (aiEditing) {
+      const runtime = this.developmentRuntime();
+      if (!runtime)
+        throw new ServiceUnavailableException(
+          'Development AI editing is disabled',
+        );
+      development = (id) => developmentEditorialServices(runtime, id);
+    }
     return this.generateEdition(
       start,
       end,

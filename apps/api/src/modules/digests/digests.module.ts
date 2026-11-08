@@ -49,8 +49,7 @@ export class PreviewController {
   }
   @Post('tests')
   generateTest(@Body() body: unknown) {
-    // Paid test options are unavailable until isolated runtime wiring ships.
-    // Reject them rather than silently falling back to production accounting.
+    // Paid X stays closed until its isolated test-edition path is connected.
     if (
       !body ||
       typeof body !== 'object' ||
@@ -61,17 +60,21 @@ export class PreviewController {
             key,
           ),
       ) ||
-      ('aiEditing' in body && body.aiEditing !== false) ||
+      ('aiEditing' in body && typeof body.aiEditing !== 'boolean') ||
       ('paidXSearch' in body && body.paidXSearch !== false)
     )
       throw new BadRequestException(
-        'Test editions currently require AI editing and paid X search off',
+        'Provide boolean AI editing and keep paid X search off',
       );
     const { start, end } = this.window({
       windowStart: 'windowStart' in body ? body.windowStart : undefined,
       windowEnd: 'windowEnd' in body ? body.windowEnd : undefined,
     });
-    return this.repository.generateTest(start, end);
+    return this.repository.generateTest(
+      start,
+      end,
+      'aiEditing' in body && body.aiEditing === true,
+    );
   }
   @Post('jobs')
   @HttpCode(202)

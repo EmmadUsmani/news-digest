@@ -181,13 +181,14 @@ can read them.
   ceilings so a database edit can't exceed them. Raising one needs the owner.
 - The free admin endpoint `/api/admin/digest-previews/tests` now reuses stored
   content with no AI, provider calls, production alerts or notifications, and
-  persists private test editions. Paid options are rejected until isolated
-  composition is connected. The isolated editor composition now shares one
+  persists private test editions. Explicit `aiEditing: true` uses the isolated
+  development runtime when `LLM_LIVE=1`; disabled runtime returns 503.
+  Paid X search remains rejected. The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The
   snapshot builder accepts an explicit per-edition development factory; omitted
   factories stay free, and stopped development editing rolls back the snapshot.
-  The HTTP paid-option gate remains closed until runtime wiring is complete.
+  The HTTP AI option is connected; stopped development editing saves no edition.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything

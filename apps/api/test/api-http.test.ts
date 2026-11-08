@@ -726,7 +726,6 @@ void test('free admin test editions stay private and bypass production editorial
     ).rows;
   const before = await accounting();
   for (const options of [
-    { aiEditing: true },
     { paidXSearch: true },
     { aiEditing: 'false' },
     { paidXSearch: null },
@@ -780,6 +779,7 @@ void test('free admin test editions stay private and bypass production editorial
   const edited = await adapter.generateTest(
     new Date(window.windowStart),
     new Date(window.windowEnd),
+    false,
     (id) => {
       factoryId = id;
       return developmentEditorialServices(
@@ -817,6 +817,45 @@ void test('free admin test editions stay private and bypass production editorial
     ).rows[0],
     { kind: 'test', published_at: null },
   );
+  Object.defineProperty(adapter, 'developmentRuntime', {
+    value: () => null,
+    configurable: true,
+  });
+  assert.equal((await post({ ...window, aiEditing: true })).status, 503);
+  let httpCalls = 0;
+  Object.defineProperty(adapter, 'developmentRuntime', {
+    configurable: true,
+    value: () => ({
+      complete: async () => {
+        httpCalls++;
+        return {
+          status: 'complete',
+          mustReport: false,
+          value: {
+            text: '{"items":[]}',
+            usage: { input: 1, output: 1, cacheRead: 0, cacheWrite: 0 },
+          },
+        };
+      },
+    }),
+  });
+  const aiResponse = await post({ ...window, aiEditing: true });
+  assert.equal(aiResponse.status, 201);
+  const aiSnapshot = digestPreviewSchema.parse(await aiResponse.json());
+  assert.ok(httpCalls > 0, 'Admin AI option reaches the isolated runtime');
+  assert.equal(
+    (await fetch(`${base}/api/editions/${aiSnapshot.id}`)).status,
+    404,
+  );
+  assert.deepEqual(
+    (
+      await db.query(
+        'select kind, published_at from digest_previews where id=$1',
+        [aiSnapshot.id],
+      )
+    ).rows[0],
+    { kind: 'test', published_at: null },
+  );
   const savedBeforeFailure = (
     await db.query('select count(*) from digest_previews')
   ).rows[0].count;
@@ -824,6 +863,7 @@ void test('free admin test editions stay private and bypass production editorial
     adapter.generateTest(
       new Date(window.windowStart),
       new Date(window.windowEnd),
+      false,
       (id) =>
         developmentEditorialServices(
           {
@@ -841,9 +881,104 @@ void test('free admin test editions stay private and bypass production editorial
     (await db.query('select count(*) from digest_previews')).rows[0].count,
     savedBeforeFailure,
   );
+  Object.defineProperty(adapter, 'developmentRuntime', {
+    configurable: true,
+    value: () => ({
+      complete: async () => ({ status: 'budget-refused', mustReport: true }),
+    }),
+  });
+  assert.equal((await post({ ...window, aiEditing: true })).status, 500);
+  assert.equal(
+    (await db.query('select count(*) from digest_previews')).rows[0].count,
+    savedBeforeFailure,
+  );
   assert.deepEqual(
     await accounting(),
     before,
     'Free tests never write provider or development accounting',
   );
+  // Full admin -> runtime -> provider fixture -> durable development ledger.
+  // The real reservation adapter catches UUID/schema mismatches missed by mocks.
+  const { prepareDevelopmentLlmRuntime, developmentLlmAttemptId } =
+    require('../dist/development-llm-runtime.js') as typeof import('../src/development-llm-runtime');
+  const reservationIds: string[] = [];
+  t.after(async () => {
+    // This disposable database is shared by subsequent characterization tests.
+    const cleanup = database();
+    try {
+      await cleanup.query(
+        'delete from development_spend_reservations where id = any($1::uuid[])',
+        [reservationIds],
+      );
+    } finally {
+      await cleanup.end();
+    }
+  });
+  let providerCalls = 0;
+  Object.defineProperty(adapter, 'developmentRuntime', {
+    value: () => {
+      const runtime = prepareDevelopmentLlmRuntime({
+        db,
+        env: { LLM_LIVE: '1', ANTHROPIC_API_KEY: 'offline-fixture' },
+        fetch: async (_url, init) => {
+          providerCalls++;
+          const body = JSON.parse(init?.body as string);
+          return new Response(
+            JSON.stringify({
+              id: 'fixture',
+              type: 'message',
+              role: 'assistant',
+              model: body.model,
+              content: [{ type: 'text', text: '{"items":[]}' }],
+              stop_reason: 'end_turn',
+              usage: { input_tokens: 10, output_tokens: 3 },
+            }),
+            { headers: { 'content-type': 'application/json' } },
+          );
+        },
+      })!;
+      return {
+        complete: (
+          request: Parameters<
+            NonNullable<
+              ReturnType<typeof prepareDevelopmentLlmRuntime>
+            >['complete']
+          >[0],
+          attempt: string,
+        ) => {
+          reservationIds.push(developmentLlmAttemptId(attempt));
+          return runtime.complete(request, attempt);
+        },
+      };
+    },
+    configurable: true,
+  });
+  const durableResponse = await post({ ...window, aiEditing: true });
+  assert.equal(
+    durableResponse.status,
+    201,
+    await durableResponse.clone().text(),
+  );
+  const durableSnapshot = digestPreviewSchema.parse(
+    await durableResponse.json(),
+  );
+  assert.ok(providerCalls > 0);
+  assert.equal(providerCalls, reservationIds.length);
+  const charges = (
+    await db.query(
+      'select provider, cost_micros from development_spend_reservations where id = any($1::uuid[])',
+      [reservationIds],
+    )
+  ).rows;
+  assert.equal(charges.length, providerCalls);
+  assert.ok(
+    charges.every((row) => row.provider === 'anthropic' && row.cost_micros > 0),
+  );
+  assert.equal(
+    (await fetch(`${base}/api/editions/${durableSnapshot.id}`)).status,
+    404,
+  );
+  const afterPaid = await accounting();
+  assert.equal(afterPaid[0].llm, before[0].llm);
+  assert.equal(afterPaid[0].x, before[0].x);
 });

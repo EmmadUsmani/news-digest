@@ -3,7 +3,10 @@ import { test } from 'node:test';
 
 import type { Pool } from 'pg';
 
-import { prepareDevelopmentLlmRuntime } from '../src/development-llm-runtime';
+import {
+  developmentLlmAttemptId,
+  prepareDevelopmentLlmRuntime,
+} from '../src/development-llm-runtime';
 import type { DevelopmentSpendPort } from '../src/modules/digests/domain/development-spend.port';
 
 const request = {
@@ -96,14 +99,18 @@ void test('offline HTTP composition reserves known pricing and settles only deve
   assert.equal('mustReport' in result && result.mustReport, true);
   assert.deepEqual(h.events[0], [
     'reserve',
-    'stable-attempt',
+    developmentLlmAttemptId('stable-attempt'),
     'anthropic',
     Math.ceil((2048 + 14) * 0.125 + 5),
   ]);
   const http = h.events[1] as [string, { model: string; max_tokens: number }];
   assert.equal(http[1].model, 'claude-haiku-5-5');
   assert.equal(http[1].max_tokens, 10);
-  assert.deepEqual(h.events[2], ['settle', 'stable-attempt', 3]);
+  assert.deepEqual(h.events[2], [
+    'settle',
+    developmentLlmAttemptId('stable-attempt'),
+    3,
+  ]);
 });
 void test('development runtime never retries rate limits and retains uncertain holds', async () => {
   const h = harness(429);
@@ -141,11 +148,15 @@ void test('Sonnet uses its own fixed output and cache-write pricing', async () =
   assert.equal(result.status, 'complete');
   assert.deepEqual(h.events[0], [
     'reserve',
-    'sonnet',
+    developmentLlmAttemptId('sonnet'),
     'anthropic',
     (2048 + 14) * 2.5 + 100,
   ]);
   const http = h.events[1] as [string, { model: string }];
   assert.equal(http[1].model, 'claude-sonnet-5-5');
-  assert.deepEqual(h.events[2], ['settle', 'sonnet', 50]);
+  assert.deepEqual(h.events[2], [
+    'settle',
+    developmentLlmAttemptId('sonnet'),
+    50,
+  ]);
 });

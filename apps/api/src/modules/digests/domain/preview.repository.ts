@@ -21,7 +21,11 @@ export abstract class PreviewRepository {
     scheduledKey?: string,
     reportProgress?: ReportEditionProgress,
   ): Promise<DigestPreview>;
-  abstract generateTest(start: Date, end: Date): Promise<DigestPreview>;
+  abstract generateTest(
+    start: Date,
+    end: Date,
+    aiEditing?: boolean,
+  ): Promise<DigestPreview>;
   abstract findByGenerationKey(key: string): Promise<{ id: string } | null>;
   abstract history(
     offset: number,

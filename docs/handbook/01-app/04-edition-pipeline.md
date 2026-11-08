@@ -66,11 +66,11 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   aren't backed by a real candidate are rejected.
 - **Progress:** on-demand jobs report the stage of each topic (triage →
   editing → publishing) to the UI while they run.
-- **Free test editions:** admins can POST a past window to
+- **Test editions:** admins can POST a past window to
   `/api/admin/digest-previews/tests`. AI editing and paid X search default off;
-  stored articles and X/Reddit posts use non-AI ranking. These private test
-  editions appear only in admin, spend nothing and emit no edition alerts.
-  Paid test options are currently rejected.
+  stored articles and X/Reddit posts use non-AI ranking by default. Set
+  `aiEditing: true` for isolated development-funded editing when `LLM_LIVE=1`.
+  Tests appear only in admin and emit no edition alerts. Paid X is unavailable.
 - **History:** every edition is kept. The UI can browse and reopen any past
   edition by its id.
 

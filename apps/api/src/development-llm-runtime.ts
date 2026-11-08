@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import type { Pool } from 'pg';
 
 import { AnthropicLlmAdapter } from './modules/curation/adapters/anthropic';
@@ -50,8 +52,17 @@ export function prepareDevelopmentLlmRuntime(
       if (!attemptId.trim()) throw new Error('Missing development attempt ID');
       return bridge.complete(
         { ...request, model: models[request.role], purpose: 'verification' },
-        { enabled: true, id: attemptId },
+        // Editor attempts include the edition and sequence; the durable ledger
+        // uses UUID keys. Hash deterministically so retries retain one hold.
+        { enabled: true, id: developmentLlmAttemptId(attemptId) },
       );
     },
   };
+}
+
+export function developmentLlmAttemptId(attemptId: string): string {
+  const hex = createHash('sha256')
+    .update('development-anthropic:' + attemptId)
+    .digest('hex');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-8${hex.slice(13, 16)}-a${hex.slice(17, 20)}-${hex.slice(20, 32)}`;
 }

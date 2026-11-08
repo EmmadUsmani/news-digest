@@ -116,3 +116,5 @@ Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-
 - Next: Nov 8 scheduled keyword/Bluesky acceptance at 15:00 UTC and Nov 2–8 first-week report; queued publisher/diagnostic/editor changes deployed under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
 
 - [x] STEERING 50 (1275): test snapshot builder accepts explicit per-edition development editors, keeps free defaults and production services isolated, and rolls back stopped editing. Paid HTTP/runtime wiring remains next.
+
+- [x] STEERING 50 (1276): admin test editions accept explicit AI editing through the isolated development runtime; disabled runtime returns 503 and paid X stays off. Deterministic UUID attempt mapping fixes the durable-ledger integration. Recorded-provider HTTP/database checks cover development charges, private reader exclusion and refusal rollback; manual caller migration and paid X composition remain next.

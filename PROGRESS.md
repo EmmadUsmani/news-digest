@@ -153,3 +153,13 @@ Earlier entries: [iterations 1255–1263](docs/progress-archive/2026-11-07-itera
 - Updated TASKS/public-access plan; paid HTTP options remain disabled. Next: compose development runtime at the admin boundary, then migrate production-accounted manual callers.
 - Five published-reader fingerprints unchanged; handbook check passes. Full check/build and final deployment results follow. VM remains private.
 - Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm build`, handbook check and five complete published-reader comparisons pass. Required final format/lint-fix running before commit/push and four-service restart.
+
+## 2026-11-08: iteration 1276 — admin development AI test editions
+
+- Clean main/no leftovers; health/alerts clear and all 36 enabled sources healthy. Nov 8 scheduled acceptance remains due at 15:00 UTC.
+- Admin tests accept explicit `aiEditing: true`, composing isolated development-funded editors on demand; free defaults remain, disabled runtime returns 503, paid X stays rejected.
+- Found and fixed the integration mismatch between editor sequence IDs and UUID ledger keys using deterministic Anthropic attempt mapping; retries retain the same hold.
+- Expanded recorded-provider HTTP/disposable-Postgres verification through real runtime/ledger: private test saves, confirmed development charges, unchanged production accounting, disabled runtime and stopped-edit rollback. No live provider calls or spend.
+- Updated affected handbook pages/public-access plan/TASKS. Five complete published-reader fingerprints unchanged; handbook check passes. Initial full check caught import sorting during the runtime fix; final format/lint-fix and full checks rerun below.
+- Next: paid X test-edition composition and migration of production-accounted manual callers; normal scheduled phase-0/2 acceptance and daily review remain due. VM stays private.
+- Final verification: `pnpm check` passes (608 unit/233 integration, four expected skips); `pnpm build`, full handbook check (18 pages/22 diagrams), five reader fingerprints and diff checks pass. Final format/lint-fix precede commit/push and four-service restart; no provider spend.
