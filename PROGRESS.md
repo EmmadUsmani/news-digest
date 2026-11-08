@@ -168,3 +168,12 @@ Earlier entries: [iterations 1292–1301](docs/progress-archive/2026-11-08-itera
 - `pnpm build` and `pnpm exec tsx scripts/smoke-reader-coverage-target.ts` pass desktop/mobile light/dark against actual published coverage, GET-only with external requests blocked. Checks cover target size, keyboard outline, Enter/Space opening/closing, visible reports, no overflow or browser errors. Four screenshots added; mobile dark inspected.
 - Initial smoke script used unsupported top-level await; wrapped it in an async function before the successful run. No backend/data-flow or public-access change; VM remains private, no provider spend.
 - Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit and 233 integration passes, four expected skips. Desktop light screenshot also inspected. Commit/push and four-service restart follow passing checks. Next: metrics probe ≥08:24 UTC; scheduled acceptance at 15:00 UTC.
+
+## 2026-11-08: iteration 1318 — fit topic chooser to narrow viewports
+
+- Clean main/no leftovers. Alerts, services, sources, jobs and `/healthz` pass; 36 healthy sources. Metrics probe not due until ≥08:24 UTC; scheduled acceptance waits for 15:00 UTC.
+- Read all four published topics (20 stories/18 posts): thin Tech evidence and historical Davis cutoff already have documented causes and deployed future-publication fixes; no new editorial tuning.
+- Owner-visible value: topic choices and the close button remain reachable on narrow/zoomed screens. Shared drawer now respects viewport width and reserves title space for its close button.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-narrow-topics.ts` pass: 240/320/1440px, light/dark, actual four published topics, persisted hide/show, Escape/Enter close, focus return, no drawer overflow/browser errors. Six screenshots added; 240px dark inspected. GET-only local traffic; no provider spend.
+- Initial browser run overlapped the build and saw the old drawer; rerun after build completion passes all six variants. No public-access or backend/data-flow change; VM remains private.
+- Final `pnpm format`, `pnpm lint:fix`, `git diff --check` and standalone `pnpm check` pass: 629 unit and 233 integration passes, four expected skips. First combined check process received signal 15 during format verification; fresh complete check passed. Commit/push and four-service restart follow verified checks. Next: passive metrics probe ≥08:24 UTC and scheduled acceptance at 15:00 UTC.

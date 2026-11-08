@@ -26,9 +26,9 @@ export function Sheet({
           aria-describedby={undefined}
           onCloseAutoFocus={onCloseAutoFocus}
           onOpenAutoFocus={onOpenAutoFocus}
-          className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-[var(--surface)] p-6 shadow-xl"
+          className="fixed inset-y-0 left-0 z-50 w-72 max-w-full overflow-y-auto bg-[var(--surface)] p-6 shadow-xl"
         >
-          <Dialog.Title className="mt-0 font-sans text-lg font-semibold">
+          <Dialog.Title className="mt-0 pr-9 font-sans text-lg font-semibold">
             {title}
           </Dialog.Title>
           <Dialog.Close asChild>
