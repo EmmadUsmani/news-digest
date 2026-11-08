@@ -1,8 +1,7 @@
 # Bluesky in editions
 
-**Status:** reserved slot edition 1 (Nov 7): NBA, Gaming and World one pick
-each; Tech none after two unsupported-claim drops. Cost $0.062. A fix for
-inert shortened links is built, waiting for deployment.
+**Status:** reserved slot edition 2 (Nov 8): Tech 1, NBA 2, World 2 picks;
+Gaming none (nothing passed triage). No unsupported-claim drops (agent's figures).
 
 **What we know:**
 
