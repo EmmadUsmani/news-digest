@@ -166,3 +166,77 @@ void test('concurrent schedule replacements preserve whole configurations and re
     ]);
   }
 });
+
+void test('system schedule reads switch with flag and dual writes roll back together', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const db = database();
+  const adapter = new PostgresProfileRepository();
+  const original = await adapter.getDefault();
+  const previous = process.env.SYSTEM_OWNERSHIP;
+  const changed = {
+    ...original.schedule,
+    timezone: 'Pacific/Auckland',
+    storyBudget: 12,
+  };
+  try {
+    await db.query("UPDATE edition_settings SET timezone='UTC' WHERE id=1");
+    process.env.SYSTEM_OWNERSHIP = '0';
+    assert.deepEqual(await adapter.getDefault(), original);
+    process.env.SYSTEM_OWNERSHIP = '1';
+    assert.equal((await adapter.getDefault()).schedule.timezone, 'UTC');
+    for (const flag of ['0', '1']) {
+      process.env.SYSTEM_OWNERSHIP = flag;
+      assert.deepEqual(await adapter.updateDefault(changed), {
+        ...original,
+        schedule: changed,
+      });
+      process.env.SYSTEM_OWNERSHIP = flag === '1' ? '0' : '1';
+      assert.deepEqual(await adapter.getDefault(), {
+        ...original,
+        schedule: changed,
+      });
+    }
+    // A system-side rejection must undo the legacy update made first.
+    await db.query(
+      'ALTER TABLE edition_settings ADD CONSTRAINT test_reject_budget CHECK (story_budget <> 13)',
+    );
+    await assert.rejects(
+      adapter.updateDefault({ ...changed, storyBudget: 13 }),
+    );
+    for (const flag of ['0', '1']) {
+      process.env.SYSTEM_OWNERSHIP = flag;
+      assert.deepEqual(await adapter.getDefault(), {
+        ...original,
+        schedule: changed,
+      });
+    }
+    await db.query('DELETE FROM edition_settings');
+    process.env.SYSTEM_OWNERSHIP = '1';
+    await assert.rejects(
+      adapter.getDefault(),
+      /System edition settings missing/,
+    );
+    await assert.rejects(
+      adapter.updateDefault(original.schedule),
+      /System edition settings missing/,
+    );
+    process.env.SYSTEM_OWNERSHIP = '0';
+    assert.deepEqual(await adapter.getDefault(), {
+      ...original,
+      schedule: changed,
+    });
+  } finally {
+    if (previous === undefined) delete process.env.SYSTEM_OWNERSHIP;
+    else process.env.SYSTEM_OWNERSHIP = previous;
+    await db.query(
+      'ALTER TABLE edition_settings DROP CONSTRAINT IF EXISTS test_reject_budget',
+    );
+    await db.query(
+      'INSERT INTO edition_settings SELECT 1,cadence,timezone,coverage_window,story_budget,post_budget FROM digest_schedules WHERE profile_id=$1 ON CONFLICT DO NOTHING',
+      [original.id],
+    );
+    await adapter.updateDefault(original.schedule);
+    await adapter.onModuleDestroy();
+    await db.end();
+  }
+});

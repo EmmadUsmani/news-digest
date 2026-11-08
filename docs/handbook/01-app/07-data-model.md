@@ -9,7 +9,9 @@ snapshots.
 > schedule copied from the current owner schedule. A second prepared migration
 > allows topics, editions and durable job records to have no profile, retaining
 > foreign keys and existing ownership. Neither is applied live;
-> the app still uses the profile schedule. See the [rollout plan](../../public-access-plan.md).
+> the live app still uses the profile schedule. Prepared schedule writes update
+> both settings tables atomically; the system flag switches schedule reads.
+> This adapter is not deployed. See the [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain

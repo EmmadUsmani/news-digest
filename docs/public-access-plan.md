@@ -58,8 +58,11 @@ mapped to profiles, and profiles go away.
   missing schedule. It is not applied live; profile reads/writes remain
   authoritative. Migration `0012` prepares nullable ownership for topics,
   editions and durable job records, retaining foreign keys and all existing
-  ownership values. Both migrations remain unapplied; flagged reads and
-  transactional dual writes are next.
+  ownership values. Both migrations remain unapplied. Prepared schedule reads
+  use `edition_settings` with `SYSTEM_OWNERSHIP=1`; schedule updates write both
+  settings tables in one transaction, including with the flag off. Missing system
+  settings abort the write. Topic/edition/job reads still need flag support;
+  do not enable the flag or deploy this code before the migrations.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous

@@ -147,3 +147,14 @@
 - No live migration, provider call, source fetch, deployment or restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Live runtime remains unchanged; no phase ack or public-access change.
 - Orientation output was initially overbroad; subsequent reads were narrowed. No secrets or owner-controlled files changed.
 - Initial push rejected because origin gained owner steering commit fc71a5f7. Fetched and merged without conflicts/history changes; new instructions confirm phase 1, then 3/4 with flags off while acceptance waits. Verification inputs unchanged; retried push.
+
+## 2026-11-08: iteration 1389 — prepare atomic system schedule settings
+
+- Clean main/no leftovers. Alerts zero; `/healthz` database/Redis healthy; no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Prepared `SYSTEM_OWNERSHIP=1` schedule reads from edition_settings; flag-off reads retain the legacy schedule. Compatibility profile identity remains pending the wider ownership refactor.
+- Schedule updates now write both settings tables in one transaction regardless of flag; missing singleton or system-side constraint failure rolls back the legacy write. Rollback keeps either read mode usable.
+- Added isolated flag-switch, dual-write, system-side rejection and missing-singleton coverage. Full `pnpm check` passes: 629 unit/236 integration passes, four expected skips; build passes.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams pass; two existing metadata warnings for unapplied edition_settings.
+- Updated rollout plan, affected handbook callout and TASKS. No UI/source changes, provider calls or secret access. Initial orientation output was overbroad; subsequent reads narrowed.
+- No live migration/deployment/restart: STEERING 50 forbids generation deployment after noon except breakage. Migrations 0011/0012 are required before deploying this adapter; private backup/restored-copy rehearsal still required. Live runtime remains unchanged.
+- Next: topic/edition/durable-job system reads and remaining compatibility writes, then preservation comparisons and AI-off/recorded-AI-on acceptance before a pre-noon rollout. Phase 1 remains open; flag stays off.
