@@ -91,3 +91,13 @@
 - Extra `smoke-reader-x-links.ts` could not run: latest edition has no saved post matching its joined-prose/URL prerequisite; no product failure observed. Browser traffic GET/HEAD-only with external requests blocked; no provider calls/spend or publication changes.
 - VM remains private; no phase acknowledgment before scheduled acceptance. Next: metrics probe ≥10:26 UTC; 15:00 phase-0/phase-2, keyword/Bluesky acceptance and first-week report.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push.
+
+## 2026-11-08: iteration 1335 — accessible Bluesky media recovery
+
+- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and jobs checks healthy. Metrics probe not due until ≥10:26 UTC; scheduled acceptance remains 15:00 UTC.
+- Read latest published titles across all four topics and saved Bluesky posts. Known editorial fixes await scheduled evidence. Bluesky media links had no explicit keyboard focus and collapsed to a text-height target when images failed.
+- Media links now retain a 44px target and visible keyboard focus. Owner benefit: easier image/video access by keyboard and easier failed-image recovery on phones; no new feature or editorial change.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-bluesky-image-recovery.ts` pass: 24 loaded/recovered/failed/same-URL cases at 1440/390/320px in both themes; dimensions, focus, destinations, recovery and no overflow/errors verified. Screenshots refreshed/added; narrow dark failure inspected.
+- `pnpm exec tsx scripts/smoke-reader-bluesky-video.ts` passes loaded/failed/missing previews at desktop/mobile in both themes. Media variants are synthetic, based on a saved edition; GET-only browser traffic and external requests blocked, no provider spend.
+- VM stays private; phase-0/phase-2 acceptance waits for the normal 15:00 scheduled publication. Next metrics probe ≥10:26 UTC, then daily acceptance and first-week report.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial pipeline terminated during lint without diagnostic; standalone lint and full check rerun passed. Published byline smoke also passes all six viewports/themes. Normal four-service restart follows push.

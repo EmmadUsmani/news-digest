@@ -556,7 +556,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         {post.media?.map((media, index) => (
           <a
             key={index}
-            className="relative block"
+            className="relative block min-h-11 min-w-11 content-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             href={media.type === 'image' ? media.fullsize : post.url}
             aria-label={`${media.type === 'image' ? `Open image ${index + 1}` : 'Watch video on Bluesky'} ${postIdentity}${media.alt ? ` — ${media.alt}` : ''}`}
             target="_blank"

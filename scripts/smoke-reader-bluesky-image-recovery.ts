@@ -18,6 +18,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         for (const variant of [
@@ -118,7 +119,16 @@ async function main() {
             await link.getAttribute('aria-label'),
             `Open image 1 ${identity} — Synthetic recovery image`,
           );
+          await link.scrollIntoViewIfNeeded();
+          const bounds = await link.boundingBox();
+          assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
           await link.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          assert.equal(
+            await link.evaluate((node) => getComputedStyle(node).outlineStyle),
+            'solid',
+          );
           assert.ok(
             await link.evaluate((node) => node === document.activeElement),
           );
@@ -126,16 +136,16 @@ async function main() {
             await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
           );
           assert.deepEqual(errors, []);
-          if (variant === 'recovered')
+          if (variant === 'recovered' || variant === 'failed')
             await card.screenshot({
-              path: `docs/screenshots/ui/reader-bluesky-image-recovered-${device}-${theme}.png`,
+              path: `docs/screenshots/ui/reader-bluesky-image-${variant}-${device}-${theme}.png`,
             });
           await page.close();
         }
       }
     }
     console.log(
-      'Bluesky image recovery: 16 loaded/recovered/failed/same-URL cases passed desktop/mobile light/dark; GET-only, external requests blocked.',
+      'Bluesky image recovery: 24 loaded/recovered/failed/same-URL cases passed desktop/mobile/narrow light/dark; GET-only, external requests blocked.',
     );
   } finally {
     await browser.close();
