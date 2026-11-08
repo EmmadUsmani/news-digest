@@ -55,6 +55,15 @@ async function smoke() {
           name: `Save story: ${story.title}`,
           exact: true,
         });
+        await expect(save).toBeVisible();
+        const saveBounds = await save.boundingBox();
+        assert.ok(
+          saveBounds && saveBounds.width >= 44 && saveBounds.height >= 44,
+        );
+        await save.scrollIntoViewIfNeeded();
+        await page.screenshot({
+          path: `docs/screenshots/ui/reader-save-target-${device}-${theme}.png`,
+        });
         await save.click();
         await expect(save).toHaveAttribute('aria-pressed', 'true');
         await page.reload();
@@ -129,6 +138,9 @@ async function smoke() {
             name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
             exact: true,
           });
+          await expect(control).toBeVisible();
+          const bounds = await control.boundingBox();
+          assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44);
           await control.click();
           await expect(control).toHaveAttribute('aria-pressed', 'true');
           await page.reload();

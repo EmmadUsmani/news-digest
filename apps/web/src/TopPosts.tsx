@@ -119,7 +119,7 @@ export function TopPosts({
               {bookmark && (
                 <Button
                   variant="ghost"
-                  className="mt-2 px-2 text-sm"
+                  className="mt-2 h-11 min-w-11 px-3 text-sm"
                   aria-label={`Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`}
                   aria-pressed={bookmark.isSaved(post)}
                   onClick={() => bookmark.toggle(post)}
