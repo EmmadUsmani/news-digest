@@ -101,6 +101,12 @@ def verify(container, socket_directory):
         AND column_name='profile_id' AND is_nullable='YES') <> 4
       THEN RAISE EXCEPTION 'Ownership nullability differs'; END IF;
     END $$;""")
+    environment['SYSTEM_READ_REHEARSAL'] = '1'
+    environment['DATABASE_URL'] += '&options=' + quote('-c default_transaction_read_only=on', safe='')
+    database.run(['pnpm', 'exec', 'tsx', 'apps/api/scripts/rehearse-system-reads.ts'],
+                 cwd=database.ROOT, env=environment)
+    if fingerprints(container) != first_run or query(container, ledger_sql) != ledger:
+        raise RuntimeError('Read comparisons changed restored data or ledger')
     manifest_path = sorted(database.DIRECTORY.glob('news-digest-*.json'))[-1]
     manifest = json.loads(manifest_path.read_text())
     receipt = {'checked_at': time.time(), 'backup': manifest_path.stem,
@@ -109,7 +115,8 @@ def verify(container, socket_directory):
                'schedule_parity': True, 'foreign_keys_preserved': True,
                'nullable_ownership_columns': 4,
                'actual_migration_runner': True, 'runner_idempotent': True,
-               'scope': 'SQL rollback and actual runner; adapter/HTTP and AI acceptance remain separate'}
+               'adapter_read_parity': True, 'read_only_fingerprints_preserved': True,
+               'scope': 'SQL rollback, actual runner and adapter read parity; HTTP and AI acceptance remain separate'}
     (database.DIRECTORY / 'system-ownership-proof.json').write_text(json.dumps(receipt) + '\n')
     print(f'System SQL rehearsal verified: {len(before)} original table fingerprints; rollback; actual runner twice; schedule parity; four nullable ownership columns')
 

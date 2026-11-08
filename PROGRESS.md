@@ -107,3 +107,14 @@
 - Handbook check (`backups`) renders 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings. Updated affected backup handbook, rollout plan and TASKS; archived iterations 1381–1385 to keep PROGRESS small.
 - No provider calls, source/UI changes, live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
 - Next: restored-copy adapter/HTTP response comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.
+
+## 2026-11-08: iteration 1396 — restored-copy adapter preservation
+
+- Clean main/no leftovers; alerts zero, healthy live database/Redis, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Added private restored-copy read-adapter acceptance to `python3 ops/backups/rehearse_system.py`: all 550 stored editions, complete latest/direct/paginated history with both publication filters, topics and schedule settings match SYSTEM_OWNERSHIP off/on/off.
+- Fresh backup `news-digest-20261108T173020Z` restores 30 tables/54,524 rows; migration runner twice and injected rollback still pass. PostgreSQL enforces read-only comparison sessions; all data/ledger fingerprints unchanged after comparisons. Private receipt records parity; scratch socket/container removed.
+- No restored content printed, provider calls or live writes. Updated TASKS, rollout plan and affected backup handbook; restored-copy HTTP and AI acceptance remain separate gates.
+- Verification: four backup unit tests, `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass. Handbook (`backups`) checks 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings.
+- Full check totals: 629 unit and 239 integration passes; four expected integration skips.
+- No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
+- Next: restored-copy HTTP comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout. Phase 1 remains open.

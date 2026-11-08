@@ -75,7 +75,10 @@ mapped to profiles, and profiles go away.
   Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt
   identifies the backup and migration checksums. The actual TypeScript migration
   runner also passes twice on the restored copy, with unchanged rows and ledger on repeat.
-  Restored-copy adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
+  Restored-copy adapter comparisons also pass for all 550 saved editions (complete latest,
+  direct and paginated history with both publication filters), topics and settings across
+  flag off/on/off. Read-only sessions and unchanged fingerprints protect the restored copy.
+  Restored-copy HTTP and AI-off/recorded-AI-on acceptance remain separate gates.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
   404s) and all original history entries across every page across flag off/on/rollback, with publication
   filtering enabled and disabled; these pass without provider calls.
