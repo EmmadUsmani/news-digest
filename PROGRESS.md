@@ -155,3 +155,14 @@
 - `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/3 unchanged diagrams pass; six metadata warnings reflect three prepared tables absent live (edition_settings/users/sessions).
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`: four topics, 19 stories/17 posts; no provider calls or live data writes.
 - No migration/deployment/restart under the after-noon edition-generation cutoff; account routes remain absent and disabled. Phase 1 rollout/acceptance stays first, then further phase 3 preparation while waiting.
+
+## 2026-11-08: iteration 1400 — offline reader session lifecycle
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
+- Phase 1 awaits its pre-noon rollout; prepared the next phase without connecting account routes, enabling flags or changing generation.
+- Added session repository/token ports, Node crypto adapter and application lifecycle: 32 random bytes, SHA-256-only storage, host-only HttpOnly/Secure/SameSite=Lax cookies capped at 400 days.
+- Daily cookie renewal uses an atomic repository claim and preserves sign-in age; readers never expire server-side. Admin requires sign-in eligibility, current allowlisting and age strictly below seven days.
+- Added single/all-device revocation and six offline tests covering malformed/unknown tokens, renewal races, old readers, exact admin cutoff and allowlist changes.
+- Initial lint found floating test promises/unnecessary assertions; corrected them. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 635 unit/243 integration passes, four expected skips. `git diff --check` passes.
+- Scheduled-reader check: four topics, 19 stories/17 posts. No provider calls, live writes, migrations or restarts; after-noon generation deployment cutoff remains in force.
+- Updated TASKS and rollout plan. Next: prepare session database adapter while waiting; phase 1 rollout/live test editions/scheduled acceptance remain first. Accounts stay disabled.

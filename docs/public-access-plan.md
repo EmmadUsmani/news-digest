@@ -98,9 +98,14 @@ Phase 3 preparation has begun while phase 1 awaits its pre-noon rollout and
 scheduled acceptance. Unapplied migration `0013` adds independent `users` and
 `sessions`: normalized unique emails, unique SHA-256 token hashes, cascading
 account deletion, sign-in admin eligibility and cookie renewal timestamps.
-No server expiry is stored; admin freshness will use sign-in time. Account
-routes, cookies and sync remain unimplemented and disabled. Operational reader
-roles and PUBLIC receive no access to either table.
+No server expiry is stored. Prepared, unconnected session application code issues
+32-byte random tokens, stores only SHA-256 hashes, and builds secure host-only
+cookies capped at 400 days. Daily renewal is claimed atomically through a repository
+port without changing sign-in time; admin access requires eligibility at sign-in,
+current allowlisting and age below seven days. Single/all-device revocation is
+prepared. Offline tests cover renewal races, old reader sessions and admin changes.
+The database adapter, account routes and sync remain unimplemented; accounts stay
+disabled. Operational reader roles and PUBLIC receive no access to either table.
 
 ## Target design
 
