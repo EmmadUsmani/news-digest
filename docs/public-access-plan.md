@@ -167,8 +167,11 @@ uses a conditional update so concurrent requests have one winner. Both new table
 exclude PUBLIC and operational reader roles. Prepared, uninstalled HTTP routes now
 issue links through fresh-admin sessions and redeem through guarded POSTs. Exact
 Origin/JSON checks, bounded strict bodies, private responses and preview rejection
-apply; successful redemption returns only a secure session cookie. Runtime injection,
-confirmation UI and fragment-based URLs remain pending; accounts stay disabled.
+apply; successful redemption returns only a secure session cookie. The prepared runtime now injects the link repository and composes link issuance
+and redemption with the same identity/session services as code login. Offline
+composition verifies admin issuance, hash-only storage, non-admin friend sessions
+and replay rejection. Main registration, confirmation UI and fragment-based URLs
+remain pending; accounts stay disabled.
 
 ## Target design
 

@@ -5,10 +5,12 @@ import type { Redis } from 'ioredis';
 import { LoginCodes } from '../application/login-codes';
 import { LoginExchange } from '../application/login-exchange';
 import { ReaderSessions } from '../application/sessions';
+import { SignInLinks } from '../application/sign-in-links';
 import { SignupPolicy } from '../application/signup-policy';
 import type { ReaderIdentityRepository } from '../domain/identity';
 import type { LoginCodeRepository } from '../domain/login-code';
 import type { SessionRepository } from '../domain/session';
+import type { SignInLinkRepository } from '../domain/sign-in-link';
 import { AccountHandlers } from './account-handlers';
 import { AccountRequestBoundary } from './account-request';
 import { FileLoginCodeDelivery } from './file-login-code-delivery';
@@ -20,6 +22,7 @@ type Dependencies = {
   identities: ReaderIdentityRepository;
   codes: LoginCodeRepository;
   sessions: SessionRepository;
+  links: SignInLinkRepository;
   cache: Pick<Redis, 'eval'>;
   existingIdentity: (email: string) => Promise<boolean>;
 };
@@ -84,5 +87,11 @@ export function prepareAccountHandlers(
     codes,
     new LoginExchange(codes, ports.identities, sessions),
     sessions,
+    new SignInLinks(
+      ports.links,
+      new CryptoSessionTokens(),
+      ports.identities,
+      sessions,
+    ),
   );
 }

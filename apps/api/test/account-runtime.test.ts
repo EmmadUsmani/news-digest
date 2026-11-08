@@ -8,6 +8,7 @@ import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import type { LoginCodeChallenge } from '../src/modules/accounts/domain/login-code';
 import type { ReaderSession } from '../src/modules/accounts/domain/session';
+import type { SignInLink } from '../src/modules/accounts/domain/sign-in-link';
 
 const env = {
   ACCOUNTS_ENABLED: '1',
@@ -46,6 +47,7 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
   const directory = await mkdtemp(join(tmpdir(), 'account-runtime-'));
   let challenge: LoginCodeChallenge | null = null;
   let saved: ReaderSession | null = null;
+  let link: SignInLink | null = null;
   const now = new Date();
   try {
     const handlers = prepareAccountHandlers(
@@ -53,8 +55,25 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
       () => ({
         identities: {
           findOrCreateVerified: async (email) => {
-            assert.equal(email, 'owner@example.com');
-            return 'verified-user';
+            assert.ok(
+              ['owner@example.com', 'friend@example.com'].includes(email),
+            );
+            return email === 'owner@example.com'
+              ? 'verified-user'
+              : 'friend-user';
+          },
+        },
+        links: {
+          issueWithAudit: async (value, issuer) => {
+            assert.equal(issuer, 'verified-user');
+            link = value;
+          },
+          consume: async (hash, time) => {
+            if (!link || link.tokenHash !== hash || time >= link.expiresAt)
+              return null;
+            const email = link.email;
+            link = null;
+            return email;
           },
         },
         existingIdentity: async () => false,
@@ -79,7 +98,10 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
             saved = {
               ...input,
               id: 'session-id',
-              email: 'owner@example.com',
+              email:
+                input.userId === 'verified-user'
+                  ? 'owner@example.com'
+                  : 'friend@example.com',
               createdAt: input.now,
               cookieRenewedAt: input.now,
             };
@@ -125,11 +147,30 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
       (await handlers.redeemCode(redeem, 'verified-client', now)).status,
       401,
     );
+    const issued = await handlers.issueLink(
+      { ...request, cookie, body: { email: 'friend@example.com' } },
+      now,
+    );
+    assert.equal(issued.status, 201);
+    const token = (issued.body as { token: string }).token;
+    assert.match(token, /^[A-Za-z0-9_-]{43}$/);
+    assert.ok(!JSON.stringify(link).includes(token));
+    const linkRequest = { ...request, body: { token } };
+    const friend = await handlers.redeemLink(linkRequest, now);
+    assert.equal(friend.status, 204);
+    assert.match(friend.cookie!, /Secure/);
+    const friendCookie = friend.cookie!.split(';')[0];
+    assert.deepEqual((await handlers.current(friendCookie, now)).body, {
+      signedIn: true,
+      isAdmin: false,
+    });
+    assert.equal((await handlers.redeemLink(linkRequest, now)).status, 401);
     assert.equal(
-      (await handlers.signOut({ ...request, cookie }, true, now)).status,
+      (await handlers.signOut({ ...request, cookie: friendCookie }, true, now))
+        .status,
       204,
     );
-    assert.deepEqual((await handlers.current(cookie, now)).body, {
+    assert.deepEqual((await handlers.current(friendCookie, now)).body, {
       signedIn: false,
       isAdmin: false,
     });

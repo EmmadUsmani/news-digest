@@ -170,3 +170,12 @@
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Handbook check reports only existing metadata entries for unapplied edition/account tables; no diagrams changed.
 - Updated TASKS and rollout plan. No provider calls, migrations or generation changes; accounts disabled and VM private. Phase 1 waits for pre-noon rollout and scheduled acceptance.
 - After verified commit/push, restart API/worker and repeat health/reader checks so live matches main.
+
+## 2026-11-08: iteration 1415 — disabled friend-link runtime composition
+
+- Clean main/no leftovers; alerts zero, health good and no failed user services. `pnpm obs sources` confirms all 36 sources healthy; `pnpm obs jobs --state failed --limit 2` shows zero digest failures, with two retained ingestion/social failures each as before.
+- Prepared runtime now requires an injected link repository and shares verified identity/session services between code and friend-link login. Main remains unregistered; disabled composition opens no resources.
+- Extended offline composition check: mailbox code creates fresh admin, audited hash-only friend issuance succeeds, redemption creates a non-admin session, replay fails and friend logout clears authentication. Memory ports only; database concurrency remains covered by existing isolated tests.
+- Targeted `pnpm exec tsx --test apps/api/test/account-runtime.test.ts` passes both tests; `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 658 unit/248 integration passes, four expected skips; typecheck, lint, formatting and boundaries green.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts. Updated TASKS and rollout plan; no handbook behavior change, UI change, migration or provider calls.
+- Accounts remain disabled and VM private. After commit/push, restart API/worker and repeat health/reader checks. Next: pre-noon phase 1 rollout/normal scheduled acceptance; main registration, confirmation UI and verified proxy wiring remain pending.
