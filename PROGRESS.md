@@ -127,3 +127,12 @@
 - Initial full-suite attempt exposed a missed storage-test composition dependency (250 integration passes/one failure); wired the real PostgreSQL coordinator there and included pool cleanup. Final `pnpm check` passes: static checks, 664 unit tests and 251 integration passes/four expected skips.
 - `pnpm exec tsx scripts/check-handbook.ts public-access-plan` passes (expected metadata notes for unapplied tables); `git diff --check` passes. Scheduled-reader check verifies four topics/19 stories/17 posts. Commit/push, then restart API/worker and repeat health/reader checks.
 - Next: pre-noon Phase 1 backup/rollout and scheduled acceptance; coordinate complete proof-to-session exchange, links and deletion before activating accounts.
+
+## 2026-11-08: iteration 1425 — coordinated code-to-session exchange
+
+- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources healthy; digest-generation has zero failures, retained ingestion/social failures unchanged.
+- Prepared login exchange now requires recipient coordination through proof consumption, identity lookup and session creation. Shared normalization rejects malformed recipients before locking; eligibility is evaluated by code redemption after waiting.
+- Runtime composition supplies the same coordination port as issuance. Offline tests cover normalized recipient, no proof work while waiting, full exchange lock coverage and fail-closed lock errors; storage exchange now uses real PostgreSQL coordination.
+- Accounts remain disabled and VM private. No live migration, generation change or provider call. Link operations/deletion still need the common boundary before activation; Phase 1 rollout waits for pre-noon.
+- Updated TASKS and rollout plan; current handbook behavior unchanged. Targeted exchange tests pass (2); build and handbook check pass (expected metadata notes for unapplied tables). Full pnpm check passes: static checks, 666 unit tests, 251 integration passes/four expected skips. pnpm format, pnpm lint:fix and git diff --check pass.
+- API/worker restarted; health and scheduled-reader check verify four topics/19 stories/17 posts. Commit/push then repeat restart/health to match main. Next: finish link/deletion coordination and pre-noon Phase 1 backup/rollout.

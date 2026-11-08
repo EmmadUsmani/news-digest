@@ -217,8 +217,10 @@ release the lock, and contention fails closed after five seconds. The lock store
 no recipient text. Prepared login-code issuance now requires this boundary around
 challenge replacement and awaited delivery, and checks eligibility after acquiring
 it. Composition requires an explicit coordination dependency; main remains
-disconnected. Redemption, identity/session exchange, link operations and deletion
-still need the same boundary and post-lock policy rechecks before activation.
+disconnected. Prepared code exchange now holds that same boundary through proof
+consumption, identity lookup and session creation, with eligibility checked after
+waiting. Link operations and deletion still need the boundary and policy rechecks
+before activation.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

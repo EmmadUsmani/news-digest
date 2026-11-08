@@ -59,7 +59,7 @@ export class LoginCodes {
   }
 }
 
-function normalizeEmail(input: string): string | null {
+export function normalizeEmail(input: string): string | null {
   const email = input.trim().toLowerCase();
   return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     ? email

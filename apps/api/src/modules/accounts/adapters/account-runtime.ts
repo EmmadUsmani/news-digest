@@ -88,7 +88,7 @@ export function prepareAccountHandlers(
   return new AccountHandlers(
     boundary,
     codes,
-    new LoginExchange(codes, ports.identities, sessions),
+    new LoginExchange(codes, ports.identities, sessions, ports.recipients),
     sessions,
     new SignInLinks(
       ports.links,

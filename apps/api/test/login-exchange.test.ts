@@ -9,6 +9,7 @@ import { LoginExchange } from '../src/modules/accounts/application/login-exchang
 import { ReaderSessions } from '../src/modules/accounts/application/sessions';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 import { PostgresLoginCodeRepository } from '../src/modules/accounts/database/login-code.repository';
+import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
 import { PostgresSessionRepository } from '../src/modules/accounts/database/session.repository';
 
 void test('verified exchange creates one identity, rejects replay and issues private sessions', async () => {
@@ -43,7 +44,8 @@ void test('verified exchange creates one identity, rejects replay and issues pri
     },
     { run: async (_email, work) => work() },
   );
-  const exchange = new LoginExchange(codes, identities, sessions);
+  const recipients = new PostgresRecipientCoordination();
+  const exchange = new LoginExchange(codes, identities, sessions, recipients);
   const redeem = (value = code) =>
     exchange.redeem(' EXCHANGE@Example.test ', value, 'test-client', now);
   try {
@@ -102,6 +104,7 @@ void test('verified exchange creates one identity, rejects replay and issues pri
         },
       },
       sessions,
+      recipients,
     );
     await assert.rejects(
       broken.redeem(email, code, 'test-client', now),
@@ -118,6 +121,7 @@ void test('verified exchange creates one identity, rejects replay and issues pri
       other.onModuleDestroy(),
       challenges.onModuleDestroy(),
       repository.onModuleDestroy(),
+      recipients.onModuleDestroy(),
       pool.end(),
     ]);
   }
