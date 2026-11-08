@@ -25,6 +25,7 @@ async function smoke() {
         const writes: Record<string, unknown>[] = [];
         const errors: string[] = [];
         let refuse = false;
+        let refusalMessage = 'Development AI editing is disabled';
         page.on('pageerror', (error) => errors.push(error.message));
         await context.route('**/*', (route) => {
           const request = route.request();
@@ -36,7 +37,10 @@ async function smoke() {
             );
             writes.push(request.postDataJSON() as Record<string, unknown>);
             return refuse
-              ? route.fulfill({ status: 503, json: { message: 'Disabled' } })
+              ? route.fulfill({
+                  status: 503,
+                  json: { message: refusalMessage },
+                })
               : route.fulfill({ status: 201, json: snapshot });
           }
           assert.equal(request.method(), 'GET');
@@ -85,8 +89,42 @@ async function smoke() {
         assert.equal(writes[3]?.paidXSearch, true);
         refuse = true;
         await create.click();
-        await page.getByRole('alert').waitFor();
-        assert.equal(writes.length, 5);
+        await page
+          .getByRole('alert')
+          .filter({
+            hasText: 'Development AI editing is disabled. Turn that option off',
+          })
+          .waitFor();
+        assert.ok(
+          (await page.getByRole('alert').innerText()).includes(
+            'No test edition was saved.',
+          ),
+        );
+        assert.equal(
+          await page
+            .getByRole('link', {
+              name: 'Review development charges, holds and remaining allowances',
+            })
+            .getAttribute('href'),
+          '/admin/spend',
+        );
+        refusalMessage = 'Development X search is disabled';
+        await create.click();
+        await page
+          .getByRole('alert')
+          .filter({
+            hasText: 'Development X search is disabled. Turn that option off',
+          })
+          .waitFor();
+        refusalMessage = 'Unexpected upstream failure';
+        await create.click();
+        await page
+          .getByRole('alert')
+          .filter({
+            hasText: 'Could not confirm whether your test edition was saved',
+          })
+          .waitFor();
+        assert.equal(writes.length, 7);
         assert.equal(
           await page
             .getByRole('link', { name: 'Inspect created edition' })

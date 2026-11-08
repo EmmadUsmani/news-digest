@@ -4,6 +4,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
+- [x] STEERING 50 (1293): private-test form explains disabled AI/X options with retry guidance and links to development allowances; unknown failures retain the uncertain-save warning. Four intercepted browser views pass; no paid calls.
+
 - [x] STEERING 50 (1290): deployed free test over real stored content verifies private persistence/reader exclusion and unchanged five published responses. Nov 8 acceptance handoff now includes phase-0/phase-2 gates, browser commands and a fixed five-ID baseline comparison that survives the next publication. Scheduled acceptance still due at 15:00 UTC.
 
 - [x] STEERING 50 (1289): combined AI/paid-X admin test request exercises both recorded provider transports and durable development reservations; private reader exclusion and unchanged production accounting verified offline. Phase-0 completion still awaits a normal scheduled edition.

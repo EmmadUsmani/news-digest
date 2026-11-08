@@ -114,3 +114,12 @@ Earlier entries: [iterations 1272–1282](docs/progress-archive/2026-11-08-itera
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (625 unit/233 integration pass, four expected skips), `pnpm build`, handbook check and `git diff --check` pass. First check caught import ordering in the updated test; fixed before the successful full rerun.
 - `pnpm exec tsx scripts/smoke-development-spend.ts` passes four desktop/mobile light/dark views: real totals, fixture stop/unavailable states, no overflow/errors/writes. Screenshots updated and mobile light/desktop dark inspected; published-content comparison verifies all five complete reader responses unchanged.
 - Four app services restarted; health/alerts clear. Archived iterations 1272–1282 to keep PROGRESS.md small. Committing/pushing and restarting services against main; no provider calls/spend, VM private, phase 0/2 scheduled acceptance still open.
+
+## 2026-11-08: iteration 1293 — actionable private-test refusals
+
+- Clean main/no leftovers; alerts/health clear, all 36 sources healthy, zero failed digest jobs. Phase 0/2 scheduled acceptance remains due at 15:00 UTC; metrics passive check not due until ≥05:21 UTC.
+- Private-test form previously treated disabled development providers as an uncertain save. Exact known AI/X refusals now explain the disabled option, retry action and that no test was saved; unknown failures retain duplicate-prevention guidance. Linked development allowances beside the paid options.
+- Updated pipeline handbook and four screenshots. `pnpm exec tsx scripts/smoke-test-edition-form.ts` passes desktop/mobile light/dark with intercepted real saved snapshot, both disabled-provider refusals, unknown-error fallback and no actual writes/provider calls; mobile light screenshot inspected.
+- `pnpm build`, web rebuild and `check-handbook.ts 04-edition-pipeline` pass; full five-response publication comparison unchanged. Required `pnpm format`/`pnpm lint:fix` run; full check result below.
+- Four app services restarted and health passes. VM stays private, no provider spend or later-phase work.
+- Final `pnpm check` passes: 625 unit/233 integration, four expected skips; `git diff --check` clean. Committing/pushing, then restarting four services against main and checking health/alerts. Next: passive metrics check ≥05:21 UTC and scheduled acceptance at 15:00 UTC.

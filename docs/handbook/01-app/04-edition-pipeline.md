@@ -75,7 +75,8 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   The preview smoke command uses this endpoint, free by default; `LLM_LIVE=1`
   enables development AI and creates one private test edition. The admin form
   also creates private tests, with AI editing and paid X search off by default
-  and independent opt-ins using development funds.
+  and independent opt-ins using development funds. The form links to remaining
+  allowances and explains when a paid option is disabled on the server.
 - **History:** every edition is kept. The UI can browse and reopen any past
   edition by its id.
 

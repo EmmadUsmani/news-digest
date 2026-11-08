@@ -154,6 +154,22 @@ export function AdminNewEdition() {
           paidXSearch,
         }),
       });
+      if (response.status === 503) {
+        const body: unknown = await response.json().catch(() => null);
+        const message = z.object({ message: z.string() }).safeParse(body);
+        if (
+          message.success &&
+          [
+            'Development AI editing is disabled',
+            'Development X search is disabled',
+          ].includes(message.data.message)
+        ) {
+          setError(
+            `${message.data.message}. Turn that option off or enable it on the server before retrying. No test edition was saved.`,
+          );
+          return;
+        }
+      }
       if (!response.ok) throw new Error();
       const edition = digestPreviewSchema.parse(await response.json());
       setResultId(edition.id);
@@ -260,6 +276,9 @@ export function AdminNewEdition() {
               Paid X search uses the separate, limited development allowance and
               must be enabled on the server. Off reuses stored posts for free.
             </p>
+            <Link to="/admin/spend" className="text-sm underline">
+              Review development charges, holds and remaining allowances
+            </Link>
             <Button type="submit">
               {working
                 ? 'Creating edition…'
