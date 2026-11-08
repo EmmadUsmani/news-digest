@@ -117,7 +117,11 @@ A disconnected stand-in mailbox writes atomically to owner-only files in a
 700-mode directory, uses hashed recipient filenames and refuses unsafe permissions
 and symlink reads. Owner retrieval rejects expired messages. Once configured, read
 a code with `ssh news-digest.exe.xyz 'cd ~/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /absolute/mailbox/path reader@example.com'`.
-Database enforcement, Redis limits and account exchange remain unimplemented;
+Prepared Redis admission shares atomic per-email (10) and per-client (50) limits
+across code requests and redemption in a ten-minute window. Keys use keyed hashes,
+blocked attempts count in both dimensions, and Redis failures deny admission.
+The adapter remains unregistered; client addresses must come from the verified proxy boundary.
+Database challenge enforcement and account exchange remain unimplemented;
 no login endpoint is exposed. Operational reader roles and PUBLIC receive no access to either table.
 
 ## Target design

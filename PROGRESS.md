@@ -123,3 +123,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass; 642 unit/244 integration passes, four expected skips.
 - Scheduled-reader check passes: four topics, 19 stories/17 posts. No provider calls, live writes or migrations; no restart because adapter is disconnected and generation deployment cutoff remains in force.
 - Updated TASKS and rollout plan. Next: phase 1 pre-noon backup/rollout/live tests/scheduled acceptance; prepare atomic login-code persistence and Redis limits while waiting.
+
+## 2026-11-08: iteration 1404 — shared Redis login admission preparation
+
+- Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units. Initial orientation output was overbroad; follow-up reads narrowed.
+- Prepared unregistered Redis login admission: shared ten-minute windows, 10 attempts/email and 50/client across requests/redemption; atomic counters include blocked attempts in both dimensions.
+- Counter keys use keyed SHA-256 hashes; Redis errors deny admission without exposing backend detail. Eligibility remains a separate injected policy; verified proxy client extraction is required before registration.
+- Isolated Redis checks cover competing adapters, normalized email limits, independent client limits, TTL/expiry, hashed keys, policy delegation, invalid configuration and backend failure.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 642 unit/245 integration passes, four expected skips.
+- Scheduled-reader check passes: four topics, 19 stories/17 posts. No provider calls, live writes or migrations; accounts remain disabled.
+- No restart: disconnected adapter does not change runtime behavior; generation deployment remains barred after noon. Updated TASKS and rollout plan.
+- Next: pre-noon phase 1 private backup/rollout/live tests and scheduled acceptance; prepare atomic database challenges/account exchange with flags off while waiting.
