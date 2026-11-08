@@ -18,6 +18,12 @@ snapshots.
 > system scope when flagged on; new editions keep compatibility ownership.
 > These adapters are not deployed. See the [rollout plan](../../public-access-plan.md).
 
+> [!NOTE]
+> A prepared accounts migration adds independent reader identities and hashed
+> sessions, with deletion cascading from a reader to their sessions. These
+> tables are not live; account sign-in remains disabled. See the
+> [rollout plan](../../public-access-plan.md).
+
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain
 the discovery label.

@@ -92,6 +92,13 @@
       "color": "#64748b",
       "description": "Migration bookkeeping.",
       "tables": ["schema_migrations"]
+    },
+    {
+      "id": "accounts",
+      "name": "Reader accounts",
+      "color": "#9333ea",
+      "description": "Private reader identity and hashed sessions; prepared, not enabled.",
+      "tables": ["users", "sessions"]
     }
   ],
   "tables": {
@@ -125,7 +132,9 @@
     "edition_job_failures": "Failed on-demand edition job IDs and duration, retained after Redis history pruning; no exception text.",
     "edition_job_requests": "Accepted on-demand job IDs retained to explain jobs missing from Redis without regenerating.",
     "development_spend_pools": "Nonrenewing development allowances per provider; hard code and database ceilings.",
-    "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves."
+    "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves.",
+    "users": "Normalized unique reader emails; independent of the owner profile.",
+    "sessions": "Hashed reader session tokens, sign-in admin eligibility and cookie renewal times; removed with the user."
   },
   "relations": [
     {

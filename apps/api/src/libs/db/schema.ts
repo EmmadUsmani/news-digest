@@ -35,6 +35,51 @@ export const profiles = pgTable('profiles', {
     .notNull(),
 });
 
+// Phase 3 foundation only: no account routes or sessions are enabled yet.
+export const users = pgTable(
+  'users',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    email: text().notNull().unique(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+  },
+  () => [
+    check(
+      'users_normalized_email_check',
+      sql`email = lower(btrim(email)) AND length(email) BETWEEN 3 AND 254`,
+    ),
+  ],
+);
+
+export const sessions = pgTable(
+  'sessions',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    tokenHash: text('token_hash').notNull().unique(),
+    // Capture eligibility at sign-in; later allowlist additions cannot elevate it.
+    adminEligible: boolean('admin_eligible').default(false).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    cookieRenewedAt: timestamp('cookie_renewed_at', {
+      withTimezone: true,
+      mode: 'string',
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('sessions_user_id_idx').on(table.userId),
+    check('sessions_token_hash_check', sql`token_hash ~ '^[0-9a-f]{64}$'`),
+    check('sessions_cookie_time_check', sql`cookie_renewed_at >= created_at`),
+  ],
+);
+
 export const digestSchedules = pgTable(
   'digest_schedules',
   {

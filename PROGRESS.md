@@ -142,3 +142,16 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/241 integration passes, four expected skips. Scheduled-reader check passes: four topics, 19 stories/17 posts.
 - No live migration/deployment/restart: STEERING 50 after-noon generation cutoff applies. Live flag-on test runs and normal scheduled acceptance remain open; synthetic fixtures do not close phase 1.
 - Next: pre-noon private backup/migration/rollout and live test acceptance, then normal scheduled publication before phase 3 activation.
+
+## 2026-11-08: iteration 1399 — private reader identity/session schema preparation
+
+- Clean main/no leftovers; `pnpm obs alerts` zero, `/healthz` database/Redis healthy, no failed user units.
+- Phase 1 live rollout remains behind the pre-noon cutoff; STEERING 50 authorizes preparing the next phase while awaiting acceptance. Started phase 3 without activating accounts.
+- Unapplied additive migration 0013 adds independent users/sessions: normalized unique emails, unique SHA-256 hash-shaped tokens, sign-in admin eligibility, cookie renewal timestamps and cascading deletion. No server session expiry or profile dependency.
+- Migration revokes PUBLIC and existing Grafana/metrics-role table privileges. Isolated tests also recreate it under permissive default grants and prove both operational roles cannot read either table.
+- Constraint, foreign-key, uniqueness, timezone, cookie-renewal/sign-in preservation and account-deletion checks pass. Application validation, authentication and account routes remain future work; schema alone provides no sign-in.
+- Updated rollout plan, affected data-model handbook and schema metadata; compacted TASKS historical detail into existing evidence links.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/243 integration passes, four expected skips. `git diff --check` passes.
+- `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/3 unchanged diagrams pass; six metadata warnings reflect three prepared tables absent live (edition_settings/users/sessions).
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`: four topics, 19 stories/17 posts; no provider calls or live data writes.
+- No migration/deployment/restart under the after-noon edition-generation cutoff; account routes remain absent and disabled. Phase 1 rollout/acceptance stays first, then further phase 3 preparation while waiting.
