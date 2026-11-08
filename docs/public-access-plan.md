@@ -113,8 +113,12 @@ ports to requests and redemption, and issues ten-minute six-digit challenges.
 Keyed SHA-256 hashes bind codes to emails; comparison uses constant-time crypto.
 The repository contract requires atomic five-attempt accounting and single use.
 Offline tests cover expiry, replay, malformed guesses and admission denial.
-Database enforcement, Redis limits, mailbox delivery and account exchange are
-still unimplemented; no login endpoint is exposed. Operational reader roles and PUBLIC receive no access to either table.
+A disconnected stand-in mailbox writes atomically to owner-only files in a
+700-mode directory, uses hashed recipient filenames and refuses unsafe permissions
+and symlink reads. Owner retrieval rejects expired messages. Once configured, read
+a code with `ssh news-digest.exe.xyz 'cd ~/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /absolute/mailbox/path reader@example.com'`.
+Database enforcement, Redis limits and account exchange remain unimplemented;
+no login endpoint is exposed. Operational reader roles and PUBLIC receive no access to either table.
 
 ## Target design
 

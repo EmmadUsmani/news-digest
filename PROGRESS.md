@@ -113,3 +113,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 641 unit/244 integration passes, four expected skips. Scheduled-reader check: four topics, 19 stories/17 posts. No provider calls or live writes.
 - Updated TASKS and public-access plan. No migration/restart under the after-noon generation cutoff; account code remains disconnected and disabled.
 - Next: phase 1 pre-noon private backup/rollout/live test acceptance and scheduled acceptance first; prepare atomic login-code persistence and stand-in mailbox while waiting.
+
+## 2026-11-08: iteration 1403 — private stand-in mailbox preparation
+
+- Clean main/no leftovers; alerts zero, `/healthz` database/Redis healthy, no failed user units.
+- Prepared unregistered file delivery adapter: atomic replacement, owner-only directory/files, hashed recipient filenames, permission/ownership checks and no-follow message reads. No messages go to service logs.
+- Added explicit owner retrieval CLI and SSH command in the public-access plan; expired/missing messages return no code. No live mailbox configured and accounts remain disabled.
+- Offline test covers recipient isolation, eight concurrent replacements, expiry, temporary-file cleanup, unsafe permissions and directory symlinks.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass; 642 unit/244 integration passes, four expected skips.
+- Scheduled-reader check passes: four topics, 19 stories/17 posts. No provider calls, live writes or migrations; no restart because adapter is disconnected and generation deployment cutoff remains in force.
+- Updated TASKS and rollout plan. Next: phase 1 pre-noon backup/rollout/live tests/scheduled acceptance; prepare atomic login-code persistence and Redis limits while waiting.
