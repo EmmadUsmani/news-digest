@@ -174,3 +174,12 @@ Earlier entries: [iterations 1264–1271](docs/progress-archive/2026-11-08-itera
 - Offline HTTP/database characterization verifies invalid options, disabled-runtime 503/no save, configured discovery/private snapshot/reader exclusion and budget-stop rollback. No live provider calls or spend; no UI changes.
 - `pnpm check` passes (625 unit/233 integration, four expected skips); `pnpm build`, required `pnpm format`/`pnpm lint:fix`, handbook check (18 pages/22 diagrams) and diff checks pass. Inventory/content comparison verifies all five complete published reader responses unchanged.
 - Committing/pushing and restarting four app services before final health/alerts. Next: admin paid-X opt-in UI and normal scheduled acceptance; VM stays private.
+
+## 2026-11-08: iteration 1288 — admin development paid-X control
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources current with no errors and no failed digest jobs. Scheduled Nov 8 acceptance remains due at 15:00 UTC.
+- Admin private test form now offers independent AI editing and paid-X controls, both off by default, with separate development-allowance guidance. Updated affected handbook/plan pages.
+- `pnpm exec tsx scripts/smoke-test-edition-form.ts` passes four desktop/mobile light/dark views: all option combinations, private route, refusal/no retries, no overflow or browser errors. Updated screenshots; desktop dark/mobile light visuals inspected. Initial run preceded the new build and saw old assets; rerun after build passes. All writes intercepted; no provider calls or spend.
+- `pnpm build` and handbook check (18 pages/22 diagrams/schema metadata) pass. Inventory plus publication-content comparison verifies all five complete published reader responses unchanged.
+- First `pnpm check` ended with SIGTERM during unit output, without a reported test failure; full rerun started to obtain complete verification.
+- Full rerun `pnpm check` passes (625 unit/233 integration, four expected skips); required `pnpm format`/`pnpm lint:fix` and diff checks pass. Committing/pushing and restarting four app services before final health/alerts. Next: phase-0 acceptance and normal scheduled review; VM remains private.

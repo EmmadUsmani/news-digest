@@ -57,6 +57,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1288): admin private test editions now offer independent AI editing and paid-X opt-ins, both off by default. Four intercepted desktop/mobile light/dark browser checks cover all combinations, refusal/no retry and private-only writes; screenshots updated. Phase-0 scheduled acceptance remains open.
+
 - [x] STEERING 50 (1287): HTTP private test editions accept explicit boolean paid-X opt-in through the isolated runtime; free defaults retained. Offline HTTP checks cover disabled-runtime refusal, private saves/reader exclusion and stopped-search rollback. Admin paid-X UI remains next.
 
 - [x] STEERING 50 (1274): isolated development editorial composition shares one stop latch across article/social triage, editors and optional grouping, with per-edition triage cache only. Offline isolation/success/stop checks pass; paid HTTP wiring remains next.

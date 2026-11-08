@@ -182,17 +182,16 @@ can read them.
   content with no AI, provider calls, production alerts or notifications, and
   persists private test editions. Explicit `aiEditing: true` uses the isolated
   development runtime when `LLM_LIVE=1`; disabled runtime returns 503.
-  Paid X search remains rejected. A prepared per-edition search bridge serializes
-  topic calls and stops queued/future searches on accounting refusal, replay,
-  uncertain execution, provider errors or the reporting threshold; snapshot
-  composition is still pending. An isolated candidate bridge verifies at most 20
-  distinct discovered posts through official embeds, skips unavailable or
-  undated posts, and uses the shared selector without storing discoveries.
-  Search stops propagate before verification. A per-edition composition pins exact
-  UTC windows and shares repeated topic discovery/verification, rejecting conflicting
-  inputs; stopped results remain stopped. The snapshot builder accepts an explicit
-  per-edition X factory supplying fallback and editorial pools together; discovery
-  failures roll back the private test snapshot. An explicit private-generation option now composes the development runtime, saved keyword settings and official embeds; missing settings skip spending, disabled runtime refuses, and HTTP accepts explicit boolean paid-X opt-in; free defaults remain unchanged.
+  Explicit `paidXSearch: true` uses the isolated X development runtime and
+  saved topic keyword settings. Both options are available independently in the
+  admin form and default off; disabled runtimes refuse before saving.
+  Per-edition search serializes topic calls and stops on accounting refusal,
+  replay, uncertain execution, provider errors or the reporting threshold.
+  Discovery pins exact UTC windows and shares repeated topic requests;
+  conflicting inputs reject. Official embeds verify at most 20 distinct posts
+  per topic, skipping unavailable or undated posts. Independent fallback and
+  editorial candidate pools use the shared selector without storing discoveries.
+  Discovery failures roll back the private snapshot.
   The isolated editor composition shares one
   development stop latch across article/social triage and editing, with a
   per-edition memory cache that never reads or writes production scores. The
@@ -202,7 +201,7 @@ can read them.
   The Anthropic live smoke command now uses the development runtime, one Haiku
   call and durable replay protection. The preview smoke command now creates one
   private test edition, free by default, with development AI only under `LLM_LIVE=1`;
-  the admin edition form now creates private tests, free by default, with explicit development AI.
+  the admin edition form now creates private tests, free by default, with independent development AI and paid-X opt-ins.
 - Test editions are admin-triggered, `kind = test`, charged to `development`.
   Options: AI editing off (costs $0, exercises the data paths) or on (about $0.38
   each), and paid X search off (reuse stored posts) or on. Default: everything

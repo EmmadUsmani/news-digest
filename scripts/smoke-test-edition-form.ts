@@ -46,6 +46,8 @@ async function smoke() {
         await page.goto(`${origin}/admin/editions/new`);
         const ai = page.getByLabel('AI editing', { exact: true });
         assert.equal(await ai.inputValue(), 'off');
+        const paidX = page.getByLabel('Paid X search', { exact: true });
+        assert.equal(await paidX.inputValue(), 'off');
         const create = page.getByRole('button', {
           name: 'Create test edition · last 24 hours',
           exact: true,
@@ -66,10 +68,25 @@ async function smoke() {
           .waitFor();
         assert.equal(writes[1]?.aiEditing, true);
         assert.equal(writes[1]?.paidXSearch, false);
+        await ai.selectOption('off');
+        await paidX.selectOption('on');
+        await create.click();
+        await page
+          .getByRole('link', { name: 'Inspect created edition' })
+          .waitFor();
+        assert.equal(writes[2]?.aiEditing, false);
+        assert.equal(writes[2]?.paidXSearch, true);
+        await ai.selectOption('on');
+        await create.click();
+        await page
+          .getByRole('link', { name: 'Inspect created edition' })
+          .waitFor();
+        assert.equal(writes[3]?.aiEditing, true);
+        assert.equal(writes[3]?.paidXSearch, true);
         refuse = true;
         await create.click();
         await page.getByRole('alert').waitFor();
-        assert.equal(writes.length, 3);
+        assert.equal(writes.length, 5);
         assert.equal(
           await page
             .getByRole('link', { name: 'Inspect created edition' })
@@ -91,7 +108,7 @@ async function smoke() {
       }
     }
     console.log(
-      'PASS: four form views; free default, explicit AI, private route, refusal, no retries or production writes. Intercepted responses use a real saved snapshot.',
+      'PASS: four form views; free defaults, independent AI/paid-X opt-ins, private route, refusal, no retries or production writes. Intercepted responses use a real saved snapshot.',
     );
   } finally {
     await browser.close();

@@ -88,4 +88,4 @@ Tables: `llm_calls`, `llm_cache`, `scheduled_ai_budget_days`,
 - Admin test editions accept `aiEditing: true` through the isolated Anthropic
   runtime; `paidXSearch: true` selects the separate development X runtime.
 - The admin edition form defaults to free private tests using stored content.
-  AI editing explicitly uses development funds; paid X search stays off.
+  AI editing and paid X search have independent opt-ins using development funds.

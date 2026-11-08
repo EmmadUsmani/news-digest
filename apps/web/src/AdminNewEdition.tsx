@@ -41,6 +41,7 @@ export function AdminNewEdition() {
   );
   const [jobMessage, setJobMessage] = React.useState('');
   const [aiEditing, setAiEditing] = React.useState(false);
+  const [paidXSearch, setPaidXSearch] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   const working = busy || jobId !== null;
   const [error, setError] = React.useState('');
@@ -150,7 +151,7 @@ export function AdminNewEdition() {
           windowStart: start.toISOString(),
           windowEnd: end.toISOString(),
           aiEditing,
-          paidXSearch: false,
+          paidXSearch,
         }),
       });
       if (!response.ok) throw new Error();
@@ -243,8 +244,21 @@ export function AdminNewEdition() {
             </select>
             <p id="test-ai-help">
               AI editing uses the limited development allowance and must be
-              enabled on the server. Paid X search is off; stored posts are
-              reused.
+              enabled on the server.
+            </p>
+            <label htmlFor="test-paid-x">Paid X search</label>
+            <select
+              id="test-paid-x"
+              value={paidXSearch ? 'on' : 'off'}
+              onChange={(event) => setPaidXSearch(event.target.value === 'on')}
+              aria-describedby="test-paid-x-help"
+            >
+              <option value="off">Off · reuse stored posts</option>
+              <option value="on">On · development budget</option>
+            </select>
+            <p id="test-paid-x-help">
+              Paid X search uses the separate, limited development allowance and
+              must be enabled on the server. Off reuses stored posts for free.
             </p>
             <Button type="submit">
               {working
