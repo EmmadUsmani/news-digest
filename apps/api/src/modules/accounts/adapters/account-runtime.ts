@@ -2,11 +2,16 @@ import { createHmac } from 'node:crypto';
 
 import type { Redis } from 'ioredis';
 
+import { DeleteAccount } from '../application/delete-account';
 import { LoginCodes } from '../application/login-codes';
 import { LoginExchange } from '../application/login-exchange';
 import { ReaderSessions } from '../application/sessions';
 import { SignInLinks } from '../application/sign-in-links';
 import { SignupPolicy } from '../application/signup-policy';
+import type {
+  AccountDeletionCleanup,
+  AccountDeletionRepository,
+} from '../domain/account-deletion';
 import type { ReaderIdentityRepository } from '../domain/identity';
 import type { LoginCodeRepository } from '../domain/login-code';
 import type { RecipientCoordination } from '../domain/recipient-coordination';
@@ -20,6 +25,7 @@ import { RedisLoginCodeAdmission } from './redis-login-code-admission';
 import { CryptoSessionTokens } from './session-tokens';
 
 type Dependencies = {
+  deletion: AccountDeletionRepository;
   recipients: RecipientCoordination;
   identities: ReaderIdentityRepository;
   codes: LoginCodeRepository;
@@ -33,7 +39,7 @@ type Dependencies = {
 // A lazy dependency factory keeps the disabled path free of DB/Redis resources.
 export function prepareAccountHandlers(
   env: Readonly<Record<string, string | undefined>>,
-  dependencies: () => Dependencies,
+  dependencies: (cleanup: AccountDeletionCleanup) => Dependencies,
 ): AccountHandlers | null {
   const enabled = env.ACCOUNTS_ENABLED ?? '0';
   if (enabled !== '0' && enabled !== '1')
@@ -60,7 +66,7 @@ export function prepareAccountHandlers(
   const mode = env.SIGNUP_MODE ?? 'off';
   new SignupPolicy(mode, 'stand-in', () => Promise.resolve(false), adminEmails);
   const delivery = new FileLoginCodeDelivery(env.ACCOUNT_MAILBOX_PATH ?? '');
-  const ports = dependencies();
+  const ports = dependencies(delivery);
   const policy = new SignupPolicy(
     mode,
     'stand-in',
@@ -97,5 +103,6 @@ export function prepareAccountHandlers(
       sessions,
       ports.recipients,
     ),
+    new DeleteAccount(ports.deletion, new CryptoSessionTokens()),
   );
 }

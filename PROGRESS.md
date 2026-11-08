@@ -164,3 +164,12 @@
 - Updated TASKS and rollout plan. No live migration, provider call or edition-generation change. Runtime deletion injection and sync-data cascades remain pending; Phase 1 awaits pre-noon backup/rollout.
 - `pnpm format`, `pnpm lint:fix`, build and handbook plan check pass (expected notes for unapplied account tables). API/worker restarted; health and scheduled-reader check verify four topics/19 stories/17 posts.
 - Final `pnpm check` passes: static checks, 670 unit tests, 251 integration passes/four expected skips. `git diff --check` passes. Commit/push then restart and repeat health/reader checks to match main. Next: runtime deletion composition, then Phase 1 rollout in its allowed window.
+
+## 2026-11-08: iteration 1429 — composed account deletion
+
+- Clean main/no leftovers; alerts clear, health good, all 36 sources healthy and digest queue has no failures. Retained ingestion/social failures unchanged; accounts disabled and VM private.
+- Prepared runtime now requires a deletion repository and supplies its configured mailbox cleanup to the lazy dependency factory. Isolated composition uses the same recipient coordinator for issuance, redemption and deletion; main still installs no account routes.
+- Extended cross-runtime storage acceptance to delete a friend without affecting the owner, revoke sessions across runtimes, remove the owner's mailbox code, clear the cookie and reject repeated deletion. Sync-data cascades remain pending before activation.
+- Updated TASKS and rollout plan. No live migration, provider call or edition-generation change; Phase 1 awaits pre-noon private backup/rollout and scheduled acceptance.
+- Targeted runtime tests pass (2); `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook plan check pass (expected metadata notes for unapplied tables). API/worker restarted; health and scheduled-reader check retain four topics/19 stories/17 posts.
+- Final `pnpm check` passes: static checks, 670 unit tests, 251 integration passes/four expected skips. `git diff --check` passes. Commit/push then restart and repeat health/reader checks to match main. Next: sync-data cascades and main registration; Phase 1 rollout remains gated on its allowed window.

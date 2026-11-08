@@ -7,6 +7,7 @@ import test from 'node:test';
 import { redis } from '../src/libs/db/connections';
 import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account-runtime';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
+import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 import { PostgresLoginCodeRepository } from '../src/modules/accounts/database/login-code.repository';
 import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
@@ -32,16 +33,25 @@ void test('composed accounts persist mailbox login and single-use friend session
     SIGNUP_MODE: 'invite',
     ADMIN_EMAILS: 'storage-owner@example.test',
   };
+  const deletions: PostgresAccountDeletionRepository[] = [];
   const compose = () =>
-    prepareAccountHandlers(env, () => ({
-      recipients,
-      identities,
-      codes,
-      sessions,
-      links,
-      cache,
-      existingIdentity: async () => false,
-    }))!;
+    prepareAccountHandlers(env, (cleanup) => {
+      const deletion = new PostgresAccountDeletionRepository(
+        cleanup,
+        recipients,
+      );
+      deletions.push(deletion);
+      return {
+        deletion,
+        recipients,
+        identities,
+        codes,
+        sessions,
+        links,
+        cache,
+        existingIdentity: async () => false,
+      };
+    })!;
   const request = (body: unknown, cookie: unknown = undefined) => ({
     origin,
     contentType: 'application/json',
@@ -106,7 +116,11 @@ void test('composed accounts persist mailbox login and single-use friend session
       403,
     );
     assert.equal(
-      (await first.signOut(request({}, friendCookie), true, now)).status,
+      (
+        await first.deleteAccount(
+          request({ confirmation: 'DELETE' }, friendCookie),
+        )
+      ).status,
       204,
     );
     assert.equal(
@@ -114,10 +128,26 @@ void test('composed accounts persist mailbox login and single-use friend session
       false,
     );
     assert.equal((await second.current(cookie, now)).body.isAdmin, true);
+    // The original mailbox proof is removed by the composed cleanup dependency.
+    const deleted = await second.deleteAccount(
+      request({ confirmation: 'DELETE' }, cookie),
+    );
+    assert.equal(deleted.status, 204);
+    assert.match(deleted.cookie!, /Max-Age=0/);
+    assert.equal(
+      await new FileLoginCodeDelivery(directory).latest(email, now),
+      null,
+    );
+    assert.equal((await first.current(cookie, now)).body.signedIn, false);
+    assert.equal(
+      (await first.deleteAccount(request({ confirmation: 'DELETE' }, cookie)))
+        .status,
+      401,
+    );
   } finally {
     await Promise.all(
-      [identities, codes, sessions, links, recipients].map((repository) =>
-        repository.onModuleDestroy(),
+      [identities, codes, sessions, links, recipients, ...deletions].map(
+        (repository) => repository.onModuleDestroy(),
       ),
     );
     await cache.quit();

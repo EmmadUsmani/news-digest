@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1428: Prepared account deletion requires shared recipient coordination before its transaction, rechecks session ownership after waiting and fails closed on lock failure. Runtime deletion injection and sync-data cascades remain pending; accounts disabled.
+- [x] Iteration 1429: Prepared runtime injects deletion and supplies configured mailbox cleanup to its dependency factory. Cross-runtime storage acceptance covers revocation, mailbox cleanup, replay and account isolation; sync-data cascades and main registration remain pending; accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

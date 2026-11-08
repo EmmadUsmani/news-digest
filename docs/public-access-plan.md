@@ -198,8 +198,9 @@ requests, revoked/unknown credentials, rollback and another account's isolation.
 The prepared, uninstalled POST `/api/account/delete` transport requires exact
 same-origin JSON, a body containing only `{"confirmation":"DELETE"}` and one
 unambiguous session cookie. It accepts no caller identity, clears the secure cookie
-only after successful deletion and hides dependency failures. The runtime does not
-inject deletion, and main still installs no account routes. The stand-in mailbox
+only after successful deletion and hides dependency failures. The prepared runtime injects deletion through a required repository dependency
+and supplies its configured mailbox cleanup to the dependency factory. Main still
+installs no account routes. The stand-in mailbox
 now prepares idempotent recipient cleanup: it checks the private directory and
 unlinks only the hashed recipient entry, without following symlinks or removing
 directories. The prepared deletion repository now requires an idempotent cleanup port and removes
@@ -225,8 +226,9 @@ Prepared link redemption reads the stored recipient to select the same lock,
 then rechecks single-use consumption after waiting and holds coordination through
 identity/session persistence. Deletion resolves the recipient from the stored
 session, acquires that same boundary and rechecks ownership inside its transaction
-after waiting; coordination failure removes nothing. Runtime deletion injection
-and sync-data cascades remain pending before activation.
+after waiting; coordination failure removes nothing. Runtime deletion injection is prepared: isolated cross-runtime acceptance verifies
+session revocation, mailbox cleanup, repeat rejection and another account remaining
+usable. Sync-data cascades remain pending before activation.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

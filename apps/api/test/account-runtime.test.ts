@@ -52,7 +52,15 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
   try {
     const handlers = prepareAccountHandlers(
       { ...env, ACCOUNT_MAILBOX_PATH: directory },
-      () => ({
+      (cleanup) => ({
+        deletion: {
+          deleteForSession: async (hash) => {
+            if (!saved || saved.tokenHash !== hash) return false;
+            await cleanup.remove(saved.email);
+            saved = null;
+            return true;
+          },
+        },
         identities: {
           findOrCreateVerified: async (email) => {
             assert.ok(
