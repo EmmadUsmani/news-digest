@@ -155,3 +155,12 @@
 - Updated TASKS and rollout plan. Targeted tests pass (10); build and handbook plan check pass (expected metadata notes for unapplied tables). Saved-reader verification retains four topics/19 stories/17 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: static checks, 670 unit passes, 251 integration passes/four expected skips. API/worker restarted; health and scheduled-reader verification pass. Commit/push then repeat restart/check to match main.
 - Next: coordinate deletion before activation; pre-noon Phase 1 backup/rollout and scheduled acceptance remain next for deployment.
+
+## 2026-11-08: iteration 1428 — coordinated account deletion
+
+- Clean main/no leftovers; alerts clear, health good, all 36 sources healthy and digest queue has no failures. Accounts remain disabled; VM private.
+- Prepared deletion resolves its recipient from the stored session, requires the shared recipient lock before opening its transaction, then rechecks session ownership. Coordination failure performs no cleanup or deletion; the lock covers mailbox cleanup and commit.
+- Isolated storage coverage adds deterministic logout while waiting and fail-closed lock failure; existing concurrent deletion, rollback and recipient isolation checks retained. First integration run caught an undefined test-harness callback; fixed before final verification.
+- Updated TASKS and rollout plan. No live migration, provider call or edition-generation change. Runtime deletion injection and sync-data cascades remain pending; Phase 1 awaits pre-noon backup/rollout.
+- `pnpm format`, `pnpm lint:fix`, build and handbook plan check pass (expected notes for unapplied account tables). API/worker restarted; health and scheduled-reader check verify four topics/19 stories/17 posts.
+- Final `pnpm check` passes: static checks, 670 unit tests, 251 integration passes/four expected skips. `git diff --check` passes. Commit/push then restart and repeat health/reader checks to match main. Next: runtime deletion composition, then Phase 1 rollout in its allowed window.

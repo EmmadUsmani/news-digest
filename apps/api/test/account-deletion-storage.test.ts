@@ -25,8 +25,20 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
       await mailbox.remove(recipient);
     },
   };
-  const repository = new PostgresAccountDeletionRepository(cleanup);
-  const other = new PostgresAccountDeletionRepository(cleanup);
+  const coordination = new PostgresRecipientCoordination();
+  let lockRequested: (() => void) | undefined;
+  const repository = new PostgresAccountDeletionRepository(cleanup, {
+    run: (recipient, work) => {
+      lockRequested?.();
+      return coordination.run(recipient, work);
+    },
+  });
+  const other = new PostgresAccountDeletionRepository(cleanup, coordination);
+  const unavailable = new PostgresAccountDeletionRepository(cleanup, {
+    run: async () => {
+      throw new Error('injected coordination failure');
+    },
+  });
   const tokens = new CryptoSessionTokens();
   const deletion = new DeleteAccount(repository, tokens);
   const email = 'deletion@example.test';
@@ -71,6 +83,35 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
     await mailbox.deliver(survivor, '654321', expiry);
     assert.equal(await deletion.execute('malformed'), false);
     assert.equal(await deletion.execute(tokens.generate()), false);
+    assert.deepEqual(cleanupCalls, []);
+    // Hold the same recipient boundary as issuance/redemption. A deletion
+    // selected before logout must recheck authorization once it can proceed.
+    let pendingDeletion: Promise<boolean> | undefined;
+    await coordination.run(email, async () => {
+      const requested = new Promise<void>((resolve) => {
+        lockRequested = resolve;
+      });
+      pendingDeletion = deletion.execute(second);
+      await requested;
+      lockRequested = undefined;
+      // A different recipient lock can progress while deletion is waiting.
+      await coordination.run(survivor, async () => {
+        assert.deepEqual(cleanupCalls, []);
+        await pool.query('DELETE FROM sessions WHERE token_hash=$1', [
+          tokens.hash(second),
+        ]);
+      });
+    });
+    assert.equal(await pendingDeletion, false);
+    assert.deepEqual(cleanupCalls, []);
+    await pool.query(
+      'INSERT INTO sessions(user_id,token_hash) VALUES ($1,$2)',
+      [ids[0].id, tokens.hash(second)],
+    );
+    await assert.rejects(
+      new DeleteAccount(unavailable, tokens).execute(token),
+      /injected coordination failure/,
+    );
     assert.deepEqual(cleanupCalls, []);
     failCleanup = true;
     await assert.rejects(deletion.execute(token), /injected cleanup failure/);
@@ -193,6 +234,8 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
     ]);
     await rm(directory, { recursive: true, force: true });
     await Promise.all([
+      unavailable.onModuleDestroy(),
+      coordination.onModuleDestroy(),
       repository.onModuleDestroy(),
       other.onModuleDestroy(),
       pool.end(),

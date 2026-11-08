@@ -206,10 +206,10 @@ directories. The prepared deletion repository now requires an idempotent cleanup
 the mailbox entry before committing identity deletion. Cleanup failure preserves
 the account; a later database failure leaves a usable account whose next login
 request can issue a fresh code. Isolated tests cover both failures, retry and
-recipient isolation. Production composition remains disconnected. Its caller must coordinate
-with in-flight delivery before invoking it, to prevent a later rename from
-recreating the message. Sync-data cascades and coordination
-with in-flight login/link issuance must be completed before enabling deletion.
+recipient isolation. Production composition remains disconnected. The repository requires the shared
+recipient boundary before starting its deletion transaction, preventing in-flight
+delivery from recreating a mailbox message after cleanup. Sync-data cascades
+must be completed before enabling deletion.
 Iteration 1423 prepares a shared recipient-coordination port and PostgreSQL
 transaction-scoped advisory-lock adapter. Independent connections serialize the
 same normalized recipient while other recipients progress; callback failures
@@ -223,8 +223,10 @@ waiting. Prepared sign-in-link issuance now uses the same boundary around its
 audit/write, rechecking issuer session and admin eligibility after waiting.
 Prepared link redemption reads the stored recipient to select the same lock,
 then rechecks single-use consumption after waiting and holds coordination through
-identity/session persistence. Deletion still needs the boundary and policy rechecks
-before activation.
+identity/session persistence. Deletion resolves the recipient from the stored
+session, acquires that same boundary and rechecks ownership inside its transaction
+after waiting; coordination failure removes nothing. Runtime deletion injection
+and sync-data cascades remain pending before activation.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

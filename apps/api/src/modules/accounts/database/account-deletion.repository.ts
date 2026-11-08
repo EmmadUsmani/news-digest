@@ -14,6 +14,7 @@ import {
   AccountDeletionCleanup,
   AccountDeletionRepository,
 } from '../domain/account-deletion';
+import { RecipientCoordination } from '../domain/recipient-coordination';
 
 // Prepared only: no account route or runtime registers this adapter.
 @Injectable()
@@ -24,11 +25,27 @@ export class PostgresAccountDeletionRepository
   private readonly pool = database();
   private readonly db = drizzle(this.pool);
 
-  constructor(private readonly cleanup: AccountDeletionCleanup) {
+  constructor(
+    private readonly cleanup: AccountDeletionCleanup,
+    private readonly coordination: RecipientCoordination,
+  ) {
     super();
   }
 
   async deleteForSession(tokenHash: string): Promise<boolean> {
+    // Resolve only the lock key here; authorization is rechecked after waiting.
+    const [recipient] = await this.db
+      .select({ email: users.email })
+      .from(users)
+      .innerJoin(sessions, eq(sessions.userId, users.id))
+      .where(eq(sessions.tokenHash, tokenHash));
+    if (!recipient) return false;
+    return this.coordination.run(recipient.email, () =>
+      this.deleteCoordinated(tokenHash),
+    );
+  }
+
+  private async deleteCoordinated(tokenHash: string): Promise<boolean> {
     return this.db.transaction(async (tx) => {
       // Lock the identity first, so requests from different devices serialize.
       const [owner] = await tx
