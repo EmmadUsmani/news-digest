@@ -196,7 +196,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       <Link
         to="/editions"
         search={{ page: 1 }}
-        className="mt-8 block text-sm font-medium text-[var(--accent)]"
+        className="mt-8 inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         Past editions →
       </Link>
@@ -248,7 +248,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
             }
           }}
           trigger={
-            <Button variant="ghost" className="px-2 text-sm">
+            <Button variant="ghost" className="min-h-11 min-w-11 px-2 text-sm">
               Contents
             </Button>
           }

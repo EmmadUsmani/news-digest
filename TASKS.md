@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1335: Bluesky media links keep 44px targets when previews fail and show keyboard focus; 24 image recovery cases and video preview checks pass.
+- [x] Iteration 1336: Contents and its archive link have 44px targets and visible archive keyboard focus; six desktop/mobile theme checks pass.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

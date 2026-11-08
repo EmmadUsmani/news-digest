@@ -101,3 +101,11 @@
 - `pnpm exec tsx scripts/smoke-reader-bluesky-video.ts` passes loaded/failed/missing previews at desktop/mobile in both themes. Media variants are synthetic, based on a saved edition; GET-only browser traffic and external requests blocked, no provider spend.
 - VM stays private; phase-0/phase-2 acceptance waits for the normal 15:00 scheduled publication. Next metrics probe ≥10:26 UTC, then daily acceptance and first-week report.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Initial pipeline terminated during lint without diagnostic; standalone lint and full check rerun passed. Published byline smoke also passes all six viewports/themes. Normal four-service restart follows push.
+
+## 2026-11-08: iteration 1336 — easier contents and archive navigation
+
+- Clean main/no leftovers. Alerts empty; health, 14 services, 36 sources and digest jobs healthy. An initial service snapshot caught the previous handbook restart; direct systemd status and refreshed snapshot confirm recovery.
+- Read the four published topics (20 stories/18 posts). Known content fixes await scheduled acceptance. Reader Contents button and its archive link still had small tap targets; archive link lacked explicit keyboard focus. Both now have 44px targets and the link has visible focus, making the existing navigation easier on phones/by keyboard.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-contents-controls.ts` pass: 1440/390/320px, both themes, target sizes, keyboard focus, Escape/trigger focus return, archive navigation and no overflow/page errors. Six screenshots saved; 320px dark inspected.
+- Browser uses published content, GET/HEAD-only traffic and blocked external requests. No provider spend, publication or backend changes. VM stays private; phase acceptance waits for 15:00 UTC. Next passive metrics check remains ≥10:26 UTC.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. First full-check process received SIGTERM during lint without diagnostic; full rerun passed. Normal API/worker/docs/schema restart follows commit/push.
