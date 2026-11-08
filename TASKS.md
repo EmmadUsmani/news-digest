@@ -51,6 +51,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 50 (1266): candidate development ledger retains unresolved holds across independent connection-pool reconnects; reservation/settlement retries remain idempotent and production ledger/reserve fingerprints stay unchanged in disposable Postgres. Authoritative migration and runtime wiring remain next.
+
 - [x] STEERING 50 (1247): saved-item removal preserves keyboard focus on the next/previous Remove button, or the Saved items heading after the last item; actual saved-content browser checks cover desktop/mobile light/dark. Phase 2 still awaits a normal scheduled edition.
 
 - [x] STEERING 42 (1239): Bluesky media links name the action, image position, saved author/time and supplied description; loaded/recovered/failed image and video browser checks cover desktop/mobile light/dark.

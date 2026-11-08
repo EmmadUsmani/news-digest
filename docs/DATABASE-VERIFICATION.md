@@ -775,6 +775,13 @@ record one charge. Competing confirmed amounts produce one winner and one
 conflict, retaining the winning charge and unrelated unresolved holds; replay
 of that winner leaves status unchanged. All checks use disposable Postgres.
 
+Iteration 1266 closes and recreates independent connection pools around an
+unsettled reservation. Reconnection retains the exact lifetime status, returns
+a replay for the same reservation, and records a confirmed charge only once.
+Unrelated uncertain holds survive recovery. Full-row fingerprints of production
+Anthropic/X ledgers and scheduled reserves stay unchanged throughout the test.
+This verifies reconnect recovery in disposable Postgres, not a database crash.
+
 ### Publication metadata runtime (iteration 1264)
 
 Future-save publication policy now runs at the repository insert boundary.

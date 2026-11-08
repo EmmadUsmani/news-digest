@@ -14,6 +14,21 @@ void test('candidate development ledger serializes lifetime holds and preserves 
   const id = () => crypto.randomUUID();
   try {
     await db.query(readFileSync('ops/backups/development_pools.sql', 'utf8'));
+    const productionSnapshot = async () => {
+      const snapshots = [];
+      for (const table of [
+        'llm_calls',
+        'x_discovery_calls',
+        'scheduled_ai_budget_days',
+      ]) {
+        const result = await db.query(
+          `SELECT md5(coalesce(jsonb_agg(to_jsonb(t) ORDER BY to_jsonb(t)::text)::text, '[]')) AS fingerprint FROM ${table} t`,
+        );
+        snapshots.push(result.rows[0].fingerprint);
+      }
+      return snapshots;
+    };
+    const productionBefore = await productionSnapshot();
     assert.deepEqual(await repository.status('anthropic'), {
       provider: 'anthropic',
       chargedMicros: 0,
@@ -167,6 +182,49 @@ void test('candidate development ledger serializes lifetime holds and preserves 
     assert.equal(afterConflict.unresolvedCount, releasedStatus.unresolvedCount);
     await repository.settle(disputed, winner);
     assert.deepEqual(await repository.status('anthropic'), afterConflict);
+    // Independent connection pools model process loss without clearing durable holds.
+    const durableId = id();
+    const firstConnection = database();
+    try {
+      const firstProcess = new PostgresDevelopmentSpendRepository(
+        firstConnection,
+      );
+      assert.equal(
+        (await firstProcess.reserve(durableId, 'anthropic', 100_000)).admitted,
+        true,
+      );
+    } finally {
+      await firstConnection.end();
+    }
+    const durableStatus = await repository.status('anthropic');
+    assert.equal(durableStatus.heldMicros, afterConflict.heldMicros + 100_000);
+    const secondConnection = database();
+    try {
+      const restarted = new PostgresDevelopmentSpendRepository(
+        secondConnection,
+      );
+      assert.deepEqual(await restarted.status('anthropic'), durableStatus);
+      assert.deepEqual(
+        await restarted.reserve(durableId, 'anthropic', 100_000),
+        {
+          admitted: true,
+          replay: true,
+        },
+      );
+      await restarted.settle(durableId, 40_000);
+      await restarted.settle(durableId, 40_000);
+      const recovered = await restarted.status('anthropic');
+      assert.equal(
+        recovered.chargedMicros,
+        afterConflict.chargedMicros + 40_000,
+      );
+      assert.equal(recovered.heldMicros, afterConflict.heldMicros);
+      assert.equal(recovered.unresolvedCount, afterConflict.unresolvedCount);
+      assert.deepEqual(await repository.status('anthropic'), recovered);
+    } finally {
+      await secondConnection.end();
+    }
+    assert.deepEqual(await productionSnapshot(), productionBefore);
     // A lowered/disabled pool is respected; release requires explicit confirmed zero cost.
     await db.query(
       "UPDATE development_spend_pools SET cap_micros = 0 WHERE provider = 'anthropic'",

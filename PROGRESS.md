@@ -139,3 +139,12 @@ Earlier entries: [iterations 1247–1254](docs/progress-archive/2026-11-07-itera
 - Updated TASKS, publication plan, runtime handbook and DATABASE-VERIFICATION. `pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime`, `pnpm build` and diff checks pass.
 - Next: authoritative development-pool migration/runtime/test-edition wiring. Phase 0/2 normal scheduled acceptance and Nov 8 15:00 UTC review/first-week report remain due; public sharing stays private.
 - `pnpm check` passes: 582 unit/232 integration passes/four expected skips; typecheck/lint/format/boundaries green. Final `pnpm format`, `pnpm lint:fix` and diff checks pass. Four app services restarted/active; deployed health/alerts clear, all five fingerprints and private/admin/archive acceptance pass again.
+
+## 2026-11-08: iteration 1266 — verify development-ledger reconnect recovery
+
+- Clean main/no leftovers; health database/Redis OK and alerts clear. All 36 enabled sources healthy; digest queue has zero failures. Existing retained ingestion/social failures remain historical, with current sources healthy.
+- Disposable Postgres now verifies unresolved development holds survive closing/recreating independent connection pools; duplicate reservation returns replay, confirmed settlement retries charge once and unrelated holds remain intact.
+- Full-row fingerprints of production Anthropic/X ledgers and scheduled reserves remain unchanged throughout development-ledger operations. Candidate schema/adapter remain unwired; no provider calls or live data/schema changes.
+- Updated TASKS and DATABASE-VERIFICATION. `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime` and complete saved-reader comparison (five responses) pass.
+- Next: authoritative development-pool migration/runtime/test-edition wiring. Phase-0/2 scheduled acceptance and Nov 8 15:00 UTC review/first-week report remain due; public sharing stays private.
+- `pnpm check` passes: 582 unit/232 integration passes/four expected skips; typecheck/lint/format/boundaries green. Final `pnpm format`, `pnpm lint:fix` and diff checks pass.
