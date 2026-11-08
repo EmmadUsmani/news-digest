@@ -221,7 +221,7 @@ export function DigestPreview() {
                             href={story.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-lg leading-7 font-semibold hover:text-[var(--accent)]"
+                            className="flex min-h-11 min-w-11 items-center rounded-md text-lg leading-7 font-semibold hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                           >
                             {story.title}
                           </a>

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1329: Topics trigger and sheet close controls now have 44px targets; panel keyboard focus, topic hiding/restoration and persistence pass at 1440/390/320px in both themes.
+- [x] Iteration 1330: Primary story headlines now have 44px targets and visible keyboard focus; all 20 published titles/destinations retained at 1440/390/320px in both themes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

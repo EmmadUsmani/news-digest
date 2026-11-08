@@ -117,3 +117,12 @@
 - Browser traffic GET/HEAD-only with external requests blocked; local preference writes only. No provider spend, publication or data-flow change.
 - Existing `smoke-reader-preferences.ts` and `smoke-reader-contents-titles.ts` pass: cross-tab/reload/history/all-hidden recovery, blocked/corrupt storage and narrow-screen contents keyboard destinations. Refreshed their screenshots for the shared sheet change.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Latest published reader retains 20 stories/18 posts across four topics. Normal four-service restart follows commit/push; VM stays private.
+
+## 2026-11-08: iteration 1330 — easier primary story links
+
+- Clean main/no leftovers. Alerts empty; 14 services, 36 sources and `/healthz` healthy. `pnpm obs jobs --check` passes; retained ingestion/social failures have no matching recent failed runs. Next scheduled edition remains 15:00 UTC; hourly metrics check not due until ≥10:26 UTC.
+- Reader weakness: primary story headlines had text-sized targets and no explicit focus outline. The owner can now open reporting with a 44px target and visible keyboard focus; this completes the story-link treatment already applied to expanded coverage.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-headline-targets.ts` pass at 1440/390/320px in light/dark: all 20 published titles and destinations retained, target dimensions, keyboard focus and no overflow/browser errors. Six screenshots saved; narrow dark inspected.
+- Latest published reader retains four topics/20 stories/18 posts. Browser traffic GET/HEAD-only, external requests blocked; no provider calls or spend, publication or data-flow changes. Known content-quality fixes await scheduled acceptance; no new editorial tuning.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push; VM remains private.
+- Next: passive metrics check ≥10:26 UTC, scheduled phase-0/phase-2 and keyword/Bluesky acceptance plus first-week report at 15:00 UTC. No phase acknowledgment before scheduled acceptance.
