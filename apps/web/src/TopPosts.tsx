@@ -152,7 +152,7 @@ function PostContext({ post }: { post: ReaderPost }) {
     return null;
   return (
     <details className="post-context group min-w-0 text-sm text-[var(--secondary)]">
-      <summary className="flex cursor-pointer list-none items-start gap-2 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
+      <summary className="flex min-h-11 cursor-pointer list-none items-start gap-2 rounded px-1 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
         <span aria-hidden="true" className="shrink-0 group-open:rotate-90">
           ›
         </span>

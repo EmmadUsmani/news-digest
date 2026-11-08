@@ -126,3 +126,12 @@
 - Latest published reader retains four topics/20 stories/18 posts. Browser traffic GET/HEAD-only, external requests blocked; no provider calls or spend, publication or data-flow changes. Known content-quality fixes await scheduled acceptance; no new editorial tuning.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push; VM remains private.
 - Next: passive metrics check ≥10:26 UTC, scheduled phase-0/phase-2 and keyword/Bluesky acceptance plus first-week report at 15:00 UTC. No phase acknowledgment before scheduled acceptance.
+
+## 2026-11-08: iteration 1331 — easier post context expansion
+
+- Clean main/no leftovers. Alerts empty; `pnpm obs health`, `services --check`, `sources --check` and `jobs --check` pass: 14 services/36 sources healthy, scheduled edition due 15:00 UTC. Metrics probe not due until ≥10:26 UTC.
+- Read latest published titles across four topics; known evidence-depth/selection fixes await scheduled acceptance. Reader-visible weakness: post context notes had text-height tap targets, making explanations hard to open on phones. Their summaries now provide 44px targets with padding and retain visible keyboard focus.
+- `pnpm build` and `pnpm exec tsx scripts/smoke-reader-context-targets.ts` pass: all four published notes retain their wording, touch/keyboard expansion, focus and no overflow/errors at 1440/390/320px in both themes. Six screenshots saved; 320px dark inspected.
+- `pnpm exec tsx scripts/smoke-reader-post-context.ts` passes long synthetic-note touch/keyboard expansion; four replay screenshots refreshed. Initial new smoke lacked touch emulation; corrected `hasTouch` before successful rerun.
+- Browser requests GET/HEAD-only, external traffic blocked; no provider calls/spend or publication/data-flow changes. VM remains private; no phase acknowledgment before scheduled acceptance.
+- `pnpm format`, `pnpm lint:fix`, `git diff --check` and full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Normal API/worker/docs/schema restart follows commit/push; next metrics probe ≥10:26 UTC and scheduled acceptance at 15:00 UTC.
