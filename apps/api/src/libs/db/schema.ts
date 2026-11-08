@@ -118,7 +118,7 @@ export const digestPreviews = pgTable(
   'digest_previews',
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
-    profileId: uuid('profile_id').notNull(),
+    profileId: uuid('profile_id'),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
       .notNull(),
@@ -334,7 +334,7 @@ export const topics = pgTable(
   'topics',
   {
     id: uuid().primaryKey().notNull(),
-    profileId: uuid('profile_id').notNull(),
+    profileId: uuid('profile_id'),
     name: text().notNull(),
     description: text().notNull(),
     includeGuidance: text('include_guidance').notNull(),
@@ -912,9 +912,7 @@ export const editionJobFailures = pgTable(
   'edition_job_failures',
   {
     jobId: text('job_id').primaryKey().notNull(),
-    profileId: uuid('profile_id')
-      .notNull()
-      .references(() => profiles.id),
+    profileId: uuid('profile_id').references(() => profiles.id),
     durationMs: integer('duration_ms').notNull(),
     failedAt: timestamp('failed_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
@@ -927,9 +925,7 @@ export const editionJobFailures = pgTable(
 
 export const editionJobRequests = pgTable('edition_job_requests', {
   jobId: text('job_id').primaryKey().notNull(),
-  profileId: uuid('profile_id')
-    .notNull()
-    .references(() => profiles.id),
+  profileId: uuid('profile_id').references(() => profiles.id),
   acceptedAt: timestamp('accepted_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
     .notNull(),

@@ -85,6 +85,13 @@
       "when": 1794153310280,
       "tag": "0011_system_edition_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1794153888138,
+      "tag": "0012_nullable_system_ownership",
+      "breakpoints": true
     }
   ]
 }

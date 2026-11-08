@@ -27,6 +27,7 @@ const integration = new Set([
   'published-reader.test.ts',
   'profile-repository.test.ts',
   'system-settings-migration.test.ts',
+  'nullable-system-ownership-migration.test.ts',
   'reddit-collection.test.ts',
   'reddit-communities.test.ts',
   'relevance.test.ts',

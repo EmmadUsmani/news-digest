@@ -6,7 +6,9 @@ snapshots.
 
 > [!NOTE]
 > The prepared phase-1 migration adds `edition_settings`, a single system
-> schedule copied from the current owner schedule. It is not applied live;
+> schedule copied from the current owner schedule. A second prepared migration
+> allows topics, editions and durable job records to have no profile, retaining
+> foreign keys and existing ownership. Neither is applied live;
 > the app still uses the profile schedule. See the [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

@@ -136,3 +136,13 @@
 - `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams render; only two expected metadata warnings for the prepared, unapplied edition_settings table. No changed diagrams or reader UI.
 - No live migration, source fetch, deployment or restart: STEERING 50 prohibits generation changes after noon (and all migrations/restarts 13:00–16:00). Live runtime remains unchanged; private backup and restored-copy rehearsal required before a future pre-noon migration. No phase ack or public access change.
 - Initial push rejected because origin gained lead-only status commit d797fe90; fetched and merged without editing owner files or rewriting history, then retried push. Runtime code and verification inputs unchanged.
+
+## 2026-11-08: iteration 1388 — prepare nullable system ownership
+
+- Clean main/no leftovers. `pnpm obs alerts`: zero alerts; `/healthz` database/Redis healthy, no failed user units. Nov 8 scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Prepared offline migration `0012_nullable_system_ownership`, schema and snapshot: topics, editions and durable job requests/failures accept null ownership; existing ownership, foreign keys, schedule primary key and immutable edition guard remain intact.
+- Added isolated migration coverage for complete row preservation, null ownership and invalid-profile rejection across all four tables. First test attempt updated an immutable edition and failed; corrected it to insert a new system-owned edition, retaining the production guard. Full rerun passes.
+- Updated rollout plan, handbook callout and TASKS. SYSTEM_OWNERSHIP reads and transactional dual writes remain next; migrations 0011/0012 must wait for that work, private backup and restored-copy rehearsal.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/235 integration passes, four expected skips. `pnpm exec tsx scripts/check-handbook.ts data-model`: 18 pages/three unchanged diagrams pass; only two existing warnings for unapplied edition_settings metadata.
+- No live migration, provider call, source fetch, deployment or restart: STEERING 50 forbids edition-generation deployment after noon except breakage. Live runtime remains unchanged; no phase ack or public-access change.
+- Orientation output was initially overbroad; subsequent reads were narrowed. No secrets or owner-controlled files changed.

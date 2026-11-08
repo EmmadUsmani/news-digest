@@ -56,7 +56,10 @@ mapped to profiles, and profiles go away.
   Phase 1 foundation is prepared in migration `0011`: a single-row
   `edition_settings` table copies the configured owner schedule and refuses a
   missing schedule. It is not applied live; profile reads/writes remain
-  authoritative. Nullable ownership and flagged reads/dual writes are next.
+  authoritative. Migration `0012` prepares nullable ownership for topics,
+  editions and durable job records, retaining foreign keys and all existing
+  ownership values. Both migrations remain unapplied; flagged reads and
+  transactional dual writes are next.
   Public access remains owner-gated.
 - Internal tools: the DB explorer reads only the catalog
   (`apps/schema-explorer/src/introspect.ts`). Grafana already allows anonymous
