@@ -1,51 +1,3 @@
-## 2026-11-08: iteration 1381 — observe scheduled publication and first-week totals
-
-- Clean main/no leftovers. Alerts empty; health, 14 services and 36 sources pass. Observed normal scheduled job, no manual generation/provider requests; protected window preserved, no deployment/restart.
-- Nov 8 edition `f9af996b-f647-4994-836e-054964a93b74` completed in one attempt, 162.339 s, 420 candidates, 19 stories/17 posts. Full-AI reserve outcome recovers NBA fallback; Anthropic $0.320864/43 settled calls/zero holds, reserve released. DB confirms scheduled kind/key and publication timestamp.
-- `check-scheduled-reader.ts 2026-11-08T15:00:00Z` initially pending/2, then passes latest/direct/history. `compare-publication-content.ts compare` verifies five original response hashes; private free test reader remains 404. API/worker start 11:36:53 UTC matches deployed `2f5635ed`.
-- `report-edition-timing.ts --scheduled-only --limit 1`, daily/week X reports: four completed keyword tools, $0.260107, 40 fetched/new verified, 35 outside-list, eight cited selections/six outside-list. Refreshed selection evidence after publication. Nov 2–8 totals $1.036785/28 calls/137 fetched/131 attributed new verified/115 outside-list, no holds; Nov 8 UTC day incomplete.
-- Read all saved briefs/summaries/posts/contexts; NBA brief restored/four stories, Tech still headline-level. Recorded Bluesky read/shortlist/pick outcomes and pending detailed comparisons in new daily review. Phase acknowledgments and third-edition acceptance remain open.
-- `smoke-reader-preferences.ts` and `smoke-reader-bookmarks.ts` pass desktop/mobile/light/dark, including historical selections. Inspected refreshed mobile preference/desktop bookmark screenshots; kept these two and deliberately restored other generated screenshots to avoid redundant churn.
-- Corrected two report field assumptions (`runs`, numeric citations); unavailable psql replaced by read-only Drizzle metadata query. No application data changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Documentation/screenshots only; no restart/deploy during 13:00–16:00 UTC. Next: finish detailed scheduled/phase acceptance; passive metrics probe no earlier than 15:31 UTC.
-
-## 2026-11-08: iteration 1382 — compare Tech supplied evidence
-
-- Clean main/no leftovers. Alerts empty; `/healthz`, 14 services, 36 sources and all four queues available; no failed digest jobs. Reader latest/direct/history passes for Nov 8: four topics, 19 stories/17 posts.
-- Read immutable admin edition `f9af996b-f647-4994-836e-054964a93b74` via local authenticated GET and compared every Tech story's saved evidence with its reader summary. No mutable inventory substituted.
-- Five evidence excerpts: one empty, one link-only, three headline-only, zero substantive (Nov 7 also zero substantive). Recorded omitted “Don't Ask Again” setting and unknown-address detail; no further prompt change justified.
-- Distinguished extra coverage links from declared evidence; verified Tom's Hardware, Guardian and CNBC saved publisher attribution. Updated daily review and TASKS; richer reporting stays deferred. Remaining social/phase acceptance stays open.
-- No provider calls, data writes, source fetches, deployment or restart; preserved STEERING 50's 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC; no repeated probe.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Archived iterations 1331–1336 to keep PROGRESS small. Docs-only commit; protected-window restart exception applies. Next: remaining scheduled/phase acceptance, metrics probe ≥15:31 UTC.
-
-## 2026-11-08: iteration 1383 — compare scheduled latency and accounting
-
-- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. Scheduled reader latest/direct/history passes: four topics, 19 stories/17 posts.
-- Exported 63 allowlisted Nov 8 worker events (43 Anthropic calls) for offline timing; no prompts, responses, fingerprints or credentials retained. Timeline duration/occupancy conservation and ledger sum/unresolved assertions pass.
-- NBA story editing recovers 90.426→34.299 s, AI brief/four stories, zero recorded validation rejections. World now last, with 29.671 s final social tail; nine validation rejections overall. Tech/World story editing uses Haiku after Sonnet rejection; no rejected text inferred.
-- Recorded per-purpose $0.320864/43 settled calls/zero unresolved or holds, down $0.059309. Overall 162.339 s/420 candidates, both speed targets unmet; different workload prevents causal speedup claims.
-- No provider calls, data writes, deployment or restart; preserved 13:00–16:00 protected window. Metrics probe not due until ≥15:31 UTC. Selection/Bluesky cost/phase acceptance remains open; no phase ack.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` pass: 629 unit/233 integration passes, four expected skips. Offline timeline evaluator, conservation/ledger assertions, scheduled-reader check and `git diff --check` pass. Evidence/docs only; protected-window restart exception applies. Next: saved social novelty/Bluesky selection and cost comparisons, then phase gates.
-
-## 2026-11-08: iteration 1384 — review saved Bluesky picks and link destinations
-
-- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. Scheduled-reader latest/direct/history passes: four topics, 19 stories/17 posts.
-- Read every saved original post/reason. Five distinct Bluesky picks fill open slots, zero X replacements; all 17 posts have no repeated development. NBA still includes a routine availability list; World's low-engagement secondhand picks leave viral quality unestablished.
-- Worker per-topic settlements attribute Bluesky scoring $0.010052/editing $0.026286, total $0.036338 (Nov 7 $0.061842); editing sum matches ledger. Gaming spends $0.002639 on triage without a shortlist. Zero saved drops/refusals/holds.
-- Temporary GET/HEAD-only Playwright check verifies actual Nov 8 Global News article and Stuff homepage hrefs on desktop/mobile light/dark, zero page errors or text overflow; external traffic blocked. Inspected two real-content screenshots. Original shortened text remains saved; homepage is not an article link.
-- Initial temporary script failed CJS top-level await, then an incorrectly scoped locator timed out; corrected both and all browser checks pass. Removed temporary scripts. No application change, paid calls, fetches to sources or data writes.
-- Updated daily review, source acceptance and TASKS. Keyword paid novelty and phase acknowledgments remain next; Nov 9 third-edition acceptance stays open. No deployment/restart during protected 13:00–16:00 window (evidence/docs/screenshots only).
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Browser link check (`node scripts/.iteration-1384-links.cjs`, removed after use), settlement-sum assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.
-
-## 2026-11-08: iteration 1385 — verify selected keyword novelty and engagement
-
-- Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes: four topics, 19 stories/17 posts.
-- Matched eight immutable saved selections to Nov 8 keyword citations: all recorded new candidates, zero earlier search citations, six outside current lists. No retained link/feed/Reddit citation rows for any selected ID; deleted historical provenance remains unknown.
-- All 40 candidates have provider-reported likes; selected likes 1,017–40,141. All 12 saved X posts have empty official metrics; verified virality, account-relative reach and velocity remain unknown. World partisan/aggregator posts do not independently verify underlying events.
-- Saved allowlisted query evidence and updated daily review, SOURCES and TASKS. Assertions verify eight new/six outside-list/zero retained free rows, 40 candidates and empty saved selected metrics. Temporary query script initially hit CJS top-level-await; wrapped main, reran successfully and removed it.
-- No provider calls, source fetches, data writes or deployment/restart during protected 13:00–16:00 window. Evidence/docs only; live application unchanged. Phase acknowledgments next; Nov 9 third-edition acceptance remains open.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/233 integration passes, four expected skips. Read-only novelty assertions and scheduled-reader check pass. Evidence-only protected-window restart exception applies.
-
 ## 2026-11-08: iteration 1386 — accept publication and browser-preference phases
 
 - Clean main/no leftovers. Alerts empty; `/healthz` database/Redis healthy, no failed user units; all 36 sources healthy.
@@ -144,3 +96,14 @@
 - Updated TASKS and rollout plan. No provider calls, source/UI changes, secret reads or live data writes.
 - No live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
 - Next: restored-copy migration runner and every-edition HTTP comparisons, then AI acceptance before pre-noon rollout. Phase 1 remains open.
+
+## 2026-11-08: iteration 1395 — actual migration runner on private restore
+
+- Clean main/no leftovers; alerts zero, live health database/Redis healthy, no failed user units. Scheduled-reader check passes: four topics, 19 stories/17 posts.
+- Extended `python3 ops/backups/rehearse_system.py` to execute the production TypeScript migration entry point twice against a fresh networkless restored backup, through a private Unix socket with no live configuration/provider credentials.
+- Final backup `news-digest-20261108T172201Z`: 30 tables/54,514 rows restored; 29 original data-table fingerprints, foreign keys and schedule parity preserved; four ownership columns nullable. Second run preserves complete data and migration-ledger fingerprints including timestamps.
+- Existing injected SQL failure still rolls back both pending migrations. Private receipt records actual-runner/idempotence checks and backup/migration hashes. Initial cleanup permission failure fixed; final run exits zero and removes scratch container/socket directory.
+- Four backup unit tests pass. `pnpm format`, `pnpm lint:fix`, `pnpm build`, full `pnpm check` and `git diff --check` pass: 629 unit/239 integration passes, four expected skips.
+- Handbook check (`backups`) renders 18 pages/no diagrams; only two existing unapplied edition_settings metadata warnings. Updated affected backup handbook, rollout plan and TASKS; archived iterations 1381–1385 to keep PROGRESS small.
+- No provider calls, source/UI changes, live migration/deployment/restart: STEERING 50 after-noon generation cutoff remains in force; flag stays off.
+- Next: restored-copy adapter/HTTP response comparisons and AI-off/recorded-AI-on acceptance before pre-noon rollout; phase 1 remains open.

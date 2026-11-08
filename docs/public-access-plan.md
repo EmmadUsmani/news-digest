@@ -73,8 +73,9 @@ mapped to profiles, and profiles go away.
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
   Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt
-  identifies the backup and migration checksums. Actual migration-runner,
-  restored-copy adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
+  identifies the backup and migration checksums. The actual TypeScript migration
+  runner also passes twice on the restored copy, with unchanged rows and ledger on repeat.
+  Restored-copy adapter/HTTP comparisons and AI-off/recorded-AI-on acceptance are separate gates.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
   404s) and all original history entries across every page across flag off/on/rollback, with publication
   filtering enabled and disabled; these pass without provider calls.

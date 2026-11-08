@@ -13,8 +13,8 @@ Run `systemctl --user start news-digest-backup.service` for both local and
 remote copies, or `systemctl --user start news-digest-restore-check.service`
 for local restore verification. Both skip 13:00–16:00 UTC.
 Before the system-ownership rollout, `python3 ops/backups/rehearse_system.py`
-takes a fresh private backup and rehearses the pending SQL in a networkless
-restore. Its receipt is `~/backups/news-digest/system-ownership-proof.json`.
+takes a fresh private backup and runs the application migration runner twice
+in a networkless restore through a private Unix socket. Its receipt is `~/backups/news-digest/system-ownership-proof.json`.
 An offsite failure leaves the local backup successful; it retries on the next
 nightly run. Encrypted uploads are downloaded and checked before success is recorded.
 

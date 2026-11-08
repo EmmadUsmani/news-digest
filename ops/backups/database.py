@@ -110,7 +110,7 @@ def backup():
             session.wait()
 
 
-def restore(verify=None):
+def restore(verify=None, socket_directory=None):
     manifests = sorted(DIRECTORY.glob('news-digest-*.json'))
     if not manifests:
         raise RuntimeError('No completed backup')
@@ -120,11 +120,13 @@ def restore(verify=None):
     if hashlib.sha256(dump.read_bytes()).hexdigest() != manifest['sha256']:
         raise RuntimeError('Backup checksum mismatch')
     container = 'news-digest-restore-' + uuid.uuid4().hex[:12]
+    mounts = [] if socket_directory is None else [
+        '--mount', f'type=bind,source={socket_directory},target=/var/run/postgresql']
     try:
         run(['docker', 'run', '-d', '--name', container, '--network', 'none', '--memory', '384m',
              '--cpus', '1', '--tmpfs', '/var/lib/postgresql/data:rw',
              '-e', 'POSTGRES_HOST_AUTH_METHOD=trust', '-e', 'POSTGRES_DB=news_digest',
-             IMAGE], stdout=subprocess.DEVNULL)
+             *mounts, IMAGE], stdout=subprocess.DEVNULL)
         for _ in range(60):
             if subprocess.run(['docker', 'exec', container, 'pg_isready', '-U', 'postgres'],
                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=5).returncode == 0:
@@ -152,7 +154,14 @@ def restore(verify=None):
         (DIRECTORY / 'restore-proof.json').write_text(json.dumps(receipt) + '\n')
         print(f'Restore verified: {len(actual)} tables; {sum(actual.values())} rows')
     finally:
-        run(['docker', 'rm', '-fv', container], stdout=subprocess.DEVNULL)
+        try:
+            if socket_directory is not None:
+                # The image changes the bind mount to postgres-owned mode 3775.
+                # Restore host cleanup access before removing the container.
+                run(['docker', 'exec', container, 'chmod', '0777', '/var/run/postgresql'],
+                    stdout=subprocess.DEVNULL)
+        finally:
+            run(['docker', 'rm', '-fv', container], stdout=subprocess.DEVNULL)
 
 
 def main():

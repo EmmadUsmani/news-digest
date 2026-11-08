@@ -5,7 +5,9 @@ import hashlib
 import json
 import os
 import subprocess
+import tempfile
 import time
+from urllib.parse import quote
 
 import database
 
@@ -31,7 +33,7 @@ def fingerprints(container):
     return result
 
 
-def verify(container):
+def verify(container, socket_directory):
     before = fingerprints(container)
     foreign_keys_sql = """SELECT md5(coalesce(string_agg(conrelid::regclass::text || ':' ||
       conname || ':' || pg_get_constraintdef(oid), '' ORDER BY conrelid::regclass::text, conname), ''))
@@ -62,7 +64,25 @@ def verify(container):
         raise RuntimeError('Failed migration retained nullable ownership')
     if query(container, "SELECT count(*) FROM schema_migrations WHERE name IN ('drizzle/0011_system_edition_settings.sql','drizzle/0012_nullable_system_ownership.sql');") != '0':
         raise RuntimeError('Failed migration retained ledger entries')
-    query(container, 'BEGIN;\n' + migration + '\nCOMMIT;')
+    # Execute the same entry point used in production, through a private Unix
+    # socket. No TCP port, live credentials or provider configuration is supplied.
+    environment = {key: value for key, value in os.environ.items()
+                   if key in ('PATH', 'HOME', 'USER', 'LANG')}
+    environment['DATABASE_URL'] = ('postgresql://postgres@localhost/news_digest?host=' +
+                                   quote(str(socket_directory), safe=''))
+    command = ['pnpm', 'exec', 'tsx', 'apps/api/src/libs/db/migrate.ts']
+    database.run(command, cwd=database.ROOT, env=environment,
+                 stdout=subprocess.DEVNULL)
+    first_run = fingerprints(container)
+    ledger_sql = "SELECT md5(string_agg(to_jsonb(m)::text, '' ORDER BY name)) FROM schema_migrations m;"
+    ledger = query(container, ledger_sql)
+    expected = {f'drizzle/{name}' for name in MIGRATIONS}
+    if not expected.issubset(set(query(container, 'SELECT name FROM schema_migrations;').splitlines())):
+        raise RuntimeError('Migration runner did not record pending migrations')
+    database.run(command, cwd=database.ROOT, env=environment,
+                 stdout=subprocess.DEVNULL)
+    if fingerprints(container) != first_run or query(container, ledger_sql) != ledger:
+        raise RuntimeError('Repeated migration runner changed data or ledger')
     after = fingerprints(container)
     after.pop('edition_settings', None)
     if after != before:
@@ -88,9 +108,10 @@ def verify(container):
                'original_tables_preserved': len(before), 'injected_failure_rollback': True,
                'schedule_parity': True, 'foreign_keys_preserved': True,
                'nullable_ownership_columns': 4,
-               'scope': 'SQL rehearsal only; adapter/HTTP and AI acceptance remain separate'}
+               'actual_migration_runner': True, 'runner_idempotent': True,
+               'scope': 'SQL rollback and actual runner; adapter/HTTP and AI acceptance remain separate'}
     (database.DIRECTORY / 'system-ownership-proof.json').write_text(json.dumps(receipt) + '\n')
-    print(f'System SQL rehearsal verified: {len(before)} original table fingerprints; rollback; schedule parity; four nullable ownership columns')
+    print(f'System SQL rehearsal verified: {len(before)} original table fingerprints; rollback; actual runner twice; schedule parity; four nullable ownership columns')
 
 
 def main():
@@ -102,7 +123,12 @@ def main():
     with (database.DIRECTORY / '.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         database.backup()
-        database.restore(verify=verify)
+        with tempfile.TemporaryDirectory(prefix='news-digest-rehearsal-') as private:
+            socket_directory = database.Path(private) / 'socket'
+            socket_directory.mkdir(mode=0o777)
+            socket_directory.chmod(0o777)
+            database.restore(verify=lambda container: verify(container, socket_directory),
+                             socket_directory=socket_directory)
 
 
 if __name__ == '__main__':
