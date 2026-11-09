@@ -13,6 +13,13 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   including a forged forwarding prefix, using only documented exe.dev access.
   Record the observed peer without retaining client addresses or identity headers.
   If that proof cannot be obtained, leave accounts disabled.
+  Run `pnpm exec tsx scripts/probe-account-proxy.ts 8765` on an unused port,
+  then open its printed private alternate-port URL in an authenticated browser
+  and click **Run check once**. The five-minute temporary server reports only
+  the immediate peer and three preserved-prefix/final-client checks; it never
+  configures trust. Confirm the connection uses the documented exe.dev HTTPS
+  proxy before treating its receipt as live proof. No client addresses, identity
+  headers or cookies are recorded. A refused check requires a fresh probe.
 - Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
   Fixture browser checks are preparation; they do not replace live acceptance.
 

@@ -120,3 +120,12 @@
 - Accounts remain disabled. No UI, migrations, live account writes, provider calls or proxy trust changes; scheduled acceptance and live proxy proof still gate activation. Archived iterations 1450–1451 to keep this log small.
 - Verification: targeted account HTTP tests (4/4), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 704 unit passes, 254 integration passes/four expected skips. Commit/push followed by API/worker restart and health/alerts checks.
 - Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof before account activation.
+
+## 2026-11-09: iteration 1467 — private proxy verification diagnostic
+
+- Clean main/no leftovers; health, alerts, source and job checks pass. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
+- Added a temporary five-minute diagnostic on a documented private alternate port. Its authenticated-browser flow checks the baseline and three forged forwarding prefixes using the actual admission parser; receipts contain only the observed socket peer and booleans/counts, never client addresses or identity headers. No trust configuration is written.
+- Ordered single-use checks fail closed for missing/overwritten/changed forwarding. Client comparison stays in memory and is cleared on completion/refusal; the process closes after a receipt or timeout. Updated activation instructions and recorded the pending live proof.
+- Live HTTPS attempt: `curl https://news-digest.exe.xyz/healthz` cannot connect from this VM. Local tests and the browser smoke simulate forwarding; neither is live proxy proof. No account activation, migrations, provider calls or sharing changes.
+- Verification: two targeted HTTP tests and `pnpm exec tsx scripts/smoke-account-proxy-probe.ts` pass; inspected `docs/screenshots/accounts/proxy-probe-fixture.png`. Format, lint fix, full `pnpm check` (706 unit/254 integration passes; four expected skips), build, diff and saved-reader checks pass (four topics/19 stories/17 posts). Handbook check passes with existing pending-account-table notices.
+- Next: normal 15:00 UTC Phase 1 acceptance and authenticated live proxy proof before activation. Commit/push followed by API/worker restart and health/alerts checks.

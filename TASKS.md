@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1466: invalid or missing account Origin/JSON headers reject unfinished login/sync uploads before body reading; real HTTP checks cover both routes. Accounts remain disabled pending scheduled acceptance and live proxy proof.
+- [x] Iteration 1467: prepared five-minute private alternate-port proxy diagnostic with address-free receipts, three forged-prefix checks and simulated HTTP/browser acceptance. Live HTTPS connection from this VM fails; no live proof or trust configuration yet. Accounts remain disabled pending scheduled acceptance and live proxy proof.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
