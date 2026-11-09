@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1509: prepared uninstalled direct-local token authorization for classified administrative APIs; duplicate tokens, forwarded traffic and reader/account impersonation refused. Write enforcement, controller replacement and live proxy proof remain open.
+- [x] Iteration 1510: prepared uninstalled write provenance guard: exact Origin/JSON, duplicate-header rejection and direct-local admin-script exception verified over HTTP. Audit enforcement, controller replacement and live proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -142,3 +142,13 @@
 - Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (740 unit/263 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warnings remain. Archived iterations 1493–1495.
 - No restart under STEERING 22: live entrypoints do not import this prepared composition. Next: write-origin/audit enforcement, controller replacement, live proxy proof and scheduled Phase 1 acceptance.
 - Main change pushed as `b1bbd2e3`; final narrow format check caught an extra archive blank line after the full check. Corrected in a follow-up formatting commit; no runtime changes.
+
+## 2026-11-09: iteration 1510 — prepare public write provenance enforcement
+
+- Clean main/no leftovers; alerts/healthz and user services healthy. `pnpm obs sources --check` passes 36 sources; `pnpm obs jobs --check` passes four available queues. No provider calls, migrations or live configuration changes.
+- Added uninstalled write guard requiring one exact HTTPS Origin and JSON Content-Type for every classified non-GET/HEAD request. Duplicate headers, foreign/null/missing origins and unknown/encoded routes refuse before downstream handlers. Only authenticated direct-loopback administrative scripts may omit Origin; forwarded traffic and account routes cannot use that exception.
+- Real HTTP tests cover browser/account writes, DELETE, duplicates, cross-site attempts, local scripts, forwarding and disabled-path isolation. Guard checks provenance only; existing authorization remains required.
+- Updated TASKS/public-access plan. Accounts/public mode remain off; audit enforcement, controller replacement and live proxy proof remain open. Normal 15:00 scheduled Phase 1 acceptance still required.
+- Verification: targeted HTTP test and saved-reader check pass (four topics/19 stories/17 posts); build passes with existing bundle warning. `pnpm format`, `pnpm lint:fix`, `pnpm check` (741 unit/263 integration passes, four expected skips) and `git diff --check` pass. Initial full check caught test-only lint, corrected.
+- Extra handbook check renders no changed diagrams and reports existing metadata for seven intentionally unapplied account tables; no migrations applied to silence it.
+- No restart under STEERING 22: live entrypoints do not import this prepared guard.

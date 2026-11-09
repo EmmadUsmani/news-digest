@@ -411,8 +411,13 @@ constructs no account resources. Prepared direct-local script credentials
 (iteration 1509) accept one exact configured token only from loopback sockets
 without any Forwarded/X-Forwarded headers. They authorize classified administrative
 API routes only and cannot impersonate readers or administer account sessions.
-This path remains uninstalled; live proxy proof, write origin/audit enforcement
-and controller replacement are required before promotion.
+Prepared write provenance (iteration 1510) requires one exact HTTPS Origin and
+one JSON Content-Type on every classified non-GET/HEAD request, including account
+exchanges and DELETE. Only authenticated direct-local administrative scripts may
+omit Origin; forwarded requests and explicitly foreign origins cannot use that
+exception. Duplicate headers refuse before downstream handlers. This guard does
+not grant authorization and remains uninstalled alongside the prepared policy;
+live proxy proof, audit enforcement and controller replacement remain promotion gates.
 
 ## Target design
 
