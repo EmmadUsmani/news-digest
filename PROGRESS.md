@@ -164,3 +164,14 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
 - No provider calls, application writes, migrations, flags or UI changes. No restart/deployment during 13:00–16:00 UTC hold; accounts/public remain disabled, live runtime unchanged.
 - Next: live proxy proof and guarded account activation when obtainable; deploy prepared main after 16:00 UTC. Daily paid novelty/Bluesky destination acceptance remains open.
+
+## 2026-11-09: iteration 1546 — verify selected paid-candidate novelty
+
+- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
+- Matched all ten immutable selected X posts to today's forty keyword citations in a read-only database transaction; saved allowlisted evidence in the daily review JSON.
+- Two selected NBA candidates (Hoop Central Acuff statistics, Kyle Ingram LaMelo dunk) are new/outside current lists, with zero earlier search or retained free-link/feed/Reddit citations. Other topics select no paid citations.
+- Reported likes 3,235/1,664 are unverified; all ten selected X official metrics remain empty. Novel selected candidates fall from eight on Nov 8 to two today; quality/virality acceptance remains open.
+- Read-only evidence assertions pass: forty citations, exactly two novel NBA picks, empty official metrics and zero retained free provenance. check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts.
+- Updated daily review, SOURCES and TASKS. pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
+- Documentation/evidence only; no provider calls, source fetches, application-data writes, flags, migrations or UI changes. No restart/deployment during 13:00–16:00 UTC hold; live runtime unchanged.
+- Next: saved Bluesky destination acceptance; live proxy proof/guarded activation remains blocked, prepared runtime deployment waits until after 16:00 UTC.

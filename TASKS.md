@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1545: atomic topic-order HTTP wired into default-off public runtime before standalone admission/controllers, sharing writer pool/account authorization; composed isolated storage checks cover outcomes, stale catalog and audit rollback. Accounts/public remain off; live proxy URL still unreachable from VM, activation blocked pending forwarding proof.
+- [x] Iteration 1546: Nov 9 paid-selection novelty verified read-only: two new outside-list NBA picks, zero earlier/retained free citations; other topics zero paid picks. Saved evidence records engagement; virality/quality acceptance remains open. No runtime changes; hold through 16:00 UTC and proxy activation blocker remain.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

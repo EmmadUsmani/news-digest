@@ -1,0 +1,96 @@
+{
+  "editionId": "ab346e19-8800-49e9-a7f7-5c6a5207d1d6",
+  "engagementSource": "Unverified xai_search reports; saved official metrics empty",
+  "candidateEngagement": [
+    {
+      "topic": "Tech & AI",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 536,
+        "median": 967.5,
+        "max": 6824
+      }
+    },
+    {
+      "topic": "NBA",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 1063,
+        "median": 2450,
+        "max": 8253
+      }
+    },
+    {
+      "topic": "Gaming",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 567,
+        "median": 1412,
+        "max": 5782
+      }
+    },
+    {
+      "topic": "World news & politics",
+      "citations": 10,
+      "reportedLikes": {
+        "known": 10,
+        "min": 2581,
+        "median": 3890,
+        "max": 12418
+      }
+    }
+  ],
+  "selected": [
+    {
+      "topic": "NBA",
+      "author": "Hoop Central",
+      "text": "DARIUS ACUFF JR. OVER THE LAST 6 GAMES: 34 PTS - 14 AST - 6 REB 38 PTS - 5 AST - 5 REB 25 PTS - 6 AST - 5 REB 22 PTS - 12 AST - 3 REB 22 PTS - 8 AST - 3 REB 32 PTS - 10 AST - 5 REB pic.twitter.com/nxopNiXVpT",
+      "metrics": {},
+      "external_id": "2119649997985927348",
+      "new_candidate": true,
+      "reported_engagement": {
+        "likes": 3235,
+        "views": 137775,
+        "replies": 60,
+        "reposts": 324,
+        "externalId": "2119649997985927348",
+        "observedAt": "2026-11-09T14:33:20.409Z",
+        "publishedAt": "2026-11-09T04:35:15Z",
+        "reported_by": "xai_search"
+      },
+      "discovered_at": "2026-11-09T14:33:20.424Z",
+      "outside_current_lists": true,
+      "prior_citations": 0,
+      "free_links": 0,
+      "feeds": 0,
+      "reddit": 0
+    },
+    {
+      "topic": "NBA",
+      "author": "Kyle Ingram",
+      "text": "LaMelo gets his first dunk in a Timberwolves jersey! pic.twitter.com/7bX8wGQBga",
+      "metrics": {},
+      "external_id": "2119606010717601899",
+      "new_candidate": true,
+      "reported_engagement": {
+        "likes": 1664,
+        "views": 60305,
+        "replies": 10,
+        "reposts": 85,
+        "externalId": "2119606010717601899",
+        "observedAt": "2026-11-09T14:33:20.409Z",
+        "publishedAt": "2026-11-09T01:40:27Z",
+        "reported_by": "xai_search"
+      },
+      "discovered_at": "2026-11-09T14:33:20.424Z",
+      "outside_current_lists": true,
+      "prior_citations": 0,
+      "free_links": 0,
+      "feeds": 0,
+      "reddit": 0
+    }
+  ]
+}

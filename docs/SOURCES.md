@@ -2343,3 +2343,12 @@ is not selected by the final editor. Tech replaces the fifth-ranked X pick
 (Emil Kowalski’s useful skills documentation) with WIRED’s AI safety report,
 matching the reserved-slot rule. Quality/virality acceptance remains open;
 selected paid novelty and Bluesky destination checks remain. [Daily evidence](edition-reviews/2026-11-09.md).
+
+### Nov 9 selected keyword novelty — iteration 1546
+
+Read-only matching finds two selected new NBA candidates, both outside current
+account lists, with no earlier search or retained free-link/feed/Reddit citations.
+Other topics select none of today's paid citations. Reported likes 3,235/1,664
+are unverified; all ten selected X posts have empty official metrics. Novel
+selected candidates fell from eight yesterday to two today; quality acceptance
+stays open. [Evidence](edition-reviews/2026-11-09.md#selected-keyword-novelty-and-engagement--iteration-1546).
