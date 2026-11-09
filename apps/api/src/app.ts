@@ -14,6 +14,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { checkDatabase, database, redis } from './libs/db/connections';
+import { AccountsModule } from './modules/accounts/accounts.module';
 import { DigestsModule } from './modules/digests/digests.module';
 import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { OperationsModule } from './modules/operations/operations.module';
@@ -53,6 +54,7 @@ class HealthController {
 }
 @Module({
   imports: [
+    AccountsModule,
     OperationsModule,
     DigestsModule,
     IngestionModule,

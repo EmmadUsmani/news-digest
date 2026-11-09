@@ -25,7 +25,8 @@ snapshots.
 > attempt counts and single-use consumption. Prepared friend-link tables add
 > hashed 24-hour tokens and private issuance audit. These tables are not live;
 > A prepared exchange maps verified codes to independent identities and hashed
-> sessions; account sign-in remains disabled. See the
+> sessions; account sign-in remains disabled. Startup installs account routes only
+> when enabled and closes account connections during shutdown. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

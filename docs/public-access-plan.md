@@ -119,23 +119,24 @@ Prepared client admission follows [exe.dev’s documented append behavior](https
 only the final `X-Forwarded-For` address is used, and only from an explicitly
 trusted immediate socket peer. Duplicate headers, malformed addresses and unknown
 peers fail closed; equivalent IPv4/IPv6 spellings share a bucket. The parser is
-unregistered. Verify the live peer and forged-prefix behavior before configuring
-trust or activating accounts; no proxy address or network is assumed trusted.
+gated by the account enable flag. Verify the live peer and forged-prefix behavior
+before configuring trust or activating accounts; no proxy address or network is assumed trusted.
 
 Prepared HTTP bootstrap (iteration 1445) combines the account gate, runtime and
 proxy admission before registration. Disabled accounts open no dependencies; enabled
 accounts require explicit IP addresses in `ACCOUNT_TRUSTED_PROXY_PEERS` and valid
 account configuration before storage opens. Isolated loopback HTTP checks exercise
 mailbox login, secure session exchange and replay refusal against disposable
-Postgres/Redis, including rejection of missing forwarded addresses. Main still does
-not install this bootstrap; no live peer is configured or trusted.
+Postgres/Redis, including rejection of missing forwarded addresses. Main installs
+this bootstrap only behind the account flag; no live peer is configured or trusted.
 
 Prepared storage composition (iteration 1446) supplies the real account repositories
 and Redis admission behind that gate, with explicit, repeatable shutdown of every
 owned connection. Closed signup checks persisted verified identities, allowing
 existing readers to request codes while refusing new identities with the same
 public response. Disposable-storage HTTP checks cover both paths and shutdown;
-main registration and live proxy verification remain pending.
+main registration is installed behind the disabled flag; live proxy verification
+remains pending.
 
 An isolated composed-storage check now exercises stand-in mailbox login through
 real Postgres and Redis, cross-runtime session authentication, concurrent single-use
@@ -154,8 +155,7 @@ current allowlisting and age below seven days. Single/all-device revocation is
 prepared. Offline tests cover renewal races, old reader sessions and admin changes.
 The prepared Drizzle session adapter joins identities, atomically claims renewal,
 and supports single/all-device revocation. Isolated database tests cover concurrent
-renewal, identity mapping, revocation isolation and account deletion. Account routes
-and sync remain unimplemented; the adapter is unregistered and accounts stay disabled.
+renewal, identity mapping, revocation isolation and account deletion. Account routes and sync are composed behind the disabled account flag.
 Unconnected login-code application logic now normalizes emails, applies admission
 ports to requests and redemption, and issues ten-minute six-digit challenges.
 Keyed SHA-256 hashes bind codes to emails; comparison uses constant-time crypto.
@@ -190,21 +190,23 @@ no login endpoint is exposed. Disconnected account handlers now compose the requ
 boundary, code exchange and session lifecycle: invalid writes stop before side
 effects, successful redemption returns only the secure cookie, and session JSON
 excludes bearer tokens and internal identity/session IDs. All-device logout uses
-the authenticated identity. Registration and verified proxy client wiring remain
-pending. An uninstalled HTTP adapter now prepares code request/redemption, session lookup
+the authenticated identity. Registration is gated; verified live proxy client wiring remains pending. An uninstalled HTTP adapter now prepares code request/redemption, session lookup
 and single/all-device logout routes. It requires an explicit enable flag and an
 injected verified client key, bounds streamed JSON bodies to 2 KiB, marks responses
 no-store and returns generic dependency failures. Loopback HTTP tests exercise the
 disabled gate, origin rejection, oversized/malformed bodies, cookie-only redemption
-and private failure responses. Main does not install it; no account HTTP routes are exposed. Operational reader roles and PUBLIC
-receive no access to the three account tables.
+and private failure responses. Main registers it behind the disabled flag; no
+account HTTP routes are exposed. Operational reader roles and PUBLIC receive no
+access to the three account tables.
 Prepared runtime composition now joins the account services through injected repository
 and Redis ports. Disabled configuration creates no dependencies; enabled configuration
 requires an exact HTTPS `ACCOUNT_ORIGIN`, a 64-hex-character `ACCOUNT_SECRET_KEY`,
 an absolute `ACCOUNT_MAILBOX_PATH`, valid `ADMIN_EMAILS` and a closed/invite
 `SIGNUP_MODE`. Code hashing and admission keys are derived separately from the
-secret. Main does not call this factory; registration and verified client wiring
-remain pending. Offline composition checks use a temporary stand-in mailbox.
+secret. Main registers this factory through a Nest lifecycle provider, before body
+parsing; owned connections close with the application. Verified live client
+wiring and activation remain pending. Offline composition checks use a temporary
+stand-in mailbox.
 Prepared sign-in-link lifecycle now requires an authenticated fresh admin, normalizes
 the recipient, stores only a random 32-byte token hash and requires atomic issuance
 audit. Links last 24 hours; only POST redemption can consume one. The repository
@@ -223,7 +225,7 @@ bearer only in its fragment. An uninstalled confirmation page clears that fragme
 before interaction and redeems only after an explicit button POST. It uses no
 remote resources or browser storage, forbids framing and referrers, and discards
 tokens after any attempt. Isolated desktop/mobile browser checks cover preview,
-success, replay and reload behavior. Main registration and verified proxy wiring
+success, replay and reload behavior. Main registration is gated; verified live proxy wiring and activation
 remain pending; accounts stay disabled.
 
 Prepared account deletion now derives ownership only from a session hash inside
@@ -235,15 +237,14 @@ The prepared, uninstalled POST `/api/account/delete` transport requires exact
 same-origin JSON, a body containing only `{"confirmation":"DELETE"}` and one
 unambiguous session cookie. It accepts no caller identity, clears the secure cookie
 only after successful deletion and hides dependency failures. The prepared runtime injects deletion through a required repository dependency
-and supplies its configured mailbox cleanup to the dependency factory. Main still
-installs no account routes. The stand-in mailbox
+and supplies its configured mailbox cleanup to the dependency factory. Main installs account routes only when the account flag is enabled. The stand-in mailbox
 now prepares idempotent recipient cleanup: it checks the private directory and
 unlinks only the hashed recipient entry, without following symlinks or removing
 directories. The prepared deletion repository now requires an idempotent cleanup port and removes
 the mailbox entry before committing identity deletion. Cleanup failure preserves
 the account; a later database failure leaves a usable account whose next login
 request can issue a fresh code. Isolated tests cover both failures, retry and
-recipient isolation. Production composition remains disconnected. The repository requires the shared
+recipient isolation. Production composition remains disabled. The repository requires the shared
 recipient boundary before starting its deletion transaction, preventing in-flight
 delivery from recreating a mailbox message after cleanup. Prepared migration 0016 adds cascading sync-data ownership; it remains unapplied.
 Iteration 1423 prepares a shared recipient-coordination port and PostgreSQL

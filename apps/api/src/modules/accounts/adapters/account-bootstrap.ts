@@ -2,7 +2,7 @@ import { accountHttp } from './account-http';
 import { prepareAccountHandlers } from './account-runtime';
 import { proxyClient } from './proxy-client';
 
-// Prepared for main registration after Phase 1 acceptance. No deployment peer
+// Activation follows Phase 1 acceptance. No deployment peer
 // is trusted by default; configure only addresses verified at the live proxy.
 export function prepareAccountHttp(
   env: Readonly<Record<string, string | undefined>>,

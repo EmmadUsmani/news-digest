@@ -14,6 +14,10 @@ import {
 } from './libs/observability/logging';
 import { startQueueMetrics } from './libs/observability/queue-metrics';
 import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
+import {
+  ACCOUNT_HTTP,
+  type AccountHttpRuntime,
+} from './modules/accounts/accounts.module';
 import { startBudgetMetrics } from './modules/operations/adapters/budget-metrics';
 import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
@@ -34,6 +38,10 @@ async function bootstrap() {
   });
   app.use(requestLogging());
   app.use(httpMetrics(registry));
+  // Mount before Nest installs body parsers so account request limits apply
+  // while reading the stream. The disabled factory opens no account resources.
+  const accounts = app.get<AccountHttpRuntime>(ACCOUNT_HTTP);
+  if (accounts.middleware) app.use(accounts.middleware);
   app.use(
     adminAccess({
       emails: process.env.ADMIN_EMAILS,

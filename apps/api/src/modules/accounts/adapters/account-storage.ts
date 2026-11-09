@@ -8,7 +8,7 @@ import { PostgresSessionRepository } from '../database/session.repository';
 import { PostgresSignInLinkRepository } from '../database/sign-in-link.repository';
 import { prepareAccountHttp } from './account-bootstrap';
 
-// Prepared for main registration; no resources open until configuration passes.
+// No resources open until the enable flag and configuration pass validation.
 export function prepareStoredAccountHttp(
   env: Readonly<Record<string, string | undefined>>,
 ) {

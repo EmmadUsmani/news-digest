@@ -1,21 +1,3 @@
-## 2026-11-08: iteration 1432 — prepared locking reader sync repository
-
-- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources have no current errors; digest queue has zero failures and next scheduled run Nov 9 15:00 UTC. Retained ingestion/social failures unchanged.
-- Prepared unregistered repository locks the identity row across read/merge/write, serializing first sync, concurrent devices and account deletion. Validates/copies incoming changes before waiting; bounded replacement preserves display copies and tombstones.
-- Isolated acceptance passes for concurrent devices, millisecond display-copy round trips, stale updates, reader isolation, capacity/validation rejection, injected write rollback and deleted-identity rejection.
-- Accounts remain disabled and VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; HTTP/browser sync wiring remains pending. Phase 1 still awaits pre-noon backup/rollout and scheduled acceptance.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check verifies four topics/19 stories/17 posts. Final `pnpm check` passes: static checks, 674 unit passes, 253 integration passes/four expected skips. `git diff --check` passes.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync application/HTTP wiring preparation, then Phase 1 rollout in its permitted window.
-
-## 2026-11-08: iteration 1433 — prepared authenticated reader sync HTTP
-
-- Clean main/no leftovers; alerts clear, health good, no failed user units. Sources pass `pnpm obs sources --check`; digest-generation has zero failed jobs and next run Nov 9 15:00 UTC.
-- Prepared POST `/api/account/sync` derives identity only from the session cookie, requires same-origin JSON, validates/copies versioned changes before persistence and returns merged state with session renewal. Streamed sync bodies are bounded to 16 MiB; login routes retain 2 KiB limits.
-- Offline HTTP acceptance covers disabled routes, unauthenticated/cross-origin requests, forged identity fields, invalid state, payloads beyond login limits, stale changes, empty-state reads, oversized rejection and credential-free storage failures. Existing account transport/handler tests also pass (six targeted tests total).
-- Accounts remain disabled and VM private; runtime injection/browser wiring pending. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; no live handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook plan check pass (expected unapplied-table notes). `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. Final `pnpm check` passes: static checks, 675 unit passes, 253 integration passes/four expected skips. `git diff --check` passes.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync runtime injection and browser wiring preparation; Phase 1 rollout remains gated on its permitted window.
-
 ## 2026-11-08: iteration 1434 — prepared reader sync runtime injection
 
 - Clean main/no leftovers; alerts clear, health good, no failed user units. All sources pass `pnpm obs sources --check`; digest-generation has zero failures and next run Nov 9 15:00 UTC.
@@ -142,3 +124,13 @@
 - Updated TASKS and rollout plan; no live migrations, trusted-peer configuration, provider calls or account activation. No UI/runtime behavior change; VM private, main registration/live proxy proof pending.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit; 253 integration passes/four expected skips), plus `pnpm build` and `git diff --check`. Strengthened closed-signup redemption check passes an isolated targeted rerun. Saved reader retains four topics/19 stories/17 posts. Initial lint rejected an unsafe shutdown error type; fixed before the final passing checks. No UI change.
 - Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal flag-on scheduled acceptance; phase 3 remains gated.
+
+## 2026-11-09: iteration 1447 — gated account startup registration
+
+- Clean main/no leftovers; initial alerts clear, health database/Redis good and no failed user units. All 36 sources healthy; digest queue has zero failures, next scheduled run Nov 9 15:00 UTC.
+- Registered account storage through a Nest lifecycle provider and mounted gated account HTTP before body parsing. Disabled startup opens no account resources; enabled startup requires explicit verified proxy peers before resources open. Nest closes owned connections on shutdown.
+- Added actual Nest startup/shutdown checks for the disabled gate and enabled-without-proxy startup refusal; both targeted tests pass. Updated rollout plan, TASKS and affected handbook note; archived iterations 1432–1433 to keep PROGRESS small.
+- Accounts remain disabled, VM private and account migrations unapplied. No provider calls, proxy trust configuration or phase acceptance claimed; live proxy proof remains pending after scheduled Phase 1 acceptance.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, saved reader check and `git diff --check` pass. Handbook check renders 18 pages/three diagrams; exits 1 for existing unapplied account-table metadata notes. No diagram/UI change.
+- Full `pnpm check` passes (698 unit tests; 253 integration passes/four expected skips). Saved reader retains four topics/19 stories/17 posts. Initial unsupported `obs queues`/combined jobs flags corrected to `pnpm obs jobs --check`; digest queue healthy.
+- Commit/push then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance and live proxy verification; keep accounts off until Phase 1 acceptance.
