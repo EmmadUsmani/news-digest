@@ -167,3 +167,12 @@
 - No runtime behavior, flags, migrations, UI or generation changes. Updated rollout plan/TASKS; public/accounts remain disabled.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 765 unit/268 integration passes, four expected skips; existing bundle warning only. First full check hit intermittent integration-temp cleanup refusal (expected stale removal, got none); isolated rerun and full retry pass without code changes. No live external calls.
 - No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, proxy proof and atomic queue effects.
+
+## 2026-11-09: iteration 1536 — prepare atomic topic-enable persistence
+
+- Clean main/no leftovers; local alerts and healthz healthy, no failed user services; latest saved edition responds with four topics.
+- Added disconnected PublicTopicWriter for the system catalog: exact UUID/PUT target and boolean validation, row-locked enable changes, and changed/unchanged audit outcomes in one transaction. Caller retains authorization and pool ownership; no runtime/controller registration.
+- Isolated database acceptance verifies missing-topic rollback, concurrent identical toggles, target refusal, invalid-actor refusal, outcome-storage failure rolling back the topic and admission, and successful recovery.
+- Updated rollout plan/TASKS. No migrations, live flags, UI, generation or external calls changed; accounts/public mode remain off.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 765 unit/269 integration passes, four expected skips. Existing bundle-size warning only. Final healthz healthy.
+- No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: scheduled 15:00 acceptance, permitted deployment, topic HTTP replacement, proxy proof and atomic queue effects.

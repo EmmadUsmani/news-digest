@@ -741,3 +741,10 @@ Record each choice in the phase's ack.
   `MISSION.md` and `AGENTS.md` (phase 5).
 - Choose the email provider and domain (phase 6, optional).
 - Approve the clean-up (phase 7).
+
+Prepared topic-enable persistence (iteration 1536) binds the exact PUT topic
+route to one row-locked system-catalog toggle and its admission outcome.
+Concurrent identical requests record one changed and one unchanged result;
+missing topics and audit failures roll back admission and mutation together.
+This writer remains disconnected: it requires caller authorization and must
+replace standalone admission for this route before public activation.

@@ -10,6 +10,7 @@ import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
+import { PublicTopicWriter } from '../src/modules/topics/database/public-topic-writer';
 import { prepareAccountPublicWriteRouter } from '../src/public-write/account-router';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
@@ -550,5 +551,94 @@ void test('source HTTP commits exactly one admission with each mutation and refu
     await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
     await pool.query('DELETE FROM users WHERE id=$1', [userId]);
     await runtime.close();
+  }
+});
+
+void test('prepared topic toggle commits audit outcomes with serialized changes and rolls back failures', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const writer = new PublicTopicWriter(pool);
+  const id = 'c4444444-4444-4444-8444-444444444444';
+  const entry = {
+    actor: { localScript: true as const },
+    action: 'PUT',
+    target: `/api/admin/topics/${id}`,
+    at: new Date(),
+  };
+  const count = async () =>
+    (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [entry.target],
+      )
+    ).rows[0].n;
+  try {
+    assert.deepEqual(await writer.setEnabled(entry, id, true), {
+      outcome: 'not-found',
+    });
+    assert.equal(await count(), 0);
+    await pool.query(
+      "INSERT INTO topics(id,name,description,include_guidance,position,enabled) VALUES ($1,'Prepared topic','Description','Guidance',999,false)",
+      [id],
+    );
+    const results = await Promise.all([
+      writer.setEnabled(entry, id, true),
+      writer.setEnabled(entry, id, true),
+    ]);
+    assert.deepEqual(results.map((r) => r.outcome).sort(), [
+      'changed',
+      'unchanged',
+    ]);
+    assert.deepEqual(
+      (
+        await pool.query(
+          'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+          [entry.target],
+        )
+      ).rows,
+      [{ outcome: 'changed' }, { outcome: 'unchanged' }],
+    );
+    await assert.rejects(
+      writer.setEnabled({ ...entry, target: '/api/admin/topics' }, id, false),
+    );
+    await assert.rejects(
+      writer.setEnabled(
+        { ...entry, actor: { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' } },
+        id,
+        false,
+      ),
+    );
+    await pool.query(
+      "CREATE FUNCTION refuse_topic_outcome() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'topic outcome unavailable'; END $$",
+    );
+    await pool.query(
+      'CREATE TRIGGER refuse_topic_outcome BEFORE UPDATE ON admin_write_admissions FOR EACH ROW EXECUTE FUNCTION refuse_topic_outcome()',
+    );
+    try {
+      await assert.rejects(writer.setEnabled(entry, id, false));
+      assert.equal(
+        (await pool.query('SELECT enabled FROM topics WHERE id=$1', [id]))
+          .rows[0].enabled,
+        true,
+      );
+      assert.equal(await count(), 2);
+    } finally {
+      await pool.query(
+        'DROP TRIGGER refuse_topic_outcome ON admin_write_admissions',
+      );
+      await pool.query('DROP FUNCTION refuse_topic_outcome()');
+    }
+    assert.deepEqual(await writer.setEnabled(entry, id, false), {
+      outcome: 'changed',
+      id,
+      enabled: false,
+    });
+    assert.equal(await count(), 3);
+  } finally {
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      entry.target,
+    ]);
+    await pool.query('DELETE FROM topics WHERE id=$1', [id]);
+    await pool.end();
   }
 });
