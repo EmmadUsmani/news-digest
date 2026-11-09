@@ -168,3 +168,4 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - pnpm format, pnpm lint:fix, pnpm check (769 unit/272 integration passes, four expected skips), pnpm build and git diff --check pass; handbook check passes 18 pages/one diagram with existing unapplied-account metadata warnings. Existing bundler warning only.
 - Restarted API/worker; first pre-readiness health probe retried successfully. Health/alerts clear; latest/history bytes unchanged. Scheduled reader check passes four topics/19 stories/14 posts. No provider, source, migration or configuration changes; accounts/public stay off.
 - Next: live proxy proof and guarded Phase 3 activation; remaining Phase 4 resource allowlist/readiness. Metrics probe no earlier than 17:18 UTC.
+- First push rejected (remote advanced); fetched and merged owner status commit 712bec1e unchanged in docs/lead. No application overlap; retrying push without rewriting history.
