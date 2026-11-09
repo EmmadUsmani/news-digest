@@ -146,4 +146,5 @@ Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.
 - Targeted proxy tests pass 7/7; handbook check passes 18 pages (existing unapplied-account metadata warnings). Build passes with existing bundle warning.
 - API/worker restarted; /healthz and alerts clear. Scheduled-reader gate passes four topics/19 stories/14 posts before and after restart.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (771 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
-- Next: owner resolves two-entry baseline before activation; remaining Phase 4 resource policy gate unchanged. Metrics probe remains no earlier than 18:19 UTC.
+- Push rejected after owner advanced main; merged owner item 53 without rewriting history, preserving owner files. Resolved STEERING append conflict by retaining new instructions and moving rerun ack under 53.
+- Next: implement item 53 appended-entry categories/stability diagnostic and rerun steps; activation remains blocked. Phase 4 resource gate unchanged; metrics probe no earlier than 18:19 UTC.

@@ -18,8 +18,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    (item 44) and the leaked test folders (item 51). The review after each
    scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`. Phase 1 is accepted. Next, make the proxy
-   probe say why it failed (item 52), which blocks phase 3. Then phases 3 and 4.
+   `docs/public-access-plan.md`. Phase 1 is accepted. Next, find which proxy
+   entry is the visitor (item 53, replaces item 52), which blocks phase 3. Then
+   phases 3 and 4.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2313,4 +2314,53 @@ deploy. The 13:00–16:00 UTC window still applies to everything else.
 
 ack: 2026-11-09 item 52 — iteration 1557 adds five-step value-free diagnostics, continuing failures, forged-email classification and private durable receipts; simulated failure/browser checks pass. Exact rerun steps replace the Nov 9 paragraph in NEEDS_FROM_HUMAN.md. Owner rerun and actual proxy-shape comparison remain pending; no trust or activation changes.
 
-ack: 2026-11-09 item 52 owner rerun — iteration 1559 inspected the 17:47:12 UTC receipt: one forwarding field at every step, entry counts 2/3/4/3/2, valid final IPs, loopback peer; forwarded proto/host and exe.dev email/userid names present. Forged email replaced. Baseline differs from the probe single-entry assumption; proxyClient permits multiple entries but final-client stability/meaning is unproven because baseline failed. Stopped and reported in NEEDS_FROM_HUMAN.md; no trust redesign or activation.
+**Lead update (Nov 9):** the owner reran the probe at about 17:55 UTC. Item 53
+takes over from "After the owner reruns it". Ack the rerun there, not here.
+
+## 53. NOW, small: find which proxy entry is the visitor (2026-11-09)
+
+**Why:** the owner's Nov 9 rerun of item 52's probe (receipt at
+`~/.local/state/news-digest/account-proxy-receipt.json`) showed that a forged
+`X-ExeDev-Email` was replaced. It also showed that every request arrives from
+loopback, and that exe.dev appends **two** `X-Forwarded-For` entries after
+anything the client sends (0, 1, 2 and 1 sent gave 2, 3, 4 and 3). `proxyClient`
+in `apps/api/src/modules/accounts/adapters/proxy-client.ts` takes the last
+entry, which may be a proxy hop. If so, every visitor shares one login-code
+limit.
+
+**Priority:** Current order line 2, the next task under item 50. It replaces
+item 52 and still blocks phase 3.
+
+**What to do:**
+
+1. Extend `scripts/lib/proxy-proof.ts` so each step records, without
+   addresses:
+   - whether each of the two appended entries matches the same position in
+     step 0;
+   - each appended entry's category: loopback, private or public.
+2. Put rerun steps for the owner in `NEEDS_FROM_HUMAN.md`, replacing the
+   item 52 paragraph.
+3. After the rerun, if one appended entry is public and stable and the other is
+   a proxy hop, change `proxyClient` to trust a fixed number of hops with a
+   loopback peer. Test it against the observed shapes, including forged
+   prefixes.
+4. Write down in `docs/decisions/2026-11-05-admin-access.md` that proxied
+   traffic arrives from loopback. Keep the admin token's "no `Forwarded` or
+   `X-Forwarded-*` headers" check as a hard requirement, and test that a
+   proxied request carrying the token is refused.
+
+**While waiting:** continue item 50 phase 4 work behind its flags.
+
+**What not to do:** don't enable accounts or public mode, or change exe.dev
+sharing. Never print or save addresses or identity values. If the shape is
+ambiguous, for example the order changes between steps or neither entry is a
+stable public address, stop and report in `NEEDS_FROM_HUMAN.md`.
+
+**Done when:** `proxyClient` returns the visitor's entry for every observed
+shape, tests pass, and the decision doc is updated. Ack the probe change, then
+ack again with the rerun result and the `proxyClient` change.
+
+**Limits:** no paid calls. The `proxyClient` change touches the API, so deploy
+it outside 13:00–16:00 UTC and leave edition generation alone after 12:00 UTC.
+
+ack: 2026-11-09 item 53 inherited rerun — iteration 1559 inspected the 17:47:12 UTC receipt: one forwarding field at every step, entry counts 2/3/4/3/2, valid final IPs, loopback peer; forwarded proto/host and exe.dev email/userid names present. Forged email replaced. Baseline differs from the probe single-entry assumption; proxyClient permits multiple entries but final-client stability/meaning is unproven because baseline failed. Stopped and reported in NEEDS_FROM_HUMAN.md; no trust redesign or activation.

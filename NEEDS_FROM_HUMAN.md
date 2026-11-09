@@ -68,8 +68,9 @@ sent by an explicitly trusted peer; counts and IP validity alone cannot prove
 that this last IP identifies the visitor. The receipt does not establish which
 proxy hop the final entry represents.
 
-**Stopped for owner review under STEERING 52.** Resolve the unexpected baseline
-chain and approve the trust/probe interpretation before activation proceeds.
+**Activation blocked; STEERING 53 now authorizes the next diagnostic.** Extend
+the probe with appended-entry categories and baseline stability before the next
+owner rerun. The existing receipt cannot resolve the unexpected baseline chain.
 No trust-model redesign, proxy configuration, account/public activation or
 sharing change was made. The original receipt remains private on the VM.
 

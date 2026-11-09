@@ -24,9 +24,10 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Item 52 probe built and acked (17:38 UTC Nov 9); lead read the diff and it
-   matches. Owner reruns it (steps in `NEEDS_FROM_HUMAN.md`), then read the
-   agent's second ack: what exe.dev sends, and whether a forged email got through.
+1. Owner's probe rerun (Nov 9): forged email replaced (good); exe.dev appends
+   two addresses and requests arrive from loopback. Steered item 53: probe says
+   which entry is the visitor, owner reruns, then `proxyClient` trusts two hops.
+   Read both acks; a proxied request with the admin token must be refused.
 2. Check work-ahead stays behind flags and doesn't drift into polish.
 3. Phase 4: lead security review before the owner decides to go public.
 
