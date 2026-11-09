@@ -1,33 +1,3 @@
-## 2026-11-09: iteration 1496 — prepare public source health projection
-
-- Clean main/no leftovers; alerts/healthz clear and no failed user units. Authenticated source check finds 36 sources with successful collection and zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added disconnected source-health allowlist: IDs/names, normalized UTC attempt/success timestamps, nonnegative safe item counts and failure presence only. Configured URLs, topic ownership, historical error text and future columns are omitted.
-- Offline adversarial checks cover credential-bearing stored errors/URLs, null timestamps, empty errors, mixed malformed catalogs, invalid counts/dates and exact generic 503 bodies. Existing GET/HEAD remains admin-classified; transport/storage/frontend integration remains open.
-- Updated response audit/TASKS; archived iteration 1479. No live routes/config/data/migrations/provider calls changed; accounts remain disabled.
-- Verification: targeted source-health tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check`.
-- Full check passes 723 unit/259 integration tests with four expected skips. Build passes with existing bundle warnings; saved-reader parity passes.
-- No restart under STEERING 22: live entrypoints do not import this projection. Next: scheduled 15:00 acceptance, live proxy proof and remaining public-route boundaries before promotion.
-
-## 2026-11-09: iteration 1497 — prepare source-health HTTP boundary
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user units. Authenticated source check finds 36 successful sources and zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added unregistered source-health GET/HEAD controller using the prepared strict projection, no-store responses and generic storage/validation failures; configured URLs, historical credentials and future fields never enter the HTTP response.
-- Real isolated loopback HTTP checks verify UTC normalization, omitted secrets, bodyless HEAD, malformed mixed results and refused writes without storage reads.
-- Updated response audit/TASKS; archived iteration 1480. No live routes/config/data/migrations/provider calls changed; accounts stay disabled. Storage/runtime/frontend integration remains open.
-- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source check, scheduled-reader check and `git diff --check`.
-- Full check passes 724 unit/259 integration tests, four expected skips. Build passes with existing bundle warnings. No restart under STEERING 22: live entrypoints do not import this controller.
-- Next: complete source-health composition; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
-
-## 2026-11-09: iteration 1498 — prepare source-health composition
-
-- Clean main/no leftovers; alerts/healthz clear and no failed user units. Live source check finds 36 successful sources/zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added disconnected gated source-health module and explicit-column database reader: SQL reduces historical errors to presence without fetching text; URLs/ownership/future fields are never selected. Caller retains pool ownership.
-- Isolated database/loopback checks cover full catalog/count parity, absent legacy profile table, credential-bearing errors/URLs, nullable and UTC timestamps, generic storage failure and refused writes. Disabled mode opens no storage; unsafe prerequisite flags fail closed.
-- Updated response audit/TASKS. No live routes/config/data/migrations/provider calls changed; accounts stay disabled. Runtime installation and frontend integration remain open.
-- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source check, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`.
-- Full check passes 725 unit/260 integration tests, four expected skips. Build passes with existing bundle warnings; targeted HTTP and saved-reader checks pass.
-- No restart under STEERING 22: live entrypoints do not import this composition. Next: normal 15:00 acceptance, live proxy proof and remaining public-route integration before promotion.
-
 ## 2026-11-09: iteration 1499 — compose gated public settings reads
 
 - Clean main/no leftovers; alerts/healthz clear, no failed user units. Authenticated source check finds 36 successful sources/zero stored errors; digest queue has no failures and saved Nov 8 reader retains four topics/19 stories/17 posts.
@@ -152,3 +122,12 @@
 - Verification: targeted HTTP test and saved-reader check pass (four topics/19 stories/17 posts); build passes with existing bundle warning. `pnpm format`, `pnpm lint:fix`, `pnpm check` (741 unit/263 integration passes, four expected skips) and `git diff --check` pass. Initial full check caught test-only lint, corrected.
 - Extra handbook check renders no changed diagrams and reports existing metadata for seven intentionally unapplied account tables; no migrations applied to silence it.
 - No restart under STEERING 22: live entrypoints do not import this prepared guard.
+
+## 2026-11-09: iteration 1511 — repair free private-test browser verification
+
+- Clean main/no leftovers. Alerts clear, healthz passes, no failed user services; source/queue checks pass. Published Nov 8 reader still has four topics/19 stories/17 posts and next scheduled run remains 15:00 UTC.
+- Repaired `smoke-admin-new-edition.ts` for the current synchronous private-test endpoint, free-default copy and create-test button. Intercepted responses cover custom-window rejection, successful inspection link, failure recovery and empty legacy job storage; both paid options must remain false. Unexpected browser writes remain blocked.
+- Desktop/mobile light/dark replay passes with no real writes or provider calls; latest protected preview unchanged. Refreshed and visually inspected all four screenshots. No product/handbook changes.
+- Legacy edition-jobs exploration deliberately reverted: its resumed-job recovery scenarios need separate adaptation, rather than conflating latest private and published editions. TASKS retains that follow-up. Archived iterations 1496–1498.
+- Verification: browser replay and build pass (existing bundle warning). Initial full check was SIGTERM-terminated during unit tests; retry caught script import formatting after an edit, fixed with required autofix. Final `pnpm check` passes (741 unit/263 integration, four expected skips); `pnpm format`, `pnpm lint:fix` and `git diff --check` pass.
+- No restart under STEERING 22: only verification scripts/screenshots/docs changed. Accounts/public mode stay off; next product work is audit enforcement/controller replacement/proxy proof, then normal scheduled acceptance.

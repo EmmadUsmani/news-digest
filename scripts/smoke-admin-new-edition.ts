@@ -1,4 +1,4 @@
-// Live budget/edition reads; every job response is simulated in the browser.
+// Live budget/edition reads; every test-edition response is simulated in the browser.
 import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
@@ -48,9 +48,8 @@ async function main() {
         });
         await replayAdminPage(page);
         let submissions = 0;
-        let complete = false;
         let fail = false;
-        await page.route('**/api/admin/digest-previews/jobs', (route) => {
+        await page.route('**/api/admin/digest-previews/tests', (route) => {
           assert.equal(route.request().method(), 'POST');
           const body = route.request().postDataJSON();
           assert.equal(
@@ -58,39 +57,26 @@ async function main() {
               new Date(body.windowStart).getTime(),
             6 * 3600000,
           );
+          assert.equal(body.aiEditing, false);
+          assert.equal(body.paidXSearch, false);
           submissions++;
-          return route.fulfill({ json: { id: '881' } });
+          return route.fulfill({
+            status: fail ? 500 : 200,
+            json: fail ? {} : saved,
+          });
         });
-        await page.route('**/api/admin/digest-previews/jobs/881', (route) =>
-          route.fulfill({
-            json: {
-              id: '881',
-              state: fail ? 'failed' : complete ? 'completed' : 'active',
-              editionId: complete ? saved.id : null,
-              progress: {
-                stage: 'topics',
-                topics: [
-                  { id: 'tech', name: 'Tech', stage: 'editing' },
-                  { id: 'nba', name: 'NBA', stage: 'posts' },
-                ],
-              },
-            },
-          }),
-        );
         await page.goto(`${origin}/admin/editions/new`);
         await page
           .getByRole('heading', { name: 'New edition', exact: true })
           .waitFor();
-        await page
-          .getByText('This spends AI budget', { exact: false })
-          .waitFor();
+        await page.getByText('Free by default;', { exact: false }).waitFor();
         await page.getByLabel('Period', { exact: true }).selectOption('custom');
         await page
           .getByLabel('Start', { exact: true })
           .fill('2026-11-04T12:00');
         await page.getByLabel('End', { exact: true }).fill('2026-11-03T12:00');
         await page
-          .getByRole('button', { name: 'Create edition · custom period' })
+          .getByRole('button', { name: 'Create test edition · custom period' })
           .click();
         await page
           .getByRole('alert')
@@ -99,39 +85,12 @@ async function main() {
         assert.equal(submissions, 0);
         await page.getByLabel('Period', { exact: true }).selectOption('6');
         await page
-          .getByRole('button', { name: 'Create edition · last 6 hours' })
+          .getByRole('button', { name: 'Create test edition · last 6 hours' })
           .click();
-        await page
-          .getByRole('listitem')
-          .filter({ hasText: 'Tech · editing' })
-          .waitFor();
-        assert.equal(submissions, 1);
-        assert.equal(
-          await page
-            .getByRole('button', { name: 'Creating edition…' })
-            .isDisabled(),
-          true,
-        );
-        await page.reload();
-        await page
-          .getByRole('listitem')
-          .filter({ hasText: 'NBA · posts' })
-          .waitFor();
-        assert.equal(submissions, 1);
-        assert.equal(
-          await page.evaluate(
-            () => document.documentElement.scrollWidth > innerWidth,
-          ),
-          false,
-        );
-        await page.screenshot({
-          path: `docs/screenshots/ui/admin-new-edition-${device}-${theme}.png`,
-          fullPage: true,
-        });
-        complete = true;
         await page
           .getByRole('link', { name: 'Inspect created edition' })
           .waitFor();
+        assert.equal(submissions, 1);
         assert.equal(
           await page
             .getByRole('link', { name: 'Inspect created edition' })
@@ -142,18 +101,30 @@ async function main() {
           await page.evaluate(() => sessionStorage.getItem('edition-job')),
           null,
         );
-        complete = false;
         fail = true;
         await page.getByLabel('Period', { exact: true }).selectOption('6');
         await page
-          .getByRole('button', { name: 'Create edition · last 6 hours' })
+          .getByRole('button', { name: 'Create test edition · last 6 hours' })
           .click();
         await page
-          .getByText('Edition generation failed. Try again later.', {
-            exact: true,
-          })
+          .getByText(
+            'Could not confirm whether your test edition was saved. Check saved editions before trying again to avoid a duplicate run.',
+            {
+              exact: true,
+            },
+          )
           .waitFor();
         assert.equal(submissions, 2);
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/admin-new-edition-${device}-${theme}.png`,
+          fullPage: true,
+        });
         assert.deepEqual(errors, []);
         await page.close();
       }
@@ -163,7 +134,7 @@ async function main() {
       saved,
     );
     console.log(
-      'New edition: four viewport/theme captures; anonymous denial, custom validation, simulated submission/progress/reload/completion/failure, no real writes or paid calls; saved edition unchanged.',
+      'New edition: four viewport/theme captures; anonymous denial, custom validation, simulated free test submission/completion/failure, no real writes or paid calls; saved edition unchanged.',
     );
   } finally {
     await browser.close();
