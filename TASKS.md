@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1516: fresh private networkless account restore rehearsed through 0018; injected rollback, real runner twice, 30 unchanged original table fingerprints and eight-table operational/PUBLIC denial pass. Live account migrations remain pending; runtime injection, transactional outcomes, controller replacement and proxy proof remain open.
+- [x] Iteration 1517: prepared stored public policy injects lazy durable admission recording, awaits storage before handlers and owns repeatable shutdown; isolated HTTP persistence/refusal checks pass. Policy remains uninstalled; live account migrations, transactional outcomes, controller replacement and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

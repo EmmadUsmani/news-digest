@@ -20,6 +20,7 @@ snapshots.
 
 > [!NOTE]
 > Prepared admin-write admission storage records actor, method, path and time.
+> Its prepared public policy awaits storage before running an admin write.
 > It stays private and unapplied; these records describe attempts.
 > Deleting a reader removes admissions tied to that identity.
 >

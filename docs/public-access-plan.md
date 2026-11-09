@@ -432,8 +432,10 @@ same request clock; missing or failed storage still blocks writes. Durable recor
 0018: private admission rows contain only user/local-script actor, method,
 classified path and time. User deletion cascades these rows; operational and
 PUBLIC readers receive no access. The unregistered adapter rejects unclassified
-writes and query strings and propagates database failures. Runtime injection
-and transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
+writes and query strings and propagates database failures. Prepared runtime injection (iteration 1517) owns a lazy durable recorder and
+repeatable shutdown; disabled composition opens no account or storage resources.
+Isolated HTTP checks verify persisted admission and refuse handler execution when
+the database rejects the actor. Transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
 
 ## Target design
 

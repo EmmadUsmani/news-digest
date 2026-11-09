@@ -1,36 +1,3 @@
-## 2026-11-09: iteration 1502 — prepare explicit article-list response boundary
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources succeeded within two hours with zero stored errors; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
-- Added disconnected article-list projection: explicit topic/article fields, origin-only publisher display, nested extra-column stripping, independent null origins for rejected links and fixed storage/schema failure responses. Ordering and empty groups are retained.
-- Three offline tests cover private path/query/extra-column omission, mixed malformed URLs and storage/schema errors without validation details.
-- Updated response audit/TASKS. Configured title/source text and hostname approval, dedicated system reader and transport remain open; no route classification changes.
-- No live entrypoints/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of this preparation.
-- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
-- Full check passes 734 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining article review/reader/transport integration before promotion.
-
-## 2026-11-09: iteration 1503 — prepare system article database reader
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources healthy; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
-- Added disconnected `PublicArticlesReader`: explicit system topic/source/article columns, five newest distinct articles per enabled topic, empty groups and deterministic date/ID ordering; existing betting-path exclusion retained. Pool remains caller-owned; legacy profiles and ownership flags are never consulted.
-- Isolated storage test covers duplicate source observations, source-name selection, limits, ordering, disabled/empty topics, unset/off/on flags, absent legacy table, future private column, omitted private URL values and fixed missing-column errors with clean rollback/pool reuse.
-- Updated response audit/TASKS; archived iterations 1486–1487. Configured text/hostname review and transport integration remain required; routes stay restricted and accounts disabled. No live config/data/migrations/provider calls changed.
-- No restart under STEERING 22: live entrypoints do not import the new reader.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, saved-reader check and `git diff --check`. Initial check found archive formatting; fixed before rerun. Build passes with existing bundle warning; saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Full check passes 734 unit/263 integration tests with four expected skips; build passes.
-- Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof, configured article text/host review and gated article transport.
-
-## 2026-11-09: iteration 1504 — prepare gated article HTTP transport
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources healthy; jobs check passes and saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added disconnected article GET/HEAD controller and flag-gated module; disabled mode opens no storage/routes, unsafe prerequisites fail before storage opens. No write handlers or window endpoint.
-- Revalidate projected system-reader output at HTTP boundary: explicit fields, nested extra-column stripping, origin-only normalization with no stored-URL fallback and fixed 503 errors. Offline HTTP checks cover GET/HEAD, no-store, refused writes, malformed/empty groups, rejected origins, private columns/URLs and storage failures.
-- Updated TASKS and response audit. Configured title/source text and hostname review, combined installation and authorization remain required; accounts/public mode remain disabled.
-- No live entrypoints/config/data/migrations/provider calls changed; no restart under STEERING 22 because running services import none of this preparation.
-- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`.
-- Full check passes 736 unit/263 integration tests with four expected skips; build passes with existing bundle warnings.
-- Next: configured article text/hostname review and combined transport installation; normal 15:00 UTC phase-1 scheduled acceptance and live proxy proof remain pending.
-
 ## 2026-11-09: iteration 1505 — compose gated public article reads
 
 - Clean main/no leftovers; alerts/healthz clear and no failed user services. All 36 sources healthy; digest queue has no failures, with historical ingestion/social failures retained and current collection succeeding.
@@ -148,3 +115,14 @@
 - Handbook page check: no page/link/render errors; exits 1 for existing schema metadata warnings because eight prepared account tables remain unapplied on live DB.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass: 742 unit/264 integration tests, four expected skips. Existing bundle-size warning only.
 - Next: inject durable recorder, transactional mutation outcomes, controller replacement and live proxy proof; scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC.
+
+## 2026-11-09: iteration 1517 — inject durable public admin admission storage
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources and four queues pass; latest scheduled digest completed and next remains 15:00 UTC.
+- Prepared stored public policy injects the durable recorder into session-backed authorization, opens storage lazily on admitted writes, and owns repeatable shutdown. Closed policies refuse requests, including authorization already pending at shutdown.
+- Isolated HTTP coverage checks persisted actor/method/classified path/time, unauthorized refusal, empty private 503 on database rejection, repeated close and pending-authorization shutdown. No request bodies or query strings enter admission rows.
+- Updated TASKS, rollout plan and data-model handbook; archived iterations 1502–1504 to keep this file small. First full check caught unsorted new imports; fixed before rerun.
+- No live entrypoints, migrations, configuration, provider calls or UI changes. Accounts/public mode stay off. No restart under STEERING 22: running services do not import this preparation.
+- Handbook checker: 18 pages/three diagrams, no page/link/render errors; existing metadata warnings for eight unapplied private account tables remain.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass; 742 unit/265 integration passes, four expected skips. API rebuilt by isolated runner; existing web bundle warning only. Live reader retains four topics/19 stories/17 posts.
+- Next: transactional mutation outcomes, controller replacement and live proxy proof; scheduled Phase 1/X/Bluesky acceptance due at 15:00 UTC.
