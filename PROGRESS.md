@@ -1,23 +1,3 @@
-## 2026-11-09: iteration 1482 — deletion invalidates outstanding HTTP credentials
-
-- Clean main/no leftovers; alerts clear, healthz healthy, 36/36 sources fresh and digest queue has no failures. Historical ingestion/social failures remain retained; recent collections succeed.
-- Extended the installed HTTP/storage integration flow with two friend sessions, saved choices, a pending mailbox code and an unused invitation before deletion.
-- Deletion clears the caller cookie, refuses both device sessions, removes the identity and mailbox code, and rejects code/link replay without setting cookies or recreating the reader.
-- Disposable Postgres/Redis and private temporary mailbox only; no live writes, provider calls or runtime/config/UI changes. Accounts remain disabled. Updated activation checklist and archived iterations 1464–1466.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, source/queue snapshots and `git diff --check` pass.
-- Full check: 707 unit/254 integration tests pass, four expected skips. Build retains existing bundle warnings; saved reader retains four topics/19 stories/17 posts.
-- No restart under STEERING 22: deployed code/config unchanged. Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof; metrics passive check remains due no earlier than 06:27 UTC.
-
-## 2026-11-09: iteration 1483 — prepare default-deny public route classes
-
-- Clean main/no leftovers; alerts and healthz clear, 14/14 services and 36/36 sources healthy. Digest queue has no failures; next normal run remains 15:00 UTC.
-- Added an unregistered Phase 4 method/path classifier for current edition/account APIs and administrative controllers. Unknown operations and encoded, dot-segment, separator or case ambiguities return no class; no prefix-wide grants.
-- Anonymous credential exchanges remain admission-protected by account handlers; sync/deletion/logout classify as user, invitations/revocation as admin. Administrative reads stay restricted until their response audit.
-- Tests verify role separation, unsupported verbs, malformed paths, numeric job IDs and source IDs. Tools, assets, admin SPA, telemetry and identity discovery still need explicit audit; classifier performs no authentication and is not installed.
-- Updated the public-access plan and TASKS. Accounts stay disabled; no live data/config/access changes or provider calls. No restart under STEERING 22 because deployed entrypoints do not import the new module.
-- Verification: targeted policy tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, API rebuild and saved-reader check pass. Full check: 709 unit/254 integration tests pass, four expected skips; build retains existing chunk warning.
-- Saved Nov 8 reader unchanged: four topics/19 stories/17 posts. `git diff --check` passes. Next: Phase 1 normal scheduled acceptance and live proxy proof; continue gated public-read response audit while waiting. Metrics passive check due no earlier than 06:27 UTC.
-
 ## 2026-11-09: iteration 1484 — audit public administrative read boundaries
 
 - Clean main/no leftovers; alerts/healthz clear, 14 services and 36 sources healthy, digest queue has no failures. Historical ingestion/social failures retained; recent collection succeeds.
@@ -167,3 +147,14 @@
 - Verification: targeted disabled-composition HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated sources, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
 - Full check passes 726 unit/261 integration tests, four expected skips; build passes with existing bundle warnings. Targeted disabled HTTP, combined database/HTTP and saved-reader checks pass.
 - Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining public-route/frontend integration before promotion.
+
+## 2026-11-09: iteration 1500 — inventory stored article-link privacy boundaries
+
+- Clean main/no leftovers; alerts/healthz clear and no failed user units. All 36 sources succeeded within two hours, zero stored errors, 1,089 latest-response items; digest queue has no failures. Saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added read-only repeatable-read inventory of every stored canonical article link using a bounded 1,000-row cursor. Output contains only fixed aggregate counters; URL values, hosts, parameter names, parser errors and titles never enter the report.
+- Live inventories at 08:34/08:36 UTC agree: 7,299 links, zero malformed/credential-bearing, 7,293 public-HTTPS-policy passes/six rejections, 2,185 query-bearing and zero fragments. These counts do not approve paths/query values for public display; article routes stay restricted.
+- Offline adversarial checks cover overlapping risks and encoded delimiters; disposable Postgres verifies all 1,003 fixture rows, unchanged fingerprints and clean connection reuse after a missing-column failure.
+- Updated response audit/TASKS; archived iterations 1482–1483. No live app/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of these scripts.
+- Verification: targeted unit test, isolated integration suite, two live inventory runs, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
+- Fixed archived-note formatting found by the first check; rerun passes 728 unit/262 integration tests, four expected skips. Build passes with existing bundle warnings.
+- Next: reviewed article-link display policy/configured text and remaining public-route integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.

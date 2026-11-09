@@ -178,6 +178,27 @@ absent from main: it must replace overlapping legacy controllers, and needs the
 separate authorization gate before installation. Article listings still require
 stored URL/text review, including query-bearing links; they remain restricted.
 
+## Stored article-link inventory
+
+Run `pnpm exec tsx scripts/audit-article-links.ts` with the normal database
+configuration to inventory every stored canonical article link. The command uses
+a read-only repeatable-read transaction and a 1,000-row cursor, selecting only
+canonical URLs. Output contains fixed aggregate counters, never URL values,
+hostnames, parameter names, titles or exception details. It performs no network
+requests to publishers and no writes; success and query failure roll back before
+returning the connection. Tests cover multi-page scans, unchanged row fingerprints
+and connection reuse after an injected missing-column failure.
+
+Live snapshot, Nov 9 08:34 UTC (iteration 1500): 7,299 stored links; zero malformed
+or URL-credential-bearing links; 7,293 pass the existing public HTTPS URL policy,
+six fail it; 2,185 contain query strings; zero contain fragments. Counts overlap.
+The existing policy checks URL structure and host eligibility, not whether paths
+or query values contain private material. Passing it does not approve publication.
+Do not strip all query strings: publisher redirect/article identifiers may depend
+on them. Query-bearing and rejected links still need a reviewed display policy;
+configured article/source text review and public article transport remain open.
+This inventory changes no route classification or live response.
+
 ## Source locations
 
 - `apps/api/src/modules/operations/adapters/monitoring-alerts.ts`

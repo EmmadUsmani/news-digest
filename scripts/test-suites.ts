@@ -3,6 +3,7 @@ import { readdirSync } from 'node:fs';
 // Files exercising repositories, queues, or database-backed orchestration.
 // Keep mixed unit/integration files here until their cases are split.
 const integration = new Set([
+  'article-link-inventory.test.ts',
   'article-discovery.test.ts',
   'article-pool-database.test.ts',
   'bluesky-storage.test.ts',

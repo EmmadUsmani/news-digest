@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1499: combined gated schedule/topic/catalog/source-health composition shares one lazy pool; isolated cross-route HTTP/privacy/failure checks; live runtime remains disconnected. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1500: repeatable-read, bounded-cursor article-link inventory reports only aggregate counts; live 7,299 links include 2,185 query-bearing/six public-URL-policy rejections. Article URL/text review and public transport remain open. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
