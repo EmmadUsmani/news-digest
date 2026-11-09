@@ -21,3 +21,12 @@ isolated loopback server with fixture HTTP responses, without live accounts.
 
 The browser check covers disabled routing, CSP, no preview writes, code requests,
 refused codes, retry, keyboard redemption, success navigation and URL/storage privacy.
+
+## Prepared reader account panel
+
+`pnpm exec tsx scripts/smoke-reader-account.ts` exercises isolated fixture state
+and actions, including sign-in, sync failure/retry, both sign-out actions, busy
+controls and the disabled gate. The panel is not mounted in the live reader.
+
+- [Desktop account panel](reader-account-1440.png)
+- [Mobile account panel](reader-account-390.png)

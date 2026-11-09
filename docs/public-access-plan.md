@@ -310,7 +310,9 @@ delayed discovery after unmount. Prepared `/account/login` now supplies email-co
 disabled account gate, using same-origin POSTs and a restrictive CSP. It keeps
 credentials out of URLs and browser storage, clears submitted codes, preserves
 request eligibility privacy and redirects after successful exchange. Isolated
-desktop/mobile checks use fixture responses; reader navigation wiring and
+desktop/mobile checks use fixture responses. Prepared gated reader account panel
+shows sign-in, sync progress/failure, retry and single/all-device sign-out;
+failed actions preserve the controller’s retained choices. Header mounting and
 activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
