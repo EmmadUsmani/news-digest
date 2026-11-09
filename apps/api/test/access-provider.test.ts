@@ -140,3 +140,52 @@ void test('configured access selects private defaults and forwards public config
     assert.equal(closed, 1);
   }
 });
+
+void test('registered access module preserves private HTTP behavior with one runtime', async () => {
+  const { AccessModule } = await import('../src/public-write/access.module');
+  const { ACCOUNT_HTTP } =
+    await import('../src/modules/accounts/accounts.module');
+  const keys = ['PUBLIC_MODE', 'ACCOUNTS_ENABLED', 'ADMIN_EMAILS'] as const;
+  const previous = keys.map((key) => process.env[key]);
+  process.env.PUBLIC_MODE = '0';
+  process.env.ACCOUNTS_ENABLED = '0';
+  process.env.ADMIN_EMAILS = 'owner@example.test';
+  const app = await NestFactory.create(AccessModule, {
+    logger: false,
+    abortOnError: false,
+  });
+  try {
+    assert.throws(() => app.get(ACCOUNT_HTTP));
+    app.use(app.get<AccessHttpRuntime>(ACCESS_HTTP).middleware);
+    app.use((_request: unknown, response: { end: (body: string) => void }) => {
+      response.end('downstream');
+    });
+    await app.listen(0, '127.0.0.1');
+    const url = await app.getUrl();
+    assert.equal((await fetch(url + '/api/admin/settings')).status, 404);
+    const allowed = await fetch(url + '/api/admin/settings', {
+      headers: { 'X-ExeDev-Email': 'owner@example.test' },
+    });
+    assert.equal(await allowed.text(), 'downstream');
+    assert.deepEqual(await (await fetch(url + '/api/me')).json(), {
+      isAdmin: false,
+    });
+    assert.equal(
+      await (await fetch(url + '/api/editions')).text(),
+      'downstream',
+    );
+    assert.equal(
+      await (
+        await fetch(url + '/api/account/request-code', { method: 'POST' })
+      ).text(),
+      'downstream',
+    );
+  } finally {
+    await app.close();
+    keys.forEach((key, index) => {
+      const value = previous[index];
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    });
+  }
+});

@@ -18,7 +18,7 @@ type Dependencies = {
   >;
 };
 
-// Prepared only. All storage belongs to this runtime; no main registration yet.
+// All account and access storage belongs to this runtime.
 // The caller validates enablement and supplies the configured HTTPS origin.
 export async function prepareStoredAccessRuntime(
   options: Pick<

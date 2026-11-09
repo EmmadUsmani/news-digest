@@ -10,7 +10,7 @@ export type AccessHttpRuntime = {
   onModuleDestroy: () => Promise<void>;
 };
 
-// Prepared only: do not register alongside ACCOUNT_HTTP. This provider owns
+// Replaces ACCOUNT_HTTP. This provider owns
 // both account transport and authorization, before Nest installs body parsers.
 export function accessHttpProvider(
   options: Parameters<typeof prepareStoredAccessRuntime>[0],
@@ -28,8 +28,8 @@ export function accessHttpProvider(
   };
 }
 
-// Prepared only: environment selection stays outside the live module until
-// phase acceptance. Validate public prerequisites before opening any storage.
+// Public mode stays default-off pending phase acceptance. Validate public
+// prerequisites before opening any storage.
 export function configuredAccessHttpProvider(
   env: Readonly<Record<string, string | undefined>>,
   prepare = prepareStoredAccessRuntime,

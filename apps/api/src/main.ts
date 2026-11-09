@@ -2,7 +2,6 @@ import 'reflect-metadata';
 
 import { NestFactory } from '@nestjs/core';
 
-import { adminAccess } from './admin-access';
 import { AppModule } from './app';
 import { internalTools, proxyInternalTools } from './internal-tools';
 import { startExternalMetrics } from './libs/observability/external-metrics';
@@ -14,13 +13,13 @@ import {
 } from './libs/observability/logging';
 import { startQueueMetrics } from './libs/observability/queue-metrics';
 import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
-import {
-  ACCOUNT_HTTP,
-  type AccountHttpRuntime,
-} from './modules/accounts/accounts.module';
 import { startBudgetMetrics } from './modules/operations/adapters/budget-metrics';
 import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
+import {
+  ACCESS_HTTP,
+  type AccessHttpRuntime,
+} from './public-write/access-provider';
 
 async function bootstrap() {
   installFatalLogging();
@@ -38,16 +37,9 @@ async function bootstrap() {
   });
   app.use(requestLogging());
   app.use(httpMetrics(registry));
-  // Mount before Nest installs body parsers so account request limits apply
-  // while reading the stream. The disabled factory opens no account resources.
-  const accounts = app.get<AccountHttpRuntime>(ACCOUNT_HTTP);
-  if (accounts.middleware) app.use(accounts.middleware);
-  app.use(
-    adminAccess({
-      emails: process.env.ADMIN_EMAILS,
-      localToken: process.env.ADMIN_LOCAL_TOKEN,
-    }),
-  );
+  // One runtime owns bounded account transport and the selected authorization
+  // guard. Mount before Nest installs body parsers or tool proxies.
+  app.use(app.get<AccessHttpRuntime>(ACCESS_HTTP).middleware);
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
   const queues = app.get(OperationsStatus).queues;

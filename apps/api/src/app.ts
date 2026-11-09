@@ -14,12 +14,12 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { checkDatabase, database, redis } from './libs/db/connections';
-import { AccountsModule } from './modules/accounts/accounts.module';
 import { DigestsModule } from './modules/digests/digests.module';
 import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { OperationsModule } from './modules/operations/operations.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 import { TopicsModule } from './modules/topics/topics.module';
+import { AccessModule } from './public-write/access.module';
 @Injectable()
 class HealthService implements OnModuleDestroy {
   readonly db = database();
@@ -54,7 +54,7 @@ class HealthController {
 }
 @Module({
   imports: [
-    AccountsModule,
+    AccessModule,
     OperationsModule,
     DigestsModule,
     IngestionModule,

@@ -148,3 +148,12 @@
 - Four focused tests pass, including six invalid public configurations refused before storage acquisition and private/public forwarding. Updated rollout plan/TASKS; no live flags, routes, migrations, UI, generation or provider calls changed.
 - Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 763 unit/268 integration passes, four expected skips. First full check stopped on progress-entry formatting; corrected and rerun green. Existing bundle-size warning only.
 - No deployment/restart under STEERING 50's 13:00–16:00 UTC hold; provider remains unregistered and accounts disabled. Next: normal 15:00 scheduled acceptance, live mounting, atomic queue effects and proxy proof.
+
+## 2026-11-09: iteration 1534 — register one application access owner
+
+- Clean main/no leftovers; alerts and healthz healthy at orientation.
+- AppModule now imports one AccessModule instead of AccountsModule; main mounts the combined runtime before body parsers/tool proxies and removes its separate legacy guard. Private selection preserves the existing guard and disabled accounts open no resources.
+- Five focused access-provider tests pass, including real registered-module HTTP acceptance: private admin refusal/allow, identity response, reader and disabled account pass-through, and no old ACCOUNT_HTTP provider. Initial disabled-account assertion incorrectly expected 404 from a catch-all test handler; corrected to verify pass-through.
+- Updated rollout plan/TASKS; no flags, migrations, UI, generation or live provider calls changed. Public/accounts activation remains disabled.
+- Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 764 unit/268 integration passes, four expected skips. Existing bundle-size warning only. Final healthz healthy; latest saved edition available; no failed user services.
+- No deployment/restart during the 13:00–16:00 UTC owner hold. Next: 15:00 scheduled acceptance, permitted deployment, public activation prerequisites and atomic queue effects.
