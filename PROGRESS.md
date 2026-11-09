@@ -158,3 +158,13 @@
 - Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` twice, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook checker and diff check pass.
 - Full check: 707 unit/254 integration tests pass, four expected skips. Handbook has expected metadata notices for unapplied account tables; build has its existing chunk-size warning.
 - No service restart under STEERING 22. Next: 15:00 UTC scheduled acceptance and live proxy proof; metrics passive check due no earlier than 06:27 UTC.
+
+## 2026-11-09: iteration 1481 — exact admin expiry rejects HTTPS writes
+
+- Clean main/no leftovers; health and alerts clear, 14 services/36 sources healthy, digest queues pass `pnpm obs jobs --check`.
+- Extended composed desktop/mobile HTTPS acceptance: link issuance succeeds one millisecond before seven-day admin expiry; at expiry, invitations and session revocation return 403 despite daily cookie renewal.
+- Refused writes set no cookie and leave fixture links/sessions/audit unchanged; the same stale admin retains ordinary reader sync. Production transport/composition, fixture storage only; no live account writes or provider calls.
+- Updated activation checklist; no runtime/config/UI changes, accounts stay disabled. Discarded an incidental regenerated screenshot; no restart required under STEERING 22.
+- Verification: composed browser smoke twice, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and diff check pass. Full check: 707 unit/254 integration tests pass, four expected skips; saved reader retains four topics/19 stories/17 posts.
+- Handbook checker exits 1 solely for 14 existing metadata warnings referencing seven unapplied account tables; 18 pages/diagrams otherwise checked. Previous entries calling this a pass were inaccurate.
+- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof. Metrics passive check not due before 06:27 UTC.

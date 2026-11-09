@@ -338,9 +338,37 @@ async function main() {
       now = new Date(issuedAt + 7 * 86_400_000 - 1);
       const fresh = await context.request.get(`${origin}/api/account/session`);
       assert.deepEqual(await fresh.json(), { signedIn: true, isAdmin: true });
+      const privilegedWrite = (path: string, data: unknown) =>
+        context.request.post(`${origin}/api/account/${path}`, {
+          headers: { Origin: origin },
+          data,
+        });
+      const lastFreshLink = await privilegedWrite('links', {
+        email: friendEmail,
+      });
+      assert.equal(lastFreshLink.status(), 201);
+      const linkCount = links.size;
+      const sessionCount = sessions.size;
       now = new Date(issuedAt + 7 * 86_400_000);
       const stale = await context.request.get(`${origin}/api/account/session`);
       assert.deepEqual(await stale.json(), { signedIn: true, isAdmin: false });
+      // Cookie renewal never extends privileged authority. Test real writes,
+      // rather than relying only on the session endpoint's displayed role.
+      for (const [path, data] of [
+        ['links', { email: friendEmail }],
+        ['sessions/revoke', { userId: friendId }],
+      ] as const) {
+        const denied = await privilegedWrite(path, data);
+        assert.equal(denied.status(), 403);
+        assert.equal(denied.headers()['cache-control'], 'no-store');
+        assert.equal(denied.headers()['set-cookie'], undefined);
+      }
+      assert.equal(links.size, linkCount);
+      assert.equal(sessions.size, sessionCount);
+      assert.equal(audits.length, 0);
+      const staleReader = await privilegedWrite('sync', emptyState);
+      assert.equal(staleReader.status(), 200);
+      assert.deepEqual(await staleReader.json(), emptyState);
       // Server sessions survive the browser cookie lifetime; visits renew it.
       now = new Date(issuedAt + 401 * 86_400_000);
       const persistent = await context.request.get(

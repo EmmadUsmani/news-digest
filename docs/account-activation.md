@@ -27,6 +27,8 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   session lookup, daily cookie renewal, seven-day admin freshness, persistent
   reader access, two independent device cookies, device-scoped/all-device logout,
   revoked-cookie replay, expiry, exhaustion, code replay and cross-origin refusal.
+  At the exact seven-day boundary, renewed cookies cannot issue links or revoke
+  sessions; refused writes preserve fixture storage while reader sync still works.
   Admin-issued links also cross the real HTTPS boundary: fragment-only preview,
   exact expiry, explicit confirmation, secure session exchange and replay/reload
   refusal. Deletion rejects incorrect confirmation and cross-origin requests, then
