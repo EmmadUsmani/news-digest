@@ -419,6 +419,16 @@ exception. Duplicate headers refuse before downstream handlers. This guard does
 not grant authorization and remains uninstalled alongside the prepared policy;
 live proxy proof, audit enforcement and controller replacement remain promotion gates.
 
+Prepared admin-write admission (iteration 1513) now requires a trusted UUID actor
+or explicit local-script actor and awaits a durable audit recorder before the
+handler can run. Missing identity/recorder or storage failure refuses with an
+empty 503; unauthorized requests never reach the recorder. Entries contain only
+actor, method, classified path and time; query strings, bodies and credentials
+are excluded. Admission records attempted execution, not successful mutation.
+The recorder, actor composition and transactional mutation outcomes still need
+implementation; the current account composition deliberately cannot admit admin
+writes. This policy remains uninstalled and changes no live access.
+
 ## Target design
 
 ### System-level data

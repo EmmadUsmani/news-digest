@@ -48,7 +48,7 @@ void test('prepared public authorization enforces route classes over real HTTP',
     await check('/api/admin/topics', 404, 'POST');
     principal = { freshAdmin: true };
     await check('/api/admin/profile', 204);
-    await check('/api/admin/topics', 204, 'POST');
+    await check('/api/admin/topics', 503, 'POST');
     await check('/api/admin/unknown', 404);
     fail = true;
     await check('/api/admin/profile', 503);

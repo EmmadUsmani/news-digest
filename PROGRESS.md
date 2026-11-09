@@ -140,3 +140,13 @@
 - First replay exposed a mobile test setup race: storage could be consumed before reload while the page mounted. Waiting for the create form before seeding fixes it; complete four-case rerun passes. Refreshed and visually inspected 12 screenshots.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, browser replay and `git diff --check` pass; existing bundle warnings. Combined check received SIGTERM after all 741 unit/263 integration passes (four skips); standalone `pnpm check` retry exits successfully with the same counts.
 - No restart under STEERING 22: only verification/screenshots/task records changed. Accounts/public mode remain off. Next: account audit enforcement/controller replacement/proxy proof and normal 15:00 scheduled Phase 1 acceptance.
+
+## 2026-11-09: iteration 1513 — prepare fail-closed admin-write audit admission
+
+- Clean main/no leftovers; alerts clear, healthz/services healthy, 36 sources and four queues pass checks. Saved reader remains four topics/19 stories/17 posts; no provider calls, live migrations or configuration changes.
+- Prepared public authorization now requires a trusted UUID/local-script actor and an awaited audit recorder before any classified admin write reaches its handler. Missing recorder/actor, invalid UUID or persistence failure returns empty no-store 503; unauthorized requests do not record or execute.
+- Admission entries copy only actor, method, classified path and time, excluding query strings, request bodies and credentials. They record attempted execution, not successful mutation; transactional outcome audit remains necessary.
+- Real HTTP tests verify delayed persistence blocks execution, storage failures prevent writes, refusals stay private, reads/disabled mode bypass recording and both actor types work. Existing authorization test now expects writes without a recorder to refuse.
+- Updated TASKS/public-access plan. Durable recorder, trusted account/local actor composition, transactional mutation audit, controller replacement and live proxy proof remain open. Normal 15:00 scheduled Phase 1 acceptance still required.
+- Verification: five targeted HTTP tests, pnpm format, pnpm lint:fix, pnpm build and pnpm check pass (742 unit/263 integration, four expected skips); existing bundle warning only. git diff --check passes.
+- No restart under STEERING 22: live entrypoints do not import this prepared policy. Accounts/public mode remain off.

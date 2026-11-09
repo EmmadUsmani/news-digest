@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1512: repaired legacy resumed-job smoke replay for the current private-test UI; refreshed desktop/mobile light/dark recovery screenshots. Public account audit/controller/proxy gates remain next.
+- [x] Iteration 1513: prepared fail-closed admin-write audit admission; real HTTP checks verify persistence precedes handlers and private request data is excluded. Durable recorder/actor wiring, transactional outcomes, controller replacement and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
