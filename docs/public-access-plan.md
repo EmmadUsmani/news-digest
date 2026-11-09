@@ -762,8 +762,9 @@ errors. Direct authenticated local scripts retain their Origin exemption. This
 transport now participates in the default-off public write runtime (iteration
 1538), sharing the source writer pool and bypassing standalone admission and
 legacy controllers. Topic-order writes use the same atomic routing boundary;
-malformed topic-enable targets terminate before controllers. Public activation
-and deployment await acceptance and a permitted deployment window.
+malformed topic-enable targets terminate before controllers. The default-off API
+runtime was deployed at 16:06 UTC Nov 9 (iteration 1548).
+Public activation still awaits acceptance and verified proxy forwarding.
 
 Prepared topic-order persistence validates the complete system catalog and shares
 its catalog lock with legacy topic creation, deletion and reordering. Ordering
@@ -777,4 +778,6 @@ writes. The transport now participates in the default-off public write runtime
 Order requests, including malformed variants, terminate before standalone
 admission and legacy controllers. Isolated composed HTTP/storage checks cover
 changed/unchanged outcomes, stale catalogs and audit-failure rollback. Accounts
-and public mode remain disabled; live proxy proof and deployment remain pending.
+and public mode remain disabled. Iteration 1548 deployed the prepared API runtime
+from `5fc1fac0` without migrations or flag changes; latest/history response hashes
+and the Nov 9 scheduled reader are unchanged. Live proxy proof remains pending.
