@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared public authorization (iteration 1585) checks connection liveness after
+session authentication and durable admin-write admission. Disconnected requests
+cannot start downstream controllers; disconnects during authentication also skip
+audit admission. An audit already started may finish. Offline HTTP tests cover
+both waits and subsequent connected recovery. Accounts/public remain disabled.
+
 Prepared account routes (iteration 1584) reject multiple wire-level Cookie fields
 before authentication or account writes, including mixed-case header names.
 Offline HTTP checks cover session reads, redemption and logout-all refusal with

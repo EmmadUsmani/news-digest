@@ -65,6 +65,7 @@ export function publicAccess(
       response.writeHead(503).end();
       return;
     }
+    if (request.aborted || response.destroyed) return;
     if (principal?.cookie) response.setHeader('set-cookie', principal.cookie);
     if (!principal || (access === 'admin' && !principal.freshAdmin)) {
       response.writeHead(404).end();
@@ -99,6 +100,7 @@ export function publicAccess(
         return;
       }
     }
+    if (request.aborted || response.destroyed) return;
     next();
   };
 }

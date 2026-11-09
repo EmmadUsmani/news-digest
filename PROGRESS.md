@@ -151,3 +151,12 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 791 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
 - Pushed `5da85e54`; restarted API/worker. Post-restart health, zero alerts, all 14 services and scheduled-reader verification pass: four topics/19 stories/14 posts.
 - Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.
+
+## 2026-11-09: iteration 1585 — stop disconnected public authorization dispatch
+
+- Clean main/no leftovers; initial alerts and health pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Prepared public authorization checks liveness after asynchronous authentication and durable admin admission, before controller dispatch. Disconnect during authentication also skips audit admission; an audit already started may finish. Accounts/public stay off pending item 53.
+- Offline real HTTP tests disconnect during each wait: zero controller calls, expected audit counts, then successful connected recovery. Updated readiness plan/TASKS; no active handbook or source behavior changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 792 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. Targeted public-access HTTP tests pass (2); `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
+- API/worker restarted; first health probe raced startup, retry passed. Post-restart health, all 14 monitored services, zero alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
+- Next: Phase 4 preparation behind flags; production visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.
