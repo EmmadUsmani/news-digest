@@ -98,3 +98,14 @@ Earlier entries: [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (typecheck/lint/format/boundaries, 774 unit, 272 integration/four expected skips), workspace build and final API rebuild pass. `git diff --check` passes. Archived iterations 1552–1559 to keep this file small.
 - API/worker restarted; immediate health probe raced startup, subsequent `pnpm obs health --check`, service check, alerts and scheduled-reader gate pass. No generation changes.
 - Next: owner proxy rerun before Phase 3 activation; complete broader Phase 4 rehearsal behind flags. Metrics probe not due until 19:36 UTC.
+
+## 2026-11-09: iteration 1569 — restore the composed public policy rehearsal
+
+- Clean main/no leftovers; health passes. RecentJobFailures traces to Kotaku's scheduled HTTP 522 retries, exhausted at 19:30 UTC; last success remains 18:26/20 items. No bypass, paid calls, migrations or flag changes.
+- Added `pnpm exec tsx scripts/check-public-policies.ts`: nine sequential offline browser checks against the current prepared stack, fail-fast with a two-minute limit per check. Live widget/proxy acceptance remains separate.
+- First run caught a real rehearsal regression: tightened script CSP blocks the form probe's inline observer. Moved observation into Playwright initialization; policy remains unchanged. The runner correctly stopped on failure.
+- Rerun passes all nine admission/refusal/private rollback checks (synthetic traffic only). Targeted access-stack/runtime/route/static HTTP tests pass 9/9. No product UI change or screenshot update.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 774 unit, 272 integration/four expected skips. Workspace build passes with the existing bundle-size warning; `git diff --check` passes.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 19:36: 23 healthy rules, four queries ≤0.763 s, zero new evaluator errors/misses/timeouts/slow queries, one small merge/no large merge. Next passive probe ≥20:36 UTC.
+- API/worker restarted after build; startup health retry then `pnpm obs health --check` passes. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Alerts retain only the explained Kotaku warning.
+- Updated TASKS, source health and public readiness instructions. Next: Kotaku natural recovery; owner item 53 rerun before Phase 3; broader Phase 4 rehearsal behind disabled flags.

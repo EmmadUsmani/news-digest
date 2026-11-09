@@ -39,9 +39,7 @@ async function main() {
       response.setHeader('Content-Type', 'text/html; charset=utf-8');
       response.end(`<form action="${foreignOrigin}/submitted" method="post">
         <button>Foreign</button></form>
-        <form action="/submitted" method="post"><button>Local</button></form>
-        <script>window.violations=[];document.addEventListener('securitypolicyviolation',
-        event=>window.violations.push(event.effectiveDirective));</script>`);
+        <form action="/submitted" method="post"><button>Local</button></form>`);
     });
   });
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -51,6 +49,13 @@ async function main() {
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await browser.newPage();
+    await page.addInitScript(() => {
+      const violations: string[] = [];
+      Object.assign(window, { violations });
+      document.addEventListener('securitypolicyviolation', (event) => {
+        violations.push(event.effectiveDirective);
+      });
+    });
     await page.goto(origin);
     await page
       .getByRole('button', { name: 'Foreign' })

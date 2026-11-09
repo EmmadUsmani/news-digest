@@ -449,7 +449,12 @@ JavaScript/CSS/WOFF2 files in the built assets directory at access-stack creatio
 Unknown files, source maps, symlinks, directories, alternate spellings and writes
 remain denied. Restart after replacing a build. The live widget checker
 `--review-routing` option rehearses anonymous reader admission alongside CSP.
-Full Phase 4 rehearsal and proxy acceptance remain open.
+`pnpm exec tsx scripts/check-public-policies.ts` runs all nine offline browser
+policy checks against the current prepared stack, including private rollback.
+It stops on the first failure and limits each check to two minutes. Iteration
+1569 passes all nine after moving the form probe's observer out of inline HTML,
+which the script policy correctly blocks. These are synthetic browser checks;
+live widget/routing checks, full Phase 4 rehearsal and proxy acceptance remain separate.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

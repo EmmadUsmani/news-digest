@@ -1235,7 +1235,9 @@ social request, paid discovery, inference or publication was needed for this UI.
 
 - Nov 9 iteration 1566: scheduled retry exhausted with upstream HTTP 522 at
   19:00 UTC; an explicit feed GET also returned 522. Iteration 1568 at 19:24 UTC
-  still reports Kotaku in error, the only unhealthy source among 36. Last successful collection
+  still reports Kotaku in error, the only unhealthy source among 36. Iteration
+  1569 confirms three more scheduled HTTP 522 attempts, exhausted at 19:30 UTC;
+  these explain the RecentJobFailures alert. Last successful collection
   was 18:26 UTC (20 items). Keep the existing schedule; no bypass or adapter
   change for an origin timeout. Recheck recovery next iteration.
 
