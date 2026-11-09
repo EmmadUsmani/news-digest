@@ -1,42 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1567 — enforce prepared public script allowlist
-
-- Owner-visible value: resolves the public script-policy blocker while retaining all saved X embeds and reader themes; no unsafe inline/eval exceptions.
-- Clean main/no leftovers; health/alerts clear. Kotaku explicit GET remains HTTP 522 at 19:09 UTC; all 36 sources succeeded within an hour, digest queue zero failures. No paid calls or flag/configuration changes.
-- Source coordinates trace prior reports to app theme startup and Zod's eval probe/generated validators, correcting earlier widget attribution. Moved theme startup to blocking `/theme.js`; browser-only early `jitless` initialization preserves server behavior.
-- Prepared CSP now permits only same-origin/platform.twitter.com scripts. `pnpm exec tsx scripts/check-public-script-policy.ts` passes synthetic admission, inline/eval/lookalike refusal and private rollback; event-handler checker passes.
-- Live saved-widget checker passes 40 desktop/mobile light/dark views; second `--review-scripts` run reports zero violations and verifies automatic themes. Refreshed/inspected mobile-dark video screenshot; theme-target smoke passes 24 reader route/view combinations, keyboard/reload included.
-- Initial enforcing browser run overlapped the first build and caught old inline/eval assets; discarded that evidence and reran after build completion. Build passes with existing warnings.
-- Updated public readiness plan, script review, runtime handbook and owner note. Handbook renders 18 pages/one diagram; exits 1 only for existing unapplied-account metadata warnings.
-- `pnpm check` passes typecheck/lint/format/boundaries, 773 unit and 272 integration tests (four expected skips). `pnpm format`, `pnpm lint:fix`, final build and `git diff --check` pass.
-- API/worker restart and post-restart health/alerts/scheduled-reader verification recorded before commit.
-- Next: item 53 owner rerun before Phase 3; complete public static-resource routing (including `/theme.js`) and full Phase 4 rehearsal. Accounts/public remain off; metrics probe not due until 19:36 UTC.
-
-## 2026-11-09: iteration 1568 — prepare exact public static-file admission
-
-- Clean main/no leftovers; initial health/alerts clear. Accounts/public remain off awaiting item 53 owner rerun; no paid calls, migrations or flag changes.
-- Prepared public authorization snapshots deployed theme/JS/CSS/WOFF2 paths once per middleware; no asset-prefix grant. Unknown files, source maps, symlinks, directories, ambiguous spellings and writes stay denied. Missing builds fail closed; restart refreshes the snapshot.
-- `pnpm exec tsx --test apps/api/test/public-static-routes.test.ts apps/api/test/public-route-policy.test.ts apps/api/test/public-access.test.ts`: 5/5 pass (fixture files, admission/refusal and HTTP authorization).
-- `pnpm exec tsx scripts/check-public-live-embeds.ts --review-routing`: all 40 real saved X views pass desktop/mobile light/dark, five built resources admitted per view, zero denied reader requests or document CSP violations; no remote writes. Existing screenshots remain representative; manifest updated.
-- Updated runtime handbook, readiness plan and source health note. `pnpm exec tsx scripts/check-handbook.ts 01-stack-and-runtime` renders 18 pages/one unchanged diagram; only existing unapplied-account schema metadata warnings remain after fixing the page length.
-- Kotaku still the only unhealthy source at 19:24 UTC (35/36 healthy); last success 18:26/20 items, prior scheduled retry HTTP 522. No bypass or source adapter change. Scheduled reader passes four topics/19 stories/14 posts; retained digest queue has zero failures.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (typecheck/lint/format/boundaries, 774 unit, 272 integration/four expected skips), workspace build and final API rebuild pass. `git diff --check` passes. Archived iterations 1552–1559 to keep this file small.
-- API/worker restarted; immediate health probe raced startup, subsequent `pnpm obs health --check`, service check, alerts and scheduled-reader gate pass. No generation changes.
-- Next: owner proxy rerun before Phase 3 activation; complete broader Phase 4 rehearsal behind flags. Metrics probe not due until 19:36 UTC.
-
-## 2026-11-09: iteration 1569 — restore the composed public policy rehearsal
-
-- Clean main/no leftovers; health passes. RecentJobFailures traces to Kotaku's scheduled HTTP 522 retries, exhausted at 19:30 UTC; last success remains 18:26/20 items. No bypass, paid calls, migrations or flag changes.
-- Added `pnpm exec tsx scripts/check-public-policies.ts`: nine sequential offline browser checks against the current prepared stack, fail-fast with a two-minute limit per check. Live widget/proxy acceptance remains separate.
-- First run caught a real rehearsal regression: tightened script CSP blocks the form probe's inline observer. Moved observation into Playwright initialization; policy remains unchanged. The runner correctly stopped on failure.
-- Rerun passes all nine admission/refusal/private rollback checks (synthetic traffic only). Targeted access-stack/runtime/route/static HTTP tests pass 9/9. No product UI change or screenshot update.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 774 unit, 272 integration/four expected skips. Workspace build passes with the existing bundle-size warning; `git diff --check` passes.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 19:36: 23 healthy rules, four queries ≤0.763 s, zero new evaluator errors/misses/timeouts/slow queries, one small merge/no large merge. Next passive probe ≥20:36 UTC.
-- API/worker restarted after build; startup health retry then `pnpm obs health --check` passes. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Alerts retain only the explained Kotaku warning.
-- Updated TASKS, source health and public readiness instructions. Next: Kotaku natural recovery; owner item 53 rerun before Phase 3; broader Phase 4 rehearsal behind disabled flags.
+Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1570 — rehearse configured public HTTP access
 
@@ -148,4 +112,13 @@ Earlier entries: [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.
 - Prepared API admission now checks request abortion/response closure after its asynchronous decision, preventing disconnected callers from starting account or controller work. Real HTTP tests cover late allowance and refusal; accounts/public remain off awaiting item 53 owner rerun.
 - Updated readiness plan/TASKS. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 785 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; initial curl raced startup, retry passed. Health/14 services and scheduled-reader verification pass (four topics/19 stories/14 posts). No source or handbook behavior changed.
+- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.
+
+## 2026-11-09: iteration 1581 — keep public Nest errors private
+
+- Clean main/no leftovers; alerts, health and 14 services pass. Sources healthy; digest queue failed count zero. No paid calls, migrations, flags or generation changes.
+- Added public-mode-only Nest exception filtering: empty no-store responses preserve failure status without exposing parser input, controller exception messages or stack traces. Private mode retains existing handling; accounts/public remain off awaiting item 53 owner rerun.
+- Offline real Nest HTTP test checks GET/HEAD errors, invalid JSON, oversized JSON and missing routes (400/404/413/500); rejected parser bodies never reach the controller. Updated readiness plan/TASKS; archived iterations 1567–1569 to keep PROGRESS small. No active source/handbook behavior changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 786 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
+- API/worker restarted; initial curl raced startup, retry passed. Post-restart health/14 services, alerts and scheduled-reader verification pass (four topics/19 stories/14 posts).
 - Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.

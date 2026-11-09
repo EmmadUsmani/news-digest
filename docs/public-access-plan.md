@@ -393,6 +393,14 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Public-mode Nest error handling (iteration 1581) now returns empty, no-store
+responses while preserving HTTP failure status. Controller exceptions, malformed
+JSON, oversized parser bodies and unknown routes cannot echo submitted values or
+internal exception messages. The filter installs only with `PUBLIC_MODE=1`;
+account and prepared write transports retain their own empty error responses.
+Offline Nest HTTP coverage checks 400/404/413/500, GET/HEAD and refusal before
+controller execution for malformed or oversized JSON. Activation remains blocked.
+
 Prepared general API admission (iteration 1572) uses one atomic Redis fixed-window
 counter per HMAC-hashed client, shared across API instances. Its provisional
 allowance is 120 requests/minute; denied attempts do not extend the window.

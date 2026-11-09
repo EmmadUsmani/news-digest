@@ -20,6 +20,7 @@ import {
   ACCESS_HTTP,
   type AccessHttpRuntime,
 } from './public-write/access-provider';
+import { PublicErrorFilter } from './public-write/public-error-filter';
 
 async function bootstrap() {
   installFatalLogging();
@@ -35,6 +36,8 @@ async function bootstrap() {
       verbose: (message: unknown) => logger.trace({ message }, 'Nest'),
     },
   });
+  if (process.env.PUBLIC_MODE === '1')
+    app.useGlobalFilters(new PublicErrorFilter());
   app.use(requestLogging());
   app.use(httpMetrics(registry));
   // One runtime owns bounded account transport and the selected authorization
