@@ -140,3 +140,15 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Read-only tsx assertions pass: World gate/sports counts, empty selection, open slots, exact Tech replacement ID and preserved X order. Updated daily review, SOURCES and TASKS; social acceptance remains open.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes, inference, application-data writes, migrations or flags.
 - No restart/deployment during owner's 13:00–16:00 UTC hold; public/accounts remain off. Next: paid novelty, Bluesky destinations and phase-1 scheduled ownership/original-response/browser parity.
+
+## 2026-11-09: iteration 1544 — accept Phase 1 after scheduled publication
+
+- Clean main/no leftovers; alerts clear; obs health/services/sources --check pass: database/Redis, 14 services and 36 sources healthy.
+- API/worker read-only process checks verify SYSTEM_OWNERSHIP=1, both started before today's normal full-AI scheduled publication; SQL confirms published scheduled kind/key and rollback default-profile owner.
+- Live read-only rehearse-system-reads.ts verifies all 553 saved editions, complete reader/adapter responses, both publication filters, history, topics/settings across process-local off/on/off; no live service flag changes.
+- check-scheduled-reader.ts passes four topics/19 stories/14 posts; compare-publication-content.ts verifies five original committed response hashes.
+- Fresh inventory-editions.ts plus smoke-publication-candidates.ts passes all seven published editions API/per-topic counts/titles, desktop/mobile light/dark; external traffic and writes blocked. Initial ad hoc SQL omitted default URL and failed; corrected connection passes.
+- Phase 1 accepted/acked; updated rollout/activation plan, daily receipt and TASKS. Prior live private AI-off/AI-on and restore/rollback evidence retained; no new provider calls or application writes.
+- Development totals remain Anthropic $0.211076/xAI $0. No migrations, deployment or restarts during 13:00–16:00 hold; accounts/public remain off.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes.
+- Next: Phase 3 proxy proof and guarded activation; daily paid-candidate novelty/Bluesky destinations remain open.

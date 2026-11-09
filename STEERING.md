@@ -2228,6 +2228,8 @@ ack: 2026-11-08 item 50 phase 0 — iteration 1386: normal Nov 8 publication wit
 
 ack: 2026-11-08 item 50 phase 2 — iteration 1386: normal Nov 8 publication with served reader preferences enabled; iteration 1381 desktop/mobile light/dark checks verify topic hiding and story/post bookmarks across reload, cross-tab and historical editions, with inspected refreshed screenshots. Choices: browser-local storage, no account/backend dependency; live development spend $0 for both providers. Phase 2 complete; phase 1 next, no public-access authorization.
 
+ack: 2026-11-09 item 50 phase 1 — iteration 1544: normal Nov 9 full-AI scheduled publication with SYSTEM_OWNERSHIP=1 in API/worker before the run; published row preserves default-profile rollback ownership. All 553 editions, complete reader/adapter responses, publication filters, topics and settings pass read-only off/on/off; five original response hashes unchanged; all seven published editions pass desktop/mobile light/dark rendered counts/titles. Prior AI-off/AI-on private and restore/rollback checks remain valid. Development charged Anthropic $0.211076, xAI $0; no new calls/holds. Phase 1 complete; Phase 3 next, accounts/public flags remain off pending live proxy proof and activation checks. Evidence: docs/edition-reviews/2026-11-09.md.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`

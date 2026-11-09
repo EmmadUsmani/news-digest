@@ -6,7 +6,8 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
 
 ## Prerequisites
 
-- Accept Phase 1 only after its normal scheduled edition and reader comparison.
+- Phase 1 passed the Nov 9 scheduled edition and reader comparison
+  ([receipt](edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544)).
 - Work outside 13:00–16:00 UTC. Preserve the edition-generation noon cutoff.
 - Verify health, alerts, sources and digest jobs before starting.
 - Prove the live proxy immediate peer and appended client-address behavior,

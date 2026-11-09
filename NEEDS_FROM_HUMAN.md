@@ -48,7 +48,8 @@ cannot connect to `https://news-digest.exe.xyz/healthz` (curl connection failure
 A five-minute private alternate-port browser diagnostic is prepared; instructions
 are in [account activation](docs/account-activation.md). Its isolated checks use
 simulated forwarding and do not establish live trust. Accounts remain disabled;
-no immediate owner action is requested before Phase 1 scheduled acceptance.
+Phase 1 was accepted Nov 9 (1544). Live proxy proof still gates account
+activation; no account/public flag has been enabled.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 

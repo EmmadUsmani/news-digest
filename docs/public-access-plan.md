@@ -26,7 +26,7 @@ skipping an edition. End state:
 This supersedes `MISSION.md` "Profiles now, accounts later": readers are not
 mapped to profiles, and profiles go away.
 
-## Where things stand (verified 2026-11-08)
+## Where things stand (verified 2026-11-09)
 
 - Privacy comes only from exe.dev's proxy, which makes visitors log in to
   exe.dev first. The reader routes have no authentication of their own.
@@ -80,7 +80,8 @@ mapped to profiles, and profiles go away.
   Gaming used Haiku editing, while three topics retained labelled fallback output.
   Development Anthropic charges are $0.211076 across 38 calls, with zero holds
   and no production calls. Live development editing was disabled again after the check.
-  Normal scheduled acceptance remains pending.
+  Normal scheduled acceptance passed Nov 9 (iteration 1544); see the
+  [scheduled acceptance receipt](edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544).
   The private restored-copy SQL rehearsal passes for both Phase 1 migrations:
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
@@ -99,7 +100,10 @@ mapped to profiles, and profiles go away.
   Live flag-on AI-off generation also passes; the complete read-only off/on/off
   comparison now covers 552 editions, including both new private tests. The AI-on
   test keeps default-profile rollback ownership and stays unpublished; existing
-  reader responses are unchanged. Scheduled acceptance remains required before phase closure.
+  reader responses are unchanged. Nov 9 scheduled acceptance closes Phase 1:
+  all 553 saved editions retain
+  off/on/off parity, all five original reader hashes match, and seven published
+  editions pass desktop/mobile light/dark rendered counts and titles.
   Recheck a saved private edition without provider calls using
   `pnpm exec tsx apps/api/scripts/smoke-previews.ts --edition UUID`.
   Repeat the live read-only comparison with `/usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/rehearse-system-reads.ts --live-read-only`. It forces
@@ -143,8 +147,9 @@ real Postgres and Redis, cross-runtime session authentication, concurrent single
 friend redemption, non-admin issuance refusal and all-device logout isolation.
 This does not register routes or enable accounts.
 
-Phase 3 preparation has begun while phase 1 awaits private generation checks and
-scheduled acceptance. Unapplied migration `0013` adds independent `users` and
+Phase 1 is accepted after the Nov 9 scheduled edition; Phase 3 preparation
+continues with account activation gated by live proxy proof. Unapplied migration
+`0013` adds independent `users` and
 `sessions`: normalized unique emails, unique SHA-256 token hashes, cascading
 account deletion, sign-in admin eligibility and cookie renewal timestamps.
 No server expiry is stored. Prepared, unconnected session application code issues
@@ -332,7 +337,7 @@ session in the gated account panel. It POSTs the recipient email, displays the
 returned same-origin fragment link without opening it, and supports dismissal
 and retry after refusal. Link and recipient stay in component memory only;
 unmounting the control aborts pending requests. No delivery is sent. Accounts
-remain disabled, pending Phase 1 scheduled acceptance and live proxy proof.
+remain disabled, pending live proxy proof and the Phase 3 activation checks.
 
 Prepared admin session revocation (iteration 1454) remains behind the account gate. It
 requires an active originally eligible admin session, the current email allowlist
@@ -377,7 +382,7 @@ without network access, checks rollback and the actual runner twice through
 0018, preserves original table fingerprints and denies all eight account tables
 to operational/PUBLIC readers despite broad default grants. Its private receipt
 is `~/backups/news-digest/account-migration-proof.json`. Live proxy proof and
-Phase 1 scheduled acceptance still gate activation.
+the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
