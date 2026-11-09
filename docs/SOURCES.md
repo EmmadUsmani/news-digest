@@ -2360,3 +2360,14 @@ checks. Independent retains its article URL; Alberta expands to the Global News
 surgical-fees article, with a separate publisher homepage link. WIRED/Warriors
 have no inline article URL. External requests blocked; World quality remains
 open. [Evidence](edition-reviews/2026-11-09.md#saved-bluesky-destinations--iteration-1547).
+
+## Nov 9 third-edition diversity decision — iteration 1549
+
+Read-only comparison of Nov 7–9 published selections finds 49 posts (37 X,
+12 Bluesky), with no repeated platform/external-ID pair. Nov 9's four Bluesky
+picks cover different events from the same-topic X picks. Tech's X picks remain
+concentrated on one author/Apple; Gaming has only GTA VI. World has no selected
+X and Bluesky likes/reposts of 0/1 and 6/3. Text diversity review is complete;
+overall viral-quality acceptance is not met. No collection, search, ranking,
+threshold, slot or budget change; new tuning waits for item 50.
+[Evidence and decision](edition-reviews/2026-11-09.md#third-edition-diversity-decision--iteration-1549).

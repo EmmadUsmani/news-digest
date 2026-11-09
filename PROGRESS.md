@@ -96,3 +96,15 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - pnpm format, pnpm lint:fix, pnpm check, pnpm build pass: 769 unit/272 integration, four expected skips; existing web chunk-size warning only. git diff --check passes.
 - Updated TASKS/public-access preparation receipt; archived older progress to keep orientation small. No product behavior or handbook change.
 - Next: documented live proxy proof and guarded Phase 3 activation; complete remaining third-edition social acceptance without tuning. No sharing changes.
+
+## 2026-11-09: iteration 1549 — complete third-edition social diversity review
+
+- Clean main/no leftovers; alerts clear. obs health/services/sources/jobs checks pass: DB/Redis, 14 services and 36 sources healthy; no failed digest run.
+- GET-only comparison of Nov 7–9 immutable published editions retains 49 selected posts (37 X/12 Bluesky), zero repeated platform/external-ID pairs. Evidence fields rechecked against all three reader responses.
+- Read all fourteen Nov 9 originals: four Bluesky contributions distinct from today's X. Tech has three Gurman/Apple X picks; Gaming only GTA VI. World has no X and weak Bluesky engagement.
+- Diversity/text review complete; overall viral-quality acceptance not met. Exact-post uniqueness does not settle semantic repetition across days; no media inspection or new provider/source requests.
+- Updated daily review, SOURCES and TASKS with decision and retained allowlisted evidence. No collection/ranking/budget/flag/migration/application-data changes; tuning waits for item 50.
+- check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; evidence assertions pass all 49 unique IDs and stored fields.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
+- Documentation/evidence only; deployed application runtime already matches main, no service restart needed. Account/public flags remain off; live proxy proof still gates activation.
+- Next: item 50 live proxy proof/guarded activation; continue daily edition reviews without social tuning.

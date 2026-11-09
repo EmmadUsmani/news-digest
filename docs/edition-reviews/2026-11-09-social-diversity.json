@@ -1,0 +1,540 @@
+{
+  "method": "GET-only immutable published editions; exact platform/externalId overlap, not semantic equivalence. Metrics are saved snapshots, not current measurements.",
+  "editions": [
+    {
+      "editionId": "0b73eb47-19cf-48e8-8190-f9500c140fa4",
+      "windowStart": "2026-11-06T15:00:00.000Z",
+      "windowEnd": "2026-11-07T15:00:00.000Z",
+      "topics": [
+        {
+          "topic": "Tech & AI",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2118735527025250755",
+              "author": "Chubby♨️",
+              "publishedAt": "2026-11-06T16:01:28.502Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118921155713372212",
+              "author": "Underdog AI",
+              "publishedAt": "2026-11-07T04:19:05.830Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118767522782626104",
+              "author": "Mark Zuckerberg",
+              "publishedAt": "2026-11-06T18:08:36.885Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118770823347507273",
+              "author": "Timon - Agentic Workstation",
+              "publishedAt": "2026-11-06T18:21:43.801Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118785613436698719",
+              "author": "David Sutton",
+              "publishedAt": "2026-11-06T19:20:30.033Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "NBA",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2118949409870508516",
+              "author": "NBA",
+              "publishedAt": "2026-11-07T06:11:22.146Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118816536546935013",
+              "author": "Anthony Slater",
+              "publishedAt": "2026-11-06T21:23:22.677Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118907491283357886",
+              "author": "NBA on ESPN",
+              "publishedAt": "2026-11-07T03:24:47.976Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118866235349987504",
+              "author": "Dave McMenamin",
+              "publishedAt": "2026-11-07T00:40:51.795Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:mdbj4gabxltholo3dq56xo3d/app.bsky.feed.post/3mzotx7iivs2u",
+              "author": "kornhub.bsky.social",
+              "publishedAt": "2026-11-07T02:28:02.010Z",
+              "metrics": {
+                "likes": 15,
+                "reposts": 1,
+                "replies": 1
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "Gaming",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2118760982713360403",
+              "author": "Don Davies",
+              "publishedAt": "2026-11-06T17:42:37.611Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118753959037034541",
+              "author": "CharlieIntel",
+              "publishedAt": "2026-11-06T17:14:43.036Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118759571066179892",
+              "author": "We are Mass Effect - #SaveMassEffect",
+              "publishedAt": "2026-11-06T17:37:01.048Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:jbe7fjzzu224qthboll4palb/app.bsky.feed.post/3mznuhcqy4s24",
+              "author": "videogameworkers.bsky.social",
+              "publishedAt": "2026-11-06T17:04:22.564Z",
+              "metrics": {
+                "likes": 201,
+                "reposts": 157,
+                "replies": 1
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "World news & politics",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2118984748332654705",
+              "author": "Volodymyr Zelenskyy / Володимир Зеленський",
+              "publishedAt": "2026-11-07T08:31:47.492Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118808755735531646",
+              "author": "Eric Schmitt",
+              "publishedAt": "2026-11-06T20:52:27.587Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2118780587523629059",
+              "author": "Nicholas Wu",
+              "publishedAt": "2026-11-06T19:00:31.762Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:7dyrrsmh2tdg6p2u4tq2jepa/app.bsky.feed.post/3mzpxgza7xs2i",
+              "author": "borealissaves.bsky.social",
+              "publishedAt": "2026-11-07T13:03:13.284Z",
+              "metrics": {
+                "likes": 1,
+                "reposts": 0,
+                "replies": 0
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "editionId": "f9af996b-f647-4994-836e-054964a93b74",
+      "windowStart": "2026-11-07T15:00:00.000Z",
+      "windowEnd": "2026-11-08T15:00:00.000Z",
+      "topics": [
+        {
+          "topic": "Tech & AI",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119116664545669630",
+              "author": "Techmeme",
+              "publishedAt": "2026-11-07T17:15:58.768Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119314234949640372",
+              "author": "Techmeme",
+              "publishedAt": "2026-11-08T06:21:03.223Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119203243054023129",
+              "author": "Google Cloud Tech",
+              "publishedAt": "2026-11-07T23:00:00.693Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119341048367665201",
+              "author": "tetsuo",
+              "publishedAt": "2026-11-08T08:07:36.040Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:7l75ck5g4b5k6gxqaq5rejit/app.bsky.feed.post/3mzr7jnadk22y",
+              "author": "unusualwhales.bsky.social",
+              "publishedAt": "2026-11-08T01:00:31.036Z",
+              "metrics": {
+                "likes": 213,
+                "reposts": 42,
+                "replies": 16
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "NBA",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119288667860611407",
+              "author": "NBA",
+              "publishedAt": "2026-11-08T04:39:27.554Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119202330797309976",
+              "author": "Timberwolves PR",
+              "publishedAt": "2026-11-07T22:56:23.194Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119281365396930820",
+              "author": "NBA",
+              "publishedAt": "2026-11-08T04:10:26.511Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:vovxtzksybdziuwsygwin4ws/app.bsky.feed.post/3mzrcmdcyik2k",
+              "author": "warriorsofficial.bsky.social",
+              "publishedAt": "2026-11-08T01:55:42.524Z",
+              "metrics": {
+                "likes": 54,
+                "reposts": 5,
+                "replies": 0
+              },
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:zazcjahlcb3jfrhcriq7xpn7/app.bsky.feed.post/3mzqeprw3722p",
+              "author": "tsnofficial.bsky.social",
+              "publishedAt": "2026-11-07T17:00:46.243Z",
+              "metrics": {
+                "likes": 12,
+                "reposts": 0,
+                "replies": 1
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "Gaming",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119121728525709463",
+              "author": "Zack Shutt",
+              "publishedAt": "2026-11-07T17:36:06.115Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119217979267166423",
+              "author": "iGrandTheftAuto.com",
+              "publishedAt": "2026-11-07T23:58:34.080Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        },
+        {
+          "topic": "World news & politics",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119109412593758437",
+              "author": "Politics UK",
+              "publishedAt": "2026-11-07T16:47:09.768Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119274196874436857",
+              "author": "Democrats Deliver",
+              "publishedAt": "2026-11-08T03:41:57.402Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "x",
+              "externalId": "2119111340342288415",
+              "author": "🪖MilitaryNewsUA🇺🇦",
+              "publishedAt": "2026-11-07T16:54:49.379Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:fuu6bocgrf4aonbnu7wkdsy7/app.bsky.feed.post/3mzqcwg7ji22j",
+              "author": "theubiquitousj-man.bsky.social",
+              "publishedAt": "2026-11-07T16:28:41.367Z",
+              "metrics": {
+                "likes": 14,
+                "reposts": 10,
+                "replies": 1
+              },
+              "repeatedFromEarlierTrialEdition": false
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:6gd5sgdgkbufmloonvof4ngk/app.bsky.feed.post/3mzqzu2tf2c2g",
+              "author": "kgardner.bsky.social",
+              "publishedAt": "2026-11-07T23:18:58.390Z",
+              "metrics": {
+                "likes": 1,
+                "reposts": 0,
+                "replies": 0
+              },
+              "repeatedFromEarlierTrialEdition": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "editionId": "ab346e19-8800-49e9-a7f7-5c6a5207d1d6",
+      "windowStart": "2026-11-08T15:00:00.000Z",
+      "windowEnd": "2026-11-09T15:00:00.000Z",
+      "topics": [
+        {
+          "topic": "Tech & AI",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119446315684057303",
+              "author": "Techmeme",
+              "publishedAt": "2026-11-08T15:05:53.724Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Sources: Anthropic bought commitments for 1.7GW of gas-fired generators from equipment supplier OnePWR for $3.4B, the largest known such purchase by an AI lab ( @marthamuir25 / Financial Times) (Visit Techmeme dot com for the link and full context!)"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119451386111005129",
+              "author": "Mark Gurman",
+              "publishedAt": "2026-11-08T15:26:02.608Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "NEW in Power On: Apple eyes autonomous, agentic Siri as early as next year to rival ChatGPT Dots, Meta Muse, Grok. The goal is to move beyond responding to commands to an assistant that can proactively manage tasks and get things done on your behalf."
+            },
+            {
+              "platform": "x",
+              "externalId": "2119451967747654023",
+              "author": "Mark Gurman",
+              "publishedAt": "2026-11-08T15:28:21.281Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Apple has another major AI gap to close: Computer Use. OpenAI and Anthropic already have agents that can operate software, click buttons and complete tasks on your behalf. Apple controls the Mac, iPhone and iPad, but still lacks a comparable capability. Why that needs to change-"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119452951853064251",
+              "author": "Mark Gurman",
+              "publishedAt": "2026-11-08T15:32:15.910Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Also in Power On: Apple is changing how it develops iOS 28, iPadOS 28 and macOS 28. Engineers are getting more time to explore and build new features before locking them in. The shift comes as the company works to accelerate its software and AI ambitions."
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:inz4fkbbp7ms3ixufw6xuvdi/app.bsky.feed.post/3mztdxaja4q2p",
+              "author": "wired.com",
+              "publishedAt": "2026-11-08T21:25:00.803Z",
+              "metrics": {
+                "likes": 140,
+                "reposts": 74,
+                "replies": 5
+              },
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "WIRED uncovered some 400 apps and websites linked to Chinese-language developers that look like regular AI tools but had secret features that let users create violent AI-generated images and video."
+            }
+          ]
+        },
+        {
+          "topic": "NBA",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119609539242717208",
+              "author": "NBA",
+              "publishedAt": "2026-11-09T01:54:29.253Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "AUSTIN REAVES ERUPTED FOR 43 POINTS! 43 PTS 5 REB 4 3PM 5 WINS IN A ROW FOR THE LAKERS 🔥 pic.twitter.com/qXDlWz2nEa"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119491476488896864",
+              "author": "Shams Charania",
+              "publishedAt": "2026-11-08T18:05:20.899Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "The Sacramento Kings are trading Nique Clifford to the Oklahoma City Thunder for two second-round picks, sources tell ESPN. pic.twitter.com/Ngodsi2Wjv"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119649997985927348",
+              "author": "Hoop Central",
+              "publishedAt": "2026-11-09T04:35:15.369Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "DARIUS ACUFF JR. OVER THE LAST 6 GAMES: 34 PTS - 14 AST - 6 REB 38 PTS - 5 AST - 5 REB 25 PTS - 6 AST - 5 REB 22 PTS - 12 AST - 3 REB 22 PTS - 8 AST - 3 REB 32 PTS - 10 AST - 5 REB pic.twitter.com/nxopNiXVpT"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119606010717601899",
+              "author": "Kyle Ingram",
+              "publishedAt": "2026-11-09T01:40:27.987Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "LaMelo gets his first dunk in a Timberwolves jersey! pic.twitter.com/7bX8wGQBga"
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:vovxtzksybdziuwsygwin4ws/app.bsky.feed.post/3mztmlzzsqs26",
+              "author": "warriorsofficial.bsky.social",
+              "publishedAt": "2026-11-08T23:59:49.679Z",
+              "metrics": {
+                "likes": 62,
+                "reposts": 6,
+                "replies": 4
+              },
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Stephen continues to make history.\n\nLast night, Stephen Curry (16) passed LeBron James (15) for the most 40-point games in NBA history after turning 35."
+            }
+          ]
+        },
+        {
+          "topic": "Gaming",
+          "posts": [
+            {
+              "platform": "x",
+              "externalId": "2119698616478487001",
+              "author": "GTA 6 Updates",
+              "publishedAt": "2026-11-09T07:48:26.921Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "BREAKING: First listen to the GTA 6 main menu theme on PS5. pic.twitter.com/kowKEt55l6"
+            },
+            {
+              "platform": "x",
+              "externalId": "2119602091630944609",
+              "author": "PlayStation Game Size",
+              "publishedAt": "2026-11-09T01:24:53.604Z",
+              "metrics": {},
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Grand Theft Auto VI supports : intentType\": \"joinSession\" intentType\": \"launchActivity\" intentType\": \"launchMultiplayerActivity\""
+            }
+          ]
+        },
+        {
+          "topic": "World news & politics",
+          "posts": [
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:uybkf2awme34ko4lfkezerad/app.bsky.feed.post/3mzt43gyep4p2",
+              "author": "servelan.newsie.social.ap.brid.gy",
+              "publishedAt": "2026-11-08T19:03:55.000Z",
+              "metrics": {
+                "likes": 0,
+                "reposts": 1,
+                "replies": 1
+              },
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Democrats set to target Elon Musk and Stephen Miller probes after midterm rout | The Independent\n\nhttps://www.independent.co.uk/news/world/americas/us-politics/elon-musk-stephen-miller-democrats-midterms-congress-b3081311.html"
+            },
+            {
+              "platform": "bluesky",
+              "externalId": "at://did:plc:6mbfz5m27mvdhh3vrk7umggk/app.bsky.feed.post/3mzspdplcyk2v",
+              "author": "kklassen.bsky.social",
+              "publishedAt": "2026-11-08T15:16:11.779Z",
+              "metrics": {
+                "likes": 6,
+                "reposts": 3,
+                "replies": 2
+              },
+              "repeatedFromEarlierTrialEdition": false,
+              "text": "Alberta surgical company’s fees double public costs, according to AHS documents  | Globalnews.ca globalnews.ca/news/1103041..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
