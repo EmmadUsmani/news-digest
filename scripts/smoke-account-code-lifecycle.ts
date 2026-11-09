@@ -16,6 +16,7 @@ import { prepareAccountHandlers } from '../apps/api/src/modules/accounts/adapter
 import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
 import type { LoginCodeChallenge } from '../apps/api/src/modules/accounts/domain/login-code';
 import type { ReaderSession } from '../apps/api/src/modules/accounts/domain/session';
+import type { SignInLink } from '../apps/api/src/modules/accounts/domain/sign-in-link';
 
 async function main() {
   const directory = await mkdtemp(join(tmpdir(), 'account-browser-lifecycle-'));
@@ -48,6 +49,7 @@ async function main() {
       let challenge: LoginCodeChallenge | null = null;
       const sessions = new Map<string, ReaderSession>();
       let sessionSequence = 0;
+      const links = new Map<string, SignInLink>();
       let attempts = 0;
       const email = 'fixture@example.com';
       const server = createServer(tls, (request, response) =>
@@ -131,11 +133,23 @@ async function main() {
             },
           },
           links: {
-            issueWithAudit: async () => {
-              throw new Error('Unexpected link issuance');
+            issueWithAudit: async (link, issuer) => {
+              assert.equal(issuer, 'fixture-user');
+              links.set(link.tokenHash, link);
             },
-            findRecipient: async () => null,
-            consume: async () => null,
+            findRecipient: async (hash, time) => {
+              const link = links.get(hash);
+              return link && time >= link.createdAt && time < link.expiresAt
+                ? link.email
+                : null;
+            },
+            consume: async (hash, time) => {
+              const link = links.get(hash);
+              if (!link || time < link.createdAt || time >= link.expiresAt)
+                return null;
+              links.delete(hash);
+              return link.email;
+            },
           },
           revocation: { revokeWithAudit: async () => null },
           deletion: { deleteForSession: async () => false },
@@ -154,6 +168,10 @@ async function main() {
       const redeemWithClock = handlers.redeemCode.bind(handlers);
       const currentWithClock = handlers.current.bind(handlers);
       const signOutWithClock = handlers.signOut.bind(handlers);
+      const issueLinkWithClock = handlers.issueLink.bind(handlers);
+      const redeemLinkWithClock = handlers.redeemLink.bind(handlers);
+      handlers.issueLink = (input) => issueLinkWithClock(input, now);
+      handlers.redeemLink = (input) => redeemLinkWithClock(input, now);
       handlers.requestCode = (input, client) =>
         requestWithClock(input, client, now);
       handlers.redeemCode = (input, client) =>
@@ -370,6 +388,108 @@ async function main() {
         false,
       );
       await other.close();
+      // A fresh admin issues real composed links; browser previews never redeem.
+      const adminCode = await requestCode();
+      await redeem(adminCode);
+      await page.waitForURL(`${origin}/`);
+      const issueLink = async () => {
+        const response = await context.request.post(
+          `${origin}/api/account/links`,
+          {
+            headers: { Origin: origin },
+            data: { email },
+          },
+        );
+        assert.equal(response.status(), 201);
+        return (await response.json()) as { token: string; url: string };
+      };
+      const expiredLink = await issueLink();
+      now = new Date(now.getTime() + 86_400_000);
+      const linkContext = await browser.newContext({
+        viewport: { width, height: 900 },
+        ignoreHTTPSErrors: true,
+      });
+      const linkPage = await linkContext.newPage();
+      linkPage.on('pageerror', (error) => errors.push(error.message));
+      const linkRequests: string[] = [];
+      linkPage.on('request', (request) => linkRequests.push(request.url()));
+      await linkPage.goto(expiredLink.url);
+      await linkPage
+        .getByRole('button', { name: 'Sign in', exact: true })
+        .click();
+      await expect(linkPage.getByRole('status')).toContainText(
+        'Ask for a new link',
+      );
+      assert.equal((await linkContext.cookies()).length, 0);
+      assert.equal(sessions.size, 1);
+      const link = await issueLink();
+      await linkPage.goto(`${origin}/`);
+      await linkPage.goto(link.url);
+      const confirm = linkPage.getByRole('button', {
+        name: 'Sign in',
+        exact: true,
+      });
+      await expect(confirm).toBeEnabled();
+      assert.equal(linkPage.url(), `${origin}/account/sign-in`);
+      assert.equal(sessions.size, 1);
+      assert.equal((await linkContext.cookies()).length, 0);
+      assert.equal(await linkPage.evaluate(() => localStorage.length), 0);
+      assert.equal(
+        linkRequests.some((url) => url.includes(link.token)),
+        false,
+      );
+      const rejectedLink = await linkContext.request.post(
+        `${origin}/api/account/link-redeem`,
+        {
+          headers: { Origin: 'https://other.fixture' },
+          data: { token: link.token },
+        },
+      );
+      assert.equal(rejectedLink.status(), 400);
+      assert.equal(sessions.size, 1);
+      await confirm.click();
+      await linkPage.waitForURL(`${origin}/`);
+      assert.equal(sessions.size, 2);
+      const linkCookie = (await linkContext.cookies())[0];
+      assert.equal(linkCookie.httpOnly, true);
+      assert.equal(linkCookie.secure, true);
+      assert.equal(linkCookie.sameSite, 'Lax');
+      assert.equal(
+        (
+          await (
+            await linkContext.request.get(`${origin}/api/account/session`)
+          ).json()
+        ).signedIn,
+        true,
+      );
+      await linkContext.request.post(`${origin}/api/account/logout`, {
+        headers: { Origin: origin },
+        data: {},
+      });
+      assert.equal((await linkContext.cookies()).length, 0);
+      await linkPage.goto(`${origin}/`);
+      await linkPage.goto(link.url);
+      await confirm.click();
+      await expect(linkPage.getByRole('status')).toContainText(
+        'Ask for a new link',
+      );
+      assert.equal(sessions.size, 1);
+      assert.equal((await linkContext.cookies()).length, 0);
+      await linkPage.screenshot({
+        path: `docs/screenshots/accounts/link-composed-replay-${width}.png`,
+        fullPage: true,
+      });
+      await linkPage.reload();
+      await expect(linkPage.getByRole('status')).toContainText(
+        'missing or invalid',
+      );
+      await expect(confirm).toBeDisabled();
+      await linkContext.close();
+      await context.request.post(`${origin}/api/account/logout`, {
+        headers: { Origin: origin },
+        data: {},
+      });
+      assert.equal(sessions.size, 0);
       await page.goto(`${origin}/account/login`);
       await page.getByLabel('Email', { exact: true }).fill(email);
       await redeem(valid);
@@ -390,7 +510,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();

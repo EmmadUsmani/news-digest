@@ -1,27 +1,3 @@
-## 2026-11-09: iteration 1458 — stored HTTP multi-device admin revocation acceptance
-
-- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures. Phase 1 still awaits Nov 9 15:00 UTC; accounts disabled, migration 0017 unapplied and VM private.
-- Extended disposable Postgres/Redis acceptance through the installed HTTP route: two independent target sessions, non-admin refusal preserving both, count-only uncached success without cookie renewal, immediate session-discovery/sync refusal on both devices, and fresh sign-in restoring the target's saved preferences. Existing cross-runtime revocation then removes the new session and repeats with zero count; issuer and unrelated reader survive.
-- Test-only change; no live account writes, migration, provider calls, email or UI changes. Direct public HTTPS probe could not connect from this VM; live proxy peer/forged-prefix proof remains pending. No trust configuration changed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`. Full check passes: 701 unit passes, 254 integration passes/four expected skips; build passes. Saved reader retains four topics/19 stories/17 posts. Commit/push followed by API/worker restart and health/reader/alert checks.
-- Next: normal scheduled Phase 1 acceptance, live proxy verification and remaining Phase 3 activation checks; owner two-device acceptance remains open.
-
-## 2026-11-09: iteration 1459 — account flow log hygiene acceptance
-
-- Clean main/no leftovers; initial health/alerts clear, all 36 sources healthy and digest queue zero failures. Accounts disabled, migration 0017 unapplied, VM private; scheduled acceptance awaits 15:00 UTC.
-- Stored HTTP/Postgres/Redis acceptance now captures six console methods through code login, links, replay refusal, sync, revocation, logout and deletion and requires zero calls. HTTP failure acceptance separately verifies no logs when a credential-bearing exception occurs; assertions expose counts only, never captured arguments.
-- Test-only change; no live account writes, migrations, provider calls, email or UI change. Updated rollout evidence and TASKS; archived iterations 1444–1445 to keep this log small.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts. Corrected unsupported jobs CLI options; final jobs snapshot confirms zero digest failures.
-- Commit/push then API/worker restart and health/reader/alerts checks. Next: normal Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.
-
-## 2026-11-09: iteration 1460 — complete account-table reader privacy acceptance
-
-- Clean main/no leftovers; health and alerts clear, sources healthy, digest queue zero failures and next normal run queued for 15:00 UTC. Accounts disabled; account migrations unapplied and VM private.
-- Extended isolated schema acceptance to recreate login challenges alongside the other six account tables under broad default SELECT grants. Both operational reader roles and an unrelated PUBLIC-only role have no SELECT/INSERT/UPDATE/DELETE/TRUNCATE/REFERENCES/TRIGGER privileges; actual SELECTs fail for every table. Transaction rolls back all rehearsal tables, roles and defaults.
-- Test-only change with rollout evidence updated; no live migrations, account writes, provider calls or email. Documented proxy behavior reviewed; direct public HTTPS probe still cannot connect from this VM, so live peer/forged-prefix proof remains open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, saved-reader check and `git diff --check` pass. Full check: 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts.
-- Commit/push then restart API/worker and recheck health, reader and alerts. Next: 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.
-
 ## 2026-11-09: iteration 1461 — Phase 3 activation and rollback checklist
 
 - Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures and normal 15:00 UTC run queued. Accounts remain disabled and VM private.
@@ -163,3 +139,15 @@
 - Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook checker and diff check pass.
 - Full check: 707 unit/254 integration pass, four expected skips. Saved reader: four topics/19 stories/17 posts. Handbook reports expected metadata for unapplied account tables.
 - No runtime code/config changes; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.
+
+## 2026-11-09: iteration 1477 — composed HTTPS sign-in links
+
+- Clean main/no leftovers; health, alerts, source freshness, jobs and services pass. Phase 1 scheduled acceptance remains due at 15:00 UTC; accounts stay disabled.
+- Extended the composed desktop/mobile HTTPS smoke with admin-issued sign-in links using real HTTP handlers, runtime and crypto; fixture link storage enforces exact expiry and single use.
+- Browser preview strips the fragment without creating a session; cross-origin redemption fails without consuming the link. Explicit confirmation exchanges it for a secure cookie; logout followed by replay and reload cannot authenticate.
+- Saved and inspected desktop/mobile replay screenshots; added desktop/mobile screenshot links and activation coverage. No live account writes, provider calls or runtime changes; archived progress entries 1458–1460.
+- Initial browser run exposed same-document fragment navigation in the harness; corrected it to leave the confirmation page before opening a new link. Both viewport checks pass.
+- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, saved-reader check (four topics/19 stories/17 posts), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook checker and diff check pass.
+- First full-check process ended 143 during unit tests with no assertion failure; complete retry passes 707 unit/254 integration tests, four expected skips. Handbook reports expected metadata for unapplied account tables.
+- Hourly 05:27 metrics probe: 23 healthy rules, four queries ≤0.710 s, no new evaluator errors/misses; recovery remains open. Next passive check ≥06:27 UTC.
+- No service restart needed under STEERING 22. Next: normal scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.

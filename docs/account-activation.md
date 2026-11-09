@@ -27,6 +27,9 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   session lookup, daily cookie renewal, seven-day admin freshness, persistent
   reader access, two independent device cookies, device-scoped/all-device logout,
   revoked-cookie replay, expiry, exhaustion, code replay and cross-origin refusal.
+  Admin-issued links also cross the real HTTPS boundary: fragment-only preview,
+  exact expiry, explicit confirmation, secure session exchange and replay/reload
+  refusal, with fixture storage and no live account writes.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

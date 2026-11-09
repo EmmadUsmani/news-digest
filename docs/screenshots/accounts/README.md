@@ -58,3 +58,12 @@ sessions are revoked.
 
 - [Desktop reader sign-out](admin-revoke-1440.png)
 - [Mobile reader sign-out](admin-revoke-390.png)
+
+## Composed HTTPS sign-in links
+
+Real account handlers and browser HTTPS with fixture storage verify admin-issued
+links, preview without redemption, expiry, secure cookies and replay refusal.
+These checks make no live account writes.
+
+- [Desktop replay refusal](link-composed-replay-1280.png)
+- [Mobile replay refusal](link-composed-replay-390.png)

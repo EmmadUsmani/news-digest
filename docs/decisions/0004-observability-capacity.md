@@ -715,3 +715,12 @@ Commands: eight uncached local `/metrics/api/v1/query_range` GETs as above,
 passes 23 fresh rules, four uncached probes (maximum 0.833 s), zero new evaluator
 errors/misses. Health, Grafana health, services, all 36 sources and jobs pass.
 Next passive check no earlier than Nov 9 05:27 UTC; keep it short and hourly.
+
+### Hourly follow-up (iteration 1477)
+
+Nov 9 05:27 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+23 fresh healthy rules, four uncached queries at most 0.710 s, zero new
+evaluator errors or missed iterations. Two small merges processed 37,821 rows;
+no big merge in this interval. No limits, configuration or services changed.
+Recovery still needs correlated evidence during a comparable natural merge.
+Next short passive check no earlier than 06:27 UTC.
