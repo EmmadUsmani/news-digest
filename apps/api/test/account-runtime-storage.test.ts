@@ -6,8 +6,8 @@ import { join } from 'node:path';
 import test from 'node:test';
 
 import { redis } from '../src/libs/db/connections';
-import { prepareAccountHttp } from '../src/modules/accounts/adapters/account-bootstrap';
 import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account-runtime';
+import { prepareStoredAccountHttp } from '../src/modules/accounts/adapters/account-storage';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
@@ -19,6 +19,10 @@ import { PostgresSignInLinkRepository } from '../src/modules/accounts/database/s
 
 void test('composed accounts persist mailbox login and single-use friend sessions across runtimes', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const disabled = prepareStoredAccountHttp({});
+  assert.equal(disabled.middleware, null);
+  await disabled.close();
+  await disabled.close();
   const directory = await mkdtemp(join(tmpdir(), 'account-storage-'));
   const identities = new PostgresReaderIdentityRepository();
   const codes = new PostgresLoginCodeRepository();
@@ -63,10 +67,16 @@ void test('composed accounts persist mailbox login and single-use friend session
     cookie,
   });
   try {
-    const middleware = prepareAccountHttp(
-      { ...env, ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1' },
-      dependencies,
-    )!;
+    const stored = prepareStoredAccountHttp({
+      ...env,
+      ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+    });
+    const closed = prepareStoredAccountHttp({
+      ...env,
+      SIGNUP_MODE: 'off',
+      ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+    });
+    let middleware = stored.middleware!;
     const server = createServer((req, res) =>
       middleware(req, res, () => {
         res.writeHead(418).end();
@@ -115,6 +125,40 @@ void test('composed accounts persist mailbox login and single-use friend session
       const current = await fetch(`${base}/api/account/session`, {
         headers: { Cookie: cookie },
       });
+      assert.equal(await identities.exists(env.ADMIN_EMAILS), true);
+      assert.equal(await identities.exists('unknown@example.test'), false);
+      middleware = closed.middleware!;
+      assert.equal(
+        (await post('code', { email: env.ADMIN_EMAILS }, '192.0.2.52')).status,
+        202,
+      );
+      const existingCode = await new FileLoginCodeDelivery(directory).latest(
+        env.ADMIN_EMAILS,
+        new Date(),
+      );
+      assert.ok(existingCode);
+      assert.equal(
+        (
+          await post(
+            'redeem',
+            { email: env.ADMIN_EMAILS, code: existingCode },
+            '192.0.2.52',
+          )
+        ).status,
+        204,
+      );
+      assert.equal(
+        (await post('code', { email: 'unknown@example.test' }, '192.0.2.53'))
+          .status,
+        202,
+      );
+      assert.equal(
+        await new FileLoginCodeDelivery(directory).latest(
+          'unknown@example.test',
+          new Date(),
+        ),
+        null,
+      );
       assert.equal(current.headers.get('cache-control'), 'no-store');
       assert.deepEqual(await current.json(), { signedIn: true, isAdmin: true });
       assert.equal(
@@ -123,6 +167,8 @@ void test('composed accounts persist mailbox login and single-use friend session
         401,
       );
     } finally {
+      await Promise.all([stored.close(), closed.close()]);
+      await stored.close();
       server.closeAllConnections();
       await new Promise<void>((resolve, reject) =>
         server.close((error) => (error ? reject(error) : resolve())),

@@ -130,6 +130,13 @@ mailbox login, secure session exchange and replay refusal against disposable
 Postgres/Redis, including rejection of missing forwarded addresses. Main still does
 not install this bootstrap; no live peer is configured or trusted.
 
+Prepared storage composition (iteration 1446) supplies the real account repositories
+and Redis admission behind that gate, with explicit, repeatable shutdown of every
+owned connection. Closed signup checks persisted verified identities, allowing
+existing readers to request codes while refusing new identities with the same
+public response. Disposable-storage HTTP checks cover both paths and shutdown;
+main registration and live proxy verification remain pending.
+
 An isolated composed-storage check now exercises stand-in mailbox login through
 real Postgres and Redis, cross-runtime session authentication, concurrent single-use
 friend redemption, non-admin issuance refusal and all-device logout isolation.

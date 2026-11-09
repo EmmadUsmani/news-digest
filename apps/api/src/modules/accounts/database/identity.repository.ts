@@ -15,6 +15,15 @@ export class PostgresReaderIdentityRepository
   private readonly pool = database();
   private readonly db = drizzle(this.pool);
 
+  async exists(email: string): Promise<boolean> {
+    const rows = await this.db
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+    return rows.length > 0;
+  }
+
   async findOrCreateVerified(email: string, now: Date): Promise<string> {
     return this.db.transaction(async (tx) => {
       const [created] = await tx

@@ -133,3 +133,12 @@
 - Initial targeted bootstrap test expected an origin-specific error but received the existing Invalid URL error; corrected the assertion. Final verification results recorded below before commit.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit tests; 253 integration passes/four expected skips), `pnpm build`, targeted bootstrap/proxy tests (3), saved reader check and `git diff --check`. No UI change or paid verification.
 - Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance, then main account composition and verified live proxy wiring with accounts still gated.
+
+## 2026-11-09: iteration 1446 — gated account storage composition
+
+- Clean main/no leftovers; alerts clear, health database/Redis good, no failed user units and all 36 sources healthy. Scheduled Phase 1 acceptance still waits for Nov 9 15:00 UTC.
+- Prepared unregistered storage composition for account HTTP: lazy configuration gate, real account repositories/Redis and repeatable shutdown that attempts every owned connection. Added read-only persisted identity lookup for closed signup admission.
+- Disposable-storage HTTP check now uses this composition for mailbox login/session/replay; closed signup allows an existing verified reader but gives an unknown reader the same 202 response without sending a code. Disabled composition and repeat shutdown are checked.
+- Updated TASKS and rollout plan; no live migrations, trusted-peer configuration, provider calls or account activation. No UI/runtime behavior change; VM private, main registration/live proxy proof pending.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit; 253 integration passes/four expected skips), plus `pnpm build` and `git diff --check`. Strengthened closed-signup redemption check passes an isolated targeted rerun. Saved reader retains four topics/19 stories/17 posts. Initial lint rejected an unsafe shutdown error type; fixed before the final passing checks. No UI change.
+- Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal flag-on scheduled acceptance; phase 3 remains gated.
