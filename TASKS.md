@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1582: prepared source/topic/order writes refuse disconnected callers after authentication; three real HTTP disconnect/recovery checks pass. Accounts/public stay off pending item 53.
+- [x] Iteration 1583: prepared account writes reject duplicate wire Origin/Content-Type headers before dispatch; real HTTP refusal/recovery coverage added. Accounts/public stay off pending item 53.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

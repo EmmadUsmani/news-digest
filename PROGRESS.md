@@ -132,3 +132,12 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 789 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; initial curl raced startup, retry passed. Health/all 14 services, alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
 - Next: Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC.
+
+## 2026-11-09: iteration 1583 — reject ambiguous account write headers
+
+- Clean main/no leftovers; alerts and health pass. All 36 sources healthy; digest-generation queue has zero failed jobs. No paid calls, migrations, flags, UI or generation changes.
+- Prepared account HTTP writes now require exactly one wire-level Origin and Content-Type before body reading or handler dispatch, matching the atomic admin transports. Accounts/public remain off pending item 53 owner proxy rerun.
+- Offline real HTTP test rejects repeated identical/conflicting values and mixed casing with empty no-store responses, no cookie and zero handler calls; a subsequent valid request succeeds. Existing unfinished-upload size test now supplies valid write headers.
+- Updated readiness plan/TASKS; no active source or handbook behavior changed. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 790 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warnings.
+- API/worker restarted; first curl raced startup, retry passed. Post-restart health, alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
+- Next: continue Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.

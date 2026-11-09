@@ -74,7 +74,14 @@ export function accountHttp(options: {
         return send({ status: 404 });
       const client = options.client(request);
       if (!client) return send({ status: 503 });
+      // Validate wire multiplicity before Node's normalization can hide values.
+      const count = (name: string) =>
+        request.rawHeaders.filter(
+          (value, index) => index % 2 === 0 && value.toLowerCase() === name,
+        ).length;
       if (
+        count('origin') !== 1 ||
+        count('content-type') !== 1 ||
         !options.handlers.acceptsWrite(
           request.headers.origin,
           request.headers['content-type'],

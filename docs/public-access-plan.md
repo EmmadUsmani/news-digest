@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared account writes (iteration 1583) require exactly one wire-level Origin
+and Content-Type header before body reading or handler dispatch. Offline HTTP
+tests reject repeated identical and conflicting values, including mixed casing,
+with empty no-store responses; a subsequent unambiguous request succeeds.
+Accounts/public remain disabled pending proxy proof.
+
 Prepared atomic source, topic-enable and topic-order transports (iteration 1582)
 check connection liveness after authentication, before beginning a storage write.
 Offline HTTP tests disconnect during delayed authentication and verify no mutation;

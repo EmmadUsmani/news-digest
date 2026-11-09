@@ -292,9 +292,13 @@ void test('oversized declared and chunked account requests receive 413 before up
               port: address.port,
               path,
               method: 'POST',
-              headers: declared
-                ? { 'Content-Length': String(limit + 1) }
-                : { 'Transfer-Encoding': 'chunked' },
+              headers: {
+                Origin: 'https://reader.example',
+                'Content-Type': 'application/json',
+                ...(declared
+                  ? { 'Content-Length': String(limit + 1) }
+                  : { 'Transfer-Encoding': 'chunked' }),
+              },
             });
             upload.on('error', reject);
             upload.setTimeout(3000, () =>
@@ -467,6 +471,104 @@ void test('a slow account upload cannot redeem with the pre-upload expiry time',
     assert.equal(checkedAt, started + 120_000);
   } finally {
     upload.destroy();
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});
+
+void test('account writes reject duplicate wire headers before handler dispatch', async () => {
+  let calls = 0;
+  const handlers = new AccountHandlers(
+    new AccountRequestBoundary('https://reader.example'),
+    {
+      request: async () => {
+        calls++;
+      },
+    },
+    {
+      redeem: async () => {
+        calls++;
+        return { sessionId: 'id', cookie: 'session' };
+      },
+    },
+    {
+      authenticate: async () => null,
+      signOut: async () => 'cleared',
+      signOutAllDevices: async () => 'cleared',
+    },
+  );
+  const middleware = accountHttp({
+    enabled: true,
+    handlers,
+    client: () => 'verified',
+  });
+  const server = createServer((req, res) =>
+    middleware(req, res, () => res.end()),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const post = (headers: string[]) =>
+    new Promise<{
+      status: number | undefined;
+      body: string;
+      cookie: unknown;
+      cache: unknown;
+    }>((resolve, reject) => {
+      const upload = request(
+        {
+          hostname: '127.0.0.1',
+          port: address.port,
+          path: '/api/account/redeem',
+          method: 'POST',
+          headers,
+        },
+        (response) => {
+          let body = '';
+          response.setEncoding('utf8');
+          response.on('data', (chunk: string) => {
+            body += chunk;
+          });
+          response.on('end', () =>
+            resolve({
+              status: response.statusCode,
+              body,
+              cookie: response.headers['set-cookie'],
+              cache: response.headers['cache-control'],
+            }),
+          );
+        },
+      );
+      upload.on('error', reject);
+      upload.end('{"email":"reader@example.com","code":"123456"}');
+    });
+  const valid = [
+    'Host',
+    '127.0.0.1',
+    'Transfer-Encoding',
+    'chunked',
+    'Origin',
+    'https://reader.example',
+    'Content-Type',
+    'application/json',
+  ];
+  try {
+    for (const extra of [
+      ['origin', 'https://reader.example'],
+      ['Origin', 'https://other.example'],
+      ['content-type', 'application/json'],
+      ['Content-Type', 'text/plain'],
+    ]) {
+      const response = await post([...valid, ...extra]);
+      assert.equal(response.status, 400);
+      assert.equal(response.body, '');
+      assert.equal(response.cookie, undefined);
+      assert.equal(response.cache, 'no-store');
+      assert.equal(calls, 0);
+    }
+    assert.equal((await post(valid)).status, 204);
+    assert.equal(calls, 1);
+  } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
