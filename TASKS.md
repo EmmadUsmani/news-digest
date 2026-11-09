@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1561: default-off public CSP restricts document fonts to the app origin; offline browser admission/refusal/private rollback and 40 real X widget views pass. Proxy receipt unchanged; visitor identification still awaits owner rerun.
+- [x] Iteration 1562: default-off public CSP restricts document audio/video to the app origin; offline browser admission/refusal/private rollback and 40 real X widget views pass. Proxy receipt unchanged; visitor identification still awaits owner rerun.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

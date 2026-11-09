@@ -74,9 +74,8 @@ flowchart LR
 - `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
   and same-origin framing headers before account handling and authorization.
   The CSP limits base URLs, plugin objects, embedding ancestors and form destinations.
-  Document fonts are limited to the app origin; the reader uses system fonts.
-  Document connections use only the same origin or `https://syndication.twitter.com`.
-  Frames can load only from the same origin or the two X embed hosts.
+  Document fonts and audio/video use the app origin; social media plays in X frames.
+  Connections use the app origin or `https://syndication.twitter.com`; frames use the app origin or the two X embed hosts.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.
 - App service definitions are tracked in `ops/services/*.service`; observability

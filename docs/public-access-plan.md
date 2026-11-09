@@ -409,6 +409,9 @@ are limited to the same origin and `https://syndication.twitter.com`; scripts
 remain unchanged. Document fonts are restricted to the same origin; the app uses system fonts.
 `scripts/check-public-font-policy.ts` verifies same-origin admission, external/
 lookalike/HTTP refusal and private rollback with intercepted synthetic fonts.
+Document audio/video is limited to the app origin; current social media plays
+inside official X frames. `scripts/check-public-media-policy.ts` checks local
+admission, external/lookalike/HTTP refusal and private rollback with synthetic media.
 Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
 readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
 uses synthetic local forms to verify external POST refusal, same-origin POST
