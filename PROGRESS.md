@@ -121,3 +121,13 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Updated rollout plan/TASKS. No runtime registration, migrations, flags, generation changes or external calls; public/accounts remain off.
 - Verification: focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build and pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Existing bundle warning only.
 - No deployment/restart during owner's 13:00–16:00 UTC hold. Nov 9 15:01 snapshot: scheduled generation active, zero failed jobs. Next: review its completed edition, permitted deployment after 16:00, proxy proof and topic-order runtime registration.
+
+## 2026-11-09: iteration 1542 — review Nov 9 scheduled publication
+
+- Clean main/no leftovers; initial alerts clear. Scheduled edition ab346e19-8800-49e9-a7f7-5c6a5207d1d6 completed once at 15:02:54 UTC: full-ai, 174.631 s, 659 candidates, 19 stories/14 posts.
+- Read-only report-edition-timing and report-x-discovery: Anthropic $0.388257/51 settled successful calls, X $0.260092/four completed tools, zero holds. Forty new verified outside-list candidates; two NBA cited selections, zero other topics.
+- Read all saved summaries/evidence and posts/context; recorded evidence depth and social observations in docs/edition-reviews/2026-11-09.md and docs/SOURCES.md. World zero X and Tech first recorded Bluesky replacement require diagnosis; no acceptance claimed.
+- Local latest/direct/history endpoints expose today's edition. pnpm obs health/services/sources --check pass: DB/Redis, 14 services, 36 sources; digest queue zero failed/active, next run Nov 10 15:00 UTC.
+- No code, application-data writes, external calls, flags or migrations. No restart/deployment during owner's 13:00–16:00 hold; live runtime unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Documentation-only step; no build/runtime change.
+- Next: saved World X rejection/Tech replacement diagnosis, paid novelty/Bluesky links, phase-1 scheduled parity; then account runtime topic-order wiring and permitted deployment/proxy proof.

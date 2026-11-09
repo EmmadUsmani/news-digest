@@ -2330,3 +2330,12 @@ cost $0.036338, versus Nov 7 $0.061842. Saved engagement varies from 213 likes
 Global News shortened-link expansion passes served-reader desktop/mobile checks;
 Stuff supplies a homepage only. [Selection, cost and screenshots](edition-reviews/2026-11-08.md#bluesky-selection-cost-and-links--iteration-1384).
 Nov 9 third-edition acceptance remains due; no source or runtime setting changed.
+
+## Nov 9 scheduled discovery observation — iteration 1542
+
+Four completed keyword searches cost $0.260092, zero holds, forty fetched/new
+verified/outside-list candidates. NBA supplied two cited selections (both
+outside-list); other topics supplied zero. Selected X metrics remain empty.
+Bluesky picked Tech/NBA/Gaming/World 1/1/0/2; Tech records one X replacement,
+World has no X picks. Quality acceptance awaits the saved-candidate diagnosis
+and replacement comparison. [Daily evidence](edition-reviews/2026-11-09.md).

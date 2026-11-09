@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1541: prepared bounded atomic topic-order HTTP transport with fresh-admin/provenance checks, stale-catalog 409 and private failures; loopback HTTP acceptance passes. Runtime registration remains pending; public/accounts stay off.
+- [x] Iteration 1542: Nov 9 scheduled publication reviewed: full-AI, 174.631 s, 659 candidates, 19 stories/14 posts; $0.388257 Anthropic/$0.260092 X, zero holds. Four keyword tools complete, two NBA paid citations; World zero X and Tech Bluesky replacement need diagnosis. [Review](docs/edition-reviews/2026-11-09.md). Phase-1/social acceptance remains open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
