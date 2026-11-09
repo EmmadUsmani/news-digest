@@ -73,8 +73,10 @@ mapped to profiles, and profiles go away.
   The live flag is on (Nov 9, iteration 1442). Before activation, an explicit
   read-only live comparison verified all 550 saved editions across off/on/off,
   topics, settings and complete reader HTTP responses. Restarted API/worker are
-  healthy; served latest/history responses remain unchanged. Private generation
-  checks and scheduled acceptance are still pending.
+  healthy; served latest/history responses remain unchanged. Live AI-off generation
+  passed Nov 9 (iteration 1443): 466 stored candidates, four topics and 20 stories;
+  the private test remains excluded from the reader and keeps rollback ownership.
+  AI-on generation and scheduled acceptance are still pending.
   The private restored-copy SQL rehearsal passes for both Phase 1 migrations:
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
@@ -90,7 +92,10 @@ mapped to profiles, and profiles go away.
   (including private 404s) and all history pages across the same flags and publication filters.
   Isolated system-owned AI-off and synthetic fixture-AI test editions match the
   existing golden snapshots, stay unpublished and remain readable after flag rollback.
-  Live flag-on test runs and scheduled acceptance remain required before phase closure.
+  Live flag-on AI-off generation also passes; the complete read-only off/on/off
+  comparison now covers 551 editions, including the new private test. Development
+  spend reservations remain empty. AI-on generation and scheduled acceptance
+  remain required before phase closure.
   Repeat the live read-only comparison with `/usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/rehearse-system-reads.ts --live-read-only`. It forces
   read-only database connections and starts no queues or provider adapters.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
