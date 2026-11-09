@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1577: stored access runtime accepts prepared API admission; HTTP tests verify refusal before accounts, recovery, dependency-free private rollback, closed-runtime refusal and cleanup after limiter startup failure. Environment selection/visitor proof remain open.
+- [x] Iteration 1578: composed two prepared public HTTP instances with real isolated Redis; shared concurrent allowance, visitor separation, empty refusals before account/authorization, expiry, connection-loss refusal, health bypass and reconnection verified. Production gate remains unregistered pending item 53.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

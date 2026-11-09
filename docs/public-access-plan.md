@@ -405,10 +405,16 @@ apply the caller-supplied gate before account transport and public authorization
 while retaining security headers on refusals. Composed HTTP tests verify denied
 requests reach neither accounts nor authorization, dependency failure/recovery,
 health bypass and private rollback without limiter construction. This optional
-composition is not selected by the stored runtime. Verified visitor extraction
+composition is now accepted by the stored runtime (iteration 1577), but environment
+selection supplies no gate. Verified visitor extraction
 (item 53) and production registration remain promotion work; preference-write
 admission is prepared in the gated account runtime. Isolated Redis tests cover
-concurrency, client separation, key privacy, expiry and failure.
+concurrency, client separation, key privacy, expiry and failure. Composed HTTP
+acceptance (iteration 1578) uses two instances and real isolated Redis connections:
+a shared burst admits exactly the allowance before account/authorization work,
+clients remain separate, expired allowance recovers, disconnected Redis refuses
+without downstream calls, health bypasses the gate and reconnection restores it.
+Injected test identities do not establish production visitor extraction.
 
 Sign-in request-log rehearsal (iteration 1571) composes the production request
 logger with account HTTP transport and handler stand-ins. Login page, code
