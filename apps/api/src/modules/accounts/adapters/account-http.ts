@@ -55,10 +55,9 @@ export function accountHttp(options: {
         );
         return;
       }
-      const now = new Date();
       if (path === '/api/account/session' && request.method === 'GET')
         return send(
-          await options.handlers.current(request.headers.cookie, now),
+          await options.handlers.current(request.headers.cookie, new Date()),
         );
       const routes = [
         '/api/account/sessions/revoke',
@@ -102,6 +101,8 @@ export function accountHttp(options: {
       } catch {
         return send({ status: 400 });
       }
+      // Expiry and admin freshness must use the time after the upload completes.
+      const now = new Date();
       const input = {
         origin: request.headers.origin,
         contentType: request.headers['content-type'],

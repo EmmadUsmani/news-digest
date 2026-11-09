@@ -129,3 +129,12 @@
 - Live HTTPS attempt: `curl https://news-digest.exe.xyz/healthz` cannot connect from this VM. Local tests and the browser smoke simulate forwarding; neither is live proxy proof. No account activation, migrations, provider calls or sharing changes.
 - Verification: two targeted HTTP tests and `pnpm exec tsx scripts/smoke-account-proxy-probe.ts` pass; inspected `docs/screenshots/accounts/proxy-probe-fixture.png`. Format, lint fix, full `pnpm check` (706 unit/254 integration passes; four expected skips), build, diff and saved-reader checks pass (four topics/19 stories/17 posts). Handbook check passes with existing pending-account-table notices.
 - Next: normal 15:00 UTC Phase 1 acceptance and authenticated live proxy proof before activation. Commit/push followed by API/worker restart and health/alerts checks.
+
+## 2026-11-09: iteration 1468 — account expiry after slow uploads
+
+- Clean main/no leftovers; health and alerts clear, all 36 sources healthy, jobs pass and no recent worker errors. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC.
+- Fixed account write validation using a timestamp captured before reading the body. Expiry and admin freshness now use the time after the complete bounded upload, so a slow transfer cannot redeem against its earlier arrival time.
+- Added real loopback HTTP regression with a controlled clock: start a valid request, advance beyond code expiry during transfer, finish the body and require 401/no session cookie. It fails on the previous implementation and passes with the fix.
+- Verification: targeted HTTP tests 5/5; `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit and 254 integration passes/four expected skips), `pnpm build`, `git diff --check` and saved-reader check pass (four topics/19 stories/17 posts).
+- Accounts remain disabled; no UI, migration, live account write, provider call or proxy configuration change. Commit/push followed by API/worker restart and health/alerts/saved-reader verification.
+- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live authenticated proxy proof before account activation.

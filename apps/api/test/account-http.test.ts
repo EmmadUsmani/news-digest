@@ -389,3 +389,85 @@ void test('invalid account write headers reject unfinished uploads before readin
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 });
+
+void test('a slow account upload cannot redeem with the pre-upload expiry time', async (t) => {
+  const started = Date.parse('2026-11-09T04:00:00Z');
+  const expires = started + 60_000;
+  t.mock.timers.enable({ apis: ['Date'], now: started });
+  let checkedAt: number | undefined;
+  let received!: () => void;
+  const firstChunk = new Promise<void>((resolve) => {
+    received = resolve;
+  });
+  const handlers = new AccountHandlers(
+    new AccountRequestBoundary('https://reader.example'),
+    { request: async () => undefined },
+    {
+      redeem: async (_email, _code, _client, now) => {
+        checkedAt = now.getTime();
+        return checkedAt < expires
+          ? { sessionId: 'session', cookie: 'session=issued' }
+          : null;
+      },
+    },
+    {
+      authenticate: async () => null,
+      signOut: async () => 'cleared',
+      signOutAllDevices: async () => 'cleared',
+    },
+  );
+  const middleware = accountHttp({
+    enabled: true,
+    handlers,
+    client: () => 'verified',
+  });
+  const server = createServer((req, res) => {
+    middleware(req, res, () => {
+      res.statusCode = 404;
+      res.end();
+    });
+    req.once('data', received);
+  });
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const upload = request({
+    hostname: '127.0.0.1',
+    port: address.port,
+    path: '/api/account/redeem',
+    method: 'POST',
+    headers: {
+      Origin: 'https://reader.example',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = new Promise<{ status: number | undefined; cookie: unknown }>(
+    (resolve, reject) => {
+      upload.on('error', reject);
+      upload.on('response', (response) => {
+        response.resume();
+        response.on('end', () =>
+          resolve({
+            status: response.statusCode,
+            cookie: response.headers['set-cookie'],
+          }),
+        );
+      });
+    },
+  );
+  try {
+    upload.write('{');
+    await firstChunk;
+    assert.equal(checkedAt, undefined);
+    t.mock.timers.tick(120_000);
+    upload.end('"email":"reader@example.com","code":"123456"}');
+    const response = await result;
+    assert.equal(response.status, 401);
+    assert.equal(response.cookie, undefined);
+    assert.equal(checkedAt, started + 120_000);
+  } finally {
+    upload.destroy();
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});
