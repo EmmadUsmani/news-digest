@@ -68,6 +68,7 @@ async function main() {
           ACCOUNT_ORIGIN: origin,
           ACCOUNT_SECRET_KEY: 'ab'.repeat(32),
           ACCOUNT_MAILBOX_PATH: directory,
+          ADMIN_EMAILS: email,
           SIGNUP_MODE: 'off',
         },
         () => ({
@@ -108,7 +109,16 @@ async function main() {
             },
             findByTokenHash: async (hash) =>
               session?.tokenHash === hash ? session : null,
-            claimCookieRenewal: async () => false,
+            claimCookieRenewal: async (id, cutoff, time) => {
+              if (
+                !session ||
+                session.id !== id ||
+                session.cookieRenewedAt > cutoff
+              )
+                return false;
+              session = { ...session, cookieRenewedAt: time };
+              return true;
+            },
             deleteByTokenHash: async () => {
               session = null;
             },
@@ -220,6 +230,41 @@ async function main() {
       assert.equal(current.status(), 200);
       assert.equal((await current.json()).signedIn, true);
       assert.equal(current.headers()['cache-control'], 'no-store');
+      assert.equal((await current.json()).isAdmin, true);
+      assert.equal(current.headers()['set-cookie'], undefined);
+      const issuedAt = now.getTime();
+      now = new Date(issuedAt + 86_400_000 - 1);
+      const beforeRenewal = await context.request.get(
+        `${origin}/api/account/session`,
+      );
+      assert.equal(beforeRenewal.headers()['set-cookie'], undefined);
+      now = new Date(issuedAt + 86_400_000);
+      const renewal = await context.request.get(
+        `${origin}/api/account/session`,
+      );
+      assert.equal((await renewal.json()).isAdmin, true);
+      assert.match(renewal.headers()['set-cookie'], /Max-Age=34560000/);
+      assert.equal((await context.cookies())[0].value, cookies[0].value);
+      const repeated = await context.request.get(
+        `${origin}/api/account/session`,
+      );
+      assert.equal(repeated.headers()['set-cookie'], undefined);
+      now = new Date(issuedAt + 7 * 86_400_000 - 1);
+      const fresh = await context.request.get(`${origin}/api/account/session`);
+      assert.deepEqual(await fresh.json(), { signedIn: true, isAdmin: true });
+      now = new Date(issuedAt + 7 * 86_400_000);
+      const stale = await context.request.get(`${origin}/api/account/session`);
+      assert.deepEqual(await stale.json(), { signedIn: true, isAdmin: false });
+      // Server sessions survive the browser cookie lifetime; visits renew it.
+      now = new Date(issuedAt + 401 * 86_400_000);
+      const persistent = await context.request.get(
+        `${origin}/api/account/session`,
+      );
+      assert.deepEqual(await persistent.json(), {
+        signedIn: true,
+        isAdmin: false,
+      });
+      assert.match(persistent.headers()['set-cookie'], /Max-Age=34560000/);
       const logout = await context.request.post(
         `${origin}/api/account/logout`,
         {
@@ -250,7 +295,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, HTTP session lookup/logout and consumed code replay verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, HTTP logout and consumed code replay verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();

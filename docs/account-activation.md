@@ -24,7 +24,8 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
   code-login flow over a temporary loopback HTTPS server, with isolated storage
   and admission. It covers the production HTTP adapter, browser cookie exchange,
-  session lookup, logout, expiry, exhaustion, replay and cross-origin refusal.
+  session lookup, daily cookie renewal, seven-day admin freshness, persistent
+  reader access, logout, expiry, exhaustion, replay and cross-origin refusal.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

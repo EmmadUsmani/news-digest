@@ -143,3 +143,13 @@
 - Updated activation checks/TASKS and archived iterations 1456–1457. Accounts stay disabled; live proxy proof and owner two-device acceptance remain open.
 - Verification: composed browser smoke, format, lint fix, build, saved-reader check (four topics/19 stories/17 posts), diff check. First lint-fix process ended 143; retry passed and fixed import ordering caught by initial full check; full check rerun passes (707 unit/254 integration, four expected skips).
 - No application code/config changed; healthy services require no restart under STEERING 22. Next: normal scheduled acceptance and live proxy proof before activation.
+
+## 2026-11-09: iteration 1475 — HTTPS session renewal and admin freshness
+
+- Clean main/no leftovers; health and alerts clear, no failed user services. Phase 1 scheduled acceptance remains due at 15:00 UTC; metrics check not due before 05:27 UTC.
+- Extended composed desktop/mobile HTTPS acceptance with an eligible fixture admin and atomic fixture renewal: no renewal before 24 hours, renewal at the boundary, same bearer cookie, no duplicate renewal on the next request.
+- Seven-day boundary removes admin rights while preserving reader access; advancing the server clock 401 days still authenticates and renews the browser's retained cookie. This does not simulate browser cookie expiration.
+- Real account HTTP adapter/composition/crypto with fixture storage/admission only; no live account writes, migrations or provider calls. Accounts remain disabled. Updated activation checklist.
+- Verification: composed HTTPS browser smoke, format, lint fix, full check, build, saved-reader check (four topics/19 stories/17 posts), handbook checker and diff check. Handbook reports expected metadata for unapplied account tables.
+- Full check passes: 707 unit/254 integration tests, four expected skips; build passes.
+- No runtime code/config change; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof before activation; owner two-device acceptance remains required.
