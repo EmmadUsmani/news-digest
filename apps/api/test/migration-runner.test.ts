@@ -39,6 +39,24 @@ void test('migration runner preserves history, orders generated SQL, serializes 
       join(generated, '0001_change.sql'),
       'ALTER TABLE evidence ADD COLUMN added integer;\n--> statement-breakpoint\nUPDATE evidence SET added=7;',
     );
+    // Bound a staged rollout even when later phase SQL is already present.
+    await applyMigrations(pool, historical, generated, '0000_baseline');
+    assert.deepEqual((await pool.query('SELECT * FROM evidence')).rows, [
+      { id: 1, value: 'seed' },
+    ]);
+    assert.equal(
+      (await pool.query('SELECT count(*)::int AS count FROM schema_migrations'))
+        .rows[0].count,
+      2,
+    );
+    await assert.rejects(
+      applyMigrations(pool, historical, generated, ''),
+      /Unknown migration stopping point/,
+    );
+    await assert.rejects(
+      applyMigrations(pool, historical, generated, '9999_typo'),
+      /Unknown migration stopping point/,
+    );
     await Promise.all([
       applyMigrations(pool, historical, generated),
       applyMigrations(pool, historical, generated),

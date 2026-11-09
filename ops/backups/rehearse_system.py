@@ -68,6 +68,7 @@ def verify(container, socket_directory):
     # socket. No TCP port, live credentials or provider configuration is supplied.
     environment = {key: value for key, value in os.environ.items()
                    if key in ('PATH', 'HOME', 'USER', 'LANG')}
+    environment['MIGRATE_THROUGH'] = '0012_nullable_system_ownership'
     environment['DATABASE_URL'] = ('postgresql://postgres@localhost/news_digest?host=' +
                                    quote(str(socket_directory), safe=''))
     command = ['pnpm', 'exec', 'tsx', 'apps/api/src/libs/db/migrate.ts']
@@ -79,6 +80,8 @@ def verify(container, socket_directory):
     expected = {f'drizzle/{name}' for name in MIGRATIONS}
     if not expected.issubset(set(query(container, 'SELECT name FROM schema_migrations;').splitlines())):
         raise RuntimeError('Migration runner did not record pending migrations')
+    if query(container, "SELECT count(*) FROM schema_migrations WHERE name >= 'drizzle/0013';") != '0':
+        raise RuntimeError('Phase 1 runner applied a later phase')
     database.run(command, cwd=database.ROOT, env=environment,
                  stdout=subprocess.DEVNULL)
     if fingerprints(container) != first_run or query(container, ledger_sql) != ledger:

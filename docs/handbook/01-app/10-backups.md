@@ -14,6 +14,7 @@ remote copies, or `systemctl --user start news-digest-restore-check.service`
 for local restore verification. Both skip 13:00–16:00 UTC.
 Before the system-ownership rollout, `python3 ops/backups/rehearse_system.py`
 takes a fresh private backup and runs the application migration runner twice
+through `0012_nullable_system_ownership`, leaving account migrations pending,
 in a networkless restore through a private Unix socket, then compares edition,
 topic and schedule adapter reads plus reader HTTP responses with system ownership
 off/on/off in read-only sessions. Its receipt is `~/backups/news-digest/system-ownership-proof.json`.

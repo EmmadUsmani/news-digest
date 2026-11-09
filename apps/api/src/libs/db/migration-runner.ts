@@ -12,6 +12,7 @@ export async function applyMigrations(
   pool: Pool,
   historicalDirectory = resolve(process.cwd(), 'migrations'),
   generatedDirectory = resolve(process.cwd(), 'drizzle'),
+  through?: string,
 ) {
   const client = await pool.connect();
   const db = drizzle(client);
@@ -54,7 +55,14 @@ export async function applyMigrations(
           ),
         ),
       );
-    for (const { tag } of journal.entries) {
+    const last =
+      through === undefined
+        ? journal.entries.length - 1
+        : journal.entries.findIndex(({ tag }) => tag === through);
+    if (last < 0 && through !== undefined) {
+      throw new Error('Unknown migration stopping point');
+    }
+    for (const { tag } of journal.entries.slice(0, last + 1)) {
       const name = `drizzle/${tag}.sql`;
       const existing = await db
         .select({ name: schemaMigrations.name })

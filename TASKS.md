@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1439: prepared gated React account hook owns session discovery, visible-tab refresh and teardown; offline lifecycle checks pass. Account UI wiring pending; accounts disabled.
+- [x] Iteration 1440: bounded migration runner and fresh private Phase 1 rehearsal keep account migrations pending; live Phase 1 rollout next in the open pre-noon window. Accounts disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

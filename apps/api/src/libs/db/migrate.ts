@@ -4,7 +4,12 @@ import { applyMigrations } from './migration-runner';
 async function migrate() {
   const pool = database();
   try {
-    await applyMigrations(pool);
+    await applyMigrations(
+      pool,
+      undefined,
+      undefined,
+      process.env.MIGRATE_THROUGH,
+    );
   } finally {
     await pool.end();
   }

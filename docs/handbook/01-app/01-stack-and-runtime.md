@@ -85,7 +85,9 @@ schema; offline checks require zero differences.
 The migration runner applies historical SQL first, then generated migrations in
 journal order, under one transaction and lock. Both use the existing migration
 ledger; generated filenames have a `drizzle/` prefix. A failed run rolls back
-all its changes. The baseline makes no schema or content changes.
+all its changes. For a staged rollout, `MIGRATE_THROUGH=<journal-tag> pnpm migrate`
+stops after that exact generated migration; an unknown tag rolls back the run.
+Without it, all pending migrations apply. The baseline makes no schema or content changes.
 
 Reader endpoints `/api/editions/latest` and `/api/editions/:id` return saved
 content without scores, selection reasons, model details or candidate counts.

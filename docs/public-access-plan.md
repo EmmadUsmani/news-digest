@@ -75,6 +75,8 @@ mapped to profiles, and profiles go away.
   Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt
   identifies the backup and migration checksums. The actual TypeScript migration
   runner also passes twice on the restored copy, with unchanged rows and ledger on repeat.
+  Phase 1 uses `MIGRATE_THROUGH=0012_nullable_system_ownership pnpm migrate`
+  so prepared account migrations remain pending; unknown stopping tags roll back.
   Restored-copy adapter comparisons also pass for all 550 saved editions (complete latest,
   direct and paginated history with both publication filters), topics and settings across
   flag off/on/off. Read-only sessions and unchanged fingerprints protect the restored copy.
