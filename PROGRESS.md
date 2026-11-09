@@ -1,30 +1,3 @@
-## 2026-11-09: iteration 1490 — prepare system-only public topic reads
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user units. Scheduled Phase 1 acceptance still awaits 15:00 UTC; no early metrics probe.
-- Added unregistered `PublicTopicsReader`: explicit public columns, ordered source connections/X discovery settings and topic allowlist; no legacy profile lookup, ownership filter or future-column spread. Caller owns the pool.
-- Isolated test compares the complete existing system catalog, renames profiles, nulls ownership and adds a private future column; unset/off/on flags preserve parity. Detached results, malformed stored settings and closed-connection generic 503 errors covered.
-- Updated response audit/TASKS; archived iteration 1473. No main imports, live config/data/access changes, migrations or provider calls; accounts remain disabled.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 717 unit/257 integration tests pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warnings remain.
-- No restart under STEERING 22: deployed entrypoints do not import the reader. Next: normal scheduled acceptance, live proxy proof and topic HTTP boundary before public promotion.
-
-## 2026-11-09: iteration 1491 — prepare public topic HTTP transport
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user units. Phase 1 scheduled acceptance still awaits 15:00 UTC.
-- Added unregistered GET/HEAD `/api/admin/topics` transport with explicit system-reader injection contract, repeated field projection, no-store responses and generic 503 failures.
-- Offline loopback HTTP checks cover allowed catalog fields, private/future-column omission, empty HEAD, refused writes without reads, malformed mixed catalogs and private storage exceptions. Main and route classification unchanged.
-- Updated response audit/TASKS; archived iteration 1474. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
-- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 718 unit/257 integration pass, four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
-- No restart under STEERING 22: running entrypoints do not import this controller. Next: 15:00 scheduled acceptance, live proxy proof and gated topic runtime composition before public promotion.
-
-## 2026-11-09: iteration 1492 — prepare public topic runtime composition
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user units. Phase 1 scheduled acceptance still awaits 15:00 UTC.
-- Added unregistered `PublicTopicsModule.prepare`: default-off gate registers no route or storage; invalid flags and missing system-ownership/published-reader prerequisites fail before dependencies.
-- Enabled composition injects the concrete system-only reader. Isolated HTTP/database checks verify full catalog parity after profile rename/null ownership, GET/HEAD, no-store, refused writes, malformed-state generic refusal and shared pool reuse after shutdown.
-- Updated response audit/TASKS; archived iteration 1475. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
-- Verification: format, lint fix, full check, build, desktop/mobile saved-reader browser smoke, scheduled-reader check and diff check. Full check: 719 unit/258 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; build passes with existing warnings. Browser-generated unchanged-scope screenshots discarded deliberately.
-- No restart under STEERING 22: running entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public response/route boundaries before promotion.
-
 ## 2026-11-09: iteration 1493 — prepare public source-catalog HTTP transport
 
 - Clean main/no leftovers; alerts and healthz clear, no failed user units. Scheduled Phase 1 acceptance still awaits 15:00 UTC.
@@ -176,3 +149,12 @@
 - Updated TASKS and public-access plan. Session/local-token wiring, write origin/audit enforcement, controller replacement and live proxy proof remain promotion gates; accounts/public mode remain disabled.
 - Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check` (737 unit/263 integration passes, four expected skips), `pnpm build`, source/job checks, saved-reader check and `git diff --check`. Build retains existing bundle warning.
 - No restart under STEERING 22: live entrypoints do not import the disconnected middleware. Next: compose account-backed authorization; normal 15:00 scheduled phase-1 acceptance remains required.
+
+## 2026-11-09: iteration 1508 — compose account-backed public authorization
+
+- Clean main/no leftovers. Triaged Basketball Insiders' two 20-second poll timeouts: direct feed returned 200 in 0.48 s and automatic retry recovered at 09:44:46; all 36 sources healthy. One guarded manual retry refused before enqueue because the job was no longer failed; temporary script removed. Healthz and user services healthy; digest schedule unchanged.
+- Added uninstalled default-off account-backed public authorization using existing strict cookie/session handlers. Per-request allowlisting/freshness and revocation are enforced; daily secure-cookie renewal reaches the response. Enablement without accounts refuses; disabled path constructs no dependencies.
+- Real loopback HTTP tests cover duplicate/malformed cookies, forged identity headers, secure renewal once daily, allowlist removal, seven-day admin expiry, ordinary user access, revocation and generic storage failure with public-reader independence. No provider calls, migrations or live config changes; accounts/public mode remain off.
+- Updated TASKS/public-access plan and archived iterations 1490–1492. Local script credentials, write origin/audit enforcement, controller replacement and proxy proof remain open.
+- Verification: targeted HTTP test and saved-reader check pass (four topics/19 stories/17 posts). First full check caught an unnecessary async callback; corrected. Final `pnpm format`, `pnpm lint:fix`, `pnpm check` (738 unit/263 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warnings remain. Recent-failure alert cleared by 09:53 UTC.
+- No restart under STEERING 22: live entrypoints do not import this composition. Next: remaining authorization wiring and normal 15:00 scheduled phase-1 acceptance.

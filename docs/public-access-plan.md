@@ -403,7 +403,11 @@ before downstream handlers: unknown routes are refused, user routes require a
 resolved session and admin routes require freshly recomputed admin eligibility.
 It ignores proxy identity headers, fails closed on authentication errors and marks
 responses no-store. The disabled path performs no authentication. It remains
-uninstalled; account-session wiring, direct-local script credentials, write
+uninstalled. Prepared account-session composition (iteration 1508) now uses the
+existing strict cookie boundary and session service, recomputes admin freshness
+and allowlisting per request, and forwards daily secure-cookie renewal. Public
+authorization refuses enablement without account handlers; its disabled path
+constructs no account resources. Direct-local script credentials, write
 origin/audit enforcement and controller replacement are required before promotion.
 
 ## Target design

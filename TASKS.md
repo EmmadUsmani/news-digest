@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1507: prepared uninstalled default-off authorization middleware with real HTTP route-class, forged-header, anonymous/user/fresh-admin and dependency-failure checks. Session/local-token wiring, write enforcement, controller replacement and proxy proof remain open.
+- [x] Iteration 1508: prepared uninstalled account-backed public authorization with strict cookies, daily renewal, admin freshness/allowlist removal, revocation and fail-closed HTTP checks. Local-token wiring, write enforcement, controller replacement and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

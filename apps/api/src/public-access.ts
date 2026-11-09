@@ -5,6 +5,7 @@ import { classifyPublicRoute } from './public-route-policy';
 export interface PublicAccessPrincipal {
   // The account adapter must recompute freshness and allowlisting per request.
   freshAdmin: boolean;
+  cookie?: string | null;
 }
 
 type Authenticate = (
@@ -41,6 +42,7 @@ export function publicAccess(enabled: boolean, authenticate: Authenticate) {
       response.writeHead(503).end();
       return;
     }
+    if (principal?.cookie) response.setHeader('set-cookie', principal.cookie);
     if (!principal || (access === 'admin' && !principal.freshAdmin)) {
       response.writeHead(404).end();
       return;
