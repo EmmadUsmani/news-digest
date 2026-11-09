@@ -3,11 +3,15 @@ import { useRef, useState } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
+import { ReaderAccount } from './ReaderAccount';
 import { ReaderSkipLink } from './ReaderSkipLink';
+import { useReaderAccount } from './use-reader-account';
 import { useReaderPreferences } from './use-reader-preferences';
 
 export function ReaderSaved() {
   const preferences = useReaderPreferences();
+  const accountsEnabled = import.meta.env.VITE_READER_ACCOUNTS === '1';
+  const account = useReaderAccount(accountsEnabled, preferences.accountStore);
   const [announcement, setAnnouncement] = useState('');
   const heading = useRef<HTMLHeadingElement>(null);
   const removeButtons = useRef(new Map<string, HTMLButtonElement>());
@@ -32,6 +36,7 @@ export function ReaderSaved() {
           >
             Past editions
           </Link>
+          <ReaderAccount enabled={accountsEnabled} account={account} />
           <ThemeToggle />
         </nav>
       </header>

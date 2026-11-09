@@ -312,8 +312,9 @@ credentials out of URLs and browser storage, clears submitted codes, preserves
 request eligibility privacy and redirects after successful exchange. Isolated
 desktop/mobile checks use fixture responses. Prepared gated reader account panel
 shows sign-in, sync progress/failure, retry and single/all-device sign-out;
-failed actions preserve the controller’s retained choices. Header mounting and
-activation remain pending.
+failed actions preserve the controller’s retained choices. Latest/historical reader
+and saved-item headers mount it only with `VITE_READER_ACCOUNTS=1` (default off),
+sharing each page’s preference bridge for sync. Activation remains pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

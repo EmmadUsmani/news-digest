@@ -28,8 +28,8 @@ snapshots.
 > sessions; account sign-in remains disabled. Startup installs account routes only
 > when enabled and closes account connections during shutdown. The gated
 > `/account/login` page requests and exchanges email codes; it is unavailable
-> while accounts are disabled. A prepared reader account panel offers sync status,
-> retry and sign-out; it is not yet mounted in the reader. See the
+> while accounts are disabled. The reader account panel offers sync status,
+> retry and sign-out in edition and saved-item headers behind a default-off flag. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

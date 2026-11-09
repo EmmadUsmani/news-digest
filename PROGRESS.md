@@ -1,22 +1,3 @@
-## 2026-11-08: iteration 1436 — prepared browser sync lifecycle
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. Sources healthy; digest-generation has zero failed jobs and next run Nov 9 15:00 UTC.
-- Prepared disconnected account-sync lifecycle subscribes to store changes, uploads edits made during requests, suppresses server-write loops and reports failure with explicit/next-edit retry. Outages do not trigger repeated requests.
-- Logout teardown cancels transport and unsubscribes before local clearing; offline tests verify queued uploads, retained choices after failure and late-response isolation. React store/account UI wiring remains pending.
-- Accounts remain disabled and VM private; no migration, provider call or edition-generation change. Phase 1 awaits its pre-noon rollout window. Updated TASKS and rollout plan; no live handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, targeted lifecycle tests (3), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check retains four topics/19 stories/17 posts. `pnpm check` passes: static checks, 682 unit tests and 253 integration tests/four expected skips. `git diff --check` passes.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: React store/account UI integration with accounts disabled, then Phase 1 rollout in its permitted window.
-
-## 2026-11-08: iteration 1437 — prepared browser account controller
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failed jobs and next run Nov 9 15:00 UTC.
-- Prepared disconnected controller connects bounded session discovery, automatic sync, retry and single/all-device sign-out. Cancels uploads and invalidates delayed discovery before logout; confirmed logout/session loss clears account choices, initial signed-out discovery retains anonymous choices.
-- Failed logout retains choices with uploads paused until explicit refresh. Seven offline tests cover discovery coalescing, logout races, delayed sync, malformed/oversized sessions, session loss and teardown. React store/account UI wiring pending.
-- Accounts remain disabled and VM private; no migration, provider call or edition-generation change. Phase 1 awaits its pre-noon rollout window. Updated TASKS and rollout plan; no live handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, targeted controller tests (7), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader check retains four topics/19 stories/17 posts.
-- Initial full check caught unsafe test-only request stringification; corrected the helper and reran targeted lint/tests plus the complete check. Final `pnpm check` passes: static checks, 689 unit tests and 253 integration tests/four expected skips; schema parity green. `git diff --check` passes.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: React store/account UI wiring with accounts disabled, then Phase 1 rollout in its permitted window.
-
 ## 2026-11-08: iteration 1438 — prepared React account preference bridge
 
 - Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failures and next run Nov 9 15:00 UTC.
@@ -132,3 +113,12 @@
 - Isolated desktop/mobile Playwright fixture checks pass for those controls, rejected actions and disabled UI. Inspected both screenshots; updated screenshot index, rollout plan, affected handbook note and TASKS. Accounts remain disabled, migrations pending, VM private; no provider calls or real email.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-reader-account.ts`, saved reader check and `git diff --check`. Full check passes (698 unit tests; 253 integration passes/four expected skips). Handbook filter reports existing metadata for unapplied account tables; no diagrams changed. Initial build found unsupported button variant; corrected before final checks. Initial smoke required an async entrypoint; corrected.
 - Commit/push then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal flag-on Phase 1 scheduled acceptance, live proxy proof and gated header mounting; phase 3 activation follows phase 1 acceptance.
+
+## 2026-11-09: iteration 1450 — gated reader header account wiring
+
+- Clean main/no leftovers; initial alerts and health clear, no failed user units. Sources healthy, digest queue has no failures; next scheduled run Nov 9 15:00 UTC.
+- Wired prepared account controls/controller to the edition and saved-item preference bridges behind explicit `VITE_READER_ACCOUNTS=1`; default is off. Phase 1 scheduled acceptance, proxy proof and activation remain pending. No migrations, provider calls or real email.
+- Desktop/mobile Playwright integration uses saved edition content and fixture account HTTP: discovery, sync, saved-route navigation, sign-out, cleared local storage and no overflow/errors pass. Deployed default-off reader shows no account button and makes no account requests. Inspected both screenshots; updated rollout plan, handbook and screenshot index; archived iterations 1436–1437 to keep PROGRESS small.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-reader-account-integration.ts`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check`. Full check passes (698 unit tests; 253 integration passes/four expected skips); build passes. Saved reader retains four topics/19 stories/17 posts. Handbook filter reports existing metadata notes for unapplied account tables.
+- Initial browser harness used Node fetch's restricted port 4190; changed to 4188 and passed. Corrected missing scheduled-reader timestamp argument. Initial combined format/check shell ended with signal 143 after formatting; reran lint/full checks separately.
+- Commit/push then restart API/worker and recheck health, default-off browser/reader and alerts. Next: normal flag-on Phase 1 scheduled acceptance, live proxy verification; keep accounts disabled until acceptance.

@@ -7,6 +7,7 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { EditionDateSwitcher } from './EditionDateSwitcher';
 import { editionQuery, HttpError } from './queries';
+import { ReaderAccount } from './ReaderAccount';
 import { ReaderContents } from './ReaderContents';
 import { ReaderPreferences } from './ReaderPreferences';
 import { ReaderSkeleton } from './ReaderSkeleton';
@@ -14,6 +15,7 @@ import { ReaderSkipLink } from './ReaderSkipLink';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
+import { useReaderAccount } from './use-reader-account';
 import { useReaderPreferences } from './use-reader-preferences';
 
 export function DigestPreview() {
@@ -45,6 +47,8 @@ export function DigestPreview() {
     void edition.refetch();
   };
   const preferences = useReaderPreferences();
+  const accountsEnabled = import.meta.env.VITE_READER_ACCOUNTS === '1';
+  const account = useReaderAccount(accountsEnabled, preferences.accountStore);
   const preferencesEnabled = import.meta.env.VITE_READER_PREFERENCES !== '0';
   const visibleTopics =
     preview?.topics.filter(
@@ -86,6 +90,7 @@ export function DigestPreview() {
             />
           )}
           <EditionDateSwitcher edition={preview} />
+          <ReaderAccount enabled={accountsEnabled} account={account} />
           <ThemeToggle />
         </div>
       </header>
