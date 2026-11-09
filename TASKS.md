@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1550: permitted passive metrics probe passes 23 healthy rules/four queries ≤0.186 s, no new evaluator failures. No merge observed; recovery stays open, next probe ≥17:18 UTC. Live private proxy URL still refuses VM connection; accounts remain off.
+- [x] Iteration 1551: Phase 4 privacy page shipped with reader footer link, accurate disabled-account text and gated sync/deletion details; desktop/mobile light/dark off/on checks pass. Accounts/public remain off; live proxy proof still gates Phase 3.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -386,6 +386,13 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+The `/privacy` page is available from the reader footer. It describes browser-local
+choices, limited technical error reports, embedded third-party connections and the
+hosting proxy. Account data, sync, deletion and backup retention appear only when
+the compiled account UI is enabled; otherwise it states that accounts are disabled.
+It makes no account or external requests. The public classifier permits GET/HEAD
+for this page; public activation and all other Phase 4 gates remain open.
+
 An unregistered route classifier now enumerates the current edition and account
 API operations and administrative controller routes by method and path. Unknown
 routes and ambiguous encoded/dot/separator spellings are denied. It grants no

@@ -9,6 +9,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
   for (const path of [
     '/',
     '/saved',
+    '/privacy',
     '/editions',
     `/editions/${id}`,
     '/api/editions/latest',
@@ -60,7 +61,6 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
     '/queues/',
     '/admin',
     '/assets/unknown.js',
-    '/privacy',
     '/API/editions',
     '/api/editions/',
     '/api//editions',

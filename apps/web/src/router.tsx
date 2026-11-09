@@ -19,6 +19,7 @@ import { AdminSpend } from './AdminSpend';
 import { AdminTopicEditor } from './AdminTopicEditor';
 import { AdminTopics } from './AdminTopics';
 import { App } from './App';
+import { Privacy } from './Privacy';
 import {
   adminEditionQuery,
   editionHistoryQuery,
@@ -87,6 +88,11 @@ const latestRoute = createRoute({
     ]);
   },
   component: App,
+});
+const privacyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/privacy',
+  component: Privacy,
 });
 const savedRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -197,6 +203,7 @@ export const router = createRouter({
     latestRoute,
     archiveRoute,
     savedRoute,
+    privacyRoute,
     editionRoute,
     adminRoute.addChildren([
       adminOverviewRoute,

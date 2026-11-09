@@ -43,6 +43,9 @@ flowchart LR
 - **Every external call goes through a port.** Feeds, AI, X and queues sit
   behind interfaces, so tests use fakes and never touch live services.
 
+The reader footer links to `/privacy`, which explains browser storage, account
+data when enabled, deletion and third-party post connections.
+
 ## Reading preferences
 
 - Open **Topics** in an edition to hide or restore its topics. Choices apply

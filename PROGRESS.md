@@ -119,3 +119,16 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips. Scheduled reader check passes four topics/19 stories/14 posts; API rebuild included in isolated suite.
 - No runtime, provider, source, migration or application-data changes; deployed runtime already matches main, no restart needed.
 - Next: live proxy proof/guarded Phase 3 activation; next passive metrics check no earlier than 17:18 UTC.
+
+## 2026-11-09: iteration 1551 — ship the privacy page
+
+- Clean main/no leftovers; alerts clear; health, 14 services, 36 sources and digest jobs healthy. Hourly metrics probe not due until 17:18 UTC; no extra sample.
+- Owner value: readers can now understand what the app stores and how to remove it, completing the missing Phase 4 privacy page while Phase 3 waits on proxy proof.
+- Added `/privacy` and reader footer link: browser choices, technical error reports, third-party embeds/proxy, flag-aware account storage, deletion and backup retention. GET/HEAD classified public-read; no account/public activation.
+- `pnpm exec tsx scripts/smoke-privacy.ts` passes desktop/mobile light/dark with accounts off/on, reload, overflow and zero API/external requests. Four screenshots saved and inspected; corrected inherited section spacing.
+- `pnpm check` passes typecheck/lint/format/boundaries and 769 unit tests, but its integration child was terminated (143); separate attached retry also terminated without assertions failing. Detached `pnpm test:integration` exits 0: 272 passes, four expected skips.
+- `pnpm build` and final web rebuild pass (existing chunk warning). Handbook check passes 18 pages/one diagram; expected metadata warnings for unapplied account tables remain.
+- Restarted API/worker; first immediate probe preceded readiness, retry healthy. Deployed desktop/mobile footer→privacy→reload→latest browser checks pass without page errors.
+- Latest/history response hashes unchanged; scheduled reader check passes four topics/19 stories/14 posts. Post-restart alerts clear, services/sources/queues healthy.
+- Updated TASKS, public-access plan, affected handbook and screenshot receipt. No providers, migrations, configuration, source requests or live account writes.
+- Next: Phase 3 live proxy proof/guarded activation; continue unfinished Phase 4 readiness while blocked. Accounts/public remain off; metrics recovery remains open.

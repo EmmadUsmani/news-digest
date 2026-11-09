@@ -349,6 +349,14 @@ export function DigestPreview() {
           </div>
         </div>
       )}
+      <footer className="mt-12 border-t border-[var(--border)] py-4">
+        <Link
+          to="/privacy"
+          className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
+          Privacy
+        </Link>
+      </footer>
     </main>
   );
 }
