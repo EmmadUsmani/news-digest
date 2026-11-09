@@ -1,6 +1,6 @@
 # Public administrative response audit
 
-Phase 4 preparation, iterations 1484–1486 (2026-11-09). The route classifier is
+Phase 4 preparation, iterations 1484–1487 (2026-11-09). The route classifier is
 unregistered. These decisions change no live access. HEAD inherits GET's class.
 The owner intends public read-only admin pages; restricted rows below require
 work before that rollout, rather than a permanent change to that intent.
@@ -8,7 +8,7 @@ work before that rollout, rather than a permanent change to that intent.
 | GET under `/api/admin/`                                            | Current response                                                | Prepared decision                                                             |
 | ------------------------------------------------------------------ | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `status/alerts`                                                    | Timestamp and firing/pending counts only                        | Public-read; audited below                                                    |
-| `profile`                                                          | Legacy owner profile ID/name plus system schedule               | Admin; disconnected system-schedule projection prepared                       |
+| `profile`                                                          | Legacy owner profile ID/name plus system schedule               | Admin; disconnected system-only schedule reader prepared                      |
 | `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin; disconnected explicit public field projection prepared                 |
 | `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin; disconnected origin-only catalog projection prepared                   |
 | `content`, `content/window`                                        | Topic IDs and article ID/title/URL/date/source                  | Admin pending stored URL/text and failure-response audit                      |
@@ -44,9 +44,16 @@ Repository failures and invalid results return exact generic 503 responses, with
 stored values or exception details. Offline adversarial tests cover private extra
 fields, nested additions, malformed results and thrown private errors.
 
+`PublicScheduleReader` now reads the singleton `edition_settings` row directly,
+selecting only the five schedule fields and applying the public projection. It
+never reads profiles or legacy schedules and ignores the ownership flag; missing
+system settings fail closed without a fallback. The caller owns its connection
+pool. Isolated database tests temporarily rename both legacy tables, exercise
+unset/off/on flags, and verify missing-row and closed-connection generic errors.
+
 No controller imports these readers. Existing profile/topic GET and HEAD routes
-remain admin-classified. Transport wiring, system-only schedule reads, configured
-text review and the broader route gate still need verification before promotion.
+remain admin-classified. Transport wiring, configured text review and the broader
+route gate still need verification before promotion.
 
 ## Prepared source catalog projection
 
@@ -63,8 +70,8 @@ before promotion; existing GET/HEAD routes remain admin and unchanged.
 ## Remaining response boundaries
 
 - `PostgresProfileRepository.getDefault` still reads the legacy profile ID/name
-  even with system ownership enabled. Public schedule settings need an explicit
-  system response; do not expose a legacy owner name by promoting this GET.
+  even with system ownership enabled. The prepared standalone reader avoids this
+  dependency; transport must use it instead of promoting the legacy profile GET.
 - `PostgresTopicRepository.listDefault` spreads `getTableColumns(topics)`.
   A public allowlist must prevent future columns becoming public automatically.
 - Current ingestion failures are sanitized by `ingest` before persistence;

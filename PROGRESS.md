@@ -1,22 +1,3 @@
-## 2026-11-09: iteration 1469 — account activation browser readiness
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled and VM private.
-- Ran all four account browser smokes together against the current activation candidate: code login, fragment-link confirmation, account controls and mounted-reader integration pass at desktop/mobile widths. Responses are fixture accounts; mounted reader uses the real saved edition. No live account writes or provider calls.
-- Verified disabled deployed UI makes no account requests; fixture flows cover refusal/retry, explicit exchange, replay, sync, sign-out and deletion. Inspected refreshed deletion screenshots and mobile mounted-reader screenshot. No product code changed.
-- Saved reader retains four topics/19 stories/17 posts. Archived iterations 1452–1453 to keep this log small.
-- Verification: all four `pnpm exec tsx scripts/smoke-*.ts` account commands above; `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit/254 integration passes; four expected skips), `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass. Commit/push followed by API/worker restart and health/alerts checks.
-- Next: normal Nov 9 15:00 UTC scheduled acceptance, then live authenticated proxy proof before activation; fixture browser results do not replace either gate.
-
-## 2026-11-09: iteration 1470 — natural compaction evidence
-
-- Owner value: replaces an indefinite wait for compaction with confirmed natural-load evidence and a precise remaining recovery gap.
-- Clean main/no leftovers; health, Grafana, 14 services, all 36 sources, jobs and alerts pass; next digest remains 15:00 UTC.
-- Journal confirms Nov 8 17:48 natural 49,279,202-row merge in 164.103 s under unchanged 2% CPU trial; zero restarts. No forced merge, provider calls or settings changes.
-- Eight uncached stored-history queries cover Nov 8 11:26–Nov 9 04:26 (2,041 points/series); metrics scrape samples one, admission hits two, queue timeouts/slow queries zero. Resource window shows stack ≤686.8 MiB/2.361% five-minute CPU.
-- Recovery stays open: historical evaluator counters/per-rule health unavailable. Current `sample-metrics-recovery.ts 1 30` passes 23 rules/four probes ≤0.833 s/zero new errors or misses. Next passive check ≥05:27 UTC.
-- Updated capacity decision and TASKS; accounts still disabled awaiting scheduled acceptance/live proxy proof. No product or schema change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit/254 integration passes, four expected skips), `pnpm build`, `git diff --check` and saved-reader check (four topics/19 stories/17 posts) pass. Commit/push and API/worker restart followed by health/alerts checks.
-
 ## 2026-11-09: iteration 1471 — two-device browser sync acceptance
 
 - Clean main/no leftovers; health, 14 services, all 36 sources and jobs pass, alerts clear; next normal digest is 15:00 UTC. Metrics check not due until 05:27 UTC.
@@ -173,3 +154,12 @@
 - Existing GET/HEAD routes remain admin; frontend integration and transport review precede public promotion. Updated response audit and TASKS; no live config/data/access changes, provider calls or migrations.
 - Verification: four targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 715 unit/254 integration pass, four expected skips; existing bundle warning remains. Saved Nov 8 reader: four topics/19 stories/17 posts.
 - No restart under STEERING 22: deployed entrypoints do not import this helper. Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and system-only settings transport; metrics passive check due no earlier than 07:27 UTC.
+
+## 2026-11-09: iteration 1487 — prepare system-only public schedule reads
+
+- Clean main/no leftovers; alerts and healthz clear, 36 sources/no stalled sources, no failed digest jobs. Historical collection failures remain retained; recent social collection succeeds.
+- Added unregistered `PublicScheduleReader`: selects only five singleton system settings fields, applies the public projection, never reads legacy profiles/schedules or falls back when the row is missing; caller owns the pool.
+- Isolated database test renames both legacy tables inside a rolled-back transaction and checks unset/off/on ownership flags, detached results, missing-row and closed-connection generic 503 failures.
+- Updated response audit and TASKS; archived iterations 1469–1470 to keep the active log small. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check` pass. Full check: 715 unit/255 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warning remains.
+- No restart under STEERING 22: deployed entrypoints do not import the reader. Next: normal 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and gated settings transport; metrics passive check remains due no earlier than 07:27 UTC.
