@@ -18,8 +18,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    (item 44) and the leaked test folders (item 51). The review after each
    scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`. Phase 1 now, then 3 and 4; no more phase 2
-   polish (Nov 8 owner update).
+   `docs/public-access-plan.md`. Phase 1 is accepted. Next, make the proxy
+   probe say why it failed (item 52), which blocks phase 3. Then phases 3 and 4.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2259,3 +2259,54 @@ alert fires.
 
 
 ack: 2026-11-07 iteration 1248: removed all 41 unused integration folders (2,943,540 KiB / 2.81 GiB), disk 71%→59%. Startup cleanup keeps roots younger than one hour; live runner PID plus same-UID /proc environment, command, cwd and open-file references protect active/orphaned children. A read-only sudo probe handles protected proc entries; inspection failure skips deletion. Killed-child cleanup and recent/active/unrelated/symlink preservation tested.
+
+## 52. NOW, small: make the proxy probe say why it failed (2026-11-09)
+
+**Why:** the owner ran `scripts/probe-account-proxy.ts 8765` on Nov 9 and got
+`{"status":"failed","step":0}`. The browser reached the probe, but the first,
+unforged request failed: `X-Forwarded-For` was missing, duplicated, held more
+than one address, or ended in something that isn't an IP. The receipt can't say
+which. The owner was not on a VPN or a work or campus network, so a client-side
+proxy is unlikely. The probe also never tests a forged `X-ExeDev-Email`, which
+the [admin access decision](docs/decisions/2026-11-05-admin-access.md) requires
+before public access.
+
+**Priority:** Current order line 2, the next task under item 50. It blocks
+phase 3. Do it before more phase 4 work-ahead.
+
+**What to do:**
+
+1. Change `scripts/lib/proxy-proof.ts` so every receipt, pass or fail, records
+   the request's shape for each step:
+   - the number of `X-Forwarded-For` fields;
+   - the number of comma-separated entries;
+   - whether the last entry is a valid IP;
+   - whether the immediate peer is loopback, private or public;
+   - which of `X-Forwarded-Proto`, `X-Forwarded-Host` and `X-ExeDev-*` are
+     present (names only, no values).
+
+   Keep going after a failed step where the next step still makes sense, so
+   one run gives the full picture.
+2. Add a step that sends `X-ExeDev-Email: forged@example.invalid`. Record only
+   whether the received value was absent, replaced or the forged value.
+3. Also write the receipt to a file outside the repo on the VM, so you can read
+   it next iteration. It must hold no client addresses, emails or cookies.
+4. Test each failure shape with simulated requests.
+5. Put exact rerun steps for the owner in `NEEDS_FROM_HUMAN.md`, replacing the
+   Nov 9 proxy paragraph.
+
+**After the owner reruns it:** report what exe.dev actually sends, in the ack
+and in `NEEDS_FROM_HUMAN.md`. If it differs from what `proxyClient` in
+`apps/api/src/modules/accounts/adapters/proxy-client.ts` assumes, stop and
+report. Don't redesign the trust model on your own.
+
+**While waiting:** continue item 50 phase 4 work behind its flags.
+
+**What not to do:** don't configure proxy trust, enable accounts or public
+mode, or change exe.dev sharing. Never print or save identity values.
+
+**Done when:** the new probe is merged and tested, and the rerun steps are in
+`NEEDS_FROM_HUMAN.md`. Ack it, then ack again with the owner's rerun results.
+
+**Limits:** no paid calls. The probe is a separate script, so this needs no
+deploy. The 13:00–16:00 UTC window still applies to everything else.
