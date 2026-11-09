@@ -131,3 +131,14 @@
 - Verification: targeted router tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check, handbook checker and git diff --check. Full check passes 745 unit/268 integration tests, four expected skips; existing bundle/account-metadata warnings only.
 - No restart under STEERING 22: running services do not import this preparation. Live route adoption, queue atomicity and proxy proof remain open.
 - Next: compose storage-backed route adoption; Nov 9 15:00 scheduled Phase 1/X/Bluesky acceptance remains pending.
+
+## 2026-11-09: iteration 1524 — prepare storage-backed atomic write routing
+
+- Clean main/no leftovers; alerts, healthz and services clear. All 36 sources healthy; source/job checks pass. Scheduled acceptance remains due 15:00 UTC.
+- Added uninstalled default-off composition connecting the source HTTP router to the transactional database writer with a caller-owned pool and separate authorization for other routes.
+- Isolated HTTP coverage now runs through this composition: changed/unchanged outcomes persist exactly once, invalid actors and missing sources leave no admission, source writes never reach standalone authorization or legacy controllers.
+- Added disabled-composition check: invalid unused origin tolerated, no storage/authentication/authorization constructed. Updated rollout plan/TASKS; no live routes, flags, migrations, UI or providers changed.
+- Verification: focused router tests (3 pass), pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check. Full check passes 746 unit/268 integration tests, four expected skips; build has existing bundle warnings only. No live external test calls.
+- Handbook checker: 18 pages/22 diagrams without render/link errors; exit 1 for existing unapplied-account metadata warnings. Latest reader endpoint responds successfully.
+- No restart under STEERING 22: running services do not import this preparation; accounts remain off. Live mounting, queue atomicity and proxy proof remain open.
+- Next: prepare controller adoption/atomic queue effects; Nov 9 scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC.

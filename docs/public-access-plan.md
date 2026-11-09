@@ -459,7 +459,11 @@ independent duplicate admission records. Prepared default-off routing compositio
 source transport before standalone authorization and legacy controllers. Invalid
 source methods/targets terminate there; unrelated routes still enter authorization.
 The disabled composition constructs neither handler. Loopback checks pin single
-writer execution without duplicate admission or legacy fallthrough. Live mounting,
+writer execution without duplicate admission or legacy fallthrough. Prepared storage composition
+(iteration 1524) connects this router to the transactional source writer using a
+caller-owned pool; disabled composition opens neither storage nor authorization.
+Isolated HTTP checks verify persisted outcomes, rollback on actor refusal and
+missing sources, and zero standalone/legacy calls for source writes. Live mounting,
 controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

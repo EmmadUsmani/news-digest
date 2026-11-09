@@ -10,7 +10,7 @@ import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
-import { publicSourceHttp } from '../src/public-write/source-http';
+import { prepareStoredPublicWriteRouter } from '../src/public-write/storage-router';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -434,7 +434,9 @@ void test('source HTTP commits exactly one admission with each mutation and refu
   const id = 'prepared-source-http';
   const target = `/api/admin/topics/sources/${id}/enabled`;
   let invalidActor = false;
-  const handler = publicSourceHttp({
+  let standalone = 0;
+  let legacy = 0;
+  const handler = prepareStoredPublicWriteRouter({
     enabled: true,
     origin: 'https://reader.example',
     authenticate: async () => ({
@@ -443,10 +445,15 @@ void test('source HTTP commits exactly one admission with each mutation and refu
         ? { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' }
         : { localScript: true },
     }),
-    writer: new PublicSourceWriter(pool),
+    pool: () => pool,
+    authorize: () => (_req, _res, next) => {
+      standalone++;
+      next();
+    },
   });
   const server = createServer((req, res) =>
     handler(req, res, () => {
+      legacy++;
       res.statusCode = 404;
       res.end();
     }),
@@ -519,6 +526,12 @@ void test('source HTTP commits exactly one admission with each mutation and refu
     assert.equal(missing.status, 404);
     assert.equal(await missing.text(), '');
     assert.equal(await admissions(), 2);
+    assert.deepEqual([standalone, legacy], [0, 0]);
+    assert.equal(
+      (await fetch(`http://127.0.0.1:${address.port}/api/admin/topics`)).status,
+      404,
+    );
+    assert.deepEqual([standalone, legacy], [1, 1]);
   } finally {
     server.closeAllConnections();
     if (server.listening)

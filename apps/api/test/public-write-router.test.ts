@@ -4,6 +4,7 @@ import test from 'node:test';
 
 import { publicWriteRouter } from '../src/public-write/router';
 import { publicSourceHttp } from '../src/public-write/source-http';
+import { prepareStoredPublicWriteRouter } from '../src/public-write/storage-router';
 
 void test('prepared write router isolates atomic source writes from standalone admission and legacy controllers', async () => {
   let atomic = 0;
@@ -80,6 +81,27 @@ void test('disabled prepared write router constructs no resources and preserves 
     },
     authorize: () => {
       throw new Error('must remain lazy');
+    },
+  });
+  let next = 0;
+  middleware(null!, null!, () => {
+    next++;
+  });
+  assert.equal(next, 1);
+});
+
+void test('disabled stored router opens no pool or authorization resources', () => {
+  const middleware = prepareStoredPublicWriteRouter({
+    enabled: false,
+    origin: 'invalid while disabled',
+    pool: () => {
+      throw new Error('unexpected storage');
+    },
+    authenticate: async () => {
+      throw new Error('unexpected authentication');
+    },
+    authorize: () => {
+      throw new Error('unexpected authorization');
     },
   });
   let next = 0;
