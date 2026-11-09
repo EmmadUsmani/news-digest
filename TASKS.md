@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1528: prepared atomic source writes support authenticated direct-local scripts without Origin; forwarded requests, duplicate credentials and invalid bodies refuse before storage. Live mounting, queue atomicity and proxy proof remain open.
+- [x] Iteration 1529: prepared access-stack switch exclusively selects public or legacy authorization and requires account transport; HTTP checks reject proxy-header bypass and unclassified tools. Live mounting and atomic queue effects remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

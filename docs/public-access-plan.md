@@ -479,7 +479,11 @@ retain their stricter streamed boundary and single transactional admission.
 Atomic source routing now also carries the configured direct-local script token
 (iteration 1528): only authenticated loopback requests without forwarding headers
 may omit Origin; explicit foreign origins, duplicate credentials and invalid bodies
-refuse before authentication or storage. Live mounting, controller replacement and
+refuse before authentication or storage. A prepared access-stack selector (iteration 1529)
+constructs exactly one public or legacy guard, keeps bounded account transport
+first and refuses public composition without it. Offline HTTP checks verify that
+proxy identity headers cannot reach legacy authorization in public mode and
+unclassified tool routes terminate before downstream handlers. Live mounting, controller replacement and
 atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

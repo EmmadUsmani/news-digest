@@ -101,3 +101,12 @@
 - Updated rollout plan/TASKS. Accounts remain disabled; no live flags, migrations, provider calls or generation changed.
 - Verification: four focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 753 unit/268 integration passes, four expected skips; existing bundle warnings only. No live external test calls.
 - No restart: uninstalled modules are not loaded by live services (STEERING 22); 13:00–16:00 deployment hold applies. Next: live mounting, atomic queue effects/proxy proof and Nov 9 15:00 scheduled acceptance.
+
+## 2026-11-09: iteration 1529 — prepare exclusive public access stack
+
+- Clean main/no leftovers; alerts and healthz healthy, all 36 sources healthy, jobs check passes and no failed user services.
+- Prepared unmounted access-stack selector constructs either public authorization or the legacy header guard, never both. Account transport runs first; public composition without account transport fails before constructing authorization resources.
+- Offline loopback checks verify account transport termination, anonymous reader access, rejection of proxy-email admin bypass and refusal of unclassified tool routes before downstream handlers. Private mode keeps legacy authorization without constructing public resources.
+- Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain disabled.
+- Verification: focused HTTP tests (2 pass), pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 755 unit/268 integration passes, four expected skips; existing bundle warnings only.
+- No restart: uninstalled preparation is not loaded by live services (STEERING 22), and the 13:00–16:00 deployment hold applies. Next: live mounting, atomic queue effects/proxy proof and Nov 9 15:00 scheduled acceptance.
