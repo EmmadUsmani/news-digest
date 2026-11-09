@@ -483,7 +483,11 @@ refuse before authentication or storage. A prepared access-stack selector (itera
 constructs exactly one public or legacy guard, keeps bounded account transport
 first and refuses public composition without it. Offline HTTP checks verify that
 proxy identity headers cannot reach legacy authorization in public mode and
-unclassified tool routes terminate before downstream handlers. Live mounting, controller replacement and
+unclassified tool routes terminate before downstream handlers. Combined runtime preparation
+(iteration 1530) now joins account transport, transactional source routing and
+exclusive authorization with one repeatable source-pool shutdown. Missing transport
+refuses before storage acquisition; private mode constructs no public resources.
+Accounts and the ordinary admission recorder remain caller-owned. Live mounting, controller replacement and
 atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

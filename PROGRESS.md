@@ -110,3 +110,13 @@
 - Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain disabled.
 - Verification: focused HTTP tests (2 pass), pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 755 unit/268 integration passes, four expected skips; existing bundle warnings only.
 - No restart: uninstalled preparation is not loaded by live services (STEERING 22), and the 13:00–16:00 deployment hold applies. Next: live mounting, atomic queue effects/proxy proof and Nov 9 15:00 scheduled acceptance.
+
+## 2026-11-09: iteration 1530 — combine prepared access runtime ownership
+
+- Clean main/no leftovers; alerts and healthz healthy, source/job checks pass and no failed user services. Scheduled Nov 9 edition remains queued for 15:00 UTC.
+- Prepared combined runtime joins bounded account transport, account-backed transactional source routing and exclusive public/legacy authorization. Missing public transport refuses before storage acquisition; private mode opens no public resources.
+- Exposes repeatable source-pool shutdown for application ownership and cleans up on stack-construction failure; account/ordinary admission resources remain caller-owned.
+- Offline HTTP/resource checks verify account-first routing, public reader access, rejection of proxy identity and foreign-origin source writes, single pool shutdown and private-mode isolation. Corrected the initial test's expected source-boundary refusal status from 403 to its existing 400 contract.
+- Updated rollout plan/TASKS. No live flags, generation, migrations, provider calls or UI changed; accounts remain disabled.
+- Verification: focused tests (2 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 757 unit/268 integration passes, four expected skips; existing bundle-size warning only.
+- No restart: unmounted preparation is not loaded by services (STEERING 22); 13:00–16:00 deployment hold remains active. Next: live mounting, atomic queue effects/proxy proof and 15:00 scheduled acceptance.

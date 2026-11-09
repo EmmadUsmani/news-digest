@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1529: prepared access-stack switch exclusively selects public or legacy authorization and requires account transport; HTTP checks reject proxy-header bypass and unclassified tools. Live mounting and atomic queue effects remain open.
+- [x] Iteration 1530: prepared combined access runtime joins bounded account transport, account-backed write routing and exclusive authorization; offline HTTP and resource-ownership checks pass. Live mounting and atomic queue effects remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
