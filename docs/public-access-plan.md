@@ -761,7 +761,7 @@ together to the writer, projects only the public result and hides dependency
 errors. Direct authenticated local scripts retain their Origin exemption. This
 transport now participates in the default-off public write runtime (iteration
 1538), sharing the source writer pool and bypassing standalone admission and
-legacy controllers. The exact topic-order route retains ordinary authorization;
+legacy controllers. Topic-order writes use the same atomic routing boundary;
 malformed topic-enable targets terminate before controllers. Public activation
 and deployment await acceptance and a permitted deployment window.
 
@@ -772,4 +772,9 @@ back. Prepared HTTP transport (iteration 1541) accepts only the exact PUT
 order route, a bounded unique UUID list and fresh admin authorization. Stale
 catalogs return an empty 409; dependency failures return an empty 503. Origin,
 wire-header multiplicity and local-script provenance checks match topic-enable
-writes. The transport remains unregistered; runtime wiring is next.
+writes. The transport now participates in the default-off public write runtime
+(iteration 1545), sharing the existing writer pool and account authentication.
+Order requests, including malformed variants, terminate before standalone
+admission and legacy controllers. Isolated composed HTTP/storage checks cover
+changed/unchanged outcomes, stale catalogs and audit-failure rollback. Accounts
+and public mode remain disabled; live proxy proof and deployment remain pending.

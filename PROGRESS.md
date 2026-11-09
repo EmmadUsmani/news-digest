@@ -152,3 +152,15 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Development totals remain Anthropic $0.211076/xAI $0. No migrations, deployment or restarts during 13:00–16:00 hold; accounts/public remain off.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes.
 - Next: Phase 3 proxy proof and guarded activation; daily paid-candidate novelty/Bluesky destinations remain open.
+
+## 2026-11-09: iteration 1545 — wire atomic topic ordering into guarded runtime
+
+- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
+- Documented exe.dev proxy URL remains unreachable from VM (curl connection failure); no browser connector is available. Updated NEEDS_FROM_HUMAN; no inferred proxy trust or account activation.
+- Default-off public runtime now routes bounded topic-order PUT through the atomic writer before standalone admission/controllers, sharing account authentication and the owned writer pool. Disabled mode constructs no new resources.
+- Targeted HTTP/router tests pass (7/7). New isolated composed HTTP/Postgres check verifies admin refusal, changed/unchanged outcomes, stale-catalog 409 and audit-failure 503 with unchanged ordering/admission count; no standalone recorder/controller execution.
+- Updated rollout plan, affected handbook note and TASKS. pnpm exec tsx scripts/check-handbook.ts 07-data-model verifies 18 pages/3 diagrams, but exits 1 solely on existing metadata warnings for unapplied account tables. No diagram changes.
+- pnpm build passes. check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; pnpm obs jobs --check passes, zero failed/active digest jobs, next Nov 10 15:00 UTC. Initial jobs --check with filters refused CLI syntax; corrected unfiltered check passes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
+- No provider calls, application writes, migrations, flags or UI changes. No restart/deployment during 13:00–16:00 UTC hold; accounts/public remain disabled, live runtime unchanged.
+- Next: live proxy proof and guarded account activation when obtainable; deploy prepared main after 16:00 UTC. Daily paid novelty/Bluesky destination acceptance remains open.

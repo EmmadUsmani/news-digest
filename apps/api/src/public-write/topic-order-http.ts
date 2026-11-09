@@ -15,7 +15,7 @@ interface TopicOrderWriter {
   }>;
 }
 
-// Uninstalled preparation. Mount before body parsers and the general admission
+// Mounted by the guarded public write router before body parsers and general admission
 // middleware: the writer owns admission and mutation in one transaction.
 export function publicTopicOrderHttp(options: {
   enabled: boolean;

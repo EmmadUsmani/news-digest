@@ -923,3 +923,120 @@ void test('prepared topic order serializes outcomes, refuses stale catalogs and 
     await pool.end();
   }
 });
+
+void test('composed topic order HTTP owns admission and rolls back catalog and audit failures', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const target = '/api/admin/topics/order';
+  const original = (
+    await pool.query('SELECT id, position FROM topics ORDER BY position, id')
+  ).rows as { id: string; position: number }[];
+  const ids = original.map((row) => row.id).reverse();
+  let freshAdmin = false;
+  let standalone = 0;
+  let legacy = 0;
+  const runtime = await prepareAccessRuntime({
+    enabled: true,
+    origin: 'https://reader.example',
+    pool: () => pool,
+    accounts: () => ({
+      authorization: async () => ({
+        freshAdmin,
+        auditActor: { localScript: true },
+      }),
+    }),
+    accountTransport: (_request, _response, next) => next(),
+    recordAdminWrite: async () => {
+      standalone++;
+    },
+    legacyAccess: () => {
+      throw new Error('Unexpected legacy access');
+    },
+  });
+  const server = createServer((request, response) =>
+    runtime.middleware(request, response, () => {
+      legacy++;
+      response.writeHead(204).end();
+    }),
+  );
+  const order = async () =>
+    (await pool.query('SELECT id FROM topics ORDER BY position, id')).rows.map(
+      (row) => row.id,
+    );
+  const admissions = async () =>
+    (
+      await pool.query(
+        'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+        [target],
+      )
+    ).rows;
+  try {
+    await new Promise<void>((resolve) =>
+      server.listen(0, '127.0.0.1', resolve),
+    );
+    const address = server.address();
+    assert.ok(address && typeof address !== 'string');
+    const put = (ordered: string[]) =>
+      fetch(`http://127.0.0.1:${address.port}${target}`, {
+        method: 'PUT',
+        headers: {
+          origin: 'https://reader.example',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ ids: ordered }),
+      });
+    assert.equal((await put(ids)).status, 404);
+    assert.deepEqual(await admissions(), []);
+    assert.deepEqual(
+      await order(),
+      original.map((row) => row.id),
+    );
+    freshAdmin = true;
+    for (const outcome of ['changed', 'unchanged']) {
+      const response = await put(ids);
+      assert.equal(response.status, 200);
+      assert.deepEqual(await response.json(), { outcome });
+    }
+    assert.deepEqual(await order(), ids);
+    assert.equal((await put(ids.slice(1))).status, 409);
+    assert.deepEqual(await admissions(), [
+      { outcome: 'changed' },
+      { outcome: 'unchanged' },
+    ]);
+    await pool.query(
+      "CREATE FUNCTION refuse_http_order_outcome() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'audit unavailable'; END $$",
+    );
+    await pool.query(
+      'CREATE TRIGGER refuse_http_order_outcome BEFORE UPDATE ON admin_write_admissions FOR EACH ROW EXECUTE FUNCTION refuse_http_order_outcome()',
+    );
+    try {
+      const failed = await put([...ids].reverse());
+      assert.equal(failed.status, 503);
+      assert.equal(await failed.text(), '');
+      assert.deepEqual(await order(), ids);
+      assert.deepEqual(await admissions(), [
+        { outcome: 'changed' },
+        { outcome: 'unchanged' },
+      ]);
+    } finally {
+      await pool.query(
+        'DROP TRIGGER refuse_http_order_outcome ON admin_write_admissions',
+      );
+      await pool.query('DROP FUNCTION refuse_http_order_outcome()');
+    }
+    assert.deepEqual([standalone, legacy], [0, 0]);
+  } finally {
+    server.closeAllConnections();
+    if (server.listening)
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+    for (const row of original)
+      await pool.query('UPDATE topics SET position=$2 WHERE id=$1', [
+        row.id,
+        row.position,
+      ]);
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      target,
+    ]);
+    await runtime.close();
+  }
+});

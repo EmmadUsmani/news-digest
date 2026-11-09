@@ -5,6 +5,7 @@ import { PublicTopicWriter } from '../modules/topics/database/public-topic-write
 import { publicWriteRouter } from './router';
 import { publicSourceHttp } from './source-http';
 import { publicTopicHttp } from './topic-http';
+import { publicTopicOrderHttp } from './topic-order-http';
 
 // Prepared only; the caller owns the pool and account authorization lifecycle.
 // Mount before body parsing. Disabled composition never opens storage.
@@ -30,6 +31,15 @@ export function prepareStoredPublicWriteRouter(options: {
       }),
     topic: () =>
       publicTopicHttp({
+        enabled: true,
+        origin: options.origin,
+        localToken: options.localToken,
+        authenticate: options.authenticate,
+        now: options.now,
+        writer: new PublicTopicWriter(options.pool()),
+      }),
+    topicOrder: () =>
+      publicTopicOrderHttp({
         enabled: true,
         origin: options.origin,
         localToken: options.localToken,

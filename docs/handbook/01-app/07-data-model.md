@@ -25,8 +25,10 @@ snapshots.
 > A prepared source toggle uses this boundary and returns changed, unchanged
 > or not-found. Missing sources leave no admission record. Its prepared HTTP
 > boundary checks a bounded request and fresh admin before calling the writer.
-> These remain disconnected. Prepared source writes save changed/unchanged
-> atomically; null outcomes describe admission only (unapplied migration 0019).
+> The default-off public runtime routes source toggles, topic toggles and complete
+> topic ordering through this boundary. Changes and changed/unchanged outcomes
+> commit together; stale topic catalogs leave no admission or ordering change.
+> Null outcomes describe admission only (unapplied migration 0019).
 > Deleting a reader removes admissions tied to that identity.
 >
 > A prepared accounts migration adds independent reader identities and hashed

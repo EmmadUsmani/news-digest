@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { publicSourceHttp } from './source-http';
 import { publicTopicHttp } from './topic-http';
+import { publicTopicOrderHttp } from './topic-order-http';
 
 type Middleware = (
   request: IncomingMessage,
@@ -15,6 +16,7 @@ export function publicWriteRouter(options: {
   enabled: boolean;
   source: () => ReturnType<typeof publicSourceHttp>;
   topic: () => ReturnType<typeof publicTopicHttp>;
+  topicOrder: () => ReturnType<typeof publicTopicOrderHttp>;
   authorize: () => Middleware;
 }) {
   if (!options.enabled)
@@ -25,6 +27,7 @@ export function publicWriteRouter(options: {
     ) => next();
   const source = options.source();
   const topic = options.topic();
+  const topicOrder = options.topicOrder();
   const authorize = options.authorize();
   return (
     request: IncomingMessage,
@@ -32,8 +35,10 @@ export function publicWriteRouter(options: {
     next: () => void,
   ) =>
     source(request, response, () => {
-      topic(request, response, () => {
-        void authorize(request, response, next);
+      topicOrder(request, response, () => {
+        topic(request, response, () => {
+          void authorize(request, response, next);
+        });
       });
     });
 }

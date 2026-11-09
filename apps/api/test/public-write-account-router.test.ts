@@ -107,7 +107,8 @@ void test('account write routing shares fresh session checks and keeps source re
     );
     assert.deepEqual([admissions, legacy], [0, 0]);
     freshAdmin = true;
-    assert.equal((await call('/api/admin/topics/order')).status, 204);
+    assert.equal((await call('/api/admin/profile/schedule')).status, 204);
+    assert.equal((await call('/api/admin/topics/order')).status, 400);
     assert.deepEqual([admissions, legacy], [1, 1]);
     const beforeRefusals = authenticated;
     for (const headers of [
@@ -120,7 +121,7 @@ void test('account write routing shares fresh session checks and keeps source re
         `http://127.0.0.1:${address.port}/api/admin/topics/order`,
         { method: 'PUT', headers: { cookie: 'session=test', ...headers } },
       );
-      assert.equal(refusedWrite.status, 403);
+      assert.equal(refusedWrite.status, 400);
       assert.equal(refusedWrite.headers.get('cache-control'), 'no-store');
       assert.equal(await refusedWrite.text(), '');
     }

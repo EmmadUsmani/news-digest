@@ -6,6 +6,7 @@ import { publicWriteRouter } from '../src/public-write/router';
 import { publicSourceHttp } from '../src/public-write/source-http';
 import { prepareStoredPublicWriteRouter } from '../src/public-write/storage-router';
 import { publicTopicHttp } from '../src/public-write/topic-http';
+import { publicTopicOrderHttp } from '../src/public-write/topic-order-http';
 
 void test('prepared write router isolates atomic source writes from standalone admission and legacy controllers', async () => {
   let atomic = 0;
@@ -40,6 +41,21 @@ void test('prepared write router isolates atomic source writes from standalone a
           async setEnabled(_entry, id, enabled) {
             atomic++;
             return { outcome: 'changed', id, enabled };
+          },
+        },
+      }),
+    topicOrder: () =>
+      publicTopicOrderHttp({
+        enabled: true,
+        origin: 'https://reader.example',
+        authenticate: async () => ({
+          freshAdmin: true,
+          auditActor: { localScript: true },
+        }),
+        writer: {
+          async reorder() {
+            atomic++;
+            return { outcome: 'unchanged' };
           },
         },
       }),
@@ -91,8 +107,23 @@ void test('prepared write router isolates atomic source writes from standalone a
     }
     assert.equal((await send(topic, 'POST')).status, 404);
     assert.deepEqual([atomic, admissions, legacy], [2, 0, 0]);
+    const order = '/api/admin/topics/order';
+    const ordered = await fetch(base + order, {
+      method: 'PUT',
+      headers: {
+        origin: 'https://reader.example',
+        'content-type': 'application/json',
+      },
+      body: '{"ids":[]}',
+    });
+    assert.equal(ordered.status, 200);
+    assert.deepEqual(await ordered.json(), { outcome: 'unchanged' });
+    for (const target of [order, order + '?extra=1', order + '/extra']) {
+      assert.equal((await send(target)).status, target === order ? 400 : 404);
+    }
+    assert.deepEqual([atomic, admissions, legacy], [3, 0, 0]);
     assert.equal((await send('/api/admin/settings')).status, 204);
-    assert.deepEqual([atomic, admissions, legacy], [2, 1, 1]);
+    assert.deepEqual([atomic, admissions, legacy], [3, 1, 1]);
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve, reject) =>
@@ -108,6 +139,9 @@ void test('disabled prepared write router constructs no resources and preserves 
       throw new Error('must remain lazy');
     },
     topic: () => {
+      throw new Error('must remain lazy');
+    },
+    topicOrder: () => {
       throw new Error('must remain lazy');
     },
     authorize: () => {

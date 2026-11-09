@@ -43,7 +43,7 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 update (1467): live account forwarding proof remains pending: this VM
+Nov 9 update (1545, rechecked): live account forwarding proof remains pending: this VM
 cannot connect to `https://news-digest.exe.xyz/healthz` (curl connection failure).
 A five-minute private alternate-port browser diagnostic is prepared; instructions
 are in [account activation](docs/account-activation.md). Its isolated checks use
