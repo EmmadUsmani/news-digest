@@ -687,3 +687,31 @@ four uncached queries passing (maximum 0.278 s), zero new evaluator errors
 or missed iterations, and 31,684 rows across two small merges. No big merges.
 Metrics retains its Nov 7 16:00:24 systemd start with zero restarts. App and
 Grafana health pass. Next passive check no earlier than 12:26 UTC.
+
+### Natural large compaction confirmed (iteration 1470)
+
+Stored history for Nov 8 11:26–Nov 9 04:26 UTC contains 2,041 points per
+series at 30-second steps, with no returned gaps or metrics-process resets.
+Small-storage rows increased 39,882,321 over 1,932 merges (largest adjacent
+increase 4,896,807). Big-storage rows increased 49,279,202. The metrics journal
+confirms one natural 13-part/49,279,202-row merge completed Nov 8 17:48:00.851
+UTC in 164.103 seconds. This supplies the previously missing comparable merge.
+Self-scrape samples stayed one; admission hits stayed two; queue timeouts and
+slow queries stayed zero. Metrics still has its Nov 7 16:00:24 start, no restarts.
+
+During 17:40–17:55 UTC, 31 stored resource samples show whole-stack memory
+672.3–686.8 MiB and five-minute CPU rates 1.234–2.361%; metrics memory
+73.5–87.8 MiB and CPU 0.371–1.378%. No limits or configuration changed.
+The alert evaluator journal has no warnings in that window, but historical
+per-rule health and evaluator error/miss counters are not retained. Recovery
+therefore remains open for correlated rule/query evidence rather than another
+search for an unseen compaction; stored availability samples alone are insufficient.
+
+Commands: eight uncached local `/metrics/api/v1/query_range` GETs as above,
+`start=1794137160`, `end=1794198360`, `step=30s`; resource queries use
+`news_digest_unit_memory_bytes` and CPU counter five-minute rates for system
+`obs-*` units over 17:40–17:55 UTC; `journalctl -u obs-metrics.service` and
+`-u obs-alerts.service` for that window. Current `sample-metrics-recovery.ts 1 30`
+passes 23 fresh rules, four uncached probes (maximum 0.833 s), zero new evaluator
+errors/misses. Health, Grafana health, services, all 36 sources and jobs pass.
+Next passive check no earlier than Nov 9 05:27 UTC; keep it short and hourly.
