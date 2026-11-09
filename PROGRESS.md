@@ -1,19 +1,3 @@
-## 2026-11-09: iteration 1454 — prepared audited admin session revocation
-
-- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue has zero failures. Normal Phase 1 acceptance still awaits Nov 9 15:00 UTC; accounts stay disabled and VM private.
-- Added unregistered admin session-revocation application/port/storage. Storage locks and rechecks the active issuer, original eligibility, current allowlist and seven-day freshness; deletes the target’s device sessions and records the stored target email in one transaction. No bearer tokens reach audit rows. Prepared migration 0017 expands allowed audit actions; no live migration or activation.
-- Offline acceptance covers malformed credentials/targets, current allowlist, unknown/non-admin/stale issuers, exact freshness boundary, target isolation, self-revocation, audit-failure rollback and row-lock waiting behind concurrent logout. Updated rollout plan, handbook and audit metadata; archived iterations 1440–1441 to keep this file small. No UI change, provider calls or real email.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and `git diff --check` pass. Full check: 700 unit tests, 254 integration passes/four expected skips, including schema parity and new rollback/logout-race acceptance. Saved reader retains four topics/19 stories/17 posts; handbook reports existing pending-account metadata notes. Commit/push then restart API/worker and recheck health/reader/alerts.
-- Next: normal scheduled Phase 1 acceptance, live proxy proof; prepare guarded revocation HTTP/admin controls while accounts remain disabled. Owner two-device acceptance remains open.
-
-## 2026-11-09: iteration 1455 — guarded admin revocation HTTP transport
-
-- Clean main/no leftovers; initial alerts and health clear, all 36 sources healthy and digest queue has zero failures. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts remain disabled and VM private.
-- Prepared POST-only `/api/account/sessions/revoke` with exact Origin/JSON, strict single-UUID payload, unambiguous cookie, trusted-client admission and bounded body. Optional service injection defaults to unavailable; no runtime revocation registration or live migration. Authorization remains atomic with audit/storage; no preliminary session renewal.
-- Isolated loopback HTTP acceptance covers disabled/unconnected gates, methods, malformed/extra fields, foreign Origin, ambiguous cookies, oversized bodies, untrusted clients, authorization refusal, count-only success and private storage failure. Updated rollout plan, affected handbook note and TASKS. No UI change, live provider calls or real email.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted HTTP test, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass: 701 unit tests, 254 integration passes/four expected skips. Handbook check renders successfully but exits 1 for existing unapplied-account metadata warnings; no diagrams changed. Saved reader retains four topics/19 stories/17 posts.
-- Commit/push then restart API/worker and recheck health/alerts/reader. Next: gated runtime revocation injection and admin control; normal scheduled Phase 1 acceptance then live proxy proof. Account migration 0017 remains unapplied; owner two-device acceptance stays open.
-
 ## 2026-11-09: iteration 1456 — gated admin revocation runtime
 
 - Clean main/no leftovers; initial health and alerts clear, all 36 sources healthy and digest queue has zero failures. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts stay disabled and VM private.
@@ -140,3 +124,11 @@
 - Recovery stays open: historical evaluator counters/per-rule health unavailable. Current `sample-metrics-recovery.ts 1 30` passes 23 rules/four probes ≤0.833 s/zero new errors or misses. Next passive check ≥05:27 UTC.
 - Updated capacity decision and TASKS; accounts still disabled awaiting scheduled acceptance/live proxy proof. No product or schema change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit/254 integration passes, four expected skips), `pnpm build`, `git diff --check` and saved-reader check (four topics/19 stories/17 posts) pass. Commit/push and API/worker restart followed by health/alerts checks.
+
+## 2026-11-09: iteration 1471 — two-device browser sync acceptance
+
+- Clean main/no leftovers; health, 14 services, all 36 sources and jobs pass, alerts clear; next normal digest is 15:00 UTC. Metrics check not due until 05:27 UTC.
+- Extended mounted-reader browser acceptance with independent desktop/mobile contexts sharing only fixture account transport: desktop bookmark downloads to mobile, mobile removal downloads to desktop, removal tombstone persists and neither device resurrects it after navigation/reload.
+- Uses the real saved edition with fixture accounts; no live account writes, migrations, provider calls or product changes. Inspected new mobile saved-item screenshot. Accounts remain disabled.
+- Verification: `pnpm exec tsx scripts/smoke-reader-account-integration.ts`, format, lint fix, full check, build, diff check and `check-scheduled-reader.ts 2026-11-08T15:00:00Z` (four topics/19 stories/17 posts). 707 unit and 254 integration passes/four expected skips. Archived iterations 1454–1455; API/worker restart follows push.
+- Next: Phase 1 normal 15:00 scheduled acceptance and authenticated live proxy proof before activation; owner's real two-device test remains required.

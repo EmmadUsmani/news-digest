@@ -322,6 +322,9 @@ sessions: saved-story copies and removals converge, stale writes preserve remova
 a friend reader stays isolated, single-device logout preserves the other session,
 and all-device logout and deletion refuse subsequent sync. This is automated
 preparation; the owner’s two-device check and scheduled acceptance remain open.
+Mounted-reader browser acceptance also covers separate desktop/mobile contexts:
+a desktop save appears on mobile, a mobile removal reaches desktop, and both
+retain the removal after navigation/reload (fixture account transport, saved edition).
 It does not make the adapters' separate transactions atomic.
 
 Prepared admin invitation control (iteration 1453) appears only for an admin

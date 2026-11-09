@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1470: confirmed natural 49.3-million-row metrics compaction from journal and bounded stored resource history; narrowed remaining recovery evidence to correlated evaluator/query health. No runtime changes.
+- [x] Iteration 1471: mounted reader browser check verifies desktop save → independent mobile download/removal → desktop tombstone convergence and reload persistence, using fixture account transport and real saved edition. Accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
