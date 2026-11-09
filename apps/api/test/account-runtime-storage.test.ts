@@ -248,6 +248,78 @@ void test('composed accounts persist mailbox login and single-use friend session
         'revoked-friend@example.test',
         new Date(),
       );
+      // Two independently redeemed devices must both lose access through the
+      // installed HTTP route, while the reader's saved state survives sign-out.
+      const targetSecondLink = await write(
+        'links',
+        { email: 'revoked-friend@example.test' },
+        cookie,
+      );
+      assert.equal(targetSecondLink.status, 201);
+      const targetSecondLogin = await post(
+        'link-redeem',
+        { token: (await targetSecondLink.json()).token },
+        forwarded,
+      );
+      assert.equal(targetSecondLogin.status, 204);
+      const targetSecondCookie = targetSecondLogin.headers
+        .get('set-cookie')!
+        .split(';')[0];
+      assert.notEqual(targetSecondCookie, targetCookie);
+      assert.deepEqual(
+        await (await write('sync', saved, targetCookie)).json(),
+        saved,
+      );
+      assert.deepEqual(
+        await (await write('sync', empty, targetSecondCookie)).json(),
+        saved,
+      );
+      assert.equal(
+        (await write('sessions/revoke', { userId: target }, friendCookie))
+          .status,
+        403,
+      );
+      // Refusal must leave both target devices usable.
+      for (const device of [targetCookie, targetSecondCookie])
+        assert.equal((await write('sync', empty, device)).status, 200);
+      const httpRevoked = await write(
+        'sessions/revoke',
+        { userId: target },
+        cookie,
+      );
+      assert.equal(httpRevoked.status, 200);
+      assert.equal(httpRevoked.headers.get('cache-control'), 'no-store');
+      assert.equal(httpRevoked.headers.get('set-cookie'), null);
+      assert.deepEqual(await httpRevoked.json(), { revoked: 2 });
+      for (const device of [targetCookie, targetSecondCookie]) {
+        assert.equal((await write('sync', empty, device)).status, 401);
+        const discovery = await fetch(`${base}/api/account/session`, {
+          headers: { Cookie: device },
+        });
+        assert.deepEqual(await discovery.json(), {
+          signedIn: false,
+          isAdmin: false,
+        });
+      }
+      const targetReturnLink = await write(
+        'links',
+        { email: 'revoked-friend@example.test' },
+        cookie,
+      );
+      assert.equal(targetReturnLink.status, 201);
+      const targetReturnLogin = await post(
+        'link-redeem',
+        { token: (await targetReturnLink.json()).token },
+        forwarded,
+      );
+      assert.equal(targetReturnLogin.status, 204);
+      const targetReturnCookie = targetReturnLogin.headers
+        .get('set-cookie')!
+        .split(';')[0];
+      assert.deepEqual(
+        await (await write('sync', empty, targetReturnCookie)).json(),
+        saved,
+      );
       const otherRuntime = compose();
       assert.equal(
         (
