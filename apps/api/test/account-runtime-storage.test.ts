@@ -379,13 +379,47 @@ void test('composed accounts persist mailbox login and single-use friend session
         await (await write('sync', empty, rejoinedCookie)).json(),
         removed,
       );
+      // Deletion must invalidate outstanding credentials as well as active
+      // devices, through the same installed transport and persistent storage.
+      const friendLink = async () => {
+        const issued = await write(
+          'links',
+          { email: 'http-friend@example.test' },
+          secondCookie,
+        );
+        assert.equal(issued.status, 201);
+        return (await issued.json()).token as string;
+      };
+      const friendSecondLogin = await post(
+        'link-redeem',
+        { token: await friendLink() },
+        forwarded,
+      );
+      assert.equal(friendSecondLogin.status, 204);
+      const friendSecondCookie = friendSecondLogin.headers
+        .get('set-cookie')!
+        .split(';')[0];
+      const pendingFriendLink = await friendLink();
+      assert.equal(
+        (await post('code', { email: 'http-friend@example.test' }, forwarded))
+          .status,
+        202,
+      );
+      const pendingFriendCode = await new FileLoginCodeDelivery(
+        directory,
+      ).latest('http-friend@example.test', new Date());
+      assert.ok(pendingFriendCode);
+      assert.deepEqual(
+        await (await write('sync', saved, friendSecondCookie)).json(),
+        saved,
+      );
       assert.equal((await write('logout-all', {}, secondCookie)).status, 204);
       assert.equal((await write('sync', empty, rejoinedCookie)).status, 401);
       assert.equal((await write('sync', empty, secondCookie)).status, 401);
       // Account revocation is scoped to its reader; the other reader survives.
       assert.deepEqual(
         await (await write('sync', empty, friendCookie)).json(),
-        empty,
+        saved,
       );
       const deleted = await write(
         'delete',
@@ -395,6 +429,31 @@ void test('composed accounts persist mailbox login and single-use friend session
       assert.equal(deleted.status, 204);
       assert.match(deleted.headers.get('set-cookie')!, /Max-Age=0/);
       assert.equal((await write('sync', empty, friendCookie)).status, 401);
+      assert.equal(
+        (await write('sync', empty, friendSecondCookie)).status,
+        401,
+      );
+      assert.equal(await identities.exists('http-friend@example.test'), false);
+      assert.equal(
+        await new FileLoginCodeDelivery(directory).latest(
+          'http-friend@example.test',
+          new Date(),
+        ),
+        null,
+      );
+      for (const [path, body] of [
+        ['link-redeem', { token: pendingFriendLink }],
+        [
+          'redeem',
+          { email: 'http-friend@example.test', code: pendingFriendCode },
+        ],
+      ] as const) {
+        const replay = await post(path, body, forwarded);
+        assert.equal(replay.status, 401);
+        assert.equal(replay.headers.get('set-cookie'), null);
+      }
+      assert.equal(await identities.exists('http-friend@example.test'), false);
+
       assert.equal(
         (await post('code', { email: env.ADMIN_EMAILS }, forwarded)).status,
         202,

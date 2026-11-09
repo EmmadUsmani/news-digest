@@ -39,6 +39,10 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   Two independently authenticated devices also verify preference/bookmark sync,
   removal tombstones, stale-update refusal, cookie-derived reader isolation and
   sync refusal after all-device logout, using fixture persistence.
+  The disposable Postgres/Redis HTTP check also deletes a reader with two active
+  devices, saved choices, an unused code and an unused invitation. Both devices
+  and outstanding credentials are refused afterward; mailbox cleanup and identity
+  removal are verified without recreating the deleted reader through replay.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

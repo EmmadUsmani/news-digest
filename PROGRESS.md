@@ -1,28 +1,3 @@
-## 2026-11-09: iteration 1464 — unfinished account upload acceptance
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 still awaits the normal 15:00 UTC edition; accounts remain disabled.
-- Added real HTTP regression coverage for unfinished chunked uploads exceeding the login 2 KiB and sync 16 MiB limits. Both receive 413 without waiting for upload completion or invoking account handlers; no runtime fix needed.
-- No live account writes, migrations, provider calls, email, proxy trust changes or UI changes. Archived iterations 1448–1449 to keep this log small.
-- Verification: targeted account HTTP tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full suite: 703 unit passes, 254 integration passes/four expected skips. Saved reader retains four topics/19 stories/17 posts. Commit/push followed by API/worker restart and health/alerts checks.
-- Next: normal Phase 1 scheduled acceptance, live proxy proof and account activation prerequisites. Accounts stay disabled until those gates pass.
-
-## 2026-11-09: iteration 1465 — reject declared oversized account uploads early
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy, no recent worker errors and the normal 15:00 UTC digest queued. Accounts remain disabled.
-- Account HTTP now rejects an oversized Content-Length before reading the body; actual streamed-byte limits still apply independently (2 KiB login, 16 MiB sync). Real HTTP tests send only one byte of each declared oversized upload and receive 413 without invoking handlers; unfinished chunked coverage remains.
-- No UI, migrations, live account writes, provider calls or proxy trust changes. Phase 1 scheduled acceptance and live proxy proof still gate activation.
-- Verification: targeted account HTTP tests (3/3), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 703 unit passes and 254 integration passes/four expected skips. Saved reader: four topics/19 stories/17 posts.
-- Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal 15:00 UTC acceptance and live proxy proof before account activation.
-
-## 2026-11-09: iteration 1466 — reject invalid account headers before uploads
-
-- Clean main/no leftovers; alerts clear and API/worker healthy. Saved Nov 8 reader retains four topics/19 stories/17 posts; normal Phase 1 acceptance still awaits 15:00 UTC.
-- Account HTTP now checks the existing exact Origin/JSON policy before reading any POST body. Missing or invalid headers return 400 immediately; handlers retain their independent boundary checks.
-- Real HTTP checks leave chunked login/sync uploads unfinished and verify all eight invalid/missing Origin/Content-Type combinations return 400 without calling account operations. Existing declared/chunked size checks remain green.
-- Accounts remain disabled. No UI, migrations, live account writes, provider calls or proxy trust changes; scheduled acceptance and live proxy proof still gate activation. Archived iterations 1450–1451 to keep this log small.
-- Verification: targeted account HTTP tests (4/4), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 704 unit passes, 254 integration passes/four expected skips. Commit/push followed by API/worker restart and health/alerts checks.
-- Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof before account activation.
-
 ## 2026-11-09: iteration 1467 — private proxy verification diagnostic
 
 - Clean main/no leftovers; health, alerts, source and job checks pass. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
@@ -168,3 +143,13 @@
 - Verification: composed browser smoke twice, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and diff check pass. Full check: 707 unit/254 integration tests pass, four expected skips; saved reader retains four topics/19 stories/17 posts.
 - Handbook checker exits 1 solely for 14 existing metadata warnings referencing seven unapplied account tables; 18 pages/diagrams otherwise checked. Previous entries calling this a pass were inaccurate.
 - Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof. Metrics passive check not due before 06:27 UTC.
+
+## 2026-11-09: iteration 1482 — deletion invalidates outstanding HTTP credentials
+
+- Clean main/no leftovers; alerts clear, healthz healthy, 36/36 sources fresh and digest queue has no failures. Historical ingestion/social failures remain retained; recent collections succeed.
+- Extended the installed HTTP/storage integration flow with two friend sessions, saved choices, a pending mailbox code and an unused invitation before deletion.
+- Deletion clears the caller cookie, refuses both device sessions, removes the identity and mailbox code, and rejects code/link replay without setting cookies or recreating the reader.
+- Disposable Postgres/Redis and private temporary mailbox only; no live writes, provider calls or runtime/config/UI changes. Accounts remain disabled. Updated activation checklist and archived iterations 1464–1466.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, source/queue snapshots and `git diff --check` pass.
+- Full check: 707 unit/254 integration tests pass, four expected skips. Build retains existing bundle warnings; saved reader retains four topics/19 stories/17 posts.
+- No restart under STEERING 22: deployed code/config unchanged. Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof; metrics passive check remains due no earlier than 06:27 UTC.
