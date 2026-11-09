@@ -33,6 +33,9 @@ export class AccountHandlers {
     private readonly deletion?: Pick<DeleteAccount, 'execute'>,
     private readonly sync?: ReaderSyncRepository,
     private readonly revocation?: Pick<AdminSessionRevocation, 'revoke'>,
+    private readonly preferenceAdmission?: {
+      allow(userId: string): Promise<boolean>;
+    },
   ) {}
 
   acceptsWrite(origin: unknown, contentType: unknown): boolean {
@@ -167,6 +170,15 @@ export class AccountHandlers {
       );
     } catch {
       return { status: 400 };
+    }
+    if (this.preferenceAdmission) {
+      let allowed = false;
+      try {
+        allowed = await this.preferenceAdmission.allow(session.userId);
+      } catch {
+        // An unavailable limiter must not grant unlimited preference writes.
+      }
+      if (!allowed) return { status: 429 };
     }
     // Identity is derived exclusively from the authenticated cookie. The
     // repository serializes merges with other devices and identity deletion.

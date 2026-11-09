@@ -137,3 +137,82 @@ void test('session responses hide credentials and all-device logout uses authent
   );
   assert.deepEqual(calls, [['all', 'verified-user']]);
 });
+
+void test('preference admission uses authenticated identity and refuses before sync mutation', async () => {
+  const empty = { version: 1 as const, hiddenTopics: {}, bookmarks: {} };
+  const request = {
+    origin: 'https://reader.example',
+    contentType: 'application/json',
+    body: empty as unknown,
+    cookie: `__Host-reader_session=${'a'.repeat(43)}`,
+  };
+  let authenticated = true;
+  let mode: 'allow' | 'deny' | 'fail' = 'deny';
+  const identities: string[] = [];
+  let writes = 0;
+  const handlers = new AccountHandlers(
+    new AccountRequestBoundary('https://reader.example'),
+    { request: async () => ({ accepted: true }) },
+    { redeem: async () => null },
+    {
+      authenticate: async () =>
+        authenticated
+          ? {
+              userId: 'verified-reader',
+              sessionId: 'private-session',
+              isAdmin: false,
+              cookie: null,
+            }
+          : null,
+      signOut: async () => '',
+      signOutAllDevices: async () => '',
+    },
+    undefined,
+    undefined,
+    {
+      read: async () => empty,
+      merge: async () => {
+        writes++;
+        return empty;
+      },
+    },
+    undefined,
+    {
+      allow: async (userId) => {
+        identities.push(userId);
+        if (mode === 'fail') throw new Error('private Redis detail');
+        return mode === 'allow';
+      },
+    },
+  );
+  assert.deepEqual(await handlers.syncReader(request, now), { status: 429 });
+  mode = 'fail';
+  assert.deepEqual(await handlers.syncReader(request, now), { status: 429 });
+  assert.equal(writes, 0);
+  mode = 'allow';
+  assert.equal((await handlers.syncReader(request, now)).status, 200);
+  assert.equal(writes, 1);
+  assert.deepEqual(identities, Array(3).fill('verified-reader'));
+  assert.equal(
+    (
+      await handlers.syncReader(
+        { ...request, origin: 'https://attacker.example' },
+        now,
+      )
+    ).status,
+    400,
+  );
+  assert.equal(
+    (
+      await handlers.syncReader(
+        { ...request, body: { ...empty, userId: 'forged' } },
+        now,
+      )
+    ).status,
+    400,
+  );
+  authenticated = false;
+  assert.equal((await handlers.syncReader(request, now)).status, 401);
+  assert.equal(identities.length, 3);
+  assert.equal(writes, 1);
+});

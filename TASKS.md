@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1573: prepared unregistered HTTP API admission; GET/HEAD/writes, refusal privacy, missing identity/dependency failures and disabled-mode rollback verified. Visitor proof, registration and preference-write limits remain open.
+- [x] Iteration 1574: prepared unregistered per-reader Redis preference-write limit and optional authenticated sync boundary; shared allowances, private keys, expiry and refusal before mutation verified. Runtime registration and visitor proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
