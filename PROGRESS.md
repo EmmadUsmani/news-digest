@@ -153,3 +153,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, source/queue snapshots and `git diff --check` pass.
 - Full check: 707 unit/254 integration tests pass, four expected skips. Build retains existing bundle warnings; saved reader retains four topics/19 stories/17 posts.
 - No restart under STEERING 22: deployed code/config unchanged. Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof; metrics passive check remains due no earlier than 06:27 UTC.
+
+## 2026-11-09: iteration 1483 — prepare default-deny public route classes
+
+- Clean main/no leftovers; alerts and healthz clear, 14/14 services and 36/36 sources healthy. Digest queue has no failures; next normal run remains 15:00 UTC.
+- Added an unregistered Phase 4 method/path classifier for current edition/account APIs and administrative controllers. Unknown operations and encoded, dot-segment, separator or case ambiguities return no class; no prefix-wide grants.
+- Anonymous credential exchanges remain admission-protected by account handlers; sync/deletion/logout classify as user, invitations/revocation as admin. Administrative reads stay restricted until their response audit.
+- Tests verify role separation, unsupported verbs, malformed paths, numeric job IDs and source IDs. Tools, assets, admin SPA, telemetry and identity discovery still need explicit audit; classifier performs no authentication and is not installed.
+- Updated the public-access plan and TASKS. Accounts stay disabled; no live data/config/access changes or provider calls. No restart under STEERING 22 because deployed entrypoints do not import the new module.
+- Verification: targeted policy tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, API rebuild and saved-reader check pass. Full check: 709 unit/254 integration tests pass, four expected skips; build retains existing chunk warning.
+- Saved Nov 8 reader unchanged: four topics/19 stories/17 posts. `git diff --check` passes. Next: Phase 1 normal scheduled acceptance and live proxy proof; continue gated public-read response audit while waiting. Metrics passive check due no earlier than 06:27 UTC.

@@ -379,6 +379,20 @@ to operational/PUBLIC readers despite broad default grants. Its private receipt
 is `~/backups/news-digest/account-migration-proof.json`. Live proxy proof and
 Phase 1 scheduled acceptance still gate activation.
 
+## Phase 4 preparation
+
+An unregistered route classifier now enumerates the current edition and account
+API operations and administrative controller routes by method and path. Unknown
+routes and ambiguous encoded/dot/separator spellings are denied. It grants no
+prefix-wide access. Account code/link exchanges and session discovery remain
+anonymous-capable; their existing handlers still enforce private responses and
+origin, body and client admission. Sync/deletion/logout require a user; invitation
+and session revocation require a fresh admin. Administrative reads remain admin
+classified until their response audit. Tool, asset, SPA admin, telemetry and
+identity-discovery routes still need explicit review before registration.
+This classifier is not middleware, performs no authentication, and is not
+installed in main. No `PUBLIC_MODE` switch or live access behavior changes.
+
 ## Target design
 
 ### System-level data

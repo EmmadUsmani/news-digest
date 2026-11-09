@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1482: installed account HTTP/storage deletion refuses two device sessions and outstanding code/link replays, clears the private mailbox and removes the reader identity; disposable Postgres/Redis only, accounts remain disabled.
+- [x] Iteration 1483: unregistered Phase 4 method/path classifier prepares default-deny reader/account/admin API classes; ambiguous and unreviewed routes refused, no live access changes.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
