@@ -415,6 +415,11 @@ a shared burst admits exactly the allowance before account/authorization work,
 clients remain separate, expired allowance recovers, disconnected Redis refuses
 without downstream calls, health bypasses the gate and reconnection restores it.
 Injected test identities do not establish production visitor extraction.
+The prepared HTTP gate also bounds admission waits to three seconds (iteration
+1579), returning the same empty no-store 429 when the dependency stalls. Late
+allowances or rejections cannot dispatch the timed-out request. Offline HTTP
+coverage verifies deadline refusal, health bypass and subsequent recovery. The
+deadline bounds the HTTP wait; it does not cancel an in-flight Redis command.
 
 Sign-in request-log rehearsal (iteration 1571) composes the production request
 logger with account HTTP transport and handler stand-ins. Login page, code

@@ -6,7 +6,17 @@ export function apiAdmissionHttp(options: {
   enabled: boolean;
   client: (request: IncomingMessage) => string | null;
   admission: () => { allow(client: string): Promise<boolean> };
+  timeoutMs?: number;
 }) {
+  const timeoutMs = options.timeoutMs ?? 3000;
+  if (
+    !Number.isSafeInteger(timeoutMs) ||
+    timeoutMs <= 0 ||
+    timeoutMs > 2_147_483_647
+  )
+    throw new Error(
+      'API admission timeout must be a positive integer within the timer range',
+    );
   const admission = options.enabled ? options.admission() : null;
   return async (
     request: IncomingMessage,
@@ -19,11 +29,21 @@ export function apiAdmissionHttp(options: {
       return;
     }
     let allowed = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     try {
       const client = options.client(request);
-      allowed = !!client?.trim() && (await admission.allow(client));
+      allowed =
+        !!client?.trim() &&
+        (await Promise.race([
+          admission.allow(client),
+          new Promise<false>((resolve) => {
+            timer = setTimeout(() => resolve(false), timeoutMs);
+          }),
+        ]));
     } catch {
       // Dependency and extraction failures must not grant an unlimited bypass.
+    } finally {
+      clearTimeout(timer);
     }
     if (!allowed) {
       response.setHeader('cache-control', 'no-store');

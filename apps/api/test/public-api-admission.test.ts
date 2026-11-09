@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHmac } from 'node:crypto';
 import { createServer } from 'node:http';
 import test from 'node:test';
 
@@ -73,6 +74,11 @@ void test('public API admission shares an atomic private expiring client allowan
 void test('preference allowance is reader-scoped and independent of general API traffic', async () => {
   const cache = redis();
   const key = 'isolated-preference-private-key-32-bytes';
+  const ownedKeys = ['authenticated-reader', 'other-reader'].map(
+    (id) =>
+      `accounts:preferences:user:${createHmac('sha256', key).update(`reader-preferences\0${id}`).digest('hex')}`,
+  );
+  const apiKey = `public:api:client:${createHmac('sha256', key).update('public-api\0authenticated-reader').digest('hex')}`;
   const limits = { requests: 3, windowMs: 60_000 };
   const a = new RedisPreferenceAdmission(cache, key, limits);
   const b = new RedisPreferenceAdmission(cache, key, limits);
@@ -88,7 +94,9 @@ void test('preference allowance is reader-scoped and independent of general API 
       await new RedisApiAdmission(cache, key).allow('authenticated-reader'),
       true,
     );
-    const keys = await cache.keys('accounts:preferences:user:*');
+    const keys = (await cache.keys('accounts:preferences:user:*')).filter(
+      (value) => ownedKeys.includes(value),
+    );
     assert.equal(keys.length, 2);
     assert.ok(
       keys.every((value) =>
@@ -120,10 +128,7 @@ void test('preference allowance is reader-scoped and independent of general API 
         new RedisPreferenceAdmission(cache, key, { requests: 0, windowMs: 1 }),
     );
   } finally {
-    const keys = [
-      ...(await cache.keys('accounts:preferences:user:*')),
-      ...(await cache.keys('public:api:client:*')),
-    ];
+    const keys = [...ownedKeys, apiKey];
     if (keys.length) await cache.del(...keys);
     await cache.quit();
   }

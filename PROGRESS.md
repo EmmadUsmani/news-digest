@@ -131,3 +131,13 @@ Earlier entries: [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.
 - `pnpm format`, `pnpm lint:fix` run. First `pnpm check` stopped on newly archived Markdown formatting; corrected it. Final full check passes typecheck/lint/format/boundaries, 782 unit and 275 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; initial health request raced startup, retry passes. `pnpm obs health --check`, `pnpm obs services --check`, alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
 - Next: Phase 4 preparation behind flags; production API admission registration still requires verified visitor extraction. Metrics passive probe due no earlier than 21:36 UTC.
+
+## 2026-11-09: iteration 1579 — bound stalled API admission waits
+
+- Clean main/no leftovers; alerts, health and 14 services pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Prepared API HTTP admission now refuses stalled dependency checks after a configurable, validated three-second default deadline. Late allowance/rejection cannot dispatch the timed-out request; timers clear on completion. This bounds HTTP waiting, not the underlying Redis command.
+- Offline HTTP tests verify empty no-store timeout refusal, late-result safety, health bypass, recovery and invalid deadlines. Targeted admission tests: 4/4 pass. Accounts/public stay off; item 53 owner proxy rerun still blocks activation.
+- First full check exposed existing preference-test isolation: seven Redis keys present vs two expected. Scoped inspection/cleanup to that test's own hashed identities; final full check passes 784 unit and 275 integration tests/four expected skips, plus typecheck/lint/format/boundaries.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run; build passes with existing bundle warning. Handbook check (`public-access` filter) finds no page/render errors but exits nonzero for existing metadata references to unapplied account tables; migrations remain intentionally pending.
+- Updated readiness plan/TASKS. API/worker restarted; first health raced startup, curl retry passed. Post-restart health/14 services, alerts and scheduled-reader check pass (four topics/19 stories/14 posts).
+- Next: continue Phase 4 preparation behind flags; verified visitor extraction still required before production gate registration. Next passive metrics probe ≥21:36 UTC.

@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1578: composed two prepared public HTTP instances with real isolated Redis; shared concurrent allowance, visitor separation, empty refusals before account/authorization, expiry, connection-loss refusal, health bypass and reconnection verified. Production gate remains unregistered pending item 53.
+- [x] Iteration 1579: prepared API admission now refuses stalled checks after a three-second deadline; HTTP tests verify empty no-store refusal, late-result safety, health bypass and recovery. Production registration remains blocked on item 53.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
