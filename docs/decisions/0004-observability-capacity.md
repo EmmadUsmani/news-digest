@@ -733,3 +733,13 @@ evaluator errors or missed iterations. One small merge processed 3,644 rows;
 no big merge in this interval. Limits, configuration and services unchanged.
 Recovery still needs correlated evidence during a comparable natural merge.
 Next short passive check no earlier than 07:27 UTC.
+
+### Passive follow-up (iteration 1550)
+
+Nov 9 16:18 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+23 fresh healthy rules, four uncached queries at most 0.186 s, zero new
+evaluator errors or missed iterations. Neither storage tier merged during
+the interval. Recovery still needs correlated evidence during a comparable
+natural merge; the earlier confirmed compaction remains valid evidence.
+No limits, configuration or services changed. Next short passive check no
+earlier than 17:18 UTC.

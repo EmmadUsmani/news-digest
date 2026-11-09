@@ -108,3 +108,14 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
 - Documentation/evidence only; deployed application runtime already matches main, no service restart needed. Account/public flags remain off; live proxy proof still gates activation.
 - Next: item 50 live proxy proof/guarded activation; continue daily edition reviews without social tuning.
+
+## 2026-11-09: iteration 1550 — passive recovery follow-up
+
+- Clean main/no leftovers; alerts clear; obs health/services/sources/jobs checks pass, 14 services and 36 sources healthy.
+- Owner value: verify monitoring remains responsive while keeping account activation behind the required live proxy proof.
+- Rechecked documented private HTTPS health URL with bounded curl: connection refused from this VM; accounts/public remain off. No sharing changes or undocumented access attempted.
+- Permitted short passive metrics sample at 16:18 UTC: 23 fresh healthy rules, four uncached queries ≤0.186 s, zero new evaluator errors/missed iterations. Neither tier merged; compaction recovery remains open.
+- Updated capacity evidence/TASKS and corrected stale next-step text: Nov 9 social reviews complete; overall viral-quality acceptance remains unmet.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips. Scheduled reader check passes four topics/19 stories/14 posts; API rebuild included in isolated suite.
+- No runtime, provider, source, migration or application-data changes; deployed runtime already matches main, no restart needed.
+- Next: live proxy proof/guarded Phase 3 activation; next passive metrics check no earlier than 17:18 UTC.
