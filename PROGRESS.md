@@ -1,23 +1,3 @@
-## 2026-11-09: iteration 1442 — enable live system ownership
-
-- Clean main/no leftovers. Alerts clear, health good and no failed user units; 36 enabled sources have no errors (28 with stored content in the last day). Digest queue has zero failures; next scheduled edition Nov 9 15:00 UTC.
-- Added explicit `--live-read-only` mode to the existing complete adapter/HTTP comparison. It forces read-only database connections, verifies that setting, composes no providers/queues and suppresses private content on failure. Default restored-copy guard remains intact.
-- Live comparison passes before activation and against rebuilt code: all 550 saved editions, both publication filters, full direct/latest/history responses, topics/settings across off/on/off. Initial CLI launch used pnpm's node shim and failed; direct `/usr/bin/node` works with the private env file and the app's default database URL.
-- Enabled `SYSTEM_OWNERSHIP=1` in private service configuration before noon; restarted API/worker and verified both process environments. Served latest/history response hashes unchanged. No migration, account activation or provider call; VM remains private.
-- Updated rollout plan, affected data-model handbook and TASKS. Phase 1 stays open: private live AI-off/AI-on generation checks next, then normal scheduled acceptance. Roll back the newest flag first if the scheduled edition is abnormal.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`; live comparison command documented in the plan; `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. `check-handbook.ts 07-data-model` renders/links pass; exit 1 is solely expected pending-account metadata (31 live tables). `pnpm check` passes: 695 unit tests; 253 integration passes/four expected skips; static checks and schema parity green.
-- `git diff --check` passes. Commit/push, then restart API/worker and repeat health/reader/alerts checks so live matches main.
-
-## 2026-11-09: iteration 1443 — live system-owned AI-off generation
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest queue has zero failures and next publication is Nov 9 15:00 UTC. Retained ingestion failures remain unchanged.
-- Ran `env LLM_LIVE=0 /usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/smoke-previews.ts` against the live flag-on API. Stored real content supplies 466 candidates and 20 selected stories across four topics, all non-AI.
-- Private edition `6146800b-84b6-4b59-9940-7e43a38cb276` stays unpublished, reader direct request returns 404 and latest reader response is unchanged. Admin saved snapshot and every history/detail response pass. SQL assertions confirm default-profile rollback ownership and an empty development spend ledger. No provider calls.
-- `/usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/rehearse-system-reads.ts --live-read-only` passes complete adapter/HTTP off/on/off comparisons for all 551 editions, both publication filters, topics and settings.
-- Updated TASKS and rollout plan; archived iterations 1427–1429 to keep PROGRESS small. No code/UI/runtime behavior change; accounts disabled, VM private. AI-on generation and normal flag-on scheduled acceptance remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (695 unit; 253 integration passes/four expected skips), plus `pnpm build` and `git diff --check`. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. No UI change.
-- Commit/push, then restart API/worker and repeat health, reader and alerts checks to match main. Next: budgeted live AI-on private generation, then scheduled acceptance; no phase closure claimed.
-
 ## 2026-11-09: iteration 1444 — live system-owned AI-on private generation
 
 - Clean main/no leftovers; health/alerts clear, all 36 sources healthy and digest queue has zero failures. Next scheduled publication Nov 9 15:00 UTC; accounts disabled and VM private.
@@ -125,3 +105,11 @@
 - Isolated loopback HTTP acceptance covers disabled/unconnected gates, methods, malformed/extra fields, foreign Origin, ambiguous cookies, oversized bodies, untrusted clients, authorization refusal, count-only success and private storage failure. Updated rollout plan, affected handbook note and TASKS. No UI change, live provider calls or real email.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted HTTP test, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass: 701 unit tests, 254 integration passes/four expected skips. Handbook check renders successfully but exits 1 for existing unapplied-account metadata warnings; no diagrams changed. Saved reader retains four topics/19 stories/17 posts.
 - Commit/push then restart API/worker and recheck health/alerts/reader. Next: gated runtime revocation injection and admin control; normal scheduled Phase 1 acceptance then live proxy proof. Account migration 0017 remains unapplied; owner two-device acceptance stays open.
+
+## 2026-11-09: iteration 1456 — gated admin revocation runtime
+
+- Clean main/no leftovers; initial health and alerts clear, all 36 sources healthy and digest queue has zero failures. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts stay disabled and VM private.
+- Composed audited admin session revocation with the current runtime allowlist and required repository dependency; gated storage owns connection shutdown. No live account operation, migration, provider call or email. Migration 0017 remains unapplied; admin controls remain next.
+- Extended isolated stored-account acceptance across runtimes: non-admin refusal, target-only removal, immediate HTTP sync refusal, issuer/other-reader survival and repeat zero-count success. Initial test used a pre-login clock and correctly hit the freshness refusal; fixed the test clock and reran integration. Updated rollout plan, handbook and TASKS.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (701 unit passes; initial integration clock failure), corrected `pnpm test:integration`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Corrected integration: 254 passes/four expected skips, zero failures. Saved reader retains four topics/19 stories/17 posts; handbook has existing pending-account metadata warnings.
+- Archived iterations 1442–1443 to keep this log small. Commit/push then restart API/worker and recheck health, reader and alerts. Next: gated admin revocation control; scheduled Phase 1 acceptance then live proxy proof. Owner two-device acceptance stays open.

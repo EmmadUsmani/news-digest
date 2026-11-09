@@ -31,10 +31,10 @@ snapshots.
 > while accounts are disabled. The reader account panel offers sync status,
 > retry, sign-out and confirmed account deletion in edition and saved-item headers
 > behind a default-off flag. Admins can create and privately share one-time
-> friend sign-in links from that panel. A prepared, unconnected admin operation
+> friend sign-in links from that panel. A gated admin operation
 > revokes a reader’s sessions and records the action in one transaction; its
 > audit migration is not applied. Its prepared POST route requires same-origin
-> JSON and a session cookie; runtime service injection is still disconnected. See the
+> JSON and a session cookie; the default-off account runtime composes the audited service. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

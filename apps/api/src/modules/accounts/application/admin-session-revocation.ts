@@ -1,7 +1,7 @@
 import type { SessionTokens } from '../domain/session';
 import type { SessionRevocationRepository } from '../domain/session-revocation';
 
-// Prepared only. No HTTP route or runtime registration enables this operation.
+// Available only through the gated account runtime.
 export class AdminSessionRevocation {
   constructor(
     private readonly repository: SessionRevocationRepository,

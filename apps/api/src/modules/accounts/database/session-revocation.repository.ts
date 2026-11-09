@@ -8,7 +8,7 @@ import { SessionRevocationRepository } from '../domain/session-revocation';
 
 const ADMIN_FRESHNESS_MS = 7 * 86_400_000;
 
-// Prepared only: deliberately unregistered until the account transport is ready.
+// Constructed only when the account runtime gate is enabled.
 @Injectable()
 export class PostgresSessionRevocationRepository
   extends SessionRevocationRepository

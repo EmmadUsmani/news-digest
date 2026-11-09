@@ -15,6 +15,7 @@ import { PostgresLoginCodeRepository } from '../src/modules/accounts/database/lo
 import { PostgresReaderSyncRepository } from '../src/modules/accounts/database/reader-sync.repository';
 import { PostgresRecipientCoordination } from '../src/modules/accounts/database/recipient-coordination';
 import { PostgresSessionRepository } from '../src/modules/accounts/database/session.repository';
+import { PostgresSessionRevocationRepository } from '../src/modules/accounts/database/session-revocation.repository';
 import { PostgresSignInLinkRepository } from '../src/modules/accounts/database/sign-in-link.repository';
 
 void test('composed accounts persist mailbox login and single-use friend sessions across runtimes', async () => {
@@ -27,6 +28,7 @@ void test('composed accounts persist mailbox login and single-use friend session
   const identities = new PostgresReaderIdentityRepository();
   const codes = new PostgresLoginCodeRepository();
   const sessions = new PostgresSessionRepository();
+  const revocation = new PostgresSessionRevocationRepository();
   const links = new PostgresSignInLinkRepository();
   const sync = new PostgresReaderSyncRepository();
   const recipients = new PostgresRecipientCoordination();
@@ -55,6 +57,7 @@ void test('composed accounts persist mailbox login and single-use friend session
       codes,
       sessions,
       links,
+      revocation,
       cache,
       existingIdentity: async () => false,
     };
@@ -227,6 +230,54 @@ void test('composed accounts persist mailbox login and single-use friend session
       assert.deepEqual(
         await (await write('sync', empty, friendCookie)).json(),
         empty,
+      );
+      const targetLink = await write(
+        'links',
+        { email: 'revoked-friend@example.test' },
+        cookie,
+      );
+      const targetToken = (await targetLink.json()).token;
+      const targetLogin = await post(
+        'link-redeem',
+        { token: targetToken },
+        forwarded,
+      );
+      assert.equal(targetLogin.status, 204);
+      const targetCookie = targetLogin.headers.get('set-cookie')!.split(';')[0];
+      const target = await identities.findOrCreateVerified(
+        'revoked-friend@example.test',
+        new Date(),
+      );
+      const otherRuntime = compose();
+      assert.equal(
+        (
+          await otherRuntime.revokeSessions(
+            request({ userId: target }, friendCookie),
+            new Date(),
+          )
+        ).status,
+        403,
+      );
+      const revoked = await otherRuntime.revokeSessions(
+        request({ userId: target }, cookie),
+        new Date(),
+      );
+      assert.deepEqual(revoked, { status: 200, body: { revoked: 1 } });
+      assert.equal((await write('sync', empty, targetCookie)).status, 401);
+      assert.deepEqual(
+        await (await write('sync', empty, friendCookie)).json(),
+        empty,
+      );
+      assert.deepEqual(
+        await (await write('sync', empty, cookie)).json(),
+        removed,
+      );
+      assert.deepEqual(
+        await otherRuntime.revokeSessions(
+          request({ userId: target }, cookie),
+          new Date(),
+        ),
+        { status: 200, body: { revoked: 0 } },
       );
       assert.equal((await write('logout', {}, cookie)).status, 204);
       assert.equal((await write('sync', empty, cookie)).status, 401);
@@ -422,9 +473,16 @@ void test('composed accounts persist mailbox login and single-use friend session
     );
   } finally {
     await Promise.all(
-      [identities, codes, sessions, links, sync, recipients, ...deletions].map(
-        (repository) => repository.onModuleDestroy(),
-      ),
+      [
+        identities,
+        codes,
+        sessions,
+        links,
+        sync,
+        recipients,
+        revocation,
+        ...deletions,
+      ].map((repository) => repository.onModuleDestroy()),
     );
     await cache.quit();
     await rm(directory, { recursive: true, force: true });

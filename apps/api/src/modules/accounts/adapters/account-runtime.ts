@@ -2,6 +2,7 @@ import { createHmac } from 'node:crypto';
 
 import type { Redis } from 'ioredis';
 
+import { AdminSessionRevocation } from '../application/admin-session-revocation';
 import { DeleteAccount } from '../application/delete-account';
 import { LoginCodes } from '../application/login-codes';
 import { LoginExchange } from '../application/login-exchange';
@@ -17,6 +18,7 @@ import type { LoginCodeRepository } from '../domain/login-code';
 import type { ReaderSyncRepository } from '../domain/reader-sync';
 import type { RecipientCoordination } from '../domain/recipient-coordination';
 import type { SessionRepository } from '../domain/session';
+import type { SessionRevocationRepository } from '../domain/session-revocation';
 import type { SignInLinkRepository } from '../domain/sign-in-link';
 import { AccountHandlers } from './account-handlers';
 import { AccountRequestBoundary } from './account-request';
@@ -33,11 +35,12 @@ type Dependencies = {
   codes: LoginCodeRepository;
   sessions: SessionRepository;
   links: SignInLinkRepository;
+  revocation: SessionRevocationRepository;
   cache: Pick<Redis, 'eval'>;
   existingIdentity: (email: string) => Promise<boolean>;
 };
 
-// Prepared composition only: main does not call this or install account routes.
+// Account composition is installed only behind the default-off account gate.
 // A lazy dependency factory keeps the disabled path free of DB/Redis resources.
 export function prepareAccountHandlers(
   env: Readonly<Record<string, string | undefined>>,
@@ -107,5 +110,10 @@ export function prepareAccountHandlers(
     ),
     new DeleteAccount(ports.deletion, new CryptoSessionTokens()),
     ports.sync,
+    new AdminSessionRevocation(
+      ports.revocation,
+      new CryptoSessionTokens(),
+      adminEmails,
+    ),
   );
 }

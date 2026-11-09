@@ -331,7 +331,7 @@ and retry after refusal. Link and recipient stay in component memory only;
 unmounting the control aborts pending requests. No delivery is sent. Accounts
 remain disabled, pending Phase 1 scheduled acceptance and live proxy proof.
 
-Prepared admin session revocation (iteration 1454) remains unregistered. It
+Prepared admin session revocation (iteration 1454) remains behind the account gate. It
 requires an active originally eligible admin session, the current email allowlist
 and a sign-in younger than seven days, rechecked under a database row lock.
 All target device sessions are removed in the same transaction as a private audit
@@ -344,8 +344,11 @@ body, an unambiguous session cookie and the existing trusted-client/body limits.
 Responses contain only the revoked count; authorization is rechecked by the atomic
 service rather than renewing the issuer session first. Isolated HTTP checks cover
 disabled/unconnected routes, malformed requests, refusal and private failures.
-Runtime service injection and admin controls remain future work; no live operation
-or migration is enabled.
+Runtime service injection (iteration 1456) now composes the audited repository with
+the same current admin allowlist and owns its connection shutdown. Isolated
+cross-runtime checks verify non-admin refusal, target-only revocation and repeat
+zero-count success. Admin controls remain future work; accounts stay disabled and
+no live operation or migration is enabled.
 
 ## Target design
 

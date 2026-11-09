@@ -5,6 +5,7 @@ import { PostgresLoginCodeRepository } from '../database/login-code.repository';
 import { PostgresReaderSyncRepository } from '../database/reader-sync.repository';
 import { PostgresRecipientCoordination } from '../database/recipient-coordination';
 import { PostgresSessionRepository } from '../database/session.repository';
+import { PostgresSessionRevocationRepository } from '../database/session-revocation.repository';
 import { PostgresSignInLinkRepository } from '../database/sign-in-link.repository';
 import { prepareAccountHttp } from './account-bootstrap';
 
@@ -30,6 +31,7 @@ export function prepareStoredAccountHttp(
       cache,
       codes: own(new PostgresLoginCodeRepository()),
       sessions: own(new PostgresSessionRepository()),
+      revocation: own(new PostgresSessionRevocationRepository()),
       links: own(new PostgresSignInLinkRepository()),
       sync: own(new PostgresReaderSyncRepository()),
       deletion: own(new PostgresAccountDeletionRepository(cleanup, recipients)),

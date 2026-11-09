@@ -54,6 +54,7 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
     const handlers = prepareAccountHandlers(
       { ...env, ACCOUNT_MAILBOX_PATH: directory },
       (cleanup) => ({
+        revocation: { revokeWithAudit: async () => null },
         sync: {
           merge: async (_userId, changes) =>
             mergeReaderSync(
