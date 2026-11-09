@@ -31,7 +31,9 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   exact expiry, explicit confirmation, secure session exchange and replay/reload
   refusal. Deletion rejects incorrect confirmation and cross-origin requests, then
   clears the calling cookie and refuses both devices and deletion replays. These
-  checks use fixture storage and make no live account writes.
+  checks use fixture storage and make no live account writes. Admin revocation
+  also crosses composed HTTPS: two friend-device sessions are refused afterward,
+  the issuer stays active, and ordinary readers cannot issue links or revoke sessions.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

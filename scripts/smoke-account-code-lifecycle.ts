@@ -52,6 +52,9 @@ async function main() {
       const links = new Map<string, SignInLink>();
       let attempts = 0;
       const email = 'fixture@example.com';
+      const friendEmail = 'friend@example.com';
+      const friendId = '22222222-2222-4222-8222-222222222222';
+      const audits: string[] = [];
       const server = createServer(tls, (request, response) =>
         transport(request, response, () => {
           response.setHeader('Content-Type', 'text/html');
@@ -76,7 +79,10 @@ async function main() {
         },
         () => ({
           existingIdentity: async () => true,
-          identities: { findOrCreateVerified: async () => 'fixture-user' },
+          identities: {
+            findOrCreateVerified: async (recipient) =>
+              recipient === email ? 'fixture-user' : friendId,
+          },
           recipients: { run: async (_email, work) => work() },
           cache: { eval: async () => 1 },
           codes: {
@@ -104,7 +110,7 @@ async function main() {
               const session = {
                 ...input,
                 id: `fixture-session-${++sessionSequence}`,
-                email,
+                email: input.userId === friendId ? friendEmail : email,
                 createdAt: input.now,
                 cookieRenewedAt: input.now,
               };
@@ -151,7 +157,29 @@ async function main() {
               return link.email;
             },
           },
-          revocation: { revokeWithAudit: async () => null },
+          revocation: {
+            revokeWithAudit: async (input) => {
+              const issuer = sessions.get(input.issuerTokenHash);
+              if (
+                !issuer?.adminEligible ||
+                !input.adminEmails.includes(issuer.email) ||
+                input.now.getTime() < issuer.createdAt.getTime() ||
+                input.now.getTime() - issuer.createdAt.getTime() >=
+                  7 * 86_400_000 ||
+                input.targetUserId !== friendId
+              )
+                return null;
+              let revoked = 0;
+              for (const [hash, session] of sessions) {
+                if (session.userId === input.targetUserId) {
+                  sessions.delete(hash);
+                  revoked++;
+                }
+              }
+              audits.push(input.targetUserId);
+              return { revoked };
+            },
+          },
           deletion: {
             deleteForSession: async (hash) => {
               const owner = sessions.get(hash);
@@ -181,6 +209,8 @@ async function main() {
       const signOutWithClock = handlers.signOut.bind(handlers);
       const issueLinkWithClock = handlers.issueLink.bind(handlers);
       const redeemLinkWithClock = handlers.redeemLink.bind(handlers);
+      const revokeWithClock = handlers.revokeSessions.bind(handlers);
+      handlers.revokeSessions = (input) => revokeWithClock(input, now);
       handlers.issueLink = (input) => issueLinkWithClock(input, now);
       handlers.redeemLink = (input) => redeemLinkWithClock(input, now);
       handlers.requestCode = (input, client) =>
@@ -403,12 +433,12 @@ async function main() {
       const adminCode = await requestCode();
       await redeem(adminCode);
       await page.waitForURL(`${origin}/`);
-      const issueLink = async () => {
+      const issueLink = async (recipient = email) => {
         const response = await context.request.post(
           `${origin}/api/account/links`,
           {
             headers: { Origin: origin },
-            data: { email },
+            data: { email: recipient },
           },
         );
         assert.equal(response.status(), 201);
@@ -495,6 +525,79 @@ async function main() {
         'missing or invalid',
       );
       await expect(confirm).toBeDisabled();
+      // Two friend devices cross real HTTPS; admin revocation leaves the issuer active.
+      const friendDevices = await Promise.all(
+        [0, 1].map(() =>
+          browser.newContext({
+            ignoreHTTPSErrors: true,
+          }),
+        ),
+      );
+      for (const device of friendDevices) {
+        const invitation = await issueLink(friendEmail);
+        const response = await device.request.post(
+          `${origin}/api/account/link-redeem`,
+          {
+            headers: { Origin: origin },
+            data: { token: invitation.token },
+          },
+        );
+        assert.equal(response.status(), 204);
+      }
+      const friendCookies = await Promise.all(
+        friendDevices.map(async (device) => (await device.cookies())[0]),
+      );
+      const revoke = (
+        device: typeof context,
+        requestOrigin = origin,
+        userId = friendId,
+      ) =>
+        device.request.post(`${origin}/api/account/sessions/revoke`, {
+          headers: { Origin: requestOrigin },
+          data: { userId },
+        });
+      assert.equal((await revoke(friendDevices[0])).status(), 403);
+      assert.equal(
+        (
+          await friendDevices[0].request.post(`${origin}/api/account/links`, {
+            headers: { Origin: origin },
+            data: { email },
+          })
+        ).status(),
+        403,
+      );
+      assert.equal(
+        (await revoke(context, 'https://other.fixture')).status(),
+        400,
+      );
+      assert.equal((await revoke(context, origin, 'invalid')).status(), 400);
+      assert.equal(audits.length, 0);
+      assert.equal(sessions.size, 3);
+      const revokedFriends = await revoke(context);
+      assert.equal(revokedFriends.status(), 200);
+      assert.deepEqual(await revokedFriends.json(), { revoked: 2 });
+      assert.equal(revokedFriends.headers()['cache-control'], 'no-store');
+      assert.deepEqual(audits, [friendId]);
+      assert.equal(sessions.size, 1);
+      assert.equal(
+        (
+          await (
+            await context.request.get(`${origin}/api/account/session`)
+          ).json()
+        ).isAdmin,
+        true,
+      );
+      for (const cookie of friendCookies) {
+        const replay = await context.request.get(
+          `${origin}/api/account/session`,
+          {
+            headers: { Cookie: `${cookie.name}=${cookie.value}` },
+          },
+        );
+        assert.equal((await replay.json()).signedIn, false);
+        assert.equal(replay.headers()['set-cookie'], undefined);
+      }
+      for (const device of friendDevices) await device.close();
       // Deletion must reject unsafe requests before touching either device.
       const deletionLink = await issueLink();
       await linkContext.request.post(`${origin}/api/account/link-redeem`, {
@@ -578,7 +681,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, two-device account deletion with confirmation/origin checks and revoked-cookie refusal, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, target-only admin revocation, non-admin invitation/revocation refusal and two-device account deletion with confirmation/origin checks and revoked-cookie refusal, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();

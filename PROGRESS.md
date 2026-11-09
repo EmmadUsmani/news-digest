@@ -1,28 +1,3 @@
-## 2026-11-09: iteration 1461 — Phase 3 activation and rollback checklist
-
-- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures and normal 15:00 UTC run queued. Accounts remain disabled and VM private.
-- Added a concrete activation checklist: prerequisites, exact private configuration names, separate server/web gates, bounded 0017 migration, owner two-device steps and additive rollback. Linked it from the rollout plan and made the missing account-specific fresh-restore rehearsal explicit in TASKS; existing system rehearsal stops at 0012 and cannot satisfy it.
-- Documentation only; no account writes, migrations, provider calls, email or settings changes. Owner check is staged in the checklist; no request for human action until the live flow is ready.
-- Verification: configuration/migration tag checked against runtime/runner; local links and `git diff --check` pass. `pnpm build` and saved-reader check pass (four topics/19 stories/17 posts). `pnpm format`, `pnpm lint:fix` and `pnpm check` pass: 701 unit passes, 254 integration passes/four expected skips.
-- Next: prepare account-specific fresh-backup restore rehearsal; Phase 1 normal scheduled acceptance and live proxy proof still gate activation. Commit/push followed by API/worker restart and health/reader/alerts checks.
-
-## 2026-11-09: iteration 1462 — fresh-backup account migration rehearsal
-
-- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures and normal 15:00 UTC run queued. Accounts remain disabled and VM private.
-- Added `python3 ops/backups/rehearse_accounts.py`: fresh private snapshot, networkless disposable Postgres/private Unix socket, sanitized runner environment, bounded 0013–0017 migrations, injected transaction rollback, actual runner twice and migration-ledger idempotence. No live account migration or provider calls.
-- Executed successfully: backup restores 31 tables/57,555 rows; all 30 original application-table fingerprints unchanged. Seven account tables deny all seven table privileges and actual SELECTs for both operational readers and a PUBLIC-only role despite broad default grants. Scratch container removed; private receipt mode 600 in `~/backups/news-digest/account-migration-proof.json`.
-- Updated activation checklist, rollout plan, backup handbook and TASKS; archived iterations 1446–1447 to keep this log small. Live proxy proof and normal Phase 1 scheduled acceptance still gate activation.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `python3 -m py_compile ops/backups/rehearse_accounts.py`, saved-reader check and `git diff --check`. Full check passes: 701 unit and 254 integration passes/four expected skips. Initial check stopped on archived-progress formatting; formatted and reran. Handbook check: 18 pages/zero diagrams, existing unapplied-account metadata warnings only. Saved reader: four topics/19 stories/17 posts.
-- Commit/push followed by API/worker restart and health/reader/alert checks. Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining account activation checks; owner two-device acceptance stays gated.
-
-## 2026-11-09: iteration 1463 — verify proxy admission on the HTTP wire
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
-- Added actual loopback HTTP checks for Node's raw forwarding headers: three forged prefixes cannot alter the final client, duplicate mixed-case fields fail closed, malformed/missing final clients fail closed, and untrusted socket peers never admit forwarded clients.
-- This is isolated transport acceptance, not live exe.dev proxy proof; no account activation, migrations, credentials, provider calls or UI change. The live proxy gate remains open.
-- Verification: targeted proxy tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run before commit. Full check: 702 unit/254 integration passes, four expected skips. Corrected missing test Host header and lint rejection typing before rerunning.
-- Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal scheduled Phase 1 acceptance, live proxy proof and account activation prerequisites.
-
 ## 2026-11-09: iteration 1464 — unfinished account upload acceptance
 
 - Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 still awaits the normal 15:00 UTC edition; accounts remain disabled.
@@ -161,3 +136,14 @@
 - Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` twice, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check, handbook checker and `git diff --check` pass.
 - Full check: 707 unit/254 integration tests pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; handbook reports expected metadata for unapplied account tables.
 - No restart under STEERING 22. Next: normal Phase 1 scheduled acceptance and live proxy proof; metrics probe not due before 06:27 UTC.
+
+## 2026-11-09: iteration 1479 — composed HTTPS admin revocation
+
+- Clean main/no leftovers; health and alerts clear, all 36 active sources fresh without errors, digest queue zero failures. Accounts remain disabled; Phase 1 acceptance awaits 15:00 UTC.
+- Extended desktop/mobile composed HTTPS acceptance with two independently invited friend-device sessions. An ordinary reader cannot issue links or revoke sessions; cross-origin and malformed admin requests preserve both devices and write no fixture audit.
+- Successful admin revocation returns only the count, removes both target sessions, records the fixture audit and preserves the issuer's admin access. Replayed target cookies stay signed out without renewal.
+- Production HTTP/composition/crypto with fixture storage/admission only; no live writes, provider calls or runtime changes. Updated activation checklist and archived progress entries 1461–1463.
+- Initial smoke assertion expected 200 for link exchange; corrected to the existing 204 contract. Final composed smoke passes both widths; saved reader retains four topics/19 stories/17 posts.
+- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check, handbook checker and `git diff --check`.
+- Full check passes 707 unit/254 integration tests, four expected skips; handbook checker passes with expected unapplied-account metadata notices.
+- No service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof; metrics probe not due before 06:27 UTC. Owner two-device acceptance remains required.
