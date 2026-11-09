@@ -386,6 +386,13 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared public mode now permits browser-private caching for one hour on successful
+published-edition ID responses (GET/HEAD), only with `READER_PUBLISHED_ONLY=1`.
+Latest and history stay `no-store`; private mode and unfiltered ID reads also use
+`no-store`. Failed public requests retain the access layer's `no-store` policy.
+No shared cache is allowed, so private proxy access and account cookies cannot
+turn an edition response into shared content. Account and admin data remain uncached.
+
 The default-off public access stack now sets HSTS (one year, host only),
 `nosniff`, `no-referrer`, same-origin framing and a document CSP before account
 transport or authorization. The CSP restricts base URLs, plugin objects and

@@ -1,3 +1,5 @@
+import type { ServerResponse } from 'node:http';
+
 import {
   type DigestPreview,
   readerEditionHistorySchema,
@@ -7,10 +9,12 @@ import {
   BadRequestException,
   Controller,
   Get,
+  Header,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Query,
+  Res,
 } from '@nestjs/common';
 
 import { PreviewRepository } from './domain/preview.repository';
@@ -65,7 +69,9 @@ export function readerEdition(snapshot: DigestPreview) {
 export class ReaderEditionController {
   constructor(private readonly repository: PreviewRepository) {}
 
-  @Get() async history(@Query('offset') offset = '0') {
+  @Get()
+  @Header('Cache-Control', 'no-store')
+  async history(@Query('offset') offset = '0') {
     if (!/^(0|[1-9]\d{0,6})$/.test(offset))
       throw new BadRequestException(
         'Use a nonnegative offset of at most 9999999',
@@ -83,19 +89,35 @@ export class ReaderEditionController {
     });
   }
 
-  @Get('latest') async latest() {
+  @Get('latest')
+  @Header('Cache-Control', 'no-store')
+  async latest() {
     const snapshot = await this.repository.latest(
       process.env.READER_PUBLISHED_ONLY === '1',
     );
     return snapshot ? readerEdition(snapshot) : null;
   }
 
-  @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
+  @Get(':id')
+  @Header('Cache-Control', 'no-store')
+  async find(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Res({ passthrough: true }) response?: ServerResponse,
+  ) {
     const snapshot = await this.repository.find(
       id,
       process.env.READER_PUBLISHED_ONLY === '1',
     );
     if (!snapshot) throw new NotFoundException('Edition not found');
-    return readerEdition(snapshot);
+    const edition = readerEdition(snapshot);
+    // Only immutable published IDs in the promoted public runtime may be
+    // reused. Keep caches browser-private, including on the private VM proxy.
+    // Set this after lookup and projection so errors retain no-store.
+    if (
+      process.env.PUBLIC_MODE === '1' &&
+      process.env.READER_PUBLISHED_ONLY === '1'
+    )
+      response?.setHeader('Cache-Control', 'private, max-age=3600, immutable');
+    return edition;
   }
 }

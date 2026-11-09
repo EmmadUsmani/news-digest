@@ -145,3 +145,15 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build and git diff --check pass: 769 unit/272 integration passes, four expected skips; existing bundler warnings only.
 - Restarted API/worker outside the hold; initial pre-readiness curl retried successfully. Health and post-restart alerts pass; scheduled reader check passes four topics/19 stories/14 posts.
 - Next: live proxy proof/guarded Phase 3 activation; continue Phase 4 resource-policy and remaining public-readiness work while blocked.
+
+## 2026-11-09: iteration 1553 — prepare published-edition caching
+
+- Clean main/no leftovers; alerts, health, 14 services, 36 sources and digest queue healthy. Passive metrics check not due until 17:18 UTC; no extra probe.
+- Prepared public mode now allows one-hour browser-private caching of successful published-edition ID responses, only with exact PUBLIC_MODE=1 and READER_PUBLISHED_ONLY=1 gates.
+- Latest/history and other ID reads explicitly use no-store. Public errors retain no-store; account/admin cache policy is unchanged. Private cache scope avoids sharing content through the authenticated VM proxy.
+- Extended isolated published-reader HTTP acceptance with the real public-read middleware: GET/HEAD, published/hidden/missing/malformed IDs, empty HEAD bodies and off/nonexact/missing filter rollback pass. No account dependencies or live writes.
+- Updated TASKS, public-access plan and runtime handbook. Handbook check passes 18 pages/one diagram; existing metadata warnings concern unapplied account tables.
+- pnpm format, pnpm lint:fix, pnpm check, pnpm build and git diff --check pass: 769 unit/272 integration passes, four expected skips; existing bundler warnings only.
+- Restarted API/worker outside the hold. Health/alerts clear; latest/history response hashes unchanged; deployed private ID GET/HEAD and latest/history return no-store.
+- Scheduled reader check passes four topics/19 stories/14 posts. No provider, source, migration or configuration changes; accounts/public stay off.
+- Next: live proxy proof and guarded Phase 3 activation; remaining Phase 4 resource-policy/readiness work while blocked. Metrics probe no earlier than 17:18 UTC.

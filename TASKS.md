@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1552: default-off public stack adds HSTS, nosniff, no-referrer, same-origin framing and document CSP before account/authorization responses; GET/HEAD and denial checks pass. Resource allowlist/browser review and proxy proof remain open.
+- [x] Iteration 1553: default-off public mode permits one-hour browser-private caching of successful published-edition ID GET/HEAD responses; latest/history, unfiltered/private reads and public errors remain uncached. Public-policy HTTP gate/rollback checks cover hidden and missing editions. Proxy proof and remaining Phase 4 readiness remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -7,6 +7,7 @@ import { type DigestPreview } from '@digest/contracts';
 import { NestFactory } from '@nestjs/core';
 
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+import { publicAccess } from '../src/public-access';
 
 const require = createRequire(import.meta.url);
 const { AppModule } = require('../dist/app.js') as typeof import('../src/app');
@@ -16,9 +17,12 @@ void test('published reader filters before pagination and ID lookup while admin 
   const repository = new PostgresPreviewRepository();
   const insertedIds: string[] = [];
   const previous = process.env.READER_PUBLISHED_ONLY;
+  const previousPublicMode = process.env.PUBLIC_MODE;
   const previousOwnership = process.env.SYSTEM_OWNERSHIP;
   delete process.env.SYSTEM_OWNERSHIP;
   const app = await NestFactory.create(AppModule, { logger: false });
+  // Exercise the real public read policy without activating account storage.
+  app.use(publicAccess(true, async () => null));
   try {
     await app.listen(0, '127.0.0.1');
     const base = `${await app.getUrl()}/api/editions`;
@@ -67,6 +71,40 @@ void test('published reader filters before pagination and ID lookup while admin 
       return response.json();
     };
     process.env.READER_PUBLISHED_ONLY = '1';
+    // Bootstrap remains private; toggle only the controller's prepared cache
+    // gate after startup. No account storage or live configuration is enabled.
+    for (const publicMode of ['0', '1']) {
+      process.env.PUBLIC_MODE = publicMode;
+      for (const method of ['GET', 'HEAD']) {
+        for (const path of [
+          '',
+          '/latest',
+          `/${published[0].id}`,
+          `/${hidden[0].id}`,
+          '/invalid',
+          '/00000000-0000-4000-8000-ffffffffffff',
+        ]) {
+          const response = await fetch(base + path, { method });
+          const successfulId = path === `/${published[0].id}`;
+          assert.equal(
+            response.status,
+            path === '/invalid'
+              ? 404
+              : path === `/${hidden[0].id}` || path.endsWith('ffffffffffff')
+                ? 404
+                : 200,
+          );
+          assert.equal(
+            response.headers.get('cache-control'),
+            publicMode === '1' && successfulId
+              ? 'private, max-age=3600, immutable'
+              : 'no-store',
+          );
+          if (method === 'HEAD') assert.equal(await response.text(), '');
+        }
+      }
+    }
+    process.env.PUBLIC_MODE = '0';
     assert.equal((await get('/latest')).id, published[0].id);
     const first = await get('');
     assert.deepEqual(
@@ -159,7 +197,19 @@ void test('published reader filters before pagination and ID lookup while admin 
     assert.equal((await get(`/${hidden[0].id}`)).id, hidden[0].id);
     process.env.READER_PUBLISHED_ONLY = 'true';
     assert.equal((await get(`/${hidden[0].id}`)).id, hidden[0].id);
+    process.env.PUBLIC_MODE = '1';
+    for (const publishedOnly of ['0', 'true', undefined]) {
+      if (publishedOnly === undefined) delete process.env.READER_PUBLISHED_ONLY;
+      else process.env.READER_PUBLISHED_ONLY = publishedOnly;
+      for (const snapshot of [published[0], hidden[0]]) {
+        const response = await fetch(`${base}/${snapshot.id}`);
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+      }
+    }
   } finally {
+    if (previousPublicMode === undefined) delete process.env.PUBLIC_MODE;
+    else process.env.PUBLIC_MODE = previousPublicMode;
     if (previous === undefined) delete process.env.READER_PUBLISHED_ONLY;
     else process.env.READER_PUBLISHED_ONLY = previous;
     if (previousOwnership === undefined) delete process.env.SYSTEM_OWNERSHIP;
