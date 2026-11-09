@@ -9,6 +9,7 @@ import { database } from '../src/libs/db/connections';
 import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
+import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -298,6 +299,81 @@ void test('transaction-bound admin admission commits with database writes and ro
       entry.target,
     ]);
     await pool.query('DELETE FROM content_sources WHERE id=$1', [sourceId]);
+    await pool.end();
+  }
+});
+
+void test('prepared source writer binds the target, reports serialized outcomes and rolls back refusals', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const writer = new PublicSourceWriter(pool);
+  const id = 'prepared-source-writer';
+  const entry = {
+    actor: { localScript: true as const },
+    action: 'PUT',
+    target: `/api/admin/topics/sources/${id}/enabled`,
+    at: new Date(),
+  };
+  const admissions = async () =>
+    (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [entry.target],
+      )
+    ).rows[0].n;
+  try {
+    assert.deepEqual(await writer.setEnabled(entry, id, true), {
+      outcome: 'not-found',
+    });
+    assert.equal(await admissions(), 0);
+    await pool.query(
+      "INSERT INTO content_sources(id,name,kind,url,enabled) VALUES ($1,'Prepared writer','feed','https://example.test/feed',false)",
+      [id],
+    );
+    const results = await Promise.all([
+      writer.setEnabled(entry, id, true),
+      writer.setEnabled(entry, id, true),
+    ]);
+    assert.deepEqual(results.map((r) => r.outcome).sort(), [
+      'changed',
+      'unchanged',
+    ]);
+    assert.equal(await admissions(), 2);
+    await assert.rejects(
+      writer.setEnabled(
+        { ...entry, target: '/api/admin/profile/schedule' },
+        id,
+        false,
+      ),
+      /Invalid source write/,
+    );
+    await assert.rejects(
+      writer.setEnabled(
+        { ...entry, actor: { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' } },
+        id,
+        false,
+      ),
+    );
+    assert.equal(
+      (
+        await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
+          id,
+        ])
+      ).rows[0].enabled,
+      true,
+    );
+    assert.equal(await admissions(), 2);
+    assert.deepEqual(await writer.setEnabled(entry, id, false), {
+      outcome: 'changed',
+      id,
+      enabled: false,
+    });
+    assert.equal(await admissions(), 3);
+  } finally {
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      entry.target,
+    ]);
+    await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
     await pool.end();
   }
 });

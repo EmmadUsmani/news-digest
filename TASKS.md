@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1518: prepared shared transaction boundary commits admin admission with database mutations; isolated checks cover successful commit, callback/database rollback and audit refusal before mutation. Uninstalled; controller adoption, explicit outcomes, queue atomicity and proxy proof remain open.
+- [x] Iteration 1519: prepared transaction-bound source toggle with exact target binding, row locking and changed/unchanged/not-found results; concurrent toggle and refusal checks. Uninstalled; controller adoption, persisted outcomes, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

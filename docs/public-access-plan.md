@@ -440,8 +440,13 @@ prepares admission insertion and database mutation on one connection: callback o
 database failure rolls both back, and audit refusal prevents the callback. It
 returns only after commit and leaves pool ownership with the caller. Existing
 middleware still records attempts independently; transaction-bound admission does
-not distinguish outcomes in that table. Controller adoption, explicit outcomes
-and atomic queue/external effects remain unimplemented. This policy remains uninstalled and changes no live access.
+not distinguish outcomes in that table. A prepared source-enable writer (iteration 1519) binds the admission to the exact
+source target and locks its row before reporting changed or unchanged. Missing
+sources return not-found and roll back admission; storage failures propagate.
+Concurrent identical toggles produce one changed and one unchanged result. These
+results are returned to the caller, not persisted in the admission table.
+Controller adoption, persisted outcomes and atomic queue/external effects remain
+unimplemented. This policy remains uninstalled and changes no live access.
 
 ## Target design
 

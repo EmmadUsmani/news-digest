@@ -137,3 +137,14 @@
 - Handbook check: 18 pages/three diagrams, no page/link/render errors; existing schema metadata warnings for eight unapplied account tables remain. Build passes with existing web bundle warning.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass: 742 unit/266 integration passes, four expected skips. API rebuilt by isolated runner; no external test calls.
 - Next: adopt transaction-bound admission in prepared controllers, explicit outcome tracking, queue atomicity, controller replacement and proxy proof; Nov 9 scheduled acceptance remains due at 15:00 UTC.
+
+## 2026-11-09: iteration 1519 — prepare atomic source-enable writes
+
+- Clean main/no leftovers; alerts, healthz and user services clear. All 36 sources healthy; four queues available, latest scheduled digest completed and next due 15:00 UTC. Reader retains four topics/19 stories/17 posts.
+- Prepared source-enable database writer binds actor admission to the exact PUT target and locks the source row. Changed/unchanged results return after commit; not-found rolls back admission. Caller retains authorization and pool ownership.
+- Isolated checks verify simultaneous identical toggles yield one changed/one unchanged result, missing-source rollback, target mismatch refusal, invalid-actor refusal without mutation and subsequent pool reuse. Existing boundary checks cover callback/database/commit rollback.
+- Updated TASKS, public rollout plan and data-model handbook. Results are returned, not persisted outcomes; controller adoption and queue atomicity remain open.
+- No live entrypoints, migrations, configuration, UI or provider calls changed. Accounts/public mode stay off; no restart under STEERING 22 because running services do not import this preparation.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass: 742 unit/267 integration passes, four expected skips. Existing web bundle warning only.
+- Handbook checker: 18 pages/three diagrams, no page/link/render errors; exit 1 for existing schema metadata warnings from eight unapplied account tables.
+- Next: controller wiring, persisted mutation outcomes, atomic queue effects and live proxy proof; Nov 9 scheduled Phase 1/X/Bluesky acceptance remains due 15:00 UTC.
