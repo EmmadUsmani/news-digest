@@ -393,6 +393,11 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared account writes (iteration 1586) reject malformed UTF-8 before handler
+dispatch rather than silently replacing bytes in reader data. Offline HTTP tests
+cover invalid byte sequences and valid multilingual text split across chunks.
+Accounts/public remain disabled pending proxy proof.
+
 Prepared public authorization (iteration 1585) checks connection liveness after
 session authentication and durable admin-write admission. Disconnected requests
 cannot start downstream controllers; disconnects during authentication also skip

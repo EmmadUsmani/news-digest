@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1585: prepared public authorization stops disconnected requests after authentication or audit admission before controller dispatch; offline HTTP refusal/recovery checks pass. Accounts/public stay off pending item 53.
+- [x] Iteration 1586: prepared account writes reject malformed UTF-8 before dispatch; offline HTTP checks preserve valid multilingual text across chunks. Accounts/public stay off pending item 53.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

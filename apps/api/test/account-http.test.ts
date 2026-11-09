@@ -700,3 +700,88 @@ void test('account routes reject duplicate Cookie fields before authentication o
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 });
+
+void test('account writes reject damaged UTF-8 before dispatch and preserve valid Unicode', async () => {
+  const received: unknown[] = [];
+  const server = createServer((req, res) =>
+    accountHttp({
+      enabled: true,
+      client: () => 'verified-client',
+      handlers: {
+        acceptsWrite: () => true,
+        syncReader: async (input: { body: unknown }) => {
+          received.push(input.body);
+          return { status: 204 };
+        },
+      } as unknown as AccountHandlers,
+    })(req, res, () => res.end()),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const send = (parts: Buffer[]) =>
+    new Promise<{
+      status: number | undefined;
+      body: string;
+      headers: import('node:http').IncomingHttpHeaders;
+    }>((resolve, reject) => {
+      const upload = request(
+        {
+          hostname: '127.0.0.1',
+          port: address.port,
+          path: '/api/account/sync',
+          method: 'POST',
+          headers: {
+            Origin: 'https://reader.example',
+            'Content-Type': 'application/json',
+          },
+        },
+        (response) => {
+          let body = '';
+          response.setEncoding('utf8');
+          response.on('data', (chunk: string) => {
+            body += chunk;
+          });
+          response.on('end', () =>
+            resolve({
+              status: response.statusCode,
+              body,
+              headers: response.headers,
+            }),
+          );
+        },
+      );
+      upload.on('error', reject);
+      for (const part of parts) upload.write(part);
+      upload.end();
+    });
+  try {
+    for (const bytes of [
+      [0xff],
+      [0xc0, 0xaf],
+      [0xed, 0xa0, 0x80],
+      [0xe2, 0x82],
+    ]) {
+      const result = await send([
+        Buffer.from('{"title":"'),
+        Buffer.from(bytes),
+        Buffer.from('"}'),
+      ]);
+      assert.equal(result.status, 400);
+      assert.equal(result.body, '');
+      assert.equal(result.headers['cache-control'], 'no-store');
+      assert.equal(result.headers['set-cookie'], undefined);
+      assert.equal(received.length, 0);
+    }
+    const title = '東京 🏀 café �';
+    const payload = Buffer.from(JSON.stringify({ title }));
+    assert.equal(
+      (await send([...payload].map((byte) => Buffer.from([byte])))).status,
+      204,
+    );
+    assert.deepEqual(received, [{ title }]);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});

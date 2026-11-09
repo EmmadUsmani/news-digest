@@ -160,3 +160,12 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 792 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. Targeted public-access HTTP tests pass (2); `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
 - API/worker restarted; first health probe raced startup, retry passed. Post-restart health, all 14 monitored services, zero alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
 - Next: Phase 4 preparation behind flags; production visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.
+
+## 2026-11-09: iteration 1586 — preserve account request text integrity
+
+- Clean main/no leftovers; health/alerts pass, all 36 sources healthy, all 14 monitored services active and digest-generation failed count zero. No paid calls, migrations, flag, UI or generation changes.
+- Prepared account writes now decode UTF-8 strictly before JSON parsing, refusing damaged bytes rather than silently changing reader data. Accounts/public remain off pending item 53 owner proxy rerun.
+- Offline real HTTP tests cover invalid leading bytes, overlong encodings, surrogate encodings and truncated sequences: empty no-store 400, no cookie, zero handler calls. Valid multilingual text, emoji and an intentional replacement character survive byte-wise upload and reach the handler unchanged.
+- Updated readiness plan/TASKS; no active source or handbook behavior changed. Targeted account HTTP tests pass (8). `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 793 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
+- API/worker restarted; post-restart health, all 14 services, zero alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
+- Next: Phase 4 preparation behind flags; production visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.

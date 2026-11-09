@@ -107,7 +107,12 @@ export function accountHttp(options: {
       }
       let body: unknown;
       try {
-        body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+        // Refuse damaged bytes instead of silently changing reader data.
+        body = JSON.parse(
+          new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(
+            Buffer.concat(chunks),
+          ),
+        );
       } catch {
         return send({ status: 400 });
       }
