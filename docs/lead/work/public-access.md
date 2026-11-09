@@ -24,9 +24,10 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Owner runs the five-minute proxy check in
-   [account activation](../../account-activation.md) (`probe-account-proxy.ts`,
-   then "Run check once" in a signed-in browser). Accounts stay off until then.
+1. Proxy check failed at its first request (owner ran it ~17:30 UTC Nov 9).
+   The probe hides why: missing `X-Forwarded-For`, or more than one address.
+   Proposed: the agent makes the probe report which condition failed (no
+   addresses) and adds a forged `X-ExeDev-Email` check, then the owner reruns.
 2. Check work-ahead stays behind flags and doesn't drift into polish.
 3. Phase 4: lead security review before the owner decides to go public.
 
