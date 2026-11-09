@@ -69,6 +69,16 @@ system-row reads, missing-row refusal, refused writes and pool reuse after app
 shutdown. Main does not import this module; authorization and route promotion
 remain separate work.
 
+`PublicTopicsReader` prepares a system-wide catalog using explicit selected
+columns and the same ordered source connections/X settings as the existing
+repository. It never selects ownership or future columns, filters by profile,
+or reads the profiles table. It applies the topic allowlist before returning.
+Isolated tests compare the complete result with the existing system catalog,
+rename the profile table, clear topic ownership and add a private future column.
+Unset/off/on flags preserve the result; malformed stored settings and closed
+connections receive generic 503 errors. The reader remains unregistered; topic
+HTTP transport and configured-text review are still required before promotion.
+
 ## Prepared source catalog projection
 
 `readPublicSourceCatalog` returns source IDs, configured names and publisher
@@ -87,7 +97,7 @@ before promotion; existing GET/HEAD routes remain admin and unchanged.
   even with system ownership enabled. The prepared standalone reader avoids this
   dependency; transport must use it instead of promoting the legacy profile GET.
 - `PostgresTopicRepository.listDefault` spreads `getTableColumns(topics)`.
-  A public allowlist must prevent future columns becoming public automatically.
+  The prepared system reader selects explicit columns; public transport must use it.
 - Current ingestion failures are sanitized by `ingest` before persistence;
   `status` readers return stored `lastError` verbatim. Review historical values
   and every writer before making that field public. No leak is inferred merely
