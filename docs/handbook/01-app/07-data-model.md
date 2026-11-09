@@ -23,7 +23,8 @@ snapshots.
 > Its prepared public policy awaits storage before running an admin write.
 > A prepared database boundary commits admission and mutation together.
 > A prepared source toggle uses this boundary and returns changed, unchanged
-> or not-found. Missing sources leave no admission record.
+> or not-found. Missing sources leave no admission record. Its prepared HTTP
+> boundary checks a bounded request and fresh admin before calling the writer.
 > These remain disconnected; current admission rows describe attempts.
 > Deleting a reader removes admissions tied to that identity.
 >

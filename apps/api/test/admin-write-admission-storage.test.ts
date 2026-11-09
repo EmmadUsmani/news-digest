@@ -10,6 +10,7 @@ import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
+import { publicSourceHttp } from '../src/public-write/source-http';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -372,6 +373,102 @@ void test('prepared source writer binds the target, reports serialized outcomes 
   } finally {
     await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
       entry.target,
+    ]);
+    await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
+    await pool.end();
+  }
+});
+
+void test('source HTTP commits exactly one admission with each mutation and refuses database failures', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const id = 'prepared-source-http';
+  const target = `/api/admin/topics/sources/${id}/enabled`;
+  let invalidActor = false;
+  const handler = publicSourceHttp({
+    enabled: true,
+    origin: 'https://reader.example',
+    authenticate: async () => ({
+      freshAdmin: true,
+      auditActor: invalidActor
+        ? { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' }
+        : { localScript: true },
+    }),
+    writer: new PublicSourceWriter(pool),
+  });
+  const server = createServer((req, res) =>
+    handler(req, res, () => {
+      res.statusCode = 404;
+      res.end();
+    }),
+  );
+  const admissions = async () =>
+    (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [target],
+      )
+    ).rows[0].n;
+  try {
+    await pool.query(
+      "INSERT INTO content_sources(id,name,kind,url,enabled) VALUES ($1,'HTTP writer','feed','https://example.test/feed',false)",
+      [id],
+    );
+    await new Promise<void>((resolve) =>
+      server.listen(0, '127.0.0.1', resolve),
+    );
+    const address = server.address();
+    assert.ok(address && typeof address !== 'string');
+    const put = () =>
+      fetch(`http://127.0.0.1:${address.port}${target}`, {
+        method: 'PUT',
+        headers: {
+          origin: 'https://reader.example',
+          'content-type': 'application/json',
+        },
+        body: '{"enabled":true}',
+      });
+    invalidActor = true;
+    const refused = await put();
+    assert.equal(refused.status, 503);
+    assert.equal(await refused.text(), '');
+    assert.equal(await admissions(), 0);
+    assert.equal(
+      (
+        await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
+          id,
+        ])
+      ).rows[0].enabled,
+      false,
+    );
+    invalidActor = false;
+    for (const outcome of ['changed', 'unchanged']) {
+      const response = await put();
+      assert.equal(response.status, 200);
+      assert.deepEqual(await response.json(), { outcome, id, enabled: true });
+    }
+    assert.equal(await admissions(), 2);
+    assert.equal(
+      (
+        await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
+          id,
+        ])
+      ).rows[0].enabled,
+      true,
+    );
+    await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
+    const missing = await put();
+    assert.equal(missing.status, 404);
+    assert.equal(await missing.text(), '');
+    assert.equal(await admissions(), 2);
+  } finally {
+    server.closeAllConnections();
+    if (server.listening)
+      await new Promise<void>((resolve, reject) =>
+        server.close((error) => (error ? reject(error) : resolve())),
+      );
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      target,
     ]);
     await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
     await pool.end();

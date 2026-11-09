@@ -1,33 +1,3 @@
-## 2026-11-09: iteration 1505 — compose gated public article reads
-
-- Clean main/no leftovers; alerts/healthz clear and no failed user services. All 36 sources healthy; digest queue has no failures, with historical ingestion/social failures retained and current collection succeeding.
-- Connected the prepared article module to the disconnected default-off public-read composition. Five readers share one lazy caller-owned pool; disabled and unsafe prerequisite checks include the article route.
-- Expanded isolated HTTP/storage coverage with a nonempty article fixture, private URL/query/fragment/excerpt/future-column omission, GET/HEAD/no-store/refused writes, generic article storage failure and healthy sibling routes. Unreviewed content/window remains absent; app shutdown preserves the shared pool.
-- Updated TASKS and response audit; archived iterations 1488–1489. Configured text/hostname review, legacy-controller replacement, authorization and proxy proof remain rollout gates. Accounts/public mode remain disabled; no live entrypoints/config/data/migrations/provider calls changed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (736 unit/263 integration passes, four expected skips), `pnpm build`, source/job checks, saved-reader check and `git diff --check`. Saved Nov 8 reader retains four topics/19 stories/17 posts; build retains existing bundle warnings.
-- No restart under STEERING 22 because live entrypoints do not import the disconnected composition.
-- Next: configured article text/hostname review and live proxy proof; normal 15:00 UTC Phase 1 scheduled acceptance remains pending.
-
-## 2026-11-09: iteration 1506 — review configured public-read snapshot
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user services; source/job checks pass and all 36 sources healthy. Saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Inspected actual prepared live readers without installing routes: all four complete topic configurations, 36 source names/35 origins and 20 preview titles/source labels across four groups. No private material observed in those projected values.
-- Added scoped review/origin inventory and snapshot fingerprint; Google News origins identify the aggregator, so public UI must call these source origins and never article links. Current snapshot does not approve all historical/future values; recheck changes before promotion.
-- Temporary inspection script/snapshot deleted; first invocation failed at compilation on top-level await, corrected with async main before any database read. No config/data/migrations/provider calls changed.
-- Verification: prepared readers, source/job checks, saved-reader check, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` (final results below).
-- Full check passes 736 unit/263 integration tests with four expected skips; build passes with existing bundle warnings.
-- No restart under STEERING 22: documentation-only change, live runtime unchanged. Accounts/public mode remain off.
-- Next: controller replacement/authorization and live proxy proof; normal 15:00 UTC Phase 1 scheduled acceptance remains required before account activation.
-
-## 2026-11-09: iteration 1507 — prepare public authorization enforcement
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user services. Source/job checks pass; saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added uninstalled default-off authorization middleware enforcing the prepared route classifier before downstream handlers. Unknown routes deny; user/admin routes require session/fresh-admin resolution; forged proxy identity headers grant nothing; dependency failures return empty 503 and responses are no-store.
-- Real HTTP tests cover anonymous exchanges, GET/HEAD, unknown/encoded routes, forged headers, user versus fresh-admin writes, resolver failure and disabled-path isolation. No provider calls or live configuration/data changes.
-- Updated TASKS and public-access plan. Session/local-token wiring, write origin/audit enforcement, controller replacement and live proxy proof remain promotion gates; accounts/public mode remain disabled.
-- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check` (737 unit/263 integration passes, four expected skips), `pnpm build`, source/job checks, saved-reader check and `git diff --check`. Build retains existing bundle warning.
-- No restart under STEERING 22: live entrypoints do not import the disconnected middleware. Next: compose account-backed authorization; normal 15:00 scheduled phase-1 acceptance remains required.
-
 ## 2026-11-09: iteration 1508 — compose account-backed public authorization
 
 - Clean main/no leftovers. Triaged Basketball Insiders' two 20-second poll timeouts: direct feed returned 200 in 0.48 s and automatic retry recovered at 09:44:46; all 36 sources healthy. One guarded manual retry refused before enqueue because the job was no longer failed; temporary script removed. Healthz and user services healthy; digest schedule unchanged.
@@ -148,3 +118,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass: 742 unit/267 integration passes, four expected skips. Existing web bundle warning only.
 - Handbook checker: 18 pages/three diagrams, no page/link/render errors; exit 1 for existing schema metadata warnings from eight unapplied account tables.
 - Next: controller wiring, persisted mutation outcomes, atomic queue effects and live proxy proof; Nov 9 scheduled Phase 1/X/Bluesky acceptance remains due 15:00 UTC.
+
+## 2026-11-09: iteration 1520 — prepare atomic source-write HTTP boundary
+
+- Clean main/no leftovers; alerts, healthz and user services clear. All 36 sources recently successful with no current errors; four queues available, latest scheduled digest completed and next due 15:00 UTC. Reader retains four topics/19 stories/17 posts.
+- Prepared uninstalled exact-route PUT transport: HTTPS Origin/JSON checks, strict boolean-only body and 2 KiB declared/streamed limit. Fresh-admin authentication runs after upload; missing actors and authentication/storage failures refuse privately.
+- Transport delegates directly to the transaction-bound source writer, bypassing standalone middleware admission. Responses project changed/unchanged results, return empty not-found responses and omit adapter/private error details.
+- Offline loopback checks cover malformed/oversized/chunked requests, disabled gate, wrong methods/targets, unauthorized/invalid actors, cookie renewal and private failures. Isolated database HTTP checks cover atomic refusal, changed/unchanged admission counts and missing-source rollback.
+- Updated TASKS, rollout plan and affected handbook note; archived iterations 1505–1507. Live controller replacement, persisted mutation outcomes, queue atomicity and proxy proof remain open.
+- No live entrypoints, configuration, migrations, UI or provider calls changed. Accounts/public mode stay off; no restart under STEERING 22 because running services do not import this preparation.
+- Verification: targeted loopback test, pnpm format, pnpm lint:fix, pnpm build, pnpm check, source/job checks, saved-reader check and git diff --check. Full check passes 743 unit/268 integration tests, four expected skips; no external test calls.
+- Handbook checker passes: 18 pages/three diagrams, with existing metadata warnings for eight unapplied private account tables. Build retains existing web bundle warning.
+- Next: live controller replacement and persisted mutation outcomes; normal Nov 9 scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC remains pending.

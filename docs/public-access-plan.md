@@ -445,8 +445,16 @@ source target and locks its row before reporting changed or unchanged. Missing
 sources return not-found and roll back admission; storage failures propagate.
 Concurrent identical toggles produce one changed and one unchanged result. These
 results are returned to the caller, not persisted in the admission table.
-Controller adoption, persisted outcomes and atomic queue/external effects remain
-unimplemented. This policy remains uninstalled and changes no live access.
+A prepared, uninstalled source-write HTTP boundary (iteration 1520) delegates to
+that atomic writer after exact HTTPS Origin/JSON checks, a 2 KiB streamed body
+limit and fresh-admin authentication after upload. It accepts only the exact PUT
+route and a single boolean `enabled` field; malformed/unauthorized requests never
+reach storage. Responses project changed/unchanged results, return empty 404 for
+missing sources and hide authentication/storage errors behind empty 503s. Mount
+before body parsers and outside the standalone admission middleware to avoid
+independent duplicate admission records. Live controller replacement, persisted
+outcomes and atomic queue/external effects remain unimplemented. This policy
+remains uninstalled and changes no live access.
 
 ## Target design
 
