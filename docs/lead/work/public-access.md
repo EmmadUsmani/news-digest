@@ -24,10 +24,10 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Proxy answer (owner, Nov 9 evening): both added entries equal the owner's
-   own IPv4 address. exe.dev adds the visitor's address twice, so the existing
-   last-entry rule in `proxyClient` is right. A lead update under item 53 to
-   say so is drafted and awaits the owner's yes. Then phase 3 can start.
+1. Proxy answered (owner, Nov 9): both added entries are the visitor's IPv4;
+   the last-entry rule stands. Lead update under item 53 steered: trust
+   loopback, add tests, start phase 3, read receipts itself, restart only the
+   API for API-only changes. Next: read its ack, then the two-device test steps.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
