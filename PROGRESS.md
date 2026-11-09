@@ -112,3 +112,12 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/271 integration passes, four expected skips; existing build warnings only. No live external verification calls.
 - Updated TASKS/rollout plan; archived iterations 1519–1528 to keep this log small. No HTTP registration, flags, migrations, generation changes or live edition writes; public/accounts remain off.
 - No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled edition review, permitted deployment after 16:00, live proxy proof, topic-order HTTP replacement and atomic queue effects.
+
+## 2026-11-09: iteration 1541 — prepare atomic topic-order HTTP boundary
+
+- Clean main/no leftovers; alerts clear, healthz database/Redis healthy, no failed user services; all 36 sources healthy and queue checks pass. Latest published edition serves four topics.
+- Prepared unregistered exact-PUT topic-order transport: bounded unique UUID catalog, fresh-admin checks after upload, strict Origin/content-type multiplicity and authenticated direct-script provenance.
+- Public responses project changed/unchanged only; stale catalogs return empty 409, invalid actors/dependency failures empty 503. Loopback HTTP tests cover malformed/duplicate/oversized input, streamed limits, session renewal and secret-free failures.
+- Updated rollout plan/TASKS. No runtime registration, migrations, flags, generation changes or external calls; public/accounts remain off.
+- Verification: focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build and pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Existing bundle warning only.
+- No deployment/restart during owner's 13:00–16:00 UTC hold. Nov 9 15:01 snapshot: scheduled generation active, zero failed jobs. Next: review its completed edition, permitted deployment after 16:00, proxy proof and topic-order runtime registration.

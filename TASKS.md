@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1540: prepared atomic system topic reordering with changed/unchanged audit outcomes, shared catalog locking, stale-catalog refusal and rollback; isolated database acceptance added. HTTP routing remains pending; public/accounts stay off.
+- [x] Iteration 1541: prepared bounded atomic topic-order HTTP transport with fresh-admin/provenance checks, stale-catalog 409 and private failures; loopback HTTP acceptance passes. Runtime registration remains pending; public/accounts stay off.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
