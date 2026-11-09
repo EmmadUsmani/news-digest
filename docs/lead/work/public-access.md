@@ -1,11 +1,10 @@
 # Public access and reader accounts
 
-**Status (17:00 UTC Nov 9):** phases 0, 1 and 2 accepted by the agent. Phase 1
-(system ownership) passed after the Nov 9 scheduled edition, and the API was
-redeployed at 16:07 UTC with accounts and public mode still off (agent's
-figures). Accounts are blocked on live proof that the exe.dev proxy replaces
-identity headers: the VM can't reach its own proxy URL. While waiting, the agent
-is building phase 4 behind flags: a privacy page, security headers, caching.
+**Status (23:00 UTC Nov 9):** phases 0, 1 and 2 accepted. The proxy question
+is closed: the agent kept the last-entry rule, added tests and trusts loopback
+(item 53 acked, iteration 1589). Phase 3 (accounts) has started: backup and
+migration rehearsal pass; live migrations and accounts are still off (agent's
+figures). Phase 4 pieces are built behind flags.
 
 **Owner decisions (Nov 7):**
 
@@ -24,10 +23,9 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Proxy answered (owner, Nov 9): both added entries are the visitor's IPv4;
-   the last-entry rule stands. Lead update under item 53 steered: trust
-   loopback, add tests, start phase 3, read receipts itself, restart only the
-   API for API-only changes. Next: read its ack, then the two-device test steps.
+1. Agent's next: live account migrations and deployment, then two-device
+   test steps for the owner in `NEEDS_FROM_HUMAN.md`. Check migrations ran
+   outside 13:00–16:00 UTC with a backup first.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
