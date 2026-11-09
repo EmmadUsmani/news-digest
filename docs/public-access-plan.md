@@ -439,12 +439,13 @@ the database rejects the actor. A shared transaction boundary (iteration 1518) n
 prepares admission insertion and database mutation on one connection: callback or
 database failure rolls both back, and audit refusal prevents the callback. It
 returns only after commit and leaves pool ownership with the caller. Existing
-middleware still records attempts independently; transaction-bound admission does
-not distinguish outcomes in that table. A prepared source-enable writer (iteration 1519) binds the admission to the exact
+middleware still records attempts independently. A prepared source-enable writer (iteration 1519) binds the admission to the exact
 source target and locks its row before reporting changed or unchanged. Missing
 sources return not-found and roll back admission; storage failures propagate.
-Concurrent identical toggles produce one changed and one unchanged result. These
-results are returned to the caller, not persisted in the admission table.
+Concurrent identical toggles produce one changed and one unchanged result. Unapplied additive migration 0019 adds a nullable outcome: the prepared source
+writer persists changed/unchanged in the same transaction as its mutation. Null
+means admission only, including older rows; it never implies success. Failure
+while saving an outcome rolls back both admission and mutation.
 A prepared, uninstalled source-write HTTP boundary (iteration 1520) delegates to
 that atomic writer after exact HTTPS Origin/JSON checks, a 2 KiB streamed body
 limit and fresh-admin authentication after upload. It accepts only the exact PUT
@@ -452,8 +453,7 @@ route and a single boolean `enabled` field; malformed/unauthorized requests neve
 reach storage. Responses project changed/unchanged results, return empty 404 for
 missing sources and hide authentication/storage errors behind empty 503s. Mount
 before body parsers and outside the standalone admission middleware to avoid
-independent duplicate admission records. Live controller replacement, persisted
-outcomes and atomic queue/external effects remain unimplemented. This policy
+independent duplicate admission records. Live controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 
 ## Target design

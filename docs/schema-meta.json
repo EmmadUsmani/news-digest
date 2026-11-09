@@ -149,7 +149,7 @@
     "admin_audit_log": "Private sign-in-link issuance and reader session revocation audit tied to the issuing user; contains no bearer tokens.",
     "user_hidden_topics": "Per-reader hidden-topic changes, including explicit unhide state; removed with the user.",
     "bookmarks": "Per-reader saved display copies and removal tombstones; removed with the user.",
-    "admin_write_admissions": "Private attempted admin writes: actor, method, classified path and time; no credentials or request payloads."
+    "admin_write_admissions": "Private admin admissions: actor, method, classified path, time and optional atomic changed/unchanged outcome; no credentials or payloads."
   },
   "relations": [
     {

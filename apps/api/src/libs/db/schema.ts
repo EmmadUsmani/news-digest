@@ -154,7 +154,7 @@ export const signInLinks = pgTable(
   ],
 );
 
-// Admission records describe attempted writes only; identity deletion removes them.
+// Null outcomes describe admission only; atomic writers record committed results.
 export const adminWriteAdmissions = pgTable(
   'admin_write_admissions',
   {
@@ -167,8 +167,13 @@ export const adminWriteAdmissions = pgTable(
       withTimezone: true,
       mode: 'string',
     }).notNull(),
+    outcome: text(),
   },
   () => [
+    check(
+      'admin_write_admissions_outcome_check',
+      sql`outcome IS NULL OR outcome IN ('changed', 'unchanged')`,
+    ),
     check(
       'admin_write_admissions_actor_check',
       sql`(user_id IS NOT NULL AND NOT local_script) OR (user_id IS NULL AND local_script)`,

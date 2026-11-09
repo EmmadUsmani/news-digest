@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import type { Pool } from 'pg';
 
@@ -12,7 +13,7 @@ type Transaction = Parameters<Parameters<Database['transaction']>[0]>[0];
 export async function insertAdminWriteAdmission(
   db: Pick<Database, 'insert'>,
   entry: AdminWriteAdmission,
-): Promise<void> {
+): Promise<string> {
   // Validate again at persistence; never store arbitrary paths or query data.
   if (
     !['POST', 'PUT', 'DELETE'].includes(entry.action) ||
@@ -25,13 +26,17 @@ export async function insertAdminWriteAdmission(
   const localScript =
     'localScript' in entry.actor && entry.actor.localScript === true;
   if ((userId !== null) === localScript) throw new Error('Invalid admin actor');
-  await db.insert(adminWriteAdmissions).values({
-    userId,
-    localScript,
-    method: entry.action,
-    target: entry.target,
-    createdAt: entry.at.toISOString(),
-  });
+  const [inserted] = await db
+    .insert(adminWriteAdmissions)
+    .values({
+      userId,
+      localScript,
+      method: entry.action,
+      target: entry.target,
+      createdAt: entry.at.toISOString(),
+    })
+    .returning({ id: adminWriteAdmissions.id });
+  return inserted.id;
 }
 
 // Prepared only. The callback must use this transaction for every database write
@@ -41,9 +46,17 @@ export async function withAdminWriteAdmission<T>(
   pool: Pool,
   entry: AdminWriteAdmission,
   mutate: (transaction: Transaction) => Promise<T>,
+  outcome?: (result: T) => 'changed' | 'unchanged',
 ): Promise<T> {
   return drizzle(pool).transaction(async (transaction) => {
-    await insertAdminWriteAdmission(transaction, entry);
-    return mutate(transaction);
+    const id = await insertAdminWriteAdmission(transaction, entry);
+    const result = await mutate(transaction);
+    if (outcome) {
+      await transaction
+        .update(adminWriteAdmissions)
+        .set({ outcome: outcome(result) })
+        .where(eq(adminWriteAdmissions.id, id));
+    }
+    return result;
   });
 }

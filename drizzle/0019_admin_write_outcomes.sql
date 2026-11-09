@@ -1,0 +1,2 @@
+ALTER TABLE "admin_write_admissions" ADD COLUMN "outcome" text;--> statement-breakpoint
+ALTER TABLE "admin_write_admissions" ADD CONSTRAINT "admin_write_admissions_outcome_check" CHECK (outcome IS NULL OR outcome IN ('changed', 'unchanged'));

@@ -130,3 +130,15 @@
 - Verification: targeted loopback test, pnpm format, pnpm lint:fix, pnpm build, pnpm check, source/job checks, saved-reader check and git diff --check. Full check passes 743 unit/268 integration tests, four expected skips; no external test calls.
 - Handbook checker passes: 18 pages/three diagrams, with existing metadata warnings for eight unapplied private account tables. Build retains existing web bundle warning.
 - Next: live controller replacement and persisted mutation outcomes; normal Nov 9 scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC remains pending.
+
+## 2026-11-09: iteration 1521 — prepare persisted atomic source outcomes
+
+- Clean main/no leftovers; alerts, healthz and user services clear. All 36 sources healthy; saved reader retains four topics/19 stories/17 posts. Scheduled acceptance remains due 15:00 UTC.
+- Prepared additive migration 0019 adds nullable constrained admission outcome. Existing/standalone admissions remain null (admission only); source writer saves changed/unchanged on the same transaction as its source update.
+- Concurrent identical toggles and HTTP calls persist one changed/one unchanged result. Isolated checks reject invalid outcomes, preserve null standalone records and inject outcome-storage failure to verify source/admission rollback and subsequent pool reuse.
+- Initial checks caught a wrapped-error assertion and additive-column order mismatch; corrected assertion, schema declaration and snapshot, then reran integration/schema checks.
+- Updated rollout plan, schema metadata, affected handbook and TASKS. No new tables/relationships, UI, provider calls or live migration/configuration changes. Account/public mode remains disabled.
+- No restart under STEERING 22: running services do not import the prepared writer; migration remains unapplied. Live controller replacement, queue atomicity and proxy proof remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check (initial failures corrected), full pnpm test:integration rerun and eight focused source/schema checks. Final results: 743 unit/268 integration passes, four expected skips; no live external test calls.
+- Handbook checker: 18 pages/three diagrams, no render/link errors; existing unapplied account metadata warnings only. Reader endpoint check and git diff --check pass. Build retains existing bundle warning.
+- Next: live controller replacement, atomic queue effects and proxy proof; normal Nov 9 15:00 UTC Phase 1/X/Bluesky scheduled acceptance remains pending.

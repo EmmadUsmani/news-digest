@@ -33,7 +33,7 @@ void test('admin write admissions persist minimal actors, reject unsafe entries 
     await recorder.record({ ...entry, actor: { localScript: true } });
     const rows = (
       await pool.query(
-        'SELECT user_id, local_script, method, target, created_at FROM admin_write_admissions ORDER BY local_script',
+        'SELECT user_id, local_script, method, target, created_at, outcome FROM admin_write_admissions ORDER BY local_script',
       )
     ).rows;
     assert.deepEqual(rows, [
@@ -43,6 +43,7 @@ void test('admin write admissions persist minimal actors, reject unsafe entries 
         method: 'POST',
         target: entry.target,
         created_at: now,
+        outcome: null,
       },
       {
         user_id: null,
@@ -50,6 +51,7 @@ void test('admin write admissions persist minimal actors, reject unsafe entries 
         method: 'POST',
         target: entry.target,
         created_at: now,
+        outcome: null,
       },
     ]);
     for (const target of [
@@ -340,6 +342,53 @@ void test('prepared source writer binds the target, reports serialized outcomes 
       'unchanged',
     ]);
     assert.equal(await admissions(), 2);
+    assert.deepEqual(
+      (
+        await pool.query(
+          'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+          [entry.target],
+        )
+      ).rows,
+      [{ outcome: 'changed' }, { outcome: 'unchanged' }],
+    );
+    await assert.rejects(
+      pool.query(
+        "UPDATE admin_write_admissions SET outcome='failed' WHERE target=$1",
+        [entry.target],
+      ),
+      /admin_write_admissions_outcome_check/,
+    );
+    // Failure while recording the outcome must roll back the source update too.
+    await pool.query(
+      `CREATE FUNCTION refuse_source_outcome() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'outcome unavailable'; END $$`,
+    );
+    await pool.query(
+      `CREATE TRIGGER refuse_source_outcome BEFORE UPDATE ON admin_write_admissions FOR EACH ROW EXECUTE FUNCTION refuse_source_outcome()`,
+    );
+    try {
+      await assert.rejects(
+        writer.setEnabled(entry, id, false),
+        (error: unknown) => {
+          assert.ok(error instanceof Error && error.cause instanceof Error);
+          assert.match(error.cause.message, /outcome unavailable/);
+          return true;
+        },
+      );
+      assert.equal(await admissions(), 2);
+      assert.equal(
+        (
+          await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
+            id,
+          ])
+        ).rows[0].enabled,
+        true,
+      );
+    } finally {
+      await pool.query(
+        'DROP TRIGGER refuse_source_outcome ON admin_write_admissions',
+      );
+      await pool.query('DROP FUNCTION refuse_source_outcome()');
+    }
     await assert.rejects(
       writer.setEnabled(
         { ...entry, target: '/api/admin/profile/schedule' },
@@ -448,6 +497,15 @@ void test('source HTTP commits exactly one admission with each mutation and refu
       assert.deepEqual(await response.json(), { outcome, id, enabled: true });
     }
     assert.equal(await admissions(), 2);
+    assert.deepEqual(
+      (
+        await pool.query(
+          'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+          [target],
+        )
+      ).rows,
+      [{ outcome: 'changed' }, { outcome: 'unchanged' }],
+    );
     assert.equal(
       (
         await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
