@@ -18,7 +18,12 @@ import { PostgresSessionRepository } from '../src/modules/accounts/database/sess
 import { PostgresSessionRevocationRepository } from '../src/modules/accounts/database/session-revocation.repository';
 import { PostgresSignInLinkRepository } from '../src/modules/accounts/database/sign-in-link.repository';
 
-void test('composed accounts persist mailbox login and single-use friend sessions across runtimes', async () => {
+void test('composed accounts persist mailbox login and single-use friend sessions across runtimes without logging credentials', async (t) => {
+  // Capture the real composed HTTP/storage flow, including refused and replayed
+  // requests. Never include captured arguments in assertion failure output.
+  const logCalls = ['log', 'info', 'warn', 'error', 'debug', 'trace'].map(
+    (method) => t.mock.method(console, method as 'log', () => undefined),
+  );
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const disabled = prepareStoredAccountHttp({});
   assert.equal(disabled.middleware, null);
@@ -558,5 +563,7 @@ void test('composed accounts persist mailbox login and single-use friend session
     );
     await cache.quit();
     await rm(directory, { recursive: true, force: true });
+    for (const logger of logCalls)
+      assert.equal(logger.mock.callCount(), 0, 'account flow must not log');
   }
 });

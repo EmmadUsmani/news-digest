@@ -354,6 +354,12 @@ session count and refreshes the issuer session, including after self-revocation.
 Targets stay in memory and unmount aborts pending requests. Accounts stay disabled;
 no live operation or migration is enabled.
 
+Stored HTTP acceptance (iteration 1459) also requires silent account flows: code
+requests/redemption, sign-in links, replay refusals, sync, revocation, logout and
+deletion emit no console logs. The HTTP boundary separately verifies that a
+credential-bearing exception produces an empty failure response and no console
+output. These are isolated checks; live proxy proof and activation remain open.
+
 ## Target design
 
 ### System-level data

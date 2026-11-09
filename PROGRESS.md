@@ -1,25 +1,3 @@
-## 2026-11-09: iteration 1444 — live system-owned AI-on private generation
-
-- Clean main/no leftovers; health/alerts clear, all 36 sources healthy and digest queue has zero failures. Next scheduled publication Nov 9 15:00 UTC; accounts disabled and VM private.
-- Initial AI-on smoke correctly refused with 503 while service development editing was disabled; immediate post-restart launch hit startup readiness. Enabled private `LLM_LIVE=1` temporarily, waited for health, then generated exactly one private AI-on edition; restored `LLM_LIVE=0` and restarted API afterward.
-- Edition `1cd0265e-cab7-4484-be99-cb89691b2a4d`: 465 stored real candidates/four topics/20 stories. Gaming uses Haiku editing; Tech has incomplete-triage fallback, NBA/World use complete-triage unedited fallback. This is not full-AI acceptance. Development Anthropic: 38 calls/$0.211076, zero outstanding holds; no production ledger calls during the check and no paid X.
-- Generation returned 201, but smoke asserted keyword reasons for semantic-triage fallback. Corrected that assumption and added read-only `--edition UUID` rechecks to avoid another paid generation. Saved-edition check passes: snapshot/history/detail, unpublished kind=test, direct reader 404 and latest reader unchanged. Default-profile ownership remains rollback-compatible.
-- Complete live read-only adapter/HTTP off/on/off parity passes for all 552 editions, both publication filters, topics/settings. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts.
-- Updated TASKS and rollout plan. Phase 1 remains open for normal scheduled acceptance; no provider retry or additional paid check. No UI or handbook system behavior change.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (695 unit; 253 integration passes/four expected skips), `pnpm build`, saved-edition read-only smoke and `git diff --check`. An earlier full check stopped at formatting while the smoke fix was being edited; final full check is green. No UI change.
-- Commit/push, then restart API/worker and repeat health, reader and alerts checks to match main. Next: normal flag-on scheduled acceptance; no phase closure claimed.
-
-## 2026-11-09: iteration 1445 — gated account HTTP bootstrap
-
-- Clean main/no leftovers. Alerts and health clear, no failed user units; all 36 sources healthy, digest queue zero failures, next scheduled publication Nov 9 15:00 UTC.
-- Prepared `prepareAccountHttp` combines the account runtime, bounded HTTP routes and proxy admission. Disabled flag opens no dependencies; activation requires explicit validated IP peers before account resources open. No implicit loopback trust.
-- Extended disposable Postgres/Redis composition checks through real loopback HTTP: unrelated-route pass-through, missing forwarded-address refusal, forged-prefix handling, stand-in mailbox login, cookie-only session exchange, authenticated session read and replay refusal.
-- Accounts remain disabled; main does not register the bootstrap. No live peer configuration, migration, provider call or public access change. Phase 1 stays open for scheduled acceptance; main composition and live proxy proof remain next-phase work.
-- Updated rollout plan/TASKS and corrected its stale Nov 8 next-review marker. Archived iterations 1430–1431 to keep PROGRESS small; no handbook runtime behavior changed.
-- Initial targeted bootstrap test expected an origin-specific error but received the existing Invalid URL error; corrected the assertion. Final verification results recorded below before commit.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit tests; 253 integration passes/four expected skips), `pnpm build`, targeted bootstrap/proxy tests (3), saved reader check and `git diff --check`. No UI change or paid verification.
-- Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance, then main account composition and verified live proxy wiring with accounts still gated.
-
 ## 2026-11-09: iteration 1446 — gated account storage composition
 
 - Clean main/no leftovers; alerts clear, health database/Redis good, no failed user units and all 36 sources healthy. Scheduled Phase 1 acceptance still waits for Nov 9 15:00 UTC.
@@ -129,3 +107,11 @@
 - Test-only change; no live account writes, migration, provider calls, email or UI changes. Direct public HTTPS probe could not connect from this VM; live proxy peer/forged-prefix proof remains pending. No trust configuration changed.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`. Full check passes: 701 unit passes, 254 integration passes/four expected skips; build passes. Saved reader retains four topics/19 stories/17 posts. Commit/push followed by API/worker restart and health/reader/alert checks.
 - Next: normal scheduled Phase 1 acceptance, live proxy verification and remaining Phase 3 activation checks; owner two-device acceptance remains open.
+
+## 2026-11-09: iteration 1459 — account flow log hygiene acceptance
+
+- Clean main/no leftovers; initial health/alerts clear, all 36 sources healthy and digest queue zero failures. Accounts disabled, migration 0017 unapplied, VM private; scheduled acceptance awaits 15:00 UTC.
+- Stored HTTP/Postgres/Redis acceptance now captures six console methods through code login, links, replay refusal, sync, revocation, logout and deletion and requires zero calls. HTTP failure acceptance separately verifies no logs when a credential-bearing exception occurs; assertions expose counts only, never captured arguments.
+- Test-only change; no live account writes, migrations, provider calls, email or UI change. Updated rollout evidence and TASKS; archived iterations 1444–1445 to keep this log small.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts. Corrected unsupported jobs CLI options; final jobs snapshot confirms zero digest failures.
+- Commit/push then API/worker restart and health/reader/alerts checks. Next: normal Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.

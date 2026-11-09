@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1458: installed admin revocation HTTP/storage acceptance covers two independent devices, non-admin refusal without session loss, private count-only responses, immediate discovery/sync refusal, preserved saved choices after fresh sign-in and cross-runtime repeat revocation. Accounts stay disabled; scheduled Phase 1 acceptance and live proxy proof remain open.
+- [x] Iteration 1459: stored HTTP account acceptance now checks silent console output through sign-in, replay, sync, revocation, logout and deletion; credential-bearing HTTP exceptions also remain silent. Accounts disabled; scheduled Phase 1 acceptance and live proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -6,7 +6,10 @@ import { AccountHandlers } from '../src/modules/accounts/adapters/account-handle
 import { accountHttp } from '../src/modules/accounts/adapters/account-http';
 import { AccountRequestBoundary } from '../src/modules/accounts/adapters/account-request';
 
-void test('account HTTP boundary gates routes, streams bounded bodies and hides credentials and failures', async () => {
+void test('account HTTP boundary gates routes, streams bounded bodies and hides credentials and failures', async (t) => {
+  const logCalls = ['log', 'info', 'warn', 'error', 'debug', 'trace'].map(
+    (method) => t.mock.method(console, method as 'log', () => undefined),
+  );
   let calls = 0;
   let enabled = false;
   let trusted = true;
@@ -98,6 +101,9 @@ void test('account HTTP boundary gates routes, streams bounded bodies and hides 
     await new Promise<void>((resolve, reject) =>
       server.close((error) => (error ? reject(error) : resolve())),
     );
+    // Check only counts: failed assertions must never print captured credentials.
+    for (const logger of logCalls)
+      assert.equal(logger.mock.callCount(), 0, 'account HTTP must not log');
   }
 });
 
