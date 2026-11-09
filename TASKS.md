@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1525: prepared owned write-router runtime releases source storage after failed startup and shares repeatable shutdown; disabled mode opens no resources. Live mounting, queue atomicity and proxy proof remain open.
+- [x] Iteration 1526: prepared account-backed atomic write routing shares session/admin authentication with ordinary authorization; isolated HTTP/database checks verify no duplicate admission. Live mounting, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -10,7 +10,7 @@ import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
-import { prepareStoredPublicWriteRouter } from '../src/public-write/storage-router';
+import { prepareAccountPublicWriteRouter } from '../src/public-write/account-router';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -433,26 +433,32 @@ void test('source HTTP commits exactly one admission with each mutation and refu
   const pool = database();
   const id = 'prepared-source-http';
   const target = `/api/admin/topics/sources/${id}/enabled`;
+  const userId = (
+    await pool.query(
+      "INSERT INTO users(email) VALUES ('source-http@example.test') RETURNING id",
+    )
+  ).rows[0].id as string;
   let invalidActor = false;
   let standalone = 0;
   let legacy = 0;
-  const handler = prepareStoredPublicWriteRouter({
+  const runtime = await prepareAccountPublicWriteRouter({
     enabled: true,
     origin: 'https://reader.example',
-    authenticate: async () => ({
-      freshAdmin: true,
-      auditActor: invalidActor
-        ? { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' }
-        : { localScript: true },
+    accounts: () => ({
+      authorization: async () => ({
+        freshAdmin: true,
+        auditActor: invalidActor
+          ? { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' }
+          : { userId },
+      }),
     }),
     pool: () => pool,
-    authorize: () => (_req, _res, next) => {
+    recordAdminWrite: async () => {
       standalone++;
-      next();
     },
   });
   const server = createServer((req, res) =>
-    handler(req, res, () => {
+    runtime.middleware(req, res, () => {
       legacy++;
       res.statusCode = 404;
       res.end();
@@ -531,7 +537,7 @@ void test('source HTTP commits exactly one admission with each mutation and refu
       (await fetch(`http://127.0.0.1:${address.port}/api/admin/topics`)).status,
       404,
     );
-    assert.deepEqual([standalone, legacy], [1, 1]);
+    assert.deepEqual([standalone, legacy], [0, 1]);
   } finally {
     server.closeAllConnections();
     if (server.listening)
@@ -542,6 +548,7 @@ void test('source HTTP commits exactly one admission with each mutation and refu
       target,
     ]);
     await pool.query('DELETE FROM content_sources WHERE id=$1', [id]);
-    await pool.end();
+    await pool.query('DELETE FROM users WHERE id=$1', [userId]);
+    await runtime.close();
   }
 });

@@ -466,7 +466,12 @@ Isolated HTTP checks verify persisted outcomes, rollback on actor refusal and
 missing sources, and zero standalone/legacy calls for source writes. Prepared owned
 runtime (iteration 1525) closes its source pool after failed construction and exposes
 repeatable shutdown for future Nest ownership; disabled mode acquires nothing.
-Authorization resources remain caller-owned. Live mounting,
+Authorization resources remain caller-owned. Prepared account-backed composition
+(iteration 1526) shares the existing session/local-script authenticator between
+atomic source writes and ordinary authorization. Missing account handlers refuse
+before storage opens; disabled composition constructs neither accounts nor storage.
+Loopback and isolated database checks cover cookie renewal, session refusal/failure,
+one transactional source admission and no duplicate standalone admission. Live mounting,
 controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

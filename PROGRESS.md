@@ -152,3 +152,13 @@
 - Verification: pnpm exec tsx --test apps/api/test/public-write-owned-router.test.ts (4 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 750 unit/268 integration passes, four expected skips; existing bundle warnings only.
 - Handbook checker: 18 pages/22 diagrams checked; exit 1 for existing unapplied-account metadata warnings. No live external test calls.
 - No restart under STEERING 22: services do not import this uninstalled preparation. Next: live route composition, atomic queue effects/proxy proof; scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC.
+
+## 2026-11-09: iteration 1526 — prepare account-backed atomic write routing
+
+- Clean main/no leftovers; alerts and healthz healthy, all 36 sources healthy, jobs check passes and latest saved edition returns four topics.
+- Prepared uninstalled account-backed write router shares session/local-script authentication with ordinary authorization. Atomic source writes bypass standalone admission; other routes retain the existing account policy.
+- Missing account handlers refuse before storage acquisition; disabled composition opens no resources. Source storage keeps the owned runtime lifecycle; accounts/ordinary admission remain caller-owned.
+- Offline loopback checks cover cookie renewal, fresh-admin refusal, session-store failure, ordinary admission and resource laziness. Isolated database coverage now exercises this composition with a persisted user and nonexistent-user rollback.
+- Updated rollout plan/TASKS. No live flags, routes, migrations, UI or provider calls changed; accounts stay off.
+- Verification: pnpm exec tsx --test apps/api/test/public-write-account-router.test.ts apps/api/test/public-account-access.test.ts (3 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 752 unit/268 integration passes, four expected skips; existing bundle warnings only. Corrected require-await lint error before passing rerun.
+- No restart under STEERING 22: running services do not import these prepared modules. Next: live mounting, atomic queue/external effects and proxy proof; Nov 9 15:00 scheduled Phase 1/X/Bluesky acceptance remains pending.
