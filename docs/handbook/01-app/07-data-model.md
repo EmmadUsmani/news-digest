@@ -31,7 +31,8 @@ snapshots.
 > while accounts are disabled. The reader account panel offers sync status,
 > retry, sign-out and confirmed account deletion in edition and saved-item headers
 > behind a default-off flag. Admins can create and privately share one-time
-> friend sign-in links from that panel. A gated admin operation
+> friend sign-in links from that panel. Admins can also enter a reader account ID
+> and confirm signing out all its devices. A gated admin operation
 > revokes a reader’s sessions and records the action in one transaction; its
 > audit migration is not applied. Its prepared POST route requires same-origin
 > JSON and a session cookie; the default-off account runtime composes the audited service. See the

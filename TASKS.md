@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1456: audited admin session revocation composed behind the default-off account runtime with owned storage shutdown and isolated cross-runtime refusal/target-isolation checks. Admin controls remain next; migration 0017 unapplied, accounts disabled pending scheduled Phase 1 acceptance and proxy proof.
+- [x] Iteration 1457: admin reader-session revocation control prepared behind the default-off account gate; explicit target confirmation, refusal/retry, validated removed-session counts and issuer refresh pass desktop/mobile fixture checks. Migration 0017 remains unapplied; accounts disabled pending scheduled Phase 1 acceptance and proxy proof.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

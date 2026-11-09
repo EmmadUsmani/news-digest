@@ -145,6 +145,7 @@ window.renderAccount({});
         ['refresh', 'retry', 'delete', 'out', 'all'],
       );
       await expect(page.getByLabel('Reader email')).toHaveCount(0);
+      await expect(page.getByLabel('Reader account ID')).toHaveCount(0);
       await render({
         status: 'idle',
         session: { signedIn: true, isAdmin: true },
@@ -200,12 +201,96 @@ window.renderAccount({});
         .click();
       await expect(page.getByRole('alert')).toContainText('Could not create');
       await expect(page.getByLabel('One-time sign-in link')).toHaveCount(0);
+      await page.getByLabel('Reader email').fill('');
+      let revokedRequests = 0;
+      const targetId = '11111111-1111-4111-8111-111111111111';
+      await page.route(
+        origin + '/api/account/sessions/revoke',
+        async (route) => {
+          revokedRequests++;
+          assert.equal(route.request().method(), 'POST');
+          assert.deepEqual(route.request().postDataJSON(), {
+            userId: targetId,
+          });
+          await route.fulfill({
+            status: revokedRequests === 1 ? 403 : 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ revoked: revokedRequests === 2 ? 2 : 0 }),
+          });
+        },
+      );
+      const revokeButton = page.getByRole('button', {
+        name: 'Confirm reader sign-out',
+      });
+      const confirmation = page.getByLabel(
+        'Sign out all devices for this account',
+      );
+      await expect(revokeButton).toBeDisabled();
+      await page.getByLabel('Reader account ID').fill(targetId);
+      await confirmation.check();
+      await page
+        .getByLabel('Reader account ID')
+        .fill('22222222-2222-4222-8222-222222222222');
+      await expect(confirmation).not.toBeChecked();
+      await expect(revokeButton).toBeDisabled();
+      await page.getByLabel('Reader account ID').fill(targetId);
+      await confirmation.check();
+      await revokeButton.click();
+      await expect(
+        page.getByRole('alert').filter({ hasText: 'Could not sign out' }),
+      ).toBeVisible();
+      await expect(page.getByLabel('Reader account ID')).toHaveValue(targetId);
+      await revokeButton.click();
+      await expect(
+        page.getByText('Reader sign-out complete. Sessions removed: 2.'),
+      ).toBeVisible();
+      await expect(page.getByLabel('Reader account ID')).toHaveValue('');
+      await expect(confirmation).not.toBeChecked();
+      await page.getByLabel('Reader account ID').fill(targetId);
+      await confirmation.check();
+      await revokeButton.click();
+      await expect(
+        page.getByText('Reader sign-out complete. Sessions removed: 0.'),
+      ).toBeVisible();
+      assert.equal(revokedRequests, 3);
+      assert.equal(
+        await page.evaluate(
+          () =>
+            (window as unknown as { calls: string[] }).calls.filter(
+              (call) => call === 'refresh',
+            ).length,
+        ),
+        3,
+      );
+      await page.route(origin + '/api/account/sessions/revoke', (route) =>
+        route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ revoked: -1 }),
+        }),
+      );
+      await page.getByLabel('Reader account ID').fill(targetId);
+      await confirmation.check();
+      await revokeButton.click();
+      await expect(
+        page.getByRole('alert').filter({ hasText: 'Could not sign out' }),
+      ).toBeVisible();
+      await expect(
+        page.getByText('Reader sign-out complete.', { exact: false }),
+      ).toHaveCount(0);
+      await page.getByLabel('Reader account ID').fill('');
+
+      await page.getByLabel('Reader account ID').scrollIntoViewIfNeeded();
+      await page.screenshot({
+        path: `docs/screenshots/accounts/admin-revoke-${width}.png`,
+      });
       assert.equal(
         await page.evaluate(() => localStorage.length + sessionStorage.length),
         0,
       );
       await render({ session: { signedIn: true, isAdmin: false } });
       await expect(page.getByLabel('Reader email')).toHaveCount(0);
+      await expect(page.getByLabel('Reader account ID')).toHaveCount(0);
       await render({}, false);
       await expect(
         page.getByRole('button', { name: 'Account', exact: true }),

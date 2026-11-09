@@ -49,3 +49,12 @@ are issued or sent.
 
 - [Desktop invite](admin-invite-1440.png)
 - [Mobile invite](admin-invite-390.png)
+
+## Prepared admin reader sign-out
+
+Desktop/mobile fixtures verify admin-only access, target-change confirmation
+reset, refusal/retry and removed-session counts (including zero). No live
+sessions are revoked.
+
+- [Desktop reader sign-out](admin-revoke-1440.png)
+- [Mobile reader sign-out](admin-revoke-390.png)

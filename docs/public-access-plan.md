@@ -347,7 +347,11 @@ disabled/unconnected routes, malformed requests, refusal and private failures.
 Runtime service injection (iteration 1456) now composes the audited repository with
 the same current admin allowlist and owns its connection shutdown. Isolated
 cross-runtime checks verify non-admin refusal, target-only revocation and repeat
-zero-count success. Admin controls remain future work; accounts stay disabled and
+zero-count success. The prepared admin panel (iteration 1457) accepts a reader
+account ID and requires explicit all-device confirmation, reset when the target
+changes. Refusal preserves the target for retry; success reports the removed
+session count and refreshes the issuer session, including after self-revocation.
+Targets stay in memory and unmount aborts pending requests. Accounts stay disabled;
 no live operation or migration is enabled.
 
 ## Target design
