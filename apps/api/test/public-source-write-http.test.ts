@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
+import { createServer, request } from 'node:http';
 import test from 'node:test';
 
 import type { PublicAccessPrincipal } from '../src/public-access';
@@ -125,6 +125,58 @@ void test('prepared source write HTTP validates bounded requests and authorizes 
     ])
       assert.equal((await put(undefined, {}, target)).status, 404);
     assert.equal((await put(undefined, {}, path, 'POST')).status, 404);
+    // Use node:http to preserve separate, mixed-case wire headers. Fetch
+    // combines duplicates and cannot expose Node's discarded second value.
+    for (const headers of [
+      [
+        'Origin',
+        'https://reader.example',
+        'Content-Type',
+        'application/json',
+        'cOnTeNt-TyPe',
+        'text/plain',
+      ],
+      [
+        'Origin',
+        'https://reader.example',
+        'Content-Type',
+        'application/json',
+        'content-type',
+        'application/json',
+      ],
+      [
+        'Origin',
+        'https://reader.example',
+        'oRiGiN',
+        'https://reader.example',
+        'Content-Type',
+        'application/json',
+      ],
+      [
+        'Origin',
+        'https://reader.example',
+        'origin',
+        'https://evil.example',
+        'Content-Type',
+        'application/json',
+      ],
+    ]) {
+      const status = await new Promise<number | undefined>(
+        (resolve, reject) => {
+          const req = request(
+            base + path,
+            { method: 'PUT', headers },
+            (res) => {
+              res.resume();
+              res.on('end', () => resolve(res.statusCode));
+            },
+          );
+          req.on('error', reject);
+          req.end('{"enabled":false}');
+        },
+      );
+      assert.equal(status, 400);
+    }
     enabled = false;
     assert.equal((await put()).status, 404);
     enabled = true;

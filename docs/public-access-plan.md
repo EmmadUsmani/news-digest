@@ -448,7 +448,9 @@ means admission only, including older rows; it never implies success. Failure
 while saving an outcome rolls back both admission and mutation.
 A prepared, uninstalled source-write HTTP boundary (iteration 1520) delegates to
 that atomic writer after exact HTTPS Origin/JSON checks, a 2 KiB streamed body
-limit and fresh-admin authentication after upload. It accepts only the exact PUT
+limit and fresh-admin authentication after upload. Wire-level Origin and Content-Type
+counts must each be exactly one, including when Node discards duplicate values.
+It accepts only the exact PUT
 route and a single boolean `enabled` field; malformed/unauthorized requests never
 reach storage. Responses project changed/unchanged results, return empty 404 for
 missing sources and hide authentication/storage errors behind empty 503s. Mount

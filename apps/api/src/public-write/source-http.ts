@@ -54,7 +54,15 @@ export function publicSourceHttp(options: {
         );
       if (!options.enabled || request.method !== 'PUT' || !match)
         return send(404);
+      // Node can discard duplicate Content-Type values while normalizing
+      // headers. Validate wire-level multiplicity before trusting that view.
+      const count = (name: string) =>
+        request.rawHeaders.filter(
+          (value, index) => index % 2 === 0 && value.toLowerCase() === name,
+        ).length;
       if (
+        count('origin') !== 1 ||
+        count('content-type') !== 1 ||
         request.headers.origin !== options.origin ||
         !/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(
           request.headers['content-type'] ?? '',

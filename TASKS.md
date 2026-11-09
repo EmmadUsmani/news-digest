@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1521: prepared atomic source-write outcome persistence (unapplied additive migration 0019); changed/unchanged audit results commit with mutation, null remains admission-only. Concurrent/HTTP results and outcome-storage failure rollback verified. Live controller replacement, queue atomicity and proxy proof remain open.
+- [x] Iteration 1522: prepared source-write HTTP now rejects duplicate wire-level Origin/Content-Type headers before authentication or storage, including identical and mixed-case duplicates hidden by Node normalization. Loopback regression checks pass; controller adoption, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
