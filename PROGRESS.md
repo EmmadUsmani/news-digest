@@ -159,3 +159,13 @@ Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.
 - Live `smoke-admin-gate.ts` passes including eight forwarded-token denials; scheduled-reader gate passes four topics/19 stories/14 posts. Handbook check passes 18 pages/22 diagrams (existing unapplied-account metadata warnings); build passes with existing bundle warning.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (773 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
 - Restarted API/worker outside the hold; health/alerts clear and scheduled reader passes again. Next: inspect item 53 real owner rerun before any fixed-hop selector change; Phase 4 may continue behind flags while waiting.
+
+## 2026-11-09: iteration 1561 — restrict prepared public document fonts
+
+- Clean main/no leftovers; initial alerts and health clear, all 36 sources healthy. Real proxy receipt remains 17:47:12 UTC; no new rerun, trust changes or activation. No paid calls.
+- Default-off public CSP now admits document fonts only from the app origin; reader uses system fonts. Official widget frames retain their provider policies. Updated runtime handbook and public-access plan.
+- `pnpm exec tsx scripts/check-public-font-policy.ts` passes offline same-origin admission, external/official-X/lookalike/HTTP refusal and private rollback; targeted access-stack tests pass 2/2.
+- `pnpm exec tsx scripts/check-public-live-embeds.ts` passes 40 real saved X widget views with zero document CSP violations; refreshed screenshots and inspected mobile-dark card.
+- Handbook check passes 18 pages/one diagram (existing unapplied-account metadata warnings); build passes with existing bundle warning. Scheduled-reader gate passes four topics/19 stories/14 posts for 2026-11-09T15:00:00Z.
+- `pnpm format`, `pnpm lint:fix`, typecheck/lint/format/boundaries pass; full check reports 773 unit and 272 integration passes/four expected skips, then wrapper exits 143 after coverage output (no failing tests). `git diff --check` passes.
+- API/worker restarted outside the hold; post-restart health/alerts and scheduled-reader gate verified. Next: owner item 53 rerun before visitor selector changes; remaining Phase 4 resource/script policy behind flags.

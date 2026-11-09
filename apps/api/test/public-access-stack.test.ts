@@ -58,7 +58,7 @@ void test('public access stack replaces legacy identity headers and keeps accoun
       assert.equal(response.headers.get('x-frame-options'), 'SAMEORIGIN');
       assert.equal(
         response.headers.get('content-security-policy'),
-        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; font-src 'self'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
       );
     }
     downstream = 0;

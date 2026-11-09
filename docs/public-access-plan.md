@@ -406,7 +406,10 @@ transport or authorization. The CSP restricts base URLs, plugin objects, embeddi
 submissions (same-origin only). Frame sources are limited to the same origin,
 `https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
 are limited to the same origin and `https://syndication.twitter.com`; scripts
-remain unchanged. Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
+remain unchanged. Document fonts are restricted to the same origin; the app uses system fonts.
+`scripts/check-public-font-policy.ts` verifies same-origin admission, external/
+lookalike/HTTP refusal and private rollback with intercepted synthetic fonts.
+Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
 readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
 uses synthetic local forms to verify external POST refusal, same-origin POST
 success and unchanged private-mode behavior in Chromium. Account login/link
