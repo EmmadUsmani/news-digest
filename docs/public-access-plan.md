@@ -306,7 +306,12 @@ the active reader. Prepared React account hook owns the gated controller, discov
 sessions on mount, refreshes on visible tab returns and removes browser listeners
 and cancels requests on teardown. Disabled binding makes no requests or preference
 changes. Offline acceptance covers disabled, hidden/visible, coalesced events and
-delayed discovery after unmount. Account UI wiring and activation remain pending.
+delayed discovery after unmount. Prepared `/account/login` now supplies email-code requests and redemption behind the
+disabled account gate, using same-origin POSTs and a restrictive CSP. It keeps
+credentials out of URLs and browser storage, clears submitted codes, preserves
+request eligibility privacy and redirects after successful exchange. Isolated
+desktop/mobile checks use fixture responses; reader navigation wiring and
+activation remain pending.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

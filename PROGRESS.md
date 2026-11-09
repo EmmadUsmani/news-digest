@@ -1,22 +1,3 @@
-## 2026-11-08: iteration 1434 — prepared reader sync runtime injection
-
-- Clean main/no leftovers; alerts clear, health good, no failed user units. All sources pass `pnpm obs sources --check`; digest-generation has zero failures and next run Nov 9 15:00 UTC.
-- Prepared account runtime now requires and injects the reader sync repository, retaining lazy disabled composition. Extended isolated runtime acceptance covers shared persisted state, stale changes, reader isolation and rejection after account deletion.
-- Accounts remain disabled and VM private; browser wiring and main registration pending. No live migration, provider call or edition-generation change. Phase 1 rollout awaits its pre-noon window and scheduled acceptance.
-- Updated TASKS and rollout plan; no live handbook behavior changed. Targeted account runtime tests pass (2); handbook plan check has only expected unapplied-table notes. Saved-reader check retains four topics/19 stories/17 posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 675 unit tests, 253 integration passes/four expected skips, static checks and schema parity green. `git diff --check` passes.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: browser account-sync wiring preparation, then Phase 1 rollout in its permitted window.
-
-## 2026-11-08: iteration 1435 — prepared browser account-sync transport
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failures and next run Nov 9 15:00 UTC.
-- Prepared disconnected browser client sends same-origin cookie-authenticated JSON, bounds requests/responses to 16 MiB and rejects malformed state before local writes. Coalesces concurrent requests and merges edits made while awaiting the server.
-- Stopping the client aborts transport and invalidates delayed responses before logout clears local data. Failures preserve local choices, hide server details and allow retry; four offline tests cover these paths including invalid local input.
-- Accounts remain disabled and VM private; no live migration, provider call or edition-generation change. Updated TASKS and rollout plan; account UI/store wiring pending and Phase 1 awaits its permitted window. No live handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, targeted tests (4), `pnpm build` and handbook plan check pass (expected unapplied-table notes). Saved-reader verification retains four topics/19 stories/17 posts. Final `pnpm check` passes: 679 unit tests, 253 integration passes/four expected skips; static checks and schema parity green. `git diff --check` passes.
-- Two initial observability invocations used unsupported command/flag order; corrected to `pnpm obs jobs --queue digest-generation --limit 2`, which confirmed the healthy queue above.
-- Commit/push then restart API/worker and repeat health/reader checks to match main. Next: account UI/store sync wiring preparation, then Phase 1 rollout in its permitted window.
-
 ## 2026-11-08: iteration 1436 — prepared browser sync lifecycle
 
 - Clean main/no leftovers; alerts clear, health good and no failed user units. Sources healthy; digest-generation has zero failed jobs and next run Nov 9 15:00 UTC.
@@ -134,3 +115,12 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, saved reader check and `git diff --check` pass. Handbook check renders 18 pages/three diagrams; exits 1 for existing unapplied account-table metadata notes. No diagram/UI change.
 - Full `pnpm check` passes (698 unit tests; 253 integration passes/four expected skips). Saved reader retains four topics/19 stories/17 posts. Initial unsupported `obs queues`/combined jobs flags corrected to `pnpm obs jobs --check`; digest queue healthy.
 - Commit/push then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance and live proxy verification; keep accounts off until Phase 1 acceptance.
+
+## 2026-11-09: iteration 1448 — gated email-code sign-in page
+
+- Clean main/no leftovers. Initial alerts and health clear; all 36 sources healthy, scheduled reader retains four topics/19 stories/17 posts. Phase 1 acceptance waits for Nov 9 15:00 UTC.
+- Prepared `/account/login` behind the disabled account flag: email-code request, keyboard redemption, private eligibility message, safe refusal/retry and success redirect. Restrictive CSP, same-origin POSTs and no credential URLs/storage; submitted codes are cleared.
+- Isolated Playwright checks pass on desktop/mobile with fixture HTTP responses only; inspected both new screenshots. Existing friend-link confirmation smoke still passes. Updated rollout plan, affected handbook note, screenshots index and TASKS; archived iterations 1434–1435 to keep this file small.
+- Accounts remain disabled, VM private, migrations pending; no provider calls, real email or live proxy trust changes. Reader navigation wiring remains pending.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, both account browser smokes, saved reader check and `git diff --check`; all pass (698 unit tests, 253 integration passes/four expected skips). Handbook filter reports existing metadata for unapplied account tables; no diagrams changed.
+- Next: scheduled Phase 1 acceptance, live proxy proof and gated reader account UI; phase 3 activation stays blocked on phase 1 acceptance.

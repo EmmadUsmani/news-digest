@@ -34,7 +34,7 @@ const script = `(() => {
   });
 })();`;
 
-const style = `
+export const accountPageStyle = `
   :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
   body { margin: 0; padding: 24px; background: light-dark(#f5f5f4, #18181b); color: light-dark(#18181b, #fafafa); }
   main { max-width: 440px; margin: 12vh auto; padding: 28px; border: 1px solid light-dark(#d4d4d8, #52525b); border-radius: 12px; background: light-dark(#fff, #27272a); }
@@ -49,7 +49,7 @@ const style = `
 export const signInPagePolicy = [
   "default-src 'none'",
   `script-src 'sha256-${createHash('sha256').update(script).digest('base64')}'`,
-  `style-src 'sha256-${createHash('sha256').update(style).digest('base64')}'`,
+  `style-src 'sha256-${createHash('sha256').update(accountPageStyle).digest('base64')}'`,
   "connect-src 'self'",
   "base-uri 'none'",
   "form-action 'none'",
@@ -60,7 +60,7 @@ export const signInPage = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer"><title>Sign in · News Digest</title>
-<style>${style}</style></head><body><main>
+<style>${accountPageStyle}</style></head><body><main>
 <h1>Sign in to News Digest</h1>
 <p>Continue only if you requested this link or received it from someone you trust.</p>
 <button type="button" disabled>Sign in</button>

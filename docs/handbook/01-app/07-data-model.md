@@ -26,7 +26,9 @@ snapshots.
 > hashed 24-hour tokens and private issuance audit. These tables are not live;
 > A prepared exchange maps verified codes to independent identities and hashed
 > sessions; account sign-in remains disabled. Startup installs account routes only
-> when enabled and closes account connections during shutdown. See the
+> when enabled and closes account connections during shutdown. The gated
+> `/account/login` page requests and exchanges email codes; it is unavailable
+> while accounts are disabled. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

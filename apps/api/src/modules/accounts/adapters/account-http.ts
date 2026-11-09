@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import type { AccountHandlers } from './account-handlers';
+import { loginPage, loginPagePolicy } from './login-page';
 import { signInPage, signInPagePolicy } from './sign-in-page';
 
 type Result = { status: number; body?: unknown; cookie?: string | null };
@@ -19,7 +20,8 @@ export function accountHttp(options: {
     next: () => void,
   ) => {
     const path = (request.url ?? '').split('?')[0];
-    const confirmation = path === '/account/sign-in';
+    const login = path === '/account/login';
+    const confirmation = login || path === '/account/sign-in';
     if (!confirmation && !path.startsWith('/api/account/')) return next();
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('Vary', 'Cookie');
@@ -37,11 +39,20 @@ export function accountHttp(options: {
         if (!['GET', 'HEAD'].includes(request.method ?? ''))
           return send({ status: 404 });
         response.setHeader('Content-Type', 'text/html; charset=utf-8');
-        response.setHeader('Content-Security-Policy', signInPagePolicy);
+        response.setHeader(
+          'Content-Security-Policy',
+          login ? loginPagePolicy : signInPagePolicy,
+        );
         response.setHeader('Referrer-Policy', 'no-referrer');
         response.setHeader('X-Content-Type-Options', 'nosniff');
         response.statusCode = 200;
-        response.end(request.method === 'HEAD' ? undefined : signInPage);
+        response.end(
+          request.method === 'HEAD'
+            ? undefined
+            : login
+              ? loginPage
+              : signInPage,
+        );
         return;
       }
       const now = new Date();
