@@ -108,7 +108,7 @@ void test('account migration denies operational readers even with inherited defa
   try {
     await client.query('BEGIN');
     await client.query(
-      'DROP TABLE user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, login_codes, sessions, users',
+      'DROP TABLE admin_write_admissions, user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, login_codes, sessions, users',
     );
     await client.query(
       'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics; CREATE ROLE account_privacy_probe',
@@ -137,6 +137,11 @@ void test('account migration denies operational readers even with inherited defa
         '',
       ),
     );
+    await client.query(
+      (
+        await readFile('drizzle/0018_admin_write_admissions.sql', 'utf8')
+      ).replaceAll('--> statement-breakpoint', ''),
+    );
     // The unrelated role receives only PUBLIC grants, independently checking
     // that revoking the two named operational readers is not sufficient.
     for (const role of [
@@ -153,6 +158,7 @@ void test('account migration denies operational readers even with inherited defa
         'sign_in_links',
         'login_codes',
         'admin_audit_log',
+        'admin_write_admissions',
       ]) {
         const privilege = await client.query(
           "SELECT has_table_privilege(current_user, $1, 'SELECT, INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER') AS allowed",

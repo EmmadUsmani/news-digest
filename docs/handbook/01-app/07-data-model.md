@@ -19,6 +19,10 @@ snapshots.
 > See the [rollout plan](../../public-access-plan.md).
 
 > [!NOTE]
+> Prepared admin-write admission storage records actor, method, path and time.
+> It stays private and unapplied; these records describe attempts.
+> Deleting a reader removes admissions tied to that identity.
+>
 > A prepared accounts migration adds independent reader identities and hashed
 > sessions, with deletion cascading from a reader to their sessions.
 > A further prepared migration stores private hashed login challenges with expiry,

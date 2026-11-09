@@ -154,6 +154,36 @@ export const signInLinks = pgTable(
   ],
 );
 
+// Admission records describe attempted writes only; identity deletion removes them.
+export const adminWriteAdmissions = pgTable(
+  'admin_write_admissions',
+  {
+    id: uuid().defaultRandom().primaryKey().notNull(),
+    userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }),
+    localScript: boolean('local_script').notNull(),
+    method: text().notNull(),
+    target: text().notNull(),
+    createdAt: timestamp('created_at', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+  },
+  () => [
+    check(
+      'admin_write_admissions_actor_check',
+      sql`(user_id IS NOT NULL AND NOT local_script) OR (user_id IS NULL AND local_script)`,
+    ),
+    check(
+      'admin_write_admissions_method_check',
+      sql`method IN ('POST', 'PUT', 'DELETE')`,
+    ),
+    check(
+      'admin_write_admissions_target_check',
+      sql`length(target) BETWEEN 1 AND 512 AND target LIKE '/api/%' AND target !~ '[?%#[:space:]]'`,
+    ),
+  ],
+);
+
 export const adminAuditLog = pgTable(
   'admin_audit_log',
   {

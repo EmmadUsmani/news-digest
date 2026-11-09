@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1514: prepared trusted audit actors from persisted sessions and validated local scripts, with injectable recorder/clock. HTTP refusal/privacy checks pass; durable recorder storage, transactional outcomes, controller replacement and proxy proof remain open.
+- [x] Iteration 1515: prepared private durable admin-write admission storage (unapplied migration 0018), with classified-path validation, actor constraints and deletion cascade. Runtime injection, transactional outcomes, controller replacement and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -428,8 +428,12 @@ are excluded. Admission records attempted execution, not successful mutation.
 Trusted actor composition (iteration 1514) now derives UUIDs from persisted
 sessions and marks validated direct local-script requests explicitly. Session
 response bodies still exclude identity. A supplied recorder is awaited with the
-same request clock; missing or failed storage still blocks writes. Durable
-recorder storage and transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
+same request clock; missing or failed storage still blocks writes. Durable recorder storage is prepared (iteration 1515) in unapplied migration
+0018: private admission rows contain only user/local-script actor, method,
+classified path and time. User deletion cascades these rows; operational and
+PUBLIC readers receive no access. The unregistered adapter rejects unclassified
+writes and query strings and propagates database failures. Runtime injection
+and transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
 
 ## Target design
 

@@ -105,7 +105,8 @@
         "sign_in_links",
         "admin_audit_log",
         "user_hidden_topics",
-        "bookmarks"
+        "bookmarks",
+        "admin_write_admissions"
       ]
     }
   ],
@@ -147,7 +148,8 @@
     "sign_in_links": "Private hashed 24-hour friend sign-in links with atomic single use; accounts disabled.",
     "admin_audit_log": "Private sign-in-link issuance and reader session revocation audit tied to the issuing user; contains no bearer tokens.",
     "user_hidden_topics": "Per-reader hidden-topic changes, including explicit unhide state; removed with the user.",
-    "bookmarks": "Per-reader saved display copies and removal tombstones; removed with the user."
+    "bookmarks": "Per-reader saved display copies and removal tombstones; removed with the user.",
+    "admin_write_admissions": "Private attempted admin writes: actor, method, classified path and time; no credentials or request payloads."
   },
   "relations": [
     {

@@ -128,3 +128,13 @@
 - Updated TASKS/public-access plan; archived iterations 1499–1501. No live configuration, migrations, provider calls or UI changes. Policy remains uninstalled/accounts disabled; no restart under STEERING 22.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 742 unit/263 integration passes, four expected skips. Existing build bundle warning only.
 - Next: durable audit recorder storage, transactional mutation outcomes, controller replacement and proxy proof; normal scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC.
+
+## 2026-11-09: iteration 1515 — prepare durable admin-write admission storage
+
+- Clean main/no leftovers; alerts, healthz and user services healthy. `pnpm obs sources --check` passes all 36 sources; `pnpm obs jobs --check` passes four available queues. Saved reader remains four topics/19 stories/17 posts.
+- Prepared additive migration 0018 and unregistered Drizzle recorder store only user/local-script actor, method, classified path and time. Actor exclusivity, bounded paths and methods are constrained; user deletion cascades personal admission rows. No query strings, bodies or credentials are stored.
+- Isolated acceptance covers both actors, rejected paths/reads/invalid time/unknown identity, database refusal without partial records and identity cleanup. Extended inherited-default-grant checks deny all privileges to operational/PUBLIC readers on the new table; schema parity covers its columns, checks and foreign key.
+- First full check exposed a test assertion expecting the raw trigger error; Drizzle wraps it as the cause. Corrected the assertion to inspect that cause; no adapter behavior change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass. Handbook checker renders 18 pages/three diagrams with no link/render failures; schema metadata warns because eight prepared account tables remain unapplied on live DB.
+- Updated TASKS, rollout plan, handbook and schema metadata. No provider calls, live migrations, configuration changes or UI changes. No restart under STEERING 22: this recorder remains unregistered and the policy uninstalled; accounts/public mode stay off.
+- Next: inject durable recorder, transactional mutation outcomes, controller replacement and proxy proof; scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC. Backup account rehearsal currently stops at 0017; extend through 0018 before any live account migration.
