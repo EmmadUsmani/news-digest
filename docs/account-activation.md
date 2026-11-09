@@ -114,8 +114,11 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    is deleted and the temporary owner session is signed out. Credentials never
    enter output. Iteration 1594 extends this to 31 checks: bookmark display copies sync to
    the second device; removal tombstones persist and reject stale-device replay.
-   This is HTTP API acceptance; live browser/proxy, expiry and admin-target
-   revocation still need acceptance before the owner check.
+   Iteration 1595 passes 41 checks: admin revocation removes both disposable
+   reader sessions, both cookies lose sync access, one audit row is stored and
+   the issuer stays active. The reader can sign in again and delete the account.
+   This is HTTP API acceptance; live browser/proxy and expiry still need
+   acceptance before the owner check.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.

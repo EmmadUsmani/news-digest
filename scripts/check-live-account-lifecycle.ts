@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { parseEnv } from 'node:util';
 
+import { database } from '../apps/api/src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
 
 const base = 'http://127.0.0.1:8000';
@@ -73,6 +74,8 @@ async function main() {
     adminEmail && env.ACCOUNT_MAILBOX_PATH,
     'Missing private configuration',
   );
+  if (env.DATABASE_URL) process.env.DATABASE_URL = env.DATABASE_URL;
+  const pool = database();
   const mailbox = new FileLoginCodeDelivery(env.ACCOUNT_MAILBOX_PATH);
   const email = `acceptance-${randomUUID()}@example.invalid`;
   let admin = '';
@@ -163,6 +166,41 @@ async function main() {
     friend = cookieFrom(
       await request('link-redeem', 204, '', { token: nextInvitation.token }),
     );
+    // Read only this random reader's ID; all live mutations use public handlers.
+    stage = 'disposable reader identity lookup';
+    const target = await pool.query<{ id: string }>(
+      'SELECT id FROM users WHERE email = $1',
+      [email],
+    );
+    if (target.rows.length !== 1) throw new Error('Missing disposable reader');
+    await request('code', 202, '', { email });
+    const revokeCode = await mailbox.latest(email, new Date());
+    if (!revokeCode) throw new Error('No unexpired reader code');
+    const revokeSecond = cookieFrom(
+      await request('redeem', 204, '', { email, code: revokeCode }),
+    );
+    const revoked = await request('sessions/revoke', 200, admin, {
+      userId: target.rows[0].id,
+    });
+    assert.deepEqual(await revoked.json(), { revoked: 2 });
+    await signedIn(friend, false);
+    await signedIn(revokeSecond, false);
+    await request('sync', 401, friend, empty);
+    await request('sync', 401, revokeSecond, empty);
+    await signedIn(admin, true, true);
+    stage = 'disposable reader revocation audit';
+    const audit = await pool.query<{ count: string }>(
+      `SELECT count(*)::text AS count FROM admin_audit_log
+       WHERE recipient_email = $1 AND action = 'reader_sessions_revoked'`,
+      [email],
+    );
+    assert.equal(audit.rows[0].count, '1');
+    const recovery = (await (
+      await request('links', 201, admin, { email })
+    ).json()) as { token: string };
+    friend = cookieFrom(
+      await request('link-redeem', 204, '', { token: recovery.token }),
+    );
     await request('delete', 400, friend, { confirmation: 'wrong' });
     await request('delete', 204, friend, { confirmation: 'DELETE' });
     deleted = true;
@@ -181,15 +219,26 @@ async function main() {
     // Delete only this run's random identity. Never delete or revoke owner devices.
     if (friend && !deleted) {
       try {
+        // Reauthenticate if a failure happened after revoking the test sessions.
+        const cleanup = (await (
+          await request('links', 201, admin, { email })
+        ).json()) as { token: string };
+        friend = cookieFrom(
+          await request('link-redeem', 204, '', { token: cleanup.token }),
+        );
         await request('delete', 204, friend, { confirmation: 'DELETE' });
       } catch {
         console.error('Disposable reader cleanup requires review');
       }
     }
-    if (admin) await request('logout', 204, admin, {});
+    try {
+      if (admin) await request('logout', 204, admin, {});
+    } finally {
+      await pool.end();
+    }
   }
   console.log(
-    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Proxy/browser, expiry and admin-target revocation acceptance remain separate.`,
+    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Proxy/browser and expiry acceptance remain separate.`,
   );
 }
 void main().catch(() => {
