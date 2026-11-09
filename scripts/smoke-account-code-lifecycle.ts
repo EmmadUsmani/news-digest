@@ -156,6 +156,25 @@ async function main() {
       await expect(page.getByRole('status')).toContainText('Check the code');
       assert.equal(session, null);
       assert.equal((await context.cookies()).length, 0);
+      const exhausted = await requestCode();
+      const wrong = exhausted === '000000' ? '000001' : '000000';
+      for (let guess = 0; guess < 5; guess++) {
+        await redeem(wrong);
+        await expect(page.getByRole('status')).toContainText('Check the code');
+        await expect(page.getByLabel('Six-digit code')).toHaveValue('');
+        assert.equal(attempts, guess + 1);
+        assert.equal(session, null);
+        assert.equal((await context.cookies()).length, 0);
+      }
+      await redeem(exhausted);
+      await expect(page.getByRole('status')).toContainText('Check the code');
+      assert.equal(attempts, 5);
+      assert.equal(session, null);
+      assert.equal((await context.cookies()).length, 0);
+      await page.screenshot({
+        path: `docs/screenshots/accounts/code-exhausted-${width}.png`,
+        fullPage: true,
+      });
       const valid = await requestCode();
       await redeem(valid);
       await page.waitForURL(`${origin}/`);
@@ -184,7 +203,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      'Desktop/mobile composed login: exact expiry refused, fresh code sets secure authenticated cookie, consumed code replay refused. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, consumed code replay refused. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();

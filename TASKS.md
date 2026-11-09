@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1472: desktop/mobile login browser now exercises real account composition and private stand-in mailbox with fixture repositories; expiry at ten minutes and consumed-code replay refuse cookies, fresh code issues an authenticated secure session. Accounts remain disabled.
+- [x] Iteration 1473: desktop/mobile composed login refuses five incorrect guesses and the exhausted correct code; replacement restores authentication. Fixture-only browser proof; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
