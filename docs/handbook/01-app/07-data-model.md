@@ -33,7 +33,8 @@ snapshots.
 > behind a default-off flag. Admins can create and privately share one-time
 > friend sign-in links from that panel. A prepared, unconnected admin operation
 > revokes a reader’s sessions and records the action in one transaction; its
-> audit migration is not applied. See the
+> audit migration is not applied. Its prepared POST route requires same-origin
+> JSON and a session cookie; runtime service injection is still disconnected. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

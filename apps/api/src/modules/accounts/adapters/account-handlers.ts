@@ -1,3 +1,4 @@
+import type { AdminSessionRevocation } from '../application/admin-session-revocation';
 import type { DeleteAccount } from '../application/delete-account';
 import type { LoginCodes } from '../application/login-codes';
 import type { LoginExchange } from '../application/login-exchange';
@@ -31,6 +32,7 @@ export class AccountHandlers {
     private readonly links?: Pick<SignInLinks, 'issue' | 'redeem'>,
     private readonly deletion?: Pick<DeleteAccount, 'execute'>,
     private readonly sync?: ReaderSyncRepository,
+    private readonly revocation?: Pick<AdminSessionRevocation, 'revoke'>,
   ) {}
 
   async requestCode(request: Request, client: string, now: Date) {
@@ -72,6 +74,34 @@ export class AccountHandlers {
           },
         }
       : { status: 403 };
+  }
+
+  async revokeSessions(request: Request, now: Date) {
+    if (!this.revocation) return { status: 404 };
+    if (!this.boundary.acceptsWrite(request.origin, request.contentType))
+      return { status: 400 };
+    const body = request.body;
+    if (
+      body === null ||
+      typeof body !== 'object' ||
+      Array.isArray(body) ||
+      Object.keys(body).length !== 1 ||
+      !Object.hasOwn(body, 'userId') ||
+      typeof (body as { userId: unknown }).userId !== 'string' ||
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        (body as { userId: string }).userId,
+      )
+    )
+      return { status: 400 };
+    const token = this.boundary.sessionToken(request.cookie);
+    if (!token) return { status: 401 };
+    // The service/storage checks admin freshness atomically with the audit.
+    const result = await this.revocation.revoke(
+      token,
+      (body as { userId: string }).userId,
+      now,
+    );
+    return result ? { status: 200, body: result } : { status: 403 };
   }
 
   async redeemLink(request: Request, now: Date) {

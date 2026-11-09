@@ -61,6 +61,7 @@ export function accountHttp(options: {
           await options.handlers.current(request.headers.cookie, now),
         );
       const routes = [
+        '/api/account/sessions/revoke',
         '/api/account/sync',
         '/api/account/delete',
         '/api/account/links',
@@ -96,6 +97,8 @@ export function accountHttp(options: {
         cookie: request.headers.cookie,
         body,
       };
+      if (path === '/api/account/sessions/revoke')
+        return send(await options.handlers.revokeSessions(input, now));
       if (path === '/api/account/sync')
         return send(await options.handlers.syncReader(input, now));
       if (path === '/api/account/delete')

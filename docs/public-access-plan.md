@@ -338,7 +338,14 @@ All target device sessions are removed in the same transaction as a private audi
 using the stored recipient email; an audit failure restores the sessions. Migration
 0017 only expands the allowed audit actions and remains unapplied. Isolated
 checks cover stale/revoked/non-admin issuers, target isolation, rollback and a
-concurrent logout. HTTP registration and admin controls remain future work.
+concurrent logout. Prepared transport (iteration 1455) adds POST-only
+`/api/account/sessions/revoke` with exact Origin/JSON checks, a strict single-UUID
+body, an unambiguous session cookie and the existing trusted-client/body limits.
+Responses contain only the revoked count; authorization is rechecked by the atomic
+service rather than renewing the issuer session first. Isolated HTTP checks cover
+disabled/unconnected routes, malformed requests, refusal and private failures.
+Runtime service injection and admin controls remain future work; no live operation
+or migration is enabled.
 
 ## Target design
 

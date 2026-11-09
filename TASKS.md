@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1454: unregistered admin session-revocation service/storage prepares fresh-admin authorization and atomic audit/deletion; migration 0017 remains unapplied. Next: guarded HTTP transport and admin controls; accounts disabled pending scheduled Phase 1 acceptance and proxy proof.
+- [x] Iteration 1455: guarded admin session-revocation HTTP transport prepared with strict request checks and isolated refusal/privacy acceptance. Runtime injection and admin controls remain next; migration 0017 unapplied, accounts disabled pending scheduled Phase 1 acceptance and proxy proof.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
