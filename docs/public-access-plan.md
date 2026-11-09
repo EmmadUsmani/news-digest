@@ -397,7 +397,10 @@ Prepared general API admission (iteration 1572) uses one atomic Redis fixed-wind
 counter per HMAC-hashed client, shared across API instances. Its provisional
 allowance is 120 requests/minute; denied attempts do not extend the window.
 Missing client identity and Redis failure refuse admission. This adapter is
-unregistered: verified visitor extraction (item 53), HTTP enforcement and
+unregistered. Prepared HTTP enforcement (iteration 1573) gates API requests before
+downstream work, returns empty no-store 429 responses on denial or dependency
+failure, and leaves health/static traffic alone. Disabled mode opens no admission
+dependency. Verified visitor extraction (item 53), registration and
 preference-write limits remain promotion work. Isolated Redis tests cover
 concurrency, client separation, key privacy, expiry and failure.
 

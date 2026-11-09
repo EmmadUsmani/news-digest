@@ -143,3 +143,13 @@ Earlier entries: [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 776 unit and 273 integration tests/four expected skips. Workspace build passes with existing bundle-size warning; `git diff --check` passes.
 - API/worker restarted after build; `pnpm obs health --check` and `pnpm obs services --check` pass (14 services). Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Digest queue has zero failed runs; alerts retain explained upstream source failures.
 - Next: item 53 owner rerun before Phase 3; Phase 4 HTTP rate enforcement and preference-write limits behind disabled flags. Metrics passive probe not due until 20:36 UTC.
+
+## 2026-11-09: iteration 1573 — prepare HTTP API rate enforcement
+
+- Clean main/no leftovers. Health passes; Kotaku's scheduled 20:00 UTC attempt remains upstream failure, last success 18:26/20 items; 35 other sources healthy. No bypass, paid calls, flags, migrations or generation changes.
+- Added unregistered HTTP admission using caller-supplied verified visitor identity. API GET/HEAD/writes share admission; missing identity, extraction errors and admission failures return empty no-store 429 before downstream work. Health/static routes pass through; disabled mode opens no dependency.
+- Offline HTTP tests verify denial, method coverage, query paths, forged forwarding/cookie independence, error privacy and disabled rollback. Registration still waits for item 53 visitor proof; preference-write limits remain open.
+- Updated readiness plan, TASKS and source-health note. No UI or current runtime behavior changed; no handbook update required.
+- Targeted `pnpm exec tsx --test apps/api/test/api-admission-http.test.ts`: 2/2 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 778 unit and 273 integration tests/four expected skips. Build passes with existing bundle-size warning; `git diff --check` passes.
+- API/worker restarted; `pnpm obs health --check` and `pnpm obs services --check` pass (14 services). Scheduled-reader check for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Digest-generation queue has zero failed runs; alerts clear at 20:11 UTC.
+- Next: preference-write limits behind disabled flags; owner item 53 rerun still blocks activation. Metrics passive probe not due until 20:36 UTC.
