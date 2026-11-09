@@ -1,0 +1,50 @@
+import { scheduleSchema, topicSchema } from '@digest/contracts';
+import { ServiceUnavailableException } from '@nestjs/common';
+
+// Phase 4 preparation only. No controller imports these readers yet.
+// Pick fields explicitly: neither legacy ownership nor future DB columns may
+// become public simply because a repository starts returning them.
+const publicScheduleSchema = scheduleSchema
+  .pick({
+    cadence: true,
+    timezone: true,
+    coverageWindow: true,
+    storyBudget: true,
+    postBudget: true,
+  })
+  .strip();
+const publicTopicSchema = topicSchema.pick({
+  id: true,
+  name: true,
+  description: true,
+  includeGuidance: true,
+  excludeGuidance: true,
+  enabled: true,
+  position: true,
+  storyBudget: true,
+  postBudget: true,
+  relevancePolicy: true,
+  sources: true,
+  queries: true,
+  accounts: true,
+  redditCommunities: true,
+  blueskyQuery: true,
+  xDiscovery: true,
+});
+
+export async function readPublicSchedule(read: () => Promise<unknown>) {
+  try {
+    // The future caller must supply system schedule settings, never a profile.
+    return publicScheduleSchema.parse(await read());
+  } catch {
+    throw new ServiceUnavailableException('Schedule settings unavailable');
+  }
+}
+
+export async function readPublicTopics(read: () => Promise<unknown>) {
+  try {
+    return publicTopicSchema.array().parse(await read());
+  } catch {
+    throw new ServiceUnavailableException('Topic settings unavailable');
+  }
+}

@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1484: audited admin GET response boundaries; count-only alerts prepared as public-read with private upstream/failure tests; remaining read-response work recorded in [audit](docs/public-read-response-audit.md). Gate remains unregistered.
+- [x] Iteration 1485: prepared disconnected public schedule/topic allowlists; private owner/future fields omitted and malformed/storage failures produce generic 503s. Existing routes remain admin. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

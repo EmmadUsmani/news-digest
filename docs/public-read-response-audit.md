@@ -1,6 +1,6 @@
 # Public administrative response audit
 
-Phase 4 preparation, iteration 1484 (2026-11-09). The route classifier is
+Phase 4 preparation, iterations 1484–1485 (2026-11-09). The route classifier is
 unregistered. These decisions change no live access. HEAD inherits GET's class.
 The owner intends public read-only admin pages; restricted rows below require
 work before that rollout, rather than a permanent change to that intent.
@@ -8,8 +8,8 @@ work before that rollout, rather than a permanent change to that intent.
 | GET under `/api/admin/`                                            | Current response                                                | Prepared decision                                                             |
 | ------------------------------------------------------------------ | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | `status/alerts`                                                    | Timestamp and firing/pending counts only                        | Public-read; audited below                                                    |
-| `profile`                                                          | Legacy owner profile ID/name plus system schedule               | Admin until owner identity is removed from public response                    |
-| `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin until explicit public fields replace whole-row selection                |
+| `profile`                                                          | Legacy owner profile ID/name plus system schedule               | Admin; disconnected system-schedule projection prepared                       |
+| `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin; disconnected explicit public field projection prepared                 |
 | `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin until stored URLs are checked and public URL output bounded             |
 | `content`, `content/window`                                        | Topic IDs and article ID/title/URL/date/source                  | Admin pending stored URL/text and failure-response audit                      |
 | `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin pending public projection and stored-error review                       |
@@ -31,6 +31,22 @@ fields at every upstream level and check exact output keys. They also verify the
 exact serialized Nest exception body for HTTP, malformed-state and transport
 failures. The prepared classifier permits GET/HEAD only; writes stay denied.
 This narrow classification grants no access to detailed status or telemetry.
+
+## Prepared settings projections
+
+`public-read/settings.ts` prepares disconnected schedule and topic readers.
+The schedule result contains only cadence, timezone, coverage window and story/post
+budgets; its future caller must read system settings directly. It does not accept
+an owner-profile wrapper. Topics retain configured display/editorial/source-selection
+fields through an explicit schema pick, omitting `profileId` and unknown row fields.
+Nested strict schemas reject unexpected properties instead of forwarding them.
+Repository failures and invalid results return exact generic 503 responses, with no
+stored values or exception details. Offline adversarial tests cover private extra
+fields, nested additions, malformed results and thrown private errors.
+
+No controller imports these readers. Existing profile/topic GET and HEAD routes
+remain admin-classified. Transport wiring, system-only schedule reads, configured
+text review and the broader route gate still need verification before promotion.
 
 ## Remaining response boundaries
 

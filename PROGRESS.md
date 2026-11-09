@@ -155,3 +155,12 @@
 - Verification: six targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 711 unit/254 integration pass, four expected skips; existing bundle warning remains. Saved reader retains four topics/19 stories/17 posts.
 - Due 06:27 UTC passive metrics check (`pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`): 23 healthy rules, four queries ≤0.083 s, zero new evaluator errors/misses; one small merge/3,644 rows, no large merge. Recovery remains open; next check ≥07:27 UTC.
 - Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof; prepare explicit public response projections while waiting. Gate remains unregistered and VM private.
+
+## 2026-11-09: iteration 1485 — prepare public settings response allowlists
+
+- Clean main/no leftovers; alerts/healthz clear, 14 services and 36 sources healthy. Digest queue has no failures; historical collection failures remain retained with recent successful collection.
+- Prepared disconnected schedule/topic readers with explicit field allowlists: no legacy profile identity or arbitrary future top-level columns. Configured topic fields are retained; nested strict schemas refuse unknown fields.
+- Storage/validation failures return exact generic 503s without exception details; adversarial offline checks cover private markers, malformed values and nested additions. Existing profile/topic GET/HEAD remain admin-classified.
+- Updated public response audit and TASKS. No controller wiring, live configuration/data/access change, migrations or provider calls; accounts remain disabled. No restart under STEERING 22 because running entrypoints do not import these readers.
+- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 713 unit/254 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warnings remain.
+- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof; wire system-only settings transport before any public promotion. Metrics passive check remains due no earlier than 07:27 UTC.
