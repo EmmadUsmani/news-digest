@@ -1,21 +1,3 @@
-## 2026-11-09: iteration 1467 — private proxy verification diagnostic
-
-- Clean main/no leftovers; health, alerts, source and job checks pass. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
-- Added a temporary five-minute diagnostic on a documented private alternate port. Its authenticated-browser flow checks the baseline and three forged forwarding prefixes using the actual admission parser; receipts contain only the observed socket peer and booleans/counts, never client addresses or identity headers. No trust configuration is written.
-- Ordered single-use checks fail closed for missing/overwritten/changed forwarding. Client comparison stays in memory and is cleared on completion/refusal; the process closes after a receipt or timeout. Updated activation instructions and recorded the pending live proof.
-- Live HTTPS attempt: `curl https://news-digest.exe.xyz/healthz` cannot connect from this VM. Local tests and the browser smoke simulate forwarding; neither is live proxy proof. No account activation, migrations, provider calls or sharing changes.
-- Verification: two targeted HTTP tests and `pnpm exec tsx scripts/smoke-account-proxy-probe.ts` pass; inspected `docs/screenshots/accounts/proxy-probe-fixture.png`. Format, lint fix, full `pnpm check` (706 unit/254 integration passes; four expected skips), build, diff and saved-reader checks pass (four topics/19 stories/17 posts). Handbook check passes with existing pending-account-table notices.
-- Next: normal 15:00 UTC Phase 1 acceptance and authenticated live proxy proof before activation. Commit/push followed by API/worker restart and health/alerts checks.
-
-## 2026-11-09: iteration 1468 — account expiry after slow uploads
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy, jobs pass and no recent worker errors. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC.
-- Fixed account write validation using a timestamp captured before reading the body. Expiry and admin freshness now use the time after the complete bounded upload, so a slow transfer cannot redeem against its earlier arrival time.
-- Added real loopback HTTP regression with a controlled clock: start a valid request, advance beyond code expiry during transfer, finish the body and require 401/no session cookie. It fails on the previous implementation and passes with the fix.
-- Verification: targeted HTTP tests 5/5; `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit and 254 integration passes/four expected skips), `pnpm build`, `git diff --check` and saved-reader check pass (four topics/19 stories/17 posts).
-- Accounts remain disabled; no UI, migration, live account write, provider call or proxy configuration change. Commit/push followed by API/worker restart and health/alerts/saved-reader verification.
-- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live authenticated proxy proof before account activation.
-
 ## 2026-11-09: iteration 1469 — account activation browser readiness
 
 - Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled and VM private.
@@ -163,3 +145,13 @@
 - Updated the public-access plan and TASKS. Accounts stay disabled; no live data/config/access changes or provider calls. No restart under STEERING 22 because deployed entrypoints do not import the new module.
 - Verification: targeted policy tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, API rebuild and saved-reader check pass. Full check: 709 unit/254 integration tests pass, four expected skips; build retains existing chunk warning.
 - Saved Nov 8 reader unchanged: four topics/19 stories/17 posts. `git diff --check` passes. Next: Phase 1 normal scheduled acceptance and live proxy proof; continue gated public-read response audit while waiting. Metrics passive check due no earlier than 06:27 UTC.
+
+## 2026-11-09: iteration 1484 — audit public administrative read boundaries
+
+- Clean main/no leftovers; alerts/healthz clear, 14 services and 36 sources healthy, digest queue has no failures. Historical ingestion/social failures retained; recent collection succeeds.
+- Audited administrative GET response paths and recorded remaining identity, whole-row, stored URL/error, unpublished-preview and operational-accounting boundaries in `docs/public-read-response-audit.md`.
+- Prepared count-only alerts as public-read in the unregistered classifier. Offline adversarial tests verify private upstream fields are discarded, transport/HTTP/validation failures return an exact generic 503, and other admin reads stay restricted for GET/HEAD.
+- No live access/config/account/data changes or provider calls; accounts stay disabled. No restart under STEERING 22: deployed entrypoints do not import the classifier. Archived iterations 1467–1468 to keep this log small.
+- Verification: six targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 711 unit/254 integration pass, four expected skips; existing bundle warning remains. Saved reader retains four topics/19 stories/17 posts.
+- Due 06:27 UTC passive metrics check (`pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`): 23 healthy rules, four queries ≤0.083 s, zero new evaluator errors/misses; one small merge/3,644 rows, no large merge. Recovery remains open; next check ≥07:27 UTC.
+- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof; prepare explicit public response projections while waiting. Gate remains unregistered and VM private.

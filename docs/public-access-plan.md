@@ -388,7 +388,8 @@ prefix-wide access. Account code/link exchanges and session discovery remain
 anonymous-capable; their existing handlers still enforce private responses and
 origin, body and client admission. Sync/deletion/logout require a user; invitation
 and session revocation require a fresh admin. Administrative reads remain admin
-classified until their response audit. Tool, asset, SPA admin, telemetry and
+classified until their response audit, except the audited count-only alerts API
+(see [response audit](public-read-response-audit.md)). Tool, asset, SPA admin, telemetry and
 identity-discovery routes still need explicit review before registration.
 This classifier is not middleware, performs no authentication, and is not
 installed in main. No `PUBLIC_MODE` switch or live access behavior changes.

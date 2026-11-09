@@ -724,3 +724,12 @@ evaluator errors or missed iterations. Two small merges processed 37,821 rows;
 no big merge in this interval. No limits, configuration or services changed.
 Recovery still needs correlated evidence during a comparable natural merge.
 Next short passive check no earlier than 06:27 UTC.
+
+### Hourly follow-up (iteration 1484)
+
+Nov 9 06:27 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+23 fresh healthy rules, four uncached queries at most 0.083 s, zero new
+evaluator errors or missed iterations. One small merge processed 3,644 rows;
+no big merge in this interval. Limits, configuration and services unchanged.
+Recovery still needs correlated evidence during a comparable natural merge.
+Next short passive check no earlier than 07:27 UTC.

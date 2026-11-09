@@ -17,6 +17,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/account/sign-in',
     '/api/account/session',
     '/healthz',
+    '/api/admin/status/alerts',
   ]) {
     assert.equal(classifyPublicRoute('GET', path), 'public-read', path);
     assert.equal(classifyPublicRoute('HEAD', path), 'public-read', path);
@@ -88,4 +89,26 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
   assert.equal(classifyPublicRoute('GET', '/api/account/links'), null);
   assert.equal(classifyPublicRoute('PUT', '/api/admin/status'), null);
   assert.equal(classifyPublicRoute('GET', '/api/editions/not-a-uuid'), null);
+});
+
+void test('unaudited administrative responses remain restricted independently of alert counts', () => {
+  for (const path of [
+    '/api/admin/profile',
+    '/api/admin/topics',
+    '/api/admin/topics/sources',
+    '/api/admin/content',
+    '/api/admin/content/window',
+    '/api/admin/content/sources',
+    '/api/admin/status',
+    '/api/admin/digest-previews',
+    '/api/admin/digest-previews/latest',
+    `/api/admin/digest-previews/${id}`,
+    `/api/admin/digest-previews/${id}/cost`,
+    '/api/admin/digest-previews/jobs/123',
+  ]) {
+    assert.equal(classifyPublicRoute('GET', path), 'admin', path);
+    assert.equal(classifyPublicRoute('HEAD', path), 'admin', path);
+  }
+  for (const method of ['POST', 'PUT', 'DELETE', 'PATCH'])
+    assert.equal(classifyPublicRoute(method, '/api/admin/status/alerts'), null);
 });

@@ -31,7 +31,9 @@ const rules: readonly Rule[] = [
   ['DELETE', new RegExp(`^/api/admin/topics/${id}$`), 'admin'],
   ['GET', /^\/api\/admin\/profile$/, 'admin'],
   ['PUT', /^\/api\/admin\/profile\/schedule$/, 'admin'],
-  ['GET', /^\/api\/admin\/status(?:\/alerts)?$/, 'admin'],
+  // Count-only response audited; detailed operational status stays restricted.
+  ['GET', /^\/api\/admin\/status\/alerts$/, 'public-read'],
+  ['GET', /^\/api\/admin\/status$/, 'admin'],
   ['GET', /^\/api\/admin\/content(?:\/window|\/sources)?$/, 'admin'],
   ['GET', /^\/api\/admin\/digest-previews(?:\/latest)?$/, 'admin'],
   ['GET', new RegExp(`^/api/admin/digest-previews/${id}(?:/cost)?$`), 'admin'],
