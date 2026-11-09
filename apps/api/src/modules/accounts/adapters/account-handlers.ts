@@ -35,6 +35,10 @@ export class AccountHandlers {
     private readonly revocation?: Pick<AdminSessionRevocation, 'revoke'>,
   ) {}
 
+  acceptsWrite(origin: unknown, contentType: unknown): boolean {
+    return this.boundary.acceptsWrite(origin, contentType);
+  }
+
   async requestCode(request: Request, client: string, now: Date) {
     const payload = this.payload(request, false);
     if (!payload) return { status: 400, body: { error: 'Invalid request' } };

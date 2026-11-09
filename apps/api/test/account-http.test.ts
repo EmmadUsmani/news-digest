@@ -259,6 +259,7 @@ void test('account deletion requires explicit same-origin confirmation and sessi
 void test('oversized declared and chunked account requests receive 413 before upload ends', async () => {
   let calls = 0;
   const handlers = {
+    acceptsWrite: () => true,
     redeemCode: async () => {
       calls++;
       return { status: 204 };
@@ -311,6 +312,75 @@ void test('oversized declared and chunked account requests receive 413 before up
           },
         );
         assert.equal(status, 413);
+        assert.equal(calls, 0);
+      }
+    }
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});
+
+void test('invalid account write headers reject unfinished uploads before reading bodies', async () => {
+  let calls = 0;
+  const boundary = new AccountRequestBoundary('https://reader.example');
+  const handlers = {
+    acceptsWrite: (origin: unknown, contentType: unknown) =>
+      boundary.acceptsWrite(origin, contentType),
+    redeemCode: async () => {
+      calls++;
+      return { status: 204 };
+    },
+    syncReader: async () => {
+      calls++;
+      return { status: 204 };
+    },
+  } as unknown as AccountHandlers;
+  const server = createServer((req, res) =>
+    accountHttp({ enabled: true, handlers, client: () => 'verified' })(
+      req,
+      res,
+      () => res.end(),
+    ),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  try {
+    for (const path of ['/api/account/redeem', '/api/account/sync']) {
+      for (const headers of [
+        {
+          Origin: 'https://attacker.example',
+          'Content-Type': 'application/json',
+        },
+        { Origin: 'https://reader.example', 'Content-Type': 'text/plain' },
+        { 'Content-Type': 'application/json' },
+        { Origin: 'https://reader.example' },
+      ]) {
+        const status = await new Promise<number | undefined>(
+          (resolve, reject) => {
+            const upload = request({
+              hostname: '127.0.0.1',
+              port: address.port,
+              path,
+              method: 'POST',
+              headers: { ...headers, 'Transfer-Encoding': 'chunked' },
+            });
+            upload.on('error', reject);
+            upload.setTimeout(3000, () =>
+              upload.destroy(new Error('Invalid headers waited for upload')),
+            );
+            upload.on('response', (response) => {
+              response.resume();
+              response.on('end', () => {
+                resolve(response.statusCode);
+                upload.destroy();
+              });
+            });
+            upload.write('{');
+          },
+        );
+        assert.equal(status, 400);
         assert.equal(calls, 0);
       }
     }

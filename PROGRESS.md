@@ -1,20 +1,3 @@
-## 2026-11-09: iteration 1450 — gated reader header account wiring
-
-- Clean main/no leftovers; initial alerts and health clear, no failed user units. Sources healthy, digest queue has no failures; next scheduled run Nov 9 15:00 UTC.
-- Wired prepared account controls/controller to the edition and saved-item preference bridges behind explicit `VITE_READER_ACCOUNTS=1`; default is off. Phase 1 scheduled acceptance, proxy proof and activation remain pending. No migrations, provider calls or real email.
-- Desktop/mobile Playwright integration uses saved edition content and fixture account HTTP: discovery, sync, saved-route navigation, sign-out, cleared local storage and no overflow/errors pass. Deployed default-off reader shows no account button and makes no account requests. Inspected both screenshots; updated rollout plan, handbook and screenshot index; archived iterations 1436–1437 to keep PROGRESS small.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-reader-account-integration.ts`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check`. Full check passes (698 unit tests; 253 integration passes/four expected skips); build passes. Saved reader retains four topics/19 stories/17 posts. Handbook filter reports existing metadata notes for unapplied account tables.
-- Initial browser harness used Node fetch's restricted port 4190; changed to 4188 and passed. Corrected missing scheduled-reader timestamp argument. Initial combined format/check shell ended with signal 143 after formatting; reran lint/full checks separately.
-- Commit/push then restart API/worker and recheck health, default-off browser/reader and alerts. Next: normal flag-on Phase 1 scheduled acceptance, live proxy verification; keep accounts disabled until acceptance.
-
-## 2026-11-09: iteration 1451 — stored HTTP two-device account acceptance
-
-- Clean main/no leftovers; alerts and health clear, all 36 sources healthy, no failed user units or digest jobs. Saved reader retains four topics/19 stories/17 posts. Historical ingestion/social failed jobs remain retained with healthy current collection.
-- Extended isolated Postgres/Redis account HTTP acceptance with independently redeemed device sessions, saved-story copy/removal convergence, stale-write protection and friend-reader isolation. Single logout preserves the second device; all-device logout revokes two active sessions while the other reader survives. Account deletion expires the cookie and refuses subsequent sync.
-- Updated rollout evidence and TASKS. Accounts stay disabled, account migrations pending, VM private; no live provider calls, real email or proxy configuration changes. No product behavior or handbook diagrams changed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `git diff --check`; all pass (698 unit tests, 253 integration passes/four expected skips). No UI changed; browser checks were not repeated.
-- Next: Nov 9 15:00 UTC scheduled Phase 1 acceptance, then live proxy proof and gated account activation; owner two-device acceptance remains open.
-
 ## 2026-11-09: iteration 1452 — gated account deletion control
 
 - Clean main/no leftovers; health and alerts clear, no failed user units; all 36 sources healthy. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts remain disabled, VM private, account migrations pending.
@@ -128,3 +111,12 @@
 - No UI, migrations, live account writes, provider calls or proxy trust changes. Phase 1 scheduled acceptance and live proxy proof still gate activation.
 - Verification: targeted account HTTP tests (3/3), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 703 unit passes and 254 integration passes/four expected skips. Saved reader: four topics/19 stories/17 posts.
 - Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal 15:00 UTC acceptance and live proxy proof before account activation.
+
+## 2026-11-09: iteration 1466 — reject invalid account headers before uploads
+
+- Clean main/no leftovers; alerts clear and API/worker healthy. Saved Nov 8 reader retains four topics/19 stories/17 posts; normal Phase 1 acceptance still awaits 15:00 UTC.
+- Account HTTP now checks the existing exact Origin/JSON policy before reading any POST body. Missing or invalid headers return 400 immediately; handlers retain their independent boundary checks.
+- Real HTTP checks leave chunked login/sync uploads unfinished and verify all eight invalid/missing Origin/Content-Type combinations return 400 without calling account operations. Existing declared/chunked size checks remain green.
+- Accounts remain disabled. No UI, migrations, live account writes, provider calls or proxy trust changes; scheduled acceptance and live proxy proof still gate activation. Archived iterations 1450–1451 to keep this log small.
+- Verification: targeted account HTTP tests (4/4), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 704 unit passes, 254 integration passes/four expected skips. Commit/push followed by API/worker restart and health/alerts checks.
+- Next: normal 15:00 UTC Phase 1 acceptance and live proxy proof before account activation.

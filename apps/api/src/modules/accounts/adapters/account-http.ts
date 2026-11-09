@@ -75,6 +75,13 @@ export function accountHttp(options: {
         return send({ status: 404 });
       const client = options.client(request);
       if (!client) return send({ status: 503 });
+      if (
+        !options.handlers.acceptsWrite(
+          request.headers.origin,
+          request.headers['content-type'],
+        )
+      )
+        return send({ status: 400 });
       const limit = path === '/api/account/sync' ? 16 * 1024 * 1024 : 2048;
       // Reject declared oversize before reading; still count actual streamed bytes.
       const declaredLength = request.headers['content-length'];

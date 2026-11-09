@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1465: oversized declared login/sync bodies return 413 before upload completion; streamed-byte limits remain enforced and both transports have real HTTP coverage. Accounts remain disabled; live proxy proof and scheduled acceptance still gate activation.
+- [x] Iteration 1466: invalid or missing account Origin/JSON headers reject unfinished login/sync uploads before body reading; real HTTP checks cover both routes. Accounts remain disabled pending scheduled acceptance and live proxy proof.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
