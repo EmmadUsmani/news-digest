@@ -12,7 +12,7 @@ work before that rollout, rather than a permanent change to that intent.
 | `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin; disconnected explicit public field projection prepared                 |
 | `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin; disconnected origin-only catalog projection prepared                   |
 | `content`, `content/window`                                        | Topic IDs and article ID/title/URL/date/source                  | Admin pending stored URL/text and failure-response audit                      |
-| `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin; disconnected count/timing projection prepared; transport pending       |
+| `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin; disconnected count/timing projection and HTTP boundary prepared        |
 | `status`                                                           | Coverage, sources, queues, provider usage and development spend | Admin pending projection of errors, job return strings and accounting details |
 | `digest-previews`, `digest-previews/latest`, `digest-previews/:id` | Unfiltered history or complete stored snapshots                 | Admin; unpublished/test editions must stay private                            |
 | `digest-previews/:id/cost`                                         | Edition accounting                                              | Admin pending accounting response audit                                       |
@@ -134,9 +134,12 @@ remain null. Invalid timestamps, counts, rows and storage failures reject the
 whole result with a fixed 503, rather than returning a partial healthy list.
 Offline adversarial checks cover historical credential-bearing failures, URL
 paths/tokens, unknown columns, mixed valid/invalid rows and exact error bodies.
-No transport or runtime uses this reader yet; existing GET/HEAD source status
-remains admin-classified. Concrete storage/HTTP and frontend integration remain
-required before promotion.
+An unregistered HTTP controller now applies this projection at GET/HEAD
+`/api/admin/content/sources` with `Cache-Control: no-store`, including generic
+503 failures. Loopback HTTP checks verify omitted historical credentials, UTC
+normalization, bodyless HEAD and refused writes without storage reads. No live
+runtime uses it; source status remains admin-classified. Concrete storage,
+runtime and frontend integration remain required before promotion.
 
 ## Remaining response boundaries
 

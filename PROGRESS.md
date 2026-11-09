@@ -1,14 +1,3 @@
-## 2026-11-09: iteration 1480 — composed HTTPS two-device reader sync
-
-- Clean main/no leftovers; health and alerts clear, services 14/14 and sources 36/36 healthy. Digest queue has no failures; saved edition retains four topics/19 stories/17 posts.
-- Replaced the composed browser harness's echo-only sync stub with per-reader fixture persistence using the production merge policy; injected the existing test clock into sync authentication.
-- Desktop/mobile independently issued device cookies now exchange topic/bookmark choices through real HTTPS handlers. Newer removals survive stale device replay; cross-origin and injected-user-ID bodies fail without changing state.
-- Friend sessions see empty state while the issuer retains its choices; both revoked device sessions cannot sync. Fixture storage/admission only, no live account writes or provider calls.
-- Updated the activation checklist. No UI/runtime/config changes; accounts remain disabled, with Phase 1 scheduled acceptance and live proxy proof pending.
-- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` twice, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook checker and diff check pass.
-- Full check: 707 unit/254 integration tests pass, four expected skips. Handbook has expected metadata notices for unapplied account tables; build has its existing chunk-size warning.
-- No service restart under STEERING 22. Next: 15:00 UTC scheduled acceptance and live proxy proof; metrics passive check due no earlier than 06:27 UTC.
-
 ## 2026-11-09: iteration 1481 — exact admin expiry rejects HTTPS writes
 
 - Clean main/no leftovers; health and alerts clear, 14 services/36 sources healthy, digest queues pass `pnpm obs jobs --check`.
@@ -157,3 +146,13 @@
 - Verification: targeted source-health tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check`.
 - Full check passes 723 unit/259 integration tests with four expected skips. Build passes with existing bundle warnings; saved-reader parity passes.
 - No restart under STEERING 22: live entrypoints do not import this projection. Next: scheduled 15:00 acceptance, live proxy proof and remaining public-route boundaries before promotion.
+
+## 2026-11-09: iteration 1497 — prepare source-health HTTP boundary
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user units. Authenticated source check finds 36 successful sources and zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added unregistered source-health GET/HEAD controller using the prepared strict projection, no-store responses and generic storage/validation failures; configured URLs, historical credentials and future fields never enter the HTTP response.
+- Real isolated loopback HTTP checks verify UTC normalization, omitted secrets, bodyless HEAD, malformed mixed results and refused writes without storage reads.
+- Updated response audit/TASKS; archived iteration 1480. No live routes/config/data/migrations/provider calls changed; accounts stay disabled. Storage/runtime/frontend integration remains open.
+- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source check, scheduled-reader check and `git diff --check`.
+- Full check passes 724 unit/259 integration tests, four expected skips. Build passes with existing bundle warnings. No restart under STEERING 22: live entrypoints do not import this controller.
+- Next: complete source-health composition; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
