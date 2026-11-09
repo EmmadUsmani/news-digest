@@ -66,6 +66,11 @@ is not activation approval: the agent must compare the actual shape with
 `proxyClient`, acknowledge the rerun and report any mismatch before proceeding.
 No trust configuration, sharing, account or public setting changes are needed.
 
+Phase 4 security-review note (1558): the official X widget triggers inline-script
+and eval violations under a self/platform-only script policy. That trial was
+removed; no unsafe exceptions were added. Connection restrictions pass all
+40 saved-widget browser views; script/resource policy remains a readiness gate.
+
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
 **Done Nov 6; kept for reference.** Settings are on the VM and smoke-checked

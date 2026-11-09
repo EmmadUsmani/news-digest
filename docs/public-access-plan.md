@@ -397,8 +397,9 @@ The default-off public access stack now sets HSTS (one year, host only),
 `nosniff`, `no-referrer`, same-origin framing and a document CSP before account
 transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
 submissions (same-origin only). Frame sources are limited to the same origin,
-`https://platform.twitter.com` and `https://syndication.twitter.com`; script/connect
-sources remain unchanged. Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
+`https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
+are limited to the same origin and `https://syndication.twitter.com`; scripts
+remain unchanged. Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
 readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
 uses synthetic local forms to verify external POST refusal, same-origin POST
 success and unchanged private-mode behavior in Chromium. Account login/link
@@ -412,7 +413,12 @@ CSP into an isolated browser, loads all 10 real saved X widgets in desktop/mobil
 light/dark, and checks for document CSP violations. It makes explicit live X
 GET requests, blocks all writes, and leaves deployment flags unchanged.
 [Forty card screenshots](screenshots/ui/public-x-policy.md) record the result.
-Full resource allowlist and proxy acceptance remain open.
+Iteration 1558 verifies the connection allowlist with the same 40 live widget
+views and `scripts/check-public-connect-policy.ts` (offline allow/deny and private
+rollback checks). A trial `script-src 'self' https://platform.twitter.com` produced
+inline-script and eval violations from the official widget; that restriction was
+removed. Script policy needs a separate compatibility/security decision; no unsafe
+script exceptions were added. Full resource allowlist and proxy acceptance remain open.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

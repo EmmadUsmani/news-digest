@@ -30,10 +30,10 @@ export function prepareAccessStack(options: {
       response.setHeader('Referrer-Policy', 'no-referrer');
       response.setHeader('X-Frame-Options', 'SAMEORIGIN');
       // Only official X hosts and same-origin tools may supply frames.
-      // Script/connect allowlists still need their own browser review.
+      // Restrict document connections; widgets retain their own frame policy.
       response.setHeader(
         'Content-Security-Policy',
-        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
       );
     }
     if (accounts)

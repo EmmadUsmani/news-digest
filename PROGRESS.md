@@ -123,3 +123,16 @@ Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.
 - Restarted API/worker outside the hold; /healthz and alerts clear. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes four topics/19 stories/14 posts; latest reader hash unchanged.
 - Updated TASKS, activation checklist and fixture screenshot index; archived iterations 1540–1547 to keep this log small. Item 52 implementation acked; actual proxy evidence still blocks Phase 3.
 - Next: inspect the owner's new receipt and report any proxyClient mismatch without redesigning trust; while waiting, continue Phase 4 behind flags. Metrics passive probe no earlier than 18:19 UTC.
+
+## 2026-11-09: iteration 1558 — restrict prepared public document connections
+
+- Clean main/no leftovers; initial alerts/health clear. Owner proxy receipt absent, so followed item 52's permission to continue Phase 4 behind flags.
+- Prepared public CSP limits document connections to self and HTTPS syndication.twitter.com; private mode unchanged. Accounts/public remain off; no migration, configuration, source or provider changes.
+- `pnpm exec tsx scripts/check-public-connect-policy.ts` passes synthetic same-origin/official-host allowance, foreign/lookalike/HTTP refusal and private rollback; no provider traffic.
+- `pnpm exec tsx scripts/check-public-live-embeds.ts` passes all 40 real saved X widget views (desktop/mobile, light/dark), zero document CSP violations. Refreshed screenshots and inspected mobile-dark card.
+- Strict self/platform script trial produced official-widget inline/eval violations; removed rather than adding unsafe exceptions. Recorded remaining script/resource gate in public-access plan and NEEDS_FROM_HUMAN.
+- Existing form/frame browser checks pass; targeted handbook check passes 18 pages/one diagram (existing unapplied-account metadata warnings).
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (771 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundler warnings only.
+- `pnpm obs sources --check`: all 36 healthy. Scheduled-reader gate passes four topics/19 stories/14 posts. No paid verification.
+- Restarted API/worker; health/alerts clear, latest reader hash unchanged and scheduled-reader gate passes again.
+- Next: inspect owner proxy receipt before guarded Phase 3 activation; finish Phase 4 resource/security review behind flags. Metrics passive probe remains no earlier than 18:19 UTC.

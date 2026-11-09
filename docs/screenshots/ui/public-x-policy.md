@@ -45,3 +45,6 @@ No document CSP violations; remote writes blocked. No LLM calls or fixture subst
 - [public-x-2119698616478487001-desktop-light](public-x-2119698616478487001-desktop-light.png)
 - [public-x-2119698616478487001-mobile-dark](public-x-2119698616478487001-mobile-dark.png)
 - [public-x-2119698616478487001-mobile-light](public-x-2119698616478487001-mobile-light.png)
+
+Iteration 1558 refreshed these views under the document connection allowlist;
+all 40 real saved widgets load with no document policy violations.

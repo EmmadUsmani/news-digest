@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1557: item 52 proxy probe now records all five request shapes, continues after failures, classifies forged email, and saves value-free private receipts. Simulated failure/browser checks pass; exact owner rerun instructions in NEEDS_FROM_HUMAN.md. Actual live proxy shape remains pending; accounts/public off.
+- [x] Iteration 1558: prepared public document connection allowlist passes offline allow/deny/private rollback and 40 real saved X widget views. Strict script trial blocks official inline/eval code, removed pending separate review. Proxy receipt still absent; accounts/public off.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
