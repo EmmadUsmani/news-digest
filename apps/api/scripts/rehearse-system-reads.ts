@@ -19,15 +19,26 @@ const { ReaderEditionController } =
 const { PreviewRepository } =
   require('../dist/modules/digests/domain/preview.repository.js') as typeof import('../src/modules/digests/domain/preview.repository');
 
-// Called only by the private restore harness, with its Unix-socket URL and no
-// provider credentials. Never persist or print restored owner content.
+// Restore harness by default; explicit live mode forces read-only connections.
+// Neither mode composes providers or persists/prints owner content.
 async function main() {
-  assert.equal(process.env.SYSTEM_READ_REHEARSAL, '1');
-  assert.ok(
-    new URL(process.env.DATABASE_URL!).searchParams
-      .get('host')
-      ?.startsWith('/tmp/news-digest-rehearsal-'),
-  );
+  const live = process.argv.slice(2).includes('--live-read-only');
+  assert.deepEqual(process.argv.slice(2), live ? ['--live-read-only'] : []);
+  if (live) {
+    const url = new URL(
+      process.env.DATABASE_URL ??
+        'postgres://postgres@127.0.0.1:5432/news_digest',
+    );
+    url.searchParams.set('options', '-c default_transaction_read_only=on');
+    process.env.DATABASE_URL = url.toString();
+  } else {
+    assert.equal(process.env.SYSTEM_READ_REHEARSAL, '1');
+    assert.ok(
+      new URL(process.env.DATABASE_URL!).searchParams
+        .get('host')
+        ?.startsWith('/tmp/news-digest-rehearsal-'),
+    );
+  }
   const editions = new PostgresPreviewRepository();
   const topics = new PostgresTopicRepository();
   const profiles = new PostgresProfileRepository();
@@ -113,7 +124,7 @@ async function main() {
       'Flag rollback preserves all reads',
     );
     console.log(
-      `Restored adapter and reader HTTP reads verified: ${ids.rowCount} editions; both publication filters; off/on/off; topics and settings`,
+      `${live ? 'Live read-only' : 'Restored'} adapter and reader HTTP reads verified: ${ids.rowCount} editions; both publication filters; off/on/off; topics and settings`,
     );
   } finally {
     await app.close();
@@ -121,8 +132,6 @@ async function main() {
   }
 }
 void main().catch(() => {
-  console.error(
-    'Restored adapter comparison failed; private content suppressed',
-  );
+  console.error('System adapter comparison failed; private content suppressed');
   process.exitCode = 1;
 });

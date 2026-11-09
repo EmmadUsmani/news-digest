@@ -9,14 +9,14 @@ snapshots.
 > schedule copied from the current owner schedule. A second migration
 > allows topics, editions and durable job records to have no profile, retaining
 > foreign keys and existing ownership. Both are applied live;
-> the live app still uses the profile schedule while `SYSTEM_OWNERSHIP` is off. Schedule writes update
-> both settings tables atomically; the system flag switches schedule reads.
-> Prepared topic operations use the shared catalog with the flag on; new topics
+> the live app uses the system schedule with `SYSTEM_OWNERSHIP=1`. Schedule writes
+> update both settings tables atomically; turning the flag off restores profile reads.
+> Topic operations use the shared catalog with the flag on; new topics
 > retain default-profile ownership so flag-off reads still find them. Durable-job
 > reads also use system scope with the flag on; new records keep compatibility
 > ownership for rollback. Edition reads and generation topic selection also use
 > system scope when flagged on; new editions keep compatibility ownership.
-> The system flag is off. See the [rollout plan](../../public-access-plan.md).
+> See the [rollout plan](../../public-access-plan.md).
 
 > [!NOTE]
 > A prepared accounts migration adds independent reader identities and hashed

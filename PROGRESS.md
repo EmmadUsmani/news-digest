@@ -138,3 +138,13 @@
 - Updated rollout plan, affected data-model handbook and TASKS. Phase 1 acceptance remains open; next activate system scope before noon, verify private AI-off/AI-on generation, then normal scheduled acceptance.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (695 unit; 253 integration/four expected skips), `pnpm build`, `check-handbook.ts 07-data-model` (31 live tables; only expected pending-account metadata notes), `git diff --check` pass. No UI change.
 - `check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes before/after migrations: four topics/19 stories/17 posts. Commit/push, then restart API/worker and repeat health, source, queue and alerts checks to match main.
+
+## 2026-11-09: iteration 1442 — enable live system ownership
+
+- Clean main/no leftovers. Alerts clear, health good and no failed user units; 36 enabled sources have no errors (28 with stored content in the last day). Digest queue has zero failures; next scheduled edition Nov 9 15:00 UTC.
+- Added explicit `--live-read-only` mode to the existing complete adapter/HTTP comparison. It forces read-only database connections, verifies that setting, composes no providers/queues and suppresses private content on failure. Default restored-copy guard remains intact.
+- Live comparison passes before activation and against rebuilt code: all 550 saved editions, both publication filters, full direct/latest/history responses, topics/settings across off/on/off. Initial CLI launch used pnpm's node shim and failed; direct `/usr/bin/node` works with the private env file and the app's default database URL.
+- Enabled `SYSTEM_OWNERSHIP=1` in private service configuration before noon; restarted API/worker and verified both process environments. Served latest/history response hashes unchanged. No migration, account activation or provider call; VM remains private.
+- Updated rollout plan, affected data-model handbook and TASKS. Phase 1 stays open: private live AI-off/AI-on generation checks next, then normal scheduled acceptance. Roll back the newest flag first if the scheduled edition is abnormal.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`; live comparison command documented in the plan; `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. `check-handbook.ts 07-data-model` renders/links pass; exit 1 is solely expected pending-account metadata (31 live tables). `pnpm check` passes: 695 unit tests; 253 integration passes/four expected skips; static checks and schema parity green.
+- `git diff --check` passes. Commit/push, then restart API/worker and repeat health/reader/alerts checks so live matches main.

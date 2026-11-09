@@ -70,7 +70,11 @@ mapped to profiles, and profiles go away.
   ownership for rollback. Prepared edition reads and generation topic selection use
   system scope with the flag on, preserving publication filters and saved snapshots;
   new editions keep default-profile ownership for rollback.
-  The live flag remains off; activation and generation checks are next.
+  The live flag is on (Nov 9, iteration 1442). Before activation, an explicit
+  read-only live comparison verified all 550 saved editions across off/on/off,
+  topics, settings and complete reader HTTP responses. Restarted API/worker are
+  healthy; served latest/history responses remain unchanged. Private generation
+  checks and scheduled acceptance are still pending.
   The private restored-copy SQL rehearsal passes for both Phase 1 migrations:
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
@@ -87,6 +91,8 @@ mapped to profiles, and profiles go away.
   Isolated system-owned AI-off and synthetic fixture-AI test editions match the
   existing golden snapshots, stay unpublished and remain readable after flag rollback.
   Live flag-on test runs and scheduled acceptance remain required before phase closure.
+  Repeat the live read-only comparison with `/usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/rehearse-system-reads.ts --live-read-only`. It forces
+  read-only database connections and starts no queues or provider adapters.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private
   404s) and all original history entries across every page across flag off/on/rollback, with publication
   filtering enabled and disabled; these pass without provider calls.
@@ -110,7 +116,7 @@ real Postgres and Redis, cross-runtime session authentication, concurrent single
 friend redemption, non-admin issuance refusal and all-device logout isolation.
 This does not register routes or enable accounts.
 
-Phase 3 preparation has begun while phase 1 awaits its pre-noon rollout and
+Phase 3 preparation has begun while phase 1 awaits private generation checks and
 scheduled acceptance. Unapplied migration `0013` adds independent `users` and
 `sessions`: normalized unique emails, unique SHA-256 token hashes, cascading
 account deletion, sign-in admin eligibility and cookie renewal timestamps.
