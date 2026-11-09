@@ -137,3 +137,13 @@ Earlier entries: [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.
 - API-only restart; `/healthz`, all 14 services, all 36 sources, zero alerts and saved-reader check pass (four topics/19 stories/14 posts). Digest failed count zero; historical ingestion failures remain with every source healthy. Worker untouched.
 - Push first rejected because owner lead documentation advanced main; fetched and merged without rewriting history or editing owner files.
 - Next: configure/enable server and web account gates, dedicated live lifecycle acceptance, then exact owner two-device steps. Phase 3 still awaits owner acceptance and a normal scheduled edition. Migration 0019/public mode remain pending/off. Passive metrics check due ≥23:36 UTC.
+
+## 2026-11-09: iteration 1591 — enable private invite-only accounts
+
+- Clean main/no inherited work. Initial alerts/health, 14 services, 36 sources and digest-generation failed count zero pass; saved Nov 9 reader remains four topics/19 stories/14 posts.
+- Configured exact account origin, stable random key, mode-700 private mailbox and invite mode in the mode-600 private environment; retained the owner admin allowlist and verified loopback peers. Enabled server gate; public mode/sharing unchanged. No migrations, account writes, paid calls or generation changes.
+- Built with `VITE_READER_ACCOUNTS=1`; persisted that non-secret flag in ignored `apps/web/.env.production.local` so future production builds retain the panel. Restarted only `news-digest-api.service`; worker untouched.
+- Added `pnpm exec tsx scripts/smoke-live-account-entry.ts`: deployed anonymous panel, sign-in navigation and no-store signed-out session pass desktop/mobile light/dark, zero browser errors/account writes. Saved eight live screenshots; inspected mobile dark panel and desktop light login. Fixture lifecycle smoke also passes; no claim of live authenticated acceptance.
+- `pnpm check` passes: 796 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning. `pnpm format`, `pnpm lint:fix`, targeted screenshot/script format checks and `git diff --check` pass.
+- Updated activation checklist, plan, affected handbook and TASKS/NEEDS. `pnpm exec tsx scripts/check-handbook.ts account-activation` passes: 18 pages, 39 tables, no warnings. Post-restart health/alerts, 14 services, 36 sources and saved-reader check pass.
+- Next: dedicated live code/link/sync/revocation/deletion acceptance with disposable identities, then exact owner two-device steps. Phase 3 still needs owner acceptance and a normal scheduled edition. Public mode/migration 0019 remain off/pending; next metrics probe ≥23:36 UTC.

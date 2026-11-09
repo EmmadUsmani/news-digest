@@ -47,8 +47,9 @@ Nov 9 item 53 proxy question resolved by the owner's result in STEERING.md:
 both appended entries match the visitor, and the immediate peer is loopback.
 Keep the existing last-entry selector. No further proxy rerun is requested;
 observed-shape tests and explicit loopback trust are complete (1589). Phase 3
-migration rehearsal passed; guarded deployment is next. Accounts/public
-remain off until activation checks pass; sharing is unchanged.
+migrations and invite-only server/web deployment are complete (1591). Public
+mode remains off; sharing is unchanged. Dedicated live lifecycle acceptance is
+next; exact owner two-device steps will follow when that check passes.
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes

@@ -24,24 +24,15 @@ snapshots.
 > Null outcomes describe admission only (unapplied migration 0019).
 > Deleting a reader removes admissions tied to that identity.
 >
-> A prepared accounts migration adds independent reader identities and hashed
-> sessions, with deletion cascading from a reader to their sessions.
-> A further prepared migration stores private hashed login challenges with expiry,
-> attempt counts and single-use consumption. Prepared friend-link tables add
-> hashed 24-hour tokens and private issuance audit. These tables are not live;
-> A prepared exchange maps verified codes to independent identities and hashed
-> sessions; account sign-in remains disabled. Startup installs account routes only
-> when enabled and closes account connections during shutdown. The gated
-> `/account/login` page requests and exchanges email codes; it is unavailable
-> while accounts are disabled. The reader account panel offers sync status,
-> retry, sign-out and confirmed account deletion in edition and saved-item headers
-> behind a default-off flag. Admins can create and privately share one-time
-> friend sign-in links from that panel. Admins can also enter a reader account ID
-> and confirm signing out all its devices. A gated admin operation
-> revokes a reader’s sessions and records the action in one transaction; its
-> audit migration is not applied. Its prepared POST route requires same-origin
-> JSON and a session cookie; the default-off account runtime composes the audited service. See the
-> [rollout plan](../../public-access-plan.md).
+> Reader accounts use independent identities, hashed sessions and single-use
+> login challenges. Invite-only sign-in uses a private stand-in mailbox; no
+> email is sent. `/account/login` exchanges a code for a secure session cookie.
+> The account panel shows sync status, sign-out and confirmed account deletion.
+> Admins can issue one-time friend links and revoke a reader’s sessions;
+> issuance and revocation write private audit records. Saved topics and bookmarks
+> sync between signed-in devices. Deleting a reader removes their private rows.
+> The VM stays private and public mode remains disabled. See the
+> [account rollout](../../account-activation.md).
 
 Reader source rows use saved publisher names when available, alongside discovery
 provenance; each link still opens its saved report URL. Unknown publishers retain
@@ -180,8 +171,8 @@ foreign key, because a citation is stored before the post is verified.
   if articles or settings change. A trigger forbids UPDATE and DELETE.
 - **Private reader storage.** Account tables hold identities, login challenges,
   sessions, friend links, saved choices and admin audit records. Operational
-  reader roles and PUBLIC have no access. Accounts remain disabled; the tables
-  are ready for the [account rollout](../../account-activation.md).
+  reader roles and PUBLIC have no access. Invite-only accounts use these tables;
+  the [account rollout](../../account-activation.md) describes operation and rollback.
 - **Ledgers for money.** `llm_calls` and `x_discovery_calls` record a
   reservation before each paid call and the actual cost after it. Budgets are
   computed from these tables.

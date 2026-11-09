@@ -987,4 +987,8 @@ are now applied live after a fresh private backup and isolated restore rehearsal
 The earlier preparation notes describing these migrations as unapplied are historical.
 The eight private account tables are empty and deny PUBLIC and operational readers;
 bounded rerun is unchanged. Migration 0019 remains pending. Accounts and public
-mode remain off; server/web activation and dedicated live acceptance are next.
+mode remained off at that step. Iteration 1591 enables invite-only server/web
+accounts with a stable private key and owner-only mailbox; anonymous live entry
+checks pass desktop/mobile light/dark without account writes. Public mode stays
+off. Dedicated live lifecycle acceptance, owner two-device acceptance and a
+normal scheduled edition remain before Phase 3 can be acknowledged.

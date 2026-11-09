@@ -55,6 +55,8 @@ data when enabled, deletion and third-party post connections.
 - This browser holds up to 1,000 saved identities, including removal records.
 - Choices are stored locally and shared between tabs. No account is needed.
   Clearing site storage resets saved items and hidden topics in open tabs too.
+- Open **Account → Sign in** to sync choices across devices. Invite-only codes
+  are retrieved from the owner’s private stand-in mailbox; no email is sent.
 - To undo hiding every topic, open **Topics** and select a topic again.
 - Rollback: rebuild the web app with `VITE_READER_PREFERENCES=0` to show all
   topics and remove preference controls and `/saved`. Stored choices remain for re-enabling it.

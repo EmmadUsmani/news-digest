@@ -1,8 +1,9 @@
 # Phase 3 activation checklist
 
-This is the deployment checklist for the prepared account implementation, not an
-activation receipt. Account migrations through 0018 are applied live; accounts
-and public mode remain disabled. Keep the VM private throughout.
+Account migrations through 0018 and invite-only server/web account gates are
+live (iteration 1591). Public mode remains disabled and the VM stays private.
+Dedicated live lifecycle acceptance, the owner’s two-device check and a normal
+scheduled edition still gate Phase 3 completion.
 [The public-access plan](public-access-plan.md) defines acceptance and owner gates.
 
 ## Prerequisites
@@ -15,7 +16,7 @@ and public mode remain disabled. Keep the VM private throughout.
   receipt records a loopback peer and two stable appended entries after forged
   prefixes; the owner confirmed both entries match the visitor. Retain the
   last-entry selector. Explicit loopback peers (`127.0.0.1,::1`) are configured
-  in the private environment; account gates remain disabled until deployment.
+  in the private environment; invite-only account gates are now enabled.
   Offline policy and real HTTP tests cover zero, one and two forged prefixes.
 - Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
   Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
@@ -60,7 +61,9 @@ contents into progress entries, command output, screenshots or logs.
 
 The API and worker load the private env file through their user units. Vite
 requires its account flag in the build environment; restarting the API alone
-does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
+does not change the compiled reader panel. The non-secret flag is persisted in
+the ignored `apps/web/.env.production.local` so ordinary production rebuilds
+preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
 
 ## Migration and deployment
 
@@ -87,7 +90,9 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
    `account-live-migration-proof.json` in `~/backups/news-digest/`.
 4. Enable the server gate and build the web app with its account flag. Restart
    `news-digest-api.service` using `systemctl --user`. Restart the worker only
-   if worker code changes.
+   if worker code changes. Completed Nov 9 (1591): stable private key, exact
+   origin, mode-700 mailbox and existing admin allowlist; public mode unchanged.
+   Anonymous desktop/mobile light/dark browser checks pass without account writes.
    Check `/healthz`, alerts, source freshness and the saved scheduled reader.
 5. Verify code login, admin-issued links, replay/expiry refusal, sync, sign-out,
    all-device revocation and deletion with dedicated acceptance identities.
@@ -112,8 +117,10 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
 
 ## Rollback
 
-Set `ACCOUNTS_ENABLED=0`, rebuild with `VITE_READER_ACCOUNTS=0`, and restart
-API/worker outside the protection window. Confirm healthy reader routes and
+Set `ACCOUNTS_ENABLED=0` in the private environment and
+`VITE_READER_ACCOUNTS=0` in the ignored production build file, then rebuild.
+Restart the API outside the protection window (worker only if its code changes).
+Confirm healthy reader routes and
 normal job processing. Leave additive account tables and stored preferences
 intact; do not drop tables, restore over live storage or rotate the account key.
 A failed or abnormal scheduled edition takes priority: turn the newest flag off,
