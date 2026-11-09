@@ -60,6 +60,15 @@ future composition must inject the system-only reader. Existing profile/topic
 routes remain admin-classified. Runtime wiring, configured text review and the
 broader route gate still need verification before promotion.
 
+`PublicScheduleModule.prepare` now composes the controller with the concrete
+system reader behind a default-off `PUBLIC_MODE` gate. Disabled composition
+registers no route and never requests a pool. Enabled composition requires both
+system ownership and published-only readers before registering providers. The
+caller retains pool ownership. Isolated HTTP/database checks verify actual
+system-row reads, missing-row refusal, refused writes and pool reuse after app
+shutdown. Main does not import this module; authorization and route promotion
+remain separate work.
+
 ## Prepared source catalog projection
 
 `readPublicSourceCatalog` returns source IDs, configured names and publisher

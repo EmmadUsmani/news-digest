@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1488: prepared unregistered system schedule GET/HEAD transport; allowlist, no-store, generic failures and refused writes verified over loopback HTTP. Live routes unchanged. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1489: prepared unregistered public schedule runtime module; default-off route/storage gate, safe enablement prerequisites and concrete system-reader HTTP composition verified. Live routes unchanged. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

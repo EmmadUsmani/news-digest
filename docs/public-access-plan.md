@@ -392,7 +392,11 @@ classified until their response audit, except the audited count-only alerts API
 (see [response audit](public-read-response-audit.md)). Tool, asset, SPA admin, telemetry and
 identity-discovery routes still need explicit review before registration.
 This classifier is not middleware, performs no authentication, and is not
-installed in main. No `PUBLIC_MODE` switch or live access behavior changes.
+installed in main. An unregistered schedule module now prepares default-off
+`PUBLIC_MODE` composition of the system-only reader and GET/HEAD transport;
+enablement requires system ownership and published-only readers. Disabled
+composition opens no storage. This does not install public authorization or
+change live access behavior.
 
 ## Target design
 

@@ -1,12 +1,3 @@
-## 2026-11-09: iteration 1472 — composed browser code lifecycle
-
-- Clean main/no leftovers; health and alerts clear. Phase 1 awaits the normal 15:00 UTC edition; metrics probe not due before 05:27 UTC.
-- Added `smoke-account-code-lifecycle.ts`: desktop/mobile login page and CSP call real account handlers/composition, keyed code hashing, private stand-in mailbox and session-token generation through a browser route bridge. Repositories/admission are isolated fixtures.
-- Exact ten-minute expiry refuses authentication; a new code sets an HttpOnly/Secure/SameSite=Lax host cookie that authenticates through the real session handler; consumed-code replay refuses a new cookie. Inspected mobile refusal screenshot.
-- No live account writes, provider calls, migration or product behavior change. Live HTTP/proxy proof and owner two-device acceptance remain separate gates; accounts stay disabled.
-- Verification: composed browser smoke, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass; 707 unit/254 integration tests pass, four expected skips. Saved reader retains four topics/19 stories/17 posts.
-- Next: normal 15:00 Phase 1 scheduled acceptance and live proxy proof before activation. Commit/push followed by API/worker restart and health/alerts verification.
-
 ## 2026-11-09: iteration 1473 — browser code exhaustion and recovery
 
 - Clean main/no leftovers. Health and alerts pass; all 36 sources healthy, no failed user services. Normal scheduled acceptance remains due at 15:00 UTC; metrics probe not due before 05:27 UTC.
@@ -164,3 +155,12 @@
 - Updated response audit/TASKS and archived iteration 1471 to keep this log small. No live data/config/access changes, migrations or provider calls; accounts stay disabled.
 - Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check`; full check passes 716 unit/255 integration tests with four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
 - No restart under STEERING 22: deployed entrypoints do not import this controller. Next: 15:00 scheduled Phase 1 acceptance, live proxy proof and gated public-settings runtime composition.
+
+## 2026-11-09: iteration 1489 — prepare public schedule runtime composition
+
+- Clean main/no leftovers; alerts and healthz clear, 36 sources, no failed digest jobs or failed user units. Next scheduled edition remains 15:00 UTC; retained ingestion/social failures are historical.
+- Added unregistered `PublicScheduleModule.prepare`: default-off public gate registers no route and never requests storage; invalid flags and missing system-ownership/published-reader prerequisites fail before dependencies.
+- Enabled composition injects the concrete system-only reader. Offline HTTP checks cover disabled routes and unsafe flags; isolated database/HTTP checks cover actual system settings, missing-row generic refusal, writes refused and caller-owned pool reuse after shutdown.
+- Updated response audit, public access plan and TASKS; archived iteration 1472. No main imports, live data/config/access changes, migrations or provider calls; accounts remain disabled.
+- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check`. Full check passes 717 unit/256 integration tests with four expected skips; build passes with existing bundle warnings. Saved reader retains four topics/19 stories/17 posts.
+- No restart under STEERING 22: running entrypoints do not import this module. Next: 15:00 Phase 1 scheduled acceptance, live proxy proof and remaining public response/route boundaries before promotion.
