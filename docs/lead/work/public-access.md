@@ -24,9 +24,9 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Proxy check failed at its first request (owner, Nov 9; no VPN or work
-   network). Steered item 52: the probe reports why, and tests a forged
-   `X-ExeDev-Email`. Then the owner reruns it. Read its ack against item 52.
+1. Item 52 probe built and acked (17:38 UTC Nov 9); lead read the diff and it
+   matches. Owner reruns it (steps in `NEEDS_FROM_HUMAN.md`), then read the
+   agent's second ack: what exe.dev sends, and whether a forged email got through.
 2. Check work-ahead stays behind flags and doesn't drift into polish.
 3. Phase 4: lead security review before the owner decides to go public.
 
