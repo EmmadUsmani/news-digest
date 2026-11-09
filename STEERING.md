@@ -18,9 +18,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    (item 44) and the leaked test folders (item 51). The review after each
    scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`. Phase 1 is accepted. Next, find which proxy
-   entry is the visitor (item 53, replaces item 52), which blocks phase 3. Then
-   phases 3 and 4.
+   `docs/public-access-plan.md`. Phase 1 is accepted. Next, finish item 53
+   (the proxy question is answered: trust loopback, keep the last-entry rule),
+   then phases 3 and 4.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2366,3 +2366,25 @@ it outside 13:00–16:00 UTC and leave edition generation alone after 12:00 UTC.
 ack: 2026-11-09 item 53 inherited rerun — iteration 1559 inspected the 17:47:12 UTC receipt: one forwarding field at every step, entry counts 2/3/4/3/2, valid final IPs, loopback peer; forwarded proto/host and exe.dev email/userid names present. Forged email replaced. Baseline differs from the probe single-entry assumption; proxyClient permits multiple entries but final-client stability/meaning is unproven because baseline failed. Stopped and reported in NEEDS_FROM_HUMAN.md; no trust redesign or activation.
 
 ack: 2026-11-09 item 53 probe — iteration 1560 adds per-position appended-entry categories and baseline equality independent of legacy forwarding validity; forged-prefix, changed/reordered/missing/invalid-tail and browser simulations verified. Rerun steps replaced in NEEDS_FROM_HUMAN.md. Loopback proxy/admin-token requirement documented; no trust change or account/public activation. Await real rerun.
+
+**Lead update (Nov 9, owner result):** this replaces step 3 and "Done when"
+above. The owner ran the 19:47 UTC probe, then compared both appended entries
+with their own IPv4 address: both match. exe.dev appends the visitor's address
+twice, after anything the client sends, and requests arrive from loopback. The
+existing last-entry rule in `proxyClient` is correct, so don't change hop
+counts.
+
+1. Trust the loopback peer with the existing selector.
+2. Add tests for the observed shape: two identical appended entries after zero,
+   one and two forged prefixes, each returning the appended address.
+3. Then continue item 50 phase 3. Put the owner's two-device sign-in test in
+   `NEEDS_FROM_HUMAN.md` with exact steps, and remove the item 53 rerun request.
+
+Also:
+
+- When a step waits on an owner run, read the private probe receipt yourself
+  each iteration. The 19:47 UTC receipt went unread for hours.
+- When a change touches only API code, restart only the API. Restart the worker
+  only when worker code changes.
+
+Done when the loopback trust and tests are in and phase 3 is under way. Ack it.
