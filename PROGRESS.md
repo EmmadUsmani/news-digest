@@ -126,3 +126,12 @@ Earlier entries: [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.
 - Updated activation checklist and TASKS; archived iterations 1577–1579 because PROGRESS exceeded 25 KB. Handbook validation passes: 18 pages/39 tables, zero metadata warnings. No owner handbook behavior changed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass; existing bundle-size warning only. Final targeted formatting and diff checks pass. API restart and post-restart reader/health checks pass; worker unchanged.
 - Next: dedicated authenticated live code/link/sync/revocation/deletion acceptance, then exact owner two-device instructions and a normal scheduled edition. Phase 3 remains open; public mode stays off. Next passive metrics probe remains due ≥23:36 UTC.
+
+## 2026-11-09: iteration 1593 — authenticated deployed account lifecycle
+
+- Clean main/no inherited work. Initial alerts and later health, all 14 services/36 sources pass; digest-generation failed count zero and next run Nov 10 15:00 UTC. Historical ingestion failures remain with every source healthy.
+- Added explicit opt-in `pnpm exec tsx scripts/check-live-account-lifecycle.ts --live`; 30 real deployed-loopback checks pass: owner code/admin session, single-use code/invitation replay refusal, disposable-reader code login, ordinary-reader privilege refusal, two-device topic sync/stale refusal, all-device logout, deletion/replay and mailbox cleanup.
+- Codes/tokens/cookies remain private and are never printed. Random reserved-domain reader deleted; temporary owner session signed out without revoking other devices or changing owner preferences. No schedule/generation/configuration/migration/provider changes or paid calls.
+- Updated activation checklist and TASKS. Live browser/proxy, bookmarks, expiry and admin-target revocation remain unverified; owner two-device and normal scheduled-edition gates remain open. No Phase 3 completion claim.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips) and `pnpm build` pass; existing bundle warning only. `check-live-account-boundary.ts` passes 32 refusals; `check-handbook.ts account-activation` passes 18 pages/39 tables/no warnings. No UI changes.
+- Restarted API only; `/healthz`, `check-scheduled-reader.ts 2026-11-09T15:00:00Z` (four topics/19 stories/14 posts) and zero alerts pass. Worker untouched. Next: finish remaining live acceptance, then exact owner two-device steps and normal scheduled edition. Public mode stays off; passive metrics probe due ≥23:36 UTC.

@@ -104,6 +104,16 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    malformed login payloads and signed-out sessions without requesting credentials
    or changing accounts. This checks deployed handlers, not proxy/TLS behavior
    or authenticated lifecycle acceptance.
+   Authenticated deployed-loopback acceptance: explicitly run
+   `pnpm exec tsx scripts/check-live-account-lifecycle.ts --live`.
+   This requests one owner admin code, reads it privately, issues invitations to
+   a random reserved-domain reader and changes only that reader’s topic state.
+   Iteration 1593 passes 30 checks: code/link login and replay refusal,
+   two-device topic sync/stale refusal, ordinary-reader privilege refusal,
+   all-device logout, deletion replay and mailbox cleanup. The disposable reader
+   is deleted and the temporary owner session is signed out. Credentials never
+   enter output. This is HTTP API acceptance; live browser/proxy, bookmark sync,
+   expiry and admin-target revocation still need acceptance before the owner check.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.
