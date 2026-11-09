@@ -1,11 +1,3 @@
-## 2026-11-09: iteration 1471 — two-device browser sync acceptance
-
-- Clean main/no leftovers; health, 14 services, all 36 sources and jobs pass, alerts clear; next normal digest is 15:00 UTC. Metrics check not due until 05:27 UTC.
-- Extended mounted-reader browser acceptance with independent desktop/mobile contexts sharing only fixture account transport: desktop bookmark downloads to mobile, mobile removal downloads to desktop, removal tombstone persists and neither device resurrects it after navigation/reload.
-- Uses the real saved edition with fixture accounts; no live account writes, migrations, provider calls or product changes. Inspected new mobile saved-item screenshot. Accounts remain disabled.
-- Verification: `pnpm exec tsx scripts/smoke-reader-account-integration.ts`, format, lint fix, full check, build, diff check and `check-scheduled-reader.ts 2026-11-08T15:00:00Z` (four topics/19 stories/17 posts). 707 unit and 254 integration passes/four expected skips. Archived iterations 1454–1455; API/worker restart follows push.
-- Next: Phase 1 normal 15:00 scheduled acceptance and authenticated live proxy proof before activation; owner's real two-device test remains required.
-
 ## 2026-11-09: iteration 1472 — composed browser code lifecycle
 
 - Clean main/no leftovers; health and alerts clear. Phase 1 awaits the normal 15:00 UTC edition; metrics probe not due before 05:27 UTC.
@@ -163,3 +155,12 @@
 - Updated response audit and TASKS; archived iterations 1469–1470 to keep the active log small. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check` pass. Full check: 715 unit/255 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warning remains.
 - No restart under STEERING 22: deployed entrypoints do not import the reader. Next: normal 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and gated settings transport; metrics passive check remains due no earlier than 07:27 UTC.
+
+## 2026-11-09: iteration 1488 — prepare public system schedule HTTP transport
+
+- Clean main/no leftovers; alerts and healthz clear. Authenticated status confirms 36 sources, no failed digest jobs and next scheduled edition at 15:00 UTC; retained ingestion failures remain historical.
+- Added unregistered GET/HEAD `/api/settings/schedule` controller with explicit system-reader injection contract, HTTP allowlist projection, no-store responses and generic 503 failures.
+- Real isolated loopback HTTP checks verify projected GET, empty HEAD, refused writes without adapter reads, malformed storage and private adapter exceptions. No module or route classifier installs this controller; live routes remain unchanged.
+- Updated response audit/TASKS and archived iteration 1471 to keep this log small. No live data/config/access changes, migrations or provider calls; accounts stay disabled.
+- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check`; full check passes 716 unit/255 integration tests with four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
+- No restart under STEERING 22: deployed entrypoints do not import this controller. Next: 15:00 scheduled Phase 1 acceptance, live proxy proof and gated public-settings runtime composition.

@@ -1,6 +1,6 @@
 # Public administrative response audit
 
-Phase 4 preparation, iterations 1484–1487 (2026-11-09). The route classifier is
+Phase 4 preparation, iterations 1484–1488 (2026-11-09). The route classifier is
 unregistered. These decisions change no live access. HEAD inherits GET's class.
 The owner intends public read-only admin pages; restricted rows below require
 work before that rollout, rather than a permanent change to that intent.
@@ -51,9 +51,14 @@ system settings fail closed without a fallback. The caller owns its connection
 pool. Isolated database tests temporarily rename both legacy tables, exercise
 unset/off/on flags, and verify missing-row and closed-connection generic errors.
 
-No controller imports these readers. Existing profile/topic GET and HEAD routes
-remain admin-classified. Transport wiring, configured text review and the broader
-route gate still need verification before promotion.
+An unregistered `PublicScheduleController` prepares GET/HEAD
+`/api/settings/schedule` with `Cache-Control: no-store`. It reapplies the schedule
+allowlist at the HTTP boundary and maps adapter errors to the generic 503. Real
+loopback HTTP checks cover GET, empty HEAD, refused writes, invalid state and
+private adapter exceptions. It is absent from live modules and the route classifier;
+future composition must inject the system-only reader. Existing profile/topic
+routes remain admin-classified. Runtime wiring, configured text review and the
+broader route gate still need verification before promotion.
 
 ## Prepared source catalog projection
 
