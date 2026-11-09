@@ -256,7 +256,7 @@ void test('account deletion requires explicit same-origin confirmation and sessi
   }
 });
 
-void test('oversized unfinished chunked account requests receive 413 before upload ends', async () => {
+void test('oversized declared and chunked account requests receive 413 before upload ends', async () => {
   let calls = 0;
   const handlers = {
     redeemCode: async () => {
@@ -283,32 +283,36 @@ void test('oversized unfinished chunked account requests receive 413 before uplo
       ['/api/account/redeem', 2048],
       ['/api/account/sync', 16 * 1024 * 1024],
     ] as const) {
-      const status = await new Promise<number | undefined>(
-        (resolve, reject) => {
-          const upload = request({
-            hostname: '127.0.0.1',
-            port: address.port,
-            path,
-            method: 'POST',
-            headers: { 'Transfer-Encoding': 'chunked' },
-          });
-          upload.on('error', reject);
-          upload.setTimeout(3000, () =>
-            upload.destroy(new Error('No bounded upload response')),
-          );
-          upload.on('response', (response) => {
-            response.resume();
-            response.on('end', () => {
-              resolve(response.statusCode);
-              upload.destroy();
+      for (const declared of [false, true]) {
+        const status = await new Promise<number | undefined>(
+          (resolve, reject) => {
+            const upload = request({
+              hostname: '127.0.0.1',
+              port: address.port,
+              path,
+              method: 'POST',
+              headers: declared
+                ? { 'Content-Length': String(limit + 1) }
+                : { 'Transfer-Encoding': 'chunked' },
             });
-          });
-          // Leave the body unfinished: rejection must not wait for the sender.
-          upload.write('x'.repeat(limit + 1));
-        },
-      );
-      assert.equal(status, 413);
-      assert.equal(calls, 0);
+            upload.on('error', reject);
+            upload.setTimeout(3000, () =>
+              upload.destroy(new Error('No bounded upload response')),
+            );
+            upload.on('response', (response) => {
+              response.resume();
+              response.on('end', () => {
+                resolve(response.statusCode);
+                upload.destroy();
+              });
+            });
+            // Leave the body unfinished: rejection must not wait for the sender.
+            upload.write(declared ? 'x' : 'x'.repeat(limit + 1));
+          },
+        );
+        assert.equal(status, 413);
+        assert.equal(calls, 0);
+      }
     }
   } finally {
     server.closeAllConnections();

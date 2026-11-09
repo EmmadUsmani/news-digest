@@ -75,14 +75,18 @@ export function accountHttp(options: {
         return send({ status: 404 });
       const client = options.client(request);
       if (!client) return send({ status: 503 });
+      const limit = path === '/api/account/sync' ? 16 * 1024 * 1024 : 2048;
+      // Reject declared oversize before reading; still count actual streamed bytes.
+      const declaredLength = request.headers['content-length'];
+      if (declaredLength !== undefined && Number(declaredLength) > limit)
+        return send({ status: 413 });
       // Bound streamed bodies, including chunked requests; do not trust length.
       const chunks: Buffer[] = [];
       let size = 0;
       for await (const chunk of request) {
         const bytes = Buffer.from(chunk as Uint8Array);
         size += bytes.length;
-        if (size > (path === '/api/account/sync' ? 16 * 1024 * 1024 : 2048))
-          return send({ status: 413 });
+        if (size > limit) return send({ status: 413 });
         chunks.push(bytes);
       }
       let body: unknown;

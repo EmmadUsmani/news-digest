@@ -120,3 +120,11 @@
 - No live account writes, migrations, provider calls, email, proxy trust changes or UI changes. Archived iterations 1448–1449 to keep this log small.
 - Verification: targeted account HTTP tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full suite: 703 unit passes, 254 integration passes/four expected skips. Saved reader retains four topics/19 stories/17 posts. Commit/push followed by API/worker restart and health/alerts checks.
 - Next: normal Phase 1 scheduled acceptance, live proxy proof and account activation prerequisites. Accounts stay disabled until those gates pass.
+
+## 2026-11-09: iteration 1465 — reject declared oversized account uploads early
+
+- Clean main/no leftovers; health and alerts clear, all 36 sources healthy, no recent worker errors and the normal 15:00 UTC digest queued. Accounts remain disabled.
+- Account HTTP now rejects an oversized Content-Length before reading the body; actual streamed-byte limits still apply independently (2 KiB login, 16 MiB sync). Real HTTP tests send only one byte of each declared oversized upload and receive 413 without invoking handlers; unfinished chunked coverage remains.
+- No UI, migrations, live account writes, provider calls or proxy trust changes. Phase 1 scheduled acceptance and live proxy proof still gate activation.
+- Verification: targeted account HTTP tests (3/3), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` and saved-reader check. Full check: 703 unit passes and 254 integration passes/four expected skips. Saved reader: four topics/19 stories/17 posts.
+- Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal 15:00 UTC acceptance and live proxy proof before account activation.
