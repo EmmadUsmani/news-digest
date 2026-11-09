@@ -393,6 +393,14 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared general API admission (iteration 1572) uses one atomic Redis fixed-window
+counter per HMAC-hashed client, shared across API instances. Its provisional
+allowance is 120 requests/minute; denied attempts do not extend the window.
+Missing client identity and Redis failure refuse admission. This adapter is
+unregistered: verified visitor extraction (item 53), HTTP enforcement and
+preference-write limits remain promotion work. Isolated Redis tests cover
+concurrency, client separation, key privacy, expiry and failure.
+
 Sign-in request-log rehearsal (iteration 1571) composes the production request
 logger with account HTTP transport and handler stand-ins. Login page, code
 request, code/link redemption, session read, logout, reused-code refusal,

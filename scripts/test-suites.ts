@@ -15,6 +15,7 @@ const integration = new Set([
   'session-revocation-storage.test.ts',
   'account-runtime-storage.test.ts',
   'login-code-admission.test.ts',
+  'public-api-admission.test.ts',
   'login-code-repository.test.ts',
   'sign-in-link-repository.test.ts',
   'login-exchange.test.ts',

@@ -133,3 +133,13 @@ Earlier entries: [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 776 unit and 272 integration tests/four expected skips. `git diff --check` passes.
 - API/worker restarted; initial health raced startup, retry health and service checks pass. Post-restart scheduled-reader gate passes; alerts clear at 19:55 UTC.
 - Next: owner item 53 proxy rerun before Phase 3 activation; remaining Phase 4 acceptance. Metrics probe not due until 20:36 UTC.
+
+## 2026-11-09: iteration 1572 — prepare general API admission
+
+- Clean main/no leftovers. Health passes; Kotaku remains upstream HTTP 522 (latest attempt 19:57 UTC, last success 18:26/20 items), explaining RecentJobFailures. No bypass, paid calls, migrations, flags or generation changes.
+- Added unregistered Redis general API admission: atomic shared fixed windows, HMAC client keys, provisional 120 requests/minute, no expiry extension on refused attempts. Missing identity and Redis errors refuse.
+- Isolated Redis integration verifies concurrent instances admit exactly the allowance, client separation, private keys, real expiry/reset, bounded inputs, invalid settings and dependency failure. No live Redis or external providers used by tests.
+- Updated public readiness plan, TASKS and source note. HTTP registration awaits verified visitor extraction (item 53); preference-write throttling remains open. No UI or current system behavior changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 776 unit and 273 integration tests/four expected skips. Workspace build passes with existing bundle-size warning; `git diff --check` passes.
+- API/worker restarted after build; `pnpm obs health --check` and `pnpm obs services --check` pass (14 services). Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Digest queue has zero failed runs; alerts retain explained upstream source failures.
+- Next: item 53 owner rerun before Phase 3; Phase 4 HTTP rate enforcement and preference-write limits behind disabled flags. Metrics passive probe not due until 20:36 UTC.
