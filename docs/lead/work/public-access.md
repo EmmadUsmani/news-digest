@@ -24,11 +24,12 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Item 53 rerun (Nov 9 evening): both added entries public and stable, so
-   it can't say which is the visitor. Lead gave the owner a one-off script that
-   prints the two entries to compare with their own IP. Once the owner says
-   which position matched, pass it to the agent under item 53 (needs a yes).
-2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC Nov 9.
+1. Proxy answered (owner, Nov 9): both added entries are the visitor's IPv4;
+   the last-entry rule stands. Lead update under item 53 steered: trust
+   loopback, add tests, start phase 3, read receipts itself, restart only the
+   API for API-only changes. Next: read its ack, then the two-device test steps.
+2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
+   small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
 4. Phase 4: lead security review before the owner decides to go public.
 
