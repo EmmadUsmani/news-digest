@@ -144,6 +144,68 @@ window.renderAccount({});
         ),
         ['refresh', 'retry', 'delete', 'out', 'all'],
       );
+      await expect(page.getByLabel('Reader email')).toHaveCount(0);
+      await render({
+        status: 'idle',
+        session: { signedIn: true, isAdmin: true },
+      });
+      let issued = 0;
+      await page.route(origin + '/api/account/links', async (route) => {
+        issued++;
+        assert.equal(route.request().method(), 'POST');
+        assert.deepEqual(route.request().postDataJSON(), {
+          email: 'friend@example.test',
+        });
+        await route.fulfill({
+          status: issued === 1 ? 403 : 201,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            url: origin + '/account/sign-in#' + 'a'.repeat(43),
+          }),
+        });
+      });
+      await page.getByLabel('Reader email').fill('friend@example.test');
+      await page
+        .getByRole('button', { name: 'Create sign-in link', exact: true })
+        .click();
+      await expect(page.getByRole('alert')).toContainText('Could not create');
+      await expect(page.getByLabel('Reader email')).toHaveValue(
+        'friend@example.test',
+      );
+      await page
+        .getByRole('button', { name: 'Create sign-in link', exact: true })
+        .click();
+      await expect(page.getByLabel('One-time sign-in link')).toHaveValue(
+        origin + '/account/sign-in#' + 'a'.repeat(43),
+      );
+      await expect(page.getByLabel('Reader email')).toHaveValue('');
+      await page.screenshot({
+        path: `docs/screenshots/accounts/admin-invite-${width}.png`,
+      });
+      await page.getByRole('button', { name: 'Dismiss link' }).click();
+      await expect(page.getByLabel('One-time sign-in link')).toHaveCount(0);
+      assert.equal(issued, 2);
+      await page.route(origin + '/api/account/links', (route) =>
+        route.fulfill({
+          status: 201,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            url: 'https://other.example/account/sign-in#' + 'b'.repeat(43),
+          }),
+        }),
+      );
+      await page.getByLabel('Reader email').fill('friend@example.test');
+      await page
+        .getByRole('button', { name: 'Create sign-in link', exact: true })
+        .click();
+      await expect(page.getByRole('alert')).toContainText('Could not create');
+      await expect(page.getByLabel('One-time sign-in link')).toHaveCount(0);
+      assert.equal(
+        await page.evaluate(() => localStorage.length + sessionStorage.length),
+        0,
+      );
+      await render({ session: { signedIn: true, isAdmin: false } });
+      await expect(page.getByLabel('Reader email')).toHaveCount(0);
       await render({}, false);
       await expect(
         page.getByRole('button', { name: 'Account', exact: true }),

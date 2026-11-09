@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AdminSignInLink } from './AdminSignInLink';
 import { Button } from './components/ui/button';
 import { Sheet } from './components/ui/sheet';
 import type { useReaderAccount } from './use-reader-account';
@@ -61,6 +62,9 @@ export function ReaderAccount({
         )}
         {account.session?.signedIn && (
           <>
+            {account.session.isAdmin &&
+              !busy &&
+              account.status !== 'failed' && <AdminSignInLink />}
             {account.sync === 'failed' && account.status !== 'failed' && (
               <Button disabled={busy} onClick={() => run(account.retrySync)}>
                 Retry sync

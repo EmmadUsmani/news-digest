@@ -324,6 +324,13 @@ and all-device logout and deletion refuse subsequent sync. This is automated
 preparation; the owner’s two-device check and scheduled acceptance remain open.
 It does not make the adapters' separate transactions atomic.
 
+Prepared admin invitation control (iteration 1453) appears only for an admin
+session in the gated account panel. It POSTs the recipient email, displays the
+returned same-origin fragment link without opening it, and supports dismissal
+and retry after refusal. Link and recipient stay in component memory only;
+unmounting the control aborts pending requests. No delivery is sent. Accounts
+remain disabled, pending Phase 1 scheduled acceptance and live proxy proof.
+
 ## Target design
 
 ### System-level data

@@ -40,3 +40,12 @@ The deployed default-off reader makes no account requests.
 
 - [Desktop header](reader-header-1440.png)
 - [Mobile header](reader-header-390.png)
+
+## Prepared admin invitations
+
+The account-panel fixture check also verifies admin-only invitation creation,
+refusal/retry, one-time fragment-link display and dismissal. No real invites
+are issued or sent.
+
+- [Desktop invite](admin-invite-1440.png)
+- [Mobile invite](admin-invite-390.png)

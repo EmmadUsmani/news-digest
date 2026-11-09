@@ -29,7 +29,9 @@ snapshots.
 > when enabled and closes account connections during shutdown. The gated
 > `/account/login` page requests and exchanges email codes; it is unavailable
 > while accounts are disabled. The reader account panel offers sync status,
-> retry, sign-out and confirmed account deletion in edition and saved-item headers behind a default-off flag. See the
+> retry, sign-out and confirmed account deletion in edition and saved-item headers
+> behind a default-off flag. Admins can create and privately share one-time
+> friend sign-in links from that panel. See the
 > [rollout plan](../../public-access-plan.md).
 
 Reader source rows use saved publisher names when available, alongside discovery
