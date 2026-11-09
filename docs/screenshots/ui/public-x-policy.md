@@ -1,6 +1,6 @@
 # Prepared public CSP: live X compatibility
 
-Iteration 1564 (document same-origin/HTTPS image policy), Nov 9 saved edition `ab346e19-8800-49e9-a7f7-5c6a5207d1d6`.
+Iteration 1565 (inline HTML event handler prohibition), Nov 9 saved edition `ab346e19-8800-49e9-a7f7-5c6a5207d1d6`.
 Actual prepared CSP injected into browser document responses only; accounts/public remain off.
 All 10 real saved X widgets loaded at 1440×1100 and 390×844 in light/dark.
 No document CSP violations; remote writes blocked. No LLM calls or fixture substitutions.

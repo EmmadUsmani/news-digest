@@ -405,8 +405,11 @@ The default-off public access stack now sets HSTS (one year, host only),
 transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
 submissions (same-origin only). Frame sources are limited to the same origin,
 `https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
-are limited to the same origin and `https://syndication.twitter.com`; scripts
-remain unchanged. Document images allow the app origin and HTTPS sources, supporting
+are limited to the same origin and `https://syndication.twitter.com`; script
+elements and eval remain unchanged. Inline HTML event handlers are blocked with
+`script-src-attr 'none'`; JavaScript event listeners remain available.
+`scripts/check-public-event-handler-policy.ts` verifies refusal, listener admission
+and private rollback with synthetic buttons. Document images allow the app origin and HTTPS sources, supporting
 source favicons and Bluesky previews without a fixed publisher list; HTTP and data
 images are blocked. `scripts/check-public-image-policy.ts` verifies admission,
 refusal and private rollback with intercepted synthetic images. Document fonts are restricted to the same origin; the app uses system fonts.

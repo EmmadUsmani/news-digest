@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1564: default-off public CSP admits only same-origin/HTTPS document images; synthetic admission/refusal and private rollback verified, plus real X compatibility checks. Proxy receipt unchanged; visitor identification still awaits owner rerun.
+- [x] Iteration 1565: default-off public CSP blocks inline HTML event handlers; synthetic refusal/listener/private rollback and real X compatibility verified. Script elements/eval and proxy acceptance remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

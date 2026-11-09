@@ -153,3 +153,13 @@ Earlier entries: [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.
 - Build passes (existing bundle warning); handbook check passes 18 pages/one diagram with existing unapplied-account metadata warnings. Scheduled-reader gate passes four topics/19 stories/14 posts.
 - Initial full check: 772 unit passes/one transient process-inspection cleanup failure; targeted retry passes. Fixed archive formatting found by next check. Final `pnpm check` passes: 773 unit/272 integration, four expected skips. `pnpm format`, `pnpm lint:fix` and `git diff --check` pass.
 - API/worker restarted outside hold; readiness retry, health, alerts and scheduled-reader gate pass. Next: owner item 53 rerun before visitor selector changes; Phase 4 script policy/resource review remains open behind flags.
+
+## 2026-11-09: iteration 1565 — block prepared public inline event handlers
+
+- Clean main/no leftovers; initial health/alerts clear. All 36 sources healthy; digest queue zero failed jobs. Accounts/public remain off awaiting item 53 owner proxy rerun; no paid calls or configuration changes.
+- Prepared public CSP now blocks inline HTML event handlers, preserving JavaScript listeners. Script elements/eval remain unrestricted pending compatibility/security review. Updated runtime handbook, public-access plan and screenshot manifest.
+- `pnpm exec tsx scripts/check-public-event-handler-policy.ts` passes synthetic refusal/listener admission/private rollback; targeted public-access-stack tests pass 2/2 after updating the expected header.
+- `pnpm exec tsx scripts/check-public-live-embeds.ts` passes 40 real saved X widget views with zero document CSP violations; refreshed screenshots and inspected mobile-dark video card.
+- `pnpm check` passes typecheck/lint/format/boundaries then terminates (143) during units. Standalone units first catch stale expected CSP; corrected rerun passes 773/773. `pnpm test:integration` passes 272/four expected skips.
+- `pnpm format`, `pnpm lint:fix`, build and `git diff --check` pass. Handbook renders 18 pages/one diagram; command exits 1 solely for existing unapplied-account schema metadata warnings.
+- API/worker restarted outside hold; health, alerts and scheduled-reader gate pass (four topics/19 stories/14 posts). Next: owner proxy rerun before Phase 3 activation; finish Phase 4 script/resource review behind flags. Metrics probe not due until 19:36 UTC.
