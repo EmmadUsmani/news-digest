@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1505: connected article transport to the disabled combined public-read composition; isolated HTTP/storage checks cover nonempty articles, private-field omission, shared storage and independent failures. Configured text/host review and live installation remain open. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1506: reviewed the prepared live response snapshot: four complete topic configurations, 36 source names/origins and 20 preview titles/source labels; no private material observed. Recorded aggregator naming and pre-promotion recheck requirements. Authorization/controller replacement and proxy proof remain open. [Review](docs/public-read-configured-review.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

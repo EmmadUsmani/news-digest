@@ -259,3 +259,13 @@ outside main; the combined read composition now includes it, with configured
 text/hostname review,
 legacy controller replacement and authorization remain rollout gates. It does not
 expose `content/window` or approve stored article permalinks.
+
+## Configured snapshot review
+
+Iteration 1506 inspected all four topic configurations, 36 source names/origins
+and 20 current preview titles/source labels from the prepared live readers.
+[Review scope and origin inventory](public-read-configured-review.md) records
+no observed private material and the Google News aggregator naming requirement.
+Recheck changed configuration and preview text before promotion; this snapshot
+does not approve all historical/future content. Authorization, controller
+replacement and proxy proof remain open; routes stay restricted.
