@@ -132,3 +132,16 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Latest/history response hashes unchanged; scheduled reader check passes four topics/19 stories/14 posts. Post-restart alerts clear, services/sources/queues healthy.
 - Updated TASKS, public-access plan, affected handbook and screenshot receipt. No providers, migrations, configuration, source requests or live account writes.
 - Next: Phase 3 live proxy proof/guarded activation; continue unfinished Phase 4 readiness while blocked. Accounts/public remain off; metrics recovery remains open.
+
+## 2026-11-09: iteration 1552 — prepare public security headers
+
+- Clean main/no leftovers; alerts clear; health, 14 services, 36 sources and scheduled digest jobs healthy. Hourly metrics probe not due until 17:18 UTC; no extra sample.
+- Owner value: the prepared public stack now protects reader/account responses from MIME guessing, referrer disclosure and external framing before public activation.
+- Added public-only HSTS (one year, host only), nosniff, no-referrer, SAMEORIGIN and CSP base/object/ancestor restrictions before account transport and authorization. Private mode remains unchanged.
+- Wire-level GET/HEAD, account, reader and denied-route checks pass, including forged forwarded protocol; targeted stack/runtime tests pass 4/4.
+- Local Chromium synthetic-content check passes: external base URL refused, same-origin tool iframe and scripts work. No live embeds or provider calls; script/connect resource allowlists remain a readiness gate.
+- Updated public-access plan, affected handbook and TASKS. Handbook check passes 18 pages/one diagram; expected metadata warnings for unapplied account tables remain.
+- Rechecked documented private HTTPS health URL: VM connection refused; no proxy trust established. Accounts/public flags stay off, no migrations/configuration/source changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build and git diff --check pass: 769 unit/272 integration passes, four expected skips; existing bundler warnings only.
+- Restarted API/worker outside the hold; initial pre-readiness curl retried successfully. Health and post-restart alerts pass; scheduled reader check passes four topics/19 stories/14 posts.
+- Next: live proxy proof/guarded Phase 3 activation; continue Phase 4 resource-policy and remaining public-readiness work while blocked.

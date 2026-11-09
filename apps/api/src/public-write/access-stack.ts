@@ -22,6 +22,20 @@ export function prepareAccessStack(options: {
     : options.legacyAccess();
   const accounts = options.accounts;
   return (request, response, next) => {
+    if (options.publicMode) {
+      // Public access is served through the configured HTTPS origin. Do not
+      // derive security policy from spoofable forwarding/identity headers.
+      response.setHeader('Strict-Transport-Security', 'max-age=31536000');
+      response.setHeader('X-Content-Type-Options', 'nosniff');
+      response.setHeader('Referrer-Policy', 'no-referrer');
+      response.setHeader('X-Frame-Options', 'SAMEORIGIN');
+      // These document restrictions preserve official embeds and same-origin
+      // tool frames. Script/connect allowlists need their own browser review.
+      response.setHeader(
+        'Content-Security-Policy',
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'",
+      );
+    }
     if (accounts)
       return accounts(request, response, () => {
         void access(request, response, next);

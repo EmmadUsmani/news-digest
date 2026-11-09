@@ -71,6 +71,9 @@ flowchart LR
 
 - Secrets (API keys) live only in `~/.config/news-digest/env` on the VM
   (mode 600). They are never committed. The API and worker load this file.
+- `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
+  and same-origin framing headers before account handling and authorization.
+  The CSP limits base URLs, plugin objects and embedding ancestors.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.
 - App service definitions are tracked in `ops/services/*.service`; observability

@@ -386,6 +386,15 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+The default-off public access stack now sets HSTS (one year, host only),
+`nosniff`, `no-referrer`, same-origin framing and a document CSP before account
+transport or authorization. The CSP restricts base URLs, plugin objects and
+embedding ancestors; it leaves outgoing embed frames and script/connect sources
+unchanged. A complete resource allowlist still needs browser review before public
+readiness is accepted. Private mode adds none of these headers. Wire-level checks
+cover account responses, reader GET/HEAD and denied routes, including a forged
+forwarded protocol. Accounts/public activation remains gated as before.
+
 The `/privacy` page is available from the reader footer. It describes browser-local
 choices, limited technical error reports, embedded third-party connections and the
 hosting proxy. Account data, sync, deletion and backup retention appear only when

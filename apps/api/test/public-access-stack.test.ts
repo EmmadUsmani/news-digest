@@ -38,6 +38,30 @@ void test('public access stack replaces legacy identity headers and keeps accoun
   assert.ok(address && typeof address !== 'string');
   const base = `http://127.0.0.1:${address.port}`;
   try {
+    for (const [method, path, status] of [
+      ['GET', '/api/account/session', 204],
+      ['GET', '/api/editions/latest', 204],
+      ['HEAD', '/api/editions/latest', 204],
+      ['GET', '/unclassified', 404],
+    ] as const) {
+      const response = await fetch(base + path, {
+        method,
+        headers: { 'x-forwarded-proto': 'http' },
+      });
+      assert.equal(response.status, status);
+      assert.equal(
+        response.headers.get('strict-transport-security'),
+        'max-age=31536000',
+      );
+      assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+      assert.equal(response.headers.get('referrer-policy'), 'no-referrer');
+      assert.equal(response.headers.get('x-frame-options'), 'SAMEORIGIN');
+      assert.equal(
+        response.headers.get('content-security-policy'),
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'",
+      );
+    }
+    downstream = 0;
     assert.equal((await fetch(base + '/api/account/session')).status, 204);
     assert.deepEqual([authentication, downstream], [0, 0]);
     assert.equal((await fetch(base + '/api/editions/latest')).status, 204);
