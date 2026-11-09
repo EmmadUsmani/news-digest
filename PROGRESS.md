@@ -1,19 +1,3 @@
-## 2026-11-09: iteration 1456 — gated admin revocation runtime
-
-- Clean main/no leftovers; initial health and alerts clear, all 36 sources healthy and digest queue has zero failures. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts stay disabled and VM private.
-- Composed audited admin session revocation with the current runtime allowlist and required repository dependency; gated storage owns connection shutdown. No live account operation, migration, provider call or email. Migration 0017 remains unapplied; admin controls remain next.
-- Extended isolated stored-account acceptance across runtimes: non-admin refusal, target-only removal, immediate HTTP sync refusal, issuer/other-reader survival and repeat zero-count success. Initial test used a pre-login clock and correctly hit the freshness refusal; fixed the test clock and reran integration. Updated rollout plan, handbook and TASKS.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (701 unit passes; initial integration clock failure), corrected `pnpm test:integration`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Corrected integration: 254 passes/four expected skips, zero failures. Saved reader retains four topics/19 stories/17 posts; handbook has existing pending-account metadata warnings.
-- Archived iterations 1442–1443 to keep this log small. Commit/push then restart API/worker and recheck health, reader and alerts. Next: gated admin revocation control; scheduled Phase 1 acceptance then live proxy proof. Owner two-device acceptance stays open.
-
-## 2026-11-09: iteration 1457 — gated admin reader sign-out control
-
-- Clean main/no leftovers; health and alerts clear, all 36 sources healthy, digest queue zero failures and no recent errors. Normal Phase 1 acceptance awaits Nov 9 15:00 UTC; accounts stay disabled and VM private.
-- Added admin-only reader sign-out form: UUID target, explicit all-device confirmation reset on target changes, refusal/retry, validated removed-session counts and issuer-session refresh after success. Target stays in memory and unmount aborts pending requests. No live account writes, migration, provider calls or email. Migration 0017 remains unapplied.
-- Desktop/mobile fixture browser checks cover hidden non-admin/disabled controls, confirmation reset, refusal preserving target, retry, positive/zero counts, malformed success rejection and issuer refresh. Saved-reader header integration passes; refreshed screenshots and affected rollout/handbook notes.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, both reader-account browser smokes, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Full check passes: 701 unit passes, 254 integration passes/four expected skips. Build/browser checks pass; saved reader retains four topics/19 stories/17 posts. Handbook renders but exits 1 for existing unapplied-account metadata warnings; no diagrams changed.
-- Commit/push then restart API/worker and recheck health/reader/alerts. Next: normal scheduled Phase 1 acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance stays open.
-
 ## 2026-11-09: iteration 1458 — stored HTTP multi-device admin revocation acceptance
 
 - Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures. Phase 1 still awaits Nov 9 15:00 UTC; accounts disabled, migration 0017 unapplied and VM private.
@@ -150,3 +134,12 @@
 - Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`, and saved-reader check (four topics/19 stories/17 posts). Commit/push followed by API/worker restart and health/alerts verification.
 - Full check: 707 unit and 254 integration tests pass, four expected skips; build passes.
 - Next: normal Phase 1 scheduled acceptance and authenticated live proxy proof before account activation. Accounts stay disabled; owner two-device acceptance remains required.
+
+## 2026-11-09: iteration 1474 — composed browser login over real HTTPS
+
+- Clean main/no leftovers; health and alerts clear, no failed user services. Scheduled Phase 1 acceptance still awaits 15:00 UTC; metrics check not due before 05:27 UTC.
+- Replaced browser route interception in the composed login acceptance with a temporary loopback HTTPS server and production account HTTP adapter. Temporary self-signed TLS material is removed with the private fixture mailbox.
+- Desktop/mobile verify cross-origin refusal, exact expiry, five-guess exhaustion/replacement, secure host cookie, authenticated HTTP session lookup, logout cookie removal and replay refusal. Storage/admission remain fixtures; no live account writes or provider calls. Inspected mobile screenshot; refreshed desktop replay screenshot.
+- Updated activation checks/TASKS and archived iterations 1456–1457. Accounts stay disabled; live proxy proof and owner two-device acceptance remain open.
+- Verification: composed browser smoke, format, lint fix, build, saved-reader check (four topics/19 stories/17 posts), diff check. First lint-fix process ended 143; retry passed and fixed import ordering caught by initial full check; full check rerun passes (707 unit/254 integration, four expected skips).
+- No application code/config changed; healthy services require no restart under STEERING 22. Next: normal scheduled acceptance and live proxy proof before activation.

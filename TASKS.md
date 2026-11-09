@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1473: desktop/mobile composed login refuses five incorrect guesses and the exhausted correct code; replacement restores authentication. Fixture-only browser proof; accounts remain disabled.
+- [x] Iteration 1474: desktop/mobile composed login now crosses real loopback HTTPS and the production HTTP adapter; Origin refusal, secure cookies, session lookup/logout, expiry, exhaustion and replay pass with fixture storage. Accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
