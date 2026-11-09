@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1485: prepared disconnected public schedule/topic allowlists; private owner/future fields omitted and malformed/storage failures produce generic 503s. Existing routes remain admin. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1486: prepared disconnected origin-only public source catalog; private feed paths/query/fragment and future columns omitted, credential/private-origin failures generic. Existing routes remain admin. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

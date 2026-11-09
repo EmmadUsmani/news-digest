@@ -5,6 +5,7 @@ import { ServiceUnavailableException } from '@nestjs/common';
 
 import {
   readPublicSchedule,
+  readPublicSourceCatalog,
   readPublicTopics,
 } from '../src/public-read/settings';
 import { classifyPublicRoute } from '../src/public-route-policy';
@@ -94,5 +95,53 @@ void test('prepared public settings fail closed with exact generic errors', asyn
       });
     }
     assert.ok(await reader(async () => valid));
+  }
+});
+
+void test('prepared public source catalog exposes origins without feed credentials or future fields', async () => {
+  assert.deepEqual(
+    await readPublicSourceCatalog(async () => [
+      {
+        id: 'feed',
+        name: 'Publisher',
+        url: `https://feeds.publisher.org/private/${secret}?token=${secret}#${secret}`,
+        ownerEmail: secret,
+      },
+    ]),
+    [{ id: 'feed', name: 'Publisher', origin: 'https://feeds.publisher.org' }],
+  );
+  for (const method of ['GET', 'HEAD'])
+    assert.equal(
+      classifyPublicRoute(method, '/api/admin/topics/sources'),
+      'admin',
+    );
+});
+
+void test('prepared source catalog rejects invalid or private origins with generic failures', async () => {
+  const readers = [
+    async () => {
+      throw new Error(secret);
+    },
+    async () => null,
+    ...[
+      'http://feeds.publisher.org',
+      'https://localhost/feed',
+      'https://127.0.0.1/feed',
+      'https://service.internal/feed',
+      `https://owner:${secret}@feeds.publisher.org/feed`,
+      'https://feeds.publisher.org:8443/feed',
+      'javascript:alert(1)',
+    ].map((url) => async () => [{ id: 'feed', name: 'Publisher', url }]),
+  ];
+  for (const read of readers) {
+    await assert.rejects(readPublicSourceCatalog(read), (error: unknown) => {
+      assert.ok(error instanceof ServiceUnavailableException);
+      assert.deepEqual(error.getResponse(), {
+        message: 'Source catalog unavailable',
+        error: 'Service Unavailable',
+        statusCode: 503,
+      });
+      return true;
+    });
   }
 });

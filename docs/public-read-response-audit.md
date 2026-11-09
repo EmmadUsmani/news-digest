@@ -1,6 +1,6 @@
 # Public administrative response audit
 
-Phase 4 preparation, iterations 1484–1485 (2026-11-09). The route classifier is
+Phase 4 preparation, iterations 1484–1486 (2026-11-09). The route classifier is
 unregistered. These decisions change no live access. HEAD inherits GET's class.
 The owner intends public read-only admin pages; restricted rows below require
 work before that rollout, rather than a permanent change to that intent.
@@ -10,7 +10,7 @@ work before that rollout, rather than a permanent change to that intent.
 | `status/alerts`                                                    | Timestamp and firing/pending counts only                        | Public-read; audited below                                                    |
 | `profile`                                                          | Legacy owner profile ID/name plus system schedule               | Admin; disconnected system-schedule projection prepared                       |
 | `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin; disconnected explicit public field projection prepared                 |
-| `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin until stored URLs are checked and public URL output bounded             |
+| `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin; disconnected origin-only catalog projection prepared                   |
 | `content`, `content/window`                                        | Topic IDs and article ID/title/URL/date/source                  | Admin pending stored URL/text and failure-response audit                      |
 | `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin pending public projection and stored-error review                       |
 | `status`                                                           | Coverage, sources, queues, provider usage and development spend | Admin pending projection of errors, job return strings and accounting details |
@@ -47,6 +47,18 @@ fields, nested additions, malformed results and thrown private errors.
 No controller imports these readers. Existing profile/topic GET and HEAD routes
 remain admin-classified. Transport wiring, system-only schedule reads, configured
 text review and the broader route gate still need verification before promotion.
+
+## Prepared source catalog projection
+
+`readPublicSourceCatalog` returns source IDs, configured names and publisher
+origins. It omits configured feed paths, queries and fragments because these can
+contain subscription tokens. It uses the existing public HTTPS URL policy to
+reject credentials, custom ports and literal private/local hosts, then derives
+only the origin. It performs no network request or DNS lookup. Invalid rows and
+repository failures return a fixed 503 without stored values. Unknown row fields
+are discarded. Offline tests include secret-bearing paths/queries/fragments and
+credential/private-origin failures. This new shape needs frontend integration
+before promotion; existing GET/HEAD routes remain admin and unchanged.
 
 ## Remaining response boundaries
 
