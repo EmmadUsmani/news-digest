@@ -152,7 +152,18 @@ async function main() {
             },
           },
           revocation: { revokeWithAudit: async () => null },
-          deletion: { deleteForSession: async () => false },
+          deletion: {
+            deleteForSession: async (hash) => {
+              const owner = sessions.get(hash);
+              if (!owner) return false;
+              for (const [key, session] of sessions) {
+                if (session.userId === owner.userId) sessions.delete(key);
+              }
+              challenge = null;
+              links.clear();
+              return true;
+            },
+          },
           sync: { merge: async (_id, changes) => changes },
         }),
       );
@@ -484,12 +495,69 @@ async function main() {
         'missing or invalid',
       );
       await expect(confirm).toBeDisabled();
-      await linkContext.close();
-      await context.request.post(`${origin}/api/account/logout`, {
+      // Deletion must reject unsafe requests before touching either device.
+      const deletionLink = await issueLink();
+      await linkContext.request.post(`${origin}/api/account/link-redeem`, {
         headers: { Origin: origin },
-        data: {},
+        data: { token: deletionLink.token },
       });
+      assert.equal(sessions.size, 2);
+      const deletionCookies = [
+        (await context.cookies())[0],
+        (await linkContext.cookies())[0],
+      ];
+      for (const [requestOrigin, confirmation] of [
+        ['https://other.fixture', 'DELETE'],
+        [origin, 'delete'],
+      ]) {
+        const refused = await context.request.post(
+          `${origin}/api/account/delete`,
+          {
+            headers: { Origin: requestOrigin },
+            data: { confirmation },
+          },
+        );
+        assert.equal(refused.status(), 400);
+        assert.equal(sessions.size, 2);
+        assert.equal((await context.cookies()).length, 1);
+      }
+      const deleted = await context.request.post(
+        `${origin}/api/account/delete`,
+        {
+          headers: { Origin: origin },
+          data: { confirmation: 'DELETE' },
+        },
+      );
+      assert.equal(deleted.status(), 204);
+      assert.equal(deleted.headers()['cache-control'], 'no-store');
+      assert.equal((await context.cookies()).length, 0);
       assert.equal(sessions.size, 0);
+      for (const cookie of deletionCookies) {
+        const replay = await context.request.get(
+          `${origin}/api/account/session`,
+          {
+            headers: { Cookie: `${cookie.name}=${cookie.value}` },
+          },
+        );
+        assert.equal((await replay.json()).signedIn, false);
+        const deleteReplay = await context.request.post(
+          `${origin}/api/account/delete`,
+          {
+            headers: {
+              Origin: origin,
+              Cookie: `${cookie.name}=${cookie.value}`,
+            },
+            data: { confirmation: 'DELETE' },
+          },
+        );
+        assert.equal(deleteReplay.status(), 401);
+      }
+      const deletedDevice = await linkContext.request.get(
+        `${origin}/api/account/session`,
+      );
+      assert.equal((await deletedDevice.json()).signedIn, false);
+      assert.equal(deletedDevice.headers()['set-cookie'], undefined);
+      await linkContext.close();
       await page.goto(`${origin}/account/login`);
       await page.getByLabel('Email', { exact: true }).fill(email);
       await redeem(valid);
@@ -510,7 +578,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, two-device account deletion with confirmation/origin checks and revoked-cookie refusal, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();

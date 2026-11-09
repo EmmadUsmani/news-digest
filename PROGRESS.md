@@ -151,3 +151,13 @@
 - First full-check process ended 143 during unit tests with no assertion failure; complete retry passes 707 unit/254 integration tests, four expected skips. Handbook reports expected metadata for unapplied account tables.
 - Hourly 05:27 metrics probe: 23 healthy rules, four queries ≤0.710 s, no new evaluator errors/misses; recovery remains open. Next passive check ≥06:27 UTC.
 - No service restart needed under STEERING 22. Next: normal scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.
+
+## 2026-11-09: iteration 1478 — composed HTTPS account deletion
+
+- Clean main/no leftovers; alerts clear, health passes and no failed user services. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
+- Extended composed desktop/mobile HTTPS acceptance with two independently issued sessions: cross-origin and incorrect-confirmation deletion requests preserve both sessions and the calling cookie.
+- Confirmed deletion clears the calling cookie, refuses both device sessions without renewal and rejects authenticated-cookie deletion replays. Production HTTP/composition/crypto; fixture deletion storage only, no live account writes or provider calls.
+- Updated the activation checklist; no UI/runtime/config changes or new screenshots. Existing browser screenshots remain unchanged.
+- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` twice, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check, handbook checker and `git diff --check` pass.
+- Full check: 707 unit/254 integration tests pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; handbook reports expected metadata for unapplied account tables.
+- No restart under STEERING 22. Next: normal Phase 1 scheduled acceptance and live proxy proof; metrics probe not due before 06:27 UTC.

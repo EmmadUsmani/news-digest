@@ -29,7 +29,9 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   revoked-cookie replay, expiry, exhaustion, code replay and cross-origin refusal.
   Admin-issued links also cross the real HTTPS boundary: fragment-only preview,
   exact expiry, explicit confirmation, secure session exchange and replay/reload
-  refusal, with fixture storage and no live account writes.
+  refusal. Deletion rejects incorrect confirmation and cross-origin requests, then
+  clears the calling cookie and refuses both devices and deletion replays. These
+  checks use fixture storage and make no live account writes.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

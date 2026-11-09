@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1477: composed desktop/mobile HTTPS sign-in links verify admin issuance, fragment preview, exact expiry, cross-origin refusal, secure exchange and replay/reload refusal; accounts remain disabled.
+- [x] Iteration 1478: composed desktop/mobile HTTPS deletion verifies origin/confirmation refusal, calling-cookie removal, both-device revocation and deletion replay refusal; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
