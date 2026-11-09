@@ -43,33 +43,17 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 item 53 rerun needed (iteration 1560): the previous private receipt
-showed loopback peers, two appended forwarding entries and replacement of the
-forged email. It did not establish which appended entry is the visitor.
-
-1. On the VM run `pnpm exec tsx scripts/probe-account-proxy.ts 8765`.
-2. Within five minutes open the exact printed private HTTPS URL in the
-   authenticated browser and click **Run check once**. Keep the URL private.
-3. The receipt is saved at
-   `~/.local/state/news-digest/account-proxy-receipt.json` (mode 600).
-   Each step now includes `appendedEntries` in chain order, with `category`
-   and `matchesBaseline` for both positions. No addresses or identities are saved.
-4. Leave the receipt on the VM for the next iteration. Do not copy raw headers.
-
-`forwardingValid` and final `status` retain the legacy one-entry requirement:
-a two-entry run can report `failed` while its new position comparisons are
-complete. A null comparison means the two-entry baseline or current shape is
-missing/ambiguous. A changed position, invalid entry, or absence of a stable
-public entry blocks a trust change and must be reported. After a clear rerun,
-item 53 authorizes a fixed-hop visitor selector and observed-shape tests.
-Accounts/public remain off; the previous private receipt has not been replaced
-by a simulation. No sharing or trust configuration changed.
+Nov 9 item 53 proxy question resolved by the owner's result in STEERING.md:
+both appended entries match the visitor, and the immediate peer is loopback.
+Keep the existing last-entry selector. No further proxy rerun is requested;
+observed-shape tests and guarded Phase 3 activation are next. Accounts/public
+remain off until activation checks pass; sharing is unchanged.
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes
 40 real X widget views with the self/platform script allowlist enforced and no
 inline/eval exceptions. [Review and evidence](docs/public-script-policy-review.md).
-Full Phase 4 readiness/security review and item 53 proxy proof remain pending.
+Full Phase 4 readiness/security review remains pending.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
