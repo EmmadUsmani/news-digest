@@ -11,9 +11,9 @@ void test('prepared local credentials restrict admin HTTP access without reader 
   const access = publicAccountAccess(
     true,
     () => ({
-      async current() {
+      async authorization() {
         reads++;
-        return { body: { signedIn: false as const } };
+        return null;
       },
     }),
     undefined,

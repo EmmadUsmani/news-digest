@@ -425,9 +425,11 @@ handler can run. Missing identity/recorder or storage failure refuses with an
 empty 503; unauthorized requests never reach the recorder. Entries contain only
 actor, method, classified path and time; query strings, bodies and credentials
 are excluded. Admission records attempted execution, not successful mutation.
-The recorder, actor composition and transactional mutation outcomes still need
-implementation; the current account composition deliberately cannot admit admin
-writes. This policy remains uninstalled and changes no live access.
+Trusted actor composition (iteration 1514) now derives UUIDs from persisted
+sessions and marks validated direct local-script requests explicitly. Session
+response bodies still exclude identity. A supplied recorder is awaited with the
+same request clock; missing or failed storage still blocks writes. Durable
+recorder storage and transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
 
 ## Target design
 

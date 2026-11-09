@@ -8,6 +8,7 @@ import { AccountRequestBoundary } from '../src/modules/accounts/adapters/account
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { ReaderSessions } from '../src/modules/accounts/application/sessions';
 import type { ReaderSession } from '../src/modules/accounts/domain/session';
+import type { AdminWriteAdmission } from '../src/public-access';
 import { publicAccountAccess } from '../src/public-account-access';
 
 void test('prepared public access validates real account cookies, renewal, freshness and revocation over HTTP', async () => {
@@ -50,7 +51,7 @@ void test('prepared public access validates real account cookies, renewal, fresh
     admins,
   );
   const issued = await sessions.issueVerifiedIdentity(
-    'user',
+    '11111111-1111-4111-8111-111111111111',
     'owner@example.test',
     start,
   );
@@ -69,10 +70,17 @@ void test('prepared public access validates real account cookies, renewal, fresh
     },
     sessions,
   );
+  const admissions: AdminWriteAdmission[] = [];
+  let auditUnavailable = false;
   const access = publicAccountAccess(
     true,
     () => handlers,
     () => now,
+    'local-test-token',
+    async (entry) => {
+      if (auditUnavailable) throw new Error('private storage failure');
+      admissions.push(entry);
+    },
   );
   const server = createServer((request, response) => {
     void access(request, response, () => response.writeHead(204).end());
@@ -103,6 +111,40 @@ void test('prepared public access validates real account cookies, renewal, fresh
     await check('/api/admin/profile', 404, '__Host-reader_session=malformed');
     assert.equal(reads, 0);
     await check('/api/admin/profile', 204, cookie);
+    assert.deepEqual((await handlers.current(cookie, now)).body, {
+      signedIn: true,
+      isAdmin: true,
+    });
+    await check(
+      '/api/admin/profile/schedule?secret=excluded',
+      204,
+      cookie,
+      'PUT',
+    );
+    assert.deepEqual(admissions.pop(), {
+      actor: { userId: '11111111-1111-4111-8111-111111111111' },
+      action: 'PUT',
+      target: '/api/admin/profile/schedule',
+      at: now,
+    });
+    auditUnavailable = true;
+    await check('/api/admin/profile/schedule', 503, cookie, 'PUT');
+    auditUnavailable = false;
+    const local = await fetch(`${base}/api/admin/profile/schedule`, {
+      method: 'PUT',
+      headers: { admin_local_token: 'local-test-token' },
+    });
+    assert.equal(local.status, 204);
+    assert.deepEqual(admissions.pop()?.actor, { localScript: true });
+    const forwarded = await fetch(`${base}/api/admin/profile/schedule`, {
+      method: 'PUT',
+      headers: {
+        admin_local_token: 'local-test-token',
+        'x-forwarded-for': '127.0.0.1',
+      },
+    });
+    assert.equal(forwarded.status, 404);
+    assert.equal(admissions.length, 0);
     now = new Date(start.getTime() + 86_400_000);
     const renewed = await check('/api/admin/profile', 204, cookie);
     assert.equal(renewed.headers.get('set-cookie'), issued.cookie);
@@ -113,11 +155,13 @@ void test('prepared public access validates real account cookies, renewal, fresh
       null,
     );
     admins.clear();
-    await check('/api/admin/profile', 404, cookie);
+    await check('/api/admin/profile/schedule', 404, cookie, 'PUT');
+    assert.equal(admissions.length, 0);
     await check('/api/account/logout', 204, cookie, 'POST');
     admins.add('owner@example.test');
     now = new Date(start.getTime() + 7 * 86_400_000);
-    await check('/api/admin/profile', 404, cookie);
+    await check('/api/admin/profile/schedule', 404, cookie, 'PUT');
+    assert.equal(admissions.length, 0);
     await check('/api/account/logout', 204, cookie, 'POST');
     unavailable = true;
     await check('/api/admin/profile', 503, cookie);

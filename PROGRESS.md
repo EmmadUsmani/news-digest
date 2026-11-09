@@ -1,35 +1,3 @@
-## 2026-11-09: iteration 1499 — compose gated public settings reads
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user units. Authenticated source check finds 36 successful sources/zero stored errors; digest queue has no failures and saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added disconnected aggregate module for schedule, topics, source catalog and source health; all readers share one lazy caller-owned pool. Default-off composition installs no routes/storage; unsafe prerequisites fail before storage opens.
-- Combined disposable-storage HTTP checks cover all GET/HEAD responses, secret URL/error omission, refused writes, absent unaudited/legacy routes, isolated missing-settings failure and caller pool reuse after shutdown.
-- Updated response audit/TASKS; archived iteration 1481. Article URL/text review remains open, including query-bearing links; no article projection or route promotion attempted.
-- No live entrypoints/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because live entrypoints do not import this composition.
-- Verification: targeted disabled-composition HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated sources, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
-- Full check passes 726 unit/261 integration tests, four expected skips; build passes with existing bundle warnings. Targeted disabled HTTP, combined database/HTTP and saved-reader checks pass.
-- Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining public-route/frontend integration before promotion.
-
-## 2026-11-09: iteration 1500 — inventory stored article-link privacy boundaries
-
-- Clean main/no leftovers; alerts/healthz clear and no failed user units. All 36 sources succeeded within two hours, zero stored errors, 1,089 latest-response items; digest queue has no failures. Saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Added read-only repeatable-read inventory of every stored canonical article link using a bounded 1,000-row cursor. Output contains only fixed aggregate counters; URL values, hosts, parameter names, parser errors and titles never enter the report.
-- Live inventories at 08:34/08:36 UTC agree: 7,299 links, zero malformed/credential-bearing, 7,293 public-HTTPS-policy passes/six rejections, 2,185 query-bearing and zero fragments. These counts do not approve paths/query values for public display; article routes stay restricted.
-- Offline adversarial checks cover overlapping risks and encoded delimiters; disposable Postgres verifies all 1,003 fixture rows, unchanged fingerprints and clean connection reuse after a missing-column failure.
-- Updated response audit/TASKS; archived iterations 1482–1483. No live app/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of these scripts.
-- Verification: targeted unit test, isolated integration suite, two live inventory runs, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
-- Fixed archived-note formatting found by the first check; rerun passes 728 unit/262 integration tests, four expected skips. Build passes with existing bundle warnings.
-- Next: reviewed article-link display policy/configured text and remaining public-route integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
-
-## 2026-11-09: iteration 1501 — prepare origin-only article-link display
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources succeeded within two hours, zero stored errors, 1,089 latest-response items; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
-- Prepared publisher-origin-only display helper: every path/query/fragment is omitted, malformed/ineligible/credential-bearing links return null, and stored URLs never serve as fallbacks. Original article permalinks remain restricted; hostname/text review and public transport are still required.
-- Three offline tests cover private paths/queries/redirects, encoded delimiters, normalization, credentials/local addresses and unchanged GET/HEAD route classification.
-- Updated response audit/TASKS; archived iterations 1484–1485. No live entrypoints/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of this preparation.
-- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
-- Full check passes 731 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
-- Next: hostname/configured-text review and remaining public transport integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
-
 ## 2026-11-09: iteration 1502 — prepare explicit article-list response boundary
 
 - Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources succeeded within two hours with zero stored errors; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
@@ -150,3 +118,13 @@
 - Updated TASKS/public-access plan. Durable recorder, trusted account/local actor composition, transactional mutation audit, controller replacement and live proxy proof remain open. Normal 15:00 scheduled Phase 1 acceptance still required.
 - Verification: five targeted HTTP tests, pnpm format, pnpm lint:fix, pnpm build and pnpm check pass (742 unit/263 integration, four expected skips); existing bundle warning only. git diff --check passes.
 - No restart under STEERING 22: live entrypoints do not import this prepared policy. Accounts/public mode remain off.
+
+## 2026-11-09: iteration 1514 — compose trusted admin-write audit actors
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources pass freshness checks; four queues available. Saved reader remains four topics/19 stories/17 posts.
+- Prepared account authorization now derives the audit UUID directly from persisted sessions, recomputes freshness/allowlisting, and keeps identity out of current-session JSON. Validated direct local scripts receive an explicit script actor.
+- Prepared public composition accepts an awaited audit recorder and shared clock. Missing/failed recording still blocks writes; forwarded requests cannot use script credentials. No durable recorder or transactional outcome audit is claimed.
+- Three targeted HTTP tests pass, including actor identity, query exclusion, failed storage, local-script refusal through forwarding, removed admin allowlisting, expiry, renewal, revocation and lazy disabled composition.
+- Updated TASKS/public-access plan; archived iterations 1499–1501. No live configuration, migrations, provider calls or UI changes. Policy remains uninstalled/accounts disabled; no restart under STEERING 22.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 742 unit/263 integration passes, four expected skips. Existing build bundle warning only.
+- Next: durable audit recorder storage, transactional mutation outcomes, controller replacement and proxy proof; normal scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC.

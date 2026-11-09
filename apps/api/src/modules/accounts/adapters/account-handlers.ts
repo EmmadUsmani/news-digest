@@ -174,6 +174,19 @@ export class AccountHandlers {
     return { status: 200, body: state, cookie: session.cookie };
   }
 
+  // Internal authorization only; never serialize this identity in HTTP bodies.
+  async authorization(cookie: unknown, now: Date) {
+    const token = this.boundary.sessionToken(cookie);
+    const session = token ? await this.sessions.authenticate(token, now) : null;
+    return session
+      ? {
+          freshAdmin: session.isAdmin,
+          auditActor: { userId: session.userId },
+          cookie: session.cookie,
+        }
+      : null;
+  }
+
   async current(cookie: unknown, now: Date) {
     const token = this.boundary.sessionToken(cookie);
     const session = token ? await this.sessions.authenticate(token, now) : null;
