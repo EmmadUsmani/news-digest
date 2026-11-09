@@ -120,3 +120,13 @@ Earlier entries: [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.
 - Targeted `pnpm exec tsx --test apps/api/test/account-handlers.test.ts`: 4/4 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 779 unit and 274 integration tests/four expected skips. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
 - API/worker restarted; initial health raced startup, retry passes. `pnpm obs health --check`, `pnpm obs services --check` pass (14 services); scheduled-reader check for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Digest-generation failed count zero; alerts clear at 20:25 UTC.
 - Next: construct/register preference admission in prepared account runtime, preserving disabled-mode dependency behavior; item 53 owner rerun still blocks activation. Metrics passive probe not due until 20:36 UTC.
+
+## 2026-11-09: iteration 1575 — wire gated preference admission
+
+- Clean main/no leftovers; initial alerts clear. Kotaku naturally recovered at 20:26 UTC with 20 items; all 36 sources healthy. Removed its open breakage marker and updated SOURCES.
+- Account runtime now constructs per-reader preference admission with a dedicated derived privacy key and passes it to sync handlers. Disabled accounts still open no dependencies; public/accounts flags remain off pending item 53 owner proof.
+- Extended composed stand-in flow: accepted writes reach storage; refusal/Redis errors return empty 429 without writes; recovery resumes writes and reuses private reader bucket. No external test calls, paid calls, migrations, UI or generation changes.
+- Updated readiness plan and TASKS. No active system behavior changes or handbook update needed.
+- Targeted `pnpm exec tsx --test apps/api/test/account-runtime.test.ts`: 2/2 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 779 unit and 274 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
+- API/worker restarted; first health request raced startup, retry passes. `pnpm obs health --check`, `pnpm obs services --check`: healthy/14 services. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; digest queue failed count zero.
+- Next: item 53 owner rerun still blocks activation; continue remaining Phase 4 readiness behind flags. Metrics passive probe due no earlier than 20:36 UTC.

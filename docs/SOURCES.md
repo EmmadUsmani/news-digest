@@ -1245,7 +1245,8 @@ social request, paid discovery, inference or publication was needed for this UI.
   another HTTP 522 attempt at 19:57; iteration 1573 confirms the scheduled
   20:00 attempt also failed, with 35 other sources healthy. Last success is
   unchanged. Iteration 1574 at 20:18 UTC confirms the same state and 35
-  healthy sources. Recheck natural recovery next iteration.
+  healthy sources. Iteration 1575 confirms natural recovery at 20:26 UTC:
+  20 items returned, all 36 sources healthy. No adapter or schedule change.
 
 - **Live:** `https://kotaku.com/rss` supplies 20 stored articles, connected to
   the original Gaming topic by migration 034. Includes reporting, commentary,

@@ -698,14 +698,16 @@ can read them.
 - Rate limits in Redis: on login codes, link redemption, preference writes, and
   a general per-client limit on the API. Verify which `X-Forwarded-For` entry
   exe.dev's proxy sets before trusting it.
-- Preference-write preparation (iteration 1574): an unregistered Redis limiter
+- Preference-write preparation (iterations 1574–1575): a gated Redis limiter
   allows a provisional 30 sync writes/minute per authenticated reader, shared
   across devices and processes. Keys use a separate HMAC namespace; refusal
   does not extend expiry. The optional handler boundary runs after provenance,
   session and payload validation, before any sync mutation; denial or limiter
   failure returns an empty 429. Isolated Redis and handler tests cover shared
   admission, API-limit independence, expiry, refusal and identity injection.
-  Runtime construction/registration remains pending; accounts/public stay off.
+  Account runtime constructs it with a dedicated derived privacy key only when
+  accounts are enabled. Composed flow tests verify admission, refusal, Redis
+  failure and recovery before storage writes; accounts/public stay off.
 - Security headers: CSP compatible with the X and Bluesky embeds, HSTS,
   `X-Content-Type-Options`, `Referrer-Policy` and frame-ancestors.
 - Body size limits. Generic error bodies with no stack traces. Published

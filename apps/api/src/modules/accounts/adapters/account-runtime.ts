@@ -25,6 +25,7 @@ import { AccountRequestBoundary } from './account-request';
 import { FileLoginCodeDelivery } from './file-login-code-delivery';
 import { CryptoLoginCodeSecrets } from './login-code-secrets';
 import { RedisLoginCodeAdmission } from './redis-login-code-admission';
+import { RedisPreferenceAdmission } from './redis-preference-admission';
 import { CryptoSessionTokens } from './session-tokens';
 
 type Dependencies = {
@@ -114,6 +115,10 @@ export function prepareAccountHandlers(
       ports.revocation,
       new CryptoSessionTokens(),
       adminEmails,
+    ),
+    new RedisPreferenceAdmission(
+      ports.cache,
+      derive('preference-admission-v1').toString('hex'),
     ),
   );
 }

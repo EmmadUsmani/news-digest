@@ -50,17 +50,22 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
   let saved: ReaderSession | null = null;
   let link: SignInLink | null = null;
   const now = new Date();
+  let preferenceResult: number | Error = 1;
+  let syncWrites = 0;
+  const preferenceKeys: string[] = [];
   try {
     const handlers = prepareAccountHandlers(
       { ...env, ACCOUNT_MAILBOX_PATH: directory },
       (cleanup) => ({
         revocation: { revokeWithAudit: async () => null },
         sync: {
-          merge: async (_userId, changes) =>
-            mergeReaderSync(
+          merge: async (_userId, changes) => {
+            syncWrites++;
+            return mergeReaderSync(
               { version: 1, hiddenTopics: {}, bookmarks: {} },
               changes,
-            ),
+            );
+          },
         },
         deletion: {
           deleteForSession: async (hash) => {
@@ -99,7 +104,15 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
         },
         recipients: { run: async (_email, work) => work() },
         existingIdentity: async () => false,
-        cache: { eval: async () => 1 },
+        cache: {
+          eval: async (_script, _count, ...args) => {
+            const key = String(args[0]);
+            if (!key.startsWith('accounts:preferences:')) return 1;
+            preferenceKeys.push(key);
+            if (preferenceResult instanceof Error) throw preferenceResult;
+            return preferenceResult;
+          },
+        },
         codes: {
           replace: async (value) => {
             challenge = value;
@@ -169,6 +182,26 @@ void test('composed stand-in flow verifies codes, hashes sessions, rejects repla
       (await handlers.redeemCode(redeem, 'verified-client', now)).status,
       401,
     );
+    const syncRequest = {
+      ...request,
+      cookie,
+      body: { version: 1, hiddenTopics: {}, bookmarks: {} },
+    };
+    assert.equal((await handlers.syncReader(syncRequest, now)).status, 200);
+    assert.equal(syncWrites, 1);
+    for (const refusal of [0, new Error('Redis unavailable')]) {
+      preferenceResult = refusal;
+      assert.deepEqual(await handlers.syncReader(syncRequest, now), {
+        status: 429,
+      });
+      assert.equal(syncWrites, 1);
+    }
+    preferenceResult = 1;
+    assert.equal((await handlers.syncReader(syncRequest, now)).status, 200);
+    assert.equal(syncWrites, 2);
+    assert.equal(new Set(preferenceKeys).size, 1);
+    assert.match(preferenceKeys[0], /^accounts:preferences:user:[a-f0-9]{64}$/);
+    assert.ok(!preferenceKeys[0].includes('verified-user'));
     const issued = await handlers.issueLink(
       { ...request, cookie, body: { email: 'friend@example.com' } },
       now,

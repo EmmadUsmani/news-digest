@@ -4,8 +4,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Source health (1573): Kotaku RSS returns upstream HTTP 522; last success Nov 9 18:26 UTC/20 items. Latest scheduled attempt still failed at 20:00 UTC, explaining RecentJobFailures; check natural recovery next iteration; no scraping workaround.
-
 - [ ] STEERING 50: phases 0/2 accepted (1386); **Phase 1 accepted (1544)** after normal Nov 9 full-AI publication, 553-edition off/on/off parity, five original reader hashes and seven-edition desktop/mobile light/dark checks. SYSTEM_OWNERSHIP on; migrations 0011/0012 applied with private backup/restore/rollback evidence; live private AI-off/AI-on checks pass. Development Anthropic $0.211076/xAI $0, zero holds. **Blocked: item 53 per-position categories/stability diagnostic shipped (1560); awaiting owner rerun to identify visitor**, then Phase 3 and 4. Accounts/public flags off; account migrations pending. Prepared accounts include sessions, code login/stand-in mailbox, admission, sync, friend links, revocation, deletion and guarded public/admin HTTP adapters. Latest prepared step (1545): bounded atomic topic-order PUT wired into default-off public runtime; composed HTTP/storage rollback checks pass. Prepared API deployed default-off after the hold (1548); latest/history hashes unchanged, services/sources/jobs healthy. Live proxy forwarding proof remains required; owner two-device acceptance follows guarded activation. No deploy/restart/migration 13:00–16:00 UTC or generation edits after noon. [Plan and detailed preparation](docs/public-access-plan.md), [activation checklist](docs/account-activation.md), [acceptance](docs/edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544).
 
 - [ ] Breakage (1191–1470): metrics-store CPU-only 2% trial remains unchanged since Nov 7 16:00:24 UTC. **Natural compaction confirmed:** Nov 8 17:48 journal records one 49,279,202-row merge in 164.103 s; stored scrape samples healthy, zero query timeouts/slow queries/restarts. Compaction-window stack memory ≤686.8 MiB/five-minute CPU ≤2.361%. Historical evaluator counters/per-rule health unavailable; recovery still needs correlated rule/query evidence. Latest short probe Nov 9 19:36 (1569): 23 healthy rules, four queries ≤0.763 s, zero new evaluator errors/misses, one small merge/no large merge in the interval. Next passive check ≥20:36 UTC; at most hourly. No deployment hold under STEERING 49. [Evidence](docs/decisions/0004-observability-capacity.md#natural-large-compaction-confirmed-iteration-1470).
@@ -38,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1574: prepared unregistered per-reader Redis preference-write limit and optional authenticated sync boundary; shared allowances, private keys, expiry and refusal before mutation verified. Runtime registration and visitor proof remain open.
+- [x] Iteration 1575: wired per-reader preference admission into gated account runtime with a dedicated derived key; composed admission/refusal/dependency recovery verified. Disabled mode opens no dependencies; visitor proof and activation remain open. Kotaku naturally recovered at 20:26 UTC (20 items); all 36 sources healthy.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
