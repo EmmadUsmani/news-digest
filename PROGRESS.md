@@ -1,14 +1,3 @@
-## 2026-11-09: iteration 1479 — composed HTTPS admin revocation
-
-- Clean main/no leftovers; health and alerts clear, all 36 active sources fresh without errors, digest queue zero failures. Accounts remain disabled; Phase 1 acceptance awaits 15:00 UTC.
-- Extended desktop/mobile composed HTTPS acceptance with two independently invited friend-device sessions. An ordinary reader cannot issue links or revoke sessions; cross-origin and malformed admin requests preserve both devices and write no fixture audit.
-- Successful admin revocation returns only the count, removes both target sessions, records the fixture audit and preserves the issuer's admin access. Replayed target cookies stay signed out without renewal.
-- Production HTTP/composition/crypto with fixture storage/admission only; no live writes, provider calls or runtime changes. Updated activation checklist and archived progress entries 1461–1463.
-- Initial smoke assertion expected 200 for link exchange; corrected to the existing 204 contract. Final composed smoke passes both widths; saved reader retains four topics/19 stories/17 posts.
-- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check, handbook checker and `git diff --check`.
-- Full check passes 707 unit/254 integration tests, four expected skips; handbook checker passes with expected unapplied-account metadata notices.
-- No service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof; metrics probe not due before 06:27 UTC. Owner two-device acceptance remains required.
-
 ## 2026-11-09: iteration 1480 — composed HTTPS two-device reader sync
 
 - Clean main/no leftovers; health and alerts clear, services 14/14 and sources 36/36 healthy. Digest queue has no failures; saved edition retains four topics/19 stories/17 posts.
@@ -158,3 +147,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-source-catalog-compatibility.ts`, scheduled-reader check and `git diff --check`.
 - Full check passes: 721 unit tests and 259 integration tests, four expected skips; build passes with existing bundle warnings. Saved reader retains four topics/19 stories/17 posts.
 - API restarted for rebuilt frontend; health passes. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
+
+## 2026-11-09: iteration 1496 — prepare public source health projection
+
+- Clean main/no leftovers; alerts/healthz clear and no failed user units. Authenticated source check finds 36 sources with successful collection and zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added disconnected source-health allowlist: IDs/names, normalized UTC attempt/success timestamps, nonnegative safe item counts and failure presence only. Configured URLs, topic ownership, historical error text and future columns are omitted.
+- Offline adversarial checks cover credential-bearing stored errors/URLs, null timestamps, empty errors, mixed malformed catalogs, invalid counts/dates and exact generic 503 bodies. Existing GET/HEAD remains admin-classified; transport/storage/frontend integration remains open.
+- Updated response audit/TASKS; archived iteration 1479. No live routes/config/data/migrations/provider calls changed; accounts remain disabled.
+- Verification: targeted source-health tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check`.
+- Full check passes 723 unit/259 integration tests with four expected skips. Build passes with existing bundle warnings; saved-reader parity passes.
+- No restart under STEERING 22: live entrypoints do not import this projection. Next: scheduled 15:00 acceptance, live proxy proof and remaining public-route boundaries before promotion.

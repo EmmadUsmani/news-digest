@@ -12,7 +12,7 @@ work before that rollout, rather than a permanent change to that intent.
 | `topics`                                                           | Entire topic rows, source connections, X discovery settings     | Admin; disconnected explicit public field projection prepared                 |
 | `topics/sources`                                                   | Source ID, name, configured feed URL                            | Admin; disconnected origin-only catalog projection prepared                   |
 | `content`, `content/window`                                        | Topic IDs and article ID/title/URL/date/source                  | Admin pending stored URL/text and failure-response audit                      |
-| `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin pending public projection and stored-error review                       |
+| `content/sources`                                                  | Configured URLs, source timings, counts, persisted errors       | Admin; disconnected count/timing projection prepared; transport pending       |
 | `status`                                                           | Coverage, sources, queues, provider usage and development spend | Admin pending projection of errors, job return strings and accounting details |
 | `digest-previews`, `digest-previews/latest`, `digest-previews/:id` | Unfiltered history or complete stored snapshots                 | Admin; unpublished/test editions must stay private                            |
 | `digest-previews/:id/cost`                                         | Edition accounting                                              | Admin pending accounting response audit                                       |
@@ -121,6 +121,22 @@ catalog without changing selection or saved connections. Read-only browser repla
 covers both shapes and malformed catalogs at desktop/mobile widths; public responses
 are simulated from saved live catalog data. Live routes and classification remain
 unchanged; route authorization is still required before promotion.
+
+## Prepared source health projection
+
+`readPublicSourceHealth` prepares source IDs/names, normalized UTC attempt/success
+times, item counts and a `hasError` boolean. It omits configured URLs, topic
+ownership and future fields. Stored error strings never leave the projection:
+historical failures may contain raw provider responses or credentials regardless
+of current ingestion sanitization. A non-null error, including an empty string,
+sets the boolean without claiming that collection is healthy. Null timestamps
+remain null. Invalid timestamps, counts, rows and storage failures reject the
+whole result with a fixed 503, rather than returning a partial healthy list.
+Offline adversarial checks cover historical credential-bearing failures, URL
+paths/tokens, unknown columns, mixed valid/invalid rows and exact error bodies.
+No transport or runtime uses this reader yet; existing GET/HEAD source status
+remains admin-classified. Concrete storage/HTTP and frontend integration remain
+required before promotion.
 
 ## Remaining response boundaries
 

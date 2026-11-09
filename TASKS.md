@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1495: topic editor accepts legacy and prepared public source catalogs using IDs/names only; desktop/mobile replay verifies connections and malformed-catalog refusal. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1496: prepared source-health projection exposes timing/counts and failure presence while withholding URLs, historical errors and future fields; offline adversarial checks pass. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
