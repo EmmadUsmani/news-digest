@@ -180,3 +180,16 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - pnpm format, pnpm lint:fix, pnpm check (769 unit/272 integration passes, four expected skips), pnpm build and git diff --check pass; existing bundler warning only.
 - Restarted API/worker outside the hold; health/alerts clear, latest reader bytes unchanged. Scheduled reader check passes four topics/19 stories/14 posts.
 - No source, provider, migration or configuration changes. Next: live proxy proof/guarded Phase 3 activation, remaining Phase 4 resource-policy readiness; metrics passive check eligible after 17:18 UTC.
+
+## 2026-11-09: iteration 1556 — live X compatibility under prepared CSP
+
+- Clean main/no leftovers. Initial pending API scrape alert followed the prior restart; API/metrics were healthy and alert cleared without intervention.
+- Hourly local probe: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 15`; 23 healthy rules, four queries ≤0.481 s, no new evaluator errors/misses, no merge. Next probe ≥18:19 UTC; compaction recovery remains open.
+- Added explicit live browser checker using the actual prepared access-stack CSP, injected into browser document responses only; production flags and middleware unchanged. Blocks non-GET/HEAD requests.
+- `pnpm exec tsx scripts/check-public-live-embeds.ts` passes all 10 real saved X widgets × desktop/mobile × light/dark, with no document CSP violations. Saved 40 card screenshots; inspected desktop-light/mobile-dark samples. No fixture substitution or LLM calls.
+- Existing synthetic frame/form browser checks pass. Scheduled-reader gate passes four topics/19 stories/14 posts for Nov 9 15:00 UTC.
+- Updated TASKS, public-access plan and screenshot index. Handbook check passes 18 pages/22 diagrams; existing unapplied-account metadata warnings remain.
+- No source, provider, configuration or migration changes; accounts/public remain off. Live proxy proof and complete resource allowlist still gate activation/readiness.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (769 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle-size warning only.
+- Restarted API/worker; health retry passed, latest reader hash unchanged and scheduled-reader gate still passes. Health/alerts clear. No live source or digest breakage observed.
+- Next: live proxy forwarding proof/guarded Phase 3 activation, then remaining Phase 4 resource-policy readiness; no metrics probe before 18:19 UTC.

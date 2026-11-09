@@ -406,7 +406,13 @@ pages retain their stricter form prohibition.
 `pnpm exec tsx scripts/check-public-frame-policy.ts` checks same-origin tools and
 both X hosts, rejects unrelated/lookalike/HTTP frame origins, and verifies private
 rollback using intercepted synthetic frames without provider traffic. Live X
-embed compatibility remains part of the full browser readiness check.
+embed compatibility passes for the Nov 9 saved edition (iteration 1556):
+`pnpm exec tsx scripts/check-public-live-embeds.ts` injects the actual prepared
+CSP into an isolated browser, loads all 10 real saved X widgets in desktop/mobile
+light/dark, and checks for document CSP violations. It makes explicit live X
+GET requests, blocks all writes, and leaves deployment flags unchanged.
+[Forty card screenshots](screenshots/ui/public-x-policy.md) record the result.
+Full resource allowlist and proxy acceptance remain open.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.
