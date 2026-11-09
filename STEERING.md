@@ -2312,3 +2312,5 @@ mode, or change exe.dev sharing. Never print or save identity values.
 deploy. The 13:00–16:00 UTC window still applies to everything else.
 
 ack: 2026-11-09 item 52 — iteration 1557 adds five-step value-free diagnostics, continuing failures, forged-email classification and private durable receipts; simulated failure/browser checks pass. Exact rerun steps replace the Nov 9 paragraph in NEEDS_FROM_HUMAN.md. Owner rerun and actual proxy-shape comparison remain pending; no trust or activation changes.
+
+ack: 2026-11-09 item 52 owner rerun — iteration 1559 inspected the 17:47:12 UTC receipt: one forwarding field at every step, entry counts 2/3/4/3/2, valid final IPs, loopback peer; forwarded proto/host and exe.dev email/userid names present. Forged email replaced. Baseline differs from the probe single-entry assumption; proxyClient permits multiple entries but final-client stability/meaning is unproven because baseline failed. Stopped and reported in NEEDS_FROM_HUMAN.md; no trust redesign or activation.

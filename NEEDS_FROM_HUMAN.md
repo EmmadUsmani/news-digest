@@ -43,28 +43,35 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 update (1557, STEERING 52): the owner's prior run failed at step 0;
-its old receipt cannot distinguish the forwarding-header failure. The revised
-probe records all five steps, including forged email, without identity values.
-Accounts/public remain disabled. Rerun from an authenticated browser:
+Nov 9 owner rerun inspected (1559, STEERING 52): the private receipt at
+`~/.local/state/news-digest/account-proxy-receipt.json` is timestamped
+17:47:12 UTC and reports `failed` after all five steps.
 
-1. On the VM, run `cd ~/news-digest && git pull --ff-only`.
-2. Run `pnpm exec tsx scripts/probe-account-proxy.ts 8765`.
-3. Within five minutes, open the exact printed
-   `https://news-digest.exe.xyz:8765/probe-…` URL in your authenticated browser
-   through the documented exe.dev HTTPS proxy. Click **Run check once**.
-4. The browser displays the complete receipt even if a check fails. The terminal
-   prints it and exits; the receipt also persists at
-   `~/.local/state/news-digest/account-proxy-receipt.json` (mode 600), including
-   partial steps if interrupted. Do not paste browser headers, cookies or emails.
-5. Leave that file on the VM for the next iteration to inspect. If the browser
-   cannot reach the URL or the probe expires, restart step 2 for a fresh URL.
+| Step                    | Forwarding fields | Entries | Final entry valid IP |
+| ----------------------- | ----------------- | ------- | -------------------- |
+| Baseline                | 1                 | 2       | yes                  |
+| Single forged IP prefix | 1                 | 3       | yes                  |
+| Two forged IP prefixes  | 1                 | 4       | yes                  |
+| Invalid forged prefix   | 1                 | 3       | yes                  |
+| Forged email            | 1                 | 2       | yes                  |
 
-The receipt contains counts, IP validity, peer category and header names only;
-email is recorded solely as absent/replaced/forged. An observed result alone
-is not activation approval: the agent must compare the actual shape with
-`proxyClient`, acknowledge the rerun and report any mismatch before proceeding.
-No trust configuration, sharing, account or public setting changes are needed.
+The immediate peer is loopback throughout. Every step includes header names
+`x-forwarded-proto`, `x-forwarded-host`, `x-exedev-email` and `x-exedev-userid`.
+The forged email was **replaced** in this authenticated private-proxy run.
+No identity values were recorded.
+
+The baseline has two entries, rather than the probe's required one. Forged
+prefixes add the expected number of entries, but the failed baseline prevents
+the probe from checking final-address stability across requests. `proxyClient`
+itself permits multiple entries and selects the last IP from one header field
+sent by an explicitly trusted peer; counts and IP validity alone cannot prove
+that this last IP identifies the visitor. The receipt does not establish which
+proxy hop the final entry represents.
+
+**Stopped for owner review under STEERING 52.** Resolve the unexpected baseline
+chain and approve the trust/probe interpretation before activation proceeds.
+No trust-model redesign, proxy configuration, account/public activation or
+sharing change was made. The original receipt remains private on the VM.
 
 Phase 4 security-review note (1558): the official X widget triggers inline-script
 and eval violations under a self/platform-only script policy. That trial was

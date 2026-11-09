@@ -136,3 +136,14 @@ Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.
 - `pnpm obs sources --check`: all 36 healthy. Scheduled-reader gate passes four topics/19 stories/14 posts. No paid verification.
 - Restarted API/worker; health/alerts clear, latest reader hash unchanged and scheduled-reader gate passes again.
 - Next: inspect owner proxy receipt before guarded Phase 3 activation; finish Phase 4 resource/security review behind flags. Metrics passive probe remains no earlier than 18:19 UTC.
+
+## 2026-11-09: iteration 1559 — inspect owner proxy rerun and report mismatch
+
+- Clean main/no leftovers; initial health/alerts clear, all 36 sources healthy. No source/provider/configuration changes or paid calls.
+- Inspected real private receipt timestamped 17:47:12 UTC: one forwarding field each, entry counts 2/3/4/3/2, final entries valid IPs, loopback peer; proto/host and exe.dev email/userid names present. Forged email replaced.
+- Baseline differs from probe's single-entry requirement. proxyClient accepts multiple entries and selects final IP, but failed baseline prevents cross-request stability proof; receipt cannot identify final hop meaning. No identity values copied.
+- Followed STEERING 52: stopped for owner trust/probe interpretation; no redesign, trust configuration or activation. Updated ack, NEEDS_FROM_HUMAN, TASKS and public-access plan. Accounts/public remain off.
+- Targeted proxy tests pass 7/7; handbook check passes 18 pages (existing unapplied-account metadata warnings). Build passes with existing bundle warning.
+- API/worker restarted; /healthz and alerts clear. Scheduled-reader gate passes four topics/19 stories/14 posts before and after restart.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (771 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
+- Next: owner resolves two-entry baseline before activation; remaining Phase 4 resource policy gate unchanged. Metrics probe remains no earlier than 18:19 UTC.
