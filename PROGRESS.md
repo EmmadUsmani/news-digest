@@ -153,3 +153,13 @@
 - Verification: composed HTTPS browser smoke, format, lint fix, full check, build, saved-reader check (four topics/19 stories/17 posts), handbook checker and diff check. Handbook reports expected metadata for unapplied account tables.
 - Full check passes: 707 unit/254 integration tests, four expected skips; build passes.
 - No runtime code/config change; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof before activation; owner two-device acceptance remains required.
+
+## 2026-11-09: iteration 1476 — HTTPS multi-device session revocation
+
+- Clean main/no leftovers; health and alerts clear, no failed user services. Normal Phase 1 scheduled acceptance awaits 15:00 UTC; metrics probe not due before 05:27 UTC.
+- Extended composed desktop/mobile HTTPS acceptance with independently redeemed device cookies: single-device logout preserves the second session; a new login plus all-device logout revokes both. Replaying either revoked cookie cannot authenticate.
+- Fixture storage now models separate sessions and scopes deletes by token/user; sign-out shares the simulated server clock. The other device retains an inert cookie without renewal after revocation.
+- Real production HTTP/composition/crypto with fixture storage/admission only; no live writes, migrations or provider calls. Accounts remain disabled; updated activation checklist.
+- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook checker and diff check pass.
+- Full check: 707 unit/254 integration pass, four expected skips. Saved reader: four topics/19 stories/17 posts. Handbook reports expected metadata for unapplied account tables.
+- No runtime code/config changes; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.

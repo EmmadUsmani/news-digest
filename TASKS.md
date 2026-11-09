@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1475: composed desktop/mobile HTTPS account check verifies exact daily cookie renewal, seven-day admin freshness and persistent reader sessions; accounts remain disabled.
+- [x] Iteration 1476: composed desktop/mobile HTTPS account check verifies independent device cookies, single-device logout isolation, all-device revocation and revoked-cookie replay refusal; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

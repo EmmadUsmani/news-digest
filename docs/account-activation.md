@@ -25,7 +25,8 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   code-login flow over a temporary loopback HTTPS server, with isolated storage
   and admission. It covers the production HTTP adapter, browser cookie exchange,
   session lookup, daily cookie renewal, seven-day admin freshness, persistent
-  reader access, logout, expiry, exhaustion, replay and cross-origin refusal.
+  reader access, two independent device cookies, device-scoped/all-device logout,
+  revoked-cookie replay, expiry, exhaustion, code replay and cross-origin refusal.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

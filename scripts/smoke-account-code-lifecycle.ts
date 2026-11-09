@@ -46,7 +46,8 @@ async function main() {
     for (const width of [1280, 390]) {
       let now = new Date('2026-11-09T01:00:00Z');
       let challenge: LoginCodeChallenge | null = null;
-      let session: ReaderSession | null = null;
+      const sessions = new Map<string, ReaderSession>();
+      let sessionSequence = 0;
       let attempts = 0;
       const email = 'fixture@example.com';
       const server = createServer(tls, (request, response) =>
@@ -98,32 +99,35 @@ async function main() {
           },
           sessions: {
             create: async (input) => {
-              session = {
+              const session = {
                 ...input,
-                id: 'fixture-session',
+                id: `fixture-session-${++sessionSequence}`,
                 email,
                 createdAt: input.now,
                 cookieRenewedAt: input.now,
               };
+              sessions.set(input.tokenHash, session);
               return session;
             },
-            findByTokenHash: async (hash) =>
-              session?.tokenHash === hash ? session : null,
+            findByTokenHash: async (hash) => sessions.get(hash) ?? null,
             claimCookieRenewal: async (id, cutoff, time) => {
-              if (
-                !session ||
-                session.id !== id ||
-                session.cookieRenewedAt > cutoff
-              )
-                return false;
-              session = { ...session, cookieRenewedAt: time };
+              const session = [...sessions.values()].find(
+                (row) => row.id === id,
+              );
+              if (!session || session.cookieRenewedAt > cutoff) return false;
+              sessions.set(session.tokenHash, {
+                ...session,
+                cookieRenewedAt: time,
+              });
               return true;
             },
-            deleteByTokenHash: async () => {
-              session = null;
+            deleteByTokenHash: async (hash) => {
+              sessions.delete(hash);
             },
-            deleteByUserId: async () => {
-              session = null;
+            deleteByUserId: async (userId) => {
+              for (const [hash, session] of sessions) {
+                if (session.userId === userId) sessions.delete(hash);
+              }
             },
           },
           links: {
@@ -149,11 +153,13 @@ async function main() {
       const requestWithClock = handlers.requestCode.bind(handlers);
       const redeemWithClock = handlers.redeemCode.bind(handlers);
       const currentWithClock = handlers.current.bind(handlers);
+      const signOutWithClock = handlers.signOut.bind(handlers);
       handlers.requestCode = (input, client) =>
         requestWithClock(input, client, now);
       handlers.redeemCode = (input, client) =>
         redeemWithClock(input, client, now);
       handlers.current = (cookie) => currentWithClock(cookie, now);
+      handlers.signOut = (input, all) => signOutWithClock(input, all, now);
       const transport = accountHttp({
         enabled: true,
         handlers,
@@ -189,7 +195,7 @@ async function main() {
       now = new Date(now.getTime() + 600_000);
       await redeem(expired);
       await expect(page.getByRole('status')).toContainText('Check the code');
-      assert.equal(session, null);
+      assert.equal(sessions.size, 0);
       assert.equal((await context.cookies()).length, 0);
       const exhausted = await requestCode();
       const wrong = exhausted === '000000' ? '000001' : '000000';
@@ -198,13 +204,13 @@ async function main() {
         await expect(page.getByRole('status')).toContainText('Check the code');
         await expect(page.getByLabel('Six-digit code')).toHaveValue('');
         assert.equal(attempts, guess + 1);
-        assert.equal(session, null);
+        assert.equal(sessions.size, 0);
         assert.equal((await context.cookies()).length, 0);
       }
       await redeem(exhausted);
       await expect(page.getByRole('status')).toContainText('Check the code');
       assert.equal(attempts, 5);
-      assert.equal(session, null);
+      assert.equal(sessions.size, 0);
       assert.equal((await context.cookies()).length, 0);
       await page.screenshot({
         path: `docs/screenshots/accounts/code-exhausted-${width}.png`,
@@ -265,6 +271,34 @@ async function main() {
         isAdmin: false,
       });
       assert.match(persistent.headers()['set-cookie'], /Max-Age=34560000/);
+      // A second device signs in independently through the same HTTPS boundary.
+      const other = await browser.newContext({ ignoreHTTPSErrors: true });
+      const loginOther = async () => {
+        const requested = await other.request.post(
+          `${origin}/api/account/code`,
+          {
+            headers: { Origin: origin },
+            data: { email },
+          },
+        );
+        assert.equal(requested.status(), 202);
+        const code = await mailbox.latest(email, now);
+        assert.ok(code);
+        const redeemed = await other.request.post(
+          `${origin}/api/account/redeem`,
+          {
+            headers: { Origin: origin },
+            data: { email, code },
+          },
+        );
+        assert.equal(redeemed.status(), 204);
+      };
+      await loginOther();
+      assert.equal(sessions.size, 2);
+      assert.notEqual(
+        (await other.cookies())[0].value,
+        (await context.cookies())[0].value,
+      );
       const logout = await context.request.post(
         `${origin}/api/account/logout`,
         {
@@ -273,8 +307,69 @@ async function main() {
         },
       );
       assert.equal(logout.status(), 204);
-      assert.equal(session, null);
+      assert.equal(sessions.size, 1);
       assert.equal((await context.cookies()).length, 0);
+      assert.equal(
+        (
+          await (
+            await other.request.get(`${origin}/api/account/session`)
+          ).json()
+        ).signedIn,
+        true,
+      );
+      const replayCookie = `${cookies[0].name}=${cookies[0].value}`;
+      assert.equal(
+        (
+          await (
+            await context.request.get(`${origin}/api/account/session`, {
+              headers: { Cookie: replayCookie },
+            })
+          ).json()
+        ).signedIn,
+        false,
+      );
+      // Sign in again, then revoke both independently issued device sessions.
+      const replacement = await requestCode();
+      await redeem(replacement);
+      await page.waitForURL(`${origin}/`);
+      assert.equal(sessions.size, 2);
+      const otherCookie = (await other.cookies())[0];
+      const replacementCookie = (await context.cookies())[0];
+      const logoutAll = await context.request.post(
+        `${origin}/api/account/logout-all`,
+        {
+          headers: { Origin: origin },
+          data: {},
+        },
+      );
+      assert.equal(logoutAll.status(), 204);
+      assert.equal(sessions.size, 0);
+      assert.equal((await context.cookies()).length, 0);
+      const replacementReplay = await context.request.get(
+        `${origin}/api/account/session`,
+        {
+          headers: {
+            Cookie: `${replacementCookie.name}=${replacementCookie.value}`,
+          },
+        },
+      );
+      assert.equal((await replacementReplay.json()).signedIn, false);
+      const revoked = await other.request.get(`${origin}/api/account/session`);
+      assert.equal((await revoked.json()).signedIn, false);
+      // The other browser retains an inert cookie; the server refuses it.
+      assert.equal((await other.cookies())[0].value, otherCookie.value);
+      assert.equal(revoked.headers()['set-cookie'], undefined);
+      assert.equal(
+        (
+          await (
+            await other.request.get(`${origin}/api/account/session`, {
+              headers: { Cookie: `${otherCookie.name}=${otherCookie.value}` },
+            })
+          ).json()
+        ).signedIn,
+        false,
+      );
+      await other.close();
       await page.goto(`${origin}/account/login`);
       await page.getByLabel('Email', { exact: true }).fill(email);
       await redeem(valid);
@@ -295,7 +390,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, HTTP logout and consumed code replay verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();
