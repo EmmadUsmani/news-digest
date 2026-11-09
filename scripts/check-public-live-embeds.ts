@@ -9,6 +9,7 @@ import { chromium } from 'playwright';
 import { prepareAccessStack } from '../apps/api/src/public-write/access-stack';
 
 async function main() {
+  const reviewScripts = process.argv.includes('--review-scripts');
   const origin = 'http://127.0.0.1:8000';
   const saved = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
@@ -47,8 +48,26 @@ async function main() {
           colorScheme: theme,
         });
         await page.addInitScript(() => {
-          Object.assign(window, { policyViolations: [] as string[] });
+          Object.assign(window, {
+            policyViolations: [] as string[],
+            scriptReports: [] as string[],
+          });
           document.addEventListener('securitypolicyviolation', (event) => {
+            if (event.disposition === 'report') {
+              const source = event.sourceFile.startsWith(
+                'https://platform.twitter.com/',
+              )
+                ? 'official-widget'
+                : event.sourceFile.startsWith(location.origin + '/')
+                  ? 'same-origin-reported'
+                  : 'other';
+              (
+                window as unknown as { scriptReports: string[] }
+              ).scriptReports.push(
+                `${event.effectiveDirective}/${event.blockedURI === 'inline' || event.blockedURI === 'eval' ? event.blockedURI : 'external'}/${source}`,
+              );
+              return;
+            }
             (
               window as unknown as { policyViolations: string[] }
             ).policyViolations.push(
@@ -69,6 +88,12 @@ async function main() {
               headers: {
                 ...response.headers(),
                 'content-security-policy': policy,
+                ...(reviewScripts
+                  ? {
+                      'content-security-policy-report-only':
+                        "script-src 'self' https://platform.twitter.com; report-uri /__csp-review",
+                    }
+                  : {}),
               },
             });
           }
@@ -91,9 +116,10 @@ async function main() {
             (await frame.boundingBox())!.height > 100,
             'Real widget has rendered height',
           );
-          await card.screenshot({
-            path: `docs/screenshots/ui/public-x-${post.externalId}-${device}-${theme}.png`,
-          });
+          if (!reviewScripts)
+            await card.screenshot({
+              path: `docs/screenshots/ui/public-x-${post.externalId}-${device}-${theme}.png`,
+            });
         }
         assert.deepEqual(
           await page.evaluate(
@@ -103,8 +129,20 @@ async function main() {
           ),
           [],
         );
+        if (reviewScripts) {
+          const reports = await page.evaluate(
+            () =>
+              (window as unknown as { scriptReports: string[] }).scriptReports,
+          );
+          const counts: Record<string, number> = {};
+          for (const report of reports)
+            counts[report] = (counts[report] ?? 0) + 1;
+          console.log(
+            `${device}/${theme}: script report-only ${JSON.stringify(counts)}`,
+          );
+        }
         console.log(
-          `${device}/${theme}: ${posts.length} real saved X widgets visible; no document CSP violations`,
+          `${device}/${theme}: ${posts.length} real saved X widgets visible; no enforced document CSP violations`,
         );
         await page.close();
       }

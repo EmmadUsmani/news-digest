@@ -440,7 +440,9 @@ views and `scripts/check-public-connect-policy.ts` (offline allow/deny and priva
 rollback checks). A trial `script-src 'self' https://platform.twitter.com` produced
 inline-script and eval violations from the official widget; that restriction was
 removed. Script policy needs a separate compatibility/security decision; no unsafe
-script exceptions were added. Full resource allowlist and proxy acceptance remain open.
+script exceptions were added. The reproducible [script-policy review](public-script-policy-review.md)
+uses report-only diagnostics alongside the enforced prepared policy, without changing
+deployment headers. Full resource allowlist and proxy acceptance remain open.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

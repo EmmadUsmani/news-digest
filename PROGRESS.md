@@ -163,3 +163,12 @@ Earlier entries: [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.
 - `pnpm check` passes typecheck/lint/format/boundaries then terminates (143) during units. Standalone units first catch stale expected CSP; corrected rerun passes 773/773. `pnpm test:integration` passes 272/four expected skips.
 - `pnpm format`, `pnpm lint:fix`, build and `git diff --check` pass. Handbook renders 18 pages/one diagram; command exits 1 solely for existing unapplied-account schema metadata warnings.
 - API/worker restarted outside hold; health, alerts and scheduled-reader gate pass (four topics/19 stories/14 posts). Next: owner proxy rerun before Phase 3 activation; finish Phase 4 script/resource review behind flags. Metrics probe not due until 19:36 UTC.
+
+## 2026-11-09: iteration 1566 — reproducible public script-policy review
+
+- Clean main/no leftovers; initial health/alerts clear. Accounts/public stay off awaiting item 53 owner rerun; no paid calls or configuration changes.
+- Added `--review-scripts` to live saved-widget checker: candidate self/platform script policy is report-only alongside actual enforced CSP; all writes/report submissions blocked, source categories/counts only, screenshots untouched.
+- Two browser runs pass 40 real saved X views each; every desktop/mobile light/dark view reports one inline-script/13 eval violations and zero enforced violations. Recorded readiness decision; no unsafe exceptions or runtime policy change.
+- Build passes with existing bundle warning; `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. `pnpm check` passes typecheck/lint/format/boundaries, 773 unit and 272 integration tests (four expected skips).
+- Scheduled-reader gate passes four topics/19 stories/14 posts. Kotaku failed scheduled retries at 19:00 UTC with upstream HTTP 522; explicit GET also 522, last success 18:26/20 items. Recorded source recovery task; no bypass/adapter change. Digest queue zero failed jobs.
+- API/worker restart and post-restart health/alerts/reader gate verified before commit. Next: recheck Kotaku recovery; owner proxy rerun before Phase 3; Phase 4 script decision open. Metrics probe ≥19:36 UTC.

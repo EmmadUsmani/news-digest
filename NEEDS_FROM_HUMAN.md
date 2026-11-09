@@ -69,6 +69,9 @@ Phase 4 security-review note (1558): the official X widget triggers inline-scrip
 and eval violations under a self/platform-only script policy. That trial was
 removed; no unsafe exceptions were added. Connection restrictions pass all
 40 saved-widget browser views; script/resource policy remains a readiness gate.
+Iteration 1566 adds a reproducible report-only [review](docs/public-script-policy-review.md):
+each of four views reports one inline-script and 13 eval violations; all 10
+widgets still load under the unchanged enforced policy. No unsafe exceptions added.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
