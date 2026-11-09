@@ -53,12 +53,14 @@ mapped to profiles, and profiles go away.
   The Nov 3–8 scheduled editions are published. Phases 0 and 2 passed the
   normal Nov 8 scheduled acceptance, including original-response comparisons
   and browser preferences/bookmarks. [Acceptance record](edition-reviews/2026-11-08.md#phase-0-and-phase-2-acceptance--iteration-1386).
-  Phase 1 foundation is prepared in migration `0011`: a single-row
+  Phase 1 foundation is applied in migration `0011`: a single-row
   `edition_settings` table copies the configured owner schedule and refuses a
-  missing schedule. It is not applied live; profile reads/writes remain
-  authoritative. Migration `0012` prepares nullable ownership for topics,
+  missing schedule. Profile reads remain
+  authoritative while the flag is off. Migration `0012` adds nullable ownership for topics,
   editions and durable job records, retaining foreign keys and all existing
-  ownership values. Both migrations remain unapplied. Prepared schedule reads
+  ownership values. Both migrations were applied live on Nov 9 (iteration 1441), each after a fresh
+  private backup and a fresh restored-copy rehearsal. Account migrations remain pending.
+  Schedule reads
   use `edition_settings` with `SYSTEM_OWNERSHIP=1`; schedule updates write both
   settings tables in one transaction, including with the flag off. Missing system
   settings abort the write. Prepared topic reads and mutations use the shared
@@ -67,9 +69,9 @@ mapped to profiles, and profiles go away.
   ownership with the flag on; new request/failure records retain default-profile
   ownership for rollback. Prepared edition reads and generation topic selection use
   system scope with the flag on, preserving publication filters and saved snapshots;
-  new editions keep default-profile ownership for rollback;
-  do not enable the flag or deploy this code before the migrations.
-  The private restored-copy SQL rehearsal passes for both pending migrations:
+  new editions keep default-profile ownership for rollback.
+  The live flag remains off; activation and generation checks are next.
+  The private restored-copy SQL rehearsal passes for both Phase 1 migrations:
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
   Run `python3 ops/backups/rehearse_system.py` to repeat it; the private receipt

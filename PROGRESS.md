@@ -128,3 +128,13 @@
 - Updated rollout plan and affected handbook pages. No live migration, flag activation, provider call or account route registration; Phase 1 live rollout is next within the open pre-noon window.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` pass (695 unit, 253 integration passes/four expected skips; schema parity green). `check-handbook.ts stack-and-runtime` and `10-backups` render/link checks pass with expected unapplied-table metadata notes. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. No UI change.
 - Commit/push then restart API/worker and repeat health/reader/alerts checks to match main. Next: fresh backup immediately before each live Phase 1 migration, bounded through 0012, then flag-on AI-off/AI-on private tests and scheduled acceptance.
+
+## 2026-11-09: iteration 1441 — apply live Phase 1 foundation
+
+- Clean main/no leftovers; alerts clear, health good and no failed user units. Sources continue returning real content; digest queue has zero failures, next run Nov 9 15:00 UTC.
+- Fresh `python3 ops/backups/rehearse_system.py` passes actual runner twice, injected rollback, 29 original fingerprints and complete adapter/HTTP off/on/off parity for 550 saved editions; restore verifies 30 tables/56,643 rows.
+- Applied live `MIGRATE_THROUGH=0011_system_edition_settings pnpm migrate` after private backup `20261109T000639Z`; applied `MIGRATE_THROUGH=0012_nullable_system_ownership pnpm migrate` after separate private backup `20261109T000647Z`. No account migrations applied.
+- Live SQL verifies exact schedule parity, four nullable ownership columns and zero null ownership rows. `SYSTEM_OWNERSHIP` remains off; accounts remain disabled and VM private. No provider calls or development spend.
+- Updated rollout plan, affected data-model handbook and TASKS. Phase 1 acceptance remains open; next activate system scope before noon, verify private AI-off/AI-on generation, then normal scheduled acceptance.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (695 unit; 253 integration/four expected skips), `pnpm build`, `check-handbook.ts 07-data-model` (31 live tables; only expected pending-account metadata notes), `git diff --check` pass. No UI change.
+- `check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes before/after migrations: four topics/19 stories/17 posts. Commit/push, then restart API/worker and repeat health, source, queue and alerts checks to match main.
