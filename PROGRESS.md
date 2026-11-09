@@ -109,3 +109,14 @@ Earlier entries: [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 19:36: 23 healthy rules, four queries ≤0.763 s, zero new evaluator errors/misses/timeouts/slow queries, one small merge/no large merge. Next passive probe ≥20:36 UTC.
 - API/worker restarted after build; startup health retry then `pnpm obs health --check` passes. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Alerts retain only the explained Kotaku warning.
 - Updated TASKS, source health and public readiness instructions. Next: Kotaku natural recovery; owner item 53 rerun before Phase 3; broader Phase 4 rehearsal behind disabled flags.
+
+## 2026-11-09: iteration 1570 — rehearse configured public HTTP access
+
+- Clean main/no leftovers. Health passed; Kotaku remains the only unhealthy source (last success 18:26 UTC/20 items, upstream HTTP 522 retries at 19:30). Digest-generation queue has zero failed runs. No paid calls, migrations, flags or generation changes.
+- Added configured Nest HTTP readiness matrix with session/storage stand-ins: anonymous, reader, fresh-admin, then revoked-admin eligibility. This is isolated acceptance evidence, not live accounts or proxy proof.
+- Tool/queue routes, unknown assets and ambiguous paths refuse GET/HEAD/POST before authentication/downstream, despite forged proxy identity and a token. Direct-local credentials also cannot grant tool routes. Refused responses are empty/no-store and retain CSP.
+- Reader GET/HEAD needs no session; admin reads require current eligibility; invalid write origins refuse before session/storage. Owned account/source resources close. Updated readiness plan, TASKS and source health note; no UI or handbook behavior changed.
+- Targeted `pnpm exec tsx --test apps/api/test/public-readiness-http.test.ts apps/api/test/access-provider.test.ts`: 7/7 pass. `pnpm exec tsx scripts/check-public-policies.ts`: all nine synthetic browser policies/private rollback pass.
+- `pnpm format`, `pnpm lint:fix`, workspace build and `git diff --check` pass; build retains existing bundle-size warning. `pnpm check` passes typecheck/lint/format/boundaries, 775 unit and 272 integration tests (four expected skips).
+- API/worker restarted after build; initial health probe raced startup, retry `pnpm obs health --check` passes. Scheduled reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Alerts clear at 19:46 UTC.
+- Next: owner item 53 rerun before Phase 3 activation; finish full Phase 4 acceptance behind flags. Accounts/public remain off; metrics probe not due until 20:36 UTC.

@@ -455,6 +455,14 @@ It stops on the first failure and limits each check to two minutes. Iteration
 1569 passes all nine after moving the form probe's observer out of inline HTML,
 which the script policy correctly blocks. These are synthetic browser checks;
 live widget/routing checks, full Phase 4 rehearsal and proxy acceptance remain separate.
+Iteration 1570 adds `pnpm exec tsx --test apps/api/test/public-readiness-http.test.ts`:
+a configured Nest HTTP matrix with session/storage stand-ins checks anonymous,
+reader, fresh-admin and subsequently revoked-admin access. Internal tools, queues,
+unknown assets and ambiguous routes refuse before authentication or downstream
+handlers, including requests carrying forged proxy identity and a local token.
+Reader GET/HEAD stays anonymous; admin reads require current eligibility; invalid
+write origins refuse before storage. Direct-local tokens cannot open tool routes.
+This does not prove live proxy behavior or complete the Phase 4 acceptance gates.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

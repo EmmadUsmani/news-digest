@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1569: one bounded command runs all nine offline public browser-policy checks against today's stack. Fixed form observer blocked by the tightened script policy; all nine policies/private rollbacks and nine HTTP access tests pass. Broader Phase 4 rehearsal and owner proxy proof remain open.
+- [x] Iteration 1570: configured Nest public-readiness HTTP matrix passes for anonymous/reader/admin/revoked-admin states. Tools/queues/unknown assets and ambiguous routes refuse before authentication/downstream; reader GET/HEAD, current admin reads, write-provenance refusal and direct-local tool refusal verified with stand-ins. Live proxy and full Phase 4 acceptance remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
