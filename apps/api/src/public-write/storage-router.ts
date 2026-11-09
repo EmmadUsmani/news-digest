@@ -9,6 +9,7 @@ import { publicSourceHttp } from './source-http';
 export function prepareStoredPublicWriteRouter(options: {
   enabled: boolean;
   origin: string;
+  localToken?: string;
   pool: () => Pool;
   authenticate: Parameters<typeof publicSourceHttp>[0]['authenticate'];
   authorize: Parameters<typeof publicWriteRouter>[0]['authorize'];
@@ -20,6 +21,7 @@ export function prepareStoredPublicWriteRouter(options: {
       publicSourceHttp({
         enabled: true,
         origin: options.origin,
+        localToken: options.localToken,
         authenticate: options.authenticate,
         now: options.now,
         writer: new PublicSourceWriter(options.pool()),

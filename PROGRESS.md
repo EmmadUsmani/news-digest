@@ -91,3 +91,13 @@
 - Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain off.
 - Verification: focused account-router tests (2 pass), pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 752 unit/268 integration passes, four expected skips; existing bundle warnings only.
 - No restart under STEERING 22: running services do not import this uninstalled composition. Live mounting, atomic queue effects and proxy proof remain open; Nov 9 15:00 scheduled acceptance remains pending.
+
+## 2026-11-09: iteration 1528 — preserve local scripts in atomic source routing
+
+- Clean main/no leftovers; alerts and healthz healthy, all 36 sources healthy, jobs check passes, no failed user services and latest saved edition returns four topics.
+- Prepared atomic source writes now carry the configured local-admin token through storage composition. Valid direct-loopback scripts may omit Origin, matching ordinary writes; session authentication and transactional admission still follow bounded body validation.
+- Offline HTTP tests verify local-script actor projection and refusal of forwarded headers, missing/wrong/duplicate tokens, foreign Origin, duplicate media types, malformed shape and oversized bodies before storage. Account-router check verifies token propagation without standalone admission or legacy execution.
+- Fixed test harnesses after initial failures: raw HTTP needed Host, and the fake Drizzle client uses query rather than Pool.connect. Four focused tests now pass.
+- Updated rollout plan/TASKS. Accounts remain disabled; no live flags, migrations, provider calls or generation changed.
+- Verification: four focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 753 unit/268 integration passes, four expected skips; existing bundle warnings only. No live external test calls.
+- No restart: uninstalled modules are not loaded by live services (STEERING 22); 13:00–16:00 deployment hold applies. Next: live mounting, atomic queue effects/proxy proof and Nov 9 15:00 scheduled acceptance.

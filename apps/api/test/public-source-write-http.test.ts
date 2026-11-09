@@ -3,6 +3,7 @@ import { createServer, request } from 'node:http';
 import test from 'node:test';
 
 import type { PublicAccessPrincipal } from '../src/public-access';
+import { publicAccountAuthenticator } from '../src/public-account-access';
 import { publicSourceHttp } from '../src/public-write/source-http';
 
 void test('prepared source write HTTP validates bounded requests and authorizes atomic writes', async () => {
@@ -221,5 +222,80 @@ void test('prepared source write HTTP validates bounded requests and authorizes 
     await new Promise<void>((resolve, reject) =>
       server.close((error) => (error ? reject(error) : resolve())),
     );
+  }
+});
+
+void test('atomic source writes allow only direct authenticated scripts to omit Origin', async () => {
+  let writes = 0;
+  let sessions = 0;
+  const middleware = publicSourceHttp({
+    enabled: true,
+    origin: 'https://reader.example',
+    localToken: 'local-secret',
+    authenticate: publicAccountAuthenticator(
+      {
+        authorization: async () => {
+          sessions++;
+          return null;
+        },
+      },
+      'local-secret',
+    ),
+    writer: {
+      async setEnabled(entry, id, enabled) {
+        assert.deepEqual(entry.actor, { localScript: true });
+        writes++;
+        return { outcome: 'changed', id, enabled };
+      },
+    },
+  });
+  const server = createServer((req, res) =>
+    middleware(req, res, () => {
+      assert.fail('source write escaped atomic handler');
+    }),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const url = `http://127.0.0.1:${address.port}/api/admin/topics/sources/example/enabled`;
+  try {
+    const call = (headers: string[], body = '{"enabled":false}') =>
+      new Promise<number | undefined>((resolve, reject) => {
+        const req = request(
+          url,
+          { method: 'PUT', headers: ['Host', '127.0.0.1', ...headers] },
+          (res) => {
+            res.resume();
+            res.on('end', () => resolve(res.statusCode));
+          },
+        );
+        req.on('error', reject);
+        req.end(body);
+      });
+    const local = [
+      'Content-Type',
+      'application/json',
+      'ADMIN_LOCAL_TOKEN',
+      'local-secret',
+    ];
+    assert.equal(await call(local), 200);
+    for (const headers of [
+      ['Content-Type', 'application/json'],
+      ['Content-Type', 'application/json', 'ADMIN_LOCAL_TOKEN', 'wrong'],
+      [...local, 'admin_local_token', 'local-secret'],
+      [...local, 'Forwarded', 'for=127.0.0.1'],
+      [...local, 'X-Forwarded-For', '127.0.0.1'],
+      [...local, 'X-Forwarded-Proto', 'https'],
+      [...local, 'Origin', 'https://foreign.example'],
+      [...local, 'Content-Type', 'application/json'],
+    ])
+      assert.equal(await call(headers), 400);
+    assert.equal(await call(local, '{"enabled":false,"extra":true}'), 400);
+    assert.equal(await call(local, ' '.repeat(2049)), 413);
+    assert.equal(writes, 1);
+    assert.equal(sessions, 0);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 });

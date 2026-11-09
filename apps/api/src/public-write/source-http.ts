@@ -4,6 +4,7 @@ import type {
   AdminWriteAdmission,
   PublicAccessPrincipal,
 } from '../public-access';
+import { directLocalAdmin } from '../public-local-admin';
 
 interface SourceWriter {
   setEnabled(
@@ -21,6 +22,7 @@ interface SourceWriter {
 export function publicSourceHttp(options: {
   enabled: boolean;
   origin: string;
+  localToken?: string;
   authenticate: (
     request: IncomingMessage,
     now: Date,
@@ -60,10 +62,12 @@ export function publicSourceHttp(options: {
         request.rawHeaders.filter(
           (value, index) => index % 2 === 0 && value.toLowerCase() === name,
         ).length;
+      const local =
+        count('origin') === 0 && directLocalAdmin(request, options.localToken);
       if (
-        count('origin') !== 1 ||
+        (!local && count('origin') !== 1) ||
         count('content-type') !== 1 ||
-        request.headers.origin !== options.origin ||
+        (!local && request.headers.origin !== options.origin) ||
         !/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(
           request.headers['content-type'] ?? '',
         )

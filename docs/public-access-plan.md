@@ -475,8 +475,12 @@ one transactional source admission and no duplicate standalone admission. Ordina
 routes now run the prepared Origin/JSON provenance boundary before session lookup
 and standalone admission (iteration 1527); missing/foreign Origin or invalid media
 types refuse without reaching authentication, storage or controllers. Source writes
-retain their stricter streamed boundary and single transactional admission. Live mounting,
-controller replacement and atomic queue/external effects remain unimplemented. This policy
+retain their stricter streamed boundary and single transactional admission.
+Atomic source routing now also carries the configured direct-local script token
+(iteration 1528): only authenticated loopback requests without forwarding headers
+may omit Origin; explicit foreign origins, duplicate credentials and invalid bodies
+refuse before authentication or storage. Live mounting, controller replacement and
+atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 
 ## Target design

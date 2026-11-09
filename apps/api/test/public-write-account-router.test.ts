@@ -42,12 +42,18 @@ void test('account write routing shares fresh session checks and keeps source re
   let admissions = 0;
   let legacy = 0;
   let closed = 0;
+  let connections = 0;
   const runtime = await prepareAccountPublicWriteRouter({
     enabled: true,
     origin: 'https://reader.example',
+    localToken: 'local-secret',
     now: () => at,
     pool: () =>
       ({
+        query: async () => {
+          connections++;
+          throw new Error('isolated storage unavailable');
+        },
         end: async () => {
           closed++;
         },
@@ -87,6 +93,7 @@ void test('account write routing shares fresh session checks and keeps source re
         headers: {
           cookie: 'session=test',
           origin: 'https://reader.example',
+          localToken: 'local-secret',
           'content-type': 'application/json',
         },
         body: '{"enabled":true}',
@@ -118,6 +125,23 @@ void test('account write routing shares fresh session checks and keeps source re
       assert.equal(await refusedWrite.text(), '');
     }
     assert.equal(authenticated, beforeRefusals);
+    assert.deepEqual([admissions, legacy], [1, 1]);
+    const beforeLocal = authenticated;
+    const localWrite = await fetch(
+      `http://127.0.0.1:${address.port}/api/admin/topics/sources/example/enabled`,
+      {
+        method: 'PUT',
+        headers: {
+          ADMIN_LOCAL_TOKEN: 'local-secret',
+          'content-type': 'application/json',
+        },
+        body: '{"enabled":true}',
+      },
+    );
+    assert.equal(localWrite.status, 503);
+    assert.equal(await localWrite.text(), '');
+    assert.equal(connections, 1);
+    assert.equal(authenticated, beforeLocal);
     assert.deepEqual([admissions, legacy], [1, 1]);
     unavailable = true;
     const failed = await call('/api/admin/topics/sources/example/enabled');
