@@ -34,6 +34,9 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   checks use fixture storage and make no live account writes. Admin revocation
   also crosses composed HTTPS: two friend-device sessions are refused afterward,
   the issuer stays active, and ordinary readers cannot issue links or revoke sessions.
+  Two independently authenticated devices also verify preference/bookmark sync,
+  removal tombstones, stale-update refusal, cookie-derived reader isolation and
+  sync refusal after all-device logout, using fixture persistence.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

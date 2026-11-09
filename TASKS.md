@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1479: composed desktop/mobile HTTPS admin revocation removes both friend-device sessions while preserving the issuer; non-admin invitation/revocation and revoked-cookie replay refused; accounts remain disabled.
+- [x] Iteration 1480: composed desktop/mobile HTTPS two-device sync preserves topic/bookmark removals against stale replay, isolates readers and refuses revoked sessions; accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

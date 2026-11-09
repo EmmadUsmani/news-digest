@@ -15,6 +15,10 @@ import { accountHttp } from '../apps/api/src/modules/accounts/adapters/account-h
 import { prepareAccountHandlers } from '../apps/api/src/modules/accounts/adapters/account-runtime';
 import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
 import type { LoginCodeChallenge } from '../apps/api/src/modules/accounts/domain/login-code';
+import {
+  mergeReaderSync,
+  type ReaderSyncState,
+} from '../apps/api/src/modules/accounts/domain/reader-sync';
 import type { ReaderSession } from '../apps/api/src/modules/accounts/domain/session';
 import type { SignInLink } from '../apps/api/src/modules/accounts/domain/sign-in-link';
 
@@ -50,6 +54,12 @@ async function main() {
       const sessions = new Map<string, ReaderSession>();
       let sessionSequence = 0;
       const links = new Map<string, SignInLink>();
+      const readerStates = new Map<string, ReaderSyncState>();
+      const emptyState: ReaderSyncState = {
+        version: 1,
+        hiddenTopics: {},
+        bookmarks: {},
+      };
       let attempts = 0;
       const email = 'fixture@example.com';
       const friendEmail = 'friend@example.com';
@@ -192,7 +202,16 @@ async function main() {
               return true;
             },
           },
-          sync: { merge: async (_id, changes) => changes },
+          sync: {
+            merge: async (id, changes) => {
+              const state = mergeReaderSync(
+                readerStates.get(id) ?? emptyState,
+                changes,
+              );
+              readerStates.set(id, state);
+              return state;
+            },
+          },
         }),
       );
       assert.ok(handlers);
@@ -209,6 +228,8 @@ async function main() {
       const signOutWithClock = handlers.signOut.bind(handlers);
       const issueLinkWithClock = handlers.issueLink.bind(handlers);
       const redeemLinkWithClock = handlers.redeemLink.bind(handlers);
+      const syncWithClock = handlers.syncReader.bind(handlers);
+      handlers.syncReader = (input) => syncWithClock(input, now);
       const revokeWithClock = handlers.revokeSessions.bind(handlers);
       handlers.revokeSessions = (input) => revokeWithClock(input, now);
       handlers.issueLink = (input) => issueLinkWithClock(input, now);
@@ -358,6 +379,53 @@ async function main() {
         (await other.cookies())[0].value,
         (await context.cookies())[0].value,
       );
+      // Cookie-derived identity and durable fixture state cross the real transport.
+      const sync = (
+        device: typeof context,
+        data: unknown = emptyState,
+        requestOrigin = origin,
+      ) =>
+        device.request.post(`${origin}/api/account/sync`, {
+          headers: { Origin: requestOrigin },
+          data,
+        });
+      const choices: ReaderSyncState = {
+        version: 1,
+        hiddenTopics: { tech: { hidden: true, updatedAt: 100 } },
+        bookmarks: {
+          story: {
+            updatedAt: 100,
+            copy: {
+              title: 'Fixture story',
+              url: 'https://example.com/story',
+              attribution: 'Fixture publisher',
+              excerpt: 'Fixture excerpt',
+              platform: 'story',
+              editionId: 'fixture-edition',
+            },
+          },
+        },
+      };
+      const savedChoices = await sync(context, choices);
+      assert.equal(savedChoices.status(), 200);
+      assert.equal(savedChoices.headers()['cache-control'], 'no-store');
+      assert.deepEqual(await (await sync(other)).json(), choices);
+      assert.equal(
+        (await sync(other, choices, 'https://other.fixture')).status(),
+        400,
+      );
+      assert.equal(
+        (await sync(other, { ...choices, userId: friendId })).status(),
+        400,
+      );
+      const removed: ReaderSyncState = {
+        version: 1,
+        hiddenTopics: { tech: { hidden: false, updatedAt: 101 } },
+        bookmarks: { story: { copy: null, updatedAt: 101 } },
+      };
+      assert.deepEqual(await (await sync(other, removed)).json(), removed);
+      // An offline device replay cannot resurrect a removed bookmark or topic choice.
+      assert.deepEqual(await (await sync(context, choices)).json(), removed);
       const logout = await context.request.post(
         `${origin}/api/account/logout`,
         {
@@ -428,6 +496,8 @@ async function main() {
         ).signedIn,
         false,
       );
+      assert.equal((await sync(other, choices)).status(), 401);
+      assert.equal((await sync(context, choices)).status(), 401);
       await other.close();
       // A fresh admin issues real composed links; browser previews never redeem.
       const adminCode = await requestCode();
@@ -544,6 +614,8 @@ async function main() {
         );
         assert.equal(response.status(), 204);
       }
+      assert.deepEqual(await (await sync(friendDevices[0])).json(), emptyState);
+      assert.deepEqual(await (await sync(context)).json(), removed);
       const friendCookies = await Promise.all(
         friendDevices.map(async (device) => (await device.cookies())[0]),
       );
@@ -681,7 +753,7 @@ async function main() {
       );
     }
     console.log(
-      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, target-only admin revocation, non-admin invitation/revocation refusal and two-device account deletion with confirmation/origin checks and revoked-cookie refusal, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
+      'Desktop/mobile real HTTPS composed login: exact expiry and five-guess exhaustion refused, replacement code restores secure authentication, daily cookie renewal, seven-day admin freshness, persistent reader session, device-scoped logout, all-device revocation and revoked-cookie/consumed-code replay, two-device preference sync with tombstones, stale replay and reader isolation, target-only admin revocation, non-admin invitation/revocation refusal and two-device account deletion with confirmation/origin checks and revoked-cookie refusal, admin-issued link preview, exact link expiry, cross-origin refusal, secure exchange and replay/reload refusal verified. Fixture storage/admission only; no live writes.',
     );
   } finally {
     await browser.close();
