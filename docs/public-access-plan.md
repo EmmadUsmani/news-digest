@@ -455,7 +455,12 @@ route and a single boolean `enabled` field; malformed/unauthorized requests neve
 reach storage. Responses project changed/unchanged results, return empty 404 for
 missing sources and hide authentication/storage errors behind empty 503s. Mount
 before body parsers and outside the standalone admission middleware to avoid
-independent duplicate admission records. Live controller replacement and atomic queue/external effects remain unimplemented. This policy
+independent duplicate admission records. Prepared default-off routing composition (iteration 1523) now places the atomic
+source transport before standalone authorization and legacy controllers. Invalid
+source methods/targets terminate there; unrelated routes still enter authorization.
+The disabled composition constructs neither handler. Loopback checks pin single
+writer execution without duplicate admission or legacy fallthrough. Live mounting,
+controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 
 ## Target design

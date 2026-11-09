@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1522: prepared source-write HTTP now rejects duplicate wire-level Origin/Content-Type headers before authentication or storage, including identical and mixed-case duplicates hidden by Node normalization. Loopback regression checks pass; controller adoption, queue atomicity and proxy proof remain open.
+- [x] Iteration 1523: prepared default-off write router isolates atomic source transport from standalone admission and legacy controllers; loopback checks verify no duplicate admission/fallthrough and lazy disabled composition. Live mounting, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

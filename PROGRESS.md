@@ -121,3 +121,13 @@
 - Verification: targeted HTTP test, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check; 743 unit/268 integration passes, four expected skips. Build has existing bundle warning only.
 - No live routes/config/migrations/providers changed; accounts/public mode off. No restart under STEERING 22: transport remains uninstalled.
 - Next: controller adoption, queue atomicity/proxy proof; 15:00 UTC scheduled Phase 1/X/Bluesky acceptance.
+
+## 2026-11-09: iteration 1523 — prepare atomic source routing composition
+
+- Clean main/no leftovers; alerts and health clear, user services active, all 36 sources healthy. Jobs check passes; saved reader returns four topics.
+- Prepared default-off write router places atomic source HTTP before standalone authorization and legacy controllers. Source requests terminate there, including invalid methods/targets; other routes retain authorization.
+- Loopback checks verify one writer execution, zero duplicate admissions/legacy fallthrough, unrelated-route authorization and disabled resource laziness.
+- Updated rollout plan and TASKS. No live mounting, migrations, flags, UI or provider calls changed; accounts remain off.
+- Verification: targeted router tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check, handbook checker and git diff --check. Full check passes 745 unit/268 integration tests, four expected skips; existing bundle/account-metadata warnings only.
+- No restart under STEERING 22: running services do not import this preparation. Live route adoption, queue atomicity and proxy proof remain open.
+- Next: compose storage-backed route adoption; Nov 9 15:00 scheduled Phase 1/X/Bluesky acceptance remains pending.
