@@ -1,15 +1,3 @@
-## 2026-11-09: iteration 1477 — composed HTTPS sign-in links
-
-- Clean main/no leftovers; health, alerts, source freshness, jobs and services pass. Phase 1 scheduled acceptance remains due at 15:00 UTC; accounts stay disabled.
-- Extended the composed desktop/mobile HTTPS smoke with admin-issued sign-in links using real HTTP handlers, runtime and crypto; fixture link storage enforces exact expiry and single use.
-- Browser preview strips the fragment without creating a session; cross-origin redemption fails without consuming the link. Explicit confirmation exchanges it for a secure cookie; logout followed by replay and reload cannot authenticate.
-- Saved and inspected desktop/mobile replay screenshots; added desktop/mobile screenshot links and activation coverage. No live account writes, provider calls or runtime changes; archived progress entries 1458–1460.
-- Initial browser run exposed same-document fragment navigation in the harness; corrected it to leave the confirmation page before opening a new link. Both viewport checks pass.
-- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, saved-reader check (four topics/19 stories/17 posts), `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook checker and diff check pass.
-- First full-check process ended 143 during unit tests with no assertion failure; complete retry passes 707 unit/254 integration tests, four expected skips. Handbook reports expected metadata for unapplied account tables.
-- Hourly 05:27 metrics probe: 23 healthy rules, four queries ≤0.710 s, no new evaluator errors/misses; recovery remains open. Next passive check ≥06:27 UTC.
-- No service restart needed under STEERING 22. Next: normal scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.
-
 ## 2026-11-09: iteration 1478 — composed HTTPS account deletion
 
 - Clean main/no leftovers; alerts clear, health passes and no failed user services. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
@@ -161,3 +149,12 @@
 - Updated response audit/TASKS; archived iteration 1476. No live routes, config, data, migrations or provider calls changed; concrete catalog composition and frontend origin integration remain open.
 - Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass. Full check: 720 unit/258 integration pass, four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
 - No restart under STEERING 22: live entrypoints do not import this controller. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
+
+## 2026-11-09: iteration 1494 — prepare public source-catalog runtime
+
+- Clean main/no leftovers; alerts/healthz clear, no failed user units; all 36 sources healthy and four queue workers available. Scheduled Phase 1 acceptance awaits 15:00 UTC.
+- Added unregistered `PublicSourcesModule.prepare` and explicit-column catalog reader. Default-off mode registers no route/storage; unsafe flags and missing system/published prerequisites fail before dependencies.
+- Isolated HTTP/database checks match the full existing catalog after profile rename and private future-column/URL-token injection; GET/HEAD, refused writes, unsafe-origin generic 503 and shared-pool ownership pass.
+- Updated response audit/TASKS; archived iteration 1477. No live routes/config/data/migrations/provider calls changed; accounts remain disabled. Frontend origin integration and authorization remain open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check` pass. First check stopped on archive formatting; formatted and full retry passes 721 unit/259 integration tests, four expected skips. Build retains existing bundle warnings.
+- Saved reader retains four topics/19 stories/17 posts. No restart under STEERING 22: live entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.

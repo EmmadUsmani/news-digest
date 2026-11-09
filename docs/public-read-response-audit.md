@@ -106,8 +106,16 @@ before promotion; existing GET/HEAD routes remain admin and unchanged.
 projected at the HTTP boundary, so feed paths, query tokens, fragments and future
 columns cannot pass through. Loopback HTTP tests verify exact origin-only output,
 empty HEAD, refused writes without storage reads, mixed unsafe catalogs and generic
-503 failures. Live routes and classification remain unchanged; concrete storage
-composition and frontend origin-field integration are still required.
+503 failures.
+
+`PublicSourcesModule.prepare` connects the explicit-column catalog reader behind
+an unregistered, default-off gate. Disabled mode opens no storage and installs no
+route; enabled mode requires system ownership and published-only readers. Isolated
+HTTP/database checks compare the full existing catalog after renaming the legacy
+profile table and adding secret URL parameters and a private future column. Unsafe
+stored URLs fail generically and module shutdown leaves the caller's pool open.
+Live routes and classification remain unchanged; frontend origin-field integration
+and route authorization are still required before promotion.
 
 ## Remaining response boundaries
 

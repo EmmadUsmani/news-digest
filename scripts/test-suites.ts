@@ -37,6 +37,7 @@ const integration = new Set([
   'profile-repository.test.ts',
   'public-schedule-reader.test.ts',
   'public-topics-reader.test.ts',
+  'public-sources-reader.test.ts',
   'system-settings-migration.test.ts',
   'nullable-system-ownership-migration.test.ts',
   'reddit-collection.test.ts',
