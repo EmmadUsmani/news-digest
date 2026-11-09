@@ -360,6 +360,12 @@ deletion emit no console logs. The HTTP boundary separately verifies that a
 credential-bearing exception produces an empty failure response and no console
 output. These are isolated checks; live proxy proof and activation remain open.
 
+Account schema privacy acceptance (iteration 1460) recreates all seven account
+tables after installing broad default SELECT grants. Both operational reader
+roles and an unrelated role inheriting only PUBLIC permissions have no table
+privileges; real SELECT attempts are refused, including login challenges. The
+rehearsal runs only against disposable Postgres and rolls its changes back.
+
 ## Target design
 
 ### System-level data

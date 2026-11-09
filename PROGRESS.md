@@ -115,3 +115,11 @@
 - Test-only change; no live account writes, migrations, provider calls, email or UI change. Updated rollout evidence and TASKS; archived iterations 1444–1445 to keep this log small.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts. Corrected unsupported jobs CLI options; final jobs snapshot confirms zero digest failures.
 - Commit/push then API/worker restart and health/reader/alerts checks. Next: normal Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.
+
+## 2026-11-09: iteration 1460 — complete account-table reader privacy acceptance
+
+- Clean main/no leftovers; health and alerts clear, sources healthy, digest queue zero failures and next normal run queued for 15:00 UTC. Accounts disabled; account migrations unapplied and VM private.
+- Extended isolated schema acceptance to recreate login challenges alongside the other six account tables under broad default SELECT grants. Both operational reader roles and an unrelated PUBLIC-only role have no SELECT/INSERT/UPDATE/DELETE/TRUNCATE/REFERENCES/TRIGGER privileges; actual SELECTs fail for every table. Transaction rolls back all rehearsal tables, roles and defaults.
+- Test-only change with rollout evidence updated; no live migrations, account writes, provider calls or email. Documented proxy behavior reviewed; direct public HTTPS probe still cannot connect from this VM, so live peer/forged-prefix proof remains open.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, saved-reader check and `git diff --check` pass. Full check: 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts.
+- Commit/push then restart API/worker and recheck health, reader and alerts. Next: 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.

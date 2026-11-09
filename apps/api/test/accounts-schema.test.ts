@@ -108,16 +108,22 @@ void test('account migration denies operational readers even with inherited defa
   try {
     await client.query('BEGIN');
     await client.query(
-      'DROP TABLE user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, sessions, users',
+      'DROP TABLE user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, login_codes, sessions, users',
     );
     await client.query(
-      'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics',
+      'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics; CREATE ROLE account_privacy_probe',
     );
     await client.query(
       'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO grafana_product, postgres_metrics, PUBLIC',
     );
     await client.query(
       await readFile('drizzle/0013_reader_sessions.sql', 'utf8'),
+    );
+    await client.query(
+      (await readFile('drizzle/0014_login_challenges.sql', 'utf8')).replaceAll(
+        '--> statement-breakpoint',
+        '',
+      ),
     );
     await client.query(
       (await readFile('drizzle/0015_sign_in_links.sql', 'utf8')).replaceAll(
@@ -131,7 +137,13 @@ void test('account migration denies operational readers even with inherited defa
         '',
       ),
     );
-    for (const role of ['grafana_product', 'postgres_metrics']) {
+    // The unrelated role receives only PUBLIC grants, independently checking
+    // that revoking the two named operational readers is not sufficient.
+    for (const role of [
+      'grafana_product',
+      'postgres_metrics',
+      'account_privacy_probe',
+    ]) {
       await client.query(`SET LOCAL ROLE ${role}`);
       for (const table of [
         'users',
@@ -139,8 +151,14 @@ void test('account migration denies operational readers even with inherited defa
         'bookmarks',
         'sessions',
         'sign_in_links',
+        'login_codes',
         'admin_audit_log',
       ]) {
+        const privilege = await client.query(
+          "SELECT has_table_privilege(current_user, $1, 'SELECT, INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER') AS allowed",
+          [table],
+        );
+        assert.equal(privilege.rows[0].allowed, false, `${role}: ${table}`);
         await client.query('SAVEPOINT denied');
         await assert.rejects(
           client.query(`SELECT * FROM ${table}`),

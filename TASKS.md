@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1459: stored HTTP account acceptance now checks silent console output through sign-in, replay, sync, revocation, logout and deletion; credential-bearing HTTP exceptions also remain silent. Accounts disabled; scheduled Phase 1 acceptance and live proxy proof remain open.
+- [x] Iteration 1460: account schema privacy acceptance now includes login challenges and an unrelated PUBLIC-only role; all seven tables deny read/write privileges and real SELECTs despite broad inherited defaults. Accounts remain disabled; scheduled acceptance and live proxy proof stay open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
