@@ -169,7 +169,10 @@ export const adminAuditLog = pgTable(
     }).notNull(),
   },
   () => [
-    check('admin_audit_log_action_check', sql`action = 'sign_in_link_issued'`),
+    check(
+      'admin_audit_log_action_check',
+      sql`action IN ('sign_in_link_issued', 'reader_sessions_revoked')`,
+    ),
     check(
       'admin_audit_log_email_check',
       sql`recipient_email = lower(btrim(recipient_email)) AND length(recipient_email) BETWEEN 3 AND 254`,

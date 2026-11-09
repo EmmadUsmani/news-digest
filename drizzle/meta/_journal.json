@@ -120,6 +120,13 @@
       "when": 1794177160017,
       "tag": "0016_reader_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1794190206834,
+      "tag": "0017_reader_session_revocation",
+      "breakpoints": true
     }
   ]
 }

@@ -1,22 +1,3 @@
-## 2026-11-09: iteration 1440 — bound Phase 1 migration rollout
-
-- Clean main/no leftovers; alerts clear, `/healthz` good and no failed user units. Pre-noon window opened during this iteration; Phase 1 takes priority over further account UI preparation.
-- Found ordinary `pnpm migrate` would also apply prepared account migrations. Added exact `MIGRATE_THROUGH` journal-tag stopping point; unknown/empty tags roll back. Default remains all pending migrations. Database acceptance covers bounded rollout then concurrent completion and rollback recovery.
-- Fresh private backup and `python3 ops/backups/rehearse_system.py` pass: actual runner twice through 0012 only, account migrations pending; 29 original table fingerprints, injected rollback, settings parity, unchanged foreign keys, complete adapter/HTTP off/on/off comparisons. Restore verifies 30 tables/56,630 rows.
-- Updated rollout plan and affected handbook pages. No live migration, flag activation, provider call or account route registration; Phase 1 live rollout is next within the open pre-noon window.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` pass (695 unit, 253 integration passes/four expected skips; schema parity green). `check-handbook.ts stack-and-runtime` and `10-backups` render/link checks pass with expected unapplied-table metadata notes. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. No UI change.
-- Commit/push then restart API/worker and repeat health/reader/alerts checks to match main. Next: fresh backup immediately before each live Phase 1 migration, bounded through 0012, then flag-on AI-off/AI-on private tests and scheduled acceptance.
-
-## 2026-11-09: iteration 1441 — apply live Phase 1 foundation
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. Sources continue returning real content; digest queue has zero failures, next run Nov 9 15:00 UTC.
-- Fresh `python3 ops/backups/rehearse_system.py` passes actual runner twice, injected rollback, 29 original fingerprints and complete adapter/HTTP off/on/off parity for 550 saved editions; restore verifies 30 tables/56,643 rows.
-- Applied live `MIGRATE_THROUGH=0011_system_edition_settings pnpm migrate` after private backup `20261109T000639Z`; applied `MIGRATE_THROUGH=0012_nullable_system_ownership pnpm migrate` after separate private backup `20261109T000647Z`. No account migrations applied.
-- Live SQL verifies exact schedule parity, four nullable ownership columns and zero null ownership rows. `SYSTEM_OWNERSHIP` remains off; accounts remain disabled and VM private. No provider calls or development spend.
-- Updated rollout plan, affected data-model handbook and TASKS. Phase 1 acceptance remains open; next activate system scope before noon, verify private AI-off/AI-on generation, then normal scheduled acceptance.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (695 unit; 253 integration/four expected skips), `pnpm build`, `check-handbook.ts 07-data-model` (31 live tables; only expected pending-account metadata notes), `git diff --check` pass. No UI change.
-- `check-scheduled-reader.ts 2026-11-08T15:00:00Z` passes before/after migrations: four topics/19 stories/17 posts. Commit/push, then restart API/worker and repeat health, source, queue and alerts checks to match main.
-
 ## 2026-11-09: iteration 1442 — enable live system ownership
 
 - Clean main/no leftovers. Alerts clear, health good and no failed user units; 36 enabled sources have no errors (28 with stored content in the last day). Digest queue has zero failures; next scheduled edition Nov 9 15:00 UTC.
@@ -128,3 +109,11 @@
 - Desktop/mobile Playwright fixtures verify non-admin hiding, refusal preserving the recipient, retry/success, dismissal, foreign-origin rejection and empty browser storage. Inspected both new invite screenshots; updated screenshot index, rollout plan, affected handbook note and TASKS. Accounts remain disabled; account migrations and live proxy proof remain pending.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, both reader-account browser smokes, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Full check passes (699 unit tests; 253 integration passes/four expected skips); build and browser checks pass. Saved reader retains four topics/19 stories/17 posts; handbook reports existing metadata notes for unapplied account tables. No diagrams changed.
 - Unauthenticated local admin status correctly returned 404; protected helper confirmed healthy sources/queues. Commit/push then restart API/worker and recheck health/reader/alerts. Next: scheduled Phase 1 acceptance, live proxy verification and account activation; owner two-device acceptance remains open.
+
+## 2026-11-09: iteration 1454 — prepared audited admin session revocation
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue has zero failures. Normal Phase 1 acceptance still awaits Nov 9 15:00 UTC; accounts stay disabled and VM private.
+- Added unregistered admin session-revocation application/port/storage. Storage locks and rechecks the active issuer, original eligibility, current allowlist and seven-day freshness; deletes the target’s device sessions and records the stored target email in one transaction. No bearer tokens reach audit rows. Prepared migration 0017 expands allowed audit actions; no live migration or activation.
+- Offline acceptance covers malformed credentials/targets, current allowlist, unknown/non-admin/stale issuers, exact freshness boundary, target isolation, self-revocation, audit-failure rollback and row-lock waiting behind concurrent logout. Updated rollout plan, handbook and audit metadata; archived iterations 1440–1441 to keep this file small. No UI change, provider calls or real email.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and `git diff --check` pass. Full check: 700 unit tests, 254 integration passes/four expected skips, including schema parity and new rollback/logout-race acceptance. Saved reader retains four topics/19 stories/17 posts; handbook reports existing pending-account metadata notes. Commit/push then restart API/worker and recheck health/reader/alerts.
+- Next: normal scheduled Phase 1 acceptance, live proxy proof; prepare guarded revocation HTTP/admin controls while accounts remain disabled. Owner two-device acceptance remains open.

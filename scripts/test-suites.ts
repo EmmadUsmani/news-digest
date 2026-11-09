@@ -10,6 +10,7 @@ const integration = new Set([
   'accounts-schema.test.ts',
   'reader-sync-storage.test.ts',
   'account-deletion-storage.test.ts',
+  'session-revocation-storage.test.ts',
   'account-runtime-storage.test.ts',
   'login-code-admission.test.ts',
   'login-code-repository.test.ts',

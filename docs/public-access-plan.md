@@ -331,6 +331,15 @@ and retry after refusal. Link and recipient stay in component memory only;
 unmounting the control aborts pending requests. No delivery is sent. Accounts
 remain disabled, pending Phase 1 scheduled acceptance and live proxy proof.
 
+Prepared admin session revocation (iteration 1454) remains unregistered. It
+requires an active originally eligible admin session, the current email allowlist
+and a sign-in younger than seven days, rechecked under a database row lock.
+All target device sessions are removed in the same transaction as a private audit
+using the stored recipient email; an audit failure restores the sessions. Migration
+0017 only expands the allowed audit actions and remains unapplied. Isolated
+checks cover stale/revoked/non-admin issuers, target isolation, rollback and a
+concurrent logout. HTTP registration and admin controls remain future work.
+
 ## Target design
 
 ### System-level data

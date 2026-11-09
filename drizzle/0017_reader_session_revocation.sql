@@ -1,0 +1,2 @@
+ALTER TABLE "admin_audit_log" DROP CONSTRAINT "admin_audit_log_action_check";--> statement-breakpoint
+ALTER TABLE "admin_audit_log" ADD CONSTRAINT "admin_audit_log_action_check" CHECK (action IN ('sign_in_link_issued', 'reader_sessions_revoked'));
