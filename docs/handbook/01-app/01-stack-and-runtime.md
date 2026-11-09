@@ -74,6 +74,7 @@ flowchart LR
 - `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
   and same-origin framing headers before account handling and authorization.
   The CSP limits base URLs, plugin objects, embedding ancestors and form destinations.
+  Frames can load only from the same origin or the two X embed hosts.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.
 - App service definitions are tracked in `ops/services/*.service`; observability

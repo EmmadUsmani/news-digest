@@ -29,11 +29,11 @@ export function prepareAccessStack(options: {
       response.setHeader('X-Content-Type-Options', 'nosniff');
       response.setHeader('Referrer-Policy', 'no-referrer');
       response.setHeader('X-Frame-Options', 'SAMEORIGIN');
-      // These document restrictions preserve official embeds and same-origin
-      // tool frames. Script/connect allowlists need their own browser review.
+      // Only official X hosts and same-origin tools may supply frames.
+      // Script/connect allowlists still need their own browser review.
       response.setHeader(
         'Content-Security-Policy',
-        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'",
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
       );
     }
     if (accounts)

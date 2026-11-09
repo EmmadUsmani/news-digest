@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1554: default-off public CSP restricts form submissions to the same origin; synthetic Chromium checks verify external POST refusal, local POST success and private rollback. Account pages retain their stricter form prohibition. Proxy proof and remaining Phase 4 readiness remain open.
+- [x] Iteration 1555: default-off public CSP limits frames to same-origin tools and the two X embed hosts. Intercepted synthetic Chromium checks cover allowed frames, unrelated/lookalike/HTTP refusal and private rollback; live embed/browser readiness and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

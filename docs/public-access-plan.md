@@ -396,12 +396,18 @@ turn an edition response into shared content. Account and admin data remain unca
 The default-off public access stack now sets HSTS (one year, host only),
 `nosniff`, `no-referrer`, same-origin framing and a document CSP before account
 transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
-submissions (same-origin only); it leaves outgoing embed frames and script/connect sources
-unchanged. A complete resource allowlist still needs browser review before public
+submissions (same-origin only). Frame sources are limited to the same origin,
+`https://platform.twitter.com` and `https://syndication.twitter.com`; script/connect
+sources remain unchanged. Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
 readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
 uses synthetic local forms to verify external POST refusal, same-origin POST
 success and unchanged private-mode behavior in Chromium. Account login/link
-pages retain their stricter form prohibition. Private mode adds none of these headers. Wire-level checks
+pages retain their stricter form prohibition.
+`pnpm exec tsx scripts/check-public-frame-policy.ts` checks same-origin tools and
+both X hosts, rejects unrelated/lookalike/HTTP frame origins, and verifies private
+rollback using intercepted synthetic frames without provider traffic. Live X
+embed compatibility remains part of the full browser readiness check.
+Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.
 

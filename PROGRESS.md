@@ -169,3 +169,14 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Restarted API/worker; first pre-readiness health probe retried successfully. Health/alerts clear; latest/history bytes unchanged. Scheduled reader check passes four topics/19 stories/14 posts. No provider, source, migration or configuration changes; accounts/public stay off.
 - Next: live proxy proof and guarded Phase 3 activation; remaining Phase 4 resource allowlist/readiness. Metrics probe no earlier than 17:18 UTC.
 - First push rejected (remote advanced); fetched and merged owner status commit 712bec1e unchanged in docs/lead. No application overlap; retrying push without rewriting history.
+
+## 2026-11-09: iteration 1555 — restrict public frame sources
+
+- Clean main/no leftover work; alerts and health clear. Passive metrics probe was not due at orientation; next eligible check remains 17:18 UTC.
+- Default-off public CSP now permits frames only from the same origin, platform.twitter.com and syndication.twitter.com over HTTPS; Bluesky cards need no frames. Account/public flags remain off.
+- Added intercepted synthetic Chromium proof: local tool and both X hosts load; unrelated, lookalike and HTTP origins are refused before requests; private rollback allows the foreign frame. No provider traffic or live account writes.
+- Initial assertion expected full blocked URLs; Chromium reports cross-origin violations as origins. Corrected the assertion; final frame and existing form browser checks pass. Public-stack HTTP checks pass 2/2.
+- Updated public-access plan, affected runtime handbook and TASKS. Handbook check passes 18 pages/one diagram; existing unapplied-account metadata warnings remain. Live X compatibility and full script/connect policy review remain readiness gates.
+- pnpm format, pnpm lint:fix, pnpm check (769 unit/272 integration passes, four expected skips), pnpm build and git diff --check pass; existing bundler warning only.
+- Restarted API/worker outside the hold; health/alerts clear, latest reader bytes unchanged. Scheduled reader check passes four topics/19 stories/14 posts.
+- No source, provider, migration or configuration changes. Next: live proxy proof/guarded Phase 3 activation, remaining Phase 4 resource-policy readiness; metrics passive check eligible after 17:18 UTC.
