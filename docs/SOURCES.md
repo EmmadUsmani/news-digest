@@ -2352,3 +2352,11 @@ Other topics select none of today's paid citations. Reported likes 3,235/1,664
 are unverified; all ten selected X posts have empty official metrics. Novel
 selected candidates fell from eight yesterday to two today; quality acceptance
 stays open. [Evidence](edition-reviews/2026-11-09.md#selected-keyword-novelty-and-engagement--iteration-1546).
+
+### Nov 9 saved Bluesky destinations — iteration 1547
+
+Four selected posts pass saved-reader desktop/mobile light/dark destination
+checks. Independent retains its article URL; Alberta expands to the Global News
+surgical-fees article, with a separate publisher homepage link. WIRED/Warriors
+have no inline article URL. External requests blocked; World quality remains
+open. [Evidence](edition-reviews/2026-11-09.md#saved-bluesky-destinations--iteration-1547).

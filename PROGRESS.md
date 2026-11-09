@@ -175,3 +175,14 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - Updated daily review, SOURCES and TASKS. pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
 - Documentation/evidence only; no provider calls, source fetches, application-data writes, flags, migrations or UI changes. No restart/deployment during 13:00–16:00 UTC hold; live runtime unchanged.
 - Next: saved Bluesky destination acceptance; live proxy proof/guarded activation remains blocked, prepared runtime deployment waits until after 16:00 UTC.
+
+## 2026-11-09: iteration 1547 — verify saved Bluesky destinations
+
+- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
+- GET/HEAD-only Playwright replay of immutable Nov 9 reader passes all four Bluesky cards on desktop/mobile light/dark: exact saved display text, original/expanded hrefs, no nested links/overflow/page errors; external requests blocked.
+- Independent retains its article URL; Alberta expands to Global News surgical-fees article and separately links publisher homepage. WIRED/Warriors supply no inline article URL. Saved allowlisted href evidence and inspected desktop/mobile screenshots; no fixtures or content rewrites.
+- Initial replay expected raw text; corrected assertion to saved displayText, which intentionally expands shortened links. No application defect found.
+- check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Updated daily review, SOURCES and TASKS; World social quality remains open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
+- Documentation/evidence only; no provider calls, source fetches, application writes, flags, migrations or runtime changes. No restart/deployment during 13:00–16:00 UTC hold.
+- Next: live proxy proof and guarded Phase 3 activation remain blocked; prepared runtime deployment waits until after 16:00 UTC. Complete remaining third-edition social acceptance without tuning.
