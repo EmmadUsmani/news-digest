@@ -96,6 +96,16 @@ void test('prepared sync HTTP authenticates identity, validates writes and keeps
       ).status,
       400,
     );
+    for (const text of ['\ud800', '\udfff']) {
+      const invalid = await post({
+        ...empty,
+        hiddenTopics: { [text]: { hidden: true, updatedAt: 1 } },
+      });
+      assert.equal(invalid.status, 400);
+      assert.equal(await invalid.text(), '');
+      assert.equal(invalid.headers.get('set-cookie'), null);
+      assert.equal(invalid.headers.get('cache-control'), 'no-store');
+    }
     assert.equal(writes, 0);
     // A valid sync can exceed the small login-code body limit.
     const changes = {

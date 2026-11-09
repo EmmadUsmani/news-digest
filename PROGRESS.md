@@ -169,3 +169,11 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - Updated readiness plan/TASKS; no active source or handbook behavior changed. Targeted account HTTP tests pass (8). `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 793 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
 - API/worker restarted; post-restart health, all 14 services, zero alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
 - Next: Phase 4 preparation behind flags; production visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.
+
+## 2026-11-09: iteration 1587 — reject unstoreable sync Unicode
+
+- Clean main/no leftovers; health/alerts pass, all 14 monitored services active, sources healthy and digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Prepared reader sync rejects escaped lone Unicode surrogates in all six bookmark display fields and both preference-key collections before storage. JSON can carry these despite valid UTF-8; rejection avoids PostgreSQL JSON failures. Valid multilingual text, emoji, supplementary characters and replacement characters remain accepted.
+- Offline policy tests cover malformed sequences in every field/key; HTTP checks return empty no-store 400, no cookie and zero storage writes. Updated readiness plan/TASKS; active source and handbook behavior unchanged. Accounts/public remain off pending item 53.
+- Targeted `pnpm exec tsx --test apps/api/test/reader-sync.test.ts apps/api/test/reader-sync-http.test.ts` passes (6). `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass; 794 unit tests, 275 integration passes/four expected skips. Existing bundle warning only; `git diff --check` passes.
+- Next: continue Phase 4 preparation behind flags; visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.

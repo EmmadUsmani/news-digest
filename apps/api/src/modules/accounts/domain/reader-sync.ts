@@ -28,15 +28,20 @@ const fields = {
 } as const;
 const record = (value: unknown): value is Record<string, unknown> =>
   !!value && typeof value === 'object' && !Array.isArray(value);
+// JSON permits escaped lone surrogates, but PostgreSQL JSON storage does not.
+// Iteration by code point keeps valid supplementary characters intact.
+function validText(value: string): boolean {
+  for (const character of value) {
+    const point = character.codePointAt(0)!;
+    if (point === 0 || (point >= 0xd800 && point <= 0xdfff)) return false;
+  }
+  return true;
+}
 function validCopy(value: unknown): value is ReaderBookmarkCopy {
   if (!record(value) || Object.keys(value).length !== 6) return false;
   for (const [key, limit] of Object.entries(fields)) {
     const field = value[key];
-    if (
-      typeof field !== 'string' ||
-      field.length > limit ||
-      field.includes('\0')
-    )
+    if (typeof field !== 'string' || field.length > limit || !validText(field))
       return false;
   }
   if (!value.title || !value.platform || !value.editionId) return false;
@@ -73,7 +78,7 @@ function validate(value: unknown): asserts value is ReaderSyncState {
       if (
         !key ||
         key.length > keyLimit ||
-        key.includes('\0') ||
+        !validText(key) ||
         !record(change) ||
         Object.keys(change).length !== 2 ||
         !Number.isSafeInteger(change.updatedAt) ||

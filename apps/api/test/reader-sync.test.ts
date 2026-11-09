@@ -113,3 +113,49 @@ void test('invalid sync is rejected rather than silently erasing entries', () =>
     /Invalid/,
   );
 });
+
+void test('sync rejects lone JSON surrogates in every stored string while preserving Unicode', () => {
+  for (const text of [
+    '\ud800',
+    '\udfff',
+    'a\ud800b',
+    '\ud800\ud800',
+    '\udfff\udfff',
+  ]) {
+    for (const field of Object.keys(copy)) {
+      const incoming = {
+        ...empty(),
+        bookmarks: {
+          story: { copy: { ...copy, [field]: text }, updatedAt: 1 },
+        },
+      };
+      assert.throws(
+        () => mergeReaderSync(empty(), JSON.parse(JSON.stringify(incoming))),
+        /Invalid/,
+      );
+    }
+    for (const kind of ['hiddenTopics', 'bookmarks'] as const) {
+      const change =
+        kind === 'hiddenTopics'
+          ? { hidden: true, updatedAt: 1 }
+          : { copy: null, updatedAt: 1 };
+      assert.throws(
+        () =>
+          mergeReaderSync(empty(), { ...empty(), [kind]: { [text]: change } }),
+        /Invalid/,
+      );
+    }
+  }
+  const unicode = '世界 🌍 𐀀 �';
+  const incoming = {
+    ...empty(),
+    hiddenTopics: { [unicode]: { hidden: true, updatedAt: 1 } },
+    bookmarks: {
+      [unicode]: {
+        copy: { ...copy, title: unicode, excerpt: unicode },
+        updatedAt: 1,
+      },
+    },
+  };
+  assert.deepEqual(mergeReaderSync(empty(), incoming), incoming);
+});

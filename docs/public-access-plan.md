@@ -393,6 +393,11 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared reader sync (iteration 1587) rejects escaped lone Unicode surrogates in
+bookmark display fields and preference keys before storage. Valid multilingual
+text and supplementary characters remain accepted. Offline policy and HTTP
+checks cover refusal without storage writes; accounts/public remain disabled.
+
 Prepared account writes (iteration 1586) reject malformed UTF-8 before handler
 dispatch rather than silently replacing bytes in reader data. Offline HTTP tests
 cover invalid byte sequences and valid multilingual text split across chunks.
