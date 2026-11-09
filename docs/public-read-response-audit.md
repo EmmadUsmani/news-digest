@@ -76,8 +76,11 @@ or reads the profiles table. It applies the topic allowlist before returning.
 Isolated tests compare the complete result with the existing system catalog,
 rename the profile table, clear topic ownership and add a private future column.
 Unset/off/on flags preserve the result; malformed stored settings and closed
-connections receive generic 503 errors. The reader remains unregistered; topic
-HTTP transport and configured-text review are still required before promotion.
+connections receive generic 503 errors. The reader remains unregistered. Prepared topic GET/HEAD transport now repeats
+the projection at the HTTP boundary, returns no-store responses and generic 503
+errors, and refuses writes without reading storage. Loopback checks cover mixed
+valid/invalid catalogs and adapter exceptions. Runtime composition and
+configured-text review are still required before promotion.
 
 ## Prepared source catalog projection
 

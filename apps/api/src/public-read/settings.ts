@@ -7,7 +7,7 @@ import { ServiceUnavailableException } from '@nestjs/common';
 
 import { publicFeedUrl } from '../libs/ports/public-url';
 
-// Phase 4 preparation only. No controller imports these readers yet.
+// Phase 4 preparation only. Transports remain unregistered in the live application.
 // Pick fields explicitly: neither legacy ownership nor future DB columns may
 // become public simply because a repository starts returning them.
 const publicScheduleSchema = scheduleSchema

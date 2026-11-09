@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1490: prepared unregistered system-wide public topic reader with explicit selected fields and allowlist; isolated parity, ownership independence, future-column omission and generic failure checks. Live routes unchanged. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1491: prepared unregistered public topic GET/HEAD transport; loopback checks verify field filtering, no-store, refused writes and generic malformed-catalog/storage failures. Live routes unchanged. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
