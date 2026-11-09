@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1463: actual loopback HTTP proxy admission verifies forged-prefix isolation, duplicate-header refusal and untrusted-peer rejection. Accounts remain disabled; live proxy proof and scheduled acceptance still gate activation.
+- [x] Iteration 1464: unfinished chunked login/sync uploads return 413 at their independent limits without invoking handlers. Accounts remain disabled; live proxy proof and scheduled acceptance still gate activation.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

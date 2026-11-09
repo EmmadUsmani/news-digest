@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
+import { createServer, request } from 'node:http';
 import { test } from 'node:test';
 
 import { AccountHandlers } from '../src/modules/accounts/adapters/account-handlers';
@@ -253,5 +253,65 @@ void test('account deletion requires explicit same-origin confirmation and sessi
     await new Promise<void>((resolve, reject) =>
       server.close((error) => (error ? reject(error) : resolve())),
     );
+  }
+});
+
+void test('oversized unfinished chunked account requests receive 413 before upload ends', async () => {
+  let calls = 0;
+  const handlers = {
+    redeemCode: async () => {
+      calls++;
+      return { status: 204 };
+    },
+    syncReader: async () => {
+      calls++;
+      return { status: 204 };
+    },
+  } as unknown as AccountHandlers;
+  const server = createServer((req, res) =>
+    accountHttp({ enabled: true, handlers, client: () => 'verified' })(
+      req,
+      res,
+      () => res.end(),
+    ),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  try {
+    for (const [path, limit] of [
+      ['/api/account/redeem', 2048],
+      ['/api/account/sync', 16 * 1024 * 1024],
+    ] as const) {
+      const status = await new Promise<number | undefined>(
+        (resolve, reject) => {
+          const upload = request({
+            hostname: '127.0.0.1',
+            port: address.port,
+            path,
+            method: 'POST',
+            headers: { 'Transfer-Encoding': 'chunked' },
+          });
+          upload.on('error', reject);
+          upload.setTimeout(3000, () =>
+            upload.destroy(new Error('No bounded upload response')),
+          );
+          upload.on('response', (response) => {
+            response.resume();
+            response.on('end', () => {
+              resolve(response.statusCode);
+              upload.destroy();
+            });
+          });
+          // Leave the body unfinished: rejection must not wait for the sender.
+          upload.write('x'.repeat(limit + 1));
+        },
+      );
+      assert.equal(status, 413);
+      assert.equal(calls, 0);
+    }
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 });

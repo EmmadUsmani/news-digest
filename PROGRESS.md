@@ -1,20 +1,3 @@
-## 2026-11-09: iteration 1448 — gated email-code sign-in page
-
-- Clean main/no leftovers. Initial alerts and health clear; all 36 sources healthy, scheduled reader retains four topics/19 stories/17 posts. Phase 1 acceptance waits for Nov 9 15:00 UTC.
-- Prepared `/account/login` behind the disabled account flag: email-code request, keyboard redemption, private eligibility message, safe refusal/retry and success redirect. Restrictive CSP, same-origin POSTs and no credential URLs/storage; submitted codes are cleared.
-- Isolated Playwright checks pass on desktop/mobile with fixture HTTP responses only; inspected both new screenshots. Existing friend-link confirmation smoke still passes. Updated rollout plan, affected handbook note, screenshots index and TASKS; archived iterations 1434–1435 to keep this file small.
-- Accounts remain disabled, VM private, migrations pending; no provider calls, real email or live proxy trust changes. Reader navigation wiring remains pending.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, both account browser smokes, saved reader check and `git diff --check`; all pass (698 unit tests, 253 integration passes/four expected skips). Handbook filter reports existing metadata for unapplied account tables; no diagrams changed.
-- Next: scheduled Phase 1 acceptance, live proxy proof and gated reader account UI; phase 3 activation stays blocked on phase 1 acceptance.
-
-## 2026-11-09: iteration 1449 — gated reader account panel
-
-- Clean main/no leftovers; alerts and health clear, no failed user units. Sources healthy, latest reader retains four topics/19 stories/17 posts; next scheduled digest is Nov 9 15:00 UTC.
-- Prepared an unmounted gated account panel for sign-in, sync status/failure/retry, session-check retry and single/all-device sign-out. Busy actions are disabled; failed sign-out retains controller state and choices. No account identities are displayed or stored by the panel.
-- Isolated desktop/mobile Playwright fixture checks pass for those controls, rejected actions and disabled UI. Inspected both screenshots; updated screenshot index, rollout plan, affected handbook note and TASKS. Accounts remain disabled, migrations pending, VM private; no provider calls or real email.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-reader-account.ts`, saved reader check and `git diff --check`. Full check passes (698 unit tests; 253 integration passes/four expected skips). Handbook filter reports existing metadata for unapplied account tables; no diagrams changed. Initial build found unsupported button variant; corrected before final checks. Initial smoke required an async entrypoint; corrected.
-- Commit/push then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal flag-on Phase 1 scheduled acceptance, live proxy proof and gated header mounting; phase 3 activation follows phase 1 acceptance.
-
 ## 2026-11-09: iteration 1450 — gated reader header account wiring
 
 - Clean main/no leftovers; initial alerts and health clear, no failed user units. Sources healthy, digest queue has no failures; next scheduled run Nov 9 15:00 UTC.
@@ -129,3 +112,11 @@
 - This is isolated transport acceptance, not live exe.dev proxy proof; no account activation, migrations, credentials, provider calls or UI change. The live proxy gate remains open.
 - Verification: targeted proxy tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run before commit. Full check: 702 unit/254 integration passes, four expected skips. Corrected missing test Host header and lint rejection typing before rerunning.
 - Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal scheduled Phase 1 acceptance, live proxy proof and account activation prerequisites.
+
+## 2026-11-09: iteration 1464 — unfinished account upload acceptance
+
+- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 still awaits the normal 15:00 UTC edition; accounts remain disabled.
+- Added real HTTP regression coverage for unfinished chunked uploads exceeding the login 2 KiB and sync 16 MiB limits. Both receive 413 without waiting for upload completion or invoking account handlers; no runtime fix needed.
+- No live account writes, migrations, provider calls, email, proxy trust changes or UI changes. Archived iterations 1448–1449 to keep this log small.
+- Verification: targeted account HTTP tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full suite: 703 unit passes, 254 integration passes/four expected skips. Saved reader retains four topics/19 stories/17 posts. Commit/push followed by API/worker restart and health/alerts checks.
+- Next: normal Phase 1 scheduled acceptance, live proxy proof and account activation prerequisites. Accounts stay disabled until those gates pass.
