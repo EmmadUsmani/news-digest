@@ -21,7 +21,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Remaining milestones and lower priorities
 
-- [ ] Legacy `scripts/smoke-edition-jobs.ts` assumes latest private preview equals latest published edition and an obsolete create-button label (1509); update its replay for resumed legacy jobs in the current admin UI. New-edition free private-test replay repaired (1511); queue browser checks pass.
+- [x] Legacy job recovery browser replay repaired (1512): private/published records separated; resumed-job queue/reload/reconnect/invalid-status/timeout/completion/failure/expiry verified without browser writes.
 
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [x] M6 closed (1095): topic CRUD/reorder/enable and source settings, schedule/budgets, custom-window on-demand editions and immutable history shipped; reader/admin separation complete. [Scope evidence](docs/milestone-acceptance.md).
@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1511: repaired current new-edition smoke replay for free private tests; desktop/mobile light/dark validation, completion/failure and no-paid-options checks pass. Legacy resumed-job replay remains open.
+- [x] Iteration 1512: repaired legacy resumed-job smoke replay for the current private-test UI; refreshed desktop/mobile light/dark recovery screenshots. Public account audit/controller/proxy gates remain next.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

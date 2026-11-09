@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 
 import {
   contentGroupSchema,
+  digestPreviewSchema,
   operationsStatusSchema,
   profileSettingsSchema,
   readerEditionSchema,
@@ -42,9 +43,11 @@ async function smoke() {
       localAdminJson('/api/admin/status').then((data) =>
         operationsStatusSchema.parse(data),
       ),
-      localAdminJson('/api/admin/digest-previews/latest'),
+      localAdminJson('/api/admin/digest-previews/latest').then((data) =>
+        digestPreviewSchema.parse(data),
+      ),
     ]);
-  assert.equal((savedEdition as { id: string }).id, edition.id);
+  // Private previews and published reader editions are independent records.
   const snapshots: Record<string, unknown> = {
     '/api/admin/content': content,
     '/api/admin/topics': topics,
@@ -100,28 +103,12 @@ async function smoke() {
             return route.fulfill({ json: snapshots[path] });
           return route.continue();
         });
-        let submissions = 0;
-        let loseQueueResponse = true;
-        let stallQueueResponse = true;
         let state = 'waiting';
         let disconnected = false;
         let invalidStatus: unknown = undefined;
         let stallNextPoll = false;
         let stalledPolls = 0;
         let stage = 'triage';
-        await context.route(
-          '**/api/admin/digest-previews/jobs',
-          async (route) => {
-            assert.equal(route.request().method(), 'POST');
-            submissions++;
-            if (stallQueueResponse) return;
-            if (loseQueueResponse) return route.abort('failed');
-            await route.fulfill({
-              status: 202,
-              json: { id: jobId },
-            });
-          },
-        );
         await context.route(
           `**/api/admin/digest-previews/jobs/${jobId}`,
           async (route) => {
@@ -130,6 +117,8 @@ async function smoke() {
               stalledPolls++;
               return; // Hold this request until the browser's real deadline aborts it.
             }
+            if (state === 'missing')
+              return route.fulfill({ status: 404, json: {} });
             if (invalidStatus !== undefined)
               return route.fulfill({ json: invalidStatus });
             if (disconnected) return route.fulfill({ status: 503, json: {} });
@@ -150,98 +139,30 @@ async function smoke() {
                         ],
                       }
                     : null,
-                editionId: state === 'completed' ? edition.id : null,
+                editionId: state === 'completed' ? savedEdition.id : null,
               },
             });
           },
         );
         await replayAdminPage(page);
+        // Resume a legacy job; new requests now use synchronous private tests.
+        // Seed storage once, so completion/failure must clear it before reload.
+        await page.goto('http://127.0.0.1:8000/');
+        await page.evaluate(
+          (id) => sessionStorage.setItem('edition-job', id),
+          jobId,
+        );
         await page.goto('http://127.0.0.1:8000/admin/editions/new');
-        const create = page.getByRole('button', {
-          name: 'Create edition · last 24 hours',
-        });
-        await create.waitFor();
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'Edition queued' })
+          .waitFor();
         assert.equal(
           await page
             .locator('html')
             .evaluate((node) => node.classList.contains('dark')),
           theme === 'dark',
         );
-        await page.waitForFunction(
-          () =>
-            !document.querySelector<HTMLFieldSetElement>('fieldset')?.disabled,
-        );
-        await create.click();
-        await page
-          .getByRole('alert')
-          .filter({
-            hasText: 'Could not confirm whether your edition was queued.',
-          })
-          .waitFor({ timeout: 25000 });
-        assert.equal(await create.isEnabled(), true);
-        await page
-          .getByRole('link', { name: 'Browse saved editions' })
-          .waitFor();
-        assert.equal(submissions, 1);
-        assert.equal(
-          await page.evaluate(() => sessionStorage.getItem('edition-job')),
-          null,
-        );
-        await page
-          .getByText('Browse saved editions', { exact: true })
-          .scrollIntoViewIfNeeded();
-        await page.screenshot({
-          path: `docs/screenshots/ui/edition-queue-review-focus-${screenshotName}.png`,
-          fullPage: false,
-        });
-        await page.reload();
-        await create.waitFor();
-        assert.equal(
-          submissions,
-          1,
-          'Reload must not resubmit a timed-out job',
-        );
-        stallQueueResponse = false;
-        await create.click();
-        await page
-          .getByRole('alert')
-          .filter({
-            hasText:
-              'Check saved editions before trying again to avoid a duplicate run.',
-          })
-          .waitFor();
-        assert.equal(submissions, 2);
-        assert.equal(await create.isEnabled(), true);
-        await page
-          .getByRole('link', { name: 'Browse saved editions' })
-          .waitFor();
-        assert.equal(
-          await page.evaluate(() => sessionStorage.getItem('edition-job')),
-          null,
-        );
-        await page
-          .getByRole('alert')
-          .filter({
-            hasText: 'Could not confirm whether your edition was queued.',
-          })
-          .scrollIntoViewIfNeeded();
-        await page.screenshot({
-          path: `docs/screenshots/ui/edition-queue-interrupted-${screenshotName}.png`,
-          fullPage: false,
-        });
-        await page.reload();
-        await create.waitFor();
-        assert.equal(
-          submissions,
-          2,
-          'Reload must not resubmit an uncertain job',
-        );
-        loseQueueResponse = false;
-        await create.click();
-        await page
-          .getByRole('status')
-          .filter({ hasText: 'Edition queued' })
-          .waitFor();
         assert.equal(
           await page
             .getByRole('button', { name: 'Creating edition…' })
@@ -262,7 +183,6 @@ async function smoke() {
           .getByRole('status')
           .filter({ hasText: 'Creating your edition' })
           .waitFor();
-        assert.equal(submissions, 3);
         for (const [next, label] of [
           ['editing', 'Fixture topic · editing'],
           ['posts', 'Fixture topic · posts'],
@@ -311,7 +231,6 @@ async function smoke() {
             .getByRole('status')
             .filter({ hasText: 'Connection interrupted' })
             .waitFor();
-          assert.equal(submissions, 3);
           assert.equal(
             await page.evaluate(() => sessionStorage.getItem('edition-job')),
             jobId,
@@ -348,7 +267,6 @@ async function smoke() {
           { timeout: 25000 },
         );
         assert.equal(stalledPolls, 1);
-        assert.equal(submissions, 3);
         assert.equal(
           await page.evaluate(() => sessionStorage.getItem('edition-job')),
           jobId,
@@ -368,7 +286,7 @@ async function smoke() {
           await page
             .getByRole('link', { name: 'Inspect created edition' })
             .getAttribute('href'),
-          `/admin/editions/${edition.id}`,
+          `/admin/editions/${savedEdition.id}`,
         );
         assert.equal(
           await page.evaluate(() => sessionStorage.getItem('edition-job')),
@@ -376,13 +294,43 @@ async function smoke() {
         );
         state = 'failed';
         await page.goto('http://127.0.0.1:8000/admin/editions/new');
-        await create.click();
+        await page
+          .getByRole('button', { name: 'Create test edition · last 24 hours' })
+          .waitFor();
+        await page.evaluate(
+          (id) => sessionStorage.setItem('edition-job', id),
+          jobId,
+        );
+        await page.reload();
         await page
           .getByRole('status')
           .filter({ hasText: 'Edition generation failed' })
           .waitFor();
+        const create = page.getByRole('button', {
+          name: 'Create test edition · last 24 hours',
+        });
         assert.equal(await create.isEnabled(), true);
-        assert.equal(submissions, 4);
+        assert.equal(
+          await page.evaluate(() => sessionStorage.getItem('edition-job')),
+          null,
+        );
+        await page.reload();
+        await create.waitFor();
+        state = 'missing';
+        await page.evaluate(
+          (id) => sessionStorage.setItem('edition-job', id),
+          jobId,
+        );
+        await page.reload();
+        await page
+          .getByRole('status')
+          .filter({ hasText: 'This generation job is no longer available' })
+          .waitFor();
+        assert.equal(
+          await page.evaluate(() => sessionStorage.getItem('edition-job')),
+          null,
+        );
+        assert.equal(await create.isEnabled(), true);
         assert.deepEqual(errors, []);
         assert.deepEqual(writes, []);
         assert.deepEqual(credentials, []);
@@ -400,14 +348,14 @@ async function smoke() {
       'Simulated jobs must not change saved editions',
     );
     assert.deepEqual(
-      await localAdminJson('/api/admin/digest-previews/' + edition.id),
+      await localAdminJson('/api/admin/digest-previews/' + savedEdition.id),
       savedEdition,
       'Simulated jobs must preserve the full protected saved edition',
     );
     assert.deepEqual(await localAdminJson('/api/admin/topics'), topics);
     assert.deepEqual(await localAdminJson('/api/admin/profile'), profile);
     console.log(
-      'Async edition UI: desktop/mobile light/dark real queue deadline, interrupted queue response with saved edition review link without automatic resubmission, queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, completion link and failure passed; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
+      'Async edition UI: desktop/mobile light/dark resumed legacy queue, active, reload, reconnect, malformed/mismatched status recovery, stalled-poll timeout, private-preview completion link, failure and expired-job recovery passed; no job submissions; protected operational snapshots; unexpected browser writes blocked and no browser credentials; full saved edition, topics and profile unchanged.',
     );
   } finally {
     await browser.close();

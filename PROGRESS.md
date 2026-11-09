@@ -131,3 +131,12 @@
 - Legacy edition-jobs exploration deliberately reverted: its resumed-job recovery scenarios need separate adaptation, rather than conflating latest private and published editions. TASKS retains that follow-up. Archived iterations 1496–1498.
 - Verification: browser replay and build pass (existing bundle warning). Initial full check was SIGTERM-terminated during unit tests; retry caught script import formatting after an edit, fixed with required autofix. Final `pnpm check` passes (741 unit/263 integration, four expected skips); `pnpm format`, `pnpm lint:fix` and `git diff --check` pass.
 - No restart under STEERING 22: only verification scripts/screenshots/docs changed. Accounts/public mode stay off; next product work is audit enforcement/controller replacement/proxy proof, then normal scheduled acceptance.
+
+## 2026-11-09: iteration 1512 — repair resumed legacy-job browser verification
+
+- Clean main/no leftovers; alerts, healthz and user services healthy. Source/queue checks pass; Nov 9 scheduled run remains 15:00 UTC and existing historical failed attempts have recovered successors.
+- Repaired `smoke-edition-jobs.ts` for resumed legacy jobs: seed session storage instead of submitting through the retired create flow, validate private-preview and published-reader records independently, and link completion to the private preview.
+- Desktop/mobile light/dark replay covers queued/active stages, reload, reconnect, malformed/mismatched responses, real polling deadline, completion, failure and expired-job cleanup. All unexpected browser writes are blocked; no browser credentials or provider calls. Full saved preview, reader edition, topics and profile unchanged.
+- First replay exposed a mobile test setup race: storage could be consumed before reload while the page mounted. Waiting for the create form before seeding fixes it; complete four-case rerun passes. Refreshed and visually inspected 12 screenshots.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, browser replay and `git diff --check` pass; existing bundle warnings. Combined check received SIGTERM after all 741 unit/263 integration passes (four skips); standalone `pnpm check` retry exits successfully with the same counts.
+- No restart under STEERING 22: only verification/screenshots/task records changed. Accounts/public mode remain off. Next: account audit enforcement/controller replacement/proxy proof and normal 15:00 scheduled Phase 1 acceptance.
