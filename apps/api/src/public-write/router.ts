@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { publicSourceHttp } from './source-http';
+import { publicTopicHttp } from './topic-http';
 
 type Middleware = (
   request: IncomingMessage,
@@ -8,11 +9,12 @@ type Middleware = (
   next: () => void,
 ) => unknown;
 
-// Prepared only. Install before body parsing and legacy controllers. Source
+// Prepared only. Install before body parsing and legacy controllers. Source and topic
 // writes own their transaction and must never enter standalone admission.
 export function publicWriteRouter(options: {
   enabled: boolean;
   source: () => ReturnType<typeof publicSourceHttp>;
+  topic: () => ReturnType<typeof publicTopicHttp>;
   authorize: () => Middleware;
 }) {
   if (!options.enabled)
@@ -22,6 +24,7 @@ export function publicWriteRouter(options: {
       next: () => void,
     ) => next();
   const source = options.source();
+  const topic = options.topic();
   const authorize = options.authorize();
   return (
     request: IncomingMessage,
@@ -29,6 +32,8 @@ export function publicWriteRouter(options: {
     next: () => void,
   ) =>
     source(request, response, () => {
-      void authorize(request, response, next);
+      topic(request, response, () => {
+        void authorize(request, response, next);
+      });
     });
 }

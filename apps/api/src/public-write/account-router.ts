@@ -5,7 +5,7 @@ import { publicWriteAccess } from '../public-write-access';
 import { prepareOwnedPublicWriteRouter } from './owned-router';
 
 // Uninstalled preparation. Accounts and the ordinary admission recorder remain
-// caller-owned; source writes use only their own transactional admission.
+// caller-owned; source and topic writes use only their own transactional admission.
 export async function prepareAccountPublicWriteRouter(options: {
   enabled: boolean;
   origin: string;

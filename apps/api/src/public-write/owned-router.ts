@@ -5,7 +5,7 @@ import { prepareStoredPublicWriteRouter } from './storage-router';
 type StoredOptions = Parameters<typeof prepareStoredPublicWriteRouter>[0];
 
 // Uninstalled preparation for a Nest-owned runtime. Authorization resources
-// remain caller-owned; this runtime owns only the source writer's pool.
+// remain caller-owned; this runtime owns only the source and topic writers' shared pool.
 export async function prepareOwnedPublicWriteRouter(options: StoredOptions) {
   let pool: Pool | undefined;
   let closing: Promise<void> | undefined;

@@ -185,3 +185,12 @@
 - Updated rollout plan/TASKS. No registration, migrations, live flags, UI, edition generation or external calls changed; public/accounts remain off.
 - Verification: focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/269 integration passes, four expected skips; existing bundle warning only.
 - No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, topic runtime/controller replacement, proxy proof and atomic queue effects.
+
+## 2026-11-09: iteration 1538 — wire atomic topic-enable public routing
+
+- Clean main/no leftovers; alerts and healthz healthy, no failed user services; latest saved edition has four topics.
+- Wired topic-enable transport and transactional writer into the default-off public runtime; source/topic writers share its owned pool and bypass standalone admission and legacy controllers.
+- Routing acceptance covers successful source/topic writes, malformed topic targets, unsupported methods, disabled resource laziness and shared shutdown. Initial focused run caught topic-order interception; exempted its exact route and retained ordinary authorization/provenance checks.
+- Updated rollout plan/TASKS. Public/accounts flags remain off; no migrations, generation changes or live external calls.
+- Verification: focused router/topic HTTP/access tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/269 integration passes, four expected skips; existing bundle warning only.
+- No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, proxy proof and atomic queue effects.

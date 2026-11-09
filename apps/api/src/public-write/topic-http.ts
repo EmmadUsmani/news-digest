@@ -41,6 +41,7 @@ export function publicTopicHttp(options: {
     const target = request.url ?? '';
     if (
       !target.startsWith('/api/admin/topics/') ||
+      target === '/api/admin/topics/order' ||
       target.startsWith('/api/admin/topics/sources/')
     )
       return next();

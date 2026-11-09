@@ -754,5 +754,8 @@ PUT target, one boolean field, bounded JSON and unambiguous Origin/content-type
 headers before authenticating a fresh admin. It delegates admission and mutation
 together to the writer, projects only the public result and hides dependency
 errors. Direct authenticated local scripts retain their Origin exemption. This
-transport remains uninstalled; controller replacement and runtime wiring await
-acceptance and a permitted deployment window.
+transport now participates in the default-off public write runtime (iteration
+1538), sharing the source writer pool and bypassing standalone admission and
+legacy controllers. The exact topic-order route retains ordinary authorization;
+malformed topic-enable targets terminate before controllers. Public activation
+and deployment await acceptance and a permitted deployment window.
