@@ -1,30 +1,3 @@
-## 2026-11-09: iteration 1493 — prepare public source-catalog HTTP transport
-
-- Clean main/no leftovers; alerts and healthz clear, no failed user units. Scheduled Phase 1 acceptance still awaits 15:00 UTC.
-- Added unregistered source-catalog GET/HEAD transport with origin-only projection and no-store responses. Loopback HTTP checks verify private feed paths/query tokens/fragments and future columns are omitted, HEAD is empty, writes never read storage, and mixed unsafe catalogs/storage errors return generic 503s.
-- Updated response audit/TASKS; archived iteration 1476. No live routes, config, data, migrations or provider calls changed; concrete catalog composition and frontend origin integration remain open.
-- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass. Full check: 720 unit/258 integration pass, four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
-- No restart under STEERING 22: live entrypoints do not import this controller. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
-
-## 2026-11-09: iteration 1494 — prepare public source-catalog runtime
-
-- Clean main/no leftovers; alerts/healthz clear, no failed user units; all 36 sources healthy and four queue workers available. Scheduled Phase 1 acceptance awaits 15:00 UTC.
-- Added unregistered `PublicSourcesModule.prepare` and explicit-column catalog reader. Default-off mode registers no route/storage; unsafe flags and missing system/published prerequisites fail before dependencies.
-- Isolated HTTP/database checks match the full existing catalog after profile rename and private future-column/URL-token injection; GET/HEAD, refused writes, unsafe-origin generic 503 and shared-pool ownership pass.
-- Updated response audit/TASKS; archived iteration 1477. No live routes/config/data/migrations/provider calls changed; accounts remain disabled. Frontend origin integration and authorization remain open.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check` pass. First check stopped on archive formatting; formatted and full retry passes 721 unit/259 integration tests, four expected skips. Build retains existing bundle warnings.
-- Saved reader retains four topics/19 stories/17 posts. No restart under STEERING 22: live entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
-
-## 2026-11-09: iteration 1495 — source catalog reader compatibility
-
-- Clean main/no leftovers; alerts/healthz clear and no failed user units. Scheduled Phase 1 acceptance remains due at 15:00 UTC.
-- Topic editor now parses only source IDs/names through a shared contract, discarding transport fields before caching; legacy feed-URL and prepared origin-only catalogs both work.
-- Read-only Playwright replay checks all 36 saved catalog entries and existing connections at desktop/mobile widths for both shapes, plus malformed-catalog refusal. Public responses are simulated; no writes or provider calls.
-- Updated response audit/TASKS and desktop/mobile screenshots; archived iteration 1478. Live routes/access/config and disabled account gates unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-source-catalog-compatibility.ts`, scheduled-reader check and `git diff --check`.
-- Full check passes: 721 unit tests and 259 integration tests, four expected skips; build passes with existing bundle warnings. Saved reader retains four topics/19 stories/17 posts.
-- API restarted for rebuilt frontend; health passes. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
-
 ## 2026-11-09: iteration 1496 — prepare public source health projection
 
 - Clean main/no leftovers; alerts/healthz clear and no failed user units. Authenticated source check finds 36 sources with successful collection and zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
@@ -158,3 +131,13 @@
 - Updated TASKS/public-access plan and archived iterations 1490–1492. Local script credentials, write origin/audit enforcement, controller replacement and proxy proof remain open.
 - Verification: targeted HTTP test and saved-reader check pass (four topics/19 stories/17 posts). First full check caught an unnecessary async callback; corrected. Final `pnpm format`, `pnpm lint:fix`, `pnpm check` (738 unit/263 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warnings remain. Recent-failure alert cleared by 09:53 UTC.
 - No restart under STEERING 22: live entrypoints do not import this composition. Next: remaining authorization wiring and normal 15:00 scheduled phase-1 acceptance.
+
+## 2026-11-09: iteration 1509 — prepare direct-local administrative credentials
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources report no errors; scheduled digest queue healthy and Nov 9 15:00 run pending. Two historical ingestion failures remain after the previous recovered source timeout.
+- Prepared uninstalled exact-token authentication for direct-loopback administrative APIs, using constant-time comparison. Duplicate headers, any forwarding header, remote peers and missing configuration refuse; proxy identity grants nothing. Tokens cannot impersonate readers or authorize account administration.
+- Real loopback HTTP checks cover credentials, duplicate/forwarded/forged requests, unknown routes and account isolation. No live configuration, migrations or provider calls; accounts/public mode remain off.
+- Saved-reader check passes (four topics/19 stories/17 posts); queue browser check passes four queues/40 schedules desktop/mobile. Generated queue screenshots restored as unrelated.
+- Two older UI smoke scripts fail on stale assumptions/copy: legacy edition-jobs conflates latest private/published records and expects an old button; current new-edition expects obsolete warning text. Exploratory legacy-script edit deliberately reverted; follow-up recorded in TASKS.
+- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (740 unit/263 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warnings remain. Archived iterations 1493–1495.
+- No restart under STEERING 22: live entrypoints do not import this prepared composition. Next: write-origin/audit enforcement, controller replacement, live proxy proof and scheduled Phase 1 acceptance.

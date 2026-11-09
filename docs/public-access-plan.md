@@ -407,8 +407,12 @@ uninstalled. Prepared account-session composition (iteration 1508) now uses the
 existing strict cookie boundary and session service, recomputes admin freshness
 and allowlisting per request, and forwards daily secure-cookie renewal. Public
 authorization refuses enablement without account handlers; its disabled path
-constructs no account resources. Direct-local script credentials, write
-origin/audit enforcement and controller replacement are required before promotion.
+constructs no account resources. Prepared direct-local script credentials
+(iteration 1509) accept one exact configured token only from loopback sockets
+without any Forwarded/X-Forwarded headers. They authorize classified administrative
+API routes only and cannot impersonate readers or administer account sessions.
+This path remains uninstalled; live proxy proof, write origin/audit enforcement
+and controller replacement are required before promotion.
 
 ## Target design
 

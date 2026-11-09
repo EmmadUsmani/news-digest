@@ -21,6 +21,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Remaining milestones and lower priorities
 
+- [ ] Legacy `scripts/smoke-edition-jobs.ts` assumes latest private preview equals latest published edition and an obsolete create-button label (1509); update its replay for the current admin UI. `smoke-admin-new-edition.ts` also times out on obsolete “This spends AI budget” copy; refresh both. Queue browser checks pass.
+
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
 - [x] M6 closed (1095): topic CRUD/reorder/enable and source settings, schedule/budgets, custom-window on-demand editions and immutable history shipped; reader/admin separation complete. [Scope evidence](docs/milestone-acceptance.md).
 - [x] M7 closed (1095): daily timezone scheduler, source/queue/run/spend status and DigestPublished log adapter shipped; durable job recovery and four named failure rehearsals pass. [Scope evidence](docs/milestone-acceptance.md). External notification delivery remains outside scope.
@@ -34,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1508: prepared uninstalled account-backed public authorization with strict cookies, daily renewal, admin freshness/allowlist removal, revocation and fail-closed HTTP checks. Local-token wiring, write enforcement, controller replacement and proxy proof remain open.
+- [x] Iteration 1509: prepared uninstalled direct-local token authorization for classified administrative APIs; duplicate tokens, forwarded traffic and reader/account impersonation refused. Write enforcement, controller replacement and live proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
