@@ -194,3 +194,12 @@
 - Updated rollout plan/TASKS. Public/accounts flags remain off; no migrations, generation changes or live external calls.
 - Verification: focused router/topic HTTP/access tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/269 integration passes, four expected skips; existing bundle warning only.
 - No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, proxy proof and atomic queue effects.
+
+## 2026-11-09: iteration 1539 — verify combined topic HTTP/database transactions
+
+- Clean main/no leftovers; pnpm obs alerts reports zero active alerts, healthz database/Redis healthy, no failed user services; latest live saved edition serves four topics.
+- Added isolated combined public-access runtime acceptance over real loopback HTTP and migrated Testcontainers Postgres. Concurrent identical toggles persist exactly one changed and one unchanged audit outcome, bypassing standalone admission and legacy controllers.
+- Invalid persisted actors refuse with empty 503 and no mutation/admission; missing topics refuse with empty 404 and no extra admission. Injected audit-outcome failure returns empty 503, rolls back the topic change and leaves audit count unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/270 integration passes, four expected skips. First check raced the unfinished import-sort autofix; sequential retry passes. Existing build warnings only; no live external calls.
+- Updated TASKS; no runtime behavior, migrations, flags, UI or generation changes. Public/accounts remain off. No deployment/restart during the owner's 13:00–16:00 UTC hold.
+- Next: 15:00 scheduled edition acceptance, permitted deployment after 16:00, live proxy proof and atomic queue effects.

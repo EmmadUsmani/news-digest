@@ -11,6 +11,7 @@ import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/publ
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 import { PublicSourceWriter } from '../src/modules/topics/database/public-source-writer';
 import { PublicTopicWriter } from '../src/modules/topics/database/public-topic-writer';
+import { prepareAccessRuntime } from '../src/public-write/access-runtime';
 import { prepareAccountPublicWriteRouter } from '../src/public-write/account-router';
 
 void test('admin write admissions persist minimal actors, reject unsafe entries and fail closed', async () => {
@@ -640,5 +641,174 @@ void test('prepared topic toggle commits audit outcomes with serialized changes 
     ]);
     await pool.query('DELETE FROM topics WHERE id=$1', [id]);
     await pool.end();
+  }
+});
+
+void test('combined topic HTTP runtime commits concurrent toggles once and rolls back audit failures', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const id = 'd4444444-4444-4444-8444-444444444444';
+  const target = `/api/admin/topics/${id}`;
+  const userId = (
+    await pool.query(
+      "INSERT INTO users(email) VALUES ('topic-http@example.test') RETURNING id",
+    )
+  ).rows[0].id as string;
+  let invalidActor = false;
+  let standalone = 0;
+  let legacy = 0;
+  const runtime = await prepareAccessRuntime({
+    enabled: true,
+    origin: 'https://reader.example',
+    accountTransport: (_req, _res, next) => next(),
+    legacyAccess: () => {
+      throw new Error('Unexpected private access');
+    },
+    accounts: () => ({
+      authorization: async () => ({
+        freshAdmin: true,
+        auditActor: invalidActor
+          ? { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' }
+          : { userId },
+      }),
+    }),
+    pool: () => pool,
+    recordAdminWrite: async () => {
+      standalone++;
+    },
+  });
+  const server = createServer((req, res) =>
+    runtime.middleware(req, res, () => {
+      legacy++;
+      res.statusCode = 404;
+      res.end();
+    }),
+  );
+  const admissions = async () =>
+    (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [target],
+      )
+    ).rows[0].n;
+  try {
+    await pool.query(
+      "INSERT INTO topics(id,name,description,include_guidance,position,enabled) VALUES ($1,'HTTP topic','Description','Guidance',999,false)",
+      [id],
+    );
+    await new Promise<void>((resolve) =>
+      server.listen(0, '127.0.0.1', resolve),
+    );
+    const address = server.address();
+    assert.ok(address && typeof address !== 'string');
+    const put = () =>
+      fetch(`http://127.0.0.1:${address.port}${target}`, {
+        method: 'PUT',
+        headers: {
+          origin: 'https://reader.example',
+          'content-type': 'application/json',
+        },
+        body: '{"enabled":true}',
+      });
+    invalidActor = true;
+    const refused = await put();
+    assert.equal(refused.status, 503);
+    assert.equal(await refused.text(), '');
+    assert.equal(await admissions(), 0);
+    assert.equal(
+      (await pool.query('SELECT enabled FROM topics WHERE id=$1', [id])).rows[0]
+        .enabled,
+      false,
+    );
+    invalidActor = false;
+    const responses = await Promise.all([put(), put()]);
+    const bodies = await Promise.all(
+      responses.map(async (response) => {
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        return response.json() as Promise<{
+          outcome: string;
+          id: string;
+          enabled: boolean;
+        }>;
+      }),
+    );
+    assert.deepEqual(
+      bodies.sort((a, b) => a.outcome.localeCompare(b.outcome)),
+      [
+        { outcome: 'changed', id, enabled: true },
+        { outcome: 'unchanged', id, enabled: true },
+      ],
+    );
+    assert.equal(await admissions(), 2);
+    assert.deepEqual(
+      (
+        await pool.query(
+          'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+          [target],
+        )
+      ).rows,
+      [{ outcome: 'changed' }, { outcome: 'unchanged' }],
+    );
+    assert.equal(
+      (await pool.query('SELECT enabled FROM topics WHERE id=$1', [id])).rows[0]
+        .enabled,
+      true,
+    );
+    await pool.query(
+      "CREATE FUNCTION refuse_http_topic_outcome() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'private storage failure'; END $$",
+    );
+    await pool.query(
+      'CREATE TRIGGER refuse_http_topic_outcome BEFORE UPDATE ON admin_write_admissions FOR EACH ROW EXECUTE FUNCTION refuse_http_topic_outcome()',
+    );
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:${address.port}${target}`,
+        {
+          method: 'PUT',
+          headers: {
+            origin: 'https://reader.example',
+            'content-type': 'application/json',
+          },
+          body: '{"enabled":false}',
+        },
+      );
+      assert.equal(response.status, 503);
+      assert.equal(await response.text(), '');
+      assert.equal(await admissions(), 2);
+      assert.equal(
+        (await pool.query('SELECT enabled FROM topics WHERE id=$1', [id]))
+          .rows[0].enabled,
+        true,
+      );
+    } finally {
+      await pool.query(
+        'DROP TRIGGER refuse_http_topic_outcome ON admin_write_admissions',
+      );
+      await pool.query('DROP FUNCTION refuse_http_topic_outcome()');
+    }
+    await pool.query('DELETE FROM topics WHERE id=$1', [id]);
+    const missing = await put();
+    assert.equal(missing.status, 404);
+    assert.equal(await missing.text(), '');
+    assert.equal(await admissions(), 2);
+    assert.deepEqual([standalone, legacy], [0, 0]);
+    assert.equal(
+      (await fetch(`http://127.0.0.1:${address.port}/api/admin/topics`)).status,
+      404,
+    );
+    assert.deepEqual([standalone, legacy], [0, 1]);
+  } finally {
+    server.closeAllConnections();
+    if (server.listening)
+      await new Promise<void>((resolve, reject) =>
+        server.close((error) => (error ? reject(error) : resolve())),
+      );
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      target,
+    ]);
+    await pool.query('DELETE FROM topics WHERE id=$1', [id]);
+    await pool.query('DELETE FROM users WHERE id=$1', [userId]);
+    await runtime.close();
   }
 });
