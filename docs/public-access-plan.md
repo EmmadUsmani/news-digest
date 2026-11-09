@@ -366,6 +366,11 @@ roles and an unrelated role inheriting only PUBLIC permissions have no table
 privileges; real SELECT attempts are refused, including login challenges. The
 rehearsal runs only against disposable Postgres and rolls its changes back.
 
+The [Phase 3 activation checklist](account-activation.md) separates configuration,
+backup/restore rehearsal, bounded migrations, owner acceptance and rollback.
+It is preparation only; live proxy proof and the account-specific fresh-restore
+rehearsal must pass before activation.
+
 ## Target design
 
 ### System-level data

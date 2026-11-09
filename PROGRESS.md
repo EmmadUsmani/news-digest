@@ -123,3 +123,11 @@
 - Test-only change with rollout evidence updated; no live migrations, account writes, provider calls or email. Documented proxy behavior reviewed; direct public HTTPS probe still cannot connect from this VM, so live peer/forged-prefix proof remains open.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, saved-reader check and `git diff --check` pass. Full check: 701 unit passes, 254 integration passes/four expected skips. Saved Nov 8 edition retains four topics/19 stories/17 posts.
 - Commit/push then restart API/worker and recheck health, reader and alerts. Next: 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and remaining Phase 3 activation checks; owner two-device acceptance remains open.
+
+## 2026-11-09: iteration 1461 — Phase 3 activation and rollback checklist
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures and normal 15:00 UTC run queued. Accounts remain disabled and VM private.
+- Added a concrete activation checklist: prerequisites, exact private configuration names, separate server/web gates, bounded 0017 migration, owner two-device steps and additive rollback. Linked it from the rollout plan and made the missing account-specific fresh-restore rehearsal explicit in TASKS; existing system rehearsal stops at 0012 and cannot satisfy it.
+- Documentation only; no account writes, migrations, provider calls, email or settings changes. Owner check is staged in the checklist; no request for human action until the live flow is ready.
+- Verification: configuration/migration tag checked against runtime/runner; local links and `git diff --check` pass. `pnpm build` and saved-reader check pass (four topics/19 stories/17 posts). `pnpm format`, `pnpm lint:fix` and `pnpm check` pass: 701 unit passes, 254 integration passes/four expected skips.
+- Next: prepare account-specific fresh-backup restore rehearsal; Phase 1 normal scheduled acceptance and live proxy proof still gate activation. Commit/push followed by API/worker restart and health/reader/alerts checks.
