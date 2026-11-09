@@ -141,3 +141,13 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - Updated readiness plan/TASKS; no active source or handbook behavior changed. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 790 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warnings.
 - API/worker restarted; first curl raced startup, retry passed. Post-restart health, alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
 - Next: continue Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.
+
+## 2026-11-09: iteration 1584 — reject ambiguous account Cookie fields
+
+- Clean main/no leftovers; alerts/health pass, all 36 sources healthy, all 14 services active and digest-generation failed count zero. No paid calls, migrations, flag, UI or generation changes.
+- Owner value: future sign-in and account writes now refuse ambiguous wire-level session input before authentication or mutation. Prepared account transport rejects multiple Cookie fields, including mixed-case names; accounts/public stay off pending item 53.
+- Offline real HTTP checks cover session reads, redemption and logout-all: identical/conflicting/unrelated repeated fields return empty no-store 400 without cookies or handler calls. One Cookie field with unrelated cookies and cookie-free redemption still reach their handlers.
+- Updated readiness plan/TASKS; no active source or handbook behavior changed. Targeted `pnpm exec tsx --test apps/api/test/account-http.test.ts` passes all seven tests.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 791 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
+- API/worker restart and post-restart health/alerts/scheduled-reader verification recorded below.
+- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.

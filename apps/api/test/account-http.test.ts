@@ -573,3 +573,130 @@ void test('account writes reject duplicate wire headers before handler dispatch'
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 });
+
+void test('account routes reject duplicate Cookie fields before authentication or writes', async () => {
+  let reads = 0;
+  let writes = 0;
+  const handlers = new AccountHandlers(
+    new AccountRequestBoundary('https://reader.example'),
+    {
+      request: async () => {
+        writes++;
+      },
+    },
+    {
+      redeem: async () => {
+        writes++;
+        return null;
+      },
+    },
+    {
+      authenticate: async () => {
+        reads++;
+        return null;
+      },
+      signOut: async () => {
+        writes++;
+        return 'cleared';
+      },
+      signOutAllDevices: async () => {
+        writes++;
+        return 'cleared';
+      },
+    },
+  );
+  const middleware = accountHttp({
+    enabled: true,
+    handlers,
+    client: () => 'verified',
+  });
+  const server = createServer((req, res) =>
+    middleware(req, res, () => res.end()),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const send = (path: string, cookies: string[]) =>
+    new Promise<{
+      status: number | undefined;
+      body: string;
+      cookie: unknown;
+      cache: unknown;
+    }>((resolve, reject) => {
+      const upload = request(
+        {
+          hostname: '127.0.0.1',
+          port: address.port,
+          path,
+          method: path.endsWith('/session') ? 'GET' : 'POST',
+          headers: [
+            'Host',
+            '127.0.0.1',
+            'Origin',
+            'https://reader.example',
+            'Content-Type',
+            'application/json',
+            ...cookies,
+          ],
+        },
+        (response) => {
+          let body = '';
+          response.setEncoding('utf8');
+          response.on('data', (chunk: string) => {
+            body += chunk;
+          });
+          response.on('end', () =>
+            resolve({
+              status: response.statusCode,
+              body,
+              cookie: response.headers['set-cookie'],
+              cache: response.headers['cache-control'],
+            }),
+          );
+        },
+      );
+      upload.on('error', reject);
+      upload.end(
+        path.endsWith('/session')
+          ? undefined
+          : '{"email":"reader@example.com","code":"123456"}',
+      );
+    });
+  const cookie = '__Host-reader_session=' + 'a'.repeat(43);
+  try {
+    for (const path of [
+      '/api/account/session',
+      '/api/account/redeem',
+      '/api/account/logout-all',
+    ]) {
+      for (const second of [
+        cookie,
+        'unrelated=value',
+        '__Host-reader_session=' + 'b'.repeat(43),
+      ]) {
+        const response = await send(path, ['Cookie', cookie, 'cOoKiE', second]);
+        assert.equal(response.status, 400);
+        assert.equal(response.body, '');
+        assert.equal(response.cookie, undefined);
+        assert.equal(response.cache, 'no-store');
+        assert.equal(reads, 0);
+        assert.equal(writes, 0);
+      }
+    }
+    assert.equal(
+      (
+        await send('/api/account/session', [
+          'Cookie',
+          cookie + '; unrelated=value',
+        ])
+      ).status,
+      200,
+    );
+    assert.equal(reads, 1);
+    assert.equal((await send('/api/account/redeem', [])).status, 401);
+    assert.equal(writes, 1);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});

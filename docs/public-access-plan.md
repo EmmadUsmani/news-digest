@@ -393,6 +393,13 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared account routes (iteration 1584) reject multiple wire-level Cookie fields
+before authentication or account writes, including mixed-case header names.
+Offline HTTP checks cover session reads, redemption and logout-all refusal with
+no cookie or response body, then successful handling of one Cookie field and
+cookie-free redemption. One Cookie field may still contain unrelated cookies.
+Accounts/public remain disabled pending proxy proof.
+
 Prepared account writes (iteration 1583) require exactly one wire-level Origin
 and Content-Type header before body reading or handler dispatch. Offline HTTP
 tests reject repeated identical and conflicting values, including mixed casing,

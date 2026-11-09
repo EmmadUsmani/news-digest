@@ -35,6 +35,13 @@ export function accountHttp(options: {
     };
     const run = async () => {
       if (!options.enabled) return send({ status: 404 });
+      // Node combines repeated Cookie fields; reject ambiguous session input
+      // before authentication, login redemption or any account mutation.
+      const count = (name: string) =>
+        request.rawHeaders.filter(
+          (value, index) => index % 2 === 0 && value.toLowerCase() === name,
+        ).length;
+      if (count('cookie') > 1) return send({ status: 400 });
       if (confirmation) {
         if (!['GET', 'HEAD'].includes(request.method ?? ''))
           return send({ status: 404 });
@@ -75,10 +82,6 @@ export function accountHttp(options: {
       const client = options.client(request);
       if (!client) return send({ status: 503 });
       // Validate wire multiplicity before Node's normalization can hide values.
-      const count = (name: string) =>
-        request.rawHeaders.filter(
-          (value, index) => index % 2 === 0 && value.toLowerCase() === name,
-        ).length;
       if (
         count('origin') !== 1 ||
         count('content-type') !== 1 ||
