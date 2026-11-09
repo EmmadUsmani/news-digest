@@ -162,3 +162,12 @@
 - Updated rollout plan/TASKS. No live flags, routes, migrations, UI or provider calls changed; accounts stay off.
 - Verification: pnpm exec tsx --test apps/api/test/public-write-account-router.test.ts apps/api/test/public-account-access.test.ts (3 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 752 unit/268 integration passes, four expected skips; existing bundle warnings only. Corrected require-await lint error before passing rerun.
 - No restart under STEERING 22: running services do not import these prepared modules. Next: live mounting, atomic queue/external effects and proxy proof; Nov 9 15:00 scheduled Phase 1/X/Bluesky acceptance remains pending.
+
+## 2026-11-09: iteration 1527 — guard ordinary account writes before admission
+
+- Clean main/no leftovers; alerts, healthz and user services healthy. `pnpm obs sources --check` and `pnpm obs jobs --check` pass; latest saved reader returns four topics.
+- Prepared account-backed write router now applies the existing Origin/JSON provenance boundary to ordinary routes before session lookup and standalone admission. Atomic source routes retain their stricter stream validation and single transaction.
+- Loopback HTTP checks verify missing/foreign Origin and missing/invalid media types return empty private 403s without authentication, audit admission or controller execution; valid ordinary writes still pass.
+- Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain off.
+- Verification: focused account-router tests (2 pass), pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 752 unit/268 integration passes, four expected skips; existing bundle warnings only.
+- No restart under STEERING 22: running services do not import this uninstalled composition. Live mounting, atomic queue effects and proxy proof remain open; Nov 9 15:00 scheduled acceptance remains pending.

@@ -38,6 +38,7 @@ void test('account write routing shares fresh session checks and keeps source re
   const at = new Date('2026-11-09T12:00:00Z');
   let freshAdmin = false;
   let unavailable = false;
+  let authenticated = 0;
   let admissions = 0;
   let legacy = 0;
   let closed = 0;
@@ -53,6 +54,7 @@ void test('account write routing shares fresh session checks and keeps source re
       }) as unknown as Pool,
     accounts: () => ({
       authorization: async (cookie, now) => {
+        authenticated++;
         assert.equal(cookie, 'session=test');
         assert.equal(now, at);
         if (unavailable) throw new Error('private session failure');
@@ -99,6 +101,23 @@ void test('account write routing shares fresh session checks and keeps source re
     assert.deepEqual([admissions, legacy], [0, 0]);
     freshAdmin = true;
     assert.equal((await call('/api/admin/topics/order')).status, 204);
+    assert.deepEqual([admissions, legacy], [1, 1]);
+    const beforeRefusals = authenticated;
+    for (const headers of [
+      { 'content-type': 'application/json' },
+      { origin: 'https://foreign.example', 'content-type': 'application/json' },
+      { origin: 'https://reader.example', 'content-type': 'text/plain' },
+      { origin: 'https://reader.example' },
+    ]) {
+      const refusedWrite = await fetch(
+        `http://127.0.0.1:${address.port}/api/admin/topics/order`,
+        { method: 'PUT', headers: { cookie: 'session=test', ...headers } },
+      );
+      assert.equal(refusedWrite.status, 403);
+      assert.equal(refusedWrite.headers.get('cache-control'), 'no-store');
+      assert.equal(await refusedWrite.text(), '');
+    }
+    assert.equal(authenticated, beforeRefusals);
     assert.deepEqual([admissions, legacy], [1, 1]);
     unavailable = true;
     const failed = await call('/api/admin/topics/sources/example/enabled');

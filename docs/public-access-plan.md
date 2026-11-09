@@ -471,7 +471,11 @@ Authorization resources remain caller-owned. Prepared account-backed composition
 atomic source writes and ordinary authorization. Missing account handlers refuse
 before storage opens; disabled composition constructs neither accounts nor storage.
 Loopback and isolated database checks cover cookie renewal, session refusal/failure,
-one transactional source admission and no duplicate standalone admission. Live mounting,
+one transactional source admission and no duplicate standalone admission. Ordinary
+routes now run the prepared Origin/JSON provenance boundary before session lookup
+and standalone admission (iteration 1527); missing/foreign Origin or invalid media
+types refuse without reaching authentication, storage or controllers. Source writes
+retain their stricter streamed boundary and single transactional admission. Live mounting,
 controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 
