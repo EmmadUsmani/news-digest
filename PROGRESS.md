@@ -138,3 +138,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass. Handbook checker renders 18 pages/three diagrams with no link/render failures; schema metadata warns because eight prepared account tables remain unapplied on live DB.
 - Updated TASKS, rollout plan, handbook and schema metadata. No provider calls, live migrations, configuration changes or UI changes. No restart under STEERING 22: this recorder remains unregistered and the policy uninstalled; accounts/public mode stay off.
 - Next: inject durable recorder, transactional mutation outcomes, controller replacement and proxy proof; scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC. Backup account rehearsal currently stops at 0017; extend through 0018 before any live account migration.
+
+## 2026-11-09: iteration 1516 — extend private account restore rehearsal through 0018
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources and four queues pass; saved reader remains four topics/19 stories/17 posts.
+- Extended account rehearsal through unapplied migration 0018, including its admission table in rollback, exact table-set, idempotence and operational/PUBLIC privilege checks. Runner stop tag and boundary assertion now derive from the last listed migration.
+- `python3 ops/backups/rehearse_accounts.py` passes against a fresh private backup/networkless restore: 30 original application-table fingerprints unchanged, injected rollback, actual runner twice, eight private tables and three reader roles denied. Restore verifies 31 original tables/59,873 rows; private receipt mode 600.
+- Updated activation checklist, rollout plan, backup handbook and TASKS. No live migrations, provider calls, configuration or UI changes; accounts/public mode remain off. No restart under STEERING 22: only the manual rehearsal and documentation changed.
+- Handbook page check: no page/link/render errors; exits 1 for existing schema metadata warnings because eight prepared account tables remain unapplied on live DB.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass: 742 unit/264 integration tests, four expected skips. Existing bundle-size warning only.
+- Next: inject durable recorder, transactional mutation outcomes, controller replacement and live proxy proof; scheduled Phase 1/X/Bluesky acceptance remains due at 15:00 UTC.

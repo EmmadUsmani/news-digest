@@ -374,7 +374,7 @@ backup/restore rehearsal, bounded migrations, owner acceptance and rollback.
 The account-specific fresh-restore command is
 `python3 ops/backups/rehearse_accounts.py`: it takes a private backup, restores
 without network access, checks rollback and the actual runner twice through
-0017, preserves original table fingerprints and denies all seven account tables
+0018, preserves original table fingerprints and denies all eight account tables
 to operational/PUBLIC readers despite broad default grants. Its private receipt
 is `~/backups/news-digest/account-migration-proof.json`. Live proxy proof and
 Phase 1 scheduled acceptance still gate activation.

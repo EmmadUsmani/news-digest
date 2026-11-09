@@ -73,11 +73,11 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
    restores it without network access and writes a private
    `~/backups/news-digest/account-migration-proof.json` receipt.
    The existing system-ownership rehearsal stops at 0012; use the account script
-   for this phase while migrations 0013–0017 are still pending.
+   for this phase while migrations 0013–0018 are still pending.
 2. Require a successful receipt from that run: the script invokes the real
-   migration runner through `MIGRATE_THROUGH=0017_reader_session_revocation`
+   migration runner through `MIGRATE_THROUGH=0018_admin_write_admissions`
    twice, checks injected-failure rollback, unchanged original table fingerprints
-   and migration-ledger idempotence, and confirms all seven account tables deny
+   and migration-ledger idempotence, and confirms all eight account tables deny
    operational/PUBLIC readers. The disposable restore is removed automatically.
 3. With accounts still disabled, apply the same bounded migration runner to live
    storage, loading database credentials privately. The command is `pnpm migrate`

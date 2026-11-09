@@ -15,10 +15,11 @@ from rehearse_system import fingerprints, query
 MIGRATIONS = (
     '0013_reader_sessions.sql', '0014_login_challenges.sql',
     '0015_sign_in_links.sql', '0016_reader_sync.sql',
-    '0017_reader_session_revocation.sql',
+    '0017_reader_session_revocation.sql', '0018_admin_write_admissions.sql',
 )
 TABLES = ('users', 'sessions', 'login_codes', 'sign_in_links',
-          'admin_audit_log', 'bookmarks', 'user_hidden_topics')
+          'admin_audit_log', 'bookmarks', 'user_hidden_topics',
+          'admin_write_admissions')
 LEDGER = "SELECT md5(string_agg(to_jsonb(m)::text, '' ORDER BY name)) FROM schema_migrations m;"
 
 
@@ -54,7 +55,7 @@ def verify(container, socket_directory):
         raise RuntimeError('Failed migration retained tables, data or ledger entries')
     environment = {key: value for key, value in os.environ.items()
                    if key in ('PATH', 'HOME', 'USER', 'LANG')}
-    environment['MIGRATE_THROUGH'] = '0017_reader_session_revocation'
+    environment['MIGRATE_THROUGH'] = MIGRATIONS[-1].removesuffix('.sql')
     environment['DATABASE_URL'] = ('postgresql://postgres@localhost/news_digest?host=' +
                                    quote(str(socket_directory), safe=''))
     command = ['pnpm', 'exec', 'tsx', 'apps/api/src/libs/db/migrate.ts']
@@ -68,7 +69,7 @@ def verify(container, socket_directory):
         raise RuntimeError('Runner created unexpected tables')
     if any(first[table] != value for table, value in before.items()):
         raise RuntimeError('Account migration changed original data')
-    if query(container, "SELECT count(*) FROM schema_migrations WHERE name > 'drizzle/0017_reader_session_revocation.sql';") != '0':
+    if query(container, f"SELECT count(*) FROM schema_migrations WHERE name > 'drizzle/{MIGRATIONS[-1]}';") != '0':
         raise RuntimeError('Runner exceeded account migration boundary')
     database.run(command, cwd=database.ROOT, env=environment, stdout=subprocess.DEVNULL)
     if fingerprints(container) != first or query(container, LEDGER) != ledger:
@@ -95,7 +96,7 @@ def verify(container, socket_directory):
                'private_tables': len(TABLES), 'hostile_default_grants_revoked': True,
                'reader_roles_checked': 3, 'live_database_migrated': False}
     (database.DIRECTORY / 'account-migration-proof.json').write_text(json.dumps(receipt) + '\n')
-    print(f'Account rehearsal verified: {len(before)} original table fingerprints; rollback; runner twice; seven private tables; three reader roles denied')
+    print(f'Account rehearsal verified: {len(before)} original table fingerprints; rollback; runner twice; {len(TABLES)} private tables; three reader roles denied')
 
 
 def main():
