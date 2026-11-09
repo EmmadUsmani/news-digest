@@ -241,3 +241,17 @@ remain restricted pending text/hostname review and transport integration.
 - `apps/api/src/modules/digests/reader-edition.controller.ts`
 - `apps/api/src/public-route-policy.ts`
 - `apps/api/test/monitoring-alerts.test.ts`
+
+## Prepared article HTTP transport
+
+The disconnected `PublicArticlesModule` prepares GET/HEAD `api/admin/content`
+only when public mode, system ownership and published-only readers are enabled.
+Disabled mode opens no storage or routes; invalid flags fail before storage opens.
+The controller revalidates the system reader's projected response, strips extra
+columns at both levels and normalizes publisher origins again without falling
+back to stored URLs. Storage and validation failures return a fixed 503 response;
+GET/HEAD use `no-store` and no write handlers are registered. Offline HTTP checks
+cover these boundaries, empty groups and rejected origins. This module remains
+outside main and the combined read composition: configured text/hostname review,
+legacy controller replacement and authorization remain rollout gates. It does not
+expose `content/window` or approve stored article permalinks.

@@ -31,3 +31,33 @@ export async function readPublicArticles(read: () => Promise<unknown>) {
     throw new ServiceUnavailableException('Articles unavailable');
   }
 }
+
+// Revalidate the already projected system reader at the HTTP boundary. Never
+// fall back to a stored URL if a replacement adapter changes its output.
+export async function readPublicArticleResponse(read: () => Promise<unknown>) {
+  try {
+    const group = articleGroupInput.extend({
+      items: articleGroupInput.shape.items.element
+        .omit({ url: true })
+        .extend({ publisherOrigin: z.string().nullable() })
+        .array(),
+    });
+    return group
+      .array()
+      .parse(await read())
+      .map(({ topicId, items }) => ({
+        topicId,
+        items: items.map(
+          ({ id, title, publishedAt, source, publisherOrigin }) => ({
+            id,
+            title,
+            publishedAt,
+            source,
+            publisherOrigin: publicArticleOrigin(publisherOrigin),
+          }),
+        ),
+      }));
+  } catch {
+    throw new ServiceUnavailableException('Articles unavailable');
+  }
+}

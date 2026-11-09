@@ -153,3 +153,14 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, saved-reader check and `git diff --check`. Initial check found archive formatting; fixed before rerun. Build passes with existing bundle warning; saved Nov 8 reader retains four topics/19 stories/17 posts.
 - Full check passes 734 unit/263 integration tests with four expected skips; build passes.
 - Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof, configured article text/host review and gated article transport.
+
+## 2026-11-09: iteration 1504 — prepare gated article HTTP transport
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources healthy; jobs check passes and saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added disconnected article GET/HEAD controller and flag-gated module; disabled mode opens no storage/routes, unsafe prerequisites fail before storage opens. No write handlers or window endpoint.
+- Revalidate projected system-reader output at HTTP boundary: explicit fields, nested extra-column stripping, origin-only normalization with no stored-URL fallback and fixed 503 errors. Offline HTTP checks cover GET/HEAD, no-store, refused writes, malformed/empty groups, rejected origins, private columns/URLs and storage failures.
+- Updated TASKS and response audit. Configured title/source text and hostname review, combined installation and authorization remain required; accounts/public mode remain disabled.
+- No live entrypoints/config/data/migrations/provider calls changed; no restart under STEERING 22 because running services import none of this preparation.
+- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`.
+- Full check passes 736 unit/263 integration tests with four expected skips; build passes with existing bundle warnings.
+- Next: configured article text/hostname review and combined transport installation; normal 15:00 UTC phase-1 scheduled acceptance and live proxy proof remain pending.
