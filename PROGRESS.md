@@ -192,4 +192,4 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - No source, provider, configuration or migration changes; accounts/public remain off. Live proxy proof and complete resource allowlist still gate activation/readiness.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (769 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle-size warning only.
 - Restarted API/worker; health retry passed, latest reader hash unchanged and scheduled-reader gate still passes. Health/alerts clear. No live source or digest breakage observed.
-- Next: live proxy forwarding proof/guarded Phase 3 activation, then remaining Phase 4 resource-policy readiness; no metrics probe before 18:19 UTC.
+- First push rejected: owner advanced main. Merged 2b775125 without application overlap or history rewrite; owner item 52 now comes next: diagnostic proxy-probe receipts and forged-email check before more Phase 4 work. No metrics probe before 18:19 UTC.
