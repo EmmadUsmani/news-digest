@@ -176,3 +176,12 @@
 - Updated rollout plan/TASKS. No migrations, live flags, UI, generation or external calls changed; accounts/public mode remain off.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 765 unit/269 integration passes, four expected skips. Existing bundle-size warning only. Final healthz healthy.
 - No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: scheduled 15:00 acceptance, permitted deployment, topic HTTP replacement, proxy proof and atomic queue effects.
+
+## 2026-11-09: iteration 1537 — prepare topic-enable HTTP boundary
+
+- Clean main/no leftovers; alerts and healthz healthy, no failed user services.
+- Added uninstalled topic-enable transport: exact UUID/PUT target, bounded one-field JSON, wire-header multiplicity and Origin checks before fresh-admin lookup; writer owns atomic admission/mutation.
+- Real loopback HTTP checks cover changed/unchanged/missing results, stale/absent/invalid actors, cookies, malformed and oversized bodies, streamed limits, duplicate headers, private errors and direct-local script provenance. First run found a copied source-ID expectation; corrected to the topic UUID.
+- Updated rollout plan/TASKS. No registration, migrations, live flags, UI, edition generation or external calls changed; public/accounts remain off.
+- Verification: focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/269 integration passes, four expected skips; existing bundle warning only.
+- No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, topic runtime/controller replacement, proxy proof and atomic queue effects.

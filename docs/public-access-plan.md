@@ -748,3 +748,11 @@ Concurrent identical requests record one changed and one unchanged result;
 missing topics and audit failures roll back admission and mutation together.
 This writer remains disconnected: it requires caller authorization and must
 replace standalone admission for this route before public activation.
+
+Prepared topic-enable HTTP transport (iteration 1537) validates an exact UUID
+PUT target, one boolean field, bounded JSON and unambiguous Origin/content-type
+headers before authenticating a fresh admin. It delegates admission and mutation
+together to the writer, projects only the public result and hides dependency
+errors. Direct authenticated local scripts retain their Origin exemption. This
+transport remains uninstalled; controller replacement and runtime wiring await
+acceptance and a permitted deployment window.

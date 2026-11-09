@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1536: prepared atomic topic-enable writer; exact target binding, serialized changed/unchanged outcomes and rollback checks. Disconnected, flags off; HTTP replacement, queue effects and activation remain open.
+- [x] Iteration 1537: prepared uninstalled topic-enable HTTP boundary; bounded exact-target requests, fresh-admin authorization, private responses and direct-local exemption verified. Runtime/controller replacement remains open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
