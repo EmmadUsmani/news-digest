@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1497: prepared unregistered source-health HTTP boundary; GET/HEAD withhold stored credentials, reject malformed results generically and refuse writes; isolated loopback checks pass. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1498: prepared gated source-health storage/HTTP composition; explicit columns, SQL-only error presence and isolated database/loopback verification; live runtime remains disconnected. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

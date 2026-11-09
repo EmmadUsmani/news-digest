@@ -138,8 +138,13 @@ An unregistered HTTP controller now applies this projection at GET/HEAD
 `/api/admin/content/sources` with `Cache-Control: no-store`, including generic
 503 failures. Loopback HTTP checks verify omitted historical credentials, UTC
 normalization, bodyless HEAD and refused writes without storage reads. No live
-runtime uses it; source status remains admin-classified. Concrete storage,
-runtime and frontend integration remain required before promotion.
+runtime uses it; source status remains admin-classified. A prepared module now
+composes an explicit-column database reader behind `PUBLIC_MODE`, requiring
+system ownership and published-only readers. Disabled mode never opens storage.
+The reader computes error presence in SQL, so historical error text is never
+fetched, and counts stored observations without joining legacy profiles. Its
+caller retains pool ownership. Runtime installation and frontend integration
+remain required before promotion.
 
 ## Remaining response boundaries
 

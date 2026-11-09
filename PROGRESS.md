@@ -156,3 +156,13 @@
 - Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source check, scheduled-reader check and `git diff --check`.
 - Full check passes 724 unit/259 integration tests, four expected skips. Build passes with existing bundle warnings. No restart under STEERING 22: live entrypoints do not import this controller.
 - Next: complete source-health composition; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
+
+## 2026-11-09: iteration 1498 — prepare source-health composition
+
+- Clean main/no leftovers; alerts/healthz clear and no failed user units. Live source check finds 36 successful sources/zero stored errors; saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added disconnected gated source-health module and explicit-column database reader: SQL reduces historical errors to presence without fetching text; URLs/ownership/future fields are never selected. Caller retains pool ownership.
+- Isolated database/loopback checks cover full catalog/count parity, absent legacy profile table, credential-bearing errors/URLs, nullable and UTC timestamps, generic storage failure and refused writes. Disabled mode opens no storage; unsafe prerequisite flags fail closed.
+- Updated response audit/TASKS. No live routes/config/data/migrations/provider calls changed; accounts stay disabled. Runtime installation and frontend integration remain open.
+- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source check, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`.
+- Full check passes 725 unit/260 integration tests, four expected skips. Build passes with existing bundle warnings; targeted HTTP and saved-reader checks pass.
+- No restart under STEERING 22: live entrypoints do not import this composition. Next: normal 15:00 acceptance, live proxy proof and remaining public-route integration before promotion.
