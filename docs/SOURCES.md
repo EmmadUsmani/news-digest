@@ -1234,7 +1234,8 @@ social request, paid discovery, inference or publication was needed for this UI.
 ## Iteration 140 — Kotaku free Gaming citations (2026-11-02)
 
 - Nov 9 iteration 1566: scheduled retry exhausted with upstream HTTP 522 at
-  19:00 UTC; an explicit feed GET also returned 522. Last successful collection
+  19:00 UTC; an explicit feed GET also returned 522. Iteration 1568 at 19:24 UTC
+  still reports Kotaku in error, the only unhealthy source among 36. Last successful collection
   was 18:26 UTC (20 items). Keep the existing schedule; no bypass or adapter
   change for an origin timeout. Recheck recovery next iteration.
 

@@ -20,9 +20,6 @@ primitives. Light and dark themes follow the system setting until the header
 toggle saves a preference in the browser. Open tabs share that preference.
 Existing layouts remain in a legacy CSS layer.
 
-Posts flow in the page on desktop and mobile. Cards and official X embeds keep
-the full column width.
-
 Topic settings, incoming articles and connection health share a validated browser
 cache. Saved editions and each history page use the same cache, with separate
 entries for the latest edition and each saved ID. Edition and archive requests use
@@ -110,6 +107,8 @@ links retain their hash when a saved edition is reopened. Saved items’ View ed
 links jump directly to the bookmarked story or post. The reader makes no operational API requests. Management starts with the operations overview at `/admin`. Shared desktop/mobile
 navigation opens Editions, Sources, Topics, Schedule, Spend and Tools. These
 dedicated pages replace the old combined management screen.
+
+Prepared public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 files by exact path; restart to refresh the list.
 
 ## Admin identity
 

@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Source health (1567): Kotaku RSS returns upstream HTTP 522 (scheduled final retry and explicit GET); last success Nov 9 18:26 UTC/20 items. 19:09 UTC explicit GET still 522; check natural recovery next iteration; no scraping workaround.
+- [ ] Source health (1568): Kotaku RSS returns upstream HTTP 522 (scheduled final retry and explicit GET); last success Nov 9 18:26 UTC/20 items. 19:24 UTC source snapshot remains error (35/36 sources healthy); check natural recovery next iteration; no scraping workaround.
 
 - [ ] STEERING 50: phases 0/2 accepted (1386); **Phase 1 accepted (1544)** after normal Nov 9 full-AI publication, 553-edition off/on/off parity, five original reader hashes and seven-edition desktop/mobile light/dark checks. SYSTEM_OWNERSHIP on; migrations 0011/0012 applied with private backup/restore/rollback evidence; live private AI-off/AI-on checks pass. Development Anthropic $0.211076/xAI $0, zero holds. **Blocked: item 53 per-position categories/stability diagnostic shipped (1560); awaiting owner rerun to identify visitor**, then Phase 3 and 4. Accounts/public flags off; account migrations pending. Prepared accounts include sessions, code login/stand-in mailbox, admission, sync, friend links, revocation, deletion and guarded public/admin HTTP adapters. Latest prepared step (1545): bounded atomic topic-order PUT wired into default-off public runtime; composed HTTP/storage rollback checks pass. Prepared API deployed default-off after the hold (1548); latest/history hashes unchanged, services/sources/jobs healthy. Live proxy forwarding proof remains required; owner two-device acceptance follows guarded activation. No deploy/restart/migration 13:00–16:00 UTC or generation edits after noon. [Plan and detailed preparation](docs/public-access-plan.md), [activation checklist](docs/account-activation.md), [acceptance](docs/edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544).
 
@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1567: prepared script allowlist now enforced without inline/eval exceptions; theme startup moved to a same-origin file and browser Zod code generation disabled. Forty real X views and synthetic admission/refusal/private rollback checks pass. Full public static-resource routing/rehearsal and owner proxy proof remain open.
+- [x] Iteration 1568: prepared public static routing admits exact deployed theme/JS/CSS/WOFF2 files; unknown paths/maps/symlinks/writes stay denied. Anonymous routing plus CSP verified against forty real X views; full Phase 4 rehearsal and owner proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

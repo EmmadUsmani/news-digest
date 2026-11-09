@@ -444,7 +444,12 @@ traced the earlier inline/eval reports to theme startup and Zod code generation,
 then verified the corrected app with the enforced script allowlist (1567).
 `pnpm exec tsx scripts/check-public-script-policy.ts` checks same-origin/official
 script admission, inline/eval/lookalike refusal and private rollback offline.
-Full resource allowlist and proxy acceptance remain open.
+Prepared anonymous static routing snapshots the deployed `/theme.js` and flat
+JavaScript/CSS/WOFF2 files in the built assets directory at access-stack creation.
+Unknown files, source maps, symlinks, directories, alternate spellings and writes
+remain denied. Restart after replacing a build. The live widget checker
+`--review-routing` option rehearses anonymous reader admission alongside CSP.
+Full Phase 4 rehearsal and proxy acceptance remain open.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

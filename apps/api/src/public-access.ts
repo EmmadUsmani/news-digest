@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { classifyPublicRoute } from './public-route-policy';
+import { publicStaticRoutes } from './public-static-routes';
 
 export interface PublicAccessPrincipal {
   // The account adapter must recompute freshness and allowlisting per request.
@@ -32,6 +33,7 @@ export function publicAccess(
   recordAdminWrite?: RecordAdminWrite,
   now: () => Date = () => new Date(),
 ) {
+  const staticRoutes = enabled ? publicStaticRoutes() : new Set<string>();
   return async (
     request: IncomingMessage,
     response: ServerResponse,
@@ -42,7 +44,11 @@ export function publicAccess(
       return;
     }
     response.setHeader('cache-control', 'no-store');
-    const access = classifyPublicRoute(request.method ?? '', request.url ?? '');
+    const access = classifyPublicRoute(
+      request.method ?? '',
+      request.url ?? '',
+      staticRoutes,
+    );
     if (access === null) {
       response.writeHead(404).end();
       return;

@@ -51,6 +51,7 @@ const rules: readonly Rule[] = [
 export function classifyPublicRoute(
   method: string,
   target: string,
+  staticRoutes: ReadonlySet<string> = new Set(),
 ): RouteClass | null {
   const path = target.split('?')[0];
   if (
@@ -60,6 +61,8 @@ export function classifyPublicRoute(
     path.split('/').some((part) => part === '.' || part === '..')
   )
     return null;
+  if ((method === 'GET' || method === 'HEAD') && staticRoutes.has(path))
+    return 'public-read';
   return (
     rules.find(
       ([verb, pattern]) =>

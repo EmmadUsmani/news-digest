@@ -6,9 +6,14 @@ import { createServer } from 'node:http';
 import { readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
+import { classifyPublicRoute } from '../apps/api/src/public-route-policy';
+import { publicStaticRoutes } from '../apps/api/src/public-static-routes';
 import { prepareAccessStack } from '../apps/api/src/public-write/access-stack';
 
 async function main() {
+  const reviewRouting = process.argv.includes('--review-routing');
+  const staticRoutes = publicStaticRoutes();
+  if (reviewRouting) assert.ok(staticRoutes.has('/theme.js'));
   const reviewScripts = process.argv.includes('--review-scripts');
   const origin = 'http://127.0.0.1:8000';
   const saved = readerEditionSchema.parse(
@@ -75,9 +80,25 @@ async function main() {
             );
           });
         });
+        const deniedRoutes = new Set<string>();
+        const loadedStatic = new Set<string>();
         await page.route('**/*', async (route) => {
           const request = route.request();
           if (!['GET', 'HEAD'].includes(request.method())) return route.abort();
+          const url = new URL(request.url());
+          if (reviewRouting && url.origin === origin) {
+            if (
+              classifyPublicRoute(
+                request.method(),
+                url.pathname + url.search,
+                staticRoutes,
+              ) !== 'public-read'
+            ) {
+              deniedRoutes.add(url.pathname);
+              return route.fulfill({ status: 404, body: '' });
+            }
+            if (staticRoutes.has(url.pathname)) loadedStatic.add(url.pathname);
+          }
           if (
             new URL(request.url()).origin === origin &&
             request.isNavigationRequest()
@@ -123,7 +144,7 @@ async function main() {
             (await frame.boundingBox())!.height > 100,
             'Real widget has rendered height',
           );
-          if (!reviewScripts)
+          if (!reviewScripts && !reviewRouting)
             await card.screenshot({
               path: `docs/screenshots/ui/public-x-${post.externalId}-${device}-${theme}.png`,
             });
@@ -136,6 +157,24 @@ async function main() {
           ),
           [],
         );
+        if (reviewRouting) {
+          assert.deepEqual(
+            [...deniedRoutes],
+            [],
+            'Every reader request must pass prepared anonymous admission',
+          );
+          assert.ok(loadedStatic.has('/theme.js'));
+          assert.ok([...loadedStatic].some((path) => path.endsWith('.woff2')));
+          assert.ok([...loadedStatic].some((path) => path.endsWith('.css')));
+          assert.ok(
+            [...loadedStatic].some(
+              (path) => path.startsWith('/assets/') && path.endsWith('.js'),
+            ),
+          );
+          console.log(
+            `${device}/${theme}: ${loadedStatic.size} built resources admitted; zero denied reader requests`,
+          );
+        }
         if (reviewScripts) {
           const reports = await page.evaluate(
             () =>

@@ -5,6 +5,10 @@ Actual prepared CSP injected into browser document responses only; accounts/publ
 All 10 real saved X widgets loaded at 1440×1100 and 390×844 in light/dark.
 No document CSP violations; remote writes blocked. No LLM calls or fixture substitutions.
 
+Iteration 1568 reran all 40 views with `--review-routing`: exact built-file
+admission plus enforced CSP; five static resources per view, zero denied reader
+requests and zero document CSP violations. Existing screenshots remain representative.
+
 - [public-x-2119446315684057303-desktop-dark](public-x-2119446315684057303-desktop-dark.png)
 - [public-x-2119446315684057303-desktop-light](public-x-2119446315684057303-desktop-light.png)
 - [public-x-2119446315684057303-mobile-dark](public-x-2119446315684057303-mobile-dark.png)
