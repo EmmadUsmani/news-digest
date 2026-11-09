@@ -107,6 +107,19 @@ async function main() {
     const changes = {
       ...empty,
       hiddenTopics: { 'acceptance-only': { hidden: true, updatedAt } },
+      bookmarks: {
+        'acceptance-only': {
+          updatedAt,
+          copy: {
+            title: 'Disposable acceptance bookmark',
+            url: 'https://example.invalid/acceptance',
+            attribution: 'Acceptance check',
+            excerpt: 'Synthetic bookmark; never published as live content.',
+            platform: 'story',
+            editionId: 'acceptance-only',
+          },
+        },
+      },
     };
     await request('sync', 200, friend, changes);
     const state = (await (
@@ -114,17 +127,32 @@ async function main() {
     ).json()) as typeof changes;
     if (!state.hiddenTopics['acceptance-only']?.hidden)
       throw new Error('Cross-device sync failed');
+    assert.deepEqual(state.bookmarks, changes.bookmarks);
     await request('sync', 200, second, {
       ...empty,
       hiddenTopics: {
         'acceptance-only': { hidden: false, updatedAt: updatedAt + 1 },
       },
+      bookmarks: {
+        'acceptance-only': { copy: null, updatedAt: updatedAt + 1 },
+      },
     });
     const stale = (await (
       await request('sync', 200, friend, changes)
     ).json()) as typeof changes;
-    if (stale.hiddenTopics['acceptance-only']?.hidden !== false)
+    if (
+      stale.hiddenTopics['acceptance-only']?.hidden !== false ||
+      stale.bookmarks['acceptance-only']?.copy !== null
+    )
       throw new Error('Stale write won');
+    const persisted = (await (
+      await request('sync', 200, second, empty)
+    ).json()) as typeof changes;
+    if (
+      persisted.bookmarks['acceptance-only']?.copy !== null ||
+      persisted.hiddenTopics['acceptance-only']?.hidden !== false
+    )
+      throw new Error('Removal did not persist across devices');
     await request('logout-all', 204, second, {});
     await signedIn(friend, false);
     await signedIn(second, false);
@@ -144,6 +172,11 @@ async function main() {
     if (await mailbox.latest(email, new Date()))
       throw new Error('Deleted reader mailbox retained');
     await signedIn(admin, true, true);
+  } catch {
+    console.error(
+      `Acceptance failed before cleanup at ${stage}; credentials withheld`,
+    );
+    throw new Error('Live acceptance failed');
   } finally {
     // Delete only this run's random identity. Never delete or revoke owner devices.
     if (friend && !deleted) {
@@ -156,7 +189,7 @@ async function main() {
     if (admin) await request('logout', 204, admin, {});
   }
   console.log(
-    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device sync/stale refusal, reader privilege refusal, all-device logout and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Proxy/browser, expiry and admin-target revocation acceptance remain separate.`,
+    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Proxy/browser, expiry and admin-target revocation acceptance remain separate.`,
   );
 }
 void main().catch(() => {

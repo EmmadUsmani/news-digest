@@ -1,33 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1580 — stop disconnected admission dispatch
-
-- Clean main/no leftovers; alerts, health and 14 services pass. All 36 sources healthy; digest queue failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Prepared API admission now checks request abortion/response closure after its asynchronous decision, preventing disconnected callers from starting account or controller work. Real HTTP tests cover late allowance and refusal; accounts/public remain off awaiting item 53 owner rerun.
-- Updated readiness plan/TASKS. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 785 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
-- API/worker restarted; initial curl raced startup, retry passed. Health/14 services and scheduled-reader verification pass (four topics/19 stories/14 posts). No source or handbook behavior changed.
-- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.
-
-## 2026-11-09: iteration 1581 — keep public Nest errors private
-
-- Clean main/no leftovers; alerts, health and 14 services pass. Sources healthy; digest queue failed count zero. No paid calls, migrations, flags or generation changes.
-- Added public-mode-only Nest exception filtering: empty no-store responses preserve failure status without exposing parser input, controller exception messages or stack traces. Private mode retains existing handling; accounts/public remain off awaiting item 53 owner rerun.
-- Offline real Nest HTTP test checks GET/HEAD errors, invalid JSON, oversized JSON and missing routes (400/404/413/500); rejected parser bodies never reach the controller. Updated readiness plan/TASKS; archived iterations 1567–1569 to keep PROGRESS small. No active source/handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 786 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
-- API/worker restarted; initial curl raced startup, retry passed. Post-restart health/14 services, alerts and scheduled-reader verification pass (four topics/19 stories/14 posts).
-- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.
-
-## 2026-11-09: iteration 1582 — stop disconnected atomic admin writes
-
-- Clean main/no leftovers; initial alerts, health and all 14 services pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Prepared source-enable, topic-enable and topic-order HTTP transports now check connection liveness after asynchronous authentication, before cookie handling or transactional writes. Existing transactions are not cancelled. Accounts/public stay off awaiting item 53 owner proxy rerun.
-- Three offline real HTTP tests disconnect during delayed authentication: zero mutations; a subsequent connected request succeeds for each transport. Updated readiness plan/TASKS; no active source or handbook behavior changed.
-- Hourly passive metrics probe at 21:36 (`pnpm exec tsx scripts/sample-metrics-recovery.ts 1 10`): 23 healthy rules, four queries ≤0.438 s, zero new evaluator errors/misses/timeouts/slow queries; no merges or process restarts. Recovery remains open; next probe ≥22:36 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 789 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
-- API/worker restarted; initial curl raced startup, retry passed. Health/all 14 services, alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
-- Next: Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC.
+Earlier entries: [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1583 — reject ambiguous account write headers
 
@@ -136,3 +109,12 @@ Earlier entries: [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips) and `pnpm build` pass; existing bundle warning only. `check-live-account-boundary.ts` passes 32 refusals; `check-handbook.ts account-activation` passes 18 pages/39 tables/no warnings. No UI changes.
 - Restarted API only; `/healthz`, `check-scheduled-reader.ts 2026-11-09T15:00:00Z` (four topics/19 stories/14 posts) and zero alerts pass. Worker untouched. Next: finish remaining live acceptance, then exact owner two-device steps and normal scheduled edition. Public mode stays off; passive metrics probe due ≥23:36 UTC.
 - Initial push rejected by concurrent owner lead documentation commit; fetched and merged it without edits or history rewriting, then retried.
+
+## 2026-11-09: iteration 1594 — deployed bookmark sync acceptance
+
+- Clean main/no inherited work. Initial alerts/health pass; all 14 services and 36 sources healthy. Digest-generation failed count zero; next run Nov 10 15:00 UTC. Saved Nov 9 reader remains four topics/19 stories/14 posts.
+- Extended explicit live lifecycle acceptance with disposable bookmark display-copy sync, second-device removal, persisted tombstones and stale-device replay refusal; 31 deployed-loopback checks pass. Synthetic bookmark never enters published content. Both disposable readers deleted and temporary owner sessions signed out; no owner preferences, schedule, configuration, migration or provider changes.
+- Initial check compared JSON field order and failed despite equal values; changed to structural equality and reran successfully. Added credential-free failure-stage reporting before cleanup so cleanup cannot hide the original endpoint. No credentials printed or retained.
+- Updated activation checklist and TASKS. Browser/proxy, expiry and admin-target revocation acceptance remain, followed by owner two-device and normal scheduled-edition gates. Phase 3 remains open; public mode off.
+- Hourly passive metrics sample at 23:37: 23 healthy rules, four queries ≤0.417 s, zero new evaluator errors/misses; one small merge/no large merge. Recovery acceptance remains open; next probe ≥00:37 UTC Nov 10.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips), `pnpm build` and `check-handbook.ts account-activation` pass; existing bundle warning only. Archived iterations 1580–1582 to keep PROGRESS small. Final changed-file formatting and diff checks pass.

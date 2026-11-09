@@ -112,8 +112,10 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    two-device topic sync/stale refusal, ordinary-reader privilege refusal,
    all-device logout, deletion replay and mailbox cleanup. The disposable reader
    is deleted and the temporary owner session is signed out. Credentials never
-   enter output. This is HTTP API acceptance; live browser/proxy, bookmark sync,
-   expiry and admin-target revocation still need acceptance before the owner check.
+   enter output. Iteration 1594 extends this to 31 checks: bookmark display copies sync to
+   the second device; removal tombstones persist and reject stale-device replay.
+   This is HTTP API acceptance; live browser/proxy, expiry and admin-target
+   revocation still need acceptance before the owner check.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.
