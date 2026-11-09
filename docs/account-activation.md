@@ -21,6 +21,8 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   proxy before treating its receipt as live proof. No client addresses, identity
   headers or cookies are recorded. A refused check requires a fresh probe.
 - Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
+  Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
+  code-login flow with isolated storage and admission.
   Fixture browser checks are preparation; they do not replace live acceptance.
 
 ## Private configuration

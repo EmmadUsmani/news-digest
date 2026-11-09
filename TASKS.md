@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1471: mounted reader browser check verifies desktop save → independent mobile download/removal → desktop tombstone convergence and reload persistence, using fixture account transport and real saved edition. Accounts remain disabled.
+- [x] Iteration 1472: desktop/mobile login browser now exercises real account composition and private stand-in mailbox with fixture repositories; expiry at ten minutes and consumed-code replay refuse cookies, fresh code issues an authenticated secure session. Accounts remain disabled.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
