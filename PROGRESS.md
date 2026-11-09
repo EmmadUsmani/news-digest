@@ -1,22 +1,3 @@
-## 2026-11-09: iteration 1484 — audit public administrative read boundaries
-
-- Clean main/no leftovers; alerts/healthz clear, 14 services and 36 sources healthy, digest queue has no failures. Historical ingestion/social failures retained; recent collection succeeds.
-- Audited administrative GET response paths and recorded remaining identity, whole-row, stored URL/error, unpublished-preview and operational-accounting boundaries in `docs/public-read-response-audit.md`.
-- Prepared count-only alerts as public-read in the unregistered classifier. Offline adversarial tests verify private upstream fields are discarded, transport/HTTP/validation failures return an exact generic 503, and other admin reads stay restricted for GET/HEAD.
-- No live access/config/account/data changes or provider calls; accounts stay disabled. No restart under STEERING 22: deployed entrypoints do not import the classifier. Archived iterations 1467–1468 to keep this log small.
-- Verification: six targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 711 unit/254 integration pass, four expected skips; existing bundle warning remains. Saved reader retains four topics/19 stories/17 posts.
-- Due 06:27 UTC passive metrics check (`pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`): 23 healthy rules, four queries ≤0.083 s, zero new evaluator errors/misses; one small merge/3,644 rows, no large merge. Recovery remains open; next check ≥07:27 UTC.
-- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof; prepare explicit public response projections while waiting. Gate remains unregistered and VM private.
-
-## 2026-11-09: iteration 1485 — prepare public settings response allowlists
-
-- Clean main/no leftovers; alerts/healthz clear, 14 services and 36 sources healthy. Digest queue has no failures; historical collection failures remain retained with recent successful collection.
-- Prepared disconnected schedule/topic readers with explicit field allowlists: no legacy profile identity or arbitrary future top-level columns. Configured topic fields are retained; nested strict schemas refuse unknown fields.
-- Storage/validation failures return exact generic 503s without exception details; adversarial offline checks cover private markers, malformed values and nested additions. Existing profile/topic GET/HEAD remain admin-classified.
-- Updated public response audit and TASKS. No controller wiring, live configuration/data/access change, migrations or provider calls; accounts remain disabled. No restart under STEERING 22 because running entrypoints do not import these readers.
-- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 713 unit/254 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warnings remain.
-- Next: normal 15:00 UTC Phase 1 scheduled acceptance and live proxy proof; wire system-only settings transport before any public promotion. Metrics passive check remains due no earlier than 07:27 UTC.
-
 ## 2026-11-09: iteration 1486 — prepare origin-only public source catalog
 
 - Clean main/no leftovers; alerts clear and healthz healthy. Administrative status confirms 36 sources and no failed digest jobs; next scheduled run remains 15:00 UTC.
@@ -158,3 +139,13 @@
 - Verification: targeted unit test, isolated integration suite, two live inventory runs, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
 - Fixed archived-note formatting found by the first check; rerun passes 728 unit/262 integration tests, four expected skips. Build passes with existing bundle warnings.
 - Next: reviewed article-link display policy/configured text and remaining public-route integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
+
+## 2026-11-09: iteration 1501 — prepare origin-only article-link display
+
+- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources succeeded within two hours, zero stored errors, 1,089 latest-response items; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
+- Prepared publisher-origin-only display helper: every path/query/fragment is omitted, malformed/ineligible/credential-bearing links return null, and stored URLs never serve as fallbacks. Original article permalinks remain restricted; hostname/text review and public transport are still required.
+- Three offline tests cover private paths/queries/redirects, encoded delimiters, normalization, credentials/local addresses and unchanged GET/HEAD route classification.
+- Updated response audit/TASKS; archived iterations 1484–1485. No live entrypoints/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of this preparation.
+- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
+- Full check passes 731 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Next: hostname/configured-text review and remaining public transport integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.

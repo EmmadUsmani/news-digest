@@ -194,10 +194,19 @@ or URL-credential-bearing links; 7,293 pass the existing public HTTPS URL policy
 six fail it; 2,185 contain query strings; zero contain fragments. Counts overlap.
 The existing policy checks URL structure and host eligibility, not whether paths
 or query values contain private material. Passing it does not approve publication.
-Do not strip all query strings: publisher redirect/article identifiers may depend
-on them. Query-bearing and rejected links still need a reviewed display policy;
-configured article/source text review and public article transport remain open.
-This inventory changes no route classification or live response.
+Do not strip query strings and present the result as an article permalink:
+publisher redirect/article identifiers may depend on them. The prepared
+`publicArticleOrigin` display policy instead returns only the normalized HTTPS
+publisher origin, omitting **all** paths, queries and fragments. It never returns
+the original URL as a fallback. Malformed, credential-bearing and ineligible
+URLs produce null independently, so one rejected link need not hide other rows.
+This is a publisher-origin value, not an article link or publisher/DNS approval.
+Hostnames themselves still require the source/text review; this helper alone
+does not approve arbitrary stored content for publication. Offline cases cover
+private paths/queries, redirect parameters, encoded delimiters, normalization,
+credentials and local-address spellings. Original article links remain restricted
+until separately approved; configured article/source text review and public
+article transport remain open. No route classification or live response changes.
 
 ## Source locations
 
