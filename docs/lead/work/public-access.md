@@ -1,10 +1,10 @@
 # Public access and reader accounts
 
-**Status (23:00 UTC Nov 9):** phases 0, 1 and 2 accepted. The proxy question
-is closed: the agent kept the last-entry rule, added tests and trusts loopback
-(item 53 acked, iteration 1589). Phase 3 (accounts) has started: backup and
-migration rehearsal pass; live migrations and accounts are still off (agent's
-figures). Phase 4 pieces are built behind flags.
+**Status (23:30 UTC Nov 9):** phases 0–2 accepted; phase 3 (accounts) is live
+on the private VM. Migrations 0013–0018 ran at about 23:00 UTC after a backup,
+and invite-only accounts were enabled at 23:15 (agent's figures; times checked
+by lead). Public mode is off and sharing unchanged. Phase 4 pieces are built
+behind flags.
 
 **Owner decisions (Nov 7):**
 
@@ -23,9 +23,9 @@ figures). Phase 4 pieces are built behind flags.
 
 **Next:**
 
-1. Agent's next: live account migrations and deployment, then two-device
-   test steps for the owner in `NEEDS_FROM_HUMAN.md`. Check migrations ran
-   outside 13:00–16:00 UTC with a backup first.
+1. Agent's next: live sign-in, sync, revoke and delete checks with throwaway
+   accounts, then the owner's two-device steps in `NEEDS_FROM_HUMAN.md`.
+   Phase 3 also needs the Nov 10 scheduled edition to publish normally.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
