@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared atomic source, topic-enable and topic-order transports (iteration 1582)
+check connection liveness after authentication, before beginning a storage write.
+Offline HTTP tests disconnect during delayed authentication and verify no mutation;
+a subsequent connected request still succeeds. This does not cancel a transaction
+that has already begun. Accounts/public remain disabled pending proxy proof.
+
 Public-mode Nest error handling (iteration 1581) now returns empty, no-store
 responses while preserving HTTP failure status. Controller exceptions, malformed
 JSON, oversized parser bodies and unknown routes cannot echo submitted values or

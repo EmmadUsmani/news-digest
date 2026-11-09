@@ -743,3 +743,12 @@ the interval. Recovery still needs correlated evidence during a comparable
 natural merge; the earlier confirmed compaction remains valid evidence.
 No limits, configuration or services changed. Next short passive check no
 earlier than 17:18 UTC.
+
+### Passive follow-up (iteration 1582)
+
+Nov 9 21:36 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 10`:
+23 healthy rules, four uncached queries at most 0.438 s, zero new evaluator
+errors or missed iterations, queue timeouts or slow queries. Neither storage
+tier merged; process starts unchanged. Recovery still needs correlated evidence
+during a comparable natural merge. Limits/configuration unchanged; next passive
+check no earlier than 22:36 UTC.

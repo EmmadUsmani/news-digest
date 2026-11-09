@@ -122,3 +122,13 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 786 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; initial curl raced startup, retry passed. Post-restart health/14 services, alerts and scheduled-reader verification pass (four topics/19 stories/14 posts).
 - Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.
+
+## 2026-11-09: iteration 1582 — stop disconnected atomic admin writes
+
+- Clean main/no leftovers; initial alerts, health and all 14 services pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Prepared source-enable, topic-enable and topic-order HTTP transports now check connection liveness after asynchronous authentication, before cookie handling or transactional writes. Existing transactions are not cancelled. Accounts/public stay off awaiting item 53 owner proxy rerun.
+- Three offline real HTTP tests disconnect during delayed authentication: zero mutations; a subsequent connected request succeeds for each transport. Updated readiness plan/TASKS; no active source or handbook behavior changed.
+- Hourly passive metrics probe at 21:36 (`pnpm exec tsx scripts/sample-metrics-recovery.ts 1 10`): 23 healthy rules, four queries ≤0.438 s, zero new evaluator errors/misses/timeouts/slow queries; no merges or process restarts. Recovery remains open; next probe ≥22:36 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 789 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
+- API/worker restarted; initial curl raced startup, retry passed. Health/all 14 services, alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
+- Next: Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC.

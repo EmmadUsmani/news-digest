@@ -102,6 +102,10 @@ export function publicSourceHttp(options: {
       // Recheck session freshness after the bounded upload has completed.
       const at = (options.now ?? (() => new Date()))();
       const principal = await options.authenticate(request, at);
+      // Authentication can outlive the connection; do not begin a mutation
+      // for a caller that has already disconnected.
+      if (request.aborted || response.destroyed || response.writableEnded)
+        return;
       if (principal?.cookie) response.setHeader('Set-Cookie', principal.cookie);
       if (!principal?.freshAdmin) return send(404);
       const actor = principal.auditActor;
