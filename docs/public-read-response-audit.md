@@ -101,6 +101,14 @@ are discarded. Offline tests include secret-bearing paths/queries/fragments and
 credential/private-origin failures. This new shape needs frontend integration
 before promotion; existing GET/HEAD routes remain admin and unchanged.
 
+`PublicSourcesController` prepares unregistered GET/HEAD
+`/api/admin/topics/sources` with no-store responses. The injected catalog is
+projected at the HTTP boundary, so feed paths, query tokens, fragments and future
+columns cannot pass through. Loopback HTTP tests verify exact origin-only output,
+empty HEAD, refused writes without storage reads, mixed unsafe catalogs and generic
+503 failures. Live routes and classification remain unchanged; concrete storage
+composition and frontend origin-field integration are still required.
+
 ## Remaining response boundaries
 
 - `PostgresProfileRepository.getDefault` still reads the legacy profile ID/name

@@ -1,13 +1,3 @@
-## 2026-11-09: iteration 1476 — HTTPS multi-device session revocation
-
-- Clean main/no leftovers; health and alerts clear, no failed user services. Normal Phase 1 scheduled acceptance awaits 15:00 UTC; metrics probe not due before 05:27 UTC.
-- Extended composed desktop/mobile HTTPS acceptance with independently redeemed device cookies: single-device logout preserves the second session; a new login plus all-device logout revokes both. Replaying either revoked cookie cannot authenticate.
-- Fixture storage now models separate sessions and scopes deletes by token/user; sign-out shares the simulated server clock. The other device retains an inert cookie without renewal after revocation.
-- Real production HTTP/composition/crypto with fixture storage/admission only; no live writes, migrations or provider calls. Accounts remain disabled; updated activation checklist.
-- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook checker and diff check pass.
-- Full check: 707 unit/254 integration pass, four expected skips. Saved reader: four topics/19 stories/17 posts. Handbook reports expected metadata for unapplied account tables.
-- No runtime code/config changes; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof; owner two-device acceptance remains required.
-
 ## 2026-11-09: iteration 1477 — composed HTTPS sign-in links
 
 - Clean main/no leftovers; health, alerts, source freshness, jobs and services pass. Phase 1 scheduled acceptance remains due at 15:00 UTC; accounts stay disabled.
@@ -163,3 +153,11 @@
 - Updated response audit/TASKS; archived iteration 1475. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
 - Verification: format, lint fix, full check, build, desktop/mobile saved-reader browser smoke, scheduled-reader check and diff check. Full check: 719 unit/258 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; build passes with existing warnings. Browser-generated unchanged-scope screenshots discarded deliberately.
 - No restart under STEERING 22: running entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public response/route boundaries before promotion.
+
+## 2026-11-09: iteration 1493 — prepare public source-catalog HTTP transport
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user units. Scheduled Phase 1 acceptance still awaits 15:00 UTC.
+- Added unregistered source-catalog GET/HEAD transport with origin-only projection and no-store responses. Loopback HTTP checks verify private feed paths/query tokens/fragments and future columns are omitted, HEAD is empty, writes never read storage, and mixed unsafe catalogs/storage errors return generic 503s.
+- Updated response audit/TASKS; archived iteration 1476. No live routes, config, data, migrations or provider calls changed; concrete catalog composition and frontend origin integration remain open.
+- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass. Full check: 720 unit/258 integration pass, four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
+- No restart under STEERING 22: live entrypoints do not import this controller. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.

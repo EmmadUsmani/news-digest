@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1492: prepared gated public topic runtime composition; disabled/unsafe configuration and isolated system-catalog HTTP/pool-lifecycle checks pass. Main registration remains unchanged. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1493: prepared unregistered source-catalog GET/HEAD transport; origin-only responses, token stripping, refused writes and generic storage failures verified over loopback HTTP. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
