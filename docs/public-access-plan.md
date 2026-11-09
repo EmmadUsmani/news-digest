@@ -76,7 +76,11 @@ mapped to profiles, and profiles go away.
   healthy; served latest/history responses remain unchanged. Live AI-off generation
   passed Nov 9 (iteration 1443): 466 stored candidates, four topics and 20 stories;
   the private test remains excluded from the reader and keeps rollback ownership.
-  AI-on generation and scheduled acceptance are still pending.
+  Live AI-on generation passed Nov 9 (iteration 1444): 465 candidates and 20 stories;
+  Gaming used Haiku editing, while three topics retained labelled fallback output.
+  Development Anthropic charges are $0.211076 across 38 calls, with zero holds
+  and no production calls. Live development editing was disabled again after the check.
+  Normal scheduled acceptance remains pending.
   The private restored-copy SQL rehearsal passes for both Phase 1 migrations:
   original-table fingerprints and foreign keys remain intact, schedule parity
   holds, and an injected failure rolls back DDL, data and ledger entries.
@@ -93,9 +97,11 @@ mapped to profiles, and profiles go away.
   Isolated system-owned AI-off and synthetic fixture-AI test editions match the
   existing golden snapshots, stay unpublished and remain readable after flag rollback.
   Live flag-on AI-off generation also passes; the complete read-only off/on/off
-  comparison now covers 551 editions, including the new private test. Development
-  spend reservations remain empty. AI-on generation and scheduled acceptance
-  remain required before phase closure.
+  comparison now covers 552 editions, including both new private tests. The AI-on
+  test keeps default-profile rollback ownership and stays unpublished; existing
+  reader responses are unchanged. Scheduled acceptance remains required before phase closure.
+  Recheck a saved private edition without provider calls using
+  `pnpm exec tsx apps/api/scripts/smoke-previews.ts --edition UUID`.
   Repeat the live read-only comparison with `/usr/bin/node --env-file=/home/exedev/.config/news-digest/env --import tsx apps/api/scripts/rehearse-system-reads.ts --live-read-only`. It forces
   read-only database connections and starts no queues or provider adapters.
   Isolated HTTP tests compare complete latest, every original-owner direct edition (including private

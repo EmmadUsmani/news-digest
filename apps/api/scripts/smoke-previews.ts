@@ -22,6 +22,13 @@ export function createTestEditionPost(read: typeof fetch, aiEditing = false) {
 }
 
 async function smoke() {
+  const args = process.argv.slice(2);
+  const existingId = args[0] === '--edition' ? args[1] : undefined;
+  assert.ok(
+    args.length === 0 ||
+      (args.length === 2 && existingId && /^[0-9a-f-]{36}$/.test(existingId)),
+    'usage: smoke-previews.ts [--edition UUID] (existing edition checks are read-only)',
+  );
   const endpoint = 'http://127.0.0.1:8000/api/admin/digest-previews';
   const post = createTestEditionPost(
     localAdminFetch,
@@ -39,18 +46,21 @@ async function smoke() {
     windowStart: start.toISOString(),
     windowEnd: end.toISOString(),
   };
-  for (const body of [
-    {},
-    { ...window, windowStart: window.windowEnd },
-    { ...window, windowEnd: 'invalid' },
-    {
-      ...window,
-      windowStart: new Date(end.getTime() - 32 * 86400000).toISOString(),
-    },
-  ])
-    assert.equal((await post(body)).status, 400);
-  const firstResponse = await post(window);
-  assert.equal(firstResponse.status, 201);
+  if (!existingId)
+    for (const body of [
+      {},
+      { ...window, windowStart: window.windowEnd },
+      { ...window, windowEnd: 'invalid' },
+      {
+        ...window,
+        windowStart: new Date(end.getTime() - 32 * 86400000).toISOString(),
+      },
+    ])
+      assert.equal((await post(body)).status, 400);
+  const firstResponse = existingId
+    ? await localAdminFetch(`${endpoint}/${existingId}`)
+    : await post(window);
+  assert.equal(firstResponse.status, existingId ? 200 : 201);
   const first = digestPreviewSchema.parse(await firstResponse.json());
   assert.equal(first.topics.length, 4);
   assert.equal(first.method, 'editorial-v1');
@@ -86,7 +96,7 @@ async function smoke() {
         }),
         null,
       );
-      if (topic.editorial?.mode !== 'ai') {
+      if (topic.editorial?.mode !== 'ai' && !topic.editorial?.triage?.length) {
         assert.equal(
           assessRelevance(story, topic.relevancePolicy).eligible,
           true,
@@ -96,7 +106,7 @@ async function smoke() {
             assessRelevance(story, topic.relevancePolicy).reason,
           ),
         );
-      } else {
+      } else if (topic.editorial?.mode === 'ai') {
         assert.ok(story.summary && story.whyItMatters);
         assert.ok(topic.editorial.brief.length >= 1);
         assert.deepEqual(
@@ -124,10 +134,11 @@ async function smoke() {
     assert.equal(saved.kind, 'test');
     assert.equal(saved.published_at, null);
     assert.deepEqual(saved.snapshot, first);
-    assert.deepEqual(
-      await (await localAdminFetch(`${endpoint}/latest`)).json(),
-      first,
-    );
+    if (!existingId)
+      assert.deepEqual(
+        await (await localAdminFetch(`${endpoint}/latest`)).json(),
+        first,
+      );
     for (const offset of ['-1', '1.5', 'foo', '10000000'])
       assert.equal(
         (await localAdminFetch(`${endpoint}?offset=${offset}`)).status,
@@ -174,7 +185,8 @@ async function smoke() {
     console.log(
       JSON.stringify({
         testEdition: first.id,
-        aiEditing: process.env.LLM_LIVE === '1',
+        aiEditing: existingId ? null : process.env.LLM_LIVE === '1',
+        existingEdition: Boolean(existingId),
         readerUnchanged: true,
         topics: first.topics.map((t) => ({
           name: t.name,

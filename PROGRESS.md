@@ -130,3 +130,14 @@
 - Updated TASKS and rollout plan; archived iterations 1427–1429 to keep PROGRESS small. No code/UI/runtime behavior change; accounts disabled, VM private. AI-on generation and normal flag-on scheduled acceptance remain open.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (695 unit; 253 integration passes/four expected skips), plus `pnpm build` and `git diff --check`. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. No UI change.
 - Commit/push, then restart API/worker and repeat health, reader and alerts checks to match main. Next: budgeted live AI-on private generation, then scheduled acceptance; no phase closure claimed.
+
+## 2026-11-09: iteration 1444 — live system-owned AI-on private generation
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy and digest queue has zero failures. Next scheduled publication Nov 9 15:00 UTC; accounts disabled and VM private.
+- Initial AI-on smoke correctly refused with 503 while service development editing was disabled; immediate post-restart launch hit startup readiness. Enabled private `LLM_LIVE=1` temporarily, waited for health, then generated exactly one private AI-on edition; restored `LLM_LIVE=0` and restarted API afterward.
+- Edition `1cd0265e-cab7-4484-be99-cb89691b2a4d`: 465 stored real candidates/four topics/20 stories. Gaming uses Haiku editing; Tech has incomplete-triage fallback, NBA/World use complete-triage unedited fallback. This is not full-AI acceptance. Development Anthropic: 38 calls/$0.211076, zero outstanding holds; no production ledger calls during the check and no paid X.
+- Generation returned 201, but smoke asserted keyword reasons for semantic-triage fallback. Corrected that assumption and added read-only `--edition UUID` rechecks to avoid another paid generation. Saved-edition check passes: snapshot/history/detail, unpublished kind=test, direct reader 404 and latest reader unchanged. Default-profile ownership remains rollback-compatible.
+- Complete live read-only adapter/HTTP off/on/off parity passes for all 552 editions, both publication filters, topics/settings. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts.
+- Updated TASKS and rollout plan. Phase 1 remains open for normal scheduled acceptance; no provider retry or additional paid check. No UI or handbook system behavior change.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (695 unit; 253 integration passes/four expected skips), `pnpm build`, saved-edition read-only smoke and `git diff --check`. An earlier full check stopped at formatting while the smoke fix was being edited; final full check is green. No UI change.
+- Commit/push, then restart API/worker and repeat health, reader and alerts checks to match main. Next: normal flag-on scheduled acceptance; no phase closure claimed.
