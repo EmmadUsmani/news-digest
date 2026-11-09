@@ -1,13 +1,3 @@
-## 2026-11-09: iteration 1478 — composed HTTPS account deletion
-
-- Clean main/no leftovers; alerts clear, health passes and no failed user services. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
-- Extended composed desktop/mobile HTTPS acceptance with two independently issued sessions: cross-origin and incorrect-confirmation deletion requests preserve both sessions and the calling cookie.
-- Confirmed deletion clears the calling cookie, refuses both device sessions without renewal and rejects authenticated-cookie deletion replays. Production HTTP/composition/crypto; fixture deletion storage only, no live account writes or provider calls.
-- Updated the activation checklist; no UI/runtime/config changes or new screenshots. Existing browser screenshots remain unchanged.
-- Verification: `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` twice, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check, handbook checker and `git diff --check` pass.
-- Full check: 707 unit/254 integration tests pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; handbook reports expected metadata for unapplied account tables.
-- No restart under STEERING 22. Next: normal Phase 1 scheduled acceptance and live proxy proof; metrics probe not due before 06:27 UTC.
-
 ## 2026-11-09: iteration 1479 — composed HTTPS admin revocation
 
 - Clean main/no leftovers; health and alerts clear, all 36 active sources fresh without errors, digest queue zero failures. Accounts remain disabled; Phase 1 acceptance awaits 15:00 UTC.
@@ -158,3 +148,13 @@
 - Updated response audit/TASKS; archived iteration 1477. No live routes/config/data/migrations/provider calls changed; accounts remain disabled. Frontend origin integration and authorization remain open.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, scheduled-reader check and `git diff --check` pass. First check stopped on archive formatting; formatted and full retry passes 721 unit/259 integration tests, four expected skips. Build retains existing bundle warnings.
 - Saved reader retains four topics/19 stories/17 posts. No restart under STEERING 22: live entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.
+
+## 2026-11-09: iteration 1495 — source catalog reader compatibility
+
+- Clean main/no leftovers; alerts/healthz clear and no failed user units. Scheduled Phase 1 acceptance remains due at 15:00 UTC.
+- Topic editor now parses only source IDs/names through a shared contract, discarding transport fields before caching; legacy feed-URL and prepared origin-only catalogs both work.
+- Read-only Playwright replay checks all 36 saved catalog entries and existing connections at desktop/mobile widths for both shapes, plus malformed-catalog refusal. Public responses are simulated; no writes or provider calls.
+- Updated response audit/TASKS and desktop/mobile screenshots; archived iteration 1478. Live routes/access/config and disabled account gates unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-source-catalog-compatibility.ts`, scheduled-reader check and `git diff --check`.
+- Full check passes: 721 unit tests and 259 integration tests, four expected skips; build passes with existing bundle warnings. Saved reader retains four topics/19 stories/17 posts.
+- API restarted for rebuilt frontend; health passes. Next: scheduled acceptance, live proxy proof and remaining public-route boundaries before promotion.

@@ -114,8 +114,13 @@ route; enabled mode requires system ownership and published-only readers. Isolat
 HTTP/database checks compare the full existing catalog after renaming the legacy
 profile table and adding secret URL parameters and a private future column. Unsafe
 stored URLs fail generically and module shutdown leaves the caller's pool open.
-Live routes and classification remain unchanged; frontend origin-field integration
-and route authorization are still required before promotion.
+The topic editor now validates only source IDs and names through the shared
+`sourceOptionsSchema`, discarding URL/origin and unknown transport fields before
+caching. It accepts both the legacy full-URL catalog and prepared origin-only
+catalog without changing selection or saved connections. Read-only browser replay
+covers both shapes and malformed catalogs at desktop/mobile widths; public responses
+are simulated from saved live catalog data. Live routes and classification remain
+unchanged; route authorization is still required before promotion.
 
 ## Remaining response boundaries
 

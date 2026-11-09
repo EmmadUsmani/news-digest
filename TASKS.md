@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1494: prepared default-off source-catalog runtime composition; concrete explicit-column storage, full catalog parity, token stripping and generic failures verified with isolated HTTP/database checks. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1495: topic editor accepts legacy and prepared public source catalogs using IDs/names only; desktop/mobile replay verifies connections and malformed-catalog refusal. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

@@ -1,5 +1,5 @@
 import {
-  sourceCatalogSchema,
+  sourceOptionsSchema,
   type Topic,
   topicSchema,
   topicUpdateSchema,
@@ -48,7 +48,7 @@ function TopicEditor({ topic }: { topic: Topic }) {
     queryFn: async ({ signal }) => {
       const response = await fetch('/api/admin/topics/sources', { signal });
       if (!response.ok) throw new Error('Could not load sources');
-      return sourceCatalogSchema.parse(await response.json());
+      return sourceOptionsSchema.parse(await response.json());
     },
   });
   async function write(path: string, method: string, body?: unknown) {

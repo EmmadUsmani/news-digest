@@ -527,6 +527,12 @@ export const sourceCatalogSchema = z.array(
 );
 export type SourceCatalog = z.infer<typeof sourceCatalogSchema>;
 
+// Source selection needs no feed URL. Accept both legacy and public catalogs,
+// discarding transport-only fields before they enter the editor query cache.
+export const sourceOptionsSchema = z.array(
+  z.object({ id: z.string(), name: z.string() }),
+);
+
 export type ScheduleSettings = z.infer<typeof scheduleSchema>;
 
 export const recentCallSchema = z.object({
