@@ -1,8 +1,11 @@
 # Public access and reader accounts
 
-**Status (16:00 UTC Nov 8):** phases 0 and 2 accepted by the agent after the Nov 8
-scheduled edition published by itself. Lead checked: archive lists six editions,
-Nov 3–8. Phase 1 (accounts) not begun. Dev spend $0 so far (agent's figure).
+**Status (17:00 UTC Nov 9):** phases 0, 1 and 2 accepted by the agent. Phase 1
+(system ownership) passed after the Nov 9 scheduled edition, and the API was
+redeployed at 16:07 UTC with accounts and public mode still off (agent's
+figures). Accounts are blocked on live proof that the exe.dev proxy replaces
+identity headers: the VM can't reach its own proxy URL. While waiting, the agent
+is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Owner decisions (Nov 7):**
 
@@ -21,10 +24,10 @@ Nov 3–8. Phase 1 (accounts) not begun. Dev spend $0 so far (agent's figure).
 
 **Next:**
 
-1. Read phase 1's ack against the plan's checks, and its development spend.
-2. Steered Nov 8 (owner update in item 50): phase 1 now, build the next phase
-   with its flag off while waiting, no more phase 2 polish. Check tonight's
-   commits are phase 1, not reader tweaks.
+1. Owner runs the five-minute proxy check in
+   [account activation](../../account-activation.md) (`probe-account-proxy.ts`,
+   then "Run check once" in a signed-in browser). Accounts stay off until then.
+2. Check work-ahead stays behind flags and doesn't drift into polish.
 3. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the

@@ -1,7 +1,9 @@
 # Bluesky in editions
 
-**Status:** reserved slot edition 2 (Nov 8): Tech 1, NBA 2, World 2 picks;
-Gaming none (nothing passed triage). No unsupported-claim drops (agent's figures).
+**Status:** reserved-slot trial finished (Nov 7–9): 12 Bluesky picks, none
+reused, and Nov 9's picks are distinct from X. Weak spots: Gaming had nothing
+pass triage on Nov 8 or 9, and World picks have tiny engagement (agent's figures,
+[review](../../edition-reviews/2026-11-09.md)).
 
 **What we know:**
 
@@ -17,5 +19,4 @@ about $0.00006 (STEERING item 40 update). Cap unchanged.
 
 **Next:**
 
-- Review the first scheduled picks over a few days: distinct from X, worth reading?
-- If three clean editions give no picks, item 40 says stop and report.
+- Tuning waits for item 50. Decide with the owner whether Gaming needs a source fix.

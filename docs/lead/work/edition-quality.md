@@ -1,7 +1,9 @@
 # Edition quality
 
-**Status:** better. Nov 8 was fully AI-edited in all four topics (NBA recovered),
-$0.321 of the $0.516 cap, 162 seconds. Tech summaries still headline-level.
+**Status:** Nov 9 fully AI-edited in all four topics again (NBA held a second
+day). $0.388 of the $0.525 cap, 175 seconds. Tech still headline-level: four of
+five summaries come from headline-only excerpts (agent's figures,
+[review](../../edition-reviews/2026-11-09.md)).
 
 **Latest:**
 
@@ -13,7 +15,7 @@ $0.321 of the $0.516 cap, 162 seconds. Tech summaries still headline-level.
 
 **Next:**
 
-- Nov 9: NBA stays AI-edited a second day; Tech summary depth.
+- Tech summary depth: propose steering once item 50 frees the agent.
 - Item 42: while other items wait, the agent reads the edition as a reader and
   fixes the biggest weakness. Check its PROGRESS.md entries.
 

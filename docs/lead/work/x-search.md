@@ -1,8 +1,10 @@
 # X search
 
-**Status:** acceptance edition 2 of 3 done (Nov 8). All four keyword searches
-completed first try, Gaming/World included. 8 cited picks, 6 from outside the
-free list. Cost $0.260 (agent's figures, [review](../../edition-reviews/2026-11-08.md)).
+**Status:** acceptance run 3 of 3 done (Nov 9). All four searches worked first
+try, 40 new candidates, $0.260. Only NBA used them (2 picks); World picked no X.
+Agent's verdict: runs reliably, but quality acceptance **not met**: selected
+posts have no saved engagement figures, and novel picks fell from 8 to 2
+([review](../../edition-reviews/2026-11-09.md)). Tuning waits for item 50.
 
 **Goal:** find viral posts the news hasn't picked up. Free links from articles
 already cover press-linked posts. See [the plan](../../x-search-plan.md).
@@ -18,8 +20,8 @@ likes minimums stay. After the fix, 5 of 9 keyword attempts failed.
 
 **Next:**
 
-- Nov 9 edition: third acceptance run; failure rate, picks, cost.
-- Watch the $2.50 total: Nov 8 cost $0.26, so check the journal fits Nov 9.
+- Ask the owner whether to keep paying ~$0.26 a day while tuning waits.
+  Journal: $1.75 of $2.50 spent, so about three more days at this rate.
 
 **Open decisions:** none. The meaning-based question is settled.
 
