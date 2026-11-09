@@ -166,6 +166,18 @@ remain required before promotion.
 - Internal tools, SPA/admin assets, identity discovery and telemetry still need
   separate route and response reviews. `/logs` and `/metrics` remain admin-only.
 
+## Combined read composition
+
+`PublicReadModule.prepare` composes the four prepared schedule, topic, source
+catalog and source-health modules with one lazy caller-owned pool. Disabled mode
+registers no routes or storage; unsafe prerequisites fail before opening storage.
+Isolated combined HTTP checks exercise every GET/HEAD, refused writes, omitted
+legacy/unaudited routes, private stored URL/error markers and independent route
+failures. App shutdown leaves the shared pool usable. This composition remains
+absent from main: it must replace overlapping legacy controllers, and needs the
+separate authorization gate before installation. Article listings still require
+stored URL/text review, including query-bearing links; they remain restricted.
+
 ## Source locations
 
 - `apps/api/src/modules/operations/adapters/monitoring-alerts.ts`

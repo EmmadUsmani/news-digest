@@ -39,6 +39,7 @@ const integration = new Set([
   'public-topics-reader.test.ts',
   'public-sources-reader.test.ts',
   'public-source-health-reader.test.ts',
+  'public-read-composition-reader.test.ts',
   'system-settings-migration.test.ts',
   'nullable-system-ownership-migration.test.ts',
   'reddit-collection.test.ts',
