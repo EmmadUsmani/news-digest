@@ -1,11 +1,12 @@
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import type { Pool } from 'pg';
 
 import { withAdminWriteAdmission } from '../../../libs/db/admin-write-admission';
-import { topics } from '../../../libs/db/schema';
+import { profiles, topics } from '../../../libs/db/schema';
 import type { AdminWriteAdmission } from '../../../public-access';
 
 class TopicNotFound extends Error {}
+class TopicCatalogChanged extends Error {}
 
 export type TopicWriteResult =
   | { outcome: 'changed' | 'unchanged'; id: string; enabled: boolean }
@@ -15,6 +16,68 @@ export type TopicWriteResult =
 // with the standalone middleware recorder: this transaction owns admission.
 export class PublicTopicWriter {
   constructor(private readonly pool: Pool) {}
+
+  // Prepared only: system catalog ordering, without invoking the legacy controller.
+  async reorder(
+    entry: AdminWriteAdmission,
+    ids: string[],
+  ): Promise<{ outcome: 'changed' | 'unchanged' | 'catalog-changed' }> {
+    if (
+      entry.action !== 'PUT' ||
+      entry.target !== '/api/admin/topics/order' ||
+      !Array.isArray(ids) ||
+      ids.length > 1000 ||
+      new Set(ids).size !== ids.length ||
+      ids.some(
+        (id) =>
+          typeof id !== 'string' ||
+          !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
+            id,
+          ),
+      )
+    )
+      throw new Error('Invalid topic order');
+    try {
+      return await withAdminWriteAdmission(
+        this.pool,
+        entry,
+        async (tx) => {
+          // Share the legacy catalog lock with topic creation/deletion/reordering.
+          await tx
+            .select({ id: profiles.id })
+            .from(profiles)
+            .where(eq(profiles.id, '00000000-0000-4000-8000-000000000001'))
+            .for('update');
+          const current = await tx
+            .select({ id: topics.id, position: topics.position })
+            .from(topics)
+            .orderBy(topics.id)
+            .for('update');
+          if (
+            current.length !== ids.length ||
+            current.some((row) => !ids.includes(row.id))
+          )
+            throw new TopicCatalogChanged();
+          const positions = new Map(ids.map((id, position) => [id, position]));
+          if (current.every((row) => row.position === positions.get(row.id)))
+            return { outcome: 'unchanged' as const };
+          // WITH ORDINALITY performs the complete ordering in one update.
+          const ordering = sql`unnest(${sql.param(ids)}::uuid[]) with ordinality as ordering(id, ordinality)`;
+          await tx
+            .update(topics)
+            .set({ position: sql`(ordering.ordinality - 1)::int` })
+            .from(ordering)
+            .where(sql`${topics.id}=ordering.id`);
+          return { outcome: 'changed' as const };
+        },
+        (result) => result.outcome,
+      );
+    } catch (error) {
+      if (error instanceof TopicCatalogChanged)
+        return { outcome: 'catalog-changed' };
+      throw error;
+    }
+  }
 
   async setEnabled(
     entry: AdminWriteAdmission,

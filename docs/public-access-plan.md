@@ -759,3 +759,9 @@ transport now participates in the default-off public write runtime (iteration
 legacy controllers. The exact topic-order route retains ordinary authorization;
 malformed topic-enable targets terminate before controllers. Public activation
 and deployment await acceptance and a permitted deployment window.
+
+Prepared topic-order persistence validates the complete system catalog and shares
+its catalog lock with legacy topic creation, deletion and reordering. Ordering
+and changed/unchanged admission outcomes commit together; stale catalogs roll
+back. The writer requires caller authorization and remains disconnected from
+HTTP routing.

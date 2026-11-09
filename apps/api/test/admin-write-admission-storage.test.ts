@@ -812,3 +812,114 @@ void test('combined topic HTTP runtime commits concurrent toggles once and rolls
     await runtime.close();
   }
 });
+
+void test('prepared topic order serializes outcomes, refuses stale catalogs and rolls back audit failure', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const writer = new PublicTopicWriter(pool);
+  const entry = {
+    actor: { localScript: true },
+    action: 'PUT',
+    target: '/api/admin/topics/order',
+    at: new Date('2026-11-09T14:00:00Z'),
+  };
+  const original = (
+    await pool.query('SELECT id, position FROM topics ORDER BY position, id')
+  ).rows as { id: string; position: number }[];
+  const ids = original.map((row) => row.id).reverse();
+  assert.ok(ids.length > 1);
+  const count = async () =>
+    (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [entry.target],
+      )
+    ).rows[0].n;
+  try {
+    const results = await Promise.all([
+      writer.reorder(entry, ids),
+      writer.reorder(entry, ids),
+    ]);
+    assert.deepEqual(results.map((result) => result.outcome).sort(), [
+      'changed',
+      'unchanged',
+    ]);
+    assert.deepEqual(
+      (
+        await pool.query('SELECT id FROM topics ORDER BY position, id')
+      ).rows.map((row) => row.id),
+      ids,
+    );
+    assert.deepEqual(
+      (
+        await pool.query(
+          'SELECT outcome FROM admin_write_admissions WHERE target=$1 ORDER BY outcome',
+          [entry.target],
+        )
+      ).rows,
+      [{ outcome: 'changed' }, { outcome: 'unchanged' }],
+    );
+    assert.deepEqual(await writer.reorder(entry, ids.slice(1)), {
+      outcome: 'catalog-changed',
+    });
+    assert.deepEqual(
+      await writer.reorder(entry, [
+        ...ids.slice(1),
+        'ffffffff-ffff-4fff-8fff-ffffffffffff',
+      ]),
+      { outcome: 'catalog-changed' },
+    );
+    for (const invalid of [
+      [ids[0], ids[0]],
+      ['invalid'],
+      Array(1001).fill(ids[0]),
+    ])
+      await assert.rejects(writer.reorder(entry, invalid));
+    await assert.rejects(writer.reorder({ ...entry, action: 'POST' }, ids));
+    await assert.rejects(
+      writer.reorder({ ...entry, target: '/api/admin/topics' }, ids),
+    );
+    await assert.rejects(
+      writer.reorder(
+        { ...entry, actor: { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' } },
+        [...ids].reverse(),
+      ),
+    );
+    assert.equal(await count(), 2);
+    await pool.query(
+      "CREATE FUNCTION refuse_order_outcome() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'order audit unavailable'; END $$",
+    );
+    await pool.query(
+      'CREATE TRIGGER refuse_order_outcome BEFORE UPDATE ON admin_write_admissions FOR EACH ROW EXECUTE FUNCTION refuse_order_outcome()',
+    );
+    try {
+      await assert.rejects(writer.reorder(entry, [...ids].reverse()));
+      assert.deepEqual(
+        (
+          await pool.query('SELECT id FROM topics ORDER BY position, id')
+        ).rows.map((row) => row.id),
+        ids,
+      );
+      assert.equal(await count(), 2);
+    } finally {
+      await pool.query(
+        'DROP TRIGGER refuse_order_outcome ON admin_write_admissions',
+      );
+      await pool.query('DROP FUNCTION refuse_order_outcome()');
+    }
+    assert.deepEqual(await writer.reorder(entry, [...ids].reverse()), {
+      outcome: 'changed',
+    });
+    assert.equal(await count(), 3);
+  } finally {
+    for (const row of original)
+      await pool.query('UPDATE topics SET position=$2 WHERE id=$1', [
+        row.id,
+        row.position,
+      ]);
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      entry.target,
+    ]);
+    await pool.end();
+  }
+});

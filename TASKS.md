@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1539: isolated combined public-runtime HTTP/database proof covers concurrent topic toggles, exact audit outcomes, invalid actors, missing topics and audit-failure rollback; standalone admission and legacy handlers stay bypassed. Public activation/deployment remain pending.
+- [x] Iteration 1540: prepared atomic system topic reordering with changed/unchanged audit outcomes, shared catalog locking, stale-catalog refusal and rollback; isolated database acceptance added. HTTP routing remains pending; public/accounts stay off.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
