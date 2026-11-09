@@ -12,15 +12,18 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
 - Verify health, alerts, sources and digest jobs before starting.
 - Prove the live proxy immediate peer and appended client-address behavior,
   including a forged forwarding prefix, using only documented exe.dev access.
-  Record the observed peer without retaining client addresses or identity headers.
+  Record only the peer category; never retain addresses or identity values.
   If that proof cannot be obtained, leave accounts disabled.
   Run `pnpm exec tsx scripts/probe-account-proxy.ts 8765` on an unused port,
   then open its printed private alternate-port URL in an authenticated browser
-  and click **Run check once**. The five-minute temporary server reports only
-  the immediate peer and three preserved-prefix/final-client checks; it never
-  configures trust. Confirm the connection uses the documented exe.dev HTTPS
-  proxy before treating its receipt as live proof. No client addresses, identity
-  headers or cookies are recorded. A refused check requires a fresh probe.
+  and click **Run check once**. The five-minute temporary server records all
+  five request shapes, including three forged prefixes and a forged email.
+  It keeps checking after failures and saves a value-free receipt (including
+  partial runs) to `~/.local/state/news-digest/account-proxy-receipt.json`.
+  Confirm the connection uses the documented exe.dev HTTPS proxy before treating
+  it as live evidence. Compare that receipt with `proxyClient`; report any
+  mismatch before changing trust. Exact rerun steps are in
+  [Needs from human](../NEEDS_FROM_HUMAN.md#admin-access-rollout-updated-under-steering-36).
 - Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
   Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
   code-login flow over a temporary loopback HTTPS server, with isolated storage

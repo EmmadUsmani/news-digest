@@ -43,13 +43,28 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 update (1545, rechecked): live account forwarding proof remains pending: this VM
-cannot connect to `https://news-digest.exe.xyz/healthz` (curl connection failure).
-A five-minute private alternate-port browser diagnostic is prepared; instructions
-are in [account activation](docs/account-activation.md). Its isolated checks use
-simulated forwarding and do not establish live trust. Accounts remain disabled;
-Phase 1 was accepted Nov 9 (1544). Live proxy proof still gates account
-activation; no account/public flag has been enabled.
+Nov 9 update (1557, STEERING 52): the owner's prior run failed at step 0;
+its old receipt cannot distinguish the forwarding-header failure. The revised
+probe records all five steps, including forged email, without identity values.
+Accounts/public remain disabled. Rerun from an authenticated browser:
+
+1. On the VM, run `cd ~/news-digest && git pull --ff-only`.
+2. Run `pnpm exec tsx scripts/probe-account-proxy.ts 8765`.
+3. Within five minutes, open the exact printed
+   `https://news-digest.exe.xyz:8765/probe-…` URL in your authenticated browser
+   through the documented exe.dev HTTPS proxy. Click **Run check once**.
+4. The browser displays the complete receipt even if a check fails. The terminal
+   prints it and exits; the receipt also persists at
+   `~/.local/state/news-digest/account-proxy-receipt.json` (mode 600), including
+   partial steps if interrupted. Do not paste browser headers, cookies or emails.
+5. Leave that file on the VM for the next iteration to inspect. If the browser
+   cannot reach the URL or the probe expires, restart step 2 for a fresh URL.
+
+The receipt contains counts, IP validity, peer category and header names only;
+email is recorded solely as absent/replaced/forged. An observed result alone
+is not activation approval: the agent must compare the actual shape with
+`proxyClient`, acknowledge the rerun and report any mismatch before proceeding.
+No trust configuration, sharing, account or public setting changes are needed.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 

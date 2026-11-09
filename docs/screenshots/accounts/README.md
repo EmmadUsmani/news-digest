@@ -67,3 +67,13 @@ These checks make no live account writes.
 
 - [Desktop replay refusal](link-composed-replay-1280.png)
 - [Mobile replay refusal](link-composed-replay-390.png)
+
+## Proxy diagnostic (simulated forwarding)
+
+`pnpm exec tsx scripts/smoke-account-proxy-probe.ts` runs the actual five-step
+browser probe behind simulated forwarding on loopback. It verifies completion
+after a failed baseline and detects a surviving forged email. Neither image
+establishes live exe.dev trust or shows live account data.
+
+- [All checks observed](proxy-probe-fixture.png)
+- [Missing baseline and forged email](proxy-probe-failed-fixture.png)

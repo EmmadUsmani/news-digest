@@ -1,14 +1,45 @@
 import { randomBytes } from 'node:crypto';
 import { createServer } from 'node:http';
+import { isIP } from 'node:net';
 
 import { proxyClient } from '../../apps/api/src/modules/accounts/adapters/proxy-client';
 
 const prefixes = ['192.0.2.123', '198.51.100.9, 203.0.113.7', 'forged'];
 
-// Temporary diagnostic only: no application storage, identity headers or logs.
-export function proxyProof(report: (receipt: unknown) => void) {
+export type ProxyReceipt = {
+  status: 'running' | 'observed' | 'failed';
+  steps: {
+    step: number;
+    forwardedFields: number;
+    forwardedEntries: number;
+    finalEntryIsIp: boolean;
+    immediatePeer: 'loopback' | 'private' | 'public' | 'unknown';
+    presentHeaders: string[];
+    forwardingValid: boolean;
+    email?: 'absent' | 'replaced' | 'forged';
+  }[];
+  trustConfigurationChanged: false;
+};
+
+function peerKind(
+  peer: string,
+): ProxyReceipt['steps'][number]['immediatePeer'] {
+  const value = peer.replace(/^::ffff:/, '');
+  if (!isIP(value)) return 'unknown';
+  if (value === '::1' || value.startsWith('127.')) return 'loopback';
+  if (
+    /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.|169\.254\.)/.test(value) ||
+    /^(f[cd]|fe[89ab])/i.test(value)
+  )
+    return 'private';
+  return 'public';
+}
+
+// Temporary diagnostic: retain only shape, never addresses or identity values.
+export function proxyProof(report: (receipt: ProxyReceipt) => void) {
   const path = `/probe-${randomBytes(24).toString('hex')}`;
   let baseline: { peer: string; client: string } | undefined;
+  const steps: ProxyReceipt['steps'] = [];
   let step = 0;
   let finished = false;
   const nonce = randomBytes(24).toString('hex');
@@ -36,14 +67,16 @@ document.getElementById('run').onclick = async function () {
   this.disabled = true;
   const result = document.getElementById('result');
   try {
-    for (const [index, prefix] of [null, ...${JSON.stringify(prefixes)}].entries()) {
+    for (const [index, prefix] of [null, ...${JSON.stringify(prefixes)}, null].entries()) {
       const response = await fetch(location.pathname + '/' + index, {
         cache: 'no-store', redirect: 'error',
-        headers: prefix === null ? {} : {'X-Forwarded-For': prefix}
+        headers: index === 4 ? {'X-ExeDev-Email': 'forged@example.invalid'} : prefix === null ? {} : {'X-Forwarded-For': prefix}
       });
       if (!response.ok) throw new Error('Check refused; restart probe and retry.');
+      const receipt = await response.json();
+      result.textContent = JSON.stringify(receipt, null, 2);
     }
-    result.textContent = 'Forwarding checks passed. Receipt is on the VM terminal. Accounts remain disabled.';
+    result.textContent += '\\nChecks complete. Receipt saved on VM. Accounts remain disabled.';
   } catch { result.textContent = 'Check failed. No trust configuration changed.'; }
 };
 </script>`,
@@ -58,35 +91,72 @@ document.getElementById('run').onclick = async function () {
     const peer = request.socket.remoteAddress ?? '';
     const client = peer ? proxyClient([peer])(request) : null;
     const forwarded = request.headers['x-forwarded-for'];
+    const fields = request.rawHeaders.filter(
+      (_, index) =>
+        index % 2 === 0 &&
+        request.rawHeaders[index].toLowerCase() === 'x-forwarded-for',
+    ).length;
+    const entries = typeof forwarded === 'string' ? forwarded.split(',') : [];
+    const last = entries.at(-1)?.trim() ?? '';
     const valid =
       client !== null &&
       typeof forwarded === 'string' &&
       (step === 0
-        ? !forwarded.includes(',')
+        ? entries.length === 1
         : baseline?.peer === peer &&
           baseline.client === client &&
-          forwarded.slice(0, forwarded.lastIndexOf(',')).trim() ===
-            prefixes[step - 1]);
-    if (!valid) {
-      finished = true;
-      baseline = undefined;
-      report({ status: 'failed', step });
-      return send(409);
-    }
-    if (step === 0) baseline = { peer, client };
+          (step === 4
+            ? entries.length === 1
+            : forwarded.slice(0, forwarded.lastIndexOf(',')).trim() ===
+              prefixes[step - 1]));
+    const email = request.headers['x-exedev-email'];
+    const emailResult =
+      email === undefined
+        ? 'absent'
+        : (Array.isArray(email) ? email : email.split(',')).some(
+              (value) => value.trim() === 'forged@example.invalid',
+            )
+          ? 'forged'
+          : 'replaced';
+    steps.push({
+      step,
+      forwardedFields: fields,
+      forwardedEntries: entries.length,
+      finalEntryIsIp: isIP(last) !== 0,
+      immediatePeer: peerKind(peer),
+      presentHeaders: [
+        ...new Set(
+          request.rawHeaders
+            .filter((_, index) => index % 2 === 0)
+            .map((name) => name.toLowerCase())
+            .filter(
+              (name) =>
+                name === 'x-forwarded-proto' ||
+                name === 'x-forwarded-host' ||
+                name.startsWith('x-exedev-'),
+            ),
+        ),
+      ].sort(),
+      forwardingValid: valid,
+      ...(step === 4 ? { email: emailResult } : {}),
+    });
+    if (step === 0 && valid) baseline = { peer, client: client };
     step++;
-    if (step === prefixes.length + 1) {
-      finished = true;
-      baseline = undefined;
-      report({
-        status: 'observed',
-        immediatePeer: peer,
-        forgedPrefixes: prefixes.length,
-        finalClientUnchanged: true,
-        trustConfigurationChanged: false,
-      });
-    }
-    return send(204);
+    finished = step === 5;
+    const receipt: ProxyReceipt = {
+      status: !finished
+        ? 'running'
+        : steps.every((value) => value.forwardingValid) &&
+            emailResult !== 'forged'
+          ? 'observed'
+          : 'failed',
+      steps: [...steps],
+      trustConfigurationChanged: false,
+    };
+    report(receipt);
+    if (finished) baseline = undefined;
+    response.setHeader('Content-Type', 'application/json');
+    return send(200, JSON.stringify(receipt));
   });
   return { server, path };
 }

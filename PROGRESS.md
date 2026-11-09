@@ -1,89 +1,6 @@
 # Progress
 
-Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1540 — prepare atomic topic reordering
-
-- Clean main/no leftovers; zero active alerts, healthz database/Redis healthy, no failed user services. All 36 sources healthy, four queues available, latest published edition has four topics; no failed digest jobs.
-- Prepared disconnected system-catalog reorder writer with exact route/method and unique bounded UUID validation. Shares legacy create/delete/reorder catalog lock; ordering and changed/unchanged audit outcome commit together.
-- Isolated Postgres acceptance passes concurrent identical ordering, exact persisted outcomes, stale/missing IDs, malformed/duplicate/oversized inputs, invalid actors and audit-outcome failure rollback; subsequent success proves pool reuse.
-- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 767 unit/271 integration passes, four expected skips; existing build warnings only. No live external verification calls.
-- Updated TASKS/rollout plan; archived iterations 1519–1528 to keep this log small. No HTTP registration, flags, migrations, generation changes or live edition writes; public/accounts remain off.
-- No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled edition review, permitted deployment after 16:00, live proxy proof, topic-order HTTP replacement and atomic queue effects.
-
-## 2026-11-09: iteration 1541 — prepare atomic topic-order HTTP boundary
-
-- Clean main/no leftovers; alerts clear, healthz database/Redis healthy, no failed user services; all 36 sources healthy and queue checks pass. Latest published edition serves four topics.
-- Prepared unregistered exact-PUT topic-order transport: bounded unique UUID catalog, fresh-admin checks after upload, strict Origin/content-type multiplicity and authenticated direct-script provenance.
-- Public responses project changed/unchanged only; stale catalogs return empty 409, invalid actors/dependency failures empty 503. Loopback HTTP tests cover malformed/duplicate/oversized input, streamed limits, session renewal and secret-free failures.
-- Updated rollout plan/TASKS. No runtime registration, migrations, flags, generation changes or external calls; public/accounts remain off.
-- Verification: focused HTTP tests, pnpm format, pnpm lint:fix, pnpm build and pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Existing bundle warning only.
-- No deployment/restart during owner's 13:00–16:00 UTC hold. Nov 9 15:01 snapshot: scheduled generation active, zero failed jobs. Next: review its completed edition, permitted deployment after 16:00, proxy proof and topic-order runtime registration.
-
-## 2026-11-09: iteration 1542 — review Nov 9 scheduled publication
-
-- Clean main/no leftovers; initial alerts clear. Scheduled edition ab346e19-8800-49e9-a7f7-5c6a5207d1d6 completed once at 15:02:54 UTC: full-ai, 174.631 s, 659 candidates, 19 stories/14 posts.
-- Read-only report-edition-timing and report-x-discovery: Anthropic $0.388257/51 settled successful calls, X $0.260092/four completed tools, zero holds. Forty new verified outside-list candidates; two NBA cited selections, zero other topics.
-- Read all saved summaries/evidence and posts/context; recorded evidence depth and social observations in docs/edition-reviews/2026-11-09.md and docs/SOURCES.md. World zero X and Tech first recorded Bluesky replacement require diagnosis; no acceptance claimed.
-- Local latest/direct/history endpoints expose today's edition. pnpm obs health/services/sources --check pass: DB/Redis, 14 services, 36 sources; digest queue zero failed/active, next run Nov 10 15:00 UTC.
-- No code, application-data writes, external calls, flags or migrations. No restart/deployment during owner's 13:00–16:00 hold; live runtime unchanged.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Documentation-only step; no build/runtime change.
-- Next: saved World X rejection/Tech replacement diagnosis, paid novelty/Bluesky links, phase-1 scheduled parity; then account runtime topic-order wiring and permitted deployment/proxy proof.
-
-## 2026-11-09: iteration 1543 — diagnose saved World X and Tech replacement
-
-- Clean main/no leftovers; pnpm obs alerts clear, obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
-- Read-only immutable edition/cache/stored official text: World has 20 scored posts, 19 fail semantic gates; only unsourced Iran missile-range claim qualifies. Retained final editor result is empty; no saved rejection rationale, budget fallback or Bluesky displacement.
-- Tech saved editor order verifies reserved-slot replacement removes fifth-ranked Emil Kowalski skills-doc release, retains first four X picks and adds distinct WIRED safety investigation; five posts total. Useful builder material displaced; no superior virality claimed.
-- Read-only tsx assertions pass: World gate/sports counts, empty selection, open slots, exact Tech replacement ID and preserved X order. Updated daily review, SOURCES and TASKS; social acceptance remains open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes, inference, application-data writes, migrations or flags.
-- No restart/deployment during owner's 13:00–16:00 UTC hold; public/accounts remain off. Next: paid novelty, Bluesky destinations and phase-1 scheduled ownership/original-response/browser parity.
-
-## 2026-11-09: iteration 1544 — accept Phase 1 after scheduled publication
-
-- Clean main/no leftovers; alerts clear; obs health/services/sources --check pass: database/Redis, 14 services and 36 sources healthy.
-- API/worker read-only process checks verify SYSTEM_OWNERSHIP=1, both started before today's normal full-AI scheduled publication; SQL confirms published scheduled kind/key and rollback default-profile owner.
-- Live read-only rehearse-system-reads.ts verifies all 553 saved editions, complete reader/adapter responses, both publication filters, history, topics/settings across process-local off/on/off; no live service flag changes.
-- check-scheduled-reader.ts passes four topics/19 stories/14 posts; compare-publication-content.ts verifies five original committed response hashes.
-- Fresh inventory-editions.ts plus smoke-publication-candidates.ts passes all seven published editions API/per-topic counts/titles, desktop/mobile light/dark; external traffic and writes blocked. Initial ad hoc SQL omitted default URL and failed; corrected connection passes.
-- Phase 1 accepted/acked; updated rollout/activation plan, daily receipt and TASKS. Prior live private AI-off/AI-on and restore/rollback evidence retained; no new provider calls or application writes.
-- Development totals remain Anthropic $0.211076/xAI $0. No migrations, deployment or restarts during 13:00–16:00 hold; accounts/public remain off.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes.
-- Next: Phase 3 proxy proof and guarded activation; daily paid-candidate novelty/Bluesky destinations remain open.
-
-## 2026-11-09: iteration 1545 — wire atomic topic ordering into guarded runtime
-
-- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
-- Documented exe.dev proxy URL remains unreachable from VM (curl connection failure); no browser connector is available. Updated NEEDS_FROM_HUMAN; no inferred proxy trust or account activation.
-- Default-off public runtime now routes bounded topic-order PUT through the atomic writer before standalone admission/controllers, sharing account authentication and the owned writer pool. Disabled mode constructs no new resources.
-- Targeted HTTP/router tests pass (7/7). New isolated composed HTTP/Postgres check verifies admin refusal, changed/unchanged outcomes, stale-catalog 409 and audit-failure 503 with unchanged ordering/admission count; no standalone recorder/controller execution.
-- Updated rollout plan, affected handbook note and TASKS. pnpm exec tsx scripts/check-handbook.ts 07-data-model verifies 18 pages/3 diagrams, but exits 1 solely on existing metadata warnings for unapplied account tables. No diagram changes.
-- pnpm build passes. check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; pnpm obs jobs --check passes, zero failed/active digest jobs, next Nov 10 15:00 UTC. Initial jobs --check with filters refused CLI syntax; corrected unfiltered check passes.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
-- No provider calls, application writes, migrations, flags or UI changes. No restart/deployment during 13:00–16:00 UTC hold; accounts/public remain disabled, live runtime unchanged.
-- Next: live proxy proof and guarded account activation when obtainable; deploy prepared main after 16:00 UTC. Daily paid novelty/Bluesky destination acceptance remains open.
-
-## 2026-11-09: iteration 1546 — verify selected paid-candidate novelty
-
-- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
-- Matched all ten immutable selected X posts to today's forty keyword citations in a read-only database transaction; saved allowlisted evidence in the daily review JSON.
-- Two selected NBA candidates (Hoop Central Acuff statistics, Kyle Ingram LaMelo dunk) are new/outside current lists, with zero earlier search or retained free-link/feed/Reddit citations. Other topics select no paid citations.
-- Reported likes 3,235/1,664 are unverified; all ten selected X official metrics remain empty. Novel selected candidates fall from eight on Nov 8 to two today; quality/virality acceptance remains open.
-- Read-only evidence assertions pass: forty citations, exactly two novel NBA picks, empty official metrics and zero retained free provenance. check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts.
-- Updated daily review, SOURCES and TASKS. pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
-- Documentation/evidence only; no provider calls, source fetches, application-data writes, flags, migrations or UI changes. No restart/deployment during 13:00–16:00 UTC hold; live runtime unchanged.
-- Next: saved Bluesky destination acceptance; live proxy proof/guarded activation remains blocked, prepared runtime deployment waits until after 16:00 UTC.
-
-## 2026-11-09: iteration 1547 — verify saved Bluesky destinations
-
-- Clean main/no leftovers; pnpm obs alerts clear; obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
-- GET/HEAD-only Playwright replay of immutable Nov 9 reader passes all four Bluesky cards on desktop/mobile light/dark: exact saved display text, original/expanded hrefs, no nested links/overflow/page errors; external requests blocked.
-- Independent retains its article URL; Alberta expands to Global News surgical-fees article and separately links publisher homepage. WIRED/Warriors supply no inline article URL. Saved allowlisted href evidence and inspected desktop/mobile screenshots; no fixtures or content rewrites.
-- Initial replay expected raw text; corrected assertion to saved displayText, which intentionally expands shortened links. No application defect found.
-- check-scheduled-reader.ts 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Updated daily review, SOURCES and TASKS; World social quality remains open.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/272 integration passes, four expected skips; API rebuild included in isolated suite.
-- Documentation/evidence only; no provider calls, source fetches, application writes, flags, migrations or runtime changes. No restart/deployment during 13:00–16:00 UTC hold.
-- Next: live proxy proof and guarded Phase 3 activation remain blocked; prepared runtime deployment waits until after 16:00 UTC. Complete remaining third-edition social acceptance without tuning.
+Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1548 — deploy prepared default-off API runtime
 
@@ -193,3 +110,16 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (769 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle-size warning only.
 - Restarted API/worker; health retry passed, latest reader hash unchanged and scheduled-reader gate still passes. Health/alerts clear. No live source or digest breakage observed.
 - First push rejected: owner advanced main. Merged 2b775125 without application overlap or history rewrite; owner item 52 now comes next: diagnostic proxy-probe receipts and forged-email check before more Phase 4 work. No metrics probe before 18:19 UTC.
+
+## 2026-11-09: iteration 1557 — explain proxy-probe failures
+
+- Clean main/no leftovers; health and alerts clear. Followed STEERING 52 before further Phase 4 work; no paid calls, source/configuration changes or account/public activation.
+- Proxy diagnostic records forwarding-field/entry counts, final-IP validity, peer category and allowed header names at every step; continues after a failed baseline and adds absent/replaced/forged email classification. Never retains addresses, emails or cookies.
+- CLI saves partial/final timestamped receipts outside the repo at ~/.local/state/news-digest/account-proxy-receipt.json (mode 600); exact owner rerun steps replace the Nov 9 NEEDS_FROM_HUMAN paragraph. Owner live rerun/shape comparison remains pending.
+- `pnpm exec tsx --test apps/api/test/proxy-proof.test.ts` passes 4 tests: missing/duplicate/multi-entry/invalid baseline, overwritten/changed forwarding and forged email.
+- `pnpm exec tsx scripts/smoke-account-proxy-probe.ts` passes success and failed-baseline/forged-email browser scenarios; saved and inspected two full-page fixture screenshots. These are simulated forwarding, not live proxy proof.
+- Simulated CLI exercise verifies all five partial/final disk receipts, mode 600 and clean exit; temporary simulated receipt removed/restored without leaving fake live evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (771 unit/272 integration passes, four expected skips), `pnpm build`, targeted handbook check (18 pages) and `git diff --check` pass. Existing bundle warning/unapplied-account metadata warnings only.
+- Restarted API/worker outside the hold; /healthz and alerts clear. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes four topics/19 stories/14 posts; latest reader hash unchanged.
+- Updated TASKS, activation checklist and fixture screenshot index; archived iterations 1540–1547 to keep this log small. Item 52 implementation acked; actual proxy evidence still blocks Phase 3.
+- Next: inspect the owner's new receipt and report any proxyClient mismatch without redesigning trust; while waiting, continue Phase 4 behind flags. Metrics passive probe no earlier than 18:19 UTC.

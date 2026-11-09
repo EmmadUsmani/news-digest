@@ -2310,3 +2310,5 @@ mode, or change exe.dev sharing. Never print or save identity values.
 
 **Limits:** no paid calls. The probe is a separate script, so this needs no
 deploy. The 13:00–16:00 UTC window still applies to everything else.
+
+ack: 2026-11-09 item 52 — iteration 1557 adds five-step value-free diagnostics, continuing failures, forged-email classification and private durable receipts; simulated failure/browser checks pass. Exact rerun steps replace the Nov 9 paragraph in NEEDS_FROM_HUMAN.md. Owner rerun and actual proxy-shape comparison remain pending; no trust or activation changes.
