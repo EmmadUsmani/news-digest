@@ -157,3 +157,14 @@ Earlier entries: [through iteration 1539](docs/progress-archive/2026-11-09-1548.
 - Restarted API/worker outside the hold. Health/alerts clear; latest/history response hashes unchanged; deployed private ID GET/HEAD and latest/history return no-store.
 - Scheduled reader check passes four topics/19 stories/14 posts. No provider, source, migration or configuration changes; accounts/public stay off.
 - Next: live proxy proof and guarded Phase 3 activation; remaining Phase 4 resource-policy/readiness work while blocked. Metrics probe no earlier than 17:18 UTC.
+
+## 2026-11-09: iteration 1554 — constrain public form destinations
+
+- Clean main/no leftovers; alerts clear and local health/API/worker healthy. Passive metrics probe not due until 17:18 UTC; no extra sample.
+- Prepared default-off public CSP now includes form-action self, preventing forms from sending reader data to another origin. Account login/link pages retain their stricter form-action none.
+- Added reusable synthetic local Chromium proof: external POST blocked with form-action violation and zero foreign submissions, same-origin POST succeeds, private rollback permits the foreign POST. No external traffic or live account writes.
+- Initial browser harness navigation waits timed out on CSP-blocked navigation; corrected to observe the violation and use a separate page for the permitted submission. Final replay passes.
+- Public-stack HTTP checks pass 2/2 across account, reader GET/HEAD and denied routes; updated public-access plan, affected runtime handbook and TASKS.
+- pnpm format, pnpm lint:fix, pnpm check (769 unit/272 integration passes, four expected skips), pnpm build and git diff --check pass; handbook check passes 18 pages/one diagram with existing unapplied-account metadata warnings. Existing bundler warning only.
+- Restarted API/worker; first pre-readiness health probe retried successfully. Health/alerts clear; latest/history bytes unchanged. Scheduled reader check passes four topics/19 stories/14 posts. No provider, source, migration or configuration changes; accounts/public stay off.
+- Next: live proxy proof and guarded Phase 3 activation; remaining Phase 4 resource allowlist/readiness. Metrics probe no earlier than 17:18 UTC.

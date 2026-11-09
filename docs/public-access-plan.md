@@ -395,10 +395,13 @@ turn an edition response into shared content. Account and admin data remain unca
 
 The default-off public access stack now sets HSTS (one year, host only),
 `nosniff`, `no-referrer`, same-origin framing and a document CSP before account
-transport or authorization. The CSP restricts base URLs, plugin objects and
-embedding ancestors; it leaves outgoing embed frames and script/connect sources
+transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
+submissions (same-origin only); it leaves outgoing embed frames and script/connect sources
 unchanged. A complete resource allowlist still needs browser review before public
-readiness is accepted. Private mode adds none of these headers. Wire-level checks
+readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
+uses synthetic local forms to verify external POST refusal, same-origin POST
+success and unchanged private-mode behavior in Chromium. Account login/link
+pages retain their stricter form prohibition. Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.
 

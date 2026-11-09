@@ -73,7 +73,7 @@ flowchart LR
   (mode 600). They are never committed. The API and worker load this file.
 - `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
   and same-origin framing headers before account handling and authorization.
-  The CSP limits base URLs, plugin objects and embedding ancestors.
+  The CSP limits base URLs, plugin objects, embedding ancestors and form destinations.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.
 - App service definitions are tracked in `ops/services/*.service`; observability

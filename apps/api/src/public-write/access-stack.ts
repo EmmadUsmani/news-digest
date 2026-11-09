@@ -33,7 +33,7 @@ export function prepareAccessStack(options: {
       // tool frames. Script/connect allowlists need their own browser review.
       response.setHeader(
         'Content-Security-Policy',
-        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'",
+        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'",
       );
     }
     if (accounts)
