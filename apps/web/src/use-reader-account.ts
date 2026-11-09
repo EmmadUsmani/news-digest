@@ -36,6 +36,7 @@ export function useReaderAccount(
     ...(enabled ? state : initialAccountState),
     refresh: () => binding.current?.refresh() ?? Promise.resolve(),
     retrySync: () => binding.current?.retrySync() ?? Promise.resolve(),
+    deleteAccount: () => binding.current?.deleteAccount() ?? Promise.resolve(),
     signOut: (allDevices = false) =>
       binding.current?.signOut(allDevices) ?? Promise.resolve(),
   };

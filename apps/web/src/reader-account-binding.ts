@@ -36,6 +36,7 @@ export function bindReaderAccount(
     refresh: controller.refresh,
     retrySync: controller.retrySync,
     signOut: controller.signOut,
+    deleteAccount: controller.deleteAccount,
     stop() {
       options.browser.removeEventListener('focus', refresh);
       options.page.removeEventListener('visibilitychange', refresh);

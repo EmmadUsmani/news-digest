@@ -1,22 +1,3 @@
-## 2026-11-08: iteration 1438 — prepared React account preference bridge
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failures and next run Nov 9 15:00 UTC.
-- React preferences now expose a stable account read/write/subscribe/clear bridge. Local edits and cross-tab changes notify sync; server merges render and persist; confirmed logout removes browser storage. Blocked storage reports failure while updating the active reader.
-- Three offline tests verify persistence/subscription teardown, blocked storage and the actual controller-to-bridge sync/logout path. Initial test callback lint errors corrected before the final complete check.
-- Accounts remain disabled and VM private; no migration, provider call or edition-generation change. Updated TASKS and rollout plan; account UI wiring pending, Phase 1 awaits its pre-noon window. No live handbook behavior changed.
-- `pnpm format`, `pnpm lint:fix`, targeted tests (3), `pnpm build` and plan handbook check pass (expected unapplied-table notes). `pnpm check` passes: 692 unit tests, 253 integration passes/four expected skips; static checks/schema parity green.
-- `pnpm exec tsx scripts/smoke-reader-storage-reset.ts` passes desktop/mobile in both themes; four screenshots refreshed and mobile light inspected. `check-scheduled-reader.ts 2026-11-08T15:00:00Z` retains four topics/19 stories/17 posts. API/worker restarted healthy; `git diff --check` passes.
-- Commit/push then repeat service restart and health/reader checks to match main. Next: account UI wiring with accounts disabled, then Phase 1 rollout in its permitted window.
-
-## 2026-11-08: iteration 1439 — prepared React account lifecycle
-
-- Clean main/no leftovers; alerts clear, health good and no failed user units. All 36 sources healthy; digest-generation has zero failures and next run Nov 9 15:00 UTC.
-- Prepared gated React account hook owns controller discovery, refresh on visible tab return, retry/sign-out actions and request/listener teardown. Disabled binding makes no requests and leaves anonymous choices intact; unmount suppresses late callbacks.
-- Three offline binding tests cover disabled/hidden gates, coalesced browser events and delayed discovery after cancellation. Isolated Playwright React StrictMode harness verifies disabled gate, discovery/sync, logout storage removal and gate-off/unmount cleanup; fixture account responses only, no live accounts.
-- Initial full check caught React's effect-state rule; replaced redundant effect reset with disabled-state rendering. Accounts remain disabled; no migration, provider call or edition-generation change. Phase 1 awaits its pre-noon window; account UI wiring next.
-- Verification: `pnpm format`, `pnpm lint:fix`, targeted binding tests (3), `pnpm build`, `pnpm check`, `check-handbook.ts public-access-plan` and `git diff --check`. Final full check passes: 695 unit tests, 253 integration passes/four expected skips; static checks/schema parity green. Handbook notes only expected unapplied account tables. Saved reader remains four topics/19 stories/17 posts via `check-scheduled-reader.ts 2026-11-08T15:00:00Z`.
-- Archived iterations 1422–1426 to keep PROGRESS under 25 KB. Commit/push then restart API/worker and repeat health/reader checks so live matches main. No live handbook behavior changed; rollout plan and TASKS updated.
-
 ## 2026-11-09: iteration 1440 — bound Phase 1 migration rollout
 
 - Clean main/no leftovers; alerts clear, `/healthz` good and no failed user units. Pre-noon window opened during this iteration; Phase 1 takes priority over further account UI preparation.
@@ -130,3 +111,12 @@
 - Updated rollout evidence and TASKS. Accounts stay disabled, account migrations pending, VM private; no live provider calls, real email or proxy configuration changes. No product behavior or handbook diagrams changed.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `git diff --check`; all pass (698 unit tests, 253 integration passes/four expected skips). No UI changed; browser checks were not repeated.
 - Next: Nov 9 15:00 UTC scheduled Phase 1 acceptance, then live proxy proof and gated account activation; owner two-device acceptance remains open.
+
+## 2026-11-09: iteration 1452 — gated account deletion control
+
+- Clean main/no leftovers; health and alerts clear, no failed user units; all 36 sources healthy. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts remain disabled, VM private, account migrations pending.
+- Added typed DELETE confirmation and cancellation to the gated account panel. Deletion pauses uploads and blocks concurrent session actions; failed requests retain choices, successful requests clear local state. Shared logout/deletion controller retains existing logout behavior.
+- Controller acceptance verifies refusal, retry, concurrent-action suppression and late-sync cancellation. Desktop/mobile Playwright fixture checks cover confirmation, cancellation, busy state, refusal and successful deletion through the mounted reader. Inspected refreshed panel screenshots; updated screenshot index, rollout plan and affected handbook note. Archived iterations 1438–1439 to keep this file small.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted controller tests, both reader-account browser smokes, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Full check passes: 699 unit tests, 253 integration passes/four expected skips; build passes. Reader retains four topics/19 stories/17 posts; handbook reports existing metadata notes for unapplied account tables. No provider calls or real email.
+- Initial combined format/lint/check shell ended with signal 143 during unit tests; reran full check separately. Archive helper initially used the wrong date in a heading; corrected without losing content.
+- Commit/push then restart API/worker and recheck health/reader/alerts. Next: scheduled Phase 1 acceptance, live proxy proof and gated account activation; owner two-device acceptance remains open.

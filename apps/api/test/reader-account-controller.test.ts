@@ -228,3 +228,65 @@ void test('stopping before discovery starts performs no request or local clearin
   assert.equal(calls, 0);
   assert.equal(store.clears(), 0);
 });
+
+void test('deletion pauses sync, retains choices on refusal and clears only after confirmed success', async () => {
+  const store = local();
+  let release!: (response: Response) => void;
+  let deleteResponse!: (response: Response) => void;
+  let syncSignal: AbortSignal | null | undefined;
+  let deletions = 0;
+  let latestStatus = '';
+  const controller = createReaderAccountController({
+    ...store,
+    changed: (state) => {
+      latestStatus = state.status;
+    },
+    fetch: async (url, init) => {
+      if (path(url).endsWith('/session'))
+        return Response.json({ signedIn: true, isAdmin: false });
+      if (path(url).endsWith('/delete')) {
+        deletions++;
+        assert.equal(init?.method, 'POST');
+        assert.deepEqual(JSON.parse(init?.body as string), {
+          confirmation: 'DELETE',
+        });
+        return new Promise((resolve) => {
+          deleteResponse = resolve;
+        });
+      }
+      assert.equal(path(url), '/api/account/sync');
+      syncSignal = init?.signal;
+      return new Promise((resolve) => {
+        release = resolve;
+      });
+    },
+  });
+  await controller.refresh();
+  await tick();
+  const old = store.read();
+  const refused = controller.deleteAccount();
+  assert.equal(latestStatus, 'deleting');
+  assert.equal(syncSignal?.aborted, true);
+  await controller.refresh();
+  await controller.signOut();
+  await controller.deleteAccount();
+  assert.equal(deletions, 1);
+  deleteResponse(new Response(null, { status: 503 }));
+  await assert.rejects(refused, {
+    message: 'Could not delete account. Try again.',
+  });
+  assert.equal(store.clears(), 0);
+  assert.deepEqual(store.read(), old);
+  const deleted = controller.deleteAccount();
+  assert.equal(store.clears(), 0);
+  deleteResponse(new Response(null, { status: 204 }));
+  await deleted;
+  release(Response.json(old));
+  await tick();
+  assert.equal(store.clears(), 1);
+  assert.deepEqual(store.read(), emptyStore());
+  assert.equal(latestStatus, 'idle');
+  controller.stop();
+  await controller.deleteAccount();
+  assert.equal(deletions, 2);
+});

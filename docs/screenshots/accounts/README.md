@@ -26,7 +26,7 @@ refused codes, retry, keyboard redemption, success navigation and URL/storage pr
 
 `pnpm exec tsx scripts/smoke-reader-account.ts` exercises isolated fixture state
 and actions, including sign-in, sync failure/retry, both sign-out actions, busy
-controls and the disabled gate. The live reader keeps the account flag off.
+controls, typed deletion confirmation, refusal and cancellation, and the disabled gate. The live reader keeps the account flag off.
 
 - [Desktop account panel](reader-account-1440.png)
 - [Mobile account panel](reader-account-390.png)
@@ -35,6 +35,7 @@ controls and the disabled gate. The live reader keeps the account flag off.
 
 `pnpm exec tsx scripts/smoke-reader-account-integration.ts` checks actual reader
 and saved-item headers with fixture account HTTP and saved edition content.
+Successful deletion clears local account choices on both screen widths.
 The deployed default-off reader makes no account requests.
 
 - [Desktop header](reader-header-1440.png)

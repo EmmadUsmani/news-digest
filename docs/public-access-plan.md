@@ -314,7 +314,9 @@ desktop/mobile checks use fixture responses. Prepared gated reader account panel
 shows sign-in, sync progress/failure, retry and single/all-device sign-out;
 failed actions preserve the controller’s retained choices. Latest/historical reader
 and saved-item headers mount it only with `VITE_READER_ACCOUNTS=1` (default off),
-sharing each page’s preference bridge for sync. Activation remains pending.
+sharing each page’s preference bridge for sync. Confirmed account deletion requires
+typing DELETE, pauses sync before sending the authenticated request and clears local
+choices only after success; refusal preserves choices for retry. Activation remains pending.
 Isolated stored HTTP acceptance now uses two independently redeemed device
 sessions: saved-story copies and removals converge, stale writes preserve removals,
 a friend reader stays isolated, single-device logout preserves the other session,

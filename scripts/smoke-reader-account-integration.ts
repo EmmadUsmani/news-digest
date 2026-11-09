@@ -85,7 +85,14 @@ async function main() {
           syncs++;
           return route.fulfill({ json: route.request().postDataJSON() });
         }
-        if (url.pathname === '/api/account/logout') {
+        if (
+          url.pathname === '/api/account/logout' ||
+          url.pathname === '/api/account/delete'
+        ) {
+          if (url.pathname.endsWith('/delete'))
+            assert.deepEqual(route.request().postDataJSON(), {
+              confirmation: 'DELETE',
+            });
           signedIn = false;
           return route.fulfill({ status: 204 });
         }
@@ -124,6 +131,33 @@ async function main() {
           () => document.documentElement.scrollWidth > innerWidth,
         ),
         false,
+      );
+      signedIn = true;
+      await page.reload();
+      await page.getByRole('button', { name: 'Account', exact: true }).click();
+      await expect(
+        page.getByText('Your topics and saved items are synced.'),
+      ).toBeVisible();
+      await page
+        .getByRole('button', { name: 'Delete account', exact: true })
+        .click();
+      await page.getByLabel('Type DELETE to confirm').fill('DELETE');
+      await page
+        .getByRole('button', {
+          name: 'Permanently delete account',
+          exact: true,
+        })
+        .click();
+      await expect(
+        page.getByRole('link', { name: 'Sign in', exact: true }),
+      ).toBeVisible();
+      await expect(page.getByLabel('Type DELETE to confirm')).toHaveCount(0);
+      assert.equal(signedIn, false);
+      assert.equal(
+        await page.evaluate(() =>
+          localStorage.getItem('news-digest.reader-preferences.v1'),
+        ),
+        null,
       );
       assert.deepEqual(errors, []);
       await page.close();

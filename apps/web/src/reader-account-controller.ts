@@ -4,7 +4,8 @@ import {
 } from './reader-account-sync-lifecycle';
 
 type Session = { signedIn: boolean; isAdmin: boolean };
-type Status = 'idle' | 'checking' | 'signing-out' | 'failed' | 'stopped';
+type Status =
+  'idle' | 'checking' | 'signing-out' | 'deleting' | 'failed' | 'stopped';
 type SyncOptions = Parameters<typeof createReaderAccountSyncLifecycle>[0];
 
 // Prepared UI boundary only. Construct after the accounts feature gate is on;
@@ -32,7 +33,8 @@ export function createReaderAccountController(
     lifecycle?.stop();
     lifecycle = undefined;
   };
-  const request = (path: string, method: 'GET' | 'POST') =>
+  const busy = () => status === 'signing-out' || status === 'deleting';
+  const request = (path: string, method: 'GET' | 'POST', body = {}) =>
     (options.fetch ?? fetch)(path, {
       method,
       credentials: 'same-origin',
@@ -40,11 +42,14 @@ export function createReaderAccountController(
       redirect: 'error',
       signal: abort.signal,
       ...(method === 'POST'
-        ? { headers: { 'Content-Type': 'application/json' }, body: '{}' }
+        ? {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          }
         : {}),
     });
   const refresh = (): Promise<void> => {
-    if (stopped || status === 'signing-out') return Promise.resolve();
+    if (stopped || busy()) return Promise.resolve();
     if (pending) return pending;
     const current = ++revision;
     status = 'checking';
@@ -110,37 +115,47 @@ export function createReaderAccountController(
     });
     return pending;
   };
+  const endSession = async (path: string, deleting = false) => {
+    if (stopped || busy()) return;
+    const current = ++revision;
+    pending = undefined;
+    // Stop uploads and invalidate session discovery before sending logout.
+    status = deleting ? 'deleting' : 'signing-out';
+    pause();
+    report();
+    try {
+      const response = await request(
+        path,
+        'POST',
+        deleting ? { confirmation: 'DELETE' } : {},
+      );
+      if (response.status !== 204) throw new Error();
+      if (stopped || current !== revision) return;
+      options.clear();
+      session = { signedIn: false, isAdmin: false };
+      status = 'idle';
+      report();
+    } catch {
+      if (!stopped && current === revision) {
+        // Retain choices on failure; explicit refresh can resume syncing.
+        status = 'failed';
+        report();
+        throw new Error(
+          deleting
+            ? 'Could not delete account. Try again.'
+            : 'Could not sign out. Try again.',
+        );
+      }
+    }
+  };
   return {
     refresh,
     retrySync: () => lifecycle?.sync() ?? Promise.resolve(),
-    async signOut(allDevices = false) {
-      if (stopped || status === 'signing-out') return;
-      const current = ++revision;
-      pending = undefined;
-      // Stop uploads and invalidate session discovery before sending logout.
-      status = 'signing-out';
-      pause();
-      report();
-      try {
-        const response = await request(
-          allDevices ? '/api/account/logout-all' : '/api/account/logout',
-          'POST',
-        );
-        if (response.status !== 204) throw new Error();
-        if (stopped || current !== revision) return;
-        options.clear();
-        session = { signedIn: false, isAdmin: false };
-        status = 'idle';
-        report();
-      } catch {
-        if (!stopped && current === revision) {
-          // Retain choices on failure; explicit refresh can resume syncing.
-          status = 'failed';
-          report();
-          throw new Error('Could not sign out. Try again.');
-        }
-      }
-    },
+    signOut: (allDevices = false) =>
+      endSession(
+        allDevices ? '/api/account/logout-all' : '/api/account/logout',
+      ),
+    deleteAccount: () => endSession('/api/account/delete', true),
     stop() {
       if (stopped) return;
       stopped = true;

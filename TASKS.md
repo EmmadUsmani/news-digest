@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1451: isolated stored HTTP acceptance verifies independent device logins, saved-story/tombstone convergence, reader isolation, single/all-device logout and deletion. Scheduled Phase 1 acceptance and account activation remain pending.
+- [x] Iteration 1452: gated account deletion requires typed confirmation, pauses sync, preserves choices on failure and clears after success; controller and desktop/mobile browser checks pass. Scheduled Phase 1 acceptance and account activation remain pending.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
