@@ -1,13 +1,3 @@
-## 2026-11-09: iteration 1475 — HTTPS session renewal and admin freshness
-
-- Clean main/no leftovers; health and alerts clear, no failed user services. Phase 1 scheduled acceptance remains due at 15:00 UTC; metrics check not due before 05:27 UTC.
-- Extended composed desktop/mobile HTTPS acceptance with an eligible fixture admin and atomic fixture renewal: no renewal before 24 hours, renewal at the boundary, same bearer cookie, no duplicate renewal on the next request.
-- Seven-day boundary removes admin rights while preserving reader access; advancing the server clock 401 days still authenticates and renews the browser's retained cookie. This does not simulate browser cookie expiration.
-- Real account HTTP adapter/composition/crypto with fixture storage/admission only; no live account writes, migrations or provider calls. Accounts remain disabled. Updated activation checklist.
-- Verification: composed HTTPS browser smoke, format, lint fix, full check, build, saved-reader check (four topics/19 stories/17 posts), handbook checker and diff check. Handbook reports expected metadata for unapplied account tables.
-- Full check passes: 707 unit/254 integration tests, four expected skips; build passes.
-- No runtime code/config change; no service restart under STEERING 22. Next: scheduled Phase 1 acceptance and live proxy proof before activation; owner two-device acceptance remains required.
-
 ## 2026-11-09: iteration 1476 — HTTPS multi-device session revocation
 
 - Clean main/no leftovers; health and alerts clear, no failed user services. Normal Phase 1 scheduled acceptance awaits 15:00 UTC; metrics probe not due before 05:27 UTC.
@@ -164,3 +154,12 @@
 - Updated response audit/TASKS; archived iteration 1474. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
 - Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 718 unit/257 integration pass, four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
 - No restart under STEERING 22: running entrypoints do not import this controller. Next: 15:00 scheduled acceptance, live proxy proof and gated topic runtime composition before public promotion.
+
+## 2026-11-09: iteration 1492 — prepare public topic runtime composition
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user units. Phase 1 scheduled acceptance still awaits 15:00 UTC.
+- Added unregistered `PublicTopicsModule.prepare`: default-off gate registers no route or storage; invalid flags and missing system-ownership/published-reader prerequisites fail before dependencies.
+- Enabled composition injects the concrete system-only reader. Isolated HTTP/database checks verify full catalog parity after profile rename/null ownership, GET/HEAD, no-store, refused writes, malformed-state generic refusal and shared pool reuse after shutdown.
+- Updated response audit/TASKS; archived iteration 1475. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
+- Verification: format, lint fix, full check, build, desktop/mobile saved-reader browser smoke, scheduled-reader check and diff check. Full check: 719 unit/258 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; build passes with existing warnings. Browser-generated unchanged-scope screenshots discarded deliberately.
+- No restart under STEERING 22: running entrypoints do not import this module. Next: scheduled acceptance, live proxy proof and remaining public response/route boundaries before promotion.

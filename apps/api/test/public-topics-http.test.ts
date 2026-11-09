@@ -11,6 +11,7 @@ import {
   PUBLIC_TOPICS,
   PublicTopicsController,
 } from '../src/public-read/topics.controller';
+import { PublicTopicsModule } from '../src/public-read/topics.module';
 
 void test('unregistered topics transport projects GET/HEAD and hides invalid state and storage errors', async () => {
   const topic = {
@@ -97,4 +98,38 @@ void test('unregistered topics transport projects GET/HEAD and hides invalid sta
   } finally {
     await app.close();
   }
+});
+
+void test('public topics composition stays dependency-free when disabled and rejects unsafe enablement', async () => {
+  let calls = 0;
+  const getPool = () => {
+    calls++;
+    throw new Error('Must not open storage');
+  };
+  for (const env of [{}, { PUBLIC_MODE: '0', SYSTEM_OWNERSHIP: 'invalid' }]) {
+    const app = await NestFactory.create(
+      PublicTopicsModule.prepare(env, getPool),
+      { logger: false },
+    );
+    try {
+      await app.listen(0, '127.0.0.1');
+      const address = app.getHttpServer().address() as AddressInfo;
+      assert.equal(
+        (await fetch(`http://127.0.0.1:${address.port}/api/admin/topics`))
+          .status,
+        404,
+      );
+    } finally {
+      await app.close();
+    }
+  }
+  for (const env of [
+    { PUBLIC_MODE: 'true' },
+    { PUBLIC_MODE: '1' },
+    { PUBLIC_MODE: '1', SYSTEM_OWNERSHIP: '1' },
+    { PUBLIC_MODE: '1', READER_PUBLISHED_ONLY: '1' },
+    { PUBLIC_MODE: '1', SYSTEM_OWNERSHIP: '0', READER_PUBLISHED_ONLY: '1' },
+  ])
+    assert.throws(() => PublicTopicsModule.prepare(env, getPool));
+  assert.equal(calls, 0);
 });

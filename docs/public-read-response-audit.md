@@ -79,8 +79,15 @@ Unset/off/on flags preserve the result; malformed stored settings and closed
 connections receive generic 503 errors. The reader remains unregistered. Prepared topic GET/HEAD transport now repeats
 the projection at the HTTP boundary, returns no-store responses and generic 503
 errors, and refuses writes without reading storage. Loopback checks cover mixed
-valid/invalid catalogs and adapter exceptions. Runtime composition and
-configured-text review are still required before promotion.
+valid/invalid catalogs and adapter exceptions.
+
+`PublicTopicsModule.prepare` composes that transport with the concrete system
+reader behind the default-off public flag. Disabled composition opens no storage;
+enablement requires system ownership and published-only readers. Isolated HTTP
+checks verify the full catalog with renamed profiles and null ownership, generic
+malformed-state refusal, GET/HEAD, refused writes and caller-owned pool reuse.
+Main does not import it. Route authorization and configured-text review remain
+required before promotion.
 
 ## Prepared source catalog projection
 
