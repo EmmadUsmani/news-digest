@@ -400,8 +400,14 @@ Missing client identity and Redis failure refuse admission. This adapter is
 unregistered. Prepared HTTP enforcement (iteration 1573) gates API requests before
 downstream work, returns empty no-store 429 responses on denial or dependency
 failure, and leaves health/static traffic alone. Disabled mode opens no admission
-dependency. Verified visitor extraction (item 53), registration and
-preference-write limits remain promotion work. Isolated Redis tests cover
+dependency. Prepared access-stack/runtime composition (iteration 1576) can now
+apply the caller-supplied gate before account transport and public authorization,
+while retaining security headers on refusals. Composed HTTP tests verify denied
+requests reach neither accounts nor authorization, dependency failure/recovery,
+health bypass and private rollback without limiter construction. This optional
+composition is not selected by the stored runtime. Verified visitor extraction
+(item 53) and production registration remain promotion work; preference-write
+admission is prepared in the gated account runtime. Isolated Redis tests cover
 concurrency, client separation, key privacy, expiry and failure.
 
 Sign-in request-log rehearsal (iteration 1571) composes the production request

@@ -1,5 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
+import { apiAdmissionHttp } from './api-admission-http';
+
 type Middleware = (
   request: IncomingMessage,
   response: ServerResponse,
@@ -11,6 +13,7 @@ type Middleware = (
 // through to it. Account endpoints retain their own bounded request handlers.
 export function prepareAccessStack(options: {
   publicMode: boolean;
+  apiAdmission?: Omit<Parameters<typeof apiAdmissionHttp>[0], 'enabled'>;
   accounts: Middleware | null;
   publicAccess: () => Middleware;
   legacyAccess: () => Middleware;
@@ -21,6 +24,11 @@ export function prepareAccessStack(options: {
     ? options.publicAccess()
     : options.legacyAccess();
   const accounts = options.accounts;
+  // Optional until visitor extraction is proven. Private rollback must not
+  // construct the limiter or inspect client identity.
+  const gate = options.apiAdmission
+    ? apiAdmissionHttp({ ...options.apiAdmission, enabled: options.publicMode })
+    : null;
   return (request, response, next) => {
     if (options.publicMode) {
       // Public access is served through the configured HTTPS origin. Do not
@@ -36,10 +44,13 @@ export function prepareAccessStack(options: {
         "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' https://platform.twitter.com; script-src-attr 'none'; img-src 'self' https:; font-src 'self'; media-src 'self'; worker-src 'none'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
       );
     }
-    if (accounts)
-      return accounts(request, response, () => {
-        void access(request, response, next);
-      });
-    return access(request, response, next);
+    const dispatch = () => {
+      if (accounts)
+        return accounts(request, response, () => {
+          void access(request, response, next);
+        });
+      return access(request, response, next);
+    };
+    return gate ? gate(request, response, () => void dispatch()) : dispatch();
   };
 }

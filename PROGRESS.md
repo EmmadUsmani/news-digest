@@ -130,3 +130,13 @@ Earlier entries: [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.
 - Targeted `pnpm exec tsx --test apps/api/test/account-runtime.test.ts`: 2/2 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 779 unit and 274 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; first health request raced startup, retry passes. `pnpm obs health --check`, `pnpm obs services --check`: healthy/14 services. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; digest queue failed count zero.
 - Next: item 53 owner rerun still blocks activation; continue remaining Phase 4 readiness behind flags. Metrics passive probe due no earlier than 20:36 UTC.
+
+## 2026-11-09: iteration 1576 — compose prepared general API admission
+
+- Clean main/no leftovers; alerts clear. All 36 sources healthy, digest-generation failed count zero; no paid calls, migrations, flags, UI or generation changes.
+- Added optional general API gate to public access stack/runtime, before account transport and authorization. Refusals retain security headers and empty no-store 429 responses. Stored runtime does not select it; visitor proof/registration remain open and accounts/public remain off.
+- Composed offline HTTP tests verify account/reader/admin refusal before downstream work, trusted identity despite forged headers, dependency failure/recovery, health bypass and private rollback without limiter construction. Targeted stack/runtime tests: 5/5 pass.
+- Updated readiness plan/TASKS; no active behavior or handbook changes. Hourly passive metrics probe at 20:36:21–23 UTC: 23 healthy rules, four queries ≤0.188 s, zero new evaluator errors/misses, no merges. Recovery remains open; next probe ≥21:36 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 780 unit and 274 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
+- API/worker restarted; first health request raced startup, retry passes. Health/14-service checks and scheduled-reader gate pass (four topics/19 stories/14 posts); alerts clear. Invalid jobs CLI flag combination rejected; corrected read-only query confirms zero failures.
+- Next: item 53 owner rerun still blocks activation; continue Phase 4 preparation behind flags.

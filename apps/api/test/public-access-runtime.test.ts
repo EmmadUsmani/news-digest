@@ -11,9 +11,20 @@ void test('combined public runtime keeps accounts first, refuses proxy identity 
   let closed = 0;
   let downstream = 0;
   let authentication = 0;
+  let admitted = true;
+  let admissionCalls = 0;
   const runtime = await prepareAccessRuntime({
     enabled: true,
     origin: 'https://reader.example',
+    apiAdmission: {
+      client: () => 'verified-visitor',
+      admission: () => ({
+        allow: async () => {
+          admissionCalls++;
+          return admitted;
+        },
+      }),
+    },
     pool: () => {
       acquired++;
       return {
@@ -74,6 +85,19 @@ void test('combined public runtime keeps accounts first, refuses proxy identity 
       400,
     );
     assert.deepEqual([acquired, authentication, downstream], [1, 1, 1]);
+    assert.equal(admissionCalls, 4);
+    admitted = false;
+    for (const path of [
+      '/api/account/session',
+      '/api/editions/latest',
+      '/api/admin/topics',
+    ]) {
+      assert.equal((await fetch(base + path)).status, 429);
+    }
+    assert.deepEqual([acquired, authentication, downstream], [1, 1, 1]);
+    admitted = true;
+    assert.equal((await fetch(base + '/api/editions/latest')).status, 204);
+    assert.equal(downstream, 2);
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve, reject) =>

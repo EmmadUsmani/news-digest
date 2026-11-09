@@ -10,6 +10,7 @@ export async function prepareAccessRuntime(
   options: WriteOptions & {
     accountTransport: StackOptions['accounts'];
     legacyAccess: StackOptions['legacyAccess'];
+    apiAdmission?: StackOptions['apiAdmission'];
   },
 ) {
   // Validate transport before acquiring storage, even if handlers exist.
@@ -19,6 +20,7 @@ export async function prepareAccessRuntime(
   try {
     const middleware = prepareAccessStack({
       publicMode: options.enabled,
+      apiAdmission: options.apiAdmission,
       accounts: options.accountTransport,
       publicAccess: () => writes.middleware,
       legacyAccess: options.legacyAccess,
