@@ -35,14 +35,15 @@ Read the documented [proxy](https://exe.dev/docs/proxy.md) and
 not establish the socket source seen inside this VM or explicitly guarantee
 replacement of client-supplied identity headers.
 
-A request from this VM to `https://news-digest.exe.xyz/healthz` failed to connect
-(curl exit 7); no proxied request reached the app for observation. Therefore
-loopback was **not** established as safe and is never an automatic bypass.
-Authenticated proxy origin and forged-header replacement checks remain open
-for any future public access. STEERING 36 explicitly permits the current
-private-VM rollout without waiting for those checks.
-Before making the VM public, verify the proxy strips/replaces a forged
-`X-ExeDev-Email`; never treat the local tests as evidence of that behavior.
+The owner's authenticated November 9 probe established that proxied traffic
+arrives from a loopback socket. It also recorded two appended forwarding
+entries and replacement of the forged email. The visitor's position in the
+chain is still under investigation (STEERING 53); accounts/public remain off.
+
+Loopback alone cannot distinguish proxied traffic from local scripts. The
+admin token therefore requires **no `Forwarded` or `X-Forwarded-*` headers**,
+including empty values. A proxied request carrying a valid local token is
+refused unless it independently supplies an authorized owner identity.
 
 ## Live gate verification
 

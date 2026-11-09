@@ -43,36 +43,27 @@ token is installed. Finish migrating operational routes and tools together.
 Verify proxy identity-header replacement before any future public access;
 the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 owner rerun inspected (1559, STEERING 52): the private receipt at
-`~/.local/state/news-digest/account-proxy-receipt.json` is timestamped
-17:47:12 UTC and reports `failed` after all five steps.
+Nov 9 item 53 rerun needed (iteration 1560): the previous private receipt
+showed loopback peers, two appended forwarding entries and replacement of the
+forged email. It did not establish which appended entry is the visitor.
 
-| Step                    | Forwarding fields | Entries | Final entry valid IP |
-| ----------------------- | ----------------- | ------- | -------------------- |
-| Baseline                | 1                 | 2       | yes                  |
-| Single forged IP prefix | 1                 | 3       | yes                  |
-| Two forged IP prefixes  | 1                 | 4       | yes                  |
-| Invalid forged prefix   | 1                 | 3       | yes                  |
-| Forged email            | 1                 | 2       | yes                  |
+1. On the VM run `pnpm exec tsx scripts/probe-account-proxy.ts 8765`.
+2. Within five minutes open the exact printed private HTTPS URL in the
+   authenticated browser and click **Run check once**. Keep the URL private.
+3. The receipt is saved at
+   `~/.local/state/news-digest/account-proxy-receipt.json` (mode 600).
+   Each step now includes `appendedEntries` in chain order, with `category`
+   and `matchesBaseline` for both positions. No addresses or identities are saved.
+4. Leave the receipt on the VM for the next iteration. Do not copy raw headers.
 
-The immediate peer is loopback throughout. Every step includes header names
-`x-forwarded-proto`, `x-forwarded-host`, `x-exedev-email` and `x-exedev-userid`.
-The forged email was **replaced** in this authenticated private-proxy run.
-No identity values were recorded.
-
-The baseline has two entries, rather than the probe's required one. Forged
-prefixes add the expected number of entries, but the failed baseline prevents
-the probe from checking final-address stability across requests. `proxyClient`
-itself permits multiple entries and selects the last IP from one header field
-sent by an explicitly trusted peer; counts and IP validity alone cannot prove
-that this last IP identifies the visitor. The receipt does not establish which
-proxy hop the final entry represents.
-
-**Activation blocked; STEERING 53 now authorizes the next diagnostic.** Extend
-the probe with appended-entry categories and baseline stability before the next
-owner rerun. The existing receipt cannot resolve the unexpected baseline chain.
-No trust-model redesign, proxy configuration, account/public activation or
-sharing change was made. The original receipt remains private on the VM.
+`forwardingValid` and final `status` retain the legacy one-entry requirement:
+a two-entry run can report `failed` while its new position comparisons are
+complete. A null comparison means the two-entry baseline or current shape is
+missing/ambiguous. A changed position, invalid entry, or absence of a stable
+public entry blocks a trust change and must be reported. After a clear rerun,
+item 53 authorizes a fixed-hop visitor selector and observed-shape tests.
+Accounts/public remain off; the previous private receipt has not been replaced
+by a simulation. No sharing or trust configuration changed.
 
 Phase 4 security-review note (1558): the official X widget triggers inline-script
 and eval violations under a self/platform-only script policy. That trial was

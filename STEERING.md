@@ -2364,3 +2364,5 @@ ack again with the rerun result and the `proxyClient` change.
 it outside 13:00–16:00 UTC and leave edition generation alone after 12:00 UTC.
 
 ack: 2026-11-09 item 53 inherited rerun — iteration 1559 inspected the 17:47:12 UTC receipt: one forwarding field at every step, entry counts 2/3/4/3/2, valid final IPs, loopback peer; forwarded proto/host and exe.dev email/userid names present. Forged email replaced. Baseline differs from the probe single-entry assumption; proxyClient permits multiple entries but final-client stability/meaning is unproven because baseline failed. Stopped and reported in NEEDS_FROM_HUMAN.md; no trust redesign or activation.
+
+ack: 2026-11-09 item 53 probe — iteration 1560 adds per-position appended-entry categories and baseline equality independent of legacy forwarding validity; forged-prefix, changed/reordered/missing/invalid-tail and browser simulations verified. Rerun steps replaced in NEEDS_FROM_HUMAN.md. Loopback proxy/admin-token requirement documented; no trust change or account/public activation. Await real rerun.

@@ -69,6 +69,7 @@ void test('proxy diagnostic records five steps without retaining values', async 
       forwardedFields: 1,
       forwardedEntries: 1,
       finalEntryIsIp: true,
+      appendedEntries: [{ category: 'public', matchesBaseline: null }],
       immediatePeer: 'loopback',
       forwardingValid: true,
       email: 'replaced',
@@ -179,4 +180,69 @@ void test('overwritten or changed forwarding fails while email step still runs',
       );
     });
   }
+});
+
+void test('two appended positions compare independently despite legacy baseline failure', async () => {
+  for (const hop of [
+    '127.0.0.2',
+    '10.0.0.2',
+    '::ffff:192.168.0.2',
+    'fd00::2',
+    'fe80::2',
+  ]) {
+    await run(async ({ send, receipts }) => {
+      const tail = `8.8.8.8, ${hop}`;
+      for (const [step, prefix] of [
+        '',
+        '192.0.2.123, ',
+        '198.51.100.9, 203.0.113.7, ',
+        'forged, ',
+        '',
+      ].entries()) {
+        const receipt = await (await send(step, `${prefix}${tail}`)).json();
+        assert.deepEqual(receipt.steps[step].appendedEntries, [
+          { category: 'public', matchesBaseline: true },
+          {
+            category: hop.startsWith('127.') ? 'loopback' : 'private',
+            matchesBaseline: true,
+          },
+        ]);
+      }
+      assert.doesNotMatch(
+        JSON.stringify(receipts),
+        /8\.8\.8\.8|127\.0|10\.0|192\.168|fd00|fe80/,
+      );
+    });
+  }
+});
+
+void test('changed, reordered, invalid or missing appended entries cannot imply stability', async () => {
+  await run(async ({ send }) => {
+    await send(0, '8.8.8.8, 10.0.0.2');
+    for (const [index, tail, expected] of [
+      [1, '8.8.4.4, 10.0.0.2', [false, true]],
+      [2, '10.0.0.2, 8.8.8.8', [false, false]],
+      [3, 'invalid, 10.0.0.2', [false, true]],
+      [4, '10.0.0.2', [null]],
+    ] as const) {
+      const prefix =
+        index === 4
+          ? ''
+          : index === 2
+            ? '198.51.100.9, 203.0.113.7, '
+            : 'forged, ';
+      const receipt = await (await send(index, `${prefix}${tail}`)).json();
+      assert.deepEqual(
+        receipt.steps[index].appendedEntries.map(
+          (entry: { matchesBaseline: boolean | null }) => entry.matchesBaseline,
+        ),
+        expected,
+      );
+      if (index === 3)
+        assert.equal(
+          receipt.steps[index].appendedEntries[0].category,
+          'unknown',
+        );
+    }
+  });
 });

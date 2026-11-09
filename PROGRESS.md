@@ -148,3 +148,14 @@ Earlier entries: [through iteration 1547](docs/progress-archive/2026-11-09-1557.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (771 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
 - Push rejected after owner advanced main; merged owner item 53 without rewriting history, preserving owner files. Resolved STEERING append conflict by retaining new instructions and moving rerun ack under 53.
 - Next: implement item 53 appended-entry categories/stability diagnostic and rerun steps; activation remains blocked. Phase 4 resource gate unchanged; metrics probe no earlier than 18:19 UTC.
+
+## 2026-11-09: iteration 1560 — identify appended proxy positions without values
+
+- Clean main/no leftovers; initial alerts/health clear, all 36 sources healthy. No paid calls or source/configuration changes.
+- Item 53 probe now records both appended positions' category and baseline equality even when legacy one-entry validation fails; unexpected counts yield null comparisons. Addresses remain transient and never enter receipts.
+- Synthetic tests cover stable public/private/loopback and IPv6 tails, forged prefixes, changes, reordering, invalid and missing entries. Targeted proxy/admin tests pass 8/8.
+- Three Playwright probe simulations pass; refreshed fixture screenshots and inspected two-entry screenshot. Original real owner receipt untouched; no simulation presented as live proof.
+- Replaced owner rerun steps in NEEDS_FROM_HUMAN; documented observed loopback proxy and mandatory forwarding-header refusal for local admin tokens. Trust/accounts/public unchanged; rerun still blocks visitor selection.
+- Live `smoke-admin-gate.ts` passes including eight forwarded-token denials; scheduled-reader gate passes four topics/19 stories/14 posts. Handbook check passes 18 pages/22 diagrams (existing unapplied-account metadata warnings); build passes with existing bundle warning.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (773 unit/272 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
+- Restarted API/worker outside the hold; health/alerts clear and scheduled reader passes again. Next: inspect item 53 real owner rerun before any fixed-hop selector change; Phase 4 may continue behind flags while waiting.

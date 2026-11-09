@@ -832,3 +832,8 @@ changed/unchanged outcomes, stale catalogs and audit-failure rollback. Accounts
 and public mode remain disabled. Iteration 1548 deployed the prepared API runtime
 from `5fc1fac0` without migrations or flag changes; latest/history response hashes
 and the Nov 9 scheduled reader are unchanged. Live proxy proof remains pending.
+
+Item 53 diagnostic (1560): receipts include category and baseline equality for
+both appended positions, independently of the legacy one-entry validity check.
+Owner rerun steps are in [NEEDS_FROM_HUMAN](../NEEDS_FROM_HUMAN.md);
+visitor selection and Phase 3 activation still await that real receipt.

@@ -77,3 +77,7 @@ establishes live exe.dev trust or shows live account data.
 
 - [All checks observed](proxy-probe-fixture.png)
 - [Missing baseline and forged email](proxy-probe-failed-fixture.png)
+
+Item 53 adds [two-entry diagnostics](proxy-probe-two-entry-fixture.png):
+simulated public/private positions match the baseline in all five steps,
+even though the legacy one-entry check fails. This is not live proxy proof.

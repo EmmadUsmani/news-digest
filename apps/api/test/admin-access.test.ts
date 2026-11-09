@@ -155,7 +155,10 @@ void test('HTTP gate denies reserved admin routes and reports only uncached iden
       [{ 'x-exedev-email': 'owner@example.com' }, true],
       [{ ADMIN_LOCAL_TOKEN: 'test-token' }, true],
       [
-        { ADMIN_LOCAL_TOKEN: 'test-token', 'x-forwarded-for': '192.0.2.1' },
+        {
+          ADMIN_LOCAL_TOKEN: 'test-token',
+          'x-forwarded-for': '8.8.8.8, 10.0.0.2',
+        },
         false,
       ],
     ] as const) {

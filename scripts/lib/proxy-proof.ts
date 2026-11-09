@@ -13,6 +13,10 @@ export type ProxyReceipt = {
     forwardedFields: number;
     forwardedEntries: number;
     finalEntryIsIp: boolean;
+    appendedEntries: {
+      category: 'loopback' | 'private' | 'public' | 'unknown';
+      matchesBaseline: boolean | null;
+    }[];
     immediatePeer: 'loopback' | 'private' | 'public' | 'unknown';
     presentHeaders: string[];
     forwardingValid: boolean;
@@ -29,7 +33,7 @@ function peerKind(
   if (value === '::1' || value.startsWith('127.')) return 'loopback';
   if (
     /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.|169\.254\.)/.test(value) ||
-    /^(f[cd]|fe[89ab])/i.test(value)
+    (isIP(value) === 6 && /^(f[cd]|fe[89ab])/i.test(value))
   )
     return 'private';
   return 'public';
@@ -39,6 +43,7 @@ function peerKind(
 export function proxyProof(report: (receipt: ProxyReceipt) => void) {
   const path = `/probe-${randomBytes(24).toString('hex')}`;
   let baseline: { peer: string; client: string } | undefined;
+  let appendedBaseline: string[] | undefined;
   const steps: ProxyReceipt['steps'] = [];
   let step = 0;
   let finished = false;
@@ -98,6 +103,19 @@ document.getElementById('run').onclick = async function () {
     ).length;
     const entries = typeof forwarded === 'string' ? forwarded.split(',') : [];
     const last = entries.at(-1)?.trim() ?? '';
+    // Compare positions independently of the legacy trust check. Never persist
+    // these transient values: receipts contain only categories and equality.
+    const appended = entries.slice(-2).map((entry) => entry.trim());
+    if (step === 0 && fields === 1 && entries.length === 2)
+      appendedBaseline = appended;
+    const expectedEntries = step === 0 || step === 4 ? 2 : step === 2 ? 4 : 3;
+    const appendedEntries = appended.map((entry, index) => ({
+      category: peerKind(entry),
+      matchesBaseline:
+        appendedBaseline && fields === 1 && entries.length === expectedEntries
+          ? entry === appendedBaseline[index]
+          : null,
+    }));
     const valid =
       client !== null &&
       typeof forwarded === 'string' &&
@@ -123,6 +141,7 @@ document.getElementById('run').onclick = async function () {
       forwardedFields: fields,
       forwardedEntries: entries.length,
       finalEntryIsIp: isIP(last) !== 0,
+      appendedEntries,
       immediatePeer: peerKind(peer),
       presentHeaders: [
         ...new Set(
@@ -154,7 +173,10 @@ document.getElementById('run').onclick = async function () {
       trustConfigurationChanged: false,
     };
     report(receipt);
-    if (finished) baseline = undefined;
+    if (finished) {
+      baseline = undefined;
+      appendedBaseline = undefined;
+    }
     response.setHeader('Content-Type', 'application/json');
     return send(200, JSON.stringify(receipt));
   });
