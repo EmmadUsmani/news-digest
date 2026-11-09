@@ -126,3 +126,14 @@
 - Handbook checker: 18 pages/three diagrams, no page/link/render errors; existing metadata warnings for eight unapplied private account tables remain.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass; 742 unit/265 integration passes, four expected skips. API rebuilt by isolated runner; existing web bundle warning only. Live reader retains four topics/19 stories/17 posts.
 - Next: transactional mutation outcomes, controller replacement and live proxy proof; scheduled Phase 1/X/Bluesky acceptance due at 15:00 UTC.
+
+## 2026-11-09: iteration 1518 — prepare transaction-bound admin admission
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. All 36 sources and four queues pass; live reader retains four topics/19 stories/17 posts.
+- Extracted shared admission validation/insertion and prepared a caller-owned transaction boundary: admission and database mutation commit together; callbacks receive the same Drizzle transaction. No new schema or live registration.
+- Isolated source-setting checks cover commit/returned values, callback refusal, database failure after mutation, audit refusal before callback, deferred COMMIT failure and pool reuse. Failed writes leave neither mutation nor additional admission.
+- This is a foundation for controller adoption, not explicit outcome tracking: existing middleware still records attempts separately. Queue/external effects need an outbox; authorization remains the caller's responsibility.
+- Updated TASKS, rollout plan and data-model handbook. No provider calls, migrations, configuration or UI changes; accounts/public mode remain off. No restart under STEERING 22: running services do not import this preparation.
+- Handbook check: 18 pages/three diagrams, no page/link/render errors; existing schema metadata warnings for eight unapplied account tables remain. Build passes with existing web bundle warning.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check` and `git diff --check` pass: 742 unit/266 integration passes, four expected skips. API rebuilt by isolated runner; no external test calls.
+- Next: adopt transaction-bound admission in prepared controllers, explicit outcome tracking, queue atomicity, controller replacement and proxy proof; Nov 9 scheduled acceptance remains due at 15:00 UTC.

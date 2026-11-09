@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1517: prepared stored public policy injects lazy durable admission recording, awaits storage before handlers and owns repeatable shutdown; isolated HTTP persistence/refusal checks pass. Policy remains uninstalled; live account migrations, transactional outcomes, controller replacement and proxy proof remain open.
+- [x] Iteration 1518: prepared shared transaction boundary commits admin admission with database mutations; isolated checks cover successful commit, callback/database rollback and audit refusal before mutation. Uninstalled; controller adoption, explicit outcomes, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

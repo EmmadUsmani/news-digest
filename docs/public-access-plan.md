@@ -435,7 +435,13 @@ PUBLIC readers receive no access. The unregistered adapter rejects unclassified
 writes and query strings and propagates database failures. Prepared runtime injection (iteration 1517) owns a lazy durable recorder and
 repeatable shutdown; disabled composition opens no account or storage resources.
 Isolated HTTP checks verify persisted admission and refuse handler execution when
-the database rejects the actor. Transactional mutation outcomes remain unimplemented. This policy remains uninstalled and changes no live access.
+the database rejects the actor. A shared transaction boundary (iteration 1518) now
+prepares admission insertion and database mutation on one connection: callback or
+database failure rolls both back, and audit refusal prevents the callback. It
+returns only after commit and leaves pool ownership with the caller. Existing
+middleware still records attempts independently; transaction-bound admission does
+not distinguish outcomes in that table. Controller adoption, explicit outcomes
+and atomic queue/external effects remain unimplemented. This policy remains uninstalled and changes no live access.
 
 ## Target design
 

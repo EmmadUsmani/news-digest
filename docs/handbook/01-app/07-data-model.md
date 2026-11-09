@@ -21,7 +21,8 @@ snapshots.
 > [!NOTE]
 > Prepared admin-write admission storage records actor, method, path and time.
 > Its prepared public policy awaits storage before running an admin write.
-> It stays private and unapplied; these records describe attempts.
+> A prepared database boundary commits admission and mutation together.
+> Both remain disconnected; current admission rows describe attempts.
 > Deleting a reader removes admissions tied to that identity.
 >
 > A prepared accounts migration adds independent reader identities and hashed

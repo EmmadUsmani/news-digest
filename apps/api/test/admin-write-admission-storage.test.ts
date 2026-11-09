@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { test } from 'node:test';
 
+import { eq } from 'drizzle-orm';
+
+import { withAdminWriteAdmission } from '../src/libs/db/admin-write-admission';
 import { database } from '../src/libs/db/connections';
+import { contentSources } from '../src/libs/db/schema';
 import { prepareStoredPublicAccess } from '../src/modules/accounts/adapters/public-access-storage';
 import { PostgresAdminWriteAdmissionRepository } from '../src/modules/accounts/database/admin-write-admission.repository';
 
@@ -191,6 +195,109 @@ void test('stored public policy admits HTTP writes only after persistence and ow
     await new Promise<void>((resolve) => server.close(() => resolve()));
     await policy.close();
     await pool.query('DELETE FROM users WHERE id=$1', [userId]);
+    await pool.end();
+  }
+});
+
+void test('transaction-bound admin admission commits with database writes and rolls both back on failure', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const pool = database();
+  const sourceId = 'transaction-audit-source';
+  const entry = {
+    actor: { localScript: true as const },
+    action: 'PUT',
+    target: `/api/admin/topics/sources/${sourceId}/enabled`,
+    at: new Date('2026-11-09T11:30:00Z'),
+  };
+  const state = async () => ({
+    enabled: (
+      await pool.query('SELECT enabled FROM content_sources WHERE id=$1', [
+        sourceId,
+      ])
+    ).rows[0].enabled,
+    admissions: (
+      await pool.query(
+        'SELECT count(*)::int AS n FROM admin_write_admissions WHERE target=$1',
+        [entry.target],
+      )
+    ).rows[0].n,
+  });
+  try {
+    await pool.query(
+      "INSERT INTO content_sources(id, name, kind, url, enabled) VALUES ($1, 'Audit test', 'feed', 'https://example.test/feed', false)",
+      [sourceId],
+    );
+    const changed = await withAdminWriteAdmission(pool, entry, async (tx) => {
+      return tx
+        .update(contentSources)
+        .set({ enabled: true })
+        .where(eq(contentSources.id, sourceId))
+        .returning({ id: contentSources.id });
+    });
+    assert.deepEqual(changed, [{ id: sourceId }]);
+    assert.deepEqual(await state(), { enabled: true, admissions: 1 });
+    await assert.rejects(
+      withAdminWriteAdmission(pool, entry, async (tx) => {
+        await tx
+          .update(contentSources)
+          .set({ enabled: false })
+          .where(eq(contentSources.id, sourceId));
+        throw new Error('mutation refused');
+      }),
+      /mutation refused/,
+    );
+    assert.deepEqual(await state(), { enabled: true, admissions: 1 });
+    // A database failure after an actual write also restores both records.
+    await assert.rejects(
+      withAdminWriteAdmission(pool, entry, async (tx) => {
+        await tx
+          .update(contentSources)
+          .set({ enabled: false })
+          .where(eq(contentSources.id, sourceId));
+        await tx.insert(contentSources).values({
+          id: sourceId,
+          name: 'Duplicate',
+          kind: 'feed',
+          url: 'https://example.test/feed',
+        });
+      }),
+    );
+    assert.deepEqual(await state(), { enabled: true, admissions: 1 });
+    let reached = false;
+    await assert.rejects(
+      withAdminWriteAdmission(
+        pool,
+        { ...entry, actor: { userId: 'ffffffff-ffff-4fff-8fff-ffffffffffff' } },
+        async () => {
+          reached = true;
+        },
+      ),
+    );
+    assert.equal(reached, false);
+    await assert.rejects(
+      withAdminWriteAdmission(
+        pool,
+        { ...entry, target: entry.target + '?private=excluded' },
+        async () => {
+          reached = true;
+        },
+      ),
+    );
+    assert.equal(reached, false);
+    assert.deepEqual(await state(), { enabled: true, admissions: 1 });
+    // Transaction cleanup leaves the owned pool usable after every refusal.
+    await withAdminWriteAdmission(pool, entry, async (tx) => {
+      await tx
+        .update(contentSources)
+        .set({ enabled: false })
+        .where(eq(contentSources.id, sourceId));
+    });
+    assert.deepEqual(await state(), { enabled: false, admissions: 2 });
+  } finally {
+    await pool.query('DELETE FROM admin_write_admissions WHERE target=$1', [
+      entry.target,
+    ]);
+    await pool.query('DELETE FROM content_sources WHERE id=$1', [sourceId]);
     await pool.end();
   }
 });
