@@ -487,7 +487,7 @@ unclassified tool routes terminate before downstream handlers. Combined runtime 
 (iteration 1530) now joins account transport, transactional source routing and
 exclusive authorization with one repeatable source-pool shutdown. Missing transport
 refuses before storage acquisition; private mode constructs no public resources.
-Accounts and the ordinary admission recorder remain caller-owned. Live mounting, controller replacement and
+Accounts and the ordinary admission recorder remain caller-owned in that low-level composition. Stored runtime preparation (iteration 1531) now shares one account-handler instance between bounded login transport and public authorization, owns account/source/admission storage together and constructs the admission recorder only on the first ordinary write. Shutdown attempts every owner even if one fails, is repeatable and refuses subsequent requests; missing account transport cleans up before acquiring source storage. The existing private bootstrap keeps its middleware-only contract. Live mounting, controller replacement and
 atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

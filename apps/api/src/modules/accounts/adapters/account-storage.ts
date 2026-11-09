@@ -7,14 +7,14 @@ import { PostgresRecipientCoordination } from '../database/recipient-coordinatio
 import { PostgresSessionRepository } from '../database/session.repository';
 import { PostgresSessionRevocationRepository } from '../database/session-revocation.repository';
 import { PostgresSignInLinkRepository } from '../database/sign-in-link.repository';
-import { prepareAccountHttp } from './account-bootstrap';
+import { prepareAccountTransport } from './account-bootstrap';
 
 // No resources open until the enable flag and configuration pass validation.
 export function prepareStoredAccountHttp(
   env: Readonly<Record<string, string | undefined>>,
 ) {
   const disposers: (() => Promise<unknown>)[] = [];
-  const middleware = prepareAccountHttp(env, (cleanup) => {
+  const transport = prepareAccountTransport(env, (cleanup) => {
     const own = <T extends { onModuleDestroy(): Promise<void> }>(
       value: T,
     ): T => {
@@ -40,7 +40,8 @@ export function prepareStoredAccountHttp(
   });
   let closing: Promise<void> | undefined;
   return {
-    middleware,
+    middleware: transport?.middleware ?? null,
+    handlers: transport?.handlers ?? null,
     close: () =>
       (closing ??= (async () => {
         const results = await Promise.allSettled(

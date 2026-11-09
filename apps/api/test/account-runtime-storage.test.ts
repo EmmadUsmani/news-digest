@@ -130,6 +130,16 @@ void test('composed accounts persist mailbox login and single-use friend session
       );
       assert.equal(redeemed.status, 204);
       const cookie = redeemed.headers.get('set-cookie')!.split(';')[0];
+      const principal = await stored.handlers!.authorization(
+        cookie,
+        new Date(),
+      );
+      assert.equal(principal?.freshAdmin, true);
+      assert.ok(principal?.auditActor.userId);
+      assert.equal(
+        await stored.handlers!.authorization('invalid', new Date()),
+        null,
+      );
       const current = await fetch(`${base}/api/account/session`, {
         headers: { Cookie: cookie },
       });

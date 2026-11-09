@@ -120,3 +120,13 @@
 - Updated rollout plan/TASKS. No live flags, generation, migrations, provider calls or UI changed; accounts remain disabled.
 - Verification: focused tests (2 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 757 unit/268 integration passes, four expected skips; existing bundle-size warning only.
 - No restart: unmounted preparation is not loaded by services (STEERING 22); 13:00–16:00 deployment hold remains active. Next: live mounting, atomic queue effects/proxy proof and 15:00 scheduled acceptance.
+
+## 2026-11-09: iteration 1531 — own shared account and access storage
+
+- Clean main/no leftovers; alerts/healthz healthy, all 36 sources healthy, jobs available, no failed user services; latest saved reader returns four topics.
+- Prepared stored access composition shares the same account handlers between bounded login transport and public authorization, and owns account, source and lazy standalone-admission storage together. Existing private bootstrap preserves its middleware-only contract.
+- Shutdown attempts every owner despite cleanup failures, returns one repeatable promise and refuses subsequent requests. Missing account transport cleans up before source storage opens.
+- Five focused HTTP/bootstrap/Nest tests pass; persisted login acceptance now verifies that the shared authorization handler resolves the fresh admin session and refuses invalid credentials.
+- Updated rollout plan/TASKS. No flags, migrations, provider calls, UI or edition-generation changes; accounts remain disabled and public runtime unmounted.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 759 unit/268 integration passes, four expected skips; existing bundle-size warning only. No live external test calls.
+- No restart/deployment during STEERING 50's 13:00–16:00 UTC hold. Disabled-path bootstrap refactor awaits the next permitted deployment; live mounting, atomic queue effects/proxy proof and 15:00 scheduled acceptance remain open.

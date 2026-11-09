@@ -4,7 +4,7 @@ import { proxyClient } from './proxy-client';
 
 // Activation follows Phase 1 acceptance. No deployment peer
 // is trusted by default; configure only addresses verified at the live proxy.
-export function prepareAccountHttp(
+export function prepareAccountTransport(
   env: Readonly<Record<string, string | undefined>>,
   dependencies: Parameters<typeof prepareAccountHandlers>[1],
 ) {
@@ -19,5 +19,15 @@ export function prepareAccountHttp(
   // Validate trust before opening database, Redis or mailbox dependencies.
   const client = proxyClient(peers);
   const handlers = prepareAccountHandlers(env, dependencies)!;
-  return accountHttp({ enabled: true, handlers, client });
+  return {
+    handlers,
+    middleware: accountHttp({ enabled: true, handlers, client }),
+  };
+}
+
+// Existing private bootstrap retains its middleware-only contract.
+export function prepareAccountHttp(
+  ...args: Parameters<typeof prepareAccountTransport>
+) {
+  return prepareAccountTransport(...args)?.middleware ?? null;
 }
