@@ -1,21 +1,3 @@
-## 2026-11-09: iteration 1488 — prepare public system schedule HTTP transport
-
-- Clean main/no leftovers; alerts and healthz clear. Authenticated status confirms 36 sources, no failed digest jobs and next scheduled edition at 15:00 UTC; retained ingestion failures remain historical.
-- Added unregistered GET/HEAD `/api/settings/schedule` controller with explicit system-reader injection contract, HTTP allowlist projection, no-store responses and generic 503 failures.
-- Real isolated loopback HTTP checks verify projected GET, empty HEAD, refused writes without adapter reads, malformed storage and private adapter exceptions. No module or route classifier installs this controller; live routes remain unchanged.
-- Updated response audit/TASKS and archived iteration 1471 to keep this log small. No live data/config/access changes, migrations or provider calls; accounts stay disabled.
-- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check`; full check passes 716 unit/255 integration tests with four expected skips; saved reader retains four topics/19 stories/17 posts. Existing build warnings remain.
-- No restart under STEERING 22: deployed entrypoints do not import this controller. Next: 15:00 scheduled Phase 1 acceptance, live proxy proof and gated public-settings runtime composition.
-
-## 2026-11-09: iteration 1489 — prepare public schedule runtime composition
-
-- Clean main/no leftovers; alerts and healthz clear, 36 sources, no failed digest jobs or failed user units. Next scheduled edition remains 15:00 UTC; retained ingestion/social failures are historical.
-- Added unregistered `PublicScheduleModule.prepare`: default-off public gate registers no route and never requests storage; invalid flags and missing system-ownership/published-reader prerequisites fail before dependencies.
-- Enabled composition injects the concrete system-only reader. Offline HTTP checks cover disabled routes and unsafe flags; isolated database/HTTP checks cover actual system settings, missing-row generic refusal, writes refused and caller-owned pool reuse after shutdown.
-- Updated response audit, public access plan and TASKS; archived iteration 1472. No main imports, live data/config/access changes, migrations or provider calls; accounts remain disabled.
-- Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check`. Full check passes 717 unit/256 integration tests with four expected skips; build passes with existing bundle warnings. Saved reader retains four topics/19 stories/17 posts.
-- No restart under STEERING 22: running entrypoints do not import this module. Next: 15:00 Phase 1 scheduled acceptance, live proxy proof and remaining public response/route boundaries before promotion.
-
 ## 2026-11-09: iteration 1490 — prepare system-only public topic reads
 
 - Clean main/no leftovers; alerts and healthz clear, no failed user units. Scheduled Phase 1 acceptance still awaits 15:00 UTC; no early metrics probe.
@@ -164,3 +146,13 @@
 - Verification: targeted HTTP tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check`.
 - Full check passes 736 unit/263 integration tests with four expected skips; build passes with existing bundle warnings.
 - Next: configured article text/hostname review and combined transport installation; normal 15:00 UTC phase-1 scheduled acceptance and live proxy proof remain pending.
+
+## 2026-11-09: iteration 1505 — compose gated public article reads
+
+- Clean main/no leftovers; alerts/healthz clear and no failed user services. All 36 sources healthy; digest queue has no failures, with historical ingestion/social failures retained and current collection succeeding.
+- Connected the prepared article module to the disconnected default-off public-read composition. Five readers share one lazy caller-owned pool; disabled and unsafe prerequisite checks include the article route.
+- Expanded isolated HTTP/storage coverage with a nonempty article fixture, private URL/query/fragment/excerpt/future-column omission, GET/HEAD/no-store/refused writes, generic article storage failure and healthy sibling routes. Unreviewed content/window remains absent; app shutdown preserves the shared pool.
+- Updated TASKS and response audit; archived iterations 1488–1489. Configured text/hostname review, legacy-controller replacement, authorization and proxy proof remain rollout gates. Accounts/public mode remain disabled; no live entrypoints/config/data/migrations/provider calls changed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (736 unit/263 integration passes, four expected skips), `pnpm build`, source/job checks, saved-reader check and `git diff --check`. Saved Nov 8 reader retains four topics/19 stories/17 posts; build retains existing bundle warnings.
+- No restart under STEERING 22 because live entrypoints do not import the disconnected composition.
+- Next: configured article text/hostname review and live proxy proof; normal 15:00 UTC Phase 1 scheduled acceptance remains pending.

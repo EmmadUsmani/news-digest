@@ -29,6 +29,7 @@ void test('disabled public read composition exposes no routes and never opens st
         '/api/admin/topics',
         '/api/admin/topics/sources',
         '/api/admin/content/sources',
+        '/api/admin/content',
       ])
         for (const method of ['GET', 'HEAD'])
           assert.equal(

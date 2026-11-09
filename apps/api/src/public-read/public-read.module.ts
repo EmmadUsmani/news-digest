@@ -1,6 +1,7 @@
 import { type DynamicModule, Module } from '@nestjs/common';
 import type { Pool } from 'pg';
 
+import { PublicArticlesModule } from './articles.module';
 import { PublicScheduleModule } from './schedule.module';
 import { PublicSourceHealthModule } from './source-health.module';
 import { PublicSourcesModule } from './sources.module';
@@ -25,6 +26,7 @@ export class PublicReadModule {
         PublicTopicsModule.prepare(env, sharedPool),
         PublicSourcesModule.prepare(env, sharedPool),
         PublicSourceHealthModule.prepare(env, sharedPool),
+        PublicArticlesModule.prepare(env, sharedPool),
       ],
     };
   }

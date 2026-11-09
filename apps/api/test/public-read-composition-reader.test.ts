@@ -1,12 +1,14 @@
 import 'reflect-metadata';
 
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
 import type { AddressInfo } from 'node:net';
 import test from 'node:test';
 
 import { NestFactory } from '@nestjs/core';
 import { Pool } from 'pg';
 
+import { PublicArticlesReader } from '../src/modules/ingestion/database/public-articles.reader';
 import { PublicSourceHealthReader } from '../src/modules/ingestion/database/public-source-health.reader';
 import { PublicScheduleReader } from '../src/modules/profiles/database/public-schedule.reader';
 import { PublicSourcesReader } from '../src/modules/topics/database/public-sources.reader';
@@ -35,6 +37,36 @@ void test('composed public reads share storage, preserve projections and isolate
     await pool.query(
       "UPDATE content_sources SET url = 'https://publisher.org/private-marker?token=private-marker#private-marker', last_error = 'private-marker'",
     );
+    const topic = (
+      await pool.query(
+        'SELECT id FROM topics WHERE enabled = true ORDER BY position, id LIMIT 1',
+      )
+    ).rows[0].id as string;
+    const source = (
+      await pool.query(
+        'SELECT source_id FROM topic_source_connections WHERE topic_id = $1 LIMIT 1',
+        [topic],
+      )
+    ).rows[0].source_id as string;
+    const article = randomUUID();
+    await pool.query(
+      `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at) VALUES($1,'https://publisher.org/private-marker?token=private-marker#private-marker','Public fixture title','private-marker','2035-01-01T00:00:00Z')`,
+      [article],
+    );
+    await pool.query(
+      'INSERT INTO content_observations(item_id,source_id) VALUES($1,$2)',
+      [article, source],
+    );
+    await pool.query(
+      "ALTER TABLE content_items ADD COLUMN private_future_column text DEFAULT 'private-marker'",
+    );
+    const articles = await new PublicArticlesReader(pool).read();
+    const item = articles
+      .find((row) => row.topicId === topic)
+      ?.items.find((row) => row.id === article);
+    assert.ok(item);
+    assert.equal(item.publisherOrigin, 'https://publisher.org');
+    assert.equal(item.title, 'Public fixture title');
     const health = await readPublicSourceHealth(() =>
       new PublicSourceHealthReader(pool).read(),
     );
@@ -48,6 +80,7 @@ void test('composed public reads share storage, preserve projections and isolate
         ),
       ],
       ['/api/admin/content/sources', health],
+      ['/api/admin/content', articles],
     ]);
     await app.listen(0, '127.0.0.1');
     const address = app.getHttpServer().address() as AddressInfo;
@@ -69,7 +102,7 @@ void test('composed public reads share storage, preserve projections and isolate
     // No legacy endpoints or unaudited content/status routes leak into composition.
     for (const path of [
       '/api/admin/profile',
-      '/api/admin/content',
+      '/api/admin/content/window',
       '/api/admin/status',
     ])
       assert.equal((await fetch(base + path)).status, 404);
@@ -78,6 +111,22 @@ void test('composed public reads share storage, preserve projections and isolate
     assert.equal(failure.status, 503);
     assert.deepEqual(await failure.json(), {
       message: 'Schedule settings unavailable',
+      error: 'Service Unavailable',
+      statusCode: 503,
+    });
+    assert.equal((await fetch(base + '/api/admin/topics')).status, 200);
+    assert.equal(
+      (await fetch(base + '/api/admin/content/sources')).status,
+      200,
+    );
+    // A broken article column fails generically without breaking sibling routes.
+    await pool.query(
+      'ALTER TABLE content_items RENAME COLUMN title TO private_title',
+    );
+    const articleFailure = await fetch(base + '/api/admin/content');
+    assert.equal(articleFailure.status, 503);
+    assert.deepEqual(await articleFailure.json(), {
+      message: 'Articles unavailable',
       error: 'Service Unavailable',
       statusCode: 503,
     });

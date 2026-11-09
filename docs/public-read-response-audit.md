@@ -168,15 +168,18 @@ remain required before promotion.
 
 ## Combined read composition
 
-`PublicReadModule.prepare` composes the four prepared schedule, topic, source
-catalog and source-health modules with one lazy caller-owned pool. Disabled mode
+`PublicReadModule.prepare` composes the five prepared schedule, topic, source
+catalog, source-health and article modules with one lazy caller-owned pool. Disabled mode
 registers no routes or storage; unsafe prerequisites fail before opening storage.
 Isolated combined HTTP checks exercise every GET/HEAD, refused writes, omitted
 legacy/unaudited routes, private stored URL/error markers and independent route
 failures. App shutdown leaves the shared pool usable. This composition remains
 absent from main: it must replace overlapping legacy controllers, and needs the
 separate authorization gate before installation. Article listings still require
-stored URL/text review, including query-bearing links; they remain restricted.
+configured text/hostname review; article permalinks remain omitted and routes
+remain restricted. Combined isolated checks include a nonempty article fixture,
+private URL/excerpt/future-column omission and generic article storage failure
+with healthy sibling routes.
 
 ## Stored article-link inventory
 
@@ -252,6 +255,7 @@ columns at both levels and normalizes publisher origins again without falling
 back to stored URLs. Storage and validation failures return a fixed 503 response;
 GET/HEAD use `no-store` and no write handlers are registered. Offline HTTP checks
 cover these boundaries, empty groups and rejected origins. This module remains
-outside main and the combined read composition: configured text/hostname review,
+outside main; the combined read composition now includes it, with configured
+text/hostname review,
 legacy controller replacement and authorization remain rollout gates. It does not
 expose `content/window` or approve stored article permalinks.

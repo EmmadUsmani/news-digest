@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1504: prepared disabled article GET/HEAD transport with response revalidation, origin-only output, fixed failures and prerequisite checks. Configured text/host review and combined installation remain open. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1505: connected article transport to the disabled combined public-read composition; isolated HTTP/storage checks cover nonempty articles, private-field omission, shared storage and independent failures. Configured text/host review and live installation remain open. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
