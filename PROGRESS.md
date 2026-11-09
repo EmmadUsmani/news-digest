@@ -131,3 +131,12 @@ Earlier entries: [through iteration 1528](docs/progress-archive/2026-11-09-1540.
 - No code, application-data writes, external calls, flags or migrations. No restart/deployment during owner's 13:00–16:00 hold; live runtime unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass; 769 unit/271 integration passes, four expected skips. Documentation-only step; no build/runtime change.
 - Next: saved World X rejection/Tech replacement diagnosis, paid novelty/Bluesky links, phase-1 scheduled parity; then account runtime topic-order wiring and permitted deployment/proxy proof.
+
+## 2026-11-09: iteration 1543 — diagnose saved World X and Tech replacement
+
+- Clean main/no leftovers; pnpm obs alerts clear, obs health/services/sources --check pass: DB/Redis, 14 services and 36 sources healthy.
+- Read-only immutable edition/cache/stored official text: World has 20 scored posts, 19 fail semantic gates; only unsourced Iran missile-range claim qualifies. Retained final editor result is empty; no saved rejection rationale, budget fallback or Bluesky displacement.
+- Tech saved editor order verifies reserved-slot replacement removes fifth-ranked Emil Kowalski skills-doc release, retains first four X picks and adds distinct WIRED safety investigation; five posts total. Useful builder material displaced; no superior virality claimed.
+- Read-only tsx assertions pass: World gate/sports counts, empty selection, open slots, exact Tech replacement ID and preserved X order. Updated daily review, SOURCES and TASKS; social acceptance remains open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 769 unit/271 integration passes, four expected skips; API rebuild included in isolated suite. No runtime/UI changes, inference, application-data writes, migrations or flags.
+- No restart/deployment during owner's 13:00–16:00 UTC hold; public/accounts remain off. Next: paid novelty, Bluesky destinations and phase-1 scheduled ownership/original-response/browser parity.

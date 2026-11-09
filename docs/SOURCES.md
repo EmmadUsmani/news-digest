@@ -2337,5 +2337,9 @@ Four completed keyword searches cost $0.260092, zero holds, forty fetched/new
 verified/outside-list candidates. NBA supplied two cited selections (both
 outside-list); other topics supplied zero. Selected X metrics remain empty.
 Bluesky picked Tech/NBA/Gaming/World 1/1/0/2; Tech records one X replacement,
-World has no X picks. Quality acceptance awaits the saved-candidate diagnosis
-and replacement comparison. [Daily evidence](edition-reviews/2026-11-09.md).
+World has no X picks. Iteration 1543: nineteen of twenty World triage scores
+fail relevance/importance gates; the remaining unsourced missile-range claim
+is not selected by the final editor. Tech replaces the fifth-ranked X pick
+(Emil Kowalski’s useful skills documentation) with WIRED’s AI safety report,
+matching the reserved-slot rule. Quality/virality acceptance remains open;
+selected paid novelty and Bluesky destination checks remain. [Daily evidence](edition-reviews/2026-11-09.md).

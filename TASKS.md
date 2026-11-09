@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1542: Nov 9 scheduled publication reviewed: full-AI, 174.631 s, 659 candidates, 19 stories/14 posts; $0.388257 Anthropic/$0.260092 X, zero holds. Four keyword tools complete, two NBA paid citations; World zero X and Tech Bluesky replacement need diagnosis. [Review](docs/edition-reviews/2026-11-09.md). Phase-1/social acceptance remains open.
+- [x] Iteration 1543: Nov 9 World X diagnosis: 19/20 triage scores fail gates, remaining unsourced missile claim not selected; no budget fallback or Bluesky displacement. Tech reserved-slot replacement matches fifth-ranked X pick; quality acceptance remains open. [Evidence](docs/edition-reviews/2026-11-09.md). Next: paid novelty, Bluesky destinations and phase-1 scheduled parity.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
