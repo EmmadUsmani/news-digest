@@ -1,36 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1577 — carry prepared admission through stored runtime
-
-- Clean main/no leftovers; initial alerts/health/14-service checks pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Stored access runtime now accepts the optional verified-client API gate already supported by its lower-level composition. Environment selection still supplies no gate; accounts/public remain off and item 53 owner rerun blocks activation.
-- Added composed HTTP/storage lifecycle coverage: public refusal precedes account transport, recovery resumes requests, private rollback never constructs the limiter, closed runtime refuses requests, and limiter startup failure releases both account and write storage.
-- Updated readiness plan/TASKS. No active behavior, source configuration or handbook changes.
-- `pnpm exec tsx --test apps/api/test/stored-access-runtime.test.ts`: 4/4 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass (782 unit, 274 integration/four expected skips). `pnpm build`: pass with existing bundle warning; `git diff --check`: pass.
-- API/worker restarted; initial health raced startup, curl retry passed. Post-restart health/14 services, scheduled-reader gate (four topics/19 stories/14 posts) and alerts pass.
-- Next: continue Phase 4 preparation behind flags; production API gate needs proven visitor extraction before registration. Metrics passive probe due no earlier than 21:36 UTC.
-
-## 2026-11-09: iteration 1578 — rehearse shared API admission over HTTP and Redis
-
-- Clean main/no leftovers; alerts/health/14 services pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Added composed HTTP acceptance with two prepared public instances and real isolated Redis connections. A concurrent burst admits exactly six of twenty requests before account/authorization work; forged headers do not replace the injected fixture identity.
-- Verified client separation, private hashed keys, empty no-store/security-header refusals, missing identity, expired-window recovery, closed Redis refusal without downstream calls, health bypass and reconnection recovery. Fixture identity is no production visitor proof.
-- Corrected readiness plan's stale stored-runtime statement and updated TASKS; archived iterations 1564–1566 to keep PROGRESS small. Active behavior/handbook/source configuration unchanged; accounts/public remain off awaiting item 53 owner rerun.
-- `pnpm format`, `pnpm lint:fix` run. First `pnpm check` stopped on newly archived Markdown formatting; corrected it. Final full check passes typecheck/lint/format/boundaries, 782 unit and 275 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
-- API/worker restarted; initial health request raced startup, retry passes. `pnpm obs health --check`, `pnpm obs services --check`, alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
-- Next: Phase 4 preparation behind flags; production API admission registration still requires verified visitor extraction. Metrics passive probe due no earlier than 21:36 UTC.
-
-## 2026-11-09: iteration 1579 — bound stalled API admission waits
-
-- Clean main/no leftovers; alerts, health and 14 services pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Prepared API HTTP admission now refuses stalled dependency checks after a configurable, validated three-second default deadline. Late allowance/rejection cannot dispatch the timed-out request; timers clear on completion. This bounds HTTP waiting, not the underlying Redis command.
-- Offline HTTP tests verify empty no-store timeout refusal, late-result safety, health bypass, recovery and invalid deadlines. Targeted admission tests: 4/4 pass. Accounts/public stay off; item 53 owner proxy rerun still blocks activation.
-- First full check exposed existing preference-test isolation: seven Redis keys present vs two expected. Scoped inspection/cleanup to that test's own hashed identities; final full check passes 784 unit and 275 integration tests/four expected skips, plus typecheck/lint/format/boundaries.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run; build passes with existing bundle warning. Handbook check (`public-access` filter) finds no page/render errors but exits nonzero for existing metadata references to unapplied account tables; migrations remain intentionally pending.
-- Updated readiness plan/TASKS. API/worker restarted; first health raced startup, curl retry passed. Post-restart health/14 services, alerts and scheduled-reader check pass (four topics/19 stories/14 posts).
-- Next: continue Phase 4 preparation behind flags; verified visitor extraction still required before production gate registration. Next passive metrics probe ≥21:36 UTC.
+Earlier entries: [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1580 — stop disconnected admission dispatch
 
@@ -147,3 +117,12 @@ Earlier entries: [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.
 - `pnpm check` passes: 796 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning. `pnpm format`, `pnpm lint:fix`, targeted screenshot/script format checks and `git diff --check` pass.
 - Updated activation checklist, plan, affected handbook and TASKS/NEEDS. `pnpm exec tsx scripts/check-handbook.ts account-activation` passes: 18 pages, 39 tables, no warnings. Post-restart health/alerts, 14 services, 36 sources and saved-reader check pass.
 - Next: dedicated live code/link/sync/revocation/deletion acceptance with disposable identities, then exact owner two-device steps. Phase 3 still needs owner acceptance and a normal scheduled edition. Public mode/migration 0019 remain off/pending; next metrics probe ≥23:36 UTC.
+
+## 2026-11-09: iteration 1592 — verify deployed account refusal boundaries
+
+- Clean main/no inherited work. Initial alerts, health, services, sources and digest queue healthy; no paid calls, account credentials, account writes, migrations, configuration or generation changes.
+- Added `pnpm exec tsx scripts/check-live-account-boundary.ts`: 32 deployed-loopback checks pass for anonymous privileged writes, cross-origin/null-origin requests, wrong content types, malformed login payloads and malformed-cookie signed-out state. Every response is no-store and issues no cookie. Uses a reserved documentation client address through the configured loopback trust; this is not public proxy/TLS or authenticated lifecycle proof.
+- Live anonymous `smoke-live-account-entry.ts` passes desktop/mobile light/dark with no errors/account writes. Discarded two regenerated desktop screenshots because the UI is unchanged. Saved scheduled reader passes: four topics/19 stories/14 posts; digest-generation failed count zero.
+- Updated activation checklist and TASKS; archived iterations 1577–1579 because PROGRESS exceeded 25 KB. Handbook validation passes: 18 pages/39 tables, zero metadata warnings. No owner handbook behavior changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass; existing bundle-size warning only. Final targeted formatting and diff checks pass. API restart and post-restart reader/health checks pass; worker unchanged.
+- Next: dedicated authenticated live code/link/sync/revocation/deletion acceptance, then exact owner two-device instructions and a normal scheduled edition. Phase 3 remains open; public mode stays off. Next passive metrics probe remains due ≥23:36 UTC.

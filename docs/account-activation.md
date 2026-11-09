@@ -98,6 +98,12 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    all-device revocation and deletion with dedicated acceptance identities.
    Verify an ordinary friend cannot issue links or revoke another reader.
    Inspect only credential-free response shapes; retain no codes, links or cookies.
+   Deployed-loopback preflight: run
+   `pnpm exec tsx scripts/check-live-account-boundary.ts`. Iteration 1592 passes
+   32 checks for anonymous privileged writes, origin/content-type refusal,
+   malformed login payloads and signed-out sessions without requesting credentials
+   or changing accounts. This checks deployed handlers, not proxy/TLS behavior
+   or authenticated lifecycle acceptance.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.

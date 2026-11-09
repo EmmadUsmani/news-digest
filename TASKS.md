@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1592: 32 deployed-loopback account refusal checks pass without credential requests/account writes; authenticated lifecycle and owner/scheduled acceptance still pending.
+
 - [x] Iteration 1591: invite-only server/web accounts enabled privately; stable key/private mailbox configured, persistent production web flag and read-only live entry browser smoke added. Dedicated live lifecycle and owner/scheduled acceptance remain.
 
 - [x] Iteration 1590: live bounded migrations 0013–0018 applied after fresh private backup/restore rehearsal; private-table grants and idempotence pass. Accounts/public remain off; activation and live acceptance next.
