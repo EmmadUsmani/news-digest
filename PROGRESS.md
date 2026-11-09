@@ -139,3 +139,12 @@
 - Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain disabled.
 - Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 761 unit/268 integration passes, four expected skips; existing bundle warnings only. Final healthz healthy.
 - No deployment/restart during STEERING 50's 13:00–16:00 UTC hold; provider remains unregistered. Next: 15:00 scheduled acceptance, live mounting, atomic queue effects and proxy proof.
+
+## 2026-11-09: iteration 1533 — prepare access environment selection
+
+- Clean main/no leftovers; alerts/healthz healthy, all 36 sources healthy, collection jobs completing and no failed user services.
+- Prepared unregistered environment-configured access provider: PUBLIC_MODE defaults off, accepts only 0/1 and requires enabled accounts plus an exact HTTPS ACCOUNT_ORIGIN before public storage opens.
+- Existing admin email/local-token configuration flows to private authorization; configured factory remains lazy and delegates runtime shutdown to Nest.
+- Four focused tests pass, including six invalid public configurations refused before storage acquisition and private/public forwarding. Updated rollout plan/TASKS; no live flags, routes, migrations, UI, generation or provider calls changed.
+- Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 763 unit/268 integration passes, four expected skips. First full check stopped on progress-entry formatting; corrected and rerun green. Existing bundle-size warning only.
+- No deployment/restart under STEERING 50's 13:00–16:00 UTC hold; provider remains unregistered and accounts disabled. Next: normal 15:00 scheduled acceptance, live mounting, atomic queue effects and proxy proof.

@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1532: prepared unregistered Nest access provider awaits shared runtime startup and owns shutdown; real Nest HTTP checks verify pre-parser mounting and startup refusal. Live mounting and atomic queue effects remain open.
+- [x] Iteration 1533: prepared unregistered environment-configured access provider; strict PUBLIC_MODE and account/HTTPS-origin prerequisites refuse before storage opens. Private defaults and lazy forwarding verified; live mounting and atomic queue effects remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

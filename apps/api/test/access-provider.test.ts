@@ -10,6 +10,7 @@ import {
   ACCESS_HTTP,
   accessHttpProvider,
   type AccessHttpRuntime,
+  configuredAccessHttpProvider,
 } from '../src/public-write/access-provider';
 
 void test('Nest owns prepared access shutdown and mounts its middleware before parsers', async () => {
@@ -73,4 +74,69 @@ void test('access provider propagates startup refusal without publishing middlew
     },
   );
   await assert.rejects(provider.useFactory(), /Access configuration refused/);
+});
+
+void test('configured access refuses invalid public prerequisites before storage opens', async () => {
+  for (const env of [
+    { PUBLIC_MODE: 'true' },
+    { PUBLIC_MODE: '1' },
+    { PUBLIC_MODE: '1', ACCOUNTS_ENABLED: '0' },
+    { PUBLIC_MODE: '1', ACCOUNTS_ENABLED: '1' },
+    {
+      PUBLIC_MODE: '1',
+      ACCOUNTS_ENABLED: '1',
+      ACCOUNT_ORIGIN: 'http://reader.example',
+    },
+    {
+      PUBLIC_MODE: '1',
+      ACCOUNTS_ENABLED: '1',
+      ACCOUNT_ORIGIN: 'https://reader.example/path',
+    },
+  ]) {
+    let opened = false;
+    const provider = configuredAccessHttpProvider(env, async () => {
+      opened = true;
+      throw new Error('Storage must remain unopened');
+    });
+    await assert.rejects(provider.useFactory());
+    assert.equal(opened, false);
+  }
+});
+
+void test('configured access selects private defaults and forwards public configuration lazily', async () => {
+  for (const env of [
+    {},
+    { PUBLIC_MODE: '0', ACCOUNT_ORIGIN: 'unused invalid origin' },
+    {
+      PUBLIC_MODE: '1',
+      ACCOUNTS_ENABLED: '1',
+      ACCOUNT_ORIGIN: 'https://reader.example',
+      ADMIN_EMAILS: 'owner@example.test',
+      ADMIN_LOCAL_TOKEN: 'local-test-token',
+    },
+  ]) {
+    let opened = 0;
+    let closed = 0;
+    const middleware = () => {};
+    const provider = configuredAccessHttpProvider(env, async (options) => {
+      opened++;
+      assert.equal(options.enabled, env.PUBLIC_MODE === '1');
+      assert.equal(options.origin, env.ACCOUNT_ORIGIN ?? '');
+      assert.equal(options.env, env);
+      assert.equal(options.localToken, env.ADMIN_LOCAL_TOKEN);
+      assert.equal(typeof options.legacyAccess(), 'function');
+      return {
+        middleware,
+        close: async () => {
+          closed++;
+        },
+      };
+    });
+    assert.equal(opened, 0);
+    const runtime = await provider.useFactory();
+    assert.equal(opened, 1);
+    assert.equal(runtime.middleware, middleware);
+    await runtime.onModuleDestroy();
+    assert.equal(closed, 1);
+  }
 });
