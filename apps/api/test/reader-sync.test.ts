@@ -159,3 +159,19 @@ void test('sync rejects lone JSON surrogates in every stored string while preser
   };
   assert.deepEqual(mergeReaderSync(empty(), incoming), incoming);
 });
+
+void test('sync refuses expanded ISO years before storage for both preference collections', () => {
+  for (const updatedAt of [253402300800000, 8_640_000_000_000_000]) {
+    for (const kind of ['hiddenTopics', 'bookmarks'] as const) {
+      const change =
+        kind === 'hiddenTopics'
+          ? { hidden: true, updatedAt }
+          : { copy: null, updatedAt };
+      assert.throws(
+        () =>
+          mergeReaderSync(empty(), { ...empty(), [kind]: { clock: change } }),
+        /Invalid/,
+      );
+    }
+  }
+});

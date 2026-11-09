@@ -83,7 +83,8 @@ function validate(value: unknown): asserts value is ReaderSyncState {
         Object.keys(change).length !== 2 ||
         !Number.isSafeInteger(change.updatedAt) ||
         (change.updatedAt as number) < 0 ||
-        (change.updatedAt as number) > 8_640_000_000_000_000 ||
+        // Expanded ISO years emitted by Date are not accepted by storage.
+        (change.updatedAt as number) > 253_402_300_799_999 ||
         (kind === 'hiddenTopics'
           ? typeof change.hidden !== 'boolean'
           : change.copy !== null && !validCopy(change.copy))

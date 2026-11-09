@@ -178,3 +178,12 @@ Earlier entries: [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.
 - Targeted `pnpm exec tsx --test apps/api/test/reader-sync.test.ts apps/api/test/reader-sync-http.test.ts` passes (6). `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass; 794 unit tests, 275 integration passes/four expected skips. Existing bundle warning only; `git diff --check` passes.
 - Pushed `9d9aab11`; `systemctl --user restart news-digest-api.service news-digest-worker.service` completed. First health/reader probes raced startup; retries passed. `curl -fsS http://localhost:8000/healthz`, `pnpm obs services --check` (14 healthy), `pnpm obs alerts` (zero), and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass (four topics/19 stories/14 posts).
 - Next: continue Phase 4 preparation behind flags; visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.
+
+## 2026-11-09: iteration 1588 — bound sync clocks to storage-safe years
+
+- Clean main/no leftovers; health/alerts, all 14 services and sources pass; digest-generation failed count zero. Accounts/public remain off pending item 53 proxy proof. No paid calls, migrations, flag, UI or generation changes.
+- New isolated PostgreSQL boundary test reproduced a real failure: year 10000 emits expanded ISO syntax rejected on insert. Prepared sync now refuses clocks beyond year 9999 before storage for both preference collections; HTTP returns empty no-store 400 with no cookie/writes.
+- PostgreSQL tests verify epoch/year-9999 round-trips and rejected clocks preserve stored state. Policy/HTTP targeted tests pass (7); updated plan/TASKS. Active source/handbook behavior unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 795 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. Initial boundary experiment failed as expected before the fix.
+- Passive `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 10` at 22:36: 23 healthy rules, four queries ≤0.031 s, zero new evaluator errors/misses, no merges/restarts. Recovery remains open; next probe ≥23:36 UTC. Limits unchanged.
+- `pnpm build` passes with the existing bundle-size warning; `git diff --check` passes. Final formatting/lint pass before commit.

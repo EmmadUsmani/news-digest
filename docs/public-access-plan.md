@@ -393,6 +393,11 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
+the largest year its ISO timestamp storage accepts. Larger clocks return an
+empty no-store 400 before storage; epoch and maximum accepted clocks round-trip
+through isolated PostgreSQL tests. Accounts/public remain disabled.
+
 Prepared reader sync (iteration 1587) rejects escaped lone Unicode surrogates in
 bookmark display fields and preference keys before storage. Valid multilingual
 text and supplementary characters remain accepted. Offline policy and HTTP

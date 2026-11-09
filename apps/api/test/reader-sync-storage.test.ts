@@ -83,6 +83,32 @@ void test('reader sync serializes devices, preserves tombstones and isolates cap
     assert.deepEqual(await first.merge(ids[0], empty()), state);
     await pool.query('DROP TRIGGER reject_sync_test ON bookmarks');
     await pool.query('DROP FUNCTION reject_sync_test()');
+    // Both extremes admitted by the domain must survive database serialization.
+    for (const timestamp of [0, 253402300799999]) {
+      const boundary = change(`timestamp:${timestamp}`, timestamp);
+      await second.merge(ids[1], boundary);
+      const restored = await first.merge(ids[1], empty());
+      assert.deepEqual(
+        restored.hiddenTopics[`timestamp:${timestamp}`],
+        boundary.hiddenTopics[`timestamp:${timestamp}`],
+      );
+      assert.deepEqual(
+        restored.bookmarks[`timestamp:${timestamp}`],
+        boundary.bookmarks[`timestamp:${timestamp}`],
+      );
+    }
+    const beforeInvalid = await first.merge(ids[1], empty());
+    for (const timestamp of [253402300800000, 8_640_000_000_000_000]) {
+      await assert.rejects(
+        second.merge(ids[1], change('invalid-clock', timestamp)),
+        /Invalid/,
+      );
+      assert.deepEqual(await first.merge(ids[1], empty()), beforeInvalid);
+    }
+    await pool.query('DELETE FROM user_hidden_topics WHERE user_id=$1', [
+      ids[1],
+    ]);
+    await pool.query('DELETE FROM bookmarks WHERE user_id=$1', [ids[1]]);
     // An in-flight sync waits for identity deletion and then fails closed.
     const client = await pool.connect();
     try {

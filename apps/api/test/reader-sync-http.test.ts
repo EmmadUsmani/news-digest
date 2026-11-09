@@ -106,6 +106,19 @@ void test('prepared sync HTTP authenticates identity, validates writes and keeps
       assert.equal(invalid.headers.get('set-cookie'), null);
       assert.equal(invalid.headers.get('cache-control'), 'no-store');
     }
+    for (const updatedAt of [253402300800000, 8_640_000_000_000_000]) {
+      for (const kind of ['hiddenTopics', 'bookmarks']) {
+        const change =
+          kind === 'hiddenTopics'
+            ? { hidden: true, updatedAt }
+            : { copy: null, updatedAt };
+        const invalid = await post({ ...empty, [kind]: { clock: change } });
+        assert.equal(invalid.status, 400);
+        assert.equal(await invalid.text(), '');
+        assert.equal(invalid.headers.get('set-cookie'), null);
+        assert.equal(invalid.headers.get('cache-control'), 'no-store');
+      }
+    }
     assert.equal(writes, 0);
     // A valid sync can exceed the small login-code body limit.
     const changes = {
