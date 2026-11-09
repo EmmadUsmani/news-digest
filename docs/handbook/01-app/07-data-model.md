@@ -1,21 +1,14 @@
 # Data model
 
-Postgres holds about 24 tables in five areas. Most of the app's state is
+Postgres holds settings, content, accounting and private reader tables. Most of the app's state is
 simple: settings, collected content, ledgers, and editions as immutable
 snapshots.
 
 > [!NOTE]
-> The phase-1 migration adds `edition_settings`, a single system
-> schedule copied from the current owner schedule. A second migration
-> allows topics, editions and durable job records to have no profile, retaining
-> foreign keys and existing ownership. Both are applied live;
-> the live app uses the system schedule with `SYSTEM_OWNERSHIP=1`. Schedule writes
-> update both settings tables atomically; turning the flag off restores profile reads.
-> Topic operations use the shared catalog with the flag on; new topics
-> retain default-profile ownership so flag-off reads still find them. Durable-job
-> reads also use system scope with the flag on; new records keep compatibility
-> ownership for rollback. Edition reads and generation topic selection also use
-> system scope when flagged on; new editions keep compatibility ownership.
+> `SYSTEM_OWNERSHIP=1` uses the system schedule, shared topics and system-scoped
+> editions and job records. Writes preserve default-profile ownership and update
+> both settings tables atomically, so turning the flag off restores profile reads.
+> The additive migrations retain all existing ownership and foreign keys.
 > See the [rollout plan](../../public-access-plan.md).
 
 > [!NOTE]
@@ -185,6 +178,10 @@ foreign key, because a citation is stored before the post is verified.
 - **Snapshots, not joins, for editions.** `digest_previews.snapshot` holds a
   copy of every story, summary and post shown. Old editions stay readable even
   if articles or settings change. A trigger forbids UPDATE and DELETE.
+- **Private reader storage.** Account tables hold identities, login challenges,
+  sessions, friend links, saved choices and admin audit records. Operational
+  reader roles and PUBLIC have no access. Accounts remain disabled; the tables
+  are ready for the [account rollout](../../account-activation.md).
 - **Ledgers for money.** `llm_calls` and `x_discovery_calls` record a
   reservation before each paid call and the actual cost after it. Budgets are
   computed from these tables.

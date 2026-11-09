@@ -981,3 +981,10 @@ peers; the owner confirmed both entries are the visitor. Iteration 1589 retains
 the last-entry rule, tests the observed shapes and configures explicit loopback
 trust. Phase 3 began with a successful fresh private backup/restore migration rehearsal;
 accounts and public mode remain off until the deployment checks pass.
+
+Phase 3 migration deployment (iteration 1590): additive migrations 0013–0018
+are now applied live after a fresh private backup and isolated restore rehearsal.
+The earlier preparation notes describing these migrations as unapplied are historical.
+The eight private account tables are empty and deny PUBLIC and operational readers;
+bounded rerun is unchanged. Migration 0019 remains pending. Accounts and public
+mode remain off; server/web activation and dedicated live acceptance are next.

@@ -1,7 +1,8 @@
 # Phase 3 activation checklist
 
 This is the deployment checklist for the prepared account implementation, not an
-activation receipt. Accounts are disabled. Keep the VM private throughout.
+activation receipt. Account migrations through 0018 are applied live; accounts
+and public mode remain disabled. Keep the VM private throughout.
 [The public-access plan](public-access-plan.md) defines acceptance and owner gates.
 
 ## Prerequisites
@@ -69,7 +70,9 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
    restores it without network access and writes a private
    `~/backups/news-digest/account-migration-proof.json` receipt.
    The existing system-ownership rehearsal stops at 0012; use the account script
-   for this phase while migrations 0013–0018 are still pending.
+   for this phase before migrations 0013–0018 are applied. This pre-migration
+   rehearsal requires those tables to be absent; after deployment, use the saved
+   private receipt rather than rerunning it against a migrated backup.
 2. Require a successful receipt from that run: the script invokes the real
    migration runner through `MIGRATE_THROUGH=0018_admin_write_admissions`
    twice, checks injected-failure rollback, unchanged original table fingerprints
@@ -78,6 +81,10 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
 3. With accounts still disabled, apply the same bounded migration runner to live
    storage, loading database credentials privately. The command is `pnpm migrate`
    with the explicit stopping tag above. Do not run an unbounded migration.
+   Completed Nov 9 (iteration 1590): six migrations applied, bounded rerun
+   unchanged; eight empty tables deny PUBLIC and both operational reader roles.
+   Private receipts: `account-migration-proof.json` and
+   `account-live-migration-proof.json` in `~/backups/news-digest/`.
 4. Enable the server gate and build the web app with its account flag. Restart
    `news-digest-api.service` using `systemctl --user`. Restart the worker only
    if worker code changes.
