@@ -463,7 +463,10 @@ writer execution without duplicate admission or legacy fallthrough. Prepared sto
 (iteration 1524) connects this router to the transactional source writer using a
 caller-owned pool; disabled composition opens neither storage nor authorization.
 Isolated HTTP checks verify persisted outcomes, rollback on actor refusal and
-missing sources, and zero standalone/legacy calls for source writes. Live mounting,
+missing sources, and zero standalone/legacy calls for source writes. Prepared owned
+runtime (iteration 1525) closes its source pool after failed construction and exposes
+repeatable shutdown for future Nest ownership; disabled mode acquires nothing.
+Authorization resources remain caller-owned. Live mounting,
 controller replacement and atomic queue/external effects remain unimplemented. This policy
 remains uninstalled and changes no live access.
 

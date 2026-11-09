@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1524: prepared stored write-router composition connects atomic source writes to a caller-owned database pool; isolated HTTP checks pin persisted outcomes, refusal rollback and no duplicate admission/legacy execution. Disabled mode opens no resources. Live mounting, queue atomicity and proxy proof remain open.
+- [x] Iteration 1525: prepared owned write-router runtime releases source storage after failed startup and shares repeatable shutdown; disabled mode opens no resources. Live mounting, queue atomicity and proxy proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

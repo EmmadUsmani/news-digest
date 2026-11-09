@@ -142,3 +142,13 @@
 - Handbook checker: 18 pages/22 diagrams without render/link errors; exit 1 for existing unapplied-account metadata warnings. Latest reader endpoint responds successfully.
 - No restart under STEERING 22: running services do not import this preparation; accounts remain off. Live mounting, queue atomicity and proxy proof remain open.
 - Next: prepare controller adoption/atomic queue effects; Nov 9 scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC.
+
+## 2026-11-09: iteration 1525 — prepare owned write-router shutdown
+
+- Clean main/no leftovers; pnpm obs alerts, healthz, services, sources --check and jobs --check healthy; all 36 sources healthy. Latest saved-edition endpoint returns JSON.
+- Added uninstalled owned write-router runtime: one source pool, shared repeatable shutdown, cleanup on source/authorization startup failure, and combined error preservation if cleanup also fails.
+- Four focused offline tests cover resource ownership, disabled laziness, failed startup cleanup and combined failures. Authorization resources remain caller-owned; live mounting still pending.
+- Updated rollout plan/TASKS. No live routes, configuration, migrations, generation, UI or providers changed; accounts stay off.
+- Verification: pnpm exec tsx --test apps/api/test/public-write-owned-router.test.ts (4 pass); pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 750 unit/268 integration passes, four expected skips; existing bundle warnings only.
+- Handbook checker: 18 pages/22 diagrams checked; exit 1 for existing unapplied-account metadata warnings. No live external test calls.
+- No restart under STEERING 22: services do not import this uninstalled preparation. Next: live route composition, atomic queue effects/proxy proof; scheduled Phase 1/X/Bluesky acceptance at 15:00 UTC.
