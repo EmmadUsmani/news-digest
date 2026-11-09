@@ -65,13 +65,11 @@ item 53 authorizes a fixed-hop visitor selector and observed-shape tests.
 Accounts/public remain off; the previous private receipt has not been replaced
 by a simulation. No sharing or trust configuration changed.
 
-Phase 4 security-review note (1558): the official X widget triggers inline-script
-and eval violations under a self/platform-only script policy. That trial was
-removed; no unsafe exceptions were added. Connection restrictions pass all
-40 saved-widget browser views; script/resource policy remains a readiness gate.
-Iteration 1566 adds a reproducible report-only [review](docs/public-script-policy-review.md):
-each of four views reports one inline-script and 13 eval violations; all 10
-widgets still load under the unchanged enforced policy. No unsafe exceptions added.
+Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
+came from app theme startup and Zod code generation. The corrected reader passes
+40 real X widget views with the self/platform script allowlist enforced and no
+inline/eval exceptions. [Review and evidence](docs/public-script-policy-review.md).
+Full Phase 4 readiness/security review and item 53 proxy proof remain pending.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 

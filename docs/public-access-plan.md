@@ -405,8 +405,10 @@ The default-off public access stack now sets HSTS (one year, host only),
 transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
 submissions (same-origin only). Frame sources are limited to the same origin,
 `https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
-are limited to the same origin and `https://syndication.twitter.com`; script
-elements and eval remain unchanged. Inline HTML event handlers are blocked with
+are limited to the same origin and `https://syndication.twitter.com`. Script
+elements use the app origin or `https://platform.twitter.com`; inline scripts and
+eval are blocked. Theme startup is a blocking same-origin file, and browser Zod
+validation disables code generation before schemas load. Inline HTML event handlers are blocked with
 `script-src-attr 'none'`; JavaScript event listeners remain available.
 `scripts/check-public-event-handler-policy.ts` verifies refusal, listener admission
 and private rollback with synthetic buttons. Document images allow the app origin and HTTPS sources, supporting
@@ -437,12 +439,12 @@ GET requests, blocks all writes, and leaves deployment flags unchanged.
 [Forty card screenshots](screenshots/ui/public-x-policy.md) record the result.
 Iteration 1558 verifies the connection allowlist with the same 40 live widget
 views and `scripts/check-public-connect-policy.ts` (offline allow/deny and private
-rollback checks). A trial `script-src 'self' https://platform.twitter.com` produced
-inline-script and eval violations from the official widget; that restriction was
-removed. Script policy needs a separate compatibility/security decision; no unsafe
-script exceptions were added. The reproducible [script-policy review](public-script-policy-review.md)
-uses report-only diagnostics alongside the enforced prepared policy, without changing
-deployment headers. Full resource allowlist and proxy acceptance remain open.
+rollback checks). The [script-policy review](public-script-policy-review.md)
+traced the earlier inline/eval reports to theme startup and Zod code generation,
+then verified the corrected app with the enforced script allowlist (1567).
+`pnpm exec tsx scripts/check-public-script-policy.ts` checks same-origin/official
+script admission, inline/eval/lookalike refusal and private rollback offline.
+Full resource allowlist and proxy acceptance remain open.
 Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.

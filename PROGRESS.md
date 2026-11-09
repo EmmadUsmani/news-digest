@@ -172,3 +172,16 @@ Earlier entries: [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.
 - Build passes with existing bundle warning; `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. `pnpm check` passes typecheck/lint/format/boundaries, 773 unit and 272 integration tests (four expected skips).
 - Scheduled-reader gate passes four topics/19 stories/14 posts. Kotaku failed scheduled retries at 19:00 UTC with upstream HTTP 522; explicit GET also 522, last success 18:26/20 items. Recorded source recovery task; no bypass/adapter change. Digest queue zero failed jobs.
 - API/worker restart and post-restart health/alerts/reader gate verified before commit. Next: recheck Kotaku recovery; owner proxy rerun before Phase 3; Phase 4 script decision open. Metrics probe ≥19:36 UTC.
+
+## 2026-11-09: iteration 1567 — enforce prepared public script allowlist
+
+- Owner-visible value: resolves the public script-policy blocker while retaining all saved X embeds and reader themes; no unsafe inline/eval exceptions.
+- Clean main/no leftovers; health/alerts clear. Kotaku explicit GET remains HTTP 522 at 19:09 UTC; all 36 sources succeeded within an hour, digest queue zero failures. No paid calls or flag/configuration changes.
+- Source coordinates trace prior reports to app theme startup and Zod's eval probe/generated validators, correcting earlier widget attribution. Moved theme startup to blocking `/theme.js`; browser-only early `jitless` initialization preserves server behavior.
+- Prepared CSP now permits only same-origin/platform.twitter.com scripts. `pnpm exec tsx scripts/check-public-script-policy.ts` passes synthetic admission, inline/eval/lookalike refusal and private rollback; event-handler checker passes.
+- Live saved-widget checker passes 40 desktop/mobile light/dark views; second `--review-scripts` run reports zero violations and verifies automatic themes. Refreshed/inspected mobile-dark video screenshot; theme-target smoke passes 24 reader route/view combinations, keyboard/reload included.
+- Initial enforcing browser run overlapped the first build and caught old inline/eval assets; discarded that evidence and reran after build completion. Build passes with existing warnings.
+- Updated public readiness plan, script review, runtime handbook and owner note. Handbook renders 18 pages/one diagram; exits 1 only for existing unapplied-account metadata warnings.
+- `pnpm check` passes typecheck/lint/format/boundaries, 773 unit and 272 integration tests (four expected skips). `pnpm format`, `pnpm lint:fix`, final build and `git diff --check` pass.
+- API/worker restart and post-restart health/alerts/scheduled-reader verification recorded before commit.
+- Next: item 53 owner rerun before Phase 3; complete public static-resource routing (including `/theme.js`) and full Phase 4 rehearsal. Accounts/public remain off; metrics probe not due until 19:36 UTC.

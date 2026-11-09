@@ -64,7 +64,7 @@ async function main() {
               (
                 window as unknown as { scriptReports: string[] }
               ).scriptReports.push(
-                `${event.effectiveDirective}/${event.blockedURI === 'inline' || event.blockedURI === 'eval' ? event.blockedURI : 'external'}/${source}`,
+                `${event.effectiveDirective}/${event.blockedURI === 'inline' || event.blockedURI === 'eval' ? event.blockedURI : 'external'}/${source}/${event.lineNumber}:${event.columnNumber}`,
               );
               return;
             }
@@ -100,6 +100,13 @@ async function main() {
           return route.continue();
         });
         await page.goto(`${origin}/editions/${saved.id}`);
+        assert.equal(
+          await page
+            .locator('html')
+            .evaluate((element) => element.classList.contains('dark')),
+          theme === 'dark',
+          'Theme bootstrap survives the enforced script policy',
+        );
         for (const post of posts) {
           const card = page
             .locator('.post-card')

@@ -1,3 +1,4 @@
+import './schema-runtime';
 import '@fontsource-variable/inter';
 import './style.css';
 
