@@ -704,6 +704,12 @@ can read them.
 - Rate limits in Redis: on login codes, link redemption, preference writes, and
   a general per-client limit on the API. Verify which `X-Forwarded-For` entry
   exe.dev's proxy sets before trusting it.
+- General API admission preparation (iteration 1577): stored access runtime
+  accepts the optional verified-client gate and forwards it before account
+  transport. Composed HTTP tests cover refusal, recovery, private rollback
+  without limiter construction, closed-runtime refusal and startup cleanup
+  when limiter construction fails. Environment selection still supplies no
+  gate; visitor proof and production registration remain required.
 - Preference-write preparation (iterations 1574–1575): a gated Redis limiter
   allows a provisional 30 sync writes/minute per authenticated reader, shared
   across devices and processes. Keys use a separate HMAC namespace; refusal

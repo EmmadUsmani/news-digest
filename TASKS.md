@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1576: prepared optional API admission in public access stack/runtime before account transport and authorization, retaining security headers on refusal. Composed refusal/recovery and private rollback verified; stored runtime registration and visitor proof remain open.
+- [x] Iteration 1577: stored access runtime accepts prepared API admission; HTTP tests verify refusal before accounts, recovery, dependency-free private rollback, closed-runtime refusal and cleanup after limiter startup failure. Environment selection/visitor proof remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

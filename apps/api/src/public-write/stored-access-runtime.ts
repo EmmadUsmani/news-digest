@@ -23,7 +23,7 @@ type Dependencies = {
 export async function prepareStoredAccessRuntime(
   options: Pick<
     Options,
-    'enabled' | 'origin' | 'legacyAccess' | 'localToken'
+    'enabled' | 'origin' | 'legacyAccess' | 'localToken' | 'apiAdmission'
   > & {
     env: Readonly<Record<string, string | undefined>>;
   },

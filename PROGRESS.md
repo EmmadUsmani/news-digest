@@ -140,3 +140,13 @@ Earlier entries: [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 780 unit and 274 integration tests/four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
 - API/worker restarted; first health request raced startup, retry passes. Health/14-service checks and scheduled-reader gate pass (four topics/19 stories/14 posts); alerts clear. Invalid jobs CLI flag combination rejected; corrected read-only query confirms zero failures.
 - Next: item 53 owner rerun still blocks activation; continue Phase 4 preparation behind flags.
+
+## 2026-11-09: iteration 1577 — carry prepared admission through stored runtime
+
+- Clean main/no leftovers; initial alerts/health/14-service checks pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Stored access runtime now accepts the optional verified-client API gate already supported by its lower-level composition. Environment selection still supplies no gate; accounts/public remain off and item 53 owner rerun blocks activation.
+- Added composed HTTP/storage lifecycle coverage: public refusal precedes account transport, recovery resumes requests, private rollback never constructs the limiter, closed runtime refuses requests, and limiter startup failure releases both account and write storage.
+- Updated readiness plan/TASKS. No active behavior, source configuration or handbook changes.
+- `pnpm exec tsx --test apps/api/test/stored-access-runtime.test.ts`: 4/4 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass (782 unit, 274 integration/four expected skips). `pnpm build`: pass with existing bundle warning; `git diff --check`: pass.
+- API/worker restarted; initial health raced startup, curl retry passed. Post-restart health/14 services, scheduled-reader gate (four topics/19 stories/14 posts) and alerts pass.
+- Next: continue Phase 4 preparation behind flags; production API gate needs proven visitor extraction before registration. Metrics passive probe due no earlier than 21:36 UTC.
