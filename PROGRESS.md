@@ -157,3 +157,13 @@
 - Updated rollout plan/TASKS; no flags, migrations, UI, generation or live provider calls changed. Public/accounts activation remains disabled.
 - Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 764 unit/268 integration passes, four expected skips. Existing bundle-size warning only. Final healthz healthy; latest saved edition available; no failed user services.
 - No deployment/restart during the 13:00–16:00 UTC owner hold. Next: 15:00 scheduled acceptance, permitted deployment, public activation prerequisites and atomic queue effects.
+
+## 2026-11-09: iteration 1535 — public Nest boundary acceptance
+
+- Clean main/no leftovers; alerts and healthz healthy, no failed user services, latest saved edition available.
+- Added configured public-provider acceptance through a real Nest HTTP server and the complete stored access composition, with isolated session/storage stand-ins and no live external calls.
+- Anonymous reader requests pass; proxy identity headers cannot authorize admin reads/writes; unknown tool routes refuse; invalid write provenance stops before session lookup, admission storage or controllers. Session outages return empty 503; Nest closes both resource owners.
+- First focused run expected 403 for both provenance boundaries; corrected the source expectation to its existing 400 contract. Six focused tests pass.
+- No runtime behavior, flags, migrations, UI or generation changes. Updated rollout plan/TASKS; public/accounts remain disabled.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass; 765 unit/268 integration passes, four expected skips; existing bundle warning only. First full check hit intermittent integration-temp cleanup refusal (expected stale removal, got none); isolated rerun and full retry pass without code changes. No live external calls.
+- No deployment/restart during the owner's 13:00–16:00 UTC hold. Next: 15:00 scheduled acceptance, permitted deployment, proxy proof and atomic queue effects.

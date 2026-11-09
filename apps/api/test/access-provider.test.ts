@@ -5,6 +5,7 @@ import test from 'node:test';
 
 import { Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import type { Pool } from 'pg';
 
 import {
   ACCESS_HTTP,
@@ -12,6 +13,7 @@ import {
   type AccessHttpRuntime,
   configuredAccessHttpProvider,
 } from '../src/public-write/access-provider';
+import { prepareStoredAccessRuntime } from '../src/public-write/stored-access-runtime';
 
 void test('Nest owns prepared access shutdown and mounts its middleware before parsers', async () => {
   let opened = 0;
@@ -188,4 +190,105 @@ void test('registered access module preserves private HTTP behavior with one run
       else process.env[key] = value;
     });
   }
+});
+
+void test('configured public Nest runtime refuses proxy identities and writes before controllers', async () => {
+  let authenticated = 0;
+  let sessionUnavailable = false;
+  let downstream = 0;
+  const closed: string[] = [];
+  const provider = configuredAccessHttpProvider(
+    {
+      PUBLIC_MODE: '1',
+      ACCOUNTS_ENABLED: '1',
+      ACCOUNT_ORIGIN: 'https://reader.example',
+      ADMIN_EMAILS: 'owner@example.test',
+    },
+    (options) =>
+      prepareStoredAccessRuntime(options, {
+        accounts: () => ({
+          middleware: (_request, _response, next) => next(),
+          handlers: {
+            authorization: async () => {
+              authenticated++;
+              if (sessionUnavailable)
+                throw new Error('Session storage unavailable');
+              return null;
+            },
+          },
+          close: async () => {
+            closed.push('accounts');
+          },
+        }),
+        pool: () =>
+          ({
+            connect: () => assert.fail('Refused requests opened a transaction'),
+            end: async () => {
+              closed.push('sources');
+            },
+          }) as unknown as Pool,
+        recorder: () =>
+          assert.fail('Refused requests opened admission storage'),
+      }),
+  );
+  @Module({ providers: [provider] })
+  class PublicTestModule {}
+  const app = await NestFactory.create(PublicTestModule, { logger: false });
+  try {
+    app.use(app.get<AccessHttpRuntime>(ACCESS_HTTP).middleware);
+    app.use((_request: unknown, response: { end: (body: string) => void }) => {
+      downstream++;
+      response.end('reader');
+    });
+    await app.listen(0, '127.0.0.1');
+    const base = await app.getUrl();
+    assert.equal(
+      await (await fetch(base + '/api/editions/latest')).text(),
+      'reader',
+    );
+    assert.equal(authenticated, 0);
+    for (const path of ['/api/admin/topics', '/grafana/', '/api/unknown']) {
+      const response = await fetch(base + path, {
+        headers: { 'X-ExeDev-Email': 'owner@example.test' },
+      });
+      assert.equal(response.status, 404, path);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+    }
+    assert.equal(authenticated, 1);
+    for (const path of [
+      '/api/admin/topics',
+      '/api/admin/topics/sources/example/enabled',
+    ]) {
+      const method = path.endsWith('/enabled') ? 'PUT' : 'POST';
+      const before = authenticated;
+      const refused = await fetch(base + path, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: '{malformed',
+      });
+      assert.equal(refused.status, method === 'PUT' ? 400 : 403, path);
+      assert.equal(authenticated, before);
+      const anonymous = await fetch(base + path, {
+        method,
+        headers: {
+          Origin: 'https://reader.example',
+          'Content-Type': 'application/json',
+          'X-ExeDev-Email': 'owner@example.test',
+        },
+        body: '{"enabled":true}',
+      });
+      assert.equal(anonymous.status, 404, path);
+      assert.equal(authenticated, before + 1);
+    }
+    sessionUnavailable = true;
+    const unavailable = await fetch(base + '/api/admin/topics', {
+      headers: { 'X-ExeDev-Email': 'owner@example.test' },
+    });
+    assert.equal(unavailable.status, 503);
+    assert.equal(await unavailable.text(), '');
+    assert.equal(downstream, 1);
+  } finally {
+    await app.close();
+  }
+  assert.deepEqual(closed.sort(), ['accounts', 'sources']);
 });
