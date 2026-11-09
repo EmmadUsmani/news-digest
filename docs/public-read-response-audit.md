@@ -208,6 +208,16 @@ credentials and local-address spellings. Original article links remain restricte
 until separately approved; configured article/source text review and public
 article transport remain open. No route classification or live response changes.
 
+## Prepared article response boundary
+
+`readPublicArticles` explicitly returns topic IDs and article IDs, titles,
+publisher origins, dates and source names. Extra repository columns are stripped
+at both levels; stored links never enter the result. Invalid links produce null
+origins independently. Storage/schema failures return a fixed unavailable error
+without stored values or validation details. Ordering and empty groups survive.
+This helper is disconnected: configured title/source text review, host approval,
+a dedicated system reader and HTTP integration remain required before promotion.
+
 ## Source locations
 
 - `apps/api/src/modules/operations/adapters/monitoring-alerts.ts`

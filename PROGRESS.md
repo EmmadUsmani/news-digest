@@ -149,3 +149,14 @@
 - Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
 - Full check passes 731 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
 - Next: hostname/configured-text review and remaining public transport integration; normal 15:00 UTC Phase 1 acceptance and live proxy proof remain pending.
+
+## 2026-11-09: iteration 1502 — prepare explicit article-list response boundary
+
+- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources succeeded within two hours with zero stored errors; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
+- Added disconnected article-list projection: explicit topic/article fields, origin-only publisher display, nested extra-column stripping, independent null origins for rejected links and fixed storage/schema failure responses. Ordering and empty groups are retained.
+- Three offline tests cover private path/query/extra-column omission, mixed malformed URLs and storage/schema errors without validation details.
+- Updated response audit/TASKS. Configured title/source text and hostname approval, dedicated system reader and transport remain open; no route classification changes.
+- No live entrypoints/config/data/migrations/provider calls changed; accounts remain disabled. No restart under STEERING 22 because running services import none of this preparation.
+- Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
+- Full check passes 734 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining article review/reader/transport integration before promotion.
