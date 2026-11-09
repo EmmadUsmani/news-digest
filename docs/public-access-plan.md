@@ -393,6 +393,15 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Sign-in request-log rehearsal (iteration 1571) composes the production request
+logger with account HTTP transport and handler stand-ins. Login page, code
+request, code/link redemption, session read, logout, reused-code refusal,
+cross-origin refusal and dependency failure emit one correlated status/timing
+record each, without email, code, token, cookie, session ID or client address.
+`pnpm exec tsx --test apps/api/test/account-request-logging.test.ts` runs offline;
+it uses no secret-value redaction to conceal accidental capture. Stored account
+and proxy acceptance remain separate.
+
 Prepared public mode now permits browser-private caching for one hour on successful
 published-edition ID responses (GET/HEAD), only with `READER_PUBLISHED_ONLY=1`.
 Latest and history stay `no-store`; private mode and unfiltered ID reads also use

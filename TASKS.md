@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1570: configured Nest public-readiness HTTP matrix passes for anonymous/reader/admin/revoked-admin states. Tools/queues/unknown assets and ambiguous routes refuse before authentication/downstream; reader GET/HEAD, current admin reads, write-provenance refusal and direct-local tool refusal verified with stand-ins. Live proxy and full Phase 4 acceptance remain open.
+- [x] Iteration 1571: composed production request logger/account HTTP log-hygiene rehearsal passes nine sign-in/session/logout outcomes, including refusals and dependency failure. Exactly one correlated status/timing record per request; no private account fields or client address. Phase 3 proxy gate and full Phase 4 acceptance remain open.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

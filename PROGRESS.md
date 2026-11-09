@@ -121,3 +121,15 @@ Earlier entries: [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.
 - API/worker restarted after build; initial health probe raced startup, retry `pnpm obs health --check` passes. Scheduled reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts. Alerts clear at 19:46 UTC.
 - Initial push rejected (remote advanced with owner commit `85d7ba72`, lead-session note only). Fetched and merged without rewriting history or editing owner content; verified app code is unchanged.
 - Next: owner item 53 rerun before Phase 3 activation; finish full Phase 4 acceptance behind flags. Accounts/public remain off; metrics probe not due until 20:36 UTC.
+
+## 2026-11-09: iteration 1571 — verify sign-in request log privacy
+
+- Owner value: public readiness now checks that sign-in traffic retains useful request diagnostics without leaking account credentials or identities.
+- Clean main/no leftovers. Health and alerts pass; Kotaku remains the only unhealthy source at 19:52 UTC (HTTP 522, last success 18:26/20 items). No bypass, paid calls, migrations, flags or generation changes.
+- Added composed production request-logger/account-HTTP rehearsal using handler service stand-ins and no secret-value redaction. Nine outcomes cover login page, code request, code/link redemption, session read, logout, reused code, foreign Origin and dependency failure.
+- Exactly one request-ID-correlated status/timing record per response; no email, code, token, cookie, session ID or client address. Error responses remain generic. This is offline evidence; live proxy/account acceptance remains open.
+- Targeted `pnpm exec tsx --test apps/api/test/account-request-logging.test.ts apps/api/test/account-http.test.ts apps/api/test/logging.test.ts`: 12/12 pass. Updated readiness plan, TASKS and source-health note; no product behavior or UI changes.
+- Workspace build passes with existing bundle warning. Scheduled-reader gate for 2026-11-09T15:00:00Z passes four topics/19 stories/14 posts; digest-generation queue has zero failed runs.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 776 unit and 272 integration tests/four expected skips. `git diff --check` passes.
+- API/worker restarted; initial health raced startup, retry health and service checks pass. Post-restart scheduled-reader gate passes; alerts clear at 19:55 UTC.
+- Next: owner item 53 proxy rerun before Phase 3 activation; remaining Phase 4 acceptance. Metrics probe not due until 20:36 UTC.

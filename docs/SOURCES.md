@@ -1240,8 +1240,8 @@ social request, paid discovery, inference or publication was needed for this UI.
   these explain the RecentJobFailures alert. Last successful collection
   was 18:26 UTC (20 items). Keep the existing schedule; no bypass or adapter
   change for an origin timeout. Iteration 1570 at 19:40 UTC confirms the same
-  last-attempt/last-success state; 35 other sources are healthy. Recheck natural
-  recovery next iteration.
+  last-attempt/last-success state; iteration 1571 at 19:52 UTC confirms it
+  again, with 35 other sources healthy. Recheck natural recovery next iteration.
 
 - **Live:** `https://kotaku.com/rss` supplies 20 stored articles, connected to
   the original Gaming topic by migration 034. Includes reporting, commentary,
