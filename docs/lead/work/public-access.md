@@ -24,11 +24,10 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Owner reran the probe (~17:55 UTC Nov 9). Forged email was replaced (good).
-   Requests arrive from loopback, and exe.dev appends two addresses, not one,
-   after anything the visitor sends. `proxyClient` takes the last, which may be
-   a proxy hop, not the visitor. Proposed: one more probe run to tell which
-   appended entry is the visitor, then the agent trusts two hops. Awaiting owner.
+1. Owner's probe rerun (Nov 9): forged email replaced (good); exe.dev appends
+   two addresses and requests arrive from loopback. Steered item 53: probe says
+   which entry is the visitor, owner reruns, then `proxyClient` trusts two hops.
+   Read both acks; a proxied request with the admin token must be refused.
 2. Check work-ahead stays behind flags and doesn't drift into polish.
 3. Phase 4: lead security review before the owner decides to go public.
 
