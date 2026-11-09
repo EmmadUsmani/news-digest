@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1468: account writes now check expiry/admin freshness after the complete upload; real HTTP delayed-upload regression rejects a code that expired during transfer. Accounts remain disabled pending scheduled acceptance and live proxy proof.
+- [x] Iteration 1469: all four account browser smokes pass together at desktop/mobile widths; refreshed and inspected deletion screenshots. Deployed account UI remains disabled and saved reader unchanged. Activation still awaits scheduled acceptance and live proxy proof.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

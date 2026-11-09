@@ -1,20 +1,3 @@
-## 2026-11-09: iteration 1452 — gated account deletion control
-
-- Clean main/no leftovers; health and alerts clear, no failed user units; all 36 sources healthy. Phase 1 awaits Nov 9 15:00 UTC scheduled acceptance; accounts remain disabled, VM private, account migrations pending.
-- Added typed DELETE confirmation and cancellation to the gated account panel. Deletion pauses uploads and blocks concurrent session actions; failed requests retain choices, successful requests clear local state. Shared logout/deletion controller retains existing logout behavior.
-- Controller acceptance verifies refusal, retry, concurrent-action suppression and late-sync cancellation. Desktop/mobile Playwright fixture checks cover confirmation, cancellation, busy state, refusal and successful deletion through the mounted reader. Inspected refreshed panel screenshots; updated screenshot index, rollout plan and affected handbook note. Archived iterations 1438–1439 to keep this file small.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted controller tests, both reader-account browser smokes, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Full check passes: 699 unit tests, 253 integration passes/four expected skips; build passes. Reader retains four topics/19 stories/17 posts; handbook reports existing metadata notes for unapplied account tables. No provider calls or real email.
-- Initial combined format/lint/check shell ended with signal 143 during unit tests; reran full check separately. Archive helper initially used the wrong date in a heading; corrected without losing content.
-- Commit/push then restart API/worker and recheck health/reader/alerts. Next: scheduled Phase 1 acceptance, live proxy proof and gated account activation; owner two-device acceptance remains open.
-
-## 2026-11-09: iteration 1453 — gated admin friend invitations
-
-- Clean main/no leftovers; initial health/alerts clear, all 36 sources have successful collection and no current errors. Digest queue has zero failures; normal Phase 1 acceptance awaits Nov 9 15:00 UTC.
-- Added an admin-only invitation form to the gated account panel: explicit email POST, same-origin fragment-link validation, refusal/retry and dismissible private link display. Recipient/link stay in component memory; unmount aborts pending requests. No live invitations, delivery, provider calls or account activation.
-- Desktop/mobile Playwright fixtures verify non-admin hiding, refusal preserving the recipient, retry/success, dismissal, foreign-origin rejection and empty browser storage. Inspected both new invite screenshots; updated screenshot index, rollout plan, affected handbook note and TASKS. Accounts remain disabled; account migrations and live proxy proof remain pending.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, both reader-account browser smokes, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, handbook data-model check and `git diff --check`. Full check passes (699 unit tests; 253 integration passes/four expected skips); build and browser checks pass. Saved reader retains four topics/19 stories/17 posts; handbook reports existing metadata notes for unapplied account tables. No diagrams changed.
-- Unauthenticated local admin status correctly returned 404; protected helper confirmed healthy sources/queues. Commit/push then restart API/worker and recheck health/reader/alerts. Next: scheduled Phase 1 acceptance, live proxy verification and account activation; owner two-device acceptance remains open.
-
 ## 2026-11-09: iteration 1454 — prepared audited admin session revocation
 
 - Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue has zero failures. Normal Phase 1 acceptance still awaits Nov 9 15:00 UTC; accounts stay disabled and VM private.
@@ -138,3 +121,12 @@
 - Verification: targeted HTTP tests 5/5; `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit and 254 integration passes/four expected skips), `pnpm build`, `git diff --check` and saved-reader check pass (four topics/19 stories/17 posts).
 - Accounts remain disabled; no UI, migration, live account write, provider call or proxy configuration change. Commit/push followed by API/worker restart and health/alerts/saved-reader verification.
 - Next: normal 15:00 UTC Phase 1 scheduled acceptance and live authenticated proxy proof before account activation.
+
+## 2026-11-09: iteration 1469 — account activation browser readiness
+
+- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled and VM private.
+- Ran all four account browser smokes together against the current activation candidate: code login, fragment-link confirmation, account controls and mounted-reader integration pass at desktop/mobile widths. Responses are fixture accounts; mounted reader uses the real saved edition. No live account writes or provider calls.
+- Verified disabled deployed UI makes no account requests; fixture flows cover refusal/retry, explicit exchange, replay, sync, sign-out and deletion. Inspected refreshed deletion screenshots and mobile mounted-reader screenshot. No product code changed.
+- Saved reader retains four topics/19 stories/17 posts. Archived iterations 1452–1453 to keep this log small.
+- Verification: all four `pnpm exec tsx scripts/smoke-*.ts` account commands above; `pnpm format`, `pnpm lint:fix`, `pnpm check` (707 unit/254 integration passes; four expected skips), `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z` and `git diff --check` pass. Commit/push followed by API/worker restart and health/alerts checks.
+- Next: normal Nov 9 15:00 UTC scheduled acceptance, then live authenticated proxy proof before activation; fixture browser results do not replace either gate.
