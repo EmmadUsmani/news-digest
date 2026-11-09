@@ -122,6 +122,14 @@ peers fail closed; equivalent IPv4/IPv6 spellings share a bucket. The parser is
 unregistered. Verify the live peer and forged-prefix behavior before configuring
 trust or activating accounts; no proxy address or network is assumed trusted.
 
+Prepared HTTP bootstrap (iteration 1445) combines the account gate, runtime and
+proxy admission before registration. Disabled accounts open no dependencies; enabled
+accounts require explicit IP addresses in `ACCOUNT_TRUSTED_PROXY_PEERS` and valid
+account configuration before storage opens. Isolated loopback HTTP checks exercise
+mailbox login, secure session exchange and replay refusal against disposable
+Postgres/Redis, including rejection of missing forwarded addresses. Main still does
+not install this bootstrap; no live peer is configured or trusted.
+
 An isolated composed-storage check now exercises stand-in mailbox login through
 real Postgres and Redis, cross-runtime session authentication, concurrent single-use
 friend redemption, non-admin issuance refusal and all-device logout isolation.

@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
 import { redis } from '../src/libs/db/connections';
+import { prepareAccountHttp } from '../src/modules/accounts/adapters/account-bootstrap';
 import { prepareAccountHandlers } from '../src/modules/accounts/adapters/account-runtime';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresAccountDeletionRepository } from '../src/modules/accounts/database/account-deletion.repository';
@@ -36,25 +38,24 @@ void test('composed accounts persist mailbox login and single-use friend session
     ADMIN_EMAILS: 'storage-owner@example.test',
   };
   const deletions: PostgresAccountDeletionRepository[] = [];
-  const compose = () =>
-    prepareAccountHandlers(env, (cleanup) => {
-      const deletion = new PostgresAccountDeletionRepository(
-        cleanup,
-        recipients,
-      );
-      deletions.push(deletion);
-      return {
-        deletion,
-        sync,
-        recipients,
-        identities,
-        codes,
-        sessions,
-        links,
-        cache,
-        existingIdentity: async () => false,
-      };
-    })!;
+  const dependencies: Parameters<typeof prepareAccountHandlers>[1] = (
+    cleanup,
+  ) => {
+    const deletion = new PostgresAccountDeletionRepository(cleanup, recipients);
+    deletions.push(deletion);
+    return {
+      deletion,
+      sync,
+      recipients,
+      identities,
+      codes,
+      sessions,
+      links,
+      cache,
+      existingIdentity: async () => false,
+    };
+  };
+  const compose = () => prepareAccountHandlers(env, dependencies)!;
   const request = (body: unknown, cookie: unknown = undefined) => ({
     origin,
     contentType: 'application/json',
@@ -62,6 +63,71 @@ void test('composed accounts persist mailbox login and single-use friend session
     cookie,
   });
   try {
+    const middleware = prepareAccountHttp(
+      { ...env, ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1' },
+      dependencies,
+    )!;
+    const server = createServer((req, res) =>
+      middleware(req, res, () => {
+        res.writeHead(418).end();
+      }),
+    );
+    await new Promise<void>((resolve) =>
+      server.listen(0, '127.0.0.1', resolve),
+    );
+    try {
+      const address = server.address();
+      assert.ok(address && typeof address !== 'string');
+      const base = `http://127.0.0.1:${address.port}`;
+      const post = (path: string, body: unknown, forwarded?: string) =>
+        fetch(`${base}/api/account/${path}`, {
+          method: 'POST',
+          headers: {
+            Origin: origin,
+            'Content-Type': 'application/json',
+            ...(forwarded ? { 'X-Forwarded-For': forwarded } : {}),
+          },
+          body: JSON.stringify(body),
+        });
+      assert.equal((await fetch(`${base}/other`)).status, 418);
+      assert.equal(
+        (await post('code', { email: env.ADMIN_EMAILS })).status,
+        503,
+      );
+      // Visitor-controlled prefixes are ignored; the documented appended IP wins.
+      const forwarded = 'forged-prefix, 192.0.2.51';
+      assert.equal(
+        (await post('code', { email: env.ADMIN_EMAILS }, forwarded)).status,
+        202,
+      );
+      const code = await new FileLoginCodeDelivery(directory).latest(
+        env.ADMIN_EMAILS,
+        new Date(),
+      );
+      assert.ok(code);
+      const redeemed = await post(
+        'redeem',
+        { email: env.ADMIN_EMAILS, code },
+        forwarded,
+      );
+      assert.equal(redeemed.status, 204);
+      const cookie = redeemed.headers.get('set-cookie')!.split(';')[0];
+      const current = await fetch(`${base}/api/account/session`, {
+        headers: { Cookie: cookie },
+      });
+      assert.equal(current.headers.get('cache-control'), 'no-store');
+      assert.deepEqual(await current.json(), { signedIn: true, isAdmin: true });
+      assert.equal(
+        (await post('redeem', { email: env.ADMIN_EMAILS, code }, forwarded))
+          .status,
+        401,
+      );
+    } finally {
+      server.closeAllConnections();
+      await new Promise<void>((resolve, reject) =>
+        server.close((error) => (error ? reject(error) : resolve())),
+      );
+    }
     const first = compose();
     const second = compose();
     const email = env.ADMIN_EMAILS;

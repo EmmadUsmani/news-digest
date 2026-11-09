@@ -1,22 +1,3 @@
-## 2026-11-08: iteration 1430 — prepared cascading reader sync storage
-
-- Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources healthy; digest-generation queue has zero failures and next scheduled run Nov 9 15:00 UTC.
-- Prepared unapplied migration 0016 and Drizzle schema for per-user hidden-topic changes and bookmark display copies/removal tombstones. Composite keys, bounded keys/JSON and cascading identity ownership preserve historical items without content foreign keys.
-- Explicitly revoke PUBLIC/operational-reader grants, including inherited defaults. Isolated tests verify privacy, invalid rows, duplicate/orphan rejection, time-zone handling, tombstones, deletion/rollback and another account's survival.
-- Accounts remain disabled and VM private. No live migration, provider call or edition-generation change. Sync repositories, merge/admission limits and main wiring remain pending; Phase 1 awaits pre-noon rollout and scheduled acceptance.
-- Updated rollout plan and schema metadata; archived progress entries 1412–1421 to keep orientation small. No handbook behavior changed because storage remains unapplied.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 670 unit tests, 252 integration passes/four expected skips, schema parity and static checks green. Handbook plan check reports only expected notes for unapplied tables.
-- Saved-reader check verifies four topics/19 stories/17 posts. Commit/push then restart API/worker and repeat health/reader checks to match main. Next: sync repository and bounded merge preparation, then Phase 1 rollout in its allowed window.
-
-## 2026-11-08: iteration 1431 — bounded reader sync merge policy
-
-- Clean main/no leftovers; alerts clear, health good, all 36 sources healthy. Digest queue has zero failed jobs and next run Nov 9 15:00 UTC.
-- Prepared server merge validates bounded keys, timestamps and display copies; latest changes win with browser-compatible ties. Removal tombstones survive and count toward 1,000 bookmark/1,000 topic key limits; invalid or over-capacity unions reject without changing inputs.
-- Offline coverage verifies browser parity, convergence, equal-clock removals, newest topic choices, prototype-shaped keys, copy isolation and fail-closed validation/capacity. Persistence must serialize read/merge/write per reader before wiring.
-- Accounts remain disabled; VM private. No live migration, provider call or edition-generation change. Updated TASKS and rollout plan; no handbook behavior changed.
-- Initial build caught TypeScript indexed narrowing; lint caught missing void on tests. Both corrected. Targeted tests (4), pnpm format, pnpm lint:fix and final pnpm build pass; handbook plan check has only expected unapplied-table notes.
-- Final pnpm check passes: static checks, 674 unit passes, 252 integration passes/four expected skips. git diff --check passes. Saved-reader check retains four topics/19 stories/17 posts. Commit/push then restart API/worker and repeat health/reader checks to match main. Next: per-reader locking sync repository, then Phase 1 pre-noon backup/rollout and scheduled acceptance.
-
 ## 2026-11-08: iteration 1432 — prepared locking reader sync repository
 
 - Clean main/no leftovers; alerts clear, health good, no failed user units. All 36 sources have no current errors; digest queue has zero failures and next scheduled run Nov 9 15:00 UTC. Retained ingestion/social failures unchanged.
@@ -141,3 +122,14 @@
 - Updated TASKS and rollout plan. Phase 1 remains open for normal scheduled acceptance; no provider retry or additional paid check. No UI or handbook system behavior change.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (695 unit; 253 integration passes/four expected skips), `pnpm build`, saved-edition read-only smoke and `git diff --check`. An earlier full check stopped at formatting while the smoke fix was being edited; final full check is green. No UI change.
 - Commit/push, then restart API/worker and repeat health, reader and alerts checks to match main. Next: normal flag-on scheduled acceptance; no phase closure claimed.
+
+## 2026-11-09: iteration 1445 — gated account HTTP bootstrap
+
+- Clean main/no leftovers. Alerts and health clear, no failed user units; all 36 sources healthy, digest queue zero failures, next scheduled publication Nov 9 15:00 UTC.
+- Prepared `prepareAccountHttp` combines the account runtime, bounded HTTP routes and proxy admission. Disabled flag opens no dependencies; activation requires explicit validated IP peers before account resources open. No implicit loopback trust.
+- Extended disposable Postgres/Redis composition checks through real loopback HTTP: unrelated-route pass-through, missing forwarded-address refusal, forged-prefix handling, stand-in mailbox login, cookie-only session exchange, authenticated session read and replay refusal.
+- Accounts remain disabled; main does not register the bootstrap. No live peer configuration, migration, provider call or public access change. Phase 1 stays open for scheduled acceptance; main composition and live proxy proof remain next-phase work.
+- Updated rollout plan/TASKS and corrected its stale Nov 8 next-review marker. Archived iterations 1430–1431 to keep PROGRESS small; no handbook runtime behavior changed.
+- Initial targeted bootstrap test expected an origin-specific error but received the existing Invalid URL error; corrected the assertion. Final verification results recorded below before commit.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit tests; 253 integration passes/four expected skips), `pnpm build`, targeted bootstrap/proxy tests (3), saved reader check and `git diff --check`. No UI change or paid verification.
+- Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance, then main account composition and verified live proxy wiring with accounts still gated.
