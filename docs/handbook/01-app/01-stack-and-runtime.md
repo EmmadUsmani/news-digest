@@ -73,7 +73,7 @@ flowchart LR
   (mode 600). They are never committed. The API and worker load this file.
 - `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
   and same-origin framing headers before account handling and authorization.
-  The CSP limits base URLs, plugin objects, embedding ancestors and form destinations.
+  The CSP limits base URLs, plugin objects, embedding ancestors and form destinations; images use the app origin or HTTPS sources.
   Document fonts and audio/video use the app origin; social media plays in X frames. Document workers are blocked.
   Connections use the app origin or `https://syndication.twitter.com`; frames use the app origin or the two X embed hosts.
 - Non-secret settings (topics, schedule, budgets) live in the database and

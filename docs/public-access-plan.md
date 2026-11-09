@@ -406,7 +406,10 @@ transport or authorization. The CSP restricts base URLs, plugin objects, embeddi
 submissions (same-origin only). Frame sources are limited to the same origin,
 `https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
 are limited to the same origin and `https://syndication.twitter.com`; scripts
-remain unchanged. Document fonts are restricted to the same origin; the app uses system fonts.
+remain unchanged. Document images allow the app origin and HTTPS sources, supporting
+source favicons and Bluesky previews without a fixed publisher list; HTTP and data
+images are blocked. `scripts/check-public-image-policy.ts` verifies admission,
+refusal and private rollback with intercepted synthetic images. Document fonts are restricted to the same origin; the app uses system fonts.
 `scripts/check-public-font-policy.ts` verifies same-origin admission, external/
 lookalike/HTTP refusal and private rollback with intercepted synthetic fonts.
 Document audio/video is limited to the app origin; current social media plays
