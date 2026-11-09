@@ -130,3 +130,12 @@
 - Updated rollout plan/TASKS. No flags, migrations, provider calls, UI or edition-generation changes; accounts remain disabled and public runtime unmounted.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 759 unit/268 integration passes, four expected skips; existing bundle-size warning only. No live external test calls.
 - No restart/deployment during STEERING 50's 13:00–16:00 UTC hold. Disabled-path bootstrap refactor awaits the next permitted deployment; live mounting, atomic queue effects/proxy proof and 15:00 scheduled acceptance remain open.
+
+## 2026-11-09: iteration 1532 — prepare Nest access runtime ownership
+
+- Clean main/no leftovers; alerts and healthz healthy, all 36 sources healthy, scheduled jobs available and no failed user services.
+- Prepared unregistered Nest access provider awaits the shared stored runtime before exposing middleware and delegates application shutdown to its owner. It must replace the separate account provider when mounted.
+- Two focused tests pass: actual Nest HTTP mounting handles malformed JSON before body parsers, shutdown runs once, and startup refusal propagates without publishing middleware.
+- Updated rollout plan/TASKS. No live flags, routes, migrations, UI, generation or provider calls changed; accounts remain disabled.
+- Verification: pnpm exec tsx --test apps/api/test/access-provider.test.ts, pnpm format, pnpm lint:fix, pnpm build, pnpm check and git diff --check pass. Full check: 761 unit/268 integration passes, four expected skips; existing bundle warnings only. Final healthz healthy.
+- No deployment/restart during STEERING 50's 13:00–16:00 UTC hold; provider remains unregistered. Next: 15:00 scheduled acceptance, live mounting, atomic queue effects and proxy proof.
