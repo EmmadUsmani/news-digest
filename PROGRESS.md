@@ -121,3 +121,11 @@
 - Updated activation checklist, rollout plan, backup handbook and TASKS; archived iterations 1446–1447 to keep this log small. Live proxy proof and normal Phase 1 scheduled acceptance still gate activation.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `python3 -m py_compile ops/backups/rehearse_accounts.py`, saved-reader check and `git diff --check`. Full check passes: 701 unit and 254 integration passes/four expected skips. Initial check stopped on archived-progress formatting; formatted and reran. Handbook check: 18 pages/zero diagrams, existing unapplied-account metadata warnings only. Saved reader: four topics/19 stories/17 posts.
 - Commit/push followed by API/worker restart and health/reader/alert checks. Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining account activation checks; owner two-device acceptance stays gated.
+
+## 2026-11-09: iteration 1463 — verify proxy admission on the HTTP wire
+
+- Clean main/no leftovers; health and alerts clear, all 36 sources healthy. Normal Phase 1 scheduled acceptance still awaits 15:00 UTC; accounts remain disabled.
+- Added actual loopback HTTP checks for Node's raw forwarding headers: three forged prefixes cannot alter the final client, duplicate mixed-case fields fail closed, malformed/missing final clients fail closed, and untrusted socket peers never admit forwarded clients.
+- This is isolated transport acceptance, not live exe.dev proxy proof; no account activation, migrations, credentials, provider calls or UI change. The live proxy gate remains open.
+- Verification: targeted proxy tests pass (3/3); `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run before commit. Full check: 702 unit/254 integration passes, four expected skips. Corrected missing test Host header and lint rejection typing before rerunning.
+- Commit/push followed by API/worker restart and health/alerts/saved-reader checks. Next: normal scheduled Phase 1 acceptance, live proxy proof and account activation prerequisites.
