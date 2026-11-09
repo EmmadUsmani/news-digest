@@ -412,6 +412,9 @@ lookalike/HTTP refusal and private rollback with intercepted synthetic fonts.
 Document audio/video is limited to the app origin; current social media plays
 inside official X frames. `scripts/check-public-media-policy.ts` checks local
 admission, external/lookalike/HTTP refusal and private rollback with synthetic media.
+Document workers are forbidden (`worker-src 'none'`); the reader uses no workers.
+`scripts/check-public-worker-policy.ts` verifies local/blob refusal and private rollback
+with synthetic workers. Provider frames keep their own worker policies.
 Bluesky cards need no frame. A complete resource allowlist still needs browser review before public
 readiness is accepted. `pnpm exec tsx scripts/check-public-form-policy.ts`
 uses synthetic local forms to verify external POST refusal, same-origin POST

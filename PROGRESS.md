@@ -156,3 +156,14 @@ Earlier entries: [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.
 - `pnpm build` passes (existing bundle warning); handbook check passes 18 pages/one diagram (existing unapplied-account metadata warnings). Scheduled-reader gate passes four topics/19 stories/14 posts for 2026-11-09T15:00:00Z.
 - Restarted API/worker outside the hold; post-restart /healthz and alerts clear, scheduled-reader gate passes again. `git diff --check` passes.
 - Next: owner item 53 rerun before visitor selector changes; remaining Phase 4 script/resource allowlist behind flags. Metrics trial unchanged; no extra probe.
+
+## 2026-11-09: iteration 1563 — block prepared public document workers
+
+- Clean main/no leftovers; initial alerts/health clear. Proxy receipt remains 17:47:12 UTC; accounts/public stay off. No paid calls or source/configuration changes.
+- Default-off public CSP forbids document workers; reader uses none and official X frames retain their own policy. Updated runtime handbook/public-access plan.
+- `pnpm exec tsx scripts/check-public-worker-policy.ts` passes synthetic same-origin/blob refusal and private rollback execution.
+- `pnpm exec tsx scripts/check-public-live-embeds.ts` passes all 40 real saved X widget views without document CSP violations; refreshed screenshots/manifest and inspected mobile-dark video card.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 773 unit and 272 integration passes/four expected skips. `pnpm build` passes with existing bundle warning.
+- `pnpm exec tsx scripts/check-handbook.ts stack-and-runtime` passes 18 pages/one diagram with existing unapplied-account metadata warnings. Scheduled-reader gate passes four topics/19 stories/14 posts.
+- API/worker restarted outside hold; post-restart health/alerts and scheduled-reader gate verified. `git diff --check` passes.
+- Next: owner item 53 rerun before visitor selector changes; Phase 4 script/resource allowlist remains open behind flags.
