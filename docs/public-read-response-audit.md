@@ -216,7 +216,16 @@ at both levels; stored links never enter the result. Invalid links produce null
 origins independently. Storage/schema failures return a fixed unavailable error
 without stored values or validation details. Ordering and empty groups survive.
 This helper is disconnected: configured title/source text review, host approval,
-a dedicated system reader and HTTP integration remain required before promotion.
+and HTTP integration remain required before promotion.
+
+The disconnected `PublicArticlesReader` selects explicit article columns from the
+system topic/source connections without consulting legacy profiles or ownership
+flags. It returns five newest distinct articles per enabled topic, retaining
+empty groups, stable ID tie ordering and the existing betting-path exclusion.
+Multiple source observations collapse to one article with the first source name
+in database sort order. Its caller owns the pool. Isolated storage tests exercise
+these rules with private URL/column markers and a missing-column failure; routes
+remain restricted pending text/hostname review and transport integration.
 
 ## Source locations
 

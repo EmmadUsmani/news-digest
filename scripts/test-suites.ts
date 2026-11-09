@@ -38,6 +38,7 @@ const integration = new Set([
   'profile-repository.test.ts',
   'public-schedule-reader.test.ts',
   'public-topics-reader.test.ts',
+  'public-articles-reader.test.ts',
   'public-sources-reader.test.ts',
   'public-source-health-reader.test.ts',
   'public-read-composition-reader.test.ts',

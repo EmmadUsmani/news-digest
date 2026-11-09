@@ -1,21 +1,3 @@
-## 2026-11-09: iteration 1486 — prepare origin-only public source catalog
-
-- Clean main/no leftovers; alerts clear and healthz healthy. Administrative status confirms 36 sources and no failed digest jobs; next scheduled run remains 15:00 UTC.
-- Added disconnected source-catalog projection returning IDs, names and publisher origins. Configured feed paths, queries and fragments may contain subscription tokens and are omitted; future columns cannot leak automatically.
-- Existing public HTTPS policy rejects credentials, custom ports and literal private/local origins. Invalid rows and repository errors return an exact generic 503; adversarial offline checks pass. No DNS/network checks are performed by the helper.
-- Existing GET/HEAD routes remain admin; frontend integration and transport review precede public promotion. Updated response audit and TASKS; no live config/data/access changes, provider calls or migrations.
-- Verification: four targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, saved-reader check and `git diff --check` pass. Full check: 715 unit/254 integration pass, four expected skips; existing bundle warning remains. Saved Nov 8 reader: four topics/19 stories/17 posts.
-- No restart under STEERING 22: deployed entrypoints do not import this helper. Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and system-only settings transport; metrics passive check due no earlier than 07:27 UTC.
-
-## 2026-11-09: iteration 1487 — prepare system-only public schedule reads
-
-- Clean main/no leftovers; alerts and healthz clear, 36 sources/no stalled sources, no failed digest jobs. Historical collection failures remain retained; recent social collection succeeds.
-- Added unregistered `PublicScheduleReader`: selects only five singleton system settings fields, applies the public projection, never reads legacy profiles/schedules or falls back when the row is missing; caller owns the pool.
-- Isolated database test renames both legacy tables inside a rolled-back transaction and checks unset/off/on ownership flags, detached results, missing-row and closed-connection generic 503 failures.
-- Updated response audit and TASKS; archived iterations 1469–1470 to keep the active log small. No live config/data/access changes, migrations or provider calls; accounts remain disabled.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check` pass. Full check: 715 unit/255 integration pass, four expected skips. Saved reader retains four topics/19 stories/17 posts; existing bundle warning remains.
-- No restart under STEERING 22: deployed entrypoints do not import the reader. Next: normal 15:00 UTC Phase 1 scheduled acceptance, live proxy proof and gated settings transport; metrics passive check remains due no earlier than 07:27 UTC.
-
 ## 2026-11-09: iteration 1488 — prepare public system schedule HTTP transport
 
 - Clean main/no leftovers; alerts and healthz clear. Authenticated status confirms 36 sources, no failed digest jobs and next scheduled edition at 15:00 UTC; retained ingestion failures remain historical.
@@ -160,3 +142,14 @@
 - Verification: targeted tests, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, authenticated source freshness, `pnpm obs jobs --check`, saved-reader check and `git diff --check`.
 - Full check passes 734 unit/262 integration tests, four expected skips; build passes with existing bundle warnings. Saved Nov 8 reader retains four topics/19 stories/17 posts.
 - Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining article review/reader/transport integration before promotion.
+
+## 2026-11-09: iteration 1503 — prepare system article database reader
+
+- Clean main/no leftovers; alerts/healthz clear, no failed user units. All 36 sources healthy; digest queue has no failures. Historical ingestion failures remain retained; current collection succeeds.
+- Added disconnected `PublicArticlesReader`: explicit system topic/source/article columns, five newest distinct articles per enabled topic, empty groups and deterministic date/ID ordering; existing betting-path exclusion retained. Pool remains caller-owned; legacy profiles and ownership flags are never consulted.
+- Isolated storage test covers duplicate source observations, source-name selection, limits, ordering, disabled/empty topics, unset/off/on flags, absent legacy table, future private column, omitted private URL values and fixed missing-column errors with clean rollback/pool reuse.
+- Updated response audit/TASKS; archived iterations 1486–1487. Configured text/hostname review and transport integration remain required; routes stay restricted and accounts disabled. No live config/data/migrations/provider calls changed.
+- No restart under STEERING 22: live entrypoints do not import the new reader.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm obs sources --check`, `pnpm obs jobs --check`, saved-reader check and `git diff --check`. Initial check found archive formatting; fixed before rerun. Build passes with existing bundle warning; saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Full check passes 734 unit/263 integration tests with four expected skips; build passes.
+- Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof, configured article text/host review and gated article transport.

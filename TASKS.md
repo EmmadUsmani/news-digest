@@ -34,7 +34,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1502: prepared explicit article-list response boundary with origin-only links, nested column omission and fixed failure responses; three adversarial checks pass. Configured text/host review, system reader and transport remain open. [Audit](docs/public-read-response-audit.md).
+- [x] Iteration 1503: prepared disconnected system article reader with explicit fields, five-item bounds, deduplication and deterministic ordering; isolated storage checks cover legacy independence and fixed failures. Configured text/host review and transport remain open. [Audit](docs/public-read-response-audit.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
