@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1579: prepared API admission now refuses stalled checks after a three-second deadline; HTTP tests verify empty no-store refusal, late-result safety, health bypass and recovery. Production registration remains blocked on item 53.
+- [x] Iteration 1580: prepared API admission skips downstream dispatch for callers disconnected during pending admission; real HTTP allowance/refusal checks pass. Production registration remains blocked on item 53.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 

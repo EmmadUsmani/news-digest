@@ -45,6 +45,9 @@ export function apiAdmissionHttp(options: {
     } finally {
       clearTimeout(timer);
     }
+    // A disconnected caller must not start account or controller work after
+    // an asynchronous admission check finishes.
+    if (request.aborted || response.destroyed || response.writableEnded) return;
     if (!allowed) {
       response.setHeader('cache-control', 'no-store');
       response.writeHead(429).end();

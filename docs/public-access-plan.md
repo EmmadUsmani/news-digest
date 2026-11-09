@@ -420,6 +420,9 @@ The prepared HTTP gate also bounds admission waits to three seconds (iteration
 allowances or rejections cannot dispatch the timed-out request. Offline HTTP
 coverage verifies deadline refusal, health bypass and subsequent recovery. The
 deadline bounds the HTTP wait; it does not cancel an in-flight Redis command.
+Pending admission also checks for an aborted request or closed response before
+dispatch (iteration 1580). Real HTTP disconnect tests verify that both late
+allowance and refusal finish without starting downstream work.
 
 Sign-in request-log rehearsal (iteration 1571) composes the production request
 logger with account HTTP transport and handler stand-ins. Login page, code

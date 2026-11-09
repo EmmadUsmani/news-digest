@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
+import { createServer, request } from 'node:http';
 import test from 'node:test';
 
 import { apiAdmissionHttp } from '../src/public-write/api-admission-http';
@@ -162,6 +162,64 @@ void test('API admission rejects invalid deadlines before opening its dependency
           },
         }),
       /timeout must be a positive integer/,
+    );
+  }
+});
+
+void test('disconnected API callers cannot dispatch after pending admission settles', async () => {
+  let downstream = 0;
+  let settle: (allowed: boolean) => void = () => {};
+  let started: () => void = () => {};
+  let closed: () => void = () => {};
+  let finished: () => void = () => {};
+  const gate = apiAdmissionHttp({
+    enabled: true,
+    client: () => 'verified-visitor',
+    admission: () => ({
+      allow: () =>
+        new Promise<boolean>((resolve) => {
+          settle = resolve;
+          started();
+        }),
+    }),
+  });
+  const server = createServer((req, res) => {
+    res.once('close', () => closed());
+    void gate(req, res, () => {
+      downstream++;
+      res.writeHead(204).end();
+    }).finally(() => finished());
+  });
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  try {
+    for (const allowed of [true, false]) {
+      const admissionStarted = new Promise<void>((resolve) => {
+        started = resolve;
+      });
+      const connectionClosed = new Promise<void>((resolve) => {
+        closed = resolve;
+      });
+      const gateFinished = new Promise<void>((resolve) => {
+        finished = resolve;
+      });
+      const caller = request(
+        `http://127.0.0.1:${address.port}/api/account/session`,
+      );
+      caller.on('error', () => {});
+      caller.end();
+      await admissionStarted;
+      caller.destroy();
+      await connectionClosed;
+      settle(allowed);
+      await gateFinished;
+      assert.equal(downstream, 0);
+    }
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve, reject) =>
+      server.close((error) => (error ? reject(error) : resolve())),
     );
   }
 });

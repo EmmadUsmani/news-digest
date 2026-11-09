@@ -141,3 +141,11 @@ Earlier entries: [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` run; build passes with existing bundle warning. Handbook check (`public-access` filter) finds no page/render errors but exits nonzero for existing metadata references to unapplied account tables; migrations remain intentionally pending.
 - Updated readiness plan/TASKS. API/worker restarted; first health raced startup, curl retry passed. Post-restart health/14 services, alerts and scheduled-reader check pass (four topics/19 stories/14 posts).
 - Next: continue Phase 4 preparation behind flags; verified visitor extraction still required before production gate registration. Next passive metrics probe ≥21:36 UTC.
+
+## 2026-11-09: iteration 1580 — stop disconnected admission dispatch
+
+- Clean main/no leftovers; alerts, health and 14 services pass. All 36 sources healthy; digest queue failed count zero. No paid calls, migrations, flags, UI or generation changes.
+- Prepared API admission now checks request abortion/response closure after its asynchronous decision, preventing disconnected callers from starting account or controller work. Real HTTP tests cover late allowance and refusal; accounts/public remain off awaiting item 53 owner rerun.
+- Updated readiness plan/TASKS. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 785 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warning; `git diff --check` passes.
+- API/worker restarted; initial curl raced startup, retry passed. Health/14 services and scheduled-reader verification pass (four topics/19 stories/14 posts). No source or handbook behavior changed.
+- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due no earlier than 21:36 UTC.
