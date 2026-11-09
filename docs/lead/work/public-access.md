@@ -24,12 +24,13 @@ is building phase 4 behind flags: a privacy page, security headers, caching.
 
 **Next:**
 
-1. Owner's probe rerun (Nov 9): forged email replaced (good); exe.dev appends
-   two addresses and requests arrive from loopback. Steered item 53: probe says
-   which entry is the visitor, owner reruns, then `proxyClient` trusts two hops.
-   Read both acks; a proxied request with the admin token must be refused.
-2. Check work-ahead stays behind flags and doesn't drift into polish.
-3. Phase 4: lead security review before the owner decides to go public.
+1. Item 53 probe built and acked (18:06 UTC Nov 9; lead read the diff). Owner
+   reruns it (steps in `NEEDS_FROM_HUMAN.md`). Then the agent fixes
+   `proxyClient`. If both added entries look public and stable, a run from a
+   second network (phone on cellular) shows which one is the visitor.
+2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC Nov 9.
+3. Check work-ahead stays behind flags and doesn't drift into polish.
+4. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up
