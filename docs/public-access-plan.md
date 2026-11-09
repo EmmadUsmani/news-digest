@@ -398,6 +398,14 @@ enablement requires system ownership and published-only readers. Disabled
 composition opens no storage. This does not install public authorization or
 change live access behavior.
 
+Prepared authorization middleware (iteration 1507) now enforces that classifier
+before downstream handlers: unknown routes are refused, user routes require a
+resolved session and admin routes require freshly recomputed admin eligibility.
+It ignores proxy identity headers, fails closed on authentication errors and marks
+responses no-store. The disabled path performs no authentication. It remains
+uninstalled; account-session wiring, direct-local script credentials, write
+origin/audit enforcement and controller replacement are required before promotion.
+
 ## Target design
 
 ### System-level data

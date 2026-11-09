@@ -167,3 +167,12 @@
 - Full check passes 736 unit/263 integration tests with four expected skips; build passes with existing bundle warnings.
 - No restart under STEERING 22: documentation-only change, live runtime unchanged. Accounts/public mode remain off.
 - Next: controller replacement/authorization and live proxy proof; normal 15:00 UTC Phase 1 scheduled acceptance remains required before account activation.
+
+## 2026-11-09: iteration 1507 — prepare public authorization enforcement
+
+- Clean main/no leftovers; alerts and healthz clear, no failed user services. Source/job checks pass; saved Nov 8 reader retains four topics/19 stories/17 posts.
+- Added uninstalled default-off authorization middleware enforcing the prepared route classifier before downstream handlers. Unknown routes deny; user/admin routes require session/fresh-admin resolution; forged proxy identity headers grant nothing; dependency failures return empty 503 and responses are no-store.
+- Real HTTP tests cover anonymous exchanges, GET/HEAD, unknown/encoded routes, forged headers, user versus fresh-admin writes, resolver failure and disabled-path isolation. No provider calls or live configuration/data changes.
+- Updated TASKS and public-access plan. Session/local-token wiring, write origin/audit enforcement, controller replacement and live proxy proof remain promotion gates; accounts/public mode remain disabled.
+- Verification: targeted HTTP test, `pnpm format`, `pnpm lint:fix`, `pnpm check` (737 unit/263 integration passes, four expected skips), `pnpm build`, source/job checks, saved-reader check and `git diff --check`. Build retains existing bundle warning.
+- No restart under STEERING 22: live entrypoints do not import the disconnected middleware. Next: compose account-backed authorization; normal 15:00 scheduled phase-1 acceptance remains required.
