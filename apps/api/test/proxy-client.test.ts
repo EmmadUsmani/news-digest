@@ -40,6 +40,24 @@ void test('proxy admission trusts only configured peers and the appended client'
   assert.equal(client(request('127.0.0.1', '::ffff:192.0.2.4')), '192.0.2.4');
 });
 
+void test('observed exe.dev duplicate visitor entries preserve admission identity', () => {
+  const client = proxyClient(['127.0.0.1', '::1']);
+  for (const peer of ['127.0.0.1', '::ffff:127.0.0.1', '::1']) {
+    for (const visitor of ['192.0.2.4', '2001:db8::4']) {
+      for (const prefix of [
+        '',
+        '198.51.100.9, ',
+        '198.51.100.9, 203.0.113.8, ',
+      ]) {
+        const forwarded = `${prefix}${visitor}, ${visitor}`;
+        assert.equal(client(request(peer, forwarded)), visitor);
+        assert.equal(client(request('192.0.2.99', forwarded)), null);
+        assert.equal(client(request(peer, forwarded, true)), null);
+      }
+    }
+  }
+});
+
 void test('proxy admission refuses missing, ambiguous and malformed final addresses', () => {
   const client = proxyClient(['127.0.0.1']);
   for (const value of [
@@ -107,6 +125,16 @@ void test('proxy admission rejects duplicate wire headers and ignores forged pre
           trusted: '192.0.2.4',
           untrusted: null,
         },
+      );
+    }
+    for (const prefix of [
+      '',
+      '198.51.100.9, ',
+      '198.51.100.9, 203.0.113.8, ',
+    ]) {
+      assert.deepEqual(
+        await send(['X-Forwarded-For', `${prefix}192.0.2.4, 192.0.2.4`]),
+        { trusted: '192.0.2.4', untrusted: null },
       );
     }
     for (const headers of [

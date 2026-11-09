@@ -972,9 +972,12 @@ admission and legacy controllers. Isolated composed HTTP/storage checks cover
 changed/unchanged outcomes, stale catalogs and audit-failure rollback. Accounts
 and public mode remain disabled. Iteration 1548 deployed the prepared API runtime
 from `5fc1fac0` without migrations or flag changes; latest/history response hashes
-and the Nov 9 scheduled reader are unchanged. Live proxy proof remains pending.
+and the Nov 9 scheduled reader are unchanged. Proxy proof was accepted by the owner under STEERING 53.
 
 Item 53 diagnostic (1560): receipts include category and baseline equality for
 both appended positions, independently of the legacy one-entry validity check.
-Owner rerun steps are in [NEEDS_FROM_HUMAN](../NEEDS_FROM_HUMAN.md);
-visitor selection and Phase 3 activation still await that real receipt.
+The Nov 9 19:47 receipt confirms stable public appended entries and loopback
+peers; the owner confirmed both entries are the visitor. Iteration 1589 retains
+the last-entry rule, tests the observed shapes and configures explicit loopback
+trust. Phase 3 began with a successful fresh private backup/restore migration rehearsal;
+accounts and public mode remain off until the deployment checks pass.

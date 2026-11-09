@@ -10,20 +10,12 @@ activation receipt. Accounts are disabled. Keep the VM private throughout.
   ([receipt](edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544)).
 - Work outside 13:00–16:00 UTC. Preserve the edition-generation noon cutoff.
 - Verify health, alerts, sources and digest jobs before starting.
-- Prove the live proxy immediate peer and appended client-address behavior,
-  including a forged forwarding prefix, using only documented exe.dev access.
-  Record only the peer category; never retain addresses or identity values.
-  If that proof cannot be obtained, leave accounts disabled.
-  Run `pnpm exec tsx scripts/probe-account-proxy.ts 8765` on an unused port,
-  then open its printed private alternate-port URL in an authenticated browser
-  and click **Run check once**. The five-minute temporary server records all
-  five request shapes, including three forged prefixes and a forged email.
-  It keeps checking after failures and saves a value-free receipt (including
-  partial runs) to `~/.local/state/news-digest/account-proxy-receipt.json`.
-  Confirm the connection uses the documented exe.dev HTTPS proxy before treating
-  it as live evidence. Compare that receipt with `proxyClient`; report any
-  mismatch before changing trust. Exact rerun steps are in
-  [Needs from human](../NEEDS_FROM_HUMAN.md#admin-access-rollout-updated-under-steering-36).
+- Proxy proof is accepted under STEERING 53: the Nov 9 19:47 UTC private
+  receipt records a loopback peer and two stable appended entries after forged
+  prefixes; the owner confirmed both entries match the visitor. Retain the
+  last-entry selector. Explicit loopback peers (`127.0.0.1,::1`) are configured
+  in the private environment; account gates remain disabled until deployment.
+  Offline policy and real HTTP tests cover zero, one and two forged prefixes.
 - Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
   Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
   code-login flow over a temporary loopback HTTPS server, with isolated storage
@@ -87,7 +79,8 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
    storage, loading database credentials privately. The command is `pnpm migrate`
    with the explicit stopping tag above. Do not run an unbounded migration.
 4. Enable the server gate and build the web app with its account flag. Restart
-   `news-digest-api.service` and `news-digest-worker.service` using `systemctl --user`.
+   `news-digest-api.service` using `systemctl --user`. Restart the worker only
+   if worker code changes.
    Check `/healthz`, alerts, source freshness and the saved scheduled reader.
 5. Verify code login, admin-issued links, replay/expiry refusal, sync, sign-out,
    all-device revocation and deletion with dedicated acceptance identities.

@@ -2388,3 +2388,5 @@ Also:
   only when worker code changes.
 
 Done when the loopback trust and tests are in and phase 3 is under way. Ack it.
+
+ack: 2026-11-09 item 53 — iteration 1589 inspected the 19:47 UTC receipt; retained last-entry selection, tested duplicate visitor entries after zero/one/two forged prefixes through policy and real HTTP, and configured explicit loopback peers privately. Phase 3 started: fresh private backup/isolated migration rehearsal passes rollback, idempotence, original data and private-table grants. Live migrations/accounts/public remain unchanged; guarded deployment next.

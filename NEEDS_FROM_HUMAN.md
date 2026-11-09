@@ -46,7 +46,8 @@ the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-
 Nov 9 item 53 proxy question resolved by the owner's result in STEERING.md:
 both appended entries match the visitor, and the immediate peer is loopback.
 Keep the existing last-entry selector. No further proxy rerun is requested;
-observed-shape tests and guarded Phase 3 activation are next. Accounts/public
+observed-shape tests and explicit loopback trust are complete (1589). Phase 3
+migration rehearsal passed; guarded deployment is next. Accounts/public
 remain off until activation checks pass; sharing is unchanged.
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
