@@ -315,6 +315,11 @@ shows sign-in, sync progress/failure, retry and single/all-device sign-out;
 failed actions preserve the controller’s retained choices. Latest/historical reader
 and saved-item headers mount it only with `VITE_READER_ACCOUNTS=1` (default off),
 sharing each page’s preference bridge for sync. Activation remains pending.
+Isolated stored HTTP acceptance now uses two independently redeemed device
+sessions: saved-story copies and removals converge, stale writes preserve removals,
+a friend reader stays isolated, single-device logout preserves the other session,
+and all-device logout and deletion refuse subsequent sync. This is automated
+preparation; the owner’s two-device check and scheduled acceptance remain open.
 It does not make the adapters' separate transactions atomic.
 
 ## Target design

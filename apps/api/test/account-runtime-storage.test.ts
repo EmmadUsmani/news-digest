@@ -137,16 +137,14 @@ void test('composed accounts persist mailbox login and single-use friend session
         new Date(),
       );
       assert.ok(existingCode);
-      assert.equal(
-        (
-          await post(
-            'redeem',
-            { email: env.ADMIN_EMAILS, code: existingCode },
-            '192.0.2.52',
-          )
-        ).status,
-        204,
+      const secondLogin = await post(
+        'redeem',
+        { email: env.ADMIN_EMAILS, code: existingCode },
+        '192.0.2.52',
       );
+      assert.equal(secondLogin.status, 204);
+      const secondCookie = secondLogin.headers.get('set-cookie')!.split(';')[0];
+      assert.notEqual(secondCookie, cookie);
       assert.equal(
         (await post('code', { email: 'unknown@example.test' }, '192.0.2.53'))
           .status,
@@ -165,6 +163,134 @@ void test('composed accounts persist mailbox login and single-use friend session
         (await post('redeem', { email: env.ADMIN_EMAILS, code }, forwarded))
           .status,
         401,
+      );
+      // Independent device sessions exercise the installed HTTP/storage path.
+      const write = (path: string, body: unknown, session: string) =>
+        fetch(`${base}/api/account/${path}`, {
+          method: 'POST',
+          headers: {
+            Origin: origin,
+            'Content-Type': 'application/json',
+            'X-Forwarded-For': '192.0.2.54',
+            Cookie: session,
+          },
+          body: JSON.stringify(body),
+        });
+      const empty = { version: 1, hiddenTopics: {}, bookmarks: {} };
+      const copy = {
+        title: 'Isolated saved story',
+        url: 'https://example.test/story',
+        attribution: 'Fixture publisher',
+        excerpt: 'Fixture reporting',
+        platform: 'web',
+        editionId: 'fixture-edition',
+      };
+      const saved = {
+        ...empty,
+        hiddenTopics: { tech: { hidden: true, updatedAt: 100 } },
+        bookmarks: { 'story:http': { copy, updatedAt: 100 } },
+      };
+      const save = await write('sync', saved, cookie);
+      assert.equal(save.status, 200);
+      assert.equal(save.headers.get('cache-control'), 'no-store');
+      assert.deepEqual(await save.json(), saved);
+      assert.deepEqual(
+        await (await write('sync', empty, secondCookie)).json(),
+        saved,
+      );
+      const removed = {
+        ...saved,
+        bookmarks: { 'story:http': { copy: null, updatedAt: 101 } },
+      };
+      assert.deepEqual(
+        await (await write('sync', removed, secondCookie)).json(),
+        removed,
+      );
+      // An offline device cannot resurrect an older bookmark.
+      assert.deepEqual(
+        await (await write('sync', saved, cookie)).json(),
+        removed,
+      );
+      const issuedLink = await write(
+        'links',
+        { email: 'http-friend@example.test' },
+        cookie,
+      );
+      assert.equal(issuedLink.status, 201);
+      const friendLogin = await post(
+        'link-redeem',
+        { token: (await issuedLink.json()).token },
+        forwarded,
+      );
+      assert.equal(friendLogin.status, 204);
+      const friendCookie = friendLogin.headers.get('set-cookie')!.split(';')[0];
+      assert.deepEqual(
+        await (await write('sync', empty, friendCookie)).json(),
+        empty,
+      );
+      assert.equal((await write('logout', {}, cookie)).status, 204);
+      assert.equal((await write('sync', empty, cookie)).status, 401);
+      assert.deepEqual(
+        await (await write('sync', empty, secondCookie)).json(),
+        removed,
+      );
+      const rejoinLink = await write(
+        'links',
+        { email: env.ADMIN_EMAILS },
+        secondCookie,
+      );
+      assert.equal(rejoinLink.status, 201);
+      const rejoined = await post(
+        'link-redeem',
+        { token: (await rejoinLink.json()).token },
+        forwarded,
+      );
+      assert.equal(rejoined.status, 204);
+      const rejoinedCookie = rejoined.headers.get('set-cookie')!.split(';')[0];
+      assert.deepEqual(
+        await (await write('sync', empty, rejoinedCookie)).json(),
+        removed,
+      );
+      assert.equal((await write('logout-all', {}, secondCookie)).status, 204);
+      assert.equal((await write('sync', empty, rejoinedCookie)).status, 401);
+      assert.equal((await write('sync', empty, secondCookie)).status, 401);
+      // Account revocation is scoped to its reader; the other reader survives.
+      assert.deepEqual(
+        await (await write('sync', empty, friendCookie)).json(),
+        empty,
+      );
+      const deleted = await write(
+        'delete',
+        { confirmation: 'DELETE' },
+        friendCookie,
+      );
+      assert.equal(deleted.status, 204);
+      assert.match(deleted.headers.get('set-cookie')!, /Max-Age=0/);
+      assert.equal((await write('sync', empty, friendCookie)).status, 401);
+      assert.equal(
+        (await post('code', { email: env.ADMIN_EMAILS }, forwarded)).status,
+        202,
+      );
+      const cleanupCode = await new FileLoginCodeDelivery(directory).latest(
+        env.ADMIN_EMAILS,
+        new Date(),
+      );
+      assert.ok(cleanupCode);
+      const cleanupLogin = await post(
+        'redeem',
+        { email: env.ADMIN_EMAILS, code: cleanupCode },
+        forwarded,
+      );
+      assert.equal(cleanupLogin.status, 204);
+      assert.equal(
+        (
+          await write(
+            'delete',
+            { confirmation: 'DELETE' },
+            cleanupLogin.headers.get('set-cookie')!.split(';')[0],
+          )
+        ).status,
+        204,
       );
     } finally {
       await Promise.all([stored.close(), closed.close()]);

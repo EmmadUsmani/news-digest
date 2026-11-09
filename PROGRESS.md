@@ -122,3 +122,11 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/smoke-reader-account-integration.ts`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, and `git diff --check`. Full check passes (698 unit tests; 253 integration passes/four expected skips); build passes. Saved reader retains four topics/19 stories/17 posts. Handbook filter reports existing metadata notes for unapplied account tables.
 - Initial browser harness used Node fetch's restricted port 4190; changed to 4188 and passed. Corrected missing scheduled-reader timestamp argument. Initial combined format/check shell ended with signal 143 after formatting; reran lint/full checks separately.
 - Commit/push then restart API/worker and recheck health, default-off browser/reader and alerts. Next: normal flag-on Phase 1 scheduled acceptance, live proxy verification; keep accounts disabled until acceptance.
+
+## 2026-11-09: iteration 1451 — stored HTTP two-device account acceptance
+
+- Clean main/no leftovers; alerts and health clear, all 36 sources healthy, no failed user units or digest jobs. Saved reader retains four topics/19 stories/17 posts. Historical ingestion/social failed jobs remain retained with healthy current collection.
+- Extended isolated Postgres/Redis account HTTP acceptance with independently redeemed device sessions, saved-story copy/removal convergence, stale-write protection and friend-reader isolation. Single logout preserves the second device; all-device logout revokes two active sessions while the other reader survives. Account deletion expires the cookie and refuses subsequent sync.
+- Updated rollout evidence and TASKS. Accounts stay disabled, account migrations pending, VM private; no live provider calls, real email or proxy configuration changes. No product behavior or handbook diagrams changed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-08T15:00:00Z`, `git diff --check`; all pass (698 unit tests, 253 integration passes/four expected skips). No UI changed; browser checks were not repeated.
+- Next: Nov 9 15:00 UTC scheduled Phase 1 acceptance, then live proxy proof and gated account activation; owner two-device acceptance remains open.
