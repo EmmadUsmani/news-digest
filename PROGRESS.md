@@ -1,22 +1,3 @@
-## 2026-11-09: iteration 1446 — gated account storage composition
-
-- Clean main/no leftovers; alerts clear, health database/Redis good, no failed user units and all 36 sources healthy. Scheduled Phase 1 acceptance still waits for Nov 9 15:00 UTC.
-- Prepared unregistered storage composition for account HTTP: lazy configuration gate, real account repositories/Redis and repeatable shutdown that attempts every owned connection. Added read-only persisted identity lookup for closed signup admission.
-- Disposable-storage HTTP check now uses this composition for mailbox login/session/replay; closed signup allows an existing verified reader but gives an unknown reader the same 202 response without sending a code. Disabled composition and repeat shutdown are checked.
-- Updated TASKS and rollout plan; no live migrations, trusted-peer configuration, provider calls or account activation. No UI/runtime behavior change; VM private, main registration/live proxy proof pending.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (696 unit; 253 integration passes/four expected skips), plus `pnpm build` and `git diff --check`. Strengthened closed-signup redemption check passes an isolated targeted rerun. Saved reader retains four topics/19 stories/17 posts. Initial lint rejected an unsafe shutdown error type; fixed before the final passing checks. No UI change.
-- Commit/push, then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal flag-on scheduled acceptance; phase 3 remains gated.
-
-## 2026-11-09: iteration 1447 — gated account startup registration
-
-- Clean main/no leftovers; initial alerts clear, health database/Redis good and no failed user units. All 36 sources healthy; digest queue has zero failures, next scheduled run Nov 9 15:00 UTC.
-- Registered account storage through a Nest lifecycle provider and mounted gated account HTTP before body parsing. Disabled startup opens no account resources; enabled startup requires explicit verified proxy peers before resources open. Nest closes owned connections on shutdown.
-- Added actual Nest startup/shutdown checks for the disabled gate and enabled-without-proxy startup refusal; both targeted tests pass. Updated rollout plan, TASKS and affected handbook note; archived iterations 1432–1433 to keep PROGRESS small.
-- Accounts remain disabled, VM private and account migrations unapplied. No provider calls, proxy trust configuration or phase acceptance claimed; live proxy proof remains pending after scheduled Phase 1 acceptance.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, saved reader check and `git diff --check` pass. Handbook check renders 18 pages/three diagrams; exits 1 for existing unapplied account-table metadata notes. No diagram/UI change.
-- Full `pnpm check` passes (698 unit tests; 253 integration passes/four expected skips). Saved reader retains four topics/19 stories/17 posts. Initial unsupported `obs queues`/combined jobs flags corrected to `pnpm obs jobs --check`; digest queue healthy.
-- Commit/push then restart API/worker and recheck health/reader/alerts so live matches main. Next: normal Nov 9 scheduled acceptance and live proxy verification; keep accounts off until Phase 1 acceptance.
-
 ## 2026-11-09: iteration 1448 — gated email-code sign-in page
 
 - Clean main/no leftovers. Initial alerts and health clear; all 36 sources healthy, scheduled reader retains four topics/19 stories/17 posts. Phase 1 acceptance waits for Nov 9 15:00 UTC.
@@ -131,3 +112,12 @@
 - Documentation only; no account writes, migrations, provider calls, email or settings changes. Owner check is staged in the checklist; no request for human action until the live flow is ready.
 - Verification: configuration/migration tag checked against runtime/runner; local links and `git diff --check` pass. `pnpm build` and saved-reader check pass (four topics/19 stories/17 posts). `pnpm format`, `pnpm lint:fix` and `pnpm check` pass: 701 unit passes, 254 integration passes/four expected skips.
 - Next: prepare account-specific fresh-backup restore rehearsal; Phase 1 normal scheduled acceptance and live proxy proof still gate activation. Commit/push followed by API/worker restart and health/reader/alerts checks.
+
+## 2026-11-09: iteration 1462 — fresh-backup account migration rehearsal
+
+- Clean main/no leftovers; health/alerts clear, all 36 sources healthy, digest queue zero failures and normal 15:00 UTC run queued. Accounts remain disabled and VM private.
+- Added `python3 ops/backups/rehearse_accounts.py`: fresh private snapshot, networkless disposable Postgres/private Unix socket, sanitized runner environment, bounded 0013–0017 migrations, injected transaction rollback, actual runner twice and migration-ledger idempotence. No live account migration or provider calls.
+- Executed successfully: backup restores 31 tables/57,555 rows; all 30 original application-table fingerprints unchanged. Seven account tables deny all seven table privileges and actual SELECTs for both operational readers and a PUBLIC-only role despite broad default grants. Scratch container removed; private receipt mode 600 in `~/backups/news-digest/account-migration-proof.json`.
+- Updated activation checklist, rollout plan, backup handbook and TASKS; archived iterations 1446–1447 to keep this log small. Live proxy proof and normal Phase 1 scheduled acceptance still gate activation.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `python3 -m py_compile ops/backups/rehearse_accounts.py`, saved-reader check and `git diff --check`. Full check passes: 701 unit and 254 integration passes/four expected skips. Initial check stopped on archived-progress formatting; formatted and reran. Handbook check: 18 pages/zero diagrams, existing unapplied-account metadata warnings only. Saved reader: four topics/19 stories/17 posts.
+- Commit/push followed by API/worker restart and health/reader/alert checks. Next: normal 15:00 UTC Phase 1 acceptance, live proxy proof and remaining account activation checks; owner two-device acceptance stays gated.

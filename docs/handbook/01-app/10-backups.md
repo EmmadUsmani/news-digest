@@ -18,6 +18,9 @@ through `0012_nullable_system_ownership`, leaving account migrations pending,
 in a networkless restore through a private Unix socket, then compares edition,
 topic and schedule adapter reads plus reader HTTP responses with system ownership
 off/on/off in read-only sessions. Its receipt is `~/backups/news-digest/system-ownership-proof.json`.
+Before account activation, `python3 ops/backups/rehearse_accounts.py` takes a
+fresh backup and rehearses pending account migrations through 0017 in a
+networkless restore. Its receipt is `~/backups/news-digest/account-migration-proof.json`.
 An offsite failure leaves the local backup successful; it retries on the next
 nightly run. Encrypted uploads are downloaded and checked before success is recorded.
 

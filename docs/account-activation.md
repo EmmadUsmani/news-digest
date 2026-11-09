@@ -40,12 +40,16 @@ does not change the compiled reader panel. Keep `PUBLIC_MODE` unchanged.
 
 1. Take a fresh private backup. Rehearse on an isolated restore of that backup,
    with no network or provider credentials, before applying any live migration.
-   The existing system-ownership rehearsal stops at 0012 and is insufficient
-   for this phase: prepare the account-specific restore rehearsal first.
-2. On the restore, run the real migration runner through
-   `MIGRATE_THROUGH=0017_reader_session_revocation` twice. Check rollback on an
-   injected failure, unchanged original table fingerprints and migration-ledger
-   idempotence. Confirm all seven account tables deny operational/PUBLIC readers.
+   Run `python3 ops/backups/rehearse_accounts.py`: it takes the fresh backup,
+   restores it without network access and writes a private
+   `~/backups/news-digest/account-migration-proof.json` receipt.
+   The existing system-ownership rehearsal stops at 0012; use the account script
+   for this phase while migrations 0013–0017 are still pending.
+2. Require a successful receipt from that run: the script invokes the real
+   migration runner through `MIGRATE_THROUGH=0017_reader_session_revocation`
+   twice, checks injected-failure rollback, unchanged original table fingerprints
+   and migration-ledger idempotence, and confirms all seven account tables deny
+   operational/PUBLIC readers. The disposable restore is removed automatically.
 3. With accounts still disabled, apply the same bounded migration runner to live
    storage, loading database credentials privately. The command is `pnpm migrate`
    with the explicit stopping tag above. Do not run an unbounded migration.
