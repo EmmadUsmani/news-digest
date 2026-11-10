@@ -393,6 +393,11 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Full compiled-application topic mutation rehearsal (iteration 1614) changes one
+catalog topic with a real admin session, reads back the complete catalog, restores
+the original value and verifies both durable changed admission outcomes. It uses
+disposable storage; no live catalog or public flag is changed.
+
 Full compiled-application cookie refusal rehearsal (iteration 1613) checks
 duplicate session cookies, both valid/malformed orderings and a malformed token
 against account deletion, all-device logout and topic updates. Twelve empty

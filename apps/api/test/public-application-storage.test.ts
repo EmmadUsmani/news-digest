@@ -228,6 +228,46 @@ void test('configured full public application serves published fixtures and enfo
       id: topic.id,
       enabled: topic.enabled,
     });
+    // Exercise a real mutation and its durable audit through the compiled app,
+    // then restore the catalog before the account-boundary rehearsals below.
+    const topicTarget = '/api/admin/topics/' + topic.id;
+    const beforeAdmissions = await db.query(
+      'SELECT id FROM admin_write_admissions WHERE target = $1',
+      [topicTarget],
+    );
+    for (const enabled of [!topic.enabled, topic.enabled]) {
+      const changed = await account(topicTarget, {
+        method: 'PUT',
+        headers: {
+          Cookie: cookie,
+          Origin: configuration.ACCOUNT_ORIGIN,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ enabled }),
+      });
+      assert.equal(changed.status, 200);
+      assert.deepEqual(await changed.json(), {
+        outcome: 'changed',
+        id: topic.id,
+        enabled,
+      });
+      const readback = await account('/api/admin/topics', {
+        headers: { Cookie: cookie },
+      });
+      assert.equal(readback.status, 200);
+      const expected = catalog.map((entry) =>
+        entry.id === topic.id ? { ...entry, enabled } : entry,
+      );
+      assert.deepEqual(await readback.json(), expected);
+    }
+    const admissions = await db.query(
+      'SELECT outcome FROM admin_write_admissions WHERE target = $1 AND NOT (id = ANY($2::uuid[]))',
+      [topicTarget, beforeAdmissions.rows.map((row: { id: string }) => row.id)],
+    );
+    assert.deepEqual(admissions.rows, [
+      { outcome: 'changed' },
+      { outcome: 'changed' },
+    ]);
     const empty = { version: 1, hiddenTopics: {}, bookmarks: {} };
     const sync = await write('/api/account/sync', empty, cookie);
     assert.equal(sync.status, 200);
