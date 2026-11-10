@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import {
   chmod,
@@ -114,6 +115,38 @@ void test('mailbox deletion removes only the recipient entry and fails closed on
       /owner-only/,
     );
     assert.equal(await mailbox.latest(email, now), '123456');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+void test('owner mailbox CLI runs through pnpm exec tsx and refuses missing or expired codes', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'login-mailbox-cli-'));
+  const directory = join(root, 'mail');
+  const mailbox = new FileLoginCodeDelivery(directory);
+  const email = 'owner@example.test';
+  const run = () =>
+    spawnSync(
+      'pnpm',
+      ['exec', 'tsx', 'scripts/read-login-mailbox.ts', directory, email],
+      { encoding: 'utf8' },
+    );
+  try {
+    await mailbox.deliver(email, '123456', new Date(Date.now() + 600_000));
+    const result = run();
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout, '123456\n');
+    assert.equal(result.stderr, '');
+    await mailbox.deliver(email, '654321', new Date(Date.now() - 1_000));
+    const expired = run();
+    assert.equal(expired.status, 1);
+    assert.equal(expired.stdout, '');
+    assert.match(expired.stderr, /No unexpired code/);
+    await mailbox.remove(email);
+    const missing = run();
+    assert.equal(missing.status, 1);
+    assert.equal(missing.stdout, '');
+    assert.match(missing.stderr, /No unexpired code/);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

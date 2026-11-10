@@ -6,9 +6,9 @@ and STEERING 50 define the phase order and owner gates.
 
 ## Entry gates
 
-- [ ] Accept Phase 3 after the owner's two-device sign-in/bookmark test and a
-      normal scheduled edition with accounts enabled. Exact owner steps are in
-      [NEEDS_FROM_HUMAN.md](../NEEDS_FROM_HUMAN.md).
+- [ ] Accept Phase 3 after a normal scheduled edition with accounts enabled.
+      Owner two-device sign-in/bookmark and proxy/TLS checks passed Nov 10 about
+      03:50 UTC; recorded in [NEEDS_FROM_HUMAN.md](../NEEDS_FROM_HUMAN.md).
 - [ ] Record the natural sign-in-link expiry check after Nov 11 00:33:01 UTC:
       `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify`.
       This runs in parallel with Phase 3 acceptance.

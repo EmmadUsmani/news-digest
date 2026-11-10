@@ -50,9 +50,15 @@ observed-shape tests and explicit loopback trust are complete (1589). Phase 3
 migrations and invite-only server/web deployment are complete (1591). Public
 mode remains off; sharing is unchanged.
 
-## Owner two-device acceptance — ready now (Nov 10)
+## Owner two-device acceptance — passed (Nov 10)
 
-Use a phone and laptop, with the same allowlisted owner email. Complete one
+Owner reported two-browser sign-in and saved-item sync passed at about 03:50 UTC
+Nov 10 (STEERING 50). This completes the owner and proxy/TLS cookie checks.
+Phase 3 now waits only for the normal Nov 10 scheduled edition with accounts on.
+The mailbox helper was repaired and its exact VM command verified against a
+newly requested real code (1616); credentials were withheld and the session signed out.
+
+Reference steps: use a phone and laptop, with the same allowlisted owner email. Complete one
 sign-in before requesting the next code; each request replaces the prior code.
 
 1. On the laptop open https://news-digest.exe.xyz/account/login. Enter your
@@ -64,7 +70,9 @@ sign-in before requesting the next code; each request replaces the prior code.
    ssh news-digest.exe.xyz 'cd /home/exedev/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /home/exedev/.local/share/news-digest/login-mailbox YOUR_OWNER_EMAIL'
    ```
 
-2. On the phone open the same HTTPS login address, request a code for the same
+2. On the phone open the same HTTPS login address. A second browser first
+   shows exe.dev's sign-in page: sign in with your exe.dev email, then use the
+   app's sign-in. Request a code for the same
    email, rerun the command, and enter this new code on the phone. On both
    devices open the digest and **Account**; wait for “Your topics and saved
    items are synced.” Reload both and confirm they stay signed in.
