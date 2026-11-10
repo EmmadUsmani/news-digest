@@ -107,3 +107,12 @@ reads/writes. Screenshots: `docs/screenshots/ui/content-read-consumers-*.png`.
 This is private UI evidence; public status projection and page access remain open.
 
 Next available implementation step: status/preview projections, then tools. Public activation still waits for Phase 3 acceptance.
+
+Iteration 1696 prepares `readPublicStatus` without installing a route. It retains
+coverage, source collection controls/counts/timestamps and allowlisted queue
+counts/availability. Historical source failures become `hasError`; job IDs,
+results, skip strings, provider usage and development accounting are omitted.
+Unknown fields are stripped and malformed retained data fails with a generic 503. Adversarial unit checks cover stored secrets and dependency failures.
+Detailed status remains admin-only: transport composition, public UI compatibility
+and the decision about public budget summaries remain unfinished. No deployment
+or restart during the 13:00–16:00 UTC protected window.

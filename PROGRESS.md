@@ -87,3 +87,11 @@ Earlier entries: [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.
 - Corrected rollout/TASKS handoff: next status/preview projections, then tools. Public mode remains off; Phase 3 awaits 15:00 UTC. No migrations/provider calls/generation changes.
 - GamingBolt remains sole unhealthy source (12:50 attempt, 11:16 last success); known bounded retries retained. Database/Redis healthy, no failed services/digest runs. Metrics probe not due until 13:29 UTC.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, browser replay and `check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass (four topics/19 stories/14 posts). API restarted before 13:00 UTC; replay and `/healthz` pass afterward. Initial full check terminated with SIGTERM during typecheck; separate `pnpm check` retry passes (805 unit tests; 277 integration passes/four expected skips). `git diff --check` passes.
+
+## 2026-11-10: iteration 1696 — prepare a bounded public status response
+
+- Clean main; no inherited work. Added uninstalled `readPublicStatus`: explicit nested schemas retain coverage, collection controls/counts/timestamps and allowlisted queue health. Stored source errors become `hasError`; job IDs/results/skip strings, provider usage and development accounting are omitted.
+- Adversarial unit checks cover historical secrets/URLs, future fields, arbitrary queue/count keys, malformed data and dependency failures; failures return generic 503. Detailed status remains admin-only; no route promotion or application composition yet.
+- Updated rollout review/TASKS. Next: status transport/UI compatibility, preview boundary, then tools. Phase 3 still awaits normal 15:00 UTC edition; public mode off.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted status tests, full `pnpm check` (807 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build`, `git diff --check` pass. Latest saved reader verifies four topics/19 stories/14 posts; `/healthz` database/Redis healthy, no failed user services, zero active alerts at orientation.
+- GamingBolt remains open with existing bounded retries. No live provider calls, migrations, flag changes, deployment or restart during 13:00–16:00 UTC freeze. New code is uninstalled, so running services retain the same application behavior. Metrics check not due before 13:29 UTC.

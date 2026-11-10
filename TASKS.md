@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1695: removed unused legacy article query; desktop/mobile browser replay confirms source-management uses operations status, with 36 saved sources and zero content reads/writes. No article/source-health UI migration needed. Next: status/preview projections, then tools; Phase 3 awaits 15:00 UTC.
+- [x] Iteration 1696: prepared allowlisted status projection removes stored failures, job payloads and private accounting; adversarial unit checks pass. Not installed; next: status transport/UI and preview boundary, then tools. No deploy/restart during 13:00–16:00 UTC; Phase 3 awaits 15:00 UTC.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
