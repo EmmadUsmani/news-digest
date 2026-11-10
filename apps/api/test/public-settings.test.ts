@@ -116,7 +116,7 @@ void test('prepared public source catalog exposes origins without feed credentia
   for (const method of ['GET', 'HEAD'])
     assert.equal(
       classifyPublicRoute(method, '/api/admin/topics/sources'),
-      'admin',
+      'public-read',
     );
 });
 

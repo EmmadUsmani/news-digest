@@ -38,9 +38,6 @@ class TopicsController {
       throw new NotFoundException('Source not found');
     return { id, enabled: parsed.data.enabled };
   }
-  @Get('sources') catalog() {
-    return this.topics.catalog();
-  }
   @Post(':id/queries') async addQuery(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() body: unknown,
@@ -135,6 +132,10 @@ class TopicsController {
 @Controller('api/admin/topics')
 class LegacyTopicsReadController {
   constructor(private readonly topics: TopicRepository) {}
+  @Get('sources') catalog() {
+    return this.topics.catalog();
+  }
+
   @Get() get() {
     return this.topics.listDefault();
   }

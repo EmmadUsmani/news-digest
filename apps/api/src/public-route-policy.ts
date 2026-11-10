@@ -21,7 +21,7 @@ const rules: readonly Rule[] = [
   ['POST', /^\/api\/account\/(?:sync|delete|logout|logout-all)$/, 'user'],
   ['POST', /^\/api\/account\/(?:links|sessions\/revoke)$/, 'admin'],
   ['GET', /^\/api\/admin\/topics$/, 'public-read'],
-  ['GET', /^\/api\/admin\/topics\/sources$/, 'admin'],
+  ['GET', /^\/api\/admin\/topics\/sources$/, 'public-read'],
   ['POST', /^\/api\/admin\/topics$/, 'admin'],
   ['PUT', /^\/api\/admin\/topics\/order$/, 'admin'],
   [

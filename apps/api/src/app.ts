@@ -20,6 +20,7 @@ import { OperationsModule } from './modules/operations/operations.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 import { TopicsModule } from './modules/topics/topics.module';
 import { PublicScheduleModule } from './public-read/schedule.module';
+import { PublicSourcesModule } from './public-read/sources.module';
 import { PublicTopicsModule } from './public-read/topics.module';
 import { AccessModule } from './public-write/access.module';
 @Injectable()
@@ -59,6 +60,7 @@ class HealthController {
     AccessModule,
     PublicScheduleModule.prepare(process.env, database, true),
     PublicTopicsModule.prepare(process.env, database, true),
+    PublicSourcesModule.prepare(process.env, database, true),
     OperationsModule,
     DigestsModule,
     IngestionModule,

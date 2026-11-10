@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1623: Public-mode topic GET/HEAD now uses the audited system-only projection, without a legacy route overlap; private reads and admin-only writes retained. UI shares the owner-free settings contract. Application/storage lifecycle and HTTP access checks covered; origin-only source catalog and remaining status/tool wiring stay open. [Review](docs/public-read-rollout-review.md).
+- [x] Iteration 1624: Public-mode source catalog GET/HEAD uses the audited origin-only projection, without overlapping legacy routes; owned/borrowed storage lifecycle and full-application responses covered. Private catalog retained. UI consumers and status/tool wiring remain open. [Review](docs/public-read-rollout-review.md).
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

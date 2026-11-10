@@ -96,7 +96,6 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
 void test('unaudited administrative responses remain restricted independently of alert counts', () => {
   for (const path of [
     '/api/admin/profile',
-    '/api/admin/topics/sources',
     '/api/admin/content',
     '/api/admin/content/window',
     '/api/admin/content/sources',

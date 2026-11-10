@@ -7,7 +7,7 @@ export interface PublicSourceCatalogPort {
   read(): Promise<unknown>;
 }
 
-// Unregistered Phase 4 transport; never forward configured feed URLs.
+// Public-mode transport; never forward configured feed URLs.
 @Controller('api/admin/topics/sources')
 export class PublicSourcesController {
   constructor(

@@ -14,7 +14,9 @@ import { NestFactory } from '@nestjs/core';
 import { database } from '../src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
+import { PublicSourcesReader } from '../src/modules/topics/database/public-sources.reader';
 import { PublicTopicsReader } from '../src/modules/topics/database/public-topics.reader';
+import { readPublicSourceCatalog } from '../src/public-read/settings';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -137,7 +139,23 @@ void test('configured full public application serves published fixtures and enfo
     });
     assert.equal(topicsHead.status, 200);
     assert.equal(await topicsHead.text(), '');
-    assert.equal((await scheduleGet('/api/admin/topics/sources')).status, 404);
+    const sources = await scheduleGet('/api/admin/topics/sources');
+    assert.equal(sources.status, 200);
+    assert.equal(sources.headers.get('cache-control'), 'no-store');
+    assert.deepEqual(
+      await sources.json(),
+      await readPublicSourceCatalog(() => new PublicSourcesReader(db).read()),
+    );
+    const sourcesHead = await scheduleGet('/api/admin/topics/sources', {
+      method: 'HEAD',
+    });
+    assert.equal(sourcesHead.status, 200);
+    assert.equal(await sourcesHead.text(), '');
+    for (const method of ['POST', 'PUT', 'PATCH', 'DELETE'])
+      assert.equal(
+        (await scheduleGet('/api/admin/topics/sources', { method })).status,
+        404,
+      );
     const session = await get('/api/account/session');
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { signedIn: false, isAdmin: false });
