@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { Pool } from 'pg';
 import { GenericContainer, Wait } from 'testcontainers';
 
+import { refreshExport } from '../../../ops/observability/grafana/prepared/refresh-export';
 import { database } from '../src/libs/db/connections';
 
 void test('prepared Grafana reader exposes only published counts and bounded source health', async () => {
@@ -225,6 +226,53 @@ void test('separate Grafana export instance contains only aggregates under a rea
     await owner.query(`INSERT INTO grafana_public.published_editions VALUES ('2099-11-10',1);
       INSERT INTO grafana_public.published_content VALUES ('2099-11-10',4,19,15);
       INSERT INTO grafana_public.source_summary VALUES (true,36,36,0)`);
+    const snapshot = {
+      days: [
+        { day: '2099-11-10', editions: 1, topics: 4, stories: 19, posts: 15 },
+      ],
+      sources: 36,
+      enabled: 36,
+      errors: 0,
+    };
+    const now = new Date('2099-11-10T19:00:00Z');
+    await owner.query(
+      "INSERT INTO grafana_public.published_editions VALUES ('2090-01-01',99)",
+    );
+    await refreshExport(owner, snapshot, now);
+    await refreshExport(owner, snapshot, now);
+    assert.equal(
+      (await reader.query('SELECT * FROM grafana_public.published_editions'))
+        .rowCount,
+      1,
+    );
+    for (const days of [
+      [...snapshot.days, ...snapshot.days],
+      [{ ...snapshot.days[0], day: '2099-10-11' }],
+      [{ ...snapshot.days[0], day: '2099-11-11' }],
+      [{ ...snapshot.days[0], day: '2099-02-30' }],
+      [{ ...snapshot.days[0], stories: -1 }],
+    ])
+      await assert.rejects(refreshExport(owner, { ...snapshot, days }, now));
+    // A database failure after deletes must retain the entire prior snapshot.
+    await owner.query(
+      'ALTER TABLE grafana_public.source_summary ADD CONSTRAINT test_failure CHECK (errors = 0)',
+    );
+    await assert.rejects(
+      refreshExport(owner, { ...snapshot, days: [], errors: 1 }, now),
+    );
+    assert.equal(
+      (await reader.query('SELECT * FROM grafana_public.published_content'))
+        .rowCount,
+      1,
+    );
+    assert.equal(
+      (await reader.query('SELECT errors FROM grafana_public.source_summary'))
+        .rows[0].errors,
+      0,
+    );
+    await owner.query(
+      'ALTER TABLE grafana_public.source_summary DROP CONSTRAINT test_failure',
+    );
     const dashboard = JSON.parse(
       readFileSync(
         'ops/observability/grafana/prepared/public-overview.json',

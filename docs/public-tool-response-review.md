@@ -30,7 +30,7 @@ requirements visible when choosing the replacement datasource role/views.
 Account migrations 0013–0018 explicitly revoke account-table access from PUBLIC
 and named operational readers. `apps/api/test/accounts-schema.test.ts` exercises
 hostile inherited default grants. These checks must remain green, including 0019
-on isolated storage; live 0019 remains gated on Phase 3 acceptance.
+on isolated storage; live 0019 was applied after Phase 3 acceptance (1730).
 
 ## Shared transport boundary
 
@@ -150,3 +150,16 @@ The exporter, bounded retention/atomic refresh, writer credentials, network
 isolation, aggregate source panel adaptation and isolated Grafana browser/query
 rehearsal remain open. No new live service or datasource is installed. Assess
 whole-stack capacity before adding an instance; public mode remains off.
+
+## Prepared atomic export refresh (iteration 1731)
+
+`grafana/prepared/refresh-export.ts` replaces all three aggregate tables in one
+transaction, serializing concurrent refreshes with table locks. Each snapshot
+contains at most 30 unique UTC days within today and the preceding 29 days;
+replacement removes stale days. Counts must be nonnegative safe integers, with
+errors ≤ enabled ≤ sources. Only explicit aggregate fields become SQL parameters.
+Disposable tests cover repeat refresh, stale-row removal, duplicate/future/expired
+and invalid-day refusal, and a database failure after deletes preserving the
+previous content and source summary. No exporter, credentials, timer or live
+connection is installed. Producer-side aggregation, least-privilege writer,
+transport/timeouts, freshness reporting and capacity remain before deployment.

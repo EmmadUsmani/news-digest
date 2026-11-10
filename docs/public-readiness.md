@@ -51,7 +51,7 @@ activation review, rather than adding more variants of already-covered refusals.
       now executes against that role in disposable tests (1719). Inherited privilege/catalog
       review (1721) pins denied escalation but demonstrates readable comments/view definitions;
       same-database arbitrary public SQL remains unapproved. Separate-instance aggregate storage and real-login denial rehearsal pass (1722);
-      export transport/retention, capacity and provisioning remain before datasource installation; rendering and query-route review remain.
+      bounded atomic refresh/30-day retention prepared and tested (1731); producer, writer/transport, capacity and provisioning remain before datasource installation; rendering and query-route review remain.
       Fix these data boundaries before installing tool routes; the gate is still open. Confirm `/logs`
       and `/metrics` require an admin session and account tables deny operational/PUBLIC reader roles after migration.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,

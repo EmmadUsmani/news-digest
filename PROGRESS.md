@@ -113,3 +113,12 @@
 - All 112 privilege checks deny both operational reader roles across eight private tables. No paid calls, account credentials, publication writes or public activation. Handbook reflects live outcome column and current-backup restore use.
 - Verification: format/lint fix, full check, build, handbook and diff checks; 32 deployed account-boundary checks and scheduled reader four topics/19 stories/15 posts. Full `pnpm check`: 826 unit, 280 integration/four expected skips; `pnpm build` and handbook pass. Push then API/worker restart and post-deploy health/reader/alerts follow.
 - Next: finish Phase 4 data boundaries behind flags; natural link-expiry after Nov 11 00:33:01 UTC and scheduled NBA acceptance remain due.
+
+## 2026-11-10: iteration 1731 — prepare bounded atomic Grafana aggregate refresh
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis healthy. NBA correction unchanged, Nov 11 scheduled acceptance pending.
+- Added uninstalled separate-store refresh helper: explicit aggregate parameters, at most 30 unique UTC days, nonnegative safe counts and source-count bounds. Replacement prunes stale rows; transaction/table locks serialize complete snapshots.
+- Disposable real-login coverage exercises repeated refresh, stale-row removal, invalid/duplicate/future/expired dates, negative counts and database failure after deletes retaining prior content/source totals.
+- No live exporter, credentials, timer, datasource, role grants or public-mode activation. Producer, writer/transport, freshness, capacity and Grafana rendering/query review remain before deployment. No paid calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; deployed account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
+- Next: continue Phase 4 data boundaries behind flags; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.

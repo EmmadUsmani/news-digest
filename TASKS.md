@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1730: migration 0019 live after fresh backup/restore rehearsal; bounded rerun and private grants verified; public mode off.
+- [x] Iteration 1731: prepared separate-store atomic aggregate refresh with 30-day retention and rollback coverage; uninstalled, public mode off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
