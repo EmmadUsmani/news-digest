@@ -78,6 +78,7 @@ five file events alongside current alerts. Nothing is emailed.
 | Disk              | Any filesystem is over 80% for 2 min                                                                             |
 | Memory            | Host has under 10% free for 5 min, or an `obs-*` service is over 90% of its limit                                |
 | Service down      | A monitored unit is inactive, or a scrape fails, for 2 min                                                       |
+| Agent crash loop  | The build agent's supervisor records 3 failed iterations in a row (usage-limit waits excluded) for 1 min         |
 | Errors            | API 5xx over 5% (with at least 20 requests in 5 min), or new worker job failures                                 |
 | Scheduled edition | The digest scheduler is missing, paused or stalled, or a due run isn't recorded or settled 15 min after its time |
 | Bluesky editing   | Latest scheduled edition has failed, budget-refused or missing Bluesky results while enabled                     |
