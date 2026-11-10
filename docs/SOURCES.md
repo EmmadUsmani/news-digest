@@ -277,7 +277,7 @@ Ingestion runs immediately on first scheduling and every 30 minutes thereafter.
 Each run fetches at most 60 entries/feed and the first 20 HN stories; deleted,
 dead, undated and unsafe-URL items are skipped. HN points/comments are stored.
 The shared client has a one-second domain floor, five-minute cache, 20-second
-timeout, 2 MB cap, Retry-After/error backoff; BullMQ retries three times with
+timeout, 3 MB cap, Retry-After/error backoff; BullMQ retries three times with
 exponential delays. Failed/empty runs retain the previous successful timestamp
 and expose an error. Feed ingestion does not crawl article pages; the separate
 explicit bounded X-link pass is described under iteration 96 below.
@@ -446,7 +446,7 @@ No article-page crawling or model/provider/billing changes were made.
 
 Repeat DeepMind collection exposed gzip bytes being decoded as UTF-8. The shared
 client now decodes gzip, deflate and Brotli before parsing/caching, with the
-existing 2 MB wire cap plus a 2 MB expanded cap; corrupt/unknown encodings fail.
+existing 3 MB wire cap plus a 3 MB expanded cap; corrupt/unknown encodings fail.
 Recorded two-item publisher fixtures remain offline only. Tests cover decoding,
 cache reuse, corrupt bodies and expansion limits without external calls.
 
@@ -2408,3 +2408,9 @@ link/expanded-destination checks at desktop/mobile in light/dark. The World
 fire-update card links the full Global News article; other cards have no inline
 URL. Live X frames loaded 5/11 desktop and 8/11 mobile; other posts retain
 saved-text fallback. No source changes or provider calls.
+
+## 2026-11-10 iteration 1720 — GamingBolt recovery and PC Gamer size limit
+
+- GamingBolt scheduled collection recovered at 17:17:58 UTC: 10 items, 169 stored. Existing endpoint and bounded retries unchanged.
+- PC Gamer exhausted three scheduled attempts at 17:35 UTC because its valid RSS grew to 2,013,022 bytes, just above the previous response cap. HTTP 200; no access denial.
+- Shared feed HTTP wire and expanded-response limits are now 3 MB. Existing timeout, redirects, rate limiting, decompression checks and 60-item parse limit remain. Live adapter fetch parses 50 dated items; no provider calls.

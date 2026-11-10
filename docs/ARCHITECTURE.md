@@ -60,7 +60,7 @@ Source health records last attempt/success, usable item count and sanitized erro
 view omits `/betting/` URLs; comprehensive topical filtering/ranking remains M3/M5.
 The shared worker HTTP client serializes each domain with a one-second floor,
 caches for five minutes, applies Retry-After/error backoff, times out after 20s,
-and limits each response to 2 MB. Feeds cap at 60 items and HN at 20 stories.
+and limits each response to 3 MB. Feeds cap at 60 items and HN at 20 stories.
 Only excerpts are stored; no article-page crawling or LLM calls occur.
 Recorded feed/HN fixtures are offline-only. Integration tests create and clean
 isolated fixture records; the explicit live smoke script queues two bounded
@@ -224,7 +224,7 @@ makes no outbound request and does not assert that a feed is live.
 The shared HTTP adapter accepts public HTTPS URLs only, without credentials or
 custom ports. Every socket lookup rejects nonpublic IPv4/IPv6 answers and pins a
 validated address; redirects repeat URL/DNS checks, domain serialization and
-rate limiting, with a four-hop cap. Existing 20-second request timeouts, 2 MB
+rate limiting, with a four-hop cap. Existing 20-second request timeouts, 3 MB
 body caps, cache and Retry-After backoff remain. IP literals are checked before
 requests, including Node URL normalization of alternate IPv4 notations.
 

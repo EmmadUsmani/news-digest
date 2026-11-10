@@ -6,6 +6,8 @@ import type { HttpPort } from '../../modules/ingestion/domain/ports';
 import { recordExternalAttempt } from '../observability/external-metrics';
 import { logger } from '../observability/logging';
 import { publicAddress, publicFeedUrl } from './public-url';
+const maxResponseBytes = 3_000_000;
+
 // One worker uses this shared client. Domains are serialized with a one-second floor.
 export class SharedHttpClient implements HttpPort {
   constructor(private readonly log = logger) {}
@@ -148,9 +150,9 @@ export class SharedHttpClient implements HttpPort {
     let size = 0;
     for await (const chunk of response) {
       size += chunk.length;
-      if (size > 2_000_000) {
+      if (size > maxResponseBytes) {
         response.destroy();
-        throw new Error('Response exceeds 2 MB');
+        throw new Error('Response exceeds 3 MB');
       }
       chunks.push(chunk);
     }
@@ -166,7 +168,7 @@ export class SharedHttpClient implements HttpPort {
     if (!decode && encoding !== 'identity')
       throw new Error('Unsupported response encoding');
     const body = (
-      decode ? decode(payload, { maxOutputLength: 2_000_000 }) : payload
+      decode ? decode(payload, { maxOutputLength: maxResponseBytes }) : payload
     ).toString('utf8');
     if (!body.trim()) throw new Error('Empty response');
     if (this.cache.size > 250) this.cache.clear();

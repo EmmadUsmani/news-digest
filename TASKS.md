@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] Iteration 1686 source incident: GamingBolt RSS timed out on scheduled attempts and a direct 25-second probe at 11:50 UTC Nov 10. Last successful collection 11:16:24 UTC (10 items; 160 stored). Other 35 sources healthy; Iteration 1687 confirms third attempt failed; DNS/TCP/TLS succeed (TLS 0.119 s), but feed sends zero response bytes within 12/25 seconds. Retain bounded scheduled retries; recovery remains open. No bypass or source configuration change.
+- [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
 - [ ] STEERING 50: phases 0/2 accepted (1386), Phase 1 accepted (1544). SYSTEM_OWNERSHIP on; account migrations 0013–0018 and private invite-only server/web enabled. Public flag off; migration 0019 pending. Item 53 resolved: trust loopback and retain verified last-entry visitor selection. Phase 3 deployed lifecycle checks pass for login/code expiry, sync, revocation and deletion; owner two-device steps ready in NEEDS_FROM_HUMAN.md (1600), replacing the VM-inaccessible proxy/TLS check. **Owner two-device/proxy/TLS check passed Nov 10 about 03:50 UTC. Nov 10 scheduled edition published (1707): four topics/19 stories/15 posts; NBA validation exhausted to source excerpts. Phase 3 not accepted (1708): mixed NBA fallback does not meet the normal-edition gate; no observed account failure. Await next normal scheduled edition; continue default-off Phase 4 preparation.** Natural link expiry runs in parallel: `scripts/check-live-link-expiry.ts --live verify` after Nov 11 00:33:01 UTC. Prepared Phase 4 runtime/admission default-off; isolated storage/restart/rollback and full application anonymous-reader rehearsals pass (1603–1604). Authenticated/admin and invited-reader two-session full application rehearsals pass (1605–1606); Account deletion/re-invitation full application rehearsal passes (1607); admin-targeted two-device revocation/re-login rehearsal passes (1608); remaining Phase 4 readiness gates tracked in [the activation checklist](docs/public-readiness.md), including pending live migration 0019 (fresh restored-copy rollback/idempotence/outcome/privacy rehearsal passes, 1618); VictoriaMetrics mutation keys installed and unauthenticated refusals verified (1616). Development Anthropic $0.211076/xAI $0, zero holds. No deploy/restart/migration 13:00–16:00 UTC or generation edits after noon. [Plan](docs/public-access-plan.md), [activation checklist](docs/account-activation.md), [Phase 1 acceptance](docs/edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544).
 
@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1719: prepared uninstalled public Grafana overview with three projection-only panels; exact panel SQL exercised as the public role. Public mode stays off; isolated rendering, datasource/catalog/function/query-route review remain.
+- [x] Iteration 1720: repaired PC Gamer collection after its valid RSS exceeded 2 MB; shared HTTP wire/expanded limits now 3 MB with offline boundary coverage. Grafana review remains next; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

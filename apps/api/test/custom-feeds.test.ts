@@ -195,8 +195,28 @@ void test('shared HTTP client decodes compressed feeds, caches text and bounds e
       assert.equal(await client.get('https://publisher.org/feed'), xml);
       assert.equal(calls, before + 1);
     }
+    // PC Gamer's real RSS grew just beyond the old 2 MB boundary. Both
+    // identity and compressed feeds may use the new bound, never exceed it.
+    const largeFeed = `<rss><channel><description>${'x'.repeat(2_100_000)}</description></channel></rss>`;
+    for (const [name, body] of [
+      ['identity', Buffer.from(largeFeed)],
+      ['gzip', gzipSync(largeFeed)],
+    ] as const) {
+      encoding = name;
+      payload = body;
+      assert.equal(
+        await new SharedHttpClient().get('https://publisher.org/feed'),
+        largeFeed,
+      );
+    }
+    encoding = 'identity';
+    payload = Buffer.from('x'.repeat(3_000_001));
+    await assert.rejects(
+      new SharedHttpClient().get('https://publisher.org/feed'),
+      /Response exceeds 3 MB/,
+    );
     encoding = 'gzip';
-    payload = gzipSync('x'.repeat(2_000_001));
+    payload = gzipSync('x'.repeat(3_000_001));
     await assert.rejects(
       new SharedHttpClient().get('https://publisher.org/feed'),
     );

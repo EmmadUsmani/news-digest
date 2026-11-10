@@ -15,7 +15,7 @@ export async function ingest(
     // Persist only controlled adapter messages; never response bodies or credentials.
     const message =
       error instanceof Error &&
-      /^(HTTP \d+|Empty response|Response exceeds 2 MB|Invalid XML feed|Unsupported feed document|Invalid Hacker News list|Source returned no usable dated items)$/.test(
+      /^(HTTP \d+|Empty response|Response exceeds 3 MB|Invalid XML feed|Unsupported feed document|Invalid Hacker News list|Source returned no usable dated items)$/.test(
         error.message,
       )
         ? error.message
