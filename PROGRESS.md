@@ -119,3 +119,12 @@ Earlier entries: [iteration 1616 and follow-up](docs/progress-archive/2026-11-10
 - Due `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passes: 23 healthy rules, four queries ≤0.061 s, no new evaluator errors/misses/timeouts/slow queries or process restarts. Two small merges/9,356 rows; no large-tier merge, recovery remains open. Next probe ≥13:29 UTC.
 - Updated TASKS and capacity evidence only; no provider calls, flags, migrations or application changes. Running services already match application main; no restart needed.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips) and `git diff --check` pass. Next: source recovery and scheduled Phase 3 acceptance; migration 0019/public activation remain held.
+
+## 2026-11-10: iteration 1693 — correct the remaining public-read handoff
+
+- Owner value: remove an already-shipped UI migration from the Phase 4 queue so the next build targets missing public readers. Clean main; no inherited work.
+- Source-catalog compatibility already shipped in `564ecb6b`; corrected the stale rollout review and TASKS. Remaining available work is article/source-health wiring, then status/preview/tools; public activation stays gated on Phase 3.
+- `pnpm exec tsx scripts/smoke-source-catalog-compatibility.ts` passes 36 saved sources across legacy/public/invalid responses and desktop/mobile, zero writes. Public responses are simulated; tracked screenshots unchanged.
+- Zero active alerts; `/healthz` database/Redis healthy; no failed user services or digest runs. Normal 15:00 UTC run pending. GamingBolt remains the sole unhealthy source: direct 20-second feed probe receives zero bytes; bounded scheduled retries retained.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass (804 unit tests; 277 integration passes/four expected skips). No application/runtime changes; services already match application main, no restart needed. No provider calls, migrations or flags changed.
+- Next: article/source-health public-mode composition; scheduled Phase 3 acceptance at 15:00 UTC. Metrics probe not due before 13:29 UTC; natural link expiry after Nov 11 00:33:01 UTC.

@@ -1,6 +1,6 @@
 # Public read rollout review — iteration 1620
 
-Reviewed Nov 10, 2026, updated iteration 1621, before the Phase 3 scheduled-edition gate. Public mode
+Reviewed Nov 10, 2026, updated iteration 1693, before the Phase 3 scheduled-edition gate. Public mode
 remains off. This is an implementation review, not Phase 4 acceptance.
 
 ## Current application boundary
@@ -18,7 +18,7 @@ child directly behind `PUBLIC_MODE`; other projections remain disconnected. HEAD
 | Health                                    | Anonymous database/Redis booleans and status                                                             | No private response fields found                                                                            |
 | Account session                           | Anonymous-capable caller-only identity                                                                   | Retain private/no-store headers; never enumerate accounts                                                   |
 | Alert counts                              | Anonymous timestamp/counts; fixed unavailable error                                                      | No alert labels, annotations or upstream payloads exposed                                                   |
-| Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Migrate source catalog UI consumers                                                                         |
+| Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Complete; UI accepts legacy and public catalog options                                                      |
 | Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                                             |
 | Content/source health                     | Fresh admin required                                                                                     | Wire origin-only article and count/timing source-health readers; keep window route restricted until audited |
 | Detailed status                           | Fresh admin required                                                                                     | Project stored source errors, job return strings and accounting fields before anonymous reads               |
@@ -41,8 +41,7 @@ child directly behind `PUBLIC_MODE`; other projections remain disconnected. HEAD
 3. **Prepared projections need application composition and UI integration.**
    Topics and schedule now use their audited readers in public-mode composition.
    Sources, article origins and source-health readers have isolated coverage.
-   Replace their overlapping legacy GET controllers in public mode; preserve private rollback and writes. Update API consumers for changed
-   shapes, including aggregator origins and removal of the legacy profile wrapper.
+   Replace the remaining overlapping legacy GET controllers in public mode; preserve private rollback and writes. Topic source selection already accepts both catalog shapes through an ID/name-only contract; schedule consumers already use the system endpoint.
 4. **Tools need their own data review.** The proxy streams upstream bodies and
    headers; granting a prefix would expose every upstream API method/path.
    Audit handbook artifacts, DB metadata/roles, dashboard data sources and queue
@@ -86,7 +85,12 @@ composition, replacing the legacy route. Responses expose only IDs, names and
 publisher origins; configured feed paths and tokens stay restricted. Owned storage
 closes with Nest; borrowed storage remains open. Private mode retains its catalog.
 
-Next available implementation step: migrate source catalog UI consumers and
-continue status/preview/tool projections.
+Source catalog UI compatibility shipped in `564ecb6b`: the topic editor parses
+only IDs and names from either response shape. Iteration 1693 confirms all 36
+saved options, existing selections and invalid-response refusals in desktop/mobile
+read-only browser replays. Public-shape responses are simulated, not live public mode.
+
+Next available implementation step: wire origin-only article/source-health
+readers, then continue status/preview/tool projections.
 Phase 3 scheduled acceptance still precedes live Phase 4 activation. Migration
 0019, public flags, proxy sharing and generation settings were unchanged here.

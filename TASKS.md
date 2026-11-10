@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1626: Overdue passive metrics check passes: 23 healthy rules, no new evaluator failures, one small merge; comparable natural-compaction recovery remains open. Saved-reader parity passes (four topics/19 stories/14 posts), all 36 sources healthy; scheduled Phase 3 acceptance remains pending. Reader weaknesses retain the [existing comparison](docs/edition-reviews/2026-11-10.md) and owner holds.
+- [x] Iteration 1693: corrected stale Phase 4 source-catalog handoff; UI compatibility already shipped in `564ecb6b`. Read-only desktop/mobile browser replay passes all 36 saved options for legacy/public/invalid responses. Next available wiring: article/source-health readers, then status/preview/tools; Phase 3 still awaits 15:00 UTC.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
