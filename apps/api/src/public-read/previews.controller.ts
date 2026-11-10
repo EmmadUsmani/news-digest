@@ -16,7 +16,7 @@ export type PublicPreviewsPort = Pick<
   'history' | 'latest' | 'find'
 >;
 
-// Not installed: replace legacy reads without exposing costs, jobs or writes.
+// Public-mode reads; private operations are installed separately by DigestsModule.
 @Controller('api/admin/digest-previews')
 export class PublicPreviewsController {
   constructor(

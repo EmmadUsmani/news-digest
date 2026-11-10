@@ -10,7 +10,7 @@ import { readerEdition } from '../modules/digests/reader-edition.controller';
 
 type PublishedReads = Pick<PreviewRepository, 'history' | 'latest' | 'find'>;
 
-// Not installed: route composition must retain admin-only cost, job and writes.
+// Route composition retains separate admin-only cost, job and write handlers.
 // Publication filtering is mandatory here, independent of private reader flags.
 export class PublicPreviewReads {
   constructor(private readonly repository: PublishedReads) {}

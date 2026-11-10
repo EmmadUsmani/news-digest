@@ -210,3 +210,11 @@ GET/HEAD responses use no-store; invalid pagination/UUIDs are rejected before
 storage, and failures retain generic messages. Costs, jobs and mutations have no
 handlers. Disabled/invalid flags never construct readers. Route policy remains
 admin-only; application composition and preview UI compatibility remain next.
+
+Iteration 1710 composes published preview history/latest/detail in public mode,
+using the existing repository lifetime. Legacy private reads remain selected with
+public mode off. Cost, job and generation handlers stay separate and admin-only
+under the existing route policy. Compiled-Nest HTTP checks exercise both mode
+selections, published-only arguments and retained private operations. Public mode
+remains off; preview UI compatibility and full anonymous authorization are next.
+No deployment during the protected edition window.

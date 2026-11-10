@@ -8,6 +8,7 @@ const integration = new Set([
   'article-pool-database.test.ts',
   'bluesky-storage.test.ts',
   'api-http.test.ts',
+  'preview-composition.test.ts',
   'accounts-schema.test.ts',
   'admin-write-admission-storage.test.ts',
   'reader-sync-storage.test.ts',

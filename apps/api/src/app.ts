@@ -66,7 +66,7 @@ class HealthController {
     PublicTopicsModule.prepare(process.env, database, true),
     PublicSourcesModule.prepare(process.env, database, true),
     OperationsModule.prepare(process.env),
-    DigestsModule,
+    DigestsModule.prepare(process.env),
     IngestionModule,
     ProfilesModule,
     TopicsModule,

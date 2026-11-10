@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1709: prepared default-off preview HTTP module; isolated GET/HEAD, pagination/UUID rejection, generic failure and private-operation exclusion checks pass. Routes remain uninstalled/admin-only; next compose reads without overlapping legacy handlers and adapt preview UI.
+- [x] Iteration 1710: composed default-off published-preview reads without legacy GET overlap; private cost/job/write handlers retained. Compiled-Nest HTTP checks cover both modes. Next adapt preview UI and verify anonymous authorization end to end.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

@@ -1,5 +1,7 @@
 # Progress
 
+[Iterations 1698–1699 archive](docs/progress-archive/2026-11-10-iterations-1698-1699.md).
+
 [Iterations 1696–1697 archive](docs/progress-archive/2026-11-10-iterations-1696-1697.md).
 
 [Iterations 1694–1695 archive](docs/progress-archive/2026-11-10-iterations-1694-1695.md).
@@ -11,23 +13,6 @@
 [Iteration 1625 archive](docs/progress-archive/2026-11-10-iterations-1625.md).
 
 Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.md); [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.md); [iteration 1616 and follow-up](docs/progress-archive/2026-11-10-1687.md); [iterations 1614–1615](docs/progress-archive/2026-11-10-1625.md); [iterations 1612–1613](docs/progress-archive/2026-11-10-1623.md); [iterations 1610–1611](docs/progress-archive/2026-11-10-1622.md); [iterations 1608–1609](docs/progress-archive/2026-11-10-1621.md); [iteration 1607](docs/progress-archive/2026-11-10-1620.md); [iterations 1605–1606](docs/progress-archive/2026-11-10-1619.md); [iteration 1604](docs/progress-archive/2026-11-10-1618.md); [iteration 1603](docs/progress-archive/2026-11-10-1616-follow-up.md); [iteration 1602](docs/progress-archive/2026-11-10-1616.md); [iteration 1601](docs/progress-archive/2026-11-10-1615.md); [iteration 1600](docs/progress-archive/2026-11-10-1614.md); [iteration 1599](docs/progress-archive/2026-11-10-1613.md); [iteration 1598](docs/progress-archive/2026-11-10-1611.md); [iteration 1597](docs/progress-archive/2026-11-10-1610.md); [iteration 1596](docs/progress-archive/2026-11-10-1608.md); [iteration 1595](docs/progress-archive/2026-11-10-1607.md); [iteration 1594](docs/progress-archive/2026-11-10-1606.md); [iteration 1593](docs/progress-archive/2026-11-10-1605.md); [iteration 1592](docs/progress-archive/2026-11-10-1604.md); [iteration 1591](docs/progress-archive/2026-11-10-1603.md); [iteration 1590](docs/progress-archive/2026-11-10-1602.md); [iteration 1589](docs/progress-archive/2026-11-10-1601.md); [iteration 1588](docs/progress-archive/2026-11-10-1600.md); [iteration 1587](docs/progress-archive/2026-11-10-1599.md); [iteration 1586](docs/progress-archive/2026-11-10-1598.md); [iterations 1584–1585](docs/progress-archive/2026-11-10-1597.md); [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-10: iteration 1698 — prepare public production budget totals
-
-- Clean main; no inherited work. Extended the uninstalled status projection with explicit production-only Anthropic/X budget schemas: UTC day/month charges, unresolved holds, caps and available allowance; X retains its blocked boolean.
-- Private call history, model/purpose details, provider errors, reserve outcomes, development pools and future fields stay excluded. Missing summaries remain absent; malformed supplied totals fail with generic 503. Adversarial unit and isolated HTTP checks pass.
-- Updated rollout review/TASKS: existing status UI requires private runs/errors/ledger/development fields; next is a separate public contract/rendering before composition, then preview/tools. Public mode remains off; Phase 3 awaits normal 15:00 UTC edition.
-- Verification: `pnpm format`, `pnpm lint:fix`, targeted status tests (5 passes), `pnpm check` (810 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build`, `git diff --check` pass. Saved-reader check verifies four topics/19 stories/14 posts; health database/Redis healthy, no failed user services.
-- Alert triage: RecentJobFailures is the existing GamingBolt incident; scheduled 13:16–13:20 UTC attempts timed out three times. Retained bounded retries; no direct source probe or configuration change.
-- No live provider calls, migrations, flags, deployment or restart during 13:00–16:00 UTC freeze; uninstalled additions leave running application behavior unchanged. Natural link expiry remains after Nov 11 00:33:01 UTC.
-
-## 2026-11-10: iteration 1699 — share the public status wire contract
-
-- Clean main; no inherited work. Added `PublicOperationsStatus` and its independent runtime schema to shared contracts. The uninstalled API projection derives its retained fields from this schema and converts private stored errors into `hasError`.
-- Round-trip checks reject private source shapes/malformed booleans, counts and budget summaries; nested private errors, URLs, job runs and development fields are stripped. No UI query/rendering or application composition enabled; next is public status rendering, then preview/tools.
-- Verification: `pnpm format`, `pnpm lint:fix`, six targeted status/HTTP tests, API and web builds pass. Full `pnpm check` passes (811 unit passes; 277 integration passes/four expected skips); `git diff --check` passes. Saved-reader check verifies four topics/19 stories/14 posts; `/healthz` database/Redis healthy, no failed user services, zero active alerts.
-- `sample-metrics-recovery.ts 1 2` at 13:33 UTC: 23 healthy rules, four queries ≤0.091 s, zero new evaluator errors/misses/timeouts/slow queries; no merge in short interval. Next probe ≥14:34 UTC; compaction recovery stays open.
-- GamingBolt incident remains open with bounded scheduled retries. No provider calls, live migrations, flag changes or service restarts during 13:00–16:00 UTC hold. Public mode off; Phase 3 awaits 15:00 UTC edition and natural link expiry after Nov 11 00:33:01 UTC.
 
 ## 2026-11-10: iteration 1700 — prepare public status rendering
 
@@ -123,3 +108,13 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Scheduled-reader check verifies Nov 10 four topics/19 stories/15 posts; health database/Redis good, no failed user units or active alerts. GamingBolt recovery remains open, no extra probe.
 - No provider calls, migrations, flags, deployments or restarts during 13:00–16:00 UTC hold. Full check result recorded below.
 - Final `pnpm check` passes static checks, 817 unit tests and 277 integration tests/four expected skips. Builds pass; final health good and no failed services. Commit/push only; deployment remains held until after 16:00 UTC.
+
+## 2026-11-10: iteration 1710 — compose gated published preview reads
+
+- Clean main; no inherited work. Public-mode digest composition now selects published-only history/latest/detail with no legacy read overlap, sharing the existing repository lifetime. Public mode remains off.
+- Split private cost/job/generation handlers from legacy reads; default-off routes retain their responses. Compiled-Nest HTTP rehearsal verifies both selections, mandatory publication arguments and retained private handlers; transport checks pass. No UI change.
+- Updated TASKS and rollout review; next adapt preview UI and run complete anonymous authorization rehearsal. Phase 3 still awaits a normal scheduled edition; natural link expiry after Nov 11 00:33:01 UTC. Archived 1698–1699.
+- `pnpm build`, targeted preview HTTP/composition tests, `pnpm format`, `pnpm lint:fix` and `git diff --check` pass. Full `pnpm check` result below.
+- Scheduled-reader check verifies Nov 10 four topics/19 stories/15 posts. Health database/Redis good; no failed user units or active alerts. GamingBolt recovery remains open under bounded scheduled retries; no direct probe.
+- No provider calls, migrations, flag changes, deploys or restarts during 13:00–16:00 UTC hold. Commit/push only; deploy prepared main after 16:00 UTC.
+- Final `pnpm check` passes static checks, 817 unit tests and 278 integration tests/four expected skips. Builds pass; final health good and no failed services. Deployment/restart remains held until after 16:00 UTC.

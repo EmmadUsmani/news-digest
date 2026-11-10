@@ -3,6 +3,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  type DynamicModule,
   Get,
   HttpCode,
   Module,
@@ -13,6 +14,12 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { PublicPreviewReads } from '../../public-read/previews';
+import {
+  PUBLIC_PREVIEWS,
+  PublicPreviewsController,
+} from '../../public-read/previews.controller';
+import { publicPreviewsEnabled } from '../../public-read/previews.module';
 import { LogDigestNotifications } from './adapters/digest-notifications';
 import { BullEditionJobs } from './adapters/edition-jobs';
 import { PostgresEditionJobFailures } from './database/edition-job-failures';
@@ -25,21 +32,11 @@ import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 import { ReaderEditionController } from './reader-edition.controller';
 @Controller('api/admin/digest-previews')
-export class PreviewController {
+export class PreviewOperationsController {
   constructor(
-    private readonly repository: PreviewRepository,
+    protected readonly repository: PreviewRepository,
     private readonly jobs: EditionJobs,
   ) {}
-  @Get() history(@Query('offset') offset = '0') {
-    if (!/^(0|[1-9]\d{0,6})$/.test(offset))
-      throw new BadRequestException(
-        'Use a nonnegative offset of at most 9999999',
-      );
-    return this.repository.history(Number(offset));
-  }
-  @Get('latest') latest() {
-    return this.repository.latest();
-  }
   @Get('jobs/:id') async job(@Param('id') id: string) {
     if (!editionJobIdSchema.safeParse(id).success)
       throw new NotFoundException('Job not found');
@@ -87,11 +84,6 @@ export class PreviewController {
       throw new NotFoundException('Edition not found');
     return this.repository.cost(id);
   }
-  @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
-    const snapshot = await this.repository.find(id);
-    if (!snapshot) throw new NotFoundException('Edition not found');
-    return snapshot;
-  }
   @Post() generate(@Body() body: unknown) {
     const { start, end } = this.window(body);
     return this.repository.generate(start, end);
@@ -111,8 +103,26 @@ export class PreviewController {
     return { start, end };
   }
 }
+@Controller('api/admin/digest-previews')
+export class PreviewController extends PreviewOperationsController {
+  @Get() history(@Query('offset') offset = '0') {
+    if (!/^(0|[1-9]\d{0,6})$/.test(offset))
+      throw new BadRequestException(
+        'Use a nonnegative offset of at most 9999999',
+      );
+    return this.repository.history(Number(offset));
+  }
+  @Get('latest') latest() {
+    return this.repository.latest();
+  }
+  @Get(':id') async find(@Param('id', new ParseUUIDPipe()) id: string) {
+    const snapshot = await this.repository.find(id);
+    if (!snapshot) throw new NotFoundException('Edition not found');
+    return snapshot;
+  }
+}
 @Module({
-  controllers: [PreviewController, ReaderEditionController],
+  controllers: [ReaderEditionController],
   providers: [
     { provide: EditionJobFailures, useClass: PostgresEditionJobFailures },
     { provide: EditionJobRequests, useClass: PostgresEditionJobRequests },
@@ -121,4 +131,24 @@ export class PreviewController {
     { provide: PreviewRepository, useClass: PostgresPreviewRepository },
   ],
 })
-export class DigestsModule {}
+export class DigestsModule {
+  static prepare(
+    env: Readonly<Record<string, string | undefined>>,
+  ): DynamicModule {
+    // Validate before Nest constructs repositories; use the same transport gate.
+    if (!publicPreviewsEnabled(env))
+      return { module: DigestsModule, controllers: [PreviewController] };
+    return {
+      module: DigestsModule,
+      controllers: [PreviewOperationsController, PublicPreviewsController],
+      providers: [
+        {
+          provide: PUBLIC_PREVIEWS,
+          inject: [PreviewRepository],
+          useFactory: (repository: PreviewRepository) =>
+            new PublicPreviewReads(repository),
+        },
+      ],
+    };
+  }
+}
