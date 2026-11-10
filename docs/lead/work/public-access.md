@@ -23,9 +23,9 @@ behind flags.
 
 **Next:**
 
-1. Two-device test: the mailbox command crashed for the owner (top-level
-   await in `scripts/read-login-mailbox.ts`). Lead gave a tested workaround.
-   Proposed steering: fix the script and run every owner command first.
+1. Two-device test under way (owner, Nov 10) with the lead's mailbox
+   workaround. Steered under item 50: fix the script, run owner commands
+   first, mention exe.dev's sign-in page for a second browser.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
