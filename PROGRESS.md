@@ -149,5 +149,5 @@
 - Disposable real reader/writer logins verify missing status, replacement, database-failure rollback retaining old capture time and recovery advancing it. Existing role isolation and lock-timeout checks pass.
 - No live schema/role grants, exporter, credentials, datasource or public activation; no paid calls. Transport/TLS, freshness panels/alerts, capacity and rendering/query gates remain.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit; 280 integration passed/four expected skips), `pnpm build`, handbook (18 pages/22 diagrams) and `git diff --check` pass.
-- Deployed account boundary: 32 checks pass; scheduled reader four topics/19 stories/15 posts. Push then API/worker restart and post-deploy health/reader/alerts checks.
+- Pushed `0c1056ec`; API/worker restarted active; health and 32 account-boundary checks pass; reader four topics/19 stories/15 posts. RecentJobFailures reflects GamingBolt timeouts; scheduled third attempt recovered HTTP 200 at 20:20:05 UTC (406 ms), before restart.
 - Next: Phase 4 export transport and freshness consumer; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.

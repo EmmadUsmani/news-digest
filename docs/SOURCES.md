@@ -2414,3 +2414,7 @@ saved-text fallback. No source changes or provider calls.
 - GamingBolt scheduled collection recovered at 17:17:58 UTC: 10 items, 169 stored. Existing endpoint and bounded retries unchanged.
 - PC Gamer exhausted three scheduled attempts at 17:35 UTC because its valid RSS grew to 2,013,022 bytes, just above the previous response cap. HTTP 200; no access denial.
 - Shared feed HTTP wire and expanded-response limits are now 3 MB. Existing timeout, redirects, rate limiting, decompression checks and 60-item parse limit remain. Live adapter fetch parses 50 dated items; no provider calls.
+
+## 2026-11-10 iteration 1734 — GamingBolt retry recovery
+
+- Scheduled collection hit two 20-second timeouts at 20:16–20:18 UTC; the existing third attempt succeeded at 20:20:05 UTC (HTTP 200, 406 ms total). No endpoint or retry change. The ten-minute job-failure alert retains the earlier failed attempts temporarily.
