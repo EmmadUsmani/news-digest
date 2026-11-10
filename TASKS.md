@@ -36,6 +36,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1601: prepared public API limiter configuration validates trusted peers/key before Redis acquisition, retains verified last-entry selection and owns idempotent shutdown. HTTP checks cover forged prefixes, no-client/dependency refusal and health/static bypass. Still unregistered; next wire it into public runtime with startup-failure cleanup before Phase 4 rehearsal.
+
 - [x] Iteration 1600: due passive metrics probe passes; no new evaluator errors/misses, 23 healthy rules and four queries ≤0.590 s. No natural merge during interval; recovery gate remains open. Sources 36/36 healthy; next scheduled edition Nov 10 15:00 UTC.
 
 - [x] Iteration 1599: natural 24-hour link expiry staged privately; stored lifetime/unconsumed state/no reader identity and early pending refusal verified. Final redemption check due Nov 11 00:33:01 UTC.

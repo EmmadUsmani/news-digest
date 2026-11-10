@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Prepared API-admission configuration (iteration 1601) reuses the verified
+last-entry visitor selector and account secret with the limiter’s separate HMAC
+namespace. It validates peers and the key before acquiring Redis, owns idempotent
+shutdown, and opens no resources with public mode off. The configured adapter
+remains unregistered pending runtime composition and Phase 4 acceptance.
+
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
 the largest year its ISO timestamp storage accepts. Larger clocks return an
 empty no-store 400 before storage; epoch and maximum accepted clocks round-trip
