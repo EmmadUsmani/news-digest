@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1733: prepared published-only aggregate producer; disposable privacy, UTC/retention, malformed snapshots and disabled-source checks; uninstalled, public mode off.
+- [x] Iteration 1734: prepared atomic export capture timestamp; initial absence, replacement, rollback and recovery checked with disposable logins; uninstalled, public mode off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

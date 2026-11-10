@@ -50,11 +50,12 @@ export async function refreshExport(
     await client.query('BEGIN');
     // Serialize replacement so competing refreshes cannot mix snapshots.
     await client.query(
-      'LOCK TABLE grafana_public.published_editions, grafana_public.published_content, grafana_public.source_summary IN EXCLUSIVE MODE',
+      'LOCK TABLE grafana_public.published_editions, grafana_public.published_content, grafana_public.source_summary, grafana_public.export_status IN EXCLUSIVE MODE',
     );
     await client.query('DELETE FROM grafana_public.published_content');
     await client.query('DELETE FROM grafana_public.published_editions');
     await client.query('DELETE FROM grafana_public.source_summary');
+    await client.query('DELETE FROM grafana_public.export_status');
     for (const row of snapshot.days) {
       await client.query(
         'INSERT INTO grafana_public.published_editions VALUES ($1,$2)',
@@ -68,6 +69,11 @@ export async function refreshExport(
     await client.query(
       'INSERT INTO grafana_public.source_summary VALUES (true,$1,$2,$3)',
       [snapshot.sources, snapshot.enabled, snapshot.errors],
+    );
+    // Capture time belongs to the snapshot, never a later retry or read.
+    await client.query(
+      'INSERT INTO grafana_public.export_status VALUES (true,$1)',
+      [now.toISOString()],
     );
     await client.query('COMMIT');
   } catch (error) {

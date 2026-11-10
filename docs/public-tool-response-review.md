@@ -192,3 +192,16 @@ Grafana reader. No producer is registered or scheduled, and no live grants chang
 Disposable tests verify private-marker exclusion, published counts, empty/malformed
 snapshots, future-day exclusion and retention boundaries. Transport/TLS, credentials,
 freshness, capacity and Grafana query/rendering acceptance remain open.
+
+## Prepared export freshness (iteration 1734)
+
+The separate store now has one `export_status.captured_at` timestamp, committed
+atomically with all counts. An empty status table means no successful export.
+The trusted caller supplies the capture time before producing the snapshot and
+must preserve it across retries; reads never advance it. Failed replacement or
+lock timeout preserves the previous timestamp together with the previous counts.
+Only this timestamp is exposed, with no identifiers or raw error text.
+
+Disposable real-login checks cover initial absence, successful replacement,
+rollback and recovery. This remains uninstalled. Freshness panels/alerts and
+transport/TLS, capacity and provisioning checks remain before activation.

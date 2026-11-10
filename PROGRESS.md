@@ -141,3 +141,13 @@
 - No producer registration, schedule, live grants, exporter, credentials, transport, datasource or public activation; no paid calls. Transport/TLS, freshness, capacity and Grafana query/rendering gates remain.
 - Verification: format/lint fix, full check, build, handbook and diff checks; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips; build/handbook pass. Push then API/worker restart and post-deploy health/reader/alerts checks.
 - Next: Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.
+
+## 2026-11-10: iteration 1734 — prepare atomic aggregate export freshness
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis healthy. Nov 11 NBA scheduled acceptance remains pending.
+- Prepared separate-store `export_status` capture timestamp, replaced in the same locked transaction as all counts; no status row means no successful export. Caller must preserve capture time across retries.
+- Disposable real reader/writer logins verify missing status, replacement, database-failure rollback retaining old capture time and recovery advancing it. Existing role isolation and lock-timeout checks pass.
+- No live schema/role grants, exporter, credentials, datasource or public activation; no paid calls. Transport/TLS, freshness panels/alerts, capacity and rendering/query gates remain.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit; 280 integration passed/four expected skips), `pnpm build`, handbook (18 pages/22 diagrams) and `git diff --check` pass.
+- Deployed account boundary: 32 checks pass; scheduled reader four topics/19 stories/15 posts. Push then API/worker restart and post-deploy health/reader/alerts checks.
+- Next: Phase 4 export transport and freshness consumer; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.

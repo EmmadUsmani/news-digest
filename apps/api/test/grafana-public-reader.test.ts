@@ -273,6 +273,18 @@ void test('separate Grafana export instance contains only aggregates under a rea
       enabled: 36,
       errors: 0,
     };
+    // Missing status means no successful export, even if counts exist.
+    assert.equal(
+      (await reader.query('SELECT * FROM grafana_public.export_status'))
+        .rowCount,
+      0,
+    );
+    const capturedAt = async () =>
+      (
+        await reader.query(
+          'SELECT captured_at FROM grafana_public.export_status',
+        )
+      ).rows[0].captured_at.toISOString();
     const now = new Date('2099-11-10T19:00:00Z');
     await owner.query(
       "INSERT INTO grafana_public.published_editions VALUES ('2090-01-01',99)",
@@ -292,12 +304,17 @@ void test('separate Grafana export instance contains only aggregates under a rea
       [{ ...snapshot.days[0], stories: -1 }],
     ])
       await assert.rejects(refreshExport(writer, { ...snapshot, days }, now));
+    assert.equal(await capturedAt(), now.toISOString());
     // A database failure after deletes must retain the entire prior snapshot.
     await owner.query(
       'ALTER TABLE grafana_public.source_summary ADD CONSTRAINT test_failure CHECK (errors = 0)',
     );
     await assert.rejects(
-      refreshExport(writer, { ...snapshot, days: [], errors: 1 }, now),
+      refreshExport(
+        writer,
+        { ...snapshot, days: [], errors: 1 },
+        new Date('2099-11-10T20:00:00Z'),
+      ),
     );
     assert.equal(
       (await reader.query('SELECT * FROM grafana_public.published_content'))
@@ -309,6 +326,7 @@ void test('separate Grafana export instance contains only aggregates under a rea
         .rows[0].errors,
       0,
     );
+    assert.equal(await capturedAt(), now.toISOString());
     await owner.query(
       'ALTER TABLE grafana_public.source_summary DROP CONSTRAINT test_failure',
     );
@@ -374,12 +392,20 @@ void test('separate Grafana export instance contains only aggregates under a rea
         .rowCount,
       1,
     );
-    await refreshExport(writer, snapshot, now);
+    assert.equal(await capturedAt(), now.toISOString());
+    const recoveredAt = new Date('2099-11-10T21:00:00Z');
+    await refreshExport(writer, snapshot, recoveredAt);
+    assert.equal(await capturedAt(), recoveredAt.toISOString());
     const tables = await reader.query(`SELECT tablename FROM pg_tables
       WHERE schemaname NOT IN ('pg_catalog','information_schema') ORDER BY tablename`);
     assert.deepEqual(
       tables.rows.map((row) => row.tablename),
-      ['published_content', 'published_editions', 'source_summary'],
+      [
+        'export_status',
+        'published_content',
+        'published_editions',
+        'source_summary',
+      ],
     );
     assert.equal(
       (await reader.query("SELECT to_regclass('public.users') AS users"))
