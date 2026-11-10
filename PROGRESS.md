@@ -152,3 +152,11 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 09-observability` and live scheduled-reader check pass (four topics/19 stories/15 posts). Full check/deployment results follow.
 - Next: remaining public dashboard aggregates, inherited function/catalog access and datasource/query-route review.
 - Full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips, including prepared Grafana SQL coverage. Build and handbook checks pass; `git diff --check` clean. Commit/push and API/worker restart follow; prepared SQL remains unapplied.
+
+## 2026-11-10: iteration 1719 — prepare projection-only public Grafana overview
+
+- Clean main; no inherited work. Health/database/Redis pass, no failed user services and zero active alerts. GamingBolt recovery remains open under bounded scheduled retries.
+- Prepared a separate uninstalled three-panel public dashboard: daily published edition/content totals (latest 30 publication days) and aggregate current source health. Dedicated datasource UID is not provisioned; private operational dashboards unchanged.
+- Disposable SQL coverage executes every exact panel query as the public role, checks bounded rows/output fields, known publication totals and private/error marker exclusion. Updated rollout/readiness and observability handbook.
+- No runtime routes, live migrations, role changes or provider calls. Public mode remains off; Phase 3 awaits next normal scheduled edition. Isolated Grafana rendering/browser traces and datasource/catalog/function/query-route review remain before installation.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` (819 unit tests, 279 integration tests/four expected skips), `pnpm build`, `check-handbook.ts 09-observability`, scheduled-reader check (four topics/19 stories/15 posts) and `git diff --check` pass. Commit/push and post-16:00 API/worker restart follow.

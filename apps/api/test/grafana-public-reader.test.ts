@@ -86,6 +86,48 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
       true,
     );
     assert.doesNotMatch(JSON.stringify([editions.rows, health.rows]), /marker/);
+    // Execute the candidate dashboard's exact SQL through its intended role.
+    // The file lives outside the provisioned dashboard directory.
+    const dashboard = JSON.parse(
+      readFileSync(
+        'ops/observability/grafana/prepared/public-overview.json',
+        'utf8',
+      ),
+    );
+    assert.equal(dashboard.editable, false);
+    assert.equal(dashboard.panels.length, 3);
+    for (const panel of dashboard.panels) {
+      assert.equal(panel.datasource.uid, 'public-product-postgres');
+      assert.equal(panel.targets.length, 1);
+      const result = await client.query(panel.targets[0].rawSql);
+      assert.ok(result.rowCount! > 0);
+      assert.ok(result.rowCount! <= 30);
+      assert.doesNotMatch(JSON.stringify(result.rows), /marker/);
+      if (panel.id === 1) {
+        assert.deepEqual(
+          result.fields.map((field) => field.name),
+          ['day_utc', 'editions'],
+        );
+      } else if (panel.id === 2) {
+        assert.deepEqual(
+          result.rows.find((row) =>
+            row.day_utc.toISOString().startsWith('2099-11-11'),
+          ),
+          {
+            day_utc: new Date('2099-11-11T00:00:00Z'),
+            topics: '2',
+            stories: '1',
+            posts: '2',
+          },
+        );
+      } else {
+        assert.deepEqual(
+          result.fields.map((field) => field.name),
+          ['sources', 'enabled', 'errors'],
+        );
+        assert.ok(Number(result.rows[0].errors) >= 1);
+      }
+    }
     for (const query of [
       'SELECT snapshot FROM public.digest_previews',
       'SELECT last_error FROM public.content_sources',

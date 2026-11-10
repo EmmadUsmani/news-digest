@@ -89,3 +89,22 @@ Existing dashboard SQL must still be rewritten before using the public role:
 latest-edition modes, selection coverage and social-platform panels read raw
 snapshots; spend, ledger, X calls and reserve panels expose internal activity.
 No existing panel is approved merely because its datasource is read-only.
+
+## Prepared public overview dashboard (iteration 1719)
+
+`ops/observability/grafana/prepared/public-overview.json` is outside the
+installed dashboard directory. It uses only the separate
+`public-product-postgres` datasource UID, which is not provisioned yet.
+Its three table panels show the latest 30 publication days of edition/content
+counts and current aggregate source health. The time picker does not filter
+these tables; the description states their fixed scope.
+
+Disposable PostgreSQL coverage executes every panel's exact SQL as
+`grafana_public_product`, checking bounded results, publication counts and
+private/error-marker exclusion. No raw snapshots, ledger, reserve, social
+identifiers or metrics datasource are used. This is the candidate public
+replacement for the operational dashboard set; the existing private dashboards
+must never be copied into a public instance or exposed through its datasource.
+Rendering and browser request traces remain unverified until an isolated
+Grafana rehearsal. Datasource isolation, inherited function/catalog access,
+metrics labels and query-route admission remain open before installation.

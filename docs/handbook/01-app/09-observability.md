@@ -1,7 +1,7 @@
 # Observability
 
 A small, free monitoring stack runs on the VM. It is private: the UIs sit
-behind the exe.dev login, and every store listens only on `127.0.0.1`. The prepared public SQL reader exposes published daily edition/content counts and bounded source health. It is uninstalled; public tool routes stay closed.
+behind the exe.dev login, and every store listens only on `127.0.0.1`. The prepared public SQL reader exposes published daily edition/content counts and bounded source health. A separate prepared overview uses those projections for three aggregate tables. Both are uninstalled; public tool routes stay closed.
 
 ```mermaid
 flowchart LR
