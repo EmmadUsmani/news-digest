@@ -1,7 +1,7 @@
 // Explicit STEERING 54 replay; never imported by runtime or tests.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 
 import { runEventGroupingEvaluationOnce } from '../apps/api/scripts/event-grouping-evaluation-once';
 import { database } from '../apps/api/src/libs/db/connections';
@@ -59,61 +59,79 @@ async function main() {
   assert.equal(process.env.LLM_LIVE, '1');
   assert.ok(process.env.ANTHROPIC_API_KEY);
   await mkdir(directory, { recursive: true, mode: 0o700 });
-  const db = database();
-  const runId = 'item-54-nba-' + randomUUID();
-  let reserved = 0;
-  let calls = 0;
-  const shared = configuredLlmLedger(db, config.caps, true);
-  const ledger: LlmLedger = {
-    reserve(request, estimate) {
-      assert.equal(request.runId, runId);
-      assert.equal(request.purpose, 'shortlist-editor-v13');
-      assert.ok(Number.isSafeInteger(estimate) && estimate > 0);
-      const hour = new Date().getUTCHours();
-      assert.ok(hour < 13 || hour >= 16);
-      if (estimate > 100000 - reserved) return Promise.resolve(null);
-      reserved += estimate; // Never refund uncertain or refused reservations.
-      return shared.reserve(request, estimate);
-    },
-    settle: (id, usage, cost) => shared.settle(id, usage, cost),
-    fail: (id, code, limit, uncertain) =>
-      shared.fail(id, code, limit, uncertain),
-    cached: () => Promise.resolve(undefined),
-    cache: () => Promise.resolve(), // Keep replay out of production cache.
-  };
-  const provider = new AnthropicLlmAdapter(process.env.ANTHROPIC_API_KEY);
-  const llm = new BudgetedLlm(
-    {
-      async complete(request) {
-        const response = await provider.complete(request);
-        calls++;
-        await writeFile(
-          `${directory}/response-${calls}.json`,
-          JSON.stringify({ request, response }, null, 2),
-          { mode: 0o600, flag: 'wx' },
-        );
-        return response;
-      },
-    },
-    ledger,
+  // Keep the original failed claim forever. Recovery has its own fixed,
+  // exclusive claim and is allowed only for the audited pre-provider failure.
+  assert.equal(
+    await readFile(`${directory}/item-27-evaluation.claim`, 'utf8'),
+    'Owner-authorized item 27 evaluation claimed\n',
   );
+  assert.deepEqual((await readdir(directory)).sort(), [
+    'item-27-evaluation.claim',
+  ]);
+  const db = database();
   try {
-    const report = await runEventGroupingEvaluationOnce(directory, async () => {
-      const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
-      const result = await editor.edit(
-        input.topic,
-        input.candidates,
-        input.budget,
-        runId,
-      );
-      return {
-        runId,
-        reserved,
-        calls,
-        result,
-        diagnostics: llm.validationDiagnostics(),
-      };
-    });
+    const prior = await db.query('SELECT id FROM llm_calls WHERE run_id = $1', [
+      'item-54-nba-8837dd87-743a-4def-b3d9-194f3a0795e6',
+    ]);
+    assert.equal(prior.rows.length, 0);
+    const recoveryDirectory = `${directory}/unspent-recovery`;
+    await mkdir(recoveryDirectory, { mode: 0o700 });
+    const runId = 'item-54-nba-' + randomUUID();
+    let reserved = 0;
+    let calls = 0;
+    const shared = configuredLlmLedger(db, config.caps, true);
+    const ledger: LlmLedger = {
+      reserve(request, estimate) {
+        assert.equal(request.runId, runId);
+        assert.equal(request.purpose, 'shortlist-editor-v13');
+        assert.ok(Number.isSafeInteger(estimate) && estimate > 0);
+        const hour = new Date().getUTCHours();
+        assert.ok(hour < 13 || hour >= 16);
+        if (estimate > 100000 - reserved) return Promise.resolve(null);
+        reserved += estimate; // Never refund uncertain or refused reservations.
+        return shared.reserve(request, estimate);
+      },
+      settle: (id, usage, cost) => shared.settle(id, usage, cost),
+      fail: (id, code, limit, uncertain) =>
+        shared.fail(id, code, limit, uncertain),
+      cached: () => Promise.resolve(undefined),
+      cache: () => Promise.resolve(), // Keep replay out of production cache.
+    };
+    const provider = new AnthropicLlmAdapter(process.env.ANTHROPIC_API_KEY);
+    const llm = new BudgetedLlm(
+      {
+        async complete(request) {
+          const response = await provider.complete(request);
+          calls++;
+          await writeFile(
+            `${recoveryDirectory}/response-${calls}.json`,
+            JSON.stringify({ request, response }, null, 2),
+            { mode: 0o600, flag: 'wx' },
+          );
+          return response;
+        },
+      },
+      ledger,
+    );
+    const report = await runEventGroupingEvaluationOnce(
+      recoveryDirectory,
+      async () => {
+        const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
+        const result = await editor.edit(
+          input.topic,
+          input.candidates,
+          input.budget,
+          runId,
+        );
+        return {
+          runId,
+          reserved,
+          calls,
+          result,
+          diagnostics: llm.validationDiagnostics(),
+        };
+      },
+    );
     console.log(
       JSON.stringify({
         runId,

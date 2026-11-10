@@ -846,3 +846,188 @@ void test('NBA mixed validation failures exhaust four calls while supported repa
     assert.deepEqual(repaired.diagnostics(), [h.diagnostics()[0]]);
   }
 });
+
+void test('Nov 10 NBA replay: unsupported timeline fails, verbatim injury reporting passes', async () => {
+  const injury =
+    'The Golden State Warriors announced that guard Will Richard is out indefinitely with a torn UCL in his left thumb.';
+  const nba = { ...topic, name: 'NBA' };
+  const input = [
+    {
+      ...candidates[0],
+      title:
+        'Warriors guard Will Richard out indefinitely with ligament tear in thumb',
+      excerpt: injury,
+    },
+  ];
+  const output = {
+    brief: [injury, 'Golden State announced a thumb injury to Will Richard.'],
+    stories: [
+      {
+        ...story,
+        headline: input[0].title,
+        summary: injury,
+        whyItMatters:
+          'The announced injury is a serious new absence for a Warriors guard with no return timeline given.',
+        rationale: 'Serious new injury announced by the team.',
+      },
+    ],
+  };
+  const rejected = harness([output]);
+  assert.equal(await rejected.editor.edit(nba, input, 1, 'nba-timeline'), null);
+  assert.ok(
+    rejected
+      .diagnostics()
+      .every(
+        (d) =>
+          d.category === 'unsupported-absence' && d.field === 'whyItMatters',
+      ),
+  );
+  const corrected = {
+    ...output,
+    stories: [
+      {
+        ...output.stories[0],
+        whyItMatters: 'The announced injury sidelines a Golden State guard.',
+      },
+    ],
+  };
+  assert.ok(
+    await harness([corrected]).editor.edit(nba, input, 1, 'nba-supported'),
+  );
+});
+
+void test('Nov 10 NBA replay: exact Hornets absence sentence passes; paraphrased headline remains guarded', async () => {
+  const sentence =
+    'Charlotte won without three starters, a day after learning Kon Knueppel and Dennis Schröder face more time out.';
+  const input = [
+    {
+      ...candidates[0],
+      title:
+        'Hornets snap six-game skid against Cavaliers a day after Knueppel and Schröder injury news',
+      excerpt: sentence,
+    },
+  ];
+  const output = {
+    brief: [sentence, 'Charlotte snapped a six-game losing streak.'],
+    stories: [
+      {
+        ...story,
+        headline: input[0].title,
+        summary: sentence,
+        whyItMatters: 'Charlotte ends its losing streak amid starter injuries.',
+        rationale: 'Team result amid injuries.',
+      },
+    ],
+  };
+  assert.ok(
+    await harness([output]).editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nba-verbatim',
+    ),
+  );
+  const rejected = harness([
+    {
+      ...output,
+      stories: [
+        {
+          ...output.stories[0],
+          headline:
+            'Hornets snap six-game skid against Cavaliers without three starters',
+        },
+      ],
+    },
+  ]);
+  assert.equal(
+    await rejected.editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nba-headline',
+    ),
+    null,
+  );
+  assert.ok(rejected.diagnostics().every((d) => d.field === 'headline'));
+});
+
+void test('Nov 10 NBA repair: five factual brief bullets still fail the four-bullet contract', async () => {
+  // Actual second replay response had five bullets (127/106/101/94/103 chars),
+  // five stories, valid JSON and no negative markers; the array bound rejected it.
+  const brief = [
+    'Luka Doncic scored 32 points with 10 assists as the Lakers beat the Hawks 124-114, extending their winning streak to six games.',
+    'The Warriors have won eight straight games after a blowout of the Pelicans, according to Yahoo Sports NBA.',
+    'Golden State announced that guard Will Richard is out indefinitely with a torn UCL in his left thumb.',
+    "Hornets coach Charles Lee said Brandon Miller's right hip strain is expected to be short-term.",
+    "Anthony Davis scored 44 points in the Wizards' 122-111 loss to the Pistons, falling to 4-7 this season.",
+  ];
+  const h = harness([{ ...valid, brief }]);
+  assert.equal(
+    await h.editor.edit(topic, candidates, 1, 'nba-five-bullets'),
+    null,
+  );
+  assert.ok(
+    h
+      .diagnostics()
+      .every(
+        (d) =>
+          d.category === 'invalid-schema' &&
+          d.schemaIssues?.includes('too_big'),
+      ),
+  );
+  assert.ok(
+    await harness([{ ...valid, brief: brief.slice(0, 4) }]).editor.edit(
+      topic,
+      candidates,
+      1,
+      'nba-four-bullets',
+    ),
+  );
+});
+
+void test('Nov 10 NBA replay: attributed Lee absence report passes without shortening the quote', async () => {
+  const sentence =
+    "Charlotte coach Charles Lee said he doesn't expect Brandon Miller to miss much time with a right hip strain.";
+  const input = [
+    {
+      ...candidates[0],
+      title: 'Charles Lee Expects Brandon Miller Back Soon',
+      excerpt:
+        sentence +
+        ' "I don\'t think this is gonna be something that takes a while," Lee said.',
+    },
+  ];
+  const output = { ...valid, stories: [{ ...story, summary: sentence }] };
+  assert.ok(
+    await harness([output]).editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nba-lee-exact',
+    ),
+  );
+  const shortened =
+    'Lee said, "I don\'t think it\'s gonna be a long-term thing," and that Miller has shown progress since being hurt in a blowout loss to the Boston Celtics.';
+  const rejected = harness([
+    {
+      ...output,
+      stories: [{ ...output.stories[0], summary: sentence + ' ' + shortened }],
+    },
+  ]);
+  assert.equal(
+    await rejected.editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nba-lee-shortened',
+    ),
+    null,
+  );
+  assert.ok(
+    rejected
+      .diagnostics()
+      .every(
+        (d) => d.category === 'unsupported-absence' && d.field === 'summary',
+      ),
+  );
+});

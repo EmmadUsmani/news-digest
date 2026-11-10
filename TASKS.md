@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54 (new owner priority): diagnose Nov 10 NBA rejected editor sentences from saved inputs/replays; retain absence guard/fallback, save rejected responses with reasons, add real-sentence tests and deploy before Nov 11 noon UTC. Private bounded rejected-response capture deployed (1723); Reconstruction (1725) proves the unmatched Tatum/Brown preview ranks below forty verified inputs; exact historical grouping cache validates and ten editor candidates/two initial requests are captured privately. Replay tool added (1726); offline admission preflight passes. First claim stopped before reservation/provider call because cache bypass returned null; corrected to undefined. Durable claim retained; audit confirms zero ledger rows for run item-54-nba-8837dd87-743a-4def-b3d9-194f3a0795e6. Recover this proven-unspent claim safely before paid replay; real-sentence diagnosis remains next. Anthropic replay cap $0.10 total, $0 spent in 1723. Takes priority over Phase 4.
+- [ ] STEERING 54: diagnose/fix NBA editing before Nov 11 noon; guard/fallback retained. Historical editor input reconstructed (1725). Safe single-use recovery replay (1727) saved two real Haiku responses/diagnostics privately; Sonnet refused by shared verification cap. Actual spend **$0.003913/$0.10**. Initial output invents “no return timeline given” (correct absence rejection); supported Hornets headline paraphrase also fails verbatim guard. Repair has five brief bullets (max four), valid JSON. Four real-sentence regression tests cover the captured failures. No runtime fix yet: next improve NBA generation/repair, offline-verify saved responses, then demonstrate validated bounded replay and deploy. Original lost Nov 10 output/invalid-JSON cause remain unknown. [Diagnosis](docs/edition-reviews/2026-11-10.md#bounded-nba-response-replay--iteration-1727). Takes priority over Phase 4.
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1726: added bounded NBA replay tool and verified offline admission; corrected cache-miss sentinel after zero-spend pre-provider stop. Durable claim retained for safe recovery.
+- [x] Iteration 1727: safely recovered unspent NBA claim; captured two paid responses, named actual rejection causes and added real-sentence regressions. Runtime correction remains next.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
