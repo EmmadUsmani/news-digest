@@ -125,3 +125,4 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm exec tsx scripts/smoke-public-preview-detail.ts`, `git diff --check` and scheduled-reader check pass (four topics/19 stories/15 posts). Full check/build results and deployment follow below.
 - Health/database/Redis good; no failed user services or active alerts. No provider calls, migrations or public flag changes.
 - Final TTY `pnpm check` passes: 818 unit tests, 278 integration tests/four expected skips; build passes. Initial non-TTY run terminated during integration cleanup; complete TTY rerun exits zero. No code change required.
+- Pushed `daa828f0`; restarted API/worker after 16:00 UTC. Immediate startup probes preceded listening; repeat health/database/Redis and scheduled-reader checks pass, no failed units. `RecentJobFailures` now fires for existing scheduled GamingBolt 20-second timeouts (journal confirms bounded retries); source incident remains open.
