@@ -25,8 +25,8 @@ exe.dev). Phase 3 closes when the Nov 10 edition publishes normally. Phase 4
 1. Check the Nov 10 edition publishes normally, then the agent's phase 3 ack.
    Also its ack for the mailbox script fix, and the link expiry after 00:33
    UTC Nov 11.
-2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
-   small request-hardening commits, restarting API and worker after most.
+2. Steered Nov 10: migration 0019 stays rehearsal-only until phase 3 is
+   accepted; spare time goes to item 42, not small hardening. Check overnight.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
 4. Phase 4: lead security review before the owner decides to go public.
 
