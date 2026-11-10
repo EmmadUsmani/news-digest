@@ -1031,3 +1031,62 @@ void test('Nov 10 NBA replay: attributed Lee absence report passes without short
       ),
   );
 });
+
+void test('NBA repair recovers five-bullet response within the unchanged brief bound', async () => {
+  const brief = [
+    'Luka Doncic scored 32 points with 10 assists as the Lakers beat the Hawks 124-114, extending their winning streak to six games.',
+    'The Warriors have won eight straight games after a blowout of the Pelicans, according to Yahoo Sports NBA.',
+    'Golden State announced that guard Will Richard is out indefinitely with a torn UCL in his left thumb.',
+    "Hornets coach Charles Lee said Brandon Miller's right hip strain is expected to be short-term.",
+    "Anthony Davis scored 44 points in the Wizards' 122-111 loss to the Pistons, falling to 4-7 this season.",
+  ];
+  const inputs = brief.map((text, index) => ({
+    id: String(index),
+    title: text,
+    excerpt: text,
+    sources: ['NBA reporting'],
+  }));
+  const stories = inputs.map((input) => ({
+    id: input.id,
+    evidenceIds: [input.id],
+    headline: input.title,
+    summary: input.excerpt,
+    whyItMatters: input.excerpt,
+    rationale: input.excerpt,
+  }));
+  const h = harness([
+    { brief, stories },
+    { brief: brief.slice(0, 4), stories },
+  ]);
+  const result = await h.editor.edit(
+    { ...topic, name: 'NBA' },
+    inputs,
+    5,
+    'nba-count-repair',
+  );
+  assert.equal(result?.stories.length, 5);
+  assert.equal(result?.brief.length, 4);
+  assert.equal(h.calls.length, 2);
+  assert.equal(h.diagnostics()[0].category, 'invalid-schema');
+  assert.deepEqual(h.diagnostics()[0].schemaIssues, ['too_big']);
+  for (const call of h.calls) {
+    assert.equal(call.purpose, 'shortlist-editor-v14-nba');
+    assert.match(
+      call.instructions,
+      /five selected stories still require only 2–4 brief bullets/,
+    );
+    assert.match(
+      call.instructions,
+      /does not establish that no return timeline was given/,
+    );
+    assert.match(call.instructions, /complete attributed source sentence/);
+  }
+  assert.match(h.calls[1].prompt, /previous response failed schema validation/);
+  const other = harness();
+  await other.editor.edit(topic, candidates, 1, 'unchanged-tech');
+  assert.equal(other.calls[0].purpose, 'shortlist-editor-v13');
+  assert.doesNotMatch(
+    other.calls[0].instructions,
+    /NBA injury and availability reports/,
+  );
+});

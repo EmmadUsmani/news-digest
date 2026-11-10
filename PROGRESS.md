@@ -83,3 +83,14 @@
 - Four regression tests pin real unsupported/supported sentences, altered quotation and brief bound. Diagnosis in Nov 10 edition review. Archived progress through 1719 to keep orientation small.
 - Next: NBA generation/repair correction, offline saved-output verification, bounded validated replay and deploy before Nov 11 noon. Guard/fallback retained; item 54 still open.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (825 unit; 280 integration/four expected skips), `pnpm build`, handbook check, targeted editor tests (25), duplicate-recovery refusal and `git diff --check` pass. Scheduled reader verifies four topics/19 stories/15 posts. Commit/push and API/worker restart follow.
+
+## 2026-11-10: iteration 1728 — target NBA generation at captured replay failures
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy.
+- NBA-only v14 instructions warn against inferring missing return timelines from “out indefinitely”, guide supported positive headlines and retain exact attributed absence sentences in summaries.
+- Brief guidance explicitly separates five selected stories from the maximum four bullets; omit lower-priority brief coverage rather than combining unrelated stories.
+- Other topic instructions/cache namespace unchanged; absence guard, schema limits, budgets and fallback retained.
+- Recorded-sentence regression rejects five factual bullets, repairs to four and retains all five stories; checks guidance reaches initial/repair requests. Targeted editor suite passes 26 tests.
+- No paid calls or replay claim changes; cumulative item 54 spend stays $0.003913/$0.10. A fake-provider repair is not a validated live replay; item 54 remains open.
+- Next: separate audited single-use replay of changed NBA prompt within remaining cumulative/shared caps; preserve existing consumed claims. Demonstrate validated output before closing correction, then review Nov 11 scheduled NBA.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit, 280 integration/four expected skips), targeted editor suite (26), handbook check, offline replay preflight and `git diff --check` pass. Scheduled reader retains four topics/19 stories/15 posts. `pnpm build` passes; push and service restart follow.

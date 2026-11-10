@@ -38,6 +38,13 @@ Write an informative neutral headline, a summary of up to 2–3 sentences (one s
 Output limits: headline 1–240 characters; summary 1–1400 characters; whyItMatters and rationale each 1–400 characters; each brief bullet 1–400 characters. evidenceIds must contain 1–10 unique supplied IDs including the story ID. Return at most 4 brief bullets and at most 10 stories within the requested budget. Use exactly the listed keys, with no extra properties. These limits apply to the initial response and any repair.
 Return ONLY JSON {"brief":["what happened"],"stories":[{"id":"supplied ID","evidenceIds":["supplied ID"],"headline":"headline","summary":"summary","whyItMatters":"significance","rationale":"selection reason"}]}. Never return URLs or invented IDs.`;
 
+// NBA replay failures require guidance specific to thin injury reports. Other
+// topics retain their existing prompt and cache namespace.
+const nbaInstructions = `
+NBA injury and availability reports: state only the supplied injury, status and attribution. "Out indefinitely" supports that status; it does not establish that no return timeline was given. Do not add claims about missing timelines, diagnoses, announcements or updates to significance or selection rationales. Explain significance using the supported injury or result itself.
+When a negative-word headline would paraphrase a source (for example, a win "without" starters), use a supported positive headline about the win and put the complete attributed source sentence in the summary if that detail matters. Preserve the existing verbatim absence rule in every field.
+Plan the brief independently of the story count: five selected stories still require only 2–4 brief bullets. Choose up to four developments for the brief; a selected story need not have its own bullet. Do not combine unrelated stories to cover every selection. Before returning the initial or repaired JSON, count brief bullets and remove lower-priority bullets until there are at most four. Keep every retained bullet factual and about a selected story.`;
+
 // This service does not publish or mutate an edition. Callers must preserve
 // source links and record the returned model on an immutable snapshot.
 export class ShortlistEditor {
@@ -66,6 +73,7 @@ export class ShortlistEditor {
       );
     if (budget === 0 || candidates.length === 0)
       return { brief: [], stories: [], model: 'none' };
+    const isNba = topic.name.trim().toLowerCase() === 'nba';
     const ids = new Set(candidates.map((c) => c.id));
     const validateOutput = (value: unknown) => {
       const parsed = editSchema.parse(value);
@@ -142,10 +150,13 @@ export class ShortlistEditor {
       const result = await this.llm.json(
         {
           model,
-          purpose: 'shortlist-editor-v13',
+          purpose: isNba ? 'shortlist-editor-v14-nba' : 'shortlist-editor-v13',
           runId,
           topicId: topic.id,
-          instructions: instructions + [...validationHints].join(''),
+          instructions:
+            instructions +
+            (isNba ? nbaInstructions : '') +
+            [...validationHints].join(''),
           prompt,
           maxOutputTokens: 4000,
         },

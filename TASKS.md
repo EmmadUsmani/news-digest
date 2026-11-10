@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54: diagnose/fix NBA editing before Nov 11 noon; guard/fallback retained. Historical editor input reconstructed (1725). Safe single-use recovery replay (1727) saved two real Haiku responses/diagnostics privately; Sonnet refused by shared verification cap. Actual spend **$0.003913/$0.10**. Initial output invents “no return timeline given” (correct absence rejection); supported Hornets headline paraphrase also fails verbatim guard. Repair has five brief bullets (max four), valid JSON. Four real-sentence regression tests cover the captured failures. No runtime fix yet: next improve NBA generation/repair, offline-verify saved responses, then demonstrate validated bounded replay and deploy. Original lost Nov 10 output/invalid-JSON cause remain unknown. [Diagnosis](docs/edition-reviews/2026-11-10.md#bounded-nba-response-replay--iteration-1727). Takes priority over Phase 4.
+- [ ] STEERING 54: diagnose/fix NBA editing before Nov 11 noon; guard/fallback retained. Historical editor input reconstructed (1725). Safe single-use recovery replay (1727) saved two real Haiku responses/diagnostics privately; Sonnet refused by shared verification cap. Actual spend **$0.003913/$0.10**. Initial output invents “no return timeline given” (correct absence rejection); supported Hornets headline paraphrase also fails verbatim guard. Repair has five brief bullets (max four), valid JSON. Four real-sentence regression tests cover the captured failures. Iteration 1728 adds NBA-only generation/repair guidance (v14 cache namespace): avoid invented timelines, positive headlines for supported results, and 2–4 brief bullets even with five stories. Recorded-sentence repair test passes with all five stories retained; guard/fallback unchanged. Next demonstrate a validated bounded live replay; original once-only replay/recovery claims must remain intact. Original lost Nov 10 output/invalid-JSON cause remain unknown. [Diagnosis](docs/edition-reviews/2026-11-10.md#bounded-nba-response-replay--iteration-1727). Takes priority over Phase 4.
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1727: safely recovered unspent NBA claim; captured two paid responses, named actual rejection causes and added real-sentence regressions. Runtime correction remains next.
+- [x] Iteration 1728: NBA-only prompt correction and recorded-sentence five-story/four-bullet repair regression; validated live replay remains next.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
