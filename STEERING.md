@@ -2496,3 +2496,25 @@ development budget. Deploy outside 13:00–16:00 UTC. No generation changes afte
 12:00 UTC Nov 11.
 
 ack: 2026-11-10 item 54 (1729): reconstructed Nov 10 NBA replay validates five AI-edited stories/four brief bullets with NBA-only v14 guidance and Haiku repair; guard/fallback retained. Captured causes: invented timeline, non-verbatim supported headline/availability and five-bullet schema overflow. Original lost invalid JSON remains unknown. Deployed correction in 1728 before Nov 11 noon; cumulative replay $0.007871/$0.10. Nov 11 scheduled NBA acceptance remains open; no further prompt/replay tuning.
+
+**Lead update (Nov 10 evening, owner approved): test Sonnet before the edition.**
+The 1729 replay never ran Sonnet, which edits first in production, and the
+first Haiku attempt still failed on a supported sentence (the Brandon Miller
+availability line). The owner wants to know before the Nov 11 edition, not after.
+
+1. Now, replay the Nov 10 NBA input through the production v14 order: Sonnet
+   initial, Sonnet repair, then Haiku. Run the full order up to three times.
+   For each run, record which attempt passed and every rejected sentence with
+   its rule.
+2. If a Sonnet attempt passes in at least two of three runs, stop: no change.
+3. If Sonnet is rejected mainly for supported sentences (an attributed source
+   sentence reworded), change `absence-support.ts` to accept them. Keep a
+   computable rule, and keep the real Nov 10 "no return timeline" claim failing
+   in a test. Replay once more to confirm, then deploy before 12:00 UTC Nov 11.
+4. If Sonnet fails for any other reason, report it and leave v14 as it is.
+
+The $0.05 daily verification cap may block Sonnet before 00:00 UTC. Allow a
+one-off exception for these replays only, and leave the default cap unchanged.
+**Limit:** item 54 replays now capped at $0.25 in total, including the $0.008
+already spent. Ack with the per-run results, the cost and whether you changed
+anything.
