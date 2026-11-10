@@ -23,9 +23,10 @@ behind flags.
 
 **Next:**
 
-1. Agent's next: live sign-in, sync, revoke and delete checks with throwaway
-   accounts, then the owner's two-device steps in `NEEDS_FROM_HUMAN.md`.
-   Phase 3 also needs the Nov 10 scheduled edition to publish normally.
+1. Live checks done to 00:40 UTC Nov 10 except proxy/TLS cookies (VM can't
+   reach its proxy) and 24-hour link expiry (verify after 00:33 UTC Nov 11).
+   The owner's two-device test is the only proxy check, but the agent hasn't
+   written its steps. Proposed steering: write them now. Awaiting owner.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
