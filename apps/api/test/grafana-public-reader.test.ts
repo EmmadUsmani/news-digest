@@ -241,7 +241,10 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
 void test('separate Grafana export instance contains only aggregates under a real reader login', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const container = await new GenericContainer('postgres:17-alpine')
-    .withEnvironment({ POSTGRES_HOST_AUTH_METHOD: 'trust' })
+    .withEnvironment({
+      POSTGRES_PASSWORD: 'synthetic-owner-password',
+      POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256',
+    })
     .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
     .withExposedPorts(5432)
     .withWaitStrategy(
@@ -253,9 +256,21 @@ void test('separate Grafana export instance contains only aggregates under a rea
     port: container.getMappedPort(5432),
     database: 'postgres',
   };
-  const owner = new Pool({ ...connection, user: 'postgres' });
-  const reader = new Pool({ ...connection, user: 'grafana_export_reader' });
-  const writer = new Pool({ ...connection, user: 'grafana_export_writer' });
+  const owner = new Pool({
+    ...connection,
+    user: 'postgres',
+    password: 'synthetic-owner-password',
+  });
+  const reader = new Pool({
+    ...connection,
+    user: 'grafana_export_reader',
+    password: 'synthetic-reader-password',
+  });
+  const writer = new Pool({
+    ...connection,
+    user: 'grafana_export_writer',
+    password: 'synthetic-target-password',
+  });
   try {
     const sql = readFileSync(
       'ops/observability/grafana/prepared/export-storage.sql',
@@ -263,8 +278,38 @@ void test('separate Grafana export instance contains only aggregates under a rea
     );
     await owner.query(sql);
     await owner.query(sql);
-    // Exercise the one-shot path across the disposable application and export
-    // instances. Credentials are synthetic; both containers use test-only trust.
+    // Synthetic credentials on the disposable target must authenticate with SCRAM.
+    await owner.query(
+      "ALTER ROLE grafana_export_reader PASSWORD 'synthetic-reader-password'",
+    );
+    await owner.query(
+      "ALTER ROLE grafana_export_writer PASSWORD 'synthetic-target-password'",
+    );
+    const verifiers = await owner.query(`SELECT rolpassword FROM pg_authid
+      WHERE rolname IN ('grafana_export_reader','grafana_export_writer')`);
+    assert.equal(verifiers.rowCount, 2);
+    assert.ok(
+      verifiers.rows.every((row) =>
+        row.rolpassword.startsWith('SCRAM-SHA-256$'),
+      ),
+    );
+    for (const user of ['grafana_export_reader', 'grafana_export_writer']) {
+      const denied = new Pool({
+        ...connection,
+        user,
+        password: 'wrong-synthetic-password',
+      });
+      try {
+        await assert.rejects(
+          denied.query('SELECT 1'),
+          (error: unknown) =>
+            error instanceof Error && 'code' in error && error.code === '28P01',
+        );
+      } finally {
+        await denied.end();
+      }
+    }
+    // The isolated application source still uses test-only trust authentication.
     const sourceUrl = new URL(process.env.DATABASE_URL!);
     const transportCapturedAt = new Date();
     const transport = {
@@ -318,6 +363,15 @@ void test('separate Grafana export instance contains only aggregates under a rea
         )
       ).rows[0].captured_at.toISOString(),
       transportCapturedAt.toISOString(),
+    );
+    // A rejected writer password must not change the last committed capture.
+    await assert.rejects(
+      exportOnce({
+        ...transport,
+        GRAFANA_EXPORT_TARGET_PASSWORD: 'wrong-synthetic-password',
+      }),
+      (error: unknown) =>
+        error instanceof Error && 'code' in error && error.code === '28P01',
     );
     // Producer failure must leave the committed export untouched.
     await assert.rejects(

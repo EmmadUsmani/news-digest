@@ -80,3 +80,13 @@
 - Live account boundary: 32 pass; scheduled reader four topics/19 stories/15 posts. No paid calls.
 - Next: real export password auth/listener isolation, freshness alerts, capacity and provisioning/rendering gates; Nov 11 link expiry after 00:33:01 UTC and scheduled NBA acceptance.
 - Pushed after verification; API/worker restart and post-deploy health/reader/alerts checks follow.
+
+## 2026-11-10: iteration 1738 — rehearse export target SCRAM authentication
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass.
+- Replaced disposable aggregate target trust authentication with SCRAM; synthetic owner/reader/writer passwords only, no live credentials or grants.
+- Verified SCRAM verifiers, successful restricted reader/writer login, wrong-password SQLSTATE 28P01 and exporter rejection preserving the committed capture. Source fixture still uses trust; listener isolation remains unverified.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit; 280 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts` (18 pages/22 diagrams/39 tables), and `git diff --check` pass.
+- Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. No paid calls, exporter installation or public activation.
+- Next: source authentication/listener isolation, freshness alerts, capacity/provisioning/rendering gates; Nov 11 natural link expiry and scheduled NBA acceptance remain pending.
+- Push followed by API/worker restart and post-deploy health/reader/alerts checks.

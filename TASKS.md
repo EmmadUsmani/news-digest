@@ -40,10 +40,10 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1737: prepared one-shot Grafana exporter requires explicit credentials, separate loopback ports and restricted writer; read-only producer and failure preservation exercised across disposable instances; uninstalled, public mode off.
+- [x] Iteration 1738: disposable Grafana export target uses SCRAM; correct restricted reader/writer credentials pass and wrong passwords fail without replacing the capture; exporter uninstalled, public mode off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: verify Grafana export real credentials/auth and listener isolation, freshness alerts and capacity gates before installation; Phase 3 accepted; migration 0019 live (1730), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
+- Next: verify Grafana export source authentication and listener isolation, freshness alerts and capacity gates before installation; Phase 3 accepted; migration 0019 live (1730), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
