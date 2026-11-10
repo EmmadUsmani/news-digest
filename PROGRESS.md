@@ -152,3 +152,4 @@
 - Initial full check/lint exposed import sorting and a missed await on cached rejection diagnostics; corrected and rerunning. Build, handbook and scheduled-reader checks pass (four topics/19 stories/15 posts).
 - Next: reconstruct Nov 10 NBA shortlist and bounded replay, identify rejected sentences/rules, fix only the demonstrated cause, deploy by Nov 11 noon; Nov 11 scheduled AI-edit acceptance remains required.
 - Corrected full `pnpm check` passes (821 unit; 280 integration, four expected skips); `pnpm format`, `pnpm lint:fix`, final `pnpm build`, handbook check and `git diff --check` pass. Commit/push and API/worker restart follow.
+- Pushed `c78756f7`; API/worker restarted active, health/database/Redis and scheduled reader pass, no failed user units. RecentJobFailures reflects GamingBolt timeout/502 attempts; scheduled third attempt recovered HTTP 200 at 18:19:45 UTC. No source change needed; alert lookback still active at 18:24.
