@@ -143,22 +143,18 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    receipt private; do not rerun `prepare` over a pending receipt. Iteration 1598 passes all 52 live
    lifecycle checks with natural code expiry, no-cookie HTTP 401, surviving
    reader session and fresh-code recovery.
-6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
+6. Owner two-device steps are ready in `NEEDS_FROM_HUMAN.md` (iteration 1600).
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.
 
-## Owner two-device check, once ready
+## Owner two-device check — ready now
 
-1. Open the private site on two devices. On each, choose Sign in and request a
-   code for the same owner email; retrieve and use each code before requesting
-   the next, because the mailbox keeps only the latest code for that email.
-2. Retrieve a code explicitly on the owner terminal with
-   `ssh news-digest.exe.xyz 'cd ~/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /absolute/mailbox/path reader@example.com'`,
-   replacing the path and email with the configured values. Do not record output.
-3. On device A, save a story and hide a topic. Reload device B and verify both
-   choices arrive. Save a post on B and reload A to verify the reverse direction.
-4. Reload both devices and verify persistence. Sign out of all devices on A;
-   reload B and verify it is signed out. Report pass/fail without credentials.
+Follow the [exact phone/laptop steps](../NEEDS_FROM_HUMAN.md#owner-two-device-acceptance--ready-now-nov-10):
+request and retrieve each code, sign in through the normal HTTPS address,
+save/remove a story across devices, then sign out all devices. Report the
+browser names and each result without codes or cookies. This also supplies
+the proxy/TLS cookie check. Phase 3 needs the owner pass and a normal scheduled
+edition with accounts on; the natural link-expiry check runs separately.
 
 ## Rollback
 

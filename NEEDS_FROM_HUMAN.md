@@ -48,13 +48,42 @@ both appended entries match the visitor, and the immediate peer is loopback.
 Keep the existing last-entry selector. No further proxy rerun is requested;
 observed-shape tests and explicit loopback trust are complete (1589). Phase 3
 migrations and invite-only server/web deployment are complete (1591). Public
-mode remains off; sharing is unchanged. Dedicated live lifecycle acceptance is
-next; exact owner two-device steps will follow when that check passes.
+mode remains off; sharing is unchanged.
 
-Iteration 1597: this VM cannot connect to `https://news-digest.exe.xyz:443`
-(curl connection failure before HTTP). Local Chromium routing bypasses that
-boundary. Proxy/TLS cookie exchange remains unverified; keep the VM private
-and public mode off. No sharing change or new proxy probe is requested.
+## Owner two-device acceptance — ready now (Nov 10)
+
+Use a phone and laptop, with the same allowlisted owner email. Complete one
+sign-in before requesting the next code; each request replaces the prior code.
+
+1. On the laptop open https://news-digest.exe.xyz/account/login. Enter your
+   owner email and choose **Request code**. In your terminal run the command
+   below, replacing `YOUR_OWNER_EMAIL` with that same email. Enter the printed
+   six-digit code on the page and choose **Sign in** within ten minutes.
+
+   ```sh
+   ssh news-digest.exe.xyz 'cd /home/exedev/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /home/exedev/.local/share/news-digest/login-mailbox YOUR_OWNER_EMAIL'
+   ```
+
+2. On the phone open the same HTTPS login address, request a code for the same
+   email, rerun the command, and enter this new code on the phone. On both
+   devices open the digest and **Account**; wait for “Your topics and saved
+   items are synced.” Reload both and confirm they stay signed in.
+3. On the laptop choose **Save** on an unsaved story. Wait for Account to show
+   synced, then reload the phone and open **Saved items**. Confirm that exact
+   story appears. Note its title for your report.
+4. On the phone remove that story from **Saved items**. Wait for synced, reload
+   the laptop, and confirm the story is absent from **Saved items** and its
+   digest button reads **Save** again.
+5. On the laptop open **Account → Sign out all devices**. Reload the phone and
+   laptop; both should offer **Sign in** in Account.
+
+Report phone/laptop browser names, pass/fail for sign-in after reload, save
+sync, removal sync and sign-out, plus the story title. If a step fails, report
+its number and the visible error. Never send codes, cookies or mailbox output.
+This test supplies the proxy/TLS cookie check the VM cannot perform itself.
+Phase 3 acceptance needs this test to pass and a normal scheduled edition to
+publish with accounts on. Natural link-expiry verification runs separately
+after Nov 11 00:33:01 UTC; it does not delay this test. No sharing change needed.
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes

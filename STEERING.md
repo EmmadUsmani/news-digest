@@ -2407,3 +2407,5 @@ Also:
 Done when the loopback trust and tests are in and phase 3 is under way. Ack it.
 
 ack: 2026-11-09 item 53 — iteration 1589 inspected the 19:47 UTC receipt; retained last-entry selection, tested duplicate visitor entries after zero/one/two forged prefixes through policy and real HTTP, and configured explicit loopback peers privately. Phase 3 started: fresh private backup/isolated migration rehearsal passes rollback, idempotence, original data and private-table grants. Live migrations/accounts/public remain unchanged; guarded deployment next.
+
+ack: 2026-11-10 item 50 owner test — iteration 1600 writes exact phone/laptop HTTPS sign-in and private mailbox command, save/removal sync, all-device sign-out and report fields in NEEDS_FROM_HUMAN.md; activation page links the steps. Owner test supplies proxy/TLS acceptance; natural link expiry remains a separate Nov 11 check.
