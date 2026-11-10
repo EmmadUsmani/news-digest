@@ -1,6 +1,6 @@
 # Public read rollout review — iteration 1620
 
-Reviewed Nov 10, 2026, updated iteration 1693, before the Phase 3 scheduled-edition gate. Public mode
+Reviewed Nov 10, 2026, updated iteration 1694, before the Phase 3 scheduled-edition gate. Public mode
 remains off. This is an implementation review, not Phase 4 acceptance.
 
 ## Current application boundary
@@ -9,23 +9,24 @@ remains off. This is an implementation review, not Phase 4 acceptance.
 and static files. Public mode uses exact route classification and an empty-body
 exception filter. Unlisted routes receive an empty 404; it has no tool prefix grant.
 The application still imports the legacy topics, ingestion, profiles and operations
-controllers. `PublicReadModule` is not imported. The application now imports its schedule
-child directly behind `PUBLIC_MODE`; other projections remain disconnected. HEAD inherits the GET class.
+controllers. `PublicReadModule` is not imported. Its schedule, topics, source catalog,
+article and source-health children are imported directly behind `PUBLIC_MODE`.
+HEAD inherits the GET class.
 
-| Read surface                              | Prepared public-mode behavior                                                                            | Remaining work                                                                                              |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Published edition list/latest/detail      | Anonymous, published-only reader                                                                         | Preserve publication boundary and saved-content parity                                                      |
-| Health                                    | Anonymous database/Redis booleans and status                                                             | No private response fields found                                                                            |
-| Account session                           | Anonymous-capable caller-only identity                                                                   | Retain private/no-store headers; never enumerate accounts                                                   |
-| Alert counts                              | Anonymous timestamp/counts; fixed unavailable error                                                      | No alert labels, annotations or upstream payloads exposed                                                   |
-| Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Complete; UI accepts legacy and public catalog options                                                      |
-| Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                                             |
-| Content/source health                     | Fresh admin required                                                                                     | Wire origin-only article and count/timing source-health readers; keep window route restricted until audited |
-| Detailed status                           | Fresh admin required                                                                                     | Project stored source errors, job return strings and accounting fields before anonymous reads               |
-| Preview history/detail/latest/cost/job    | Fresh admin required                                                                                     | Separate public publication/accounting/progress views from unpublished/test snapshots                       |
-| Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                                 |
-| Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                                      |
-| Logs/metrics                              | Unlisted, denied even for signed-in admin                                                                | Add session-authorized tool routing; retain mutation restrictions                                           |
+| Read surface                              | Prepared public-mode behavior                                                                            | Remaining work                                                                                |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Published edition list/latest/detail      | Anonymous, published-only reader                                                                         | Preserve publication boundary and saved-content parity                                        |
+| Health                                    | Anonymous database/Redis booleans and status                                                             | No private response fields found                                                              |
+| Account session                           | Anonymous-capable caller-only identity                                                                   | Retain private/no-store headers; never enumerate accounts                                     |
+| Alert counts                              | Anonymous timestamp/counts; fixed unavailable error                                                      | No alert labels, annotations or upstream payloads exposed                                     |
+| Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Complete; UI accepts legacy and public catalog options                                        |
+| Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                               |
+| Content/source health                     | Anonymous origin-only articles and count/timing source health                                            | Complete for GET/HEAD; window route remains admin-only; UI contract migration remains         |
+| Detailed status                           | Fresh admin required                                                                                     | Project stored source errors, job return strings and accounting fields before anonymous reads |
+| Preview history/detail/latest/cost/job    | Fresh admin required                                                                                     | Separate public publication/accounting/progress views from unpublished/test snapshots         |
+| Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                   |
+| Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                        |
+| Logs/metrics                              | Unlisted, denied even for signed-in admin                                                                | Add session-authorized tool routing; retain mutation restrictions                             |
 
 ## Findings that block acceptance
 
@@ -40,7 +41,7 @@ child directly behind `PUBLIC_MODE`; other projections remain disconnected. HEAD
    explicit public schemas and adversarial storage/HTTP tests replace them.
 3. **Prepared projections need application composition and UI integration.**
    Topics and schedule now use their audited readers in public-mode composition.
-   Sources, article origins and source-health readers have isolated coverage.
+   Sources, article origins and source-health readers have application composition and isolated coverage.
    Replace the remaining overlapping legacy GET controllers in public mode; preserve private rollback and writes. Topic source selection already accepts both catalog shapes through an ID/name-only contract; schedule consumers already use the system endpoint.
 4. **Tools need their own data review.** The proxy streams upstream bodies and
    headers; granting a prefix would expose every upstream API method/path.
@@ -90,7 +91,12 @@ only IDs and names from either response shape. Iteration 1693 confirms all 36
 saved options, existing selections and invalid-response refusals in desktop/mobile
 read-only browser replays. Public-shape responses are simulated, not live public mode.
 
-Next available implementation step: wire origin-only article/source-health
-readers, then continue status/preview/tool projections.
-Phase 3 scheduled acceptance still precedes live Phase 4 activation. Migration
-0019, public flags, proxy sharing and generation settings were unchanged here.
+Iteration 1694 installs origin-only article and count/timing source-health GET/HEAD
+readers in public-mode application composition. Legacy latest/source-health handlers
+are absent in public mode; the window handler remains admin-only. Private mode
+retains the previous contracts. Each new application reader owns its shutdown pool.
+Full-application isolated HTTP checks compare both responses to audited projections,
+check empty HEAD bodies and reject writes and anonymous window reads.
+
+Next available implementation step: migrate article/source-health UI consumers,
+then status/preview/tools. Public activation still waits for Phase 3 acceptance.

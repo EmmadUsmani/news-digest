@@ -96,9 +96,7 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
 void test('unaudited administrative responses remain restricted independently of alert counts', () => {
   for (const path of [
     '/api/admin/profile',
-    '/api/admin/content',
     '/api/admin/content/window',
-    '/api/admin/content/sources',
     '/api/admin/status',
     '/api/admin/digest-previews',
     '/api/admin/digest-previews/latest',
@@ -111,4 +109,13 @@ void test('unaudited administrative responses remain restricted independently of
   }
   for (const method of ['POST', 'PUT', 'DELETE', 'PATCH'])
     assert.equal(classifyPublicRoute(method, '/api/admin/status/alerts'), null);
+});
+
+void test('audited article and source-health reads allow only GET and HEAD', () => {
+  for (const path of ['/api/admin/content', '/api/admin/content/sources']) {
+    for (const method of ['GET', 'HEAD'])
+      assert.equal(classifyPublicRoute(method, path), 'public-read');
+    for (const method of ['POST', 'PUT', 'PATCH', 'DELETE'])
+      assert.equal(classifyPublicRoute(method, path), null);
+  }
 });

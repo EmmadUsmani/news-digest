@@ -4,8 +4,7 @@ import { z } from 'zod';
 
 import { publicArticleOrigin } from './article-link';
 
-// Preparation only: configured title/source text still needs review before
-// transport installation. Unknown columns and stored permalinks never escape.
+// Unknown columns and stored permalinks never escape the public projection.
 const articleGroupInput = contentGroupSchema.extend({
   items: contentGroupSchema.shape.items.element
     .extend({ url: z.unknown() })

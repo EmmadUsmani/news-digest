@@ -7,7 +7,7 @@ export interface PublicArticlesPort {
   read(): Promise<unknown>;
 }
 
-// Disconnected preparation: configured text and host review precedes installation.
+// Public-mode transport exposes only the audited origin projection.
 @Controller('api/admin/content')
 export class PublicArticlesController {
   constructor(

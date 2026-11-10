@@ -19,7 +19,9 @@ import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { OperationsModule } from './modules/operations/operations.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 import { TopicsModule } from './modules/topics/topics.module';
+import { PublicArticlesModule } from './public-read/articles.module';
 import { PublicScheduleModule } from './public-read/schedule.module';
+import { PublicSourceHealthModule } from './public-read/source-health.module';
 import { PublicSourcesModule } from './public-read/sources.module';
 import { PublicTopicsModule } from './public-read/topics.module';
 import { AccessModule } from './public-write/access.module';
@@ -58,6 +60,8 @@ class HealthController {
 @Module({
   imports: [
     AccessModule,
+    PublicArticlesModule.prepare(process.env, database, true),
+    PublicSourceHealthModule.prepare(process.env, database, true),
     PublicScheduleModule.prepare(process.env, database, true),
     PublicTopicsModule.prepare(process.env, database, true),
     PublicSourcesModule.prepare(process.env, database, true),

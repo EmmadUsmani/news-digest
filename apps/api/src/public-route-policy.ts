@@ -37,7 +37,8 @@ const rules: readonly Rule[] = [
   // Count-only response audited; detailed operational status stays restricted.
   ['GET', /^\/api\/admin\/status\/alerts$/, 'public-read'],
   ['GET', /^\/api\/admin\/status$/, 'admin'],
-  ['GET', /^\/api\/admin\/content(?:\/window|\/sources)?$/, 'admin'],
+  ['GET', /^\/api\/admin\/content(?:\/sources)?$/, 'public-read'],
+  ['GET', /^\/api\/admin\/content\/window$/, 'admin'],
   ['GET', /^\/api\/admin\/digest-previews(?:\/latest)?$/, 'admin'],
   ['GET', new RegExp(`^/api/admin/digest-previews/${id}(?:/cost)?$`), 'admin'],
   [

@@ -7,7 +7,7 @@ export interface PublicSourceHealthPort {
   read(): Promise<unknown>;
 }
 
-// Unregistered Phase 4 transport; stored failures never leave the projection.
+// Public-mode transport; stored failures never leave the projection.
 @Controller('api/admin/content/sources')
 export class PublicSourceHealthController {
   constructor(

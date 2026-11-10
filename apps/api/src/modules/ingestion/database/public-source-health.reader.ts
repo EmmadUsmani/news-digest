@@ -4,7 +4,7 @@ import type { Pool } from 'pg';
 
 import { contentObservations, contentSources } from '../../../libs/db/schema';
 
-// Preparation only. Never fetch stored error text, URLs or ownership. The
+// Never fetch stored error text, URLs or ownership. The
 // caller owns the pool; this reader has no dependency on the legacy profile.
 export class PublicSourceHealthReader {
   constructor(private readonly pool: Pool) {}

@@ -7,7 +7,9 @@ snapshots.
 > [!NOTE]
 > Public mode exposes the shared topic settings through an explicit field allowlist;
 > topic changes still require an admin. The public source catalog shows publisher
-> origins; configured feed paths stay private. Private mode retains its existing reader.
+> origins; configured feed paths stay private. Article reads also expose publisher
+> origins, and source health exposes counts, timings and an error flag. Stored failure
+> text stays private. Private mode retains its existing readers.
 >
 > `SYSTEM_OWNERSHIP=1` uses the system schedule, shared topics and system-scoped
 > editions and job records. Writes preserve default-profile ownership and update

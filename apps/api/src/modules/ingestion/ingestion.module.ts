@@ -12,9 +12,6 @@ import { ContentRepository } from './domain/ports';
 @Controller('api/admin/content')
 class ContentController {
   constructor(private readonly repository: ContentRepository) {}
-  @Get() latest() {
-    return this.repository.latest();
-  }
   @Get('window') window(@Query() query: unknown) {
     const parsed = z
       .object({
@@ -36,12 +33,22 @@ class ContentController {
       end: new Date(parsed.data.end),
     });
   }
+}
+@Controller('api/admin/content')
+class LegacyContentReadController {
+  constructor(private readonly repository: ContentRepository) {}
+  @Get() latest() {
+    return this.repository.latest();
+  }
   @Get('sources') status() {
     return this.repository.status();
   }
 }
 @Module({
-  controllers: [ContentController],
+  controllers: [
+    ContentController,
+    ...(process.env.PUBLIC_MODE === '1' ? [] : [LegacyContentReadController]),
+  ],
   providers: [
     { provide: ContentRepository, useClass: PostgresContentRepository },
   ],

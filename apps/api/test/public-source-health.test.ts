@@ -70,7 +70,7 @@ void test('public source health exposes counts and failure presence without stor
   for (const method of ['GET', 'HEAD'])
     assert.equal(
       classifyPublicRoute(method, '/api/admin/content/sources'),
-      'admin',
+      'public-read',
     );
 });
 

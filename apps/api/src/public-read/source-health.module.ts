@@ -7,13 +7,13 @@ import {
   PublicSourceHealthController,
 } from './source-health.controller';
 
-// Preparation only: main does not import this module. The caller owns the pool.
-// Route authorization must be installed separately before public promotion.
+// Application composition owns the pool; isolated readers may borrow one.
 @Module({})
 export class PublicSourceHealthModule {
   static prepare(
     env: Readonly<Record<string, string | undefined>>,
     getPool: () => Pool,
+    closePoolOnShutdown = false,
   ): DynamicModule {
     const enabled = env.PUBLIC_MODE ?? '0';
     if (enabled !== '0' && enabled !== '1')
@@ -23,13 +23,22 @@ export class PublicSourceHealthModule {
       throw new Error(
         'Public source health requires system ownership and published readers',
       );
+    let pool: Pool | undefined;
     return {
       module: PublicSourceHealthModule,
       controllers: [PublicSourceHealthController],
       providers: [
         {
+          provide: Symbol('PUBLIC_SOURCEHEALTH_POOL_LIFECYCLE'),
+          useValue: {
+            async onModuleDestroy() {
+              if (closePoolOnShutdown) await pool?.end();
+            },
+          },
+        },
+        {
           provide: PUBLIC_SOURCE_HEALTH,
-          useFactory: () => new PublicSourceHealthReader(getPool()),
+          useFactory: () => new PublicSourceHealthReader((pool ??= getPool())),
         },
       ],
     };

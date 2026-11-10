@@ -48,9 +48,15 @@ void test('ineligible or malformed stored links have no public origin or fallbac
     assert.equal(publicArticleOrigin(value), null);
 });
 
-void test('origin preparation leaves unaudited article transports restricted', () => {
+void test('origin reads are public while unaudited article windows stay restricted', () => {
   for (const method of ['GET', 'HEAD']) {
-    for (const path of ['/api/admin/content', '/api/admin/content/window'])
-      assert.equal(classifyPublicRoute(method, path), 'admin');
+    assert.equal(
+      classifyPublicRoute(method, '/api/admin/content'),
+      'public-read',
+    );
+    assert.equal(
+      classifyPublicRoute(method, '/api/admin/content/window'),
+      'admin',
+    );
   }
 });

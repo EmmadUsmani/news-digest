@@ -17,8 +17,7 @@ const sourceHealth = z
   })
   .transform(({ error, ...row }) => ({ ...row, hasError: error !== null }));
 
-// Phase 4 preparation only; no live route uses this projection. Historical
-// errors are untrusted even when today's ingestion writer sanitizes failures.
+// Historical errors are untrusted even when ingestion sanitizes failures.
 // Omit configured URLs completely, rather than trying to redact credentials.
 export async function readPublicSourceHealth(read: () => Promise<unknown>) {
   try {

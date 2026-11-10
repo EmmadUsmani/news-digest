@@ -14,9 +14,13 @@ import { NestFactory } from '@nestjs/core';
 import { database } from '../src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
+import { PublicArticlesReader } from '../src/modules/ingestion/database/public-articles.reader';
+import { PublicSourceHealthReader } from '../src/modules/ingestion/database/public-source-health.reader';
 import { PublicSourcesReader } from '../src/modules/topics/database/public-sources.reader';
 import { PublicTopicsReader } from '../src/modules/topics/database/public-topics.reader';
+import { readPublicArticleResponse } from '../src/public-read/articles';
 import { readPublicSourceCatalog } from '../src/public-read/settings';
+import { readPublicSourceHealth } from '../src/public-read/source-health';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -156,6 +160,44 @@ void test('configured full public application serves published fixtures and enfo
         (await scheduleGet('/api/admin/topics/sources', { method })).status,
         404,
       );
+    const contentGet = (path: string, init: RequestInit = {}) =>
+      get(path, {
+        ...init,
+        headers: {
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.96, 203.0.113.96',
+          ...init.headers,
+        },
+      });
+    for (const [path, expected] of [
+      [
+        '/api/admin/content',
+        await readPublicArticleResponse(() =>
+          new PublicArticlesReader(db).read(),
+        ),
+      ],
+      [
+        '/api/admin/content/sources',
+        await readPublicSourceHealth(() =>
+          new PublicSourceHealthReader(db).read(),
+        ),
+      ],
+    ] as const) {
+      const response = await contentGet(path);
+      assert.equal(response.status, 200, path);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.deepEqual(await response.json(), expected);
+      const head = await contentGet(path, { method: 'HEAD' });
+      assert.equal(head.status, 200);
+      assert.equal(await head.text(), '');
+      for (const method of ['POST', 'PUT', 'PATCH', 'DELETE']) {
+        const refused = await contentGet(path, { method });
+        assert.equal(refused.status, 404);
+        assert.equal(await refused.text(), '');
+      }
+    }
+    const privateWindow = await contentGet('/api/admin/content/window');
+    assert.equal(privateWindow.status, 404);
+    assert.equal(await privateWindow.text(), '');
     const session = await get('/api/account/session');
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { signedIn: false, isAdmin: false });
