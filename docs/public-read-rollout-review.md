@@ -1,6 +1,6 @@
 # Public read rollout review — iteration 1620
 
-Reviewed Nov 10, 2026, updated iteration 1706, before the Phase 3 scheduled-edition gate. Public mode
+Reviewed Nov 10, 2026, updated iteration 1716, before the Phase 3 scheduled-edition gate. Public mode
 remains off. This is an implementation review, not Phase 4 acceptance.
 
 ## Current application boundary
@@ -259,3 +259,10 @@ retain their previous access rules. Disposable full-application HTTP checks exer
 anonymous published-only reads, private-edition refusal and restricted operations;
 offline browser checks use a signed-out identity and retain guarded-page refusals.
 Live public mode stays off; this is one part of the complete Phase 4 rehearsal.
+
+Iteration 1716 completes the initial [tool producer review](public-tool-response-review.md).
+Grafana product grants permit unpublished snapshots/raw source errors; Bull Board
+read-only responses retain raw payloads, results, failures and separate log/Redis
+handlers. Explorer account activity estimates and handbook image scope also need
+reviewed projections/routes. All tool refusals remain in place. Next: prepare the
+Grafana role/projection boundary and isolated adversarial SQL checks, default-off.

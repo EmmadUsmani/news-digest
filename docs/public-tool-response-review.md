@@ -1,0 +1,57 @@
+# Public tool response review — iteration 1716
+
+Reviewed Nov 10, 2026 against main after the published-preview rollout.
+Public mode remains off. This review completes the initial producer inventory;
+it does not accept the tools or authorize public routing.
+
+## Findings and required changes
+
+| Surface            | Current producer and response                                                                                                                                                                                                                                        | Required before anonymous access                                                                                                                                                                                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Handbook `/docs`   | `apps/docs-site/src/server.ts` serves handbook tree, individual Markdown and all-page search; `/files/*` permits image extensions anywhere under `docs/`.                                                                                                            | Review the actual handbook/search corpus and referenced images; restrict image delivery to reviewed artifacts. Enumerate static/API GET routes; upstream currently refuses HEAD.                                                                                                            |
+| Explorer `/db`     | `apps/schema-explorer/src/introspect.ts` reads catalogs, never application rows. `model.ts` emits table row estimates/bytes, defaults, comments, constraints and triggers, including account tables.                                                                 | Preserve the schema diagram while removing private account activity estimates/bytes and reviewing executable-definition strings/comments. Use a catalog-only role rather than the current default postgres connection. Enumerate assets and `/api/schema`; upstream currently refuses HEAD. |
+| Grafana `/grafana` | Anonymous Viewer is configured. Product datasource uses `grafana_product`; metrics datasource proxies VictoriaMetrics.                                                                                                                                               | Replace unsafe product grants with audited projections, then review dashboard responses and both datasource query APIs. Viewer permissions alone do not sanitize data. Grafana uses read queries over POST, so GET-only prefix admission will not make dashboards work.                     |
+| Jobs `/queues`     | `jobs-browser.ts` blocks mutations and enables Bull Board read-only mode. Installed Bull Board 9.11.0 still serializes job data, options, return values, failures, stack traces and worker identity. Separate handlers return job logs and Redis server information. | Provide explicit safe job projections and bounded endpoints, excluding raw payload/result/log/error/Redis handlers. Hiding write buttons or formatting only `data`/`returnValue` leaves other fields exposed.                                                                               |
+| Logs/metrics       | `internal-tools.ts` streams upstream requests and responses, including arbitrary methods/subpaths.                                                                                                                                                                   | Admit only reviewed routes for authenticated admins; preserve upstream mutation-key protections. Do not make either prefix anonymous.                                                                                                                                                       |
+
+## Grafana publication-boundary blocker
+
+`ops/observability/grafana/sql/product-reader.sql` grants
+`SELECT (id, created_at, snapshot) ON digest_previews` without a publication
+predicate. It also grants `content_sources.last_error`. An anonymous datasource
+query could therefore retrieve private development snapshots and persisted raw
+errors even if every provisioned dashboard happened to avoid those columns.
+Fix the role boundary itself with safe views/projections and revoke the old
+column privileges; test arbitrary datasource-accessible SQL against unpublished
+fixtures and injected errors. Audit the remaining explicit column grants and
+metrics labels before admitting query routes. Keep private-mode operational
+requirements visible when choosing the replacement datasource role/views.
+
+Account migrations 0013–0018 explicitly revoke account-table access from PUBLIC
+and named operational readers. `apps/api/test/accounts-schema.test.ts` exercises
+hostile inherited default grants. These checks must remain green, including 0019
+on isolated storage; live 0019 remains gated on Phase 3 acceptance.
+
+## Shared transport boundary
+
+`apps/api/src/main.ts` installs access control before tools and Bull Board.
+Unlisted public-mode tool paths remain denied, including for admins. Keep that
+safe default until each tool has its own reviewed method/path set. The proxy
+currently forwards caller headers wholesale (including cookies and identity)
+and copies upstream headers wholesale. Review credential forwarding, redirects,
+cookies, cache headers and outer security-header preservation as part of the
+same tool installation; a prefix grant is insufficient.
+
+## Next implementation step
+
+Start with the Grafana role/projection boundary, because raw snapshots would
+bypass the published-only reader API. Prepare additive SQL and isolated tests
+with public mode off; do not apply live migrations or change role grants until
+their deployment gate is satisfied. Then compose the reviewed tools individually,
+with complete browser request traces and private rollback coverage. Handbook,
+explorer, jobs and admin-only logs/metrics remain unfinished acceptance work.
+
+Evidence is source inspection of the producers named above, Grafana datasource
+provisioning/configuration, account revocations/tests and the installed Bull Board
+`dist/handlers/queues.js`, `jobLogs.js` and `redisStats.js`. No production job
+payloads, account rows, log bodies or credentials were fetched for this review.

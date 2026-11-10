@@ -139,3 +139,10 @@
 - Next: remaining full Phase 4 rehearsal and tool review. Phase 3 still awaits a normal scheduled edition; natural link expiry after Nov 11 00:33:01 UTC.
 - Final TTY `pnpm check` passes: 819 unit tests and 278 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, both browser smokes, `check-handbook.ts 08-operations`, scheduled-reader check and `git diff --check` pass. `pnpm build` passes; post-push restart follows below.
 - Pushed `ce79614d`; restarted API/worker with `systemctl --user restart news-digest-api.service news-digest-worker.service`. Post-restart health/database/Redis, scheduled-reader (four topics/19 stories/15 posts), no failed user units and zero active alerts pass. Public mode remains off; working tree clean before recording deployment.
+
+## 2026-11-10: iteration 1716 — review internal-tool response producers
+
+- Clean main; no inherited work. Health/database/Redis pass, no failed services and zero active alerts. GamingBolt incident remains open with bounded scheduled retries.
+- Completed initial tool producer inventory in `docs/public-tool-response-review.md`. Grafana role grants expose unpublished snapshots/raw source errors; Bull Board read-only handlers retain payloads/results/stacks/logs/Redis details. Explorer account activity estimates, handbook image scope and shared proxy forwarding need reviewed boundaries before routing.
+- Updated rollout/readiness and TASKS with concrete next work: prepare Grafana role/projections and isolated adversarial SQL checks. No runtime changes, provider calls, live migrations or role changes; public mode stays off. Phase 3 still awaits a normal scheduled edition.
+- Live `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes: four topics/19 stories/15 posts. `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, `pnpm check` (819 unit, 278 integration/four expected skips) and `git diff --check` pass. Commit/push and post-16:00 restart follow.

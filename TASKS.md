@@ -38,10 +38,10 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1715: prepared anonymous GET/HEAD for sanitized published-preview APIs and history/detail pages; anonymous compiled-app storage checks and signed-out browser views cover published-only reads and restricted operations. Remaining full Phase 4 rehearsal/tools review stays open; public mode stays off.
+- [x] Iteration 1716: completed initial internal-tool producer review; recorded Grafana unpublished-snapshot/raw-error grants, Bull Board raw job/log/Redis responses and explorer/handbook scope blockers in [tool review](docs/public-tool-response-review.md). Next: default-off Grafana role/projection repair with isolated SQL verification; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: resume default-off preview route integration; Phase 3 awaits next normal scheduled edition (1708 decision), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
+- Next: prepare default-off Grafana safe projections/role grants from the completed tool producer review; Phase 3 awaits next normal scheduled edition (1708 decision), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
