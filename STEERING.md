@@ -2266,6 +2266,12 @@ supported with the cjs output format". The lead gave the owner a working
 From now on, run every command you give the owner, exactly as written, before
 listing it.
 
+**Owner result (Nov 10, about 03:50 UTC): the two-device test passed.** The
+owner signed in on two browsers through exe.dev and confirmed saves sync. This
+completes the owner check and the proxy/TLS cookie check for phase 3. Record it
+in `NEEDS_FROM_HUMAN.md`. Phase 3 is accepted once the Nov 10 scheduled edition
+publishes normally with accounts on, as above.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`
