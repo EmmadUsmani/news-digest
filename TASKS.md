@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54: NBA-only v14 correction deployed; **bounded historical replay validated (1729): five AI-edited stories/four brief bullets, Haiku repair; Sonnet refused by shared verification cap.** Guard/fallback unchanged. Initial attributed Lee availability paraphrase still rejected as designed; repair passes. Four paid Haiku calls total across two preserved single-use claims, **$0.007871/$0.10**, no publication/cache writes. Original lost Nov 10 invalid-JSON cause remains unknown; captured five-bullet schema failure corrected. Stop prompt/replay work; review Nov 11 scheduled NBA section for final acceptance. [Diagnosis](docs/edition-reviews/2026-11-10.md#validated-nba-replay--iteration-1729). Takes priority over Phase 4 until scheduled acceptance.
+- [ ] STEERING 54: evening owner Sonnet trial started (1741): one Sonnet initial rejected a supported Charlotte “without three starters” paraphrase; repair and remaining Sonnet trials refused by unchanged daily/model caps or conservative local reservations. Run 1 Haiku validates; run 2 Haiku paraphrase rejected; run 3 no paid calls. **Two-of-three Sonnet result incomplete.** Cumulative actual replay $0.044978/$0.25; $0.205022 remains. Single-use claim preserved; no guard/prompt/publication/cache change. Continue after UTC reset with audited fresh claim/budget accounting before Nov 11 noon; apply owner’s computable supported-paraphrase fix if warranted, replay once and deploy. Scheduled NBA acceptance still open. [Evidence](docs/edition-reviews/2026-11-10.md#owner-requested-sonnet-trial--iteration-1741).
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1740: prepared dedicated export database Compose service rehearsed with loopback-only publication, separate bridge network and non-loopback refusal; database/exporter uninstalled, public mode off.
+- [x] Iteration 1741: captured first production-order Sonnet NBA response and supported-paraphrase rejection; bounded replay/accounting and default-preserving verification exception tested. Remaining Sonnet trials await UTC shared-cap reset.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

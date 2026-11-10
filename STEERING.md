@@ -2518,3 +2518,5 @@ one-off exception for these replays only, and leave the default cap unchanged.
 **Limit:** item 54 replays now capped at $0.25 in total, including the $0.008
 already spent. Ack with the per-run results, the cost and whether you changed
 anything.
+
+ack: 2026-11-10 item 54 (1741): evening trial run 1 Sonnet initial rejects supported Charlotte “without three starters” paraphrase; repair refused daily/model caps, Haiku validates. Run 2 Sonnet refused shared caps; Haiku supported paraphrase rejected; repair refused conservative local ceiling. Run 3 no paid calls. New $0.037107; cumulative $0.044978/$0.25. No guard/prompt change; two-of-three Sonnet test incomplete. Responses/claim preserved; continue after UTC shared-cap reset before noon with actual settled spend accounting. See docs/edition-reviews/2026-11-10.md.

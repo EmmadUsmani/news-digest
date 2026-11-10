@@ -53,6 +53,10 @@ export class PostgresLlmLedger implements LlmLedger {
     readonly verification = false,
     readonly scheduled?: ScheduledLedgerAdmission,
     private readonly log = logger,
+    private readonly verificationException?: {
+      runId: string;
+      dailyLimitMicros: number;
+    },
   ) {}
   private async transaction<T>(work: (client: PoolClient) => Promise<T>) {
     const client = await this.db.connect();
@@ -143,7 +147,11 @@ export class PostgresLlmLedger implements LlmLedger {
           eq(llmCalls.purpose, 'verification'),
         );
         admissionDecision.verificationUsedMicros = verificationUsed;
-        if (verificationUsed + estimate > 50000) {
+        const verificationLimit =
+          this.verificationException?.runId === request.runId
+            ? this.verificationException.dailyLimitMicros
+            : 50000;
+        if (verificationUsed + estimate > verificationLimit) {
           admissionDecision.refusalReasons = ['verification-cap'];
           return null;
         }

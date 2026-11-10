@@ -134,6 +134,8 @@ void test('ledger decisions distinguish model, shared and verification limits', 
     'monthly',
     'verification',
     'admitted',
+    'exception',
+    'wrong-run',
   ] as const) {
     const lines: string[] = [];
     const db = {
@@ -160,7 +162,9 @@ void test('ledger decisions distinguish model, shared and verification limits', 
             return {
               rows: [
                 [
-                  scenario === 'model' || scenario === 'verification'
+                  ['model', 'verification', 'exception', 'wrong-run'].includes(
+                    scenario,
+                  )
                     ? 40000
                     : 0,
                 ],
@@ -176,11 +180,20 @@ void test('ledger decisions distinguish model, shared and verification limits', 
       {
         monthly: 30e6,
         dailyMax: 100000,
-        modelAllocation: { model: model.id, dailyFraction: 0.5 },
+        modelAllocation: {
+          model: model.id,
+          dailyFraction: scenario === 'exception' ? 1 : 0.5,
+        },
       },
-      scenario === 'verification',
+      ['verification', 'exception', 'wrong-run'].includes(scenario),
       undefined,
       createLogger('test', { write: (line) => lines.push(line) }, []),
+      ['exception', 'wrong-run'].includes(scenario)
+        ? {
+            runId: scenario === 'exception' ? 'edition' : 'another-run',
+            dailyLimitMicros: 80000,
+          }
+        : undefined,
     );
     const result = await ledger.reserve(
       {
@@ -194,7 +207,7 @@ void test('ledger decisions distinguish model, shared and verification limits', 
       },
       30000,
     );
-    assert.equal(result !== null, scenario === 'admitted');
+    assert.equal(result !== null, ['admitted', 'exception'].includes(scenario));
     assert.equal(lines.length, 1);
     assert.ok(!lines[0].includes('private'));
     const entry = JSON.parse(lines[0]);
@@ -206,11 +219,13 @@ void test('ledger decisions distinguish model, shared and verification limits', 
         monthly: ['monthly-cap', 'daily-cap', 'model-allocation'],
         verification: ['verification-cap'],
         admitted: [],
+        exception: [],
+        'wrong-run': ['verification-cap'],
       }[scenario],
     );
     assert.equal(
       entry.outcome,
-      scenario === 'admitted' ? 'admitted' : 'refused',
+      ['admitted', 'exception'].includes(scenario) ? 'admitted' : 'refused',
     );
     if (scenario === 'model') {
       assert.equal(entry.modelUsedMicros, 40000);

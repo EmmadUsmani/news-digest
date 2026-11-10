@@ -113,3 +113,15 @@
 - Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. Push followed by API/worker restart and health/reader/alerts checks.
 - Initial push rejected by concurrent owner lead-note update `3359eb48`; merged without rewriting history. Post-restart health and reader pass, alerts zero.
 - Next: freshness alerts, whole-stack capacity and provisioning/rendering/query-route gates; verify actual listener at installation. Nov 11 natural link expiry after 00:33:01 UTC and NBA scheduled acceptance.
+
+## 2026-11-10: iteration 1741 — bounded owner-requested Sonnet NBA trial
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass.
+- Followed new evening item 54 instruction before Phase 4. Added single-use production-order replay and run-ID-scoped ledger verification exception; default $0.05 and other shared caps unchanged.
+- Run 1: Sonnet initial rejects supported Charlotte lineup paraphrase; Sonnet repair refused daily/model caps; Haiku initial validates. Run 2: Sonnet refused shared caps, Haiku supported paraphrase rejected; repair refused conservative local ceiling. Run 3: no paid calls.
+- Three settled calls cost $0.037107; item 54 cumulative $0.044978/$0.25. Preserved exclusive claim/raw responses/report; no cache/publication writes, prompt/guard changes or public activation.
+- Two-of-three Sonnet test incomplete: continue after UTC shared-cap reset before Nov 11 noon with audited fresh claim and actual-spend accounting ($0.205022 remains). Do not reuse consumed claim or treat local $0.249931 conservative reservations as spend.
+- Exact rejected sentences/rules and supplied support recorded in Nov 10 review; no original invalid-JSON claim recovered.
+- Verification: targeted ledger tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build` and `git diff --check` pass. Live account boundary 32 checks pass; reader four topics/19 stories/15 posts.
+- Next: finish bounded Sonnet trials, computable supported-paraphrase fix if warranted and one confirmation; Nov 11 natural link expiry and scheduled NBA acceptance. Phase 4 waits.
+- Concurrent owner lead-note update `1547371d` merged without rewriting history; push and API/worker restart followed by health/reader/alerts checks.
