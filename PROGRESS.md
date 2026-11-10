@@ -111,4 +111,5 @@
 - Updated owner observability page/readiness review. No live schema/grants, exporter/database installation, public activation or paid calls.
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted listener test, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts` (18 pages/22 unchanged diagrams/39 tables), `git diff --check` pass.
 - Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. Push followed by API/worker restart and health/reader/alerts checks.
+- Initial push rejected by concurrent owner lead-note update `3359eb48`; merged without rewriting history. Post-restart health and reader pass, alerts zero.
 - Next: freshness alerts, whole-stack capacity and provisioning/rendering/query-route gates; verify actual listener at installation. Nov 11 natural link expiry after 00:33:01 UTC and NBA scheduled acceptance.

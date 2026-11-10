@@ -1,11 +1,11 @@
 # Edition quality
 
-**Status:** Nov 10 NBA fell back to raw source excerpts: all four story-editor
-attempts were rejected (unsupported-absence, negative-word, invalid JSON).
-Steered as item 54 (`7c7df8ab`): find the cause, fix it before noon UTC Nov 11.
-Lead's untested guess: the absence guard
-(`apps/api/src/modules/curation/application/absence-support.ts`) rejects any
-"not/no/without" sentence that isn't copied from a source word for word.
+**Status:** item 54 acked (Nov 10, 19:28 UTC). Causes from the replay: an
+invented "no timeline" claim, a supported sentence rejected for not being word
+for word, and too many brief bullets. Fix: NBA-only prompt guidance (v14),
+check unchanged, deployed before the cutoff. The replay passed only on the Haiku
+repair; Sonnet, the main model, wasn't tested, and the first Haiku attempt still
+failed on a supported sentence. $0.008 spent (agent's figures).
 
 **Latest:**
 
@@ -17,10 +17,9 @@ Lead's untested guess: the absence guard
 
 **Next:**
 
-1. Read item 54's ack: the cause named from the Nov 10 replay, a test-backed
-   fix deployed before noon UTC, replays within $0.10.
-2. Nov 11 edition: NBA must be AI-edited. If not, re-diagnose rather than
-   re-steer the same fix.
+1. Owner decides whether to test Sonnet on v14 before noon UTC Nov 11.
+2. Nov 11 edition: NBA must be AI-edited. If it falls back again, the check is
+   the likely cause (it rejects supported paraphrases), not the prompt.
 3. Tech summary depth: propose steering once item 50 frees the agent.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.

@@ -1,10 +1,9 @@
 # Public access and reader accounts
 
-**Status (18:15 UTC Nov 10):** phases 0–3 accepted. The owner accepted phase 3
-on Nov 10 evening (steered, `7c7df8ab`): the Nov 10 edition published with
-accounts on, and its NBA fallback is a story-editing failure that item 54 now
-owns. Migration 0019 may go live. Phase 4 (public readiness) continues behind
-flags.
+**Status (21:30 UTC Nov 10):** phases 0–3 accepted. Migration 0019 is live
+(19:37 UTC, after a fresh backup and restore rehearsal, per the agent's notes).
+Phase 4 continues behind flags. Since then it's mostly the public Grafana
+export (about 10 commits).
 
 **Owner decisions (Nov 7):**
 
@@ -23,11 +22,10 @@ flags.
 
 **Next:**
 
-1. Check the agent's ack: phase 3 recorded as accepted, and migration 0019
-   applied after a fresh backup, outside 13:00–16:00 UTC.
-2. Check the link-expiry verify after 00:33 UTC Nov 11.
-3. Check phase 4 work stays behind flags and doesn't drift into polish.
-4. Phase 4: lead security review before the owner decides to go public.
+1. Check the link-expiry verify after 00:33 UTC Nov 11.
+2. Check phase 4 stays behind flags. Watch the Grafana export work for drift
+   into hardening: 17 of the last 46 commits were guards or re-checks.
+3. Phase 4: lead security review before the owner decides to go public.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up
