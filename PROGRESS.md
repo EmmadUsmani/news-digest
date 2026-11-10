@@ -94,3 +94,12 @@
 - No paid calls or replay claim changes; cumulative item 54 spend stays $0.003913/$0.10. A fake-provider repair is not a validated live replay; item 54 remains open.
 - Next: separate audited single-use replay of changed NBA prompt within remaining cumulative/shared caps; preserve existing consumed claims. Demonstrate validated output before closing correction, then review Nov 11 scheduled NBA.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit, 280 integration/four expected skips), targeted editor suite (26), handbook check, offline replay preflight and `git diff --check` pass. Scheduled reader retains four topics/19 stories/15 posts. `pnpm build` passes; push and service restart follow.
+
+## 2026-11-10: iteration 1729 — validate corrected historical NBA replay
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy.
+- Added fixed single-use `--verify-v14-once` replay, auditing the two settled prior calls/$0.003913 before claiming; includes prior spend in conservative $0.10 reservation cap. Existing consumed claims retained.
+- Corrected historical Nov 10 input validates: Haiku repair, five stories/four brief bullets. Sonnet refused by shared verification cap; first Haiku attempt rejects non-verbatim attributed Lee availability sentence; guard unchanged.
+- New calls cost $0.003958; ledger confirms four successful replay calls total **$0.007871/$0.10**, no pending/uncertain rows. Private 0600 raw outputs/report retained; no production cache/edition writes. Duplicate invocation refuses before provider/ledger access.
+- Item 54 cause/fix acked; remains open for Nov 11 scheduled NBA acceptance. Original lost Nov 10 invalid-JSON cause unknown. Stop further prompt/replay work.
+- Verification: offline preflight, duplicate refusal, ledger audit, format/lint fix, full check, build, handbook check and diff check; scheduled reader verifies four topics/19 stories/15 posts. Full `pnpm check` passes: 826 unit, 280 integration/four expected skips. API/worker restart and post-deploy health/reader/alerts checks follow push.

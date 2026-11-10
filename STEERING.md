@@ -2494,3 +2494,5 @@ result in the daily edition review.
 **Limits:** Anthropic replays capped at $0.10 in total, from the item 50
 development budget. Deploy outside 13:00–16:00 UTC. No generation changes after
 12:00 UTC Nov 11.
+
+ack: 2026-11-10 item 54 (1729): reconstructed Nov 10 NBA replay validates five AI-edited stories/four brief bullets with NBA-only v14 guidance and Haiku repair; guard/fallback retained. Captured causes: invented timeline, non-verbatim supported headline/availability and five-bullet schema overflow. Original lost invalid JSON remains unknown. Deployed correction in 1728 before Nov 11 noon; cumulative replay $0.007871/$0.10. Nov 11 scheduled NBA acceptance remains open; no further prompt/replay tuning.

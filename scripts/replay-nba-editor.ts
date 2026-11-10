@@ -16,8 +16,13 @@ import { configuredLlmLedger } from '../apps/api/src/modules/curation/public/led
 const directory = '/home/exedev/.local/state/news-digest/item-54-nba';
 async function main() {
   const preflight = process.argv[2] === '--preflight';
+  const corrected = process.argv[2] === '--verify-v14-once';
   assert.deepEqual(process.argv.slice(2), [
-    preflight ? '--preflight' : '--verify-once',
+    preflight
+      ? '--preflight'
+      : corrected
+        ? '--verify-v14-once'
+        : '--verify-once',
   ]);
   const artifact = JSON.parse(
     await readFile('/tmp/nba-reconstruction/editor-verified.json', 'utf8'),
@@ -67,6 +72,7 @@ async function main() {
   );
   assert.deepEqual((await readdir(directory)).sort(), [
     'item-27-evaluation.claim',
+    ...(corrected ? ['unspent-recovery'] : []),
   ]);
   const db = database();
   try {
@@ -74,16 +80,45 @@ async function main() {
       'item-54-nba-8837dd87-743a-4def-b3d9-194f3a0795e6',
     ]);
     assert.equal(prior.rows.length, 0);
-    const recoveryDirectory = `${directory}/unspent-recovery`;
+    let previousSpend = 0;
+    if (corrected) {
+      const previous = JSON.parse(
+        await readFile(
+          `${directory}/unspent-recovery/item-27-evaluation.json`,
+          'utf8',
+        ),
+      ) as { runId: string; calls: number; result: unknown };
+      assert.equal(
+        previous.runId,
+        'item-54-nba-29add5c8-cdc6-443d-b2e1-30930d58cd54',
+      );
+      assert.equal(previous.calls, 2);
+      assert.equal(previous.result, null);
+      const audit = await db.query(
+        `SELECT status, cost_micros FROM llm_calls WHERE run_id = $1`,
+        [previous.runId],
+      );
+      assert.equal(audit.rows.length, 2);
+      for (const row of audit.rows) {
+        assert.equal(row.status, 'succeeded');
+        assert.ok(
+          Number.isSafeInteger(Number(row.cost_micros)) &&
+            Number(row.cost_micros) > 0,
+        );
+        previousSpend += Number(row.cost_micros);
+      }
+      assert.equal(previousSpend, 3913);
+    }
+    const recoveryDirectory = `${directory}/${corrected ? 'v14-replay' : 'unspent-recovery'}`;
     await mkdir(recoveryDirectory, { mode: 0o700 });
     const runId = 'item-54-nba-' + randomUUID();
-    let reserved = 0;
+    let reserved = previousSpend;
     let calls = 0;
     const shared = configuredLlmLedger(db, config.caps, true);
     const ledger: LlmLedger = {
       reserve(request, estimate) {
         assert.equal(request.runId, runId);
-        assert.equal(request.purpose, 'shortlist-editor-v13');
+        assert.equal(request.purpose, 'shortlist-editor-v14-nba');
         assert.ok(Number.isSafeInteger(estimate) && estimate > 0);
         const hour = new Date().getUTCHours();
         assert.ok(hour < 13 || hour >= 16);
