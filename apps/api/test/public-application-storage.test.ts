@@ -272,6 +272,43 @@ void test('configured full public application serves published fixtures and enfo
         assert.equal(response.headers.get('access-control-allow-origin'), null);
       }
     }
+    // Body refusal must happen before real account and topic mutations, even
+    // when same-origin requests carry a valid admin session.
+    for (const [path, method] of [
+      ['/api/account/logout', 'POST'],
+      ['/api/account/logout-all', 'POST'],
+      ['/api/account/delete', 'POST'],
+      ['/api/account/sync', 'POST'],
+      ['/api/admin/topics/' + topic.id, 'PUT'],
+    ] as const) {
+      for (const [body, status] of [
+        ['{"confirmation":"DELETE",', 400],
+        [
+          ' '.repeat(
+            path === '/api/account/sync' ? 16 * 1024 * 1024 + 1 : 2049,
+          ),
+          413,
+        ],
+      ] as const) {
+        const response = await account(path, {
+          method,
+          headers: {
+            Cookie: cookie,
+            Origin: configuration.ACCOUNT_ORIGIN,
+            'Content-Type': 'application/json',
+            'X-Forwarded-For': '203.0.113.96, 203.0.113.96',
+          },
+          body,
+        });
+        assert.equal(
+          response.status,
+          status,
+          `${method} ${path}: body refusal`,
+        );
+        assert.equal(await response.text(), '');
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+      }
+    }
     assert.deepEqual(
       await (
         await account('/api/account/session', { headers: { Cookie: cookie } })

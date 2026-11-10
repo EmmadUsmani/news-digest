@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1611: due passive metrics recovery sample passes through one small merge; live health, 36 sources, account boundary and saved reader pass. Comparable large-merge recovery and owner/scheduled/link-expiry gates remain.
+- [x] Iteration 1612: full application malformed/oversized request rehearsal refuses ten authenticated writes without changing sessions, preferences or topics; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

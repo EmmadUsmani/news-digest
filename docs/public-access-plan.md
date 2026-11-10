@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Full compiled-application body refusal rehearsal (iteration 1612) sends malformed
+JSON and oversized same-origin requests with a real admin session to logout,
+logout-all, deletion, preference sync and topic updates. All ten requests return
+empty no-store 400/413 responses; subsequent reads preserve the session,
+preferences and topic catalog. It uses disposable storage only.
+
 Prepared API-admission configuration (iteration 1601) reuses the verified
 last-entry visitor selector and account secret with the limiter’s separate HMAC
 namespace. It validates peers and the key before acquiring Redis, owns idempotent

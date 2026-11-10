@@ -125,3 +125,11 @@ Earlier entries: [iteration 1598](docs/progress-archive/2026-11-10-1611.md); [it
 - Updated recovery evidence/TASKS and archived iteration 1598; no runtime, paid calls, flags, migrations or service changes. Public mode stays off. Owner two-device acceptance, Nov 10 15:00 scheduled edition and Nov 11 00:33:01 natural expiry remain pending.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (800 unit/277 integration pass, four expected skips) and `git diff --check` pass. Documentation-only commit needs no rebuild or service restart; live binaries remain unchanged.
 - Initial unsupported `obs status` and filtered `obs jobs --check` invocations were corrected to documented commands; no operational failure.
+
+## 2026-11-10: iteration 1612 — full application body refusal
+
+- Clean main; no inherited work. Zero alerts, active API/worker, healthy `/healthz`, 36/36 healthy sources and `pnpm obs jobs --check` passes; next edition Nov 10 15:00 UTC.
+- Added ten full compiled-application malformed JSON/oversized same-origin requests carrying a real admin cookie across logout, logout-all, deletion, sync and topic update routes. Empty no-store 400/413 refusals preserve session, preferences and topic catalog.
+- Disposable PostgreSQL/Redis/mailbox only; no live account writes, external calls, runtime, UI, migration or generation changes. Updated TASKS/public plan; public mode stays off.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (800 unit/277 integration pass, four expected skips), `pnpm build` (existing bundle warning), `check-handbook.ts account-activation`, `check-live-account-boundary.ts` (32 refusals), saved Nov 9 reader (four topics/19 stories/14 posts) and `git diff --check` pass.
+- API-only restart follows push; worker unchanged. Owner two-device acceptance, normal scheduled edition and Nov 11 00:33:01 natural link expiry remain pending. Metrics probe not due until ≥03:48 UTC; no early repeat.
