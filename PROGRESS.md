@@ -151,3 +151,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit; 280 integration passed/four expected skips), `pnpm build`, handbook (18 pages/22 diagrams) and `git diff --check` pass.
 - Pushed `0c1056ec`; API/worker restarted active; health and 32 account-boundary checks pass; reader four topics/19 stories/15 posts. RecentJobFailures reflects GamingBolt timeouts; scheduled third attempt recovered HTTP 200 at 20:20:05 UTC (406 ms), before restart.
 - Next: Phase 4 export transport and freshness consumer; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.
+
+## 2026-11-10: iteration 1735 — prepare dedicated-store Grafana freshness panel
+
+- Clean main; no inherited work. Health/database/Redis pass; initial RecentJobFailures reflects recovered GamingBolt retries, not a stalled source.
+- Corrected prepared source-health panel to query dedicated export source_summary rather than the application-only source_health view.
+- Added export-age stat: missing/future capture displays No valid export; age turns red at 900 seconds. No installation or live UI change.
+- Disposable restricted-reader checks execute all four exact panel queries and verify absent, future, fresh and stale captures; existing replacement/rollback/isolation checks pass.
+- Verification: format, lint fix, full check (826 unit; 280 integration/four expected skips), build, handbook (39 schema tables) and diff checks pass. Live account boundary 32 checks; scheduled reader four topics/19 stories/15 posts.
+- No paid calls, live grants, credentials or public activation. Transport/TLS, alerts, capacity, provisioning and rendering/query-route gates remain.
+- Push then API/worker restart and post-deploy health/reader/alerts checks. Next: Phase 4 export transport; Nov 11 natural link expiry and scheduled NBA acceptance remain due.

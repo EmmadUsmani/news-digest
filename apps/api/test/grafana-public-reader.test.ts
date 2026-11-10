@@ -169,8 +169,8 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
       ),
     );
     assert.equal(dashboard.editable, false);
-    assert.equal(dashboard.panels.length, 3);
-    for (const panel of dashboard.panels) {
+    assert.equal(dashboard.panels.length, 4);
+    for (const panel of dashboard.panels.slice(0, 2)) {
       assert.equal(panel.datasource.uid, 'public-product-postgres');
       assert.equal(panel.targets.length, 1);
       const result = await client.query(panel.targets[0].rawSql);
@@ -336,7 +336,7 @@ void test('separate Grafana export instance contains only aggregates under a rea
         'utf8',
       ),
     );
-    for (const panel of dashboard.panels.slice(0, 2)) {
+    for (const panel of dashboard.panels) {
       const result = await reader.query(panel.targets[0].rawSql);
       assert.equal(result.rowCount, 1);
     }
@@ -347,6 +347,28 @@ void test('separate Grafana export instance contains only aggregates under a rea
         )
       ).rows,
       [{ sources: 36, enabled: 36, errors: 0 }],
+    );
+    const freshnessSql = dashboard.panels[3].targets[0].rawSql;
+    const age = async () =>
+      (await reader.query(freshnessSql)).rows[0].age_seconds;
+    // Future captures fail closed; missing captures still return a visible null.
+    assert.equal(await age(), null);
+    await owner.query('DELETE FROM grafana_public.export_status');
+    assert.equal(await age(), null);
+    for (const seconds of [60, 901]) {
+      await owner.query(
+        `INSERT INTO grafana_public.export_status VALUES
+        (true, now() - interval '1 second' * $1)`,
+        [seconds],
+      );
+      const measured = await age();
+      assert.ok(measured >= seconds && measured < seconds + 10);
+      assert.equal(measured >= 900, seconds === 901);
+      await owner.query('DELETE FROM grafana_public.export_status');
+    }
+    await owner.query(
+      'INSERT INTO grafana_public.export_status VALUES (true,$1)',
+      [now],
     );
     // Exercise the actual writer login, including attempts to escape its grants.
     for (const query of [

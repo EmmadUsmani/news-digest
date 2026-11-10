@@ -1,7 +1,7 @@
 {
   "uid": "nd-public-overview",
   "title": "Published digest overview",
-  "description": "Prepared only. Latest 30 publication days in UTC and current aggregate source health; independent of the time picker.",
+  "description": "Prepared only. Latest 30 publication days in UTC, aggregate source health and export age; independent of the time picker.",
   "schemaVersion": 41,
   "version": 1,
   "editable": false,
@@ -94,7 +94,7 @@
           "refId": "A",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT count(*) AS sources, count(*) FILTER (WHERE enabled) AS enabled, count(*) FILTER (WHERE enabled AND has_error) AS errors FROM grafana_public.source_health",
+          "rawSql": "SELECT sources, enabled, errors FROM grafana_public.source_summary",
           "editorMode": "code"
         }
       ],
@@ -104,6 +104,59 @@
       },
       "options": {
         "showHeader": true
+      }
+    },
+    {
+      "id": 4,
+      "title": "Export age (stale after 15 minutes)",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "public-product-postgres"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 24,
+        "h": 4
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT CASE WHEN captured_at <= now() THEN extract(epoch FROM now() - captured_at)::double precision ELSE NULL END AS age_seconds FROM (SELECT max(captured_at) AS captured_at FROM grafana_public.export_status) AS export",
+          "editorMode": "code"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "No valid export",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 900
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "background",
+        "graphMode": "none"
       }
     }
   ]
