@@ -209,3 +209,19 @@ Only this timestamp is exposed, with no identifiers or raw error text.
 Disposable real-login checks cover initial absence, successful replacement,
 rollback and recovery. This remains uninstalled. Freshness panels/alerts and
 transport/TLS, capacity and provisioning checks remain before activation.
+
+## Prepared loopback export runner (iteration 1737)
+
+`apps/api/scripts/export-grafana.ts --run-once` is an uninstalled one-shot
+producer-to-writer path. It requires explicit `GRAFANA_EXPORT_SOURCE_*` and
+`GRAFANA_EXPORT_TARGET_*` HOST, PORT, DATABASE, USER and PASSWORD values from
+the service environment; no credential file is committed or automatically read.
+Both hosts must be literal `127.0.0.1`, with distinct ports. Remote transport
+is refused; this local-only path uses no TLS. Installation must independently
+verify the ports reach separate PostgreSQL instances and require password auth.
+The target login must be `grafana_export_writer`; source sessions start read-only.
+Each pool has one connection, three-second connection and five-second statement
+limits. Both pools close after success or failure; CLI failures print no driver
+details. A failed producer leaves the last committed export intact.
+Disposable trust-auth containers cover the complete path; real credential/auth,
+listener isolation, installation, freshness alerts and capacity gates remain open.

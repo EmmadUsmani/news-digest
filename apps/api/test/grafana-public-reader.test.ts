@@ -7,6 +7,7 @@ import { GenericContainer, Wait } from 'testcontainers';
 
 import { produceExport } from '../../../ops/observability/grafana/prepared/produce-export';
 import { refreshExport } from '../../../ops/observability/grafana/prepared/refresh-export';
+import { exportConnections, exportOnce } from '../scripts/export-grafana';
 import { database } from '../src/libs/db/connections';
 
 void test('prepared Grafana reader exposes only published counts and bounded source health', async () => {
@@ -262,6 +263,80 @@ void test('separate Grafana export instance contains only aggregates under a rea
     );
     await owner.query(sql);
     await owner.query(sql);
+    // Exercise the one-shot path across the disposable application and export
+    // instances. Credentials are synthetic; both containers use test-only trust.
+    const sourceUrl = new URL(process.env.DATABASE_URL!);
+    const transportCapturedAt = new Date();
+    const transport = {
+      GRAFANA_EXPORT_SOURCE_HOST: '127.0.0.1',
+      GRAFANA_EXPORT_SOURCE_PORT: sourceUrl.port,
+      GRAFANA_EXPORT_SOURCE_DATABASE: sourceUrl.pathname.slice(1),
+      GRAFANA_EXPORT_SOURCE_USER: sourceUrl.username,
+      GRAFANA_EXPORT_SOURCE_PASSWORD: 'synthetic-source-password',
+      GRAFANA_EXPORT_TARGET_HOST: '127.0.0.1',
+      GRAFANA_EXPORT_TARGET_PORT: String(connection.port),
+      GRAFANA_EXPORT_TARGET_DATABASE: connection.database,
+      GRAFANA_EXPORT_TARGET_USER: 'grafana_export_writer',
+      GRAFANA_EXPORT_TARGET_PASSWORD: 'synthetic-target-password',
+    };
+    const sourcePool = new Pool(exportConnections(transport).source);
+    let expected;
+    try {
+      assert.equal(
+        (await sourcePool.query('SHOW default_transaction_read_only')).rows[0]
+          .default_transaction_read_only,
+        'on',
+      );
+      await assert.rejects(
+        sourcePool.query(
+          'UPDATE public.content_sources SET enabled = enabled WHERE false',
+        ),
+      );
+      expected = await produceExport(sourcePool, transportCapturedAt);
+    } finally {
+      await sourcePool.end();
+    }
+    await exportOnce(transport, transportCapturedAt);
+    assert.deepEqual(
+      (
+        await reader.query(
+          'SELECT sources,enabled,errors FROM grafana_public.source_summary',
+        )
+      ).rows,
+      [
+        {
+          sources: expected.sources,
+          enabled: expected.enabled,
+          errors: expected.errors,
+        },
+      ],
+    );
+    assert.equal(
+      (
+        await reader.query(
+          'SELECT captured_at FROM grafana_public.export_status',
+        )
+      ).rows[0].captured_at.toISOString(),
+      transportCapturedAt.toISOString(),
+    );
+    // Producer failure must leave the committed export untouched.
+    await assert.rejects(
+      exportOnce({
+        ...transport,
+        GRAFANA_EXPORT_SOURCE_DATABASE: 'missing_export_source',
+      }),
+    );
+    assert.equal(
+      (
+        await reader.query(
+          'SELECT captured_at FROM grafana_public.export_status',
+        )
+      ).rows[0].captured_at.toISOString(),
+      transportCapturedAt.toISOString(),
+    );
+    await owner.query(
+      'TRUNCATE grafana_public.published_editions, grafana_public.published_content, grafana_public.source_summary, grafana_public.export_status',
+    );
     await owner.query(`INSERT INTO grafana_public.published_editions VALUES ('2099-11-10',1);
       INSERT INTO grafana_public.published_content VALUES ('2099-11-10',4,19,15);
       INSERT INTO grafana_public.source_summary VALUES (true,36,36,0)`);

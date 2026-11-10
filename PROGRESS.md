@@ -69,3 +69,14 @@
 - Verification: targeted disposable export test passes; format/lint fix, full check (826 unit; 280 integration/four expected skips), build, handbook (18 pages/22 diagrams/39 tables) and diff checks pass. Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts.
 - Initial direct test invocation refused the missing isolation marker; rerun with explicit isolated flag and export-only test selection passed without live database access.
 - Next: finish export transport; Nov 11 link expiry after 00:33:01 UTC and scheduled NBA acceptance. Push followed by API/worker restart and post-deploy health/reader/alerts checks.
+
+## 2026-11-10: iteration 1737 — prepare loopback aggregate export transport
+
+- Clean main; no inherited work. Alerts zero and health/database/Redis pass; Nov 11 expiry/NBA acceptance remain pending.
+- Prepared explicit one-shot exporter: separate literal-loopback ports, mandatory source/target credentials, restricted writer, read-only producer, one connection per pool and bounded connection/statements. Remote transport refused; CLI hides driver details and closes pools.
+- Disposable two-instance path passes: source writes refused, aggregate transfer/capture succeeds, producer connection failure retains previous capture. Trust-auth fixtures do not verify real passwords; no live exporter, credentials, grants or public activation.
+- Initial full check caught a duplicate variable in the added integration test; renamed and reran. An unisolated test-filter attempt refused its isolation marker before database access.
+- Verification: format/lint fix, targeted transport test and lint, CLI missing-config refusal, build, handbook (18 pages/one unchanged diagram/39 tables), diff check and `pnpm check` rerun pass (827 unit; 280 integration/four expected skips).
+- Live account boundary: 32 pass; scheduled reader four topics/19 stories/15 posts. No paid calls.
+- Next: real export password auth/listener isolation, freshness alerts, capacity and provisioning/rendering gates; Nov 11 link expiry after 00:33:01 UTC and scheduled NBA acceptance.
+- Pushed after verification; API/worker restart and post-deploy health/reader/alerts checks follow.
