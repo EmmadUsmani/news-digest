@@ -4,9 +4,12 @@ Requires=obs-metric-volume.service
 After=obs-metric-volume.service
 [Service]
 User=exedev
+# Refuse startup instead of silently exposing mutations if a key disappears.
+ExecStartPre=/usr/bin/python3 -c "import os; assert all(len(os.environ.get(k, '')) >= 32 for k in ('NEWS_METRICS_deleteAuthKey', 'NEWS_METRICS_forceMergeAuthKey')), 'Missing private metrics mutation keys'"
 ExecStartPre=/usr/bin/mkdir -p /var/lib/news-digest-metrics/data/cache
 ExecStartPre=/usr/bin/touch /var/lib/news-digest-metrics/data/cache/reset_cache_on_startup
-ExecStart=/opt/news-digest-observability/victoria-metrics-prod -httpListenAddr=127.0.0.1:8428 -http.pathPrefix=/metrics -storageDataPath=/var/lib/news-digest-metrics/data -retentionPeriod=30d -storage.minFreeDiskSpaceBytes=50MB -memory.allowedBytes=16MiB -promscrape.config=/etc/news-digest-observability/scrape.yml -search.maxConcurrentRequests=2 -search.maxMemoryPerQuery=8MiB
+EnvironmentFile=/home/exedev/.config/news-digest/env
+ExecStart=/opt/news-digest-observability/victoria-metrics-prod -envflag.enable -envflag.prefix=NEWS_METRICS_ -httpListenAddr=127.0.0.1:8428 -http.pathPrefix=/metrics -storageDataPath=/var/lib/news-digest-metrics/data -retentionPeriod=30d -storage.minFreeDiskSpaceBytes=50MB -memory.allowedBytes=16MiB -promscrape.config=/etc/news-digest-observability/scrape.yml -search.maxConcurrentRequests=2 -search.maxMemoryPerQuery=8MiB
 Environment=GOMAXPROCS=1 GOMEMLIMIT=48MiB
 Restart=always
 RestartSec=5

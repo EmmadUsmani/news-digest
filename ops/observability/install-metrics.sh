@@ -3,6 +3,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 [[ $(uname -m) == x86_64 ]] || exit 1
+# Fail before changing the installation if private mutation keys are absent.
+python3 - <<'PYKEYS'
+from pathlib import Path
+keys = dict(line.split('=', 1) for line in
+            (Path.home() / '.config/news-digest/env').read_text().splitlines()
+            if '=' in line and not line.startswith('#'))
+for name in ('NEWS_METRICS_deleteAuthKey', 'NEWS_METRICS_forceMergeAuthKey'):
+    if len(keys.get(name, '').strip()) < 32:
+        raise SystemExit('Missing private metrics mutation key: ' + name)
+PYKEYS
 obs_tmp=$(mktemp -d)
 trap 'rm -rf "$obs_tmp"' EXIT
 curl -fsSL https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.155.0/victoria-metrics-linux-amd64-v1.155.0.tar.gz -o "$obs_tmp/vm.tgz"

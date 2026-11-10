@@ -33,10 +33,12 @@ activation review, rather than adding more variants of already-covered refusals.
 - [ ] Rehearse additive migration 0019 on a fresh private restored copy; verify
       rollback, repeat-run behavior and reader-role grants. Take a private backup
       before applying it live, with an explicit migration stopping tag.
-- [ ] Configure VictoriaMetrics `-deleteAuthKey` and `-forceMergeAuthKey` using
-      private secrets; the tracked `ops/observability/obs-metrics.service` currently
-      supplies neither. Verify refusal without credentials, without triggering any
-      deletion or forced merge. Keep keys out of tracked units, logs and receipts.
+- [x] VictoriaMetrics deletion/forced-merge keys configured (iteration 1616).
+      Private keys live only in the mode-600 secrets file; the tracked unit loads
+      them through prefixed environment flags. Installer and service startup refuse missing keys.
+      `pnpm exec tsx scripts/check-metrics-mutation-guards.ts` confirms all three
+      mutation routes refuse unauthenticated requests (401), without credentials
+      or a deletion/forced merge. Normal queries and scraping remain available.
 - [ ] Review every public admin/tool GET response for user data, secrets and raw
       provider errors. Confirm `/logs` and `/metrics` require an admin session and
       account tables deny operational/PUBLIC reader roles after migration.

@@ -36,6 +36,9 @@ flowchart LR
 
 Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing observed".
 
+Metrics deletion and forced merges require separate keys in `~/.config/news-digest/env`.
+The installer requires both keys; normal queries and scraping need no key.
+
 ## What is collected
 
 | Kind         | What                                                                                                                                                                                                                                                                                                                                             |
@@ -108,10 +111,7 @@ pnpm obs metric 'up' --since 1h --step 60s
 - **Check:** `systemctl status 'obs-*'`, and
   `pnpm exec tsx scripts/check-observability.ts` for a full read-only check.
   Flags like `--verify-grafana` and `--verify-alerts` check one area.
-- **If the API is down,** the UIs are down too, because the API forwards
-  them. Use an SSH tunnel instead, for example
-  `ssh -L 3001:localhost:3001 news-digest.exe.xyz`, then open
-  `localhost:3001/grafana/`. The other ports are 9428 (logs) and 8428
-  (metrics).
+- **API down:** tunnel with `ssh -L 3001:localhost:3001 news-digest.exe.xyz`
+  and open `localhost:3001/grafana/`; logs/metrics use ports 9428/8428.
 
 Background: [capacity decision](../../decisions/0004-observability-capacity.md).
