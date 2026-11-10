@@ -251,6 +251,24 @@ void test('separate Grafana export instance contains only aggregates under a rea
       Wait.forLogMessage('database system is ready to accept connections', 2),
     )
     .start();
+  const sourceContainer = await new GenericContainer('postgres:17-alpine')
+    .withEnvironment({
+      POSTGRES_PASSWORD: 'synthetic-source-owner-password',
+      POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256',
+    })
+    .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
+    .withExposedPorts(5432)
+    .withWaitStrategy(
+      Wait.forLogMessage('database system is ready to accept connections', 2),
+    )
+    .start();
+  const sourceOwner = new Pool({
+    host: sourceContainer.getHost(),
+    port: sourceContainer.getMappedPort(5432),
+    database: 'postgres',
+    user: 'postgres',
+    password: 'synthetic-source-owner-password',
+  });
   const connection = {
     host: container.getHost(),
     port: container.getMappedPort(5432),
@@ -309,14 +327,30 @@ void test('separate Grafana export instance contains only aggregates under a rea
         await denied.end();
       }
     }
-    // The isolated application source still uses test-only trust authentication.
-    const sourceUrl = new URL(process.env.DATABASE_URL!);
+    // Minimal disposable producer schema; no application database or live grants.
+    await sourceOwner.query(`
+      CREATE TABLE digest_previews (published_at timestamptz, snapshot jsonb);
+      CREATE TABLE content_sources (enabled boolean, last_error text);
+      INSERT INTO digest_previews VALUES
+        (now(), '{"topics":[{"stories":[1,2],"posts":[1]}]}'),
+        (NULL, '{"private":"unpublished-marker"}');
+      INSERT INTO content_sources VALUES (true,NULL),(true,'private-error-marker');
+      CREATE ROLE aggregate_producer LOGIN PASSWORD 'synthetic-source-password';
+      GRANT SELECT ON digest_previews, content_sources TO aggregate_producer;
+    `);
+    assert.ok(
+      (
+        await sourceOwner.query(
+          "SELECT rolpassword FROM pg_authid WHERE rolname = 'aggregate_producer'",
+        )
+      ).rows[0].rolpassword.startsWith('SCRAM-SHA-256$'),
+    );
     const transportCapturedAt = new Date();
     const transport = {
       GRAFANA_EXPORT_SOURCE_HOST: '127.0.0.1',
-      GRAFANA_EXPORT_SOURCE_PORT: sourceUrl.port,
-      GRAFANA_EXPORT_SOURCE_DATABASE: sourceUrl.pathname.slice(1),
-      GRAFANA_EXPORT_SOURCE_USER: sourceUrl.username,
+      GRAFANA_EXPORT_SOURCE_PORT: String(sourceContainer.getMappedPort(5432)),
+      GRAFANA_EXPORT_SOURCE_DATABASE: 'postgres',
+      GRAFANA_EXPORT_SOURCE_USER: 'aggregate_producer',
       GRAFANA_EXPORT_SOURCE_PASSWORD: 'synthetic-source-password',
       GRAFANA_EXPORT_TARGET_HOST: '127.0.0.1',
       GRAFANA_EXPORT_TARGET_PORT: String(connection.port),
@@ -337,7 +371,16 @@ void test('separate Grafana export instance contains only aggregates under a rea
           'UPDATE public.content_sources SET enabled = enabled WHERE false',
         ),
       );
+      // Read-only defaults are not the security boundary: grants deny writes too.
+      await sourcePool.query('SET default_transaction_read_only = off');
+      await assert.rejects(
+        sourcePool.query('DELETE FROM public.content_sources'),
+        (error: unknown) =>
+          error instanceof Error && 'code' in error && error.code === '42501',
+      );
       expected = await produceExport(sourcePool, transportCapturedAt);
+      assert.equal(expected.sources, 2);
+      assert.equal(expected.days[0].stories, 2);
     } finally {
       await sourcePool.end();
     }
@@ -369,6 +412,15 @@ void test('separate Grafana export instance contains only aggregates under a rea
       exportOnce({
         ...transport,
         GRAFANA_EXPORT_TARGET_PASSWORD: 'wrong-synthetic-password',
+      }),
+      (error: unknown) =>
+        error instanceof Error && 'code' in error && error.code === '28P01',
+    );
+    // Source authentication failure must also preserve the committed capture.
+    await assert.rejects(
+      exportOnce({
+        ...transport,
+        GRAFANA_EXPORT_SOURCE_PASSWORD: 'wrong-synthetic-password',
       }),
       (error: unknown) =>
         error instanceof Error && 'code' in error && error.code === '28P01',
@@ -609,7 +661,12 @@ void test('separate Grafana export instance contains only aggregates under a rea
       reader.query('DELETE FROM grafana_public.published_content'),
     );
   } finally {
-    await Promise.all([owner.end(), reader.end(), writer.end()]);
-    await container.stop();
+    await Promise.all([
+      owner.end(),
+      reader.end(),
+      writer.end(),
+      sourceOwner.end(),
+    ]);
+    await Promise.all([container.stop(), sourceContainer.stop()]);
   }
 });

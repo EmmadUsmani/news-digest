@@ -90,3 +90,14 @@
 - Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. No paid calls, exporter installation or public activation.
 - Next: source authentication/listener isolation, freshness alerts, capacity/provisioning/rendering gates; Nov 11 natural link expiry and scheduled NBA acceptance remain pending.
 - Push followed by API/worker restart and post-deploy health/reader/alerts checks.
+
+## 2026-11-10: iteration 1739 — rehearse export source SCRAM authentication
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Nov 11 natural expiry and scheduled NBA acceptance remain pending.
+- Replaced trust-auth source in the disposable aggregate transport rehearsal with a separate SCRAM Postgres instance and SELECT-only producer login; seeded synthetic published/unpublished records and private source errors.
+- Correct source credentials transfer aggregate counts; wrong source password fails with SQLSTATE 28P01 and preserves committed capture. Producer writes fail with 42501 even after resetting read-only defaults. Target SCRAM and aggregate-only reader checks still pass.
+- No live schema/grants, credentials, exporter installation, public activation or paid calls. Listener isolation remains unverified; freshness alerts, capacity, provisioning/rendering/query-route gates remain.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts` and `git diff --check` pass; 827 unit and 280 integration tests pass, four expected skips; handbook 18 pages/22 diagrams/39 tables.
+- Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts.
+- Next: listener isolation and remaining Phase 4 gates; Nov 11 link expiry after 00:33:01 UTC and scheduled NBA acceptance.
+- Pushed after verification; API/worker restart and post-deploy health/reader/alerts checks follow.
