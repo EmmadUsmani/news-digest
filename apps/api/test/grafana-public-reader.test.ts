@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { Pool } from 'pg';
 import { GenericContainer, Wait } from 'testcontainers';
 
+import { produceExport } from '../../../ops/observability/grafana/prepared/produce-export';
 import { refreshExport } from '../../../ops/observability/grafana/prepared/refresh-export';
 import { database } from '../src/libs/db/connections';
 
@@ -30,6 +31,43 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
       'scheduled','2099-11-11T15:00:00Z'),
       (NULL,now()-interval '1 day',now(),'{"topics":null}',
       'scheduled','2099-11-12T15:00:00Z')`);
+    const produced = await produceExport(
+      client,
+      new Date('2099-11-11T23:59:59Z'),
+    );
+    assert.deepEqual(produced.days, [
+      { day: '2099-11-10', editions: 1, topics: 0, stories: 0, posts: 0 },
+      { day: '2099-11-11', editions: 1, topics: 2, stories: 1, posts: 2 },
+    ]);
+    assert.ok(produced.sources >= 1);
+    assert.ok(produced.enabled <= produced.sources);
+    assert.ok(produced.errors <= produced.enabled);
+    assert.doesNotMatch(
+      JSON.stringify(produced),
+      /marker|secret|https|2099-11-12/,
+    );
+    assert.deepEqual(
+      (await produceExport(client, new Date('2099-12-11T00:00:00Z'))).days,
+      [{ day: '2099-11-12', editions: 1, topics: 0, stories: 0, posts: 0 }],
+    );
+    assert.deepEqual(
+      (await produceExport(client, new Date('2100-01-01T00:00:00Z'))).days,
+      [],
+    );
+    await client.query('SAVEPOINT producer_sources');
+    await client.query(`INSERT INTO content_sources(id,name,kind,url,enabled,last_error)
+      VALUES ('ffffffff-ffff-4fff-8fff-fffffffffffe','disabled-marker','feed',
+      'https://example.test/disabled-marker',false,'disabled-error-marker')`);
+    await client.query("SET LOCAL TIME ZONE 'Pacific/Honolulu'");
+    const withDisabled = await produceExport(
+      client,
+      new Date('2099-11-11T23:59:59Z'),
+    );
+    assert.deepEqual(withDisabled, {
+      ...produced,
+      sources: produced.sources + 1,
+    });
+    await client.query('ROLLBACK TO SAVEPOINT producer_sources');
     const sql = readFileSync(
       'ops/observability/grafana/sql/public-product-reader.sql',
       'utf8',

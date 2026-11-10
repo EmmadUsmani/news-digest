@@ -131,3 +131,13 @@
 - No live role grants, exporter, credentials, transport, datasource or public activation. Producer aggregation, network/TLS, freshness, capacity and Grafana query/rendering gates remain. No paid calls.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
 - Next: continue Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.
+
+## 2026-11-10: iteration 1733 — prepare published-only aggregate producer
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA correction unchanged; Nov 11 scheduled acceptance pending.
+- Prepared trusted application-side producer returning only daily edition/topic/story/post counts and source totals in one statement/database snapshot; no raw content, identifiers or errors leave it.
+- UTC today plus preceding 29 days only; unpublished, future-day and expired editions excluded. Malformed topic collections count empty; disabled source errors excluded from enabled/error totals.
+- Disposable timezone test caught implicit date conversion admitting the next UTC day; explicit timestamp conversion fixes it. Coverage checks private markers, exact counts, malformed snapshots, retention and Pacific/Honolulu equivalence.
+- No producer registration, schedule, live grants, exporter, credentials, transport, datasource or public activation; no paid calls. Transport/TLS, freshness, capacity and Grafana query/rendering gates remain.
+- Verification: format/lint fix, full check, build, handbook and diff checks; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips; build/handbook pass. Push then API/worker restart and post-deploy health/reader/alerts checks.
+- Next: Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.

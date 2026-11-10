@@ -179,3 +179,16 @@ the prior snapshot and leaves the writer pool reusable. Credentials, connection
 transport/TLS, producer aggregation, freshness reporting and provisioning remain
 uninstalled. Reader and writer must connect only to the dedicated export
 instance; this preparation does not grant access to the application database.
+
+## Prepared aggregate producer (iteration 1733)
+
+`grafana/prepared/produce-export.ts` reads published edition counts, topic/story/post
+counts and aggregate source totals in one database statement. It returns only
+explicit count fields and UTC dates for today and the preceding 29 days. Unpublished,
+future-day and expired editions are excluded; malformed topic collections count as
+empty. Disabled sources contribute to the total but not enabled/error counts.
+The trusted application-side connection stays separate from the export writer and
+Grafana reader. No producer is registered or scheduled, and no live grants change.
+Disposable tests verify private-marker exclusion, published counts, empty/malformed
+snapshots, future-day exclusion and retention boundaries. Transport/TLS, credentials,
+freshness, capacity and Grafana query/rendering acceptance remain open.
