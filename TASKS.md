@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1701: prepared query-backed public status page with isolated cache, loading/retry and stale-data warning; offline HTTP/schema failure and desktop/mobile light/dark checks pass. No installed route or deployment. Next: gated status API/page authorization composition, then preview/tools; Phase 3 awaits 15:00 UTC.
+- [x] Iteration 1702: gated operations API composition selects exactly one private/public status transport and preserves alerts; offline HTTP checks pass. Public mode off; anonymous authorization and page selection remain next, followed by preview/tools. No deployment during protected window; Phase 3 awaits 15:00 UTC.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

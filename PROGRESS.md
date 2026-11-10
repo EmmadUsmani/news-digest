@@ -120,3 +120,12 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - `/healthz` database/Redis healthy; no failed user services. RecentJobFailures matches existing GamingBolt scheduled failures at 13:46/13:48/13:50 UTC; bounded retries retained, no direct probe. Metrics sample not due before 14:34 UTC.
 - Updated TASKS/rollout review; archived iterations 1623–1624 to keep progress small. Next: gated status API/page authorization composition, then preview/tools; Phase 3 awaits normal 15:00 UTC edition and natural link expiry after Nov 11 00:33:01 UTC.
 - No provider calls, live migrations, flags, deployments or restarts during the 13:00–16:00 UTC hold. Prepared components remain uninstalled; running app behavior unchanged.
+
+## 2026-11-10: iteration 1702 — compose gated operations status API
+
+- Clean main; no inherited work. `OperationsModule.prepare` validates public prerequisites before adapters open and installs exactly one status controller: unchanged private response or sanitized public response. Both share the existing status provider/lifecycle; alerts retain their own route.
+- Added offline Nest HTTP composition tests with adapter stand-ins: private/public response selection, GET/HEAD, one reader call, alerts, mutation refusal, concealed dependency failures and invalid prerequisites. Four targeted composition/transport tests pass; no external services called.
+- Updated TASKS, rollout review and operations handbook. Status authorization remains admin-only; public page is still uninstalled. Next: compose page selection and anonymous authorization together, then preview/tools.
+- Verification: `pnpm format`, `pnpm lint:fix`, API/web builds, `pnpm exec tsx scripts/check-handbook.ts 08-operations` and `git diff --check` pass. First full check raced import autofix and stopped at lint; rerun after autofix passes typecheck/lint/format/boundaries, 813 unit and 277 integration tests/four expected skips.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes: four topics/19 stories/14 posts. `/healthz` database/Redis healthy, no failed user services, zero active alerts. GamingBolt incident remains open with bounded scheduled retries; no direct probe.
+- No provider calls, live migrations, flag changes, deployments or service restarts during the 13:00–16:00 UTC hold. Public mode off; Phase 3 awaits normal 15:00 UTC edition and natural link expiry after Nov 11 00:33:01 UTC. Metrics sample not due before 14:34 UTC.

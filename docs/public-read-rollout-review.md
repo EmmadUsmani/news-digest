@@ -159,3 +159,11 @@ The offline browser check covers these states and a seeded private cache, verifi
 only status GET requests, and saves `public-status-page-fixture-*` screenshots.
 No application route, API authorization or deployment changed. Next: install the
 gated status API/page composition without legacy overlaps, then preview/tools.
+
+Iteration 1702 composes the status transport in `OperationsModule.prepare`:
+private mode retains the detailed response; public mode selects only the sanitized
+controller, sharing the existing status provider and lifecycle. Alerts retain their
+separate route. Prerequisites are validated before opening database/Redis adapters.
+The route classifier still requires admin access, and the public page is not yet
+installed. Next: compose page selection and anonymous authorization together, then
+preview/tools. No deployment during the protected edition window.
