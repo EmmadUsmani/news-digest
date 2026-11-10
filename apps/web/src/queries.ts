@@ -40,11 +40,6 @@ export const identityQuery = queryOptions({
   queryFn: ({ signal }) => read('/api/me', identitySchema, signal),
 });
 
-export const contentQuery = queryOptions({
-  queryKey: ['content'],
-  queryFn: ({ signal }) =>
-    read('/api/admin/content', contentGroupSchema.array(), signal),
-});
 export const topicsQuery = queryOptions({
   queryKey: ['topics'],
   queryFn: ({ signal }) =>
