@@ -408,8 +408,13 @@ loopback HTTP burst shares the 120/minute allowance across the observed duplicat
 visitor entries and zero/one/two forged prefixes. Account session transport, temporary-mailbox code delivery,
 restart persistence, independent visitors, missing-client refusal, health/privacy
 bypass and private rollback are covered. Downstream reader controllers remain a
-204 sentinel in this focused rehearsal; full application, owner and scheduled
-acceptance gates remain open. No live flags or data are changed.
+204 sentinel in this focused rehearsal. Iteration 1604 adds a full compiled Nest
+application rehearsal with the configured provider mounted before body parsers,
+real reader controllers and the public error filter. It checks published fixture
+latest/direct reads, private fixture refusal, anonymous session reads, restricted topic reads,
+forged-header write refusal, empty controller errors and shared admission across
+reader/account routes. Owner and scheduled acceptance gates remain open. No live
+flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
 the largest year its ISO timestamp storage accepts. Larger clocks return an

@@ -17,6 +17,7 @@ const integration = new Set([
   'login-code-admission.test.ts',
   'public-api-admission.test.ts',
   'public-runtime-storage.test.ts',
+  'public-application-storage.test.ts',
   'login-code-repository.test.ts',
   'sign-in-link-repository.test.ts',
   'login-exchange.test.ts',
