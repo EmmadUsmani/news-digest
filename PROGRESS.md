@@ -153,3 +153,13 @@
 - Next: reconstruct Nov 10 NBA shortlist and bounded replay, identify rejected sentences/rules, fix only the demonstrated cause, deploy by Nov 11 noon; Nov 11 scheduled AI-edit acceptance remains required.
 - Corrected full `pnpm check` passes (821 unit; 280 integration, four expected skips); `pnpm format`, `pnpm lint:fix`, final `pnpm build`, handbook check and `git diff --check` pass. Commit/push and API/worker restart follow.
 - Pushed `c78756f7`; API/worker restarted active, health/database/Redis and scheduled reader pass, no failed user units. RecentJobFailures reflects GamingBolt timeout/502 attempts; scheduled third attempt recovered HTTP 200 at 18:19:45 UTC. No source change needed; alert lookback still active at 18:24.
+
+## 2026-11-10: iteration 1724 — verify historical NBA editor reconstruction inputs
+
+- Clean main; no inherited work. Health/database/Redis pass, no failed user units. GamingBolt recovered; recent-failure alert resolved at 18:28 UTC, zero alerts at 18:30.
+- Added read-only reconstruction script: historical edition/scores, snapshot coverage restoration, exact per-item triage cache fingerprints, bounded source-subset recovery, then exact cached grouping before editor request capture. Provider/cache writes are forbidden.
+- Actual replay probe matches 129/130 saved triage scores; Tatum/Brown preview `5fab414d-9086-49b1-b2a6-b29c0d9aece6` has no matching current-input fingerprint. Original excerpt/difference unknown; title/outlet restoration and outlet subsets did not resolve it.
+- Script stops with `historical-input-gap` before grouping/editor construction; private mode-0600 evidence at `/tmp/nba-reconstruction/verified-input.json`. Verified 129 matching scores/one gap/no request payload. No claim of exact replay or identified rejected sentence.
+- No paid calls ($0/$0.10), prompt/guard/provider/flag/migration changes. Guard/fallback retained; item 54 remains open. Next: recover historical preview input, reconstruct shortlist/grouping and diagnose rejected output before Nov 11 noon UTC.
+- `pnpm build` and scheduled-reader check pass (four topics/19 stories/15 posts). Initial full check found three require-await lint errors in script stubs; corrected to explicit promises, rerunning full check and lint fix.
+- Corrected `pnpm check` passes: 821 unit tests, 280 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, handbook check and `git diff --check` pass. Empty/null excerpt probes also miss; private evidence overwrite refusal verified. Commit/push and API/worker restart follow.
