@@ -8,6 +8,7 @@ import {
   operationsStatusSchema,
   previewHistorySchema,
   profileSettingsSchema,
+  publicOperationsStatusSchema,
   readerEditionHistorySchema,
   readerEditionSchema,
   scheduleSchema,
@@ -73,6 +74,15 @@ export const statusQuery = queryOptions({
   queryKey: ['status'],
   queryFn: ({ signal }) =>
     read('/api/admin/status', operationsStatusSchema, signal),
+  refetchInterval: 60_000,
+});
+
+// Separate cache and schema: public failures never fall back to private status.
+export const publicStatusQuery = queryOptions({
+  queryKey: ['public', 'status'],
+  queryFn: ({ signal }) =>
+    read('/api/admin/status', publicOperationsStatusSchema, signal),
+  retry: false,
   refetchInterval: 60_000,
 });
 

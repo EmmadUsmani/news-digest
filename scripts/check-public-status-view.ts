@@ -1,4 +1,4 @@
-// Offline fixture browser rehearsal of the uninstalled public status view.
+// Offline fixture browser rehearsal of the uninstalled public status view/page.
 import assert from 'node:assert/strict';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 
@@ -93,11 +93,18 @@ async function main() {
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {PublicStatus} from '/src/PublicStatus.tsx';
+import {PublicStatusPage} from '/src/PublicStatusPage.tsx';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import '/src/style.css';
 const fixture = ${JSON.stringify(fixture)};
 const root = createRoot(document.getElementById('root'));
 window.showStatus = (empty) => root.render(React.createElement(PublicStatus, {data: empty ? {checkedAt: fixture.checkedAt, sources: [], queues: []} : fixture}));
 window.showStatus(false);
+window.showPage = () => {
+  const client = new QueryClient({defaultOptions: {queries: {gcTime: 0}}});
+  client.setQueryData(['status'], {private: 'private-cache-marker'});
+  root.render(React.createElement(QueryClientProvider, {client}, React.createElement(PublicStatusPage)));
+};
 </script></body></html>`,
     );
     server = await createServer({
@@ -162,9 +169,104 @@ window.showStatus(false);
     assert.equal(await page.getByText('Budget unavailable').count(), 2);
     assert.equal(await page.getByText('No sources available').count(), 1);
     assert.equal(await page.getByText('No queues available').count(), 1);
+    // Exercise the real public query through HTTP, without any private reads.
+    let mode: 'pending' | 'valid' | 'failed' | 'malformed' = 'pending';
+    let release!: () => void;
+    const pending = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const reads: string[] = [];
+    await page.route('**/api/**', async (route) => {
+      const path = new URL(route.request().url()).pathname;
+      reads.push(path);
+      assert.equal(route.request().method(), 'GET');
+      assert.equal(path, '/api/admin/status');
+      if (mode === 'pending') await pending;
+      await route.fulfill({
+        status: mode === 'failed' ? 503 : 200,
+        contentType: 'application/json',
+        body: JSON.stringify(
+          mode === 'valid' ? fixture : { private: 'private-response-marker' },
+        ),
+      });
+    });
+    await page.evaluate(() =>
+      (window as unknown as { showPage: () => void }).showPage(),
+    );
+    await page
+      .getByRole('status')
+      .filter({ hasText: 'Loading system status' })
+      .waitFor();
+    assert.equal(
+      await page.getByRole('button', { name: 'Refresh status' }).isDisabled(),
+      true,
+    );
+    assert.equal(
+      await page.getByRole('heading', { name: 'System status' }).count(),
+      0,
+    );
+    mode = 'failed';
+    release();
+    await page.getByRole('alert').waitFor();
+    assert.equal(reads.length, 1);
+    assert.equal(
+      await page.getByRole('heading', { name: 'System status' }).count(),
+      0,
+    );
+    mode = 'malformed';
+    await page.getByRole('button', { name: 'Refresh status' }).click();
+    await page.waitForFunction(
+      () => !document.querySelector('button')?.disabled,
+    );
+    assert.equal(reads.length, 2);
+    assert.equal(
+      await page.getByRole('heading', { name: 'System status' }).count(),
+      0,
+    );
+    assert.equal(
+      (await page.locator('body').innerText()).includes('private-'),
+      false,
+    );
+    mode = 'valid';
+    await page.getByRole('button', { name: 'Refresh status' }).click();
+    await page.getByRole('heading', { name: 'System status' }).waitFor();
+    assert.equal(await page.getByRole('alert').count(), 0);
+    mode = 'failed';
+    await page.getByRole('button', { name: 'Refresh status' }).click();
+    await page
+      .getByRole('alert')
+      .filter({ hasText: 'Previously loaded values may be out of date' })
+      .waitFor();
+    assert.equal(
+      await page.getByRole('heading', { name: 'System status' }).count(),
+      1,
+    );
+    assert.equal(reads.length, 4);
+    await page.waitForFunction(
+      () => !document.querySelector('button')?.disabled,
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-status-page-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
     assert.deepEqual(errors, []);
     console.log(
-      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections, no controls or overflow.',
+      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; no private reads or overflow.',
     );
   } finally {
     await browser.close();

@@ -150,3 +150,12 @@ offline at desktop/mobile widths in both themes; screenshots are
 `docs/screenshots/ui/public-status-fixture-{390,1440}-{light,dark}.png`.
 Route/query composition remains pending; running private pages are unchanged.
 Next: compose the gated public status reader/view, then preview/tools.
+
+Iteration 1701 composes the uninstalled public query and view in `PublicStatusPage`.
+Its query uses the public schema and a separate cache key, with no private fallback;
+loading disables refresh, HTTP/schema failures show a generic retry message, and
+failed refreshes retain the previous public data with an explicit stale warning.
+The offline browser check covers these states and a seeded private cache, verifies
+only status GET requests, and saves `public-status-page-fixture-*` screenshots.
+No application route, API authorization or deployment changed. Next: install the
+gated status API/page composition without legacy overlaps, then preview/tools.
