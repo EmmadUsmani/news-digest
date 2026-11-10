@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1741: captured first production-order Sonnet NBA response and supported-paraphrase rejection; bounded replay/accounting and default-preserving verification exception tested. Remaining Sonnet trials await UTC shared-cap reset.
+- [x] Iteration 1742: prepared uninstalled dedicated-export freshness alert; restricted-reader SQL covers missing/future/stale captures and recovery. Grafana runtime/provisioning rehearsal and capacity remain. Sonnet trials still await UTC shared-cap reset.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

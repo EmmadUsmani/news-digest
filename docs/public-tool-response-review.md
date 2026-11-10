@@ -240,3 +240,19 @@ only persistent storage for tmpfs, restart policy for no restart and the host
 port for an ephemeral port. It checks Docker bindings/network isolation, a real
 loopback SQL connection and refusal through every VM non-loopback IPv4 address.
 The bridge allows outbound networking; only the host listener is restricted to loopback. An initial internal-network trial suppressed Docker port publication and was replaced with this dedicated bridge. Live installation and firewall review remain.
+
+## Prepared export freshness alert (iteration 1742)
+
+`grafana/prepared/export-freshness-alert.json` is an uninstalled Grafana
+provisioning group for the dedicated `public-product-postgres` datasource.
+Its restricted-reader SQL always returns one numeric value: healthy captures
+are at most 15 minutes old and not in the future. Missing/stale/future captures
+return unhealthy; query errors and no-data use Grafana's Alerting state.
+Evaluation is once per minute with a five-minute pending period. No contact
+point or external notification is configured.
+
+Disposable real-login checks execute the exact provisioned SQL for empty,
+future, current, fresh, nearly stale and stale captures, including recovery.
+Grafana provisioning/runtime evaluation and query-route acceptance still need
+a rehearsal before installation; this file is outside the installed provisioning
+directory. Capacity and datasource installation remain open.

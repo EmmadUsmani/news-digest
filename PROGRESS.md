@@ -125,3 +125,13 @@
 - Verification: targeted ledger tests, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build` and `git diff --check` pass. Live account boundary 32 checks pass; reader four topics/19 stories/15 posts.
 - Next: finish bounded Sonnet trials, computable supported-paraphrase fix if warranted and one confirmation; Nov 11 natural link expiry and scheduled NBA acceptance. Phase 4 waits.
 - Concurrent owner lead-note update `1547371d` merged without rewriting history; push and API/worker restart followed by health/reader/alerts checks.
+
+## 2026-11-10: iteration 1742 — prepare export freshness alert
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Item 54 Sonnet trials await UTC shared-cap reset; no paid retry or editorial change.
+- Prepared uninstalled Grafana alert for the separate aggregate store: restricted-reader SQL reports missing/future/stale captures, 15-minute freshness limit, one-minute evaluation/five-minute pending period; query errors/no-data alert. No contact point or notification delivery configured.
+- Extended disposable real-login checks to run the exact provisioned SQL across missing/future/current/fresh/nearly stale/stale captures and recovery; updated affected owner page and readiness review.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 09-observability`, `git diff --check`; all pass (827 unit; 281 integration/four expected skips; handbook 18 pages/one unchanged diagram/39 tables).
+- Live `check-live-account-boundary.ts`: 32 pass; `check-scheduled-reader.ts 2026-11-10T15:00:00Z`: four topics/19 stories/15 posts.
+- Next: finish Sonnet trials after UTC reset; natural link expiry after Nov 11 00:33:01 UTC; scheduled NBA acceptance. Export alert still needs Grafana provisioning/runtime rehearsal, capacity and installation gates. Public mode stays off.
+- Pushed verified step; API/worker restart and post-deploy health/reader/alerts checks follow.

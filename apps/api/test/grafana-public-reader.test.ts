@@ -551,6 +551,25 @@ void test('separate Grafana export instance contains only aggregates under a rea
       ).rows,
       [{ sources: 36, enabled: 36, errors: 0 }],
     );
+    const alert = JSON.parse(
+      readFileSync(
+        'ops/observability/grafana/prepared/export-freshness-alert.json',
+        'utf8',
+      ),
+    ).groups[0].rules[0];
+    assert.equal(alert.noDataState, 'Alerting');
+    assert.equal(alert.execErrState, 'Alerting');
+    assert.equal(alert.for, '5m');
+    assert.equal(
+      alert.data[0].datasourceUid,
+      dashboard.panels[3].datasource.uid,
+    );
+    assert.equal(alert.condition, alert.data[1].refId);
+    assert.equal(alert.data[1].model.expression, alert.data[0].refId);
+    const unhealthy = async () =>
+      (await reader.query(alert.data[0].model.rawSql)).rows[0].unhealthy;
+    // The same restricted login must see a numeric alert even with no row.
+    assert.equal(await unhealthy(), 1);
     const freshnessSql = dashboard.panels[3].targets[0].rawSql;
     const age = async () =>
       (await reader.query(freshnessSql)).rows[0].age_seconds;
@@ -558,15 +577,20 @@ void test('separate Grafana export instance contains only aggregates under a rea
     assert.equal(await age(), null);
     await owner.query('DELETE FROM grafana_public.export_status');
     assert.equal(await age(), null);
-    for (const seconds of [60, 901]) {
+    assert.equal(await unhealthy(), 1);
+    for (const seconds of [-60, 0, 60, 899, 901]) {
       await owner.query(
         `INSERT INTO grafana_public.export_status VALUES
         (true, now() - interval '1 second' * $1)`,
         [seconds],
       );
       const measured = await age();
-      assert.ok(measured >= seconds && measured < seconds + 10);
-      assert.equal(measured >= 900, seconds === 901);
+      if (seconds < 0) assert.equal(measured, null);
+      else {
+        assert.ok(measured >= seconds && measured < seconds + 10);
+        assert.equal(measured >= 900, seconds === 901);
+      }
+      assert.equal(await unhealthy(), seconds < 0 || seconds > 900 ? 1 : 0);
       await owner.query('DELETE FROM grafana_public.export_status');
     }
     await owner.query(
