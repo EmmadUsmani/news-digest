@@ -126,3 +126,12 @@
 - Health/database/Redis good; no failed user services or active alerts. No provider calls, migrations or public flag changes.
 - Final TTY `pnpm check` passes: 818 unit tests, 278 integration tests/four expected skips; build passes. Initial non-TTY run terminated during integration cleanup; complete TTY rerun exits zero. No code change required.
 - Pushed `daa828f0`; restarted API/worker after 16:00 UTC. Immediate startup probes preceded listening; repeat health/database/Redis and scheduled-reader checks pass, no failed units. `RecentJobFailures` now fires for existing scheduled GamingBolt 20-second timeouts (journal confirms bounded retries); source incident remains open.
+
+## 2026-11-10: iteration 1714 — connect latest published preview
+
+- Clean main; no inherited changes. Public-mode published history now reads sanitized latest data with a published reader link, nullable latest handling and failure recovery that hides cached latest content. Private mode and existing route authorization unchanged; public mode stays off.
+- Four offline Playwright desktop/mobile light/dark views pass restricted GETs, pagination, empty latest and 401/403/404/503 recovery. Updated screenshots; inspected mobile light and desktop dark. Simulated responses/admin identity, not live anonymous access.
+- GamingBolt third scheduled retry timed out at 16:20 UTC; retain bounded retries and existing source incident. Health/database/Redis pass, no failed user services. Scheduled-reader check retains four topics/19 stories/15 posts.
+- Updated TASKS, rollout review and operations handbook. Next: complete anonymous authorization rehearsal. Phase 3 awaits a normal scheduled edition; natural link expiry after Nov 11 00:33:01 UTC. No provider calls, migrations or flag changes.
+- `pnpm format`, `pnpm lint:fix`, browser smoke, `check-handbook.ts 08-operations`, scheduled-reader check and `git diff --check` pass. Full check/build and deployment results follow.
+- Final TTY `pnpm check` passes: 818 unit tests and 278 integration tests/four expected skips; `pnpm build` passes. Final format/lint-fix pass. Commit/push and post-16:00 service restart follow; no live migration or provider call.

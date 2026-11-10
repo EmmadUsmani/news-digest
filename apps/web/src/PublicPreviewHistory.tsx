@@ -3,20 +3,48 @@ import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import { Button } from './components/ui/button';
-import { publicPreviewHistoryQuery } from './queries';
+import { publicPreviewHistoryQuery, publicPreviewLatestQuery } from './queries';
 
 export function PublicPreviewHistory() {
   const [offset, setOffset] = useState(0);
   const result = useQuery(publicPreviewHistoryQuery(offset));
+  const latest = useQuery(publicPreviewLatestQuery);
   return (
     <section aria-label="Published editions" className="grid gap-5">
       <p>Browse published editions and their topics.</p>
       <Button
-        disabled={result.isFetching}
-        onClick={() => void result.refetch()}
+        disabled={result.isFetching || latest.isFetching}
+        onClick={() => {
+          void result.refetch();
+          void latest.refetch();
+        }}
       >
         Refresh editions
       </Button>
+      <section aria-label="Latest published edition" className="grid gap-2">
+        <h2>Latest published edition</h2>
+        {latest.isPending && <p role="status">Loading latest edition…</p>}
+        {latest.isError && (
+          <p role="alert">
+            Latest published edition unavailable. Try refreshing.
+          </p>
+        )}
+        {latest.isSuccess && latest.data === null && (
+          <p>No published edition yet.</p>
+        )}
+        {latest.data && !latest.isError && (
+          <>
+            <Link
+              to="/editions/$id"
+              params={{ id: latest.data.id }}
+              className="text-[var(--accent)] underline"
+            >
+              Read latest published edition
+            </Link>
+            <p>{latest.data.topics.map((topic) => topic.name).join(' · ')}</p>
+          </>
+        )}
+      </section>
       {result.isPending && <p role="status">Loading editions…</p>}
       {result.isError && (
         <p role="alert">

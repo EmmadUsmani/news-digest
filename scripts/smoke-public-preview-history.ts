@@ -3,8 +3,19 @@ import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
 
+import { createServer } from '../apps/web/node_modules/vite/dist/node/index.js';
+
 async function smoke() {
-  const origin = 'http://127.0.0.1:4179';
+  const server = await createServer({
+    root: 'apps/web',
+    server: { host: '127.0.0.1', port: 0 },
+    define: { 'import.meta.env.VITE_PUBLIC_MODE': JSON.stringify('1') },
+    logLevel: 'error',
+  });
+  await server.listen();
+  const address = server.httpServer!.address();
+  assert.ok(address && typeof address === 'object');
+  const origin = `http://127.0.0.1:${address.port}`;
   const id = '11111111-1111-4111-8111-111111111111';
   const entry = {
     id,
@@ -25,6 +36,8 @@ async function smoke() {
           colorScheme: theme,
         });
         let fail = false;
+        let latestStatus = 200;
+        let latestEmpty = false;
         const reads: string[] = [];
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
@@ -34,6 +47,29 @@ async function smoke() {
           assert.equal(route.request().method(), 'GET');
           if (url.pathname === '/api/me')
             return route.fulfill({ json: { isAdmin: true } });
+          if (url.pathname === '/api/admin/digest-previews/latest') {
+            reads.push('latest');
+            return route.fulfill({
+              status: latestStatus,
+              json:
+                latestStatus !== 200
+                  ? {}
+                  : latestEmpty
+                    ? null
+                    : {
+                        ...entry,
+                        topics: [
+                          {
+                            id,
+                            name: 'Latest topic',
+                            brief: [],
+                            stories: [],
+                            posts: [],
+                          },
+                        ],
+                      },
+            });
+          }
           if (url.pathname === '/api/admin/digest-previews') {
             reads.push(url.search);
             return route.fulfill(
@@ -60,7 +96,7 @@ async function smoke() {
         });
         await section.getByText('Technology', { exact: true }).waitFor();
         assert.equal(
-          await section.getByRole('link').getAttribute('href'),
+          await section.getByRole('link').last().getAttribute('href'),
           `/editions/${id}`,
         );
         assert.equal(
@@ -84,6 +120,34 @@ async function smoke() {
         fail = false;
         await section.getByRole('button', { name: 'Refresh editions' }).click();
         await section.getByRole('alert').waitFor({ state: 'hidden' });
+        const latest = page.getByRole('region', {
+          name: 'Latest published edition',
+          exact: true,
+        });
+        await latest.getByText('Latest topic', { exact: true }).waitFor();
+        assert.equal(
+          await latest.getByRole('link').getAttribute('href'),
+          `/editions/${id}`,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-preview-history-${device}-${theme}.png`,
+        });
+        for (latestStatus of [401, 403, 404, 503]) {
+          await section
+            .getByRole('button', { name: 'Refresh editions' })
+            .click();
+          await latest.getByRole('alert').waitFor();
+          assert.equal(await latest.getByRole('link').count(), 0);
+          latestStatus = 200;
+          await section
+            .getByRole('button', { name: 'Refresh editions' })
+            .click();
+          await latest.getByText('Latest topic', { exact: true }).waitFor();
+        }
+        latestEmpty = true;
+        await section.getByRole('button', { name: 'Refresh editions' }).click();
+        await latest.getByText('No published edition yet.').waitFor();
+        assert.ok(reads.includes('latest'));
         assert.ok(reads.includes('?offset=20'));
         assert.deepEqual(errors, []);
         assert.ok(
@@ -99,6 +163,7 @@ async function smoke() {
     );
   } finally {
     await browser.close();
+    await server.close();
   }
 }
 void smoke().catch((error) => {

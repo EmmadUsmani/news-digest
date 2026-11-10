@@ -243,3 +243,10 @@ retains its inspector. Offline browser checks cover four viewport/theme views,
 empty topics and 401/403/404/503 recovery. Route authorization is unchanged;
 latest-preview compatibility and anonymous authorization remain next. Public mode
 remains off.
+
+Iteration 1714 connects sanitized latest-preview data to the public-mode published
+history page. The latest reader link uses the published edition ID, handles a null
+latest response, and hides cached latest content after failed refreshes. History
+pagination remains independent. Four offline browser views exercise restricted GETs,
+401/403/404/503 recovery and empty latest. Existing admin authorization and private
+mode remain unchanged. Complete anonymous authorization rehearsal remains open.
