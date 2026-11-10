@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1702: gated operations API composition selects exactly one private/public status transport and preserves alerts; offline HTTP checks pass. Public mode off; anonymous authorization and page selection remain next, followed by preview/tools. No deployment during protected window; Phase 3 awaits 15:00 UTC.
+- [x] Iteration 1703: prepared overview page/loader selection keeps public rendering and prefetches on the sanitized contract; offline browser checks cover both loader branches. Uninstalled; router/anonymous authorization composition remains next, followed by preview/tools. Public mode off; no deployment during protected window.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

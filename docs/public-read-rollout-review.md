@@ -167,3 +167,10 @@ separate route. Prerequisites are validated before opening database/Redis adapte
 The route classifier still requires admin access, and the public page is not yet
 installed. Next: compose page selection and anonymous authorization together, then
 preview/tools. No deployment during the protected edition window.
+
+Iteration 1703 prepares `OperationsOverviewPage` and its matching loader. Public
+mode selects the sanitized page and public query before any private reads; private
+mode retains the existing overview and prefetches. The offline browser rehearsal
+now exercises this composition, including both loader branches and private-cache
+isolation. Neither is installed in the application router. Next: install page
+selection and anonymous authorization together, then preview/tools.

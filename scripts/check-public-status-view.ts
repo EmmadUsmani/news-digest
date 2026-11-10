@@ -93,17 +93,30 @@ async function main() {
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {PublicStatus} from '/src/PublicStatus.tsx';
-import {PublicStatusPage} from '/src/PublicStatusPage.tsx';
+import {OperationsOverviewPage} from '/src/OperationsOverviewPage.tsx';
+import {loadOperationsOverview} from '/src/operations-overview-loader.ts';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import '/src/style.css';
 const fixture = ${JSON.stringify(fixture)};
 const root = createRoot(document.getElementById('root'));
 window.showStatus = (empty) => root.render(React.createElement(PublicStatus, {data: empty ? {checkedAt: fixture.checkedAt, sources: [], queues: []} : fixture}));
 window.showStatus(false);
+window.checkOverviewLoaders = async () => {
+  const keys = [];
+  const client = {ensureQueryData: (query) => {
+    keys.push(query.queryKey);
+    return Promise.resolve();
+  }};
+  await loadOperationsOverview(client, true);
+  const publicKeys = keys.splice(0);
+  await loadOperationsOverview(client, false);
+  return {publicKeys, privateKeys: keys};
+};
 window.showPage = () => {
   const client = new QueryClient({defaultOptions: {queries: {gcTime: 0}}});
   client.setQueryData(['status'], {private: 'private-cache-marker'});
-  root.render(React.createElement(QueryClientProvider, {client}, React.createElement(PublicStatusPage)));
+  void loadOperationsOverview(client, true);
+  root.render(React.createElement(QueryClientProvider, {client}, React.createElement(OperationsOverviewPage, {publicMode: true})));
 };
 </script></body></html>`,
     );
@@ -123,6 +136,24 @@ window.showPage = () => {
       `http://127.0.0.1:${address.port}/public-status-review.html`,
     );
     await page.getByRole('heading', { name: 'System status' }).waitFor();
+    const loaderKeys = await page.evaluate(() =>
+      (
+        window as unknown as {
+          checkOverviewLoaders: () => Promise<{
+            publicKeys: string[][];
+            privateKeys: string[][];
+          }>;
+        }
+      ).checkOverviewLoaders(),
+    );
+    assert.deepEqual(loaderKeys.publicKeys, [['public', 'status']]);
+    assert.equal(loaderKeys.privateKeys.length, 3);
+    assert.ok(
+      loaderKeys.privateKeys.some((key: string[]) => key[0] === 'status'),
+    );
+    assert.ok(
+      loaderKeys.privateKeys.every((key: string[]) => key[0] !== 'public'),
+    );
     assert.equal(
       await page.getByText('Recent collection failed', { exact: true }).count(),
       1,
