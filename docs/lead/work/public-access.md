@@ -23,7 +23,7 @@ behind flags.
 
 **Next:**
 
-1. Steered under item 50 (00:50 UTC Nov 10): two-device steps in
+1. Steered under item 50 (00:41 UTC Nov 10): two-device steps in
    `NEEDS_FROM_HUMAN.md` now; that test is the proxy/TLS cookie check. Link
    expiry verify after 00:33 UTC Nov 11. Check the steps appear and are exact.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
