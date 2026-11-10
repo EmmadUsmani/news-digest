@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1608: full public application rehearses admin-targeted two-device session revocation, reader refusal, repeat zero-count revocation, issuer isolation and preference recovery after re-login. Public mode stays off; owner/scheduled/link-expiry gates remain.
+- [x] Iteration 1609: full public application refuses operations routes for anonymous visitors and real admins across GET/HEAD/POST, including metrics queries and forged owner headers; admin session survives. Public mode stays off; owner/scheduled/link-expiry gates remain.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

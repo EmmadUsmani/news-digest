@@ -165,6 +165,44 @@ void test('configured full public application serves published fixtures and enfo
     };
     assert.equal(identity.signedIn, true);
     assert.equal(identity.isAdmin, true);
+    // Real compiled controllers and a valid admin cookie must not expose
+    // operational tools through public mode, even with forged proxy identity.
+    for (const actorCookie of ['', cookie]) {
+      for (const path of [
+        '/logs',
+        '/logs/',
+        '/metrics',
+        '/metrics/api/v1/query?query=up',
+        '/grafana/',
+        '/docs/',
+        '/db/',
+        '/queues/',
+        '/%6detrics',
+      ]) {
+        for (const method of ['GET', 'HEAD', 'POST']) {
+          const response = await account(path, {
+            method,
+            headers: {
+              Cookie: actorCookie,
+              Origin: configuration.ACCOUNT_ORIGIN,
+              'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+              admin_local_token: 'forged-local-token',
+            },
+          });
+          assert.equal(response.status, 404, `${method} ${path}`);
+          assert.equal(await response.text(), '');
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+        }
+      }
+    }
+    assert.deepEqual(
+      await (
+        await account('/api/account/session', {
+          headers: { Cookie: cookie },
+        })
+      ).json(),
+      { signedIn: true, isAdmin: true },
+    );
     const adminTopics = await account('/api/admin/topics', {
       headers: { Cookie: cookie },
     });

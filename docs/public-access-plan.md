@@ -422,7 +422,11 @@ invitation refusal and all-device logout. Iteration 1607 adds account deletion a
 both sessions, pending invitation revocation, empty preferences after re-invitation,
 and preservation of the published reader edition. Iteration 1608 adds admin-targeted
 two-device session revocation, reader refusal, repeat zero-count revocation, issuer
-isolation and preference recovery after a fresh invitation. Owner and scheduled acceptance gates remain open. No live
+isolation and preference recovery after a fresh invitation. Iteration 1609 checks
+operations-route refusal through the compiled application for anonymous visitors
+and a real admin session: logs, metrics queries, Grafana, docs, database and queues
+return empty no-store 404s for GET/HEAD/POST despite forged owner headers. The
+admin session remains valid afterward. Owner and scheduled acceptance gates remain open. No live
 flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
