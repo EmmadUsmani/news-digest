@@ -8,6 +8,7 @@ import {
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import type { RejectedEditorStore } from '../domain/rejected-editor.port';
 import { llmFingerprint } from './llm-fingerprint';
 import {
   LlmValidationFailure,
@@ -37,11 +38,12 @@ export class BudgetedLlm {
         : {}),
     }));
   }
-  private recordFailure(
+  private async recordFailure(
     request: LlmRequest,
     error: unknown,
     attempt: ValidationDiagnostic['attempt'],
     invalidJson = false,
+    responseText?: string,
   ) {
     const diagnostic: ValidationDiagnostic = {
       attempt,
@@ -72,8 +74,21 @@ export class BudgetedLlm {
     }
     if (error instanceof ZodError && !invalidJson)
       diagnostic.schemaIssues = schemaIssueCategories(error.issues);
+    if (
+      responseText !== undefined &&
+      request.purpose.startsWith('shortlist-editor-')
+    ) {
+      try {
+        await this.rejectedEditors?.save({ request, responseText, diagnostic });
+      } catch {
+        this.log.warn(
+          { event: 'llm.rejection-storage-failed', runId: request.runId },
+          'Rejected editor storage failed',
+        );
+      }
+    }
     this.failures.push(diagnostic);
-    // Persist only fixed categories and identifiers, never rejected output,
+    // Log only fixed categories and identifiers, never rejected output,
     // source text, exception messages, schema paths/values or repair feedback.
     this.log.info(
       {
@@ -98,6 +113,7 @@ export class BudgetedLlm {
     private readonly llm: LlmPort,
     private readonly ledger: LlmLedger,
     private readonly log = logger,
+    private readonly rejectedEditors?: RejectedEditorStore,
   ) {}
   async json<T>(
     request: LlmRequest,
@@ -155,7 +171,7 @@ export class BudgetedLlm {
       try {
         return { status: 'complete', value: validate(cached) };
       } catch (error) {
-        this.recordFailure(request, error, 'cache');
+        await this.recordFailure(request, error, 'cache');
         throw error;
       }
     }
@@ -258,11 +274,12 @@ export class BudgetedLlm {
       try {
         decoded = JSON.parse(response.text) as unknown;
       } catch (error) {
-        this.recordFailure(
+        await this.recordFailure(
           request,
           error,
           attempt ? 'repair' : 'initial',
           true,
+          response.text,
         );
         feedback = '';
         continue;
@@ -272,7 +289,13 @@ export class BudgetedLlm {
       } catch (error) {
         // Only application-owned feedback is sent: never raw provider output,
         // schema errors, source text or exception messages.
-        this.recordFailure(request, error, attempt ? 'repair' : 'initial');
+        await this.recordFailure(
+          request,
+          error,
+          attempt ? 'repair' : 'initial',
+          false,
+          response.text,
+        );
         feedback =
           error instanceof LlmValidationFailure
             ? error.feedback

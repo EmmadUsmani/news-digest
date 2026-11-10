@@ -1206,3 +1206,56 @@ void test('schema repair hints are closed, deduplicated and bounded', () => {
   assert.equal(hint.split('Meet the stated minimum values').length, 2);
   assert.ok(!hint.includes('private'));
 });
+
+void test('story editor rejections retain initial and repair bodies privately, never in success cache', async () => {
+  const records: import('../src/modules/curation/domain/rejected-editor.port').RejectedEditorRecord[] =
+    [];
+  const ledger = new MemoryLedger();
+  const provider = fake(['broken JSON', '{"ok":false}']);
+  const service = new BudgetedLlm(provider.llm, ledger, undefined, {
+    async save(record) {
+      records.push(record);
+    },
+  });
+  assert.equal(
+    await service.json({ ...request, purpose: 'shortlist-editor-v13' }, () => {
+      throw new LlmValidationFailure(
+        'unsupported-absence',
+        'summary',
+        'negative-word',
+      );
+    }),
+    null,
+  );
+  assert.deepEqual(
+    records.map((r) => [
+      r.responseText,
+      r.diagnostic.attempt,
+      r.diagnostic.category,
+    ]),
+    [
+      ['broken JSON', 'initial', 'invalid-json'],
+      ['{"ok":false}', 'repair', 'unsupported-absence'],
+    ],
+  );
+  assert.equal(records[1].diagnostic.field, 'summary');
+  assert.equal(records[0].request.prompt, request.prompt);
+  assert.equal(ledger.values.size, 0);
+  const failingStore = new BudgetedLlm(
+    fake(['bad', '{"ok":true}']).llm,
+    new MemoryLedger(),
+    undefined,
+    {
+      async save() {
+        throw new Error('disk full');
+      },
+    },
+  );
+  assert.deepEqual(
+    await failingStore.json(
+      { ...request, purpose: 'shortlist-editor-v13' },
+      valid,
+    ),
+    { ok: true },
+  );
+});

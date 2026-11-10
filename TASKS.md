@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54 (new owner priority): diagnose Nov 10 NBA rejected editor sentences from saved inputs/replays; retain absence guard/fallback, save rejected responses with reasons, add real-sentence tests and deploy before Nov 11 noon UTC. Anthropic replay cap $0.10 total. Takes priority over Phase 4.
+- [ ] STEERING 54 (new owner priority): diagnose Nov 10 NBA rejected editor sentences from saved inputs/replays; retain absence guard/fallback, save rejected responses with reasons, add real-sentence tests and deploy before Nov 11 noon UTC. Private bounded rejected-response capture deployed (1723); Nov 10 reconstruction/replay and guard diagnosis remain next. Anthropic replay cap $0.10 total, $0 spent in 1723. Takes priority over Phase 4.
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1722: rehearsed dedicated-instance aggregate Grafana storage with real-login read/write/escalation checks. No live installation. Next: bounded atomic export transport/retention, capacity and isolated Grafana rendering/query-route review. Public mode stays off.
+- [x] Iteration 1723: retain rejected story-editor inputs, responses and validation reasons privately for replay; bounded retention and failure isolation tested. Next: reconstruct Nov 10 NBA shortlist and diagnose exact rejected claims under item 54.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

@@ -141,3 +141,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). Full `pnpm check` passes (819 unit tests, 280 integration tests/four expected skips); `git diff --check` clean. Commit/push and API/worker restart follow.
 
 - Push initially rejected because owner advanced main; merged upstream unchanged. Owner now accepts Phase 3 and prioritizes NBA editor diagnosis (54) before Phase 4/migration 0019; updated TASKS accordingly. Post-restart health/reader pass, zero alerts/failed units. Retrying push with merged history.
+
+## 2026-11-10: iteration 1723 — retain rejected story-editor attempts for replay
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and no failed user units. STEERING 54 takes priority over Phase 4.
+- Confirmed absence guard requires whole source sentences; Nov 10 rejected bodies were discarded, so exact unsupported/supported claims remain unknown. No guard or prompt change and no paid calls ($0 of the $0.10 replay cap used here).
+- Added private filesystem port/adapter capturing story-editor request, raw response and fixed validation reason for initial/repair rejection. Production composition enabled; successful cache, reader payloads and logs retain no rejected text.
+- Store uses directory/file permissions 0700/0600; 256 KiB/file and 100-file bounds; files older than 30 days pruned on next write. Store failure cannot block repair/fallback. No migration, public flag or provider changes.
+- Added offline tests for replay inputs/reasons, parse/semantic failures, no success-cache writes, disk failure isolation, permissions/count/age/size bounds. Targeted LLM/store suite passes 32 tests. Handbook updated.
+- Initial full check/lint exposed import sorting and a missed await on cached rejection diagnostics; corrected and rerunning. Build, handbook and scheduled-reader checks pass (four topics/19 stories/15 posts).
+- Next: reconstruct Nov 10 NBA shortlist and bounded replay, identify rejected sentences/rules, fix only the demonstrated cause, deploy by Nov 11 noon; Nov 11 scheduled AI-edit acceptance remains required.
+- Corrected full `pnpm check` passes (821 unit; 280 integration, four expected skips); `pnpm format`, `pnpm lint:fix`, final `pnpm build`, handbook check and `git diff --check` pass. Commit/push and API/worker restart follow.

@@ -2,6 +2,7 @@ import type { Pool } from 'pg';
 
 import { AnthropicLlmAdapter } from '../adapters/anthropic';
 import { llmConfig } from '../adapters/config';
+import { FileRejectedEditorStore } from '../adapters/rejected-editor-store';
 import { BudgetedLlm } from '../application/budgeted-llm';
 import { ShortlistEditor } from '../application/editor';
 import { EventGrouping } from '../application/event-grouping';
@@ -35,7 +36,12 @@ export function editorialServices(db: Pool) {
   if (existing) return existing;
   const config = llmConfig();
   const ledger = configuredLlmLedger(db, config.caps);
-  const llm = new BudgetedLlm(new AnthropicLlmAdapter(key), ledger);
+  const llm = new BudgetedLlm(
+    new AnthropicLlmAdapter(key),
+    ledger,
+    undefined,
+    new FileRejectedEditorStore(),
+  );
   const result = {
     validationDiagnostics: () => llm.validationDiagnostics(),
     triage: new CandidateTriage(llm, ledger, config.haiku),
