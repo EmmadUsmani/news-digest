@@ -103,3 +103,12 @@ Earlier entries: [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.
 - Updated rollout review/TASKS. Next: public status UI compatibility and budget-summary decision before composition, then preview/tools. Public mode remains off; Phase 3 awaits normal 15:00 UTC edition.
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted HTTP tests, full `pnpm check` (809 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build` and `git diff --check` pass. Saved-reader check verifies four topics/19 stories/14 posts; health database/Redis healthy, no failed user services.
 - Zero active alerts at orientation. GamingBolt remains open with bounded retries; no direct probe. No provider calls, live migrations, flags, deployment or restart during 13:00–16:00 UTC freeze; uninstalled additions leave running application behavior unchanged. Metrics check not yet due at orientation; natural link expiry remains after Nov 11 00:33:01 UTC.
+
+## 2026-11-10: iteration 1698 — prepare public production budget totals
+
+- Clean main; no inherited work. Extended the uninstalled status projection with explicit production-only Anthropic/X budget schemas: UTC day/month charges, unresolved holds, caps and available allowance; X retains its blocked boolean.
+- Private call history, model/purpose details, provider errors, reserve outcomes, development pools and future fields stay excluded. Missing summaries remain absent; malformed supplied totals fail with generic 503. Adversarial unit and isolated HTTP checks pass.
+- Updated rollout review/TASKS: existing status UI requires private runs/errors/ledger/development fields; next is a separate public contract/rendering before composition, then preview/tools. Public mode remains off; Phase 3 awaits normal 15:00 UTC edition.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted status tests (5 passes), `pnpm check` (810 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build`, `git diff --check` pass. Saved-reader check verifies four topics/19 stories/14 posts; health database/Redis healthy, no failed user services.
+- Alert triage: RecentJobFailures is the existing GamingBolt incident; scheduled 13:16–13:20 UTC attempts timed out three times. Retained bounded retries; no direct source probe or configuration change.
+- No live provider calls, migrations, flags, deployment or restart during 13:00–16:00 UTC freeze; uninstalled additions leave running application behavior unchanged. Natural link expiry remains after Nov 11 00:33:01 UTC.

@@ -44,6 +44,24 @@ void test('prepared status HTTP transport projects GET/HEAD and conceals failure
       sources: [],
       queues: [],
     });
+    const llm = {
+      todayMicros: 1,
+      monthMicros: 2,
+      todayReservedMicros: 0,
+      monthReservedMicros: 0,
+      dailyCapMicros: 500,
+      monthlyCapMicros: 15000,
+      availableMicros: 499,
+    };
+    value = {
+      ...(value as object),
+      llm: { ...llm, recentCalls: [{ purpose: secret }], lastError: secret },
+    };
+    const budgetResponse = await fetch(base);
+    assert.equal(budgetResponse.status, 200);
+    const budgetBody = await budgetResponse.json();
+    assert.deepEqual(budgetBody.llm, llm);
+    assert.equal(JSON.stringify(budgetBody).includes(secret), false);
     const head = await fetch(base, { method: 'HEAD' });
     assert.equal(head.status, 200);
     assert.equal(head.headers.get('cache-control'), 'no-store');

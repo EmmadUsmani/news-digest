@@ -3,6 +3,26 @@ import { z } from 'zod';
 
 const count = z.number().int().nonnegative().safe();
 const timestamp = z.string().datetime().nullable();
+// Production totals only. Never reuse the private usage schemas: their optional
+// fields include ledger records, provider errors and free-form purpose strings.
+const llmBudget = z.object({
+  todayMicros: count,
+  monthMicros: count,
+  todayReservedMicros: count,
+  monthReservedMicros: count,
+  dailyCapMicros: count,
+  monthlyCapMicros: count,
+  availableMicros: count,
+});
+const xBudget = z.object({
+  todayMicros: count,
+  monthMicros: count,
+  reservedMicros: count,
+  dailyMicros: count,
+  monthlyMicros: count,
+  availableMicros: count,
+  blocked: z.boolean(),
+});
 const source = z
   .object({
     id: z.string(),
@@ -59,9 +79,11 @@ const status = z.object({
     .optional(),
   sources: source.array(),
   queues: queue.array(),
+  llm: llmBudget.optional(),
+  xDiscovery: xBudget.optional(),
 });
 
-// Preparation only. Explicit schemas omit job IDs/results, provider ledger and
+// Preparation only. Explicit schemas omit job IDs/results, provider call ledger and
 // development accounting, including any fields added to the private reader.
 // Stored failures become presence flags; queue names/count keys are allowlisted.
 export async function readPublicStatus(read: () => Promise<unknown>) {

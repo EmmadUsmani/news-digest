@@ -47,8 +47,6 @@ void test('prepared status excludes stored failures, job payloads and private ac
     const result = await readPublicStatus(async () => ({
       ...fixture,
       sources: [{ ...source, error, url: secret, future: secret }],
-      llm: { token: secret },
-      xDiscovery: { token: secret },
       developmentSpend: [{ token: secret }],
       future: secret,
     }));
@@ -102,4 +100,65 @@ void test('prepared status fails closed without reflecting malformed data or dep
     readPublicStatus(() => Promise.reject(new Error(secret))),
     { message: 'Status unavailable' },
   );
+});
+
+void test('public budgets retain only bounded production totals, never private ledger details', async () => {
+  const llm = {
+    todayMicros: 120,
+    monthMicros: 900,
+    todayReservedMicros: 10,
+    monthReservedMicros: 10,
+    dailyCapMicros: 500,
+    monthlyCapMicros: 15000,
+    availableMicros: 370,
+  };
+  const xDiscovery = {
+    todayMicros: 100,
+    monthMicros: 800,
+    reservedMicros: 5,
+    dailyMicros: 400,
+    monthlyMicros: 12000,
+    availableMicros: 295,
+    blocked: false,
+  };
+  const privateFields = {
+    recentCalls: [{ id: secret, model: secret, purpose: secret }],
+    models: [{ model: secret }],
+    purposes: [{ purpose: secret }],
+    lastError: { code: secret },
+    blockedUntil: secret,
+    scheduledReserve: { lastOutcome: { outcome: { reason: secret } } },
+    modelAllocation: { model: secret },
+    future: secret,
+  };
+  const result = await readPublicStatus(async () => ({
+    ...fixture,
+    llm: { ...llm, ...privateFields },
+    xDiscovery: { ...xDiscovery, ...privateFields },
+    developmentSpend: [{ provider: secret, chargedMicros: 123 }],
+  }));
+  assert.deepEqual(result.llm, llm);
+  assert.deepEqual(result.xDiscovery, xDiscovery);
+  assert.equal(JSON.stringify(result).includes(secret), false);
+  for (const [key, budget] of Object.entries({ llm, xDiscovery })) {
+    for (const field of Object.keys(budget)) {
+      const invalid =
+        field === 'blocked'
+          ? [secret, null]
+          : [-1, Infinity, 0.5, Number.MAX_SAFE_INTEGER + 1, secret, null];
+      for (const value of invalid) {
+        await assert.rejects(
+          readPublicStatus(async () => ({
+            ...fixture,
+            [key]: { ...budget, [field]: value },
+          })),
+          { message: 'Status unavailable' },
+        );
+      }
+    }
+    await assert.rejects(
+      readPublicStatus(async () => ({ ...fixture, [key]: {} })),
+      { message: 'Status unavailable' },
+    );
+  }
 });

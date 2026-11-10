@@ -123,3 +123,13 @@ and generic 503 failures, absent mutation/alerts routes and disabled-mode 404s.
 Invalid flags fail before reader construction. Application composition and route
 policy are unchanged; status remains admin-only. Next: public UI compatibility
 and budget-summary decision before composition, then preview/tools boundaries.
+
+Iteration 1698 adds production-only budget aggregates to the uninstalled status
+projection: UTC day/month charges, unresolved holds, caps and available allowance;
+X also retains its blocked boolean. Separate nested schemas omit call histories,
+models, purpose strings, provider errors, reserve outcomes and development pools.
+Missing summaries remain absent; malformed supplied totals fail closed. Adversarial
+unit and HTTP checks cover these exclusions. The existing UI still requires the
+private operations contract (overview runs/errors, spend ledger/development pools);
+it needs a separate public contract and rendering before status composition.
+No route promotion, deployment or restart during the protected window.
