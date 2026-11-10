@@ -778,3 +778,12 @@ Nov 10 01:41 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
 missed iterations, no restarts/query timeouts/slow queries. One small 3,690-row
 merge and no large-tier merge; no comparable recovery window. Limits unchanged;
 next short passive probe no earlier than 02:42 UTC.
+
+### Passive follow-up (iteration 1611)
+
+Nov 10 02:46–02:47 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+23 healthy rules, four uncached queries ≤0.631 s, no new evaluator errors or
+missed iterations, query timeouts or slow queries; process starts unchanged.
+One small merge processed 18,232 rows; no large-tier merge. Comparable natural
+merge recovery remains unproven. Limits/configuration unchanged; next short
+passive probe no earlier than 03:48 UTC.
