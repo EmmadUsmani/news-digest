@@ -13,6 +13,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { database } from '../src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
+import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -390,6 +391,70 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(
       readerEditionSchema.parse(await retainedEdition.json()).id,
       ids[0],
+    );
+    // Administrative revocation must reach the same session storage used by
+    // account middleware, without deleting preferences or the issuer session.
+    const secondInvitation = await write(
+      '/api/account/links',
+      { email: 'isolated-reader@example.test' },
+      cookie,
+    );
+    assert.equal(secondInvitation.status, 201);
+    const secondLogin = await write('/api/account/link-redeem', {
+      token: (await secondInvitation.json()).token,
+    });
+    assert.equal(secondLogin.status, 204);
+    const secondCookie = secondLogin.headers.get('set-cookie')!.split(';')[0];
+    assert.notEqual(secondCookie, freshCookie);
+    const identities = new PostgresReaderIdentityRepository();
+    const target = await identities
+      .findOrCreateVerified('isolated-reader@example.test', new Date())
+      .finally(() => identities.onModuleDestroy());
+    assert.deepEqual(await syncReader(saved, freshCookie), saved);
+    const revoke = (issuer: string) =>
+      write('/api/account/sessions/revoke', { userId: target }, issuer);
+    assert.equal((await revoke(freshCookie)).status, 403);
+    for (const device of [freshCookie, secondCookie])
+      assert.deepEqual(await syncReader(empty, device), saved);
+    const revocation = await revoke(cookie);
+    assert.equal(revocation.status, 200);
+    assert.equal(revocation.headers.get('cache-control'), 'no-store');
+    assert.equal(revocation.headers.get('set-cookie'), null);
+    assert.deepEqual(await revocation.json(), { revoked: 2 });
+    for (const device of [freshCookie, secondCookie]) {
+      assert.equal(
+        (await write('/api/account/sync', saved, device)).status,
+        401,
+      );
+      assert.deepEqual(
+        await (
+          await account('/api/account/session', {
+            headers: { Cookie: device },
+          })
+        ).json(),
+        { signedIn: false, isAdmin: false },
+      );
+    }
+    const repeatedRevocation = await revoke(cookie);
+    assert.equal(repeatedRevocation.status, 200);
+    assert.deepEqual(await repeatedRevocation.json(), { revoked: 0 });
+    assert.deepEqual(await syncReader(empty, cookie), empty);
+    const returnInvitation = await write(
+      '/api/account/links',
+      { email: 'isolated-reader@example.test' },
+      cookie,
+    );
+    assert.equal(returnInvitation.status, 201);
+    const returnLogin = await write('/api/account/link-redeem', {
+      token: (await returnInvitation.json()).token,
+    });
+    assert.equal(returnLogin.status, 204);
+    assert.deepEqual(
+      await syncReader(
+        empty,
+        returnLogin.headers.get('set-cookie')!.split(';')[0],
+      ),
+      saved,
     );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
     const revoked = await account('/api/admin/topics', {
