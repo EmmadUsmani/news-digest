@@ -101,3 +101,14 @@
 - Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts.
 - Next: listener isolation and remaining Phase 4 gates; Nov 11 link expiry after 00:33:01 UTC and scheduled NBA acceptance.
 - Pushed after verification; API/worker restart and post-deploy health/reader/alerts checks follow.
+
+## 2026-11-10: iteration 1740 — rehearse dedicated export listener
+
+- Clean main; no inherited work. Initial alerts clear and health/database/Redis pass; Nov 11 expiry/NBA acceptance remain pending.
+- Prepared an uninstalled, separate Postgres Compose project: SCRAM, required owner password, loopback port 5543, dedicated bridge/volume, ten connections and provisional 128 MiB/0.1 CPU caps pending capacity acceptance.
+- Disposable rehearsal resolves that definition with tmpfs/ephemeral port/no restart; Docker confirms loopback-only binding and sole network membership. Real loopback SQL passes; every VM non-loopback IPv4 connection refuses.
+- Initial internal-network trial suppressed port publication; deliberately replaced with a dedicated bridge, which permits outbound traffic. No claim of live listener installation/firewall acceptance.
+- Updated owner observability page/readiness review. No live schema/grants, exporter/database installation, public activation or paid calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted listener test, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts` (18 pages/22 unchanged diagrams/39 tables), `git diff --check` pass.
+- Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. Push followed by API/worker restart and health/reader/alerts checks.
+- Next: freshness alerts, whole-stack capacity and provisioning/rendering/query-route gates; verify actual listener at installation. Nov 11 natural link expiry after 00:33:01 UTC and NBA scheduled acceptance.

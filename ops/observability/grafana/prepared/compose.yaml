@@ -1,0 +1,32 @@
+# PREPARED ONLY. Separate project; never merge into the application compose file.
+services:
+  export-db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: grafana_export
+      POSTGRES_USER: export_owner
+      POSTGRES_PASSWORD: ${GRAFANA_EXPORT_OWNER_PASSWORD:?export owner password required}
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    ports:
+      - target: 5432
+        published: '${GRAFANA_EXPORT_LISTEN_PORT:-5543}'
+        host_ip: 127.0.0.1
+        protocol: tcp
+    volumes:
+      - export-data:/var/lib/postgresql/data
+    networks: [export-only]
+    command: [postgres, -c, max_connections=10, -c, shared_buffers=16MB]
+    mem_limit: 128m
+    cpus: 0.1
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U export_owner -d grafana_export]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+networks:
+  export-only:
+    driver: bridge
+volumes:
+  export-data:

@@ -223,5 +223,20 @@ The target login must be `grafana_export_writer`; source sessions start read-onl
 Each pool has one connection, three-second connection and five-second statement
 limits. Both pools close after success or failure; CLI failures print no driver
 details. A failed producer leaves the last committed export intact.
-Disposable trust-auth containers cover the complete path; real credential/auth,
-listener isolation, installation, freshness alerts and capacity gates remain open.
+Disposable SCRAM-authenticated containers cover the complete path, including wrong-password capture preservation and producer grant-level write denial (1738–1739). Installation, freshness alerts and capacity gates remain open.
+
+## Prepared export listener (iteration 1740)
+
+`grafana/prepared/compose.yaml` defines a separate, uninstalled Postgres 17
+service. It publishes only `127.0.0.1:5543`, joins its own internal Docker
+network, requires an explicit owner password and uses SCRAM host authentication.
+Its separate volume holds aggregate data only; it never mounts application data.
+Ten connections, 16 MiB shared buffers, 128 MiB memory and 0.1 CPU are provisional
+limits pending the whole-stack capacity gate. Do not merge this file into the
+application compose project or attach application services to its network.
+
+The disposable listener rehearsal resolves this exact Compose definition, swaps
+only persistent storage for tmpfs, restart policy for no restart and the host
+port for an ephemeral port. It checks Docker bindings/network isolation, a real
+loopback SQL connection and refusal through every VM non-loopback IPv4 address.
+The bridge allows outbound networking; only the host listener is restricted to loopback. An initial internal-network trial suppressed Docker port publication and was replaced with this dedicated bridge. Live installation and firewall review remain.
