@@ -305,6 +305,28 @@ void test('separate Grafana export instance contains only aggregates under a rea
     ])
       await assert.rejects(refreshExport(writer, { ...snapshot, days }, now));
     assert.equal(await capturedAt(), now.toISOString());
+    // A delayed older capture and a changed same-capture retry are no-ops.
+    for (const capture of [new Date('2099-11-10T18:00:00Z'), now]) {
+      await refreshExport(
+        writer,
+        { ...snapshot, days: [], errors: 1 },
+        capture,
+      );
+      assert.equal(await capturedAt(), now.toISOString());
+      assert.equal(
+        (
+          await reader.query(
+            'SELECT stories FROM grafana_public.published_content',
+          )
+        ).rows[0].stories,
+        '19',
+      );
+      assert.equal(
+        (await reader.query('SELECT errors FROM grafana_public.source_summary'))
+          .rows[0].errors,
+        0,
+      );
+    }
     // A database failure after deletes must retain the entire prior snapshot.
     await owner.query(
       'ALTER TABLE grafana_public.source_summary ADD CONSTRAINT test_failure CHECK (errors = 0)',

@@ -52,6 +52,16 @@ export async function refreshExport(
     await client.query(
       'LOCK TABLE grafana_public.published_editions, grafana_public.published_content, grafana_public.source_summary, grafana_public.export_status IN EXCLUSIVE MODE',
     );
+    // Check under the replacement lock: delayed exports and retries must not
+    // replace a newer capture or change an already committed capture's counts.
+    const current = await client.query(
+      'SELECT 1 FROM grafana_public.export_status WHERE captured_at >= $1',
+      [now.toISOString()],
+    );
+    if (current.rowCount) {
+      await client.query('COMMIT');
+      return;
+    }
     await client.query('DELETE FROM grafana_public.published_content');
     await client.query('DELETE FROM grafana_public.published_editions');
     await client.query('DELETE FROM grafana_public.source_summary');

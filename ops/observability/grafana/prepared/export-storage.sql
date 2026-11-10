@@ -50,4 +50,5 @@ GRANT USAGE ON SCHEMA grafana_public TO grafana_export_writer;
 GRANT INSERT, DELETE ON grafana_public.published_editions,
   grafana_public.published_content, grafana_public.source_summary,
   grafana_public.export_status TO grafana_export_writer;
+GRANT SELECT ON grafana_public.export_status TO grafana_export_writer;
 -- Credentials, transport and provisioning remain uninstalled.

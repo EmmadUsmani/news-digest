@@ -167,8 +167,9 @@ transport/timeouts, freshness reporting and capacity remain before deployment.
 ## Prepared export writer boundary (iteration 1732)
 
 The separate-instance SQL now includes a non-owner writer login with only schema
-usage and INSERT/DELETE on the three aggregate tables. It has no table reads,
-updates, truncation, schema creation or role-switch privileges. Refresh runs as
+usage and INSERT/DELETE on the aggregate tables and capture status. It can read
+only capture status, with no aggregate reads, updates, truncation, schema creation
+or role-switch privileges. Refresh runs as
 this login in disposable tests, including rollback after partial replacement.
 Role defaults bound statements to five seconds, lock waits to 500 ms and idle
 transactions to ten seconds; connection limit is one. These defaults constrain
@@ -200,6 +201,9 @@ atomically with all counts. An empty status table means no successful export.
 The trusted caller supplies the capture time before producing the snapshot and
 must preserve it across retries; reads never advance it. Failed replacement or
 lock timeout preserves the previous timestamp together with the previous counts.
+The replacement lock also rejects older captures and same-capture retries, so
+delayed deliveries cannot roll counts or freshness backward. The writer can read
+only the capture status for this comparison.
 Only this timestamp is exposed, with no identifiers or raw error text.
 
 Disposable real-login checks cover initial absence, successful replacement,

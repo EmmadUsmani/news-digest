@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1735: prepared dedicated-store source query and export-age panel; missing/future/fresh/stale captures and all panel queries verified with restricted disposable reader; uninstalled, public mode off.
+- [x] Iteration 1736: prepared export replacement rejects older/same capture deliveries under its transaction lock; preserves committed counts and freshness; uninstalled, public mode off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
