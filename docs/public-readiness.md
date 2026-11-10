@@ -55,7 +55,7 @@ activation review, rather than adding more variants of already-covered refusals.
       security headers, privacy page, log hygiene and private-mode rollback.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
-      reviewed overview is anonymous-capable; other admin pages remain guarded.
+      reviewed overview and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       Restore private mode first if the scheduled edition fails or looks abnormal.

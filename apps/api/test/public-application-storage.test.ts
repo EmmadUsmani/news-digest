@@ -10,6 +10,7 @@ import test from 'node:test';
 
 import {
   publicOperationsStatusSchema,
+  readerEditionHistorySchema,
   readerEditionSchema,
 } from '@digest/contracts';
 import { NestFactory } from '@nestjs/core';
@@ -215,6 +216,47 @@ void test('configured full public application serves published fixtures and enfo
     const statusHead = await get('/api/admin/status', { method: 'HEAD' });
     assert.equal(statusHead.status, 200);
     assert.equal(await statusHead.text(), '');
+    // Exercise actual public policy, compiled controllers and disposable storage.
+    // A distinct visitor keeps the existing rate-limit exhaustion proof intact.
+    const previewGet = (path: string, init: RequestInit = {}) =>
+      get(path, {
+        ...init,
+        headers: {
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.97, 203.0.113.97',
+          'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+          ...init.headers,
+        },
+      });
+    for (const suffix of ['', '/latest', '/' + ids[0]]) {
+      const path = '/api/admin/digest-previews' + suffix;
+      const response = await previewGet(path);
+      assert.equal(response.status, 200, path);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      const body = await response.json();
+      if (suffix) {
+        assert.deepEqual(readerEditionSchema.parse(body), body);
+        assert.equal(body.id, ids[0]);
+      } else {
+        assert.deepEqual(readerEditionHistorySchema.parse(body), body);
+        assert.ok(
+          body.entries.some((entry: { id: string }) => entry.id === ids[0]),
+        );
+        assert.ok(
+          !body.entries.some((entry: { id: string }) => entry.id === ids[1]),
+        );
+      }
+      const head = await previewGet(path, { method: 'HEAD' });
+      assert.equal(head.status, 200);
+      assert.equal(await head.text(), '');
+    }
+    for (const suffix of ['/' + ids[1], '/' + ids[0] + '/cost', '/jobs/123']) {
+      const response = await previewGet('/api/admin/digest-previews' + suffix);
+      assert.equal(response.status, 404, suffix);
+    }
+    const invalidPreview = await previewGet(
+      '/api/admin/digest-previews?offset=invalid',
+    );
+    assert.equal(invalidPreview.status, 400);
     const session = await get('/api/account/session');
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { signedIn: false, isAdmin: false });

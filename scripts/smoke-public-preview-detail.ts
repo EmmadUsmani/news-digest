@@ -37,7 +37,7 @@ async function smoke() {
           const path = new URL(route.request().url()).pathname;
           assert.equal(route.request().method(), 'GET');
           if (path === '/api/me')
-            return route.fulfill({ json: { isAdmin: true } });
+            return route.fulfill({ json: { isAdmin: false } });
           assert.equal(path, `/api/admin/digest-previews/${id}`);
           reads.push(path);
           return route.fulfill({

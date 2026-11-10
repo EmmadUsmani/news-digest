@@ -1,4 +1,4 @@
-// Offline public-shape replay; does not enable anonymous route authorization.
+// Offline anonymous public-shape replay; live public mode remains disabled.
 import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
@@ -46,7 +46,7 @@ async function smoke() {
           assert.equal(url.origin, origin);
           assert.equal(route.request().method(), 'GET');
           if (url.pathname === '/api/me')
-            return route.fulfill({ json: { isAdmin: true } });
+            return route.fulfill({ json: { isAdmin: false } });
           if (url.pathname === '/api/admin/digest-previews/latest') {
             reads.push('latest');
             return route.fulfill({
@@ -155,6 +155,18 @@ async function smoke() {
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         );
+        for (const path of [
+          '/admin/editions/new',
+          '/admin/spend',
+          '/admin/tools',
+        ]) {
+          const readCount = reads.length;
+          await page.goto(origin + path);
+          await page
+            .getByRole('heading', { name: 'Page not found', exact: true })
+            .waitFor();
+          assert.equal(reads.length, readCount, path);
+        }
         await page.close();
       }
     }

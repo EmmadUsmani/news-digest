@@ -82,7 +82,7 @@ void test('prepared preview HTTP routes require published reads and exclude priv
     for (const suffix of ['', '/latest', '/' + id])
       assert.equal(
         classifyPublicRoute('GET', '/api/admin/digest-previews' + suffix),
-        'admin',
+        'public-read',
       );
   } finally {
     await app.close();

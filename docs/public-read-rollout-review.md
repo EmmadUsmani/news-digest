@@ -23,7 +23,7 @@ HEAD inherits the GET class.
 | Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                                           |
 | Content/source health                     | Anonymous origin-only articles and count/timing source health                                            | Complete for GET/HEAD; window route remains admin-only; no active UI consumers; status projection remains |
 | Detailed status                           | Anonymous sanitized GET/HEAD in public mode                                                              | Overview page installed behind matching mode flags; private mode retains admin access                     |
-| Preview history/detail/latest/cost/job    | Fresh admin required                                                                                     | Separate public publication/accounting/progress views from unpublished/test snapshots                     |
+| Preview history/detail/latest/cost/job    | Anonymous published-only history/latest/detail; cost/job require fresh admin                             | Public browser history/detail installed; generation remains restricted                                    |
 | Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                               |
 | Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                                    |
 | Logs/metrics                              | Unlisted, denied even for signed-in admin                                                                | Add session-authorized tool routing; retain mutation restrictions                                         |
@@ -250,3 +250,12 @@ latest response, and hides cached latest content after failed refreshes. History
 pagination remains independent. Four offline browser views exercise restricted GETs,
 401/403/404/503 recovery and empty latest. Existing admin authorization and private
 mode remain unchanged. Complete anonymous authorization rehearsal remains open.
+
+Iteration 1715 admits GET/HEAD for sanitized published-preview history/latest/detail
+and the two published-edition HTML routes. Public browser builds bypass the admin
+guard only for the reviewed overview, edition history and UUID detail pages.
+Private builds retain their guard. Costs, jobs, generation and other admin pages
+retain their previous access rules. Disposable full-application HTTP checks exercise
+anonymous published-only reads, private-edition refusal and restricted operations;
+offline browser checks use a signed-out identity and retain guarded-page refusals.
+Live public mode stays off; this is one part of the complete Phase 4 rehearsal.

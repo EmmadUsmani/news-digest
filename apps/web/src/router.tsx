@@ -120,9 +120,15 @@ const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
   beforeLoad: async ({ context, location }) => {
-    // Only the reviewed overview is anonymous-capable. Other children retain
-    // their private guard until their own response reviews are installed.
-    if (publicMode && /^\/admin\/?$/.test(location.pathname)) return;
+    // Only reviewed overview and published-edition pages allow anonymous reads.
+    if (
+      publicMode &&
+      (/^\/admin\/?$/.test(location.pathname) ||
+        location.pathname === '/admin/editions' ||
+        (location.pathname.startsWith('/admin/editions/') &&
+          z.string().uuid().safeParse(location.pathname.slice(16)).success))
+    )
+      return;
     const identity = await context.queryClient.fetchQuery(identityQuery);
     if (!identity.isAdmin) throw notFound();
   },

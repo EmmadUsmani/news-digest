@@ -102,9 +102,6 @@ void test('unaudited administrative responses remain restricted independently of
   for (const path of [
     '/api/admin/profile',
     '/api/admin/content/window',
-    '/api/admin/digest-previews',
-    '/api/admin/digest-previews/latest',
-    `/api/admin/digest-previews/${id}`,
     `/api/admin/digest-previews/${id}/cost`,
     '/api/admin/digest-previews/jobs/123',
   ]) {
@@ -122,4 +119,18 @@ void test('audited article and source-health reads allow only GET and HEAD', () 
     for (const method of ['POST', 'PUT', 'PATCH', 'DELETE'])
       assert.equal(classifyPublicRoute(method, path), null);
   }
+});
+
+void test('published previews and their pages permit anonymous reads without granting private operations', () => {
+  for (const path of [
+    '/admin/editions',
+    `/admin/editions/${id}`,
+    '/api/admin/digest-previews',
+    '/api/admin/digest-previews/latest',
+    `/api/admin/digest-previews/${id}`,
+  ])
+    for (const method of ['GET', 'HEAD'])
+      assert.equal(classifyPublicRoute(method, path), 'public-read', path);
+  for (const path of ['/admin/editions/new', '/admin/editions/not-a-uuid'])
+    assert.equal(classifyPublicRoute('GET', path), null, path);
 });

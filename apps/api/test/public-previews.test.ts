@@ -110,9 +110,6 @@ void test('prepared preview failures conceal storage/schema details and preserve
       });
   }
   for (const path of [
-    '/api/admin/digest-previews',
-    '/api/admin/digest-previews/latest',
-    `/api/admin/digest-previews/${id}`,
     `/api/admin/digest-previews/${id}/cost`,
     '/api/admin/digest-previews/jobs/1',
   ])
