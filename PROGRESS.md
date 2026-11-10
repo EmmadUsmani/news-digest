@@ -1,15 +1,6 @@
 # Progress
 
-Earlier entries: [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1583 — reject ambiguous account write headers
-
-- Clean main/no leftovers; alerts and health pass. All 36 sources healthy; digest-generation queue has zero failed jobs. No paid calls, migrations, flags, UI or generation changes.
-- Prepared account HTTP writes now require exactly one wire-level Origin and Content-Type before body reading or handler dispatch, matching the atomic admin transports. Accounts/public remain off pending item 53 owner proxy rerun.
-- Offline real HTTP test rejects repeated identical/conflicting values and mixed casing with empty no-store responses, no cookie and zero handler calls; a subsequent valid request succeeds. Existing unfinished-upload size test now supplies valid write headers.
-- Updated readiness plan/TASKS; no active source or handbook behavior changed. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 790 unit, 275 integration/four expected skips, typecheck/lint/format/boundaries. `pnpm build` passes with existing bundle warnings.
-- API/worker restarted; first curl raced startup, retry passed. Post-restart health, alerts and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass: four topics/19 stories/14 posts.
-- Next: continue Phase 4 preparation behind flags; production visitor extraction still blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.
+Earlier entries: [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1584 — reject ambiguous account Cookie fields
 
@@ -128,3 +119,13 @@ Earlier entries: [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.
 - Updated activation checklist/TASKS. Browser/proxy and expiry acceptance remain, then owner two-device and normal scheduled-edition gates. Phase 3 open; public mode off. Metrics probe not due until ≥00:37 UTC Nov 10.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips), `pnpm build`, `check-handbook.ts account-activation`, `check-live-account-boundary.ts` (32 checks) and `check-scheduled-reader.ts 2026-11-09T15:00:00Z` pass. Existing bundle/dependency annotation warnings only; no UI changes.
 - Pushed `8de30d82`; restarted API only with `systemctl --user restart news-digest-api.service`. Post-restart `/healthz`, saved scheduled-reader check and `pnpm obs alerts` pass (zero alerts); worker unchanged.
+
+## 2026-11-10: iteration 1596 — deployed browser session and revocation acceptance
+
+- Clean main/no inherited work. Initial alerts/health pass; all 14 services and 36 sources healthy. Digest-generation failed count zero; next run Nov 10 15:00 UTC. Saved Nov 9 reader remains four topics/19 stories/14 posts.
+- Extended explicit `pnpm exec tsx scripts/check-live-account-lifecycle.ts --live`: 45 checks pass, including desktop/mobile Chromium synced panels, HttpOnly cookie isolation and signed-out panels after admin revocation/reload. Four screenshots saved and inspected.
+- Browser contexts seed real issued cookies; app-origin browser requests route to deployed loopback with a synthetic visitor header. External embeds blocked. This bypasses exe.dev TLS/proxy and does not establish cookie exchange there. Disposable reader deleted; temporary owner session signed out. No owner preferences, schedule, migration, generation, provider or paid-call changes.
+- Initial browser setup rejected the HTTP URL for the secure host cookie; configured HTTPS origin fixes setup. Missing synthetic visitor header caused fail-closed sync 503; local routing now supplies it. Normal login throttle interrupted a retry; waited for expiry without changing limits. Failed-run readers cleaned up.
+- Updated activation checklist/TASKS. Proxy/TLS exchange and expiry remain, then owner two-device and normal scheduled-edition gates; Phase 3 open/public mode off. Metrics probe remains due ≥00:37 UTC.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips), `pnpm build`, targeted final ESLint/Prettier and `check-handbook.ts account-activation` pass. Existing bundle warnings only. Initial full check caught import sorting while editing; fixed and full suite rerun green. Archived iteration 1583 to keep this file small.
+- Restarted API only with `systemctl --user restart news-digest-api.service`; first health request raced startup, retry passed. Post-restart `/healthz`, `check-scheduled-reader.ts 2026-11-09T15:00:00Z` and `pnpm obs alerts` pass (zero alerts); worker unchanged. `check-live-account-boundary.ts` passes 32 refusals. Next: proxy/TLS exchange and expiry, then owner/scheduled acceptance.

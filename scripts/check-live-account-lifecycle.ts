@@ -3,8 +3,11 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { parseEnv } from 'node:util';
+
+import { chromium, expect } from 'playwright/test';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
@@ -81,6 +84,62 @@ async function main() {
   let admin = '';
   let friend = '';
   let deleted = false;
+  const browser = await chromium.launch();
+  const browserErrors: string[] = [];
+  async function browserSession(cookie: string, width: number) {
+    stage = 'local browser session';
+    const context = await browser.newContext({
+      viewport: { width, height: 900 },
+    });
+    const separator = cookie.indexOf('=');
+    // Seed the real issued cookie; this does not test the proxy/TLS exchange.
+    await context.addCookies([
+      {
+        name: cookie.slice(0, separator),
+        value: cookie.slice(separator + 1),
+        url: origin,
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Lax',
+      },
+    ]);
+    const page = await context.newPage();
+    page.on('pageerror', () => browserErrors.push('Browser error'));
+    // Keep the configured browser origin while forwarding app requests locally.
+    // This deliberately bypasses exe.dev TLS/proxy; external embeds are blocked.
+    await page.route('**/*', async (route) => {
+      const url = new URL(route.request().url());
+      if (url.origin !== origin) return route.abort();
+      const response = await route.fetch({
+        url: `${base}${url.pathname}${url.search}`,
+        headers: {
+          ...(await route.request().allHeaders()),
+          'X-Forwarded-For': '192.0.2.193',
+        },
+      });
+      await route.fulfill({ response });
+    });
+    stage = 'local browser navigation';
+    await page.goto(origin);
+    stage = 'local browser account panel';
+    await page.getByRole('button', { name: 'Account', exact: true }).click();
+    stage = 'local browser signed-in sync';
+    await expect(
+      page.getByText('Your topics and saved items are synced.', {
+        exact: true,
+      }),
+    ).toBeVisible();
+    assert.equal(
+      await page.evaluate(() => document.cookie.includes('session')),
+      false,
+    );
+    await mkdir('docs/screenshots/accounts', { recursive: true });
+    await page.screenshot({
+      path: `docs/screenshots/accounts/live-synced-${width}.png`,
+    });
+    checks++;
+    return page;
+  }
   try {
     await request('code', 202, '', { email: adminEmail });
     const code = await mailbox.latest(adminEmail, new Date());
@@ -179,6 +238,8 @@ async function main() {
     const revokeSecond = cookieFrom(
       await request('redeem', 204, '', { email, code: revokeCode }),
     );
+    const desktop = await browserSession(friend, 1280);
+    const mobile = await browserSession(revokeSecond, 390);
     const revoked = await request('sessions/revoke', 200, admin, {
       userId: target.rows[0].id,
     });
@@ -187,6 +248,19 @@ async function main() {
     await signedIn(revokeSecond, false);
     await request('sync', 401, friend, empty);
     await request('sync', 401, revokeSecond, empty);
+    for (const page of [desktop, mobile]) {
+      stage = 'local browser revoked session';
+      await page.reload();
+      await page.getByRole('button', { name: 'Account', exact: true }).click();
+      await expect(
+        page.getByRole('link', { name: 'Sign in', exact: true }),
+      ).toBeVisible();
+      await page.screenshot({
+        path: `docs/screenshots/accounts/live-revoked-${page.viewportSize()!.width}.png`,
+      });
+      checks++;
+    }
+    assert.deepEqual(browserErrors, []);
     await signedIn(admin, true, true);
     stage = 'disposable reader revocation audit';
     const audit = await pool.query<{ count: string }>(
@@ -234,11 +308,12 @@ async function main() {
     try {
       if (admin) await request('logout', 204, admin, {});
     } finally {
+      await browser.close();
       await pool.end();
     }
   }
   console.log(
-    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Proxy/browser and expiry acceptance remain separate.`,
+    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Desktop/mobile Chromium seeded-cookie session/sync and revoked-session reload pass. Proxy/TLS cookie exchange and expiry acceptance remain separate.`,
   );
 }
 void main().catch(() => {
