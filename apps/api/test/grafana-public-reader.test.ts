@@ -17,6 +17,15 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
     await client.query(`INSERT INTO content_sources(id,name,kind,url,last_error)
       VALUES ('ffffffff-ffff-4fff-8fff-ffffffffffff','private-source-marker','feed',
       'https://example.test/private-url-marker','raw-error-marker')`);
+    await client.query(`INSERT INTO digest_previews
+      (profile_id,window_start,window_end,snapshot,kind,published_at)
+      VALUES (NULL,now()-interval '1 day',now(),
+      '{"topics":[{"name":"private-topic-marker","stories":[1,2,3],"posts":[1,2]}]}','manual',NULL),
+      (NULL,now()-interval '1 day',now(),
+      '{"topics":[{"name":"public-topic-marker","stories":[{"text":"story-marker"}],"posts":[1,2]},{"stories":null,"posts":"bad-shape-marker"}]}',
+      'scheduled','2099-11-11T15:00:00Z'),
+      (NULL,now()-interval '1 day',now(),'{"topics":null}',
+      'scheduled','2099-11-12T15:00:00Z')`);
     const sql = readFileSync(
       'ops/observability/grafana/sql/public-product-reader.sql',
       'utf8',
@@ -30,6 +39,32 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
     assert.deepEqual(editions.rows, [
       { day_utc: new Date('2099-11-10T00:00:00Z'), editions: '1' },
     ]);
+    const content = await client.query(
+      "SELECT * FROM grafana_public.published_content WHERE day_utc >= '2099-11-11' ORDER BY day_utc",
+    );
+    assert.deepEqual(content.rows, [
+      {
+        day_utc: new Date('2099-11-11T00:00:00Z'),
+        topics: '2',
+        stories: '1',
+        posts: '2',
+      },
+      {
+        day_utc: new Date('2099-11-12T00:00:00Z'),
+        topics: '0',
+        stories: '0',
+        posts: '0',
+      },
+    ]);
+    assert.doesNotMatch(JSON.stringify(content.rows), /marker/);
+    assert.equal(
+      (
+        await client.query(
+          'SELECT * FROM grafana_public.published_content WHERE day_utc IS NULL',
+        )
+      ).rowCount,
+      0,
+    );
     const health = await client.query(
       'SELECT * FROM grafana_public.source_health',
     );
@@ -72,6 +107,7 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
       WHERE grantee = current_user AND table_schema NOT IN ('pg_catalog','information_schema')
       ORDER BY table_name`);
     assert.deepEqual(grants.rows, [
+      { table_schema: 'grafana_public', table_name: 'published_content' },
       { table_schema: 'grafana_public', table_name: 'published_editions' },
       { table_schema: 'grafana_public', table_name: 'source_health' },
     ]);

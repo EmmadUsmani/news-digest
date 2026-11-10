@@ -24,13 +24,29 @@ WITH (security_barrier = true) AS
     count(*) AS editions
   FROM public.digest_previews WHERE published_at IS NOT NULL
   GROUP BY 1;
+-- Aggregate only published content; never project topic names, IDs or text.
+CREATE OR REPLACE VIEW grafana_public.published_content
+WITH (security_barrier = true) AS
+  SELECT date_trunc('day', d.published_at AT TIME ZONE 'UTC') AS day_utc,
+    count(t.topic) AS topics,
+    coalesce(sum(CASE WHEN jsonb_typeof(t.topic->'stories') = 'array'
+      THEN jsonb_array_length(t.topic->'stories') ELSE 0 END), 0)::bigint AS stories,
+    coalesce(sum(CASE WHEN jsonb_typeof(t.topic->'posts') = 'array'
+      THEN jsonb_array_length(t.topic->'posts') ELSE 0 END), 0)::bigint AS posts
+  FROM public.digest_previews d
+  LEFT JOIN LATERAL jsonb_array_elements(
+    CASE WHEN jsonb_typeof(d.snapshot->'topics') = 'array'
+      THEN d.snapshot->'topics' ELSE '[]'::jsonb END
+  ) AS t(topic) ON true
+  WHERE d.published_at IS NOT NULL
+  GROUP BY 1;
 CREATE OR REPLACE VIEW grafana_public.source_health
 WITH (security_barrier = true) AS
   SELECT id, enabled, last_success, last_attempt, last_item_count,
     (last_error IS NOT NULL) AS has_error
   FROM public.content_sources;
 REVOKE ALL ON ALL TABLES IN SCHEMA grafana_public FROM PUBLIC;
-GRANT SELECT ON grafana_public.published_editions, grafana_public.source_health
+GRANT SELECT ON grafana_public.published_editions, grafana_public.published_content, grafana_public.source_health
   TO grafana_public_product;
 -- No blanket/future-table grants, SECURITY DEFINER functions or raw error text.
 -- Database CONNECT uses the deployment database's existing CONNECT policy.

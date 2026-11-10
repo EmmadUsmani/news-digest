@@ -143,3 +143,12 @@
 - Targeted disposable Postgres test passes after correcting fixture cleanup/window assumptions (immutable editions and strictly positive windows). `pnpm build`, handbook check and live scheduled-reader check pass (four topics/19 stories/15 posts). First full check: 819 unit tests pass; integration exposed the fixture cleanup error. Corrected full rerun and deployment results follow.
 - Corrected full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `check-handbook.ts 09-observability`, scheduled-reader check and `git diff --check` pass. Commit/push and post-16:00 UTC restart follow.
 - Pushed `d1fa2842`; restarted API/worker after 16:00 UTC. Post-restart health/database/Redis and scheduled-reader checks pass (four topics/19 stories/15 posts), no failed user units and zero active alerts. Public mode off; prepared SQL remains unapplied.
+
+## 2026-11-10: iteration 1718 — prepare published Grafana content totals
+
+- Clean main; no inherited work. Health/database/Redis good, no failed user units or active alerts. GamingBolt recovery remains open under bounded scheduled retries.
+- Added uninstalled security-barrier daily published topic/story/post counts. No text, topic names, ownership or edition IDs; malformed/missing arrays count as zero. SQL tests cover private markers, published text, exact totals/fields, empty content and withheld unpublished rows.
+- Documented which private dashboard panels still require rewrites; updated readiness and observability handbook. Public flag stays off; no live migrations, role changes or provider calls. Phase 3 awaits next normal scheduled edition.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 09-observability` and live scheduled-reader check pass (four topics/19 stories/15 posts). Full check/deployment results follow.
+- Next: remaining public dashboard aggregates, inherited function/catalog access and datasource/query-route review.
+- Full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips, including prepared Grafana SQL coverage. Build and handbook checks pass; `git diff --check` clean. Commit/push and API/worker restart follow; prepared SQL remains unapplied.

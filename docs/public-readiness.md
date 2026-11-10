@@ -49,7 +49,7 @@ activation review, rather than adding more variants of already-covered refusals.
       (1620): install sanitized readers without legacy overlaps, finish status/preview
       projections and expose the approved read-only pages/tools. Initial [tool producer review](public-tool-response-review.md) completed (1716):
       Grafana grants expose unpublished snapshots/raw errors and jobs return raw payloads.
-      Separate Grafana view-only reader SQL prepared, not installed (1717); dashboard/query-route review remains.
+      Separate Grafana view-only reader SQL prepared, not installed (1717–1718), including published daily content counts; dashboard/query-route review remains.
       Fix these data boundaries before installing tool routes; the gate is still open. Confirm `/logs`
       and `/metrics` require an admin session and account tables deny operational/PUBLIC reader roles after migration.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,

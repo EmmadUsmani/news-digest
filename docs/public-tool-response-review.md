@@ -60,10 +60,13 @@ payloads, account rows, log bodies or credentials were fetched for this review.
 
 `ops/observability/grafana/sql/public-product-reader.sql` is a standalone,
 uninstalled candidate. It creates a separate `grafana_public_product` role and
-two owner-executed security-barrier views in `grafana_public`:
+three owner-executed security-barrier views in `grafana_public`:
 
 - `published_editions`: UTC publication-day counts, excluding unpublished rows;
   no snapshots, profile IDs, run IDs or edition IDs.
+- `published_content`: UTC publication-day topic/story/post totals; array lengths
+  only, with no topic names, content text or identifiers. Missing or malformed
+  arrays count as zero. Unpublished editions contribute nothing.
 - `source_health`: source ID, enabled flag, collection timestamps/item count and
   an error boolean; no source names, URLs or persisted error bodies.
 
@@ -75,3 +78,14 @@ complete datasource approval: remaining dashboard aggregates, inherited PUBLIC
 function/catalog access, metrics labels and query-route admission still need
 review. Private dashboards continue using the existing operational role; never
 route public queries to that datasource. No live role or datasource changes.
+
+## Published content aggregate follow-up (iteration 1718)
+
+The prepared daily content view replaces the count-only portion of the private
+"Recent retained editions" panel. It does not expose editorial modes, reasons,
+triage IDs or per-topic fields. Disposable coverage checks private topic markers,
+story text, malformed arrays, empty days and exact output fields/counts.
+Existing dashboard SQL must still be rewritten before using the public role:
+latest-edition modes, selection coverage and social-platform panels read raw
+snapshots; spend, ledger, X calls and reserve panels expose internal activity.
+No existing panel is approved merely because its datasource is read-only.

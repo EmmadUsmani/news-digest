@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1717: prepared uninstalled separate Grafana public role and security-barrier views for published daily counts/source health; isolated adversarial SQL coverage added. Private datasource unchanged. Next: remaining safe dashboard aggregates and datasource/query-route review; public mode stays off.
+- [x] Iteration 1718: prepared uninstalled Grafana published daily topic/story/post counts with private-text and malformed-array SQL coverage. Public mode stays off; remaining dashboard rewrites and datasource/query-route review remain.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
