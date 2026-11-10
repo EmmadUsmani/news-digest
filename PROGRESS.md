@@ -173,3 +173,13 @@
 - Historical rejected output remains unavailable; no claim of diagnosed sentences or validated AI result. Item 54 replay spend remains $0/$0.10; next: bounded replay, real-sentence tests and demonstrated fix before Nov 11 noon.
 - Verification: reconstruction succeeds with exact cache hit; format, lint fix, full check/build and live reader/health checks recorded below.
 - Full `pnpm check` passes: 821 unit tests and 280 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check and `git diff --check` pass; health/database/Redis and scheduled reader pass (four topics/19 stories/15 posts). Identical independent request captures, 0600 mode and overwrite refusal verified. Commit/push and service restart follow.
+
+## 2026-11-10: iteration 1726 — prepare bounded NBA replay and preserve unspent claim
+
+- Clean main, no inherited work; `pnpm obs alerts` zero, `/healthz` database/Redis healthy.
+- Added `scripts/replay-nba-editor.ts`: fixed private once-only state, $0.10 cumulative conservative reservation ceiling, shared verification ledger/caps, raw request/response files 0600, production cache bypass, no publication.
+- First invocation without required flag stopped before claiming. Correct flagged run claimed authorization but stopped before reserve/provider: cache bypass returned null, interpreted as a cached schema-invalid response. Fixed miss sentinel to undefined; guard/prompt unchanged.
+- DB audit: zero llm_calls for `item-54-nba-8837dd87-743a-4def-b3d9-194f3a0795e6`; no response files. $0/$0.10 spent; private claim retained at `~/.local/state/news-digest/item-54-nba/item-27-evaluation.claim`. Do not blindly delete/retry it.
+- `LLM_LIVE=1 pnpm exec tsx scripts/replay-nba-editor.ts --preflight` passes offline: both models reach admission, zero validation failures or provider/ledger/cache/claim writes. Conservative Sonnet/Haiku estimates 74805/3741 micros; shared daily verification cap may refuse Sonnet.
+- Next: implement audited recovery of the proven-unspent claim, then replay and name real rejected sentences; item 54 remains open, deploy fix before Nov 11 noon and verify scheduled edition.
+- Verification: normal-environment `pnpm check` passes 821 unit + 280 integration tests/four expected skips; format, lint fix, build, offline preflight and diff check pass. Duplicate check accidentally inherited production flags and failed golden/profile-isolation expectations; no code changes made for that contaminated run. `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verifies four topics/19 stories/15 posts.

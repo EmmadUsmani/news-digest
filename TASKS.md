@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54 (new owner priority): diagnose Nov 10 NBA rejected editor sentences from saved inputs/replays; retain absence guard/fallback, save rejected responses with reasons, add real-sentence tests and deploy before Nov 11 noon UTC. Private bounded rejected-response capture deployed (1723); Reconstruction (1725) proves the unmatched Tatum/Brown preview ranks below forty verified inputs; exact historical grouping cache validates and ten editor candidates/two initial requests are captured privately. Budgeted model replay and real-sentence guard diagnosis remain next. Anthropic replay cap $0.10 total, $0 spent in 1723. Takes priority over Phase 4.
+- [ ] STEERING 54 (new owner priority): diagnose Nov 10 NBA rejected editor sentences from saved inputs/replays; retain absence guard/fallback, save rejected responses with reasons, add real-sentence tests and deploy before Nov 11 noon UTC. Private bounded rejected-response capture deployed (1723); Reconstruction (1725) proves the unmatched Tatum/Brown preview ranks below forty verified inputs; exact historical grouping cache validates and ten editor candidates/two initial requests are captured privately. Replay tool added (1726); offline admission preflight passes. First claim stopped before reservation/provider call because cache bypass returned null; corrected to undefined. Durable claim retained; audit confirms zero ledger rows for run item-54-nba-8837dd87-743a-4def-b3d9-194f3a0795e6. Recover this proven-unspent claim safely before paid replay; real-sentence diagnosis remains next. Anthropic replay cap $0.10 total, $0 spent in 1723. Takes priority over Phase 4.
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1725: proved unmatched NBA preview cannot enter the forty-item pool; validated historical grouping cache and reconstructed ten editor inputs/two initial requests, with no paid calls or guard changes.
+- [x] Iteration 1726: added bounded NBA replay tool and verified offline admission; corrected cache-miss sentinel after zero-spend pre-provider stop. Durable claim retained for safe recovery.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
