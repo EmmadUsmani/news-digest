@@ -1,12 +1,13 @@
 # Reliability
 
-**Agent outage, Nov 10:** from 22:13 UTC every Codex run fails with "The
-'gpt-6.1-sol' model requires a newer version of Codex". Codex was upgraded to
-0.167.1 (latest stable). The newest prerelease is rejected too, while
-`gpt-6-sol` works, so the block is on the exe.dev gateway or OpenAI side. The
-supervisor retries every 5 minutes and resumes by itself once that's fixed.
-Next: check `~/agent-control/status/heartbeat.json`, and ask the owner before
-any model switch.
+**Agent outage, Nov 10:** from 22:13 UTC every Codex run failed with "The
+'gpt-6.1-sol' model requires a newer version of Codex", even on 0.167.1 (latest
+stable, installed) and the newest prerelease. `gpt-6-sol` works, so the block is
+on the exe.dev gateway or OpenAI side. Owner approved a temporary pin: the VM's
+`~/.codex/config.toml` has `model = "gpt-6-sol"` (backup `config.toml.pre-gpt6sol`),
+and iteration 1753 ran from 22:59. Next: remove the pin once `gpt-6.1-sol`
+answers a one-line `codex exec -m gpt-6.1-sol` test. A supervisor fallback is
+under discussion, not steered.
 
 **Status:** steered on Nov 7 as items 47 and 48, not yet acked. The agent rehearses four
 failed-edition cases and a rebuild from backup, then settles M6 and M7.
