@@ -2,12 +2,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
-import { profileQuery, statusQuery } from './queries';
+import { identityQuery, scheduleQuery, statusQuery } from './queries';
 import { ScheduleSettings } from './ScheduleSettings';
 
 export function AdminSchedule() {
   const client = useQueryClient();
-  const profile = useQuery(profileQuery);
+  const schedule = useQuery(scheduleQuery);
+  const identity = useQuery(identityQuery);
   const status = useQuery(statusQuery);
   const queue = status.data?.queues.find(
     (item) => item.name === 'digest-generation',
@@ -33,18 +34,21 @@ export function AdminSchedule() {
           </p>
         )}
       </Card>
-      {profile.isError && (
+      {schedule.isError && (
         <div role="alert">
           <p>Schedule could not be loaded.</p>
-          <Button onClick={() => void profile.refetch()}>Retry schedule</Button>
+          <Button onClick={() => void schedule.refetch()}>
+            Retry schedule
+          </Button>
         </div>
       )}
-      {profile.isPending && <p role="status">Loading schedule…</p>}
-      {profile.data && (
+      {schedule.isPending && <p role="status">Loading schedule…</p>}
+      {schedule.data && (
         <ScheduleSettings
-          profile={profile.data}
+          schedule={schedule.data}
+          readOnly={identity.data?.isAdmin !== true}
           onSaved={(saved) => {
-            client.setQueryData(profileQuery.queryKey, saved);
+            client.setQueryData(scheduleQuery.queryKey, saved);
             void client.invalidateQueries({ queryKey: statusQuery.queryKey });
           }}
         />

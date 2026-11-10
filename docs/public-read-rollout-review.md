@@ -19,7 +19,7 @@ child directly behind `PUBLIC_MODE`; other projections remain disconnected. HEAD
 | Account session                           | Anonymous-capable caller-only identity                                                         | Retain private/no-store headers; never enumerate accounts                                                   |
 | Alert counts                              | Anonymous timestamp/counts; fixed unavailable error                                            | No alert labels, annotations or upstream payloads exposed                                                   |
 | Topics/source catalog                     | Fresh admin required; legacy full rows                                                         | Replace with prepared allowlists/origin-only catalog, then promote GET/HEAD                                 |
-| Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin | Migrate UI off owner-profile response                                                                       |
+| Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin | UI uses system endpoint with explicit private-mode 404 fallback                                             |
 | Content/source health                     | Fresh admin required                                                                           | Wire origin-only article and count/timing source-health readers; keep window route restricted until audited |
 | Detailed status                           | Fresh admin required                                                                           | Project stored source errors, job return strings and accounting fields before anonymous reads               |
 | Preview history/detail/latest/cost/job    | Fresh admin required                                                                           | Separate public publication/accounting/progress views from unpublished/test snapshots                       |
@@ -66,7 +66,13 @@ Full-application isolated HTTP checks compare the response to system settings,
 reject mutations and preserve anonymous legacy-profile refusal. Private rollback
 keeps the existing profile contract.
 
-Next available implementation step: migrate the schedule UI consumer. Then
-promote the audited catalog reads and continue status/preview/tool projections.
+Iteration 1622 migrates the schedule UI to the system endpoint. Only a 404
+permits the private-mode profile fallback; other failures show retry. Editing
+requires a confirmed admin identity. Browser replays cover system reads, private
+fallback, failure/retry and disabled reader controls without live writes.
+Admin HTML and router access promotion remains part of the later rollout.
+
+Next available implementation step: promote the audited catalog reads and
+continue status/preview/tool projections.
 Phase 3 scheduled acceptance still precedes live Phase 4 activation. Migration
 0019, public flags, proxy sharing and generation settings were unchanged here.

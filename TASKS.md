@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1621: Wired system-only schedule GET/HEAD into public-mode application with pool cleanup; private-mode route stays absent and profile contract retained. Isolated full-application response/access checks added. Schedule UI migration and other public read/tool rollout gaps remain open. [Review](docs/public-read-rollout-review.md).
+- [x] Iteration 1622: Schedule UI reads the system endpoint, permits legacy profile fallback only on 404, and disables editing without confirmed admin identity. Browser replays cover private/system reads, failure/retry and read-only controls; remaining catalog/status/tool rollout gaps stay open. [Review](docs/public-read-rollout-review.md).
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

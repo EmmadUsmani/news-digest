@@ -10,6 +10,7 @@ import {
   profileSettingsSchema,
   readerEditionHistorySchema,
   readerEditionSchema,
+  scheduleSchema,
   topicSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
@@ -53,6 +54,20 @@ export const profileQuery = queryOptions({
   queryKey: ['profile'],
   queryFn: ({ signal }) =>
     read('/api/admin/profile', profileSettingsSchema, signal),
+});
+// Private rollback has no system endpoint; only its explicit 404 permits the
+// legacy read. Public-mode failures must never fall back to owner data.
+export const scheduleQuery = queryOptions({
+  queryKey: ['system-schedule'],
+  queryFn: async ({ signal }) => {
+    try {
+      return await read('/api/settings/schedule', scheduleSchema, signal);
+    } catch (error) {
+      if (!(error instanceof HttpError) || error.status !== 404) throw error;
+      return (await read('/api/admin/profile', profileSettingsSchema, signal))
+        .schedule;
+    }
+  },
 });
 export const healthQuery = queryOptions({
   queryKey: ['health'],

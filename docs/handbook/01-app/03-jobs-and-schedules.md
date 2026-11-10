@@ -127,4 +127,6 @@ apply to every call. See [Social posts](05-social-posts.md).
 
 Public mode exposes the system schedule at `GET /api/settings/schedule`: cadence,
 timezone, coverage window and story/post budgets. Private mode uses the existing
-admin profile endpoint. Schedule changes require an admin session.
+admin profile endpoint. The schedule page tries the system endpoint first and
+uses the profile only when that route is absent. Other failures offer Retry.
+Schedule controls require a confirmed admin identity.

@@ -1,14 +1,19 @@
-import { type ProfileSettings, profileSettingsSchema } from '@digest/contracts';
+import {
+  profileSettingsSchema,
+  type ScheduleSettings as Schedule,
+} from '@digest/contracts';
 import React from 'react';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 export function ScheduleSettings({
-  profile,
+  schedule,
+  readOnly = false,
   onSaved,
 }: {
-  profile: ProfileSettings;
-  onSaved: (profile: ProfileSettings) => void;
+  schedule: Schedule;
+  readOnly?: boolean;
+  onSaved: (schedule: Schedule) => void;
 }) {
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState('');
@@ -19,10 +24,10 @@ export function ScheduleSettings({
     saveButton.current?.focus();
     restoreSaveFocus.current = false;
   }, [busy]);
-  const schedule = profile.schedule;
   const [minute, hour] = schedule.cadence.split(' ');
   async function save(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (readOnly) return;
     const data = new FormData(event.currentTarget);
     const [hours, minutes] = String(data.get('time')).split(':');
     const input = {
@@ -54,7 +59,7 @@ export function ScheduleSettings({
         );
         return;
       }
-      onSaved(profileSettingsSchema.parse(await response.json()));
+      onSaved(profileSettingsSchema.parse(await response.json()).schedule);
       setMessage(
         'Schedule settings saved. Automatic editions follow this schedule; changes take effect within 10 seconds.',
       );
@@ -74,13 +79,14 @@ export function ScheduleSettings({
         Coverage: {schedule.coverageWindow}. Automatic editions follow this
         schedule; changes take effect within 10 seconds.
       </p>
+      {readOnly && <p>Read-only schedule. Sign in as an admin to change it.</p>}
       <form
         key={JSON.stringify(schedule)}
         aria-label="Schedule settings"
         onSubmit={save}
       >
         <fieldset
-          disabled={busy}
+          disabled={busy || readOnly}
           className="m-0 grid min-w-0 gap-5 border-0 p-0"
         >
           <legend className="mb-5 font-semibold">Schedule your edition</legend>
