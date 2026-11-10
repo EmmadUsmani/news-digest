@@ -163,3 +163,13 @@
 - No paid calls ($0/$0.10), prompt/guard/provider/flag/migration changes. Guard/fallback retained; item 54 remains open. Next: recover historical preview input, reconstruct shortlist/grouping and diagnose rejected output before Nov 11 noon UTC.
 - `pnpm build` and scheduled-reader check pass (four topics/19 stories/15 posts). Initial full check found three require-await lint errors in script stubs; corrected to explicit promises, rerunning full check and lint fix.
 - Corrected `pnpm check` passes: 821 unit tests, 280 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, handbook check and `git diff --check` pass. Empty/null excerpt probes also miss; private evidence overwrite refusal verified. Commit/push and API/worker restart follow.
+
+## 2026-11-10: iteration 1725 — recover verified historical NBA editor requests
+
+- Clean main; no inherited work. Initial alerts zero. No production generation, guard, prompt or provider changes.
+- Unmatched preview ranks 48th in saved scores; forty verified candidates outrank it (cutoff 4/9 versus 4/8). Historical text cannot change its pool exclusion.
+- Reconstruction now proceeds only if every unresolved candidate is strictly below forty verified inputs; gaps within the pool still stop before grouping/editor capture.
+- Exact historical grouping cache validates; forty grouped inputs yield ten editor candidates/two initial requests. Private 0600 artifact `/tmp/nba-reconstruction/editor-verified.json`; zero provider/cache/publication writes.
+- Historical rejected output remains unavailable; no claim of diagnosed sentences or validated AI result. Item 54 replay spend remains $0/$0.10; next: bounded replay, real-sentence tests and demonstrated fix before Nov 11 noon.
+- Verification: reconstruction succeeds with exact cache hit; format, lint fix, full check/build and live reader/health checks recorded below.
+- Full `pnpm check` passes: 821 unit tests and 280 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check and `git diff --check` pass; health/database/Redis and scheduled reader pass (four topics/19 stories/15 posts). Identical independent request captures, 0600 mode and overwrite refusal verified. Commit/push and service restart follow.

@@ -129,7 +129,22 @@ async function main() {
         .sort((a, b) => a.id.localeCompare(b.id)),
       'Historical cache scores differ from the saved edition',
     );
-    if (unresolved.length) {
+    // Saved scores are immutable edition evidence even if source text changed.
+    // A changed candidate cannot affect grouping/editor inputs when it is
+    // outside the score-ordered, forty-item pool. Never substitute its text.
+    const historicalPool = editorialShortlist(
+      input.candidates,
+      saved.editorial.triage,
+      topic.relevance_policy,
+      start,
+      end,
+      undefined,
+      40,
+    ).shortlist;
+    const unresolvedInPool = unresolved.filter((id) =>
+      historicalPool.some((candidate) => candidate.id === id),
+    );
+    if (unresolvedInPool.length) {
       await writeFile(
         output,
         JSON.stringify(
@@ -141,6 +156,8 @@ async function main() {
             savedScores: saved.editorial.triage,
             matchedScores: scores,
             unresolved,
+            unresolvedInPool,
+            groupingPool: historicalPool.map((candidate) => candidate.id),
             note: 'Current inputs do not reproduce every historical triage fingerprint. No editor request was constructed; this artifact cannot establish an exact historical replay.',
           },
           null,
@@ -154,6 +171,7 @@ async function main() {
           savedScores: ids.size,
           matchedScores: scores.length,
           unresolved,
+          unresolvedInPool,
           providerCalls: 0,
           output,
         }),
@@ -161,11 +179,26 @@ async function main() {
       await client.query('ROLLBACK');
       return;
     }
-    assert.deepEqual(
-      [...scores].sort((a, b) => a.id.localeCompare(b.id)),
-      [...saved.editorial.triage].sort((a, b) => a.id.localeCompare(b.id)),
-      'Topic/content changed since scheduled triage',
-    );
+    if (unresolved.length) {
+      assert.equal(historicalPool.length, 40);
+      const cutoff = saved.editorial.triage.find(
+        (score) => score.id === historicalPool[39].id,
+      );
+      assert.ok(cutoff);
+      for (const id of unresolved) {
+        const gap = saved.editorial.triage.find((score) => score.id === id);
+        assert.ok(gap);
+        assert.ok(
+          cutoff.importance > gap.importance ||
+            (cutoff.importance === gap.importance &&
+              (cutoff.relevance > gap.relevance ||
+                (cutoff.relevance === gap.relevance &&
+                  cutoff.id.localeCompare(gap.id) < 0))),
+          'Unverified input could change historical pool membership',
+        );
+      }
+    }
+    scores = saved.editorial.triage;
     const { shortlist } = editorialShortlist(
       input.candidates,
       scores,
@@ -220,7 +253,8 @@ async function main() {
         {
           editionId: rows[0].id,
           provenance:
-            'Saved triage scores match exact current-content fingerprints; exact historical grouping cache validated. Rejected responses were not retained. Requests below are initial requests, not historical repair prompts.',
+            'All grouping/editor pool inputs match historical triage fingerprints; any unmatched inputs rank strictly below forty verified candidates using immutable saved scores. Exact historical grouping cache validated. Rejected responses were not retained. Requests below are initial requests, not historical repair prompts.',
+          unresolvedOutsidePool: unresolved,
           scoredCandidates: scores.length,
           groupingPool: shortlist.length,
           requests,
