@@ -1,43 +1,12 @@
 # Progress
 
+[Iterations 1686–1693 archive](docs/progress-archive/2026-11-10-iterations-1686-1693.md).
+
 [Iteration 1626 archive](docs/progress-archive/2026-11-10-iteration-1626.md).
 
 [Iteration 1625 archive](docs/progress-archive/2026-11-10-iterations-1625.md).
 
 Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.md); [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.md); [iteration 1616 and follow-up](docs/progress-archive/2026-11-10-1687.md); [iterations 1614–1615](docs/progress-archive/2026-11-10-1625.md); [iterations 1612–1613](docs/progress-archive/2026-11-10-1623.md); [iterations 1610–1611](docs/progress-archive/2026-11-10-1622.md); [iterations 1608–1609](docs/progress-archive/2026-11-10-1621.md); [iteration 1607](docs/progress-archive/2026-11-10-1620.md); [iterations 1605–1606](docs/progress-archive/2026-11-10-1619.md); [iteration 1604](docs/progress-archive/2026-11-10-1618.md); [iteration 1603](docs/progress-archive/2026-11-10-1616-follow-up.md); [iteration 1602](docs/progress-archive/2026-11-10-1616.md); [iteration 1601](docs/progress-archive/2026-11-10-1615.md); [iteration 1600](docs/progress-archive/2026-11-10-1614.md); [iteration 1599](docs/progress-archive/2026-11-10-1613.md); [iteration 1598](docs/progress-archive/2026-11-10-1611.md); [iteration 1597](docs/progress-archive/2026-11-10-1610.md); [iteration 1596](docs/progress-archive/2026-11-10-1608.md); [iteration 1595](docs/progress-archive/2026-11-10-1607.md); [iteration 1594](docs/progress-archive/2026-11-10-1606.md); [iteration 1593](docs/progress-archive/2026-11-10-1605.md); [iteration 1592](docs/progress-archive/2026-11-10-1604.md); [iteration 1591](docs/progress-archive/2026-11-10-1603.md); [iteration 1590](docs/progress-archive/2026-11-10-1602.md); [iteration 1589](docs/progress-archive/2026-11-10-1601.md); [iteration 1588](docs/progress-archive/2026-11-10-1600.md); [iteration 1587](docs/progress-archive/2026-11-10-1599.md); [iteration 1586](docs/progress-archive/2026-11-10-1598.md); [iterations 1584–1585](docs/progress-archive/2026-11-10-1597.md); [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-10: iteration 1686 — GamingBolt source outage triage
-
-- Clean main; no inherited work. Pending RecentJobFailures alert traced to GamingBolt RSS collection, with repeated 20-second AbortError timeouts. Direct `curl --max-time 25` also receives zero bytes and times out; external recovery remains pending.
-- `pnpm obs sources --check`: 35 healthy, GamingBolt error; last success 11:16:24 UTC, 10 items/160 stored. Existing scheduled bounded retries retained; no bypass, provider call or runtime change.
-- `/healthz` passes database/Redis; no failed user services. `pnpm obs jobs --check` shows scheduled 15:00 UTC digest pending, no failed digest runs. Saved-reader parity passes four topics/19 stories/14 posts.
-- Recorded incident in TASKS and SOURCES. Phase 3 still waits for scheduled edition; migration 0019/public activation and content tuning remain held. Metrics probe not due before 12:28 UTC.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips), saved-reader parity and `git diff --check` pass. Documentation only; running application already matches main, no restart needed.
-
-## 2026-11-10: iteration 1687 — GamingBolt response-timeout diagnosis
-
-- Clean main; no inherited work. GamingBolt remains the sole unhealthy source; third scheduled attempt also failed at the 20-second limit. Other 35 sources healthy; no failed digest runs or user services, `/healthz` passes database/Redis.
-- Public-feed probes time out with zero bytes at 25 and 12 seconds. DNS 0.002 s, TCP 0.059 s, TLS 0.119 s localize the latter failure after successful server connection; no DNS or certificate fix justified. Retained bounded scheduled retries; recovery remains open.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes four topics/19 stories/14 posts. Reader weaknesses retain existing owner holds; no generation change or paid calls.
-- Updated TASKS/SOURCES and archived oldest progress entries to keep orientation small. Documentation only; live application already matches main, no restart needed.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips), saved-reader parity and `git diff --check` pass. Next: GamingBolt scheduled recovery; 15:00 UTC normal/accounts-on edition for Phase 3 acceptance. Metrics probe not due before 12:28 UTC; migration 0019/public activation remain held.
-
-## 2026-11-10: iteration 1692 — hourly passive metrics evidence
-
-- Clean main; no inherited work. GamingBolt remains the sole unhealthy source (last attempt 12:20 UTC; last success 11:16 UTC); existing bounded retries retained. RecentJobFailures firing; other 35 sources healthy.
-- `/healthz` passes database/Redis; no failed user services. Saved-reader parity passes four topics/19 stories/14 posts; normal 15:00 UTC edition still pending.
-- Due `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passes: 23 healthy rules, four queries ≤0.061 s, no new evaluator errors/misses/timeouts/slow queries or process restarts. Two small merges/9,356 rows; no large-tier merge, recovery remains open. Next probe ≥13:29 UTC.
-- Updated TASKS and capacity evidence only; no provider calls, flags, migrations or application changes. Running services already match application main; no restart needed.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips) and `git diff --check` pass. Next: source recovery and scheduled Phase 3 acceptance; migration 0019/public activation remain held.
-
-## 2026-11-10: iteration 1693 — correct the remaining public-read handoff
-
-- Owner value: remove an already-shipped UI migration from the Phase 4 queue so the next build targets missing public readers. Clean main; no inherited work.
-- Source-catalog compatibility already shipped in `564ecb6b`; corrected the stale rollout review and TASKS. Remaining available work is article/source-health wiring, then status/preview/tools; public activation stays gated on Phase 3.
-- `pnpm exec tsx scripts/smoke-source-catalog-compatibility.ts` passes 36 saved sources across legacy/public/invalid responses and desktop/mobile, zero writes. Public responses are simulated; tracked screenshots unchanged.
-- Zero active alerts; `/healthz` database/Redis healthy; no failed user services or digest runs. Normal 15:00 UTC run pending. GamingBolt remains the sole unhealthy source: direct 20-second feed probe receives zero bytes; bounded scheduled retries retained.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass (804 unit tests; 277 integration passes/four expected skips). No application/runtime changes; services already match application main, no restart needed. No provider calls, migrations or flags changed.
-- Next: article/source-health public-mode composition; scheduled Phase 3 acceptance at 15:00 UTC. Metrics probe not due before 13:29 UTC; natural link expiry after Nov 11 00:33:01 UTC.
 
 ## 2026-11-10: iteration 1694 — compose public article and source-health readers
 
@@ -135,3 +104,13 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - No provider calls, live migrations, flag changes, deployment or restarts during the 13:00–16:00 UTC hold. Phase 3 awaits the normal 15:00 UTC edition; natural link expiry after Nov 11 00:33:01 UTC. Metrics sample becomes eligible at 14:34 UTC; no additional probe made this iteration.
 - Initial full check found two obsolete admin-only status expectations in privacy/readiness tests; updated them to the sanitized public contract, and all five focused cases pass. The rerun passed static checks and all 813 unit tests; its integration run exposed a request-count assumption in the existing allowance-exhaustion test. Moved one status read to the separate content visitor, preserving the original ten-request budget.
 - Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` static/unit stages and final `pnpm test:integration` pass (813 unit; 277 integration/four expected skips). API/web builds, `pnpm exec tsx scripts/check-handbook.ts 08-operations`, saved-reader check and `git diff --check` pass. No application code changed after these checks.
+
+## 2026-11-10: iteration 1705 — integrate the gated overview router
+
+- Clean main; no inherited work. Installed overview page/loader selection in the application router, using explicit default-off `VITE_PUBLIC_MODE`. Public mode bypasses private identity only for exact `/admin` and `/admin/`; public server GET/HEAD policy permits the same paths. Other pages retain their private guard.
+- Offline `pnpm exec tsx scripts/check-public-status-view.ts` passes with the actual router: anonymous overview makes only the sanitized status read, Tools navigation is refused, and a fresh private-mode module graph restores identity refusal. Desktop/mobile light/dark fixture screenshots saved; mobile light reviewed. Existing query recovery/cache-isolation checks pass.
+- Activation/rollback checklist now requires matching web-build/server mode flags. Updated operations handbook and rollout review; archived iterations 1686–1693 to keep PROGRESS small. Preview/tools remain next.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, four targeted public-policy tests, operations handbook check and Nov 9 saved-reader check pass (four topics/19 stories/14 posts). First full check raced import autofix and stopped at lint; final check follows completed autofix/browser cleanup.
+- Health database/Redis healthy; no failed user services or active alerts. GamingBolt incident remains open under bounded scheduled retries; no direct source probe. Passive metrics sample 14:42 UTC: 23 healthy rules, zero new evaluator errors/misses, four queries ≤0.693 s, no merge. Next sample ≥15:43 UTC.
+- No provider calls, live migrations, flag changes, deployment or service restarts during the 13:00–16:00 UTC hold. Public mode off; Phase 3 normal 15:00 UTC edition review takes precedence when due; natural link expiry after Nov 11 00:33:01 UTC.
+- Final `pnpm check` passes static checks, 813 unit tests and 277 integration tests/four expected skips. `git diff --check` and final health/service checks pass. No application changes after verification; commit/push only, deployment remains held until after 16:00 UTC.

@@ -182,3 +182,13 @@ session storage, proving reads do not authenticate or expose the private ledger.
 Full-application isolated checks validate the public schema and HEAD response.
 The overview remains admin-only: page mode selection still needs integration;
 preview/tools follow. Public mode stays off and deployment waits past 16:00 UTC.
+
+Iteration 1705 installs the overview page/loader in the application router.
+`VITE_PUBLIC_MODE=1` selects the public contract before any private prefetch and
+allows only `/admin` (with an optional trailing slash) past the private page guard.
+The public server policy permits those exact GET/HEAD routes; sibling pages and
+unknown subpaths remain restricted. Private builds preserve identity checks.
+Offline Playwright mounts the actual router, verifies anonymous overview reads,
+sibling denial and private rollback, and saves `public-overview-router-fixture-*`
+screenshots. Activation/rollback must rebuild the web app with the matching mode;
+flags remain off and no deployment occurs during the hold. Preview/tools follow.

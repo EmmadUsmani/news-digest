@@ -1,4 +1,4 @@
-// Offline fixture browser rehearsal of the uninstalled public status view/page.
+// Offline fixture browser rehearsal of the public status view/page and router.
 import assert from 'node:assert/strict';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 
@@ -112,6 +112,13 @@ window.checkOverviewLoaders = async () => {
   await loadOperationsOverview(client, false);
   return {publicKeys, privateKeys: keys};
 };
+window.showRouter = async (path) => {
+  const {router, queryClient} = await import('/src/router.tsx');
+  const {RouterProvider, createMemoryHistory} = await import('@tanstack/react-router');
+  queryClient.clear();
+  router.update({history: createMemoryHistory({initialEntries: [path]})});
+  root.render(React.createElement(QueryClientProvider, {client: queryClient}, React.createElement(RouterProvider, {router})));
+};
 window.showPage = () => {
   const client = new QueryClient({defaultOptions: {queries: {gcTime: 0}}});
   client.setQueryData(['status'], {private: 'private-cache-marker'});
@@ -123,6 +130,7 @@ window.showPage = () => {
     server = await createServer({
       root,
       server: { host: '127.0.0.1', port: 0 },
+      define: { 'import.meta.env.VITE_PUBLIC_MODE': JSON.stringify('1') },
       logLevel: 'error',
     });
     await server.listen();
@@ -295,9 +303,98 @@ window.showPage = () => {
         });
       }
     }
+    // Mount the actual application router: anonymous overview must never
+    // request private identity, edition, health or legacy status data.
+    await page.unroute('**/api/**');
+    const routedReads: string[] = [];
+    await page.route('**/api/**', async (route) => {
+      const path = new URL(route.request().url()).pathname;
+      routedReads.push(path);
+      assert.ok(['/api/admin/status', '/api/me'].includes(path), path);
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(path === '/api/me' ? { isAdmin: false } : fixture),
+      });
+    });
+    const showRouter = (path: string) =>
+      page.evaluate(async (path) => {
+        await (
+          window as unknown as { showRouter: (path: string) => Promise<void> }
+        ).showRouter(path);
+      }, path);
+    await showRouter('/admin');
+    await page.getByRole('heading', { name: 'System status' }).waitFor();
+    assert.deepEqual(routedReads, ['/api/admin/status']);
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-overview-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    // A sibling keeps its private guard; navigating through the layout cannot
+    // inherit the overview exception.
+    await page
+      .getByRole('link', { name: 'Tools', exact: true })
+      .first()
+      .click();
+    await page.getByRole('heading', { name: 'Page not found' }).waitFor();
+    assert.equal(routedReads.at(-1), '/api/me');
+    assert.equal(routedReads.length, 2);
+    // Rebuild the module graph in private mode to verify rollback uses the
+    // original identity guard before constructing any overview requests.
+    await page.close();
+    await server.close();
+    server = await createServer({
+      root,
+      server: { host: '127.0.0.1', port: 0 },
+      define: { 'import.meta.env.VITE_PUBLIC_MODE': JSON.stringify('0') },
+      logLevel: 'error',
+    });
+    await server.listen();
+    const privateAddress = server.httpServer!.address();
+    assert.ok(privateAddress && typeof privateAddress === 'object');
+    const privatePage = await browser.newPage();
+    privatePage.on('pageerror', (error) => errors.push(error.message));
+    const privateReads: string[] = [];
+    await privatePage.route('**/api/**', async (route) => {
+      const path = new URL(route.request().url()).pathname;
+      privateReads.push(path);
+      assert.equal(path, '/api/me');
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ isAdmin: false }),
+      });
+    });
+    await privatePage.goto(
+      `http://127.0.0.1:${privateAddress.port}/public-status-review.html`,
+    );
+    await privatePage.evaluate(async () => {
+      await (
+        window as unknown as { showRouter: (path: string) => Promise<void> }
+      ).showRouter('/admin');
+    });
+    await privatePage
+      .getByRole('heading', { name: 'Page not found' })
+      .waitFor();
+    assert.deepEqual(privateReads, ['/api/me']);
     assert.deepEqual(errors, []);
     console.log(
-      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; no private reads or overflow.',
+      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; public router isolation, private sibling and rollback refusals; no private reads or overflow.',
     );
   } finally {
     await browser.close();

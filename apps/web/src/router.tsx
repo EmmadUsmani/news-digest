@@ -19,15 +19,10 @@ import { AdminSpend } from './AdminSpend';
 import { AdminTopicEditor } from './AdminTopicEditor';
 import { AdminTopics } from './AdminTopics';
 import { App } from './App';
+import { loadOperationsOverview } from './operations-overview-loader';
+import { OperationsOverviewPage } from './OperationsOverviewPage';
 import { Privacy } from './Privacy';
-import {
-  adminEditionQuery,
-  editionHistoryQuery,
-  editionQuery,
-  healthQuery,
-  identityQuery,
-  statusQuery,
-} from './queries';
+import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
 import { ReaderArchive } from './ReaderArchive';
 import { ReaderSaved } from './ReaderSaved';
 
@@ -50,14 +45,8 @@ const rootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>()({
     </main>
   ),
 });
-// Auxiliary data failures remain local to their panels, never hiding the edition.
-function loadPageData({ context }: { context: { queryClient: QueryClient } }) {
-  void Promise.allSettled([
-    context.queryClient.ensureQueryData(adminEditionQuery),
-    context.queryClient.ensureQueryData(healthQuery),
-    context.queryClient.ensureQueryData(statusQuery),
-  ]);
-}
+// Built explicitly with the matching server mode at activation/rollback.
+const publicMode = import.meta.env.VITE_PUBLIC_MODE === '1';
 const latestRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
@@ -128,7 +117,10 @@ const editionRoute = createRoute({
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context, location }) => {
+    // Only the reviewed overview is anonymous-capable. Other children retain
+    // their private guard until their own response reviews are installed.
+    if (publicMode && /^\/admin\/?$/.test(location.pathname)) return;
     const identity = await context.queryClient.fetchQuery(identityQuery);
     if (!identity.isAdmin) throw notFound();
   },
@@ -138,8 +130,10 @@ const adminRoute = createRoute({
 const adminOverviewRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/',
-  loader: ({ context }) => loadPageData({ context }),
-  component: () => <App admin />,
+  loader: ({ context }) => {
+    void loadOperationsOverview(context.queryClient, publicMode);
+  },
+  component: () => <OperationsOverviewPage publicMode={publicMode} />,
 });
 const adminToolsRoute = createRoute({
   getParentRoute: () => adminRoute,
