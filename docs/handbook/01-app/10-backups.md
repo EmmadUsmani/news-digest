@@ -21,6 +21,10 @@ off/on/off in read-only sessions. Its receipt is `~/backups/news-digest/system-o
 Before account activation, `python3 ops/backups/rehearse_accounts.py` takes a
 fresh backup and rehearses pending account migrations through 0018 in a
 networkless restore. Its receipt is `~/backups/news-digest/account-migration-proof.json`.
+For the pending admission-outcome migration, run
+`python3 ops/backups/rehearse_admission_outcome.py`. It takes a fresh private
+backup and rehearses only migration 0019 on a networkless restore. The private
+receipt is `~/backups/news-digest/admission-outcome-migration-proof.json`.
 An offsite failure leaves the local backup successful; it retries on the next
 nightly run. Encrypted uploads are downloaded and checked before success is recorded.
 

@@ -30,9 +30,13 @@ activation review, rather than adding more variants of already-covered refusals.
 
 ## Remaining activation work
 
-- [ ] Rehearse additive migration 0019 on a fresh private restored copy; verify
-      rollback, repeat-run behavior and reader-role grants. Take a private backup
-      before applying it live, with an explicit migration stopping tag.
+- [x] Rehearse additive migration 0019 on a fresh private restored copy (1618) with
+      `python3 ops/backups/rehearse_admission_outcome.py`; verify rollback,
+      repeat-run behavior and reader-role grants. Take a fresh private backup
+      before applying it live with `MIGRATE_THROUGH=0019_admin_write_outcomes`.
+      Private receipt: `~/backups/news-digest/admission-outcome-migration-proof.json`.
+- [ ] Apply 0019 live only after Phase 3 acceptance, using a fresh backup and
+      the explicit stopping tag above.
 - [x] VictoriaMetrics deletion/forced-merge keys configured (iteration 1616).
       Private keys live only in the mode-600 secrets file; the tracked unit loads
       them through prefixed environment flags. Installer and service startup refuse missing keys.
