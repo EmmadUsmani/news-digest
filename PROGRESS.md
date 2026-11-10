@@ -135,3 +135,13 @@
 - Live `check-live-account-boundary.ts`: 32 pass; `check-scheduled-reader.ts 2026-11-10T15:00:00Z`: four topics/19 stories/15 posts.
 - Next: finish Sonnet trials after UTC reset; natural link expiry after Nov 11 00:33:01 UTC; scheduled NBA acceptance. Export alert still needs Grafana provisioning/runtime rehearsal, capacity and installation gates. Public mode stays off.
 - Pushed verified step; API/worker restart and post-deploy health/reader/alerts checks follow.
+
+## 2026-11-10: iteration 1743 — rehearse export alert in disposable Grafana
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Item 54 paid Sonnet trials still await UTC shared-cap reset; no editorial change or paid call.
+- Added explicit disposable runtime rehearsal using the installed Grafana binary, temporary SQLite/provisioning/plugin paths, loopback listener and separate disposable Postgres with restricted reader credentials.
+- Exact prepared alert provisions and reads back correctly; Grafana SQL/threshold evaluation passes missing/future/fresh/stale captures and recovery. Synthetic data only; scheduler/SMTP disabled; temporary process/container/files removed.
+- Scheduled pending/firing timing, query-error state transitions, capacity, live installation and public query-route acceptance remain open. Updated readiness/review notes; public mode stays off.
+- Verification: runtime rehearsal, standalone strict script typecheck, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build`, handbook check (18 pages/22 unchanged diagrams/39 tables) and `git diff --check` pass.
+- Live account boundary: 32 pass; scheduled reader: four topics/19 stories/15 posts.
+- Next: Sonnet trials after UTC reset; natural link expiry after Nov 11 00:33:01 UTC; scheduled NBA acceptance. Continue remaining export runtime/capacity gates while those wait. Push followed by API/worker restart and health/reader/alerts checks.

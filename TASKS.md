@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1742: prepared uninstalled dedicated-export freshness alert; restricted-reader SQL covers missing/future/stale captures and recovery. Grafana runtime/provisioning rehearsal and capacity remain. Sonnet trials still await UTC shared-cap reset.
+- [x] Iteration 1743: disposable Grafana provisions the exact export freshness alert and evaluates restricted-reader SQL/threshold for missing/future/fresh/stale captures and recovery. Scheduled pending/firing/query-error transitions, capacity and installation remain. Sonnet trials await UTC reset.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

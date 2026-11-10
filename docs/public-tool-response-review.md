@@ -253,6 +253,15 @@ point or external notification is configured.
 
 Disposable real-login checks execute the exact provisioned SQL for empty,
 future, current, fresh, nearly stale and stale captures, including recovery.
-Grafana provisioning/runtime evaluation and query-route acceptance still need
-a rehearsal before installation; this file is outside the installed provisioning
-directory. Capacity and datasource installation remain open.
+`pnpm exec tsx apps/api/scripts/check-grafana-export-alert.ts` rehearses the
+installed Grafana binary in a separate loopback process with temporary SQLite,
+provisioning, plugins and a disposable Postgres. It provisions the exact rule
+and a restricted-reader datasource, reads back the rule, and evaluates its SQL
+and threshold through Grafana for missing/future/fresh/stale captures and recovery.
+Synthetic credentials and data only; SMTP and scheduled execution are disabled.
+The process, container and temporary files are removed on completion.
+
+Iteration 1743 passes provisioning and query/expression evaluation. Scheduled
+pending/firing timing, query-error state transitions and public query-route
+acceptance remain unverified. This file stays outside installed provisioning;
+capacity and datasource installation remain open.
