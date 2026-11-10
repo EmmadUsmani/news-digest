@@ -426,7 +426,11 @@ isolation and preference recovery after a fresh invitation. Iteration 1609 check
 operations-route refusal through the compiled application for anonymous visitors
 and a real admin session: logs, metrics queries, Grafana, docs, database and queues
 return empty no-store 404s for GET/HEAD/POST despite forged owner headers. The
-admin session remains valid afterward. Owner and scheduled acceptance gates remain open. No live
+admin session remains valid afterward. Iteration 1610 adds invalid-origin and
+content-type requests carrying a valid admin cookie against sync, account deletion,
+logout, all-device logout and topic toggles. All return empty no-store 400s
+without CORS permission; session, preferences and topic catalog remain intact.
+Owner and scheduled acceptance gates remain open. No live
 flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,

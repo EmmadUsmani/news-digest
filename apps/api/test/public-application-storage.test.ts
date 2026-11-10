@@ -232,6 +232,61 @@ void test('configured full public application serves published fixtures and enfo
     const sync = await write('/api/account/sync', empty, cookie);
     assert.equal(sync.status, 200);
     assert.deepEqual(await sync.json(), empty);
+    // Valid cookies cannot authorize cross-site writes. Exercise destructive
+    // payloads through the complete middleware graph, then read back state.
+    for (const [origin, contentType] of [
+      [undefined, 'application/json'],
+      ['null', 'application/json'],
+      ['https://attacker.example', 'application/json'],
+      [configuration.ACCOUNT_ORIGIN + '.attacker.example', 'application/json'],
+      [configuration.ACCOUNT_ORIGIN, 'text/plain'],
+    ]) {
+      for (const [path, method, body] of [
+        ['/api/account/logout', 'POST', {}],
+        ['/api/account/logout-all', 'POST', {}],
+        ['/api/account/delete', 'POST', { confirmation: 'DELETE' }],
+        [
+          '/api/account/sync',
+          'POST',
+          {
+            ...empty,
+            hiddenTopics: { tech: { hidden: true, updatedAt: 100 } },
+          },
+        ],
+        ['/api/admin/topics/' + topic.id, 'PUT', { enabled: !topic.enabled }],
+      ] as const) {
+        const response = await account(path, {
+          method,
+          headers: {
+            Cookie: cookie,
+            ...(origin === undefined ? {} : { Origin: origin }),
+            'Content-Type': contentType!,
+            'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+            admin_local_token: 'forged-local-token',
+          },
+          body: JSON.stringify(body),
+        });
+        assert.equal(response.status, 400, `${method} ${path}: ${origin}`);
+        assert.equal(await response.text(), '');
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(response.headers.get('access-control-allow-origin'), null);
+      }
+    }
+    assert.deepEqual(
+      await (
+        await account('/api/account/session', { headers: { Cookie: cookie } })
+      ).json(),
+      { signedIn: true, isAdmin: true },
+    );
+    assert.deepEqual(
+      await (await write('/api/account/sync', empty, cookie)).json(),
+      empty,
+    );
+    const preservedTopics = await account('/api/admin/topics', {
+      headers: { Cookie: cookie },
+    });
+    assert.equal(preservedTopics.status, 200);
+    assert.deepEqual(await preservedTopics.json(), catalog);
     // Invited readers use the same production middleware and controller graph.
     const devices: string[] = [];
     for (let index = 0; index < 2; index++) {

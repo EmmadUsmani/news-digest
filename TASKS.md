@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1609: full public application refuses operations routes for anonymous visitors and real admins across GET/HEAD/POST, including metrics queries and forged owner headers; admin session survives. Public mode stays off; owner/scheduled/link-expiry gates remain.
+- [x] Iteration 1610: full public application refuses 25 cross-site/invalid-content-type writes carrying a real admin cookie; session, preferences and topic catalog survive. Public mode stays off; owner/scheduled/link-expiry gates remain.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
