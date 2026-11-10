@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1716: completed initial internal-tool producer review; recorded Grafana unpublished-snapshot/raw-error grants, Bull Board raw job/log/Redis responses and explorer/handbook scope blockers in [tool review](docs/public-tool-response-review.md). Next: default-off Grafana role/projection repair with isolated SQL verification; public mode stays off.
+- [x] Iteration 1717: prepared uninstalled separate Grafana public role and security-barrier views for published daily counts/source health; isolated adversarial SQL coverage added. Private datasource unchanged. Next: remaining safe dashboard aggregates and datasource/query-route review; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

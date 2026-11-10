@@ -4,23 +4,9 @@
 
 [Iteration 1701 archive](docs/progress-archive/2026-11-10-iteration-1701.md).
 
-## 2026-11-10: iteration 1702 — compose gated operations status API
+[Iteration 1702 archive](docs/progress-archive/2026-11-10-iteration-1702.md).
 
-- Clean main; no inherited work. `OperationsModule.prepare` validates public prerequisites before adapters open and installs exactly one status controller: unchanged private response or sanitized public response. Both share the existing status provider/lifecycle; alerts retain their own route.
-- Added offline Nest HTTP composition tests with adapter stand-ins: private/public response selection, GET/HEAD, one reader call, alerts, mutation refusal, concealed dependency failures and invalid prerequisites. Four targeted composition/transport tests pass; no external services called.
-- Updated TASKS, rollout review and operations handbook. Status authorization remains admin-only; public page is still uninstalled. Next: compose page selection and anonymous authorization together, then preview/tools.
-- Verification: `pnpm format`, `pnpm lint:fix`, API/web builds, `pnpm exec tsx scripts/check-handbook.ts 08-operations` and `git diff --check` pass. First full check raced import autofix and stopped at lint; rerun after autofix passes typecheck/lint/format/boundaries, 813 unit and 277 integration tests/four expected skips.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes: four topics/19 stories/14 posts. `/healthz` database/Redis healthy, no failed user services, zero active alerts. GamingBolt incident remains open with bounded scheduled retries; no direct probe.
-- No provider calls, live migrations, flag changes, deployments or service restarts during the 13:00–16:00 UTC hold. Public mode off; Phase 3 awaits normal 15:00 UTC edition and natural link expiry after Nov 11 00:33:01 UTC. Metrics sample becomes eligible at 14:34 UTC; no additional probe made this iteration.
-
-## 2026-11-10: iteration 1703 — prepare overview page and loader selection
-
-- Clean main; no inherited work. Prepared uninstalled `OperationsOverviewPage` and `loadOperationsOverview`: public mode selects the sanitized view/query before constructing any private reads; private mode preserves the existing overview/prefetches. Router and anonymous authorization installation remain next, then preview/tools.
-- `pnpm exec tsx scripts/check-public-status-view.ts` passes offline: both loader branches, public-mode prefetch/rendering, private-cache isolation, loading/HTTP/schema failure/retry/stale states and no private requests. Updated desktop/mobile light/dark fixture screenshots; reviewed mobile light.
-- `pnpm build` and saved-reader check for `2026-11-09T15:00:00Z` pass (four topics/19 stories/14 posts). `/healthz` database/Redis healthy; no failed user services, zero alerts. GamingBolt incident retains bounded retries; no direct probe. Metrics check not due before 14:34 UTC.
-- Updated TASKS/rollout review; archived iteration 1625 to keep progress small. Initial lint caught mixed component/function exports; split loader into its own module and reran verification.
-- No provider calls, live migrations, flags, deployments or restarts during 13:00–16:00 UTC hold. Uninstalled preparation leaves running app behavior unchanged; public mode off. Phase 3 awaits normal 15:00 UTC edition; natural link expiry after Nov 11 00:33:01 UTC.
-- Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (813 unit passes; 277 integration passes/four expected skips), API/web builds, offline browser rehearsal, saved-reader check and `git diff --check` pass.
+[Iteration 1703 archive](docs/progress-archive/2026-11-10-iteration-1703.md).
 
 ## 2026-11-10: iteration 1704 — authorize sanitized public status reads
 
@@ -147,3 +133,12 @@
 - Updated rollout/readiness and TASKS with concrete next work: prepare Grafana role/projections and isolated adversarial SQL checks. No runtime changes, provider calls, live migrations or role changes; public mode stays off. Phase 3 still awaits a normal scheduled edition.
 - Live `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes: four topics/19 stories/15 posts. `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, `pnpm check` (819 unit, 278 integration/four expected skips) and `git diff --check` pass. Commit/push and post-16:00 restart follow.
 - Pushed `4dd52014`; restarted API/worker after 16:00 UTC. Post-restart health/database/Redis and scheduled reader (four topics/19 stories/15 posts) pass; no failed user units. Final alert snapshot has zero active alerts. Public mode remains off.
+
+## 2026-11-10: iteration 1717 — prepare separate Grafana public reader
+
+- Clean main; no inherited work. Health/database/Redis pass, no failed user services, zero active alerts. GamingBolt incident remains open under bounded scheduled retries.
+- Prepared standalone, uninstalled SQL for a separate public Grafana role and security-barrier views: published UTC daily counts and bounded source health/error boolean. No raw snapshots, errors, ownership or account grants; private operational datasource unchanged.
+- Added disposable SQL tests for idempotence, publication filtering, injected markers, account/session refusal, role escalation and write/schema-creation refusal. Public mode remains off; no live migration, role change or provider call.
+- Updated tool review/readiness and observability handbook. Remaining dashboard aggregates, inherited function/catalog access, metrics labels and query-route review remain open. Phase 3 awaits next normal scheduled edition.
+- Targeted disposable Postgres test passes after correcting fixture cleanup/window assumptions (immutable editions and strictly positive windows). `pnpm build`, handbook check and live scheduled-reader check pass (four topics/19 stories/15 posts). First full check: 819 unit tests pass; integration exposed the fixture cleanup error. Corrected full rerun and deployment results follow.
+- Corrected full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `check-handbook.ts 09-observability`, scheduled-reader check and `git diff --check` pass. Commit/push and post-16:00 UTC restart follow.

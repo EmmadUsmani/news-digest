@@ -55,3 +55,23 @@ Evidence is source inspection of the producers named above, Grafana datasource
 provisioning/configuration, account revocations/tests and the installed Bull Board
 `dist/handlers/queues.js`, `jobLogs.js` and `redisStats.js`. No production job
 payloads, account rows, log bodies or credentials were fetched for this review.
+
+## Prepared public Grafana datasource boundary (iteration 1717)
+
+`ops/observability/grafana/sql/public-product-reader.sql` is a standalone,
+uninstalled candidate. It creates a separate `grafana_public_product` role and
+two owner-executed security-barrier views in `grafana_public`:
+
+- `published_editions`: UTC publication-day counts, excluding unpublished rows;
+  no snapshots, profile IDs, run IDs or edition IDs.
+- `source_health`: source ID, enabled flag, collection timestamps/item count and
+  an error boolean; no source names, URLs or persisted error bodies.
+
+The role has SELECT only on those views, no raw application-table grants or
+membership in the private datasource role. Isolated SQL coverage exercises
+repeat installation, private/published snapshot markers, injected source errors,
+account/session refusals and attempted writes/schema creation. This is not a
+complete datasource approval: remaining dashboard aggregates, inherited PUBLIC
+function/catalog access, metrics labels and query-route admission still need
+review. Private dashboards continue using the existing operational role; never
+route public queries to that datasource. No live role or datasource changes.

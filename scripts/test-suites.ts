@@ -10,6 +10,7 @@ const integration = new Set([
   'api-http.test.ts',
   'preview-composition.test.ts',
   'accounts-schema.test.ts',
+  'grafana-public-reader.test.ts',
   'admin-write-admission-storage.test.ts',
   'reader-sync-storage.test.ts',
   'account-deletion-storage.test.ts',
