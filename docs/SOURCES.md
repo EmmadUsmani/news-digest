@@ -2391,3 +2391,5 @@ threshold, slot or budget change; new tuning waits for item 50.
 
 - Scheduled GamingBolt RSS collection timed out twice at the existing 20-second limit around 11:47–11:48 UTC; a direct public-feed probe also timed out after 25 seconds with zero bytes. Last success: 11:16:24 UTC, 10 items; 160 stored articles remain available.
 - Other 35 sources are healthy. Keep existing bounded retries and hourly schedule; recovery is pending. No endpoint, configuration or access workaround changed.
+
+- Iteration 1687 follow-up (11:59 UTC): third scheduled attempt also timed out. Public-feed probes receive zero bytes after 25 seconds and 12 seconds; DNS 0.002 s, TCP 0.059 s, TLS 0.119 s confirm the latter reached the server. Recovery remains pending; other 35 sources and saved-reader parity remain healthy.
