@@ -49,6 +49,14 @@ curl -s -o /dev/null -w 'healthz: %{http_code}\n' localhost:8000/healthz
 df -h / | awk 'NR==2 {print "disk: " $5 " used, " $4 " free"}'
 ls -t ~/backups/news-digest/*.dump 2>/dev/null | head -1 | sed 's/.*\//latest backup: /'
 journalctl --user -u news-digest-agent -n 80 --no-pager | grep -o 'weekly=[0-9?]*%*' | tail -1
+echo "== Agent"
+python3 - <<'PY'
+import json, os
+h = json.load(open(os.path.expanduser("~/agent-control/status/heartbeat.json")))
+print(f"iteration {h['iteration']} {h['state']} model={h.get('model', 'unknown')} "
+      f"last_exit={h['last_exit_code']} no_progress={h['consecutive_no_progress']}")
+PY
+grep -E 'result=(crash|model_unavailable|timeout|auth|usage)|fallback' ~/agent-control/logs/supervisor.log | tail -3
 echo "== Alerts"
 pnpm -s obs alerts 2>&1 | python3 -c '
 import json, sys
