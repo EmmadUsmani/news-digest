@@ -418,7 +418,9 @@ through temporary-mailbox code redemption, secure admin session cookies, authori
 topic reads and an unchanged topic-enable write, reader sync, and logout revocation.
 Iteration 1606 adds invited-reader two-session preference sync, bookmark removal
 with stale-device replay, account isolation, forged-owner-header admin write refusal,
-invitation refusal and all-device logout. Owner and scheduled acceptance gates remain open. No live
+invitation refusal and all-device logout. Iteration 1607 adds account deletion across
+both sessions, pending invitation revocation, empty preferences after re-invitation,
+and preservation of the published reader edition. Owner and scheduled acceptance gates remain open. No live
 flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,

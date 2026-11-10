@@ -290,6 +290,107 @@ void test('configured full public application serves published fixtures and enfo
         (await write('/api/account/sync', empty, device)).status,
         401,
       );
+    // Reauthenticate both devices, then delete through the composed public
+    // transport. Deletion must revoke every device and outstanding invitation.
+    for (let index = 0; index < 2; index++) {
+      const invitation = await write(
+        '/api/account/links',
+        {
+          email: 'isolated-reader@example.test',
+        },
+        cookie,
+      );
+      assert.equal(invitation.status, 201);
+      const redemption = await write('/api/account/link-redeem', {
+        token: (await invitation.json()).token,
+      });
+      assert.equal(redemption.status, 204);
+      devices[index] = redemption.headers.get('set-cookie')!.split(';')[0];
+    }
+    assert.deepEqual(await syncReader(empty, devices[0]), removed);
+    const pending = await write(
+      '/api/account/links',
+      {
+        email: 'isolated-reader@example.test',
+      },
+      cookie,
+    );
+    assert.equal(pending.status, 201);
+    const pendingToken = (await pending.json()).token;
+    const refusedDeletion = await write(
+      '/api/account/delete',
+      {
+        confirmation: 'wrong',
+      },
+      devices[0],
+    );
+    assert.equal(refusedDeletion.status, 400);
+    assert.deepEqual(await syncReader(empty, devices[1]), removed);
+    const deletion = await write(
+      '/api/account/delete',
+      {
+        confirmation: 'DELETE',
+      },
+      devices[0],
+    );
+    assert.equal(deletion.status, 204);
+    assert.match(deletion.headers.get('set-cookie')!, /Max-Age=0/);
+    assert.equal(deletion.headers.get('cache-control'), 'no-store');
+    for (const device of devices) {
+      assert.deepEqual(
+        await (
+          await account('/api/account/session', {
+            headers: { Cookie: device },
+          })
+        ).json(),
+        { signedIn: false, isAdmin: false },
+      );
+      assert.equal(
+        (await write('/api/account/sync', saved, device)).status,
+        401,
+      );
+    }
+    assert.equal(
+      (
+        await write('/api/account/link-redeem', {
+          token: pendingToken,
+        })
+      ).status,
+      401,
+    );
+    assert.equal(
+      (
+        await write(
+          '/api/account/delete',
+          {
+            confirmation: 'DELETE',
+          },
+          devices[0],
+        )
+      ).status,
+      401,
+    );
+    const freshInvitation = await write(
+      '/api/account/links',
+      {
+        email: 'isolated-reader@example.test',
+      },
+      cookie,
+    );
+    assert.equal(freshInvitation.status, 201);
+    const freshLogin = await write('/api/account/link-redeem', {
+      token: (await freshInvitation.json()).token,
+    });
+    assert.equal(freshLogin.status, 204);
+    const freshCookie = freshLogin.headers.get('set-cookie')!.split(';')[0];
+    assert.deepEqual(await syncReader(empty, freshCookie), empty);
+    assert.deepEqual(await syncReader(empty, cookie), empty);
+    const retainedEdition = await account('/api/editions/' + ids[0]);
+    assert.equal(retainedEdition.status, 200);
+    assert.equal(
+      readerEditionSchema.parse(await retainedEdition.json()).id,
+      ids[0],
+    );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
     const revoked = await account('/api/admin/topics', {
       headers: { Cookie: cookie },
