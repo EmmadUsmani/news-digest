@@ -1,27 +1,6 @@
 # Progress
 
-[Iterations 1698–1699 archive](docs/progress-archive/2026-11-10-iterations-1698-1699.md).
-
-[Iterations 1696–1697 archive](docs/progress-archive/2026-11-10-iterations-1696-1697.md).
-
-[Iterations 1694–1695 archive](docs/progress-archive/2026-11-10-iterations-1694-1695.md).
-
-[Iterations 1686–1693 archive](docs/progress-archive/2026-11-10-iterations-1686-1693.md).
-
-[Iteration 1626 archive](docs/progress-archive/2026-11-10-iteration-1626.md).
-
-[Iteration 1625 archive](docs/progress-archive/2026-11-10-iterations-1625.md).
-
-Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.md); [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.md); [iteration 1616 and follow-up](docs/progress-archive/2026-11-10-1687.md); [iterations 1614–1615](docs/progress-archive/2026-11-10-1625.md); [iterations 1612–1613](docs/progress-archive/2026-11-10-1623.md); [iterations 1610–1611](docs/progress-archive/2026-11-10-1622.md); [iterations 1608–1609](docs/progress-archive/2026-11-10-1621.md); [iteration 1607](docs/progress-archive/2026-11-10-1620.md); [iterations 1605–1606](docs/progress-archive/2026-11-10-1619.md); [iteration 1604](docs/progress-archive/2026-11-10-1618.md); [iteration 1603](docs/progress-archive/2026-11-10-1616-follow-up.md); [iteration 1602](docs/progress-archive/2026-11-10-1616.md); [iteration 1601](docs/progress-archive/2026-11-10-1615.md); [iteration 1600](docs/progress-archive/2026-11-10-1614.md); [iteration 1599](docs/progress-archive/2026-11-10-1613.md); [iteration 1598](docs/progress-archive/2026-11-10-1611.md); [iteration 1597](docs/progress-archive/2026-11-10-1610.md); [iteration 1596](docs/progress-archive/2026-11-10-1608.md); [iteration 1595](docs/progress-archive/2026-11-10-1607.md); [iteration 1594](docs/progress-archive/2026-11-10-1606.md); [iteration 1593](docs/progress-archive/2026-11-10-1605.md); [iteration 1592](docs/progress-archive/2026-11-10-1604.md); [iteration 1591](docs/progress-archive/2026-11-10-1603.md); [iteration 1590](docs/progress-archive/2026-11-10-1602.md); [iteration 1589](docs/progress-archive/2026-11-10-1601.md); [iteration 1588](docs/progress-archive/2026-11-10-1600.md); [iteration 1587](docs/progress-archive/2026-11-10-1599.md); [iteration 1586](docs/progress-archive/2026-11-10-1598.md); [iterations 1584–1585](docs/progress-archive/2026-11-10-1597.md); [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-10: iteration 1700 — prepare public status rendering
-
-- Clean main; no inherited work. Added uninstalled `PublicStatus`, consuming only the public wire contract: source health/counts/timestamps, queue availability/counts, topic coverage and production budget totals/holds. Missing summaries and empty lists show explicit unavailable states; no private queries or mutation controls.
-- Offline `pnpm exec tsx scripts/check-public-status-view.ts` passes: healthy/failed sources, blocked X budget, coverage, empty sections, no controls, no horizontal overflow or browser errors. Desktop/mobile light/dark fixture screenshots saved under `docs/screenshots/ui/public-status-fixture-*`; reviewed desktop dark/mobile light.
-- Verification: `pnpm format`, `pnpm lint:fix`, API/web builds and `git diff --check` pass. `pnpm check` passed typecheck/lint/format/boundaries and 811 unit tests, then ended with signal 143 during integration; separate `pnpm test:integration` completed with 277 passes/four expected skips, zero failures.
-- Saved scheduled-reader check passes: four topics/19 stories/14 posts. `/healthz` database/Redis healthy; no failed user services; zero active alerts at orientation. GamingBolt incident retains bounded retries; no additional source probe.
-- Updated TASKS/rollout review. Next: gated public status route/query/view composition, then preview/tools. Public mode off; Phase 3 awaits normal 15:00 UTC edition; natural link expiry after Nov 11 00:33:01 UTC.
-- No provider calls, live migrations, flags, deployments or service restarts during 13:00–16:00 UTC hold. Uninstalled view leaves running application behavior unchanged. Metrics check not due before 14:34 UTC.
+[Iteration 1700 archive](docs/progress-archive/2026-11-10-iteration-1700.md).
 
 ## 2026-11-10: iteration 1701 — prepare query-backed public status page
 
@@ -128,3 +107,11 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, targeted tests and `git diff --check` pass. Full `pnpm check` result follows.
 - No provider calls, migrations, flag changes, deployment or restarts during the 13:00–16:00 UTC hold; prepared main remains undeployed until after 16:00 UTC.
 - Final `pnpm check` passes static checks, 818 unit tests and 278 integration tests/four expected skips. Builds pass; final health good and no failed user services. Commit/push only; deployment/restart remains held until after 16:00 UTC.
+
+## 2026-11-10: iteration 1712 — connect sanitized published preview history
+
+- Clean main; no inherited changes. Public-mode edition list now uses isolated sanitized history queries, links to published reader editions and omits generation/cost/job/incoming-content reads. Private list unchanged; route guard unchanged and public mode remains off.
+- Four offline Playwright desktop/mobile light/dark views pass pagination, empty history, failure/retry, restricted request set and overflow checks. Saved four screenshots; inspected mobile light and desktop dark views. Replay uses simulated public data and an admin identity, not live anonymous access.
+- Next: latest/detail preview compatibility and complete anonymous authorization rehearsal. Phase 3 awaits a normal scheduled edition; GamingBolt recovery remains open under bounded scheduled retries.
+- No provider calls, migrations, flag changes, deployments or service restarts during the 13:00–16:00 UTC hold. Deployment waits until the hold ends. Archived oldest progress entry to keep orientation small.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (818 unit, 278 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/smoke-public-preview-history.ts` and `git diff --check` pass. `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verifies four topics/19 stories/15 posts. Initial non-TTY check interrupted; complete TTY rerun passes.

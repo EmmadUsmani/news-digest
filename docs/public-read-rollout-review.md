@@ -226,3 +226,11 @@ latest, malformed response refusal, HTTP errors without fallback requests, encod
 IDs and cache separation. These queries are not installed in pages; the current
 private preview UI and route authorization remain unchanged. Next install the
 read-only pages and complete anonymous authorization. Public mode remains off.
+
+Iteration 1712 installs the read-only published history page in public-mode router
+composition. It consumes sanitized preview history and links directly to published
+reader editions; it requests no costs, jobs, status or incoming content. Private
+mode retains the full inspector list. Four offline browser views cover pagination,
+empty history and failure/retry; screenshots are in `docs/screenshots/ui/public-preview-history-*`.
+The existing admin route guard remains in place. Latest/detail preview pages and
+full anonymous authorization rehearsal remain next; public mode stays off.

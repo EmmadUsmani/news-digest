@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1711: prepared separate public preview latest/history/detail browser queries using sanitized reader contracts; offline checks cover private-cache isolation, invalid responses, HTTP refusals and encoded IDs. Next install read-only preview pages and verify anonymous authorization end to end.
+- [x] Iteration 1712: connected public-mode edition history to sanitized preview queries; four offline desktop/mobile light/dark browser views verify pagination, failure/retry and no private auxiliary reads. Route guard unchanged; latest/detail pages and anonymous authorization remain next.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

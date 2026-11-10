@@ -22,6 +22,7 @@ import { App } from './App';
 import { loadOperationsOverview } from './operations-overview-loader';
 import { OperationsOverviewPage } from './OperationsOverviewPage';
 import { Privacy } from './Privacy';
+import { PublicPreviewHistory } from './PublicPreviewHistory';
 import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
 import { ReaderArchive } from './ReaderArchive';
 import { ReaderSaved } from './ReaderSaved';
@@ -177,7 +178,7 @@ const adminSpendRoute = createRoute({
 const adminEditionsRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/editions',
-  component: AdminEditions,
+  component: publicMode ? PublicPreviewHistory : AdminEditions,
 });
 const adminNewEditionRoute = createRoute({
   getParentRoute: () => adminRoute,
