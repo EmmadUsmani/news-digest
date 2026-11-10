@@ -43,9 +43,11 @@ activation review, rather than adding more variants of already-covered refusals.
       `pnpm exec tsx scripts/check-metrics-mutation-guards.ts` confirms all three
       mutation routes refuse unauthenticated requests (401), without credentials
       or a deletion/forced merge. Normal queries and scraping remain available.
-- [ ] Review every public admin/tool GET response for user data, secrets and raw
-      provider errors. Confirm `/logs` and `/metrics` require an admin session and
-      account tables deny operational/PUBLIC reader roles after migration.
+- [ ] Finish the [admin/tool response rollout findings](public-read-rollout-review.md)
+      (1620): install sanitized readers without legacy overlaps, finish status/preview
+      projections and expose the approved read-only pages/tools. Reviewed current
+      route classes and response producers; the gate is still open. Confirm `/logs`
+      and `/metrics` require an admin session and account tables deny operational/PUBLIC reader roles after migration.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,
       ordinary-reader isolation, fresh-admin writes and durable audit, rate limits,
       security headers, privacy page, log hygiene and private-mode rollback.

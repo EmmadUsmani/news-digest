@@ -1,7 +1,9 @@
 # Public administrative response audit
 
-Phase 4 preparation, iterations 1484–1488 (2026-11-09). The route classifier is
+Phase 4 preparation, iterations 1484–1488 (2026-11-09). The classifier is now
+wired behind default-off `PUBLIC_MODE`; the sanitized read modules below remain
 unregistered. These decisions change no live access. HEAD inherits GET's class.
+See the [current rollout review](public-read-rollout-review.md) before activation.
 The owner intends public read-only admin pages; restricted rows below require
 work before that rollout, rather than a permanent change to that intent.
 

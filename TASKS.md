@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1619: Saved items shows the same sign-in/sync status as Account, including failure/retry recovery; Account moved beside the heading to prevent 320px header collisions. Four device/theme fixture-account browser views pass; public mode/migration 0019 remain held.
+- [x] Iteration 1620: Completed current admin/tool read rollout inventory; safe refusals still leave public read-only pages/tools and sanitized-reader application wiring unfinished. [Route findings and next implementation step](docs/public-read-rollout-review.md). Phase 4 response gate remains open; no runtime/flag/migration change.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
