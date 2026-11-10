@@ -1,4 +1,8 @@
-import { customFeedSchema, type Topic, topicSchema } from '@digest/contracts';
+import {
+  customFeedSchema,
+  type TopicSettings,
+  topicSettingsSchema,
+} from '@digest/contracts';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -7,7 +11,7 @@ import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { statusQuery, topicsQuery } from './queries';
 
-export function AddFeedDialog({ topics }: { topics: Topic[] }) {
+export function AddFeedDialog({ topics }: { topics: TopicSettings[] }) {
   const client = useQueryClient();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -68,7 +72,7 @@ export function AddFeedDialog({ topics }: { topics: Topic[] }) {
                   signal: AbortSignal.timeout(15000),
                 });
                 if (!response.ok) throw new Error();
-                const saved = topicSchema.parse(await response.json());
+                const saved = topicSettingsSchema.parse(await response.json());
                 client.setQueryData(topicsQuery.queryKey, (old = []) =>
                   old.map((topic) => (topic.id === saved.id ? saved : topic)),
                 );

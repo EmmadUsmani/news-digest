@@ -19,6 +19,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/api/account/session',
     '/healthz',
     '/api/settings/schedule',
+    '/api/admin/topics',
     '/api/admin/status/alerts',
   ]) {
     assert.equal(classifyPublicRoute('GET', path), 'public-read', path);
@@ -95,7 +96,6 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
 void test('unaudited administrative responses remain restricted independently of alert counts', () => {
   for (const path of [
     '/api/admin/profile',
-    '/api/admin/topics',
     '/api/admin/topics/sources',
     '/api/admin/content',
     '/api/admin/content/window',

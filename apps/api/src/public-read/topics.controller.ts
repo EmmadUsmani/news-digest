@@ -7,8 +7,7 @@ export interface PublicTopicsPort {
   read(): Promise<unknown>;
 }
 
-// Unregistered Phase 4 transport. Future composition must provide the system-only
-// PublicTopicsReader, never the legacy topic repository.
+// Public-mode composition supplies the system-only PublicTopicsReader.
 @Controller('api/admin/topics')
 export class PublicTopicsController {
   constructor(

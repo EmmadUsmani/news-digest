@@ -33,6 +33,11 @@ async function smoke() {
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         let saved = structuredClone(topics);
+        // Exercise both private rows and the owner-free public contract.
+        if (theme === 'dark')
+          saved = saved.map(
+            ({ profileId: _owner, ...topic }: Record<string, unknown>) => topic,
+          );
         const id = saved[0].id;
         const writes: {
           path: string;

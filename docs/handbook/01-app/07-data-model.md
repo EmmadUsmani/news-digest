@@ -5,6 +5,9 @@ simple: settings, collected content, ledgers, and editions as immutable
 snapshots.
 
 > [!NOTE]
+> Public mode exposes the shared topic settings through an explicit field allowlist;
+> topic changes still require an admin. Private mode retains its existing reader.
+>
 > `SYSTEM_OWNERSHIP=1` uses the system schedule, shared topics and system-scoped
 > editions and job records. Writes preserve default-profile ownership and update
 > both settings tables atomically, so turning the flag off restores profile reads.

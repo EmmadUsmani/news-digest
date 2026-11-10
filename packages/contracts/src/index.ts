@@ -74,6 +74,26 @@ export const topicSchema = z.object({
   xDiscovery: xDiscoverySettingsSchema.nullable().optional(),
 });
 export type Topic = z.infer<typeof topicSchema>;
+// Public settings use an explicit allowlist so future storage fields stay private.
+export const topicSettingsSchema = topicSchema.pick({
+  id: true,
+  name: true,
+  description: true,
+  includeGuidance: true,
+  excludeGuidance: true,
+  enabled: true,
+  position: true,
+  storyBudget: true,
+  postBudget: true,
+  relevancePolicy: true,
+  sources: true,
+  queries: true,
+  accounts: true,
+  redditCommunities: true,
+  blueskyQuery: true,
+  xDiscovery: true,
+});
+export type TopicSettings = z.infer<typeof topicSettingsSchema>;
 export const contentGroupSchema = z.object({
   topicId: z.string().uuid(),
   items: z.array(

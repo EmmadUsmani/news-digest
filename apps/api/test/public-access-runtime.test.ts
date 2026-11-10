@@ -65,7 +65,7 @@ void test('combined public runtime keeps accounts first, refuses proxy identity 
     assert.equal((await fetch(base + '/api/editions/latest')).status, 204);
     assert.equal(
       (
-        await fetch(base + '/api/admin/topics', {
+        await fetch(base + '/api/admin/profile', {
           headers: { 'x-exedev-email': 'owner@example.com' },
         })
       ).status,
@@ -90,7 +90,7 @@ void test('combined public runtime keeps accounts first, refuses proxy identity 
     for (const path of [
       '/api/account/session',
       '/api/editions/latest',
-      '/api/admin/topics',
+      '/api/admin/profile',
     ]) {
       assert.equal((await fetch(base + path)).status, 429);
     }

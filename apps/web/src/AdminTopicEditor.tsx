@@ -1,7 +1,7 @@
 import {
   sourceOptionsSchema,
-  type Topic,
-  topicSchema,
+  type TopicSettings,
+  topicSettingsSchema,
   topicUpdateSchema,
 } from '@digest/contracts';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -36,7 +36,7 @@ export function AdminTopicEditor() {
   return <TopicEditor key={id} topic={topic} />;
 }
 
-function TopicEditor({ topic }: { topic: Topic }) {
+function TopicEditor({ topic }: { topic: TopicSettings }) {
   const client = useQueryClient();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
@@ -66,11 +66,11 @@ function TopicEditor({ topic }: { topic: Topic }) {
       if (method === 'DELETE') {
         client.setQueryData(
           topicsQuery.queryKey,
-          topicSchema.array().parse(result),
+          topicSettingsSchema.array().parse(result),
         );
         await navigate({ to: '/admin/topics' });
       } else {
-        const saved = topicSchema.parse(result);
+        const saved = topicSettingsSchema.parse(result);
         client.setQueryData(topicsQuery.queryKey, (old = []) =>
           old.map((item) => (item.id === saved.id ? saved : item)),
         );

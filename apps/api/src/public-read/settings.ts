@@ -1,13 +1,13 @@
 import {
   scheduleSchema,
   sourceCatalogSchema,
-  topicSchema,
+  topicSettingsSchema,
 } from '@digest/contracts';
 import { ServiceUnavailableException } from '@nestjs/common';
 
 import { publicFeedUrl } from '../libs/ports/public-url';
 
-// Phase 4 preparation only. Transports remain unregistered in the live application.
+// Public-mode settings transports are promoted individually after response review.
 // Pick fields explicitly: neither legacy ownership nor future DB columns may
 // become public simply because a repository starts returning them.
 const publicScheduleSchema = scheduleSchema
@@ -19,24 +19,7 @@ const publicScheduleSchema = scheduleSchema
     postBudget: true,
   })
   .strip();
-const publicTopicSchema = topicSchema.pick({
-  id: true,
-  name: true,
-  description: true,
-  includeGuidance: true,
-  excludeGuidance: true,
-  enabled: true,
-  position: true,
-  storyBudget: true,
-  postBudget: true,
-  relevancePolicy: true,
-  sources: true,
-  queries: true,
-  accounts: true,
-  redditCommunities: true,
-  blueskyQuery: true,
-  xDiscovery: true,
-});
+const publicTopicSchema = topicSettingsSchema;
 
 export async function readPublicSchedule(read: () => Promise<unknown>) {
   try {

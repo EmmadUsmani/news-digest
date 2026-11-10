@@ -67,7 +67,7 @@ void test('public access stack replaces legacy identity headers and keeps accoun
     assert.equal((await fetch(base + '/api/editions/latest')).status, 204);
     assert.equal(
       (
-        await fetch(base + '/api/admin/topics', {
+        await fetch(base + '/api/admin/profile', {
           headers: { 'x-exedev-email': 'owner@example.com' },
         })
       ).status,
@@ -177,7 +177,7 @@ void test('prepared public API gate precedes account transport and authorization
     for (const path of [
       '/api/account/session',
       '/api/editions/latest',
-      '/api/admin/topics',
+      '/api/admin/profile',
     ]) {
       const response = await fetch(base + path, {
         headers: { 'x-forwarded-for': 'forged', cookie: 'forged' },

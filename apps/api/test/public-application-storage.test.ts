@@ -14,6 +14,7 @@ import { NestFactory } from '@nestjs/core';
 import { database } from '../src/libs/db/connections';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
+import { PublicTopicsReader } from '../src/modules/topics/database/public-topics.reader';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -126,8 +127,17 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(direct.status, 200);
     assert.equal(readerEditionSchema.parse(await direct.json()).id, ids[0]);
     const topics = await get('/api/admin/topics');
-    assert.equal(topics.status, 404);
-    assert.equal(await topics.text(), '');
+    assert.equal(topics.status, 200);
+    assert.equal(topics.headers.get('cache-control'), 'no-store');
+    const publicTopics = await new PublicTopicsReader(db).read();
+    assert.ok(publicTopics.length > 0);
+    assert.deepEqual(await topics.json(), publicTopics);
+    const topicsHead = await scheduleGet('/api/admin/topics', {
+      method: 'HEAD',
+    });
+    assert.equal(topicsHead.status, 200);
+    assert.equal(await topicsHead.text(), '');
+    assert.equal((await scheduleGet('/api/admin/topics/sources')).status, 404);
     const session = await get('/api/account/session');
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { signedIn: false, isAdmin: false });
@@ -690,7 +700,7 @@ void test('configured full public application serves published fixtures and enfo
       saved,
     );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
-    const revoked = await account('/api/admin/topics', {
+    const revoked = await account('/api/admin/profile', {
       headers: { Cookie: cookie },
     });
     assert.equal(revoked.status, 404);

@@ -50,7 +50,7 @@ void test('prepared local credentials restrict admin HTTP access without reader 
   }
   const token = ['admin_local_token', 'script-secret'];
   try {
-    await check('/api/admin/topics', token, 204);
+    await check('/api/admin/profile', token, 204);
     assert.equal(reads, 0);
     for (const header of [
       'forwarded',
@@ -58,11 +58,11 @@ void test('prepared local credentials restrict admin HTTP access without reader 
       'x-forwarded-host',
       'x-forwarded-proto',
     ])
-      await check('/api/admin/topics', [...token, header, ''], 404);
-    await check('/api/admin/topics', [...token, ...token], 404);
-    await check('/api/admin/topics', ['admin_local_token', 'wrong'], 404);
+      await check('/api/admin/profile', [...token, header, ''], 404);
+    await check('/api/admin/profile', [...token, ...token], 404);
+    await check('/api/admin/profile', ['admin_local_token', 'wrong'], 404);
     await check(
-      '/api/admin/topics',
+      '/api/admin/profile',
       ['x-exedev-email', 'owner@example.test'],
       404,
     );

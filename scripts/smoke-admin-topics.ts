@@ -78,8 +78,17 @@ async function smoke() {
           }
           const response = await localAdminFetch(route.request().url());
           assert.equal(response.status, 200);
-          const body = await response.text();
-          if (path === '/api/admin/topics') savedTopics = JSON.parse(body);
+          let body = await response.text();
+          if (path === '/api/admin/topics') {
+            savedTopics = JSON.parse(body);
+            // Dark mode replays the owner-free public response contract.
+            if (theme === 'dark') {
+              savedTopics = savedTopics.map(
+                ({ profileId: _owner, ...topic }) => topic,
+              );
+              body = JSON.stringify(savedTopics);
+            }
+          }
           await route.fulfill({
             status: 200,
             contentType: 'application/json',

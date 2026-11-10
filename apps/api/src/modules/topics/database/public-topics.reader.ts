@@ -9,7 +9,7 @@ import {
 } from '../../../libs/db/schema';
 import { readPublicTopics } from '../../../public-read/settings';
 
-// Unregistered public-read preparation. The caller owns the pool; this reader
+// The caller owns the pool; this reader
 // always uses the system catalog, independently of legacy ownership flags.
 export class PublicTopicsReader {
   constructor(private readonly pool: Pool) {}

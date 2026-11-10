@@ -255,7 +255,7 @@ void test('configured public Nest runtime refuses proxy identities and writes be
       'reader',
     );
     assert.equal(authenticated, 0);
-    for (const path of ['/api/admin/topics', '/grafana/', '/api/unknown']) {
+    for (const path of ['/api/admin/profile', '/grafana/', '/api/unknown']) {
       const response = await fetch(base + path, {
         headers: { 'X-ExeDev-Email': 'owner@example.test' },
       });
@@ -289,7 +289,7 @@ void test('configured public Nest runtime refuses proxy identities and writes be
       assert.equal(authenticated, before + 1);
     }
     sessionUnavailable = true;
-    const unavailable = await fetch(base + '/api/admin/topics', {
+    const unavailable = await fetch(base + '/api/admin/profile', {
       headers: { 'X-ExeDev-Email': 'owner@example.test' },
     });
     assert.equal(unavailable.status, 503);

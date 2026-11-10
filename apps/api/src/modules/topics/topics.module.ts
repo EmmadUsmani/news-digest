@@ -131,12 +131,19 @@ class TopicsController {
     if (!result) throw new NotFoundException('Topic not found');
     return result;
   }
+}
+@Controller('api/admin/topics')
+class LegacyTopicsReadController {
+  constructor(private readonly topics: TopicRepository) {}
   @Get() get() {
     return this.topics.listDefault();
   }
 }
 @Module({
-  controllers: [TopicsController],
+  controllers: [
+    TopicsController,
+    ...(process.env.PUBLIC_MODE === '1' ? [] : [LegacyTopicsReadController]),
+  ],
   providers: [{ provide: TopicRepository, useClass: PostgresTopicRepository }],
 })
 export class TopicsModule {}

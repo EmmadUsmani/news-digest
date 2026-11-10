@@ -52,10 +52,13 @@ void test('prepared public settings preserve configured fields without owner or 
   ]);
   assert.deepEqual(rows, [topic]);
   assert.equal(JSON.stringify(rows).includes(secret), false);
-  // Until transport and system-only wiring are audited, existing GETs stay admin.
+  // Legacy profiles stay restricted; topics use the audited system-only transport.
   for (const method of ['GET', 'HEAD']) {
-    for (const path of ['/api/admin/profile', '/api/admin/topics'])
-      assert.equal(classifyPublicRoute(method, path), 'admin');
+    assert.equal(classifyPublicRoute(method, '/api/admin/profile'), 'admin');
+    assert.equal(
+      classifyPublicRoute(method, '/api/admin/topics'),
+      'public-read',
+    );
   }
 });
 

@@ -1,4 +1,8 @@
-import { type Topic, topicSchema, topicUpdateSchema } from '@digest/contracts';
+import {
+  type TopicSettings,
+  topicSettingsSchema,
+  topicUpdateSchema,
+} from '@digest/contracts';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
@@ -41,10 +45,10 @@ export function AdminTopics() {
       if (order)
         client.setQueryData(
           topicsQuery.queryKey,
-          topicSchema.array().parse(result),
+          topicSettingsSchema.array().parse(result),
         );
       else {
-        const saved = topicSchema.parse(result);
+        const saved = topicSettingsSchema.parse(result);
         client.setQueryData(topicsQuery.queryKey, (old = []) =>
           old.some((topic) => topic.id === saved.id)
             ? old.map((topic) => (topic.id === saved.id ? saved : topic))
@@ -77,7 +81,7 @@ export function AdminTopics() {
       true,
     );
   }
-  function update(topic: Topic, changes: Partial<Topic>) {
+  function update(topic: TopicSettings, changes: Partial<TopicSettings>) {
     void write(`/${topic.id}`, 'PUT', {
       ...topicUpdateSchema.strip().parse(topic),
       ...changes,

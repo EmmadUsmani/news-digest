@@ -11,7 +11,7 @@ import {
   readerEditionHistorySchema,
   readerEditionSchema,
   scheduleSchema,
-  topicSchema,
+  topicSettingsSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
 import { type z, ZodError } from 'zod';
@@ -48,7 +48,7 @@ export const contentQuery = queryOptions({
 export const topicsQuery = queryOptions({
   queryKey: ['topics'],
   queryFn: ({ signal }) =>
-    read('/api/admin/topics', topicSchema.array(), signal),
+    read('/api/admin/topics', topicSettingsSchema.array(), signal),
 });
 export const profileQuery = queryOptions({
   queryKey: ['profile'],
