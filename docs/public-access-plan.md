@@ -402,6 +402,15 @@ closes admission Redis; shutdown attempts both storage and admission cleanup
 once and reports all failures. Private mode opens no admission resources.
 Public mode remains off pending Phase 4 acceptance.
 
+Isolated configured-runtime rehearsal (iteration 1603) uses disposable migrated
+PostgreSQL and Redis with the production account/admission factories. A real
+loopback HTTP burst shares the 120/minute allowance across the observed duplicate
+visitor entries and zero/one/two forged prefixes. Account session transport, temporary-mailbox code delivery,
+restart persistence, independent visitors, missing-client refusal, health/privacy
+bypass and private rollback are covered. Downstream reader controllers remain a
+204 sentinel in this focused rehearsal; full application, owner and scheduled
+acceptance gates remain open. No live flags or data are changed.
+
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
 the largest year its ISO timestamp storage accepts. Larger clocks return an
 empty no-store 400 before storage; epoch and maximum accepted clocks round-trip
