@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1696: prepared allowlisted status projection removes stored failures, job payloads and private accounting; adversarial unit checks pass. Not installed; next: status transport/UI and preview boundary, then tools. No deploy/restart during 13:00–16:00 UTC; Phase 3 awaits 15:00 UTC.
+- [x] Iteration 1697: prepared uninstalled status HTTP transport; isolated GET/HEAD, no-store, generic failures, disabled routes and prerequisite checks pass. Next: status UI/budget summaries before composition, then preview/tools. No deploy/restart during 13:00–16:00 UTC; Phase 3 awaits 15:00 UTC.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

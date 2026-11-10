@@ -116,3 +116,10 @@ Unknown fields are stripped and malformed retained data fails with a generic 503
 Detailed status remains admin-only: transport composition, public UI compatibility
 and the decision about public budget summaries remain unfinished. No deployment
 or restart during the 13:00–16:00 UTC protected window.
+
+Iteration 1697 prepares an uninstalled `PublicStatusModule` and HTTP controller.
+Isolated Nest HTTP checks verify sanitized GET, empty HEAD, no-store on success
+and generic 503 failures, absent mutation/alerts routes and disabled-mode 404s.
+Invalid flags fail before reader construction. Application composition and route
+policy are unchanged; status remains admin-only. Next: public UI compatibility
+and budget-summary decision before composition, then preview/tools boundaries.
