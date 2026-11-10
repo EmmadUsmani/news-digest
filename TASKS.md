@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1708: [Nov 10 destination/rendering review](docs/edition-reviews/2026-11-10.md): four Bluesky cards × four device/theme checks and all 15 saved posts × both widths pass. Phase 3 remains unaccepted because mixed NBA fallback fails the normal-edition gate. Continue default-off Phase 4; preview reads remain uninstalled.
+- [x] Iteration 1709: prepared default-off preview HTTP module; isolated GET/HEAD, pagination/UUID rejection, generic failure and private-operation exclusion checks pass. Routes remain uninstalled/admin-only; next compose reads without overlapping legacy handlers and adapt preview UI.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

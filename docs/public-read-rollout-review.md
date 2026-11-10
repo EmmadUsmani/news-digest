@@ -203,3 +203,10 @@ continued admin-only classification. No generation or live storage is changed.
 Next: compose these published preview reads without overlapping legacy handlers,
 retain private admin snapshots/cost/jobs/writes, and adapt the read-only admin UI.
 Tools remain unaudited; public mode stays off.
+
+Iteration 1709 prepares an uninstalled, default-off preview HTTP module. History,
+latest and UUID detail delegate to mandatory published-only reader projections.
+GET/HEAD responses use no-store; invalid pagination/UUIDs are rejected before
+storage, and failures retain generic messages. Costs, jobs and mutations have no
+handlers. Disabled/invalid flags never construct readers. Route policy remains
+admin-only; application composition and preview UI compatibility remain next.

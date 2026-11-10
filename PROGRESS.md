@@ -114,3 +114,12 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - Phase 3 remains unaccepted: mixed NBA validation fallback fails the normal scheduled-edition gate. No account regression or rollback justification; public mode stays off. Next normal scheduled edition gates acceptance; default-off Phase 4 preview integration may proceed.
 - `check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes four topics/19 stories/15 posts. `/healthz` database/Redis healthy; no failed user units or active alerts. GamingBolt recovery remains open; no extra probe or metrics sample.
 - No provider calls, migrations, flag changes, deployment or restarts during the 13:00–16:00 UTC hold. Only scripts/docs/screenshots changed; live application code unaffected. `pnpm format`, `pnpm lint:fix`, full `pnpm check` (815 unit; 277 integration/four expected skips), `pnpm build` and `git diff --check` pass. Archived 1696–1697.
+
+## 2026-11-10: iteration 1709 — prepare published-preview HTTP transport
+
+- Clean main; no inherited work. Added uninstalled default-off preview HTTP module for history/latest/UUID detail, delegating to mandatory published-only projections. No generation, storage or route-policy changes.
+- Isolated HTTP checks cover GET/HEAD/no-store, pagination and UUID rejection before storage, generic dependency failures, absent costs/jobs/mutations and disabled-mode routes. Invalid flags fail before reader creation. Four preview unit/HTTP tests pass; no external calls.
+- Updated TASKS and public-read rollout review. Next: replace overlapping legacy reads in public-mode composition, preserving admin-only cost/job/write routes, then adapt preview UI. Public mode remains off; Phase 3 awaits a normal scheduled edition.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Scheduled-reader check verifies Nov 10 four topics/19 stories/15 posts; health database/Redis good, no failed user units or active alerts. GamingBolt recovery remains open, no extra probe.
+- No provider calls, migrations, flags, deployments or restarts during 13:00–16:00 UTC hold. Full check result recorded below.
+- Final `pnpm check` passes static checks, 817 unit tests and 277 integration tests/four expected skips. Builds pass; final health good and no failed services. Commit/push only; deployment remains held until after 16:00 UTC.
