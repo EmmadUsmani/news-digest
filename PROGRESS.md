@@ -111,3 +111,11 @@ Earlier entries: [iteration 1616 and follow-up](docs/progress-archive/2026-11-10
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes four topics/19 stories/14 posts. Reader weaknesses retain existing owner holds; no generation change or paid calls.
 - Updated TASKS/SOURCES and archived oldest progress entries to keep orientation small. Documentation only; live application already matches main, no restart needed.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips), saved-reader parity and `git diff --check` pass. Next: GamingBolt scheduled recovery; 15:00 UTC normal/accounts-on edition for Phase 3 acceptance. Metrics probe not due before 12:28 UTC; migration 0019/public activation remain held.
+
+## 2026-11-10: iteration 1692 — hourly passive metrics evidence
+
+- Clean main; no inherited work. GamingBolt remains the sole unhealthy source (last attempt 12:20 UTC; last success 11:16 UTC); existing bounded retries retained. RecentJobFailures firing; other 35 sources healthy.
+- `/healthz` passes database/Redis; no failed user services. Saved-reader parity passes four topics/19 stories/14 posts; normal 15:00 UTC edition still pending.
+- Due `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passes: 23 healthy rules, four queries ≤0.061 s, no new evaluator errors/misses/timeouts/slow queries or process restarts. Two small merges/9,356 rows; no large-tier merge, recovery remains open. Next probe ≥13:29 UTC.
+- Updated TASKS and capacity evidence only; no provider calls, flags, migrations or application changes. Running services already match application main; no restart needed.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips) and `git diff --check` pass. Next: source recovery and scheduled Phase 3 acceptance; migration 0019/public activation remain held.
