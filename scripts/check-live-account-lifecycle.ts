@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
+import { setTimeout as delay } from 'node:timers/promises';
 import { parseEnv } from 'node:util';
 
 import { chromium, expect } from 'playwright/test';
@@ -160,8 +161,48 @@ async function main() {
       userId: '00000000-0000-4000-8000-000000000193',
     });
     await request('code', 202, '', { email });
-    const friendCode = await mailbox.latest(email, new Date());
+    let friendCode = await mailbox.latest(email, new Date());
     if (!friendCode) throw new Error('No unexpired reader code');
+    if (process.argv.includes('--wait-code-expiry')) {
+      stage = 'natural login-code expiry';
+      // Read only this disposable reader's timestamps. Never change the clock,
+      // expiry configuration or stored challenge, and keep the code in memory.
+      const challenge = await pool.query<{
+        lifetime: number;
+        expiresAt: string;
+        attempts: number;
+        consumed: boolean;
+      }>(
+        `SELECT EXTRACT(EPOCH FROM (expires_at - created_at))::int AS lifetime,
+                expires_at AS "expiresAt", attempts, consumed
+         FROM login_codes WHERE email = $1`,
+        [email],
+      );
+      assert.equal(challenge.rows.length, 1);
+      const row = challenge.rows[0];
+      assert.equal(row.lifetime, 600);
+      assert.equal(row.attempts, 0);
+      assert.equal(row.consumed, false);
+      const deadline = new Date(row.expiresAt).getTime() + 1_000;
+      assert.ok(deadline > Date.now() && deadline < Date.now() + 602_000);
+      console.log(
+        'Waiting for the disposable reader code’s natural ten-minute expiry.',
+      );
+      while (Date.now() < deadline) {
+        await delay(Math.min(30_000, deadline - Date.now()));
+      }
+      assert.equal(await mailbox.latest(email, new Date()), null);
+      checks++;
+      const refused = await request('redeem', 401, '', {
+        email,
+        code: friendCode,
+      });
+      assert.equal(refused.headers.get('set-cookie'), null);
+      await signedIn(friend, true);
+      await request('code', 202, '', { email });
+      friendCode = await mailbox.latest(email, new Date());
+      if (!friendCode) throw new Error('No fresh reader code after expiry');
+    }
     const second = cookieFrom(
       await request('redeem', 204, '', { email, code: friendCode }),
     );
@@ -356,7 +397,7 @@ async function main() {
     }
   }
   console.log(
-    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Desktop/mobile Chromium seeded-cookie session/sync and revoked-session reload pass. Browser cookie expiry signs out and refuses sync while the server session survives. Proxy/TLS exchange and live code/link expiry remain separate.`,
+    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Desktop/mobile Chromium seeded-cookie session/sync and revoked-session reload pass. Browser cookie expiry signs out and refuses sync while the server session survives. ${process.argv.includes('--wait-code-expiry') ? 'Natural ten-minute code expiry refuses redemption without a cookie; the existing session survives and a fresh code signs in.' : 'Live code expiry was not requested.'} Proxy/TLS exchange and live link expiry remain separate.`,
   );
 }
 void main().catch(() => {
