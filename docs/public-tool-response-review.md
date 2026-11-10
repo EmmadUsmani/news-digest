@@ -146,8 +146,8 @@ passwords, program execution, writes and schema creation. Resetting the read-onl
 default still leaves writes denied by grants. Installation is idempotent.
 
 This is a storage-boundary rehearsal with synthetic counts, not a live export.
-The exporter, bounded retention/atomic refresh, writer credentials, network
-isolation, aggregate source panel adaptation and isolated Grafana browser/query
+The exporter, writer credentials, network isolation, aggregate source panel
+adaptation and isolated Grafana browser/query
 rehearsal remain open. No new live service or datasource is installed. Assess
 whole-stack capacity before adding an instance; public mode remains off.
 
@@ -163,3 +163,19 @@ and invalid-day refusal, and a database failure after deletes preserving the
 previous content and source summary. No exporter, credentials, timer or live
 connection is installed. Producer-side aggregation, least-privilege writer,
 transport/timeouts, freshness reporting and capacity remain before deployment.
+
+## Prepared export writer boundary (iteration 1732)
+
+The separate-instance SQL now includes a non-owner writer login with only schema
+usage and INSERT/DELETE on the three aggregate tables. It has no table reads,
+updates, truncation, schema creation or role-switch privileges. Refresh runs as
+this login in disposable tests, including rollback after partial replacement.
+Role defaults bound statements to five seconds, lock waits to 500 ms and idle
+transactions to ten seconds; connection limit is one. These defaults constrain
+normal exporter work, not arbitrary SQL from a compromised credential.
+
+A held table lock refuses refresh with PostgreSQL lock-timeout status, preserves
+the prior snapshot and leaves the writer pool reusable. Credentials, connection
+transport/TLS, producer aggregation, freshness reporting and provisioning remain
+uninstalled. Reader and writer must connect only to the dedicated export
+instance; this preparation does not grant access to the application database.

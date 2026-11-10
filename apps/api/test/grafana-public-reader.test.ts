@@ -216,6 +216,7 @@ void test('separate Grafana export instance contains only aggregates under a rea
   };
   const owner = new Pool({ ...connection, user: 'postgres' });
   const reader = new Pool({ ...connection, user: 'grafana_export_reader' });
+  const writer = new Pool({ ...connection, user: 'grafana_export_writer' });
   try {
     const sql = readFileSync(
       'ops/observability/grafana/prepared/export-storage.sql',
@@ -238,8 +239,8 @@ void test('separate Grafana export instance contains only aggregates under a rea
     await owner.query(
       "INSERT INTO grafana_public.published_editions VALUES ('2090-01-01',99)",
     );
-    await refreshExport(owner, snapshot, now);
-    await refreshExport(owner, snapshot, now);
+    await refreshExport(writer, snapshot, now);
+    await refreshExport(writer, snapshot, now);
     assert.equal(
       (await reader.query('SELECT * FROM grafana_public.published_editions'))
         .rowCount,
@@ -252,13 +253,13 @@ void test('separate Grafana export instance contains only aggregates under a rea
       [{ ...snapshot.days[0], day: '2099-02-30' }],
       [{ ...snapshot.days[0], stories: -1 }],
     ])
-      await assert.rejects(refreshExport(owner, { ...snapshot, days }, now));
+      await assert.rejects(refreshExport(writer, { ...snapshot, days }, now));
     // A database failure after deletes must retain the entire prior snapshot.
     await owner.query(
       'ALTER TABLE grafana_public.source_summary ADD CONSTRAINT test_failure CHECK (errors = 0)',
     );
     await assert.rejects(
-      refreshExport(owner, { ...snapshot, days: [], errors: 1 }, now),
+      refreshExport(writer, { ...snapshot, days: [], errors: 1 }, now),
     );
     assert.equal(
       (await reader.query('SELECT * FROM grafana_public.published_content'))
@@ -291,6 +292,51 @@ void test('separate Grafana export instance contains only aggregates under a rea
       ).rows,
       [{ sources: 36, enabled: 36, errors: 0 }],
     );
+    // Exercise the actual writer login, including attempts to escape its grants.
+    for (const query of [
+      'SET ROLE postgres',
+      'SET ROLE grafana_export_reader',
+      'SELECT * FROM grafana_public.published_content',
+      'SELECT * FROM pg_authid',
+      "COPY (SELECT 1) TO PROGRAM 'true'",
+      'TRUNCATE grafana_public.published_content',
+      'UPDATE grafana_public.source_summary SET errors = 0',
+      'ALTER TABLE grafana_public.published_content ADD COLUMN raw text',
+      'CREATE TABLE grafana_public.unapproved (id int)',
+      'CREATE TABLE public.unapproved (id int)',
+      'SELECT * FROM public.digest_previews',
+    ])
+      await assert.rejects(writer.query(query));
+    assert.equal(
+      (await writer.query('SHOW statement_timeout')).rows[0].statement_timeout,
+      '5s',
+    );
+    assert.equal(
+      (await writer.query('SHOW lock_timeout')).rows[0].lock_timeout,
+      '500ms',
+    );
+    const blocker = await owner.connect();
+    try {
+      await blocker.query('BEGIN');
+      await blocker.query(
+        'LOCK TABLE grafana_public.published_content IN ACCESS EXCLUSIVE MODE',
+      );
+      await assert.rejects(
+        refreshExport(writer, { ...snapshot, days: [] }, now),
+        (error: unknown) =>
+          error instanceof Error && 'code' in error && error.code === '55P03',
+      );
+    } finally {
+      await blocker.query('ROLLBACK');
+      blocker.release();
+    }
+    // A timed-out refresh leaves the previous snapshot intact and pool reusable.
+    assert.equal(
+      (await reader.query('SELECT * FROM grafana_public.published_content'))
+        .rowCount,
+      1,
+    );
+    await refreshExport(writer, snapshot, now);
     const tables = await reader.query(`SELECT tablename FROM pg_tables
       WHERE schemaname NOT IN ('pg_catalog','information_schema') ORDER BY tablename`);
     assert.deepEqual(
@@ -326,7 +372,7 @@ void test('separate Grafana export instance contains only aggregates under a rea
       reader.query('DELETE FROM grafana_public.published_content'),
     );
   } finally {
-    await Promise.all([owner.end(), reader.end()]);
+    await Promise.all([owner.end(), reader.end(), writer.end()]);
     await container.stop();
   }
 });

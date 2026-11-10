@@ -31,4 +31,19 @@ REVOKE ALL ON ALL TABLES IN SCHEMA grafana_public FROM PUBLIC;
 GRANT USAGE ON SCHEMA grafana_public TO grafana_export_reader;
 GRANT SELECT ON grafana_public.published_editions, grafana_public.published_content,
   grafana_public.source_summary TO grafana_export_reader;
--- Writer transport, credentials, refresh/retention and provisioning are not installed.
+-- The exporter can replace counts but cannot read them or alter storage.
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'grafana_export_writer') THEN
+    CREATE ROLE grafana_export_writer LOGIN;
+  END IF;
+END $$;
+ALTER ROLE grafana_export_writer WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE
+  NOINHERIT NOREPLICATION NOBYPASSRLS CONNECTION LIMIT 1;
+ALTER ROLE grafana_export_writer SET statement_timeout = '5s';
+ALTER ROLE grafana_export_writer SET lock_timeout = '500ms';
+ALTER ROLE grafana_export_writer SET idle_in_transaction_session_timeout = '10s';
+GRANT USAGE ON SCHEMA grafana_public TO grafana_export_writer;
+GRANT INSERT, DELETE ON grafana_public.published_editions,
+  grafana_public.published_content, grafana_public.source_summary
+  TO grafana_export_writer;
+-- Credentials, transport and provisioning remain uninstalled.

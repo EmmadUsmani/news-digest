@@ -122,3 +122,12 @@
 - No live exporter, credentials, timer, datasource, role grants or public-mode activation. Producer, writer/transport, freshness, capacity and Grafana rendering/query review remain before deployment. No paid calls.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; deployed account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
 - Next: continue Phase 4 data boundaries behind flags; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.
+
+## 2026-11-10: iteration 1732 — prepare restricted aggregate export writer
+
+- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis healthy. NBA correction unchanged; Nov 11 scheduled acceptance pending.
+- Prepared dedicated-instance writer login with INSERT/DELETE on aggregate tables only, no ownership/read/update/truncate/schema or role-switch access; one connection, five-second statement and 500 ms lock defaults.
+- Disposable real-login refresh now verifies replacement, retention, invalid inputs and database-failure rollback through this restricted writer. Conflicting lock refuses with `55P03`, preserves prior content and permits later pool reuse.
+- No live role grants, exporter, credentials, transport, datasource or public activation. Producer aggregation, network/TLS, freshness, capacity and Grafana query/rendering gates remain. No paid calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
+- Next: continue Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.

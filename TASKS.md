@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1731: prepared separate-store atomic aggregate refresh with 30-day retention and rollback coverage; uninstalled, public mode off.
+- [x] Iteration 1732: prepared restricted export writer login; real-login refresh, permission refusals and lock-timeout rollback verified in disposable storage; uninstalled, public mode off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
