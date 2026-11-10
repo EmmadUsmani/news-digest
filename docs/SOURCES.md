@@ -2402,3 +2402,9 @@ selected X engagement remains unverified. Bluesky supplied NBA/Gaming/World
 1/1/2 picks for $0.029424 separate editing cost; NBA records one X replacement.
 Quality acceptance remains open; no tuning or collection changes.
 [Daily review](edition-reviews/2026-11-10.md). GamingBolt recovery remains pending.
+
+Iteration 1708: all four saved Nov 10 Bluesky cards pass exact display/original
+link/expanded-destination checks at desktop/mobile in light/dark. The World
+fire-update card links the full Global News article; other cards have no inline
+URL. Live X frames loaded 5/11 desktop and 8/11 mobile; other posts retain
+saved-text fallback. No source changes or provider calls.

@@ -1,5 +1,7 @@
 # Progress
 
+[Iterations 1696–1697 archive](docs/progress-archive/2026-11-10-iterations-1696-1697.md).
+
 [Iterations 1694–1695 archive](docs/progress-archive/2026-11-10-iterations-1694-1695.md).
 
 [Iterations 1686–1693 archive](docs/progress-archive/2026-11-10-iterations-1686-1693.md).
@@ -9,22 +11,6 @@
 [Iteration 1625 archive](docs/progress-archive/2026-11-10-iterations-1625.md).
 
 Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.md); [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.md); [iteration 1616 and follow-up](docs/progress-archive/2026-11-10-1687.md); [iterations 1614–1615](docs/progress-archive/2026-11-10-1625.md); [iterations 1612–1613](docs/progress-archive/2026-11-10-1623.md); [iterations 1610–1611](docs/progress-archive/2026-11-10-1622.md); [iterations 1608–1609](docs/progress-archive/2026-11-10-1621.md); [iteration 1607](docs/progress-archive/2026-11-10-1620.md); [iterations 1605–1606](docs/progress-archive/2026-11-10-1619.md); [iteration 1604](docs/progress-archive/2026-11-10-1618.md); [iteration 1603](docs/progress-archive/2026-11-10-1616-follow-up.md); [iteration 1602](docs/progress-archive/2026-11-10-1616.md); [iteration 1601](docs/progress-archive/2026-11-10-1615.md); [iteration 1600](docs/progress-archive/2026-11-10-1614.md); [iteration 1599](docs/progress-archive/2026-11-10-1613.md); [iteration 1598](docs/progress-archive/2026-11-10-1611.md); [iteration 1597](docs/progress-archive/2026-11-10-1610.md); [iteration 1596](docs/progress-archive/2026-11-10-1608.md); [iteration 1595](docs/progress-archive/2026-11-10-1607.md); [iteration 1594](docs/progress-archive/2026-11-10-1606.md); [iteration 1593](docs/progress-archive/2026-11-10-1605.md); [iteration 1592](docs/progress-archive/2026-11-10-1604.md); [iteration 1591](docs/progress-archive/2026-11-10-1603.md); [iteration 1590](docs/progress-archive/2026-11-10-1602.md); [iteration 1589](docs/progress-archive/2026-11-10-1601.md); [iteration 1588](docs/progress-archive/2026-11-10-1600.md); [iteration 1587](docs/progress-archive/2026-11-10-1599.md); [iteration 1586](docs/progress-archive/2026-11-10-1598.md); [iterations 1584–1585](docs/progress-archive/2026-11-10-1597.md); [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-10: iteration 1696 — prepare a bounded public status response
-
-- Clean main; no inherited work. Added uninstalled `readPublicStatus`: explicit nested schemas retain coverage, collection controls/counts/timestamps and allowlisted queue health. Stored source errors become `hasError`; job IDs/results/skip strings, provider usage and development accounting are omitted.
-- Adversarial unit checks cover historical secrets/URLs, future fields, arbitrary queue/count keys, malformed data and dependency failures; failures return generic 503. Detailed status remains admin-only; no route promotion or application composition yet.
-- Updated rollout review/TASKS. Next: status transport/UI compatibility, preview boundary, then tools. Phase 3 still awaits normal 15:00 UTC edition; public mode off.
-- Verification: `pnpm format`, `pnpm lint:fix`, targeted status tests, full `pnpm check` (807 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build`, `git diff --check` pass. Latest saved reader verifies four topics/19 stories/14 posts; `/healthz` database/Redis healthy, no failed user services, zero active alerts at orientation.
-- GamingBolt remains open with existing bounded retries. No live provider calls, migrations, flag changes, deployment or restart during 13:00–16:00 UTC freeze. New code is uninstalled, so running services retain the same application behavior. Metrics check not due before 13:29 UTC.
-
-## 2026-11-10: iteration 1697 — prepare bounded status HTTP transport
-
-- Clean main; no inherited work. Added uninstalled status controller/module using the audited projection and an injected read port; prerequisites validate before reader construction. Application composition and admin route policy stay unchanged.
-- Isolated Nest HTTP checks verify sanitized GET, empty HEAD, no-store including generic 503 failures, absent mutation/alerts routes, disabled GET/HEAD 404s and invalid-flag rejection without opening dependencies.
-- Updated rollout review/TASKS. Next: public status UI compatibility and budget-summary decision before composition, then preview/tools. Public mode remains off; Phase 3 awaits normal 15:00 UTC edition.
-- Verification: `pnpm format`, `pnpm lint:fix`, targeted HTTP tests, full `pnpm check` (809 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build` and `git diff --check` pass. Saved-reader check verifies four topics/19 stories/14 posts; health database/Redis healthy, no failed user services.
-- Zero active alerts at orientation. GamingBolt remains open with bounded retries; no direct probe. No provider calls, live migrations, flags, deployment or restart during 13:00–16:00 UTC freeze; uninstalled additions leave running application behavior unchanged. Metrics check not yet due at orientation; natural link expiry remains after Nov 11 00:33:01 UTC.
 
 ## 2026-11-10: iteration 1698 — prepare public production budget totals
 
@@ -119,3 +105,12 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, stored timing/X reports and 32 `check-live-account-boundary.ts` checks pass. Health database/Redis good; no failed user units or active alerts. GamingBolt remains stalled at 11:16 UTC under bounded scheduled retries; no direct probe.
 - No provider calls, migrations, flags, deployment or restarts during the 13:00–16:00 UTC hold. Prepared application changes remain undeployed; this step changes documentation only.
 - Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (815 unit; 277 integration/four expected skips), `pnpm build` and `git diff --check` pass. Final health good; no application edits. Commit/push only; deployment/restart remains held until after 16:00 UTC.
+
+## 2026-11-10: iteration 1708 — verify saved social destinations
+
+- Clean main; no inherited work. Four Nov 10 saved Bluesky cards pass desktop/mobile light/dark exact display text, original/expanded hrefs, nesting, overflow and page-error checks. Inspected mobile dark World card and desktop NBA screenshot; retained 24 screenshots.
+- Added reusable GET-only `check-saved-bluesky-destinations.ts`; blocks all writes and third-party requests. Global News fire-update links retain full supplied destinations; other cards supply no inline URL. Article availability not tested.
+- Repaired stale `verify-saved-posts.ts` original-link selector and saved display-text assertion. Live read-only rerun passes all 15 posts at both widths; X frames loaded 5/11 desktop and 8/11 mobile, others retain saved-text fallback; zero app/widget errors. No all-media-loaded claim.
+- Phase 3 remains unaccepted: mixed NBA validation fallback fails the normal scheduled-edition gate. No account regression or rollback justification; public mode stays off. Next normal scheduled edition gates acceptance; default-off Phase 4 preview integration may proceed.
+- `check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes four topics/19 stories/15 posts. `/healthz` database/Redis healthy; no failed user units or active alerts. GamingBolt recovery remains open; no extra probe or metrics sample.
+- No provider calls, migrations, flag changes, deployment or restarts during the 13:00–16:00 UTC hold. Only scripts/docs/screenshots changed; live application code unaffected. `pnpm format`, `pnpm lint:fix`, full `pnpm check` (815 unit; 277 integration/four expected skips), `pnpm build` and `git diff --check` pass. Archived 1696–1697.

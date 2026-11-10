@@ -61,7 +61,8 @@ async function main() {
           const post = topic.posts[i];
           assert.equal(
             await card
-              .getByRole('link', { name: /^Open original post on / })
+              .locator('.byline a')
+              .filter({ has: page.locator('time') })
               .getAttribute('href'),
             post.url,
             `${topic.name}: original post link`,
@@ -71,10 +72,7 @@ async function main() {
             post.publishedAt,
           );
           if (post.platform !== 'reddit') {
-            const expectedText =
-              post.platform === 'x'
-                ? (post.displayText ?? post.text)
-                : post.text;
+            const expectedText = post.displayText ?? post.text;
             assert.equal(
               await card.locator('.post-text').textContent(),
               expectedText,

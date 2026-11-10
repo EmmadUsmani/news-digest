@@ -55,7 +55,7 @@ mode remains off; sharing is unchanged.
 Owner reported two-browser sign-in and saved-item sync passed at about 03:50 UTC
 Nov 10 (STEERING 50). This completes the owner and proxy/TLS cookie checks.
 Nov 10 edition published with accounts on (1707); NBA story validation exhausted
-to source excerpts. Phase 3 acceptance awaits assessment of that degraded outcome;
+to source excerpts. Phase 3 remains unaccepted (1708): mixed fallback fails the normal-edition gate; await the next normal scheduled edition;
 no further owner action is requested. [Daily review](docs/edition-reviews/2026-11-10.md).
 The mailbox helper was repaired and its exact VM command verified against a
 newly requested real code (1616); credentials were withheld and the session signed out.
