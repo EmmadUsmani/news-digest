@@ -112,3 +112,11 @@ Earlier entries: [iterations 1617–1622](docs/progress-archive/2026-11-10-1694.
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted status tests (5 passes), `pnpm check` (810 unit passes; 277 integration passes/four expected skips), `pnpm --filter @digest/api build`, `git diff --check` pass. Saved-reader check verifies four topics/19 stories/14 posts; health database/Redis healthy, no failed user services.
 - Alert triage: RecentJobFailures is the existing GamingBolt incident; scheduled 13:16–13:20 UTC attempts timed out three times. Retained bounded retries; no direct source probe or configuration change.
 - No live provider calls, migrations, flags, deployment or restart during 13:00–16:00 UTC freeze; uninstalled additions leave running application behavior unchanged. Natural link expiry remains after Nov 11 00:33:01 UTC.
+
+## 2026-11-10: iteration 1699 — share the public status wire contract
+
+- Clean main; no inherited work. Added `PublicOperationsStatus` and its independent runtime schema to shared contracts. The uninstalled API projection derives its retained fields from this schema and converts private stored errors into `hasError`.
+- Round-trip checks reject private source shapes/malformed booleans, counts and budget summaries; nested private errors, URLs, job runs and development fields are stripped. No UI query/rendering or application composition enabled; next is public status rendering, then preview/tools.
+- Verification: `pnpm format`, `pnpm lint:fix`, six targeted status/HTTP tests, API and web builds pass. Full `pnpm check` passes (811 unit passes; 277 integration passes/four expected skips); `git diff --check` passes. Saved-reader check verifies four topics/19 stories/14 posts; `/healthz` database/Redis healthy, no failed user services, zero active alerts.
+- `sample-metrics-recovery.ts 1 2` at 13:33 UTC: 23 healthy rules, four queries ≤0.091 s, zero new evaluator errors/misses/timeouts/slow queries; no merge in short interval. Next probe ≥14:34 UTC; compaction recovery stays open.
+- GamingBolt incident remains open with bounded scheduled retries. No provider calls, live migrations, flag changes or service restarts during 13:00–16:00 UTC hold. Public mode off; Phase 3 awaits 15:00 UTC edition and natural link expiry after Nov 11 00:33:01 UTC.

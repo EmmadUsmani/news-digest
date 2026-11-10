@@ -804,3 +804,8 @@ export const monitoringAlertsSchema = z.object({
 export type MonitoringAlerts = z.infer<typeof monitoringAlertsSchema>;
 
 export const sourceEnabledSchema = z.object({ enabled: z.boolean() }).strict();
+
+export {
+  type PublicOperationsStatus,
+  publicOperationsStatusSchema,
+} from './public-operations-status';

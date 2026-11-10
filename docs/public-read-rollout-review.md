@@ -133,3 +133,10 @@ unit and HTTP checks cover these exclusions. The existing UI still requires the
 private operations contract (overview runs/errors, spend ledger/development pools);
 it needs a separate public contract and rendering before status composition.
 No route promotion, deployment or restart during the protected window.
+
+Iteration 1699 adds a shared public wire contract, separate from private operations
+status. The projection derives its output fields from this contract, converting
+stored errors into booleans before transport. Round-trip checks reject private
+source shapes and malformed public values and strip nested private fields.
+No UI query, rendering, route composition or rollout change is installed. Next:
+public rendering for overview/source health/budget totals, then preview/tools.

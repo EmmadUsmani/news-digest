@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { publicOperationsStatusSchema } from '@digest/contracts';
 import { ServiceUnavailableException } from '@nestjs/common';
 
 import { readPublicStatus } from '../src/public-read/status';
@@ -161,4 +162,29 @@ void test('public budgets retain only bounded production totals, never private l
       { message: 'Status unavailable' },
     );
   }
+});
+
+void test('public wire contract round-trips projection and rejects private source shape', async () => {
+  const projected = await readPublicStatus(async () => fixture);
+  assert.deepEqual(publicOperationsStatusSchema.parse(projected), projected);
+  assert.equal(publicOperationsStatusSchema.safeParse(fixture).success, false);
+  const parsed = publicOperationsStatusSchema.parse({
+    ...projected,
+    developmentSpend: [{ token: secret }],
+    sources: projected.sources.map((row) => ({
+      ...row,
+      error: secret,
+      url: secret,
+    })),
+    queues: projected.queues.map((row) => ({ ...row, runs: [{ id: secret }] })),
+  });
+  assert.deepEqual(parsed, projected);
+  assert.equal(JSON.stringify(parsed).includes(secret), false);
+  for (const value of [
+    { ...projected, sources: [{ ...projected.sources[0], hasError: secret }] },
+    { ...projected, queues: [{ ...projected.queues[0], workers: -1 }] },
+    { ...projected, llm: {} },
+    { ...projected, xDiscovery: {} },
+  ])
+    assert.equal(publicOperationsStatusSchema.safeParse(value).success, false);
 });
