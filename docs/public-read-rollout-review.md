@@ -140,3 +140,13 @@ stored errors into booleans before transport. Round-trip checks reject private
 source shapes and malformed public values and strip nested private fields.
 No UI query, rendering, route composition or rollout change is installed. Next:
 public rendering for overview/source health/budget totals, then preview/tools.
+
+Iteration 1700 prepares `PublicStatus`, consuming only the shared public contract:
+source collection state/counts/timestamps, queue counts/availability, topic coverage
+and production budget totals/holds. Missing budgets/coverage and empty lists have
+explicit unavailable states. It has no mutation controls or private queries.
+`pnpm exec tsx scripts/check-public-status-view.ts` rehearses fixture rendering
+offline at desktop/mobile widths in both themes; screenshots are
+`docs/screenshots/ui/public-status-fixture-{390,1440}-{light,dark}.png`.
+Route/query composition remains pending; running private pages are unchanged.
+Next: compose the gated public status reader/view, then preview/tools.

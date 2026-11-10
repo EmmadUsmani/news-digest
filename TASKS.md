@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1699: shared public status wire contract drives the sanitized API projection; round-trip/privacy/invalid-shape checks pass. Next: public status rendering before composition, then preview/tools. No deploy/restart during 13:00–16:00 UTC; Phase 3 awaits 15:00 UTC.
+- [x] Iteration 1700: prepared public status view renders sanitized sources/queues/coverage and production budgets; offline desktop/mobile light/dark rehearsal and empty sections pass. No route composition or deployment. Next: compose public status transport/query/view, then preview/tools; Phase 3 awaits 15:00 UTC.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
