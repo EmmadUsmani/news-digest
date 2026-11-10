@@ -133,7 +133,14 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    code in memory, checks mailbox and HTTP refusal, then signs in with a fresh
    code. It reads only that reader’s challenge timestamps; expiry settings,
    clocks and stored challenges stay unchanged. Sign-in links last 24 hours
-   and require a separate live expiry check. Iteration 1598 passes all 52 live
+   and require a separate live expiry check. Run
+   `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify` after
+   **2026-11-11 00:33:01 UTC**. Iteration 1599 issued an unredeemed disposable
+   link with a verified 86,400-second lifetime; its mode-600 receipt lives at
+   `~/.local/state/news-digest/link-expiry-acceptance.json`. An early verify
+   reports pending without redeeming. After expiry it checks HTTP 401, no
+   cookie, no reader identity and an unchanged unconsumed link. Keep the
+   receipt private; do not rerun `prepare` over a pending receipt. Iteration 1598 passes all 52 live
    lifecycle checks with natural code expiry, no-cookie HTTP 401, surviving
    reader session and fresh-code recovery.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
