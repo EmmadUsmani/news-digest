@@ -26,14 +26,17 @@ skipping an edition. End state:
 This supersedes `MISSION.md` "Profiles now, accounts later": readers are not
 mapped to profiles, and profiles go away.
 
-## Where things stand (verified 2026-11-09)
+## Where things stand (updated 2026-11-10)
 
-Owner proxy rerun (iteration 1559) is blocked for review: the baseline contains
-two forwarding entries, failing the probe's single-entry assumption. Forged
-email is replaced, but final-client stability and hop meaning remain unproven.
-`proxyClient` accepts a final IP from one header field and an explicitly trusted
-peer; it does not require a single entry. No trust interpretation or activation
-was changed. [Shape-only results and blocker](../NEEDS_FROM_HUMAN.md#admin-access-rollout-updated-under-steering-36).
+Current activation state (Nov 10, iteration 1615): Phase 1 is accepted;
+account migrations 0013–0018 and invite-only server/web gates are live.
+STEERING 53 accepts the proxy proof: explicitly trust loopback and retain the
+last-entry visitor selector. Phase 3 awaits the owner's two-device test and
+normal Nov 10 scheduled edition; natural link expiry is checked in parallel.
+`PUBLIC_MODE` remains off and migration 0019 remains pending. Historical
+preparation notes below describe the state at their iteration, not current gates.
+Use the [Phase 3 checklist](account-activation.md) and
+[Phase 4 readiness checklist](public-readiness.md) for the next activation steps.
 
 - Privacy comes only from exe.dev's proxy, which makes visitors log in to
   exe.dev first. The reader routes have no authentication of their own.
