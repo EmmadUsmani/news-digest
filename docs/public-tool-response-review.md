@@ -258,10 +258,14 @@ installed Grafana binary in a separate loopback process with temporary SQLite,
 provisioning, plugins and a disposable Postgres. It provisions the exact rule
 and a restricted-reader datasource, reads back the rule, and evaluates its SQL
 and threshold through Grafana for missing/future/fresh/stale captures and recovery.
-Synthetic credentials and data only; SMTP and scheduled execution are disabled.
+Synthetic credentials and data only; SMTP is disabled. Scheduled execution is
+enabled only with the explicit `--scheduled` option.
 The process, container and temporary files are removed on completion.
 
-Iteration 1743 passes provisioning and query/expression evaluation. Scheduled
-pending/firing timing, query-error state transitions and public query-route
-acceptance remain unverified. This file stays outside installed provisioning;
-capacity and datasource installation remain open.
+Iteration 1743 passes provisioning and query/expression evaluation. The optional
+scheduled rehearsal (1753) keeps the exact one-minute evaluation interval and
+five-minute pending duration: removing the capture reaches pending then firing,
+restoring a fresh capture clears it, revoking the reader table grant fires with
+query-error health, and restoring the grant clears it again.
+Public query-route acceptance remains unverified. This file stays outside
+installed provisioning; capacity and datasource installation remain open.

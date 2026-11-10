@@ -145,3 +145,10 @@
 - Verification: runtime rehearsal, standalone strict script typecheck, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit; 281 integration/four expected skips), `pnpm build`, handbook check (18 pages/22 unchanged diagrams/39 tables) and `git diff --check` pass.
 - Live account boundary: 32 pass; scheduled reader: four topics/19 stories/15 posts.
 - Next: Sonnet trials after UTC reset; natural link expiry after Nov 11 00:33:01 UTC; scheduled NBA acceptance. Continue remaining export runtime/capacity gates while those wait. Push followed by API/worker restart and health/reader/alerts checks.
+
+## 2026-11-10: iteration 1753 — complete scheduled export-alert rehearsal
+
+- Recovered and finished three uncommitted files from the interrupted 1744 iteration. Initial alerts zero; health, 14 services and 36 sources pass. Recent Gamingbolt timeout alert resolved, with source success at 22:46 UTC; digest queue has zero failures.
+- Disposable Grafana and isolated Postgres with synthetic credentials pass exact provisioned SQL/threshold cases. Unchanged one-minute evaluation/five-minute pending settings: missing capture and revoked reader SELECT each reach pending then firing; fresh capture and restored grant each clear the alert. SMTP disabled; no live provisioning or public flag change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 09-observability`, and `git diff --check` pass.
+- Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. Item 54 Sonnet trials still await UTC shared-cap reset; no paid call. Next: finish bounded Sonnet trials before Nov 11 noon, natural link expiry after 00:33 UTC, then scheduled NBA acceptance. Export alert capacity, live installation and public query-route checks remain.

@@ -21,6 +21,8 @@ import { GenericContainer, Wait } from 'testcontainers';
 import { markIntegrationTemp } from '../../../scripts/lib/integration-temp';
 
 async function main() {
+  const scheduled = process.argv.includes('--scheduled');
+  assert.ok(process.argv.slice(2).every((arg) => arg === '--scheduled'));
   const home = '/opt/news-digest-observability/grafana';
   await access(join(home, 'bin/grafana'));
   const root = await mkdtemp(join(tmpdir(), 'news-digest-integration-'));
@@ -116,7 +118,7 @@ async function main() {
         GF_ANALYTICS_REPORTING_ENABLED: 'false',
         GF_ANALYTICS_CHECK_FOR_UPDATES: 'false',
         GF_PLUGINS_CHECK_FOR_UPDATES: 'false',
-        GF_UNIFIED_ALERTING_EXECUTE_ALERTS: 'false',
+        GF_UNIFIED_ALERTING_EXECUTE_ALERTS: String(scheduled),
         GF_SMTP_ENABLED: 'false',
       },
     });
@@ -206,9 +208,65 @@ async function main() {
       assert.equal(await evaluate(), expected, label);
       console.log(`${label}: provisioned Grafana SQL/expression pass`);
     }
-    console.log(
-      'Disposable provisioning and query evaluation pass; scheduled pending/firing timing and notification delivery not exercised.',
-    );
+    if (scheduled) {
+      const waitForState = async (expected: string, timeoutMs = 150000) => {
+        const deadline = Date.now() + timeoutMs;
+        while (Date.now() < deadline) {
+          const result = await request('/api/prometheus/grafana/api/v1/rules');
+          const current = result.data.groups
+            .flatMap(
+              (group: {
+                rules: { name: string; state: string; health: string }[];
+              }) => group.rules,
+            )
+            .find(
+              (candidate: { name: string }) => candidate.name === rule.title,
+            );
+          if (current?.state === expected) {
+            console.log(
+              `scheduled ${expected}: pass (health=${current.health})`,
+            );
+            return current;
+          }
+          await setTimeout(5000);
+        }
+        assert.fail(
+          `Scheduled alert did not reach ${expected} within ${timeoutMs}ms`,
+        );
+      };
+      // Use the exact production interval and pending duration, without shortening either.
+      await waitForState('inactive');
+      await pool.query('DELETE FROM grafana_public.export_status');
+      await waitForState('pending');
+      const pendingAt = Date.now();
+      await waitForState('firing', 390000);
+      assert.ok(
+        Date.now() - pendingAt >= 280000,
+        'Five-minute pending period preserved',
+      );
+      await pool.query(
+        'INSERT INTO grafana_public.export_status VALUES (true, now())',
+      );
+      await waitForState('inactive');
+      await pool.query(
+        'REVOKE SELECT ON grafana_public.export_status FROM grafana_export_reader',
+      );
+      const queryPending = await waitForState('pending');
+      assert.equal(queryPending.health, 'error', 'Query error enters pending');
+      const failed = await waitForState('firing', 390000);
+      assert.equal(failed.health, 'error', 'Query error enters Alerting');
+      await pool.query(
+        'GRANT SELECT ON grafana_public.export_status TO grafana_export_reader',
+      );
+      await waitForState('inactive');
+      console.log(
+        'Exact scheduled pending/firing, query-error and recovery transitions pass.',
+      );
+    } else {
+      console.log(
+        'Disposable provisioning and query evaluation pass; use --scheduled for state transitions.',
+      );
+    }
   } finally {
     if (grafana && grafana.exitCode === null) {
       grafana.kill('SIGTERM');
