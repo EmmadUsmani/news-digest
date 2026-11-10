@@ -1,10 +1,9 @@
 # Public access and reader accounts
 
-**Status (23:30 UTC Nov 9):** phases 0–2 accepted; phase 3 (accounts) is live
-on the private VM. Migrations 0013–0018 ran at about 23:00 UTC after a backup,
-and invite-only accounts were enabled at 23:15 (agent's figures; times checked
-by lead). Public mode is off and sharing unchanged. Phase 4 pieces are built
-behind flags.
+**Status (04:00 UTC Nov 10):** phases 0–2 accepted. Phase 3 (accounts) is live
+on the private VM, and the owner's two-device test passed (saves sync through
+exe.dev). Phase 3 closes when the Nov 10 edition publishes normally. Phase 4
+(public readiness) is being rehearsed behind flags.
 
 **Owner decisions (Nov 7):**
 
@@ -23,9 +22,9 @@ behind flags.
 
 **Next:**
 
-1. Steered under item 50 (00:41 UTC Nov 10): two-device steps in
-   `NEEDS_FROM_HUMAN.md` now; that test is the proxy/TLS cookie check. Link
-   expiry verify after 00:33 UTC Nov 11. Check the steps appear and are exact.
+1. Check the Nov 10 edition publishes normally, then the agent's phase 3 ack.
+   Also its ack for the mailbox script fix, and the link expiry after 00:33
+   UTC Nov 11.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.

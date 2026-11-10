@@ -2248,6 +2248,30 @@ check the VM can't do itself, so it replaces that open check. Don't wait for the
 parallel. Phase 3 is accepted after the owner's test passes and a normal
 scheduled edition has published with accounts on.
 
+**Lead update (Nov 10, owner approved): fix the mailbox command.** The
+owner's run of the `NEEDS_FROM_HUMAN.md` command failed:
+`scripts/read-login-mailbox.ts` crashes with "Top-level await is currently not
+supported with the cjs output format". The lead gave the owner a working
+`tsx -e` workaround, so the owner's test is not blocked.
+
+1. Fix the script, and add a test that runs it through `pnpm exec tsx` against
+   a temporary mailbox.
+2. On the VM, run the exact command from `NEEDS_FROM_HUMAN.md` against a real
+   code you requested, then update the steps if they changed. Never print that
+   code in logs or notes.
+3. Mention in the steps that a second browser first shows exe.dev's own
+   sign-in page. The owner signs in there with their exe.dev email, then uses
+   the app's sign-in.
+
+From now on, run every command you give the owner, exactly as written, before
+listing it.
+
+**Owner result (Nov 10, about 03:50 UTC): the two-device test passed.** The
+owner signed in on two browsers through exe.dev and confirmed saves sync. This
+completes the owner check and the proxy/TLS cookie check for phase 3. Record it
+in `NEEDS_FROM_HUMAN.md`. Phase 3 is accepted once the Nov 10 scheduled edition
+publishes normally with accounts on, as above.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`

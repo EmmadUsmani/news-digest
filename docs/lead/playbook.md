@@ -87,6 +87,7 @@ anything unpushed. So does deleting the clone.
 | Design drifted to story reactions, away from viral posts    | Re-read the owner's goal before each design change        |
 | Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                 |
 | Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short |
+| Owner's mailbox command crashed: the agent never ran it     | Lead runs every owner command before passing it on        |
 
 ## Diagnosing
 
