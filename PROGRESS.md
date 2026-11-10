@@ -116,3 +116,12 @@
 - No provider calls, migrations, flag changes, deployments or service restarts during the 13:00–16:00 UTC hold. Deployment waits until the hold ends. Archived oldest progress entry to keep orientation small.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (818 unit, 278 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/smoke-public-preview-history.ts` and `git diff --check` pass. `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verifies four topics/19 stories/15 posts. Initial non-TTY check interrupted; complete TTY rerun passes.
 - Pushed `3a290ce0`; after 16:00 UTC restarted API/worker with `systemctl --user restart news-digest-api.service news-digest-worker.service`. Health/database/Redis and scheduled-reader checks pass, no failed user units or active alerts. Public mode remains off; no migration or provider call.
+
+## 2026-11-10: iteration 1713 — connect sanitized published preview detail
+
+- Clean main; no inherited work. Public-mode admin edition detail now reads only sanitized published preview data, shows topic briefs/counts and links to the full reader edition. Private inspector and route authorization unchanged; public mode stays off.
+- Four offline Playwright desktop/mobile light/dark views pass restricted reads, empty topics and 401/403/404/503 recovery; failures hide stale content. Saved four screenshots and inspected mobile light/desktop dark. Simulated responses/admin identity, not live anonymous access.
+- Updated TASKS and rollout review. Next: latest-preview compatibility, then complete anonymous authorization rehearsal. Phase 3 awaits a normal scheduled edition; natural link expiry after Nov 11 00:33:01 UTC. GamingBolt recovery remains open under scheduled retries.
+- `pnpm format`, `pnpm lint:fix`, `pnpm exec tsx scripts/smoke-public-preview-detail.ts`, `git diff --check` and scheduled-reader check pass (four topics/19 stories/15 posts). Full check/build results and deployment follow below.
+- Health/database/Redis good; no failed user services or active alerts. No provider calls, migrations or public flag changes.
+- Final TTY `pnpm check` passes: 818 unit tests, 278 integration tests/four expected skips; build passes. Initial non-TTY run terminated during integration cleanup; complete TTY rerun exits zero. No code change required.

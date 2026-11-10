@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1712: connected public-mode edition history to sanitized preview queries; four offline desktop/mobile light/dark browser views verify pagination, failure/retry and no private auxiliary reads. Route guard unchanged; latest/detail pages and anonymous authorization remain next.
+- [x] Iteration 1713: connected public-mode edition detail to sanitized published queries with reader links and no auxiliary private reads. Four offline desktop/mobile light/dark browser views cover empty topics and 401/403/404/503 recovery. Latest-preview compatibility and anonymous authorization remain next; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

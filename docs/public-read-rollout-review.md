@@ -234,3 +234,12 @@ mode retains the full inspector list. Four offline browser views cover paginatio
 empty history and failure/retry; screenshots are in `docs/screenshots/ui/public-preview-history-*`.
 The existing admin route guard remains in place. Latest/detail preview pages and
 full anonymous authorization rehearsal remain next; public mode stays off.
+
+Iteration 1713 installs a sanitized public-mode edition detail page for existing
+admin detail URLs. It shows published coverage, topic briefs and story/post counts,
+with a link to the full reader edition. It requests no costs, jobs or incoming
+content; failures hide previously loaded content and offer refresh. Private mode
+retains its inspector. Offline browser checks cover four viewport/theme views,
+empty topics and 401/403/404/503 recovery. Route authorization is unchanged;
+latest-preview compatibility and anonymous authorization remain next. Public mode
+remains off.

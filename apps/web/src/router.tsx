@@ -22,6 +22,7 @@ import { App } from './App';
 import { loadOperationsOverview } from './operations-overview-loader';
 import { OperationsOverviewPage } from './OperationsOverviewPage';
 import { Privacy } from './Privacy';
+import { PublicPreviewDetail } from './PublicPreviewDetail';
 import { PublicPreviewHistory } from './PublicPreviewHistory';
 import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
 import { ReaderArchive } from './ReaderArchive';
@@ -191,7 +192,7 @@ const adminInspectorRoute = createRoute({
   beforeLoad: ({ params }) => {
     if (!z.string().uuid().safeParse(params.id).success) throw notFound();
   },
-  component: AdminEditionInspector,
+  component: publicMode ? PublicPreviewDetail : AdminEditionInspector,
 });
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
