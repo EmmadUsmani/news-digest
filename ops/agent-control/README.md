@@ -35,12 +35,19 @@ Defaults:
   it polls every 15 minutes. Waits are capped at 12 hours
   (`USAGE_MAX_WAIT_MIN`), and then it simply tries again.
 - **Authentication failures:** retries every 15 minutes.
+- **Model refused:** when the provider refuses the default model itself (for
+  example "requires a newer version of Codex"), the same iteration reruns at
+  once on `FALLBACK_MODEL` (default `gpt-6-sol`; empty disables it). Every
+  iteration tries the default first. The refused attempt's logs are kept as
+  `iter-N.jsonl.primary` and `iter-N.err.primary`, the heartbeat's `model`
+  field says which model ran, and the supervisor log prints a WARNING. No
+  other failure triggers the fallback.
 
 There is **no failure-count cutoff**, including when a quota message is not
 recognized. Quota and authentication failures don't change the diagnostic
 no-progress counter. Other unproductive turns increment it, but it never stops
-the run, and a productive iteration resets it. The harness never switches
-model, provider, account or billing, never attempts login, and never buys
+the run, and a productive iteration resets it. Apart from the model fallback
+above, the harness never switches model, provider, account or billing, never attempts login, and never buys
 credits.
 
 Each retry starts a fresh Codex session from repo history, progress notes and

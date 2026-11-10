@@ -38,6 +38,11 @@ if mode in ('usage', 'usage_stop') and n <= 4:
     if mode == 'usage_stop': (root / 'STOP').touch()
     print(json.dumps({'type':'turn.failed', 'error':{'message':"You’ve hit your usage limit. Try again at 5:32 AM."}}))
     sys.exit(1)
+if mode == 'model_gate' and '-m' not in args and n <= 4:
+    print(json.dumps({'type':'error', 'message':'{"detail":"The \'gpt-6.1-sol\' model requires a newer version of Codex. Please upgrade to the latest app or CLI and try again."}'}))
+    print(json.dumps({'type':'turn.failed', 'error':{'message':'requires a newer version of Codex'}}))
+    sys.exit(1)
+if '-m' in args: (root / 'fake-models').open('a').write(args[args.index('-m') + 1] + '\n')
 if mode in ('crash', 'unknown_stop') and n <= 4:
     if mode == 'unknown_stop': (root / 'STOP').touch()
     print(json.dumps({'type':'turn.failed', 'error':{'message':'internal agent died'}}))
@@ -137,6 +142,16 @@ class ClassifierTests(unittest.TestCase):
     def test_recovered_transient_error(self):
         events = [{"type": "error", "message": "rate_limit_exceeded"}, {"type": "turn.completed"}]
         self.assertEqual(self.classify(events, 0), "ok")
+
+    def test_model_unavailable(self):
+        for text in ("The 'gpt-6.1-sol' model requires a newer version of Codex. Please upgrade.",
+                     "model_not_found", "The model `gpt-9` does not exist or you do not have access to it."):
+            with self.subTest(text=text):
+                self.assertEqual(self.classify([{"type": "turn.failed", "error": {"message": text}}]), "model_unavailable")
+        # Agent prose or command output about models is not a provider refusal.
+        events = [{"type": "item.completed", "item": {"type": "agent_message",
+                   "text": "The model requires a newer version of Codex in this test fixture"}}, {"type": "turn.failed"}]
+        self.assertEqual(self.classify(events, 1), "crash")
 
     def test_timeout_and_crash(self):
         self.assertEqual(self.classify([], 124), "timeout")
@@ -263,6 +278,28 @@ class SupervisorTests(unittest.TestCase):
         self.assertEqual(count, "1")
         for name in ("iter-001.jsonl", "iter-001.final.md", "iter-001.err"):
             self.assertIn(name, logs)
+
+    def test_model_unavailable_reruns_same_iteration_on_fallback(self):
+        result, state, logs, count = self.run_case("model_gate", overrides={"ITER_TIMEOUT_MIN": "2"})
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(state["stop_reason"], "smoke_complete")
+        self.assertEqual(count, "2")  # Refused default, then the fallback in the same iteration.
+        self.assertEqual(state["model"], "gpt-6-sol (fallback)")
+        self.assertEqual(state["iteration"], 1)
+        for name in ("iter-001.jsonl", "iter-001.jsonl.primary", "iter-001.err.primary"):
+            self.assertIn(name, logs)
+        self.assertIn("rerunning iteration 1 on fallback gpt-6-sol", result.stdout)
+
+    def test_empty_fallback_model_disables_fallback(self):
+        result, state, logs, count = self.run_case("model_gate", overrides={"FALLBACK_MODEL": ""})
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(count, "5")
+        self.assertEqual(state["model"], "default")
+
+    def test_other_crashes_never_use_fallback(self):
+        result, state, logs, count = self.run_case("crash")
+        self.assertNotIn("fallback", result.stdout)
+        self.assertEqual(state["model"], "default")
 
     def test_existing_STOP_dispatches_nothing(self):
         result, state, logs, count = self.run_case("ok", stop=True)

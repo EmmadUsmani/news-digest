@@ -22,6 +22,9 @@ PACE_MAX_WAIT_MIN=${PACE_MAX_WAIT_MIN:-60}
 USAGE_MAX_WAIT_MIN=${USAGE_MAX_WAIT_MIN:-720}
 CODEX_SESSIONS=${CODEX_SESSIONS:-$HOME/.codex/sessions}
 SMOKE=${SMOKE:-0}
+# When the provider refuses the default model, rerun that iteration on this
+# model. Every iteration tries the default first. Empty disables the fallback.
+FALLBACK_MODEL=${FALLBACK_MODEL-gpt-6-sol}
 python3 - "$RUN_HOURS" "$ITER_TIMEOUT_MIN" "$RETRY_WAIT_MIN" "$USAGE_LIMIT_WAIT_MIN" "$SMOKE" \
     "$PACE_SLACK_PCT" "$PACE_MAX_WAIT_MIN" "$USAGE_MAX_WAIT_MIN" "$PACE_WEEKLY" <<'PY'
 import math, sys
@@ -56,6 +59,7 @@ STOP_REASON=''
 OWNER_GUARD_FAILED=0
 NEXT_RETRY=''
 CODEX_USAGE='not measured'
+MODEL_USED=default
 PACED=0
 STATE=starting
 LOG="$CONTROL/logs/supervisor.log"
@@ -69,7 +73,7 @@ heartbeat() {
         "iteration_finished_at=$ITER_END" "last_exit_code=$LAST_RC" \
         "consecutive_no_progress=$NO_PROGRESS" "last_health_result=$LAST_HEALTH" \
         "deadline=$DEADLINE" "next_retry_at=$NEXT_RETRY" "state=$STATE" "stop_reason=$STOP_REASON" \
-        "supervisor_pid=$$" "active_pgid=$ACTIVE_PID" "smoke=$SMOKE" "codex_usage=$CODEX_USAGE"
+        "supervisor_pid=$$" "active_pgid=$ACTIVE_PID" "smoke=$SMOKE" "codex_usage=$CODEX_USAGE" "model=$MODEL_USED"
 }
 retry_wait() {
     local minutes=$1 wake left
@@ -103,9 +107,10 @@ terminate_child() {
     fi
 }
 run_codex() {
-    local prompt=$1 prefix=$2 seconds=$3 workdir=$4
+    local prompt=$1 prefix=$2 seconds=$3 workdir=$4 model=${5:-}
     local -a extra=()
     [[ $SMOKE == 1 ]] && extra+=(--skip-git-repo-check)
+    [[ -z $model ]] || extra+=(-m "$model")
     setsid timeout --signal=TERM --kill-after=20s "${seconds}s" \
         codex exec --dangerously-bypass-approvals-and-sandbox \
         -C "$workdir" --json -o "$prefix.final.md" "${extra[@]}" - \
@@ -303,9 +308,21 @@ while true; do
     STATE=running
     log "Iteration $ITERATION starting (timeout ${SECONDS_LIMIT}s)."
     ITER_START_EPOCH=$(date +%s)
+    MODEL_USED=default
     run_codex "$PREFIX.prompt.md" "$PREFIX" "$SECONDS_LIMIT" "$WORKDIR"
     ITER_END=$(date -u +%FT%TZ)
     RESULT=$(python3 "$CONTROL/control.py" classify "$PREFIX.jsonl" "$PREFIX.err" "$LAST_RC")
+    FALLBACK_SECS=$((SECONDS_LIMIT - ($(date +%s) - ITER_START_EPOCH)))
+    if [[ $RESULT == model_unavailable && -n $FALLBACK_MODEL && ! -e $CONTROL/STOP ]] && (( FALLBACK_SECS > 60 )); then
+        # Keep the refused attempt's evidence; the suffix keeps `next` numbering intact.
+        mv -f "$PREFIX.jsonl" "$PREFIX.jsonl.primary"
+        mv -f "$PREFIX.err" "$PREFIX.err.primary"
+        MODEL_USED="$FALLBACK_MODEL (fallback)"
+        log "WARNING: default model unavailable; rerunning iteration $ITERATION on fallback $FALLBACK_MODEL."
+        run_codex "$PREFIX.prompt.md" "$PREFIX" "$FALLBACK_SECS" "$WORKDIR" "$FALLBACK_MODEL"
+        ITER_END=$(date -u +%FT%TZ)
+        RESULT=$(python3 "$CONTROL/control.py" classify "$PREFIX.jsonl" "$PREFIX.err" "$LAST_RC")
+    fi
     COMMITS=0
     if [[ $SMOKE == 0 ]]; then
         COMMITS=$(git_repo rev-list --count "$BEFORE..HEAD")
@@ -327,7 +344,7 @@ while true; do
     else NO_PROGRESS=$((NO_PROGRESS + 1)); fi
     STATE=between_iterations
     heartbeat
-    log "Iteration $ITERATION finished: rc=$LAST_RC result=$RESULT commits=$COMMITS no_progress=$NO_PROGRESS."
+    log "Iteration $ITERATION finished: rc=$LAST_RC result=$RESULT model=$MODEL_USED commits=$COMMITS no_progress=$NO_PROGRESS."
     if [[ $SMOKE == 1 && $RESULT == ok ]]; then STOP_REASON=smoke_complete; break; fi
     if [[ $RESULT != ok || $COMMITS == 0 ]]; then
         WAIT_MIN=$RETRY_WAIT_MIN

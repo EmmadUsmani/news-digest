@@ -28,6 +28,13 @@ AUTH = re.compile(
     r"(?:api key|authentication token) (?:is )?(?:invalid|expired|missing)",
     re.I,
 )
+# The provider refuses the configured model itself (e.g. a server-side minimum
+# Codex version); the supervisor reruns the iteration on FALLBACK_MODEL.
+MODEL_UNAVAILABLE = re.compile(
+    r"model requires a newer version of codex|\bmodel_not_found\b|"
+    r"the model [`'\"]?[\w.:/-]+[`'\"]? (?:does not exist|is not supported|is not available)",
+    re.I,
+)
 
 
 def classify(event_path, stderr_path, exit_code):
@@ -51,6 +58,8 @@ def classify(event_path, stderr_path, exit_code):
         return "auth"
     if LIMIT.search(diagnostic):
         return "usage"
+    if MODEL_UNAVAILABLE.search(diagnostic):
+        return "model_unavailable"
     if exit_code in {124, 137}:
         return "timeout"
     return "ok" if exit_code == 0 and terminal != "turn.failed" else "crash"
