@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1620: Completed current admin/tool read rollout inventory; safe refusals still leave public read-only pages/tools and sanitized-reader application wiring unfinished. [Route findings and next implementation step](docs/public-read-rollout-review.md). Phase 4 response gate remains open; no runtime/flag/migration change.
+- [x] Iteration 1621: Wired system-only schedule GET/HEAD into public-mode application with pool cleanup; private-mode route stays absent and profile contract retained. Isolated full-application response/access checks added. Schedule UI migration and other public read/tool rollout gaps remain open. [Review](docs/public-read-rollout-review.md).
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

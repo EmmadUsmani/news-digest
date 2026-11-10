@@ -124,3 +124,7 @@ topic, weakest free-link coverage first. Grok writes fresh keywords; code adds
 stored thresholds, exclusions and the exact window. One failed call may receive
 one admitted retry. Spend caps, official verification and durable daily admission
 apply to every call. See [Social posts](05-social-posts.md).
+
+Public mode exposes the system schedule at `GET /api/settings/schedule`: cadence,
+timezone, coverage window and story/post budgets. Private mode uses the existing
+admin profile endpoint. Schedule changes require an admin session.

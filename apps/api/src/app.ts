@@ -19,6 +19,7 @@ import { IngestionModule } from './modules/ingestion/ingestion.module';
 import { OperationsModule } from './modules/operations/operations.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 import { TopicsModule } from './modules/topics/topics.module';
+import { PublicScheduleModule } from './public-read/schedule.module';
 import { AccessModule } from './public-write/access.module';
 @Injectable()
 class HealthService implements OnModuleDestroy {
@@ -55,6 +56,7 @@ class HealthController {
 @Module({
   imports: [
     AccessModule,
+    PublicScheduleModule.prepare(process.env, database, true),
     OperationsModule,
     DigestsModule,
     IngestionModule,

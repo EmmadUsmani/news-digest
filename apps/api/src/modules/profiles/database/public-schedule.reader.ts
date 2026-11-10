@@ -5,7 +5,7 @@ import type { Pool } from 'pg';
 import { editionSettings } from '../../../libs/db/schema';
 import { readPublicSchedule } from '../../../public-read/settings';
 
-// Phase 4 preparation: deliberately unregistered. The caller owns this pool.
+// Public-mode system reader. The caller owns this pool.
 // Never consult a profile or fall back to a legacy schedule, even with the
 // system-ownership flag disabled or the singleton missing.
 export class PublicScheduleReader {

@@ -7,13 +7,13 @@ import {
   PublicScheduleController,
 } from './schedule.controller';
 
-// Preparation only: main does not import this module. The caller owns the pool.
-// Route authorization must be installed separately before public promotion.
+// The application owns its pool; isolated composition may borrow a caller pool.
 @Module({})
 export class PublicScheduleModule {
   static prepare(
     env: Readonly<Record<string, string | undefined>>,
     getPool: () => Pool,
+    closePoolOnShutdown = false,
   ): DynamicModule {
     const enabled = env.PUBLIC_MODE ?? '0';
     if (enabled !== '0' && enabled !== '1')
@@ -23,13 +23,22 @@ export class PublicScheduleModule {
       throw new Error(
         'Public schedule requires system ownership and published readers',
       );
+    let pool: Pool | undefined;
     return {
       module: PublicScheduleModule,
       controllers: [PublicScheduleController],
       providers: [
         {
+          provide: Symbol('PUBLIC_SCHEDULE_POOL_LIFECYCLE'),
+          useValue: {
+            async onModuleDestroy() {
+              if (closePoolOnShutdown) await pool?.end();
+            },
+          },
+        },
+        {
           provide: PUBLIC_SCHEDULE,
-          useFactory: () => new PublicScheduleReader(getPool()),
+          useFactory: () => new PublicScheduleReader((pool ??= getPool())),
         },
       ],
     };

@@ -7,7 +7,7 @@ export interface PublicSchedulePort {
   read(): Promise<unknown>;
 }
 
-// Unregistered Phase 4 transport. Future composition must provide the system-only
+// Public-mode transport. Composition must provide the system-only
 // PublicScheduleReader, never the legacy profile repository.
 @Controller('api/settings/schedule')
 export class PublicScheduleController {

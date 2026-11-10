@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import type { Pool } from 'pg';
 
 import {
   PUBLIC_SCHEDULE,
@@ -117,4 +118,31 @@ void test('public schedule composition stays dependency-free when disabled and r
   ])
     assert.throws(() => PublicScheduleModule.prepare(env, getPool));
   assert.equal(calls, 0);
+});
+
+void test('application schedule composition closes owned storage and preserves borrowed storage', async () => {
+  for (const owned of [false, true]) {
+    let opened = 0;
+    let closed = 0;
+    const pool = {
+      end: async () => {
+        closed++;
+      },
+    } as unknown as Pool;
+    const app = await NestFactory.create(
+      PublicScheduleModule.prepare(
+        { PUBLIC_MODE: '1', SYSTEM_OWNERSHIP: '1', READER_PUBLISHED_ONLY: '1' },
+        () => {
+          opened++;
+          return pool;
+        },
+        owned,
+      ),
+      { logger: false },
+    );
+    await app.init();
+    assert.equal(opened, 1);
+    await app.close();
+    assert.equal(closed, owned ? 1 : 0);
+  }
 });

@@ -18,6 +18,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/account/sign-in',
     '/api/account/session',
     '/healthz',
+    '/api/settings/schedule',
     '/api/admin/status/alerts',
   ]) {
     assert.equal(classifyPublicRoute('GET', path), 'public-read', path);

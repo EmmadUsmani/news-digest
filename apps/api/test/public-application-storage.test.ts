@@ -89,6 +89,35 @@ void test('configured full public application serves published fixtures and enfo
       database: true,
       redis: true,
     });
+    // Use a separate visitor so these checks preserve the existing reader
+    // allowance exhaustion scenario below, including admission for refusals.
+    const scheduleGet = (path: string, init: RequestInit = {}) =>
+      get(path, {
+        ...init,
+        headers: {
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.95, 203.0.113.95',
+          ...init.headers,
+        },
+      });
+    const expectedSchedule = await db.query(
+      'SELECT cadence,timezone,coverage_window AS "coverageWindow",story_budget AS "storyBudget",post_budget AS "postBudget" FROM edition_settings WHERE id=1',
+    );
+    assert.equal(expectedSchedule.rowCount, 1);
+    const schedule = await scheduleGet('/api/settings/schedule');
+    assert.equal(schedule.status, 200);
+    assert.equal(schedule.headers.get('cache-control'), 'no-store');
+    assert.deepEqual(await schedule.json(), expectedSchedule.rows[0]);
+    const scheduleHead = await scheduleGet('/api/settings/schedule', {
+      method: 'HEAD',
+    });
+    assert.equal(scheduleHead.status, 200);
+    assert.equal(await scheduleHead.text(), '');
+    for (const method of ['POST', 'PUT', 'PATCH', 'DELETE']) {
+      const refused = await scheduleGet('/api/settings/schedule', { method });
+      assert.equal(refused.status, 404);
+      assert.equal(await refused.text(), '');
+    }
+    assert.equal((await scheduleGet('/api/admin/profile')).status, 404);
     const latest = await get('/api/editions/latest');
     assert.equal(latest.status, 200);
     assert.equal(readerEditionSchema.parse(await latest.json()).id, ids[0]);
