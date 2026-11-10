@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1612: full application malformed/oversized request rehearsal refuses ten authenticated writes without changing sessions, preferences or topics; public mode stays off.
+- [x] Iteration 1613: full application duplicate/malformed session-cookie rehearsal refuses twelve account/admin writes without changing sessions, preferences or topics; public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

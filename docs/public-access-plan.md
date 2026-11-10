@@ -393,6 +393,12 @@ the remaining Phase 3 checks still gate activation.
 
 ## Phase 4 preparation
 
+Full compiled-application cookie refusal rehearsal (iteration 1613) checks
+duplicate session cookies, both valid/malformed orderings and a malformed token
+against account deletion, all-device logout and topic updates. Twelve empty
+no-store 401/404 responses issue no session cookie; subsequent authenticated reads
+preserve the account, preferences and topic catalog. Storage is disposable.
+
 Full compiled-application body refusal rehearsal (iteration 1612) sends malformed
 JSON and oversized same-origin requests with a real admin session to logout,
 logout-all, deletion, preference sync and topic updates. All ten requests return

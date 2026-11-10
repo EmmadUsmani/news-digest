@@ -272,6 +272,40 @@ void test('configured full public application serves published fixtures and enfo
         assert.equal(response.headers.get('access-control-allow-origin'), null);
       }
     }
+    // Ambiguous cookie headers must not recover a valid token from either
+    // position and authorize writes through the compiled application.
+    for (const invalidCookie of [
+      `${cookie}; ${cookie}`,
+      `${cookie}; __Host-reader_session=malformed`,
+      `__Host-reader_session=malformed; ${cookie}`,
+      '__Host-reader_session=malformed',
+    ]) {
+      for (const [path, method, body] of [
+        ['/api/account/delete', 'POST', { confirmation: 'DELETE' }],
+        ['/api/account/logout-all', 'POST', {}],
+        ['/api/admin/topics/' + topic.id, 'PUT', { enabled: !topic.enabled }],
+      ] as const) {
+        const response = await account(path, {
+          method,
+          headers: {
+            Cookie: invalidCookie,
+            Origin: configuration.ACCOUNT_ORIGIN,
+            'Content-Type': 'application/json',
+            'X-Forwarded-For': '203.0.113.97, 203.0.113.97',
+            'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+          },
+          body: JSON.stringify(body),
+        });
+        assert.equal(
+          response.status,
+          path.startsWith('/api/admin/') ? 404 : 401,
+          `${method} ${path}: invalid cookie`,
+        );
+        assert.equal(await response.text(), '');
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(response.headers.get('set-cookie'), null);
+      }
+    }
     // Body refusal must happen before real account and topic mutations, even
     // when same-origin requests carry a valid admin session.
     for (const [path, method] of [
