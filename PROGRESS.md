@@ -113,3 +113,11 @@ Earlier entries: [iterations 1614–1615](docs/progress-archive/2026-11-10-1625.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-09T15:00:00Z` passes saved latest/direct/history parity: four topics, 19 stories, 14 posts. Existing reader weaknesses and owner tuning/source holds remain; no speculative hardening or content changes.
 - Updated TASKS and capacity evidence only. No provider calls, migrations, flags, runtime configuration or application code changes; live services already match application main, so no restart needed.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (typecheck/lint/format/boundaries, 804 unit and 277 integration tests/four expected skips) and `git diff --check` pass. Next: normal Nov 10 15:00 scheduled review/Phase 3 acceptance; migration 0019/public mode held, natural link-expiry check after Nov 11 00:33:01 UTC.
+
+## 2026-11-10: iteration 1686 — GamingBolt source outage triage
+
+- Clean main; no inherited work. Pending RecentJobFailures alert traced to GamingBolt RSS collection, with repeated 20-second AbortError timeouts. Direct `curl --max-time 25` also receives zero bytes and times out; external recovery remains pending.
+- `pnpm obs sources --check`: 35 healthy, GamingBolt error; last success 11:16:24 UTC, 10 items/160 stored. Existing scheduled bounded retries retained; no bypass, provider call or runtime change.
+- `/healthz` passes database/Redis; no failed user services. `pnpm obs jobs --check` shows scheduled 15:00 UTC digest pending, no failed digest runs. Saved-reader parity passes four topics/19 stories/14 posts.
+- Recorded incident in TASKS and SOURCES. Phase 3 still waits for scheduled edition; migration 0019/public activation and content tuning remain held. Metrics probe not due before 12:28 UTC.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (804 unit tests; 277 integration passes/four expected skips), saved-reader parity and `git diff --check` pass. Documentation only; running application already matches main, no restart needed.

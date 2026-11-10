@@ -2386,3 +2386,8 @@ X and Bluesky likes/reposts of 0/1 and 6/3. Text diversity review is complete;
 overall viral-quality acceptance is not met. No collection, search, ranking,
 threshold, slot or budget change; new tuning waits for item 50.
 [Evidence and decision](edition-reviews/2026-11-09.md#third-edition-diversity-decision--iteration-1549).
+
+## 2026-11-10 iteration 1686 — GamingBolt timeout
+
+- Scheduled GamingBolt RSS collection timed out twice at the existing 20-second limit around 11:47–11:48 UTC; a direct public-feed probe also timed out after 25 seconds with zero bytes. Last success: 11:16:24 UTC, 10 items; 160 stored articles remain available.
+- Other 35 sources are healthy. Keep existing bounded retries and hourly schedule; recovery is pending. No endpoint, configuration or access workaround changed.
