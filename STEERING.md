@@ -2272,6 +2272,14 @@ completes the owner check and the proxy/TLS cookie check for phase 3. Record it
 in `NEEDS_FROM_HUMAN.md`. Phase 3 is accepted once the Nov 10 scheduled edition
 publishes normally with accounts on, as above.
 
+**Lead update (Nov 10, owner approved): tonight's order.**
+
+- Don't apply migration 0019 live until phase 3 is accepted after the Nov 10
+  scheduled edition. Rehearse it on restored copies only until then.
+- When public-readiness work is waiting on that edition, use item 42: read the
+  latest edition as a reader and fix the biggest weakness, before 12:00 UTC.
+  Don't fill the wait with more small hardening commits.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`
