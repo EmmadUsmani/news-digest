@@ -150,3 +150,5 @@ All Nov 1–2 editions remain unpublished and visible in admin; `integration:`
 editions are tests. No further publication decision is needed. Phase-0 backfill,
 comparison and reader filter remain implementation work; visibility is unchanged.
 [Inventory](docs/edition-reviews/2026-11-07-publication-inventory.md).
+
+- Nov 10 (1625): newest item-50 waiting order followed; World social tuning and richer Tech sources remain held by existing instructions, so no new content change is authorized before scheduled evidence. No owner response requested. [Comparison](docs/edition-reviews/2026-11-10.md).

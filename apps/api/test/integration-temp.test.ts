@@ -13,6 +13,7 @@ import {
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
+import { setTimeout } from 'node:timers/promises';
 
 import {
   cleanupIntegrationTemps,
@@ -52,8 +53,18 @@ void test('integration cleanup preserves recent, active, unrelated and symlink f
     const exited = once(child, 'exit');
     child.kill('SIGKILL');
     await exited;
-    assert.deepEqual(cleanupIntegrationTemps(root), [orphan.split('/').at(-1)]);
+    // A concurrent runner can become uninspectable during a /proc scan. The
+    // cleaner must retain everything in that case; a later pass reaps the orphan.
+    const deadline = Date.now() + 10_000;
+    let removed = cleanupIntegrationTemps(root);
+    while (removed.length === 0 && Date.now() < deadline) {
+      await setTimeout(100);
+      removed = cleanupIntegrationTemps(root);
+    }
+    assert.deepEqual(removed, [orphan.split('/').at(-1)]);
     assert.equal(existsSync(orphan), false);
+    for (const path of [recent, active, unrelated, link])
+      assert.ok(existsSync(path), path);
     assert.deepEqual(cleanupIntegrationTemps(root), []);
   } finally {
     child.kill('SIGKILL');

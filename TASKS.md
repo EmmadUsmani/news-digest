@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1624: Public-mode source catalog GET/HEAD uses the audited origin-only projection, without overlapping legacy routes; owned/borrowed storage lifecycle and full-application responses covered. Private catalog retained. UI consumers and status/tool wiring remain open. [Review](docs/public-read-rollout-review.md).
+- [x] Iteration 1625: Followed newest item-50 waiting order; read all served briefs, 19 summaries and 14 posts. World social/thin Tech causes already known and tuning held; existing NBA guidance awaits scheduled evidence. Recorded [Nov 10 comparison and Phase 3 gates](docs/edition-reviews/2026-11-10.md); repaired repeated temp-cleanup test race with bounded rescans, without weakening folder protection.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
