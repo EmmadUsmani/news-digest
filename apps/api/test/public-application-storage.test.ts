@@ -12,8 +12,9 @@ import { readerEditionSchema } from '@digest/contracts';
 import { NestFactory } from '@nestjs/core';
 
 import { database } from '../src/libs/db/connections';
+import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 
-void test('configured full public application serves published fixtures and refuses anonymous writes before controllers', async () => {
+void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const directory = await mkdtemp(join(tmpdir(), 'public-application-'));
   const configuration = {
@@ -116,6 +117,94 @@ void test('configured full public application serves published fixtures and refu
       assert.equal(await response.text(), '');
       assert.equal(response.headers.get('cache-control'), 'no-store');
     }
+    // A separate verified visitor exercises real account transport and the
+    // authenticated controller/write paths without changing the reader budget.
+    const account = (path: string, init: RequestInit = {}) =>
+      get(path, {
+        ...init,
+        headers: {
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.92, 203.0.113.92',
+          ...init.headers,
+        },
+      });
+    const write = (path: string, body: unknown, cookie = '') =>
+      account(path, {
+        method: 'POST',
+        headers: {
+          Origin: configuration.ACCOUNT_ORIGIN,
+          'Content-Type': 'application/json',
+          Cookie: cookie,
+        },
+        body: JSON.stringify(body),
+      });
+    assert.equal(
+      (await write('/api/account/code', { email: configuration.ADMIN_EMAILS }))
+        .status,
+      202,
+    );
+    const code = await new FileLoginCodeDelivery(directory).latest(
+      configuration.ADMIN_EMAILS,
+      new Date(),
+    );
+    assert.ok(code);
+    const login = await write('/api/account/redeem', {
+      email: configuration.ADMIN_EMAILS,
+      code,
+    });
+    assert.equal(login.status, 204);
+    const cookie = login.headers.get('set-cookie')!.split(';')[0];
+    assert.match(login.headers.get('set-cookie')!, /Secure/);
+    assert.match(login.headers.get('set-cookie')!, /HttpOnly/);
+    const signedIn = await account('/api/account/session', {
+      headers: { Cookie: cookie },
+    });
+    const identity = (await signedIn.json()) as {
+      signedIn: boolean;
+      isAdmin: boolean;
+    };
+    assert.equal(identity.signedIn, true);
+    assert.equal(identity.isAdmin, true);
+    const adminTopics = await account('/api/admin/topics', {
+      headers: { Cookie: cookie },
+    });
+    assert.equal(adminTopics.status, 200);
+    const catalog = (await adminTopics.json()) as {
+      id: string;
+      enabled: boolean;
+    }[];
+    assert.ok(catalog.length > 0);
+    const topic = catalog[0];
+    const toggle = await account('/api/admin/topics/' + topic.id, {
+      method: 'PUT',
+      headers: {
+        Cookie: cookie,
+        Origin: configuration.ACCOUNT_ORIGIN,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ enabled: topic.enabled }),
+    });
+    assert.equal(toggle.status, 200);
+    assert.deepEqual(await toggle.json(), {
+      outcome: 'unchanged',
+      id: topic.id,
+      enabled: topic.enabled,
+    });
+    const empty = { version: 1, hiddenTopics: {}, bookmarks: {} };
+    const sync = await write('/api/account/sync', empty, cookie);
+    assert.equal(sync.status, 200);
+    assert.deepEqual(await sync.json(), empty);
+    assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
+    const revoked = await account('/api/admin/topics', {
+      headers: { Cookie: cookie },
+    });
+    assert.equal(revoked.status, 404);
+    assert.equal(await revoked.text(), '');
+    assert.deepEqual(
+      await (
+        await account('/api/account/session', { headers: { Cookie: cookie } })
+      ).json(),
+      { signedIn: false, isAdmin: false },
+    );
     const missingClient = await fetch(base + '/api/editions/latest');
     assert.equal(missingClient.status, 429);
     assert.equal(await missingClient.text(), '');

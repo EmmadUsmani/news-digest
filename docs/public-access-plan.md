@@ -413,7 +413,10 @@ application rehearsal with the configured provider mounted before body parsers,
 real reader controllers and the public error filter. It checks published fixture
 latest/direct reads, private fixture refusal, anonymous session reads, restricted topic reads,
 forged-header write refusal, empty controller errors and shared admission across
-reader/account routes. Owner and scheduled acceptance gates remain open. No live
+reader/account routes. Iteration 1605 extends this same compiled application rehearsal
+through temporary-mailbox code redemption, secure admin session cookies, authorized
+topic reads and an unchanged topic-enable write, reader sync, and logout revocation.
+Owner and scheduled acceptance gates remain open. No live
 flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
