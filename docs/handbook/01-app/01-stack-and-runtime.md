@@ -72,6 +72,7 @@ flowchart LR
   and same-origin framing headers before account handling and authorization.
   The CSP limits base URLs, plugin objects, embedding ancestors and form destinations; images use the app origin or HTTPS sources.
   Document fonts and audio/video use the app origin; social media plays in X frames. Document workers, inline scripts/handlers and eval are blocked. Scripts use the app origin or `https://platform.twitter.com`; theme setup is a local file and browser validation uses no generated code.
+  Public API admission allows 120 requests per minute per verified visitor through Redis, before accounts and authorization; health and static files bypass it. Private mode opens no admission connection.
   Connections use the app origin or `https://syndication.twitter.com`; frames use the app origin or the two X embed hosts.
 - Non-secret settings (topics, schedule, budgets) live in the database and
   are edited in the app.

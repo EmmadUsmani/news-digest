@@ -397,7 +397,10 @@ Prepared API-admission configuration (iteration 1601) reuses the verified
 last-entry visitor selector and account secret with the limiter’s separate HMAC
 namespace. It validates peers and the key before acquiring Redis, owns idempotent
 shutdown, and opens no resources with public mode off. The configured adapter
-remains unregistered pending runtime composition and Phase 4 acceptance.
+is composed into the configured public runtime (iteration 1602). Startup failure
+closes admission Redis; shutdown attempts both storage and admission cleanup
+once and reports all failures. Private mode opens no admission resources.
+Public mode remains off pending Phase 4 acceptance.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
 the largest year its ISO timestamp storage accepts. Larger clocks return an

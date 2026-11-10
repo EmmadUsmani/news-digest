@@ -12,6 +12,7 @@ import {
   type AccessHttpRuntime,
   configuredAccessHttpProvider,
 } from '../src/public-write/access-provider';
+import { prepareConfiguredApiAdmission } from '../src/public-write/configured-api-admission';
 import { prepareStoredAccessRuntime } from '../src/public-write/stored-access-runtime';
 
 // Exercise the configured Nest boundary with storage/session stand-ins. No live
@@ -61,6 +62,7 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
           }) as unknown as Pool,
         recorder: () => assert.fail('Readiness refusal opened audit storage'),
       }),
+    testAdmission,
   );
   @Module({ providers: [provider] })
   class ReadinessModule {}
@@ -180,3 +182,15 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
   }
   assert.equal(closed, 2);
 });
+
+function testAdmission(env: Readonly<Record<string, string | undefined>>) {
+  const prepared = prepareConfiguredApiAdmission(
+    {
+      ...env,
+      ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+      ACCOUNT_SECRET_KEY: 'ab'.repeat(32),
+    },
+    () => ({ eval: async () => 1, quit: async () => 'OK' }),
+  );
+  return prepared ? { ...prepared, client: () => 'offline-visitor' } : null;
+}

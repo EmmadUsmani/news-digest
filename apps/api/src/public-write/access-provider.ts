@@ -1,5 +1,6 @@
 import { adminAccess } from '../admin-access';
 import { AccountRequestBoundary } from '../modules/accounts/adapters/account-request';
+import { prepareConfiguredApiAdmission } from './configured-api-admission';
 import { prepareStoredAccessRuntime } from './stored-access-runtime';
 
 export const ACCESS_HTTP = Symbol('ACCESS_HTTP');
@@ -33,6 +34,7 @@ export function accessHttpProvider(
 export function configuredAccessHttpProvider(
   env: Readonly<Record<string, string | undefined>>,
   prepare = prepareStoredAccessRuntime,
+  prepareAdmission = prepareConfiguredApiAdmission,
 ) {
   return {
     provide: ACCESS_HTTP,
@@ -47,20 +49,54 @@ export function configuredAccessHttpProvider(
           throw new Error('Public access requires enabled accounts');
         new AccountRequestBoundary(origin);
       }
-      return accessHttpProvider(
-        {
-          enabled,
-          origin,
-          env,
-          localToken: env.ADMIN_LOCAL_TOKEN,
-          legacyAccess: () =>
-            adminAccess({
-              emails: env.ADMIN_EMAILS,
-              localToken: env.ADMIN_LOCAL_TOKEN,
-            }),
-        },
-        prepare,
-      ).useFactory();
+      const admission = prepareAdmission(env);
+      let runtime: AccessHttpRuntime;
+      try {
+        runtime = await accessHttpProvider(
+          {
+            enabled,
+            apiAdmission: admission ?? undefined,
+            origin,
+            env,
+            localToken: env.ADMIN_LOCAL_TOKEN,
+            legacyAccess: () =>
+              adminAccess({
+                emails: env.ADMIN_EMAILS,
+                localToken: env.ADMIN_LOCAL_TOKEN,
+              }),
+          },
+          prepare,
+        ).useFactory();
+      } catch (error) {
+        try {
+          await admission?.close();
+        } catch (cleanupError) {
+          throw new AggregateError(
+            [error, cleanupError],
+            'Configured access startup and cleanup failed',
+          );
+        }
+        throw error;
+      }
+      let closing: Promise<void> | undefined;
+      return {
+        middleware: runtime.middleware,
+        onModuleDestroy: () =>
+          (closing ??= (async () => {
+            const results = await Promise.allSettled([
+              Promise.resolve().then(() => runtime.onModuleDestroy()),
+              Promise.resolve().then(() => admission?.close()),
+            ]);
+            const failures = results.filter(
+              (result) => result.status === 'rejected',
+            );
+            if (failures.length)
+              throw new AggregateError(
+                failures.map((failure): unknown => failure.reason),
+                'Configured access shutdown failed',
+              );
+          })()),
+      };
     },
   };
 }

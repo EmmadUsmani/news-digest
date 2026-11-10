@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
 import test from 'node:test';
 
 import { Module } from '@nestjs/common';
@@ -13,6 +14,8 @@ import {
   type AccessHttpRuntime,
   configuredAccessHttpProvider,
 } from '../src/public-write/access-provider';
+import { prepareAccessStack } from '../src/public-write/access-stack';
+import { prepareConfiguredApiAdmission } from '../src/public-write/configured-api-admission';
 import { prepareStoredAccessRuntime } from '../src/public-write/stored-access-runtime';
 
 void test('Nest owns prepared access shutdown and mounts its middleware before parsers', async () => {
@@ -120,20 +123,24 @@ void test('configured access selects private defaults and forwards public config
     let opened = 0;
     let closed = 0;
     const middleware = () => {};
-    const provider = configuredAccessHttpProvider(env, async (options) => {
-      opened++;
-      assert.equal(options.enabled, env.PUBLIC_MODE === '1');
-      assert.equal(options.origin, env.ACCOUNT_ORIGIN ?? '');
-      assert.equal(options.env, env);
-      assert.equal(options.localToken, env.ADMIN_LOCAL_TOKEN);
-      assert.equal(typeof options.legacyAccess(), 'function');
-      return {
-        middleware,
-        close: async () => {
-          closed++;
-        },
-      };
-    });
+    const provider = configuredAccessHttpProvider(
+      env,
+      async (options) => {
+        opened++;
+        assert.equal(options.enabled, env.PUBLIC_MODE === '1');
+        assert.equal(options.origin, env.ACCOUNT_ORIGIN ?? '');
+        assert.equal(options.env, env);
+        assert.equal(options.localToken, env.ADMIN_LOCAL_TOKEN);
+        assert.equal(typeof options.legacyAccess(), 'function');
+        return {
+          middleware,
+          close: async () => {
+            closed++;
+          },
+        };
+      },
+      testAdmission,
+    );
     assert.equal(opened, 0);
     const runtime = await provider.useFactory();
     assert.equal(opened, 1);
@@ -230,6 +237,7 @@ void test('configured public Nest runtime refuses proxy identities and writes be
         recorder: () =>
           assert.fail('Refused requests opened admission storage'),
       }),
+    testAdmission,
   );
   @Module({ providers: [provider] })
   class PublicTestModule {}
@@ -291,4 +299,152 @@ void test('configured public Nest runtime refuses proxy identities and writes be
     await app.close();
   }
   assert.deepEqual(closed.sort(), ['accounts', 'sources']);
+});
+
+function testAdmission(env: Readonly<Record<string, string | undefined>>) {
+  const prepared = prepareConfiguredApiAdmission(
+    {
+      ...env,
+      ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+      ACCOUNT_SECRET_KEY: 'ab'.repeat(32),
+    },
+    () => ({ eval: async () => 1, quit: async () => 'OK' }),
+  );
+  return prepared ? { ...prepared, client: () => 'offline-visitor' } : null;
+}
+
+void test('configured limiter validates before storage, cleans failed startup and aggregates shutdown', async () => {
+  const env = {
+    PUBLIC_MODE: '1',
+    ACCOUNTS_ENABLED: '1',
+    ACCOUNT_ORIGIN: 'https://reader.example',
+  };
+  await assert.rejects(
+    configuredAccessHttpProvider(env, async () =>
+      assert.fail('Storage opened'),
+    ).useFactory(),
+    /proxy peers/,
+  );
+  for (const cleanupFails of [false, true]) {
+    let closed = 0;
+    const admission = () => {
+      const gate = testAdmission(env)!;
+      return {
+        ...gate,
+        close: async () => {
+          await gate.close();
+          closed++;
+          if (cleanupFails) throw new Error('Redis close failed');
+        },
+      };
+    };
+    const startup = new Error('Storage startup failed');
+    await assert.rejects(
+      configuredAccessHttpProvider(
+        env,
+        async (options) => {
+          assert.ok(options.apiAdmission);
+          throw startup;
+        },
+        admission,
+      ).useFactory(),
+      (error: unknown) => {
+        if (cleanupFails) {
+          assert.ok(error instanceof AggregateError);
+          assert.equal(error.errors[0], startup);
+          assert.equal(error.errors.length, 2);
+        } else assert.equal(error, startup);
+        return true;
+      },
+    );
+    assert.equal(closed, 1);
+    const runtime = await configuredAccessHttpProvider(
+      env,
+      async () => ({
+        middleware: () => {},
+        close: async () => {
+          throw new Error('Storage close failed');
+        },
+      }),
+      admission,
+    ).useFactory();
+    const closing = runtime.onModuleDestroy();
+    assert.equal(runtime.onModuleDestroy(), closing);
+    await assert.rejects(closing, (error: unknown) => {
+      assert.ok(error instanceof AggregateError);
+      assert.equal(error.errors.length, cleanupFails ? 2 : 1);
+      return true;
+    });
+    assert.equal(closed, 2);
+  }
+});
+
+void test('configured public provider enforces verified visitor denial before account dispatch', async () => {
+  let allowed = false;
+  let accounts = 0;
+  const keys: unknown[] = [];
+  const env = {
+    PUBLIC_MODE: '1',
+    ACCOUNTS_ENABLED: '1',
+    ACCOUNT_ORIGIN: 'https://reader.example',
+    ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+    ACCOUNT_SECRET_KEY: 'ab'.repeat(32),
+  };
+  const runtime = await configuredAccessHttpProvider(
+    env,
+    async (options) => ({
+      middleware: prepareAccessStack({
+        publicMode: true,
+        apiAdmission: options.apiAdmission,
+        accounts: (_request, _response, next) => {
+          accounts++;
+          next();
+        },
+        publicAccess: () => (_request, _response, next) => next(),
+        legacyAccess: () => assert.fail(),
+      }),
+      close: async () => {},
+    }),
+    (config) =>
+      prepareConfiguredApiAdmission(config, () => ({
+        eval: async (...args) => {
+          keys.push(args[2]);
+          return allowed ? 1 : 0;
+        },
+        quit: async () => 'OK',
+      })),
+  ).useFactory();
+  const server = createServer((req, res) =>
+    runtime.middleware(req, res, () => res.writeHead(204).end()),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const base = `http://127.0.0.1:${address.port}`;
+  try {
+    for (const prefix of ['', '192.0.2.1, ', '192.0.2.2, 192.0.2.1, ']) {
+      const response = await fetch(base + '/api/accounts/session', {
+        headers: { 'x-forwarded-for': prefix + '203.0.113.10, 203.0.113.10' },
+      });
+      assert.equal(response.status, 429);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+    }
+    assert.equal(new Set(keys).size, 1);
+    assert.equal(accounts, 0);
+    assert.equal((await fetch(base + '/healthz')).status, 204);
+    allowed = true;
+    assert.equal(
+      (
+        await fetch(base + '/api/editions/latest', {
+          headers: { 'x-forwarded-for': '203.0.113.10, 203.0.113.10' },
+        })
+      ).status,
+      204,
+    );
+    assert.equal(accounts, 2);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+    await runtime.onModuleDestroy();
+  }
 });
