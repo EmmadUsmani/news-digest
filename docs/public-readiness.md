@@ -50,7 +50,10 @@ activation review, rather than adding more variants of already-covered refusals.
       projections and expose the approved read-only pages/tools. Initial [tool producer review](public-tool-response-review.md) completed (1716):
       Grafana grants expose unpublished snapshots/raw errors and jobs return raw payloads.
       Separate Grafana view-only reader SQL prepared, not installed (1717–1718), including published daily content counts. A separate uninstalled three-panel public overview
-      now executes against that role in disposable tests (1719); Grafana rendering, datasource isolation and query-route review remain.
+      now executes against that role in disposable tests (1719). Inherited privilege/catalog
+      review (1721) pins denied escalation but demonstrates readable comments/view definitions;
+      same-database arbitrary public SQL remains unapproved. Rehearse sanitized export storage
+      or a fixed-query interface before datasource installation; rendering and query-route review remain.
       Fix these data boundaries before installing tool routes; the gate is still open. Confirm `/logs`
       and `/metrics` require an admin session and account tables deny operational/PUBLIC reader roles after migration.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,

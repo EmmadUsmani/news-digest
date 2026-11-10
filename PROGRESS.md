@@ -121,3 +121,12 @@
 - Deliberately discarded this iteration's unfinished Grafana catalog/function test additions when the source failure took priority. Prior committed Grafana preparation remains intact; review remains open.
 - Targeted `pnpm exec tsx --test apps/api/test/custom-feeds.test.ts` passes (3 tests). Explicit live SharedHttpClient/parseFeed check passes: 2,013,022 bytes, 50 items. Full checks and deployment follow.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` (819 unit, 279 integration/four expected skips), `pnpm build`, scheduled-reader check (four topics/19 stories/15 posts) and `git diff --check` pass. A later format check caught the newly archived progress file; targeted Prettier correction and `pnpm format:check` pass. No application checks failed. Commit/push and post-16:00 UTC restart follow.
+
+## 2026-11-10: iteration 1721 — review inherited Grafana database access
+
+- Clean main; no inherited work. Health/database/Redis pass, no failed user units, zero active alerts and all 36 sources healthy.
+- Extended disposable Grafana SQL coverage: elevated attributes, other role membership and executable application SECURITY DEFINER functions absent; server files/programs and password catalogs checked.
+- Added a rolled-back synthetic comment marker proving catalog comments remain readable; view definitions reveal underlying tables. No claim of live private-row or comment leakage. Same-database arbitrary public SQL remains unapproved.
+- Updated tool review/readiness and next task: rehearse sanitized export storage or server-enforced fixed queries before installing datasource. Prepared SQL/dashboard remain uninstalled; no live role/migration/flag/provider changes. Phase 3 awaits a normal scheduled edition.
+- First full check: 819 unit tests pass; Grafana test exposed that superuser-backed SET LOCAL ROLE cannot prove SET ROLE denial. Removed that invalid assertion and documented the real-login rehearsal requirement; corrected full rerun follows.
+- Corrected full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, scheduled-reader check (four topics/19 stories/15 posts) and `git diff --check` pass. Commit/push and API/worker restart follow.

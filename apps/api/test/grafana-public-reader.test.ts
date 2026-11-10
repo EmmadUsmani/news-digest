@@ -32,7 +32,39 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
     );
     await client.query(sql);
     await client.query(sql); // Rehearse an idempotent deployment.
+    // Catalog comments bypass table SELECT grants. Keep a private marker to
+    // demonstrate why this same-database role cannot back arbitrary public SQL.
+    await client.query(
+      "COMMENT ON TABLE public.users IS 'private-catalog-comment-marker'",
+    );
     await client.query('SET LOCAL ROLE grafana_public_product');
+    const privileges = await client.query(`SELECT rolsuper, rolcreatedb,
+      rolcreaterole, rolreplication, rolbypassrls FROM pg_roles
+      WHERE rolname = current_user`);
+    assert.deepEqual(privileges.rows, [
+      {
+        rolsuper: false,
+        rolcreatedb: false,
+        rolcreaterole: false,
+        rolreplication: false,
+        rolbypassrls: false,
+      },
+    ]);
+    const memberships = await client.query(`SELECT rolname FROM pg_roles
+      WHERE oid <> current_user::regrole
+        AND pg_has_role(current_user, oid, 'MEMBER')`);
+    assert.deepEqual(memberships.rows, []);
+    const executableDefiners = await client.query(`SELECT n.nspname, p.proname
+      FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace
+      WHERE p.prosecdef AND has_function_privilege(current_user,p.oid,'EXECUTE')
+        AND n.nspname NOT IN ('pg_catalog','information_schema')`);
+    assert.deepEqual(executableDefiners.rows, []);
+    const catalog = await client.query(`SELECT
+      obj_description('public.users'::regclass, 'pg_class') AS comment,
+      pg_get_viewdef('grafana_public.published_content'::regclass) AS definition`);
+    assert.equal(catalog.rows[0].comment, 'private-catalog-comment-marker');
+    assert.match(catalog.rows[0].definition, /digest_previews/);
+
     const editions = await client.query(
       "SELECT * FROM grafana_public.published_editions WHERE day_utc = '2099-11-10'",
     );
@@ -134,6 +166,9 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
       'SELECT email FROM public.users',
       'SELECT token_hash FROM public.sessions',
       'SET ROLE grafana_product',
+      "SELECT pg_read_file('/etc/passwd')",
+      'SELECT * FROM pg_authid',
+      "COPY (SELECT 1) TO PROGRAM 'true'",
       'DELETE FROM grafana_public.source_health',
       'CREATE TABLE grafana_public.injection(id int)',
     ]) {

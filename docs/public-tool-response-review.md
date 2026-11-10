@@ -108,3 +108,28 @@ must never be copied into a public instance or exposed through its datasource.
 Rendering and browser request traces remain unverified until an isolated
 Grafana rehearsal. Datasource isolation, inherited function/catalog access,
 metrics labels and query-route admission remain open before installation.
+
+## Inherited privilege and catalog review (iteration 1721)
+
+Disposable PostgreSQL coverage now checks that the prepared role has no elevated
+role attributes, no other role memberships, and no executable application
+SECURITY DEFINER functions. Attempts to read server files,
+read password catalogs or execute a server program are denied. These checks run
+alongside the exact dashboard queries after repeat SQL installation. A real
+login-session rehearsal is still required for SET ROLE restrictions: the
+superuser test connection retains its session identity after SET LOCAL ROLE.
+
+**Same-database arbitrary SQL remains unapproved.** PostgreSQL catalog reads
+still expose table comments and view definitions despite the table SELECT
+boundary. The test deliberately adds a private comment marker on `users` and
+reads it through `obj_description` as the public role; `pg_get_viewdef` also
+reveals the underlying digest table. The marker is synthetic, transaction-local
+and rolled back; this is not evidence of a leaked live comment or account row.
+NOINHERIT and read-only defaults do not remove PUBLIC catalog/function access.
+
+Before connecting a publicly queryable datasource, choose and rehearse either
+a separate database containing only sanitized exports, or a server-enforced
+fixed-query interface that cannot accept arbitrary SQL. Hiding the query editor
+or using Viewer permissions is insufficient. Keep the current prepared SQL and
+dashboard uninstalled. A separate Grafana instance still needs datasource,
+query-route and browser response review; it alone does not isolate PostgreSQL.

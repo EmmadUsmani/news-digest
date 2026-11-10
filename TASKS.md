@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1720: repaired PC Gamer collection after its valid RSS exceeded 2 MB; shared HTTP wire/expanded limits now 3 MB with offline boundary coverage. Grafana review remains next; public mode stays off.
+- [x] Iteration 1721: added inherited Grafana privilege/catalog regression coverage; catalog comments/view definitions remain readable despite table grants. Same-database arbitrary public SQL unapproved; next rehearse sanitized export storage or a fixed-query interface. Public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
