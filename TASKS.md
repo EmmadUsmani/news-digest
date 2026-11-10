@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1721: added inherited Grafana privilege/catalog regression coverage; catalog comments/view definitions remain readable despite table grants. Same-database arbitrary public SQL unapproved; next rehearse sanitized export storage or a fixed-query interface. Public mode stays off.
+- [x] Iteration 1722: rehearsed dedicated-instance aggregate Grafana storage with real-login read/write/escalation checks. No live installation. Next: bounded atomic export transport/retention, capacity and isolated Grafana rendering/query-route review. Public mode stays off.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

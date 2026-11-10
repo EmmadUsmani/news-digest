@@ -131,3 +131,11 @@
 - First full check: 819 unit tests pass; Grafana test exposed that superuser-backed SET LOCAL ROLE cannot prove SET ROLE denial. Removed that invalid assertion and documented the real-login rehearsal requirement; corrected full rerun follows.
 - Corrected full `pnpm check` passes: 819 unit tests, 279 integration tests/four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, scheduled-reader check (four topics/19 stories/15 posts) and `git diff --check` pass. Commit/push and API/worker restart follow.
 - Initial push rejected (owner lead-status commit advanced main); fetched and merged it without editing owner files. Post-restart health/database/Redis, scheduled reader and all 36 sources pass; zero active alerts or failed user units. Retrying push with the merged history.
+
+## 2026-11-10: iteration 1722 — rehearse isolated Grafana aggregate storage
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and no failed user services.
+- Prepared dedicated-instance PostgreSQL aggregate tables, separate from application catalogs; no live service, datasource, credentials, migration or public flag change.
+- Added disposable-instance real reader login rehearsal: exact daily dashboard queries, aggregate source counts, idempotence and denied escalation/password catalogs/program execution/writes/schema creation. Grants still deny writes after resetting the read-only default.
+- Export transport/atomic refresh/retention, capacity assessment, aggregate source-panel adaptation and Grafana browser/query-route review remain before installation. Synthetic test counts are not live exports. Phase 3 awaits a normal scheduled edition.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). Full `pnpm check` passes (819 unit tests, 280 integration tests/four expected skips); `git diff --check` clean. Commit/push and API/worker restart follow.

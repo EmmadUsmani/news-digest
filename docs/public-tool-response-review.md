@@ -133,3 +133,20 @@ fixed-query interface that cannot accept arbitrary SQL. Hiding the query editor
 or using Viewer permissions is insufficient. Keep the current prepared SQL and
 dashboard uninstalled. A separate Grafana instance still needs datasource,
 query-route and browser response review; it alone does not isolate PostgreSQL.
+
+## Separate export-instance rehearsal (iteration 1722)
+
+Prepared `grafana/prepared/export-storage.sql` for a dedicated PostgreSQL
+instance, rather than another database in the application cluster. It contains
+only daily publication/content counts and one aggregate source-health row;
+source IDs, activity timestamps, application catalogs and raw records are absent.
+Disposable coverage uses a real reader login, runs the first two dashboard
+queries and verifies source totals, denied role switching, catalogs containing
+passwords, program execution, writes and schema creation. Resetting the read-only
+default still leaves writes denied by grants. Installation is idempotent.
+
+This is a storage-boundary rehearsal with synthetic counts, not a live export.
+The exporter, bounded retention/atomic refresh, writer credentials, network
+isolation, aggregate source panel adaptation and isolated Grafana browser/query
+rehearsal remain open. No new live service or datasource is installed. Assess
+whole-stack capacity before adding an instance; public mode remains off.

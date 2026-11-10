@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
+import { Pool } from 'pg';
+import { GenericContainer, Wait } from 'testcontainers';
+
 import { database } from '../src/libs/db/connections';
 
 void test('prepared Grafana reader exposes only published counts and bounded source health', async () => {
@@ -192,5 +195,90 @@ void test('prepared Grafana reader exposes only published counts and bounded sou
     await client.query('ROLLBACK');
     client.release();
     await pool.end();
+  }
+});
+
+void test('separate Grafana export instance contains only aggregates under a real reader login', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const container = await new GenericContainer('postgres:17-alpine')
+    .withEnvironment({ POSTGRES_HOST_AUTH_METHOD: 'trust' })
+    .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
+    .withExposedPorts(5432)
+    .withWaitStrategy(
+      Wait.forLogMessage('database system is ready to accept connections', 2),
+    )
+    .start();
+  const connection = {
+    host: container.getHost(),
+    port: container.getMappedPort(5432),
+    database: 'postgres',
+  };
+  const owner = new Pool({ ...connection, user: 'postgres' });
+  const reader = new Pool({ ...connection, user: 'grafana_export_reader' });
+  try {
+    const sql = readFileSync(
+      'ops/observability/grafana/prepared/export-storage.sql',
+      'utf8',
+    );
+    await owner.query(sql);
+    await owner.query(sql);
+    await owner.query(`INSERT INTO grafana_public.published_editions VALUES ('2099-11-10',1);
+      INSERT INTO grafana_public.published_content VALUES ('2099-11-10',4,19,15);
+      INSERT INTO grafana_public.source_summary VALUES (true,36,36,0)`);
+    const dashboard = JSON.parse(
+      readFileSync(
+        'ops/observability/grafana/prepared/public-overview.json',
+        'utf8',
+      ),
+    );
+    for (const panel of dashboard.panels.slice(0, 2)) {
+      const result = await reader.query(panel.targets[0].rawSql);
+      assert.equal(result.rowCount, 1);
+    }
+    assert.deepEqual(
+      (
+        await reader.query(
+          'SELECT sources, enabled, errors FROM grafana_public.source_summary',
+        )
+      ).rows,
+      [{ sources: 36, enabled: 36, errors: 0 }],
+    );
+    const tables = await reader.query(`SELECT tablename FROM pg_tables
+      WHERE schemaname NOT IN ('pg_catalog','information_schema') ORDER BY tablename`);
+    assert.deepEqual(
+      tables.rows.map((row) => row.tablename),
+      ['published_content', 'published_editions', 'source_summary'],
+    );
+    assert.equal(
+      (await reader.query("SELECT to_regclass('public.users') AS users"))
+        .rows[0].users,
+      null,
+    );
+    for (const query of [
+      'SET ROLE postgres',
+      'SELECT * FROM pg_authid',
+      "COPY (SELECT 1) TO PROGRAM 'true'",
+      "INSERT INTO grafana_public.published_editions VALUES ('2099-11-11',1)",
+      'CREATE TABLE public.unapproved (id int)',
+      'SELECT * FROM public.digest_previews',
+    ])
+      await assert.rejects(reader.query(query));
+    assert.equal(
+      (await reader.query('SHOW statement_timeout')).rows[0].statement_timeout,
+      '5s',
+    );
+    assert.equal(
+      (await reader.query('SHOW default_transaction_read_only')).rows[0]
+        .default_transaction_read_only,
+      'on',
+    );
+    // Read-only defaults can be reset: grants must still deny writes.
+    await reader.query('SET default_transaction_read_only = off');
+    await assert.rejects(
+      reader.query('DELETE FROM grafana_public.published_content'),
+    );
+  } finally {
+    await Promise.all([owner.end(), reader.end()]);
+    await container.stop();
   }
 });
