@@ -54,7 +54,9 @@ mode remains off; sharing is unchanged.
 
 Owner reported two-browser sign-in and saved-item sync passed at about 03:50 UTC
 Nov 10 (STEERING 50). This completes the owner and proxy/TLS cookie checks.
-Phase 3 now waits only for the normal Nov 10 scheduled edition with accounts on.
+Nov 10 edition published with accounts on (1707); NBA story validation exhausted
+to source excerpts. Phase 3 acceptance awaits assessment of that degraded outcome;
+no further owner action is requested. [Daily review](docs/edition-reviews/2026-11-10.md).
 The mailbox helper was repaired and its exact VM command verified against a
 newly requested real code (1616); credentials were withheld and the session signed out.
 

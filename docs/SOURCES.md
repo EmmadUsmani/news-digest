@@ -2393,3 +2393,12 @@ threshold, slot or budget change; new tuning waits for item 50.
 - Other 35 sources are healthy. Keep existing bounded retries and hourly schedule; recovery is pending. No endpoint, configuration or access workaround changed.
 
 - Iteration 1687 follow-up (11:59 UTC): third scheduled attempt also timed out. Public-feed probes receive zero bytes after 25 seconds and 12 seconds; DNS 0.002 s, TCP 0.059 s, TLS 0.119 s confirm the latter reached the server. Recovery remains pending; other 35 sources and saved-reader parity remain healthy.
+
+## Nov 10 scheduled social observation — iteration 1707
+
+Four keyword tools completed: 40 new verified candidates, 38 outside current
+lists, $0.260932 with zero holds. Six cited selections (four outside-list);
+selected X engagement remains unverified. Bluesky supplied NBA/Gaming/World
+1/1/2 picks for $0.029424 separate editing cost; NBA records one X replacement.
+Quality acceptance remains open; no tuning or collection changes.
+[Daily review](edition-reviews/2026-11-10.md). GamingBolt recovery remains pending.

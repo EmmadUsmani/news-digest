@@ -2,8 +2,10 @@
 
 Account migrations through 0018 and invite-only server/web account gates are
 live (iteration 1591). Public mode remains disabled and the VM stays private.
-Dedicated live lifecycle acceptance, the owner’s two-device check and a normal
-scheduled edition still gate Phase 3 completion.
+Live lifecycle and owner two-device/proxy/TLS checks passed. The Nov 10
+scheduled edition published with NBA story-validation fallback; assess that
+degraded outcome before accepting Phase 3. See the
+[daily review](edition-reviews/2026-11-10.md).
 [The public-access plan](public-access-plan.md) defines acceptance and owner gates.
 
 ## Prerequisites
@@ -147,14 +149,13 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.
 
-## Owner two-device check — ready now
+## Owner two-device check — passed Nov 10
 
-Follow the [exact phone/laptop steps](../NEEDS_FROM_HUMAN.md#owner-two-device-acceptance--ready-now-nov-10):
-request and retrieve each code, sign in through the normal HTTPS address,
-save/remove a story across devices, then sign out all devices. Report the
-browser names and each result without codes or cookies. This also supplies
-the proxy/TLS cookie check. Phase 3 needs the owner pass and a normal scheduled
-edition with accounts on; the natural link-expiry check runs separately.
+The owner reported two-browser sign-in and saved-item sync passed at about
+03:50 UTC Nov 10, completing the proxy/TLS cookie check.
+[Acceptance record](../NEEDS_FROM_HUMAN.md#owner-two-device-acceptance--passed-nov-10).
+Phase 3 still needs the normal-edition decision above; natural link expiry runs
+separately.
 
 ## Rollback
 

@@ -28,11 +28,13 @@ mapped to profiles, and profiles go away.
 
 ## Where things stand (updated 2026-11-10)
 
-Current activation state (Nov 10, iteration 1615): Phase 1 is accepted;
+Current activation state (Nov 10, iteration 1707): Phase 1 is accepted;
 account migrations 0013–0018 and invite-only server/web gates are live.
 STEERING 53 accepts the proxy proof: explicitly trust loopback and retain the
-last-entry visitor selector. Phase 3 awaits the owner's two-device test and
-normal Nov 10 scheduled edition; natural link expiry is checked in parallel.
+last-entry visitor selector. Owner two-device/proxy/TLS checks passed. The Nov 10
+scheduled edition published; Phase 3 acceptance awaits assessment of its NBA
+validation fallback ([review](edition-reviews/2026-11-10.md)). Natural link expiry
+is checked in parallel.
 `PUBLIC_MODE` remains off and migration 0019 remains pending. Historical
 preparation notes below describe the state at their iteration, not current gates.
 Use the [Phase 3 checklist](account-activation.md) and
