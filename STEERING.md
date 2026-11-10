@@ -2231,6 +2231,23 @@ ack: 2026-11-08 item 50 phase 2 — iteration 1386: normal Nov 8 publication wit
 
 ack: 2026-11-09 item 50 phase 1 — iteration 1544: normal Nov 9 full-AI scheduled publication with SYSTEM_OWNERSHIP=1 in API/worker before the run; published row preserves default-profile rollback ownership. All 553 editions, complete reader/adapter responses, publication filters, topics and settings pass read-only off/on/off; five original response hashes unchanged; all seven published editions pass desktop/mobile light/dark rendered counts/titles. Prior AI-off/AI-on private and restore/rollback checks remain valid. Development charged Anthropic $0.211076, xAI $0; no new calls/holds. Phase 1 complete; Phase 3 next, accounts/public flags remain off pending live proxy proof and activation checks. Evidence: docs/edition-reviews/2026-11-09.md.
 
+**Lead update (Nov 10, owner approved): write the owner's two-device test
+now.** Put exact steps in `NEEDS_FROM_HUMAN.md` this iteration:
+
+1. How to request a sign-in code, and how to read it from the private mailbox on
+   the VM, with the exact command.
+2. Sign in on a phone and on a laptop, through the normal
+   `https://news-digest.exe.xyz` address.
+3. Bookmark a story on one device and check it appears on the other.
+4. Remove it on one device and check it disappears on the other.
+5. Sign out.
+
+Say what the owner should report back. This test is also the proxy/TLS cookie
+check the VM can't do itself, so it replaces that open check. Don't wait for the
+24-hour sign-in link expiry: run its verify after 00:33 UTC Nov 11, in
+parallel. Phase 3 is accepted after the owner's test passes and a normal
+scheduled edition has published with accounts on.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`
