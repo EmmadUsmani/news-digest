@@ -8,7 +8,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-import { readerEditionSchema } from '@digest/contracts';
+import {
+  publicOperationsStatusSchema,
+  readerEditionSchema,
+} from '@digest/contracts';
 import { NestFactory } from '@nestjs/core';
 
 import { database } from '../src/libs/db/connections';
@@ -198,6 +201,20 @@ void test('configured full public application serves published fixtures and enfo
     const privateWindow = await contentGet('/api/admin/content/window');
     assert.equal(privateWindow.status, 404);
     assert.equal(await privateWindow.text(), '');
+    // The installed status controller exposes only the audited public contract.
+    const statusResponse = await contentGet('/api/admin/status', {
+      headers: { 'X-ExeDev-Email': configuration.ADMIN_EMAILS },
+    });
+    assert.equal(statusResponse.status, 200);
+    assert.equal(statusResponse.headers.get('cache-control'), 'no-store');
+    const statusBody = await statusResponse.json();
+    assert.deepEqual(
+      publicOperationsStatusSchema.parse(statusBody),
+      statusBody,
+    );
+    const statusHead = await get('/api/admin/status', { method: 'HEAD' });
+    assert.equal(statusHead.status, 200);
+    assert.equal(await statusHead.text(), '');
     const session = await get('/api/account/session');
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { signedIn: false, isAdmin: false });
@@ -206,7 +223,6 @@ void test('configured full public application serves published fixtures and enfo
       ['/api/editions?offset=invalid', 'GET', 400],
       ['/api/admin/topics', 'POST', 403],
       ['/api/admin/digest-previews/jobs', 'POST', 403],
-      ['/api/admin/status', 'GET', 404],
       ['/api/unknown', 'GET', 404],
     ] as const) {
       const response = await get(path, {

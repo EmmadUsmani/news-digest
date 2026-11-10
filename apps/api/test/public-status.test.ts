@@ -69,7 +69,10 @@ void test('prepared status excludes stored failures, job payloads and private ac
     assert.equal(JSON.stringify(result).includes(secret), false);
   }
   for (const method of ['GET', 'HEAD'])
-    assert.equal(classifyPublicRoute(method, '/api/admin/status'), 'admin');
+    assert.equal(
+      classifyPublicRoute(method, '/api/admin/status'),
+      'public-read',
+    );
 });
 
 void test('prepared status fails closed without reflecting malformed data or dependency errors', async () => {

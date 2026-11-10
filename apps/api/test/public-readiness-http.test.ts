@@ -123,6 +123,7 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
         '/api/editions',
         '/api/editions/latest',
         '/api/admin/status/alerts',
+        '/api/admin/status',
         '/api/admin/topics',
       ]) {
         for (const method of ['GET', 'HEAD']) {
@@ -131,7 +132,7 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
           assert.equal(authentication, before, path);
         }
       }
-      for (const path of ['/api/admin/profile', '/api/admin/status']) {
+      for (const path of ['/api/admin/profile']) {
         const before = downstream;
         assert.equal(
           (await fetch(base + path)).status,

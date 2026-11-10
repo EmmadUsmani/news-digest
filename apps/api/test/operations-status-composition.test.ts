@@ -9,6 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import { MonitoringAlerts } from '../src/modules/operations/adapters/monitoring-alerts';
 import { OperationsStatus } from '../src/modules/operations/adapters/operations.status';
 import { OperationsModule } from '../src/modules/operations/operations.module';
+import { publicAccess } from '../src/public-access';
 
 void test('operations selects one status transport and preserves alerts in both modes', async () => {
   const raw = {
@@ -50,6 +51,14 @@ void test('operations selects one status transport and preserves alerts in both 
       return provider;
     });
     const app = await NestFactory.create(module, { logger: false });
+    let authentications = 0;
+    if (publicMode === '1')
+      app.use(
+        publicAccess(true, async () => {
+          authentications++;
+          throw new Error('session storage unavailable');
+        }),
+      );
     try {
       await app.listen(0, '127.0.0.1');
       const base = `http://127.0.0.1:${(app.getHttpServer().address() as AddressInfo).port}/api/admin/status`;
@@ -62,6 +71,7 @@ void test('operations selects one status transport and preserves alerts in both 
           : raw,
       );
       assert.equal(reads, 1);
+      assert.equal(authentications, 0);
       assert.equal(
         response.headers.get('cache-control'),
         publicMode === '1' ? 'no-store' : null,

@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1703: prepared overview page/loader selection keeps public rendering and prefetches on the sanitized contract; offline browser checks cover both loader branches. Uninstalled; router/anonymous authorization composition remains next, followed by preview/tools. Public mode off; no deployment during protected window.
+- [x] Iteration 1704: installed public-mode anonymous status GET/HEAD authorization against the sanitized controller; offline authorization/Nest and full-application contract checks cover the boundary. Overview page/router integration remains next, then preview/tools. Public mode off; no deployment during protected window.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

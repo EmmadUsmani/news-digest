@@ -34,9 +34,9 @@ const rules: readonly Rule[] = [
   ['DELETE', new RegExp(`^/api/admin/topics/${id}$`), 'admin'],
   ['GET', /^\/api\/admin\/profile$/, 'admin'],
   ['PUT', /^\/api\/admin\/profile\/schedule$/, 'admin'],
-  // Count-only response audited; detailed operational status stays restricted.
+  // Public mode installs only the sanitized status projection and count alerts.
   ['GET', /^\/api\/admin\/status\/alerts$/, 'public-read'],
-  ['GET', /^\/api\/admin\/status$/, 'admin'],
+  ['GET', /^\/api\/admin\/status$/, 'public-read'],
   ['GET', /^\/api\/admin\/content(?:\/sources)?$/, 'public-read'],
   ['GET', /^\/api\/admin\/content\/window$/, 'admin'],
   ['GET', /^\/api\/admin\/digest-previews(?:\/latest)?$/, 'admin'],

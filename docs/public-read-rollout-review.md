@@ -22,7 +22,7 @@ HEAD inherits the GET class.
 | Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Complete; UI accepts legacy and public catalog options                                                    |
 | Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                                           |
 | Content/source health                     | Anonymous origin-only articles and count/timing source health                                            | Complete for GET/HEAD; window route remains admin-only; no active UI consumers; status projection remains |
-| Detailed status                           | Fresh admin required                                                                                     | Project stored source errors, job return strings and accounting fields before anonymous reads             |
+| Detailed status                           | Anonymous sanitized GET/HEAD in public mode                                                              | Install the prepared overview page; private mode retains admin access                                     |
 | Preview history/detail/latest/cost/job    | Fresh admin required                                                                                     | Separate public publication/accounting/progress views from unpublished/test snapshots                     |
 | Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                               |
 | Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                                    |
@@ -174,3 +174,11 @@ mode retains the existing overview and prefetches. The offline browser rehearsal
 now exercises this composition, including both loader branches and private-cache
 isolation. Neither is installed in the application router. Next: install page
 selection and anonymous authorization together, then preview/tools.
+
+Iteration 1704 installs anonymous GET/HEAD authorization for the already-selected
+sanitized status controller. Other methods and unknown status subpaths remain
+denied. Offline Nest composition includes public authorization with unavailable
+session storage, proving reads do not authenticate or expose the private ledger.
+Full-application isolated checks validate the public schema and HEAD response.
+The overview remains admin-only: page mode selection still needs integration;
+preview/tools follow. Public mode stays off and deployment waits past 16:00 UTC.

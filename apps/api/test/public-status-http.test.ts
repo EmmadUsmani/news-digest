@@ -81,7 +81,10 @@ void test('prepared status HTTP transport projects GET/HEAD and conceals failure
       assert.equal(body.includes(secret), false);
     }
     for (const method of ['GET', 'HEAD'])
-      assert.equal(classifyPublicRoute(method, '/api/admin/status'), 'admin');
+      assert.equal(
+        classifyPublicRoute(method, '/api/admin/status'),
+        'public-read',
+      );
   } finally {
     await app.close();
   }

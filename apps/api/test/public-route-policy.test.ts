@@ -21,6 +21,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/api/settings/schedule',
     '/api/admin/topics',
     '/api/admin/status/alerts',
+    '/api/admin/status',
   ]) {
     assert.equal(classifyPublicRoute('GET', path), 'public-read', path);
     assert.equal(classifyPublicRoute('HEAD', path), 'public-read', path);
@@ -40,7 +41,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     );
   assert.equal(
     classifyPublicRoute('GET', '/api/admin/status?detail=1'),
-    'admin',
+    'public-read',
   );
   assert.equal(classifyPublicRoute('PUT', `/api/admin/topics/${id}`), 'admin');
   assert.equal(
@@ -97,7 +98,6 @@ void test('unaudited administrative responses remain restricted independently of
   for (const path of [
     '/api/admin/profile',
     '/api/admin/content/window',
-    '/api/admin/status',
     '/api/admin/digest-previews',
     '/api/admin/digest-previews/latest',
     `/api/admin/digest-previews/${id}`,
