@@ -15,12 +15,11 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44) and the leaked test folders (item 51). The review after each
-   scheduled edition is a fixed daily task.
+   (item 44), the leaked test folders (item 51) and NBA editing (item 54).
+   The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`. Phase 1 is accepted. Next, finish item 53
-   (the proxy question is answered: trust loopback, keep the last-entry rule),
-   then phases 3 and 4.
+   `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
+   Next, migration 0019, then phase 4.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2280,6 +2279,16 @@ publishes normally with accounts on, as above.
   latest edition as a reader and fix the biggest weakness, before 12:00 UTC.
   Don't fill the wait with more small hardening commits.
 
+**Lead update (Nov 10 evening, owner approved): phase 3 is accepted.** The
+Nov 10 scheduled edition published on time with accounts on. Its NBA fallback is
+a story-editing failure, not an account failure, and item 54 now owns it. Record
+phase 3 as accepted in `TASKS.md`, `NEEDS_FROM_HUMAN.md` and
+`docs/public-access-plan.md`, and remove the "await next normal edition" wording.
+Migration 0019 may now go live as the plan describes: fresh backup first,
+outside 13:00–16:00 UTC. Then continue phase 4 behind its flags. Public mode,
+exe.dev sharing and the "VM stays private" rule are unchanged. The link-expiry
+check after 00:33 UTC Nov 11 still runs.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`
@@ -2441,3 +2450,47 @@ Done when the loopback trust and tests are in and phase 3 is under way. Ack it.
 ack: 2026-11-09 item 53 — iteration 1589 inspected the 19:47 UTC receipt; retained last-entry selection, tested duplicate visitor entries after zero/one/two forged prefixes through policy and real HTTP, and configured explicit loopback peers privately. Phase 3 started: fresh private backup/isolated migration rehearsal passes rollback, idempotence, original data and private-table grants. Live migrations/accounts/public remain unchanged; guarded deployment next.
 
 ack: 2026-11-10 item 50 owner test — iteration 1600 writes exact phone/laptop HTTPS sign-in and private mailbox command, save/removal sync, all-device sign-out and report fields in NEEDS_FROM_HUMAN.md; activation page links the steps. Owner test supplies proxy/TLS acceptance; natural link expiry remains a separate Nov 11 check.
+
+## 54. NOW: get NBA stories AI-edited again before Nov 11 (2026-11-10)
+
+**Why:** on Nov 10 all four NBA story-editor attempts were rejected (two Sonnet,
+two Haiku: `unsupported-absence`, `negative-word`, and one `invalid-json`), so
+NBA published raw source excerpts ([review](docs/edition-reviews/2026-11-10.md#nba-degradation-and-phase-3-gate)).
+The lead's guess, not yet checked: the absence guard in
+`apps/api/src/modules/curation/application/absence-support.ts` rejects any
+sentence with "not", "no", "without", "didn't" and similar words unless the
+whole sentence is copied word for word from a source. NBA injury and lineup
+news ("will not play", "without Tatum") hits that constantly.
+
+**Priority:** Current order line 1 (protecting the morning edition). It comes
+before phase 4 work under item 50.
+
+**What to do:**
+
+1. Find the real cause. Rebuild the Nov 10 NBA story-editor input from saved
+   data and run the validator against it. If you need model output, replay it.
+   Name which sentences failed, and which rule rejected them.
+2. Decide whether each rejected sentence was supported by its source. Fix the
+   cause: if the guard rejects supported claims, make it accept them while it
+   still rejects absence claims that no source supports. If the model
+   really did invent claims, fix the prompt or input instead. Also fix why
+   Haiku and Sonnet returned invalid JSON, if that has one clear cause.
+3. Save rejected editor responses with the validation reason (no secrets) so a
+   future fallback can be diagnosed without paying again.
+4. Add tests from the real Nov 10 NBA sentences: supported ones pass, an
+   unsupported absence claim still fails.
+5. Deploy before the noon UTC generation cutoff on Nov 11.
+
+**What not to do:** don't remove the absence guard or the fallback. Don't add
+hand-written wording rules for grouping. Don't touch other topics' prompts
+unless the same cause affects them. Stop once the cause is named, the fix is
+tested and the Nov 10 replay passes.
+
+**Done when:** a replay of the Nov 10 NBA input produces a validated AI-edited
+result, the fix is deployed before noon UTC Nov 11, and the Nov 11 edition's NBA
+section is AI-edited. Ack the cause and the fix, then ack again with the Nov 11
+result in the daily edition review.
+
+**Limits:** Anthropic replays capped at $0.10 in total, from the item 50
+development budget. Deploy outside 13:00–16:00 UTC. No generation changes after
+12:00 UTC Nov 11.

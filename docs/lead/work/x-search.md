@@ -20,8 +20,10 @@ likes minimums stay. After the fix, 5 of 9 keyword attempts failed.
 
 **Next:**
 
-- Ask the owner whether to keep paying ~$0.26 a day while tuning waits.
-  Journal: $1.75 of $2.50 spent, so about three more days at this rate.
+- Owner decided Nov 10: keep paying and keep the daily keyword search running
+  while tuning waits. No steering needed. Journal: $1.75 of $2.50 spent, about
+  three days left. Before it reaches $2.50, ask the owner whether to raise the
+  limit or let it stop.
 
 **Open decisions:** none. The meaning-based question is settled.
 
