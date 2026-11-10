@@ -17,9 +17,10 @@ failed on a supported sentence. $0.008 spent (agent's figures).
 
 **Next:**
 
-1. Owner decides whether to test Sonnet on v14 before noon UTC Nov 11.
-2. Nov 11 edition: NBA must be AI-edited. If it falls back again, the check is
-   the likely cause (it rejects supported paraphrases), not the prompt.
+1. Steered Nov 10 21:40 UTC (`0282665f`): replay Nov 10 NBA through Sonnet
+   then Haiku, up to three runs, $0.25 total. Fix the check only if Sonnet is
+   rejected for supported sentences. Read the ack: per-run results, cost, change.
+2. Nov 11 edition: NBA must be AI-edited.
 3. Tech summary depth: propose steering once item 50 frees the agent.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
