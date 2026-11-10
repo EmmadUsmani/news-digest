@@ -23,9 +23,9 @@ behind flags.
 
 **Next:**
 
-1. Owner's two-device steps are ready in `NEEDS_FROM_HUMAN.md` (00:51 UTC
-   Nov 10; lead checked the mailbox script and folder exist). Waiting on the
-   owner. Phase 3 then needs the Nov 10 edition. Agent is rehearsing phase 4.
+1. Two-device test: the mailbox command crashed for the owner (top-level
+   await in `scripts/read-login-mailbox.ts`). Lead gave a tested workaround.
+   Proposed steering: fix the script and run every owner command first.
 2. Watch phase 4 drift: 9 one-directive CSP commits 18:15–19:39 UTC, then
    small request-hardening commits, restarting API and worker after most.
 3. Check work-ahead stays behind flags and doesn't drift into polish.
