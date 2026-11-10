@@ -28,15 +28,15 @@ mapped to profiles, and profiles go away.
 
 ## Where things stand (updated 2026-11-10)
 
-Current activation state (Nov 10, iteration 1707): Phase 1 is accepted;
-account migrations 0013–0018 and invite-only server/web gates are live.
-STEERING 53 accepts the proxy proof: explicitly trust loopback and retain the
-last-entry visitor selector. Owner two-device/proxy/TLS checks passed. The Nov 10
-scheduled edition published; Phase 3 acceptance awaits assessment of its NBA
-validation fallback ([review](edition-reviews/2026-11-10.md)). Natural link expiry
-is checked in parallel.
-`PUBLIC_MODE` remains off and migration 0019 remains pending. Historical
-preparation notes below describe the state at their iteration, not current gates.
+Current activation state (Nov 10, iteration 1730): Phases 1 and 3 are accepted.
+Account migrations 0013–0019 and invite-only server/web gates are live.
+STEERING 53 accepts loopback trust and the last-entry visitor selector;
+owner two-device/proxy/TLS checks passed. The owner accepted Phase 3 after the
+Nov 10 scheduled edition; NBA editorial acceptance belongs to STEERING 54.
+Natural link expiry is checked after Nov 11 00:33:01 UTC.
+`PUBLIC_MODE` remains off. Migration 0019 passed a fresh private backup/restore
+rehearsal and bounded live runner twice, preserving admissions and private grants.
+Historical preparation notes below describe their iteration, not current gates.
 Use the [Phase 3 checklist](account-activation.md) and
 [Phase 4 readiness checklist](public-readiness.md) for the next activation steps.
 
@@ -685,7 +685,7 @@ returns only after commit and leaves pool ownership with the caller. Existing
 middleware still records attempts independently. A prepared source-enable writer (iteration 1519) binds the admission to the exact
 source target and locks its row before reporting changed or unchanged. Missing
 sources return not-found and roll back admission; storage failures propagate.
-Concurrent identical toggles produce one changed and one unchanged result. Unapplied additive migration 0019 adds a nullable outcome: the prepared source
+Concurrent identical toggles produce one changed and one unchanged result. Additive migration 0019 adds a nullable outcome: the prepared source
 writer persists changed/unchanged in the same transaction as its mutation. Null
 means admission only, including older rows; it never implies success. Failure
 while saving an outcome rolls back both admission and mutation.

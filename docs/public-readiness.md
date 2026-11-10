@@ -6,11 +6,8 @@ and STEERING 50 define the phase order and owner gates.
 
 ## Entry gates
 
-- [ ] Accept Phase 3 after a normal scheduled edition with accounts enabled.
-      Owner two-device sign-in/bookmark and proxy/TLS checks passed Nov 10 about
-      03:50 UTC; recorded in [NEEDS_FROM_HUMAN.md](../NEEDS_FROM_HUMAN.md).
-      Nov 10 published; assess its NBA validation fallback before acceptance
-      ([review](edition-reviews/2026-11-10.md)).
+- [x] Phase 3 accepted by the owner Nov 10; NBA editorial acceptance is tracked
+      separately under STEERING 54.
 - [ ] Record the natural sign-in-link expiry check after Nov 11 00:33:01 UTC:
       `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify`.
       This runs in parallel with Phase 3 acceptance.
@@ -37,8 +34,9 @@ activation review, rather than adding more variants of already-covered refusals.
       repeat-run behavior and reader-role grants. Take a fresh private backup
       before applying it live with `MIGRATE_THROUGH=0019_admin_write_outcomes`.
       Private receipt: `~/backups/news-digest/admission-outcome-migration-proof.json`.
-- [ ] Apply 0019 live only after Phase 3 acceptance, using a fresh backup and
-      the explicit stopping tag above.
+- [x] Applied 0019 live (1730) after fresh backup/restore rehearsal; bounded
+      runner twice, original admissions preserved, eight private tables deny
+      both operational reader roles. Public mode remains off.
 - [x] VictoriaMetrics deletion/forced-merge keys configured (iteration 1616).
       Private keys live only in the mode-600 secrets file; the tracked unit loads
       them through prefixed environment flags. Installer and service startup refuse missing keys.

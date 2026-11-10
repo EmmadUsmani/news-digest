@@ -27,7 +27,7 @@ snapshots.
 > The default-off public runtime routes source toggles, topic toggles and complete
 > topic ordering through this boundary. Changes and changed/unchanged outcomes
 > commit together; stale topic catalogs leave no admission or ordering change.
-> Null outcomes describe admission only (unapplied migration 0019).
+> Null outcomes describe admission only, including rows predating migration 0019.
 > Deleting a reader removes admissions tied to that identity.
 >
 > Reader accounts use independent identities, hashed sessions and single-use

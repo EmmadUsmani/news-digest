@@ -103,3 +103,13 @@
 - New calls cost $0.003958; ledger confirms four successful replay calls total **$0.007871/$0.10**, no pending/uncertain rows. Private 0600 raw outputs/report retained; no production cache/edition writes. Duplicate invocation refuses before provider/ledger access.
 - Item 54 cause/fix acked; remains open for Nov 11 scheduled NBA acceptance. Original lost Nov 10 invalid-JSON cause unknown. Stop further prompt/replay work.
 - Verification: offline preflight, duplicate refusal, ledger audit, format/lint fix, full check, build, handbook check and diff check; scheduled reader verifies four topics/19 stories/15 posts. Full `pnpm check` passes: 826 unit, 280 integration/four expected skips. API/worker restart and post-deploy health/reader/alerts checks follow push.
+
+## 2026-11-10: iteration 1730 — apply approved admission-outcome migration
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA correction retained unchanged, scheduled acceptance Nov 11.
+- Owner-approved Phase 3 acceptance permits 0019; public mode and sharing remain off/private. Corrected stale Phase 3/migration gates in plan, readiness, tasks and owner notes.
+- `python3 ops/backups/rehearse_admission_outcome.py`: fresh private backup `news-digest-20261110T192854Z`, isolated restore 39 tables/73,420 rows; 38 original-table fingerprints preserved, rollback/idempotence/outcome/private-grant checks pass.
+- Applied live with `MIGRATE_THROUGH=0019_admin_write_outcomes`; bounded runner twice leaves exactly one ledger entry/no later migrations, original admissions unchanged and outcomes null. Private receipt `~/backups/news-digest/admission-outcome-live-migration-proof.json`.
+- All 112 privilege checks deny both operational reader roles across eight private tables. No paid calls, account credentials, publication writes or public activation. Handbook reflects live outcome column and current-backup restore use.
+- Verification: format/lint fix, full check, build, handbook and diff checks; 32 deployed account-boundary checks and scheduled reader four topics/19 stories/15 posts. Full `pnpm check`: 826 unit, 280 integration/four expected skips; `pnpm build` and handbook pass. Push then API/worker restart and post-deploy health/reader/alerts follow.
+- Next: finish Phase 4 data boundaries behind flags; natural link-expiry after Nov 11 00:33:01 UTC and scheduled NBA acceptance remain due.

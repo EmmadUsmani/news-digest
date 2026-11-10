@@ -55,7 +55,8 @@ mode remains off; sharing is unchanged.
 Owner reported two-browser sign-in and saved-item sync passed at about 03:50 UTC
 Nov 10 (STEERING 50). This completes the owner and proxy/TLS cookie checks.
 Nov 10 edition published with accounts on (1707); NBA story validation exhausted
-to source excerpts. Phase 3 remains unaccepted (1708): mixed fallback fails the normal-edition gate; await the next normal scheduled edition;
+to source excerpts. Phase 3 accepted by the owner in the Nov 10 evening steering update;
+NBA editorial acceptance remains under item 54. Migration 0019 is live (1730);
 no further owner action is requested. [Daily review](docs/edition-reviews/2026-11-10.md).
 The mailbox helper was repaired and its exact VM command verified against a
 newly requested real code (1616); credentials were withheld and the session signed out.
@@ -91,8 +92,7 @@ Report phone/laptop browser names, pass/fail for sign-in after reload, save
 sync, removal sync and sign-out, plus the story title. If a step fails, report
 its number and the visible error. Never send codes, cookies or mailbox output.
 This test supplies the proxy/TLS cookie check the VM cannot perform itself.
-Phase 3 acceptance needs this test to pass and a normal scheduled edition to
-publish with accounts on. Natural link-expiry verification runs separately
+Phase 3 was accepted after this test and the Nov 10 scheduled publication. Natural link-expiry verification runs separately
 after Nov 11 00:33:01 UTC; it does not delay this test. No sharing change needed.
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
