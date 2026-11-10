@@ -1,6 +1,6 @@
 # Public read rollout review — iteration 1620
 
-Reviewed Nov 10, 2026, updated iteration 1694, before the Phase 3 scheduled-edition gate. Public mode
+Reviewed Nov 10, 2026, updated iteration 1706, before the Phase 3 scheduled-edition gate. Public mode
 remains off. This is an implementation review, not Phase 4 acceptance.
 
 ## Current application boundary
@@ -22,7 +22,7 @@ HEAD inherits the GET class.
 | Topics/source catalog                     | Public-mode topics GET/HEAD uses the system-only allowlist; source catalog GET/HEAD returns origins only | Complete; UI accepts legacy and public catalog options                                                    |
 | Profile/schedule                          | System-only schedule GET/HEAD is anonymous in public mode; legacy profile requires fresh admin           | UI uses system endpoint with explicit private-mode 404 fallback                                           |
 | Content/source health                     | Anonymous origin-only articles and count/timing source health                                            | Complete for GET/HEAD; window route remains admin-only; no active UI consumers; status projection remains |
-| Detailed status                           | Anonymous sanitized GET/HEAD in public mode                                                              | Install the prepared overview page; private mode retains admin access                                     |
+| Detailed status                           | Anonymous sanitized GET/HEAD in public mode                                                              | Overview page installed behind matching mode flags; private mode retains admin access                     |
 | Preview history/detail/latest/cost/job    | Fresh admin required                                                                                     | Separate public publication/accounting/progress views from unpublished/test snapshots                     |
 | Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                               |
 | Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                                    |
@@ -192,3 +192,14 @@ Offline Playwright mounts the actual router, verifies anonymous overview reads,
 sibling denial and private rollback, and saves `public-overview-router-fixture-*`
 screenshots. Activation/rollback must rebuild the web app with the matching mode;
 flags remain off and no deployment occurs during the hold. Preview/tools follow.
+
+Iteration 1706 prepares `PublicPreviewReads` without route installation. History,
+latest and detail always request published-only storage, independently of private
+reader flags, and reuse reader contracts to omit editorial internals and provider
+metadata. Pagination fails before storage access; missing/unpublished IDs are
+indistinguishable. Storage and malformed snapshot failures become fixed 503s.
+Offline adversarial tests pin storage filters, field omission, empty states and
+continued admin-only classification. No generation or live storage is changed.
+Next: compose these published preview reads without overlapping legacy handlers,
+retain private admin snapshots/cost/jobs/writes, and adapt the read-only admin UI.
+Tools remain unaudited; public mode stays off.

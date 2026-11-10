@@ -114,3 +114,13 @@ Earlier entries: [iterations 1623–1624](docs/progress-archive/2026-11-10-1701.
 - Health database/Redis healthy; no failed user services or active alerts. GamingBolt incident remains open under bounded scheduled retries; no direct source probe. Passive metrics sample 14:42 UTC: 23 healthy rules, zero new evaluator errors/misses, four queries ≤0.693 s, no merge. Next sample ≥15:43 UTC.
 - No provider calls, live migrations, flag changes, deployment or service restarts during the 13:00–16:00 UTC hold. Public mode off; Phase 3 normal 15:00 UTC edition review takes precedence when due; natural link expiry after Nov 11 00:33:01 UTC.
 - Final `pnpm check` passes static checks, 813 unit tests and 277 integration tests/four expected skips. `git diff --check` and final health/service checks pass. No application changes after verification; commit/push only, deployment remains held until after 16:00 UTC.
+
+## 2026-11-10: iteration 1706 — prepare published-only preview reads
+
+- Clean main; no inherited work. Added uninstalled `PublicPreviewReads` for history/latest/detail, always using published-only repository reads independent of private reader flags. Reuses reader contracts, excluding operational/editorial metadata; no generation code or storage changes.
+- Adversarial offline tests pin mandatory publication filters, pagination rejection before storage, field omission, empty/latest/missing states, fixed storage/schema failures and unchanged admin route classification. Nine targeted preview/reader tests pass; no external calls.
+- Updated TASKS and public-read rollout review (including stale overview completion row). Next: compose published preview reads without legacy overlap and adapt read-only admin UI; private snapshots/cost/jobs/writes remain restricted. Public mode off.
+- `pnpm format`, `pnpm lint:fix`, API/web builds, Nov 9 saved-reader check (four topics/19 stories/14 posts) and `git diff --check` pass. Full `pnpm check` result recorded below.
+- `/healthz` database/Redis healthy; no failed user services. Alert traced to GamingBolt scheduled attempts at 14:46/14:48/14:50 UTC; retain bounded retries, no direct probe or source changes. Metrics sample not due until 15:43 UTC.
+- No provider calls, migrations, flags, deployment or restarts during 13:00–16:00 UTC hold. Phase 3 scheduled 15:00 UTC edition review takes precedence when published; natural link expiry remains after Nov 11 00:33:01 UTC.
+- Final `pnpm check` passes static checks, 815 unit tests and 277 integration tests/four expected skips. Builds and final health pass. At 15:03 UTC Nov 10 reader check reports pending publication (Nov 9 still latest); review the normal scheduled edition first next iteration. Deployment/restart remains held until after 16:00 UTC.

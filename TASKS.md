@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1705: installed gated overview router/page and exact public GET/HEAD page policy; offline real-router browser checks cover anonymous sanitized reads, private sibling refusal and rollback. Matching VITE_PUBLIC_MODE/server PUBLIC_MODE required at activation; flags off. Preview/tools next; 15:00 scheduled edition review takes precedence.
+- [x] Iteration 1706: prepared published-only preview history/latest/detail projections with reader contracts, fixed failure responses and adversarial offline tests. Not installed; next compose routes and adapt read-only admin UI, preserving private snapshots and admin-only cost/jobs/writes. Public mode off; 15:00 edition review remains first when due.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
