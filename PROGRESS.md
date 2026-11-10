@@ -135,3 +135,4 @@
 - Updated TASKS, rollout review and operations handbook. Next: complete anonymous authorization rehearsal. Phase 3 awaits a normal scheduled edition; natural link expiry after Nov 11 00:33:01 UTC. No provider calls, migrations or flag changes.
 - `pnpm format`, `pnpm lint:fix`, browser smoke, `check-handbook.ts 08-operations`, scheduled-reader check and `git diff --check` pass. Full check/build and deployment results follow.
 - Final TTY `pnpm check` passes: 818 unit tests and 278 integration tests/four expected skips; `pnpm build` passes. Final format/lint-fix pass. Commit/push and post-16:00 service restart follow; no live migration or provider call.
+- Pushed `a030f86d`; restarted API/worker after 16:00 UTC. Post-restart health/database/Redis and scheduled-reader checks pass (four topics/19 stories/15 posts), no failed user units; working tree clean before recording deployment.
