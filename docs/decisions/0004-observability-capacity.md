@@ -761,3 +761,12 @@ errors or missed iterations, queue timeouts or slow queries. Neither storage
 tier merged; process starts unchanged. Recovery still needs correlated evidence
 during a comparable natural merge. Limits/configuration unchanged; next passive
 check no earlier than 23:36 UTC.
+
+### Passive follow-up (iteration 1600)
+
+Nov 10 00:41 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+23 fresh healthy rules, four uncached queries at most 0.590 s, zero new
+evaluator errors or missed iterations, queue timeouts or slow queries. Neither
+storage tier merged; process starts unchanged. Recovery still needs correlated
+evidence during a comparable natural merge. Limits/configuration unchanged;
+next short passive check no earlier than 01:41 UTC.
