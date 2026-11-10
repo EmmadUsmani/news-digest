@@ -15,6 +15,16 @@ const discoveryLabel = (name: string) =>
     ? `via ${name}`
     : name;
 
+function publisherLabel(article: {
+  publisher?: { name: string };
+  sources: string[];
+}) {
+  const via = article.sources
+    .filter((source) => discoveryLabel(source) !== source)
+    .join(', ');
+  return `${article.publisher!.name}${via ? ` · via ${via}` : ''}`;
+}
+
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
@@ -132,6 +142,20 @@ async function smoke() {
             ),
             'Small-screen header controls fit inside the reader',
           );
+          const accountButton = page
+            .getByRole('navigation', {
+              name: 'Reader preferences',
+              exact: true,
+            })
+            .getByRole('button', { name: 'Account', exact: true });
+          if (await accountButton.count()) {
+            await accountButton.click();
+            await page
+              .getByRole('heading', { name: 'Your account', exact: true })
+              .waitFor();
+            await page.keyboard.press('Escape');
+            assert.ok(await accountButton.isVisible());
+          }
           await header.screenshot({
             path: `docs/screenshots/ui/reader-header-small-${theme}.png`,
           });
@@ -429,7 +453,11 @@ async function smoke() {
                 const toggleBox = await disclosure.boundingBox();
                 assert.ok(timeBox && toggleBox);
                 assert.ok(
-                  Math.abs(timeBox.y - toggleBox.y) < 4,
+                  Math.abs(
+                    timeBox.y +
+                      timeBox.height / 2 -
+                      (toggleBox.y + toggleBox.height / 2),
+                  ) < 4,
                   'Collapsed coverage stays on the desktop source row',
                 );
                 assert.ok(
@@ -461,6 +489,14 @@ async function smoke() {
               story,
               ...(story.coverage ?? []),
             ]) {
+              if (article.publisher) {
+                const name = article.publisher.name;
+                const key = `publisher:${name.trim().toLocaleLowerCase()}`;
+                if (!expected.has(key))
+                  expected.set(key, publisherLabel(article));
+                continue;
+              }
+              if (article === story && primary?.publisher) continue;
               for (const name of article.sources) {
                 const report = story.coverage?.find((item) =>
                   item.sources.includes(name),
@@ -474,7 +510,9 @@ async function smoke() {
             if (primary) {
               assert.equal(
                 [...expected.values()][0],
-                primary.sources[0],
+                primary.publisher
+                  ? publisherLabel(primary)
+                  : primary.sources[0],
                 'Headline attribution starts with the primary publisher',
               );
             }
@@ -483,7 +521,7 @@ async function smoke() {
               assert.equal(
                 await visibleLinks
                   .first()
-                  .locator('span')
+                  .locator(':scope > span')
                   .evaluate((node) => getComputedStyle(node).fontSize),
                 '12px',
               );
@@ -495,7 +533,9 @@ async function smoke() {
             for (const link of await visibleLinks.all()) {
               const name = (await link.innerText()).trim().replace(/^via /, '');
               const report = story.coverage?.find((article) =>
-                article.sources.includes(name),
+                article.publisher
+                  ? name.split(' · via ')[0] === article.publisher.name
+                  : article.sources.includes(name),
               );
               assert.equal(
                 await link.getAttribute('href'),
@@ -529,8 +569,8 @@ async function smoke() {
             if (primary && story.sources[0] !== primary.sources[0]) {
               assert.equal(
                 await visibleLinks.first().innerText(),
-                discoveryLabel(primary.sources[0]),
-                'Grouped World story credits the headline destination first',
+                [...expected.values()].map(discoveryLabel)[0],
+                'Grouped story credits the headline destination first',
               );
               assert.equal(
                 await visibleLinks.first().getAttribute('href'),
@@ -586,7 +626,9 @@ async function smoke() {
                     ),
                   ),
                 story.coverage.map((article) =>
-                  article.sources.slice(0, 1).map(discoveryLabel),
+                  article.publisher
+                    ? [publisherLabel(article)]
+                    : article.sources.slice(0, 1).map(discoveryLabel),
                 ),
                 'Each report credits one publisher rather than repeating feed sections',
               );

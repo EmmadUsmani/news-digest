@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1616: protected VictoriaMetrics deletion/forced-merge routes with private keys, installer preflight and safe refusal check; live query/scrape verification passes. Public mode stays off.
+- [x] Iteration 1617: reread all four Nov 9 topics; fixed account-enabled header overflow at 320px by moving Account beside Saved items; repaired stale layout assertions and refreshed saved-content screenshots. World quality tuning still waits for item 50; check next NBA summaries for editing commentary.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

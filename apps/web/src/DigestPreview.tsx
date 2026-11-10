@@ -90,21 +90,23 @@ export function DigestPreview() {
             />
           )}
           <EditionDateSwitcher edition={preview} />
-          <ReaderAccount enabled={accountsEnabled} account={account} />
           <ThemeToggle />
         </div>
       </header>
-      {preferencesEnabled && (
+      {(preferencesEnabled || accountsEnabled) && (
         <nav
           aria-label="Reader preferences"
-          className="mt-16 flex justify-end lg:mt-3"
+          className="mt-16 flex items-center justify-end gap-2 lg:mt-3"
         >
-          <Link
-            to="/saved"
-            className="inline-flex min-h-11 min-w-11 items-center rounded-md px-2 text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-          >
-            Saved items
-          </Link>
+          {preferencesEnabled && (
+            <Link
+              to="/saved"
+              className="inline-flex min-h-11 min-w-11 items-center rounded-md px-2 text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              Saved items
+            </Link>
+          )}
+          <ReaderAccount enabled={accountsEnabled} account={account} />
         </nav>
       )}
       {preferencesEnabled && preferences.storageFailed && (
