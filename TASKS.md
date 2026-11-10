@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54: evening owner Sonnet trial started (1741): one Sonnet initial rejected a supported Charlotte “without three starters” paraphrase; repair and remaining Sonnet trials refused by unchanged daily/model caps or conservative local reservations. Run 1 Haiku validates; run 2 Haiku paraphrase rejected; run 3 no paid calls. **Two-of-three Sonnet result incomplete.** Cumulative actual replay $0.044978/$0.25; $0.205022 remains. Single-use claim preserved; no guard/prompt/publication/cache change. Continue after UTC reset with audited fresh claim/budget accounting before Nov 11 noon; apply owner’s computable supported-paraphrase fix if warranted, replay once and deploy. Scheduled NBA acceptance still open. [Evidence](docs/edition-reviews/2026-11-10.md#owner-requested-sonnet-trial--iteration-1741).
+- [ ] STEERING 54: evening owner Sonnet trial started (1741): one Sonnet initial rejected a supported Charlotte “without three starters” paraphrase; repair and remaining Sonnet trials refused by unchanged daily/model caps or conservative local reservations. Run 1 Haiku validates; run 2 Haiku paraphrase rejected; run 3 no paid calls. **Two-of-three Sonnet result incomplete.** Cumulative actual replay $0.044978/$0.25; $0.205022 remains. Single-use claim preserved; no guard/prompt/publication/cache change. Iteration 1754 prepared a separate one-time continuation with fresh claim, settled-spend audit and original three-run evidence; execute after UTC reset before Nov 11 noon. Apply owner’s computable supported-paraphrase fix if warranted, replay once and deploy. Scheduled NBA acceptance still open. [Evidence](docs/edition-reviews/2026-11-10.md#owner-requested-sonnet-trial--iteration-1741).
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1753: recovered interrupted rehearsal; disposable Grafana alert passes exact scheduled pending/firing, query-error and recovery transitions. Capacity, live installation and public query-route checks remain. Sonnet trials await UTC reset.
+- [x] Iteration 1754: prepared one-time post-reset NBA Sonnet continuation with verified cap/claim, original-trial and settled-ledger preconditions. Initial API scrape alert cleared; no paid call or editorial change.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

@@ -153,3 +153,10 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration/four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 09-observability`, and `git diff --check` pass.
 - Live account boundary 32 checks pass; scheduled reader four topics/19 stories/15 posts. Item 54 Sonnet trials still await UTC shared-cap reset; no paid call. Next: finish bounded Sonnet trials before Nov 11 noon, natural link expiry after 00:33 UTC, then scheduled NBA acceptance. Export alert capacity, live installation and public query-route checks remain.
 - First push rejected because the lead advanced origin/main with a reliability note; fetched, merged cleanly and pushed `c8d408e6` without rewriting history. API/worker/docs/schema restarted; post-restart health, 14 services, zero alerts and published reader pass. Working tree clean.
+
+## 2026-11-10: iteration 1754 — prepare bounded NBA Sonnet continuation
+
+- Clean main; no inherited work. Initial API scrape alert was pending immediately after an API restart, then cleared; direct metrics and `/healthz` returned 200. Health/database/Redis, all 14 services and 36 sources pass. Digest queue has zero failed runs.
+- Added one-time post-UTC-reset continuation for owner item 54. It requires the saved original trial, exact seven settled ledger calls/$0.044978, original NBA input, fresh exclusive claim, Nov 11 pre-noon window and $0.25 cumulative reservation ceiling. It saves raw responses and per-run diagnostics privately; no cache or edition writes.
+- Verification: standalone strict TypeScript check, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit pass; 281 integration pass/four expected skips), `pnpm build`, `git diff --check` pass. Live reader: four topics/19 stories/15 posts; account boundary: 32 pass.
+- No provider call, guard, prompt or publication change. Original claim remains untouched. Next: run the continuation after UTC reset, decide whether supported paraphrase needs a computable guard fix, and verify the natural link expiry after 00:33 UTC.
