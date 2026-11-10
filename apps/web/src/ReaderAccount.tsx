@@ -4,6 +4,7 @@ import { AdminSessionRevocation } from './AdminSessionRevocation';
 import { AdminSignInLink } from './AdminSignInLink';
 import { Button } from './components/ui/button';
 import { Sheet } from './components/ui/sheet';
+import { readerAccountStatus } from './reader-account-status';
 import type { useReaderAccount } from './use-reader-account';
 
 // Prepared for the reader header; mount only behind the account feature gate.
@@ -30,23 +31,7 @@ export function ReaderAccount({
     >
       <div className="space-y-4 py-4">
         <p role="status" className="text-sm text-[var(--secondary)]">
-          {account.status === 'deleting'
-            ? 'Deleting account…'
-            : account.status === 'signing-out'
-              ? 'Signing out…'
-              : account.status === 'checking'
-                ? 'Checking sign-in…'
-                : account.status === 'failed'
-                  ? 'Could not update your sign-in. Your choices are kept here and syncing is paused.'
-                  : account.session?.signedIn
-                    ? account.sync === 'failed'
-                      ? 'Could not sync. Your choices are kept here. Try again.'
-                      : account.sync === 'syncing'
-                        ? 'Syncing your topics and saved items…'
-                        : account.sync === 'idle'
-                          ? 'Your topics and saved items are synced.'
-                          : 'Syncing is paused.'
-                    : 'Sign in to sync your topics and saved items across devices.'}
+          {readerAccountStatus(account)}
         </p>
         {account.status === 'failed' && (
           <Button onClick={() => run(account.refresh)}>

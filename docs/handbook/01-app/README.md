@@ -52,6 +52,8 @@ data when enabled, deletion and third-party post connections.
   to current and past editions in this browser; new topics appear automatically.
 - Use **Save** beside a story or post, then **Saved items** to read its bounded copy at
   `/saved`, open the original or its edition, or remove it. Saves survive reloads.
+  With accounts enabled, this page shows sign-in and sync status; open Account beside
+  its heading to retry a failed sync.
 - This browser holds up to 1,000 saved identities, including removal records.
 - Choices are stored locally and shared between tabs. No account is needed.
   Clearing site storage resets saved items and hidden topics in open tabs too.

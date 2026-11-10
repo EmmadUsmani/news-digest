@@ -81,3 +81,12 @@ establishes live exe.dev trust or shows live account data.
 Item 53 adds [two-entry diagnostics](proxy-probe-two-entry-fixture.png):
 simulated public/private positions match the baseline in all five steps,
 even though the legacy one-entry check fails. This is not live proxy proof.
+
+## Saved-items sync status (fixture accounts)
+
+`pnpm exec tsx scripts/smoke-saved-sync-status.ts` checks the deployed saved-items
+page with intercepted account responses: signed out, synced, failed sync,
+Account retry and failed sign-in check. No account writes reach the API.
+The `saved-sync-failed-*` and `saved-sync-restored-*` images cover desktop and
+320px mobile, in light and dark themes. These show fixture status, not real
+account data; the mobile header is also checked for overlapping navigation.

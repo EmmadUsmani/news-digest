@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
+import { readerAccountStatus } from './reader-account-status';
 import { ReaderAccount } from './ReaderAccount';
 import { ReaderSkipLink } from './ReaderSkipLink';
 import { useReaderAccount } from './use-reader-account';
@@ -21,36 +22,51 @@ export function ReaderSaved() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16">
       <ReaderSkipLink target="saved-content" />
-      <header className="flex h-[65px] items-center justify-between border-b border-[var(--border)]">
+      <header className="flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)]">
         <Link
           to="/"
-          className="inline-flex min-h-11 min-w-11 items-center rounded-md font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-11 min-w-11 items-center whitespace-nowrap rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           News Digest
         </Link>
-        <nav aria-label="Reader navigation" className="flex items-center gap-3">
+        <nav
+          aria-label="Reader navigation"
+          className="flex shrink-0 items-center gap-3"
+        >
           <Link
             to="/editions"
             search={{ page: 1 }}
-            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Past editions
           </Link>
-          <ReaderAccount enabled={accountsEnabled} account={account} />
           <ThemeToggle />
         </nav>
       </header>
-      <h1
-        ref={heading}
-        id="saved-content"
-        tabIndex={-1}
-        className="mt-8 font-sans text-2xl font-semibold"
-      >
-        Saved items
-      </h1>
-      <p className="my-4 text-sm text-[var(--secondary)]">
-        Saved in this browser. No account is needed.
-      </p>
+      <div className="mt-8 flex items-center justify-between gap-2">
+        <h1
+          ref={heading}
+          id="saved-content"
+          tabIndex={-1}
+          className="font-sans text-2xl font-semibold"
+        >
+          Saved items
+        </h1>
+        <ReaderAccount enabled={accountsEnabled} account={account} />
+      </div>
+      {accountsEnabled ? (
+        <p
+          role="status"
+          aria-label="Saved item sync"
+          className="my-4 text-sm text-[var(--secondary)]"
+        >
+          {readerAccountStatus(account)}
+        </p>
+      ) : (
+        <p className="my-4 text-sm text-[var(--secondary)]">
+          Saved in this browser. No account is needed.
+        </p>
+      )}
       {preferences.storageFailed && (
         <p role="alert">
           Your browser could not save these choices. They apply until this page
@@ -70,7 +86,7 @@ export function ReaderSaved() {
           </p>
           <Link
             to="/"
-            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Browse the latest edition
           </Link>

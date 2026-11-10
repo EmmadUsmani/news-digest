@@ -36,7 +36,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1618: fresh private restore rehearsed migration 0019 with real bounded runner twice, injected rollback, original-data preservation, valid/invalid outcomes and eight account tables denying three reader roles. Live migration and public mode remain held until Phase 3 acceptance.
+- [x] Iteration 1619: Saved items shows the same sign-in/sync status as Account, including failure/retry recovery; Account moved beside the heading to prevent 320px header collisions. Four device/theme fixture-account browser views pass; public mode/migration 0019 remain held.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
