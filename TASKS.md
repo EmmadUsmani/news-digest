@@ -38,7 +38,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1710: composed default-off published-preview reads without legacy GET overlap; private cost/job/write handlers retained. Compiled-Nest HTTP checks cover both modes. Next adapt preview UI and verify anonymous authorization end to end.
+- [x] Iteration 1711: prepared separate public preview latest/history/detail browser queries using sanitized reader contracts; offline checks cover private-cache isolation, invalid responses, HTTP refusals and encoded IDs. Next install read-only preview pages and verify anonymous authorization end to end.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

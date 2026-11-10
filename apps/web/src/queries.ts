@@ -122,6 +122,43 @@ export const editionHistoryQuery = (offset = 0) =>
       ),
   });
 
+// Prepared for public-mode pages only. Keep sanitized preview data isolated
+// from private previews, including when identity changes in the same browser.
+export const publicPreviewLatestQuery = queryOptions({
+  queryKey: ['public', 'previews', 'latest'],
+  retry: false,
+  queryFn: ({ signal }) =>
+    read(
+      '/api/admin/digest-previews/latest',
+      readerEditionSchema.nullable(),
+      signal,
+    ),
+});
+
+export const publicPreviewHistoryQuery = (offset = 0) =>
+  queryOptions({
+    queryKey: ['public', 'previews', 'history', offset],
+    retry: false,
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/digest-previews?offset=${offset}`,
+        readerEditionHistorySchema,
+        signal,
+      ),
+  });
+
+export const publicPreviewDetailQuery = (id: string) =>
+  queryOptions({
+    queryKey: ['public', 'previews', 'detail', id],
+    retry: false,
+    queryFn: ({ signal }) =>
+      read(
+        `/api/admin/digest-previews/${encodeURIComponent(id)}`,
+        readerEditionSchema,
+        signal,
+      ),
+  });
+
 export const adminEditionQuery = queryOptions({
   queryKey: ['admin', 'editions', 'latest'],
   queryFn: ({ signal }) =>

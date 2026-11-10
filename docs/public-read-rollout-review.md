@@ -218,3 +218,11 @@ under the existing route policy. Compiled-Nest HTTP checks exercise both mode
 selections, published-only arguments and retained private operations. Public mode
 remains off; preview UI compatibility and full anonymous authorization are next.
 No deployment during the protected edition window.
+
+Iteration 1711 prepares browser queries for published preview latest/history/detail.
+They use reader contracts and a separate public cache namespace, with no fallback
+to private preview data. Offline checks verify sanitized responses, nullable
+latest, malformed response refusal, HTTP errors without fallback requests, encoded
+IDs and cache separation. These queries are not installed in pages; the current
+private preview UI and route authorization remain unchanged. Next install the
+read-only pages and complete anonymous authorization. Public mode remains off.
