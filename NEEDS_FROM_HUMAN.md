@@ -51,6 +51,11 @@ migrations and invite-only server/web deployment are complete (1591). Public
 mode remains off; sharing is unchanged. Dedicated live lifecycle acceptance is
 next; exact owner two-device steps will follow when that check passes.
 
+Iteration 1597: this VM cannot connect to `https://news-digest.exe.xyz:443`
+(curl connection failure before HTTP). Local Chromium routing bypasses that
+boundary. Proxy/TLS cookie exchange remains unverified; keep the VM private
+and public mode off. No sharing change or new proxy probe is requested.
+
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes
 40 real X widget views with the self/platform script allowlist enforced and no

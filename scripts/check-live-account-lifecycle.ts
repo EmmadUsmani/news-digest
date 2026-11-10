@@ -39,7 +39,8 @@ async function request(
     signal: AbortSignal.timeout(10_000),
   });
   // Never include payloads, actual cookies or response bodies in errors.
-  if (response.status !== status) throw new Error('Unexpected HTTP status');
+  if (response.status !== status)
+    throw new Error(`Unexpected HTTP status ${response.status}`);
   if (response.headers.get('cache-control') !== 'no-store')
     throw new Error('Missing no-store');
   checks++;
@@ -240,6 +241,48 @@ async function main() {
     );
     const desktop = await browserSession(friend, 1280);
     const mobile = await browserSession(revokeSecond, 390);
+    // Shorten only this isolated browser cookie, leaving the server session
+    // intact. Reader sessions intentionally have no server expiry.
+    stage = 'local browser cookie expiry';
+    const expiring = await browserSession(friend, 1280);
+    const context = expiring.context();
+    const sessionCookie = (await context.cookies(origin)).find(
+      (cookie) => cookie.name === '__Host-reader_session',
+    );
+    assert.ok(sessionCookie);
+    await context.addCookies([
+      { ...sessionCookie, expires: Math.floor(Date.now() / 1000) + 2 },
+    ]);
+    await expect
+      .poll(async () =>
+        (await context.cookies(origin)).some(
+          (cookie) => cookie.name === '__Host-reader_session',
+        ),
+      )
+      .toBe(false);
+    await expiring.reload();
+    await expiring
+      .getByRole('button', { name: 'Account', exact: true })
+      .click();
+    await expect(
+      expiring.getByRole('link', { name: 'Sign in', exact: true }),
+    ).toBeVisible();
+    const refused = await expiring.evaluate(async (body) => {
+      const response = await fetch('/api/account/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      return response.status;
+    }, empty);
+    assert.equal(refused, 401);
+    await expiring.screenshot({
+      path: 'docs/screenshots/accounts/live-cookie-expired.png',
+    });
+    checks++;
+    // Expiring a browser cookie must not revoke another device's session.
+    await signedIn(friend, true);
+    await context.close();
     const revoked = await request('sessions/revoke', 200, admin, {
       userId: target.rows[0].id,
     });
@@ -284,9 +327,9 @@ async function main() {
     if (await mailbox.latest(email, new Date()))
       throw new Error('Deleted reader mailbox retained');
     await signedIn(admin, true, true);
-  } catch {
+  } catch (error) {
     console.error(
-      `Acceptance failed before cleanup at ${stage}; credentials withheld`,
+      `Acceptance failed before cleanup at ${stage}${error instanceof Error && /^Unexpected HTTP status [0-9]{3}$/.test(error.message) ? `: ${error.message}` : ''}; credentials withheld`,
     );
     throw new Error('Live acceptance failed');
   } finally {
@@ -313,7 +356,7 @@ async function main() {
     }
   }
   console.log(
-    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Desktop/mobile Chromium seeded-cookie session/sync and revoked-session reload pass. Proxy/TLS cookie exchange and expiry acceptance remain separate.`,
+    `${checks} deployed-loopback lifecycle checks pass: code/link login and replay, two-device topic/bookmark sync and persisted tombstones/stale refusal, reader privilege refusal, all-device logout, audited admin-target two-session revocation/replay refusal and disposable deletion/mailbox cleanup. Owner session signed out; no schedule or owner preference writes. Desktop/mobile Chromium seeded-cookie session/sync and revoked-session reload pass. Browser cookie expiry signs out and refuses sync while the server session survives. Proxy/TLS exchange and live code/link expiry remain separate.`,
   );
 }
 void main().catch(() => {

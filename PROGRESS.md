@@ -1,25 +1,6 @@
 # Progress
 
-Earlier entries: [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
-
-## 2026-11-09: iteration 1584 — reject ambiguous account Cookie fields
-
-- Clean main/no leftovers; alerts/health pass, all 36 sources healthy, all 14 services active and digest-generation failed count zero. No paid calls, migrations, flag, UI or generation changes.
-- Owner value: future sign-in and account writes now refuse ambiguous wire-level session input before authentication or mutation. Prepared account transport rejects multiple Cookie fields, including mixed-case names; accounts/public stay off pending item 53.
-- Offline real HTTP checks cover session reads, redemption and logout-all: identical/conflicting/unrelated repeated fields return empty no-store 400 without cookies or handler calls. One Cookie field with unrelated cookies and cookie-free redemption still reach their handlers.
-- Updated readiness plan/TASKS; no active source or handbook behavior changed. Targeted `pnpm exec tsx --test apps/api/test/account-http.test.ts` passes all seven tests.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 791 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
-- Pushed `5da85e54`; restarted API/worker. Post-restart health, zero alerts, all 14 services and scheduled-reader verification pass: four topics/19 stories/14 posts.
-- Next: Phase 4 preparation behind flags; production visitor extraction remains blocked. Passive metrics probe due ≥22:36 UTC; not repeated this iteration.
-
-## 2026-11-09: iteration 1585 — stop disconnected public authorization dispatch
-
-- Clean main/no leftovers; initial alerts and health pass. All 36 sources healthy; digest-generation failed count zero. No paid calls, migrations, flags, UI or generation changes.
-- Prepared public authorization checks liveness after asynchronous authentication and durable admin admission, before controller dispatch. Disconnect during authentication also skips audit admission; an audit already started may finish. Accounts/public stay off pending item 53.
-- Offline real HTTP tests disconnect during each wait: zero controller calls, expected audit counts, then successful connected recovery. Updated readiness plan/TASKS; no active handbook or source behavior changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 792 unit, 275 integration/four expected skips; typecheck/lint/format/boundaries green. Targeted public-access HTTP tests pass (2); `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
-- API/worker restarted; first health probe raced startup, retry passed. Post-restart health, all 14 monitored services, zero alerts and scheduled-reader check pass: four topics/19 stories/14 posts.
-- Next: Phase 4 preparation behind flags; production visitor extraction awaits owner proof. Passive metrics probe due ≥22:36 UTC, not repeated this iteration.
+Earlier entries: [iterations 1584–1585](docs/progress-archive/2026-11-10-1597.md); [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [iterations 1580–1582](docs/progress-archive/2026-11-09-1594.md); [iterations 1577–1579](docs/progress-archive/2026-11-09-1592.md); [iterations 1570–1576](docs/progress-archive/2026-11-09-1589.md); [iterations 1567–1569](docs/progress-archive/2026-11-09-1581.md); [iterations 1564–1566](docs/progress-archive/2026-11-09-1578.md); [iterations 1560–1563](docs/progress-archive/2026-11-09-1574.md); [iterations 1552–1559](docs/progress-archive/2026-11-09-1568.md); [iterations 1550–1551](docs/progress-archive/2026-11-09-1564.md); [iterations 1548–1549](docs/progress-archive/2026-11-09-1562.md); [through iteration 1547](docs/progress-archive/2026-11-09-1557.md); [through iteration 1539](docs/progress-archive/2026-11-09-1548.md).
 
 ## 2026-11-09: iteration 1586 — preserve account request text integrity
 
@@ -129,3 +110,12 @@ Earlier entries: [iteration 1583](docs/progress-archive/2026-11-10-1596.md); [it
 - Updated activation checklist/TASKS. Proxy/TLS exchange and expiry remain, then owner two-device and normal scheduled-edition gates; Phase 3 open/public mode off. Metrics probe remains due ≥00:37 UTC.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips), `pnpm build`, targeted final ESLint/Prettier and `check-handbook.ts account-activation` pass. Existing bundle warnings only. Initial full check caught import sorting while editing; fixed and full suite rerun green. Archived iteration 1583 to keep this file small.
 - Restarted API only with `systemctl --user restart news-digest-api.service`; first health request raced startup, retry passed. Post-restart `/healthz`, `check-scheduled-reader.ts 2026-11-09T15:00:00Z` and `pnpm obs alerts` pass (zero alerts); worker unchanged. `check-live-account-boundary.ts` passes 32 refusals. Next: proxy/TLS exchange and expiry, then owner/scheduled acceptance.
+
+## 2026-11-10: iteration 1597 — browser cookie expiry acceptance
+
+- Clean main/no inherited work. Initial alerts/health pass; 36 sources report no errors; digest-generation failed count zero, next run Nov 10 15:00 UTC. Saved Nov 9 reader remains four topics/19 stories/14 posts.
+- Extended `pnpm exec tsx scripts/check-live-account-lifecycle.ts --live`: 48 checks pass. Shortened only an isolated Chromium cookie to two seconds; real expiry removes it, reload shows Sign in, sync returns 401 and the server session remains usable separately. Reader sessions intentionally have no server expiry. No server clock/data/limit changes; disposable reader deleted and temporary owner session signed out.
+- Added safe numeric HTTP failure diagnostics. First run refused at redemption under existing login throttle; waited for natural expiry, rerun passed. No credential output, paid calls, owner preference, schedule, migration or provider changes.
+- New `live-cookie-expired.png` inspected. Updated activation checklist, TASKS and NEEDS_FROM_HUMAN; archived iterations 1584–1585 to keep this file small. VM HTTPS connection to private app fails before HTTP; proxy/TLS remains unverified. Live code/link expiry, owner two-device and normal scheduled-edition gates remain; Phase 3 open/public mode off.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (796 unit, 275 integration/four expected skips), `pnpm build`, `check-handbook.ts account-activation`, `check-live-account-boundary.ts` (32 refusals) and saved scheduled-reader check pass. First full check terminated with exit 143 during integration without a reported failure; complete retry passes. Existing bundle warnings only.
+- Restarted API only with `systemctl --user restart news-digest-api.service`; post-restart `/healthz`, saved scheduled-reader check and alerts pass (zero alerts). Worker unchanged. Next: proxy/TLS exchange and live code/link expiry before owner/scheduled acceptance; metrics probe not due until ≥00:37 UTC.

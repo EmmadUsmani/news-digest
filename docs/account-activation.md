@@ -122,7 +122,12 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    signed-out panels after admin revocation/reload. Requests reach the deployed
    local service through browser routing with the configured app origin and a
    synthetic visitor header; external embeds are blocked. Proxy/TLS cookie exchange and
-   expiry still need acceptance before the owner check.
+   live code/link expiry still need acceptance before the owner check.
+   Iteration 1597 adds a browser cookie-expiry check: only an isolated context's
+   cookie lifetime is shortened. Chromium drops it, reload shows Sign in and
+   sync returns 401; the same server session remains valid on another device.
+   Server reader sessions intentionally have no expiry. This does not exercise
+   the production 400-day cookie lifetime or code/link expiry.
 6. Add the owner check below to `NEEDS_FROM_HUMAN.md` when the live flow is ready.
    Phase 3 also requires a normal scheduled edition with the account flag on.
    Record its reader/content checks, then ack Phase 3; Phase 4 follows.
