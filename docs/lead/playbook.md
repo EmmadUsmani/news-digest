@@ -95,6 +95,9 @@ anything unpushed. So does deleting the clone.
   more than the agent's summary did. The same goes for saved editions and code.
 - **Check that a test was fair** before rejecting an idea.
 - **Agent reviews are good but cautious.** Read the numbers, then make the call.
+- **Agent quiet with no commits:** read `~/agent-control/status/heartbeat.json`
+  and `logs/iter-<n>.jsonl` on the VM. The supervisor retries crashes every 5
+  minutes forever, so a crash loop looks like a quiet agent.
 - **`/admin` returns 200 for any path** once the gate passes, because the page is
   a client-side app. That doesn't prove a page exists.
 

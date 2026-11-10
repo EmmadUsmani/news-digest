@@ -1,5 +1,13 @@
 # Reliability
 
+**Agent outage, Nov 10:** from 22:13 UTC every Codex run fails with "The
+'gpt-6.1-sol' model requires a newer version of Codex". Codex was upgraded to
+0.167.1 (latest stable). The newest prerelease is rejected too, while
+`gpt-6-sol` works, so the block is on the exe.dev gateway or OpenAI side. The
+supervisor retries every 5 minutes and resumes by itself once that's fixed.
+Next: check `~/agent-control/status/heartbeat.json`, and ask the owner before
+any model switch.
+
 **Status:** steered on Nov 7 as items 47 and 48, not yet acked. The agent rehearses four
 failed-edition cases and a rebuild from backup, then settles M6 and M7.
 Publisher names are built on the `publisher-attribution` branch and stay off
