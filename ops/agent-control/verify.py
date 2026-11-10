@@ -318,6 +318,7 @@ class SupervisorTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertEqual(count, "5")
         self.assertEqual(state["consecutive_no_progress"], 1)  # Only final smoke, which creates no commits.
+        self.assertEqual(state["consecutive_failures"], 0)
 
     def test_STOP_during_usage_wait_preserves_progress_count(self):
         result, state, logs, count = self.run_case("usage_stop")
@@ -334,6 +335,15 @@ class SupervisorTests(unittest.TestCase):
                 self.assertEqual(state["last_exit_code"], 0)
                 self.assertEqual(count, "5")
                 self.assertEqual(state["consecutive_no_progress"], 5)
+
+    def test_failure_streak_counts_crashes_and_resets_on_success(self):
+        result, state, logs, count = self.run_case("unknown_stop")
+        self.assertEqual(state["consecutive_failures"], 1)
+        result, state, logs, count = self.run_case("usage_stop")
+        self.assertEqual(state["consecutive_failures"], 0)  # Usage waits are not failures.
+        result, state, logs, count = self.run_case("crash")
+        self.assertEqual(count, "5")
+        self.assertEqual(state["consecutive_failures"], 0)  # Four crashes, then success resets.
 
     def test_unknown_failure_STOP_during_wait(self):
         result, state, logs, count = self.run_case("unknown_stop")

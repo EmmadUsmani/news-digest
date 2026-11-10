@@ -269,7 +269,7 @@ def main():
     elif action == "heartbeat":
         target, *pairs = args
         data = dict(pair.split("=", 1) for pair in pairs)
-        for key in ("iteration", "last_exit_code", "consecutive_no_progress", "supervisor_pid"):
+        for key in ("iteration", "last_exit_code", "consecutive_no_progress", "consecutive_failures", "supervisor_pid"):
             data[key] = int(data[key])
         path = Path(target)
         tmp = path.with_suffix(".tmp")

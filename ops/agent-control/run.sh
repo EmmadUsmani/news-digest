@@ -48,6 +48,9 @@ if (( DEADLINE_EPOCH > 0 )); then DEADLINE=$(date -u -d "@$DEADLINE_EPOCH" +%FT%
 RUN_ID=$(date -u +%Y%m%dT%H%M%SZ)-$$
 ITERATION=0
 NO_PROGRESS=0
+# Consecutive failed iterations (crash, timeout, auth, refused model); usage-limit
+# waits are expected and leave it unchanged. Feeds the AgentCrashLoop alert.
+FAILURES=0
 LAST_RC=0
 LAST_HEALTH=not_checked
 ITER_START=''
@@ -71,7 +74,7 @@ heartbeat() {
         "iteration=$ITERATION" "run_id=$RUN_ID" "started_at=$START" \
         "updated_at=$(date -u +%FT%TZ)" "iteration_started_at=$ITER_START" \
         "iteration_finished_at=$ITER_END" "last_exit_code=$LAST_RC" \
-        "consecutive_no_progress=$NO_PROGRESS" "last_health_result=$LAST_HEALTH" \
+        "consecutive_no_progress=$NO_PROGRESS" "consecutive_failures=$FAILURES" "last_health_result=$LAST_HEALTH" \
         "deadline=$DEADLINE" "next_retry_at=$NEXT_RETRY" "state=$STATE" "stop_reason=$STOP_REASON" \
         "supervisor_pid=$$" "active_pgid=$ACTIVE_PID" "smoke=$SMOKE" "codex_usage=$CODEX_USAGE" "model=$MODEL_USED"
 }
@@ -342,6 +345,7 @@ while true; do
     if [[ $RESULT == usage || $RESULT == auth ]]; then :;
     elif [[ $RESULT == ok ]] && (( COMMITS > 0 )); then NO_PROGRESS=0;
     else NO_PROGRESS=$((NO_PROGRESS + 1)); fi
+    if [[ $RESULT == ok ]]; then FAILURES=0; elif [[ $RESULT != usage ]]; then FAILURES=$((FAILURES + 1)); fi
     STATE=between_iterations
     heartbeat
     log "Iteration $ITERATION finished: rc=$LAST_RC result=$RESULT model=$MODEL_USED commits=$COMMITS no_progress=$NO_PROGRESS."
