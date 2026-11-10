@@ -193,6 +193,103 @@ void test('configured full public application serves published fixtures and enfo
     const sync = await write('/api/account/sync', empty, cookie);
     assert.equal(sync.status, 200);
     assert.deepEqual(await sync.json(), empty);
+    // Invited readers use the same production middleware and controller graph.
+    const devices: string[] = [];
+    for (let index = 0; index < 2; index++) {
+      const invitation = await write(
+        '/api/account/links',
+        {
+          email: 'isolated-reader@example.test',
+        },
+        cookie,
+      );
+      assert.equal(invitation.status, 201);
+      const redemption = await write('/api/account/link-redeem', {
+        token: (await invitation.json()).token,
+      });
+      assert.equal(redemption.status, 204);
+      devices.push(redemption.headers.get('set-cookie')!.split(';')[0]);
+    }
+    assert.notEqual(devices[0], devices[1]);
+    assert.deepEqual(
+      await (
+        await account('/api/account/session', {
+          headers: { Cookie: devices[0] },
+        })
+      ).json(),
+      { signedIn: true, isAdmin: false },
+    );
+    const saved = {
+      ...empty,
+      hiddenTopics: { tech: { hidden: true, updatedAt: 100 } },
+      bookmarks: {
+        'story:fixture': {
+          updatedAt: 100,
+          copy: {
+            title: 'Isolated fixture story',
+            url: 'https://example.test/story',
+            attribution: 'Fixture publisher',
+            excerpt: 'Fixture reporting',
+            platform: 'web',
+            editionId: ids[0],
+          },
+        },
+      },
+    };
+    const syncReader = async (body: unknown, device: string) => {
+      const response = await write('/api/account/sync', body, device);
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      return response.json();
+    };
+    assert.deepEqual(await syncReader(saved, devices[0]), saved);
+    assert.deepEqual(await syncReader(empty, devices[1]), saved);
+    const removed = {
+      ...saved,
+      bookmarks: {
+        'story:fixture': { copy: null, updatedAt: 101 },
+      },
+    };
+    assert.deepEqual(await syncReader(removed, devices[1]), removed);
+    assert.deepEqual(await syncReader(saved, devices[0]), removed);
+    assert.deepEqual(await syncReader(empty, cookie), empty);
+    const forbidden = await account('/api/admin/topics/' + topic.id, {
+      method: 'PUT',
+      headers: {
+        Cookie: devices[0],
+        Origin: configuration.ACCOUNT_ORIGIN,
+        'Content-Type': 'application/json',
+        'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+      },
+      body: JSON.stringify({ enabled: !topic.enabled }),
+    });
+    assert.equal(forbidden.status, 404);
+    assert.equal(await forbidden.text(), '');
+    assert.equal(
+      (
+        await write(
+          '/api/account/links',
+          {
+            email: 'uninvited@example.test',
+          },
+          devices[0],
+        )
+      ).status,
+      403,
+    );
+    const unchanged = await account('/api/admin/topics', {
+      headers: { Cookie: cookie },
+    });
+    assert.deepEqual(await unchanged.json(), catalog);
+    assert.equal(
+      (await write('/api/account/logout-all', {}, devices[0])).status,
+      204,
+    );
+    for (const device of devices)
+      assert.equal(
+        (await write('/api/account/sync', empty, device)).status,
+        401,
+      );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
     const revoked = await account('/api/admin/topics', {
       headers: { Cookie: cookie },

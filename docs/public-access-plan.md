@@ -416,7 +416,9 @@ forged-header write refusal, empty controller errors and shared admission across
 reader/account routes. Iteration 1605 extends this same compiled application rehearsal
 through temporary-mailbox code redemption, secure admin session cookies, authorized
 topic reads and an unchanged topic-enable write, reader sync, and logout revocation.
-Owner and scheduled acceptance gates remain open. No live
+Iteration 1606 adds invited-reader two-session preference sync, bookmark removal
+with stale-device replay, account isolation, forged-owner-header admin write refusal,
+invitation refusal and all-device logout. Owner and scheduled acceptance gates remain open. No live
 flags or data are changed.
 
 Prepared reader sync (iteration 1588) bounds preference clocks to year 9999,
