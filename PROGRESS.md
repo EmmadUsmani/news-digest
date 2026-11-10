@@ -137,5 +137,7 @@
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and no failed user services.
 - Prepared dedicated-instance PostgreSQL aggregate tables, separate from application catalogs; no live service, datasource, credentials, migration or public flag change.
 - Added disposable-instance real reader login rehearsal: exact daily dashboard queries, aggregate source counts, idempotence and denied escalation/password catalogs/program execution/writes/schema creation. Grants still deny writes after resetting the read-only default.
-- Export transport/atomic refresh/retention, capacity assessment, aggregate source-panel adaptation and Grafana browser/query-route review remain before installation. Synthetic test counts are not live exports. Phase 3 awaits a normal scheduled edition.
+- Export transport/atomic refresh/retention, capacity assessment, aggregate source-panel adaptation and Grafana browser/query-route review remain before installation. Synthetic test counts are not live exports. Later owner Phase 3 acceptance noted below.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). Full `pnpm check` passes (819 unit tests, 280 integration tests/four expected skips); `git diff --check` clean. Commit/push and API/worker restart follow.
+
+- Push initially rejected because owner advanced main; merged upstream unchanged. Owner now accepts Phase 3 and prioritizes NBA editor diagnosis (54) before Phase 4/migration 0019; updated TASKS accordingly. Post-restart health/reader pass, zero alerts/failed units. Retrying push with merged history.
