@@ -1,9 +1,11 @@
 # Edition quality
 
-**Status:** Nov 9 fully AI-edited in all four topics again (NBA held a second
-day). $0.388 of the $0.525 cap, 175 seconds. Tech still headline-level: four of
-five summaries come from headline-only excerpts (agent's figures,
-[review](../../edition-reviews/2026-11-09.md)).
+**Status:** Nov 10 NBA fell back to raw source excerpts: all four story-editor
+attempts were rejected (unsupported-absence, negative-word, invalid JSON).
+Steered as item 54 (`7c7df8ab`): find the cause, fix it before noon UTC Nov 11.
+Lead's untested guess: the absence guard
+(`apps/api/src/modules/curation/application/absence-support.ts`) rejects any
+"not/no/without" sentence that isn't copied from a source word for word.
 
 **Latest:**
 
@@ -15,8 +17,10 @@ five summaries come from headline-only excerpts (agent's figures,
 
 **Next:**
 
-- Tech summary depth: propose steering once item 50 frees the agent.
-- Item 42: while other items wait, the agent reads the edition as a reader and
-  fixes the biggest weakness. Check its PROGRESS.md entries.
+1. Read item 54's ack: the cause named from the Nov 10 replay, a test-backed
+   fix deployed before noon UTC, replays within $0.10.
+2. Nov 11 edition: NBA must be AI-edited. If not, re-diagnose rather than
+   re-steer the same fix.
+3. Tech summary depth: propose steering once item 50 frees the agent.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
