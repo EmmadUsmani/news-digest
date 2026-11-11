@@ -11,7 +11,10 @@ import {
   proxyInternalTools,
   selectInternalTools,
 } from '../apps/api/src/internal-tools';
-import { telemetryContentSecurityPolicy } from '../apps/api/src/telemetry-query-policy';
+import {
+  isAdminTelemetryRead,
+  telemetryContentSecurityPolicy,
+} from '../apps/api/src/telemetry-query-policy';
 
 async function main() {
   const proxyAssets = process.argv[2] === '--proxy-assets';
@@ -56,7 +59,10 @@ async function main() {
         { bytes: number; sha256: string; contentType: string }
       >();
       const intercepted = new Set<string>();
+      const refused = new Set<string>();
       const page = await context.newPage();
+      const navigationErrors: string[] = [];
+      page.on('pageerror', (error) => navigationErrors.push(error.name));
       page.on('response', (response) => {
         const path = new URL(response.url()).pathname;
         if (assets.has(path) && !response.ok()) failedAssets.add(path);
@@ -114,6 +120,14 @@ async function main() {
           });
           return;
         }
+        if (
+          url.origin === origin &&
+          !isAdminTelemetryRead(request.method(), url.pathname + url.search)
+        ) {
+          refused.add(`${request.method()} ${url.pathname}`);
+          await route.fulfill({ status: 403, body: 'Forbidden' });
+          return;
+        }
         // Exclude queries, bodies, headers and external hostnames from the report.
         intercepted.add(
           `${request.method()} ${url.origin === origin ? url.pathname : '[external]'}`,
@@ -124,13 +138,25 @@ async function main() {
           body:
             url.pathname === '/logs/select/logsql/query'
               ? ''
-              : JSON.stringify({
-                  hits: [],
-                  status: 'success',
-                  data: { resultType: 'matrix', result: [] },
-                  values: [],
-                  fields: [],
-                }),
+              : url.pathname === '/metrics/vmui/dashboards/perJobUsage.json'
+                ? JSON.stringify({
+                    title: 'Fixture dashboard',
+                    rows: [
+                      {
+                        title: 'Fixture row',
+                        panels: [
+                          { title: 'Fixture panel', width: 12, expr: ['up'] },
+                        ],
+                      },
+                    ],
+                  })
+                : JSON.stringify({
+                    hits: [],
+                    status: 'success',
+                    data: { resultType: 'matrix', result: [] },
+                    values: [],
+                    fields: [],
+                  }),
         });
       });
       await page.goto(
@@ -149,6 +175,43 @@ async function main() {
         await execute.first().click();
         await page.waitForLoadState('networkidle');
       }
+      // Exercise installed hash routes without forwarding operational requests.
+      const navigation =
+        name === 'metrics'
+          ? ['/raw-query', '/dashboards', '/query-analyzer']
+          : ['/overview'];
+      for (const hashRoute of navigation) {
+        await page.goto(origin + root + '#' + hashRoute, {
+          waitUntil: 'networkidle',
+        });
+        // Native panels debounce their initial fixture query after navigation.
+        await page.waitForTimeout(750);
+        await page.waitForLoadState('networkidle');
+        assert.ok(
+          await page.locator('button').count(),
+          `${name}: ${hashRoute} mounted`,
+        );
+        assert.equal(new URL(page.url()).hash.split('?')[0], '#' + hashRoute);
+        assert.equal(
+          await page.getByText(/Missing dashboard (rows|panels)/).count(),
+          0,
+        );
+        if (proxyAssets)
+          await page.screenshot({
+            path: `docs/screenshots/native-${name}-${hashRoute.slice(1)}-prepared-proxy.png`,
+            fullPage: true,
+          });
+      }
+      assert.deepEqual(
+        navigationErrors,
+        [],
+        `${name}: navigation has no uncaught errors`,
+      );
+      assert.deepEqual(
+        [...refused].sort(),
+        name === 'metrics' ? ['GET /metrics/prometheus/api/v1/export'] : [],
+        `${name}: only the reviewed export limitation is refused`,
+      );
       const links = await page.locator('a[href]').evaluateAll((elements) =>
         elements.map((element) => {
           const url = new URL((element as HTMLAnchorElement).href);
@@ -207,6 +270,8 @@ async function main() {
           ),
           intercepted: [...intercepted].sort(),
           links: [...new Set(links)].sort(),
+          navigation,
+          refused: [...refused].sort(),
           fixtureData: true,
           policy,
           deliberateRefusals: [...violations].sort(),

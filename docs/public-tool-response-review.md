@@ -882,3 +882,16 @@ query aliases never reach the isolated recording upstream. Bodies are fixtures;
 this verifies HTTP/session composition, not browser navigation or live queries.
 Public mode stays off. Full browser/session composition and broader live
 navigation remain open.
+
+## Native hash-route navigation (iteration 1793)
+
+The prepared-proxy Chromium review now visits metrics Raw Query, Dashboards
+and Query Analyzer, plus logs Overview. Each screen mounts without uncaught
+page errors or normal CSP violations. Admitted operational requests match the shared fresh-admin read policy; Overview adds POST field_names,
+which is already admitted. The dashboard uses an explicit fixture panel with empty query results.
+Screenshots live under `docs/screenshots/native-*-prepared-proxy.png`.
+
+All operational responses remain intercepted fixtures. Raw Query automatically requests GET `/metrics/prometheus/api/v1/export`,
+which remains denied (403) and is asserted as the sole expected refusal.
+Review bounded export semantics before admitting it. Full authenticated browser composition, remaining navigation controls and live
+query rendering still need acceptance; public mode remains off.

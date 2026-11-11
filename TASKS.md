@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1793: prepared-proxy Chromium navigation covers metrics Raw Query/Dashboards/Query Analyzer and logs Overview; shared-policy admission/refusal and uncaught-error/CSP checks pass; Raw Query export remains denied pending bounded review. Full browser/session and live navigation remain open; public mode off.
+
 - [x] Iteration 1792: compiled-app stored-session HTTP rehearsal covers all 13 native telemetry assets, CSP/nosniff, method/alias refusals and freshness/login/logout boundaries against fixture upstream. Browser/session composition and broader live navigation remain open; public mode off.
 
 - [x] Iteration 1791: exact native telemetry asset GET admission and proxy CSP/nosniff prepared for fresh admins; Chromium proxy composition and fixture queries/policy refusals pass. Broader live navigation and stored-session UI composition remain open; public mode off.

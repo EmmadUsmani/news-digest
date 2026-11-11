@@ -123,3 +123,14 @@
 - Full check passes: 833 unit and 283 integration tests, four expected skips. Build and handbook verification pass; `git diff --check` clean.
 - API restarted after push; healthz and deployed account/reader checks verified.
 - Next: full browser/session composition and broader native navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1793 — native telemetry navigation and export limitation
+
+- Clean main; no inherited work. Alerts clear, healthz healthy and no failed user services. Public mode remains off; no provider calls.
+- Extended installed-asset Chromium review to metrics Raw Query/Dashboards/Query Analyzer and logs Overview, with delayed query settlement, uncaught-error/CSP checks and inspected screenshots.
+- Operational requests are fixtures and checked against shared read admission. Overview POST field_names is already admitted. Raw Query auto-fetches GET /metrics/prometheus/api/v1/export, still refused (403); bounded export semantics remain a readiness gate. No runtime admission change.
+- Corrected dashboard fixture to a real panel with empty query results; both --proxy-assets and --live-assets reviews pass. Full stored-session/browser composition and live query navigation remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, 32 deployed account checks and check-scheduled-reader.ts 2026-11-10T15:00:00Z pass (four topics/19 stories/15 posts).
+- First combined verification command ended with SIGTERM during unit tests (no reported failures); standalone pnpm check retry passes: 833 unit and 283 integration tests, four expected skips. Typecheck/lint/format/boundaries pass.
+- Updated readiness/review and TASKS; git diff --check passes. API restart and deployed health/account/reader checks follow push.
+- Next: bounded raw-export review, full browser/session composition, remaining native controls/live navigation, Grafana capacity evidence and 15:00 UTC NBA review.
