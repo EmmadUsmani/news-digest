@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
+import { once } from 'node:events';
 import { readFileSync } from 'node:fs';
+import type { AddressInfo } from 'node:net';
+import { resolve } from 'node:path';
 import { test } from 'node:test';
 
+import { createExplorerServer } from '../../schema-explorer/src/http-server';
 import { introspect } from '../../schema-explorer/src/introspect';
 import { buildModel } from '../../schema-explorer/src/model';
 import { buildPublicModel } from '../../schema-explorer/src/public-model';
@@ -60,6 +64,59 @@ void test('prepared explorer role reads schema structure without application-row
       JSON.stringify(model),
       /private-catalog-marker|rowEstimate|sizeBytes|definition/,
     );
+    // Compose the actual HTTP boundary with real catalog queries under the
+    // restricted session, then rehearse private rollback without changing grants.
+    const responses: unknown[] = [];
+    for (const structuralOnly of [false, true, false]) {
+      const server = createExplorerServer({
+        publicDir: resolve('apps/schema-explorer/public'),
+        structuralOnly,
+        health: () => client.query('SELECT 1'),
+        loadModel: async () => buildModel(await introspect(client)),
+      });
+      try {
+        server.listen(0, '127.0.0.1');
+        await once(server, 'listening');
+        const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+        assert.equal((await fetch(`${base}/healthz`)).status, 200);
+        const response = await fetch(`${base}/api/schema?structuralOnly=false`);
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        const body = (await response.json()) as typeof model;
+        assert.deepEqual(
+          body.tables.map((table) => table.name),
+          model.tables.map((table) => table.name),
+        );
+        assert.deepEqual(
+          body.relations,
+          structuralOnly ? model.relations : buildModel(catalog).relations,
+        );
+        if (structuralOnly) {
+          assert.doesNotMatch(
+            JSON.stringify(body),
+            /private-catalog-marker|rowEstimate|sizeBytes|definition/,
+          );
+        } else {
+          assert.match(JSON.stringify(body), /private-catalog-marker/);
+        }
+        assert.equal(
+          (await fetch(`${base}/api/schema`, { method: 'POST' })).status,
+          405,
+        );
+        assert.equal((await fetch(`${base}/users`)).status, 404);
+        responses.push(body);
+      } finally {
+        server.closeAllConnections();
+        await new Promise<void>((resolve, reject) =>
+          server.close((error) => (error ? reject(error) : resolve())),
+        );
+      }
+    }
+    // Ignore the generated timestamp; all catalog details survive rollback.
+    const [before, , after] = responses as Record<string, unknown>[];
+    delete before.generatedAt;
+    delete after.generatedAt;
+    assert.deepEqual(after, before);
     // Catalog comments are visible despite denied row access; project before serving.
     assert.match(JSON.stringify(catalog), /private-catalog-marker/);
     for (const query of [

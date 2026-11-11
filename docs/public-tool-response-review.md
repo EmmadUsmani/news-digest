@@ -482,3 +482,17 @@ responses uncached, reject POST before introspection, serve existing assets and
 health, and refuse unknown routes. This rehearsal needs no database credentials
 or provider traffic. Catalog-role credentials and exact proxy admission still
 need installation and composed browser/rollback checks before activation.
+
+## Restricted catalog HTTP composition (iteration 1770)
+
+The disposable migrated-database rehearsal now serves real introspection results
+through the explorer HTTP handler under the restricted catalog session. Three
+ephemeral loopback listeners exercise private/structural/private startup. Checks
+retain all table names and relationship endpoints, remove catalog comments and
+activity fields in structural mode, preserve no-store, refuse POST and unknown
+row-like routes, and restore the full private response after rollback. Existing
+application-row, role-switch and server-file denials run in the same session.
+
+This uses session authorization, not password authentication: the shared test
+container uses trust authentication. Live credential installation and exact
+proxy/browser composition remain open; no live flags, credentials or grants change.
