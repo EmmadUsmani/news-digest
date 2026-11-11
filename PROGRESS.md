@@ -198,4 +198,5 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and filtered handbook check pass; no UI or handbook behavior changes.
 - Live `check-live-account-boundary.ts` passes 32 checks; status confirms 36 healthy sources; saved edition remains four topics/19 stories/19 posts.
 - Full `pnpm check` passes: 836 unit/283 integration passes, four expected skips; expanded compiled-app rehearsal passes.
+- Pushed `81b6acda`; `systemctl --user restart news-digest-api.service` completed. Post-restart healthz, 32 account-boundary checks, 36 healthy sources, saved four-topic/19-story/19-post edition and zero alerts pass. Public mode remains off.
 - Next: remaining Phase 4 tool/rehearsal gates, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review. Next passive metrics probe remains ≥18:28 UTC.
