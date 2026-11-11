@@ -67,6 +67,16 @@ void test('configured full public application serves published fixtures and enfo
     require('../dist/modules/operations/adapters/public-jobs-browser.js') as typeof import('../src/modules/operations/adapters/public-jobs-browser');
   const { proxyInternalTools, selectInternalTools } =
     require('../dist/internal-tools.js') as typeof import('../src/internal-tools');
+  const { createLogger, requestLogging } =
+    require('../dist/libs/observability/logging.js') as typeof import('../src/libs/observability/logging');
+  const requestLogs: string[] = [];
+  // Use the production request middleware without environment-value redaction:
+  // sensitive inputs must be omitted, rather than hidden by this test's config.
+  const requestLogger = createLogger(
+    'public-rehearsal',
+    { write: (line: string) => requestLogs.push(line) },
+    [],
+  );
   // An isolated upstream records forwarding; no test reaches live telemetry.
   const installedAssets: Record<string, { body: string; contentType: string }> =
     process.env.TELEMETRY_INSTALLED_ASSET_FIXTURE
@@ -169,6 +179,7 @@ void test('configured full public application serves published fixtures and enfo
   const app = await NestFactory.create(AppModule, { logger: false });
   try {
     app.useGlobalFilters(new PublicErrorFilter());
+    app.use(requestLogging(requestLogger));
     app.use(
       prepareAuthenticatedTelemetryExport(
         (request) => authenticateExport(request, new Date()),
@@ -268,6 +279,25 @@ void test('configured full public application serves published fixtures and enfo
         assert.equal(refused.status, 404, path + suffix);
         assert.equal(await refused.text(), '');
       }
+    }
+    // Privacy is an exact anonymous document, including without visitor headers.
+    // Check headers on both success and access refusal through the real stack.
+    for (const method of ['GET', 'HEAD', 'POST']) {
+      const response = await fetch(base + '/privacy', { method });
+      assert.equal(response.status, method === 'POST' ? 404 : 200);
+      assert.equal(response.headers.get('set-cookie'), null);
+      assert.equal(
+        response.headers.get('strict-transport-security'),
+        'max-age=31536000',
+      );
+      assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+      assert.equal(response.headers.get('referrer-policy'), 'no-referrer');
+      assert.equal(response.headers.get('x-frame-options'), 'SAMEORIGIN');
+      assert.match(
+        response.headers.get('content-security-policy') ?? '',
+        /frame-ancestors 'self'/,
+      );
+      assert.equal(await response.text(), method === 'GET' ? shell : '');
     }
     const expectedSchedule = await db.query(
       'SELECT cadence,timezone,coverage_window AS "coverageWindow",story_budget AS "storyBudget",post_budget AS "postBudget" FROM edition_settings WHERE id=1',
@@ -485,11 +515,10 @@ void test('configured full public application serves published fixtures and enfo
         },
         body: JSON.stringify(body),
       });
-    assert.equal(
-      (await write('/api/account/code', { email: configuration.ADMIN_EMAILS }))
-        .status,
-      202,
-    );
+    const requestedCode = await write('/api/account/code', {
+      email: configuration.ADMIN_EMAILS,
+    });
+    assert.equal(requestedCode.status, 202);
     const code = await new FileLoginCodeDelivery(directory).latest(
       configuration.ADMIN_EMAILS,
       new Date(),
@@ -502,6 +531,64 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(login.status, 204);
     const cookie = login.headers.get('set-cookie')!.split(';')[0];
     assert.match(login.headers.get('set-cookie')!, /Secure/);
+    // Exercise query/header inputs as well as the real code/redeem JSON bodies.
+    const sensitiveProbe = 'public-rehearsal-private-query-marker';
+    const probe = await account(
+      `/api/account/session?token=${sensitiveProbe}&email=${configuration.ADMIN_EMAILS}`,
+      {
+        headers: { Cookie: cookie, Authorization: `Bearer ${sensitiveProbe}` },
+      },
+    );
+    assert.equal(probe.status, 200);
+    assert.equal((await probe.json()).signedIn, true);
+    const loginRecords = requestLogs.map(
+      (line) => JSON.parse(line) as Record<string, unknown>,
+    );
+    for (const response of [requestedCode, login, probe]) {
+      assert.ok(
+        loginRecords.some(
+          (record) =>
+            record.requestId === response.headers.get('x-request-id') &&
+            record.status === response.status,
+        ),
+      );
+    }
+    const logOutput = requestLogs.join('');
+    for (const value of [
+      configuration.ADMIN_EMAILS,
+      code,
+      cookie,
+      cookie.split('=')[1],
+      sensitiveProbe,
+      '203.0.113.92',
+    ]) {
+      assert.equal(
+        logOutput.includes(value),
+        false,
+        'Request logs retained a sensitive input',
+      );
+    }
+    for (const record of loginRecords) {
+      assert.deepEqual(
+        Object.keys(record).sort(),
+        [
+          'level',
+          'time',
+          'service',
+          'requestId',
+          'event',
+          'method',
+          'route',
+          'status',
+          'outcome',
+          'durationMs',
+          'msg',
+        ].sort(),
+      );
+      assert.equal(record.event, 'http.request');
+      assert.equal(record.outcome, 'finished');
+      assert.match(String(record.requestId), /^[a-f0-9-]{36}$/);
+    }
     const telemetryMetadata = [
       '/metrics/prometheus/vmui/config.json',
       '/metrics/prometheus/vmui/custom-dashboards',

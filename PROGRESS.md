@@ -189,3 +189,13 @@
 - `pnpm exec tsx scripts/check-live-account-boundary.ts` passes 32 checks; live status confirms 36 healthy sources, saved edition four topics/19 stories/19 posts.
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, zero new evaluator errors/misses, four queries ≤0.258 s; no merges, so compaction capacity gate remains open. Next passive probe ≥18:28 UTC.
 - Pushed `34e26acf`; restarted API. Post-restart healthz, 32 account-boundary checks and zero alerts pass; working tree clean. Public mode remains off. Next: remaining Phase 4 rehearsal/tool gates, Grafana capacity evidence and Nov 12 edition review.
+
+## 2026-11-11: iteration 1836 — compiled privacy and request-log rehearsal
+
+- Clean main; no inherited work. Initial pending API scrape alert cleared on repeat; healthz healthy and all 36 sources healthy. No provider calls or production flag changes.
+- Expanded disposable compiled-app rehearsal: anonymous privacy GET/HEAD match the SPA shell without visitor headers, POST refuses, and both success/refusal retain HSTS/nosniff/no-referrer/framing/CSP.
+- Mounted compiled production request logging before admission. Real mailbox-code issuance/redemption and authenticated query/header probe retain matching request IDs/statuses and omit email/code/cookie/token/client IP; environment-value redaction disabled in capture. Request middleware only, other application logs remain separate.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and filtered handbook check pass; no UI or handbook behavior changes.
+- Live `check-live-account-boundary.ts` passes 32 checks; status confirms 36 healthy sources; saved edition remains four topics/19 stories/19 posts.
+- Full `pnpm check` passes: 836 unit/283 integration passes, four expected skips; expanded compiled-app rehearsal passes.
+- Next: remaining Phase 4 tool/rehearsal gates, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review. Next passive metrics probe remains ≥18:28 UTC.

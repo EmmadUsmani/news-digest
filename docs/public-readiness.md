@@ -165,3 +165,15 @@ body, and writes or nested legacy routes return empty 404s despite forged owner
 headers. Sanitized status/queue API checks remain in the same rehearsal. This
 covers HTTP composition; public rendering retains its separate browser evidence.
 Public mode remains off; complete Phase 4 acceptance is still open.
+
+### Compiled privacy and request-log rehearsal (iteration 1836)
+
+The disposable compiled application serves the exact anonymous `/privacy` SPA
+document with GET/HEAD, even without visitor headers, and refuses POST. Success
+and refusal retain HSTS, nosniff, no-referrer, same-origin framing and CSP.
+Production request logging is mounted before admission, as in `main.ts`; real
+code issuance/redemption and an authenticated query/header probe retain request
+IDs and status records while omitting email, code, cookie, token and client IP.
+The capture disables environment-value redaction to verify omission directly.
+This covers request middleware output; other application logs and the complete
+Phase 4 rehearsal remain separate. Public mode remains off.

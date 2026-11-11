@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1836: compiled public privacy GET/HEAD and POST-refusal headers, plus real sign-in request-log omission rehearsal; public mode remains off.
+
 - [x] Iteration 1835: compiled full-application Tools/Spend/Queues document rehearsal covers anonymous GET/HEAD, forged-owner write refusal and nested-route denial; public mode remains off.
 
 - [x] Iteration 1834: prepared public read-only Queues page and Tools link using sanitized counts/schedule times; public mode remains off.
