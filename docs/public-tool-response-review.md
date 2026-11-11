@@ -947,3 +947,27 @@ client socket disconnect. The disconnect must close upstream within one second,
 before the separate five-second transport deadline. This handler remains
 unwired: fresh-admin session composition, upstream work limits and installed UI
 acceptance are still required before export admission.
+
+## Export upstream work-limit rehearsal (iteration 1797)
+
+Prepared requests now force `timeout=2s`, independently of the five-second
+HTTP transport deadline. Caller-supplied timeout and output-control parameters
+are refused. The installed v1.155.0 implementation calls
+`searchutil.GetContextForExport`, which reads this timeout and caps it at
+`-search.maxExportDuration`; it propagates the request context to export work.
+Source references: [export handler](https://github.com/VictoriaMetrics/VictoriaMetrics/blob/v1.155.0/app/vmselect/prometheus/prometheus.go)
+and [export context](https://github.com/VictoriaMetrics/VictoriaMetrics/blob/v1.155.0/app/vmselect/searchutil/searchutil.go).
+
+`pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated` starts the
+installed binary on a disposable loopback port and temporary store, without
+credentials or scraping. With `-search.maxExportSeries=32` and
+`-search.maxExportDuration=2s`, the exact prepared reduced-memory export accepts
+32 synthetic series and rejects 33 with the upstream series-limit error.
+The process and store are removed afterward. This checks series enforcement;
+it does not measure deadline expiry under expensive work.
+
+The live service still has its existing export defaults. Applying and verifying
+the reviewed server limits, authenticated route composition and installed UI
+acceptance remain required before export admission. Export stays denied; public
+mode stays off. A narrow live read with the fixed timeout passed (15 samples,
+1,737 bytes); operational bodies were withheld.

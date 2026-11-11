@@ -34,6 +34,9 @@ export function boundedTelemetryExport(target: string): string | null {
   if (end <= start || end - start > 60) return null;
   params.set('max_rows_per_line', '1');
   params.set('reduce_mem_usage', '1');
+  // Enforced by VictoriaMetrics GetContextForExport, independently of the
+  // downstream transport deadline. Callers cannot override this value.
+  params.set('timeout', '2s');
   return `${telemetryExportPath}?${params}`;
 }
 

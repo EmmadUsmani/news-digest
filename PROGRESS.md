@@ -169,3 +169,14 @@
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean.
 - Next: route/session export composition and upstream work limits before admission; browser acceptance, Grafana capacity evidence and 15:00 UTC NBA review.
 - Pushed 51fec609; restarted news-digest-api.service. Post-restart healthz, 32 deployed account boundary checks and saved Nov 10 reader checks pass; no failed user services.
+
+## 2026-11-11: iteration 1797 — export upstream deadline and series-cap rehearsal
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; all 36 sources healthy. Public mode off; no provider calls.
+- Prepared export requests now force timeout=2s; caller timeout/output-control overrides refused. Parser and real HTTP tests verify forwarding independently of the five-second transport deadline.
+- Reviewed installed v1.155.0 export context propagation and series-limit implementation; linked exact upstream sources in the response review.
+- Added disposable installed-binary rehearsal with temporary loopback/store and synthetic data only: reviewed maxExportSeries=32 accepts 32 series and refuses 33, including reduced-memory export. Process/store removed; live service limits unchanged.
+- Narrow live bounded read passes: 15 rows/15 samples, 1,737 bytes; operational bodies withheld. No export admission change.
+- Verification: targeted telemetry-export tests (3), pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability; 32 deployed account boundaries and saved Nov 10 reader check pass (four topics/19 stories/15 posts).
+- Next: install/verify server limits, verify deadline expiry, authenticated export composition and browser acceptance before admission; Grafana capacity and Nov 11 15:00 UTC NBA review remain open.
+- Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean. Isolated rehearsal command: pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated.

@@ -19,10 +19,17 @@ void test('export request bounds reject broad, ambiguous and long-running reques
     new URL(bounded, 'http://localhost').searchParams.get('max_rows_per_line'),
     '1',
   );
+  assert.equal(
+    new URL(bounded, 'http://localhost').searchParams.get('timeout'),
+    '2s',
+  );
   for (const bad of [
     target + '&match%5B%5D=up',
     target + '&start=100',
     target + '&limit=1',
+    target + '&timeout=30s',
+    target + '&max_rows_per_line=1000',
+    target + '&reduce_mem_usage=0',
     target.replace('=up', '=%7B__name__%3D~%22.*%22%7D'),
     target.replace('end=160', 'end=161'),
     target.replace('end=160', 'end=99'),
@@ -100,6 +107,7 @@ void test('prepared export HTTP handler bounds responses, strips credentials and
     assert.equal(url.pathname, telemetryExportPath);
     assert.equal(url.searchParams.get('max_rows_per_line'), '1');
     assert.equal(url.searchParams.get('reduce_mem_usage'), '1');
+    assert.equal(url.searchParams.get('timeout'), '2s');
     if (mode === 'headers') return;
     res.writeHead(200, {
       'content-type': 'application/stream+json',
