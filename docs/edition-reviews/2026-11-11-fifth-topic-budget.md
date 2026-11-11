@@ -201,3 +201,38 @@ New domestic feeds, incremental cache warming, triage repairs, social requests
 and whole-edition admission remain unmeasured. Do not add these cold-cache
 reservations to saved charges as if both were actual costs. Activation remains
 gated; caps, topic data and production behavior are unchanged.
+
+## Saved social request sizes — iteration 1847
+
+`pnpm exec tsx scripts/evaluate-social-split-budget.ts --read-only` exercises
+production social CandidateTriage and SocialPostEditor through BudgetedLlm.
+The read-only transaction loads selected World posts from Nov 4–10. Empty
+in-memory cache and a refusing ledger capture initial Haiku triage, Sonnet
+editor and Haiku refusal fallback reservations; the prohibited provider gets
+zero calls. Assertions cover nonempty overall evidence, topic presence, model
+order, purposes, unavailable results and attempt counts.
+
+| Window     | Saved posts | Current World | Proposed World + U.S. |  Marginal |
+| ---------- | ----------: | ------------: | --------------------: | --------: |
+| 2026-11-04 |           0 |     $0.000000 |             $0.000000 | $0.000000 |
+| 2026-11-05 |           1 |     $0.064188 |             $0.127708 | $0.063520 |
+| 2026-11-06 |           2 |     $0.130140 |             $0.258943 | $0.128803 |
+| 2026-11-07 |           4 |     $0.133548 |             $0.265759 | $0.132211 |
+| 2026-11-08 |           5 |     $0.135022 |             $0.268705 | $0.133683 |
+| 2026-11-09 |           2 |     $0.064672 |             $0.128676 | $0.064004 |
+| 2026-11-10 |           4 |     $0.132457 |             $0.263576 | $0.131119 |
+
+Each scope receives the same selected posts; this is a request-size proxy,
+not semantic routing or an estimate of future candidate volume. Editor scores
+are synthetic eights to isolate request construction. Engagement evidence is
+omitted; Bluesky editor context includes the saved non-Bluesky picks. Current
+World settings are used, not reconstructed historical settings. Nov 4 has no
+saved posts and contributes no requests. Platforms are probed separately;
+production combines X/Reddit (these saved windows contain no Reddit picks).
+
+These sums include mutually exclusive refusal fallback attempts, not charges
+or simultaneous holds. Successful triage would be required before production
+editing; refusal here is deliberately bypassed only for the size probe. Full
+social pools, repairs, new domestic candidates and whole-edition admission
+remain open. Do not add this proxy to saved charges. Activation stays gated;
+no cap, model, topic or runtime behavior changes.

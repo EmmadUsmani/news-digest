@@ -165,3 +165,13 @@
 - Updated TASKS and fifth-topic budget review; no runtime or handbook behavior change. Next: social requests and whole-edition admission before publication/topic activation.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, read-only probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration tests, four expected skips. Existing build warnings only.
 - All 36 sources healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.
+
+## 2026-11-11: iteration 1847 — saved social request reservations
+
+- Clean main; no inherited work. Initial alerts zero, healthz/database/Redis healthy; item 50 remains stopped under 55, continued 56.
+- Added read-only saved-post probe through production social CandidateTriage, SocialPostEditor and BudgetedLlm with refusing in-memory ledger and prohibited provider. Zero provider calls, production writes or cap/topic changes.
+- Nov 5–10 saved World picks add $0.063520–$0.133683 sequential reservation estimates when duplicated across proposed scopes; Nov 4 has no saved posts. Includes Sonnet refusal/Haiku fallback, not charges or simultaneous holds.
+- Synthetic editor scores isolate sizes; selected posts omit full social volume and engagement evidence. Current settings and repeated candidates do not establish semantic routing or historical costs. Whole-edition admission and full social pools remain next; activation gated.
+- Updated TASKS and fifth-topic cost review. No runtime or handbook behavior changes. Read-only probe repeats identically; filtered handbook check and build pass; all 36 sources healthy, latest saved edition serves four topics/19 stories/19 posts.
+- Verification: `pnpm format`, `pnpm lint:fix`, corrected script formatting, `pnpm check`, `pnpm build`, repeated read-only probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration tests, four expected skips. Existing build warnings only.
+- Commit/push and post-push API/worker restart follow; no runtime code changed.
