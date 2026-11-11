@@ -1110,3 +1110,13 @@ returns 404 without telemetry upstream work; restoring the saved creation time
 lets the same mounted screen render the synthetic series again with HTTP 200.
 The isolated Chromium rehearsal uses captured installed assets and synthetic
 telemetry. Production admission and public mode remain off.
+
+### Mounted Raw Query window bounds (iteration 1808)
+
+The captured installed UI now changes its hash-route time window from one minute
+to thirty minutes while retaining the same fresh admin session. The full
+application refuses the broad export with HTTP 404 and no telemetry upstream
+work. Returning to one minute renders the synthetic series again with HTTP 200.
+This verifies native window navigation through stored-session admission and the
+bounded handler together. Production admission/public mode remain off; remaining
+controls and live navigation stay open.

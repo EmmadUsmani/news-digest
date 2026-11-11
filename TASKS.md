@@ -106,6 +106,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] Iteration 1807: installed metrics Raw Query rechecks stored-session freshness on Execute without reloading: aged session refuses export without upstream work; restored freshness resumes synthetic series rendering. Production admission/public mode remain off.
 
+- [x] Iteration 1808: mounted installed Raw Query time-window navigation with a real stored admin session refuses thirty-minute export without upstream work; returning to one minute renders synthetic series. Production admission/public mode remain off.
+
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).

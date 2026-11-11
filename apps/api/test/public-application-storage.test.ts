@@ -692,6 +692,7 @@ void test('configured full public application serves published fixtures and enfo
               });
             });
             let nativeAllowed = allowed;
+            let broadExport = false;
             let exports = 0;
             await context.route('**/*', async (route) => {
               const url = new URL(route.request().url());
@@ -702,7 +703,16 @@ void test('configured full public application serves published fixtures and enfo
                 url: base + url.pathname + url.search,
                 headers,
               });
-              assert.equal(response.status(), nativeAllowed ? 200 : 404);
+              assert.equal(
+                response.status(),
+                nativeAllowed &&
+                  !(
+                    broadExport &&
+                    url.pathname === '/metrics/prometheus/api/v1/export'
+                  )
+                  ? 200
+                  : 404,
+              );
               assert.equal(response.headers()['cache-control'], 'no-store');
               assert.equal(response.headers()['set-cookie'], undefined);
               if (url.pathname === '/metrics/prometheus/api/v1/export') {
@@ -798,6 +808,33 @@ void test('configured full public application serves published fixtures and enfo
               assert.equal((await resumed).status(), 200);
               await page.waitForLoadState('networkidle');
               assert.ok(telemetryRequests.length > beforeResume);
+              await page
+                .getByText('installed-session-fixture', { exact: false })
+                .first()
+                .waitFor({ state: 'visible' });
+              // Change the native time-window navigation on the mounted screen.
+              // A fresh session must not bypass the export work bounds.
+              const beforeBroad = telemetryRequests.length;
+              broadExport = true;
+              const broadResponse = exportResponse();
+              await page.evaluate(() => {
+                location.hash = '/raw-query?g0.expr=up&g0.range_input=30m';
+              });
+              assert.equal((await broadResponse).status(), 404);
+              await page.waitForLoadState('networkidle');
+              assert.equal(telemetryRequests.length, beforeBroad);
+              await page.screenshot({
+                path: 'docs/screenshots/native-metrics-broad-window-refused.png',
+                fullPage: true,
+              });
+              broadExport = false;
+              const narrowedResponse = exportResponse();
+              await page.evaluate(() => {
+                location.hash = '/raw-query?g0.expr=up&g0.range_input=1m';
+              });
+              assert.equal((await narrowedResponse).status(), 200);
+              await page.waitForLoadState('networkidle');
+              assert.ok(telemetryRequests.length > beforeBroad);
               await page
                 .getByText('installed-session-fixture', { exact: false })
                 .first()
