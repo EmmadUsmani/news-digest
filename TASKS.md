@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1831: prepared public read-only Sources page using sanitized status; anonymous collection/feed controls disabled. Public mode remains off.
+
 - [x] Iteration 1830: prepared public read-only topic detail links and UUID routes; anonymous editing/source changes/deletion disabled, guarded submissions; public mode remains off.
 
 - [x] Iteration 1829: prepared public read-only topic catalog; disabled anonymous controls, no profile reads or editor links; routed desktop/mobile light/dark checks pass. Public mode remains off.

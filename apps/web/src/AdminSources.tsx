@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { type PublicOperationsStatus } from '@digest/contracts';
+import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
@@ -6,20 +7,42 @@ import { AddFeedDialog } from './AddFeedDialog';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Table } from './components/ui/table';
-import { statusQuery, topicsQuery } from './queries';
+import {
+  identityQuery,
+  publicStatusQuery,
+  statusQuery,
+  topicsQuery,
+} from './queries';
 
 const time = (value: string | null) =>
   value
     ? new Date(value).toLocaleString(undefined, { timeZoneName: 'short' })
     : 'Never';
 
-export function AdminSources() {
-  const status = useQuery(statusQuery);
+export function AdminSources({ publicMode = false }: { publicMode?: boolean }) {
+  return publicMode ? <PublicSources /> : <SourceCollection />;
+}
+
+function PublicSources() {
+  const status = useQuery(publicStatusQuery);
+  return <SourceCollection publicStatus={status} />;
+}
+
+function SourceCollection({
+  publicStatus,
+}: {
+  publicStatus?: UseQueryResult<PublicOperationsStatus, Error>;
+}) {
+  const privateStatus = useQuery({ ...statusQuery, enabled: !publicStatus });
+  const status = publicStatus ?? privateStatus;
+  const identity = useQuery(identityQuery);
+  const readOnly = identity.data?.isAdmin !== true;
   const topics = useQuery(topicsQuery);
   const data = status.data;
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   async function setEnabled(id: string, enabled: boolean) {
+    if (readOnly) return;
     setBusy(true);
     setMessage('');
     try {
@@ -76,9 +99,21 @@ export function AdminSources() {
         </p>
       )}
       <Card className="grid gap-2 text-sm">
-        <AddFeedDialog topics={topics.data ?? []} />
+        {readOnly ? (
+          <>
+            <Button disabled className="w-fit">
+              Add feed
+            </Button>
+            <p className="m-0">
+              Read-only sources. Sign in as an admin to change them.
+            </p>
+          </>
+        ) : (
+          <AddFeedDialog topics={topics.data ?? []} />
+        )}
         <p className="m-0">
-          Open a topic to connect sources, add a feed or add a news query.
+          Open a topic to view its connected sources. Admins can connect
+          sources, add a feed or add a news query.
         </p>
         <Link
           to="/admin/topics"
@@ -123,7 +158,7 @@ export function AdminSources() {
             {data?.sources.map((source) => {
               const state = !source.active
                 ? 'Paused'
-                : source.error
+                : ('hasError' in source ? source.hasError : source.error)
                   ? 'Failed'
                   : !source.lastSuccess ||
                       Date.parse(data.checkedAt) -
@@ -189,7 +224,9 @@ export function AdminSources() {
                       role="switch"
                       aria-label={`Enable collection for ${source.name}`}
                       aria-checked={source.enabled}
-                      disabled={busy || status.isFetching || status.isError}
+                      disabled={
+                        readOnly || busy || status.isFetching || status.isError
+                      }
                       variant={source.enabled ? 'default' : 'ghost'}
                       onClick={() =>
                         void setEnabled(source.id, !source.enabled)
@@ -205,7 +242,11 @@ export function AdminSources() {
                   <td data-testid="items-7d">{source.items7d}</td>
                   <td>{source.storedItems}</td>
                   <td className="min-w-44 max-w-80 break-words">
-                    {source.error || '—'}
+                    {'hasError' in source
+                      ? source.hasError
+                        ? 'Collection failed'
+                        : '—'
+                      : source.error || '—'}
                   </td>
                 </tr>
               );
@@ -224,7 +265,7 @@ export function AdminSources() {
           {[
             [
               'X',
-              'Official embeds · harvested links; scheduled search off pending experiment decision',
+              'Official embeds · harvested links and scheduled keyword search',
             ],
             ['Bluesky', 'Authenticated hourly collection'],
             ['Reddit', 'Parked by owner · collection disabled'],

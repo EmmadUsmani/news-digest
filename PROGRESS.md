@@ -133,3 +133,13 @@
 - `pnpm format`, `pnpm lint:fix`, targeted route policy (6), build and `git diff --check` pass. Combined verification exited 143 after 836 unit passes and the final integration test, before its summary; standalone `pnpm check` retry passes (836 unit/283 integration passes, four expected skips).
 - Private-mode API restarted after 16:00 UTC; post-restart health, admin editor, 32 account boundaries, saved reader (four topics/19 stories/19 posts) and zero alerts pass. Public flags unchanged.
 - Next: remaining Phase 4 pages/tools; Grafana scheduled-load/compaction capacity evidence and Nov 12 daily edition review remain open.
+
+## 2026-11-11: iteration 1831 — prepared public read-only sources
+
+- Clean main; no inherited work. Initial alerts zero and healthz healthy; no provider calls.
+- Prepared exact GET/HEAD Sources HTML/router admission with sanitized public status/cache and disabled private status fetching. Anonymous collection switches/Add feed disabled; collection writer also checks admin identity. Public flags unchanged.
+- Updated stale X platform text to reflect scheduled keyword search. Offline routed desktop/mobile light/dark checks pass; four new fixture screenshots inspected.
+- Updated TASKS, readiness/rollout notes and operations handbook. A documentation edit initially matched no paragraph and stopped before edits; corrected the match. Handbook check passes (18 pages/two diagrams/39 tables); no diagrams changed.
+- `pnpm format`, `pnpm lint:fix`, targeted policy tests (6), build and `git diff --check` pass. Full check initially found lint-autofix formatting drift; formatted the file and reran. Private Sources browser passes all four viewport/theme combinations with saved live reads and intercepted writes.
+- Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Private API restarted after 16:00 UTC; healthz, 36 healthy sources, 32 account boundaries, saved Nov 11 reader (four topics/19 stories/19 posts) and zero alerts pass.
+- Next: remaining Phase 4 pages/tools; Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review remain open.

@@ -299,3 +299,13 @@ contracts; editing, source additions, source saves and deletion remain disabled
 until admin identity is confirmed. Anonymous form submissions refuse locally.
 Public mode remains off; full routed fixture browser evidence is in
 `check-public-status-view.ts` and `docs/screenshots/ui/public-topic-detail-router-fixture-*.png`.
+
+## Read-only sources — iteration 1831
+
+Prepared exact GET/HEAD HTML and router admission for `/admin/sources`.
+Public mode uses the sanitized status contract and separate cache; private
+status fetching is disabled. Collection failures show a generic label.
+Anonymous collection switches and Add feed are disabled, with an early admin
+check in the collection writer. Topic links lead to reviewed read-only details.
+Offline routed Chromium checks cover desktop/mobile light/dark, GET-only reads,
+row counts and disabled controls. Production public mode remains off.

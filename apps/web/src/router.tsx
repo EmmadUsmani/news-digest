@@ -126,6 +126,7 @@ const adminRoute = createRoute({
       (/^\/admin\/?$/.test(location.pathname) ||
         location.pathname === '/admin/editions' ||
         location.pathname === '/admin/schedule' ||
+        location.pathname === '/admin/sources' ||
         location.pathname === '/admin/topics' ||
         (location.pathname.startsWith('/admin/topics/') &&
           z.string().uuid().safeParse(location.pathname.slice(14)).success) ||
@@ -156,7 +157,7 @@ const adminToolsRoute = createRoute({
 const adminSourcesRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/sources',
-  component: AdminSources,
+  component: () => <AdminSources publicMode={publicMode} />,
 });
 
 const adminTopicsRoute = createRoute({

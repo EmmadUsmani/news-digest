@@ -495,6 +495,48 @@ window.showPage = () => {
         });
       }
     }
+    routedReads.length = 0;
+    await showRouter('/admin/sources');
+    await page
+      .getByText('Read-only sources. Sign in as an admin to change them.')
+      .waitFor();
+    await page.getByRole('region', { name: 'Source collection' }).waitFor();
+    assert.equal(
+      await page.locator('tbody tr').count(),
+      fixture.sources.length,
+    );
+    assert.equal(
+      await page
+        .getByRole('button', { name: 'Add feed', exact: true })
+        .isDisabled(),
+      true,
+    );
+    for (const control of await page.getByRole('switch').all()) {
+      assert.equal(await control.isDisabled(), true);
+    }
+    assert.equal(
+      routedReads.some((path) => path.includes('profile')),
+      false,
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-sources-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
     // The actual schedule route consumes only reviewed public contracts.
     routedReads.length = 0;
     await showRouter('/admin/schedule');

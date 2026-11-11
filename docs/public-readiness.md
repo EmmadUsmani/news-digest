@@ -125,3 +125,11 @@ using the reviewed system-only topic/source responses. Unconfirmed or non-admin
 identities leave every change control disabled; submit handlers also refuse writes.
 Offline routed desktop/mobile light/dark checks cover connected-source display,
 forced form submissions and no private reads. Public mode remains off.
+
+### Read-only sources (iteration 1831)
+
+Prepared exact GET/HEAD `/admin/sources` admission and router access use the
+sanitized public status query, with no private status fallback. Anonymous
+collection switches and Add feed are disabled; the collection write handler
+also checks admin identity. Offline routed desktop/mobile light/dark fixtures
+pass. Public activation and remaining tools stay open; flags are unchanged.
