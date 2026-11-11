@@ -126,29 +126,35 @@ void test('configured full public application serves published fixtures and enfo
         'x-private': 'fixture-only',
       })
       .end(
-        nativeBrowser
-          ? JSON.stringify(
-              req.url === '/metrics/vmui/dashboards/perJobUsage.json'
-                ? {
-                    title: 'Synthetic session dashboard',
-                    rows: [
-                      {
-                        title: 'Synthetic row',
-                        panels: [
-                          { title: 'Synthetic panel', width: 12, expr: ['up'] },
-                        ],
-                      },
-                    ],
-                  }
-                : {
-                    status: 'success',
-                    data: { resultType: 'matrix', result: [] },
-                    values: [],
-                    fields: [],
-                    hits: [],
-                  },
-            )
-          : '{"fixture":true}',
+        nativeBrowser && req.url?.startsWith('/logs/select/logsql/query')
+          ? ''
+          : nativeBrowser
+            ? JSON.stringify(
+                req.url === '/metrics/vmui/dashboards/perJobUsage.json'
+                  ? {
+                      title: 'Synthetic session dashboard',
+                      rows: [
+                        {
+                          title: 'Synthetic row',
+                          panels: [
+                            {
+                              title: 'Synthetic panel',
+                              width: 12,
+                              expr: ['up'],
+                            },
+                          ],
+                        },
+                      ],
+                    }
+                  : {
+                      status: 'success',
+                      data: { resultType: 'matrix', result: [] },
+                      values: [],
+                      fields: [],
+                      hits: [],
+                    },
+              )
+            : '{"fixture":true}',
       );
   });
   await new Promise<void>((done) => telemetry.listen(0, '127.0.0.1', done));
@@ -792,6 +798,67 @@ void test('configured full public application serves published fixtures and enfo
                 });
               } else {
                 assert.equal(telemetryRequests.length, screenBefore);
+              }
+            }
+            for (const screen of ['', '/overview']) {
+              await page.goto('about:blank');
+              const before = telemetryRequests.length;
+              const response = await page.goto(
+                configuration.ACCOUNT_ORIGIN +
+                  '/logs/select/vmui/' +
+                  (screen ? '#' + screen : ''),
+                { waitUntil: 'networkidle' },
+              );
+              assert.equal(response!.status(), allowed ? 200 : 404);
+              if (allowed) {
+                const execute = page.getByRole('button', {
+                  name: /execute( query)?/i,
+                });
+                if (await execute.count()) await execute.first().click();
+                await page.waitForTimeout(750);
+                await page.waitForLoadState('networkidle');
+                assert.ok(
+                  await page.locator('button').count(),
+                  'Logs screen mounted',
+                );
+                if (screen)
+                  assert.equal(
+                    new URL(page.url()).hash.split('?')[0],
+                    '#' + screen,
+                  );
+                const requests = telemetryRequests.slice(before);
+                if (!screen) {
+                  for (const endpoint of [
+                    'query',
+                    'hits',
+                    'stream_field_names',
+                  ]) {
+                    assert.ok(
+                      requests.some((path) =>
+                        path.startsWith('/logs/select/logsql/' + endpoint),
+                      ),
+                      'Logs requested ' + endpoint,
+                    );
+                  }
+                }
+                assert.deepEqual(errors, []);
+                assert.deepEqual(
+                  await page.evaluate(
+                    () =>
+                      (
+                        window as unknown as {
+                          nativePolicyViolations: string[];
+                        }
+                      ).nativePolicyViolations,
+                  ),
+                  [],
+                );
+                await page.screenshot({
+                  path: `docs/screenshots/native-logs-${screen ? 'overview' : 'query'}-stored-session.png`,
+                  fullPage: true,
+                });
+              } else {
+                assert.equal(telemetryRequests.length, before);
               }
             }
           } finally {

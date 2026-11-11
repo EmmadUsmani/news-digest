@@ -1051,7 +1051,7 @@ Production export admission and public mode stay off.
 ### Installed Raw Query with stored sessions (iteration 1803)
 
 The explicit `capture-installed-telemetry-assets.ts /tmp/<new-file>.json`
-command captures only the seven reviewed metrics assets from loopback, checking
+command captures the 13 reviewed metrics and logs assets from loopback, checking
 size, SHA-256, MIME and absence of cookies. Set
 `TELEMETRY_INSTALLED_ASSET_FIXTURE=/tmp/<new-file>.json` when running
 `pnpm check` to add installed Raw Query to the isolated full-application
@@ -1079,3 +1079,16 @@ admins receive empty 404 responses and cause no telemetry upstream work.
 Every asset/query request retains the same cookie, no-store and proxy checks.
 Screenshots use synthetic responses only. Logs UI session composition, remaining
 controls and live navigation remain open; production flags remain off.
+
+### Installed logs navigation with stored sessions (iteration 1805)
+
+The explicit asset capture now includes the six reviewed logs assets, with the
+same SHA-256, byte-count, MIME and no-cookie checks. The isolated full-application
+browser rehearsal opens the logs query screen and Overview for every session
+actor. Fresh/restored admins mount both screens and execute the query control;
+the query screen requests query, hits and stream-field metadata through the
+prepared proxy. Responses are synthetic, including an empty log stream.
+Anonymous/invited readers, aged and logged-out admins receive 404 without
+telemetry upstream work. Cookie stripping, no-store, CSP/nosniff and absence of
+script errors/CSP violations share the metrics checks. Production admission and
+public mode remain off; remaining controls and live navigation remain open.

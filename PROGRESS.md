@@ -137,3 +137,13 @@
 - Live check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). pnpm build and check-handbook.ts observability pass.
 - Initial browser runs exposed two rehearsal issues: native navigation appends time parameters, and Dashboards needs its dedicated rows/panels fixture. Corrected both; the full stored-session browser case now passes and both new screenshots are inspected.
 - Verification: pnpm format, pnpm lint:fix and captured-assets pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Combined shell received SIGTERM after its passing test report; standalone full check exits 0. API restarted healthy after commit.
+
+## 2026-11-11: iteration 1805 — installed logs UI with stored sessions
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; all 36 sources healthy. No provider calls.
+- Explicit asset capture now verifies all 13 installed metrics/logs assets by SHA-256, bytes, MIME and no-cookie checks; captures remain temporary outside git.
+- Extended isolated full-application Chromium rehearsal to logs Query and Overview with real stored-session cookies and prepared proxy. Fresh/restored admins mount both; Query executes query/hits/stream-field requests with synthetic responses, including an empty log stream.
+- Anonymous/invited readers, aged and logged-out admins receive 404 without upstream work. Cookie stripping, no-store, CSP/nosniff and no script errors/CSP violations pass.
+- Inspected both new synthetic screenshots; discarded unrelated timestamp-only regenerated metrics screenshots. Updated TASKS/readiness/response review. Production admission/public mode stay off; remaining controls/live navigation remain open. Nov 11 15:00 UTC NBA review remains due.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
+- Captured-assets pnpm check reports 836 unit tests and 283 integration passes/four expected skips; initial shell received SIGTERM after passing coverage output; standalone full rerun exits 0. git diff --check clean; API restart/health checked after commit.
