@@ -13,12 +13,14 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
-import { profileQuery, topicsQuery } from './queries';
+import { identityQuery, profileQuery, topicsQuery } from './queries';
 
 export function AdminTopics() {
   const client = useQueryClient();
   const query = useQuery(topicsQuery);
-  const profile = useQuery(profileQuery);
+  const identity = useQuery(identityQuery);
+  const readOnly = identity.data?.isAdmin !== true;
+  const profile = useQuery({ ...profileQuery, enabled: !readOnly });
   const topics = query.data ?? [];
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
@@ -31,6 +33,7 @@ export function AdminTopics() {
     body: unknown,
     order = false,
   ) {
+    if (readOnly) return false;
     setBusy(true);
     setMessage('');
     try {
@@ -68,7 +71,8 @@ export function AdminTopics() {
     }
   }
   function move(id: string, destination: number) {
-    if (busy || destination < 0 || destination >= topics.length) return;
+    if (readOnly || busy || destination < 0 || destination >= topics.length)
+      return;
     const ordered = [...topics];
     const index = ordered.findIndex((topic) => topic.id === id);
     if (index < 0 || index === destination) return;
@@ -91,8 +95,9 @@ export function AdminTopics() {
     <section aria-label="Topic management" className="grid max-w-4xl gap-4 p-0">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="m-0 text-sm text-[var(--secondary)]">
-          Drag to set reading order, or use the arrows. Budgets apply to new
-          editions.
+          {readOnly
+            ? 'Read-only topics. Sign in as an admin to change them.'
+            : 'Drag to set reading order, or use the arrows. Budgets apply to new editions.'}
         </p>
         <Dialog.Root
           open={creating}
@@ -101,7 +106,7 @@ export function AdminTopics() {
           }}
         >
           <Dialog.Trigger asChild>
-            <Button disabled={busy}>New topic</Button>
+            <Button disabled={readOnly || busy}>New topic</Button>
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
@@ -132,7 +137,10 @@ export function AdminTopics() {
                   if (input.success) void write('', 'POST', input.data);
                 }}
               >
-                <fieldset disabled={busy} className="grid gap-4 border-0 p-0">
+                <fieldset
+                  disabled={readOnly || busy}
+                  className="grid gap-4 border-0 p-0"
+                >
                   <label className="grid gap-2 text-sm">
                     Name
                     <Input name="name" required maxLength={120} />
@@ -193,7 +201,7 @@ export function AdminTopics() {
         {topics.map((topic, index) => (
           <li
             key={topic.id}
-            draggable={!busy}
+            draggable={!readOnly && !busy}
             onDragStart={(event) => {
               setDragged(topic.id);
               event.dataTransfer.setData('text/plain', topic.id);
@@ -202,7 +210,7 @@ export function AdminTopics() {
             onDragOver={(event) => event.preventDefault()}
             onDrop={(event) => {
               event.preventDefault();
-              if (dragged) move(dragged, index);
+              if (!readOnly && dragged) move(dragged, index);
               setDragged(null);
             }}
           >
@@ -213,13 +221,17 @@ export function AdminTopics() {
               />
               <div className="min-w-0 basis-[calc(100%-3rem)] sm:basis-0 sm:flex-1">
                 <h2 className="m-0 font-sans text-base font-semibold">
-                  <Link
-                    to="/admin/topics/$id"
-                    params={{ id: topic.id }}
-                    className="underline decoration-transparent hover:decoration-current"
-                  >
-                    {topic.name}
-                  </Link>
+                  {readOnly ? (
+                    topic.name
+                  ) : (
+                    <Link
+                      to="/admin/topics/$id"
+                      params={{ id: topic.id }}
+                      className="underline decoration-transparent hover:decoration-current"
+                    >
+                      {topic.name}
+                    </Link>
+                  )}
                 </h2>
                 <p className="mb-0 line-clamp-2 text-sm text-[var(--secondary)]">
                   {topic.description}
@@ -230,7 +242,7 @@ export function AdminTopics() {
                   variant="ghost"
                   size="icon"
                   aria-label={`Move ${topic.name} up`}
-                  disabled={busy || index === 0}
+                  disabled={readOnly || busy || index === 0}
                   onClick={() => move(topic.id, index - 1)}
                 >
                   <ArrowUp />
@@ -239,7 +251,7 @@ export function AdminTopics() {
                   variant="ghost"
                   size="icon"
                   aria-label={`Move ${topic.name} down`}
-                  disabled={busy || index === topics.length - 1}
+                  disabled={readOnly || busy || index === topics.length - 1}
                   onClick={() => move(topic.id, index + 1)}
                 >
                   <ArrowDown />
@@ -248,7 +260,7 @@ export function AdminTopics() {
                   role="switch"
                   aria-checked={topic.enabled}
                   aria-label={`Enable ${topic.name}`}
-                  disabled={busy}
+                  disabled={readOnly || busy}
                   variant={topic.enabled ? 'default' : 'ghost'}
                   onClick={() => update(topic, { enabled: !topic.enabled })}
                 >
@@ -277,7 +289,7 @@ export function AdminTopics() {
                     max={20}
                     required
                     defaultValue={topic.storyBudget}
-                    disabled={busy}
+                    disabled={readOnly || busy}
                   />
                 </label>
                 <label className="grid w-28 gap-2 text-sm">
@@ -291,10 +303,14 @@ export function AdminTopics() {
                     max={20}
                     required
                     defaultValue={topic.postBudget}
-                    disabled={busy}
+                    disabled={readOnly || busy}
                   />
                 </label>
-                <Button type="submit" variant="ghost" disabled={busy}>
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  disabled={readOnly || busy}
+                >
                   Save {topic.name} budgets
                 </Button>
               </form>
@@ -303,7 +319,11 @@ export function AdminTopics() {
         ))}
       </ol>
       {!query.isPending && !query.isError && topics.length === 0 && (
-        <p>No topics yet. Create your first topic.</p>
+        <p>
+          {readOnly
+            ? 'No topics yet.'
+            : 'No topics yet. Create your first topic.'}
+        </p>
       )}
       <p role="status">{message}</p>
     </section>

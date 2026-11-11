@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1829: prepared public read-only topic catalog; disabled anonymous controls, no profile reads or editor links; routed desktop/mobile light/dark checks pass. Public mode remains off.
+
 - [x] Iteration 1828: prepared public read-only schedule routing with public status, disabled anonymous controls and no owner-profile fallback; routed desktop/mobile light/dark rehearsal passes. Private web rebuild/API restart after 16:00 UTC verified; production flags unchanged.
 
 - [x] Iteration 1827: installed metrics Query chart renders bounded live count(up) after real HTTPS login and session freshness restoration; mounted Execute refuses aged and revoked stored sessions. Production flags unchanged.

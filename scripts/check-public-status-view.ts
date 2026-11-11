@@ -314,26 +314,48 @@ window.showPage = () => {
       routedReads.push(path);
       assert.equal(route.request().method(), 'GET');
       assert.ok(
-        ['/api/admin/status', '/api/me', '/api/settings/schedule'].includes(
-          path,
-        ),
+        [
+          '/api/admin/status',
+          '/api/me',
+          '/api/settings/schedule',
+          '/api/admin/topics',
+        ].includes(path),
         path,
       );
       await route.fulfill({
         contentType: 'application/json',
         status: path === '/api/settings/schedule' ? scheduleStatus : 200,
         body: JSON.stringify(
-          path === '/api/me'
-            ? { isAdmin: false }
-            : path === '/api/settings/schedule'
-              ? {
-                  cadence: '0 15 * * *',
-                  timezone: 'UTC',
-                  coverageWindow: 'P1D',
+          path === '/api/admin/topics'
+            ? [
+                {
+                  id: '01234567-89ab-4cde-8fab-0123456789ab',
+                  name: 'Fixture topic',
+                  description: 'Offline topic catalog fixture',
+                  includeGuidance: '',
+                  excludeGuidance: '',
+                  enabled: true,
+                  position: 0,
                   storyBudget: 5,
-                  postBudget: 5,
-                }
-              : fixture,
+                  postBudget: 4,
+                  relevancePolicy: { includeAny: [], excludeAny: [] },
+                  sources: [],
+                  queries: [],
+                  accounts: [],
+                  redditCommunities: [],
+                },
+              ]
+            : path === '/api/me'
+              ? { isAdmin: false }
+              : path === '/api/settings/schedule'
+                ? {
+                    cadence: '0 15 * * *',
+                    timezone: 'UTC',
+                    coverageWindow: 'P1D',
+                    storyBudget: 5,
+                    postBudget: 5,
+                  }
+                : fixture,
         ),
       });
     };
@@ -362,6 +384,54 @@ window.showPage = () => {
         );
         await page.screenshot({
           path: `docs/screenshots/ui/public-overview-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    routedReads.length = 0;
+    await showRouter('/admin/topics');
+    await page
+      .getByRole('heading', { name: 'Fixture topic', exact: true })
+      .waitFor();
+    await page
+      .getByText('Read-only topics. Sign in as an admin to change them.')
+      .waitFor();
+    for (const control of await page
+      .locator(
+        'section[aria-label="Topic management"] button:not(:text("Reload topics")), section[aria-label="Topic management"] input',
+      )
+      .all()) {
+      assert.equal(await control.isDisabled(), true);
+    }
+    assert.equal(
+      await page
+        .locator(
+          'section[aria-label="Topic management"] a, section[aria-label="Topic management"] [draggable="true"]',
+        )
+        .count(),
+      0,
+    );
+    assert.ok(routedReads.includes('/api/admin/topics'));
+    assert.ok(
+      routedReads.every((path) =>
+        ['/api/me', '/api/admin/topics'].includes(path),
+      ),
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-topics-router-fixture-${width}-${theme}.png`,
           fullPage: true,
         });
       }

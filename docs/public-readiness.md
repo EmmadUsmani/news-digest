@@ -62,7 +62,7 @@ activation review, rather than adding more variants of already-covered refusals.
       security headers, privacy page, log hygiene and private-mode rollback.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
-      reviewed overview, schedule and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
+      reviewed overview, topics, schedule and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       Restore private mode first if the scheduled edition fails or looks abnormal.
@@ -107,3 +107,12 @@ disabled, backend saves remain fresh-admin-only and public failures cannot
 read the legacy owner profile. Offline routed browser checks cover both viewport
 sizes/themes and 404 refusal. Private rollback retains its guard. Production
 flags are unchanged; private web rebuild/API restart passed after 16:00 UTC.
+
+### Read-only topic catalog (iteration 1829)
+
+Prepared exact public GET/HEAD `/admin/topics` and anonymous router access.
+Visitors use the allowlisted system topic response with disabled creation,
+ordering, enable and budget controls; editor links remain admin-only. Anonymous
+identity never enables profile reads. Desktop/mobile light/dark offline router
+checks pass; private rollback and backend fresh-admin writes stay guarded.
+Public mode remains off.

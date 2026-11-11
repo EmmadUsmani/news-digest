@@ -126,6 +126,7 @@ const adminRoute = createRoute({
       (/^\/admin\/?$/.test(location.pathname) ||
         location.pathname === '/admin/editions' ||
         location.pathname === '/admin/schedule' ||
+        location.pathname === '/admin/topics' ||
         (location.pathname.startsWith('/admin/editions/') &&
           z.string().uuid().safeParse(location.pathname.slice(16)).success))
     )

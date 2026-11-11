@@ -284,3 +284,11 @@ still require backend fresh-admin admission. Public schedule errors, including
 404, never fall back to the legacy owner profile. Offline routed Chromium checks
 cover desktop/mobile light/dark, disabled controls, GET-only requests and failed
 system reads. Public mode remains off; private web rebuild/API restart passed after 16:00 UTC.
+
+## Read-only topic catalog — iteration 1829
+
+Prepared exact public GET/HEAD `/admin/topics` with allowlisted system topics.
+Anonymous controls are disabled and cannot dispatch writes; topic editor links
+are absent and detail routes stay guarded. Owner-profile reads require admin
+identity. Offline routed desktop/mobile light/dark rehearsal passes. Private
+rollback retains its admin guard; production public flags remain off.
