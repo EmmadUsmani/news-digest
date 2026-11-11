@@ -19,8 +19,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
    `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
-   Migration 0019 is live; phase 4 is in progress. Item 55 limits re-verification
-   and says to stop at the phase 4 summary.
+   Migration 0019 is live. The lead's phase 4 security review is done: fix its
+   findings next (item 58), then stop for the owner's go-public decision.
 3. Split World into World and U.S. news & politics (items 56, 57). Starts only
    when item 50 is finished or waiting on the owner; item 50 always comes
    first when it can move.
@@ -2632,3 +2632,47 @@ real limit is the $14 AI monthly budget, which holds the daily cap near $0.54.
 - **Ack** when live: commit, caps set, the topic's feeds, and the expected
   edition cost against the effective cap. Then the three-edition acks from
   item 56.
+
+## 58. NOW: fix the phase 4 security review findings (2026-11-11)
+
+**Why:** the lead's phase 4 security review found no blockers in the access
+design, but some things must be fixed before the owner decides to go public.
+**Full findings with file and line references are in
+`~/lead-private/phase4-security-review.md` on the VM.** Read that file. This repo
+is public: don't copy exploit detail into it, commits or acks until each item
+is fixed. Describe fixes by what they protect.
+
+- **Priority:** this is item 50 work, so it comes before items 56 and 57. Pause
+  the U.S. topic, do this, then return to it. Breakages and the morning edition
+  still come first.
+- **Fix, in this order:**
+  1. **Activation order:** write the go-public and rollback runbook into
+     `docs/public-readiness.md`: public mode on and verified before sharing;
+     unshare before turning it off.
+  2. **Sign-in lockout:** a stranger must not be able to stop a real user,
+     especially the admin, from signing in.
+  3. **Admin freshness:** sign-in links must not renew admin rights.
+  4. **Audit trail:** deleting an account must not erase what an admin did.
+  5. **Unauthenticated uploads:** check the session before reading large
+     account request bodies.
+  6. **The smaller sign-in items** in the file (timing, IPv6 limits, long-term
+     guess cap, rate limiting before locks).
+  7. **Grafana:** take it off the public tool list in code, and correct the
+     internal tools table in `docs/public-access-plan.md`, which still calls
+     Grafana and the jobs browser public.
+  8. **Two features broken in public mode:** admin topic editing and browser
+     error reports.
+  9. **Leftover process:** stop the Nov 2 API, docs and explorer processes
+     started from the deleted `/tmp/nd-test` (ports 8011, 8101, 8201), under
+     item 51. Outside 13:00–16:00 UTC. Make sure test runs can't leave long-lived
+     servers behind.
+  10. **Live checks** listed under "Not verified" in the file, read-only.
+- **Minor items** in the file: fix them if small, or list them for the owner.
+- **Don't:** turn on public mode or share the VM; change budgets; redo
+  accepted screen checks (item 55 still applies). Each fix gets a test of the
+  refusal it adds, and nothing more.
+- **Done when** items 1–10 are fixed or answered, deployed outside 13:00–16:00
+  UTC, and a scheduled edition publishes normally afterwards.
+- **Ack** once at the end: one line per item (fixed, commit, or why not), with no
+  exploit detail. Then stop item 50 for the lead's re-check and the owner's
+  go-public decision, and go back to items 56 and 57.
