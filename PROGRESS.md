@@ -1,64 +1,6 @@
 # Progress
 
-[Through iteration 1729](docs/progress-archive/2026-11-10-through-1729.md).
-
-## 2026-11-10: iteration 1730 — apply approved admission-outcome migration
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA correction retained unchanged, scheduled acceptance Nov 11.
-- Owner-approved Phase 3 acceptance permits 0019; public mode and sharing remain off/private. Corrected stale Phase 3/migration gates in plan, readiness, tasks and owner notes.
-- `python3 ops/backups/rehearse_admission_outcome.py`: fresh private backup `news-digest-20261110T192854Z`, isolated restore 39 tables/73,420 rows; 38 original-table fingerprints preserved, rollback/idempotence/outcome/private-grant checks pass.
-- Applied live with `MIGRATE_THROUGH=0019_admin_write_outcomes`; bounded runner twice leaves exactly one ledger entry/no later migrations, original admissions unchanged and outcomes null. Private receipt `~/backups/news-digest/admission-outcome-live-migration-proof.json`.
-- All 112 privilege checks deny both operational reader roles across eight private tables. No paid calls, account credentials, publication writes or public activation. Handbook reflects live outcome column and current-backup restore use.
-- Verification: format/lint fix, full check, build, handbook and diff checks; 32 deployed account-boundary checks and scheduled reader four topics/19 stories/15 posts. Full `pnpm check`: 826 unit, 280 integration/four expected skips; `pnpm build` and handbook pass. Push then API/worker restart and post-deploy health/reader/alerts follow.
-- Next: finish Phase 4 data boundaries behind flags; natural link-expiry after Nov 11 00:33:01 UTC and scheduled NBA acceptance remain due.
-
-## 2026-11-10: iteration 1731 — prepare bounded atomic Grafana aggregate refresh
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis healthy. NBA correction unchanged, Nov 11 scheduled acceptance pending.
-- Added uninstalled separate-store refresh helper: explicit aggregate parameters, at most 30 unique UTC days, nonnegative safe counts and source-count bounds. Replacement prunes stale rows; transaction/table locks serialize complete snapshots.
-- Disposable real-login coverage exercises repeated refresh, stale-row removal, invalid/duplicate/future/expired dates, negative counts and database failure after deletes retaining prior content/source totals.
-- No live exporter, credentials, timer, datasource, role grants or public-mode activation. Producer, writer/transport, freshness, capacity and Grafana rendering/query review remain before deployment. No paid calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; deployed account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
-- Next: continue Phase 4 data boundaries behind flags; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.
-
-## 2026-11-10: iteration 1732 — prepare restricted aggregate export writer
-
-- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis healthy. NBA correction unchanged; Nov 11 scheduled acceptance pending.
-- Prepared dedicated-instance writer login with INSERT/DELETE on aggregate tables only, no ownership/read/update/truncate/schema or role-switch access; one connection, five-second statement and 500 ms lock defaults.
-- Disposable real-login refresh now verifies replacement, retention, invalid inputs and database-failure rollback through this restricted writer. Conflicting lock refuses with `55P03`, preserves prior content and permits later pool reuse.
-- No live role grants, exporter, credentials, transport, datasource or public activation. Producer aggregation, network/TLS, freshness, capacity and Grafana query/rendering gates remain. No paid calls.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check`; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips. Build/handbook pass; push then API/worker restart and health/reader/alerts checks.
-- Next: continue Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.
-
-## 2026-11-10: iteration 1733 — prepare published-only aggregate producer
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA correction unchanged; Nov 11 scheduled acceptance pending.
-- Prepared trusted application-side producer returning only daily edition/topic/story/post counts and source totals in one statement/database snapshot; no raw content, identifiers or errors leave it.
-- UTC today plus preceding 29 days only; unpublished, future-day and expired editions excluded. Malformed topic collections count empty; disabled source errors excluded from enabled/error totals.
-- Disposable timezone test caught implicit date conversion admitting the next UTC day; explicit timestamp conversion fixes it. Coverage checks private markers, exact counts, malformed snapshots, retention and Pacific/Honolulu equivalence.
-- No producer registration, schedule, live grants, exporter, credentials, transport, datasource or public activation; no paid calls. Transport/TLS, freshness, capacity and Grafana query/rendering gates remain.
-- Verification: format/lint fix, full check, build, handbook and diff checks; live account boundary 32 checks and scheduled reader four topics/19 stories/15 posts. Full check passes: 826 unit, 280 integration/four expected skips; build/handbook pass. Push then API/worker restart and post-deploy health/reader/alerts checks.
-- Next: Phase 4 data boundaries; natural link expiry after Nov 11 00:33:01 UTC and Nov 11 NBA scheduled acceptance remain due.
-
-## 2026-11-10: iteration 1734 — prepare atomic aggregate export freshness
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis healthy. Nov 11 NBA scheduled acceptance remains pending.
-- Prepared separate-store `export_status` capture timestamp, replaced in the same locked transaction as all counts; no status row means no successful export. Caller must preserve capture time across retries.
-- Disposable real reader/writer logins verify missing status, replacement, database-failure rollback retaining old capture time and recovery advancing it. Existing role isolation and lock-timeout checks pass.
-- No live schema/role grants, exporter, credentials, datasource or public activation; no paid calls. Transport/TLS, freshness panels/alerts, capacity and rendering/query gates remain.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (826 unit; 280 integration passed/four expected skips), `pnpm build`, handbook (18 pages/22 diagrams) and `git diff --check` pass.
-- Pushed `0c1056ec`; API/worker restarted active; health and 32 account-boundary checks pass; reader four topics/19 stories/15 posts. RecentJobFailures reflects GamingBolt timeouts; scheduled third attempt recovered HTTP 200 at 20:20:05 UTC (406 ms), before restart.
-- Next: Phase 4 export transport and freshness consumer; natural link expiry after Nov 11 00:33:01 UTC, then Nov 11 NBA scheduled acceptance.
-
-## 2026-11-10: iteration 1735 — prepare dedicated-store Grafana freshness panel
-
-- Clean main; no inherited work. Health/database/Redis pass; initial RecentJobFailures reflects recovered GamingBolt retries, not a stalled source.
-- Corrected prepared source-health panel to query dedicated export source_summary rather than the application-only source_health view.
-- Added export-age stat: missing/future capture displays No valid export; age turns red at 900 seconds. No installation or live UI change.
-- Disposable restricted-reader checks execute all four exact panel queries and verify absent, future, fresh and stale captures; existing replacement/rollback/isolation checks pass.
-- Verification: format, lint fix, full check (826 unit; 280 integration/four expected skips), build, handbook (39 schema tables) and diff checks pass. Live account boundary 32 checks; scheduled reader four topics/19 stories/15 posts.
-- No paid calls, live grants, credentials or public activation. Transport/TLS, alerts, capacity, provisioning and rendering/query-route gates remain.
-- Push then API/worker restart and post-deploy health/reader/alerts checks. Next: Phase 4 export transport; Nov 11 natural link expiry and scheduled NBA acceptance remain due.
+[Through iteration 1735](docs/progress-archive/2026-11-10-through-1735.md).
 
 ## 2026-11-10: iteration 1736 — preserve monotonic aggregate captures
 
@@ -186,3 +128,12 @@
 - Updated the Phase 4 entry checklist and accepted Phase 3 notes. `check-live-account-boundary.ts` passed all 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. No model calls or public activation.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration, four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` passed.
 - Next: continue Phase 4 with Grafana export listener and capacity gates; review scheduled NBA editing after the Nov 11 15:00 UTC run.
+
+## 2026-11-11: iteration 1758 — measure the Grafana export listener footprint
+
+- Clean main; no inherited work. Alerts clear; API and Grafana health pass, 14 healthy services, 36 healthy sources, zero failed digest jobs.
+- Ran the exact prepared Compose file at 127.0.0.1:5543 in a disposable project. SCRAM login passed, wrong password returned 28P01, four non-loopback IPv4 probes failed to connect, and restricted roles wrote/read 30 synthetic daily rollups.
+- `sample-observability-capacity.ts 12 5`, 120-second paired cgroup sample and 24-hour VictoriaMetrics history: 763.57 MiB/2.64% CPU together in the quiet trial; prior stack peak 771.25 MiB plus export lifetime peak 72.57 MiB projects 843.82 MiB against ~800 MiB. No OOM kills; volume used 47 MiB.
+- Compose container, volume and bridge removed; port free. No production listener, datasource, model call, data write or public activation.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, changed-document Prettier and `git diff --check` pass. Live account boundary passes all 32 checks; the Nov 10 reader serves four topics, 19 stories and 15 posts.
+- Next: verify loaded and cold-start memory headroom before installation, and review scheduled NBA editing after the Nov 11 15:00 UTC generation run.

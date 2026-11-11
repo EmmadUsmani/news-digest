@@ -228,7 +228,7 @@ Disposable SCRAM-authenticated containers cover the complete path, including wro
 ## Prepared export listener (iteration 1740)
 
 `grafana/prepared/compose.yaml` defines a separate, uninstalled Postgres 17
-service. It publishes only `127.0.0.1:5543`, joins its own internal Docker
+service. It publishes only `127.0.0.1:5543`, joins its own dedicated Docker bridge
 network, requires an explicit owner password and uses SCRAM host authentication.
 Its separate volume holds aggregate data only; it never mounts application data.
 Ten connections, 16 MiB shared buffers, 128 MiB memory and 0.1 CPU are provisional
@@ -269,3 +269,37 @@ restoring a fresh capture clears it, revoking the reader table grant fires with
 query-error health, and restoring the grant clears it again.
 Public query-route acceptance remains unverified. This file stays outside
 installed provisioning; capacity and datasource installation remain open.
+
+## Fixed-port and capacity rehearsal (iteration 1758)
+
+Ran `docker compose -p news-digest-export-capacity-1758 -f ops/observability/grafana/prepared/compose.yaml up -d --wait`
+on the live VM with a synthetic password and the intended `127.0.0.1:5543`. Docker reported one loopback binding, one
+dedicated bridge with only the export container attached, and one private
+export volume. PostgreSQL accepted authenticated loopback SQL, rejected the
+wrong password (28P01), and the four non-loopback IPv4 probes could not connect.
+Applied only the prepared export schema, inserted 30 synthetic daily rollups
+as the restricted writer, and counted them as the restricted reader.
+
+| Capacity measure                                                     |                         Result |
+| -------------------------------------------------------------------- | -----------------------------: |
+| Eight observability units alone: 60-second sampled peak and mean CPU | 702.47 MiB / 2.06% of one core |
+| Existing stack: last 24 hours, stored peak and peak five-minute CPU  | 771.25 MiB / 2.19% of one core |
+| Export container: cgroup lifetime peak, including initialization     |                      72.57 MiB |
+| Stack plus export: 120-second sampled peak and mean CPU              | 763.57 MiB / 2.64% of one core |
+| Fresh export data volume                                             |                         47 MiB |
+
+Baseline: `pnpm exec tsx scripts/sample-observability-capacity.ts 12 5`.
+For the combined sample, read `memory.current`, `cpu.stat` and `memory.events`
+every five seconds from the same eight system cgroups and the Docker
+container cgroup. Export alone peaked at 64.55 MiB and averaged 0.83% CPU
+in that sample, with no OOM kills. The 24-hour comparison uses the [stored resource queries](decisions/0004-observability-capacity.md#reproduce)
+with 2,880 samples per unit. This was a quiet window; initialization,
+compaction and dashboard traffic were not measured concurrently. Adding the
+export lifetime peak to the existing 24-hour peak projects **843.82 MiB**
+against the approximate 800 MiB target. These peaks were observed at
+different times. Keep installation gated on measured headroom during
+startup and representative load, without lowering the working Grafana limits.
+
+`docker compose down --volumes` removed the rehearsal container, volume and
+bridge; port 5543 is free again. No application data, scheduled exporter,
+persistent listener or datasource was used.
