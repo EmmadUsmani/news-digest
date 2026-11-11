@@ -68,3 +68,37 @@ is absent. It still fails the $0.65 ceiling. The joint request is inexpensive,
 but it does not resolve the fifth editorial pass's cost. Next: cost the actual
 publication request plan and identify measured savings before activation;
 do not admit an edition from these proxy figures alone. Caps remain unchanged.
+
+## Grouping replacement savings bound — iteration 1843
+
+The same read-only evaluator now reconciles each saved run against the
+repository's model/purpose ledger breakdown, including charged repairs.
+It rejects unresolved calls and reports grouping separately. No provider work.
+
+| Edition | All four topics' grouping cost | Five-topic proxy reserve if all grouping were free |
+| ------- | -----------------------------: | -------------------------------------------------: |
+| Nov 4   |                      $0.000000 |                                          $0.545930 |
+| Nov 5   |                      $0.002103 |                                          $0.588306 |
+| Nov 6   |                      $0.005699 |                                          $0.529397 |
+| Nov 7   |                      $0.006594 |                                          $0.702935 |
+| Nov 8   |                      $0.004778 |                                          $0.594453 |
+| Nov 9   |                      $0.007059 |                                          $0.717395 |
+| Nov 10  |                      $0.007571 |                                          $0.780561 |
+
+Even this deliberately excessive savings credit leaves the peak reserve
+**$0.130561 over $0.65**, before adding any joint ownership request. It removes
+all four topics' grouping, although the change may replace only World/U.S.
+grouping; it also assumes the replacement is free. It is a counterfactual
+bound within the equal-share proxy, not an achievable publication plan.
+Nov 4 has no charged grouping; zero does not imply a missing ledger run.
+
+Nov 10's $0.422356 total is dominated by Sonnet story editing ($0.211287)
+and social editing ($0.123422, including Bluesky); grouping is $0.007571.
+Those purposes have no topic attribution. Their costs cannot be credited as
+World savings, nor can the other three topics' editing be changed under item 56.
+
+Conclusion: replacing grouping alone cannot rescue the current conservative
+five-topic proxy. Next prepare the actual combined shortlist/publication plan
+and measure its marginal request sizes without paid calls. Preserve the reserve
+policy, editorial repair guarantees and $0.65 ceiling; topic activation remains
+gated. No cap or runtime changes are justified by these measurements.

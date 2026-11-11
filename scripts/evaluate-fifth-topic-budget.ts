@@ -9,7 +9,10 @@ import {
   llmConfig,
   scheduledReserveConfig,
 } from '../apps/api/src/modules/curation/adapters/config';
-import { readFullAiEditionCosts } from '../apps/api/src/modules/curation/database/edition-cost.reader';
+import {
+  readEditionCost,
+  readFullAiEditionCosts,
+} from '../apps/api/src/modules/curation/database/edition-cost.reader';
 
 async function main() {
   assert.deepEqual(process.argv.slice(2), ['--read-only']);
@@ -18,6 +21,8 @@ async function main() {
   );
   const config = llmConfig(env);
   const reserve = scheduledReserveConfig(env);
+  const headroom = reserve.policy.headroom ?? 1.5;
+  assert.ok(Number.isFinite(headroom) && headroom >= 1);
   const fixture = JSON.parse(
     readFileSync(
       'apps/api/test/fixtures/world-us-scope-2026-11-04-10.json',
@@ -50,10 +55,38 @@ async function main() {
       assert.ok(
         row && row.cost > 0 && row.topics === 4 && row.unresolved === 0,
       );
+      const ledger = await readEditionCost(client, window.editionId);
+      assert.equal(ledger.costMicros, row.cost);
+      assert.equal(ledger.reservedMicros, 0);
+      assert.ok(
+        ledger.byModelAndPurpose.every((part) => part.unresolved === 0),
+      );
+      const grouping = ledger.byModelAndPurpose
+        .filter((part) => part.purpose === 'story-grouping-v3')
+        .reduce((sum, part) => sum + part.costMicros, 0);
+      // Deliberately over-credit savings: even removing ALL four topics'
+      // grouping for free cannot establish an achievable two-topic saving.
+      const optimisticFiveTopic =
+        row.cost + Math.ceil(row.cost / row.topics) - grouping;
+      assert.ok(
+        Number.isSafeInteger(grouping) && grouping >= 0 && grouping <= row.cost,
+      );
+      assert.ok(Number.isSafeInteger(optimisticFiveTopic));
       measurements.push({
         date: window.date,
         costMicros: row.cost,
         fifthTopicProxyMicros: Math.ceil(row.cost / row.topics),
+        allTopicGroupingCostMicros: grouping,
+        optimisticReserveWithFreeGroupingMicros: Math.ceil(
+          optimisticFiveTopic * headroom,
+        ),
+        byPurpose: ledger.byModelAndPurpose.map((part) => ({
+          model: part.model,
+          purpose: part.purpose,
+          calls: part.calls,
+          failed: part.failed,
+          costMicros: part.costMicros,
+        })),
       });
     }
     const complete = await readFullAiEditionCosts(client, new Date());
@@ -73,6 +106,13 @@ async function main() {
           configuredReserve: reserve,
           ownerDailyCeilingMicros: 650000,
           fitsOwnerCeiling: Math.ceil(projected * 1.5) <= 650000,
+          optimisticReserveWithFreeGroupingMicros: Math.max(
+            ...measurements.map(
+              (row) => row.optimisticReserveWithFreeGroupingMicros,
+            ),
+          ),
+          savingsNote:
+            'Optimistic counterfactual only: removes ALL four topics grouping cost, adds no joint request cost, and retains the equal-share fifth-topic proxy. Not an achievable saving, cost attribution or production admission calculation.',
           note: 'Equal-share fifth-topic proxy, not measured World attribution: llm_calls has no topic ID. Includes all saved-run costs, including repairs. Does not bound new candidate volume, joint prompt size or monthly/model admission. No cap change justified solely by this proxy.',
         },
         null,

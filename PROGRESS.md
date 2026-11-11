@@ -124,3 +124,13 @@
 - Initial check caught four require-await lint errors in new in-memory adapters; corrected to explicit promises and reran probes successfully. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, offline probes, filtered handbook check and `git diff --check` pass: 844 unit/283 integration passes, four expected skips.
 - API/worker systemd restart passes; both active, healthz/database/Redis healthy; latest edition still serves four topics, zero alerts. Push and post-push restart follow; no runtime code changed.
 - Next: cost actual publication plan and measured savings below the ceiling, then publication integration/unavailable policy and topic/source data. No activation from proxy figures alone.
+
+## 2026-11-11: iteration 1843 — grouping savings ceiling
+
+- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 remains stopped under 55; continued item 56 with no provider calls.
+- Extended read-only saved-cost evaluator through the existing repository ledger reader; exact per-run totals reconcile, unresolved calls refuse, model/purpose costs and charged repairs remain visible.
+- Nov 4–10 grouping costs $0–$0.007571. Even crediting all four topics' grouping as free (more savings than authorized), with no replacement charge, five-topic proxy reserve peaks at $0.780561: $0.130561 above $0.65. Grouping replacement alone cannot close this proxy gate.
+- Peak day's Sonnet story/social editing costs $0.211287/$0.123422; absent topic attribution, no World savings claimed. Recorded evidence in fifth-topic review and TASKS. No caps, models, runtime topics or editorial policies changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, read-only evaluator, filtered handbook check and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing bundle-size warning only.
+- Source check: 36 healthy/zero unhealthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.
+- Next: cost actual combined shortlist/publication marginal requests without paid calls; publication integration/topic data remain gated on admission.
