@@ -87,3 +87,12 @@
 - Full check exposed a Grafana export startup race: the socket probe could accept the temporary init server. The prepared Compose probe now checks TCP on loopback, matching the listener used by the isolated test. No live Grafana change.
 - Verification: `pnpm format`, `pnpm lint:fix`, changed-file Prettier and `git diff --check` passed. `pnpm check` passed typecheck/lint/format/boundaries and 828 unit tests; after the TCP fix, `pnpm test:integration` passed 281 with four expected skips. `pnpm --filter @digest/docs-site test` passed 10; `pnpm build` passed. Push and restart only the handbook service, then verify private proxy routes and anonymous refusal.
 - Next: continue individual public tool rehearsals; Grafana still needs capacity evidence under scheduled load or natural compaction. Review NBA editing after the 15:00 UTC edition.
+
+## 2026-11-11: iteration 1763 — prepare the reader handbook
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
+- Prepared a separate one-page reader handbook covering editions, preferences and AI summaries. The loopback candidate serves only its HTML and CSS; no private corpus, third-party assets, proxy install, flag change or provider calls.
+- Standalone HTTP rehearsal verified GET/HEAD and denials for private Markdown/search/image paths and POST. Playwright checked desktop light/mobile dark, no overflow or external requests, and saved `docs/screenshots/reader-handbook-mobile.png`.
+- `pnpm --filter @digest/docs-site test` passed 10. `check-live-account-boundary.ts` passed 32; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart only the private handbook service; recheck live admission and health.
+- Next: rehearse exact public handbook proxy admission and rollback. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after the 15:00 UTC edition.

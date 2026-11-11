@@ -370,3 +370,22 @@ verified the home page, search and opening the Observability result.
 Keep the handbook private. Its current corpus describes operational details,
 including backup storage and private tooling. Public routing still needs a
 reviewed publication corpus and a proxy rehearsal.
+
+## Reader handbook candidate (iteration 1763)
+
+The reviewed public corpus is one [reader handbook page](../apps/docs-site/reader/index.html):
+reading and revisiting editions, hiding topics, bookmarks and sync, and how AI
+helps summarize coverage. It links back to News Digest and needs no scripts or
+third-party assets. The existing operational handbook stays private.
+
+Run `node apps/docs-site/src/reader-server.ts` for a standalone loopback rehearsal.
+It responds only to GET/HEAD on `/` and `/style.css`; the response inventory
+does not read the owner handbook or expose its search corpus. Isolated HTTP checks
+verified those two routes and refusals for old Markdown, search, image and asset
+paths. Playwright verified desktop light and mobile dark layouts, the return link
+target, and no third-party requests. See the
+[mobile screenshot](screenshots/reader-handbook-mobile.png).
+
+No service or proxy points at this candidate. Before routing `/docs/` in public
+mode, verify exact admission, the trailing-slash redirect, headers and rollback to
+the private handbook. Include this content boundary in the lead's security review.
