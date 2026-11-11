@@ -132,5 +132,5 @@
 - Corrected dashboard fixture to a real panel with empty query results; both --proxy-assets and --live-assets reviews pass. Full stored-session/browser composition and live query navigation remain open.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, 32 deployed account checks and check-scheduled-reader.ts 2026-11-10T15:00:00Z pass (four topics/19 stories/15 posts).
 - First combined verification command ended with SIGTERM during unit tests (no reported failures); standalone pnpm check retry passes: 833 unit and 283 integration tests, four expected skips. Typecheck/lint/format/boundaries pass.
-- Updated readiness/review and TASKS; git diff --check passes. API restart and deployed health/account/reader checks follow push.
+- Updated readiness/review and TASKS; git diff --check passes. Pushed 85818782, restarted API; healthz, 32 deployed account checks and saved Nov 10 reader checks pass; no failed user services.
 - Next: bounded raw-export review, full browser/session composition, remaining native controls/live navigation, Grafana capacity evidence and 15:00 UTC NBA review.
