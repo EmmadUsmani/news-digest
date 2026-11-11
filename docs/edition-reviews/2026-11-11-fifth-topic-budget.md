@@ -268,3 +268,32 @@ scopes; this does not establish semantic ownership, historical requests, future
 U.S. source/search volume or repair/editor costs. Existing reader/ranking caps
 still apply; “pool” means production-admitted candidates, not every observation.
 Whole-edition admission remains open. No cap, topic or runtime changes.
+
+## Whole-edition allowance gate — iteration 1849
+
+The read-only fifth-topic script now applies production `readUsage`,
+`budgetAllowance` and `scheduledReserveAllowance` to the equal-share proxy,
+with the proposed daily maximum fixed at the approved $0.65 ceiling.
+No configuration, ledger, topic or provider is changed.
+
+At Nov 11 20:08 UTC, monthly spend is $3.701783 with zero unresolved holds.
+The remaining-month rule limits today's cap to **$0.534679**, despite a
+$0.65 maximum. After today's $0.395364 usage, $0.139315 remains; Sonnet's
+remaining allocation is $0.119065.
+
+| Scenario                                    | Effective daily cap | Available | Full proxy reserve | Shortfall |
+| ------------------------------------------- | ------------------: | --------: | -----------------: | --------: |
+| Current-day snapshot                        |           $0.534679 | $0.139315 |          $0.791918 | $0.257239 |
+| Nov 12, no further spend or hold settlement |           $0.542011 | $0.542011 |          $0.791918 | $0.249907 |
+
+The next-day available amount can cover the $0.527945 cost proxy but cannot
+cover its required 1.5× reserve. Production protection clamps its reserve to
+the effective daily cap; that clamped number must not be treated as proof
+that headroom fits. Assertions check this distinction and scheduled callers'
+unchanged ordinary allowance. The next-day calculation is conditional, not a
+prediction of tomorrow's ledger or a per-request/model admission proof.
+
+Activation remains gated. Request-size reservations from the other probes
+are not added to this realized-cost proxy: doing so would mix conservative
+holds with charges and may double-count work. New domestic volume and an
+achievable cost reduction still need evidence before publication integration.

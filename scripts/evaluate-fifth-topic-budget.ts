@@ -13,6 +13,12 @@ import {
   readEditionCost,
   readFullAiEditionCosts,
 } from '../apps/api/src/modules/curation/database/edition-cost.reader';
+import { readUsage } from '../apps/api/src/modules/curation/database/usage.reader';
+import {
+  budgetAllowance,
+  utcBudgetPeriod,
+} from '../apps/api/src/modules/curation/domain/budget';
+import { scheduledReserveAllowance } from '../apps/api/src/modules/curation/domain/scheduled-reserve';
 
 async function main() {
   assert.deepEqual(process.argv.slice(2), ['--read-only']);
@@ -95,9 +101,86 @@ async function main() {
       ...measurements.map((row) => row.costMicros + row.fifthTopicProxyMicros),
       ...complete.map((cost) => Math.ceil((cost * 5) / 4)),
     );
+    // A cap is a ceiling, not a grant: preserve the production monthly pacing.
+    const now = new Date(
+      (
+        await client.query<{ now: string }>(
+          'SELECT clock_timestamp()::text AS now',
+        )
+      ).rows[0].now,
+    );
+    const usage = await readUsage(
+      client,
+      { ...config.caps, dailyMax: 650000 },
+      now,
+    );
+    const requiredReserveMicros = Math.ceil(projected * headroom);
+    const nextDay = new Date(
+      utcBudgetPeriod(now).dayStart.getTime() + 86400000,
+    );
+    const nextAllowance = budgetAllowance(
+      nextDay,
+      {
+        month: usage.monthMicros + usage.monthReservedMicros,
+        today: usage.todayReservedMicros,
+      },
+      { ...config.caps, dailyMax: 650000 },
+    );
+    const scenarios = [
+      {
+        label: 'current-day snapshot',
+        at: now,
+        dailyCap: usage.dailyCapMicros,
+        available: usage.availableMicros,
+        todayUsed: usage.todayMicros + usage.todayReservedMicros,
+      },
+      {
+        label: 'next UTC day, no intervening spend or hold settlement',
+        at: nextDay,
+        ...nextAllowance,
+        todayUsed: usage.todayReservedMicros,
+      },
+    ].map(({ label, at, ...input }) => {
+      const protectedBudget = scheduledReserveAllowance(
+        {
+          ...input,
+          recentFullAiEditionCosts: [projected],
+          state: 'pending',
+          scheduledRun: true,
+        },
+        { headroom },
+      );
+      assert.equal(
+        protectedBudget.sizedReserveMicros,
+        Math.min(input.dailyCap, requiredReserveMicros),
+      );
+      assert.equal(protectedBudget.availableMicros, input.available);
+      return {
+        label,
+        at: at.toISOString(),
+        ...input,
+        requiredReserveMicros,
+        protectedReserveMicros: protectedBudget.reserveMicros,
+        reserveShortfallMicros: Math.max(
+          0,
+          requiredReserveMicros - input.dailyCap,
+        ),
+        fullReserveFits: requiredReserveMicros <= input.dailyCap,
+        projectedCostFitsAvailable: projected <= input.available,
+      };
+    });
     console.log(
       JSON.stringify(
         {
+          wholeEditionAdmission: {
+            ownerDailyCeilingMicros: 650000,
+            monthlyCapMicros: config.caps.monthly,
+            monthSpentMicros: usage.monthMicros,
+            unresolvedHoldsMicros: usage.monthReservedMicros,
+            modelAllocation: usage.modelAllocation,
+            scenarios,
+            note: 'Read-only necessary-condition check using equal-share cost proxy. Clamped protected reserve is not evidence that full 1.5x headroom fits. Next-day projection is conditional; neither scenario proves per-request/model admission, new domestic volume or editorial quality.',
+          },
           measurements,
           recentCompleteEditionCostsMicros: complete,
           projectedFiveTopicMicros: projected,
