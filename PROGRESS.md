@@ -145,3 +145,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (833 unit/283 integration passes, four expected skips), `pnpm build`, repeat native Chromium/metadata reviews and `check-handbook.ts observability` pass. All 13 saved asset hashes match the repeat review.
 - Restarted API; retrying healthz, 32 account-boundary checks and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). No failed user services; `git diff --check` passes.
 - Next: exact UI/metadata fresh-admin proxy admission with CSP composition and broader native navigation; Grafana scheduled-load/natural-compaction evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1790 — fresh-admin native metadata admission
+
+- Clean main; no inherited work. `pnpm obs alerts` clear; healthz healthy, no failed user services, all 36 sources healthy and four queues available. No provider calls; public mode remains off.
+- Six reviewed metadata routes now admit exact GET only through the shared fresh-admin policy/proxy: metrics config/custom dashboards/timezone/per-job dashboard and logs build/tenant metadata. UI assets and mutations stay closed. Credentials/cookies stripped; no-store preserved.
+- Proxy fixtures verify anonymous/reader/stale-admin refusal, fresh-admin reads, POST/HEAD refusal and suffix/slash/encoded-alias rejection. Compiled-app stored-session coverage includes metadata GET/POST across login, freshness loss and logout.
+- `check-live-admin-telemetry.ts --live` passes six bounded metadata reads plus existing metrics/log queries through the prepared proxy, with simulated-principal isolation and no printed values/tenant IDs. `review-native-telemetry-metadata.ts --live` confirms all six shapes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 833 unit and 283 integration tests, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one unchanged diagram/39 tables) and `git diff --check` pass. Updated affected handbook, readiness/review and TASKS.
+- Restarted API; retrying healthz, 32 deployed account-boundary checks and saved Nov 10 reader check pass (four topics/19 stories/15 posts); no failed user services.
+- Next: exact native UI asset admission with proxy/CSP composition and broader navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.

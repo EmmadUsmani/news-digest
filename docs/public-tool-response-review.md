@@ -848,3 +848,19 @@ runtime admission changed. Next compose the exact asset/metadata routes with
 fresh-admin authentication, credential stripping, no-store and the rehearsed CSP,
 then verify the native UI through that proxy. Unknown paths and mutations stay
 closed; public mode remains off.
+
+## Prepared native metadata admission (iteration 1790)
+
+Six reviewed metadata paths are now GET-only behind the shared fresh-admin
+route and proxy boundary: metrics configuration, custom dashboards, timezone and
+per-job dashboard, plus logs build information and tenant IDs. No query suffix,
+trailing slash, encoded alias, POST or HEAD is admitted for these paths.
+Caller credentials and upstream cookies/headers remain stripped; responses are
+no-store. UI documents/assets, tails and mutations remain closed.
+
+Isolated proxy tests cover anonymous, reader, stale-admin and fresh-admin
+principals. The compiled application rehearsal includes real stored sessions,
+login, freshness loss and logout; metadata POST is refused before upstream.
+The explicit live proxy check reads all six bounded responses without printing
+values or tenant identifiers. Live public mode remains off; UI CSP composition
+and broader navigation remain open.

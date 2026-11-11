@@ -379,6 +379,14 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(login.status, 204);
     const cookie = login.headers.get('set-cookie')!.split(';')[0];
     assert.match(login.headers.get('set-cookie')!, /Secure/);
+    const telemetryMetadata = [
+      '/metrics/prometheus/vmui/config.json',
+      '/metrics/prometheus/vmui/custom-dashboards',
+      '/metrics/prometheus/vmui/timezone',
+      '/metrics/vmui/dashboards/perJobUsage.json',
+      '/logs/select/buildinfo',
+      '/logs/select/tenant_ids',
+    ];
     const telemetryQueries = [
       '/metrics/api/v1/query?query=up',
       '/metrics/prometheus/api/v1/query?query=up',
@@ -395,7 +403,9 @@ void test('configured full public application serves published fixtures and enfo
     ];
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
       for (const method of ['GET', 'POST']) {
-        for (const path of telemetryQueries) {
+        for (const path of [...telemetryQueries, ...telemetryMetadata]) {
+          const admitted =
+            allowed && (method === 'GET' || !telemetryMetadata.includes(path));
           const before = telemetryRequests.length;
           const response = await account(path, {
             method,
@@ -412,16 +422,16 @@ void test('configured full public application serves published fixtures and enfo
               admin_local_token: 'forged-local-token',
             },
           });
-          assert.equal(response.status, allowed ? 200 : 404, path);
+          assert.equal(response.status, admitted ? 200 : 404, path);
           assert.equal(response.headers.get('cache-control'), 'no-store');
           assert.equal(response.headers.get('set-cookie'), null);
           assert.equal(response.headers.get('x-private'), null);
           assert.equal(
             await response.text(),
-            allowed ? '{"fixture":true}' : '',
+            admitted ? '{"fixture":true}' : '',
           );
-          assert.equal(telemetryRequests.length, before + Number(allowed));
-          if (allowed) assert.equal(telemetryRequests.at(-1), path);
+          assert.equal(telemetryRequests.length, before + Number(admitted));
+          if (admitted) assert.equal(telemetryRequests.at(-1), path);
         }
       }
     };

@@ -1,6 +1,6 @@
 import { type IncomingMessage, request, type ServerResponse } from 'node:http';
 
-import { isAdminTelemetryQuery } from './telemetry-query-policy';
+import { isAdminTelemetryRead } from './telemetry-query-policy';
 
 // Internal tools run as separate loopback-only services (apps/docs-site,
 // apps/schema-explorer). The API forwards their subpaths so everything shares
@@ -51,7 +51,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       next();
       return;
     }
-    if (tool.adminTelemetry && !isAdminTelemetryQuery(req.method ?? '', url)) {
+    if (tool.adminTelemetry && !isAdminTelemetryRead(req.method ?? '', url)) {
       res.writeHead(404, { 'cache-control': 'no-store' }).end();
       return;
     }

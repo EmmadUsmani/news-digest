@@ -1,4 +1,4 @@
-import { isAdminTelemetryQuery } from './telemetry-query-policy';
+import { isAdminTelemetryRead } from './telemetry-query-policy';
 
 // Public-mode policy; live public mode remains off pending Phase 4 acceptance.
 // Routes are admitted individually after their response/privacy review.
@@ -71,7 +71,7 @@ export function classifyPublicRoute(
     path.split('/').some((part) => part === '.' || part === '..')
   )
     return null;
-  if (isAdminTelemetryQuery(method, target)) return 'admin';
+  if (isAdminTelemetryRead(method, target)) return 'admin';
   if (
     ['/db', '/db/', '/db/app.js', '/db/style.css', '/db/api/schema'].includes(
       target,

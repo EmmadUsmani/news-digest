@@ -44,6 +44,31 @@ async function main() {
       'admin',
     ] as const) {
       actor = principal;
+      for (const path of [
+        '/metrics/prometheus/vmui/config.json',
+        '/metrics/prometheus/vmui/custom-dashboards',
+        '/metrics/prometheus/vmui/timezone',
+        '/metrics/vmui/dashboards/perJobUsage.json',
+        '/logs/select/buildinfo',
+        '/logs/select/tenant_ids',
+      ]) {
+        for (const method of ['GET', 'POST', 'HEAD']) {
+          const before = forwarded;
+          const allowed = actor === 'admin' && method === 'GET';
+          const response = await fetch(base + path, {
+            method,
+            signal: AbortSignal.timeout(5000),
+          });
+          assert.equal(response.status, allowed ? 200 : 404);
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+          assert.equal(response.headers.get('set-cookie'), null);
+          assert.equal(forwarded, before + (allowed ? 1 : 0));
+          const body = await response.text();
+          assert.ok(Buffer.byteLength(body) <= 16384);
+          if (allowed) assert.ok(JSON.parse(body) !== null);
+          else assert.equal(body, '');
+        }
+      }
       for (const method of ['GET', 'POST']) {
         for (const path of queries) {
           const before = forwarded;
@@ -114,7 +139,7 @@ async function main() {
       assert.equal(forwarded, before);
     }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; simulated principal isolation and pre-upstream write/UI refusals pass. No log content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. No log content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();

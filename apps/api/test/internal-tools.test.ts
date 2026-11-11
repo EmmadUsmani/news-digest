@@ -284,6 +284,12 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     admin_local_token: 'forged',
   };
   const queries = [
+    '/metrics/prometheus/vmui/config.json',
+    '/metrics/prometheus/vmui/custom-dashboards',
+    '/metrics/prometheus/vmui/timezone',
+    '/metrics/vmui/dashboards/perJobUsage.json',
+    '/logs/select/buildinfo',
+    '/logs/select/tenant_ids',
     '/metrics/api/v1/query?query=up',
     '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
     '/logs/select/logsql/query?query=error&limit=1',
@@ -326,6 +332,11 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     }
     assert.deepEqual(seen, queries);
     for (const path of [
+      '/logs/select/tenant_ids?extra=1',
+      '/logs/select/tenant_ids/',
+      '/logs/select/%74enant_ids',
+      '/metrics/prometheus/vmui/config.json?extra=1',
+      '/metrics/vmui/assets/unreviewed.js',
       '/metrics/internal/force_merge',
       '/metrics/api/v1/admin/tsdb/delete_series?match[]=up',
       '/metrics/snapshot/create',
@@ -338,13 +349,23 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     ]) {
       assert.equal((await fetch(base + path, { headers })).status, 404, path);
     }
+    for (const path of queries.slice(0, 6)) {
+      assert.equal(
+        (await fetch(base + path, { method: 'POST', headers })).status,
+        404,
+      );
+    }
     assert.deepEqual(seen, queries);
     // Defense in depth: the restricted proxy denies writes without the gate.
     const direct = createServer((req, res) => proxy(req, res, () => res.end()));
     const directBase = `http://127.0.0.1:${await listen(direct)}`;
     try {
       assert.equal(
-        (await fetch(directBase + queries[0], { method: 'POST' })).status,
+        (
+          await fetch(directBase + '/metrics/api/v1/query?query=up', {
+            method: 'POST',
+          })
+        ).status,
         415,
       );
       assert.equal(
