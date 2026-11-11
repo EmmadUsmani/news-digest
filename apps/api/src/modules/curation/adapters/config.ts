@@ -33,9 +33,11 @@ export function llmConfig(env: NodeJS.ProcessEnv = process.env) {
   const caps: BudgetCaps = {
     modelAllocation: { model: sonnet.id, dailyFraction },
     monthly: Math.floor(
-      Math.min(14, amount('LLM_MONTHLY_BUDGET_USD', 14)) * 1e6,
+      Math.min(20, amount('LLM_MONTHLY_BUDGET_USD', 20)) * 1e6,
     ),
-    dailyMax: Math.floor(Math.min(1, amount('LLM_DAILY_MAX_USD', 1)) * 1e6),
+    dailyMax: Math.floor(
+      Math.min(0.65, amount('LLM_DAILY_MAX_USD', 0.65)) * 1e6,
+    ),
   };
   return {
     caps,

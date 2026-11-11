@@ -539,7 +539,7 @@ for (const failure of ['anthropic', 'x'] as const)
             const day = new Date().toISOString().slice(0, 10);
             const instant = new Date(`${day}T14:30:00Z`);
             const topics = await searches.scheduledTopics(instant);
-            assert.equal(topics.length, 4);
+            assert.equal(topics.length, 5);
             const attempts: string[] = [];
             const execute = () =>
               runScheduledXRuntime(
@@ -589,7 +589,7 @@ for (const failure of ['anthropic', 'x'] as const)
                 ],
               )
             ).rows;
-            assert.equal(xCalls.length, 4);
+            assert.equal(xCalls.length, 5);
             assert.ok(
               xCalls.every((call) => {
                 const row = call as { status: string; cost_micros: number };

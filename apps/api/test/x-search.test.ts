@@ -772,7 +772,7 @@ void test('scheduled search retries never reach HTTP again after a provider reje
       'budget-blocked',
     );
     assert.equal(calls, 1);
-    assert.equal((await ledger.status()).availableMicros, 400000);
+    assert.equal((await ledger.status()).availableMicros, 500000);
   } finally {
     await social.db.query('DELETE FROM x_discovery_calls WHERE run_id=$1', [
       runId,

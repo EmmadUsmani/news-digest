@@ -16,8 +16,8 @@ export interface XDiscoveryCaps {
   monthlyMicros: number;
 }
 export const xDiscoveryCaps: Readonly<XDiscoveryCaps> = Object.freeze({
-  dailyMicros: 400000,
-  monthlyMicros: 12000000,
+  dailyMicros: 500000,
+  monthlyMicros: 15000000,
 });
 export function validateXCaps(caps: XDiscoveryCaps) {
   if (

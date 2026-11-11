@@ -71,6 +71,7 @@ const integration = new Set([
   'topic-coverage.test.ts',
   'topic-repository.test.ts',
   'usage-purpose.test.ts',
+  'us-news-topic.test.ts',
   'verification-budget.test.ts',
   'x-discovery-ledger.test.ts',
   'x-discovery-report.test.ts',

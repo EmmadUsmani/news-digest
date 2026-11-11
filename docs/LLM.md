@@ -31,7 +31,7 @@ Network/unknown failures retain the full reservation as uncertain; crash-left
 pending calls do too. They remain charged against future day/month budgets until
 manually reconciled from provider usage. Never automatically expire or retry them.
 
-Caps default to $14/month and $1/day maximum; environment overrides can lower
+Caps default to $20/month and $0.65/day maximum; environment overrides can lower
 these limits, never raise them. Today's allocation is remaining monthly funds
 at the start of the UTC day divided by days remaining including today. Pending
 and uncertain reservations reduce availability. Unspent days roll forward.

@@ -165,7 +165,7 @@ void test('configured pricing counts cache writes/reads separately and rejects u
   assert.throws(() => costMicros({ ...usage, output: NaN }, config.haiku));
   assert.throws(() => costMicros(usage, { ...config.haiku, input: -1 }));
   assert.throws(() => llmConfig({ LLM_MONTHLY_BUDGET_USD: 'invalid' }));
-  assert.equal(llmConfig({ LLM_MONTHLY_BUDGET_USD: '500' }).caps.monthly, 14e6);
+  assert.equal(llmConfig({ LLM_MONTHLY_BUDGET_USD: '500' }).caps.monthly, 20e6);
   assert.equal(
     llmConfig({ LLM_TRIAGE_MODEL: 'configured' }).haiku.id,
     'configured',

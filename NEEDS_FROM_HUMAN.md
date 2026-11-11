@@ -155,30 +155,12 @@ comparison and reader filter remain implementation work; visibility is unchanged
 
 - Nov 10 (1625): newest item-50 waiting order followed; World social tuning and richer Tech sources remain held by existing instructions, so no new content change is authorized before scheduled evidence. No owner response requested. [Comparison](docs/edition-reviews/2026-11-10.md).
 
-## World/U.S. full-headroom constraint (Nov 11, iteration 1856)
+## World/U.S. activation (Nov 11, iteration 1859)
 
-No decision requested yet; activation remains gated under item 56. The
-conditional Nov 12 effective cap ($0.542011) supports $0.361340 of edition
-cost at 1.5× headroom. Three saved four-topic baselines already exceed that,
-without adding U.S. work; the peak needs $0.061016 net savings before any
-addition. Even free grouping across all topics leaves $0.053445 to save.
-The next allowed approach is attributable World-only savings with unchanged
-quality and other topics. If that cannot close the gap, the owner must resolve
-the scope/budget conflict; agents must not raise caps or relax the reserve.
-[Calculation and assumptions](docs/edition-reviews/2026-11-11-fifth-topic-budget.md#cost-frontier-without-a-fifth-topic-proxy--iteration-1856).
-
-Iteration 1857: reconciled journal/ledger attribution measures Nov 10 World at
-$0.106435; keeping the other topics fixed leaves $0.045419 for World/U.S.
-combined. Free World triage/grouping still leaves $0.041829 to save before U.S.
-additions. No policy change requested; evaluate concrete paired editorial
-savings next. Nov 4–5 attribution fails reconciliation and receives no credit.
-
-Iteration 1858: prepared paired editing establishes no savings; both-scope
-initial Sonnet reservations grow $0.062630 on saved-summary proxies. Keeping
-World social editing fixed leaves $0.010337 actual cost for all remaining
-World/U.S. work. Reservation estimates are not charges or proof of refusal.
-No cap/model/output-limit changes; semantic routing evidence remains next.
-
-Owner item 57 supersedes the full-headroom constraint above: no decision
-needed, no further savings work. Next activate U.S. under the revised plan
-with $20 monthly AI budget and at most $0.65 daily cap.
+No owner decision needed: item 57 supersedes the historical 1.5× fit gate and
+savings work. Activation uses AI $20/month/$0.65 maximum daily and X
+$15/month/$0.50 daily. Historical expected five-topic cost is $0.527945;
+actual cost and scope acceptance await the next three scheduled editions.
+The provider's separate configured workspace ceiling still applies.
+Historical reservation measurements remain in
+[the cost evidence](docs/edition-reviews/2026-11-11-fifth-topic-budget.md).

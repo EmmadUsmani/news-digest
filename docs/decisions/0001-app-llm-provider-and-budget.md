@@ -4,6 +4,9 @@
 - **Date:** 2026-11-01
 - **Decided by:** the owner
 - **Build instructions:** STEERING.md item 3
+- **Budget amendment (2026-11-11):** STEERING item 57 sets the app cap to
+  $20/month and at most $0.65/day for five topics. The provider and models
+  remain unchanged; the original decision below records the earlier caps.
 
 ## Context
 

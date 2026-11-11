@@ -56,6 +56,7 @@ async function harness(
     disabled?: boolean;
     supporting?: boolean;
     grouping?: boolean;
+    politics?: boolean;
     hardExcluded?: boolean;
     parallel?: boolean;
     reddit?: boolean;
@@ -119,9 +120,9 @@ async function harness(
       if (sql.includes('from "topics"'))
         return {
           rows: Array.from(
-            { length: options.parallel ? 4 : 1 },
+            { length: options.politics ? 2 : options.parallel ? 4 : 1 },
             (_, index) => ({
-              id: `00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`,
+              id: `00000000-0000-4000-8000-${String(index + (options.politics ? 14 : 1)).padStart(12, '0')}`,
               name: options.parallel ? `AI ${index}` : 'AI',
               description: 'AI tools',
               include_guidance: '',
@@ -229,19 +230,26 @@ async function harness(
                 };
               },
             },
-            grouping: options.grouping
-              ? {
-                  async group(
-                    _topic: string,
-                    items: { id: string }[],
-                    runId: string,
-                  ) {
-                    assert.equal(items.length, 2);
-                    assert.ok(runId);
-                    return [items.map((item) => item.id)];
-                  },
-                }
-              : null,
+            grouping:
+              options.grouping || options.politics
+                ? {
+                    async assignTopics(scopes: { id: string }[]) {
+                      return [
+                        { topicId: scopes[0].id, ids: [support.id] },
+                        { topicId: scopes[1].id, ids: [id] },
+                      ];
+                    },
+                    async group(
+                      _topic: string,
+                      items: { id: string }[],
+                      runId: string,
+                    ) {
+                      assert.equal(items.length, 2);
+                      assert.ok(runId);
+                      return [items.map((item) => item.id)];
+                    },
+                  }
+                : null,
             editor: {
               async edit(_topic: unknown, shortlist: unknown[]) {
                 if (options.parallel) {
@@ -251,10 +259,13 @@ async function harness(
                 }
                 assert.equal(
                   shortlist.length,
-                  options.supporting && !options.grouping ? 2 : 1,
+                  options.supporting && !options.grouping && !options.politics
+                    ? 2
+                    : 1,
                   'Semantic relevance recovers lexical false negatives',
                 );
-                if (options.grouping) {
+                if (options.grouping || options.politics) {
+                  if (options.refused) return null;
                   const lead = shortlist[0] as { id: string };
                   return {
                     ...edit,
@@ -452,4 +463,40 @@ void test('opted-in publication persists grouped coverage in one edited story sl
 void test('future scheduled saves publish and legacy integration saves stay private', async () => {
   await harness({ scheduledKey: 'daily:2026-11-08:offline' });
   await harness({ scheduledKey: 'integration:publication-metadata' });
+});
+
+void test('production publication routes World/U.S. events before editing and preserves exclusive fallback', async () => {
+  for (const refused of [false, true]) {
+    const snapshot = await harness({
+      politics: true,
+      supporting: true,
+      refused,
+    });
+    assert.equal(snapshot.topics.length, 2);
+    assert.deepEqual(
+      snapshot.topics.map((topic) => topic.stories.map((story) => story.id)),
+      [['00000000-0000-4000-8000-000000000098'], [id]],
+    );
+    assert.ok(
+      snapshot.topics.every(
+        (topic) => topic.editorial?.mode === (refused ? 'non-ai' : 'ai'),
+      ),
+    );
+  }
+});
+void test('production publication withholds politics stories on ownership/triage failure', async () => {
+  for (const options of [{ incomplete: true }, { disabled: true }]) {
+    const snapshot = await harness({
+      politics: true,
+      supporting: true,
+      ...options,
+    });
+    assert.ok(
+      snapshot.topics.every(
+        (topic) =>
+          topic.stories.length === 0 &&
+          topic.editorial?.reason?.includes('ownership unavailable'),
+      ),
+    );
+  }
 });

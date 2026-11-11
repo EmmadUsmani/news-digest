@@ -2632,3 +2632,6 @@ real limit is the $14 AI monthly budget, which holds the daily cap near $0.54.
 - **Ack** when live: commit, caps set, the topic's feeds, and the expected
   edition cost against the effective cap. Then the three-edition acks from
   item 56.
+
+
+ack: 2026-11-11 item 57 — iteration 1859 activation commit `Activate U.S. news with exclusive politics story ownership`: migration 0020 live; U.S. enabled after World with five story/five post slots, Guardian US moved and NPR Politics/PBS Politics collecting (33/10/20 items). Joint scope triage/event ownership wired before editing; no independent story fallback on ownership refusal. AI effective caps $20/month/$0.65 daily; X $15/month/$0.50 daily. Historical five-topic expected cost $0.527945 < $0.65; latest four-topic actual $0.395364, no paid test run. Nov 4–10 offline labels: 23 World/five U.S./zero overlaps. First scheduled five-topic cost and three-edition acceptance remain pending.

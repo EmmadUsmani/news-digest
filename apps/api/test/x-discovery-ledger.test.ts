@@ -38,16 +38,19 @@ void test('X billing counts all fetched posts/profiles, rounds up and bounds app
     xDiscoveryCost({ ...usage, postsFetched: Number.MAX_SAFE_INTEGER }, price),
   );
   assert.throws(() =>
-    validateXCaps({ dailyMicros: 400001, monthlyMicros: 12000000 }),
+    validateXCaps({ dailyMicros: 500001, monthlyMicros: 12000000 }),
   );
   assert.throws(() =>
-    validateXCaps({ dailyMicros: 400000, monthlyMicros: 12000001 }),
+    validateXCaps({ dailyMicros: 400000, monthlyMicros: 15000001 }),
   );
 });
 
 void test('X ledger serializes separate caps, retains uncertainty, reconciles usage and durably blocks depleted credits', async () => {
   const db = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const reserve = async (amount: number) => {
     const id = await ledger.reserve('grok-4.3', 'offline-ledger', amount);
@@ -136,7 +139,12 @@ void test('X ledger serializes separate caps, retains uncertainty, reconciles us
     assert.ok(depleted);
     await ledger.fail(depleted, 'credits-depleted');
     assert.equal(
-      (await new PostgresXDiscoveryLedger(db).status()).blocked,
+      (
+        await new PostgresXDiscoveryLedger(db, {
+          dailyMicros: 400000,
+          monthlyMicros: 12000000,
+        }).status()
+      ).blocked,
       true,
     );
     await db.query(
@@ -157,7 +165,10 @@ void test('X ledger serializes separate caps, retains uncertainty, reconciles us
 
 void test('X ledger uses inclusive UTC budget boundaries and retains old unresolved holds', async () => {
   const db = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const insert = async (status: string, amount: number, boundary: string) => {
     const id = crypto.randomUUID();
@@ -214,7 +225,10 @@ void test('X ledger uses inclusive UTC budget boundaries and retains old unresol
 
 void test('X credit-depletion failure rolls back the reservation transition if persisting the block fails', async () => {
   const db = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   let id: string | null = null;
   try {
     id = await ledger.reserve('grok-4.3', 'rollback-fixture', 10000);
@@ -231,7 +245,10 @@ void test('X credit-depletion failure rolls back the reservation transition if p
     );
     // Retry must still accept the open reservation, then persist the durable block.
     await ledger.fail(id, 'credits-depleted');
-    const restarted = new PostgresXDiscoveryLedger(db);
+    const restarted = new PostgresXDiscoveryLedger(db, {
+      dailyMicros: 400000,
+      monthlyMicros: 12000000,
+    });
     assert.equal((await restarted.status()).blocked, true);
     assert.equal((await restarted.status()).reservedMicros, 0);
     assert.equal(
@@ -254,8 +271,14 @@ void test('X credit-depletion failure rolls back the reservation transition if p
 void test('scheduled X admission is durable per topic/UTC day across failures and restarts', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
-  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
+  const restarted = new PostgresXDiscoveryLedger(restartedDb, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const reserve = async (
     instance: PostgresXDiscoveryLedger,
@@ -354,7 +377,10 @@ void test('scheduled X admission is durable per topic/UTC day across failures an
 
 void test('scheduled topic projections share the budget lock and cap; retries cannot multiply calls', async () => {
   const db = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const day = new Date().toISOString().slice(0, 10);
   try {
@@ -394,8 +420,14 @@ void test('scheduled topic projections share the budget lock and cap; retries ca
 void test('optional X admission waits for all verified open runs and consumes one durable low-yield slot', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
-  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
+  const restarted = new PostgresXDiscoveryLedger(restartedDb, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const day = new Date().toISOString().slice(0, 10);
   const externalIds = ['288001', '288002', '288003'];
@@ -585,8 +617,14 @@ void test('optional X admission waits for all verified open runs and consumes on
 void test('fixed A/B admission is independent, durable and cannot mix with legacy scheduled slots', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
-  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
+  const restarted = new PostgresXDiscoveryLedger(restartedDb, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const {
     rows: [dates],
@@ -657,8 +695,14 @@ void test('fixed A/B admission is independent, durable and cannot mix with legac
 void test('X execution evidence survives restart and settles atomically with empty-search usage', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
-  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
+  const restarted = new PostgresXDiscoveryLedger(restartedDb, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const ids: string[] = [];
   const emptyUsage = { ...usage, postsFetched: 0, profilesFetched: 0 };
   try {
@@ -718,8 +762,14 @@ void test('X execution evidence survives restart and settles atomically with emp
 void test('fixed retry admission survives restart, keeps holds and rejects completed or historical searches', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
-  const restarted = new PostgresXDiscoveryLedger(restartedDb);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
+  const restarted = new PostgresXDiscoveryLedger(restartedDb, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const day = new Date().toISOString().slice(0, 10);
   const {
     rows: [topic],
@@ -839,7 +889,10 @@ void test('fixed retry admission survives restart, keeps holds and rejects compl
 void test('keyword production runtime admits four topics and one held retry within shared caps, then stays idle after restart', async () => {
   const db = database();
   const restartedDb = database();
-  const ledger = new PostgresXDiscoveryLedger(db);
+  const ledger = new PostgresXDiscoveryLedger(db, {
+    dailyMicros: 400000,
+    monthlyMicros: 12000000,
+  });
   const day = new Date().toISOString().slice(0, 10);
   const now = new Date(`${day}T14:30:00Z`);
   const runId = `scheduled-fixed-x:keyword-rollout-proof:${new Date(`${day}T15:00:00Z`).getTime()}`;
@@ -926,7 +979,12 @@ void test('keyword production runtime admits four topics and one held retry with
     assert.equal(rows.length, 5);
     assert.equal(rows.filter(({ parent }) => parent !== null).length, 1);
     assert.equal(rows.filter(({ status }) => status === 'succeeded').length, 4);
-    await execute(new PostgresXDiscoveryLedger(restartedDb));
+    await execute(
+      new PostgresXDiscoveryLedger(restartedDb, {
+        dailyMicros: 400000,
+        monthlyMicros: 12000000,
+      }),
+    );
     assert.equal(providerCalls.length, 5);
     assert.equal((await ledger.status()).reservedMicros, 100000);
   } finally {

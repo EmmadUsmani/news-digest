@@ -50,6 +50,10 @@ import {
 import { observeEdition } from '../adapters/edition-logging';
 import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
+import {
+  politicsStories,
+  politicsTopicIds,
+} from '../application/politics-stories';
 import { articleTriageInput } from '../domain/article-triage-input';
 import { DigestNotifications } from '../domain/digest-published';
 import { newEditionPublication } from '../domain/edition-publication';
@@ -349,14 +353,47 @@ export class PostgresPreviewRepository
             await report();
           };
           await report();
-          const selections = await parallelTopics(topics, async (topic) => {
-            // Limit candidate work per topic, selecting the most recent 200 in the exact window.
-            const candidates = await loadArticleCandidates(
-              client,
-              topic.id,
-              start,
-              end,
+          const politics = topics.filter((topic) =>
+            politicsTopicIds.includes(topic.id),
+          );
+          const preparePair = async () => {
+            if (!editorialServices) return null;
+            const pools = await Promise.all(
+              politics.map(async (settings) => ({
+                settings,
+                candidates: await loadArticleCandidates(
+                  client,
+                  settings.id,
+                  start,
+                  end,
+                ),
+              })),
             );
+            const result = await politicsStories(
+              pools,
+              editorialServices.triage,
+              editorialServices.grouping,
+              new Date(start),
+              new Date(end),
+              runId,
+            );
+            return result;
+          };
+          let pairedPromise: ReturnType<typeof preparePair> | undefined;
+          const selections = await parallelTopics(topics, async (topic) => {
+            const paired =
+              politics.length === 2 && politicsTopicIds.includes(topic.id)
+                ? await (pairedPromise ??= preparePair())
+                : null;
+            const ownershipUnavailable =
+              politics.length === 2 &&
+              politicsTopicIds.includes(topic.id) &&
+              !paired;
+            // Limit candidate work per topic, selecting the most recent 200 in the exact window.
+            const candidates =
+              paired && politicsTopicIds.includes(topic.id)
+                ? paired.candidates
+                : await loadArticleCandidates(client, topic.id, start, end);
             const policy = relevancePolicySchema.parse(topic.relevance_policy);
             const eligible = candidates.filter(
               (item) => assessRelevance(item, policy).eligible,
@@ -367,18 +404,18 @@ export class PostgresPreviewRepository
                 ? [{ id: item.id, title: item.title, ...rejection }]
                 : [];
             });
-            let stories: DigestPreview['topics'][number]['stories'] = rank(
-              eligible,
-              start,
-              end,
-              topic.story_budget,
-            ).map((story) => ({
-              ...story,
-              reasons: [
-                ...story.reasons,
-                assessRelevance(story, policy).reason,
-              ],
-            }));
+            let stories: DigestPreview['topics'][number]['stories'] =
+              ownershipUnavailable
+                ? []
+                : rank(eligible, start, end, topic.story_budget).map(
+                    (story) => ({
+                      ...story,
+                      reasons: [
+                        ...story.reasons,
+                        assessRelevance(story, policy).reason,
+                      ],
+                    }),
+                  );
             let relevanceRejectedCount = candidates.filter(
               (c) =>
                 !qualityRejection(c) && !assessRelevance(c, policy).eligible,
@@ -391,19 +428,26 @@ export class PostgresPreviewRepository
               brief: [],
               triage: [],
               unscoredIds: candidates.map((c) => c.id),
-              reason:
-                topic.story_budget === 0
+              reason: ownershipUnavailable
+                ? 'Stories withheld: exclusive World/U.S. ownership unavailable within caps.'
+                : topic.story_budget === 0
                   ? 'Non-AI ranking: topic story budget is zero.'
                   : 'Non-AI ranking: editorial service unavailable.',
             };
-            if (editorialServices && topic.story_budget > 0) {
+            if (
+              editorialServices &&
+              topic.story_budget > 0 &&
+              !ownershipUnavailable
+            ) {
               const { topic: context, candidates: triageCandidates } =
                 articleTriageInput(topic, candidates);
-              const triage = await editorialServices.triage.score(
-                context,
-                triageCandidates,
-                runId,
-              );
+              const triage =
+                paired?.scores.get(topic.id) ??
+                (await editorialServices.triage.score(
+                  context,
+                  triageCandidates,
+                  runId,
+                ));
               editorial.triage = triage.scores;
               editorial.unscoredIds = triage.unscoredIds;
               editorial.reason =
@@ -420,13 +464,17 @@ export class PostgresPreviewRepository
                   40,
                 );
                 await topicStage(topic.id, 'editing');
-                const matches = await groupShortlist(
-                  editorialServices.grouping,
-                  topic.id,
-                  shortlist,
-                  runId,
-                );
-                const ranked = rank(shortlist, start, end, 10, matches);
+                const matches = paired?.ranked.has(topic.id)
+                  ? undefined
+                  : await groupShortlist(
+                      editorialServices.grouping,
+                      topic.id,
+                      shortlist,
+                      runId,
+                    );
+                const ranked =
+                  paired?.ranked.get(topic.id) ??
+                  rank(shortlist, start, end, 10, matches);
                 const result = await editorialServices.editor.edit(
                   context,
                   ranked,
@@ -478,13 +526,15 @@ export class PostgresPreviewRepository
                   editorial.reason =
                     'AI edited from supplied headlines and excerpts; full articles were not fetched.';
                 } else {
-                  stories = scoredFallback(
-                    shortlist,
-                    start,
-                    end,
-                    topic.story_budget,
-                    matches,
-                  );
+                  stories = paired?.ranked.has(topic.id)
+                    ? paired.ranked.get(topic.id)!.slice(0, topic.story_budget)
+                    : scoredFallback(
+                        shortlist,
+                        start,
+                        end,
+                        topic.story_budget,
+                        matches,
+                      );
                   relevanceRejectedCount = candidates.filter(
                     (c) =>
                       !qualityRejection(c) &&

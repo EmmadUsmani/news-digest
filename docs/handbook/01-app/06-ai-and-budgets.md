@@ -4,10 +4,10 @@ The app makes two kinds of paid calls, each with its own provider, ledger and
 caps. In both cases, **the provider enforces the hard limit**, so a bug in
 the app can never overspend.
 
-| Purpose                  | Provider / model                                   | Hard limit (provider)            | App-side caps                        |
-| ------------------------ | -------------------------------------------------- | -------------------------------- | ------------------------------------ |
-| Edition triage + editing | Anthropic: Haiku 5.5 (triage), Sonnet 5.5 (editor) | Workspace limit **$15/month**    | $14/month, spread per day (≤ $1/day) |
-| X search                 | xAI: `x_search` with grok-4.3                      | Prepaid **$15**, auto top-up off | $0.40/day, $12/month                 |
+| Purpose                  | Provider / model                                   | Hard limit (provider)            | App-side caps                           |
+| ------------------------ | -------------------------------------------------- | -------------------------------- | --------------------------------------- |
+| Edition triage + editing | Anthropic: Haiku 5.5 (triage), Sonnet 5.5 (editor) | Workspace limit **$15/month**    | $20/month, spread per day (≤ $0.65/day) |
+| X search                 | xAI: `x_search` with grok-4.3                      | Prepaid **$15**, auto top-up off | $0.50/day, $15/month                    |
 
 > [!WARNING]
 > The coding agent runs on the owner's ChatGPT subscription, which is a
@@ -17,7 +17,7 @@ the app can never overspend.
 
 ```mermaid
 flowchart TB
-  m["Monthly cap $14"] -->|"remaining ÷ days left<br/>(max $1)"| d["Today's cap<br/>(UTC day)"]
+  m["Monthly cap $20"] -->|"remaining ÷ days left<br/>(max $0.65)"| d["Today's cap<br/>(UTC day)"]
   d --> res{"Scheduled edition<br/>run yet today?"}
   res -- no --> hold["Reserve held for it<br/>(1.5× a typical edition)"]
   res -- yes --> free["Whole remainder available"]
@@ -27,7 +27,7 @@ flowchart TB
 ```
 
 - **Daily cap** = what's left of the month divided by the days left, at most
-  $1. Unspent money rolls forward.
+  $0.65. Unspent money rolls forward.
 - **Reserve:** until the morning edition runs, manual editions and tests
   can't eat into its share. The admin form creates private development tests.
 - **Background triage:** its prepared entry point is disabled by default

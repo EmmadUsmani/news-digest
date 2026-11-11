@@ -128,3 +128,18 @@
 - Verification: pnpm format, pnpm lint:fix, offline probe, filtered check-handbook (39 tables/no warnings), pnpm build and git diff --check pass; pnpm check passes (860 unit/283 integration tests, four expected skips). Existing build warnings only.
 - Commit/push then API/worker restart and post-deploy health verification follow.
 - Push rejected: upstream owner/lead commits; fetched and merged without conflicts/history rewrite. New item 57 supersedes fit gate: stop savings work, activate next with $20 monthly/$0.65 maximum daily AI. Historical evidence marked superseded.
+
+## 2026-11-11: iteration 1859 — U.S. topic activated
+
+- Clean main/no inherited work. Alerts zero; health/database/Redis healthy. Item 50 remains at owner/lead stop; followed 56/57.
+- Wired shared World/U.S. report triage and joint event ownership before editing; exclusive fallback retains owned events. Refused/incomplete ownership withholds both story sections with a reason; other topics can publish.
+- Migration 0020 preserves World identity, adds enabled U.S. immediately after it (five stories/five posts), moves Guardian US and adds NPR Politics/PBS Politics, domestic Bluesky query, curated X accounts/settings.
+- Applied approved AI $20/month/$0.65 maximum daily and X $15/month/$0.50 daily; live status confirms all four caps. Scheduled reserve/models/provider unchanged.
+- Historical expected five-topic cost $0.527945 fits effective $0.65. Current four-topic actual $0.395364 unchanged; zero paid verification calls. Next scheduled edition is the first live five-topic test.
+- Private backup `news-digest-20261111T220340Z` complete (39 tables). Initial pnpm env-file migration invocation failed; corrected `tsx -e` loads the private env then imports migrate; 0020 applied successfully.
+- Live U.S. feeds report Guardian/NPR/PBS 33/10/20 items, zero errors. All 38 sources nonempty; latest published four-topic snapshot remains immutable.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (862 unit/286 integration pass, four expected skips), pnpm build, check-handbook 01-app (14 diagrams/39 tables/no warnings), git diff --check pass; existing build warnings only.
+- `pnpm exec tsx scripts/smoke-us-topic-live.ts`: live five-row catalog desktop/mobile light/dark, no errors/overflow; screenshots saved and desktop/mobile inspected. Local admin bridge supplies UI admission; live stored-session security is not retested.
+- Preserved general spam exclusions after initial integration regression; remaining failures were old four-topic/cap assertions. Final full suite is green.
+- API/worker restarted outside 13:00–16:00 UTC; health and live caps/content verified. Commit/push and final main-matching restart follow.
+- Next: Nov 12–14 scheduled acceptance reviews for scope, no repeated events, full story sets, all-topic quality, timing and costs/refusals; no extra paid run.

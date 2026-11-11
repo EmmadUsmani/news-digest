@@ -125,9 +125,9 @@ void test('operations reports persisted sources and bounded queue telemetry with
       todayMicros: 0,
       monthMicros: 0,
       reservedMicros: 0,
-      dailyMicros: 400000,
-      monthlyMicros: 12000000,
-      availableMicros: 400000,
+      dailyMicros: 500000,
+      monthlyMicros: 15000000,
+      availableMicros: 500000,
       blocked: false,
     });
     assert.equal(result.queues.length, 4);

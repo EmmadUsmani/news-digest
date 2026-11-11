@@ -1,7 +1,7 @@
 # The app
 
 Every morning the app publishes an **edition**: for each topic (Tech & AI,
-NBA, Gaming, World news), a short brief, the top stories and the most
+NBA, Gaming, World news and U.S. news & politics), a short brief, the top stories and the most
 interesting social posts. You can also create an edition on demand for any
 time window.
 
@@ -33,7 +33,8 @@ flowchart LR
   into one JSON record, so old editions never change when sources or
   settings do.
 - **AI is optional and capped.** If the AI budget runs out, the edition still
-  publishes using non-AI ranking, and the page says so.
+  publishes using non-AI ranking, and the page says so. World/U.S. story
+  sections require joint AI ownership; both are withheld when it is unavailable.
 - **NBA reporting** includes CBS, Yahoo, Hoops Rumors, RealGM Basketball,
   SB Nation NBA, Basketball Insiders and Yardbarker NBA. SB Nation also supplies embedded X
   highlight links for free discovery; posts still need official embed verification.

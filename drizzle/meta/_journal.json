@@ -141,6 +141,13 @@
       "when": 1794225282843,
       "tag": "0019_admin_write_outcomes",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1794434400000,
+      "tag": "0020_us_news_topic",
+      "breakpoints": true
     }
   ]
 }

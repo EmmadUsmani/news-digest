@@ -8,7 +8,7 @@ import { startBudgetMetrics } from '../src/modules/operations/adapters/budget-me
 void test('budget metrics expose enforced configuration ceilings without ledger or provider access', async () => {
   for (const [daily, monthly, expected] of [
     ['0.35', '9', [0.35, 9]],
-    ['99', '99', [1, 14]],
+    ['99', '99', [0.65, 20]],
     ['0', '0', [0, 0]],
   ] as const) {
     const registry = new Registry();
@@ -21,7 +21,7 @@ void test('budget metrics expose enforced configuration ceilings without ledger 
     assert.equal(metric.values.length, 4);
     for (const [provider, values] of [
       ['anthropic', expected],
-      ['xai', [0.4, 12]],
+      ['xai', [0.5, 15]],
     ] as const) {
       for (const [index, period] of ['daily', 'monthly'].entries()) {
         assert.equal(

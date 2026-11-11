@@ -91,7 +91,11 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
 > forty-article scored pool before selecting ten stories for editing, using the ordinary shared budget
 > and cache. It groups the same news story, including direct follow-ups,
 > reactions and consequences; shared people or themes alone do not qualify.
-> Failed, invalid or budget-refused grouping keeps articles separate. Grouped
+> For World and U.S., both scopes share up to 200 recent reports for triage.
+> The top 20 reports per scope enter one joint event-grouping and ownership
+> pass; each event goes to one topic before its top ten stories are edited.
+> Unavailable ownership withholds both story sections and labels the reason.
+> Other topics keep articles separate when grouping fails or is refused. Grouped
 > articles share one story slot and retain their coverage links without a score
 > bonus. Source labels do not establish independent reporting. Same-URL dedupe
 > still happens during ingestion; historical editions keep their original coverage.

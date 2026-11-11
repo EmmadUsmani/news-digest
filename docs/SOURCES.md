@@ -2458,3 +2458,20 @@ NPR supplies short excerpts; Guardian/PBS supply 12/6 window excerpts of at
 least 200 characters. No source added or moved; NPR/PBS remain proposed,
 not live. Snapshot fetched after cutoff, not historical feed availability.
 [Recorded assessment and replay](edition-reviews/2026-11-11-world-us-scope.md#domestic-feed-volume--iteration-1850).
+
+## U.S. topic activation — iteration 1859 (2026-11-11)
+
+| Topic                 | Feeds                                                                                                                                                          | Collection                               |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| U.S. news & politics  | Guardian US (moved from World), NPR Politics (`https://feeds.npr.org/1014/rss.xml`), PBS NewsHour Politics (`https://www.pbs.org/newshour/feeds/rss/politics`) | Enabled through ordinary feed scheduling |
+| World news & politics | Existing BBC World, NPR World, Guardian World, Al Jazeera                                                                                                      | Existing topic ID retained               |
+
+U.S. has five story/five post slots, its own domestic Bluesky query and X
+settings (200 reaction/2,000 trending minimum likes). Its curated X handles are
+AP, Reuters, NPR, PBS, AP_Politics, JakeSherman, PunchbowlNews,
+AndrewDesiderio and SCOTUSblog. Existing official post verification still
+applies. Daily keyword discovery includes the new enabled topic.
+World/U.S. reporting is triaged against both descriptions, then jointly grouped
+and assigned before editing (ownership refusal withholds both story sections); source membership never decides ownership.
+X production caps are $0.50/day and $15/month; experiments are unchanged.
+Next scheduled publication starts the required three-edition acceptance review.

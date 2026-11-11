@@ -51,8 +51,7 @@ export interface OwnershipPort {
   ): Promise<OwnedStoryGroup[] | null>;
 }
 
-// Prepared publication bridge. No production caller until whole-edition admission
-// is established. Null requires aborting the split, never independent fallback.
+// Publication bridge: null requires aborting the split, never independent fallback.
 export async function jointStoryShortlists(
   ownership: OwnershipPort | null,
   inputPools: StoryPool[],

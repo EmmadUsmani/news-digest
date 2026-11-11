@@ -12,8 +12,7 @@ export interface TriagePort {
   ): Promise<TriageResult>;
 }
 
-// Prepared only: retain scores for both scopes, without deciding ownership or
-// filtering reports before cross-topic event assignment. No production caller.
+// Retain scores for both scopes before cross-topic event assignment.
 export async function jointStoryTriage(
   triage: TriagePort,
   scopes: TriageTopic[],

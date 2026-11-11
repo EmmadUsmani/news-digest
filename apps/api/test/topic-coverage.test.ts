@@ -57,7 +57,7 @@ void test('topic coverage deduplicates collection scope, excludes unverified/und
     assert.equal(row.redditPosts, 1);
     assert.equal(row.healthySources, 1);
     assert.ok(row.connectedSources >= 3);
-    assert.equal(result.topics.length, 4);
+    assert.equal(result.topics.length, 5);
     const searches = new PostgresXSearchRepository(client as never);
     assert.equal(
       (await searches.scheduledTopics(end)).some((row) => row.id === topic),
