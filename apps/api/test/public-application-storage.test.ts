@@ -127,13 +127,27 @@ void test('configured full public application serves published fixtures and enfo
       })
       .end(
         nativeBrowser
-          ? JSON.stringify({
-              status: 'success',
-              data: { resultType: 'matrix', result: [] },
-              values: [],
-              fields: [],
-              hits: [],
-            })
+          ? JSON.stringify(
+              req.url === '/metrics/vmui/dashboards/perJobUsage.json'
+                ? {
+                    title: 'Synthetic session dashboard',
+                    rows: [
+                      {
+                        title: 'Synthetic row',
+                        panels: [
+                          { title: 'Synthetic panel', width: 12, expr: ['up'] },
+                        ],
+                      },
+                    ],
+                  }
+                : {
+                    status: 'success',
+                    data: { resultType: 'matrix', result: [] },
+                    values: [],
+                    fields: [],
+                    hits: [],
+                  },
+            )
           : '{"fixture":true}',
       );
   });
@@ -734,6 +748,51 @@ void test('configured full public application serves published fixtures and enfo
             } else {
               assert.equal(telemetryRequests.length, nativeBefore);
               assert.equal(exports, 0);
+            }
+            for (const screen of ['dashboards', 'query-analyzer']) {
+              await page.goto('about:blank');
+              const screenBefore = telemetryRequests.length;
+              const response = await page.goto(
+                configuration.ACCOUNT_ORIGIN + '/metrics/vmui/#/' + screen,
+                { waitUntil: 'networkidle' },
+              );
+              assert.equal(response!.status(), allowed ? 200 : 404);
+              if (allowed) {
+                await page.waitForTimeout(750);
+                await page.waitForLoadState('networkidle');
+                assert.equal(
+                  new URL(page.url()).hash.split('?')[0],
+                  '#/' + screen,
+                );
+                assert.ok(
+                  await page.locator('button').count(),
+                  screen + ' mounted',
+                );
+                assert.equal(
+                  await page
+                    .getByText(/Missing dashboard (rows|panels)/)
+                    .count(),
+                  0,
+                );
+                assert.deepEqual(errors, []);
+                assert.deepEqual(
+                  await page.evaluate(
+                    () =>
+                      (
+                        window as unknown as {
+                          nativePolicyViolations: string[];
+                        }
+                      ).nativePolicyViolations,
+                  ),
+                  [],
+                );
+                await page.screenshot({
+                  path: `docs/screenshots/native-metrics-${screen}-stored-session.png`,
+                  fullPage: true,
+                });
+              } else {
+                assert.equal(telemetryRequests.length, screenBefore);
+              }
             }
           } finally {
             nativeBrowser = false;

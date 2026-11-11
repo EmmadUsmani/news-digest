@@ -126,3 +126,14 @@
 - Updated response review, readiness, TASKS and inspected native stored-session screenshot; archived iterations 1788–1793 after progress passed 25 KB. Nov 11 15:00 UTC NBA review remains due.
 - Verification: pnpm format, pnpm lint:fix, pnpm build and TELEMETRY_INSTALLED_ASSET_FIXTURE=/tmp/telemetry-assets-1803.json pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Earlier combined check received SIGTERM after its final test; standalone full rerun exits 0.
 - check-handbook.ts observability, check-live-account-boundary.ts (32 checks) and check-scheduled-reader.ts 2026-11-10T15:00:00Z pass (four topics/19 stories/15 posts).
+
+## 2026-11-11: iteration 1804 — installed metrics navigation with stored sessions
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; all 36 sources healthy and digest queue has zero failed runs. No provider calls.
+- Extended the captured-installed-assets Chromium rehearsal to metrics Dashboards and Query Analyzer with full document navigation for each real stored-session actor.
+- Fresh/restored admins mount both screens without script errors, CSP violations or missing-dashboard messages; anonymous/invited readers, aged and logged-out admins cannot load either document or trigger telemetry upstream work.
+- Reuses same-origin HttpOnly-cookie forwarding, prepared proxy, no-store/no-cookie responses and asset CSP/nosniff checks. Synthetic telemetry only; production flags remain off.
+- Updated readiness, response review, TASKS and synthetic browser screenshots. Logs native screens/session composition and live navigation remain open; Nov 11 15:00 UTC NBA acceptance review remains due.
+- Live check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). pnpm build and check-handbook.ts observability pass.
+- Initial browser runs exposed two rehearsal issues: native navigation appends time parameters, and Dashboards needs its dedicated rows/panels fixture. Corrected both; the full stored-session browser case now passes and both new screenshots are inspected.
+- Verification: pnpm format, pnpm lint:fix and captured-assets pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. API restarted healthy after commit.

@@ -1068,3 +1068,14 @@ no-store and omit cookies; admitted assets carry CSP and nosniff.
 
 Production admission/public mode remain off. Other native screens with stored
 sessions, broader live navigation and the remaining readiness gates stay open.
+
+### Installed metrics navigation with stored sessions (iteration 1804)
+
+The same explicit captured-assets rehearsal now opens Dashboards and Query
+Analyzer through full document navigations for every stored-session actor.
+Fresh/restored admins mount both screens without missing-dashboard messages,
+script errors or CSP violations. Anonymous/invited readers, aged and logged-out
+admins receive empty 404 responses and cause no telemetry upstream work.
+Every asset/query request retains the same cookie, no-store and proxy checks.
+Screenshots use synthetic responses only. Logs UI session composition, remaining
+controls and live navigation remain open; production flags remain off.
