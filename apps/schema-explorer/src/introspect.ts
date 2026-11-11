@@ -78,7 +78,7 @@ export function createPool(connectionString: string) {
 }
 
 export async function introspect(
-  pool: pg.Pool,
+  pool: Pick<pg.Pool, 'query'>,
   schema = 'public',
 ): Promise<Catalog> {
   const [tables, columns, constraints, indexes, triggers] = await Promise.all(

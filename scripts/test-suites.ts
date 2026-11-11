@@ -11,6 +11,7 @@ const integration = new Set([
   'preview-composition.test.ts',
   'accounts-schema.test.ts',
   'grafana-public-reader.test.ts',
+  'schema-explorer-reader.test.ts',
   'grafana-export-listener.test.ts',
   'admin-write-admission-storage.test.ts',
   'reader-sync-storage.test.ts',

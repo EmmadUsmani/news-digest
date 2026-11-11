@@ -115,3 +115,12 @@
 - `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. `pnpm build` passed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 281 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Pushed `b7da0f20`; restarted schema service active. Live catalog: 39 tables/36 relations/zero warnings; anonymous `/db/` returns 404 and `/healthz` passes.
 - Next: explorer catalog-only role, structural UI and exact HTTP/browser/private rollback rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 NBA acceptance review.
+
+## 2026-11-11: iteration 1766 — rehearse the explorer catalog-only role
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services and 36 healthy sources; no digest breakage found.
+- Prepared an idempotent non-login catalog role without application-table grants, memberships or elevated privileges. No live grants, credentials, flags or service wiring changed; no provider calls.
+- Added disposable migrated-database coverage running actual explorer introspection and structural projection under the role. Verified table/relationship visibility, denied application rows/password catalogs/role switching, and catalog-comment removal at the response boundary. PUBLIC catalog visibility remains documented; arbitrary SQL is unapproved.
+- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. Explorer unit tests passed four; `pnpm build` passed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 282 integration passes, four expected skips) and `git diff --check` passed. Restart schema service after push and recheck private admission/health.
+- Next: explorer credential/function review, structural UI and exact HTTP/browser/private rollback rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 NBA acceptance review.

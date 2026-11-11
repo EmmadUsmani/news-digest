@@ -420,3 +420,20 @@ existing UI expects row counts and definitions; it must gain a structural-only
 view before consuming this DTO. Catalog-only credentials, reviewed group/type/
 identifier vocabulary, exact asset/API routes, HTTP/browser traces and private
 rollback remain required. Public mode stays off; no live grants or routes change.
+
+## Explorer catalog-role rehearsal (iteration 1766)
+
+`ops/schema-explorer/prepared/catalog-reader.sql` prepares an idempotent,
+non-login, non-inheriting role without application table/sequence grants or
+explicit schema usage grants. Existing PUBLIC schema privileges remain. It has no superuser, role/database creation, replication or RLS
+bypass privileges. Read-only and statement-timeout defaults provide additional
+limits. No live role or service credential is installed by this file.
+
+The disposable migrated-database test runs the explorer's actual introspection
+and structural projection under this role. It checks schema relationships,
+application-row and password-catalog refusal, role-switch refusal and absence
+of memberships/table grants. PostgreSQL still exposes comments through catalog
+reads: the test demonstrates this and requires their removal by the projection.
+The role must only back fixed catalog queries. Credential installation, inherited
+function access review, structural UI and exact HTTP/browser/rollback checks
+remain before acceptance; public mode stays off.
