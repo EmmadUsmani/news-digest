@@ -14,8 +14,8 @@ import {
 import { startQueueMetrics } from './libs/observability/queue-metrics';
 import { startRuntimeMetrics } from './libs/observability/runtime-metrics';
 import { startBudgetMetrics } from './modules/operations/adapters/budget-metrics';
-import { mountJobsBrowser } from './modules/operations/adapters/jobs-browser';
 import { OperationsStatus } from './modules/operations/adapters/operations.status';
+import { mountQueueTools } from './modules/operations/adapters/public-jobs-browser';
 import {
   ACCESS_HTTP,
   type AccessHttpRuntime,
@@ -36,8 +36,8 @@ async function bootstrap() {
       verbose: (message: unknown) => logger.trace({ message }, 'Nest'),
     },
   });
-  if (process.env.PUBLIC_MODE === '1')
-    app.useGlobalFilters(new PublicErrorFilter());
+  const publicMode = process.env.PUBLIC_MODE === '1';
+  if (publicMode) app.useGlobalFilters(new PublicErrorFilter());
   app.use(requestLogging());
   app.use(httpMetrics(registry));
   // One runtime owns bounded account transport and the selected authorization
@@ -46,7 +46,7 @@ async function bootstrap() {
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
   app.use(proxyInternalTools(internalTools));
   const queues = app.get(OperationsStatus).queues;
-  mountJobsBrowser(app, queues);
+  mountQueueTools(app, queues, publicMode);
   startQueueMetrics(registry, queues);
   startBudgetMetrics(registry);
   app.enableShutdownHooks();

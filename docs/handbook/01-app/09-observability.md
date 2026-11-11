@@ -32,7 +32,7 @@ flowchart LR
 | [Grafana](/grafana/)       | 10 dashboards: Host, Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database, Redis, Agent supervisor |
 | [Logs](/logs/select/vmui/) | Every structured log line, searchable with LogsQL                                                                   |
 | [Metrics](/metrics/vmui/)  | Raw metric queries (PromQL)                                                                                         |
-| [Jobs](/queues/)           | BullMQ queues, schedules and retained runs; no retry or delete buttons                                              |
+| Jobs                       | Private: [read-only jobs browser](/queues/). Public mode: `GET /api/queues` for counts and next scheduled runs.     |
 
 Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing observed".
 

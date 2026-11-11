@@ -346,7 +346,13 @@ logs, worker identities or Redis details. Backend failures return a fixed 503;
 unknown routes end at 404, and mutations on the status endpoint return 405.
 Responses are not cached.
 
-The handler is prepared but unmounted. Before rollout, mount it exclusively
-in place of the public Bull Board route, apply public request admission, and
-verify that anonymous requests cannot reach legacy routes. The private jobs
-browser is unchanged.
+### Exclusive queue routing and admission (iteration 1761)
+
+Public mode mounts only `GET /api/queues` and its HEAD counterpart, behind
+the shared API admission and public route policy. POST and legacy Bull Board
+routes return 404. The compiled app rehearsal uses disposable Redis queues:
+anonymous requests get the bounded projection, both anonymous and signed-in
+admin requests are denied legacy routes, and queue requests share the reader
+and account API allowance. Requests without a trusted visitor and requests
+over quota return 429. With the live public flag off, the private jobs browser
+remains the sole queue tool.

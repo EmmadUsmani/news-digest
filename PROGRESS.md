@@ -155,3 +155,11 @@
 - `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` passed. Push and restart API/worker, then verify live health, reader and private queues.
 - Next: rehearse exclusive public queue routing and request admission. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after Nov 11 15:00 UTC.
+
+## 2026-11-11: iteration 1761 — route public queue status through API admission
+
+- Clean main; no inherited work. `pnpm obs alerts` clear; `/healthz` passed, `pnpm obs services/sources/jobs` showed 14 healthy services, 36 healthy sources and zero failed digest jobs.
+- Public mode selects only `GET/HEAD /api/queues` behind API admission; private mode retains the read-only Bull Board. No live flag, sharing, generation or provider changes.
+- Compiled Nest and disposable Redis rehearsal: anonymous GET/HEAD expose only queue counts and next runs; legacy routes denied for anonymous and signed-in admins. Queue and account requests share the reader quota, with 429 for missing identity or exhaustion.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build`, handbook check for `09-observability` and `git diff --check` passed. Push and restart only the API; verify private jobs, account boundary and scheduled reader.
+- Next: rehearse remaining public tool surfaces. Grafana installation still needs capacity evidence under scheduled load or natural compaction; review NBA editing after the Nov 11 15:00 UTC edition.

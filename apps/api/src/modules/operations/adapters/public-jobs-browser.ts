@@ -1,8 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
+import type { INestApplication } from '@nestjs/common';
 import type { Queue } from 'bullmq';
 
-import { jobsReadOnly } from './jobs-browser';
+import { jobsReadOnly, mountJobsBrowser } from './jobs-browser';
 
 const names = [
   'operations',
@@ -13,8 +14,21 @@ const names = [
 const states = ['waiting', 'active', 'delayed', 'failed', 'completed'] as const;
 type QueueReader = Pick<Queue, 'name' | 'getJobCounts' | 'getJobSchedulers'>;
 
-// Prepared for an exclusive /queues mount. Unknown routes terminate here;
-// they must never fall through to Bull Board or the SPA.
+// Mount after the public access stack so admission runs before queue reads.
+// Select exactly one implementation; public mode never registers Bull Board.
+export function mountQueueTools(
+  app: INestApplication,
+  queues: Queue[],
+  publicMode: boolean,
+) {
+  if (!publicMode) return mountJobsBrowser(app, queues);
+  const status = publicJobsBrowser(queues);
+  app.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
+    if (req.url?.split('?')[0] === '/api/queues') return status(req, res);
+    next();
+  });
+}
+
 export function publicJobsBrowser(queues: readonly QueueReader[]) {
   return (req: IncomingMessage, res: ServerResponse) => {
     res.setHeader('cache-control', 'no-store');

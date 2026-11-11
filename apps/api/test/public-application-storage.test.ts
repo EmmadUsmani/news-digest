@@ -54,6 +54,10 @@ void test('configured full public application serves published fixtures and enfo
     require('../dist/public-write/access-provider.js') as typeof import('../src/public-write/access-provider');
   const { PublicErrorFilter } =
     require('../dist/public-write/public-error-filter.js') as typeof import('../src/public-write/public-error-filter');
+  const { OperationsStatus } =
+    require('../dist/modules/operations/adapters/operations.status.js') as typeof import('../src/modules/operations/adapters/operations.status');
+  const { mountQueueTools } =
+    require('../dist/modules/operations/adapters/public-jobs-browser.js') as typeof import('../src/modules/operations/adapters/public-jobs-browser');
   const db = database();
   const ids = [randomUUID(), randomUUID()];
   const app = await NestFactory.create(AppModule, { logger: false });
@@ -64,6 +68,7 @@ void test('configured full public application serves published fixtures and enfo
         ACCESS_HTTP,
       ).middleware,
     );
+    mountQueueTools(app, app.get(OperationsStatus).queues, true);
     for (const [index, id] of ids.entries()) {
       const snapshot = {
         id,
@@ -114,6 +119,37 @@ void test('configured full public application serves published fixtures and enfo
       'SELECT cadence,timezone,coverage_window AS "coverageWindow",story_budget AS "storyBudget",post_budget AS "postBudget" FROM edition_settings WHERE id=1',
     );
     assert.equal(expectedSchedule.rowCount, 1);
+    const queueStatus = await scheduleGet('/api/queues');
+    assert.equal(queueStatus.status, 200);
+    assert.equal(queueStatus.headers.get('cache-control'), 'no-store');
+    const { queues } = await queueStatus.json();
+    assert.deepEqual(
+      queues.map(({ name }: { name: string }) => name),
+      ['operations', 'ingestion', 'digest-generation', 'social-collection'],
+    );
+    for (const queue of queues) {
+      assert.deepEqual(Object.keys(queue).sort(), [
+        'counts',
+        'name',
+        'nextRunAt',
+      ]);
+      assert.deepEqual(Object.keys(queue.counts).sort(), [
+        'active',
+        'completed',
+        'delayed',
+        'failed',
+        'waiting',
+      ]);
+    }
+    for (const [path, method] of [
+      ['/api/queues', 'POST'],
+      ['/api/queues/', 'GET'],
+      ['/api/queues?include=jobs', 'GET'],
+    ]) {
+      const refused = await scheduleGet(path, { method });
+      assert.equal(refused.status, 404);
+      assert.equal(await refused.text(), '');
+    }
     const schedule = await scheduleGet('/api/settings/schedule');
     assert.equal(schedule.status, 200);
     assert.equal(schedule.headers.get('cache-control'), 'no-store');
@@ -334,6 +370,8 @@ void test('configured full public application serves published fixtures and enfo
         '/docs/',
         '/db/',
         '/queues/',
+        '/queues/api/queues',
+        '/queues/api/job-schedulers',
         '/%6detrics',
       ]) {
         for (const method of ['GET', 'HEAD', 'POST']) {
@@ -829,19 +867,24 @@ void test('configured full public application serves published fixtures and enfo
       ).json(),
       { signedIn: false, isAdmin: false },
     );
-    const missingClient = await fetch(base + '/api/editions/latest');
-    assert.equal(missingClient.status, 429);
-    assert.equal(await missingClient.text(), '');
+    for (const path of ['/api/editions/latest', '/api/queues']) {
+      const missingClient = await fetch(base + path);
+      assert.equal(missingClient.status, 429);
+      assert.equal(await missingClient.text(), '');
+    }
     // Ten admitted calls above: exhaust the remaining allowance through real
     // reader controllers, then prove account dispatch shares the same limit.
     for (let index = 0; index < 110; index++) {
-      const response = await get('/api/editions/latest', { method: 'HEAD' });
+      const path = index === 0 ? '/api/queues' : '/api/editions/latest';
+      const response = await get(path, { method: 'HEAD' });
       assert.equal(response.status, 200);
       assert.equal(await response.text(), '');
     }
-    const limited = await get('/api/account/session');
-    assert.equal(limited.status, 429);
-    assert.equal(await limited.text(), '');
+    for (const path of ['/api/account/session', '/api/queues']) {
+      const limited = await get(path);
+      assert.equal(limited.status, 429);
+      assert.equal(await limited.text(), '');
+    }
     assert.equal((await fetch(base + '/healthz')).status, 200);
     const rows = await db.query(
       'SELECT id FROM digest_previews WHERE id = ANY($1::uuid[])',
