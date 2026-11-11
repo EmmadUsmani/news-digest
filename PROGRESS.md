@@ -159,3 +159,13 @@
 - Updated TASKS/scope assessment. Joint triage/editor orchestration and achievable whole-edition headroom remain next; no handbook/runtime behavior change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 851 unit/283 integration tests, four expected skips. Existing build warnings only.
 - All 36 sources have nonempty successful latest collections/no errors; latest edition eb6e962e serves four topics. Commit/push and API/worker restart follow; post-deploy health verification before handoff.
+
+## 2026-11-11: iteration 1853 — paired ownership/editor handoff
+
+- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy; item 50 remains at owner/lead stop, continued 56.
+- Prepared jointStoryEdits runs exclusive owned ranked shortlists through sequential topic editors; returns both results together or null, with original report coverage.
+- First refusal stops later editing; second refusal, exceptions, cross-scope selection/evidence, duplicate selections and budget overflow refuse the pair. No persistence or independent fallback.
+- Ten targeted offline tests pass, including three new paired-handoff tests. Recorded ports only; no production caller, paid requests, source activation or cap/flag changes.
+- Updated TASKS and scope assessment. Complete triage orchestration and achievable whole-edition budget headroom remain next; no live workflow/handbook change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, targeted tests, filtered handbook check and git diff --check pass: 854 unit/283 integration tests, four expected skips. Existing build warnings only.
+- Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics. Commit/push and API/worker restart follow, with post-deploy health checks before handoff.

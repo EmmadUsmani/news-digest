@@ -5,7 +5,7 @@ import type {
 } from '../../curation/public/editorial';
 import { type Candidate, rank } from '../domain/rank';
 
-type StoryPool = { scope: StoryScope; candidates: Candidate[] };
+export type StoryPool = { scope: StoryScope; candidates: Candidate[] };
 
 // Shared article IDs can be observed through both topic/source associations.
 // Retain one report, union source evidence, and refuse inconsistent snapshots.
@@ -42,7 +42,7 @@ function sharedPools(pools: StoryPool[]): StoryPool[] | null {
   return result;
 }
 
-interface OwnershipPort {
+export interface OwnershipPort {
   assignTopics(
     scopes: StoryScope[],
     candidates: GroupingCandidate[],

@@ -153,3 +153,17 @@ an arbitrary evidence snapshot. Offline tests exercise shared-report movement,
 source preservation, the unique-report bound and conflicting snapshots.
 No production caller, paid requests, source activation or budget changes.
 Joint triage/editor orchestration and whole-edition headroom remain required.
+
+## Paired editor handoff — iteration 1853
+
+Prepared jointStoryEdits passes exclusive ownership-ranked shortlists to the
+existing editor interface, sequentially, with each topic's scope and story budget.
+It returns both edited results together or null; a first refusal stops the
+second edit. Throws, duplicate selected IDs, foreign selected/evidence IDs and
+budget overflow refuse the pair. Original ranked coverage accompanies each edit.
+Nothing is persisted and no independent topic fallback is returned.
+
+Recorded-port tests exercise moved report coverage, both-topic success, first
+and second refusal, exceptions and invalid editor membership/budgets. This has
+no production caller or paid requests. Complete triage orchestration and measured
+whole-edition budget headroom remain required before activation.

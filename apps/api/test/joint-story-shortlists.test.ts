@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 import type { OwnedStoryGroup } from '../src/modules/curation/public/editorial';
+import { jointStoryEdits } from '../src/modules/digests/application/joint-story-edits';
 import { jointStoryShortlists } from '../src/modules/digests/application/joint-story-shortlists';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 
@@ -304,4 +305,137 @@ void test('conflicting shared snapshots refuse before ownership instead of silen
       null,
     );
   }
+});
+
+void test('paired edits use exclusive owned shortlists and return both results together', async () => {
+  const calls: string[] = [];
+  const result = await jointStoryEdits(
+    {
+      async assignTopics() {
+        return [
+          { topicId: 'world', ids: ['a', 'c'] },
+          { topicId: 'us', ids: ['b', 'd'] },
+        ];
+      },
+    },
+    {
+      async edit(scope, ranked, budget, runId) {
+        calls.push(scope.id);
+        assert.equal(budget, 5);
+        assert.equal(runId, 'paired');
+        assert.deepEqual(
+          ranked[0].coverage.map((item) => item.id),
+          scope.id === 'world' ? ['a', 'c'] : ['b', 'd'],
+        );
+        return {
+          model: 'recorded',
+          brief: ['Recorded development'],
+          stories: [
+            {
+              id: ranked[0].id,
+              evidenceIds: [ranked[0].id],
+              headline: 'Recorded headline',
+              summary: 'Recorded summary',
+              whyItMatters: 'Recorded significance',
+              rationale: 'Recorded selection',
+            },
+          ],
+        };
+      },
+    },
+    pools.map((pool) => ({ ...pool, budget: 5 })),
+    start,
+    end,
+    'paired',
+  );
+  assert.deepEqual(calls, ['world', 'us']);
+  assert.deepEqual([...result!.keys()], ['world', 'us']);
+});
+
+void test('paired edit refusal never returns a partial edition or calls later editors', async () => {
+  for (const failure of [
+    'first',
+    'second',
+    'throw',
+    'foreign',
+    'evidence',
+    'duplicate',
+    'budget',
+  ]) {
+    let calls = 0;
+    const result = await jointStoryEdits(
+      {
+        async assignTopics() {
+          return [
+            { topicId: 'world', ids: ['a', 'b'] },
+            { topicId: 'us', ids: ['c', 'd'] },
+          ];
+        },
+      },
+      {
+        async edit(_scope, ranked) {
+          calls++;
+          if (failure === 'throw') throw new Error('unavailable');
+          if (failure === 'first' || (failure === 'second' && calls === 2))
+            return null;
+          const story = {
+            id: failure === 'foreign' ? 'c' : ranked[0].id,
+            evidenceIds: failure === 'evidence' ? ['c'] : [ranked[0].id],
+            headline: 'Recorded headline',
+            summary: 'Recorded summary',
+            whyItMatters: 'Recorded significance',
+            rationale: 'Recorded rationale',
+          };
+          return {
+            model: 'recorded',
+            brief: [],
+            stories:
+              failure === 'second'
+                ? []
+                : failure === 'duplicate' || failure === 'budget'
+                  ? [story, story]
+                  : [story],
+          };
+        },
+      },
+      pools.map((pool) => ({ ...pool, budget: failure === 'budget' ? 1 : 5 })),
+      start,
+      end,
+      'paired',
+    );
+    assert.equal(result, null, failure);
+    assert.equal(calls, failure === 'second' ? 2 : 1, failure);
+  }
+});
+
+void test('paired edit validates budgets and ownership before editing', async () => {
+  const editor = {
+    async edit() {
+      assert.fail('no editor request');
+    },
+  };
+  for (const budget of [-1, 11, 1.5, NaN]) {
+    assert.equal(
+      await jointStoryEdits(
+        null,
+        editor,
+        pools.map((pool) => ({ ...pool, budget })),
+        start,
+        end,
+        'paired',
+      ),
+      null,
+    );
+  }
+  assert.equal(
+    await jointStoryEdits(
+      null,
+      editor,
+      pools.map((pool) => ({ ...pool, budget: 5 })),
+      start,
+      end,
+      'paired',
+    ),
+    null,
+  );
 });
