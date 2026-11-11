@@ -126,3 +126,12 @@
 - `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 833 unit/283 integration tests, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one unchanged diagram/39 tables) and `git diff --check` pass. Updated affected handbook, review/readiness and TASKS.
 - Restarted API; retrying healthz, 32 deployed account-boundary checks and saved Nov 10 reader check pass (four topics/19 stories/15 posts). No failed user services.
 - Next: exact native UI assets/configuration and build/tenant metadata review, same-origin CSP and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1788 — native telemetry CSP browser rehearsal
+
+- Clean main; no inherited work. Alerts clear, no failed user services, healthz healthy; 36 sources healthy and four queues available. Saved Nov 10 reader verifies four topics/19 stories/15 posts. No provider calls; public mode remains off.
+- Extended `review-native-telemetry-ui.ts --live-assets` to inject a candidate CSP into installed loopback UI documents. Native metrics/logs mount and fixture POST query flows have zero policy violations. Same-origin scripts/connections, no inline scripts/workers/frames/forms; inline styles retained for native controls.
+- Deliberate inline-script and external-fetch probes are blocked in both browsers; external fetch never reaches request routing. Reports include directive names only. Operational requests remain intercepted fixtures; no live-query or full-navigation acceptance claimed.
+- Updated tool response review, public readiness and TASKS. Runtime headers/admission unchanged; handbook system behavior unchanged.
+- Verification passed: `pnpm format`, `pnpm lint:fix`, `pnpm check` (833 unit/283 integration passes, four expected skips), `pnpm build`, repeated native Chromium review, `check-live-account-boundary.ts` (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, and `git diff --check`.
+- Next: exact static/configuration/build/tenant response review, deployed CSP composition and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.

@@ -13,6 +13,24 @@ async function main() {
       ['logs', 'http://127.0.0.1:9428', '/logs/select/vmui/'],
     ]) {
       const context = await browser.newContext({ serviceWorkers: 'block' });
+      const policy =
+        "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'none'; worker-src 'none'";
+      const violations = new Set<string>();
+      await context.exposeBinding(
+        'recordPolicyViolation',
+        (_source, directive: string) => {
+          violations.add(directive);
+        },
+      );
+      await context.addInitScript(() => {
+        document.addEventListener('securitypolicyviolation', (event) => {
+          void (
+            window as unknown as {
+              recordPolicyViolation: (directive: string) => Promise<void>;
+            }
+          ).recordPolicyViolation(event.effectiveDirective);
+        });
+      });
       const assets = new Set<string>();
       const failedAssets = new Set<string>();
       const intercepted = new Set<string>();
@@ -33,7 +51,18 @@ async function main() {
           url.pathname === `${root}dashboards/index.js`;
         if (url.origin === origin && request.method() === 'GET' && asset) {
           assets.add(url.pathname);
-          await route.continue();
+          if (url.pathname === root) {
+            const response = await route.fetch();
+            await route.fulfill({
+              response,
+              headers: {
+                ...response.headers(),
+                'content-security-policy': policy,
+              },
+            });
+          } else {
+            await route.continue();
+          }
           return;
         }
         // Exclude queries, bodies, headers and external hostnames from the report.
@@ -68,6 +97,50 @@ async function main() {
           return url.origin === location.origin ? url.pathname : '[external]';
         }),
       );
+      assert.equal(
+        violations.size,
+        0,
+        `${name}: normal UI has no CSP violations`,
+      );
+      const externalBefore = intercepted.has('GET [external]');
+      const blocked = await page.evaluate(async () => {
+        const marker = 'data-inline-script-executed';
+        const script = document.createElement('script');
+        script.textContent = `document.documentElement.setAttribute('${marker}', '1')`;
+        document.head.append(script);
+        let connectionBlocked = false;
+        try {
+          await fetch('https://csp-probe.example.invalid/');
+        } catch {
+          connectionBlocked = true;
+        }
+        return {
+          connectionBlocked,
+          inlineBlocked: !document.documentElement.hasAttribute(marker),
+        };
+      });
+      assert.deepEqual(blocked, {
+        connectionBlocked: true,
+        inlineBlocked: true,
+      });
+      await page.waitForFunction(() => document.readyState === 'complete');
+      // Binding callbacks arrive asynchronously after the violation event.
+      await assert.doesNotReject(async () => {
+        for (let attempt = 0; attempt < 20; attempt++) {
+          if (
+            violations.has('connect-src') &&
+            violations.has('script-src-elem')
+          )
+            return;
+          await page.waitForTimeout(25);
+        }
+        assert.fail(`${name}: missing deliberate CSP refusal events`);
+      });
+      assert.equal(
+        intercepted.has('GET [external]'),
+        externalBefore,
+        `${name}: external probe never reaches request routing`,
+      );
       console.log(
         JSON.stringify({
           name,
@@ -75,8 +148,11 @@ async function main() {
           intercepted: [...intercepted].sort(),
           links: [...new Set(links)].sort(),
           fixtureData: true,
+          policy,
+          deliberateRefusals: [...violations].sort(),
         }),
       );
+
       assert.ok(assets.size >= 5, `${name}: installed asset graph loaded`);
       assert.equal(
         failedAssets.size,

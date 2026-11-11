@@ -803,3 +803,19 @@ Explicit bounded live upstream POSTs returned success/eight metrics series and
 one recent log row; no operational bodies were printed. Public mode stays off.
 Next: exact static/configuration and build/tenant metadata review, same-origin
 CSP and complete native browser acceptance before opening UI routes.
+
+## Native UI CSP rehearsal (iteration 1788)
+
+The installed-asset browser review now injects a candidate response CSP into
+both native UI documents. Scripts, fonts and connections are limited to the same
+origin; inline scripts, workers, frames, objects and forms are denied. Images
+allow same-origin and data URLs; styles allow same-origin and inline CSS for the
+native controls. The normal mount/query flow produces no CSP violations with
+intercepted fixture responses. Deliberate inline-script and external-fetch probes
+are refused, and the external request never reaches browser request routing.
+
+This policy is a rehearsed candidate, not a deployed header. Public native UI
+admission stays closed. Exact assets/configuration/build/tenant response review,
+proxy header composition and broader UI navigation remain required before opening
+these routes. Run `pnpm exec tsx scripts/review-native-telemetry-ui.ts --live-assets`
+after an upstream UI upgrade; it reports directive names without blocked URLs.
