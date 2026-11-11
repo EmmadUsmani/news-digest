@@ -54,7 +54,7 @@ extend to the next.
 - No scraping of x.com or bot evasion. No third-party X data APIs without the
   owner's approval.
 - The VM stays private. YouTube is deferred, and Reddit is parked.
-- X production caps stay $0.40 a day and $12 a month.
+- X production caps stay $0.50 a day and $15 a month (raised by the owner, 2026-11-11).
 - No hand-written wording rules for grouping, anywhere.
 
 ## Working in parallel
