@@ -2418,3 +2418,15 @@ saved-text fallback. No source changes or provider calls.
 ## 2026-11-10 iteration 1734 — GamingBolt retry recovery
 
 - Scheduled collection hit two 20-second timeouts at 20:16–20:18 UTC; the existing third attempt succeeded at 20:20:05 UTC (HTTP 200, 406 ms total). No endpoint or retry change. The ten-minute job-failure alert retains the earlier failed attempts temporarily.
+
+## Nov 11 scheduled social observation — iteration 1824
+
+All four keyword tools completed: 40 new verified outside-list candidates,
+$0.263845 xAI, zero holds. Selected cited posts Tech/NBA/Gaming/World 3/1/0/3,
+all outside-list; all 16 saved X metrics objects remain empty. Bluesky picks
+0/1/1/1, no recorded X replacement; NBA dunk, Gaming indie award and World
+House procedure add distinct posts. World remains weak (four likes/one repost).
+All 19 saved posts are absent from the previous three editions; three Bluesky
+cards pass exact text/destination and desktop/mobile light/dark checks.
+Overall viral-quality acceptance remains open; tuning waits for item 50.
+[Daily review and accounting](edition-reviews/2026-11-11.md).

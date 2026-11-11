@@ -148,3 +148,15 @@
 - Verification: explicit live browser rehearsal, handbook (18 pages/one diagram/39 tables), 32 deployed account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then remaining live native data controls and Phase 4 gates.
+
+## 2026-11-11: iteration 1824 — scheduled NBA acceptance and daily review
+
+- Clean main; no inherited work. Read-only review, no provider calls, generation/settings edits, deployment or restart during the protected window.
+- Nov 11 edition eb6e962e published 15:02:39.157 UTC, 159.096 s; latest/direct/history agree: four topics, 19 stories/19 posts, all story sections Sonnet AI-edited.
+- NBA initial headline absence rejection saved privately; Sonnet repair validates five stories/four brief bullets. Item 54 closed/acked; prior replay and pre-cutoff deployment already verified, guards/fallback retained.
+- Anthropic edition $0.330915/48 settled calls, day $0.395364/$0.534679, zero holds; xAI $0.263845, four completed tools/40 new verified outside-list candidates, cited selections 3/1/0/3.
+- Read all saved briefs/summaries/evidence/post text. Bluesky picks 0/1/1/1, no recorded replacement; all 19 exact posts novel against previous three editions. World low engagement/X metrics empty keep social quality acceptance open.
+- Updated daily review, SOURCES, TASKS and steering ack. Three Bluesky cards pass desktop/mobile light/dark exact text/destination checks; 12 screenshots saved, mobile World dark visually inspected.
+- Verification: scheduled-reader pass, timing/X stored reports, 32 account-boundary checks; health/services/36 sources healthy, alerts clear, no failed digest jobs.
+- Full `pnpm check` passes (836 unit/283 integration, four expected skips); `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, format/diff checks before commit. Documentation/screenshots only; no service restart needed.
+- Next: remaining Phase 4 native telemetry controls/readiness gates; next fixed daily edition review Nov 12 15:00 UTC. No additional NBA prompt/replay work justified.
