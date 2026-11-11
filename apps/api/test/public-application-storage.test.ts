@@ -259,7 +259,16 @@ void test('configured full public application serves published fixtures and enfo
       });
     const shell = await (await pageGet('/')).text();
     assert.match(shell, /<div id="root"><\/div>/);
-    for (const path of ['/admin/tools', '/admin/spend', '/admin/queues']) {
+    const topicDocument = '/admin/topics/abcdef01-0000-0000-0000-000000000001';
+    for (const path of [
+      '/admin/tools',
+      '/admin/spend',
+      '/admin/queues',
+      '/admin/schedule',
+      '/admin/sources',
+      '/admin/topics',
+      topicDocument,
+    ]) {
       const document = await pageGet(path);
       assert.equal(document.status, 200, path);
       assert.match(document.headers.get('content-type') ?? '', /text\/html/);
@@ -277,6 +286,19 @@ void test('configured full public application serves published fixtures and enfo
       for (const suffix of ['/', '/api', '/jobs']) {
         const refused = await pageGet(path + suffix);
         assert.equal(refused.status, 404, path + suffix);
+        assert.equal(await refused.text(), '');
+      }
+    }
+    // A topic-shaped path must not open arbitrary SPA routes or editor screens.
+    for (const path of [
+      '/admin/topics/new',
+      '/admin/topics/not-a-uuid',
+      topicDocument + '/edit',
+      topicDocument.replace('abcdef01', 'ABCDEF01'),
+    ]) {
+      for (const method of ['GET', 'HEAD']) {
+        const refused = await pageGet(path, { method });
+        assert.equal(refused.status, 404, `${method} ${path}`);
         assert.equal(await refused.text(), '');
       }
     }

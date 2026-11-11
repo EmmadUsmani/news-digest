@@ -159,10 +159,10 @@ Private mode retains Bull Board at `/queues/`; public mode remains off.
 
 ### Compiled page document rehearsal (iteration 1835)
 
-The disposable full application checks Tools, Spend and Queues documents through
-real public admission and static serving: GET returns the SPA shell, HEAD has no
+The disposable full application checks Tools, Spend, Queues, schedule, sources
+and topic catalog/detail documents (1837) through real admission/static serving: GET returns the SPA shell, HEAD has no
 body, and writes or nested legacy routes return empty 404s despite forged owner
-headers. Sanitized status/queue API checks remain in the same rehearsal. This
+headers; malformed topic IDs and editor routes also refuse. API checks remain. This
 covers HTTP composition; public rendering retains its separate browser evidence.
 Public mode remains off; complete Phase 4 acceptance is still open.
 
