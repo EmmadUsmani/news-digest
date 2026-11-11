@@ -59,7 +59,12 @@ export const scheduleQuery = queryOptions({
     try {
       return await read('/api/settings/schedule', scheduleSchema, signal);
     } catch (error) {
-      if (!(error instanceof HttpError) || error.status !== 404) throw error;
+      if (
+        import.meta.env.VITE_PUBLIC_MODE === '1' ||
+        !(error instanceof HttpError) ||
+        error.status !== 404
+      )
+        throw error;
       return (await read('/api/admin/profile', profileSettingsSchema, signal))
         .schedule;
     }

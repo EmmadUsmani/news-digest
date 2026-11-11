@@ -3,6 +3,10 @@
 App background work runs in the **worker** process. It uses BullMQ queues on
 Redis (retried, visible on the Status page) plus a few in-process timers.
 
+The Schedule page shows the daily time, timezone, coverage window and item
+budgets. Prepared public mode allows visitors to read it; only admins can save
+changes. Private mode keeps the page restricted to admins.
+
 ## What runs when
 
 | Job                     | Queue / mechanism    | Runs                              | Does                                                                                                                                          |

@@ -274,3 +274,13 @@ authorization and identity headers never reach these upstreams; only content typ
 and no-store survive from their responses. Anonymous, ordinary-reader and stale
 admin sessions receive empty 404s. Private-mode proxy selection is unchanged.
 Full telemetry UIs/assets remain closed pending their route review.
+
+## Read-only schedule route — iteration 1828
+
+Prepared public mode admits exact GET/HEAD `/admin/schedule`. The page uses the
+audited system schedule and public status contracts; private mode retains its
+identity guard and private status query. Anonymous controls are disabled; saves
+still require backend fresh-admin admission. Public schedule errors, including
+404, never fall back to the legacy owner profile. Offline routed Chromium checks
+cover desktop/mobile light/dark, disabled controls, GET-only requests and failed
+system reads. Public mode remains off; private web rebuild/API restart passed after 16:00 UTC.

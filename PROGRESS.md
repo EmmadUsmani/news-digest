@@ -157,3 +157,16 @@
 - Verification: explicit live Chromium rehearsal, 32 deployed account checks, Nov 11 scheduled reader (four topics/19 stories/19 posts), handbook (18 pages/22 diagrams/39 tables), build pass.
 - `pnpm format`, `pnpm lint:fix`, targeted ESLint/format checks, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
 - Next: remaining Phase 4 activation work; Grafana installation awaits scheduled-load/compaction capacity evidence. Nov 12 15:00 UTC edition review remains fixed.
+
+## 2026-11-11: iteration 1828 — prepared public read-only schedule
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, all 36 sources healthy; Nov 11 scheduled digest completed. No provider calls.
+- Prepared exact GET/HEAD schedule page admission and router access under public mode; schedule uses public status rather than the private status contract. Private mode retains its admin guard.
+- Anonymous schedule inputs/save stay disabled; backend fresh-admin write admission unchanged. Public schedule failures, including 404, never fall back to the owner profile.
+- Routed offline Chromium rehearsal passes desktop/mobile light/dark, GET-only reads, disabled controls and isolated failed-read behavior; new fixture screenshots inspected. Existing account boundary (32) and scheduled reader (four topics/19 stories/19 posts) pass.
+- Rehearsal failure case now uses an independent browser document to avoid retained query observers. Formatter initially raced its temporary HTML; rerun after browser cleanup.
+- Build-command mistake: root workspace recursion refreshed default-private served web assets during the hold before cancellation. No public flags or services changed; subsequent Vite build used /tmp. Rebuilt private web and restarted API after 16:00 UTC; flags unchanged.
+- Updated TASKS, public rollout/readiness and schedule handbook. Handbook check passes (18 pages/39 tables); no diagrams changed.
+- Verification: targeted public route policy (6), API build and isolated Vite build pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips) and `git diff --check` pass.
+- Private schedule browser rehearsal passes with no live writes. After API startup, health, 32 account checks, saved reader and zero alerts pass; immediate startup probes briefly refused before readiness.
+- Next: remaining Phase 4 read-only pages/tools; Grafana capacity evidence and Nov 12 edition review remain open.

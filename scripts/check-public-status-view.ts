@@ -117,6 +117,7 @@ window.showRouter = async (path) => {
   const {RouterProvider, createMemoryHistory} = await import('@tanstack/react-router');
   queryClient.clear();
   router.update({history: createMemoryHistory({initialEntries: [path]})});
+  await router.load();
   root.render(React.createElement(QueryClientProvider, {client: queryClient}, React.createElement(RouterProvider, {router})));
 };
 window.showPage = () => {
@@ -307,16 +308,36 @@ window.showPage = () => {
     // request private identity, edition, health or legacy status data.
     await page.unroute('**/api/**');
     const routedReads: string[] = [];
-    await page.route('**/api/**', async (route) => {
+    let scheduleStatus = 200;
+    const publicRoute = async (route: import('playwright').Route) => {
       const path = new URL(route.request().url()).pathname;
       routedReads.push(path);
-      assert.ok(['/api/admin/status', '/api/me'].includes(path), path);
+      assert.equal(route.request().method(), 'GET');
+      assert.ok(
+        ['/api/admin/status', '/api/me', '/api/settings/schedule'].includes(
+          path,
+        ),
+        path,
+      );
       await route.fulfill({
-        status: 200,
         contentType: 'application/json',
-        body: JSON.stringify(path === '/api/me' ? { isAdmin: false } : fixture),
+        status: path === '/api/settings/schedule' ? scheduleStatus : 200,
+        body: JSON.stringify(
+          path === '/api/me'
+            ? { isAdmin: false }
+            : path === '/api/settings/schedule'
+              ? {
+                  cadence: '0 15 * * *',
+                  timezone: 'UTC',
+                  coverageWindow: 'P1D',
+                  storyBudget: 5,
+                  postBudget: 5,
+                }
+              : fixture,
+        ),
       });
-    });
+    };
+    await page.route('**/api/**', publicRoute);
     const showRouter = (path: string) =>
       page.evaluate(async (path) => {
         await (
@@ -345,6 +366,72 @@ window.showPage = () => {
         });
       }
     }
+    // The actual schedule route consumes only reviewed public contracts.
+    routedReads.length = 0;
+    await showRouter('/admin/schedule');
+    await page
+      .getByText('Read-only schedule. Sign in as an admin to change it.')
+      .waitFor();
+    assert.equal(
+      await page.getByLabel('Daily local time').inputValue(),
+      '15:00',
+    );
+    assert.equal(await page.getByLabel('Daily local time').isDisabled(), true);
+    assert.equal(
+      await page
+        .getByRole('button', { name: 'Save schedule', exact: true })
+        .isDisabled(),
+      true,
+    );
+    assert.deepEqual([...new Set(routedReads)].sort(), [
+      '/api/admin/status',
+      '/api/me',
+      '/api/settings/schedule',
+    ]);
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-schedule-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    // Use a new document/module graph so the failed read has no retained observer.
+    scheduleStatus = 404;
+    routedReads.length = 0;
+    const failedSchedule = await browser.newPage();
+    failedSchedule.on('pageerror', (error) => errors.push(error.message));
+    await failedSchedule.route('**/api/**', publicRoute);
+    await failedSchedule.goto(
+      `http://127.0.0.1:${address.port}/public-status-review.html`,
+    );
+    await failedSchedule.evaluate(async () => {
+      await (
+        window as unknown as { showRouter: (path: string) => Promise<void> }
+      ).showRouter('/admin/schedule');
+    });
+    await failedSchedule
+      .getByText('Schedule could not be loaded.', { exact: true })
+      .waitFor({ timeout: 30000 });
+    assert.ok(routedReads.includes('/api/settings/schedule'));
+    assert.ok(!routedReads.includes('/api/admin/profile'));
+    assert.equal(
+      await failedSchedule.getByLabel('Daily local time').count(),
+      0,
+    );
+    await failedSchedule.close();
+    routedReads.length = 0;
     // A sibling keeps its private guard; navigating through the layout cannot
     // inherit the overview exception.
     await page
@@ -353,7 +440,7 @@ window.showPage = () => {
       .click();
     await page.getByRole('heading', { name: 'Page not found' }).waitFor();
     assert.equal(routedReads.at(-1), '/api/me');
-    assert.equal(routedReads.length, 2);
+    assert.equal(routedReads.length, 1);
     // Rebuild the module graph in private mode to verify rollback uses the
     // original identity guard before constructing any overview requests.
     await page.close();
@@ -394,7 +481,7 @@ window.showPage = () => {
     assert.deepEqual(privateReads, ['/api/me']);
     assert.deepEqual(errors, []);
     console.log(
-      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; public router isolation, private sibling and rollback refusals; no private reads or overflow.',
+      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; public overview/schedule router isolation, disabled anonymous schedule controls, schedule 404 without owner fallback, private sibling and rollback refusals; no private reads or overflow.',
     );
   } finally {
     await browser.close();

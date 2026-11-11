@@ -2,14 +2,25 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
-import { identityQuery, scheduleQuery, statusQuery } from './queries';
+import {
+  identityQuery,
+  publicStatusQuery,
+  scheduleQuery,
+  statusQuery,
+} from './queries';
 import { ScheduleSettings } from './ScheduleSettings';
 
-export function AdminSchedule() {
+export function AdminSchedule({
+  publicMode = false,
+}: {
+  publicMode?: boolean;
+}) {
   const client = useQueryClient();
   const schedule = useQuery(scheduleQuery);
   const identity = useQuery(identityQuery);
-  const status = useQuery(statusQuery);
+  const privateStatus = useQuery({ ...statusQuery, enabled: !publicMode });
+  const publicStatus = useQuery({ ...publicStatusQuery, enabled: publicMode });
+  const status = publicMode ? publicStatus : privateStatus;
   const queue = status.data?.queues.find(
     (item) => item.name === 'digest-generation',
   );
@@ -49,7 +60,11 @@ export function AdminSchedule() {
           readOnly={identity.data?.isAdmin !== true}
           onSaved={(saved) => {
             client.setQueryData(scheduleQuery.queryKey, saved);
-            void client.invalidateQueries({ queryKey: statusQuery.queryKey });
+            void client.invalidateQueries({
+              queryKey: publicMode
+                ? publicStatusQuery.queryKey
+                : statusQuery.queryKey,
+            });
           }}
         />
       )}

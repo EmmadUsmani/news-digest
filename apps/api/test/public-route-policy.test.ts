@@ -11,6 +11,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/saved',
     '/admin',
     '/admin/',
+    '/admin/schedule',
     '/privacy',
     '/docs',
     '/docs/',

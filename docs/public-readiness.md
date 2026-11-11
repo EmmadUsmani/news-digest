@@ -62,7 +62,7 @@ activation review, rather than adding more variants of already-covered refusals.
       security headers, privacy page, log hygiene and private-mode rollback.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
-      reviewed overview and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
+      reviewed overview, schedule and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       Restore private mode first if the scheduled edition fails or looks abnormal.
@@ -98,3 +98,12 @@ minimum 15-second steps, one series and at most six positive samples. Aged-sessi
 Execute and post-logout Execute with the old cookie restored return empty
 no-store 404 responses. The mounted chart has no page errors or CSP violations.
 Operational responses remain in memory; production flags are unchanged.
+
+### Read-only schedule (iteration 1828)
+
+Exact schedule HTML admission and router access are prepared behind public mode.
+The page consumes the audited schedule/public status; anonymous controls are
+disabled, backend saves remain fresh-admin-only and public failures cannot
+read the legacy owner profile. Offline routed browser checks cover both viewport
+sizes/themes and 404 refusal. Private rollback retains its guard. Production
+flags are unchanged; private web rebuild/API restart passed after 16:00 UTC.

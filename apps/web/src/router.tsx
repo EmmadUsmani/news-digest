@@ -120,11 +120,12 @@ const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
   beforeLoad: async ({ context, location }) => {
-    // Only reviewed overview and published-edition pages allow anonymous reads.
+    // Only reviewed read-only pages allow anonymous reads.
     if (
       publicMode &&
       (/^\/admin\/?$/.test(location.pathname) ||
         location.pathname === '/admin/editions' ||
+        location.pathname === '/admin/schedule' ||
         (location.pathname.startsWith('/admin/editions/') &&
           z.string().uuid().safeParse(location.pathname.slice(16)).success))
     )
@@ -173,7 +174,7 @@ const adminTopicEditorRoute = createRoute({
 const adminScheduleRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/schedule',
-  component: AdminSchedule,
+  component: () => <AdminSchedule publicMode={publicMode} />,
 });
 
 const adminSpendRoute = createRoute({
