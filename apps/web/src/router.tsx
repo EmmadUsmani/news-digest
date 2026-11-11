@@ -24,6 +24,7 @@ import { OperationsOverviewPage } from './OperationsOverviewPage';
 import { Privacy } from './Privacy';
 import { PublicPreviewDetail } from './PublicPreviewDetail';
 import { PublicPreviewHistory } from './PublicPreviewHistory';
+import { PublicStatusPage } from './PublicStatusPage';
 import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
 import { ReaderArchive } from './ReaderArchive';
 import { ReaderSaved } from './ReaderSaved';
@@ -128,6 +129,7 @@ const adminRoute = createRoute({
         location.pathname === '/admin/schedule' ||
         location.pathname === '/admin/sources' ||
         location.pathname === '/admin/tools' ||
+        location.pathname === '/admin/spend' ||
         location.pathname === '/admin/topics' ||
         (location.pathname.startsWith('/admin/topics/') &&
           z.string().uuid().safeParse(location.pathname.slice(14)).success) ||
@@ -185,7 +187,8 @@ const adminScheduleRoute = createRoute({
 const adminSpendRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/spend',
-  component: AdminSpend,
+  component: () =>
+    publicMode ? <PublicStatusPage budgetsOnly /> : <AdminSpend />,
 });
 
 const adminEditionsRoute = createRoute({

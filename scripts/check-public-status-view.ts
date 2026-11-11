@@ -642,15 +642,48 @@ window.showPage = () => {
     );
     await failedSchedule.close();
     routedReads.length = 0;
-    // A sibling keeps its private guard; navigating through the layout cannot
-    // inherit the overview exception.
+    await showRouter('/admin/spend');
     await page
-      .getByRole('link', { name: 'Spend', exact: true })
-      .first()
-      .click();
+      .getByRole('heading', { name: 'Production spending', exact: true })
+      .waitFor();
+    await page.getByRole('heading', { name: 'AI production budget' }).waitFor();
+    await page.getByRole('heading', { name: 'X production budget' }).waitFor();
+    assert.equal(
+      await page.getByText('Development allowances', { exact: true }).count(),
+      0,
+    );
+    assert.equal(
+      await page.getByRole('heading', { name: 'Source health' }).count(),
+      0,
+    );
+    assert.ok(
+      routedReads.every((path) =>
+        ['/api/me', '/api/admin/status'].includes(path),
+      ),
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-spend-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    routedReads.length = 0;
+    await showRouter('/admin/editions/new');
     await page.getByRole('heading', { name: 'Page not found' }).waitFor();
-    assert.equal(routedReads.at(-1), '/api/me');
-    assert.equal(routedReads.length, 1);
+    assert.ok(routedReads.every((path) => path === '/api/me'));
     // Rebuild the module graph in private mode to verify rollback uses the
     // original identity guard before constructing any overview requests.
     await page.close();

@@ -62,7 +62,7 @@ activation review, rather than adding more variants of already-covered refusals.
       security headers, privacy page, log hygiene and private-mode rollback.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
-      reviewed overview, topics, schedule and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
+      reviewed overview, topics, schedule, sources, Spend, Tools and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       Restore private mode first if the scheduled edition fails or looks abnormal.
@@ -141,3 +141,10 @@ and schema-only explorer links remain available; logs/metrics links require
 confirmed admin identity, and Grafana/Queues show pending public preparation.
 The page reads only caller identity. Public mode remains off; tool admission
 and remaining Phase 4 gates are unchanged.
+
+### Read-only Spend (iteration 1833)
+
+Prepared exact GET/HEAD `/admin/spend` and anonymous router access. Public
+mode uses sanitized production AI/X budget totals, caps, holds and allowance
+from the separate public status cache; development ledgers and recent calls
+remain private. Private mode keeps the detailed Spend view. Public mode stays off.

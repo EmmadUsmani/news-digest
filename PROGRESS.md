@@ -154,3 +154,15 @@
 - `pnpm format`, `pnpm lint:fix`, route policy tests (6), build, public/private browser checks and `git diff --check` pass. Full `pnpm check` passes (836 unit/283 integration passes, four expected skips).
 - Private API restarted after 16:00 UTC; healthz, 32 account-boundary checks and saved Nov 11 reader (four topics/19 stories/19 posts) pass; alerts zero.
 - Next: remaining Phase 4 pages/tools, Grafana scheduled-load/compaction evidence and Nov 12 edition review.
+
+## 2026-11-11: iteration 1833 — prepared public Spend
+
+- Clean main; no inherited work. Kotaku timed out once at 16:56 UTC, then scheduled retry succeeded at 16:57 in 2.8 seconds. All 36 sources healthy; no provider calls.
+- Prepared exact GET/HEAD Spend HTML/router admission using sanitized production AI/X totals, caps, holds and allowance. Development ledgers/recent calls stay private; private detailed view retained, public flags unchanged.
+- `pnpm exec tsx scripts/check-public-status-view.ts` passes desktop/mobile light/dark; four new fixture screenshots inspected, unrelated regenerated screenshots discarded. Initial concurrent-build run timed out on existing schedule check; serial retry passes.
+- `pnpm exec tsx scripts/smoke-admin-spend.ts` passes four private viewport/theme combinations, live budget totals, refresh failure/recovery and anonymous denial.
+- Updated TASKS, readiness/rollout notes and operations handbook. `pnpm exec tsx scripts/check-handbook.ts 08-operations` passes (18 pages/one diagram/39 tables); no diagrams changed.
+- `pnpm format`, `pnpm lint:fix`, route policy tests (6), build and `git diff --check` pass. First full check caught import ordering before lint autofix completed; corrected and retried.
+- Live checks: 32 account boundaries pass; saved edition has four topics/19 stories/19 posts. A diagnostic used localhost instead of the credential helper’s exact 127.0.0.1 origin and received refusal; corrected helper read passes.
+- Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Post-check alerts zero; deployment verification follows.
+- Next: remaining Phase 4 tool admission/rehearsal, Grafana scheduled-load/compaction evidence and Nov 12 edition review.

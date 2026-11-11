@@ -317,3 +317,10 @@ and schema-only explorer links remain available; logs/metrics links require
 confirmed admin identity, and Grafana/Queues show pending public preparation.
 The page reads only caller identity. Public mode remains off; tool admission
 and remaining Phase 4 gates are unchanged.
+
+### Read-only Spend (iteration 1833)
+
+Prepared exact GET/HEAD `/admin/spend` and anonymous router access. Public
+mode uses sanitized production AI/X budget totals, caps, holds and allowance
+from the separate public status cache; development ledgers and recent calls
+remain private. Private mode keeps the detailed Spend view. Public mode stays off.

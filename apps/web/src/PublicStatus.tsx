@@ -9,13 +9,21 @@ const time = (value: string | null) =>
     : 'Never';
 
 // Prepared public view; route composition remains gated separately.
-export function PublicStatus({ data }: { data: PublicOperationsStatus }) {
+export function PublicStatus({
+  data,
+  budgetsOnly = false,
+}: {
+  data: PublicOperationsStatus;
+  budgetsOnly?: boolean;
+}) {
   return (
     <section
-      aria-label="Public operations status"
+      aria-label={
+        budgetsOnly ? 'Production spending' : 'Public operations status'
+      }
       className="grid gap-5 [&_h1]:font-sans [&_h1]:text-2xl [&_h2]:font-sans [&_h2]:text-lg [&_h3]:font-sans [&_dd]:m-0 [&_dt]:mt-3 [&_dt]:text-sm [&_dt]:text-[var(--secondary)]"
     >
-      <h1>System status</h1>
+      <h1>{budgetsOnly ? 'Production spending' : 'System status'}</h1>
       <p>Checked {time(data.checkedAt)}</p>
       <div className="grid gap-4 md:grid-cols-2">
         {[
@@ -69,85 +77,90 @@ export function PublicStatus({ data }: { data: PublicOperationsStatus }) {
           </Card>
         ))}
       </div>
-      <h2>Source health</h2>
-      <div className="grid gap-3 md:grid-cols-2">
-        {data.sources.map((source) => (
-          <Card key={source.id} className="min-w-0 break-words p-4">
-            <h3>{source.name}</h3>
-            <p>
-              {!source.enabled
-                ? 'Disabled'
-                : !source.active
-                  ? 'Inactive'
-                  : source.hasError
-                    ? 'Recent collection failed'
-                    : !source.lastSuccess
-                      ? 'Awaiting first collection'
-                      : Date.parse(data.checkedAt) -
-                            Date.parse(source.lastSuccess) >
-                          3_600_000
-                        ? 'Collection delayed'
-                        : 'Collecting'}
-            </p>
-            <p>Last attempt: {time(source.lastAttempt)}</p>
-            <p>Last success: {time(source.lastSuccess)}</p>
-            <p>
-              {source.lastItemCount} last collected · {source.storedItems}{' '}
-              stored · {source.items24h} in 24 hours · {source.items7d} in 7
-              days
-            </p>
-          </Card>
-        ))}
-        {!data.sources.length && <p>No sources available</p>}
-      </div>
-      <h2>Job queues</h2>
-      {data.queues.map((queue) => (
-        <Card key={queue.name} className="min-w-0 p-4">
-          <h3>{queue.name}</h3>
-          <p>
-            {!queue.available
-              ? 'Unavailable'
-              : queue.paused
-                ? 'Paused'
-                : queue.workers === 0
-                  ? 'No workers'
-                  : 'Running'}{' '}
-            · {queue.workers} workers
-          </p>
-          <p>
-            {Object.entries(queue.counts)
-              .map(([name, count]) => `${name}: ${count}`)
-              .join(' · ') || 'Counts unavailable'}
-          </p>
-          <p>
-            Next run: {queue.nextRun ? time(queue.nextRun) : 'Not scheduled'}
-          </p>
-        </Card>
-      ))}
-      {!data.queues.length && <p>No queues available</p>}
-      <h2>Topic coverage</h2>
-      {data.coverage ? (
+      {!budgetsOnly && (
         <>
-          <p>
-            {time(data.coverage.start)} – {time(data.coverage.end)}
-          </p>
-          {data.coverage.topics.map((topic) => (
-            <Card key={topic.topicId} className="min-w-0 p-4">
-              <h3>
-                {topic.name}
-                {!topic.enabled && ' (disabled)'}
-              </h3>
+          <h2>Source health</h2>
+          <div className="grid gap-3 md:grid-cols-2">
+            {data.sources.map((source) => (
+              <Card key={source.id} className="min-w-0 break-words p-4">
+                <h3>{source.name}</h3>
+                <p>
+                  {!source.enabled
+                    ? 'Disabled'
+                    : !source.active
+                      ? 'Inactive'
+                      : source.hasError
+                        ? 'Recent collection failed'
+                        : !source.lastSuccess
+                          ? 'Awaiting first collection'
+                          : Date.parse(data.checkedAt) -
+                                Date.parse(source.lastSuccess) >
+                              3_600_000
+                            ? 'Collection delayed'
+                            : 'Collecting'}
+                </p>
+                <p>Last attempt: {time(source.lastAttempt)}</p>
+                <p>Last success: {time(source.lastSuccess)}</p>
+                <p>
+                  {source.lastItemCount} last collected · {source.storedItems}{' '}
+                  stored · {source.items24h} in 24 hours · {source.items7d} in 7
+                  days
+                </p>
+              </Card>
+            ))}
+            {!data.sources.length && <p>No sources available</p>}
+          </div>
+          <h2>Job queues</h2>
+          {data.queues.map((queue) => (
+            <Card key={queue.name} className="min-w-0 p-4">
+              <h3>{queue.name}</h3>
               <p>
-                {topic.healthySources} / {topic.connectedSources} healthy
-                sources · {topic.articles} articles · {topic.xPosts} X posts ·{' '}
-                {topic.redditPosts} Reddit posts
+                {!queue.available
+                  ? 'Unavailable'
+                  : queue.paused
+                    ? 'Paused'
+                    : queue.workers === 0
+                      ? 'No workers'
+                      : 'Running'}{' '}
+                · {queue.workers} workers
+              </p>
+              <p>
+                {Object.entries(queue.counts)
+                  .map(([name, count]) => `${name}: ${count}`)
+                  .join(' · ') || 'Counts unavailable'}
+              </p>
+              <p>
+                Next run:{' '}
+                {queue.nextRun ? time(queue.nextRun) : 'Not scheduled'}
               </p>
             </Card>
           ))}
-          {!data.coverage.topics.length && <p>No topics available</p>}
+          {!data.queues.length && <p>No queues available</p>}
+          <h2>Topic coverage</h2>
+          {data.coverage ? (
+            <>
+              <p>
+                {time(data.coverage.start)} – {time(data.coverage.end)}
+              </p>
+              {data.coverage.topics.map((topic) => (
+                <Card key={topic.topicId} className="min-w-0 p-4">
+                  <h3>
+                    {topic.name}
+                    {!topic.enabled && ' (disabled)'}
+                  </h3>
+                  <p>
+                    {topic.healthySources} / {topic.connectedSources} healthy
+                    sources · {topic.articles} articles · {topic.xPosts} X posts
+                    · {topic.redditPosts} Reddit posts
+                  </p>
+                </Card>
+              ))}
+              {!data.coverage.topics.length && <p>No topics available</p>}
+            </>
+          ) : (
+            <p>Coverage unavailable</p>
+          )}
         </>
-      ) : (
-        <p>Coverage unavailable</p>
       )}
     </section>
   );

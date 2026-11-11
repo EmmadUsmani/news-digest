@@ -6,7 +6,11 @@ import { publicStatusQuery } from './queries';
 
 // Prepared page: install only with the sanitized status transport and public
 // page authorization. The private overview retains its own query and cache.
-export function PublicStatusPage() {
+export function PublicStatusPage({
+  budgetsOnly = false,
+}: {
+  budgetsOnly?: boolean;
+}) {
   const status = useQuery(publicStatusQuery);
   return (
     <div className="grid gap-5">
@@ -27,7 +31,9 @@ export function PublicStatusPage() {
           refreshing.
         </p>
       )}
-      {status.data && <PublicStatus data={status.data} />}
+      {status.data && (
+        <PublicStatus data={status.data} budgetsOnly={budgetsOnly} />
+      )}
     </div>
   );
 }

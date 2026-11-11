@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1833: prepared public Spend with sanitized production totals/caps/holds; private detailed view retained, public mode remains off.
+
 - [x] Iteration 1832: prepared public Tools directory with reviewed reader links, admin telemetry links and pending tool labels; public mode remains off.
 
 - [x] Iteration 1831: prepared public read-only Sources page using sanitized status; anonymous collection/feed controls disabled. Public mode remains off.

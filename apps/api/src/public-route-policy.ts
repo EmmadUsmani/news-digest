@@ -15,6 +15,7 @@ const rules: readonly Rule[] = [
   ['GET', /^\/admin\/schedule$/, 'public-read'],
   ['GET', /^\/admin\/sources$/, 'public-read'],
   ['GET', /^\/admin\/tools$/, 'public-read'],
+  ['GET', /^\/admin\/spend$/, 'public-read'],
   ['GET', /^\/admin\/topics$/, 'public-read'],
   ['GET', new RegExp(`^/admin/topics/${id}$`), 'public-read'],
   ['GET', new RegExp(`^/admin/editions/${id}$`), 'public-read'],
