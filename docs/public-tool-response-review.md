@@ -663,3 +663,20 @@ Unit HTTP checks compose admission with credential/cookie stripping, exact
 route denial and unavailable/private upstream refusal. No live flags, database
 grants or credentials changed. Live structural-mode activation and the remaining
 Phase 4 security gates still precede public promotion.
+
+## Live explorer structural activation (iteration 1780)
+
+`pnpm exec tsx scripts/check-live-schema-structural.ts --live` installed the
+reviewed structural-only service drop-in. Private/structural/private/structural
+restarts passed against the real restricted-role catalog: exact projection of
+39 tables, no-store response, structural marker, healthy app/explorer, and
+authenticated proxy response parity. Rollback restored private model fields and
+reactivation restored the exact structural projection. Failure restores the
+initial drop-in. No credentials, grants or public-mode flags changed.
+
+Live desktop/mobile browser checks pass without response interception; screenshots
+are `docs/screenshots/schema/live-structural-{1440,390}.png`. Anonymous live
+`/db/` remains 404. Existing isolated private/structural proxy and UI rehearsals
+now obtain their private input directly through the same restricted catalog role,
+so they remain usable after the live server stops returning private fields.
+Public-mode activation and the other Phase 4 tool gates remain open.

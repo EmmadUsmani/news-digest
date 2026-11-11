@@ -26,4 +26,13 @@ Restore the preserved authentication file with ownership/mode intact, reload
 and validate its parsed rules. Restore extension ACLs from the private snapshot
 if reverting that change too. Recheck application and observability health.
 
-These steps do not enable public access or structural response mode.
+The live service also installs `structural-only.conf`: responses contain only
+groups, tables, columns, keys and relationships. Definitions, activity, sizes
+and metadata prose are omitted. Public mode remains separate and off.
+
+`pnpm exec tsx scripts/check-live-schema-structural.ts --live` verifies the
+private/structural/private/structural rollout, exact projection, private admission
+and desktop/mobile views. Run outside the 13:00–16:00 UTC deployment hold.
+Failure restores the initial drop-in. For response-only rollback, remove
+`structural-only.conf`, reload systemd and restart the explorer; retain the
+catalog credentials drop-in.

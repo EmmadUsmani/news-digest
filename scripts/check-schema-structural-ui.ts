@@ -4,14 +4,12 @@ import { mkdir } from 'node:fs/promises';
 
 import { chromium } from 'playwright';
 
-import type { SchemaModel } from '../apps/schema-explorer/src/model.ts';
 import { buildPublicModel } from '../apps/schema-explorer/src/public-model.ts';
+import { readPrivateSchemaCatalog } from './lib/schema-catalog';
 
 async function main() {
   const base = 'http://127.0.0.1:8200/';
-  const response = await fetch(`${base}api/schema`);
-  assert.equal(response.status, 200);
-  const privateModel = (await response.json()) as SchemaModel;
+  const privateModel = await readPrivateSchemaCatalog();
   const model = buildPublicModel(privateModel);
   assert.ok(model.tables.some((table) => table.name === 'users'));
   const browser = await chromium.launch({ headless: true });
@@ -24,10 +22,9 @@ async function main() {
         });
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
-        if (structural)
-          await page.route('**/api/schema', (route) =>
-            route.fulfill({ json: model }),
-          );
+        await page.route('**/api/schema', (route) =>
+          route.fulfill({ json: structural ? model : privateModel }),
+        );
         await page.goto(`${base}#table=users`);
         await page.waitForSelector('#panel:not([hidden]) h2');
         assert.equal(await page.locator('#panel h2').textContent(), 'users');

@@ -7,11 +7,15 @@
 // tables. Saves a PNG per diagram (dark mode, as the owner reads it) to
 // /tmp/handbook-diagrams/ so changed diagrams can be inspected for crossings
 // and overlapping labels.
+import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 
 import { chromium } from 'playwright';
 
+import type { SchemaModel } from '../apps/schema-explorer/src/model';
+import { buildPublicModel } from '../apps/schema-explorer/src/public-model';
 import { localAdminFetch } from './lib/local-admin-fetch';
+import { readPrivateSchemaCatalog } from './lib/schema-catalog';
 
 const base = 'http://127.0.0.1:8000';
 if (
@@ -157,10 +161,11 @@ async function main() {
     await browser.close();
   }
 
-  const schema = (await (await readTool('/db/api/schema')).json()) as {
-    tables: { name: string; group: string }[];
-    warnings: string[];
-  };
+  const schema = await readPrivateSchemaCatalog();
+  const served = (await (
+    await readTool('/db/api/schema')
+  ).json()) as SchemaModel;
+  assert.deepEqual(buildPublicModel(served), buildPublicModel(schema));
   for (const warning of schema.warnings)
     problems.push(`schema-meta: ${warning}`);
   const unassigned = schema.tables.filter((t) => t.group === '_unassigned');

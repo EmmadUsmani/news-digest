@@ -51,10 +51,11 @@ New edition snapshots retain this evidence for each report, including extra
 editor citations. Historical snapshots keep their original unknown attribution.
 
 > [!TIP]
-> For every table, column, key and index, open the live
+> For tables, columns, keys and relationships, open the live
 > **[DB schema explorer](https://news-digest.exe.xyz/db/)**. It reads the
 > live catalog through a dedicated password-authenticated role with no
-> application-row access. This page is the map, and the explorer is the territory.
+> application-row access. It shows structure only: definitions, activity, sizes
+> and metadata notes stay out of the response.
 
 ## The areas and how they connect
 

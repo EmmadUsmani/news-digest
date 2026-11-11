@@ -11,8 +11,8 @@ import { adminAccess } from '../apps/api/src/admin-access';
 import { proxyInternalTools } from '../apps/api/src/internal-tools';
 import { publicAccess } from '../apps/api/src/public-access';
 import { createExplorerServer } from '../apps/schema-explorer/src/http-server';
-import type { SchemaModel } from '../apps/schema-explorer/src/model';
 import { buildPublicModel } from '../apps/schema-explorer/src/public-model';
+import { readPrivateSchemaCatalog } from './lib/schema-catalog';
 
 async function listen(server: Server) {
   await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
@@ -26,11 +26,7 @@ async function close(server: Server) {
 }
 
 async function main() {
-  const source = await fetch('http://127.0.0.1:8200/api/schema', {
-    signal: AbortSignal.timeout(15000),
-  });
-  assert.equal(source.status, 200);
-  const catalog = (await source.json()) as SchemaModel;
+  const catalog = await readPrivateSchemaCatalog();
   assert.ok(catalog.tables.some((table) => table.name === 'users'));
   const structural = buildPublicModel(catalog);
   const browser = await chromium.launch();

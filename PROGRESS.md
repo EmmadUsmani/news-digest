@@ -148,3 +148,13 @@
 - Initial full check caught the old readiness matrix denying reviewed explorer routes; updated it to verify all principals’ exact GET admission and HEAD/write refusal. Full rerun passes: 831 unit/283 integration tests, four expected skips; `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass.
 - `pnpm build` passes. Restarted `news-digest-api.service`; retrying `/healthz` passes after startup and anonymous `/db/` stays 404. Post-restart account boundary and saved-reader checks pass.
 - Next: live structural-mode activation and broader Phase 4 gates; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1780 — activate live structural explorer
+
+- Clean main; no inherited work. Alerts clear, services/healthz healthy, all 36 sources and scheduled job queues pass local checks. No provider spending.
+- Installed tracked structural-only explorer drop-in; `pnpm exec tsx scripts/check-live-schema-structural.ts --live` passes private/structural/private/structural restarts. Exact 39-table structural response and authenticated proxy parity pass; rollback preserves all private catalog fields except changing timestamp/row estimates/sizes. Public mode stays off; anonymous `/db/` is 404.
+- Live desktop/mobile checks pass without interception; inspected both screenshots in `docs/screenshots/schema/live-structural-{1440,390}.png`. Existing `check-schema-proxy.ts` and `check-schema-structural-ui.ts` rehearsals pass using the restricted catalog role directly for private inputs.
+- Handbook check initially expected removed warning fields; changed it to read private catalog diagnostics through the restricted role and verify served structural parity. Updated owner data-model page, rollout/readiness docs and TASKS.
+- `pnpm build`, deployed account boundary (32 checks), and saved Nov 10 reader (four topics/19 stories/15 posts) pass. Initial full check caught an unused import; `pnpm lint:fix` removed it.
+- `pnpm format`, `pnpm lint:fix`, final `pnpm check` (831 unit/283 integration passes; four expected skips), handbook/schema (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Handbook rerun after a rollout-restart 502 passes. Restarted API/explorer; startup-boundary retry and saved-reader check pass with healthy services.
+- Next: remaining Phase 4 tool installations/full public rehearsal; Grafana capacity under scheduled load or compaction; Nov 11 15:00 UTC NBA review.
