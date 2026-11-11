@@ -331,3 +331,10 @@ next-run times, supports refresh and warns when retained values become stale.
 Public mode keeps legacy `/queues/` denied; private Bull Board is unchanged.
 Offline desktop/mobile light/dark fixture checks cover the page and failed/recovered
 refreshes. Public mode remains off; full Phase 4 acceptance is still open.
+
+Iteration 1835 extends the compiled full-application disposable-storage rehearsal
+to Tools, Spend and Queues HTML routes. Anonymous GET/HEAD admission reaches the
+actual SPA shell; writes and nested aliases refuse with empty 404s even with a
+forged owner identity header. Existing sanitized status/queue API and stored-session
+checks run alongside them. Public rendering remains covered separately by the
+fixture browser rehearsal; production flags remain off.

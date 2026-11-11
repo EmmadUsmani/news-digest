@@ -234,6 +234,41 @@ void test('configured full public application serves published fixtures and enfo
           ...init.headers,
         },
       });
+    // Rehearse the newly admitted page documents against the compiled app,
+    // rather than only the route classifier or the fixture-intercepted SPA.
+    // This checks HTTP composition; public rendering has separate browser checks.
+    const pageGet = (path: string, init: RequestInit = {}) =>
+      get(path, {
+        ...init,
+        headers: {
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.94, 203.0.113.94',
+          'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+          ...init.headers,
+        },
+      });
+    const shell = await (await pageGet('/')).text();
+    assert.match(shell, /<div id="root"><\/div>/);
+    for (const path of ['/admin/tools', '/admin/spend', '/admin/queues']) {
+      const document = await pageGet(path);
+      assert.equal(document.status, 200, path);
+      assert.match(document.headers.get('content-type') ?? '', /text\/html/);
+      assert.equal(document.headers.get('set-cookie'), null);
+      assert.ok(document.headers.get('content-security-policy'));
+      assert.equal(await document.text(), shell, path);
+      const head = await pageGet(path, { method: 'HEAD' });
+      assert.equal(head.status, 200, path);
+      assert.equal(await head.text(), '');
+      for (const method of ['POST', 'PUT', 'PATCH', 'DELETE']) {
+        const refused = await pageGet(path, { method });
+        assert.equal(refused.status, 404, `${method} ${path}`);
+        assert.equal(await refused.text(), '');
+      }
+      for (const suffix of ['/', '/api', '/jobs']) {
+        const refused = await pageGet(path + suffix);
+        assert.equal(refused.status, 404, path + suffix);
+        assert.equal(await refused.text(), '');
+      }
+    }
     const expectedSchedule = await db.query(
       'SELECT cadence,timezone,coverage_window AS "coverageWindow",story_budget AS "storyBudget",post_budget AS "postBudget" FROM edition_settings WHERE id=1',
     );

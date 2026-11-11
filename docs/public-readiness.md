@@ -156,3 +156,12 @@ admission and the router use the sanitized `/api/queues` response: five counts
 and the next scheduled time per queue. Refresh is read-only; failures retain
 previous values with a stale-data warning. No job payloads or controls are shown.
 Private mode retains Bull Board at `/queues/`; public mode remains off.
+
+### Compiled page document rehearsal (iteration 1835)
+
+The disposable full application checks Tools, Spend and Queues documents through
+real public admission and static serving: GET returns the SPA shell, HEAD has no
+body, and writes or nested legacy routes return empty 404s despite forged owner
+headers. Sanitized status/queue API checks remain in the same rehearsal. This
+covers HTTP composition; public rendering retains its separate browser evidence.
+Public mode remains off; complete Phase 4 acceptance is still open.

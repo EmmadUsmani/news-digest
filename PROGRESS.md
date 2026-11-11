@@ -179,3 +179,13 @@
 - Full `pnpm check` retry passes: 836 unit/283 integration passes and four expected skips; private jobs browser verifies four real queues/40 schedules.
 - Pushed `09dc7257`; API restarted outside the hold. Post-restart healthz, 32 account boundaries, private Tools browser, 36 healthy sources and saved four-topic/19-story/19-post edition pass; alerts zero. Public mode stays off.
 - Next: remaining Phase 4 tool/rehearsal gates, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review.
+
+## 2026-11-11: iteration 1835 — compiled public page document rehearsal
+
+- Clean main; no inherited work. Initial alerts zero and healthz healthy; no provider calls or flag changes.
+- Extended the disposable full-application rehearsal for Tools, Spend and Queues: anonymous GET returns the actual SPA shell, HEAD is empty, and writes/nested routes refuse with empty 404s despite forged owner headers. Existing sanitized API and stored-session checks run alongside it; public rendering remains covered separately.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check` passes: 836 unit/283 integration passes, four expected skips; expanded compiled-app rehearsal passes.
+- `pnpm exec tsx scripts/smoke-admin-tools.ts` passes four private viewport/theme combinations; discarded regenerated unchanged screenshots. Filtered handbook check passes, no handbook behavior/diagram change.
+- `pnpm exec tsx scripts/check-live-account-boundary.ts` passes 32 checks; live status confirms 36 healthy sources, saved edition four topics/19 stories/19 posts.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, zero new evaluator errors/misses, four queries ≤0.258 s; no merges, so compaction capacity gate remains open. Next passive probe ≥18:28 UTC.
+- Updated TASKS and public rehearsal/readiness records; public mode remains off. Next: remaining Phase 4 rehearsal/tool gates, Grafana capacity evidence and Nov 12 edition review.
