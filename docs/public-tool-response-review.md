@@ -303,3 +303,35 @@ startup and representative load, without lowering the working Grafana limits.
 `docker compose down --volumes` removed the rehearsal container, volume and
 bridge; port 5543 is free again. No application data, scheduled exporter,
 persistent listener or datasource was used.
+
+## Paired startup and read rehearsal (iteration 1759)
+
+Compared two adjacent 75-second windows on the live VM, first with the eight
+existing observability units and then with the same units plus a fresh export
+Compose project. Sampled cgroup memory every 250 ms, beginning before Compose
+startup. Every 15 seconds both windows read Grafana health, the live latest
+edition and two uncached one-hour VictoriaMetrics range queries (aggregate
+memory and five-minute CPU rates, 30-second steps). Once the prepared schema
+and 30 synthetic daily rollups were loaded, the candidate also ran all four
+prepared panel queries as the restricted reader and checked their row counts.
+
+The metrics reads cover dashboard query work, and the panel reads cover export
+SQL. This did not drive a browser dashboard, induce VictoriaMetrics compaction
+or cold-start the installed Grafana service. The earlier authenticated
+loopback transport check remains separate.
+
+| 75-second window           | Startup or baseline peak | Ready peak | Mean CPU (one core) | Slowest read batch |
+| -------------------------- | -----------------------: | ---------: | ------------------: | -----------------: |
+| Existing stack             |               704.59 MiB |          — |               2.19% |             463 ms |
+| Existing stack plus export |               772.36 MiB | 769.04 MiB |               4.85% |             370 ms |
+
+The export cgroup peaked at 70.50 MiB and schema/seed setup took 18.41 s.
+All five read batches passed in each window, including 12 panel SQL checks
+across three candidate batches. No cgroup OOM kills were recorded.
+`docker compose down --volumes` removed the project, volume and bridge.
+
+This sample meets the ~800 MiB and <5% CPU targets, with only ~28 MiB of
+observed startup headroom. The earlier 24-hour peak projection is still
+~844 MiB. Keep installation pending until a paired sample covers scheduled
+edition load or natural compaction and confirms sustained five-minute CPU
+headroom. The short mean includes fresh database initialization.

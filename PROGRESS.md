@@ -137,3 +137,12 @@
 - Compose container, volume and bridge removed; port free. No production listener, datasource, model call, data write or public activation.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, changed-document Prettier and `git diff --check` pass. Live account boundary passes all 32 checks; the Nov 10 reader serves four topics, 19 stories and 15 posts.
 - Next: verify loaded and cold-start memory headroom before installation, and review scheduled NBA editing after the Nov 11 15:00 UTC generation run.
+
+## 2026-11-11: iteration 1759 — measure export startup alongside dashboard-style reads
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`, services/sources checks, digest queue and health probes: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
+- Compared two 75-second, 250 ms cgroup samples: eight observability units alone, then plus the prepared Compose database starting from an empty volume. Five read batches per window passed (Grafana health, live reader and uncached VictoriaMetrics ranges); candidate also passed 12 restricted-reader SQL checks against synthetic rollups.
+- Baseline 704.59 MiB/2.19% mean CPU; candidate 772.36 MiB at startup and 769.04 MiB during reads, 4.85% mean CPU and zero OOM kills. Removed disposable container, volume and bridge; port 5543 free. No provider calls, public activation or production data changes.
+- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit and 281 integration passes; four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` pass. Push and restart API/worker, then recheck health, reader, sources and digest queue.
+- Next: keep export installation gated on sustained CPU and paired memory during scheduled load or natural compaction. Review NBA editing after the Nov 11 15:00 UTC run.
