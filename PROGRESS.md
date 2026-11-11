@@ -148,3 +148,14 @@
 - Separate `pnpm test:integration` passes: 283 passed, four expected skips, zero failures. Saved latest edition remains four topics/19 stories/19 posts; `pnpm obs sources --check` confirms 36 healthy sources. No handbook/system-flow change.
 - API restarted outside the protected window; active, healthz/database/Redis healthy after startup retries, zero firing/pending alerts. Next: lead security review/owner decision, Nov 12 review, then item 38 reader work; next passive metrics probe ≥18:28 UTC.
 - Committed `747ed643`; push rejected because owner item 56 landed upstream. Merged without history rewrite; retained its priority and removed only the completed Nov 6 line. New World/U.S. plan read; next iteration starts its offline scope/source assessment while item 50 waits. No cap/topic changes yet.
+
+## 2026-11-11: iteration 1839 — offline World/U.S. scope and sources
+
+- Clean main; no inherited work. Alerts zero, healthz healthy; item 50 remains stopped for lead/owner review under 55. No provider calls or production flag/topic/cap changes.
+- Assessed every saved Nov 4–10 World story: 28 total, 23 international/five U.S.-domestic, exclusive manual assignment. Saved IDs/titles/summaries/labels and added a provider-free evaluator; no runtime routing rules.
+- Recorded proposed topic guidance, default visibility, source moves, candidate X accounts and boundary judgments in docs/edition-reviews/2026-11-11-world-us-scope.md. U.S. has zero/one saved story daily; new domestic depth is necessary.
+- Four free RSS probes returned 200 and parsed: Guardian US 33, NPR Politics 10, PBS Politics 20, NPR general news 10; select first three, leave general news out. Updated docs/SOURCES.md; no production collection changes.
+- `pnpm exec tsx scripts/evaluate-world-us-scope.ts` passes all seven dates/counts/exclusive memberships; labels are manual evaluation evidence, not a production classifier test.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check`, `git diff --check` and filtered handbook check pass. Full check: 836 unit/283 integration passes, four expected skips. No UI change.
+- Live source check: 36 healthy/zero unhealthy; latest published edition remains four topics/19 stories. API restart/health check follows push; runtime build is unchanged by this offline step.
+- Next: topic/source setup and joint AI event ownership; measure fifth-topic reserve from saved costs before cap changes. Then scheduled acceptance; no paid test runs.

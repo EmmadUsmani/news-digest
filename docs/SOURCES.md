@@ -2430,3 +2430,19 @@ All 19 saved posts are absent from the previous three editions; three Bluesky
 cards pass exact text/destination and desktop/mobile light/dark checks.
 Overall viral-quality acceptance remains open; tuning waits for item 50.
 [Daily review and accounting](edition-reviews/2026-11-11.md).
+
+## World/U.S. split source assessment — iteration 1839 (2026-11-11)
+
+Free RSS checks only; no source was added or moved in production:
+
+| Feed                                            | HTTP / parsed entries | Proposed use                                            |
+| ----------------------------------------------- | --------------------- | ------------------------------------------------------- |
+| https://www.theguardian.com/us-news/rss         | 200 / 33              | Move existing World connection to U.S.                  |
+| https://feeds.npr.org/1014/rss.xml              | 200 / 10              | Add NPR Politics to U.S.                                |
+| https://www.pbs.org/newshour/feeds/rss/politics | 200 / 20              | Add PBS Politics to U.S.                                |
+| https://feeds.npr.org/1001/rss.xml              | 200 / 10              | Leave out: general news includes international coverage |
+
+World retains BBC World, NPR World, Guardian World and Al Jazeera. Guardian
+US/World remain one outlet. Feeds can contain international stories: topic
+scope and joint AI curation must choose one destination per event.
+[Offline scope assessment](edition-reviews/2026-11-11-world-us-scope.md).

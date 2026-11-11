@@ -1,0 +1,215 @@
+{
+  "reviewMethod": "Human-readable editorial scope assessment of saved summaries; labels are evaluation evidence, never runtime routing rules. No model calls.",
+  "windows": [
+    {
+      "date": "2026-11-04",
+      "editionId": "3bf10f5b-4c00-48b2-85bd-8e6dac7e3238",
+      "stories": [
+        {
+          "id": "d7572009-38b9-43a4-b33e-9e1c829d42d9",
+          "title": "Democrats win House and Senate in US midterms, taking full control of Congress",
+          "summary": "NPR reports Democrats have won both the House and the Senate, taking full control of Congress for the first time since 2023. The Guardian reports Democratic Senate wins in Republican-held seats in states including Texas, Iowa, Kansas, North Carolina, South Carolina and Ohio, with some of its coverage also listing Maine. Al Jazeera says it is the first time in 20 years that a Republican president has lost both houses of Congress.",
+          "scope": "us"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "editionId": "7d99b279-cb6a-4cf0-b0a2-d94c5645f0b7",
+      "stories": [
+        {
+          "id": "cfd43155-12b1-4ee0-bcac-22de4d13b88e",
+          "title": "Trump accepts US midterm results as Democrats sweep into power",
+          "summary": "Donald Trump has accepted the results of the US midterm elections as the system held up against attempts at election interference, according to The Guardian's First Thing newsletter. It says criticism of the US-Israel war on Iran was seen as a huge factor in Democrats' sweeping victory. An unnamed Trump adviser told CNN, \"It was essentially too big to rig.\"",
+          "scope": "us"
+        },
+        {
+          "id": "6005548f-50bd-4ad7-b269-49150ada3b22",
+          "title": "IRGC says two tankers and a tugboat caught fire in Strait of Hormuz",
+          "summary": "Iran's IRGC says two oil tankers and a tugboat caught fire in the Strait of Hormuz after using an \"unauthorised route\", per Al Jazeera's live coverage of the Iran war. Separately, Al Jazeera reports that Tehran says it is ready with a maximum deterrence plan, under the question of whether the US will resume its attacks on Iran.",
+          "scope": "world"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "editionId": "1c83e78b-47f9-4a6f-bfb4-93820a691aea",
+      "stories": [
+        {
+          "id": "5ae1c757-9013-4fa0-9561-e758abdf33d0",
+          "title": "Ukraine raises Zaporizhia aid strike death toll to at least 50",
+          "summary": "Al Jazeera reports that Ukraine has raised the death toll from a strike on an aid site in Zaporizhia to at least 50. Ukrainian officials say DNA tests are being used to identify bodies while up to 39 remain trapped under rubble.",
+          "scope": "world"
+        },
+        {
+          "id": "c2a948f5-67fd-4127-a24e-7dd0828ed2ae",
+          "title": "ANC faces bruising defeat in South African local elections with 80% of ballots counted",
+          "summary": "The Guardian reports the African National Congress is on course for a bruising local election defeat, falling to under a third of the national vote with more than 80% of ballots counted. Its share is almost 14 percentage points below its 2021 result. The Guardian cites high unemployment, crime, corruption and poor local service delivery as contributing to the decline.",
+          "scope": "world"
+        },
+        {
+          "id": "3f0a4738-8acb-4830-b0cd-d1134fc340c9",
+          "title": "Tanzania court jails opposition leader Tundu Lissu for incitement, lifts treason charge",
+          "summary": "A Tanzanian court jailed opposition leader Tundu Lissu for incitement and lifted the treason charge, according to Al Jazeera and BBC World. Dismissal of the treason charge means Lissu avoids the threat of the death penalty.",
+          "scope": "world"
+        },
+        {
+          "id": "46411991-0bc7-4a84-b471-f5dac2655223",
+          "title": "Somalia's top court rejects president's term extension amid political crisis",
+          "summary": "BBC World reports that Somalia's top court has rejected the president's term extension amid a political crisis. The country's first nationwide elections since 1969 are due next year, a timetable BBC World says is now thrown into doubt.",
+          "scope": "world"
+        },
+        {
+          "id": "427c7d96-138c-4c20-bce6-c278f7623952",
+          "title": "Iran steps up diplomacy as US mulls resumption of war, Al Jazeera reports",
+          "summary": "Al Jazeera reports that Iran has launched a diplomatic offensive, including contacts with Russia and the UAE, as the US mulls resumption of war amid Trump threats.",
+          "scope": "world"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-07",
+      "editionId": "0b73eb47-19cf-48e8-8190-f9500c140fa4",
+      "stories": [
+        {
+          "id": "8b846fc8-adc3-4430-bbaf-464914a1d674",
+          "title": "Qeshm island and Hormuz hit as mediators try to prevent US-Iran escalation",
+          "summary": "Al Jazeera reports that US strikes on Iran have continued after more ships in the Strait of Hormuz were attacked, with Qeshm island and Hormuz hit. Mediators are trying to prevent escalation between the US and Iran. Al Jazeera also reports the Qatari prime minister said the US is willing to seek a solution to the war with Iran.",
+          "scope": "world"
+        },
+        {
+          "id": "5fde8554-f9f5-4320-8c14-79d0fa1f5b88",
+          "title": "Kyiv hit by blackouts and water shortages after Russian strikes on energy grid",
+          "summary": "Moscow used 172 drones and 36 ballistic missiles in attacks on electricity substations and a bridge over the Dnipro, according to BBC World and The Guardian World. Volodymyr Zelenskyy accused Russia of trying to \"plunge Kyiv and the entire country into a blackout\". He said Moscow's preparations for peace talks next week involved pummelling a city of millions with ballistic missiles.",
+          "scope": "world"
+        },
+        {
+          "id": "aa82a469-861e-4099-8a37-47c91f84150c",
+          "title": "Trump names Stephen Miller White House chief of staff, replacing ousted Susie Wiles",
+          "summary": "Donald Trump announced on Truth Social that Stephen Miller, architect of his immigration crackdown, would replace Susie Wiles as White House chief of staff, confirming she had been ousted. The Guardian reports Democratic lawmakers called Miller a \"hatemonger\", a \"xenophobe\" and \"vile\", and says Republicans also criticised the move.",
+          "scope": "us"
+        },
+        {
+          "id": "43ce7305-0f30-42f8-ad38-d4a63bba0feb",
+          "title": "New Zealand PM Luxon says election is 'too close to call'",
+          "summary": "New Zealand prime minister Christopher Luxon says the election is too close to call, according to Al Jazeera and The Guardian World. He says he has a pathway to form the next government.",
+          "scope": "world"
+        },
+        {
+          "id": "93fe469d-7b38-4b74-b280-3b7d5c42d5f5",
+          "title": "Iraqi foreign minister says external parties are using Iraqi soil to attack neighbours",
+          "summary": "Iraq's foreign minister told Al Jazeera that Baghdad is investigating attacks on the Gulf launched from its territory. He said external parties are using Iraqi soil to attack neighbouring countries.",
+          "scope": "world"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-08",
+      "editionId": "f9af996b-f647-4994-836e-054964a93b74",
+      "stories": [
+        {
+          "id": "dc01e93e-d598-4baf-8ca1-96f5e8be4bc3",
+          "title": "Poland launches terrorism probe after attack kills six",
+          "summary": "Poland mourned six people killed in an attack, and authorities launched a 'terrorism' investigation. Government officials say the suspect was likely influenced by far-right ideology.",
+          "scope": "world"
+        },
+        {
+          "id": "6715f574-b746-4f43-98e0-990572a6eb2a",
+          "title": "Russian strikes on Ukraine cut power for about 850,000 people",
+          "summary": "About 850,000 people lost power after Russian attacks on energy infrastructure in Ukraine's Dnipropetrovsk and Kharkiv regions, according to Al Jazeera.",
+          "scope": "world"
+        },
+        {
+          "id": "4b870a29-cb9f-4a4b-b6a5-425122f7d460",
+          "title": "US military says it disabled St. Kitts-flagged cargo ship in Gulf of Oman",
+          "summary": "The US military says it fired on and disabled a St. Kitts-flagged cargo ship in the Gulf of Oman, according to Al Jazeera.",
+          "scope": "world"
+        },
+        {
+          "id": "07eec8f0-029c-44e3-be3c-7eaff8e5cd79",
+          "title": "Eisenkot has 28 days to form Israel's next government",
+          "summary": "Israel's president chose former army chief Eisenkot to form a government over incumbent Netanyahu, giving him 28 days to assemble a ruling coalition. Reporting questions whether he can do so amid a divided opposition.",
+          "scope": "world"
+        },
+        {
+          "id": "e913fb7b-912a-4930-80ab-41d2e24b53b9",
+          "title": "Democrats win midterms, regaining power and leverage over Trump",
+          "summary": "The Guardian reports that Democrats won a 'monumental return to power' in Tuesday's midterm elections, giving them new leverage over President Trump. The party's plans for the next two years focus on healthcare and tariffs, according to the headline.",
+          "scope": "us"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "editionId": "ab346e19-8800-49e9-a7f7-5c6a5207d1d6",
+      "stories": [
+        {
+          "id": "3dff3cc4-aa44-4b30-8922-dcfd7ce5d4d9",
+          "title": "UK court sentences comedian Russel Brand to 10.5 years for rape and sexual assault",
+          "summary": "A UK court handed comedian Russel Brand a 10.5-year prison sentence for rape and sexual assault, according to a breaking news report from Al Jazeera and The Guardian World.",
+          "scope": "world"
+        },
+        {
+          "id": "32269ccd-5670-4008-884d-60d70e34522f",
+          "title": "Iran stands by demands to end war as US ramps up military pressure",
+          "summary": "Iran maintains its demands to end the war as the US increases its military pressure, Al Jazeera reports. Talks aimed at preventing new major fighting between the US and Iran are ongoing.",
+          "scope": "world"
+        },
+        {
+          "id": "fcaaaa97-bd4a-4269-9878-60094f9316d9",
+          "title": "Russia, US and Ukraine prepare fourth round of 2026 peace talks in Abu Dhabi",
+          "summary": "A fourth round of peace talks in 2026 between Russia, the US and Ukraine takes place in Abu Dhabi this week, Al Jazeera and NPR World report. Security guarantees are high on the agenda.",
+          "scope": "world"
+        },
+        {
+          "id": "c75f4d09-0582-4d67-bed8-6284028622a2",
+          "title": "Paraguay raids ex-president Pena's home amid Ueno Bank collapse probe",
+          "summary": "Paraguayan authorities raided the home of former president Santiago Pena, who faces charges of financial crimes following the collapse of Ueno Bank, according to Al Jazeera and NPR World. The bank's collapse affects half of Paraguay's population.",
+          "scope": "world"
+        },
+        {
+          "id": "ef7a29c7-e4bb-423d-9fbb-30e8181caa4b",
+          "title": "Syria confirms sending troops to Saudi Arabia amid battle against Houthis",
+          "summary": "Syria confirmed sending troops to Saudi Arabia, Al Jazeera reports. Syrian officials deny reports that Damascus is sending troops to Yemen, while Syrian security integration appears under way.",
+          "scope": "world"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+      "stories": [
+        {
+          "id": "29c1283f-509b-403e-af16-8ffaf5fbac66",
+          "title": "Oil prices drop after Trump declares US war on Iran \"effectively over\"",
+          "summary": "The Guardian's First Thing newsletter reports that oil prices fell after Donald Trump declared the US war on Iran \"effectively over\" at a White House press conference. Trump said Israel and Gulf allies in the region were well protected from Iran. He said the US remained \"locked and loaded, ready to go for any reason\".",
+          "scope": "world"
+        },
+        {
+          "id": "8e76c495-f9e8-4e9e-8eaf-7233e85802ac",
+          "title": "US-mediated Russia-Ukraine talks begin in Abu Dhabi",
+          "summary": "A two-day, US-mediated session on ending the Russia-Ukraine war has begun in Abu Dhabi, the UAE capital. It is the first such meeting since February. The White House said before the discussions that the talks will focus on security guarantees.",
+          "scope": "world"
+        },
+        {
+          "id": "b00c2c34-aab2-49d3-abbc-62d368674dcd",
+          "title": "Israel's new parliament sworn in as rivals compete to form government",
+          "summary": "Israel's new parliament is to be sworn in as leaders compete to form a government. Gadi Eisenkot, described as Benjamin Netanyahu's main political rival, has the first chance to build a new government and oust the prime minister.",
+          "scope": "world"
+        },
+        {
+          "id": "9cbecc3c-e382-402e-8e71-379c595ce582",
+          "title": "Hegseth vows to defend \"warriors\" as Massie seeks his impeachment",
+          "summary": "US Secretary of Defense Pete Hegseth has criticised an attempt by Representative Thomas Massie to impeach him. Hegseth promised to defend \"warriors\", according to the headline.",
+          "scope": "us"
+        },
+        {
+          "id": "6af8f375-6ea8-467a-af5b-47b4f269382b",
+          "title": "Viktor Orb\u00e1n's brother detained in people-smuggling investigation",
+          "summary": "Hungarian authorities have detained a brother of Viktor Orb\u00e1n in a people-smuggling investigation, Prime Minister P\u00e9ter Magyar said, according to The Guardian. The national asset protection and recovery office said a joint operation with police led to four arrests and searches of homes in Budapest and Pest county.",
+          "scope": "world"
+        }
+      ]
+    }
+  ]
+}

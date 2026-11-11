@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 56: next while item 50 waits for lead/owner review. Follow [World/U.S. split plan](docs/us-news-topic-plan.md): offline Nov 4–10 scope/source evaluation, fifth-topic setup and one-topic-per-story curation, measured budgets, then three scheduled acceptance reviews. Received at end of iteration 1838; no runtime/cap changes yet.
+- [ ] STEERING 56: next while item 50 waits for lead/owner review. Follow [World/U.S. split plan](docs/us-news-topic-plan.md): offline Nov 4–10 scope/source evaluation, fifth-topic setup and one-topic-per-story curation, measured budgets, then three scheduled acceptance reviews. 1839: assessed all 28 saved stories (23 World/five U.S.), recorded exclusive manual labels and proposed source/topic setup; three proposed domestic RSS feeds parse successfully. No runtime/cap changes. Next: topic data, joint AI ownership and saved-cost reserve estimate. [Assessment](docs/edition-reviews/2026-11-11-world-us-scope.md).
 
 - [x] STEERING 54 complete (1824): Nov 11 scheduled NBA validates on Sonnet repair; five AI-edited stories/four brief bullets. Nov 10 replay and pre-cutoff deployment already verified. No new provider spend. [Daily review](docs/edition-reviews/2026-11-11.md).
 
