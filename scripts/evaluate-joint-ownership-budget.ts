@@ -7,6 +7,7 @@ import { parseEnv } from 'node:util';
 import { logger } from '../apps/api/src/libs/observability/logging';
 import { llmConfig } from '../apps/api/src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../apps/api/src/modules/curation/application/budgeted-llm';
+import { ShortlistEditor } from '../apps/api/src/modules/curation/application/editor';
 import {
   EventGrouping,
   type GroupingCandidate,
@@ -37,8 +38,13 @@ async function probe(
   name: string,
   candidates: GroupingCandidate[],
   inputScopes = scopes,
+  editorScope?: StoryScope,
 ) {
-  const reservations: { estimateMicros: number; inputByteBound: number }[] = [];
+  const reservations: {
+    model: string;
+    estimateMicros: number;
+    inputByteBound: number;
+  }[] = [];
   const unexpected = (): Promise<never> =>
     Promise.reject(
       new Error('Refused offline request attempted a ledger mutation'),
@@ -53,6 +59,7 @@ async function probe(
     {
       reserve: (request, estimate) => {
         reservations.push({
+          model: request.model.id,
           estimateMicros: estimate,
           inputByteBound:
             Buffer.byteLength(request.instructions + request.prompt, 'utf8') +
@@ -67,15 +74,25 @@ async function probe(
     },
     logger.child({}, { level: 'silent' }),
   );
-  assert.equal(
-    await new EventGrouping(llm, config.haiku).assignTopics(
-      inputScopes,
-      candidates,
-      name,
-    ),
-    null,
-  );
-  assert.ok(reservations.length <= 1, 'No repair or retry reservation');
+  const result = editorScope
+    ? await new ShortlistEditor(llm, config.sonnet, config.haiku).edit(
+        editorScope,
+        candidates.map((candidate) => ({
+          id: candidate.id,
+          title: candidate.title,
+          excerpt: candidate.excerpt ?? null,
+          sources: [candidate.outlet],
+        })),
+        5,
+        name,
+      )
+    : await new EventGrouping(llm, config.haiku).assignTopics(
+        inputScopes,
+        candidates,
+        name,
+      );
+  assert.equal(result, null);
+  assert.ok(reservations.length <= (editorScope ? 2 : 1));
   assert.equal(providerCalls, 0);
   console.log(
     JSON.stringify({ name, candidates: candidates.length, reservations }),
@@ -91,7 +108,7 @@ async function main() {
   ) as {
     windows: {
       date: string;
-      stories: { id: string; title: string; summary: string }[];
+      stories: { id: string; title: string; summary: string; scope: string }[];
     }[];
   };
   for (const window of fixture.windows) {
@@ -107,6 +124,56 @@ async function main() {
       })),
     );
     assert.equal(result.length, 1);
+    const baseline = await probe(
+      `${window.date} unsplit story editor`,
+      window.stories.map((story) => ({
+        id: story.id,
+        topicId: 'world',
+        title: story.title,
+        excerpt: story.summary,
+        outlet: 'Saved edition summary (offline proxy)',
+        publishedAt: window.date,
+      })),
+      scopes,
+      scopes[0],
+    );
+    let splitSonnetMicros = 0;
+    // Exclusive manual fixture labels are an offline size probe, not AI ownership.
+    for (const scope of scopes) {
+      const stories = window.stories.filter(
+        (story) => story.scope === scope.id,
+      );
+      if (!stories.length) continue;
+      const attempts = await probe(
+        `${window.date} ${scope.id} story editor`,
+        stories.map((story) => ({
+          id: story.id,
+          topicId: scope.id,
+          title: story.title,
+          excerpt: story.summary,
+          outlet: 'Saved edition summary (offline proxy)',
+          publishedAt: window.date,
+        })),
+        scopes,
+        scope,
+      );
+      splitSonnetMicros += attempts[0]?.estimateMicros ?? 0;
+      assert.equal(
+        attempts.length,
+        2,
+        'Sonnet refusal must try budgeted Haiku',
+      );
+      assert.equal(attempts[0].model, config.sonnet.id);
+      assert.equal(attempts[1].model, config.haiku.id);
+    }
+    console.log(
+      JSON.stringify({
+        date: window.date,
+        unsplitSonnetMicros: baseline[0].estimateMicros,
+        splitSonnetMicros,
+        marginalSonnetMicros: splitSonnetMicros - baseline[0].estimateMicros,
+      }),
+    );
   }
   const maximum = (character: string): GroupingCandidate[] =>
     Array.from({ length: 40 }, (_, i) => ({

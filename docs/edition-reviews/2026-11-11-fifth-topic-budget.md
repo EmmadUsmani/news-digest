@@ -102,3 +102,37 @@ five-topic proxy. Next prepare the actual combined shortlist/publication plan
 and measure its marginal request sizes without paid calls. Preserve the reserve
 policy, editorial repair guarantees and $0.65 ceiling; topic activation remains
 gated. No cap or runtime changes are justified by these measurements.
+
+## Exclusive story editor reservation probe — iteration 1844
+
+The joint-budget script now also invokes the production `ShortlistEditor`
+through the same refusing ledger. It compares one unsplit World shortlist
+with two exclusive shortlists using the fixture's manual scope labels. Each
+nonempty list attempts Sonnet, then budgeted Haiku after refusal; empty lists
+are skipped. Assertions enforce both attempts and zero provider calls.
+
+| Saved input | Unsplit Sonnet reservation | Split Sonnet reservations | Marginal reservation |
+| ----------- | -------------------------: | ------------------------: | -------------------: |
+| Nov 4       |                  $0.064220 |                 $0.064210 |           −$0.000010 |
+| Nov 5       |                  $0.065303 |                 $0.127933 |            $0.062630 |
+| Nov 6       |                  $0.068173 |                 $0.068173 |                   $0 |
+| Nov 7       |                  $0.068708 |                 $0.131338 |            $0.062630 |
+| Nov 8       |                  $0.067233 |                 $0.129863 |            $0.062630 |
+| Nov 9       |                  $0.067533 |                 $0.067533 |                   $0 |
+| Nov 10      |                  $0.068203 |                 $0.130833 |            $0.062630 |
+
+For the four windows with both scopes represented, splitting the same saved
+inputs adds $0.062630 of initial Sonnet reservation. Input content is conserved;
+the extra prompt and full 4,000-token output allowance dominate. Nov 4's tiny
+reduction comes from the shorter U.S. scope metadata. No saving is claimed for
+empty scopes: the requested full U.S. source pool is absent from this fixture.
+Haiku fallback reservations range from $0.003178 to $0.003409 per nonempty
+split list; these are sequential refusal alternatives, not charged calls.
+
+This is a real request-construction measurement on saved-summary proxies,
+not actual editorial charges, raw article shortlists, or combined publication
+admission. Repairs, triage, social editing and additional domestic candidates
+remain unmeasured here. A split retains separate topic briefs and story
+budgets; combining them into one current editor request would impose one shared
+five-story budget and cannot establish comparable depth for both topics.
+The fifth-topic activation gate remains open; caps and production are unchanged.

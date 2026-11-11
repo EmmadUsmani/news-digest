@@ -134,3 +134,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, read-only evaluator, filtered handbook check and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing bundle-size warning only.
 - Source check: 36 healthy/zero unhealthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.
 - Next: cost actual combined shortlist/publication marginal requests without paid calls; publication integration/topic data remain gated on admission.
+
+## 2026-11-11: iteration 1844 — exclusive story editor reservation costs
+
+- Clean main; no inherited work. Initial alerts zero; healthz/database/Redis healthy. Item 50 remains stopped under 55; continued 56 without provider calls or runtime/cap changes.
+- Extended offline joint-budget evaluator through production ShortlistEditor/BudgetedLlm request construction, with a refusing in-memory ledger and prohibited provider. Compares unsplit saved World inputs to exclusive manual World/U.S. labels.
+- Both-scope windows add $0.062630 initial Sonnet reservation; split lists reserve $0.063548–$0.068173 each. Haiku refusal alternatives reserve $0.003178–$0.003409; assertions enforce model order and zero provider calls.
+- Recorded seven-window figures and limits in fifth-topic budget review/TASKS. Saved summaries are size proxies; repairs, raw triage/social work and new domestic candidates remain unmeasured. No combined publication admission or semantic ownership claim; activation stays gated.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, offline probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing build warnings only.
+- `pnpm obs sources --check`: all 36 healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.
+- Next: cost raw candidate triage/social work and repair admission, then publication integration/unavailable policy and topic/source data within the approved ceiling.
