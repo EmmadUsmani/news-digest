@@ -130,3 +130,13 @@
 - Updated TASKS/readiness/tool review. Production telemetry/public flags remain off; no runtime/generation changes, deployment or restart during the 13:00–16:00 hold.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips) and `pnpm build` pass; explicit live stored-session check, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass.
 - Next: Nov 11 15:00 UTC NBA acceptance review; installed-browser/live-session composition and remaining Phase 4 gates. Review-only changes require no restart; `git diff --check` clean, commit/push follow.
+
+## 2026-11-11: iteration 1817 — browser session-cookie/live export boundary
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; source/job checks pass, next edition 15:00 UTC. No provider calls.
+- Extended `check-live-stored-telemetry.ts --live` with Chromium on a disposable localhost page and the real HTTP-issued session seeded as Secure/HttpOnly/Lax. JavaScript sees no cookie; fresh admin receives one bounded live export (three live reads overall).
+- Stored session aging, real logout with the browser cookie retained, and subsequent cookie removal all refuse browser fetches without relay/upstream work. Disposable Postgres/Redis only; bodies remain in memory, no operational screenshots.
+- Initial Playwright cookie seeding by HTTP URL was rejected; explicit localhost domain/path with Secure succeeds. This verifies cookie transport, not browser login or installed native UI/live-session composition, which remain open.
+- Updated TASKS/readiness/tool review. No runtime or generation changes; production flags remain off and no restart/deploy during the 13:00–16:00 UTC hold.
+- Verification: explicit live stored-session/browser check, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts), and `pnpm build` pass. `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass (836 unit/283 integration passes, four expected skips); initial full check caught lint-fix formatting drift, corrected with targeted Prettier before successful retry.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then installed-native-UI/live stored-session composition and remaining Phase 4 gates. `git diff --check` clean; commit/push follow.

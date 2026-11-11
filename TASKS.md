@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1817: Chromium sends a real stored admin session in a Secure/HttpOnly cookie to bounded live export; fresh read passes, aged/logout/anonymous browser reads refuse without upstream work. Disposable storage only; installed native UI/session/live composition remains open.
+
 - [x] Iteration 1816: real stored-session/live bounded export composition passes with disposable Postgres/Redis and real HTTP code login. Fresh/restored admins get two live `up` reads; anonymous, reader, aged, logged-out and invalid requests cause no upstream work. Production flags off; installed-browser/live-session composition remains open.
 
 - [x] Iteration 1815: installed metrics Raw Query renders one bounded live `up` export through the prepared handler; one-minute window, 64 KiB/32-series caps and browser label rendering pass. Simulated actors and invalid requests refused without export upstream work; production export/public admission off. Stored-session/live composition remains open.

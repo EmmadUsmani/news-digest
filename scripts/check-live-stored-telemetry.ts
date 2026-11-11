@@ -8,6 +8,7 @@ import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+import { type Browser, chromium } from 'playwright';
 import {
   GenericContainer,
   type StartedTestContainer,
@@ -33,6 +34,7 @@ async function main() {
   let accounts: ReturnType<typeof prepareStoredAccountHttp> | undefined;
   let db: ReturnType<typeof database> | undefined;
   let identities: PostgresReaderIdentityRepository | undefined;
+  let browser: Browser | undefined;
   let forwarded = 0;
   let upstreamFailure = false;
   // Recording relay permits only the handler's exact bounded live export.
@@ -85,6 +87,15 @@ async function main() {
     });
   });
   const server = createServer((req, res) => {
+    if (req.url === '/browser-rehearsal') {
+      res
+        .writeHead(200, {
+          'content-type': 'text/html',
+          'cache-control': 'no-store',
+        })
+        .end('<!doctype html><title>Disposable session rehearsal</title>');
+      return;
+    }
     accounts!.middleware!(req, res, () => {
       void exportHandler!(req, res, () => res.writeHead(404).end());
     });
@@ -243,14 +254,79 @@ async function main() {
     await check(admin, true);
     await check(admin, false, '&timeout=10s');
     await check(admin, false, '', 'POST');
+    // Chromium treats loopback localhost as trustworthy for Secure cookies.
+    // Seed the real HTTP-issued session; never expose it to page JavaScript.
+    browser = await chromium.launch({ headless: true });
+    const browserBase = base.replace('127.0.0.1', 'localhost');
+    const context = await browser.newContext({ serviceWorkers: 'block' });
+    const separator = admin.indexOf('=');
+    await context.addCookies([
+      {
+        name: admin.slice(0, separator),
+        value: admin.slice(separator + 1),
+        domain: 'localhost',
+        path: '/',
+        secure: true,
+        httpOnly: true,
+        sameSite: 'Lax',
+      },
+    ]);
+    const page = await context.newPage();
+    await page.goto(browserBase + '/browser-rehearsal');
+    assert.equal(await page.evaluate(() => document.cookie), '');
+    const browserCheck = async (allowed: boolean) => {
+      const end = Math.floor(Date.now() / 1000);
+      const before = forwarded;
+      const result = await page.evaluate(
+        async (path) => {
+          const response = await fetch(path, {
+            signal: AbortSignal.timeout(10000),
+          });
+          const body = await response.text();
+          return {
+            status: response.status,
+            cache: response.headers.get('cache-control'),
+            cookie: response.headers.get('set-cookie'),
+            bytes: new TextEncoder().encode(body).byteLength,
+            rows: body.trim() ? body.trim().split('\n').length : 0,
+          };
+        },
+        `${telemetryExportPath}?match[]=up&start=${end - 60}&end=${end}`,
+      );
+      assert.equal(result.status, allowed ? 200 : 404);
+      assert.equal(result.cache, 'no-store');
+      assert.equal(result.cookie, null);
+      assert.ok(result.bytes <= 65536);
+      assert.ok(
+        allowed ? result.rows > 0 && result.rows <= 32 : result.bytes === 0,
+      );
+      assert.equal(forwarded, before + (allowed ? 1 : 0));
+    };
+    await browserCheck(true);
+    await db.query(
+      "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
+      [session.rows[0].id],
+    );
+    await browserCheck(false);
+    await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+      session.rows[0].created_at,
+      session.rows[0].id,
+    ]);
     assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
+    // Keep the browser cookie: storage revocation must reject it without relay work.
+    await browserCheck(false);
+    assert.equal((await context.cookies()).length, 1);
+    await context.clearCookies();
+    await browserCheck(false);
+    await context.close();
     await check(admin, false);
     assert.equal(upstreamFailure, false);
-    assert.equal(forwarded, 2);
+    assert.equal(forwarded, 3);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Two bounded live reads; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Three bounded live reads, including a Chromium HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
+    await browser?.close();
     server.closeAllConnections();
     relay.closeAllConnections();
     await Promise.all([

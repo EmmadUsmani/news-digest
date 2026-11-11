@@ -1231,3 +1231,18 @@ policy. A synthetic relay cookie correctly caused the prepared handler to reject
 the response; it was removed from the valid-response path. Production flags and
 middleware mounting are unchanged. Installed-browser/live-session composition
 and the other live telemetry routes remain open.
+
+### Browser cookie/live export composition (iteration 1817)
+
+The same explicit stored-session script now uses Chromium on a disposable
+localhost page. It seeds the real HTTP-issued session as a Secure, HttpOnly,
+SameSite=Lax cookie; page JavaScript cannot read it. A browser fetch receives one
+bounded live export, bringing the rehearsal to three live upstream reads.
+Aging the stored admin session refuses the next fetch without relay work.
+Real logout also refuses the next fetch while the browser retains its cookie;
+clearing that cookie remains refused. Responses are no-store and bounded to
+64 KiB/32 rows; operational bodies stay in memory. No screenshots contain data.
+
+This checks browser cookie transport, not browser login or the installed native
+UI with live stored sessions. Production flags remain off. No service restart
+or deployment is needed for this verification-only change during the hold.
