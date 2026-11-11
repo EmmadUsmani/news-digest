@@ -143,4 +143,5 @@
 - Updated response review, readiness and TASKS. Generated browser screenshots were deliberately restored: fixture navigation/UI unchanged.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, proxy-assets Chromium review, live export probe, check-handbook.ts observability, 32 deployed account checks and saved Nov 10 reader check (four topics/19 stories/15 posts) pass.
 - Full pnpm check passes: 833 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build and handbook checks pass; git diff --check clean.
+- Pushed 537a93d6; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account checks and saved Nov 10 reader checks pass; no failed user services.
 - Next: enforced export bounds, full browser/session composition, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.
