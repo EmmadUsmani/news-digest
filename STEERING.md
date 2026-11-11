@@ -21,10 +21,13 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
    Migration 0019 is live; phase 4 is in progress. Item 55 limits re-verification
    and says to stop at the phase 4 summary.
-3. X search and Bluesky: acceptance reviews continue in the daily edition
+3. Split World into World and U.S. news & politics (item 56). Starts only
+   when item 50 is finished or waiting on the owner; item 50 always comes
+   first when it can move.
+4. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
-4. Nov 6 edition review: World stories, cost (item 36).
-5. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
+5. Nov 6 edition review: World stories, cost (item 36).
+6. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
@@ -925,6 +928,7 @@ the NBA posts were betting promotions, World got roundups, and the best had
 - **Model:** the owner has no attachment to Grok 4.3. Pick the cheapest
   model that passes the plan's decision rule.
 - **Production stays $0.40/day and $12/month.**
+- **Superseded 2026-11-11:** caps are now $0.50/day and $15/month (item 56).
 - **Replace, don't add:** delete the old follow-up and optional-slot
   machinery once the new schedule ships. No new prompt wording rules.
 - **Acks:** one after the experiment decision (with its numbers), and one
@@ -2568,3 +2572,31 @@ verify-only commits since this item, which should be none.
 **Limits:** no new spend. Deploy outside 13:00–16:00 UTC. Protect the edition.
 
 ack: 2026-11-11 item 55 (1837): Phase 4 security-review handoff added to docs/public-access-plan.md: public pages/projections, reader/fresh-admin access, flags and pending Grafana capacity gate. No unbuilt reader page identified; stopping item 50 for lead review/owner decision, flags unchanged. Verify-only commits after receipt: none. bef43855 was authored before fetching item 55 when push was rejected; merged upstream without rewriting history. No new verification run after reading item 55.
+
+## 56. NEXT: split World into World and U.S. news & politics (2026-11-11)
+
+**Why:** the owner wants two politics topics: World (global, including US
+foreign policy) and U.S. (what mainly plays out inside the US). The design is in
+[`docs/us-news-topic-plan.md`](docs/us-news-topic-plan.md). Read it before
+starting.
+
+- **Priority:** after item 50. Don't take time away from public access. Start
+  only when item 50 is finished, or waiting on the owner (for example at
+  item 55's phase 4 stop). Go back to item 50 as soon as it can move.
+  Breakages and the morning edition still come first.
+- **What to do:** follow the plan's order of work. Keep the existing World
+  topic and its ID; add U.S. as a new topic, visible to everyone by default.
+- **Budgets, owner-approved:** X production caps rise to **$0.50/day and
+  $15/month**. `LLM_DAILY_MAX_USD` may rise to at most **$0.65**, only if a
+  measurement shows the fifth topic needs it. Report the figures.
+- **While waiting** for scheduled editions: go back to item 50, or item 38's
+  list.
+- **Don't:** hand-written word lists or keyword rules for which topic a story
+  goes to; paid test runs; new paid services; changes to how the other three
+  topics work; deploys between 13:00 and 16:00 UTC.
+- **Done when** the plan's done criteria hold for three scheduled editions in a
+  row.
+- **Acks:** one when the topic is live (sources chosen, offline split result on
+  Nov 4–10 World editions, caps set, measured edition cost), and one after the
+  three-edition review, with per-topic story counts, any repeated or misplaced
+  story, and spending against the caps.

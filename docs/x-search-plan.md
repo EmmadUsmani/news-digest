@@ -78,7 +78,7 @@ labelled as unverified hints. Bluesky is unchanged.
 
 ### Budget
 
-- **Production stays $0.40/day and $12/month.** A call costs about $0.013 plus
+- **Production stays $0.50/day and $15/month** (raised 2026-11-11, STEERING item 56). A call costs about $0.013 plus
   $0.005 per post. The one successful call on Nov 5 fetched 10 posts for $0.066,
   so four topics are about $0.26.
 - **Check the plumbing fits:** all four calls must pass admission under the cap
