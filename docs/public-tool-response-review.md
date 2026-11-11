@@ -530,3 +530,20 @@ compose configuration uses host `trust`; a scoped password-authentication rule
 must precede live credential installation. Do not change authentication for
 existing app/observability roles. Live installation, exact proxy/browser checks
 and private rollback remain open; public mode stays off.
+
+## Scoped explorer authentication rehearsal (iteration 1773)
+
+Prepared `ops/schema-explorer/prepared/catalog-reader.pg_hba.conf` requires
+SCRAM for the catalog role over IPv4 and IPv6 before broader trust rules.
+Role scoping accommodates Docker NAT without changing other roles' rules.
+The disposable PostgreSQL rehearsal starts from host trust, prepends the
+fragment, reloads, checks the parsed rules and passes the credential preflight.
+A fresh unrelated owner login retains its original trust behavior; restoring
+the original file (preserving ownership and mode) and reloading makes the
+preflight refuse trust again.
+No live authentication file, credential, grant or public flag changed.
+Live installation must preserve a private copy of the original file with its
+PostgreSQL ownership and mode intact, validate
+`pg_hba_file_rules`, run the credential preflight and check existing service
+connections before configuring the explorer. Exact proxy/browser rollback
+remains open.

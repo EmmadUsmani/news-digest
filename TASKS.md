@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1772: read-only explorer credential deployment preflight verifies real/wrong-password login, session defaults and unsafe grants; SCRAM pass, accidental row grant and host-trust refusals rehearsed. Next: scoped live password-authentication rule before credential installation, then exact proxy/browser/private rollback.
+- [x] Iteration 1773: prepared role-scoped IPv4/IPv6 SCRAM authentication fragment; disposable trust-to-SCRAM-to-trust rehearsal verifies catalog credential preflight, parsed rules and unchanged unrelated-role access. Next: install live authentication/credentials, then exact proxy/browser/private rollback.
 
 - [x] Iteration 1755: completed bounded post-reset NBA Sonnet continuation; one Sonnet repair and one Haiku repair validated, with supported-paraphrase guard rejection confirmed and cost settled.
 

@@ -272,6 +272,23 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
       await revoked.end();
     }
     await owner.query('ALTER ROLE schema_catalog_reader LOGIN');
+    // Reload signals are asynchronous; observe fresh authentication, not elapsed time.
+    const waitForAuthentication = async (scram: boolean) => {
+      for (let attempt = 0; ; attempt++) {
+        try {
+          if (scram) await verifyCatalogCredentials(candidate);
+          else
+            await assert.rejects(
+              verifyCatalogCredentials(candidate),
+              /Wrong-password connection/,
+            );
+          return;
+        } catch (error) {
+          if (attempt >= 39) throw error;
+          await new Promise((resolve) => setTimeout(resolve, 50));
+        }
+      }
+    };
     const changed = await container.exec([
       'sh',
       '-c',
@@ -279,10 +296,56 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
     ]);
     assert.equal(changed.exitCode, 0);
     await owner.query('SELECT pg_reload_conf()');
-    await assert.rejects(
-      verifyCatalogCredentials(candidate),
-      /Wrong-password connection/,
+    await waitForAuthentication(false);
+    // Rehearse the live trust-based setup: prepend only the catalog role rule.
+    const rules = readFileSync(
+      'ops/schema-explorer/prepared/catalog-reader.pg_hba.conf',
+      'utf8',
     );
+    const scoped = await container.exec([
+      'sh',
+      '-c',
+      'cp -p /var/lib/postgresql/data/pg_hba.conf /tmp/original-hba && { printf "%s\\n" "$1"; cat /tmp/original-hba; } > /var/lib/postgresql/data/pg_hba.conf',
+      'catalog-hba',
+      rules,
+    ]);
+    assert.equal(scoped.exitCode, 0);
+    await owner.query('SELECT pg_reload_conf()');
+    await waitForAuthentication(true);
+    const hbaErrors = await owner.query(
+      'SELECT error FROM pg_hba_file_rules WHERE error IS NOT NULL',
+    );
+    assert.equal(hbaErrors.rowCount, 0);
+    const unchangedOwner = new Pool({
+      ...connection,
+      user: 'postgres',
+      password: 'deliberately-wrong',
+    });
+    try {
+      assert.equal(
+        (await unchangedOwner.query('SELECT current_user')).rows[0]
+          .current_user,
+        'postgres',
+      );
+    } finally {
+      await unchangedOwner.end();
+    }
+    const restored = await container.exec([
+      'sh',
+      '-c',
+      'cp -p /tmp/original-hba /var/lib/postgresql/data/pg_hba.conf',
+    ]);
+    assert.equal(restored.exitCode, 0);
+    await owner.query('SELECT pg_reload_conf()');
+    assert.equal(
+      (
+        await owner.query(
+          'SELECT error FROM pg_hba_file_rules WHERE error IS NOT NULL',
+        )
+      ).rowCount,
+      0,
+    );
+    await waitForAuthentication(false);
   } finally {
     server.closeAllConnections();
     if (server.listening)

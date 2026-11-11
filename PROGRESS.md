@@ -119,3 +119,12 @@
 - Extended disposable SCRAM rehearsal: valid candidate passes, accidental users-table grant fails, then host trust fails despite the stored SCRAM verifier. Targeted test passes. Current compose host trust requires a scoped password-authentication rule before live installation; existing app/observability roles must retain access.
 - `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
 - Next: scoped explorer password-authentication rule, credential installation and exact proxy/browser/private rollback; Grafana paired scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1773 — rehearse scoped explorer authentication rollback
+
+- Clean main; no inherited work. Zero active alerts, all 14 services active, sources healthy and no failed scheduled digest; `/healthz` passes.
+- Prepared IPv4/IPv6 catalog-role-only SCRAM fragment ahead of existing trust rules. Disposable database verifies trust rejection, scoped password enforcement, parsed rules, unrelated-role access and restored trust rejection. No live authentication, credentials, grants or public flags changed; no provider calls.
+- First integration run caught rollback copy changing file ownership: PostgreSQL refused to reload it. Fixed with ownership/mode-preserving copies and parsed-rule validation; bounded fresh-login checks observe asynchronous reload completion. Corrected focused rehearsal passes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` pass. Account boundary passes 32 checks; saved Nov 10 reader returns four topics/19 stories/15 posts.
+- Schema service restarted active; `/healthz` passes and anonymous `/db/` returns 404.
+- Next: install scoped live authentication and explorer credentials, then exact proxy/browser/private rollback; Grafana scheduled-load/compaction capacity and Nov 11 15:00 NBA acceptance remain open.
