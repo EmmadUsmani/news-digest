@@ -88,6 +88,7 @@ anything unpushed. So does deleting the clone.
 | Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                 |
 | Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short |
 | Owner's mailbox command crashed: the agent never ran it     | Lead runs every owner command before passing it on        |
+| A cost gate in a plan that live editions already failed     | Test a new gate against today's data before steering it   |
 
 ## Diagnosing
 
