@@ -193,3 +193,4 @@
 - Updated affected handbook, response review, readiness and TASKS. pnpm build and check-handbook.ts observability pass; pnpm format and pnpm lint:fix pass.
 - Next: deadline-expiry acceptance, authenticated export composition and browser acceptance before admission; Grafana capacity evidence and Nov 11 15:00 UTC NBA review remain open.
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. git diff --check clean.
+- Pushed 93129cdd; restarted news-digest-api.service. Post-restart healthz, 32 deployed account boundaries and saved Nov 10 reader checks pass; no failed user services.
