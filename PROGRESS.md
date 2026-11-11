@@ -200,3 +200,13 @@
 - Initial browser run exposed automatic POST queries, so the review now explicitly refuses them locally. Second run exposed same-document navigation returning null; independent document loads fix the check. Final live rerun passes; no operational bodies printed.
 - Updated TASKS and tool-response review. Nov 11 15:00 UTC NBA acceptance remains due.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass. `git diff --check` clean; API restart and health recheck follow commit.
+
+## 2026-11-11: iteration 1812 — live installed logs navigation
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; all 36 sources healthy and digest queue has zero failed runs. No provider calls.
+- Extended explicit `check-live-admin-telemetry.ts --live`: installed logs Query/Overview mount through the prepared proxy with real assets and build/tenant metadata, no uncaught errors/CSP violations, no-store and no upstream cookies.
+- Automatic query/hits requests are observed and refused locally with synthetic HTTP 403 before proxying. Anonymous/reader/stale-admin document refusals now cover both tools with zero upstream work. Principals remain simulated; live stored-session composition remains open.
+- First run caught logs root hash normalization; root Query now requires its Execute button instead of an empty hash. Corrected live reruns pass. Public mode and production telemetry admission remain off.
+- Updated TASKS/readiness/response review. Nov 11 15:00 UTC NBA acceptance remains due; no generation edits.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass.
+- `git diff --check` clean; API restart and health recheck follow commit before the 13:00 UTC freeze.

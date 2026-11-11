@@ -1154,3 +1154,14 @@ reads still run. Simulated anonymous, reader and stale-admin document requests
 are refused before upstream work. Stored-session composition remains covered
 separately; broader live query controls and production admission remain open.
 Public mode stays off.
+
+### Live installed logs navigation (iteration 1812)
+
+The same explicit live check now mounts installed logs Query and Overview through
+the prepared proxy with real assets and build/tenant metadata. Both screens pass
+uncaught-error and CSP checks; metadata responses have no-store and no upstream
+cookies. Automatic query and hits requests are observed and refused locally with
+synthetic HTTP 403 responses before proxying. Anonymous, reader and stale-admin
+document requests cause no upstream work for both tools. Principals remain
+simulated; live stored-session composition, data controls and production
+admission remain open. Public mode stays off.

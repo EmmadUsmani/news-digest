@@ -149,6 +149,7 @@ async function main() {
       const page = await context.newPage();
       const errors: string[] = [];
       const metadata = new Set<string>();
+      const refusedQueries = new Set<string>();
       page.on('pageerror', (error) => errors.push(error.name));
       await page.addInitScript(() => {
         Object.assign(window, { policyViolations: [] });
@@ -168,6 +169,7 @@ async function main() {
           url.pathname.includes('/api/v1/') ||
           url.pathname.includes('/logsql/')
         ) {
+          refusedQueries.add(url.pathname);
           await route.fulfill({ status: 403, body: '' });
           return;
         }
@@ -176,18 +178,37 @@ async function main() {
         assert.equal(response.status(), 200);
         assert.equal(response.headers()['cache-control'], 'no-store');
         assert.equal(response.headers()['set-cookie'], undefined);
-        if (url.pathname.startsWith('/metrics/prometheus/vmui/'))
+        if (
+          url.pathname.startsWith('/metrics/prometheus/vmui/') ||
+          ['/logs/select/buildinfo', '/logs/select/tenant_ids'].includes(
+            url.pathname,
+          )
+        )
           metadata.add(url.pathname);
         await route.fulfill({ response });
       });
-      for (const screen of ['dashboards', 'query-analyzer']) {
+      for (const [document, screen] of [
+        ['/metrics/vmui/', '/dashboards'],
+        ['/metrics/vmui/', '/query-analyzer'],
+        ['/logs/select/vmui/', ''],
+        ['/logs/select/vmui/', '/overview'],
+      ]) {
         await page.goto('about:blank');
-        const response = await page.goto(base + '/metrics/vmui/#/' + screen, {
-          waitUntil: 'networkidle',
-        });
+        const response = await page.goto(
+          base + document + (screen ? '#' + screen : ''),
+          {
+            waitUntil: 'networkidle',
+          },
+        );
         assert.equal(response!.status(), 200);
         assert.ok(await page.locator('button').count());
-        assert.equal(new URL(page.url()).hash.split('?')[0], '#/' + screen);
+        if (screen)
+          assert.equal(new URL(page.url()).hash.split('?')[0], '#' + screen);
+        else
+          await page
+            .getByRole('button', { name: /execute( query)?/i })
+            .first()
+            .waitFor();
         assert.deepEqual(errors, []);
         assert.deepEqual(
           await page.evaluate(
@@ -200,20 +221,26 @@ async function main() {
       }
       assert.ok(metadata.has('/metrics/prometheus/vmui/config.json'));
       assert.ok(metadata.has('/metrics/prometheus/vmui/custom-dashboards'));
+      assert.ok(refusedQueries.has('/logs/select/logsql/query'));
+      assert.ok(refusedQueries.has('/logs/select/logsql/hits'));
+      assert.ok(metadata.has('/logs/select/buildinfo'));
+      assert.ok(metadata.has('/logs/select/tenant_ids'));
       // Same live documents are refused before upstream work for every other actor.
       for (const principal of ['anonymous', 'reader', 'stale-admin'] as const) {
         actor = principal;
-        const before = forwarded;
-        const response = await fetch(base + '/metrics/vmui/');
-        assert.equal(response.status, 404);
-        assert.equal(await response.text(), '');
-        assert.equal(forwarded, before);
+        for (const document of ['/metrics/vmui/', '/logs/select/vmui/']) {
+          const before = forwarded;
+          const response = await fetch(base + document);
+          assert.equal(response.status, 404);
+          assert.equal(await response.text(), '');
+          assert.equal(forwarded, before);
+        }
       }
     } finally {
       await browser.close();
     }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed Dashboards/Query Analyzer live asset/metadata navigation and CSP checks pass without data queries; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass without data queries; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();
