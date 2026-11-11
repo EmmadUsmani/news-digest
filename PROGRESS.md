@@ -191,3 +191,12 @@
 - Inspected both new logout screenshots; retained them and discarded unrelated regenerated captures. Updated TASKS/readiness/response review. Public mode and production telemetry admission remain off.
 - Verification: pnpm format, pnpm lint:fix, captured-assets pnpm check (836 unit/283 integration passes, four expected skips), pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
 - git diff --check clean; API restart/health verified before commit. Nov 11 15:00 UTC NBA acceptance review remains due; remaining telemetry controls/live navigation remain open.
+
+## 2026-11-11: iteration 1811 — live installed metrics navigation
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units. No provider calls or generation changes; public mode and production telemetry admission remain off.
+- Extended explicit `check-live-admin-telemetry.ts --live`: installed Dashboards/Query Analyzer mount through the prepared proxy using real assets/metadata, with no uncaught errors/CSP violations, no-store and no upstream cookies. Automatic data queries receive local synthetic 403 responses before proxying; live chart acceptance remains open.
+- Existing bounded live instant/range metrics and one recent log row pass; simulated anonymous/reader/stale-admin document refusal causes zero upstream work. Real stored-session/live-upstream composition remains open; this step does not claim it.
+- Initial browser run exposed automatic POST queries, so the review now explicitly refuses them locally. Second run exposed same-document navigation returning null; independent document loads fix the check. Final live rerun passes; no operational bodies printed.
+- Updated TASKS and tool-response review. Nov 11 15:00 UTC NBA acceptance remains due.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass. `git diff --check` clean; API restart and health recheck follow commit.

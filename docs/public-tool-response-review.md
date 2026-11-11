@@ -1140,3 +1140,17 @@ synthetic responses. The deleted session is restored directly in the disposable
 test database only to preserve the surrounding actor matrix; production logout
 never restores it. Production admission and public mode remain off; remaining
 controls and live navigation remain open.
+
+### Live installed metrics navigation (iteration 1811)
+
+`pnpm exec tsx scripts/check-live-admin-telemetry.ts --live` now mounts the
+installed Dashboards and Query Analyzer through the prepared proxy with real
+loopback assets and metadata. Both screens mount without uncaught errors or CSP
+violations; configuration and custom-dashboard metadata are observed, with
+no-store and no upstream cookies. Automatic data queries are refused locally
+with synthetic HTTP 403 responses before proxying, so this is live asset/metadata
+acceptance, not live chart acceptance. Existing explicit bounded live metric/log
+reads still run. Simulated anonymous, reader and stale-admin document requests
+are refused before upstream work. Stored-session composition remains covered
+separately; broader live query controls and production admission remain open.
+Public mode stays off.

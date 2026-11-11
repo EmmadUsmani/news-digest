@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
 
+import { chromium } from 'playwright';
+
 import {
   proxyInternalTools,
   selectInternalTools,
@@ -138,15 +140,95 @@ async function main() {
       assert.equal((await fetch(base + path, { method })).status, 404);
       assert.equal(forwarded, before);
     }
+    // Installed screens, real assets and metadata through the prepared proxy.
+    // Keep this live check read-only and bounded: no automatic data queries.
+    actor = 'admin';
+    const browser = await chromium.launch({ headless: true });
+    try {
+      const context = await browser.newContext({ serviceWorkers: 'block' });
+      const page = await context.newPage();
+      const errors: string[] = [];
+      const metadata = new Set<string>();
+      page.on('pageerror', (error) => errors.push(error.name));
+      await page.addInitScript(() => {
+        Object.assign(window, { policyViolations: [] });
+        document.addEventListener('securitypolicyviolation', (event) => {
+          (
+            window as unknown as { policyViolations: string[] }
+          ).policyViolations.push(event.effectiveDirective);
+        });
+      });
+      await context.route('**/*', async (route) => {
+        const request = route.request();
+        const url = new URL(request.url());
+        assert.equal(url.origin, base);
+        // Refuse automatic data queries locally; this review covers real
+        // assets/metadata only, never an unbounded dashboard query.
+        if (
+          url.pathname.includes('/api/v1/') ||
+          url.pathname.includes('/logsql/')
+        ) {
+          await route.fulfill({ status: 403, body: '' });
+          return;
+        }
+        assert.equal(request.method(), 'GET');
+        const response = await route.fetch({ timeout: 10000 });
+        assert.equal(response.status(), 200);
+        assert.equal(response.headers()['cache-control'], 'no-store');
+        assert.equal(response.headers()['set-cookie'], undefined);
+        if (url.pathname.startsWith('/metrics/prometheus/vmui/'))
+          metadata.add(url.pathname);
+        await route.fulfill({ response });
+      });
+      for (const screen of ['dashboards', 'query-analyzer']) {
+        await page.goto('about:blank');
+        const response = await page.goto(base + '/metrics/vmui/#/' + screen, {
+          waitUntil: 'networkidle',
+        });
+        assert.equal(response!.status(), 200);
+        assert.ok(await page.locator('button').count());
+        assert.equal(new URL(page.url()).hash.split('?')[0], '#/' + screen);
+        assert.deepEqual(errors, []);
+        assert.deepEqual(
+          await page.evaluate(
+            () =>
+              (window as unknown as { policyViolations: string[] })
+                .policyViolations,
+          ),
+          [],
+        );
+      }
+      assert.ok(metadata.has('/metrics/prometheus/vmui/config.json'));
+      assert.ok(metadata.has('/metrics/prometheus/vmui/custom-dashboards'));
+      // Same live documents are refused before upstream work for every other actor.
+      for (const principal of ['anonymous', 'reader', 'stale-admin'] as const) {
+        actor = principal;
+        const before = forwarded;
+        const response = await fetch(base + '/metrics/vmui/');
+        assert.equal(response.status, 404);
+        assert.equal(await response.text(), '');
+        assert.equal(forwarded, before);
+      }
+    } finally {
+      await browser.close();
+    }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. No log content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed Dashboards/Query Analyzer live asset/metadata navigation and CSP checks pass without data queries; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();
     await new Promise<void>((done) => server.close(() => done()));
   }
 }
-main().catch(() => {
+main().catch((error: unknown) => {
+  if (error instanceof Error)
+    console.error(
+      error.stack
+        ?.split('\n')
+        .filter((line) => line.trim().startsWith('at '))
+        .slice(0, 2)
+        .join('\n'),
+    );
   // Avoid printing assertion payloads containing operational log data.
   console.error(
     'Live admin telemetry check failed; operational response bodies withheld.',
