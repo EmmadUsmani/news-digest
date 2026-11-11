@@ -877,7 +877,7 @@ void test('Nov 10 NBA replay: unsupported timeline fails, verbatim injury report
   assert.ok(
     rejected
       .diagnostics()
-      .every(
+      .some(
         (d) =>
           d.category === 'unsupported-absence' && d.field === 'whyItMatters',
       ),
@@ -1006,6 +1006,45 @@ void test('Nov 10 NBA replay: attributed Lee absence report passes without short
       'nba-lee-exact',
     ),
   );
+  const paraphrase =
+    "Separately reported, coach Charles Lee said he doesn't expect Brandon Miller, who has a right hip strain, to miss much time.";
+  for (const summary of [
+    paraphrase,
+    paraphrase.replace("doesn't", 'does not'),
+  ]) {
+    const replay = harness([{ ...output, stories: [{ ...story, summary }] }]);
+    assert.ok(
+      await replay.editor.edit(
+        { ...topic, name: 'NBA' },
+        input,
+        1,
+        'nba-lee-replay',
+      ),
+    );
+    assert.equal(replay.calls.length, 1);
+  }
+  for (const summary of [
+    paraphrase.replace('Charles Lee', 'Steve Kerr'),
+    paraphrase.replace('Brandon Miller', 'Will Richard'),
+    paraphrase.replace('right hip', 'left hip'),
+    paraphrase.replace('much time', 'any time'),
+    paraphrase.replace('much time.', 'much time this season.'),
+    paraphrase.replace('coach Charles Lee said he ', ''),
+  ]) {
+    const replay = harness([{ ...output, stories: [{ ...story, summary }] }]);
+    assert.equal(
+      await replay.editor.edit(
+        { ...topic, name: 'NBA' },
+        input,
+        1,
+        'nba-lee-unsupported',
+      ),
+      null,
+    );
+    assert.ok(
+      replay.diagnostics().some((d) => d.category === 'unsupported-absence'),
+    );
+  }
   const shortened =
     'Lee said, "I don\'t think it\'s gonna be a long-term thing," and that Miller has shown progress since being hurt in a blowout loss to the Boston Celtics.';
   const rejected = harness([

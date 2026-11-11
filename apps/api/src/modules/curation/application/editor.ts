@@ -108,7 +108,12 @@ export class ShortlistEditor {
           'whyItMatters',
           'rationale',
         ] as const)
-          assertAbsenceSupport(story[field], evidence, field);
+          assertAbsenceSupport(
+            story[field],
+            evidence,
+            field,
+            isNba && field === 'summary',
+          );
       }
       const selectedEvidence = evidenceFor(
         parsed.stories.flatMap((s) => s.evidenceIds),

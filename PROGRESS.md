@@ -169,3 +169,12 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit pass; 281 integration pass/four expected skips), `pnpm build`, `git diff --check` pass. Live Nov 10 scheduled reader: four topics/19 stories/15 posts; `/healthz` passes.
 - Next: implement a computable supported-paraphrase guard correction, preserve the “no return timeline” failure, confirm with one bounded replay and deploy before Nov 11 noon. Natural sign-in-link expiry check is due after 00:33:01 UTC; Nov 11 scheduled NBA acceptance follows.
 - First push rejected because the lead advanced origin/main; fetched and merged without rewriting history. Merged alert check passed. Lead's observability page reached 101 lines; shortened one sentence, then reran the handbook check before push.
+
+## 2026-11-11: iteration 1756 — accept sourced NBA injury rewrites
+
+- Clean main at start; no leftovers. Zero active alerts, health/database/Redis good, 14 services and 36 sources healthy, and zero failed digest jobs.
+- NBA summaries accept the saved Brandon Miller rewrite only when one evidence sentence matches the attributed coach, player, injury and qualified expectation. The real invented “no return timeline” still fails; headlines and other fields retain their checks.
+- Offline saved Sonnet initial now reaches a separate Porzingis headline rejection (the rewrite drops the draft-pick qualification). Saved Sonnet repair validates five stories/four bullets. No provider or edition writes; item 54 remains $0.109427/$0.25.
+- Verification: editor tests 26/26; `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration, four expected skips), `pnpm build` and `git diff --check` pass. `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics/19 stories/15 posts.
+- Fast-forwarded two upstream lead-doc commits; push and restart API/worker, then recheck health, reader, services, sources and queue.
+- Next: natural sign-in-link expiry after 00:33:01 UTC and Nov 11 scheduled NBA acceptance after the 15:00 UTC generation run.
