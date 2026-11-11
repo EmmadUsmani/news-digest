@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1791: exact native telemetry asset GET admission and proxy CSP/nosniff prepared for fresh admins; Chromium proxy composition and fixture queries/policy refusals pass. Broader live navigation and stored-session UI composition remain open; public mode off.
+
 - [x] Iteration 1790: six reviewed native telemetry metadata GET routes prepared behind fresh-admin authentication; exact-path/method refusals, credential stripping and stored-session/live proxy checks pass. UI assets/CSP composition remain open; public mode stays off.
 
 - [x] Iteration 1789: exact installed telemetry asset hashes/MIME/cookie checks and six bounded metadata response-shape reviews pass. Tenant identifiers remain fresh-admin-only candidates; runtime UI admission and deployed CSP composition remain open.

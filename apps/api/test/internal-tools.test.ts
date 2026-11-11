@@ -3,9 +3,11 @@ import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { test } from 'node:test';
 
+import assetReview from '../../../docs/native-telemetry-asset-review.json';
 import { adminAccess } from '../src/admin-access';
 import { proxyInternalTools, selectInternalTools } from '../src/internal-tools';
 import { publicAccess } from '../src/public-access';
+import { telemetryContentSecurityPolicy } from '../src/telemetry-query-policy';
 
 async function listen(server: Server) {
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -283,6 +285,7 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     'X-ExeDev-Email': 'owner@example.test',
     admin_local_token: 'forged',
   };
+  const assets = Object.values(assetReview.assets).flatMap(Object.keys);
   const queries = [
     '/metrics/prometheus/vmui/config.json',
     '/metrics/prometheus/vmui/custom-dashboards',
@@ -290,6 +293,7 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     '/metrics/vmui/dashboards/perJobUsage.json',
     '/logs/select/buildinfo',
     '/logs/select/tenant_ids',
+    ...assets,
     '/metrics/api/v1/query?query=up',
     '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
     '/logs/select/logsql/query?query=error&limit=1',
@@ -317,6 +321,16 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
         assert.equal(response.headers.get('cache-control'), 'no-store');
         assert.equal(response.headers.get('set-cookie'), null);
         assert.equal(response.headers.get('x-private'), null);
+        if (actor === 'admin' && assets.includes(path)) {
+          assert.equal(
+            response.headers.get('content-security-policy'),
+            telemetryContentSecurityPolicy,
+          );
+          assert.equal(
+            response.headers.get('x-content-type-options'),
+            'nosniff',
+          );
+        }
         assert.equal(
           await response.text(),
           actor === 'admin' ? '{"fixture":true}' : '',
@@ -332,6 +346,8 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     }
     assert.deepEqual(seen, queries);
     for (const path of [
+      ...assets.map((path) => path + '?extra=1'),
+      ...assets.map((path) => path + '/unreviewed'),
       '/logs/select/tenant_ids?extra=1',
       '/logs/select/tenant_ids/',
       '/logs/select/%74enant_ids',
@@ -349,7 +365,11 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     ]) {
       assert.equal((await fetch(base + path, { headers })).status, 404, path);
     }
-    for (const path of queries.slice(0, 6)) {
+    for (const path of [
+      ...queries.slice(0, 6),
+      ...assets,
+      ...assets.map((path) => path + '?extra=1'),
+    ]) {
       assert.equal(
         (await fetch(base + path, { method: 'POST', headers })).status,
         404,

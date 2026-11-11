@@ -2,20 +2,37 @@
 // only native UI documents/assets reach loopback. Never print queries or bodies.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
 
 import { chromium } from 'playwright';
 
+import {
+  proxyInternalTools,
+  selectInternalTools,
+} from '../apps/api/src/internal-tools';
+import { telemetryContentSecurityPolicy } from '../apps/api/src/telemetry-query-policy';
+
 async function main() {
-  assert.deepEqual(process.argv.slice(2), ['--live-assets']);
+  const proxyAssets = process.argv[2] === '--proxy-assets';
+  assert.deepEqual(process.argv.slice(2), [
+    proxyAssets ? '--proxy-assets' : '--live-assets',
+  ]);
+  const proxy = proxyInternalTools(selectInternalTools(true));
+  const server = createServer((req, res) =>
+    proxy(req, res, () => res.writeHead(404).end()),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const proxyOrigin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
   const browser = await chromium.launch({ headless: true });
   try {
-    for (const [name, origin, root] of [
+    for (const [name, upstreamOrigin, root] of [
       ['metrics', 'http://127.0.0.1:8428', '/metrics/vmui/'],
       ['logs', 'http://127.0.0.1:9428', '/logs/select/vmui/'],
     ]) {
+      const origin = proxyAssets ? proxyOrigin : upstreamOrigin;
       const context = await browser.newContext({ serviceWorkers: 'block' });
-      const policy =
-        "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'none'; worker-src 'none'";
+      const policy = telemetryContentSecurityPolicy;
       const violations = new Set<string>();
       await context.exposeBinding(
         'recordPolicyViolation',
@@ -57,6 +74,13 @@ async function main() {
         if (url.origin === origin && request.method() === 'GET' && asset) {
           assets.add(url.pathname);
           const response = await route.fetch({ timeout: 10000 });
+          if (proxyAssets) {
+            assert.equal(response.headers()['content-security-policy'], policy);
+            assert.equal(
+              response.headers()['x-content-type-options'],
+              'nosniff',
+            );
+          }
           const body = await response.body();
           assert.ok(
             body.length <= 4 * 1024 * 1024,
@@ -82,9 +106,10 @@ async function main() {
             body,
             headers: {
               ...response.headers(),
-              ...(url.pathname === root && {
-                'content-security-policy': policy,
-              }),
+              ...(!proxyAssets &&
+                url.pathname === root && {
+                  'content-security-policy': policy,
+                }),
             },
           });
           return;
@@ -96,12 +121,16 @@ async function main() {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify({
-            status: 'success',
-            data: { resultType: 'matrix', result: [] },
-            values: [],
-            fields: [],
-          }),
+          body:
+            url.pathname === '/logs/select/logsql/query'
+              ? ''
+              : JSON.stringify({
+                  hits: [],
+                  status: 'success',
+                  data: { resultType: 'matrix', result: [] },
+                  values: [],
+                  fields: [],
+                }),
         });
       });
       await page.goto(
@@ -109,6 +138,11 @@ async function main() {
         { waitUntil: 'networkidle' },
       );
       assert.ok(await page.locator('button').count(), `${name}: UI mounted`);
+      if (proxyAssets)
+        await page.screenshot({
+          path: `docs/screenshots/native-${name}-prepared-proxy.png`,
+          fullPage: true,
+        });
       // Execute only the query control; every non-asset request remains intercepted.
       const execute = page.getByRole('button', { name: /execute( query)?/i });
       if (await execute.count()) {
@@ -202,6 +236,7 @@ async function main() {
     }
   } finally {
     await browser.close();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
   }
 }
 main().catch(() => {

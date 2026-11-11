@@ -864,3 +864,9 @@ login, freshness loss and logout; metadata POST is refused before upstream.
 The explicit live proxy check reads all six bounded responses without printing
 values or tenant identifiers. Live public mode remains off; UI CSP composition
 and broader navigation remain open.
+
+## Prepared native UI asset admission (iteration 1791)
+
+Thirteen exact installed asset paths from the saved inventory now share fresh-admin GET admission; unknown assets, suffixes and other methods remain refused. The prepared proxy supplies the same-origin CSP and nosniff while stripping credentials and upstream cookies. No wildcard asset directory is admitted.
+
+Run `pnpm exec tsx scripts/review-native-telemetry-ui.ts --proxy-assets` to load installed assets through the real prepared proxy, assert its headers and exercise fixture-intercepted query flows plus inline-script/external-fetch refusals. This isolated proxy harness has no session middleware; principal refusals are covered by the composed access/proxy tests. Public mode stays off; broader live navigation and stored-session UI composition remain open.

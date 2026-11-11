@@ -10,61 +10,7 @@
 
 [Iterations 1770–1775](docs/progress-archive/2026-11-11-iterations-1770-1775.md).
 
-## 2026-11-11: iteration 1776 — compose explorer credential lifecycle rollback
-
-- Clean main; no inherited work. No active alerts or failed services; source/job checks and `/healthz` pass. Saved Nov 10 reader serves four topics/19 stories/15 posts.
-- Extended the disposable SCRAM rehearsal through NOLOGIN, pool closure, authentication restoration, exact extension-ACL restoration and restricted-role reactivation. NOLOGIN preserves an existing pooled session; closing the pool removes its backend; fresh rollback logins fail. Reactivation restores the same structural table catalog and still denies application-row reads.
-- This is isolated synthetic-credential evidence, not live credential rollback. No live credentials, grants, flags or provider spending changed. Updated readiness and response-review evidence; live credential/environment rollback and reader admission remain open.
-- Targeted credential test, `pnpm build`, deployed account boundary (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, handbook/schema check and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
-- Next: live credential/environment/authentication rollback; explicit reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1777 — live explorer credential rollback
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; scheduled digest queue healthy and recent free/social collection succeeds.
-- `python /tmp/catalog-1777.py` passed live rollback/reactivation. Fresh private snapshots and the rehearsal script are in `~/.local/state/news-digest/catalog-1777/`. Removed explorer URL/drop-in, restarted, verified exact private response and zero restricted-role sessions; applied NOLOGIN, original parsed authentication and preserved extension ACL restoration. App health remained green.
-- Finally restored scoped authentication, hardened grants, LOGIN, exact environment/drop-in and restarted. Exact response/extension ACL comparisons, restricted-role sessions and password/privilege preflight pass. Public/structural flags remain off; no provider spending.
-- Build, deployed account boundary (32 checks), saved-reader check (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) and anonymous `/db/` 404 pass. Corrected an initial boundary-command filename typo; actual deployed check passes.
-- Updated readiness/evidence/TASKS and archived iterations 1760–1763 to keep this file small. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes; four expected skips) and `git diff --check` pass.
-- Next: explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1778 — enforce structural explorer upstream
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` and scheduled queue checks pass.
-- Prepared public proxy selection requires the explorer's structural-only marker and exact GET routes; private upstream responses fail closed. Incoming credentials and upstream cookies are removed. Public route admission remains closed and live flags stay off.
-- Targeted HTTP/proxy tests pass (4); structural/private rollback verifies marker state alongside field filtering. No UI changes or provider calls.
-- Build, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) pass. Updated TASKS and response/readiness evidence.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (830 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
-- Next: compose explicit explorer reader admission behind the public flag; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1779 — compose explorer reader admission
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; all 36 sources and four job queues healthy. Nov 10 saved reader has four topics/19 stories/15 posts.
-- Prepared public policy admits only exact structural explorer GET routes; query variants, HEAD and writes stay denied before proxying. Anonymous admission composes with the credential-stripping structural-marker proxy; private upstream still fails closed.
-- `pnpm exec tsx scripts/check-schema-proxy.ts` passes captured-live-catalog private/structural/private HTTP and desktop/mobile checks. Inspected both new anonymous screenshots. No live flags, credentials, grants or provider spend changed.
-- Targeted route/proxy tests pass (9); `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` and `check-handbook.ts` pass (39 tables/no warnings). Updated readiness, response review and TASKS.
-- Initial full check caught the old readiness matrix denying reviewed explorer routes; updated it to verify all principals’ exact GET admission and HEAD/write refusal. Full rerun passes: 831 unit/283 integration tests, four expected skips; `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass.
-- `pnpm build` passes. Restarted `news-digest-api.service`; retrying `/healthz` passes after startup and anonymous `/db/` stays 404. Post-restart account boundary and saved-reader checks pass.
-- Next: live structural-mode activation and broader Phase 4 gates; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1780 — activate live structural explorer
-
-- Clean main; no inherited work. Alerts clear, services/healthz healthy, all 36 sources and scheduled job queues pass local checks. No provider spending.
-- Installed tracked structural-only explorer drop-in; `pnpm exec tsx scripts/check-live-schema-structural.ts --live` passes private/structural/private/structural restarts. Exact 39-table structural response and authenticated proxy parity pass; rollback preserves all private catalog fields except changing timestamp/row estimates/sizes. Public mode stays off; anonymous `/db/` is 404.
-- Live desktop/mobile checks pass without interception; inspected both screenshots in `docs/screenshots/schema/live-structural-{1440,390}.png`. Existing `check-schema-proxy.ts` and `check-schema-structural-ui.ts` rehearsals pass using the restricted catalog role directly for private inputs.
-- Handbook check initially expected removed warning fields; changed it to read private catalog diagnostics through the restricted role and verify served structural parity. Updated owner data-model page, rollout/readiness docs and TASKS.
-- `pnpm build`, deployed account boundary (32 checks), and saved Nov 10 reader (four topics/19 stories/15 posts) pass. Initial full check caught an unused import; `pnpm lint:fix` removed it.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` (831 unit/283 integration passes; four expected skips), handbook/schema (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Handbook rerun after a rollout-restart 502 passes. Restarted API/explorer; startup-boundary retry and saved-reader check pass with healthy services.
-- Next: remaining Phase 4 tool installations/full public rehearsal; Grafana capacity under scheduled load or compaction; Nov 11 15:00 UTC NBA review.
-
-## 2026-11-11: iteration 1781 — install reader handbook service
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; `pnpm obs sources --check` and `pnpm obs jobs --check` pass (36 sources/four queues). No provider calls.
-- Installed/enabled tracked `news-digest-reader-docs.service`; listener is `127.0.0.1:8110`. Public mode stays off; owner handbook remains on 8100 and anonymous live `/docs/` stays 404.
-- Added `pnpm exec tsx scripts/check-live-reader-handbook.ts`: exact installed GET/HEAD corpus, prepared public proxy, redirect, no-store/CSP and legacy/query/write refusals pass. Stop/start rehearsal removes/restores listener while `/healthz` stays healthy; acceptance rerun passes.
-- Playwright desktop light/mobile dark checks pass without interception or horizontal overflow; inspected both new `docs/screenshots/reader-handbook-live-*.png` images. Updated runtime handbook, response review, readiness and TASKS.
-- `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) pass. Handbook initially rejected 104 lines; condensed runtime addition to its existing paragraph.
-- First combined format/lint/check process received SIGTERM during unit tests without an assertion failure; separate `pnpm check` rerun passes (831 unit/283 integration passes, four expected skips). `pnpm format`, `pnpm lint:fix`, handbook/schema rerun and `git diff --check` pass. Archived iterations 1764–1769 to keep this file small.
-- Next: remaining Phase 4 tool gates/full public rehearsal; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+[Iterations 1776–1781](docs/progress-archive/2026-11-11-iterations-1776-1781.md).
 
 ## 2026-11-11: iteration 1782 — fresh-admin telemetry queries
 
@@ -155,3 +101,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 833 unit and 283 integration tests, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one unchanged diagram/39 tables) and `git diff --check` pass. Updated affected handbook, readiness/review and TASKS.
 - Restarted API; retrying healthz, 32 deployed account-boundary checks and saved Nov 10 reader check pass (four topics/19 stories/15 posts); no failed user services.
 - Next: exact native UI asset admission with proxy/CSP composition and broader navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1791 — exact native telemetry assets and proxy CSP
+
+- Clean main; no inherited work. Alerts clear, healthz healthy and no failed user services. Public mode remains off; no provider calls.
+- Prepared fresh-admin admission now includes 13 exact reviewed native UI document/script/style GET paths; unknown assets, suffixes, HEAD and POST refused. No directory prefix grant.
+- Prepared proxy supplies the rehearsed same-origin CSP plus nosniff, preserving no-store and stripping caller credentials/upstream cookies. Composed access/proxy fixtures cover anonymous, reader, stale-admin and fresh-admin boundaries across all assets.
+- Added `review-native-telemetry-ui.ts --proxy-assets`: installed assets traverse the real prepared proxy, actual headers are asserted, fixture query flows mount and deliberate inline-script/external-fetch probes are refused. Corrected empty log fixtures; saved and visually checked both screenshots. No live-query/full-navigation acceptance claimed.
+- Updated affected handbook, readiness/review and TASKS; archived iterations 1776–1781 to keep PROGRESS small.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, proxy Chromium review, `check-handbook.ts observability`, 32 deployed account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass. API restarted healthy; `git diff --check` passes.
+- Full `pnpm check` passes: 833 unit and 283 integration tests, four expected skips.
+- Next: full stored-session native UI composition and broader live navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
