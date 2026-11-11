@@ -162,3 +162,14 @@
 - pnpm format, pnpm lint:fix, pnpm check (862 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
 - Live read-only checks: all 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics. No provider calls, budget/source/public-mode/sharing changes or accepted-screen reruns.
 - Commit/push and API/worker restart outside the deployment hold follow; final health/alerts checked after restart.
+
+## 2026-11-11: iteration 1862 — isolate sign-in challenges
+
+- Clean main/no inherited work; initial health and alerts green. Completed item 58.2 challenge protection after recipient/client rate isolation (1861).
+- Challenges, replacement and five-attempt limits now belong to the requesting client as well as email; stored client identifiers are keyed hashes. Other clients cannot invalidate or exhaust a reader's challenge.
+- Added application refusal and concurrent Postgres regression checks; documented same-network code exchange and updated schema metadata/snapshot.
+- First pnpm check found only a schema column-order mismatch; corrected the declaration to match the appended migration column. Final pnpm check: 863 unit/286 integration pass, four expected skips; schema parity/offline migration checks pass.
+- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook (14 diagrams/39 tables/no warnings) and git diff --check pass; existing build warnings only.
+- Private backup news-digest-20261111T223837Z completed (39 tables); stopped API/worker, applied migration 0021 preserving rows, restarted outside deployment hold. Outstanding old codes require a fresh request.
+- Live: health/database/Redis green; 32 account-boundary refusals pass; 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics; zero alerts. No provider calls or public-mode/sharing/budget/source changes.
+- Next: item 58.3 admin freshness, then remaining findings in owner order. Nov 12 first five-topic scheduled acceptance remains due. Commit/push and final main-matching restart follow.

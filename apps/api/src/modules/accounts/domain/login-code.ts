@@ -1,12 +1,13 @@
 export interface LoginCodeChallenge {
   email: string;
+  clientKey?: string;
   codeHash: string;
   createdAt: Date;
   expiresAt: Date;
 }
 
 export abstract class LoginCodeRepository {
-  // Replace the previous challenge for this email and reset its attempt count.
+  // Replace the previous challenge for this email and client and reset its attempt count.
   abstract replace(challenge: LoginCodeChallenge): Promise<void>;
   // Lock the challenge, reject future/expired/consumed rows or five prior
   // attempts, count this attempt, compare, and consume on success atomically.
@@ -15,6 +16,7 @@ export abstract class LoginCodeRepository {
     email: string,
     now: Date,
     matches: (storedHash: string) => boolean,
+    clientKey?: string,
   ): Promise<boolean>;
 }
 

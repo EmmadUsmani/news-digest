@@ -143,7 +143,7 @@
     "development_spend_pools": "Nonrenewing development allowances per provider; hard code and database ceilings.",
     "development_spend_reservations": "Development holds and confirmed charges, isolated from production ledgers and scheduled reserves.",
     "users": "Private normalized reader identities, independent of the owner profile; account sign-in remains disabled.",
-    "login_codes": "Private keyed login challenges with expiry, attempt counts and single-use consumption; accounts remain disabled.",
+    "login_codes": "Private client-scoped keyed login challenges with expiry, attempt counts and single-use consumption.",
     "sessions": "Hashed reader session tokens, sign-in admin eligibility and cookie renewal times; removed with the user.",
     "sign_in_links": "Private hashed 24-hour friend sign-in links with atomic single use; accounts disabled.",
     "admin_audit_log": "Private sign-in-link issuance and reader session revocation audit tied to the issuing user; contains no bearer tokens.",

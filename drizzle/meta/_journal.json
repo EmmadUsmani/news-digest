@@ -148,6 +148,13 @@
       "when": 1794434400000,
       "tag": "0020_us_news_topic",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1794436800000,
+      "tag": "0021_client_login_challenges",
+      "breakpoints": true
     }
   ]
 }

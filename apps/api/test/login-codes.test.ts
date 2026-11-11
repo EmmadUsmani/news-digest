@@ -35,10 +35,11 @@ function fixture(
         row = { ...challenge, attempts: 0, consumed: false };
         return Promise.resolve();
       },
-      consume(email, at, matches) {
+      consume(email, at, matches, clientKey) {
         if (
           !row ||
           row.email !== email ||
+          row.clientKey !== clientKey ||
           row.consumed ||
           row.attempts >= 5 ||
           at < row.createdAt ||
@@ -273,4 +274,24 @@ void test('coordination failure prevents challenge replacement and delivery', as
   );
   assert.equal(f.row(), null);
   assert.equal(f.sent.length, 0);
+});
+
+void test('other clients cannot consume or exhaust the issued challenge', async () => {
+  const f = fixture();
+  await f.service.request('reader@example.com', 'reader', now);
+  for (let i = 0; i < 8; i++)
+    assert.equal(
+      await f.service.redeem(
+        'reader@example.com',
+        f.sent[0].code,
+        'other',
+        now,
+      ),
+      null,
+    );
+  assert.equal(f.row()!.attempts, 0);
+  assert.equal(
+    await f.service.redeem('reader@example.com', f.sent[0].code, 'reader', now),
+    'reader@example.com',
+  );
 });

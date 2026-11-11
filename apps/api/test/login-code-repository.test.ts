@@ -65,6 +65,21 @@ void test('login challenges serialize redemption, cap guesses, expire and replac
       await b.consume(email, now, (hash) => hash === 'b'.repeat(64)),
       true,
     );
+    // Separate clients cannot replace or exhaust a reader's challenge.
+    await a.replace({ ...challenge, clientKey: 'reader' });
+    await b.replace({
+      ...challenge,
+      clientKey: 'other',
+      codeHash: 'b'.repeat(64),
+    });
+    await Promise.all(
+      Array.from({ length: 12 }, () =>
+        b.consume(email, now, () => false, 'other'),
+      ),
+    );
+    assert.equal(await b.consume(email, now, correct, 'other'), false);
+    assert.equal(await a.consume(email, now, correct, 'reader'), true);
+    assert.equal(await b.consume(email, now, correct, 'reader'), false);
     for (const role of ['public', 'grafana_product', 'postgres_metrics']) {
       const grants = await pool.query(
         'SELECT 1 FROM information_schema.role_table_grants WHERE table_name=$1 AND lower(grantee)=$2',

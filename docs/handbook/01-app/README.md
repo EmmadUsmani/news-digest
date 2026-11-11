@@ -61,6 +61,7 @@ data when enabled, deletion and third-party post connections.
 - Open **Account → Sign in**, beside **Saved items** below the edition header,
   to sync choices across devices. Invite-only codes
   are retrieved from the owner’s private stand-in mailbox; no email is sent.
+  Request and enter each code from the same network connection.
 - To undo hiding every topic, open **Topics** and select a topic again.
 - Rollback: rebuild the web app with `VITE_READER_PREFERENCES=0` to show all
   topics and remove preference controls and `/saved`. Stored choices remain for re-enabling it.

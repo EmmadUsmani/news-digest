@@ -27,6 +27,7 @@ export class LoginCodes {
         const expiresAt = new Date(now.getTime() + TEN_MINUTES_MS);
         await this.repository.replace({
           email,
+          clientKey: this.secrets.hash(email, `client:${clientAddress}`),
           codeHash: this.secrets.hash(email, code),
           createdAt: now,
           expiresAt,
@@ -52,8 +53,12 @@ export class LoginCodes {
     const candidate = /^\d{6}$/.test(code)
       ? this.secrets.hash(email, code)
       : null;
-    const consumed = await this.repository.consume(email, now, (stored) =>
-      candidate === null ? false : this.secrets.matches(stored, candidate),
+    const consumed = await this.repository.consume(
+      email,
+      now,
+      (stored) =>
+        candidate === null ? false : this.secrets.matches(stored, candidate),
+      this.secrets.hash(email, `client:${clientAddress}`),
     );
     return consumed ? email : null;
   }

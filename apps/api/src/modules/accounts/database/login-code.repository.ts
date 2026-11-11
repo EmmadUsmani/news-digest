@@ -1,5 +1,5 @@
 import { Injectable, type OnModuleDestroy } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
@@ -21,6 +21,7 @@ export class PostgresLoginCodeRepository
   async replace(challenge: LoginCodeChallenge): Promise<void> {
     const row = {
       email: challenge.email,
+      clientKey: challenge.clientKey ?? '',
       codeHash: challenge.codeHash,
       createdAt: challenge.createdAt.toISOString(),
       expiresAt: challenge.expiresAt.toISOString(),
@@ -30,19 +31,25 @@ export class PostgresLoginCodeRepository
     await this.db
       .insert(loginCodes)
       .values(row)
-      .onConflictDoUpdate({ target: loginCodes.email, set: row });
+      .onConflictDoUpdate({
+        target: [loginCodes.email, loginCodes.clientKey],
+        set: row,
+      });
   }
 
   async consume(
     email: string,
     now: Date,
     matches: (storedHash: string) => boolean,
+    clientKey = '',
   ): Promise<boolean> {
     return this.db.transaction(async (tx) => {
       const [row] = await tx
         .select()
         .from(loginCodes)
-        .where(eq(loginCodes.email, email))
+        .where(
+          and(eq(loginCodes.email, email), eq(loginCodes.clientKey, clientKey)),
+        )
         .for('update');
       if (
         !row ||
@@ -56,7 +63,9 @@ export class PostgresLoginCodeRepository
       await tx
         .update(loginCodes)
         .set({ attempts: row.attempts + 1, consumed })
-        .where(eq(loginCodes.email, email));
+        .where(
+          and(eq(loginCodes.email, email), eq(loginCodes.clientKey, clientKey)),
+        );
       return consumed;
     });
   }

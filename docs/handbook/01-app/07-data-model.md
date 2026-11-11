@@ -31,7 +31,7 @@ snapshots.
 > Deleting a reader removes admissions tied to that identity.
 >
 > Reader accounts use independent identities, hashed sessions and single-use
-> login challenges. Invite-only sign-in uses a private stand-in mailbox; no
+> login challenges scoped to the requesting client address. Invite-only sign-in uses a private stand-in mailbox; no
 > email is sent. `/account/login` exchanges a code for a secure session cookie.
 > The account panel shows sync status, sign-out and confirmed account deletion.
 > Admins can issue one-time friend links and revoke a reader’s sessions;

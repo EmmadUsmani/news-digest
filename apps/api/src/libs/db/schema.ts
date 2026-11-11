@@ -102,7 +102,7 @@ export const bookmarks = pgTable(
 export const loginCodes = pgTable(
   'login_codes',
   {
-    email: text().primaryKey().notNull(),
+    email: text().notNull(),
     codeHash: text('code_hash').notNull(),
     createdAt: timestamp('created_at', {
       withTimezone: true,
@@ -114,8 +114,13 @@ export const loginCodes = pgTable(
     }).notNull(),
     attempts: integer().default(0).notNull(),
     consumed: boolean().default(false).notNull(),
+    clientKey: text('client_key').default('').notNull(),
   },
-  () => [
+  (table) => [
+    primaryKey({
+      name: 'login_codes_pkey',
+      columns: [table.email, table.clientKey],
+    }),
     check(
       'login_codes_email_check',
       sql`email = lower(btrim(email)) AND length(email) BETWEEN 3 AND 254`,
