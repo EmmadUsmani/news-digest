@@ -152,6 +152,9 @@ async function main() {
       const refusedQueries = new Set<string>();
       let chartReview = false;
       let chartQueries = 0;
+      let logReview = false;
+      let logQueries = 0;
+      let logMessage = '';
       page.on('pageerror', (error) => errors.push(error.name));
       await page.addInitScript(() => {
         Object.assign(window, { policyViolations: [] });
@@ -211,6 +214,43 @@ async function main() {
                   time >= start && time <= finish && Number(value) > 0,
               ),
             );
+            await route.fulfill({ response });
+            return;
+          }
+          if (
+            logReview &&
+            logQueries === 0 &&
+            request.method() === 'POST' &&
+            url.pathname === '/logs/select/logsql/query' &&
+            params.get('query') === '_time:1m' &&
+            params.get('limit') === '1' &&
+            [...params.keys()].sort().join(',') === 'end,limit,query,start'
+          ) {
+            const timestamp = (value: string) =>
+              /^\d+(\.\d+)?$/.test(value)
+                ? Number(value) * 1000
+                : Date.parse(value);
+            const from = timestamp(params.get('start')!);
+            const until = timestamp(params.get('end')!);
+            assert.ok(from >= Date.now() - 125000);
+            assert.ok(until <= Date.now() + 5000 && until > from);
+            assert.ok(until - from <= 65000);
+            logQueries++;
+            const response = await route.fetch({ timeout: 10000 });
+            assert.equal(response.status(), 200);
+            assert.equal(response.headers()['cache-control'], 'no-store');
+            assert.equal(response.headers()['set-cookie'], undefined);
+            const body = await response.text();
+            assert.ok(Buffer.byteLength(body) <= 16384);
+            const rows = body.trim().split('\n').filter(Boolean);
+            assert.equal(rows.length, 1);
+            const row = JSON.parse(rows[0]) as Record<string, unknown>;
+            assert.ok(typeof row._time === 'string');
+            assert.ok(
+              Date.parse(row._time) >= from && Date.parse(row._time) <= until,
+            );
+            assert.ok(typeof row._msg === 'string' && row._msg.length > 0);
+            logMessage = row._msg;
             await route.fulfill({ response });
             return;
           }
@@ -292,6 +332,33 @@ async function main() {
         path: 'docs/screenshots/native-metrics-live-count.png',
       });
       chartReview = false;
+      logReview = true;
+      await page.goto('about:blank');
+      await page.goto(
+        base +
+          '/logs/select/vmui/#/?' +
+          new URLSearchParams({
+            query: '_time:1m',
+            limit: '1',
+            'g0.range_input': '1m',
+            'g0.end_input': new Date().toISOString(),
+            'g0.relative_time': 'none',
+          }).toString(),
+        { waitUntil: 'networkidle' },
+      );
+      assert.equal(logQueries, 1, 'Exactly one bounded live log query');
+      assert.ok(logMessage.length > 0);
+      await page.getByText(logMessage, { exact: true }).first().waitFor();
+      assert.deepEqual(errors, []);
+      assert.deepEqual(
+        await page.evaluate(
+          () =>
+            (window as unknown as { policyViolations: string[] })
+              .policyViolations,
+        ),
+        [],
+      );
+      logReview = false;
       assert.ok(metadata.has('/metrics/prometheus/vmui/config.json'));
       assert.ok(metadata.has('/metrics/prometheus/vmui/custom-dashboards'));
       assert.ok(refusedQueries.has('/logs/select/logsql/query'));
@@ -313,7 +380,7 @@ async function main() {
       await browser.close();
     }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass; one bounded live count(up) chart renders; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass; one bounded live count(up) chart and one recent live log message render; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();

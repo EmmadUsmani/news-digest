@@ -6,8 +6,6 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] STEERING 54: NBA summary guard now accepts the saved, attributed Brandon Miller injury rewrite while still rejecting the real unsupported “no return timeline” claim (1756). The saved Nov 10 production-order replay passes on Sonnet repair (five stories/four bullets); initial now reaches a separate unsupported Porzingis headline. No additional provider spend: eleven settled calls, **$0.109427/$0.25**. Next: verify the Nov 11 scheduled NBA section is AI-edited, then ack and close. [Evidence](docs/edition-reviews/2026-11-10.md#nba-absence-guard-confirmation--iteration-1756).
 
-- [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
-
 - [ ] STEERING 50: phases 0/2 accepted (1386), Phase 1 accepted (1544). SYSTEM_OWNERSHIP on; account migrations 0013–0018 and private invite-only server/web enabled. Public flag off; migration 0019 applied and verified (1730). Item 53 resolved: trust loopback and retain verified last-entry visitor selection. Phase 3 deployed lifecycle checks pass for login/code expiry, sync, revocation and deletion; owner two-device steps ready in NEEDS_FROM_HUMAN.md (1600), replacing the VM-inaccessible proxy/TLS check. **Owner accepted Phase 3 in the Nov 10 upstream steering update; NBA editorial failure tracked separately under item 54. Next account step: Phase 4 behind its flags. Live explorer structural-only response enabled with rollback and desktop/mobile acceptance (1780); PUBLIC_MODE remains off. Owner two-device/proxy/TLS check passed Nov 10 about 03:50 UTC. Nov 10 scheduled edition published (1707): four topics/19 stories/15 posts; NBA validation exhausted to source excerpts. Earlier Phase 3 hold (1708) superseded by owner acceptance; public mode remains off.** Natural 24-hour sign-in link expiry passed live (1757): HTTP 401, no cookie or reader identity, link left unconsumed. Prepared Phase 4 runtime/admission default-off; isolated storage/restart/rollback and full application anonymous-reader rehearsals pass (1603–1604). Authenticated/admin and invited-reader two-session full application rehearsals pass (1605–1606); Account deletion/re-invitation full application rehearsal passes (1607); admin-targeted two-device revocation/re-login rehearsal passes (1608); remaining Phase 4 readiness gates tracked in [the activation checklist](docs/public-readiness.md), including completed live migration 0019 (fresh backup/restore, bounded runner twice, preserved admissions/private grants, 1730); VictoriaMetrics mutation keys installed and unauthenticated refusals verified (1616). Grafana export (1758): fixed loopback/SCRAM pass; paired fresh startup and dashboard-style reads (1759) passed at 772.36 MiB peak and 4.85% mean CPU; installation still gated on paired scheduled load or natural compaction (24-hour peak projection ~844 MiB vs ~800 MiB target). Public queue status projection wired behind the off flag (1761); isolated compiled-app routing and shared admission verified. Handbook image exposure removed (1762); standalone reader handbook corpus and exact HTTP routes rehearsed (1763), with exact proxy admission and private rollback verified (1764); explorer structural-only response projection prepared/tested (1765); reader service installation, explorer catalog-only role prepared with disposable database rehearsal (1766); inherited function review completed (1767: no executable non-system definers or writable persistent schemas; server-file/program operations denied); structural/private desktop/mobile UI rehearsal passed (1768, live catalog projected only in browser); structural HTTP setting prepared default-off with private/structural/private loopback response checks (1769); live catalog credentials installed and service rollback verified (1774); captured live-catalog HTTP/proxy/browser/private rollback passes (1775); full live credential/authentication rollback passes (1777); public proxy structural-response enforcement prepared (1778), exact anonymous explorer GET admission composed and rehearsed (1779); live structural mode activated (1780), reader handbook installed and loopback/proxy/rollback verified (1781); fresh-admin telemetry query admission/proxy verified (1782); full telemetry UI routes and broader Phase 4 gates remain open. Development Anthropic $0.211076/xAI $0, zero holds. No deploy/restart/migration 13:00–16:00 UTC or generation edits after noon. [Plan](docs/public-access-plan.md), [activation checklist](docs/account-activation.md), [Phase 1 acceptance](docs/edition-reviews/2026-11-09.md#phase-1-scheduled-acceptance--iteration-1544).
 
 - [ ] Breakage (1191–1470): metrics-store CPU-only 2% trial remains unchanged since Nov 7 16:00:24 UTC. **Natural compaction confirmed:** Nov 8 17:48 journal records one 49,279,202-row merge in 164.103 s; stored scrape samples healthy, zero query timeouts/slow queries/restarts. Compaction-window stack memory ≤686.8 MiB/five-minute CPU ≤2.361%. Historical evaluator counters/per-rule health unavailable; recovery still needs correlated rule/query evidence. Latest short probe Nov 10 12:28 (1692): 23 healthy rules, four queries ≤0.061 s, zero new evaluator errors/misses; two small merges/9,356 rows, no large-tier merge. Iteration 1699 passive check 13:33 UTC: 23 healthy rules, zero new evaluator errors/misses, four queries ≤0.091 s; no merge in short interval. Iteration 1705 passive check 14:42 UTC: 23 healthy rules, zero new evaluator errors/misses, four queries ≤0.693 s; no merge in short interval. Next passive check ≥15:43 UTC Nov 10; at most hourly. No deployment hold under STEERING 49. [Evidence](docs/decisions/0004-observability-capacity.md#natural-large-compaction-confirmed-iteration-1470).
@@ -20,16 +18,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 16 / M4 Social posts: Nov 5 X picks Tech/NBA/Gaming/World 3/5/5/1; all four topics present, no Bluesky picks. Saved X metrics empty: viral/outside-list quality acceptance remains open. Paid old open-search picks 1/19 (Tech); no claim that all-topic presence proves paid discovery quality.
 - [ ] STEERING 9/15 first-week report (1206): Nov 7 $0.166127/20 fetched/19 new verified outside-list candidates; three novel Tech citations and one previously verified NBA citation selected. Gaming/World four unconfirmed attempts. Nov 2–7 total $0.776678/24 calls/zero holds; attributed new verified/outside-list 91/80. Nov 2–8 report (1381): $1.036785/28 calls/zero holds, attributed new verified/outside-list 131/115; Nov 8 completed all four keyword tools and selected eight citations (six outside-list). Nov 8 novelty review (1385): eight selected new candidates, six outside-list; no retained free citations, reported engagement unverified. Nov 9 review complete (1549): forty fetched, two novel/outside-list NBA selections; viral-quality acceptance not met. [Daily/weekly report](docs/SOURCES.md#nov-7-daily-and-first-week-production-x-report--iteration-1206).
 - [ ] STEERING 18 Bluesky: authenticated hourly collection and session refresh verified (788); Nov 5 no selected posts. Nov 8 review (1384): five distinct Bluesky picks/zero X replacements, $0.036338 scoring/editing; saved shortened links browser-verified. World engagement remains weak; third-edition quality/diversity acceptance awaits Nov 9. Nov 9 destinations verified (1547): four saved cards pass desktop/mobile light/dark. Third-edition diversity review (1549) complete: four distinct contributions; 49 Nov 7–9 picks have no exact post reuse. Overall viral-quality acceptance not met (World weak/no X, Tech/Gaming concentrated); tuning waits for item 50. Cross-platform context/semantic gates shipped. [Sources](docs/SOURCES.md#sustained-bluesky-session-recovery--iteration-788-2026-11-05).
-- [x] STEERING 33/45 UI rebuild closed (1075): all acceptance gaps finished; [56 route screenshots and eight loaded-post views](docs/screenshots/ui/spec-routes.md). All 16 X embeds/17 saved posts retained. Desktop/mobile posts flow with the page (1079); full-embed length conflict remains open above. Label/admin-404/layout checks pass. Private rollout remains authorized; proxy header replacement proof required before public access.
 - [ ] STEERING 28 incremental triage OFF: reserve-safe admission/pools/cutoffs/draining verified. Nov 6 allowance $0.021736–$0.028915; only 2/65 early fingerprints compatible. Keep OFF; waste/latency unmeasured. [Assessment](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
 ## Remaining milestones and lower priorities
 
-- [x] Legacy job recovery browser replay repaired (1512): private/published records separated; resumed-job queue/reload/reconnect/invalid-status/timeout/completion/failure/expiry verified without browser writes.
-
 - [ ] M5: grouping quality above; independent labels, different dates and Gaming still needed. Agent-labelled windows are not general quality estimates.
-- [x] M6 closed (1095): topic CRUD/reorder/enable and source settings, schedule/budgets, custom-window on-demand editions and immutable history shipped; reader/admin separation complete. [Scope evidence](docs/milestone-acceptance.md).
-- [x] M7 closed (1095): daily timezone scheduler, source/queue/run/spend status and DigestPublished log adapter shipped; durable job recovery and four named failure rehearsals pass. [Scope evidence](docs/milestone-acceptance.md). External notification delivery remains outside scope.
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. Do not re-record unchanged prompts or pay merely to test replay. [Database verification](docs/DATABASE-VERIFICATION.md).
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass.
 - [ ] STEERING 10 source balance paused under 27; Yardbarker prepared/disabled. No new source without coverage review.
@@ -40,86 +33,14 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1814: installed logs Query renders one bounded real recent message through the prepared proxy; exact `_time:1m`, one-minute window, limit one and one upstream request. CSP/errors and response bounds pass; principals remain simulated. Stored-session/live composition remains open; public mode off.
+
 - [x] Iteration 1813: installed metrics Query renders one live `count(up)` chart through the prepared proxy; exact selector, one-minute window, 15-second minimum step and one-query cap enforced before upstream. Screenshot inspected; simulated principals only, public mode off.
 
 - [x] Iteration 1812: live installed logs Query/Overview assets and build/tenant metadata mount through the prepared proxy without page/CSP errors; automatic query/hits calls refused locally and non-admin documents refused without upstream work. Simulated principals only; public mode remains off.
 
-- [x] Iteration 1811: installed metrics Dashboards/Query Analyzer mount through the prepared proxy using live assets/metadata; CSP/error checks and simulated non-admin upstream isolation pass. Automatic data queries are locally refused; live charts and stored-session/live-upstream composition remain open. Public mode off.
-
-- [x] Iteration 1805: installed logs query/Overview browser navigation composes captured assets, prepared proxy and real stored sessions; fresh/restored admins mount and query, other sessions cause no upstream work. Synthetic responses only; production admission/public mode stay off. Remaining controls/live navigation remain.
-
-- [x] Iteration 1804: installed metrics Dashboards and Query Analyzer compose captured assets, prepared proxy and real stored-session authorization in isolated Chromium; fresh/restored admins mount, anonymous/reader/aged/logout cannot load either document or trigger upstream work. Logs screens/session composition and live navigation remain; production flags stay off.
-
-- [x] Iteration 1803: installed metrics Raw Query composes reviewed captured assets, real stored-session authorization and synthetic export in isolated Chromium; fresh/restored admins render, anonymous/reader/aged/logout cannot load the document. Other native screens/session composition and live navigation remain; production flags stay off.
-
-- [x] Iteration 1802: Chromium Secure/HttpOnly/Strict cookie jar exercises synthetic export rendering through the isolated stored-session application, with fresh/restored admin success and anonymous/reader/aged/logout refusal. Native installed UI/session composition remains; production flags stay off.
-
-- [x] Iteration 1801: prepared bounded export composes stored-session authorization and buffered transport in the isolated full application; fresh admin forwarding and reader/stale/logout/malformed refusal verified. Production admission/public mode stay off; full browser/session composition remains.
-
-- [x] Iteration 1806: installed logs Query rechecks stored-session freshness on an already-open screen: aged session returns 404 without telemetry work, restored session resumes HTTP 200. Synthetic responses only; public mode off.
-
-- [x] Iteration 1800: installed Raw Query browser composes one-minute `up` export with the prepared buffered handler and synthetic upstream, renders its series and refuses broad requests without upstream work. Stored-session composition remains before admission; public mode stays off.
-
-- [x] Iteration 1799: disposable installed-binary shortened-cap export expiry verifies server-cap precedence over the prepared two-second request, native deadline refusal and buffered transport rejection; process stays healthy. Live-cap expensive-work timing remains unmeasured; authenticated/browser composition remains before admission.
-
-- [x] Iteration 1798: installed the rehearsed metrics export limits (32 series/two seconds); live process flags, health and bounded telemetry reads verified. Export admission/public mode remain off; deadline-expiry and authenticated/browser composition remain.
-
-- [x] Iteration 1797: prepared exports force a two-second upstream deadline; disposable installed VictoriaMetrics accepts 32 synthetic series and refuses 33 with the reviewed export-series limit. Live defaults unchanged; server-limit installation, session composition and browser acceptance remain before admission.
-
-- [x] Iteration 1796: prepared export HTTP handler buffers bounded responses, refuses invalid requests before upstream, strips credentials/private headers and cancels fetch on real downstream socket closure. Two-server tests pass; handler remains unwired pending session composition and upstream work limits.
-
-- [x] Iteration 1794: narrow live native export shape and installed UI parameter inventory reviewed; per-line limits do not cap total output. Export stays denied pending enforced query/response bounds and cancellation; public mode off.
-
-- [x] Iteration 1793: prepared-proxy Chromium navigation covers metrics Raw Query/Dashboards/Query Analyzer and logs Overview; shared-policy admission/refusal and uncaught-error/CSP checks pass; Raw Query export remains denied pending bounded review. Full browser/session and live navigation remain open; public mode off.
-
-- [x] Iteration 1792: compiled-app stored-session HTTP rehearsal covers all 13 native telemetry assets, CSP/nosniff, method/alias refusals and freshness/login/logout boundaries against fixture upstream. Browser/session composition and broader live navigation remain open; public mode off.
-
-- [x] Iteration 1791: exact native telemetry asset GET admission and proxy CSP/nosniff prepared for fresh admins; Chromium proxy composition and fixture queries/policy refusals pass. Broader live navigation and stored-session UI composition remain open; public mode off.
-
-- [x] Iteration 1790: six reviewed native telemetry metadata GET routes prepared behind fresh-admin authentication; exact-path/method refusals, credential stripping and stored-session/live proxy checks pass. UI assets/CSP composition remain open; public mode stays off.
-
-- [x] Iteration 1789: exact installed telemetry asset hashes/MIME/cookie checks and six bounded metadata response-shape reviews pass. Tenant identifiers remain fresh-admin-only candidates; runtime UI admission and deployed CSP composition remain open.
-
-- [x] Iteration 1788: installed telemetry UI candidate CSP rehearsal passes normal fixture query flows and deliberate inline-script/external-fetch refusals. No route admission or runtime header changes; assets/metadata and deployed CSP composition remain open.
-
-- [x] Iteration 1787: prepared native query form POST and metrics `/prometheus` query aliases; 16 KiB/five-second upload bounds, fresh-admin stored-session boundary and credential stripping. UI assets/metadata and CSP remain closed; public mode stays off.
-
-- [x] Iteration 1786: installed native telemetry assets reviewed in Chromium with all operational requests intercepted as fixtures. Both UIs require POST queries; metrics uses the `/prometheus` API alias; logs requests build/tenant metadata. Repeatable review added; native UI admission remains closed.
-
-- [x] Iteration 1785: prepared fresh-admin logs hit/statistics/metadata/time-bound GET routes admitted; live bounded JSON probes and isolated proxy/stored-session refusals verified. Native UI assets and POST transport remain closed.
-
-- [x] Iteration 1784: compiled public application composes real stored-session authentication with prepared telemetry proxy; reader/stale/logged-out admin refusal and fresh-admin forwarding pass against an isolated fixture upstream. Native UI routes remain closed.
-
-- [x] Iteration 1783: live telemetry upstream/prepared-proxy composition passes bounded metrics/log reads and simulated principal/write refusals; no operational bodies printed. Public mode stays off.
-
-- [x] Iteration 1782: prepared public-mode telemetry GET queries require fresh admins; shared proxy allowlist strips credentials/cookies and denies mutations. Live public mode remains off.
-
-- [x] Iteration 1781: reader handbook service installed on loopback 8110; exact corpus, prepared public proxy, denied routes and stop/start rollback pass. Live public mode stays off.
-
-- [x] Iteration 1780: live explorer structural-only mode enabled after exact 39-table projection, private rollback/reactivation and desktop/mobile checks. Public mode remains off; private rehearsal inputs now use the restricted catalog role directly.
-
-- [x] Iteration 1779: exact anonymous explorer GET admission composed with the structural upstream proxy; live-catalog private/structural/private and desktop/mobile checks pass. Live public and structural flags remain off.
-
-- [x] Iteration 1778: public explorer proxy rejects private upstream responses, strips credentials/cookies and restricts exact structural GET routes. Structural-only server marker added; public route admission remains closed and live flags remain off.
-
-- [x] Iteration 1777: live explorer credential/environment/authentication rollback and reactivation pass; exact private response and extension ACL restored, pooled restricted sessions close and password/privilege preflight passes. Public mode stays off; explicit reader admission remains.
-
-- [x] Iteration 1776: disposable explorer credential lifecycle composes pooled-session closure, NOLOGIN, original authentication/extension-ACL restoration and restricted-role reactivation; exact ACL and structural catalog checks pass. Live credential/environment rollback and explicit reader admission remain open; public mode stays off.
-
-- [x] Iteration 1775: real explorer HTTP/proxy private–structural–private replay passes on the captured live restricted-role catalog; desktop/mobile screenshots, exact DTO, no-store and denied-route checks pass. Public admission stays closed even to fresh admins. Next: full credential/authentication rollback and explicit reader route admission; public mode stays off.
-
-- [x] Iteration 1755: completed bounded post-reset NBA Sonnet continuation; one Sonnet repair and one Haiku repair validated, with supported-paraphrase guard rejection confirmed and cost settled.
-
-- [x] Iteration 1807: installed metrics Raw Query rechecks stored-session freshness on Execute without reloading: aged session refuses export without upstream work; restored freshness resumes synthetic series rendering. Production admission/public mode remain off.
-
-- [x] Iteration 1808: mounted installed Raw Query time-window navigation with a real stored admin session refuses thirty-minute export without upstream work; returning to one minute renders synthetic series. Production admission/public mode remain off.
-
-- [x] Iteration 1809: mounted Raw Query selector navigation with a fresh stored admin session refuses `count(up)` without upstream work; restoring `up` renders synthetic series again. Production admission/public mode remain off.
-
-Recent completed steps are recorded in PROGRESS.md and its linked archives.
+Recent completed steps are recorded in PROGRESS.md and its linked archives. [Completed task markers through 1810](docs/progress-archive/2026-11-11-task-done-1814.md).
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
 - Next: measure Grafana export capacity under scheduled load or natural compaction before installation, then verify the live listener and freshness alert; Phase 3 accepted; migration 0019 live (1730), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
-
-- [x] Iteration 1810: mounted installed metrics/logs screens refuse the next action after real logout deletes the stored admin session, despite retaining the browser cookie; HTTP 404 and zero upstream work. Synthetic responses only; public mode remains off.

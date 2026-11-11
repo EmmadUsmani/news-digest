@@ -1178,3 +1178,18 @@ The real response renders a chart canvas without page or CSP errors; the saved
 `docs/screenshots/native-metrics-live-count.png` was visually inspected. Principals
 remain simulated; real stored-session/live-upstream composition is still open.
 Production telemetry admission and public mode remain off. No provider calls.
+
+### Live installed logs result (iteration 1814)
+
+The explicit live check now renders one recent message in installed logs Query.
+Its browser interceptor admits exactly one POST with `_time:1m`, limit one and
+only query/limit/start/end fields. An explicit end time and one-minute range
+avoid the native five-minute default. The response has no-store, no upstream
+cookie, at most 16 KiB and exactly one timestamped row within the requested
+window. The browser must display that row's actual message without page or CSP
+errors. Other automatic data queries remain locally refused. Operational
+messages are neither printed nor saved in screenshots.
+
+Principals remain simulated; stored-session/live-upstream composition and
+production telemetry admission remain open. Public mode stays off. No provider
+calls or service restarts during the deployment hold.
