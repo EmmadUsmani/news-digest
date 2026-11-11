@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1795: prepared export parser restricts requests to one up selector/60 seconds; buffered 64 KiB/five-second transport aborts overflow, stalls and caller cancellation. Local HTTP tests and narrow live probe pass; export admission remains denied pending proxy composition and upstream work limits.
+
 - [x] Iteration 1794: narrow live native export shape and installed UI parameter inventory reviewed; per-line limits do not cap total output. Export stays denied pending enforced query/response bounds and cancellation; public mode off.
 
 - [x] Iteration 1793: prepared-proxy Chromium navigation covers metrics Raw Query/Dashboards/Query Analyzer and logs Overview; shared-policy admission/refusal and uncaught-error/CSP checks pass; Raw Query export remains denied pending bounded review. Full browser/session and live navigation remain open; public mode off.

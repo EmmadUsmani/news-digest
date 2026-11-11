@@ -145,3 +145,14 @@
 - Full pnpm check passes: 833 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build and handbook checks pass; git diff --check clean.
 - Pushed 537a93d6; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account checks and saved Nov 10 reader checks pass; no failed user services.
 - Next: enforced export bounds, full browser/session composition, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1795 — prepared bounded telemetry export transport
+
+- Clean main; no inherited work. Alerts clear, healthz healthy and no failed user services. Public mode remains off; no provider calls.
+- Added prepared export parser: one exact up selector, explicit numeric timestamps, positive window ≤60 seconds; unknown/duplicate parameters, broad selectors, aliases and fragments refused.
+- Added buffered 64 KiB transport with five-second header/body deadline; overflow, invalid response, timeout and caller cancellation abort upstream fetch. No bytes returned until the full bounded response completes.
+- Local HTTP tests cover exact cap/overflow, stalled headers/body, active/pre-aborted callers, upstream connection closure, redirects and content-type refusal. Narrow live probe now uses this helper: 15 rows/15 samples, 1,745 bytes; operational bodies withheld.
+- Export GET/POST/HEAD admission stays denied. Proxy/session/client-disconnect composition, upstream query-work limits and installed-browser acceptance remain open; updated readiness/review and TASKS.
+- Verification: targeted transport tests, pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts observability, deployed account boundaries and saved Nov 10 reader check.
+- Full check passes: 835 unit and 283 integration tests, four expected skips; build, handbook, 32 deployed account checks and saved reader check pass (four topics/19 stories/15 posts). All 36 sources healthy; git diff --check clean.
+- Next: compose export bounds into prepared proxy before admission; browser/session navigation, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.

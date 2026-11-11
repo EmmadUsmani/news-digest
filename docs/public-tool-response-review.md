@@ -912,3 +912,22 @@ response cap. The probe's client deadline/byte cap does not establish server
 query-work limits. Keep this route denied until selector/time-window bounds,
 upstream cancellation and total response limits are enforced and rehearsed.
 No live browser queries, new route admission or public activation occurred.
+
+## Prepared export bounds (iteration 1795)
+
+The live review now uses the prepared export transport rather than its own
+reader. Request parsing accepts one exact `up` selector, explicit numeric
+second timestamps and a positive window of at most 60 seconds. Duplicate or
+unknown parameters, broad selectors, aliases and fragments are refused; the
+transport adds one-sample lines and reduced-memory processing.
+
+The transport buffers at most 64 KiB before returning any bytes, with a
+five-second deadline covering headers and body. Overflow, timeout, upstream
+failure and caller cancellation abort the fetch. Local HTTP tests cover exact
+capacity, overflow, stalled headers/body, disconnects, pre-aborted callers,
+redirect refusal and invalid content types. A narrow live probe passed again
+with 15 rows/15 samples and 1,745 bytes; no operational bodies were printed.
+
+This helper is not wired into public proxy admission. Export GET/POST/HEAD stay
+denied. Next: compose response handling, authenticated client disconnects and
+upstream work limits in the proxy, then rehearse installed-browser behavior.
