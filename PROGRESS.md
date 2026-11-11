@@ -180,3 +180,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm build, targeted tests, filtered handbook check and git diff --check pass; pnpm check passes: 857 unit/283 integration tests, four expected skips. Existing build warnings only.
 - Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics.
 - API/worker restarted successfully; post-restart healthz/database/Redis healthy and both units active. Commit/push follows; split remains disabled.
+
+## 2026-11-11: iteration 1855 — destination-score editorial composition
+
+- Clean main; no inherited work. Alerts zero and healthz/database/Redis healthy. Item 50 remains at owner/lead stop; continued 56.
+- Prepared shortlist/edit bridges accept paired triage on the consolidated shared report pool before ownership; incomplete scores stop ownership and editing.
+- Destination scores admit whole events at relevance 6/importance 4; best eligible destination importance/relevance selects ten events before recency ranking. Corroborating reports stay with their event.
+- Three new offline tests cover destination admission, retained evidence, ten-event importance selection and refusal sequencing; all 13 shortlist/edit tests pass.
+- No production caller, provider requests, source activation, caps or flags changed. Whole-edition headroom and semantic routing evaluation remain required.
+- TASKS/scope assessment updated; no live workflow/handbook change. Filtered handbook check passes (39 tables, no metadata warnings).
+- Live snapshot: all 36 sources have nonempty latest collections/no errors; latest edition eb6e962e serves four topics/19 stories.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, targeted tests and git diff --check pass: 860 unit/283 integration tests, four expected skips. Existing build warnings only.
+- API/worker restart and health verification follow commit/push; split remains disabled.

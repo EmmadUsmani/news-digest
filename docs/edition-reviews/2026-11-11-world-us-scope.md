@@ -181,3 +181,18 @@ bounds. No production caller, paid requests or budget changes. Connecting these
 scope-specific scores to ownership and editorial shortlists remains required,
 as does achievable whole-edition headroom. This gate alone does not complete
 triage orchestration or establish semantic split quality.
+
+## Destination-score editorial composition — iteration 1855
+
+Prepared shortlist/edit bridges now optionally run complete paired triage on
+the consolidated shared pool before ownership. Each owned event is admitted
+when at least one report meets relevance 6 and importance 4 in its destination
+scope. All reporting in that event remains available as evidence. Up to ten
+events are selected by destination importance, then relevance, before existing
+recency ranking and paired editing. Source-topic scores do not admit an event
+into its destination. Incomplete triage stops ownership and editing.
+
+Offline tests cover destination admission, retained corroboration, importance
+selection beyond ten events and refusal sequencing. No production caller, paid
+requests, cap changes or activation. Whole-edition headroom and semantic routing
+evaluation remain required.

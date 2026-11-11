@@ -4,6 +4,7 @@ import type {
   StoryScope,
 } from '../../curation/public/editorial';
 import { type Candidate, rank } from '../domain/rank';
+import { jointStoryTriage, type TriagePort } from './joint-story-triage';
 
 export type StoryPool = { scope: StoryScope; candidates: Candidate[] };
 
@@ -58,6 +59,7 @@ export async function jointStoryShortlists(
   start: Date,
   end: Date,
   runId: string,
+  triage?: TriagePort,
 ): Promise<Map<string, ReturnType<typeof rank>> | null> {
   const pools = sharedPools(inputPools);
   if (!pools) return null;
@@ -77,6 +79,15 @@ export async function jointStoryShortlists(
   )
     return null;
   if (!all.length) return new Map(pools.map(({ scope }) => [scope.id, []]));
+  const scores = triage
+    ? await jointStoryTriage(
+        triage,
+        pools.map(({ scope }) => scope),
+        all,
+        runId,
+      )
+    : undefined;
+  if (scores === null) return null;
   try {
     const groups = await ownership.assignTopics(
       pools.map((pool) => pool.scope),
@@ -104,8 +115,38 @@ export async function jointStoryShortlists(
     if (membership.size !== all.length) return null;
     return new Map(
       pools.map(({ scope }) => {
+        const eligible = scores
+          ? new Set(
+              scores
+                .get(scope.id)!
+                .scores.filter(
+                  (score) => score.relevance >= 6 && score.importance >= 4,
+                )
+                .map((score) => score.id),
+            )
+          : null;
+        // Admit whole owned events using destination scores. Never discard
+        // corroborating reports just because one report scored below threshold.
+        const priorities = new Map(
+          scores
+            ?.get(scope.id)
+            ?.scores.map((score) => [
+              score.id,
+              score.relevance >= 6 && score.importance >= 4
+                ? score.importance * 11 + score.relevance
+                : 0,
+            ]),
+        );
+        const priority = (group: OwnedStoryGroup) =>
+          Math.max(...group.ids.map((id) => priorities.get(id) ?? 0));
         const candidates = groups
-          .filter((group) => group.topicId === scope.id)
+          .filter(
+            (group) =>
+              group.topicId === scope.id &&
+              (!eligible || group.ids.some((id) => eligible.has(id))),
+          )
+          .sort((a, b) => priority(b) - priority(a))
+          .slice(0, scores ? 10 : 40)
           .flatMap((group) => group.ids.map((id) => byId.get(id)!));
         return [
           scope.id,

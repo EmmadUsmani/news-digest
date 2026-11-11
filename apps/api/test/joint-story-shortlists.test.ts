@@ -439,3 +439,120 @@ void test('paired edit validates budgets and ownership before editing', async ()
     null,
   );
 });
+
+void test('paired triage uses destination scores after ownership and retains whole-event evidence', async () => {
+  const calls: string[] = [];
+  const result = await jointStoryEdits(
+    {
+      async assignTopics() {
+        calls.push('ownership');
+        return [
+          { topicId: 'us', ids: ['a', 'c'] },
+          { topicId: 'world', ids: ['b'] },
+          { topicId: 'us', ids: ['d'] },
+        ];
+      },
+    },
+    {
+      async edit(scope, ranked) {
+        calls.push(`edit:${scope.id}`);
+        assert.deepEqual(
+          ranked.flatMap((story) => story.coverage.map((report) => report.id)),
+          scope.id === 'us' ? ['a', 'c'] : [],
+        );
+        return { model: 'recorded', brief: [], stories: [] };
+      },
+    },
+    pools.map((pool) => ({ ...pool, budget: 5 })),
+    start,
+    end,
+    'scored',
+    {
+      async score(scope, candidates) {
+        calls.push(`triage:${scope.id}`);
+        return {
+          unscoredIds: [],
+          scores: candidates.map(({ id }) => ({
+            id,
+            relevance: scope.id === 'us' && id === 'a' ? 9 : 1,
+            importance: 8,
+            event: id,
+            rationale: 'Recorded scope assessment',
+          })),
+        };
+      },
+    },
+  );
+  assert.ok(result);
+  assert.deepEqual(calls, [
+    'triage:world',
+    'triage:us',
+    'ownership',
+    'edit:world',
+    'edit:us',
+  ]);
+});
+
+void test('incomplete paired triage stops ownership and editing', async () => {
+  const result = await jointStoryEdits(
+    {
+      async assignTopics() {
+        assert.fail('ownership must not run');
+      },
+    },
+    {
+      async edit() {
+        assert.fail('editor must not run');
+      },
+    },
+    pools.map((pool) => ({ ...pool, budget: 5 })),
+    start,
+    end,
+    'refused',
+    {
+      async score() {
+        return { scores: [], unscoredIds: ['a'] };
+      },
+    },
+  );
+  assert.equal(result, null);
+});
+
+void test('destination importance selects ten whole events before recency ranking', async () => {
+  const candidates = Array.from({ length: 12 }, (_, index) =>
+    article(String(index).padStart(2, '0')),
+  );
+  const result = await jointStoryShortlists(
+    {
+      async assignTopics() {
+        return candidates.map(({ id }) => ({ topicId: 'us', ids: [id] }));
+      },
+    },
+    [
+      { scope: pools[0].scope, candidates },
+      { scope: pools[1].scope, candidates: [] },
+    ],
+    start,
+    end,
+    'importance',
+    {
+      async score(scope, reports) {
+        return {
+          unscoredIds: [],
+          scores: reports.map(({ id }) => ({
+            id,
+            relevance: 8,
+            importance: scope.id === 'us' && ['10', '11'].includes(id) ? 10 : 4,
+            event: id,
+            rationale: 'Recorded priority',
+          })),
+        };
+      },
+    },
+  );
+  assert.ok(result);
+  const ids = result.get('us')!.map(({ id }) => id);
+  assert.equal(ids.length, 10);
+  assert.ok(ids.includes('10') && ids.includes('11'));
+  assert.ok(!ids.includes('08') && !ids.includes('09'));
+});

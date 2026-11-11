@@ -4,7 +4,7 @@ import type {
 } from '../../curation/public/editorial';
 import type { Candidate } from '../domain/rank';
 
-interface TriagePort {
+export interface TriagePort {
   score(
     topic: TriageTopic,
     candidates: Candidate[],

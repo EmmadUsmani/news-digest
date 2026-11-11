@@ -8,6 +8,7 @@ import {
   type OwnershipPort,
   type StoryPool,
 } from './joint-story-shortlists';
+import type { TriagePort } from './joint-story-triage';
 
 interface EditorPort {
   edit(
@@ -18,8 +19,9 @@ interface EditorPort {
   ): Promise<EditorialResult | null>;
 }
 
-// Prepared only: callers must supply completely triaged pools and establish
-// whole-edition admission before enabling this path. No persistence or fallback.
+// Prepared only: supply paired triage for destination-aware admission, or
+// already triaged pools. Whole-edition budget admission is still required
+// before activation. No persistence or independent fallback.
 export async function jointStoryEdits(
   ownership: OwnershipPort | null,
   editor: EditorPort,
@@ -27,6 +29,7 @@ export async function jointStoryEdits(
   start: Date,
   end: Date,
   runId: string,
+  triage?: TriagePort,
 ) {
   if (
     pools.some(
@@ -40,6 +43,7 @@ export async function jointStoryEdits(
     start,
     end,
     runId,
+    triage,
   );
   if (!shortlists) return null;
   const results = new Map<
