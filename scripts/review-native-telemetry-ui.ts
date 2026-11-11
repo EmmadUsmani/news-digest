@@ -1,6 +1,7 @@
 // Explicit installed-asset review. Operational requests are intercepted fixtures;
 // only native UI documents/assets reach loopback. Never print queries or bodies.
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 
 import { chromium } from 'playwright';
 
@@ -33,6 +34,10 @@ async function main() {
       });
       const assets = new Set<string>();
       const failedAssets = new Set<string>();
+      const inventory = new Map<
+        string,
+        { bytes: number; sha256: string; contentType: string }
+      >();
       const intercepted = new Set<string>();
       const page = await context.newPage();
       page.on('response', (response) => {
@@ -51,18 +56,37 @@ async function main() {
           url.pathname === `${root}dashboards/index.js`;
         if (url.origin === origin && request.method() === 'GET' && asset) {
           assets.add(url.pathname);
-          if (url.pathname === root) {
-            const response = await route.fetch();
-            await route.fulfill({
-              response,
-              headers: {
-                ...response.headers(),
+          const response = await route.fetch({ timeout: 10000 });
+          const body = await response.body();
+          assert.ok(
+            body.length <= 4 * 1024 * 1024,
+            'Asset exceeds review limit',
+          );
+          assert.equal(response.headers()['set-cookie'], undefined);
+          const contentType = response.headers()['content-type'] ?? '';
+          assert.match(
+            contentType,
+            url.pathname === root
+              ? /text\/html/
+              : url.pathname.endsWith('.css')
+                ? /text\/css/
+                : /javascript/,
+          );
+          inventory.set(url.pathname, {
+            bytes: body.length,
+            sha256: createHash('sha256').update(body).digest('hex'),
+            contentType,
+          });
+          await route.fulfill({
+            response,
+            body,
+            headers: {
+              ...response.headers(),
+              ...(url.pathname === root && {
                 'content-security-policy': policy,
-              },
-            });
-          } else {
-            await route.continue();
-          }
+              }),
+            },
+          });
           return;
         }
         // Exclude queries, bodies, headers and external hostnames from the report.
@@ -144,7 +168,9 @@ async function main() {
       console.log(
         JSON.stringify({
           name,
-          assets: [...assets].sort(),
+          assets: Object.fromEntries(
+            [...inventory].sort(([a], [b]) => a.localeCompare(b)),
+          ),
           intercepted: [...intercepted].sort(),
           links: [...new Set(links)].sort(),
           fixtureData: true,

@@ -135,3 +135,13 @@
 - Updated tool response review, public readiness and TASKS. Runtime headers/admission unchanged; handbook system behavior unchanged.
 - Verification passed: `pnpm format`, `pnpm lint:fix`, `pnpm check` (833 unit/283 integration passes, four expected skips), `pnpm build`, repeated native Chromium review, `check-live-account-boundary.ts` (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, and `git diff --check`.
 - Next: exact static/configuration/build/tenant response review, deployed CSP composition and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1789 — exact telemetry assets and metadata review
+
+- Clean main; no inherited work. Alerts clear, no failed user services, healthz healthy; all 36 sources healthy and four queues available. No provider calls; public mode remains off.
+- Native Chromium review now inventories 13 installed documents/scripts/styles by exact path, SHA-256, bytes and MIME; asset cookies and unexpected MIME/size fail. Normal fixture queries and deliberate inline-script/external-fetch CSP refusals still pass.
+- Added `review-native-telemetry-metadata.ts --live`: six exact loopback GETs, five-second/16 KiB bounds, redirect/cookie refusal and expected JSON-shape checks. Reports omit values and tenant IDs. Dashboard contains static resource query panels; tenant/config/build metadata remains a fresh-admin-only candidate.
+- Saved asset-only inventory and updated response review/readiness/TASKS. Runtime UI admission and response headers unchanged; handbook behavior unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (833 unit/283 integration passes, four expected skips), `pnpm build`, repeat native Chromium/metadata reviews and `check-handbook.ts observability` pass. All 13 saved asset hashes match the repeat review.
+- Restarted API; retrying healthz, 32 account-boundary checks and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). No failed user services; `git diff --check` passes.
+- Next: exact UI/metadata fresh-admin proxy admission with CSP composition and broader native navigation; Grafana scheduled-load/natural-compaction evidence; Nov 11 15:00 UTC NBA review.

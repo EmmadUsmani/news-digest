@@ -819,3 +819,32 @@ admission stays closed. Exact assets/configuration/build/tenant response review,
 proxy header composition and broader UI navigation remain required before opening
 these routes. Run `pnpm exec tsx scripts/review-native-telemetry-ui.ts --live-assets`
 after an upstream UI upgrade; it reports directive names without blocked URLs.
+
+## Exact installed responses (iteration 1789)
+
+The Chromium review now records byte counts, content types and SHA-256 hashes
+for every loaded document, script and stylesheet, refuses unexpected MIME types,
+checks a 4 MiB asset limit and rejects asset cookies. The reviewed inventory is
+[native-telemetry-asset-review.json](native-telemetry-asset-review.json): seven
+metrics resources and six logs resources. This covers the mounted query flow;
+other navigation can load additional bundles and requires another review.
+
+`pnpm exec tsx scripts/review-native-telemetry-metadata.ts --live` separately
+reads six exact loopback GET responses with five-second/16 KiB limits, refuses
+redirects/cookies and checks their JSON shapes. It prints shapes and byte counts,
+never metadata values or tenant identifiers.
+
+| Exact response                               | Reviewed contents                            | Prepared admission decision                       |
+| -------------------------------------------- | -------------------------------------------- | ------------------------------------------------- |
+| `/metrics/prometheus/vmui/config.json`       | Version, license type, alerting enabled flag | Fresh admin only                                  |
+| `/metrics/prometheus/vmui/custom-dashboards` | Empty dashboard settings                     | Fresh admin only; re-review configured dashboards |
+| `/metrics/prometheus/vmui/timezone`          | Timezone string                              | Fresh admin only                                  |
+| `/metrics/vmui/dashboards/perJobUsage.json`  | Static CPU/RSS/disk query panels             | Fresh admin only                                  |
+| `/logs/select/buildinfo`                     | Status and version                           | Fresh admin only                                  |
+| `/logs/select/tenant_ids`                    | Numeric account/project identifiers          | Fresh admin only; never anonymous or reader       |
+
+These are live metadata reads; browser query results still use fixtures. No
+runtime admission changed. Next compose the exact asset/metadata routes with
+fresh-admin authentication, credential stripping, no-store and the rehearsed CSP,
+then verify the native UI through that proxy. Unknown paths and mutations stay
+closed; public mode remains off.

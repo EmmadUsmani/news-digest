@@ -1,0 +1,75 @@
+{
+  "reviewedAt": "2026-11-11",
+  "iteration": 1789,
+  "assets": {
+    "metrics": {
+      "/metrics/vmui/": {
+        "bytes": 2812,
+        "sha256": "60602626ccf37aad30c16d3ebc252ca6a9160f56a492572a784db10c953e5508",
+        "contentType": "text/html; charset=utf-8"
+      },
+      "/metrics/vmui/assets/index-BIgfk_tx.css": {
+        "bytes": 107324,
+        "sha256": "2de39a45cd059bc7a2f42371c8e29275ee78e3e97cdfa9083f00cd9502d6fdfe",
+        "contentType": "text/css; charset=utf-8"
+      },
+      "/metrics/vmui/assets/index-DqVYYV1R.js": {
+        "bytes": 321478,
+        "sha256": "936737dfcb8940922fd7d36d300d8aa4a4eefd50d20c1058fd90142c8486db21",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/metrics/vmui/assets/rolldown-runtime-B0Z9INg1.js": {
+        "bytes": 901,
+        "sha256": "5e9b0d884d2ebb14e241ab38b43e41efb61bce2e74d71507b0b95b264fba4047",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/metrics/vmui/assets/vendor-CnsZ1jie.css": {
+        "bytes": 1644,
+        "sha256": "0fd9465202f6dfceac29e67c17e5ac9fb1b7ba7615c1bb08782391b791d9f1e0",
+        "contentType": "text/css; charset=utf-8"
+      },
+      "/metrics/vmui/assets/vendor-U2Dx9M-W.js": {
+        "bytes": 270285,
+        "sha256": "3b74e90f74424819eae4cdc594fec0f31f010b1b87e50e7515db10c77a52f13e",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/metrics/vmui/dashboards/index.js": {
+        "bytes": 66,
+        "sha256": "6cf541a87f7771373442fc3c69a499c7aa37abc41018cb7a909237d70e6fe51f",
+        "contentType": "text/javascript; charset=utf-8"
+      }
+    },
+    "logs": {
+      "/logs/select/vmui/": {
+        "bytes": 2779,
+        "sha256": "0c1020982ab3c052b7eb6afaa4d0d373594742d61bfb74a403151a505ecb15bf",
+        "contentType": "text/html; charset=utf-8"
+      },
+      "/logs/select/vmui/assets/index-lFbxh1s7.js": {
+        "bytes": 494747,
+        "sha256": "3f076c5add3a73655b2caf828d7b81dac95083a647f98fd64d9a2582321aa561",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/logs/select/vmui/assets/index-TSMEX6Db.css": {
+        "bytes": 104586,
+        "sha256": "f001933614a9f45c28300bfc19632481df02f3d609eaf1ea9f97f88ef843a3ed",
+        "contentType": "text/css; charset=utf-8"
+      },
+      "/logs/select/vmui/assets/rolldown-runtime-CNC7AqOf.js": {
+        "bytes": 879,
+        "sha256": "d4a36920c7bab6ec97d0bdc5d1233622f28fe010198ca32bcdd80c8cb6b64aae",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/logs/select/vmui/assets/vendor-Bl8Hxami.js": {
+        "bytes": 240287,
+        "sha256": "dde0219f4a9ded996ddeefd320e3d7358ac501cbf974585386b7e91525131216",
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      "/logs/select/vmui/assets/vendor-CnsZ1jie.css": {
+        "bytes": 1644,
+        "sha256": "0fd9465202f6dfceac29e67c17e5ac9fb1b7ba7615c1bb08782391b791d9f1e0",
+        "contentType": "text/css; charset=utf-8"
+      }
+    }
+  }
+}
