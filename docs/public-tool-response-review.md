@@ -611,3 +611,23 @@ This is an isolated regression test with synthetic credentials, not a live
 credential rollback. Live service/environment/authentication rollback and the
 explicit public reader admission decision remain open. No production credentials,
 grants, flags or provider traffic changed.
+
+## Live explorer credential rollback (iteration 1777)
+
+Rehearsed on the private live service with fresh mode-600 snapshots in
+`~/.local/state/news-digest/catalog-1777/`. Removed only the explorer URL from
+the environment and its service drop-in, then reloaded systemd and restarted
+the explorer. Its complete private response matched the restricted-role response
+exactly apart from capture time, and no catalog-role backends remained.
+
+Set the catalog role NOLOGIN, restored the pre-install authentication file in
+place (preserving ownership/mode), validated zero parsed-rule errors and reloaded
+PostgreSQL. Restored the preserved extension ACL script; app health stayed green.
+Reactivation restored the current authentication file, hardened extension grants,
+LOGIN, exact environment and drop-in, then restarted the explorer. Exact response
+and extension ACL comparison, restricted-role backends and the password/privilege
+preflight all passed. Cleanup ran through a finally block.
+
+Public/structural flags stayed off, no provider calls were made, and the catalog
+login is active again. Explicit reader route admission remains the next explorer
+gate; this rehearsal does not enable public access.

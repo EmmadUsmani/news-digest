@@ -4,41 +4,7 @@
 
 [Iterations 1753–1759](docs/progress-archive/2026-11-11-through-1759.md).
 
-## 2026-11-11: iteration 1760 — prepare a public queue status projection
-
-- Clean main; no inherited work. `pnpm obs alerts`, health/services/sources and jobs checks: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
-- Prepared an unmounted GET/HEAD queue status handler for four fixed queues, five counts and one scheduler timestamp per queue. No raw Bull Board route fallback, private records, logs, Redis details, or upstream errors in the response.
-- Targeted HTTP test passed with synthetic queue results, including private-data exclusion, legacy route refusals, 405 for mutation, HEAD, and generic 503. Private jobs browser unchanged; no provider calls or activation.
-- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` passed. Push and restart API/worker, then verify live health, reader and private queues.
-- Next: rehearse exclusive public queue routing and request admission. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after Nov 11 15:00 UTC.
-
-## 2026-11-11: iteration 1761 — route public queue status through API admission
-
-- Clean main; no inherited work. `pnpm obs alerts` clear; `/healthz` passed, `pnpm obs services/sources/jobs` showed 14 healthy services, 36 healthy sources and zero failed digest jobs.
-- Public mode selects only `GET/HEAD /api/queues` behind API admission; private mode retains the read-only Bull Board. No live flag, sharing, generation or provider changes.
-- Compiled Nest and disposable Redis rehearsal: anonymous GET/HEAD expose only queue counts and next runs; legacy routes denied for anonymous and signed-in admins. Queue and account requests share the reader quota, with 429 for missing identity or exhaustion.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build`, handbook check for `09-observability` and `git diff --check` passed. Push and restart only the API; verify private jobs, account boundary and scheduled reader.
-- Next: rehearse remaining public tool surfaces. Grafana installation still needs capacity evidence under scheduled load or natural compaction; review NBA editing after the Nov 11 15:00 UTC edition.
-
-## 2026-11-11: iteration 1762 — bound handbook responses to the navigation inventory
-
-- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
-- Removed the unused broad docs image route, named the three static assets, and made direct page reads match the tree and search inventory. The operational handbook stays private; public corpus and proxy review remain.
-- Isolated Node HTTP checks compared all 18 page bodies and refused screenshot paths, page aliases, and unsupported methods. Playwright opened the Observability result from search and rendered its diagram; screenshot under `docs/screenshots/`.
-- `pnpm exec tsx scripts/check-handbook.ts` passed (18 pages, 22 diagrams, 39 schema tables). `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
-- Full check exposed a Grafana export startup race: the socket probe could accept the temporary init server. The prepared Compose probe now checks TCP on loopback, matching the listener used by the isolated test. No live Grafana change.
-- Verification: `pnpm format`, `pnpm lint:fix`, changed-file Prettier and `git diff --check` passed. `pnpm check` passed typecheck/lint/format/boundaries and 828 unit tests; after the TCP fix, `pnpm test:integration` passed 281 with four expected skips. `pnpm --filter @digest/docs-site test` passed 10; `pnpm build` passed. Push and restart only the handbook service, then verify private proxy routes and anonymous refusal.
-- Next: continue individual public tool rehearsals; Grafana still needs capacity evidence under scheduled load or natural compaction. Review NBA editing after the 15:00 UTC edition.
-
-## 2026-11-11: iteration 1763 — prepare the reader handbook
-
-- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
-- Prepared a separate one-page reader handbook covering editions, preferences and AI summaries. The loopback candidate serves only its HTML and CSS; no private corpus, third-party assets, proxy install, flag change or provider calls.
-- Standalone HTTP rehearsal verified GET/HEAD and denials for private Markdown/search/image paths and POST. Playwright checked desktop light/mobile dark, no overflow or external requests, and saved `docs/screenshots/reader-handbook-mobile.png`.
-- `pnpm --filter @digest/docs-site test` passed 10. `check-live-account-boundary.ts` passed 32; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart only the private handbook service; recheck live admission and health.
-- Next: rehearse exact public handbook proxy admission and rollback. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after the 15:00 UTC edition.
+[Iterations 1760–1763](docs/progress-archive/2026-11-11-iterations-1760-1763.md).
 
 ## 2026-11-11: iteration 1764 — rehearse public handbook routing and rollback
 
@@ -154,3 +120,12 @@
 - This is isolated synthetic-credential evidence, not live credential rollback. No live credentials, grants, flags or provider spending changed. Updated readiness and response-review evidence; live credential/environment rollback and reader admission remain open.
 - Targeted credential test, `pnpm build`, deployed account boundary (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, handbook/schema check and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
 - Next: live credential/environment/authentication rollback; explicit reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1777 — live explorer credential rollback
+
+- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; scheduled digest queue healthy and recent free/social collection succeeds.
+- `python /tmp/catalog-1777.py` passed live rollback/reactivation. Fresh private snapshots and the rehearsal script are in `~/.local/state/news-digest/catalog-1777/`. Removed explorer URL/drop-in, restarted, verified exact private response and zero restricted-role sessions; applied NOLOGIN, original parsed authentication and preserved extension ACL restoration. App health remained green.
+- Finally restored scoped authentication, hardened grants, LOGIN, exact environment/drop-in and restarted. Exact response/extension ACL comparisons, restricted-role sessions and password/privilege preflight pass. Public/structural flags remain off; no provider spending.
+- Build, deployed account boundary (32 checks), saved-reader check (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) and anonymous `/db/` 404 pass. Corrected an initial boundary-command filename typo; actual deployed check passes.
+- Updated readiness/evidence/TASKS and archived iterations 1760–1763 to keep this file small. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes; four expected skips) and `git diff --check` pass.
+- Next: explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
