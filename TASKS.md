@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1816: real stored-session/live bounded export composition passes with disposable Postgres/Redis and real HTTP code login. Fresh/restored admins get two live `up` reads; anonymous, reader, aged, logged-out and invalid requests cause no upstream work. Production flags off; installed-browser/live-session composition remains open.
+
 - [x] Iteration 1815: installed metrics Raw Query renders one bounded live `up` export through the prepared handler; one-minute window, 64 KiB/32-series caps and browser label rendering pass. Simulated actors and invalid requests refused without export upstream work; production export/public admission off. Stored-session/live composition remains open.
 
 - [x] Iteration 1814: installed logs Query renders one bounded real recent message through the prepared proxy; exact `_time:1m`, one-minute window, limit one and one upstream request. CSP/errors and response bounds pass; principals remain simulated. Stored-session/live composition remains open; public mode off.

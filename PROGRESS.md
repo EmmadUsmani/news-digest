@@ -120,3 +120,13 @@
 - Updated TASKS/readiness/tool response review. No runtime code or generation changes; no deployment/restart during 13:00–16:00 UTC hold.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live telemetry check, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts). All pass: 836 unit/283 integration passes, four expected integration skips; `pnpm check` exits 0, build succeeds.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then stored-session/live telemetry composition. Review-only changes require no restart; git diff check clean, commit/push follow.
+
+## 2026-11-11: iteration 1816 — stored-session/live export HTTP composition
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; `pnpm obs sources --check` and `pnpm obs jobs --check` pass. No provider calls.
+- Added explicit `check-live-stored-telemetry.ts --live`: fresh disposable Postgres 17/Redis 7, all migrations, temporary file-mailbox HTTP code login and real stored-session authorization compose with the prepared export handler and live metrics store. No production account reads/writes.
+- Fresh/restored admins receive exactly two bounded one-minute `up` exports. Anonymous/reader/aged/logout, POST and timeout-override requests return empty 404 without relay/upstream work. Relay verifies stripped credentials and fixed upstream limits; responses enforce 64 KiB/32 series, one in-window sample per row, no-store and no cookies. Bodies remain in memory.
+- Initial checks caught an incorrect Strict-cookie expectation (actual policy is Lax) and a synthetic relay cookie correctly refused by the prepared handler; corrected valid-response path passes. Diagnostics expose only script source locations, never credentials or bodies.
+- Updated TASKS/readiness/tool review. Production telemetry/public flags remain off; no runtime/generation changes, deployment or restart during the 13:00–16:00 hold.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips) and `pnpm build` pass; explicit live stored-session check, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass.
+- Next: Nov 11 15:00 UTC NBA acceptance review; installed-browser/live-session composition and remaining Phase 4 gates. Review-only changes require no restart; `git diff --check` clean, commit/push follow.

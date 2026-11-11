@@ -1,0 +1,281 @@
+// Explicit live read rehearsal. All account writes use disposable containers.
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { randomBytes } from 'node:crypto';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import {
+  GenericContainer,
+  type StartedTestContainer,
+  Wait,
+} from 'testcontainers';
+
+import { database } from '../apps/api/src/libs/db/connections';
+import { prepareStoredAccountHttp } from '../apps/api/src/modules/accounts/adapters/account-storage';
+import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
+import { PostgresReaderIdentityRepository } from '../apps/api/src/modules/accounts/database/identity.repository';
+import { publicAccountAuthenticator } from '../apps/api/src/public-account-access';
+import {
+  prepareAuthenticatedTelemetryExport,
+  readBoundedTelemetryExport,
+  telemetryExportPath,
+} from '../apps/api/src/telemetry-export';
+import { testEnvironment } from './test-suites';
+
+async function main() {
+  assert.deepEqual(process.argv.slice(2), ['--live'], 'Requires --live');
+  const containers: StartedTestContainer[] = [];
+  const directory = await mkdtemp(join(tmpdir(), 'live-stored-telemetry-'));
+  let accounts: ReturnType<typeof prepareStoredAccountHttp> | undefined;
+  let db: ReturnType<typeof database> | undefined;
+  let identities: PostgresReaderIdentityRepository | undefined;
+  let forwarded = 0;
+  let upstreamFailure = false;
+  // Recording relay permits only the handler's exact bounded live export.
+  const relay = createServer((req, res) => {
+    void (async () => {
+      assert.equal(req.method, 'GET');
+      assert.deepEqual(
+        Object.keys(req.headers).sort(),
+        [
+          'accept',
+          'accept-encoding',
+          'accept-language',
+          'connection',
+          'host',
+          'sec-fetch-mode',
+          'user-agent',
+        ].sort(),
+      );
+      const url = new URL(req.url!, 'http://127.0.0.1:8428');
+      assert.equal(url.pathname, telemetryExportPath);
+      assert.equal(url.searchParams.get('match[]'), 'up');
+      assert.equal(url.searchParams.get('timeout'), '2s');
+      assert.equal(url.searchParams.get('max_rows_per_line'), '1');
+      assert.equal(url.searchParams.get('reduce_mem_usage'), '1');
+      assert.ok(
+        Number(url.searchParams.get('end')) -
+          Number(url.searchParams.get('start')) <=
+          60,
+      );
+      forwarded++;
+      const body = await readBoundedTelemetryExport(
+        url,
+        AbortSignal.timeout(5000),
+      );
+      res
+        .writeHead(200, {
+          'content-type': 'application/stream+json',
+        })
+        .end(body);
+    })().catch((error: unknown) => {
+      if (error instanceof Error)
+        console.error(
+          error.stack
+            ?.split('\n')
+            .filter((line) => line.includes('check-live-stored-telemetry.ts'))
+            .join('\n'),
+        );
+      upstreamFailure = true;
+      res.writeHead(502).end();
+    });
+  });
+  const server = createServer((req, res) => {
+    accounts!.middleware!(req, res, () => {
+      void exportHandler!(req, res, () => res.writeHead(404).end());
+    });
+  });
+  let exportHandler:
+    ReturnType<typeof prepareAuthenticatedTelemetryExport> | undefined;
+  try {
+    const postgres = await new GenericContainer('postgres:17-alpine')
+      .withEnvironment({ POSTGRES_HOST_AUTH_METHOD: 'trust' })
+      .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
+      .withExposedPorts(5432)
+      .withWaitStrategy(
+        Wait.forLogMessage('database system is ready to accept connections', 2),
+      )
+      .start();
+    containers.push(postgres);
+    const redis = await new GenericContainer('redis:7-alpine')
+      .withTmpFs({ '/data': 'rw' })
+      .withExposedPorts(6379)
+      .withWaitStrategy(Wait.forLogMessage('Ready to accept connections'))
+      .start();
+    containers.push(redis);
+    const isolated = {
+      ...testEnvironment(),
+      DATABASE_URL: `postgres://postgres@${postgres.getHost()}:${postgres.getMappedPort(5432)}/postgres`,
+      REDIS_URL: `redis://${redis.getHost()}:${redis.getMappedPort(6379)}`,
+      NEWS_DIGEST_ISOLATED_TEST: '1',
+    };
+    Object.assign(process.env, isolated);
+    const migration = spawnSync(
+      'pnpm',
+      ['exec', 'tsx', 'apps/api/src/libs/db/migrate.ts'],
+      { env: isolated, stdio: 'pipe' },
+    );
+    assert.equal(
+      migration.status,
+      0,
+      'Disposable migration failed; output withheld',
+    );
+    const configuration = {
+      ACCOUNTS_ENABLED: '1',
+      ACCOUNT_ORIGIN: 'https://reader.example',
+      ACCOUNT_SECRET_KEY: randomBytes(32).toString('hex'),
+      ACCOUNT_MAILBOX_PATH: directory,
+      ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
+      SIGNUP_MODE: 'invite',
+      ADMIN_EMAILS: 'owner@example.test',
+    };
+    accounts = prepareStoredAccountHttp(configuration);
+    assert.ok(accounts.handlers && accounts.middleware);
+    db = database();
+    identities = new PostgresReaderIdentityRepository();
+    await identities.findOrCreateVerified('reader@example.test', new Date());
+    await new Promise<void>((done) => relay.listen(0, '127.0.0.1', done));
+    const authenticate = publicAccountAuthenticator(accounts.handlers);
+    exportHandler = prepareAuthenticatedTelemetryExport(
+      (req) => authenticate(req, new Date()),
+      new URL(`http://127.0.0.1:${(relay.address() as AddressInfo).port}`),
+    );
+    await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
+    const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+    const write = (path: string, body: unknown, cookie = '') =>
+      fetch(base + path, {
+        method: 'POST',
+        headers: {
+          Origin: configuration.ACCOUNT_ORIGIN,
+          'Content-Type': 'application/json',
+          Cookie: cookie,
+          'X-Forwarded-For': '203.0.113.91',
+        },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(10000),
+      });
+    const login = async (email: string) => {
+      assert.equal((await write('/api/account/code', { email })).status, 202);
+      const code = await new FileLoginCodeDelivery(directory).latest(
+        email,
+        new Date(),
+      );
+      assert.ok(code);
+      const response = await write('/api/account/redeem', { email, code });
+      assert.equal(response.status, 204);
+      const cookie = response.headers.get('set-cookie')!;
+      for (const flag of ['Secure', 'HttpOnly', 'SameSite=Lax'])
+        assert.ok(cookie.includes(flag));
+      return cookie.split(';')[0];
+    };
+    const admin = await login(configuration.ADMIN_EMAILS);
+    const reader = await login('reader@example.test');
+    const check = async (
+      cookie: string,
+      allowed: boolean,
+      suffix = '',
+      method = 'GET',
+    ) => {
+      const end = Math.floor(Date.now() / 1000);
+      const path = `${telemetryExportPath}?match[]=up&start=${end - 60}&end=${end}${suffix}`;
+      const before = forwarded;
+      const response = await fetch(base + path, {
+        method,
+        headers: {
+          Cookie: cookie,
+          Authorization: 'Bearer synthetic-must-not-forward',
+          'X-Exedev-Email': configuration.ADMIN_EMAILS,
+        },
+        signal: AbortSignal.timeout(10000),
+      });
+      assert.equal(response.status, allowed ? 200 : 404);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.equal(response.headers.get('set-cookie'), null);
+      assert.equal(forwarded, before + (allowed ? 1 : 0));
+      const body = await response.text();
+      assert.ok(Buffer.byteLength(body) <= 65536);
+      if (!allowed) {
+        assert.equal(body, '');
+        return;
+      }
+      const rows = body
+        .trim()
+        .split('\n')
+        .map(
+          (line) =>
+            JSON.parse(line) as {
+              metric: { __name__: string };
+              values: number[];
+              timestamps: number[];
+            },
+        );
+      assert.ok(rows.length > 0 && rows.length <= 32);
+      for (const row of rows) {
+        assert.equal(row.metric.__name__, 'up');
+        assert.equal(row.values.length, 1);
+        assert.equal(row.timestamps.length, 1);
+        assert.ok(
+          row.timestamps[0] >= (end - 60) * 1000 &&
+            row.timestamps[0] <= end * 1000,
+        );
+      }
+    };
+    await check('', false);
+    await check(reader, false);
+    await check(admin, true);
+    const session = await db.query<{ id: string; created_at: Date }>(
+      'SELECT id, created_at FROM sessions WHERE admin_eligible',
+    );
+    assert.equal(session.rowCount, 1);
+    await db.query(
+      "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
+      [session.rows[0].id],
+    );
+    await check(admin, false);
+    await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+      session.rows[0].created_at,
+      session.rows[0].id,
+    ]);
+    await check(admin, true);
+    await check(admin, false, '&timeout=10s');
+    await check(admin, false, '', 'POST');
+    assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
+    await check(admin, false);
+    assert.equal(upstreamFailure, false);
+    assert.equal(forwarded, 2);
+    console.log(
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Two bounded live reads; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+    );
+  } finally {
+    server.closeAllConnections();
+    relay.closeAllConnections();
+    await Promise.all([
+      new Promise<void>((done) => server.close(() => done())),
+      new Promise<void>((done) => relay.close(() => done())),
+    ]);
+    await accounts?.close();
+    await identities?.onModuleDestroy();
+    await db?.end();
+    await Promise.allSettled(
+      containers.reverse().map((container) => container.stop()),
+    );
+    await rm(directory, { recursive: true, force: true });
+  }
+}
+main().catch((error: unknown) => {
+  if (error instanceof Error)
+    console.error(
+      error.stack
+        ?.split('\n')
+        .filter((line) => line.includes('check-live-stored-telemetry.ts'))
+        .join('\n'),
+    );
+  console.error(
+    'Stored-session/live telemetry check failed; credentials and operational bodies withheld.',
+  );
+  process.exitCode = 1;
+});

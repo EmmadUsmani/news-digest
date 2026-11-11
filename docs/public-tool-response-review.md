@@ -1210,3 +1210,24 @@ Export actor selection is explicitly simulated in this isolated server, separate
 from the ordinary prepared-public guard: production export admission remains
 closed. Stored-session/live-upstream composition remains open. Public mode stays
 off; no provider calls, deployment or service restarts during the hold.
+
+### Stored-session/live bounded export HTTP composition (iteration 1816)
+
+`pnpm exec tsx scripts/check-live-stored-telemetry.ts --live` starts disposable
+Postgres 17 and Redis 7, migrates the fresh database, and uses real HTTP login
+codes delivered only to a temporary owner-only mailbox. No live account data is
+read or changed. The prepared export middleware authenticates each request from
+the stored session and reaches the live metrics store through a recording relay.
+
+Fresh and restored admins receive two bounded one-minute `up` exports. Anonymous
+and reader requests, an eight-day-old admin session, the same cookie after real
+logout, POST and caller timeout overrides return empty 404 responses without
+upstream work. The relay checks credential stripping and fixed upstream limits;
+responses require no-store, no cookies, at most 64 KiB/32 series, one sample per
+row and timestamps inside the requested minute. Operational bodies stay in memory.
+
+The rehearsal initially assumed Strict cookies, then matched the existing Lax
+policy. A synthetic relay cookie correctly caused the prepared handler to reject
+the response; it was removed from the valid-response path. Production flags and
+middleware mounting are unchanged. Installed-browser/live-session composition
+and the other live telemetry routes remain open.
