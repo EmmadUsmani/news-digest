@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 54: evening owner Sonnet trial started (1741): one Sonnet initial rejected a supported Charlotte “without three starters” paraphrase; repair and remaining Sonnet trials refused by unchanged daily/model caps or conservative local reservations. Run 1 Haiku validates; run 2 Haiku paraphrase rejected; run 3 no paid calls. **Two-of-three Sonnet result incomplete.** Cumulative actual replay $0.044978/$0.25; $0.205022 remains. Single-use claim preserved; no guard/prompt/publication/cache change. Iteration 1754 prepared a separate one-time continuation with fresh claim, settled-spend audit and original three-run evidence; execute after UTC reset before Nov 11 noon. Apply owner’s computable supported-paraphrase fix if warranted, replay once and deploy. Scheduled NBA acceptance still open. [Evidence](docs/edition-reviews/2026-11-10.md#owner-requested-sonnet-trial--iteration-1741).
+- [ ] STEERING 54: post-reset production-order continuation (1755) ran two more Nov 10 NBA replays. Run 2 Sonnet initial rejected a supported Charlotte/Brandon Miller paraphrase (`unsupported-absence`); Sonnet repair validated five stories/four bullets. Run 3 Sonnet refused by conservative local reservation; Haiku initial fenced JSON failed, repair validated. Across three runs: one Sonnet pass and two Haiku passes, with Sonnet unmeasured in run 3. Eleven item 54 ledger calls settled, cumulative **$0.109427/$0.25**; $0.140573 remains. Private responses and single-use claims retained. Next: computable supported-paraphrase guard correction, real unsupported “no return timeline” regression, one bounded confirmation and deploy before Nov 11 noon; then scheduled NBA acceptance. [Evidence](docs/edition-reviews/2026-11-10.md#post-reset-sonnet-continuation--iteration-1755).
 
 - [x] Iteration 1720 GamingBolt recovery: scheduled collection succeeded Nov 10 17:17:58 UTC (10 items; 169 stored). Retained existing bounded retries; no source configuration change.
 
@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1754: prepared one-time post-reset NBA Sonnet continuation with verified cap/claim, original-trial and settled-ledger preconditions. Initial API scrape alert cleared; no paid call or editorial change.
+- [x] Iteration 1755: completed bounded post-reset NBA Sonnet continuation; one Sonnet repair and one Haiku repair validated, with supported-paraphrase guard rejection confirmed and cost settled.
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives.
 

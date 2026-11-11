@@ -160,3 +160,11 @@
 - Added one-time post-UTC-reset continuation for owner item 54. It requires the saved original trial, exact seven settled ledger calls/$0.044978, original NBA input, fresh exclusive claim, Nov 11 pre-noon window and $0.25 cumulative reservation ceiling. It saves raw responses and per-run diagnostics privately; no cache or edition writes.
 - Verification: standalone strict TypeScript check, `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit pass; 281 integration pass/four expected skips), `pnpm build`, `git diff --check` pass. Live reader: four topics/19 stories/15 posts; account boundary: 32 pass.
 - No provider call, guard, prompt or publication change. Original claim remains untouched. Next: run the continuation after UTC reset, decide whether supported paraphrase needs a computable guard fix, and verify the natural link expiry after 00:33 UTC.
+
+## 2026-11-11: iteration 1755 — run post-reset NBA Sonnet continuation
+
+- Clean main; zero active alerts, `/healthz` and database/Redis healthy, 36 sources healthy, digest queue zero failures. Previous 1754 work was committed and pushed; no leftovers.
+- One-time owner-authorized continuation made four Anthropic calls. Run 2 Sonnet initial rejected a supported Charlotte/Brandon Miller paraphrase (`unsupported-absence`); Sonnet repair validated. Run 3 Sonnet was refused by the local reservation ceiling; Haiku initial fenced JSON failed, repair validated. The original run 1 validated on Haiku.
+- New settled spend $0.064449; item 54 total $0.109427/$0.25 across eleven settled calls. Private claim/responses kept. No guard, prompt, cache or publication change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit pass; 281 integration pass/four expected skips), `pnpm build`, `git diff --check` pass. Live Nov 10 scheduled reader: four topics/19 stories/15 posts; `/healthz` passes.
+- Next: implement a computable supported-paraphrase guard correction, preserve the “no return timeline” failure, confirm with one bounded replay and deploy before Nov 11 noon. Natural sign-in-link expiry check is due after 00:33:01 UTC; Nov 11 scheduled NBA acceptance follows.
