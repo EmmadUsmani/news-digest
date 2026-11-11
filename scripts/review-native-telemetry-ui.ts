@@ -60,6 +60,7 @@ async function main() {
       >();
       const intercepted = new Set<string>();
       const refused = new Set<string>();
+      const exportParameters = new Set<string>();
       const page = await context.newPage();
       const navigationErrors: string[] = [];
       page.on('pageerror', (error) => navigationErrors.push(error.name));
@@ -124,6 +125,9 @@ async function main() {
           url.origin === origin &&
           !isAdminTelemetryRead(request.method(), url.pathname + url.search)
         ) {
+          if (url.pathname === '/metrics/prometheus/api/v1/export')
+            for (const key of url.searchParams.keys())
+              exportParameters.add(key);
           refused.add(`${request.method()} ${url.pathname}`);
           await route.fulfill({ status: 403, body: 'Forbidden' });
           return;
@@ -262,6 +266,11 @@ async function main() {
         externalBefore,
         `${name}: external probe never reaches request routing`,
       );
+      assert.deepEqual(
+        [...exportParameters].sort(),
+        name === 'metrics' ? ['end', 'match[]', 'start'] : [],
+        'Native export parameter inventory changed',
+      );
       console.log(
         JSON.stringify({
           name,
@@ -272,6 +281,7 @@ async function main() {
           links: [...new Set(links)].sort(),
           navigation,
           refused: [...refused].sort(),
+          exportParameters: [...exportParameters].sort(),
           fixtureData: true,
           policy,
           deliberateRefusals: [...violations].sort(),

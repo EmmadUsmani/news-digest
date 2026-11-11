@@ -134,3 +134,13 @@
 - First combined verification command ended with SIGTERM during unit tests (no reported failures); standalone pnpm check retry passes: 833 unit and 283 integration tests, four expected skips. Typecheck/lint/format/boundaries pass.
 - Updated readiness/review and TASKS; git diff --check passes. Pushed 85818782, restarted API; healthz, 32 deployed account checks and saved Nov 10 reader checks pass; no failed user services.
 - Next: bounded raw-export review, full browser/session composition, remaining native controls/live navigation, Grafana capacity evidence and 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1794 — native raw-export boundary review
+
+- Clean main; no inherited work. Alerts clear, healthz healthy and no failed user services. Public mode stays off; no provider calls.
+- Added explicit five-second/64 KiB live export review: only up over 60 seconds, one sample per line, shape/time-window/cookie checks; labels and samples withheld. First probe: 15 rows/15 samples, 1,745 bytes.
+- Installed-asset Chromium review asserts Raw Query sends only match[], start and end. Per-line splitting does not cap total output; GET/POST/HEAD export admission stays denied pending enforced selector/window/response bounds and cancellation.
+- Updated response review, readiness and TASKS. Generated browser screenshots were deliberately restored: fixture navigation/UI unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, proxy-assets Chromium review, live export probe, check-handbook.ts observability, 32 deployed account checks and saved Nov 10 reader check (four topics/19 stories/15 posts) pass.
+- Full pnpm check passes: 833 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build and handbook checks pass; git diff --check clean.
+- Next: enforced export bounds, full browser/session composition, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.

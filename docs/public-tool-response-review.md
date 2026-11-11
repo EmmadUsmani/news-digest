@@ -895,3 +895,20 @@ All operational responses remain intercepted fixtures. Raw Query automatically r
 which remains denied (403) and is asserted as the sole expected refusal.
 Review bounded export semantics before admitting it. Full authenticated browser composition, remaining navigation controls and live
 query rendering still need acceptance; public mode remains off.
+
+## Native raw-export review (iteration 1794)
+
+`pnpm exec tsx scripts/review-native-telemetry-export.ts --live` performs one
+five-second/64 KiB client-bounded upstream read: only `up`, the last 60 seconds,
+`max_rows_per_line=1` and `reduce_mem_usage=1`. It verifies JSON-line metric,
+value and timestamp shapes without printing labels or samples. The live review
+returned 15 lines/15 samples (1,745 bytes), no cookie, and JSON content type.
+The script also confirms export GET/POST/HEAD remain outside prepared admission.
+
+The installed Raw Query screen sends only `match[]`, `start` and `end`; the
+fixture-intercepted browser review now asserts that parameter-name inventory.
+One sample per line still returned 15 lines: `max_rows_per_line` is not a total
+response cap. The probe's client deadline/byte cap does not establish server
+query-work limits. Keep this route denied until selector/time-window bounds,
+upstream cancellation and total response limits are enforced and rehearsed.
+No live browser queries, new route admission or public activation occurred.
