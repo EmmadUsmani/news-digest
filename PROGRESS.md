@@ -188,4 +188,4 @@
 - `pnpm exec tsx scripts/smoke-admin-tools.ts` passes four private viewport/theme combinations; discarded regenerated unchanged screenshots. Filtered handbook check passes, no handbook behavior/diagram change.
 - `pnpm exec tsx scripts/check-live-account-boundary.ts` passes 32 checks; live status confirms 36 healthy sources, saved edition four topics/19 stories/19 posts.
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, zero new evaluator errors/misses, four queries ≤0.258 s; no merges, so compaction capacity gate remains open. Next passive probe ≥18:28 UTC.
-- Updated TASKS and public rehearsal/readiness records; public mode remains off. Next: remaining Phase 4 rehearsal/tool gates, Grafana capacity evidence and Nov 12 edition review.
+- Pushed `34e26acf`; restarted API. Post-restart healthz, 32 account-boundary checks and zero alerts pass; working tree clean. Public mode remains off. Next: remaining Phase 4 rehearsal/tool gates, Grafana capacity evidence and Nov 12 edition review.
