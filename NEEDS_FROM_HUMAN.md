@@ -178,3 +178,7 @@ initial Sonnet reservations grow $0.062630 on saved-summary proxies. Keeping
 World social editing fixed leaves $0.010337 actual cost for all remaining
 World/U.S. work. Reservation estimates are not charges or proof of refusal.
 No cap/model/output-limit changes; semantic routing evidence remains next.
+
+Owner item 57 supersedes the full-headroom constraint above: no decision
+needed, no further savings work. Next activate U.S. under the revised plan
+with $20 monthly AI budget and at most $0.65 daily cap.

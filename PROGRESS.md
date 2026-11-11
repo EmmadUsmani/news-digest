@@ -127,3 +127,4 @@
 - Live snapshot: 36 sources, all nonempty/ok; /api/editions/latest serves eb6e962e with four topics. Mistaken /api/digests/latest probe returned 404; corrected endpoint passes.
 - Verification: pnpm format, pnpm lint:fix, offline probe, filtered check-handbook (39 tables/no warnings), pnpm build and git diff --check pass; pnpm check passes (860 unit/283 integration tests, four expected skips). Existing build warnings only.
 - Commit/push then API/worker restart and post-deploy health verification follow.
+- Push rejected: upstream owner/lead commits; fetched and merged without conflicts/history rewrite. New item 57 supersedes fit gate: stop savings work, activate next with $20 monthly/$0.65 maximum daily AI. Historical evidence marked superseded.

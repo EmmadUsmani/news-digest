@@ -1,3 +1,7 @@
+> Superseded for activation by STEERING 57, received during iteration 1858.
+> The 1.5× fit test and further savings search are dropped. Historical
+> measurements below remain evidence only; activate under the revised plan.
+
 # Fifth-topic saved-cost estimate — iteration 1840
 
 Read-only ledger evaluation; no provider requests or cap changes.
