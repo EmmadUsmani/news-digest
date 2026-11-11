@@ -180,3 +180,4 @@
 - Verification: targeted telemetry-export tests (3), pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability; 32 deployed account boundaries and saved Nov 10 reader check pass (four topics/19 stories/15 posts).
 - Next: install/verify server limits, verify deadline expiry, authenticated export composition and browser acceptance before admission; Grafana capacity and Nov 11 15:00 UTC NBA review remain open.
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean. Isolated rehearsal command: pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated.
+- Pushed 24624b33; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account boundaries and saved Nov 10 reader checks pass; no failed user services.
