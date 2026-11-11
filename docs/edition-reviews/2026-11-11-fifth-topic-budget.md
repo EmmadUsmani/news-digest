@@ -136,3 +136,34 @@ remain unmeasured here. A split retains separate topic briefs and story
 budgets; combining them into one current editor request would impose one shared
 five-story budget and cannot establish comparable depth for both topics.
 The fifth-topic activation gate remains open; caps and production are unchanged.
+
+## Story repair admission — iteration 1845
+
+`pnpm exec tsx scripts/evaluate-editor-repair-budget.ts` invokes the production
+editor and budget wrapper with an in-memory ledger and synthetic `{}` responses.
+There is no network client or database. Each response fails schema validation;
+assertions cover initial Sonnet, separately reserved Sonnet repair, initial
+Haiku and separately reserved Haiku repair. A second scenario refuses both
+repairs: only the two initial requests reach the synthetic provider, and the
+editor returns unavailable. Invalid output never reaches the cache.
+
+| Saved input | Unsplit sequential envelope | Split sequential envelope | Difference |
+| ----------- | --------------------------: | ------------------------: | ---------: |
+| Nov 4       |                   $0.134850 |                 $0.134829 | −$0.000021 |
+| Nov 5       |                   $0.137029 |                 $0.268634 |  $0.131605 |
+| Nov 6       |                   $0.142772 |                 $0.142772 |         $0 |
+| Nov 7       |                   $0.143896 |                 $0.275501 |  $0.131605 |
+| Nov 8       |                   $0.140798 |                 $0.272404 |  $0.131606 |
+| Nov 9       |                   $0.141428 |                 $0.141428 |         $0 |
+| Nov 10      |                   $0.142836 |                 $0.274441 |  $0.131605 |
+
+The envelope sums all four sequential reservations. It is neither a charged
+cost nor simultaneous held capacity: each admitted request settles before the
+next reservation. Synthetic usage is zero and is never entered in production.
+Repair requests are larger than initial requests because of schema feedback.
+The probe uses shortened topic metadata and saved-summary proxies; it isolates
+repair mechanics rather than reproducing the previous probe's exact requests.
+It does not bound every factual-support repair hint or new raw candidate pool.
+No repair may bypass admission, and exhaustion still returns unavailable.
+Raw triage/social work and whole-edition admission remain open; no activation,
+model, cap or production behavior changes are justified by this envelope.

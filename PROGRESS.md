@@ -144,3 +144,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, offline probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing build warnings only.
 - `pnpm obs sources --check`: all 36 healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.
 - Next: cost raw candidate triage/social work and repair admission, then publication integration/unavailable policy and topic/source data within the approved ceiling.
+
+## 2026-11-11: iteration 1845 — separately budgeted story repairs
+
+- Clean main; no inherited work. Zero alerts, healthz/database/Redis healthy; item 50 remains stopped under 55, continued 56.
+- Added offline production editor/BudgetedLlm probe with synthetic invalid schema responses and in-memory ledger; no network client, DB, paid calls or production writes.
+- Assertions cover Sonnet initial/repair and Haiku initial/repair, settlement before retry, refusal of both repairs, unavailable result and no invalid cache writes.
+- Saved both-scope windows add $0.131605–$0.131606 across four sequential reservation estimates; this is neither charges nor simultaneous holds. Shortened metadata and saved summaries isolate repair mechanics, not full candidate admission.
+- Recorded figures and limitations in fifth-topic cost review/TASKS; no runtime, cap, model, topic or handbook behavior changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, offline repair probe, `pnpm build`, filtered handbook check and `git diff --check` pass; `pnpm check` passes: 844 unit/283 integration tests, four expected skips.
+- All 36 sources healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow.
+- Next: measure raw triage/social requests and actual whole-edition admission; publication integration/topic data remain gated on approved ceiling.
