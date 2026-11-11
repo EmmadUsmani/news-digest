@@ -99,7 +99,8 @@ Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes
 40 real X widget views with the self/platform script allowlist enforced and no
 inline/eval exceptions. [Review and evidence](docs/public-script-policy-review.md).
-Full Phase 4 readiness/security review remains pending.
+The lead's Phase 4 security review is complete. Item 58 fixes come next,
+then the lead re-check and owner go-public decision.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 

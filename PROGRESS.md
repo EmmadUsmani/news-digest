@@ -131,7 +131,7 @@
 
 ## 2026-11-11: iteration 1859 — U.S. topic activated
 
-- Clean main/no inherited work. Alerts zero; health/database/Redis healthy. Item 50 remains at owner/lead stop; followed 56/57.
+- Clean main/no inherited work. Alerts zero; health/database/Redis healthy. At orientation item 50 waited for owner/lead review; followed 56/57.
 - Wired shared World/U.S. report triage and joint event ownership before editing; exclusive fallback retains owned events. Refused/incomplete ownership withholds both story sections with a reason; other topics can publish.
 - Migration 0020 preserves World identity, adds enabled U.S. immediately after it (five stories/five posts), moves Guardian US and adds NPR Politics/PBS Politics, domestic Bluesky query, curated X accounts/settings.
 - Applied approved AI $20/month/$0.65 maximum daily and X $15/month/$0.50 daily; live status confirms all four caps. Scheduled reserve/models/provider unchanged.
@@ -142,4 +142,4 @@
 - `pnpm exec tsx scripts/smoke-us-topic-live.ts`: live five-row catalog desktop/mobile light/dark, no errors/overflow; screenshots saved and desktop/mobile inspected. Local admin bridge supplies UI admission; live stored-session security is not retested.
 - Preserved general spam exclusions after initial integration regression; remaining failures were old four-topic/cap assertions. Final full suite is green.
 - API/worker restarted outside 13:00–16:00 UTC; health and live caps/content verified. Commit/push and final main-matching restart follow.
-- Next: Nov 12–14 scheduled acceptance reviews for scope, no repeated events, full story sets, all-topic quality, timing and costs/refusals; no extra paid run.
+- Push rejected: new upstream item 58; fetched/merged, preserving owner text and activation ack. Activation was already live; next resume item 50 security fixes before further U.S. work. Nov 12–14 daily acceptance reviews remain due; no extra paid run.
