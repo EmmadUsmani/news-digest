@@ -111,3 +111,11 @@
 - Targeted SCRAM test passes; deployed account-boundary check passes 32 checks; scheduled reader check verifies Nov 10 four topics/19 stories/15 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` passed. Targeted SCRAM rehearsal also passed.
 - Next: live explorer credential installation and exact proxy/browser/private rollback; Grafana capacity under scheduled load/compaction; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1772 — gate explorer credential deployment
+
+- Clean main; no inherited work. Zero active alerts, all 14 services and 36 sources healthy, no failed scheduled digest; `/healthz` passes.
+- Added a read-only credential deployment preflight and redacted CLI: loopback catalog-reader URL only, successful real login, independent wrong-password rejection, session defaults and unsafe privilege inventory. No live credentials, grants, authentication rules or public flags changed; no provider calls.
+- Extended disposable SCRAM rehearsal: valid candidate passes, accidental users-table grant fails, then host trust fails despite the stored SCRAM verifier. Targeted test passes. Current compose host trust requires a scoped password-authentication rule before live installation; existing app/observability roles must retain access.
+- `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
+- Next: scoped explorer password-authentication rule, credential installation and exact proxy/browser/private rollback; Grafana paired scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.

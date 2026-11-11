@@ -512,3 +512,21 @@ be closed during credential rollback; NOLOGIN alone does not disconnect them.
 All credentials and schema changes in this rehearsal are disposable fixtures.
 Live credential installation and exact proxy/browser acceptance remain open;
 public mode and live grants are unchanged.
+
+## Explorer deployment credential preflight (iteration 1772)
+
+`apps/schema-explorer/src/check-credentials.ts` is a read-only deployment gate.
+Run `node --env-file=$HOME/.config/news-digest/env apps/schema-explorer/src/check-credentials.ts`
+after privately staging `SCHEMA_EXPLORER_DATABASE_URL`. It accepts only a
+loopback URL for `schema_catalog_reader` with a password and no query options.
+It requires successful real login, a fresh wrong-password refusal (28P01),
+expected identity/read-only/timeout defaults and no elevated role, membership,
+application-table, persistent-schema CREATE or non-system definer privileges.
+The CLI prints no URL, password or driver error.
+
+The disposable SCRAM test passes, rejects an accidental users-table grant and
+rejects host `trust` authentication even with a stored SCRAM password. Current
+compose configuration uses host `trust`; a scoped password-authentication rule
+must precede live credential installation. Do not change authentication for
+existing app/observability roles. Live installation, exact proxy/browser checks
+and private rollback remain open; public mode stays off.

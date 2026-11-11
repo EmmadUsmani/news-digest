@@ -8,6 +8,7 @@ import { test } from 'node:test';
 import { Pool } from 'pg';
 import { GenericContainer, Wait } from 'testcontainers';
 
+import { verifyCatalogCredentials } from '../../schema-explorer/src/credential-preflight';
 import { createExplorerServer } from '../../schema-explorer/src/http-server';
 import { introspect } from '../../schema-explorer/src/introspect';
 import { buildModel } from '../../schema-explorer/src/model';
@@ -199,6 +200,17 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
     await owner.query(
       "ALTER ROLE schema_catalog_reader LOGIN PASSWORD 'synthetic-reader-password'",
     );
+    const candidate = `postgres://schema_catalog_reader:synthetic-reader-password@127.0.0.1:${connection.port}/postgres`;
+    await verifyCatalogCredentials(candidate);
+    await owner.query('GRANT SELECT ON public.users TO schema_catalog_reader');
+    await assert.rejects(
+      verifyCatalogCredentials(candidate),
+      /Unsafe catalog-reader privileges/,
+    );
+    await owner.query(
+      'REVOKE SELECT ON public.users FROM schema_catalog_reader',
+    );
+    // A stored SCRAM verifier alone does not prove host authentication enforcement.
     const verifier = await owner.query(
       "SELECT rolpassword FROM pg_authid WHERE rolname='schema_catalog_reader'",
     );
@@ -259,6 +271,18 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
     } finally {
       await revoked.end();
     }
+    await owner.query('ALTER ROLE schema_catalog_reader LOGIN');
+    const changed = await container.exec([
+      'sh',
+      '-c',
+      "sed -i 's/scram-sha-256/trust/g' /var/lib/postgresql/data/pg_hba.conf",
+    ]);
+    assert.equal(changed.exitCode, 0);
+    await owner.query('SELECT pg_reload_conf()');
+    await assert.rejects(
+      verifyCatalogCredentials(candidate),
+      /Wrong-password connection/,
+    );
   } finally {
     server.closeAllConnections();
     if (server.listening)
