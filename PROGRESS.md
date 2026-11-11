@@ -106,3 +106,12 @@
 - Live checks: `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 281 integration, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart only the API; recheck private handbook admission, reader and health.
 - Next: rehearse the explorer boundary, capture Grafana capacity under scheduled load or natural compaction, and review NBA editing after the 15:00 UTC edition.
+
+## 2026-11-11: iteration 1765 — prepare the public explorer response boundary
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs; retained ingestion failures have current successful sources.
+- Prepared an uninstalled structural-only explorer projection. Explicit fields preserve account tables/key relationships while excluding activity estimates, sizes, defaults, comments, definitions, metadata prose, warnings and future private fields. Private explorer and public flag unchanged; no provider calls or grants changed.
+- `pnpm --filter @digest/schema-explorer test` passed four tests, including hostile catalog markers, preserved relationships and detached output arrays. Updated public response review and TASKS; no live schema/handbook behavior changed.
+- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. `pnpm build` passed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 281 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart the schema service; verify its live catalog response and app health.
+- Next: explorer catalog-only role, structural UI and exact HTTP/browser/private rollback rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 NBA acceptance review.

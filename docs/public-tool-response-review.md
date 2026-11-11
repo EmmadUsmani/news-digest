@@ -401,3 +401,22 @@ routes, headers and an unavailable upstream. Desktop and mobile Playwright
 checks followed the redirect and loaded only the page and stylesheet. The
 reader service unit is prepared but uninstalled; install and check its loopback
 listener before public activation. Include the boundary in the lead's review.
+
+## Explorer response projection candidate (iteration 1765)
+
+`apps/schema-explorer/src/public-model.ts` prepares a separate structural DTO:
+all tables (including account tables), columns/types/nullability/key flags,
+primary/unique keys, group labels and foreign/implicit relation endpoints with
+delete actions. Objects and arrays are constructed explicitly; new private-model
+fields are excluded by default. Activity estimates, storage sizes, generation
+timestamps, defaults, catalog comments, executable definitions, index/trigger
+names, metadata prose and warnings are absent.
+
+Hostile synthetic catalog coverage retains account relationships while excluding
+injected comments/defaults/checks/indexes/triggers and future private fields.
+Mutation checks confirm the candidate cannot alter the private explorer model.
+This is an uninstalled response boundary, not public explorer acceptance. The
+existing UI expects row counts and definitions; it must gain a structural-only
+view before consuming this DTO. Catalog-only credentials, reviewed group/type/
+identifier vocabulary, exact asset/API routes, HTTP/browser traces and private
+rollback remain required. Public mode stays off; no live grants or routes change.
