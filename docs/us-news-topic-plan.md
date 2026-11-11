@@ -53,11 +53,13 @@ scope, with no story repeated across the two.
   $12). Find where the caps are enforced, and change them there and in the docs
   that state them. About $0.065 per topic per day today, so five topics at
   about $0.33 leave room for retries.
-- **The AI daily cap (`LLM_DAILY_MAX_USD`) may rise up to $0.65,** only if a
-  measurement shows the fifth topic needs it. The scheduled edition's 1.5×
-  reserve must still fit under the cap. Measure first, with no extra paid
-  runs: estimate from saved World editions. Report the measured edition cost and
-  the new value in the ack.
+- **AI budget (revised 2026-11-11, item 57):** the monthly budget
+  (`LLM_MONTHLY_BUDGET_USD`) rises from $14 to **$20**, including the code
+  limit that holds it at 14. The daily cap (`LLM_DAILY_MAX_USD`) may rise to at
+  most **$0.65**. The scheduled reserve keeps working exactly as it does today,
+  limited to the effective cap. **There is no 1.5× fit test:** the fifth topic
+  is allowed when a normal edition's expected cost fits under the effective
+  daily cap. Report the measured edition cost in the ack.
 - The X experiment budget is separate and unchanged.
 
 ## Order of work
