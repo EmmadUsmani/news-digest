@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1798: installed the rehearsed metrics export limits (32 series/two seconds); live process flags, health and bounded telemetry reads verified. Export admission/public mode remain off; deadline-expiry and authenticated/browser composition remain.
+
 - [x] Iteration 1797: prepared exports force a two-second upstream deadline; disposable installed VictoriaMetrics accepts 32 synthetic series and refuses 33 with the reviewed export-series limit. Live defaults unchanged; server-limit installation, session composition and browser acceptance remain before admission.
 
 - [x] Iteration 1796: prepared export HTTP handler buffers bounded responses, refuses invalid requests before upstream, strips credentials/private headers and cancels fetch on real downstream socket closure. Two-server tests pass; handler remains unwired pending session composition and upstream work limits.

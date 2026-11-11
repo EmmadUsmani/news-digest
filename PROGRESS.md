@@ -181,3 +181,15 @@
 - Next: install/verify server limits, verify deadline expiry, authenticated export composition and browser acceptance before admission; Grafana capacity and Nov 11 15:00 UTC NBA review remain open.
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean. Isolated rehearsal command: pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated.
 - Pushed 24624b33; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account boundaries and saved Nov 10 reader checks pass; no failed user services.
+
+## 2026-11-11: iteration 1798 — installed metrics export limits
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, all 36 sources healthy; no provider calls. Public mode/export admission remain off.
+- Installed rehearsed `search.maxExportSeries=32` and `search.maxExportDuration=2s` in the metrics unit; other CPU/memory/query settings unchanged. Restarted obs-metrics outside the edition hold.
+- First process-argument check raced ExecStartPre; immediate read probes also ran before readiness. After startup, running process flags and loopback health pass; no configuration rollback required.
+- Disposable installed-binary review passes: 32 synthetic series accepted, 33 refused. Command: pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated.
+- Live review-native-telemetry-export.ts --live passes (13 rows/samples, 1,515 bytes); check-live-admin-telemetry.ts --live passes metrics/log/metadata and refusal checks. Operational bodies withheld.
+- check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). pnpm obs sources --check: 36/36 healthy; pnpm obs alerts: none.
+- Updated affected handbook, response review, readiness and TASKS. pnpm build and check-handbook.ts observability pass; pnpm format and pnpm lint:fix pass.
+- Next: deadline-expiry acceptance, authenticated export composition and browser acceptance before admission; Grafana capacity evidence and Nov 11 15:00 UTC NBA review remain open.
+- Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. git diff --check clean.

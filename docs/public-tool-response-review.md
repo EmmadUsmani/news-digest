@@ -971,3 +971,17 @@ the reviewed server limits, authenticated route composition and installed UI
 acceptance remain required before export admission. Export stays denied; public
 mode stays off. A narrow live read with the fixed timeout passed (15 samples,
 1,737 bytes); operational bodies were withheld.
+
+## Installed export server limits (iteration 1798)
+
+The live metrics service now sets `-search.maxExportSeries=32` and
+`-search.maxExportDuration=2s`, matching the disposable installed-binary
+rehearsal. Other query, memory and CPU settings are unchanged. The service was
+restarted outside the edition protection window; the running process arguments
+and loopback health were checked after startup. The narrow live export and
+prepared metrics/log-query proxy checks pass; operational bodies are withheld.
+
+Export admission remains closed. Deadline-expiry acceptance, authenticated
+route composition and installed UI acceptance remain required. Rollback:
+remove these two flags from the unit, reinstall it, reload systemd and restart
+`obs-metrics.service`; keep public export admission closed throughout.
