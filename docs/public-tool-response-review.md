@@ -574,3 +574,24 @@ schema response. Reinstalled the drop-in and restarted onto the restricted role.
 All 39 tables and the full response match before/after/rollback, apart from
 capture time, with no warnings. Exact structural proxy/browser acceptance and
 full credential/authentication rollback remain open.
+
+## Explorer proxy and browser rollback (iteration 1775)
+
+`pnpm exec tsx scripts/check-schema-proxy.ts` captures the live explorer's
+restricted-role catalog response (39 tables, 36 relationships), then serves it
+through the real explorer HTTP handler and API tool proxy on ephemeral loopback
+ports. It does not intercept browser responses or open a database connection.
+Private/structural/private server startups preserve the full response after
+rollback; structural responses exactly match the explicit projection, including
+when query parameters request private data. No-store, bare-prefix redirect,
+POST refusal and unknown row-route refusal pass.
+
+Desktop/mobile browsers load the actual proxied assets and schema response,
+open account columns and relationships, search, and pass viewport/error checks.
+Screenshots: `docs/screenshots/schema/proxy-structural-{1440,390}.png`.
+Private admission refuses anonymous/forged identity requests before catalog
+loading. The current public route policy refuses all explorer paths even for
+a fresh admin: reader admission remains deliberately uninstalled. No live
+flags, credentials, authentication rules or services change in this rehearsal.
+Full credential/authentication rollback and the explicit reader route decision
+remain before public activation.

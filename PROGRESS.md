@@ -137,3 +137,12 @@
 - Updated credential deployment/rollback instructions, affected handbook and TASKS. Public and structural flags remain off; no provider calls. Private backups: `~/.local/state/news-digest/catalog-1774/`.
 - Targeted SCRAM test, handbook check (39 tables/no warnings), deployed account boundary (32 checks), saved-reader check and build pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips) and `git diff --check` pass.
 - Next: exact structural proxy/browser/private rollback; full credential/authentication rollback; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1775 — compose explorer proxy/browser rollback
+
+- Clean main; no inherited work. Zero active alerts; 14 services/36 sources healthy. `pnpm obs jobs --check` passes; saved Nov 10 reader still serves four topics/19 stories/15 posts.
+- Added `pnpm exec tsx scripts/check-schema-proxy.ts`: captures the live restricted-role catalog, then exercises real explorer HTTP and API proxy handlers on ephemeral loopback listeners. Private/structural/private responses retain 39 tables/36 relationships and restore the exact captured private response; query flags cannot widen the projection.
+- Desktop/mobile real-response browsers pass search, account details, viewport and error checks; saved and visually inspected both proxy screenshots. No-store, redirect, POST/unknown-row refusal and anonymous/forged-header denial pass before introspection. Public policy remains closed even to fresh admins.
+- Updated TASKS, readiness and response-review evidence. No live flags, credentials, grants or provider traffic changed. Initial lint caught unnecessary async declarations; corrected and reran verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes, four expected skips), `pnpm build`, account boundary (32 checks), saved-reader check, handbook/schema check and `git diff --check` pass. Explorer restarted after push; `/healthz` passes and anonymous `/db/` remains 404.
+- Next: full credential/authentication rollback and explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
