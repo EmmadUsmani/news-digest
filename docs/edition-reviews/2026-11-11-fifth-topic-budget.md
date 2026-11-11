@@ -297,3 +297,36 @@ Activation remains gated. Request-size reservations from the other probes
 are not added to this realized-cost proxy: doing so would mix conservative
 holds with charges and may double-count work. New domestic volume and an
 achievable cost reduction still need evidence before publication integration.
+
+## Cost frontier without a fifth-topic proxy — iteration 1856
+
+The read-only evaluator now solves `ceil(cost × headroom) <= effective cap`
+in integer microdollars and checks both sides of the boundary. Unlike the
+equal-share estimate, this calculation assumes no fifth-topic cost at all.
+At the unchanged Nov 11 snapshot, the full-headroom cost ceiling is $0.356452;
+the conditional Nov 12 ceiling is **$0.361340** ($0.542011 / 1.5, rounded down).
+
+| Saved baseline |      Cost | Net addition allowed on conditional Nov 12 | Reduction still needed if all grouping were free |
+| -------------- | --------: | -----------------------------------------: | -----------------------------------------------: |
+| Nov 4          | $0.291162 |                                  $0.070178 |                                        $0.000000 |
+| Nov 5          | $0.315445 |                                  $0.045895 |                                        $0.000000 |
+| Nov 6          | $0.286904 |                                  $0.074436 |                                        $0.000000 |
+| Nov 7          | $0.380173 |                                 -$0.018833 |                                        $0.012239 |
+| Nov 8          | $0.320864 |                                  $0.040476 |                                        $0.000000 |
+| Nov 9          | $0.388257 |                                 -$0.026917 |                                        $0.019858 |
+| Nov 10         | $0.422356 |                                 -$0.061016 |                                        $0.053445 |
+
+Three saved baselines exceed the conditional ceiling before any fifth-topic
+addition. Matching the peak requires **$0.061016 of net savings**, plus the
+entire incremental U.S. workload; even removing every topic's grouping leaves
+$0.053445 to save. These figures concern preserving historical cost headroom,
+not a claim that the existing scheduler refused these editions. The frontier
+uses the effective daily cap, not today's smaller remaining balance, so it is
+already optimistic about other daily spending. It does not prove future costs.
+
+Activation cannot be justified by a cheaper ownership request or by calling
+U.S. editing free. Next identify attributable World-only savings of at least
+this size, without changing the other three topics or editorial quality; if
+none exist, record the policy conflict for the owner rather than raising caps
+or weakening reserve protection. Semantic routing evaluation remains separate.
+No provider calls, database writes, source/cap/flag or runtime changes.

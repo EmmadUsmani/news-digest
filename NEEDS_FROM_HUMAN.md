@@ -154,3 +154,15 @@ comparison and reader filter remain implementation work; visibility is unchanged
 [Inventory](docs/edition-reviews/2026-11-07-publication-inventory.md).
 
 - Nov 10 (1625): newest item-50 waiting order followed; World social tuning and richer Tech sources remain held by existing instructions, so no new content change is authorized before scheduled evidence. No owner response requested. [Comparison](docs/edition-reviews/2026-11-10.md).
+
+## World/U.S. full-headroom constraint (Nov 11, iteration 1856)
+
+No decision requested yet; activation remains gated under item 56. The
+conditional Nov 12 effective cap ($0.542011) supports $0.361340 of edition
+cost at 1.5× headroom. Three saved four-topic baselines already exceed that,
+without adding U.S. work; the peak needs $0.061016 net savings before any
+addition. Even free grouping across all topics leaves $0.053445 to save.
+The next allowed approach is attributable World-only savings with unchanged
+quality and other topics. If that cannot close the gap, the owner must resolve
+the scope/budget conflict; agents must not raise caps or relax the reserve.
+[Calculation and assumptions](docs/edition-reviews/2026-11-11-fifth-topic-budget.md#cost-frontier-without-a-fifth-topic-proxy--iteration-1856).

@@ -155,6 +155,29 @@ async function main() {
         Math.min(input.dailyCap, requiredReserveMicros),
       );
       assert.equal(protectedBudget.availableMicros, input.available);
+      // Solve ceil(cost * headroom) <= cap in integer microdollars. This
+      // frontier needs no equal-share assumption or topic attribution.
+      const costCeilingMicros = Math.floor(input.dailyCap / headroom);
+      assert.ok(Math.ceil(costCeilingMicros * headroom) <= input.dailyCap);
+      assert.ok(Math.ceil((costCeilingMicros + 1) * headroom) > input.dailyCap);
+      const frontier = measurements.map((row) => {
+        const maximumNetIncrementMicros = costCeilingMicros - row.costMicros;
+        const baselineWithoutAnyGroupingMicros =
+          row.costMicros - row.allTopicGroupingCostMicros;
+        return {
+          date: row.date,
+          baselineCostMicros: row.costMicros,
+          maximumNetIncrementMicros,
+          baselineReductionBeforeAnyAdditionMicros: Math.max(
+            0,
+            -maximumNetIncrementMicros,
+          ),
+          reductionStillNeededWithFreeGroupingMicros: Math.max(
+            0,
+            baselineWithoutAnyGroupingMicros - costCeilingMicros,
+          ),
+        };
+      });
       return {
         label,
         at: at.toISOString(),
@@ -167,6 +190,8 @@ async function main() {
         ),
         fullReserveFits: requiredReserveMicros <= input.dailyCap,
         projectedCostFitsAvailable: projected <= input.available,
+        costCeilingMicros,
+        savedCostFrontier: frontier,
       };
     });
     console.log(
