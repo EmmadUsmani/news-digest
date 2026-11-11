@@ -8,58 +8,7 @@
 
 [Iterations 1764–1769](docs/progress-archive/2026-11-11-through-1769.md).
 
-## 2026-11-11: iteration 1770 — compose restricted catalog HTTP rollback
-
-- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources and no scheduled digest failure.
-- Extended the disposable migrated-database explorer rehearsal to serve actual restricted-session introspection through private/structural/private HTTP listeners. Checks cover topology, catalog-marker/activity removal, no-store, health, POST/unknown-route refusal and full private rollback; row/file/role denials remain in the same session.
-- The shared container uses trust authentication: this proves session authorization, not password enforcement. Live credentials, grants, flags and public admission unchanged; no provider calls. Updated TASKS and the response review.
-- `pnpm build`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics, 19 stories, 15 posts) pass. Corrected import sorting found by the first full lint.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 282 integration passes/four expected skips), `pnpm build` and `git diff --check` pass. Restricted-role HTTP composition passes; archived iterations 1753–1759 to keep this file small. Restarted schema service active; `/healthz` passes and anonymous `/db/` returns 404. Public mode remains off.
-- Next: install reviewed explorer credentials and compose exact proxy/browser rollback; Grafana paired scheduled-load/compaction capacity; Nov 11 15:00 NBA acceptance review.
-
-## 2026-11-11: iteration 1771 — rehearse explorer SCRAM credentials
-
-- Clean main; no inherited work. Local alerts zero, all 14 services active, all 36 sources healthy; no failed scheduled digest.
-- Added a separate disposable PostgreSQL 17 SCRAM instance to the explorer integration test; all migrations applied from zero. Synthetic login verifies password enforcement, real session identity/defaults, structural HTTP and row/catalog/file/identity denials. NOLOGIN rejects fresh connections; rollback must also close existing service pools.
-- Live credentials, grants and public flags unchanged; no provider calls. Updated TASKS and the response review; no product/handbook behavior changed.
-- Targeted SCRAM test passes; deployed account-boundary check passes 32 checks; scheduled reader check verifies Nov 10 four topics/19 stories/15 posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` passed. Targeted SCRAM rehearsal also passed.
-- Next: live explorer credential installation and exact proxy/browser/private rollback; Grafana capacity under scheduled load/compaction; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1772 — gate explorer credential deployment
-
-- Clean main; no inherited work. Zero active alerts, all 14 services and 36 sources healthy, no failed scheduled digest; `/healthz` passes.
-- Added a read-only credential deployment preflight and redacted CLI: loopback catalog-reader URL only, successful real login, independent wrong-password rejection, session defaults and unsafe privilege inventory. No live credentials, grants, authentication rules or public flags changed; no provider calls.
-- Extended disposable SCRAM rehearsal: valid candidate passes, accidental users-table grant fails, then host trust fails despite the stored SCRAM verifier. Targeted test passes. Current compose host trust requires a scoped password-authentication rule before live installation; existing app/observability roles must retain access.
-- `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
-- Next: scoped explorer password-authentication rule, credential installation and exact proxy/browser/private rollback; Grafana paired scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1773 — rehearse scoped explorer authentication rollback
-
-- Clean main; no inherited work. Zero active alerts, all 14 services active, sources healthy and no failed scheduled digest; `/healthz` passes.
-- Prepared IPv4/IPv6 catalog-role-only SCRAM fragment ahead of existing trust rules. Disposable database verifies trust rejection, scoped password enforcement, parsed rules, unrelated-role access and restored trust rejection. No live authentication, credentials, grants or public flags changed; no provider calls.
-- First integration run caught rollback copy changing file ownership: PostgreSQL refused to reload it. Fixed with ownership/mode-preserving copies and parsed-rule validation; bounded fresh-login checks observe asynchronous reload completion. Corrected focused rehearsal passes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` pass. Account boundary passes 32 checks; saved Nov 10 reader returns four topics/19 stories/15 posts.
-- Schema service restarted active; `/healthz` passes and anonymous `/db/` returns 404.
-- Next: install scoped live authentication and explorer credentials, then exact proxy/browser/private rollback; Grafana scheduled-load/compaction capacity and Nov 11 15:00 NBA acceptance remain open.
-
-## 2026-11-11: iteration 1774 — install live explorer catalog credentials
-
-- Clean main; no inherited work. Zero active alerts, all 14 services and 36 sources healthy; no failed digest run. Saved Nov 10 edition still serves four topics/19 stories/15 posts.
-- Privately backed up database, roles, environment, authentication and extension ACLs; installed scoped IPv4/IPv6 SCRAM rules and catalog-only login. Preflight initially caught inherited PUBLIC SELECT on query-statistics views; removed it while preserving existing named roles' SELECT. Added extension-backed regression and idempotence coverage.
-- Redacted live credential preflight passes real login/wrong-password rejection, session defaults and unsafe-grant checks. Explorer now uses two catalog-role sessions; parsed authentication rules have zero errors. Restricted/private rollback responses preserve all 39 tables and full response except capture time, with no warnings; restart closed restricted pools before reactivation.
-- Updated credential deployment/rollback instructions, affected handbook and TASKS. Public and structural flags remain off; no provider calls. Private backups: `~/.local/state/news-digest/catalog-1774/`.
-- Targeted SCRAM test, handbook check (39 tables/no warnings), deployed account boundary (32 checks), saved-reader check and build pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips) and `git diff --check` pass.
-- Next: exact structural proxy/browser/private rollback; full credential/authentication rollback; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1775 — compose explorer proxy/browser rollback
-
-- Clean main; no inherited work. Zero active alerts; 14 services/36 sources healthy. `pnpm obs jobs --check` passes; saved Nov 10 reader still serves four topics/19 stories/15 posts.
-- Added `pnpm exec tsx scripts/check-schema-proxy.ts`: captures the live restricted-role catalog, then exercises real explorer HTTP and API proxy handlers on ephemeral loopback listeners. Private/structural/private responses retain 39 tables/36 relationships and restore the exact captured private response; query flags cannot widen the projection.
-- Desktop/mobile real-response browsers pass search, account details, viewport and error checks; saved and visually inspected both proxy screenshots. No-store, redirect, POST/unknown-row refusal and anonymous/forged-header denial pass before introspection. Public policy remains closed even to fresh admins.
-- Updated TASKS, readiness and response-review evidence. No live flags, credentials, grants or provider traffic changed. Initial lint caught unnecessary async declarations; corrected and reran verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes, four expected skips), `pnpm build`, account boundary (32 checks), saved-reader check, handbook/schema check and `git diff --check` pass. Explorer restarted after push; `/healthz` passes and anonymous `/db/` remains 404.
-- Next: full credential/authentication rollback and explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+[Iterations 1770–1775](docs/progress-archive/2026-11-11-iterations-1770-1775.md).
 
 ## 2026-11-11: iteration 1776 — compose explorer credential lifecycle rollback
 
@@ -157,3 +106,12 @@
 - Targeted 11 tests, `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. Updated affected handbook, rollout review/readiness and TASKS.
 - Restarted API; retrying healthz, 32 deployed account-boundary checks and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). `git diff --check` clean.
 - Next: native telemetry UI assets/POST transport review and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1786 — native telemetry UI transport review
+
+- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode remains off.
+- Added `pnpm exec tsx scripts/review-native-telemetry-ui.ts --live-assets`: Chromium loads installed native UI documents/assets; every operational/external request receives fixture data before forwarding. Prints only methods/paths and asset inventory, never queries, bodies or credentials.
+- Both UIs mount; installed assets return successfully. Assertions observe metrics POST `/metrics/prometheus/api/v1/query_range` and logs POST query/hits/stream-field-names. Logs also requests build/tenant metadata; metrics requests configuration/dashboard/timezone resources. This is transport review, not live-query/UI acceptance.
+- Updated tool review/readiness/TASKS with exact gaps: POST form transport, metrics alias, metadata/static route review and same-origin CSP. Existing GET allowlist cannot support native UI; no runtime admission changed. Archived progress 1770–1775 to keep orientation small.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and native browser review pass. Final `pnpm check` passes: 832 unit/283 integration tests, four expected skips. Initial check stopped on newly archived progress formatting; corrected. Restarted API; retrying healthz, 32 account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass.
+- Next: implement reviewed bounded native query transport/assets behind the off flag; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.

@@ -753,3 +753,31 @@ reader, stale-admin and logged-out sessions. Caller credentials and upstream
 cookies stay stripped; responses use no-store. POSTs, streaming `tail`, inserts,
 UI pages/assets and unknown paths remain denied. Native UI POST transport and
 asset admission still need review before enabling the UI. Public mode stays off.
+
+## Native UI browser transport review (iteration 1786)
+
+Run `pnpm exec tsx scripts/review-native-telemetry-ui.ts --live-assets` to load
+installed loopback UI documents and JavaScript/CSS assets in Chromium. Every
+non-asset request receives an intercepted fixture; no live operational queries,
+POSTs or external requests are forwarded. The report prints methods and paths,
+without query strings, bodies, credentials or external hostnames. It asserts
+successful asset loading, mounted controls and native POST query requests.
+
+| Installed UI              | Observed native requests beyond assets                                                                                                                                             |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Metrics `/metrics/vmui/`  | POST `/metrics/prometheus/api/v1/query_range`; GET `/metrics/prometheus/vmui/{config.json,custom-dashboards,timezone}`; dashboard JSON `/metrics/vmui/dashboards/perJobUsage.json` |
+| Logs `/logs/select/vmui/` | POST `/logs/select/logsql/{query,hits,stream_field_names}`; GET `/logs/select/{buildinfo,tenant_ids}`                                                                              |
+
+The metrics request used the synthetic expression `up`; all returned data was
+fixture data. Logs query execution likewise used fixtures. These are native
+transport observations, not live data or complete UI acceptance. The asset report
+records the currently installed hashed bundles; upgrades require another review.
+
+The prepared GET query allowlist cannot yet support either native UI: metrics
+also adds the `/prometheus` alias to its API target. Before admitting UI pages,
+review exact static/configuration routes, bounded form POST transport, same-origin
+checks and its interaction with the admin-write audit. Keep tail, mutation,
+reload and unreviewed metadata routes denied. Native bundles offer configurable
+server URLs and external links: constrain browser connections with a same-origin
+CSP when serving them. Do not broadly admit `/metrics/` or `/logs/` prefixes.
+Public mode remains off; no admission or proxy behavior changed in this review.
