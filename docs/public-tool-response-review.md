@@ -1047,3 +1047,24 @@ page JavaScript cannot read the cookie. This covers browser cookie transport
 with stored-session authorization. Installed native UI composition with the
 same stored-session boundary and broader live navigation remain open.
 Production export admission and public mode stay off.
+
+### Installed Raw Query with stored sessions (iteration 1803)
+
+The explicit `capture-installed-telemetry-assets.ts /tmp/<new-file>.json`
+command captures only the seven reviewed metrics assets from loopback, checking
+size, SHA-256, MIME and absence of cookies. Set
+`TELEMETRY_INSTALLED_ASSET_FIXTURE=/tmp/<new-file>.json` when running
+`pnpm check` to add installed Raw Query to the isolated full-application
+browser rehearsal. Tests read the captured file; they never fetch live assets
+or operational data.
+
+The native page, assets and synthetic export pass through the prepared proxy
+and real stored-session authorization. Fresh/restored admins render the
+synthetic series without script errors or CSP violations. Anonymous/invited
+readers, aged and logged-out admins cannot load the document and cause no
+telemetry upstream work. Every browser request stays on the virtual HTTPS
+origin and carries the HttpOnly cookie through the proxy. Responses remain
+no-store and omit cookies; admitted assets carry CSP and nosniff.
+
+Production admission/public mode remain off. Other native screens with stored
+sessions, broader live navigation and the remaining readiness gates stay open.

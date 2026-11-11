@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1803: installed metrics Raw Query composes reviewed captured assets, real stored-session authorization and synthetic export in isolated Chromium; fresh/restored admins render, anonymous/reader/aged/logout cannot load the document. Other native screens/session composition and live navigation remain; production flags stay off.
+
 - [x] Iteration 1802: Chromium Secure/HttpOnly/Strict cookie jar exercises synthetic export rendering through the isolated stored-session application, with fresh/restored admin success and anonymous/reader/aged/logout refusal. Native installed UI/session composition remains; production flags stay off.
 
 - [x] Iteration 1801: prepared bounded export composes stored-session authorization and buffered transport in the isolated full application; fresh admin forwarding and reader/stale/logout/malformed refusal verified. Production admission/public mode stay off; full browser/session composition remains.

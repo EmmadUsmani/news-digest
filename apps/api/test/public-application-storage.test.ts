@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
 import type { AddressInfo } from 'node:net';
@@ -68,8 +68,24 @@ void test('configured full public application serves published fixtures and enfo
   const { proxyInternalTools, selectInternalTools } =
     require('../dist/internal-tools.js') as typeof import('../src/internal-tools');
   // An isolated upstream records forwarding; no test reaches live telemetry.
+  const installedAssets: Record<string, { body: string; contentType: string }> =
+    process.env.TELEMETRY_INSTALLED_ASSET_FIXTURE
+      ? JSON.parse(
+          await readFile(process.env.TELEMETRY_INSTALLED_ASSET_FIXTURE, 'utf8'),
+        )
+      : {};
   const telemetryRequests: string[] = [];
+  let nativeBrowser = false;
   const telemetry = createServer((req, res) => {
+    const asset = nativeBrowser && installedAssets[req.url!];
+    if (asset) {
+      assert.equal(req.headers.cookie, undefined);
+      telemetryRequests.push(req.url!);
+      res
+        .writeHead(200, { 'content-type': asset.contentType })
+        .end(Buffer.from(asset.body, 'base64'));
+      return;
+    }
     if (req.url?.startsWith('/metrics/prometheus/api/v1/export?')) {
       assert.equal(req.headers.cookie, undefined);
       assert.equal(req.headers.authorization, undefined);
@@ -81,7 +97,19 @@ void test('configured full public application serves published fixtures and enfo
           'content-type': 'application/stream+json',
           'x-private': 'fixture-only',
         })
-        .end('{"metric":{"__name__":"up"},"values":[1],"timestamps":[1000]}\n');
+        .end(
+          nativeBrowser
+            ? JSON.stringify({
+                metric: { __name__: 'up', job: 'installed-session-fixture' },
+                values: [1],
+                timestamps: [
+                  Number(
+                    new URL(req.url, 'http://fixture').searchParams.get('end'),
+                  ) * 1000,
+                ],
+              }) + '\n'
+            : '{"metric":{"__name__":"up"},"values":[1],"timestamps":[1000]}\n',
+        );
       return;
     }
     assert.deepEqual(
@@ -97,7 +125,17 @@ void test('configured full public application serves published fixtures and enfo
         'set-cookie': 'upstream=private',
         'x-private': 'fixture-only',
       })
-      .end('{"fixture":true}');
+      .end(
+        nativeBrowser
+          ? JSON.stringify({
+              status: 'success',
+              data: { resultType: 'matrix', result: [] },
+              values: [],
+              fields: [],
+              hits: [],
+            })
+          : '{"fixture":true}',
+      );
   });
   await new Promise<void>((done) => telemetry.listen(0, '127.0.0.1', done));
   const telemetryPort = (telemetry.address() as AddressInfo).port;
@@ -550,7 +588,8 @@ void test('configured full public application serves published fixtures and enfo
       }
     };
     // HTTPS browser transport is virtual: every request is fulfilled locally.
-    // Synthetic UI and series only; no installed assets or live telemetry.
+    // Synthetic series only. An optional explicit capture adds installed assets;
+    // the isolated test never contacts live telemetry or asset services.
     const checkBrowserExport = async (
       actorCookie: string,
       allowed: boolean,
@@ -619,6 +658,87 @@ void test('configured full public application serves published fixtures and enfo
         }
         assert.equal(forwarded, 2);
         assert.equal(telemetryRequests.length, before + (allowed ? 2 : 0));
+        if (Object.keys(installedAssets).length) {
+          nativeBrowser = true;
+          try {
+            await context.unroute('**/*');
+            const errors: string[] = [];
+            page.on('pageerror', (error) => errors.push(error.name));
+            await page.addInitScript(() => {
+              const violations: string[] = [];
+              Object.assign(window, { nativePolicyViolations: violations });
+              document.addEventListener('securitypolicyviolation', (event) => {
+                violations.push(event.effectiveDirective);
+              });
+            });
+            let exports = 0;
+            await context.route('**/*', async (route) => {
+              const url = new URL(route.request().url());
+              assert.equal(url.origin, configuration.ACCOUNT_ORIGIN);
+              const headers = await route.request().allHeaders();
+              assert.equal(headers.cookie ?? '', actorCookie);
+              const response = await route.fetch({
+                url: base + url.pathname + url.search,
+                headers,
+              });
+              assert.equal(response.status(), allowed ? 200 : 404);
+              assert.equal(response.headers()['cache-control'], 'no-store');
+              assert.equal(response.headers()['set-cookie'], undefined);
+              if (url.pathname === '/metrics/prometheus/api/v1/export') {
+                exports++;
+              }
+              if (installedAssets[url.pathname] && allowed) {
+                assert.equal(
+                  response.headers()['content-security-policy'],
+                  telemetryContentSecurityPolicy,
+                );
+                assert.equal(
+                  response.headers()['x-content-type-options'],
+                  'nosniff',
+                );
+              }
+              await route.fulfill({ response });
+            });
+            const nativeBefore = telemetryRequests.length;
+            const navigationResponse = await page.goto(
+              configuration.ACCOUNT_ORIGIN +
+                '/metrics/vmui/#/raw-query?g0.expr=up&g0.range_input=1m',
+              { waitUntil: 'networkidle' },
+            );
+            assert.equal(navigationResponse!.status(), allowed ? 200 : 404);
+            if (allowed) {
+              await page.waitForTimeout(750);
+              await page.waitForLoadState('networkidle');
+              assert.ok(
+                exports > 0,
+                'Installed Raw Query requests authenticated export',
+              );
+              assert.ok(
+                await page
+                  .getByText('installed-session-fixture', { exact: false })
+                  .count(),
+                'Installed Raw Query renders synthetic series',
+              );
+              assert.deepEqual(errors, []);
+              assert.deepEqual(
+                await page.evaluate(
+                  () =>
+                    (window as unknown as { nativePolicyViolations: string[] })
+                      .nativePolicyViolations,
+                ),
+                [],
+              );
+              await page.screenshot({
+                path: 'docs/screenshots/native-metrics-stored-session.png',
+              });
+            } else {
+              assert.equal(telemetryRequests.length, nativeBefore);
+              assert.equal(exports, 0);
+            }
+          } finally {
+            nativeBrowser = false;
+          }
+        }
       } finally {
         await browser.close();
       }
