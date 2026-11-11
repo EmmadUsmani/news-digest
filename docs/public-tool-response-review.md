@@ -496,3 +496,19 @@ application-row, role-switch and server-file denials run in the same session.
 This uses session authorization, not password authentication: the shared test
 container uses trust authentication. Live credential installation and exact
 proxy/browser composition remain open; no live flags, credentials or grants change.
+
+## Explorer password-authenticated rehearsal (iteration 1771)
+
+The explorer integration suite now migrates a separate disposable PostgreSQL 17
+instance with SCRAM host authentication, installs the prepared catalog role and
+enables a synthetic login separately. It checks the SCRAM verifier, rejects a
+wrong password, confirms actual session identity and login defaults, and serves
+the structural HTTP response through that authenticated connection. Application
+rows, password catalogs, identity escalation and server-file reads remain denied;
+disabling the read-only default does not grant DELETE access.
+
+A final NOLOGIN check rejects fresh connections. Existing pooled sessions must
+be closed during credential rollback; NOLOGIN alone does not disconnect them.
+All credentials and schema changes in this rehearsal are disposable fixtures.
+Live credential installation and exact proxy/browser acceptance remain open;
+public mode and live grants are unchanged.

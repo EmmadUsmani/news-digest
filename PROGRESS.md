@@ -102,3 +102,12 @@
 - `pnpm build`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics, 19 stories, 15 posts) pass. Corrected import sorting found by the first full lint.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 282 integration passes/four expected skips), `pnpm build` and `git diff --check` pass. Restricted-role HTTP composition passes; archived iterations 1753–1759 to keep this file small. Restarted schema service active; `/healthz` passes and anonymous `/db/` returns 404. Public mode remains off.
 - Next: install reviewed explorer credentials and compose exact proxy/browser rollback; Grafana paired scheduled-load/compaction capacity; Nov 11 15:00 NBA acceptance review.
+
+## 2026-11-11: iteration 1771 — rehearse explorer SCRAM credentials
+
+- Clean main; no inherited work. Local alerts zero, all 14 services active, all 36 sources healthy; no failed scheduled digest.
+- Added a separate disposable PostgreSQL 17 SCRAM instance to the explorer integration test; all migrations applied from zero. Synthetic login verifies password enforcement, real session identity/defaults, structural HTTP and row/catalog/file/identity denials. NOLOGIN rejects fresh connections; rollback must also close existing service pools.
+- Live credentials, grants and public flags unchanged; no provider calls. Updated TASKS and the response review; no product/handbook behavior changed.
+- Targeted SCRAM test passes; deployed account-boundary check passes 32 checks; scheduled reader check verifies Nov 10 four topics/19 stories/15 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` passed. Targeted SCRAM rehearsal also passed.
+- Next: live explorer credential installation and exact proxy/browser/private rollback; Grafana capacity under scheduled load/compaction; Nov 11 15:00 UTC NBA acceptance review.

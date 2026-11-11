@@ -5,11 +5,15 @@ import type { AddressInfo } from 'node:net';
 import { resolve } from 'node:path';
 import { test } from 'node:test';
 
+import { Pool } from 'pg';
+import { GenericContainer, Wait } from 'testcontainers';
+
 import { createExplorerServer } from '../../schema-explorer/src/http-server';
 import { introspect } from '../../schema-explorer/src/introspect';
 import { buildModel } from '../../schema-explorer/src/model';
 import { buildPublicModel } from '../../schema-explorer/src/public-model';
 import { database } from '../src/libs/db/connections';
+import { applyMigrations } from '../src/libs/db/migration-runner';
 
 void test('prepared explorer role reads schema structure without application-row grants', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -143,5 +147,125 @@ void test('prepared explorer role reads schema structure without application-row
   } finally {
     await client.query('ROLLBACK');
     client.release();
+  }
+});
+
+void test('catalog credentials enforce SCRAM login and retain structural HTTP access without row grants', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const container = await new GenericContainer('postgres:17-alpine')
+    .withEnvironment({
+      POSTGRES_PASSWORD: 'synthetic-owner-password',
+      POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256',
+    })
+    .withTmpFs({ '/var/lib/postgresql/data': 'rw' })
+    .withExposedPorts(5432)
+    .withWaitStrategy(
+      Wait.forLogMessage('database system is ready to accept connections', 2),
+    )
+    .start();
+  const connection = {
+    host: container.getHost(),
+    port: container.getMappedPort(5432),
+    database: 'postgres',
+    connectionTimeoutMillis: 3000,
+  };
+  const owner = new Pool({
+    ...connection,
+    user: 'postgres',
+    password: 'synthetic-owner-password',
+  });
+  const reader = new Pool({
+    ...connection,
+    user: 'schema_catalog_reader',
+    password: 'synthetic-reader-password',
+  });
+  const wrong = new Pool({
+    ...connection,
+    user: 'schema_catalog_reader',
+    password: 'wrong-synthetic-password',
+  });
+  const server = createExplorerServer({
+    publicDir: resolve('apps/schema-explorer/public'),
+    structuralOnly: true,
+    health: () => reader.query('SELECT 1'),
+    loadModel: async () => buildModel(await introspect(reader)),
+  });
+  try {
+    await applyMigrations(owner);
+    await owner.query(
+      readFileSync('ops/schema-explorer/prepared/catalog-reader.sql', 'utf8'),
+    );
+    // Synthetic activation is deliberately separate from the prepared NOLOGIN SQL.
+    await owner.query(
+      "ALTER ROLE schema_catalog_reader LOGIN PASSWORD 'synthetic-reader-password'",
+    );
+    const verifier = await owner.query(
+      "SELECT rolpassword FROM pg_authid WHERE rolname='schema_catalog_reader'",
+    );
+    assert.ok(verifier.rows[0].rolpassword.startsWith('SCRAM-SHA-256$'));
+    await assert.rejects(wrong.query('SELECT 1'), { code: '28P01' });
+    const identity = await reader.query(`SELECT current_user, session_user,
+      current_setting('default_transaction_read_only') AS read_only,
+      current_setting('statement_timeout') AS timeout`);
+    assert.deepEqual(identity.rows, [
+      {
+        current_user: 'schema_catalog_reader',
+        session_user: 'schema_catalog_reader',
+        read_only: 'on',
+        timeout: '10s',
+      },
+    ]);
+    for (const query of [
+      'SELECT * FROM public.users',
+      'SELECT * FROM public.digest_previews',
+      'SELECT * FROM pg_authid',
+      'SET ROLE postgres',
+      'SET SESSION AUTHORIZATION postgres',
+      "SELECT pg_read_file('/etc/passwd')",
+    ]) {
+      await assert.rejects(reader.query(query), { code: '42501' });
+    }
+    // Disabling read-only cannot bypass the actual privilege boundary.
+    await reader.query('SET default_transaction_read_only=off');
+    await assert.rejects(reader.query('DELETE FROM public.users'), {
+      code: '42501',
+    });
+    await reader.query('RESET default_transaction_read_only');
+    server.listen(0, '127.0.0.1');
+    await once(server, 'listening');
+    const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+    assert.equal((await fetch(`${base}/healthz`)).status, 200);
+    const response = await fetch(`${base}/api/schema`);
+    assert.equal(response.status, 200);
+    const model = (await response.json()) as ReturnType<
+      typeof buildPublicModel
+    >;
+    assert.ok(model.tables.some((table) => table.name === 'users'));
+    assert.ok(model.tables.length >= 39);
+    assert.ok(model.relations.length > 0);
+    assert.doesNotMatch(
+      JSON.stringify(model),
+      /rowEstimate|sizeBytes|definition|synthetic-reader-password/,
+    );
+    // NOLOGIN blocks fresh connections; pooled sessions require a service restart.
+    await owner.query('ALTER ROLE schema_catalog_reader NOLOGIN');
+    const revoked = new Pool({
+      ...connection,
+      user: 'schema_catalog_reader',
+      password: 'synthetic-reader-password',
+    });
+    try {
+      await assert.rejects(revoked.query('SELECT 1'), { code: '28000' });
+    } finally {
+      await revoked.end();
+    }
+  } finally {
+    server.closeAllConnections();
+    if (server.listening)
+      await new Promise<void>((resolve, reject) =>
+        server.close((error) => (error ? reject(error) : resolve())),
+      );
+    await Promise.all([owner.end(), reader.end(), wrong.end()]);
+    await container.stop();
   }
 });

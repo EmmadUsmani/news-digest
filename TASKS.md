@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1770: composed real restricted-role catalog queries with private/structural/private HTTP listeners in the disposable migrated database; credential installation and exact proxy/browser acceptance remain open.
+- [x] Iteration 1771: rehearse explorer credentials in a separate migrated SCRAM-authenticated database: wrong-password/NOLOGIN refusals, real session identity, structural HTTP and row-denial checks; live credential installation and exact proxy/browser acceptance remain open.
 
 - [x] Iteration 1755: completed bounded post-reset NBA Sonnet continuation; one Sonnet repair and one Haiku repair validated, with supported-paraphrase guard rejection confirmed and cost settled.
 
