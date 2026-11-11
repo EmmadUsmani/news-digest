@@ -1,5 +1,5 @@
-// Phase 4 preparation only: not installed by main. Admin reads and internal
-// tools stay restricted until their response/privacy audits are complete.
+// Public-mode policy; live public mode remains off pending Phase 4 acceptance.
+// Routes are admitted individually after their response/privacy review.
 export type RouteClass = 'public-read' | 'user' | 'admin';
 
 type Rule = readonly [method: string, path: RegExp, access: RouteClass];
@@ -69,6 +69,13 @@ export function classifyPublicRoute(
     path.split('/').some((part) => part === '.' || part === '..')
   )
     return null;
+  if (
+    ['/db', '/db/', '/db/app.js', '/db/style.css', '/db/api/schema'].includes(
+      target,
+    )
+  )
+    return method === 'GET' ? 'public-read' : null;
+  if (path === '/db' || path.startsWith('/db/')) return null;
   if (['/docs', '/docs/', '/docs/style.css'].includes(target))
     return method === 'GET' || method === 'HEAD' ? 'public-read' : null;
   if ((method === 'GET' || method === 'HEAD') && staticRoutes.has(path))

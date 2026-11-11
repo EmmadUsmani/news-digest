@@ -208,9 +208,14 @@ void test('reader explorer refuses private responses and forwards only exact str
     undefined,
   );
   const proxy = proxyInternalTools([{ ...selected, port }]);
-  const app = createServer((req, res) =>
-    proxy(req, res, () => res.writeHead(404).end()),
-  );
+  const admission = publicAccess(true, () => {
+    throw new Error('anonymous explorer must not authenticate');
+  });
+  const app = createServer((req, res) => {
+    void admission(req, res, () =>
+      proxy(req, res, () => res.writeHead(404).end()),
+    );
+  });
   const base = 'http://127.0.0.1:' + (await listen(app));
   try {
     const denied = await fetch(base + '/db/api/schema');

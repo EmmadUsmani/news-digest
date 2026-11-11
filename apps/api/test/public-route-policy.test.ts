@@ -67,7 +67,9 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
     '/docs/?q=secret',
     '/docs/style.css?v=1',
     '/DOCS/',
-    '/db/',
+    '/db/api/rows',
+    '/db/api/schema?rows=1',
+    '/db/healthz',
     '/grafana/',
     '/queues/',
     '/admin/tools',
@@ -139,4 +141,22 @@ void test('published previews and their pages permit anonymous reads without gra
       assert.equal(classifyPublicRoute(method, path), 'public-read', path);
   for (const path of ['/admin/editions/new', '/admin/editions/not-a-uuid'])
     assert.equal(classifyPublicRoute('GET', path), null, path);
+});
+
+void test('explorer admission permits only exact structural GET routes', () => {
+  for (const path of [
+    '/db',
+    '/db/',
+    '/db/app.js',
+    '/db/style.css',
+    '/db/api/schema',
+  ]) {
+    assert.equal(classifyPublicRoute('GET', path), 'public-read');
+    for (const method of ['HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS'])
+      assert.equal(classifyPublicRoute(method, path), null);
+    assert.equal(
+      classifyPublicRoute('GET', path + '?rows=1', new Set([path])),
+      null,
+    );
+  }
 });

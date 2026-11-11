@@ -17,7 +17,7 @@ import { prepareStoredAccessRuntime } from '../src/public-write/stored-access-ru
 
 // Exercise the configured Nest boundary with storage/session stand-ins. No live
 // accounts, proxy identities, external services or mutations participate.
-void test('public readiness HTTP matrix keeps internal tools closed for every principal', async () => {
+void test('public readiness HTTP matrix admits reviewed explorer reads and closes unaudited tools', async () => {
   let principal: 'anonymous' | 'reader' | 'admin' = 'anonymous';
   let authentication = 0;
   let downstream = 0;
@@ -84,7 +84,8 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
         '/metrics',
         '/grafana/',
         '/docs/api/tree',
-        '/db/',
+        '/db/api/rows',
+        '/db/api/schema?rows=1',
         '/queues/',
         '/api/me',
         '/api/unknown',
@@ -132,6 +133,24 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
           assert.equal(authentication, before, path);
         }
       }
+      for (const path of [
+        '/db',
+        '/db/',
+        '/db/app.js',
+        '/db/style.css',
+        '/db/api/schema',
+      ]) {
+        const before = authentication;
+        const response = await fetch(base + path);
+        assert.equal(response.status, 200, `${actor} GET ${path}`);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(authentication, before);
+        for (const method of ['HEAD', 'POST']) {
+          const untouched = [authentication, downstream];
+          assert.equal((await fetch(base + path, { method })).status, 404);
+          assert.deepEqual([authentication, downstream], untouched);
+        }
+      }
       for (const path of ['/api/admin/profile']) {
         const before = downstream;
         assert.equal(
@@ -162,14 +181,14 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
         assert.deepEqual([authentication, downstream], before);
       }
     }
-    // Direct-local credentials grant classified admin APIs only, never tools.
+    // Direct-local credentials cannot open unreviewed tool routes.
     const before = [authentication, downstream];
     for (const path of [
       '/logs',
       '/metrics',
       '/queues/',
       '/docs/api/tree',
-      '/db/',
+      '/db/api/rows',
     ]) {
       assert.equal(
         (

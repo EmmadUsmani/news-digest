@@ -50,6 +50,9 @@ async function main() {
       });
       const port = await listen(tool);
       const proxy = proxyInternalTools([{ prefix: '/db', port }]);
+      const readerProxy = proxyInternalTools([
+        { prefix: '/db', port, readerExplorer: true },
+      ]);
       const guard = adminAccess({ localToken: token });
       const admission = publicAccess(true, () =>
         Promise.resolve({ freshAdmin: true }),
@@ -59,7 +62,7 @@ async function main() {
         for (const publicMode of [false, true]) {
           const app = createServer((req, res) => {
             const next = () =>
-              proxy(req, res, () => {
+              (publicMode ? readerProxy : proxy)(req, res, () => {
                 res.writeHead(404).end();
               });
             if (publicMode) void admission(req, res, next);
@@ -69,9 +72,7 @@ async function main() {
           const base = `http://127.0.0.1:${await listen(app)}`;
           const before = reads;
           for (const path of [
-            '/db',
-            '/db/',
-            '/db/api/schema',
+            ...(!publicMode ? ['/db', '/db/', '/db/api/schema'] : []),
             '/db/api/schema?rows=1',
             '/db/api/rows',
             '/DB/api/schema',
@@ -87,20 +88,38 @@ async function main() {
                 headers: { 'X-ExeDev-Email': 'forged@example.test' },
               })
             ).status,
-            404,
+            publicMode ? (mode === 'structural' ? 200 : 502) : 404,
           );
-          assert.equal(reads, before);
+          if (!publicMode) assert.equal(reads, before);
           const headers = { ADMIN_LOCAL_TOKEN: token };
           if (publicMode) {
-            assert.equal(
-              (await fetch(base + '/db/api/schema', { headers })).status,
-              404,
-            );
-            assert.equal(
-              reads,
-              before,
-              'public route policy stays closed even to fresh admins',
-            );
+            const response = await fetch(base + '/db/api/schema', { headers });
+            assert.equal(response.status, mode === 'structural' ? 200 : 502);
+            assert.equal(response.headers.get('cache-control'), 'no-store');
+            if (mode === 'structural')
+              assert.deepEqual(await response.json(), structural);
+            else assert.doesNotMatch(await response.text(), /tables|users/);
+            if (mode === 'structural') {
+              for (const width of [1440, 390]) {
+                const page = await browser.newPage({
+                  viewport: { width, height: 900 },
+                });
+                await page.goto(base + '/db/#table=users');
+                await page.waitForSelector('#panel:not([hidden]) h2');
+                assert.equal(
+                  await page.locator('#panel h2').textContent(),
+                  'users',
+                );
+                assert.doesNotMatch(
+                  await page.locator('body').innerText(),
+                  /on disk|estimated rows|Indexes|Triggers|Checks/,
+                );
+                await page.screenshot({
+                  path: `docs/screenshots/schema/public-admission-${width}.png`,
+                });
+                await page.close();
+              }
+            }
             continue;
           }
           const redirect = await fetch(base + '/db', {
@@ -176,7 +195,7 @@ async function main() {
       }
     }
     console.log(
-      `Explorer proxy: private/structural/private HTTP and desktop/mobile pass; ${catalog.tables.length} live catalog tables, ${catalog.relations.length} relations. Public admission remains closed; no live configuration changed.`,
+      `Explorer proxy: private/structural/private HTTP and desktop/mobile pass; ${catalog.tables.length} live catalog tables, ${catalog.relations.length} relations. Prepared anonymous admission passes; private upstream fails closed; no live configuration changed.`,
     );
   } finally {
     await browser.close();

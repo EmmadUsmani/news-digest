@@ -642,3 +642,24 @@ structural-only service marker, including a private explorer after rollback.
 The marker is emitted only by structural mode. Public route admission stays
 closed; no live flag changes. Tests cover wrong upstream, exact routes,
 credential stripping, cookie removal and private/structural/private marker state.
+
+## Explorer reader admission (iteration 1779)
+
+The prepared public policy admits GET only on `/db`, `/db/`, `/db/app.js`,
+`/db/style.css` and `/db/api/schema`. Query strings, HEAD, writes, unknown
+routes and ambiguous paths stay denied before the proxy. This admission uses
+no account authentication; the structural marker check remains mandatory.
+
+`check-schema-proxy.ts` composes the public guard and selected reader proxy
+against the captured live restricted-role catalog. Private/structural/private
+returns 502/200/502 without private response bodies; the structural response
+matches the exact public DTO. Forged identity and admin-token headers do not
+change admission. The separate private guard retains its existing behavior.
+Anonymous desktop/mobile views of the users schema pass; inspected screenshots:
+[desktop](screenshots/schema/public-admission-1440.png),
+[mobile](screenshots/schema/public-admission-390.png).
+
+Unit HTTP checks compose admission with credential/cookie stripping, exact
+route denial and unavailable/private upstream refusal. No live flags, database
+grants or credentials changed. Live structural-mode activation and the remaining
+Phase 4 security gates still precede public promotion.

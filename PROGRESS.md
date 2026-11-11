@@ -138,3 +138,13 @@
 - Build, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) pass. Updated TASKS and response/readiness evidence.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (830 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
 - Next: compose explicit explorer reader admission behind the public flag; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1779 — compose explorer reader admission
+
+- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; all 36 sources and four job queues healthy. Nov 10 saved reader has four topics/19 stories/15 posts.
+- Prepared public policy admits only exact structural explorer GET routes; query variants, HEAD and writes stay denied before proxying. Anonymous admission composes with the credential-stripping structural-marker proxy; private upstream still fails closed.
+- `pnpm exec tsx scripts/check-schema-proxy.ts` passes captured-live-catalog private/structural/private HTTP and desktop/mobile checks. Inspected both new anonymous screenshots. No live flags, credentials, grants or provider spend changed.
+- Targeted route/proxy tests pass (9); `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` and `check-handbook.ts` pass (39 tables/no warnings). Updated readiness, response review and TASKS.
+- Initial full check caught the old readiness matrix denying reviewed explorer routes; updated it to verify all principals’ exact GET admission and HEAD/write refusal. Full rerun passes: 831 unit/283 integration tests, four expected skips; `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass.
+- `pnpm build` passes. Restarted `news-digest-api.service`; retrying `/healthz` passes after startup and anonymous `/db/` stays 404. Post-restart account boundary and saved-reader checks pass.
+- Next: live structural-mode activation and broader Phase 4 gates; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
