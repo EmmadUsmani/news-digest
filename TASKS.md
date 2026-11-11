@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1838: fixed inflated reader outlet counts for mixed feed/publisher coverage; saved NBA cards now use per-report provenance, with exact count/link checks and desktop/mobile light/dark screenshots.
+
 - [x] STEERING 55 (1837): Phase 4 public/admin/flag handoff in public-access-plan.md; item 50 stopped for lead security review/owner decision. No more accepted-screen rehearsals. Grafana capacity gate remains open.
 
 - [x] Iteration 1837: compiled schedule, sources and topic catalog/detail document admission rehearsal; malformed IDs/editor paths and writes refuse; public mode remains off.

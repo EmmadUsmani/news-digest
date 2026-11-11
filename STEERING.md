@@ -23,7 +23,6 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    and says to stop at the phase 4 summary.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
-4. Nov 6 edition review: World stories, cost (item 36).
 5. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 

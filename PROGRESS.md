@@ -137,3 +137,13 @@
 - Full `pnpm check` passes: 836 unit tests, 283 integration passes, four expected skips; expanded compiled-app rehearsal passes. Archived iterations 1821–1827 to keep progress small.
 - Initial push rejected (upstream owner steering); merged origin/main without rewriting history. New item 55 stops repeated rehearsal; added Phase 4 security-review handoff/ack and stopped item 50. `bef43855` predates receipt; no verification-only commit after receipt.
 - API restart healthy; 32 account checks and zero alerts passed before receiving item 55. No new verification runs after receipt. Next: lead security review/owner decision; Nov 6 review if unfinished, then item 38.
+
+## 2026-11-11: iteration 1838 — accurate mixed-publisher outlet counts
+
+- Clean main; no inherited work. Initial alerts zero and healthz healthy. Removed completed Nov 6 review (1011) from Current order as permitted; item 50 remains stopped for lead review under 55.
+- Owner value (item 38/42): NBA coverage no longer counts Yahoo feed provenance as an extra publisher alongside named syndicated outlets. Advances reader accuracy after item 33; no X tuning or item 50 work.
+- Fixed StorySources to use the primary coverage record and other individual reports, excluding the aggregate story feed list when primary evidence exists. Saved Celtics coverage now shows three articles/three outlets (two labels plus one), rather than four outlets.
+- Strengthened smoke-reader-coverage-count.ts against actual saved mixed feed/publisher coverage: exact outlet count, every article destination, no overflow/page errors; passes desktop/mobile light/dark. Updated four screenshots and visually inspected mobile light. External traffic blocked; no synthetic content or provider calls.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. `pnpm check` passed typecheck/lint/format/boundaries and 836 unit tests; process then terminated with SIGTERM (143) during integration, without a test failure. Isolated integration completed separately below.
+- Separate `pnpm test:integration` passes: 283 passed, four expected skips, zero failures. Saved latest edition remains four topics/19 stories/19 posts; `pnpm obs sources --check` confirms 36 healthy sources. No handbook/system-flow change.
+- API restarted outside the protected window; active, healthz/database/Redis healthy after startup retries, zero firing/pending alerts. Next: lead security review/owner decision, Nov 12 review, then item 38 reader work; next passive metrics probe ≥18:28 UTC.

@@ -15,7 +15,9 @@ export function StorySources({
     { name: string; url: string; via?: string }
   >();
   const primary = story.coverage?.find((article) => article.url === story.url);
-  for (const article of [primary ?? story, story, ...(story.coverage ?? [])]) {
+  // The aggregate story sources can include feeds belonging to other reports.
+  // Once the primary report is available, use only per-report provenance.
+  for (const article of [primary ?? story, ...(story.coverage ?? [])]) {
     if (article.publisher) {
       const { name } = article.publisher;
       const key = `publisher:${name.trim().toLocaleLowerCase()}`;

@@ -11,15 +11,25 @@ async function main() {
   );
   const story = edition.topics
     .flatMap((topic) => topic.stories)
-    .find(
-      (item) =>
-        new Set(
-          item.coverage?.map((article) =>
-            new URL(article.url).hostname.replace(/^www\./, ''),
-          ),
-        ).size > 2,
-    );
-  assert.ok(story?.coverage, 'Real saved multi-outlet coverage is required');
+    .find((item) => {
+      const primary = item.coverage?.find((report) => report.url === item.url);
+      return (
+        primary &&
+        !primary.publisher &&
+        item.sources.some((source) => !primary.sources.includes(source)) &&
+        item.coverage?.some((report) => report.publisher) &&
+        item.coverage.length > 2
+      );
+    });
+  assert.ok(story?.coverage, 'Saved mixed feed/publisher coverage is required');
+  const outletCount = new Set(
+    story.coverage.map((report) =>
+      report.publisher
+        ? `publisher:${report.publisher.name.trim().toLocaleLowerCase()}`
+        : new URL(report.url).hostname.replace(/^www\./, ''),
+    ),
+  ).size;
+  assert.ok(outletCount > 2);
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -46,9 +56,9 @@ async function main() {
         const sources = card.locator('.story-sources');
         const summary = sources.locator('summary');
         await summary.waitFor();
-        assert.match(
+        assert.equal(
           await summary.innerText(),
-          new RegExp(`^${story.coverage.length} articles · [+]\\d+ outlets?$`),
+          `${story.coverage.length} articles · +${outletCount - 2} ${outletCount === 3 ? 'outlet' : 'outlets'}`,
         );
         assert.equal(
           await sources.locator('details').getAttribute('open'),
@@ -76,7 +86,7 @@ async function main() {
       }
     }
     console.log(
-      'Saved coverage count and every report link passed desktop/mobile light/dark; GET-only, no writes.',
+      'Saved mixed-publisher coverage has exact outlet counts and every report link on desktop/mobile light/dark; GET-only, no writes.',
     );
   } finally {
     await browser.close();
