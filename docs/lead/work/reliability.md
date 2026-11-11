@@ -2,12 +2,17 @@
 
 **Agent outage, Nov 10:** from 22:13 UTC every Codex run failed with "The
 'gpt-6.1-sol' model requires a newer version of Codex", even on 0.167.1 (latest
-stable, installed) and the newest prerelease. `gpt-6-sol` works, so the block is
-on the exe.dev gateway or OpenAI side. Owner approved a temporary pin: the VM's
-`~/.codex/config.toml` has `model = "gpt-6-sol"` (backup `config.toml.pre-gpt6sol`),
-and iteration 1753 ran from 22:59. Next: remove the pin once `gpt-6.1-sol`
-answers a one-line `codex exec -m gpt-6.1-sol` test. A supervisor fallback is
-under discussion, not steered.
+stable) and the newest prerelease. `gpt-6-sol` works, so the block is on the
+exe.dev gateway or OpenAI side. Owner approved a temporary pin: the VM's
+`~/.codex/config.toml` has `model = "gpt-6-sol"` (backup `config.toml.pre-gpt6sol`).
+Healthy since: iterations 1753 and 1754 passed, 1755 running (lead check 00:08 UTC
+Nov 11). Next: remove the pin once `gpt-6.1-sol` answers a one-line
+`codex exec -m gpt-6.1-sol` test.
+
+**Supervisor fallback and AgentCrashLoop alert** (commits 238d5af0, 657582d9) are
+on `main` but not live: the VM runs the Nov 2 copy of `~/agent-control/run.sh`.
+Going live needs `install.sh` plus a supervisor restart between iterations. That
+is a production change, so it needs the owner's go-ahead.
 
 **Status:** steered on Nov 7 as items 47 and 48, not yet acked. The agent rehearses four
 failed-edition cases and a rebuild from backup, then settles M6 and M7.

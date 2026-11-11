@@ -33,6 +33,10 @@ class HarnessMetricsTest(unittest.TestCase):
             status['iteration_finished_at'] = '2026-11-03T16:33:43Z'
             (path / 'heartbeat.json').write_text(json.dumps(status))
             self.assertIn('finished_timestamp', '\n'.join(harness.collect(path)))
+            self.assertNotIn('failure_streak', rows)
+            status['consecutive_failures'] = 3
+            (path / 'heartbeat.json').write_text(json.dumps(status))
+            self.assertIn('news_digest_harness_failure_streak 3', '\n'.join(harness.collect(path)))
 
     def test_completed_duration_and_reported_retry_do_not_infer_activity(self):
         with tempfile.TemporaryDirectory() as directory:

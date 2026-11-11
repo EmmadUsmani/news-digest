@@ -40,6 +40,12 @@ def collect(directory):
                     if type(number) is not int or number < 0:
                         raise ValueError('Invalid integer')
                     samples.append(f'news_digest_harness_{suffix} {number}')
+                # Optional so a supervisor installed before the field existed still exports.
+                if 'consecutive_failures' in value:
+                    number = value['consecutive_failures']
+                    if type(number) is not int or number < 0:
+                        raise ValueError('Invalid integer')
+                    samples.append(f'news_digest_harness_failure_streak {number}')
                 for field, suffix in [('updated_at', 'heartbeat_timestamp_seconds'),
                                       ('iteration_started_at', 'iteration_started_timestamp_seconds')]:
                     samples.append(f'news_digest_harness_{suffix} {timestamp(value[field])}')

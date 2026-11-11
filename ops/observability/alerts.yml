@@ -65,6 +65,13 @@ groups:
           severity: warning
         annotations:
           summary: B2 bucket exceeds 2 GB or projects exceeding 3 GB within 60 days
+      - alert: AgentCrashLoop
+        expr: news_digest_harness_failure_streak >= 3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: Build agent failed three or more iterations in a row
       - alert: UnitSnapshotStale
         expr: (time() - news_digest_unit_snapshot_timestamp_seconds > 120) or absent(news_digest_unit_snapshot_timestamp_seconds)
         for: 1m
