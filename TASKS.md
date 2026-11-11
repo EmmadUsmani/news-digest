@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1800: installed Raw Query browser composes one-minute `up` export with the prepared buffered handler and synthetic upstream, renders its series and refuses broad requests without upstream work. Stored-session composition remains before admission; public mode stays off.
+
 - [x] Iteration 1799: disposable installed-binary shortened-cap export expiry verifies server-cap precedence over the prepared two-second request, native deadline refusal and buffered transport rejection; process stays healthy. Live-cap expensive-work timing remains unmeasured; authenticated/browser composition remains before admission.
 
 - [x] Iteration 1798: installed the rehearsed metrics export limits (32 series/two seconds); live process flags, health and bounded telemetry reads verified. Export admission/public mode remain off; deadline-expiry and authenticated/browser composition remain.

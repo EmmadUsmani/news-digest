@@ -12,6 +12,11 @@ import {
   selectInternalTools,
 } from '../apps/api/src/internal-tools';
 import {
+  boundedTelemetryExport,
+  proxyBoundedTelemetryExport,
+  telemetryExportPath,
+} from '../apps/api/src/telemetry-export';
+import {
   isAdminTelemetryRead,
   telemetryContentSecurityPolicy,
 } from '../apps/api/src/telemetry-query-policy';
@@ -21,10 +26,38 @@ async function main() {
   assert.deepEqual(process.argv.slice(2), [
     proxyAssets ? '--proxy-assets' : '--live-assets',
   ]);
-  const proxy = proxyInternalTools(selectInternalTools(true));
-  const server = createServer((req, res) =>
-    proxy(req, res, () => res.writeHead(404).end()),
+  // Synthetic export upstream only; no browser export reaches the live store.
+  let fixtureExports = 0;
+  const fixture = createServer((req, res) => {
+    const url = new URL(req.url!, 'http://localhost');
+    assert.equal(url.pathname, telemetryExportPath);
+    assert.equal(url.searchParams.get('timeout'), '2s');
+    assert.equal(url.searchParams.get('max_rows_per_line'), '1');
+    assert.equal(url.searchParams.get('reduce_mem_usage'), '1');
+    assert.equal(req.headers.cookie, undefined);
+    assert.equal(req.headers.authorization, undefined);
+    fixtureExports++;
+    res.writeHead(200, { 'content-type': 'application/stream+json' }).end(
+      JSON.stringify({
+        metric: { __name__: 'up', job: 'browser-fixture' },
+        values: [1],
+        timestamps: [Number(url.searchParams.get('end')) * 1000],
+      }) + '\n',
+    );
+  });
+  await new Promise<void>((resolve) => fixture.listen(0, '127.0.0.1', resolve));
+  const fixtureOrigin = new URL(
+    `http://127.0.0.1:${(fixture.address() as AddressInfo).port}`,
   );
+  const proxy = proxyInternalTools(selectInternalTools(true));
+  const server = createServer((req, res) => {
+    // Explicit rehearsal composition, without changing production admission.
+    if (req.url?.split('?')[0] === telemetryExportPath) {
+      void proxyBoundedTelemetryExport(req, res, fixtureOrigin);
+      return;
+    }
+    proxy(req, res, () => res.writeHead(404).end());
+  });
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   const proxyOrigin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
   const browser = await chromium.launch({ headless: true });
@@ -61,6 +94,12 @@ async function main() {
       const intercepted = new Set<string>();
       const refused = new Set<string>();
       const exportParameters = new Set<string>();
+      const exportShapes: {
+        bounded: boolean;
+        numericTimes: boolean;
+        seconds: number | null;
+        selectorUp: boolean;
+      }[] = [];
       const page = await context.newPage();
       const navigationErrors: string[] = [];
       page.on('pageerror', (error) => navigationErrors.push(error.name));
@@ -125,9 +164,38 @@ async function main() {
           url.origin === origin &&
           !isAdminTelemetryRead(request.method(), url.pathname + url.search)
         ) {
-          if (url.pathname === '/metrics/prometheus/api/v1/export')
+          if (url.pathname === '/metrics/prometheus/api/v1/export') {
+            const start = url.searchParams.get('start') ?? '';
+            const end = url.searchParams.get('end') ?? '';
+            const numericTimes = [start, end].every((value) =>
+              /^\d+(\.\d+)?$/.test(value),
+            );
+            exportShapes.push({
+              bounded:
+                boundedTelemetryExport(url.pathname + url.search) !== null,
+              numericTimes,
+              seconds: numericTimes ? Number(end) - Number(start) : null,
+              selectorUp: url.searchParams.get('match[]') === 'up',
+            });
             for (const key of url.searchParams.keys())
               exportParameters.add(key);
+            if (proxyAssets) {
+              const bounded =
+                boundedTelemetryExport(url.pathname + url.search) !== null;
+              const response = await route.fetch();
+              assert.equal(response.status(), bounded ? 200 : 404);
+              if (!bounded) refused.add(`${request.method()} ${url.pathname}`);
+              assert.equal(response.headers()['cache-control'], 'no-store');
+              if (bounded)
+                assert.equal(
+                  response.headers()['x-content-type-options'],
+                  'nosniff',
+                );
+              assert.equal(response.headers()['set-cookie'], undefined);
+              await route.fulfill({ response });
+              return;
+            }
+          }
           refused.add(`${request.method()} ${url.pathname}`);
           await route.fulfill({ status: 403, body: 'Forbidden' });
           return;
@@ -185,9 +253,18 @@ async function main() {
           ? ['/raw-query', '/dashboards', '/query-analyzer']
           : ['/overview'];
       for (const hashRoute of navigation) {
-        await page.goto(origin + root + '#' + hashRoute, {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          origin +
+            root +
+            '#' +
+            hashRoute +
+            (hashRoute === '/raw-query' ? '?g0.expr=up&g0.range_input=1m' : ''),
+          {
+            waitUntil: 'networkidle',
+          },
+        );
+        if (hashRoute === '/raw-query')
+          await page.reload({ waitUntil: 'networkidle' });
         // Native panels debounce their initial fixture query after navigation.
         await page.waitForTimeout(750);
         await page.waitForLoadState('networkidle');
@@ -196,6 +273,11 @@ async function main() {
           `${name}: ${hashRoute} mounted`,
         );
         assert.equal(new URL(page.url()).hash.split('?')[0], '#' + hashRoute);
+        if (proxyAssets && hashRoute === '/raw-query')
+          assert.ok(
+            await page.getByText('browser-fixture', { exact: false }).count(),
+            'Native Raw Query renders synthetic export',
+          );
         assert.equal(
           await page.getByText(/Missing dashboard (rows|panels)/).count(),
           0,
@@ -205,6 +287,26 @@ async function main() {
             path: `docs/screenshots/native-${name}-${hashRoute.slice(1)}-prepared-proxy.png`,
             fullPage: true,
           });
+      }
+      if (name === 'metrics' && proxyAssets) {
+        assert.ok(
+          exportShapes.some(
+            (shape) =>
+              shape.bounded && shape.seconds === 60 && shape.selectorUp,
+          ),
+        );
+        assert.ok(
+          fixtureExports > 0,
+          'Native Raw Query reached bounded fixture transport',
+        );
+        // Broad default-sized requests must still fail without upstream work.
+        const before = fixtureExports;
+        const status = await page.evaluate(
+          async (path) => (await fetch(path)).status,
+          telemetryExportPath + '?match%5B%5D=up&start=100&end=1900',
+        );
+        assert.equal(status, 404);
+        assert.equal(fixtureExports, before);
       }
       assert.deepEqual(
         navigationErrors,
@@ -282,6 +384,7 @@ async function main() {
           navigation,
           refused: [...refused].sort(),
           exportParameters: [...exportParameters].sort(),
+          exportShapes,
           fixtureData: true,
           policy,
           deliberateRefusals: [...violations].sort(),
@@ -312,6 +415,7 @@ async function main() {
   } finally {
     await browser.close();
     await new Promise<void>((resolve) => server.close(() => resolve()));
+    await new Promise<void>((resolve) => fixture.close(() => resolve()));
   }
 }
 main().catch(() => {

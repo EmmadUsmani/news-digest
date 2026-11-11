@@ -1002,3 +1002,18 @@ This verifies server-cap precedence and native deadline-error handling; it
 does not measure expensive exports at the live two-second limit. The normal
 32/33-series rehearsal still runs with the live two-second cap. Authenticated
 route composition and installed UI acceptance remain before admission.
+
+### Native bounded export browser rehearsal (iteration 1800)
+
+`pnpm exec tsx scripts/review-native-telemetry-ui.ts --proxy-assets` now
+composes the installed Raw Query screen with the prepared buffered export
+handler and an isolated synthetic upstream. A fresh page with `g0.expr=up`
+and `g0.range_input=1m` sends numeric start/end values exactly 60 seconds
+apart and renders the `browser-fixture` series. Reloading is necessary when
+setting the time-range hash after another screen has initialized shared state.
+The handler forces the two-second upstream timeout and per-line/reduced-memory
+parameters; credentials never reach the fixture upstream. Browser checks cover
+no-store, nosniff and absence of upstream cookies. A 30-minute request remains
+refused without upstream work. Updated Raw Query screenshot contains fixtures.
+No real exports or provider calls occur. Production admission stays closed;
+stored-session composition and broader live navigation remain open.
