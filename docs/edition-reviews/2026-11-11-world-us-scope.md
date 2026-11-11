@@ -61,3 +61,25 @@ Next: implement topic data and joint World/U.S. AI curation with one owner per
 event (including different report IDs about one event); estimate fifth-topic
 reserve from saved ledger costs before changing caps. Other topics must retain
 their current behavior. No cap or production topic change in this step.
+
+## Prepared joint ownership — iteration 1841
+
+`EventGrouping.assignTopics` accepts two data-defined scopes and up to 40
+combined candidates. One budgeted Haiku grouping request returns event groups
+and one owner per group, including singleton events. It supplies both topics'
+descriptions and guidance; source association does not decide ownership.
+The existing per-topic grouping path and its prompt remain unchanged.
+
+Validation requires every candidate ID exactly once and only supplied topic
+IDs. Missing, repeated or invented IDs, unknown owners, malformed output and
+budget refusal return unavailable, never an empty successful ownership result.
+There is no repair request. Cache identity includes both scopes and candidates.
+Eight provider-free tests cover the partition contract, cross-topic assignment,
+cache reuse/invalidation, invalid output/input and budget refusal. Responses
+are test doubles; they do not establish semantic assignment quality.
+
+This method has no production caller. Before activation, cost and admit the
+joint request as a replacement for the two grouping requests, connect its
+ownership result to selection/publication, and define the unavailable path so
+it cannot publish competing World/U.S. ownership. Topic/source setup and
+scheduled semantic acceptance remain open; caps and runtime topics are unchanged.

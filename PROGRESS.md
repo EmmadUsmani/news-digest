@@ -168,3 +168,14 @@
 - Recorded figures and next gate in docs/edition-reviews/2026-11-11-fifth-topic-budget.md and TASKS.md. No caps, production topics, provider/model choices or reserve rules changed; no paid calls.
 - `pnpm exec tsx scripts/evaluate-fifth-topic-budget.ts --read-only`, `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check` passes: 836 unit/283 integration passes, four expected skips; typecheck/lint/format/boundaries green.
 - Next: topic data and joint AI event ownership with costed requests/admission below the approved ceiling before coordinated activation; scheduled acceptance still pending.
+
+## 2026-11-11: iteration 1841 — prepared joint story ownership
+
+- Clean main; no inherited work. Initial alerts zero; healthz/database/Redis healthy. Item 50 remains stopped under 55; continued item 56 without provider calls or runtime/cap changes.
+- Added opt-in EventGrouping.assignTopics: one budgeted/cached Haiku request jointly groups up to 40 articles from two data-defined scopes and assigns each event one owner. Existing per-topic grouping remains unchanged; no production caller yet.
+- Requires complete exclusive article-ID membership, valid owner IDs and strict output shape. Invalid/partial output or budget refusal returns unavailable, with no repair request; singleton events can move to the appropriate scope.
+- Eight provider-free contract tests pass for cross-topic grouping, singleton reassignment, cache identity, invalid membership/input and refusal. Test responses do not establish semantic quality; scheduled acceptance remains pending.
+- Updated scope assessment and TASKS. No handbook flow or schema change. Filtered handbook check passes (18 pages/39 tables, no drift).
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted `tsx --test` and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing bundle-size warning only.
+- `pnpm obs sources --check`: 36 healthy/zero unhealthy; latest saved edition eb6e962e remains available with four topics. API/worker restart and post-push health verification below.
+- Next: costed joint-request admission below the approved ceiling, publication integration/unavailable policy and topic/source data; no fifth-topic activation before these gates.
