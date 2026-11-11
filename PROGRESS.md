@@ -128,3 +128,13 @@
 - Verification: explicit live Chromium rehearsal passes; `check-handbook.ts observability` passes (18 pages/one diagram/39 tables), deployed account-boundary check passes 32 checks, saved Nov 10 reader passes four topics/19 stories/15 posts.
 - `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 836 unit/283 integration tests, four expected skips. `pnpm build` and `git diff --check` pass. No service restart required for review-only changes.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 gates.
+
+## 2026-11-11: iteration 1822 — live native query navigation bounds
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; all 36 sources healthy, jobs check passes and next edition is 15:00 UTC. No provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: fresh real Chromium HTTPS-login session changes mounted installed Raw Query to a 30-minute window and separately to `count(up)`. Exact requested selector/window verified; both return empty no-store 404 without export upstream work.
+- Restoring one-minute `up` after each refusal renders live series. Seven bounded live reads total retain 64 KiB/32-series caps; aging/restoration/logout and CSP checks pass. Disposable account storage only; operational bodies/labels remain in memory.
+- Updated TASKS/readiness/tool review. Production flags unchanged; no runtime/generation edits or service restart during 13:00–16:00 UTC hold.
+- Verification: explicit live Chromium check passes; `check-handbook.ts observability` passes (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` passes 32 checks, `check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes four topics/19 stories/15 posts.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass. No service restart required for verification-only changes; commit/push follow.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 gates.

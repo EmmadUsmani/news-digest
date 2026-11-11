@@ -476,6 +476,44 @@ async function main() {
       browserSession.rows[0].id,
     ]);
     await executeNative(200);
+    // Native hash navigation must preserve the bounds even with a fresh session.
+    const navigateNative = async (
+      expression: string,
+      range: string,
+      status: 200 | 404,
+    ) => {
+      expectedNativeStatus = status;
+      allowNativeExport = true;
+      const before = forwarded;
+      const beforeExports = nativeExports;
+      const response = page.waitForResponse(
+        (response) => new URL(response.url()).pathname === telemetryExportPath,
+      );
+      await page.evaluate(
+        ({ expression, range }) => {
+          location.hash = `/raw-query?g0.expr=${encodeURIComponent(expression)}&g0.range_input=${range}`;
+        },
+        { expression, range },
+      );
+      const received = await response;
+      assert.equal(received.status(), status);
+      const requested = new URL(received.url()).searchParams;
+      assert.equal(requested.get('match[]'), expression);
+      const seconds =
+        Number(requested.get('end')) - Number(requested.get('start'));
+      assert.ok(Math.abs(seconds - (range === '30m' ? 1800 : 60)) < 1);
+      await page.waitForLoadState('networkidle');
+      assert.equal(nativeExports, beforeExports + 1);
+      assert.equal(forwarded, before + (status === 200 ? 1 : 0));
+      if (status === 200) {
+        await page.getByText(renderedLabel, { exact: false }).first().waitFor();
+      }
+      assert.deepEqual(errors, []);
+    };
+    await navigateNative('up', '30m', 404);
+    await navigateNative('up', '1m', 200);
+    await navigateNative('count(up)', '1m', 404);
+    await navigateNative('up', '1m', 200);
     const violations = () =>
       page.evaluate(
         () =>
@@ -536,9 +574,9 @@ async function main() {
     assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
     await check(admin, false);
     assert.equal(upstreamFailure, false);
-    assert.equal(forwarded, 5);
+    assert.equal(forwarded, 7);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Five bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Seven bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();

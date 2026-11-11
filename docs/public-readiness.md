@@ -76,3 +76,9 @@ reports no unexpected Raw Query policy violations, then blocks deliberate inline
 script and external fetch probes with the expected CSP directives and no export
 upstream work. Aging/restoration/logout checks still pass. Other native screens
 and remaining Phase 4 controls remain open; production flags are unchanged.
+
+Stored-session live query bounds (1822): mounted Raw Query refuses a 30-minute
+window and `count(up)` selector with empty no-store 404 responses and no export
+upstream work. Returning to one-minute `up` renders live series after each
+refusal. Real HTTPS login and session/CSP checks pass; seven bounded live reads
+total. Production flags remain unchanged.

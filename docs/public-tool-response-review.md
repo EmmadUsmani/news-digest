@@ -1298,3 +1298,14 @@ the script never executes and the fetch refuses before browser routing. Export
 upstream counts stay unchanged. Session aging/logout checks and five bounded
 live reads still pass. No operational bodies or labels are saved. Production
 flags remain unchanged; other native screens and Phase 4 controls remain open.
+
+### Stored-session live native query bounds (iteration 1822)
+
+The explicit live stored-session rehearsal changes the mounted installed Raw
+Query screen from one-minute `up` to a 30-minute window, then separately to
+`count(up)`. Both requests return empty no-store 404 responses without export
+upstream work, despite a fresh real HTTPS-login session. Restoring one-minute
+`up` after each refusal renders another bounded live export. Seven live reads
+total retain the 64 KiB/32-series caps; aging, restoration, logout and CSP
+checks still pass. Operational bodies and labels remain in memory. Production
+flags remain unchanged; other native screens and Phase 4 gates remain open.
