@@ -127,6 +127,8 @@ const adminRoute = createRoute({
         location.pathname === '/admin/editions' ||
         location.pathname === '/admin/schedule' ||
         location.pathname === '/admin/topics' ||
+        (location.pathname.startsWith('/admin/topics/') &&
+          z.string().uuid().safeParse(location.pathname.slice(14)).success) ||
         (location.pathname.startsWith('/admin/editions/') &&
           z.string().uuid().safeParse(location.pathname.slice(16)).success))
     )

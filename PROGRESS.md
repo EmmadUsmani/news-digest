@@ -122,3 +122,14 @@
 - Build passes; private-mode API restarted after 16:00 UTC. Immediate browser attempt preceded readiness and refused connection; retry passes. Post-restart health, 32 account boundaries and Nov 11 saved reader (four topics/19 stories/19 posts) pass; alerts zero.
 - First lint process exited 143 before check started; `pnpm lint:fix` retry and full `pnpm check` pass (836 unit/283 integration passes, four expected skips). `pnpm format`, `pnpm build`, targeted policy tests (6), browser checks and `git diff --check` pass; commit/push follow.
 - Next: remaining Phase 4 read-only pages/tools, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review. Public flags unchanged.
+
+## 2026-11-11: iteration 1830 — prepared public read-only topic details
+
+- Clean main; no inherited work. Healthz, all 36 sources and saved Nov 11 edition healthy; alerts zero. No provider calls.
+- Prepared exact public GET/HEAD topic UUID HTML/router admission and catalog links. Details use audited system topic/source contracts; anonymous settings, source saves/additions and deletion disabled, with guarded submit/write handlers.
+- Routed offline Chromium desktop/mobile light/dark checks pass, including connected-source display, forced form submissions and no private reads/writes. Four new fixture screenshots inspected; unrelated regenerated screenshots discarded.
+- Private admin editor browser checks pass against rebuilt deployment with saved live reads/intercepted writes. Updated TASKS, readiness/rollout notes and operations handbook; filtered handbook passes (18 pages/1 diagram/39 tables), no diagrams changed.
+- Browser run concurrent with build timed out in the existing failed-schedule case; serial retries pass. Forced disabled-form submission initially showed validation text; early read-only submit guards remove it.
+- `pnpm format`, `pnpm lint:fix`, targeted route policy (6), build and `git diff --check` pass. Combined verification exited 143 after 836 unit passes and the final integration test, before its summary; standalone `pnpm check` retry passes (836 unit/283 integration passes, four expected skips).
+- Private-mode API restarted after 16:00 UTC; post-restart health, admin editor, 32 account boundaries, saved reader (four topics/19 stories/19 posts) and zero alerts pass. Public flags unchanged.
+- Next: remaining Phase 4 pages/tools; Grafana scheduled-load/compaction capacity evidence and Nov 12 daily edition review remain open.

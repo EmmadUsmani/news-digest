@@ -13,7 +13,7 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
-import { topicsQuery } from './queries';
+import { identityQuery, topicsQuery } from './queries';
 
 export function AdminTopicEditor() {
   const { id } = useParams({ from: '/admin/topics/$id' });
@@ -37,6 +37,8 @@ export function AdminTopicEditor() {
 }
 
 function TopicEditor({ topic }: { topic: TopicSettings }) {
+  const identity = useQuery(identityQuery);
+  const readOnly = identity.data?.isAdmin !== true;
   const client = useQueryClient();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
@@ -52,6 +54,7 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
     },
   });
   async function write(path: string, method: string, body?: unknown) {
+    if (readOnly) return false;
     setBusy(true);
     setMessage('');
     try {
@@ -102,12 +105,18 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
         ← All topics
       </Link>
       <h2 className="m-0 font-sans text-xl font-semibold">{topic.name}</h2>
+      {readOnly && (
+        <p className="m-0 text-sm text-[var(--secondary)]">
+          Read-only topic. Sign in as an admin to change it.
+        </p>
+      )}
       <p role="status" className="m-0 text-sm" aria-live="polite">
         {message}
       </p>
       <form
         onSubmit={(event) => {
           event.preventDefault();
+          if (readOnly) return;
           const data = new FormData(event.currentTarget);
           const lines = (name: string) =>
             String(data.get(name) ?? '')
@@ -152,7 +161,7 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
         }}
       >
         <fieldset
-          disabled={busy}
+          disabled={readOnly || busy}
           className="m-0 grid min-w-0 gap-4 border-0 p-0"
         >
           <Card className="grid gap-4">
@@ -352,11 +361,12 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
         <form
           onSubmit={(event) => {
             event.preventDefault();
+            if (readOnly) return;
             void write('/sources', 'PUT', { ids: selected });
           }}
         >
           <fieldset
-            disabled={busy || !catalog.data}
+            disabled={readOnly || busy || !catalog.data}
             className="m-0 grid max-h-72 min-w-0 gap-2 overflow-y-auto border-0 p-0"
           >
             <legend className="sr-only">Connected sources</legend>
@@ -380,7 +390,7 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
           <Button
             type="submit"
             className="mt-4"
-            disabled={busy || !catalog.data}
+            disabled={readOnly || busy || !catalog.data}
           >
             Save sources
           </Button>
@@ -391,6 +401,7 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
             aria-label={kind === 'feed' ? 'Add feed' : 'Add news query'}
             onSubmit={async (event) => {
               event.preventDefault();
+              if (readOnly) return;
               const form = event.currentTarget,
                 data = new FormData(form);
               if (
@@ -406,7 +417,7 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
             }}
           >
             <fieldset
-              disabled={busy || !catalog.data}
+              disabled={readOnly || busy || !catalog.data}
               className="m-0 grid min-w-0 gap-3 border-0 border-t border-solid border-[var(--border)] px-0 pt-4"
             >
               {kind === 'feed' ? (
@@ -460,11 +471,11 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
         <Dialog.Root
           open={deleting}
           onOpenChange={(open) => {
-            if (!busy) setDeleting(open);
+            if (!readOnly && !busy) setDeleting(open);
           }}
         >
           <Dialog.Trigger asChild>
-            <Button variant="ghost" disabled={busy}>
+            <Button variant="ghost" disabled={readOnly || busy}>
               Delete topic
             </Button>
           </Dialog.Trigger>
@@ -480,12 +491,12 @@ function TopicEditor({ topic }: { topic: TopicSettings }) {
               </Dialog.Description>
               <div className="flex flex-wrap gap-2">
                 <Dialog.Close asChild>
-                  <Button variant="ghost" disabled={busy}>
+                  <Button variant="ghost" disabled={readOnly || busy}>
                     Keep topic
                   </Button>
                 </Dialog.Close>
                 <Button
-                  disabled={busy}
+                  disabled={readOnly || busy}
                   onClick={() => void write('', 'DELETE')}
                 >
                   Confirm deletion

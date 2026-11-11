@@ -292,3 +292,10 @@ Anonymous controls are disabled and cannot dispatch writes; topic editor links
 are absent and detail routes stay guarded. Owner-profile reads require admin
 identity. Offline routed desktop/mobile light/dark rehearsal passes. Private
 rollback retains its admin guard; production public flags remain off.
+
+Iteration 1830 prepares linked topic detail GET/HEAD HTML and router admission
+for UUID paths. Topic guidance, filters and source connections use reviewed public
+contracts; editing, source additions, source saves and deletion remain disabled
+until admin identity is confirmed. Anonymous form submissions refuse locally.
+Public mode remains off; full routed fixture browser evidence is in
+`check-public-status-view.ts` and `docs/screenshots/ui/public-topic-detail-router-fixture-*.png`.

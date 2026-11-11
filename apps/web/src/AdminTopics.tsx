@@ -221,17 +221,13 @@ export function AdminTopics() {
               />
               <div className="min-w-0 basis-[calc(100%-3rem)] sm:basis-0 sm:flex-1">
                 <h2 className="m-0 font-sans text-base font-semibold">
-                  {readOnly ? (
-                    topic.name
-                  ) : (
-                    <Link
-                      to="/admin/topics/$id"
-                      params={{ id: topic.id }}
-                      className="underline decoration-transparent hover:decoration-current"
-                    >
-                      {topic.name}
-                    </Link>
-                  )}
+                  <Link
+                    to="/admin/topics/$id"
+                    params={{ id: topic.id }}
+                    className="underline decoration-transparent hover:decoration-current"
+                  >
+                    {topic.name}
+                  </Link>
                 </h2>
                 <p className="mb-0 line-clamp-2 text-sm text-[var(--secondary)]">
                   {topic.description}

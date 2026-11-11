@@ -319,6 +319,7 @@ window.showPage = () => {
           '/api/me',
           '/api/settings/schedule',
           '/api/admin/topics',
+          '/api/admin/topics/sources',
         ].includes(path),
         path,
       );
@@ -339,23 +340,25 @@ window.showPage = () => {
                   storyBudget: 5,
                   postBudget: 4,
                   relevancePolicy: { includeAny: [], excludeAny: [] },
-                  sources: [],
+                  sources: ['fixture-source'],
                   queries: [],
                   accounts: [],
                   redditCommunities: [],
                 },
               ]
-            : path === '/api/me'
-              ? { isAdmin: false }
-              : path === '/api/settings/schedule'
-                ? {
-                    cadence: '0 15 * * *',
-                    timezone: 'UTC',
-                    coverageWindow: 'P1D',
-                    storyBudget: 5,
-                    postBudget: 5,
-                  }
-                : fixture,
+            : path === '/api/admin/topics/sources'
+              ? [{ id: 'fixture-source', name: 'Fixture source' }]
+              : path === '/api/me'
+                ? { isAdmin: false }
+                : path === '/api/settings/schedule'
+                  ? {
+                      cadence: '0 15 * * *',
+                      timezone: 'UTC',
+                      coverageWindow: 'P1D',
+                      storyBudget: 5,
+                      postBudget: 5,
+                    }
+                  : fixture,
         ),
       });
     };
@@ -405,9 +408,7 @@ window.showPage = () => {
     }
     assert.equal(
       await page
-        .locator(
-          'section[aria-label="Topic management"] a, section[aria-label="Topic management"] [draggable="true"]',
-        )
+        .locator('section[aria-label="Topic management"] [draggable="true"]')
         .count(),
       0,
     );
@@ -432,6 +433,64 @@ window.showPage = () => {
         );
         await page.screenshot({
           path: `docs/screenshots/ui/public-topics-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    routedReads.length = 0;
+    await page
+      .getByRole('link', { name: 'Fixture topic', exact: true })
+      .click();
+    await page
+      .getByText('Read-only topic. Sign in as an admin to change it.')
+      .waitFor();
+    await page.getByText('Fixture source', { exact: true }).waitFor();
+    assert.equal(
+      await page.getByLabel('Description', { exact: true }).inputValue(),
+      'Offline topic catalog fixture',
+    );
+    for (const control of await page
+      .locator(
+        'section[aria-label="Topic editor"] input, section[aria-label="Topic editor"] textarea, section[aria-label="Topic editor"] button',
+      )
+      .all()) {
+      assert.equal(await control.isDisabled(), true);
+    }
+    assert.equal(
+      await page
+        .getByRole('checkbox', { name: 'Fixture source', exact: true })
+        .isChecked(),
+      true,
+    );
+    for (const form of await page
+      .locator('section[aria-label="Topic editor"] form')
+      .all()) {
+      await form.dispatchEvent('submit');
+    }
+    assert.equal(await page.getByRole('dialog').count(), 0);
+    assert.ok(routedReads.includes('/api/admin/topics/sources'));
+    assert.ok(
+      routedReads.every((path) =>
+        ['/api/me', '/api/admin/topics', '/api/admin/topics/sources'].includes(
+          path,
+        ),
+      ),
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-topic-detail-router-fixture-${width}-${theme}.png`,
           fullPage: true,
         });
       }
@@ -551,7 +610,7 @@ window.showPage = () => {
     assert.deepEqual(privateReads, ['/api/me']);
     assert.deepEqual(errors, []);
     console.log(
-      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; public overview/schedule router isolation, disabled anonymous schedule controls, schedule 404 without owner fallback, private sibling and rollback refusals; no private reads or overflow.',
+      'PASS: offline public status rendering; desktop/mobile light/dark, budgets, source failures, coverage, empty sections; query loading, HTTP/schema failures, retry, stale-data warning and isolated cache; public overview/schedule/topic catalog and detail router isolation, disabled anonymous topic controls and guarded form submissions, disabled anonymous schedule controls, schedule 404 without owner fallback, private sibling and rollback refusals; no private reads or overflow.',
     );
   } finally {
     await browser.close();

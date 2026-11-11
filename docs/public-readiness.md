@@ -112,7 +112,16 @@ flags are unchanged; private web rebuild/API restart passed after 16:00 UTC.
 
 Prepared exact public GET/HEAD `/admin/topics` and anonymous router access.
 Visitors use the allowlisted system topic response with disabled creation,
-ordering, enable and budget controls; editor links remain admin-only. Anonymous
+ordering, enable and budget controls; linked topic details are also read-only (1830). Anonymous
 identity never enables profile reads. Desktop/mobile light/dark offline router
 checks pass; private rollback and backend fresh-admin writes stay guarded.
 Public mode remains off.
+
+### Read-only topic detail (iteration 1830)
+
+Prepared exact public GET/HEAD `/admin/topics/:uuid` and router admission.
+Catalog links open topic guidance, filters, social settings and source connections
+using the reviewed system-only topic/source responses. Unconfirmed or non-admin
+identities leave every change control disabled; submit handlers also refuse writes.
+Offline routed desktop/mobile light/dark checks cover connected-source display,
+forced form submissions and no private reads. Public mode remains off.

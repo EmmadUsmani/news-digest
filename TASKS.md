@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1830: prepared public read-only topic detail links and UUID routes; anonymous editing/source changes/deletion disabled, guarded submissions; public mode remains off.
+
 - [x] Iteration 1829: prepared public read-only topic catalog; disabled anonymous controls, no profile reads or editor links; routed desktop/mobile light/dark checks pass. Public mode remains off.
 
 - [x] Iteration 1828: prepared public read-only schedule routing with public status, disabled anonymous controls and no owner-profile fallback; routed desktop/mobile light/dark rehearsal passes. Private web rebuild/API restart after 16:00 UTC verified; production flags unchanged.
