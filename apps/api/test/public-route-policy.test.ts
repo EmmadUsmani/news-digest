@@ -15,6 +15,7 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/admin/sources',
     '/admin/tools',
     '/admin/spend',
+    '/admin/queues',
     '/admin/topics',
     `/admin/topics/${id}`,
     '/privacy',

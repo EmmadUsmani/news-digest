@@ -62,7 +62,7 @@ activation review, rather than adding more variants of already-covered refusals.
       security headers, privacy page, log hygiene and private-mode rollback.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
-      reviewed overview, topics, schedule, sources, Spend, Tools and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
+      reviewed overview, topics, schedule, sources, Spend, Tools, Queues and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       Restore private mode first if the scheduled edition fails or looks abnormal.
@@ -148,3 +148,11 @@ Prepared exact GET/HEAD `/admin/spend` and anonymous router access. Public
 mode uses sanitized production AI/X budget totals, caps, holds and allowance
 from the separate public status cache; development ledgers and recent calls
 remain private. Private mode keeps the detailed Spend view. Public mode stays off.
+
+### Prepared public Queues page (iteration 1834)
+
+Tools links to `/admin/queues` in prepared public mode. Exact GET/HEAD HTML
+admission and the router use the sanitized `/api/queues` response: five counts
+and the next scheduled time per queue. Refresh is read-only; failures retain
+previous values with a stale-data warning. No job payloads or controls are shown.
+Private mode retains Bull Board at `/queues/`; public mode remains off.

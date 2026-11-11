@@ -1062,3 +1062,11 @@ and schema-only explorer links remain available; logs/metrics links require
 confirmed admin identity, and Grafana/Queues show pending public preparation.
 The page reads only caller identity. Public mode remains off; tool admission
 and remaining Phase 4 gates are unchanged.
+
+### Prepared public Queues page (iteration 1834)
+
+Tools links to `/admin/queues` in prepared public mode. Exact GET/HEAD HTML
+admission and the router use the sanitized `/api/queues` response: five counts
+and the next scheduled time per queue. Refresh is read-only; failures retain
+previous values with a stale-data warning. No job payloads or controls are shown.
+Private mode retains Bull Board at `/queues/`; public mode remains off.

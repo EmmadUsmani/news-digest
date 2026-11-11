@@ -309,6 +309,7 @@ window.showPage = () => {
     await page.unroute('**/api/**');
     const routedReads: string[] = [];
     let scheduleStatus = 200;
+    let queuesStatus = 200;
     const publicRoute = async (route: import('playwright').Route) => {
       const path = new URL(route.request().url()).pathname;
       routedReads.push(path);
@@ -316,6 +317,7 @@ window.showPage = () => {
       assert.ok(
         [
           '/api/admin/status',
+          '/api/queues',
           '/api/me',
           '/api/settings/schedule',
           '/api/admin/topics',
@@ -325,40 +327,72 @@ window.showPage = () => {
       );
       await route.fulfill({
         contentType: 'application/json',
-        status: path === '/api/settings/schedule' ? scheduleStatus : 200,
+        status:
+          path === '/api/settings/schedule'
+            ? scheduleStatus
+            : path === '/api/queues'
+              ? queuesStatus
+              : 200,
         body: JSON.stringify(
-          path === '/api/admin/topics'
-            ? [
-                {
-                  id: '01234567-89ab-4cde-8fab-0123456789ab',
-                  name: 'Fixture topic',
-                  description: 'Offline topic catalog fixture',
-                  includeGuidance: '',
-                  excludeGuidance: '',
-                  enabled: true,
-                  position: 0,
-                  storyBudget: 5,
-                  postBudget: 4,
-                  relevancePolicy: { includeAny: [], excludeAny: [] },
-                  sources: ['fixture-source'],
-                  queries: [],
-                  accounts: [],
-                  redditCommunities: [],
-                },
-              ]
-            : path === '/api/admin/topics/sources'
-              ? [{ id: 'fixture-source', name: 'Fixture source' }]
-              : path === '/api/me'
-                ? { isAdmin: false }
-                : path === '/api/settings/schedule'
-                  ? {
-                      cadence: '0 15 * * *',
-                      timezone: 'UTC',
-                      coverageWindow: 'P1D',
-                      storyBudget: 5,
-                      postBudget: 5,
-                    }
-                  : fixture,
+          path === '/api/queues'
+            ? {
+                queues: [
+                  {
+                    name: 'operations',
+                    counts: {
+                      waiting: 2,
+                      active: 1,
+                      delayed: 0,
+                      failed: 0,
+                      completed: 42,
+                    },
+                    nextRunAt: null,
+                  },
+                  {
+                    name: 'digest-generation',
+                    counts: {
+                      waiting: 0,
+                      active: 0,
+                      delayed: 1,
+                      failed: 0,
+                      completed: 7,
+                    },
+                    nextRunAt: 1794495600000,
+                  },
+                ],
+              }
+            : path === '/api/admin/topics'
+              ? [
+                  {
+                    id: '01234567-89ab-4cde-8fab-0123456789ab',
+                    name: 'Fixture topic',
+                    description: 'Offline topic catalog fixture',
+                    includeGuidance: '',
+                    excludeGuidance: '',
+                    enabled: true,
+                    position: 0,
+                    storyBudget: 5,
+                    postBudget: 4,
+                    relevancePolicy: { includeAny: [], excludeAny: [] },
+                    sources: ['fixture-source'],
+                    queries: [],
+                    accounts: [],
+                    redditCommunities: [],
+                  },
+                ]
+              : path === '/api/admin/topics/sources'
+                ? [{ id: 'fixture-source', name: 'Fixture source' }]
+                : path === '/api/me'
+                  ? { isAdmin: false }
+                  : path === '/api/settings/schedule'
+                    ? {
+                        cadence: '0 15 * * *',
+                        timezone: 'UTC',
+                        coverageWindow: 'P1D',
+                        storyBudget: 5,
+                        postBudget: 5,
+                      }
+                    : fixture,
         ),
       });
     };
@@ -498,7 +532,7 @@ window.showPage = () => {
     routedReads.length = 0;
     await showRouter('/admin/tools');
     await page.getByRole('heading', { name: 'Tools', exact: true }).waitFor();
-    for (const href of ['/docs/', '/db/']) {
+    for (const href of ['/docs/', '/db/', '/admin/queues']) {
       assert.equal(await page.locator(`main a[href="${href}"]`).count(), 1);
     }
     for (const href of ['/grafana/', '/queues/', '/logs/', '/metrics/']) {
@@ -512,7 +546,7 @@ window.showPage = () => {
       await page
         .getByText('Public access is being prepared.', { exact: true })
         .count(),
-      2,
+      1,
     );
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 1000 });
@@ -534,6 +568,81 @@ window.showPage = () => {
       }
     }
     assert.ok(routedReads.every((path) => path === '/api/me'));
+    routedReads.length = 0;
+    await showRouter('/admin/queues');
+    await page.getByRole('heading', { name: 'Queues', exact: true }).waitFor();
+    await page
+      .getByRole('heading', { name: 'operations', exact: true })
+      .waitFor();
+    assert.equal(
+      await page.getByText('Not scheduled', { exact: false }).count(),
+      1,
+    );
+    assert.equal(
+      await page.locator('main input, main select, main textarea').count(),
+      0,
+    );
+    assert.ok(
+      routedReads.every((path) => ['/api/queues', '/api/me'].includes(path)),
+    );
+    await page
+      .getByRole('button', { name: 'Refresh queues', exact: true })
+      .click();
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-queues-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    await page.waitForFunction(
+      () =>
+        !Array.from(document.querySelectorAll('button')).find(
+          (button) => button.textContent === 'Refresh queues',
+        )?.disabled,
+    );
+    queuesStatus = 503;
+    await page
+      .getByRole('button', { name: 'Refresh queues', exact: true })
+      .click();
+    await page
+      .getByRole('alert')
+      .filter({ hasText: 'Queue status could not be refreshed.' })
+      .waitFor();
+    assert.equal(
+      await page
+        .getByText('Previously loaded values may be out of date.', {
+          exact: false,
+        })
+        .count(),
+      1,
+    );
+    assert.equal(
+      await page
+        .getByRole('heading', { name: 'operations', exact: true })
+        .count(),
+      1,
+    );
+    queuesStatus = 200;
+    await page
+      .getByRole('button', { name: 'Refresh queues', exact: true })
+      .click();
+    await page
+      .getByRole('alert')
+      .filter({ hasText: 'Queue status could not be refreshed.' })
+      .waitFor({ state: 'hidden' });
     routedReads.length = 0;
     await showRouter('/admin/sources');
     await page

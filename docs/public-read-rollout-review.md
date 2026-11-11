@@ -324,3 +324,10 @@ Prepared exact GET/HEAD `/admin/spend` and anonymous router access. Public
 mode uses sanitized production AI/X budget totals, caps, holds and allowance
 from the separate public status cache; development ledgers and recent calls
 remain private. Private mode keeps the detailed Spend view. Public mode stays off.
+
+Iteration 1834 prepares `/admin/queues` with exact GET/HEAD HTML admission and
+sanitized `/api/queues` reads, linked from Tools. The view displays counts and
+next-run times, supports refresh and warns when retained values become stale.
+Public mode keeps legacy `/queues/` denied; private Bull Board is unchanged.
+Offline desktop/mobile light/dark fixture checks cover the page and failed/recovered
+refreshes. Public mode remains off; full Phase 4 acceptance is still open.

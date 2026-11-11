@@ -15,7 +15,7 @@ import {
   topicSettingsSchema,
 } from '@digest/contracts';
 import { queryOptions } from '@tanstack/react-query';
-import { type z, ZodError } from 'zod';
+import { z, ZodError } from 'zod';
 
 export class HttpError extends Error {
   constructor(
@@ -229,4 +229,35 @@ export const alertsQuery = queryOptions({
     read('/api/admin/status/alerts', monitoringAlertsSchema, signal),
   refetchInterval: 60_000,
   retry: false,
+});
+
+export const publicQueuesQuery = queryOptions({
+  queryKey: ['public-queues'],
+  queryFn: ({ signal }) =>
+    read(
+      '/api/queues',
+      z.object({
+        queues: z
+          .array(
+            z.object({
+              name: z.enum([
+                'operations',
+                'ingestion',
+                'digest-generation',
+                'social-collection',
+              ]),
+              counts: z.object({
+                waiting: z.number().int().nonnegative(),
+                active: z.number().int().nonnegative(),
+                delayed: z.number().int().nonnegative(),
+                failed: z.number().int().nonnegative(),
+                completed: z.number().int().nonnegative(),
+              }),
+              nextRunAt: z.number().int().positive().nullable(),
+            }),
+          )
+          .max(4),
+      }),
+      signal,
+    ),
 });

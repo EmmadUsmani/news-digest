@@ -166,3 +166,15 @@
 - Live checks: 32 account boundaries pass; saved edition has four topics/19 stories/19 posts. A diagnostic used localhost instead of the credential helper’s exact 127.0.0.1 origin and received refusal; corrected helper read passes.
 - Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Pushed `b33b9f24`; private API restarted after 16:00 UTC. Post-restart healthz, 32 account boundaries, private Spend browser, 36 healthy sources and four-topic/19-story/19-post saved edition pass; alerts zero.
 - Next: remaining Phase 4 tool admission/rehearsal, Grafana scheduled-load/compaction evidence and Nov 12 edition review.
+
+## 2026-11-11: iteration 1834 — prepared public Queues page
+
+- Clean main; no inherited work. Initial alerts zero, healthz healthy, all 36 sources healthy; no provider calls.
+- Prepared exact GET/HEAD `/admin/queues`, read-only sanitized counts/next runs, Tools link, bounded response validation and refresh stale-data warning. Private Bull Board retained; public flags unchanged.
+- `pnpm exec tsx scripts/check-public-status-view.ts` passes desktop/mobile light/dark, read-only requests and refresh failure/recovery. Four new queue screenshots and updated Tools screenshots; inspected queue layouts. Discarded unrelated regenerated images.
+- Browser retries resolved schedule timeout during concurrent build and an in-progress refresh; final serial browser check passes. Fixed Queues header found during screenshot review.
+- `pnpm exec tsx --test apps/api/test/public-route-policy.test.ts` passes six tests. Handbook check passes (18 pages/one diagram/39 tables); no diagrams changed.
+- `pnpm exec tsx scripts/smoke-admin-tools.ts` passes four private viewport/theme combinations. Account boundaries pass 32 checks; scheduled reader retains four topics/19 stories/19 posts. Initial source diagnostic used absent healthy field; corrected error/lastSuccess read confirms all 36 healthy.
+- `pnpm format` and `pnpm lint:fix` pass; build passes. First full check saw the browser's temporary HTML harness during format check; rerun after harness cleanup.
+- Full `pnpm check` retry passes: 836 unit/283 integration passes and four expected skips; private jobs browser verifies four real queues/40 schedules.
+- Next: remaining Phase 4 tool/rehearsal gates, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review.

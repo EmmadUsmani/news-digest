@@ -24,6 +24,7 @@ import { OperationsOverviewPage } from './OperationsOverviewPage';
 import { Privacy } from './Privacy';
 import { PublicPreviewDetail } from './PublicPreviewDetail';
 import { PublicPreviewHistory } from './PublicPreviewHistory';
+import { PublicQueues } from './PublicQueues';
 import { PublicStatusPage } from './PublicStatusPage';
 import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
 import { ReaderArchive } from './ReaderArchive';
@@ -130,6 +131,7 @@ const adminRoute = createRoute({
         location.pathname === '/admin/sources' ||
         location.pathname === '/admin/tools' ||
         location.pathname === '/admin/spend' ||
+        location.pathname === '/admin/queues' ||
         location.pathname === '/admin/topics' ||
         (location.pathname.startsWith('/admin/topics/') &&
           z.string().uuid().safeParse(location.pathname.slice(14)).success) ||
@@ -184,6 +186,15 @@ const adminScheduleRoute = createRoute({
   component: () => <AdminSchedule publicMode={publicMode} />,
 });
 
+const adminQueuesRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/queues',
+  beforeLoad: () => {
+    if (!publicMode) throw notFound();
+  },
+  component: PublicQueues,
+});
+
 const adminSpendRoute = createRoute({
   getParentRoute: () => adminRoute,
   path: '/spend',
@@ -226,6 +237,7 @@ export const router = createRouter({
       adminTopicEditorRoute,
       adminScheduleRoute,
       adminSpendRoute,
+      adminQueuesRoute,
       adminToolsRoute,
     ]),
   ]),

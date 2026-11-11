@@ -87,19 +87,21 @@ export function AdminLayout() {
           <h1 className="m-0 flex-1 font-sans text-xl leading-7 font-semibold tracking-tight">
             {pathname === '/admin/editions/new'
               ? 'New edition'
-              : pathname.startsWith('/admin/tools')
-                ? 'Tools'
-                : pathname.startsWith('/admin/sources')
-                  ? 'Sources'
-                  : pathname.startsWith('/admin/topics')
-                    ? 'Topics'
-                    : pathname.startsWith('/admin/schedule')
-                      ? 'Schedule'
-                      : pathname.startsWith('/admin/spend')
-                        ? 'Spend'
-                        : pathname.startsWith('/admin/editions')
-                          ? 'Editions'
-                          : 'Overview'}
+              : pathname.startsWith('/admin/queues')
+                ? 'Queues'
+                : pathname.startsWith('/admin/tools')
+                  ? 'Tools'
+                  : pathname.startsWith('/admin/sources')
+                    ? 'Sources'
+                    : pathname.startsWith('/admin/topics')
+                      ? 'Topics'
+                      : pathname.startsWith('/admin/schedule')
+                        ? 'Schedule'
+                        : pathname.startsWith('/admin/spend')
+                          ? 'Spend'
+                          : pathname.startsWith('/admin/editions')
+                            ? 'Editions'
+                            : 'Overview'}
           </h1>
           <span className="text-xs tracking-wide text-[var(--secondary)]">
             PRODUCTION
@@ -132,7 +134,7 @@ export function AdminTools({ publicMode = false }: { publicMode?: boolean }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {tools.map(([name, href, description]) => {
-        const pending = publicMode && ['/grafana/', '/queues/'].includes(href);
+        const pending = publicMode && href === '/grafana/';
         const restricted =
           publicMode &&
           ['/logs/', '/metrics/'].includes(href) &&
@@ -145,7 +147,9 @@ export function AdminTools({ publicMode = false }: { publicMode?: boolean }) {
               ) : (
                 <a
                   className="inline-flex items-center gap-2 rounded-sm text-[var(--foreground)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 [&_svg]:size-4"
-                  href={href}
+                  href={
+                    publicMode && href === '/queues/' ? '/admin/queues' : href
+                  }
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -157,7 +161,9 @@ export function AdminTools({ publicMode = false }: { publicMode?: boolean }) {
             <p className="m-0 text-sm leading-6 text-[var(--secondary)]">
               {publicMode && href === '/db/'
                 ? 'Browse table definitions and relationships.'
-                : description}
+                : publicMode && href === '/queues/'
+                  ? 'View job counts and next scheduled runs.'
+                  : description}
             </p>
             {pending && (
               <p className="mt-3 text-sm text-[var(--secondary)]">
