@@ -123,8 +123,8 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    seeded into isolated contexts: synced account panels, HttpOnly isolation and
    signed-out panels after admin revocation/reload. Requests reach the deployed
    local service through browser routing with the configured app origin and a
-   synthetic visitor header; external embeds are blocked. Proxy/TLS cookie exchange and
-   live link expiry still need acceptance before the owner check.
+   synthetic visitor header; external embeds are blocked. The owner verified
+   proxy/TLS cookie exchange separately on Nov 10.
    Iteration 1597 adds a browser cookie-expiry check: only an isolated context's
    cookie lifetime is shortened. Chromium drops it, reload shows Sign in and
    sync returns 401; the same server session remains valid on another device.
@@ -141,21 +141,19 @@ preserve the enabled panel. Keep `PUBLIC_MODE` unchanged.
    link with a verified 86,400-second lifetime; its mode-600 receipt lives at
    `~/.local/state/news-digest/link-expiry-acceptance.json`. An early verify
    reports pending without redeeming. After expiry it checks HTTP 401, no
-   cookie, no reader identity and an unchanged unconsumed link. Keep the
-   receipt private; do not rerun `prepare` over a pending receipt. Iteration 1598 passes all 52 live
+   cookie, no reader identity and an unchanged unconsumed link. All four checks
+   passed live on Nov 11 (1757). Keep the receipt private; do not rerun
+   `prepare` over a pending receipt. Iteration 1598 passes all 52 live
    lifecycle checks with natural code expiry, no-cookie HTTP 401, surviving
    reader session and fresh-code recovery.
-6. Owner two-device steps are ready in `NEEDS_FROM_HUMAN.md` (iteration 1600).
-   Phase 3 also requires a normal scheduled edition with the account flag on.
-   Record its reader/content checks, then ack Phase 3; Phase 4 follows.
+6. The owner accepted Phase 3 after the two-device check and the Nov 10
+   scheduled edition with accounts enabled. Phase 4 follows.
 
 ## Owner two-device check — passed Nov 10
 
 The owner reported two-browser sign-in and saved-item sync passed at about
 03:50 UTC Nov 10, completing the proxy/TLS cookie check.
 [Acceptance record](../NEEDS_FROM_HUMAN.md#owner-two-device-acceptance--passed-nov-10).
-Phase 3 still needs the normal-edition decision above; natural link expiry runs
-separately.
 
 ## Rollback
 

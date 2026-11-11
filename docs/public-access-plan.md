@@ -33,7 +33,7 @@ Account migrations 0013–0019 and invite-only server/web gates are live.
 STEERING 53 accepts loopback trust and the last-entry visitor selector;
 owner two-device/proxy/TLS checks passed. The owner accepted Phase 3 after the
 Nov 10 scheduled edition; NBA editorial acceptance belongs to STEERING 54.
-Natural link expiry is checked after Nov 11 00:33:01 UTC.
+Natural 24-hour sign-in link expiry passed live on Nov 11 (1757).
 `PUBLIC_MODE` remains off. Migration 0019 passed a fresh private backup/restore
 rehearsal and bounded live runner twice, preserving admissions and private grants.
 Historical preparation notes below describe their iteration, not current gates.

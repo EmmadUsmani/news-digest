@@ -92,8 +92,8 @@ Report phone/laptop browser names, pass/fail for sign-in after reload, save
 sync, removal sync and sign-out, plus the story title. If a step fails, report
 its number and the visible error. Never send codes, cookies or mailbox output.
 This test supplies the proxy/TLS cookie check the VM cannot perform itself.
-Phase 3 was accepted after this test and the Nov 10 scheduled publication. Natural link-expiry verification runs separately
-after Nov 11 00:33:01 UTC; it does not delay this test. No sharing change needed.
+Phase 3 was accepted after this test and the Nov 10 scheduled publication.
+The separate natural sign-in link expiry check passed on Nov 11 (1757).
 
 Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes

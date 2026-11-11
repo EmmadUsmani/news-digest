@@ -8,9 +8,9 @@ and STEERING 50 define the phase order and owner gates.
 
 - [x] Phase 3 accepted by the owner Nov 10; NBA editorial acceptance is tracked
       separately under STEERING 54.
-- [ ] Record the natural sign-in-link expiry check after Nov 11 00:33:01 UTC:
-      `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify`.
-      This runs in parallel with Phase 3 acceptance.
+- [x] Natural 24-hour sign-in-link expiry passed Nov 11 (1757):
+      `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify` returned
+      HTTP 401 with no cookie or reader identity and left the link unconsumed.
 - [ ] Confirm healthy services, `/healthz`, sources, alerts and scheduled jobs.
       Observe the noon generation cutoff and 13:00–16:00 UTC deployment hold.
 

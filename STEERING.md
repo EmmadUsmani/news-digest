@@ -2289,6 +2289,8 @@ outside 13:00–16:00 UTC. Then continue phase 4 behind its flags. Public mode,
 exe.dev sharing and the "VM stays private" rule are unchanged. The link-expiry
 check after 00:33 UTC Nov 11 still runs.
 
+ack: 2026-11-11 item 50 (1757): the disposable sign-in link expired naturally after 24 hours. Live redemption returned HTTP 401, issued no cookie or reader identity, and left the link unconsumed. Private receipt retained.
+
 ## 51. NOW: stop leaking integration test folders on the VM (2026-11-07)
 
 **Why:** `scripts/test-isolated.ts` removes its `news-digest-integration-*`

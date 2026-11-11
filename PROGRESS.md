@@ -178,3 +178,11 @@
 - Verification: editor tests 26/26; `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration, four expected skips), `pnpm build` and `git diff --check` pass. `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics/19 stories/15 posts.
 - Fast-forwarded two upstream lead-doc commits; push and restart API/worker, then recheck health, reader, services, sources and queue.
 - Next: natural sign-in-link expiry after 00:33:01 UTC and Nov 11 scheduled NBA acceptance after the 15:00 UTC generation run.
+
+## 2026-11-11: iteration 1757 — verify natural sign-in link expiry
+
+- Clean main at start; no leftovers. `pnpm obs alerts`, service/source checks and `/healthz` pass: no active alerts, 14 healthy services, 36 healthy sources, database/Redis up, and zero failed digest-generation jobs.
+- After the stored deadline, `pnpm exec tsx scripts/check-live-link-expiry.ts --live verify` passed against the deployed API. The naturally expired disposable link returned HTTP 401 with no cookie or reader identity and remained unconsumed. The private receipt was retained; no expiry settings changed.
+- Updated the Phase 4 entry checklist and accepted Phase 3 notes. `check-live-account-boundary.ts` passed all 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. No model calls or public activation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit, 281 integration, four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` passed.
+- Next: continue Phase 4 with Grafana export listener and capacity gates; review scheduled NBA editing after the Nov 11 15:00 UTC run.
