@@ -50,6 +50,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] Iteration 1801: prepared bounded export composes stored-session authorization and buffered transport in the isolated full application; fresh admin forwarding and reader/stale/logout/malformed refusal verified. Production admission/public mode stay off; full browser/session composition remains.
 
+- [x] Iteration 1806: installed logs Query rechecks stored-session freshness on an already-open screen: aged session returns 404 without telemetry work, restored session resumes HTTP 200. Synthetic responses only; public mode off.
+
 - [x] Iteration 1800: installed Raw Query browser composes one-minute `up` export with the prepared buffered handler and synthetic upstream, renders its series and refuses broad requests without upstream work. Stored-session composition remains before admission; public mode stays off.
 
 - [x] Iteration 1799: disposable installed-binary shortened-cap export expiry verifies server-cap precedence over the prepared two-second request, native deadline refusal and buffered transport rejection; process stays healthy. Live-cap expensive-work timing remains unmeasured; authenticated/browser composition remains before admission.

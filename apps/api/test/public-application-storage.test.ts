@@ -691,6 +691,7 @@ void test('configured full public application serves published fixtures and enfo
                 violations.push(event.effectiveDirective);
               });
             });
+            let nativeAllowed = allowed;
             let exports = 0;
             await context.route('**/*', async (route) => {
               const url = new URL(route.request().url());
@@ -701,7 +702,7 @@ void test('configured full public application serves published fixtures and enfo
                 url: base + url.pathname + url.search,
                 headers,
               });
-              assert.equal(response.status(), allowed ? 200 : 404);
+              assert.equal(response.status(), nativeAllowed ? 200 : 404);
               assert.equal(response.headers()['cache-control'], 'no-store');
               assert.equal(response.headers()['set-cookie'], undefined);
               if (url.pathname === '/metrics/prometheus/api/v1/export') {
@@ -857,6 +858,54 @@ void test('configured full public application serves published fixtures and enfo
                   path: `docs/screenshots/native-logs-${screen ? 'overview' : 'query'}-stored-session.png`,
                   fullPage: true,
                 });
+                if (!screen) {
+                  // An already-mounted native UI must recheck stored-session
+                  // freshness on every action, without reloading the document.
+                  const session = await db.query<{
+                    id: string;
+                    created_at: Date;
+                  }>(
+                    `SELECT id, created_at FROM sessions WHERE admin_eligible AND user_id = (SELECT id FROM users WHERE email = $1)`,
+                    [configuration.ADMIN_EMAILS],
+                  );
+                  assert.equal(session.rowCount, 1);
+                  try {
+                    await db.query(
+                      `UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1`,
+                      [session.rows[0].id],
+                    );
+                    nativeAllowed = false;
+                    const beforeExpiry = telemetryRequests.length;
+                    const refused = page.waitForResponse(
+                      (response) =>
+                        new URL(response.url()).pathname ===
+                        '/logs/select/logsql/query',
+                    );
+                    await execute.first().click();
+                    assert.equal((await refused).status(), 404);
+                    await page.waitForLoadState('networkidle');
+                    assert.equal(telemetryRequests.length, beforeExpiry);
+                    await page.screenshot({
+                      path: 'docs/screenshots/native-logs-open-session-expired.png',
+                      fullPage: true,
+                    });
+                  } finally {
+                    await db.query(
+                      'UPDATE sessions SET created_at = $1 WHERE id = $2',
+                      [session.rows[0].created_at, session.rows[0].id],
+                    );
+                    nativeAllowed = allowed;
+                  }
+                  const resumed = page.waitForResponse(
+                    (response) =>
+                      new URL(response.url()).pathname ===
+                      '/logs/select/logsql/query',
+                  );
+                  await execute.first().click();
+                  assert.equal((await resumed).status(), 200);
+                  await page.waitForLoadState('networkidle');
+                  assert.deepEqual(errors, []);
+                }
               } else {
                 assert.equal(telemetryRequests.length, before);
               }

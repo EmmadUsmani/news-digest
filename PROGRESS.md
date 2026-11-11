@@ -147,3 +147,12 @@
 - Inspected both new synthetic screenshots; discarded unrelated timestamp-only regenerated metrics screenshots. Updated TASKS/readiness/response review. Production admission/public mode stay off; remaining controls/live navigation remain open. Nov 11 15:00 UTC NBA review remains due.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
 - Captured-assets pnpm check reports 836 unit tests and 283 integration passes/four expected skips; initial shell received SIGTERM after passing coverage output; standalone full rerun exits 0. git diff --check clean; API restart/health checked after commit.
+
+## 2026-11-11: iteration 1806 — open logs screen session freshness
+
+- Clean main; no inherited work. Alerts, healthz, sources, jobs and services checks pass. No provider calls.
+- Extended installed-assets Chromium/full-application rehearsal: after an admin mounts logs Query, age its real stored session beyond seven days without reloading the screen.
+- The next Execute action returns 404 with zero telemetry upstream work; restoring the saved session creation time lets the same screen execute with HTTP 200. Synthetic telemetry only; production admission/public mode remain off.
+- Inspected expired-session screenshot (native stream-field 404 shown); retained it and discarded unrelated regenerated timestamp-only screenshots. Updated TASKS, readiness and response review.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
+- Captured-assets pnpm check exits 0: 836 unit/283 integration passes, four expected skips; git diff --check clean. API restart and health verified after commit. Nov 11 15:00 UTC NBA acceptance review remains due; remaining telemetry controls/live navigation remain open.

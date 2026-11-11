@@ -1092,3 +1092,12 @@ Anonymous/invited readers, aged and logged-out admins receive 404 without
 telemetry upstream work. Cookie stripping, no-store, CSP/nosniff and absence of
 script errors/CSP violations share the metrics checks. Production admission and
 public mode remain off; remaining controls and live navigation remain open.
+
+### Open logs screen session freshness (iteration 1806)
+
+The installed logs Query screen now has an action-level stored-session rehearsal.
+After a fresh admin mounts it, the isolated database ages that same session past
+seven days. Executing another query returns 404 and sends no telemetry upstream
+requests, without a document reload. Restoring the saved session creation time
+lets the same screen query again with HTTP 200. This models the freshness boundary
+with synthetic telemetry; production admission and public mode remain off.
