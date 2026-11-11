@@ -145,3 +145,15 @@
 - Verification: explicit live Chromium rehearsal, handbook (18 pages/22 diagrams/39 tables), 32 deployed account checks, scheduled reader (four topics/19 stories/19 posts), `pnpm build` pass.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips) and `git diff --check` pass; commit/push follow.
 - Next: remaining native telemetry controls and Phase 4 readiness gates; Nov 12 15:00 UTC edition review. Grafana installation still awaits scheduled-load/compaction capacity evidence.
+
+## 2026-11-11: iteration 1827 — stored-session installed metrics chart
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, 36 sources/14 services healthy; scheduled digest completed. No provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: installed Query chart renders two bounded live count(up) reads after real disposable HTTPS login and freshness restoration.
+- Each read has a one-minute window, minimum 15-second step, one series, at most six positive samples and a 16 KiB response cap; operational bodies stay in memory.
+- Mounted Execute refuses aged storage and actual logout with the old cookie restored: empty no-store 404; no page errors/CSP violations. Existing Raw Query/logs checks pass.
+- Fixed rehearsal step parsing for native `15s` and waited for actual chart/log query responses rather than assuming networkidle means query completion; final live run passes.
+- Updated TASKS, readiness and tool review. Production flags unchanged; verification-only work requires no service restart and respects the 13:00–16:00 UTC deployment hold.
+- Verification: explicit live Chromium rehearsal, 32 deployed account checks, Nov 11 scheduled reader (four topics/19 stories/19 posts), handbook (18 pages/22 diagrams/39 tables), build pass.
+- `pnpm format`, `pnpm lint:fix`, targeted ESLint/format checks, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
+- Next: remaining Phase 4 activation work; Grafana installation awaits scheduled-load/compaction capacity evidence. Nov 12 15:00 UTC edition review remains fixed.

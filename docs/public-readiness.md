@@ -88,3 +88,13 @@ Query Analyzer plus logs Query and Overview mount after real disposable HTTPS
 code-login, refuse aged-session document reloads, and remount after freshness
 restoration. No export work occurs for these screen checks. Data controls beyond
 Raw Query remain open; production flags are unchanged.
+
+### Stored-session installed metrics chart (iteration 1827)
+
+`pnpm exec tsx scripts/check-live-stored-telemetry.ts --live` now renders the
+installed Query chart after real disposable HTTPS code-login. Two bounded live
+`count(up)` range reads cover login and freshness restoration: one-minute windows,
+minimum 15-second steps, one series and at most six positive samples. Aged-session
+Execute and post-logout Execute with the old cookie restored return empty
+no-store 404 responses. The mounted chart has no page errors or CSP violations.
+Operational responses remain in memory; production flags are unchanged.

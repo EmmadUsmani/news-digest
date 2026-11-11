@@ -389,6 +389,9 @@ async function main() {
         ).policyViolations.push(event.effectiveDirective);
       });
     });
+    let chartReads = 0;
+    let allowChartRead = false;
+    let expectedChartStatus: 200 | 404 = 200;
     let logReads = 0;
     let logMessage = '';
     let expectedLogStatus: 200 | 404 = 200;
@@ -451,6 +454,49 @@ async function main() {
         return;
       }
       if (url.pathname.includes('/api/v1/')) {
+        const params = new URLSearchParams(route.request().postData() ?? '');
+        if (
+          allowChartRead &&
+          route.request().method() === 'POST' &&
+          url.pathname === '/metrics/prometheus/api/v1/query_range' &&
+          params.get('query') === 'count(up)' &&
+          [...params.keys()].sort().join(',') === 'end,query,start,step'
+        ) {
+          allowChartRead = false;
+          const start = Number(params.get('start'));
+          const end = Number(params.get('end'));
+          const stepText = params.get('step') ?? '';
+          const step = /^\d+(s)?$/.test(stepText)
+            ? Number(stepText.replace(/s$/, ''))
+            : NaN;
+          assert.ok(start > Date.now() / 1000 - 125);
+          assert.ok(end <= Date.now() / 1000 + 5 && end > start);
+          assert.ok(end - start <= 65 && step >= 15);
+          assert.ok((end - start) / step <= 5);
+          const response = await route.fetch({ timeout: 10000 });
+          assert.equal(response.status(), expectedChartStatus);
+          assert.equal(response.headers()['cache-control'], 'no-store');
+          assert.equal(response.headers()['set-cookie'], undefined);
+          const body = await response.text();
+          if (expectedChartStatus === 404) assert.equal(body, '');
+          else {
+            chartReads++;
+            assert.ok(Buffer.byteLength(body) <= 16384);
+            const result = JSON.parse(body);
+            assert.equal(result.status, 'success');
+            assert.equal(result.data.result.length, 1);
+            const samples = result.data.result[0].values as [number, string][];
+            assert.ok(samples.length > 0 && samples.length <= 6);
+            assert.ok(
+              samples.every(
+                ([time, value]) =>
+                  time >= start && time <= end && Number(value) > 0,
+              ),
+            );
+          }
+          await route.fulfill({ response, body });
+          return;
+        }
         if (url.pathname === telemetryExportPath && allowNativeExport) {
           allowNativeExport = false;
           nativeExports++;
@@ -535,6 +581,10 @@ async function main() {
       allowLogRead = true;
       const before = logReads;
       await logPage.goto('about:blank');
+      const queryResponse = logPage.waitForResponse(
+        (response) =>
+          new URL(response.url()).pathname === '/logs/select/logsql/query',
+      );
       await logPage.goto(
         browserBase +
           '/logs/select/vmui/#/?' +
@@ -547,6 +597,7 @@ async function main() {
           }).toString(),
         { waitUntil: 'networkidle' },
       );
+      assert.equal((await queryResponse).status(), status);
       assert.equal(
         allowLogRead,
         false,
@@ -732,11 +783,80 @@ async function main() {
     });
     await mountLogs(200, logsPage);
     assert.equal(logReads, 3);
+    // Retain a live chart across freshness loss, restoration and real logout.
+    const chartPage = await context.newPage();
+    chartPage.on('pageerror', (error) => errors.push(error.name));
+    await chartPage.addInitScript(() => {
+      Object.assign(window, { policyViolations: [] });
+      document.addEventListener('securitypolicyviolation', (event) => {
+        (
+          window as unknown as { policyViolations: string[] }
+        ).policyViolations.push(event.effectiveDirective);
+      });
+    });
+    const executeChart = async (status: 200 | 404) => {
+      expectedChartStatus = status;
+      allowChartRead = true;
+      const before = chartReads;
+      const response = chartPage.waitForResponse(
+        (response) =>
+          new URL(response.url()).pathname ===
+          '/metrics/prometheus/api/v1/query_range',
+      );
+      await chartPage
+        .getByRole('button', { name: /execute( query)?/i })
+        .click();
+      assert.equal((await response).status(), status);
+      assert.equal(
+        allowChartRead,
+        false,
+        'Chart reached the real session guard',
+      );
+      assert.equal(chartReads, before + (status === 200 ? 1 : 0));
+    };
+    allowChartRead = true;
+    const initialChartResponse = chartPage.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname ===
+        '/metrics/prometheus/api/v1/query_range',
+    );
+    await chartPage.goto(
+      browserBase +
+        '/metrics/vmui/#/?g0.expr=count(up)&g0.range_input=1m&g0.step_input=15s',
+      { waitUntil: 'networkidle' },
+    );
+    assert.equal((await initialChartResponse).status(), 200);
+    assert.equal(allowChartRead, false);
+    assert.equal(chartReads, 1);
+    await chartPage.locator('.u-over').waitFor();
+    assert.ok(await chartPage.locator('canvas').count());
+    await db.query(
+      "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
+      [browserSession.rows[0].id],
+    );
+    await executeChart(404);
+    await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+      browserSession.rows[0].created_at,
+      browserSession.rows[0].id,
+    ]);
+    await executeChart(200);
+    await chartPage.locator('.u-over').waitFor();
     assert.equal(await browserWrite('/api/account/logout', {}), 204);
     assert.equal((await context.cookies()).length, 0);
     // Restore the cookie to prove server-side revocation independently of deletion.
     await context.addCookies(cookies);
     await executeNative(404);
+    await executeChart(404);
+    assert.equal(chartReads, 2);
+    assert.deepEqual(
+      await chartPage.evaluate(
+        () =>
+          (window as unknown as { policyViolations: string[] })
+            .policyViolations,
+      ),
+      [],
+    );
+    await chartPage.close();
     expectedLogStatus = 404;
     allowLogRead = true;
     const revokedLogResponse = logsPage.waitForResponse(
@@ -780,7 +900,7 @@ async function main() {
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 7);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Three bounded live log reads render with stored-session login/restoration; aged and logged-out open logs screens refuse Execute, and a revoked-cookie logs document refuses. Seven bounded live metrics reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Two bounded live count(up) chart reads render with real stored-session login/restoration; aged and revoked mounted chart Execute refuses. Three bounded live log reads render with stored-session login/restoration; aged and logged-out open logs screens refuse Execute, and a revoked-cookie logs document refuses. Seven bounded live metrics reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();

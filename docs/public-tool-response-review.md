@@ -1349,3 +1349,13 @@ session guard, without another live log read. A new logs document request also
 returns an empty no-store 404. Both tabs remain free of page errors and unexpected
 CSP violations. Disposable account storage and in-memory operational bodies keep
 production accounts, flags and saved artifacts unchanged.
+
+### Stored-session installed metrics chart (iteration 1827)
+
+`pnpm exec tsx scripts/check-live-stored-telemetry.ts --live` now renders the
+installed Query chart after real disposable HTTPS code-login. Two bounded live
+`count(up)` range reads cover login and freshness restoration: one-minute windows,
+minimum 15-second steps, one series and at most six positive samples. Aged-session
+Execute and post-logout Execute with the old cookie restored return empty
+no-store 404 responses. The mounted chart has no page errors or CSP violations.
+Operational responses remain in memory; production flags are unchanged.
