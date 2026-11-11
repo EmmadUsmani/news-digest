@@ -249,3 +249,113 @@ void test('reader explorer refuses private responses and forwards only exact str
     await close(upstream);
   }
 });
+
+void test('public telemetry proxy admits fresh-admin queries without forwarding credentials or upstream cookies', async () => {
+  let actor: 'anonymous' | 'reader' | 'stale-admin' | 'admin' = 'anonymous';
+  const seen: string[] = [];
+  const tool = createServer((req, res) => {
+    assert.deepEqual(Object.keys(req.headers).sort(), ['connection', 'host']);
+    seen.push(req.url!);
+    res.writeHead(200, {
+      'content-type': 'application/json',
+      'set-cookie': 'upstream=secret',
+      'x-private': 'secret',
+      'cache-control': 'public, max-age=3600',
+    });
+    res.end('{"fixture":true}');
+  });
+  const port = await listen(tool);
+  const proxy = proxyInternalTools(
+    selectInternalTools(true)
+      .filter(({ prefix }) => ['/logs', '/metrics'].includes(prefix))
+      .map((entry) => ({ ...entry, port })),
+  );
+  const guard = publicAccess(true, async () =>
+    actor === 'anonymous' ? null : { freshAdmin: actor === 'admin' },
+  );
+  const server = createServer((req, res) => {
+    void guard(req, res, () => proxy(req, res, () => assert.fail('escaped')));
+  });
+  const base = `http://127.0.0.1:${await listen(server)}`;
+  const headers = {
+    Cookie: 'session=secret',
+    Authorization: 'Bearer secret',
+    'X-ExeDev-Email': 'owner@example.test',
+    admin_local_token: 'forged',
+  };
+  const queries = [
+    '/metrics/api/v1/query?query=up',
+    '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
+    '/logs/select/logsql/query?query=error&limit=1',
+  ];
+  try {
+    for (const principal of [
+      'anonymous',
+      'reader',
+      'stale-admin',
+      'admin',
+    ] as const) {
+      actor = principal;
+      for (const path of queries) {
+        const before = seen.length;
+        const response = await fetch(base + path, { headers });
+        assert.equal(response.status, actor === 'admin' ? 200 : 404);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(response.headers.get('set-cookie'), null);
+        assert.equal(response.headers.get('x-private'), null);
+        assert.equal(
+          await response.text(),
+          actor === 'admin' ? '{"fixture":true}' : '',
+        );
+        assert.equal(seen.length, before + (actor === 'admin' ? 1 : 0));
+        for (const method of ['HEAD', 'POST', 'DELETE']) {
+          assert.equal(
+            (await fetch(base + path, { method, headers })).status,
+            404,
+          );
+        }
+      }
+    }
+    assert.deepEqual(seen, queries);
+    for (const path of [
+      '/metrics/internal/force_merge',
+      '/metrics/api/v1/admin/tsdb/delete_series?match[]=up',
+      '/metrics/snapshot/create',
+      '/metrics/api/v1/query/',
+      '/metrics/api/v1/%71uery',
+      '/logs/insert/jsonline',
+      '/logs/select/logsql/tail?query=*',
+      '/metrics/',
+      '/logs/',
+    ]) {
+      assert.equal((await fetch(base + path, { headers })).status, 404, path);
+    }
+    assert.deepEqual(seen, queries);
+    // Defense in depth: the restricted proxy denies writes without the gate.
+    const direct = createServer((req, res) => proxy(req, res, () => res.end()));
+    const directBase = `http://127.0.0.1:${await listen(direct)}`;
+    try {
+      assert.equal(
+        (await fetch(directBase + queries[0], { method: 'POST' })).status,
+        404,
+      );
+      assert.equal(
+        (await fetch(directBase + '/metrics/internal/force_merge')).status,
+        404,
+      );
+    } finally {
+      await close(direct);
+    }
+    await close(tool);
+    const unavailable = await fetch(base + queries[0], { headers });
+    assert.equal(unavailable.status, 502);
+    assert.equal(unavailable.headers.get('cache-control'), 'no-store');
+    assert.doesNotMatch(await unavailable.text(), /secret|ECONNREFUSED/);
+    assert.equal(
+      selectInternalTools(false).some((entry) => entry.adminTelemetry),
+      false,
+    );
+  } finally {
+    await Promise.all([close(server), close(tool)]);
+  }
+});

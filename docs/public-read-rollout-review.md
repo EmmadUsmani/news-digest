@@ -26,7 +26,7 @@ HEAD inherits the GET class.
 | Preview history/detail/latest/cost/job    | Anonymous published-only history/latest/detail; cost/job require fresh admin                             | Public browser history/detail installed; generation remains restricted                                    |
 | Admin page HTML                           | Unlisted, denied                                                                                         | Expose approved read-only pages with safe API contracts and disabled writes                               |
 | Handbook/DB explorer/Grafana/jobs browser | Unlisted, denied                                                                                         | Audit each tool response/data source and add bounded read-only routing                                    |
-| Logs/metrics                              | Unlisted, denied even for signed-in admin                                                                | Add session-authorized tool routing; retain mutation restrictions                                         |
+| Logs/metrics                              | Exact metrics instant/range and log-query GETs require a fresh admin session                             | UI/assets and additional query APIs remain denied; mutation routes stay closed                            |
 
 ## Findings that block acceptance
 
@@ -46,8 +46,8 @@ HEAD inherits the GET class.
 4. **Tools need their own data review.** The proxy streams upstream bodies and
    headers; granting a prefix would expose every upstream API method/path.
    Audit handbook artifacts, DB metadata/roles, dashboard data sources and queue
-   payloads before granting reads. Logs/metrics remain admin-only in the plan;
-   their existing all-user refusal is temporary, not accepted admin access.
+   payloads before granting reads. Logs/metrics remain admin-only; the three reviewed query GET APIs now require
+   fresh admin sessions, while UI routes await their own review.
 
 ## Evidence and next step
 
@@ -266,3 +266,11 @@ read-only responses retain raw payloads, results, failures and separate log/Redi
 handlers. Explorer account activity estimates and handbook image scope also need
 reviewed projections/routes. All tool refusals remain in place. Next: prepare the
 Grafana role/projection boundary and isolated adversarial SQL checks, default-off.
+
+Iteration 1782 prepares fresh-admin GET access to `/metrics/api/v1/query`,
+`/metrics/api/v1/query_range` and `/logs/select/logsql/query`. Shared admission
+and proxy allowlists deny all other operational paths and methods. Cookies,
+authorization and identity headers never reach these upstreams; only content type
+and no-store survive from their responses. Anonymous, ordinary-reader and stale
+admin sessions receive empty 404s. Private-mode proxy selection is unchanged.
+Full telemetry UIs/assets remain closed pending their route review.

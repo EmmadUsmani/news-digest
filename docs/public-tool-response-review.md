@@ -694,3 +694,18 @@ Stop/start rollback confirmed listener removal without affecting `/healthz`,
 then restored the same acceptance checks. To remove the prepared service, run
 `systemctl --user disable --now news-digest-reader-docs.service`; private
 routing continues to use the separate owner handbook. Public flags are unchanged.
+
+## Admin telemetry query boundary (iteration 1782)
+
+Prepared public mode admits three exact GET APIs only for a fresh admin session:
+metrics instant/range queries and the VictoriaLogs log query. Other methods,
+insert/delete/merge/snapshot paths, streaming tails and UI assets remain denied.
+The proxy shares the admission allowlist, strips all incoming credentials and
+identity headers, drops upstream cookies/custom headers and returns no-store.
+Loopback fixture HTTP coverage verifies all three APIs across anonymous, reader,
+stale-admin and fresh-admin principals, mutation refusal before upstream access,
+proxy-only refusal and service-down behavior. Configured Nest admission also
+checks fresh-admin-only forwarding. Live loopback metrics returned eight series;
+a one-minute, one-row log query returned one row. No log content was printed.
+Public mode remains off; the private proxy is unchanged. Full UI route review
+and the complete Phase 4 rehearsal remain open.

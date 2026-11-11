@@ -365,7 +365,7 @@ void test('configured full public application serves published fixtures and enfo
         '/logs',
         '/logs/',
         '/metrics',
-        '/metrics/api/v1/query?query=up',
+        '/metrics/api/v1/admin/tsdb/delete_series?match[]=up',
         '/grafana/',
         '/docs/api/tree',
         '/db/',

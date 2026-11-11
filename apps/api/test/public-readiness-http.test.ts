@@ -151,7 +151,12 @@ void test('public readiness HTTP matrix admits reviewed explorer reads and close
           assert.deepEqual([authentication, downstream], untouched);
         }
       }
-      for (const path of ['/api/admin/profile']) {
+      for (const path of [
+        '/api/admin/profile',
+        '/metrics/api/v1/query?query=up',
+        '/metrics/api/v1/query_range?query=up',
+        '/logs/select/logsql/query?query=error&limit=1',
+      ]) {
         const before = downstream;
         assert.equal(
           (await fetch(base + path)).status,

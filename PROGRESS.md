@@ -116,3 +116,13 @@
 - `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) pass. Handbook initially rejected 104 lines; condensed runtime addition to its existing paragraph.
 - First combined format/lint/check process received SIGTERM during unit tests without an assertion failure; separate `pnpm check` rerun passes (831 unit/283 integration passes, four expected skips). `pnpm format`, `pnpm lint:fix`, handbook/schema rerun and `git diff --check` pass. Archived iterations 1764–1769 to keep this file small.
 - Next: remaining Phase 4 tool gates/full public rehearsal; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1782 — fresh-admin telemetry queries
+
+- Clean main; no inherited work. Alerts clear, services/healthz healthy; `pnpm obs sources --check` and `pnpm obs jobs --check` pass (36 sources/four available queues). No provider calls.
+- Prepared public mode admits only fresh-admin GETs for metrics instant/range queries and VictoriaLogs log queries. Shared admission/proxy allowlist denies other paths/methods; proxy strips incoming credentials/identity and upstream cookies/custom headers, retaining no-store. Public mode stays off; private proxy unchanged.
+- Targeted `pnpm exec tsx --test apps/api/test/internal-tools.test.ts apps/api/test/public-route-policy.test.ts apps/api/test/public-readiness-http.test.ts` passes 11 tests. Fixture HTTP checks cover anonymous/reader/stale-admin/admin, mutation refusal, direct proxy refusal and unavailable upstream. Configured Nest checks verify admin-only forwarding.
+- Explicit live loopback GET queries return eight metrics series and one bounded log row; no log content printed. Updated rollout/tool/readiness docs, observability handbook and TASKS. Telemetry UIs/assets remain denied pending review.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 832 unit/283 integration passes, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables) and `git diff --check` pass.
+- Restarted `news-digest-api.service`; retrying `/healthz` passes. Post-restart `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` preserves four topics/19 stories/15 posts. Source/job checks pass again.
+- Next: remaining Phase 4 UI/tool gates and full public rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.

@@ -62,7 +62,7 @@ void test('prepared public policy denies unknown routes, tools and ambiguous rou
     '/api/browser-errors',
     '/api/me',
     '/logs',
-    '/metrics/api/v1/query',
+    '/metrics/api/v1/admin/tsdb/delete_series',
     '/docs/api/tree',
     '/docs/?q=secret',
     '/docs/style.css?v=1',

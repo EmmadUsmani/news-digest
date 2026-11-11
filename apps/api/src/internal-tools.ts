@@ -1,5 +1,7 @@
 import { type IncomingMessage, request, type ServerResponse } from 'node:http';
 
+import { isAdminTelemetryQuery } from './telemetry-query-policy';
+
 // Internal tools run as separate loopback-only services (apps/docs-site,
 // apps/schema-explorer). The API forwards their subpaths so everything shares
 // the app's private exe.dev URL. A tool being down never affects the app.
@@ -9,6 +11,7 @@ export interface InternalTool {
   preservePrefix?: boolean;
   readerHandbook?: boolean;
   readerExplorer?: boolean;
+  adminTelemetry?: boolean;
 }
 
 export const internalTools: InternalTool[] = [
@@ -26,7 +29,11 @@ export function selectInternalTools(publicMode: boolean): InternalTool[] {
     ...internalTools
       .filter((tool) => tool.prefix !== '/docs')
       .map((tool) =>
-        tool.prefix === '/db' ? { ...tool, readerExplorer: true } : tool,
+        tool.prefix === '/db'
+          ? { ...tool, readerExplorer: true }
+          : ['/logs', '/metrics'].includes(tool.prefix)
+            ? { ...tool, adminTelemetry: true }
+            : tool,
       ),
   ];
 }
@@ -44,8 +51,13 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       next();
       return;
     }
+    if (tool.adminTelemetry && !isAdminTelemetryQuery(req.method ?? '', url)) {
+      res.writeHead(404, { 'cache-control': 'no-store' }).end();
+      return;
+    }
     const rest = url.slice(tool.prefix.length);
     const readerTool = tool.readerHandbook || tool.readerExplorer;
+    const restrictedTool = readerTool || tool.adminTelemetry;
     if (
       tool.readerExplorer &&
       (req.method !== 'GET' ||
@@ -54,7 +66,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       res.writeHead(404, { 'cache-control': 'no-store' }).end();
       return;
     }
-    if (readerTool) res.setHeader('cache-control', 'no-store');
+    if (restrictedTool) res.setHeader('cache-control', 'no-store');
     if (tool.readerHandbook) {
       if (
         !['GET', 'HEAD'].includes(req.method ?? '') ||
@@ -86,7 +98,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         method: req.method,
         path: tool.preservePrefix ? url : rest,
         headers: {
-          ...(!readerTool && req.headers),
+          ...(!restrictedTool && req.headers),
           host: `${host}:${tool.port}`,
         },
         timeout: 30000,
@@ -106,14 +118,14 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
           return;
         }
         res.writeHead(response.statusCode ?? 502, {
-          ...(readerTool
+          ...(restrictedTool
             ? {
                 'content-type':
                   response.headers['content-type'] ?? 'text/plain',
               }
             : response.headers),
           'cache-control': 'no-store',
-          ...(!readerTool && {
+          ...(!restrictedTool && {
             vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
           }),
         });
@@ -122,7 +134,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
     );
     upstream.on('timeout', () => upstream.destroy());
     upstream.on('error', fail);
-    if (readerTool) upstream.end();
+    if (restrictedTool) upstream.end();
     else req.pipe(upstream);
   };
 }
