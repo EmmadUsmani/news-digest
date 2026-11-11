@@ -168,3 +168,4 @@
 - Deployed account checks pass (32); check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). All 36 sources healthy.
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean.
 - Next: route/session export composition and upstream work limits before admission; browser acceptance, Grafana capacity evidence and 15:00 UTC NBA review.
+- Pushed 51fec609; restarted news-digest-api.service. Post-restart healthz, 32 deployed account boundary checks and saved Nov 10 reader checks pass; no failed user services.
