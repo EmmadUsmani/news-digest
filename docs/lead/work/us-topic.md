@@ -18,8 +18,9 @@ most $0.65, only if measured as needed.
 
 **Next:**
 
-- Owner to approve a fix: drop the 1.5× rule; maybe raise the AI monthly
-  budget (`LLM_MONTHLY_BUDGET_USD`, $14, capped at 14 in code).
-- Then check the agent wires the split into the edition and goes live.
+- Item 57 steered (Nov 11): no 1.5× test, AI monthly budget $20, go live next.
+- Watch for the go-live ack: feeds, caps, expected cost vs the effective cap.
+- Check it stops cost measurement work and wires the split into the edition.
+- Review the first edition with both topics.
 
-**Open decisions:** the cost-gate fix and the AI monthly budget (proposed Nov 11).
+**Open decisions:** none.

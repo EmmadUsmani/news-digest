@@ -21,7 +21,7 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
    Migration 0019 is live; phase 4 is in progress. Item 55 limits re-verification
    and says to stop at the phase 4 summary.
-3. Split World into World and U.S. news & politics (item 56). Starts only
+3. Split World into World and U.S. news & politics (items 56, 57). Starts only
    when item 50 is finished or waiting on the owner; item 50 always comes
    first when it can move.
 4. X search and Bluesky: acceptance reviews continue in the daily edition
