@@ -356,3 +356,17 @@ admin requests are denied legacy routes, and queue requests share the reader
 and account API allowance. Requests without a trusted visitor and requests
 over quota return 429. With the live public flag off, the private jobs browser
 remains the sole queue tool.
+
+### Handbook response inventory (iteration 1762)
+
+The handbook server accepts GET for the shell, three named assets, health,
+tree, search and exact page keys from the tree. Removed the broad docs image
+route: the current 18-page corpus has no image references. Direct reads and
+search now share the tree inventory. Isolated HTTP checks compared all 18
+page bodies and refused docs screenshots, path aliases and unsupported
+methods. [Playwright navigation](screenshots/handbook-navigation-1762.png)
+verified the home page, search and opening the Observability result.
+
+Keep the handbook private. Its current corpus describes operational details,
+including backup storage and private tooling. Public routing still needs a
+reviewed publication corpus and a proxy rehearsal.

@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 
-import { listTree, safePath, titleOf } from './pages.ts';
+import { listTree, titleOf } from './pages.ts';
 
 void test('titles come from the first H1, else the file name', () => {
   assert.equal(titleOf('intro\n# Data model\n## x', 'f'), 'Data model');
@@ -37,12 +37,4 @@ void test('lists home, ordered sections and pages', async () => {
       ['', 'More', null, ['Zz notes']],
     ],
   );
-});
-
-void test('safePath stays inside the root and checks extensions', () => {
-  assert.equal(safePath('/r', 'a/b.md', ['.md']), '/r/a/b.md');
-  assert.equal(safePath('/r', '../etc/passwd.md', ['.md']), null);
-  assert.equal(safePath('/r', 'a/../../x.md', ['.md']), null);
-  assert.equal(safePath('/r', 'a/b.txt', ['.md']), null);
-  assert.equal(safePath('/r', '', ['.md']), null);
 });

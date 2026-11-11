@@ -267,14 +267,6 @@ function enhance(root, path) {
       a.rel = 'noopener';
     }
   }
-  // Images under docs/ are served by /files/.
-  for (const img of root.querySelectorAll('img[src]')) {
-    const src = img.getAttribute('src');
-    if (/^[a-z]+:/i.test(src)) continue;
-    const url = new URL(src, base);
-    if (url.pathname.startsWith('/docs/'))
-      img.src = 'files/' + url.pathname.slice('/docs/'.length);
-  }
   // Wide tables scroll instead of overflowing.
   for (const t of root.querySelectorAll('table')) {
     const wrap = document.createElement('div');

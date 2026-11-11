@@ -1,12 +1,12 @@
 import { execFile } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
-import { extname, join, relative, resolve } from 'node:path';
+import { join, relative, resolve } from 'node:path';
 import { promisify } from 'node:util';
 
 import { startRuntimeMetrics } from '@digest/tool-metrics';
 
-import { listTree, readAll, safePath } from './pages.ts';
+import { listedPages, listTree, readAll } from './pages.ts';
 
 // Serves docs/handbook as a site. Markdown is read from disk on every request
 // and rendered in the browser (marked + Mermaid), so a `git pull` is enough to
@@ -16,20 +16,13 @@ startRuntimeMetrics('docs', 9466);
 const port = Number(process.env.DOCS_SITE_PORT ?? 8100);
 const repo = resolve(process.env.REPO_ROOT ?? process.cwd());
 const handbook = join(repo, 'docs/handbook');
-const docs = join(repo, 'docs');
 const publicDir = resolve(import.meta.dirname, '../public');
-const types: Record<string, string> = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.gif': 'image/gif',
-  '.webp': 'image/webp',
-  '.svg': 'image/svg+xml',
-};
-const IMAGES = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
+const assets = new Map([
+  ['/', ['index.html', 'text/html; charset=utf-8']],
+  ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/search.js', ['search.js', 'text/javascript; charset=utf-8']],
+  ['/style.css', ['style.css', 'text/css; charset=utf-8']],
+]);
 
 async function lastUpdated(file: string) {
   try {
@@ -69,15 +62,17 @@ const server = createServer((req, res) => {
         return;
       }
       if (url.pathname === '/api/page') {
-        const file = safePath(handbook, url.searchParams.get('path') ?? '', [
-          '.md',
-        ]);
-        if (!file) {
+        const path = url.searchParams.get('path');
+        const page = listedPages(await listTree(handbook)).find(
+          (entry) => entry.path === path,
+        );
+        if (!page) {
           res.writeHead(404).end('Not found');
           return;
         }
+        const file = join(handbook, page.path);
         json(res, {
-          path: relative(handbook, file).split('\\').join('/'),
+          path: page.path,
           markdown: await readFile(file, 'utf8'),
           updated: await lastUpdated(file),
         });
@@ -87,34 +82,15 @@ const server = createServer((req, res) => {
         res.writeHead(200, { 'content-type': 'text/plain' }).end('ok');
         return;
       }
-      // Images referenced from docs (e.g. ../screenshots/x.png).
-      if (url.pathname.startsWith('/files/')) {
-        const file = safePath(
-          docs,
-          decodeURIComponent(url.pathname.slice('/files/'.length)),
-          IMAGES,
-        );
-        if (!file) {
-          res.writeHead(404).end('Not found');
-          return;
-        }
-        const body = await readFile(file);
-        res.writeHead(200, {
-          'content-type': types[extname(file).toLowerCase()],
-          'cache-control': 'no-cache',
-        });
-        res.end(body);
-        return;
-      }
-      const name = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-      const file = safePath(publicDir, name, ['.html', '.js', '.css']);
-      if (!file) {
+      const asset = assets.get(url.pathname);
+      if (!asset) {
         res.writeHead(404).end('Not found');
         return;
       }
-      const body = await readFile(file);
+      const [name, type] = asset;
+      const body = await readFile(join(publicDir, name));
       res.writeHead(200, {
-        'content-type': types[extname(file)],
+        'content-type': type,
         'cache-control': 'no-cache',
       });
       res.end(body);

@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { join, relative, resolve, sep } from 'node:path';
+import { join } from 'node:path';
 
 // Handbook layout (see docs/handbook/README.md):
 //   README.md                 home page
@@ -80,32 +80,21 @@ export async function listTree(root: string): Promise<Tree> {
   return { home, sections };
 }
 
-/** Every page in reading order (home, then each section), with its Markdown. */
-export async function readAll(root: string) {
-  const { home, sections } = await listTree(root);
-  const pages = [
+/** The tree, search corpus and direct page route share the same inventory. */
+export function listedPages({ home, sections }: Tree): Page[] {
+  return [
     ...(home ? [home] : []),
     ...sections.flatMap((s) => [...(s.index ? [s.index] : []), ...s.pages]),
   ];
+}
+
+/** Every page in reading order (home, then each section), with its Markdown. */
+export async function readAll(root: string) {
+  const pages = listedPages(await listTree(root));
   return Promise.all(
     pages.map(async (p) => ({
       ...p,
       markdown: await readFile(join(root, p.path), 'utf8'),
     })),
   );
-}
-
-/** Resolve a request path safely inside root; null if it escapes or is not allowed. */
-export function safePath(
-  root: string,
-  requested: string,
-  extensions: string[],
-) {
-  const base = resolve(root);
-  const full = resolve(base, requested.replace(/^\/+/, ''));
-  const rel = relative(base, full);
-  if (!rel || rel.startsWith('..') || rel.split(sep).includes('..'))
-    return null;
-  if (!extensions.some((ext) => full.toLowerCase().endsWith(ext))) return null;
-  return full;
 }
