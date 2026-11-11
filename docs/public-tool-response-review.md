@@ -1276,3 +1276,14 @@ native document; export aging and logout checks still pass.
 Operational labels and bodies stay in memory; no operational screenshot is
 saved. Production flags remain off. Other native screens, CSP coverage for this
 composition and the remaining Phase 4 controls still need acceptance.
+
+### Open-screen live Raw Query session controls (iteration 1820)
+
+The same explicit live stored-session rehearsal now keeps Raw Query mounted
+while aging the real HTTPS-login session. Execute returns an empty no-store
+404 without export upstream work. Restoring freshness allows Execute to render
+a second bounded live export. Real logout deletes the cookie; restoring the
+old cookie still makes mounted Execute return 404 without upstream work.
+Five bounded live reads occur across the rehearsal; operational labels and
+bodies remain in memory. Production flags stay unchanged. Other native screens
+and remaining Phase 4 controls still need acceptance.

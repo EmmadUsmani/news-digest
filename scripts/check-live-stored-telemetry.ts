@@ -383,14 +383,23 @@ async function main() {
     page.on('pageerror', (error) => errors.push(error.name));
     let nativeExports = 0;
     let renderedLabel = '';
+    let expectedNativeStatus: 200 | 404 = 200;
+    let allowNativeExport = true;
     await context.route('**/*', async (route) => {
       const url = new URL(route.request().url());
       assert.equal(url.origin, browserBase);
       if (url.pathname.includes('/api/v1/')) {
-        if (url.pathname === telemetryExportPath && nativeExports === 0) {
+        if (url.pathname === telemetryExportPath && allowNativeExport) {
+          allowNativeExport = false;
           nativeExports++;
           const response = await route.fetch();
-          assert.equal(response.status(), 200);
+          assert.equal(response.status(), expectedNativeStatus);
+          assert.equal(response.headers()['cache-control'], 'no-store');
+          if (expectedNativeStatus === 404) {
+            assert.equal(await response.text(), '');
+            await route.fulfill({ response });
+            return;
+          }
           const body = await response.text();
           assert.ok(Buffer.byteLength(body) <= 65536);
           const rows = body
@@ -428,12 +437,28 @@ async function main() {
     assert.equal(forwarded, beforeNative + 1);
     assert.ok(renderedLabel);
     assert.deepEqual(errors, []);
-    await context.unroute('**/*');
+    const executeNative = async (status: 200 | 404) => {
+      expectedNativeStatus = status;
+      allowNativeExport = true;
+      const before = forwarded;
+      const beforeExports = nativeExports;
+      const response = page.waitForResponse(
+        (response) => new URL(response.url()).pathname === telemetryExportPath,
+      );
+      await page.getByRole('button', { name: /execute( query)?/i }).click();
+      assert.equal((await response).status(), status);
+      assert.equal(nativeExports, beforeExports + 1);
+      assert.equal(forwarded, before + (status === 200 ? 1 : 0));
+      if (status === 200) {
+        await page.getByText(renderedLabel, { exact: false }).first().waitFor();
+      }
+      assert.deepEqual(errors, []);
+    };
     await db.query(
       "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
       [browserSession.rows[0].id],
     );
-    await browserCheck(false);
+    await executeNative(404);
     const staleDocument = await context.request.get(
       browserBase + '/metrics/vmui/',
     );
@@ -442,10 +467,13 @@ async function main() {
       browserSession.rows[0].created_at,
       browserSession.rows[0].id,
     ]);
+    await executeNative(200);
     assert.equal(await browserWrite('/api/account/logout', {}), 204);
     assert.equal((await context.cookies()).length, 0);
     // Restore the cookie to prove server-side revocation independently of deletion.
     await context.addCookies(cookies);
+    await executeNative(404);
+    await context.unroute('**/*');
     // Keep the browser cookie: storage revocation must reject it without relay work.
     await browserCheck(false);
     assert.equal((await context.cookies()).length, 1);
@@ -455,9 +483,9 @@ async function main() {
     assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
     await check(admin, false);
     assert.equal(upstreamFailure, false);
-    assert.equal(forwarded, 4);
+    assert.equal(forwarded, 5);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Four bounded live reads, including installed native Raw Query rendering with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Five bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();
