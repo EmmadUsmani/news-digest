@@ -143,3 +143,13 @@
 - Preserved general spam exclusions after initial integration regression; remaining failures were old four-topic/cap assertions. Final full suite is green.
 - API/worker restarted outside 13:00–16:00 UTC; health and live caps/content verified. Commit/push and final main-matching restart follow.
 - Push rejected: new upstream item 58; fetched/merged, preserving owner text and activation ack. Activation was already live; next resume item 50 security fixes before further U.S. work. Nov 12–14 daily acceptance reviews remain due; no extra paid run.
+
+## 2026-11-11: iteration 1860 — ordered public activation and rollback
+
+- Clean main/no inherited work; alerts zero and health/database/Redis healthy. Read private item 58 findings; no unresolved details copied into the repo.
+- Completed item 58.1 in docs/public-readiness.md: verify public server/web admission while private before owner sharing; confirm unsharing before restoring private flags/build. Removed conflicting rollback wording.
+- Runbook includes stop conditions, saved baseline/backup, service commands, deployment hold, ordinary-reader/admin boundaries and post-sharing scheduled monitoring. Sharing commands checked against documented exe.dev proxy features.
+- Public mode/sharing, budgets, sources and runtime code unchanged; no provider calls or accepted-screen reruns. No new test for this documentation-only change.
+- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook (39 tables/no warnings), git diff --check pass; existing build warnings only. Full pnpm check passes: 862 unit/286 integration tests, four expected skips.
+- Live read-only checks: 32 account-boundary refusals pass; saved Nov 11 reader verifies eb6e962e, four topics/19 stories/19 posts. No publication or account writes.
+- Next: item 58.2 sign-in protection, then remaining findings in owner order; first five-topic scheduled review due Nov 12. Item 50 remains gated on fixes, normal scheduled publication, lead re-check and owner decision.

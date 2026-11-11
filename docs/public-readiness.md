@@ -4,6 +4,60 @@ Public mode is off; the VM remains private. This checklist does not authorize
 activation or exe.dev sharing. The [approved plan](public-access-plan.md#phases)
 and STEERING 50 define the phase order and owner gates.
 
+## Activation and rollback runbook
+
+Only the owner may authorize activation and exe.dev sharing. Complete item 58
+and the lead re-check first. These steps are instructions for that future
+approved change; public mode and sharing remain unchanged now.
+
+### Activate while the VM is private
+
+1. Record the deployed commit, current private sharing state and proxy port
+   (8000), service health, latest published edition ID, source freshness and
+   scheduled jobs. Keep a private backup and the current flag/service settings.
+   Work outside 13:00–16:00 UTC and preserve the noon generation cutoff.
+2. While sharing is still private, set `PUBLIC_MODE=1` in the private
+   `~/.config/news-digest/env`, preserving account, origin, trusted-proxy and
+   secret settings. Build with `VITE_PUBLIC_MODE=1 pnpm build`, then run
+   `systemctl --user restart news-digest-api.service`. Restart the worker only
+   if its deployed code or configuration changed. A failed build or restart
+   stops activation; do not share.
+3. Verify `/healthz`, `pnpm obs alerts`, sources and scheduled jobs. Run
+   `pnpm exec tsx scripts/check-live-account-boundary.ts`. Through the deployed
+   public-mode router, verify signed-out published reader responses and
+   refusal of private/admin reads and writes; verify an ordinary reader's
+   isolation and a fresh admin's intended access. Verify public web assets,
+   cookie/security headers and trusted-proxy handling over the private HTTPS
+   URL. Do not treat a private-mode response or a proxy login redirect as
+   proof of public-mode admission. Any failure stops sharing.
+4. Record successful public-mode verification and obtain the owner's sharing
+   decision. Only then may the owner run
+   `ssh exe.dev share set-public news-digest`. Keep server public mode and the
+   public web build enabled throughout sharing. Verify anonymous HTTPS reader
+   access and privileged refusals without an exe.dev login; monitor health,
+   alerts and the next scheduled edition. Roll back on abnormal publication
+   or access behavior.
+
+### Roll back in this order
+
+1. **Unshare first:** the owner runs
+   `ssh exe.dev share set-private news-digest`. Confirm the command succeeded
+   and a signed-out HTTPS visitor is required to authenticate with exe.dev.
+   If this cannot be confirmed, keep public mode enabled and resolve sharing;
+   do not restore the private-mode application while the proxy is public.
+2. With sharing confirmed private, restore `PUBLIC_MODE=0` in the private env,
+   build with `VITE_PUBLIC_MODE=0 pnpm build`, then run
+   `systemctl --user restart news-digest-api.service`. Preserve account flags,
+   credentials, additive migrations and published data. No destructive
+   migration rollback is needed. Restart the worker only if it changed.
+3. Check `/healthz`, `pnpm obs alerts`, private HTTPS access, account admission,
+   source freshness, scheduled jobs and the saved edition. Record the commit,
+   flag values (no secrets), times, verification results and rollback reason.
+
+Sharing commands and proxy behavior follow the documented
+[exe.dev HTTPS proxy](https://exe.dev/docs/proxy.md). Never reverse the order:
+verify public mode before sharing; confirm private sharing before disabling it.
+
 ## Entry gates
 
 - [x] Phase 3 accepted by the owner Nov 10; NBA editorial acceptance is tracked
@@ -65,7 +119,8 @@ activation review, rather than adding more variants of already-covered refusals.
       reviewed overview, topics, schedule, sources, Spend, Tools, Queues and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
 - [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
-      Restore private mode first if the scheduled edition fails or looks abnormal.
+      If the scheduled edition fails or looks abnormal, follow the ordered
+      rollback above: unshare and confirm private access before disabling public mode.
 - [ ] Accept a normal scheduled edition with public mode enabled, then provide
       the lead a security-review handoff with evidence and unresolved findings.
 
