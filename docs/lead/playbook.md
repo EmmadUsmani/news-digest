@@ -98,6 +98,8 @@ anything unpushed. So does deleting the clone.
 - **Agent quiet with no commits:** read `~/agent-control/status/heartbeat.json`
   and `logs/iter-<n>.jsonl` on the VM. The supervisor retries crashes every 5
   minutes forever, so a crash loop looks like a quiet agent.
+- **Before touching the supervisor,** diff `~/agent-control/` against `main`. Another
+  session may have deployed already, and a leftover `STOP` file halts the agent.
 - **`/admin` returns 200 for any path** once the gate passes, because the page is
   a client-side app. That doesn't prove a page exists.
 
