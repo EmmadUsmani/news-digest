@@ -167,3 +167,17 @@ Recorded-port tests exercise moved report coverage, both-topic success, first
 and second refusal, exceptions and invalid editor membership/budgets. This has
 no production caller or paid requests. Complete triage orchestration and measured
 whole-edition budget headroom remain required before activation.
+
+## Complete paired triage gate — iteration 1854
+
+Prepared jointStoryTriage scores a unique shared report pool against both topic
+contexts independently, retaining both score sets without filtering or assigning
+ownership. Complete exact ID coverage and bounded integer scores are required.
+Missing, duplicate, foreign, failed or unavailable results refuse the entire pair;
+a first refusal stops the second request. Empty pools need no inference.
+
+Offline ports verify independent relevance, refusals, exceptions and admission
+bounds. No production caller, paid requests or budget changes. Connecting these
+scope-specific scores to ownership and editorial shortlists remains required,
+as does achievable whole-edition headroom. This gate alone does not complete
+triage orchestration or establish semantic split quality.

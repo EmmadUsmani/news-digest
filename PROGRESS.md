@@ -169,3 +169,14 @@
 - Updated TASKS and scope assessment. Complete triage orchestration and achievable whole-edition budget headroom remain next; no live workflow/handbook change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, targeted tests, filtered handbook check and git diff --check pass: 854 unit/283 integration tests, four expected skips. Existing build warnings only.
 - Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics. Commit/push and API/worker restart follow, with post-deploy health checks before handoff.
+
+## 2026-11-11: iteration 1854 — complete paired triage gate
+
+- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 remains stopped for owner/lead review; continued 56.
+- Prepared jointStoryTriage scores a unique shared report pool against both scopes independently, retaining separate relevance/importance without filtering or assigning ownership.
+- Complete exact score coverage required; partial/duplicate/foreign/invalid/failed results and exceptions refuse the pair. First refusal stops later spending; empty pools make no calls.
+- Three targeted offline tests pass. No production caller, paid requests, source activation or cap/flag changes.
+- Updated TASKS and scope assessment. Score-aware ownership/editor composition and achievable whole-edition budget headroom remain required before activation.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, targeted tests, filtered handbook check and git diff --check pass; pnpm check passes: 857 unit/283 integration tests, four expected skips. Existing build warnings only.
+- Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics.
+- API/worker restarted successfully; post-restart healthz/database/Redis healthy and both units active. Commit/push follows; split remains disabled.
