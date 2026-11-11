@@ -309,3 +309,11 @@ Anonymous collection switches and Add feed are disabled, with an early admin
 check in the collection writer. Topic links lead to reviewed read-only details.
 Offline routed Chromium checks cover desktop/mobile light/dark, GET-only reads,
 row counts and disabled controls. Production public mode remains off.
+
+### Read-only Tools directory (iteration 1832)
+
+Prepared exact GET/HEAD `/admin/tools` and anonymous router access. Handbook
+and schema-only explorer links remain available; logs/metrics links require
+confirmed admin identity, and Grafana/Queues show pending public preparation.
+The page reads only caller identity. Public mode remains off; tool admission
+and remaining Phase 4 gates are unchanged.

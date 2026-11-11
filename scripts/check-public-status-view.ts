@@ -496,6 +496,45 @@ window.showPage = () => {
       }
     }
     routedReads.length = 0;
+    await showRouter('/admin/tools');
+    await page.getByRole('heading', { name: 'Tools', exact: true }).waitFor();
+    for (const href of ['/docs/', '/db/']) {
+      assert.equal(await page.locator(`main a[href="${href}"]`).count(), 1);
+    }
+    for (const href of ['/grafana/', '/queues/', '/logs/', '/metrics/']) {
+      assert.equal(await page.locator(`main a[href="${href}"]`).count(), 0);
+    }
+    assert.equal(
+      await page.getByText('Admin sign-in required.', { exact: true }).count(),
+      2,
+    );
+    assert.equal(
+      await page
+        .getByText('Public access is being prepared.', { exact: true })
+        .count(),
+      2,
+    );
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(
+          (dark) => document.documentElement.classList.toggle('dark', dark),
+          theme === 'dark',
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth > innerWidth,
+          ),
+          false,
+        );
+        await page.screenshot({
+          path: `docs/screenshots/ui/public-tools-router-fixture-${width}-${theme}.png`,
+          fullPage: true,
+        });
+      }
+    }
+    assert.ok(routedReads.every((path) => path === '/api/me'));
+    routedReads.length = 0;
     await showRouter('/admin/sources');
     await page
       .getByText('Read-only sources. Sign in as an admin to change them.')
@@ -606,7 +645,7 @@ window.showPage = () => {
     // A sibling keeps its private guard; navigating through the layout cannot
     // inherit the overview exception.
     await page
-      .getByRole('link', { name: 'Tools', exact: true })
+      .getByRole('link', { name: 'Spend', exact: true })
       .first()
       .click();
     await page.getByRole('heading', { name: 'Page not found' }).waitFor();

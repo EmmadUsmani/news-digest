@@ -143,3 +143,14 @@
 - `pnpm format`, `pnpm lint:fix`, targeted policy tests (6), build and `git diff --check` pass. Full check initially found lint-autofix formatting drift; formatted the file and reran. Private Sources browser passes all four viewport/theme combinations with saved live reads and intercepted writes.
 - Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Private API restarted after 16:00 UTC; healthz, 36 healthy sources, 32 account boundaries, saved Nov 11 reader (four topics/19 stories/19 posts) and zero alerts pass.
 - Next: remaining Phase 4 pages/tools; Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review remain open.
+
+## 2026-11-11: iteration 1832 — prepared public Tools directory
+
+- Clean main; no inherited work. Initial alerts zero; health and all 36 sources healthy. No provider calls.
+- Prepared exact GET/HEAD Tools HTML/router admission. Anonymous links reach reviewed handbook/schema-only explorer; telemetry requires confirmed admin identity; Grafana/Queues remain pending. Public flags unchanged.
+- Routed offline Chromium desktop/mobile light/dark passes; four new fixture screenshots inspected. Fixed faint light-theme tool links; unrelated regenerated screenshots discarded.
+- Updated TASKS, public readiness/rollout notes and operations handbook; filtered handbook check passes (18 pages/one diagram/39 tables), no diagrams changed.
+- Browser's old Tools-refusal assertion moved to still-private Spend. Concurrent build/browser screenshot timeout resolved by retry after build. First private browser attempt preceded API readiness; retry passes.
+- `pnpm format`, `pnpm lint:fix`, route policy tests (6), build, public/private browser checks and `git diff --check` pass. Full `pnpm check` passes (836 unit/283 integration passes, four expected skips).
+- Private API restarted after 16:00 UTC; healthz, 32 account-boundary checks and saved Nov 11 reader (four topics/19 stories/19 posts) pass; alerts zero.
+- Next: remaining Phase 4 pages/tools, Grafana scheduled-load/compaction evidence and Nov 12 edition review.

@@ -1054,3 +1054,11 @@ accounts with a stable private key and owner-only mailbox; anonymous live entry
 checks pass desktop/mobile light/dark without account writes. Public mode stays
 off. Dedicated live lifecycle acceptance, owner two-device acceptance and a
 normal scheduled edition remain before Phase 3 can be acknowledged.
+
+### Read-only Tools directory (iteration 1832)
+
+Prepared exact GET/HEAD `/admin/tools` and anonymous router access. Handbook
+and schema-only explorer links remain available; logs/metrics links require
+confirmed admin identity, and Grafana/Queues show pending public preparation.
+The page reads only caller identity. Public mode remains off; tool admission
+and remaining Phase 4 gates are unchanged.

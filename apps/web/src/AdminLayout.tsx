@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 import { ArrowLeft, ArrowUpRight, Menu } from 'lucide-react';
 
@@ -5,6 +6,7 @@ import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { Sheet, SheetClose } from './components/ui/sheet';
+import { identityQuery } from './queries';
 
 function Navigation({ mobile = false }: { mobile?: boolean }) {
   return (
@@ -125,24 +127,51 @@ const tools = [
   ['Handbook', '/docs/', 'Read how the system works and how to operate it.'],
 ] as const;
 
-export function AdminTools() {
+export function AdminTools({ publicMode = false }: { publicMode?: boolean }) {
+  const identity = useQuery(identityQuery);
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      {tools.map(([name, href, description]) => (
-        <Card key={href}>
-          <h2 className="mt-0 mb-3 font-sans text-base font-semibold">
-            <Button asChild variant="ghost" className="h-auto p-0 text-base">
-              <a href={href} target="_blank" rel="noreferrer">
-                {name}
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            </Button>
-          </h2>
-          <p className="m-0 text-sm leading-6 text-[var(--secondary)]">
-            {description}
-          </p>
-        </Card>
-      ))}
+      {tools.map(([name, href, description]) => {
+        const pending = publicMode && ['/grafana/', '/queues/'].includes(href);
+        const restricted =
+          publicMode &&
+          ['/logs/', '/metrics/'].includes(href) &&
+          !identity.data?.isAdmin;
+        return (
+          <Card key={href}>
+            <h2 className="mt-0 mb-3 font-sans text-base font-semibold">
+              {pending || restricted ? (
+                <span>{name}</span>
+              ) : (
+                <a
+                  className="inline-flex items-center gap-2 rounded-sm text-[var(--foreground)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 [&_svg]:size-4"
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {name}
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              )}
+            </h2>
+            <p className="m-0 text-sm leading-6 text-[var(--secondary)]">
+              {publicMode && href === '/db/'
+                ? 'Browse table definitions and relationships.'
+                : description}
+            </p>
+            {pending && (
+              <p className="mt-3 text-sm text-[var(--secondary)]">
+                Public access is being prepared.
+              </p>
+            )}
+            {restricted && (
+              <p className="mt-3 text-sm text-[var(--secondary)]">
+                Admin sign-in required.
+              </p>
+            )}
+          </Card>
+        );
+      })}
     </div>
   );
 }
