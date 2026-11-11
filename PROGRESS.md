@@ -96,3 +96,13 @@
 - `pnpm --filter @digest/docs-site test` passed 10. `check-live-account-boundary.ts` passed 32; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart only the private handbook service; recheck live admission and health.
 - Next: rehearse exact public handbook proxy admission and rollback. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after the 15:00 UTC edition.
+
+## 2026-11-11: iteration 1764 — rehearse public handbook routing and rollback
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
+- Public mode selects the reader-only loopback upstream, admits exact GET/HEAD routes and strips caller credentials. Unavailable or mismatched upstreams fail closed. Private mode still protects the owner handbook. Public mode remains off; reader unit prepared but uninstalled.
+- Targeted `pnpm exec tsx --test` for internal tools and public route policy passed seven tests, including unauthorized legacy paths, headers, upstream failure and rollback. Playwright desktop light/mobile dark passed through the real reader upstream; refreshed mobile screenshot is byte-identical.
+- `pnpm --filter @digest/docs-site test` passed 10; `pnpm exec tsx scripts/check-handbook.ts README` and `systemd-analyze --user verify ops/services/news-digest-reader-docs.service` passed.
+- Live checks: `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 281 integration, four expected skips), `pnpm build` and `git diff --check` passed. Push and restart only the API; recheck private handbook admission, reader and health.
+- Next: rehearse the explorer boundary, capture Grafana capacity under scheduled load or natural compaction, and review NBA editing after the 15:00 UTC edition.

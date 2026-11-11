@@ -367,7 +367,7 @@ void test('configured full public application serves published fixtures and enfo
         '/metrics',
         '/metrics/api/v1/query?query=up',
         '/grafana/',
-        '/docs/',
+        '/docs/api/tree',
         '/db/',
         '/queues/',
         '/queues/api/queues',

@@ -69,6 +69,8 @@ export function classifyPublicRoute(
     path.split('/').some((part) => part === '.' || part === '..')
   )
     return null;
+  if (['/docs', '/docs/', '/docs/style.css'].includes(target))
+    return method === 'GET' || method === 'HEAD' ? 'public-read' : null;
   if ((method === 'GET' || method === 'HEAD') && staticRoutes.has(path))
     return 'public-read';
   return (

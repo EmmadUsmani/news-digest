@@ -386,6 +386,18 @@ paths. Playwright verified desktop light and mobile dark layouts, the return lin
 target, and no third-party requests. See the
 [mobile screenshot](screenshots/reader-handbook-mobile.png).
 
-No service or proxy points at this candidate. Before routing `/docs/` in public
-mode, verify exact admission, the trailing-slash redirect, headers and rollback to
-the private handbook. Include this content boundary in the lead's security review.
+### Reader handbook proxy rehearsal (iteration 1764)
+
+Public mode selects a separate loopback upstream for the reader handbook. Only
+GET/HEAD on `/docs`, `/docs/` and `/docs/style.css` are admitted, without query
+strings. The bare path redirects to `/docs/`. The proxy forwards no caller
+headers or body, serves responses with no-store and a policy that allows only
+same-origin styles, and fails with 502 if the reader upstream is down or answers without its
+service marker.
+Private mode restores the owner handbook behind its existing access check.
+
+Isolated HTTP checks covered both modes, forged credentials, blocked legacy
+routes, headers and an unavailable upstream. Desktop and mobile Playwright
+checks followed the redirect and loaded only the page and stylesheet. The
+reader service unit is prepared but uninstalled; install and check its loopback
+listener before public activation. Include the boundary in the lead's review.

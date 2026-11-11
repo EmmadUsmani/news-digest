@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app';
-import { internalTools, proxyInternalTools } from './internal-tools';
+import { proxyInternalTools, selectInternalTools } from './internal-tools';
 import { startExternalMetrics } from './libs/observability/external-metrics';
 import { httpMetrics } from './libs/observability/http-metrics';
 import {
@@ -44,7 +44,7 @@ async function bootstrap() {
   // guard. Mount before Nest installs body parsers or tool proxies.
   app.use(app.get<AccessHttpRuntime>(ACCESS_HTTP).middleware);
   // Registered before routes and static files: /docs/* and /db/* go to the tools.
-  app.use(proxyInternalTools(internalTools));
+  app.use(proxyInternalTools(selectInternalTools(publicMode)));
   const queues = app.get(OperationsStatus).queues;
   mountQueueTools(app, queues, publicMode);
   startQueueMetrics(registry, queues);

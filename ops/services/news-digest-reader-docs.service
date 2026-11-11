@@ -1,0 +1,10 @@
+[Unit]
+Description=News Digest reader handbook (public-mode API upstream)
+After=network.target
+[Service]
+WorkingDirectory=%h/news-digest
+ExecStart=/usr/bin/node apps/docs-site/src/reader-server.ts
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=default.target

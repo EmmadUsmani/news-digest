@@ -1,8 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 
-// Standalone candidate for /docs/. It has no operational handbook or proxy
-// fallback. Keep it unmounted until the public tool admission review.
+// Public-mode upstream for /docs/. It has no operational handbook or proxy fallback.
 const files = new Map(
   await Promise.all(
     [
@@ -35,6 +34,7 @@ const server = createServer((req, res) => {
     'content-type': file.type,
     'content-length': file.body.length,
     'cache-control': 'no-cache',
+    'x-digest-reader-handbook': '1',
   });
   res.end(req.method === 'HEAD' ? undefined : file.body);
 });

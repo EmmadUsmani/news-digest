@@ -7,6 +7,7 @@ export interface InternalTool {
   prefix: string;
   port: number;
   preservePrefix?: boolean;
+  readerHandbook?: boolean;
 }
 
 export const internalTools: InternalTool[] = [
@@ -16,6 +17,14 @@ export const internalTools: InternalTool[] = [
   { prefix: '/metrics', port: 8428, preservePrefix: true },
   { prefix: '/grafana', port: 3001, preservePrefix: true },
 ];
+
+export function selectInternalTools(publicMode: boolean): InternalTool[] {
+  if (!publicMode) return internalTools;
+  return [
+    { prefix: '/docs', port: 8110, readerHandbook: true },
+    ...internalTools.filter((tool) => tool.prefix !== '/docs'),
+  ];
+}
 
 export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
   return (req: IncomingMessage, res: ServerResponse, next: () => void) => {
@@ -31,36 +40,70 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       return;
     }
     const rest = url.slice(tool.prefix.length);
+    if (tool.readerHandbook) {
+      if (
+        !['GET', 'HEAD'].includes(req.method ?? '') ||
+        !['', '/', '/style.css'].includes(rest)
+      ) {
+        res.writeHead(404).end();
+        return;
+      }
+      res.setHeader('cache-control', 'no-store');
+      res.setHeader(
+        'content-security-policy',
+        "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'none'",
+      );
+    }
     // The tools use relative URLs, so they need the trailing slash.
     if (!rest.startsWith('/')) {
       res.writeHead(308, { location: `${tool.prefix}/${rest}` }).end();
       return;
     }
+    const fail = () => {
+      if (!res.headersSent)
+        res.writeHead(502, { 'content-type': 'text/plain; charset=utf-8' });
+      res.end(`${tool.prefix}/ is unavailable right now.`);
+    };
     const upstream = request(
       {
         host,
         port: tool.port,
         method: req.method,
         path: tool.preservePrefix ? url : rest,
-        headers: { ...req.headers, host: `${host}:${tool.port}` },
+        headers: {
+          ...(!tool.readerHandbook && req.headers),
+          host: `${host}:${tool.port}`,
+        },
         timeout: 30000,
       },
       (response) => {
+        if (
+          tool.readerHandbook &&
+          (response.statusCode !== 200 ||
+            response.headers['x-digest-reader-handbook'] !== '1')
+        ) {
+          response.destroy();
+          fail();
+          return;
+        }
         res.writeHead(response.statusCode ?? 502, {
-          ...response.headers,
+          ...(tool.readerHandbook
+            ? {
+                'content-type':
+                  response.headers['content-type'] ?? 'text/plain',
+              }
+            : response.headers),
           'cache-control': 'no-store',
-          vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+          ...(!tool.readerHandbook && {
+            vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+          }),
         });
         response.pipe(res);
       },
     );
-    const fail = () => {
-      if (!res.headersSent)
-        res.writeHead(502, { 'content-type': 'text/plain; charset=utf-8' });
-      res.end(`${tool.prefix}/ is unavailable right now.`);
-    };
     upstream.on('timeout', () => upstream.destroy());
     upstream.on('error', fail);
-    req.pipe(upstream);
+    if (tool.readerHandbook) upstream.end();
+    else req.pipe(upstream);
   };
 }

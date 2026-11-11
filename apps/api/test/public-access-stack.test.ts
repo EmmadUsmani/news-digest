@@ -73,7 +73,7 @@ void test('public access stack replaces legacy identity headers and keeps accoun
       ).status,
       404,
     );
-    assert.equal((await fetch(base + '/docs/')).status, 404);
+    assert.equal((await fetch(base + '/docs/api/tree')).status, 404);
     assert.deepEqual([authentication, downstream], [1, 1]);
   } finally {
     server.closeAllConnections();

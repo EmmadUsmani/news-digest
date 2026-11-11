@@ -83,7 +83,7 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
         '/logs/',
         '/metrics',
         '/grafana/',
-        '/docs/',
+        '/docs/api/tree',
         '/db/',
         '/queues/',
         '/api/me',
@@ -164,7 +164,13 @@ void test('public readiness HTTP matrix keeps internal tools closed for every pr
     }
     // Direct-local credentials grant classified admin APIs only, never tools.
     const before = [authentication, downstream];
-    for (const path of ['/logs', '/metrics', '/queues/', '/docs/', '/db/']) {
+    for (const path of [
+      '/logs',
+      '/metrics',
+      '/queues/',
+      '/docs/api/tree',
+      '/db/',
+    ]) {
       assert.equal(
         (
           await fetch(base + path, {

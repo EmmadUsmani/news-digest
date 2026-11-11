@@ -43,11 +43,11 @@ flowchart LR
 
 ## Tools
 
-| Tool       | URL                               | What it is                                      |
-| ---------- | --------------------------------- | ----------------------------------------------- |
-| App        | https://news-digest.exe.xyz/      | The digest itself, settings and the Status page |
-| These docs | https://news-digest.exe.xyz/docs/ | This handbook, rendered from `docs/handbook/`   |
-| DB schema  | https://news-digest.exe.xyz/db/   | Live, interactive diagram of the database       |
+| Tool       | URL                               | What it is                                                  |
+| ---------- | --------------------------------- | ----------------------------------------------------------- |
+| App        | https://news-digest.exe.xyz/      | The digest itself, settings and the Status page             |
+| These docs | https://news-digest.exe.xyz/docs/ | Owner handbook in private mode; reader guide in public mode |
+| DB schema  | https://news-digest.exe.xyz/db/   | Live, interactive diagram of the database                   |
 
 All three need an exe.dev login, because the VM is private. The docs also
 render on GitHub, since they're plain Markdown + Mermaid.
