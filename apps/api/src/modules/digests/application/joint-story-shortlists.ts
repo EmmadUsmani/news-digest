@@ -5,6 +5,43 @@ import type {
 } from '../../curation/public/editorial';
 import { type Candidate, rank } from '../domain/rank';
 
+type StoryPool = { scope: StoryScope; candidates: Candidate[] };
+
+// Shared article IDs can be observed through both topic/source associations.
+// Retain one report, union source evidence, and refuse inconsistent snapshots.
+function sharedPools(pools: StoryPool[]): StoryPool[] | null {
+  const seen = new Map<string, Candidate>();
+  const result: StoryPool[] = [];
+  for (const pool of pools) {
+    const candidates: Candidate[] = [];
+    for (const item of pool.candidates) {
+      const previous = seen.get(item.id);
+      if (!previous) {
+        const copy = { ...item, sources: [...new Set(item.sources)].sort() };
+        seen.set(item.id, copy);
+        candidates.push(copy);
+        continue;
+      }
+      if (
+        previous.title !== item.title ||
+        previous.url !== item.url ||
+        previous.excerpt !== item.excerpt ||
+        previous.publishedAt !== item.publishedAt ||
+        previous.points !== item.points ||
+        previous.publisher?.name !== item.publisher?.name ||
+        previous.publisher?.url !== item.publisher?.url ||
+        previous.imageUrl !== item.imageUrl
+      )
+        return null;
+      previous.sources = [
+        ...new Set([...previous.sources, ...item.sources]),
+      ].sort();
+    }
+    result.push({ scope: pool.scope, candidates });
+  }
+  return result;
+}
+
 interface OwnershipPort {
   assignTopics(
     scopes: StoryScope[],
@@ -17,11 +54,13 @@ interface OwnershipPort {
 // is established. Null requires aborting the split, never independent fallback.
 export async function jointStoryShortlists(
   ownership: OwnershipPort | null,
-  pools: { scope: StoryScope; candidates: Candidate[] }[],
+  inputPools: StoryPool[],
   start: Date,
   end: Date,
   runId: string,
 ): Promise<Map<string, ReturnType<typeof rank>> | null> {
+  const pools = sharedPools(inputPools);
+  if (!pools) return null;
   const topics = new Set(pools.map((pool) => pool.scope.id));
   const all = pools.flatMap((pool) => pool.candidates);
   const byId = new Map(all.map((item) => [item.id, item]));

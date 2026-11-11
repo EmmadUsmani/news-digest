@@ -144,7 +144,13 @@ void test('invalid pools refuse before inference and empty pools require no requ
   for (const invalid of [
     pools.slice(0, 1),
     [pools[0], pools[0]],
-    [pools[0], { ...pools[1], candidates: [article('a')] }],
+    [
+      pools[0],
+      {
+        ...pools[1],
+        candidates: [{ ...article('a'), url: 'https://other.example/a' }],
+      },
+    ],
     [
       pools[0],
       {
@@ -204,4 +210,98 @@ void test('real ownership parser feeds the ranked bridge with a recorded respons
   assert.deepEqual(result.get('world'), []);
   assert.equal(result.get('us')!.length, 1);
   assert.equal(result.get('us')![0].coverage.length, 4);
+});
+
+void test('shared articles enter ownership once with merged source evidence and no input mutation', async () => {
+  const shared = article('shared');
+  const input = [
+    { ...pools[0], candidates: [{ ...shared, sources: ['World feed'] }] },
+    {
+      ...pools[1],
+      candidates: [{ ...shared, sources: ['US feed'] }, article('domestic')],
+    },
+  ];
+  const before = structuredClone(input);
+  const result = await jointStoryShortlists(
+    {
+      async assignTopics(scopes, candidates) {
+        assert.equal(scopes.length, 2);
+        assert.deepEqual(
+          candidates.map((item) => item.id),
+          ['shared', 'domestic'],
+        );
+        assert.equal(candidates[0].outlet, 'US feed, World feed');
+        return [{ topicId: 'us', ids: ['shared', 'domestic'] }];
+      },
+    },
+    input,
+    start,
+    end,
+    'edition',
+  );
+  assert.ok(result);
+  assert.deepEqual(result.get('world'), []);
+  const coverage = result.get('us')![0].coverage;
+  assert.deepEqual(coverage.map((item) => item.id).sort(), [
+    'domestic',
+    'shared',
+  ]);
+  assert.deepEqual(result.get('us')![0].sources, [
+    'US feed',
+    'World feed',
+    'domestic',
+  ]);
+  assert.deepEqual(input, before);
+});
+
+void test('shared pool size counts unique reports before the ownership bound', async () => {
+  const candidates = Array.from({ length: 40 }, (_, i) =>
+    article(`report-${i}`),
+  );
+  let calls = 0;
+  const result = await jointStoryShortlists(
+    {
+      async assignTopics(_scopes, items) {
+        calls++;
+        assert.equal(items.length, 40);
+        return [{ topicId: 'us', ids: items.map((item) => item.id) }];
+      },
+    },
+    pools.map((pool) => ({ ...pool, candidates })),
+    start,
+    end,
+    'edition',
+  );
+  assert.ok(result);
+  assert.equal(calls, 1);
+  assert.equal(result.get('us')![0].coverage.length, 40);
+});
+
+void test('conflicting shared snapshots refuse before ownership instead of silently losing evidence', async () => {
+  for (const changed of [
+    { title: 'Different report' },
+    { excerpt: 'Different evidence' },
+    { publishedAt: '2026-11-10T13:00:00Z' },
+    { points: 42 },
+    { publisher: { name: 'Other publisher', url: null } },
+    { imageUrl: 'https://example.com/image.jpg' },
+  ]) {
+    assert.equal(
+      await jointStoryShortlists(
+        {
+          async assignTopics() {
+            assert.fail('conflict must refuse before inference');
+          },
+        },
+        [
+          { ...pools[0], candidates: [article('shared')] },
+          { ...pools[1], candidates: [{ ...article('shared'), ...changed }] },
+        ],
+        start,
+        end,
+        'edition',
+      ),
+      null,
+    );
+  }
 });

@@ -149,3 +149,13 @@
 - Updated TASKS and scope assessment. Shared-pool deduplication, triage/editor orchestration and achievable whole-edition headroom remain required before activation.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 848 unit/283 integration tests, four expected skips. Existing build warnings only.
 - Latest saved edition eb6e962e still lists four topics. Commit/push and API/worker restart follow; post-deploy checks recorded before handoff.
+
+## 2026-11-11: iteration 1852 — shared article admission
+
+- Clean main; no inherited work. Initial alerts zero and healthz/database/Redis healthy; item 50 stopped under 55, continued 56.
+- Prepared joint shortlist bridge consolidates shared article IDs before its 40-report limit; source labels merge without mutating input or giving a score bonus. AI still owns destination/event decisions.
+- Conflicting snapshots refuse before inference; distinct report IDs stay separate for semantic grouping. No production caller, paid requests, activation or cap changes.
+- Seven targeted offline tests pass, including shared movement/provenance, 80 observations of 40 unique reports, conflict refusal and existing recorded-parser composition.
+- Updated TASKS/scope assessment. Joint triage/editor orchestration and achievable whole-edition headroom remain next; no handbook/runtime behavior change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 851 unit/283 integration tests, four expected skips. Existing build warnings only.
+- All 36 sources have nonempty successful latest collections/no errors; latest edition eb6e962e serves four topics. Commit/push and API/worker restart follow; post-deploy health verification before handoff.

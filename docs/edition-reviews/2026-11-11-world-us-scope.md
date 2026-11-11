@@ -126,8 +126,9 @@ score bonus. No title rules select the destination.
 
 Unavailable, malformed, incomplete or duplicate membership returns null for the
 whole split; callers must abort rather than independently publish both pools.
-Duplicate input IDs also refuse before inference: collecting a unique shared
-pool and coordinating triage/editor inputs remain orchestration work. An empty
+Conflicting duplicate input IDs refuse before inference; identical shared
+reports are now consolidated as described below. Coordinating triage/editor
+inputs remains orchestration work. An empty
 scope is valid and is never padded. Ranking retains its existing window,
 quality filters and ten-event editor shortlist limit.
 
@@ -136,3 +137,19 @@ exercise movement, provenance, score preservation, empty scopes and refusal.
 These verify mechanics, not semantic ownership accuracy. No paid calls, runtime
 flags, source activation or budget changes. Whole-edition headroom remains the
 activation gate; this bridge alone does not establish it.
+
+## Shared article admission — iteration 1852
+
+The prepared bridge now consolidates repeated article IDs across the two input
+pools before applying the 40-report ownership limit. Matching snapshots retain
+one report and the union of source labels, without changing the supplied pools.
+The first scope is only an input hint; AI can assign the report to either scope.
+Different article IDs remain separate reports for AI event grouping, even if
+URLs or titles match. Source labels still add no ranking bonus.
+
+Conflicting title, URL, excerpt, timestamp, engagement, publisher or image data
+for the same ID refuses the whole split before inference. This avoids choosing
+an arbitrary evidence snapshot. Offline tests exercise shared-report movement,
+source preservation, the unique-report bound and conflicting snapshots.
+No production caller, paid requests, source activation or budget changes.
+Joint triage/editor orchestration and whole-edition headroom remain required.
