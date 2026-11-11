@@ -18,15 +18,18 @@ import {
 import { NestFactory } from '@nestjs/core';
 
 import { database } from '../src/libs/db/connections';
+import { prepareStoredAccountHttp } from '../src/modules/accounts/adapters/account-storage';
 import { FileLoginCodeDelivery } from '../src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../src/modules/accounts/database/identity.repository';
 import { PublicArticlesReader } from '../src/modules/ingestion/database/public-articles.reader';
 import { PublicSourceHealthReader } from '../src/modules/ingestion/database/public-source-health.reader';
 import { PublicSourcesReader } from '../src/modules/topics/database/public-sources.reader';
 import { PublicTopicsReader } from '../src/modules/topics/database/public-topics.reader';
+import { publicAccountAuthenticator } from '../src/public-account-access';
 import { readPublicArticleResponse } from '../src/public-read/articles';
 import { readPublicSourceCatalog } from '../src/public-read/settings';
 import { readPublicSourceHealth } from '../src/public-read/source-health';
+import { prepareAuthenticatedTelemetryExport } from '../src/telemetry-export';
 import { telemetryContentSecurityPolicy } from '../src/telemetry-query-policy';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
@@ -66,6 +69,20 @@ void test('configured full public application serves published fixtures and enfo
   // An isolated upstream records forwarding; no test reaches live telemetry.
   const telemetryRequests: string[] = [];
   const telemetry = createServer((req, res) => {
+    if (req.url?.startsWith('/metrics/prometheus/api/v1/export?')) {
+      assert.equal(req.headers.cookie, undefined);
+      assert.equal(req.headers.authorization, undefined);
+      assert.equal(req.headers['x-exedev-email'], undefined);
+      assert.equal(req.headers.admin_local_token, undefined);
+      telemetryRequests.push(req.url);
+      res
+        .writeHead(200, {
+          'content-type': 'application/stream+json',
+          'x-private': 'fixture-only',
+        })
+        .end('{"metric":{"__name__":"up"},"values":[1],"timestamps":[1000]}\n');
+      return;
+    }
     assert.deepEqual(
       Object.keys(req.headers).sort(),
       req.method === 'POST'
@@ -83,11 +100,22 @@ void test('configured full public application serves published fixtures and enfo
   });
   await new Promise<void>((done) => telemetry.listen(0, '127.0.0.1', done));
   const telemetryPort = (telemetry.address() as AddressInfo).port;
+  const exportAccounts = prepareStoredAccountHttp(configuration);
+  assert.ok(exportAccounts.handlers);
+  const authenticateExport = publicAccountAuthenticator(
+    exportAccounts.handlers,
+  );
   const db = database();
   const ids = [randomUUID(), randomUUID()];
   const app = await NestFactory.create(AppModule, { logger: false });
   try {
     app.useGlobalFilters(new PublicErrorFilter());
+    app.use(
+      prepareAuthenticatedTelemetryExport(
+        (request) => authenticateExport(request, new Date()),
+        new URL(`http://127.0.0.1:${telemetryPort}`),
+      ),
+    );
     app.use(
       app.get<import('../src/public-write/access-provider').AccessHttpRuntime>(
         ACCESS_HTTP,
@@ -419,6 +447,47 @@ void test('configured full public application serves published fixtures and enfo
       '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
     ];
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
+      const exportPath =
+        '/metrics/prometheus/api/v1/export?match%5B%5D=up&start=1000&end=1060';
+      for (const [method, path] of [
+        ['GET', exportPath],
+        ['HEAD', exportPath],
+        ['POST', exportPath],
+        ['GET', exportPath.replace('end=1060', 'end=2800')],
+        ['GET', exportPath + '&timeout=30s'],
+        ['GET', exportPath.replace('=up', '=secret')],
+      ]) {
+        const before = telemetryRequests.length;
+        const admitted = allowed && method === 'GET' && path === exportPath;
+        const response = await account(path, {
+          method,
+          headers: {
+            Cookie: actorCookie,
+            Authorization: 'Bearer forged',
+            'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+            admin_local_token: 'forged-local-token',
+          },
+        });
+        assert.equal(response.status, admitted ? 200 : 404);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(response.headers.get('set-cookie'), null);
+        assert.equal(response.headers.get('x-private'), null);
+        const body = await response.text();
+        assert.equal(Boolean(body), admitted);
+        assert.equal(telemetryRequests.length, before + Number(admitted));
+        if (admitted) {
+          assert.equal(
+            response.headers.get('x-content-type-options'),
+            'nosniff',
+          );
+          const upstream = new URL(telemetryRequests.at(-1)!, 'http://fixture');
+          assert.equal(upstream.searchParams.get('timeout'), '2s');
+          assert.equal(upstream.searchParams.get('max_rows_per_line'), '1');
+          assert.equal(upstream.searchParams.get('reduce_mem_usage'), '1');
+          assert.equal(JSON.parse(body).metric.__name__, 'up');
+        }
+      }
+
       for (const method of ['GET', 'POST', 'HEAD']) {
         for (const path of [
           ...telemetryQueries,
@@ -1057,6 +1126,7 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(rows.rowCount, 2);
   } finally {
     await app.close();
+    await exportAccounts.close();
     await new Promise<void>((done, reject) =>
       telemetry.close((error) => (error ? reject(error) : done())),
     );

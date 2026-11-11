@@ -145,7 +145,7 @@
 - Live review-native-telemetry-export.ts --live passes (16 rows/samples, 1,858 bytes); check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts).
 - pnpm build and check-handbook.ts observability pass. Archived iterations 1782–1787 to keep orientation small; updated readiness, response review and TASKS.
 - Next: authenticated export route composition and installed-browser acceptance before admission; Grafana capacity evidence and Nov 11 15:00 UTC NBA review remain open. Public mode stays off.
-- Verification: pnpm format, pnpm lint:fix and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Repeated isolated deadline/series rehearsal passes after formatting.
+- Verification: pnpm format, pnpm lint:fix, pnpm build and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Repeated isolated deadline/series rehearsal passes after formatting.
 
 ## 2026-11-11: iteration 1800 — native bounded export browser composition
 
@@ -156,3 +156,13 @@
 - Updated fixture Raw Query screenshot, response review, readiness and TASKS; production admission/public mode remain off. Stored-session composition and broader live navigation remain next; Nov 11 15:00 UTC NBA review still due.
 - Verification: pnpm format and pnpm lint:fix pass; initial concurrent lint check caught import ordering, rerun full pnpm check passes (836 unit/283 integration, four expected skips). pnpm build and check-handbook.ts observability pass; git diff --check clean.
 - Browser command: pnpm exec tsx scripts/review-native-telemetry-ui.ts --proxy-assets passes; screenshot inspected. check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts).
+
+## 2026-11-11: iteration 1801 — stored-session bounded export composition
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; source/job checks pass. No provider calls.
+- Added prepared authenticated export middleware, unmounted in production. Each request resolves stored-session freshness before bounded buffered transport; authentication errors fail closed.
+- Full-application isolated rehearsal uses real code-login cookies and separate stored account handlers against the same disposable database. Synthetic export forwarding passes for fresh admins, including forced upstream parameters and stripped caller credentials/private headers.
+- Anonymous/invited readers, aged admins and logout trigger no upstream work; restoring freshness restores access. HEAD/POST, broad windows, alternate selectors and timeout overrides remain refused.
+- Updated response review, readiness and TASKS. Public mode/export admission remain off; full browser/session composition and broader live navigation remain open. Nov 11 15:00 UTC NBA review remains due.
+- Live check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). check-handbook.ts observability passes.
+- Verification: pnpm format, pnpm lint:fix, pnpm build and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean.

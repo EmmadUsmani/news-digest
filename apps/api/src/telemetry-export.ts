@@ -133,3 +133,38 @@ export async function proxyBoundedTelemetryExport(
     res.removeListener('close', abort);
   }
 }
+
+// Prepared composition, deliberately unmounted by the application. Resolve the
+// stored session on every request before any bounded export reaches upstream.
+export function prepareAuthenticatedTelemetryExport(
+  authenticate: (
+    request: IncomingMessage,
+  ) => Promise<{ freshAdmin: boolean } | null>,
+  origin: URL,
+) {
+  return async (
+    req: IncomingMessage,
+    res: ServerResponse,
+    next: () => void,
+  ) => {
+    if (!(req.url ?? '').split('?')[0].startsWith(telemetryExportPath)) {
+      next();
+      return;
+    }
+    res.setHeader('cache-control', 'no-store');
+    try {
+      if (
+        !boundedTelemetryExport(req.url ?? '') ||
+        req.method !== 'GET' ||
+        !(await authenticate(req))?.freshAdmin
+      ) {
+        res.writeHead(404).end();
+        return;
+      }
+    } catch {
+      res.writeHead(404).end();
+      return;
+    }
+    await proxyBoundedTelemetryExport(req, res, origin);
+  };
+}

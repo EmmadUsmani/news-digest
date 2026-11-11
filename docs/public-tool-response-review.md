@@ -1017,3 +1017,19 @@ no-store, nosniff and absence of upstream cookies. A 30-minute request remains
 refused without upstream work. Updated Raw Query screenshot contains fixtures.
 No real exports or provider calls occur. Production admission stays closed;
 stored-session composition and broader live navigation remain open.
+
+### Stored-session bounded export composition (iteration 1801)
+
+The prepared authenticated export middleware remains unmounted in production.
+The isolated full-application test composes it with the stored account
+handlers and buffered export transport. A real code-login cookie admits the
+one-minute `up` request and returns a synthetic series; upstream receives the
+fixed timeout and memory parameters without caller credentials.
+Anonymous readers, invited readers, an eight-day-old admin session and a
+logged-out admin receive 404 without upstream work. Restoring freshness
+restores access. POST, HEAD, broad windows, alternate selectors and caller
+upstream-timeout overrides remain refused. Response checks cover no-store,
+nosniff and private-header stripping. The separate account storage owner is
+closed during cleanup. No live exports or provider calls occur.
+Full browser/session composition and broader live navigation remain open;
+export admission and public mode stay off.
