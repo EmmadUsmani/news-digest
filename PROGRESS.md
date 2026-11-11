@@ -136,3 +136,14 @@
 - `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and live telemetry replay pass. Initial lint caught an unnecessary async callback; replaced with an explicit resolved promise.
 - `pnpm format`, corrected `pnpm lint:fix`, `pnpm check` (832 unit/283 integration passes; four expected skips), and `git diff --check` pass. Restarted API; retrying `/healthz` and post-restart account/saved-reader checks pass.
 - Next: remaining Phase 4 UI/tool gates/full public rehearsal; Grafana capacity during scheduled load or natural compaction; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1784 — stored-session telemetry composition
+
+- Clean main; no inherited work. `pnpm obs alerts` clear; no failed user services, `/healthz` healthy; `pnpm obs sources --check` and `pnpm obs jobs --check` pass (36 sources/four queues). No provider calls.
+- Compiled full public application now mounts the prepared telemetry proxy against an isolated recording fixture. Real code login forwards all three query APIs; anonymous/invited-reader/stale-admin/logged-out-admin sessions refuse before forwarding. Eight-day stored-session aging preserves reader identity; restoring creation time restores admin access.
+- Verifies exact forwarded query targets, stripped caller credentials, stripped upstream cookies/private headers and no-store. Tests use disposable Postgres/Redis and fixture HTTP only, never live telemetry or LLM services. Public mode remains off.
+- Native UI landing review found operational links (including metrics reload) and additional logs query/metadata APIs; UI routes remain closed. Updated tool response review, readiness and TASKS; no system flow or handbook behavior changed.
+- `pnpm build`, `check-live-account-boundary.ts` (32 checks) and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass. First two full-check attempts stopped at import order/formatting while autofix settled; corrected with final format.
+- `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. New compiled-app rehearsal passes; `git diff --check` clean.
+- Restarted `news-digest-api.service`; retrying `/healthz` and post-restart account-boundary/saved-reader checks pass.
+- Next: native telemetry UI route review/full Phase 4 rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.

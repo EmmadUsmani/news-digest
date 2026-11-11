@@ -3,7 +3,9 @@ import 'reflect-metadata';
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { mkdtemp, rm } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
+import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -58,6 +60,23 @@ void test('configured full public application serves published fixtures and enfo
     require('../dist/modules/operations/adapters/operations.status.js') as typeof import('../src/modules/operations/adapters/operations.status');
   const { mountQueueTools } =
     require('../dist/modules/operations/adapters/public-jobs-browser.js') as typeof import('../src/modules/operations/adapters/public-jobs-browser');
+  const { proxyInternalTools, selectInternalTools } =
+    require('../dist/internal-tools.js') as typeof import('../src/internal-tools');
+  // An isolated upstream records forwarding; no test reaches live telemetry.
+  const telemetryRequests: string[] = [];
+  const telemetry = createServer((req, res) => {
+    assert.deepEqual(Object.keys(req.headers).sort(), ['connection', 'host']);
+    telemetryRequests.push(req.url!);
+    res
+      .writeHead(200, {
+        'content-type': 'application/json',
+        'set-cookie': 'upstream=private',
+        'x-private': 'fixture-only',
+      })
+      .end('{"fixture":true}');
+  });
+  await new Promise<void>((done) => telemetry.listen(0, '127.0.0.1', done));
+  const telemetryPort = (telemetry.address() as AddressInfo).port;
   const db = database();
   const ids = [randomUUID(), randomUUID()];
   const app = await NestFactory.create(AppModule, { logger: false });
@@ -67,6 +86,13 @@ void test('configured full public application serves published fixtures and enfo
       app.get<import('../src/public-write/access-provider').AccessHttpRuntime>(
         ACCESS_HTTP,
       ).middleware,
+    );
+    app.use(
+      proxyInternalTools(
+        selectInternalTools(true)
+          .filter(({ adminTelemetry }) => adminTelemetry)
+          .map((tool) => ({ ...tool, port: telemetryPort })),
+      ),
     );
     mountQueueTools(app, app.get(OperationsStatus).queues, true);
     for (const [index, id] of ids.entries()) {
@@ -348,6 +374,63 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(login.status, 204);
     const cookie = login.headers.get('set-cookie')!.split(';')[0];
     assert.match(login.headers.get('set-cookie')!, /Secure/);
+    const telemetryQueries = [
+      '/metrics/api/v1/query?query=up',
+      '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
+      '/logs/select/logsql/query?query=_time:1m&limit=1',
+    ];
+    const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
+      for (const path of telemetryQueries) {
+        const before = telemetryRequests.length;
+        const response = await account(path, {
+          headers: {
+            Cookie: actorCookie,
+            'X-Forwarded-For': '203.0.113.98, 203.0.113.98',
+            'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+            Authorization: 'Bearer forged',
+            admin_local_token: 'forged-local-token',
+          },
+        });
+        assert.equal(response.status, allowed ? 200 : 404, path);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(response.headers.get('set-cookie'), null);
+        assert.equal(response.headers.get('x-private'), null);
+        assert.equal(await response.text(), allowed ? '{"fixture":true}' : '');
+        assert.equal(telemetryRequests.length, before + Number(allowed));
+        if (allowed) assert.equal(telemetryRequests.at(-1), path);
+      }
+    };
+    await checkTelemetry('', false);
+    await checkTelemetry(cookie, true);
+    // Age the real stored session past seven days without changing its token.
+    // It remains a reader session, but must lose operational-data access.
+    const aged = await db.query<{ id: string; created_at: Date }>(
+      `SELECT id, created_at FROM sessions WHERE admin_eligible AND user_id = (SELECT id FROM users WHERE email = $1)`,
+      [configuration.ADMIN_EMAILS],
+    );
+    assert.equal(aged.rowCount, 1);
+    try {
+      await db.query(
+        `UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1`,
+        [aged.rows[0].id],
+      );
+      assert.deepEqual(
+        await (
+          await account('/api/account/session', {
+            headers: { Cookie: cookie },
+          })
+        ).json(),
+        { signedIn: true, isAdmin: false },
+      );
+      await checkTelemetry(cookie, false);
+    } finally {
+      await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+        aged.rows[0].created_at,
+        aged.rows[0].id,
+      ]);
+    }
+    await checkTelemetry(cookie, true);
+
     assert.match(login.headers.get('set-cookie')!, /HttpOnly/);
     const signedIn = await account('/api/account/session', {
       headers: { Cookie: cookie },
@@ -611,6 +694,7 @@ void test('configured full public application serves published fixtures and enfo
       devices.push(redemption.headers.get('set-cookie')!.split(';')[0]);
     }
     assert.notEqual(devices[0], devices[1]);
+    await checkTelemetry(devices[0], false);
     assert.deepEqual(
       await (
         await account('/api/account/session', {
@@ -856,6 +940,7 @@ void test('configured full public application serves published fixtures and enfo
       saved,
     );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
+    await checkTelemetry(cookie, false);
     const revoked = await account('/api/admin/profile', {
       headers: { Cookie: cookie },
     });
@@ -893,6 +978,9 @@ void test('configured full public application serves published fixtures and enfo
     assert.equal(rows.rowCount, 2);
   } finally {
     await app.close();
+    await new Promise<void>((done, reject) =>
+      telemetry.close((error) => (error ? reject(error) : done())),
+    );
     try {
       await db.query('BEGIN');
       await db.query(

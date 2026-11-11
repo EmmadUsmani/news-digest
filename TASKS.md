@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1784: compiled public application composes real stored-session authentication with prepared telemetry proxy; reader/stale/logged-out admin refusal and fresh-admin forwarding pass against an isolated fixture upstream. Native UI routes remain closed.
+
 - [x] Iteration 1783: live telemetry upstream/prepared-proxy composition passes bounded metrics/log reads and simulated principal/write refusals; no operational bodies printed. Public mode stays off.
 
 - [x] Iteration 1782: prepared public-mode telemetry GET queries require fresh admins; shared proxy allowlist strips credentials/cookies and denies mutations. Live public mode remains off.

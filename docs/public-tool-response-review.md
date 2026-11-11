@@ -722,3 +722,18 @@ Mutation and UI refusals are counted before upstream access, so the rehearsal
 never sends writes to either service. This checks live upstream composition;
 principal authentication uses the separate deployed-account/Nest checks.
 Public mode stays off. UI route review and full Phase 4 acceptance remain open.
+
+## Stored-session telemetry rehearsal (iteration 1784)
+
+The compiled public application now mounts the prepared telemetry proxy in its
+isolated-storage rehearsal. Real code redemption creates the admin cookie;
+instant/range metrics and log queries reach only a recording fixture upstream.
+Anonymous visitors, an invited reader, an admin session aged beyond seven days,
+and the logged-out admin receive empty 404s without upstream forwarding. Restoring
+the stored creation time restores access. Forwarded requests contain no caller
+credentials; upstream cookies/private headers are removed and responses use no-store.
+
+Native landing-page review found operational links, including metrics reload;
+the logs UI also references additional query/metadata APIs. Landing pages and UI
+assets remain closed pending their own route review. No live operational bodies
+or provider calls are needed for this rehearsal; public mode stays off.
