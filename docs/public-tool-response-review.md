@@ -1120,3 +1120,12 @@ work. Returning to one minute renders the synthetic series again with HTTP 200.
 This verifies native window navigation through stored-session admission and the
 bounded handler together. Production admission/public mode remain off; remaining
 controls and live navigation stay open.
+
+### Mounted Raw Query selector bounds (iteration 1809)
+
+With a fresh stored admin session and the accepted one-minute window, changing
+Raw Query from `up` to `count(up)` returns HTTP 404 without telemetry upstream
+work. Restoring `up` renders the synthetic series again with HTTP 200 on the
+same mounted screen. The isolated Chromium rehearsal uses captured installed
+assets; production admission/public mode remain off. Remaining controls and
+live navigation stay open.
