@@ -730,6 +730,47 @@ void test('configured full public application serves published fixtures and enfo
               }
               await route.fulfill({ response });
             });
+            const checkMountedLogout = async (
+              endpoint: string,
+              execute: () => Promise<void>,
+              screen: string,
+            ) => {
+              // Keep the browser cookie and mounted document: server-side
+              // logout must invalidate the next request even with that cookie.
+              const saved = await db.query<{ snapshot: unknown }>(
+                `SELECT row_to_json(s) AS snapshot FROM sessions s WHERE admin_eligible AND user_id = (SELECT id FROM users WHERE email = $1)`,
+                [configuration.ADMIN_EMAILS],
+              );
+              assert.equal(saved.rowCount, 1);
+              try {
+                assert.equal(
+                  (await write('/api/account/logout', {}, actorCookie)).status,
+                  204,
+                );
+                nativeAllowed = false;
+                const before = telemetryRequests.length;
+                const refused = page.waitForResponse(
+                  (response) => new URL(response.url()).pathname === endpoint,
+                );
+                await execute();
+                assert.equal((await refused).status(), 404);
+                await page.waitForLoadState('networkidle');
+                assert.equal(telemetryRequests.length, before);
+                await page.screenshot({
+                  path: `docs/screenshots/native-${screen}-mounted-logout.png`,
+                  fullPage: true,
+                });
+                assert.deepEqual(errors, []);
+              } finally {
+                // Test-only cleanup preserves the surrounding actor matrix.
+                // Production logout never restores a deleted session.
+                await db.query(
+                  'INSERT INTO sessions SELECT * FROM json_populate_record(NULL::sessions, $1::json)',
+                  [JSON.stringify(saved.rows[0].snapshot)],
+                );
+                nativeAllowed = allowed;
+              }
+            };
             const nativeBefore = telemetryRequests.length;
             const navigationResponse = await page.goto(
               configuration.ACCOUNT_ORIGIN +
@@ -866,6 +907,11 @@ void test('configured full public application serves published fixtures and enfo
                 .getByText('installed-session-fixture', { exact: false })
                 .first()
                 .waitFor({ state: 'visible' });
+              await checkMountedLogout(
+                '/metrics/prometheus/api/v1/export',
+                () => execute.click(),
+                'metrics',
+              );
               assert.deepEqual(errors, []);
             } else {
               assert.equal(telemetryRequests.length, nativeBefore);
@@ -1019,6 +1065,11 @@ void test('configured full public application serves published fixtures and enfo
                   await execute.first().click();
                   assert.equal((await resumed).status(), 200);
                   await page.waitForLoadState('networkidle');
+                  await checkMountedLogout(
+                    '/logs/select/logsql/query',
+                    () => execute.first().click(),
+                    'logs',
+                  );
                   assert.deepEqual(errors, []);
                 }
               } else {

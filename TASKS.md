@@ -115,3 +115,5 @@ Recent completed steps are recorded in PROGRESS.md and its linked archives.
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
 - Next: measure Grafana export capacity under scheduled load or natural compaction before installation, then verify the live listener and freshness alert; Phase 3 accepted; migration 0019 live (1730), Nov 10 destination/rendering checks complete; Nov 9 keyword/Bluesky reviews complete, overall viral-quality acceptance remains unmet. Prepared API deployed default-off after 16:00 UTC; queued publisher/diagnostic/editor changes already live under STEERING 49. Metrics recovery stays open with at most one short passive check per hour. Items 33/46 and B2 backups are closed.
+
+- [x] Iteration 1810: mounted installed metrics/logs screens refuse the next action after real logout deletes the stored admin session, despite retaining the browser cookie; HTTP 404 and zero upstream work. Synthetic responses only; public mode remains off.

@@ -1129,3 +1129,14 @@ work. Restoring `up` renders the synthetic series again with HTTP 200 on the
 same mounted screen. The isolated Chromium rehearsal uses captured installed
 assets; production admission/public mode remain off. Remaining controls and
 live navigation stay open.
+
+### Mounted telemetry logout (iteration 1810)
+
+The captured-installed-assets full-application Chromium rehearsal now calls the
+real logout endpoint while Raw Query or logs Query stays mounted. It deliberately
+retains the browser cookie to verify server-side invalidation: the next Execute
+returns HTTP 404 and causes no telemetry upstream work. Both screenshots use
+synthetic responses. The deleted session is restored directly in the disposable
+test database only to preserve the surrounding actor matrix; production logout
+never restores it. Production admission and public mode remain off; remaining
+controls and live navigation remain open.

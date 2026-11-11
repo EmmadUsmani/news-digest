@@ -182,3 +182,12 @@
 - Unsupported expression returns HTTP 404 without telemetry upstream work; restoring `up` returns HTTP 200 and renders synthetic series. Inspected the new screenshot; discarded unrelated regenerated captures. Production admission/public mode remain off.
 - Updated TASKS, readiness and response review. Nov 11 15:00 UTC NBA acceptance review remains due; remaining telemetry controls/live navigation remain open.
 - Verification: pnpm format, pnpm lint:fix, captured-assets pnpm check exits 0 (836 unit/283 integration passes, four expected skips), pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass. git diff --check clean; API restart/health verified before commit.
+
+## 2026-11-11: iteration 1810 — mounted telemetry logout
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; all 36 sources healthy and no failed digest runs. No provider calls.
+- Extended captured-installed-assets Chromium/full-application rehearsal: real logout deletes the admin session while metrics Raw Query or logs Query remains mounted with its original browser cookie.
+- Next Execute returns HTTP 404 without telemetry upstream work on both screens. Disposable database session restoration is test-only cleanup for the surrounding actor matrix; production logout never restores it.
+- Inspected both new logout screenshots; retained them and discarded unrelated regenerated captures. Updated TASKS/readiness/response review. Public mode and production telemetry admission remain off.
+- Verification: pnpm format, pnpm lint:fix, captured-assets pnpm check (836 unit/283 integration passes, four expected skips), pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
+- git diff --check clean; API restart/health verified before commit. Nov 11 15:00 UTC NBA acceptance review remains due; remaining telemetry controls/live navigation remain open.
