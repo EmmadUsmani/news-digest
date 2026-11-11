@@ -1033,3 +1033,17 @@ nosniff and private-header stripping. The separate account storage owner is
 closed during cleanup. No live exports or provider calls occur.
 Full browser/session composition and broader live navigation remain open;
 export admission and public mode stay off.
+
+### Browser cookie and stored-session export boundary (iteration 1802)
+
+Chromium now sends the real code-login cookie from a Secure, HttpOnly,
+SameSite=Strict cookie jar through the isolated full application. A synthetic
+HTTPS page fetches and renders the synthetic export; all requests are fulfilled
+locally. No installed UI assets, live telemetry or provider calls are used.
+Fresh and restored admins receive the series. Anonymous and invited readers,
+eight-day-old admins and logged-out admins receive empty 404 responses with
+no export upstream work. Each context repeats the request and checks no-store;
+page JavaScript cannot read the cookie. This covers browser cookie transport
+with stored-session authorization. Installed native UI composition with the
+same stored-session boundary and broader live navigation remain open.
+Production export admission and public mode stay off.

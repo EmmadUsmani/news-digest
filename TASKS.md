@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1802: Chromium Secure/HttpOnly/Strict cookie jar exercises synthetic export rendering through the isolated stored-session application, with fresh/restored admin success and anonymous/reader/aged/logout refusal. Native installed UI/session composition remains; production flags stay off.
+
 - [x] Iteration 1801: prepared bounded export composes stored-session authorization and buffered transport in the isolated full application; fresh admin forwarding and reader/stale/logout/malformed refusal verified. Production admission/public mode stay off; full browser/session composition remains.
 
 - [x] Iteration 1800: installed Raw Query browser composes one-minute `up` export with the prepared buffered handler and synthetic upstream, renders its series and refuses broad requests without upstream work. Stored-session composition remains before admission; public mode stays off.

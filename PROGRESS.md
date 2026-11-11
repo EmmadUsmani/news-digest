@@ -166,3 +166,12 @@
 - Updated response review, readiness and TASKS. Public mode/export admission remain off; full browser/session composition and broader live navigation remain open. Nov 11 15:00 UTC NBA review remains due.
 - Live check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). check-handbook.ts observability passes.
 - Verification: pnpm format, pnpm lint:fix, pnpm build and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean.
+
+## 2026-11-11: iteration 1802 — browser cookie/stored-session export boundary
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; all 36 sources healthy and latest scheduled digest completed. No provider calls.
+- Added Chromium cookie-jar transport to the isolated full-application rehearsal: real code-login cookie is Secure/HttpOnly/Strict, unavailable to page JavaScript, and sent on same-origin export fetches.
+- Synthetic HTTPS page and export only; every browser request is fulfilled locally. Fresh/restored admins render the synthetic series; anonymous/invited readers, aged and logged-out admins receive empty 404 responses with no export upstream work. Each context repeats the no-store request.
+- Updated response review, readiness and TASKS. Installed native UI/stored-session composition and broader live navigation remain open; public mode/export admission stay off. Nov 11 15:00 UTC NBA review remains due.
+- pnpm build and check-handbook.ts observability pass; check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts).
+- Verification: pnpm format, pnpm lint:fix and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Chromium cases pass within the full-application integration test. API restarted; healthz healthy.

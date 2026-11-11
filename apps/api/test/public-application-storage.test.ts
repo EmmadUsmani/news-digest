@@ -16,6 +16,7 @@ import {
   readerEditionSchema,
 } from '@digest/contracts';
 import { NestFactory } from '@nestjs/core';
+import { chromium } from 'playwright';
 
 import { database } from '../src/libs/db/connections';
 import { prepareStoredAccountHttp } from '../src/modules/accounts/adapters/account-storage';
@@ -548,8 +549,84 @@ void test('configured full public application serves published fixtures and enfo
         }
       }
     };
+    // HTTPS browser transport is virtual: every request is fulfilled locally.
+    // Synthetic UI and series only; no installed assets or live telemetry.
+    const checkBrowserExport = async (
+      actorCookie: string,
+      allowed: boolean,
+    ) => {
+      const browser = await chromium.launch({ headless: true });
+      try {
+        const context = await browser.newContext({ serviceWorkers: 'block' });
+        if (actorCookie) {
+          const separator = actorCookie.indexOf('=');
+          await context.addCookies([
+            {
+              name: actorCookie.slice(0, separator),
+              value: actorCookie.slice(separator + 1),
+              url: configuration.ACCOUNT_ORIGIN,
+              secure: true,
+              httpOnly: true,
+              sameSite: 'Strict',
+            },
+          ]);
+        }
+        let forwarded = 0;
+        await context.route('**/*', async (route) => {
+          const url = new URL(route.request().url());
+          assert.equal(url.origin, configuration.ACCOUNT_ORIGIN);
+          if (url.pathname === '/') {
+            await route.fulfill({
+              contentType: 'text/html',
+              body: '<title>Synthetic export session rehearsal</title><pre id="result"></pre>',
+            });
+            return;
+          }
+          assert.equal(url.pathname, '/metrics/prometheus/api/v1/export');
+          const requestHeaders = await route.request().allHeaders();
+          assert.equal(requestHeaders.cookie ?? '', actorCookie);
+          const response = await route.fetch({
+            url: base + url.pathname + url.search,
+            headers: requestHeaders,
+          });
+          forwarded++;
+          assert.equal(response.headers()['cache-control'], 'no-store');
+          assert.equal(response.headers()['set-cookie'], undefined);
+          await route.fulfill({ response });
+        });
+        const page = await context.newPage();
+        await page.goto(configuration.ACCOUNT_ORIGIN);
+        assert.equal(await page.evaluate(() => document.cookie), '');
+        const before = telemetryRequests.length;
+        // Repeat in the same context to ensure a cached success cannot bypass
+        // the stored-session decision on subsequent browser requests.
+        for (let index = 0; index < 2; index++) {
+          const status = await page.evaluate(async () => {
+            const response = await fetch(
+              '/metrics/prometheus/api/v1/export?match%5B%5D=up&start=1000&end=1060',
+            );
+            document.querySelector('#result')!.textContent =
+              await response.text();
+            return response.status;
+          });
+          assert.equal(status, allowed ? 200 : 404);
+          assert.equal(
+            await page.locator('#result').textContent(),
+            allowed
+              ? '{"metric":{"__name__":"up"},"values":[1],"timestamps":[1000]}\n'
+              : '',
+          );
+        }
+        assert.equal(forwarded, 2);
+        assert.equal(telemetryRequests.length, before + (allowed ? 2 : 0));
+      } finally {
+        await browser.close();
+      }
+    };
     await checkTelemetry('', false);
+    await checkBrowserExport('', false);
     await checkTelemetry(cookie, true);
+    await checkBrowserExport(cookie, true);
     // Age the real stored session past seven days without changing its token.
     // It remains a reader session, but must lose operational-data access.
     const aged = await db.query<{ id: string; created_at: Date }>(
@@ -571,6 +648,7 @@ void test('configured full public application serves published fixtures and enfo
         { signedIn: true, isAdmin: false },
       );
       await checkTelemetry(cookie, false);
+      await checkBrowserExport(cookie, false);
     } finally {
       await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
         aged.rows[0].created_at,
@@ -578,6 +656,7 @@ void test('configured full public application serves published fixtures and enfo
       ]);
     }
     await checkTelemetry(cookie, true);
+    await checkBrowserExport(cookie, true);
 
     assert.match(login.headers.get('set-cookie')!, /HttpOnly/);
     const signedIn = await account('/api/account/session', {
@@ -843,6 +922,7 @@ void test('configured full public application serves published fixtures and enfo
     }
     assert.notEqual(devices[0], devices[1]);
     await checkTelemetry(devices[0], false);
+    await checkBrowserExport(devices[0], false);
     assert.deepEqual(
       await (
         await account('/api/account/session', {
@@ -1089,6 +1169,7 @@ void test('configured full public application serves published fixtures and enfo
     );
     assert.equal((await write('/api/account/logout', {}, cookie)).status, 204);
     await checkTelemetry(cookie, false);
+    await checkBrowserExport(cookie, false);
     const revoked = await account('/api/admin/profile', {
       headers: { Cookie: cookie },
     });
