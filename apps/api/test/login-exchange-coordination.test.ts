@@ -1,23 +1,54 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { CryptoLoginCodeSecrets } from '../src/modules/accounts/adapters/login-code-secrets';
+import { LoginCodes } from '../src/modules/accounts/application/login-codes';
 import { LoginExchange } from '../src/modules/accounts/application/login-exchange';
 
-void test('exchange holds normalized recipient through proof, identity and session completion', async () => {
-  let locked = false;
-  let release!: () => void;
-  const waiting = new Promise<void>((resolve) => {
-    release = resolve;
-  });
+function fixture() {
   const calls: string[] = [];
-  const exchange = new LoginExchange(
+  let allowed = true;
+  let locked = false;
+  let failLock = false;
+  const codes = new LoginCodes(
     {
-      async redeem() {
+      async replace() {},
+      async consume() {
         assert.ok(locked);
         calls.push('proof');
-        return 'reader@example.test';
+        return true;
       },
     },
+    new CryptoLoginCodeSecrets(Buffer.alloc(32, 7)),
+    { async deliver() {} },
+    {
+      async allow() {
+        assert.equal(locked, false);
+        calls.push('admission');
+        return allowed;
+      },
+      async eligible() {
+        assert.ok(locked);
+        calls.push('eligibility');
+        return true;
+      },
+    },
+    {
+      async run(email, work) {
+        assert.equal(email, 'reader@example.test');
+        calls.push('lock');
+        if (failLock) throw new Error('lock unavailable');
+        locked = true;
+        try {
+          return await work();
+        } finally {
+          locked = false;
+        }
+      },
+    },
+  );
+  const exchange = new LoginExchange(
+    codes,
     {
       async findOrCreateVerified(email) {
         assert.ok(locked);
@@ -33,64 +64,67 @@ void test('exchange holds normalized recipient through proof, identity and sessi
         return { sessionId: 'session', cookie: 'private-cookie' };
       },
     },
-    {
-      async run(email, work) {
-        assert.equal(email, 'reader@example.test');
-        await waiting;
-        locked = true;
-        try {
-          return await work();
-        } finally {
-          locked = false;
-        }
-      },
+  );
+  return {
+    calls,
+    exchange,
+    refuse: () => {
+      allowed = false;
     },
+    failLock: () => {
+      failLock = true;
+    },
+    locked: () => locked,
+  };
+}
+
+void test('exchange admits once before locking and holds recipient through proof and session', async () => {
+  const f = fixture();
+  assert.ok(
+    await f.exchange.redeem(
+      ' READER@Example.test ',
+      '123456',
+      'client',
+      new Date(),
+    ),
   );
-  const pending = exchange.redeem(
-    ' READER@Example.test ',
-    '123456',
-    'client',
-    new Date(),
-  );
-  assert.deepEqual(calls, []);
-  release();
-  await pending;
-  assert.deepEqual(calls, ['proof', 'identity', 'session']);
-  assert.equal(locked, false);
+  assert.deepEqual(f.calls, [
+    'admission',
+    'lock',
+    'eligibility',
+    'proof',
+    'identity',
+    'session',
+  ]);
+  assert.equal(f.locked(), false);
 });
 
-void test('exchange rejects invalid recipients and lock failure without consuming proof', async () => {
-  let proofs = 0;
-  const exchange = new LoginExchange(
-    {
-      async redeem() {
-        proofs++;
-        return null;
-      },
-    },
-    {
-      async findOrCreateVerified() {
-        throw new Error('unexpected identity');
-      },
-    },
-    {
-      async issueVerifiedIdentity() {
-        throw new Error('unexpected session');
-      },
-    },
-    {
-      async run() {
-        throw new Error('lock unavailable');
-      },
-    },
-  );
+void test('throttled exchange never acquires recipient lock or consumes proof', async () => {
+  const f = fixture();
+  f.refuse();
   assert.equal(
-    await exchange.redeem('invalid', '123456', 'client', new Date()),
+    await f.exchange.redeem(
+      'reader@example.test',
+      '123456',
+      'client',
+      new Date(),
+    ),
     null,
   );
+  assert.deepEqual(f.calls, ['admission']);
+});
+
+void test('invalid recipients and lock failures never consume proof', async () => {
+  const f = fixture();
+  assert.equal(
+    await f.exchange.redeem('invalid', '123456', 'client', new Date()),
+    null,
+  );
+  assert.deepEqual(f.calls, []);
+  f.failLock();
   await assert.rejects(
-    exchange.redeem('reader@example.test', '123456', 'client', new Date()),
+    f.exchange.redeem('reader@example.test', '123456', 'client', new Date()),
     /lock unavailable/,
   );
-  assert.equal(proofs, 0);
+  assert.deepEqual(f.calls, ['admission', 'lock']);
 });

@@ -216,3 +216,14 @@
 - Predeploy live checks: 32 account-boundary refusals pass, all 38 sources healthy, collection runs completing, latest saved edition eb6e962e unchanged with four topics. No migrations, paid calls, access-flag, sharing, budget or source changes.
 - Next: remaining item 58.6 timing, long-term guess allowance and admission-before-lock fixes; Nov 12 five-topic scheduled acceptance remains due. Item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.
 - Full pnpm check passes: 866 unit/286 integration tests, four expected skips; git diff --check passes. API/worker restarted outside the deployment hold; post-restart health and 32 account-boundary refusals pass, zero alerts. Commit/push and final main-matching restart follow.
+
+## 2026-11-11: iteration 1867 — admit sign-in attempts before locking
+
+- Clean main/no inherited work; initial health/services green and zero alerts. Continued item 58.6 with admission before recipient coordination.
+- Throttled code redemption now refuses before acquiring a recipient lock or database connection; admitted attempts retain coordination through eligibility, proof consumption, identity creation and session issuance. Admission runs once per attempt.
+- Added refusal/order regressions using real application services; malformed recipients and failed locks do not consume proofs. Existing isolated Postgres exchange regression retains concurrent single-winner and replay coverage.
+- Targeted login-code/exchange tests pass (12/12). No migrations, provider calls, source/budget/access-flag changes or accepted-screen reruns.
+- Predeploy: 38/38 sources healthy, digest queue available with no failed jobs, next scheduled run Nov 12 15:00 UTC; saved edition eb6e962e unchanged with four topics. All 32 deployed account-boundary refusals pass.
+- Next: item 58.6 timing and daily guess cap; Nov 12 first five-topic scheduled acceptance remains due. Public mode remains off pending remaining fixes, scheduled publication, lead re-check and owner decision.
+- pnpm format and pnpm lint:fix run; initial full check caught a require-await callback lint error, corrected. Final pnpm check passes: 867 unit/286 integration, four expected skips; pnpm build and git diff --check pass (existing build warnings only).
+- API/worker restarted outside the deployment hold; health/database/Redis green, all 32 account-boundary refusals pass and zero alerts. Commit/push and final main-matching restart follow. No owner-handbook behavior changed.

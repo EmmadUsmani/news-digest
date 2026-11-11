@@ -45,22 +45,38 @@ export class LoginCodes {
     clientAddress: string,
     now: Date,
   ): Promise<string | null> {
+    return this.redeemAndThen(emailInput, code, clientAddress, now, (email) =>
+      Promise.resolve(email),
+    );
+  }
+
+  // Admission precedes recipient coordination; completion stays under the lock
+  // so deletion cannot interleave between consuming proof and issuing a session.
+  async redeemAndThen<T>(
+    emailInput: string,
+    code: string,
+    clientAddress: string,
+    now: Date,
+    complete: (email: string) => Promise<T>,
+  ): Promise<T | null> {
     const email = normalizeEmail(emailInput);
     if (!email || !(await this.admission.allow(email, clientAddress)))
       return null;
-    if (!(await this.admission.eligible(email))) return null;
-    // Malformed submissions still consume an attempt on an existing challenge.
-    const candidate = /^\d{6}$/.test(code)
-      ? this.secrets.hash(email, code)
-      : null;
-    const consumed = await this.repository.consume(
-      email,
-      now,
-      (stored) =>
-        candidate === null ? false : this.secrets.matches(stored, candidate),
-      this.secrets.hash(email, `client:${clientAddress}`),
-    );
-    return consumed ? email : null;
+    return this.recipients.run(email, async () => {
+      if (!(await this.admission.eligible(email))) return null;
+      // Malformed submissions still consume an attempt on an existing challenge.
+      const candidate = /^\d{6}$/.test(code)
+        ? this.secrets.hash(email, code)
+        : null;
+      const consumed = await this.repository.consume(
+        email,
+        now,
+        (stored) =>
+          candidate === null ? false : this.secrets.matches(stored, candidate),
+        this.secrets.hash(email, `client:${clientAddress}`),
+      );
+      return consumed ? complete(email) : null;
+    });
   }
 }
 

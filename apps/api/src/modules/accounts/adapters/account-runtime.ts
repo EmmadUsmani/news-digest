@@ -100,7 +100,7 @@ export function prepareAccountHandlers(
   return new AccountHandlers(
     boundary,
     codes,
-    new LoginExchange(codes, ports.identities, sessions, ports.recipients),
+    new LoginExchange(codes, ports.identities, sessions),
     sessions,
     new SignInLinks(
       ports.links,

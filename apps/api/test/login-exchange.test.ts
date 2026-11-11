@@ -29,6 +29,7 @@ void test('verified exchange creates one identity, rejects replay and issues pri
   const now = new Date('2026-11-08T19:00:00Z');
   let code = '';
   let allowed = true;
+  const recipients = new PostgresRecipientCoordination();
   const codes = new LoginCodes(
     challenges,
     new CryptoLoginCodeSecrets(Buffer.alloc(32, 3)),
@@ -42,10 +43,9 @@ void test('verified exchange creates one identity, rejects replay and issues pri
       allow: () => Promise.resolve(allowed),
       eligible: () => Promise.resolve(true),
     },
-    { run: async (_email, work) => work() },
+    recipients,
   );
-  const recipients = new PostgresRecipientCoordination();
-  const exchange = new LoginExchange(codes, identities, sessions, recipients);
+  const exchange = new LoginExchange(codes, identities, sessions);
   const redeem = (value = code) =>
     exchange.redeem(' EXCHANGE@Example.test ', value, 'test-client', now);
   try {
@@ -104,7 +104,6 @@ void test('verified exchange creates one identity, rejects replay and issues pri
         },
       },
       sessions,
-      recipients,
     );
     await assert.rejects(
       broken.redeem(email, code, 'test-client', now),
