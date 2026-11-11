@@ -151,3 +151,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live stored-session check, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts).
 - Full check initially stalled in existing `telemetry-export.test.ts`; targeted rerun passed 3/3 in 0.71 s. Terminated stalled child; full `pnpm check` retry exits 0: 836 unit/283 integration passes, four expected skips.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then installed native UI/live stored-session composition. Review-only change needs no service restart.
+
+## 2026-11-11: iteration 1819 — installed Raw Query with stored browser session
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; sources/jobs checks pass, next edition 15:00 UTC. No provider calls.
+- Extended `check-live-stored-telemetry.ts --live`: installed metrics Raw Query assets now use the same real stored-session authenticator as bounded export after Chromium HTTPS mailbox-code login.
+- One native `up` export renders a returned metric label; automatic other query calls refuse locally. Four total live exports retain one-minute/64 KiB/32-series bounds. Aged stored session refuses native document; existing aged/logout export checks pass. Disposable account storage only; operational bodies/labels remain in memory, no screenshot saved.
+- Updated TASKS, readiness and tool review. Other native screens, composition CSP coverage and Phase 4 controls remain open. Production flags unchanged; no runtime/generation edits, deploy or restart during 13:00–16:00 UTC hold.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, explicit live stored-session/native-browser check and `check-handbook.ts observability` pass.
+- `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verifies four topics/19 stories/15 posts. No runtime change requires service restart; `git diff --check` clean; commit/push follow.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 gates.

@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1819: installed metrics Raw Query renders one bounded live export after real disposable Chromium HTTPS code login; stored fresh-admin authentication protects native documents and exports, aged native documents refuse. Production flags unchanged; other screens/controls remain open.
+
 - [x] Iteration 1818: Chromium requests/redeems a real disposable mailbox code over local HTTPS and stores the response cookie itself; fresh bounded live export passes, aging/logout refuse without upstream work. Installed native UI composition remains open; production flags unchanged.
 
 - [x] Iteration 1817: Chromium sends a real stored admin session in a Secure/HttpOnly cookie to bounded live export; fresh read passes, aged/logout/anonymous browser reads refuse without upstream work. Disposable storage only; installed native UI/session/live composition remains open.

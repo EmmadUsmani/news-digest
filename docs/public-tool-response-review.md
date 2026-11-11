@@ -1261,3 +1261,18 @@ session refuses the next read; browser logout deletes the cookie, and restoring
 the old cookie still refuses without upstream work. Three live reads overall,
 with operational bodies only in memory. Installed native UI composition remains
 open; production flags and services stay unchanged during the deployment hold.
+
+### Installed Raw Query with browser login (iteration 1819)
+
+`pnpm exec tsx scripts/check-live-stored-telemetry.ts --live` now loads the
+installed metrics Raw Query screen after Chromium redeems a disposable mailbox
+code over local HTTPS. The prepared native proxy uses the same stored-session
+authenticator as the bounded export handler. One live `up` export renders a
+returned metric label; automatic other query calls are refused locally.
+The export remains capped at one minute, 64 KiB and 32 series. Four live export
+reads occur across the complete rehearsal. An aged session cannot fetch the
+native document; export aging and logout checks still pass.
+
+Operational labels and bodies stay in memory; no operational screenshot is
+saved. Production flags remain off. Other native screens, CSP coverage for this
+composition and the remaining Phase 4 controls still need acceptance.

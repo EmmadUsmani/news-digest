@@ -16,10 +16,15 @@ import {
   Wait,
 } from 'testcontainers';
 
+import {
+  proxyInternalTools,
+  selectInternalTools,
+} from '../apps/api/src/internal-tools';
 import { database } from '../apps/api/src/libs/db/connections';
 import { prepareStoredAccountHttp } from '../apps/api/src/modules/accounts/adapters/account-storage';
 import { FileLoginCodeDelivery } from '../apps/api/src/modules/accounts/adapters/file-login-code-delivery';
 import { PostgresReaderIdentityRepository } from '../apps/api/src/modules/accounts/database/identity.repository';
+import { publicAccess } from '../apps/api/src/public-access';
 import { publicAccountAuthenticator } from '../apps/api/src/public-account-access';
 import {
   prepareAuthenticatedTelemetryExport,
@@ -120,7 +125,11 @@ async function main() {
       return;
     }
     accounts!.middleware!(req, res, () => {
-      void exportHandler!(req, res, () => res.writeHead(404).end());
+      void exportHandler!(req, res, () => {
+        void nativeGuard!(req, res, () =>
+          nativeProxy(req, res, () => res.writeHead(404).end()),
+        );
+      });
     });
   });
   const browserServer = createHttpsServer(
@@ -135,6 +144,10 @@ async function main() {
       server.emit('request', req, res);
     },
   );
+  const nativeProxy = proxyInternalTools(
+    selectInternalTools(true).filter(({ adminTelemetry }) => adminTelemetry),
+  );
+  let nativeGuard: ReturnType<typeof publicAccess> | undefined;
   let exportHandler:
     ReturnType<typeof prepareAuthenticatedTelemetryExport> | undefined;
   try {
@@ -192,6 +205,7 @@ async function main() {
     await identities.findOrCreateVerified('reader@example.test', new Date());
     await new Promise<void>((done) => relay.listen(0, '127.0.0.1', done));
     const authenticate = publicAccountAuthenticator(accounts.handlers);
+    nativeGuard = publicAccess(true, (req) => authenticate(req, new Date()));
     exportHandler = prepareAuthenticatedTelemetryExport(
       (req) => authenticate(req, new Date()),
       new URL(`http://127.0.0.1:${(relay.address() as AddressInfo).port}`),
@@ -365,11 +379,65 @@ async function main() {
       assert.equal(forwarded, before + (allowed ? 1 : 0));
     };
     await browserCheck(true);
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.name));
+    let nativeExports = 0;
+    let renderedLabel = '';
+    await context.route('**/*', async (route) => {
+      const url = new URL(route.request().url());
+      assert.equal(url.origin, browserBase);
+      if (url.pathname.includes('/api/v1/')) {
+        if (url.pathname === telemetryExportPath && nativeExports === 0) {
+          nativeExports++;
+          const response = await route.fetch();
+          assert.equal(response.status(), 200);
+          const body = await response.text();
+          assert.ok(Buffer.byteLength(body) <= 65536);
+          const rows = body
+            .trim()
+            .split('\n')
+            .map(
+              (line) => JSON.parse(line) as { metric: Record<string, string> },
+            );
+          assert.ok(rows.length > 0 && rows.length <= 32);
+          renderedLabel =
+            Object.values(rows[0].metric).find((value) => value !== 'up') ??
+            'up';
+          await route.fulfill({ response, body });
+          return;
+        }
+        await route.fulfill({
+          status: 404,
+          body: '',
+          headers: { 'cache-control': 'no-store' },
+        });
+        return;
+      }
+      await route.continue();
+    });
+    const beforeNative = forwarded;
+    await page.goto(
+      browserBase + '/metrics/vmui/#/raw-query?g0.expr=up&g0.range_input=1m',
+      { waitUntil: 'networkidle' },
+    );
+    await page
+      .getByText(renderedLabel || 'up', { exact: false })
+      .first()
+      .waitFor({ timeout: 10000 });
+    assert.equal(nativeExports, 1);
+    assert.equal(forwarded, beforeNative + 1);
+    assert.ok(renderedLabel);
+    assert.deepEqual(errors, []);
+    await context.unroute('**/*');
     await db.query(
       "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
       [browserSession.rows[0].id],
     );
     await browserCheck(false);
+    const staleDocument = await context.request.get(
+      browserBase + '/metrics/vmui/',
+    );
+    assert.equal(staleDocument.status(), 404);
     await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
       browserSession.rows[0].created_at,
       browserSession.rows[0].id,
@@ -387,9 +455,9 @@ async function main() {
     assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
     await check(admin, false);
     assert.equal(upstreamFailure, false);
-    assert.equal(forwarded, 3);
+    assert.equal(forwarded, 4);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Three bounded live reads, including a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Four bounded live reads, including installed native Raw Query rendering with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();
