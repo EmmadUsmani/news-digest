@@ -112,3 +112,14 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, proxy Chromium review, `check-handbook.ts observability`, 32 deployed account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass. API restarted healthy; `git diff --check` passes.
 - Full `pnpm check` passes: 833 unit and 283 integration tests, four expected skips.
 - Next: full stored-session native UI composition and broader live navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1792 — stored-session native telemetry asset boundary
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services and all 36 sources healthy. Public mode remains off; no provider calls.
+- Extended compiled-app persisted-session rehearsal to all 13 exact native telemetry asset GETs. Fresh/restored admin admits; anonymous, invited reader, aged admin and logged-out admin refuse before upstream forwarding.
+- Added HEAD/POST, unknown-asset and document-query-alias refusals across these identities. Successful asset responses retain CSP/nosniff/no-store; caller credentials and upstream cookies/private headers remain stripped.
+- Isolated recording upstream serves fixture bodies only; this proves HTTP/session composition, not browser/session navigation or live query acceptance. Updated readiness, response review and TASKS; no runtime behavior or handbook change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `check-handbook.ts observability`, 32 deployed account-boundary checks and saved Nov 10 reader check (four topics/19 stories/15 posts).
+- Full check passes: 833 unit and 283 integration tests, four expected skips. Build and handbook verification pass; `git diff --check` clean.
+- API restarted after push; healthz and deployed account/reader checks verified.
+- Next: full browser/session composition and broader native navigation; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.

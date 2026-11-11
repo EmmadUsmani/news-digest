@@ -27,6 +27,7 @@ import { PublicTopicsReader } from '../src/modules/topics/database/public-topics
 import { readPublicArticleResponse } from '../src/public-read/articles';
 import { readPublicSourceCatalog } from '../src/public-read/settings';
 import { readPublicSourceHealth } from '../src/public-read/source-health';
+import { telemetryContentSecurityPolicy } from '../src/telemetry-query-policy';
 
 void test('configured full public application serves published fixtures and enforces anonymous and authenticated account boundaries', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -387,6 +388,22 @@ void test('configured full public application serves published fixtures and enfo
       '/logs/select/buildinfo',
       '/logs/select/tenant_ids',
     ];
+    // Keep this acceptance inventory independent of the policy allowlist.
+    const telemetryAssets = [
+      '/metrics/vmui/',
+      '/metrics/vmui/assets/index-BIgfk_tx.css',
+      '/metrics/vmui/assets/index-DqVYYV1R.js',
+      '/metrics/vmui/assets/rolldown-runtime-B0Z9INg1.js',
+      '/metrics/vmui/assets/vendor-CnsZ1jie.css',
+      '/metrics/vmui/assets/vendor-U2Dx9M-W.js',
+      '/metrics/vmui/dashboards/index.js',
+      '/logs/select/vmui/',
+      '/logs/select/vmui/assets/index-lFbxh1s7.js',
+      '/logs/select/vmui/assets/index-TSMEX6Db.css',
+      '/logs/select/vmui/assets/rolldown-runtime-CNC7AqOf.js',
+      '/logs/select/vmui/assets/vendor-Bl8Hxami.js',
+      '/logs/select/vmui/assets/vendor-CnsZ1jie.css',
+    ];
     const telemetryQueries = [
       '/metrics/api/v1/query?query=up',
       '/metrics/prometheus/api/v1/query?query=up',
@@ -402,10 +419,25 @@ void test('configured full public application serves published fixtures and enfo
       '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
     ];
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
-      for (const method of ['GET', 'POST']) {
-        for (const path of [...telemetryQueries, ...telemetryMetadata]) {
+      for (const method of ['GET', 'POST', 'HEAD']) {
+        for (const path of [
+          ...telemetryQueries,
+          ...telemetryMetadata,
+          ...telemetryAssets,
+          '/metrics/vmui/assets/unreviewed.js',
+          '/logs/select/vmui/assets/unreviewed.js',
+          '/metrics/vmui/?alias=1',
+          '/logs/select/vmui/?alias=1',
+        ]) {
           const admitted =
-            allowed && (method === 'GET' || !telemetryMetadata.includes(path));
+            allowed &&
+            ((method === 'GET' &&
+              [
+                ...telemetryQueries,
+                ...telemetryMetadata,
+                ...telemetryAssets,
+              ].includes(path)) ||
+              (method === 'POST' && telemetryQueries.includes(path)));
           const before = telemetryRequests.length;
           const response = await account(path, {
             method,
@@ -428,10 +460,22 @@ void test('configured full public application serves published fixtures and enfo
           assert.equal(response.headers.get('x-private'), null);
           assert.equal(
             await response.text(),
-            admitted ? '{"fixture":true}' : '',
+            admitted && method !== 'HEAD' ? '{"fixture":true}' : '',
           );
           assert.equal(telemetryRequests.length, before + Number(admitted));
-          if (admitted) assert.equal(telemetryRequests.at(-1), path);
+          if (admitted) {
+            assert.equal(telemetryRequests.at(-1), path);
+            if (telemetryAssets.includes(path)) {
+              assert.equal(
+                response.headers.get('content-security-policy'),
+                telemetryContentSecurityPolicy,
+              );
+              assert.equal(
+                response.headers.get('x-content-type-options'),
+                'nosniff',
+              );
+            }
+          }
         }
       }
     };

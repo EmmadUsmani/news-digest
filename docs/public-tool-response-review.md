@@ -870,3 +870,15 @@ and broader navigation remain open.
 Thirteen exact installed asset paths from the saved inventory now share fresh-admin GET admission; unknown assets, suffixes and other methods remain refused. The prepared proxy supplies the same-origin CSP and nosniff while stripping credentials and upstream cookies. No wildcard asset directory is admitted.
 
 Run `pnpm exec tsx scripts/review-native-telemetry-ui.ts --proxy-assets` to load installed assets through the real prepared proxy, assert its headers and exercise fixture-intercepted query flows plus inline-script/external-fetch refusals. This isolated proxy harness has no session middleware; principal refusals are covered by the composed access/proxy tests. Public mode stays off; broader live navigation and stored-session UI composition remain open.
+
+## Stored-session native asset boundary (iteration 1792)
+
+The compiled full-application integration rehearsal now exercises all 13 exact
+native asset GETs with real persisted sessions: fresh admin, aged admin,
+restored freshness, invited reader, anonymous and logged-out admin. Successful
+responses preserve CSP, nosniff and no-store; caller credentials and upstream
+cookies/private headers remain stripped. HEAD/POST, unknown assets and document
+query aliases never reach the isolated recording upstream. Bodies are fixtures;
+this verifies HTTP/session composition, not browser navigation or live queries.
+Public mode stays off. Full browser/session composition and broader live
+navigation remain open.
