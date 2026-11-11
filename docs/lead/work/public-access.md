@@ -22,6 +22,9 @@ export (about 10 commits).
 
 **Next:**
 
+0. Item 55 (Nov 11) stops re-verifying accepted screens; the agent stops at the
+   phase 4 summary. Check the verify-only commit share falls.
+
 1. Check the link-expiry verify after 00:33 UTC Nov 11.
 2. Check phase 4 stays behind flags. Watch the Grafana export work for drift
    into hardening: 17 of the last 46 commits were guards or re-checks.
