@@ -135,3 +135,5 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `git diff --check` and filtered handbook check pass; no UI changes.
 - Live account-boundary script passes 32 checks; authenticated status confirms 36 healthy sources and saved edition four topics/19 stories/19 posts. Initial localhost status probe lacked loopback credentials; corrected with the existing local-admin helper.
 - Full `pnpm check` passes: 836 unit tests, 283 integration passes, four expected skips; expanded compiled-app rehearsal passes. Archived iterations 1821–1827 to keep progress small.
+- Initial push rejected (upstream owner steering); merged origin/main without rewriting history. New item 55 stops repeated rehearsal; added Phase 4 security-review handoff/ack and stopped item 50. `bef43855` predates receipt; no verification-only commit after receipt.
+- API restart healthy; 32 account checks and zero alerts passed before receiving item 55. No new verification runs after receipt. Next: lead security review/owner decision; Nov 6 review if unfinished, then item 38.

@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] STEERING 55 (1837): Phase 4 public/admin/flag handoff in public-access-plan.md; item 50 stopped for lead security review/owner decision. No more accepted-screen rehearsals. Grafana capacity gate remains open.
+
 - [x] Iteration 1837: compiled schedule, sources and topic catalog/detail document admission rehearsal; malformed IDs/editor paths and writes refuse; public mode remains off.
 
 - [x] Iteration 1836: compiled public privacy GET/HEAD and POST-refusal headers, plus real sign-in request-log omission rehearsal; public mode remains off.

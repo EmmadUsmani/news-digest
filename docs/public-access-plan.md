@@ -3,6 +3,45 @@
 > [!NOTE]
 > Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
+## Phase 4 handoff for security review (2026-11-11, iteration 1837)
+
+The reader pages are built. Public activation is awaiting lead security review
+and the owner's go-public decision. The VM stays private; `PUBLIC_MODE=0`.
+Earlier preparation notes below are historical; this is the current handoff.
+
+| Audience         | Prepared access                                                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Anonymous        | Published editions/history/detail, local bookmarks/topic hiding, privacy, sign-in, read-only status, schedule, topics/detail, sources, Tools, Spend and Queues                 |
+| Anonymous tools  | Reader handbook; structural-only DB explorer with no row browser; sanitized queue counts/next runs, source health and production spend totals                                  |
+| Signed-in reader | Own synchronized preferences/bookmarks, account deletion and logout; no system editing                                                                                         |
+| Fresh admin      | System writes, development previews/jobs, detailed costs, account invitations/session revocation; exact reviewed logs/metrics assets, metadata and bounded query/export routes |
+| Denied           | Unknown routes/methods, legacy tool overlaps, anonymous writes, private/test editions in reader APIs, raw queue payloads and telemetry mutations                               |
+
+Public responses use projections that omit account data, source secrets and raw
+operational errors. Authentication uses stored sessions; proxy identity headers
+cannot grant public-mode admin rights. Admin writes require provenance and audit
+admission; telemetry reads require recent admin authentication. Accepted sign-in,
+logs and metrics screens need no further rehearsal without a relevant change.
+
+| Switch                  | Meaning and current rollout                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `PUBLIC_MODE`           | Server route/admission/projection boundary; remains off                                        |
+| `VITE_PUBLIC_MODE`      | Build-time reader/admin UI behavior; must match server activation; live private build retained |
+| `SYSTEM_OWNERSHIP`      | System topics/settings and edition ownership; on                                               |
+| `READER_PUBLISHED_ONLY` | Excludes private/test editions from reader APIs                                                |
+| `READER_PREFERENCES`    | Browser topic hiding and bookmarks                                                             |
+| `ACCOUNTS_ENABLED`      | Enables stored-session sign-in and account sync; live invite-only accounts enabled             |
+| `SIGNUP_MODE`           | Controls account admission; live `invite`, no open signup                                      |
+
+Grafana's separate aggregate-store candidate is prepared but installation remains
+blocked on scheduled-load or natural-compaction capacity evidence. Its public
+route must remain closed until reviewed/installed; Tools marks it pending.
+The explorer is live in structural-only mode; the reader handbook is installed.
+No new page construction is identified. Remaining activation prerequisites,
+rollback and scheduled public-edition acceptance are recorded in
+[public readiness](public-readiness.md); they are review/owner gates, not reasons
+to repeat accepted screen checks. Agent work on item 50 stops at this handoff.
+
 ## Goal
 
 Make the site publicly readable, with optional reader accounts, without

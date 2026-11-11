@@ -2566,3 +2566,5 @@ the next item.
 verify-only commits since this item, which should be none.
 
 **Limits:** no new spend. Deploy outside 13:00–16:00 UTC. Protect the edition.
+
+ack: 2026-11-11 item 55 (1837): Phase 4 security-review handoff added to docs/public-access-plan.md: public pages/projections, reader/fresh-admin access, flags and pending Grafana capacity gate. No unbuilt reader page identified; stopping item 50 for lead review/owner decision, flags unchanged. Verify-only commits after receipt: none. bef43855 was authored before fetching item 55 when push was rejected; merged upstream without rewriting history. No new verification run after reading item 55.
