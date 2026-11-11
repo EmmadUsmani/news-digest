@@ -213,6 +213,11 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
       'ops/schema-explorer/prepared/query-stats-access.sql',
       'utf8',
     );
+    const originalStatsAcl =
+      await owner.query(`SELECT c.relname, c.relacl::text AS acl
+      FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+      WHERE n.nspname='public' AND c.relname IN
+        ('pg_stat_statements','pg_stat_statements_info') ORDER BY c.relname`);
     await owner.query(restrictStats);
     await owner.query(restrictStats); // Safe to reapply without broadening access.
     const statsAccess = await owner.query(`SELECT
@@ -287,7 +292,14 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
       /rowEstimate|sizeBytes|definition|synthetic-reader-password/,
     );
     // NOLOGIN blocks fresh connections; pooled sessions require a service restart.
+    const pooledPid = (await reader.query('SELECT pg_backend_pid() AS pid'))
+      .rows[0].pid;
     await owner.query('ALTER ROLE schema_catalog_reader NOLOGIN');
+    assert.equal(
+      (await reader.query('SELECT pg_backend_pid() AS pid')).rows[0].pid,
+      pooledPid,
+      'NOLOGIN leaves an existing pool usable until the service closes it',
+    );
     const revoked = new Pool({
       ...connection,
       user: 'schema_catalog_reader',
@@ -298,6 +310,16 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
     } finally {
       await revoked.end();
     }
+    await reader.end();
+    assert.equal(
+      (
+        await owner.query('SELECT pid FROM pg_stat_activity WHERE pid=$1', [
+          pooledPid,
+        ])
+      ).rowCount,
+      0,
+      'closing the service pool removes the catalog session',
+    );
     await owner.query('ALTER ROLE schema_catalog_reader LOGIN');
     // Reload signals are asynchronous; observe fresh authentication, not elapsed time.
     const waitForAuthentication = async (scram: boolean) => {
@@ -373,13 +395,72 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
       0,
     );
     await waitForAuthentication(false);
+    await owner.query('ALTER ROLE schema_catalog_reader NOLOGIN');
+    // Full rollback: keep the role disabled before restoring inherited grants.
+    const rollbackLogin = new Pool({
+      ...connection,
+      user: 'schema_catalog_reader',
+      password: 'synthetic-reader-password',
+    });
+    try {
+      await assert.rejects(rollbackLogin.query('SELECT 1'), { code: '28000' });
+    } finally {
+      await rollbackLogin.end();
+    }
+    await owner.query(`REVOKE SELECT ON public.pg_stat_statements,
+      public.pg_stat_statements_info FROM existing_stats_reader;
+      GRANT SELECT ON public.pg_stat_statements,
+      public.pg_stat_statements_info TO PUBLIC`);
+    const restoredStatsAcl =
+      await owner.query(`SELECT c.relname, c.relacl::text AS acl
+      FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+      WHERE n.nspname='public' AND c.relname IN
+        ('pg_stat_statements','pg_stat_statements_info') ORDER BY c.relname`);
+    assert.deepEqual(restoredStatsAcl.rows, originalStatsAcl.rows);
+    assert.equal(
+      (await owner.query('SELECT count(*) FROM public.users')).rowCount,
+      1,
+    );
+    // Reapply in the safe order, then prove a new pool serves the same structure.
+    await owner.query(restrictStats);
+    const reapplied = await container.exec([
+      'sh',
+      '-c',
+      'cp -p /tmp/original-hba /var/lib/postgresql/data/pg_hba.conf && { printf "%s\\n" "$1"; cat /tmp/original-hba; } > /var/lib/postgresql/data/pg_hba.conf',
+      'catalog-hba',
+      rules,
+    ]);
+    assert.equal(reapplied.exitCode, 0);
+    await owner.query('SELECT pg_reload_conf()');
+    await owner.query('ALTER ROLE schema_catalog_reader LOGIN');
+    await waitForAuthentication(true);
+    const reactivated = new Pool({
+      ...connection,
+      user: 'schema_catalog_reader',
+      password: 'synthetic-reader-password',
+    });
+    try {
+      assert.deepEqual(
+        buildPublicModel(buildModel(await introspect(reactivated))).tables,
+        model.tables,
+      );
+      await assert.rejects(reactivated.query('SELECT * FROM public.users'), {
+        code: '42501',
+      });
+    } finally {
+      await reactivated.end();
+    }
   } finally {
     server.closeAllConnections();
     if (server.listening)
       await new Promise<void>((resolve, reject) =>
         server.close((error) => (error ? reject(error) : resolve())),
       );
-    await Promise.all([owner.end(), reader.end(), wrong.end()]);
+    await Promise.all([
+      owner.end(),
+      ...(reader.ended ? [] : [reader.end()]),
+      wrong.end(),
+    ]);
     await container.stop();
   }
 });

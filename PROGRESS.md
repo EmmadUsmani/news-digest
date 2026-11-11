@@ -146,3 +146,11 @@
 - Updated TASKS, readiness and response-review evidence. No live flags, credentials, grants or provider traffic changed. Initial lint caught unnecessary async declarations; corrected and reran verification.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes, four expected skips), `pnpm build`, account boundary (32 checks), saved-reader check, handbook/schema check and `git diff --check` pass. Explorer restarted after push; `/healthz` passes and anonymous `/db/` remains 404.
 - Next: full credential/authentication rollback and explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1776 — compose explorer credential lifecycle rollback
+
+- Clean main; no inherited work. No active alerts or failed services; source/job checks and `/healthz` pass. Saved Nov 10 reader serves four topics/19 stories/15 posts.
+- Extended the disposable SCRAM rehearsal through NOLOGIN, pool closure, authentication restoration, exact extension-ACL restoration and restricted-role reactivation. NOLOGIN preserves an existing pooled session; closing the pool removes its backend; fresh rollback logins fail. Reactivation restores the same structural table catalog and still denies application-row reads.
+- This is isolated synthetic-credential evidence, not live credential rollback. No live credentials, grants, flags or provider spending changed. Updated readiness and response-review evidence; live credential/environment rollback and reader admission remain open.
+- Targeted credential test, `pnpm build`, deployed account boundary (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z`, handbook/schema check and `git diff --check` pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass (829 unit, 283 integration passes/four expected skips).
+- Next: live credential/environment/authentication rollback; explicit reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.

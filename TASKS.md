@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1776: disposable explorer credential lifecycle composes pooled-session closure, NOLOGIN, original authentication/extension-ACL restoration and restricted-role reactivation; exact ACL and structural catalog checks pass. Live credential/environment rollback and explicit reader admission remain open; public mode stays off.
+
 - [x] Iteration 1775: real explorer HTTP/proxy private–structural–private replay passes on the captured live restricted-role catalog; desktop/mobile screenshots, exact DTO, no-store and denied-route checks pass. Public admission stays closed even to fresh admins. Next: full credential/authentication rollback and explicit reader route admission; public mode stays off.
 
 - [x] Iteration 1755: completed bounded post-reset NBA Sonnet continuation; one Sonnet repair and one Haiku repair validated, with supported-paraphrase guard rejection confirmed and cost settled.

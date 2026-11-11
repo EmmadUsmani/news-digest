@@ -595,3 +595,19 @@ a fresh admin: reader admission remains deliberately uninstalled. No live
 flags, credentials, authentication rules or services change in this rehearsal.
 Full credential/authentication rollback and the explicit reader route decision
 remain before public activation.
+
+## Explorer credential lifecycle rollback (iteration 1776)
+
+The disposable PostgreSQL credential rehearsal now composes pool closure,
+NOLOGIN, authentication-file restoration, exact extension ACL restoration and
+restricted-role reactivation. It proves that NOLOGIN leaves an existing pooled
+session usable, closing that pool removes its backend, and a fresh login remains
+blocked after rollback. Original extension ACLs match exactly; the existing owner
+can still read application tables. Reapplying restricted grants and scoped SCRAM
+rules restores credential preflight and the same structural table catalog while
+application-row reads remain denied.
+
+This is an isolated regression test with synthetic credentials, not a live
+credential rollback. Live service/environment/authentication rollback and the
+explicit public reader admission decision remain open. No production credentials,
+grants, flags or provider traffic changed.
