@@ -114,3 +114,25 @@ or Nov 4–10 domestic volume. It supports the proposed NPR/PBS additions but
 is not evidence of five AI-selected publication-ready stories or semantic
 routing correctness. Whole-edition cost reduction and publication integration
 remain required before activation.
+
+## Ownership to ranked shortlists — iteration 1851
+
+Prepared `jointStoryShortlists` connects the joint ownership port to existing
+ranking without a production caller. It sends at most 40 already-shortlisted
+articles across exactly two scopes in one request, validates complete exclusive
+ID membership, then ranks each owner's events. Cross-source reports move with
+their event; publisher metadata and coverage links survive, with no grouping
+score bonus. No title rules select the destination.
+
+Unavailable, malformed, incomplete or duplicate membership returns null for the
+whole split; callers must abort rather than independently publish both pools.
+Duplicate input IDs also refuse before inference: collecting a unique shared
+pool and coordinating triage/editor inputs remain orchestration work. An empty
+scope is valid and is never padded. Ranking retains its existing window,
+quality filters and ten-event editor shortlist limit.
+
+Recorded port decisions and a real EventGrouping parser with a recorded response
+exercise movement, provenance, score preservation, empty scopes and refusal.
+These verify mechanics, not semantic ownership accuracy. No paid calls, runtime
+flags, source activation or budget changes. Whole-edition headroom remains the
+activation gate; this bridge alone does not establish it.

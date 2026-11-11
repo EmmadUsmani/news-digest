@@ -139,3 +139,13 @@
 - Window excerpts >=200 characters: 12/0/6. After-cutoff retention is not historical availability; five headline-reviewed examples are not AI-selected publication-ready stories. Cost reduction and joint ownership/publication remain next.
 - Updated TASKS, SOURCES and scope assessment; offline replay, build and filtered handbook check pass (18 pages/39 tables). `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook check and `git diff --check` pass: 844 unit/283 integration, four expected skips. Existing build warnings only.
 - Latest edition eb6e962e still serves four topics; API restart/post-push health verification follows. No worker runtime change.
+
+## 2026-11-11: iteration 1851 — joint ownership to ranked shortlists
+
+- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy; all 36 sources ok. Item 50 remains stopped for owner/lead review; continued 56.
+- Added prepared jointStoryShortlists bridge from AI ownership to existing ranking: one bounded request, complete exclusive membership, whole-event moves, coverage/publisher preservation and no score bonus.
+- Null/refused/failed/invalid ownership aborts the entire split; duplicate input IDs refuse before inference. No production caller, paid calls, cap/flag changes or source activation.
+- Four offline tests cover cross-topic event movement, provenance/scores, empty scope, refusal and real EventGrouping parser composition with a recorded response.
+- Updated TASKS and scope assessment. Shared-pool deduplication, triage/editor orchestration and achievable whole-edition headroom remain required before activation.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 848 unit/283 integration tests, four expected skips. Existing build warnings only.
+- Latest saved edition eb6e962e still lists four topics. Commit/push and API/worker restart follow; post-deploy checks recorded before handoff.
