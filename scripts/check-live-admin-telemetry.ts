@@ -141,7 +141,7 @@ async function main() {
       assert.equal(forwarded, before);
     }
     // Installed screens, real assets and metadata through the prepared proxy.
-    // Keep this live check read-only and bounded: no automatic data queries.
+    // Refuse automatic data queries; admit one explicit bounded chart below.
     actor = 'admin';
     const browser = await chromium.launch({ headless: true });
     try {
@@ -150,6 +150,8 @@ async function main() {
       const errors: string[] = [];
       const metadata = new Set<string>();
       const refusedQueries = new Set<string>();
+      let chartReview = false;
+      let chartQueries = 0;
       page.on('pageerror', (error) => errors.push(error.name));
       await page.addInitScript(() => {
         Object.assign(window, { policyViolations: [] });
@@ -163,12 +165,55 @@ async function main() {
         const request = route.request();
         const url = new URL(request.url());
         assert.equal(url.origin, base);
-        // Refuse automatic data queries locally; this review covers real
-        // assets/metadata only, never an unbounded dashboard query.
+        // Refuse automatic data queries locally. The explicit chart review
+        // admits exactly one aggregate query with a one-minute window.
         if (
           url.pathname.includes('/api/v1/') ||
           url.pathname.includes('/logsql/')
         ) {
+          const params = new URLSearchParams(
+            request.method() === 'POST'
+              ? (request.postData() ?? '')
+              : url.search,
+          );
+          const start = Number(params.get('start'));
+          const finish = Number(params.get('end'));
+          const stepText = params.get('step') ?? '';
+          const step = /^\d+(s)?$/.test(stepText)
+            ? Number(stepText.replace(/s$/, ''))
+            : 0;
+          if (
+            chartReview &&
+            chartQueries === 0 &&
+            url.pathname === '/metrics/prometheus/api/v1/query_range' &&
+            params.get('query') === 'count(up)' &&
+            [...params.keys()].sort().join(',') === 'end,query,start,step' &&
+            start > end - 120 &&
+            finish <= Date.now() / 1000 + 5 &&
+            finish > start &&
+            finish - start <= 65 &&
+            step >= 15 &&
+            (finish - start) / step <= 5
+          ) {
+            chartQueries++;
+            const response = await route.fetch({ timeout: 10000 });
+            assert.equal(response.status(), 200);
+            assert.equal(response.headers()['cache-control'], 'no-store');
+            assert.equal(response.headers()['set-cookie'], undefined);
+            const body = await response.json();
+            assert.equal(body.status, 'success');
+            assert.equal(body.data.result.length, 1);
+            const samples = body.data.result[0].values as [number, string][];
+            assert.ok(samples.length > 0 && samples.length <= 6);
+            assert.ok(
+              samples.every(
+                ([time, value]) =>
+                  time >= start && time <= finish && Number(value) > 0,
+              ),
+            );
+            await route.fulfill({ response });
+            return;
+          }
           refusedQueries.add(url.pathname);
           await route.fulfill({ status: 403, body: '' });
           return;
@@ -219,6 +264,34 @@ async function main() {
           [],
         );
       }
+      chartReview = true;
+      await page.goto('about:blank');
+      await page.goto(
+        base +
+          '/metrics/vmui/#/?g0.expr=count(up)&g0.range_input=1m&g0.step_input=15s',
+        {
+          waitUntil: 'networkidle',
+        },
+      );
+      assert.equal(chartQueries, 1, 'Exactly one bounded live chart query');
+      await page.locator('.u-over').waitFor();
+      assert.ok(
+        await page.locator('canvas').count(),
+        'Live chart canvas mounted',
+      );
+      assert.deepEqual(errors, []);
+      assert.deepEqual(
+        await page.evaluate(
+          () =>
+            (window as unknown as { policyViolations: string[] })
+              .policyViolations,
+        ),
+        [],
+      );
+      await page.screenshot({
+        path: 'docs/screenshots/native-metrics-live-count.png',
+      });
+      chartReview = false;
       assert.ok(metadata.has('/metrics/prometheus/vmui/config.json'));
       assert.ok(metadata.has('/metrics/prometheus/vmui/custom-dashboards'));
       assert.ok(refusedQueries.has('/logs/select/logsql/query'));
@@ -240,7 +313,7 @@ async function main() {
       await browser.close();
     }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass without data queries; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass; one bounded live count(up) chart renders; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();

@@ -210,3 +210,13 @@
 - Updated TASKS/readiness/response review. Nov 11 15:00 UTC NBA acceptance remains due; no generation edits.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass.
 - `git diff --check` clean; API restart and health recheck follow commit before the 13:00 UTC freeze.
+
+## 2026-11-11: iteration 1813 — live installed metrics chart
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; 36 sources have no errors and active sources have recent items. Digest queue has zero failed runs and next edition is scheduled for 15:00 UTC. No provider calls.
+- Extended explicit `check-live-admin-telemetry.ts --live`: installed metrics Query renders one real `count(up)` series through the prepared proxy. Admission permits only exact range fields, current one-minute window, minimum 15-second step and one upstream query; response checks bound samples and require positive counts.
+- Other automatic data queries remain locally refused. Principals remain simulated; real stored-session/live-upstream composition remains open. Production telemetry admission/public mode remain off; no generation changes.
+- Initial checks caught document-query admission and the native default 200ms step; hash parameters plus explicit 15s step fixed the review. Final bounded live reruns pass. Inspected chart screenshot and updated TASKS/readiness/tool response review.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live telemetry check, handbook observability check, 32 deployed account-boundary checks and saved Nov 10 reader check (four topics/19 stories/15 posts). All pass: retry `pnpm check` exits 0 (836 unit/283 integration passes, four expected integration skips). Initial combined command terminated with exit 143 during unit tests without a reported assertion failure; standalone retry passed.
+- API rebuilt/restarted healthy at 12:58 UTC before the hold; worker active. `git diff --check` clean. Review-only script/docs commit and push follow verification; no runtime changes or restart during the hold.
+- Next: Nov 11 15:00 UTC NBA acceptance; remaining stored-session/live telemetry composition. Preserve 13:00–16:00 UTC deployment hold.

@@ -1165,3 +1165,16 @@ synthetic HTTP 403 responses before proxying. Anonymous, reader and stale-admin
 document requests cause no upstream work for both tools. Principals remain
 simulated; live stored-session composition, data controls and production
 admission remain open. Public mode stays off.
+
+### Live installed metrics chart (iteration 1813)
+
+The explicit live check now renders the installed Query chart using `count(up)`.
+Its browser interceptor admits exactly one range request, with only the reviewed
+query/start/end/step fields, a current window of at most 65 seconds and a step of
+at least 15 seconds. The response must contain one series and one to six positive
+samples within that window. Other automatic data queries remain locally refused.
+
+The real response renders a chart canvas without page or CSP errors; the saved
+`docs/screenshots/native-metrics-live-count.png` was visually inspected. Principals
+remain simulated; real stored-session/live-upstream composition is still open.
+Production telemetry admission and public mode remain off. No provider calls.

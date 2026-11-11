@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1813: installed metrics Query renders one live `count(up)` chart through the prepared proxy; exact selector, one-minute window, 15-second minimum step and one-query cap enforced before upstream. Screenshot inspected; simulated principals only, public mode off.
+
 - [x] Iteration 1812: live installed logs Query/Overview assets and build/tenant metadata mount through the prepared proxy without page/CSP errors; automatic query/hits calls refused locally and non-admin documents refused without upstream work. Simulated principals only; public mode remains off.
 
 - [x] Iteration 1811: installed metrics Dashboards/Query Analyzer mount through the prepared proxy using live assets/metadata; CSP/error checks and simulated non-admin upstream isolation pass. Automatic data queries are locally refused; live charts and stored-session/live-upstream composition remain open. Public mode off.
