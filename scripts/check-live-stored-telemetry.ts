@@ -381,6 +381,14 @@ async function main() {
     await browserCheck(true);
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.name));
+    await page.addInitScript(() => {
+      Object.assign(window, { policyViolations: [] });
+      document.addEventListener('securitypolicyviolation', (event) => {
+        (
+          window as unknown as { policyViolations: string[] }
+        ).policyViolations.push(event.effectiveDirective);
+      });
+    });
     let nativeExports = 0;
     let renderedLabel = '';
     let expectedNativeStatus: 200 | 404 = 200;
@@ -468,6 +476,51 @@ async function main() {
       browserSession.rows[0].id,
     ]);
     await executeNative(200);
+    const violations = () =>
+      page.evaluate(
+        () =>
+          (window as unknown as { policyViolations: string[] })
+            .policyViolations,
+      );
+    assert.deepEqual(await violations(), []);
+    const beforeProbes = forwarded;
+    const probes = await page.evaluate(async () => {
+      const script = document.createElement('script');
+      script.textContent = 'window.inlineProbeExecuted = true';
+      document.head.append(script);
+      script.remove();
+      let externalRefused = false;
+      try {
+        await fetch('https://telemetry-csp-probe.invalid/', {
+          signal: AbortSignal.timeout(5000),
+        });
+      } catch {
+        externalRefused = true;
+      }
+      return {
+        inlineExecuted: Boolean(
+          (
+            window as unknown as {
+              inlineProbeExecuted?: boolean;
+            }
+          ).inlineProbeExecuted,
+        ),
+        externalRefused,
+      };
+    });
+    assert.deepEqual(probes, { inlineExecuted: false, externalRefused: true });
+    await page.waitForFunction(() => {
+      const events = (window as unknown as { policyViolations: string[] })
+        .policyViolations;
+      return (
+        events.includes('script-src-elem') && events.includes('connect-src')
+      );
+    });
+    assert.deepEqual((await violations()).sort(), [
+      'connect-src',
+      'script-src-elem',
+    ]);
+    assert.equal(forwarded, beforeProbes);
     assert.equal(await browserWrite('/api/account/logout', {}), 204);
     assert.equal((await context.cookies()).length, 0);
     // Restore the cookie to prove server-side revocation independently of deletion.
@@ -485,7 +538,7 @@ async function main() {
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 5);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Five bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Five bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();

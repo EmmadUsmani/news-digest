@@ -70,3 +70,9 @@ activation review, rather than adding more variants of already-covered refusals.
       the lead a security-review handoff with evidence and unresolved findings.
 
 Phase 5 sharing, real email and destructive cleanup remain owner decisions.
+
+Stored-session native CSP evidence (1821): the explicit live browser rehearsal
+reports no unexpected Raw Query policy violations, then blocks deliberate inline
+script and external fetch probes with the expected CSP directives and no export
+upstream work. Aging/restoration/logout checks still pass. Other native screens
+and remaining Phase 4 controls remain open; production flags are unchanged.

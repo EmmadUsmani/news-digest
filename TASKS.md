@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1821: real stored-session installed Raw Query has no unexpected CSP violations; deliberate inline script/external fetch probes are blocked with exact policy events and no upstream work. Five bounded live exports and aging/restoration/logout controls pass; production flags unchanged.
+
 - [x] Iteration 1820: already-open installed metrics Raw Query refuses Execute after real stored-session aging and logout with the old cookie restored; freshness restoration renders another bounded live export. Real Chromium HTTPS login, disposable account storage, five live reads total; production flags unchanged.
 
 - [x] Iteration 1819: installed metrics Raw Query renders one bounded live export after real disposable Chromium HTTPS code login; stored fresh-admin authentication protects native documents and exports, aged native documents refuse. Production flags unchanged; other screens/controls remain open.

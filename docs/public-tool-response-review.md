@@ -1287,3 +1287,14 @@ old cookie still makes mounted Execute return 404 without upstream work.
 Five bounded live reads occur across the rehearsal; operational labels and
 bodies remain in memory. Production flags stay unchanged. Other native screens
 and remaining Phase 4 controls still need acceptance.
+
+### Stored-session native CSP enforcement (iteration 1821)
+
+The explicit live stored-session rehearsal checks the installed Raw Query screen
+for policy violations during login-backed rendering and freshness restoration.
+No unexpected violations occur. Deliberate inline-script and external-fetch
+probes then produce exactly `script-src-elem` and `connect-src` violations;
+the script never executes and the fetch refuses before browser routing. Export
+upstream counts stay unchanged. Session aging/logout checks and five bounded
+live reads still pass. No operational bodies or labels are saved. Production
+flags remain unchanged; other native screens and Phase 4 controls remain open.

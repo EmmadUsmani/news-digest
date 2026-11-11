@@ -118,3 +118,13 @@
 - Updated TASKS/readiness/tool review; archived progress entries 1805–1810 to keep orientation small. Production flags unchanged; no runtime/generation edits or service restart during 13:00–16:00 UTC hold.
 - Verification: explicit live browser check, handbook (18 pages/one diagram/39 tables), deployed account boundary (32 checks), and saved Nov 10 reader (four topics/19 stories/15 posts) pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), and `pnpm build` pass. `git diff --check` clean; commit/push follow.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 controls.
+
+## 2026-11-11: iteration 1821 — stored-session native CSP enforcement
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; sources/jobs flowing, next edition 15:00 UTC. No provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: installed Raw Query with real Chromium HTTPS code-login has zero unexpected CSP violations through live rendering and freshness restoration.
+- Deliberate inline script never executes; external fetch refuses before browser routing. Exactly `script-src-elem`/`connect-src` violations occur, without export upstream work. Existing aging/restoration/logout checks and five bounded live exports still pass; disposable account storage, operational bodies/labels in memory only.
+- Updated TASKS/readiness/tool review. Other native screens and Phase 4 controls remain open; production flags unchanged. No runtime/generation edits or restart/deploy during 13:00–16:00 UTC hold.
+- Verification: explicit live Chromium rehearsal passes; `check-handbook.ts observability` passes (18 pages/one diagram/39 tables), deployed account-boundary check passes 32 checks, saved Nov 10 reader passes four topics/19 stories/15 posts.
+- `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 836 unit/283 integration tests, four expected skips. `pnpm build` and `git diff --check` pass. No service restart required for review-only changes.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 gates.
