@@ -82,3 +82,9 @@ window and `count(up)` selector with empty no-store 404 responses and no export
 upstream work. Returning to one-minute `up` renders live series after each
 refusal. Real HTTPS login and session/CSP checks pass; seven bounded live reads
 total. Production flags remain unchanged.
+
+Stored-session native screen navigation (1823): installed metrics Dashboards and
+Query Analyzer plus logs Query and Overview mount after real disposable HTTPS
+code-login, refuse aged-session document reloads, and remount after freshness
+restoration. No export work occurs for these screen checks. Data controls beyond
+Raw Query remain open; production flags are unchanged.

@@ -138,3 +138,13 @@
 - Verification: explicit live Chromium check passes; `check-handbook.ts observability` passes (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` passes 32 checks, `check-scheduled-reader.ts 2026-11-10T15:00:00Z` passes four topics/19 stories/15 posts.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass. No service restart required for verification-only changes; commit/push follow.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then remaining native telemetry/Phase 4 gates.
+
+## 2026-11-11: iteration 1823 — real-session installed telemetry screens
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units, all 36 sources healthy. Scheduled edition remains due at 15:00 UTC; no provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: installed metrics Dashboards/Query Analyzer and logs Query/Overview mount after real disposable Chromium HTTPS code-login, refuse aged-session document requests with empty no-store 404, and remount after freshness restoration.
+- Full document checks navigate through about:blank to avoid reusing hash navigation. All four screens have no page errors/CSP violations and cause no export work; automatic data calls remain locally refused. Seven existing bounded live exports and Raw Query controls pass.
+- Updated TASKS/readiness/tool review. Production flags unchanged; verification-only changes need no restart and respect the 13:00–16:00 UTC deployment hold.
+- Verification: explicit live browser rehearsal, handbook (18 pages/one diagram/39 tables), 32 deployed account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then remaining live native data controls and Phase 4 gates.

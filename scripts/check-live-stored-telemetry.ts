@@ -432,6 +432,50 @@ async function main() {
       }
       await route.continue();
     });
+    // Exercise installed documents beyond Raw Query with the actual login cookie.
+    const beforeScreens = forwarded;
+    for (const [document, screen] of [
+      ['/metrics/vmui/', '/dashboards'],
+      ['/metrics/vmui/', '/query-analyzer'],
+      ['/logs/select/vmui/', ''],
+      ['/logs/select/vmui/', '/overview'],
+    ]) {
+      const target = browserBase + document + (screen ? '#' + screen : '');
+      const mount = async () => {
+        await page.goto('about:blank');
+        const response = await page.goto(target, { waitUntil: 'networkidle' });
+        assert.equal(response!.status(), 200);
+        assert.equal(response!.headers()['cache-control'], 'no-store');
+        assert.ok(await page.locator('button').count());
+        if (screen)
+          assert.equal(new URL(page.url()).hash.split('?')[0], '#' + screen);
+        assert.deepEqual(
+          await page.evaluate(
+            () =>
+              (window as unknown as { policyViolations: string[] })
+                .policyViolations,
+          ),
+          [],
+        );
+        assert.deepEqual(errors, []);
+      };
+      await mount();
+      await db.query(
+        "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
+        [browserSession.rows[0].id],
+      );
+      await page.goto('about:blank');
+      const refused = await page.goto(target, { waitUntil: 'networkidle' });
+      assert.equal(refused!.status(), 404);
+      assert.equal(await refused!.text(), '');
+      assert.equal(refused!.headers()['cache-control'], 'no-store');
+      await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+        browserSession.rows[0].created_at,
+        browserSession.rows[0].id,
+      ]);
+      await mount();
+    }
+    assert.equal(forwarded, beforeScreens);
     const beforeNative = forwarded;
     await page.goto(
       browserBase + '/metrics/vmui/#/raw-query?g0.expr=up&g0.range_input=1m',
@@ -576,7 +620,7 @@ async function main() {
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 7);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Seven bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Seven bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();

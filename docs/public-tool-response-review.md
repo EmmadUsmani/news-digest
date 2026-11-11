@@ -1309,3 +1309,17 @@ upstream work, despite a fresh real HTTPS-login session. Restoring one-minute
 total retain the 64 KiB/32-series caps; aging, restoration, logout and CSP
 checks still pass. Operational bodies and labels remain in memory. Production
 flags remain unchanged; other native screens and Phase 4 gates remain open.
+
+### Stored-session installed screen navigation (iteration 1823)
+
+The explicit `check-live-stored-telemetry.ts --live` rehearsal now loads installed
+metrics Dashboards/Query Analyzer and logs Query/Overview using the actual
+Chromium HTTPS code-login cookie. Each screen mounts with no page errors or CSP
+violations, refuses a new document request after stored-session aging with an
+empty no-store 404, and mounts again after freshness restoration. Full document
+requests start from `about:blank` so hash navigation cannot reuse the old page.
+
+These screen checks cause no export work. Automatic data requests remain locally
+refused; they do not establish live dashboard/log data acceptance. Existing seven
+bounded live exports and Raw Query controls remain covered. Account writes use
+disposable containers; production flags and services are unchanged.
