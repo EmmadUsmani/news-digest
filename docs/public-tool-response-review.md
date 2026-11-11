@@ -335,3 +335,18 @@ observed startup headroom. The earlier 24-hour peak projection is still
 ~844 MiB. Keep installation pending until a paired sample covers scheduled
 edition load or natural compaction and confirms sustained five-minute CPU
 headroom. The short mean includes fresh database initialization.
+
+### Prepared public queue status (iteration 1760)
+
+The separate queue status handler exposes one exact GET/HEAD endpoint for the
+four known queues. It returns only five state counts per queue and the earliest
+scheduler time (epoch milliseconds, or null). It reads at most one scheduler
+per queue. It does not expose scheduler IDs or templates, individual jobs,
+logs, worker identities or Redis details. Backend failures return a fixed 503;
+unknown routes end at 404, and mutations on the status endpoint return 405.
+Responses are not cached.
+
+The handler is prepared but unmounted. Before rollout, mount it exclusively
+in place of the public Bull Board route, apply public request admission, and
+verify that anonymous requests cannot reach legacy routes. The private jobs
+browser is unchanged.

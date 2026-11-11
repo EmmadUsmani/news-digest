@@ -146,3 +146,12 @@
 - `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit and 281 integration passes; four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` pass. Push and restart API/worker, then recheck health, reader, sources and digest queue.
 - Next: keep export installation gated on sustained CPU and paired memory during scheduled load or natural compaction. Review NBA editing after the Nov 11 15:00 UTC run.
+
+## 2026-11-11: iteration 1760 — prepare a public queue status projection
+
+- Clean main; no inherited work. `pnpm obs alerts`, health/services/sources and jobs checks: zero active alerts, 14 healthy services, 36 healthy sources, zero failed digest jobs.
+- Prepared an unmounted GET/HEAD queue status handler for four fixed queues, five counts and one scheduler timestamp per queue. No raw Bull Board route fallback, private records, logs, Redis details, or upstream errors in the response.
+- Targeted HTTP test passed with synthetic queue results, including private-data exclusion, legacy route refusals, 405 for mutation, HEAD, and generic 503. Private jobs browser unchanged; no provider calls or activation.
+- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (828 unit and 281 integration passes, four expected skips), `pnpm build`, changed-document Prettier and `git diff --check` passed. Push and restart API/worker, then verify live health, reader and private queues.
+- Next: rehearse exclusive public queue routing and request admission. Grafana installation still needs scheduled-load or natural-compaction capacity evidence; review NBA after Nov 11 15:00 UTC.
