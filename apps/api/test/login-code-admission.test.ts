@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
+import type { IncomingMessage } from 'node:http';
 import { test } from 'node:test';
 
 import { redis } from '../src/libs/db/connections';
+import { proxyClient } from '../src/modules/accounts/adapters/proxy-client';
 import { RedisLoginCodeAdmission } from '../src/modules/accounts/adapters/redis-login-code-admission';
 
 void test('login admission shares atomic private counters, expires and fails closed', async () => {
@@ -49,6 +51,24 @@ void test('login admission shares atomic private counters, expires and fails clo
       ),
     );
     assert.equal(clientResults.filter(Boolean).length, 50);
+    const observed = proxyClient(['127.0.0.1']);
+    const ipv6Results = await Promise.all(
+      Array.from({ length: 20 }, (_, i) => {
+        const visitor = `2001:db8:abcd:1234::${i + 1}`;
+        const bucket = observed({
+          socket: { remoteAddress: '127.0.0.1' },
+          headers: { 'x-forwarded-for': visitor },
+          rawHeaders: ['X-Forwarded-For', visitor],
+        } as IncomingMessage);
+        assert.ok(bucket);
+        return (i % 2 ? first : second).allow('ipv6@example.test', bucket);
+      }),
+    );
+    assert.equal(ipv6Results.filter(Boolean).length, 10);
+    assert.equal(
+      await first.allow('ipv6@example.test', '2001:db8:abcd:1235::/64'),
+      true,
+    );
     const keys = await cache.keys('accounts:login:*');
     assert.ok(keys.length > 0);
     assert.ok(

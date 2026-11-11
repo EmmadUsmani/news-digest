@@ -34,7 +34,7 @@ void test('proxy admission trusts only configured peers and the appended client'
   assert.equal(client(request('::ffff:127.0.0.1', '192.0.2.4')), '192.0.2.4');
   assert.equal(
     client(request('2001:0db8:0:0:0:0:0:1', '2001:0db8::2')),
-    '2001:db8::2',
+    '2001:db8:0:0::/64',
   );
   assert.equal(client(request('127.0.0.1', '::ffff:c000:204')), '192.0.2.4');
   assert.equal(client(request('127.0.0.1', '::ffff:192.0.2.4')), '192.0.2.4');
@@ -50,7 +50,10 @@ void test('observed exe.dev duplicate visitor entries preserve admission identit
         '198.51.100.9, 203.0.113.8, ',
       ]) {
         const forwarded = `${prefix}${visitor}, ${visitor}`;
-        assert.equal(client(request(peer, forwarded)), visitor);
+        assert.equal(
+          client(request(peer, forwarded)),
+          visitor.includes(':') ? '2001:db8:0:0::/64' : visitor,
+        );
         assert.equal(client(request('192.0.2.99', forwarded)), null);
         assert.equal(client(request(peer, forwarded, true)), null);
       }
@@ -150,4 +153,22 @@ void test('proxy admission rejects duplicate wire headers and ignores forged pre
       server.close((error) => (error ? reject(error) : resolve())),
     );
   }
+});
+
+void test('IPv6 visitor rotation shares a /64 while proxy peer trust stays exact', () => {
+  const client = proxyClient(['2001:db8::1']);
+  for (const visitor of [
+    '2001:db8:abcd:1234::1',
+    '2001:0db8:abcd:1234:ffff:ffff:ffff:ffff',
+  ])
+    assert.equal(
+      client(request('2001:db8::1', visitor)),
+      '2001:db8:abcd:1234::/64',
+    );
+  assert.equal(
+    client(request('2001:db8::1', '2001:db8:abcd:1235::1')),
+    '2001:db8:abcd:1235::/64',
+  );
+  assert.equal(client(request('2001:db8::2', '2001:db8:abcd:1234::1')), null);
+  assert.equal(client(request('2001:db8::1', '::1')), '0:0:0:0::/64');
 });

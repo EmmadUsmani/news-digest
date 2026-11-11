@@ -206,3 +206,13 @@
 - Next: item 58.6 smaller sign-in issues in private review; Nov 12 first five-topic scheduled acceptance remains due. Item 50 awaits remaining fixes, scheduled publication, lead re-check and owner decision.
 - API/worker restarted outside deployment hold; health/database/Redis green. node /tmp/nd-1865-live.cjs: six unfinished declared/chunked uploads refuse before body data; pnpm exec tsx scripts/check-live-account-boundary.ts: 32 refusals pass. Zero alerts; saved edition unchanged.
 - Commit/push and final main-matching service restart follow.
+
+## 2026-11-11: iteration 1866 — group IPv6 admission by subnet
+
+- Clean main/no inherited work; health/services green and zero initial alerts. Continued item 58.6 with the IPv6 limit fix.
+- Observed IPv6 visitors share a /64 for API admission and sign-in challenges; trusted immediate proxy peers still require exact addresses. IPv4/mapped-IPv4 equivalence retained. Updated the runtime handbook.
+- Proxy tests cover rotating/compressed/full IPv6 forms, separate subnets and refusal of an unconfigured peer in the trusted peer's subnet. Real Redis regression verifies only ten of twenty rotating-address attempts pass across two adapter instances.
+- Targeted proxy tests pass (5/5); pnpm format, pnpm lint:fix and pnpm build pass (existing build warnings). Handbook initially exceeded its length limit; shortened affected text, filtered check-handbook now passes (one unchanged diagram/39 tables).
+- Predeploy live checks: 32 account-boundary refusals pass, all 38 sources healthy, collection runs completing, latest saved edition eb6e962e unchanged with four topics. No migrations, paid calls, access-flag, sharing, budget or source changes.
+- Next: remaining item 58.6 timing, long-term guess allowance and admission-before-lock fixes; Nov 12 five-topic scheduled acceptance remains due. Item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.
+- Full pnpm check passes: 866 unit/286 integration tests, four expected skips; git diff --check passes. API/worker restarted outside the deployment hold; post-restart health and 32 account-boundary refusals pass, zero alerts. Commit/push and final main-matching restart follow.

@@ -14,6 +14,28 @@ function address(value: string): string | null {
   return `${high >> 8}.${high & 255}.${low >> 8}.${low & 255}`;
 }
 
+function clientBucket(value: string): string | null {
+  const normalized = address(value);
+  if (!normalized || isIP(normalized) !== 6) return normalized;
+  // IPv6 privacy addresses in one /64 share a sign-in allowance. Keep peer
+  // verification exact: this grouping applies only to the observed visitor.
+  const halves = normalized.split('::');
+  const left = halves[0] ? halves[0].split(':') : [];
+  const right = halves[1] ? halves[1].split(':') : [];
+  const words =
+    halves.length === 1
+      ? left
+      : [
+          ...left,
+          ...Array<string>(8 - left.length - right.length).fill('0'),
+          ...right,
+        ];
+  return `${words
+    .slice(0, 4)
+    .map((word) => Number.parseInt(word, 16).toString(16))
+    .join(':')}::/64`;
+}
+
 // Prepared only. Deployment must verify and explicitly supply immediate proxy
 // peers before registration. Never infer trust from a forwarded header.
 // exe.dev documents appending the observed client to X-Forwarded-For:
@@ -41,6 +63,6 @@ export function proxyClient(trustedPeers: readonly string[]) {
     )
       return null;
     // Prior entries are visitor-controlled. Only the final appended IP counts.
-    return address(forwarded.slice(forwarded.lastIndexOf(',') + 1).trim());
+    return clientBucket(forwarded.slice(forwarded.lastIndexOf(',') + 1).trim());
   };
 }
