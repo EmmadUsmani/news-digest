@@ -1,7 +1,12 @@
 # U.S. news & politics topic
 
-**Status:** steered as item 56 on 2026-11-11, ranked #3 after public access.
-The agent starts only when item 50 is finished or waiting on the owner.
+**Status (21:45 UTC Nov 11):** agent started at 18:16 (item 50 stopped for
+the phase 4 review). 18 iterations: offline split of saved World stories (23
+World / 5 U.S.), three free domestic feeds tested (Guardian US, NPR Politics,
+PBS Politics), and the one-story-one-topic pipeline built but not connected.
+Not live. It is stuck on a cost gate: the plan's "1.5× reserve must fit under the
+cap" rule, which today's four-topic editions already fail. That rule was a lead
+wording mistake; production clamps the reserve to the cap.
 
 **Goal:** split World into World news & politics (global, including US foreign
 policy) and U.S. news & politics (domestic). One story, one topic. Both visible
@@ -13,10 +18,9 @@ most $0.65, only if measured as needed.
 
 **Next:**
 
-- Watch for item 56's first ack: sources chosen, offline split on Nov 4–10
-  World editions, caps set, measured edition cost and any AI cap change.
-- Check it didn't start while item 50 could still move.
-- Review the first edition with both topics: repeated stories, US foreign
-  policy landing in World, U.S. depth.
+- Item 57 steered (Nov 11): no 1.5× test, AI monthly budget $20, go live next.
+- Watch for the go-live ack: feeds, caps, expected cost vs the effective cap.
+- Check it stops cost measurement work and wires the split into the edition.
+- Review the first edition with both topics.
 
 **Open decisions:** none.

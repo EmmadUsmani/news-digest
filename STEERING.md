@@ -21,12 +21,12 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
    Migration 0019 is live; phase 4 is in progress. Item 55 limits re-verification
    and says to stop at the phase 4 summary.
-3. Split World into World and U.S. news & politics (item 56). Starts only
+3. Split World into World and U.S. news & politics (items 56, 57). Starts only
    when item 50 is finished or waiting on the owner; item 50 always comes
    first when it can move.
 4. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
-6. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
+5. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
    while it waits, item 42 says what to do first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
@@ -2588,6 +2588,8 @@ starting.
 - **Budgets, owner-approved:** X production caps rise to **$0.50/day and
   $15/month**. `LLM_DAILY_MAX_USD` may rise to at most **$0.65**, only if a
   measurement shows the fifth topic needs it. Report the figures.
+- **Budget rule replaced by item 57 (2026-11-11):** no 1.5× fit test; AI
+  monthly budget $20.
 - **While waiting** for scheduled editions: go back to item 50, or item 38's
   list.
 - **Don't:** hand-written word lists or keyword rules for which topic a story
@@ -2599,3 +2601,34 @@ starting.
   Nov 4–10 World editions, caps set, measured edition cost), and one after the
   three-edition review, with per-topic story counts, any repeated or misplaced
   story, and spending against the caps.
+
+## 57. NOW: drop the 1.5× cost gate and take the U.S. topic live (2026-11-11)
+
+**Why:** the plan's rule that the scheduled 1.5× reserve must fit under the AI
+cap was a lead wording mistake. Today's four-topic editions ($0.33–0.42)
+already fail it, yet they publish because the reserve is limited to the cap.
+Iterations 1840–1857 spent hours seeking savings that can't close that gap. The
+real limit is the $14 AI monthly budget, which holds the daily cap near $0.54.
+
+- **Priority:** unchanged from item 56: after item 50 whenever item 50 can
+  move. This replaces item 56's budget rule; the rest of item 56 and the plan
+  stand. The plan is updated to match.
+- **What to do, in order:**
+  1. **Drop the 1.5× fit test.** The fifth topic is allowed when a normal
+     edition's expected cost fits under the effective daily cap. The scheduled
+     reserve keeps working exactly as it does today. Stop the savings search.
+  2. **Raise the AI monthly budget to $20:** `LLM_MONTHLY_BUDGET_USD` and the
+     code limit that holds it at 14 (`apps/api/src/modules/curation/adapters/config.ts`).
+     The daily cap may rise to at most $0.65. Owner-approved.
+  3. **Go live next, with no more offline preparation:** wire the
+     one-story-one-topic step you built into the scheduled edition, add the
+     U.S. topic and its feeds, set the X and AI caps, and deploy outside
+     13:00–16:00 UTC. The next scheduled edition is the first test. No paid
+     test runs.
+  4. Review it in the daily edition review, per the plan's done criteria.
+- **Don't:** add new cost gates, savings work or measurement scripts before
+  going live. If a scheduled edition is refused for budget, report the numbers
+  and stop; don't relax other limits.
+- **Ack** when live: commit, caps set, the topic's feeds, and the expected
+  edition cost against the effective cap. Then the three-edition acks from
+  item 56.
