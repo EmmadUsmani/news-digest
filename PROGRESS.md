@@ -116,3 +116,14 @@
 - Live content: 36 sources/36 nonempty latest collections/zero errors; latest edition eb6e962e retains four topics.
 - Verification: pnpm format, pnpm lint:fix, targeted eslint, repeated read-only evaluator, filtered handbook check (39 tables/no warnings), git diff --check and pnpm build pass. Full pnpm check passes: 860 unit/283 integration tests, four expected skips; existing build warnings only.
 - Commit/push then API/worker restart and post-deploy health verification follow.
+
+## 2026-11-11: iteration 1858 — paired editor reservation decomposition
+
+- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 stopped for owner/lead review; continued 56.
+- Offline production-editor probe separates input/output reserves, checks per-scope output arithmetic and records refused Haiku alternatives; zero provider calls or DB access.
+- Both-scope proxies reserve $0.127933–$0.131338 initially, including $0.080000 output allowance; +$0.062630 versus unsplit. Sequential alternatives are not concurrent holds or charges.
+- Keeping saved Nov 10 World social editing leaves $0.010337 actual-cost room for all remaining World/U.S. work; no quality-preserving savings established. Paired editor stays unwired.
+- TASKS, budget evidence and NEEDS_FROM_HUMAN updated; no source/cap/model/output-limit/flag/runtime changes. Next: cached semantic routing evaluation.
+- Live snapshot: 36 sources, all nonempty/ok; /api/editions/latest serves eb6e962e with four topics. Mistaken /api/digests/latest probe returned 404; corrected endpoint passes.
+- Verification: pnpm format, pnpm lint:fix, offline probe, filtered check-handbook (39 tables/no warnings), pnpm build and git diff --check pass; pnpm check passes (860 unit/283 integration tests, four expected skips). Existing build warnings only.
+- Commit/push then API/worker restart and post-deploy health verification follow.

@@ -172,3 +172,9 @@ $0.106435; keeping the other topics fixed leaves $0.045419 for World/U.S.
 combined. Free World triage/grouping still leaves $0.041829 to save before U.S.
 additions. No policy change requested; evaluate concrete paired editorial
 savings next. Nov 4–5 attribution fails reconciliation and receives no credit.
+
+Iteration 1858: prepared paired editing establishes no savings; both-scope
+initial Sonnet reservations grow $0.062630 on saved-summary proxies. Keeping
+World social editing fixed leaves $0.010337 actual cost for all remaining
+World/U.S. work. Reservation estimates are not charges or proof of refusal.
+No cap/model/output-limit changes; semantic routing evidence remains next.

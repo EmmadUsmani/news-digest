@@ -13,6 +13,7 @@ import {
   type GroupingCandidate,
   type StoryScope,
 } from '../apps/api/src/modules/curation/application/event-grouping';
+import { costMicros } from '../apps/api/src/modules/curation/domain/budget';
 
 const config = llmConfig(
   parseEnv(readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8')),
@@ -44,6 +45,8 @@ async function probe(
     model: string;
     estimateMicros: number;
     inputByteBound: number;
+    outputTokenLimit: number;
+    outputReserveMicros: number;
   }[] = [];
   const unexpected = (): Promise<never> =>
     Promise.reject(
@@ -61,6 +64,16 @@ async function probe(
         reservations.push({
           model: request.model.id,
           estimateMicros: estimate,
+          outputTokenLimit: request.maxOutputTokens,
+          outputReserveMicros: costMicros(
+            {
+              input: 0,
+              cacheWrite: 0,
+              cacheRead: 0,
+              output: request.maxOutputTokens,
+            },
+            request.model,
+          ),
           inputByteBound:
             Buffer.byteLength(request.instructions + request.prompt, 'utf8') +
             2048,
@@ -138,6 +151,9 @@ async function main() {
       scopes[0],
     );
     let splitSonnetMicros = 0;
+    let splitHaikuMicros = 0;
+    let splitOutputReserveMicros = 0;
+    let nonemptyScopes = 0;
     // Exclusive manual fixture labels are an offline size probe, not AI ownership.
     for (const scope of scopes) {
       const stories = window.stories.filter(
@@ -157,7 +173,10 @@ async function main() {
         scopes,
         scope,
       );
+      nonemptyScopes++;
       splitSonnetMicros += attempts[0]?.estimateMicros ?? 0;
+      splitHaikuMicros += attempts[1]?.estimateMicros ?? 0;
+      splitOutputReserveMicros += attempts[0]?.outputReserveMicros ?? 0;
       assert.equal(
         attempts.length,
         2,
@@ -166,9 +185,25 @@ async function main() {
       assert.equal(attempts[0].model, config.sonnet.id);
       assert.equal(attempts[1].model, config.haiku.id);
     }
+    assert.equal(
+      nonemptyScopes,
+      new Set(window.stories.map((s) => s.scope)).size,
+    );
+    assert.equal(
+      splitOutputReserveMicros,
+      nonemptyScopes * baseline[0].outputReserveMicros,
+    );
+    assert.ok(splitSonnetMicros >= splitOutputReserveMicros);
     console.log(
       JSON.stringify({
         date: window.date,
+        nonemptyScopes,
+        splitOutputReserveMicros,
+        splitInputReserveMicros: splitSonnetMicros - splitOutputReserveMicros,
+        splitHaikuMicros,
+        // Attempts are sequential alternatives; never simultaneous holds or charges.
+        initialAndRefusedFallbackEnvelopeMicros:
+          splitSonnetMicros + splitHaikuMicros,
         unsplitSonnetMicros: baseline[0].estimateMicros,
         splitSonnetMicros,
         marginalSonnetMicros: splitSonnetMicros - baseline[0].estimateMicros,

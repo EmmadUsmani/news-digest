@@ -365,3 +365,41 @@ Next measure a concrete paired editorial design against the $0.045419 combined
 ceiling, preserving reporting quality, social coverage and the other topics.
 Grouping/triage savings alone cannot close the peak gate. Semantic routing
 still needs separate evaluation; split, caps, sources and runtime stay unchanged.
+
+## Paired editor reservation decomposition — iteration 1858
+
+The prepared paired design calls the existing story editor once for each
+nonempty owned scope. The offline request probe now separates input and output
+reservation and captures the refused Haiku alternative. No provider is built;
+the ledger refuses every attempt. Manual saved-summary labels size requests,
+without establishing semantic routing or raw-shortlist bounds.
+
+| Both-scope saved window | Sonnet input reserve | Sonnet output reserve | Initial Sonnet total | Refused Haiku alternatives |
+| ----------------------- | -------------------: | --------------------: | -------------------: | -------------------------: |
+| Nov 5                   |            $0.047933 |             $0.080000 |            $0.127933 |                  $0.006397 |
+| Nov 7                   |            $0.051338 |             $0.080000 |            $0.131338 |                  $0.006568 |
+| Nov 8                   |            $0.049863 |             $0.080000 |            $0.129863 |                  $0.006494 |
+| Nov 10                  |            $0.050833 |             $0.080000 |            $0.130833 |                  $0.006543 |
+
+Each call retains the production 4,000-output-token allowance. Two scopes
+therefore reserve $0.080000 for Sonnet output alone. The smaller Haiku numbers
+are refused fallback alternatives, not an authorized model switch. Attempt
+sums are sequential envelopes, never simultaneous holds or actual charges.
+
+The paired wrapper supplies exclusivity and failure handling, but offers no
+measured editorial savings: its initial reservations increase by $0.062630
+on every both-scope proxy. Comparing these reservation bounds directly with
+$0.045419 of historical actual-cost headroom would mix different quantities.
+No assertion that the scheduler must refuse follows from that comparison.
+
+Holding Nov 10 World X/social and Bluesky editing costs fixed ($0.035082)
+leaves only **$0.010337 actual cost** for both scopes' story editing, article
+and social triage, grouping/ownership, and any additional U.S. social editing.
+Even free triage/grouping would require World story editing to fall from
+$0.052166 to at most $0.010337: an **80.184% reduction**, before U.S. additions.
+The prepared paired editor has no evidence supporting that reduction. Keep it
+unwired; smaller prompts alone cannot establish quality-preserving savings.
+Next evaluate semantic routing offline using available cached responses; do
+not activate the split or lower output limits without quality evidence.
+
+Reproduce: `pnpm exec tsx scripts/evaluate-joint-ownership-budget.ts`.
