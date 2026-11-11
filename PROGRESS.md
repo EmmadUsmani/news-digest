@@ -159,3 +159,12 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm check`, `git diff --check` and filtered handbook check pass. Full check: 836 unit/283 integration passes, four expected skips. No UI change.
 - Live source check: 36 healthy/zero unhealthy; latest published edition remains four topics/19 stories. API restart/health check follows push; runtime build is unchanged by this offline step.
 - Next: topic/source setup and joint AI event ownership; measure fifth-topic reserve from saved costs before cap changes. Then scheduled acceptance; no paid test runs.
+
+## 2026-11-11: iteration 1840 — fifth-topic saved-cost gate
+
+- Clean main; no inherited work. Initial alerts zero; healthz/database/Redis healthy and all 36 sources healthy. Item 50 remains stopped under 55; continued item 56.
+- Added provider-free, read-only repeatable-read evaluator joining Nov 4–10 saved edition UUIDs to ledger run IDs; checks four topics, positive costs and zero unresolved calls, and reads recent fully AI-complete costs.
+- Saved actual costs $0.286904–$0.422356. Equal-share fifth-topic proxy peaks at $0.527945; 1.5× reserve $0.791918 exceeds the approved $0.65 ceiling. Ledger has no topic attribution; estimate explicitly does not claim measured World cost or future admission.
+- Recorded figures and next gate in docs/edition-reviews/2026-11-11-fifth-topic-budget.md and TASKS.md. No caps, production topics, provider/model choices or reserve rules changed; no paid calls.
+- `pnpm exec tsx scripts/evaluate-fifth-topic-budget.ts --read-only`, `pnpm format`, `pnpm lint:fix`, `pnpm build` and `git diff --check` pass. Full `pnpm check` passes: 836 unit/283 integration passes, four expected skips; typecheck/lint/format/boundaries green.
+- Next: topic data and joint AI event ownership with costed requests/admission below the approved ceiling before coordinated activation; scheduled acceptance still pending.
