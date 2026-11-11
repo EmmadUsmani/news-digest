@@ -20,44 +20,7 @@
 
 [Iterations 1805–1810](docs/progress-archive/2026-11-11-iterations-1805-1810.md).
 
-## 2026-11-11: iteration 1811 — live installed metrics navigation
-
-- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units. No provider calls or generation changes; public mode and production telemetry admission remain off.
-- Extended explicit `check-live-admin-telemetry.ts --live`: installed Dashboards/Query Analyzer mount through the prepared proxy using real assets/metadata, with no uncaught errors/CSP violations, no-store and no upstream cookies. Automatic data queries receive local synthetic 403 responses before proxying; live chart acceptance remains open.
-- Existing bounded live instant/range metrics and one recent log row pass; simulated anonymous/reader/stale-admin document refusal causes zero upstream work. Real stored-session/live-upstream composition remains open; this step does not claim it.
-- Initial browser run exposed automatic POST queries, so the review now explicitly refuses them locally. Second run exposed same-document navigation returning null; independent document loads fix the check. Final live rerun passes; no operational bodies printed.
-- Updated TASKS and tool-response review. Nov 11 15:00 UTC NBA acceptance remains due.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass. `git diff --check` clean; API restart and health recheck follow commit.
-
-## 2026-11-11: iteration 1812 — live installed logs navigation
-
-- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; all 36 sources healthy and digest queue has zero failed runs. No provider calls.
-- Extended explicit `check-live-admin-telemetry.ts --live`: installed logs Query/Overview mount through the prepared proxy with real assets and build/tenant metadata, no uncaught errors/CSP violations, no-store and no upstream cookies.
-- Automatic query/hits requests are observed and refused locally with synthetic HTTP 403 before proxying. Anonymous/reader/stale-admin document refusals now cover both tools with zero upstream work. Principals remain simulated; live stored-session composition remains open.
-- First run caught logs root hash normalization; root Query now requires its Execute button instead of an empty hash. Corrected live reruns pass. Public mode and production telemetry admission remain off.
-- Updated TASKS/readiness/response review. Nov 11 15:00 UTC NBA acceptance remains due; no generation edits.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build`, `check-live-admin-telemetry.ts --live`, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 checks), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass.
-- `git diff --check` clean; API restart and health recheck follow commit before the 13:00 UTC freeze.
-
-## 2026-11-11: iteration 1813 — live installed metrics chart
-
-- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; 36 sources have no errors and active sources have recent items. Digest queue has zero failed runs and next edition is scheduled for 15:00 UTC. No provider calls.
-- Extended explicit `check-live-admin-telemetry.ts --live`: installed metrics Query renders one real `count(up)` series through the prepared proxy. Admission permits only exact range fields, current one-minute window, minimum 15-second step and one upstream query; response checks bound samples and require positive counts.
-- Other automatic data queries remain locally refused. Principals remain simulated; real stored-session/live-upstream composition remains open. Production telemetry admission/public mode remain off; no generation changes.
-- Initial checks caught document-query admission and the native default 200ms step; hash parameters plus explicit 15s step fixed the review. Final bounded live reruns pass. Inspected chart screenshot and updated TASKS/readiness/tool response review.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live telemetry check, handbook observability check, 32 deployed account-boundary checks and saved Nov 10 reader check (four topics/19 stories/15 posts). All pass: retry `pnpm check` exits 0 (836 unit/283 integration passes, four expected integration skips). Initial combined command terminated with exit 143 during unit tests without a reported assertion failure; standalone retry passed.
-- API rebuilt/restarted healthy at 12:58 UTC before the hold; worker active. `git diff --check` clean. Review-only script/docs commit and push follow verification; no runtime changes or restart during the hold.
-- Next: Nov 11 15:00 UTC NBA acceptance; remaining stored-session/live telemetry composition. Preserve 13:00–16:00 UTC deployment hold.
-
-## 2026-11-11: iteration 1814 — live installed logs result
-
-- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; all 36 sources healthy and digest queue has zero failed runs, next edition 15:00 UTC. No provider calls.
-- Extended explicit `check-live-admin-telemetry.ts --live`: installed logs Query renders one actual recent message through the prepared proxy. Exact POST fields, `_time:1m`, limit one, current one-minute window and one upstream query are required; response checks enforce 16 KiB, one in-window row, no-store and no upstream cookie. Page/CSP checks pass.
-- Initial attempts exposed the native five-minute default: duration alone is ignored without an explicit end/relative setting. Explicit current end and relative `none` fix it; final live runs pass. Operational messages are never printed or saved in screenshots.
-- Other automatic data queries remain locally refused. Principals remain simulated; stored-session/live-upstream composition remains open. Public mode/production telemetry admission stay off; no generation changes, deployments or restarts during 13:00–16:00 UTC hold.
-- Updated TASKS/readiness/tool response review; archived older progress/completed markers with exact preservation verified. Discarded regenerated metrics screenshot only, retaining the existing reviewed artifact.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live telemetry check, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts); all pass; initial lint caught URLSearchParams concatenation, fixed with explicit `.toString()`. Full retry exits 0: 836 unit/283 integration passes, four expected integration skips.
-- `git diff --check` clean; commit/push follow. Next: Nov 11 15:00 UTC NBA acceptance review, then stored-session/live telemetry composition. Preserve deployment hold; review-only changes require no runtime restart.
+[Iterations 1811–1814](docs/progress-archive/2026-11-11-iterations-1811-1814.md).
 
 ## 2026-11-11: iteration 1815 — live installed Raw Query result
 
@@ -160,3 +123,14 @@
 - Verification: scheduled-reader pass, timing/X stored reports, 32 account-boundary checks; health/services/36 sources healthy, alerts clear, no failed digest jobs.
 - Full `pnpm check` passes (836 unit/283 integration, four expected skips); `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, format/diff checks before commit. Documentation/screenshots only; no service restart needed.
 - Next: remaining Phase 4 native telemetry controls/readiness gates; next fixed daily edition review Nov 12 15:00 UTC. No additional NBA prompt/replay work justified.
+
+## 2026-11-11: iteration 1825 — stored-session installed logs results
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, all 36 sources/14 services healthy; jobs check passes. No provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: installed logs Query renders real recent messages after Chromium HTTPS code login and stored-session freshness restoration.
+- Each of two live log reads is exactly `_time:1m`, limit one, one-minute absolute window; no-store response ≤16 KiB, one timestamp-checked message rendered. Operational bodies stay in memory.
+- Aging disposable Postgres session while the screen remains mounted makes Execute return empty no-store 404. Page errors/CSP checks and existing seven bounded metrics reads pass.
+- Updated TASKS, readiness and tool review; archived progress 1811–1814 to keep orientation small. Production flags unchanged; verification-only work needs no service restart and respects 13:00–16:00 UTC hold.
+- Verification: explicit live Chromium rehearsal, handbook (18 pages/one diagram/39 tables), 32 deployed account checks and Nov 11 scheduled reader (four topics/19 stories/19 posts) pass.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
+- Next: remaining native telemetry controls and Phase 4 readiness gates; Nov 12 15:00 UTC edition review. Grafana installation still waits for scheduled-load/compaction capacity evidence.

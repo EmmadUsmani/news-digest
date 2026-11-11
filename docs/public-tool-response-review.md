@@ -1323,3 +1323,18 @@ These screen checks cause no export work. Automatic data requests remain locally
 refused; they do not establish live dashboard/log data acceptance. Existing seven
 bounded live exports and Raw Query controls remain covered. Account writes use
 disposable containers; production flags and services are unchanged.
+
+### Stored-session installed logs result (iteration 1825)
+
+The explicit `check-live-stored-telemetry.ts --live` rehearsal now renders a real
+recent log message with the actual Chromium HTTPS code-login cookie. Two reads
+(login and freshness restoration) each request exactly `_time:1m`, limit one,
+and a one-minute absolute window. Responses are no-store, at most 16 KiB, and
+contain one timestamp-checked message rendered by the installed logs screen.
+Aging the session in disposable Postgres while that screen stays open makes
+Execute return an empty no-store 404. The browser reports no page errors or CSP
+violations. Other automatic log queries remain locally refused.
+
+Operational log bodies remain in memory; no screenshots or content are saved.
+Account writes use disposable containers; production flags/services are unchanged.
+Remaining telemetry controls and full Phase 4 activation gates stay open.

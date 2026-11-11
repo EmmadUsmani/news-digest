@@ -389,6 +389,10 @@ async function main() {
         ).policyViolations.push(event.effectiveDirective);
       });
     });
+    let logReads = 0;
+    let logMessage = '';
+    let expectedLogStatus: 200 | 404 = 200;
+    let allowLogRead = false;
     let nativeExports = 0;
     let renderedLabel = '';
     let expectedNativeStatus: 200 | 404 = 200;
@@ -396,6 +400,56 @@ async function main() {
     await context.route('**/*', async (route) => {
       const url = new URL(route.request().url());
       assert.equal(url.origin, browserBase);
+      if (url.pathname.includes('/logsql/')) {
+        const params = new URLSearchParams(route.request().postData() ?? '');
+        if (
+          allowLogRead &&
+          route.request().method() === 'POST' &&
+          url.pathname === '/logs/select/logsql/query' &&
+          params.get('query') === '_time:1m' &&
+          params.get('limit') === '1' &&
+          [...params.keys()].sort().join(',') === 'end,limit,query,start'
+        ) {
+          allowLogRead = false;
+          const timestamp = (value: string) =>
+            /^\d+(\.\d+)?$/.test(value)
+              ? Number(value) * 1000
+              : Date.parse(value);
+          const from = timestamp(params.get('start')!);
+          const until = timestamp(params.get('end')!);
+          assert.ok(from >= Date.now() - 125000);
+          assert.ok(until <= Date.now() + 5000 && until > from);
+          assert.ok(until - from <= 65000);
+          const response = await route.fetch({ timeout: 10000 });
+          assert.equal(response.status(), expectedLogStatus);
+          assert.equal(response.headers()['cache-control'], 'no-store');
+          assert.equal(response.headers()['set-cookie'], undefined);
+          const body = await response.text();
+          if (expectedLogStatus === 404) {
+            assert.equal(body, '');
+          } else {
+            logReads++;
+            assert.ok(Buffer.byteLength(body) <= 16384);
+            const rows = body.trim().split('\n').filter(Boolean);
+            assert.equal(rows.length, 1);
+            const row = JSON.parse(rows[0]) as Record<string, unknown>;
+            assert.ok(typeof row._time === 'string');
+            assert.ok(
+              Date.parse(row._time) >= from && Date.parse(row._time) <= until,
+            );
+            assert.ok(typeof row._msg === 'string' && row._msg.length > 0);
+            logMessage = row._msg;
+          }
+          await route.fulfill({ response, body });
+          return;
+        }
+        await route.fulfill({
+          status: 404,
+          body: '',
+          headers: { 'cache-control': 'no-store' },
+        });
+        return;
+      }
       if (url.pathname.includes('/api/v1/')) {
         if (url.pathname === telemetryExportPath && allowNativeExport) {
           allowNativeExport = false;
@@ -475,6 +529,68 @@ async function main() {
       ]);
       await mount();
     }
+    assert.equal(forwarded, beforeScreens);
+    const mountLogs = async (status: 200 | 404) => {
+      expectedLogStatus = status;
+      allowLogRead = true;
+      const before = logReads;
+      await page.goto('about:blank');
+      await page.goto(
+        browserBase +
+          '/logs/select/vmui/#/?' +
+          new URLSearchParams({
+            query: '_time:1m',
+            limit: '1',
+            'g0.range_input': '1m',
+            'g0.end_input': new Date().toISOString(),
+            'g0.relative_time': 'none',
+          }).toString(),
+        { waitUntil: 'networkidle' },
+      );
+      assert.equal(
+        allowLogRead,
+        false,
+        'Native log query reached the real handler',
+      );
+      assert.equal(logReads, before + (status === 200 ? 1 : 0));
+      assert.deepEqual(
+        await page.evaluate(
+          () =>
+            (window as unknown as { policyViolations: string[] })
+              .policyViolations,
+        ),
+        [],
+      );
+      if (status === 200)
+        await page.getByText(logMessage, { exact: true }).first().waitFor();
+      assert.deepEqual(errors, []);
+    };
+    await mountLogs(200);
+    // Age storage while the log UI remains mounted, then execute its query again.
+    await db.query(
+      "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
+      [browserSession.rows[0].id],
+    );
+    expectedLogStatus = 404;
+    allowLogRead = true;
+    const logRefusal = page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === '/logs/select/logsql/query',
+    );
+    await page.getByRole('button', { name: /execute( query)?/i }).click();
+    assert.equal((await logRefusal).status(), 404);
+    assert.equal(
+      allowLogRead,
+      false,
+      'Aged query reached the real session guard',
+    );
+    assert.equal(logReads, 1);
+    await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
+      browserSession.rows[0].created_at,
+      browserSession.rows[0].id,
+    ]);
+    await mountLogs(200);
+    assert.equal(logReads, 2);
     assert.equal(forwarded, beforeScreens);
     const beforeNative = forwarded;
     await page.goto(
@@ -620,7 +736,7 @@ async function main() {
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 7);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Seven bounded live reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Two bounded live log reads render with stored-session login/restoration; an aged open logs screen refuses Execute. Seven bounded live metrics reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();
