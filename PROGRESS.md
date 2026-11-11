@@ -124,3 +124,12 @@
 - `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. Explorer unit tests passed four; `pnpm build` passed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 282 integration passes, four expected skips) and `git diff --check` passed. Pushed `895a47b4`; restarted schema service active: 39 tables/36 relations/zero warnings. `/healthz` passes; anonymous `/db/` returns 404.
 - Next: explorer credential/function review, structural UI and exact HTTP/browser/private rollback rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 NBA acceptance review.
+
+## 2026-11-11: iteration 1767 — review explorer inherited function privileges
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz` found no active alerts, service/source outage or failed digest run; retained failed collection attempts have current successful runs.
+- Extended the disposable catalog-role rehearsal to inventory executable non-system SECURITY DEFINER functions and writable persistent schemas, and deny server file/directory reads, server programs and table/function creation. Uses session authorization, preserves fixed-query/projection requirements and rolls back all changes. No live credentials, grants, flags or provider calls changed.
+- Updated the public tool response review and TASKS. Credential installation and structural UI/HTTP/private rollback remain open; NBA acceptance awaits the Nov 11 15:00 UTC edition.
+- `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. `pnpm build` passed; live schema service active and anonymous `/db/` returns 404.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 282 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Explorer inherited-function assertions pass. Restart schema service after push; public mode remains off.
+- Next: credential installation and structural explorer UI/HTTP/private rollback rehearsal; Grafana paired capacity evidence under scheduled load or natural compaction; Nov 11 scheduled NBA review.

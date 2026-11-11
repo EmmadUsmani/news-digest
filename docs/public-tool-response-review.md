@@ -434,6 +434,21 @@ and structural projection under this role. It checks schema relationships,
 application-row and password-catalog refusal, role-switch refusal and absence
 of memberships/table grants. PostgreSQL still exposes comments through catalog
 reads: the test demonstrates this and requires their removal by the projection.
-The role must only back fixed catalog queries. Credential installation, inherited
-function access review, structural UI and exact HTTP/browser/rollback checks
+The role must only back fixed catalog queries. Credential installation, structural UI and exact HTTP/browser/rollback checks
 remain before acceptance; public mode stays off.
+
+## Explorer inherited-function review (iteration 1767)
+
+The disposable migrated-database rehearsal now checks all non-system schemas
+for executable SECURITY DEFINER functions and all persistent schemas for CREATE
+access under the catalog role. Both inventories must be empty. Actual server
+file reads, directory listing, server-program execution, table creation and
+SECURITY DEFINER function creation must fail, alongside row reads and role
+switching. Session authorization is the catalog role, rather than a superuser
+session using SET ROLE. The test transaction rolls every change back.
+
+These checks pin the current migrations and PUBLIC grants; they do not make
+arbitrary SQL safe. Fixed introspection queries and structural projection remain
+required because catalogs expose comments and definitions. No live credentials,
+grants or routes changed. Credential installation and UI/HTTP/rollback rehearsal
+remain open before activation.

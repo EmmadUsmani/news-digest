@@ -40,6 +40,17 @@ void test('prepared explorer role reads schema structure without application-row
       WHERE table_schema='public' AND has_table_privilege(current_user,
         format('%I.%I',table_schema,table_name),'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')`);
     assert.deepEqual(grants.rows, []);
+    // PUBLIC function privileges survive a role's explicit revocations. Check
+    // every non-system SECURITY DEFINER function, including extension schemas.
+    const definers = await client.query(`SELECT n.nspname,p.proname
+      FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
+      WHERE p.prosecdef AND has_function_privilege(current_user,p.oid,'EXECUTE')
+        AND n.nspname NOT IN ('pg_catalog','information_schema')`);
+    assert.deepEqual(definers.rows, []);
+    const writableSchemas = await client.query(`SELECT nspname FROM pg_namespace
+      WHERE nspname NOT LIKE 'pg_temp_%' AND nspname NOT LIKE 'pg_toast%'
+        AND has_schema_privilege(current_user,oid,'CREATE')`);
+    assert.deepEqual(writableSchemas.rows, []);
     const catalog = await introspect(client);
     assert.ok(catalog.tables.some((table) => table.name === 'users'));
     const model = buildPublicModel(buildModel(catalog));
@@ -57,6 +68,13 @@ void test('prepared explorer role reads schema structure without application-row
       'DELETE FROM public.users',
       'SELECT * FROM pg_authid',
       'SET ROLE postgres',
+      "SELECT pg_read_file('/etc/passwd')",
+      "SELECT pg_read_binary_file('/etc/passwd')",
+      "SELECT pg_ls_dir('.')",
+      "COPY (SELECT 1) TO PROGRAM 'true'",
+      'CREATE TABLE public.explorer_injection(id int)',
+      `CREATE FUNCTION public.explorer_injection() RETURNS int
+        LANGUAGE sql SECURITY DEFINER AS 'SELECT 1'`,
     ]) {
       await client.query('SAVEPOINT denied');
       await assert.rejects(
