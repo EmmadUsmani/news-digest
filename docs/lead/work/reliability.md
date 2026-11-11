@@ -5,14 +5,13 @@
 stable) and the newest prerelease. `gpt-6-sol` works, so the block is on the
 exe.dev gateway or OpenAI side. Owner approved a temporary pin: the VM's
 `~/.codex/config.toml` has `model = "gpt-6-sol"` (backup `config.toml.pre-gpt6sol`).
-Healthy since: iterations 1753 and 1754 passed, 1755 running (lead check 00:08 UTC
-Nov 11). Next: remove the pin once `gpt-6.1-sol` answers a one-line
-`codex exec -m gpt-6.1-sol` test.
+Healthy since: iterations 1753 to 1755 passed. Owner on Nov 10: keep the pin for
+now, maybe test `gpt-6.1-sol` with a one-line `codex exec -m gpt-6.1-sol` on Nov 11.
 
 **Supervisor fallback and AgentCrashLoop alert** (commits 238d5af0, 657582d9) are
-on `main` but not live: the VM runs the Nov 2 copy of `~/agent-control/run.sh`.
-Going live needs `install.sh` plus a supervisor restart between iterations. That
-is a production change, so it needs the owner's go-ahead.
+live. Installed at 00:16 UTC Nov 11, between iterations 1755 and 1756; the
+installing session left no commit. Installed `run.sh` matches `main` 0b764829,
+`news_digest_harness_failure_streak` reads 0, and vmalert has loaded `AgentCrashLoop`.
 
 **Status:** steered on Nov 7 as items 47 and 48, not yet acked. The agent rehearses four
 failed-edition cases and a rebuild from backup, then settles M6 and M7.
