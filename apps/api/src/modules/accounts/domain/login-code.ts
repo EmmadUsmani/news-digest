@@ -29,7 +29,7 @@ export abstract class LoginCodeDelivery {
 }
 
 export abstract class LoginCodeAdmission {
-  // Apply shared per-email AND per-client limits even for unknown identities.
+  // Apply shared per-recipient/client AND per-client limits for all identities.
   abstract allow(email: string, clientAddress: string): Promise<boolean>;
   // Enforce signup mode and existing-account/invitation policy internally.
   abstract eligible(email: string): Promise<boolean>;

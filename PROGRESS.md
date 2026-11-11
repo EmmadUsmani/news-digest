@@ -153,3 +153,12 @@
 - pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook (39 tables/no warnings), git diff --check pass; existing build warnings only. Full pnpm check passes: 862 unit/286 integration tests, four expected skips.
 - Live read-only checks: 32 account-boundary refusals pass; saved Nov 11 reader verifies eb6e962e, four topics/19 stories/19 posts. No publication or account writes.
 - Next: item 58.2 sign-in protection, then remaining findings in owner order; first five-topic scheduled review due Nov 12. Item 50 remains gated on fixes, normal scheduled publication, lead re-check and owner decision.
+
+## 2026-11-11: iteration 1861 — isolate sign-in rate allowances
+
+- Clean main/no inherited work; alerts zero, health/database/Redis healthy. Continued item 58.2 in owner order.
+- Recipient throttling is now scoped to the requesting client; shared per-client throttling, private keys, expiry and fail-closed behavior remain enforced.
+- Redis regression covers concurrent instances and confirms other clients cannot exhaust a reader’s allowance. Full item 58.2 remains open; finish challenge protection next before admin freshness.
+- pnpm format, pnpm lint:fix, pnpm check (862 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
+- Live read-only checks: all 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics. No provider calls, budget/source/public-mode/sharing changes or accepted-screen reruns.
+- Commit/push and API/worker restart outside the deployment hold follow; final health/alerts checked after restart.

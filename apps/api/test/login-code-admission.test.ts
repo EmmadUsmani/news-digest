@@ -23,13 +23,23 @@ void test('login admission shares atomic private counters, expires and fails clo
   try {
     const results = await Promise.all(
       Array.from({ length: 40 }, (_, i) =>
-        (i % 2 ? first : second).allow('reader@example.test', `client-${i}`),
+        (i % 2 ? first : second).allow('reader@example.test', 'noisy-client'),
       ),
     );
     assert.equal(results.filter(Boolean).length, 10);
     assert.equal(
-      await first.allow(' READER@example.test ', 'another-client'),
+      await first.allow(' READER@example.test ', 'noisy-client'),
       false,
+    );
+    // Even many strangers naming this recipient cannot spend this client's
+    // allowance; separate adapter instances still enforce each shared bucket.
+    for (let i = 0; i < 20; i++) {
+      for (let attempt = 0; attempt < 11; attempt++)
+        await second.allow('reader@example.test', `stranger-${i}`);
+    }
+    assert.equal(
+      await first.allow('reader@example.test', 'reader-client'),
+      true,
     );
     assert.equal(await first.eligible('reader@example.test'), true);
     assert.equal(await second.eligible('reader@example.test'), false);

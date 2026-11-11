@@ -4,6 +4,7 @@ import type { Redis } from 'ioredis';
 
 import { LoginCodeAdmission } from '../domain/login-code';
 
+// A recipient allowance belongs to one client, never to strangers naming them.
 // Increment both dimensions on every attempt, even if the other is blocked.
 // One script prevents concurrent processes from exceeding either allowance.
 const ADMIT = `
@@ -46,7 +47,7 @@ export class RedisLoginCodeAdmission extends LoginCodeAdmission {
         (await this.cache.eval(
           ADMIT,
           2,
-          this.key('email', email.trim().toLowerCase()),
+          this.key('email', `${email.trim().toLowerCase()}\0${clientAddress}`),
           this.key('client', clientAddress),
           this.limits.email,
           this.limits.client,
