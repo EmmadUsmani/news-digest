@@ -2,8 +2,9 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { createServer as createHttpsServer } from 'node:https';
 import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -31,6 +32,28 @@ async function main() {
   assert.deepEqual(process.argv.slice(2), ['--live'], 'Requires --live');
   const containers: StartedTestContainer[] = [];
   const directory = await mkdtemp(join(tmpdir(), 'live-stored-telemetry-'));
+  assert.equal(
+    spawnSync(
+      'openssl',
+      [
+        'req',
+        '-x509',
+        '-newkey',
+        'rsa:2048',
+        '-nodes',
+        '-keyout',
+        join(directory, 'key.pem'),
+        '-out',
+        join(directory, 'cert.pem'),
+        '-days',
+        '1',
+        '-subj',
+        '/CN=localhost',
+      ],
+      { stdio: 'pipe' },
+    ).status,
+    0,
+  );
   let accounts: ReturnType<typeof prepareStoredAccountHttp> | undefined;
   let db: ReturnType<typeof database> | undefined;
   let identities: PostgresReaderIdentityRepository | undefined;
@@ -100,6 +123,18 @@ async function main() {
       void exportHandler!(req, res, () => res.writeHead(404).end());
     });
   });
+  const browserServer = createHttpsServer(
+    {
+      key: await readFile(join(directory, 'key.pem')),
+      cert: await readFile(join(directory, 'cert.pem')),
+    },
+    (req, res) => {
+      // Disposable TLS ingress supplies the configured trusted proxy's visitor entry.
+      req.headers['x-forwarded-for'] = '203.0.113.92';
+      req.rawHeaders.push('X-Forwarded-For', '203.0.113.92');
+      server.emit('request', req, res);
+    },
+  );
   let exportHandler:
     ReturnType<typeof prepareAuthenticatedTelemetryExport> | undefined;
   try {
@@ -135,14 +170,20 @@ async function main() {
       0,
       'Disposable migration failed; output withheld',
     );
+    await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
+    const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+    await new Promise<void>((done) =>
+      browserServer.listen(0, '127.0.0.1', done),
+    );
+    const browserBase = `https://localhost:${(browserServer.address() as AddressInfo).port}`;
     const configuration = {
       ACCOUNTS_ENABLED: '1',
-      ACCOUNT_ORIGIN: 'https://reader.example',
+      ACCOUNT_ORIGIN: browserBase,
       ACCOUNT_SECRET_KEY: randomBytes(32).toString('hex'),
       ACCOUNT_MAILBOX_PATH: directory,
       ACCOUNT_TRUSTED_PROXY_PEERS: '127.0.0.1',
       SIGNUP_MODE: 'invite',
-      ADMIN_EMAILS: 'owner@example.test',
+      ADMIN_EMAILS: 'owner@example.test,browser@example.test',
     };
     accounts = prepareStoredAccountHttp(configuration);
     assert.ok(accounts.handlers && accounts.middleware);
@@ -155,8 +196,6 @@ async function main() {
       (req) => authenticate(req, new Date()),
       new URL(`http://127.0.0.1:${(relay.address() as AddressInfo).port}`),
     );
-    await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
-    const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
     const write = (path: string, body: unknown, cookie = '') =>
       fetch(base + path, {
         method: 'POST',
@@ -183,7 +222,7 @@ async function main() {
         assert.ok(cookie.includes(flag));
       return cookie.split(';')[0];
     };
-    const admin = await login(configuration.ADMIN_EMAILS);
+    const admin = await login('owner@example.test');
     const reader = await login('reader@example.test');
     const check = async (
       cookie: string,
@@ -254,25 +293,48 @@ async function main() {
     await check(admin, true);
     await check(admin, false, '&timeout=10s');
     await check(admin, false, '', 'POST');
-    // Chromium treats loopback localhost as trustworthy for Secure cookies.
-    // Seed the real HTTP-issued session; never expose it to page JavaScript.
+    // Let Chromium receive and store the real redeem response cookie itself.
     browser = await chromium.launch({ headless: true });
-    const browserBase = base.replace('127.0.0.1', 'localhost');
-    const context = await browser.newContext({ serviceWorkers: 'block' });
-    const separator = admin.indexOf('=');
-    await context.addCookies([
-      {
-        name: admin.slice(0, separator),
-        value: admin.slice(separator + 1),
-        domain: 'localhost',
-        path: '/',
-        secure: true,
-        httpOnly: true,
-        sameSite: 'Lax',
-      },
-    ]);
+    const context = await browser.newContext({
+      serviceWorkers: 'block',
+      ignoreHTTPSErrors: true,
+    });
     const page = await context.newPage();
     await page.goto(browserBase + '/browser-rehearsal');
+    const browserWrite = (path: string, body: unknown) =>
+      page.evaluate(
+        async ({ path, body }) => {
+          const response = await fetch(path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+            signal: AbortSignal.timeout(10000),
+          });
+          return response.status;
+        },
+        { path, body },
+      );
+    const email = 'browser@example.test';
+    assert.equal(await browserWrite('/api/account/code', { email }), 202);
+    const code = await new FileLoginCodeDelivery(directory).latest(
+      email,
+      new Date(),
+    );
+    assert.ok(code);
+    assert.equal(
+      await browserWrite('/api/account/redeem', { email, code }),
+      204,
+    );
+    const cookies = await context.cookies();
+    assert.equal(cookies.length, 1);
+    assert.equal(cookies[0].secure, true);
+    assert.equal(cookies[0].httpOnly, true);
+    assert.equal(cookies[0].sameSite, 'Lax');
+    const browserSession = await db.query<{ id: string; created_at: Date }>(
+      'SELECT id, created_at FROM sessions WHERE id <> $1 AND admin_eligible',
+      [session.rows[0].id],
+    );
+    assert.equal(browserSession.rows.length, 1);
     assert.equal(await page.evaluate(() => document.cookie), '');
     const browserCheck = async (allowed: boolean) => {
       const end = Math.floor(Date.now() / 1000);
@@ -305,31 +367,37 @@ async function main() {
     await browserCheck(true);
     await db.query(
       "UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1",
-      [session.rows[0].id],
+      [browserSession.rows[0].id],
     );
     await browserCheck(false);
     await db.query('UPDATE sessions SET created_at = $1 WHERE id = $2', [
-      session.rows[0].created_at,
-      session.rows[0].id,
+      browserSession.rows[0].created_at,
+      browserSession.rows[0].id,
     ]);
-    assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
+    assert.equal(await browserWrite('/api/account/logout', {}), 204);
+    assert.equal((await context.cookies()).length, 0);
+    // Restore the cookie to prove server-side revocation independently of deletion.
+    await context.addCookies(cookies);
     // Keep the browser cookie: storage revocation must reject it without relay work.
     await browserCheck(false);
     assert.equal((await context.cookies()).length, 1);
     await context.clearCookies();
     await browserCheck(false);
     await context.close();
+    assert.equal((await write('/api/account/logout', {}, admin)).status, 204);
     await check(admin, false);
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 3);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Three bounded live reads, including a Chromium HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Three bounded live reads, including a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();
+    browserServer.closeAllConnections();
     server.closeAllConnections();
     relay.closeAllConnections();
     await Promise.all([
+      new Promise<void>((done) => browserServer.close(() => done())),
       new Promise<void>((done) => server.close(() => done())),
       new Promise<void>((done) => relay.close(() => done())),
     ]);

@@ -140,3 +140,14 @@
 - Updated TASKS/readiness/tool review. No runtime or generation changes; production flags remain off and no restart/deploy during the 13:00–16:00 UTC hold.
 - Verification: explicit live stored-session/browser check, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts), and `pnpm build` pass. `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass (836 unit/283 integration passes, four expected skips); initial full check caught lint-fix formatting drift, corrected with targeted Prettier before successful retry.
 - Next: Nov 11 15:00 UTC NBA acceptance review, then installed-native-UI/live stored-session composition and remaining Phase 4 gates. `git diff --check` clean; commit/push follow.
+
+## 2026-11-11: iteration 1818 — browser HTTPS code-login/live export
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user units; source/job checks pass, next edition 15:00 UTC. No provider calls.
+- Replaced seeded browser session in `check-live-stored-telemetry.ts --live` with Chromium code request/redemption over disposable self-signed local HTTPS. Browser stores actual Secure/HttpOnly/Lax cookie; JavaScript cannot read it. Disposable TLS ingress simulates trusted proxy visitor forwarding; no exe.dev proxy claim.
+- Fresh browser session gets one bounded live export (three live reads total); stored aging refuses without upstream work. Browser logout deletes its cookie; restoring the old cookie still refuses, proving storage revocation. Postgres/Redis/accounts/mailbox/certificate are disposable; operational bodies remain in memory.
+- Initial rehearsal exposed the HTTPS-origin requirement, trusted forwarding wire multiplicity and repeated-login cooldown. Added local TLS ingress and a separate disposable browser admin; corrected explicit live check passes.
+- Updated TASKS/readiness/tool response review. Installed native UI/live-session composition remains open; production flags off, no runtime/generation changes or restart/deploy during 13:00–16:00 UTC hold.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, explicit live stored-session check, `check-handbook.ts observability`, `check-live-account-boundary.ts` (32 passes), `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts).
+- Full check initially stalled in existing `telemetry-export.test.ts`; targeted rerun passed 3/3 in 0.71 s. Terminated stalled child; full `pnpm check` retry exits 0: 836 unit/283 integration passes, four expected skips.
+- Next: Nov 11 15:00 UTC NBA acceptance review, then installed native UI/live stored-session composition. Review-only change needs no service restart.

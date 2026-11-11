@@ -1246,3 +1246,18 @@ clearing that cookie remains refused. Responses are no-store and bounded to
 This checks browser cookie transport, not browser login or the installed native
 UI with live stored sessions. Production flags remain off. No service restart
 or deployment is needed for this verification-only change during the hold.
+
+### Browser HTTPS code login/live export (iteration 1818)
+
+The explicit stored-session rehearsal now requests and redeems a code through
+Chromium fetch over disposable local HTTPS. Chromium stores the redeem response
+cookie itself; Secure, HttpOnly and SameSite=Lax are checked, and page JavaScript
+cannot read it. The test mailbox and accounts remain disposable. A test TLS
+ingress supplies the trusted proxy visitor header; this is not an exe.dev proxy
+check. The self-signed certificate is accepted only by the isolated test browser.
+
+The fresh browser session receives one bounded live export. Aging its stored
+session refuses the next read; browser logout deletes the cookie, and restoring
+the old cookie still refuses without upstream work. Three live reads overall,
+with operational bodies only in memory. Installed native UI composition remains
+open; production flags and services stay unchanged during the deployment hold.
