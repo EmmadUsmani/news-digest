@@ -1193,3 +1193,20 @@ messages are neither printed nor saved in screenshots.
 Principals remain simulated; stored-session/live-upstream composition and
 production telemetry admission remain open. Public mode stays off. No provider
 calls or service restarts during the deployment hold.
+
+### Live installed Raw Query result (iteration 1815)
+
+The explicit live check now renders an actual `up` export in installed metrics
+Raw Query through the prepared bounded export handler. Browser admission permits
+one GET, exact export fields and a current one-minute window. Response checks
+require no-store, no upstream cookie, at most 64 KiB, at most 32 distinct series,
+one sample per row and timestamps inside the requested window. An actual job
+label must render without page or CSP errors. Operational labels are never
+printed or saved in screenshots. Anonymous, reader and stale-admin requests,
+POST, aggregate selectors, thirty-minute windows and caller timeout overrides
+are refused without export upstream work.
+
+Export actor selection is explicitly simulated in this isolated server, separate
+from the ordinary prepared-public guard: production export admission remains
+closed. Stored-session/live-upstream composition remains open. Public mode stays
+off; no provider calls, deployment or service restarts during the hold.

@@ -11,6 +11,11 @@ import {
   selectInternalTools,
 } from '../apps/api/src/internal-tools';
 import { publicAccess } from '../apps/api/src/public-access';
+import {
+  boundedTelemetryExport,
+  proxyBoundedTelemetryExport,
+  telemetryExportPath,
+} from '../apps/api/src/telemetry-export';
 
 async function main() {
   assert.deepEqual(process.argv.slice(2), ['--live'], 'Requires --live');
@@ -25,6 +30,20 @@ async function main() {
     ),
   );
   const server = createServer((req, res) => {
+    // Explicit isolated export composition; production admission stays closed.
+    if (req.url?.split('?')[0] === telemetryExportPath) {
+      if (actor !== 'admin') {
+        res.writeHead(404, { 'cache-control': 'no-store' }).end();
+        return;
+      }
+      if (req.method === 'GET' && boundedTelemetryExport(req.url)) forwarded++;
+      void proxyBoundedTelemetryExport(
+        req,
+        res,
+        new URL('http://127.0.0.1:8428'),
+      );
+      return;
+    }
     void guard(req, res, () => {
       forwarded++;
       proxy(req, res, () => res.writeHead(404).end());
@@ -128,6 +147,29 @@ async function main() {
         }
       }
     }
+    const exportPath = `${telemetryExportPath}?match[]=up&start=${end - 60}&end=${end}`;
+    for (const principal of ['anonymous', 'reader', 'stale-admin'] as const) {
+      actor = principal;
+      const before = forwarded;
+      const response = await fetch(base + exportPath);
+      assert.equal(response.status, 404);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.equal(await response.text(), '');
+      assert.equal(forwarded, before);
+    }
+    actor = 'admin';
+    for (const [method, path] of [
+      ['POST', exportPath],
+      ['GET', exportPath.replace('match[]=up', 'match[]=count(up)')],
+      ['GET', exportPath.replace(`start=${end - 60}`, `start=${end - 1800}`)],
+      ['GET', exportPath + '&timeout=30s'],
+    ]) {
+      const before = forwarded;
+      const response = await fetch(base + path, { method });
+      assert.equal(response.status, 404);
+      assert.equal(await response.text(), '');
+      assert.equal(forwarded, before);
+    }
     // Refused at admission, before any real upstream sees a mutation.
     for (const [method, path] of [
       ['GET', '/metrics/internal/force_merge'],
@@ -150,6 +192,10 @@ async function main() {
       const errors: string[] = [];
       const metadata = new Set<string>();
       const refusedQueries = new Set<string>();
+      let exportReview = false;
+      let exportQueries = 0;
+      let exportSeries = 0;
+      let exportLabel = '';
       let chartReview = false;
       let chartQueries = 0;
       let logReview = false;
@@ -185,6 +231,49 @@ async function main() {
           const step = /^\d+(s)?$/.test(stepText)
             ? Number(stepText.replace(/s$/, ''))
             : 0;
+          if (
+            exportReview &&
+            exportQueries === 0 &&
+            request.method() === 'GET' &&
+            url.pathname === telemetryExportPath &&
+            params.get('match[]') === 'up' &&
+            [...params.keys()].sort().join(',') === 'end,match[],start' &&
+            start > end - 120 &&
+            finish <= Date.now() / 1000 + 5 &&
+            finish > start &&
+            finish - start <= 60
+          ) {
+            exportQueries++;
+            const response = await route.fetch({ timeout: 10000 });
+            assert.equal(response.status(), 200);
+            assert.equal(response.headers()['cache-control'], 'no-store');
+            assert.equal(response.headers()['set-cookie'], undefined);
+            const body = await response.text();
+            assert.ok(Buffer.byteLength(body) <= 65536);
+            const rows = body.trim().split('\n').filter(Boolean);
+            assert.ok(rows.length > 0);
+            const series = new Set<string>();
+            for (const line of rows) {
+              const row = JSON.parse(line) as {
+                metric: Record<string, string>;
+                values: number[];
+                timestamps: number[];
+              };
+              assert.equal(row.metric.__name__, 'up');
+              series.add(JSON.stringify(row.metric));
+              exportLabel ||= row.metric.job ?? '';
+              assert.equal(row.values.length, 1);
+              assert.equal(row.timestamps.length, 1);
+              assert.ok(
+                row.timestamps[0] >= start * 1000 &&
+                  row.timestamps[0] <= finish * 1000,
+              );
+            }
+            exportSeries = series.size;
+            assert.ok(exportSeries <= 32);
+            await route.fulfill({ response });
+            return;
+          }
           if (
             chartReview &&
             chartQueries === 0 &&
@@ -332,6 +421,32 @@ async function main() {
         path: 'docs/screenshots/native-metrics-live-count.png',
       });
       chartReview = false;
+      exportReview = true;
+      await page.goto('about:blank');
+      await page.goto(
+        base + '/metrics/vmui/#/raw-query?g0.expr=up&g0.range_input=1m',
+        { waitUntil: 'networkidle' },
+      );
+      await page.waitForTimeout(750);
+      await page.waitForLoadState('networkidle');
+      assert.equal(exportQueries, 1, 'Exactly one bounded live export');
+      assert.ok(exportSeries > 0);
+      assert.ok(exportLabel.length > 0);
+      await page
+        .getByText(exportLabel, { exact: false })
+        .first()
+        .waitFor({ timeout: 5000 });
+      assert.deepEqual(errors, []);
+      assert.deepEqual(
+        await page.evaluate(
+          () =>
+            (window as unknown as { policyViolations: string[] })
+              .policyViolations,
+        ),
+        [],
+      );
+      // Operational series labels are neither printed nor saved as screenshots.
+      exportReview = false;
       logReview = true;
       await page.goto('about:blank');
       await page.goto(
@@ -380,7 +495,7 @@ async function main() {
       await browser.close();
     }
     console.log(
-      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass; one bounded live count(up) chart and one recent live log message render; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
+      'Live telemetry: instant/range metrics and one recent log row pass through prepared proxy; six GET-only metadata responses, simulated principal isolation and pre-upstream write/UI refusals pass. Installed metrics Dashboards/Query Analyzer and logs Query/Overview live asset/metadata navigation and CSP checks pass; one bounded live count(up) chart, one bounded live up Raw Query export and one recent live log message render; non-admin documents refuse before upstream work. Principals remain simulated. No operational content printed; live public mode unchanged.',
     );
   } finally {
     server.closeAllConnections();
