@@ -1338,3 +1338,14 @@ violations. Other automatic log queries remain locally refused.
 Operational log bodies remain in memory; no screenshots or content are saved.
 Account writes use disposable containers; production flags/services are unchanged.
 Remaining telemetry controls and full Phase 4 activation gates stay open.
+
+### Stored-session installed logs logout (iteration 1826)
+
+The explicit live rehearsal keeps a second installed logs tab mounted across
+real account logout. Its third bounded live read first confirms that the tab
+can render a recent message with the HTTPS-login cookie. After logout, restoring
+that same cookie makes Execute return an empty no-store 404 through the real
+session guard, without another live log read. A new logs document request also
+returns an empty no-store 404. Both tabs remain free of page errors and unexpected
+CSP violations. Disposable account storage and in-memory operational bodies keep
+production accounts, flags and saved artifacts unchanged.

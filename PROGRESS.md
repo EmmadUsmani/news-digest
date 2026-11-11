@@ -134,3 +134,14 @@
 - Verification: explicit live Chromium rehearsal, handbook (18 pages/one diagram/39 tables), 32 deployed account checks and Nov 11 scheduled reader (four topics/19 stories/19 posts) pass.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; commit/push follow.
 - Next: remaining native telemetry controls and Phase 4 readiness gates; Nov 12 15:00 UTC edition review. Grafana installation still waits for scheduled-load/compaction capacity evidence.
+
+## 2026-11-11: iteration 1826 — installed logs stored-session logout
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, all 36 sources/14 services healthy; jobs check passes. No provider calls.
+- Extended explicit `check-live-stored-telemetry.ts --live`: second installed logs tab renders a third bounded recent message using the real Chromium HTTPS-login cookie before logout.
+- Actual logout deletes the disposable stored session; restoring the old cookie makes mounted logs Execute and new logs document requests return empty no-store 404. No additional successful live read; both tabs have no unexpected page errors/CSP violations.
+- Existing aging/restoration, seven bounded metrics reads, query bounds and CSP probes pass. Operational bodies remain in memory; no screenshots/content saved.
+- Updated TASKS, readiness and tool review. Production flags unchanged; verification-only changes require no service restart and respect the 13:00–16:00 UTC hold.
+- Verification: explicit live Chromium rehearsal, handbook (18 pages/22 diagrams/39 tables), 32 deployed account checks, scheduled reader (four topics/19 stories/19 posts), `pnpm build` pass.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` (836 unit/283 integration passes, four expected skips) and `git diff --check` pass; commit/push follow.
+- Next: remaining native telemetry controls and Phase 4 readiness gates; Nov 12 15:00 UTC edition review. Grafana installation still awaits scheduled-load/compaction capacity evidence.

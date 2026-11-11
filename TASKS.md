@@ -33,6 +33,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1826: already-open installed logs Execute and document reload refuse the revoked real HTTPS-login cookie after logout; third bounded live read confirms the mounted tab before revocation. Production flags unchanged.
+
 - [x] Iteration 1825: installed logs Query renders bounded live messages after real disposable HTTPS login and session freshness restoration; aged mounted-screen Execute refuses. Production flags unchanged.
 
 - [x] Iteration 1824: Nov 11 scheduled edition reviewed: all four story sections AI-edited, 19 stories/19 posts; NBA Sonnet repair closes item 54. X/Bluesky costs, exact novelty and three saved cards verified.

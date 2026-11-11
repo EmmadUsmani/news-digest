@@ -9,7 +9,7 @@ import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { type Browser, chromium } from 'playwright';
+import { type Browser, chromium, type Page } from 'playwright';
 import {
   GenericContainer,
   type StartedTestContainer,
@@ -530,12 +530,12 @@ async function main() {
       await mount();
     }
     assert.equal(forwarded, beforeScreens);
-    const mountLogs = async (status: 200 | 404) => {
+    const mountLogs = async (status: 200 | 404, logPage: Page = page) => {
       expectedLogStatus = status;
       allowLogRead = true;
       const before = logReads;
-      await page.goto('about:blank');
-      await page.goto(
+      await logPage.goto('about:blank');
+      await logPage.goto(
         browserBase +
           '/logs/select/vmui/#/?' +
           new URLSearchParams({
@@ -554,7 +554,7 @@ async function main() {
       );
       assert.equal(logReads, before + (status === 200 ? 1 : 0));
       assert.deepEqual(
-        await page.evaluate(
+        await logPage.evaluate(
           () =>
             (window as unknown as { policyViolations: string[] })
               .policyViolations,
@@ -562,7 +562,7 @@ async function main() {
         [],
       );
       if (status === 200)
-        await page.getByText(logMessage, { exact: true }).first().waitFor();
+        await logPage.getByText(logMessage, { exact: true }).first().waitFor();
       assert.deepEqual(errors, []);
     };
     await mountLogs(200);
@@ -719,11 +719,55 @@ async function main() {
       'script-src-elem',
     ]);
     assert.equal(forwarded, beforeProbes);
+    // Keep an independently mounted logs tab across actual session revocation.
+    const logsPage = await context.newPage();
+    logsPage.on('pageerror', (error) => errors.push(error.name));
+    await logsPage.addInitScript(() => {
+      Object.assign(window, { policyViolations: [] });
+      document.addEventListener('securitypolicyviolation', (event) => {
+        (
+          window as unknown as { policyViolations: string[] }
+        ).policyViolations.push(event.effectiveDirective);
+      });
+    });
+    await mountLogs(200, logsPage);
+    assert.equal(logReads, 3);
     assert.equal(await browserWrite('/api/account/logout', {}), 204);
     assert.equal((await context.cookies()).length, 0);
     // Restore the cookie to prove server-side revocation independently of deletion.
     await context.addCookies(cookies);
     await executeNative(404);
+    expectedLogStatus = 404;
+    allowLogRead = true;
+    const revokedLogResponse = logsPage.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === '/logs/select/logsql/query',
+    );
+    await logsPage.getByRole('button', { name: /execute( query)?/i }).click();
+    assert.equal((await revokedLogResponse).status(), 404);
+    assert.equal(
+      allowLogRead,
+      false,
+      'Revoked logs cookie reached the session guard',
+    );
+    assert.equal(logReads, 3);
+    assert.equal(forwarded, beforeProbes);
+    assert.deepEqual(errors, []);
+    assert.deepEqual(
+      await logsPage.evaluate(
+        () =>
+          (window as unknown as { policyViolations: string[] })
+            .policyViolations,
+      ),
+      [],
+    );
+    const revokedLogDocument = await context.request.get(
+      browserBase + '/logs/select/vmui/',
+    );
+    assert.equal(revokedLogDocument.status(), 404);
+    assert.equal(revokedLogDocument.headers()['cache-control'], 'no-store');
+    assert.equal((await revokedLogDocument.body()).length, 0);
+    await logsPage.close();
     await context.unroute('**/*');
     // Keep the browser cookie: storage revocation must reject it without relay work.
     await browserCheck(false);
@@ -736,7 +780,7 @@ async function main() {
     assert.equal(upstreamFailure, false);
     assert.equal(forwarded, 7);
     console.log(
-      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Two bounded live log reads render with stored-session login/restoration; an aged open logs screen refuses Execute. Seven bounded live metrics reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
+      'Stored-session/live export: fresh and restored admins pass; anonymous, reader, aged, logged-out and invalid requests refuse without upstream work. Installed metrics Dashboards/Query Analyzer and logs Query/Overview mount with the real session, refuse aged documents and remount after restoration without export work. Three bounded live log reads render with stored-session login/restoration; aged and logged-out open logs screens refuse Execute, and a revoked-cookie logs document refuses. Seven bounded live metrics reads, including installed native Raw Query rendering and open-screen aging/restoration/logout controls and broad-window/selector navigation refusals, enforced inline-script/external-fetch CSP refusals with a Chromium HTTPS code-login and HttpOnly/Secure cookie read and post-logout browser refusal; disposable account storage only. Bodies and credentials withheld; production flags unchanged.',
     );
   } finally {
     await browser?.close();
