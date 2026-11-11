@@ -113,7 +113,7 @@ Prepared public routing admits the deployed theme script and built JavaScript/CS
 
 ## Admin identity
 
-- `GET /api/me` returns `{ isAdmin }` with caching disabled.
+- With accounts enabled, admin access lasts seven days after a verified mailbox code. Sign-in links create reader sessions and cannot renew admin access. `GET /api/me` returns `{ isAdmin }` with caching disabled.
 - `/admin` and `/api/admin` paths return 404 unless `X-ExeDev-Email`
   exactly matches an entry in the comma-separated `ADMIN_EMAILS` setting.
 - Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the

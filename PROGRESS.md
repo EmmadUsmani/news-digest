@@ -173,3 +173,14 @@
 - Private backup news-digest-20261111T223837Z completed (39 tables); stopped API/worker, applied migration 0021 preserving rows, restarted outside deployment hold. Outstanding old codes require a fresh request.
 - Live: health/database/Redis green; 32 account-boundary refusals pass; 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics; zero alerts. No provider calls or public-mode/sharing/budget/source changes.
 - Next: item 58.3 admin freshness, then remaining findings in owner order. Nov 12 first five-topic scheduled acceptance remains due. Commit/push and final main-matching restart follow.
+
+## 2026-11-11: iteration 1863 — protect admin freshness
+
+- Clean main/no inherited work; initial health and alerts green. Completed item 58.3 in owner order.
+- Sign-in links now create reader-only sessions even for admin recipients; only verified mailbox-code exchange grants a new seven-day admin window. Updated owner access documentation.
+- Composed regression proves link-created sessions cannot issue more links or retain admin rights beyond the original window; mailbox-code authentication still grants fresh admin rights.
+- pnpm format, pnpm lint:fix, pnpm check (864 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
+- Filtered check-handbook passes (one unchanged diagram/39 tables); shortened the affected page to retain its 100-line limit.
+- Live read-only checks: 32 account-boundary refusals pass, all 38 sources have successful collections/no current errors, saved edition eb6e962e unchanged with four topics.
+- No migration, provider calls, public-mode/sharing/budget/source changes or accepted-screen reruns. Commit/push and main-matching API/worker restart outside deployment hold follow; final health/alerts checked after restart.
+- Next: item 58.4 audit retention. Nov 12 first five-topic scheduled acceptance remains due; item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.

@@ -60,7 +60,12 @@ export class SignInLinks {
       if ((await this.repository.consume(hash, now)) !== email) return null;
       const userId = await this.identities.findOrCreateVerified(email, now);
       // A failed identity/session write leaves the link consumed: fail closed.
-      return this.sessions.issueVerifiedIdentity(userId, email, now);
+      return this.sessions.issueVerifiedIdentity(
+        userId,
+        email,
+        now,
+        'sign-in-link',
+      );
     });
   }
 }

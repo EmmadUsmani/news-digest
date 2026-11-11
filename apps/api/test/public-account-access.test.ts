@@ -54,6 +54,7 @@ void test('prepared public access validates real account cookies, renewal, fresh
     '11111111-1111-4111-8111-111111111111',
     'owner@example.test',
     start,
+    'mailbox-code',
   );
   const cookie = issued.cookie.split(';')[0];
   const handlers = new AccountHandlers(

@@ -4,10 +4,12 @@ import { test } from 'node:test';
 
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { ReaderSessions } from '../src/modules/accounts/application/sessions';
+import { SignInLinks } from '../src/modules/accounts/application/sign-in-links';
 import {
   type ReaderSession,
   SessionRepository,
 } from '../src/modules/accounts/domain/session';
+import type { SignInLink } from '../src/modules/accounts/domain/sign-in-link';
 
 const START = new Date('2026-11-08T10:00:00Z');
 const DAY = 86_400_000;
@@ -68,6 +70,7 @@ async function fixture(admin = true) {
     'user-1',
     'owner@example.test',
     START,
+    'mailbox-code',
   );
   const token = issued.cookie.split(';')[0].split('=')[1];
   return { repository, allowlist, service, issued, token };
@@ -156,9 +159,15 @@ void test('sign out revokes only that device; all-device sign out leaves other r
     'user-1',
     'owner@example.test',
     START,
+    'mailbox-code',
   );
   const secondToken = second.cookie.split(';')[0].split('=')[1];
-  await service.issueVerifiedIdentity('user-2', 'owner@example.test', START);
+  await service.issueVerifiedIdentity(
+    'user-2',
+    'owner@example.test',
+    START,
+    'mailbox-code',
+  );
   const clear = await service.signOut(token);
   assert.match(clear, /HttpOnly; Secure; SameSite=Lax; Max-Age=0$/);
   assert.equal(await service.authenticate(token, START), null);
@@ -167,4 +176,65 @@ void test('sign out revokes only that device; all-device sign out leaves other r
   assert.equal(await service.authenticate(secondToken, START), null);
   assert.equal(repository.rows.size, 1);
   assert.equal([...repository.rows.values()][0].userId, 'user-2');
+});
+
+void test('admin-recipient links create reader sessions and cannot renew admin authority', async () => {
+  const { service, token } = await fixture();
+  let stored: SignInLink | null = null;
+  const links = new SignInLinks(
+    {
+      async issueWithAudit(link) {
+        stored = link;
+      },
+      async findRecipient() {
+        return stored?.email ?? null;
+      },
+      async consume() {
+        const email = stored?.email ?? null;
+        stored = null;
+        return email;
+      },
+    },
+    new CryptoSessionTokens(),
+    {
+      async findOrCreateVerified() {
+        return 'user-1';
+      },
+    },
+    service,
+    {
+      async run(_email, work) {
+        return work();
+      },
+    },
+  );
+  const link = await links.issue(token, 'owner@example.test', at(6));
+  assert.ok(link);
+  const redeemed = await links.redeem('POST', link.token, at(6));
+  assert.ok(redeemed);
+  const readerToken = redeemed.cookie.split(';')[0].split('=')[1];
+  assert.equal(
+    (await service.authenticate(readerToken, at(6)))?.isAdmin,
+    false,
+  );
+  assert.equal(
+    await links.issue(readerToken, 'owner@example.test', at(6)),
+    null,
+  );
+  assert.equal((await service.authenticate(token, at(7)))?.isAdmin, false);
+  assert.equal(
+    (await service.authenticate(readerToken, at(7)))?.isAdmin,
+    false,
+  );
+  const verified = await service.issueVerifiedIdentity(
+    'user-1',
+    'owner@example.test',
+    at(7),
+    'mailbox-code',
+  );
+  const verifiedToken = verified.cookie.split(';')[0].split('=')[1];
+  assert.equal(
+    (await service.authenticate(verifiedToken, at(7)))?.isAdmin,
+    true,
+  );
 });

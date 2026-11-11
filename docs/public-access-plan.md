@@ -263,6 +263,8 @@ secret. Main registers this factory through a Nest lifecycle provider, before bo
 parsing; owned connections close with the application. Verified live client
 wiring and activation remain pending. Offline composition checks use a temporary
 stand-in mailbox.
+Sign-in links create reader sessions, including for admin email addresses. Only a verified mailbox code renews the seven-day admin window.
+
 Prepared sign-in-link lifecycle now requires an authenticated fresh admin, normalizes
 the recipient, stores only a random 32-byte token hash and requires atomic issuance
 audit. Links last 24 hours; only POST redemption can consume one. The repository

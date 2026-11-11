@@ -24,7 +24,12 @@ export class LoginExchange {
       );
       // Use only the identity proven by the consumed challenge, never caller IDs
       // or caller-supplied admin eligibility. Failures require a fresh code.
-      return this.sessions.issueVerifiedIdentity(userId, verifiedEmail, now);
+      return this.sessions.issueVerifiedIdentity(
+        userId,
+        verifiedEmail,
+        now,
+        'mailbox-code',
+      );
     });
   }
 }

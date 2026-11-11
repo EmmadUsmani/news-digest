@@ -12,14 +12,19 @@ export class ReaderSessions {
     private readonly adminEmails: ReadonlySet<string>,
   ) {}
 
-  // Only the future verified code/link exchange may call this method. Never
+  // Only verified code/link exchanges may call this method. Never
   // accept the identity or admin eligibility directly from a request body.
-  async issueVerifiedIdentity(userId: string, email: string, now: Date) {
+  async issueVerifiedIdentity(
+    userId: string,
+    email: string,
+    now: Date,
+    proof: 'mailbox-code' | 'sign-in-link' = 'sign-in-link',
+  ) {
     const token = this.tokens.generate();
     const session = await this.repository.create({
       userId,
       tokenHash: this.tokens.hash(token),
-      adminEligible: this.adminEmails.has(email),
+      adminEligible: proof === 'mailbox-code' && this.adminEmails.has(email),
       now,
     });
     return { sessionId: session.id, cookie: sessionCookie(token) };
