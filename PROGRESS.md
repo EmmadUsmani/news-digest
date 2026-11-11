@@ -155,3 +155,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, offline repair probe, `pnpm build`, filtered handbook check and `git diff --check` pass; `pnpm check` passes: 844 unit/283 integration tests, four expected skips.
 - All 36 sources healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow.
 - Next: measure raw triage/social requests and actual whole-edition admission; publication integration/topic data remain gated on approved ceiling.
+
+## 2026-11-11: iteration 1846 — raw article triage reservations
+
+- Clean main; no inherited work. Initial alerts zero and healthz/database/Redis healthy; item 50 stopped under 55, continued 56.
+- Added read-only saved-window probe using production article loader, eligibility filter, CandidateTriage and BudgetedLlm; refusing in-memory ledger, empty cache and prohibited provider. No paid calls, production writes or cap/topic changes.
+- Nov 4–10 pools contain 149–200 eligible candidates. Both provisional scopes see the same pool; marginal sequential initial reservations $0.022930–$0.032702, not charges or simultaneous holds. Four windows hit the 200-item loader limit.
+- Assertions verify batch size/model/purpose, exact candidate accounting, unavailable scores and zero provider calls. Current source connections/text/settings do not reconstruct historical requests; new domestic volume and cache warming remain unbounded.
+- Updated TASKS and fifth-topic budget review; no runtime or handbook behavior change. Next: social requests and whole-edition admission before publication/topic activation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, read-only probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration tests, four expected skips. Existing build warnings only.
+- All 36 sources healthy; latest saved edition eb6e962e serves four topics. Commit/push and post-push API/worker restart follow; no runtime code changed.

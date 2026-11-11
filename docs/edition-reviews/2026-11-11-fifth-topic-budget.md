@@ -167,3 +167,37 @@ It does not bound every factual-support repair hint or new raw candidate pool.
 No repair may bypass admission, and exhaustion still returns unavailable.
 Raw triage/social work and whole-edition admission remain open; no activation,
 model, cap or production behavior changes are justified by this envelope.
+
+## Raw article triage — iteration 1846
+
+`pnpm exec tsx scripts/evaluate-raw-triage-budget.ts --read-only` loads each
+saved edition's window through the production article repository and eligibility
+filter, then invokes `CandidateTriage` through `BudgetedLlm`. An empty in-memory
+cache and refusing ledger capture initial Haiku reservations; the prohibited
+provider receives zero calls. Assertions cover model/purpose, batch size,
+complete candidate accounting, and unavailable scores. The database transaction
+is read-only. No production cache is read or written.
+
+Both proposed scopes receive the same eligible World pool: this measures a
+shared-source cold-cache scenario without inventing semantic assignments.
+
+| Window | Raw / eligible | Batches per scope | Current World | Proposed World + U.S. |  Marginal |
+| ------ | -------------: | ----------------: | ------------: | --------------------: | --------: |
+| Nov 4  |      200 / 200 |                 4 |     $0.031647 |             $0.063247 | $0.031600 |
+| Nov 5  |      200 / 200 |                 4 |     $0.032744 |             $0.065446 | $0.032702 |
+| Nov 6  |      200 / 200 |                 4 |     $0.032738 |             $0.065435 | $0.032697 |
+| Nov 7  |      183 / 181 |                 4 |     $0.027897 |             $0.055753 | $0.027856 |
+| Nov 8  |      149 / 149 |                 3 |     $0.022962 |             $0.045892 | $0.022930 |
+| Nov 9  |      185 / 185 |                 4 |     $0.028955 |             $0.057865 | $0.028910 |
+| Nov 10 |      200 / 200 |                 4 |     $0.031162 |             $0.062278 | $0.031116 |
+
+These are sums of sequential initial reservation estimates, not charges or
+simultaneous holds. Four windows reach the repository's 200-candidate limit;
+this is not the entire source corpus. Current stored text, source connections
+and eligibility settings do not reconstruct historical requests. Proposed scope
+metadata is provisional; production fingerprints include topic identity and
+scope, so existing broad-World cache hits cannot be assumed for either scope.
+New domestic feeds, incremental cache warming, triage repairs, social requests
+and whole-edition admission remain unmeasured. Do not add these cold-cache
+reservations to saved charges as if both were actual costs. Activation remains
+gated; caps, topic data and production behavior are unchanged.
