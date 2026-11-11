@@ -168,3 +168,4 @@
 - New settled spend $0.064449; item 54 total $0.109427/$0.25 across eleven settled calls. Private claim/responses kept. No guard, prompt, cache or publication change.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (827 unit pass; 281 integration pass/four expected skips), `pnpm build`, `git diff --check` pass. Live Nov 10 scheduled reader: four topics/19 stories/15 posts; `/healthz` passes.
 - Next: implement a computable supported-paraphrase guard correction, preserve the “no return timeline” failure, confirm with one bounded replay and deploy before Nov 11 noon. Natural sign-in-link expiry check is due after 00:33:01 UTC; Nov 11 scheduled NBA acceptance follows.
+- First push rejected because the lead advanced origin/main; fetched and merged without rewriting history. Merged alert check passed. Lead's observability page reached 101 lines; shortened one sentence, then reran the handbook check before push.

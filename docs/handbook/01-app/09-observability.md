@@ -85,8 +85,7 @@ five file events alongside current alerts. Nothing is emailed.
 | Bluesky quiet     | Three scheduled editions with an open Bluesky slot have no pick; clears on a pick                                |
 | Spend             | Anthropic or xAI reaches 90% of a daily or monthly cap                                                           |
 
-The existing service collector probes Grafana’s `/grafana/api/health` every
-30 seconds with a two-second timeout; failures raise `GrafanaHealthFailed` after one minute.
+The service collector probes Grafana every 30 seconds; one minute of failures alerts.
 
 ## Command line
 
