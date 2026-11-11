@@ -130,3 +130,12 @@
 - Updated TASKS/cost review; archived progress 1834–1839 to keep this file small. No runtime or handbook behavior changes.
 - Verification: read-only probe and assertions, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; 844 unit/283 integration tests pass, four expected skips; filtered handbook check passes. Existing build warnings only.
 - All 36 sources healthy; latest saved edition eb6e962e serves four topics. Commit/push and API restart follow; worker code unchanged.
+
+## 2026-11-11: iteration 1850 — proposed domestic feed volume
+
+- Clean main; no inherited work. Initial alerts zero; healthz/database/Redis healthy; item 50 stopped under 55, continued 56.
+- Recorded three free RSS responses through SharedHttpClient/parseFeed, HTTP 200 each. Guardian US/NPR Politics/PBS Politics retain 33/10/20 items; 13/8/13 dated in latest edition window, 34 distinct URLs.
+- Added offline snapshot evaluator and five manual domestic event examples; impeachment/House-leader events each have three publisher reports. No runtime classifier, source/topic activation, production writes, provider calls or cap changes.
+- Window excerpts >=200 characters: 12/0/6. After-cutoff retention is not historical availability; five headline-reviewed examples are not AI-selected publication-ready stories. Cost reduction and joint ownership/publication remain next.
+- Updated TASKS, SOURCES and scope assessment; offline replay, build and filtered handbook check pass (18 pages/39 tables). `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook check and `git diff --check` pass: 844 unit/283 integration, four expected skips. Existing build warnings only.
+- Latest edition eb6e962e still serves four topics; API restart/post-push health verification follows. No worker runtime change.

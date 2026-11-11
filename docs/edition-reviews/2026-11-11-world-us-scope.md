@@ -83,3 +83,34 @@ joint request as a replacement for the two grouping requests, connect its
 ownership result to selection/publication, and define the unavailable path so
 it cannot publish competing World/U.S. ownership. Topic/source setup and
 scheduled semantic acceptance remain open; caps and runtime topics are unchanged.
+
+## Domestic feed volume — iteration 1850
+
+Recorded one free public-feed snapshot at 20:18 UTC using SharedHttpClient and
+production parseFeed. All three feeds returned HTTP 200; no production writes,
+provider calls, source activation or cap changes. The recording is
+`apps/api/test/fixtures/us-feed-volume-2026-11-11.json`; replay with
+`pnpm exec tsx scripts/evaluate-us-feed-volume.ts` (offline).
+
+| Proposed feed | Retained reports | Dated Nov 10 15:00–Nov 11 15:00 UTC | Excerpts ≥200 characters in window |
+| ------------- | ---------------: | ----------------------------------: | ---------------------------------: |
+| Guardian US   |               33 |                                  13 |                                 12 |
+| NPR Politics  |               10 |                                   8 |                                  0 |
+| PBS Politics  |               20 |                                  13 |                                  6 |
+
+The 34 window reports have distinct canonical URLs. Manual headline review
+identifies at least five different domestic events: Hegseth impeachment vote,
+House Republican leadership election, Kennedy family arch lawsuit, abortion
+and trans ballot measures, and California wealth-tax vote. The first two each
+have three reports across the publishers, demonstrating why URL uniqueness
+cannot replace joint event ownership. The snapshot records the nine report
+URLs used for those five examples, not a full event partition.
+
+International UK/Iran coverage, sports and commentary also appear in these
+feeds. Feed membership cannot assign U.S. ownership. NPR's short excerpts
+limit supplied evidence; length alone does not measure reporting quality.
+This after-cutoff snapshot cannot reconstruct feed availability at generation
+or Nov 4–10 domestic volume. It supports the proposed NPR/PBS additions but
+is not evidence of five AI-selected publication-ready stories or semantic
+routing correctness. Whole-edition cost reduction and publication integration
+remain required before activation.

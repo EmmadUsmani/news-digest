@@ -2446,3 +2446,15 @@ World retains BBC World, NPR World, Guardian World and Al Jazeera. Guardian
 US/World remain one outlet. Feeds can contain international stories: topic
 scope and joint AI curation must choose one destination per event.
 [Offline scope assessment](edition-reviews/2026-11-11-world-us-scope.md).
+
+## Proposed domestic feed volume — iteration 1850 (2026-11-11)
+
+One free HTTP-200 snapshot, parsed with the production feed adapter, retains
+Guardian US/NPR Politics/PBS Politics 33/10/20 reports. Of these, 13/8/13
+are dated inside Nov 10 15:00–Nov 11 15:00 UTC (34 distinct URLs).
+Five manually reviewed domestic event examples support NPR/PBS as additions;
+shared impeachment and leadership reports require joint event ownership.
+NPR supplies short excerpts; Guardian/PBS supply 12/6 window excerpts of at
+least 200 characters. No source added or moved; NPR/PBS remain proposed,
+not live. Snapshot fetched after cutoff, not historical feed availability.
+[Recorded assessment and replay](edition-reviews/2026-11-11-world-us-scope.md#domestic-feed-volume--iteration-1850).
