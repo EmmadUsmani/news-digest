@@ -126,3 +126,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 832 unit/283 integration passes, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables) and `git diff --check` pass.
 - Restarted `news-digest-api.service`; retrying `/healthz` passes. Post-restart `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` preserves four topics/19 stories/15 posts. Source/job checks pass again.
 - Next: remaining Phase 4 UI/tool gates and full public rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1783 — live telemetry proxy acceptance
+
+- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls or public activation.
+- Added explicit `pnpm exec tsx scripts/check-live-admin-telemetry.ts --live`: prepared public admission/proxy sends bounded instant/range metrics and one-row recent-log reads to installed loopback stores. Positive scrape counts and recent log timestamp verified; bodies withheld from output/errors.
+- Simulated anonymous/reader/stale-admin principals refuse before forwarding; simulated fresh admin succeeds. Mutation/UI refusals counted before real upstream access. This is live upstream composition, not deployed session-authentication evidence; existing Nest/account checks cover that boundary.
+- Updated response review/readiness and TASKS. No runtime behavior or handbook-described system flow changed; telemetry UIs/full Phase 4 rehearsal remain open.
+- `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and live telemetry replay pass. Initial lint caught an unnecessary async callback; replaced with an explicit resolved promise.
+- `pnpm format`, corrected `pnpm lint:fix`, `pnpm check` (832 unit/283 integration passes; four expected skips), and `git diff --check` pass. Restarted API; retrying `/healthz` and post-restart account/saved-reader checks pass.
+- Next: remaining Phase 4 UI/tool gates/full public rehearsal; Grafana capacity during scheduled load or natural compaction; Nov 11 15:00 UTC NBA review.

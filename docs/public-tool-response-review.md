@@ -709,3 +709,16 @@ checks fresh-admin-only forwarding. Live loopback metrics returned eight series;
 a one-minute, one-row log query returned one row. No log content was printed.
 Public mode remains off; the private proxy is unchanged. Full UI route review
 and the complete Phase 4 rehearsal remain open.
+
+## Live admin telemetry composition (iteration 1783)
+
+`pnpm exec tsx scripts/check-live-admin-telemetry.ts --live` binds an ephemeral
+loopback proxy using the prepared public admission and tool selection. Real
+VictoriaMetrics instant/range queries return positive scrape counts; a bounded
+VictoriaLogs query returns exactly one recent row. Bodies are never printed.
+Anonymous, reader and stale-admin simulated principals receive empty 404s before
+proxy forwarding; only the simulated fresh admin reaches the live stores.
+Mutation and UI refusals are counted before upstream access, so the rehearsal
+never sends writes to either service. This checks live upstream composition;
+principal authentication uses the separate deployed-account/Nest checks.
+Public mode stays off. UI route review and full Phase 4 acceptance remain open.
