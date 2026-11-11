@@ -177,5 +177,5 @@
 - Eight provider-free contract tests pass for cross-topic grouping, singleton reassignment, cache identity, invalid membership/input and refusal. Test responses do not establish semantic quality; scheduled acceptance remains pending.
 - Updated scope assessment and TASKS. No handbook flow or schema change. Filtered handbook check passes (18 pages/39 tables, no drift).
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted `tsx --test` and `git diff --check` pass: 844 unit/283 integration passes, four expected skips. Existing bundle-size warning only.
-- `pnpm obs sources --check`: 36 healthy/zero unhealthy; latest saved edition eb6e962e remains available with four topics. API/worker restart and post-push health verification below.
+- `pnpm obs sources --check`: 36 healthy/zero unhealthy; latest saved edition eb6e962e remains available with four topics. `systemctl --user restart news-digest-api.service news-digest-worker.service` passes after push 9b0ad012; both active, healthz/database/Redis healthy, latest edition still serves and zero alerts.
 - Next: costed joint-request admission below the approved ceiling, publication integration/unavailable policy and topic/source data; no fifth-topic activation before these gates.
