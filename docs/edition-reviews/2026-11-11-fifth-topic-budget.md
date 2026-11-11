@@ -36,3 +36,35 @@ proxy does not establish that five topics fit the approved ceiling. Reduce
 incremental work within the approved models and existing editorial quality
 requirements; do not raise the ceiling or relax reserve protection. X caps and
 production topics stay unchanged until the coordinated deployment.
+
+## Joint request reservation probe — iteration 1842
+
+Run `pnpm exec tsx scripts/evaluate-joint-ownership-budget.ts`. This uses the
+actual `EventGrouping.assignTopics` prompt and `BudgetedLlm` reservation path
+with a refusing in-memory ledger and a provider that throws if called. There
+are no database accesses, ledger writes or provider requests. Prices come from
+the configured Anthropic model; secrets are never printed.
+
+| Input proxy                                      |  Input byte bound |                Reservation |
+| ------------------------------------------------ | ----------------: | -------------------------: |
+| Nov 4–10 saved summaries, one to five stories    |       3,958–5,921 |        $0.002543–$0.002789 |
+| 40 articles with maximum-length ASCII fields     |            64,864 |                  $0.010156 |
+| 40 articles with maximum-length multibyte fields | Above input limit | Refused before reservation |
+
+Reservations include the full 4,096-token output allowance and the production
+byte-based input bound, priced at the largest input/cache rate. Each accepted
+input attempts exactly one reservation; refusal returns unavailable without
+repair or provider work. Multibyte input shows that 40 articles alone does not
+guarantee a request fits; publication must handle unavailable ownership.
+
+The ASCII stress case is not a universal maximum: scopes, shared references,
+JSON escaping and multibyte characters also consume input space. Saved summaries
+are an explicitly offline size proxy, not the raw shortlist or a semantic test.
+
+Adding the ASCII request reservation to the existing five-topic cost proxy
+gives $0.538101 and a 1.5× reserve of **$0.807152**. This deliberately credits
+no savings from replacing existing grouping requests: topic-level attribution
+is absent. It still fails the $0.65 ceiling. The joint request is inexpensive,
+but it does not resolve the fifth editorial pass's cost. Next: cost the actual
+publication request plan and identify measured savings before activation;
+do not admit an edition from these proxy figures alone. Caps remain unchanged.
