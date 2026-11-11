@@ -631,3 +631,14 @@ preflight all passed. Cleanup ran through a finally block.
 Public/structural flags stayed off, no provider calls were made, and the catalog
 login is active again. Explicit reader route admission remains the next explorer
 gate; this rehearsal does not enable public access.
+
+## Explorer upstream response enforcement (iteration 1778)
+
+Public tool selection now marks the explorer as a reader upstream. The proxy
+allows only GET on the bare prefix, index, app.js, style.css and api/schema,
+without queries; it removes incoming credentials and forwards only content type
+and no-store on successful responses. It rejects any upstream lacking the
+structural-only service marker, including a private explorer after rollback.
+The marker is emitted only by structural mode. Public route admission stays
+closed; no live flag changes. Tests cover wrong upstream, exact routes,
+credential stripping, cookie removal and private/structural/private marker state.

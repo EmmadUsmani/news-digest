@@ -8,6 +8,7 @@ export interface InternalTool {
   port: number;
   preservePrefix?: boolean;
   readerHandbook?: boolean;
+  readerExplorer?: boolean;
 }
 
 export const internalTools: InternalTool[] = [
@@ -22,7 +23,11 @@ export function selectInternalTools(publicMode: boolean): InternalTool[] {
   if (!publicMode) return internalTools;
   return [
     { prefix: '/docs', port: 8110, readerHandbook: true },
-    ...internalTools.filter((tool) => tool.prefix !== '/docs'),
+    ...internalTools
+      .filter((tool) => tool.prefix !== '/docs')
+      .map((tool) =>
+        tool.prefix === '/db' ? { ...tool, readerExplorer: true } : tool,
+      ),
   ];
 }
 
@@ -40,6 +45,16 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       return;
     }
     const rest = url.slice(tool.prefix.length);
+    const readerTool = tool.readerHandbook || tool.readerExplorer;
+    if (
+      tool.readerExplorer &&
+      (req.method !== 'GET' ||
+        !['', '/', '/app.js', '/style.css', '/api/schema'].includes(rest))
+    ) {
+      res.writeHead(404, { 'cache-control': 'no-store' }).end();
+      return;
+    }
+    if (readerTool) res.setHeader('cache-control', 'no-store');
     if (tool.readerHandbook) {
       if (
         !['GET', 'HEAD'].includes(req.method ?? '') ||
@@ -71,30 +86,34 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         method: req.method,
         path: tool.preservePrefix ? url : rest,
         headers: {
-          ...(!tool.readerHandbook && req.headers),
+          ...(!readerTool && req.headers),
           host: `${host}:${tool.port}`,
         },
         timeout: 30000,
       },
       (response) => {
         if (
-          tool.readerHandbook &&
+          readerTool &&
           (response.statusCode !== 200 ||
-            response.headers['x-digest-reader-handbook'] !== '1')
+            response.headers[
+              tool.readerExplorer
+                ? 'x-digest-reader-explorer'
+                : 'x-digest-reader-handbook'
+            ] !== '1')
         ) {
           response.destroy();
           fail();
           return;
         }
         res.writeHead(response.statusCode ?? 502, {
-          ...(tool.readerHandbook
+          ...(readerTool
             ? {
                 'content-type':
                   response.headers['content-type'] ?? 'text/plain',
               }
             : response.headers),
           'cache-control': 'no-store',
-          ...(!tool.readerHandbook && {
+          ...(!readerTool && {
             vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
           }),
         });
@@ -103,7 +122,7 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
     );
     upstream.on('timeout', () => upstream.destroy());
     upstream.on('error', fail);
-    if (tool.readerHandbook) upstream.end();
+    if (readerTool) upstream.end();
     else req.pipe(upstream);
   };
 }

@@ -21,6 +21,8 @@ export function createExplorerServer(options: {
   return createServer((req, res) => {
     void (async () => {
       const url = new URL(req.url ?? '/', 'http://localhost');
+      if (options.structuralOnly)
+        res.setHeader('x-digest-reader-explorer', '1');
       try {
         if (req.method !== 'GET') {
           res.writeHead(405).end();

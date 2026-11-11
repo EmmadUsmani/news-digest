@@ -44,6 +44,10 @@ test('HTTP structural mode filters private fields and private rollback restores 
       const response = await fetch(`${base}/api/schema?structuralOnly=0`);
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.equal(
+        response.headers.get('x-digest-reader-explorer'),
+        structuralOnly ? '1' : null,
+      );
       const body = await response.text();
       assert.equal(body.includes('PRIVATE_MARKER'), !structuralOnly);
       assert.equal(body.includes('rowEstimate'), !structuralOnly);

@@ -129,3 +129,12 @@
 - Build, deployed account boundary (32 checks), saved-reader check (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) and anonymous `/db/` 404 pass. Corrected an initial boundary-command filename typo; actual deployed check passes.
 - Updated readiness/evidence/TASKS and archived iterations 1760–1763 to keep this file small. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit/283 integration passes; four expected skips) and `git diff --check` pass.
 - Next: explicit explorer reader admission; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1778 — enforce structural explorer upstream
+
+- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` and scheduled queue checks pass.
+- Prepared public proxy selection requires the explorer's structural-only marker and exact GET routes; private upstream responses fail closed. Incoming credentials and upstream cookies are removed. Public route admission remains closed and live flags stay off.
+- Targeted HTTP/proxy tests pass (4); structural/private rollback verifies marker state alongside field filtering. No UI changes or provider calls.
+- Build, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts), handbook/schema check (39 tables/no warnings) pass. Updated TASKS and response/readiness evidence.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (830 unit/283 integration passes, four expected skips), `pnpm build` and `git diff --check` pass.
+- Next: compose explicit explorer reader admission behind the public flag; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.

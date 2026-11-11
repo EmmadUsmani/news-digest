@@ -184,3 +184,63 @@ void test('public handbook isolates the reader upstream and rolls back to guarde
     ]);
   }
 });
+
+void test('reader explorer refuses private responses and forwards only exact structural routes without credentials', async () => {
+  let structural = false;
+  const requests: string[] = [];
+  const upstream = createServer((req, res) => {
+    requests.push(req.url!);
+    assert.equal(req.headers.cookie, undefined);
+    assert.equal(req.headers.admin_local_token, undefined);
+    res
+      .writeHead(200, {
+        ...(structural && { 'x-digest-reader-explorer': '1' }),
+        'set-cookie': 'private=forbidden',
+        'content-type': 'application/json',
+      })
+      .end(structural ? 'structural' : 'private catalog');
+  });
+  const port = await listen(upstream);
+  const selected = selectInternalTools(true).find((t) => t.prefix === '/db')!;
+  assert.equal(selected.readerExplorer, true);
+  assert.equal(
+    selectInternalTools(false).find((t) => t.prefix === '/db')!.readerExplorer,
+    undefined,
+  );
+  const proxy = proxyInternalTools([{ ...selected, port }]);
+  const app = createServer((req, res) =>
+    proxy(req, res, () => res.writeHead(404).end()),
+  );
+  const base = 'http://127.0.0.1:' + (await listen(app));
+  try {
+    const denied = await fetch(base + '/db/api/schema');
+    assert.equal(denied.status, 502);
+    assert.doesNotMatch(await denied.text(), /private catalog/);
+    structural = true;
+    const accepted = await fetch(base + '/db/api/schema', {
+      headers: { cookie: 'secret', admin_local_token: 'secret' },
+    });
+    assert.equal(await accepted.text(), 'structural');
+    assert.equal(accepted.headers.get('set-cookie'), null);
+    assert.equal(accepted.headers.get('cache-control'), 'no-store');
+    const before = requests.length;
+    for (const path of [
+      '/db/api/schema?rows=1',
+      '/db/api/rows',
+      '/db/healthz',
+      '/db/%61pp.js',
+      '/db/../api/schema',
+    ])
+      assert.equal((await fetch(base + path)).status, 404, path);
+    assert.equal(
+      (await fetch(base + '/db/api/schema', { method: 'POST' })).status,
+      404,
+    );
+    assert.equal(requests.length, before);
+    for (const path of ['/db/', '/db/app.js', '/db/style.css'])
+      assert.equal((await fetch(base + path)).status, 200);
+  } finally {
+    await close(app);
+    await close(upstream);
+  }
+});
