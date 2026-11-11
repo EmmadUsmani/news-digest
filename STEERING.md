@@ -19,7 +19,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
    `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
-   Next, migration 0019, then phase 4.
+   Migration 0019 is live; phase 4 is in progress. Item 55 limits re-verification
+   and says to stop at the phase 4 summary.
 3. X search and Bluesky: acceptance reviews continue in the daily edition
    review; new tuning waits for item 50 (items 39, 34, 40, 41).
 4. Nov 6 edition review: World stories, cost (item 36).
@@ -2528,3 +2529,40 @@ ack: 2026-11-11 item 54 (1755): post-reset run 2 Sonnet initial rejected support
 ack: 2026-11-11 item 54 (1756): scoped the guard to accept the saved attributed Miller injury rewrite in NBA summaries. The real unsupported timeline still fails. Offline Nov 10 replay now reaches the separate Porzingis headline rejection; saved Sonnet repair validates five stories/four bullets. No new spend ($0.109427/$0.25 cumulative). Nov 11 scheduled NBA acceptance remains open.
 
 ack: 2026-11-11 item 54 complete (1824): scheduled edition eb6e962e published 15:02:39 UTC; NBA Sonnet initial headline absence rejection was saved, Sonnet repair validated five AI-edited stories/four bullets. All four story sections AI-edited. Nov 10 replay/pre-cutoff deployment already verified; no new replay spend. Guards/fallback retained. Daily review: docs/edition-reviews/2026-11-11.md.
+
+## 55. NOW, small: stop re-verifying accepted screens (2026-11-11)
+
+**Why:** 39 of the last 64 commits (Nov 11, 05:50–17:48 UTC) were verify or
+re-check commits. About 25 of them, from 12:30 to 15:30 UTC, re-verified
+telemetry, logs and metrics screens that were already accepted. A re-check that
+finds nothing new is not progress. This is the "never idle" trap again.
+
+**Priority:** this narrows how items 50 and 44 are worked. It does not change
+Current order.
+
+**What to do:**
+
+1. Treat the telemetry, logs, metrics and sign-in screens as accepted. Don't
+   verify them again unless a commit touches them or a real defect is reported.
+2. One verification per change, in the same commit as the change. No separate
+   "Record … verification" commits for work already verified.
+3. Continue item 50 phase 4 only for pages not yet built. Don't add more
+   rehearsals of pages already rehearsed, such as headers, request-log hygiene
+   or compiled public pages.
+4. When no phase 4 page is left, write the phase 4 summary the lead needs for
+   the security review: what is public, what stays admin-only, what each flag
+   does. Put it in `docs/public-access-plan.md` and ack. Then stop work on item 50.
+   The lead security review and the owner's go-public decision come next.
+5. Then do the Nov 6 edition review (item 36), if not finished, and item 38's list.
+
+**What not to do:** don't go public, change flags in production, or touch the
+"VM stays private" rule. Don't spend on new verification runs.
+
+**Warning signs:** more than a third of an iteration block's commits being
+guards, rehearsals or "Record … verification". If you see that, stop and pick
+the next item.
+
+**Done when:** the phase 4 summary is in the plan and acked. The ack lists the
+verify-only commits since this item, which should be none.
+
+**Limits:** no new spend. Deploy outside 13:00–16:00 UTC. Protect the edition.
