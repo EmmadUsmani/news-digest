@@ -141,3 +141,12 @@
 - `pnpm exec tsx scripts/check-schema-structural-ui.ts`: private/structural desktop/mobile pass using 39 live catalog tables/36 relations; structural DTO intercepted locally in browser only. Search, modes, account relationships, absent private fields, errors and viewport bounds checked. Viewed both saved structural screenshots.
 - `check-live-account-boundary.ts`: 32 passes; `check-scheduled-reader.ts 2026-11-10T15:00:00Z`: four topics, 19 stories, 15 posts. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 282 integration passes/four expected skips), `pnpm build` and `git diff --check` passed.
 - Next: explorer credential installation, exact HTTP/admission/private rollback; Grafana paired load/compaction capacity evidence; Nov 11 15:00 NBA acceptance review.
+
+## 2026-11-11: iteration 1769 — wire structural explorer HTTP responses
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services and 36 healthy sources; no scheduled digest breakage.
+- Wired the structural DTO into the real explorer HTTP handler behind default-off `SCHEMA_EXPLORER_STRUCTURAL_ONLY=1`. Request parameters cannot select the private response. Existing private runtime configuration, credentials, grants and public mode unchanged; no provider calls.
+- Extracted injectable HTTP construction and rehearsed private/structural/private startups on ephemeral loopback listeners with synthetic catalog data. Checked private-field removal, retained topology, no-store, POST refusal before loading, static assets, health and unknown routes. Five explorer tests pass.
+- `check-live-account-boundary.ts`: 32 passes; `check-scheduled-reader.ts 2026-11-10T15:00:00Z`: four topics, 19 stories, 15 posts. `pnpm build` passed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 282 integration passes, four expected skips), explorer typecheck/tests, `pnpm build` and `git diff --check` passed. Corrected a missing test-fixture argument caught by the first full typecheck. Restarted schema service active: 39 tables/36 relations/zero warnings, private fields retained; `/healthz` passes and anonymous `/db/` returns 404.
+- Next: install reviewed explorer catalog credentials and compose exact proxy/browser/private rollback; Grafana paired scheduled-load/compaction capacity evidence; Nov 11 15:00 NBA acceptance review.

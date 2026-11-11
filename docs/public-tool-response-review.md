@@ -466,3 +466,19 @@ with the structural projection. Desktop/mobile checks cover both response modes,
 account details, search, detail controls, browser errors and viewport bounds.
 Structural screenshots are in `docs/screenshots/schema/`. Credential installation,
 exact HTTP admission and private rollback remain open before public activation.
+
+## Explorer structural HTTP response (iteration 1769)
+
+The explorer server now selects the structural projection when
+`SCHEMA_EXPLORER_STRUCTURAL_ONLY=1`. The default retains the private model;
+request parameters cannot change the setting. This is a response setting only,
+not authorization to expose the listener or proxy prefix. Live configuration is
+unchanged and public mode remains off.
+
+The server's real HTTP handler is exercised on an ephemeral loopback listener
+with synthetic catalog data. Private/structural/private startup checks preserve
+table topology, remove private catalog markers and row estimates, keep schema
+responses uncached, reject POST before introspection, serve existing assets and
+health, and refuse unknown routes. This rehearsal needs no database credentials
+or provider traffic. Catalog-role credentials and exact proxy admission still
+need installation and composed browser/rollback checks before activation.
