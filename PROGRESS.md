@@ -177,4 +177,5 @@
 - `pnpm exec tsx scripts/smoke-admin-tools.ts` passes four private viewport/theme combinations. Account boundaries pass 32 checks; scheduled reader retains four topics/19 stories/19 posts. Initial source diagnostic used absent healthy field; corrected error/lastSuccess read confirms all 36 healthy.
 - `pnpm format` and `pnpm lint:fix` pass; build passes. First full check saw the browser's temporary HTML harness during format check; rerun after harness cleanup.
 - Full `pnpm check` retry passes: 836 unit/283 integration passes and four expected skips; private jobs browser verifies four real queues/40 schedules.
+- Pushed `09dc7257`; API restarted outside the hold. Post-restart healthz, 32 account boundaries, private Tools browser, 36 healthy sources and saved four-topic/19-story/19-post edition pass; alerts zero. Public mode stays off.
 - Next: remaining Phase 4 tool/rehearsal gates, Grafana scheduled-load/compaction capacity evidence and Nov 12 edition review.
