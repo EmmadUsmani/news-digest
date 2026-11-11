@@ -53,8 +53,8 @@ editor citations. Historical snapshots keep their original unknown attribution.
 > [!TIP]
 > For every table, column, key and index, open the live
 > **[DB schema explorer](https://news-digest.exe.xyz/db/)**. It reads the
-> database directly, so it is always current. This page is the map, and the
-> explorer is the territory.
+> live catalog through a dedicated password-authenticated role with no
+> application-row access. This page is the map, and the explorer is the territory.
 
 ## The areas and how they connect
 

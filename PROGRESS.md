@@ -128,3 +128,12 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips), `pnpm build` and `git diff --check` pass. Account boundary passes 32 checks; saved Nov 10 reader returns four topics/19 stories/15 posts.
 - Schema service restarted active; `/healthz` passes and anonymous `/db/` returns 404.
 - Next: install scoped live authentication and explorer credentials, then exact proxy/browser/private rollback; Grafana scheduled-load/compaction capacity and Nov 11 15:00 NBA acceptance remain open.
+
+## 2026-11-11: iteration 1774 — install live explorer catalog credentials
+
+- Clean main; no inherited work. Zero active alerts, all 14 services and 36 sources healthy; no failed digest run. Saved Nov 10 edition still serves four topics/19 stories/15 posts.
+- Privately backed up database, roles, environment, authentication and extension ACLs; installed scoped IPv4/IPv6 SCRAM rules and catalog-only login. Preflight initially caught inherited PUBLIC SELECT on query-statistics views; removed it while preserving existing named roles' SELECT. Added extension-backed regression and idempotence coverage.
+- Redacted live credential preflight passes real login/wrong-password rejection, session defaults and unsafe-grant checks. Explorer now uses two catalog-role sessions; parsed authentication rules have zero errors. Restricted/private rollback responses preserve all 39 tables and full response except capture time, with no warnings; restart closed restricted pools before reactivation.
+- Updated credential deployment/rollback instructions, affected handbook and TASKS. Public and structural flags remain off; no provider calls. Private backups: `~/.local/state/news-digest/catalog-1774/`.
+- Targeted SCRAM test, handbook check (39 tables/no warnings), deployed account boundary (32 checks), saved-reader check and build pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 283 integration passes/four expected skips) and `git diff --check` pass.
+- Next: exact structural proxy/browser/private rollback; full credential/authentication rollback; Grafana scheduled-load/compaction capacity; Nov 11 15:00 UTC NBA acceptance review.

@@ -547,3 +547,30 @@ PostgreSQL ownership and mode intact, validate
 `pg_hba_file_rules`, run the credential preflight and check existing service
 connections before configuring the explorer. Exact proxy/browser rollback
 remains open.
+
+## Live explorer catalog credentials (iteration 1774)
+
+Installed the catalog-only role, scoped IPv4/IPv6 SCRAM rules and the explorer
+service credential drop-in. The redacted preflight passes with real login,
+wrong-password rejection, session defaults and zero unsafe grants. Existing
+application and observability roles retain access; parsed authentication rules
+have no errors. Public mode and structural-response flags remain off.
+
+Live preflight initially refused the extension's PUBLIC SELECT grants on
+`pg_stat_statements` and `pg_stat_statements_info`. The prepared
+`ops/schema-explorer/prepared/query-stats-access.sql` preserves existing named
+roles' SELECT before removing those inherited grants. The disposable SCRAM test
+now installs the extension, reproduces the refusal and verifies the repair,
+repeat application and preserved existing-role access.
+
+Private snapshots of the database, roles, environment, original authentication
+file and exact extension-ACL rollback live under
+`~/.local/state/news-digest/catalog-1774/` (owner-only). The original container
+file is also preserved as `pg_hba.conf.before-catalog-1774`. Never commit these.
+The committed `ops/schema-explorer/catalog-credentials.conf` is the installed
+systemd drop-in template. Removing it and restarting restores the original
+connection; this live rehearsal closed the catalog sessions and preserved the
+schema response. Reinstalled the drop-in and restarted onto the restricted role.
+All 39 tables and the full response match before/after/rollback, apart from
+capture time, with no warnings. Exact structural proxy/browser acceptance and
+full credential/authentication rollback remain open.

@@ -202,6 +202,33 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
     );
     const candidate = `postgres://schema_catalog_reader:synthetic-reader-password@127.0.0.1:${connection.port}/postgres`;
     await verifyCatalogCredentials(candidate);
+    // Match live extension defaults: PUBLIC SELECT is inherited by new roles.
+    await owner.query(`CREATE ROLE existing_stats_reader NOLOGIN;
+      CREATE EXTENSION pg_stat_statements WITH SCHEMA public`);
+    await assert.rejects(
+      verifyCatalogCredentials(candidate),
+      /Unsafe catalog-reader privileges/,
+    );
+    const restrictStats = readFileSync(
+      'ops/schema-explorer/prepared/query-stats-access.sql',
+      'utf8',
+    );
+    await owner.query(restrictStats);
+    await owner.query(restrictStats); // Safe to reapply without broadening access.
+    const statsAccess = await owner.query(`SELECT
+      has_table_privilege('schema_catalog_reader', 'public.pg_stat_statements', 'SELECT') AS catalog,
+      has_table_privilege('existing_stats_reader', 'public.pg_stat_statements', 'SELECT') AS existing,
+      has_table_privilege('schema_catalog_reader', 'public.pg_stat_statements_info', 'SELECT') AS catalog_info,
+      has_table_privilege('existing_stats_reader', 'public.pg_stat_statements_info', 'SELECT') AS existing_info`);
+    assert.deepEqual(statsAccess.rows, [
+      {
+        catalog: false,
+        existing: true,
+        catalog_info: false,
+        existing_info: true,
+      },
+    ]);
+    await verifyCatalogCredentials(candidate);
     await owner.query('GRANT SELECT ON public.users TO schema_catalog_reader');
     await assert.rejects(
       verifyCatalogCredentials(candidate),
