@@ -175,3 +175,13 @@
 - Updated TASKS and fifth-topic cost review. No runtime or handbook behavior changes. Read-only probe repeats identically; filtered handbook check and build pass; all 36 sources healthy, latest saved edition serves four topics/19 stories/19 posts.
 - Verification: `pnpm format`, `pnpm lint:fix`, corrected script formatting, `pnpm check`, `pnpm build`, repeated read-only probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration tests, four expected skips. Existing build warnings only.
 - Commit/push and post-push API/worker restart follow; no runtime code changed.
+
+## 2026-11-11: iteration 1848 — stored social candidate pool reservations
+
+- Clean main; no inherited work. Alerts zero, healthz/database/Redis healthy; item 50 remains stopped under 55, continued 56.
+- Added read-only production X/Reddit selection and Bluesky shortlist probe through CandidateTriage/BudgetedLlm; empty cache, refusing in-memory ledger, prohibited provider/editor. Zero paid calls or production writes.
+- Nov 4–10 admitted pools: 7–30 X, zero Reddit, 18–50 eligible Bluesky from 543–744 observations. Both scopes reuse each pool; marginal initial triage reservation estimates $0.004729–$0.011306, not charges.
+- Uses exact social-publication baseline guidance and engagement evidence. Bluesky assumes a slot; current exclusions/reader caps apply. New domestic volume, semantic ownership and whole-edition admission remain open; no runtime/cap/topic changes.
+- Updated TASKS and fifth-topic review; repeated read-only probe is byte-identical. Filtered handbook check passes (18 pages/39 tables); all 36 sources healthy, latest edition four topics/19 stories/19 posts.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, repeated probe, filtered handbook check and `git diff --check` pass: 844 unit/283 integration tests, four expected skips. Existing build warnings only.
+- Committed/pushed this step and restarted API/worker; post-deploy health/source/edition checks recorded before final handoff.

@@ -236,3 +236,35 @@ editing; refusal here is deliberately bypassed only for the size probe. Full
 social pools, repairs, new domestic candidates and whole-edition admission
 remain open. Do not add this proxy to saved charges. Activation stays gated;
 no cap, model, topic or runtime behavior changes.
+
+## Stored social candidate pools — iteration 1848
+
+`pnpm exec tsx scripts/evaluate-social-pool-budget.ts --read-only` loads each
+saved window through production X semantic-candidate selection, Reddit ranking
+and Bluesky observation/shortlist readers. Production X/Reddit editing and
+Bluesky shortlisting invoke CandidateTriage through BudgetedLlm with an empty
+cache and refusing in-memory ledger. Zero provider calls or database writes;
+editor invocation throws, proving refusal cannot proceed to editing. Assertions
+check complete unscored accounting, model/purpose, equal pool sizes across
+scopes and Bluesky's 50-candidate ceiling. Baseline guidance now matches social
+publication exactly, rather than the article guidance used by the prior probe.
+
+| Window |   X | Reddit | Bluesky read / eligible | Current World | Proposed World + U.S. |  Marginal |
+| ------ | --: | -----: | ----------------------: | ------------: | --------------------: | --------: |
+| Nov 4  |  30 |      0 |                682 / 50 |     $0.011326 |             $0.022632 | $0.011306 |
+| Nov 5  |  19 |      0 |                543 / 37 |     $0.008478 |             $0.016936 | $0.008458 |
+| Nov 6  |   7 |      0 |                563 / 26 |     $0.005445 |             $0.010871 | $0.005426 |
+| Nov 7  |  19 |      0 |                576 / 22 |     $0.006566 |             $0.013112 | $0.006546 |
+| Nov 8  |  11 |      0 |                581 / 18 |     $0.004747 |             $0.009476 | $0.004729 |
+| Nov 9  |  21 |      0 |                548 / 23 |     $0.006830 |             $0.013640 | $0.006810 |
+| Nov 10 |  14 |      0 |                744 / 28 |     $0.006549 |             $0.013079 | $0.006530 |
+
+Every scope makes two initial triage reservation attempts, one X/Reddit and
+one Bluesky. These are sequential cold-cache reservation estimates, not charges.
+Bluesky is probed with an available slot regardless of saved picks, so the
+measurement includes its eligible pool even when publication might skip it.
+The same current stored World pool and exclusion policy serve both provisional
+scopes; this does not establish semantic ownership, historical requests, future
+U.S. source/search volume or repair/editor costs. Existing reader/ranking caps
+still apply; “pool” means production-admitted candidates, not every observation.
+Whole-edition admission remains open. No cap, topic or runtime changes.
