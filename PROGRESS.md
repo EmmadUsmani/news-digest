@@ -157,3 +157,14 @@
 - Full check passes: 835 unit and 283 integration tests, four expected skips; build, handbook, 32 deployed account checks and saved reader check pass (four topics/19 stories/15 posts). All 36 sources healthy; git diff --check clean.
 - Pushed 48313bc8; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account boundaries and saved Nov 10 reader checks pass; no failed user services.
 - Next: compose export bounds into prepared proxy before admission; browser/session navigation, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1796 — prepared export HTTP lifecycle
+
+- Clean main; no inherited work. Alerts clear, healthz healthy and no failed user services. Public mode stays off; no provider calls.
+- Added unwired HTTP export handler composing request bounds and buffered transport; invalid method/target refuses before upstream. Successful responses use fixed JSON/no-store/nosniff headers; failures return generic 502 without upstream bytes.
+- Real two-server tests cover exact 64 KiB cap, overflow, stalled headers, credential/private-header stripping and actual downstream socket closure. Disconnect must abort upstream within one second, before the five-second deadline.
+- Export admission remains denied; route/session composition, upstream work limits and installed-browser acceptance remain open. Updated readiness/review and TASKS.
+- Verification: targeted HTTP tests pass (3); pnpm format, pnpm lint:fix; pnpm build and check-handbook.ts observability pass. Narrow live export probe: 15 rows/15 samples, 1,740 bytes; bodies withheld.
+- Deployed account checks pass (32); check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). All 36 sources healthy.
+- Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. Build/handbook pass; git diff --check clean.
+- Next: route/session export composition and upstream work limits before admission; browser acceptance, Grafana capacity evidence and 15:00 UTC NBA review.

@@ -40,7 +40,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1795: prepared export parser restricts requests to one up selector/60 seconds; buffered 64 KiB/five-second transport aborts overflow, stalls and caller cancellation. Local HTTP tests and narrow live probe pass; export admission remains denied pending proxy composition and upstream work limits.
+- [x] Iteration 1796: prepared export HTTP handler buffers bounded responses, refuses invalid requests before upstream, strips credentials/private headers and cancels fetch on real downstream socket closure. Two-server tests pass; handler remains unwired pending session composition and upstream work limits.
 
 - [x] Iteration 1794: narrow live native export shape and installed UI parameter inventory reviewed; per-line limits do not cap total output. Export stays denied pending enforced query/response bounds and cancellation; public mode off.
 

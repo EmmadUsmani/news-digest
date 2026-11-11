@@ -931,3 +931,19 @@ with 15 rows/15 samples and 1,745 bytes; no operational bodies were printed.
 This helper is not wired into public proxy admission. Export GET/POST/HEAD stay
 denied. Next: compose response handling, authenticated client disconnects and
 upstream work limits in the proxy, then rehearse installed-browser behavior.
+
+## Prepared export HTTP composition (iteration 1796)
+
+`proxyBoundedTelemetryExport` composes the request parser and buffered transport
+with real Node HTTP request/response lifecycles. It returns a complete bounded
+JSON response with no-store/nosniff headers, or a generic 502 without upstream
+bytes. Invalid targets and methods receive 404 before any upstream request.
+Caller credentials and upstream private headers are not forwarded. Closing the
+downstream response aborts the upstream fetch, including while reading a body.
+
+Local two-server tests cover the exact byte cap, overflow without partial data,
+stalled headers, request refusals, credential/header stripping and an actual
+client socket disconnect. The disconnect must close upstream within one second,
+before the separate five-second transport deadline. This handler remains
+unwired: fresh-admin session composition, upstream work limits and installed UI
+acceptance are still required before export admission.

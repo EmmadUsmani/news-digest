@@ -1,3 +1,5 @@
+import type { IncomingMessage, ServerResponse } from 'node:http';
+
 // Prepared export transport only. Admission stays closed until proxy composition
 // and installed-browser acceptance are complete.
 export const telemetryExportPath = '/metrics/prometheus/api/v1/export';
@@ -79,5 +81,52 @@ export async function readBoundedTelemetryExport(
     controller.abort();
     clearTimeout(timer);
     signal.removeEventListener('abort', abort);
+  }
+}
+
+// Prepared HTTP composition only: this is deliberately not wired into route
+// admission. Authentication and upstream work limits remain separate gates.
+export async function proxyBoundedTelemetryExport(
+  req: IncomingMessage,
+  res: ServerResponse,
+  origin: URL,
+  timeoutMs = 5000,
+): Promise<void> {
+  res.setHeader('cache-control', 'no-store');
+  const target =
+    req.method === 'GET' ? boundedTelemetryExport(req.url ?? '') : null;
+  if (!target) {
+    res.writeHead(404).end();
+    return;
+  }
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  req.once('aborted', abort);
+  res.once('close', abort);
+  if (req.aborted || res.destroyed) abort();
+  try {
+    const body = await readBoundedTelemetryExport(
+      new URL(target, origin),
+      controller.signal,
+      timeoutMs,
+    );
+    if (res.destroyed || controller.signal.aborted) return;
+    res
+      .writeHead(200, {
+        'content-type': 'application/stream+json',
+        'content-length': String(body.length),
+        'x-content-type-options': 'nosniff',
+      })
+      .end(body);
+  } catch {
+    if (!res.destroyed)
+      res
+        .writeHead(502, {
+          'content-type': 'text/plain; charset=utf-8',
+        })
+        .end('Telemetry export is unavailable right now.');
+  } finally {
+    req.removeListener('aborted', abort);
+    res.removeListener('close', abort);
   }
 }
