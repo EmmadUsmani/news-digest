@@ -46,6 +46,7 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
   const token = tokens.generate();
   const second = tokens.generate();
   const survivorToken = tokens.generate();
+  let actorIds: string[] = [];
   try {
     const ids = (
       await pool.query(
@@ -53,6 +54,7 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         [email, survivor],
       )
     ).rows;
+    actorIds = ids.map((row: { id: string }) => row.id);
     for (const [id, value] of [
       [ids[0].id, token],
       [ids[0].id, second],
@@ -77,6 +79,15 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         [ids[1].id, recipient],
       );
     }
+    // Record an action by the account that will be deleted as well as its writes.
+    await pool.query(
+      "INSERT INTO admin_audit_log(issuer_user_id,action,recipient_email,created_at) VALUES ($1,'reader_sessions_revoked',$2,now())",
+      [ids[0].id, survivor],
+    );
+    await pool.query(
+      "INSERT INTO admin_write_admissions(user_id,local_script,method,target,created_at,outcome) VALUES ($1,false,'PUT','/api/topics',now(),'changed')",
+      [ids[0].id],
+    );
     // Real sync rows (including tombstones) must disappear only for the deleted user.
     for (const { id } of ids) {
       await pool.query(
@@ -231,7 +242,7 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
           [email],
         )
       ).rows[0].n,
-      0,
+      1,
     );
     assert.equal(
       (
@@ -262,9 +273,35 @@ void test('account deletion is session-owned, atomic, concurrent and isolated', 
         table === 'bookmarks' ? 2 : 1,
       );
     }
+    assert.equal(
+      (
+        await pool.query(
+          'SELECT count(*)::int AS n FROM admin_audit_log WHERE issuer_user_id=$1',
+          [ids[0].id],
+        )
+      ).rows[0].n,
+      1,
+    );
+    assert.equal(
+      (
+        await pool.query(
+          "SELECT count(*)::int AS n FROM admin_write_admissions WHERE user_id=$1 AND outcome='changed'",
+          [ids[0].id],
+        )
+      ).rows[0].n,
+      1,
+    );
   } finally {
     await pool.query('DROP TRIGGER IF EXISTS reject_account_delete ON users');
     await pool.query('DROP FUNCTION IF EXISTS reject_account_delete()');
+    await pool.query(
+      'DELETE FROM admin_audit_log WHERE recipient_email=ANY($1::text[])',
+      [[email, survivor]],
+    );
+    await pool.query(
+      'DELETE FROM admin_write_admissions WHERE user_id=ANY($1::uuid[])',
+      [actorIds],
+    );
     await pool.query('DELETE FROM users WHERE email=ANY($1::text[])', [
       [email, survivor],
     ]);

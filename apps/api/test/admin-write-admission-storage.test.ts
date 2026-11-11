@@ -100,7 +100,7 @@ void test('admin write admissions persist minimal actors, reject unsafe entries 
           [userId],
         )
       ).rows[0].n,
-      0,
+      1,
     );
   } finally {
     await pool.query(

@@ -114,7 +114,7 @@
     "profiles": "The single owner profile. Everything hangs off it.",
     "edition_settings": "System-wide schedule and default edition budgets; a single row copied from the owner schedule during phase 1 migration.",
     "digest_schedules": "When editions are generated (cron + timezone), the coverage window and default story/post budgets.",
-    "topics": "A digest section (Tech & AI, NBA, …): guidance, budgets, curated X accounts, a Bluesky search query and relevance rules.",
+    "topics": "A digest section (Tech & AI, NBA, \u2026): guidance, budgets, curated X accounts, a Bluesky search query and relevance rules.",
     "topic_source_connections": "Many-to-many: which sources feed which topic. Only connected sources are collected.",
     "content_sources": "An RSS/Atom feed or Hacker News, with its health (last success/error).",
     "content_items": "One article, deduplicated by canonical URL across all sources.",
@@ -181,6 +181,16 @@
       "from": "llm_calls.run_id",
       "to": "digest_previews.scheduled_key",
       "note": "AI calls made for a scheduled edition carry its run id (manual runs use the job id)."
+    },
+    {
+      "from": "admin_audit_log.issuer_user_id",
+      "to": "users.id",
+      "note": "Historical actor identifier retained after account deletion without a foreign key."
+    },
+    {
+      "from": "admin_write_admissions.user_id",
+      "to": "users.id",
+      "note": "Historical actor identifier retained after account deletion without a foreign key."
     }
   ]
 }

@@ -184,3 +184,14 @@
 - Live read-only checks: 32 account-boundary refusals pass, all 38 sources have successful collections/no current errors, saved edition eb6e962e unchanged with four topics.
 - No migration, provider calls, public-mode/sharing/budget/source changes or accepted-screen reruns. Commit/push and main-matching API/worker restart outside deployment hold follow; final health/alerts checked after restart.
 - Next: item 58.4 audit retention. Nov 12 first five-topic scheduled acceptance remains due; item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.
+
+## 2026-11-11: iteration 1864 — preserve administrative history
+
+- Clean main/no inherited work; initial health and alerts green. Completed item 58.4 in owner order.
+- Account deletion now retains private admin audit and write-admission rows, including historical actor IDs and recipient emails; sessions, proofs and personal settings still disappear. Updated handbook, plan and implicit schema relations.
+- Migration 0022 replaces cascading audit foreign keys with insertion/actor-change checks that lock the current identity; missing actors still refuse and transactional mutations still roll back.
+- Initial integration run exposed reliance on foreign-key actor validation (nine failures); added equivalent trigger checks and updated the old cascading-deletion expectation. Final pnpm check: 864 unit/286 integration pass, four expected skips; schema parity/offline migration checks pass.
+- pnpm format, pnpm lint:fix, pnpm build and git diff --check pass; existing build warnings only. Filtered check-handbook passes (three unchanged diagrams/39 tables); one transient render failure passed on retry.
+- Private backup news-digest-20261111T230721Z completed (39 tables); stopped API/worker, applied 0022 outside deployment hold, restarted. Audit/admission counts preserved (1/0), both identity-validation triggers installed.
+- Live: health/database/Redis green, 32 account-boundary refusals pass, 38/38 sources healthy, saved edition eb6e962e unchanged with four topics, zero alerts. No provider calls or public-mode/sharing/budget/source changes.
+- Commit/push and final main-matching restart follow. Next: item 58.5 account-body admission; Nov 12 five-topic scheduled acceptance remains due.

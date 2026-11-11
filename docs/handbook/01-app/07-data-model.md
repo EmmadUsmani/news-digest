@@ -28,7 +28,7 @@ snapshots.
 > topic ordering through this boundary. Changes and changed/unchanged outcomes
 > commit together; stale topic catalogs leave no admission or ordering change.
 > Null outcomes describe admission only, including rows predating migration 0019.
-> Deleting a reader removes admissions tied to that identity.
+> Deleting an account preserves its private administrative history.
 >
 > Reader accounts use independent identities, hashed sessions and single-use
 > login challenges scoped to the requesting client address. Invite-only sign-in uses a private stand-in mailbox; no
@@ -36,7 +36,7 @@ snapshots.
 > The account panel shows sync status, sign-out and confirmed account deletion.
 > Admins can issue one-time friend links and revoke a reader’s sessions;
 > issuance and revocation write private audit records. Saved topics and bookmarks
-> sync between signed-in devices. Deleting a reader removes their private rows.
+> sync between signed-in devices. Deletion removes personal settings and sessions.
 > The VM stays private and public mode remains disabled. See the
 > [account rollout](../../account-activation.md).
 
@@ -178,7 +178,8 @@ foreign key, because a citation is stored before the post is verified.
   if articles or settings change. A trigger forbids UPDATE and DELETE.
 - **Private reader storage.** Account tables hold identities, login challenges,
   sessions, friend links, saved choices and admin audit records. Operational
-  reader roles and PUBLIC have no access. Invite-only accounts use these tables;
+  reader roles and PUBLIC have no access. Admin history retains actor IDs and
+  recipient emails after account deletion; sessions and personal settings are removed. Invite-only accounts use these tables;
   the [account rollout](../../account-activation.md) describes operation and rollback.
 - **Ledgers for money.** `llm_calls` and `x_discovery_calls` record a
   reservation before each paid call and the actual cost after it. Budgets are

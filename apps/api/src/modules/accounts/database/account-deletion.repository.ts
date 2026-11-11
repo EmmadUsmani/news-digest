@@ -4,7 +4,6 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
 import {
-  adminAuditLog,
   loginCodes,
   sessions,
   signInLinks,
@@ -67,10 +66,7 @@ export class PostgresAccountDeletionRepository
       await this.cleanup.remove(owner.email);
       await tx.delete(loginCodes).where(eq(loginCodes.email, owner.email));
       await tx.delete(signInLinks).where(eq(signInLinks.email, owner.email));
-      await tx
-        .delete(adminAuditLog)
-        .where(eq(adminAuditLog.recipientEmail, owner.email));
-      // Existing foreign keys cascade sessions and audit rows issued by this user.
+      // Private administrative history survives actor and recipient deletion.
       await tx.delete(users).where(eq(users.id, owner.id));
       return true;
     });

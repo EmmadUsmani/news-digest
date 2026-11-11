@@ -288,8 +288,9 @@ remain pending; accounts stay disabled.
 
 Prepared account deletion now derives ownership only from a session hash inside
 one transaction. It locks/rechecks the session, removes pending email codes and
-recipient links/audit rows, and deletes the identity with cascading sessions and
-issuer audit rows. Isolated storage acceptance covers concurrent two-device
+recipient links, and deletes the identity with cascading sessions and saved
+choices. Private admin audit and write-admission rows retain historical actor IDs
+and recipient emails independently of identity lifetime (migration 0022). Isolated storage acceptance covers concurrent two-device
 requests, revoked/unknown credentials, rollback and another account's isolation.
 The prepared, uninstalled POST `/api/account/delete` transport requires exact
 same-origin JSON, a body containing only `{"confirmation":"DELETE"}` and one

@@ -164,7 +164,8 @@ export const adminWriteAdmissions = pgTable(
   'admin_write_admissions',
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
-    userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }),
+    // Historical actor IDs survive identity deletion.
+    userId: uuid('user_id'),
     localScript: boolean('local_script').notNull(),
     method: text().notNull(),
     target: text().notNull(),
@@ -198,9 +199,8 @@ export const adminAuditLog = pgTable(
   'admin_audit_log',
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
-    issuerUserId: uuid('issuer_user_id')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
+    // Historical actor IDs survive identity deletion.
+    issuerUserId: uuid('issuer_user_id').notNull(),
     action: text().notNull(),
     recipientEmail: text('recipient_email').notNull(),
     createdAt: timestamp('created_at', {
