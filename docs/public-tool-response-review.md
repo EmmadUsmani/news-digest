@@ -399,8 +399,7 @@ Private mode restores the owner handbook behind its existing access check.
 Isolated HTTP checks covered both modes, forged credentials, blocked legacy
 routes, headers and an unavailable upstream. Desktop and mobile Playwright
 checks followed the redirect and loaded only the page and stylesheet. The
-reader service unit is prepared but uninstalled; install and check its loopback
-listener before public activation. Include the boundary in the lead's review.
+reader service is installed on loopback port 8110 (1781); public mode remains off. Include the boundary in the lead's review.
 
 ## Explorer response projection candidate (iteration 1765)
 
@@ -680,3 +679,18 @@ are `docs/screenshots/schema/live-structural-{1440,390}.png`. Anonymous live
 now obtain their private input directly through the same restricted catalog role,
 so they remain usable after the live server stops returning private fields.
 Public-mode activation and the other Phase 4 tool gates remain open.
+
+### Installed reader handbook (iteration 1781)
+
+Installed and enabled the tracked `news-digest-reader-docs.service` on
+`127.0.0.1:8110`. `pnpm exec tsx scripts/check-live-reader-handbook.ts`
+compares installed HTML/CSS GET and HEAD responses with the tracked corpus
+and exercises prepared public proxy selection on an ephemeral loopback server.
+Exact bodies, service marker, no-store/CSP, redirect and old corpus/query/write
+refusals pass. Installed-service [desktop](screenshots/reader-handbook-live-1440.png)
+and [mobile](screenshots/reader-handbook-live-390.png) rendering checks pass. The live private API still refuses anonymous `/docs/`.
+
+Stop/start rollback confirmed listener removal without affecting `/healthz`,
+then restored the same acceptance checks. To remove the prepared service, run
+`systemctl --user disable --now news-digest-reader-docs.service`; private
+routing continues to use the separate owner handbook. Public flags are unchanged.

@@ -61,7 +61,7 @@ flowchart LR
 > base. The API answers the UI. The worker does everything on a timer or
 > queue: collecting, verifying posts and generating editions. The docs and
 > schema tools are small separate services, listening only on the VM's
-> loopback. The API forwards `/docs/` and `/db/` to them. Local log collection
+> loopback. The API forwards `/docs/` and `/db/` to them. The installed reader guide on port 8110 is reserved for public mode; private mode uses the owner handbook on 8100. Local log collection
 > uses separate system units and `/logs/`; see [Observability](09-observability.md).
 
 ## Configuration and secrets
