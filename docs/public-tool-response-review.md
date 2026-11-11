@@ -985,3 +985,20 @@ Export admission remains closed. Deadline-expiry acceptance, authenticated
 route composition and installed UI acceptance remain required. Rollback:
 remove these two flags from the unit, reinstall it, reload systemd and restart
 `obs-metrics.service`; keep public export admission closed throughout.
+
+## Export deadline-expiry rehearsal (iteration 1799)
+
+`pnpm exec tsx scripts/review-telemetry-export-limits.ts --isolated` now also
+starts a second disposable installed-binary process with a shortened 1 ms
+server export cap. The exact prepared request still carries `timeout=2s`.
+The native export refuses it with `request timeout reached`, the buffered
+transport rejects the non-success response, and the process remains healthy.
+Both synthetic stores and processes are removed afterward; no live settings
+or data change.
+
+The installed implementation rounds context deadlines down to Unix seconds,
+so this shortened cap exercises expiry without expensive synthetic load.
+This verifies server-cap precedence and native deadline-error handling; it
+does not measure expensive exports at the live two-second limit. The normal
+32/33-series rehearsal still runs with the live two-second cap. Authenticated
+route composition and installed UI acceptance remain before admission.

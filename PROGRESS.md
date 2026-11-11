@@ -12,66 +12,7 @@
 
 [Iterations 1776–1781](docs/progress-archive/2026-11-11-iterations-1776-1781.md).
 
-## 2026-11-11: iteration 1782 — fresh-admin telemetry queries
-
-- Clean main; no inherited work. Alerts clear, services/healthz healthy; `pnpm obs sources --check` and `pnpm obs jobs --check` pass (36 sources/four available queues). No provider calls.
-- Prepared public mode admits only fresh-admin GETs for metrics instant/range queries and VictoriaLogs log queries. Shared admission/proxy allowlist denies other paths/methods; proxy strips incoming credentials/identity and upstream cookies/custom headers, retaining no-store. Public mode stays off; private proxy unchanged.
-- Targeted `pnpm exec tsx --test apps/api/test/internal-tools.test.ts apps/api/test/public-route-policy.test.ts apps/api/test/public-readiness-http.test.ts` passes 11 tests. Fixture HTTP checks cover anonymous/reader/stale-admin/admin, mutation refusal, direct proxy refusal and unavailable upstream. Configured Nest checks verify admin-only forwarding.
-- Explicit live loopback GET queries return eight metrics series and one bounded log row; no log content printed. Updated rollout/tool/readiness docs, observability handbook and TASKS. Telemetry UIs/assets remain denied pending review.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 832 unit/283 integration passes, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables) and `git diff --check` pass.
-- Restarted `news-digest-api.service`; retrying `/healthz` passes. Post-restart `check-live-account-boundary.ts` passes 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` preserves four topics/19 stories/15 posts. Source/job checks pass again.
-- Next: remaining Phase 4 UI/tool gates and full public rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1783 — live telemetry proxy acceptance
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls or public activation.
-- Added explicit `pnpm exec tsx scripts/check-live-admin-telemetry.ts --live`: prepared public admission/proxy sends bounded instant/range metrics and one-row recent-log reads to installed loopback stores. Positive scrape counts and recent log timestamp verified; bodies withheld from output/errors.
-- Simulated anonymous/reader/stale-admin principals refuse before forwarding; simulated fresh admin succeeds. Mutation/UI refusals counted before real upstream access. This is live upstream composition, not deployed session-authentication evidence; existing Nest/account checks cover that boundary.
-- Updated response review/readiness and TASKS. No runtime behavior or handbook-described system flow changed; telemetry UIs/full Phase 4 rehearsal remain open.
-- `pnpm build`, deployed account boundary (32 checks), saved Nov 10 reader (four topics/19 stories/15 posts) and live telemetry replay pass. Initial lint caught an unnecessary async callback; replaced with an explicit resolved promise.
-- `pnpm format`, corrected `pnpm lint:fix`, `pnpm check` (832 unit/283 integration passes; four expected skips), and `git diff --check` pass. Restarted API; retrying `/healthz` and post-restart account/saved-reader checks pass.
-- Next: remaining Phase 4 UI/tool gates/full public rehearsal; Grafana capacity during scheduled load or natural compaction; Nov 11 15:00 UTC NBA review.
-
-## 2026-11-11: iteration 1784 — stored-session telemetry composition
-
-- Clean main; no inherited work. `pnpm obs alerts` clear; no failed user services, `/healthz` healthy; `pnpm obs sources --check` and `pnpm obs jobs --check` pass (36 sources/four queues). No provider calls.
-- Compiled full public application now mounts the prepared telemetry proxy against an isolated recording fixture. Real code login forwards all three query APIs; anonymous/invited-reader/stale-admin/logged-out-admin sessions refuse before forwarding. Eight-day stored-session aging preserves reader identity; restoring creation time restores admin access.
-- Verifies exact forwarded query targets, stripped caller credentials, stripped upstream cookies/private headers and no-store. Tests use disposable Postgres/Redis and fixture HTTP only, never live telemetry or LLM services. Public mode remains off.
-- Native UI landing review found operational links (including metrics reload) and additional logs query/metadata APIs; UI routes remain closed. Updated tool response review, readiness and TASKS; no system flow or handbook behavior changed.
-- `pnpm build`, `check-live-account-boundary.ts` (32 checks) and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` (four topics/19 stories/15 posts) pass. First two full-check attempts stopped at import order/formatting while autofix settled; corrected with final format.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. New compiled-app rehearsal passes; `git diff --check` clean.
-- Restarted `news-digest-api.service`; retrying `/healthz` and post-restart account-boundary/saved-reader checks pass.
-- Next: native telemetry UI route review/full Phase 4 rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1785 — fresh-admin logs read APIs
-
-- Clean main; no inherited work. Alerts clear, no failed user services, healthz healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode stays off.
-- Installed UI bundle inventory identified eight additional logs read endpoints. Bounded live GETs returned JSON/200 for hits, instant/range statistics, field/stream names/values and query time bounds; no operational bodies printed.
-- Prepared shared admission/proxy now allows these exact GETs only to fresh admins. Expanded fixture HTTP and compiled-app stored-session rehearsals cover reader/anonymous/stale/logout refusals, stripped credentials/cookies and no-store. UI assets, POSTs, tail and mutations stay denied.
-- Initial full check found an unrelated explorer pool-shutdown race (Postgres backend cleanup lagged client closure). Added bounded observation of the exact backend disappearing, retaining NOLOGIN/authentication checks; rerun passes.
-- Targeted 11 tests, `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. Updated affected handbook, rollout review/readiness and TASKS.
-- Restarted API; retrying healthz, 32 deployed account-boundary checks and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). `git diff --check` clean.
-- Next: native telemetry UI assets/POST transport review and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA acceptance review.
-
-## 2026-11-11: iteration 1786 — native telemetry UI transport review
-
-- Clean main; no inherited work. Alerts clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode remains off.
-- Added `pnpm exec tsx scripts/review-native-telemetry-ui.ts --live-assets`: Chromium loads installed native UI documents/assets; every operational/external request receives fixture data before forwarding. Prints only methods/paths and asset inventory, never queries, bodies or credentials.
-- Both UIs mount; installed assets return successfully. Assertions observe metrics POST `/metrics/prometheus/api/v1/query_range` and logs POST query/hits/stream-field-names. Logs also requests build/tenant metadata; metrics requests configuration/dashboard/timezone resources. This is transport review, not live-query/UI acceptance.
-- Updated tool review/readiness/TASKS with exact gaps: POST form transport, metrics alias, metadata/static route review and same-origin CSP. Existing GET allowlist cannot support native UI; no runtime admission changed. Archived progress 1770–1775 to keep orientation small.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and native browser review pass. Final `pnpm check` passes: 832 unit/283 integration tests, four expected skips. Initial check stopped on newly archived progress formatting; corrected. Restarted API; retrying healthz, 32 account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass.
-- Next: implement reviewed bounded native query transport/assets behind the off flag; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
-
-## 2026-11-11: iteration 1787 — bounded native telemetry POST reads
-
-- Clean main; no inherited work. `pnpm obs alerts` clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode remains off.
-- Prepared shared query allowlist admits GET/form POST and metrics `/prometheus` instant/range aliases. Proxy buffers at most 16 KiB, permits uncompressed forms only and stops stalled uploads after five seconds before opening upstream. Caller credentials/upstream cookies stripped; no-store retained; UI assets/metadata, tails and mutations stay closed.
-- Read queries bypass mutation auditing. Scoped provenance exception permits forms only on these query paths while preserving exact configured-origin and duplicate-header checks. Initial full check found the compiled fixture missing this origin/form composition; fixed guard and fixture, retaining cross-origin refusals.
-- Fixture tests verify exact body/headers, freshness, media/encoding, declared/chunked oversize and upload timeout. Compiled full application verifies both methods across anonymous, invited reader, fresh/stale admin and logged-out stored sessions.
-- `check-live-admin-telemetry.ts --live` now covers GET and POST, bounded metrics/log reads and simulated-principal isolation. Direct bounded alias POST returns eight metrics series; logs POST returns one recent row. No operational bodies printed.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 833 unit/283 integration tests, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one unchanged diagram/39 tables) and `git diff --check` pass. Updated affected handbook, review/readiness and TASKS.
-- Restarted API; retrying healthz, 32 deployed account-boundary checks and saved Nov 10 reader check pass (four topics/19 stories/15 posts). No failed user services.
-- Next: exact native UI assets/configuration and build/tenant metadata review, same-origin CSP and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+[Iterations 1782–1787](docs/progress-archive/2026-11-11-iterations-1782-1787.md).
 
 ## 2026-11-11: iteration 1788 — native telemetry CSP browser rehearsal
 
@@ -194,3 +135,14 @@
 - Next: deadline-expiry acceptance, authenticated export composition and browser acceptance before admission; Grafana capacity evidence and Nov 11 15:00 UTC NBA review remain open.
 - Full pnpm check passes: 836 unit and 283 integration tests, four expected skips; typecheck/lint/format/boundaries green. git diff --check clean.
 - Pushed 93129cdd; restarted news-digest-api.service. Post-restart healthz, 32 deployed account boundaries and saved Nov 10 reader checks pass; no failed user services.
+
+## 2026-11-11: iteration 1799 — installed-binary export deadline expiry
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed user services; 36/36 sources healthy and job check passes. No provider calls.
+- Extended review-telemetry-export-limits.ts --isolated with a second disposable installed-binary process: shortened 1 ms server cap overrides the exact prepared timeout=2s request and returns native request-timeout refusal.
+- Buffered transport rejects the deadline response; process health remains good. Normal two-second 32/33-series rehearsal retained; synthetic processes/stores removed. No live configuration/admission changes.
+- Installed deadline rounds down to Unix seconds, permitting cheap expiry verification. Expensive-work timing at the live two-second limit remains unmeasured; documented this scope.
+- Live review-native-telemetry-export.ts --live passes (16 rows/samples, 1,858 bytes); check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts).
+- pnpm build and check-handbook.ts observability pass. Archived iterations 1782–1787 to keep orientation small; updated readiness, response review and TASKS.
+- Next: authenticated export route composition and installed-browser acceptance before admission; Grafana capacity evidence and Nov 11 15:00 UTC NBA review remain open. Public mode stays off.
+- Verification: pnpm format, pnpm lint:fix and full pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Repeated isolated deadline/series rehearsal passes after formatting.

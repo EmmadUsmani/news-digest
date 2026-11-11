@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1799: disposable installed-binary shortened-cap export expiry verifies server-cap precedence over the prepared two-second request, native deadline refusal and buffered transport rejection; process stays healthy. Live-cap expensive-work timing remains unmeasured; authenticated/browser composition remains before admission.
+
 - [x] Iteration 1798: installed the rehearsed metrics export limits (32 series/two seconds); live process flags, health and bounded telemetry reads verified. Export admission/public mode remain off; deadline-expiry and authenticated/browser composition remain.
 
 - [x] Iteration 1797: prepared exports force a two-second upstream deadline; disposable installed VictoriaMetrics accepts 32 synthetic series and refuses 33 with the reviewed export-series limit. Live defaults unchanged; server-limit installation, session composition and browser acceptance remain before admission.

@@ -9,10 +9,18 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
-import { boundedTelemetryExport } from '../apps/api/src/telemetry-export';
+import {
+  boundedTelemetryExport,
+  readBoundedTelemetryExport,
+} from '../apps/api/src/telemetry-export';
 
 async function main() {
   assert.deepEqual(process.argv.slice(2), ['--isolated']);
+  await rehearse('2s');
+  await rehearse('1ms');
+}
+
+async function rehearse(maximumDuration: '2s' | '1ms') {
   const socket = createServer();
   socket.listen(0, '127.0.0.1');
   await once(socket, 'listening');
@@ -32,7 +40,7 @@ async function main() {
       '-search.maxConcurrentRequests=2',
       '-search.maxMemoryPerQuery=8MiB',
       '-search.maxExportSeries=32',
-      '-search.maxExportDuration=2s',
+      `-search.maxExportDuration=${maximumDuration}`,
       '-inmemoryDataFlushInterval=1s',
     ],
     { stdio: 'ignore', env: { PATH: process.env.PATH, GOMAXPROCS: '1' } },
@@ -79,6 +87,31 @@ async function main() {
       );
     }
     await insert(0, 32);
+    if (maximumDuration === '1ms') {
+      // The installed implementation rounds context deadlines to Unix seconds.
+      // A 1 ms server cap expires immediately for almost every request, without
+      // expensive data or load. The prepared request still asks for two seconds.
+      await eventually(async () => {
+        const response = await request(target);
+        const body = await response.text();
+        return !response.ok && body.includes('request timeout reached');
+      });
+      await eventually(async () => {
+        await assert.rejects(
+          readBoundedTelemetryExport(
+            new URL(target, base),
+            new AbortController().signal,
+          ),
+          /Invalid telemetry export response/,
+        );
+        return true;
+      });
+      assert.equal((await request('/metrics/health')).status, 200);
+      console.log(
+        'Isolated installed-binary deadline: shortened server cap overrides the prepared two-second timeout; native expiry refused by buffered transport; health recovered. No live changes.',
+      );
+      return;
+    }
     await eventually(async () => {
       const response = await request(target);
       return (
