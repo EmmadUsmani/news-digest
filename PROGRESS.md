@@ -195,3 +195,14 @@
 - Private backup news-digest-20261111T230721Z completed (39 tables); stopped API/worker, applied 0022 outside deployment hold, restarted. Audit/admission counts preserved (1/0), both identity-validation triggers installed.
 - Live: health/database/Redis green, 32 account-boundary refusals pass, 38/38 sources healthy, saved edition eb6e962e unchanged with four topics, zero alerts. No provider calls or public-mode/sharing/budget/source changes.
 - Commit/push and final main-matching restart follow. Next: item 58.5 account-body admission; Nov 12 five-topic scheduled acceptance remains due.
+
+## 2026-11-11: iteration 1865 — authenticate large reader uploads
+
+- Clean main/no inherited work; initial health and alerts green. Completed item 58.5 in owner order.
+- Reader sync authenticates before consuming its up-to-16-MiB stream and again after upload; expired/revoked sessions cannot merge changes. Successful requests preserve cookie renewal.
+- Added unfinished declared/chunked upload refusals for absent, malformed and unknown session cookies, mid-upload revocation refusal and valid reader/renewal coverage; existing authenticated size/UTF-8 checks retained.
+- Targeted account HTTP tests pass (9/9); pnpm format, pnpm lint:fix, pnpm check (865 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
+- Read-only predeploy checks: 38/38 sources healthy/nonempty; recent collection jobs complete; saved edition eb6e962e unchanged with four topics. No provider calls, migration, public-mode/sharing/budget/source changes or accepted-screen reruns.
+- Next: item 58.6 smaller sign-in issues in private review; Nov 12 first five-topic scheduled acceptance remains due. Item 50 awaits remaining fixes, scheduled publication, lead re-check and owner decision.
+- API/worker restarted outside deployment hold; health/database/Redis green. node /tmp/nd-1865-live.cjs: six unfinished declared/chunked uploads refuse before body data; pnpm exec tsx scripts/check-live-account-boundary.ts: 32 refusals pass. Zero alerts; saved edition unchanged.
+- Commit/push and final main-matching service restart follow.

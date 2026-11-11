@@ -335,8 +335,8 @@ topic keys (including removal records). Display copies use the browser field lim
 rejection preserves both inputs. Prepared sync persistence locks the identity row across read/merge/write, including
 first sync, and serializes with account deletion. Isolated acceptance covers concurrent
 devices, tombstones, reader isolation, capacity rejection and write rollback.
-Prepared POST `/api/account/sync` authenticates the reader from the session cookie,
-validates the versioned state and merges through the locking repository. It accepts
+Prepared POST `/api/account/sync` authenticates the reader before reading the upload
+and again after upload to catch session revocation or expiry, then validates the versioned state and merges through the locking repository. It accepts
 only same-origin JSON, bounds streamed requests to 16 MiB (the bounded state can
 exceed login payload limits), and returns private, uncached state with cookie
 renewal when needed. Invalid state rejects before persistence; storage failures

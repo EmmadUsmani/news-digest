@@ -264,6 +264,7 @@ void test('oversized declared and chunked account requests receive 413 before up
       calls++;
       return { status: 204 };
     },
+    authorization: async () => ({ freshAdmin: false }),
     syncReader: async () => {
       calls++;
       return { status: 204 };
@@ -335,6 +336,7 @@ void test('invalid account write headers reject unfinished uploads before readin
       calls++;
       return { status: 204 };
     },
+    authorization: async () => ({ freshAdmin: false }),
     syncReader: async () => {
       calls++;
       return { status: 204 };
@@ -709,6 +711,7 @@ void test('account writes reject damaged UTF-8 before dispatch and preserve vali
       client: () => 'verified-client',
       handlers: {
         acceptsWrite: () => true,
+        authorization: async () => ({ freshAdmin: false }),
         syncReader: async (input: { body: unknown }) => {
           received.push(input.body);
           return { status: 204 };
@@ -780,6 +783,141 @@ void test('account writes reject damaged UTF-8 before dispatch and preserve vali
       204,
     );
     assert.deepEqual(received, [{ title }]);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  }
+});
+
+void test('reader sync refuses unfinished unauthenticated uploads and rechecks admission after upload', async () => {
+  let valid = false;
+  let checks = 0;
+  let merges = 0;
+  const token = 'a'.repeat(43);
+  const handlers = new AccountHandlers(
+    new AccountRequestBoundary('https://reader.example'),
+    { request: async () => undefined },
+    { redeem: async () => null },
+    {
+      authenticate: async () => {
+        checks++;
+        return valid
+          ? {
+              userId: 'reader',
+              sessionId: 'session',
+              isAdmin: false,
+              cookie:
+                checks === 1
+                  ? '__Host-reader_session=renewed; Secure; HttpOnly; Path=/'
+                  : null,
+            }
+          : null;
+      },
+      signOut: async () => '',
+      signOutAllDevices: async () => '',
+    },
+    undefined,
+    undefined,
+    {
+      merge: async (_userId, changes) => {
+        merges++;
+        return changes;
+      },
+    },
+  );
+  const server = createServer((req, res) =>
+    accountHttp({ enabled: true, handlers, client: () => 'verified' })(
+      req,
+      res,
+      () => res.end(),
+    ),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  try {
+    for (const cookie of [
+      '',
+      '__Host-reader_session=malformed',
+      `__Host-reader_session=${token}`,
+    ]) {
+      for (const chunked of [false, true]) {
+        const status = await new Promise<number | undefined>(
+          (resolve, reject) => {
+            const upload = request({
+              hostname: '127.0.0.1',
+              port: address.port,
+              path: '/api/account/sync',
+              method: 'POST',
+              headers: {
+                Origin: 'https://reader.example',
+                'Content-Type': 'application/json',
+                Cookie: cookie,
+                ...(chunked
+                  ? { 'Transfer-Encoding': 'chunked' }
+                  : { 'Content-Length': '16000000' }),
+              },
+            });
+            upload.on('error', reject);
+            upload.setTimeout(3000, () =>
+              upload.destroy(new Error('Admission waited for upload')),
+            );
+            upload.on('response', (response) => {
+              response.resume();
+              response.on('end', () => {
+                resolve(response.statusCode);
+                upload.destroy();
+              });
+            });
+            upload.flushHeaders();
+          },
+        );
+        assert.equal(status, 401);
+      }
+    }
+    assert.equal(merges, 0);
+    // The first check admits a reader; the second simulates revocation during upload.
+    checks = 0;
+    valid = true;
+    const authenticate = handlers.authorization.bind(handlers);
+    handlers.authorization = async (...args) => {
+      const result = await authenticate(...args);
+      valid = false;
+      return result;
+    };
+    const response = await fetch(
+      `http://127.0.0.1:${address.port}/api/account/sync`,
+      {
+        method: 'POST',
+        headers: {
+          Origin: 'https://reader.example',
+          'Content-Type': 'application/json',
+          Cookie: `__Host-reader_session=${token}`,
+        },
+        body: JSON.stringify({ version: 1, hiddenTopics: {}, bookmarks: {} }),
+      },
+    );
+    assert.equal(response.status, 401);
+    assert.equal(checks, 2);
+    assert.equal(merges, 0);
+    valid = true;
+    checks = 0;
+    handlers.authorization = authenticate;
+    const accepted = await fetch(
+      `http://127.0.0.1:${address.port}/api/account/sync`,
+      {
+        method: 'POST',
+        headers: {
+          Origin: 'https://reader.example',
+          'Content-Type': 'application/json',
+          Cookie: `__Host-reader_session=${token}`,
+        },
+        body: JSON.stringify({ version: 1, hiddenTopics: {}, bookmarks: {} }),
+      },
+    );
+    assert.equal(accepted.status, 200);
+    assert.match(accepted.headers.get('set-cookie') ?? '', /renewed/);
+    assert.equal(merges, 1);
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve) => server.close(() => resolve()));

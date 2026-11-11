@@ -25,9 +25,12 @@ export function accountHttp(options: {
     if (!confirmation && !path.startsWith('/api/account/')) return next();
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('Vary', 'Cookie');
+    let admissionCookie: string | null = null;
     const send = (result: Result) => {
       response.statusCode = result.status;
-      if (result.cookie) response.setHeader('Set-Cookie', result.cookie);
+      const cookie =
+        result.cookie ?? (result.status < 300 ? admissionCookie : null);
+      if (cookie) response.setHeader('Set-Cookie', cookie);
       if (result.body !== undefined) {
         response.setHeader('Content-Type', 'application/json; charset=utf-8');
         response.end(JSON.stringify(result.body));
@@ -91,6 +94,16 @@ export function accountHttp(options: {
         )
       )
         return send({ status: 400 });
+      // Large reader uploads require a live session before consuming the stream.
+      // The handler authenticates again after upload to catch expiry/revocation.
+      if (path === '/api/account/sync') {
+        const admission = await options.handlers.authorization(
+          request.headers.cookie,
+          new Date(),
+        );
+        if (!admission) return send({ status: 401 });
+        admissionCookie = admission.cookie;
+      }
       const limit = path === '/api/account/sync' ? 16 * 1024 * 1024 : 2048;
       // Reject declared oversize before reading; still count actual streamed bytes.
       const declaredLength = request.headers['content-length'];
