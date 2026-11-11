@@ -164,5 +164,5 @@
 - Updated TASKS, readiness/rollout notes and operations handbook. `pnpm exec tsx scripts/check-handbook.ts 08-operations` passes (18 pages/one diagram/39 tables); no diagrams changed.
 - `pnpm format`, `pnpm lint:fix`, route policy tests (6), build and `git diff --check` pass. First full check caught import ordering before lint autofix completed; corrected and retried.
 - Live checks: 32 account boundaries pass; saved edition has four topics/19 stories/19 posts. A diagnostic used localhost instead of the credential helper’s exact 127.0.0.1 origin and received refusal; corrected helper read passes.
-- Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Post-check alerts zero; deployment verification follows.
+- Full `pnpm check` retry passes: 836 unit/283 integration tests, four expected skips. Pushed `b33b9f24`; private API restarted after 16:00 UTC. Post-restart healthz, 32 account boundaries, private Spend browser, 36 healthy sources and four-topic/19-story/19-post saved edition pass; alerts zero.
 - Next: remaining Phase 4 tool admission/rehearsal, Grafana scheduled-load/compaction evidence and Nov 12 edition review.
