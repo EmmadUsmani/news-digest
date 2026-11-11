@@ -124,7 +124,9 @@ async function load(force) {
   state.model = model;
   $('stamp').textContent =
     `${model.tables.length} tables · ${model.relations.filter((r) => r.kind === 'fk').length} FKs · ` +
-    `live as of ${new Date(model.generatedAt).toLocaleTimeString()}`;
+    (model.generatedAt
+      ? `live as of ${new Date(model.generatedAt).toLocaleTimeString()}`
+      : 'schema structure');
   renderWarnings();
   renderLegend();
   if (force || signature !== state.signature) {
@@ -279,7 +281,7 @@ function drawTable(table, group, box) {
     svg(
       'text',
       { class: 'count', x: box.width - PAD_X, y: 19, 'text-anchor': 'end' },
-      `${fmtCount(table.rowEstimate)}`,
+      Number.isFinite(table.rowEstimate) ? fmtCount(table.rowEstimate) : '',
     ),
   );
   const { rows, hidden } = visibleRows(table);
@@ -325,7 +327,7 @@ function drawTable(table, group, box) {
     svg(
       'title',
       {},
-      `${table.name} · ~${table.rowEstimate} rows${table.note ? '\n' + table.note : ''}`,
+      `${table.name}${Number.isFinite(table.rowEstimate) ? ` · ~${table.rowEstimate} rows` : ''}${table.note ? '\n' + table.note : ''}`,
     ),
   );
   g.addEventListener('click', (ev) => {
@@ -440,7 +442,9 @@ function renderPanel() {
       el(
         'p',
         { class: 'muted' },
-        `~${table.rowEstimate.toLocaleString()} rows · ${fmtBytes(table.sizeBytes)} on disk · ${table.columns.length} columns`,
+        Number.isFinite(table.rowEstimate) && Number.isFinite(table.sizeBytes)
+          ? `~${table.rowEstimate.toLocaleString()} rows · ${fmtBytes(table.sizeBytes)} on disk · ${table.columns.length} columns`
+          : `${table.columns.length} columns`,
       ),
       el('h4', {}, 'Columns'),
       el(
@@ -504,12 +508,12 @@ function renderPanel() {
             ),
           )
         : '',
-      table.indexes.length ? el('h4', {}, 'Indexes') : '',
-      table.indexes.map((i) => el('pre', {}, i.definition)),
-      table.checks.length ? el('h4', {}, 'Checks') : '',
-      table.checks.map((c) => el('pre', {}, c)),
-      table.triggers.length ? el('h4', {}, 'Triggers') : '',
-      table.triggers.map((t) => el('pre', {}, t.definition)),
+      (table.indexes ?? []).length ? el('h4', {}, 'Indexes') : '',
+      (table.indexes ?? []).map((i) => el('pre', {}, i.definition)),
+      (table.checks ?? []).length ? el('h4', {}, 'Checks') : '',
+      (table.checks ?? []).map((c) => el('pre', {}, c)),
+      (table.triggers ?? []).length ? el('h4', {}, 'Triggers') : '',
+      (table.triggers ?? []).map((t) => el('pre', {}, t.definition)),
     ].flat(),
   );
 }
@@ -579,12 +583,16 @@ function renderLegend() {
         { class: 'key', style: 'color:#a855f7' },
         '- - relation from metadata (no FK)',
       ),
-      el('div', { class: 'key' }, 'Number in a header = estimated rows'),
+      state.model.generatedAt
+        ? el('div', { class: 'key' }, 'Number in a header = estimated rows')
+        : '',
       el('h3', {}, 'Source'),
       el(
         'small',
         {},
-        'Live introspection of Postgres. Groups, notes and dashed relations come from ',
+        state.model.generatedAt
+          ? 'Live introspection of Postgres. Groups, notes and dashed relations come from '
+          : 'Schema structure from Postgres. Groups and dashed relations come from ',
         el('code', {}, 'docs/schema-meta.json'),
         '.',
       ),
@@ -592,7 +600,7 @@ function renderLegend() {
   );
 }
 function renderWarnings() {
-  const warnings = state.model.warnings;
+  const warnings = state.model.warnings ?? [];
   const btn = $('warn');
   btn.hidden = !warnings.length;
   btn.textContent = `⚠ ${warnings.length} metadata warning${warnings.length === 1 ? '' : 's'}`;

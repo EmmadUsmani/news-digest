@@ -416,8 +416,7 @@ Hostile synthetic catalog coverage retains account relationships while excluding
 injected comments/defaults/checks/indexes/triggers and future private fields.
 Mutation checks confirm the candidate cannot alter the private explorer model.
 This is an uninstalled response boundary, not public explorer acceptance. The
-existing UI expects row counts and definitions; it must gain a structural-only
-view before consuming this DTO. Catalog-only credentials, reviewed group/type/
+UI now accepts both structural and private responses (iteration 1768). Catalog-only credentials, reviewed group/type/
 identifier vocabulary, exact asset/API routes, HTTP/browser traces and private
 rollback remain required. Public mode stays off; no live grants or routes change.
 
@@ -452,3 +451,18 @@ arbitrary SQL safe. Fixed introspection queries and structural projection remain
 required because catalogs expose comments and definitions. No live credentials,
 grants or routes changed. Credential installation and UI/HTTP/rollback rehearsal
 remain open before activation.
+
+## Explorer structural UI rehearsal (iteration 1768)
+
+The shared explorer UI omits absent activity counts, storage sizes, definitions
+and warnings when given the structural DTO. Table search, detail modes, account
+key relationships and column details remain available. Narrow screens wrap the
+toolbar and display the selected table within the viewport. The private response
+continues to show its counts and definitions. No server response or flag changed.
+
+`pnpm exec tsx scripts/check-schema-structural-ui.ts` uses the live local catalog
+(39 tables, 36 relationships), intercepting only the browser schema response
+with the structural projection. Desktop/mobile checks cover both response modes,
+account details, search, detail controls, browser errors and viewport bounds.
+Structural screenshots are in `docs/screenshots/schema/`. Credential installation,
+exact HTTP admission and private rollback remain open before public activation.

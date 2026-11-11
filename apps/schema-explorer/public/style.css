@@ -407,3 +407,27 @@ main {
   background: #f3e8ff;
   color: #6b21a8;
 }
+
+@media (max-width: 700px) {
+  .bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+  }
+  #search {
+    min-width: 0;
+    flex: 1 1 160px;
+  }
+  main {
+    position: relative;
+  }
+  .legend {
+    display: none;
+  }
+  .panel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

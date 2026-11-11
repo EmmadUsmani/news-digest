@@ -133,3 +133,11 @@
 - `check-live-account-boundary.ts` passed 32 checks; `check-scheduled-reader.ts 2026-11-10T15:00:00Z` verified four topics, 19 stories and 15 posts. `pnpm build` passed; live schema service active and anonymous `/db/` returns 404.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit and 282 integration passes, four expected skips), `pnpm build` and `git diff --check` passed. Explorer inherited-function assertions pass. Pushed `c9f5b975`; schema service restarted active, `/healthz` passes and anonymous `/db/` returns 404. Public mode remains off.
 - Next: credential installation and structural explorer UI/HTTP/private rollback rehearsal; Grafana paired capacity evidence under scheduled load or natural compaction; Nov 11 scheduled NBA review.
+
+## 2026-11-11: iteration 1768 — rehearse structural explorer UI
+
+- Clean main; no inherited work. `pnpm obs alerts/services/sources/jobs` and `/healthz`: zero active alerts, 14 healthy services, 36 healthy sources, no failed digest runs.
+- Shared explorer UI now accepts structural responses without activity/definition fields, retaining private counts and details. Fixed narrow-screen toolbar/panel clipping found during browser inspection. Server response, public flag, credentials and grants unchanged; no provider calls.
+- `pnpm exec tsx scripts/check-schema-structural-ui.ts`: private/structural desktop/mobile pass using 39 live catalog tables/36 relations; structural DTO intercepted locally in browser only. Search, modes, account relationships, absent private fields, errors and viewport bounds checked. Viewed both saved structural screenshots.
+- `check-live-account-boundary.ts`: 32 passes; `check-scheduled-reader.ts 2026-11-10T15:00:00Z`: four topics, 19 stories, 15 posts. `pnpm format`, `pnpm lint:fix`, `pnpm check` (829 unit, 282 integration passes/four expected skips), `pnpm build` and `git diff --check` passed.
+- Next: explorer credential installation, exact HTTP/admission/private rollback; Grafana paired load/compaction capacity evidence; Nov 11 15:00 NBA acceptance review.
