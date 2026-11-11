@@ -136,4 +136,4 @@
 - Updated readiness, response review, TASKS and synthetic browser screenshots. Logs native screens/session composition and live navigation remain open; Nov 11 15:00 UTC NBA acceptance review remains due.
 - Live check-live-account-boundary.ts passes 32 checks; check-scheduled-reader.ts 2026-11-10T15:00:00Z passes (four topics/19 stories/15 posts). pnpm build and check-handbook.ts observability pass.
 - Initial browser runs exposed two rehearsal issues: native navigation appends time parameters, and Dashboards needs its dedicated rows/panels fixture. Corrected both; the full stored-session browser case now passes and both new screenshots are inspected.
-- Verification: pnpm format, pnpm lint:fix and captured-assets pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. API restarted healthy after commit.
+- Verification: pnpm format, pnpm lint:fix and captured-assets pnpm check pass (836 unit/283 integration tests, four expected skips); git diff --check clean. Combined shell received SIGTERM after its passing test report; standalone full check exits 0. API restarted healthy after commit.
