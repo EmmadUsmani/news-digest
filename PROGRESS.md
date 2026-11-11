@@ -155,4 +155,5 @@
 - Export GET/POST/HEAD admission stays denied. Proxy/session/client-disconnect composition, upstream query-work limits and installed-browser acceptance remain open; updated readiness/review and TASKS.
 - Verification: targeted transport tests, pnpm format, pnpm lint:fix, pnpm check, pnpm build, check-handbook.ts observability, deployed account boundaries and saved Nov 10 reader check.
 - Full check passes: 835 unit and 283 integration tests, four expected skips; build, handbook, 32 deployed account checks and saved reader check pass (four topics/19 stories/15 posts). All 36 sources healthy; git diff --check clean.
+- Pushed 48313bc8; systemctl --user restart news-digest-api.service completed. Post-restart healthz, 32 account boundaries and saved Nov 10 reader checks pass; no failed user services.
 - Next: compose export bounds into prepared proxy before admission; browser/session navigation, Grafana capacity evidence and Nov 11 15:00 UTC NBA review.
