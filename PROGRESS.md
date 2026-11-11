@@ -104,3 +104,15 @@
 - Live content snapshot: 36 sources/36 nonempty latest collections/zero errors; latest edition eb6e962e retains four topics.
 - Verification: pnpm format, pnpm lint:fix, read-only evaluator, filtered handbook check (39 tables/no warnings) and git diff --check pass. pnpm check/build pass: 860 unit/283 integration tests, four expected skips; existing build warnings only.
 - Archived iterations 1840–1849 to keep PROGRESS small. Commit/push then API/worker restart and post-deploy health verification follow.
+
+## 2026-11-11: iteration 1857 — reconciled World cost attribution
+
+- Clean main; no inherited work. Alerts zero, healthz/database/Redis healthy; item 50 remains at owner/lead stop, continued 56.
+- Read-only evaluator joins worker settlement logs by saved run ID and reconciles each purpose's cost/successful-call count with the ledger before attributing topic costs.
+- Nov 6–10 reconcile; Nov 4–5 fail closed to null attribution. Repeated evaluator executions match; no timestamp joins, provider calls or writes.
+- Nov 10 World cost $0.106435; unchanged other-topic costs leave $0.045419 for combined World/U.S. at conditional Nov 12 full-headroom ceiling.
+- Even free World article/social triage and grouping leave $0.041829 savings needed before U.S. additions. No achievable savings claimed; next measure concrete paired editorial savings and semantic routing.
+- TASKS, budget evidence and NEEDS_FROM_HUMAN updated. Runtime/source/cap/flag changes: none; split remains disabled.
+- Live content: 36 sources/36 nonempty latest collections/zero errors; latest edition eb6e962e retains four topics.
+- Verification: pnpm format, pnpm lint:fix, targeted eslint, repeated read-only evaluator, filtered handbook check (39 tables/no warnings), git diff --check and pnpm build pass. Full pnpm check passes: 860 unit/283 integration tests, four expected skips; existing build warnings only.
+- Commit/push then API/worker restart and post-deploy health verification follow.

@@ -94,8 +94,9 @@ Nov 4 has no charged grouping; zero does not imply a missing ledger run.
 
 Nov 10's $0.422356 total is dominated by Sonnet story editing ($0.211287)
 and social editing ($0.123422, including Bluesky); grouping is $0.007571.
-Those purposes have no topic attribution. Their costs cannot be credited as
-World savings, nor can the other three topics' editing be changed under item 56.
+The ledger alone has no topic attribution. At this stage their costs could not
+be credited as World savings; iteration 1857 below reconciles topic-bearing
+settlement logs. The other three topics' editing stays fixed under item 56.
 
 Conclusion: replacing grouping alone cannot rescue the current conservative
 five-topic proxy. Next prepare the actual combined shortlist/publication plan
@@ -330,3 +331,37 @@ this size, without changing the other three topics or editorial quality; if
 none exist, record the policy conflict for the owner rather than raising caps
 or weakening reserve protection. Semantic routing evaluation remains separate.
 No provider calls, database writes, source/cap/flag or runtime changes.
+
+## Reconciled World cost attribution — iteration 1857
+
+Worker `budget.settlement` journal entries contain topic IDs. The evaluator
+matches the saved edition run ID, then requires exact cost and successful-call
+count agreement for every purpose against `readEditionCost`. Concurrent manual
+runs are excluded. Nov 4–5 fail reconciliation: their attribution is null and
+receives no savings credit. No timestamp-based ledger joins or provider calls.
+
+| Edition | Reconciled World cost | Maximum combined World/U.S. cost at conditional Nov 12 ceiling |
+| ------- | --------------------: | -------------------------------------------------------------: |
+| Nov 6   |             $0.059157 |                                                      $0.133593 |
+| Nov 7   |             $0.102337 |                                                      $0.083504 |
+| Nov 8   |             $0.095249 |                                                      $0.135725 |
+| Nov 9   |             $0.092178 |                                                      $0.065261 |
+| Nov 10  |             $0.106435 |                                                      $0.045419 |
+
+These combined ceilings hold the other three topics' saved costs fixed and use
+$0.361340 whole-edition cost headroom. They are necessary conditions, not
+achievable savings or request-admission guarantees. Journal retention is needed
+to reproduce attribution; absent or mismatched evidence receives null results.
+
+Nov 10 World costs: article triage $0.013626, grouping $0.002093, social triage
+$0.003468, story editing $0.052166, X/social editing $0.020702, Bluesky editing
+$0.014380. All $0.106435 is attributed; no unknown-topic cost remains.
+Eliminating World triage and grouping entirely saves only **$0.019187**,
+leaving **$0.041829** to save before any U.S. addition. Even eliminating all
+World story editing alone leaves $0.008850 to save. Neither elimination is a
+permitted quality-preserving implementation; these are optimistic bounds.
+
+Next measure a concrete paired editorial design against the $0.045419 combined
+ceiling, preserving reporting quality, social coverage and the other topics.
+Grouping/triage savings alone cannot close the peak gate. Semantic routing
+still needs separate evaluation; split, caps, sources and runtime stay unchanged.

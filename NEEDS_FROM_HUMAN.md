@@ -166,3 +166,9 @@ The next allowed approach is attributable World-only savings with unchanged
 quality and other topics. If that cannot close the gap, the owner must resolve
 the scope/budget conflict; agents must not raise caps or relax the reserve.
 [Calculation and assumptions](docs/edition-reviews/2026-11-11-fifth-topic-budget.md#cost-frontier-without-a-fifth-topic-proxy--iteration-1856).
+
+Iteration 1857: reconciled journal/ledger attribution measures Nov 10 World at
+$0.106435; keeping the other topics fixed leaves $0.045419 for World/U.S.
+combined. Free World triage/grouping still leaves $0.041829 to save before U.S.
+additions. No policy change requested; evaluate concrete paired editorial
+savings next. Nov 4–5 attribution fails reconciliation and receives no credit.

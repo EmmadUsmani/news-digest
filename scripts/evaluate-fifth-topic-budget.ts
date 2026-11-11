@@ -1,5 +1,6 @@
 // Read-only estimate from saved editions; no inference or admission changes.
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { parseEnv } from 'node:util';
@@ -35,6 +36,39 @@ async function main() {
       'utf8',
     ),
   ) as { windows: { date: string; editionId: string }[] };
+  // Settlement logs carry topic IDs that the ledger does not. Never join by
+  // timestamp: concurrent manual runs can overlap the scheduled edition.
+  const settlements = execFileSync(
+    'journalctl',
+    [
+      '--user',
+      '-u',
+      'news-digest-worker.service',
+      '--since',
+      '2026-11-04 UTC',
+      '--until',
+      '2026-11-11 UTC',
+      '--grep',
+      'budget.settlement',
+      '-o',
+      'cat',
+      '--no-pager',
+    ],
+    { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 },
+  )
+    .split('\n')
+    .filter(Boolean)
+    .map(
+      (line) =>
+        JSON.parse(line) as {
+          event: string;
+          runId: string;
+          purpose: string;
+          topicId?: string;
+          costMicros: number;
+        },
+    )
+    .filter((row) => row.event === 'budget.settlement');
   const pool = database();
   const client = await pool.connect();
   try {
@@ -78,7 +112,81 @@ async function main() {
         Number.isSafeInteger(grouping) && grouping >= 0 && grouping <= row.cost,
       );
       assert.ok(Number.isSafeInteger(optimisticFiveTopic));
+      const logged = settlements.filter(
+        (part) => part.runId === window.editionId,
+      );
+      assert.ok(
+        logged.every(
+          (part) =>
+            Number.isSafeInteger(part.costMicros) && part.costMicros >= 0,
+        ),
+      );
+      const purposes = [
+        ...new Set([
+          ...logged.map((part) => part.purpose),
+          ...ledger.byModelAndPurpose.map((part) => part.purpose),
+        ]),
+      ];
+      const reconciled = purposes.every((purpose) => {
+        const records = logged.filter((part) => part.purpose === purpose);
+        const parts = ledger.byModelAndPurpose.filter(
+          (part) => part.purpose === purpose,
+        );
+        return (
+          records.reduce((sum, part) => sum + part.costMicros, 0) ===
+            parts.reduce((sum, part) => sum + part.costMicros, 0) &&
+          records.length ===
+            parts.reduce((sum, part) => sum + part.calls - part.failed, 0)
+        );
+      });
+      const worldCost = logged
+        .filter(
+          (part) => part.topicId === '00000000-0000-4000-8000-000000000014',
+        )
+        .reduce((sum, part) => sum + part.costMicros, 0);
+      const unattributedCost = logged
+        .filter((part) => !part.topicId)
+        .reduce((sum, part) => sum + part.costMicros, 0);
+      const worldTriageAndGroupingCost = logged
+        .filter(
+          (part) =>
+            part.topicId === '00000000-0000-4000-8000-000000000014' &&
+            [
+              'candidate-triage-v1',
+              'social-triage-v1',
+              'story-grouping-v3',
+            ].includes(part.purpose),
+        )
+        .reduce((sum, part) => sum + part.costMicros, 0);
+      if (reconciled) assert.ok(worldCost + unattributedCost <= row.cost);
       measurements.push({
+        settlementAttribution: {
+          reconciled,
+          loggedCalls: logged.length,
+          worldTriageAndGroupingCostMicros: reconciled
+            ? worldTriageAndGroupingCost
+            : null,
+          worldByPurpose: reconciled
+            ? purposes
+                .map((purpose) => ({
+                  purpose,
+                  costMicros: logged
+                    .filter(
+                      (part) =>
+                        part.purpose === purpose &&
+                        part.topicId === '00000000-0000-4000-8000-000000000014',
+                    )
+                    .reduce((sum, part) => sum + part.costMicros, 0),
+                }))
+                .filter((part) => part.costMicros > 0)
+            : null,
+          worldCostMicros: reconciled ? worldCost : null,
+          unattributedCostMicros: reconciled ? unattributedCost : null,
+          // Over-credit every unknown call to World, and remove World for free.
+          maximumWorldSavingsMicros: reconciled
+            ? worldCost + unattributedCost
+            : null,
+        },
         date: window.date,
         costMicros: row.cost,
         fifthTopicProxyMicros: Math.ceil(row.cost / row.topics),
@@ -166,6 +274,29 @@ async function main() {
           row.costMicros - row.allTopicGroupingCostMicros;
         return {
           date: row.date,
+          reductionStillNeededWithFreeWorldMicros:
+            row.settlementAttribution.maximumWorldSavingsMicros === null
+              ? null
+              : Math.max(
+                  0,
+                  row.costMicros -
+                    row.settlementAttribution.maximumWorldSavingsMicros -
+                    costCeilingMicros,
+                ),
+          reductionStillNeededWithFreeWorldTriageAndGroupingMicros:
+            row.settlementAttribution.worldTriageAndGroupingCostMicros === null
+              ? null
+              : Math.max(
+                  0,
+                  row.costMicros -
+                    row.settlementAttribution.worldTriageAndGroupingCostMicros -
+                    costCeilingMicros,
+                ),
+          maximumCombinedWorldUsCostMicros:
+            row.settlementAttribution.worldCostMicros === null
+              ? null
+              : costCeilingMicros -
+                (row.costMicros - row.settlementAttribution.worldCostMicros),
           baselineCostMicros: row.costMicros,
           maximumNetIncrementMicros,
           baselineReductionBeforeAnyAdditionMicros: Math.max(
@@ -221,7 +352,7 @@ async function main() {
           ),
           savingsNote:
             'Optimistic counterfactual only: removes ALL four topics grouping cost, adds no joint request cost, and retains the equal-share fifth-topic proxy. Not an achievable saving, cost attribution or production admission calculation.',
-          note: 'Equal-share fifth-topic proxy, not measured World attribution: llm_calls has no topic ID. Includes all saved-run costs, including repairs. Does not bound new candidate volume, joint prompt size or monthly/model admission. No cap change justified solely by this proxy.',
+          note: 'Equal-share fifth-topic proxy, llm_calls has no topic ID; separate journal attribution is reported only when every purpose reconciles by successful call count and cost. Includes all saved-run costs, including repairs. Does not bound new candidate volume, joint prompt size or monthly/model admission. No cap change justified solely by this proxy.',
         },
         null,
         2,
