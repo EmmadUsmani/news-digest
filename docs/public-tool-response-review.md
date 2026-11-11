@@ -781,3 +781,25 @@ reload and unreviewed metadata routes denied. Native bundles offer configurable
 server URLs and external links: constrain browser connections with a same-origin
 CSP when serving them. Do not broadly admit `/metrics/` or `/logs/` prefixes.
 Public mode remains off; no admission or proxy behavior changed in this review.
+
+## Bounded native query transport (iteration 1787)
+
+Prepared public mode admits GET and POST on the exact reviewed query paths,
+including metrics `/metrics/prometheus/api/v1/{query,query_range}` aliases.
+POST accepts only uncompressed `application/x-www-form-urlencoded` (optional
+UTF-8 charset), buffers at most 16 KiB and times out uploads after five seconds.
+Unsupported media/encoding or declared oversize returns 415; chunked oversize
+returns 413. Rejections happen before creating an upstream request. Only generated
+content type/length and loopback host headers accompany the buffered body;
+credentials and upstream cookies remain stripped and responses use no-store.
+These are read queries and bypass mutation auditing; session freshness still
+applies. The full application retains exact configured-origin and duplicate-header
+checks for POST; only these query paths accept forms through its provenance guard. UI documents/assets, streaming tails and mutations remain denied.
+
+Fixture HTTP covers body preservation, missing freshness, media/encoding and
+declared/chunked size refusal. The compiled application rehearses both methods
+with anonymous, invited-reader, fresh/stale admin and logged-out stored sessions.
+Explicit bounded live upstream POSTs returned success/eight metrics series and
+one recent log row; no operational bodies were printed. Public mode stays off.
+Next: exact static/configuration and build/tenant metadata review, same-origin
+CSP and complete native browser acceptance before opening UI routes.

@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1787: prepared native query form POST and metrics `/prometheus` query aliases; 16 KiB/five-second upload bounds, fresh-admin stored-session boundary and credential stripping. UI assets/metadata and CSP remain closed; public mode stays off.
+
 - [x] Iteration 1786: installed native telemetry assets reviewed in Chromium with all operational requests intercepted as fixtures. Both UIs require POST queries; metrics uses the `/prometheus` API alias; logs requests build/tenant metadata. Repeatable review added; native UI admission remains closed.
 
 - [x] Iteration 1785: prepared fresh-admin logs hit/statistics/metadata/time-bound GET routes admitted; live bounded JSON probes and isolated proxy/stored-session refusals verified. Native UI assets and POST transport remain closed.

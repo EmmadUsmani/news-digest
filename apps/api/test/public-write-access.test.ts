@@ -82,11 +82,19 @@ void test('prepared write provenance refuses cross-site and ambiguous HTTP reque
     await check(204, [], '/api/editions/latest', 'GET');
     await check(204, [], '/api/editions/latest', 'HEAD');
     assert.equal(reached, 7);
+    const form = ['Content-Type', 'application/x-www-form-urlencoded'];
+    const query = '/metrics/prometheus/api/v1/query_range';
+    await check(403, form, query);
+    await check(403, [...form, 'Origin', 'https://evil.test'], query);
+    await check(403, [...form, 'Origin', origin, 'Origin', origin], query);
+    await check(403, [...form, ...form, 'Origin', origin], query);
+    assert.equal(reached, 7);
+    await check(204, [...form, 'Origin', origin], query);
     enabled = false;
     await check(204, [], '/api/unknown');
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve) => server.close(() => resolve()));
   }
-  assert.equal(reached, 8);
+  assert.equal(reached, 9);
 });

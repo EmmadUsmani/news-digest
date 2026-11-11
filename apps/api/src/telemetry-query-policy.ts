@@ -3,6 +3,8 @@
 const queryPaths = new Set([
   '/metrics/api/v1/query',
   '/metrics/api/v1/query_range',
+  '/metrics/prometheus/api/v1/query',
+  '/metrics/prometheus/api/v1/query_range',
   '/logs/select/logsql/query',
   '/logs/select/logsql/hits',
   '/logs/select/logsql/stats_query',
@@ -15,6 +17,6 @@ const queryPaths = new Set([
 ]);
 
 export function isAdminTelemetryQuery(method: string, target: string): boolean {
-  if (method !== 'GET' || /[#\\\s]/.test(target)) return false;
+  if (!['GET', 'POST'].includes(method) || /[#\\\s]/.test(target)) return false;
   return queryPaths.has(target.split('?')[0]);
 }

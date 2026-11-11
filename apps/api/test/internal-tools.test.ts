@@ -316,7 +316,7 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
           actor === 'admin' ? '{"fixture":true}' : '',
         );
         assert.equal(seen.length, before + (actor === 'admin' ? 1 : 0));
-        for (const method of ['HEAD', 'POST', 'DELETE']) {
+        for (const method of ['HEAD', 'DELETE']) {
           assert.equal(
             (await fetch(base + path, { method, headers })).status,
             404,
@@ -345,7 +345,7 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     try {
       assert.equal(
         (await fetch(directBase + queries[0], { method: 'POST' })).status,
-        404,
+        415,
       );
       assert.equal(
         (await fetch(directBase + '/metrics/internal/force_merge')).status,
@@ -365,5 +365,152 @@ void test('public telemetry proxy admits fresh-admin queries without forwarding 
     );
   } finally {
     await Promise.all([close(server), close(tool)]);
+  }
+});
+
+void test('telemetry POST forwards bounded forms only and refuses bodies before upstream access', async () => {
+  const seen: string[] = [];
+  const tool = createServer((req, res) => {
+    assert.equal(req.method, 'POST');
+    assert.deepEqual(Object.keys(req.headers).sort(), [
+      'connection',
+      'content-length',
+      'content-type',
+      'host',
+    ]);
+    assert.equal(
+      req.headers['content-type'],
+      'application/x-www-form-urlencoded',
+    );
+    let body = '';
+    req.on('data', (chunk: Buffer) => {
+      body += chunk.toString();
+    });
+    req.on('end', () => {
+      seen.push(body);
+      res.writeHead(200, { 'set-cookie': 'private=1' }).end('fixture');
+    });
+  });
+  const port = await listen(tool);
+  const proxy = proxyInternalTools(
+    selectInternalTools(true).map((entry) => ({ ...entry, port })),
+  );
+  let freshAdmin = false;
+  const guard = publicAccess(
+    true,
+    async () => ({ freshAdmin }),
+    async () => assert.fail('read query audited as mutation'),
+  );
+  const server = createServer((req, res) => {
+    void guard(req, res, () => proxy(req, res, () => assert.fail('escaped')));
+  });
+  const base = `http://127.0.0.1:${await listen(server)}`;
+  const path = '/metrics/prometheus/api/v1/query_range';
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Cookie: 'secret=1',
+    Authorization: 'secret',
+  };
+  try {
+    const body = 'query=up&start=1&end=2&step=1';
+    assert.equal(
+      (await fetch(base + path, { method: 'POST', headers, body })).status,
+      404,
+    );
+    assert.deepEqual(seen, []);
+    freshAdmin = true;
+    const response = await fetch(base + path, {
+      method: 'POST',
+      headers,
+      body,
+    });
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(response.headers.get('set-cookie'), null);
+    assert.equal(await response.text(), 'fixture');
+    assert.deepEqual(seen, [body]);
+    for (const contentType of [
+      'application/json',
+      'text/plain',
+      'multipart/form-data',
+    ]) {
+      assert.equal(
+        (
+          await fetch(base + path, {
+            method: 'POST',
+            headers: { 'Content-Type': contentType },
+            body,
+          })
+        ).status,
+        415,
+      );
+    }
+    assert.equal(
+      (
+        await fetch(base + path, {
+          method: 'POST',
+          headers: { ...headers, 'Content-Encoding': 'gzip' },
+          body,
+        })
+      ).status,
+      415,
+    );
+    assert.equal(
+      (
+        await fetch(base + path, {
+          method: 'POST',
+          headers,
+          body: 'q'.repeat(16385),
+        })
+      ).status,
+      415,
+    );
+    // A chunked body has no declared size; enforce the limit while reading too.
+    const { request } = await import('node:http');
+    const chunkedStatus = await new Promise<number>((resolve, reject) => {
+      const req = request(base + path, { method: 'POST', headers }, (res) => {
+        res.resume();
+        resolve(res.statusCode!);
+      });
+      req.on('error', reject);
+      req.write('q'.repeat(8192));
+      req.end('q'.repeat(8193));
+    });
+    assert.equal(chunkedStatus, 413);
+    const timeoutStatus = await new Promise<number>((resolve, reject) => {
+      const req = request(base + path, { method: 'POST', headers }, (res) => {
+        res.resume();
+        resolve(res.statusCode!);
+        req.destroy();
+      });
+      req.on('error', reject);
+      req.write('query=');
+    });
+    assert.equal(timeoutStatus, 408);
+    assert.deepEqual(seen, [body]);
+    assert.equal(
+      (
+        await fetch(base + '/metrics/internal/force_merge', {
+          method: 'POST',
+          headers,
+          body,
+        })
+      ).status,
+      404,
+    );
+    assert.equal(
+      (
+        await fetch(base + '/logs/select/logsql/tail', {
+          method: 'POST',
+          headers,
+          body,
+        })
+      ).status,
+      404,
+    );
+    assert.deepEqual(seen, [body]);
+  } finally {
+    await close(server);
+    await close(tool);
   }
 });

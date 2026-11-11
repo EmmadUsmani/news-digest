@@ -91,50 +91,94 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         res.writeHead(502, { 'content-type': 'text/plain; charset=utf-8' });
       res.end(`${tool.prefix}/ is unavailable right now.`);
     };
-    const upstream = request(
-      {
-        host,
-        port: tool.port,
-        method: req.method,
-        path: tool.preservePrefix ? url : rest,
-        headers: {
-          ...(!restrictedTool && req.headers),
-          host: `${host}:${tool.port}`,
+    const forward = (body?: Buffer) => {
+      const upstream = request(
+        {
+          host,
+          port: tool.port,
+          method: req.method,
+          path: tool.preservePrefix ? url : rest,
+          headers: {
+            ...(!restrictedTool && req.headers),
+            host: `${host}:${tool.port}`,
+            ...(body && {
+              'content-type': 'application/x-www-form-urlencoded',
+              'content-length': String(body.length),
+            }),
+          },
+          timeout: 30000,
         },
-        timeout: 30000,
-      },
-      (response) => {
-        if (
-          readerTool &&
-          (response.statusCode !== 200 ||
-            response.headers[
-              tool.readerExplorer
-                ? 'x-digest-reader-explorer'
-                : 'x-digest-reader-handbook'
-            ] !== '1')
-        ) {
-          response.destroy();
-          fail();
-          return;
-        }
-        res.writeHead(response.statusCode ?? 502, {
-          ...(restrictedTool
-            ? {
-                'content-type':
-                  response.headers['content-type'] ?? 'text/plain',
-              }
-            : response.headers),
-          'cache-control': 'no-store',
-          ...(!restrictedTool && {
-            vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
-          }),
-        });
-        response.pipe(res);
-      },
-    );
-    upstream.on('timeout', () => upstream.destroy());
-    upstream.on('error', fail);
-    if (restrictedTool) upstream.end();
-    else req.pipe(upstream);
+        (response) => {
+          if (
+            readerTool &&
+            (response.statusCode !== 200 ||
+              response.headers[
+                tool.readerExplorer
+                  ? 'x-digest-reader-explorer'
+                  : 'x-digest-reader-handbook'
+              ] !== '1')
+          ) {
+            response.destroy();
+            fail();
+            return;
+          }
+          res.writeHead(response.statusCode ?? 502, {
+            ...(restrictedTool
+              ? {
+                  'content-type':
+                    response.headers['content-type'] ?? 'text/plain',
+                }
+              : response.headers),
+            'cache-control': 'no-store',
+            ...(!restrictedTool && {
+              vary: 'X-ExeDev-Email, ADMIN_LOCAL_TOKEN',
+            }),
+          });
+          response.pipe(res);
+        },
+      );
+      upstream.on('timeout', () => upstream.destroy());
+      upstream.on('error', fail);
+      if (restrictedTool) upstream.end(body);
+      else req.pipe(upstream);
+    };
+    if (tool.adminTelemetry && req.method === 'POST') {
+      // Buffer a small, uncompressed form before opening the upstream request.
+      // Nothing from the caller's headers or oversized body reaches the store.
+      if (
+        !/^application\/x-www-form-urlencoded(?:;\s*charset=utf-8)?$/i.test(
+          req.headers['content-type'] ?? '',
+        ) ||
+        req.headers['content-encoding'] ||
+        Number(req.headers['content-length'] ?? 0) > 16384
+      ) {
+        res.writeHead(415, { 'cache-control': 'no-store' }).end();
+        return;
+      }
+      const chunks: Buffer[] = [];
+      let size = 0;
+      let finished = false;
+      const reject = (status: number) => {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timer);
+        res.writeHead(status, { 'cache-control': 'no-store' }).end();
+      };
+      const timer = setTimeout(() => reject(408), 5000);
+      req.on('data', (chunk: Buffer) => {
+        if (finished) return;
+        size += chunk.length;
+        if (size > 16384) reject(413);
+        else chunks.push(chunk);
+      });
+      req.on('error', () => reject(400));
+      req.on('aborted', () => reject(400));
+      req.on('end', () => {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timer);
+        forward(Buffer.concat(chunks));
+      });
+    } else forward();
   };
 }

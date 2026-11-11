@@ -3,6 +3,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { AccountRequestBoundary } from './modules/accounts/adapters/account-request';
 import { directLocalAdmin } from './public-local-admin';
 import { classifyPublicRoute } from './public-route-policy';
+import { isAdminTelemetryQuery } from './telemetry-query-policy';
 
 // Preparation only: install before authorization and every downstream router.
 // This checks request provenance, never grants permission to perform a write.
@@ -43,7 +44,11 @@ export function publicWriteAccess(
       (!local && count('origin') !== 1) ||
       !boundary.acceptsWrite(
         local ? origin : request.headers.origin,
-        request.headers['content-type'],
+        // Native telemetry reads use forms, validated and bounded by the proxy.
+        // Keep the exact same-origin and duplicate-header checks here.
+        isAdminTelemetryQuery(request.method ?? '', request.url ?? '')
+          ? 'application/json'
+          : request.headers['content-type'],
       )
     ) {
       response.writeHead(403).end();

@@ -65,7 +65,12 @@ void test('configured full public application serves published fixtures and enfo
   // An isolated upstream records forwarding; no test reaches live telemetry.
   const telemetryRequests: string[] = [];
   const telemetry = createServer((req, res) => {
-    assert.deepEqual(Object.keys(req.headers).sort(), ['connection', 'host']);
+    assert.deepEqual(
+      Object.keys(req.headers).sort(),
+      req.method === 'POST'
+        ? ['connection', 'content-length', 'content-type', 'host']
+        : ['connection', 'host'],
+    );
     telemetryRequests.push(req.url!);
     res
       .writeHead(200, {
@@ -376,6 +381,7 @@ void test('configured full public application serves published fixtures and enfo
     assert.match(login.headers.get('set-cookie')!, /Secure/);
     const telemetryQueries = [
       '/metrics/api/v1/query?query=up',
+      '/metrics/prometheus/api/v1/query?query=up',
       '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
       '/logs/select/logsql/query?query=_time:1m&limit=1',
       '/logs/select/logsql/hits?query=_time:1m&limit=1',
@@ -388,24 +394,35 @@ void test('configured full public application serves published fixtures and enfo
       '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
     ];
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
-      for (const path of telemetryQueries) {
-        const before = telemetryRequests.length;
-        const response = await account(path, {
-          headers: {
-            Cookie: actorCookie,
-            'X-Forwarded-For': '203.0.113.98, 203.0.113.98',
-            'X-ExeDev-Email': configuration.ADMIN_EMAILS,
-            Authorization: 'Bearer forged',
-            admin_local_token: 'forged-local-token',
-          },
-        });
-        assert.equal(response.status, allowed ? 200 : 404, path);
-        assert.equal(response.headers.get('cache-control'), 'no-store');
-        assert.equal(response.headers.get('set-cookie'), null);
-        assert.equal(response.headers.get('x-private'), null);
-        assert.equal(await response.text(), allowed ? '{"fixture":true}' : '');
-        assert.equal(telemetryRequests.length, before + Number(allowed));
-        if (allowed) assert.equal(telemetryRequests.at(-1), path);
+      for (const method of ['GET', 'POST']) {
+        for (const path of telemetryQueries) {
+          const before = telemetryRequests.length;
+          const response = await account(path, {
+            method,
+            ...(method === 'POST' && { body: 'query=up' }),
+            headers: {
+              Cookie: actorCookie,
+              ...(method === 'POST' && {
+                Origin: configuration.ACCOUNT_ORIGIN,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              }),
+              'X-Forwarded-For': '203.0.113.98, 203.0.113.98',
+              'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+              Authorization: 'Bearer forged',
+              admin_local_token: 'forged-local-token',
+            },
+          });
+          assert.equal(response.status, allowed ? 200 : 404, path);
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+          assert.equal(response.headers.get('set-cookie'), null);
+          assert.equal(response.headers.get('x-private'), null);
+          assert.equal(
+            await response.text(),
+            allowed ? '{"fixture":true}' : '',
+          );
+          assert.equal(telemetryRequests.length, before + Number(allowed));
+          if (allowed) assert.equal(telemetryRequests.at(-1), path);
+        }
       }
     };
     await checkTelemetry('', false);

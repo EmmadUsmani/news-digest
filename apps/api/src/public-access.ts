@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { classifyPublicRoute } from './public-route-policy';
 import { publicStaticRoutes } from './public-static-routes';
+import { isAdminTelemetryQuery } from './telemetry-query-policy';
 
 export interface PublicAccessPrincipal {
   // The account adapter must recompute freshness and allowlisting per request.
@@ -71,7 +72,11 @@ export function publicAccess(
       response.writeHead(404).end();
       return;
     }
-    if (access === 'admin' && !['GET', 'HEAD'].includes(request.method ?? '')) {
+    if (
+      access === 'admin' &&
+      !['GET', 'HEAD'].includes(request.method ?? '') &&
+      !isAdminTelemetryQuery(request.method ?? '', request.url ?? '')
+    ) {
       const supplied = principal.auditActor;
       const actor =
         supplied &&

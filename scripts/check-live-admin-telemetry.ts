@@ -44,56 +44,65 @@ async function main() {
       'admin',
     ] as const) {
       actor = principal;
-      for (const path of queries) {
-        const before = forwarded;
-        const response = await fetch(base + path, {
-          headers: {
-            Cookie: 'rehearsal=invalid',
-            Authorization: 'Bearer invalid',
-            'X-ExeDev-Email': 'rehearsal@example.invalid',
-          },
-          signal: AbortSignal.timeout(10000),
-        });
-        assert.equal(response.status, actor === 'admin' ? 200 : 404);
-        assert.equal(response.headers.get('cache-control'), 'no-store');
-        assert.equal(response.headers.get('set-cookie'), null);
-        assert.equal(forwarded, before + (actor === 'admin' ? 1 : 0));
-        const body = await response.text();
-        if (actor !== 'admin') assert.equal(body, '');
-        else if (path.startsWith('/metrics/')) {
-          const data = JSON.parse(body) as {
-            status: string;
-            data: {
-              result: {
-                value?: [number, string];
-                values?: [number, string][];
-              }[];
+      for (const method of ['GET', 'POST']) {
+        for (const path of queries) {
+          const before = forwarded;
+          const response = await fetch(
+            base + (method === 'POST' ? path.split('?')[0] : path),
+            {
+              method,
+              ...(method === 'POST' && { body: path.split('?')[1] }),
+              headers: {
+                ...(method === 'POST' && {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                Cookie: 'rehearsal=invalid',
+                Authorization: 'Bearer invalid',
+                'X-ExeDev-Email': 'rehearsal@example.invalid',
+              },
+              signal: AbortSignal.timeout(10000),
+            },
+          );
+          assert.equal(response.status, actor === 'admin' ? 200 : 404);
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+          assert.equal(response.headers.get('set-cookie'), null);
+          assert.equal(forwarded, before + (actor === 'admin' ? 1 : 0));
+          const body = await response.text();
+          if (actor !== 'admin') assert.equal(body, '');
+          else if (path.startsWith('/metrics/')) {
+            const data = JSON.parse(body) as {
+              status: string;
+              data: {
+                result: {
+                  value?: [number, string];
+                  values?: [number, string][];
+                }[];
+              };
             };
-          };
-          assert.equal(data.status, 'success');
-          assert.equal(
-            data.data.result.length,
-            1,
-            'Expected live scrape count',
-          );
-          const result = data.data.result[0];
-          const samples = result.values ?? [result.value!];
-          assert.ok(
-            samples.length > 0 &&
-              samples.every((sample) => Number(sample[1]) > 0),
-          );
-        } else {
-          const rows = body.trim().split('\n').filter(Boolean);
-          assert.equal(rows.length, 1, 'Expected one recent live log row');
-          const row = JSON.parse(rows[0]) as Record<string, unknown>;
-          assert.ok(typeof row._time === 'string');
-          assert.ok(Date.parse(row._time) >= (end - 70) * 1000);
+            assert.equal(data.status, 'success');
+            assert.equal(
+              data.data.result.length,
+              1,
+              'Expected live scrape count',
+            );
+            const result = data.data.result[0];
+            const samples = result.values ?? [result.value!];
+            assert.ok(
+              samples.length > 0 &&
+                samples.every((sample) => Number(sample[1]) > 0),
+            );
+          } else {
+            const rows = body.trim().split('\n').filter(Boolean);
+            assert.equal(rows.length, 1, 'Expected one recent live log row');
+            const row = JSON.parse(rows[0]) as Record<string, unknown>;
+            assert.ok(typeof row._time === 'string');
+            assert.ok(Date.parse(row._time) >= (end - 70) * 1000);
+          }
         }
       }
     }
     // Refused at admission, before any real upstream sees a mutation.
     for (const [method, path] of [
-      ['POST', queries[0]],
       ['GET', '/metrics/internal/force_merge'],
       ['GET', '/metrics/api/v1/admin/tsdb/delete_series?match[]=up'],
       ['POST', '/logs/insert/jsonline'],

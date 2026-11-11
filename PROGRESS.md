@@ -115,3 +115,14 @@
 - Updated tool review/readiness/TASKS with exact gaps: POST form transport, metrics alias, metadata/static route review and same-origin CSP. Existing GET allowlist cannot support native UI; no runtime admission changed. Archived progress 1770–1775 to keep orientation small.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and native browser review pass. Final `pnpm check` passes: 832 unit/283 integration tests, four expected skips. Initial check stopped on newly archived progress formatting; corrected. Restarted API; retrying healthz, 32 account-boundary checks and saved Nov 10 reader (four topics/19 stories/15 posts) pass.
 - Next: implement reviewed bounded native query transport/assets behind the off flag; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
+
+## 2026-11-11: iteration 1787 — bounded native telemetry POST reads
+
+- Clean main; no inherited work. `pnpm obs alerts` clear, no failed user services, `/healthz` healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode remains off.
+- Prepared shared query allowlist admits GET/form POST and metrics `/prometheus` instant/range aliases. Proxy buffers at most 16 KiB, permits uncompressed forms only and stops stalled uploads after five seconds before opening upstream. Caller credentials/upstream cookies stripped; no-store retained; UI assets/metadata, tails and mutations stay closed.
+- Read queries bypass mutation auditing. Scoped provenance exception permits forms only on these query paths while preserving exact configured-origin and duplicate-header checks. Initial full check found the compiled fixture missing this origin/form composition; fixed guard and fixture, retaining cross-origin refusals.
+- Fixture tests verify exact body/headers, freshness, media/encoding, declared/chunked oversize and upload timeout. Compiled full application verifies both methods across anonymous, invited reader, fresh/stale admin and logged-out stored sessions.
+- `check-live-admin-telemetry.ts --live` now covers GET and POST, bounded metrics/log reads and simulated-principal isolation. Direct bounded alias POST returns eight metrics series; logs POST returns one recent row. No operational bodies printed.
+- `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 833 unit/283 integration tests, four expected skips. `pnpm build`, `check-handbook.ts observability` (18 pages/one unchanged diagram/39 tables) and `git diff --check` pass. Updated affected handbook, review/readiness and TASKS.
+- Restarted API; retrying healthz, 32 deployed account-boundary checks and saved Nov 10 reader check pass (four topics/19 stories/15 posts). No failed user services.
+- Next: exact native UI assets/configuration and build/tenant metadata review, same-origin CSP and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA review.
