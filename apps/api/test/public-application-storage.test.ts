@@ -752,6 +752,57 @@ void test('configured full public application serves published fixtures and enfo
               await page.screenshot({
                 path: 'docs/screenshots/native-metrics-stored-session.png',
               });
+              // Keep the installed export screen mounted while its stored
+              // session crosses the admin freshness boundary.
+              const session = await db.query<{
+                id: string;
+                created_at: Date;
+              }>(
+                `SELECT id, created_at FROM sessions WHERE admin_eligible AND user_id = (SELECT id FROM users WHERE email = $1)`,
+                [configuration.ADMIN_EMAILS],
+              );
+              assert.equal(session.rowCount, 1);
+              const execute = page.getByRole('button', { name: /^execute$/i });
+              const exportResponse = () =>
+                page.waitForResponse(
+                  (response) =>
+                    new URL(response.url()).pathname ===
+                    '/metrics/prometheus/api/v1/export',
+                );
+              try {
+                await db.query(
+                  `UPDATE sessions SET created_at = now() - interval '8 days' WHERE id = $1`,
+                  [session.rows[0].id],
+                );
+                nativeAllowed = false;
+                const beforeExpiry = telemetryRequests.length;
+                const refused = exportResponse();
+                await execute.click();
+                assert.equal((await refused).status(), 404);
+                await page.waitForLoadState('networkidle');
+                assert.equal(telemetryRequests.length, beforeExpiry);
+                await page.screenshot({
+                  path: 'docs/screenshots/native-metrics-open-session-expired.png',
+                  fullPage: true,
+                });
+              } finally {
+                await db.query(
+                  'UPDATE sessions SET created_at = $1 WHERE id = $2',
+                  [session.rows[0].created_at, session.rows[0].id],
+                );
+                nativeAllowed = allowed;
+              }
+              const beforeResume = telemetryRequests.length;
+              const resumed = exportResponse();
+              await execute.click();
+              assert.equal((await resumed).status(), 200);
+              await page.waitForLoadState('networkidle');
+              assert.ok(telemetryRequests.length > beforeResume);
+              await page
+                .getByText('installed-session-fixture', { exact: false })
+                .first()
+                .waitFor({ state: 'visible' });
+              assert.deepEqual(errors, []);
             } else {
               assert.equal(telemetryRequests.length, nativeBefore);
               assert.equal(exports, 0);

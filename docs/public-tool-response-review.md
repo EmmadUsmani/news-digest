@@ -1101,3 +1101,12 @@ seven days. Executing another query returns 404 and sends no telemetry upstream
 requests, without a document reload. Restoring the saved session creation time
 lets the same screen query again with HTTP 200. This models the freshness boundary
 with synthetic telemetry; production admission and public mode remain off.
+
+### Open metrics screen session freshness (iteration 1807)
+
+The installed metrics Raw Query screen also rechecks the stored session when
+Execute requests another bounded export. Aging its session beyond seven days
+returns 404 without telemetry upstream work; restoring the saved creation time
+lets the same mounted screen render the synthetic series again with HTTP 200.
+The isolated Chromium rehearsal uses captured installed assets and synthetic
+telemetry. Production admission and public mode remain off.

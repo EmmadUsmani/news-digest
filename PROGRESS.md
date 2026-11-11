@@ -156,3 +156,13 @@
 - Inspected expired-session screenshot (native stream-field 404 shown); retained it and discarded unrelated regenerated timestamp-only screenshots. Updated TASKS, readiness and response review.
 - Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks), check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
 - Captured-assets pnpm check exits 0: 836 unit/283 integration passes, four expected skips; git diff --check clean. API restart and health verified after commit. Nov 11 15:00 UTC NBA acceptance review remains due; remaining telemetry controls/live navigation remain open.
+
+## 2026-11-11: iteration 1807 — open metrics screen session freshness
+
+- Clean main; no inherited work. Alerts clear, healthz healthy, no failed services; all 36 sources healthy and digest queue has no failed runs. No provider calls.
+- Extended captured-installed-assets Chromium/full-application rehearsal: keep metrics Raw Query mounted, age the real admin session beyond seven days, then Execute.
+- Export returns 404 without telemetry upstream work; restoring the saved creation time lets Execute return HTTP 200 and render the synthetic series on the same screen. Production admission/public mode remain off.
+- First full run caught a premature chart assertion after successful HTTP recovery. Replaced immediate count with a visibility wait; isolated full-application browser rerun passes. Inspected new expired-session screenshot; discarded unrelated regenerated screenshots.
+- Updated TASKS, readiness and response review. Nov 11 15:00 UTC NBA acceptance remains due; remaining telemetry controls/live navigation remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm build, check-handbook.ts observability, check-live-account-boundary.ts (32 checks) and check-scheduled-reader.ts 2026-11-10T15:00:00Z (four topics/19 stories/15 posts) pass.
+- Final captured-assets pnpm check exits 0: 836 unit/283 integration passes, four expected skips. git diff --check clean; API restart/health checked after commit.
