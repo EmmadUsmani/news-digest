@@ -737,3 +737,19 @@ Native landing-page review found operational links, including metrics reload;
 the logs UI also references additional query/metadata APIs. Landing pages and UI
 assets remain closed pending their own route review. No live operational bodies
 or provider calls are needed for this rehearsal; public mode stays off.
+
+## Logs read API inventory (iteration 1785)
+
+Installed VictoriaLogs UI assets reference hit counts, statistics, field/stream
+metadata and query time bounds alongside the existing log query. Bounded live
+GET probes returned JSON/200 for all eight additional endpoints without printing
+operational bodies. The prepared fresh-admin allowlist now admits exact GETs for
+`hits`, `stats_query`, `stats_query_range`, `field_names`, `field_values`,
+`stream_field_names`, `stream_field_values` and `query_time_range` under
+`/logs/select/logsql/`. Shared admission and restricted proxy use the same list.
+
+These responses contain operational data and remain unavailable to anonymous,
+reader, stale-admin and logged-out sessions. Caller credentials and upstream
+cookies stay stripped; responses use no-store. POSTs, streaming `tail`, inserts,
+UI pages/assets and unknown paths remain denied. Native UI POST transport and
+asset admission still need review before enabling the UI. Public mode stays off.

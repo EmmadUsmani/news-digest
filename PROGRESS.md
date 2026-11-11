@@ -147,3 +147,13 @@
 - `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. New compiled-app rehearsal passes; `git diff --check` clean.
 - Restarted `news-digest-api.service`; retrying `/healthz` and post-restart account-boundary/saved-reader checks pass.
 - Next: native telemetry UI route review/full Phase 4 rehearsal; Grafana capacity under scheduled load or natural compaction; Nov 11 15:00 UTC NBA acceptance review.
+
+## 2026-11-11: iteration 1785 — fresh-admin logs read APIs
+
+- Clean main; no inherited work. Alerts clear, no failed user services, healthz healthy; source/job checks pass (36 sources/four queues). No provider calls; public mode stays off.
+- Installed UI bundle inventory identified eight additional logs read endpoints. Bounded live GETs returned JSON/200 for hits, instant/range statistics, field/stream names/values and query time bounds; no operational bodies printed.
+- Prepared shared admission/proxy now allows these exact GETs only to fresh admins. Expanded fixture HTTP and compiled-app stored-session rehearsals cover reader/anonymous/stale/logout refusals, stripped credentials/cookies and no-store. UI assets, POSTs, tail and mutations stay denied.
+- Initial full check found an unrelated explorer pool-shutdown race (Postgres backend cleanup lagged client closure). Added bounded observation of the exact backend disappearing, retaining NOLOGIN/authentication checks; rerun passes.
+- Targeted 11 tests, `pnpm build`, `check-handbook.ts observability` (18 pages/one diagram/39 tables), `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 832 unit/283 integration passes, four expected skips. Updated affected handbook, rollout review/readiness and TASKS.
+- Restarted API; retrying healthz, 32 deployed account-boundary checks and `check-scheduled-reader.ts 2026-11-10T15:00:00Z` pass (four topics/19 stories/15 posts). `git diff --check` clean.
+- Next: native telemetry UI assets/POST transport review and full Phase 4 rehearsal; Grafana scheduled-load/natural-compaction capacity evidence; Nov 11 15:00 UTC NBA acceptance review.

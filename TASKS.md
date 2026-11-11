@@ -40,6 +40,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1785: prepared fresh-admin logs hit/statistics/metadata/time-bound GET routes admitted; live bounded JSON probes and isolated proxy/stored-session refusals verified. Native UI assets and POST transport remain closed.
+
 - [x] Iteration 1784: compiled public application composes real stored-session authentication with prepared telemetry proxy; reader/stale/logged-out admin refusal and fresh-admin forwarding pass against an isolated fixture upstream. Native UI routes remain closed.
 
 - [x] Iteration 1783: live telemetry upstream/prepared-proxy composition passes bounded metrics/log reads and simulated principal/write refusals; no operational bodies printed. Public mode stays off.

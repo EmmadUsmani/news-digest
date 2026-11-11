@@ -4,6 +4,14 @@ const queryPaths = new Set([
   '/metrics/api/v1/query',
   '/metrics/api/v1/query_range',
   '/logs/select/logsql/query',
+  '/logs/select/logsql/hits',
+  '/logs/select/logsql/stats_query',
+  '/logs/select/logsql/stats_query_range',
+  '/logs/select/logsql/field_names',
+  '/logs/select/logsql/field_values',
+  '/logs/select/logsql/stream_field_names',
+  '/logs/select/logsql/stream_field_values',
+  '/logs/select/logsql/query_time_range',
 ]);
 
 export function isAdminTelemetryQuery(method: string, target: string): boolean {

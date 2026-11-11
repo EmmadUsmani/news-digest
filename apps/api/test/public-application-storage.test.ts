@@ -378,6 +378,14 @@ void test('configured full public application serves published fixtures and enfo
       '/metrics/api/v1/query?query=up',
       '/metrics/api/v1/query_range?query=up&start=1&end=2&step=1',
       '/logs/select/logsql/query?query=_time:1m&limit=1',
+      '/logs/select/logsql/hits?query=_time:1m&limit=1',
+      '/logs/select/logsql/stats_query?query=_time:1m&limit=1',
+      '/logs/select/logsql/stats_query_range?query=_time:1m&limit=1',
+      '/logs/select/logsql/field_names?query=_time:1m&limit=1',
+      '/logs/select/logsql/field_values?query=_time:1m&limit=1',
+      '/logs/select/logsql/stream_field_names?query=_time:1m&limit=1',
+      '/logs/select/logsql/stream_field_values?query=_time:1m&limit=1',
+      '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
     ];
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
       for (const path of telemetryQueries) {

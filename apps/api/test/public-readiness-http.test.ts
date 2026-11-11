@@ -156,6 +156,14 @@ void test('public readiness HTTP matrix admits reviewed explorer reads and close
         '/metrics/api/v1/query?query=up',
         '/metrics/api/v1/query_range?query=up',
         '/logs/select/logsql/query?query=error&limit=1',
+        '/logs/select/logsql/hits?query=_time:1m&limit=1',
+        '/logs/select/logsql/stats_query?query=_time:1m&limit=1',
+        '/logs/select/logsql/stats_query_range?query=_time:1m&limit=1',
+        '/logs/select/logsql/field_names?query=_time:1m&limit=1',
+        '/logs/select/logsql/field_values?query=_time:1m&limit=1',
+        '/logs/select/logsql/stream_field_names?query=_time:1m&limit=1',
+        '/logs/select/logsql/stream_field_values?query=_time:1m&limit=1',
+        '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
       ]) {
         const before = downstream;
         assert.equal(

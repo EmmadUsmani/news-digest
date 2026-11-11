@@ -311,15 +311,19 @@ void test('catalog credentials enforce SCRAM login and retain structural HTTP ac
       await revoked.end();
     }
     await reader.end();
-    assert.equal(
-      (
-        await owner.query('SELECT pid FROM pg_stat_activity WHERE pid=$1', [
-          pooledPid,
-        ])
-      ).rowCount,
-      0,
-      'closing the service pool removes the catalog session',
-    );
+    // Pool shutdown sends termination; PostgreSQL removes the backend asynchronously.
+    for (let attempt = 0; ; attempt++) {
+      const remaining = await owner.query(
+        'SELECT pid FROM pg_stat_activity WHERE pid=$1',
+        [pooledPid],
+      );
+      if (remaining.rowCount === 0) break;
+      assert.ok(
+        attempt < 39,
+        'closing the service pool removes the catalog session within two seconds',
+      );
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
     await owner.query('ALTER ROLE schema_catalog_reader LOGIN');
     // Reload signals are asynchronous; observe fresh authentication, not elapsed time.
     const waitForAuthentication = async (scram: boolean) => {
