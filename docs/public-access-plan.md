@@ -603,7 +603,7 @@ turn an edition response into shared content. Account and admin data remain unca
 
 The default-off public access stack now sets HSTS (one year, host only),
 `nosniff`, `no-referrer`, same-origin framing and a document CSP before account
-transport or authorization. The CSP restricts base URLs, plugin objects, embedding ancestors and form
+transport or authorization. The CSP denies unspecified resource types by default, permits same-origin styles and inline styling, and restricts base URLs, plugin objects, embedding ancestors and form
 submissions (same-origin only). Frame sources are limited to the same origin,
 `https://platform.twitter.com` and `https://syndication.twitter.com`. Document connections
 are limited to the same origin and `https://syndication.twitter.com`. Script

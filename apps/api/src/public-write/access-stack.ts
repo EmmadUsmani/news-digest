@@ -41,7 +41,7 @@ export function prepareAccessStack(options: {
       // Restrict document connections; widgets retain their own frame policy.
       response.setHeader(
         'Content-Security-Policy',
-        "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' https://platform.twitter.com; script-src-attr 'none'; img-src 'self' https:; font-src 'self'; media-src 'self'; worker-src 'none'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
+        "default-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' https://platform.twitter.com; script-src-attr 'none'; img-src 'self' https:; font-src 'self'; media-src 'self'; worker-src 'none'; connect-src 'self' https://syndication.twitter.com; frame-src 'self' https://platform.twitter.com https://syndication.twitter.com",
       );
     }
     const dispatch = () => {

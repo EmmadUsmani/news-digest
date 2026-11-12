@@ -164,3 +164,13 @@
 - Next: remaining item 58.10 proxy checks and minor findings, then lead re-check/owner decision; Nov 12 scheduled edition must validate the fixes and fifth topic. Verification/deployment results follow.
 - pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; explorer suite separately passes 8/8. Filtered handbook check and git diff --check pass; no diagram edits. Existing bundle-size warning only.
 - Credential preflight passes. API/worker/docs/schema restarted outside hold; explorer /healthz, API/database/Redis and all 14 services healthy. Digest queue has zero failed jobs, one worker and next run Nov 12 15:00 UTC. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1875 — default-deny public document resources
+
+- Clean main/no inherited work; initial alerts empty and API/database/Redis healthy. Continued item 58 minor findings; proxy checks remain unavailable pending authenticated controls.
+- Added CSP default-src none and explicit same-origin/inline style allowance, preserving the existing resource-specific policies. Updated access plan and runtime handbook. Public mode remains off.
+- HTTP stack regressions 3/3 pass. Offline Chromium manifest probe proves default denial before network access and private rollback; existing font/frame policy probes pass. Synthetic resources only; no accepted-screen reruns or provider calls.
+- pnpm obs sources --check passes; digest-generation has zero failures, one worker and next run Nov 12 15:00 UTC. No budgets, migrations or sharing changes. Full verification/deployment results follow.
+- Next: remaining minor findings and authoritative proxy checks; Nov 12 scheduled five-topic acceptance remains due, followed by lead re-check/owner decision.
+- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips. Handbook check (39 tables) and git diff --check pass; no diagrams changed. Existing bundle warnings only.
+- Rebuilt API/worker/docs restarted outside hold; first immediate health probe raced startup, subsequent obs health and direct /healthz pass with database/Redis green. All services active, no firing alerts. Commit/push and final main-matching restart follow.
