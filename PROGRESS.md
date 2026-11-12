@@ -119,3 +119,14 @@
 - Updated TASKS, rollout evidence/rollback procedure and owner budget handbook; archived iterations 2012–2020 after PROGRESS exceeded 25 KB. SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, focused handbook check, 15-control offline settlement evaluation and `git diff --check` pass. Existing bundle warning only.
 - API/worker restart and health/source/edition readback follow push; live publication remains five topics/25 stories.
+
+## 2026-11-12: iteration 2027 — scheduled settlement review handoff
+
+- Clean main/no inherited work. Corrected stale disabled-wait wording in active TASKS and the admission plan after iteration 2026 enabled the bounded policy.
+- Added a read-only Nov 13 scheduled-review checklist: log commands/fields, immediate-versus-waited admission, stop categories, bounded attempts/holds, publication agreement and separate NBA acceptance.
+- No provider calls, runtime changes, budget changes, public activation or accepted-screen reruns. Authenticated-proxy and natural scheduled acceptance gates remain open.
+- `pnpm obs health --check`, `pnpm obs sources --check`, `pnpm obs jobs --check --queue digest-generation --limit 1`: healthy, 38 healthy sources, staffed queue/zero failures, next Nov 13 15:00 UTC. Zero alerts.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree, five topics/25 stories/22 posts. Last-hour settlement log query empty before next scheduled generation, as expected.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only. SOURCES and NEEDS_FROM_HUMAN unchanged.
+- API/worker restart and post-push health readback follow commit; runtime code is unchanged.
+- Next: review natural wait diagnostics and NBA AI editing after Nov 13 scheduled publication; no paid replay.

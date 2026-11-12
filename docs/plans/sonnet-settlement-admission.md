@@ -18,7 +18,8 @@ reservation admits spending. Missing context, manual/non-Sonnet callers and mixe
 refusals remain immediate. Ledger errors propagate.
 BudgetedLlm now composes the helper through an optional internal policy, repeated
 for each separately funded repair. The editorial factory supplies the configured
-Sonnet identity and trusted scheduled-ledger context behind a hard false code gate;
+Sonnet identity and trusted scheduled-ledger context through an internal code gate
+(enabled in iteration 2026);
 manual callers, Haiku and legacy ledgers retain immediate admission. Bounded logs
 contain stop category, elapsed time, attempts and original-hold count, never IDs.
 Offline composed controls cover repair, Haiku fallback, late wake-up, manual and
@@ -96,8 +97,7 @@ are at most ten seconds and cannot start if they consume the remaining allowance
 The monotonic deadline is rechecked after backoff before retrying. A 60-second start check is
 insufficient. Scheduled generation now shares its absolute deadline through
 repairs/fallback and constrains logical calls to that context. Only AI dispatch
-stops at expiry; existing fallback and publication continue. Before enabling waits,
-implement settlement admission with reserved completion headroom. A pre-dispatch expiry releases
+stops at expiry; existing fallback and publication continue. Settlement admission reserves completion headroom before waiting. A pre-dispatch expiry releases
 an unused reservation; any request that might have reached the provider retains
 uncertain accounting under the existing failure policy. Never release a hold
 merely because a caller stopped waiting. Do not cancel publication mid-write.
@@ -153,3 +153,38 @@ API/worker. Do not change caps or release uncertain holds. At the next natural
 scheduled edition, review `budget.settlement-admission` stop categories, wait
 lengths and attempt counts, ledger refusals, NBA editing and saved publication.
 Live acceptance remains open until that review; manual paid generation is unnecessary.
+
+## Natural scheduled review
+
+Next observation: Nov 13, 2026 at 15:00 UTC. Use read-only commands after the
+scheduled job finishes; do not enqueue a replay to produce diagnostics.
+
+```sh
+pnpm obs health --check
+pnpm obs jobs --check --queue digest-generation --limit 2
+pnpm obs logs --since 1h --service worker --grep budget.settlement-admission --limit 40
+pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z
+pnpm obs alerts
+```
+
+- Run the log query within one hour of publication; for a later review, extend
+  `--since` and correlate `runId` with the scheduled generation logs. If output
+  reaches the limit, increase it within the CLI bound or narrow the time range
+  before drawing conclusions from missing events.
+- Read `runId`, `model`, repair `attempt`, admission `attempts`, `waitedMs`,
+  `originalHoldCount` and `stop`. Immediate successful admission also emits an
+  event: `admitted` alone does not demonstrate settlement waiting.
+- A wait has more than one admission attempt. Check at most 21 attempts and at
+  most 64 original holds. The five-second polling policy includes ledger work;
+  elapsed logging can include database latency. Investigate overruns rather than
+  assuming `waitedMs` is an exact sleep-duration measurement.
+- Stops are `admitted`, `ineligible`, `deadline`, `cancelled`, `exhausted` or
+  `holds-settled`. A refusal is allowed: confirm normal fallback and publication,
+  then reconcile relevant reservations/settlements as in the Nov 12 review.
+- Reader verification checks latest/direct/history agreement. Separately review
+  saved NBA editing and five-topic content, provider failures, budget refusals
+  and spend. Publication agreement alone does not close editorial acceptance.
+- If no call needed to wait, record that outcome and leave natural settlement
+  recovery unobserved. Missing events before the scheduled run are expected.
+- Record the evidence in that day's edition review and update TASKS. Keep the
+  independent authenticated-proxy gate open; this review cannot satisfy it.
