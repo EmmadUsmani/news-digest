@@ -163,3 +163,13 @@
 - Corrected a pnpm banner/JQ pipeline with `--silent`; redis-cli unavailable, used installed ioredis for a single read-only HGET. No secrets printed or persisted.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables), and `git diff --check` pass; existing bundle warning only. Docs restart and final health check follow commit/push.
 - Next: pending authenticated proxy evidence and Nov 12 15:00 edition; metrics probe no earlier than 04:13 UTC.
+
+## 2026-11-12: iteration 1887 — mixed launch and sales-pitch selection proposal
+
+- Clean main/no inherited work. Zero alerts; API/database/Redis and 38 sources healthy. Digest queue staffed, zero failures, next scheduled edition Nov 12 15:00 UTC. Corrected initial unsupported queue alias `digest` to `digest-generation`.
+- Read the saved Nov 11 edition topic by topic. Owner value: distinguish an interesting technical launch from a sales offer competing for one of five Tech post slots.
+- FishAudio card combines a full-duplex model announcement with enterprise-demo and free-agent reply solicitation; its saved metrics are empty. This is a comparison question, not proof the selection is wrong.
+- Added a bounded proposal in `docs/ideas.md`: compare saved alternatives/cached scoring, preserve original text and avoid phrase filters or blanket rejection of commercial launches. No provider calls or tuning; item 50 still takes priority.
+- Authenticated proxy evidence and scheduled post-fix acceptance remain unavailable; no accepted-screen reruns. SOURCES and NEEDS_FROM_HUMAN unchanged because no collection or new owner gate changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), full handbook check (18 pages/22 diagrams/39 tables), targeted Prettier check and `git diff --check` pass.
+- No app/config/UI change; no rebuild, screenshots or restart needed. Healthy services stay running under STEERING 22.

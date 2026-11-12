@@ -384,3 +384,23 @@ evidence and owner approval; do not repeat the completed availability checks.
   explicit links, cleared/disabled storage, edition isolation, keyboard focus
   and mobile layout against saved content. No progress percentages or inferred
   completion. Proposal only; no implementation or runtime change.
+
+## Separate launch substance from sales pitches in social picks
+
+- Reader problem: the Nov 11 Tech edition selects [this FishAudio launch
+  post](https://x.com/i/web/status/2120214987633467626). Its full-duplex model
+  announcement is relevant, but it also asks readers to book an enterprise demo
+  and reply for a free custom agent. The saved card has no engagement metrics.
+  A launch can be useful while its sales pitch consumes a scarce post slot.
+- Proposal for review after item 50: compare this saved candidate with the
+  unselected Tech pool, using cached scoring evidence first. Decide whether
+  the technical announcement earns the slot independently of its offer; keep
+  original post text intact. Do not reject launches merely for being commercial
+  or add phrase-based filters for “free” or “demo.”
+- Acceptance: a comparison must identify a stronger eligible replacement, or
+  explain why retaining the launch serves readers better. Inspect official
+  launches alongside giveaway-led posts before proposing any scoring change.
+- Estimate: half a day for the saved-pool comparison; no vendor, collection or
+  paid model calls. Runtime tuning remains paused under Current order. This
+  records a concrete selection question, not a rejection or authorization to
+  alter scoring, budgets or publication.

@@ -37,6 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1887: saved-reader review identified a mixed launch/sales-pitch Tech selection; scoped a cached-pool comparison in [ideas](docs/ideas.md#separate-launch-substance-from-sales-pitches-in-social-picks). Proposal only; social tuning remains paused under item 50.
+
 - [x] Iteration 1886: first scheduled five-topic Bluesky pass completed; retained job result proves U.S. queried with zero fetched/submitted, other topics 50/49/50/47. Stored U.S. coverage remains empty; no manual collection or tuning while item 58 gates remain pending.
 
 - [x] Iteration 1885: post-fix deployed account boundary passes all 32 checks; latest/direct/history publication agrees (19 stories/19 posts). Recorded in the security handoff; authenticated proxy and scheduled post-fix acceptance gates remain open. U.S. Bluesky readback still empty before the next scheduled collection.
