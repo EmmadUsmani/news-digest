@@ -48,3 +48,17 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   request the lead re-check; the owner retains the go-public decision.
 - The broader [readiness checklist](public-readiness.md) still applies to future
   activation, including public-mode verification and ordered rollback.
+
+## Post-fix deployed boundary check — iteration 1885
+
+- Nov 12 03:45 UTC: `check-live-account-boundary.ts` passes all 32 deployed
+  loopback checks after the item 58 fixes. Anonymous writes, invalid origins,
+  wrong content types and malformed payloads are refused; no cookies issued,
+  credentials requested or account identities created. This is local application
+  evidence; authenticated exe.dev proxy verification remains pending.
+- `check-scheduled-reader.ts 2026-11-11T15:00:00Z` passes: latest, direct and
+  history agree on the saved four-topic edition, 19 stories and 19 posts.
+  That edition predates the fixes and does not satisfy post-fix acceptance.
+- API/database/Redis and all 38 sources are healthy; zero alerts. The staffed
+  digest queue has zero failures and still targets Nov 12 15:00 UTC. No paid
+  generation, public activation or accepted-screen rerun was performed.

@@ -172,3 +172,14 @@
 - Item 58 still awaits authenticated proxy evidence and scheduled post-fix publication; public mode stays off and no final ack. Next metrics probe no earlier than 04:13 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, filtered handbook check (39 tables) and `git diff --check` pass; existing bundle warning only.
 - Worker/docs restarted at 03:43 UTC; compiled collector has five-topic limit. `/healthz`, staffed digest readiness, 14 services and zero alerts pass. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1885 — deployed post-fix boundary evidence
+
+- Clean main/no inherited work. API/database/Redis, all 38 sources and staffed digest queue healthy; zero alerts and zero failed digest jobs. Next edition Nov 12 15:00 UTC.
+- Owner value: confirm that deployed account protections still refuse unsafe requests while preserving access to the saved reader edition; record the exact remaining acceptance gates.
+- `pnpm exec tsx scripts/check-live-account-boundary.ts`: all 32 deployed loopback checks pass; no account credentials requested, identities created or cookies issued. This does not answer authenticated exe.dev proxy checks.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-11T15:00:00Z`: latest/direct/history agree, four topics/19 stories/19 posts. Read all saved summaries/posts: thin Tech evidence and weak World social engagement remain known; no new unsupported summary found. Tuning remains paused under item 50.
+- Stored Bluesky readback at 03:45 UTC still predates the collector fix: four topics last observed 02:54, U.S. zero. No provider call or collection was triggered; scheduled five-topic readback remains pending.
+- Updated security handoff and TASKS only; no app/UI/source behavior, budget, public-mode or accepted-screen changes. SOURCES and NEEDS_FROM_HUMAN unchanged. Initial unsupported `obs sources --limit 5` invocation corrected to `obs sources`; all 38 healthy.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables), and `git diff --check` pass; existing bundle warning only.
+- Docs restart and final health/alerts check follow commit/push. Item 58 stays open: authenticated proxy evidence and scheduled post-fix acceptance; public mode stays off. Next passive metrics probe no earlier than 04:13 UTC.
