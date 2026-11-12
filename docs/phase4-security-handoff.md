@@ -40,9 +40,11 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   worker scrape alert during the preceding restart cleared without intervention.
 - Digest generation has one worker, zero failed jobs and its next scheduled run
   at Nov 12 15:00 UTC. No paid verification run was started.
-- After that run, review publication and five-topic content under the
-  [World/U.S. acceptance plan](us-news-topic-plan.md); record item 58 post-fix
-  acceptance separately from the three-edition split review.
+- Nov 12 published at 15:03:52 UTC: five topics/25 stories/22 posts; reader
+  latest/direct/history agree. NBA fell back to source excerpts and three Sonnet
+  admissions were refused. This does not close normal post-fix acceptance.
+  [Scheduled review and NBA diagnosis](edition-reviews/2026-11-12.md); restore NBA
+  before accepting a later normal edition. Proxy evidence remains pending.
 - Item 58 stays open until the live checks are answered and a normal scheduled
   edition publishes after the fixes. Then add the required steering ack and
   request the lead re-check; the owner retains the go-public decision.

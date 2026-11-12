@@ -2491,3 +2491,15 @@ The retained job result explicitly includes all five topics with status
 `complete`; U.S. was queried rather than skipped. Stored rolling-24h readback
 at 03:55 UTC still has zero U.S. observations. Query coverage remains open;
 tuning waits for item 50, and edition selection still needs scheduled review.
+
+## Nov 12 five-topic scheduled observation — iteration 2004
+
+All five daily keyword tools completed: $0.327795/$0.50, 50 fetched,
+47 newly verified candidates/46 outside-list; nine selected citations, eight
+outside-list. Saved X metrics remain empty. Bluesky supplied four picks and
+zero U.S. candidates; Tech/NBA each replaced one X slot. Gaming repeats the X
+award event, Tech repeats a story and World selects a zero-like link aggregator.
+Viral/diversity acceptance remains unmet; tuning stays paused behind item 50.
+World/U.S. each publish five distinct, correctly scoped stories; NBA fallback
+and three Sonnet admission refusals prevent overall scheduled acceptance.
+[Daily review](edition-reviews/2026-11-12.md).

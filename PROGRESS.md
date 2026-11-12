@@ -42,16 +42,7 @@
 
 [Iterations 1873–1875](docs/progress-archive/2026-11-12-iterations-1873-1875.md).
 
-## 2026-11-12: iteration 1876 — isolate metrics service credentials
-
-- Clean main/no inherited work; zero alerts, healthy API/database/Redis, sources healthy. Continued item 58 minor findings; public mode remains off.
-- VictoriaMetrics now reads a dedicated mode-600 credentials file containing only its two mutation keys. Installer refreshes it from the canonical private secrets file; handbook documents rotation.
-- Credential publisher rejects missing, short, duplicate or unfamiliar quoted values before replacement. Python unittest discovery passes 2/2, including unrelated-secret exclusion and preservation on refusal.
-- Installed unit and generated private credentials; restarted only metrics initially. Root read-only /proc verification confirms both required keys present and every other app-env key absent; metrics health OK and service active. Initial non-root inspection was denied; no secret values printed.
-- Digest queue has zero failed jobs, one worker and next run Nov 12 15:00 UTC. No provider calls, migrations, sharing or budget changes; no accepted-screen reruns.
-- Next: remaining minor findings and authoritative proxy checks; scheduled post-fix five-topic edition acceptance still due. Full verification/deployment results follow.
-- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; existing bundle-size warning only. bash -n and systemd-analyze verify pass. Handbook initially exceeded 100 lines; shortened it and filtered check now passes (39 tables); no diagram edits.
-- API/worker/docs restarted outside hold; obs health/services --check pass with database/Redis green. Python credential tests still 2/2; git diff --check passes. Commit/push and final main-matching restart follow.
+[Iteration 1876](docs/progress-archive/2026-11-12-iteration-1876.md).
 
 ## 2026-11-12: iteration 1877 — enforce signup policy for sign-in links
 
@@ -173,3 +164,14 @@
 - Authenticated proxy evidence and scheduled post-fix acceptance remain unavailable; no accepted-screen reruns. SOURCES and NEEDS_FROM_HUMAN unchanged because no collection or new owner gate changed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), full handbook check (18 pages/22 diagrams/39 tables), targeted Prettier check and `git diff --check` pass.
 - No app/config/UI change; no rebuild, screenshots or restart needed. Healthy services stay running under STEERING 22.
+
+## 2026-11-12: iteration 2004 — first five-topic edition and NBA recurrence
+
+- Clean main/no inherited work. Health/database/Redis and all 38 sources healthy; zero firing alerts or failed services. Observed the natural scheduled run without restart, collection, paid replay or job writes.
+- Edition `b1be5a12` published 15:03:52.422 UTC, 232.339 s/one attempt; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z` passes latest/direct/history: five topics/25 stories/22 posts. Earlier pending reads correctly served Nov 11.
+- Read saved briefs/summaries/posts and evidence using reader GETs/protected preview, `report-edition-timing.ts --scheduled-only --limit 1`, `report-x-discovery.ts 2026-11-12` and bounded worker journal. World/U.S. five stories each, no repeated/misplaced event; split acceptance fails because NBA degrades and three Sonnet admissions are refused.
+- NBA all four rejected responses retained privately; direct offline `assertAbsenceSupport` replay reproduces supported Curry absence paraphrase refusals. Haiku initial also has an invalid story ID. Added highest-priority full-validator replay/fix task; no guard, prompt, model or budget changes. Item 58 normal post-fix acceptance remains open alongside authenticated proxy evidence.
+- AI $0.517657/$0.65 (70 settled responses), X $0.327795/$0.50; zero holds/unresolved. Three Sonnet refused admissions: World social repair, U.S. social initial, World Bluesky initial. Final spend below cap does not close the no-refusal gate.
+- Bluesky four picks/no U.S. candidates; Tech/NBA replace one X slot each. Tech repeats a story, Gaming repeats X award event, World has zero likes/reposts. Social tuning remains paused. Updated daily review, TASKS, SOURCES and security handoff; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), full handbook check (18 pages/22 diagrams/39 tables), targeted final Prettier and `git diff --check` pass. Archived iteration 1876 to keep progress bounded.
+- No runtime/UI changes; rebuild/screenshots/restart unnecessary under STEERING 22/55. Next: restore NBA from saved outputs before further phase 4/split work.
