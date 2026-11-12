@@ -5,14 +5,19 @@ import type { Redis } from 'ioredis';
 import { LoginCodeAdmission } from '../domain/login-code';
 
 // A recipient allowance belongs to one client, never to strangers naming them.
-// Increment both dimensions on every attempt, even if the other is blocked.
-// One script prevents concurrent processes from exceeding either allowance.
+// Count every attempt in short and daily windows, even when already blocked.
+// One script prevents concurrent processes from exceeding any allowance.
+const DAILY_LIMIT = 100;
+const DAY_MS = 86_400_000;
+
 const ADMIT = `
 local email = redis.call('INCR', KEYS[1])
 if email == 1 then redis.call('PEXPIRE', KEYS[1], ARGV[3]) end
 local client = redis.call('INCR', KEYS[2])
 if client == 1 then redis.call('PEXPIRE', KEYS[2], ARGV[3]) end
-if email <= tonumber(ARGV[1]) and client <= tonumber(ARGV[2]) then return 1 end
+local daily = redis.call('INCR', KEYS[3])
+if daily == 1 then redis.call('PEXPIRE', KEYS[3], ARGV[5]) end
+if email <= tonumber(ARGV[1]) and client <= tonumber(ARGV[2]) and daily <= tonumber(ARGV[4]) then return 1 end
 return 0
 `;
 
@@ -46,12 +51,15 @@ export class RedisLoginCodeAdmission extends LoginCodeAdmission {
       return (
         (await this.cache.eval(
           ADMIT,
-          2,
+          3,
           this.key('email', `${email.trim().toLowerCase()}\0${clientAddress}`),
           this.key('client', clientAddress),
+          this.key('daily', `${email.trim().toLowerCase()}\0${clientAddress}`),
           this.limits.email,
           this.limits.client,
           this.limits.windowMs,
+          DAILY_LIMIT,
+          DAY_MS,
         )) === 1
       );
     } catch {

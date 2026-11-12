@@ -221,8 +221,11 @@ A disconnected stand-in mailbox writes atomically to owner-only files in a
 700-mode directory, uses hashed recipient filenames and refuses unsafe permissions
 and symlink reads. Owner retrieval rejects expired messages. Once configured, read
 a code with `ssh news-digest.exe.xyz 'cd ~/news-digest && pnpm exec tsx scripts/read-login-mailbox.ts /absolute/mailbox/path reader@example.com'`.
-Prepared Redis admission shares atomic per-email (10) and per-client (50) limits
-across code requests and redemption in a ten-minute window. Keys use keyed hashes,
+Redis admission shares atomic per-recipient/client (10) and per-client (50) limits
+across code requests and redemption in a ten-minute window. A separate
+100-attempt recipient/client counter lasts 24 hours from its first attempt;
+ten-minute resets and replacement challenges do not reset it. Other clients
+cannot spend this allowance. Keys use keyed hashes,
 blocked attempts count in both dimensions, and Redis failures deny admission.
 The adapter remains unregistered; client addresses must come from the verified proxy boundary.
 Unapplied migration `0014` and an unregistered Drizzle adapter prepare login

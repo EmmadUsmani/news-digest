@@ -32,90 +32,7 @@
 
 [Iterations 1840–1849](docs/progress-archive/2026-11-11-iterations-1840-1849.md).
 
-## 2026-11-11: iteration 1850 — proposed domestic feed volume
-
-- Clean main; no inherited work. Initial alerts zero; healthz/database/Redis healthy; item 50 stopped under 55, continued 56.
-- Recorded three free RSS responses through SharedHttpClient/parseFeed, HTTP 200 each. Guardian US/NPR Politics/PBS Politics retain 33/10/20 items; 13/8/13 dated in latest edition window, 34 distinct URLs.
-- Added offline snapshot evaluator and five manual domestic event examples; impeachment/House-leader events each have three publisher reports. No runtime classifier, source/topic activation, production writes, provider calls or cap changes.
-- Window excerpts >=200 characters: 12/0/6. After-cutoff retention is not historical availability; five headline-reviewed examples are not AI-selected publication-ready stories. Cost reduction and joint ownership/publication remain next.
-- Updated TASKS, SOURCES and scope assessment; offline replay, build and filtered handbook check pass (18 pages/39 tables). `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook check and `git diff --check` pass: 844 unit/283 integration, four expected skips. Existing build warnings only.
-- Latest edition eb6e962e still serves four topics; API restart/post-push health verification follows. No worker runtime change.
-
-## 2026-11-11: iteration 1851 — joint ownership to ranked shortlists
-
-- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy; all 36 sources ok. Item 50 remains stopped for owner/lead review; continued 56.
-- Added prepared jointStoryShortlists bridge from AI ownership to existing ranking: one bounded request, complete exclusive membership, whole-event moves, coverage/publisher preservation and no score bonus.
-- Null/refused/failed/invalid ownership aborts the entire split; duplicate input IDs refuse before inference. No production caller, paid calls, cap/flag changes or source activation.
-- Four offline tests cover cross-topic event movement, provenance/scores, empty scope, refusal and real EventGrouping parser composition with a recorded response.
-- Updated TASKS and scope assessment. Shared-pool deduplication, triage/editor orchestration and achievable whole-edition headroom remain required before activation.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 848 unit/283 integration tests, four expected skips. Existing build warnings only.
-- Latest saved edition eb6e962e still lists four topics. Commit/push and API/worker restart follow; post-deploy checks recorded before handoff.
-
-## 2026-11-11: iteration 1852 — shared article admission
-
-- Clean main; no inherited work. Initial alerts zero and healthz/database/Redis healthy; item 50 stopped under 55, continued 56.
-- Prepared joint shortlist bridge consolidates shared article IDs before its 40-report limit; source labels merge without mutating input or giving a score bonus. AI still owns destination/event decisions.
-- Conflicting snapshots refuse before inference; distinct report IDs stay separate for semantic grouping. No production caller, paid requests, activation or cap changes.
-- Seven targeted offline tests pass, including shared movement/provenance, 80 observations of 40 unique reports, conflict refusal and existing recorded-parser composition.
-- Updated TASKS/scope assessment. Joint triage/editor orchestration and achievable whole-edition headroom remain next; no handbook/runtime behavior change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, targeted tests and `git diff --check` pass: 851 unit/283 integration tests, four expected skips. Existing build warnings only.
-- All 36 sources have nonempty successful latest collections/no errors; latest edition eb6e962e serves four topics. Commit/push and API/worker restart follow; post-deploy health verification before handoff.
-
-## 2026-11-11: iteration 1853 — paired ownership/editor handoff
-
-- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy; item 50 remains at owner/lead stop, continued 56.
-- Prepared jointStoryEdits runs exclusive owned ranked shortlists through sequential topic editors; returns both results together or null, with original report coverage.
-- First refusal stops later editing; second refusal, exceptions, cross-scope selection/evidence, duplicate selections and budget overflow refuse the pair. No persistence or independent fallback.
-- Ten targeted offline tests pass, including three new paired-handoff tests. Recorded ports only; no production caller, paid requests, source activation or cap/flag changes.
-- Updated TASKS and scope assessment. Complete triage orchestration and achievable whole-edition budget headroom remain next; no live workflow/handbook change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, targeted tests, filtered handbook check and git diff --check pass: 854 unit/283 integration tests, four expected skips. Existing build warnings only.
-- Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics. Commit/push and API/worker restart follow, with post-deploy health checks before handoff.
-
-## 2026-11-11: iteration 1854 — complete paired triage gate
-
-- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 remains stopped for owner/lead review; continued 56.
-- Prepared jointStoryTriage scores a unique shared report pool against both scopes independently, retaining separate relevance/importance without filtering or assigning ownership.
-- Complete exact score coverage required; partial/duplicate/foreign/invalid/failed results and exceptions refuse the pair. First refusal stops later spending; empty pools make no calls.
-- Three targeted offline tests pass. No production caller, paid requests, source activation or cap/flag changes.
-- Updated TASKS and scope assessment. Score-aware ownership/editor composition and achievable whole-edition budget headroom remain required before activation.
-- Verification: pnpm format, pnpm lint:fix, pnpm build, targeted tests, filtered handbook check and git diff --check pass; pnpm check passes: 857 unit/283 integration tests, four expected skips. Existing build warnings only.
-- Protected local source snapshot: 36 sources, 36 nonempty latest collections, zero errors. Latest edition eb6e962e still serves four topics.
-- API/worker restarted successfully; post-restart healthz/database/Redis healthy and both units active. Commit/push follows; split remains disabled.
-
-## 2026-11-11: iteration 1855 — destination-score editorial composition
-
-- Clean main; no inherited work. Alerts zero and healthz/database/Redis healthy. Item 50 remains at owner/lead stop; continued 56.
-- Prepared shortlist/edit bridges accept paired triage on the consolidated shared report pool before ownership; incomplete scores stop ownership and editing.
-- Destination scores admit whole events at relevance 6/importance 4; best eligible destination importance/relevance selects ten events before recency ranking. Corroborating reports stay with their event.
-- Three new offline tests cover destination admission, retained evidence, ten-event importance selection and refusal sequencing; all 13 shortlist/edit tests pass.
-- No production caller, provider requests, source activation, caps or flags changed. Whole-edition headroom and semantic routing evaluation remain required.
-- TASKS/scope assessment updated; no live workflow/handbook change. Filtered handbook check passes (39 tables, no metadata warnings).
-- Live snapshot: all 36 sources have nonempty latest collections/no errors; latest edition eb6e962e serves four topics/19 stories.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, pnpm build, targeted tests and git diff --check pass: 860 unit/283 integration tests, four expected skips. Existing build warnings only.
-- API/worker restart and health verification follow commit/push; split remains disabled.
-
-## 2026-11-11: iteration 1856 — proxy-free edition cost frontier
-
-- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 remains at owner/lead stop; continued 56.
-- Extended read-only fifth-topic evaluator with integer cost frontier and exact boundary assertions; no equal-share assumption needed for this diagnostic.
-- Conditional Nov 12 full-headroom ceiling $0.361340: three saved four-topic baselines already exceed it. Peak needs $0.061016 savings before U.S. additions; free grouping still leaves $0.053445.
-- Recorded full per-edition frontier, assumptions and permitted next step: attributable World-only savings without changing quality/other topics. TASKS and NEEDS_FROM_HUMAN updated; no question or policy relaxation.
-- Evaluator executed twice successfully with read-only transaction, zero provider calls or writes. No runtime/source/cap/flag change; split remains disabled.
-- Live content snapshot: 36 sources/36 nonempty latest collections/zero errors; latest edition eb6e962e retains four topics.
-- Verification: pnpm format, pnpm lint:fix, read-only evaluator, filtered handbook check (39 tables/no warnings) and git diff --check pass. pnpm check/build pass: 860 unit/283 integration tests, four expected skips; existing build warnings only.
-- Archived iterations 1840–1849 to keep PROGRESS small. Commit/push then API/worker restart and post-deploy health verification follow.
-
-## 2026-11-11: iteration 1857 — reconciled World cost attribution
-
-- Clean main; no inherited work. Alerts zero, healthz/database/Redis healthy; item 50 remains at owner/lead stop, continued 56.
-- Read-only evaluator joins worker settlement logs by saved run ID and reconciles each purpose's cost/successful-call count with the ledger before attributing topic costs.
-- Nov 6–10 reconcile; Nov 4–5 fail closed to null attribution. Repeated evaluator executions match; no timestamp joins, provider calls or writes.
-- Nov 10 World cost $0.106435; unchanged other-topic costs leave $0.045419 for combined World/U.S. at conditional Nov 12 full-headroom ceiling.
-- Even free World article/social triage and grouping leave $0.041829 savings needed before U.S. additions. No achievable savings claimed; next measure concrete paired editorial savings and semantic routing.
-- TASKS, budget evidence and NEEDS_FROM_HUMAN updated. Runtime/source/cap/flag changes: none; split remains disabled.
-- Live content: 36 sources/36 nonempty latest collections/zero errors; latest edition eb6e962e retains four topics.
-- Verification: pnpm format, pnpm lint:fix, targeted eslint, repeated read-only evaluator, filtered handbook check (39 tables/no warnings), git diff --check and pnpm build pass. Full pnpm check passes: 860 unit/283 integration tests, four expected skips; existing build warnings only.
-- Commit/push then API/worker restart and post-deploy health verification follow.
+[Iterations 1850–1857](docs/progress-archive/2026-11-12-iterations-1850-1857.md).
 
 ## 2026-11-11: iteration 1858 — paired editor reservation decomposition
 
@@ -227,3 +144,14 @@
 - Next: item 58.6 timing and daily guess cap; Nov 12 first five-topic scheduled acceptance remains due. Public mode remains off pending remaining fixes, scheduled publication, lead re-check and owner decision.
 - pnpm format and pnpm lint:fix run; initial full check caught a require-await callback lint error, corrected. Final pnpm check passes: 867 unit/286 integration, four expected skips; pnpm build and git diff --check pass (existing build warnings only).
 - API/worker restarted outside the deployment hold; health/database/Redis green, all 32 account-boundary refusals pass and zero alerts. Commit/push and final main-matching restart follow. No owner-handbook behavior changed.
+
+## 2026-11-12: iteration 1868 — retain a daily sign-in allowance
+
+- Clean main/no inherited work; initial health/services green and zero alerts. Continued item 58.6 with longer-lived code admission.
+- Code requests and redemption share an atomic 100-attempt, 24-hour Redis allowance per recipient/client. Short-window resets and challenge replacement cannot reset it; client isolation preserves the sign-in lockout fix. Updated runtime handbook and public-access plan.
+- Real Redis regression spans eleven short windows/two adapter instances, recipient normalization, client isolation, daily expiry and independent short-window refusal. No migrations, paid calls, source/budget/access-flag changes or accepted-screen reruns.
+- pnpm check passed typecheck/lint/format/boundaries and 867 unit tests; integration found one test assertion incorrectly expecting daily expiry to bypass the short limit. Corrected the assertion to verify both windows independently; fresh pnpm test:integration rerun passes: 286 tests, four expected skips, zero failures.
+- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook and git diff --check pass. Archived progress iterations 1850–1857 to keep orientation small.
+- Live: all 38 sources healthy; digest queue available/no failed jobs, latest edition eb6e962e unchanged, next scheduled run Nov 12 15:00 UTC. API/worker restarted outside hold; health/database/Redis green, 32 deployed account-boundary refusals pass, zero alerts.
+- Next: item 58.6 timing, then tool admission/public-mode defects and remaining owner-ordered findings. Nov 12 first five-topic scheduled acceptance remains due; public mode off pending fixes, publication, lead re-check and owner decision.
+- Commit/push and final main-matching API/worker restart follow.

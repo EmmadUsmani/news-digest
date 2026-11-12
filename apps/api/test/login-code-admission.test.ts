@@ -73,17 +73,55 @@ void test('login admission shares atomic private counters, expires and fails clo
     assert.ok(keys.length > 0);
     assert.ok(
       keys.every((value) =>
-        /^accounts:login:(email|client):[a-f0-9]{64}$/.test(value),
+        /^accounts:login:(email|client|daily):[a-f0-9]{64}$/.test(value),
       ),
     );
     for (const value of keys) {
       const ttl = await cache.pttl(value);
-      assert.ok(ttl > 0 && ttl <= limits.windowMs);
+      assert.ok(
+        ttl > 0 &&
+          ttl <= (value.includes(':daily:') ? 86_400_000 : limits.windowMs),
+      );
     }
     // Force the real Redis expiry boundary without waiting ten minutes.
     await Promise.all(keys.map((value) => cache.pexpireat(value, 1)));
     assert.equal(
       await first.allow('reader@example.test', 'shared-client'),
+      true,
+    );
+    // Ten-minute resets cannot reset the longer recipient/client allowance.
+    // Two processes share all 100 daily admissions, including code requests.
+    let dailyAccepted = 0;
+    for (let window = 0; window < 11; window++) {
+      const shortKeys = (await cache.keys('accounts:login:*')).filter(
+        (value) => !value.includes(':daily:'),
+      );
+      if (shortKeys.length) await cache.del(...shortKeys);
+      const attempts = await Promise.all(
+        Array.from({ length: 10 }, (_, i) =>
+          (i % 2 ? first : second).allow('daily@example.test', 'daily-client'),
+        ),
+      );
+      dailyAccepted += attempts.filter(Boolean).length;
+    }
+    assert.equal(dailyAccepted, 100);
+    assert.equal(
+      await first.allow(' DAILY@example.test ', 'daily-client'),
+      false,
+    );
+    // Strangers cannot use this counter to lock out the recipient's own client.
+    assert.equal(await first.allow('daily@example.test', 'own-client'), true);
+    const dailyKeys = await cache.keys('accounts:login:daily:*');
+    await Promise.all(dailyKeys.map((value) => cache.pexpireat(value, 1)));
+    // Daily expiry does not bypass an exhausted ten-minute allowance.
+    assert.equal(
+      await second.allow('daily@example.test', 'daily-client'),
+      false,
+    );
+    const remainingKeys = await cache.keys('accounts:login:*');
+    await Promise.all(remainingKeys.map((value) => cache.pexpireat(value, 1)));
+    assert.equal(
+      await second.allow('daily@example.test', 'daily-client'),
       true,
     );
     const unavailable = new RedisLoginCodeAdmission(
