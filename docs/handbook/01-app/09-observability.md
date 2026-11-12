@@ -85,8 +85,6 @@ five file events alongside current alerts. Nothing is emailed.
 | Bluesky quiet     | Three scheduled editions with an open Bluesky slot have no pick; clears on a pick                                |
 | Spend             | Anthropic or xAI reaches 90% of a daily or monthly cap                                                           |
 
-The service collector probes Grafana every 30 seconds; one minute of failures alerts.
-
 ## Command line
 
 ```sh
@@ -100,6 +98,7 @@ pnpm obs metric 'up' --since 1h --step 60s
 
 ## Resources and operations
 
+- **Metrics credentials:** private `metrics.env` contains only the two mutation keys. After rotating them in the app secrets file, run `python3 ops/observability/metrics-credentials.py` and restart `obs-metrics.service`.
 - **Resources:** `obs-*` system units have memory and CPU caps. Grafana uses
   512 MB, logs 160 MB, metrics 112 MB, others 80 MB or less. Metrics has a
   2% CPU cap. Target: about 800 MiB and under 5% CPU; measured stack: 754 MiB.
