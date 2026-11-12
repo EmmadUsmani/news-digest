@@ -823,3 +823,12 @@ or missed iterations, query admission limits, queue timeouts or slow queries.
 Process starts unchanged; one small merge processed 1,525 rows, no large-tier
 merge. Comparable natural-merge recovery remains open. Limits unchanged; next
 short passive probe no earlier than 21:16 UTC Nov 12.
+
+### Passive follow-up (iteration 2039)
+
+Nov 12 21:20 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.488 s, no new evaluator errors
+or missed iterations, query admission limits, queue timeouts or slow queries.
+Process starts unchanged; one small merge processed 15,288 rows, no large-tier
+merge. Comparable natural-merge recovery remains open. Limits unchanged; next
+short passive probe no earlier than 22:21 UTC Nov 12.

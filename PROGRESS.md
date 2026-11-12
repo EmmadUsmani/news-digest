@@ -142,3 +142,14 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only.
 - API/worker restart and post-push health readback follow commit; runtime code unchanged.
 - Next: Nov 13 scheduled NBA/settlement acceptance; authenticated proxy evidence and comparable natural-compaction recovery remain open.
+
+## 2026-11-12: iteration 2039 — passive metrics recovery sample
+
+- Owner value: confirm alert evaluation and reader availability during natural storage work without extra production load or changed limits.
+- Clean main/no inherited work. Zero alerts, healthy API/DB/Redis, 38 healthy sources; staffed digest queue/zero failures, next edition Nov 13 15:00 UTC.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.488 s, zero new evaluator errors/misses, admission limits/timeouts/slow queries or restarts.
+- One small merge/15,288 rows; no large-tier merge. Comparable natural-compaction recovery remains open; next short probe ≥22:21 UTC, at most hourly.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree, five topics/25 stories/22 posts.
+- TASKS and capacity evidence updated. NBA/settlement acceptance awaits Nov 13; authenticated proxy credentials/trust remain unavailable. No provider calls or runtime/source/budget/public-access change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only.
+- API/worker restart and post-push health readback follow commit; runtime code unchanged. SOURCES and NEEDS_FROM_HUMAN unchanged.
