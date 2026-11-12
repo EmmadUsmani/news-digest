@@ -8,6 +8,7 @@ import {
   LlmPort,
   type LlmRequest,
   type LlmResponse,
+  ProviderNotDispatched,
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import { InferenceSlots } from './inference-slots';
@@ -32,6 +33,7 @@ export class AnthropicLlmAdapter extends LlmPort {
       new Promise((resolve) => setTimeout(resolve, ms)),
     private readonly log = logger,
     private readonly rateLimitRetries = 2,
+    private readonly now = () => performance.now(),
   ) {
     super();
     // Only explicit, rejected rate-limit requests may retry within a reservation.
@@ -45,10 +47,20 @@ export class AnthropicLlmAdapter extends LlmPort {
   }
   complete(request: LlmRequest): Promise<LlmResponse> {
     // Retain the slot during backoff to avoid increasing pressure on rejection.
-    return inferenceSlots.run(() => this.completeWithRetries(request));
+    const end = this.now() + 200000;
+    return inferenceSlots.run(() => this.completeWithRetries(request, end));
   }
-  private async completeWithRetries(request: LlmRequest): Promise<LlmResponse> {
+  private async completeWithRetries(
+    request: LlmRequest,
+    end: number,
+  ): Promise<LlmResponse> {
     for (let attempt = 0; ; attempt++) {
+      const remaining = end - this.now();
+      if (remaining <= 0) {
+        if (attempt === 0)
+          throw new ProviderNotDispatched('inference-call-expired');
+        throw new Error('inference-call-expired');
+      }
       const started = performance.now();
       const fields = {
         event: 'external.call',
@@ -60,18 +72,21 @@ export class AnthropicLlmAdapter extends LlmPort {
         attempt: attempt + 1,
       };
       try {
-        const response = await this.client.messages.create({
-          model: request.model.id,
-          max_tokens: request.maxOutputTokens,
-          system: [
-            {
-              type: 'text',
-              text: request.instructions,
-              cache_control: { type: 'ephemeral' },
-            },
-          ],
-          messages: [{ role: 'user', content: request.prompt }],
-        });
+        const response = await this.client.messages.create(
+          {
+            model: request.model.id,
+            max_tokens: request.maxOutputTokens,
+            system: [
+              {
+                type: 'text',
+                text: request.instructions,
+                cache_control: { type: 'ephemeral' },
+              },
+            ],
+            messages: [{ role: 'user', content: request.prompt }],
+          },
+          { timeout: Math.min(60000, remaining) },
+        );
         const usage = {
           input: response.usage.input_tokens,
           cacheWrite: response.usage.cache_creation_input_tokens ?? 0,
@@ -139,7 +154,7 @@ export class AnthropicLlmAdapter extends LlmPort {
             attempt,
           );
           // Do not retry earlier than a provider deadline beyond our wait budget.
-          if (delay !== null) {
+          if (delay !== null && delay < end - this.now()) {
             await this.wait(delay);
             continue;
           }

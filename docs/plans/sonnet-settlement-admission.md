@@ -58,11 +58,13 @@ Scope in-flight coalescing to that execution context; a short-lived caller must
 not inherit another caller's longer deadline or scheduled privileges. Cache keys
 remain based on content, independent of execution context.
 
-The adapter now bounds slot waiting to ten seconds, then allows three 60-second
-HTTP attempts and two backoffs of at most 10 seconds. A 60-second start check is
-insufficient. Before enabling waits, make slot admission cancellable/bounded,
-recheck the remaining time after slot acquisition and before each retry, and
-bound each HTTP attempt by remaining call time. A pre-dispatch expiry releases
+The adapter now bounds slot waiting to ten seconds and each logical call to
+200 seconds starting before slot acquisition. Up to three HTTP attempts use at
+most 60 seconds each, shortened to the remaining logical allowance. Backoffs
+are at most ten seconds and cannot start if they consume the remaining allowance.
+The monotonic deadline is rechecked after backoff before retrying. A 60-second start check is
+insufficient. Before enabling waits, propagate the shared scheduled deadline through
+repairs/fallback and constrain this logical-call allowance to that context. A pre-dispatch expiry releases
 an unused reservation; any request that might have reached the provider retains
 uncertain accounting under the existing failure policy. Never release a hold
 merely because a caller stopped waiting. Do not cancel publication mid-write.

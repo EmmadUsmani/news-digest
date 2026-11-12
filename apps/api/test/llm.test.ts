@@ -1319,3 +1319,87 @@ void test('inference slot checks deadline after transfer and drains on work fail
   );
   assert.equal(await slots.run(async () => 7), 7);
 });
+
+void test('logical provider deadline includes queue acquisition and prevents undispatched work', async () => {
+  let reads = 0;
+  let calls = 0;
+  const adapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async () => {
+      calls++;
+      throw new Error('unexpected dispatch');
+    },
+    undefined,
+    undefined,
+    2,
+    () => (reads++ === 0 ? 0 : 200000),
+  );
+  await assert.rejects(() => adapter.complete(request), ProviderNotDispatched);
+  assert.equal(calls, 0);
+});
+
+void test('logical provider deadline prevents late retries and backoff past expiry', async () => {
+  for (const expireDuringBackoff of [false, true]) {
+    let now = 0;
+    let calls = 0;
+    let waits = 0;
+    const adapter = new AnthropicLlmAdapter(
+      'offline-fixture-key',
+      async () => {
+        calls++;
+        now = expireDuringBackoff ? 198000 : 199000;
+        return new Response(
+          JSON.stringify({
+            type: 'error',
+            error: { type: 'rate_limit_error', message: 'Rejected' },
+          }),
+          {
+            status: 429,
+            headers: { 'content-type': 'application/json', 'retry-after': '1' },
+          },
+        );
+      },
+      async () => {
+        waits++;
+        now = 200000;
+      },
+      undefined,
+      2,
+      () => now,
+    );
+    await assert.rejects(
+      () => adapter.complete(request),
+      (error: unknown) => {
+        assert.ok(!(error instanceof ProviderNotDispatched));
+        return true;
+      },
+    );
+    assert.equal(calls, 1);
+    assert.equal(waits, expireDuringBackoff ? 1 : 0);
+  }
+});
+
+void test('provider HTTP timeout shrinks to remaining logical call time', async () => {
+  let reads = 0;
+  let aborted = false;
+  const adapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async (_input, init) =>
+      new Promise<Response>((_resolve, reject) => {
+        const signal = init?.signal;
+        assert.ok(signal);
+        const abort = () => {
+          aborted = true;
+          reject(new Error('offline abort'));
+        };
+        if (signal.aborted) abort();
+        else signal.addEventListener('abort', abort, { once: true });
+      }),
+    undefined,
+    undefined,
+    2,
+    () => (reads++ === 0 ? 0 : 199970),
+  );
+  await assert.rejects(() => adapter.complete(request));
+  assert.equal(aborted, true);
+});

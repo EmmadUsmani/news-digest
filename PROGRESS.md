@@ -119,3 +119,15 @@
 - Updated affected handbook and admission plan. Waiting remains disabled; shared caller deadlines across retries/backoff, repairs and fallback remain next. No provider spend, cap/model/provider, UI or published-edition changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, corrected `pnpm lint:fix`, `pnpm check` (890 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` and `git diff --check` pass. Initial lint found missing test `void` annotations; corrected before full lint/check passed. Existing build warnings only.
 - Restarted API/worker outside protected hours; both active, `/healthz` database/Redis healthy, zero alerts, staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories. Scheduled NBA acceptance remains pending.
+
+## 2026-11-12: iteration 2018 — bound logical provider calls
+
+- Clean main/no inherited work; initial health/alerts green, 38 healthy sources and zero failed digest jobs. Next scheduled edition Nov 13 15:00 UTC.
+- Anthropic calls now capture one monotonic 200-second allowance before slot acquisition; every HTTP attempt uses at most 60 seconds or the remaining allowance. Backoff must fit and retries recheck after waking.
+- Expiry before first dispatch proves the reservation unused; expiry after a dispatched attempt retains conservative accounting. No provider-block or spend-limit retry changes; settlement waiting remains disabled.
+- Added offline controls for pre-dispatch expiry, backoff exhaustion, late wake-up and shortened HTTP timeout/abort. Focused LLM suite passes 36 tests; settlement evaluation retains 15 controls.
+- Updated affected handbook/admission plan and TASKS. No live provider calls, source, UI, cap, model, publication or owner-gate changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: format/lint-fix pass; first full check overlapped import autofix and failed its old import ordering, so reran sequentially after autofix. Build passes with existing warnings; handbook checks and diff checks pass.
+- Next: propagate a trusted shared scheduled deadline through generation, repairs and fallback, including coalescing scope, before enabling bounded settlement waits. Scheduled NBA acceptance remains pending.
+- Final verification: sequential `pnpm check` passes (893 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` and `git diff --check` pass.
+- Restarted API/worker outside protected hours; both active, `/healthz` database/Redis healthy, zero alerts and staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories.
