@@ -109,3 +109,13 @@
 - Next: shared caller deadlines through inference queue, retry/backoff, repairs and fallback before enabling bounded settlement waits. Scheduled NBA acceptance remains pending.
 - Verification: `pnpm format`, `pnpm lint:fix`, corrected `pnpm check` (888 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` (15 controls) and `git diff --check` pass. Existing bundle warning only.
 - Restarted API/worker outside protected hours; `/healthz` database/Redis healthy, zero alerts/failed units, staffed digest queue with zero failed jobs. Live edition readback: five topics/25 stories. Archived progress through iteration 2011 to keep the orientation file small.
+
+## 2026-11-12: iteration 2017 — bound inference slot admission
+
+- Clean main/no inherited work; initial alerts/health green, 38 healthy sources. Digest queue staffed with zero failed jobs; next scheduled edition Nov 13 15:00 UTC.
+- Replaced unbounded process-local Anthropic slot waiting with a ten-second allowance, preserving four active calls and direct slot transfer. Expired queue entries are removed; a monotonic check after transfer prevents dispatch when timers run late.
+- Added typed adapter proof of no dispatch. Budgeted calls release only these unused holds without setting a provider block; transport failures retain uncertain reservations. Existing provider-spend-limit blocking remains unchanged.
+- Offline regressions cover expiry without dispatch, capacity recovery, delayed transfer, work failure and ledger/log release versus provider blocking. Focused LLM suite passes all 33 tests; settlement evaluation retains all 15 controls.
+- Updated affected handbook and admission plan. Waiting remains disabled; shared caller deadlines across retries/backoff, repairs and fallback remain next. No provider spend, cap/model/provider, UI or published-edition changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, corrected `pnpm lint:fix`, `pnpm check` (890 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` and `git diff --check` pass. Initial lint found missing test `void` annotations; corrected before full lint/check passed. Existing build warnings only.
+- Restarted API/worker outside protected hours; both active, `/healthz` database/Redis healthy, zero alerts, staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories. Scheduled NBA acceptance remains pending.

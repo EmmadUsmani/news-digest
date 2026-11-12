@@ -5,6 +5,7 @@ import { costMicros } from '../domain/budget';
 import {
   type LlmPort,
   type LlmRequest,
+  ProviderNotDispatched,
   ProviderSpendLimit,
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
@@ -227,14 +228,16 @@ export class BudgetedLlm {
         response = await this.llm.complete(current);
       } catch (error) {
         const limit = error instanceof ProviderSpendLimit;
+        const unused = error instanceof ProviderNotDispatched;
+        const released = limit || unused;
+        const reason = limit
+          ? 'provider-spend-limit'
+          : unused
+            ? 'provider-not-dispatched'
+            : 'provider-call-failed';
         // Transport failures can occur after provider completion: retain the
         // reservation until reconciled. Never persist raw errors or prompts.
-        await this.ledger.fail(
-          id,
-          limit ? 'provider-spend-limit' : 'provider-call-failed',
-          limit,
-          !limit,
-        );
+        await this.ledger.fail(id, reason, limit, !released);
         this.log.info(
           {
             event: 'budget.failure',
@@ -243,8 +246,8 @@ export class BudgetedLlm {
             purpose: request.purpose,
             topicId: request.topicId,
             attempt: attempt + 1,
-            outcome: limit ? 'released' : 'held-uncertain',
-            reason: limit ? 'provider-spend-limit' : 'provider-call-failed',
+            outcome: released ? 'released' : 'held-uncertain',
+            reason,
           },
           'LLM budget failure recorded',
         );

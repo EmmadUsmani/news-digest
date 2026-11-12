@@ -29,3 +29,6 @@ export abstract class LlmPort {
   abstract complete(request: LlmRequest): Promise<LlmResponse>;
 }
 export class ProviderSpendLimit extends Error {}
+
+/** Adapter proof that no provider request was dispatched. */
+export class ProviderNotDispatched extends Error {}

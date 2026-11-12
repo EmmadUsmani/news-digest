@@ -5,7 +5,9 @@ Iteration 2015 implements typed atomic results and initial hold snapshots, with
 legacy callers preserved. Snapshots exceeding 64 holds return an explicit overflow
 flag and no partial IDs. Iteration 2016 adds bounded original-ID follow-up queries,
 filtered to the original model and pending status without expanding the ID set.
-Caller deadlines remain unimplemented; waiting stays disabled. Implement the
+Iteration 2017 bounds process-local inference slot waiting to ten seconds and
+releases proven undispatched holds without blocking the provider. Shared caller
+deadlines remain unimplemented; waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 
@@ -56,7 +58,7 @@ Scope in-flight coalescing to that execution context; a short-lived caller must
 not inherit another caller's longer deadline or scheduled privileges. Cache keys
 remain based on content, independent of execution context.
 
-The adapter currently queues without a deadline, then allows three 60-second
+The adapter now bounds slot waiting to ten seconds, then allows three 60-second
 HTTP attempts and two backoffs of at most 10 seconds. A 60-second start check is
 insufficient. Before enabling waits, make slot admission cancellable/bounded,
 recheck the remaining time after slot acquisition and before each retry, and

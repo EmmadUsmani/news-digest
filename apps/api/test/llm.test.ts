@@ -11,6 +11,7 @@ import {
   rateLimitDelay,
 } from '../src/modules/curation/adapters/anthropic';
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { InferenceSlots } from '../src/modules/curation/adapters/inference-slots';
 import { assertAbsenceSupport } from '../src/modules/curation/application/absence-support';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
@@ -27,6 +28,7 @@ import {
   type LlmPort,
   type LlmRequest,
   type LlmResponse,
+  ProviderNotDispatched,
   ProviderSpendLimit,
 } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
@@ -857,6 +859,7 @@ void test('budget logs distinguish admission, refusal, settlement and uncertain 
   for (const [error, outcome] of [
     [new Error('private-provider-error'), 'held-uncertain'],
     [new ProviderSpendLimit('private-provider-error'), 'released'],
+    [new ProviderNotDispatched('private-provider-error'), 'released'],
   ] as const) {
     lines.length = 0;
     const failedLedger = new MemoryLedger();
@@ -874,6 +877,11 @@ void test('budget logs distinguish admission, refusal, settlement and uncertain 
     );
     assert.equal(events[1].outcome, outcome);
     assert.equal(failedLedger.calls[0].uncertain, outcome === 'held-uncertain');
+    assert.equal(failedLedger.blocked, error instanceof ProviderSpendLimit);
+    if (error instanceof ProviderNotDispatched) {
+      assert.equal(failedLedger.calls[0].error, 'provider-not-dispatched');
+      assert.equal(failedLedger.available, 1000000);
+    }
     assert.ok(!lines.join('').includes('private-'));
   }
   lines.length = 0;
@@ -1258,4 +1266,56 @@ void test('story editor rejections retain initial and repair bodies privately, n
     ),
     { ok: true },
   );
+});
+
+void test('inference queue expires without dispatch and recovers its capacity', async () => {
+  const slots = new InferenceSlots(1, 20);
+  let release!: () => void;
+  const active = slots.run(
+    () =>
+      new Promise<void>((resolve) => {
+        release = resolve;
+      }),
+  );
+  let dispatched = false;
+  await assert.rejects(
+    slots.run(async () => {
+      dispatched = true;
+    }),
+    ProviderNotDispatched,
+  );
+  assert.equal(dispatched, false);
+  release();
+  await active;
+  assert.equal(await slots.run(async () => 42), 42);
+});
+
+void test('inference slot checks deadline after transfer and drains on work failure', async () => {
+  let now = 0;
+  const slots = new InferenceSlots(1, 10000, () => now);
+  let release!: () => void;
+  const active = slots.run(
+    () =>
+      new Promise<void>((resolve) => {
+        release = resolve;
+      }),
+  );
+  let dispatched = false;
+  const expired = assert.rejects(
+    slots.run(async () => {
+      dispatched = true;
+    }),
+    ProviderNotDispatched,
+  );
+  now = 10000;
+  release();
+  await Promise.all([active, expired]);
+  assert.equal(dispatched, false);
+  await assert.rejects(
+    slots.run(async () => {
+      throw new Error('work-failed');
+    }),
+    /work-failed/,
+  );
+  assert.equal(await slots.run(async () => 7), 7);
 });

@@ -64,6 +64,8 @@ sequenceDiagram
 
 - **Reserve, then settle.** Concurrent jobs can't race past a cap, because
   reservations and caps are checked under one database lock.
+- **Inference admission:** each process runs at most four Anthropic calls. Calls
+  waiting more than ten seconds for a slot stop and release their unused hold.
 - **Uncertain calls stay charged.** A timeout or unknown error keeps the full
   reservation, so spend is never undercounted.
 - **Provider refusals** (limit reached, credits depleted) are recorded and
