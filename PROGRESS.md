@@ -177,3 +177,11 @@
 - Targeted replay regression, `pnpm format`, `pnpm lint:fix`, `pnpm build` and full handbook check (18 pages/22 diagrams/39 tables) pass; initial full check caught an async lint error, fixed before rerunning. `pnpm check` passes: 879 unit/286 integration tests, four expected skips. Existing bundle warning only. Archived iteration 1877 to keep progress bounded.
 - During verification, GamingBolt timed out once; scheduled retry completed HTTP 200 at 15:17:59 UTC. `pnpm --silent obs sources --check` passes all 38 sources at 15:23 UTC; `/healthz` remains healthy. RecentJobFailures cleared by final alert snapshot (zero firing/pending). No manual retry or source change.
 - Final targeted Prettier and `git diff --check` pass; digest-generation queue staffed, zero failures, next edition scheduled. No UI changes or accepted-screen reruns; no service restart needed for offline scripts/fixtures/docs.
+
+## 2026-11-12: iteration 2006 — NBA correction negative controls
+
+- Clean main/no inherited work. Zero alerts, healthy `/healthz` database/Redis, no failed user units; all 38 sources healthy at 15:32 UTC. Initial orientation output exceeded the cap; subsequent reads were bounded.
+- Added offline safety tests using the actual bounded Nov 12 Curry/Reaves evidence. Twelve synthetic unsupported claims checked in both summary and brief modes (24 refusals): duration, certainty, attribution, subject, return timeline, quote scope/date and unrelated evidence. Exact supplied excerpts still pass both modes.
+- These controls constrain the pending supported-paraphrase correction; they do not restore NBA. Saved four-response production replay remains unchanged with zero validated outputs. No runtime/prompt/guard/budget changes, provider calls or job writes.
+- Updated TASKS and daily review; SOURCES/NEEDS_FROM_HUMAN unchanged because no source or owner gate changed. No UI or handbook behavior change. No rebuild/restart needed for tests/docs; deployment window remains closed until 16:00 UTC.
+- Verification: targeted safety tests pass (2 tests/24 negative checks); `pnpm format`, `pnpm lint:fix`, full `pnpm check` (881 unit/286 integration passing, four expected skips), targeted Prettier and `git diff --check` pass. Next: correct supported paraphrases against both the full recorded replay and these negative controls, then deploy outside the protected window.
