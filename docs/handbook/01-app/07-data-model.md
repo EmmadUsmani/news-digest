@@ -55,7 +55,8 @@ editor citations. Historical snapshots keep their original unknown attribution.
 > **[DB schema explorer](https://news-digest.exe.xyz/db/)**. It reads the
 > live catalog through a dedicated password-authenticated role with no
 > application-row access. It shows structure only: definitions, activity, sizes
-> and metadata notes stay out of the response.
+> and metadata notes stay out of the response. Startup requires an explicit
+> `SCHEMA_EXPLORER_DATABASE_URL`; missing credentials stop the service.
 
 ## The areas and how they connect
 

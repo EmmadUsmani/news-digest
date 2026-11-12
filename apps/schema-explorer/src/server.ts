@@ -9,15 +9,16 @@ import { buildModel } from './model.ts';
 
 // Live, read-only DB schema explorer. Every /api/schema request introspects the
 // database, so new migrations appear without a rebuild or restart.
+const databaseUrl = process.env.SCHEMA_EXPLORER_DATABASE_URL;
+if (!databaseUrl?.trim())
+  throw new Error('SCHEMA_EXPLORER_DATABASE_URL is required');
+
 startRuntimeMetrics('schema', 9467);
 const port = Number(process.env.SCHEMA_EXPLORER_PORT ?? 8200);
 const repo = resolve(process.env.REPO_ROOT ?? process.cwd());
 const metaPath = join(repo, 'docs/schema-meta.json');
 const publicDir = resolve(import.meta.dirname, '../public');
-const pool = createPool(
-  process.env.SCHEMA_EXPLORER_DATABASE_URL ??
-    'postgres://postgres@127.0.0.1:5432/news_digest',
-);
+const pool = createPool(databaseUrl);
 async function readMeta() {
   try {
     return JSON.parse(await readFile(metaPath, 'utf8')) as unknown;

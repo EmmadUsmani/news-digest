@@ -2,7 +2,8 @@
 
 The live service uses `schema_catalog_reader`, a catalog-only PostgreSQL login.
 Its URL is stored only in `~/.config/news-digest/env` as
-`SCHEMA_EXPLORER_DATABASE_URL`. The service drop-in loads that file.
+`SCHEMA_EXPLORER_DATABASE_URL`. The service drop-in loads that file. Startup refuses a missing or blank URL;
+there is no default database connection.
 
 - Prepare the role with `prepared/catalog-reader.sql`; this deliberately leaves
   it NOLOGIN. Stage a unique password privately before enabling LOGIN.
@@ -20,7 +21,8 @@ Its URL is stored only in `~/.config/news-digest/env` as
   the loopback schema response and the pool's `schema_catalog_reader` identity.
 
 For credential rollback, remove the drop-in, reload systemd and restart the
-explorer to close its pools. Disable the role with NOLOGIN and remove its secret
+explorer to close its pools. Without credentials it remains stopped; restore a
+reviewed credential URL before bringing it back. Disable the role with NOLOGIN and remove its secret
 from the environment file. NOLOGIN alone does not disconnect existing sessions.
 Restore the preserved authentication file with ownership/mode intact, reload
 and validate its parsed rules. Restore extension ACLs from the private snapshot
