@@ -150,3 +150,14 @@
 - Restarted API/worker outside protected hours; `/healthz` database/Redis healthy, all 38 sources healthy, zero failed units/alerts. Digest-generation staffed, zero active/failed jobs, next edition Nov 13 15:00 UTC.
 - Updated TASKS/daily review; archived iterations 1882–1885 to bound progress. No provider calls, prompt/model/budget changes, saved-edition writes or UI/handbook/source changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Next: review next scheduled NBA acceptance; remaining Sonnet summaries/briefs stay rejected pending equally supported corrections.
+
+## 2026-11-12: iteration 2012 — explain scheduled Sonnet admission refusals
+
+- Clean main/no inherited work; zero alerts, healthy database/Redis, no failed units, all 38 sources healthy. Initial orientation output was too broad; subsequent reads bounded.
+- Offline production NBA replay confirms complete Haiku repair still validates; other saved refusals remain protected. No further guard expansion; next scheduled acceptance stays open.
+- Reconciled all three Nov 12 refused Sonnet admissions against read-only ledger history and worker journal. Each matches exact settled-plus-pending totals and solely `model-allocation`; shared daily/monthly/provider/reserve limits did not cause these refusals.
+- Sonnet shortfalls $0.000297/$0.003016/$0.000754 occurred while pending reservations later released $0.044117/$0.062898 after 1.544–4.434 seconds. Final Sonnet/Haiku charges $0.402316/$0.115341; 70 successful calls, zero pending.
+- Evidence/calculation assertions: `node /tmp/iteration-2012-admission.cjs` passes in a READ ONLY transaction; initial connection default corrected to the app's normal local DB fallback. No inference, ledger writes, jobs, saved-edition writes or cap/allocation/provider changes.
+- Updated daily review and TASKS with bounded settlement-wait evaluation as the next admission step, retaining competing-request/deadline constraints. No UI/handbook/source/owner-gate changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build`, offline NBA replay and `git diff --check` pass. Existing bundle warning only.
+- API/worker restarted outside protected hours; `/healthz` healthy, no failed units/zero alerts. Scheduled timing readback: latest run completed, zero retained failures, next edition Nov 13 15:00 UTC. Next: offline bounded-wait evaluation; scheduled NBA acceptance remains pending.
