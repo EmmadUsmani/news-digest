@@ -153,3 +153,13 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (900 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` (15 controls) and `git diff --check` pass. Existing bundle warnings only.
 - Updated affected handbook, admission plan and TASKS; SOURCES/NEEDS_FROM_HUMAN unchanged. API/worker restarted active outside protected hours; readiness retry succeeded, `/healthz` database/Redis healthy, zero alerts, staffed digest queue/zero failures. Live edition remains five topics/25 stories.
 - Next: implement bounded settlement admission with completion headroom before enabling waits. Next natural scheduled NBA acceptance remains pending.
+
+## 2026-11-12: iteration 2021 — bounded settlement admission helper
+
+- Clean main/no inherited work. Alerts and `/healthz` healthy; source readiness passes and digest queue staffed with zero failed jobs. Next scheduled edition Nov 13 15:00 UTC.
+- Implemented an unwired application helper: initial atomic admission, trusted scheduled/Sonnet/context gates, exactly model-allocation refusals, bounded frozen original hold IDs and no locks during sleep.
+- Polls every 250 ms for at most five seconds/21 atomic attempts. Preserves 300 seconds for queue, logical provider call and completion; cancellation/deadline rechecked after timer and ledger waits. Late wake-ups stop; competing holds never extend eligibility; errors propagate.
+- Eight fake-clock tests cover settlement/competition, all refusal categories, immediate admission, deadline/cancellation boundaries, late asynchronous work and ledger errors. Production still uses immediate reserve; waiting remains disabled.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (908 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` (15 controls) and `git diff --check` pass. Existing bundle warning only.
+- Updated TASKS and admission plan. No live provider calls, caps/models/source/UI/publication changes; handbook runtime description, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: wire trusted scheduled admission and bounded diagnostics into BudgetedLlm; verify repair/fallback composition before enabling waits. Natural NBA AI-edited acceptance remains pending.

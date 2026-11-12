@@ -11,7 +11,11 @@ deadlines are supported at the BudgetedLlm/provider boundary (2019), including
 repair reuse and execution-scoped in-flight coalescing. Scheduled generation now supplies one 600-second context (2020), inherited through
 async-local execution scope by all BudgetedLlm work, including editorial fallback.
 Nested manual/unrelated edition work clears this context independently of budget
-ownership. Waiting stays disabled. Implement the
+ownership. Iteration 2021 adds an unwired admission helper with a frozen original-hold set,
+250 ms polling, five-second/21-attempt limits and 300-second completion headroom.
+It rechecks cancellation/deadline after timer and ledger waits; only a new atomic
+reservation admits spending. Missing context, manual/non-Sonnet callers and mixed
+refusals remain immediate. Ledger errors propagate. Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 
