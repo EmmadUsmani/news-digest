@@ -28,10 +28,11 @@ export (about 10 commits).
 1. Check the link-expiry verify after 00:33 UTC Nov 11.
 2. Check phase 4 stays behind flags. Watch the Grafana export work for drift
    into hardening: 17 of the last 46 commits were guards or re-checks.
-3. Phase 4 lead security review done (Nov 11): no code blockers. Fixes
-   steered as item 58; private findings at `~/lead-private/phase4-security-review.md`
-   on the VM. When the item 58 ack lands, re-check each fix against that file,
-   then the owner decides on going public.
+3. Item 58 (security fixes): fixes 1–7 done and deployed by 00:33 UTC Nov 12,
+   with migrations 0021 and 0022 after backups. Left: broken public-mode
+   features, the leftover port-8011 process (still running), live checks.
+   Sign-in links now give reader-only sessions, even for the owner. When the
+   ack lands, re-check each fix against `~/lead-private/phase4-security-review.md`.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up
