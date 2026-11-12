@@ -16,7 +16,7 @@ const fixture = JSON.parse(
 ) as {
   entries: Array<{
     input: { candidates: Array<{ title: string; excerpt?: string }> };
-    output: { stories: Array<{ summary: string }> };
+    output: { stories: Array<{ summary: string }>; brief: string[] };
   }>;
 };
 const candidates = fixture.entries[0].input.candidates;
@@ -254,4 +254,35 @@ void test('saved uncertainty sentence retains attribution and both uncertainty d
         true,
       ),
     );
+});
+
+void test('NBA brief preserves the complete attributed departure and expected absence', () => {
+  const brief = fixture.entries[3].output.brief[0];
+  assert.doesNotThrow(() => assertAbsenceSupport(brief, curry, 'brief', true));
+  assert.throws(() => assertAbsenceSupport(brief, curry, 'brief'));
+  assert.throws(() => assertAbsenceSupport(brief, curry, 'summary', true));
+  for (const changed of [
+    brief.replace('few games', 'few months'),
+    brief.replace('is bracing to be', 'will be'),
+    brief.replace('Stephen Curry', 'Austin Reaves'),
+    brief.replace('Houston', 'Boston'),
+    brief.replace('right abdominal', 'left abdominal'),
+    brief.replace('Nick Friedell', 'Steve Kerr'),
+    brief.replace('The Athletic', 'ESPN'),
+    brief.replace('Golden State', 'Los Angeles'),
+    brief.replace("Warriors'", "Lakers'"),
+    brief.replace(", according to The Athletic's Nick Friedell", ''),
+    brief.replace('few games,', 'few games without a return timeline,'),
+    brief + ' No further tests are planned.',
+  ])
+    assert.throws(
+      () => assertAbsenceSupport(changed, curry, 'brief', true),
+      changed,
+    );
+  assert.throws(() => assertAbsenceSupport(brief, reaves, 'brief', true));
+  const rename = (text: string) =>
+    text.replaceAll('Stephen Curry', 'Example Player');
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(rename(brief), curry.map(rename), 'brief', true),
+  );
 });

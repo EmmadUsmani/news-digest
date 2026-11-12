@@ -50,48 +50,7 @@
 
 [Iterations 1880–1881](docs/progress-archive/2026-11-12-iterations-1880-1881.md).
 
-## 2026-11-12: iteration 1882 — passive metrics recovery follow-up
-
-- Clean main/no inherited work; zero alerts, API/database/Redis healthy, 38 healthy sources. Digest generation has one worker/zero failed jobs; next scheduled run Nov 12 15:00 UTC. Retained ingestion failures are historical, with sources currently healthy.
-- Owner value: confirm the outstanding metrics incident is quiet without changing production limits or risking scheduled content. Item 58 remains blocked on authenticated proxy evidence and scheduled post-fix acceptance; no public activation or final ack.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.429 s, zero new evaluator errors/misses, admission limits/timeouts/slow queries; process starts unchanged. No merges: recovery remains unproven. Next passive probe ≥04:13 UTC Nov 12.
-- Read latest saved edition topic by topic. Existing weakness remains thin Tech source evidence and weak social quality; recorded fixes/acceptance await scheduling and item 50. No new unsupported summary or missing context found; Japanese Gaming post has English context in `whyItMatters`. No speculative generation change or paid call.
-- Updated TASKS and capacity evidence only; SOURCES unchanged. No UI/diagram edits or accepted-screen rerun.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (877 unit/286 integration passing; four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warnings only. Docs service restarted; all 14 services healthy, API/database/Redis healthy and zero alerts. Commit/push follow.
-
-## 2026-11-12: iteration 1883 — repair filtered queue health command
-
-- Clean main/no inherited work; zero alerts, API/database/Redis and all 38 sources healthy. Item 58 still awaits authenticated proxy evidence and the 15:00 scheduled edition; no acceptance claim or final ack.
-- Owner value: unattended checks can now verify the scheduled digest queue using the CLI's documented options, rather than rejecting the command during triage.
-- Fixed `pnpm obs jobs --check --queue digest-generation --limit 1`; queue/state/limit options compose with `--check`. Filtered readiness checks the selected queue; unfiltered readiness still requires all four expected queues. Historical failures remain separate from readiness.
-- Added refusal coverage for absent/duplicate/unavailable/paused/unstaffed selected queues and invalid queues before network access. Targeted CLI tests pass 18/18; updated affected handbook and observability reference.
-- Live filtered and unfiltered checks pass: four staffed queues, digest zero failed jobs/next run Nov 12 15:00 UTC. Latest Nov 11 reader publication passes (four topics/19 stories/19 posts).
-- `pnpm format`, `pnpm lint:fix`, build and filtered handbook validation pass (39 tables); existing bundle warning only. Archived three older progress entries to keep this file below 25 KB. No source/UI/diagram behavior changes, paid calls, public activation or budget changes; SOURCES unchanged.
-- `pnpm check` passes typecheck/lint/format/boundaries, 878 unit and 286 integration tests (four expected skips). Docs restarted; all 14 services and API health pass with zero alerts. Commit/push and final docs restart follow.
-- Next: authenticated proxy evidence, scheduled post-fix five-topic acceptance; next passive metrics sample no earlier than 04:13 UTC.
-
-## 2026-11-12: iteration 1884 — restore fifth-topic Bluesky collection
-
-- Clean main/no inherited work. Zero alerts; API/database/Redis, 14 services and 38 sources healthy. Digest queue has one worker/zero failures; next edition Nov 12 15:00 UTC.
-- Preflight found hourly Bluesky still capped at four topics, silently skipping U.S. in fifth position. Raised the bounded pass to five topics/250 submissions; per-topic cap, sequential session/backoff and stop-on-failure unchanged. No budget/provider change.
-- Read-only transaction: all five topics have 5/5 budgets and X settings; last-24h source-linked article counts Tech/NBA/Gaming/World/U.S. 254/135/268/220/72. All seven World/U.S. feeds successful without errors; effective AI config $20/month/$0.65/day.
-- `pnpm exec tsx scripts/report-bluesky-coverage.ts`: U.S. zero observations before deployment; other topics have recent observations. First five-topic scheduled collection and saved U.S. readback remain pending; no live provider verification call started.
-- `pnpm exec tsx --test --test-reporter=dot apps/api/test/bluesky-hourly.test.ts` passes 3/3, covering fifth dedicated query and sixth exclusion alongside disabled/zero-budget filtering, shared window and failure handling.
-- Updated SOURCES and affected schedule handbook; no UI/diagram change. Temporary read-only preflight script removed (initial CJS top-level-await invocation failed, wrapped main rerun passed).
-- Item 58 still awaits authenticated proxy evidence and scheduled post-fix publication; public mode stays off and no final ack. Next metrics probe no earlier than 04:13 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, filtered handbook check (39 tables) and `git diff --check` pass; existing bundle warning only.
-- Worker/docs restarted at 03:43 UTC; compiled collector has five-topic limit. `/healthz`, staffed digest readiness, 14 services and zero alerts pass. Commit/push and final main-matching restart follow.
-
-## 2026-11-12: iteration 1885 — deployed post-fix boundary evidence
-
-- Clean main/no inherited work. API/database/Redis, all 38 sources and staffed digest queue healthy; zero alerts and zero failed digest jobs. Next edition Nov 12 15:00 UTC.
-- Owner value: confirm that deployed account protections still refuse unsafe requests while preserving access to the saved reader edition; record the exact remaining acceptance gates.
-- `pnpm exec tsx scripts/check-live-account-boundary.ts`: all 32 deployed loopback checks pass; no account credentials requested, identities created or cookies issued. This does not answer authenticated exe.dev proxy checks.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-11T15:00:00Z`: latest/direct/history agree, four topics/19 stories/19 posts. Read all saved summaries/posts: thin Tech evidence and weak World social engagement remain known; no new unsupported summary found. Tuning remains paused under item 50.
-- Stored Bluesky readback at 03:45 UTC still predates the collector fix: four topics last observed 02:54, U.S. zero. No provider call or collection was triggered; scheduled five-topic readback remains pending.
-- Updated security handoff and TASKS only; no app/UI/source behavior, budget, public-mode or accepted-screen changes. SOURCES and NEEDS_FROM_HUMAN unchanged. Initial unsupported `obs sources --limit 5` invocation corrected to `obs sources`; all 38 healthy.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables), and `git diff --check` pass; existing bundle warning only.
-- Docs restart and final health/alerts check follow commit/push. Item 58 stays open: authenticated proxy evidence and scheduled post-fix acceptance; public mode stays off. Next passive metrics probe no earlier than 04:13 UTC.
+[Iterations 1882–1885](docs/progress-archive/2026-11-12-iterations-1882-1885.md).
 
 ## 2026-11-12: iteration 1886 — scheduled fifth-topic collection readback
 
@@ -181,3 +140,13 @@
 - Targeted absence/replay tests: 12 pass. No provider calls, prompt/budget changes, job writes or saved-edition changes. Updated TASKS/daily review; no handbook/UI/source/owner-gate change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (887 unit/286 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Existing bundle warning only.
 - API/worker restarted outside protected hours; startup retry reaches healthy `/healthz`; no failed units/zero alerts. Digest queue staffed with zero active/failed jobs, next edition Nov 13 15:00 UTC. Next: remaining Curry summaries/briefs with safety/selection controls intact.
+
+## 2026-11-12: iteration 2011 — validate complete saved NBA repair
+
+- Clean main/no inherited work; initial alerts zero, healthy database/Redis and no failed units. Initial orientation output was too broad; later reads bounded.
+- Complete saved Haiku repair now validates through the production editor (five stories/four briefs). NBA-only brief equivalence keeps player, venue, injury, duration, hedge, reporter and outlet from one source report; Warriors/Golden State identity is explicit, no player exemption.
+- Twelve altered brief claims, unrelated evidence and non-NBA use fail; evidence-derived renamed player passes. Earlier summary/quote safety and invalid-selection guards remain green. Three absence-field refusals remain across the other outputs; scheduled NBA acceptance stays open.
+- Verification: targeted absence/replay tests (13 pass); `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build` pass. Existing bundle warning only; `git diff --check` clean.
+- Restarted API/worker outside protected hours; `/healthz` database/Redis healthy, all 38 sources healthy, zero failed units/alerts. Digest-generation staffed, zero active/failed jobs, next edition Nov 13 15:00 UTC.
+- Updated TASKS/daily review; archived iterations 1882–1885 to bound progress. No provider calls, prompt/model/budget changes, saved-edition writes or UI/handbook/source changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Next: review next scheduled NBA acceptance; remaining Sonnet summaries/briefs stay rejected pending equally supported corrections.

@@ -104,6 +104,7 @@ export async function replayNbaRejections() {
           text,
           evidenceFor(entry.output.stories.flatMap((s) => s.evidenceIds)),
           'brief',
+          true,
         );
       } catch (error) {
         absenceFailures.push({ index, ...diagnostic(error), text });

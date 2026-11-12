@@ -87,21 +87,12 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
         false,
         { category: 'invalid-selection', field: undefined },
       ],
-      [
-        'claude-haiku-5-5',
-        'repair',
-        false,
-        { category: 'unsupported-absence', field: 'brief' },
-      ],
+      ['claude-haiku-5-5', 'repair', true, null],
     ],
   );
   // Pin the additional failures that a Curry-summary-only fix would conceal.
   assert.deepEqual(
     replay.results.map((r) => r.absenceFailures.map((f) => f.field)),
-    [['brief'], ['summary', 'brief'], [], ['brief']],
-  );
-  assert.match(
-    replay.results[3].absenceFailures[0].text,
-    /Golden State is bracing/,
+    [['brief'], ['summary', 'brief'], [], []],
   );
 });

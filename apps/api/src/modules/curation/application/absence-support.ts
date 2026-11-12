@@ -4,8 +4,8 @@ import {
 } from './validation-failure';
 
 // Conservative lexical guard, not entailment or independent fact-checking.
-// Require whole-sentence support, with narrow NBA-summary equivalences for
-// attributed availability reports and complete attributed direct quotes.
+// Require whole-sentence support, with narrow NBA equivalences for attributed
+// availability summaries, complete direct quotes and attributed absence briefs.
 const absence =
   /\b(?:not|never|no|without|unconfirmed|unverified|unavailable|unknown)\b|\b(?:hasn|haven|isn|aren|wasn|weren|couldn|didn|doesn|don)['’]t\b|\b(?:rather than an? announcement|details remain limited)\b/i;
 // Keep the rank abbreviation attached to its number, including in evidence.
@@ -184,11 +184,56 @@ function supportsUncertaintyReport(claim: string, evidence: Set<string>) {
   return false;
 }
 
+// A compact brief may retain a complete attributed report while replacing
+// the dated event with the team's game at the same venue. Team names here are
+// identities, not inferred from another selected story or from a player.
+function supportsAttributedBrief(claim: string, evidence: Set<string>) {
+  const rewrite =
+    /^([\p{L}’'-]+ [\p{L}’'-]+) left the (.+)['’] game in (.+) with (.+), and (.+) is bracing to be without him for (.+), according to (.+)['’]s (.+)$/u.exec(
+      claim,
+    );
+  if (!rewrite) return false;
+  const [
+    ,
+    person,
+    team,
+    venue,
+    condition,
+    location,
+    duration,
+    outlet,
+    reporter,
+  ] = rewrite;
+  const teamLocations: Record<string, string> = { warriors: 'golden state' };
+  if (teamLocations[team] !== location) return false;
+  for (const sentence of evidence) {
+    const source =
+      /^the (.+) are bracing to be without ([\p{L}’'-]+ [\p{L}’'-]+) for (.+) after he left (.+) in (.+) with (.+), writes (.+) of (.+)$/u.exec(
+        sentence,
+      );
+    if (!source) continue;
+    if (
+      source[1] === team &&
+      source[2] === person &&
+      source[3] === duration &&
+      /^(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday) night['’]s contest$/.test(
+        source[4],
+      ) &&
+      source[5] === venue &&
+      source[6] === condition &&
+      source[7] === reporter &&
+      source[8] === outlet
+    )
+      return true;
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
   field?: ValidationField,
-  allowNbaSummaryRewrite = false,
+  allowNbaRewrite = false,
 ) {
   const inputs = new Set(evidence.flatMap(sentences).map(normalize));
   const parts = sentences(text);
@@ -201,16 +246,18 @@ export function assertAbsenceSupport(
     if (
       !inputs.has(claim) &&
       !(
-        allowNbaSummaryRewrite &&
-        (supportsUncertaintyReport(claim, inputs) ||
-          supportsCombinedAbsence(claim, inputs) ||
-          supportsAvailabilityRewrite(claim, inputs) ||
-          supportsAttributedQuote(claim, evidence) ||
-          supportsAttributedAbsence(
-            claim,
-            index > 0 ? normalize(parts[index - 1]) : undefined,
-            inputs,
-          ))
+        allowNbaRewrite &&
+        ((field === 'brief' && supportsAttributedBrief(claim, inputs)) ||
+          (field === 'summary' &&
+            (supportsUncertaintyReport(claim, inputs) ||
+              supportsCombinedAbsence(claim, inputs) ||
+              supportsAvailabilityRewrite(claim, inputs) ||
+              supportsAttributedQuote(claim, evidence) ||
+              supportsAttributedAbsence(
+                claim,
+                index > 0 ? normalize(parts[index - 1]) : undefined,
+                inputs,
+              ))))
       )
     )
       throw new LlmValidationFailure(

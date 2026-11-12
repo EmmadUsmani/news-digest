@@ -119,7 +119,7 @@ export class ShortlistEditor {
         parsed.stories.flatMap((s) => s.evidenceIds),
       );
       for (const bullet of parsed.brief)
-        assertAbsenceSupport(bullet, selectedEvidence, 'brief');
+        assertAbsenceSupport(bullet, selectedEvidence, 'brief', isNba);
       return parsed;
     };
     // Retain only fixed application-owned hints across the model fallback.
