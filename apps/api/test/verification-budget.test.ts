@@ -146,6 +146,77 @@ void test('detailed admission snapshots preserve caps, old pending holds and ato
     assert.ok(
       Date.parse(result.pendingHolds[0].createdAt) < Date.now() - 86400000,
     );
+    const originalIds = result.pendingHolds.map((hold) => hold.id);
+    assert.deepEqual(
+      await ledger.pendingOriginalHolds(model.id, [...originalIds, pending]),
+      [pending],
+    );
+    assert.deepEqual(
+      await ledger.pendingOriginalHolds('other-model', originalIds),
+      [],
+    );
+    assert.deepEqual(await ledger.pendingOriginalHolds(model.id, []), []);
+    assert.deepEqual(
+      await ledger.pendingOriginalHolds(model.id, [
+        crypto.randomUUID(),
+        uncertain,
+      ]),
+      [],
+    );
+    await assert.rejects(
+      ledger.pendingOriginalHolds(model.id, Array(65).fill(pending)),
+      /Invalid original hold snapshot/,
+    );
+    await assert.rejects(
+      ledger.pendingOriginalHolds(model.id, ['malformed']),
+      /Invalid original hold snapshot/,
+    );
+    // A newly admitted competing hold cannot extend the frozen original set.
+    const competitor = crypto.randomUUID();
+    await db.query(
+      `INSERT INTO llm_calls (id,model,purpose,run_id,status,reserved_micros)
+       VALUES ($1,$2,'verification',$3,'pending',1)`,
+      [competitor, model.id, request.runId],
+    );
+    for (const status of ['succeeded', 'failed', 'uncertain']) {
+      await db.query(
+        "UPDATE llm_calls SET status='pending',cost_micros=NULL WHERE id=$1",
+        [pending],
+      );
+      if (status === 'succeeded')
+        await ledger.settle(
+          pending,
+          { input: 1, cacheWrite: 0, cacheRead: 0, output: 1 },
+          1,
+        );
+      else
+        await ledger.fail(
+          pending,
+          'offline-fixture',
+          false,
+          status === 'uncertain',
+        );
+      assert.deepEqual(
+        await ledger.pendingOriginalHolds(model.id, originalIds),
+        [],
+      );
+    }
+    await db.query("UPDATE llm_calls SET status='pending' WHERE id=$1", [
+      pending,
+    ]);
+    assert.deepEqual(await ledger.pendingOriginalHolds(model.id, originalIds), [
+      pending,
+    ]);
+    // Follow-up reads insert nothing and cannot alter budget accounting.
+    assert.equal(
+      (
+        await db.query(
+          'SELECT count(*)::int AS count FROM llm_calls WHERE run_id=$1',
+          [request.runId],
+        )
+      ).rows[0].count,
+      3,
+    );
     assert.equal(await ledger.reserve(request, 1), null);
     await assert.rejects(
       ledger.reserveDetailed(request, NaN),

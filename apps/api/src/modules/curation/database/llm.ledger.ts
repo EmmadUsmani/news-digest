@@ -320,6 +320,38 @@ export class PostgresLlmLedger implements LlmLedger {
       );
     return result;
   }
+  async pendingOriginalHolds(
+    model: string,
+    originalIds: string[],
+  ): Promise<string[]> {
+    // Reject malformed/oversized snapshots before acquiring a connection. Do not
+    // truncate: that would silently change the original eligibility set.
+    if (
+      !model ||
+      originalIds.length > 64 ||
+      originalIds.some(
+        (id) =>
+          !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+            id,
+          ),
+      )
+    )
+      throw new Error('Invalid original hold snapshot');
+    if (!originalIds.length) return [];
+    const rows = await drizzle(this.db)
+      .select({ id: llmCalls.id })
+      .from(llmCalls)
+      .where(
+        and(
+          inArray(llmCalls.id, [...new Set(originalIds)]),
+          eq(llmCalls.model, model),
+          eq(llmCalls.status, 'pending'),
+        ),
+      )
+      .orderBy(llmCalls.id);
+    // This read cannot authorize spending; only reserveDetailed can do that.
+    return rows.map((row) => row.id);
+  }
   async settle(id: string, usage: TokenUsage, cost: number) {
     await drizzle(this.db)
       .update(llmCalls)

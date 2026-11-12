@@ -33,6 +33,11 @@ export interface LlmLedger {
     request: LlmRequest,
     estimate: number,
   ): Promise<LlmReservationResult>;
+  // Follow only the original bounded snapshot; never discover new competing holds.
+  pendingOriginalHolds?(
+    model: string,
+    originalIds: string[],
+  ): Promise<string[]>;
   reserve(request: LlmRequest, estimate: number): Promise<string | null>;
   settle(id: string, usage: TokenUsage, cost: number): Promise<void>;
   fail(

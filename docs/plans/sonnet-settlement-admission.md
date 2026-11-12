@@ -3,8 +3,9 @@
 Iteration 2014 design; production admission remains immediate.
 Iteration 2015 implements typed atomic results and initial hold snapshots, with
 legacy callers preserved. Snapshots exceeding 64 holds return an explicit overflow
-flag and no partial IDs. Original-ID follow-up queries and caller deadlines remain
-unimplemented; waiting stays disabled. Implement the
+flag and no partial IDs. Iteration 2016 adds bounded original-ID follow-up queries,
+filtered to the original model and pending status without expanding the ID set.
+Caller deadlines remain unimplemented; waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 
