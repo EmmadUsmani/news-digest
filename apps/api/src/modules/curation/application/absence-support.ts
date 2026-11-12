@@ -4,8 +4,8 @@ import {
 } from './validation-failure';
 
 // Conservative lexical guard, not entailment or independent fact-checking.
-// Require whole-sentence support, with a narrow equivalence for attributed
-// availability reports. Other absence paraphrases must be omitted or quoted.
+// Require whole-sentence support, with narrow NBA-summary equivalences for
+// attributed availability reports and complete attributed direct quotes.
 const absence =
   /\b(?:not|never|no|without|unconfirmed|unverified|unavailable|unknown)\b|\b(?:hasn|haven|isn|aren|wasn|weren|couldn|didn|doesn|don)['’]t\b|\b(?:rather than an? announcement|details remain limited)\b/i;
 // Keep the rank abbreviation attached to its number, including in evidence.
@@ -51,11 +51,43 @@ function supportsAvailabilityRewrite(claim: string, evidence: Set<string>) {
   return false;
 }
 
+// A complete direct quote can move from a trailing surname attribution to
+// the preceding coach's full name. Resolve that surname only in the same
+// excerpt, immediately after the full-name attribution. Never accept a quote
+// fragment, an unattributed quote, or negative language outside the quote.
+function supportsAttributedQuote(claim: string, evidence: string[]) {
+  const rewrite = new RegExp(
+    String.raw`^coach ${speaker} said ([^"“”]+), adding, ["“]([^"“”]+)\.["”]( [^"“”]+)?$`,
+    'u',
+  ).exec(claim);
+  if (!rewrite || absenceMatch(rewrite[2]) || absenceMatch(rewrite[4] ?? ''))
+    return false;
+  for (const input of evidence) {
+    const parts = sentences(input).map(normalize);
+    for (let index = 1; index < parts.length; index++) {
+      const attribution = new RegExp(
+        String.raw`^coach ${speaker} said\b`,
+        'u',
+      ).exec(parts[index - 1]);
+      const quote = /^["“]([^"“”]+),["”] ([\p{L}’'-]+) said$/u.exec(
+        parts[index],
+      );
+      if (
+        attribution?.[1] === rewrite[1] &&
+        quote?.[1] === rewrite[3] &&
+        quote[2] === rewrite[1].split(' ')[1]
+      )
+        return true;
+    }
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
   field?: ValidationField,
-  allowAvailabilityRewrite = false,
+  allowNbaSummaryRewrite = false,
 ) {
   const inputs = new Set(evidence.flatMap(sentences).map(normalize));
   for (const sentence of sentences(text)) {
@@ -66,7 +98,11 @@ export function assertAbsenceSupport(
     const claim = normalize(sentence);
     if (
       !inputs.has(claim) &&
-      !(allowAvailabilityRewrite && supportsAvailabilityRewrite(claim, inputs))
+      !(
+        allowNbaSummaryRewrite &&
+        (supportsAvailabilityRewrite(claim, inputs) ||
+          supportsAttributedQuote(claim, evidence))
+      )
     )
       throw new LlmValidationFailure(
         'unsupported-absence',

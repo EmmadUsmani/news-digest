@@ -16,6 +16,7 @@ const fixture = JSON.parse(
 ) as {
   entries: Array<{
     input: { candidates: Array<{ title: string; excerpt?: string }> };
+    output: { stories: Array<{ summary: string }> };
   }>;
 };
 const candidates = fixture.entries[0].input.candidates;
@@ -29,6 +30,47 @@ const evidence = (title: string) => {
 };
 const curry = evidence('Concern Is High');
 const reaves = evidence('X-Rays Return Negative');
+const reavesSummary = fixture.entries[0].output.stories.find((story) =>
+  story.summary.includes('No update on AR'),
+)!.summary;
+
+void test('recorded Reaves summary keeps the complete quote and supplied coach attribution', () => {
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(reavesSummary, reaves, 'summary', true),
+  );
+  // The equivalence is restricted to the existing NBA-summary opt-in.
+  assert.throws(() => assertAbsenceSupport(reavesSummary, reaves, 'summary'));
+  assert.throws(() => assertAbsenceSupport(reavesSummary, reaves, 'brief'));
+});
+
+void test('attributed quote rewrites reject changes to speaker, quote, scope and evidence', () => {
+  const cases: Array<[string, string[]]> = [
+    [reavesSummary.replace('JJ Redick', 'Steve Kerr'), reaves],
+    [reavesSummary.replace('JJ Redick', 'Mike Redick'), reaves],
+    [reavesSummary.replace('tomorrow', 'next month'), reaves],
+    [reavesSummary.replace(" until we'll have imaging tomorrow", ''), reaves],
+    [reavesSummary.replace('returned negative', 'have no injury'), reaves],
+    [reavesSummary.replace('tomorrow.', 'tomorrow?'), reaves],
+    [reavesSummary, curry],
+    [reavesSummary, [reaves[1].replace('Redick said.', 'Kerr said.')]],
+    [reavesSummary, [reaves[1].replace('Coach JJ Redick', 'Coach Steve Kerr')]],
+    [
+      reavesSummary,
+      [reaves[1].replace('Redick said.', 'Redick said, according to rumors.')],
+    ],
+    // A coach's full name in a different evidence item cannot resolve a quote.
+    [reavesSummary, reaves[1].split(/(?=\"No update)/)],
+    [`${reavesSummary} No further imaging is planned.`, reaves],
+  ];
+  for (const [claim, inputs] of cases)
+    assert.throws(
+      () => assertAbsenceSupport(claim, inputs, 'summary', true),
+      (error: unknown) =>
+        error instanceof LlmValidationFailure &&
+        error.code === 'unsupported-absence',
+      claim,
+    );
+});
 
 void test('NBA correction must preserve supported source sentences in summaries and briefs', () => {
   for (const field of ['summary', 'brief'] as const)

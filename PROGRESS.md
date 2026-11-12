@@ -46,30 +46,7 @@
 
 [Iteration 1877](docs/progress-archive/2026-11-12-iteration-1877.md).
 
-## 2026-11-12: iteration 1878 — cover every tool reader in account privacy revocation
-
-- Clean main/no inherited work; zero alerts, API/database/Redis healthy and all 38 sources healthy. Continued item 58 minor findings; public mode remains off.
-- Added forward ACL migration 0023 for all eight account tables, denying PUBLIC and all five tool readers without rewriting applied migration history or changing other product grants.
-- Integration regression seeds default and explicit overbroad privileges, applies the migration twice, checks every table/reader refusal and preserves unrelated topic access. Existing fresh-container migration covers absent-role handling.
-- Updated access plan and data-model handbook; no schema/table/relationship changes or diagram edits. Filtered handbook check passes (39 tables).
-- Fresh snapshot-consistent backup completed: 39 tables, 14,990,940 bytes. Full verification/deployment results follow. No provider calls, budget/sharing changes or accepted-screen reruns.
-- Next: authoritative exe.dev proxy checks and remaining minor findings; scheduled post-fix five-topic acceptance at Nov 12 15:00 UTC, then lead re-check/owner decision.
-- Live migration applied once after backup. Read-only SQL confirms zero account privileges for all three installed readers and PUBLIC; two prepared roles absent. API/worker/docs restarted; obs health/services --check and direct /healthz pass; zero alerts.
-- pnpm format, pnpm lint:fix, pnpm build and git diff --check pass (existing bundle warnings only). Full pnpm check passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips), including account privacy refusal.
-- Commit/push and final main-matching service restart follow. No source changes; SOURCES.md unchanged.
-
-## 2026-11-12: iteration 1879 — bound VictoriaLogs search work
-
-- Clean main/no inherited work; zero alerts, healthy API/database/Redis, all 14 services and 38 sources healthy. Continued item 58; public mode remains off.
-- VictoriaLogs now caps concurrency at two, execution at 5s, queueing at 1s, requested windows at 24h and query text at 4 KiB. Updated runtime handbook and access plan.
-- Added explicit disposable installed-binary check reading the production unit: bounded reads pass, 25-hour windows and oversized queries refuse, subsequent reads/health recover. No live data or external calls in this check.
-- Installed unit and restarted only logs initially; isolated check passes again. Live 25-hour query refuses with configured range limit; normal `pnpm obs logs --since 1h --limit 1` reads real collected logs.
-- Documented authenticated proxy gate in NEEDS_FROM_HUMAN.md: no VM SSH credentials/known-host entry; documented read-only SSH help attempt refused host-key verification. No sharing changes or setup attempted.
-- Digest queue: one worker, zero failed jobs, next Nov 12 15:00 UTC. Initial CLI attempts used unsupported --check/options and wrong queue name; corrected status read confirms schedule.
-- Build and filtered handbook checks pass; systemd-analyze verify passes. No diagram changes, provider calls, budget changes or accepted-screen reruns; SOURCES.md unchanged. Full verification/deployment results follow.
-- Next: remaining minor admission finding, authenticated proxy checks and scheduled post-fix five-topic edition acceptance, then lead re-check/owner decision.
-- Full `pnpm check` passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips). `pnpm format`, `pnpm lint:fix`, build and diff checks pass; existing bundle warnings only.
-- Shortened handbook after its line-limit refusal; filtered check passes (39 tables). Archived iterations 1863–1869 and older completed task markers. Rebuilt API/worker/docs restarted; health and 14-service checks pass. Commit/push and final main-matching restart follow.
+[Iterations 1878–1879](docs/progress-archive/2026-11-12-iterations-1878-1879.md).
 
 ## 2026-11-12: iteration 1880 — share visitor admission across tool routes
 
@@ -185,3 +162,14 @@
 - These controls constrain the pending supported-paraphrase correction; they do not restore NBA. Saved four-response production replay remains unchanged with zero validated outputs. No runtime/prompt/guard/budget changes, provider calls or job writes.
 - Updated TASKS and daily review; SOURCES/NEEDS_FROM_HUMAN unchanged because no source or owner gate changed. No UI or handbook behavior change. No rebuild/restart needed for tests/docs; deployment window remains closed until 16:00 UTC.
 - Verification: targeted safety tests pass (2 tests/24 negative checks); `pnpm format`, `pnpm lint:fix`, full `pnpm check` (881 unit/286 integration passing, four expected skips), targeted Prettier and `git diff --check` pass. Next: correct supported paraphrases against both the full recorded replay and these negative controls, then deploy outside the protected window.
+
+## 2026-11-12: iteration 2007 — preserve complete attributed NBA quotes
+
+- Clean main/no inherited work; zero alerts, healthy database/Redis and no failed user units. Initial orientation output was too broad; subsequent reads bounded.
+- Fixed the supported Reaves summary refusal with a narrow existing NBA-summary opt-in: preserve the entire direct quote, resolve its surname to the immediately preceding coach's full name in the same excerpt, and reject negative language outside the quote. No entity-specific rules or changes to other fields/topics.
+- Original Reaves prose now passes. Offline production-validator isolation removes only Curry/its brief bullet; all four retained Sonnet stories validate unchanged on the first call. Complete replay still rejects all four outputs (seven absence-field refusals, down from eight); Curry and invalid selection remain open.
+- Added 12 quote counterfactual refusals; the prior 24 safety checks still pass. No provider calls, prompt/model/budget changes, job writes or saved-edition changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (883 unit/286 integration passing, four expected skips), `pnpm build` and targeted final tests (9 passing, including the later isolation test) pass. Existing bundle warning only.
+- Updated TASKS and daily review; archived iterations 1878–1879 to keep progress bounded. No source/owner-gate/handbook/UI change; SOURCES/NEEDS_FROM_HUMAN and screenshots unchanged.
+- API/worker restarted after the protected window at 16:00 UTC; startup retry reaches healthy `/healthz` (database/Redis), all 38 sources healthy, no failed units and zero firing/pending alerts. Digest queue has zero active/failed jobs and the next scheduled edition queued. Final `git diff --check` passes.
+- Next: correct supported Curry summaries/briefs while preserving attribution, duration and certainty controls; NBA acceptance remains open.
