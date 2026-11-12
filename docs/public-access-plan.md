@@ -168,7 +168,8 @@ Use the [Phase 3 checklist](account-activation.md) and
   Viewer access, and its Postgres role has column-level grants only
   (`ops/observability/grafana/sql/product-reader.sql`). The jobs browser is
   read-only. `/logs` and `/metrics` proxy the raw VictoriaLogs and
-  VictoriaMetrics HTTP APIs.
+  VictoriaMetrics HTTP APIs. VictoriaLogs enforces two concurrent searches,
+  five-second execution, one-second queueing, a 24-hour window and 4 KiB query text.
 
 Prepared client admission follows [exe.dev’s documented append behavior](https://exe.dev/docs/proxy.md):
 only the final `X-Forwarded-For` address is used, and only from an explicitly

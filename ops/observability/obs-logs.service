@@ -4,7 +4,7 @@ Requires=obs-log-volume.service
 After=obs-log-volume.service
 [Service]
 User=exedev
-ExecStart=/opt/news-digest-observability/victoria-logs-prod -httpListenAddr=127.0.0.1:9428 -http.pathPrefix=/logs -storageDataPath=/var/lib/news-digest-logs/data -retentionPeriod=14d -retention.maxDiskSpaceUsageBytes=1800MB -memory.allowedBytes=32MiB
+ExecStart=/opt/news-digest-observability/victoria-logs-prod -httpListenAddr=127.0.0.1:9428 -http.pathPrefix=/logs -storageDataPath=/var/lib/news-digest-logs/data -retentionPeriod=14d -retention.maxDiskSpaceUsageBytes=1800MB -memory.allowedBytes=32MiB -search.maxConcurrentRequests=2 -search.maxQueryDuration=5s -search.maxQueueDuration=1s -search.maxQueryTimeRange=24h -search.maxQueryLen=4096
 Environment=GOMAXPROCS=1 GOMEMLIMIT=100MiB
 Restart=always
 RestartSec=5

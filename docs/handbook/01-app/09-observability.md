@@ -36,8 +36,9 @@ flowchart LR
 
 Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing observed".
 
-Metrics deletion and forced merges require separate keys in `~/.config/news-digest/env`.
-The installer requires both keys; normal queries and scraping need no key.
+Metrics deletion and forced merges require separate keys in `~/.config/news-digest/env`; the installer requires both. Normal queries and scraping need no key.
+
+- **Log search limits:** two concurrent requests, 5s execution, 1s queueing, 24h time window and 4 KiB query text, for admin browser and direct queries.
 
 ## What is collected
 

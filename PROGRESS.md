@@ -36,80 +36,7 @@
 
 [Iterations 1858–1862](docs/progress-archive/2026-11-12-iterations-1858-1862.md).
 
-## 2026-11-11: iteration 1863 — protect admin freshness
-
-- Clean main/no inherited work; initial health and alerts green. Completed item 58.3 in owner order.
-- Sign-in links now create reader-only sessions even for admin recipients; only verified mailbox-code exchange grants a new seven-day admin window. Updated owner access documentation.
-- Composed regression proves link-created sessions cannot issue more links or retain admin rights beyond the original window; mailbox-code authentication still grants fresh admin rights.
-- pnpm format, pnpm lint:fix, pnpm check (864 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
-- Filtered check-handbook passes (one unchanged diagram/39 tables); shortened the affected page to retain its 100-line limit.
-- Live read-only checks: 32 account-boundary refusals pass, all 38 sources have successful collections/no current errors, saved edition eb6e962e unchanged with four topics.
-- No migration, provider calls, public-mode/sharing/budget/source changes or accepted-screen reruns. Commit/push and main-matching API/worker restart outside deployment hold follow; final health/alerts checked after restart.
-- Next: item 58.4 audit retention. Nov 12 first five-topic scheduled acceptance remains due; item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.
-
-## 2026-11-11: iteration 1864 — preserve administrative history
-
-- Clean main/no inherited work; initial health and alerts green. Completed item 58.4 in owner order.
-- Account deletion now retains private admin audit and write-admission rows, including historical actor IDs and recipient emails; sessions, proofs and personal settings still disappear. Updated handbook, plan and implicit schema relations.
-- Migration 0022 replaces cascading audit foreign keys with insertion/actor-change checks that lock the current identity; missing actors still refuse and transactional mutations still roll back.
-- Initial integration run exposed reliance on foreign-key actor validation (nine failures); added equivalent trigger checks and updated the old cascading-deletion expectation. Final pnpm check: 864 unit/286 integration pass, four expected skips; schema parity/offline migration checks pass.
-- pnpm format, pnpm lint:fix, pnpm build and git diff --check pass; existing build warnings only. Filtered check-handbook passes (three unchanged diagrams/39 tables); one transient render failure passed on retry.
-- Private backup news-digest-20261111T230721Z completed (39 tables); stopped API/worker, applied 0022 outside deployment hold, restarted. Audit/admission counts preserved (1/0), both identity-validation triggers installed.
-- Live: health/database/Redis green, 32 account-boundary refusals pass, 38/38 sources healthy, saved edition eb6e962e unchanged with four topics, zero alerts. No provider calls or public-mode/sharing/budget/source changes.
-- Commit/push and final main-matching restart follow. Next: item 58.5 account-body admission; Nov 12 five-topic scheduled acceptance remains due.
-
-## 2026-11-11: iteration 1865 — authenticate large reader uploads
-
-- Clean main/no inherited work; initial health and alerts green. Completed item 58.5 in owner order.
-- Reader sync authenticates before consuming its up-to-16-MiB stream and again after upload; expired/revoked sessions cannot merge changes. Successful requests preserve cookie renewal.
-- Added unfinished declared/chunked upload refusals for absent, malformed and unknown session cookies, mid-upload revocation refusal and valid reader/renewal coverage; existing authenticated size/UTF-8 checks retained.
-- Targeted account HTTP tests pass (9/9); pnpm format, pnpm lint:fix, pnpm check (865 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
-- Read-only predeploy checks: 38/38 sources healthy/nonempty; recent collection jobs complete; saved edition eb6e962e unchanged with four topics. No provider calls, migration, public-mode/sharing/budget/source changes or accepted-screen reruns.
-- Next: item 58.6 smaller sign-in issues in private review; Nov 12 first five-topic scheduled acceptance remains due. Item 50 awaits remaining fixes, scheduled publication, lead re-check and owner decision.
-- API/worker restarted outside deployment hold; health/database/Redis green. node /tmp/nd-1865-live.cjs: six unfinished declared/chunked uploads refuse before body data; pnpm exec tsx scripts/check-live-account-boundary.ts: 32 refusals pass. Zero alerts; saved edition unchanged.
-- Commit/push and final main-matching service restart follow.
-
-## 2026-11-11: iteration 1866 — group IPv6 admission by subnet
-
-- Clean main/no inherited work; health/services green and zero initial alerts. Continued item 58.6 with the IPv6 limit fix.
-- Observed IPv6 visitors share a /64 for API admission and sign-in challenges; trusted immediate proxy peers still require exact addresses. IPv4/mapped-IPv4 equivalence retained. Updated the runtime handbook.
-- Proxy tests cover rotating/compressed/full IPv6 forms, separate subnets and refusal of an unconfigured peer in the trusted peer's subnet. Real Redis regression verifies only ten of twenty rotating-address attempts pass across two adapter instances.
-- Targeted proxy tests pass (5/5); pnpm format, pnpm lint:fix and pnpm build pass (existing build warnings). Handbook initially exceeded its length limit; shortened affected text, filtered check-handbook now passes (one unchanged diagram/39 tables).
-- Predeploy live checks: 32 account-boundary refusals pass, all 38 sources healthy, collection runs completing, latest saved edition eb6e962e unchanged with four topics. No migrations, paid calls, access-flag, sharing, budget or source changes.
-- Next: remaining item 58.6 timing, long-term guess allowance and admission-before-lock fixes; Nov 12 five-topic scheduled acceptance remains due. Item 50 still awaits remaining fixes, scheduled publication, lead re-check and owner decision.
-- Full pnpm check passes: 866 unit/286 integration tests, four expected skips; git diff --check passes. API/worker restarted outside the deployment hold; post-restart health and 32 account-boundary refusals pass, zero alerts. Commit/push and final main-matching restart follow.
-
-## 2026-11-11: iteration 1867 — admit sign-in attempts before locking
-
-- Clean main/no inherited work; initial health/services green and zero alerts. Continued item 58.6 with admission before recipient coordination.
-- Throttled code redemption now refuses before acquiring a recipient lock or database connection; admitted attempts retain coordination through eligibility, proof consumption, identity creation and session issuance. Admission runs once per attempt.
-- Added refusal/order regressions using real application services; malformed recipients and failed locks do not consume proofs. Existing isolated Postgres exchange regression retains concurrent single-winner and replay coverage.
-- Targeted login-code/exchange tests pass (12/12). No migrations, provider calls, source/budget/access-flag changes or accepted-screen reruns.
-- Predeploy: 38/38 sources healthy, digest queue available with no failed jobs, next scheduled run Nov 12 15:00 UTC; saved edition eb6e962e unchanged with four topics. All 32 deployed account-boundary refusals pass.
-- Next: item 58.6 timing and daily guess cap; Nov 12 first five-topic scheduled acceptance remains due. Public mode remains off pending remaining fixes, scheduled publication, lead re-check and owner decision.
-- pnpm format and pnpm lint:fix run; initial full check caught a require-await callback lint error, corrected. Final pnpm check passes: 867 unit/286 integration, four expected skips; pnpm build and git diff --check pass (existing build warnings only).
-- API/worker restarted outside the deployment hold; health/database/Redis green, all 32 account-boundary refusals pass and zero alerts. Commit/push and final main-matching restart follow. No owner-handbook behavior changed.
-
-## 2026-11-12: iteration 1868 — retain a daily sign-in allowance
-
-- Clean main/no inherited work; initial health/services green and zero alerts. Continued item 58.6 with longer-lived code admission.
-- Code requests and redemption share an atomic 100-attempt, 24-hour Redis allowance per recipient/client. Short-window resets and challenge replacement cannot reset it; client isolation preserves the sign-in lockout fix. Updated runtime handbook and public-access plan.
-- Real Redis regression spans eleven short windows/two adapter instances, recipient normalization, client isolation, daily expiry and independent short-window refusal. No migrations, paid calls, source/budget/access-flag changes or accepted-screen reruns.
-- pnpm check passed typecheck/lint/format/boundaries and 867 unit tests; integration found one test assertion incorrectly expecting daily expiry to bypass the short limit. Corrected the assertion to verify both windows independently; fresh pnpm test:integration rerun passes: 286 tests, four expected skips, zero failures.
-- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook and git diff --check pass. Archived progress iterations 1850–1857 to keep orientation small.
-- Live: all 38 sources healthy; digest queue available/no failed jobs, latest edition eb6e962e unchanged, next scheduled run Nov 12 15:00 UTC. API/worker restarted outside hold; health/database/Redis green, 32 deployed account-boundary refusals pass, zero alerts.
-- Next: item 58.6 timing, then tool admission/public-mode defects and remaining owner-ordered findings. Nov 12 first five-topic scheduled acceptance remains due; public mode off pending fixes, publication, lead re-check and owner decision.
-- Commit/push and final main-matching API/worker restart follow.
-
-## 2026-11-12: iteration 1869 — equalize ordinary sign-in response timing
-
-- Clean main/no inherited work; initial health/services green, zero alerts. Continued item 58.6 with sign-in response timing.
-- Valid HTTP code requests start a common one-second response floor before recipient lookup, coordination and delivery. Unknown, malformed-email and throttled recipients wait too; dependency failures cannot skip the floor. Delivery remains awaited; slow dependencies can exceed the floor, so this is not a constant-time guarantee under overload.
-- Real login-code service regressions cover eligible/unknown/throttled/malformed paths, delivery failure and slow completion; HTTP handler verifies the production timer is wired. Targeted tests pass (15/15). Updated runtime handbook and access plan.
-- Predeploy: 38/38 sources healthy; digest queue available, zero failed jobs, Nov 11 edition eb6e962e published normally; next run Nov 12 15:00 UTC. No paid calls, migrations, access-flag, budget or source changes.
-- Next: item 58.7 tool admission, then public-mode defects/leftover services/live checks. Nov 12 five-topic scheduled acceptance remains due; public mode off pending remaining fixes, publication, lead re-check and owner decision.
-- pnpm format, pnpm lint:fix and full pnpm check pass: 869 unit/286 integration tests, four expected skips. pnpm build, filtered check-handbook (one unchanged diagram/39 tables) and git diff --check pass; existing build warnings only.
-- API/worker restarted outside deployment hold; health/database/Redis green, 32 deployed account-boundary checks pass, zero alerts. A malformed-email live code request returns generic HTTP 202 in 1.004 seconds without recipient admission or mailbox delivery. Commit/push and final main-matching restart follow.
+[Iterations 1863–1869](docs/progress-archive/2026-11-12-iterations-1863-1869.md).
 
 ## 2026-11-12: iteration 1870 — exclude Grafana from public tool forwarding
 
@@ -208,3 +135,16 @@
 - Live migration applied once after backup. Read-only SQL confirms zero account privileges for all three installed readers and PUBLIC; two prepared roles absent. API/worker/docs restarted; obs health/services --check and direct /healthz pass; zero alerts.
 - pnpm format, pnpm lint:fix, pnpm build and git diff --check pass (existing bundle warnings only). Full pnpm check passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips), including account privacy refusal.
 - Commit/push and final main-matching service restart follow. No source changes; SOURCES.md unchanged.
+
+## 2026-11-12: iteration 1879 — bound VictoriaLogs search work
+
+- Clean main/no inherited work; zero alerts, healthy API/database/Redis, all 14 services and 38 sources healthy. Continued item 58; public mode remains off.
+- VictoriaLogs now caps concurrency at two, execution at 5s, queueing at 1s, requested windows at 24h and query text at 4 KiB. Updated runtime handbook and access plan.
+- Added explicit disposable installed-binary check reading the production unit: bounded reads pass, 25-hour windows and oversized queries refuse, subsequent reads/health recover. No live data or external calls in this check.
+- Installed unit and restarted only logs initially; isolated check passes again. Live 25-hour query refuses with configured range limit; normal `pnpm obs logs --since 1h --limit 1` reads real collected logs.
+- Documented authenticated proxy gate in NEEDS_FROM_HUMAN.md: no VM SSH credentials/known-host entry; documented read-only SSH help attempt refused host-key verification. No sharing changes or setup attempted.
+- Digest queue: one worker, zero failed jobs, next Nov 12 15:00 UTC. Initial CLI attempts used unsupported --check/options and wrong queue name; corrected status read confirms schedule.
+- Build and filtered handbook checks pass; systemd-analyze verify passes. No diagram changes, provider calls, budget changes or accepted-screen reruns; SOURCES.md unchanged. Full verification/deployment results follow.
+- Next: remaining minor admission finding, authenticated proxy checks and scheduled post-fix five-topic edition acceptance, then lead re-check/owner decision.
+- Full `pnpm check` passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips). `pnpm format`, `pnpm lint:fix`, build and diff checks pass; existing bundle warnings only.
+- Shortened handbook after its line-limit refusal; filtered check passes (39 tables). Archived iterations 1863–1869 and older completed task markers. Rebuilt API/worker/docs restarted; health and 14-service checks pass. Commit/push and final main-matching restart follow.

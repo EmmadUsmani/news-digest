@@ -4,7 +4,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Immediate owner priorities
 
-- [ ] STEERING 58: resume item 50 first. Read the private phase 4 findings; activation/rollback runbook completed (1860); sign-in rate allowances and challenges isolated by recipient/client (1861–1862); admin freshness protected (1863); admin history retained across account deletion (1864); large account-body admission protected (1865); IPv6 /64 sign-in admission protected (1866); throttling before recipient locks protected (1867); daily recipient/client cap protected (1868); sign-in response floor added (1869); Grafana public proxy removed/tools table corrected (1870); public-mode topic editing/source/deletion routing restored (1871); browser error reporting restored with privacy/log-cap regressions (1872); leftover Nov 2 test services stopped and smoke-server exit/signal cleanup protected (1873); explorer requires explicit credentials and startup-refusal regressions pass (1874); live loopback proxy trust, credential drop-in and installed tool-reader privileges checked. CSP now denies unspecified resource types with offline Chromium refusal coverage (1875). VictoriaMetrics now receives only its mutation credentials (1876). Sign-in links honor signup-off during issuance and redemption, preserving existing-account login (1877). Forward migration 0023 revokes account-table privileges from all five tool readers and PUBLIC (1878). Next: confirm exe.dev header handling/shared target through documented authenticated controls, then remaining minor items; scheduled post-fix edition acceptance still pending. Keep findings private until fixed; no public activation, budget changes or accepted-screen reruns. U.S. activation completed before these upstream instructions were discovered; further split work waits.
+- [ ] STEERING 58: resume item 50 first. Read the private phase 4 findings; activation/rollback runbook completed (1860); sign-in rate allowances and challenges isolated by recipient/client (1861–1862); admin freshness protected (1863); admin history retained across account deletion (1864); large account-body admission protected (1865); IPv6 /64 sign-in admission protected (1866); throttling before recipient locks protected (1867); daily recipient/client cap protected (1868); sign-in response floor added (1869); Grafana public proxy removed/tools table corrected (1870); public-mode topic editing/source/deletion routing restored (1871); browser error reporting restored with privacy/log-cap regressions (1872); leftover Nov 2 test services stopped and smoke-server exit/signal cleanup protected (1873); explorer requires explicit credentials and startup-refusal regressions pass (1874); live loopback proxy trust, credential drop-in and installed tool-reader privileges checked. CSP now denies unspecified resource types with offline Chromium refusal coverage (1875). VictoriaMetrics now receives only its mutation credentials (1876). Sign-in links honor signup-off during issuance and redemption, preserving existing-account login (1877). Forward migration 0023 revokes account-table privileges from all five tool readers and PUBLIC (1878). VictoriaLogs server query limits and isolated range/length refusals added (1879). Authenticated exe.dev header/shared-target checks lack VM SSH credentials/trust; see NEEDS_FROM_HUMAN.md. Next: remaining minor items and authenticated proxy checks; scheduled post-fix edition acceptance still pending. Keep findings private until fixed; no public activation, budget changes or accepted-screen reruns. U.S. activation completed before these upstream instructions were discovered; further split work waits.
 
 - [ ] STEERING 56/57: activate World/U.S. split (1859), then review three scheduled editions under [the plan](docs/us-news-topic-plan.md). Paired reporting/triage, exclusive event ownership and safe editor fallback wired; U.S. five-story/five-post topic, Guardian US/NPR Politics/PBS Politics, X settings and Bluesky query seeded. Approved caps: AI $20/month and at most $0.65/day; X $15/month/$0.50/day. Historical expected five-topic cost $0.527945 fits $0.65; no paid test run. Nov 4–10 offline labels: 23 World/five U.S./zero overlaps. [Scope evidence](docs/edition-reviews/2026-11-11-world-us-scope.md), [historical cost evidence](docs/edition-reviews/2026-11-11-fifth-topic-budget.md). Live deployment verified: 38 nonempty sources/zero errors; five topic rows and approved effective caps. First scheduled acceptance review pending (Nov 12).
 
@@ -37,67 +37,9 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
-- [x] Iteration 1878: account privacy migration covers all five tool readers and PUBLIC, including existing grants; unrelated product access retained. Public mode remains off.
+- [x] Iteration 1879: bounded VictoriaLogs concurrency, deadlines, time ranges and query text; installed-binary refusal tests and live read/refusal checks pass. Public mode remains off.
 
-- [x] Iteration 1875: added public CSP default denial with explicit style allowance; offline manifest refusal/private rollback and font/frame controls pass. Public mode remains off.
-
-- [x] Iteration 1872: restored anonymous public-mode technical error reporting; private-field, log-cap and method/path refusals covered. Public mode remains off.
-
-- [x] Iteration 1838: fixed inflated reader outlet counts for mixed feed/publisher coverage; saved NBA cards now use per-report provenance, with exact count/link checks and desktop/mobile light/dark screenshots.
-
-- [x] STEERING 55 (1837): Phase 4 public/admin/flag handoff in public-access-plan.md; item 50 stopped for lead security review/owner decision. No more accepted-screen rehearsals. Grafana capacity gate remains open.
-
-- [x] Iteration 1837: compiled schedule, sources and topic catalog/detail document admission rehearsal; malformed IDs/editor paths and writes refuse; public mode remains off.
-
-- [x] Iteration 1836: compiled public privacy GET/HEAD and POST-refusal headers, plus real sign-in request-log omission rehearsal; public mode remains off.
-
-- [x] Iteration 1835: compiled full-application Tools/Spend/Queues document rehearsal covers anonymous GET/HEAD, forged-owner write refusal and nested-route denial; public mode remains off.
-
-- [x] Iteration 1834: prepared public read-only Queues page and Tools link using sanitized counts/schedule times; public mode remains off.
-
-- [x] Iteration 1833: prepared public Spend with sanitized production totals/caps/holds; private detailed view retained, public mode remains off.
-
-- [x] Iteration 1832: prepared public Tools directory with reviewed reader links, admin telemetry links and pending tool labels; public mode remains off.
-
-- [x] Iteration 1831: prepared public read-only Sources page using sanitized status; anonymous collection/feed controls disabled. Public mode remains off.
-
-- [x] Iteration 1830: prepared public read-only topic detail links and UUID routes; anonymous editing/source changes/deletion disabled, guarded submissions; public mode remains off.
-
-- [x] Iteration 1829: prepared public read-only topic catalog; disabled anonymous controls, no profile reads or editor links; routed desktop/mobile light/dark checks pass. Public mode remains off.
-
-- [x] Iteration 1828: prepared public read-only schedule routing with public status, disabled anonymous controls and no owner-profile fallback; routed desktop/mobile light/dark rehearsal passes. Private web rebuild/API restart after 16:00 UTC verified; production flags unchanged.
-
-- [x] Iteration 1827: installed metrics Query chart renders bounded live count(up) after real HTTPS login and session freshness restoration; mounted Execute refuses aged and revoked stored sessions. Production flags unchanged.
-
-- [x] Iteration 1826: already-open installed logs Execute and document reload refuse the revoked real HTTPS-login cookie after logout; third bounded live read confirms the mounted tab before revocation. Production flags unchanged.
-
-- [x] Iteration 1825: installed logs Query renders bounded live messages after real disposable HTTPS login and session freshness restoration; aged mounted-screen Execute refuses. Production flags unchanged.
-
-- [x] Iteration 1824: Nov 11 scheduled edition reviewed: all four story sections AI-edited, 19 stories/19 posts; NBA Sonnet repair closes item 54. X/Bluesky costs, exact novelty and three saved cards verified.
-
-- [x] Iteration 1823: installed metrics Dashboards/Query Analyzer and logs Query/Overview mount after real disposable HTTPS login, refuse aged-session document reloads, and remount after freshness restoration. No export work for screen navigation; production flags unchanged.
-
-- [x] Iteration 1822: installed Raw Query with real HTTPS login refuses broad time windows and selectors without upstream work; returning to bounded `up` renders live series. Seven capped live reads, session controls and CSP checks pass; production flags unchanged.
-
-- [x] Iteration 1821: real stored-session installed Raw Query has no unexpected CSP violations; deliberate inline script/external fetch probes are blocked with exact policy events and no upstream work. Five bounded live exports and aging/restoration/logout controls pass; production flags unchanged.
-
-- [x] Iteration 1820: already-open installed metrics Raw Query refuses Execute after real stored-session aging and logout with the old cookie restored; freshness restoration renders another bounded live export. Real Chromium HTTPS login, disposable account storage, five live reads total; production flags unchanged.
-
-- [x] Iteration 1819: installed metrics Raw Query renders one bounded live export after real disposable Chromium HTTPS code login; stored fresh-admin authentication protects native documents and exports, aged native documents refuse. Production flags unchanged; other screens/controls remain open.
-
-- [x] Iteration 1818: Chromium requests/redeems a real disposable mailbox code over local HTTPS and stores the response cookie itself; fresh bounded live export passes, aging/logout refuse without upstream work. Installed native UI composition remains open; production flags unchanged.
-
-- [x] Iteration 1817: Chromium sends a real stored admin session in a Secure/HttpOnly cookie to bounded live export; fresh read passes, aged/logout/anonymous browser reads refuse without upstream work. Disposable storage only; installed native UI/session/live composition remains open.
-
-- [x] Iteration 1816: real stored-session/live bounded export composition passes with disposable Postgres/Redis and real HTTP code login. Fresh/restored admins get two live `up` reads; anonymous, reader, aged, logged-out and invalid requests cause no upstream work. Production flags off; installed-browser/live-session composition remains open.
-
-- [x] Iteration 1815: installed metrics Raw Query renders one bounded live `up` export through the prepared handler; one-minute window, 64 KiB/32-series caps and browser label rendering pass. Simulated actors and invalid requests refused without export upstream work; production export/public admission off. Stored-session/live composition remains open.
-
-- [x] Iteration 1814: installed logs Query renders one bounded real recent message through the prepared proxy; exact `_time:1m`, one-minute window, limit one and one upstream request. CSP/errors and response bounds pass; principals remain simulated. Stored-session/live composition remains open; public mode off.
-
-- [x] Iteration 1813: installed metrics Query renders one live `count(up)` chart through the prepared proxy; exact selector, one-minute window, 15-second minimum step and one-query cap enforced before upstream. Screenshot inspected; simulated principals only, public mode off.
-
-- [x] Iteration 1812: live installed logs Query/Overview assets and build/tenant metadata mount through the prepared proxy without page/CSP errors; automatic query/hits calls refused locally and non-admin documents refused without upstream work. Simulated principals only; public mode remains off.
+[Completed markers through 1878](docs/progress-archive/2026-11-12-task-done-1878.md).
 
 Recent completed steps are recorded in PROGRESS.md and its linked archives. [Completed task markers through 1810](docs/progress-archive/2026-11-11-task-done-1814.md).
 

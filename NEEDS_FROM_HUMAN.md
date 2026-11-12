@@ -165,3 +165,12 @@ actual cost and scope acceptance await the next three scheduled editions.
 The provider's separate configured workspace ceiling still applies.
 Historical reservation measurements remain in
 [the cost evidence](docs/edition-reviews/2026-11-11-fifth-topic-budget.md).
+
+## Phase 4 proxy verification (Nov 12, iteration 1879)
+
+Read-only authenticated exe.dev checks remain pending: confirm the shared
+target is port 8000 and client-supplied identity headers are replaced. The VM
+has no configured SSH credentials or known-host entry; the documented
+`ssh exe.dev help all` attempt failed host-key verification. No sharing changes
+or account setup attempted. Existing Nov 9 visitor-address proof remains valid.
+Public activation stays gated on these checks and the owner's decision.
