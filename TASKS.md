@@ -37,6 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1881: consolidated item 58 deployed fixes, verification receipts and remaining gates in [the security handoff](docs/phase4-security-handoff.md); authenticated proxy checks and Nov 12 15:00 scheduled acceptance remain pending.
+
 - [x] Iteration 1880: API and proxied tool routes share the visitor allowance before accounts, authorization and proxying; composed HTTP refusal tests pass. Public mode remains off.
 - [x] Iteration 1879: bounded VictoriaLogs concurrency, deadlines, time ranges and query text; installed-binary refusal tests and live read/refusal checks pass. Public mode remains off.
 

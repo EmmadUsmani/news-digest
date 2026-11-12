@@ -160,3 +160,13 @@
 - `pnpm build`, filtered handbook and diff checks pass (existing bundle warning only). Final `pnpm test:integration` passes 286 with four expected skips; `pnpm format` and `pnpm lint:fix` pass.
 - Rebuilt API/worker/docs restarted; initial immediate health probe raced startup, then direct `/healthz` and `pnpm obs health` pass. All 14 services healthy, zero alerts; 38 sources healthy, digest queue zero failed/one worker. Commit/push and final main-matching restart follow.
 - Next: authenticated exe.dev header/shared-port checks remain owner-blocked as documented; scheduled post-fix five-topic acceptance at 15:00 UTC, then lead re-check/owner decision.
+
+## 2026-11-12: iteration 1881 — consolidate security fix handoff
+
+- Clean main/no inherited work. Item 58 code fixes are deployed; added a commit-indexed handoff and linked it from readiness/TASKS without declaring acceptance or adding the final steering ack.
+- Read the private review; all listed code findings have fixes. Authenticated exe.dev header/shared-target checks remain owner-blocked; Nov 12 15:00 UTC post-fix scheduled publication remains pending. No proxy setup, public activation, paid run or accepted-screen rerun.
+- Initial worker scrape alert followed the preceding restart and cleared unaided. Direct `/healthz`, `pnpm obs health`, services/targets/sources checks pass: 14 services, eight targets, 38 sources; zero alerts. Digest-generation has one worker/zero failed jobs and next run 15:00 UTC.
+- `pnpm obs --help` and jobs `--check --queue digest` were unsupported; corrected to the documented jobs snapshot and actual digest-generation queue. Historical other-queue failures remain retained; sources are currently healthy.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook check (39 tables, no diagrams) and `git diff --check` pass. Existing build warnings only. Docs service restarted; API health remains green.
+- Full `pnpm check` passes typecheck/lint/format/boundaries, 877 unit tests and 286 integration tests (four expected skips). SOURCES.md unchanged because no source behavior changed. Docs-only commit/push and final main-matching docs restart follow.
+- Next: authenticated proxy evidence and scheduled five-topic acceptance; then final item 58 ack, lead re-check and owner decision.

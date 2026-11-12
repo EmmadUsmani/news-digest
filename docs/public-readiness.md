@@ -4,6 +4,8 @@ Public mode is off; the VM remains private. This checklist does not authorize
 activation or exe.dev sharing. The [approved plan](public-access-plan.md#phases)
 and STEERING 50 define the phase order and owner gates.
 
+Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
+
 ## Activation and rollback runbook
 
 Only the owner may authorize activation and exe.dev sharing. Complete item 58
