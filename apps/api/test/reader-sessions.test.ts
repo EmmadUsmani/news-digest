@@ -207,6 +207,7 @@ void test('admin-recipient links create reader sessions and cannot renew admin a
         return work();
       },
     },
+    async () => true,
   );
   const link = await links.issue(token, 'owner@example.test', at(6));
   assert.ok(link);

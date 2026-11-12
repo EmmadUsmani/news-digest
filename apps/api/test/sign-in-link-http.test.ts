@@ -52,6 +52,7 @@ void test('private link HTTP issuance and redemption enforce admin, origin, prev
     { findOrCreateVerified: async () => 'friend' },
     sessions,
     { run: async (_email, work) => work() },
+    async () => true,
   );
   const handlers = new AccountHandlers(
     new AccountRequestBoundary('https://reader.example'),

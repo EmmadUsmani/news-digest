@@ -185,3 +185,14 @@
 - Next: remaining minor findings and authoritative proxy checks; scheduled post-fix five-topic edition acceptance still due. Full verification/deployment results follow.
 - pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; existing bundle-size warning only. bash -n and systemd-analyze verify pass. Handbook initially exceeded 100 lines; shortened it and filtered check now passes (39 tables); no diagram edits.
 - API/worker/docs restarted outside hold; obs health/services --check pass with database/Redis green. Python credential tests still 2/2; git diff --check passes. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1877 — enforce signup policy for sign-in links
+
+- Clean main/no inherited work; zero alerts, API/database/Redis healthy and all 38 sources healthy. Continued item 58 minor findings; public mode remains off.
+- Link issuance and redemption now honor signup-off inside recipient coordination: new accounts are refused, including previously issued invitations; existing readers can still sign in. Invite mode remains available.
+- Added refusal coverage for issuance, redemption without consuming a link or creating identities/sessions, mode changes, existing-reader admission and failed identity lookup; runtime injects the shared signup policy. Updated access plan and runtime handbook.
+- Targeted account tests initially pass 19/19; added policy coverage is included in full checks. Filtered handbook check passes (39 tables); no diagram edits. Full verification/deployment results follow.
+- Read-only source check passes 38/38; digest queue has zero failed jobs, one worker and next scheduled run Nov 12 15:00 UTC. No provider calls, migrations, sharing or budget changes; no accepted-screen reruns.
+- Next: remaining minor findings and authoritative proxy checks, then scheduled post-fix five-topic acceptance and lead re-check/owner decision.
+- Full pnpm check passed typecheck/lint/format/boundaries and 876 unit tests; integration initially exposed an old signup-off invitation expectation. Updated the real HTTP fixture to verify both refusals, then restore invite mode for lifecycle checks. pnpm test:integration rerun passes 286 with four expected skips.
+- pnpm format and pnpm lint:fix rerun pass; pnpm build, filtered handbook and git diff --check pass. Existing bundle warning only. Rebuilt API/worker/docs restarted outside hold; direct /healthz and obs health/services --check pass (14 services). Commit/push and final main-matching restart follow.

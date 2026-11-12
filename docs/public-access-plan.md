@@ -830,7 +830,8 @@ Accounts and the ordinary admission recorder remain caller-owned in that low-lev
 - **Admin-issued sign-in links** (how friends get in for now): an admin enters
   an email and gets a one-time link, valid 24 hours, for that email only. The
   link opens a page whose button signs in with a POST, so link previews in chat
-  apps can't use it up. Each link issued is logged.
+  apps can't use it up. Each link issued is logged. With `SIGNUP_MODE=off`,
+  issuance and redemption both require an existing account; invite mode admits new recipients.
 - **Mailer:** behind an interface. The first implementation is a **stand-in
   mailbox**: codes go to a file on the VM readable only by the owner, and
   **never to logs**. Ship a one-line `ssh` command that prints the latest code

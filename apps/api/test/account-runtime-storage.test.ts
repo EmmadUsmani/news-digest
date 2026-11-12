@@ -229,15 +229,29 @@ void test('composed accounts persist mailbox login and single-use friend session
         await (await write('sync', saved, cookie)).json(),
         removed,
       );
+      assert.equal(
+        (await write('links', { email: 'http-friend@example.test' }, cookie))
+          .status,
+        403,
+      );
+      middleware = stored.middleware!;
       const issuedLink = await write(
         'links',
         { email: 'http-friend@example.test' },
         cookie,
       );
       assert.equal(issuedLink.status, 201);
+      const friendToken = (await issuedLink.json()).token;
+      middleware = closed.middleware!;
+      assert.equal(
+        (await post('link-redeem', { token: friendToken }, forwarded)).status,
+        401,
+      );
+      assert.equal(await identities.exists('http-friend@example.test'), false);
+      middleware = stored.middleware!;
       const friendLogin = await post(
         'link-redeem',
-        { token: (await issuedLink.json()).token },
+        { token: friendToken },
         forwarded,
       );
       assert.equal(friendLogin.status, 204);

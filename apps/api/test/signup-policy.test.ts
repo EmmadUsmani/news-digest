@@ -67,3 +67,31 @@ void test('eligibility fails closed on lookup failure and rejects malformed open
   ])
     assert.equal(await open.eligible(email), false);
 });
+
+void test('link admission follows signup mode and fails closed when existing-account lookup fails', async () => {
+  for (const mode of ['off', 'invite', 'open']) {
+    const policy = new SignupPolicy(
+      mode,
+      'provider',
+      async () => false,
+      new Set(['owner@example.com']),
+    );
+    assert.equal(
+      await policy.eligibleForLink('friend@example.com'),
+      mode !== 'off',
+    );
+    assert.equal(
+      await policy.eligibleForLink('owner@example.com'),
+      mode !== 'off',
+    );
+  }
+  const policy = new SignupPolicy(
+    'off',
+    'stand-in',
+    async () => {
+      throw new Error('unavailable');
+    },
+    new Set(),
+  );
+  assert.equal(await policy.eligibleForLink('friend@example.com'), false);
+});

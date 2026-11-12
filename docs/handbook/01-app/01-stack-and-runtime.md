@@ -113,7 +113,7 @@ Prepared public routing admits the deployed theme script and built JavaScript/CS
 
 ## Admin identity
 
-- Trusted proxy peers match exact addresses. IPv6 visitors share a /64 for API admission and sign-in challenges; IPv4 uses individual addresses. Code requests and redemption share a 100-attempt, 24-hour allowance per recipient/client, alongside the ten-minute limits. Code-request responses wait at least one second, including unknown recipients and throttled requests. With accounts enabled, admin access lasts seven days after a verified mailbox code. Sign-in links create reader sessions and cannot renew admin access. `GET /api/me` returns `{ isAdmin }` with caching disabled.
+- Trusted proxy peers match exact addresses. IPv6 visitors share a /64 for API admission and sign-in challenges; IPv4 uses individual addresses. Code requests and redemption share a 100-attempt, 24-hour allowance per recipient/client, alongside the ten-minute limits. Code-request responses wait at least one second, including unknown recipients and throttled requests. With accounts enabled, admin access lasts seven days after a verified mailbox code. Sign-in links create reader sessions and cannot renew admin access. With signup off, issuing and redeeming links requires an existing account. `GET /api/me` returns `{ isAdmin }` with caching disabled.
 - `/admin` and `/api/admin` paths return 404 unless `X-ExeDev-Email`
   exactly matches an entry in the comma-separated `ADMIN_EMAILS` setting.
 - Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the

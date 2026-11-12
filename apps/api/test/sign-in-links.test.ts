@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { CryptoSessionTokens } from '../src/modules/accounts/adapters/session-tokens';
 import { SignInLinks } from '../src/modules/accounts/application/sign-in-links';
+import { SignupPolicy } from '../src/modules/accounts/application/signup-policy';
 import type { RecipientCoordination } from '../src/modules/accounts/domain/recipient-coordination';
 import type { SignInLink } from '../src/modules/accounts/domain/sign-in-link';
 
@@ -13,6 +14,7 @@ function fixture(
   recipients: RecipientCoordination = { run: async (_email, work) => work() },
   onWrite: () => Promise<void> = async () => {},
   onSession: () => Promise<void> = async () => {},
+  eligible: (email: string) => Promise<boolean> = async () => true,
 ) {
   const tokens = new CryptoSessionTokens();
   const rows = new Map<string, SignInLink>();
@@ -66,6 +68,7 @@ function fixture(
       },
     },
     recipients,
+    eligible,
   );
   return {
     service,
@@ -339,4 +342,30 @@ void test('redemption holds the lock through session persistence and lock errors
   assert.ok(await pending);
   assert.equal(held, false);
   assert.equal(f.sessions.length, 1);
+});
+
+void test('signup off refuses new-account links at issuance and redemption while existing readers can sign in', async () => {
+  let mode = 'invite';
+  const existing = new Set<string>();
+  const f = fixture(undefined, undefined, undefined, (email) =>
+    new SignupPolicy(
+      mode,
+      'stand-in',
+      async (value) => existing.has(value),
+      new Set(),
+    ).eligibleForLink(email),
+  );
+  const token = 'A'.repeat(43);
+  const link = await f.service.issue(token, 'friend@example.test', NOW);
+  assert.ok(link);
+  mode = 'off';
+  assert.equal(await f.service.issue(token, 'new@example.test', NOW), null);
+  assert.equal(await f.service.redeem('POST', link.token, NOW), null);
+  assert.equal(f.consumes(), 0);
+  assert.equal(f.identities.length, 0);
+  assert.equal(f.sessions.length, 0);
+  assert.equal(f.audit.length, 1);
+  existing.add('friend@example.test');
+  assert.ok(await f.service.issue(token, 'friend@example.test', NOW));
+  assert.ok(await f.service.redeem('POST', link.token, NOW));
 });

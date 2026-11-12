@@ -21,6 +21,7 @@ export class SignInLinks {
       'authenticate' | 'issueVerifiedIdentity'
     >,
     private readonly recipients: RecipientCoordination,
+    private readonly eligible: (email: string) => Promise<boolean>,
   ) {}
 
   async issue(adminToken: string, recipient: string, now: Date) {
@@ -31,7 +32,7 @@ export class SignInLinks {
       // Recheck the issuer after waiting: revocation or an admin-policy change
       // must prevent a queued invitation from being written.
       const admin = await this.sessions.authenticate(adminToken, now);
-      if (!admin?.isAdmin) return null;
+      if (!admin?.isAdmin || !(await this.eligible(email))) return null;
       const token = this.tokens.generate();
       const expiresAt = new Date(now.getTime() + DAY_MS);
       await this.repository.issueWithAudit(
@@ -57,6 +58,7 @@ export class SignInLinks {
     return this.recipients.run(email, async () => {
       // Lookup only selects the lock. Deletion or another redemption while
       // waiting must prevent identity/session creation.
+      if (!(await this.eligible(email))) return null;
       if ((await this.repository.consume(hash, now)) !== email) return null;
       const userId = await this.identities.findOrCreateVerified(email, now);
       // A failed identity/session write leaves the link consumed: fail closed.

@@ -17,6 +17,11 @@ export class SignupPolicy {
     this.mode = mode;
   }
 
+  async eligibleForLink(email: string): Promise<boolean> {
+    if (this.mode !== 'off') return true;
+    return this.eligible(email);
+  }
+
   async eligible(emailInput: string): Promise<boolean> {
     const email = emailInput.trim().toLowerCase();
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))

@@ -108,6 +108,7 @@ export function prepareAccountHandlers(
       ports.identities,
       sessions,
       ports.recipients,
+      (email) => policy.eligibleForLink(email),
     ),
     new DeleteAccount(ports.deletion, new CryptoSessionTokens()),
     ports.sync,
