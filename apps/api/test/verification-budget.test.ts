@@ -96,3 +96,94 @@ void test('verification reservations serialize across ledgers, repairs and UTC r
     await db.end();
   }
 });
+
+void test('detailed admission snapshots preserve caps, old pending holds and atomic legacy admission', async () => {
+  const db = database();
+  const model = { ...llmConfig({}).haiku, id: 'detailed-admission-fixture' };
+  const request = {
+    model,
+    purpose: 'verification',
+    runId: 'detailed-admission-fixture',
+    instructions: '',
+    prompt: '',
+    maxOutputTokens: 1,
+  };
+  const ledger = new PostgresLlmLedger(db, {
+    monthly: 1,
+    dailyMax: 1,
+    modelAllocation: { model: model.id, dailyFraction: 0.8 },
+  });
+  const pending = crypto.randomUUID();
+  const uncertain = crypto.randomUUID();
+  try {
+    for (const [id, status] of [
+      [pending, 'pending'],
+      [uncertain, 'uncertain'],
+    ]) {
+      await db.query(
+        `INSERT INTO llm_calls
+        (id,model,purpose,run_id,status,reserved_micros,created_at)
+        VALUES ($1,$2,'verification',$3,$4,50000,now()-interval '2 months')`,
+        [id, model.id, request.runId, status],
+      );
+    }
+    const result = await ledger.reserveDetailed(request, 1);
+    assert.equal(result.status, 'refused');
+    if (result.status !== 'refused') assert.fail('expected refusal');
+    assert.deepEqual(result.reasons, [
+      'verification-cap',
+      'monthly-cap',
+      'daily-cap',
+      'model-allocation',
+    ]);
+    assert.equal(result.modelAvailableMicros, 0);
+    assert.equal(result.pendingHoldsOverflow, false);
+    assert.deepEqual(
+      result.pendingHolds.map((hold) => hold.id),
+      [pending],
+    );
+    assert.equal(result.pendingHolds[0].reservedMicros, 50000);
+    assert.ok(
+      Date.parse(result.pendingHolds[0].createdAt) < Date.now() - 86400000,
+    );
+    assert.equal(await ledger.reserve(request, 1), null);
+    await assert.rejects(
+      ledger.reserveDetailed(request, NaN),
+      /Invalid reservation/,
+    );
+    await db.query(
+      `INSERT INTO llm_calls
+      (id,model,purpose,run_id,status,reserved_micros)
+      SELECT gen_random_uuid(),$1,'verification',$2,'pending',1
+      FROM generate_series(1,64)`,
+      [model.id, request.runId],
+    );
+    const overflow = await ledger.reserveDetailed(request, 1);
+    assert.equal(overflow.status, 'refused');
+    if (overflow.status !== 'refused') assert.fail('expected refusal');
+    assert.equal(overflow.pendingHoldsOverflow, true);
+    assert.deepEqual(overflow.pendingHolds, []);
+    await db.query('DELETE FROM llm_calls WHERE run_id=$1', [request.runId]);
+    const generous = new PostgresLlmLedger(db, {
+      monthly: 1e12,
+      dailyMax: 1e12,
+    });
+    const normal = { ...request, purpose: 'editor' };
+    const admitted = await generous.reserveDetailed(normal, 1);
+    assert.equal(admitted.status, 'admitted');
+    const legacy = await generous.reserve(normal, 1);
+    assert.ok(legacy);
+    const { rows } = await db.query(
+      'SELECT id FROM llm_calls WHERE run_id=$1',
+      [request.runId],
+    );
+    assert.equal(rows.length, 2);
+    assert.deepEqual(
+      new Set(rows.map((row: { id: string }) => row.id)),
+      new Set([legacy, admitted.status === 'admitted' ? admitted.id : '']),
+    );
+  } finally {
+    await db.query('DELETE FROM llm_calls WHERE run_id=$1', [request.runId]);
+    await db.end();
+  }
+});

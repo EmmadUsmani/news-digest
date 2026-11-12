@@ -68,7 +68,7 @@ void test('reserve logs report committed policy and admission without request co
           },
       log,
     );
-    const work = ledger.reserve(
+    const work = ledger.reserveDetailed(
       {
         model: llmConfig({}).haiku,
         purpose: 'bluesky-social-editor-v1',
@@ -83,12 +83,22 @@ void test('reserve logs report committed policy and admission without request co
     if (scenario === 'rollback') await assert.rejects(work);
     else
       assert.equal(
-        (await work) !== null,
+        (await work).status === 'admitted',
         ['scheduled', 'released', 'disabled'].includes(scenario),
       );
     if (scenario === 'rollback') {
       assert.equal(lines.length, 0);
       continue;
+    }
+    const detailed = await work;
+    if (detailed.status === 'refused') {
+      assert.deepEqual(
+        detailed.reasons,
+        scenario === 'blocked'
+          ? ['provider-blocked', 'scheduled-reserve']
+          : ['scheduled-reserve'],
+      );
+      assert.equal(detailed.modelAvailableMicros, null);
     }
     const ledgerEntry = JSON.parse(lines[0]);
     assert.equal(ledgerEntry.event, 'budget.ledger-decision');
@@ -195,7 +205,7 @@ void test('ledger decisions distinguish model, shared and verification limits', 
           }
         : undefined,
     );
-    const result = await ledger.reserve(
+    const result = await ledger.reserveDetailed(
       {
         model,
         purpose: 'bluesky-social-editor-v1',
@@ -207,7 +217,12 @@ void test('ledger decisions distinguish model, shared and verification limits', 
       },
       30000,
     );
-    assert.equal(result !== null, ['admitted', 'exception'].includes(scenario));
+    assert.equal(
+      result.status === 'admitted',
+      ['admitted', 'exception'].includes(scenario),
+    );
+    if (result.status === 'refused')
+      assert.deepEqual(result.reasons, JSON.parse(lines[0]).refusalReasons);
     assert.equal(lines.length, 1);
     assert.ok(!lines[0].includes('private'));
     const entry = JSON.parse(lines[0]);
@@ -217,10 +232,10 @@ void test('ledger decisions distinguish model, shared and verification limits', 
         model: ['model-allocation'],
         daily: ['daily-cap'],
         monthly: ['monthly-cap', 'daily-cap', 'model-allocation'],
-        verification: ['verification-cap'],
+        verification: ['verification-cap', 'model-allocation'],
         admitted: [],
         exception: [],
-        'wrong-run': ['verification-cap'],
+        'wrong-run': ['verification-cap', 'model-allocation'],
       }[scenario],
     );
     assert.equal(

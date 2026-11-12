@@ -52,6 +52,13 @@ void test('reserve admission serializes competing spend and fences scheduled pri
   const ledger = new PostgresLlmLedger(db, caps, false, options);
   try {
     // Missing registration protects funds; arbitrary purpose text grants nothing.
+    const refusal = await ledger.reserveDetailed(request, 20001);
+    assert.equal(refusal.status, 'refused');
+    if (refusal.status !== 'refused') assert.fail('expected reserve refusal');
+    assert.deepEqual(refusal.reasons, ['scheduled-reserve']);
+    assert.equal(refusal.sharedAvailableMicros, 100000);
+    assert.equal(refusal.availableMicros, 20000);
+    assert.equal(refusal.modelAvailableMicros, null);
     assert.equal(await ledger.reserve(request, 20001), null);
     await budgets.register(clock.now, runId);
     const results = await Promise.all(

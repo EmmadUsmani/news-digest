@@ -1,6 +1,10 @@
 # Sonnet settlement admission contract
 
-Iteration 2014 design; production admission remains immediate. Implement the
+Iteration 2014 design; production admission remains immediate.
+Iteration 2015 implements typed atomic results and initial hold snapshots, with
+legacy callers preserved. Snapshots exceeding 64 holds return an explicit overflow
+flag and no partial IDs. Original-ID follow-up queries and caller deadlines remain
+unimplemented; waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 

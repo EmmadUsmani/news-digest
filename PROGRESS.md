@@ -184,3 +184,14 @@
 - Restarted API/worker outside protected hours; `/healthz` database/Redis healthy, zero alerts/failed units, 38 healthy sources. Digest queue staffed, zero active/failed jobs; next edition Nov 13 15:00 UTC.
 - Updated TASKS/daily review; no runtime, cap/allocation, provider, edition, UI, handbook or source changes; SOURCES/NEEDS_FROM_HUMAN unchanged. No provider spend.
 - Next: implement structured ledger results with waiting disabled, then enforce shared deadlines through queue/retries/fallback. Scheduled NBA acceptance remains pending.
+
+## 2026-11-12: iteration 2015 — implement structured atomic ledger admission
+
+- Clean main/no inherited work; initial health/alerts green, 38 healthy sources. No new failed digest jobs; next scheduled edition Nov 13 15:00 UTC.
+- Added optional `LlmLedger.reserveDetailed` capability and production implementation; legacy `reserve` maps the same single transaction to ID/null without double insertion. Waiting remains disabled; caps, models, providers and caller deadlines unchanged.
+- Refusals return all applicable typed gates, estimate/shared/effective/model availability and same-model pending-hold snapshots from the admission transaction. Old-period pending holds qualify; uncertain holds consume funds but are excluded. More than 64 holds returns explicit overflow with no partial IDs; hold IDs stay out of logs.
+- Added isolated regressions for combined gates, old pending/uncertain accounting, snapshot overflow, invalid estimates and exactly one insertion per admitted legacy/detailed call; scheduled reserve and provider/logging controls now assert detailed contracts. Updated old verification-only log expectations to include simultaneous model refusal.
+- Focused `pnpm exec tsx --test apps/api/test/reserve-logging.test.ts` passes (2 tests); offline settlement evaluation retains all 15 controls. Full verification results recorded below.
+- No UI/handbook/source/owner-gate or published-edition changes; SOURCES/NEEDS_FROM_HUMAN unchanged. No provider spend. Initial queue probe used invalid `digest`; corrected read-only probe to `digest-generation` succeeds.
+- Next: bounded original-ID follow-up tracking and shared caller deadline enforcement through queue/retries/fallback before enabling any settlement wait. Scheduled NBA acceptance remains pending.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/287 integration pass, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. Live edition readback has five topics/25 stories.

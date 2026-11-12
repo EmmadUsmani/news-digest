@@ -25,7 +25,11 @@ import {
   utcBudgetPeriod,
 } from '../domain/budget';
 import type { LlmRequest, TokenUsage } from '../domain/llm.port';
-import type { LlmLedger } from '../domain/llm-ledger.port';
+import type {
+  LlmLedger,
+  LlmRefusalReason,
+  LlmReservationResult,
+} from '../domain/llm-ledger.port';
 import {
   type ScheduledEditionState,
   scheduledReserveAllowance,
@@ -78,201 +82,243 @@ export class PostgresLlmLedger implements LlmLedger {
     }
   }
   async reserve(request: LlmRequest, estimate: number): Promise<string | null> {
+    const result = await this.reserveDetailed(request, estimate);
+    return result.status === 'admitted' ? result.id : null;
+  }
+  async reserveDetailed(
+    request: LlmRequest,
+    estimate: number,
+  ): Promise<LlmReservationResult> {
     if (!Number.isSafeInteger(estimate) || estimate <= 0)
       throw new Error('Invalid reservation');
     let reserveDecision: Record<string, unknown> | undefined;
     let admissionDecision: Record<string, unknown> | undefined;
-    const id = await this.transaction(async (client) => {
-      const orm = drizzle(client);
-      const now = await readReserveClock(client);
-      const period = utcBudgetPeriod(now);
-      const blocked = await orm
-        .select({ monthStart: llmProviderBlocks.monthStart })
-        .from(llmProviderBlocks)
-        .where(
-          eq(
-            llmProviderBlocks.monthStart,
-            period.monthStart.toISOString().slice(0, 10),
-          ),
-        );
-      const outstanding = inArray(llmCalls.status, ['pending', 'uncertain']);
-      const amount = sql`coalesce(${llmCalls.costMicros}, ${llmCalls.reservedMicros})`;
-      // Conditional sums retain outstanding reservations from earlier budget periods;
-      // Drizzle has no CASE expression builder. Cast sums to float8 as before.
-      const periodTotal = (start: Date) =>
-        sql<number>`coalesce(sum(case when ${llmCalls.createdAt} >= ${start.toISOString()} or ${outstanding} then ${amount} else 0 end), 0)::float8`;
-      const [totals] = await orm
-        .select({
-          month: periodTotal(period.monthStart),
-          today: periodTotal(period.dayStart),
-        })
-        .from(llmCalls)
-        .where(ne(llmCalls.status, 'failed'));
-      const usedSince = async (start: Date, filter: ReturnType<typeof eq>) => {
-        const [usage] = await orm
-          .select({ used: sql<number>`coalesce(sum(${amount}), 0)::float8` })
-          .from(llmCalls)
-          .where(
-            and(
-              filter,
-              ne(llmCalls.status, 'failed'),
-              or(gte(llmCalls.createdAt, start.toISOString()), outstanding),
-            ),
-          );
-        return usage.used;
-      };
-      const allowance = budgetAllowance(now, totals, this.caps);
-      // Share the existing lock across processes and repairs. Verification is
-      // stricter than the per-iteration owner limit: $0.05 for the whole UTC day.
-      const purpose = this.verification ? 'verification' : request.purpose;
-      admissionDecision = {
-        event: 'budget.ledger-decision',
-        target: 'anthropic',
-        runId: request.runId,
-        topicId: request.topicId,
-        purpose,
-        model: request.model.id,
-        budgetDay: now.toISOString().slice(0, 10),
-        estimateMicros: estimate,
-        dailyCapMicros: allowance.dailyCap,
-        dailyUsedMicros: totals.today,
-        monthlyCapMicros: this.caps.monthly,
-        monthlyUsedMicros: totals.month,
-        sharedAvailableMicros: allowance.available,
-        providerBlocked: blocked.length > 0,
-      };
-      if (purpose === 'verification') {
-        const verificationUsed = await usedSince(
-          period.dayStart,
-          eq(llmCalls.purpose, 'verification'),
-        );
-        admissionDecision.verificationUsedMicros = verificationUsed;
-        const verificationLimit =
-          this.verificationException?.runId === request.runId
-            ? this.verificationException.dailyLimitMicros
-            : 50000;
-        if (verificationUsed + estimate > verificationLimit) {
-          admissionDecision.refusalReasons = ['verification-cap'];
-          return null;
-        }
-      }
-      let available = allowance.available;
-      if (this.scheduled) {
-        const [slot] = await orm
-          .select({
-            run_id: scheduledAiBudgetDays.runId,
-            state: scheduledAiBudgetDays.state,
-            attempt: scheduledAiBudgetDays.attempt,
-          })
-          .from(scheduledAiBudgetDays)
+    const result = await this.transaction<LlmReservationResult>(
+      async (client) => {
+        const orm = drizzle(client);
+        const now = await readReserveClock(client);
+        const period = utcBudgetPeriod(now);
+        const blocked = await orm
+          .select({ monthStart: llmProviderBlocks.monthStart })
+          .from(llmProviderBlocks)
           .where(
             eq(
-              scheduledAiBudgetDays.budgetDay,
-              period.dayStart.toISOString().slice(0, 10),
+              llmProviderBlocks.monthStart,
+              period.monthStart.toISOString().slice(0, 10),
             ),
           );
-        const context = this.scheduled.context();
-        const noOccurrence =
-          !slot &&
-          this.scheduled.hasOccurrence !== undefined &&
-          !(await this.scheduled.hasOccurrence(
-            client,
-            now.toISOString().slice(0, 10),
-          ));
-        const scheduledRun =
-          !this.verification &&
-          purpose !== 'verification' &&
-          slot?.state === 'running' &&
-          context !== undefined &&
-          slot.run_id === context.runId &&
-          slot.attempt === context.attempt &&
-          request.runId === context.editionRunId;
-        const reserve = scheduledReserveAllowance(
-          {
-            dailyCap: allowance.dailyCap,
-            available: allowance.available,
-            todayUsed: totals.today,
-            recentFullAiEditionCosts: await readFullAiEditionCosts(client, now),
-            // Missing lifecycle state fails closed until the scheduler reconciles it.
-            state:
-              (slot?.state as ScheduledEditionState | undefined) ??
-              (noOccurrence ? 'not-scheduled' : 'pending'),
-            scheduledRun,
-          },
-          this.scheduled.policy,
-        );
-        available = reserve.availableMicros;
-        reserveDecision = {
-          event: 'budget.reserve-decision',
+        const outstanding = inArray(llmCalls.status, ['pending', 'uncertain']);
+        const amount = sql`coalesce(${llmCalls.costMicros}, ${llmCalls.reservedMicros})`;
+        // Conditional sums retain outstanding reservations from earlier budget periods;
+        // Drizzle has no CASE expression builder. Cast sums to float8 as before.
+        const periodTotal = (start: Date) =>
+          sql<number>`coalesce(sum(case when ${llmCalls.createdAt} >= ${start.toISOString()} or ${outstanding} then ${amount} else 0 end), 0)::float8`;
+        const [totals] = await orm
+          .select({
+            month: periodTotal(period.monthStart),
+            today: periodTotal(period.dayStart),
+          })
+          .from(llmCalls)
+          .where(ne(llmCalls.status, 'failed'));
+        const usedSince = async (
+          start: Date,
+          filter: ReturnType<typeof eq>,
+        ) => {
+          const [usage] = await orm
+            .select({ used: sql<number>`coalesce(sum(${amount}), 0)::float8` })
+            .from(llmCalls)
+            .where(
+              and(
+                filter,
+                ne(llmCalls.status, 'failed'),
+                or(gte(llmCalls.createdAt, start.toISOString()), outstanding),
+              ),
+            );
+          return usage.used;
+        };
+        const allowance = budgetAllowance(now, totals, this.caps);
+        // Share the existing lock across processes and repairs. Verification is
+        // stricter than the per-iteration owner limit: $0.05 for the whole UTC day.
+        const purpose = this.verification ? 'verification' : request.purpose;
+        admissionDecision = {
+          event: 'budget.ledger-decision',
           target: 'anthropic',
+          runId: request.runId,
+          topicId: request.topicId,
+          purpose,
+          model: request.model.id,
           budgetDay: now.toISOString().slice(0, 10),
-          state: slot?.state ?? (noOccurrence ? 'not-scheduled' : 'pending'),
-          scheduledRun,
           estimateMicros: estimate,
           dailyCapMicros: allowance.dailyCap,
-          availableMicros: available,
-          reserveMicros: reserve.reserveMicros,
-          otherSpendLimitMicros: reserve.otherSpendLimitMicros,
-          limitedByReserve: reserve.limitedByReserve,
-          reserveInsufficient:
-            available < estimate && allowance.available >= estimate,
+          dailyUsedMicros: totals.today,
+          monthlyCapMicros: this.caps.monthly,
+          monthlyUsedMicros: totals.month,
+          sharedAvailableMicros: allowance.available,
+          providerBlocked: blocked.length > 0,
         };
-      }
-      const allocation = this.caps.modelAllocation;
-      let modelAvailable = Infinity;
-      if (allocation && request.model.id === allocation.model) {
-        const modelUsed = await usedSince(
-          period.dayStart,
-          eq(llmCalls.model, allocation.model),
-        );
-        admissionDecision.modelUsedMicros = modelUsed;
-        admissionDecision.modelDailyFraction = allocation.dailyFraction;
-        modelAvailable = modelBudgetAvailable(
-          allowance.dailyCap,
-          modelUsed,
-          allocation.dailyFraction,
-        );
-      }
-      const refusalReasons: string[] = [];
-      if (blocked.length) refusalReasons.push('provider-blocked');
-      if (this.caps.monthly - totals.month < estimate)
-        refusalReasons.push('monthly-cap');
-      if (allowance.dailyCap - totals.today < estimate)
-        refusalReasons.push('daily-cap');
-      if (available < estimate && allowance.available >= estimate)
-        refusalReasons.push('scheduled-reserve');
-      if (modelAvailable < estimate) refusalReasons.push('model-allocation');
-      Object.assign(admissionDecision, {
-        availableMicros: available,
-        modelAvailableMicros: Number.isFinite(modelAvailable)
-          ? modelAvailable
-          : null,
-        refusalReasons,
-      });
-      if (blocked.length || Math.min(available, modelAvailable) < estimate)
-        return null;
-      const id = crypto.randomUUID();
-      await orm.insert(llmCalls).values({
-        id,
-        model: request.model.id,
-        purpose,
-        runId: request.runId,
-        status: 'pending',
-        reservedMicros: estimate,
-      });
-      return id;
-    });
+        const refusalReasons: LlmRefusalReason[] = [];
+        if (purpose === 'verification') {
+          const verificationUsed = await usedSince(
+            period.dayStart,
+            eq(llmCalls.purpose, 'verification'),
+          );
+          admissionDecision.verificationUsedMicros = verificationUsed;
+          const verificationLimit =
+            this.verificationException?.runId === request.runId
+              ? this.verificationException.dailyLimitMicros
+              : 50000;
+          if (verificationUsed + estimate > verificationLimit) {
+            refusalReasons.push('verification-cap');
+          }
+        }
+        let available = allowance.available;
+        if (this.scheduled) {
+          const [slot] = await orm
+            .select({
+              run_id: scheduledAiBudgetDays.runId,
+              state: scheduledAiBudgetDays.state,
+              attempt: scheduledAiBudgetDays.attempt,
+            })
+            .from(scheduledAiBudgetDays)
+            .where(
+              eq(
+                scheduledAiBudgetDays.budgetDay,
+                period.dayStart.toISOString().slice(0, 10),
+              ),
+            );
+          const context = this.scheduled.context();
+          const noOccurrence =
+            !slot &&
+            this.scheduled.hasOccurrence !== undefined &&
+            !(await this.scheduled.hasOccurrence(
+              client,
+              now.toISOString().slice(0, 10),
+            ));
+          const scheduledRun =
+            !this.verification &&
+            purpose !== 'verification' &&
+            slot?.state === 'running' &&
+            context !== undefined &&
+            slot.run_id === context.runId &&
+            slot.attempt === context.attempt &&
+            request.runId === context.editionRunId;
+          const reserve = scheduledReserveAllowance(
+            {
+              dailyCap: allowance.dailyCap,
+              available: allowance.available,
+              todayUsed: totals.today,
+              recentFullAiEditionCosts: await readFullAiEditionCosts(
+                client,
+                now,
+              ),
+              // Missing lifecycle state fails closed until the scheduler reconciles it.
+              state:
+                (slot?.state as ScheduledEditionState | undefined) ??
+                (noOccurrence ? 'not-scheduled' : 'pending'),
+              scheduledRun,
+            },
+            this.scheduled.policy,
+          );
+          available = reserve.availableMicros;
+          reserveDecision = {
+            event: 'budget.reserve-decision',
+            target: 'anthropic',
+            budgetDay: now.toISOString().slice(0, 10),
+            state: slot?.state ?? (noOccurrence ? 'not-scheduled' : 'pending'),
+            scheduledRun,
+            estimateMicros: estimate,
+            dailyCapMicros: allowance.dailyCap,
+            availableMicros: available,
+            reserveMicros: reserve.reserveMicros,
+            otherSpendLimitMicros: reserve.otherSpendLimitMicros,
+            limitedByReserve: reserve.limitedByReserve,
+            reserveInsufficient:
+              available < estimate && allowance.available >= estimate,
+          };
+        }
+        const allocation = this.caps.modelAllocation;
+        let modelAvailable = Infinity;
+        if (allocation && request.model.id === allocation.model) {
+          const modelUsed = await usedSince(
+            period.dayStart,
+            eq(llmCalls.model, allocation.model),
+          );
+          admissionDecision.modelUsedMicros = modelUsed;
+          admissionDecision.modelDailyFraction = allocation.dailyFraction;
+          modelAvailable = modelBudgetAvailable(
+            allowance.dailyCap,
+            modelUsed,
+            allocation.dailyFraction,
+          );
+        }
+        if (blocked.length) refusalReasons.push('provider-blocked');
+        if (this.caps.monthly - totals.month < estimate)
+          refusalReasons.push('monthly-cap');
+        if (allowance.dailyCap - totals.today < estimate)
+          refusalReasons.push('daily-cap');
+        if (available < estimate && allowance.available >= estimate)
+          refusalReasons.push('scheduled-reserve');
+        if (modelAvailable < estimate) refusalReasons.push('model-allocation');
+        Object.assign(admissionDecision, {
+          availableMicros: available,
+          modelAvailableMicros: Number.isFinite(modelAvailable)
+            ? modelAvailable
+            : null,
+          refusalReasons,
+        });
+        if (refusalReasons.length) {
+          const holds = await orm
+            .select({
+              id: llmCalls.id,
+              model: llmCalls.model,
+              reservedMicros: llmCalls.reservedMicros,
+              createdAt: llmCalls.createdAt,
+            })
+            .from(llmCalls)
+            .where(
+              and(
+                eq(llmCalls.model, request.model.id),
+                eq(llmCalls.status, 'pending'),
+              ),
+            )
+            .orderBy(llmCalls.id)
+            .limit(65);
+          return {
+            status: 'refused',
+            reasons: refusalReasons,
+            estimateMicros: estimate,
+            sharedAvailableMicros: allowance.available,
+            availableMicros: available,
+            modelAvailableMicros: Number.isFinite(modelAvailable)
+              ? modelAvailable
+              : null,
+            pendingHolds: holds.length > 64 ? [] : holds,
+            pendingHoldsOverflow: holds.length > 64,
+          };
+        }
+        const id = crypto.randomUUID();
+        await orm.insert(llmCalls).values({
+          id,
+          model: request.model.id,
+          purpose,
+          runId: request.runId,
+          status: 'pending',
+          reservedMicros: estimate,
+        });
+        return { status: 'admitted', id };
+      },
+    );
     if (admissionDecision)
       this.log.info(
-        { ...admissionDecision, outcome: id === null ? 'refused' : 'admitted' },
+        { ...admissionDecision, outcome: result.status },
         'LLM ledger admission',
       );
     if (reserveDecision)
       this.log.info(
-        { ...reserveDecision, outcome: id === null ? 'refused' : 'admitted' },
+        { ...reserveDecision, outcome: result.status },
         'Scheduled reserve admission',
       );
-    return id;
+    return result;
   }
   async settle(id: string, usage: TokenUsage, cost: number) {
     await drizzle(this.db)
