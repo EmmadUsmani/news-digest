@@ -148,3 +148,15 @@
 - Next: remaining minor admission finding, authenticated proxy checks and scheduled post-fix five-topic edition acceptance, then lead re-check/owner decision.
 - Full `pnpm check` passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips). `pnpm format`, `pnpm lint:fix`, build and diff checks pass; existing bundle warnings only.
 - Shortened handbook after its line-limit refusal; filtered check passes (39 tables). Archived iterations 1863–1869 and older completed task markers. Rebuilt API/worker/docs restarted; health and 14-service checks pass. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1880 — share visitor admission across tool routes
+
+- Clean main/no inherited work; zero alerts and all 14 services healthy. Continued item 58 minor findings; public mode remains off.
+- API and proxied handbook/explorer/logs/metrics namespaces, including tool assets, share the 120/minute visitor allowance before accounts, authorization and proxy work. Health and app static paths retain their bypass.
+- Composed HTTP refusal regression covers GET/HEAD/POST, query strings, empty no-store denials, namespace boundaries and a shared API/tool allowance. Targeted admission/access tests pass 9/9.
+- Updated access plan and runtime handbook; filtered handbook check passes (39 tables). No diagram edits, provider calls, budget changes, sharing or accepted-screen reruns. SOURCES.md unchanged.
+- Read-only status confirms 38 nonempty sources/zero errors; four queues have one worker each, next digest Nov 12 15:00 UTC.
+- `pnpm check` passed typecheck/lint/format/boundaries and 877 unit tests; integration exposed authorization fixtures exhausting the newly shared allowance. Separated fixture visitors and supplied browser visitor headers; real Redis exhaustion now also refuses explorer/handbook/metrics.
+- `pnpm build`, filtered handbook and diff checks pass (existing bundle warning only). Final `pnpm test:integration` passes 286 with four expected skips; `pnpm format` and `pnpm lint:fix` pass.
+- Rebuilt API/worker/docs restarted; initial immediate health probe raced startup, then direct `/healthz` and `pnpm obs health` pass. All 14 services healthy, zero alerts; 38 sources healthy, digest queue zero failed/one worker. Commit/push and final main-matching restart follow.
+- Next: authenticated exe.dev header/shared-port checks remain owner-blocked as documented; scheduled post-fix five-topic acceptance at 15:00 UTC, then lead re-check/owner decision.

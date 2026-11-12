@@ -561,7 +561,9 @@ allowance is 120 requests/minute; denied attempts do not extend the window.
 Missing client identity and Redis failure refuse admission. This adapter is
 unregistered. Prepared HTTP enforcement (iteration 1573) gates API requests before
 downstream work, returns empty no-store 429 responses on denial or dependency
-failure, and leaves health/static traffic alone. Disabled mode opens no admission
+failure, and leaves health/app static traffic alone. API and tool namespaces
+(`/docs`, `/db`, `/logs`, `/metrics`), including tool assets, now share the
+visitor allowance before accounts, authorization and proxying (iteration 1880). Disabled mode opens no admission
 dependency. Prepared access-stack/runtime composition (iteration 1576) can now
 apply the caller-supplied gate before account transport and public authorization,
 while retaining security headers on refusals. Composed HTTP tests verify denied

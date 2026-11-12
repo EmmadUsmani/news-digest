@@ -227,7 +227,17 @@ void test('configured full public application serves published fixtures and enfo
       'X-Forwarded-For': '192.0.2.1, 203.0.113.91, 203.0.113.91',
     };
     const get = (path: string, init: RequestInit = {}) =>
-      fetch(base + path, { ...init, headers: { ...headers, ...init.headers } });
+      fetch(base + path, {
+        ...init,
+        headers: {
+          ...headers,
+          // Keep tool policy checks separate from the API exhaustion scenario.
+          ...(/^\/(?:docs|db|logs|metrics)(?:[/?]|$)/.test(path) && {
+            'X-Forwarded-For': '203.0.113.93, 203.0.113.93',
+          }),
+          ...init.headers,
+        },
+      });
     // Anonymous technical reports reach the real receiver in public mode.
     const report = {
       kind: 'error',
@@ -684,7 +694,9 @@ void test('configured full public application serves published fixtures and enfo
       '/logs/select/logsql/stream_field_values?query=_time:1m&limit=1',
       '/logs/select/logsql/query_time_range?query=_time:1m&limit=1',
     ];
+    let telemetryVisitor = 1;
     const checkTelemetry = async (actorCookie: string, allowed: boolean) => {
+      const exportVisitor = `198.51.100.${telemetryVisitor++}`;
       const exportPath =
         '/metrics/prometheus/api/v1/export?match%5B%5D=up&start=1000&end=1060';
       for (const [method, path] of [
@@ -701,6 +713,7 @@ void test('configured full public application serves published fixtures and enfo
           method,
           headers: {
             Cookie: actorCookie,
+            'X-Forwarded-For': `${exportVisitor}, ${exportVisitor}`,
             Authorization: 'Bearer forged',
             'X-ExeDev-Email': configuration.ADMIN_EMAILS,
             admin_local_token: 'forged-local-token',
@@ -727,6 +740,9 @@ void test('configured full public application serves published fixtures and enfo
       }
 
       for (const method of ['GET', 'POST', 'HEAD']) {
+        // Each authorization matrix batch stays below the shared tool/API
+        // allowance. Exhaustion is verified separately through real Redis.
+        const visitor = `198.51.100.${telemetryVisitor++}`;
         for (const path of [
           ...telemetryQueries,
           ...telemetryMetadata,
@@ -755,7 +771,7 @@ void test('configured full public application serves published fixtures and enfo
                 Origin: configuration.ACCOUNT_ORIGIN,
                 'Content-Type': 'application/x-www-form-urlencoded',
               }),
-              'X-Forwarded-For': '203.0.113.98, 203.0.113.98',
+              'X-Forwarded-For': `${visitor}, ${visitor}`,
               'X-ExeDev-Email': configuration.ADMIN_EMAILS,
               Authorization: 'Bearer forged',
               admin_local_token: 'forged-local-token',
@@ -789,13 +805,18 @@ void test('configured full public application serves published fixtures and enfo
     // HTTPS browser transport is virtual: every request is fulfilled locally.
     // Synthetic series only. An optional explicit capture adds installed assets;
     // the isolated test never contacts live telemetry or asset services.
+    let browserVisitor = 1;
     const checkBrowserExport = async (
       actorCookie: string,
       allowed: boolean,
     ) => {
       const browser = await chromium.launch({ headless: true });
       try {
-        const context = await browser.newContext({ serviceWorkers: 'block' });
+        const visitor = `198.51.101.${browserVisitor++}`;
+        const context = await browser.newContext({
+          serviceWorkers: 'block',
+          extraHTTPHeaders: { 'X-Forwarded-For': `${visitor}, ${visitor}` },
+        });
         if (actorCookie) {
           const separator = actorCookie.indexOf('=');
           await context.addCookies([
@@ -1329,6 +1350,8 @@ void test('configured full public application serves published fixtures and enfo
             method,
             headers: {
               Cookie: actorCookie,
+              // Keep this tool-refusal matrix out of the account lifecycle budget.
+              'X-Forwarded-For': '198.51.102.1, 198.51.102.1',
               Origin: configuration.ACCOUNT_ORIGIN,
               'X-ExeDev-Email': configuration.ADMIN_EMAILS,
               admin_local_token: 'forged-local-token',
@@ -1893,8 +1916,15 @@ void test('configured full public application serves published fixtures and enfo
       assert.equal(response.status, 200);
       assert.equal(await response.text(), '');
     }
-    for (const path of ['/api/account/session', '/api/queues']) {
-      const limited = await get(path);
+    for (const path of [
+      '/api/account/session',
+      '/api/queues',
+      '/db/api/schema',
+      '/docs/',
+      '/metrics/api/v1/query?query=up',
+    ]) {
+      // The exhausted reader must also be refused by the proxied tool routes.
+      const limited = await get(path, { headers });
       assert.equal(limited.status, 429);
       assert.equal(await limited.text(), '');
     }

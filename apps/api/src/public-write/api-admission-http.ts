@@ -24,7 +24,12 @@ export function apiAdmissionHttp(options: {
     next: () => void,
   ): Promise<void> => {
     const path = (request.url ?? '').split('?')[0];
-    if (!admission || (path !== '/api' && !path.startsWith('/api/'))) {
+    // Tool requests can query stores or render documents outside /api. Share
+    // the visitor allowance before any account, authorization or proxy work.
+    const limited = ['/api', '/docs', '/db', '/logs', '/metrics'].some(
+      (prefix) => path === prefix || path.startsWith(`${prefix}/`),
+    );
+    if (!admission || !limited) {
       next();
       return;
     }

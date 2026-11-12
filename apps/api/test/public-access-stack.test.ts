@@ -6,6 +6,90 @@ import { adminAccess } from '../src/admin-access';
 import { publicAccess } from '../src/public-access';
 import { prepareAccessStack } from '../src/public-write/access-stack';
 
+void test('public tool requests share API admission before authorization and proxy work', async () => {
+  let remaining = 1;
+  let admissionCalls = 0;
+  let accounts = 0;
+  let authorization = 0;
+  let downstream = 0;
+  const middleware = prepareAccessStack({
+    publicMode: true,
+    apiAdmission: {
+      client: () => 'verified-visitor',
+      admission: () => ({
+        allow: async () => {
+          admissionCalls++;
+          return remaining-- > 0;
+        },
+      }),
+    },
+    accounts: (_req, _res, next) => {
+      accounts++;
+      next();
+    },
+    publicAccess: () => (_req, _res, next) => {
+      authorization++;
+      next();
+    },
+    legacyAccess: () => {
+      throw new Error('must not construct');
+    },
+  });
+  const server = createServer((req, res) =>
+    middleware(req, res, () => {
+      downstream++;
+      res.writeHead(204).end();
+    }),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address !== 'string');
+  const base = `http://127.0.0.1:${address.port}`;
+  try {
+    assert.equal((await fetch(base + '/api/editions')).status, 204);
+    for (const path of [
+      '/docs',
+      '/docs/?q=1',
+      '/docs/style.css',
+      '/db',
+      '/db/api/schema',
+      '/logs/select/logsql/query?query=*',
+      '/metrics/api/v1/query?query=up',
+    ]) {
+      for (const method of ['GET', 'HEAD', 'POST']) {
+        const response = await fetch(base + path, { method });
+        assert.equal(response.status, 429, `${method} ${path}`);
+        assert.equal(response.headers.get('cache-control'), 'no-store');
+        assert.equal(await response.text(), '');
+      }
+    }
+    assert.equal(accounts, 1);
+    assert.equal(authorization, 1);
+    assert.equal(downstream, 1);
+    const calls = admissionCalls;
+    for (const path of [
+      '/healthz',
+      '/',
+      '/assets/app.js',
+      '/docsify',
+      '/database',
+      '/logs-other',
+      '/metrics-other',
+    ]) {
+      assert.equal((await fetch(base + path)).status, 204);
+    }
+    assert.equal(admissionCalls, calls);
+    remaining = 1;
+    assert.equal((await fetch(base + '/db/api/schema')).status, 204);
+    assert.equal((await fetch(base + '/api/editions')).status, 429);
+  } finally {
+    server.closeAllConnections();
+    await new Promise<void>((resolve, reject) =>
+      server.close((error) => (error ? reject(error) : resolve())),
+    );
+  }
+});
+
 void test('public access stack replaces legacy identity headers and keeps account transport first', async () => {
   let authentication = 0;
   let downstream = 0;
