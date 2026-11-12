@@ -1,6 +1,5 @@
 // Saved reader content, fixture account transport only; no live account writes.
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
 
 import { chromium, expect } from 'playwright/test';
 
@@ -8,13 +7,14 @@ import {
   mergeReaderSync,
   type ReaderSyncState,
 } from '../apps/api/src/modules/accounts/domain/reader-sync';
+import { spawnTestServer } from './lib/test-server';
 
 async function main() {
   const edition = await (
     await fetch('http://127.0.0.1:8000/api/editions/latest')
   ).json();
   const origin = 'http://127.0.0.1:4188';
-  const server = spawn(
+  const server = spawnTestServer(
     'pnpm',
     [
       '--filter',
@@ -261,8 +261,8 @@ async function main() {
       'Reader account integration and two-device bookmark/tombstone sync pass (fixture accounts).',
     );
   } finally {
+    server.stop();
     await browser?.close();
-    if (server.pid) process.kill(-server.pid, 'SIGTERM');
   }
 }
 void main();

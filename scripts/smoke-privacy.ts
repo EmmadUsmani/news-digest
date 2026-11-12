@@ -1,9 +1,10 @@
 // Isolated Vite UI checks; no account or external service requests.
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
 import { mkdir } from 'node:fs/promises';
 
 import { chromium, expect } from 'playwright/test';
+
+import { spawnTestServer } from './lib/test-server';
 
 async function main() {
   await mkdir('docs/screenshots/privacy', { recursive: true });
@@ -11,7 +12,7 @@ async function main() {
   try {
     for (const enabled of ['0', '1']) {
       const origin = 'http://127.0.0.1:4197';
-      const server = spawn(
+      const server = spawnTestServer(
         'pnpm',
         [
           '--filter',
@@ -92,10 +93,11 @@ async function main() {
           }
         }
       } finally {
-        if (server.pid) process.kill(-server.pid, 'SIGTERM');
-        await new Promise<void>((resolve) =>
-          server.once('exit', () => resolve()),
-        );
+        server.stop();
+        if (server.exitCode === null && server.signalCode === null)
+          await new Promise<void>((resolve) =>
+            server.once('exit', () => resolve()),
+          );
       }
     }
     console.log(

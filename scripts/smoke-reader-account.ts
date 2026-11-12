@@ -1,9 +1,10 @@
 // Isolated prepared UI with fixture state/actions; no live account requests.
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
 import { rm, writeFile } from 'node:fs/promises';
 
 import { chromium, expect } from 'playwright/test';
+
+import { spawnTestServer } from './lib/test-server';
 
 async function smoke() {
   const harness = 'apps/web/account-smoke.tsx';
@@ -30,7 +31,7 @@ const root = createRoot(document.getElementById('root'));
 window.renderAccount({});
 `,
   );
-  const server = spawn(
+  const server = spawnTestServer(
     'pnpm',
     [
       '--filter',
@@ -302,8 +303,8 @@ window.renderAccount({});
       'Prepared reader account controls pass desktop/mobile fixture checks; disabled UI hidden.',
     );
   } finally {
+    server.stop();
     await browser?.close();
-    if (server.pid) process.kill(-server.pid, 'SIGTERM');
     await rm(harness, { force: true });
   }
 }

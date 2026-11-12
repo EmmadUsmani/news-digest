@@ -142,3 +142,14 @@
 - Live predeploy: 38/38 sources healthy, zero failed digest-generation jobs, next edition Nov 12 15:00 UTC. No provider calls, migrations, source/budget/access-flag changes. Archived iterations 1858–1862 to keep this file small.
 - Next: item 58.9 leftover test services, then listed read-only checks/minor items; Nov 12 five-topic scheduled acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
 - Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1873 — stop stale test servers and own smoke children
+
+- Clean main/no inherited work; initial alerts empty and health/services green. Read item 58 private review; public mode remains off.
+- Confirmed the three Nov 2 processes belonged to deleted /tmp/nd-test; stopped only those PIDs. Ports 8011/8101/8201 no longer listen; production API/docs/explorer remain healthy.
+- Shared smoke-server ownership kills the complete child process group on cleanup, process exit, SIGINT or SIGTERM; account/privacy scripts use it. Account cleanup stops servers before closing the browser. Uncatchable SIGKILL remains outside Node exit hooks.
+- New subprocess regressions start a server grandchild and prove its port can be rebound after owner exit/SIGINT/SIGTERM: targeted test 3/3 pass. No accepted-screen reruns, live provider calls, migrations or access/budget changes.
+- Live checks: 38/38 sources healthy, zero failed digest-generation jobs, one worker and next scheduled run Nov 12 15:00 UTC. Verification/deployment results follow.
+- Next: item 58.10 read-only checks and minor findings; Nov 12 first five-topic scheduled acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
+- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; existing bundle warning only. Final focused eslint --fix and git diff --check pass. No handbook change needed for test-only process ownership.
+- Rebuilt API/worker/docs restarted outside the hold; pnpm obs health/services/sources --check pass, 38 healthy sources, zero alerts, zero failed digest jobs. Stale ports still closed. Commit/push and final main-matching restart follow.
