@@ -98,7 +98,7 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
   // Pin the additional failures that a Curry-summary-only fix would conceal.
   assert.deepEqual(
     replay.results.map((r) => r.absenceFailures.map((f) => f.field)),
-    [['summary', 'brief'], ['summary', 'brief'], ['summary'], ['brief']],
+    [['summary', 'brief'], ['summary', 'brief'], [], ['brief']],
   );
   assert.match(
     replay.results[3].absenceFailures[0].text,

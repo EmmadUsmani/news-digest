@@ -110,6 +110,57 @@ function supportsAttributedAbsence(
   );
 }
 
+// Reorder one complete attributed report into departure followed by absence.
+// A surname subject resolves only against the full name in that same report.
+function supportsCombinedAbsence(claim: string, evidence: Set<string>) {
+  const rewrite =
+    /^([\p{L}’'-]+(?: [\p{L}’'-]+)?) left (.+) with (.+), and the (.+) are bracing to be without him for (.+), (?:according to (.+) of (.+)|(.+) of (.+) writes)$/u.exec(
+      claim,
+    );
+  if (!rewrite) return false;
+  const [
+    ,
+    subject,
+    event,
+    condition,
+    team,
+    duration,
+    reporter,
+    outlet,
+    trailingReporter,
+    trailingOutlet,
+  ] = rewrite;
+  for (const sentence of evidence) {
+    const source =
+      /^the (.+) are bracing to be without ([\p{L}’'-]+ [\p{L}’'-]+) for (.+) after he left (.+) with (.+), writes (.+) of (.+)$/u.exec(
+        sentence,
+      );
+    if (!source) continue;
+    const [
+      ,
+      sourceTeam,
+      person,
+      sourceDuration,
+      sourceEvent,
+      sourceCondition,
+      sourceReporter,
+      sourceOutlet,
+    ] = source;
+    if (
+      (subject === person || subject === person.split(' ')[1]) &&
+      team === sourceTeam &&
+      duration === sourceDuration &&
+      event.replace(/\bgame\b/g, 'contest').replace(/’/g, "'") ===
+        sourceEvent.replace(/’/g, "'") &&
+      condition === sourceCondition &&
+      (reporter ?? trailingReporter) === sourceReporter &&
+      (outlet ?? trailingOutlet) === sourceOutlet
+    )
+      return true;
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
@@ -128,7 +179,8 @@ export function assertAbsenceSupport(
       !inputs.has(claim) &&
       !(
         allowNbaSummaryRewrite &&
-        (supportsAvailabilityRewrite(claim, inputs) ||
+        (supportsCombinedAbsence(claim, inputs) ||
+          supportsAvailabilityRewrite(claim, inputs) ||
           supportsAttributedQuote(claim, evidence) ||
           supportsAttributedAbsence(
             claim,

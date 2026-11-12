@@ -172,3 +172,46 @@ void test('attributed absence resolves the player only through the matching prec
     assertAbsenceSupport(renamed(summary), curry.map(renamed), 'summary', true),
   );
 });
+
+void test('combined attributed absence preserves the complete report and resolves its surname', () => {
+  const summary = fixture.entries[2].output.stories.find((s) =>
+    s.summary.includes('bracing'),
+  )!.summary;
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(summary, curry, 'summary', true),
+  );
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(
+      summary.replace(/Curry/g, 'Example'),
+      curry.map((input) => input.replace(/Curry/g, 'Example')),
+      'summary',
+      true,
+    ),
+  );
+  const firstSentence =
+    fixture.entries[0].output.stories
+      .find((s) => s.summary.includes('Stephen Curry'))!
+      .summary.split('. ')[0] + '.';
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(firstSentence, curry, 'summary', true),
+  );
+  for (const claim of [
+    summary.replace('few games', 'few months'),
+    summary.replace('are bracing to be', 'will be'),
+    summary.replace('Nick Friedell', 'Steve Kerr'),
+    summary.replace('The Athletic', 'ESPN'),
+    summary.replace('the Warriors', 'the Lakers'),
+    summary.replace('Curry left', 'Reaves left'),
+    summary.replace('right abdominal', 'left abdominal'),
+    summary.replace('Houston', 'Boston'),
+    summary.replace(', according to Nick Friedell of The Athletic', ''),
+    summary.replace('few games,', 'few games without a return timeline,'),
+  ])
+    assert.throws(
+      () => assertAbsenceSupport(claim, curry, 'summary', true),
+      claim,
+    );
+  assert.throws(() => assertAbsenceSupport(summary, reaves, 'summary', true));
+  assert.throws(() => assertAbsenceSupport(summary, curry, 'brief'));
+  assert.throws(() => assertAbsenceSupport(summary, curry, 'summary'));
+});

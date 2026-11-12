@@ -48,27 +48,7 @@
 
 [Iterations 1878–1879](docs/progress-archive/2026-11-12-iterations-1878-1879.md).
 
-## 2026-11-12: iteration 1880 — share visitor admission across tool routes
-
-- Clean main/no inherited work; zero alerts and all 14 services healthy. Continued item 58 minor findings; public mode remains off.
-- API and proxied handbook/explorer/logs/metrics namespaces, including tool assets, share the 120/minute visitor allowance before accounts, authorization and proxy work. Health and app static paths retain their bypass.
-- Composed HTTP refusal regression covers GET/HEAD/POST, query strings, empty no-store denials, namespace boundaries and a shared API/tool allowance. Targeted admission/access tests pass 9/9.
-- Updated access plan and runtime handbook; filtered handbook check passes (39 tables). No diagram edits, provider calls, budget changes, sharing or accepted-screen reruns. SOURCES.md unchanged.
-- Read-only status confirms 38 nonempty sources/zero errors; four queues have one worker each, next digest Nov 12 15:00 UTC.
-- `pnpm check` passed typecheck/lint/format/boundaries and 877 unit tests; integration exposed authorization fixtures exhausting the newly shared allowance. Separated fixture visitors and supplied browser visitor headers; real Redis exhaustion now also refuses explorer/handbook/metrics.
-- `pnpm build`, filtered handbook and diff checks pass (existing bundle warning only). Final `pnpm test:integration` passes 286 with four expected skips; `pnpm format` and `pnpm lint:fix` pass.
-- Rebuilt API/worker/docs restarted; initial immediate health probe raced startup, then direct `/healthz` and `pnpm obs health` pass. All 14 services healthy, zero alerts; 38 sources healthy, digest queue zero failed/one worker. Commit/push and final main-matching restart follow.
-- Next: authenticated exe.dev header/shared-port checks remain owner-blocked as documented; scheduled post-fix five-topic acceptance at 15:00 UTC, then lead re-check/owner decision.
-
-## 2026-11-12: iteration 1881 — consolidate security fix handoff
-
-- Clean main/no inherited work. Item 58 code fixes are deployed; added a commit-indexed handoff and linked it from readiness/TASKS without declaring acceptance or adding the final steering ack.
-- Read the private review; all listed code findings have fixes. Authenticated exe.dev header/shared-target checks remain owner-blocked; Nov 12 15:00 UTC post-fix scheduled publication remains pending. No proxy setup, public activation, paid run or accepted-screen rerun.
-- Initial worker scrape alert followed the preceding restart and cleared unaided. Direct `/healthz`, `pnpm obs health`, services/targets/sources checks pass: 14 services, eight targets, 38 sources; zero alerts. Digest-generation has one worker/zero failed jobs and next run 15:00 UTC.
-- `pnpm obs --help` and jobs `--check --queue digest` were unsupported; corrected to the documented jobs snapshot and actual digest-generation queue. Historical other-queue failures remain retained; sources are currently healthy.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook check (39 tables, no diagrams) and `git diff --check` pass. Existing build warnings only. Docs service restarted; API health remains green.
-- Full `pnpm check` passes typecheck/lint/format/boundaries, 877 unit tests and 286 integration tests (four expected skips). SOURCES.md unchanged because no source behavior changed. Docs-only commit/push and final main-matching docs restart follow.
-- Next: authenticated proxy evidence and scheduled five-topic acceptance; then final item 58 ack, lead re-check and owner decision.
+[Iterations 1880–1881](docs/progress-archive/2026-11-12-iterations-1880-1881.md).
 
 ## 2026-11-12: iteration 1882 — passive metrics recovery follow-up
 
@@ -182,3 +162,13 @@
 - Verification: `pnpm exec tsx --test apps/api/test/nba-absence-safety.test.ts apps/api/test/nba-rejection-replay.test.ts apps/api/test/absence-support.test.ts` (10 passing); offline replay; `pnpm format`, `pnpm lint:fix`, `pnpm check` (885 unit/286 integration passing, four expected skips), `pnpm build` pass. Existing bundle warning only.
 - API/worker restarted after 16:00 UTC; startup retry reaches healthy `/healthz`, all 38 sources healthy, zero failed units and zero firing/pending alerts. Digest-generation queue staffed, zero failed/active jobs, next edition Nov 13 15:00 UTC.
 - Updated TASKS and daily review. No provider calls, prompt/model/budget changes, saved-edition writes or UI/handbook/source changes; SOURCES/NEEDS_FROM_HUMAN unchanged. Next: remaining Curry summaries/briefs with the existing attribution, duration, certainty and selection controls intact.
+
+## 2026-11-12: iteration 2009 — preserve combined attributed absence reports
+
+- Clean main/no inherited work; zero alerts, healthy database/Redis, no failed units and all 38 sources healthy. Initial orientation output was too broad; subsequent reads bounded.
+- NBA-summary guard now accepts a complete attributed departure/absence report with same-source full-name or surname subject. Team, event, injury, duration, hedge, reporter and outlet must match; no player-specific exemption.
+- Saved Haiku initial Curry summary passes; Sonnet initial first sentence passes in isolation but its shortened Kerr uncertainty sentence still fails. Complete offline replay retains four rejected outputs; five absence-field refusals remain, down from six. Invalid selection remains rejected.
+- Ten altered claims, unrelated evidence, brief use and non-NBA use fail; evidence-derived renamed player passes. No provider calls, prompt/budget changes or saved-edition writes.
+- Verification: targeted absence/replay tests (11 passing); offline production replay; `pnpm format`, `pnpm lint:fix`, `pnpm check` (886 unit/286 integration passing, four expected skips), `pnpm build` pass. Existing bundle warning only.
+- API/worker restarted after protected window; initial readiness fetch retried successfully. `/healthz` healthy, all 38 sources healthy, no failed units and zero alerts. Digest queue staffed, zero active/failed jobs, next edition Nov 13 15:00 UTC.
+- Updated TASKS/daily review; archived iterations 1880–1881 to bound progress. No UI/handbook/source/owner-gate changes; SOURCES/NEEDS_FROM_HUMAN unchanged. Next: remaining Curry summaries/briefs with existing safety controls intact.
