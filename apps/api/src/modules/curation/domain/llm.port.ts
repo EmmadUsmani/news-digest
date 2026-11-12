@@ -25,8 +25,15 @@ export interface LlmResponse {
   text: string;
   usage: TokenUsage;
 }
+/** Internal execution metadata; never part of prompts or persistent cache identity. */
+export interface LlmExecutionContext {
+  readonly deadline: number; // Absolute performance.now() time in this process.
+}
 export abstract class LlmPort {
-  abstract complete(request: LlmRequest): Promise<LlmResponse>;
+  abstract complete(
+    request: LlmRequest,
+    execution?: LlmExecutionContext,
+  ): Promise<LlmResponse>;
 }
 export class ProviderSpendLimit extends Error {}
 

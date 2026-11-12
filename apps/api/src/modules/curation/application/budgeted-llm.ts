@@ -3,6 +3,7 @@ import { ZodError } from 'zod';
 import { logger } from '../../../libs/observability/logging';
 import { costMicros } from '../domain/budget';
 import {
+  type LlmExecutionContext,
   type LlmPort,
   type LlmRequest,
   ProviderNotDispatched,
@@ -28,6 +29,11 @@ export type LlmJsonOutcome<T> =
         | 'validation-failed'
         | 'input-limit';
     };
+
+interface JsonOptions {
+  repair?: boolean;
+  execution?: LlmExecutionContext;
+}
 
 export class BudgetedLlm {
   private readonly failures: ValidationDiagnostic[] = [];
@@ -110,16 +116,21 @@ export class BudgetedLlm {
     string,
     Promise<LlmJsonOutcome<unknown>>
   >();
+  private readonly scopedPending = new WeakMap<
+    LlmExecutionContext,
+    Map<string, Promise<LlmJsonOutcome<unknown>>>
+  >();
   constructor(
     private readonly llm: LlmPort,
     private readonly ledger: LlmLedger,
     private readonly log = logger,
     private readonly rejectedEditors?: RejectedEditorStore,
+    private readonly now = () => performance.now(),
   ) {}
   async json<T>(
     request: LlmRequest,
     validate: (value: unknown) => T,
-    options: { repair?: boolean } = {},
+    options: JsonOptions = {},
   ): Promise<T | null> {
     const outcome = await this.jsonOutcome(request, validate, options);
     return outcome.status === 'complete' ? outcome.value : null;
@@ -129,7 +140,7 @@ export class BudgetedLlm {
   async jsonOutcome<T>(
     request: LlmRequest,
     validate: (value: unknown) => T,
-    options: { repair?: boolean } = {},
+    options: JsonOptions = {},
   ): Promise<LlmJsonOutcome<T>> {
     if (
       !Number.isSafeInteger(request.maxOutputTokens) ||
@@ -145,20 +156,33 @@ export class BudgetedLlm {
       throw new Error('Split prompt below 100k token bound');
     const key = llmFingerprint(request);
     const pendingKey = `${key}:${options.repair !== false}`;
-    const existing = this.pending.get(pendingKey);
+    let pending = this.pending;
+    if (options.execution) {
+      pending =
+        this.scopedPending.get(options.execution) ??
+        new Map<string, Promise<LlmJsonOutcome<unknown>>>();
+      this.scopedPending.set(options.execution, pending);
+    }
+    const existing = pending.get(pendingKey);
     if (existing) {
       const result = await existing;
       return result.status === 'complete'
         ? { status: 'complete', value: validate(result.value) }
         : result;
     }
-    const work = this.resolve(request, key, validate, options.repair !== false);
-    this.pending.set(pendingKey, work);
+    const work = this.resolve(
+      request,
+      key,
+      validate,
+      options.repair !== false,
+      options.execution,
+    );
+    pending.set(pendingKey, work);
     try {
       return await work;
     } finally {
       // Refusals and errors must not become a permanent in-memory cache.
-      this.pending.delete(pendingKey);
+      pending.delete(pendingKey);
     }
   }
   private async resolve<T>(
@@ -166,6 +190,7 @@ export class BudgetedLlm {
     key: string,
     validate: (value: unknown) => T,
     repair: boolean,
+    execution?: LlmExecutionContext,
   ): Promise<LlmJsonOutcome<T>> {
     const cached = await this.ledger.cached(key);
     if (cached !== undefined) {
@@ -179,6 +204,12 @@ export class BudgetedLlm {
     // Each repair is separately reserved and recorded. Only rejected rate-limit requests may retry inside the adapter.
     let feedback = '';
     for (let attempt = 0; attempt < (repair ? 2 : 1); attempt++) {
+      if (
+        execution &&
+        (!Number.isFinite(execution.deadline) ||
+          this.now() >= execution.deadline)
+      )
+        return { status: 'provider-call-failed' };
       const current = attempt
         ? {
             ...request,
@@ -225,7 +256,7 @@ export class BudgetedLlm {
       if (!id) return { status: 'budget-refused' };
       let response;
       try {
-        response = await this.llm.complete(current);
+        response = await this.llm.complete(current, execution);
       } catch (error) {
         const limit = error instanceof ProviderSpendLimit;
         const unused = error instanceof ProviderNotDispatched;

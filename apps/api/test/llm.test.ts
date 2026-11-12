@@ -1403,3 +1403,148 @@ void test('provider HTTP timeout shrinks to remaining logical call time', async 
   await assert.rejects(() => adapter.complete(request));
   assert.equal(aborted, true);
 });
+
+void test('execution expiry stops repairs without a second reservation and preserves context', async () => {
+  let now = 0;
+  const execution = Object.freeze({ deadline: 10 });
+  const ledger = new MemoryLedger();
+  const llm: LlmPort = {
+    async complete(_request, context) {
+      assert.equal(context, execution);
+      now = 10;
+      return { text: 'invalid-json', usage };
+    },
+  };
+  const service = new BudgetedLlm(llm, ledger, undefined, undefined, () => now);
+  assert.deepEqual(await service.jsonOutcome(request, valid, { execution }), {
+    status: 'provider-call-failed',
+  });
+  assert.equal(ledger.calls.length, 1);
+  assert.equal(ledger.calls[0].cost !== undefined, true);
+  for (const deadline of [0, NaN, Infinity]) {
+    assert.equal(
+      await service.json(request, valid, { execution: { deadline } }),
+      null,
+    );
+  }
+  assert.equal(ledger.calls.length, 1);
+});
+
+void test('in-flight work shares only within the same execution context; cache stays shared', async () => {
+  let calls = 0;
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const llm: LlmPort = {
+    async complete() {
+      calls++;
+      await gate;
+      return { text: '{"ok":true}', usage };
+    },
+  };
+  const ledger = new MemoryLedger();
+  const service = new BudgetedLlm(llm, ledger);
+  const execution = Object.freeze({ deadline: performance.now() + 10000 });
+  const first = service.json(request, valid, { execution });
+  const same = service.json(request, valid, { execution });
+  const other = service.json(request, valid, { execution: { ...execution } });
+  const manual = service.json(request, valid);
+  await new Promise<void>((resolve) => setImmediate(resolve));
+  assert.equal(calls, 3);
+  release();
+  await Promise.all([first, same, other, manual]);
+  assert.deepEqual(
+    await service.json(request, valid, { execution: { deadline: 0 } }),
+    { ok: true },
+  );
+  assert.equal(calls, 3);
+});
+
+void test('caller deadline bounds queue and HTTP dispatch without resetting the logical allowance', async () => {
+  const adapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async () => {
+      throw new Error('unexpected dispatch');
+    },
+    undefined,
+    undefined,
+    2,
+    () => 100,
+  );
+  for (const deadline of [100, 99, NaN, Infinity])
+    await assert.rejects(
+      () => adapter.complete(request, { deadline }),
+      ProviderNotDispatched,
+    );
+  const slots = new InferenceSlots(1, 10000);
+  let release!: () => void;
+  const active = slots.run(
+    () =>
+      new Promise<void>((resolve) => {
+        release = resolve;
+      }),
+  );
+  await assert.rejects(
+    () => slots.run(async () => assert.fail('expired dispatch'), 5),
+    ProviderNotDispatched,
+  );
+  release();
+  await active;
+  assert.equal(await slots.run(async () => 7), 7);
+});
+
+void test('caller deadline shortens HTTP timeout and prevents a retry after late backoff', async () => {
+  let aborted = false;
+  const timeoutAdapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async (_input, init) =>
+      new Promise<Response>((_resolve, reject) => {
+        const signal = init?.signal;
+        assert.ok(signal);
+        const abort = () => {
+          aborted = true;
+          reject(new Error('offline abort'));
+        };
+        if (signal.aborted) abort();
+        else signal.addEventListener('abort', abort, { once: true });
+      }),
+    undefined,
+    undefined,
+    2,
+    () => 100,
+  );
+  await assert.rejects(() =>
+    timeoutAdapter.complete(request, { deadline: 120 }),
+  );
+  assert.equal(aborted, true);
+  let now = 0;
+  let calls = 0;
+  const retryAdapter = new AnthropicLlmAdapter(
+    'offline-fixture-key',
+    async () => {
+      calls++;
+      return new Response(
+        JSON.stringify({
+          type: 'error',
+          error: { type: 'rate_limit_error', message: 'Rejected' },
+        }),
+        { status: 429, headers: { 'content-type': 'application/json' } },
+      );
+    },
+    async () => {
+      now = 2000;
+    },
+    undefined,
+    2,
+    () => now,
+  );
+  await assert.rejects(
+    () => retryAdapter.complete(request, { deadline: 2000 }),
+    (error: unknown) => {
+      assert.ok(!(error instanceof ProviderNotDispatched));
+      return true;
+    },
+  );
+  assert.equal(calls, 1);
+});

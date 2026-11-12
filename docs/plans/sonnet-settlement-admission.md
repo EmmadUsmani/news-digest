@@ -7,7 +7,9 @@ flag and no partial IDs. Iteration 2016 adds bounded original-ID follow-up queri
 filtered to the original model and pending status without expanding the ID set.
 Iteration 2017 bounds process-local inference slot waiting to ten seconds and
 releases proven undispatched holds without blocking the provider. Shared caller
-deadlines remain unimplemented; waiting stays disabled. Implement the
+deadlines are supported at the BudgetedLlm/provider boundary (2019), including
+repair reuse and execution-scoped in-flight coalescing. Scheduled generation
+and editorial fallback do not yet supply a context; waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 

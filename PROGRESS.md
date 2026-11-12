@@ -131,3 +131,14 @@
 - Next: propagate a trusted shared scheduled deadline through generation, repairs and fallback, including coalescing scope, before enabling bounded settlement waits. Scheduled NBA acceptance remains pending.
 - Final verification: sequential `pnpm check` passes (893 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` and `git diff --check` pass.
 - Restarted API/worker outside protected hours; both active, `/healthz` database/Redis healthy, zero alerts and staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories.
+
+## 2026-11-12: iteration 2019 — shared LLM execution deadlines
+
+- Clean main/no inherited work. Initial health/alerts green; all 38 sources healthy, digest queue staffed with zero failed jobs. Next scheduled edition Nov 13 15:00 UTC.
+- Added internal monotonic execution contexts separate from prompts/cache identity. BudgetedLlm reuses the context across repairs and stops expired work before another reservation; completed cached results remain available.
+- In-flight calls coalesce only within the same context object; manual callers retain their separate scope. Provider slot admission, HTTP timeout and retry/backoff use the shorter caller/logical allowance. Undispatched versus uncertain accounting remains unchanged.
+- Offline controls cover expired/invalid deadlines, repair settlement without another reservation, coalescing isolation/shared cache, queue recovery, HTTP abort and late retry refusal. Focused suite: 40 pass; settlement evaluation: 15 controls pass.
+- Updated affected handbook/admission plan and TASKS. Scheduled generation/editorial fallback do not yet supply the context; waiting remains disabled. No paid calls, cap/model/provider/source/UI/publication changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: format/lint-fix pass after correcting an untyped Map; sequential `pnpm check` passes (897 unit/287 integration, four expected skips). Handbook and diff checks pass; build/restart final results recorded below.
+- Next: wire one shared scheduled context through generation/editorial fallback, verify fallback behavior, then consider settlement waits. Scheduled NBA acceptance remains pending.
+- Final: `pnpm build` passes (existing bundle warning only). API/worker restarted active outside protected hours; `/healthz` database/Redis healthy, zero alerts and staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories.

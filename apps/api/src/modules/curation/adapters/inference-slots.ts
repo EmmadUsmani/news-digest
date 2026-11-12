@@ -20,8 +20,14 @@ export class InferenceSlots {
       throw new Error('Invalid inference slot limits');
   }
 
-  async run<T>(work: () => Promise<T>): Promise<T> {
-    const end = this.now() + this.queueTimeoutMs;
+  async run<T>(
+    work: () => Promise<T>,
+    remainingMs = this.queueTimeoutMs,
+  ): Promise<T> {
+    if (!Number.isFinite(remainingMs) || remainingMs <= 0)
+      throw new ProviderNotDispatched('inference-queue-expired');
+    const allowance = Math.min(this.queueTimeoutMs, remainingMs);
+    const end = this.now() + allowance;
     if (this.active < this.capacity) this.active++;
     else
       await new Promise<void>((resolve, reject) => {
@@ -30,7 +36,7 @@ export class InferenceSlots {
           if (index >= 0) this.waiting.splice(index, 1);
           reject(new ProviderNotDispatched('inference-queue-expired'));
         };
-        const timer = setTimeout(expire, this.queueTimeoutMs);
+        const timer = setTimeout(expire, allowance);
         const acquire = () => {
           clearTimeout(timer);
           resolve();

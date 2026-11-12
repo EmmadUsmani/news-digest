@@ -5,6 +5,7 @@ import { logger } from '../../../libs/observability/logging';
 import { llmFingerprint } from '../application/llm-fingerprint';
 import { costMicros } from '../domain/budget';
 import {
+  type LlmExecutionContext,
   LlmPort,
   type LlmRequest,
   type LlmResponse,
@@ -45,10 +46,21 @@ export class AnthropicLlmAdapter extends LlmPort {
       fetch: measuredFetch('anthropic', fetch ?? globalThis.fetch),
     });
   }
-  complete(request: LlmRequest): Promise<LlmResponse> {
+  complete(
+    request: LlmRequest,
+    execution?: LlmExecutionContext,
+  ): Promise<LlmResponse> {
     // Retain the slot during backoff to avoid increasing pressure on rejection.
-    const end = this.now() + 200000;
-    return inferenceSlots.run(() => this.completeWithRetries(request, end));
+    const started = this.now();
+    if (execution && !Number.isFinite(execution.deadline))
+      return Promise.reject(
+        new ProviderNotDispatched('invalid-inference-deadline'),
+      );
+    const end = Math.min(started + 200000, execution?.deadline ?? Infinity);
+    return inferenceSlots.run(
+      () => this.completeWithRetries(request, end),
+      end - started,
+    );
   }
   private async completeWithRetries(
     request: LlmRequest,
