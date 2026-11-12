@@ -8,7 +8,13 @@ const dailyCap = 650_000;
 const fraction = 0.8;
 const intervalMs = 250;
 const maxWaitMs = 5_000;
-const providerHeadroomMs = 60_000;
+// Candidate planning allowance, not a production deadline or measured bound.
+// Three 60-second HTTP attempts + two <=10-second 429 backoffs.
+const providerHeadroomMs = 200_000;
+const queueHeadroomMs = 10_000;
+const completionHeadroomMs = 90_000;
+const startHeadroomMs =
+  providerHeadroomMs + queueHeadroomMs + completionHeadroomMs;
 type State = {
   modelUsed: number;
   sharedAvailable: number;
@@ -38,7 +44,7 @@ function probe(
   initial: State,
   requests: Request[],
   changes: Change[],
-  deadlineMs = 120_000,
+  deadlineMs = 600_000,
   cancelledAtMs = Infinity,
 ) {
   const state = { ...initial };
@@ -50,10 +56,10 @@ function probe(
     while (events.length && events[0].at <= at) events.shift()!.apply(state);
     for (const request of [...waiting]) {
       let status: string | undefined;
-      // Keep a whole provider timeout available; equality is conservatively
-      // refused because no allowance remains for dispatch/settlement/fallback.
+      // Preserve the proposed queue, logical-call and completion allowances.
+      // The real queue is currently unbounded; production needs enforcement.
       if (at >= cancelledAtMs) status = 'cancelled';
-      else if (at + providerHeadroomMs >= deadlineMs) status = 'deadline';
+      else if (at + startHeadroomMs >= deadlineMs) status = 'deadline';
       else {
         attempts++;
         const available = modelBudgetAvailable(
@@ -180,15 +186,29 @@ expectStatus(
   ],
   'other-gate',
 );
-expectStatus(later, [], 'deadline', 60_000);
-expectStatus(later, [release(2_660, 74_578, 11_680)], 'deadline', 62_000);
+expectStatus(later, [], 'deadline', startHeadroomMs);
+expectStatus(
+  later,
+  [release(2_660, 74_578, 11_680)],
+  'deadline',
+  startHeadroomMs + 2_000,
+);
 expectStatus(
   later,
   [release(2_660, 74_578, 11_680)],
   'cancelled',
-  120_000,
+  600_000,
   1_000,
 );
+// A single HTTP timeout does not cover rate-limit retries or slot admission.
+expectStatus(later, [release(0, 74_578, 11_680)], 'deadline', 120_000);
+const justEnough = probe(
+  later,
+  [worldBluesky],
+  [release(0, 74_578, 11_680)],
+  startHeadroomMs + 1,
+);
+assert.equal(justEnough.outcomes[0].status, 'admitted');
 const edge = probe(later, [worldBluesky], [release(5_000, 74_578, 11_680)]);
 assert.equal(edge.outcomes[0].waitedMs, 5_000);
 assert.equal(edge.outcomes[0].status, 'admitted');
@@ -198,8 +218,10 @@ console.log(
     intervalMs,
     maxWaitMs,
     providerHeadroomMs,
+    queueHeadroomMs,
+    completionHeadroomMs,
     individual,
     competing,
-    controls: 13,
+    controls: 15,
   }),
 );

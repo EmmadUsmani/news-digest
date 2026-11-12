@@ -172,3 +172,15 @@
 - Verification: `pnpm exec tsx scripts/evaluate-settlement-wait.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build`, `git diff --check` pass. Existing bundle warning only.
 - API/worker restarted outside protected hours; startup retry reaches healthy database/Redis, zero failed units/alerts, 38 healthy sources. Digest queue staffed, zero active/failed jobs; next scheduled edition Nov 13 15:00 UTC.
 - Updated TASKS/daily review; no UI, handbook, source, owner-gate, budget/allocation or published-edition changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no new provider spend.
+
+## 2026-11-12: iteration 2014 — specify safe settlement admission contracts
+
+- Clean main/no inherited work; health green, no failed units/alerts, 38 healthy sources. No actionable new private proxy receipt; owner gates remain unchanged.
+- Added implementation design for typed atomic refusal/original-hold snapshots, legacy reserve compatibility, bounded original-ID tracking, trusted caller deadlines and adapter cancellation/accounting gates. Waiting stays disabled.
+- Found a deadline gap: 60 seconds is one HTTP attempt; current logical calls also have an unbounded inference queue and up to two 429 retries/backoffs. Design requires bounding these before enabling waits.
+- Strengthened offline evaluation with candidate 200-second logical-call, ten-second slot and 90-second completion allowances in a 600-second caller budget. These are proposals, not runtime limits or measured publication guarantees.
+- All 15 controls pass, including ready-but-insufficient deadline and combined-headroom boundaries; historical individual/competing admission results unchanged with sufficient time.
+- Verification: `pnpm exec tsx scripts/evaluate-settlement-wait.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build`, `git diff --check` pass. Existing bundle warning only.
+- Restarted API/worker outside protected hours; `/healthz` database/Redis healthy, zero alerts/failed units, 38 healthy sources. Digest queue staffed, zero active/failed jobs; next edition Nov 13 15:00 UTC.
+- Updated TASKS/daily review; no runtime, cap/allocation, provider, edition, UI, handbook or source changes; SOURCES/NEEDS_FROM_HUMAN unchanged. No provider spend.
+- Next: implement structured ledger results with waiting disabled, then enforce shared deadlines through queue/retries/fallback. Scheduled NBA acceptance remains pending.
