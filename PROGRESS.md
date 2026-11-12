@@ -161,3 +161,14 @@
 - Updated daily review and TASKS with bounded settlement-wait evaluation as the next admission step, retaining competing-request/deadline constraints. No UI/handbook/source/owner-gate changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build`, offline NBA replay and `git diff --check` pass. Existing bundle warning only.
 - API/worker restarted outside protected hours; `/healthz` healthy, no failed units/zero alerts. Scheduled timing readback: latest run completed, zero retained failures, next edition Nov 13 15:00 UTC. Next: offline bounded-wait evaluation; scheduled NBA acceptance remains pending.
+
+## 2026-11-12: iteration 2013 — evaluate bounded settlement waits offline
+
+- Clean main/no inherited work; `/healthz` healthy, no failed units/alerts, all 38 sources healthy. Initial orientation output truncated; subsequent reads bounded.
+- Added `scripts/evaluate-settlement-wait.ts`: deterministic saved-ledger snapshots, production allocation arithmetic, no database/secrets/provider calls or runtime changes. Reconfirmed Nov 12 figures with `node /tmp/iteration-2012-admission.cjs` in a read-only transaction.
+- Candidate 250-ms polls/five-second bound individually admit the three estimates after 1.750/4.500/2.750 seconds. At the later shared snapshot only one competing request fits; both atomic reservation orders preserve caps. This is local counterfactual evidence, not a whole-edition replay or guaranteed improvement.
+- Thirteen controls pass for missing/late settlement, absent original hold, no/negative release, initial/new other-gate refusal, deadlines, cancellation and exact wait boundary. At most 21 attempts/request; full pending estimates remain charged until settlement.
+- Production ledger still returns null on refusal; caller has no propagated edition deadline. Next: structured refusal/original-hold visibility and caller deadline before wiring any bounded wait. Scheduled NBA acceptance remains open.
+- Verification: `pnpm exec tsx scripts/evaluate-settlement-wait.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check` (888 unit/286 integration pass, four expected skips), `pnpm build`, `git diff --check` pass. Existing bundle warning only.
+- API/worker restarted outside protected hours; startup retry reaches healthy database/Redis, zero failed units/alerts, 38 healthy sources. Digest queue staffed, zero active/failed jobs; next scheduled edition Nov 13 15:00 UTC.
+- Updated TASKS/daily review; no UI, handbook, source, owner-gate, budget/allocation or published-edition changes. SOURCES/NEEDS_FROM_HUMAN unchanged; no new provider spend.
