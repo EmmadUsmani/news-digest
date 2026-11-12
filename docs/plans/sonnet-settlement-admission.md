@@ -27,6 +27,11 @@ the enabled internal policy offline: initial and repair settlement admission,
 settled-but-still-refused Haiku fallback, expiry during waiting, missing execution
 context and legacy/partial-ledger immediate paths. It verifies model dispatch,
 shared context, separately settled reservations and no dispatch after expiry.
+Iteration 2024 adds a real Postgres composition control: two waiting callers
+freeze the same original hold, settle it during sleep, and race atomic admission.
+Exactly one obtains a reservation; the other stops after original settlement,
+with no duplicate insertion or extension by the winning hold. Settlement from
+inside the sleep callback verifies that no admission lock is retained.
 Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.

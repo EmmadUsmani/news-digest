@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { admitAfterSettlement } from '../src/modules/curation/application/settlement-admission';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { PostgresScheduledBudgetRepository } from '../src/modules/curation/database/scheduled-budget.repository';
@@ -516,6 +517,97 @@ void test('background triage cannot spend an inherited reserve and editions reus
       'DELETE FROM scheduled_ai_budget_days WHERE budget_day=$1 AND run_id=$2',
       [day, runId],
     );
+    await db.end();
+  }
+});
+
+void test('real ledger settlement admits only one competing waiter without extending original holds', async () => {
+  const db = database();
+  const model = {
+    ...llmConfig({}).sonnet,
+    id: 'settlement-integration-sonnet',
+  };
+  const request = {
+    model,
+    purpose: 'fixture',
+    runId: 'settlement-integration',
+    instructions: '',
+    prompt: '',
+    maxOutputTokens: 1,
+  };
+  const {
+    rows: [baseline],
+  } = await db.query<{ used: number }>(
+    `SELECT COALESCE(sum(COALESCE(cost_micros,reserved_micros)),0)::float8 AS used
+     FROM llm_calls WHERE status <> 'failed'
+     AND (created_at >= CURRENT_DATE OR status IN ('pending','uncertain'))`,
+  );
+  const dailyMax = baseline.used + 200000;
+  const ledger = new PostgresLlmLedger(db, {
+    monthly: 1e12,
+    dailyMax,
+    modelAllocation: { model: model.id, dailyFraction: 80000 / dailyMax },
+  });
+  try {
+    const original = await ledger.reserve(request, 70000);
+    assert.ok(original);
+    let arrivals = 0;
+    let release!: () => void;
+    const bothSleeping = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const waits = [0, 1].map(async () => {
+      let time = 0;
+      return admitAfterSettlement(ledger, request, 50000, {
+        scheduled: true,
+        sonnetModel: model.id,
+        execution: { deadline: 600000 },
+        now: () => time,
+        sleep: async (ms) => {
+          time += ms;
+          if (++arrivals === 2) {
+            // Awaiting a separate transaction here also proves admission released
+            // its advisory lock and connection before sleeping.
+            await ledger.settle(
+              original,
+              { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+              10000,
+            );
+            release();
+          }
+          await bothSleeping;
+        },
+      });
+    });
+    const outcomes = await Promise.all(waits);
+    assert.deepEqual(outcomes.map((outcome) => outcome.stop).sort(), [
+      'admitted',
+      'holds-settled',
+    ]);
+    for (const outcome of outcomes) {
+      assert.equal(outcome.attempts, 2);
+      assert.equal(outcome.originalHoldCount, 1);
+      assert.equal(outcome.waitedMs, 250);
+    }
+    const { rows } = await db.query<{
+      status: string;
+      reserved_micros: number;
+      cost_micros: number | null;
+    }>(
+      'SELECT status,reserved_micros::float8 AS reserved_micros,cost_micros::float8 AS cost_micros FROM llm_calls WHERE model=$1',
+      [model.id],
+    );
+    assert.equal(rows.length, 2);
+    assert.equal(rows.filter((row) => row.status === 'pending').length, 1);
+    assert.equal(
+      rows.reduce(
+        (sum, row) => sum + (row.cost_micros ?? row.reserved_micros),
+        0,
+      ),
+      60000,
+    );
+  } finally {
+    await db.query('DELETE FROM llm_calls WHERE model=$1', [model.id]);
     await db.end();
   }
 });

@@ -184,3 +184,15 @@
 - Production waiting remains disabled; no paid calls, cap/model/provider changes, source changes or saved-edition mutation. Updated TASKS and admission plan; runtime handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Verification: focused editor suite 33/33; `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/287 integration pass, four expected skips), `pnpm build`, handbook check, settlement evaluation (15 controls) and `git diff --check` pass. Existing bundle warning only.
 - Next: review remaining admission rollout gates before enabling waits. Natural scheduled NBA AI-edited acceptance remains pending.
+
+## 2026-11-12: iteration 2024 — real ledger settlement composition
+
+- Clean main/no inherited work. Initial alerts and health green; all 38 sources healthy, digest queue staffed/zero failures; next scheduled edition Nov 13 15:00 UTC.
+- Added an isolated real-Postgres settlement control: two waiters freeze the same original hold; settlement during sleep frees budget; exactly one atomic admission wins and the other stops without extending to the new hold.
+- Verified two ledger rows, one pending reservation, 60,000 microdollars accounted, two attempts/250 ms per caller and released admission locks during sleep. Production waiting remains disabled.
+- Corrected two test-fixture mistakes found by integration runs: insufficient shared allowance caused a mixed refusal; raw bigint strings required numeric SQL projections. Focused disposable-container file then passed 5/5.
+- One repeated unit run stalled in unchanged telemetry transport coverage; stopped it, standalone file passed 3/3, subsequent full unit runs passed. No production telemetry changes.
+- Final verification: pnpm format, pnpm lint:fix, pnpm check (920 unit/288 integration pass, four expected skips), pnpm build, handbook check, settlement evaluation (15 controls), git diff --check pass. Existing bundle warning only.
+- Updated TASKS and admission plan. No live LLM calls or source/UI/schema/publication changes; SOURCES, NEEDS_FROM_HUMAN and runtime handbook unchanged.
+- API/worker restart and health readback recorded after push. Live latest edition retains five topics/25 stories.
+- Next: verify scheduled publication after AI deadline expiry before enabling settlement waits; natural scheduled NBA AI-edited acceptance remains pending.
