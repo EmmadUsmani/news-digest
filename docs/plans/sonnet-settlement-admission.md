@@ -1,6 +1,6 @@
 # Sonnet settlement admission contract
 
-Iteration 2014 design; production admission remains immediate.
+Iteration 2014 design; bounded production waiting enabled in iteration 2026.
 Iteration 2015 implements typed atomic results and initial hold snapshots, with
 legacy callers preserved. Snapshots exceeding 64 holds return an explicit overflow
 flag and no partial IDs. Iteration 2016 adds bounded original-ID follow-up queries,
@@ -36,8 +36,10 @@ Iteration 2025 adds an expired scheduled-execution control through the productio
 preview repository and real Postgres: source-excerpt editions remain published
 and retrievable by scheduled key and published ID, with no new reservation or
 provider dispatch. The offline fixture does not alter saved live editions.
-Waiting stays disabled. Implement the
-contracts and offline tests before enabling a wait. Keep all caps, allocations,
+Iteration 2026 reviewed the implementation gates below and enabled the internal
+editorial policy after the isolated composition and publication controls passed.
+No paid replay is needed; review the next natural scheduled edition.
+Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 
 ## Ledger result
@@ -135,3 +137,19 @@ results are application contracts, not new public API responses.
   Review the next natural scheduled edition without paid replay.
 
 Evidence: [Nov 12 reconciliation and simulation](../edition-reviews/2026-11-12.md#offline-settlement-wait-evaluation--iteration-2013).
+
+## Rollout review — iteration 2026
+
+| Gate                                                        | Offline evidence                                                            |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Atomic reasons, original holds and concurrent admission     | Ledger integration (2015–2016), real competing Postgres waiters (2024)      |
+| Caller scope, queue and provider deadlines                  | Adapter/queue controls (2017–2019), scheduled scope (2020)                  |
+| Bounded polls, completion headroom and immediate exclusions | Fifteen evaluation controls (2014), helper/composition controls (2021–2023) |
+| Repairs, fallback and publication after expiry              | Production editor controls (2023), real Postgres publication control (2025) |
+
+Enablement changes only the editorial factory's internal code switch. Roll back
+by setting `settlementWaitingEnabled` to `false`, rebuilding and restarting the
+API/worker. Do not change caps or release uncertain holds. At the next natural
+scheduled edition, review `budget.settlement-admission` stop categories, wait
+lengths and attempt counts, ledger refusals, NBA editing and saved publication.
+Live acceptance remains open until that review; manual paid generation is unnecessary.

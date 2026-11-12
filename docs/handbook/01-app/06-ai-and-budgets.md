@@ -42,6 +42,12 @@ flowchart TB
 - **Model split:** Sonnet (the expensive editor) is capped at 80% of the day,
   leaving room for Haiku triage.
 
+- Scheduled Sonnet editing can wait up to five seconds when its model allowance
+  is temporarily held by other pending calls. Admission still reserves the full
+  estimate atomically; daily, monthly and model caps stay the same.
+- Waiting requires at least 300 seconds left in the shared ten-minute generation
+  allowance. If admission still fails, the edition uses its normal fallback.
+
 ## Every call goes through a ledger
 
 Spending is enforced before calling, not discovered afterwards.

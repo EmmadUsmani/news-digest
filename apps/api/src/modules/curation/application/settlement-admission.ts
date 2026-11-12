@@ -15,7 +15,7 @@ type Stop =
   | 'exhausted'
   | 'holds-settled';
 
-// Internal opt-in only: production callers still use immediate reserve().
+// Internal policy: only trusted scheduled Sonnet callers may wait.
 export async function admitAfterSettlement(
   ledger: DetailedLedger,
   request: LlmRequest,

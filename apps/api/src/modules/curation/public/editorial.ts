@@ -37,8 +37,8 @@ export function editorialServices(db: Pool) {
   if (existing) return existing;
   const config = llmConfig();
   const ledger = configuredLlmLedger(db, config.caps);
-  // Deliberately code-gated until offline composition and rollout review pass.
-  const settlementWaitingEnabled = false;
+  // Rollback switch: only trusted scheduled Sonnet calls can wait for settlement.
+  const settlementWaitingEnabled = true;
   const llm = new BudgetedLlm(
     new AnthropicLlmAdapter(key),
     ledger,
