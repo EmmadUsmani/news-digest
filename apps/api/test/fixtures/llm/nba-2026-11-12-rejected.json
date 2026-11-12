@@ -1,0 +1,534 @@
+{
+  "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+  "recordedAt": "2026-11-12",
+  "entries": [
+    {
+      "model": {
+        "id": "claude-sonnet-5-5",
+        "input": 2,
+        "cacheWrite": 2.5,
+        "cacheRead": 0.1,
+        "output": 10
+      },
+      "attempt": "initial",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000012",
+          "name": "NBA",
+          "description": "NBA basketball news and analysis.",
+          "guidance": "Teams, players, trades, injuries and important games.\nExclude: Other sports and non-NBA basketball\nRequired phrases: NBA, Lakers, Celtics, Warriors, Knicks, Nets, Bulls, Cavaliers, Mavericks, Nuggets, Pistons, Rockets, Pacers, Clippers, Grizzlies, Bucks, Timberwolves, Pelicans, Thunder, Magic, 76ers, Suns, Trail Blazers, Kings, Spurs, Raptors, Jazz, Wizards, Hornets, Hawks, Miami Heat, LeBron, Wembanyama\nExcluded phrases: WNBA, NCAA, college basketball, EuroLeague, NFL, MLB, NHL, fantasy, best bets, odds"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+            "excerpt": "The Warriors are bracing to be without Stephen Curry for at least a few games after he left Wednesday night\u2019s contest in Houston with right abdominal soreness, writes Nick Friedell of The Athletic. Coach Steve Kerr wasn\u2019t certain what caused the injury or exactly when it occurred, but Curry went to the locker room to [\u2026]",
+            "sources": ["Basketball Insiders", "CBS Sports NBA", "Hoops Rumors"]
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "title": "Marcus Smart called out for 'fake toughness' after throwing punch at Warriors' Charles Bassey",
+            "excerpt": "The Rockets guard was ejected on Wednesday and will likely face a suspension after getting heated with Bassey",
+            "sources": ["CBS Sports NBA", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "362f5dfc-ea99-450f-bbc3-cd2431e330a0",
+            "title": "Luka Doncic\u2019s, Austin Reaves\u2019 injury scares dose of scary deja vu for Lakers",
+            "excerpt": "We all still have PTSD from April 2. In what was supposed to be a measuring stick game against the Thunder, Luka Don\u010di\u0107 suffered a strained hamstring that sidelined him...",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "title": "Austin Reaves Leaves Lakers' Win With Heel Injury, X-Rays Return Negative",
+            "excerpt": "Austin Reaves left the Los Angeles Lakers' 123-112 win over the Milwaukee Bucks with a heel injury and did not return to the game. Reaves landed awkwardly after missing a dunk attempt in the third quarter. Reaves initially came back into the game before subbing himself out minutes later and limping to the dressing room. Coach JJ Redick said that x-rays on Reaves' heel returned negative while also ruling out an Achilles injury. \"No update on AR until we'll have imaging tomorrow,\" Redick said.",
+            "sources": ["RealGM Basketball", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "title": "Raptors suffer historic home collapse in loss to Celtics",
+            "excerpt": "The Toronto Raptors surrendered the largest home lead in franchise history Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena.",
+            "sources": ["Yardbarker NBA"]
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "title": "Luka Doncic injury update: What we know after Lakers star rolls ankle late in win vs Bucks",
+            "excerpt": "Luka Doncic was injured late in the Lakers' win over the Bucks. Here's what we know.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "7b791c2a-ef9b-4639-bb70-ed1116ecee78",
+            "title": "Bulls rookie Caleb Wilson leaves loss to Spurs with hand injury",
+            "excerpt": "The standout rookie saw his freshman season at North Carolina cut short by a pair of hand injuries.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+            "title": "Jazz can't catch a break as Utah loses Lauri Markkanen to injury",
+            "excerpt": "No NBA team is singin' the blues more right now than the Utah Jazz.",
+            "sources": ["CBS Sports NBA", "Hoops Rumors", "RealGM Basketball"]
+          },
+          {
+            "id": "5cc7babd-6317-46e9-a265-0da0962849af",
+            "title": "Embiid, LeBron questionable for Sixers-Raptors",
+            "excerpt": "The Sixers could be without both LeBron James and Joel Embiid when they take on the Toronto Raptors.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "title": "Windhorst: \u2018Everybody\u2019 Expects Bucks To Be Found Guilty In Gary Trent Jr. Case",
+            "excerpt": "\u201cEverybody in the league expects a guilty finding\u201d regarding the Bucks\u2019 dealings with Gary Trent Jr., Brian Windhorst of ESPN stated during the latest edition of The Hoop Collective podcast (Twitter video link). The veteran shooting guard was signed to a four-year, $64MM contract in July after coming off an unproductive season that saw him [\u2026]",
+            "sources": ["Hoops Rumors"]
+          }
+        ]
+      },
+      "output": {
+        "brief": [
+          "Warriors guard Stephen Curry left Wednesday's game in Houston with right abdominal soreness, and the team is reportedly bracing to be without him for at least a few games.",
+          "Lakers guard Austin Reaves left a win over the Bucks with a heel injury; x-rays were negative, and Luka Doncic rolled an ankle late in the same game.",
+          "Rockets guard Marcus Smart was ejected for throwing a punch at the Warriors' Charles Bassey and will likely face a suspension, according to the report.",
+          "ESPN's Brian Windhorst said everybody in the league expects a guilty finding in the Bucks' Gary Trent Jr. case."
+        ],
+        "stories": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "evidenceIds": ["3178ae9e-e4cb-4120-a038-b8f17cd365a2"],
+            "headline": "Warriors brace for Stephen Curry absence after he leaves game in Houston with abdominal soreness",
+            "summary": "Stephen Curry left Wednesday night's game in Houston with right abdominal soreness, and the Warriors are bracing to be without him for at least a few games, Nick Friedell of The Athletic writes. Coach Steve Kerr wasn't certain what caused the injury or exactly when it occurred.",
+            "whyItMatters": "An absence for Golden State's star guard would affect the Warriors' availability in upcoming games.",
+            "rationale": "Serious injury to a star player, with a reported multi-game absence."
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "evidenceIds": [
+              "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+              "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+              "362f5dfc-ea99-450f-bbc3-cd2431e330a0"
+            ],
+            "headline": "Lakers beat Bucks 123-112 but Austin Reaves leaves with heel injury and Luka Doncic rolls ankle",
+            "summary": "Austin Reaves left the Lakers' 123-112 win over the Bucks with a heel injury after landing awkwardly on a missed dunk attempt in the third quarter. Coach JJ Redick said x-rays on the heel returned negative and ruled out an Achilles injury, adding, \"No update on AR until we'll have imaging tomorrow.\" Luka Doncic also rolled an ankle late in the win.",
+            "whyItMatters": "Injury concerns for two key Lakers guards in the same game make their availability a key issue for the team.",
+            "rationale": "Two significant Lakers injury scares from one game, combined into a single story."
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "evidenceIds": ["ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3"],
+            "headline": "Rockets' Marcus Smart ejected for punching Warriors' Charles Bassey, likely facing suspension",
+            "summary": "Rockets guard Marcus Smart was ejected Wednesday after throwing a punch at the Warriors' Charles Bassey. The report says he will likely face a suspension after getting heated with Bassey, and Smart was called out for 'fake toughness'.",
+            "whyItMatters": "A likely suspension would take a Rockets guard out of games.",
+            "rationale": "On-court altercation with an ejection and a probable league discipline."
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "evidenceIds": ["5085fff1-691d-4871-aa51-250fc11ed41d"],
+            "headline": "Windhorst: League expects Bucks to be found guilty in Gary Trent Jr. case",
+            "summary": "Brian Windhorst of ESPN said on The Hoop Collective podcast that \"everybody in the league expects a guilty finding\" regarding the Bucks' dealings with Gary Trent Jr. The shooting guard was signed to a four-year, $64MM contract in July.",
+            "whyItMatters": "A guilty finding would be a significant league ruling involving the Bucks' handling of a player contract.",
+            "rationale": "Consequential league-level story involving a team, attributed to an ESPN reporter."
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "evidenceIds": ["09270df5-6520-495f-8193-1ddf6809edf7"],
+            "headline": "Raptors blow 22-point home lead in 98-93 loss to Celtics",
+            "summary": "The Toronto Raptors surrendered the largest home lead in franchise history Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena, Yardbarker reports.",
+            "whyItMatters": "The collapse set a franchise record for the largest home lead lost.",
+            "rationale": "Notable game result with a franchise-record collapse."
+          }
+        ]
+      }
+    },
+    {
+      "model": {
+        "id": "claude-sonnet-5-5",
+        "input": 2,
+        "cacheWrite": 2.5,
+        "cacheRead": 0.1,
+        "output": 10
+      },
+      "attempt": "repair",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000012",
+          "name": "NBA",
+          "description": "NBA basketball news and analysis.",
+          "guidance": "Teams, players, trades, injuries and important games.\nExclude: Other sports and non-NBA basketball\nRequired phrases: NBA, Lakers, Celtics, Warriors, Knicks, Nets, Bulls, Cavaliers, Mavericks, Nuggets, Pistons, Rockets, Pacers, Clippers, Grizzlies, Bucks, Timberwolves, Pelicans, Thunder, Magic, 76ers, Suns, Trail Blazers, Kings, Spurs, Raptors, Jazz, Wizards, Hornets, Hawks, Miami Heat, LeBron, Wembanyama\nExcluded phrases: WNBA, NCAA, college basketball, EuroLeague, NFL, MLB, NHL, fantasy, best bets, odds"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+            "excerpt": "The Warriors are bracing to be without Stephen Curry for at least a few games after he left Wednesday night\u2019s contest in Houston with right abdominal soreness, writes Nick Friedell of The Athletic. Coach Steve Kerr wasn\u2019t certain what caused the injury or exactly when it occurred, but Curry went to the locker room to [\u2026]",
+            "sources": ["Basketball Insiders", "CBS Sports NBA", "Hoops Rumors"]
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "title": "Marcus Smart called out for 'fake toughness' after throwing punch at Warriors' Charles Bassey",
+            "excerpt": "The Rockets guard was ejected on Wednesday and will likely face a suspension after getting heated with Bassey",
+            "sources": ["CBS Sports NBA", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "362f5dfc-ea99-450f-bbc3-cd2431e330a0",
+            "title": "Luka Doncic\u2019s, Austin Reaves\u2019 injury scares dose of scary deja vu for Lakers",
+            "excerpt": "We all still have PTSD from April 2. In what was supposed to be a measuring stick game against the Thunder, Luka Don\u010di\u0107 suffered a strained hamstring that sidelined him...",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "title": "Austin Reaves Leaves Lakers' Win With Heel Injury, X-Rays Return Negative",
+            "excerpt": "Austin Reaves left the Los Angeles Lakers' 123-112 win over the Milwaukee Bucks with a heel injury and did not return to the game. Reaves landed awkwardly after missing a dunk attempt in the third quarter. Reaves initially came back into the game before subbing himself out minutes later and limping to the dressing room. Coach JJ Redick said that x-rays on Reaves' heel returned negative while also ruling out an Achilles injury. \"No update on AR until we'll have imaging tomorrow,\" Redick said.",
+            "sources": ["RealGM Basketball", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "title": "Raptors suffer historic home collapse in loss to Celtics",
+            "excerpt": "The Toronto Raptors surrendered the largest home lead in franchise history Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena.",
+            "sources": ["Yardbarker NBA"]
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "title": "Luka Doncic injury update: What we know after Lakers star rolls ankle late in win vs Bucks",
+            "excerpt": "Luka Doncic was injured late in the Lakers' win over the Bucks. Here's what we know.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "7b791c2a-ef9b-4639-bb70-ed1116ecee78",
+            "title": "Bulls rookie Caleb Wilson leaves loss to Spurs with hand injury",
+            "excerpt": "The standout rookie saw his freshman season at North Carolina cut short by a pair of hand injuries.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+            "title": "Jazz can't catch a break as Utah loses Lauri Markkanen to injury",
+            "excerpt": "No NBA team is singin' the blues more right now than the Utah Jazz.",
+            "sources": ["CBS Sports NBA", "Hoops Rumors", "RealGM Basketball"]
+          },
+          {
+            "id": "5cc7babd-6317-46e9-a265-0da0962849af",
+            "title": "Embiid, LeBron questionable for Sixers-Raptors",
+            "excerpt": "The Sixers could be without both LeBron James and Joel Embiid when they take on the Toronto Raptors.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "title": "Windhorst: \u2018Everybody\u2019 Expects Bucks To Be Found Guilty In Gary Trent Jr. Case",
+            "excerpt": "\u201cEverybody in the league expects a guilty finding\u201d regarding the Bucks\u2019 dealings with Gary Trent Jr., Brian Windhorst of ESPN stated during the latest edition of The Hoop Collective podcast (Twitter video link). The veteran shooting guard was signed to a four-year, $64MM contract in July after coming off an unproductive season that saw him [\u2026]",
+            "sources": ["Hoops Rumors"]
+          }
+        ]
+      },
+      "output": {
+        "brief": [
+          "Stephen Curry left Wednesday's game in Houston with right abdominal soreness, and the Warriors are reportedly bracing to be without him for at least a few games.",
+          "Rockets guard Marcus Smart was ejected after throwing a punch at Warriors center Charles Bassey and will likely face a suspension, according to CBS Sports.",
+          "The Lakers beat the Bucks 123-112, but Austin Reaves left with a heel injury and Luka Doncic rolled an ankle late in the game.",
+          "ESPN's Brian Windhorst said everybody in the league expects a guilty finding in the Bucks' Gary Trent Jr. case."
+        ],
+        "stories": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "evidenceIds": ["3178ae9e-e4cb-4120-a038-b8f17cd365a2"],
+            "headline": "Warriors brace for Stephen Curry absence after he leaves game with abdominal soreness",
+            "summary": "Stephen Curry left Wednesday night's game in Houston with right abdominal soreness, writes Nick Friedell of The Athletic. The Warriors are bracing to be without Curry for at least a few games, and Curry went to the locker room.",
+            "whyItMatters": "Curry is Golden State's star, so a multi-game absence would affect the Warriors' near-term outlook.",
+            "rationale": "Significant injury to a franchise player, with a reported multi-game absence expected."
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "evidenceIds": ["ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3"],
+            "headline": "Rockets' Marcus Smart ejected after throwing punch at Warriors' Charles Bassey",
+            "summary": "Rockets guard Marcus Smart was ejected on Wednesday after getting heated with Warriors' Charles Bassey and throwing a punch. CBS Sports reports he will likely face a suspension, and he was criticized for 'fake toughness'.",
+            "whyItMatters": "A likely suspension could take Smart off the Rockets' roster for upcoming games.",
+            "rationale": "On-court altercation with a probable league suspension."
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "evidenceIds": ["31dd77d3-a9a7-437c-b6a0-cf1943c51794"],
+            "headline": "Lakers' Austin Reaves leaves win over Bucks with heel injury; X-rays negative",
+            "summary": "Austin Reaves left the Lakers' 123-112 win over the Bucks with a heel injury after landing awkwardly following a missed dunk attempt in the third quarter. Coach JJ Redick said X-rays on the heel returned negative and ruled out an Achilles injury, with imaging planned for tomorrow.",
+            "whyItMatters": "Reaves' status will be clarified by further imaging, which matters for the Lakers' rotation.",
+            "rationale": "Injury to a key Lakers guard with initial test results and attributed coach comments."
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "evidenceIds": ["61b5b86e-87d8-47b1-8ac7-83b41fa34e6d"],
+            "headline": "Lakers star Luka Doncic rolls ankle late in win over Bucks",
+            "summary": "Yahoo Sports NBA reports that Luka Doncic rolled his ankle late in the Lakers' win over the Bucks.",
+            "whyItMatters": "An ankle injury to Doncic is notable for the Lakers given his role as their star.",
+            "rationale": "Injury involving a top player in a notable game."
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "evidenceIds": ["5085fff1-691d-4871-aa51-250fc11ed41d"],
+            "headline": "Windhorst: Everybody in the league expects guilty finding in Bucks' Gary Trent Jr. case",
+            "summary": "ESPN's Brian Windhorst said on The Hoop Collective podcast, \"Everybody in the league expects a guilty finding\" regarding the Bucks' dealings with Gary Trent Jr., per Hoops Rumors. Trent signed a four-year, $64MM contract in July.",
+            "whyItMatters": "The case concerns the Bucks' handling of a player contract and a potential league finding.",
+            "rationale": "League-level issue involving a team and a contract, reported with clear attribution."
+          }
+        ]
+      }
+    },
+    {
+      "model": {
+        "id": "claude-haiku-5-5",
+        "input": 0.1,
+        "cacheWrite": 0.125,
+        "cacheRead": 0.01,
+        "output": 0.5
+      },
+      "attempt": "initial",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000012",
+          "name": "NBA",
+          "description": "NBA basketball news and analysis.",
+          "guidance": "Teams, players, trades, injuries and important games.\nExclude: Other sports and non-NBA basketball\nRequired phrases: NBA, Lakers, Celtics, Warriors, Knicks, Nets, Bulls, Cavaliers, Mavericks, Nuggets, Pistons, Rockets, Pacers, Clippers, Grizzlies, Bucks, Timberwolves, Pelicans, Thunder, Magic, 76ers, Suns, Trail Blazers, Kings, Spurs, Raptors, Jazz, Wizards, Hornets, Hawks, Miami Heat, LeBron, Wembanyama\nExcluded phrases: WNBA, NCAA, college basketball, EuroLeague, NFL, MLB, NHL, fantasy, best bets, odds"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+            "excerpt": "The Warriors are bracing to be without Stephen Curry for at least a few games after he left Wednesday night\u2019s contest in Houston with right abdominal soreness, writes Nick Friedell of The Athletic. Coach Steve Kerr wasn\u2019t certain what caused the injury or exactly when it occurred, but Curry went to the locker room to [\u2026]",
+            "sources": ["Basketball Insiders", "CBS Sports NBA", "Hoops Rumors"]
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "title": "Marcus Smart called out for 'fake toughness' after throwing punch at Warriors' Charles Bassey",
+            "excerpt": "The Rockets guard was ejected on Wednesday and will likely face a suspension after getting heated with Bassey",
+            "sources": ["CBS Sports NBA", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "362f5dfc-ea99-450f-bbc3-cd2431e330a0",
+            "title": "Luka Doncic\u2019s, Austin Reaves\u2019 injury scares dose of scary deja vu for Lakers",
+            "excerpt": "We all still have PTSD from April 2. In what was supposed to be a measuring stick game against the Thunder, Luka Don\u010di\u0107 suffered a strained hamstring that sidelined him...",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "title": "Austin Reaves Leaves Lakers' Win With Heel Injury, X-Rays Return Negative",
+            "excerpt": "Austin Reaves left the Los Angeles Lakers' 123-112 win over the Milwaukee Bucks with a heel injury and did not return to the game. Reaves landed awkwardly after missing a dunk attempt in the third quarter. Reaves initially came back into the game before subbing himself out minutes later and limping to the dressing room. Coach JJ Redick said that x-rays on Reaves' heel returned negative while also ruling out an Achilles injury. \"No update on AR until we'll have imaging tomorrow,\" Redick said.",
+            "sources": ["RealGM Basketball", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "title": "Raptors suffer historic home collapse in loss to Celtics",
+            "excerpt": "The Toronto Raptors surrendered the largest home lead in franchise history Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena.",
+            "sources": ["Yardbarker NBA"]
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "title": "Luka Doncic injury update: What we know after Lakers star rolls ankle late in win vs Bucks",
+            "excerpt": "Luka Doncic was injured late in the Lakers' win over the Bucks. Here's what we know.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "7b791c2a-ef9b-4639-bb70-ed1116ecee78",
+            "title": "Bulls rookie Caleb Wilson leaves loss to Spurs with hand injury",
+            "excerpt": "The standout rookie saw his freshman season at North Carolina cut short by a pair of hand injuries.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+            "title": "Jazz can't catch a break as Utah loses Lauri Markkanen to injury",
+            "excerpt": "No NBA team is singin' the blues more right now than the Utah Jazz.",
+            "sources": ["CBS Sports NBA", "Hoops Rumors", "RealGM Basketball"]
+          },
+          {
+            "id": "5cc7babd-6317-46e9-a265-0da0962849af",
+            "title": "Embiid, LeBron questionable for Sixers-Raptors",
+            "excerpt": "The Sixers could be without both LeBron James and Joel Embiid when they take on the Toronto Raptors.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "title": "Windhorst: \u2018Everybody\u2019 Expects Bucks To Be Found Guilty In Gary Trent Jr. Case",
+            "excerpt": "\u201cEverybody in the league expects a guilty finding\u201d regarding the Bucks\u2019 dealings with Gary Trent Jr., Brian Windhorst of ESPN stated during the latest edition of The Hoop Collective podcast (Twitter video link). The veteran shooting guard was signed to a four-year, $64MM contract in July after coming off an unproductive season that saw him [\u2026]",
+            "sources": ["Hoops Rumors"]
+          }
+        ]
+      },
+      "output": {
+        "brief": [
+          "The Athletic's Nick Friedell reports Warriors are bracing to miss Stephen Curry for at least a few games after he left Wednesday's Houston game with right abdominal soreness.",
+          "Luka Doncic was injured late in the Lakers' win over the Bucks, according to Yahoo Sports NBA.",
+          "Austin Reaves left the Lakers' 123-112 win over the Bucks with a heel injury. Coach JJ Redick said x-rays came back negative and ruled out an Achilles injury.",
+          "The Raptors blew a 22-point home lead in a 98-93 loss to the Celtics, the largest home lead surrendered in franchise history."
+        ],
+        "stories": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "evidenceIds": ["3178ae9e-e4cb-4120-a038-b8f17cd365a2"],
+            "headline": "Warriors bracing to miss Stephen Curry for at least a few games after abdominal soreness",
+            "summary": "Curry left Wednesday night's game in Houston with right abdominal soreness, and the Warriors are bracing to be without him for at least a few games, according to Nick Friedell of The Athletic. Coach Steve Kerr said the cause of the injury and when it occurred were still being determined.",
+            "whyItMatters": "Curry is a central Warriors player, so a multi-game absence would significantly affect Golden State's rotation and short-term outlook.",
+            "rationale": "A consequential injury to a star player with a reported multi-game absence expected."
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "evidenceIds": ["61b5b86e-87d8-47b1-8ac7-83b41fa34e6d"],
+            "headline": "Luka Doncic rolls ankle late in Lakers' win over Bucks",
+            "summary": "Yahoo Sports NBA reports that Luka Doncic was injured late in the Lakers' win over the Bucks after rolling his ankle.",
+            "whyItMatters": "An injury to Doncic, one of the Lakers' top players, is significant for their rotation and health.",
+            "rationale": "A significant injury to a key Lakers star in a notable win."
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "evidenceIds": ["31dd77d3-a9a7-437c-b6a0-cf1943c51794"],
+            "headline": "Austin Reaves exits Lakers' win over Bucks with heel injury; x-rays come back negative",
+            "summary": "Austin Reaves left the Lakers' 123-112 win over the Bucks with a heel injury after landing awkwardly on a missed dunk in the third quarter. Coach JJ Redick said x-rays on Reaves' heel came back negative and ruled out an Achilles injury, and Redick said imaging was planned for the next day.",
+            "whyItMatters": "The negative x-rays and ruled-out Achilles injury point to a less severe outcome for a key Lakers guard, though Reaves' status depends on the imaging Redick described.",
+            "rationale": "A key Lakers player's injury with official team comments on the imaging results."
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "evidenceIds": ["09270df5-6520-495f-8193-1ddf6809edf7"],
+            "headline": "Raptors surrender largest home lead in franchise history in 98-93 loss to Celtics",
+            "summary": "The Toronto Raptors blew a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena on Wednesday, according to Yardbarker NBA. The collapse was the largest home lead the franchise has surrendered.",
+            "whyItMatters": "A franchise-record home collapse is a memorable and notable result for Toronto.",
+            "rationale": "A historic, widely notable game result involving an NBA team."
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0dae9a2b3",
+            "evidenceIds": ["ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3"],
+            "headline": "Marcus Smart ejected after throwing punch at Warriors' Charles Bassey",
+            "summary": "Rockets guard Marcus Smart was ejected Wednesday after getting heated with Warriors center Charles Bassey and throwing a punch, according to CBS Sports NBA. Reports say Smart will likely face a suspension.",
+            "whyItMatters": "An ejection for throwing a punch could lead to a suspension affecting Houston's rotation.",
+            "rationale": "A disciplinary incident involving a Rockets player with a likely suspension."
+          }
+        ]
+      }
+    },
+    {
+      "model": {
+        "id": "claude-haiku-5-5",
+        "input": 0.1,
+        "cacheWrite": 0.125,
+        "cacheRead": 0.01,
+        "output": 0.5
+      },
+      "attempt": "repair",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000012",
+          "name": "NBA",
+          "description": "NBA basketball news and analysis.",
+          "guidance": "Teams, players, trades, injuries and important games.\nExclude: Other sports and non-NBA basketball\nRequired phrases: NBA, Lakers, Celtics, Warriors, Knicks, Nets, Bulls, Cavaliers, Mavericks, Nuggets, Pistons, Rockets, Pacers, Clippers, Grizzlies, Bucks, Timberwolves, Pelicans, Thunder, Magic, 76ers, Suns, Trail Blazers, Kings, Spurs, Raptors, Jazz, Wizards, Hornets, Hawks, Miami Heat, LeBron, Wembanyama\nExcluded phrases: WNBA, NCAA, college basketball, EuroLeague, NFL, MLB, NHL, fantasy, best bets, odds"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+            "excerpt": "The Warriors are bracing to be without Stephen Curry for at least a few games after he left Wednesday night\u2019s contest in Houston with right abdominal soreness, writes Nick Friedell of The Athletic. Coach Steve Kerr wasn\u2019t certain what caused the injury or exactly when it occurred, but Curry went to the locker room to [\u2026]",
+            "sources": ["Basketball Insiders", "CBS Sports NBA", "Hoops Rumors"]
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "title": "Marcus Smart called out for 'fake toughness' after throwing punch at Warriors' Charles Bassey",
+            "excerpt": "The Rockets guard was ejected on Wednesday and will likely face a suspension after getting heated with Bassey",
+            "sources": ["CBS Sports NBA", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "362f5dfc-ea99-450f-bbc3-cd2431e330a0",
+            "title": "Luka Doncic\u2019s, Austin Reaves\u2019 injury scares dose of scary deja vu for Lakers",
+            "excerpt": "We all still have PTSD from April 2. In what was supposed to be a measuring stick game against the Thunder, Luka Don\u010di\u0107 suffered a strained hamstring that sidelined him...",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "title": "Austin Reaves Leaves Lakers' Win With Heel Injury, X-Rays Return Negative",
+            "excerpt": "Austin Reaves left the Los Angeles Lakers' 123-112 win over the Milwaukee Bucks with a heel injury and did not return to the game. Reaves landed awkwardly after missing a dunk attempt in the third quarter. Reaves initially came back into the game before subbing himself out minutes later and limping to the dressing room. Coach JJ Redick said that x-rays on Reaves' heel returned negative while also ruling out an Achilles injury. \"No update on AR until we'll have imaging tomorrow,\" Redick said.",
+            "sources": ["RealGM Basketball", "Yahoo Sports NBA"]
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "title": "Raptors suffer historic home collapse in loss to Celtics",
+            "excerpt": "The Toronto Raptors surrendered the largest home lead in franchise history Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena.",
+            "sources": ["Yardbarker NBA"]
+          },
+          {
+            "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+            "title": "Luka Doncic injury update: What we know after Lakers star rolls ankle late in win vs Bucks",
+            "excerpt": "Luka Doncic was injured late in the Lakers' win over the Bucks. Here's what we know.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "7b791c2a-ef9b-4639-bb70-ed1116ecee78",
+            "title": "Bulls rookie Caleb Wilson leaves loss to Spurs with hand injury",
+            "excerpt": "The standout rookie saw his freshman season at North Carolina cut short by a pair of hand injuries.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+            "title": "Jazz can't catch a break as Utah loses Lauri Markkanen to injury",
+            "excerpt": "No NBA team is singin' the blues more right now than the Utah Jazz.",
+            "sources": ["CBS Sports NBA", "Hoops Rumors", "RealGM Basketball"]
+          },
+          {
+            "id": "5cc7babd-6317-46e9-a265-0da0962849af",
+            "title": "Embiid, LeBron questionable for Sixers-Raptors",
+            "excerpt": "The Sixers could be without both LeBron James and Joel Embiid when they take on the Toronto Raptors.",
+            "sources": ["Yahoo Sports NBA"]
+          },
+          {
+            "id": "5085fff1-691d-4871-aa51-250fc11ed41d",
+            "title": "Windhorst: \u2018Everybody\u2019 Expects Bucks To Be Found Guilty In Gary Trent Jr. Case",
+            "excerpt": "\u201cEverybody in the league expects a guilty finding\u201d regarding the Bucks\u2019 dealings with Gary Trent Jr., Brian Windhorst of ESPN stated during the latest edition of The Hoop Collective podcast (Twitter video link). The veteran shooting guard was signed to a four-year, $64MM contract in July after coming off an unproductive season that saw him [\u2026]",
+            "sources": ["Hoops Rumors"]
+          }
+        ]
+      },
+      "output": {
+        "brief": [
+          "Stephen Curry left the Warriors' game in Houston with right abdominal soreness, and Golden State is bracing to be without him for at least a few games, according to The Athletic's Nick Friedell.",
+          "Utah lost Lauri Markkanen to injury, according to a supplied headline from CBS Sports NBA, Hoops Rumors and RealGM Basketball.",
+          "The Raptors blew a 22-point home lead in a 98-93 loss to the Celtics, the largest home lead surrendered in franchise history, per Yardbarker NBA.",
+          "Rockets guard Marcus Smart was ejected Wednesday after throwing a punch at Warriors center Charles Bassey and will likely face a suspension, per CBS Sports NBA and Yahoo Sports NBA."
+        ],
+        "stories": [
+          {
+            "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+            "evidenceIds": ["3178ae9e-e4cb-4120-a038-b8f17cd365a2"],
+            "headline": "Stephen Curry exits Warriors' Houston game with abdominal soreness",
+            "summary": "Stephen Curry left Wednesday night's game in Houston with right abdominal soreness. The Warriors are bracing to be without him for at least a few games, according to Nick Friedell of The Athletic.",
+            "whyItMatters": "Curry is Golden State's central player, so a multi-game absence would affect the Warriors' near-term lineup.",
+            "rationale": "Consequential injury to a star player with a stated expected absence of several games."
+          },
+          {
+            "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+            "evidenceIds": ["27146293-7eff-4163-92b3-63fe6482ee4c"],
+            "headline": "Jazz lose Lauri Markkanen to injury",
+            "summary": "Utah has lost Lauri Markkanen to injury, according to the supplied headline from CBS Sports NBA, Hoops Rumors and RealGM Basketball.",
+            "whyItMatters": "Losing Markkanen, a key Jazz player, adds to a stretch of injuries for Utah.",
+            "rationale": "Injury to a key rotation player on a struggling team; the supplied material is limited to the headline."
+          },
+          {
+            "id": "09270df5-6520-495f-8193-1ddf6809edf7",
+            "evidenceIds": ["09270df5-6520-495f-8193-1ddf6809edf7"],
+            "headline": "Raptors suffer historic home collapse in loss to Celtics",
+            "summary": "The Toronto Raptors surrendered the largest home lead in franchise history on Wednesday, blowing a 22-point advantage in a 98-93 loss to the Boston Celtics at Scotiabank Arena, according to Yardbarker NBA.",
+            "whyItMatters": "The loss is a historic collapse in a game that Toronto had controlled at home.",
+            "rationale": "Notable franchise-record result with a clear, reported outcome."
+          },
+          {
+            "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+            "evidenceIds": ["ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3"],
+            "headline": "Marcus Smart ejected after punching Warriors' Charles Bassey",
+            "summary": "Rockets guard Marcus Smart was ejected Wednesday after throwing a punch at Warriors center Charles Bassey during a heated exchange. He will likely face a suspension, according to CBS Sports NBA and Yahoo Sports NBA.",
+            "whyItMatters": "The incident could bring a suspension for a Rockets player during a game against Golden State.",
+            "rationale": "Ejection and likely suspension from an on-court fight is a consequential league-discipline story."
+          },
+          {
+            "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+            "evidenceIds": ["31dd77d3-a9a7-437c-b6a0-cf1943c51794"],
+            "headline": "Austin Reaves exits Lakers' win over Bucks with heel injury",
+            "summary": "Austin Reaves left the Lakers' 123-112 win over the Bucks with a heel injury after landing awkwardly on a missed dunk in the third quarter. Coach JJ Redick said x-rays on Reaves' heel returned negative while also ruling out an Achilles injury.",
+            "whyItMatters": "The injury affects a key Lakers guard and came in a game where Los Angeles secured a win.",
+            "rationale": "Injury to a significant Lakers player with the coach providing imaging and Achilles details."
+          }
+        ]
+      }
+    }
+  ]
+}

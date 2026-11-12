@@ -44,16 +44,7 @@
 
 [Iteration 1876](docs/progress-archive/2026-11-12-iteration-1876.md).
 
-## 2026-11-12: iteration 1877 — enforce signup policy for sign-in links
-
-- Clean main/no inherited work; zero alerts, API/database/Redis healthy and all 38 sources healthy. Continued item 58 minor findings; public mode remains off.
-- Link issuance and redemption now honor signup-off inside recipient coordination: new accounts are refused, including previously issued invitations; existing readers can still sign in. Invite mode remains available.
-- Added refusal coverage for issuance, redemption without consuming a link or creating identities/sessions, mode changes, existing-reader admission and failed identity lookup; runtime injects the shared signup policy. Updated access plan and runtime handbook.
-- Targeted account tests initially pass 19/19; added policy coverage is included in full checks. Filtered handbook check passes (39 tables); no diagram edits. Full verification/deployment results follow.
-- Read-only source check passes 38/38; digest queue has zero failed jobs, one worker and next scheduled run Nov 12 15:00 UTC. No provider calls, migrations, sharing or budget changes; no accepted-screen reruns.
-- Next: remaining minor findings and authoritative proxy checks, then scheduled post-fix five-topic acceptance and lead re-check/owner decision.
-- Full pnpm check passed typecheck/lint/format/boundaries and 876 unit tests; integration initially exposed an old signup-off invitation expectation. Updated the real HTTP fixture to verify both refusals, then restore invite mode for lifecycle checks. pnpm test:integration rerun passes 286 with four expected skips.
-- pnpm format and pnpm lint:fix rerun pass; pnpm build, filtered handbook and git diff --check pass. Existing bundle warning only. Rebuilt API/worker/docs restarted outside hold; direct /healthz and obs health/services --check pass (14 services). Commit/push and final main-matching restart follow.
+[Iteration 1877](docs/progress-archive/2026-11-12-iteration-1877.md).
 
 ## 2026-11-12: iteration 1878 — cover every tool reader in account privacy revocation
 
@@ -175,3 +166,14 @@
 - Bluesky four picks/no U.S. candidates; Tech/NBA replace one X slot each. Tech repeats a story, Gaming repeats X award event, World has zero likes/reposts. Social tuning remains paused. Updated daily review, TASKS, SOURCES and security handoff; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), full handbook check (18 pages/22 diagrams/39 tables), targeted final Prettier and `git diff --check` pass. Archived iteration 1876 to keep progress bounded.
 - No runtime/UI changes; rebuild/screenshots/restart unnecessary under STEERING 22/55. Next: restore NBA from saved outputs before further phase 4/split work.
+
+## 2026-11-12: iteration 2005 — complete offline NBA rejection replay
+
+- Clean main/no inherited work. Zero alerts, `/healthz` database/Redis healthy and no failed user services. Initial orientation output was too broad; subsequent reads bounded to relevant sections.
+- Added a recorded Nov 12 fixture containing the actual bounded NBA inputs and all four rejected outputs, excluding private storage paths/instructions/provider request metadata. No provider calls, job writes, cache writes or spend.
+- `pnpm exec tsx apps/api/scripts/replay-nba-rejections.ts` now checks each output through the production `ShortlistEditor` validator with an injected offline adapter. All four still fail: Sonnet initial/repair and Haiku repair summary absence; Haiku initial invalid selection.
+- Independent field probes reveal eight refusals: four Curry summaries, three Curry briefs and the initial Sonnet Reaves summary's attributed “No update on AR” quote. A Curry-summary-only fix cannot restore the edition. Saved fixture/test preserves these hidden failures for the corrective step.
+- Updated TASKS and daily review. Runtime guards, prompts, models, budgets and current publication unchanged. NBA correction remains highest priority; authenticated proxy and normal post-fix edition gates remain open. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Targeted replay regression, `pnpm format`, `pnpm lint:fix`, `pnpm build` and full handbook check (18 pages/22 diagrams/39 tables) pass; initial full check caught an async lint error, fixed before rerunning. `pnpm check` passes: 879 unit/286 integration tests, four expected skips. Existing bundle warning only. Archived iteration 1877 to keep progress bounded.
+- During verification, GamingBolt timed out once; scheduled retry completed HTTP 200 at 15:17:59 UTC. `pnpm --silent obs sources --check` passes all 38 sources at 15:23 UTC; `/healthz` remains healthy. RecentJobFailures cleared by final alert snapshot (zero firing/pending). No manual retry or source change.
+- Final targeted Prettier and `git diff --check` pass; digest-generation queue staffed, zero failures, next edition scheduled. No UI changes or accepted-screen reruns; no service restart needed for offline scripts/fixtures/docs.
