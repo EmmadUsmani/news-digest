@@ -555,3 +555,48 @@ void test('telemetry POST forwards bounded forms only and refuses bodies before 
     await close(tool);
   }
 });
+
+void test('public tool selection never forwards Grafana, independently of route authorization', async () => {
+  let requests = 0;
+  const upstream = createServer((_req, res) => {
+    requests++;
+    res.end('private tool');
+  });
+  const port = await listen(upstream);
+  const proxy = proxyInternalTools(
+    selectInternalTools(true).map((tool) => ({ ...tool, port })),
+  );
+  const server = createServer((req, res) =>
+    proxy(req, res, () => res.writeHead(404).end()),
+  );
+  try {
+    assert.equal(
+      selectInternalTools(true).some((tool) => tool.prefix === '/grafana'),
+      false,
+    );
+    assert.equal(
+      selectInternalTools(false).some((tool) => tool.prefix === '/grafana'),
+      true,
+    );
+    const base = `http://127.0.0.1:${await listen(server)}`;
+    for (const path of [
+      '/grafana',
+      '/grafana/',
+      '/grafana?orgId=1',
+      '/grafana/api/search',
+    ]) {
+      for (const method of ['GET', 'HEAD', 'POST']) {
+        const response = await fetch(`${base}${path}`, {
+          method,
+          redirect: 'manual',
+        });
+        assert.equal(response.status, 404);
+        assert.equal(response.headers.get('location'), null);
+      }
+    }
+    assert.equal(requests, 0);
+  } finally {
+    await close(server);
+    await close(upstream);
+  }
+});

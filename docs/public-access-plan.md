@@ -861,8 +861,8 @@ Accounts and the ordinary admission recorder remain caller-owned in that low-lev
 | Tool                     | After going public                                                                 |
 | ------------------------ | ---------------------------------------------------------------------------------- |
 | Handbook, DB explorer    | Public                                                                             |
-| Grafana                  | Public, anonymous Viewer (as today)                                                |
-| Jobs browser             | Public, read-only (as today)                                                       |
+| Grafana                  | Unavailable through the public-mode proxy                                          |
+| Jobs browser             | Fresh-admin only; public queue counts use `/api/queues`                            |
 | Admin pages              | Public read-only after the audit; writes admin-only                                |
 | `/logs`, `/metrics` APIs | **Admin-only.** Also set VictoriaMetrics `-deleteAuthKey` and `-forceMergeAuthKey` |
 

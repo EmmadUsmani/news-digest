@@ -1,7 +1,7 @@
 # Observability
 
 A small, free monitoring stack runs on the VM. It is private: the UIs sit
-behind the exe.dev login, and every store listens only on `127.0.0.1`. The prepared public SQL reader exposes published daily edition/content counts and bounded source health. A separate prepared overview uses those projections for three aggregate tables and export age (red after 15 minutes; missing or future capture shows “No valid export”). The prepared exporter transfers counts between separate local database ports using a read-only source session and a restricted writer. Its prepared database service binds port 5543 to loopback on a separate dedicated Docker bridge network and requires a password. A prepared freshness alert checks every minute and alerts on unreadable exports or five minutes of missing, future-dated or stale captures. Exporter, alert, database service and overview remain uninstalled; public Grafana routes stay closed. Prepared public mode allows fresh admins to read metrics instant/range queries and log queries, hit counts, statistics, field metadata and time bounds via GET or bounded form POST (16 KiB, five-second upload limit); Reviewed native build, tenant, configuration, timezone and dashboard metadata is GET-only for fresh admins. The exact reviewed native UI documents, scripts and styles are GET-only for fresh admins, with a same-origin content security policy. Metrics exports are limited at the store to 32 series and two seconds. Prepared public export admission remains closed. Mutation routes stay closed.
+behind the exe.dev login, and every store listens only on `127.0.0.1`. The prepared public SQL reader exposes published daily edition/content counts and bounded source health. A separate prepared overview uses those projections for three aggregate tables and export age (red after 15 minutes; missing or future capture shows “No valid export”). The prepared exporter transfers counts between separate local database ports using a read-only source session and a restricted writer. Its prepared database service binds port 5543 to loopback on a separate dedicated Docker bridge network and requires a password. A prepared freshness alert checks every minute and alerts on unreadable exports or five minutes of missing, future-dated or stale captures. Exporter, alert, database service and overview remain uninstalled; public mode omits Grafana from the tool proxy. Prepared public mode allows fresh admins to read metrics instant/range queries and log queries, hit counts, statistics, field metadata and time bounds via GET or bounded form POST (16 KiB, five-second upload limit); Reviewed native build, tenant, configuration, timezone and dashboard metadata is GET-only for fresh admins. The exact reviewed native UI documents, scripts and styles are GET-only for fresh admins, with a same-origin content security policy. Metrics exports are limited at the store to 32 series and two seconds. Prepared public export admission remains closed. Mutation routes stay closed.
 
 ```mermaid
 flowchart LR
@@ -27,12 +27,12 @@ flowchart LR
 
 ## UIs
 
-| UI                         | Shows                                                                                                               |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| [Grafana](/grafana/)       | 10 dashboards: Host, Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database, Redis, Agent supervisor |
-| [Logs](/logs/select/vmui/) | Every structured log line, searchable with LogsQL                                                                   |
-| [Metrics](/metrics/vmui/)  | Raw metric queries (PromQL)                                                                                         |
-| Jobs                       | Private: [read-only jobs browser](/queues/). Public mode: `GET /api/queues` for counts and next scheduled runs.     |
+| UI                         | Shows                                                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| [Grafana](/grafana/)       | 10 dashboards: Host, Services, App runtime, HTTP, Jobs, Errors and logs, Product, Database, Redis, Agent supervisor      |
+| [Logs](/logs/select/vmui/) | Every structured log line, searchable with LogsQL                                                                        |
+| [Metrics](/metrics/vmui/)  | Raw metric queries (PromQL)                                                                                              |
+| Jobs                       | Fresh-admin only: [read-only jobs browser](/queues/). Public mode: `GET /api/queues` for counts and next scheduled runs. |
 
 Dashboards live in `ops/observability/grafana/`; empty panels mean "nothing observed".
 

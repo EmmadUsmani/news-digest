@@ -165,3 +165,13 @@
 - Next: item 58.7 tool admission, then public-mode defects/leftover services/live checks. Nov 12 five-topic scheduled acceptance remains due; public mode off pending remaining fixes, publication, lead re-check and owner decision.
 - pnpm format, pnpm lint:fix and full pnpm check pass: 869 unit/286 integration tests, four expected skips. pnpm build, filtered check-handbook (one unchanged diagram/39 tables) and git diff --check pass; existing build warnings only.
 - API/worker restarted outside deployment hold; health/database/Redis green, 32 deployed account-boundary checks pass, zero alerts. A malformed-email live code request returns generic HTTP 202 in 1.004 seconds without recipient admission or mailbox delivery. Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1870 — exclude Grafana from public tool forwarding
+
+- Clean main/no inherited work; health/services green and zero alerts. Completed item 58.7 after reading the private review; public mode remains off.
+- Public-mode tool selection omits Grafana independently of route authorization; private selection retains it. Corrected Grafana/jobs access in the public-access plan and observability handbook.
+- Added direct proxy regression: GET/HEAD/POST on bare, slash, query and nested Grafana paths return 404 without redirects or upstream requests. Targeted internal-tools tests pass (6/6); no accepted-screen reruns.
+- pnpm format, pnpm lint:fix and full pnpm check pass: 870 unit/286 integration tests, four expected skips. pnpm build, filtered check-handbook (one unchanged diagram/39 tables) and git diff --check pass; existing build warnings only.
+- Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38/38 sources healthy, zero alerts. Digest queue available with zero failed jobs; next run Nov 12 15:00 UTC. Latest saved edition eb6e962e remains available with four topics.
+- No migrations, provider calls, source/budget/access-flag changes. Next: item 58.8 public-mode topic editing/browser reports, then leftover services and listed live checks. Nov 12 first five-topic scheduled acceptance remains due.
+- Commit/push and final main-matching service restart follow; public activation still waits on remaining fixes, scheduled publication, lead re-check and owner decision.

@@ -31,7 +31,7 @@ export function selectInternalTools(publicMode: boolean): InternalTool[] {
   return [
     { prefix: '/docs', port: 8110, readerHandbook: true },
     ...internalTools
-      .filter((tool) => tool.prefix !== '/docs')
+      .filter((tool) => !['/docs', '/grafana'].includes(tool.prefix))
       .map((tool) =>
         tool.prefix === '/db'
           ? { ...tool, readerExplorer: true }
