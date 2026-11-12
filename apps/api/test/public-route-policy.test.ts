@@ -170,3 +170,18 @@ void test('explorer admission permits only exact structural GET routes', () => {
     );
   }
 });
+
+void test('browser error admission permits only the reviewed POST endpoint', () => {
+  assert.equal(
+    classifyPublicRoute('POST', '/api/browser-errors'),
+    'public-read',
+  );
+  for (const method of ['GET', 'HEAD', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'])
+    assert.equal(classifyPublicRoute(method, '/api/browser-errors'), null);
+  for (const path of [
+    '/api/browser-errors/',
+    '/api/browser-errors/extra',
+    '/api/%62rowser-errors',
+  ])
+    assert.equal(classifyPublicRoute('POST', path), null);
+});

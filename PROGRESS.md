@@ -34,62 +34,7 @@
 
 [Iterations 1850–1857](docs/progress-archive/2026-11-12-iterations-1850-1857.md).
 
-## 2026-11-11: iteration 1858 — paired editor reservation decomposition
-
-- Clean main; no inherited work. Alerts zero; healthz/database/Redis healthy. Item 50 stopped for owner/lead review; continued 56.
-- Offline production-editor probe separates input/output reserves, checks per-scope output arithmetic and records refused Haiku alternatives; zero provider calls or DB access.
-- Both-scope proxies reserve $0.127933–$0.131338 initially, including $0.080000 output allowance; +$0.062630 versus unsplit. Sequential alternatives are not concurrent holds or charges.
-- Keeping saved Nov 10 World social editing leaves $0.010337 actual-cost room for all remaining World/U.S. work; no quality-preserving savings established. Paired editor stays unwired.
-- TASKS, budget evidence and NEEDS_FROM_HUMAN updated; no source/cap/model/output-limit/flag/runtime changes. Next: cached semantic routing evaluation.
-- Live snapshot: 36 sources, all nonempty/ok; /api/editions/latest serves eb6e962e with four topics. Mistaken /api/digests/latest probe returned 404; corrected endpoint passes.
-- Verification: pnpm format, pnpm lint:fix, offline probe, filtered check-handbook (39 tables/no warnings), pnpm build and git diff --check pass; pnpm check passes (860 unit/283 integration tests, four expected skips). Existing build warnings only.
-- Commit/push then API/worker restart and post-deploy health verification follow.
-- Push rejected: upstream owner/lead commits; fetched and merged without conflicts/history rewrite. New item 57 supersedes fit gate: stop savings work, activate next with $20 monthly/$0.65 maximum daily AI. Historical evidence marked superseded.
-
-## 2026-11-11: iteration 1859 — U.S. topic activated
-
-- Clean main/no inherited work. Alerts zero; health/database/Redis healthy. At orientation item 50 waited for owner/lead review; followed 56/57.
-- Wired shared World/U.S. report triage and joint event ownership before editing; exclusive fallback retains owned events. Refused/incomplete ownership withholds both story sections with a reason; other topics can publish.
-- Migration 0020 preserves World identity, adds enabled U.S. immediately after it (five stories/five posts), moves Guardian US and adds NPR Politics/PBS Politics, domestic Bluesky query, curated X accounts/settings.
-- Applied approved AI $20/month/$0.65 maximum daily and X $15/month/$0.50 daily; live status confirms all four caps. Scheduled reserve/models/provider unchanged.
-- Historical expected five-topic cost $0.527945 fits effective $0.65. Current four-topic actual $0.395364 unchanged; zero paid verification calls. Next scheduled edition is the first live five-topic test.
-- Private backup `news-digest-20261111T220340Z` complete (39 tables). Initial pnpm env-file migration invocation failed; corrected `tsx -e` loads the private env then imports migrate; 0020 applied successfully.
-- Live U.S. feeds report Guardian/NPR/PBS 33/10/20 items, zero errors. All 38 sources nonempty; latest published four-topic snapshot remains immutable.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (862 unit/286 integration pass, four expected skips), pnpm build, check-handbook 01-app (14 diagrams/39 tables/no warnings), git diff --check pass; existing build warnings only.
-- `pnpm exec tsx scripts/smoke-us-topic-live.ts`: live five-row catalog desktop/mobile light/dark, no errors/overflow; screenshots saved and desktop/mobile inspected. Local admin bridge supplies UI admission; live stored-session security is not retested.
-- Preserved general spam exclusions after initial integration regression; remaining failures were old four-topic/cap assertions. Final full suite is green.
-- API/worker restarted outside 13:00–16:00 UTC; health and live caps/content verified. Commit/push and final main-matching restart follow.
-- Push rejected: new upstream item 58; fetched/merged, preserving owner text and activation ack. Activation was already live; next resume item 50 security fixes before further U.S. work. Nov 12–14 daily acceptance reviews remain due; no extra paid run.
-
-## 2026-11-11: iteration 1860 — ordered public activation and rollback
-
-- Clean main/no inherited work; alerts zero and health/database/Redis healthy. Read private item 58 findings; no unresolved details copied into the repo.
-- Completed item 58.1 in docs/public-readiness.md: verify public server/web admission while private before owner sharing; confirm unsharing before restoring private flags/build. Removed conflicting rollback wording.
-- Runbook includes stop conditions, saved baseline/backup, service commands, deployment hold, ordinary-reader/admin boundaries and post-sharing scheduled monitoring. Sharing commands checked against documented exe.dev proxy features.
-- Public mode/sharing, budgets, sources and runtime code unchanged; no provider calls or accepted-screen reruns. No new test for this documentation-only change.
-- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook (39 tables/no warnings), git diff --check pass; existing build warnings only. Full pnpm check passes: 862 unit/286 integration tests, four expected skips.
-- Live read-only checks: 32 account-boundary refusals pass; saved Nov 11 reader verifies eb6e962e, four topics/19 stories/19 posts. No publication or account writes.
-- Next: item 58.2 sign-in protection, then remaining findings in owner order; first five-topic scheduled review due Nov 12. Item 50 remains gated on fixes, normal scheduled publication, lead re-check and owner decision.
-
-## 2026-11-11: iteration 1861 — isolate sign-in rate allowances
-
-- Clean main/no inherited work; alerts zero, health/database/Redis healthy. Continued item 58.2 in owner order.
-- Recipient throttling is now scoped to the requesting client; shared per-client throttling, private keys, expiry and fail-closed behavior remain enforced.
-- Redis regression covers concurrent instances and confirms other clients cannot exhaust a reader’s allowance. Full item 58.2 remains open; finish challenge protection next before admin freshness.
-- pnpm format, pnpm lint:fix, pnpm check (862 unit/286 integration pass, four expected skips), pnpm build and git diff --check pass; existing build warnings only.
-- Live read-only checks: all 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics. No provider calls, budget/source/public-mode/sharing changes or accepted-screen reruns.
-- Commit/push and API/worker restart outside the deployment hold follow; final health/alerts checked after restart.
-
-## 2026-11-11: iteration 1862 — isolate sign-in challenges
-
-- Clean main/no inherited work; initial health and alerts green. Completed item 58.2 challenge protection after recipient/client rate isolation (1861).
-- Challenges, replacement and five-attempt limits now belong to the requesting client as well as email; stored client identifiers are keyed hashes. Other clients cannot invalidate or exhaust a reader's challenge.
-- Added application refusal and concurrent Postgres regression checks; documented same-network code exchange and updated schema metadata/snapshot.
-- First pnpm check found only a schema column-order mismatch; corrected the declaration to match the appended migration column. Final pnpm check: 863 unit/286 integration pass, four expected skips; schema parity/offline migration checks pass.
-- pnpm format, pnpm lint:fix, pnpm build, filtered check-handbook (14 diagrams/39 tables/no warnings) and git diff --check pass; existing build warnings only.
-- Private backup news-digest-20261111T223837Z completed (39 tables); stopped API/worker, applied migration 0021 preserving rows, restarted outside deployment hold. Outstanding old codes require a fresh request.
-- Live: health/database/Redis green; 32 account-boundary refusals pass; 38 sources healthy/nonempty; saved edition eb6e962e unchanged with four topics; zero alerts. No provider calls or public-mode/sharing/budget/source changes.
-- Next: item 58.3 admin freshness, then remaining findings in owner order. Nov 12 first five-topic scheduled acceptance remains due. Commit/push and final main-matching restart follow.
+[Iterations 1858–1862](docs/progress-archive/2026-11-12-iterations-1858-1862.md).
 
 ## 2026-11-11: iteration 1863 — protect admin freshness
 
@@ -186,3 +131,14 @@
 - Next: item 58.8 browser error reporting, then leftover test services and listed read-only checks; scheduled five-topic acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
 - Fresh pnpm test:integration passes: 286 tests, four expected skips, zero failures. Rebuilt API/worker/docs restarted outside hold; immediate probe raced startup, retry health/database/Redis green. All 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.
 - Initial push rejected because upstream lead documentation advanced main (8ee1cb68); fetched and merged without rewriting history or editing owner files. Merge changes only lead status docs; verified app build remains unchanged. Retrying push after recording this result.
+
+## 2026-11-12: iteration 1872 — restore public browser error reporting
+
+- Clean main/no inherited work; initial health green and zero alerts. Completed item 58.8 browser reporting; public mode remains off.
+- Admitted only POST on the reviewed technical-report endpoint. Existing strict fields reject private text/URLs/stacks; the receiver retains its global 20/minute log cap and visitor API admission still applies. Updated access plan.
+- Route regressions refuse other methods and ambiguous/nested paths. Full configured application checks anonymous acceptance, private-field rejection, cap exhaustion and other-method refusals against disposable storage. No accepted-screen reruns.
+- pnpm format, pnpm lint:fix, static checks and 871 unit tests pass; pnpm build, filtered check-handbook (39 tables, no diagrams changed) and git diff --check pass. Fresh pnpm test:integration passes: 286 tests, four expected skips, zero failures. Deployment below.
+- Integration exposed two fixture issues: missing same-origin Origin (403), then extra requests consuming the existing visitor exhaustion allowance (429). Matched browser Origin and isolated report checks on a separate fixture visitor; fresh integration result below.
+- Live predeploy: 38/38 sources healthy, zero failed digest-generation jobs, next edition Nov 12 15:00 UTC. No provider calls, migrations, source/budget/access-flag changes. Archived iterations 1858–1862 to keep this file small.
+- Next: item 58.9 leftover test services, then listed read-only checks/minor items; Nov 12 five-topic scheduled acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
+- Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.

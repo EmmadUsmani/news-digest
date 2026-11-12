@@ -10,6 +10,8 @@ const rules: readonly Rule[] = [
   ['GET', /^\/(?:saved|editions)?$/, 'public-read'],
   ['GET', new RegExp(`^/editions/${id}$`), 'public-read'],
   ['GET', /^\/healthz$/, 'public-read'],
+  // Strict technical fields and the receiver's global log cap apply downstream.
+  ['POST', /^\/api\/browser-errors$/, 'public-read'],
   ['GET', /^\/admin\/?$/, 'public-read'],
   ['GET', /^\/admin\/editions$/, 'public-read'],
   ['GET', /^\/admin\/schedule$/, 'public-read'],

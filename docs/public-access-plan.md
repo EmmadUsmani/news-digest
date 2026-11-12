@@ -668,6 +668,10 @@ Private mode adds none of these headers. Wire-level checks
 cover account responses, reader GET/HEAD and denied routes, including a forged
 forwarded protocol. Accounts/public activation remains gated as before.
 
+Anonymous `POST /api/browser-errors` accepts only technical error types, asset
+basenames and numeric locations. The receiver rejects extra fields and caps logs
+at 20 reports per minute globally; API visitor admission also applies.
+
 The `/privacy` page is available from the reader footer. It describes browser-local
 choices, limited technical error reports, embedded third-party connections and the
 hosting proxy. Account data, sync, deletion and backup retention appear only when

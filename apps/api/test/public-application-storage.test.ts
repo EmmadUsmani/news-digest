@@ -228,6 +228,41 @@ void test('configured full public application serves published fixtures and enfo
     };
     const get = (path: string, init: RequestInit = {}) =>
       fetch(base + path, { ...init, headers: { ...headers, ...init.headers } });
+    // Anonymous technical reports reach the real receiver in public mode.
+    const report = {
+      kind: 'error',
+      errorType: 'TypeError',
+      asset: 'index-test.js',
+    };
+    const sendReport = (body: unknown) =>
+      get('/api/browser-errors', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Origin: configuration.ACCOUNT_ORIGIN,
+          'X-Forwarded-For': '192.0.2.1, 203.0.113.199, 203.0.113.199',
+        },
+        body: JSON.stringify(body),
+      });
+    assert.equal(
+      (await sendReport({ ...report, message: 'private text' })).status,
+      400,
+    );
+    for (let count = 0; count < 20; count++)
+      assert.equal((await sendReport(report)).status, 204);
+    assert.equal((await sendReport(report)).status, 429);
+    for (const method of ['GET', 'HEAD', 'PUT'])
+      assert.equal(
+        (
+          await get('/api/browser-errors', {
+            method,
+            headers: {
+              'X-Forwarded-For': '192.0.2.1, 203.0.113.199, 203.0.113.199',
+            },
+          })
+        ).status,
+        404,
+      );
     const health = await fetch(base + '/healthz');
     assert.equal(health.status, 200);
     assert.deepEqual(await health.json(), {
