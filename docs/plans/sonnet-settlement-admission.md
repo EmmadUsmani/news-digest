@@ -22,7 +22,12 @@ Sonnet identity and trusted scheduled-ledger context behind a hard false code ga
 manual callers, Haiku and legacy ledgers retain immediate admission. Bounded logs
 contain stop category, elapsed time, attempts and original-hold count, never IDs.
 Offline composed controls cover repair, Haiku fallback, late wake-up, manual and
-disabled admission. Waiting stays disabled. Implement the
+disabled admission. Iteration 2023 exercises the production ShortlistEditor with
+the enabled internal policy offline: initial and repair settlement admission,
+settled-but-still-refused Haiku fallback, expiry during waiting, missing execution
+context and legacy/partial-ledger immediate paths. It verifies model dispatch,
+shared context, separately settled reservations and no dispatch after expiry.
+Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 

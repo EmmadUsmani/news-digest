@@ -175,3 +175,12 @@
 - Next: exercise production ShortlistEditor repair/fallback with this policy and missing-context/legacy-ledger paths before enabling waits. Natural scheduled NBA AI-edited acceptance remains pending.
 - Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (914 unit/287 integration, four expected skips); `pnpm build` passes with existing bundle warning. Handbook, settlement evaluation and `git diff --check` pass.
 - API/worker restarted active outside protected hours; `/healthz` database/Redis healthy, zero alerts, digest queue staffed/zero failures. Live edition unchanged at five topics/25 stories.
+
+## 2026-11-12: iteration 2023 — production editor settlement admission controls
+
+- Clean main/no inherited work. Initial alerts and health green; all 38 sources healthy, digest-generation staffed/zero failures. Next scheduled edition Nov 13 15:00 UTC.
+- Added six offline production ShortlistEditor controls with the internal settlement policy enabled: separately reserved/settled initial and repair calls, settled-but-still-refused Haiku fallback, shared deadline expiry, missing execution context, legacy ledger and partial-ledger capability.
+- Asserted model dispatch, unchanged shared execution context, repair feedback, exact admission/sleep counts and reservation settlements. Deadline expiry prevents all provider dispatch and further reservations.
+- Production waiting remains disabled; no paid calls, cap/model/provider changes, source changes or saved-edition mutation. Updated TASKS and admission plan; runtime handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Verification: focused editor suite 33/33; `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/287 integration pass, four expected skips), `pnpm build`, handbook check, settlement evaluation (15 controls) and `git diff --check` pass. Existing bundle warning only.
+- Next: review remaining admission rollout gates before enabling waits. Natural scheduled NBA AI-edited acceptance remains pending.

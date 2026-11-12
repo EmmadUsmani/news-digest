@@ -1186,3 +1186,150 @@ void test('scheduled execution shares its deadline across editor repair and Haik
     );
   }
 });
+
+for (const mode of [
+  'repair',
+  'fallback',
+  'expired',
+  'missing-context',
+  'legacy',
+  'partial-ledger',
+] as const) {
+  void test(`production editor settlement admission preserves ${mode}`, async () => {
+    const config = llmConfig({});
+    const execution = Object.freeze({ deadline: 600_000 });
+    let now = 0;
+    let detailed = 0;
+    let sleeps = 0;
+    const immediate: string[] = [];
+    const calls: LlmRequest[] = [];
+    const settled: string[] = [];
+    const ledger: LlmLedger = {
+      async cached() {
+        return undefined;
+      },
+      async cache() {},
+      async reserve(request) {
+        immediate.push(request.model.id);
+        return request.model.id === config.haiku.id ? 'haiku' : null;
+      },
+      async settle(id) {
+        settled.push(id);
+      },
+      async fail() {
+        assert.fail('No transport failures expected');
+      },
+    };
+    if (mode !== 'legacy') {
+      ledger.reserveDetailed = async (request, estimate) => {
+        assert.equal(request.model.id, config.sonnet.id);
+        detailed++;
+        if (detailed % 2 === 0 && mode !== 'fallback')
+          return { status: 'admitted', id: `sonnet-${detailed}` };
+        return {
+          status: 'refused',
+          reasons: ['model-allocation'],
+          estimateMicros: estimate,
+          sharedAvailableMicros: estimate,
+          availableMicros: 0,
+          modelAvailableMicros: 0,
+          pendingHoldsOverflow: false,
+          pendingHolds: [
+            {
+              id: 'original',
+              model: config.sonnet.id,
+              reservedMicros: estimate,
+              createdAt: '2026-11-12T00:00:00Z',
+            },
+          ],
+        };
+      };
+      if (mode !== 'partial-ledger')
+        ledger.pendingOriginalHolds = async (model, ids) => {
+          assert.equal(model, config.sonnet.id);
+          assert.deepEqual(ids, ['original']);
+          return [];
+        };
+    }
+    const llm = new BudgetedLlm(
+      {
+        async complete(request, context) {
+          assert.equal(
+            context,
+            mode === 'missing-context' ? undefined : execution,
+          );
+          calls.push(request);
+          return {
+            text:
+              mode === 'repair' && calls.length === 1
+                ? 'invalid-json'
+                : JSON.stringify(valid),
+            usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+      ledger,
+      undefined,
+      undefined,
+      () => now,
+      {
+        sonnetModel: config.sonnet.id,
+        scheduled: () => true,
+        async sleep(ms) {
+          sleeps++;
+          now += mode === 'expired' ? 600_000 : ms;
+        },
+      },
+    );
+    const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
+    const edit = () => editor.edit(topic, candidates, 1, 'settlement-editor');
+    const result =
+      mode === 'missing-context'
+        ? await edit()
+        : await withLlmExecution(execution, edit);
+    assert.equal(
+      result?.model ?? null,
+      mode === 'expired'
+        ? null
+        : mode === 'repair'
+          ? config.sonnet.id
+          : config.haiku.id,
+    );
+    assert.equal(
+      detailed,
+      mode === 'repair'
+        ? 4
+        : mode === 'fallback'
+          ? 2
+          : mode === 'expired'
+            ? 1
+            : 0,
+    );
+    assert.equal(
+      sleeps,
+      mode === 'repair' ? 2 : mode === 'fallback' || mode === 'expired' ? 1 : 0,
+    );
+    assert.deepEqual(
+      immediate,
+      mode === 'repair' || mode === 'expired'
+        ? []
+        : mode === 'fallback'
+          ? [config.haiku.id]
+          : [config.sonnet.id, config.haiku.id],
+    );
+    assert.equal(
+      calls.length,
+      mode === 'expired' ? 0 : mode === 'repair' ? 2 : 1,
+    );
+    assert.deepEqual(
+      settled,
+      mode === 'expired'
+        ? []
+        : mode === 'repair'
+          ? ['sonnet-2', 'sonnet-4']
+          : ['haiku'],
+    );
+    if (mode === 'repair')
+      assert.match(calls[1].prompt, /Return only valid JSON/);
+  });
+}
