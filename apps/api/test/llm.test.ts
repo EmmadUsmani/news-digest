@@ -33,6 +33,11 @@ import {
   ProviderSpendLimit,
 } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import {
+  scheduledLedgerContext,
+  withEditionRun,
+  withScheduledAttempt,
+} from '../src/modules/curation/public/scheduled-context';
 
 const config = llmConfig({});
 const request: LlmRequest = {
@@ -1575,3 +1580,137 @@ void test('inherited execution cannot be extended and explicit shorter deadlines
   assert.equal(ledger.calls.length, 0);
   assert.equal(provider.count(), 0);
 });
+
+for (const mode of [
+  'repair',
+  'fallback',
+  'deadline',
+  'manual',
+  'disabled',
+  'haiku',
+] as const) {
+  void test(`settlement composition preserves ${mode} behavior`, async () => {
+    let time = 0;
+    let polls = 0;
+    let detailed = 0;
+    const ledger = new MemoryLedger();
+    const diagnostics: Record<string, unknown>[] = [];
+    const detailedLedger: LlmLedger = Object.assign(ledger, {
+      async reserveDetailed(candidate: LlmRequest, estimate: number) {
+        detailed++;
+        // Refuse the initial request and, for repair, its separately funded repair.
+        if (detailed % 2 === 1 || mode === 'fallback' || mode === 'deadline') {
+          return {
+            status: 'refused' as const,
+            reasons: ['model-allocation' as const],
+            estimateMicros: estimate,
+            sharedAvailableMicros: estimate,
+            availableMicros: 0,
+            modelAvailableMicros: 0,
+            pendingHoldsOverflow: false,
+            pendingHolds: [
+              {
+                id: 'private-hold',
+                model: config.sonnet.id,
+                reservedMicros: estimate,
+                createdAt: '2026-11-12T00:00:00Z',
+              },
+            ],
+          };
+        }
+        return {
+          status: 'admitted' as const,
+          id: (await ledger.reserve(candidate, estimate))!,
+        };
+      },
+      async pendingOriginalHolds() {
+        polls++;
+        return mode === 'fallback' ? [] : ['private-hold'];
+      },
+    });
+    const provider = fake(
+      mode === 'repair' ? ['{}', '{"ok":true}'] : ['{"ok":true}'],
+    );
+    const log = createLogger('silent');
+    log.info = (fields: object) => {
+      diagnostics.push(fields as Record<string, unknown>);
+    };
+    const service = new BudgetedLlm(
+      provider.llm,
+      detailedLedger,
+      log,
+      undefined,
+      () => time,
+      mode === 'disabled'
+        ? undefined
+        : {
+            sonnetModel: config.sonnet.id,
+            scheduled: () => scheduledLedgerContext() !== undefined,
+            sleep: async (ms) => {
+              time += mode === 'deadline' ? 300_000 : ms;
+            },
+          },
+    );
+    const execution = { deadline: 600_000 };
+    const candidate = {
+      ...request,
+      model: mode === 'haiku' ? config.haiku : config.sonnet,
+    };
+    const invoke = () =>
+      withLlmExecution(execution, () => service.jsonOutcome(candidate, valid));
+    const outcome = await (mode === 'manual'
+      ? invoke()
+      : withScheduledAttempt('scheduled-fixture', 1, () =>
+          withEditionRun('scheduled-fixture', 'edition-fixture', invoke),
+        ));
+    if (mode === 'fallback' || mode === 'deadline') {
+      assert.equal(outcome.status, 'budget-refused');
+      assert.equal(ledger.calls.length, 0);
+      // Existing editor behavior can still use Haiku under the same deadline.
+      assert.equal(
+        (
+          await withLlmExecution(execution, () =>
+            service.jsonOutcome(request, valid),
+          )
+        ).status,
+        'complete',
+      );
+    } else {
+      assert.equal(outcome.status, 'complete');
+      assert.equal(ledger.calls.length, mode === 'repair' ? 2 : 1);
+    }
+    assert.equal(
+      detailed,
+      mode === 'repair'
+        ? 4
+        : mode === 'fallback'
+          ? 2
+          : mode === 'deadline'
+            ? 1
+            : 0,
+    );
+    assert.equal(polls, mode === 'repair' ? 2 : mode === 'fallback' ? 1 : 0);
+    const waits = diagnostics.filter(
+      (entry) => entry.event === 'budget.settlement-admission',
+    );
+    assert.equal(
+      waits.length,
+      mode === 'repair'
+        ? 2
+        : mode === 'fallback' || mode === 'deadline'
+          ? 1
+          : 0,
+    );
+    assert.equal(JSON.stringify(diagnostics).includes('private-hold'), false);
+    assert.equal(
+      time,
+      mode === 'deadline'
+        ? 300_000
+        : mode === 'repair'
+          ? 500
+          : mode === 'fallback'
+            ? 250
+            : 0,
+    );
+  });
+}

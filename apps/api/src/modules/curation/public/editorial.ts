@@ -9,6 +9,7 @@ import { EventGrouping } from '../application/event-grouping';
 import { SocialPostEditor } from '../application/social-editor';
 import { CandidateTriage } from '../application/triage';
 import { configuredLlmLedger } from './ledger';
+import { scheduledLedgerContext } from './scheduled-context';
 
 export type { EditorialResult } from '../application/editor';
 export type { TriageScore } from '../application/triage';
@@ -36,11 +37,22 @@ export function editorialServices(db: Pool) {
   if (existing) return existing;
   const config = llmConfig();
   const ledger = configuredLlmLedger(db, config.caps);
+  // Deliberately code-gated until offline composition and rollout review pass.
+  const settlementWaitingEnabled = false;
   const llm = new BudgetedLlm(
     new AnthropicLlmAdapter(key),
     ledger,
     undefined,
     new FileRejectedEditorStore(),
+    undefined,
+    settlementWaitingEnabled
+      ? {
+          sonnetModel: config.sonnet.id,
+          scheduled: () => scheduledLedgerContext() !== undefined,
+          sleep: (ms) =>
+            new Promise<void>((resolve) => setTimeout(resolve, ms)),
+        }
+      : undefined,
   );
   const result = {
     validationDiagnostics: () => llm.validationDiagnostics(),

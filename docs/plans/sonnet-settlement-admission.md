@@ -15,7 +15,14 @@ ownership. Iteration 2021 adds an unwired admission helper with a frozen origina
 250 ms polling, five-second/21-attempt limits and 300-second completion headroom.
 It rechecks cancellation/deadline after timer and ledger waits; only a new atomic
 reservation admits spending. Missing context, manual/non-Sonnet callers and mixed
-refusals remain immediate. Ledger errors propagate. Waiting stays disabled. Implement the
+refusals remain immediate. Ledger errors propagate.
+BudgetedLlm now composes the helper through an optional internal policy, repeated
+for each separately funded repair. The editorial factory supplies the configured
+Sonnet identity and trusted scheduled-ledger context behind a hard false code gate;
+manual callers, Haiku and legacy ledgers retain immediate admission. Bounded logs
+contain stop category, elapsed time, attempts and original-hold count, never IDs.
+Offline composed controls cover repair, Haiku fallback, late wake-up, manual and
+disabled admission. Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 

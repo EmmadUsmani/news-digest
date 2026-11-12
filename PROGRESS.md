@@ -163,3 +163,15 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (908 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` (15 controls) and `git diff --check` pass. Existing bundle warning only.
 - Updated TASKS and admission plan. No live provider calls, caps/models/source/UI/publication changes; handbook runtime description, SOURCES and NEEDS_FROM_HUMAN unchanged.
 - Next: wire trusted scheduled admission and bounded diagnostics into BudgetedLlm; verify repair/fallback composition before enabling waits. Natural NBA AI-edited acceptance remains pending.
+
+## 2026-11-12: iteration 2022 — gated BudgetedLlm settlement composition
+
+- Clean main/no inherited work. Initial alerts and health green; 38 healthy sources, staffed digest queue/zero failed jobs. Next scheduled edition Nov 13 15:00 UTC.
+- BudgetedLlm now optionally composes bounded settlement admission for configured Sonnet with execution context and trusted scheduled eligibility. Each repair reserves separately; legacy/manual/Haiku callers keep immediate admission.
+- Editorial composition supplies scheduled-ledger eligibility behind a hard false code gate. Production waiting remains disabled; caps, models, provider and publication behavior unchanged.
+- Bounded diagnostics expose stop category, wait duration, attempt count and original-hold count without hold IDs. Six offline composed cases cover repair, fallback, deadline wake-up and manual/disabled/Haiku paths; all 47 focused LLM tests pass.
+- Fixed a floating test promise found by lint. Format/lint-fix, full check/build/deployment results recorded below; offline settlement evaluation passes 15 controls and handbook check passes.
+- Updated TASKS/admission plan. No live LLM calls or source/UI/schema changes; handbook runtime description, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: exercise production ShortlistEditor repair/fallback with this policy and missing-context/legacy-ledger paths before enabling waits. Natural scheduled NBA AI-edited acceptance remains pending.
+- Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (914 unit/287 integration, four expected skips); `pnpm build` passes with existing bundle warning. Handbook, settlement evaluation and `git diff --check` pass.
+- API/worker restarted active outside protected hours; `/healthz` database/Redis healthy, zero alerts, digest queue staffed/zero failures. Live edition unchanged at five topics/25 stories.

@@ -13,6 +13,7 @@ import type { LlmLedger } from '../domain/llm-ledger.port';
 import type { RejectedEditorStore } from '../domain/rejected-editor.port';
 import { currentLlmExecution } from './execution-context';
 import { llmFingerprint } from './llm-fingerprint';
+import { admitAfterSettlement } from './settlement-admission';
 import {
   LlmValidationFailure,
   schemaIssueCategories,
@@ -127,6 +128,12 @@ export class BudgetedLlm {
     private readonly log = logger,
     private readonly rejectedEditors?: RejectedEditorStore,
     private readonly now = () => performance.now(),
+    // Internal composition only. Omitted in production until rollout gates pass.
+    private readonly settlement?: {
+      sonnetModel: string;
+      scheduled: () => boolean;
+      sleep: (ms: number) => Promise<void>;
+    },
   ) {}
   async json<T>(
     request: LlmRequest,
@@ -245,7 +252,45 @@ export class BudgetedLlm {
           ),
         },
       );
-      const id = await this.ledger.reserve(current, estimate);
+      let id: string | null;
+      if (
+        this.settlement &&
+        execution &&
+        this.settlement.scheduled() &&
+        current.model.id === this.settlement.sonnetModel &&
+        this.ledger.reserveDetailed &&
+        this.ledger.pendingOriginalHolds
+      ) {
+        const admission = await admitAfterSettlement(
+          {
+            reserveDetailed: (candidate, cost) =>
+              this.ledger.reserveDetailed!(candidate, cost),
+            pendingOriginalHolds: (model, ids) =>
+              this.ledger.pendingOriginalHolds!(model, ids),
+          },
+          current,
+          estimate,
+          { ...this.settlement, scheduled: true, execution, now: this.now },
+        );
+        id =
+          admission.result.status === 'admitted' ? admission.result.id : null;
+        this.log.info(
+          {
+            event: 'budget.settlement-admission',
+            target: 'anthropic',
+            runId: request.runId,
+            model: current.model.id,
+            attempt: attempt + 1,
+            stop: admission.stop,
+            attempts: admission.attempts,
+            waitedMs: admission.waitedMs,
+            originalHoldCount: admission.originalHoldCount,
+          },
+          'LLM settlement admission',
+        );
+      } else {
+        id = await this.ledger.reserve(current, estimate);
+      }
       this.log.info(
         {
           event: 'budget.decision',
