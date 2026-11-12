@@ -69,7 +69,7 @@ for (const kind of ['source', 'topic', 'order'] as const) {
           kind === 'source'
             ? '/api/admin/topics/sources/test/enabled'
             : kind === 'topic'
-              ? `/api/admin/topics/${id}`
+              ? `/api/admin/topics/${id}/enabled`
               : '/api/admin/topics/order';
         const body =
           kind === 'order'

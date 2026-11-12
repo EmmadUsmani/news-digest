@@ -43,7 +43,11 @@ const rules: readonly Rule[] = [
     'admin',
   ],
   ['POST', new RegExp(`^/api/admin/topics/${id}/(?:queries|feeds)$`), 'admin'],
-  ['PUT', new RegExp(`^/api/admin/topics/${id}(?:/sources)?$`), 'admin'],
+  [
+    'PUT',
+    new RegExp(`^/api/admin/topics/${id}(?:/sources|/enabled)?$`),
+    'admin',
+  ],
   ['DELETE', new RegExp(`^/api/admin/topics/${id}$`), 'admin'],
   ['GET', /^\/api\/admin\/profile$/, 'admin'],
   ['PUT', /^\/api\/admin\/profile\/schedule$/, 'admin'],

@@ -19,7 +19,7 @@ void test('prepared topic write HTTP validates bounded requests and authorizes a
   let calls = 0;
   let authCalls = 0;
   const at = new Date('2026-11-09T11:00:00Z');
-  const path = '/api/admin/topics/22222222-2222-4222-8222-222222222222';
+  const path = '/api/admin/topics/22222222-2222-4222-8222-222222222222/enabled';
   const server = createServer((req, res) =>
     publicTopicHttp({
       enabled,
@@ -258,7 +258,7 @@ void test('atomic topic writes allow only direct authenticated scripts to omit O
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   const address = server.address();
   assert.ok(address && typeof address !== 'string');
-  const url = `http://127.0.0.1:${address.port}/api/admin/topics/22222222-2222-4222-8222-222222222222`;
+  const url = `http://127.0.0.1:${address.port}/api/admin/topics/22222222-2222-4222-8222-222222222222/enabled`;
   try {
     const call = (headers: string[], body = '{"enabled":false}') =>
       new Promise<number | undefined>((resolve, reject) => {

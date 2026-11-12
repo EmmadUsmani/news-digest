@@ -536,6 +536,10 @@ tests reject repeated identical and conflicting values, including mixed casing,
 with empty no-store responses; a subsequent unambiguous request succeeds.
 Accounts/public remain disabled pending proxy proof.
 
+Topic enable writes use the dedicated `PUT /api/admin/topics/:id/enabled`
+route. Full topic edits, deletion and source changes enter general admin admission
+and the topic controller instead of the toggle transport (iteration 1871).
+
 Prepared atomic source, topic-enable and topic-order transports (iteration 1582)
 check connection liveness after authentication, before beginning a storage write.
 Offline HTTP tests disconnect during delayed authentication and verify no mutation;

@@ -39,12 +39,7 @@ export function publicTopicHttp(options: {
     next: () => void,
   ) => {
     const target = request.url ?? '';
-    if (
-      !target.startsWith('/api/admin/topics/') ||
-      target === '/api/admin/topics/order' ||
-      target === '/api/admin/topics/sources' ||
-      target.startsWith('/api/admin/topics/sources/')
-    )
+    if (!/^\/api\/admin\/topics\/[^/]+\/enabled(?:[/?]|$)/.test(target))
       return next();
     response.setHeader('Cache-Control', 'no-store');
     response.setHeader('Vary', 'Cookie');
@@ -57,7 +52,7 @@ export function publicTopicHttp(options: {
     };
     const run = async () => {
       const match =
-        /^\/api\/admin\/topics\/([0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})$/.exec(
+        /^\/api\/admin\/topics\/([0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})\/enabled$/.exec(
           target,
         );
       if (!options.enabled || request.method !== 'PUT' || !match)

@@ -12,6 +12,7 @@ void test('prepared write router isolates atomic source writes from standalone a
   let atomic = 0;
   let admissions = 0;
   let legacy = 0;
+  let authorized = true;
   const middleware = publicWriteRouter({
     enabled: true,
     source: () =>
@@ -59,8 +60,9 @@ void test('prepared write router isolates atomic source writes from standalone a
           },
         },
       }),
-    authorize: () => (_request, _response, next) => {
+    authorize: () => (_request, response, next) => {
       admissions++;
+      if (!authorized) return response.writeHead(404).end();
       next();
     },
   });
@@ -95,13 +97,14 @@ void test('prepared write router isolates atomic source writes from standalone a
       assert.equal((await send(target, method)).status, 404);
     }
     assert.deepEqual([atomic, admissions, legacy], [1, 0, 0]);
-    const topic = '/api/admin/topics/11111111-1111-1111-1111-111111111111';
+    const topic =
+      '/api/admin/topics/11111111-1111-1111-1111-111111111111/enabled';
     assert.equal((await send(topic)).status, 200);
     assert.deepEqual([atomic, admissions, legacy], [2, 0, 0]);
     for (const target of [
       topic + '?extra=1',
       topic + '/extra',
-      '/api/admin/topics/example',
+      '/api/admin/topics/example/enabled',
     ]) {
       assert.equal((await send(target)).status, 404);
     }
@@ -124,6 +127,23 @@ void test('prepared write router isolates atomic source writes from standalone a
     assert.deepEqual([atomic, admissions, legacy], [3, 0, 0]);
     assert.equal((await send('/api/admin/settings')).status, 204);
     assert.deepEqual([atomic, admissions, legacy], [3, 1, 1]);
+    // Editor, deletion and source changes must pass through general admin
+    // admission, while the dedicated toggle remains atomic.
+    const editor = topic.replace('/enabled', '');
+    for (const [target, method] of [
+      [editor, 'PUT'],
+      [editor, 'DELETE'],
+      [editor + '/sources', 'PUT'],
+      [editor + '/feeds', 'POST'],
+    ]) {
+      assert.equal((await send(target, method)).status, 204);
+      authorized = false;
+      const before = legacy;
+      assert.equal((await send(target, method)).status, 404);
+      assert.equal(legacy, before);
+      authorized = true;
+    }
+    assert.deepEqual([atomic, admissions, legacy], [3, 9, 5]);
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve, reject) =>

@@ -1323,7 +1323,7 @@ void test('configured full public application serves published fixtures and enfo
     }[];
     assert.ok(catalog.length > 0);
     const topic = catalog[0];
-    const toggle = await account('/api/admin/topics/' + topic.id, {
+    const toggle = await account('/api/admin/topics/' + topic.id + '/enabled', {
       method: 'PUT',
       headers: {
         Cookie: cookie,
@@ -1338,9 +1338,57 @@ void test('configured full public application serves published fixtures and enfo
       id: topic.id,
       enabled: topic.enabled,
     });
+    const editorTarget = '/api/admin/topics/' + topic.id;
+    const editorBody = Object.fromEntries(
+      [
+        'name',
+        'description',
+        'includeGuidance',
+        'excludeGuidance',
+        'enabled',
+        'storyBudget',
+        'postBudget',
+        'relevancePolicy',
+        'accounts',
+        'redditCommunities',
+        'blueskyQuery',
+        'xDiscovery',
+      ].map((key) => [key, (topic as Record<string, unknown>)[key]]),
+    );
+    for (const description of [
+      'Public-mode editor regression',
+      editorBody.description,
+    ]) {
+      const body = JSON.stringify({ ...editorBody, description });
+      const headers = {
+        Origin: configuration.ACCOUNT_ORIGIN,
+        'Content-Type': 'application/json',
+      };
+      const refused = await account(editorTarget, {
+        method: 'PUT',
+        headers,
+        body,
+      });
+      assert.equal(refused.status, 404);
+      const edited = await account(editorTarget, {
+        method: 'PUT',
+        headers: { ...headers, Cookie: cookie },
+        body,
+      });
+      assert.equal(edited.status, 200);
+      const readback = await account('/api/admin/topics', {
+        headers: { Cookie: cookie },
+      });
+      assert.deepEqual(
+        await readback.json(),
+        catalog.map((entry) =>
+          entry.id === topic.id ? { ...entry, description } : entry,
+        ),
+      );
+    }
     // Exercise a real mutation and its durable audit through the compiled app,
     // then restore the catalog before the account-boundary rehearsals below.
-    const topicTarget = '/api/admin/topics/' + topic.id;
+    const topicTarget = '/api/admin/topics/' + topic.id + '/enabled';
     const beforeAdmissions = await db.query(
       'SELECT id FROM admin_write_admissions WHERE target = $1',
       [topicTarget],
@@ -1403,7 +1451,11 @@ void test('configured full public application serves published fixtures and enfo
             hiddenTopics: { tech: { hidden: true, updatedAt: 100 } },
           },
         ],
-        ['/api/admin/topics/' + topic.id, 'PUT', { enabled: !topic.enabled }],
+        [
+          '/api/admin/topics/' + topic.id + '/enabled',
+          'PUT',
+          { enabled: !topic.enabled },
+        ],
       ] as const) {
         const response = await account(path, {
           method,
@@ -1433,7 +1485,11 @@ void test('configured full public application serves published fixtures and enfo
       for (const [path, method, body] of [
         ['/api/account/delete', 'POST', { confirmation: 'DELETE' }],
         ['/api/account/logout-all', 'POST', {}],
-        ['/api/admin/topics/' + topic.id, 'PUT', { enabled: !topic.enabled }],
+        [
+          '/api/admin/topics/' + topic.id + '/enabled',
+          'PUT',
+          { enabled: !topic.enabled },
+        ],
       ] as const) {
         const response = await account(path, {
           method,
@@ -1463,7 +1519,7 @@ void test('configured full public application serves published fixtures and enfo
       ['/api/account/logout-all', 'POST'],
       ['/api/account/delete', 'POST'],
       ['/api/account/sync', 'POST'],
-      ['/api/admin/topics/' + topic.id, 'PUT'],
+      ['/api/admin/topics/' + topic.id + '/enabled', 'PUT'],
     ] as const) {
       for (const [body, status] of [
         ['{"confirmation":"DELETE",', 400],
@@ -1570,16 +1626,19 @@ void test('configured full public application serves published fixtures and enfo
     assert.deepEqual(await syncReader(removed, devices[1]), removed);
     assert.deepEqual(await syncReader(saved, devices[0]), removed);
     assert.deepEqual(await syncReader(empty, cookie), empty);
-    const forbidden = await account('/api/admin/topics/' + topic.id, {
-      method: 'PUT',
-      headers: {
-        Cookie: devices[0],
-        Origin: configuration.ACCOUNT_ORIGIN,
-        'Content-Type': 'application/json',
-        'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+    const forbidden = await account(
+      '/api/admin/topics/' + topic.id + '/enabled',
+      {
+        method: 'PUT',
+        headers: {
+          Cookie: devices[0],
+          Origin: configuration.ACCOUNT_ORIGIN,
+          'Content-Type': 'application/json',
+          'X-ExeDev-Email': configuration.ADMIN_EMAILS,
+        },
+        body: JSON.stringify({ enabled: !topic.enabled }),
       },
-      body: JSON.stringify({ enabled: !topic.enabled }),
-    });
+    );
     assert.equal(forbidden.status, 404);
     assert.equal(await forbidden.text(), '');
     assert.equal(

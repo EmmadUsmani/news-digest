@@ -57,6 +57,10 @@ void test('prepared public policy distinguishes reader, identity and privileged 
   );
   assert.equal(classifyPublicRoute('PUT', `/api/admin/topics/${id}`), 'admin');
   assert.equal(
+    classifyPublicRoute('PUT', `/api/admin/topics/${id}/enabled`),
+    'admin',
+  );
+  assert.equal(
     classifyPublicRoute('POST', '/api/admin/digest-previews/tests'),
     'admin',
   );

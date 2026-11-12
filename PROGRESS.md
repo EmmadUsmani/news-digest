@@ -175,3 +175,13 @@
 - Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38/38 sources healthy, zero alerts. Digest queue available with zero failed jobs; next run Nov 12 15:00 UTC. Latest saved edition eb6e962e remains available with four topics.
 - No migrations, provider calls, source/budget/access-flag changes. Next: item 58.8 public-mode topic editing/browser reports, then leftover services and listed live checks. Nov 12 first five-topic scheduled acceptance remains due.
 - Commit/push and final main-matching service restart follow; public activation still waits on remaining fixes, scheduled publication, lead re-check and owner decision.
+
+## 2026-11-12: iteration 1871 — restore public-mode topic editor routing
+
+- Clean main/no inherited work; health green, zero alerts. Continued item 58.8; public mode remains off.
+- Moved atomic topic toggles to dedicated PUT /api/admin/topics/:id/enabled. Full edits, deletion and topic source changes now enter general admin admission/controllers. Writer admission binds the dedicated target; updated access plan.
+- Router regressions cover admin-admission refusal without controller work; compiled full-app regression edits/restores a real fixture description with a fresh admin, checks readback and refuses anonymous edits. Atomic toggle/storage/disconnect regressions retain their coverage.
+- pnpm format, pnpm lint:fix, build, filtered check-handbook and git diff --check pass. Full pnpm check passed static checks and 870 unit tests; integration caught an old toggle URL in the full-app test. Updated that rehearsal and added the editor regression; fresh integration result below.
+- Initial live checks: 38/38 sources healthy, all queues available with workers, zero failed digest jobs; next edition Nov 12 15:00 UTC. No provider calls, migrations, source/budget/access-flag changes or accepted-screen reruns.
+- Next: item 58.8 browser error reporting, then leftover test services and listed read-only checks; scheduled five-topic acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
+- Fresh pnpm test:integration passes: 286 tests, four expected skips, zero failures. Rebuilt API/worker/docs restarted outside hold; immediate probe raced startup, retry health/database/Redis green. All 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.

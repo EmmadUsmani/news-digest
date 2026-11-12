@@ -563,7 +563,7 @@ void test('prepared topic toggle commits audit outcomes with serialized changes 
   const entry = {
     actor: { localScript: true as const },
     action: 'PUT',
-    target: `/api/admin/topics/${id}`,
+    target: `/api/admin/topics/${id}/enabled`,
     at: new Date(),
   };
   const count = async () =>
@@ -648,7 +648,7 @@ void test('combined topic HTTP runtime commits concurrent toggles once and rolls
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const pool = database();
   const id = 'd4444444-4444-4444-8444-444444444444';
-  const target = `/api/admin/topics/${id}`;
+  const target = `/api/admin/topics/${id}/enabled`;
   const userId = (
     await pool.query(
       "INSERT INTO users(email) VALUES ('topic-http@example.test') RETURNING id",

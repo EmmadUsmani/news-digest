@@ -90,7 +90,7 @@ export class PublicTopicWriter {
       ) ||
       typeof enabled !== 'boolean' ||
       entry.action !== 'PUT' ||
-      entry.target !== `/api/admin/topics/${id}`
+      entry.target !== `/api/admin/topics/${id}/enabled`
     )
       throw new Error('Invalid topic write');
     try {
