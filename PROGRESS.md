@@ -172,3 +172,12 @@
 - Verification: targeted absence/replay tests (11 passing); offline production replay; `pnpm format`, `pnpm lint:fix`, `pnpm check` (886 unit/286 integration passing, four expected skips), `pnpm build` pass. Existing bundle warning only.
 - API/worker restarted after protected window; initial readiness fetch retried successfully. `/healthz` healthy, all 38 sources healthy, no failed units and zero alerts. Digest queue staffed, zero active/failed jobs, next edition Nov 13 15:00 UTC.
 - Updated TASKS/daily review; archived iterations 1880–1881 to bound progress. No UI/handbook/source/owner-gate changes; SOURCES/NEEDS_FROM_HUMAN unchanged. Next: remaining Curry summaries/briefs with existing safety controls intact.
+
+## 2026-11-12: iteration 2010 — retain complete attributed uncertainty
+
+- Clean main/no inherited work; zero alerts, healthy database/Redis, no failed units, all 38 sources healthy. Initial orientation output was too broad; subsequent reads bounded.
+- NBA summary guard accepts the saved Sonnet initial uncertainty sentence with unchanged coach, injury reference and both cause/timing uncertainty dimensions, omitting only the source's trailing positive locker-room event clause. No player-specific rule.
+- Altered speakers, dropped uncertainty dimensions, extra negative claims, unrelated evidence and qualifying/negative continuations remain refused; other fields/topics unchanged. Full offline production replay now reaches Sonnet initial's brief; four absence-field refusals remain, down from five. All four full outputs still fail; invalid selection remains protected.
+- Targeted absence/replay tests: 12 pass. No provider calls, prompt/budget changes, job writes or saved-edition changes. Updated TASKS/daily review; no handbook/UI/source/owner-gate change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (887 unit/286 integration pass, four expected skips), `pnpm build` and `git diff --check` pass. Existing bundle warning only.
+- API/worker restarted outside protected hours; startup retry reaches healthy `/healthz`; no failed units/zero alerts. Digest queue staffed with zero active/failed jobs, next edition Nov 13 15:00 UTC. Next: remaining Curry summaries/briefs with safety/selection controls intact.

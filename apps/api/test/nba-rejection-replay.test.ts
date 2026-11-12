@@ -73,7 +73,7 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
         'claude-sonnet-5-5',
         'initial',
         false,
-        { category: 'unsupported-absence', field: 'summary' },
+        { category: 'unsupported-absence', field: 'brief' },
       ],
       [
         'claude-sonnet-5-5',
@@ -98,7 +98,7 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
   // Pin the additional failures that a Curry-summary-only fix would conceal.
   assert.deepEqual(
     replay.results.map((r) => r.absenceFailures.map((f) => f.field)),
-    [['summary', 'brief'], ['summary', 'brief'], [], ['brief']],
+    [['brief'], ['summary', 'brief'], [], ['brief']],
   );
   assert.match(
     replay.results[3].absenceFailures[0].text,

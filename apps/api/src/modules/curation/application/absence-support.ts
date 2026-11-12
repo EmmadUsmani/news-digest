@@ -161,6 +161,29 @@ function supportsCombinedAbsence(claim: string, evidence: Set<string>) {
   return false;
 }
 
+// A complete uncertainty report stands independently of a trailing positive
+// event clause. Keep both uncertainty dimensions and the full attribution;
+// never drop a qualification or a negative clause after “but”.
+function supportsUncertaintyReport(claim: string, evidence: Set<string>) {
+  const canonical = (text: string) => text.replace(/’/g, "'");
+  const report = new RegExp(
+    String.raw`^coach ${speaker} wasn't certain what caused the injury or exactly when it occurred$`,
+    'u',
+  );
+  if (!report.test(canonical(claim))) return false;
+  for (const sentence of evidence) {
+    const parts = canonical(sentence).split(', but ');
+    if (
+      parts.length === 2 &&
+      parts[0] === canonical(claim) &&
+      /^[\p{L}’'-]+ went to the locker room to \[…\]$/u.test(parts[1]) &&
+      !absenceMatch(parts[1])
+    )
+      return true;
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
@@ -179,7 +202,8 @@ export function assertAbsenceSupport(
       !inputs.has(claim) &&
       !(
         allowNbaSummaryRewrite &&
-        (supportsCombinedAbsence(claim, inputs) ||
+        (supportsUncertaintyReport(claim, inputs) ||
+          supportsCombinedAbsence(claim, inputs) ||
           supportsAvailabilityRewrite(claim, inputs) ||
           supportsAttributedQuote(claim, evidence) ||
           supportsAttributedAbsence(

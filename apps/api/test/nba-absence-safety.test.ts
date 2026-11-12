@@ -215,3 +215,43 @@ void test('combined attributed absence preserves the complete report and resolve
   assert.throws(() => assertAbsenceSupport(summary, curry, 'brief'));
   assert.throws(() => assertAbsenceSupport(summary, curry, 'summary'));
 });
+
+void test('saved uncertainty sentence retains attribution and both uncertainty dimensions', () => {
+  const summary = fixture.entries[0].output.stories.find((story) =>
+    story.summary.includes('Stephen Curry'),
+  )!.summary;
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(summary, curry, 'summary', true),
+  );
+  for (const claim of [
+    summary.replace('Steve Kerr', 'JJ Redick'),
+    summary.replace('Steve Kerr', 'Mike Kerr'),
+    summary.replace(
+      'what caused the injury or exactly when it occurred',
+      'what caused the injury',
+    ),
+    summary.replace(
+      'what caused the injury or exactly when it occurred',
+      'exactly when it occurred',
+    ),
+    summary + ' No imaging is planned.',
+  ]) {
+    assert.throws(() => assertAbsenceSupport(claim, curry, 'summary', true));
+  }
+  assert.throws(() => assertAbsenceSupport(summary, reaves, 'summary', true));
+  assert.throws(() => assertAbsenceSupport(summary, curry, 'brief'));
+  assert.throws(() => assertAbsenceSupport(summary, curry, 'summary'));
+  for (const suffix of [
+    'but no return is expected',
+    'but the cause remains unknown',
+    'although the report is unconfirmed',
+  ])
+    assert.throws(() =>
+      assertAbsenceSupport(
+        summary,
+        [curry[1].replace(/but Curry went.*$/, suffix)],
+        'summary',
+        true,
+      ),
+    );
+});
