@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { withLlmExecution } from '../src/modules/curation/application/execution-context';
 import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
@@ -1128,4 +1129,60 @@ void test('NBA repair recovers five-bullet response within the unchanged brief b
     other.calls[0].instructions,
     /NBA injury and availability reports/,
   );
+});
+
+void test('scheduled execution shares its deadline across editor repair and Haiku fallback', async () => {
+  for (const expireAfter of [1, 2, 3, Infinity]) {
+    let now = 0;
+    let reservations = 0;
+    const seen: string[] = [];
+    const execution = Object.freeze({ deadline: 10 });
+    const config = llmConfig({});
+    const ledger: LlmLedger = {
+      async cached() {
+        return undefined;
+      },
+      async cache() {},
+      async reserve() {
+        reservations++;
+        return String(reservations);
+      },
+      async settle() {},
+      async fail() {},
+    };
+    const llm = new BudgetedLlm(
+      {
+        async complete(request, context) {
+          assert.equal(context, execution);
+          seen.push(request.model.id);
+          if (seen.length === expireAfter) now = 10;
+          return {
+            text: seen.length <= 2 ? 'invalid-json' : JSON.stringify(valid),
+            usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+      ledger,
+      undefined,
+      undefined,
+      () => now,
+    );
+    const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
+    const result = await withLlmExecution(execution, async () => {
+      await Promise.resolve();
+      return editor.edit(topic, candidates, 1, 'scheduled-deadline');
+    });
+    assert.equal(reservations, Math.min(expireAfter, 3));
+    assert.deepEqual(
+      seen,
+      [config.sonnet.id, config.sonnet.id, config.haiku.id].slice(
+        0,
+        Math.min(expireAfter, 3),
+      ),
+    );
+    assert.equal(
+      result?.model ?? null,
+      expireAfter <= 2 ? null : config.haiku.id,
+    );
+  }
 });

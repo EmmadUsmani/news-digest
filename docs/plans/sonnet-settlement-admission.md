@@ -8,8 +8,10 @@ filtered to the original model and pending status without expanding the ID set.
 Iteration 2017 bounds process-local inference slot waiting to ten seconds and
 releases proven undispatched holds without blocking the provider. Shared caller
 deadlines are supported at the BudgetedLlm/provider boundary (2019), including
-repair reuse and execution-scoped in-flight coalescing. Scheduled generation
-and editorial fallback do not yet supply a context; waiting stays disabled. Implement the
+repair reuse and execution-scoped in-flight coalescing. Scheduled generation now supplies one 600-second context (2020), inherited through
+async-local execution scope by all BudgetedLlm work, including editorial fallback.
+Nested manual/unrelated edition work clears this context independently of budget
+ownership. Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.
 
@@ -65,8 +67,10 @@ The adapter now bounds slot waiting to ten seconds and each logical call to
 most 60 seconds each, shortened to the remaining logical allowance. Backoffs
 are at most ten seconds and cannot start if they consume the remaining allowance.
 The monotonic deadline is rechecked after backoff before retrying. A 60-second start check is
-insufficient. Before enabling waits, propagate the shared scheduled deadline through
-repairs/fallback and constrain this logical-call allowance to that context. A pre-dispatch expiry releases
+insufficient. Scheduled generation now shares its absolute deadline through
+repairs/fallback and constrains logical calls to that context. Only AI dispatch
+stops at expiry; existing fallback and publication continue. Before enabling waits,
+implement settlement admission with reserved completion headroom. A pre-dispatch expiry releases
 an unused reservation; any request that might have reached the provider retains
 uncertain accounting under the existing failure policy. Never release a hold
 merely because a caller stopped waiting. Do not cancel publication mid-write.

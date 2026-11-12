@@ -1,5 +1,12 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 
+import {
+  currentLlmExecution,
+  withLlmExecution,
+} from '../application/execution-context';
+
+export { withLlmExecution } from '../application/execution-context';
+
 interface ScheduledAttempt {
   runId: string;
   attempt: number;
@@ -25,11 +32,12 @@ export function withEditionRun<T>(
 ): T {
   const claimed = attempts.getStore();
   // Clear inherited privileges for manual or unrelated nested generation.
-  return attempts.run(
-    claimed && claimed.runId === scheduledKey
-      ? { ...claimed, editionRunId }
-      : { runId: '', attempt: 0 },
-    generate,
+  const matches = claimed && claimed.runId === scheduledKey;
+  return withLlmExecution(matches ? currentLlmExecution() : undefined, () =>
+    attempts.run(
+      matches ? { ...claimed, editionRunId } : { runId: '', attempt: 0 },
+      generate,
+    ),
   );
 }
 

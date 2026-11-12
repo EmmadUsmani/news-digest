@@ -14,6 +14,7 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { InferenceSlots } from '../src/modules/curation/adapters/inference-slots';
 import { assertAbsenceSupport } from '../src/modules/curation/application/absence-support';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { withLlmExecution } from '../src/modules/curation/application/execution-context';
 import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
 import {
   LlmValidationFailure,
@@ -1547,4 +1548,30 @@ void test('caller deadline shortens HTTP timeout and prevents a retry after late
     },
   );
   assert.equal(calls, 1);
+});
+
+void test('inherited execution cannot be extended and explicit shorter deadlines remain binding', async () => {
+  const ledger = new MemoryLedger();
+  const provider = fake(['{"ok":true}']);
+  const service = new BudgetedLlm(
+    provider.llm,
+    ledger,
+    undefined,
+    undefined,
+    () => 10,
+  );
+  await withLlmExecution({ deadline: 10 }, async () => {
+    assert.equal(
+      await service.json(request, valid, { execution: { deadline: 100 } }),
+      null,
+    );
+  });
+  await withLlmExecution({ deadline: 100 }, async () => {
+    assert.equal(
+      await service.json(request, valid, { execution: { deadline: 10 } }),
+      null,
+    );
+  });
+  assert.equal(ledger.calls.length, 0);
+  assert.equal(provider.count(), 0);
 });

@@ -142,3 +142,14 @@
 - Verification: format/lint-fix pass after correcting an untyped Map; sequential `pnpm check` passes (897 unit/287 integration, four expected skips). Handbook and diff checks pass; build/restart final results recorded below.
 - Next: wire one shared scheduled context through generation/editorial fallback, verify fallback behavior, then consider settlement waits. Scheduled NBA acceptance remains pending.
 - Final: `pnpm build` passes (existing bundle warning only). API/worker restarted active outside protected hours; `/healthz` database/Redis healthy, zero alerts and staffed digest queue with zero failed jobs. Live edition remains five topics/25 stories.
+
+## 2026-11-12: iteration 2020 — scheduled generation execution scope
+
+- Clean main/no inherited work. Initial alerts/health green; 38 healthy sources and staffed digest queue with zero failed jobs. Next scheduled edition Nov 13 15:00 UTC.
+- Scheduled processor captures one immutable monotonic 600-second deadline before generation. Async-local execution scope carries it through all topic triage/grouping, editor repairs and model fallback into BudgetedLlm/provider admission.
+- Execution remains separate from durable ownership, prompts and persistent cache identity. Nested manual/unrelated editions clear the scope; overlapping async work stays isolated. Explicit shorter deadlines remain binding; callers cannot extend the inherited deadline.
+- Expiry stops new AI reservations, while completed responses remain usable and existing non-AI fallback/publication can finish. Settlement waiting remains disabled; no paid calls, cap/model/provider changes or saved-edition mutation.
+- Offline production-editor controls cover expiry after initial Sonnet, repair and Haiku dispatch, including successful fallback and no extra reservation; scope controls cover isolation, restoration, manual clearing and shorter deadlines.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (900 unit/287 integration pass, four expected skips), `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 06-ai-and-budgets`, `pnpm exec tsx scripts/evaluate-settlement-wait.ts` (15 controls) and `git diff --check` pass. Existing bundle warnings only.
+- Updated affected handbook, admission plan and TASKS; SOURCES/NEEDS_FROM_HUMAN unchanged. API/worker restarted active outside protected hours; readiness retry succeeded, `/healthz` database/Redis healthy, zero alerts, staffed digest queue/zero failures. Live edition remains five topics/25 stories.
+- Next: implement bounded settlement admission with completion headroom before enabling waits. Next natural scheduled NBA acceptance remains pending.

@@ -68,8 +68,9 @@ sequenceDiagram
   waiting more than ten seconds for a slot stop and release their unused hold.
   Each logical call has a 200-second allowance including queueing and backoff;
   HTTP attempts use at most 60 seconds and shrink to the remaining allowance.
-  Internal callers can supply a shared deadline that also bounds repairs and
-  slot admission; scheduled generation does not yet supply this context.
+  Scheduled generation shares one ten-minute deadline across topics, repairs,
+  model fallback and slot admission. Expired AI work uses the existing non-AI
+  fallback; saving the edition can finish. Manual runs have separate allowances.
 - **Uncertain calls stay charged.** A timeout or unknown error keeps the full
   reservation, so spend is never undercounted.
 - **Provider refusals** (limit reached, credits depleted) are recorded and

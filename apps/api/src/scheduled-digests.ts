@@ -3,6 +3,7 @@ import { Queue, Worker } from 'bullmq';
 import { database } from './libs/db/connections';
 import { logger, logJob } from './libs/observability/logging';
 import { PostgresScheduledBudgetRepository } from './modules/curation/database/scheduled-budget.repository';
+import { withLlmExecution } from './modules/curation/public/scheduled-context';
 import {
   reconcileFailedOnDemandJob,
   watchFailedOnDemandJobs,
@@ -55,6 +56,9 @@ export function startScheduledDigests() {
       );
       if (!window.ok) throw new Error(window.error);
       const runId = `${profile.id}:${scheduledAt}`;
+      const execution = Object.freeze({
+        deadline: performance.now() + 600_000,
+      });
       const edition = await runScheduledBudgetAttempt(
         budgets,
         new Date(scheduledAt),
@@ -63,11 +67,13 @@ export function startScheduledDigests() {
         job.attemptsMade,
         job.opts.attempts ?? 1,
         () =>
-          previews.generate(
-            window.value.windowStart,
-            window.value.windowEnd,
-            runId,
-            (progress) => job.updateProgress(progress),
+          withLlmExecution(execution, () =>
+            previews.generate(
+              window.value.windowStart,
+              window.value.windowEnd,
+              runId,
+              (progress) => job.updateProgress(progress),
+            ),
           ),
       );
       return {

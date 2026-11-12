@@ -11,6 +11,7 @@ import {
 } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
 import type { RejectedEditorStore } from '../domain/rejected-editor.port';
+import { currentLlmExecution } from './execution-context';
 import { llmFingerprint } from './llm-fingerprint';
 import {
   LlmValidationFailure,
@@ -142,6 +143,12 @@ export class BudgetedLlm {
     validate: (value: unknown) => T,
     options: JsonOptions = {},
   ): Promise<LlmJsonOutcome<T>> {
+    const inherited = currentLlmExecution();
+    if (
+      inherited &&
+      (!options.execution || options.execution.deadline > inherited.deadline)
+    )
+      options = { ...options, execution: inherited };
     if (
       !Number.isSafeInteger(request.maxOutputTokens) ||
       request.maxOutputTokens < 1 ||
