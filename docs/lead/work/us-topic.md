@@ -1,12 +1,10 @@
 # U.S. news & politics topic
 
-**Status (21:45 UTC Nov 11):** agent started at 18:16 (item 50 stopped for
-the phase 4 review). 18 iterations: offline split of saved World stories (23
-World / 5 U.S.), three free domestic feeds tested (Guardian US, NPR Politics,
-PBS Politics), and the one-story-one-topic pipeline built but not connected.
-Not live. It is stuck on a cost gate: the plan's "1.5× reserve must fit under the
-cap" rule, which today's four-topic editions already fail. That rule was a lead
-wording mistake; production clamps the reserve to the cap.
+**Status (00:40 UTC Nov 12):** live since 22:15 UTC Nov 11 (item 57 ack,
+migration 0020). U.S. sits after World with Guardian US, NPR Politics and PBS
+Politics. One-story-one-topic step wired in, with no fallback if it refuses.
+AI caps $20/month, $0.65/day; X $15/month, $0.50/day. Expected five-topic cost
+about $0.53. Offline Nov 4–10 split: 23 World / 5 U.S. / 0 overlaps.
 
 **Goal:** split World into World news & politics (global, including US foreign
 policy) and U.S. news & politics (domestic). One story, one topic. Both visible
@@ -18,11 +16,9 @@ most $0.65, only if measured as needed.
 
 **Next:**
 
-- Paused by item 58 (security fixes) on Nov 11; resumes after its ack.
-
-- Item 57 steered (Nov 11): no 1.5× test, AI monthly budget $20, go live next.
-- Watch for the go-live ack: feeds, caps, expected cost vs the effective cap.
-- Check it stops cost measurement work and wires the split into the edition.
-- Review the first edition with both topics.
+- Nov 12 15:00 UTC: first five-topic edition. Check U.S. depth, no repeats,
+  US foreign policy in World, actual cost against $0.65.
+- If ownership refuses, there's no fallback: check both topics still publish.
+- Then two more editions for acceptance.
 
 **Open decisions:** none.
