@@ -37,9 +37,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1886: first scheduled five-topic Bluesky pass completed; retained job result proves U.S. queried with zero fetched/submitted, other topics 50/49/50/47. Stored U.S. coverage remains empty; no manual collection or tuning while item 58 gates remain pending.
+
 - [x] Iteration 1885: post-fix deployed account boundary passes all 32 checks; latest/direct/history publication agrees (19 stories/19 posts). Recorded in the security handoff; authenticated proxy and scheduled post-fix acceptance gates remain open. U.S. Bluesky readback still empty before the next scheduled collection.
 
-- [x] Iteration 1884: hourly Bluesky collection includes the fifth enabled topic (U.S.) instead of silently skipping it; five-query/250-submission bound and dedicated-query regression verified. First scheduled stored U.S. observations still need readback.
+- [x] Iteration 1884: hourly Bluesky collection includes the fifth enabled topic (U.S.) instead of silently skipping it; five-query/250-submission bound and dedicated-query regression verified. First scheduled five-topic pass verified (1886): U.S. query executed but returned zero; stored U.S. coverage remains empty, tuning waits for item 50.
 
 - [x] Iteration 1883: documented `obs jobs --check` now accepts queue/state/limit filters; readiness checks the selected queue, or all four queues when unfiltered.
 

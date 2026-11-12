@@ -40,37 +40,7 @@
 
 [Iterations 1870–1872](docs/progress-archive/2026-11-12-iterations-1870-1872.md).
 
-## 2026-11-12: iteration 1873 — stop stale test servers and own smoke children
-
-- Clean main/no inherited work; initial alerts empty and health/services green. Read item 58 private review; public mode remains off.
-- Confirmed the three Nov 2 processes belonged to deleted /tmp/nd-test; stopped only those PIDs. Ports 8011/8101/8201 no longer listen; production API/docs/explorer remain healthy.
-- Shared smoke-server ownership kills the complete child process group on cleanup, process exit, SIGINT or SIGTERM; account/privacy scripts use it. Account cleanup stops servers before closing the browser. Uncatchable SIGKILL remains outside Node exit hooks.
-- New subprocess regressions start a server grandchild and prove its port can be rebound after owner exit/SIGINT/SIGTERM: targeted test 3/3 pass. No accepted-screen reruns, live provider calls, migrations or access/budget changes.
-- Live checks: 38/38 sources healthy, zero failed digest-generation jobs, one worker and next scheduled run Nov 12 15:00 UTC. Verification/deployment results follow.
-- Next: item 58.10 read-only checks and minor findings; Nov 12 first five-topic scheduled acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
-- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; existing bundle warning only. Final focused eslint --fix and git diff --check pass. No handbook change needed for test-only process ownership.
-- Rebuilt API/worker/docs restarted outside the hold; pnpm obs health/services/sources --check pass, 38 healthy sources, zero alerts, zero failed digest jobs. Stale ports still closed. Commit/push and final main-matching restart follow.
-
-## 2026-11-12: iteration 1874 — require explicit explorer credentials
-
-- Clean main/no inherited work; zero alerts, healthy API/database/Redis and 38/38 healthy sources. Continued item 58; public mode remains off.
-- Explorer now stops before starting metrics/HTTP or creating a pool when its dedicated database URL is missing/blank. Removed default connection; updated handbook and credential rollback instructions.
-- Startup subprocess regressions cover missing, empty and whitespace credentials; explorer suite 8/8 passes. No accepted-screen reruns, provider calls, migrations or budget/access changes.
-- Read-only live checks: API trusted proxy peers exactly 127.0.0.1,::1; listener 0.0.0.0:8000; catalog credentials drop-in installed. Three installed tool readers (grafana_product, postgres_metrics, schema_catalog_reader) have zero SELECT/write grants on all 39 public tables; grafana_public_product/grafana_export_reader absent. Default table/sequence ACLs name only owner_ro/owner_rw.
-- Documented exe.dev proxy/auth docs read; authenticated share inspection unavailable because SSH host verification refused. No host-key bypass or sharing change. Header stripping/shared proxy target still need authoritative verification; local listener alone does not settle target.
-- Next: remaining item 58.10 proxy checks and minor findings, then lead re-check/owner decision; Nov 12 scheduled edition must validate the fixes and fifth topic. Verification/deployment results follow.
-- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips; explorer suite separately passes 8/8. Filtered handbook check and git diff --check pass; no diagram edits. Existing bundle-size warning only.
-- Credential preflight passes. API/worker/docs/schema restarted outside hold; explorer /healthz, API/database/Redis and all 14 services healthy. Digest queue has zero failed jobs, one worker and next run Nov 12 15:00 UTC. Commit/push and final main-matching restart follow.
-
-## 2026-11-12: iteration 1875 — default-deny public document resources
-
-- Clean main/no inherited work; initial alerts empty and API/database/Redis healthy. Continued item 58 minor findings; proxy checks remain unavailable pending authenticated controls.
-- Added CSP default-src none and explicit same-origin/inline style allowance, preserving the existing resource-specific policies. Updated access plan and runtime handbook. Public mode remains off.
-- HTTP stack regressions 3/3 pass. Offline Chromium manifest probe proves default denial before network access and private rollback; existing font/frame policy probes pass. Synthetic resources only; no accepted-screen reruns or provider calls.
-- pnpm obs sources --check passes; digest-generation has zero failures, one worker and next run Nov 12 15:00 UTC. No budgets, migrations or sharing changes. Full verification/deployment results follow.
-- Next: remaining minor findings and authoritative proxy checks; Nov 12 scheduled five-topic acceptance remains due, followed by lead re-check/owner decision.
-- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 874 unit/286 integration passes, four expected skips. Handbook check (39 tables) and git diff --check pass; no diagrams changed. Existing bundle warnings only.
-- Rebuilt API/worker/docs restarted outside hold; first immediate health probe raced startup, subsequent obs health and direct /healthz pass with database/Redis green. All services active, no firing alerts. Commit/push and final main-matching restart follow.
+[Iterations 1873–1875](docs/progress-archive/2026-11-12-iterations-1873-1875.md).
 
 ## 2026-11-12: iteration 1876 — isolate metrics service credentials
 
@@ -183,3 +153,13 @@
 - Updated security handoff and TASKS only; no app/UI/source behavior, budget, public-mode or accepted-screen changes. SOURCES and NEEDS_FROM_HUMAN unchanged. Initial unsupported `obs sources --limit 5` invocation corrected to `obs sources`; all 38 healthy.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables), and `git diff --check` pass; existing bundle warning only.
 - Docs restart and final health/alerts check follow commit/push. Item 58 stays open: authenticated proxy evidence and scheduled post-fix acceptance; public mode stays off. Next passive metrics probe no earlier than 04:13 UTC.
+
+## 2026-11-12: iteration 1886 — scheduled fifth-topic collection readback
+
+- Clean main/no inherited work. API/database/Redis healthy, all 38 sources without errors, zero alerts; staffed digest queue zero failures, next scheduled edition Nov 12 15:00 UTC.
+- First post-fix hourly Bluesky job completed naturally at 03:54:53 UTC in 9.079 s. Read retained BullMQ returnvalue: complete, five topics explicitly present, Tech/NBA/Gaming/World fetched/submitted 50/49/50/47; U.S. dedicated query fetched/submitted zero.
+- `pnpm exec tsx scripts/report-bluesky-coverage.ts` at 03:55 UTC confirms updated observations for the other four topics and zero stored U.S. observations. This closes scheduler invocation evidence, not U.S. content coverage or editorial acceptance. No collection/provider call was triggered by the agent.
+- Updated SOURCES/TASKS; query tuning stays paused under item 58/current order. Item 58 still awaits authenticated exe.dev proxy checks and scheduled post-fix publication. Public mode/budgets unchanged; no accepted-screen reruns. Archived iterations 1873–1875 to keep progress bounded.
+- Corrected a pnpm banner/JQ pipeline with `--silent`; redis-cli unavailable, used installed ioredis for a single read-only HGET. No secrets printed or persisted.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables), and `git diff --check` pass; existing bundle warning only. Docs restart and final health check follow commit/push.
+- Next: pending authenticated proxy evidence and Nov 12 15:00 edition; metrics probe no earlier than 04:13 UTC.

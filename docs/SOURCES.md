@@ -2484,4 +2484,10 @@ is used before the existing news-query/relevance/name fallbacks. Each topic
 remains limited to 50 submissions (250 per pass); shared-session backoff and
 stop-on-failure behavior remain unchanged. No paid discovery or editorial call
 is triggered by deployment. Scheduled collection and edition selection are
-verified separately; the new topic's first stored collection is pending.
+verified separately. The first scheduled five-topic pass completed Nov 12 at
+03:54:53 UTC (iteration 1886): Tech/NBA/Gaming/World submitted 50/49/50/47
+posts; U.S. query `US Congress courts elections` fetched and submitted zero.
+The retained job result explicitly includes all five topics with status
+`complete`; U.S. was queried rather than skipped. Stored rolling-24h readback
+at 03:55 UTC still has zero U.S. observations. Query coverage remains open;
+tuning waits for item 50, and edition selection still needs scheduled review.
