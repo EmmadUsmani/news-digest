@@ -133,3 +133,42 @@ void test('NBA correction must reject altered duration, attribution, certainty a
         `${field}: ${claim}`,
       );
 });
+
+void test('attributed absence resolves the player only through the matching preceding departure', () => {
+  const summary = fixture.entries[3].output.stories.find((s) =>
+    s.summary.includes('Stephen Curry'),
+  )!.summary;
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(summary, curry, 'summary', true),
+  );
+  assert.throws(() => assertAbsenceSupport(summary, curry, 'brief'));
+  const mutations = [
+    summary.replace('few games', 'few months'),
+    summary.replace('are bracing to be', 'will be'),
+    summary.replace('Nick Friedell', 'Steve Kerr'),
+    summary.replace('The Athletic', 'ESPN'),
+    summary.replace('The Warriors', 'The Lakers'),
+    summary.replace('Stephen Curry', 'Austin Reaves'),
+    summary.replace('right abdominal', 'left abdominal'),
+    summary.replace('Houston', 'Boston'),
+    summary.split('. ').slice(1).join('. '),
+    summary.replace(
+      '. The Warriors',
+      '. Another player left the game. The Warriors',
+    ),
+    summary.replace(', according to Nick Friedell of The Athletic', ''),
+    summary.replace('few games,', 'few games without a return timeline,'),
+  ];
+  for (const claim of mutations)
+    assert.throws(
+      () => assertAbsenceSupport(claim, curry, 'summary', true),
+      claim,
+    );
+  assert.throws(() => assertAbsenceSupport(summary, reaves, 'summary', true));
+  // Names are evidence-derived, not a player-specific exemption.
+  const renamed = (value: string) =>
+    value.replaceAll('Stephen Curry', 'Example Player');
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(renamed(summary), curry.map(renamed), 'summary', true),
+  );
+});

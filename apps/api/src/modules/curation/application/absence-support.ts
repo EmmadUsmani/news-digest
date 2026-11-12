@@ -83,6 +83,33 @@ function supportsAttributedQuote(claim: string, evidence: string[]) {
   return false;
 }
 
+// Resolve “him” only from the immediately preceding departure sentence.
+// Match the entire source report, retaining team, duration, reporter and outlet.
+// This deliberately does not accept an unattributed or firmer absence claim.
+function supportsAttributedAbsence(
+  claim: string,
+  previous: string | undefined,
+  evidence: Set<string>,
+) {
+  if (!previous) return false;
+  const departure = /^([\p{L}’'-]+ [\p{L}’'-]+) left (.+) with (.+)$/u.exec(
+    previous,
+  );
+  const rewrite =
+    /^the (.+) are bracing to be without him for (.+), according to (.+) of (.+)$/u.exec(
+      claim,
+    );
+  if (!departure || !rewrite) return false;
+  const [, person, event, condition] = departure;
+  const [, team, duration, reporter, outlet] = rewrite;
+  if (absenceMatch(previous)) return false;
+  // The only surface change in the departure clause is game/contest.
+  const source = `the ${team} are bracing to be without ${person} for ${duration} after he left ${event.replace(/\bgame\b/g, 'contest')} with ${condition}, writes ${reporter} of ${outlet}`;
+  return [...evidence].some(
+    (sentence) => sentence.replace(/’/g, "'") === source.replace(/’/g, "'"),
+  );
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
@@ -90,7 +117,8 @@ export function assertAbsenceSupport(
   allowNbaSummaryRewrite = false,
 ) {
   const inputs = new Set(evidence.flatMap(sentences).map(normalize));
-  for (const sentence of sentences(text)) {
+  const parts = sentences(text);
+  for (const [index, sentence] of parts.entries()) {
     const match = absenceMatch(sentence);
     if (!match) continue;
     // Match entire sentences, including the structured rewrite. Substrings
@@ -101,7 +129,12 @@ export function assertAbsenceSupport(
       !(
         allowNbaSummaryRewrite &&
         (supportsAvailabilityRewrite(claim, inputs) ||
-          supportsAttributedQuote(claim, evidence))
+          supportsAttributedQuote(claim, evidence) ||
+          supportsAttributedAbsence(
+            claim,
+            index > 0 ? normalize(parts[index - 1]) : undefined,
+            inputs,
+          ))
       )
     )
       throw new LlmValidationFailure(

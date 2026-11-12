@@ -173,3 +173,12 @@
 - Updated TASKS and daily review; archived iterations 1878–1879 to keep progress bounded. No source/owner-gate/handbook/UI change; SOURCES/NEEDS_FROM_HUMAN and screenshots unchanged.
 - API/worker restarted after the protected window at 16:00 UTC; startup retry reaches healthy `/healthz` (database/Redis), all 38 sources healthy, no failed units and zero firing/pending alerts. Digest queue has zero active/failed jobs and the next scheduled edition queued. Final `git diff --check` passes.
 - Next: correct supported Curry summaries/briefs while preserving attribution, duration and certainty controls; NBA acceptance remains open.
+
+## 2026-11-12: iteration 2008 — resolve attributed absence through matching departure
+
+- Clean main/no inherited work; initial alert snapshot zero, `/healthz` database/Redis healthy and no failed user units. Initial orientation output was too broad; subsequent reads bounded.
+- NBA-summary guard now accepts the saved Haiku repair Curry summary: resolve “him” only through the immediately preceding full-name departure/injury sentence, then match the complete source report with the same team, duration, reporter and outlet. Only game/contest and apostrophe spelling vary; no player-specific exemption.
+- Twelve altered summary counterfactuals, unrelated evidence and brief-mode use still fail; evidence-derived replacement player passes. Earlier quote/absence controls remain green. Full offline replay now reaches Haiku repair's brief refusal; six absence-field refusals remain, down from seven. All four complete responses still fail; NBA acceptance remains open.
+- Verification: `pnpm exec tsx --test apps/api/test/nba-absence-safety.test.ts apps/api/test/nba-rejection-replay.test.ts apps/api/test/absence-support.test.ts` (10 passing); offline replay; `pnpm format`, `pnpm lint:fix`, `pnpm check` (885 unit/286 integration passing, four expected skips), `pnpm build` pass. Existing bundle warning only.
+- API/worker restarted after 16:00 UTC; startup retry reaches healthy `/healthz`, all 38 sources healthy, zero failed units and zero firing/pending alerts. Digest-generation queue staffed, zero failed/active jobs, next edition Nov 13 15:00 UTC.
+- Updated TASKS and daily review. No provider calls, prompt/model/budget changes, saved-edition writes or UI/handbook/source changes; SOURCES/NEEDS_FROM_HUMAN unchanged. Next: remaining Curry summaries/briefs with the existing attribution, duration, certainty and selection controls intact.
