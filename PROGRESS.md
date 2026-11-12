@@ -160,3 +160,15 @@
 - `pnpm format`, `pnpm lint:fix`, build and filtered handbook validation pass (39 tables); existing bundle warning only. Archived three older progress entries to keep this file below 25 KB. No source/UI/diagram behavior changes, paid calls, public activation or budget changes; SOURCES unchanged.
 - `pnpm check` passes typecheck/lint/format/boundaries, 878 unit and 286 integration tests (four expected skips). Docs restarted; all 14 services and API health pass with zero alerts. Commit/push and final docs restart follow.
 - Next: authenticated proxy evidence, scheduled post-fix five-topic acceptance; next passive metrics sample no earlier than 04:13 UTC.
+
+## 2026-11-12: iteration 1884 — restore fifth-topic Bluesky collection
+
+- Clean main/no inherited work. Zero alerts; API/database/Redis, 14 services and 38 sources healthy. Digest queue has one worker/zero failures; next edition Nov 12 15:00 UTC.
+- Preflight found hourly Bluesky still capped at four topics, silently skipping U.S. in fifth position. Raised the bounded pass to five topics/250 submissions; per-topic cap, sequential session/backoff and stop-on-failure unchanged. No budget/provider change.
+- Read-only transaction: all five topics have 5/5 budgets and X settings; last-24h source-linked article counts Tech/NBA/Gaming/World/U.S. 254/135/268/220/72. All seven World/U.S. feeds successful without errors; effective AI config $20/month/$0.65/day.
+- `pnpm exec tsx scripts/report-bluesky-coverage.ts`: U.S. zero observations before deployment; other topics have recent observations. First five-topic scheduled collection and saved U.S. readback remain pending; no live provider verification call started.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/bluesky-hourly.test.ts` passes 3/3, covering fifth dedicated query and sixth exclusion alongside disabled/zero-budget filtering, shared window and failure handling.
+- Updated SOURCES and affected schedule handbook; no UI/diagram change. Temporary read-only preflight script removed (initial CJS top-level-await invocation failed, wrapped main rerun passed).
+- Item 58 still awaits authenticated proxy evidence and scheduled post-fix publication; public mode stays off and no final ack. Next metrics probe no earlier than 04:13 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (878 unit/286 integration passing, four expected skips), `pnpm build`, filtered handbook check (39 tables) and `git diff --check` pass; existing bundle warning only.
+- Worker/docs restarted at 03:43 UTC; compiled collector has five-topic limit. `/healthz`, staffed digest readiness, 14 services and zero alerts pass. Commit/push and final main-matching restart follow.

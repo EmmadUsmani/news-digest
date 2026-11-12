@@ -3,7 +3,7 @@ import type { Topic } from '@digest/contracts';
 import type { BlueskyRepository, BlueskySearchPort } from '../domain/bluesky';
 import { collectBluesky } from './collect-bluesky';
 
-// One open query per enabled topic, at most four topics / 200 submissions.
+// One open query per enabled topic, at most five topics / 250 submissions.
 // Sequential execution shares authentication/backoff and stops on any failure.
 export async function collectBlueskyTopics(
   repository: BlueskyRepository,
@@ -25,7 +25,7 @@ export async function collectBlueskyTopics(
   const results = [];
   for (const topic of topics
     .filter((t) => t.enabled && t.postBudget > 0)
-    .slice(0, 4)) {
+    .slice(0, 5)) {
     const query = (
       (topic.blueskyQuery?.trim() || topic.queries.find((q) => q.trim())) ??
       topic.relevancePolicy.includeAny[0] ??

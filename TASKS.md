@@ -37,6 +37,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 1884: hourly Bluesky collection includes the fifth enabled topic (U.S.) instead of silently skipping it; five-query/250-submission bound and dedicated-query regression verified. First scheduled stored U.S. observations still need readback.
+
 - [x] Iteration 1883: documented `obs jobs --check` now accepts queue/state/limit filters; readiness checks the selected queue, or all four queues when unfiltered.
 
 - [x] Iteration 1882: short passive metrics recovery sample healthy; no natural merge, recovery remains open. Latest saved edition read; no new actionable defect.

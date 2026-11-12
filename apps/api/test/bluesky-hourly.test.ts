@@ -42,14 +42,21 @@ void test('hourly discovery respects topic configuration, caps volume and shares
       }),
       topic('fallback'),
       topic('fourth'),
+      topic('us', { blueskyQuery: 'US domestic politics' }),
       topic('capped'),
     ],
     now,
   );
-  assert.deepEqual(calls, ['custom query', 'NBA', 'World news', 'World news']);
+  assert.deepEqual(calls, [
+    'custom query',
+    'NBA',
+    'World news',
+    'World news',
+    'US domestic politics',
+  ]);
   assert.deepEqual(
     result.topics.map((t) => t.topicId),
-    ['custom', 'policy', 'fallback', 'fourth'],
+    ['custom', 'policy', 'fallback', 'fourth', 'us'],
   );
   assert.ok(result.topics.every((t) => t.submitted === 0));
 });

@@ -2475,3 +2475,13 @@ World/U.S. reporting is triaged against both descriptions, then jointly grouped
 and assigned before editing (ownership refusal withholds both story sections); source membership never decides ownership.
 X production caps are $0.50/day and $15/month; experiments are unchanged.
 Next scheduled publication starts the required three-edition acceptance review.
+
+## Fifth-topic hourly Bluesky coverage — iteration 1884 (2026-11-12)
+
+The hourly collector now covers up to five enabled topics with positive post
+budgets, including U.S. news & politics in fifth position. Its dedicated query
+is used before the existing news-query/relevance/name fallbacks. Each topic
+remains limited to 50 submissions (250 per pass); shared-session backoff and
+stop-on-failure behavior remain unchanged. No paid discovery or editorial call
+is triggered by deployment. Scheduled collection and edition selection are
+verified separately; the new topic's first stored collection is pending.
