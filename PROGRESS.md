@@ -170,3 +170,12 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook check (39 tables, no diagrams) and `git diff --check` pass. Existing build warnings only. Docs service restarted; API health remains green.
 - Full `pnpm check` passes typecheck/lint/format/boundaries, 877 unit tests and 286 integration tests (four expected skips). SOURCES.md unchanged because no source behavior changed. Docs-only commit/push and final main-matching docs restart follow.
 - Next: authenticated proxy evidence and scheduled five-topic acceptance; then final item 58 ack, lead re-check and owner decision.
+
+## 2026-11-12: iteration 1882 — passive metrics recovery follow-up
+
+- Clean main/no inherited work; zero alerts, API/database/Redis healthy, 38 healthy sources. Digest generation has one worker/zero failed jobs; next scheduled run Nov 12 15:00 UTC. Retained ingestion failures are historical, with sources currently healthy.
+- Owner value: confirm the outstanding metrics incident is quiet without changing production limits or risking scheduled content. Item 58 remains blocked on authenticated proxy evidence and scheduled post-fix acceptance; no public activation or final ack.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.429 s, zero new evaluator errors/misses, admission limits/timeouts/slow queries; process starts unchanged. No merges: recovery remains unproven. Next passive probe ≥04:13 UTC Nov 12.
+- Read latest saved edition topic by topic. Existing weakness remains thin Tech source evidence and weak social quality; recorded fixes/acceptance await scheduling and item 50. No new unsupported summary or missing context found; Japanese Gaming post has English context in `whyItMatters`. No speculative generation change or paid call.
+- Updated TASKS and capacity evidence only; SOURCES unchanged. No UI/diagram edits or accepted-screen rerun.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (877 unit/286 integration passing; four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warnings only. Docs service restarted; all 14 services healthy, API/database/Redis healthy and zero alerts. Commit/push follow.
