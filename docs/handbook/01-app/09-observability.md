@@ -93,6 +93,7 @@ pnpm obs alerts                                  # pending and firing alerts
 pnpm obs health                                  # also: services, sources, targets; add --check for an exit code
 pnpm obs errors --since 1h
 pnpm obs logs --service worker --since 1h        # also: --edition, --queue/--job, --grep
+pnpm obs jobs --check                            # all queues; --queue digest-generation checks just that queue
 pnpm obs jobs --queue digest-generation --state failed
 pnpm obs metric 'up' --since 1h --step 60s
 ```

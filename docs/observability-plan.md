@@ -391,8 +391,9 @@ no additional reads, provider calls or production changes.
 
 O5 incremental progress (410): `pnpm obs jobs --check` verifies all four expected
 queues are uniquely present, available, unpaused and staffed. Historical failures
-remain separate from readiness. JSON stays unchanged; filters cannot hide an
-unhealthy queue during this check. Offline failure cases and live read-only probe.
+remain separate from readiness. JSON stays unchanged. With `--queue`, readiness checks only the selected queue;
+without it, every expected queue must be healthy. State and limit filters only
+affect the retained runs displayed. Offline failure cases and live read-only probe.
 
 O9 incremental progress (413): recent failed worker attempts (ten-minute window, one-minute hold) and sustained API 5xx rate (>5%, at least 20 requests/five minutes, two-minute hold) now have local rules and offline threshold/expiry tests. Retained job failures do not imply a new failure. Missed-edition, spend and per-service budgets remain open.
 

@@ -149,31 +149,35 @@ export async function runObsCli(
   if (checking) {
     if (
       !['health', 'services', 'sources', 'targets', 'jobs'].includes(args[0]) ||
-      args.length !== 2 ||
-      args[1] !== '--check'
+      args.filter((arg) => arg === '--check').length !== 1 ||
+      (args[0] !== 'jobs' && args.length !== 2)
     )
       throw new Error(
         '--check is supported only by health, services, sources, targets and jobs',
       );
-    queryArgs = args.slice(0, 1);
+    queryArgs = args.filter((arg) => arg !== '--check');
   }
   const output = await runObs(queryArgs, read);
   let healthy = true;
   if (checking) {
     const body = JSON.parse(output);
+    const selectedQueue =
+      args[0] === 'jobs' ? jobOptions(queryArgs.slice(1)).queue : undefined;
     healthy =
       args[0] === 'jobs'
-        ? queueNames.every((name) => {
-            const matches = (body.queues as OperationsStatus['queues']).filter(
-              (queue) => queue.name === name,
-            );
-            return (
-              matches.length === 1 &&
-              matches[0].available &&
-              !matches[0].paused &&
-              matches[0].workers > 0
-            );
-          })
+        ? queueNames
+            .filter((name) => !selectedQueue || name === selectedQueue)
+            .every((name) => {
+              const matches = (
+                body.queues as OperationsStatus['queues']
+              ).filter((queue) => queue.name === name);
+              return (
+                matches.length === 1 &&
+                matches[0].available &&
+                !matches[0].paused &&
+                matches[0].workers > 0
+              );
+            })
         : body.healthy === true;
   }
   return { output, exitCode: healthy ? 0 : 1 };

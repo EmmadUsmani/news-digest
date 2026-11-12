@@ -38,37 +38,7 @@
 
 [Iterations 1863–1869](docs/progress-archive/2026-11-12-iterations-1863-1869.md).
 
-## 2026-11-12: iteration 1870 — exclude Grafana from public tool forwarding
-
-- Clean main/no inherited work; health/services green and zero alerts. Completed item 58.7 after reading the private review; public mode remains off.
-- Public-mode tool selection omits Grafana independently of route authorization; private selection retains it. Corrected Grafana/jobs access in the public-access plan and observability handbook.
-- Added direct proxy regression: GET/HEAD/POST on bare, slash, query and nested Grafana paths return 404 without redirects or upstream requests. Targeted internal-tools tests pass (6/6); no accepted-screen reruns.
-- pnpm format, pnpm lint:fix and full pnpm check pass: 870 unit/286 integration tests, four expected skips. pnpm build, filtered check-handbook (one unchanged diagram/39 tables) and git diff --check pass; existing build warnings only.
-- Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38/38 sources healthy, zero alerts. Digest queue available with zero failed jobs; next run Nov 12 15:00 UTC. Latest saved edition eb6e962e remains available with four topics.
-- No migrations, provider calls, source/budget/access-flag changes. Next: item 58.8 public-mode topic editing/browser reports, then leftover services and listed live checks. Nov 12 first five-topic scheduled acceptance remains due.
-- Commit/push and final main-matching service restart follow; public activation still waits on remaining fixes, scheduled publication, lead re-check and owner decision.
-
-## 2026-11-12: iteration 1871 — restore public-mode topic editor routing
-
-- Clean main/no inherited work; health green, zero alerts. Continued item 58.8; public mode remains off.
-- Moved atomic topic toggles to dedicated PUT /api/admin/topics/:id/enabled. Full edits, deletion and topic source changes now enter general admin admission/controllers. Writer admission binds the dedicated target; updated access plan.
-- Router regressions cover admin-admission refusal without controller work; compiled full-app regression edits/restores a real fixture description with a fresh admin, checks readback and refuses anonymous edits. Atomic toggle/storage/disconnect regressions retain their coverage.
-- pnpm format, pnpm lint:fix, build, filtered check-handbook and git diff --check pass. Full pnpm check passed static checks and 870 unit tests; integration caught an old toggle URL in the full-app test. Updated that rehearsal and added the editor regression; fresh integration result below.
-- Initial live checks: 38/38 sources healthy, all queues available with workers, zero failed digest jobs; next edition Nov 12 15:00 UTC. No provider calls, migrations, source/budget/access-flag changes or accepted-screen reruns.
-- Next: item 58.8 browser error reporting, then leftover test services and listed read-only checks; scheduled five-topic acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
-- Fresh pnpm test:integration passes: 286 tests, four expected skips, zero failures. Rebuilt API/worker/docs restarted outside hold; immediate probe raced startup, retry health/database/Redis green. All 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.
-- Initial push rejected because upstream lead documentation advanced main (8ee1cb68); fetched and merged without rewriting history or editing owner files. Merge changes only lead status docs; verified app build remains unchanged. Retrying push after recording this result.
-
-## 2026-11-12: iteration 1872 — restore public browser error reporting
-
-- Clean main/no inherited work; initial health green and zero alerts. Completed item 58.8 browser reporting; public mode remains off.
-- Admitted only POST on the reviewed technical-report endpoint. Existing strict fields reject private text/URLs/stacks; the receiver retains its global 20/minute log cap and visitor API admission still applies. Updated access plan.
-- Route regressions refuse other methods and ambiguous/nested paths. Full configured application checks anonymous acceptance, private-field rejection, cap exhaustion and other-method refusals against disposable storage. No accepted-screen reruns.
-- pnpm format, pnpm lint:fix, static checks and 871 unit tests pass; pnpm build, filtered check-handbook (39 tables, no diagrams changed) and git diff --check pass. Fresh pnpm test:integration passes: 286 tests, four expected skips, zero failures. Deployment below.
-- Integration exposed two fixture issues: missing same-origin Origin (403), then extra requests consuming the existing visitor exhaustion allowance (429). Matched browser Origin and isolated report checks on a separate fixture visitor; fresh integration result below.
-- Live predeploy: 38/38 sources healthy, zero failed digest-generation jobs, next edition Nov 12 15:00 UTC. No provider calls, migrations, source/budget/access-flag changes. Archived iterations 1858–1862 to keep this file small.
-- Next: item 58.9 leftover test services, then listed read-only checks/minor items; Nov 12 five-topic scheduled acceptance remains due. Publication, lead re-check and owner decision still gate public activation.
-- Rebuilt API/worker/docs restarted outside the hold; health/database/Redis green, all 32 deployed account-boundary checks pass, 38 healthy sources, zero alerts and zero failed digest jobs. Commit/push and final main-matching restart follow.
+[Iterations 1870–1872](docs/progress-archive/2026-11-12-iterations-1870-1872.md).
 
 ## 2026-11-12: iteration 1873 — stop stale test servers and own smoke children
 
@@ -179,3 +149,14 @@
 - Read latest saved edition topic by topic. Existing weakness remains thin Tech source evidence and weak social quality; recorded fixes/acceptance await scheduling and item 50. No new unsupported summary or missing context found; Japanese Gaming post has English context in `whyItMatters`. No speculative generation change or paid call.
 - Updated TASKS and capacity evidence only; SOURCES unchanged. No UI/diagram edits or accepted-screen rerun.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (877 unit/286 integration passing; four expected skips), `pnpm build`, full handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warnings only. Docs service restarted; all 14 services healthy, API/database/Redis healthy and zero alerts. Commit/push follow.
+
+## 2026-11-12: iteration 1883 — repair filtered queue health command
+
+- Clean main/no inherited work; zero alerts, API/database/Redis and all 38 sources healthy. Item 58 still awaits authenticated proxy evidence and the 15:00 scheduled edition; no acceptance claim or final ack.
+- Owner value: unattended checks can now verify the scheduled digest queue using the CLI's documented options, rather than rejecting the command during triage.
+- Fixed `pnpm obs jobs --check --queue digest-generation --limit 1`; queue/state/limit options compose with `--check`. Filtered readiness checks the selected queue; unfiltered readiness still requires all four expected queues. Historical failures remain separate from readiness.
+- Added refusal coverage for absent/duplicate/unavailable/paused/unstaffed selected queues and invalid queues before network access. Targeted CLI tests pass 18/18; updated affected handbook and observability reference.
+- Live filtered and unfiltered checks pass: four staffed queues, digest zero failed jobs/next run Nov 12 15:00 UTC. Latest Nov 11 reader publication passes (four topics/19 stories/19 posts).
+- `pnpm format`, `pnpm lint:fix`, build and filtered handbook validation pass (39 tables); existing bundle warning only. Archived three older progress entries to keep this file below 25 KB. No source/UI/diagram behavior changes, paid calls, public activation or budget changes; SOURCES unchanged.
+- `pnpm check` passes typecheck/lint/format/boundaries, 878 unit and 286 integration tests (four expected skips). Docs restarted; all 14 services and API health pass with zero alerts. Commit/push and final docs restart follow.
+- Next: authenticated proxy evidence, scheduled post-fix five-topic acceptance; next passive metrics sample no earlier than 04:13 UTC.

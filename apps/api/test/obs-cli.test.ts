@@ -526,7 +526,7 @@ void test('CLI check rejects invalid options before network access and propagate
     return new Response('', { status: 503 });
   }) as typeof fetch;
   for (const args of [
-    ['jobs', '--check', '--queue', 'ingestion'],
+    ['jobs', '--check', '--check'],
     ['metric', '--check'],
     ['--check', 'services'],
     ['sources', '--check', '--check'],
@@ -699,6 +699,56 @@ void test('queue checks require every worker queue ready and ignore retained fai
   await assert.rejects(
     runObsCli(['jobs', '--check'], async () => Response.json({ queues: [] })),
   );
+});
+
+void test('filtered queue checks accept job options and fail for an absent or unhealthy selected queue', async () => {
+  const selected = {
+    name: 'digest-generation',
+    available: true,
+    workers: 1,
+    paused: false,
+    counts: { failed: 2 },
+    nextRun: null,
+    runs: [],
+  };
+  const probe = async (queues: (typeof selected)[], args: string[]) =>
+    runObsCli(args, async () =>
+      Response.json({ checkedAt: '2026-11-03T12:00:00Z', queues }),
+    );
+  for (const args of [
+    ['jobs', '--check', '--queue', 'digest-generation', '--limit', '1'],
+    ['jobs', '--queue', 'digest-generation', '--state', 'failed', '--check'],
+  ]) {
+    const result = await probe(
+      [selected, { ...selected, name: 'ingestion', workers: 0 }],
+      args,
+    );
+    assert.equal(result.exitCode, 0);
+    assert.deepEqual(
+      JSON.parse(result.output).queues.map((q: { name: string }) => q.name),
+      ['digest-generation'],
+    );
+    for (const change of [
+      { workers: 0 },
+      { paused: true },
+      { available: false },
+    ])
+      assert.equal(
+        (await probe([{ ...selected, ...change }], args)).exitCode,
+        1,
+      );
+    assert.equal((await probe([], args)).exitCode, 1);
+    assert.equal((await probe([selected, selected], args)).exitCode, 1);
+  }
+  let reads = 0;
+  await assert.rejects(
+    runObsCli(['jobs', '--check', '--queue', 'unknown'], async () => {
+      reads++;
+      return Response.json({});
+    }),
+    /Unknown queue/,
+  );
+  assert.equal(reads, 0);
 });
 
 void test('alerts queries local evaluator and bounds active results with firing first', async () => {
