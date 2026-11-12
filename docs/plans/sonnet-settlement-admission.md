@@ -32,6 +32,10 @@ freeze the same original hold, settle it during sleep, and race atomic admission
 Exactly one obtains a reservation; the other stops after original settlement,
 with no duplicate insertion or extension by the winning hold. Settlement from
 inside the sleep callback verifies that no admission lock is retained.
+Iteration 2025 adds an expired scheduled-execution control through the production
+preview repository and real Postgres: source-excerpt editions remain published
+and retrievable by scheduled key and published ID, with no new reservation or
+provider dispatch. The offline fixture does not alter saved live editions.
 Waiting stays disabled. Implement the
 contracts and offline tests before enabling a wait. Keep all caps, allocations,
 estimates, provider routes and scheduled ownership checks unchanged.

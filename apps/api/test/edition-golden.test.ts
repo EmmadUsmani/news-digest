@@ -11,6 +11,10 @@ import { CandidateTriage } from '../src/modules/curation/application/triage';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { developmentEditorialServices } from '../src/modules/curation/public/development-editorial';
+import {
+  withLlmExecution,
+  withScheduledAttempt,
+} from '../src/modules/curation/public/scheduled-context';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
 import type { Candidate, rank } from '../src/modules/digests/domain/rank';
@@ -24,7 +28,9 @@ const fixture = (name: string) =>
   );
 
 for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
-  (['non-ai', 'ai'] as const).map((mode) => ({ systemTest, mode })),
+  (
+    ['non-ai', 'ai', ...(systemTest ? [] : (['expired-ai'] as const))] as const
+  ).map((mode) => ({ systemTest, mode })),
 )) {
   void test(`${mode} ${systemTest ? 'system private test' : 'edition'} matches the golden snapshot through publication and retrieval`, async (t) => {
     const previous = process.env.SYSTEM_OWNERSHIP;
@@ -38,8 +44,9 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
     const adapter = new PostgresPreviewRepository();
     const repository: PreviewRepository = adapter;
     const calls: string[] = [];
+    let reservations = 0;
     let replay: LlmPort | undefined;
-    if (mode === 'ai') {
+    if (mode === 'ai' || mode === 'expired-ai') {
       // Synthetic LlmPort responses exercise real parsing, triage and editing.
       // A fresh cache per test makes the first publication exercise both calls.
       const responses = fixture('ai-responses');
@@ -52,6 +59,12 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
           cache.set(key, value);
         },
         async reserve() {
+          reservations++;
+          assert.notEqual(
+            mode,
+            'expired-ai',
+            'expired execution must not reserve',
+          );
           return 'synthetic-golden-reservation';
         },
         async settle() {},
@@ -61,6 +74,11 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
       };
       const provider: LlmPort = {
         async complete(request) {
+          assert.notEqual(
+            mode,
+            'expired-ai',
+            'expired execution must not dispatch',
+          );
           calls.push(request.purpose);
           assert.ok(
             ['candidate-triage-v1', 'shortlist-editor-v13'].includes(
@@ -143,7 +161,9 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
           [source, item.id],
         );
       }
-      const expected = fixture(`${mode}-golden`);
+      const expected = fixture(
+        `${mode === 'expired-ai' ? 'non-ai' : mode}-golden`,
+      );
       const editions = [];
       for (let i = 0; i < 2; i++) {
         const edition = digestPreviewSchema.parse(
@@ -177,10 +197,20 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
                       )
                   : undefined,
               )
-            : repository.generate(
-                new Date(expected.windowStart),
-                new Date(expected.windowEnd),
-              )),
+            : mode === 'expired-ai'
+              ? withScheduledAttempt(`deadline-golden:${i}`, 1, () =>
+                  withLlmExecution({ deadline: 0 }, () =>
+                    repository.generate(
+                      new Date(expected.windowStart),
+                      new Date(expected.windowEnd),
+                      `deadline-golden:${i}`,
+                    ),
+                  ),
+                )
+              : repository.generate(
+                  new Date(expected.windowStart),
+                  new Date(expected.windowEnd),
+                )),
         );
         assert.deepEqual(await repository.find(edition.id), edition);
         if (systemTest) {
@@ -201,7 +231,26 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
           process.env.SYSTEM_OWNERSHIP = '1';
         }
         const { id: _id, createdAt: _createdAt, ...stable } = edition;
-        assert.deepEqual(stable, expected);
+        if (mode === 'expired-ai') {
+          assert.equal(reservations, 0);
+          assert.equal(edition.topics[0].editorial.mode, 'non-ai');
+          assert.deepEqual(await repository.find(edition.id, true), edition);
+          assert.deepEqual(
+            await repository.findByGenerationKey(`deadline-golden:${i}`),
+            { id: edition.id },
+          );
+          assert.equal(edition.topics[0].stories.length, 2);
+          for (const story of edition.topics[0].stories)
+            assert.equal(story.excerpt, 'Fixture reporting.');
+          assert.deepEqual(
+            stable.topics.map((topic) =>
+              topic.stories.map((story) => story.id),
+            ),
+            expected.topics.map((topic: { stories: { id: string }[] }) =>
+              topic.stories.map((story) => story.id),
+            ),
+          );
+        } else assert.deepEqual(stable, expected);
         editions.push(edition);
       }
       assert.notEqual(editions[0].id, editions[1].id);

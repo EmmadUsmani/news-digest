@@ -196,3 +196,14 @@
 - Updated TASKS and admission plan. No live LLM calls or source/UI/schema/publication changes; SOURCES, NEEDS_FROM_HUMAN and runtime handbook unchanged.
 - API/worker restart and health readback recorded after push. Live latest edition retains five topics/25 stories.
 - Next: verify scheduled publication after AI deadline expiry before enabling settlement waits; natural scheduled NBA AI-edited acceptance remains pending.
+
+## 2026-11-12: iteration 2025 — publication survives AI deadline expiry
+
+- Clean main/no inherited work. Initial alerts and health green; all 38 sources healthy, digest-generation staffed/zero failures; next scheduled edition Nov 13 15:00 UTC.
+- Added an isolated real-Postgres scheduled-generation control using production BudgetedLlm, triage, editor and preview repository with an expired shared execution context.
+- Two scheduled keys publish source-excerpt editions with the expected selected story IDs; saved snapshots remain readable through published-only retrieval and scheduled-key lookup. No reservation or provider dispatch occurs.
+- Synthetic fixture content stays in disposable test storage. No live LLM calls, saved-edition mutation, source/UI/schema/runtime behavior change; settlement waiting remains disabled.
+- First check reached lint before concurrent lint-fix finished sorting imports; reran after lint-fix completed. Build and handbook check pass; remaining verification recorded below.
+- Updated TASKS and admission plan. Runtime handbook, SOURCES and NEEDS_FROM_HUMAN unchanged.
+- Next: review remaining settlement rollout gates before enabling waiting; natural scheduled NBA AI-edited acceptance remains pending.
+- Final verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check, offline settlement evaluation (15 controls) and `git diff --check` pass. Existing bundle warnings only.
