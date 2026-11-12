@@ -196,3 +196,15 @@
 - Next: remaining minor findings and authoritative proxy checks, then scheduled post-fix five-topic acceptance and lead re-check/owner decision.
 - Full pnpm check passed typecheck/lint/format/boundaries and 876 unit tests; integration initially exposed an old signup-off invitation expectation. Updated the real HTTP fixture to verify both refusals, then restore invite mode for lifecycle checks. pnpm test:integration rerun passes 286 with four expected skips.
 - pnpm format and pnpm lint:fix rerun pass; pnpm build, filtered handbook and git diff --check pass. Existing bundle warning only. Rebuilt API/worker/docs restarted outside hold; direct /healthz and obs health/services --check pass (14 services). Commit/push and final main-matching restart follow.
+
+## 2026-11-12: iteration 1878 — cover every tool reader in account privacy revocation
+
+- Clean main/no inherited work; zero alerts, API/database/Redis healthy and all 38 sources healthy. Continued item 58 minor findings; public mode remains off.
+- Added forward ACL migration 0023 for all eight account tables, denying PUBLIC and all five tool readers without rewriting applied migration history or changing other product grants.
+- Integration regression seeds default and explicit overbroad privileges, applies the migration twice, checks every table/reader refusal and preserves unrelated topic access. Existing fresh-container migration covers absent-role handling.
+- Updated access plan and data-model handbook; no schema/table/relationship changes or diagram edits. Filtered handbook check passes (39 tables).
+- Fresh snapshot-consistent backup completed: 39 tables, 14,990,940 bytes. Full verification/deployment results follow. No provider calls, budget/sharing changes or accepted-screen reruns.
+- Next: authoritative exe.dev proxy checks and remaining minor findings; scheduled post-fix five-topic acceptance at Nov 12 15:00 UTC, then lead re-check/owner decision.
+- Live migration applied once after backup. Read-only SQL confirms zero account privileges for all three installed readers and PUBLIC; two prepared roles absent. API/worker/docs restarted; obs health/services --check and direct /healthz pass; zero alerts.
+- pnpm format, pnpm lint:fix, pnpm build and git diff --check pass (existing bundle warnings only). Full pnpm check passes typecheck/lint/format/boundaries, 876 unit tests and 286 integration tests (four expected skips), including account privacy refusal.
+- Commit/push and final main-matching service restart follow. No source changes; SOURCES.md unchanged.

@@ -1126,3 +1126,7 @@ admission and the router use the sanitized `/api/queues` response: five counts
 and the next scheduled time per queue. Refresh is read-only; failures retain
 previous values with a stale-data warning. No job payloads or controls are shown.
 Private mode retains Bull Board at `/queues/`; public mode remains off.
+
+Migration 0023 reasserts denial on all eight account tables for PUBLIC and the
+five tool reader roles, preserving product grants on other tables. It also
+protects installations whose account migrations have already run.

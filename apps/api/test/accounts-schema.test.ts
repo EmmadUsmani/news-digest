@@ -101,7 +101,7 @@ void test('accounts enforce normalized identities, hash-only sessions and cascad
   }
 });
 
-void test('account migration denies operational readers even with inherited default table grants', async () => {
+void test('account privacy migration denies all tool readers despite existing grants', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const pool = database();
   const client = await pool.connect();
@@ -111,10 +111,10 @@ void test('account migration denies operational readers even with inherited defa
       'DROP TABLE admin_write_admissions, user_hidden_topics, bookmarks, admin_audit_log, sign_in_links, login_codes, sessions, users',
     );
     await client.query(
-      'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics; CREATE ROLE account_privacy_probe',
+      'CREATE ROLE grafana_product; CREATE ROLE postgres_metrics; CREATE ROLE grafana_public_product; CREATE ROLE grafana_export_reader; CREATE ROLE schema_catalog_reader; CREATE ROLE account_privacy_probe',
     );
     await client.query(
-      'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO grafana_product, postgres_metrics, PUBLIC',
+      'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO grafana_product, postgres_metrics, grafana_public_product, grafana_export_reader, schema_catalog_reader, PUBLIC',
     );
     await client.query(
       await readFile('drizzle/0013_reader_sessions.sql', 'utf8'),
@@ -142,11 +142,32 @@ void test('account migration denies operational readers even with inherited defa
         await readFile('drizzle/0018_admin_write_admissions.sql', 'utf8')
       ).replaceAll('--> statement-breakpoint', ''),
     );
-    // The unrelated role receives only PUBLIC grants, independently checking
-    // that revoking the two named operational readers is not sufficient.
+    // Simulate an already migrated installation with overbroad grants.
+    await client.query(
+      'GRANT ALL ON users, sessions, login_codes, sign_in_links, admin_audit_log, user_hidden_topics, bookmarks, admin_write_admissions TO grafana_product, postgres_metrics, grafana_public_product, grafana_export_reader, schema_catalog_reader, PUBLIC',
+    );
+    await client.query('GRANT SELECT ON topics TO grafana_public_product');
+    const migration = await readFile(
+      'drizzle/0023_private_account_reader_privileges.sql',
+      'utf8',
+    );
+    await client.query(migration);
+    await client.query(migration);
+    assert.equal(
+      (
+        await client.query(
+          "SELECT has_table_privilege('grafana_public_product', 'topics', 'SELECT') AS allowed",
+        )
+      ).rows[0].allowed,
+      true,
+    );
+    // An unrelated role checks PUBLIC grants independently of named roles.
     for (const role of [
       'grafana_product',
       'postgres_metrics',
+      'grafana_public_product',
+      'grafana_export_reader',
+      'schema_catalog_reader',
       'account_privacy_probe',
     ]) {
       await client.query(`SET LOCAL ROLE ${role}`);

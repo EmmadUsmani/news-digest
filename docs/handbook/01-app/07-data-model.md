@@ -179,7 +179,8 @@ foreign key, because a citation is stored before the post is verified.
   if articles or settings change. A trigger forbids UPDATE and DELETE.
 - **Private reader storage.** Account tables hold identities, login challenges,
   sessions, friend links, saved choices and admin audit records. Operational
-  reader roles and PUBLIC have no access. Admin history retains actor IDs and
+  reader roles and PUBLIC have no access. Migrations explicitly revoke account
+  privileges from all five tool readers, including catalog and prepared export readers. Admin history retains actor IDs and
   recipient emails after account deletion; sessions and personal settings are removed. Invite-only accounts use these tables;
   the [account rollout](../../account-activation.md) describes operation and rollback.
 - **Ledgers for money.** `llm_calls` and `x_discovery_calls` record a

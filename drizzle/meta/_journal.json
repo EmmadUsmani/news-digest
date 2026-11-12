@@ -162,6 +162,13 @@
       "when": 1794438523758,
       "tag": "0022_preserve_admin_history",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1794449980000,
+      "tag": "0023_private_account_reader_privileges",
+      "breakpoints": true
     }
   ]
 }
