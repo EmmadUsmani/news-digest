@@ -1,6 +1,7 @@
 // Fixed application-owned repair hints. Never interpolate model/source text.
 const feedback = {
-  'invalid-selection': '',
+  'invalid-selection':
+    '\nThe previous response failed the story-selection check. Return the complete corrected JSON. Copy every story id exactly from the supplied candidates; include that id in its evidenceIds, using only unique supplied candidate IDs. Select each story at most once and stay within the requested story budget. For selected stories return 2–4 brief bullets; for no stories return an empty brief. Preserve all factual-support rules.',
   'invalid-triage-coverage':
     '\nThe previous response failed the triage coverage check. Return the complete corrected JSON with an items array containing EVERY batch-local candidate id exactly once. Use id, never originalId; omit no candidates and invent no IDs. Score unrelated candidates too, using low relevance instead of leaving them out.',
   'invalid-social-selection':

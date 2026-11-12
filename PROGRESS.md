@@ -153,3 +153,15 @@
 - TASKS and capacity evidence updated. NBA/settlement acceptance awaits Nov 13; authenticated proxy credentials/trust remain unavailable. No provider calls or runtime/source/budget/public-access change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only.
 - API/worker restart and post-push health readback follow commit; runtime code unchanged. SOURCES and NEEDS_FROM_HUMAN unchanged.
+
+## 2026-11-12: iteration 2040 — repair malformed editorial selections
+
+- Owner value: help scheduled NBA editing recover from the recorded malformed story ID instead of retrying without correction guidance.
+- Clean main/no inherited work. Health green, zero alerts, 38 healthy sources; staffed digest queue/zero failures, next Nov 13 15:00 UTC.
+- Found `invalid-selection` supplied no repair feedback. Added fixed guidance covering exact candidate IDs, evidence IDs, uniqueness, budget and brief bounds; factual guards remain intact.
+- Offline production BudgetedLlm/ShortlistEditor replay rejects the recorded Haiku initial response, then accepts a simulated repair changing only its malformed ID; no prose changes or production ID remapping.
+- Targeted editor/recorded-replay tests: 36 pass. Original four-response replay outcomes unchanged; unsupported Sonnet absence claims and original invalid ID remain refused.
+- `pnpm build`, handbook check (18 pages/22 diagrams/39 tables), reader publication gate and `git diff --check` pass. Existing bundle warnings only. `pnpm check` passes: 921 unit/289 integration tests, four expected skips.
+- TASKS and edition review updated; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, cap changes or public activation.
+- Next: natural NBA/settlement acceptance Nov 13 15:00 UTC; authenticated proxy credentials/trust remain blocked. Metrics probe not repeated before ≥22:21 UTC.
+- `pnpm format` and `pnpm lint:fix` pass; API/worker restart and post-push readback follow commit.

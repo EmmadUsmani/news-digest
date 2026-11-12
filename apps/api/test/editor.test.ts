@@ -395,7 +395,7 @@ void test('repair feedback uses only closed application-owned field labels', () 
   );
   assert.equal(
     new LlmValidationFailure('invalid-selection', 'summary').feedback,
-    '',
+    new LlmValidationFailure('invalid-selection').feedback,
   );
   assert.ok(
     new LlmValidationFailure('unsupported-absence', 'brief').feedback.includes(

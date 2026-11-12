@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 
 import { replayNbaRejections } from '../scripts/replay-nba-rejections';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import {
   type EditorialResult,
   ShortlistEditor,
@@ -12,7 +13,88 @@ import type {
   TriageCandidate,
   TriageTopic,
 } from '../src/modules/curation/application/triage';
-import type { ModelPrice } from '../src/modules/curation/domain/llm.port';
+import type {
+  LlmRequest,
+  ModelPrice,
+} from '../src/modules/curation/domain/llm.port';
+
+void test('recorded NBA invalid story ID receives fixed repair guidance and can recover without changing prose', async () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/llm/nba-2026-11-12-rejected.json'),
+      'utf8',
+    ),
+  ) as {
+    entries: Array<{
+      input: {
+        topic: TriageTopic;
+        candidates: TriageCandidate[];
+        budget: number;
+      };
+      output: Omit<EditorialResult, 'model'>;
+      model: ModelPrice;
+    }>;
+  };
+  const { input, output, model } = fixture.entries[2];
+  const ids = new Set(input.candidates.map((candidate) => candidate.id));
+  const invalid = output.stories.filter((story) => !ids.has(story.id));
+  assert.equal(invalid.length, 1);
+  assert.equal(invalid[0].evidenceIds.length, 1);
+  assert.ok(ids.has(invalid[0].evidenceIds[0]));
+  // Simulate only the ID correction in a provider repair, preserving every
+  // recorded factual field. Production never guesses or remaps invalid IDs.
+  const repaired = {
+    ...output,
+    stories: output.stories.map((story) =>
+      ids.has(story.id) ? story : { ...story, id: story.evidenceIds[0] },
+    ),
+  };
+  const calls: LlmRequest[] = [];
+  const llm = new BudgetedLlm(
+    {
+      async complete(request) {
+        calls.push(request);
+        return {
+          text: JSON.stringify(calls.length === 1 ? output : repaired),
+          usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+        };
+      },
+    },
+    {
+      async cached() {
+        return undefined;
+      },
+      async cache() {},
+      async reserve() {
+        return 'offline';
+      },
+      async settle() {},
+      async fail() {},
+    },
+  );
+  const editor = new ShortlistEditor(llm, model, model);
+  const result = await editor.edit(
+    input.topic,
+    input.candidates,
+    input.budget,
+    'offline',
+  );
+  assert.deepEqual(result, { ...repaired, model: model.id });
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0].model.id, calls[1].model.id);
+  assert.ok(calls[1].prompt.startsWith(calls[0].prompt));
+  const guidance = calls[1].prompt.slice(calls[0].prompt.length);
+  assert.ok(guidance.includes('failed the story-selection check'));
+  assert.ok(guidance.includes('Copy every story id exactly'));
+  assert.ok(!guidance.includes(invalid[0].id));
+  assert.ok(!guidance.includes(invalid[0].headline));
+  assert.deepEqual(
+    llm
+      .validationDiagnostics()
+      .map(({ category, attempt }) => ({ category, attempt })),
+    [{ category: 'invalid-selection', attempt: 'initial' }],
+  );
+});
 
 void test('saved Sonnet selection excluding unresolved Curry validates with unchanged Reaves prose', async () => {
   const fixture = JSON.parse(
