@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { setImmediate } from 'node:timers/promises';
 
 import { CryptoLoginCodeSecrets } from '../src/modules/accounts/adapters/login-code-secrets';
+import { signInResponse } from '../src/modules/accounts/adapters/sign-in-response';
 import { LoginCodes } from '../src/modules/accounts/application/login-codes';
 import type { LoginCodeChallenge } from '../src/modules/accounts/domain/login-code';
 
@@ -294,4 +296,84 @@ void test('other clients cannot consume or exhaust the issued challenge', async 
     await f.service.redeem('reader@example.com', f.sent[0].code, 'reader', now),
     'reader@example.com',
   );
+});
+
+void test('eligible, unknown, throttled and malformed code requests cannot return before the response floor', async () => {
+  for (const state of ['eligible', 'unknown', 'throttled', 'malformed']) {
+    const f = fixture();
+    f.admission.permitted = state !== 'unknown';
+    f.admission.allowed = state !== 'throttled';
+    let release!: () => void;
+    let settled = false;
+    const response = signInResponse(
+      () =>
+        f.service.request(
+          state === 'malformed' ? 'invalid' : 'reader@example.com',
+          'client',
+          now,
+        ),
+      (milliseconds) => {
+        assert.equal(milliseconds, 1_000);
+        return new Promise<void>((resolve) => {
+          release = resolve;
+        });
+      },
+    ).then((result) => {
+      settled = true;
+      return result;
+    });
+    await setImmediate();
+    assert.equal(settled, false, state);
+    assert.equal(f.sent.length, state === 'eligible' ? 1 : 0, state);
+    release();
+    assert.deepEqual(await response, { accepted: true }, state);
+  }
+});
+
+void test('response floor covers delivery failure and never releases unfinished delivery', async () => {
+  const f = fixture();
+  let failDelivery!: (error: Error) => void;
+  f.delivery(
+    () =>
+      new Promise<void>((_resolve, reject) => {
+        failDelivery = reject;
+      }),
+  );
+  let release!: () => void;
+  let settled = false;
+  const response = signInResponse(
+    () => f.service.request('reader@example.com', 'client', now),
+    () =>
+      new Promise<void>((resolve) => {
+        release = resolve;
+      }),
+  );
+  const rejected = assert.rejects(response, /mailbox unavailable/).then(() => {
+    settled = true;
+  });
+  await setImmediate();
+  failDelivery(new Error('mailbox unavailable'));
+  await setImmediate();
+  assert.equal(settled, false);
+  release();
+  await rejected;
+
+  let finish!: () => void;
+  f.delivery(
+    () =>
+      new Promise<void>((resolve) => {
+        finish = resolve;
+      }),
+  );
+  settled = false;
+  const slow = signInResponse(
+    () => f.service.request('reader@example.com', 'client', now),
+    () => Promise.resolve(),
+  ).then(() => {
+    settled = true;
+  });
+  await setImmediate();
+  assert.equal(settled, false);
+  finish();
+  await slow;
 });

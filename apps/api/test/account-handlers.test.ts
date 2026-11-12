@@ -85,10 +85,15 @@ void test('account handlers reject cross-origin and injected identity before sid
 
 void test('account handlers use verified exchange cookies and generic rejection', async () => {
   const { handlers, calls, request } = setup();
+  const started = performance.now();
   assert.deepEqual(await handlers.requestCode(request, 'trusted-client', now), {
     status: 202,
     body: { accepted: true },
   });
+  assert.ok(
+    performance.now() - started >= 990,
+    'HTTP response waits for the sign-in floor',
+  );
   assert.deepEqual(
     await handlers.redeemCode(
       { ...request, body: { email: 'reader@example.com', code: '123456' } },

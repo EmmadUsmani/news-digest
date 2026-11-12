@@ -225,7 +225,9 @@ Redis admission shares atomic per-recipient/client (10) and per-client (50) limi
 across code requests and redemption in a ten-minute window. A separate
 100-attempt recipient/client counter lasts 24 hours from its first attempt;
 ten-minute resets and replacement challenges do not reset it. Other clients
-cannot spend this allowance. Keys use keyed hashes,
+cannot spend this allowance. HTTP code-request responses share a one-second minimum
+response time across eligible, unknown, malformed and throttled recipients, including
+dependency failures. Work that takes longer still completes before responding. Keys use keyed hashes,
 blocked attempts count in both dimensions, and Redis failures deny admission.
 The adapter remains unregistered; client addresses must come from the verified proxy boundary.
 Unapplied migration `0014` and an unregistered Drizzle adapter prepare login

@@ -10,6 +10,7 @@ import {
   type ReaderSyncRepository,
 } from '../domain/reader-sync';
 import type { AccountRequestBoundary } from './account-request';
+import { signInResponse } from './sign-in-response';
 
 type Request = {
   origin: unknown;
@@ -45,7 +46,7 @@ export class AccountHandlers {
   async requestCode(request: Request, client: string, now: Date) {
     const payload = this.payload(request, false);
     if (!payload) return { status: 400, body: { error: 'Invalid request' } };
-    await this.codes.request(payload.email, client, now);
+    await signInResponse(() => this.codes.request(payload.email, client, now));
     return { status: 202, body: { accepted: true } };
   }
 

@@ -155,3 +155,13 @@
 - Live: all 38 sources healthy; digest queue available/no failed jobs, latest edition eb6e962e unchanged, next scheduled run Nov 12 15:00 UTC. API/worker restarted outside hold; health/database/Redis green, 32 deployed account-boundary refusals pass, zero alerts.
 - Next: item 58.6 timing, then tool admission/public-mode defects and remaining owner-ordered findings. Nov 12 first five-topic scheduled acceptance remains due; public mode off pending fixes, publication, lead re-check and owner decision.
 - Commit/push and final main-matching API/worker restart follow.
+
+## 2026-11-12: iteration 1869 — equalize ordinary sign-in response timing
+
+- Clean main/no inherited work; initial health/services green, zero alerts. Continued item 58.6 with sign-in response timing.
+- Valid HTTP code requests start a common one-second response floor before recipient lookup, coordination and delivery. Unknown, malformed-email and throttled recipients wait too; dependency failures cannot skip the floor. Delivery remains awaited; slow dependencies can exceed the floor, so this is not a constant-time guarantee under overload.
+- Real login-code service regressions cover eligible/unknown/throttled/malformed paths, delivery failure and slow completion; HTTP handler verifies the production timer is wired. Targeted tests pass (15/15). Updated runtime handbook and access plan.
+- Predeploy: 38/38 sources healthy; digest queue available, zero failed jobs, Nov 11 edition eb6e962e published normally; next run Nov 12 15:00 UTC. No paid calls, migrations, access-flag, budget or source changes.
+- Next: item 58.7 tool admission, then public-mode defects/leftover services/live checks. Nov 12 five-topic scheduled acceptance remains due; public mode off pending remaining fixes, publication, lead re-check and owner decision.
+- pnpm format, pnpm lint:fix and full pnpm check pass: 869 unit/286 integration tests, four expected skips. pnpm build, filtered check-handbook (one unchanged diagram/39 tables) and git diff --check pass; existing build warnings only.
+- API/worker restarted outside deployment hold; health/database/Redis green, 32 deployed account-boundary checks pass, zero alerts. A malformed-email live code request returns generic HTTP 202 in 1.004 seconds without recipient admission or mailbox delivery. Commit/push and final main-matching restart follow.
