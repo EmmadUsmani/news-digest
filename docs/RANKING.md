@@ -2887,3 +2887,14 @@ same bytes and three requests, but caller passes were `[1,1,1]` versus `[3]`.
 This is no measurement of real social pools, provider latency, cost, selection
 quality or a feasible production schedule. Actual pool capture and scheduled
 latency comparison remain necessary; production batching is unchanged.
+
+## Same-ceremony social repetition (iteration 2131)
+
+The [saved Gaming pair](edition-reviews/2026-11-12-social-awards.md) repeats
+Resident Evil's awards across X and Bluesky. Social editor v9 clarifies that
+extra categories, a top prize or an associated studio award for the same
+winning work at the same ceremony add detail to one moment. Separate releases
+and later independent developments remain eligible. Existing selected-post
+context, validation and request fingerprinting are retained; no extra calls,
+new detector or budget changes. Saved-text transport and simulated selection
+pass offline; natural semantic acceptance remains open.

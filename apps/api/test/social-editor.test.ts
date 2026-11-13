@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
@@ -74,7 +75,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v8/);
+  assert.match(h.calls[0].instructions, /Social editor v9/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -529,4 +530,78 @@ void test('Bluesky absence exhaustion remains bounded and counts all rejected pi
   );
   assert.equal(h.calls.length, 4);
   assert.ok(h.diagnostics().every((d) => d.category === 'unsupported-absence'));
+});
+
+void test('saved awards overlap reaches cross-platform comparison in both model routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/social-awards-2026-11-12.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const official = saved.posts.find(
+    (p: { platform: string }) => p.platform === 'x',
+  );
+  const recap = saved.posts.find(
+    (p: { platform: string }) => p.platform === 'bluesky',
+  );
+  assert.match(official.text, /Console Game of the Year/);
+  assert.match(recap.text, /Ultimate Game of the Year/);
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    // Responses are simulated: this verifies transport/selection, not live semantic quality.
+    const h = harness(
+      [{ posts: [] }, { posts: [{ ...post, id: 'release' }] }],
+      refuse,
+    );
+    const input = [
+      {
+        ...candidates[0],
+        id: 'awards',
+        platform: 'bluesky' as const,
+        text: recap.text,
+        author: recap.author,
+        publishedAt: recap.publishedAt,
+      },
+    ];
+    const existing = [
+      { platform: 'x' as const, text: official.text, author: official.author },
+    ];
+    const gaming = { ...topic, name: 'Gaming', description: 'Video game news' };
+    assert.deepEqual(
+      (await h.editor.edit(gaming, input, 1, 'awards', existing))?.posts,
+      [],
+    );
+    const wire = JSON.parse(h.calls[0].prompt);
+    assert.equal(wire.candidates[0].text, recap.text);
+    assert.deepEqual(wire.alreadySelected, existing);
+    assert.match(
+      h.calls[0].instructions,
+      /extra categories, a top prize or an associated studio award add detail/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /comparing candidates against alreadySelected/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /separately announced release or a later independent development can still qualify/,
+    );
+    const separate = [
+      {
+        ...input[0],
+        id: 'release',
+        text: 'Resident Evil announced a separate game release.',
+      },
+    ];
+    assert.equal(
+      (await h.editor.edit(gaming, separate, 1, 'release', existing))?.posts[0]
+        .id,
+      'release',
+    );
+    assert.equal(
+      separate[0].text,
+      'Resident Evil announced a separate game release.',
+    );
+    assert.equal(h.calls.length, 2);
+  }
 });

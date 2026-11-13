@@ -1,0 +1,59 @@
+{
+  "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+  "windowEnd": "2026-11-12T15:00:00.000Z",
+  "posts": [
+    {
+      "whyItMatters": "",
+      "platform": "x",
+      "externalId": "2120607480220971453",
+      "url": "https://x.com/i/web/status/2120607480220971453",
+      "author": "Resident Evil",
+      "publishedAt": "2026-11-11T19:59:56.923Z",
+      "text": "We\u2019re pleased to reveal that Resident Evil Requiem has won several @GoldenJoysticks Awards, including: \ud83c\udfc6 Console Game of the Year \ud83c\udfc6 Best Game Trailer \ud83c\udfc6 Best Lead Performer: Angela Sant'Albano as Grace Ashcroft pic.twitter.com/WS4WGEoytE",
+      "displayText": "We\u2019re pleased to reveal that Resident Evil Requiem has won several @GoldenJoysticks Awards, including:\n\n\ud83c\udfc6 Console Game of the Year\n\ud83c\udfc6 Best Game Trailer\n\ud83c\udfc6 Best Lead Performer: Angela Sant'Albano as Grace Ashcroft pic.twitter.com/WS4WGEoytE",
+      "metrics": {},
+      "authorUrl": "https://x.com/RE_Games"
+    },
+    {
+      "whyItMatters": "Ultimate Game of the Year is the show's top honor, and the post also lists Capcom's Studio of the Year win.",
+      "platform": "bluesky",
+      "externalId": "at://did:plc:porwhxzwut6vszlqjcvnmmag/app.bsky.feed.post/3n22wvh2f4k2f",
+      "url": "https://bsky.app/profile/did%3Aplc%3Aporwhxzwut6vszlqjcvnmmag/post/3n22wvh2f4k2f",
+      "author": "nintendeal.com",
+      "publishedAt": "2026-11-11T21:52:40.897Z",
+      "text": "Resident Evil Requiem won big at the Golden Joystick awards\n\n- Ultimate Game of the Year\n- Console Game of the Year\n- Angela Sant'Albano wins Best Lead Performer for her role as Grace\n- Best Game Trailer\n- CAPCOM takes Studio of the Year\n\nVery well deserved! \ud83d\udc4f",
+      "displayText": "Resident Evil Requiem won big at the Golden Joystick awards\n\n- Ultimate Game of the Year\n- Console Game of the Year\n- Angela Sant'Albano wins Best Lead Performer for her role as Grace\n- Best Game Trailer\n- CAPCOM takes Studio of the Year\n\nVery well deserved! \ud83d\udc4f",
+      "metrics": {
+        "likes": 71,
+        "reposts": 13,
+        "replies": 1
+      },
+      "media": [
+        {
+          "type": "image",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreig6rywlbzgegahykuzrjkwv333iulyl2xdlg7siockcwftuefuqwq",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreig6rywlbzgegahykuzrjkwv333iulyl2xdlg7siockcwftuefuqwq",
+          "alt": ""
+        },
+        {
+          "type": "image",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreigxh5fon5oemavetardpebxm4qlwbqdrsosgfguz7xbr3byzico3u",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreigxh5fon5oemavetardpebxm4qlwbqdrsosgfguz7xbr3byzico3u",
+          "alt": ""
+        },
+        {
+          "type": "image",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreihjeto465znfhnihtpb6uxaurcl7wzj2dna4g2nqtur4frxz7pnyi",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreihjeto465znfhnihtpb6uxaurcl7wzj2dna4g2nqtur4frxz7pnyi",
+          "alt": ""
+        },
+        {
+          "type": "image",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreic73kkfj3luwybzvhz7bftd6gta5vxnq3dyepig2bhucdbzljig4e",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:porwhxzwut6vszlqjcvnmmag/bafkreic73kkfj3luwybzvhz7bftd6gta5vxnq3dyepig2bhucdbzljig4e",
+          "alt": ""
+        }
+      ]
+    }
+  ]
+}

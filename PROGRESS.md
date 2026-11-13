@@ -148,3 +148,15 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - API/worker restarted active; `/healthz` database/Redis healthy after startup retries. `pnpm obs sources`: 38 healthy/zero unhealthy. Scheduled-reader check passes: five topics/25 stories/22 posts.
 - Updated TASKS, Tech review and affected handbook text. SOURCES/NEEDS_FROM_HUMAN unchanged; no provider calls, caps, flags, sharing, collection or publication changes.
 - Next: review Nov 13 15:00 UTC NBA/item 58 acceptance, then public activation with sharing private; assess natural Tech summary quality in the same review.
+
+## 2026-11-13: iteration 2131 — compare awards posts as one ceremony result
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits 15:00 UTC acceptance; public mode off.
+- Reader-visible weakness: Gaming spends two slots on Resident Evil's same Golden Joysticks result, across X and Bluesky; the second note emphasizes extra top/studio prizes.
+- Retained both immutable saved reader objects with edition provenance. Existing cross-platform context is wired; social editor v9 clarifies extra categories/top/studio prizes for the same winning work at one ceremony are details of one moment. Separate releases and later developments remain eligible.
+- Offline production BudgetedLlm/editor tests transport saved texts unchanged through Sonnet/Haiku routes, accept simulated empty duplicate selection and preserve a synthetic separate release. No claim of live model compliance; next natural Gaming quality review remains open.
+- Targeted social/editor/edition tests: 37 pass. Build passes with existing bundle warning. Handbook check initially exceeded 100 lines; shortened the affected paragraph and validation passes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 946 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` and `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` pass.
+- API/worker restarted active; `/healthz` database/Redis healthy after connection retry. `pnpm obs sources`: 38 healthy/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree across reader routes.
+- Updated TASKS, ranking notes, affected handbook and saved-case review. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, models, caps, flags, sharing or saved-publication changes.
+- Next: scheduled Nov 13 15:00 NBA/item 58 acceptance, then public activation with sharing private; review natural Tech depth and Gaming duplicate suppression.

@@ -39,6 +39,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [x] Tech evidence depth (2130): bounded attributed transport, immutable cited snapshots and full ten-cluster admission verified. Saved Nov 12 NVIDIA cluster plus explicitly dated current member text exposed Google News snippets crowding out direct reporting; projection now prefers direct publisher excerpts within the same cluster/two-member bound. Offline editor validates an attributed simulated resignation summary and retains cited source text; unchanged published edition. Natural summary quality remains for the next scheduled review. [Evidence](docs/edition-reviews/2026-11-12-tech-depth.md).
 
+- [ ] Gaming same-ceremony social repetition (2131): saved Nov 12 Resident Evil X/Bluesky picks repeat one awards result. Social editor v9 clarifies extra categories/top prizes/studio awards are details of that moment; separate releases remain eligible. Offline saved-text transport and simulated selection verified; next natural scheduled selection needs quality review. [Evidence](docs/edition-reviews/2026-11-12-social-awards.md).
+
 ## Latest verified step
 
 - [x] Iteration 2129: verified ten fully populated Tech clusters through real budget admission with an offline provider; oversized escaped-control/multibyte payloads now use existing fallback before reservation or dispatch instead of aborting publication. Historical-case acceptance remains open.
