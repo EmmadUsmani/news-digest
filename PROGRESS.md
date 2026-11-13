@@ -6,15 +6,6 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [earliest retained entries before iteration 2172](docs/progress-archive/2026-11-13-before-2172.md).
 
-## 2026-11-13: iteration 2158 — verify repaired U.S. Bluesky content supply
-
-- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis pass. NBA/item 58 remains due at 15:00 UTC; deployment hold respected.
-- Read all 50 safe engaged U.S. candidate texts from stored observations: 55 distinct posts/474 observations, 40 candidate authors/max three per author. Concrete election/investigation reporting exists alongside repeated RFK/class-photo events, petitions and context-free commentary.
-- Recorded pre-edition baseline and selection checks in the pool review; updated TASKS/SOURCES. Keep repaired Congress query; no evidence warrants another discovery change before natural selection. Lexical zero does not establish semantic failure.
-- Temporary READ ONLY probe removed; mode-600 `/tmp/us-pool-2158.json` retained. Assertions pass for distinct counts, unique URLs, author concentration and publication/observation cutoff bounds. No provider calls, collection, jobs or live writes.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass: 966 unit/291 integration tests, four expected skips; existing build warnings only.
-- Runtime/configuration unchanged; no service restart during hold. NEEDS_FROM_HUMAN unchanged. Next: scheduled NBA/item 58 acceptance, private public-mode activation outside hold, then World pilot/natural social-quality acceptance.
-
 ## 2026-11-13: iteration 2159 — passive metrics recovery follow-up
 
 - Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. NBA/item 58 scheduled gate remains due at 15:00 UTC; deployment hold respected.
@@ -168,3 +159,16 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Verification: live four-query probe, bounds/no-storage assertions and conflicting-mode refusal pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
 - Updated TASKS/SOURCES and saved comparison; NEEDS_FROM_HUMAN/handbook unchanged. Probe-only change; runtime unchanged, no rebuild/restart needed. No paid calls or stored observations.
 - Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode.
+
+## 2026-11-13: iteration 2174 — trace restored U.S. selection quality
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass, no failed user services.
+- Reader weakness examined: repaired U.S. supply may still yield repetitive or shallow social reporting; traced actual scheduled selection rather than collecting again.
+- Saved pool: 511 observations/56 distinct posts; 50 safe candidates/38 authors. Production shortlist reconstructed offline using exactly one saved score per candidate; ten results, complete.
+- Three RFK-investigation candidates become one detailed selected post; election report adds a distinct event. X-covered Van Hollen development is not repeated; no X displacement.
+- Cached editor explicitly prefers named senators/reporting context. One unsupported-claim drop is unattributed; original reporting and normal story/post overlap remain unaccepted.
+- Retain Congress query and semantic gates; no absent-supply defect or reason to force the third open slot. Updated TASKS/SOURCES and linked review; NEEDS_FROM_HUMAN/handbook unchanged.
+- Verification: historical coverage report, protected/public saved GETs, read-only cache/production-shortlist assertions pass. Temporary script removed; exports mode 600. No provider calls or writes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived oldest retained entry to keep progress small.
+- Documentation only; runtime unchanged, no rebuild/restart needed.
+- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later World discovery remains gated.

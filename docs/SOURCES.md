@@ -2736,3 +2736,11 @@ Gaming selects a concrete beta update distinct from its X posts. All 16 saved
 X official metric objects remain empty. Story sections degrade because local
 inference-slot admission expires queued triage, not because sources stopped.
 [Scheduled review](edition-reviews/2026-11-13.md).
+
+Nov 13 scheduled U.S. selection trace (2174): 56 distinct posts / 50 safe
+candidates / 38 authors; all 50 saved semantic scores reconcile with production
+shortlisting. Three RFK-investigation candidates yield one detailed selected
+post; the election report adds a distinct development and the X-covered
+leadership challenge is not repeated. Retain `Congress`; normal story/post
+overlap and original-reporting quality remain open. No provider calls or
+source changes. [Selection trace](edition-reviews/2026-11-13-us-bluesky.md).
