@@ -140,3 +140,14 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - No runtime/configuration changes, provider calls, service restarts or live writes. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts observability`, `git diff --check` pass; 966 unit/291 integration passes, four expected skips; existing build warnings only.
 - Next: 15:00 scheduled NBA/item 58 acceptance, then private public-mode activation outside hold.
+
+## 2026-11-13: iteration 2160 — scheduled edition exposes triage admission regression
+
+- Clean main; no inherited work. Initial alerts zero, database/Redis healthy. Waited for the natural 15:00 run; no paid replay or collection.
+- Edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4` publishes in 97.787 s: five topics/15 stories/20 posts; latest/direct/history agree. All story sections non-AI; World/U.S. stories withheld. NBA/item 58/public activation gates remain open.
+- Diagnosed 11 local pre-dispatch triage expirations: four active calls take 16–37 s while queued calls expire at ten seconds. Ledger releases unused holds; no provider errors or budget refusals. No story-editor call exercised NBA repair.
+- Offline production `InferenceSlots` reproduction (scaled timers): 15 simultaneous calls, four dispatch/11 `ProviderNotDispatched`, subsequent slot reuse passes. Next priority: bounded multi-topic admission before provider queue, with offline composition proof.
+- Fourteen Sonnet admissions immediate, no settlement waits; natural recovery unobserved. Anthropic $0.236599/29 settled calls, 11 released reservations; xAI UTC-day five successes/$0.330667, no pending/uncertain calls. Caps unchanged.
+- Repaired U.S. Bluesky naturally publishes two concrete posts (511 read/10 shortlisted); restored presence accepted, overall quality open. All 16 official X metrics empty. Updated daily review, TASKS, SOURCES and security handoff; NEEDS_FROM_HUMAN unchanged.
+- `pnpm check` passes: 966 unit/291 integration tests, four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass; existing build warnings only.
+- Runtime/configuration unchanged; no restart during 13:00–16:00 hold. Fix admission before the next scheduled acceptance; public mode remains off/VM private.

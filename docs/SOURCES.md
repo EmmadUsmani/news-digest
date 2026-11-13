@@ -2714,3 +2714,14 @@ supplies 55 distinct stored posts, including concrete election and congressional
 investigation reports. Fifty safe engaged candidates span 40 authors; repeated
 RFK/class-photo events and petition/commentary posts still require editorial
 selection. Query unchanged; no collection or provider calls. [Pool review](edition-reviews/2026-11-12-bluesky-pool.md#repaired-us-supply-before-scheduled-selection--iteration-2158).
+
+### Nov 13 scheduled source outcome — iteration 2160
+
+All 38 sources remain healthy. Repaired U.S. Bluesky discovery naturally
+reaches selection: 511 read, ten shortlisted, two published posts about the RFK
+testimony investigation and a House election. Restored presence accepted;
+overall viral quality remains open. World/Tech choose no Bluesky addition;
+Gaming selects a concrete beta update distinct from its X posts. All 16 saved
+X official metric objects remain empty. Story sections degrade because local
+inference-slot admission expires queued triage, not because sources stopped.
+[Scheduled review](edition-reviews/2026-11-13.md).

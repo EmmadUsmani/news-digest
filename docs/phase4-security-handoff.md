@@ -45,6 +45,10 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   admissions were refused. This does not close normal post-fix acceptance.
   [Scheduled review and NBA diagnosis](edition-reviews/2026-11-12.md); restore NBA
   before accepting a later normal edition. Owner proxy evidence is recorded above.
+- Nov 13 edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4` published, but local
+  triage queue expiry prevented every story editor and withheld World/U.S.
+  stories. NBA/item 58 acceptance remains open; no activation follows this run.
+  [Admission breakage review](edition-reviews/2026-11-13.md).
 - Item 58 stays open until the live checks are answered and a normal scheduled
   edition publishes after the fixes. Then add the required steering ack and
   request the lead re-check; the owner retains the go-public decision.
