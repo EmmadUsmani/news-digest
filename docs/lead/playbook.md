@@ -76,19 +76,20 @@ anything unpushed. So does deleting the clone.
 
 ## Steering traps we've hit
 
-| What went wrong                                             | Lesson                                                    |
-| ----------------------------------------------------------- | --------------------------------------------------------- |
-| "Wait for the Nov 4 run" made the agent idle for two hours  | Say what to do while waiting                              |
-| "Never idle" led to 116 commits polishing replaced screens  | Rank meaningful work, and name the warning signs          |
-| Agent believed it was blocked on a setting already in place | Tell it to check the real setting. Stale notes mislead it |
-| A zero-wrong-merges gate wrongly parked AI grouping         | Set gates from what the product needs, not perfection     |
-| UI spec banned "excerpts", so story text vanished           | Ban labels explicitly, and say what stays visible         |
-| Decision rule needed a promotion flag that doesn't exist    | Check that a rule can be computed from data we have       |
-| Design drifted to story reactions, away from viral posts    | Re-read the owner's goal before each design change        |
-| Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                 |
-| Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short |
-| Owner's mailbox command crashed: the agent never ran it     | Lead runs every owner command before passing it on        |
-| A cost gate in a plan that live editions already failed     | Test a new gate against today's data before steering it   |
+| What went wrong                                              | Lesson                                                     |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
+| "Wait for the Nov 4 run" made the agent idle for two hours   | Say what to do while waiting                               |
+| "Never idle" led to 116 commits polishing replaced screens   | Rank meaningful work, and name the warning signs           |
+| Agent believed it was blocked on a setting already in place  | Tell it to check the real setting. Stale notes mislead it  |
+| A zero-wrong-merges gate wrongly parked AI grouping          | Set gates from what the product needs, not perfection      |
+| UI spec banned "excerpts", so story text vanished            | Ban labels explicitly, and say what stays visible          |
+| Decision rule needed a promotion flag that doesn't exist     | Check that a rule can be computed from data we have        |
+| Design drifted to story reactions, away from viral posts     | Re-read the owner's goal before each design change         |
+| Agent kept re-analysing 47 posts                             | Give every investigation a stopping point                  |
+| Items grew long, and the agent rereads them each iteration   | Put designs in a plan under `docs/`, and keep items short  |
+| Owner's mailbox command crashed: the agent never ran it      | Lead runs every owner command before passing it on         |
+| A cost gate in a plan that live editions already failed      | Test a new gate against today's data before steering it    |
+| Each loop copied "blocked" from the last summary for 5 hours | When a block clears, say so in STEERING, not only in notes |
 
 ## Diagnosing
 
