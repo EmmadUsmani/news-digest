@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2121: X engagement ranking treats invalid publication/cutoff dates as unknown evidence instead of producing a NaN bonus; valid-date scoring unchanged.
+
 - [x] Iteration 2120: corrected Reddit selection provenance so it no longer reports missing X search evidence; platform reservation and original post preservation unchanged.
 
 - [x] Iteration 2119: X triage/final selection retain validated reported reposts, replies and views alongside likes; zero/unknown counts, cache invalidation and bounded transport verified offline.

@@ -20,10 +20,14 @@ export function xEngagementSignal(
   )
     return unknown;
   const observed = Date.parse(report.observedAt);
+  const published = publishedAt.getTime();
+  const cutoff = end.getTime();
   if (
     !Number.isFinite(observed) ||
-    observed > end.getTime() ||
-    observed < publishedAt.getTime()
+    !Number.isFinite(published) ||
+    !Number.isFinite(cutoff) ||
+    observed > cutoff ||
+    observed < published
   )
     return unknown;
   const counts = [report.likes, report.reposts, report.replies, report.views];
@@ -37,7 +41,7 @@ export function xEngagementSignal(
     2 * (report.reposts ?? 0) +
     (report.replies ?? 0) +
     0.01 * (report.views ?? 0);
-  const ageHours = Math.max(1, (observed - publishedAt.getTime()) / 3_600_000);
+  const ageHours = Math.max(1, (observed - published) / 3_600_000);
   const rate = engagement / ageHours;
   const bonus = Math.min(
     2,

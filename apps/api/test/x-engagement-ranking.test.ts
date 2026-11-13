@@ -41,6 +41,21 @@ void test('reported engagement is bounded, rewards age-adjusted rate and preserv
   assert.match(score(1).reason, /Unverified.*not measured growth/);
 });
 
+void test('invalid publication and cutoff dates cannot produce a ranking signal', () => {
+  const published = new Date('2026-11-02T11:00:00Z');
+  for (const [publication, cutoff] of [
+    [new Date(NaN), end],
+    [published, new Date(NaN)],
+    [new Date(NaN), new Date(NaN)],
+  ]) {
+    const signal = xEngagementSignal(report, '123', publication, cutoff);
+    assert.equal(signal.bonus, 0);
+    assert.match(signal.reason, /No usable X search engagement report/);
+    assert.doesNotMatch(signal.reason, /NaN|Infinity/);
+  }
+  assert.ok(xEngagementSignal(report, '123', published, end).bonus > 0);
+});
+
 void test('verified shortlist applies engagement before budget and duplicate checks but cannot override topic/safety gates', async () => {
   const rows = [
     { externalId: 'new', text: 'AI demo', likes: undefined, hour: 11 },

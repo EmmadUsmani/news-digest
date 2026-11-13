@@ -161,3 +161,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
 - API/worker restarted; healthz 200 and saved-reader check for Nov 12 pass (five topics/25 stories/22 posts). No handbook/source behavior changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
 - No paid calls, provider, collection, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
+
+## 2026-11-13: iteration 2121 — reject invalid X ranking dates
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. Scheduled NBA/item 58 acceptance awaits 15:00 UTC; public mode stays off.
+- X engagement ranking could return a NaN bonus for an invalid publication date, or accept an invalid cutoff. Both now return unknown evidence with zero bonus; valid-date scoring and weights unchanged.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/x-engagement-ranking.test.ts apps/api/test/x-search-engagement.test.ts`: six pass, including invalid publication/cutoff combinations and valid-date control.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 932 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
+- API/worker restarted; healthz database/Redis healthy after startup retry. Saved-reader check for Nov 12 passes: five topics/25 stories/22 posts.
+- Updated TASKS; bug fix needs no handbook/source change. SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
