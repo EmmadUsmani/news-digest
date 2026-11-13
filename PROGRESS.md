@@ -20,32 +20,7 @@ Archived entries: [iterations 2173–2174](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2175–2176](docs/progress-archive/2026-11-13-iterations-2175-2176.md).
 
-## 2026-11-13: iteration 2177 — compare Tech Bluesky discovery supply
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass; no failed user services.
-- Owner-visible aim: find concrete Tech demos/launches missing from today's empty Bluesky section, without forcing weak picks.
-- NBA/item 58/public activation still await Nov 14 scheduled acceptance; fallback repetition already has an upstream fix, so no new generation changes.
-- Added non-storing `probe-bluesky.ts --tech`; four free searches compare baseline, Claude, Gemini and AI demo with the same 24-hour window.
-- Fetched 41/50/50/47 posts; safety/engagement pools 41/47/48/28, attached videos 0/0/1/5. Bounded examples expose commentary, ambiguous names and game promotions.
-- Retain production query and semantic/editorial gates: higher yield is not evidence of relevant demos. No paid calls, media fetches, stored observations or configuration changes.
-- Four-result assertions pass for common window, bounded counts, zero writes and false semantic/publication flags; `--tech --store` refuses before credentials/network.
-- Saved review and updated TASKS/SOURCES; handbook/NEEDS_FROM_HUMAN unchanged. Private export mode 600.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only. Archived oldest retained entry to keep progress small.
-- Local probe only; runtime unchanged, no service restart needed.
-- Next: normal Nov 14 edition recovery/AI/event-diversity review, then item 58/private public mode; do not repeat this comparison without a concrete new discovery hypothesis.
-
-## 2026-11-13: iteration 2178 — compare Gaming Bluesky discovery supply
-
-- Clean main; no inherited work. Alerts zero; health database/Redis pass; no failed user services.
-- Owner-visible aim: improve relevant Gaming post supply without adding old clips or repeating the already-selected event.
-- NBA/item 58/private public-mode activation await Nov 14 scheduled recovery; no generation changes.
-- Added non-storing `probe-bluesky.ts --gaming`; four free searches compare game/gaming/video games/Slay the Spire in one 24-hour window.
-- Fetched 50/48/50/48 posts; safety/engagement pools 48/48/50/48, attached videos 5/5/1/1. Bounded texts show commentary, old clips and repeated beta-update coverage.
-- Retain production `game` query and semantic/editorial gates; no writes, paid calls, media fetches or configuration changes.
-- Four-result assertions pass after selecting query records from adapter event output; combined `--gaming --store` refuses before credentials/network. Export mode 600.
-- Updated TASKS/SOURCES and saved comparison; handbook/NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
-- Local probe only; runtime unchanged, no restart needed. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public mode.
+Archived entries: [iterations 2177–2178](docs/progress-archive/2026-11-13-iterations-2177-2178.md).
 
 ## 2026-11-13: iteration 2179 — repair admission event log searches
 
@@ -202,3 +177,15 @@ Archived entries: [iterations 2175–2176](docs/progress-archive/2026-11-13-iter
 - Extended `pnpm evaluate:ranking` and historical regression; targeted four tests pass. TASKS/RANKING updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/system-flow/owner-decision change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking` and `git diff --check` pass: 980 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; browser screenshots unnecessary.
 - Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and NBA/item 58/private public activation. Independent M5 labels and semantic grouping remain open.
+
+## 2026-11-13: iteration 2193 — isolate grouping from missing-event recall
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. At 21:04 UTC, generation cutoff protects feed parser and scheduled acceptance waits for Nov 14.
+- Owner value: distinguish repeated coverage from ranking/relevance omissions before changing selection; this step supplies offline evidence, not a reader-visible fix.
+- Extended recorded ranking evaluation with label-only grouping at unchanged policy, scores, windows and budgets; unknown articles stay separate. Reports labeled slots, repeated-slot count, consolidated selections and omission violations. No inference, new labels or live writes.
+- Four windows retain baseline target counts (NBA 2, World 1, Tech 0, Gaming 1); selected groups contain up to five NBA/seven Gaming articles, but no extra targets enter. Zero known repeats does not measure unlabeled duplicates or accept semantic grouping.
+- Synthetic control proves grouping can recover a slot when two top reports share a label; unknown reports stay separate. Empty labels yield null recall. Six targeted tests pass.
+- TASKS/RANKING updated; archived progress 2177–2178. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, owner-decision or system-flow change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking`, handbook/schema check and `git diff --check` pass: 982 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; no browser screenshots needed.
+- Saved reader endpoint serves five topics/15 stories/20 posts. API/worker restart follows push; no runtime generation or budget changes.
+- Next: pre-noon feed-content precedence, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. Independent labels and semantic grouping remain open.

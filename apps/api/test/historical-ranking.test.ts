@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  evaluateFixture,
   evaluateGamingWindow,
   evaluateNbaWindow,
   evaluateTechWindow,
@@ -13,7 +14,10 @@ void test('recorded NBA window preserves baseline event recall and omits labeled
   assert.equal(result.candidates, 52);
   assert.equal(result.targetEvents, 5);
   assert.ok(result.selected.length <= result.budget);
-  assert.ok(result.eventRecall >= 0.4, JSON.stringify(result));
+  assert.ok(
+    result.eventRecall !== null && result.eventRecall >= 0.4,
+    JSON.stringify(result),
+  );
   assert.ok(result.targetSlotYield >= 0.4, JSON.stringify(result));
   assert.deepEqual(result.forbiddenSelected, []);
 });
@@ -23,7 +27,10 @@ void test('recorded World window preserves baseline event recall and omits label
   assert.equal(result.candidates, 47);
   assert.equal(result.targetEvents, 5);
   assert.ok(result.selected.length <= result.budget);
-  assert.ok(result.eventRecall >= 0.2, JSON.stringify(result));
+  assert.ok(
+    result.eventRecall !== null && result.eventRecall >= 0.2,
+    JSON.stringify(result),
+  );
   assert.ok(result.targetSlotYield >= 0.2, JSON.stringify(result));
   assert.deepEqual(result.forbiddenSelected, []);
   assert.equal(result.eventDiagnostics.length, 5);
@@ -89,7 +96,10 @@ void test('recorded Gaming window counts a ceremony once and preserves its event
   assert.ok(
     result.selected.length > 0 && result.selected.length <= result.budget,
   );
-  assert.ok(result.eventRecall >= 0.2, JSON.stringify(result));
+  assert.ok(
+    result.eventRecall !== null && result.eventRecall >= 0.2,
+    JSON.stringify(result),
+  );
   assert.ok(result.targetSlotYield >= 0.2, JSON.stringify(result));
   assert.deepEqual(result.forbiddenSelected, []);
   const ceremony = result.eventDiagnostics.find(
@@ -109,6 +119,88 @@ void test('recorded Gaming window counts a ceremony once and preserves its event
     assert.equal(
       event.relevanceEligibleArticles,
       event.articles.filter((article) => article.relevanceEligible).length,
+    );
+  }
+});
+
+void test('label grouping frees repeated slots while keeping unknown articles separate', () => {
+  const candidates = Array.from({ length: 5 }, (_, index) => ({
+    id: String(index),
+    title: `Reported development ${index}`,
+    url: `https://example.com/${index}`,
+    excerpt: 'A supplied report with substantive details.',
+    publishedAt: `2026-11-12T${String(14 - index).padStart(2, '0')}:00:00Z`,
+    sources: ['Recorded publisher'],
+    points: 0,
+  }));
+  const result = evaluateFixture({
+    topic: 'Synthetic grouping control',
+    windowStart: '2026-11-11T15:00:00Z',
+    windowEnd: '2026-11-12T15:00:00Z',
+    budget: 3,
+    relevancePolicy: { includeAny: ['development'], excludeAny: [] },
+    candidates,
+    events: [
+      { name: 'Repeated event', reason: 'Control', ids: ['0', '1'] },
+      { name: 'Later event', reason: 'Control', ids: ['3'] },
+    ],
+    mustOmit: [],
+  });
+  const comparison = result.labeledGroupingComparison;
+  assert.equal(comparison.knownRepeatedSlots, 1);
+  assert.deepEqual(result.foundEvents, ['Repeated event']);
+  assert.deepEqual(comparison.groupedFoundEvents, [
+    'Repeated event',
+    'Later event',
+  ]);
+  assert.deepEqual(
+    comparison.groupedSelected.map((item) => item.id),
+    ['0', '2', '3'],
+  );
+  assert.equal(comparison.groupedSelected[0].coveredArticles, 2);
+  assert.ok(comparison.groupedSlots.every((event) => event.slots <= 1));
+  // With no labels, even similar unknown reports remain separate.
+  const unknown = evaluateFixture({
+    topic: 'Unknown control',
+    windowStart: result.windowStart,
+    windowEnd: result.windowEnd,
+    budget: 3,
+    relevancePolicy: { includeAny: ['development'], excludeAny: [] },
+    candidates,
+    events: [],
+    mustOmit: [],
+  });
+  assert.equal(unknown.eventRecall, null);
+  assert.deepEqual(
+    unknown.labeledGroupingComparison.groupedSelected.map((item) => item.id),
+    ['0', '1', '2'],
+  );
+});
+
+void test('recorded label grouping measures only known events and retains omission guards', () => {
+  for (const evaluate of [
+    evaluateNbaWindow,
+    evaluateWorldWindow,
+    evaluateTechWindow,
+    evaluateGamingWindow,
+  ]) {
+    const result = evaluate();
+    const comparison = result.labeledGroupingComparison;
+    assert.ok(comparison.groupedSelected.length <= result.budget);
+    assert.ok(comparison.groupedSlots.every((event) => event.slots <= 1));
+    assert.deepEqual(comparison.groupedForbiddenSelected, []);
+    assert.deepEqual(
+      comparison.baselineSlots
+        .filter((event) => event.slots > 0)
+        .map((event) => event.name),
+      result.foundEvents,
+    );
+    assert.equal(
+      comparison.knownRepeatedSlots,
+      comparison.baselineSlots.reduce(
+        (total, event) => total + Math.max(0, event.slots - 1),
+        0,
+      ),
     );
   }
 });

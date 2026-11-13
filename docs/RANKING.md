@@ -2959,3 +2959,27 @@ remaining targets. Unlabeled selections are not automatically wrong.
 The regression checks the measured floor, omission labels and one-count ceremony
 accounting. This evaluates fallback ranking, not semantic grouping, paid editing,
 source truth or a scheduled edition. No policy, score or production path changed.
+
+## Iteration 2193: label-only grouping comparison
+
+`pnpm evaluate:ranking` compares unchanged fallback selection with a second,
+offline selection that groups only article IDs carrying the same existing event
+label. Unknown articles remain separate. Both selections use the same policy,
+window, scores and slot budget; production behavior is unchanged. The report
+lists slots per labeled event, known repeated slots, grouped selections and
+negative-label violations. Empty target sets report null recall.
+
+| Recorded window | Baseline targets | Label-grouped targets | Known repeated slots | Largest selected group |
+| --------------- | ---------------- | --------------------- | -------------------- | ---------------------- |
+| NBA Nov 1       | 2/5              | 2/5                   | 0                    | 5 articles             |
+| World Nov 1     | 1/5              | 1/5                   | 0                    | 1 article              |
+| Tech Nov 1      | 0/5              | 0/5                   | 0                    | 1 article              |
+| Gaming Nov 12   | 1/5              | 1/5                   | 0                    | 7 articles             |
+
+Grouping known reports consolidates coverage but does not restore missing target
+slots in these windows. Relevance screening and ranking remain separate causes;
+this comparison gives no reason to tune a grouping matcher to fix that recall.
+Zero known repeats is not a zero duplicate rate: unlabeled selections can repeat.
+Labels are agent judgments, and this counterfactual is not semantic-model or
+scheduled-edition acceptance. All negative labels remain omitted. Synthetic
+controls verify an actual repeated-slot recovery and keep unknown reports apart.

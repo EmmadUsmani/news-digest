@@ -11,16 +11,22 @@ import { assessRelevance } from '../src/modules/digests/domain/relevance';
 export function evaluateWindow(filename: string) {
   const fixture = JSON.parse(
     readFileSync(join(__dirname, '../test/fixtures', filename), 'utf8'),
-  ) as {
-    topic: string;
-    windowStart: string;
-    windowEnd: string;
-    budget: number;
-    relevancePolicy: unknown;
-    candidates: Candidate[];
-    events: { name: string; reason: string; ids: string[] }[];
-    mustOmit: { id: string; reason: string }[];
-  };
+  ) as RankingFixture;
+  return evaluateFixture(fixture);
+}
+
+export type RankingFixture = {
+  topic: string;
+  windowStart: string;
+  windowEnd: string;
+  budget: number;
+  relevancePolicy: unknown;
+  candidates: Candidate[];
+  events: { name: string; reason: string; ids: string[] }[];
+  mustOmit: { id: string; reason: string }[];
+};
+
+export function evaluateFixture(fixture: RankingFixture) {
   const ids = new Set(fixture.candidates.map((item) => item.id));
   if (ids.size !== fixture.candidates.length)
     throw new Error('Duplicate candidate IDs');
@@ -48,6 +54,30 @@ export function evaluateWindow(filename: string) {
   );
   const found = fixture.events.filter((event) =>
     event.ids.some((id) => selectedIds.has(id)),
+  );
+  // Label-only counterfactual: no semantic inference and no production matcher.
+  // Unlabeled articles remain separate; this is not an overall duplicate rate.
+  const eventById = new Map(
+    fixture.events.flatMap((event) =>
+      event.ids.map((id) => [id, event.name] as const),
+    ),
+  );
+  const labeledGrouping = rank(eligible, start, end, fixture.budget, (a, b) => {
+    const event = eventById.get(a.id);
+    return event !== undefined && event === eventById.get(b.id);
+  });
+  function labeledSlots(selection: typeof stories) {
+    return fixture.events.map((event) => ({
+      name: event.name,
+      slots: selection.filter((story) =>
+        story.coverage.some((item) => event.ids.includes(item.id)),
+      ).length,
+    }));
+  }
+  const baselineSlots = labeledSlots(stories);
+  const groupedSlots = labeledSlots(labeledGrouping);
+  const groupedIds = new Set(
+    labeledGrouping.flatMap((story) => story.coverage.map((item) => item.id)),
   );
   return {
     topic: fixture.topic,
@@ -88,12 +118,33 @@ export function evaluateWindow(filename: string) {
         firstRankWithinTwenty: position < 0 ? null : position + 1,
       };
     }),
+    labeledGroupingComparison: {
+      baselineSlots,
+      knownRepeatedSlots: baselineSlots.reduce(
+        (sum, event) => sum + Math.max(0, event.slots - 1),
+        0,
+      ),
+      groupedSlots,
+      groupedFoundEvents: groupedSlots
+        .filter((event) => event.slots > 0)
+        .map((event) => event.name),
+      groupedSelected: labeledGrouping.map((story) => ({
+        id: story.id,
+        title: story.title,
+        coveredArticles: story.coverage.length,
+      })),
+      groupedForbiddenSelected: fixture.mustOmit.filter((item) =>
+        groupedIds.has(item.id),
+      ),
+    },
     targetEvents: fixture.events.length,
     foundEvents: found.map((event) => event.name),
     missedEvents: fixture.events
       .filter((event) => !found.includes(event))
       .map((event) => event.name),
-    eventRecall: found.length / fixture.events.length,
+    eventRecall: fixture.events.length
+      ? found.length / fixture.events.length
+      : null,
     // Distinct target events per selected slot: duplicates cannot inflate this measure.
     targetSlotYield: stories.length ? found.length / stories.length : 0,
     forbiddenSelected: fixture.mustOmit.filter((item) =>
