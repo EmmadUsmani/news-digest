@@ -82,3 +82,18 @@ Offline regression uses a synthetic NVIDIA-shaped empty-lead case, not saved
 provider output. It verifies attribution, representative identity/score,
 complete coverage, member bounds, order independence and unrelated-event
 isolation. Historical saved-case acceptance remains part of the wiring step.
+
+## Editor contract preparation — iteration 2127
+
+The editor optionally accepts separately attributed cluster evidence, with the
+representative first and at most two supplemental reports. Only representatives
+are selectable; supplemental IDs can be cited as evidence. Invalid membership,
+duplicate IDs, shared reports and changed representative facts fail before calls.
+The absence validator uses cited reports with the same title/excerpt bounds sent
+to the model. Uncited or truncated-away text cannot support an absence claim.
+
+Offline fixtures cover member transport/attribution, supported and unsupported
+absence claims, supplemental-story refusal and payload bounds. Existing callers
+supply no cluster evidence, so production prompts and publication remain unchanged.
+Production projection, persistence and historical saved-case acceptance remain
+open; no provider replay or live calls were used.

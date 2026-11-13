@@ -1333,3 +1333,117 @@ for (const mode of [
       assert.match(calls[1].prompt, /Return only valid JSON/);
   });
 }
+
+void test('cluster evidence reaches editor and absence validation with its own identity', async () => {
+  const member = {
+    id: 'member',
+    title: 'Publisher reports launch timing',
+    excerpt: 'The company has not announced a release date.',
+    sources: ['The Report'],
+    publisher: 'The Report',
+  };
+  const clustered = [
+    { ...candidates[0], clusterEvidence: [candidates[0], member] },
+  ];
+  const output = {
+    ...valid,
+    stories: [
+      { ...story, evidenceIds: ['one', 'member'], summary: member.excerpt },
+    ],
+  };
+  const h = harness([output]);
+  assert.equal(
+    (await h.editor.edit(topic, clustered, 1, 'cluster'))?.stories[0].summary,
+    member.excerpt,
+  );
+  const prompt = JSON.parse(h.calls[0].prompt);
+  assert.deepEqual(prompt.candidates[0].clusterEvidence[0], member);
+  assert.equal(prompt.candidates.length, 1);
+  assert.match(h.calls[0].instructions, /Only top-level candidate IDs/);
+
+  for (const unsupported of [
+    { ...output, stories: [{ ...output.stories[0], id: 'member' }] },
+    { ...output, stories: [{ ...output.stories[0], evidenceIds: ['one'] }] },
+    {
+      ...output,
+      stories: [
+        {
+          ...output.stories[0],
+          summary: 'The company has not confirmed its pricing.',
+        },
+      ],
+    },
+  ]) {
+    const rejected = harness([unsupported]);
+    assert.equal(
+      await rejected.editor.edit(topic, clustered, 1, 'refuse'),
+      null,
+    );
+  }
+});
+
+void test('cluster evidence bounds and membership fail before any provider call', async () => {
+  const h = harness();
+  const lead = candidates[0];
+  const member = { ...lead, id: 'member' };
+  for (const members of [
+    [],
+    [member, lead],
+    [lead, member, member],
+    [lead, member, { ...member, id: 'third' }, { ...member, id: 'fourth' }],
+    [{ ...lead, excerpt: 'Changed representative facts.' }],
+    [lead, { ...member, id: 'x'.repeat(201) }],
+  ]) {
+    await assert.rejects(
+      h.editor.edit(
+        topic,
+        [{ ...lead, clusterEvidence: members }],
+        1,
+        'invalid',
+      ),
+    );
+  }
+  await assert.rejects(
+    h.editor.edit(
+      topic,
+      [
+        { ...lead, clusterEvidence: [lead, member] },
+        {
+          ...lead,
+          id: 'other',
+          clusterEvidence: [{ ...lead, id: 'other' }, member],
+        },
+      ],
+      1,
+      'shared',
+    ),
+  );
+  assert.equal(h.calls.length, 0);
+});
+
+void test('cluster validation cannot use member text beyond the transported excerpt bound', async () => {
+  const hidden = 'The company has not announced a release date.';
+  const member = {
+    ...candidates[0],
+    id: 'member',
+    excerpt: 'x'.repeat(600) + hidden,
+  };
+  const h = harness([
+    {
+      ...valid,
+      stories: [{ ...story, evidenceIds: ['one', 'member'], summary: hidden }],
+    },
+  ]);
+  assert.equal(
+    await h.editor.edit(
+      topic,
+      [{ ...candidates[0], clusterEvidence: [candidates[0], member] }],
+      1,
+      'bounded',
+    ),
+    null,
+  );
+  const prompt = JSON.parse(h.calls[0].prompt);
+  assert.equal(prompt.candidates[0].clusterEvidence[0].excerpt.length, 600);
+  assert.ok(!h.calls[0].prompt.includes(hidden));
+});

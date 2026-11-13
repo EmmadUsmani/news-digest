@@ -103,3 +103,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - `pnpm build`: pass with existing bundle warnings. API/worker restarted active; `/healthz` database/Redis healthy after startup retry. Saved-reader check passes: five topics/25 stories/22 posts.
 - SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, budgets, provider, collection, flags or sharing changes.
 - Next: wire attributed evidence through editor/validator/publication before noon; review 15:00 scheduled NBA/item 58 acceptance.
+
+## 2026-11-13: iteration 2127 — prepare attributed editor evidence contract
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts; scheduled NBA/item 58 acceptance remains due 15:00 UTC, public mode off.
+- Added optional editor cluster evidence contract: representative plus two separately attributed reports; only representative IDs selectable, member IDs citable. Invalid/shared membership and changed representative facts fail before calls.
+- Absence validation reads only cited reports at the exact transported title/excerpt bounds. Fixtures cover supported member sentences, uncited/unsupported/truncated-away refusal, attribution and supplemental-story refusal.
+- Existing production callers do not supply the optional field: deployed prompt/publication behavior unchanged. Production projection/persistence wiring, historical saved-case acceptance and final admission review remain open.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 938 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build`: pass with existing bundle warnings.
+- API/worker restarted active; `/healthz` database/Redis healthy. Source-status startup connection failure cleared on retry: 38 healthy/zero unhealthy. Saved-reader check passes: five topics/25 stories/22 posts.
+- TASKS/review updated; no handbook/source behavior change. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, budgets, provider, flags or sharing changes.
+- Next: wire projection and saved evidence together before noon; review 15:00 scheduled NBA/item 58 acceptance.

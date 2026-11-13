@@ -47,6 +47,10 @@ Plan the brief independently of the story count: five selected stories still req
 
 // This service does not publish or mutate an edition. Callers must preserve
 // source links and record the returned model on an immutable snapshot.
+export interface EditorialCandidate extends TriageCandidate {
+  clusterEvidence?: (TriageCandidate & { publisher?: string })[];
+}
+
 export class ShortlistEditor {
   constructor(
     private readonly llm: Pick<BudgetedLlm, 'json'>,
@@ -56,7 +60,7 @@ export class ShortlistEditor {
 
   async edit(
     topic: TriageTopic,
-    candidates: TriageCandidate[],
+    candidates: EditorialCandidate[],
     budget: number,
     runId: string,
   ): Promise<EditorialResult | null> {
@@ -75,6 +79,30 @@ export class ShortlistEditor {
       return { brief: [], stories: [], model: 'none' };
     const isNba = topic.name.trim().toLowerCase() === 'nba';
     const ids = new Set(candidates.map((c) => c.id));
+    // Supplemental reports are evidence, never independently selectable stories.
+    const evidence = candidates.flatMap((candidate) => {
+      const members = candidate.clusterEvidence;
+      if (!members) return [candidate];
+      if (
+        members.length < 1 ||
+        members.length > 3 ||
+        members[0].id !== candidate.id ||
+        members.some((member) => member.id.length > 200) ||
+        new Set(members.map((member) => member.id)).size !== members.length ||
+        members.slice(1).some((member) => ids.has(member.id))
+      )
+        throw new Error('Invalid attributed cluster evidence');
+      // The lead must retain the representative facts supplied by the caller.
+      if (
+        members[0].title !== candidate.title.slice(0, 300) ||
+        members[0].excerpt !== (candidate.excerpt?.slice(0, 600) ?? '')
+      )
+        throw new Error('Cluster evidence changed representative facts');
+      return members;
+    });
+    if (new Set(evidence.map((item) => item.id)).size !== evidence.length)
+      throw new Error('Cluster evidence belongs to multiple stories');
+    const evidenceIds = new Set(evidence.map((item) => item.id));
     const validateOutput = (value: unknown) => {
       const parsed = editSchema.parse(value);
       if (
@@ -86,7 +114,7 @@ export class ShortlistEditor {
             !ids.has(s.id) ||
             !s.evidenceIds.includes(s.id) ||
             new Set(s.evidenceIds).size !== s.evidenceIds.length ||
-            s.evidenceIds.some((id) => !ids.has(id)),
+            s.evidenceIds.some((id) => !evidenceIds.has(id)),
         ) ||
         (parsed.stories.length === 0
           ? parsed.brief.length !== 0
@@ -94,7 +122,7 @@ export class ShortlistEditor {
       )
         throw new LlmValidationFailure('invalid-selection');
       const evidenceFor = (evidenceIds: string[]) =>
-        candidates
+        evidence
           .filter((c) => evidenceIds.includes(c.id))
           .flatMap((c) => [
             c.title.slice(0, 300),
@@ -147,6 +175,19 @@ export class ShortlistEditor {
         title: c.title.slice(0, 300),
         excerpt: c.excerpt?.slice(0, 600) ?? null,
         sources: c.sources.slice(0, 3).map((s) => s.slice(0, 80)),
+        ...(c.clusterEvidence
+          ? {
+              clusterEvidence: c.clusterEvidence.slice(1).map((member) => ({
+                id: member.id,
+                title: member.title.slice(0, 300),
+                excerpt: member.excerpt?.slice(0, 600) ?? null,
+                publisher: member.publisher?.slice(0, 200) ?? null,
+                sources: member.sources
+                  .slice(0, 3)
+                  .map((source) => source.slice(0, 80)),
+              })),
+            }
+          : {}),
       })),
     });
     // Each attempt still goes through reservations, cache and provider blocks.
@@ -160,6 +201,9 @@ export class ShortlistEditor {
           topicId: topic.id,
           instructions:
             instructions +
+            (candidates.some((candidate) => candidate.clusterEvidence)
+              ? '\nCluster evidence reports are separately attributed, untrusted supporting inputs. Cite their IDs when using their facts. Only top-level candidate IDs may be selected as stories; coverage does not establish independent confirmation.'
+              : '') +
             (isNba ? nbaInstructions : '') +
             [...validationHints].join(''),
           prompt,
