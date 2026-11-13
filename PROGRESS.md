@@ -12,27 +12,7 @@ Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2166–2168](docs/progress-archive/2026-11-13-iterations-2166-2168.md).
 
-## 2026-11-13: iteration 2169 — gate scheduled NBA acceptance on saved AI editing
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
-- Owner impact: prevent accepting another readable but non-AI NBA fallback as recovery before private public-mode activation.
-- Added optional `--require-ai-topic NBA` to the existing GET-only scheduled reader check. Joins protected immutable editorial evidence by edition/window/topic identity; requires AI mode, model, published stories and nonempty summaries. Default publication check remains available.
-- Offline controls cover AI/non-AI provenance, blank/empty stories, mismatched editions/windows, missing/duplicate topics and absent model. No inference, generation, budget or stored content changes.
-- Live Nov 13 gate correctly exits 1: `NBA: scheduled stories are not AI-edited`; targeted tests pass 2/2. This is the known degraded edition, not a new failure.
-- TASKS/public readiness updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script-only change requires no build/service restart.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Default Nov 13 publication check passes; Nov 14 reports pending.
-- Next: run this gate plus normal scheduled-job/editorial review after Nov 14 publication; only then close item 58 and activate public mode privately.
-
-## 2026-11-13: iteration 2170 — trace repeated fallback events
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass and no failed user services.
-- Owner impact: next-edition recovery must restore event diversity as well as readable text and NBA AI provenance.
-- GET-only review of saved edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`: seven Tech/Gaming cards cover three events (Claude outage, Microsoft outage, PS5 QSSR expansion), consuming four repeated slots.
-- Traced publication: incomplete triage retains ungrouped `rankFallback`; only complete triage reaches explicit AI membership, which scored fallback can retain. Canonical-URL dedupe cannot merge different publishers. Blank-excerpt repair alone cannot restore grouping.
-- Updated daily review/TASKS with concrete labels and next-run decision: verify complete triage, then inspect grouping/editor evidence if repeats persist. No heuristic, prompt, paid replay, source, provider, budget or saved-edition changes.
-- Targeted quality/group-shortlist/clustering tests: 16/16 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
-- Documentation-only; running services remain on unchanged runtime code, no rebuild/restart needed. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Next: Nov 14 scheduled NBA/admission acceptance plus Tech/Gaming diversity review; then item 58/private public-mode activation.
+Archived entries: [iterations 2169–2170](docs/progress-archive/2026-11-13-iterations-2169-2170.md).
 
 ## 2026-11-13: iteration 2171 — trace weak NBA Bluesky supply
 
@@ -200,3 +180,15 @@ Archived entries: [iterations 2166–2168](docs/progress-archive/2026-11-13-iter
 - `pnpm format`, `pnpm lint:fix`, standalone `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings. Initial combined check received SIGTERM near unit-test completion; full retry passed.
 - Updated TASKS; archived progress 2166–2168 to keep this file small. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader link only); no paid calls.
 - Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation. Further small reader changes give way to source/editorial work.
+
+## 2026-11-13: iteration 2185 — identify Tech feed evidence loss
+
+- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass, no failed user services. NBA/item 58/public activation still requires Nov 14 scheduled acceptance.
+- Owner value: richer Tech reporting is already fetched but discarded: Ars parser chooses a short teaser before supplied article content, losing concrete Microsoft outage/recovery details.
+- One explicit live RSS GET, no article destinations/media/paid calls or writes. Temporary offline `pnpm exec tsx scripts/tmp-2185.ts` passed 20 canonical-URL matches, exact teaser precedence, richer bounded bodies and the recovery-quote check; probe removed.
+- All 20 teasers are 52–101 characters versus 593–1,500 supplied body characters. Recorded response hash, example and bounded content-first/blank-fallback implementation in `docs/edition-reviews/2026-11-13-tech-feed-depth.md`; updated SOURCES/TASKS.
+- No production parser/generation change after noon under STEERING 59. Implement before noon UTC; retain text cap, attribution and no-crawl rule. Existing HN blank-link limitation is unchanged, not a new failure.
+- Saved NBA fixtures contain normalized outputs, not original raw response bytes; raw-response golden remains open. No fixture relabelled or paid re-recording.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema validation and `git diff --check` pass; build has existing chunk warnings. Full `pnpm check` passes: 977 unit/291 integration tests, four expected skips.
+- Archived progress 2169–2170 to retain the size limit. Runtime/services remain on unchanged production code; no restart needed for this evidence-only step. NEEDS_FROM_HUMAN unchanged; no new owner decision required.
+- Next: pre-noon feed-content precedence fix; then Nov 14 all-topic AI/event-diversity acceptance and item 58/private public activation.

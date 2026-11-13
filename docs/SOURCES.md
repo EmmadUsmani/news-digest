@@ -2767,3 +2767,14 @@ Senate exposes a first-person leadership announcement but repeats an X-covered
 event; House adds repeated election/foreign-policy material, broad politics adds
 commentary. Retain `Congress`; no writes, paid calls or production changes.
 [Comparison](edition-reviews/2026-11-13-us-bluesky.md#free-discovery-comparison--iteration-2181).
+
+## Tech feed evidence depth — Nov 13, iteration 2185
+
+One explicit Ars RSS GET returned 20 live articles. Production parsing chooses
+the 52–101-character description for each, although the same response supplies
+593–1,500 characters of bounded plain article text in `content:encoded`.
+The Microsoft outage body includes recovery and affected-service details absent
+from its teaser. No article pages, media, inference or ingestion writes were
+requested. Prefer explicit feed content with blank fallback in the next
+pre-noon generation-change window; tonight’s runtime is unchanged.
+[Evidence and bounded implementation](edition-reviews/2026-11-13-tech-feed-depth.md).
