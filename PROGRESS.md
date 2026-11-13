@@ -183,4 +183,5 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Updated experiment evidence/TASKS; corrected NEEDS_FROM_HUMAN's stale activation gate to STEERING 59: owner approval gates sharing, not private public-mode activation.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass (975 unit/291 integration tests, four expected skips).
 - Documentation only; SOURCES/handbook and runtime unchanged, no rebuild/restart needed.
+- Initial push rejected: concurrent lead-only documentation commits on origin/main. Fetched/merged without rewriting history; runtime/test scope unchanged.
 - Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58 and private public mode; no repeat historical accounting audit without new evidence.

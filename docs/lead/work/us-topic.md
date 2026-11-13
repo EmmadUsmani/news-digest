@@ -1,6 +1,8 @@
 # U.S. news & politics topic
 
-**Status (03:00 UTC Nov 13):** first five-topic edition (Nov 12) went fine: 5 World
+**Status (17:45 UTC Nov 13):** Nov 13 withheld World and U.S. stories: triage
+calls expired locally (see edition-quality). Ownership correctly refused to
+publish half-scored sections. U.S. got its first 2 Bluesky posts. Nov 12 went fine: 5 World
 and 5 U.S. stories, no repeats, foreign policy in World (agent's review). AI
 spend $0.518 of $0.65, X $0.328 of $0.50. U.S. got no Bluesky post. Live since 22:15 UTC Nov 11 (item 57 ack,
 migration 0020). U.S. sits after World with Guardian US, NPR Politics and PBS
@@ -18,8 +20,8 @@ most $0.65, only if measured as needed.
 
 **Next:**
 
-- Nov 13 and 14 editions for acceptance. Watch AI spend near the $0.65 cap, and
-  U.S. Bluesky coverage (empty so far).
+- Nov 13 doesn't count. Accept on Nov 14 and 15. Watch AI spend near the $0.65
+  cap (Nov 13 was $0.237, artificially low).
 - If ownership refuses, there's no fallback: check both topics still publish.
 
 **Open decisions:** none.
