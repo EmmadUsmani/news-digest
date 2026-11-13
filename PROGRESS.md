@@ -192,3 +192,15 @@ Archived entries: [iterations 2169–2170](docs/progress-archive/2026-11-13-iter
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema validation and `git diff --check` pass; build has existing chunk warnings. Full `pnpm check` passes: 977 unit/291 integration tests, four expected skips.
 - Archived progress 2169–2170 to retain the size limit. Runtime/services remain on unchanged production code; no restart needed for this evidence-only step. NEEDS_FROM_HUMAN unchanged; no new owner decision required.
 - Next: pre-noon feed-content precedence fix; then Nov 14 all-topic AI/event-diversity acceptance and item 58/private public activation.
+
+## 2026-11-13: iteration 2186 — prepare recorded feed-content safety checks
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 still awaits Nov 14 scheduled acceptance.
+- Owner value: prepare the richer Ars reporting fix without changing generation after STEERING 59’s noon cutoff; recovery details and attribution now have reproducible offline checks.
+- Recorded one minimal article from iteration 2185’s saved RSS; retained original fields, reserialized XML. No new live fetch, crawl, inference or ingestion write.
+- Two new tests cover the 593-character recovery body, unchanged metadata, RSS/Atom body paths, blank fallback, 1,500-character cap and X citations beyond that cap.
+- Targeted `pnpm exec tsx --test --test-name-pattern='recorded Ars content|feed content paths' apps/api/test/ingestion.test.ts` passes (2/2).
+- Initial direct whole-file test correctly refused its DB case outside the isolated harness; no live DB access. Full harness verification recorded below.
+- Updated TASKS/SOURCES and feed-depth implementation notes, including existing summary-first assertions to replace with direct precedence checks before noon. NEEDS_FROM_HUMAN/handbook unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/293 integration tests, four expected skips; existing build chunk warnings.
+- Production parser/services unchanged; no restart needed for fixture/test/docs-only changes. Next: pre-noon content precedence, then scheduled all-topic AI/event-diversity acceptance and private public-mode activation.

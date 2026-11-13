@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+  <channel>
+    <item>
+      <title>Microsoft’s global outage may be worse than Amazon's or CrowdStrike's, expert says</title>
+      <link>https://arstechnica.com/tech-policy/2026/11/microsoft-blames-failed-server-health-checks-not-hackers-for-global-outage/</link>
+      <dc:creator>
+                    Ashley Belanger
+                </dc:creator>
+      <pubDate>Fri, 13 Nov 2026 15:26:53 +0000</pubDate>
+      <description>
+                        Governments, hospitals, courts scrambled by global Microsoft outage.
+                    </description>
+      <content:encoded>
+                            &lt;p&gt;A global outage taking down a wide range of Microsoft 365 services remains ongoing Friday morning.&lt;/p&gt;
+&lt;p&gt;The outage started midday Thursday, impacting users of Microsoft email, cloud, and AI services. Microsoft has documented the &lt;a href="https://status.cloud.microsoft/"&gt;full list of services impacted&lt;/a&gt; by the error, while moving early Friday morning to protect customers around the world from losing emails during the extended disruptions.&lt;/p&gt;
+&lt;p&gt;“Recovery actions are ongoing,” the Microsoft 365 Status account confirmed on X. “To help preserve delayed mail during this event, we’ve extended email timeout to 48 hours.”&lt;/p&gt;&lt;p&gt;&lt;a href="https://arstechnica.com/tech-policy/2026/11/microsoft-blames-failed-server-health-checks-not-hackers-for-global-outage/"&gt;Read full article&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://arstechnica.com/tech-policy/2026/11/microsoft-blames-failed-server-health-checks-not-hackers-for-global-outage/#comments"&gt;Comments&lt;/a&gt;&lt;/p&gt;
+
+                        </content:encoded>
+      <media:content url="https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2191081646-1024x648.jpg" type="image/jpeg" medium="image" width="1024" height="648">
+        <media:thumbnail url="https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2191081646-500x500-1794581824.jpg" width="500" height="500" />
+        <media:credit>NurPhoto / Contributor | NurPhoto</media:credit>
+      </media:content>
+    </item>
+  </channel>
+</rss>

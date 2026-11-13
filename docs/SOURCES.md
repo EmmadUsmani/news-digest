@@ -2778,3 +2778,7 @@ from its teaser. No article pages, media, inference or ingestion writes were
 requested. Prefer explicit feed content with blank fallback in the next
 pre-noon generation-change window; tonight’s runtime is unchanged.
 [Evidence and bounded implementation](edition-reviews/2026-11-13-tech-feed-depth.md).
+
+Iteration 2186 records the single outage article as an offline fixture and
+verifies its 593-character body, metadata, text cap and X-link transport.
+No new fetch, ingestion or production precedence change.

@@ -45,3 +45,24 @@ checks before deployment. Changing evidence supplied to future editions touches
 generation; implement/deploy before noon UTC under STEERING 59. Production
 remains unchanged tonight. This source finding does not accept tomorrow's
 scheduled triage recovery, AI editing, grouping or summary quality.
+
+## Offline safety preparation — iteration 2186
+
+Committed `apps/api/test/fixtures/ars-outage-2026-11-13.xml` contains one
+minimal article fragment from the response above, retaining original title,
+URL, date, author, description, encoded content and media. XML serialization
+changed escaping and namespace declarations; it is not the original response
+bytes. No new live request was made.
+
+Tests remove only the description in memory to exercise the existing body
+fallback: all 593 normalized characters retain the recovery quote and 48-hour
+email preservation detail, with identical metadata. Synthetic RSS/Atom cases
+verify the 1,500-character cap, blank-content fallback and discovery of an X
+citation beyond the excerpt cap, including when a description is present.
+These are offline fixture checks, not live ingestion or scheduled acceptance.
+
+Before noon, change precedence and add direct assertions that the unchanged
+recorded fragment selects its body and Atom content beats its summary. Update
+the existing test named “feed excerpts fall back to bounded body text only
+when summaries are blank,” whose first two assertions deliberately pin the
+current summary-first behavior. Production parser remains unchanged tonight.

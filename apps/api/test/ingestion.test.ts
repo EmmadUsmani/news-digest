@@ -10,6 +10,74 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Ars content fallback retains recovery reporting and article metadata', async () => {
+  const xml = await fixture('ars-outage-2026-11-13.xml');
+  const [original] = parseFeed(xml);
+  // Remove only the teaser to exercise the existing content path before the
+  // scheduled content-precedence fix. The recorded fragment stays unchanged.
+  const [body] = parseFeed(
+    xml.replace(/<description>[\s\S]*?<\/description>/, ''),
+  );
+  assert.match(body.excerpt, /Recovery actions are ongoing/);
+  assert.match(body.excerpt, /extended email timeout to 48 hours/);
+  assert.equal(body.excerpt.length, 593);
+  assert.doesNotMatch(body.excerpt, /<[^>]+>/);
+  assert.equal(body.author, 'Ashley Belanger');
+  assert.equal(body.publishedAt, '2026-11-13T15:26:53.000Z');
+  assert.equal(
+    body.imageUrl,
+    'https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2191081646-1024x648.jpg',
+  );
+  const { excerpt: _originalExcerpt, ...originalMetadata } = original;
+  const { excerpt: _bodyExcerpt, ...bodyMetadata } = body;
+  assert.deepEqual(bodyMetadata, originalMetadata);
+});
+
+void test('feed content paths retain bounded text, blank fallback and X citations', () => {
+  const teaser = 'Short source description';
+  const description = `<description>${teaser}</description>`;
+  const body = `<content:encoded><![CDATA[<p>${'Evidence '.repeat(250)}</p><a href="https://x.com/reporter/status/1234567890123456789">Report</a>]]></content:encoded>`;
+  const rss = (fields: string) =>
+    `<rss xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><item><title>Test</title><link>https://example.org/story</link><pubDate>2026-11-13T00:00:00Z</pubDate>${fields}</item></channel></rss>`;
+  const [contentOnly] = parseFeed(rss(body));
+  assert.equal(contentOnly.excerpt.length, 1500);
+  assert.equal(
+    contentOnly.excerpt,
+    'Evidence '.repeat(250).trim().slice(0, 1500),
+  );
+  assert.deepEqual(
+    parseFeed(rss(description + body))[0].xLinks,
+    contentOnly.xLinks,
+  );
+  assert.equal(contentOnly.xLinks?.length, 1);
+  assert.equal(
+    parseFeed(
+      rss(
+        `${description}<content:encoded><![CDATA[<p> </p>]]></content:encoded>`,
+      ),
+    )[0].excerpt,
+    teaser,
+  );
+  const atom = (content: string) =>
+    `<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>Test</title><link href="https://example.org/story"/><updated>2026-11-13T00:00:00Z</updated>${content}</entry></feed>`;
+  assert.equal(
+    parseFeed(
+      atom(
+        '<content type="html">&lt;p&gt;Atom article evidence&lt;/p&gt;</content>',
+      ),
+    )[0].excerpt,
+    'Atom article evidence',
+  );
+  assert.equal(
+    parseFeed(
+      atom(
+        '<summary>Atom summary</summary><content type="html">&lt;p&gt; &lt;/p&gt;</content>',
+      ),
+    )[0].excerpt,
+    'Atom summary',
+  );
+});
+
 void test('recorded RSS and Atom normalize real headlines, dates and safe links', async () => {
   for (const name of [
     'rss.xml',
