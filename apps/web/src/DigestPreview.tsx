@@ -254,9 +254,22 @@ export function DigestPreview() {
                             {story.title}
                           </a>
                         </h3>
-                        {story.summary && (
+                        {story.summary?.trim() ? (
                           <p className="excerpt my-3 text-base leading-7">
                             {story.summary}
+                          </p>
+                        ) : (
+                          <p className="my-3 text-sm text-[var(--secondary)]">
+                            Summary unavailable.{' '}
+                            <a
+                              href={story.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`Read source: ${story.title}`}
+                              className="inline-flex min-h-11 items-center rounded-md text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                            >
+                              Read source
+                            </a>
                           </p>
                         )}
                         <StorySources story={story}>

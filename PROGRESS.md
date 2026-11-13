@@ -206,3 +206,14 @@ Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iter
 - Saved four screenshots under `docs/screenshots/ui/reader-empty-stories-*`; inspected mobile light and desktop dark images.
 - Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader wording fix only); no paid calls.
 - Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
+
+## 2026-11-13: iteration 2183 — disclose missing story summaries
+
+- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass, no failed user services.
+- Owner value: five saved Tech headlines have no summary; readers now see an explicit unavailable message and an accessible source link instead of an unexplained gap.
+- Whitespace-only summaries use the same fallback; existing summaries render unchanged. Saved editions, generation, budgets and activation gates unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass; 977 unit/291 integration tests, four expected skips.
+- Restarted API; `/healthz` passes. GET-only `node /tmp/iteration-2183-reader.cjs` checks the real saved edition at 390/1440px, light/dark: five fallbacks, correct source URLs, retained summaries, no overflow/browser errors.
+- Corrected the temporary browser check’s exact-text matcher (message includes its link); rerun passes. Four screenshots saved under `docs/screenshots/ui/reader-missing-summaries-*`; inspected mobile light and desktop dark.
+- Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader presentation only); no paid calls.
+- Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation.
