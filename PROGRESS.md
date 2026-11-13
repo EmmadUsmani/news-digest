@@ -24,28 +24,7 @@ Archived entries: [iterations 2177–2178](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2179–2180](docs/progress-archive/2026-11-13-iterations-2179-2180.md).
 
-## 2026-11-13: iteration 2181 — compare U.S. Bluesky reporting supply
-
-- Clean main; no inherited work. Initial alerts zero, database/Redis healthy, no failed user services.
-- Owner value: test whether alternate U.S. searches supply concrete reporting beyond the repaired Congress pool, without risking tomorrow’s edition.
-- Added non-storing `probe-bluesky.ts --us`; four free searches return 49/49/50/48 observations for Congress/Senate/House of Representatives/US politics.
-- Senate exposes first-person leadership text but repeats selected X coverage; House repeats election coverage/adds foreign-policy scope; broad politics adds commentary. Retain Congress and semantic/editorial gates.
-- Four-result window/count/non-storage/publication assertions pass; combined `--us --store` refuses before credentials/network. Export mode 600; no media or paid calls.
-- Updated TASKS/SOURCES and U.S. selection evidence; archived iterations 2164–2165 to keep progress small. Handbook/NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
-- Local probe only; runtime unchanged, no restart required. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
-
-## 2026-11-13: iteration 2182 — accurate empty-story reader message
-
-- Clean main; no inherited work. Alerts zero, health/database/Redis pass, all 38 sources healthy, all queues available; next digest Nov 14 15:00 UTC.
-- Owner value: World/U.S. withheld stories after failed triage must not be described as a quiet news day.
-- Reader now says “No stories in this edition”; published posts remain visible. Immutable snapshots and generation unchanged; NBA/item 58 acceptance still awaits Nov 14.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
-- Restarted `news-digest-api.service`; retrying `curl -fsS http://localhost:8000/healthz` passes; post-restart alerts zero.
-- `node /tmp/iteration-2182-reader.cjs`: GET-only Playwright on real saved edition, third parties blocked; both empty sections and retained posts pass at 390/1440px light/dark; no overflow/browser errors.
-- Saved four screenshots under `docs/screenshots/ui/reader-empty-stories-*`; inspected mobile light and desktop dark images.
-- Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader wording fix only); no paid calls.
-- Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
+Archived entries: [iterations 2181–2182](docs/progress-archive/2026-11-13-iterations-2181-2182.md).
 
 ## 2026-11-13: iteration 2183 — disclose missing story summaries
 
@@ -191,3 +170,14 @@ Archived entries: [iterations 2179–2180](docs/progress-archive/2026-11-13-iter
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Corrected smoke-script lint assertion; interrupted first lint invocation rerun successfully.
 - Pushed `a0ba49ad`; `systemctl --user restart news-digest-api.service news-digest-worker.service` leaves both active. `curl /healthz` confirms app/Postgres/Redis; latest reader serves five topics/15 stories/20 posts. Recent NPR feed and hourly social jobs complete. No paid calls or production edition writes.
 - Next: pre-noon feed precedence fix, Nov 14 scheduled all-topic editing/diversity and NBA/item 58/private public activation. Evening generation cutoff retained; no paid calls.
+
+## 2026-11-13: iteration 2196 — visible dates in older editions
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Scheduled acceptance awaits Nov 14; evening generation cutoff retained.
+- Reader weakness: older story/post timestamps required hover to discover a calendar date. Owner benefit: publication dates now remain visible on mobile and in historical editions.
+- Shared story/post timestamps show month/day/year after 24 hours, preserving recent relative times and exact accessible labels. No saved data, generation, sources, prompts or budget changes.
+- Actual-edition Playwright checks (`pnpm exec tsx scripts/smoke-reader-publication-dates.ts`) pass desktop/mobile light/dark at the one-hour and 24-hour boundary; four screenshots added, mobile light inspected. No overflow or browser errors. Initial selector included an article-detail timestamp; narrowed to the shared timestamp.
+- TASKS updated; archived progress 2181–2182. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: display-only fix. Initial handbook run overlapped service restart and hit connection refusal; rerun after recovery.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Follow-up smoke-script lint passes.
+- Rebuilt API/worker restarted active; health/database/Redis pass. Latest reader retains five topics/15 stories/20 posts. Commit/push and final restart follow verification.
+- Next: pre-noon feed-content precedence fix, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. No paid calls or edition writes.

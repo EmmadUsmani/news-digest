@@ -26,7 +26,11 @@ export function StoryTime({ publishedAt }: { publishedAt: string }) {
           ? `${minutes}m ago`
           : minutes < 1440
             ? `${Math.floor(minutes / 60)}h ago`
-            : `${Math.floor(minutes / 1440)}d ago`;
+            : date.toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+              });
   return (
     <time dateTime={publishedAt} title={exact} aria-label={exact}>
       {label}

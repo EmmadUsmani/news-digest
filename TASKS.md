@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Visible publication dates (2196): edition stories/posts older than 24 hours show a calendar date, including year, without requiring a hover; recent items retain relative times.
+
 - [x] Saved publication dates (2195): new story/post bookmarks show original publication time separately from save date; optional metadata survives reload and account sync, while legacy saves retain no invented date.
 
 - [x] Saved editorial context (2191): newly bookmarked posts retain their editorial context separately from the original excerpt, including the U.S. constitutional-claim attribution; bounded optional copies support older bookmarks and account sync.
