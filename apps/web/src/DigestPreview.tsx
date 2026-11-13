@@ -272,6 +272,17 @@ export function DigestPreview() {
                             </a>
                           </p>
                         )}
+                        {/(?:…|\.{3})\s*$/.test(story.summary ?? '') && (
+                          <a
+                            href={story.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Continue reading: ${story.title}`}
+                            className="mb-3 inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                          >
+                            Continue reading at source
+                          </a>
+                        )}
                         <StorySources story={story}>
                           <StoryTime publishedAt={story.publishedAt} />
                         </StorySources>

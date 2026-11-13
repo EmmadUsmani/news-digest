@@ -16,30 +16,7 @@ Archived entries: [iterations 2169–2170](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2171–2172](docs/progress-archive/2026-11-13-iterations-2171-2172.md).
 
-## 2026-11-13: iteration 2173 — compare NBA discovery queries
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
-- Owner impact: improve the path to real NBA clips instead of filling the final post slot with weak scoring-list claims (STEERING 34/42).
-- Added explicit free `probe-bluesky.ts --nba`: four queries/200 maximum observations, mutually exclusive with storage, existing safe engagement gates and bounded public examples.
-- One common 24-hour window: NBA/#NBA/NBA highlights/basketball return 48/48/15/50 posts and 0/1/0/3 safe attached-video candidates. No media fetched or semantic/editor calls.
-- Broader query candidates include Cade (45 likes), Celtics (11) and Dejounte Murray (eight); attachment metadata does not verify highlight content, and Cade repeats X's event.
-- Comparison complete: retain production query; later gated discovery trial may compare hashtag/basketball supply with semantic filtering. No repeat probe while waiting.
-- Verification: live four-query probe, bounds/no-storage assertions and conflicting-mode refusal pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
-- Updated TASKS/SOURCES and saved comparison; NEEDS_FROM_HUMAN/handbook unchanged. Probe-only change; runtime unchanged, no rebuild/restart needed. No paid calls or stored observations.
-- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode.
-
-## 2026-11-13: iteration 2174 — trace restored U.S. selection quality
-
-- Clean main; no inherited work. Alerts zero; health database/Redis pass, no failed user services.
-- Reader weakness examined: repaired U.S. supply may still yield repetitive or shallow social reporting; traced actual scheduled selection rather than collecting again.
-- Saved pool: 511 observations/56 distinct posts; 50 safe candidates/38 authors. Production shortlist reconstructed offline using exactly one saved score per candidate; ten results, complete.
-- Three RFK-investigation candidates become one detailed selected post; election report adds a distinct event. X-covered Van Hollen development is not repeated; no X displacement.
-- Cached editor explicitly prefers named senators/reporting context. One unsupported-claim drop is unattributed; original reporting and normal story/post overlap remain unaccepted.
-- Retain Congress query and semantic gates; no absent-supply defect or reason to force the third open slot. Updated TASKS/SOURCES and linked review; NEEDS_FROM_HUMAN/handbook unchanged.
-- Verification: historical coverage report, protected/public saved GETs, read-only cache/production-shortlist assertions pass. Temporary script removed; exports mode 600. No provider calls or writes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived oldest retained entry to keep progress small.
-- Documentation only; runtime unchanged, no rebuild/restart needed.
-- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later World discovery remains gated.
+Archived entries: [iterations 2173–2174](docs/progress-archive/2026-11-13-iterations-2173-2174.md).
 
 ## 2026-11-13: iteration 2175 — finish historical X experiment reconciliation
 
@@ -205,3 +182,13 @@ Archived entries: [iterations 2171–2172](docs/progress-archive/2026-11-13-iter
 - `pnpm format`, retried `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema validation and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. API restarted with rebuilt reader; health/database/Redis pass.
 - TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, operation or system-flow changes.
 - Next: before-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/event diversity, then item 58/private public activation.
+
+## 2026-11-13: iteration 2189 — continue truncated story excerpts at source
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 awaits Nov 14 scheduled acceptance; noon generation cutoff respected.
+- Reader weakness: Nov 13 Beal and three Gaming summaries end mid-sentence with ellipses. Added “Continue reading at source” beneath explicitly truncated summaries; complete/blank summaries keep their existing treatment.
+- Saved text, links, editions and generation unchanged. No inference, collection or database writes.
+- Temporary GET-only Playwright check against actual latest edition passes desktop/mobile light/dark: four continuation links, exact source URLs, all saved summary text, keyboard focus, 44px targets, no overflow/page errors, immutable API before/after. Probe removed; four screenshots saved; mobile light inspected.
+- TASKS updated; archived progress 2173–2174 to stay below size limit. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source or system-flow change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; all pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. API restarted with rebuilt reader; health/database/Redis pass.
+- Next: pre-noon feed-content precedence, then Nov 14 scheduled all-topic AI editing/event diversity and item 58/private public activation.
