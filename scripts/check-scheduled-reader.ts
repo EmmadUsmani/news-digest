@@ -3,9 +3,13 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 
 import {
+  digestPreviewSchema,
   readerEditionHistorySchema,
   readerEditionSchema,
 } from '@digest/contracts';
+
+import { localAdminJson } from './lib/local-admin-fetch';
+import { requireScheduledAiTopic } from './lib/scheduled-editorial-gate';
 
 async function read(path: string): Promise<unknown> {
   const response = await fetch(`http://127.0.0.1:8000${path}`, {
@@ -18,11 +22,15 @@ async function read(path: string): Promise<unknown> {
 
 async function main() {
   const [expectedEnd, ...extra] = process.argv.slice(2);
+  const requiredTopic =
+    extra[0] === '--require-ai-topic' && extra.length === 2
+      ? extra[1].trim()
+      : null;
   assert.ok(
     expectedEnd &&
-      !extra.length &&
+      (!extra.length || requiredTopic) &&
       /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(expectedEnd),
-    'usage: check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ (expected scheduled window end)',
+    'usage: check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ [--require-ai-topic NBA]',
   );
   const expected = new Date(expectedEnd).toISOString();
   assert.equal(
@@ -82,9 +90,21 @@ async function main() {
     ),
     'history topics differ',
   );
+  const aiTopic = requiredTopic
+    ? requireScheduledAiTopic(
+        latest,
+        digestPreviewSchema.parse(
+          await localAdminJson(
+            `/api/admin/digest-previews/${encodeURIComponent(latest.id)}`,
+          ),
+        ),
+        requiredTopic,
+      )
+    : undefined;
   console.log(
     JSON.stringify({
       status: 'reader-verified',
+      ...(aiTopic ? { aiTopic } : {}),
       editionId: latest.id,
       windowEnd: latest.windowEnd,
       topics: latest.topics.length,

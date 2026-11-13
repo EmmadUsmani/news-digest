@@ -108,6 +108,9 @@ activation review, rather than adding more variants of already-covered refusals.
       work; keep Grafana closed and off the public Tools list. Spend may be public.
 - [ ] Close item 58 with a normal scheduled NBA AI-edited edition and its ID.
       Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
+      Require saved NBA AI provenance and nonempty published summaries with
+      `pnpm exec tsx scripts/check-scheduled-reader.ts <window-end> --require-ai-topic NBA`
+      alongside the scheduled-job and editorial review.
 - [x] Read-only admin/tool rollout inventory reconciled (2103): reviewed pages,
       handbook/explorer and fresh-admin telemetry are installed behind the flag.
       Exact routes and retained evidence: [current inventory](public-read-rollout-review.md#current-rollout-inventory--iteration-2103).

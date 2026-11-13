@@ -139,3 +139,14 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - Updated TASKS/capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only step leaves running services matching main; no restart/build needed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 973 unit/291 integration tests, four expected skips; `git diff --check` passes.
 - Next: Nov 14 scheduled NBA/admission acceptance, then item 58/private public-mode activation. Next passive capacity probe no earlier than 17:26 UTC.
+
+## 2026-11-13: iteration 2169 — gate scheduled NBA acceptance on saved AI editing
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
+- Owner impact: prevent accepting another readable but non-AI NBA fallback as recovery before private public-mode activation.
+- Added optional `--require-ai-topic NBA` to the existing GET-only scheduled reader check. Joins protected immutable editorial evidence by edition/window/topic identity; requires AI mode, model, published stories and nonempty summaries. Default publication check remains available.
+- Offline controls cover AI/non-AI provenance, blank/empty stories, mismatched editions/windows, missing/duplicate topics and absent model. No inference, generation, budget or stored content changes.
+- Live Nov 13 gate correctly exits 1: `NBA: scheduled stories are not AI-edited`; targeted tests pass 2/2. This is the known degraded edition, not a new failure.
+- TASKS/public readiness updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script-only change requires no build/service restart.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Default Nov 13 publication check passes; Nov 14 reports pending.
+- Next: run this gate plus normal scheduled-job/editorial review after Nov 14 publication; only then close item 58 and activate public mode privately.
