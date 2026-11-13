@@ -146,3 +146,17 @@ void test('simultaneous failures settle each reservation exactly once', () => {
     1,
   );
 });
+
+void test('unrelated failures cannot hide cyclic scenario dependencies', () => {
+  const cycle = [job('a', ['b']), job('b', ['a'])];
+  for (const jobs of [
+    [{ ...job('failure'), fails: true }, ...cycle],
+    [...cycle, { ...job('failure'), fails: true }],
+    [job('refused', [], 20), ...cycle],
+  ]) {
+    assert.throws(
+      () => simulateStagedScheduling(jobs, 5),
+      /Cyclic scheduling dependencies/,
+    );
+  }
+});

@@ -87,3 +87,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format` and `pnpm lint:fix` completed. Initial `pnpm check` caught formatting in the concurrently added progress entry; fixed it, then full rerun passed: 965 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
 - API/worker/docs restarted; initial source/reader checks raced startup and failed to connect, then retry passed: `/healthz` database/Redis healthy; 38 sources/zero unhealthy; saved-reader check five topics/25 stories/22 posts.
 - No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; production scheduling unchanged.
+
+## 2026-11-13: iteration 2143 — reject concealed offline scheduling cycles
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits 15:00 UTC; public mode remains off.
+- Found an offline evidence defect: an unrelated failure cancelled cyclic pending jobs before cycle detection, allowing an invalid scenario to return normally. Validate the complete graph before dispatch; no production scheduling/admission changes.
+- `pnpm exec tsx --test apps/api/test/staged-scheduling.test.ts`: 7/7 pass; disconnected cycles are refused with unrelated failure in either input order and with an unrelated budget refusal.
+- Updated TASKS and latency evidence; SOURCES/NEEDS_FROM_HUMAN unchanged. No runtime/source/handbook behavior change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
+- API/worker/docs restarted; `/healthz` database/Redis healthy. `pnpm obs sources --check`: 38 sources/zero unhealthy; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts verified.
+- No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private.

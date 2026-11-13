@@ -49,6 +49,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2143: offline scheduler validates the whole dependency graph before dispatch, so unrelated failures cannot conceal cycles; seven scenarios pass. No production change.
+
 - [x] Iteration 2142: offline staged scheduling failure model cancels queued work and drains active successes/failures with exact settlement before returning; six scenarios pass. Production scheduling unchanged.
 
 - [x] Iteration 2141: isolated four-slot staged scheduling simulator demonstrates shared-preparation release and the earlier-editor/NBA-repair reservation conflict. Synthetic protected control, settlement, bounds and dependency refusals verified; production scheduler unchanged.

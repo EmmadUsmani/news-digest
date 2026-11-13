@@ -32,6 +32,20 @@ export function simulateStagedScheduling(
     )
   )
     throw new Error('Invalid scheduling scenario');
+  // Validate the whole graph before budget refusals or failures can hide a
+  // disconnected cycle. Scenario validity must not depend on execution order.
+  const dependencies = new Map(jobs.map((job) => [job.id, job.after]));
+  const visited = new Set<string>();
+  const visiting = new Set<string>();
+  const visit = (id: string) => {
+    if (visiting.has(id)) throw new Error('Cyclic scheduling dependencies');
+    if (visited.has(id)) return;
+    visiting.add(id);
+    for (const dependency of dependencies.get(id)!) visit(dependency);
+    visiting.delete(id);
+    visited.add(id);
+  };
+  for (const id of ids) visit(id);
   const pending = [...jobs];
   const done = new Set<string>();
   const refused = new Set<string>();

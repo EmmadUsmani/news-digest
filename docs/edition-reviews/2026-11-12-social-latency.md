@@ -107,3 +107,11 @@ synthetic units and times, not measured production behavior. No actual provider
 cancellation, deadline/expiry policy or owned repair-hold handoff is implemented.
 Production scheduling remains unchanged; owned admission design still follows
 scheduled NBA acceptance.
+
+## Offline scenario validation — iteration 2143
+
+Validate the complete dependency graph before dispatch. An unrelated failed call
+previously cancelled pending cyclic jobs and returned a seemingly valid result.
+A disconnected two-job cycle is now refused regardless of input order or
+unrelated failures/budget refusals. Seven offline scenarios pass; production
+scheduling is unchanged.
