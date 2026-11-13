@@ -1773,3 +1773,76 @@ void test('shared admission retains repair ownership across queued editor instan
   for (let index = 0; index < 4; index++)
     assert.ok(events.indexOf(`${index}:2`) < events.indexOf('4:1'));
 });
+
+void test('saturated admission serves cache and refuses expired queued work without a hold', async () => {
+  let signalStarted!: () => void;
+  const started = new Promise<void>((resolve) => {
+    signalStarted = resolve;
+  });
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let dispatched = 0;
+  const llm: LlmPort = {
+    async complete() {
+      if (++dispatched === 4) signalStarted();
+      await gate;
+      return { text: '{"ok":true}', usage };
+    },
+  };
+  const holders = Array.from({ length: 4 }, (_, index) =>
+    new BudgetedLlm(llm, new MemoryLedger()).jsonOutcome(
+      { ...request, topicId: `holder-${index}` },
+      valid,
+    ),
+  );
+  await started;
+  const cachedLedger = new MemoryLedger();
+  cachedLedger.values.set(llmFingerprint(request), { ok: true });
+  const expiredLedger = new MemoryLedger();
+  let now = 0;
+  const expiredService = new BudgetedLlm(
+    llm,
+    expiredLedger,
+    undefined,
+    undefined,
+    () => now,
+  );
+  // A synthetic clock expires the edition while its request waits behind the
+  // four holders. The real admission timer remains far in the future.
+  const queued = expiredService.jsonOutcome(request, valid, {
+    execution: { deadline: 10000 },
+  });
+  try {
+    assert.deepEqual(
+      await new BudgetedLlm(llm, cachedLedger).jsonOutcome(request, valid),
+      {
+        status: 'complete',
+        value: { ok: true },
+      },
+    );
+    assert.equal(cachedLedger.calls.length, 0);
+    assert.equal(expiredLedger.calls.length, 0);
+    assert.equal(dispatched, 4);
+    now = 10000;
+  } finally {
+    release();
+    await Promise.all(holders);
+  }
+  assert.deepEqual(await queued, { status: 'provider-call-failed' });
+  assert.equal(expiredLedger.calls.length, 0);
+  assert.equal(dispatched, 4);
+  // Expiry must release the transferred slot and leave the service reusable.
+  assert.deepEqual(
+    await expiredService.jsonOutcome(request, valid, {
+      execution: { deadline: 20000 },
+    }),
+    {
+      status: 'complete',
+      value: { ok: true },
+    },
+  );
+  assert.equal(expiredLedger.calls.length, 1);
+  assert.equal(dispatched, 5);
+});

@@ -179,3 +179,11 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - No paid calls, media fetches, collection, generation, configuration or runtime changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged; no deployment/restart during hold.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 971 unit/291 integration tests, four expected skips. Documentation-only step; no rebuild/restart needed.
 - Next: deploy prepared API/worker admission fix after 16:00 UTC, then review the next scheduled NBA/item 58 acceptance before private public-mode activation.
+
+## 2026-11-13: iteration 2164 — verify admission under deadline expiry and cache load
+
+- Clean main; no inherited work. Initial alerts zero, `/healthz` database/Redis pass, no failed user services. Deployment remains prohibited during 13:00–16:00 UTC.
+- Added offline BudgetedLlm composition regression with all four shared slots occupied: cached results return immediately without reservations; queued edition expiry prevents provider dispatch and budget holds; transferred slots and the same service remain reusable.
+- Targeted `pnpm exec tsx --test apps/api/test/llm.test.ts`: 49/49 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 972 unit/291 integration tests, four expected skips.
+- TASKS updated. Test-only change; no build/restart, paid calls, configuration or runtime changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Next: deploy prepared API/worker admission fix after 16:00 UTC; accept next scheduled NBA edition before item 58/public activation.
