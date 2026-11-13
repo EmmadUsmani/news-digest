@@ -2744,3 +2744,11 @@ post; the election report adds a distinct development and the X-covered
 leadership challenge is not repeated. Retain `Congress`; normal story/post
 overlap and original-reporting quality remain open. No provider calls or
 source changes. [Selection trace](edition-reviews/2026-11-13-us-bluesky.md).
+
+Nov 13 Tech free discovery comparison (2177): `artificial intelligence`,
+`Claude`, `Gemini` and `AI demo` returned 41/50/50/47 posts, with
+41/47/48/28 safety-and-engagement candidates and 0/0/1/5 attached videos.
+Bounded examples include commentary, ambiguous names and game promotions;
+these counts do not establish semantic relevance or useful product demos.
+Retain the production query and editorial gates; no storage, paid calls or
+source configuration changes. [Evidence](edition-reviews/2026-11-13-tech-bluesky.md).

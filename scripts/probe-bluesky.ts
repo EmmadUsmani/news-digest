@@ -1,6 +1,6 @@
 // Explicit free API probe; --store opts into isolated observation writes.
 // No scheduling or edition changes. At most four queries / 200 observations.
-// Prints aggregate yield and bounded public examples in --world/--nba modes.
+// Prints aggregate yield and bounded public examples in --world/--nba/--tech modes.
 // Never prints credentials, session bodies or tokens.
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
@@ -19,11 +19,15 @@ import { localAdminFetch } from './lib/local-admin-fetch';
 async function main() {
   const args = process.argv.slice(2);
   if (
-    args.some((arg) => !['--store', '--world', '--nba'].includes(arg)) ||
+    args.some(
+      (arg) => !['--store', '--world', '--nba', '--tech'].includes(arg),
+    ) ||
     new Set(args).size !== args.length ||
     args.length > 1
   )
-    throw new Error('Usage: probe-bluesky.ts [--store | --world | --nba]');
+    throw new Error(
+      'Usage: probe-bluesky.ts [--store | --world | --nba | --tech]',
+    );
   const values = new Map(
     readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8')
       .split('\n')
@@ -52,26 +56,33 @@ async function main() {
     ? new PostgresBlueskyRepository()
     : undefined;
   try {
-    const searches = args.includes('--nba')
+    const searches = args.includes('--tech')
       ? [
-          ['NBA', 'NBA'],
-          ['NBA', '#NBA'],
-          ['NBA', 'NBA highlights'],
-          ['NBA', 'basketball'],
+          ['Tech & AI', 'artificial intelligence'],
+          ['Tech & AI', 'Claude'],
+          ['Tech & AI', 'Gemini'],
+          ['Tech & AI', 'AI demo'],
         ]
-      : args.includes('--world')
+      : args.includes('--nba')
         ? [
-            ['World news & politics', 'World news & politics'],
-            ['World news & politics', 'Ukraine'],
-            ['World news & politics', 'Gaza'],
-            ['World news & politics', 'geopolitics'],
-          ]
-        : [
-            ['Tech & AI', 'artificial intelligence'],
             ['NBA', 'NBA'],
-            ['Gaming', 'game'],
-            ['World news & politics', 'world news'],
-          ];
+            ['NBA', '#NBA'],
+            ['NBA', 'NBA highlights'],
+            ['NBA', 'basketball'],
+          ]
+        : args.includes('--world')
+          ? [
+              ['World news & politics', 'World news & politics'],
+              ['World news & politics', 'Ukraine'],
+              ['World news & politics', 'Gaza'],
+              ['World news & politics', 'geopolitics'],
+            ]
+          : [
+              ['Tech & AI', 'artificial intelligence'],
+              ['NBA', 'NBA'],
+              ['Gaming', 'game'],
+              ['World news & politics', 'world news'],
+            ];
     for (const [topic, query] of searches) {
       const configured = topics.find(
         (item) => item.name === topic && item.enabled,
@@ -105,15 +116,16 @@ async function main() {
         rankingCutoff,
         configured.postBudget,
       );
-      const safe = args.includes('--nba')
-        ? rankSafeBlueskyPosts(
-            posts,
-            configured.relevancePolicy,
-            since,
-            rankingCutoff,
-            50,
-          )
-        : [];
+      const safe =
+        args.includes('--nba') || args.includes('--tech')
+          ? rankSafeBlueskyPosts(
+              posts,
+              configured.relevancePolicy,
+              since,
+              rankingCutoff,
+              50,
+            )
+          : [];
       console.log(
         JSON.stringify({
           topic,
@@ -146,7 +158,7 @@ async function main() {
                   })),
               }
             : {}),
-          ...(args.includes('--nba')
+          ...(args.includes('--nba') || args.includes('--tech')
             ? {
                 safeEngaged: safe.length,
                 safeVideo: safe.filter(({ post }) =>

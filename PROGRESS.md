@@ -6,15 +6,6 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [earliest retained entries before iteration 2172](docs/progress-archive/2026-11-13-before-2172.md).
 
-## 2026-11-13: iteration 2161 — bound multi-topic inference before budget holds
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. Nov 13 failed story editing remains the highest-priority breakage.
-- Added process-shared four-request FIFO admission before reservation across triage, editors and repairs; cache hits bypass it. Queue limited to 64/200 seconds and inherited generation deadline; timeout/overflow degrades without a hold. Provider four-slot/ten-second safety queue, models, prompts and caps unchanged.
-- Offline five-topic composition scores 750 candidates in 15 batches with peak four provider calls/four holds, zero missing scores or failures. Separate provider-slot composition, queue overflow/expiry, late transfer, exception cleanup and reuse pass; no live provider calls or replay.
-- Updated AI handbook and TASKS. SOURCES/NEEDS_FROM_HUMAN unchanged; NBA/item 58/public activation still require scheduled acceptance.
-- Verification: targeted admission 3/3 and triage 27/27; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts ai-and-budgets`, `git diff --check` pass: 970 unit/291 integration tests, four expected integration skips. Existing build warnings only.
-- No deploy/restarts during the explicit 13:00–16:00 UTC hold. Source fix is prepared for deployment after 16:00; runtime remains on previous deployed code. Next: deploy API/worker outside hold, verify health, then accept next normal scheduled edition; no paid generation.
-
 ## 2026-11-13: iteration 2162 — verify queued editors retain repair admission
 
 - Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass; no failed user services. Deployment remains blocked by the explicit 13:00–16:00 UTC hold.
@@ -175,3 +166,17 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips. Archived oldest two retained entries to keep this file small.
 - Local verification tooling only; runtime unchanged, no rebuild/restart needed. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
 - Next: normal Nov 14 edition review, then item 58/private public-mode activation; retain all spending and deployment gates.
+
+## 2026-11-13: iteration 2177 — compare Tech Bluesky discovery supply
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass; no failed user services.
+- Owner-visible aim: find concrete Tech demos/launches missing from today's empty Bluesky section, without forcing weak picks.
+- NBA/item 58/public activation still await Nov 14 scheduled acceptance; fallback repetition already has an upstream fix, so no new generation changes.
+- Added non-storing `probe-bluesky.ts --tech`; four free searches compare baseline, Claude, Gemini and AI demo with the same 24-hour window.
+- Fetched 41/50/50/47 posts; safety/engagement pools 41/47/48/28, attached videos 0/0/1/5. Bounded examples expose commentary, ambiguous names and game promotions.
+- Retain production query and semantic/editorial gates: higher yield is not evidence of relevant demos. No paid calls, media fetches, stored observations or configuration changes.
+- Four-result assertions pass for common window, bounded counts, zero writes and false semantic/publication flags; `--tech --store` refuses before credentials/network.
+- Saved review and updated TASKS/SOURCES; handbook/NEEDS_FROM_HUMAN unchanged. Private export mode 600.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only. Archived oldest retained entry to keep progress small.
+- Local probe only; runtime unchanged, no service restart needed.
+- Next: normal Nov 14 edition recovery/AI/event-diversity review, then item 58/private public mode; do not repeat this comparison without a concrete new discovery hypothesis.
