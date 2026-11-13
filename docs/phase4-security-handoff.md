@@ -26,10 +26,10 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
 - Trusted loopback proxy configuration and explorer credential drop-in checked (1875).
 - Reader privileges and default grants checked; migration 0023 removes remaining
   account grants across all five reader roles and PUBLIC (1878).
-- Authenticated exe.dev identity-header replacement and shared target port checks
-  remain pending. The VM lacks SSH credentials/trust; see
-  [the recorded gate](../NEEDS_FROM_HUMAN.md#phase-4-proxy-verification-nov-12-iteration-1879).
-  Local application behavior does not substitute for these proxy checks.
+- Owner verified Nov 13 from the Mac: shared proxy target is port 8000, and
+  a signed-in request with a spoofed email header retained the real admin identity.
+  UserID-header replacement and future anonymous visitor behavior remain uncovered;
+  see [the owner evidence](../NEEDS_FROM_HUMAN.md#phase-4-proxy-verification-nov-12-iteration-1879).
 
 ## Verification and remaining acceptance
 
@@ -44,7 +44,7 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   latest/direct/history agree. NBA fell back to source excerpts and three Sonnet
   admissions were refused. This does not close normal post-fix acceptance.
   [Scheduled review and NBA diagnosis](edition-reviews/2026-11-12.md); restore NBA
-  before accepting a later normal edition. Proxy evidence remains pending.
+  before accepting a later normal edition. Owner proxy evidence is recorded above.
 - Item 58 stays open until the live checks are answered and a normal scheduled
   edition publishes after the fixes. Then add the required steering ack and
   request the lead re-check; the owner retains the go-public decision.
@@ -57,7 +57,7 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   loopback checks after the item 58 fixes. Anonymous writes, invalid origins,
   wrong content types and malformed payloads are refused; no cookies issued,
   credentials requested or account identities created. This is local application
-  evidence; authenticated exe.dev proxy verification remains pending.
+  evidence; the later owner proxy verification is recorded above.
 - `check-scheduled-reader.ts 2026-11-11T15:00:00Z` passes: latest, direct and
   history agree on the saved four-topic edition, 19 stories and 19 posts.
   That edition predates the fixes and does not satisfy post-fix acceptance.

@@ -165,3 +165,15 @@
 - TASKS and edition review updated; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, cap changes or public activation.
 - Next: natural NBA/settlement acceptance Nov 13 15:00 UTC; authenticated proxy credentials/trust remain blocked. Metrics probe not repeated before ≥22:21 UTC.
 - `pnpm format` and `pnpm lint:fix` pass; API/worker restart and post-push readback follow commit.
+
+## 2026-11-13: iteration 2100 — reconcile owner proxy evidence
+
+- Clean main; no inherited work. Owner's Nov 13 evidence verifies shared port 8000 and replacement of a spoofed email header for a signed-in request.
+- Updated TASKS, security handoff and the original human request to stop reporting those checks as wholly pending. UserID-header and future anonymous behavior remain uncovered; public activation stays with the owner.
+- `pnpm obs alerts`, `health`, `sources --check`, `services --check` and `jobs --check --limit 1` pass: zero alerts, healthy services/sources, staffed digest queue/zero failures, next edition Nov 13 15:00 UTC.
+- Initial `obs jobs --queue digest` was rejected; corrected with the all-queue check (`digest-generation` is the queue name).
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z` passes: five topics/25 stories/22 posts agree across latest/direct/history.
+- Documentation-only change; no paid calls, source/budget changes, public activation or repeated accepted-screen checks. SOURCES unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warning only.
+- First `pnpm check` stalled in telemetry-export transport test; terminated that test process. Isolated three-test rerun passed; full `pnpm check` retry passed (921 unit/289 integration, four expected skips). No code change or reproduced failure.
+- Commit/push and API/worker restart with health readback follow. Next: Nov 13 15:00 scheduled NBA/settlement acceptance; public activation remains owner-gated.

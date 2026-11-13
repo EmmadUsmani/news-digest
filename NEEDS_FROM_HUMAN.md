@@ -168,7 +168,7 @@ Historical reservation measurements remain in
 
 ## Phase 4 proxy verification (Nov 12, iteration 1879)
 
-Read-only authenticated exe.dev checks remain pending: confirm the shared
+Original Nov 12 request (answered in part below): confirm the shared
 target is port 8000 and client-supplied identity headers are replaced. The VM
 has no configured SSH credentials or known-host entry; the documented
 `ssh exe.dev help all` attempt failed host-key verification. No sharing changes
