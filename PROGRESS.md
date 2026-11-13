@@ -130,3 +130,13 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - Temporary READ ONLY probe removed; mode-600 `/tmp/us-pool-2158.json` retained. Assertions pass for distinct counts, unique URLs, author concentration and publication/observation cutoff bounds. No provider calls, collection, jobs or live writes.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass: 966 unit/291 integration tests, four expected skips; existing build warnings only.
 - Runtime/configuration unchanged; no service restart during hold. NEEDS_FROM_HUMAN unchanged. Next: scheduled NBA/item 58 acceptance, private public-mode activation outside hold, then World pilot/natural social-quality acceptance.
+
+## 2026-11-13: iteration 2159 — passive metrics recovery follow-up
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. NBA/item 58 scheduled gate remains due at 15:00 UTC; deployment hold respected.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 fresh healthy rules, four uncached queries ≤0.698 s, unchanged process starts and no new evaluator/admission/queue/slow-query failures.
+- Neither tier merged during the sample; comparable natural-merge recovery remains unaccepted. Recorded evidence and next passive-probe bound (15:44 UTC) in capacity decision/TASKS. No retuning or forced compaction.
+- System journal since 09:53:30 shows isolated worker/API scrape refusals at 10:34/12:31; current probes pass. No new incident inferred.
+- No runtime/configuration changes, provider calls, service restarts or live writes. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts observability`, `git diff --check` pass; 966 unit/291 integration passes, four expected skips; existing build warnings only.
+- Next: 15:00 scheduled NBA/item 58 acceptance, then private public-mode activation outside hold.

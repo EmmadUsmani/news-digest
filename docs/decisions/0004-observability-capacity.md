@@ -844,3 +844,14 @@ than 10:54 UTC Nov 13. System journal inspection since the previous probe
 found isolated API/worker scrape connection refusals; current rule/query checks
 pass. The first journal command used a nonexistent user unit and returned no
 entries; corrected to the system `obs-metrics.service` unit.
+
+### Passive follow-up (iteration 2159)
+
+Nov 13 14:43:13–14:43:43 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.698 s, no new evaluator errors
+or missed iterations, query admission limits, queue timeouts or slow queries.
+Process starts unchanged; neither storage tier merged. Comparable natural-merge
+recovery remains open. Limits unchanged; next short passive probe no earlier
+than 15:44 UTC Nov 13. System journal since 09:53:30 UTC contains isolated
+API/worker scrape connection refusals at 10:34 and 12:31; current probes pass.
+No forced merge, service restart, configuration change or provider call.
