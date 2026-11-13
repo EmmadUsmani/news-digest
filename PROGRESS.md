@@ -186,4 +186,4 @@
 - No external requests, paid calls, budgets, provider, flag or sharing changes. Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 927 unit/290 integration, four expected skips. First check caught formatting in the newly archived progress file; corrected and reran successfully.
 - `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts social-posts` passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes. Archived older progress entries to keep this file small.
-- Commit/push and API/worker restart follow; next: scheduled NBA/item 58 acceptance, fresh activation baseline and private-sharing public activation.
+- Pushed `1ecd9092`; API/worker restarted active. Immediate startup probe raced the listener; five seconds later healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check` and `pnpm obs jobs --check --limit 1` pass. Next: scheduled NBA/item 58 acceptance, fresh activation baseline and private-sharing public activation.
