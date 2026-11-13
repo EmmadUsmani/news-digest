@@ -101,3 +101,13 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - Updated TASKS/SOURCES and pilot contract; archived older PROGRESS entries after 25 KB. No provider calls, live writes, budgets, generation, configuration or sharing changes. NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass; existing build warnings only. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - No service restart during hold; production unchanged. Next: scheduled NBA/item 58 acceptance, then private public-mode activation outside hold; World pilot activation follows those gates.
+
+## 2026-11-13: iteration 2156 — review saved X content and correct stale World status
+
+- Clean main; no inherited work. Initial `pnpm obs alerts` zero; `/healthz` database/Redis pass. NBA/item 58 gate still due at 15:00 UTC; deployment hold respected.
+- Read all 18 saved Nov 12 X texts and notes; documented topic-level reporting, announcements, political attribution and media limitations in `docs/edition-reviews/2026-11-12-x-quality.md`.
+- World now has four X picks, all cited by daily keyword search; removed stale Nov 9 absence from TASKS. Nine of 18 total X picks are daily-search citations, eight outside-list; no exclusive first-discovery attribution claimed.
+- GET-only assertions pass: immutable edition ID, all 18 publication times within saved window, all official metrics empty. `report-x-discovery.ts 2026-11-12` confirms five completed successful calls, zero holds, $0.327795 settled. No provider calls or writes.
+- Existing Gaming translation/date/repetition and Tech overlap fixes await natural acceptance; viral quality remains open. Updated TASKS/SOURCES; no new generation rules or duplicate repairs. NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass; existing build warnings only. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- No service restart during hold: runtime/configuration unchanged. Next: 15:00 NBA/item 58 acceptance, then private public-mode activation outside hold; World discovery pilot follows those gates.

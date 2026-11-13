@@ -2516,6 +2516,9 @@ Viral/diversity acceptance remains unmet; tuning stays paused behind item 50.
 World/U.S. each publish five distinct, correctly scoped stories; NBA fallback
 and three Sonnet admission refusals prevent overall scheduled acceptance.
 [Daily review](edition-reviews/2026-11-12.md).
+The [saved X content review](edition-reviews/2026-11-12-x-quality.md) (2156)
+confirms four World picks, all cited by daily search; nine of 18 total X picks
+are daily-search citations. All 18 official metrics remain unknown.
 
 ### U.S. Bluesky empty-query repair — Nov 13, iteration 2105
 

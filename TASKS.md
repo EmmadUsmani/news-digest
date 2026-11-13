@@ -16,7 +16,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] Breakage / metrics-store: retain Nov 7 CPU-only 2% trial. Natural compaction confirmed Nov 8; second healthy sample needed for recovery acceptance. No capacity retuning or public Grafana launch work. [Evidence](docs/decisions/0004-observability-capacity.md).
 
-- [ ] STEERING 34: fixed keyword X search ON; semantic dropped, Grok/caps unchanged. Continue daily quality review: Nov 9 no World X, viral quality unaccepted. Do not infer engagement from missing official metrics.
+- [ ] STEERING 34: fixed keyword X search ON; semantic dropped, Grok/caps unchanged. Continue daily quality review: Nov 12 World has four X picks, all daily-search citations; [18-pick saved-text review](docs/edition-reviews/2026-11-12-x-quality.md) (2156) confirms topical content but all official metrics remain empty. Gaming translation/repetition and Tech overlap fixes await natural acceptance; viral quality unaccepted. Do not infer engagement from missing official metrics.
 
 - [ ] STEERING 30/31 historical accounting: $2.50 experiment/$1 UTC-day cap, outside 13:00–16:00; $0.15 per-call hold. Round 1 $0.532331 includes unresolved Gaming timeout. [Evidence](docs/x-search-experiment.md).
 
