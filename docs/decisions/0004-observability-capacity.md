@@ -832,3 +832,15 @@ or missed iterations, query admission limits, queue timeouts or slow queries.
 Process starts unchanged; one small merge processed 15,288 rows, no large-tier
 merge. Comparable natural-merge recovery remains open. Limits unchanged; next
 short passive probe no earlier than 22:21 UTC Nov 12.
+
+### Passive follow-up (iteration 2133)
+
+Nov 13 09:53:30–09:54:01 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.475 s, no new evaluator errors
+or missed iterations, query admission limits, queue timeouts or slow queries.
+Process starts unchanged; neither storage tier merged. Comparable natural-merge
+recovery remains open. Limits unchanged; next short passive probe no earlier
+than 10:54 UTC Nov 13. System journal inspection since the previous probe
+found isolated API/worker scrape connection refusals; current rule/query checks
+pass. The first journal command used a nonexistent user unit and returned no
+entries; corrected to the system `obs-metrics.service` unit.
