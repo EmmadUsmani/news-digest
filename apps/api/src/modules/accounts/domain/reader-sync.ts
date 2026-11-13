@@ -6,6 +6,7 @@ export type ReaderBookmarkCopy = {
   url: string;
   attribution: string;
   excerpt: string;
+  context?: string;
   platform: string;
   editionId: string;
 };
@@ -38,7 +39,16 @@ function validText(value: string): boolean {
   return true;
 }
 function validCopy(value: unknown): value is ReaderBookmarkCopy {
-  if (!record(value) || Object.keys(value).length !== 6) return false;
+  if (!record(value)) return false;
+  const allowed = [...Object.keys(fields), 'context'];
+  if (Object.keys(value).some((key) => !allowed.includes(key))) return false;
+  if (
+    value.context !== undefined &&
+    (typeof value.context !== 'string' ||
+      value.context.length > 600 ||
+      !validText(value.context))
+  )
+    return false;
   for (const [key, limit] of Object.entries(fields)) {
     const field = value[key];
     if (typeof field !== 'string' || field.length > limit || !validText(field))
@@ -143,6 +153,7 @@ export function mergeReaderSync(
               c.copy.excerpt,
               c.copy.platform,
               c.copy.editionId,
+              c.copy.context ?? '',
             ]),
       readerSyncLimits.bookmarks,
     ),

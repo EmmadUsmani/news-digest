@@ -353,6 +353,8 @@ export function DigestPreview() {
                                       url: post.url,
                                       attribution: post.author,
                                       excerpt: post.displayText ?? text,
+                                      context:
+                                        post.whyItMatters?.trim() || undefined,
                                       platform: post.platform,
                                       editionId: preview.id,
                                     },

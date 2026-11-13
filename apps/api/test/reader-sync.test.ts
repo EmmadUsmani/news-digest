@@ -175,3 +175,31 @@ void test('sync refuses expanded ISO years before storage for both preference co
     }
   }
 });
+
+void test('editorial context syncs with legacy bookmarks and deterministic browser ties', () => {
+  const legacy = empty();
+  legacy.bookmarks['post:one'] = { updatedAt: 10, copy };
+  const noted = empty();
+  noted.bookmarks['post:one'] = {
+    updatedAt: 10,
+    copy: {
+      ...copy,
+      context: 'An attributed claim, not an independently checked fact.',
+    },
+  };
+  const merged = mergeReaderSync(legacy, noted);
+  assert.deepEqual(merged, mergeReaderSync(noted, legacy));
+  assert.deepEqual(merged, mergePreferences(legacy, noted));
+  assert.equal(
+    merged.bookmarks['post:one'].copy?.context,
+    noted.bookmarks['post:one'].copy?.context,
+  );
+  for (const context of ['x'.repeat(601), 'bad\u0000text', 42]) {
+    const invalid = JSON.parse(JSON.stringify(noted));
+    invalid.bookmarks['post:one'].copy.context = context;
+    assert.throws(
+      () => mergeReaderSync(empty(), invalid),
+      /Invalid reader sync change/,
+    );
+  }
+});

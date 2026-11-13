@@ -18,29 +18,7 @@ Archived entries: [iterations 2171–2172](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2173–2174](docs/progress-archive/2026-11-13-iterations-2173-2174.md).
 
-## 2026-11-13: iteration 2175 — finish historical X experiment reconciliation
-
-- Clean main; no inherited work. Initial alerts zero; local health database/Redis pass, no failed user services.
-- NBA/item 58/private public-mode activation await the next scheduled edition; no paid replay or generation changes.
-- Closed stale STEERING 30/31 local accounting task: all 33 calls reconciled, $1.168639 settled plus $0.300000 unknown holds = $1.468639 charged.
-- Both unknown Gaming requests lack saved responses; Nov 5 records a timeout. Retain both $0.15 holds indefinitely; reopen only for request-specific usage evidence.
-- Read-only Python assertions matched 29 original settlement receipts and both append-only response hashes, absence of both unknown responses, totals and historical daily caps. No journal writes/provider calls.
-- Updated experiment evidence/TASKS; corrected NEEDS_FROM_HUMAN's stale activation gate to STEERING 59: owner approval gates sharing, not private public-mode activation.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass (975 unit/291 integration tests, four expected skips).
-- Documentation only; SOURCES/handbook and runtime unchanged, no rebuild/restart needed.
-- Initial push rejected: concurrent lead-only documentation commits on origin/main. Fetched/merged without rewriting history; runtime/test scope unchanged.
-- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58 and private public mode; no repeat historical accounting audit without new evidence.
-
-## 2026-11-13: iteration 2176 — require all five sections for recovery
-
-- Clean main; no inherited work. Alerts zero; health database/Redis pass; no failed user services.
-- Extended GET-only scheduled reader gate with repeatable named AI requirements; one admin snapshot serves all requirements. Existing single-topic result retained.
-- Explicit names catch missing sections as well as non-AI provenance, missing models and blank story text; publication alone cannot pass recovery.
-- Updated next natural-review command to Nov 14 and all five exact topic names. NBA/item 58 and public activation remain pending; event diversity still needs reader review.
-- Four targeted gate tests pass, including partial recovery, missing sections and malformed options. Saved Nov 13 Tech is refused with non-AI provenance, as expected; no provider calls or writes.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips. Archived oldest two retained entries to keep this file small.
-- Local verification tooling only; runtime unchanged, no rebuild/restart needed. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
-- Next: normal Nov 14 edition review, then item 58/private public-mode activation; retain all spending and deployment gates.
+Archived entries: [iterations 2175–2176](docs/progress-archive/2026-11-13-iterations-2175-2176.md).
 
 ## 2026-11-13: iteration 2177 — compare Tech Bluesky discovery supply
 
@@ -203,3 +181,14 @@ Archived entries: [iterations 2173–2174](docs/progress-archive/2026-11-13-iter
 - TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, operation or system-flow change.
 - API restarted after push to serve rebuilt reader; health/database/Redis pass.
 - Next: pre-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/event diversity, then item 58/private public activation.
+
+## 2026-11-13: iteration 2191 — retain editorial caveats in saved posts
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. Scheduled NBA/item 58 acceptance remains Nov 14; feed-depth implementation remains before noon.
+- Owner value: saving the actual U.S. recess-appointment post dropped the editorial attribution of its constitutional claim; newly saved posts now retain bounded context separately from original excerpts.
+- Optional context survives local reloads and account merges; legacy copies remain valid. Added offline reload/bounds, browser/server tie convergence and invalid-context checks; no migration, inference or generation changes.
+- GET-only temporary Playwright probe saves all 35 actual-edition items and verifies context, exact excerpts/URLs, reload persistence, keyboard controls and no overflow/errors across desktop/mobile light/dark. Edition API unchanged; four screenshots saved, mobile light inspected.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 979 unit/294 integration tests, four expected skips; existing build chunk warning.
+- Corrected targeted test's expected error wording; first full check stopped on new archive formatting, fixed before successful rerun. Browser initially reached API during restart; retried after healthy startup and passed.
+- TASKS/owner handbook updated; archived progress 2175–2176. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or owner decision changes.
+- API restarted with rebuilt reader; health/database/Redis pass. Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and item 58/private public activation.

@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Saved editorial context (2191): newly bookmarked posts retain their editorial context separately from the original excerpt, including the U.S. constitutional-claim attribution; bounded optional copies support older bookmarks and account sync.
+
 - [x] Saved-item reading continuity (2190): bookmarked truncated stories and X excerpts now offer explicit source continuation; headline-only saved stories explain the missing summary and label the source link. Actual-edition desktop/mobile light/dark checks preserve bookmark text and storage.
 
 - [x] Truncated story continuation (2189): saved summaries ending in an ellipsis now offer an explicit source continuation link; text and generation unchanged. Nov 13 actual-edition desktop/mobile light/dark checks cover all truncated and complete stories.

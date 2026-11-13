@@ -206,3 +206,24 @@ void test('shortened saved prose marks omissions, preserves words and survives r
   assert.ok(emoji.endsWith('…'));
   assert.doesNotMatch(emoji, /[\uD800-\uDBFF]…$/u);
 });
+
+void test('saved editorial context survives reloads without changing the post excerpt', () => {
+  const context = "The constitutional claim is the author's own assertion.";
+  const saved = changeBookmark(
+    emptyStore(),
+    'post:claim',
+    { ...copy, context },
+    10,
+  );
+  const restored = parsePreferences(JSON.stringify(saved));
+  assert.equal(restored.bookmarks['post:claim'].copy?.context, context);
+  assert.equal(restored.bookmarks['post:claim'].copy?.excerpt, copy.excerpt);
+  const long = changeBookmark(
+    emptyStore(),
+    'post:long',
+    { ...copy, context: 'Context sentence. '.repeat(100) },
+    10,
+  );
+  assert.ok(long.bookmarks['post:long'].copy!.context!.length <= 600);
+  assert.match(long.bookmarks['post:long'].copy!.context!, /…$/);
+});

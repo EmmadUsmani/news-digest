@@ -5,6 +5,7 @@ export type BookmarkCopy = {
   url: string;
   attribution: string;
   excerpt: string;
+  context?: string;
   platform: string;
   editionId: string;
 };
@@ -56,6 +57,8 @@ export function boundBookmarkCopy(value: unknown): BookmarkCopy | null {
       ? shortenProse(field, limit)
       : field.slice(0, limit);
   }
+  if (typeof value.context === 'string' && value.context.trim())
+    result.context = shortenProse(value.context.trim(), 600);
   try {
     const url = new URL(result.url);
     if (
@@ -163,6 +166,7 @@ export function mergePreferences(
             change.copy.excerpt,
             change.copy.platform,
             change.copy.editionId,
+            change.copy.context ?? '',
           ]),
     ),
   };

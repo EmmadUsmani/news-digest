@@ -130,6 +130,12 @@ export function ReaderSaved() {
                     {copy.excerpt}
                   </p>
                 )}
+                {copy.context?.trim() && (
+                  <p className="saved-context my-3 whitespace-pre-line text-sm leading-6 text-[var(--secondary)]">
+                    <span className="font-semibold">Context: </span>
+                    {copy.context}
+                  </p>
+                )}
                 {copy.platform === 'story' && !copy.excerpt.trim() && (
                   <p className="my-3 text-sm text-[var(--secondary)]">
                     Summary unavailable.
