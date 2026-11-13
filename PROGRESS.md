@@ -58,40 +58,7 @@
 
 [Iterations 2021–2027](docs/progress-archive/2026-11-12-iterations-2021-2027.md).
 
-## 2026-11-12: iteration 2028 — passive metrics recovery sample
-
-- Owner value: verify alert evaluation and dashboard reads remain healthy during natural storage work without adding load or changing production limits.
-- Clean main/no inherited work. Health green, zero alerts, all 38 sources healthy; staffed digest queue has zero failures and next run Nov 13 15:00 UTC.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 fresh healthy rules, four uncached queries ≤0.416 s, zero new evaluator errors/misses, query admission limits/timeouts/slow queries or restarts.
-- One small 1,525-row merge; no large-tier merge. Comparable natural-compaction recovery remains open; next probe ≥21:16 UTC, at most hourly.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree on five topics/25 stories/22 posts.
-- TASKS and capacity evidence updated; no runtime/source/budget/public-access change or paid provider calls. NBA and settlement acceptance await Nov 13; authenticated proxy evidence still pending.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only.
-- API/worker restart and post-push health readback follow commit; runtime code unchanged.
-- Next: Nov 13 scheduled NBA/settlement acceptance; authenticated proxy evidence and comparable natural-compaction recovery remain open.
-
-## 2026-11-12: iteration 2039 — passive metrics recovery sample
-
-- Owner value: confirm alert evaluation and reader availability during natural storage work without extra production load or changed limits.
-- Clean main/no inherited work. Zero alerts, healthy API/DB/Redis, 38 healthy sources; staffed digest queue/zero failures, next edition Nov 13 15:00 UTC.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.488 s, zero new evaluator errors/misses, admission limits/timeouts/slow queries or restarts.
-- One small merge/15,288 rows; no large-tier merge. Comparable natural-compaction recovery remains open; next short probe ≥22:21 UTC, at most hourly.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree, five topics/25 stories/22 posts.
-- TASKS and capacity evidence updated. NBA/settlement acceptance awaits Nov 13; authenticated proxy credentials/trust remain unavailable. No provider calls or runtime/source/budget/public-access change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (920 unit/289 integration pass, four expected skips), `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass. Existing bundle warning only.
-- API/worker restart and post-push health readback follow commit; runtime code unchanged. SOURCES and NEEDS_FROM_HUMAN unchanged.
-
-## 2026-11-12: iteration 2040 — repair malformed editorial selections
-
-- Owner value: help scheduled NBA editing recover from the recorded malformed story ID instead of retrying without correction guidance.
-- Clean main/no inherited work. Health green, zero alerts, 38 healthy sources; staffed digest queue/zero failures, next Nov 13 15:00 UTC.
-- Found `invalid-selection` supplied no repair feedback. Added fixed guidance covering exact candidate IDs, evidence IDs, uniqueness, budget and brief bounds; factual guards remain intact.
-- Offline production BudgetedLlm/ShortlistEditor replay rejects the recorded Haiku initial response, then accepts a simulated repair changing only its malformed ID; no prose changes or production ID remapping.
-- Targeted editor/recorded-replay tests: 36 pass. Original four-response replay outcomes unchanged; unsupported Sonnet absence claims and original invalid ID remain refused.
-- `pnpm build`, handbook check (18 pages/22 diagrams/39 tables), reader publication gate and `git diff --check` pass. Existing bundle warnings only. `pnpm check` passes: 921 unit/289 integration tests, four expected skips.
-- TASKS and edition review updated; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, cap changes or public activation.
-- Next: natural NBA/settlement acceptance Nov 13 15:00 UTC; authenticated proxy credentials/trust remain blocked. Metrics probe not repeated before ≥22:21 UTC.
-- `pnpm format` and `pnpm lint:fix` pass; API/worker restart and post-push readback follow commit.
+[Iterations 2028–2040](docs/progress-archive/2026-11-12-iterations-2028-2040.md).
 
 ## 2026-11-13: iteration 2100 — reconcile owner proxy evidence
 
@@ -209,3 +176,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts public` passes; `git diff --check` passes.
 - TASKS/readiness updated; SOURCES and NEEDS_FROM_HUMAN unchanged (no source or owner-action change). No paid calls, budgets, providers, flags or sharing changes.
 - Commit/push and API/worker restart follow. Next: scheduled NBA/item 58 acceptance, refresh activation baseline/backup, then authorized private-sharing public activation.
+
+## 2026-11-13: iteration 2111 — preserve complete serialized media evidence
+
+- Clean main; no inherited work. Zero alerts and healthy healthz; scheduled NBA/item 58 acceptance remains Nov 13 15:00 UTC. Public mode stays off.
+- Found Bluesky author descriptions could expand under JSON escaping and be cut mid-JSON by the final editor’s 1,200-character evidence limit, losing supplied context.
+- Descriptions now share a 500-character serialized allowance within the existing four/125-character limits; longest descriptions shorten first while all four retain attribution. Stored observations/media and ranking weights unchanged.
+- Offline regression combines escaped control characters, quotes, emoji, four media attachments, maximal safe counts and repeated snapshots: complete attributed JSON and net-count evidence fit the final field; original observation unchanged. Targeted media/editor/shortlist suite: 12 pass.
+- No external requests, paid calls, budgets, provider, flag or sharing changes. Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 927 unit/290 integration, four expected skips. First check caught formatting in the newly archived progress file; corrected and reran successfully.
+- `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts social-posts` passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes. Archived older progress entries to keep this file small.
+- Commit/push and API/worker restart follow; next: scheduled NBA/item 58 acceptance, fresh activation baseline and private-sharing public activation.

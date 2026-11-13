@@ -2561,3 +2561,12 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
 - Triage and final editing receive the observation interval and net-count limits.
   One timestamp still means unknown growth; account-relative reach stays unknown.
 - No collection, source requests, scoring thresholds, ranking weights or paid calls changed.
+
+## Bluesky evidence wire bounds — iteration 2111 (2026-11-13)
+
+Author media descriptions now share a 500-character serialized JSON allowance
+within the existing four-description/125-character limits. This preserves complete
+attribution and JSON alongside count snapshots and changes in the final editor’s
+1,200-character evidence field, including escaped author text. Stored media,
+collection, ranking weights and API usage are unchanged. Offline escaped-text and
+maximal-count regression passes; scheduled quality acceptance remains open.
