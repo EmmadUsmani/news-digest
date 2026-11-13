@@ -28,7 +28,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] STEERING 9/15 first-week report: Nov 2–8 $1.036785/28 calls/zero holds, 131 new verified candidates/115 outside-list. Novelty/viral-quality acceptance remains open; do not equate outside-list with viral.
 
-- [ ] STEERING 18 Bluesky: hourly collection/session refresh healthy; U.S. query repaired (2105), natural continuation confirmed (2106). Review next scheduled U.S. selection and weak World/Tech/Gaming quality; no manual paid replay. Overall viral quality remains open.
+- [ ] STEERING 18 Bluesky: hourly collection/session refresh healthy; U.S. query repaired (2105), natural continuation confirmed (2106). Review next scheduled U.S. selection; stored-pool review (2145) finds World discovery weak before editing and high-engagement off-topic Tech/Gaming examples. [Pool evidence](docs/edition-reviews/2026-11-12-bluesky-pool.md). No manual paid replay. Overall viral quality remains open.
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. Waste/latency unmeasured. [Evidence](docs/edition-reviews/2026-11-05-incremental-admission.md).
 

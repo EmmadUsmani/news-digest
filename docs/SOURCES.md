@@ -1,5 +1,11 @@
 # Content source inventory
 
+November 13 stored Bluesky review (2145): World safe engaged candidates remain
+weak before editing (maximum five likes at the Nov 12 cutoff, seven in the
+current rolling window); U.S. has resumed with 417 observations.
+[Read-only pool evidence](edition-reviews/2026-11-12-bluesky-pool.md).
+No collection/query or source status change.
+
 ### Nov 8 daily and first-week production X report — iteration 1381
 
 Iteration 1385 selected-citation review: all eight picks have recorded new-candidate

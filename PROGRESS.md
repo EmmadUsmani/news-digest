@@ -107,3 +107,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with the existing bundle warning; `git diff --check` clean.
 - API/worker/docs restarted before the protected window. `pnpm obs health --check`: database/Redis healthy; `pnpm obs sources --check`: 38 sources/zero unhealthy; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts.
 - Next: Nov 13 15:00 scheduled NBA/item 58 acceptance, then private-sharing public activation outside 13:00–16:00. Natural Tech/social quality and settlement recovery remain unaccepted until observed.
+
+## 2026-11-13: iteration 2145 — locate weak Bluesky candidate supply offline
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits 15:00 UTC; generation cutoff preserved, public mode off.
+- Added optional historical UTC cutoff, bounded post text and pool engagement evidence to the existing read-only Bluesky report; current topic policies are explicit. No provider requests or writes.
+- Historical Nov 12 report: World has 29 safe engaged candidates, maximum five likes; current rolling pool has 19, maximum seven. Strong Tech/Gaming examples include off-topic jokes/commentary, so engagement alone is insufficient. U.S. now has 417 observations.
+- Saved findings in `docs/edition-reviews/2026-11-12-bluesky-pool.md`; updated TASKS/SOURCES. Investigate World discovery after the scheduled gate; no query or generation tuning deployed today.
+- Default/historical report commands pass; Python subprocess checks refuse five invalid CLI cases and verify historical example timestamps/text bounds. No handbook/runtime/schema behavior change; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker/docs restarted before the protected window. Health database/Redis pass; 38 sources/zero unhealthy; saved-reader check Nov 12 passes five topics/25 stories/22 posts.
+- No paid calls, manual collection/generation, budget, flag or sharing changes. Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00.

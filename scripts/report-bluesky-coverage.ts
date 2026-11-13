@@ -10,8 +10,22 @@ import {
 import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
-  if (process.argv.length > 2)
-    throw new Error('Usage: report-bluesky-coverage.ts');
+  const args = process.argv.slice(2);
+  const now = new Date();
+  const cutoff = args.length === 0 ? now : new Date(args[1]);
+  if (
+    args.length !== 0 &&
+    (args.length !== 2 ||
+      args[0] !== '--window-end' ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(args[1]) ||
+      !Number.isFinite(cutoff.getTime()) ||
+      cutoff > now ||
+      cutoff.toISOString().replace('.000Z', 'Z') !==
+        args[1].replace('.000Z', 'Z'))
+  )
+    throw new Error(
+      'Usage: report-bluesky-coverage.ts [--window-end past-UTC-ISO]',
+    );
   const response = await localAdminFetch(
     'http://127.0.0.1:8000/api/admin/topics',
     {
@@ -20,7 +34,6 @@ async function main() {
   );
   if (!response.ok) throw new Error('Topics unavailable');
   const topics = topicSchema.array().parse(await response.json());
-  const cutoff = new Date();
   const start = new Date(cutoff.getTime() - 86_400_000);
   const db = database();
   try {
@@ -53,6 +66,7 @@ async function main() {
         );
         coverage.push({
           topic: topic.name,
+          configuredBlueskyQuery: topic.blueskyQuery ?? null,
           postBudget: topic.postBudget,
           storedObservations: posts.length,
           observationReadLimitReached: posts.length === 5000,
@@ -65,12 +79,17 @@ async function main() {
               .at(-1) ?? null,
           safeEngagedCandidatesUpTo50: safe.length,
           phraseEligibleShortlist: phrase.length,
+          strongestSafeLikesUpTo50: Math.max(
+            0,
+            ...safe.map(({ post }) => post.metrics.likes),
+          ),
           strongestSafeExamples: safe.slice(0, 3).map(({ post }) => ({
             url: post.url,
             author: post.author,
             publishedAt: post.publishedAt,
             observedAt: post.observedAt,
             metrics: post.metrics,
+            text: (post.displayText ?? post.text).slice(0, 600),
           })),
         });
       }
@@ -79,8 +98,10 @@ async function main() {
         JSON.stringify({
           start,
           cutoff,
+          policyBasis:
+            'Current enabled topics and relevance policies; not a replay of historical editorial selection.',
           coverage,
-          note: 'Rolling 24-hour publication window; stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes.',
+          note: '24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes.',
         }),
       );
     } finally {
