@@ -10,35 +10,7 @@ Archived entries: [iterations 2162–2163](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iterations-2164-2165.md).
 
-## 2026-11-13: iteration 2166 — restore five-topic reader text verification
-
-- Clean main; no inherited work. Initial alerts zero, health database/Redis pass, no failed user services.
-- Fixed stale four-topic precondition/output in `smoke-reader-story-text.ts`; rendered topic count still must equal the immutable saved edition, and strict nonempty story checks remain.
-- Nov 13 live saved-edition browser run now reaches and correctly fails `Tech & AI: missing story text`: all five Tech summaries are empty, with repeated Claude/Microsoft outage headlines. Gaming repeats QSSR three times. Recorded reader impact in daily review/TASKS; deployed admission repair awaits natural recovery.
-- Historical saved edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238 passes all four topics, NBA 5/5 summaries, desktop/mobile light/dark, no writes/errors and immutable response comparison. Discarded generated historical screenshot refreshes; no UI change.
-- No provider calls, generation, source/configuration changes or runtime changes; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script/docs-only step needs no service restart/build.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 972 unit/291 integration tests, four expected skips. Initial combined verification process ended with SIGTERM during checks; standalone full rerun passed.
-- Next: Nov 14 scheduled NBA/admission acceptance before item 58/public activation; keep strict reader text gate and do not accept today's degraded content.
-
-## 2026-11-13: iteration 2167 — prevent headline-only fallback slots
-
-- Clean main; no inherited work. Initial alerts zero, health database/Redis pass, no failed user services.
-- Reader weakness: Nov 13 Tech has five empty cards because fallback admitted articles with no saved source text. Non-AI recency/complete-triage selection now excludes blank excerpts before budgets; shared World/U.S. fallback excludes blank leads. AI headline evidence and immutable saved editions unchanged.
-- Read-only replay of the currently retained Nov 13 Tech window: 200 candidates/123 with text; old fallback picks five empty excerpts, new fallback five with 91–337 characters. Retained pool is not the original publication snapshot; no generation/provider calls.
-- Targeted `pnpm exec tsx --test apps/api/test/quality.test.ts`: 8/8 pass, including blank/whitespace slots, refill, empty pools and AI admission. Pipeline handbook updated; `check-handbook.ts edition-pipeline` passes (18 pages/one existing diagram/39 tables).
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 973 unit/291 integration tests, four expected skips; existing bundle-size warning.
-- Restarted API/worker; `/healthz` and `check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass. Reader response SHA-256 unchanged; 38 enabled active sources have successes/no errors, latest 16:22:47 UTC; post-deploy alerts zero/no failed services.
-- TASKS/daily review updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source, owner decision, budget, provider or public-mode change. Next: scheduled NBA/admission recovery before item 58/private public-mode activation; today's saved edition remains degraded.
-
-## 2026-11-13: iteration 2168 — passive metrics recovery evidence
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
-- Highest scheduled NBA/item 58 acceptance remains pending Nov 14. Took the permitted short passive probe for the open metrics breakage; no limits/configuration/provider changes.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passes: 24 healthy rules, four uncached queries ≤0.572 s, unchanged process starts and zero new evaluator errors/missed iterations, admission limits, queue timeouts or slow queries.
-- Two natural small merges processed 16,476 rows; no large-tier merge, comparable recovery still unaccepted. `journalctl -u obs-metrics.service --since '2026-11-13 14:43:13 UTC' --no-pager -p warning` has no entries.
-- Updated TASKS/capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only step leaves running services matching main; no restart/build needed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 973 unit/291 integration tests, four expected skips; `git diff --check` passes.
-- Next: Nov 14 scheduled NBA/admission acceptance, then item 58/private public-mode activation. Next passive capacity probe no earlier than 17:26 UTC.
+Archived entries: [iterations 2166–2168](docs/progress-archive/2026-11-13-iterations-2166-2168.md).
 
 ## 2026-11-13: iteration 2169 — gate scheduled NBA acceptance on saved AI editing
 
@@ -217,3 +189,14 @@ Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iter
 - Corrected the temporary browser check’s exact-text matcher (message includes its link); rerun passes. Four screenshots saved under `docs/screenshots/ui/reader-missing-summaries-*`; inspected mobile light and desktop dark.
 - Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader presentation only); no paid calls.
 - Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation.
+
+## 2026-11-13: iteration 2184 — continue incomplete saved X excerpts
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass, no failed user services. All 38 sources healthy; digest queue available with Nov 14 15:00 UTC scheduled.
+- Owner value: Curry's saved injury update stops at “two (2)…”; readers now have a clear continuation link beside that incomplete text, also covering two other saved X excerpts.
+- Reader offers “Continue reading on X” for a terminal ellipsis, ignoring trailing media links. Internal ellipses do not trigger it; all saved text and generation remain unchanged.
+- Ten targeted excerpt-ending cases pass. GET-only `node /tmp/iteration-2184-reader.cjs` passes actual saved-edition checks at 390/1440px, light/dark: three correct links, 16 original texts preserved, no overflow/browser errors.
+- Restarted API; health passes. Four screenshots saved under `docs/screenshots/ui/reader-x-continue-*`; inspected mobile light/desktop dark. Initial browser attempt raced startup; retry after healthy endpoint passed.
+- `pnpm format`, `pnpm lint:fix`, standalone `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings. Initial combined check received SIGTERM near unit-test completion; full retry passed.
+- Updated TASKS; archived progress 2166–2168 to keep this file small. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader link only); no paid calls.
+- Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation. Further small reader changes give way to source/editorial work.

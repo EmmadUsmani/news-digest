@@ -172,6 +172,11 @@ function Post({
   theme: 'light' | 'dark';
 }) {
   const postIdentity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
+  const text = post.displayText ?? post.text;
+  // Official saved excerpts can end in an ellipsis followed by media links.
+  // Ignore those trailing links, but preserve all saved text in the reader.
+  const endsWithEllipsis =
+    /(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(text);
   const host = React.useRef<HTMLDivElement>(null);
   const savedText = React.useRef<HTMLDetailsElement>(null);
   const [embedded, setEmbedded] = React.useState(false);
@@ -309,11 +314,19 @@ function Post({
           Saved post text
         </summary>
         <p className="post-text">
-          <LinkedPostText
-            text={post.displayText ?? post.text}
-            postUrl={post.url}
-          />
+          <LinkedPostText text={text} postUrl={post.url} />
         </p>
+        {endsWithEllipsis && (
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Continue reading on X ${postIdentity}`}
+            className="inline-flex min-h-11 items-center rounded px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          >
+            Continue reading on X
+          </a>
+        )}
       </details>
       <div ref={host} className="official-post" />
       {loading && (

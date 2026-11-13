@@ -52,6 +52,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Saved X excerpt continuation (2184): three Nov 13 posts ending in ellipses now offer “Continue reading on X”; original saved text remains intact.
+
 - [x] Missing reader summaries (2183): headline-only cards disclose “Summary unavailable” and offer a labelled source link; saved content and generation unchanged.
 
 - [x] Reader empty-story wording (2182): saved World/U.S. sections now say “No stories in this edition” rather than claiming a quiet news day after failed triage. Actual saved-edition desktop/mobile light/dark checks pass; generation and snapshots unchanged.
