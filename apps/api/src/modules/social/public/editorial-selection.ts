@@ -79,6 +79,7 @@ export function socialTriageCandidate(post: EditorialPost) {
       post.platform === 'x'
         ? JSON.stringify({
             platform: 'X',
+            publishedAt: post.publishedAt,
             author: post.author.slice(0, 200),
             reportedLikes: post.xTriageEvidence?.reportedLikes ?? 'unknown',
             likesEvidence: 'unverified hint, not official metrics',

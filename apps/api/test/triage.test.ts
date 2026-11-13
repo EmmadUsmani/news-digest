@@ -1091,6 +1091,7 @@ void test('production X triage retains escaped author, reported counts and cache
   assert.ok(wire.evidence.length <= 3000);
   const evidence = JSON.parse(wire.evidence);
   assert.equal(evidence.author, post.author);
+  assert.equal(evidence.publishedAt, post.publishedAt);
   assert.equal(evidence.reportedLikes, 1700);
   assert.match(evidence.likesEvidence, /unverified/);
   assert.match(evidence.media, /contents unknown/);
@@ -1099,5 +1100,12 @@ void test('production X triage retains escaped author, reported counts and cache
   post.xTriageEvidence.reportedLikes = 1800;
   await run();
   assert.equal(h.calls.length, 2);
+  post.publishedAt = '2026-11-03T11:00:00Z';
+  await run();
+  assert.equal(h.calls.length, 3);
+  const changed = JSON.parse(h.calls[2].prompt.split('\nReturn only')[0])
+    .candidates[0];
+  assert.equal(JSON.parse(changed.evidence).publishedAt, post.publishedAt);
+  assert.equal(changed.excerpt, post.text);
   assert.deepEqual(post.metrics, {});
 });

@@ -2594,3 +2594,11 @@ The final X editor now retains reported likes and media-link presence alongside
 a bounded ranking explanation. Counts remain unverified hints, missing counts
 remain unknown, and linked media contents remain unknown. No collection, official
 metrics, ranking weights or discovery budgets changed; verification is offline.
+
+### Iteration 2115: X publication time in triage
+
+X triage now receives the stored publication timestamp alongside unverified
+engagement hints, so scoring can distinguish newer and older posts. This is not
+a count-observation timestamp or measured growth. Offline production composition
+verifies timestamp transport and cache invalidation; no collection, weights,
+budgets or provider changes.

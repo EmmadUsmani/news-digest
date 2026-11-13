@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2115: X triage receives stored publication time; production timestamp transport and cache invalidation verified offline.
+
 - [x] Iteration 2114: final X selection retains bounded reported likes/media hints alongside ranking explanation; unknown/zero counts and original post identity verified offline.
 
 - [x] Iteration 2113: X triage metadata now uses bounded social evidence; escaped author text cannot truncate reported counts/media hints. Production composition and cache refresh verified offline.

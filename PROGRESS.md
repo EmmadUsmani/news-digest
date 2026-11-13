@@ -165,3 +165,12 @@
 - Updated TASKS, SOURCES and affected handbook; archived older progress entries. No paid/external calls, provider/budget/flag/sharing changes; NEEDS_FROM_HUMAN unchanged.
 - `pnpm exec tsx scripts/check-handbook.ts social-posts`: pass (18 pages/one unchanged diagram/39 tables). `pnpm check` passes: 930 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes (existing bundle warning); `git diff --check` passes.
 - API/worker restarted; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check` and `pnpm obs jobs --check --limit 1` pass; next edition 15:00 UTC. Next: scheduled NBA/item 58 acceptance, then private-sharing public activation.
+
+## 2026-11-13: iteration 2115 — give X triage publication time
+
+- Clean main; no inherited work. Initial alerts zero, healthz healthy, 38 sources healthy and all queues staffed. Scheduled NBA/item 58 acceptance awaits 15:00 UTC; public mode remains off.
+- X triage lacked publication time alongside engagement hints. Added the stored post timestamp to its existing bounded evidence field; counts remain unverified, with no claim of measured growth.
+- Offline production regression verifies timestamp transport, changed-time cache invalidation, unchanged text and empty official metrics. Focused triage/social selection tests: 38 pass.
+- Updated TASKS, SOURCES and affected handbook. No paid/external calls, collection, ranking-weight, budget, provider, flag or sharing changes; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 930 unit/290 integration tests, four expected skips. Handbook social-posts check passes (18 pages/one unchanged diagram/39 tables); `pnpm build` passes with existing bundle warning.
+- API/worker restarted active. Initial endpoint probe raced startup; retry passes healthz and saved reader (five topics/25 stories/22 posts). Next: NBA/item 58 scheduled acceptance, then private-sharing public activation.
