@@ -27,7 +27,19 @@ export async function shortlistBlueskyPosts(
     topic,
     candidates.map(({ post }) => ({
       id: id(post),
-      title: 'Official Bluesky API post observation',
+      title: JSON.stringify({
+        platform: 'Bluesky',
+        author: post.author.slice(0, 200),
+        likes: post.metrics.likes,
+        reposts: post.metrics.reposts,
+        replies: post.metrics.replies,
+        observedAt: post.observedAt,
+        engagementEvidence:
+          'Official API snapshot; measured growth and account-relative reach unknown',
+        media: post.media?.length
+          ? 'media attached; contents unknown'
+          : 'no attached media',
+      }),
       excerpt: post.text,
       sources: [],
     })),

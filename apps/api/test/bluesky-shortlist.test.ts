@@ -164,3 +164,77 @@ void test('Bluesky shortlist bounds triage and skips I/O for zero budgets or uns
   );
   assert.equal(calls, 1);
 });
+
+void test('Bluesky triage sees latest official counts and bounded author/media evidence without changing post text', async () => {
+  const earlier = post(
+    'snapshot',
+    'An AI demo https://example.com/video',
+    1000,
+  );
+  earlier.observedAt = '2026-11-03T11:30:00Z';
+  const latest = {
+    ...earlier,
+    author: 'a'.repeat(250),
+    observedAt: end.toISOString(),
+    metrics: { likes: 0, reposts: 0, replies: 1 },
+    media: [
+      {
+        type: 'image' as const,
+        thumbnail: 'https://example.com/thumb',
+        fullsize: 'https://example.com/image',
+        alt: 'untrusted image description',
+      },
+    ],
+  };
+  const textOnly = post('text', 'A launch with no attachment');
+  const inputs = [latest, textOnly, earlier];
+  const before = structuredClone(inputs);
+  const result = await shortlistBlueskyPosts(
+    {
+      score: async (_topic, candidates) => {
+        assert.equal(candidates.length, 2);
+        const candidate = candidates.find((c) => c.id === 'bluesky:snapshot')!;
+        assert.equal(candidate.excerpt, latest.text);
+        assert.deepEqual(candidate.sources, []);
+        assert.deepEqual(JSON.parse(candidate.title), {
+          platform: 'Bluesky',
+          author: 'a'.repeat(200),
+          likes: 0,
+          reposts: 0,
+          replies: 1,
+          observedAt: end.toISOString(),
+          engagementEvidence:
+            'Official API snapshot; measured growth and account-relative reach unknown',
+          media: 'media attached; contents unknown',
+        });
+        assert.equal(
+          JSON.parse(candidates.find((c) => c.id === 'bluesky:text')!.title)
+            .media,
+          'no attached media',
+        );
+        return {
+          scores: candidates.map((c) => ({
+            id: c.id,
+            relevance: 8,
+            importance: c.id === 'bluesky:text' ? 8 : 3,
+            event: 'fixture',
+            rationale: 'fixture',
+          })),
+          unscoredIds: [],
+        };
+      },
+    },
+    topic,
+    inputs,
+    policy,
+    start,
+    end,
+    5,
+    'offline-evidence',
+  );
+  assert.deepEqual(
+    result.posts.map((p) => p.post.externalId),
+    ['text'],
+  );
+  assert.deepEqual(inputs, before);
+});

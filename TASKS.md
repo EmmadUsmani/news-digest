@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2106: supplied timestamped official counts, author and attachment presence to Bluesky semantic triage; latest-snapshot and uncertainty regression passes. Nov 12 World pick had one reply, so positive engagement admission was correct; natural selection quality remains open. Natural 04:54 hourly U.S. continuation verified: 100 observations/53 distinct posts.
+
 - [x] Iteration 2105: diagnosed empty U.S. Bluesky seed through bounded official-API comparison; migration 0024 uses verified `Congress` query while preserving owner edits and all collection caps. Stored recovery and checks recorded in PROGRESS.md; scheduled selection quality remains open.
 
 - [x] Iteration 2104: complete disposable public-mode rehearsal; included omitted default-resource browser policy in the aggregate runner. Account isolation, admin audit, rate limits, headers/privacy/log hygiene and private rollback verified; real saved widgets and deployed private-mode boundary pass. Activation still follows scheduled NBA/item 58 acceptance.
@@ -74,4 +76,4 @@ Recent completed steps are recorded in PROGRESS.md and its linked archives. [Com
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: prepare the exact activation rollback record and fresh baseline after scheduled Nov 13 NBA/item 58 acceptance, then enable public mode with sharing private and accept its next normal scheduled edition. Disposable rehearsal is complete; public Grafana/capacity work remains excluded. U.S. Bluesky query repair is deployed (2105); next confirm its hourly continuation and review scheduled selection, then proceed to X/Bluesky tuning under STEERING 59.
+- Next: prepare the exact activation rollback record and fresh baseline after scheduled Nov 13 NBA/item 58 acceptance, then enable public mode with sharing private and accept its next normal scheduled edition. Disposable rehearsal is complete; public Grafana/capacity work remains excluded. U.S. Bluesky query repair is deployed (2105); hourly continuation verified (2106); next review scheduled selection, then proceed to X/Bluesky tuning under STEERING 59.

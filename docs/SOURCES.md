@@ -2520,3 +2520,20 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
   database readback confirms 50 new observations and 50 distinct posts.
   U.S. collection is live; next hourly continuation and scheduled selection
   quality remain to be reviewed. No inference calls or budget changes.
+
+### Bluesky triage evidence — Nov 13, iteration 2106
+
+- Nov 12 saved World pick `onlyfucts.bsky.social` had zero likes/reposts and
+  one reply at 14:54:51.043 UTC. It passed the positive-engagement gate;
+  zero likes did not mean zero interaction.
+- Bluesky's semantic triage previously received only post text, unlike X's
+  author/engagement hints. It now also receives the author, latest valid
+  cutoff-bound API counts, observation time and attachment presence. This
+  evidence is advisory; thresholds, collection and slot limits are unchanged.
+- Offline regressions verify snapshot selection, zero-count preservation,
+  bounded author text, attachment uncertainty and unchanged original text.
+  No agent inference or source requests were made; scheduled selection quality
+  still needs the next natural edition review.
+- Natural hourly continuation at 04:54:53.990 UTC confirms U.S. recovery:
+  100 stored observations across 53 distinct posts, with 50 safe engaged
+  candidates in the rolling 24-hour read. No manual collection was triggered.

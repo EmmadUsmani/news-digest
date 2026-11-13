@@ -157,3 +157,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `check-handbook.ts` (18 pages/22 diagrams, affected-page rerun) and `git diff --check` pass; existing bundle warning only. Updated source evidence, affected handbook and TASKS; no schema metadata change needed.
 - No paid calls, provider/budget/flag/sharing changes; NEEDS_FROM_HUMAN unchanged. API/worker restart and post-push health readback follow commit.
 - Next: confirm hourly U.S. continuation and scheduled selection; Nov 13 scheduled NBA/item 58 acceptance still gates public-mode activation. While waiting, proceed to X/Bluesky tuning per STEERING 59.
+
+## 2026-11-13: iteration 2106 — give Bluesky triage its stored evidence
+
+- Clean main; no inherited work. Zero alerts/healthy healthz; staffed queues, no failed digest runs; Nov 13 15:00 scheduled acceptance still pending.
+- Read saved Nov 12 Bluesky picks: World had zero likes/reposts but one reply. Positive-engagement admission is correct; triage received only text, unlike X's author/count/media hints.
+- Supplied bounded author, latest valid cutoff-bound official counts, observation timestamp and attachment presence to semantic triage. Explicit snapshot/unknown growth, reach and media-content limitations; original text unchanged. No threshold, slot, collection, budget or provider changes.
+- Focused offline shortlist/editor/ranking tests: 12 passed. Regression covers competing snapshots, zero counts, bounded author, attachment uncertainty, unchanged text and existing semantic bar.
+- `pnpm check` passes: 923 unit/290 integration, four expected skips. Build passes (existing bundle warning). Handbook initially exceeded 100 lines; removed a stale pre-activation X note and rerun passes (18 pages/one unchanged diagram/39 tables). Updated affected handbook, source evidence and TASKS; NEEDS_FROM_HUMAN unchanged.
+- Read-only coverage confirms natural 04:54:53.990 hourly U.S. continuation: 100 observations/53 distinct posts, 50 safe engaged candidates. Initial root script invocation lacked workspace resolution; reran with API NODE_PATH successfully.
+- `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; API/worker restart and post-push health readback follow commit.
+- No inference, source requests, flag/sharing changes or saved-edition writes. Next: review scheduled NBA/item 58 acceptance before private-sharing public activation, and assess natural social selection quality.

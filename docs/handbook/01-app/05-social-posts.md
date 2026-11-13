@@ -57,6 +57,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Counts are snapshots:** each observation is stored with its likes,
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.
+- **Triage evidence:** author, timestamped API counts and attachment presence;
+  media contents, measured growth and usual account reach stay unknown.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips
@@ -100,14 +102,6 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   $15/month. The xAI account is prepaid ($15), so it can't overspend even if
   the app is wrong. Bluesky is free; its AI triage and editing use the
   normal AI budget.
-
-> [!NOTE]
-> The replacement schedule is off pending the [experiment decision](../../x-search-plan.md).
-> It prepares one 16-result viral search per topic, with fresh keywords from
-> the topic description and code-built time/like filters. Stored trending
-> thresholds supply its minimum likes; edit minimum likes and exclusions in
-> `/admin/topics/:id`. Every query excludes giveaways; saving leaves the schedule off.
-> Four $0.10 reservations fit the $0.40 daily cap. Current production is unchanged.
 
 ## Other platforms
 
