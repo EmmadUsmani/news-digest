@@ -13,6 +13,7 @@ import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import type { BlueskyPost } from '../src/modules/social/domain/bluesky';
 import { shortlistBlueskyPosts } from '../src/modules/social/public/bluesky-shortlist';
+import { socialTriageCandidate } from '../src/modules/social/public/editorial-selection';
 
 const topic = {
   id: 'tech',
@@ -1064,4 +1065,39 @@ void test('production social triage preserves Bluesky evidence beyond the articl
   latest.media![0].alt = 'Changed author description';
   await run();
   assert.equal(h.calls.length, 2);
+});
+
+void test('production X triage retains escaped author, reported counts and cache identity', async () => {
+  const h = harness(undefined, 'social');
+  const post = {
+    platform: 'x' as const,
+    externalId: 'fixture-x',
+    url: 'https://x.com/example/status/123',
+    author: '\u0001'.repeat(200),
+    publishedAt: '2026-11-03T10:00:00Z',
+    text: 'A concrete prototype released today',
+    metrics: {},
+    reasons: [],
+    xTriageEvidence: { reportedLikes: 1700, media: 'linked' as const },
+  };
+  const run = () =>
+    h.service.score(topic, [socialTriageCandidate(post)], 'offline');
+  await run();
+  const wire = JSON.parse(h.calls[0].prompt.split('\nReturn only')[0])
+    .candidates[0];
+  assert.equal(wire.title, 'X post');
+  assert.equal(wire.excerpt, post.text);
+  assert.ok(wire.evidence.length > 500);
+  assert.ok(wire.evidence.length <= 3000);
+  const evidence = JSON.parse(wire.evidence);
+  assert.equal(evidence.author, post.author);
+  assert.equal(evidence.reportedLikes, 1700);
+  assert.match(evidence.likesEvidence, /unverified/);
+  assert.match(evidence.media, /contents unknown/);
+  await run();
+  assert.equal(h.calls.length, 1);
+  post.xTriageEvidence.reportedLikes = 1800;
+  await run();
+  assert.equal(h.calls.length, 2);
+  assert.deepEqual(post.metrics, {});
 });

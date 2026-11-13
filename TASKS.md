@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2113: X triage metadata now uses bounded social evidence; escaped author text cannot truncate reported counts/media hints. Production composition and cache refresh verified offline.
+
 - [x] Iteration 2112: production social triage preserves Bluesky count/growth/media evidence beyond the 500-character article-title limit; real triage composition and cache invalidation verified offline.
 
 - [x] Iteration 2111: bounded serialized Bluesky media descriptions so complete attributed evidence fits alongside timestamped counts and growth in the final editor; escaped-text regression passes.

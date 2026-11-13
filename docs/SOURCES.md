@@ -2578,3 +2578,12 @@ separate bounded social evidence field instead of its 500-character article
 title. Evidence participates in cache identity and existing byte-aware batching.
 Offline composition verifies complete escaped JSON, unchanged post text and
 cache refresh on description changes. No collection, ranking or budget changes.
+
+### X triage evidence transport (2026-11-13, iteration 2113)
+
+X author, unverified reported likes and media-link hints now use the bounded
+social evidence field rather than the 500-character title. Escaped author text
+previously could truncate the JSON before counts and media reached scoring.
+Offline production composition verifies complete evidence, unchanged post text,
+repeat-call caching and refresh when reported likes change. Official metrics
+remain untouched; no collection, ranking-weight, budget or provider changes.

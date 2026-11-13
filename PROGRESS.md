@@ -197,3 +197,13 @@
 - Updated TASKS, SOURCES and affected handbook. No external calls, paid replay, budget/provider/flag/sharing changes; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 928 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); social-posts handbook check passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
 - Pushed `a08213e5`; API/worker restarted active. Healthz passes; `check-scheduled-reader.ts 2026-11-12T15:00:00Z` verifies five topics/25 stories/22 posts; `pnpm obs sources --check` verifies 38 healthy sources and `pnpm obs jobs --check --limit 1` verifies staffed queues and next edition at 15:00 UTC. Next: scheduled NBA/item 58 acceptance, private-sharing activation and natural Bluesky selection review.
+
+## 2026-11-13: iteration 2113 — retain X triage engagement evidence
+
+- Clean main; no inherited work. Zero alerts; healthz healthy, 38 healthy sources and staffed queues. NBA/item 58 scheduled acceptance still awaits 15:00 UTC; public mode stays off.
+- Reader value: X scoring now retains reported engagement/media hints when escaped author text would truncate its metadata, helping compare posts on supplied evidence.
+- Moved X metadata from the 500-character title to the existing bounded social evidence field. Unknown/zero counts and unverified attribution preserved; official metrics, post text and ranking weights unchanged.
+- Production triage regression verifies complete escaped JSON, untouched text/official metrics, cache reuse and invalidation on changed reported likes. Targeted triage/social selection: 37 pass.
+- Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged. No external calls, paid replay, provider/budget/flag/sharing changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 929 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts social-posts` passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
+- Commit/push and API/worker restart follow; next scheduled NBA/item 58 acceptance, then authorized private-sharing public activation.

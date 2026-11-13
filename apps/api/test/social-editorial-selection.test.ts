@@ -556,13 +556,13 @@ void test('X triage includes bounded author, unverified likes and media hints wi
     author: 'Fixture reporter',
     xTriageEvidence: { reportedLikes: 1700, media: 'linked' },
   });
-  const title = JSON.parse(known.title);
+  const title = JSON.parse(known.evidence!);
   assert.equal(title.author, 'Fixture reporter');
   assert.equal(title.reportedLikes, 1700);
   assert.match(title.likesEvidence, /unverified/);
   assert.match(title.media, /contents unknown/);
   assert.equal(known.excerpt, posts[0].text);
-  const missing = JSON.parse(socialTriageCandidate(posts[0]).title);
+  const missing = JSON.parse(socialTriageCandidate(posts[0]).evidence!);
   assert.equal(missing.reportedLikes, 'unknown');
   assert.equal(missing.media, 'unknown');
   assert.equal(
@@ -570,7 +570,7 @@ void test('X triage includes bounded author, unverified likes and media hints wi
       socialTriageCandidate({
         ...posts[0],
         xTriageEvidence: { reportedLikes: 0, media: 'unknown' },
-      }).title,
+      }).evidence!,
     ).reportedLikes,
     0,
   );

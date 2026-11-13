@@ -20,6 +20,7 @@ export interface SocialSelectionServices {
         title: string;
         excerpt: string;
         sources: string[];
+        evidence?: string;
       }[],
       runId: string,
     ): Promise<TriageResult>;
@@ -73,7 +74,8 @@ const editorialId = (post: EditorialPost) =>
 export function socialTriageCandidate(post: EditorialPost) {
   return {
     id: editorialId(post),
-    title:
+    title: post.platform === 'x' ? 'X post' : 'Reddit post',
+    evidence:
       post.platform === 'x'
         ? JSON.stringify({
             platform: 'X',
@@ -85,7 +87,7 @@ export function socialTriageCandidate(post: EditorialPost) {
                 ? 'media link present; contents unknown'
                 : 'unknown',
           })
-        : 'Reddit post',
+        : undefined,
     excerpt: post.text,
     sources: [],
   };
