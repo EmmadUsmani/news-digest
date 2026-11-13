@@ -67,6 +67,21 @@ async function main() {
         coverage.push({
           topic: topic.name,
           configuredBlueskyQuery: topic.blueskyQuery ?? null,
+          effectiveCollectionQuery: (
+            (topic.blueskyQuery?.trim() ||
+              topic.queries.find((query) => query.trim())) ??
+            topic.relevancePolicy.includeAny[0] ??
+            topic.name
+          )
+            .trim()
+            .slice(0, 500),
+          collectionQuerySource: topic.blueskyQuery?.trim()
+            ? 'blueskyQuery'
+            : topic.queries.some((query) => query.trim())
+              ? 'queries'
+              : topic.relevancePolicy.includeAny[0] !== undefined
+                ? 'includeAny'
+                : 'topic name',
           postBudget: topic.postBudget,
           storedObservations: posts.length,
           observationReadLimitReached: posts.length === 5000,

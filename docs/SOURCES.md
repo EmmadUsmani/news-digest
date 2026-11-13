@@ -1,3 +1,10 @@
+November 13 discovery trace (2146): World currently searches its display name
+`World news & politics`; Tech/Gaming fall back to `AI`/`game`. Historical Nov 12
+observations contain only 46/52/51 distinct posts respectively. Effective
+queries now appear in the read-only report and match the collector offline.
+Explicit World query tuning awaits the scheduled gate; no provider calls or
+configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#effective-discovery-queries--iteration-2146).
+
 # Content source inventory
 
 November 13 stored Bluesky review (2145): World safe engaged candidates remain

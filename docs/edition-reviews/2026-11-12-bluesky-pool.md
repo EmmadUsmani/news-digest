@@ -37,3 +37,36 @@ Verification: default and historical commands succeed; five malformed, missing,
 future or timezone-free CLI cases refuse before reads. Example publication and
 observation times respect the historical cutoff and text stays within 600 characters.
 No generation, source/query configuration, budget, flag or sharing change.
+
+## Effective discovery queries — iteration 2146
+
+The November 13 configuration has empty explicit Bluesky queries for four
+of five topics. The collector uses the first general query, then the first
+`includeAny` phrase, then the topic name; it does not search the complete
+relevance policy. The report now exposes the effective query and its source.
+
+| Topic     | Effective query         | Fallback source        | Nov 12 distinct stored posts |
+| --------- | ----------------------- | ---------------------- | ---------------------------: |
+| Tech & AI | `AI`                    | first relevance phrase |                           52 |
+| NBA       | `NBA`                   | first relevance phrase |                           54 |
+| Gaming    | `game`                  | first relevance phrase |                           51 |
+| World     | `World news & politics` | display name           |                           46 |
+| U.S.      | `Congress`              | explicit Bluesky query |                            0 |
+
+World currently has neither a positive phrase list nor an explicit Bluesky
+query. The resulting display-name search is a concrete discovery
+configuration weakness alongside the low-engagement pool. Tech and Gaming
+also rely on single ambiguous words, consistent with the off-topic examples.
+This identifies what is searched; it does not measure how Bluesky interprets
+the query or establish that an alternative will improve results.
+
+Next eligible tuning step: give World an explicit, topic-appropriate discovery
+query and compare distinct relevant posts and engagement across normal hourly
+collections. Preserve semantic safety and editorial gates. Do this after the
+scheduled acceptance gate; no collection or generation configuration changed
+in this review, and no manual search or model call ran.
+
+Verification: historical report succeeds; a separate offline invocation of
+`collectBlueskyTopics` with current topics and fake search/storage ports matches
+all five reported effective queries. Current policies are not historical query
+provenance; the U.S. zero is from the pre-repair window.

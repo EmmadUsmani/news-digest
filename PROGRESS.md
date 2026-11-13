@@ -118,3 +118,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
 - API/worker/docs restarted before the protected window. Health database/Redis pass; 38 sources/zero unhealthy; saved-reader check Nov 12 passes five topics/25 stories/22 posts.
 - No paid calls, manual collection/generation, budget, flag or sharing changes. Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00.
+
+## 2026-11-13: iteration 2146 — trace effective Bluesky discovery queries
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits 15:00 UTC; generation cutoff preserved, public mode off.
+- Traced weak World supply to a concrete configuration gap: no explicit query or positive phrase list, so collection searches the display name `World news & politics`. Tech/Gaming fallback queries are `AI`/`game`.
+- Read-only coverage report now shows effective query and fallback source. Historical Nov 12 World/Tech/Gaming observations represent 46/52/51 distinct posts; alternative query quality remains unmeasured.
+- Default/historical reports pass. Separate `collectBlueskyTopics` invocation with current topics and fake search/storage matches all five reported queries; zero provider calls or database writes. Updated TASKS/SOURCES/pool evidence; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker/docs restarted before the protected window; health database/Redis pass, 38 sources/zero unhealthy, Nov 12 saved reader passes five topics/25 stories/22 posts. No generation, collection configuration, budget, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00; explicit World discovery query tuning follows the scheduled gate.
