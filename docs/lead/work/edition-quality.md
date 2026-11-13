@@ -3,7 +3,11 @@
 **Status (17:45 UTC Nov 13):** Nov 13 edition degraded, a new breakage. 11 of
 15 triage calls expired in a local 10-second queue and never reached the
 provider, so every topic shipped source excerpts and World/U.S. withheld their
-stories. The NBA fix from item 59 was never exercised. The agent fixed admission
+stories. The NBA fix from item 59 was never exercised. A Claude API incident
+was open 13:09–15:38 UTC (status.claude.com), but no call got a provider
+error: the timer was ours, added Nov 12 18:00 (`da45b0f4`), and Nov 13 was its
+first edition. The outage may have slowed calls; normal speeds would likely
+still fail (lead inference, normal triage latency not checked). The agent fixed admission
 (four shared slots claimed before budget reservations), proved five-topic
 contention offline and deployed at 16:00 UTC (`a9d4ccf1`). Review:
 [docs/edition-reviews/2026-11-13.md](../../edition-reviews/2026-11-13.md).
