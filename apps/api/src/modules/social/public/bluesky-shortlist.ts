@@ -2,6 +2,7 @@ import type { RelevancePolicy } from '@digest/contracts';
 
 import type { TriageTopic } from '../../curation/public/editorial';
 import type { BlueskyPost } from '../domain/bluesky';
+import { blueskyMediaEvidence } from '../domain/bluesky-media-evidence';
 import { rankSafeBlueskyPosts } from '../domain/bluesky-ranking';
 import type { SocialSelectionServices } from './editorial-selection';
 
@@ -37,9 +38,7 @@ export async function shortlistBlueskyPosts(
         observedAt: post.observedAt,
         engagementEvidence:
           'Official API snapshot; measured growth and account-relative reach unknown',
-        media: post.media?.length
-          ? 'media attached; contents unknown'
-          : 'no attached media',
+        media: blueskyMediaEvidence(post),
       }),
       excerpt: post.text,
       sources: [],

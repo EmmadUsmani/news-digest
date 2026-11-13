@@ -58,8 +58,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.
 - **Selection evidence:** triage gets author, publication time and timestamped
-  API counts; triage and the editor know whether media is attached;
-  media contents, measured growth and usual account reach stay unknown.
+  API counts; triage and the editor receive attachment presence and bounded author-written
+  descriptions as unverified claims. Growth and usual account reach stay unknown.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips

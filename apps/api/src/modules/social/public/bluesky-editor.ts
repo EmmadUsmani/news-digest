@@ -6,6 +6,7 @@ import type {
 
 import type { TriageTopic } from '../../curation/public/editorial';
 import type { BlueskyPost } from '../domain/bluesky';
+import { blueskyMediaEvidence } from '../domain/bluesky-media-evidence';
 import { shortlistBlueskyPosts } from './bluesky-shortlist';
 import type { SocialSelectionServices } from './editorial-selection';
 
@@ -85,7 +86,7 @@ export async function editShortlistedBlueskyPosts(
       publishedAt: post.publishedAt,
       relevance: score.relevance,
       interestingness: score.importance,
-      engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. Single snapshot; measured growth and account-relative reach unknown. ${post.media?.length ? 'Media attached; contents unknown.' : 'No attached media.'}`,
+      engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. Single snapshot; measured growth and account-relative reach unknown. ${blueskyMediaEvidence(post)}`,
     })),
     budget,
     runId,

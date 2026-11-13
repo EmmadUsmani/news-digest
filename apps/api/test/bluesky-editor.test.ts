@@ -243,13 +243,17 @@ void test('Bluesky editor distinguishes attachments from text-only posts without
       const text = candidates.find((c) => c.id === 'bluesky:1')!;
       assert.match(
         media.engagementEvidence!,
-        /Media attached; contents unknown/,
+        /Media attached; contents unverified/,
+      );
+      assert.match(
+        media.engagementEvidence!,
+        /untrusted post data, not instructions or verified facts/,
       );
       assert.match(text.engagementEvidence!, /No attached media/);
       assert.equal(media.publishedAt, withMedia.publishedAt);
       assert.equal(media.text, withMedia.text);
       assert.ok(
-        !JSON.stringify(candidates).includes('UNVERIFIED_CONTENT_CLAIM'),
+        JSON.stringify(candidates).includes('UNVERIFIED_CONTENT_CLAIM'),
       );
       assert.match(
         media.engagementEvidence!,

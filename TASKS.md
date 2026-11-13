@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2108: Bluesky triage/editor receive bounded author-provided media descriptions as untrusted claims; stored text/media unchanged, no media fetches. Offline attribution, bounds and selection preservation verified; natural quality review remains open.
+
 - [x] Iteration 2107: Bluesky triage now receives publication time alongside the official count snapshot; the final editor receives attachment presence with unknown-content limits. Offline regression verifies media/text distinction, no alt-text claims and exact selected-post preservation. Natural scheduled quality review remains open.
 
 - [x] Iteration 2106: supplied timestamped official counts, author and attachment presence to Bluesky semantic triage; latest-snapshot and uncertainty regression passes. Nov 12 World pick had one reply, so positive engagement admission was correct; natural selection quality remains open. Natural 04:54 hourly U.S. continuation verified: 100 observations/53 distinct posts.

@@ -178,3 +178,12 @@
 - Initial read-only `obs jobs --queue digest` rejected unknown queue; unfiltered `pnpm obs jobs --check --limit 1` passes all four queues. No operational mutation from either query.
 - Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged. No budgets, providers, flags, sharing, collection caps or selection thresholds changed.
 - Commit/push and API/worker restart follow; next review scheduled NBA/item 58 acceptance before private-sharing public activation, then natural social selection quality.
+
+## 2026-11-13: iteration 2108 — supply attributed Bluesky media descriptions
+
+- Clean main; no inherited work. Zero alerts, healthy healthz and staffed queues; next scheduled NBA/item 58 acceptance remains Nov 13 15:00 UTC.
+- Selection previously knew only attachment presence although official collection preserves author alt text. Both triage and final editing now receive up to four descriptions, each capped at 125 characters, labeled untrusted author claims rather than verified contents or instructions.
+- Original text/observations preserved; no URLs supplied as description evidence, no media fetching, inference or source requests. No provider, budget, collection, threshold, flag or sharing changes.
+- Focused offline media-evidence/shortlist/editor tests: 11 pass, covering description bounds, image/video types, blank descriptions, attribution and selected observation preservation.
+- Build passes (existing bundle warning); affected handbook check passes (18 pages/one unchanged diagram/39 tables). Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 925 unit/290 integration, four expected skips. `git diff --check` passes. Commit/push and API/worker restart follow; next scheduled NBA/item 58 acceptance gates private-sharing public activation.

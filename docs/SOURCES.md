@@ -2547,3 +2547,7 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
 - Offline regression checks both attachment and text-only candidates, unchanged
   original text and exact selected observation. No source or inference requests;
   collection limits, semantic thresholds and slots remain unchanged.
+
+## Bluesky media selection evidence — iteration 2108 (2026-11-13)
+
+- Selection now receives up to four author-written image/video descriptions, each capped at 125 characters, alongside attachment presence. They are explicitly untrusted claims, not verified media contents or instructions. No media fetching or original-text changes; no collection, provider or budget changes. Offline tests cover bounded evidence, blank descriptions and original selected observation preservation. Natural selection quality remains for the scheduled review.
