@@ -98,6 +98,84 @@ async function main() {
     [...counts.values()].sort((a, b) => a - b),
     [6, 6, 12],
   );
+  // Exercise the existing collector's admission and failure contract. These
+  // checks do not implement or activate the proposed rotation policy.
+  const end = new Date('2026-11-14T00:00:00Z');
+  const queryCalls: string[] = [];
+  const fakeSearch = {
+    search(query: string) {
+      queryCalls.push(query);
+      return Promise.resolve([]);
+    },
+  };
+  const override = await collectBlueskyTopics(
+    repository,
+    fakeSearch,
+    [{ ...world, blueskyQuery: '  explicit World override  ' }],
+    () => end,
+  );
+  assert.equal(override.topics[0]?.query, 'explicit World override');
+  for (const skipped of [
+    { ...world, enabled: false },
+    { ...world, postBudget: 0 },
+  ]) {
+    queryCalls.length = 0;
+    const result = await collectBlueskyTopics(
+      repository,
+      fakeSearch,
+      [skipped],
+      () => end,
+    );
+    assert.equal(result.topics.length, 0);
+    assert.equal(queryCalls.length, 0);
+  }
+  const sixTopics = Array.from({ length: 6 }, (_, index) => ({
+    ...world,
+    id: `offline-topic-${index}`,
+    blueskyQuery: `offline-query-${index}`,
+  }));
+  queryCalls.length = 0;
+  const admitted = await collectBlueskyTopics(
+    repository,
+    fakeSearch,
+    sixTopics,
+    () => end,
+  );
+  assert.deepEqual(
+    admitted.topics.map((topic) => topic.topicId),
+    sixTopics.slice(0, 5).map((topic) => topic.id),
+  );
+  assert.equal(queryCalls.length, 5);
+  for (const failureStage of ['search', 'storage'] as const) {
+    const failure = new Error(`offline ${failureStage} failure`);
+    let searched = 0;
+    let stored = 0;
+    await assert.rejects(
+      collectBlueskyTopics(
+        {
+          ...repository,
+          store() {
+            stored++;
+            return Promise.reject(failure);
+          },
+        },
+        {
+          search() {
+            searched++;
+            return failureStage === 'search'
+              ? Promise.reject(failure)
+              : Promise.resolve([]);
+          },
+        },
+        sixTopics,
+        () => end,
+      ),
+      (error: unknown) => error === failure,
+    );
+    assert.equal(searched, 1, 'No later topic searched after failure');
+    assert.equal(stored, failureStage === 'search' ? 0 : 1);
+  }
+  assert.equal(JSON.stringify(topics), original);
   console.log(
     JSON.stringify({
       mode: 'offline-fake-search-and-storage',
@@ -107,6 +185,7 @@ async function main() {
       maximumSearchPages: calls * 2,
       maximumSubmissions: calls * 50,
       otherTopicQueriesUnchanged: true,
+      collectorContractChecks: 6,
       liveSearches: 0,
       liveWrites: 0,
     }),

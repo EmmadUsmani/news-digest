@@ -73,3 +73,10 @@ November 13 result: 24 simulated hours, 120 searches, baseline/event allocation
 match the unchanged collector; input metadata remains unchanged. Search-page
 and submission maxima are derived from existing adapter/collector bounds, not
 live measurements. Actual rotation behavior and natural quality remain open.
+
+Iteration 2151 additionally rehearses the existing collector contract: explicit
+query trimming/precedence, disabled and zero-budget topic exclusion, five-topic
+admission, and immediate pass termination on search or storage failure. Both
+failure cases preserve the original error and prevent searches for later topics.
+These six checks use fake ports; rotation-specific override and rollover tests
+still belong to the future implementation.

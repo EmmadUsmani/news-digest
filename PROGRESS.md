@@ -138,3 +138,12 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2135-2137
 - Updated TASKS/SOURCES and rollout plan; archived iterations 2135–2137 as PROGRESS exceeded 25 KB. NEEDS_FROM_HUMAN unchanged; no owner decision needed.
 - Initial full lint/check caught fake-port require-await errors; corrected to explicit promises. Final `pnpm lint:fix` and `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts world-bluesky-discovery` and `git diff --check` pass.
 - No runtime code/config, budget, schedule, public-mode or sharing changes; no service restart required. Next: 15:00 scheduled NBA/item 58 review, private-sharing activation outside hold, then bounded discovery implementation.
+
+## 2026-11-13: iteration 2151 — rehearse collector admission and failure boundaries
+
+- Clean main; no inherited work. `pnpm obs alerts` zero alerts; `/healthz` database/Redis pass. NBA/item 58 acceptance remains scheduled for 15:00 UTC; protected deployment window respected.
+- Extended the offline World pilot rehearsal with six existing-collector contract checks: explicit override, disabled/zero-budget exclusion, first-five admission, original search/storage error propagation and no later searches after failure.
+- `pnpm exec tsx scripts/rehearse-world-bluesky-rotation.ts` passes: 24 hours/120 planned searches, 12/6/6 World allocation, unchanged other topics and inputs; six additional fake-port checks pass. No provider calls or live writes.
+- Updated TASKS and pilot plan; rotation implementation/activation and its own rollover/override tests remain pending. SOURCES/NEEDS_FROM_HUMAN unchanged because source behavior and owner needs did not change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass: 966 unit/291 integration tests, four expected skips; existing build bundle warning only.
+- No runtime/configuration/generation/budget/public-mode changes; no restart during deployment hold. Next: scheduled NBA/item 58 acceptance, then private public-mode activation outside 13:00–16:00 UTC.
