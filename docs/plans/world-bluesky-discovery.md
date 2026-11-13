@@ -108,3 +108,20 @@ Those results include actual queries and counts; they cannot attribute each
 individual stored observation to a query. Disable the flag and restart the worker
 to roll back. Nine configuration checks and the full fake-port day now use
 the same configuration parser as the scheduler.
+
+## Retain actual collection results — iteration 2155
+
+Run `pnpm exec tsx scripts/report-bluesky-collections.ts > /tmp/bluesky-collections.json`
+before activation and at least every 12 hours during the pilot; retain exports
+in private operator storage before queue pruning. This reads Redis only, exports
+actual job windows/queries/counts and includes retained failures. It does not
+collect posts or change jobs. The 48-job completed retention is shared with
+other social collection, so it generally covers about 24 hourly Bluesky passes,
+not 48. Failed jobs have separate retention and can be much older.
+
+The Nov 13 baseline export contains 24 completed Bluesky runs and two historical
+failures. All completed runs have five topic results. At 13:54 UTC the unchanged
+World fallback submitted 46 observations and U.S. `Congress` submitted 49. These
+are submission counts, not unique relevant posts. Observation-level query
+attribution remains unavailable; use this export alongside the coverage report
+and reader review rather than inferring individual query provenance.

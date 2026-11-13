@@ -2694,3 +2694,12 @@ rehearsal now uses that parser, with nine configuration checks. No deployment,
 environment, live query, provider call or observation write changed. Activation
 remains behind NBA/item 58 and private public-mode acceptance; retain actual
 hourly collection results for pilot comparisons.
+
+### Retained Bluesky collection evidence (2026-11-13, iteration 2155)
+
+Read-only `scripts/report-bluesky-collections.ts` exports actual hourly queries,
+windows and fetched/submitted counts from retained BullMQ results. Baseline:
+24 completed five-topic passes plus two older failures; latest World fallback
+46 submissions/U.S. Congress 49. Shared 48-job retention covers roughly 24
+Bluesky passes; preserve exports privately before pruning. No source changes,
+provider calls or live writes. Counts do not measure unique or relevant posts.
