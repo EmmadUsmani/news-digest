@@ -94,3 +94,38 @@ explicit World query as the next tuning action after scheduled acceptance.
 Verification: default and historical reports pass; independent JSON checks
 reconcile every author count with the candidate total, unique author count and
 maximum, including the empty historical U.S. pool. No live provider call or write.
+
+## Bounded free discovery comparison — iteration 2149
+
+At 12:57 UTC November 13, `pnpm exec tsx scripts/probe-bluesky.ts --world`
+compared four official authenticated searches over the same preceding 24 hours.
+Each retained the existing two-page/50-post bound. No observations were stored,
+no edition was generated and no paid model was called.
+
+| Query                   | Returned | Any official engagement | Images / video | Highest likes |
+| ----------------------- | -------: | ----------------------: | -------------: | ------------: |
+| `World news & politics` |       46 |                      19 |          5 / 0 |             7 |
+| `Ukraine`               |       50 |                      50 |        17 / 14 |         5,748 |
+| `Gaza`                  |       49 |                      49 |         10 / 3 |         1,589 |
+| `geopolitics`           |       50 |                      38 |          8 / 2 |           114 |
+
+Read the three highest-like returned texts for each query. The current fallback
+leads with Vancouver housing, U.S. midterm districts and an archival collection.
+Ukraine leads with commentary on current peace talks and satellite service;
+Gaza includes a hospital-strike claim, context-free commentary and a U.S. primary
+story. Geopolitics leads with worldbuilding and generic commentary. These are
+post claims, not independently verified news or accepted editorial selections.
+
+Decision: do not replace the fallback with `geopolitics`, or assume a more
+general word supplies better news. Specific event terms demonstrably find
+engaged relevant material, but one permanent event term would narrow World
+coverage. Prepare bounded event-query rotation after the scheduled gate,
+preserving the existing aggregate search allowance and semantic scope checks;
+measure distinct relevant posts, event diversity and natural editorial picks.
+Do not simply add four production searches. All four lexical shortlists were
+zero under World's current empty positive-phrase policy; that is not a semantic
+rejection or evidence that these posts cannot be selected by the semantic route.
+
+The probe's optional `--world` mode is read-only and refuses combination with
+`--store`. Its examples are raw API returns, not safety-ranked or selected posts.
+Production queries, schedules, budgets and deployment remain unchanged.

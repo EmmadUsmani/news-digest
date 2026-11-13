@@ -149,3 +149,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts public-activation-record` and `git diff --check` pass.
 - No runtime code, collection/query, generation, budget, public flag or sharing changes. No service restart needed for operational receipts/docs; deployed runtime remains unchanged.
 - Next: accept scheduled NBA AI editing/item 58 at 15:00, then refresh baseline and activate public mode with private sharing outside 13:00–16:00 UTC.
+
+## 2026-11-13: iteration 2149 — measure World discovery alternatives
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero alerts. NBA/item 58 scheduled gate remains pending at 15:00 UTC; no activation or deployment.
+- Followed STEERING 59's while-waiting work: read all 20 safe engaged stored World candidates; domestic/Tech news and generic bulletins explain poor scope as well as low engagement.
+- Added read-only `probe-bluesky.ts --world`, refusing `--store`; four official free searches share one 24-hour window and existing two-page/50-post limits.
+- Actual probe: fallback 46 returns/19 engaged/max seven likes; Ukraine 50/50/5,748; Gaza 49/49/1,589; geopolitics 50/38/114. Top texts favor specific event discovery; geopolitics is not a suitable blanket replacement.
+- Recorded comparison and next bounded event-rotation step in TASKS/SOURCES/pool evidence. Raw probe posts are not stored, safety-selected or independently verified. No paid inference, query configuration, budget, schedule, sharing or public-mode changes.
+- Verification: same-window/bound assertions pass for all 195 returns; three invalid CLI combinations refuse before external calls. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- `pnpm build` passes (existing bundle warning); handbook/schema checker passes; `git diff --check` clean. No runtime change or service restart; protected deployment window respected. NEEDS_FROM_HUMAN unchanged.
+- Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00; preserve aggregate allowance when implementing World event discovery.

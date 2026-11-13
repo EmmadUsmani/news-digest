@@ -2647,3 +2647,14 @@ post counts within its capped safe engaged candidates. Historical World has
 29 candidates from 25 authors, maximum two from one author: weak discovery is
 not explained by one dominant author. See the [pool review](edition-reviews/2026-11-12-bluesky-pool.md).
 No query, collection, ranking or editorial change; no provider calls.
+
+### World Bluesky discovery comparison — Nov 13, iteration 2149
+
+Read-only official API probe compared the current fallback, `Ukraine`, `Gaza`
+and `geopolitics` over one fixed 24-hour window, at most 200 returned posts.
+Fallback: 46 returned/19 engaged/max seven likes; Ukraine: 50/50/5,748;
+Gaza: 49/49/1,589; geopolitics: 50/38/114. Top-text review supports specific
+event discovery, not a blanket `geopolitics` replacement or viral acceptance.
+No storage writes, paid inference, production query or schedule changes.
+Next: bounded event rotation preserving aggregate allowance and scope gates.
+[Comparison and limitations](edition-reviews/2026-11-12-bluesky-pool.md#bounded-free-discovery-comparison--iteration-2149).

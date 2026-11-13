@@ -1,6 +1,7 @@
 // Explicit free API probe; --store opts into isolated observation writes.
 // No scheduling or edition changes. At most four queries / 200 observations.
-// Prints only aggregate yield; never credentials, session bodies or tokens.
+// Prints aggregate yield and bounded public post examples in --world mode.
+// Never prints credentials, session bodies or tokens.
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 
@@ -14,8 +15,12 @@ import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
   const args = process.argv.slice(2);
-  if (args.some((arg) => arg !== '--store') || args.length > 1)
-    throw new Error('Usage: probe-bluesky.ts [--store]');
+  if (
+    args.some((arg) => arg !== '--store' && arg !== '--world') ||
+    new Set(args).size !== args.length ||
+    (args.includes('--world') && args.includes('--store'))
+  )
+    throw new Error('Usage: probe-bluesky.ts [--store | --world]');
   const values = new Map(
     readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8')
       .split('\n')
@@ -44,12 +49,20 @@ async function main() {
     ? new PostgresBlueskyRepository()
     : undefined;
   try {
-    for (const [topic, query] of [
-      ['Tech & AI', 'artificial intelligence'],
-      ['NBA', 'NBA'],
-      ['Gaming', 'game'],
-      ['World news & politics', 'world news'],
-    ]) {
+    const searches = args.includes('--world')
+      ? [
+          ['World news & politics', 'World news & politics'],
+          ['World news & politics', 'Ukraine'],
+          ['World news & politics', 'Gaza'],
+          ['World news & politics', 'geopolitics'],
+        ]
+      : [
+          ['Tech & AI', 'artificial intelligence'],
+          ['NBA', 'NBA'],
+          ['Gaming', 'game'],
+          ['World news & politics', 'world news'],
+        ];
+    for (const [topic, query] of searches) {
       const configured = topics.find(
         (item) => item.name === topic && item.enabled,
       );
@@ -102,6 +115,18 @@ async function main() {
           ).length,
           phraseEligibleShortlist: shortlist.length,
           observationCutoff: rankingCutoff,
+          ...(args.includes('--world')
+            ? {
+                strongestExamples: [...posts]
+                  .sort((a, b) => b.metrics.likes - a.metrics.likes)
+                  .slice(0, 3)
+                  .map((post) => ({
+                    url: post.url,
+                    likes: post.metrics.likes,
+                    text: (post.displayText ?? post.text).slice(0, 600),
+                  })),
+              }
+            : {}),
           semanticReviewed: false,
           productionInclusion: false,
         }),
