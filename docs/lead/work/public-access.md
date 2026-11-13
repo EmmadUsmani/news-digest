@@ -25,10 +25,9 @@ export (about 10 commits).
 0. Item 55 (Nov 11) stops re-verifying accepted screens; the agent stops at the
    phase 4 summary. Check the verify-only commit share falls.
 
-1. Check the link-expiry verify after 00:33 UTC Nov 11.
-2. Check phase 4 stays behind flags. Watch the Grafana export work for drift
+1. Check phase 4 stays behind flags. Watch the Grafana export work for drift
    into hardening: 17 of the last 46 commits were guards or re-checks.
-3. Item 58 (security fixes): fixes 1–7 done and deployed by 00:33 UTC Nov 12,
+2. Item 58 (security fixes): fixes 1–7 done and deployed by 00:33 UTC Nov 12,
    with migrations 0021 and 0022 after backups. Proxy checks passed Nov 13 (owner): port 8000,
    spoofed email header replaced. Before going public, re-test the spoof as an
    anonymous visitor. Port 8011 no longer listening
