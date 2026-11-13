@@ -37,9 +37,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM within the owner-approved ~800 MiB target (45), 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor existing limits.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
-- [ ] Tech evidence depth (1220): Nov 7's five stories have four empty HN excerpts and one headline-only Google News excerpt; fuller summaries need more supplied reporting. Source balance remains paused/full articles deferred. Nov 8 comparison (1382): one empty, one link-only, three headline-only excerpts; zero substantive again. Two minor headline-fact omissions recorded; no prompt change justified. Richer reporting remains deferred. [Diagnosis](docs/edition-reviews/2026-11-07.md#tech-evidence-depth-diagnosis--iteration-1220).
+- [ ] Tech evidence depth: repair bounded, attributed cluster-member evidence transport before new collection. Nov 12 NVIDIA has 23 coverage links but an empty-excerpt representative and one editor evidence ID; saved triage already recognized the discarded Verge resignation report. Preserve IDs, scores, ownership, attribution, fallback and caps; verify editor/validator/publication together offline. [Diagnosis and scope](docs/edition-reviews/2026-11-12-tech-depth.md). Other four Nov 12 summaries retain supplied facts; genuinely missing discovery reporting remains deferred.
 
 ## Latest verified step
+
+- [x] Iteration 2125: compared all five saved Tech summaries; isolated NVIDIA depth loss between grouping and editing, distinct from missing source reporting. [Evidence and bounded repair scope](docs/edition-reviews/2026-11-12-tech-depth.md).
 
 - [x] Iteration 2124: completed saved Tech launch-versus-promotion comparison; FishAudio retains its distinct voice capability, and no stronger distinct replacement is established. [Review](docs/edition-reviews/2026-11-11-tech-social-launch.md). No ranking or publication change.
 

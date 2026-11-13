@@ -202,3 +202,14 @@
 - API/worker restarted active; `/healthz` database/Redis healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts, pass.
 - TASKS and resolved idea updated; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, budgets, flags, provider or sharing changes.
 - Next: 15:00 UTC scheduled NBA/item 58 acceptance, then private-sharing public activation; continue remaining authorized social tuning meanwhile.
+
+## 2026-11-13: iteration 2125 — isolate Tech cluster evidence loss
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts; NBA/item 58 acceptance still awaits 15:00 UTC, public mode off.
+- Read all five saved Nov 12 Tech summaries against immutable evidence. NVIDIA has 23 coverage links but only its empty-excerpt representative reaches editing; saved Verge triage already recognizes the resignation. Other four summaries retain supplied facts.
+- Traced rank → editor → saved evidence transport; scoped bounded attributed member evidence repair in docs/edition-reviews/2026-11-12-tech-depth.md and TASKS. No runtime/publication change; repair remains open.
+- Temporary `pnpm exec tsx scripts/tmp-tech-depth.ts` read-only repeatable-read probe passes assertions for edition/coverage/evidence IDs, saved triage and five reader summaries; current substantive Verge excerpt separately identified as mutable. Probe removed; no provider instantiated or writes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 934 unit/290 integration tests, four expected skips. `pnpm build`: pass with existing bundle warnings; full handbook check passes (18 pages/22 diagrams/39 tables).
+- API/worker restarted active; `/healthz` database/Redis healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts, pass.
+- SOURCES/NEEDS_FROM_HUMAN unchanged; no source, budget, provider, paid-call, flag or sharing changes.
+- Next: bounded cluster-member evidence transport repair offline before the noon generation freeze; 15:00 NBA/item 58 acceptance, then public activation with sharing private.
