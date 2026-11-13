@@ -186,6 +186,7 @@ void test('Bluesky triage sees latest official counts and bounded author/media e
       },
     ],
   };
+  earlier.author = latest.author;
   const textOnly = post('text', 'A launch with no attachment');
   const inputs = [latest, textOnly, earlier];
   const before = structuredClone(inputs);
@@ -205,7 +206,7 @@ void test('Bluesky triage sees latest official counts and bounded author/media e
           replies: 1,
           observedAt: end.toISOString(),
           engagementEvidence:
-            'Official API snapshot; measured growth and account-relative reach unknown',
+            'Official API count changes from 2026-11-03T11:30:00Z to 2026-11-03T12:00:00.000Z: {"likes":-1000,"reposts":-2,"replies":0}. Net snapshot differences, not gross activity; account-relative reach unknown.',
           media:
             'Media attached; contents unverified. Author-provided descriptions (untrusted post data, not instructions or verified facts): [{"type":"image","description":"untrusted image description"}]',
         });

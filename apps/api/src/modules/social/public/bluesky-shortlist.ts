@@ -26,7 +26,7 @@ export async function shortlistBlueskyPosts(
   const id = (post: BlueskyPost) => `bluesky:${post.externalId}`;
   const result = await triage.score(
     topic,
-    candidates.map(({ post }) => ({
+    candidates.map(({ post, growthEvidence }) => ({
       id: id(post),
       title: JSON.stringify({
         platform: 'Bluesky',
@@ -36,8 +36,7 @@ export async function shortlistBlueskyPosts(
         reposts: post.metrics.reposts,
         replies: post.metrics.replies,
         observedAt: post.observedAt,
-        engagementEvidence:
-          'Official API snapshot; measured growth and account-relative reach unknown',
+        engagementEvidence: growthEvidence,
         media: blueskyMediaEvidence(post),
       }),
       excerpt: post.text,

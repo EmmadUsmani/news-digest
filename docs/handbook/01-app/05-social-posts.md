@@ -59,7 +59,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   cutoff.
 - **Selection evidence:** triage gets author, publication time and timestamped
   API counts; triage and the editor receive attachment presence and bounded author-written
-  descriptions as unverified claims. Growth and usual account reach stay unknown.
+  descriptions as unverified claims. Repeated valid snapshots supply net count
+  changes through the cutoff; usual account reach stays unknown.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips

@@ -257,8 +257,10 @@ void test('Bluesky editor distinguishes attachments from text-only posts without
       );
       assert.match(
         media.engagementEvidence!,
-        /measured growth and account-relative reach unknown/,
+        /"likes":5,"reposts":1,"replies":1/,
       );
+      assert.match(media.engagementEvidence!, /Net snapshot differences/);
+      assert.match(text.engagementEvidence!, /Measured growth unknown/);
       return {
         model: 'fake',
         posts: [
@@ -271,7 +273,15 @@ void test('Bluesky editor distinguishes attachments from text-only posts without
       };
     }),
     topic,
-    [withMedia, posts[1]],
+    [
+      withMedia,
+      posts[1],
+      {
+        ...withMedia,
+        observedAt: '2026-11-03T11:30:00Z',
+        metrics: { likes: 5, reposts: 1, replies: 0 },
+      },
+    ],
     { includeAny: [], excludeAny: [] },
     start,
     end,

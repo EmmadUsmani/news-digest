@@ -187,3 +187,14 @@
 - Focused offline media-evidence/shortlist/editor tests: 11 pass, covering description bounds, image/video types, blank descriptions, attribution and selected observation preservation.
 - Build passes (existing bundle warning); affected handbook check passes (18 pages/one unchanged diagram/39 tables). Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 925 unit/290 integration, four expected skips. `git diff --check` passes. Commit/push and API/worker restart follow; next scheduled NBA/item 58 acceptance gates private-sharing public activation.
+
+## 2026-11-13: iteration 2109 — supply measured Bluesky count changes
+
+- Clean main; no inherited work. Zero alerts, healthy healthz and staffed queues; scheduled NBA/item 58 acceptance remains Nov 13 15:00 UTC.
+- Weakness: selection called growth unknown despite retained repeated observations. Read-only last-24-hour aggregate found 231/252 topic/post entries with multiple observation times. Initial query omitted the app's default connection URL and failed; corrected read succeeded.
+- Triage and final editor now receive earliest-to-latest valid same-post/author/publication count changes through cutoff. Signed decreases preserved; one comparable timestamp leaves growth unknown. Net differences are not gross activity or account-relative reach.
+- Ranking weights, thresholds, collection, budgets, providers, flags and sharing unchanged. No paid calls, external requests or saved-edition writes.
+- Focused ranking/shortlist/editor tests pass (14), covering cutoff/invalid counts, competing snapshots, input order, signed declines and both selection stages. Build passes (existing bundle warning); affected handbook check passes (18 pages/one unchanged diagram/39 tables).
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `git diff --check` passes. Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
+- Commit/push and API/worker restart follow; reader HTTP 200 before deployment.
+- Next: scheduled NBA/item 58 acceptance, private-sharing public activation, and natural social selection review.

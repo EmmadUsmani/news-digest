@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2109: Bluesky selection receives measured net count changes across valid same-post snapshots through cutoff; signed declines and unknown single-snapshot growth preserved. Ranking weights unchanged; natural quality review remains open.
+
 - [x] Iteration 2108: Bluesky triage/editor receive bounded author-provided media descriptions as untrusted claims; stored text/media unchanged, no media fetches. Offline attribution, bounds and selection preservation verified; natural quality review remains open.
 
 - [x] Iteration 2107: Bluesky triage now receives publication time alongside the official count snapshot; the final editor receives attachment presence with unknown-content limits. Offline regression verifies media/text distinction, no alt-text claims and exact selected-post preservation. Natural scheduled quality review remains open.

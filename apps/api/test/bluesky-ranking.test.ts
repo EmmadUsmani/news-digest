@@ -122,3 +122,42 @@ void test('Bluesky ranking selects latest valid snapshot before cutoff without l
   assert.equal(result[2].post.metrics.likes, 10);
   assert.equal(rows[0], earlier);
 });
+
+void test('Bluesky growth uses valid same-post observations before cutoff and preserves net decreases', () => {
+  const latest = post('same', {
+    metrics: { likes: 90, reposts: 20, replies: 8 },
+  });
+  const earlier = post('same', { observedAt: '2026-11-03T11:30:00Z' });
+  const invalid = [
+    post('same', { observedAt: '2026-11-03T12:01:00Z' }),
+    post('same', { observedAt: '2026-11-03T10:00:00Z' }),
+    post('same', {
+      observedAt: '2026-11-03T11:01:00Z',
+      metrics: { likes: -1, reposts: 1, replies: 0 },
+    }),
+    post('same', { observedAt: '2026-11-03T11:02:00Z', author: 'other' }),
+    post('other', { observedAt: '2026-11-03T11:01:00Z' }),
+  ];
+  const rows = [latest, earlier, ...invalid];
+  const before = structuredClone(rows);
+  const evidence = rank(rows).find(
+    (r) => r.post.externalId === 'same',
+  )!.growthEvidence;
+  assert.match(evidence, /11:30:00Z to 2026-11-03T12:00:00.000Z/);
+  assert.match(evidence, /"likes":-10,"reposts":10,"replies":3/);
+  assert.match(evidence, /Net snapshot differences, not gross activity/);
+  assert.equal(
+    rank([...rows].reverse()).find((r) => r.post.externalId === 'same')!
+      .growthEvidence,
+    evidence,
+  );
+  assert.match(
+    rank([latest, ...invalid])[0].growthEvidence,
+    /only one distinct valid observation time/,
+  );
+  assert.match(
+    rank([latest, { ...latest, metrics: earlier.metrics }])[0].growthEvidence,
+    /only one distinct valid observation time/,
+  );
+  assert.deepEqual(rows, before);
+});

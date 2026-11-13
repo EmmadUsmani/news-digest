@@ -78,7 +78,7 @@ export async function editShortlistedBlueskyPosts(
   if (!shortlist.posts.length) return empty('complete');
   const args: Parameters<SocialSelectionServices['socialEditor']['edit']> = [
     topic,
-    shortlist.posts.map(({ post, score }) => ({
+    shortlist.posts.map(({ post, score, growthEvidence }) => ({
       id: score.id,
       platform: 'bluesky',
       text: post.text,
@@ -86,7 +86,7 @@ export async function editShortlistedBlueskyPosts(
       publishedAt: post.publishedAt,
       relevance: score.relevance,
       interestingness: score.importance,
-      engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. Single snapshot; measured growth and account-relative reach unknown. ${blueskyMediaEvidence(post)}`,
+      engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. ${growthEvidence ?? 'Measured growth and account-relative reach unknown.'} ${blueskyMediaEvidence(post)}`,
     })),
     budget,
     runId,

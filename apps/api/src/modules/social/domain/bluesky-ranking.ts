@@ -52,6 +52,7 @@ function rankObservations(
   // Pick the latest valid snapshot available by the cutoff, independently of
   // input order. Never combine counts from different observations.
   const latest = new Map<string, BlueskyPost>();
+  const observations = new Map<string, BlueskyPost[]>();
   for (const post of posts) {
     const observed = Date.parse(post.observedAt);
     const published = Date.parse(post.publishedAt);
@@ -63,6 +64,9 @@ function rankObservations(
       Object.values(post.metrics).some((n) => !Number.isSafeInteger(n) || n < 0)
     )
       continue;
+    const history = observations.get(post.externalId) ?? [];
+    history.push(post);
+    observations.set(post.externalId, history);
     const previous = latest.get(post.externalId);
     if (
       !previous ||
@@ -89,6 +93,10 @@ function rankObservations(
       return [
         {
           post,
+          growthEvidence: observedCountChanges(
+            post,
+            observations.get(post.externalId) ?? [],
+          ),
           strength,
           lifetimeRate,
           reasons: [
@@ -108,4 +116,31 @@ function rankObservations(
         a.post.externalId.localeCompare(b.post.externalId),
     )
     .slice(0, Math.min(200, budget));
+}
+
+// Report count changes, including decreases, without inferring reach or causes.
+function observedCountChanges(
+  latest: BlueskyPost,
+  observations: BlueskyPost[],
+) {
+  const earlier = observations
+    .filter(
+      (post) =>
+        post.publishedAt === latest.publishedAt &&
+        post.author === latest.author &&
+        Date.parse(post.observedAt) < Date.parse(latest.observedAt),
+    )
+    .sort(
+      (a, b) =>
+        Date.parse(a.observedAt) - Date.parse(b.observedAt) ||
+        JSON.stringify(a).localeCompare(JSON.stringify(b)),
+    )[0];
+  if (!earlier)
+    return 'Measured growth unknown: only one distinct valid observation time.';
+  const changes = {
+    likes: latest.metrics.likes - earlier.metrics.likes,
+    reposts: latest.metrics.reposts - earlier.metrics.reposts,
+    replies: latest.metrics.replies - earlier.metrics.replies,
+  };
+  return `Official API count changes from ${earlier.observedAt} to ${latest.observedAt}: ${JSON.stringify(changes)}. Net snapshot differences, not gross activity; account-relative reach unknown.`;
 }

@@ -2551,3 +2551,13 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
 ## Bluesky media selection evidence — iteration 2108 (2026-11-13)
 
 - Selection now receives up to four author-written image/video descriptions, each capped at 125 characters, alongside attachment presence. They are explicitly untrusted claims, not verified media contents or instructions. No media fetching or original-text changes; no collection, provider or budget changes. Offline tests cover bounded evidence, blank descriptions and original selected observation preservation. Natural selection quality remains for the scheduled review.
+
+## Bluesky observed count changes — iteration 2109 (2026-11-13)
+
+- Selection now supplies net likes/reposts/replies changes between the earliest
+  and latest valid observations of the same post, author and publication time.
+- Future, pre-publication and malformed-count snapshots cannot supply evidence;
+  equal-time observations do not establish growth. Negative changes remain signed.
+- Triage and final editing receive the observation interval and net-count limits.
+  One timestamp still means unknown growth; account-relative reach stays unknown.
+- No collection, source requests, scoring thresholds, ranking weights or paid calls changed.
