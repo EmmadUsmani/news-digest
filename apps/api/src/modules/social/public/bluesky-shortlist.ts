@@ -28,7 +28,8 @@ export async function shortlistBlueskyPosts(
     topic,
     candidates.map(({ post, growthEvidence }) => ({
       id: id(post),
-      title: JSON.stringify({
+      title: `Bluesky post by ${post.author.slice(0, 200)}`,
+      evidence: JSON.stringify({
         platform: 'Bluesky',
         author: post.author.slice(0, 200),
         publishedAt: post.publishedAt,

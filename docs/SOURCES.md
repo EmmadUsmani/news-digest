@@ -2570,3 +2570,11 @@ attribution and JSON alongside count snapshots and changes in the final editorâ€
 1,200-character evidence field, including escaped author text. Stored media,
 collection, ranking weights and API usage are unchanged. Offline escaped-text and
 maximal-count regression passes; scheduled quality acceptance remains open.
+
+### Bluesky triage evidence transport (2026-11-13, iteration 2112)
+
+Production triage now carries Bluesky snapshot, growth and media metadata in a
+separate bounded social evidence field instead of its 500-character article
+title. Evidence participates in cache identity and existing byte-aware batching.
+Offline composition verifies complete escaped JSON, unchanged post text and
+cache refresh on description changes. No collection, ranking or budget changes.

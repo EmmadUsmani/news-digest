@@ -22,6 +22,7 @@ export interface TriageCandidate {
   title: string;
   excerpt: string | null;
   sources: string[];
+  evidence?: string;
 }
 const scoreSchema = z
   .object({
@@ -96,6 +97,9 @@ export class CandidateTriage {
         title: candidate.title.slice(0, 500),
         excerpt: candidate.excerpt?.slice(0, 1800) ?? null,
         sources: candidate.sources.slice(0, 8).map((s) => s.slice(0, 120)),
+        ...(this.kind === 'social' && candidate.evidence
+          ? { evidence: candidate.evidence.slice(0, 3000) }
+          : {}),
       };
       const key =
         (this.kind === 'social'

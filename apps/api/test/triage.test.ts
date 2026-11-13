@@ -11,6 +11,8 @@ import {
 } from '../src/modules/curation/application/triage';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import type { BlueskyPost } from '../src/modules/social/domain/bluesky';
+import { shortlistBlueskyPosts } from '../src/modules/social/public/bluesky-shortlist';
 
 const topic = {
   id: 'tech',
@@ -1006,4 +1008,60 @@ void test('article and social coverage repairs explain wire IDs and recover comp
       assert.equal(h.calls.length, 2, 'Corrected original IDs are cached');
     }
   }
+});
+
+void test('production social triage preserves Bluesky evidence beyond the article title limit and keys its cache', async () => {
+  const h = harness(undefined, 'social');
+  const end = new Date('2026-11-03T12:00:00Z');
+  const latest: BlueskyPost = {
+    platform: 'bluesky',
+    externalId: 'fixture',
+    author: '\u0001'.repeat(200),
+    url: 'https://bsky.app/profile/example.bsky.social/post/fixture',
+    text: 'Playable prototype released today',
+    publishedAt: '2026-11-03T10:00:00Z',
+    observedAt: end.toISOString(),
+    metrics: { likes: 20, reposts: 2, replies: 1 },
+    media: Array.from({ length: 4 }, () => ({
+      type: 'image' as const,
+      thumbnail: 'https://example.com/thumb',
+      fullsize: 'https://example.com/image',
+      alt: '\u0001"'.repeat(125),
+    })),
+  };
+  const earlier = {
+    ...latest,
+    observedAt: '2026-11-03T11:00:00Z',
+    metrics: { likes: 10, reposts: 1, replies: 0 },
+  };
+  const run = () =>
+    shortlistBlueskyPosts(
+      h.service,
+      topic,
+      [earlier, latest],
+      { includeAny: [], excludeAny: [] },
+      new Date('2026-11-02T12:00:00Z'),
+      end,
+      5,
+      'offline',
+    );
+  assert.equal((await run()).posts.length, 1);
+  const wire = JSON.parse(h.calls[0].prompt.split('\nReturn only')[0])
+    .candidates[0];
+  assert.ok(wire.evidence.length > 500);
+  assert.ok(wire.evidence.length <= 3000);
+  const evidence = JSON.parse(wire.evidence);
+  assert.equal(evidence.author, latest.author);
+  assert.match(evidence.engagementEvidence, /"likes":10/);
+  assert.match(evidence.media, /untrusted post data/);
+  assert.equal(
+    JSON.parse(evidence.media.slice(evidence.media.indexOf('[{'))).length,
+    4,
+  );
+  assert.equal(wire.excerpt, latest.text);
+  await run();
+  assert.equal(h.calls.length, 1);
+  latest.media![0].alt = 'Changed author description';
+  await run();
+  assert.equal(h.calls.length, 2);
 });

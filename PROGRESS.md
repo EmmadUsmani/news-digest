@@ -187,3 +187,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 927 unit/290 integration, four expected skips. First check caught formatting in the newly archived progress file; corrected and reran successfully.
 - `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts social-posts` passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes. Archived older progress entries to keep this file small.
 - Pushed `1ecd9092`; API/worker restarted active. Immediate startup probe raced the listener; five seconds later healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check` and `pnpm obs jobs --check --limit 1` pass. Next: scheduled NBA/item 58 acceptance, fresh activation baseline and private-sharing public activation.
+
+## 2026-11-13: iteration 2112 — preserve evidence through production triage
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero alerts. NBA/item 58 scheduled acceptance still waits for 15:00 UTC; public mode remains off.
+- Reader weakness: Bluesky scoring silently lost count-growth/media context because metadata occupied a JSON title truncated to 500 characters by production triage.
+- Moved metadata into a separate social-only 3,000-character evidence field; ordinary title/excerpt bounds stay intact. Evidence enters cache identity and existing byte-aware batching/admission. Article scoring unchanged.
+- Offline production composition verifies complete JSON with escaped author/media, net growth and four attributed descriptions; text preserved, repeat calls cached, changed descriptions invalidate scores. Focused triage/shortlist tests: 29 pass.
+- Updated TASKS, SOURCES and affected handbook. No external calls, paid replay, budget/provider/flag/sharing changes; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 928 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); social-posts handbook check passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
+- Commit/push and API/worker restart follow; post-deploy health and saved-reader checks recorded in the deployment receipt. Next: scheduled NBA/item 58 acceptance, private-sharing activation and natural Bluesky selection review.

@@ -58,7 +58,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.
 - **Selection evidence:** triage gets author, publication time and timestamped
-  API counts; triage and the editor receive attachment presence and bounded author-written
+  API counts in a separate bounded evidence field, preserving context beyond article-title limits.
+  Triage and the editor receive attachment presence and bounded author-written
   descriptions as unverified claims, bounded after JSON escaping. Repeated valid snapshots supply net count
   changes through the cutoff; usual account reach stays unknown.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
