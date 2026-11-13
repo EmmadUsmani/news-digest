@@ -81,3 +81,43 @@ inspection was removed. Counts describe this retained window, not platform-wide
 supply. Discovery tuning should seek distinct reporting and actual attached
 highlights; selection cannot recover media absent from the collected pool.
 Production queries, eligibility, provider usage and generation remain unchanged.
+
+## Bounded live query comparison — iteration 2173
+
+Command: `pnpm exec tsx scripts/probe-bluesky.ts --nba`. Four explicit free
+searches used one common 24-hour publication window ending
+2026-11-13T17:17:59.988Z, two pages of 25 per query. No observations were
+stored, no media downloaded and no AI calls made. The new probe mode refuses
+combination with `--store`; existing default/World behavior is retained.
+
+| Query            | Fetched | Safe engaged | Safe attached video |
+| ---------------- | ------: | -----------: | ------------------: |
+| `NBA`            |      48 |           44 |                   0 |
+| `#NBA`           |      48 |           46 |                   1 |
+| `NBA highlights` |      15 |            5 |                   0 |
+| `basketball`     |      50 |           39 |                   3 |
+
+Safety and engagement preparation uses the existing ranking function with a
+50-post bound and NBA policy; it does not establish semantic NBA relevance.
+The current `NBA` query's strongest result is a personal sports-preference
+post (162 likes), followed by a Substack link (131). `#NBA` finds one
+one-like Luka shot video; its strongest items are a chart and scoring posts.
+`NBA highlights` includes basketball videogame requests and fantasy summaries.
+`basketball` finds these three safe video candidates (saved API counts):
+
+- [Cade Cunningham is on my basketball team 🫡](https://bsky.app/profile/did%3Aplc%3A7dlhmih6zwcpsu3e54yykpvp/post/3n266eqzv7r2y) — 45 likes.
+- [Seven points, ONE possession — Celtics basketball](https://bsky.app/profile/did%3Aplc%3Ay2bvvrv2don5flff7trcyz27/post/3n25fj6ospc2k) — 11 likes.
+
+- [Dejounte Murray — play good basketball](https://bsky.app/profile/did%3Aplc%3Aghkytoq425ln6xpdlztauqyo/post/3n255nrn3ws23) — 8 likes.
+
+These posts have attached video metadata; the clips were not watched or
+verified as game highlights. The Cade post also repeats the Cunningham game
+already covered by X. Higher video yield alone does not establish better
+reader picks or viral quality. Queries were sequential, top-search results
+are bounded, and this later window differs from the scheduled saved pool.
+
+Decision: retain `NBA` in production. A later bounded discovery trial can
+compare `#NBA`/`basketball` coverage alongside it, retaining semantic filtering
+and X preference; replacing it with `NBA highlights` has no support here.
+Activation remains behind NBA/item 58/private public-mode gates. This completes
+the immediate query comparison; do not repeat the same probe while waiting.

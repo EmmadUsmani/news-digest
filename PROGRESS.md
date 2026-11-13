@@ -156,3 +156,15 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Report-only change, runtime unchanged; no rebuild/restart needed.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived three oldest retained entries to keep this file small.
 - Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later discovery tuning should address absent highlight supply.
+
+## 2026-11-13: iteration 2173 — compare NBA discovery queries
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
+- Owner impact: improve the path to real NBA clips instead of filling the final post slot with weak scoring-list claims (STEERING 34/42).
+- Added explicit free `probe-bluesky.ts --nba`: four queries/200 maximum observations, mutually exclusive with storage, existing safe engagement gates and bounded public examples.
+- One common 24-hour window: NBA/#NBA/NBA highlights/basketball return 48/48/15/50 posts and 0/1/0/3 safe attached-video candidates. No media fetched or semantic/editor calls.
+- Broader query candidates include Cade (45 likes), Celtics (11) and Dejounte Murray (eight); attachment metadata does not verify highlight content, and Cade repeats X's event.
+- Comparison complete: retain production query; later gated discovery trial may compare hashtag/basketball supply with semantic filtering. No repeat probe while waiting.
+- Verification: live four-query probe, bounds/no-storage assertions and conflicting-mode refusal pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
+- Updated TASKS/SOURCES and saved comparison; NEEDS_FROM_HUMAN/handbook unchanged. Probe-only change; runtime unchanged, no rebuild/restart needed. No paid calls or stored observations.
+- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode.

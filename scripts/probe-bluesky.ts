@@ -1,6 +1,6 @@
 // Explicit free API probe; --store opts into isolated observation writes.
 // No scheduling or edition changes. At most four queries / 200 observations.
-// Prints aggregate yield and bounded public post examples in --world mode.
+// Prints aggregate yield and bounded public examples in --world/--nba modes.
 // Never prints credentials, session bodies or tokens.
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
@@ -10,17 +10,20 @@ import { topicSchema } from '@digest/contracts';
 import { BlueskySearch } from '../apps/api/src/modules/social/adapters/bluesky-search';
 import { collectBluesky } from '../apps/api/src/modules/social/application/collect-bluesky';
 import { PostgresBlueskyRepository } from '../apps/api/src/modules/social/database/bluesky.repository';
-import { rankBlueskyPosts } from '../apps/api/src/modules/social/domain/bluesky-ranking';
+import {
+  rankBlueskyPosts,
+  rankSafeBlueskyPosts,
+} from '../apps/api/src/modules/social/domain/bluesky-ranking';
 import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
   const args = process.argv.slice(2);
   if (
-    args.some((arg) => arg !== '--store' && arg !== '--world') ||
+    args.some((arg) => !['--store', '--world', '--nba'].includes(arg)) ||
     new Set(args).size !== args.length ||
-    (args.includes('--world') && args.includes('--store'))
+    args.length > 1
   )
-    throw new Error('Usage: probe-bluesky.ts [--store | --world]');
+    throw new Error('Usage: probe-bluesky.ts [--store | --world | --nba]');
   const values = new Map(
     readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8')
       .split('\n')
@@ -49,19 +52,26 @@ async function main() {
     ? new PostgresBlueskyRepository()
     : undefined;
   try {
-    const searches = args.includes('--world')
+    const searches = args.includes('--nba')
       ? [
-          ['World news & politics', 'World news & politics'],
-          ['World news & politics', 'Ukraine'],
-          ['World news & politics', 'Gaza'],
-          ['World news & politics', 'geopolitics'],
-        ]
-      : [
-          ['Tech & AI', 'artificial intelligence'],
           ['NBA', 'NBA'],
-          ['Gaming', 'game'],
-          ['World news & politics', 'world news'],
-        ];
+          ['NBA', '#NBA'],
+          ['NBA', 'NBA highlights'],
+          ['NBA', 'basketball'],
+        ]
+      : args.includes('--world')
+        ? [
+            ['World news & politics', 'World news & politics'],
+            ['World news & politics', 'Ukraine'],
+            ['World news & politics', 'Gaza'],
+            ['World news & politics', 'geopolitics'],
+          ]
+        : [
+            ['Tech & AI', 'artificial intelligence'],
+            ['NBA', 'NBA'],
+            ['Gaming', 'game'],
+            ['World news & politics', 'world news'],
+          ];
     for (const [topic, query] of searches) {
       const configured = topics.find(
         (item) => item.name === topic && item.enabled,
@@ -95,6 +105,15 @@ async function main() {
         rankingCutoff,
         configured.postBudget,
       );
+      const safe = args.includes('--nba')
+        ? rankSafeBlueskyPosts(
+            posts,
+            configured.relevancePolicy,
+            since,
+            rankingCutoff,
+            50,
+          )
+        : [];
       console.log(
         JSON.stringify({
           topic,
@@ -124,6 +143,32 @@ async function main() {
                     url: post.url,
                     likes: post.metrics.likes,
                     text: (post.displayText ?? post.text).slice(0, 600),
+                  })),
+              }
+            : {}),
+          ...(args.includes('--nba')
+            ? {
+                safeEngaged: safe.length,
+                safeVideo: safe.filter(({ post }) =>
+                  post.media?.some((media) => media.type === 'video'),
+                ).length,
+                safeExamples: safe.slice(0, 3).map(({ post }) => ({
+                  url: post.url,
+                  likes: post.metrics.likes,
+                  text: (post.displayText ?? post.text).slice(0, 400),
+                  video:
+                    post.media?.some((media) => media.type === 'video') ??
+                    false,
+                })),
+                safeVideoExamples: safe
+                  .filter(({ post }) =>
+                    post.media?.some((media) => media.type === 'video'),
+                  )
+                  .slice(0, 3)
+                  .map(({ post }) => ({
+                    url: post.url,
+                    likes: post.metrics.likes,
+                    text: (post.displayText ?? post.text).slice(0, 400),
                   })),
               }
             : {}),

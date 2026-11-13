@@ -13,7 +13,9 @@ Vucevic milestone fills a vacant fifth slot, with 18 official likes; viral
 quality remains unaccepted. Media trace (2172): zero safe attached-video posts;
 the sole stored video is an NFT-tagged game chart refused by existing safety.
 Nine safe posts have images, 41 have no attached media. Current query is `NBA`;
-no source/query change.
+no source/query change. Free bounded comparison (2173) finds 0/1/0/3 safe
+attached videos for `NBA`/`#NBA`/`NBA highlights`/`basketball`; broader queries
+still need semantic selection. No stored observations or paid calls.
 [Saved-pool reconstruction](edition-reviews/2026-11-13-nba-bluesky.md).
 
 November 13 saved-selection review (2157): four Bluesky picks have saved official metrics; Tech/Gaming repeat selected events and World is a link list. [Reader baseline](edition-reviews/2026-11-12-bluesky-pool.md#saved-selection-baseline--iteration-2157); next natural selection remains unaccepted.
