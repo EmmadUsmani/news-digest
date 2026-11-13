@@ -2983,3 +2983,26 @@ Zero known repeats is not a zero duplicate rate: unlabeled selections can repeat
 Labels are agent judgments, and this counterfactual is not semantic-model or
 scheduled-edition acceptance. All negative labels remain omitted. Synthetic
 controls verify an actual repeated-slot recovery and keep unknown reports apart.
+
+## Iteration 2194: later Gaming grouping boundaries
+
+The already recorded Nov 11–12 Gaming pool now has a separate same-story
+pair set: six positives and four negatives. Positive pairs cover the Golden
+Joystick ceremony across different winners, the Intergalactic production
+update, Geralt voice assistance and Hidden Horses formation. Negative pairs
+separate Witcher awards from voice-production news and unrelated developments.
+Labels follow the supplied headlines/excerpts and the existing ceremony rule;
+they are agent judgments, not independent acceptance.
+
+Run `pnpm exec tsx scripts/evaluate-event-grouping.ts --later-gaming` offline.
+The default no-grouping matcher misses all six positives. A deliberately broad
+Witcher-title control falsely merges both franchise-overlap negatives. The
+recorded event-label control finds all six positives with no known false merge;
+other within-group pairs remain explicitly unknown. These controls verify the
+benchmark boundaries, not model quality. Saved membership evaluation is available
+with `--later-gaming --memberships file.json` using the recorded window key.
+
+The seven-window strict-event and same-story historical reports, paid evaluation
+plan, production matcher, budgets and generation remain unchanged. A fresh
+semantic evaluation and independent labels remain open; no provider calls were
+made and no production selection improvement is claimed.

@@ -137,16 +137,18 @@ export function evaluateClusterMembership(
 export function evaluateEventGrouping(
   matches = noGrouping,
   memberships?: Record<string, string[][]>,
-  definition: 'strict-event' | 'same-story' = 'strict-event',
+  definition: 'strict-event' | 'same-story' | 'later-gaming' = 'strict-event',
 ) {
   const root = join(__dirname, '../test/fixtures');
   const fixture = JSON.parse(
     readFileSync(
       join(
         root,
-        definition === 'same-story'
-          ? 'same-story-pairs.json'
-          : 'event-grouping-pairs.json',
+        definition === 'later-gaming'
+          ? 'same-story-gaming-2026-11-12-pairs.json'
+          : definition === 'same-story'
+            ? 'same-story-pairs.json'
+            : 'event-grouping-pairs.json',
       ),
       'utf8',
     ),
@@ -168,7 +170,11 @@ export function evaluateEventGrouping(
     if (
       !/^ranking-(tech|nba|world)-2026-11-01\.json$/.test(pair.window) &&
       !/^event-grouping-(nba|gaming)-2026-11-02\.json$/.test(pair.window) &&
-      !/^event-grouping-(nba|gaming)-2026-11-03\.json$/.test(pair.window)
+      !/^event-grouping-(nba|gaming)-2026-11-03\.json$/.test(pair.window) &&
+      !(
+        definition === 'later-gaming' &&
+        pair.window === 'ranking-gaming-2026-11-12.json'
+      )
     )
       throw new Error('Unknown recorded window');
     if (!windows.has(pair.window))

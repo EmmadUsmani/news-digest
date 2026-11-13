@@ -1,0 +1,75 @@
+{
+  "note": "Iteration 2194: agent labels from the already recorded Nov 11\u201312 Gaming headlines/excerpts, using the same-story definition and ceremony rule. Six positive and four negative pairs; selected coverage, not independent review or model accuracy. No new provider call. Historical evaluation and paid evaluation plan remain unchanged.",
+  "pairs": [
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "d5a0082b-7f8e-44bc-bb16-636f5e0d5029",
+      "right": "d65fc761-38a7-40ad-844c-00d748484b60",
+      "sameEvent": true,
+      "reason": "Different winners at the same Golden Joystick ceremony belong in one story under the ceremony rule."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "d5a0082b-7f8e-44bc-bb16-636f5e0d5029",
+      "right": "884edaca-634b-4223-afbd-838a3ea0a49f",
+      "sameEvent": true,
+      "reason": "Resident Evil and Witcher awards are coverage of the same ceremony."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "d65fc761-38a7-40ad-844c-00d748484b60",
+      "right": "884edaca-634b-4223-afbd-838a3ea0a49f",
+      "sameEvent": true,
+      "reason": "Witcher 4 and Witcher 3 award reports cover the same ceremony, despite different game titles."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "9d982327-d520-4c76-96e6-b84f613a65cd",
+      "right": "ec607386-306b-4ea2-9e10-44a74391b499",
+      "sameEvent": true,
+      "reason": "Both report AI-assisted Polish Geralt voice matching for Songs of the Past following the actor\u2019s health issues."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "41e9cc57-b695-4526-8ba4-18bd3340cb2c",
+      "right": "7a12d3b2-b310-4373-ba9e-cd933cc4c46d",
+      "sameEvent": true,
+      "reason": "Both report Druckmann\u2019s final-production update and promised next-year reveal."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "f9c8464a-d4d1-4b28-a03f-0fd44d5b1e4c",
+      "right": "5f16a4a5-e664-4d02-8bab-329e68cf6494",
+      "sameEvent": true,
+      "reason": "Both report former id developers forming employee-owned Hidden Horses and crowdfunding its shooter."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "d65fc761-38a7-40ad-844c-00d748484b60",
+      "right": "9d982327-d520-4c76-96e6-b84f613a65cd",
+      "sameEvent": false,
+      "reason": "A Witcher award and the Geralt voice-production decision are separate developments; shared franchise is insufficient."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "884edaca-634b-4223-afbd-838a3ea0a49f",
+      "right": "ec607386-306b-4ea2-9e10-44a74391b499",
+      "sameEvent": false,
+      "reason": "Songs of the Past is mentioned in award coverage but voice matching is a separate production story."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "d5a0082b-7f8e-44bc-bb16-636f5e0d5029",
+      "right": "41e9cc57-b695-4526-8ba4-18bd3340cb2c",
+      "sameEvent": false,
+      "reason": "An award ceremony and an Intergalactic production update are distinct events."
+    },
+    {
+      "window": "ranking-gaming-2026-11-12.json",
+      "left": "7a12d3b2-b310-4373-ba9e-cd933cc4c46d",
+      "right": "f9c8464a-d4d1-4b28-a03f-0fd44d5b1e4c",
+      "sameEvent": false,
+      "reason": "Intergalactic development and the formation of Hidden Horses are separate studio developments."
+    }
+  ]
+}

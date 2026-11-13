@@ -4,11 +4,16 @@ import { evaluateEventGrouping } from '../apps/api/scripts/evaluate-event-groupi
 
 // Offline only. Saved memberships contain window names mapped to arrays of ID groups.
 const args = process.argv.slice(2);
-const definition = args[0] === '--same-story' ? 'same-story' : 'strict-event';
-if (definition === 'same-story') args.shift();
+const definition =
+  args[0] === '--later-gaming'
+    ? 'later-gaming'
+    : args[0] === '--same-story'
+      ? 'same-story'
+      : 'strict-event';
+if (definition !== 'strict-event') args.shift();
 if (args.length && (args.length !== 2 || args[0] !== '--memberships'))
   throw new Error(
-    'Usage: tsx scripts/evaluate-event-grouping.ts [--same-story] [--memberships file.json]',
+    'Usage: tsx scripts/evaluate-event-grouping.ts [--same-story | --later-gaming] [--memberships file.json]',
   );
 let memberships: Record<string, string[][]> | undefined;
 if (args.length) {

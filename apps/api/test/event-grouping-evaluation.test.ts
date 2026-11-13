@@ -343,3 +343,46 @@ void test('same-story review covers every original label and previously unknown 
     1,
   );
 });
+
+void test('later Gaming pairs distinguish ceremony coverage from franchise overlap', () => {
+  const baseline = evaluateEventGrouping(undefined, undefined, 'later-gaming');
+  assert.equal(baseline.pairs, 10);
+  assert.equal(baseline.positives, 6);
+  assert.equal(baseline.negatives, 4);
+  assert.equal(baseline.windows.length, 1);
+  assert.equal(baseline.falseNegatives, 6);
+  assert.equal(baseline.falsePositives, 0);
+  const window = baseline.windows[0].window;
+  assert.equal(window, 'ranking-gaming-2026-11-12.json');
+  // A broad franchise heuristic must fail even though both texts mention Witcher.
+  const franchise = evaluateEventGrouping(
+    (a, b) => /witcher/i.test(a.title) && /witcher/i.test(b.title),
+    undefined,
+    'later-gaming',
+  );
+  assert.equal(franchise.falsePositives, 2);
+  assert.ok(franchise.windows[0].membership.unlabeledMergedPairs > 0);
+  // Labels supply a control only, not a semantic matcher or accuracy estimate.
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/ranking-gaming-2026-11-12.json'),
+      'utf8',
+    ),
+  ) as {
+    events: { ids: string[] }[];
+  };
+  const control = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: fixture.events
+        .map((event) => event.ids)
+        .filter((ids) => ids.length > 1),
+    },
+    'later-gaming',
+  );
+  assert.equal(control.truePositives, 6);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.recall, 1);
+  // Additional within-event pairs remain unknown rather than silently accepted.
+  assert.ok(control.windows[0].membership.unlabeledMergedPairs > 0);
+});

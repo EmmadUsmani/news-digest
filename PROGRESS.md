@@ -22,28 +22,7 @@ Archived entries: [iterations 2175–2176](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2177–2178](docs/progress-archive/2026-11-13-iterations-2177-2178.md).
 
-## 2026-11-13: iteration 2179 — repair admission event log searches
-
-- Clean main; no inherited work. Initial alerts zero; database/Redis health pass; no failed user services.
-- Reader recovery remains pending Nov 14; found the review CLI silently missed structured admission events by searching only message text.
-- `obs logs --grep` now searches message or event within the same service/time/result bounds; query-escaping regression updated.
-- Read-only live verification: event and message searches return identical 14 saved Nov 13 admission records, all admitted; no settlement-wait/recovery acceptance inferred.
-- Targeted CLI tests: 18/18 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
-- Updated TASKS, scheduled review and observability handbook; archived iterations 2162–2163 to keep progress small. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Local CLI only; no generation changes, paid calls, publication writes or service restart required.
-- Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
-
-## 2026-11-13: iteration 2180 — passive metrics recovery observation
-
-- Clean main; no inherited work. Initial alerts zero; database/Redis health pass; no failed user services.
-- Owner value: establish whether the existing low-CPU metrics limit keeps alert evaluation healthy during natural compaction; public launch still excludes Grafana.
-- Scheduled NBA/item 58/private public-mode gates remain pending Nov 14; no replay or generation change.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤1.195 s; no new evaluator failures, missed evaluations, admission-limit hits, queue timeouts or slow queries.
-- One natural small merge/15,189 rows; no large merge. Below comparable threshold, so recovery stays open and capacity remains unchanged.
-- `journalctl -u obs-metrics.service -u obs-alerts.service --since '2026-11-13 16:24:44 UTC' -p warning --no-pager -n 10`: no entries.
-- Updated TASKS and capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only; no runtime restart required.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
-- Next: Nov 14 scheduled all-topic AI/event-diversity review, item 58, then private public activation; no next passive sample before 19:35 UTC.
+Archived entries: [iterations 2179–2180](docs/progress-archive/2026-11-13-iterations-2179-2180.md).
 
 ## 2026-11-13: iteration 2181 — compare U.S. Bluesky reporting supply
 
@@ -189,3 +168,14 @@ Archived entries: [iterations 2177–2178](docs/progress-archive/2026-11-13-iter
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking`, handbook/schema check and `git diff --check` pass: 982 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; no browser screenshots needed.
 - Saved reader endpoint serves five topics/15 stories/20 posts. API/worker restart follows push; no runtime generation or budget changes.
 - Next: pre-noon feed-content precedence, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. Independent labels and semantic grouping remain open.
+
+## 2026-11-13: iteration 2194 — later Gaming grouping boundaries
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Evening cutoff retains the feed parser; scheduled NBA/item 58 acceptance awaits Nov 14.
+- Open M5 step: added six positive/four negative same-story pairs from the recorded Nov 11–12 Gaming pool. Ceremony reports group across winners; Witcher awards stay separate from Geralt voice-production news.
+- Separate offline `--later-gaming` report leaves historical reports and the paid evaluation plan unchanged. Default matcher misses six positives; broad Witcher-title control falsely merges two negatives. Event-label control finds six with zero known false merges; other pairs stay unknown.
+- Labels are agent judgments, not independent acceptance or model accuracy. No inference, new fetch, production generation or budget changes. Semantic evaluation remains open.
+- Verification: ten targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, offline CLI, handbook/schema check and `git diff --check` pass: 983 unit/294 integration tests, four expected skips; existing web chunk warning.
+- TASKS/RANKING updated; archived progress 2179–2180. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, owner decision or system-flow change. No UI change; browser screenshots unnecessary.
+- Rebuilt API/worker restarted; both active, health/database/Redis pass, latest reader endpoint serves five topics. Commit/push follows verification.
+- Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/event diversity, then NBA/item 58/private public activation. No paid replay.
