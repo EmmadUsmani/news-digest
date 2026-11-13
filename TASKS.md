@@ -43,7 +43,7 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] World link-list social quality (2132): saved Nov 12 Bluesky pick supplies publisher links/counters without reporting prose. Social editor v10 explicitly refuses inferring news from URL slugs alone; substantive linked prose remains eligible. Saved-text transport and simulated selections verified offline; natural selection quality awaits scheduled review. [Evidence](docs/edition-reviews/2026-11-12-social-link-list.md).
 
-- [ ] Tech story/post repetition (2134): Bluesky selection now receives bounded selected Tech story context; overlapping posts need a distinct development or original contribution. Saved airline overlap, model routes, bounds and preparation verified offline; natural scheduled acceptance remains open. [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
+- [ ] Tech story/post repetition (2134, 2138): X/Reddit and Bluesky selection now receive shared bounded selected Tech story context; overlapping posts need a distinct development or original contribution. Saved airline overlap, model routes, bounds and preparation verified offline; natural scheduled acceptance remains open. [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
 
 - [ ] Gaming English context (2135): saved French clip note adds a launch date absent from its own post. Social editor v11 prioritizes source-bound English translation with uncertainty; offline saved-text routes verified. Natural scheduled note quality remains open. [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
 

@@ -111,6 +111,7 @@ export async function editTopicPosts<T extends EditorialPost>(
   fallback: T[],
   budget: number,
   runId: string,
+  coveredStories: { title: string; summary: string }[] = [],
 ) {
   const editorial: PostEditorial = {
     mode: 'non-ai',
@@ -256,6 +257,8 @@ export async function editTopicPosts<T extends EditorialPost>(
     shortlist,
     Math.min(20, budget),
     runId,
+    [],
+    coveredStories,
   );
   if (!edited) return result;
   const shortlistIds = new Set(shortlist.map((post) => post.id));

@@ -23,3 +23,18 @@ synthetic development, enforce context bounds and isolate context-free caches.
 Edition composition also verifies transport through Bluesky preparation.
 These tests do not measure future model compliance. Review natural Tech picks
 after the next scheduled publication; do not regenerate the immutable edition.
+
+## X selection context — iteration 2138
+
+Tech X/Reddit final editing now receives the same bounded selected-story context
+as Bluesky. Previously it ran before the context was supplied, so the first
+platform selection could not compare news coverage. One shared Tech-only
+projection feeds both stages; NBA and other topics retain their previous input.
+The existing final-editor prompt, 300/400-character limits, context-specific
+cache fingerprint, platform preference and fallback remain unchanged.
+
+Offline orchestration verifies that context reaches final editing rather than
+triage, a simulated empty selection does not restore fallback posts, omitted
+context stays empty, and original post text remains unchanged. Existing saved
+Bluesky overlap/model-route regressions remain applicable to the shared editor;
+no saved X overlap or future model compliance is claimed. No paid calls.

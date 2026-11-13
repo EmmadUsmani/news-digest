@@ -718,3 +718,59 @@ void test('final X editor retains bounded unverified engagement and media eviden
     assert.deepEqual(candidate, original);
   }
 });
+
+void test('X/Reddit orchestration transports selected news only to final editing and permits no extra contribution', async () => {
+  const covered = [
+    {
+      title: 'Airline blocks booking agents',
+      summary: 'The airline restricted automated booking.',
+    },
+  ];
+  const original = structuredClone(posts[0]);
+  let edits = 0;
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score(_topic, candidates) {
+        assert.equal(candidates.length, 1);
+        assert.ok(!JSON.stringify(candidates).includes(covered[0].summary));
+        return {
+          scores: [
+            {
+              id: '0',
+              relevance: 8,
+              importance: 7,
+              event: 'airline',
+              rationale: 'fixture',
+            },
+          ],
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit(_topic, candidates, budget, _runId, alreadySelected, stories) {
+        assert.equal(budget, 1);
+        assert.equal(candidates[0].text, original.text);
+        assert.deepEqual(alreadySelected, []);
+        assert.deepEqual(stories, edits++ === 0 ? covered : []);
+        // Simulated rejection verifies orchestration, not semantic compliance.
+        return { model: 'fake', posts: [] };
+      },
+    },
+  };
+  for (const context of [covered, undefined]) {
+    const result = await editTopicPosts(
+      services,
+      { ...topic, name: 'Tech & AI' },
+      [original],
+      [original],
+      1,
+      'context',
+      context,
+    );
+    assert.deepEqual(result.posts, []);
+    assert.equal(result.postEditorial.mode, 'ai');
+  }
+  assert.equal(edits, 2);
+  assert.deepEqual(original, posts[0]);
+});

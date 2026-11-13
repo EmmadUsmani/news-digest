@@ -136,3 +136,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2117-2125
 - API/worker/docs restarted active; `/healthz` database/Redis healthy. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
 - Updated TASKS and existing Tech evidence review. No runtime/source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budgets, flags or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review natural Tech evidence depth/post overlap and pending Gaming/World social quality.
+
+## 2026-11-13: iteration 2138 — compare Tech X picks with selected news
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits Nov 13 15:00 UTC; public mode remains off.
+- Found Tech selected-story context reached only Bluesky; X/Reddit editing ran without it. One shared Tech-only projection now feeds both final editors, so overlapping posts need a distinct development or original contribution.
+- Existing context bounds, comparison-only prompt, cache fingerprint, platform preference, fallbacks and call counts retained. NBA/other topics retain their prior input.
+- `pnpm exec tsx --test apps/api/test/social-editorial-selection.test.ts apps/api/test/social-editor.test.ts`: 33/33 pass. New orchestration regression verifies final-edit transport, no story context in triage, simulated empty selection without restoring fallback, omitted context and original text preservation; no semantic compliance claim.
+- `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes. Updated TASKS, existing overlap review and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 954 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- API/worker/docs restarted active; `/healthz` database/Redis healthy; 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
+- No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then private-sharing public activation; review natural Tech overlap alongside pending social quality.

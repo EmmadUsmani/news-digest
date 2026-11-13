@@ -585,6 +585,12 @@ export class PostgresPreviewRepository
                   )
                 : [];
             postCandidates.push(...redditPosts);
+            const coveredStories = usesTechEditorialContext(topic.name)
+              ? stories.slice(0, 10).map(({ title, summary }) => ({
+                  title,
+                  summary: summary ?? '',
+                }))
+              : undefined;
             const postSelection = await editTopicPosts(
               editorialServices,
               {
@@ -597,6 +603,7 @@ export class PostgresPreviewRepository
               posts,
               Number(topic.post_budget),
               runId,
+              coveredStories,
             );
             const bluesky = await selectEditionBlueskyPosts(
               client,
@@ -613,12 +620,7 @@ export class PostgresPreviewRepository
                 end,
                 budget: Number(topic.post_budget),
                 selectedPosts: postSelection.posts,
-                coveredStories: usesTechEditorialContext(topic.name)
-                  ? stories.slice(0, 10).map(({ title, summary }) => ({
-                      title,
-                      summary: summary ?? '',
-                    }))
-                  : undefined,
+                coveredStories,
                 runId,
               },
             );
