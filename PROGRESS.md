@@ -206,4 +206,4 @@
 - Production triage regression verifies complete escaped JSON, untouched text/official metrics, cache reuse and invalidation on changed reported likes. Targeted triage/social selection: 37 pass.
 - Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged. No external calls, paid replay, provider/budget/flag/sharing changes.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 929 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts social-posts` passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
-- Commit/push and API/worker restart follow; next scheduled NBA/item 58 acceptance, then authorized private-sharing public activation.
+- Pushed `14cd9eea`; API/worker restarted active. Healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check`: 38 healthy; `pnpm obs jobs --check --limit 1`: all queues staffed, edition scheduled 15:00 UTC. Next: NBA/item 58 scheduled acceptance, then authorized private-sharing public activation.
