@@ -180,3 +180,16 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only. Archived oldest retained entry to keep progress small.
 - Local probe only; runtime unchanged, no service restart needed.
 - Next: normal Nov 14 edition recovery/AI/event-diversity review, then item 58/private public mode; do not repeat this comparison without a concrete new discovery hypothesis.
+
+## 2026-11-13: iteration 2178 — compare Gaming Bluesky discovery supply
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; no failed user services.
+- Owner-visible aim: improve relevant Gaming post supply without adding old clips or repeating the already-selected event.
+- NBA/item 58/private public-mode activation await Nov 14 scheduled recovery; no generation changes.
+- Added non-storing `probe-bluesky.ts --gaming`; four free searches compare game/gaming/video games/Slay the Spire in one 24-hour window.
+- Fetched 50/48/50/48 posts; safety/engagement pools 48/48/50/48, attached videos 5/5/1/1. Bounded texts show commentary, old clips and repeated beta-update coverage.
+- Retain production `game` query and semantic/editorial gates; no writes, paid calls, media fetches or configuration changes.
+- Four-result assertions pass after selecting query records from adapter event output; combined `--gaming --store` refuses before credentials/network. Export mode 600.
+- Updated TASKS/SOURCES and saved comparison; handbook/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
+- Local probe only; runtime unchanged, no restart needed. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public mode.

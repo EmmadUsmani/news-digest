@@ -2752,3 +2752,11 @@ Bounded examples include commentary, ambiguous names and game promotions;
 these counts do not establish semantic relevance or useful product demos.
 Retain the production query and editorial gates; no storage, paid calls or
 source configuration changes. [Evidence](edition-reviews/2026-11-13-tech-bluesky.md).
+
+Nov 13 Gaming free discovery comparison (2178): `game`, `gaming`,
+`video games` and `Slay the Spire` returned 50/48/50/48 posts, with
+48/48/50/48 safety-and-engagement candidates and 5/5/1/1 attached videos.
+Bounded examples show off-topic commentary, old clips and repeated coverage;
+the title query rediscovers the already-selected beta update. Retain `game`
+and semantic/editorial gates; no writes, paid calls or configuration changes.
+[Evidence](edition-reviews/2026-11-13-gaming-bluesky.md).
