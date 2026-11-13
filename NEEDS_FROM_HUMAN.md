@@ -180,4 +180,6 @@ reports proxy port 8000. A signed-in browser `fetch('/api/me')` sending a
 spoofed non-admin `X-ExeDev-Email` returned `isAdmin: true`, so the proxy
 replaced the client's header with the real identity. Not covered: the
 `X-ExeDev-UserID` header, and anonymous visitors once the proxy is public.
-Public activation remains gated on the owner's go-public decision.
+Under STEERING 59, private public-mode activation follows scheduled NBA/item 58
+acceptance without another owner decision. Sharing remains private; the owner's
+go-public decision gates sharing only.

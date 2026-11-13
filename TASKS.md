@@ -20,8 +20,6 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] STEERING 34: fixed keyword X search ON; semantic dropped, Grok/caps unchanged. Continue daily quality review: [Nov 13 saved-text review](docs/edition-reviews/2026-11-13-x-quality.md) (2163) finds eight of 16 picks in daily-search citations (all outside-list), missing official metrics throughout, overlapping Tech launch coverage and weak teasers. Gaming translation/repetition and Tech overlap fixes await natural acceptance; viral quality unaccepted. Do not infer engagement from missing official metrics.
 
-- [ ] STEERING 30/31 historical accounting: $2.50 experiment/$1 UTC-day cap, outside 13:00–16:00; $0.15 per-call hold. Round 1 $0.532331 includes unresolved Gaming timeout. [Evidence](docs/x-search-experiment.md).
-
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. Same-story production pass enabled, four-call bound $0.058192. No wording rules. [Review](docs/edition-reviews/2026-11-05.md).
 
 - [ ] STEERING 7 speed: Nov 12 fifth-topic delay diagnosed; isolated staged scheduler demonstrates NBA repair admission risk. Failure draining/cycle controls pass offline; production unchanged. Protected ownership/handoff design follows NBA scheduled acceptance. Targets <60 seconds/current volume and <2 minutes/1,500 unmet. [Evidence](docs/edition-reviews/2026-11-12-social-latency.md).
@@ -53,6 +51,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 - [ ] Gaming English context (2135, 2139): editor v11 translation guidance and Gaming calendar-date guard refuse saved invented launch date offline. Review natural notes. [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
 
 ## Completed and deferred
+
+- [x] STEERING 30/31 historical accounting reconciled (2175): 33 calls, $1.168639 settled + two $0.15 unknown Gaming holds = $1.468639 charged. Holds stay charged; reopen only with request-specific usage evidence. No further experiment authorized. [Evidence](docs/x-search-experiment.md#historical-accounting-reconciled--nov-13-iteration-2175).
 
 - [x] NBA item 54 accepted Nov 11 (1824); Nov 12 recurrence remains open above.
 - [x] Tech evidence depth: direct publisher cluster excerpts and bounded immutable snapshots verified offline through budgeted production editing (2130–2137); natural summary quality still needs scheduled review. [Evidence](docs/edition-reviews/2026-11-12-tech-depth.md).

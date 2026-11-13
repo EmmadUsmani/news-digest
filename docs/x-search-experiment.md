@@ -405,3 +405,28 @@ The revised runner retries a transport `TimeoutError` once, using a separate
 A second timeout stops dispatch. Continuing a round skips its attempted cells,
 so restart cannot grant another retry. Other transport errors still stop without
 retry. Tool-failure/no-execution retries and the switched-off schedule remain open.
+
+## Historical accounting reconciled — Nov 13, iteration 2175
+
+The private experiment journal contains 33 calls. Append-only saved settlements
+override their original unknown reservations; neither original entries nor
+responses were changed. Current totals supersede the interim totals above.
+
+| UTC day | Calls | Settled USD | Unresolved holds USD | Charged USD |
+| ------- | ----: | ----------: | -------------------: | ----------: |
+| Nov 4   |    12 |    0.382331 |             0.150000 |    0.532331 |
+| Nov 5   |     8 |    0.295318 |             0.150000 |    0.445318 |
+| Nov 6   |    13 |    0.490990 |                    0 |    0.490990 |
+| Total   |    33 |    1.168639 |             0.300000 |    1.468639 |
+
+Two Gaming calls remain unknown: Nov 4 current and Nov 5 viral. Both have
+saved requests but no response; Nov 5 also records a transport timeout. No
+saved usage exists to settle either hold. Keep both charged indefinitely;
+absence of a response does not establish zero provider spend. Reopen only
+when request-specific usage evidence becomes available, without a paid retry.
+
+Local reconciliation is complete; unknown provider outcomes remain unknown.
+This experiment ledger is separate from production discovery spend. The
+remaining $1.031361 under the historical $2.50 cap is accounting headroom,
+not authorization for more experiments. Production keyword quality acceptance
+continues under STEERING 34. No provider request or journal write was made.

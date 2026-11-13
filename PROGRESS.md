@@ -172,3 +172,15 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived oldest retained entry to keep progress small.
 - Documentation only; runtime unchanged, no rebuild/restart needed.
 - Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later World discovery remains gated.
+
+## 2026-11-13: iteration 2175 — finish historical X experiment reconciliation
+
+- Clean main; no inherited work. Initial alerts zero; local health database/Redis pass, no failed user services.
+- NBA/item 58/private public-mode activation await the next scheduled edition; no paid replay or generation changes.
+- Closed stale STEERING 30/31 local accounting task: all 33 calls reconciled, $1.168639 settled plus $0.300000 unknown holds = $1.468639 charged.
+- Both unknown Gaming requests lack saved responses; Nov 5 records a timeout. Retain both $0.15 holds indefinitely; reopen only for request-specific usage evidence.
+- Read-only Python assertions matched 29 original settlement receipts and both append-only response hashes, absence of both unknown responses, totals and historical daily caps. No journal writes/provider calls.
+- Updated experiment evidence/TASKS; corrected NEEDS_FROM_HUMAN's stale activation gate to STEERING 59: owner approval gates sharing, not private public-mode activation.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass (975 unit/291 integration tests, four expected skips).
+- Documentation only; SOURCES/handbook and runtime unchanged, no rebuild/restart needed.
+- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58 and private public mode; no repeat historical accounting audit without new evidence.
