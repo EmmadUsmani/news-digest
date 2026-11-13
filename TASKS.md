@@ -34,7 +34,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] M5 grouping: Gaming/later-date fallback benchmark added (2192), 200 recorded candidates/one of five labeled events found, guide negatives omitted; ceremony counts once. Label-only grouping comparison (2193) merges up to seven reports but restores no target slots in these four windows; ranking/relevance remain separate gaps. Later Gaming same-story pair evaluation (2194) adds six positive/four negative boundaries, including ceremony versus franchise overlap; historical/paid benchmark unchanged. Independent labels and semantic grouping evaluation still needed; agent-labelled windows are not general quality estimates. [Evidence](docs/RANKING.md#iteration-2192-later-gaming-window).
 
-- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; historical NBA raw-body transport/validation/cache regression added (2202), with synthetic zero usage explicitly separated; real full-edition raw-response golden open. No paid replay or re-recording unchanged prompts. [Database verification](docs/DATABASE-VERIFICATION.md).
+- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; historical NBA raw-body transport/validation/cache regression (2202) now extends through isolated publication, immutable retrieval and reader projection (2203); synthetic triage/metadata/zero usage explicit. Real full-edition raw-response golden open. No paid replay or re-recording unchanged prompts. [Database verification](docs/DATABASE-VERIFICATION.md).
 
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass.
 

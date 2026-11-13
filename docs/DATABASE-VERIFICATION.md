@@ -831,3 +831,21 @@ The diagnostic artifact did not retain token usage. Test usage is explicitly
 synthetic zero, and its ledger is in memory. This is historical body replay,
 not a full edition golden or a provider usage recording. Item 4 remains open;
 no paid re-recording or production change was made.
+
+## Historical NBA publication (iteration 2203)
+
+The isolated `edition-golden.test.ts` regression now publishes the historical
+Sonnet body through the current full validator and real Postgres repository.
+It compares selected story IDs, headlines, summaries, context and cited evidence
+with the saved parsed response, then checks published-only retrieval and reader
+projection. The published brief must come from the first four selected headlines.
+A second publication creates a distinct snapshot while using the cached response;
+the first snapshot remains unchanged, with one provider dispatch and settlement.
+
+Candidate reporting and response bytes are historical. Triage scores, source
+attribution, URLs, publication dates and zero usage are explicitly synthetic.
+The archived request identifies transport; today's validator receives candidates
+loaded and shortlisted by the repository. This is a one-topic publication
+regression, not a replay of historical triage, current prompts, HTTP transport or
+the complete scheduled edition. The full recorded-response golden remains open.
+No live database, external provider or paid call is used.

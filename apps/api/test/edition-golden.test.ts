@@ -5,10 +5,22 @@ import { test } from 'node:test';
 import { digestPreviewSchema } from '@digest/contracts';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { ReplayLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
-import { ShortlistEditor } from '../src/modules/curation/application/editor';
-import { CandidateTriage } from '../src/modules/curation/application/triage';
-import type { LlmPort } from '../src/modules/curation/domain/llm.port';
+import {
+  type EditorialResult,
+  ShortlistEditor,
+} from '../src/modules/curation/application/editor';
+import {
+  CandidateTriage,
+  type TriageCandidate,
+  type TriageTopic,
+} from '../src/modules/curation/application/triage';
+import type {
+  LlmPort,
+  LlmRequest,
+  ModelPrice,
+} from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { developmentEditorialServices } from '../src/modules/curation/public/development-editorial';
 import {
@@ -18,6 +30,7 @@ import {
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
 import type { Candidate, rank } from '../src/modules/digests/domain/rank';
+import { readerEdition } from '../src/modules/digests/reader-edition.controller';
 
 const fixture = (name: string) =>
   JSON.parse(
@@ -567,6 +580,217 @@ void test('system edition scope preserves publication filters, replay and rollba
       topicIds,
     ]);
     await adapter.db.query('DELETE FROM profiles WHERE id=$1', [foreign]);
+    for (const row of originals)
+      await adapter.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
+        row.id,
+        row.enabled,
+      ]);
+    await adapter.onModuleDestroy();
+  }
+});
+
+void test('historical NBA body survives validation, publication and reader retrieval with synthetic triage and metadata', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  assert.equal(process.env.ANTHROPIC_API_KEY, '');
+  const raw = JSON.parse(
+    readFileSync(
+      new URL('fixtures/llm/nba-2026-11-12-raw.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    provenance: string;
+    request: LlmRequest;
+    responseText: string;
+  };
+  const saved = JSON.parse(
+    readFileSync(
+      new URL('fixtures/llm/nba-2026-11-12-rejected.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    entries: {
+      input: {
+        topic: TriageTopic;
+        candidates: TriageCandidate[];
+        budget: number;
+      };
+      output: Omit<EditorialResult, 'model'>;
+      model: ModelPrice;
+    }[];
+  };
+  const { input, output, model } = saved.entries[0];
+  // Only the request/body and candidate reporting are historical. Triage,
+  // URLs, dates, attribution and zero token usage below are test scaffolding.
+  const usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+  const replay = new ReplayLlmAdapter({
+    version: 1,
+    provenance: raw.provenance,
+    records: [
+      {
+        fingerprint:
+          '640b54bff32d01928e6f30eac446512e08c5c6da1a46e0d0ba8a8d1f05858501',
+        model: model.id,
+        response: { text: raw.responseText, usage },
+      },
+    ],
+  });
+  const cache = new Map<string, unknown>();
+  let dispatches = 0;
+  let settlements = 0;
+  const llm = new BudgetedLlm(
+    {
+      async complete(request) {
+        dispatches++;
+        return replay.complete(request);
+      },
+    },
+    {
+      async cached(key) {
+        return cache.get(key);
+      },
+      async cache(key, value) {
+        cache.set(key, value);
+      },
+      async reserve() {
+        return 'historical-publication-offline';
+      },
+      async settle(_id, actual, cost) {
+        settlements++;
+        assert.deepEqual(actual, usage);
+        assert.equal(cost, 0);
+      },
+      async fail() {
+        assert.fail('Historical NBA response must validate');
+      },
+    },
+  );
+  const editor = new ShortlistEditor(
+    {
+      // Preserve archived transport identity; validate against candidates actually
+      // loaded and shortlisted by the publication pipeline, using today's guard.
+      json: (_request, validate) =>
+        llm.json(raw.request, validate, { repair: false }),
+    },
+    model,
+    model,
+  );
+  const adapter = new PostgresPreviewRepository();
+  const topic = '00000000-0000-4000-8000-000000000890';
+  const source = 'historical-nba-publication-fixture';
+  const originals = (await adapter.db.query('SELECT id,enabled FROM topics'))
+    .rows;
+  Object.defineProperty(adapter, 'editorial', {
+    value: {
+      triage: {
+        async score(_context: unknown, candidates: TriageCandidate[]) {
+          return {
+            scores: candidates.map((candidate) => ({
+              id: candidate.id,
+              relevance: 9,
+              importance: 8,
+              event: candidate.id,
+              rationale: 'Synthetic triage for publication regression.',
+            })),
+            unscoredIds: [],
+          };
+        },
+      },
+      editor,
+    },
+  });
+  try {
+    await adapter.db.query('UPDATE topics SET enabled=false');
+    await adapter.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position,story_budget,post_budget) VALUES($1,'00000000-0000-4000-8000-000000000001','NBA','NBA basketball news and analysis.','',100,5,0)`,
+      [topic],
+    );
+    await adapter.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,'Offline NBA fixture','feed','https://example.org/nba/feed')`,
+      [source, topic],
+    );
+    await adapter.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) VALUES($1,$2)',
+      [topic, source],
+    );
+    for (const candidate of input.candidates) {
+      await adapter.db.query(
+        `INSERT INTO content_items(id,canonical_url,title,excerpt,published_at,engagement) VALUES($1,$2,$3,$4,$5,$6)`,
+        [
+          candidate.id,
+          `https://example.org/nba/${candidate.id}`,
+          candidate.title,
+          candidate.excerpt,
+          '2026-11-12T10:00:00Z',
+          { points: 0 },
+        ],
+      );
+      await adapter.db.query(
+        'INSERT INTO content_observations(source_id,item_id) VALUES($1,$2)',
+        [source, candidate.id],
+      );
+    }
+    const expected = output.stories.map((story) => ({
+      id: story.id,
+      title: story.headline,
+      summary: story.summary,
+      whyItMatters: story.whyItMatters,
+      evidenceIds: [...story.evidenceIds].sort(),
+    }));
+    const editions = [];
+    for (let i = 0; i < 2; i++) {
+      const edition = digestPreviewSchema.parse(
+        await adapter.generate(
+          new Date('2026-11-12'),
+          new Date('2026-11-13'),
+          `historical-nba-offline:${i}`,
+        ),
+      );
+      assert.equal(edition.topics.length, 1);
+      assert.equal(edition.topics[0].editorial.mode, 'ai');
+      assert.equal(edition.topics[0].editorial.model, model.id);
+      assert.deepEqual(
+        edition.topics[0].stories.map((story) => ({
+          id: story.id,
+          title: story.title,
+          summary: story.summary,
+          whyItMatters: story.whyItMatters,
+          evidenceIds: story.evidence.map((item) => item.id).sort(),
+        })),
+        expected,
+      );
+      assert.deepEqual(await adapter.find(edition.id, true), edition);
+      const reader = readerEdition((await adapter.find(edition.id, true))!);
+      assert.deepEqual(
+        reader.topics[0].brief,
+        output.stories.slice(0, 4).map((story) => story.headline),
+      );
+      assert.deepEqual(
+        reader.topics[0].stories.map(({ id, title, summary }) => ({
+          id,
+          title,
+          summary,
+        })),
+        // Reader contracts intentionally omit editorial context from stories.
+        expected.map(({ id, title, summary }) => ({ id, title, summary })),
+      );
+      editions.push(edition);
+    }
+    assert.notEqual(editions[0].id, editions[1].id);
+    assert.deepEqual(await adapter.find(editions[0].id, true), editions[0]);
+    assert.equal(dispatches, 1);
+    assert.equal(settlements, 1);
+    assert.deepEqual(llm.validationDiagnostics(), []);
+  } finally {
+    await adapter.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source],
+    );
+    await adapter.db.query(
+      'DELETE FROM content_items WHERE id=ANY($1::uuid[])',
+      [input.candidates.map((candidate) => candidate.id)],
+    );
+    await adapter.db.query('DELETE FROM topics WHERE id=$1', [topic]);
+    await adapter.db.query('DELETE FROM content_sources WHERE id=$1', [source]);
     for (const row of originals)
       await adapter.db.query('UPDATE topics SET enabled=$2 WHERE id=$1', [
         row.id,

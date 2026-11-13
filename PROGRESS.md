@@ -32,26 +32,9 @@ Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185
 
 Archived entry: [iteration 2188](docs/progress-archive/2026-11-13-iteration-2188.md).
 
-## 2026-11-13: iteration 2189 — continue truncated story excerpts at source
+Archived entry: [iteration 2189](docs/progress-archive/2026-11-13-iteration-2189.md).
 
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 awaits Nov 14 scheduled acceptance; noon generation cutoff respected.
-- Reader weakness: Nov 13 Beal and three Gaming summaries end mid-sentence with ellipses. Added “Continue reading at source” beneath explicitly truncated summaries; complete/blank summaries keep their existing treatment.
-- Saved text, links, editions and generation unchanged. No inference, collection or database writes.
-- Temporary GET-only Playwright check against actual latest edition passes desktop/mobile light/dark: four continuation links, exact source URLs, all saved summary text, keyboard focus, 44px targets, no overflow/page errors, immutable API before/after. Probe removed; four screenshots saved; mobile light inspected.
-- TASKS updated; archived progress 2173–2174 to stay below size limit. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source or system-flow change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check`; all pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. API restarted with rebuilt reader; health/database/Redis pass.
-- Next: pre-noon feed-content precedence, then Nov 14 scheduled all-topic AI editing/event diversity and item 58/private public activation.
-
-## 2026-11-13: iteration 2190 — continue reading bookmarked excerpts
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units; all 38 listed sources show recent successful collection. NBA/item 58 still awaits Nov 14 scheduled acceptance; noon generation cutoff respected.
-- Reader weakness: saving Nov 13's truncated or headline-only story/post dropped the edition view's explicit source guidance. Saved cards now offer continuation for truncated stories/X excerpts, and “Summary unavailable” plus “Read source” for blank story summaries.
-- Bookmark storage, text, links, edition snapshots and generation unchanged; no inference or server writes.
-- Temporary GET-only Playwright probe saves all 35 actual-edition items through reader controls: five unavailable summaries, seven truncated excerpts and 23 complete controls pass desktop/mobile light/dark; exact text/URLs, keyboard focus, 44px targets, reload persistence, no overflow/page errors, unchanged local storage and immutable edition API. Probe stays outside repo; four screenshots saved and mobile light inspected.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warning.
-- TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, operation or system-flow change.
-- API restarted after push to serve rebuilt reader; health/database/Redis pass.
-- Next: pre-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/event diversity, then item 58/private public activation.
+Archived entry: [iteration 2190](docs/progress-archive/2026-11-13-iteration-2190.md).
 
 ## 2026-11-13: iteration 2191 — retain editorial caveats in saved posts
 
@@ -185,4 +168,16 @@ Archived entry: [iteration 2188](docs/progress-archive/2026-11-13-iteration-2188
 - TASKS and database-verification evidence updated; archived iteration 2188. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Verification: targeted NBA tests 4/4; `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 986 unit/294 integration tests, four expected skips; existing web chunk warning. Initial full check caught archive formatting; fixed before complete retry.
 - API/worker rebuilt/restarted active; health/Postgres/Redis and latest five-topic reader pass. Commit/push and final restart follow verification.
+- Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2203 — historical NBA publication regression
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis and API/worker active. Scheduled NBA/item 58 acceptance awaits Nov 14; generation cutoff retained.
+- Extended the historical Sonnet raw-body replay through real isolated Postgres publication, published-only retrieval and reader projection using today's complete validator and database-loaded candidates.
+- All five story IDs/headlines/summaries/context/evidence and the selected-headline brief compared with the saved response. Second publication must use cache, create a new snapshot and preserve the first.
+- Historical candidate reporting/body distinguished from synthetic triage, attribution, URLs/dates and zero usage. No paid calls, live database writes or production behavior changes. Full recorded-response edition golden stays open.
+- TASKS and database-verification evidence updated; archived iterations 2189–2190. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification caught two test setup assumptions: manual generation is unpublished, and reader contracts omit story context. Explicit offline scheduled keys and reader-field assertions now match those contracts; stored context still checked. Final integration rerun passes.
+- Verification: `pnpm check` passed typecheck/lint/format/boundaries and 986 unit tests, then caught the reader assertion above. Corrected `pnpm test:integration` passes 295 tests/four expected skips; targeted API typecheck/lint and changed-file formatting pass. `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
+- Final formatting/lint, commit/push and built API/worker restart follow checks; latest reader retains five topics/15 stories/20 posts.
 - Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
