@@ -6,6 +6,7 @@ import { topicSchema } from '@digest/contracts';
 
 import { collectBlueskyTopics } from '../apps/api/src/modules/social/application/collect-bluesky-topics';
 import type { BlueskyRepository } from '../apps/api/src/modules/social/domain/bluesky';
+import { scheduledBlueskyPolicy } from '../apps/api/src/scheduled-bluesky-policy';
 import { localAdminFetch } from './lib/local-admin-fetch';
 
 async function main() {
@@ -25,7 +26,23 @@ async function main() {
     'Revisit plan: explicit World override exists',
   );
   const original = JSON.stringify(topics);
-  const policy = { worldTopicId: world.id };
+  for (const enabled of [undefined, '0', 'true', ' 1'])
+    assert.equal(
+      scheduledBlueskyPolicy({ BLUESKY_WORLD_ROTATION_ENABLED: enabled }),
+      undefined,
+    );
+  for (const id of [undefined, '', ' ', 'World news & politics'])
+    assert.throws(() =>
+      scheduledBlueskyPolicy({
+        BLUESKY_WORLD_ROTATION_ENABLED: '1',
+        BLUESKY_WORLD_TOPIC_ID: id,
+      }),
+    );
+  const policy = scheduledBlueskyPolicy({
+    BLUESKY_WORLD_ROTATION_ENABLED: '1',
+    BLUESKY_WORLD_TOPIC_ID: ` ${world.id} `,
+  });
+  assert.deepEqual(policy, { worldTopicId: world.id });
   const queries = [
     'World news & politics',
     'Ukraine',
@@ -212,6 +229,7 @@ async function main() {
       otherTopicQueriesUnchanged: true,
       collectorContractChecks: 6,
       rolloverAndRetryChecks: 8,
+      schedulerConfigurationChecks: 9,
       productionPolicyEnabled: false,
       liveSearches: 0,
       liveWrites: 0,

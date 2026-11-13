@@ -16,10 +16,12 @@ import { PostgresSocialRepository } from './modules/social/database/social.repos
 import { PostgresXDiscoveryLedger } from './modules/social/database/x-discovery.ledger';
 import { PostgresXSearchRepository } from './modules/social/database/x-search.repository';
 import { PostgresTopicRepository } from './modules/topics/database/topic.repository';
+import { scheduledBlueskyPolicy } from './scheduled-bluesky-policy';
 import { fixedXSearchEnabled } from './scheduled-fixed-x-search';
 import { runScheduledXRuntime } from './scheduled-x-runtime';
 
 export function startScheduledSocial(http: SharedHttpClient) {
+  const blueskyPolicy = scheduledBlueskyPolicy();
   const connection = { host: '127.0.0.1', port: 6379 };
   const repository = new PostgresSocialRepository();
   const profiles = new PostgresProfileRepository();
@@ -80,6 +82,8 @@ export function startScheduledSocial(http: SharedHttpClient) {
           bluesky,
           blueskySearch,
           await topics.listDefault(),
+          undefined,
+          blueskyPolicy,
         );
       }
       if (job.name !== 'collect') throw new Error('Unknown social job');

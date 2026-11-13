@@ -31,7 +31,7 @@ export async function collectBlueskyTopics(
       topic.queries.find((q) => q.trim()) ??
       topic.relevancePolicy.includeAny[0] ??
       topic.name;
-    // Opt-in by stable ID; no scheduler enables this policy yet. Capture the
+    // Opt-in by stable ID; disabled by default in the scheduler. Capture the
     // slot from the shared window end so retries/restarts do not reset it.
     const slot = Math.floor(end.getTime() / 3600000) % 4;
     const rotated =

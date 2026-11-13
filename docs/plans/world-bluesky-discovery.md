@@ -2,8 +2,9 @@
 
 Prepared November 13, iteration 2150. **Not enabled.** NBA/item 58 scheduled
 acceptance and private public-mode activation retain priority. The optional
-collector policy is implemented offline; scheduler wiring and activation remain
-pending outside the protected deployment window, after that work permits it.
+collector policy and default-off scheduler wiring are implemented offline.
+Deployment and activation remain pending outside the protected window, after
+that work permits it.
 
 ## Candidate schedule
 
@@ -67,7 +68,8 @@ edition review, not the owner handbook. No paid verification is authorized.
 metadata through the local admin endpoint, then uses fake search/storage ports
 with the real collector. It submits no observations and contacts no provider.
 It passes the optional World topic-ID policy directly to the collector; the
-production scheduler supplies no policy and retains its existing queries. An
+scheduler supplies no policy unless explicitly enabled and retains its existing
+queries by default. An
 existing explicit World override refuses the rehearsal.
 
 November 13 result: 24 simulated hours, 120 searches, baseline/event allocation
@@ -89,3 +91,20 @@ activation remain pending; no production caller opts in. Iteration 2153 labels
 the coverage report query as current and unrotated, and explains that stored
 observations cannot attribute posts to baseline or event queries. Natural pilot
 comparison must retain the actual hourly collection results separately.
+
+## Scheduler opt-in — iteration 2154
+
+The worker reads `BLUESKY_WORLD_ROTATION_ENABLED` once at startup. Only `1`
+enables the policy; `BLUESKY_WORLD_TOPIC_ID` must then contain the configured
+World topic UUID. A missing or malformed UUID refuses startup before social
+schedulers start. Disabled configuration ignores the ID. Names never select
+the topic, and an unmatched UUID changes no topic queries.
+
+No environment setting or deployed worker changed. Activate only after the
+NBA/item 58 and private public-mode gates, outside the deployment hold. Before
+activation, verify the UUID against current default topics and retain hourly
+BullMQ collection results (48 completed jobs are retained) before they expire.
+Those results include actual queries and counts; they cannot attribute each
+individual stored observation to a query. Disable the flag and restart the worker
+to roll back. Nine configuration checks and the full fake-port day now use
+the same configuration parser as the scheduler.

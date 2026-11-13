@@ -166,3 +166,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2135-2137
 - Updated TASKS/SOURCES and pilot contract; actual hourly results must be retained separately for a future baseline/event comparison. Scheduler wiring/activation remain pending; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook/schema check pass: 966 unit/291 integration tests, four expected skips. Existing build warnings only; `git diff --check` clean.
 - No production service/configuration, generation, budget, public-mode or sharing changes; no service restart during hold. Next: 15:00 NBA/item 58 acceptance, then private public-mode activation outside hold.
+
+## 2026-11-13: iteration 2154 — prepare default-off Bluesky scheduler wiring
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. NBA/item 58 scheduled acceptance remains due at 15:00 UTC; no restart/deployment during the hold.
+- Wired optional World collector policy through exact `BLUESKY_WORLD_ROTATION_ENABLED=1` and explicit `BLUESKY_WORLD_TOPIC_ID`; enabled missing/malformed UUID refuses social startup. Default remains off, with no topic-name inference.
+- Fake-port day now uses the scheduler parser: 120 searches, World 12/6/6, unchanged other queries, six collector controls/eight rollover controls/nine config checks. Zero provider calls/live writes.
+- Private environment confirmed pilot not enabled, without printing secrets or changing the file. No generation, budget, public-mode or sharing changes.
+- Updated TASKS, SOURCES, pilot contract and jobs handbook; activation still follows NBA/item 58 and private public-mode gates. NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts jobs-and-schedules` and `git diff --check` pass: 966 unit/291 integration passes, four expected skips. Initial formatting failure corrected; existing build warnings only.
+- No service restart: production unchanged and hold applies. Next: scheduled NBA/item 58 review, private public-mode activation outside hold, then discovery deployment/activation and retained hourly results.

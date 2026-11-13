@@ -2672,7 +2672,7 @@ quality. Production remains unchanged pending higher-priority scheduled gates.
 
 The collector now accepts an optional World topic-ID policy: fallback/Ukraine/
 fallback/Gaza by captured UTC hour, with explicit query overrides first. The
-production scheduler does not supply it, so live discovery remains unchanged.
+production policy remains disabled, so live discovery remains unchanged.
 Offline fake-port rehearsal exercises 120 daily searches and 12/6/6 allocation,
 overrides, admission, failures and eight UTC rollover/retry cases. Activation
 and natural quality review remain behind the scheduled/public-mode gate; see
@@ -2683,5 +2683,14 @@ and natural quality review remain behind the scheduled/public-mode gate; see
 The read-only coverage report labels its query as current, unrotated topic
 metadata. Stored observations do not preserve discovery queries and cannot
 attribute posts to baseline or event searches. The optional World rotation
-remains unwired; any later pilot comparison must retain actual hourly
+remains disabled; any later pilot comparison must retain actual hourly
 collection results separately. No collection or source configuration changed.
+
+### World scheduler opt-in prepared (2026-11-13, iteration 2154)
+
+Default-off scheduler wiring reads an exact opt-in and explicit topic UUID;
+malformed enabled configuration refuses startup. The full offline collector
+rehearsal now uses that parser, with nine configuration checks. No deployment,
+environment, live query, provider call or observation write changed. Activation
+remains behind NBA/item 58 and private public-mode acceptance; retain actual
+hourly collection results for pilot comparisons.
