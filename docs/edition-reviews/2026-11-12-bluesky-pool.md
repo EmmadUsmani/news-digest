@@ -156,3 +156,44 @@ supporting its context, and U.S. selects relevant domestic material from its
 repaired supply. Existing overlap/award/link-list fixes already address the
 observed defects; do not add another prompt rule or relax relevance based on
 these snapshots. NBA/item 58 and private public-mode activation retain priority.
+
+## Repaired U.S. supply before scheduled selection — iteration 2158
+
+Read all 50 engagement-ranked safe U.S. candidate texts at November 13
+14:33:06 UTC, using the coverage report's existing read-only transaction and a
+temporary probe expanding its three examples to 50. Probe removed; private
+snapshot `/tmp/us-pool-2158.json` is mode 600. No searches or model calls.
+
+The rolling publication window contains 474 observations / 55 distinct posts;
+latest observation is 13:54:52 UTC. Fifty safe engaged candidates span 40 authors,
+with at most three per author. Current explicit query remains `Congress`.
+The repair supplies substantive topical material, unlike the historical zero:
+
+| Candidate / author                            | Saved likes / reposts / replies | Supplied content                                                                                                  |
+| --------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Election / iwillnotbesilenced.bsky.social     | 7,258 / 1,521 / 100             | Names Darializa Ávila Chevalier and reports her House election.                                                   |
+| Congressional questioning / atrupar.com       | 6,227 / 1,537 / 411             | Attributes a question about Trump and Huang to Rep. James Walkinshaw; retain the allegation as attributed speech. |
+| RFK investigation / kylegriffin1.bsky.social  | 2,039 / 563 / 36                | Names Wyden and Alsobrooks and describes their investigation and the reporting behind it.                         |
+| Huang testimony / carlquintanilla.bsky.social | 268 / 69 / 9                    | Attributes committee scheduling discussions to Chairman Mast and Reuters.                                         |
+
+Useful supply does not imply 50 distinct useful developments. Ranks 9, 19 and
+20 repeat the RFK investigation; ranks 16, 17, 22 and 32 describe freshman
+class photographs. Petition appeals, generic partisan commentary, jokes and
+context-dependent replies also rank. Do not treat a reply such as “Wow wish
+congress was alive to see this” as a self-contained report, or supply missing
+context from its engagement. Stored media was not opened and claims were not
+independently checked. These are candidate observations, not published picks.
+
+Decision: keep the repaired query for the natural scheduled gate. A new
+query is not justified by absent supply. Compare the next U.S. selection with
+these concrete reports, check same-event repetition and story overlap, and
+inspect semantic/editorial diagnostics if it still selects nothing. The lexical
+shortlist is zero, but the production semantic route is separate; zero lexical
+matches does not establish a discovery or semantic failure. Do not weaken scope
+or safety checks to fill slots.
+
+Verification: GET/current-topic read plus repeatable-read READ ONLY observations;
+asserted 55 distinct stored posts, 50 unique candidate URLs, 40 authors, maximum
+three per author and all candidate publication/observation cutoff bounds.
+The sample ends at 14:33:06.879 UTC, before the 15:00 scheduled window end;
+it is not a reconstruction of that future shortlist or evidence of viral growth.

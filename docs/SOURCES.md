@@ -2708,3 +2708,9 @@ windows and fetched/submitted counts from retained BullMQ results. Baseline:
 46 submissions/U.S. Congress 49. Shared 48-job retention covers roughly 24
 Bluesky passes; preserve exports privately before pruning. No source changes,
 provider calls or live writes. Counts do not measure unique or relevant posts.
+
+Nov 13 pre-edition U.S. Bluesky review (2158): repaired `Congress` discovery
+supplies 55 distinct stored posts, including concrete election and congressional
+investigation reports. Fifty safe engaged candidates span 40 authors; repeated
+RFK/class-photo events and petition/commentary posts still require editorial
+selection. Query unchanged; no collection or provider calls. [Pool review](edition-reviews/2026-11-12-bluesky-pool.md#repaired-us-supply-before-scheduled-selection--iteration-2158).
