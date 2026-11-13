@@ -56,3 +56,36 @@ target. This differs from the longer World-only tail on Nov 8.
 The timeline regression verifies five topics, interval conservation, the delayed
 U.S. stage and final call. No topic attribution is inferred from overlapping
 HTTP timestamps. No budgets, concurrency, flags or published content changed.
+
+## Offline admission experiment — iteration 2141
+
+`apps/api/scripts/experiments/staged-scheduling.ts` is an isolated deterministic
+DAG simulator with four active slots, integer-unit reservations, settlement,
+protected capacity and refusal propagation. It has no production imports,
+provider calls, timers or database writes. Run its scenarios with:
+
+```sh
+pnpm exec tsx --test apps/api/test/staged-scheduling.test.ts
+```
+
+A synthetic shared-preparation scenario releases World and U.S. editing together,
+before World posts finish. A second scenario demonstrates why that cannot simply
+replace whole-topic workers: with 11 budget units, NBA holds four and shared
+preparation settles one; an earlier U.S. editor reserves six. NBA settles at one
+unit but its six-unit repair is now refused (two spent plus six held plus six
+requested). Four-call concurrency alone provides no admission guarantee.
+
+Keeping two units protected refuses that earlier U.S. reservation and permits
+NBA repair. This deliberately static control is not the rollout design: real
+holds need explicit ownership, transfer, expiry and fallback handling. It also
+shows a tradeoff, not a free improvement: this scenario loses U.S. AI editing.
+Tests cover shared dependency reuse, settlement credit, four-slot bounds,
+refused descendants and invalid/cyclic scenarios.
+
+All durations and integer costs here are synthetic; they are not reconstructed
+Nov 12 calls or a latency forecast. The saved HTTP trace lacks topic-linked
+reservation/settlement order, so it cannot establish an actual counterfactual
+budget outcome. The experiment rejects an unprotected stage scheduler as the
+next runtime change. Next design a protected admission handoff and drain on
+failure against existing budget controls, after NBA scheduled acceptance; keep
+the production scheduler unchanged meanwhile.

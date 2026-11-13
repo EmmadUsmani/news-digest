@@ -66,3 +66,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix` completed; `pnpm check` passes: 959 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning. Updated TASKS; archived progress 2126–2134 to keep orientation small. No runtime/source/handbook behavior change.
 - API/worker/docs restarted active; startup readiness retry passes `/healthz` (database/Redis healthy). 38 sources/zero unhealthy; saved-reader check passes five topics/25 stories/22 posts. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - No paid calls, manual collection/generation, budget, flag or sharing changes. Next: 15:00 NBA/item 58 acceptance, then public activation with sharing private; staged scheduling remains an offline follow-up.
+
+## 2026-11-13: iteration 2141 — stage scheduling admission counterexample
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits 15:00 UTC; public mode remains off.
+- Owner-visible goal: shorten the fifth-topic wait without displacing NBA editing. Added an isolated offline DAG experiment, not a production scheduler; four active slots, dependencies, integer-unit reservations, settlement and protected capacity.
+- Synthetic shared preparation releases both politics editors before posts finish. A second scenario proves an earlier U.S. reservation can refuse NBA repair despite four-slot concurrency; a static protected control admits repair but loses U.S. editing. This rules out an unprotected rollout, not a measured speedup.
+- `pnpm exec tsx --test apps/api/test/staged-scheduling.test.ts`: 4/4 pass, including credit release, concurrency bounds, refusal propagation and invalid/cyclic inputs. No reconstruction of topic-linked Nov 12 reservations is claimed.
+- Updated TASKS and latency evidence. No runtime/source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- `pnpm build` passes with existing bundle warning. API/worker/docs restarted; readiness retry passes `/healthz` (database/Redis healthy). `pnpm obs sources --check`: 38 sources/healthy; saved-reader check passes five topics/25 stories/22 posts. Initial source probe used a nonexistent URL (404); corrected to the supported CLI.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 963 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- No paid calls, manual collection/generation, budget, concurrency, flag or sharing changes. Next: 15:00 NBA/item 58 acceptance, then public activation with sharing private; protected admission handoff/failure draining remains an offline scheduling prerequisite.
