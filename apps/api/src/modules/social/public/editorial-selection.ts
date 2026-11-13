@@ -285,9 +285,12 @@ export async function editTopicPosts<T extends EditorialPost>(
           : 'Reddit post passes window, topic, safety and historical-strength checks.',
         `Semantic relevance ${score.relevance}/10; interestingness ${score.importance}/10: ${score.rationale}`,
         `Editor: ${p.rationale}`,
-        ...(original.platform === 'x' && original.xSearchRanking
-          ? [original.xSearchRanking.reason]
-          : ['No usable X search engagement ranking evidence.']),
+        ...(original.platform === 'x'
+          ? [
+              original.xSearchRanking?.reason ??
+                'No usable X search engagement ranking evidence.',
+            ]
+          : []),
         'Semantic shortlist orders by interestingness plus bounded reported engagement, then relevance; media contents and measured growth were not inferred.',
       ],
     };

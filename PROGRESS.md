@@ -152,3 +152,12 @@
 - API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). Initial health probe raced startup; bounded retry passed.
 - Updated TASKS, SOURCES and affected handbook; archived progress 2105–2110 to keep the live log small. NEEDS_FROM_HUMAN unchanged. No paid calls, collection, budget, provider, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized X/Bluesky tuning while waiting.
+
+## 2026-11-13: iteration 2120 — correct social selection provenance
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. Scheduled NBA/item 58 acceptance still awaits 15:00 UTC; public mode remains off.
+- Found Reddit AI selections recorded a misleading missing-X-search-evidence reason. Limited that diagnostic to X posts; Reddit retains its own provenance. No ranking, platform reservation, budgets or saved editions changed.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/social-editorial-selection.test.ts`: 12 pass, including mixed-platform provenance and original-post preservation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
+- API/worker restarted; healthz 200 and saved-reader check for Nov 12 pass (five topics/25 stories/22 posts). No handbook/source behavior changes; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- No paid calls, provider, collection, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.

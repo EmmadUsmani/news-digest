@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2120: corrected Reddit selection provenance so it no longer reports missing X search evidence; platform reservation and original post preservation unchanged.
+
 - [x] Iteration 2119: X triage/final selection retain validated reported reposts, replies and views alongside likes; zero/unknown counts, cache invalidation and bounded transport verified offline.
 
 - [x] Iteration 2118: reconciled the public-access plan handoff with STEERING 59: scheduled NBA/item 58 gate, private-sharing activation, parallel lead review, Grafana exclusion and scheduled public-mode acceptance.

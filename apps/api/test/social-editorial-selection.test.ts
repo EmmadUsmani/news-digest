@@ -222,6 +222,10 @@ void test('mixed-platform editorial isolates IDs and reserves X slots without pa
   assert.equal(result.posts.filter((p) => p.platform === 'reddit').length, 1);
   assert.equal(result.posts.length, 1, 'declined X slots must stay empty');
   assert.equal(result.posts[0].text, reddit[0].text);
+  assert.ok(
+    result.posts[0].reasons.every((reason) => !reason.includes('X search')),
+    'Reddit provenance must not claim missing X search evidence',
+  );
   assert.ok(result.postEditorial.triage.some((p) => p.id === '0'));
   assert.ok(result.postEditorial.triage.some((p) => p.id === 'reddit:0'));
   assert.equal(
