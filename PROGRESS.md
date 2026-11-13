@@ -188,3 +188,13 @@
 - TASKS and Nov 12 evidence updated. SOURCES/NEEDS_FROM_HUMAN unchanged; no source, budget, public-mode or sharing changes.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (922 unit/289 integration pass, four expected skips), `pnpm build`, handbook check and `git diff --check` pass. First check caught lint-induced formatting; reformatted test and full retry passed.
 - API/worker restart and post-push health readback follow commit. Next: natural Nov 13 NBA AI-edited acceptance; meanwhile item 59 public-readiness work.
+
+## 2026-11-13: iteration 2102 — reconcile private launch gates
+
+- Clean main; no inherited work. Zero alerts, healthy services/healthz and all 38 sources; digest worker staffed, zero failed digest runs, next edition Nov 13 15:00 UTC.
+- Reconciled public-readiness checklist with STEERING 59: scheduled NBA/item 58 gate retained, lead re-check parallel, private-sharing activation authorized, public Grafana/capacity excluded and Spend allowed.
+- Replaced the stale TASKS next step; moved historical rollout/native-tool/page receipts into linked public-readiness-evidence.md, preserving evidence and relative links.
+- No runtime, source, provider, budget, sharing or public-mode changes. SOURCES and NEEDS_FROM_HUMAN unchanged; no accepted-screen reruns.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check (18 pages/22 diagrams/39 tables), readiness relative-link/evidence-preservation check and `git diff --check` pass; existing bundle warning only.
+- `pnpm check` passes: 922 unit/289 integration tests, four expected skips. API/worker restart and post-push health readback follow commit.
+- Next: finish remaining non-Grafana read-only rollout and full public-mode rehearsal; scheduled NBA acceptance must close item 58 before activation.

@@ -1,16 +1,18 @@
 # Phase 4 readiness checklist
 
-Public mode is off; the VM remains private. This checklist does not authorize
-activation or exe.dev sharing. The [approved plan](public-access-plan.md#phases)
-and STEERING 50 define the phase order and owner gates.
+Public mode is off; the VM remains private. STEERING 59 authorizes activation
+with sharing private after the scheduled NBA/item 58 gate. Only the owner may
+change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases)
+and STEERING 59 where older plan gates conflict.
 
 Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
 
 ## Activation and rollback runbook
 
-Only the owner may authorize activation and exe.dev sharing. Complete item 58
-and the lead re-check first. These steps are instructions for that future
-approved change; public mode and sharing remain unchanged now.
+Complete item 58 after a normal scheduled NBA AI-edited edition. The lead
+re-check proceeds in parallel and does not block the authorized private-sharing
+activation. Public Grafana is excluded from launch; Spend may be public.
+Public mode and sharing remain unchanged until the activation steps are run.
 
 ### Activate while the VM is private
 
@@ -99,20 +101,18 @@ activation review, rather than adding more variants of already-covered refusals.
       `pnpm exec tsx scripts/check-metrics-mutation-guards.ts` confirms all three
       mutation routes refuse unauthenticated requests (401), without credentials
       or a deletion/forced merge. Normal queries and scraping remain available.
-- [ ] Finish the [admin/tool response rollout findings](public-read-rollout-review.md)
-      (1620): install sanitized readers without legacy overlaps, finish status/preview
-      projections and expose the approved read-only pages/tools. Initial [tool producer review](public-tool-response-review.md) completed (1716):
-      Grafana grants expose unpublished snapshots/raw errors and jobs return raw payloads.
-      Separate Grafana view-only reader SQL prepared, not installed (1717–1718), including published daily content counts. A separate uninstalled three-panel public overview
-      now executes against that role in disposable tests (1719). Inherited privilege/catalog
-      review (1721) pins denied escalation but demonstrates readable comments/view definitions;
-      same-database arbitrary public SQL remains unapproved. Separate-instance aggregate storage and real-login denial rehearsal pass (1722);
-      bounded atomic refresh/30-day retention prepared and tested (1731); restricted writer login and lock-timeout rollback rehearsed (1732); single-statement published-only producer prepared (1733); atomic capture timestamp prepared (1734); dedicated-store source query and export-age panel prepared (1735); monotonic capture replacement prepared (1736); loopback-only one-shot transport prepared (1737); target SCRAM login/wrong-password preservation rehearsed (1738); source SCRAM authentication/wrong-password capture preservation and grant-level write denial rehearsed (1739); prepared loopback listener/dedicated-network rehearsal (1740); freshness alert SQL prepared and restricted-login tested (1742); disposable Grafana provisioning and SQL/threshold evaluation pass (1743); exact scheduled pending/firing, query-error and recovery transitions pass (1753); [fixed-port rehearsal and capacity check](public-tool-response-review.md#fixed-port-and-capacity-rehearsal-iteration-1758) confirm loopback isolation; the [paired startup and read trial](public-tool-response-review.md#paired-startup-and-read-rehearsal-iteration-1759) met both short-window targets, but installation still needs capacity evidence under scheduled load or natural compaction. Provisioning, rendering and query-route review remain.
-      The [public queue status endpoint](public-tool-response-review.md#exclusive-queue-routing-and-admission-iteration-1761) projects fixed counts and next runs. The compiled isolated app verifies shared request admission and denial of legacy routes; the live flag remains off.
-      The [handbook response inventory](public-tool-response-review.md#handbook-response-inventory-iteration-1762) removes broad image serving and verifies exact page routes. The [standalone reader handbook](public-tool-response-review.md#reader-handbook-candidate-iteration-1763) passed its corpus and browser rehearsal. [Proxy admission and private rollback](public-tool-response-review.md#reader-handbook-proxy-rehearsal-iteration-1764) passed in isolation; reader service installed and live loopback/proxy/stop–start checks pass (1781); public activation remains gated.
-      Explorer [HTTP/proxy/browser rollback](public-tool-response-review.md#explorer-proxy-and-browser-rollback-iteration-1775) passes against the captured live restricted-role catalog; prepared reader admission now passes (1779); live public mode remains off. [Disposable credential lifecycle rollback](public-tool-response-review.md#explorer-credential-lifecycle-rollback-iteration-1776) passes; [Live credential rollback and reactivation](public-tool-response-review.md#live-explorer-credential-rollback-iteration-1777) now pass; public proxy now requires a structural-only service marker, strips credentials/cookies and limits exact GET routes (1778). Exact anonymous GET admission and private-upstream refusal pass against the live-catalog loopback rehearsal (1779); structural-only live activation and rollback pass (1780); anonymous live admission remains closed.
-      Fix these data boundaries before installing tool routes; the gate is still open. Confirm `/logs`
-      and `/metrics` require an admin session and account tables deny operational/PUBLIC reader roles after migration. Exact instant/range metrics and log-query GET APIs now require fresh-admin sessions in prepared mode (1782); all telemetry UI routes and mutations remain closed. Live upstream/proxy composition passes (1783) with `pnpm exec tsx scripts/check-live-admin-telemetry.ts --live`: bounded instant/range metrics, one recent log row and simulated-principal refusals. Deployed session authentication remains covered separately. Compiled-app stored-session composition now passes against an isolated recording upstream (1784): real code login, invited-reader denial, seven-day admin freshness loss/restoration and post-logout refusal. Eight additional exact logs read GETs (hit/statistics/field metadata/time bounds) now share the same fresh-admin boundary and stored-session rehearsal (1785). Native UI routes remain closed. Installed-asset Chromium review (1786) confirms both UIs use POST queries; metrics targets the additional `/prometheus` API alias, and logs requests build/tenant metadata. Bounded form POST transport and the metrics `/prometheus` query alias are prepared (1787): 16 KiB/five-second upload limits, stripped credentials, fresh-admin-only reads outside mutation auditing. UI assets/metadata and deployed CSP composition remain open. Candidate CSP browser rehearsal (1788) mounts both UIs without violations and refuses deliberate inline-script/external-fetch probes; operational responses are intercepted fixtures. Exact installed asset hash/MIME/cookie inventory and six bounded live metadata shape checks pass (1789); tenant IDs require fresh-admin-only admission. Six exact metadata GET routes now require fresh admins (1790), including tenant IDs; aliases, query suffixes, POST and HEAD are refused. Stored-session and live prepared-proxy checks cover this admission. Exact reviewed native UI asset GETs now share fresh-admin admission (1791). The prepared proxy applies the rehearsed CSP and nosniff; Chromium mounts both UIs through the real proxy with intercepted fixture queries and deliberate policy refusals. Compiled-app stored-session HTTP coverage now includes all 13 assets, CSP/nosniff and method/alias refusals across fresh/aged/restored admin, reader, anonymous and logout boundaries (1792), using an isolated fixture upstream. Four additional hash-route screens pass fixture-intercepted prepared-proxy navigation with no uncaught errors/CSP violations and shared-policy admission checks (1793): metrics Raw Query, Dashboards and Query Analyzer, logs Overview. Raw Query auto-requests the unadmitted export endpoint; expected 403 is rehearsed. Narrow live export shape and UI parameter inventory are reviewed (1794); Prepared request bounds (one up selector/60 seconds) and buffered 64 KiB/five-second fetch cancellation now pass local HTTP tests and the narrow live review (1795); Prepared HTTP handler now covers bounded responses, stripped credentials and real client-disconnect cancellation (1796); Fixed two-second upstream request timeout and disposable installed-binary 32/33-series cap rehearsal pass (1797); Live server limits installed and verified (1798); Shortened-cap native deadline expiry, server-cap precedence and buffered transport refusal pass in a second disposable installed-binary process (1799); expensive-work expiry at the live two-second cap remains unmeasured. Installed Raw Query renders a bounded one-minute synthetic export through the prepared handler (1800); broad 30-minute requests remain refused without upstream work. Prepared stored-session export composition passes (1801) in the isolated full application: fresh real admin login forwards the bounded synthetic export, anonymous/invited readers, aged and logged-out admins trigger no upstream work; method/window/selector/timeout refusals pass. Chromium cookie-jar transport now passes through the isolated full application with a synthetic page (1802): fresh/restored admins render the synthetic series; anonymous/invited readers, aged and logged-out admins receive empty refusals without export upstream work. Secure/HttpOnly/Strict cookie behavior and repeated no-store requests pass. Installed metrics Raw Query/stored-session composition now passes with explicitly captured reviewed assets and synthetic series (1803): fresh/restored admins render; anonymous/invited readers, aged and logged-out admins cannot load the document or trigger upstream work. CSP, nosniff, no-store and cookie stripping pass. Installed metrics Dashboards and Query Analyzer also pass full-document stored-session navigation (1804), including fresh/restored mounting and anonymous/reader/aged/logout refusal without upstream work. The middleware remains unmounted in production; Installed logs query and Overview stored-session navigation also passes (1805), including query/hits/stream-field requests with synthetic responses and the same session refusals. Open-screen logs Query freshness is also rehearsed (1806): aging the stored session refuses the next action without upstream work; restoring freshness resumes HTTP 200 on the same screen. Open-screen metrics Raw Query freshness is rehearsed too (1807): Execute refuses export after session aging without upstream work, then renders the synthetic series after freshness restoration. Mounted Raw Query time-window navigation also passes (1808): a fresh admin changing from one minute to thirty minutes receives HTTP 404 without telemetry upstream work; narrowing back renders synthetic series with HTTP 200. Mounted Raw Query selector navigation also passes (1809): changing `up` to `count(up)` with a one-minute window returns HTTP 404 without upstream work; restoring `up` renders synthetic series again. Mounted metrics/logs logout also passes (1810): real logout deletes the stored session while the screen and browser cookie remain; the next Execute receives HTTP 404 without upstream work. Test-only database restoration preserves the surrounding actor matrix. Live installed metrics Dashboards/Query Analyzer and logs Query/Overview asset/metadata navigation also passes through the prepared proxy with simulated principals (1811–1812); automatic data requests are refused locally. One bounded live metrics Query chart also renders (1813): `count(up)`, one-minute window, minimum 15-second step and exactly one upstream query. One bounded live logs Query message also renders (1814): `_time:1m`, explicit one-minute window, limit one and exactly one upstream query; other automatic data requests remain locally refused. Installed metrics Raw Query also renders a bounded live `up` export (1815): one-minute window, one GET, 64 KiB response and 32-series caps, with real labels verified only in browser memory. Export actor selection remains explicitly simulated, separate from ordinary admission; non-admin and invalid request refusals perform no export upstream work. Real stored-session/live bounded export HTTP composition passes (1816) with disposable Postgres/Redis and real code login: fresh/restored admins receive two bounded live exports; anonymous, reader, aged and logged-out sessions plus invalid requests cause no upstream work. Chromium cookie transport also passes (1817): a real HTTP-issued Secure/HttpOnly session permits one bounded live export; session aging, logout with the cookie retained, and cookie removal refuse without upstream work. Browser code login also passes (1818): Chromium requests and redeems a disposable mailbox code over local HTTPS and stores the actual Secure/HttpOnly cookie; fresh, aged and logged-out export boundaries pass. The disposable TLS ingress simulates trusted proxy forwarding; installed-native Raw Query/live-session composition now passes (1819): real HTTPS code login, actual browser cookie, one bounded live export rendered by installed assets, and aged-session document refusal. Open-screen Raw Query controls also pass with the real HTTPS-login session and live export (1820): aging refuses Execute without upstream work, freshness restoration renders another bounded live export, and logout with the old cookie restored refuses Execute. Stored-session installed logs rendering also passes (1825): two bounded one-minute/one-row live reads after HTTPS login and freshness restoration; an aged mounted screen refuses Execute with empty no-store 404. Stored-session installed logs logout also passes (1826): a second mounted tab renders a third bounded live message, then real logout with the old cookie restored refuses Execute and a new logs document with empty no-store 404 and no additional live read. Other native controls and live data navigation remain open. The repeatable fixture-intercepted review and remaining decisions are in [the tool review](public-tool-response-review.md#native-ui-browser-transport-review-iteration-1786).
+- [x] Owner launch decisions (STEERING 59): omit public Grafana and its capacity
+      work; keep Grafana closed and off the public Tools list. Spend may be public.
+- [ ] Close item 58 with a normal scheduled NBA AI-edited edition and its ID.
+      Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
+- [ ] Finish remaining read-only admin/tool rollout work against the deployed
+      route inventory. Prepared overview, topics, schedule, sources, Spend, Tools,
+      Queues and published history/detail have rehearsals; retain their existing
+      evidence rather than rerunning accepted screens. Handbook/explorer and
+      fresh-admin logs/metrics must retain their reviewed boundaries.
+      Earlier findings: [read rollout](public-read-rollout-review.md) and
+      [tool review](public-tool-response-review.md). Grafana work in those
+      historical reviews is excluded from launch.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,
       ordinary-reader isolation, fresh-admin writes and durable audit, rate limits,
       security headers, privacy page, log hygiene and private-mode rollback.
@@ -128,109 +128,4 @@ activation review, rather than adding more variants of already-covered refusals.
 
 Phase 5 sharing, real email and destructive cleanup remain owner decisions.
 
-Stored-session native CSP evidence (1821): the explicit live browser rehearsal
-reports no unexpected Raw Query policy violations, then blocks deliberate inline
-script and external fetch probes with the expected CSP directives and no export
-upstream work. Aging/restoration/logout checks still pass. Other native screens
-and remaining Phase 4 controls remain open; production flags are unchanged.
-
-Stored-session live query bounds (1822): mounted Raw Query refuses a 30-minute
-window and `count(up)` selector with empty no-store 404 responses and no export
-upstream work. Returning to one-minute `up` renders live series after each
-refusal. Real HTTPS login and session/CSP checks pass; seven bounded live reads
-total. Production flags remain unchanged.
-
-Stored-session native screen navigation (1823): installed metrics Dashboards and
-Query Analyzer plus logs Query and Overview mount after real disposable HTTPS
-code-login, refuse aged-session document reloads, and remount after freshness
-restoration. No export work occurs for these screen checks. Data controls beyond
-Raw Query remain open; production flags are unchanged.
-
-### Stored-session installed metrics chart (iteration 1827)
-
-`pnpm exec tsx scripts/check-live-stored-telemetry.ts --live` now renders the
-installed Query chart after real disposable HTTPS code-login. Two bounded live
-`count(up)` range reads cover login and freshness restoration: one-minute windows,
-minimum 15-second steps, one series and at most six positive samples. Aged-session
-Execute and post-logout Execute with the old cookie restored return empty
-no-store 404 responses. The mounted chart has no page errors or CSP violations.
-Operational responses remain in memory; production flags are unchanged.
-
-### Read-only schedule (iteration 1828)
-
-Exact schedule HTML admission and router access are prepared behind public mode.
-The page consumes the audited schedule/public status; anonymous controls are
-disabled, backend saves remain fresh-admin-only and public failures cannot
-read the legacy owner profile. Offline routed browser checks cover both viewport
-sizes/themes and 404 refusal. Private rollback retains its guard. Production
-flags are unchanged; private web rebuild/API restart passed after 16:00 UTC.
-
-### Read-only topic catalog (iteration 1829)
-
-Prepared exact public GET/HEAD `/admin/topics` and anonymous router access.
-Visitors use the allowlisted system topic response with disabled creation,
-ordering, enable and budget controls; linked topic details are also read-only (1830). Anonymous
-identity never enables profile reads. Desktop/mobile light/dark offline router
-checks pass; private rollback and backend fresh-admin writes stay guarded.
-Public mode remains off.
-
-### Read-only topic detail (iteration 1830)
-
-Prepared exact public GET/HEAD `/admin/topics/:uuid` and router admission.
-Catalog links open topic guidance, filters, social settings and source connections
-using the reviewed system-only topic/source responses. Unconfirmed or non-admin
-identities leave every change control disabled; submit handlers also refuse writes.
-Offline routed desktop/mobile light/dark checks cover connected-source display,
-forced form submissions and no private reads. Public mode remains off.
-
-### Read-only sources (iteration 1831)
-
-Prepared exact GET/HEAD `/admin/sources` admission and router access use the
-sanitized public status query, with no private status fallback. Anonymous
-collection switches and Add feed are disabled; the collection write handler
-also checks admin identity. Offline routed desktop/mobile light/dark fixtures
-pass. Public activation and remaining tools stay open; flags are unchanged.
-
-### Read-only Tools directory (iteration 1832)
-
-Prepared exact GET/HEAD `/admin/tools` and anonymous router access. Handbook
-and schema-only explorer links remain available; logs/metrics links require
-confirmed admin identity, and Grafana/Queues show pending public preparation.
-The page reads only caller identity. Public mode remains off; tool admission
-and remaining Phase 4 gates are unchanged.
-
-### Read-only Spend (iteration 1833)
-
-Prepared exact GET/HEAD `/admin/spend` and anonymous router access. Public
-mode uses sanitized production AI/X budget totals, caps, holds and allowance
-from the separate public status cache; development ledgers and recent calls
-remain private. Private mode keeps the detailed Spend view. Public mode stays off.
-
-### Prepared public Queues page (iteration 1834)
-
-Tools links to `/admin/queues` in prepared public mode. Exact GET/HEAD HTML
-admission and the router use the sanitized `/api/queues` response: five counts
-and the next scheduled time per queue. Refresh is read-only; failures retain
-previous values with a stale-data warning. No job payloads or controls are shown.
-Private mode retains Bull Board at `/queues/`; public mode remains off.
-
-### Compiled page document rehearsal (iteration 1835)
-
-The disposable full application checks Tools, Spend, Queues, schedule, sources
-and topic catalog/detail documents (1837) through real admission/static serving: GET returns the SPA shell, HEAD has no
-body, and writes or nested legacy routes return empty 404s despite forged owner
-headers; malformed topic IDs and editor routes also refuse. API checks remain. This
-covers HTTP composition; public rendering retains its separate browser evidence.
-Public mode remains off; complete Phase 4 acceptance is still open.
-
-### Compiled privacy and request-log rehearsal (iteration 1836)
-
-The disposable compiled application serves the exact anonymous `/privacy` SPA
-document with GET/HEAD, even without visitor headers, and refuses POST. Success
-and refusal retain HSTS, nosniff, no-referrer, same-origin framing and CSP.
-Production request logging is mounted before admission, as in `main.ts`; real
-code issuance/redemption and an authenticated query/header probe retain request
-IDs and status records while omitting email, code, cookie, token and client IP.
-The capture disables environment-value redaction to verify omission directly.
-This covers request middleware output; other application logs and the complete
-Phase 4 rehearsal remain separate. Public mode remains off.
+Earlier native-tool and public-page receipts: [rehearsal evidence](public-readiness-evidence.md).
