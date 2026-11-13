@@ -100,7 +100,7 @@ export function TopPosts({
       </h3>
       {posts.length === 0 ? (
         <p className="text-sm text-[var(--secondary)]">
-          No standout posts today.
+          No posts in this edition.
         </p>
       ) : (
         <div className="post-grid grid grid-cols-1 gap-4">

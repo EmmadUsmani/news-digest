@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Historical empty-post wording (2188): Nov 4 World section now says “No posts in this edition”; avoids an unsupported quality claim and calling saved history “today”. Actual saved-edition desktop/mobile light/dark checks pass; generation unchanged.
+
 - [x] Saved X excerpt continuation (2184): three Nov 13 posts ending in ellipses now offer “Continue reading on X”; original saved text remains intact.
 
 - [x] Missing reader summaries (2183): headline-only cards disclose “Summary unavailable” and offer a labelled source link; saved content and generation unchanged.

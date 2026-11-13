@@ -194,3 +194,14 @@ Archived entries: [iterations 2171–2172](docs/progress-archive/2026-11-13-iter
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. Archived progress 2171–2172 to retain the file-size limit.
 - Runtime/services remain on unchanged production code; no restart needed for test/docs-only changes.
 - Next: before-noon precedence implementation; Nov 14 scheduled AI/grouping acceptance, then item 58/private public activation. Move to another area rather than another feed-preparation iteration tonight.
+
+## 2026-11-13: iteration 2188 — describe historical empty posts accurately
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 remains pending Nov 14 scheduled acceptance.
+- Owner value: Nov 4 World has zero saved posts but said “No standout posts today”; historical readers now see “No posts in this edition” without unsupported quality or date claims.
+- Changed reader wording only. Feed-content precedence remains for before noon; no generation, saved editions, collection, budgets or inference changes.
+- Temporary GET-only Playwright check against actual saved edition `3bf10f5b-4c00-48b2-85bd-8e6dac7e3238` passes desktop/mobile light/dark, all topic post counts, no overflow/page errors and immutable API before/after. Probe removed; four screenshots saved and mobile light inspected.
+- Initial temporary probe needed a CommonJS entry-point wrapper; corrected and all browser checks passed. First lint-fix overlapped probe removal (ENOENT); reran after cleanup.
+- `pnpm format`, retried `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema validation and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. API restarted with rebuilt reader; health/database/Redis pass.
+- TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, operation or system-flow changes.
+- Next: before-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/event diversity, then item 58/private public activation.
