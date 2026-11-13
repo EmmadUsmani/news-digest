@@ -51,7 +51,7 @@ neither the default-off worker nor any inference is activated.
 
 The fixed-input synthetic AI edition golden already satisfies the fixed-content
 golden part of 2a. Item 4's **real raw-response recording** is a separate open
-requirement: all three files under `fixtures/llm/` are explicitly synthetic.
+requirement: the transport/publication recordings remain explicitly synthetic.
 Do not re-label those or spend merely to replace them. Before declaring 2a
 complete, reconcile the full source inventory with current coverage and concrete
 behavior assertions, including these public facades. Then record Drizzle's
@@ -816,3 +816,18 @@ ID, checks exactly one offline callback and one charge, and verifies an uncertai
 attempt remains held and cannot execute again. Production ledger/reserve
 fingerprints remain unchanged. This application guard is prepared; provider and
 test-edition runtime composition remain unwired. No live calls are used.
+
+## Historical raw NBA transport (iteration 2202)
+
+`nba-2026-11-12-raw.json` retains the actual Sonnet initial request and verbatim
+response text from the private Nov 12 diagnostic artifact, without credentials
+or headers. Its fixed fingerprint fails closed on prompt/instruction changes.
+The NBA regression passes that body through `ReplayLlmAdapter`, `BudgetedLlm`
+JSON decoding and the current complete story validator, then verifies a cached
+second read without a second reservation or settlement. Parsed fields match the
+existing saved-output fixture exactly.
+
+The diagnostic artifact did not retain token usage. Test usage is explicitly
+synthetic zero, and its ledger is in memory. This is historical body replay,
+not a full edition golden or a provider usage recording. Item 4 remains open;
+no paid re-recording or production change was made.

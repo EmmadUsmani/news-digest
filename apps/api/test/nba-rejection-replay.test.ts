@@ -4,11 +4,13 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 
 import { replayNbaRejections } from '../scripts/replay-nba-rejections';
+import { ReplayLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import {
   type EditorialResult,
   ShortlistEditor,
 } from '../src/modules/curation/application/editor';
+import { llmFingerprint } from '../src/modules/curation/application/llm-fingerprint';
 import type {
   TriageCandidate,
   TriageTopic,
@@ -167,4 +169,113 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
     replay.results.map((r) => r.absenceFailures.map((f) => f.field)),
     [[], [], [], []],
   );
+});
+
+void test('verbatim Nov 12 NBA response survives fingerprinted transport, JSON decoding and current story validation', async () => {
+  const raw = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/llm/nba-2026-11-12-raw.json'),
+      'utf8',
+    ),
+  ) as {
+    provenance: string;
+    request: LlmRequest;
+    responseText: string;
+  };
+  const saved = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/llm/nba-2026-11-12-rejected.json'),
+      'utf8',
+    ),
+  ) as {
+    entries: Array<{
+      input: {
+        topic: TriageTopic;
+        candidates: TriageCandidate[];
+        budget: number;
+      };
+      output: Omit<EditorialResult, 'model'>;
+      model: ModelPrice;
+    }>;
+  };
+  const { input, output, model } = saved.entries[0];
+  const fingerprint =
+    '640b54bff32d01928e6f30eac446512e08c5c6da1a46e0d0ba8a8d1f05858501';
+  assert.equal(llmFingerprint(raw.request), fingerprint);
+  assert.deepEqual(JSON.parse(raw.responseText), output);
+  // Only the text is historical. The diagnostic artifact did not retain token
+  // counts; zero usage is synthetic, never production spend evidence.
+  const usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+  const recording = {
+    version: 1,
+    provenance: raw.provenance,
+    records: [
+      {
+        fingerprint,
+        model: model.id,
+        response: { text: raw.responseText, usage },
+      },
+    ],
+  };
+  for (const changed of [
+    { prompt: raw.request.prompt + 'changed' },
+    { instructions: raw.request.instructions + 'changed' },
+  ]) {
+    await assert.rejects(
+      new ReplayLlmAdapter(recording).complete({ ...raw.request, ...changed }),
+      /Missing LLM replay/,
+    );
+  }
+  const cached = new Map<string, unknown>();
+  let reservations = 0;
+  let settlements = 0;
+  const llm = new BudgetedLlm(new ReplayLlmAdapter(recording), {
+    async cached(key) {
+      return cached.get(key);
+    },
+    async cache(key, value) {
+      cached.set(key, value);
+    },
+    async reserve() {
+      reservations++;
+      return 'offline-raw';
+    },
+    async settle(_id, actual, cost) {
+      settlements++;
+      assert.deepEqual(actual, usage);
+      assert.equal(cost, 0);
+    },
+    async fail() {
+      assert.fail('Historical body must validate');
+    },
+  });
+  const editor = new ShortlistEditor(
+    {
+      // Use the historical request for transport identity, and today's full
+      // production validator for the saved candidates. This does not assert that
+      // today's prompt matches the archived prompt or replay a complete edition.
+      json: (_request, validate) =>
+        llm.json(raw.request, validate, { repair: false }),
+    },
+    model,
+    model,
+  );
+  const expected = { ...output, model: model.id };
+  assert.deepEqual(
+    await editor.edit(input.topic, input.candidates, input.budget, 'offline'),
+    expected,
+  );
+  assert.deepEqual(
+    await editor.edit(
+      input.topic,
+      input.candidates,
+      input.budget,
+      'offline-cache',
+    ),
+    expected,
+  );
+  assert.equal(reservations, 1);
+  assert.equal(settlements, 1);
+  assert.equal(cached.size, 1);
+  assert.deepEqual(llm.validationDiagnostics(), []);
 });

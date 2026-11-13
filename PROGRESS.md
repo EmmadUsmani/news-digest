@@ -30,16 +30,7 @@ Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-i
 
 Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185.md).
 
-## 2026-11-13: iteration 2188 — describe historical empty posts accurately
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 remains pending Nov 14 scheduled acceptance.
-- Owner value: Nov 4 World has zero saved posts but said “No standout posts today”; historical readers now see “No posts in this edition” without unsupported quality or date claims.
-- Changed reader wording only. Feed-content precedence remains for before noon; no generation, saved editions, collection, budgets or inference changes.
-- Temporary GET-only Playwright check against actual saved edition `3bf10f5b-4c00-48b2-85bd-8e6dac7e3238` passes desktop/mobile light/dark, all topic post counts, no overflow/page errors and immutable API before/after. Probe removed; four screenshots saved and mobile light inspected.
-- Initial temporary probe needed a CommonJS entry-point wrapper; corrected and all browser checks passed. First lint-fix overlapped probe removal (ENOENT); reran after cleanup.
-- `pnpm format`, retried `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema validation and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. API restarted with rebuilt reader; health/database/Redis pass.
-- TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, operation or system-flow changes.
-- Next: before-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/event diversity, then item 58/private public activation.
+Archived entry: [iteration 2188](docs/progress-archive/2026-11-13-iteration-2188.md).
 
 ## 2026-11-13: iteration 2189 — continue truncated story excerpts at source
 
@@ -184,3 +175,14 @@ Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry, `pnpm build`, handbook/schema check, selected-file formatting and diff checks pass: 985 unit/294 integration tests, four expected skips; existing bundle-size warning.
 - Rebuilt API/worker restarted active; health/Postgres/Redis pass; latest saved edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
 - Next: before-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2202 — historical NBA raw-body replay
+
+- Clean main; no inherited work. Initial alerts zero; health/Postgres/Redis pass. NBA/item 58 scheduled acceptance awaits Nov 14; after-noon generation hold retained.
+- Closed one recorded-response test gap: retained the actual Nov 12 Sonnet initial request and verbatim body, without credentials/headers. Fixed fingerprint refuses changed prompts/instructions.
+- New offline regression transports the historical body through replay, JSON parsing and today's complete NBA validator; all fields match the saved parsed fixture. Second read uses cache with one total reservation/settlement.
+- Token usage was not retained: test usage is explicitly synthetic zero and ledger is in memory. Full recorded-response edition golden stays open; no paid calls or production/generation/source/budget changes.
+- TASKS and database-verification evidence updated; archived iteration 2188. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: targeted NBA tests 4/4; `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 986 unit/294 integration tests, four expected skips; existing web chunk warning. Initial full check caught archive formatting; fixed before complete retry.
+- API/worker rebuilt/restarted active; health/Postgres/Redis and latest five-topic reader pass. Commit/push and final restart follow verification.
+- Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
