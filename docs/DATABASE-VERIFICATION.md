@@ -849,3 +849,18 @@ loaded and shortlisted by the repository. This is a one-topic publication
 regression, not a replay of historical triage, current prompts, HTTP transport or
 the complete scheduled edition. The full recorded-response golden remains open.
 No live database, external provider or paid call is used.
+
+## Historical NBA reader HTTP (iteration 2204)
+
+The same isolated publication regression now boots the deployed reader controller
+with emitted Nest metadata and real repository reads, with public mode and
+published-only reads enabled. Both published versions return exactly the reader
+projection over HTTP, preserving the historical summaries and omitting private
+editorial fields. ID responses use private immutable caching; latest and history
+use no-store. A newer unpublished copy is refused by ID and omitted from history;
+latest still selects the second publication, and history contains both published
+versions.
+This exercises the reader controller and database, not the complete public server,
+authorization middleware, proxy or provider transport. Fixture provenance and
+synthetic triage/metadata/usage limits above still apply. No runtime behavior,
+live data, provider usage or scheduled acceptance changes.

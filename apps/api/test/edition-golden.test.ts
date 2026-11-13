@@ -1,8 +1,16 @@
+import 'reflect-metadata';
+
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { test } from 'node:test';
 
-import { digestPreviewSchema } from '@digest/contracts';
+import {
+  digestPreviewSchema,
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
+import { NestFactory } from '@nestjs/core';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { ReplayLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
@@ -589,7 +597,7 @@ void test('system edition scope preserves publication filters, replay and rollba
   }
 });
 
-void test('historical NBA body survives validation, publication and reader retrieval with synthetic triage and metadata', async () => {
+void test('historical NBA body survives validation, publication and public reader HTTP with synthetic triage and metadata', async (t) => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   assert.equal(process.env.ANTHROPIC_API_KEY, '');
   const raw = JSON.parse(
@@ -777,6 +785,89 @@ void test('historical NBA body survives validation, publication and reader retri
     }
     assert.notEqual(editions[0].id, editions[1].id);
     assert.deepEqual(await adapter.find(editions[0].id, true), editions[0]);
+    const unpublished = await adapter.generate(
+      new Date('2026-11-12'),
+      new Date('2026-11-13'),
+    );
+    assert.ok(await adapter.find(unpublished.id));
+    assert.equal(await adapter.find(unpublished.id, true), null);
+    // Use emitted constructor metadata, as in the deployed reader controller.
+    const require = createRequire(import.meta.url);
+    const { ReaderEditionController } =
+      require('../dist/modules/digests/reader-edition.controller.js') as typeof import('../src/modules/digests/reader-edition.controller');
+    const { PreviewRepository } =
+      require('../dist/modules/digests/domain/preview.repository.js') as typeof import('../src/modules/digests/domain/preview.repository');
+    const previous = {
+      PUBLIC_MODE: process.env.PUBLIC_MODE,
+      READER_PUBLISHED_ONLY: process.env.READER_PUBLISHED_ONLY,
+    };
+    t.after(() => {
+      for (const key of ['PUBLIC_MODE', 'READER_PUBLISHED_ONLY'] as const) {
+        if (previous[key] === undefined) delete process.env[key];
+        else process.env[key] = previous[key];
+      }
+    });
+    process.env.PUBLIC_MODE = '1';
+    process.env.READER_PUBLISHED_ONLY = '1';
+    const app = await NestFactory.create(
+      {
+        module: class HistoricalReaderModule {},
+        controllers: [ReaderEditionController],
+        // The fixture owns the pool and closes it after database cleanup.
+        providers: [
+          {
+            provide: PreviewRepository,
+            useValue: {
+              latest: adapter.latest.bind(adapter),
+              find: adapter.find.bind(adapter),
+              history: adapter.history.bind(adapter),
+            },
+          },
+        ],
+      },
+      { logger: false },
+    );
+    try {
+      await app.listen(0, '127.0.0.1');
+      const base = await app.getUrl();
+      for (const edition of editions) {
+        const response = await fetch(`${base}/api/editions/${edition.id}`);
+        assert.equal(response.status, 200);
+        assert.equal(
+          response.headers.get('cache-control'),
+          'private, max-age=3600, immutable',
+        );
+        const body: unknown = await response.json();
+        assert.deepEqual(
+          readerEditionSchema.parse(body),
+          readerEdition(edition),
+        );
+        assert.deepEqual(
+          body,
+          readerEdition(edition),
+          'HTTP response must omit private editorial fields',
+        );
+      }
+      const hidden = await fetch(`${base}/api/editions/${unpublished.id}`);
+      assert.equal(hidden.status, 404);
+      assert.equal(hidden.headers.get('cache-control'), 'no-store');
+      const latest = await fetch(`${base}/api/editions/latest`);
+      assert.equal(latest.status, 200);
+      assert.equal(latest.headers.get('cache-control'), 'no-store');
+      assert.deepEqual(await latest.json(), readerEdition(editions[1]));
+      const history = await fetch(`${base}/api/editions`);
+      assert.equal(history.status, 200);
+      assert.equal(history.headers.get('cache-control'), 'no-store');
+      const index = readerEditionHistorySchema.parse(await history.json());
+      assert.equal(
+        index.entries.some((entry) => entry.id === unpublished.id),
+        false,
+      );
+      for (const edition of editions)
+        assert.ok(index.entries.some((entry) => entry.id === edition.id));
+    } finally {
+      await app.close();
+    }
     assert.equal(dispatches, 1);
     assert.equal(settlements, 1);
     assert.deepEqual(llm.validationDiagnostics(), []);

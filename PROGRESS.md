@@ -36,16 +36,7 @@ Archived entry: [iteration 2189](docs/progress-archive/2026-11-13-iteration-2189
 
 Archived entry: [iteration 2190](docs/progress-archive/2026-11-13-iteration-2190.md).
 
-## 2026-11-13: iteration 2191 — retain editorial caveats in saved posts
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. Scheduled NBA/item 58 acceptance remains Nov 14; feed-depth implementation remains before noon.
-- Owner value: saving the actual U.S. recess-appointment post dropped the editorial attribution of its constitutional claim; newly saved posts now retain bounded context separately from original excerpts.
-- Optional context survives local reloads and account merges; legacy copies remain valid. Added offline reload/bounds, browser/server tie convergence and invalid-context checks; no migration, inference or generation changes.
-- GET-only temporary Playwright probe saves all 35 actual-edition items and verifies context, exact excerpts/URLs, reload persistence, keyboard controls and no overflow/errors across desktop/mobile light/dark. Edition API unchanged; four screenshots saved, mobile light inspected.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 979 unit/294 integration tests, four expected skips; existing build chunk warning.
-- Corrected targeted test's expected error wording; first full check stopped on new archive formatting, fixed before successful rerun. Browser initially reached API during restart; retried after healthy startup and passed.
-- TASKS/owner handbook updated; archived progress 2175–2176. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or owner decision changes.
-- API restarted with rebuilt reader; health/database/Redis pass. Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and item 58/private public activation.
+Archived entry: [iteration 2191](docs/progress-archive/2026-11-13-iteration-2191.md).
 
 ## 2026-11-13: iteration 2192 — record Gaming fallback event coverage
 
@@ -181,3 +172,14 @@ Archived entry: [iteration 2190](docs/progress-archive/2026-11-13-iteration-2190
 - Verification: `pnpm check` passed typecheck/lint/format/boundaries and 986 unit tests, then caught the reader assertion above. Corrected `pnpm test:integration` passes 295 tests/four expected skips; targeted API typecheck/lint and changed-file formatting pass. `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
 - Final formatting/lint, commit/push and built API/worker restart follow checks; latest reader retains five topics/15 stories/20 posts.
 - Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2204 — historical NBA public reader HTTP
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass; all 38 monitored sources healthy. NBA/item 58 acceptance still awaits Nov 14; generation cutoff retained.
+- Extended the historical NBA publication regression through the deployed Nest reader controller over local HTTP with real isolated repository reads and public/published-only mode.
+- Both published snapshots retain exact reader content without private editorial fields. A newer unpublished copy returns 404, stays out of history, and cannot replace latest. ID caching is private/immutable; latest/history/errors remain no-store.
+- Archived request/body and candidate reporting remain historical; triage, metadata and zero usage remain synthetic. No live writes, paid calls, runtime generation or provider/budget changes. Complete recorded-response edition golden stays open.
+- TASKS/database-verification evidence updated; archived iteration 2191. SOURCES/NEEDS_FROM_HUMAN unchanged; handbook behavior unchanged.
+- Initial full check stalled in existing telemetry-export transport test; terminated that child. File-only rerun passed 3/3; complete `pnpm check` retry passed 986 unit/295 integration tests, four expected skips.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full-check retry passes typecheck/lint/format/boundaries and tests; commit/push and built API/worker restart follow.
+- Next: pre-noon feed-content precedence fix; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
