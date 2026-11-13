@@ -187,3 +187,15 @@ Archived entries: [iterations 2162–2163](docs/progress-archive/2026-11-13-iter
 - Updated TASKS, scheduled review and observability handbook; archived iterations 2162–2163 to keep progress small. SOURCES/NEEDS_FROM_HUMAN unchanged.
 - Local CLI only; no generation changes, paid calls, publication writes or service restart required.
 - Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
+
+## 2026-11-13: iteration 2180 — passive metrics recovery observation
+
+- Clean main; no inherited work. Initial alerts zero; database/Redis health pass; no failed user services.
+- Owner value: establish whether the existing low-CPU metrics limit keeps alert evaluation healthy during natural compaction; public launch still excludes Grafana.
+- Scheduled NBA/item 58/private public-mode gates remain pending Nov 14; no replay or generation change.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤1.195 s; no new evaluator failures, missed evaluations, admission-limit hits, queue timeouts or slow queries.
+- One natural small merge/15,189 rows; no large merge. Below comparable threshold, so recovery stays open and capacity remains unchanged.
+- `journalctl -u obs-metrics.service -u obs-alerts.service --since '2026-11-13 16:24:44 UTC' -p warning --no-pager -n 10`: no entries.
+- Updated TASKS and capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only; no runtime restart required.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
+- Next: Nov 14 scheduled all-topic AI/event-diversity review, item 58, then private public activation; no next passive sample before 19:35 UTC.

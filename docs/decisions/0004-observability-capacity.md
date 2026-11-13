@@ -866,3 +866,15 @@ merge. Neither interval meets the comparable-merge threshold; recovery remains
 open. Warning-level metrics journal since 14:43:13 UTC has no entries. Limits
 unchanged; next short passive probe no earlier than 17:26 UTC Nov 13. No forced
 merge, service restart, configuration change or provider call.
+
+### Passive follow-up (iteration 2180)
+
+Nov 13 18:34:06–18:34:37 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤1.195 s, no new evaluator errors
+or missed iterations, admission-limit hits, queue timeouts or slow queries.
+Process starts unchanged; one small merge processed 15,189 rows, no large-tier
+merge. The interval does not meet the comparable-merge threshold; recovery
+remains open. System `obs-metrics.service`/`obs-alerts.service` warning-level
+journal since 16:24:44 UTC has no entries. Limits unchanged; next short passive
+probe no earlier than 19:35 UTC Nov 13. No forced merge, restart, configuration
+change or provider call.
