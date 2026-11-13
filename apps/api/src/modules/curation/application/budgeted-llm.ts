@@ -12,6 +12,7 @@ import {
 import type { LlmLedger } from '../domain/llm-ledger.port';
 import type { RejectedEditorStore } from '../domain/rejected-editor.port';
 import { currentLlmExecution } from './execution-context';
+import { inferenceAdmission } from './inference-admission';
 import { llmFingerprint } from './llm-fingerprint';
 import { admitAfterSettlement } from './settlement-admission';
 import {
@@ -215,6 +216,19 @@ export class BudgetedLlm {
         throw error;
       }
     }
+    const outcome = await inferenceAdmission.run(
+      () => this.resolveAdmitted(request, key, validate, repair, execution),
+      execution ? execution.deadline - this.now() : undefined,
+    );
+    return outcome ?? { status: 'provider-call-failed' };
+  }
+  private async resolveAdmitted<T>(
+    request: LlmRequest,
+    key: string,
+    validate: (value: unknown) => T,
+    repair: boolean,
+    execution?: LlmExecutionContext,
+  ): Promise<LlmJsonOutcome<T>> {
     // Each repair is separately reserved and recorded. Only rejected rate-limit requests may retry inside the adapter.
     let feedback = '';
     for (let attempt = 0; attempt < (repair ? 2 : 1); attempt++) {

@@ -151,3 +151,12 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - Repaired U.S. Bluesky naturally publishes two concrete posts (511 read/10 shortlisted); restored presence accepted, overall quality open. All 16 official X metrics empty. Updated daily review, TASKS, SOURCES and security handoff; NEEDS_FROM_HUMAN unchanged.
 - `pnpm check` passes: 966 unit/291 integration tests, four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass; existing build warnings only.
 - Runtime/configuration unchanged; no restart during 13:00–16:00 hold. Fix admission before the next scheduled acceptance; public mode remains off/VM private.
+
+## 2026-11-13: iteration 2161 — bound multi-topic inference before budget holds
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. Nov 13 failed story editing remains the highest-priority breakage.
+- Added process-shared four-request FIFO admission before reservation across triage, editors and repairs; cache hits bypass it. Queue limited to 64/200 seconds and inherited generation deadline; timeout/overflow degrades without a hold. Provider four-slot/ten-second safety queue, models, prompts and caps unchanged.
+- Offline five-topic composition scores 750 candidates in 15 batches with peak four provider calls/four holds, zero missing scores or failures. Separate provider-slot composition, queue overflow/expiry, late transfer, exception cleanup and reuse pass; no live provider calls or replay.
+- Updated AI handbook and TASKS. SOURCES/NEEDS_FROM_HUMAN unchanged; NBA/item 58/public activation still require scheduled acceptance.
+- Verification: targeted admission 3/3 and triage 27/27; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts ai-and-budgets`, `git diff --check` pass: 970 unit/291 integration tests, four expected integration skips. Existing build warnings only.
+- No deploy/restarts during the explicit 13:00–16:00 UTC hold. Source fix is prepared for deployment after 16:00; runtime remains on previous deployed code. Next: deploy API/worker outside hold, verify health, then accept next normal scheduled edition; no paid generation.

@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
+import { InferenceSlots } from '../src/modules/curation/adapters/inference-slots';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { incrementalTriagePass } from '../src/modules/curation/application/incremental-triage-pass';
 import {
@@ -30,6 +31,7 @@ const candidates: TriageCandidate[] = Array.from({ length: 7 }, (_, i) => ({
 function harness(
   transform?: (items: ReturnType<typeof score>[]) => unknown,
   kind: 'article' | 'social' = 'article',
+  beforeComplete: () => Promise<void> = async () => {},
 ) {
   const values = new Map<string, unknown>();
   const calls: LlmRequest[] = [];
@@ -50,6 +52,7 @@ function harness(
   const llm = new BudgetedLlm(
     {
       async complete(request) {
+        await beforeComplete();
         calls.push(request);
         const prompt = JSON.parse(request.prompt.split('\nReturn only')[0]) as {
           candidates: TriageCandidate[];
@@ -1143,4 +1146,50 @@ void test('production X triage retains escaped author, reported counts and cache
   }
   assert.equal(changed.excerpt, post.text);
   assert.deepEqual(post.metrics, {});
+});
+
+void test('five topic triage services share admission before provider queue and budget holds', async () => {
+  const slots = new InferenceSlots(4, 10);
+  let active = 0;
+  let peak = 0;
+  let holds = 0;
+  let peakHolds = 0;
+  const services = Array.from({ length: 5 }, () => {
+    const h = harness(undefined, 'article', () =>
+      slots.run(async () => {
+        peak = Math.max(peak, ++active);
+        await new Promise((resolve) => setTimeout(resolve, 25));
+        active--;
+      }),
+    );
+    h.ledger.reserve = async () => {
+      peakHolds = Math.max(peakHolds, ++holds);
+      return 'reservation';
+    };
+    h.ledger.settle = async () => {
+      holds--;
+    };
+    return h;
+  });
+  const pool = Array.from({ length: 150 }, (_, i) => ({
+    ...candidates[0],
+    id: String(i),
+  }));
+  const results = await Promise.all(
+    services.map((h, i) =>
+      h.service.score({ ...topic, id: String(i) }, pool, 'multi-topic'),
+    ),
+  );
+  for (const result of results) {
+    assert.equal(result.scores.length, 150);
+    assert.deepEqual(result.unscoredIds, []);
+    assert.equal(result.failures, undefined);
+  }
+  assert.equal(
+    services.reduce((n, h) => n + h.calls.length, 0),
+    15,
+  );
+  assert.equal(peak, 4);
+  assert.equal(peakHolds, 4);
+  assert.equal(holds, 0);
 });

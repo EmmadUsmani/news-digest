@@ -4,7 +4,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Open work
 
-- [ ] BREAKAGE (2160): Nov 13 scheduled edition lost 11 candidate-triage calls to local ten-second inference-slot expiry; all stories non-AI, World/U.S. stories withheld. Four dispatched calls succeeded in 16–37 s. Fix bounded multi-topic admission before provider queue; offline contention proof, no paid replay/cap changes. [Review](docs/edition-reviews/2026-11-13.md).
+- [ ] BREAKAGE (2160): Nov 13 scheduled edition lost 11 candidate-triage calls to local ten-second inference-slot expiry; all stories non-AI, World/U.S. stories withheld. Four dispatched calls succeeded in 16–37 s. Shared four-request pre-reservation admission implemented (2161); five-topic/750-candidate composition passes offline. Deployment pending outside 13:00–16:00 hold; no paid replay/cap changes. [Review](docs/edition-reviews/2026-11-13.md).
 
 - [ ] NBA recurrence (2004): saved Sonnet initial/repair and Haiku repair pass full offline validation (2101); malformed Haiku initial ID remains refused. Nov 13 acceptance failed before editing: local triage queue expiry; no story-editor call exercised the validator. Restore admission, then accept the next scheduled NBA section. No paid replay.
 

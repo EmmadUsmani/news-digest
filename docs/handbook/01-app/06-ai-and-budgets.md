@@ -70,9 +70,11 @@ sequenceDiagram
 
 - **Reserve, then settle.** Concurrent jobs can't race past a cap, because
   reservations and caps are checked under one database lock.
-- **Inference admission:** each process runs at most four Anthropic calls. Calls
-  waiting more than ten seconds for a slot stop and release their unused hold.
-  Each logical call has a 200-second allowance including queueing and backoff;
+- **Inference admission:** each process admits four AI requests across topics,
+  editing and repairs before taking budget holds. Up to 64 requests wait FIFO
+  for at most 200 seconds, bounded by the generation deadline. Cache hits skip
+  admission. The provider also retains its four-call/ten-second safety queue.
+  Once admitted, each logical call has a 200-second allowance including provider queueing and backoff;
   HTTP attempts use at most 60 seconds and shrink to the remaining allowance.
   Scheduled generation shares one ten-minute deadline across topics, repairs,
   model fallback and slot admission. Expired AI work uses the existing non-AI
