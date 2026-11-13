@@ -10,7 +10,10 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 Nov 13 NBA Bluesky trace (2171): 593 stored observations cover 54 distinct posts;
 six of ten semantic shortlist entries repeat X-covered events. The selected
 Vucevic milestone fills a vacant fifth slot, with 18 official likes; viral
-quality remains unaccepted. Current query is `NBA`; no source/query change.
+quality remains unaccepted. Media trace (2172): zero safe attached-video posts;
+the sole stored video is an NFT-tagged game chart refused by existing safety.
+Nine safe posts have images, 41 have no attached media. Current query is `NBA`;
+no source/query change.
 [Saved-pool reconstruction](edition-reviews/2026-11-13-nba-bluesky.md).
 
 November 13 saved-selection review (2157): four Bluesky picks have saved official metrics; Tech/Gaming repeat selected events and World is a link list. [Reader baseline](edition-reviews/2026-11-12-bluesky-pool.md#saved-selection-baseline--iteration-2157); next natural selection remains unaccepted.

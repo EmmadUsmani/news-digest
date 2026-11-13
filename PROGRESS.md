@@ -4,35 +4,7 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 
 Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iterations-2146-2154.md).
 
-## 2026-11-13: iteration 2155 — retain actual Bluesky collection evidence
-
-- Clean main; no inherited work. Initial `pnpm obs alerts` zero; `/healthz` database/Redis pass. Scheduled NBA/item 58 acceptance still due at 15:00 UTC; deployment hold respected.
-- Added `scripts/report-bluesky-collections.ts`: bounded Redis ZREVRANGE/HMGET reads export retained actual query/window/count results and failure presence without collecting, modifying jobs or exposing error text.
-- Live read-only export captured 24 completed five-topic passes and two older failures. Assertions validate completed status, five topics, query strings and nonnegative counts; unexpected arguments fail before Redis access. Export retained mode 600 at `/tmp/bluesky-collections-2155.json`.
-- Latest 13:54 UTC run: World fallback 46 submissions/U.S. Congress 49. Shared 48-job retention covers roughly 24 Bluesky passes, not 48; documented 12-hour capture cadence and absence of observation-level query attribution.
-- Updated TASKS/SOURCES and pilot contract; archived older PROGRESS entries after 25 KB. No provider calls, live writes, budgets, generation, configuration or sharing changes. NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass; existing build warnings only. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- No service restart during hold; production unchanged. Next: scheduled NBA/item 58 acceptance, then private public-mode activation outside hold; World pilot activation follows those gates.
-
-## 2026-11-13: iteration 2156 — review saved X content and correct stale World status
-
-- Clean main; no inherited work. Initial `pnpm obs alerts` zero; `/healthz` database/Redis pass. NBA/item 58 gate still due at 15:00 UTC; deployment hold respected.
-- Read all 18 saved Nov 12 X texts and notes; documented topic-level reporting, announcements, political attribution and media limitations in `docs/edition-reviews/2026-11-12-x-quality.md`.
-- World now has four X picks, all cited by daily keyword search; removed stale Nov 9 absence from TASKS. Nine of 18 total X picks are daily-search citations, eight outside-list; no exclusive first-discovery attribution claimed.
-- GET-only assertions pass: immutable edition ID, all 18 publication times within saved window, all official metrics empty. `report-x-discovery.ts 2026-11-12` confirms five completed successful calls, zero holds, $0.327795 settled. No provider calls or writes.
-- Existing Gaming translation/date/repetition and Tech overlap fixes await natural acceptance; viral quality remains open. Updated TASKS/SOURCES; no new generation rules or duplicate repairs. NEEDS_FROM_HUMAN unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass; existing build warnings only. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- No service restart during hold: runtime/configuration unchanged. Next: 15:00 NBA/item 58 acceptance, then private public-mode activation outside hold; World discovery pilot follows those gates.
-
-## 2026-11-13: iteration 2157 — retain saved Bluesky reader baseline
-
-- Clean main; no inherited work. Initial alerts zero. NBA/item 58 scheduled acceptance remains due at 15:00 UTC; deployment hold respected.
-- Read all four Nov 12 saved Bluesky texts/context lines: Tech/Gaming repeat selected events, World is a weak link list, NBA supplies attributed media/legal reporting; U.S. historical absence cannot accept its repaired query.
-- Added per-topic author/official metric snapshots and concrete next-edition comparisons to the existing pool review; updated TASKS/SOURCES. Existing overlap/award/link-list fixes already cover observed defects; no duplicate rules or provider calls.
-- GET-only assertions pass: immutable edition ID, four Bluesky picks, exact saved likes/reposts/replies, window inclusion and U.S. absence. Media references were not fetched; snapshots do not establish growth or viral quality.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass: 966 unit/291 integration passes, four expected skips; existing build warnings only.
-- No runtime/configuration changes or service restarts during hold; budgets, generation and private sharing unchanged. NEEDS_FROM_HUMAN unchanged.
-- Next: scheduled NBA/item 58 acceptance, private public-mode activation outside hold, then World discovery pilot and natural social-quality acceptance.
+Archived entries: [earliest retained entries before iteration 2172](docs/progress-archive/2026-11-13-before-2172.md).
 
 ## 2026-11-13: iteration 2158 — verify repaired U.S. Bluesky content supply
 
@@ -173,3 +145,14 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Documentation only; runtime unchanged, no rebuild/restart needed.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
 - Next: Nov 14 scheduled NBA/admission acceptance and event-diversity review, then item 58/private public-mode activation.
+
+## 2026-11-13: iteration 2172 — measure NBA attached-media supply
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass, no failed user services.
+- Extended GET-only stored Bluesky coverage report with safe image/video/description counts, bounded video examples and distinct stored video count; no media fetches or generation changes.
+- NBA saved window: 54 distinct posts, one stored video, zero safe videos; 50 safe candidates contain nine image posts/41 without attachments, two author descriptions.
+- Sole stored video is an NFT-tagged game chart (one like); existing safety rejects it. No evidence that selection overlooked a highlight. Tech/Gaming/U.S. safe video counts are 6/8/10.
+- Historical report and all-five-topic count-bound assertions pass; temporary read-only observation inspection removed. No paid calls or configuration changes.
+- Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Report-only change, runtime unchanged; no rebuild/restart needed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived three oldest retained entries to keep this file small.
+- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later discovery tuning should address absent highlight supply.

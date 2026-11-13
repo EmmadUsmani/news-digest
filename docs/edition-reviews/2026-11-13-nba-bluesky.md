@@ -58,3 +58,26 @@ text/media evidence requirements. World discovery and the scheduled NBA/item
 - Protected saved-preview GET and read-only cache queries reconcile the pick,
   metrics, rationale, open slot and diagnostic counts. All database work is
   read-only; no provider calls, collection, generation or configuration changes.
+
+## Attached-media supply — iteration 2172
+
+The read-only coverage report now distinguishes attached video in any retained
+snapshot from media on the latest safe engaged candidates. NBA has one distinct
+stored video post across 54 distinct posts, but zero videos among the 50 safe
+candidates. Those candidates have nine image posts, 41 without attached media,
+and only two with author-provided descriptions. Attachments do not establish
+highlight content; linked or quoted videos are not counted as author attachments.
+
+A read-only inspection identifies the sole stored video as a Raptors/Sixers
+`#gamecharts #dataviz #nft` post, with one like and zero reposts/replies.
+The existing safety gate rejects `nft`; this is not evidence of a missed game
+highlight or a reason to weaken the gate. No media was fetched or watched.
+Tech/Gaming/U.S. have six/eight/ten safe attached-video posts in the same window,
+so the NBA zero is not a universal absence of parsed video metadata.
+
+Command: `pnpm exec tsx scripts/report-bluesky-coverage.ts --window-end 2026-11-13T15:00:00Z`.
+All five topics pass count-bound checks; a temporary GET-only observation
+inspection was removed. Counts describe this retained window, not platform-wide
+supply. Discovery tuning should seek distinct reporting and actual attached
+highlights; selection cannot recover media absent from the collected pool.
+Production queries, eligibility, provider usage and generation remain unchanged.
