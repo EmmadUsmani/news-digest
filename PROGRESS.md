@@ -97,3 +97,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
 - API/worker/docs restarted; `/healthz` database/Redis healthy. `pnpm obs sources --check`: 38 sources/zero unhealthy; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts verified.
 - No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private.
+
+## 2026-11-13: iteration 2144 — compact scheduled acceptance handoff
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 acceptance still awaits 15:00 UTC; generation frozen after noon, public mode off.
+- Owner benefit: the next edition review now follows the actual proxy decision instead of reopening a resolved blocker. Corrected the settlement-review checklist to follow STEERING 59 and private-sharing activation after NBA acceptance.
+- TASKS had grown to 31,141 bytes. Archived its detailed state, retained all 23 open checkboxes and reduced the handoff below 8 KB; completed histories remain linked. No owner priority changes.
+- Python verification: all local link targets in the three task/review files exist; 23/23 open tasks retained. No source, product, generation, budget, flag or sharing changes; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with the existing bundle warning; `git diff --check` clean.
+- API/worker/docs restarted before the protected window. `pnpm obs health --check`: database/Redis healthy; `pnpm obs sources --check`: 38 sources/zero unhealthy; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts.
+- Next: Nov 13 15:00 scheduled NBA/item 58 acceptance, then private-sharing public activation outside 13:00–16:00. Natural Tech/social quality and settlement recovery remain unaccepted until observed.

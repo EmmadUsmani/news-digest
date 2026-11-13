@@ -186,5 +186,7 @@ pnpm obs alerts
   and spend. Publication agreement alone does not close editorial acceptance.
 - If no call needed to wait, record that outcome and leave natural settlement
   recovery unobserved. Missing events before the scheduled run are expected.
-- Record the evidence in that day's edition review and update TASKS. Keep the
-  independent authenticated-proxy gate open; this review cannot satisfy it.
+- Record the evidence in that day's edition review and update TASKS. Follow the
+  STEERING 59 proxy decision: the owner result closes that block. After normal
+  scheduled NBA AI editing, ack item 58 and follow [public readiness](../public-readiness.md)
+  for activation with sharing private; public mode needs its own scheduled acceptance.
