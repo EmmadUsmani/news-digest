@@ -15,19 +15,20 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44), the leaked test folders (item 51) and NBA editing (item 54).
+   (item 44), the leaked test folders (item 51) and NBA editing (items 54, 59).
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md`. Phases 1 and 3 are accepted (item 53 is done).
-   Migration 0019 is live. The lead's phase 4 security review is done: fix its
-   findings next (item 58), then stop for the owner's go-public decision.
-3. Split World into World and U.S. news & politics (items 56, 57). Starts only
-   when item 50 is finished or waiting on the owner; item 50 always comes
-   first when it can move.
-4. X search and Bluesky: acceptance reviews continue in the daily edition
-   review; new tuning waits for item 50 (items 39, 34, 40, 41).
-5. Then item 38's list for choosing meaningful work. Once item 37 is acked, or
-   while it waits, item 42 says what to do first. Item 43 says what not to do.
+   `docs/public-access-plan.md` and item 59: close item 58, then take public
+   mode live while the VM stays private. Stop before sharing for the owner's
+   go-public decision.
+3. U.S. news & politics acceptance (items 56, 57) continues in the daily
+   edition review.
+4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
+5. Then X search and Bluesky tuning (items 39, 34, 40, 41).
+6. Then Tech summary depth: read Tech as a reader and fix thin summaries at
+   their cause (item 59).
+7. Then item 38's list for choosing meaningful work. Item 42 says what to do
+   first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -2678,3 +2679,62 @@ is fixed. Describe fixes by what they protect.
 - **Ack** once at the end: one line per item (fixed, commit, or why not), with no
   exploit detail. Then stop item 50 for the lead's re-check and the owner's
   go-public decision, and go back to items 56 and 57.
+
+> **Nov 13:** item 59 closes the proxy checks (owner passed them) and says what
+> follows item 58. Don't stop item 50 at the ack: continue with item 59.
+
+## 59. NOW: fix NBA, then take public mode live privately; stop idling (2026-11-13)
+
+**Why:** from 21:41 UTC Nov 12 the agent ran 60+ iterations ending "no
+eligible implementation change", each repeating "proxy checks remain blocked"
+from the previous summary. Item 38 still applies: never idle. The proxy checks
+are no longer blocked. The owner ran them on Nov 13 (see `NEEDS_FROM_HUMAN.md`):
+the proxy port is 8000, and a spoofed `X-ExeDev-Email` is replaced by the
+real identity. NBA fell back to source excerpts on Nov 12, and item 58 needs a
+normal scheduled edition after its fixes.
+
+**Priority:** step 1 is a breakage and comes first. Then item 50, ahead of
+everything else in Current order.
+
+**What to do, in order:**
+
+1. **NBA editing.** On Nov 12 the absence check refused supported Curry
+   sentences that were split or reordered (`docs/edition-reviews/2026-11-12.md`).
+   Accept supplied facts that are split or reordered, while still refusing
+   absences the source doesn't support. Prove it on the four saved Nov 12
+   responses offline, with no spend. Deploy before 12:00 UTC Nov 13 if possible;
+   otherwise outside 13:00–16:00 UTC, for the next edition.
+2. **Close item 58.** Record the owner's proxy result in
+   `docs/phase4-security-handoff.md`. Once a scheduled edition publishes
+   normally (NBA AI-edited), ack item 58. The lead re-checks the fixes in
+   parallel; don't wait for that.
+3. **Remaining activation work** in `docs/public-readiness.md`, in its order:
+   - Owner decisions (Nov 13): **launch without the public Grafana page**. It
+     stays closed and off the public tool list; drop its capacity work from the
+     launch checklist. **The Spend page may be public.**
+   - Finish the other read-only admin and tool pages that are still open.
+   - Run the complete public-mode rehearsal.
+   - Write the rollback record and baseline, then turn on `PUBLIC_MODE=1` and
+     the public web build **while sharing stays private** (runbook steps 1–3).
+   - Accept one normal scheduled edition in public mode.
+   - Then ack and stop item 50 for the owner's sharing decision.
+4. **While waiting on an edition,** work down Current order:
+   - **U.S. Bluesky:** the Nov 12 job fetched zero U.S. posts. Find why, and
+     fix it at the cause.
+   - Then X and Bluesky tuning.
+   - Then Tech summary depth.
+
+**What not to do:** don't run `ssh exe.dev share` or change sharing; the owner
+does that. Don't change budgets or the "VM stays private" rule. Don't
+re-check health, alerts or the saved edition every iteration: once per change,
+plus the daily edition review. An iteration ending "no eligible change" is a
+warning sign: take the next item on Current order instead.
+
+**Done when:** NBA is AI-edited in a scheduled edition, item 58 is acked, and
+public mode is on and accepted with sharing private. Ack each of those three
+separately, with commits and the edition ID.
+
+**Limits:** no new spend beyond the normal edition. No deploys 13:00–16:00
+UTC. Nothing that touches edition generation after 12:00 UTC unless it fixes a
+breakage. Protect the edition: if it fails or looks wrong, turn the newest flag
+off first.
