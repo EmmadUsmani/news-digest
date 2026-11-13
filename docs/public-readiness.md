@@ -18,7 +18,8 @@ Public mode and sharing remain unchanged until the activation steps are run.
 
 1. Record the deployed commit, current private sharing state and proxy port
    (8000), service health, latest published edition ID, source freshness and
-   scheduled jobs. Keep a private backup and the current flag/service settings.
+   scheduled jobs. Keep a private backup and the current flag/service settings using the
+   [prepared deployment record](public-activation-record.md).
    Work outside 13:00–16:00 UTC and preserve the noon generation cutoff.
 2. While sharing is still private, set `PUBLIC_MODE=1` in the private
    `~/.config/news-digest/env`, preserving account, origin, trusted-proxy and

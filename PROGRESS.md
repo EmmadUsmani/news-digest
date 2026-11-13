@@ -198,3 +198,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `git diff --check` passes. Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
 - Commit/push and API/worker restart follow; reader HTTP 200 before deployment.
 - Next: scheduled NBA/item 58 acceptance, private-sharing public activation, and natural social selection review.
+
+## 2026-11-13: iteration 2110 — concrete activation recovery record
+
+- Clean main; no inherited work. Read Current order/item 59; scheduled NBA/item 58 acceptance still awaits Nov 13 15:00 UTC. Public mode remains off.
+- Prepared docs/public-activation-record.md and linked it from readiness: exact flag/build/service recovery, preserved account flags/additive migrations, private-sharing prerequisite and activation receipt fields.
+- Preparation baseline records deployed 8ac58ec7, API/worker active without drop-ins, PUBLIC_MODE absent/effective zero, and saved edition b1be5a12-2972-4eeb-9bff-82cbb10c1b07. Refresh after scheduled acceptance; this is not an activation receipt.
+- `pnpm obs alerts`: zero alerts; healthz healthy; `pnpm obs sources --check`: 38 healthy/zero unhealthy; `pnpm obs jobs --check --limit 1`: staffed queues and next scheduled edition 15:00 UTC. Retained historical failures unchanged.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree, five topics/25 stories/22 posts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts public` passes; `git diff --check` passes.
+- TASKS/readiness updated; SOURCES and NEEDS_FROM_HUMAN unchanged (no source or owner-action change). No paid calls, budgets, providers, flags or sharing changes.
+- Commit/push and API/worker restart follow. Next: scheduled NBA/item 58 acceptance, refresh activation baseline/backup, then authorized private-sharing public activation.
