@@ -28,17 +28,6 @@ Archived entries: [iterations 2181–2182](docs/progress-archive/2026-11-13-iter
 
 Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-iteration-2183.md).
 
-## 2026-11-13: iteration 2184 — continue incomplete saved X excerpts
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass, no failed user services. All 38 sources healthy; digest queue available with Nov 14 15:00 UTC scheduled.
-- Owner value: Curry's saved injury update stops at “two (2)…”; readers now have a clear continuation link beside that incomplete text, also covering two other saved X excerpts.
-- Reader offers “Continue reading on X” for a terminal ellipsis, ignoring trailing media links. Internal ellipses do not trigger it; all saved text and generation remain unchanged.
-- Ten targeted excerpt-ending cases pass. GET-only `node /tmp/iteration-2184-reader.cjs` passes actual saved-edition checks at 390/1440px, light/dark: three correct links, 16 original texts preserved, no overflow/browser errors.
-- Restarted API; health passes. Four screenshots saved under `docs/screenshots/ui/reader-x-continue-*`; inspected mobile light/desktop dark. Initial browser attempt raced startup; retry after healthy endpoint passed.
-- `pnpm format`, `pnpm lint:fix`, standalone `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings. Initial combined check received SIGTERM near unit-test completion; full retry passed.
-- Updated TASKS; archived progress 2166–2168 to keep this file small. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader link only); no paid calls.
-- Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation. Further small reader changes give way to source/editorial work.
-
 ## 2026-11-13: iteration 2185 — identify Tech feed evidence loss
 
 - Clean main; no inherited work. Initial alerts zero, health/database/Redis pass, no failed user services. NBA/item 58/public activation still requires Nov 14 scheduled acceptance.
@@ -184,3 +173,14 @@ Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-i
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted lint, `pnpm check`, `pnpm build`, web rebuild, handbook/schema check and `git diff --check`; all pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning.
 - Rebuilt API/worker restarted; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
 - Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2198 — clickable X media references
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass. Scheduled acceptance awaits Nov 14; generation cutoff retained.
+- Reader weakness: actual NBA Cade Cunningham post includes a plain `pic.twitter.com` media reference. Shared edition/saved-post text now opens these references over HTTPS, retaining visible original text and punctuation handling.
+- No generation, source, prompt, budget or stored-data changes; no paid calls. Feed-depth implementation remains gated before noon.
+- `pnpm exec tsx scripts/smoke-saved-media-links.ts`: actual NBA saved post passes desktop/mobile light/dark, destination/text/reload, typography, no overflow/errors. Four screenshots added; mobile light inspected. Existing full-URL Gaming browser regression also passes all four variants.
+- Handbook reading preferences and TASKS updated; archived iteration 2184. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: format/lint fixes, full check, build, final web rebuild, handbook/schema check and diff checks. 985 unit/294 integration tests pass, four expected skips; existing web chunk warning. First combined check terminated during typechecking without a reported failure; standalone retry used for acceptance.
+- Next: pre-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
+- Full standalone check passes; built API/worker restart and push follow verification.

@@ -55,7 +55,7 @@ data when enabled, deletion and third-party post connections.
   `/saved`, open the original or its edition, or remove it. Newly saved posts retain their
   editorial context alongside the original excerpt. New saves show the original
   publication date separately from the save date. Post links stay clickable in saved
-  excerpts; other post text opens the original. Saves survive reloads.
+  excerpts, including X media links written as `pic.twitter.com/…`; other post text opens the original. Saves survive reloads.
   With accounts enabled, this page shows sign-in and sync status; open Account beside
   its heading to retry a failed sync.
 - This browser holds up to 1,000 saved identities, including removal records.

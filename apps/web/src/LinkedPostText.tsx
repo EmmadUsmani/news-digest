@@ -7,9 +7,9 @@ export function LinkedPostText({
   text: string;
   postUrl: string;
 }) {
-  const parts = text.split(/(https?:\/\/[^\s<>]+)/gi);
+  const parts = text.split(/((?:https?:\/\/|pic\.twitter\.com\/)[^\s<>]+)/gi);
   return parts.map((part, index) => {
-    if (!/^https?:\/\//i.test(part))
+    if (!/^(?:https?:\/\/|pic\.twitter\.com\/)/i.test(part))
       return part ? (
         <a key={index} href={postUrl} target="_blank" rel="noreferrer">
           {part}
@@ -38,15 +38,18 @@ export function LinkedPostText({
       if (url.split(close).length <= url.split(open).length) break;
       url = url.slice(0, -1).replace(/[.,;:!?\x22\x27”’»。、！？：；…]+$/, '');
     }
+    const destination = /^pic\.twitter\.com\//i.test(url)
+      ? `https://${url}`
+      : url;
     try {
-      new URL(url);
+      new URL(destination);
     } catch {
       return part;
     }
     return (
       <React.Fragment key={index}>
         <a
-          href={url}
+          href={destination}
           target="_blank"
           rel="noreferrer"
           // Some official paragraphs place an anchor directly after a word.

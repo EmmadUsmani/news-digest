@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] X media references (2198): `pic.twitter.com` references now open HTTPS media destinations in edition text and saved post excerpts; original text preserved.
+
 - [x] Saved post links (2197): saved excerpts retain clickable full URLs and original-post navigation; actual Gaming patch notes survive reload on desktop/mobile light/dark.
 
 - [x] Visible publication dates (2196): edition stories/posts older than 24 hours show a calendar date, including year, without requiring a hover; recent items retain relative times.
