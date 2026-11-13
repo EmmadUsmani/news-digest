@@ -126,7 +126,9 @@ export function obsRequest(
   if (grep !== undefined) {
     if (!grep.trim() || grep.length > 200)
       throw new Error('--grep must contain 1–200 characters');
-    filters.push(`_msg:${JSON.stringify(grep)}`);
+    filters.push(
+      `(_msg:${JSON.stringify(grep)} OR event:${JSON.stringify(grep)})`,
+    );
   }
   return {
     url: 'http://127.0.0.1:9428/logs/select/logsql/query',

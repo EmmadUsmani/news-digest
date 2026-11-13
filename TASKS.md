@@ -8,7 +8,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] NBA recurrence (2004): saved Sonnet initial/repair and Haiku repair pass full offline validation (2101); malformed Haiku initial ID remains refused. Nov 13 acceptance failed before editing: local triage queue expiry; no story-editor call exercised the validator. Admission fix deployed after the hold (2165); accept the next scheduled NBA section. Read-only `check-scheduled-reader.ts <window-end> --require-ai-topic NBA` now refuses the saved Nov 13 non-AI edition (2169); publication alone is insufficient. No paid replay.
 
-- [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. Nov 13: 14 immediate Sonnet admissions, no waits/refusals, $0.236599 settled; natural recovery unobserved. Review the next normal run using the [checklist](docs/plans/sonnet-settlement-admission.md#natural-scheduled-review). Offline gates pass.
+- [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. Log event-name filtering repaired (2179); message/event queries reconcile all 14 saved admission records. Nov 13: 14 immediate Sonnet admissions, no waits/refusals, $0.236599 settled; natural recovery unobserved. Review the next normal run using the [checklist](docs/plans/sonnet-settlement-admission.md#natural-scheduled-review). Offline gates pass.
 
 - [ ] STEERING 58: security fixes/rehearsals deployed; owner proxy port/email replacement recorded and STEERING 59 closes the proxy block. After normal scheduled publication with NBA AI editing, ack item 58 with edition ID; lead review proceeds in parallel. [Handoff](docs/phase4-security-handoff.md).
 

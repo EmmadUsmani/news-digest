@@ -6,24 +6,7 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [earliest retained entries before iteration 2172](docs/progress-archive/2026-11-13-before-2172.md).
 
-## 2026-11-13: iteration 2162 — verify queued editors retain repair admission
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass; no failed user services. Deployment remains blocked by the explicit 13:00–16:00 UTC hold.
-- Added offline production-composition regression: nine independent BudgetedLlm editor instances share four provider slots; every initial response fails validation and all nine repairs succeed despite responses exceeding the provider queue allowance.
-- Verifies first-wave repairs dispatch before the fifth editor, all 18 calls settle, peak four budget holds and zero leftover holds/provider failures. No live calls, paid replay, prompts, caps or runtime changes.
-- Targeted `pnpm exec tsx --test apps/api/test/llm.test.ts`: 48/48 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 971 unit/291 integration tests, four expected skips; existing build warnings only.
-- TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (test-only behavior coverage). No restart during hold; runtime still awaits deployment of 84106006 after 16:00 UTC.
-- Next: deploy API/worker outside hold, verify health, then accept the next scheduled NBA edition before item 58/public-mode activation.
-
-## 2026-11-13: iteration 2163 — review scheduled X content during deployment hold
-
-- Clean main; no inherited work. Alerts zero, `/healthz` database/Redis pass, no failed user services. Admission deployment still prohibited by the 13:00–16:00 UTC hold.
-- Read all 16 saved X picks from Nov 13 edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`: concrete NBA/Gaming news, overlapping Tech Gemini recap/rollout and weak computer-demo/project teasers. Existing instructions already cover these weaknesses; no new wording rule.
-- Read-only discovery report reconciles five completed keyword calls/$0.330667/zero holds; eight selected daily-search citations, all outside-list. All 16 official metric objects remain empty; viral acceptance open.
-- Asserted immutable edition ID, X count, every publication-window timestamp and missing official metrics. Recorded attributed political claims and unexercised Gaming translation/ceremony and World link-list guards in the new daily X review; TASKS/daily review linked.
-- No paid calls, media fetches, collection, generation, configuration or runtime changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged; no deployment/restart during hold.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 971 unit/291 integration tests, four expected skips. Documentation-only step; no rebuild/restart needed.
-- Next: deploy prepared API/worker admission fix after 16:00 UTC, then review the next scheduled NBA/item 58 acceptance before private public-mode activation.
+Archived entries: [iterations 2162–2163](docs/progress-archive/2026-11-13-iterations-2162-2163.md).
 
 ## 2026-11-13: iteration 2164 — verify admission under deadline expiry and cache load
 
@@ -193,3 +176,14 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Updated TASKS/SOURCES and saved comparison; handbook/NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
 - Local probe only; runtime unchanged, no restart needed. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public mode.
+
+## 2026-11-13: iteration 2179 — repair admission event log searches
+
+- Clean main; no inherited work. Initial alerts zero; database/Redis health pass; no failed user services.
+- Reader recovery remains pending Nov 14; found the review CLI silently missed structured admission events by searching only message text.
+- `obs logs --grep` now searches message or event within the same service/time/result bounds; query-escaping regression updated.
+- Read-only live verification: event and message searches return identical 14 saved Nov 13 admission records, all admitted; no settlement-wait/recovery acceptance inferred.
+- Targeted CLI tests: 18/18 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook check and `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
+- Updated TASKS, scheduled review and observability handbook; archived iterations 2162–2163 to keep progress small. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Local CLI only; no generation changes, paid calls, publication writes or service restart required.
+- Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.

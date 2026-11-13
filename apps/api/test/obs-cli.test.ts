@@ -23,7 +23,7 @@ void test('obs log filters escape query operators and bound results', () => {
   const query = (request.init?.body as URLSearchParams).get('query')!;
   assert.equal(
     query,
-    '_time:1h service:"worker" _msg:"\\" | limit 9999" | sort by (_time) desc | limit 7',
+    '_time:1h service:"worker" (_msg:"\\" | limit 9999" OR event:"\\\" | limit 9999") | sort by (_time) desc | limit 7',
   );
   assert.equal(request.url, 'http://127.0.0.1:9428/logs/select/logsql/query');
   assert.match(
