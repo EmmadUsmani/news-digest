@@ -75,7 +75,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v9/);
+  assert.match(h.calls[0].instructions, /Social editor v10/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -601,6 +601,73 @@ void test('saved awards overlap reaches cross-platform comparison in both model 
     assert.equal(
       separate[0].text,
       'Resident Evil announced a separate game release.',
+    );
+    assert.equal(h.calls.length, 2);
+  }
+});
+
+void test('saved publisher link list stays unexpanded while substantive linked prose remains eligible', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/social-link-list-2026-11-12.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    // Simulated selections check the contract, not a live model's quality judgment.
+    const h = harness(
+      [{ posts: [] }, { posts: [{ ...post, id: 'report' }] }],
+      refuse,
+    );
+    const input = [
+      {
+        ...candidates[0],
+        id: saved.post.externalId,
+        platform: 'bluesky' as const,
+        text: saved.post.text,
+        author: saved.post.author,
+        publishedAt: saved.post.publishedAt,
+      },
+    ];
+    const world = {
+      ...topic,
+      name: saved.topic,
+      description: 'International news',
+    };
+    assert.deepEqual(
+      (await h.editor.edit(world, input, 1, 'links'))?.posts,
+      [],
+    );
+    assert.equal(
+      JSON.parse(h.calls[0].prompt).candidates[0].text,
+      saved.post.text,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /URL slugs alone do not establish a supplied news development/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /do not reconstruct an article from its URL/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /linked post can qualify when its own supplied prose conveys substantive news/,
+    );
+    const reporting = [
+      {
+        ...input[0],
+        id: 'report',
+        text: 'The ministry announced a prisoner exchange involving 200 people today. https://example.org/report',
+      },
+    ];
+    assert.equal(
+      (await h.editor.edit(world, reporting, 1, 'report'))?.posts[0].id,
+      'report',
+    );
+    assert.equal(
+      JSON.parse(h.calls[1].prompt).candidates[0].text,
+      reporting[0].text,
     );
     assert.equal(h.calls.length, 2);
   }

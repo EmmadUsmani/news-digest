@@ -160,3 +160,15 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - API/worker restarted active; `/healthz` database/Redis healthy after connection retry. `pnpm obs sources`: 38 healthy/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree across reader routes.
 - Updated TASKS, ranking notes, affected handbook and saved-case review. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, models, caps, flags, sharing or saved-publication changes.
 - Next: scheduled Nov 13 15:00 NBA/item 58 acceptance, then public activation with sharing private; review natural Tech depth and Gaming duplicate suppression.
+
+## 2026-11-13: iteration 2132 — require news prose beyond publisher link lists
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits 15:00 UTC acceptance; public mode off.
+- Owner-visible weakness: World's saved Bluesky slot contains only two publisher links/counters, without reporting prose. One reply explains engagement eligibility, not editorial quality.
+- Retained exact saved reader object with edition provenance. Social editor v10 clarifies URL slugs/labels/counters alone cannot supply news; substantive linked prose remains eligible. No article fetch or deterministic phrase filter.
+- Offline real-budgeted-editor tests preserve the saved text on Sonnet/Haiku routes and exercise simulated rejection plus a synthetic substantive linked report. Natural semantic acceptance awaits scheduled review; immutable publication unchanged.
+- Targeted social/Bluesky editor tests: 24 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 947 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- `pnpm build`: pass with existing bundle warnings. Handbook check initially hit 101 lines; condensed affected text and `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes.
+- API/worker/docs restarted; `/healthz` database/Redis healthy after startup retry. `pnpm obs sources`: 38 sources/zero unhealthy. Scheduled-reader check for Nov 12 15:00: five topics/25 stories/22 posts agree.
+- Updated TASKS, ranking notes, saved-case review and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, models, caps, flags or sharing changes.
+- Next: Nov 13 15:00 NBA/item 58 acceptance, then public activation with sharing private; review natural Tech depth, Gaming duplicates and World social quality.

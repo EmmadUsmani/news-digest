@@ -44,8 +44,7 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives reported likes/reposts/replies/views, observation time and media-link presence.
-Counts remain unverified; growth and media contents stay unknown.
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown.
 
 X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes/reposts/replies/views (labelled as
 unverified hints), and whether the verified text includes a media link. Missing
@@ -68,7 +67,8 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips posts that repeat an X moment; extra awards for the same winning work at
-  one ceremony add detail, while separate releases can qualify.
+  one ceremony add detail, while separate releases can qualify. Link lists and URL slugs
+  alone supply no news; linked posts need substantive prose of their own.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
   Results separate budget refusal, editing failure and unknown causes.

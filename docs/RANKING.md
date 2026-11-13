@@ -2898,3 +2898,11 @@ and later independent developments remain eligible. Existing selected-post
 context, validation and request fingerprinting are retained; no extra calls,
 new detector or budget changes. Saved-text transport and simulated selection
 pass offline; natural semantic acceptance remains open.
+
+## Link-list social selection (iteration 2132)
+
+The [saved World pick](edition-reviews/2026-11-12-social-link-list.md) supplies
+publisher labels, counters and URLs without reporting prose. Social editor v10
+explicitly disallows reconstructing news from URL slugs; substantive linked
+prose stays eligible. Exact saved-text transport and simulated selections pass
+on both model routes offline. Natural semantic acceptance remains open.
