@@ -220,6 +220,9 @@ export async function editTopicPosts<T extends EditorialPost>(
                       JSON.stringify({
                         reportedLikes:
                           post.xTriageEvidence?.reportedLikes ?? 'unknown',
+                        observedAt:
+                          post.xTriageEvidence?.observedAt ?? 'unknown',
+                        growthEvidence: 'single snapshot; growth unknown',
                         likesEvidence: 'unverified hint, not official metrics',
                         media:
                           post.xTriageEvidence?.media === 'linked'

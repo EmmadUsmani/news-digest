@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2117: final X selection receives report observation time and explicit unknown single-snapshot growth; dated/missing evidence and bounded transport verified offline.
+
 - [x] Iteration 2116: X triage receives the validated reported-count observation time; invalid reports remain unknown and timestamp changes invalidate cached scores.
 
 - [x] Iteration 2115: X triage receives stored publication time; production timestamp transport and cache invalidation verified offline.

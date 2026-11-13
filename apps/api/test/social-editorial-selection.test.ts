@@ -621,7 +621,13 @@ void test('final X editor retains bounded unverified engagement and media eviden
       xSearchRanking: { bonus: 0, reason: 'Fixture ranking '.repeat(200) },
       ...(reportedLikes === undefined
         ? {}
-        : { xTriageEvidence: { reportedLikes, media: 'linked' as const } }),
+        : {
+            xTriageEvidence: {
+              reportedLikes,
+              observedAt: '2026-11-12T14:00:00.000Z',
+              media: 'linked' as const,
+            },
+          }),
     };
     const original = structuredClone(candidate);
     const result = await editTopicPosts(
@@ -648,6 +654,16 @@ void test('final X editor retains bounded unverified engagement and media eviden
             assert.ok(evidence.length <= 1200);
             const hints = JSON.parse(evidence.split('\n')[1]);
             assert.equal(hints.reportedLikes, reportedLikes ?? 'unknown');
+            assert.equal(
+              hints.observedAt,
+              reportedLikes === undefined
+                ? 'unknown'
+                : '2026-11-12T14:00:00.000Z',
+            );
+            assert.equal(
+              hints.growthEvidence,
+              'single snapshot; growth unknown',
+            );
             assert.match(hints.likesEvidence, /unverified/);
             assert.equal(
               hints.media,

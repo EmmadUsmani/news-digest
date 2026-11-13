@@ -2610,3 +2610,10 @@ xAI engagement report used for ranking. Invalid, mismatched or out-of-window
 reports supply no timestamp; missing counts remain unknown. One reported snapshot
 is explicitly not measured growth. Offline transport/cache and admission checks
 cover the change; no collection, provider, budget or ranking-weight changes.
+
+### Iteration 2117: retain X count age in final selection
+
+Final X selection now receives the validated report observation time alongside
+reported likes, with explicit unknown growth from a single snapshot. Missing
+timestamps stay unknown. Offline selection covers dated/unknown evidence, the
+1,200-character bound and original-post preservation; collection and weights unchanged.

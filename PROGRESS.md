@@ -184,3 +184,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); social-posts handbook check passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
 - API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check` and `pnpm obs jobs --check --limit 1` pass; edition remains scheduled 15:00 UTC.
 - Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged. No paid/external verification, collection, provider, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then authorized public activation with sharing private.
+
+## 2026-11-13: iteration 2117 — retain X count age in final selection
+
+- Clean main; no inherited work. Initial alerts zero; healthz, 38 sources and all queues healthy. NBA/item 58 acceptance awaits the 15:00 UTC scheduled edition; public mode remains off.
+- Found final X selection received reported likes without their observation time. It now receives the validated report timestamp and explicit single-snapshot/unknown-growth evidence; missing timestamps remain unknown.
+- Focused `pnpm exec tsx --test --test-reporter=dot apps/api/test/social-editorial-selection.test.ts`: 12 pass; covers dated/missing evidence, zero/unknown likes, 1,200-character bound and original-post preservation.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; `git diff --check` passes.
+- Handbook initially exceeded 100 lines; shortened affected paragraph. `pnpm exec tsx scripts/check-handbook.ts social-posts` now passes (18 pages/one unchanged diagram/39 tables).
+- API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged.
+- No paid/external verification, collection, provider, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private.
