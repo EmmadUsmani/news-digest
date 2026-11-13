@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Engagement snapshots (2199): Bluesky and Reddit reader cards label saved counts “at collection”, matching X; displayed counts and saved editions unchanged.
+
 - [x] X media references (2198): `pic.twitter.com` references now open HTTPS media destinations in edition text and saved post excerpts; original text preserved.
 
 - [x] Saved post links (2197): saved excerpts retain clickable full URLs and original-post navigation; actual Gaming patch notes survive reload on desktop/mobile light/dark.

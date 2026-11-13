@@ -58,7 +58,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   or topic name. U.S. discovery uses `Congress`. Missing login skips collection.
 - **Counts are snapshots:** each observation is stored with its likes,
   reposts, replies and time. An edition sees the counts as they were at its
-  cutoff.
+  cutoff. Reader cards label engagement counts “at collection”.
 - **Selection evidence:** triage gets author, publication time and timestamped
   API counts in a separate bounded evidence field, preserving context beyond article-title limits.
   Triage and the editor receive attachment presence and bounded author-written

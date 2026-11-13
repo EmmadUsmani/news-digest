@@ -415,7 +415,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
       <p className="byline">
         {post.metrics.score.toLocaleString()} score ·{' '}
         {post.metrics.comments.toLocaleString()} comments ·{' '}
-        {Math.round(post.metrics.upvoteRatio * 100)}% upvoted
+        {Math.round(post.metrics.upvoteRatio * 100)}% upvoted · at collection
       </p>
       <a href={post.url} target="_blank" rel="noreferrer">
         Open original post on Reddit
@@ -545,7 +545,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
       <p className="byline">
         {post.metrics.likes.toLocaleString()} likes ·{' '}
         {post.metrics.reposts.toLocaleString()} reposts ·{' '}
-        {post.metrics.replies.toLocaleString()} replies
+        {post.metrics.replies.toLocaleString()} replies · at collection
       </p>
       <PostContext post={post} />
     </Card>

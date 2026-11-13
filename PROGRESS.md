@@ -28,17 +28,7 @@ Archived entries: [iterations 2181–2182](docs/progress-archive/2026-11-13-iter
 
 Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-iteration-2183.md).
 
-## 2026-11-13: iteration 2185 — identify Tech feed evidence loss
-
-- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass, no failed user services. NBA/item 58/public activation still requires Nov 14 scheduled acceptance.
-- Owner value: richer Tech reporting is already fetched but discarded: Ars parser chooses a short teaser before supplied article content, losing concrete Microsoft outage/recovery details.
-- One explicit live RSS GET, no article destinations/media/paid calls or writes. Temporary offline `pnpm exec tsx scripts/tmp-2185.ts` passed 20 canonical-URL matches, exact teaser precedence, richer bounded bodies and the recovery-quote check; probe removed.
-- All 20 teasers are 52–101 characters versus 593–1,500 supplied body characters. Recorded response hash, example and bounded content-first/blank-fallback implementation in `docs/edition-reviews/2026-11-13-tech-feed-depth.md`; updated SOURCES/TASKS.
-- No production parser/generation change after noon under STEERING 59. Implement before noon UTC; retain text cap, attribution and no-crawl rule. Existing HN blank-link limitation is unchanged, not a new failure.
-- Saved NBA fixtures contain normalized outputs, not original raw response bytes; raw-response golden remains open. No fixture relabelled or paid re-recording.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema validation and `git diff --check` pass; build has existing chunk warnings. Full `pnpm check` passes: 977 unit/291 integration tests, four expected skips.
-- Archived progress 2169–2170 to retain the size limit. Runtime/services remain on unchanged production code; no restart needed for this evidence-only step. NEEDS_FROM_HUMAN unchanged; no new owner decision required.
-- Next: pre-noon feed-content precedence fix; then Nov 14 all-topic AI/event-diversity acceptance and item 58/private public activation.
+Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185.md).
 
 ## 2026-11-13: iteration 2186 — prepare recorded feed-content safety checks
 
@@ -184,3 +174,13 @@ Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-i
 - Verification: format/lint fixes, full check, build, final web rebuild, handbook/schema check and diff checks. 985 unit/294 integration tests pass, four expected skips; existing web chunk warning. First combined check terminated during typechecking without a reported failure; standalone retry used for acceptance.
 - Next: pre-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
 - Full standalone check passes; built API/worker restart and push follow verification.
+
+## 2026-11-13: iteration 2199 — label saved engagement snapshots
+
+- Clean main; no inherited work. Alert snapshot zero; health/Postgres/Redis pass. Scheduled acceptance awaits Nov 14; after-noon generation cutoff retained.
+- Reader weakness: all four actual Nov 13 Bluesky count rows lacked a snapshot label, making historical engagement appear current. Bluesky and parked Reddit cards now say “at collection”, matching X; counts and saved data unchanged.
+- Inline read-only Playwright (`node --input-type=module`) reproduced all four missing labels before rebuild, then verified exact saved counts and labels on desktop/mobile light/dark; no overflow/browser errors. Four screenshots added; mobile light inspected.
+- Social-post handbook and TASKS updated; archived progress 2185. SOURCES/NEEDS_FROM_HUMAN unchanged: no collection, source, generation, budget or paid-call change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, social-post handbook/schema check and diff checks pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. First combined run terminated during formatting; next run hung in unchanged telemetry-export test. Isolated test passes (3/3); terminated stuck child and complete standalone retry passes.
+- Rebuilt API/worker restarted healthy; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow verification.
+- Next: before-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
