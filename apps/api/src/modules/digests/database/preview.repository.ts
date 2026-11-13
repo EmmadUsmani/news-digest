@@ -68,7 +68,7 @@ import {
   type ReportEditionProgress,
 } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
-import { rank } from '../domain/rank';
+import { rank, rankFallback } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 import { usesTechEditorialContext } from '../domain/tech-editorial-context';
 import { loadArticleCandidates } from './article-candidates';
@@ -409,7 +409,7 @@ export class PostgresPreviewRepository
             let stories: DigestPreview['topics'][number]['stories'] =
               ownershipUnavailable
                 ? []
-                : rank(eligible, start, end, topic.story_budget).map(
+                : rankFallback(eligible, start, end, topic.story_budget).map(
                     (story) => ({
                       ...story,
                       reasons: [
@@ -521,7 +521,10 @@ export class PostgresPreviewRepository
                     'AI edited from supplied headlines and excerpts; full articles were not fetched.';
                 } else {
                   stories = paired?.ranked.has(topic.id)
-                    ? paired.ranked.get(topic.id)!.slice(0, topic.story_budget)
+                    ? paired.ranked
+                        .get(topic.id)!
+                        .filter((story) => story.excerpt.trim())
+                        .slice(0, topic.story_budget)
                     : scoredFallback(
                         shortlist,
                         start,

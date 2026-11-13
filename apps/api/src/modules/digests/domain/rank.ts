@@ -121,3 +121,19 @@ export function rank(
       };
     });
 }
+
+// Headline-only candidates can inform AI editing, but cannot supply reader text
+// when editing is unavailable. Filter before the budget so readable stories fill it.
+export function rankFallback(
+  candidates: Candidate[],
+  start: Date,
+  end: Date,
+  budget: number,
+) {
+  return rank(
+    candidates.filter((item) => item.excerpt.trim()),
+    start,
+    end,
+    budget,
+  );
+}

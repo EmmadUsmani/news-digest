@@ -119,3 +119,13 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - No provider calls, generation, source/configuration changes or runtime changes; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script/docs-only step needs no service restart/build.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 972 unit/291 integration tests, four expected skips. Initial combined verification process ended with SIGTERM during checks; standalone full rerun passed.
 - Next: Nov 14 scheduled NBA/admission acceptance before item 58/public activation; keep strict reader text gate and do not accept today's degraded content.
+
+## 2026-11-13: iteration 2167 — prevent headline-only fallback slots
+
+- Clean main; no inherited work. Initial alerts zero, health database/Redis pass, no failed user services.
+- Reader weakness: Nov 13 Tech has five empty cards because fallback admitted articles with no saved source text. Non-AI recency/complete-triage selection now excludes blank excerpts before budgets; shared World/U.S. fallback excludes blank leads. AI headline evidence and immutable saved editions unchanged.
+- Read-only replay of the currently retained Nov 13 Tech window: 200 candidates/123 with text; old fallback picks five empty excerpts, new fallback five with 91–337 characters. Retained pool is not the original publication snapshot; no generation/provider calls.
+- Targeted `pnpm exec tsx --test apps/api/test/quality.test.ts`: 8/8 pass, including blank/whitespace slots, refill, empty pools and AI admission. Pipeline handbook updated; `check-handbook.ts edition-pipeline` passes (18 pages/one existing diagram/39 tables).
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 973 unit/291 integration tests, four expected skips; existing bundle-size warning.
+- Restarted API/worker; `/healthz` and `check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass. Reader response SHA-256 unchanged; 38 enabled active sources have successes/no errors, latest 16:22:47 UTC; post-deploy alerts zero/no failed services.
+- TASKS/daily review updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source, owner decision, budget, provider or public-mode change. Next: scheduled NBA/admission recovery before item 58/private public-mode activation; today's saved edition remains degraded.

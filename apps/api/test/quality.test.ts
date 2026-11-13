@@ -6,7 +6,11 @@ import {
   scoredFallback,
 } from '../src/modules/digests/domain/editorial-shortlist';
 import { qualityRejection } from '../src/modules/digests/domain/quality';
-import { type Candidate, rank } from '../src/modules/digests/domain/rank';
+import {
+  type Candidate,
+  rank,
+  rankFallback,
+} from '../src/modules/digests/domain/rank';
 void test('headline quality labels exclude routine filler while retaining reporting and announcements', () => {
   // Selected observed headlines plus synthetic counterexamples; no network requests.
   const cases: [string, string | null][] = [
@@ -315,4 +319,49 @@ void test('fallback excerpts mark omitted text without splitting words or Unicod
   assert.ok(longToken.length <= 600);
   assert.equal(longToken, '😀'.repeat(299) + '…');
   assert.equal(candidate.excerpt, '');
+});
+
+void test('fallback skips headline-only stories before spending slots but AI keeps their evidence', () => {
+  const start = new Date('2026-11-12T15:00:00Z');
+  const end = new Date('2026-11-13T15:00:00Z');
+  const readable: Candidate = {
+    id: 'readable',
+    title: 'Microsoft restores cloud service',
+    url: 'https://example.org/recovery',
+    excerpt: 'Microsoft says service has recovered.',
+    publishedAt: '2026-11-13T12:00:00Z',
+    sources: ['Publisher'],
+    points: 0,
+  };
+  const headlineOnly = {
+    ...readable,
+    id: 'headline',
+    excerpt: '',
+    publishedAt: '2026-11-13T14:00:00Z',
+  };
+  const whitespace = { ...headlineOnly, id: 'whitespace', excerpt: ' \n\t ' };
+  const candidates = [headlineOnly, whitespace, readable];
+  assert.equal(rank(candidates, start, end, 1)[0].id, 'headline');
+  assert.deepEqual(
+    rankFallback(candidates, start, end, 1).map((s) => s.id),
+    ['readable'],
+  );
+  assert.deepEqual(
+    scoredFallback(candidates, start, end, 1).map((s) => s.id),
+    ['readable'],
+  );
+  assert.deepEqual(rankFallback([headlineOnly, whitespace], start, end, 5), []);
+  assert.deepEqual(
+    scoredFallback([headlineOnly, whitespace], start, end, 5),
+    [],
+  );
+  const { shortlist } = editorialShortlist(
+    candidates,
+    candidates.map(({ id }) => ({ id, relevance: 9, importance: 8 })),
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+  );
+  assert.equal(shortlist.length, 3);
+  assert.equal(headlineOnly.excerpt, '');
 });

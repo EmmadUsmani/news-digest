@@ -44,7 +44,10 @@ export function scoredFallback(
   budget: number,
   matches: (a: Candidate, b: Candidate) => boolean = noGrouping,
 ) {
-  return clusterCandidates(shortlist, matches)
+  return clusterCandidates(
+    shortlist.filter((item) => item.excerpt.trim()),
+    matches,
+  )
     .flatMap((group) => rank(group, start, end, 1, matches))
     .slice(0, budget);
 }
