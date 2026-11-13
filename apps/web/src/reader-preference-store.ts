@@ -6,6 +6,7 @@ export type BookmarkCopy = {
   attribution: string;
   excerpt: string;
   context?: string;
+  publishedAt?: string;
   platform: string;
   editionId: string;
 };
@@ -59,6 +60,11 @@ export function boundBookmarkCopy(value: unknown): BookmarkCopy | null {
   }
   if (typeof value.context === 'string' && value.context.trim())
     result.context = shortenProse(value.context.trim(), 600);
+  if (typeof value.publishedAt === 'string' && value.publishedAt.length <= 40) {
+    const date = new Date(value.publishedAt);
+    if (Number.isFinite(date.getTime()))
+      result.publishedAt = date.toISOString();
+  }
   try {
     const url = new URL(result.url);
     if (
@@ -167,6 +173,7 @@ export function mergePreferences(
             change.copy.platform,
             change.copy.editionId,
             change.copy.context ?? '',
+            change.copy.publishedAt ?? '',
           ]),
     ),
   };

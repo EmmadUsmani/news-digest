@@ -203,3 +203,28 @@ void test('editorial context syncs with legacy bookmarks and deterministic brows
     );
   }
 });
+
+void test('publication dates survive browser and account sync with legacy saves', () => {
+  const legacy = empty();
+  legacy.bookmarks.story = { copy, updatedAt: 10 };
+  const dated = empty();
+  dated.bookmarks.story = {
+    copy: { ...copy, publishedAt: '2026-11-12T10:30:00.000Z' },
+    updatedAt: 10,
+  };
+  const merged = mergeReaderSync(legacy, dated);
+  assert.deepEqual(merged, mergeReaderSync(dated, legacy));
+  assert.deepEqual(merged, mergePreferences(legacy, dated));
+  assert.equal(
+    merged.bookmarks.story.copy?.publishedAt,
+    dated.bookmarks.story.copy?.publishedAt,
+  );
+  for (const publishedAt of ['bad date', '2026-11-12', 42, 'x'.repeat(100)]) {
+    const invalid = JSON.parse(JSON.stringify(dated));
+    invalid.bookmarks.story.copy.publishedAt = publishedAt;
+    assert.throws(
+      () => mergeReaderSync(empty(), invalid),
+      /Invalid reader sync change/,
+    );
+  }
+});

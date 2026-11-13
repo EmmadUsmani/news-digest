@@ -227,3 +227,36 @@ void test('saved editorial context survives reloads without changing the post ex
   assert.ok(long.bookmarks['post:long'].copy!.context!.length <= 600);
   assert.match(long.bookmarks['post:long'].copy!.context!, /…$/);
 });
+
+void test('publication dates persist separately from save times and invalid optional dates are dropped', () => {
+  const saved = changeBookmark(
+    emptyStore(),
+    'story:dated',
+    {
+      ...copy,
+      publishedAt: '2026-11-12T10:30:00Z',
+    },
+    100,
+  );
+  const restored = parsePreferences(JSON.stringify(saved));
+  assert.equal(
+    restored.bookmarks['story:dated'].copy?.publishedAt,
+    '2026-11-12T10:30:00.000Z',
+  );
+  assert.equal(restored.bookmarks['story:dated'].updatedAt, 100);
+  for (const publishedAt of ['invalid', 'x'.repeat(100)]) {
+    const invalid = changeBookmark(
+      emptyStore(),
+      'story:bad',
+      { ...copy, publishedAt },
+      100,
+    );
+    assert.equal(invalid.bookmarks['story:bad'].copy?.publishedAt, undefined);
+  }
+  assert.equal(
+    changeBookmark(emptyStore(), 'story:legacy', copy, 100).bookmarks[
+      'story:legacy'
+    ].copy?.publishedAt,
+    undefined,
+  );
+});

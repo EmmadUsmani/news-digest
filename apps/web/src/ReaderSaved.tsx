@@ -115,6 +115,17 @@ export function ReaderSaved() {
                     ? copy.attribution
                     : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
                 </p>
+                {copy.publishedAt && (
+                  <p className="saved-published mt-1 text-sm text-[var(--secondary)]">
+                    Published on{' '}
+                    <time dateTime={copy.publishedAt}>
+                      {new Date(copy.publishedAt).toLocaleString(undefined, {
+                        dateStyle: 'medium',
+                        timeStyle: 'short',
+                      })}
+                    </time>
+                  </p>
+                )}
                 <p className="mt-1 text-sm text-[var(--secondary)]">
                   Saved on{' '}
                   <time dateTime={new Date(updatedAt).toISOString()}>

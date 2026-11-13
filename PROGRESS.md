@@ -179,3 +179,15 @@ Archived entries: [iterations 2179–2180](docs/progress-archive/2026-11-13-iter
 - TASKS/RANKING updated; archived progress 2179–2180. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, owner decision or system-flow change. No UI change; browser screenshots unnecessary.
 - Rebuilt API/worker restarted; both active, health/database/Redis pass, latest reader endpoint serves five topics. Commit/push follows verification.
 - Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/event diversity, then NBA/item 58/private public activation. No paid replay.
+
+## 2026-11-13: iteration 2195 — publication dates in saved items
+
+- Clean main; no inherited work. Alert triage found PlayStation HTTP 502/OpenAI timeout, both recovered on automatic second attempts; health/database/Redis pass. No source or digest outage requiring a generation change.
+- Reader weakness: saved cards showed save dates but omitted original publication dates, obscuring the age of bookmarked news/posts. New saves now retain and show publication time separately; legacy saves have no invented date.
+- Bounded optional timestamp normalizes in browser storage and validates in account sync; deterministic merge ordering stays aligned. No migration, generation, prompt, source or budget changes.
+- Targeted store/sync tests: 19 pass, including legacy compatibility, invalid date handling, reload and browser/server merge convergence.
+- Playwright `pnpm exec tsx scripts/smoke-saved-publication.ts`: actual Nov 13 story/post saves pass desktop/mobile light/dark, reload, legacy absence, no overflow or browser errors; four screenshots updated and mobile inspected.
+- Handbook reading preferences and TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged. Handbook/schema check passes: 18 pages, 39 tables.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Corrected smoke-script lint assertion; interrupted first lint invocation rerun successfully.
+- API/worker restart and health/reader confirmation follow commit/push; no paid calls or production edition writes.
+- Next: pre-noon feed precedence fix, Nov 14 scheduled all-topic editing/diversity and NBA/item 58/private public activation. Evening generation cutoff retained; no paid calls.

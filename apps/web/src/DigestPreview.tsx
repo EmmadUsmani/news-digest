@@ -306,6 +306,7 @@ export function DigestPreview() {
                                         story.publisher?.name ??
                                         story.sources.join(', '),
                                       excerpt: story.summary ?? '',
+                                      publishedAt: story.publishedAt,
                                       platform: 'story',
                                       editionId: preview.id,
                                     },
@@ -353,6 +354,7 @@ export function DigestPreview() {
                                       url: post.url,
                                       attribution: post.author,
                                       excerpt: post.displayText ?? text,
+                                      publishedAt: post.publishedAt,
                                       context:
                                         post.whyItMatters?.trim() || undefined,
                                       platform: post.platform,
