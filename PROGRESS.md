@@ -6,27 +6,6 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [earliest retained entries before iteration 2172](docs/progress-archive/2026-11-13-before-2172.md).
 
-## 2026-11-13: iteration 2159 — passive metrics recovery follow-up
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. NBA/item 58 scheduled gate remains due at 15:00 UTC; deployment hold respected.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 fresh healthy rules, four uncached queries ≤0.698 s, unchanged process starts and no new evaluator/admission/queue/slow-query failures.
-- Neither tier merged during the sample; comparable natural-merge recovery remains unaccepted. Recorded evidence and next passive-probe bound (15:44 UTC) in capacity decision/TASKS. No retuning or forced compaction.
-- System journal since 09:53:30 shows isolated worker/API scrape refusals at 10:34/12:31; current probes pass. No new incident inferred.
-- No runtime/configuration changes, provider calls, service restarts or live writes. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts observability`, `git diff --check` pass; 966 unit/291 integration passes, four expected skips; existing build warnings only.
-- Next: 15:00 scheduled NBA/item 58 acceptance, then private public-mode activation outside hold.
-
-## 2026-11-13: iteration 2160 — scheduled edition exposes triage admission regression
-
-- Clean main; no inherited work. Initial alerts zero, database/Redis healthy. Waited for the natural 15:00 run; no paid replay or collection.
-- Edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4` publishes in 97.787 s: five topics/15 stories/20 posts; latest/direct/history agree. All story sections non-AI; World/U.S. stories withheld. NBA/item 58/public activation gates remain open.
-- Diagnosed 11 local pre-dispatch triage expirations: four active calls take 16–37 s while queued calls expire at ten seconds. Ledger releases unused holds; no provider errors or budget refusals. No story-editor call exercised NBA repair.
-- Offline production `InferenceSlots` reproduction (scaled timers): 15 simultaneous calls, four dispatch/11 `ProviderNotDispatched`, subsequent slot reuse passes. Next priority: bounded multi-topic admission before provider queue, with offline composition proof.
-- Fourteen Sonnet admissions immediate, no settlement waits; natural recovery unobserved. Anthropic $0.236599/29 settled calls, 11 released reservations; xAI UTC-day five successes/$0.330667, no pending/uncertain calls. Caps unchanged.
-- Repaired U.S. Bluesky naturally publishes two concrete posts (511 read/10 shortlisted); restored presence accepted, overall quality open. All 16 official X metrics empty. Updated daily review, TASKS, SOURCES and security handoff; NEEDS_FROM_HUMAN unchanged.
-- `pnpm check` passes: 966 unit/291 integration tests, four expected skips. `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass; existing build warnings only.
-- Runtime/configuration unchanged; no restart during 13:00–16:00 hold. Fix admission before the next scheduled acceptance; public mode remains off/VM private.
-
 ## 2026-11-13: iteration 2161 — bound multi-topic inference before budget holds
 
 - Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. Nov 13 failed story editing remains the highest-priority breakage.
@@ -185,3 +164,14 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 - Documentation only; SOURCES/handbook and runtime unchanged, no rebuild/restart needed.
 - Initial push rejected: concurrent lead-only documentation commits on origin/main. Fetched/merged without rewriting history; runtime/test scope unchanged.
 - Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58 and private public mode; no repeat historical accounting audit without new evidence.
+
+## 2026-11-13: iteration 2176 — require all five sections for recovery
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; no failed user services.
+- Extended GET-only scheduled reader gate with repeatable named AI requirements; one admin snapshot serves all requirements. Existing single-topic result retained.
+- Explicit names catch missing sections as well as non-AI provenance, missing models and blank story text; publication alone cannot pass recovery.
+- Updated next natural-review command to Nov 14 and all five exact topic names. NBA/item 58 and public activation remain pending; event diversity still needs reader review.
+- Four targeted gate tests pass, including partial recovery, missing sections and malformed options. Saved Nov 13 Tech is refused with non-AI provenance, as expected; no provider calls or writes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips. Archived oldest two retained entries to keep this file small.
+- Local verification tooling only; runtime unchanged, no rebuild/restart needed. SOURCES/handbook/NEEDS_FROM_HUMAN unchanged.
+- Next: normal Nov 14 edition review, then item 58/private public-mode activation; retain all spending and deployment gates.

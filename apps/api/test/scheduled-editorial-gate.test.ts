@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { requireScheduledAiTopic } from '../../../scripts/lib/scheduled-editorial-gate';
+import {
+  parseRequiredAiTopics,
+  requireScheduledAiTopic,
+} from '../../../scripts/lib/scheduled-editorial-gate';
 
 function evidence() {
   const identity = {
@@ -94,4 +97,43 @@ void test('scheduled gate refuses unrelated, missing and ambiguous evidence', ()
     () => requireScheduledAiTopic(reader, preview, 'NBA'),
     /missing editorial model/,
   );
+});
+
+void test('multi-topic acceptance refuses partial recovery and absent sections', () => {
+  const { reader, preview } = evidence();
+  reader.topics.push({
+    id: 'tech',
+    name: 'Tech',
+    stories: [{ summary: 'Saved Tech text.' }],
+  });
+  preview.topics.push({
+    id: 'tech',
+    editorial: { mode: 'non-ai', model: 'fallback' },
+  });
+  const names = parseRequiredAiTopics([
+    '--require-ai-topic',
+    'NBA',
+    '--require-ai-topic',
+    'Tech',
+  ]);
+  const check = () =>
+    names.map((name) => requireScheduledAiTopic(reader, preview, name));
+  assert.throws(check, /Tech: scheduled stories are not AI-edited/);
+  preview.topics[1].editorial.mode = 'ai';
+  assert.equal(check().length, 2);
+  reader.topics.pop();
+  assert.throws(check, /Tech: expected exactly one reader topic/);
+});
+
+void test('reader gate rejects malformed options before making requests', () => {
+  assert.deepEqual(parseRequiredAiTopics([]), []);
+  for (const args of [
+    ['--require-ai-topic'],
+    ['--other', 'NBA'],
+    ['--require-ai-topic', ' '],
+    ['--require-ai-topic', '--other'],
+    ['--require-ai-topic', 'NBA', '--require-ai-topic', 'NBA'],
+  ]) {
+    assert.throws(() => parseRequiredAiTopics(args));
+  }
 });

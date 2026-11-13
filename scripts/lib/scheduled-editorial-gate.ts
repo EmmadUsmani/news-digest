@@ -57,3 +57,21 @@ export function requireScheduledAiTopic(
     stories: topic.stories.length,
   };
 }
+
+// Explicit names also detect a topic missing entirely from the published edition.
+export function parseRequiredAiTopics(args: string[]): string[] {
+  assert.equal(args.length % 2, 0, 'expected --require-ai-topic NAME pairs');
+  const names: string[] = [];
+  for (let index = 0; index < args.length; index += 2) {
+    assert.equal(
+      args[index],
+      '--require-ai-topic',
+      'unknown reader gate option',
+    );
+    const name = args[index + 1].trim();
+    assert.ok(name && !name.startsWith('--'), 'required topic name is missing');
+    assert.ok(!names.includes(name), 'duplicate required topic');
+    names.push(name);
+  }
+  return names;
+}

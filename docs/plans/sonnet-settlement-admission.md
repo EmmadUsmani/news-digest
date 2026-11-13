@@ -156,14 +156,16 @@ Live acceptance remains open until that review; manual paid generation is unnece
 
 ## Natural scheduled review
 
-Next observation: Nov 13, 2026 at 15:00 UTC. Use read-only commands after the
+Next observation: Nov 14, 2026 at 15:00 UTC. Use read-only commands after the
 scheduled job finishes; do not enqueue a replay to produce diagnostics.
 
 ```sh
 pnpm obs health --check
 pnpm obs jobs --check --queue digest-generation --limit 2
 pnpm obs logs --since 1h --service worker --grep budget.settlement-admission --limit 40
-pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z
+pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z \
+  --require-ai-topic NBA --require-ai-topic "Tech & AI" --require-ai-topic Gaming \
+  --require-ai-topic "World news & politics" --require-ai-topic "U.S. news & politics"
 pnpm obs alerts
 ```
 
