@@ -14,28 +14,7 @@ Archived entries: [iterations 2166–2168](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2169–2170](docs/progress-archive/2026-11-13-iterations-2169-2170.md).
 
-## 2026-11-13: iteration 2171 — trace weak NBA Bluesky supply
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass and no failed user services.
-- Reader weakness: NBA's fifth post is a low-engagement attributed scoring-list claim; viral quality remains unaccepted.
-- Historical read-only pool has 593 observations/54 distinct posts. Reconstructed production shortlist from 50 saved semantic scores: complete, ten picks, six repeat X-covered events.
-- Final cached editor chooses the distinct Vucevic milestone (18 likes/zero reposts/one reply); no X displacement. One unsupported-claim rejection is counted but its candidate is not identified.
-- Cause and next eligible action recorded: limited distinct high-interest supply from generic NBA discovery; compare discovery later, preserve semantic/media gates. No forced slot, prompt, source/query, budget or provider change.
-- Verification: historical coverage report, protected saved-preview GET, read-only cache queries and temporary cached-score production-shortlist invocation pass; temporary script removed. No inference, collection or generation.
-- Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Documentation only; runtime unchanged, no rebuild/restart needed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
-- Next: Nov 14 scheduled NBA/admission acceptance and event-diversity review, then item 58/private public-mode activation.
-
-## 2026-11-13: iteration 2172 — measure NBA attached-media supply
-
-- Clean main; no inherited work. Alerts zero; health database/Redis pass, no failed user services.
-- Extended GET-only stored Bluesky coverage report with safe image/video/description counts, bounded video examples and distinct stored video count; no media fetches or generation changes.
-- NBA saved window: 54 distinct posts, one stored video, zero safe videos; 50 safe candidates contain nine image posts/41 without attachments, two author descriptions.
-- Sole stored video is an NFT-tagged game chart (one like); existing safety rejects it. No evidence that selection overlooked a highlight. Tech/Gaming/U.S. safe video counts are 6/8/10.
-- Historical report and all-five-topic count-bound assertions pass; temporary read-only observation inspection removed. No paid calls or configuration changes.
-- Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Report-only change, runtime unchanged; no rebuild/restart needed.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Archived three oldest retained entries to keep this file small.
-- Next: Nov 14 scheduled NBA/admission/event-diversity acceptance, then item 58/private public mode; later discovery tuning should address absent highlight supply.
+Archived entries: [iterations 2171–2172](docs/progress-archive/2026-11-13-iterations-2171-2172.md).
 
 ## 2026-11-13: iteration 2173 — compare NBA discovery queries
 
@@ -204,3 +183,14 @@ Archived entries: [iterations 2169–2170](docs/progress-archive/2026-11-13-iter
 - Updated TASKS/SOURCES and feed-depth implementation notes, including existing summary-first assertions to replace with direct precedence checks before noon. NEEDS_FROM_HUMAN/handbook unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/293 integration tests, four expected skips; existing build chunk warnings.
 - Production parser/services unchanged; no restart needed for fixture/test/docs-only changes. Next: pre-noon content precedence, then scheduled all-topic AI/event-diversity acceptance and private public-mode activation.
+
+## 2026-11-13: iteration 2187 — verify richer feed evidence reaches candidates
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass and no failed user units. NBA/item 58 still awaits Nov 14 scheduled acceptance.
+- Owner value: verify that the planned richer Ars reporting survives database updates and reaches the evidence used to select digest stories.
+- Added one isolated repository-to-candidate regression using the recorded Ars fragment: teaser replaced under the same URL/ID, full 593-character reporting retained, repeat ingestion deduplicated, later empty/whitespace-only observations cannot erase it.
+- Candidate title/image/date/source attribution remain intact. No production parser change, live database writes, network calls or inference; STEERING 59 noon cutoff respected.
+- Updated TASKS and feed-depth evidence. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source or runtime behavior changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. Archived progress 2171–2172 to retain the file-size limit.
+- Runtime/services remain on unchanged production code; no restart needed for test/docs-only changes.
+- Next: before-noon precedence implementation; Nov 14 scheduled AI/grouping acceptance, then item 58/private public activation. Move to another area rather than another feed-preparation iteration tonight.

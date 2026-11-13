@@ -493,6 +493,85 @@ void test('Postgres ingestion is idempotent and records failure without losing l
     await repository.onModuleDestroy();
   }
 });
+void test('recorded feed reporting survives enrichment, repeat ingestion and title-only observations', async () => {
+  const repository = new PostgresContentRepository();
+  const id = `ars-depth-${Date.now()}`;
+  const url = `https://example.org/${id}`;
+  try {
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url) SELECT $1,id,'Recorded Ars depth','feed','https://example.org/fixture' FROM topics ORDER BY position LIMIT 1`,
+      [id],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) SELECT topic_id,id FROM content_sources WHERE id=$1',
+      [id],
+    );
+    const source = (await repository.sources()).find(
+      (entry) => entry.id === id,
+    )!;
+    const xml = await fixture('ars-outage-2026-11-13.xml');
+    const teaser = { ...parseFeed(xml)[0], url };
+    // Simulate the forthcoming parser output without changing production
+    // precedence: remove only the recorded teaser, not the supplied reporting.
+    const body = {
+      ...parseFeed(xml.replace(/<description>[\s\S]*?<\/description>/, ''))[0],
+      url,
+    };
+    assert.notEqual(teaser.excerpt, body.excerpt);
+    const published = new Date(body.publishedAt).getTime();
+    const read = async () =>
+      (
+        await loadArticleCandidates(
+          repository.db,
+          source.topicId,
+          new Date(published),
+          new Date(published + 1),
+        )
+      ).filter((candidate) => candidate.url === url);
+    await repository.store(source, [teaser]);
+    const [before] = await read();
+    assert.equal(before.excerpt, teaser.excerpt);
+    for (const observation of [
+      body,
+      body,
+      { ...body, excerpt: '' },
+      { ...body, excerpt: '   ' },
+    ]) {
+      await repository.store(source, [observation]);
+      const candidates = await read();
+      assert.equal(candidates.length, 1);
+      const [candidate] = candidates;
+      assert.equal(candidate.id, before.id);
+      assert.equal(candidate.excerpt, body.excerpt);
+      assert.match(candidate.excerpt, /Recovery actions are ongoing/);
+      assert.match(candidate.excerpt, /extended email timeout to 48 hours/);
+      assert.equal(candidate.title, body.title);
+      assert.equal(candidate.imageUrl, body.imageUrl);
+      assert.equal(candidate.publishedAt, body.publishedAt);
+      assert.deepEqual(candidate.sources, [source.name]);
+    }
+    const observations = await repository.db.query(
+      'SELECT count(*)::int AS n FROM content_observations WHERE source_id=$1',
+      [id],
+    );
+    assert.equal(observations.rows[0].n, 1);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [id]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [url],
+    );
+    await repository.onModuleDestroy();
+  }
+});
 void test('recorded AI announcement feeds preserve publisher dates, missing fields and media', async () => {
   const openai = parseFeed(await fixture('openai.xml'));
   const deepmind = parseFeed(await fixture('deepmind.xml'));

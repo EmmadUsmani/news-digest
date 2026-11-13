@@ -66,3 +66,19 @@ recorded fragment selects its body and Atom content beats its summary. Update
 the existing test named “feed excerpts fall back to bounded body text only
 when summaries are blank,” whose first two assertions deliberately pin the
 current summary-first behavior. Production parser remains unchanged tonight.
+
+## Stored candidate evidence — iteration 2187
+
+The isolated database regression follows the recorded teaser through storage,
+then replaces it with the supplied body using the same canonical URL. Candidate
+loading retains the original ID and all 593 body characters, including recovery
+and delayed-email details. Repeat ingestion and later empty/whitespace-only
+observations retain that reporting; one observation and one candidate remain.
+Title, image, publication date and source attribution survive the path.
+
+This exercises the real repository and candidate loader on fresh Testcontainers
+Postgres, with no live database or inference. The body is obtained by removing
+only the fixture description in memory; production precedence is unchanged.
+This closes persistence verification for the planned fix, not natural edition
+quality acceptance. Implement the precedence change before noon; avoid further
+preparation iterations on this same area while that cutoff is pending.
