@@ -19,4 +19,5 @@ about $0.00006 (STEERING item 40 update). Cap unchanged.
 
 **Next:**
 
-- Tuning waits for item 50. Decide with the owner whether Gaming needs a source fix.
+- Item 59 (Nov 13): after item 50, fix U.S. having no Bluesky posts, then
+  tuning. Gaming got a Bluesky pick on Nov 12; watch before any source fix.

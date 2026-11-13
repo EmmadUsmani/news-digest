@@ -17,8 +17,8 @@ full replay of the four saved responses, and repair guidance for wrong IDs
 
 **Next:**
 
-1. Nov 13 15:00 UTC edition: NBA must be AI-edited. If it falls back again,
-   propose steering on the absence check refusing reordered supported sentences.
-2. Tech summary depth: propose steering once item 50 frees the agent.
+1. Steered in item 59 (`69fa4f43`): fix the reordered-sentence refusal offline.
+   Nov 13 15:00 UTC edition: NBA must be AI-edited.
+2. Tech summary depth: on Current order after item 50 and Bluesky (item 59).
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
