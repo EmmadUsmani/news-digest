@@ -878,3 +878,15 @@ remains open. System `obs-metrics.service`/`obs-alerts.service` warning-level
 journal since 16:24:44 UTC has no entries. Limits unchanged; next short passive
 probe no earlier than 19:35 UTC Nov 13. No forced merge, restart, configuration
 change or provider call.
+
+### Passive follow-up (iteration 2201)
+
+Nov 13 22:47:11–22:47:41 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤1.273 s, no new evaluator errors
+or missed iterations, admission-limit hits, queue timeouts or slow queries.
+Process starts unchanged; one small merge processed 14,648 rows, no large-tier
+merge. This is below the 5,000,000-row comparable-merge threshold; recovery
+remains open. System `obs-metrics.service`/`obs-alerts.service` warning-level
+journal since 18:34:06 UTC has no entries. Retain the CPU-only trial and current
+limits; next short passive probe no earlier than 23:48 UTC Nov 13. No forced
+merge, metrics restart, configuration change or provider call.

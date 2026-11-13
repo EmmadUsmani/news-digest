@@ -103,6 +103,15 @@ void test('prepared explorer role reads schema structure without application-row
           );
         } else {
           assert.match(JSON.stringify(body), /private-catalog-marker/);
+          const privateBody = body as ReturnType<typeof buildModel>;
+          for (const table of privateBody.tables) {
+            assert.ok(
+              Number.isSafeInteger(table.sizeBytes) && table.sizeBytes >= 0,
+            );
+            assert.ok(
+              Number.isSafeInteger(table.rowEstimate) && table.rowEstimate >= 0,
+            );
+          }
         }
         assert.equal(
           (await fetch(`${base}/api/schema`, { method: 'POST' })).status,
@@ -117,11 +126,18 @@ void test('prepared explorer role reads schema structure without application-row
         );
       }
     }
-    // Ignore the generated timestamp; all catalog details survive rollback.
-    const [before, , after] = responses as Record<string, unknown>[];
-    delete before.generatedAt;
-    delete after.generatedAt;
-    assert.deepEqual(after, before);
+    // Physical pages and row estimates can change during autovacuum even in
+    // this read-only transaction. Rollback must preserve structure and comments,
+    // while private statistics above remain valid and public statistics absent.
+    const stableCatalog = (response: unknown) =>
+      JSON.parse(
+        JSON.stringify(response, (key, value: unknown) =>
+          ['generatedAt', 'sizeBytes', 'rowEstimate'].includes(key)
+            ? undefined
+            : value,
+        ),
+      ) as unknown;
+    assert.deepEqual(stableCatalog(responses[2]), stableCatalog(responses[0]));
     // Catalog comments are visible despite denied row access; project before serving.
     assert.match(JSON.stringify(catalog), /private-catalog-marker/);
     for (const query of [

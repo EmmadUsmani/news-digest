@@ -30,17 +30,6 @@ Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-i
 
 Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185.md).
 
-## 2026-11-13: iteration 2187 — verify richer feed evidence reaches candidates
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass and no failed user units. NBA/item 58 still awaits Nov 14 scheduled acceptance.
-- Owner value: verify that the planned richer Ars reporting survives database updates and reaches the evidence used to select digest stories.
-- Added one isolated repository-to-candidate regression using the recorded Ars fragment: teaser replaced under the same URL/ID, full 593-character reporting retained, repeat ingestion deduplicated, later empty/whitespace-only observations cannot erase it.
-- Candidate title/image/date/source attribution remain intact. No production parser change, live database writes, network calls or inference; STEERING 59 noon cutoff respected.
-- Updated TASKS and feed-depth evidence. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source or runtime behavior changed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/294 integration tests, four expected skips; existing build chunk warnings. Archived progress 2171–2172 to retain the file-size limit.
-- Runtime/services remain on unchanged production code; no restart needed for test/docs-only changes.
-- Next: before-noon precedence implementation; Nov 14 scheduled AI/grouping acceptance, then item 58/private public activation. Move to another area rather than another feed-preparation iteration tonight.
-
 ## 2026-11-13: iteration 2188 — describe historical empty posts accurately
 
 - Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 remains pending Nov 14 scheduled acceptance.
@@ -183,3 +172,15 @@ Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 985 unit/294 integration tests; four expected skips, existing web chunk warning. Initial checks caught import order then smoke-script formatting; fixed before final complete pass.
 - Built API/worker restarted healthy; Postgres/Redis pass and latest edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
 - Next: pre-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2201 — stabilize explorer rollback verification
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass; all 38 sources healthy. Recent failure was OpenAI feed's 20-second timeout at 21:24; natural collection recovered by 22:24 with 60 items. No retry or source change needed.
+- Highest scheduled/public gates await Nov 14; after-noon generation hold retained. No new reader defect established; no speculative UI change.
+- Open metrics-store recovery step: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` observed 24 healthy rules, queries ≤1.273 s, zero new evaluator failures/missed iterations/admission hits/timeouts/slow queries. One small natural merge/14,648 rows; no comparable merge, so recovery remains open.
+- Warning-level system metrics/alerts journal since 18:34:06 UTC empty. CPU-only limits retained; next passive probe no earlier than 23:48 UTC. Grafana remains excluded from public launch.
+- Updated TASKS and capacity evidence; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged. No app, generation, budget, provider or stored-content changes; no paid calls.
+- Full check caught existing explorer rollback test comparing changing physical relation sizes (49,152→57,344 bytes). Fixed assertion to retain structural/comment equality and separately validate private statistics; public omission and denied-grant checks retained. This test-only breakage fix changes no production code.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry, `pnpm build`, handbook/schema check, selected-file formatting and diff checks pass: 985 unit/294 integration tests, four expected skips; existing bundle-size warning.
+- Rebuilt API/worker restarted active; health/Postgres/Redis pass; latest saved edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
+- Next: before-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
