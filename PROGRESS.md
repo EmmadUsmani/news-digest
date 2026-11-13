@@ -160,3 +160,12 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - Updated AI handbook and TASKS. SOURCES/NEEDS_FROM_HUMAN unchanged; NBA/item 58/public activation still require scheduled acceptance.
 - Verification: targeted admission 3/3 and triage 27/27; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts ai-and-budgets`, `git diff --check` pass: 970 unit/291 integration tests, four expected integration skips. Existing build warnings only.
 - No deploy/restarts during the explicit 13:00–16:00 UTC hold. Source fix is prepared for deployment after 16:00; runtime remains on previous deployed code. Next: deploy API/worker outside hold, verify health, then accept next normal scheduled edition; no paid generation.
+
+## 2026-11-13: iteration 2162 — verify queued editors retain repair admission
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass; no failed user services. Deployment remains blocked by the explicit 13:00–16:00 UTC hold.
+- Added offline production-composition regression: nine independent BudgetedLlm editor instances share four provider slots; every initial response fails validation and all nine repairs succeed despite responses exceeding the provider queue allowance.
+- Verifies first-wave repairs dispatch before the fifth editor, all 18 calls settle, peak four budget holds and zero leftover holds/provider failures. No live calls, paid replay, prompts, caps or runtime changes.
+- Targeted `pnpm exec tsx --test apps/api/test/llm.test.ts`: 48/48 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 971 unit/291 integration tests, four expected skips; existing build warnings only.
+- TASKS updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (test-only behavior coverage). No restart during hold; runtime still awaits deployment of 84106006 after 16:00 UTC.
+- Next: deploy API/worker outside hold, verify health, then accept the next scheduled NBA edition before item 58/public-mode activation.

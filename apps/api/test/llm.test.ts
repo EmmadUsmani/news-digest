@@ -1714,3 +1714,62 @@ for (const mode of [
     );
   });
 }
+
+void test('shared admission retains repair ownership across queued editor instances', async () => {
+  const slots = new InferenceSlots(4, 10);
+  let activeHolds = 0;
+  let peakHolds = 0;
+  const events: string[] = [];
+  const ledgers = Array.from({ length: 9 }, () => new MemoryLedger());
+  const results = await Promise.all(
+    ledgers.map((ledger, index) => {
+      const reserve = ledger.reserve.bind(ledger);
+      ledger.reserve = async (req, estimate) => {
+        const id = await reserve(req, estimate);
+        if (id !== null) peakHolds = Math.max(peakHolds, ++activeHolds);
+        return id;
+      };
+      const settle = ledger.settle.bind(ledger);
+      ledger.settle = async (id, tokens, cost) => {
+        await settle(id, tokens, cost);
+        activeHolds--;
+      };
+      let attempts = 0;
+      const llm: LlmPort = {
+        complete: () =>
+          slots.run(async () => {
+            const attempt = ++attempts;
+            events.push(`${index}:${attempt}`);
+            // Longer than the provider queue allowance: queued editors must wait
+            // before reserving, while repairs reuse their parent's admission.
+            await new Promise((resolve) => setTimeout(resolve, 25));
+            return {
+              text: attempt === 1 ? '{"ok":false}' : '{"ok":true}',
+              usage,
+            };
+          }),
+      };
+      return new BudgetedLlm(llm, ledger).jsonOutcome(
+        {
+          ...request,
+          purpose: 'shortlist-editor-stories',
+          topicId: String(index),
+        },
+        valid,
+      );
+    }),
+  );
+  assert.ok(results.every((result) => result.status === 'complete'));
+  assert.equal(events.length, 18);
+  assert.equal(peakHolds, 4);
+  assert.equal(activeHolds, 0);
+  for (const ledger of ledgers) {
+    assert.equal(ledger.calls.length, 2);
+    assert.ok(
+      ledger.calls.every((call) => call.cost !== undefined && !call.error),
+    );
+  }
+  // The first wave's repairs must dispatch before the fifth editor starts.
+  for (let index = 0; index < 4; index++)
+    assert.ok(events.indexOf(`${index}:2`) < events.indexOf('4:1'));
+});
