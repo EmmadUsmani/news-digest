@@ -7,6 +7,8 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+November 13 saved-selection review (2157): four Bluesky picks have saved official metrics; Tech/Gaming repeat selected events and World is a link list. [Reader baseline](edition-reviews/2026-11-12-bluesky-pool.md#saved-selection-baseline--iteration-2157); next natural selection remains unaccepted.
+
 November 13 stored Bluesky review (2145): World safe engaged candidates remain
 weak before editing (maximum five likes at the Nov 12 cutoff, seven in the
 current rolling window); U.S. has resumed with 417 observations.

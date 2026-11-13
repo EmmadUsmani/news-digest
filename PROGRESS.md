@@ -111,3 +111,13 @@ Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-1
 - Existing Gaming translation/date/repetition and Tech overlap fixes await natural acceptance; viral quality remains open. Updated TASKS/SOURCES; no new generation rules or duplicate repairs. NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass; existing build warnings only. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - No service restart during hold: runtime/configuration unchanged. Next: 15:00 NBA/item 58 acceptance, then private public-mode activation outside hold; World discovery pilot follows those gates.
+
+## 2026-11-13: iteration 2157 — retain saved Bluesky reader baseline
+
+- Clean main; no inherited work. Initial alerts zero. NBA/item 58 scheduled acceptance remains due at 15:00 UTC; deployment hold respected.
+- Read all four Nov 12 saved Bluesky texts/context lines: Tech/Gaming repeat selected events, World is a weak link list, NBA supplies attributed media/legal reporting; U.S. historical absence cannot accept its repaired query.
+- Added per-topic author/official metric snapshots and concrete next-edition comparisons to the existing pool review; updated TASKS/SOURCES. Existing overlap/award/link-list fixes already cover observed defects; no duplicate rules or provider calls.
+- GET-only assertions pass: immutable edition ID, four Bluesky picks, exact saved likes/reposts/replies, window inclusion and U.S. absence. Media references were not fetched; snapshots do not establish growth or viral quality.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts sources`, `git diff --check` pass: 966 unit/291 integration passes, four expected skips; existing build warnings only.
+- No runtime/configuration changes or service restarts during hold; budgets, generation and private sharing unchanged. NEEDS_FROM_HUMAN unchanged.
+- Next: scheduled NBA/item 58 acceptance, private public-mode activation outside hold, then World discovery pilot and natural social-quality acceptance.

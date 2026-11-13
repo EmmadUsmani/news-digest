@@ -129,3 +129,30 @@ rejection or evidence that these posts cannot be selected by the semantic route.
 The probe's optional `--world` mode is read-only and refuses combination with
 `--store`. Its examples are raw API returns, not safety-ranked or selected posts.
 Production queries, schedules, budgets and deployment remain unchanged.
+
+## Saved selection baseline — iteration 2157
+
+Read all four saved Bluesky texts and context lines from GET
+`/api/editions/latest` on Nov 13 before the next scheduled edition. Asserted
+edition `b1be5a12-2972-4eeb-9bff-82cbb10c1b07` and publication-window
+inclusion. No links, images or providers were fetched.
+
+| Topic     | Author                      | Likes / reposts / replies | Reader assessment                                                                                                                                                                                                                                         |
+| --------- | --------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tech & AI | livesquawknews.bsky.social  | 242 / 44 / 10             | Concrete WSJ-attributed airline booking restriction; context identifies agent builders as affected. This repeats a selected story rather than supplying a distinct social development.                                                                    |
+| NBA       | awfulannouncing.bsky.social | 28 / 2 / 1                | Publisher reports Torre describing Ballmer's threatened lawsuit. This is a media/legal angle, not a game highlight. Empty context adds no unsupported explanation; retain attribution to Torre rather than treating the threat as independently verified. |
+| Gaming    | nintendeal.com              | 71 / 13 / 1               | Award list adds several categories and names, but repeats the selected Resident Evil X award event. Four image references are saved; their contents were not inspected.                                                                                   |
+| World     | onlyfucts.bsky.social       | 0 / 0 / 1                 | Two publisher links and URL slugs, with no substantive authored account. Empty context avoids expanding unsupported details, but the post is a weak reader selection.                                                                                     |
+| U.S.      | No selected post            | —                         | The historical zero-candidate run cannot evaluate the repaired Congress query. Collection recovery alone does not accept its next editorial selection.                                                                                                    |
+
+These are saved metrics snapshots, not current counts or growth measurements.
+Positive Tech/Gaming engagement does not resolve repetition; World's reply does
+not make its link list a useful account of an event. NBA offers a distinct
+format but does not establish that highlight discovery works.
+
+Next natural review should check whether Tech adds information beyond selected
+stories, Gaming avoids repeating the X award event, World contains actual text
+supporting its context, and U.S. selects relevant domestic material from its
+repaired supply. Existing overlap/award/link-list fixes already address the
+observed defects; do not add another prompt rule or relax relevance based on
+these snapshots. NBA/item 58 and private public-mode activation retain priority.
