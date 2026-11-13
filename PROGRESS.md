@@ -114,3 +114,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - API/worker restarted active; `/healthz` database/Redis healthy. Source-status startup connection failure cleared on retry: 38 healthy/zero unhealthy. Saved-reader check passes: five topics/25 stories/22 posts.
 - TASKS/review updated; no handbook/source behavior change. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, budgets, provider, flags or sharing changes.
 - Next: wire projection and saved evidence together before noon; review 15:00 scheduled NBA/item 58 acceptance.
+
+## 2026-11-13: iteration 2128 — wire Tech cluster evidence and snapshots
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits 15:00 UTC; public mode off.
+- Tech production editor input and saved cited evidence now share bounded attributed cluster projection. Member publisher names reach editing; publisher objects/links survive snapshots. Other topics retain existing inputs and evidence.
+- Fixed representative projection to retain ranked word-boundary excerpts; Unicode-boundary comparison stays aligned. Unknown citations fail closed; ranking, coverage, ownership and fallback unchanged.
+- Offline targeted editor/grouping/composition: 44 pass. Added publication-path member citation/snapshot regression; no providers called. Historical saved-case and worst-case admission acceptance remain open.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 941 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build`: pass with existing bundle warning. `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline`: pass.
+- API/worker restarted active; `/healthz` database/Redis healthy; 38 healthy sources. Saved-reader check initially raced startup, then passes five topics/25 stories/22 posts.
+- Updated TASKS, Tech diagnosis and affected handbook page. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, caps, provider, collection, flag or sharing changes.
+- Next: historical Tech case and worst-case admission acceptance before noon; review 15:00 scheduled NBA/item 58 acceptance, then public activation with sharing private.

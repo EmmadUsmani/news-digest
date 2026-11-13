@@ -59,6 +59,9 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   exists, with no mode label. New fallback excerpts stop at a word boundary
   within 600 characters and mark omitted text with an ellipsis. The reader hides a terminal “The post … appeared
   first on …” credit when it matches the story title; saved source text stays intact.
+- **Tech story evidence:** each editor candidate includes its representative and up to
+  two substantive reports from the same cluster, with separate publisher names.
+  Cited reports are copied into the immutable edition with the same bounded text.
 - **Story composition:** the editor keeps separate developments in separate
   stories. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.

@@ -48,6 +48,7 @@ import {
   LogDigestNotifications,
 } from '../adapters/digest-notifications';
 import { observeEdition } from '../adapters/edition-logging';
+import { editorEvidence } from '../application/editor-evidence';
 import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import {
@@ -475,9 +476,14 @@ export class PostgresPreviewRepository
                 const ranked =
                   paired?.ranked.get(topic.id) ??
                   rank(shortlist, start, end, 10, matches);
+                const evidence = editorEvidence(
+                  ranked,
+                  candidates,
+                  topic.name.trim().toLowerCase() === 'tech',
+                );
                 const result = await editorialServices.editor.edit(
                   context,
-                  ranked,
+                  evidence.candidates,
                   Math.min(10, topic.story_budget),
                   runId,
                 );
@@ -488,20 +494,7 @@ export class PostgresPreviewRepository
                     return {
                       ...original,
                       title: edit.headline,
-                      evidence: edit.evidenceIds.map((id) => {
-                        const source = ranked.find((item) => item.id === id)!;
-                        return {
-                          id: source.id,
-                          title: source.title,
-                          url: source.url,
-                          excerpt: source.excerpt,
-                          ...(source.publisher
-                            ? { publisher: source.publisher }
-                            : {}),
-                          sources: source.sources,
-                          publishedAt: source.publishedAt,
-                        };
-                      }),
+                      evidence: evidence.cited(edit.evidenceIds),
                       summary: edit.summary,
                       whyItMatters: edit.whyItMatters,
                       reasons: [

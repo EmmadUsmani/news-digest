@@ -1,14 +1,15 @@
 import type { Candidate, rank } from './rank';
 
 // Project only explicit cluster members; do not infer membership from labels.
-// This prepares evidence for transport without changing ranking or publication.
+// Preserve the ranked representative text; only explicit members add reporting.
 export function clusterEvidence(
   story: ReturnType<typeof rank>[number],
   candidates: Candidate[],
 ) {
   const byId = new Map(candidates.map((item) => [item.id, item]));
-  const lead = byId.get(story.id);
-  if (!lead) throw new Error('Missing cluster representative');
+  const original = byId.get(story.id);
+  if (!original) throw new Error('Missing cluster representative');
+  const lead = { ...original, title: story.title, excerpt: story.excerpt };
   const seen = new Set([lead.id]);
   const members = story.coverage.flatMap(({ id }) => {
     const member = byId.get(id);

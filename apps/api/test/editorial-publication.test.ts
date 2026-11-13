@@ -56,6 +56,7 @@ async function harness(
     disabled?: boolean;
     supporting?: boolean;
     grouping?: boolean;
+    tech?: boolean;
     politics?: boolean;
     hardExcluded?: boolean;
     parallel?: boolean;
@@ -123,7 +124,11 @@ async function harness(
             { length: options.politics ? 2 : options.parallel ? 4 : 1 },
             (_, index) => ({
               id: `00000000-0000-4000-8000-${String(index + (options.politics ? 14 : 1)).padStart(12, '0')}`,
-              name: options.parallel ? `AI ${index}` : 'AI',
+              name: options.tech
+                ? 'Tech'
+                : options.parallel
+                  ? `AI ${index}`
+                  : 'AI',
               description: 'AI tools',
               include_guidance: '',
               exclude_guidance: '',
@@ -267,13 +272,20 @@ async function harness(
                 if (options.grouping || options.politics) {
                   if (options.refused) return null;
                   const lead = shortlist[0] as { id: string };
+                  const members = options.tech
+                    ? (shortlist[0] as { clusterEvidence: { id: string }[] })
+                        .clusterEvidence
+                    : null;
+                  if (options.tech) assert.equal(members?.length, 2);
                   return {
                     ...edit,
                     stories: [
                       {
                         ...edit.stories[0],
                         id: lead.id,
-                        evidenceIds: [lead.id],
+                        evidenceIds: members
+                          ? members.map((member) => member.id)
+                          : [lead.id],
                       },
                     ],
                   };
@@ -499,4 +511,19 @@ void test('production publication withholds politics stories on ownership/triage
       ),
     );
   }
+});
+
+void test('Tech production publication saves cited cluster members with their source text', async () => {
+  const topic = (
+    await harness({ supporting: true, grouping: true, tech: true })
+  ).topics[0];
+  assert.equal(topic.editorial?.mode, 'ai');
+  assert.equal(topic.stories.length, 1);
+  const evidence = topic.stories[0].evidence!;
+  assert.equal(evidence.length, 2);
+  assert.deepEqual(
+    new Set(evidence.map((member) => member.url)),
+    new Set([candidate.url, 'https://example.org/support']),
+  );
+  assert.ok(evidence.every((member) => member.excerpt === candidate.excerpt));
 });

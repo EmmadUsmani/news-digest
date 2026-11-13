@@ -95,7 +95,9 @@ export class ShortlistEditor {
       // The lead must retain the representative facts supplied by the caller.
       if (
         members[0].title !== candidate.title.slice(0, 300) ||
-        members[0].excerpt !== (candidate.excerpt?.slice(0, 600) ?? '')
+        members[0].excerpt !==
+          (candidate.excerpt?.slice(0, 600).replace(/[\uD800-\uDBFF]$/, '') ??
+            '')
       )
         throw new Error('Cluster evidence changed representative facts');
       return members;

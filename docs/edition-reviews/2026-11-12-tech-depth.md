@@ -97,3 +97,24 @@ absence claims, supplemental-story refusal and payload bounds. Existing callers
 supply no cluster evidence, so production prompts and publication remain unchanged.
 Production projection, persistence and historical saved-case acceptance remain
 open; no provider replay or live calls were used.
+
+## Production transport — iteration 2128
+
+Tech production editor input and immutable cited evidence now share one bounded
+projection. Representatives retain their identity, ranking and coverage; up to
+two substantive explicit members supply separate publisher labels and citable
+IDs. Saved evidence retains publisher objects, source links and exactly the
+bounded title/excerpt supplied to editing. Unknown evidence fails closed.
+The pool is the collected topic candidates so ownership-filtered paired rankings
+can resolve their explicit members without changing ownership or ranking.
+
+Offline composition verifies an empty representative with a substantive member,
+separate attribution, member citation and JSON snapshot preservation. Existing
+editor absence/membership controls pass. The existing 100 KB byte-based input
+admission and conservative cost reservation still apply to the expanded prompt;
+4000 output tokens, call count and caps are unchanged. Historical saved-case and
+worst-case admission acceptance remain open; no live model calls or historical
+edition mutations were performed.
+
+The rollout is limited to Tech; NBA and other topics keep their existing editor
+input and evidence snapshots while scheduled NBA acceptance remains pending.
