@@ -95,3 +95,54 @@ void test('invalid costs, missing prerequisites and cycles cannot produce schedu
   assert.throws(() => simulateStagedScheduling([job('a', ['a'])], 2));
   assert.throws(() => simulateStagedScheduling([], 2, 3));
 });
+
+void test('failure stops queued dispatch but drains and charges already-running calls before returning', () => {
+  const result = simulateStagedScheduling(
+    [
+      { ...job('failed', [], 3, 2, 10), fails: true },
+      job('in-flight', [], 4, 3, 30),
+      job('same-time', [], 2, 1, 10),
+      job('waiting', ['same-time']),
+      job('failed-child', ['failed']),
+    ],
+    12,
+  );
+  assert.equal(result.failed, true);
+  assert.equal(result.elapsedMs, 30);
+  assert.equal(result.spent, 6);
+  assert.equal(result.held, 0);
+  assert.deepEqual(
+    result.trace.filter((row) => row.event === 'start').map((row) => row.id),
+    ['failed', 'in-flight', 'same-time'],
+  );
+  assert.deepEqual(
+    result.trace
+      .filter((row) => row.event === 'cancelled')
+      .map((row) => row.id),
+    ['waiting', 'failed-child'],
+  );
+  assert.deepEqual(result.trace.at(-1), {
+    id: 'in-flight',
+    time: 30,
+    event: 'settle',
+  });
+});
+
+void test('simultaneous failures settle each reservation exactly once', () => {
+  const result = simulateStagedScheduling(
+    [
+      { ...job('a', [], 3, 1), fails: true },
+      { ...job('b', [], 4, 2), fails: true },
+      job('cancelled', ['a']),
+    ],
+    7,
+  );
+  assert.equal(result.spent, 3);
+  assert.equal(result.held, 0);
+  assert.equal(result.elapsedMs, 10);
+  assert.equal(result.trace.filter((row) => row.event === 'failed').length, 2);
+  assert.equal(
+    result.trace.filter((row) => row.event === 'cancelled').length,
+    1,
+  );
+});

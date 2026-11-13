@@ -77,3 +77,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm build` passes with existing bundle warning. API/worker/docs restarted; readiness retry passes `/healthz` (database/Redis healthy). `pnpm obs sources --check`: 38 sources/healthy; saved-reader check passes five topics/25 stories/22 posts. Initial source probe used a nonexistent URL (404); corrected to the supported CLI.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 963 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - No paid calls, manual collection/generation, budget, concurrency, flag or sharing changes. Next: 15:00 NBA/item 58 acceptance, then public activation with sharing private; protected admission handoff/failure draining remains an offline scheduling prerequisite.
+
+## 2026-11-13: iteration 2142 — offline staged failure draining
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits 15:00 UTC; public mode remains off.
+- Owner-visible goal remains shortening fifth-topic waiting safely. Extended the isolated synthetic scheduler to stop queued dispatch after failure and drain running calls before returning, charging explicit failed/successful costs and releasing each hold once.
+- `pnpm exec tsx --test apps/api/test/staged-scheduling.test.ts`: 6/6 pass; new cases cover same-time success/failure, cancelled descendants, longer in-flight completion and simultaneous charged failures. No production scheduler, admission, expiry or provider cancellation change; owned repair-hold handoff remains after NBA acceptance.
+- Updated TASKS and latency evidence; SOURCES/NEEDS_FROM_HUMAN unchanged. No source/runtime/handbook behavior change.
+- `pnpm format` and `pnpm lint:fix` completed. Initial `pnpm check` caught formatting in the concurrently added progress entry; fixed it, then full rerun passed: 965 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
+- API/worker/docs restarted; initial source/reader checks raced startup and failed to connect, then retry passed: `/healthz` database/Redis healthy; 38 sources/zero unhealthy; saved-reader check five topics/25 stories/22 posts.
+- No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; production scheduling unchanged.

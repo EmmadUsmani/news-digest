@@ -6,6 +6,7 @@ export interface SchedulingJob {
   durationMs: number;
   reservation: number;
   cost: number;
+  fails?: boolean;
 }
 
 export function simulateStagedScheduling(
@@ -39,7 +40,13 @@ export function simulateStagedScheduling(
   let time = 0;
   let spent = 0;
   let held = 0;
+  let failed = false;
   while (pending.length || active.length) {
+    if (failed) {
+      for (const job of pending)
+        trace.push({ id: job.id, time, event: 'cancelled' });
+      pending.length = 0;
+    }
     for (let i = 0; i < pending.length;) {
       const job = pending[i];
       if (job.after.some((id) => refused.has(id))) {
@@ -72,10 +79,15 @@ export function simulateStagedScheduling(
         active.splice(i, 1);
         held -= item.job.reservation;
         spent += item.job.cost;
-        done.add(item.job.id);
-        trace.push({ id: item.job.id, time, event: 'settle' });
+        if (item.job.fails) {
+          failed = true;
+          trace.push({ id: item.job.id, time, event: 'failed' });
+        } else {
+          done.add(item.job.id);
+          trace.push({ id: item.job.id, time, event: 'settle' });
+        }
       } else i++;
     }
   }
-  return { elapsedMs: time, spent, held, protectedBudget, trace };
+  return { elapsedMs: time, spent, held, protectedBudget, failed, trace };
 }

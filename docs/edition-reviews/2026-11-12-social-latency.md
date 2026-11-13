@@ -89,3 +89,21 @@ budget outcome. The experiment rejects an unprotected stage scheduler as the
 next runtime change. Next design a protected admission handoff and drain on
 failure against existing budget controls, after NBA scheduled acceptance; keep
 the production scheduler unchanged meanwhile.
+
+## Offline failure draining — iteration 2142
+
+The synthetic scheduler now models a failed call with an explicit settled cost.
+After observing failure it cancels queued jobs, including newly ready jobs, and
+drains all running calls before returning. A failed request may still cost money;
+its reservation is released once and its supplied cost remains charged. Concurrent
+successes and simultaneous failures settle independently. This models the barrier
+required before fallback can safely use released capacity.
+
+Two offline regressions verify no dispatch after failure, same-time completion,
+queued dependent cancellation, final zero holds and costs for both failed and
+successful calls. The long in-flight call finishes at 30 ms despite failure at
+10 ms; returning at failure would have hidden three charged units. These are
+synthetic units and times, not measured production behavior. No actual provider
+cancellation, deadline/expiry policy or owned repair-hold handoff is implemented.
+Production scheduling remains unchanged; owned admission design still follows
+scheduled NBA acceptance.
