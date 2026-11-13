@@ -30,18 +30,6 @@ Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-i
 
 Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185.md).
 
-## 2026-11-13: iteration 2186 — prepare recorded feed-content safety checks
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass, no failed user units. NBA/item 58 still awaits Nov 14 scheduled acceptance.
-- Owner value: prepare the richer Ars reporting fix without changing generation after STEERING 59’s noon cutoff; recovery details and attribution now have reproducible offline checks.
-- Recorded one minimal article from iteration 2185’s saved RSS; retained original fields, reserialized XML. No new live fetch, crawl, inference or ingestion write.
-- Two new tests cover the 593-character recovery body, unchanged metadata, RSS/Atom body paths, blank fallback, 1,500-character cap and X citations beyond that cap.
-- Targeted `pnpm exec tsx --test --test-name-pattern='recorded Ars content|feed content paths' apps/api/test/ingestion.test.ts` passes (2/2).
-- Initial direct whole-file test correctly refused its DB case outside the isolated harness; no live DB access. Full harness verification recorded below.
-- Updated TASKS/SOURCES and feed-depth implementation notes, including existing summary-first assertions to replace with direct precedence checks before noon. NEEDS_FROM_HUMAN/handbook unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and `git diff --check` pass: 977 unit/293 integration tests, four expected skips; existing build chunk warnings.
-- Production parser/services unchanged; no restart needed for fixture/test/docs-only changes. Next: pre-noon content precedence, then scheduled all-topic AI/event-diversity acceptance and private public-mode activation.
-
 ## 2026-11-13: iteration 2187 — verify richer feed evidence reaches candidates
 
 - Clean main; no inherited work. Alerts zero; health/database/Redis pass and no failed user units. NBA/item 58 still awaits Nov 14 scheduled acceptance.
@@ -184,3 +172,14 @@ Archived entry: [iteration 2185](docs/progress-archive/2026-11-13-iteration-2185
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, social-post handbook/schema check and diff checks pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. First combined run terminated during formatting; next run hung in unchanged telemetry-export test. Isolated test passes (3/3); terminated stuck child and complete standalone retry passes.
 - Rebuilt API/worker restarted healthy; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow verification.
 - Next: before-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-13: iteration 2200 — publisher teaser continuation
+
+- Clean main; no inherited work. Initial alerts zero and health/Postgres/Redis pass; scheduled recovery acceptance awaits Nov 14. Generation cutoff retained.
+- Reader weakness: actual Gaming PS5 QSSR teaser ends “Read the full article on pushsquare.com” as plain text. Editions and saved story copies now offer source continuation for explicit publisher full-article prompts as well as ellipses. Owner can continue the incomplete report directly.
+- Original summary, source URL, storage, source collection, generation and budgets unchanged; no paid calls. Older STEERING 35 requires plain summaries without mode labels; retained.
+- Handbook reading preferences and TASKS updated; oldest progress entry archived. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- `pnpm exec tsx scripts/smoke-publisher-continuation.ts`: actual published Gaming teaser passes desktop/mobile light/dark, exact source URL/text, keyboard focus, saved reload and no overflow/browser errors; complete NBA story retains no continuation. Four screenshots added; mobile light inspected.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 985 unit/294 integration tests; four expected skips, existing web chunk warning. Initial checks caught import order then smoke-script formatting; fixed before final complete pass.
+- Built API/worker restarted healthy; Postgres/Redis pass and latest edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
+- Next: pre-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

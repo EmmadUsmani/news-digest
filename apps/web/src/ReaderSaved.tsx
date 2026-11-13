@@ -7,6 +7,7 @@ import { LinkedPostText } from './LinkedPostText';
 import { readerAccountStatus } from './reader-account-status';
 import { ReaderAccount } from './ReaderAccount';
 import { ReaderSkipLink } from './ReaderSkipLink';
+import { storyNeedsContinuation } from './story-continuation';
 import { useReaderAccount } from './use-reader-account';
 import { useReaderPreferences } from './use-reader-preferences';
 
@@ -159,7 +160,7 @@ export function ReaderSaved() {
                 )}
                 {((copy.platform === 'story' &&
                   (!copy.excerpt.trim() ||
-                    /(?:…|\.{3})\s*$/.test(copy.excerpt))) ||
+                    storyNeedsContinuation(copy.excerpt))) ||
                   (copy.platform === 'x' &&
                     /(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(
                       copy.excerpt,

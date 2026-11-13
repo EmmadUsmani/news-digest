@@ -12,6 +12,7 @@ import { ReaderContents } from './ReaderContents';
 import { ReaderPreferences } from './ReaderPreferences';
 import { ReaderSkeleton } from './ReaderSkeleton';
 import { ReaderSkipLink } from './ReaderSkipLink';
+import { storyNeedsContinuation } from './story-continuation';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
@@ -272,7 +273,7 @@ export function DigestPreview() {
                             </a>
                           </p>
                         )}
-                        {/(?:…|\.{3})\s*$/.test(story.summary ?? '') && (
+                        {storyNeedsContinuation(story.summary ?? '') && (
                           <a
                             href={story.url}
                             target="_blank"
