@@ -52,6 +52,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Reader empty-story wording (2182): saved World/U.S. sections now say “No stories in this edition” rather than claiming a quiet news day after failed triage. Actual saved-edition desktop/mobile light/dark checks pass; generation and snapshots unchanged.
+
 - [x] STEERING 30/31 historical accounting reconciled (2175): 33 calls, $1.168639 settled + two $0.15 unknown Gaming holds = $1.468639 charged. Holds stay charged; reopen only with request-specific usage evidence. No further experiment authorized. [Evidence](docs/x-search-experiment.md#historical-accounting-reconciled--nov-13-iteration-2175).
 
 - [x] NBA item 54 accepted Nov 11 (1824); Nov 12 recurrence remains open above.

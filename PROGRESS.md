@@ -194,3 +194,15 @@ Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iter
 - Updated TASKS/SOURCES and U.S. selection evidence; archived iterations 2164–2165 to keep progress small. Handbook/NEEDS_FROM_HUMAN unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
 - Local probe only; runtime unchanged, no restart required. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.
+
+## 2026-11-13: iteration 2182 — accurate empty-story reader message
+
+- Clean main; no inherited work. Alerts zero, health/database/Redis pass, all 38 sources healthy, all queues available; next digest Nov 14 15:00 UTC.
+- Owner value: World/U.S. withheld stories after failed triage must not be described as a quiet news day.
+- Reader now says “No stories in this edition”; published posts remain visible. Immutable snapshots and generation unchanged; NBA/item 58 acceptance still awaits Nov 14.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
+- Restarted `news-digest-api.service`; retrying `curl -fsS http://localhost:8000/healthz` passes; post-restart alerts zero.
+- `node /tmp/iteration-2182-reader.cjs`: GET-only Playwright on real saved edition, third parties blocked; both empty sections and retained posts pass at 390/1440px light/dark; no overflow/browser errors.
+- Saved four screenshots under `docs/screenshots/ui/reader-empty-stories-*`; inspected mobile light and desktop dark images.
+- Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader wording fix only); no paid calls.
+- Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.

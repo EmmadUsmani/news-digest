@@ -233,7 +233,7 @@ export function DigestPreview() {
                 )}
                 {topic.stories.length === 0 && (
                   <p className="my-6 text-sm text-[var(--secondary)]">
-                    Quiet day for this topic.
+                    No stories in this edition.
                   </p>
                 )}
                 <ol className="my-6 list-none space-y-4 pl-0">
