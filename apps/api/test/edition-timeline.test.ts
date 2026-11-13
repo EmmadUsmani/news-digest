@@ -4,6 +4,36 @@ import { test } from 'node:test';
 
 import { evaluateEditionTimeline } from '../scripts/evaluate-edition-timeline';
 
+void test('saved five-topic timeline retains late fifth-topic work and conserves all HTTP intervals', () => {
+  const events = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/edition-timeline-2026-11-12.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  const result = evaluateEditionTimeline(events);
+  assert.equal(result.elapsedMs, 232297);
+  assert.equal(result.topics.length, 5);
+  assert.equal(
+    result.occupancy.reduce((sum, row) => sum + row.ms, 0),
+    result.elapsedMs,
+  );
+  assert.equal(
+    result.occupancy.reduce((sum, row) => sum + row.ms * row.calls, 0),
+    852391,
+  );
+  const us = result.topics.find((topic) => topic.topic.endsWith('15'))!;
+  const world = result.topics.find((topic) => topic.topic.endsWith('14'))!;
+  assert.equal(us.triageMs, 173524);
+  assert.equal(world.triageMs, 120267);
+  assert.equal(us.readyMs, 232267);
+  assert.equal(result.lastTopicTail.elapsedMs, 4512);
+  assert.deepEqual(
+    result.lastTopicTail.calls.map((call) => call.purpose),
+    ['social-editor-v2'],
+  );
+});
+
 void test('saved timeline conserves HTTP work and identifies the serialized social tail', () => {
   const result = evaluateEditionTimeline(
     JSON.parse(
