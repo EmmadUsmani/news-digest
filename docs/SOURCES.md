@@ -2677,3 +2677,11 @@ Offline fake-port rehearsal exercises 120 daily searches and 12/6/6 allocation,
 overrides, admission, failures and eight UTC rollover/retry cases. Activation
 and natural quality review remain behind the scheduled/public-mode gate; see
 [the pilot contract](plans/world-bluesky-discovery.md). No provider calls or writes.
+
+### Stored Bluesky query provenance (2026-11-13, iteration 2153)
+
+The read-only coverage report labels its query as current, unrotated topic
+metadata. Stored observations do not preserve discovery queries and cannot
+attribute posts to baseline or event searches. The optional World rotation
+remains unwired; any later pilot comparison must retain actual hourly
+collection results separately. No collection or source configuration changed.

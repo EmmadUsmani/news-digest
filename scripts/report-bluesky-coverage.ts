@@ -80,7 +80,7 @@ async function main() {
         coverage.push({
           topic: topic.name,
           configuredBlueskyQuery: topic.blueskyQuery ?? null,
-          effectiveCollectionQuery: (
+          currentUnrotatedCollectionQuery: (
             (topic.blueskyQuery?.trim() ||
               topic.queries.find((query) => query.trim())) ??
             topic.relevancePolicy.includeAny[0] ??
@@ -88,7 +88,7 @@ async function main() {
           )
             .trim()
             .slice(0, 500),
-          collectionQuerySource: topic.blueskyQuery?.trim()
+          currentUnrotatedQuerySource: topic.blueskyQuery?.trim()
             ? 'blueskyQuery'
             : topic.queries.some((query) => query.trim())
               ? 'queries'
@@ -133,6 +133,8 @@ async function main() {
           cutoff,
           policyBasis:
             'Current enabled topics and relevance policies; not a replay of historical editorial selection.',
+          collectionQueryBasis:
+            'Current topic metadata without the optional hourly World rotation; not the queries that produced stored observations. An enabled rotation replaces only the fallback, using baseline/Ukraine/baseline/Gaza by UTC hour; an explicit blueskyQuery still wins. Historical collection queries are not stored on observations, so this report cannot attribute posts to baseline or event searches.',
           coverage,
           note: '24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Author counts describe distinct posts within those capped candidates, not the full pool or measured relevance. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes.',
         }),

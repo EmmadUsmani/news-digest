@@ -84,6 +84,8 @@ Iteration 2152 runs those checks with the actual optional rotation policy,
 including explicit override at an event slot. Eight additional checks cross UTC
 midnight and retry with a moving observation clock: each invocation retains its
 captured collection window and deterministic query. The 24-hour allocation now
-exercises the policy directly, with no topic metadata overlay. Scheduler wiring,
-coverage-report explanation and activation remain pending; no production caller
-opts in.
+exercises the policy directly, with no topic metadata overlay. Scheduler wiring and
+activation remain pending; no production caller opts in. Iteration 2153 labels
+the coverage report query as current and unrotated, and explains that stored
+observations cannot attribute posts to baseline or event queries. Natural pilot
+comparison must retain the actual hourly collection results separately.

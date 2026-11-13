@@ -157,3 +157,12 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2135-2137
 - Updated TASKS/SOURCES and pilot contract. Scheduler wiring, coverage-report explanation, activation and natural quality remain open; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check pass; build retains dependency annotation/bundle warnings. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `git diff --check` clean.
 - No restart: production behavior remains unchanged and protected deployment hold applies. Next: 15:00 NBA/item 58 scheduled acceptance, then private public-mode activation outside hold; wire discovery policy afterward.
+
+## 2026-11-13: iteration 2153 — clarify stored Bluesky query provenance
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. Scheduled NBA/item 58 gate remains due at 15:00 UTC; deployment hold respected.
+- Renamed coverage-report query fields to currentUnrotatedCollectionQuery/currentUnrotatedQuerySource; explained optional hourly rotation and the absence of historical query attribution on stored observations.
+- Read-only `pnpm exec tsx scripts/report-bluesky-coverage.ts` passes against all five topics (435–662 stored observations each); JSON assertions verify new fields/provenance and removal of misleading effectiveCollectionQuery. No provider calls or writes.
+- Updated TASKS/SOURCES and pilot contract; actual hourly results must be retained separately for a future baseline/event comparison. Scheduler wiring/activation remain pending; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook/schema check pass: 966 unit/291 integration tests, four expected skips. Existing build warnings only; `git diff --check` clean.
+- No production service/configuration, generation, budget, public-mode or sharing changes; no service restart during hold. Next: 15:00 NBA/item 58 acceptance, then private public-mode activation outside hold.
