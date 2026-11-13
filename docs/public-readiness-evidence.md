@@ -139,3 +139,23 @@ sanitized Queues remain linked, and private mode retains Grafana/Bull Board.
 Four desktop/mobile light/dark captures are saved as
 `docs/screenshots/ui/public-tools-fixture-*.png`; no overflow or page errors.
 Older routed screenshots remain historical evidence. No live tool calls occur.
+
+### Complete public-mode rehearsal (iteration 2104)
+
+Rehearsal uses disposable Postgres/Redis and fixture publications; it changes no
+live account, publication, flag, sharing setting or provider budget. The deployed
+loopback check and saved X-widget check below are explicitly live read checks.
+
+| Area                                | Command and evidence                                                                                                                                                                                                                                                |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Compiled public application         | `pnpm check`: `public-application-storage.test.ts` exercises anonymous published reads, private/admin refusals, ordinary-reader isolation, fresh-admin mutations with stored audit outcomes, privacy document, security headers and sensitive request-log omission. |
+| Durable limits and private rollback | Same check: `public-api-admission.test.ts` verifies shared Redis allowances and storage-loss refusal; `public-runtime-storage.test.ts` preserves allowances across restart and returns to private admission.                                                        |
+| Browser policy and rollback         | `pnpm exec tsx scripts/check-public-policies.ts`: ten local synthetic Chromium checks, now including the previously omitted default-resource refusal. Each verifies private-policy rollback.                                                                        |
+| Deployed account boundary           | `pnpm exec tsx scripts/check-live-account-boundary.ts`: 32 loopback refusal checks; no account credentials or writes admitted. This remains a private-mode deployed check.                                                                                          |
+| Real saved X widgets                | `pnpm exec tsx scripts/check-public-live-embeds.ts --review-routing --review-scripts`: official embeds from the saved edition under prepared public admission/CSP, desktop/mobile and light/dark. No provider inference calls.                                      |
+
+Previously accepted page and installed-tool browser receipts above remain in
+force; no accepted-screen reruns are required by this rehearsal. This closes the
+disposable rehearsal only. Scheduled NBA/item 58 acceptance, the fresh activation
+baseline/rollback record, deployed public-mode verification and a normal scheduled
+public-mode edition remain gates in [the checklist](public-readiness.md).

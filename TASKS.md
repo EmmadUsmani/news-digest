@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2104: complete disposable public-mode rehearsal; included omitted default-resource browser policy in the aggregate runner. Account isolation, admin audit, rate limits, headers/privacy/log hygiene and private rollback verified; real saved widgets and deployed private-mode boundary pass. Activation still follows scheduled NBA/item 58 acceptance.
+
 - [x] Iteration 2103: removed Grafana from the public Tools list and reconciled the read-only rollout inventory; activation runbook now requires a normal public-mode scheduled edition before item 50 stops for sharing. Full rehearsal remains next.
 
 - [x] Iteration 2102: activation checklist now follows STEERING 59: private-sharing activation authorized after scheduled NBA/item 58 acceptance, lead re-check parallel, public Grafana/capacity excluded and Spend allowed. Historical rehearsal receipts retained in [evidence](docs/public-readiness-evidence.md).
@@ -70,4 +72,4 @@ Recent completed steps are recorded in PROGRESS.md and its linked archives. [Com
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: complete the public-mode rehearsal under STEERING 59. Scheduled Nov 13 NBA acceptance closes item 58 before private-sharing activation; public Grafana/capacity work is excluded from launch. Metrics recovery remains background monitoring, not an activation gate.
+- Next: prepare the exact activation rollback record and fresh baseline after scheduled Nov 13 NBA/item 58 acceptance, then enable public mode with sharing private and accept its next normal scheduled edition. Disposable rehearsal is complete; public Grafana/capacity work remains excluded. While awaiting the edition, STEERING 59 directs U.S. Bluesky diagnosis next.

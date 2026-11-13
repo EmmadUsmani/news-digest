@@ -110,10 +110,12 @@ activation review, rather than adding more variants of already-covered refusals.
 - [x] Read-only admin/tool rollout inventory reconciled (2103): reviewed pages,
       handbook/explorer and fresh-admin telemetry are installed behind the flag.
       Exact routes and retained evidence: [current inventory](public-read-rollout-review.md#current-rollout-inventory--iteration-2103).
-      Accepted screens need no rerun; complete rehearsal and activation remain below.
-- [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,
-      ordinary-reader isolation, fresh-admin writes and durable audit, rate limits,
-      security headers, privacy page, log hygiene and private-mode rollback.
+      Accepted screens need no rerun; rehearsal receipt and activation gates follow.
+- [x] Complete disposable public-mode rehearsal (2104): anonymous reader/admin
+      reads, ordinary-reader isolation, fresh-admin writes and durable audit,
+      rate limits, security headers, privacy page, request-log hygiene and
+      private-mode rollback. Commands and scope: [rehearsal receipt](public-readiness-evidence.md#complete-public-mode-rehearsal-iteration-2104).
+      Deployed public-mode acceptance remains in activation step 3.
 - [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
       reviewed overview, topics, schedule, sources, Spend, Tools, Queues and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
