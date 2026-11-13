@@ -1,38 +1,6 @@
 # Progress
 
-Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134.md).
-
-## 2026-11-13: iteration 2135 — source-bound English context for social posts
-
-- Clean main; no inherited work. Initial alerts zero; health healthy and 38 sources all ok. NBA/item 58 still awaits Nov 13 15:00 UTC; public mode remains off.
-- Reader-visible weakness: saved Gaming French GTA clip's English note omits its essential news and adds a launch date absent from its own text. Retained immutable reader object/provenance.
-- Social editor v11 prioritizes concise English translation with attribution/uncertainty, forbidding imported dates/background or upgrading a possible clip to confirmed gameplay. Original text unchanged.
-- Offline saved-text/model-route test accepts a simulated source-bound note through real budgeted editing; this verifies transport/validation, not future semantic compliance. Updated existing translation assertion after first targeted run failed on old wording.
-- `pnpm format`, `pnpm lint:fix` pass. First full check hung in unchanged telemetry-export tests; stopped that process (standalone 3/3 pass). Full `pnpm check` rerun passes: 950 unit/291 integration, four expected skips; typecheck/lint/format/boundaries green. Targeted editor 20/20 pass.
-- `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes. API/worker/docs restarted active; initial reader request raced startup, retry verifies five topics/25 stories/22 posts. `/healthz` database/Redis healthy; 38 sources/zero unhealthy.
-- Updated TASKS, ranking notes, saved-case review and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, collection, generation, budgets, flags or sharing changes.
-- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review Gaming translation and other pending natural quality cases.
-
-## 2026-11-13: iteration 2136 — enable Tech context for the actual live name
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits Nov 13 15:00 UTC; public mode remains off.
-- Read saved Tech stories/evidence and current topic rows read-only. Live name is `Tech & AI`; both production conditions required `tech`, silently bypassing cluster-member evidence (2128–2130) and Bluesky story comparison (2134).
-- Shared exact-name policy accepts `Tech`/`Tech & AI` with case/outer-space normalization. Other topics remain excluded; payload bounds, caps and historical snapshots unchanged.
-- Saved NVIDIA editor regression now exercises the live-name gate and verifies substantive member transport/cited evidence. Topic exclusion regression passes; `pnpm exec tsx --test apps/api/test/editor-evidence.test.ts apps/api/test/bluesky-edition.test.ts`: 23/23 pass.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 951 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
-- API/worker/docs restarted active; health database/Redis healthy after one startup retry. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
-- Updated TASKS and existing Tech-depth evidence. No source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budget, flag or sharing changes.
-- Next: scheduled NBA/item 58 acceptance, public activation with sharing private; review naturally enabled Tech evidence depth and post overlap.
-
-## 2026-11-13: iteration 2137 — saved Tech evidence through budget admission
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits Nov 13 15:00 UTC; public mode remains off.
-- Closed a verification gap for the saved thin NVIDIA story: its editor regression bypassed BudgetedLlm, while admission tests used synthetic maximum-size clusters. Replaced that bypass with real budgeted composition and offline ledger/provider.
-- Saved cluster now verifies Sonnet admission, Haiku after Sonnet refusal, positive reservation/settlement costs, unchanged 4000-output-token allowance, cache reuse without another provider dispatch and exact immutable cited text. Both-model refusal returns unavailable with zero dispatches/settlements/cache writes. Simulated responses are not saved provider responses or natural quality evidence.
-- `pnpm exec tsx --test apps/api/test/editor-evidence.test.ts`: 10/10 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 953 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
-- API/worker/docs restarted active; `/healthz` database/Redis healthy. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
-- Updated TASKS and existing Tech evidence review. No runtime/source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budgets, flags or sharing changes.
-- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review natural Tech evidence depth/post overlap and pending Gaming/World social quality.
+Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2135-2137.md).
 
 ## 2026-11-13: iteration 2138 — compare Tech X picks with selected news
 
@@ -160,3 +128,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - Verification: same-window/bound assertions pass for all 195 returns; three invalid CLI combinations refuse before external calls. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - `pnpm build` passes (existing bundle warning); handbook/schema checker passes; `git diff --check` clean. No runtime change or service restart; protected deployment window respected. NEEDS_FROM_HUMAN unchanged.
 - Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00; preserve aggregate allowance when implementing World event discovery.
+
+## 2026-11-13: iteration 2150 — bound the World discovery pilot before activation
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. Scheduled NBA/item 58 gate remains due at 15:00 UTC; protected deployment/generation hold respected.
+- Added a concrete opt-in World pilot contract: alternate unchanged fallback with Ukraine/Gaza, 12/6/6 searches per UTC day, explicit override precedence, deterministic hourly slot, acceptance and rollback. Implementation/activation remain behind higher-priority gates.
+- `pnpm exec tsx scripts/rehearse-world-bluesky-rotation.ts` reads local topic metadata then uses real collection with fake search/storage: 24 simulated hours/120 planned searches, unchanged other topics, unchanged inputs and 24-hour windows. Derived bounds remain 240 pages/6,000 submissions. No provider calls or live writes; this does not establish post quality or implement rotation.
+- Invalid `--store` argument refuses before metadata/provider access. Initial temporary rehearsal failed on CJS top-level await; replaced by the committed async-main script, which passes.
+- Updated TASKS/SOURCES and rollout plan; archived iterations 2135–2137 as PROGRESS exceeded 25 KB. NEEDS_FROM_HUMAN unchanged; no owner decision needed.
+- Initial full lint/check caught fake-port require-await errors; corrected to explicit promises. Final `pnpm lint:fix` and `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts world-bluesky-discovery` and `git diff --check` pass.
+- No runtime code/config, budget, schedule, public-mode or sharing changes; no service restart required. Next: 15:00 scheduled NBA/item 58 review, private-sharing activation outside hold, then bounded discovery implementation.

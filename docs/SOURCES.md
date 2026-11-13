@@ -2658,3 +2658,12 @@ event discovery, not a blanket `geopolitics` replacement or viral acceptance.
 No storage writes, paid inference, production query or schedule changes.
 Next: bounded event rotation preserving aggregate allowance and scope gates.
 [Comparison and limitations](edition-reviews/2026-11-12-bluesky-pool.md#bounded-free-discovery-comparison--iteration-2149).
+
+### World discovery pilot preparation — iteration 2150
+
+[Bounded rollout plan](plans/world-bluesky-discovery.md) retains 12 daily World
+baseline searches and allocates six each to tested Ukraine/Gaza event terms.
+The real collector rehearsed 24 hours with fake search/storage ports: 120 total
+searches across current topics, other topics unchanged, no provider calls or
+observation writes. This is a proposed schedule, not live collection or accepted
+quality. Production remains unchanged pending higher-priority scheduled gates.
