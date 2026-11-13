@@ -18,3 +18,22 @@ and Haiku routes with a simulated, source-bound English note. They verify
 transport, acceptance and original-text preservation; they do not establish
 future model compliance. Review the next scheduled Gaming notes naturally;
 no paid replay or change to the saved edition is needed.
+
+## Source-date validation — iteration 2139
+
+The exact saved reader note previously passed the social validator despite its
+unsupported Nov 19 date. Gaming final selection now checks explicit English
+and French month/day dates and ISO dates in notes and rationales against the
+same candidate's supplied prose. Equivalent month abbreviations, day-first
+French/English dates, accents, ordinals and ISO dates can support English notes.
+A claimed year also requires a matching supplied year. URLs, publication time,
+other candidates, existing picks and story context cannot supply evidence.
+
+Both X and Bluesky routes reject the saved note and accept a simulated
+source-bound translation on the existing bounded repair. Exhaustion retains
+the existing fallback behavior. Gaming-only instructions isolate its cache;
+other topics, including NBA, keep their prior instructions and validation.
+This is a narrow date-presence check, not a general claim verifier: numeric
+slash dates, written-out days, other languages and event/date relationships
+remain outside its scope. No paid development calls, cap changes or immutable-edition changes were made.
+Natural selection quality still awaits scheduled review.

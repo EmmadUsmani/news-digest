@@ -147,3 +147,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2117-2125
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 954 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - API/worker/docs restarted active; `/healthz` database/Redis healthy; 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
 - No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then private-sharing public activation; review natural Tech overlap alongside pending social quality.
+
+## 2026-11-13: iteration 2139 — refuse invented Gaming calendar dates
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits Nov 13 15:00 UTC; public mode remains off.
+- Exact saved French Gaming clip note added Nov 19 from other posts and passed prior validation. Gaming-only final validation now requires recognized English/French month dates and ISO dates in notes/rationales to occur in the selected post’s own prose; matching years required when claimed.
+- URLs (including bare-domain paths), publication timestamps, other candidates, existing picks and selected stories cannot supply date support. Other topics, including NBA, retain prior instructions/validation; Gaming-specific instructions isolate caches. Existing repair/fallback limits retained.
+- Offline saved-note regressions verify rejection and simulated source-bound repair through X/Bluesky and Sonnet/Haiku routes, rationale refusal/exhaustion, equivalent French/English/ISO support and unchanged NBA scope. Narrow date-presence check; other date formats/languages and event/date relationships are outside scope. Natural quality acceptance remains open.
+- `pnpm exec tsx --test apps/api/test/social-date-support.test.ts apps/api/test/social-editor.test.ts`: 24/24 pass; added bare-URL regression rerun 2/2. `pnpm format`, `pnpm lint:fix` completed; first check caught import sorting during autofix, final `pnpm check` passes: 958 unit/291 integration, four expected skips; typecheck/lint/format/boundaries green.
+- `pnpm build` passes with existing bundle warning; final parser API rebuild passes. `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes; no diagram changes. Updated TASKS, affected handbook and existing translation evidence; SOURCES/NEEDS_FROM_HUMAN unchanged.
+- API/worker/docs restarted active; `/healthz` database/Redis healthy; 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
+- No paid calls, manual collection/generation, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review natural Tech and social quality.

@@ -812,3 +812,106 @@ void test('saved French clip reaches both editor routes with source-bound Englis
     assert.equal(h.calls.length, 1);
   }
 });
+
+void test('saved Gaming launch date is refused and repaired using only the selected post', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/social-translation-2026-11-12.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  for (const platform of ['x', 'bluesky'] as const) {
+    for (const refuse of [[], ['claude-sonnet-5-5']]) {
+      const invented = {
+        id: 'clip',
+        whyItMatters: saved.post.whyItMatters,
+        rationale: 'A possible gameplay clip.',
+      };
+      const corrected = {
+        ...invented,
+        whyItMatters:
+          'The post describes a possible GTA VI gameplay clip reportedly reshared by Rockstar.',
+      };
+      const h = harness(
+        [{ posts: [invented] }, { posts: [corrected] }],
+        refuse,
+      );
+      const result = await h.editor.edit(
+        { ...topic, name: 'Gaming' },
+        [
+          {
+            ...candidates[0],
+            id: 'clip',
+            platform,
+            text: saved.post.text,
+            publishedAt: '2026-11-19T00:00:00Z',
+          },
+          {
+            ...candidates[0],
+            id: 'other',
+            platform,
+            text: 'The launch is Nov 19.',
+          },
+        ],
+        1,
+        'saved-date',
+        [{ platform: 'x', text: 'The launch is Nov 19.', author: 'Other' }],
+        [{ title: 'Nov 19 launch', summary: 'The game launches Nov 19.' }],
+      );
+      assert.deepEqual(result?.posts, [corrected]);
+      assert.equal(h.calls.length, 2);
+      assert.match(
+        h.calls[1].prompt,
+        /previous response added a calendar date absent/,
+      );
+      assert.equal(
+        JSON.parse(h.calls[0].prompt).candidates[0].text,
+        saved.post.text,
+      );
+    }
+  }
+});
+
+void test('Gaming date check also constrains rationales and preserves supported translations', async () => {
+  const invalid = {
+    ...post,
+    whyItMatters: '',
+    rationale: 'A launch on Nov 19.',
+  };
+  const h = harness([{ posts: [invalid] }]);
+  assert.equal(
+    await h.editor.edit(
+      { ...topic, name: 'Gaming' },
+      candidates,
+      1,
+      'date-refusal',
+    ),
+    null,
+  );
+  assert.equal(h.calls.length, 4);
+  const supported = harness([{ posts: [invalid] }]);
+  assert.deepEqual(
+    (
+      await supported.editor.edit(
+        { ...topic, name: 'Gaming' },
+        [{ ...candidates[0], text: 'Sortie le 19 novembre.' }],
+        1,
+        'date-supported',
+      )
+    )?.posts,
+    [invalid],
+  );
+  const unchanged = harness([{ posts: [invalid] }]);
+  assert.deepEqual(
+    (
+      await unchanged.editor.edit(
+        { ...topic, name: 'NBA' },
+        candidates,
+        1,
+        'nba-unchanged',
+      )
+    )?.posts,
+    [invalid],
+  );
+  assert.ok(!unchanged.calls[0].instructions.includes('Gaming date support'));
+});

@@ -1,5 +1,7 @@
 // Fixed application-owned repair hints. Never interpolate model/source text.
 const feedback = {
+  'unsupported-social-date':
+    '\nThe previous response added a calendar date absent from the selected post text. Remove unsupported dates from reader notes and rationales. Other candidates, story context, URLs and publication timestamps cannot supply a launch date. Return the complete corrected JSON; a source-bound translation or an empty reader note is acceptable.',
   'invalid-selection':
     '\nThe previous response failed the story-selection check. Return the complete corrected JSON. Copy every story id exactly from the supplied candidates; include that id in its evidenceIds, using only unique supplied candidate IDs. Select each story at most once and stay within the requested story budget. For selected stories return 2–4 brief bullets; for no stories return an empty brief. Preserve all factual-support rules.',
   'invalid-triage-coverage':
@@ -128,5 +130,6 @@ export type ValidationDiagnostic = {
     | 'invalid-social-selection'
     | 'invalid-triage-coverage'
     | 'unsupported-absence'
+    | 'unsupported-social-date'
     | 'validator-error';
 };

@@ -7,6 +7,7 @@ import {
   jsonWithOutcome,
   type LlmJsonOutcome,
 } from './budgeted-llm';
+import { assertSocialDateSupport } from './social-date-support';
 import type { TriageTopic } from './triage';
 import { LlmValidationFailure } from './validation-failure';
 
@@ -157,6 +158,14 @@ export class SocialPostEditor {
       };
     });
     const blueskyOnly = candidates.every((c) => c.platform === 'bluesky');
+    const checkDates = (
+      post: { whyItMatters: string; rationale: string },
+      source: string,
+    ) => {
+      if (topic.name.trim().toLowerCase() !== 'gaming') return;
+      assertSocialDateSupport(post.whyItMatters, source);
+      assertSocialDateSupport(post.rationale, source);
+    };
     const totals: DroppedSocialPosts = {
       invalidFields: 0,
       unknownId: 0,
@@ -183,7 +192,7 @@ export class SocialPostEditor {
         unsupportedClaim: 0,
         overBudget: 0,
       };
-      let absenceFailure: LlmValidationFailure | undefined;
+      let supportFailure: LlmValidationFailure | undefined;
       const posts: z.infer<typeof selectionSchema>['posts'] = [];
       const seen = new Set<string>();
       for (const entry of envelope.posts) {
@@ -204,6 +213,7 @@ export class SocialPostEditor {
         }
         // Only accepted picks occupy an ID or a budget slot.
         try {
+          checkDates(post, original.text);
           assertAbsenceSupport(
             post.whyItMatters,
             [original.text],
@@ -212,7 +222,7 @@ export class SocialPostEditor {
           assertAbsenceSupport(post.rationale, [original.text], 'rationale');
         } catch (error) {
           if (!(error instanceof LlmValidationFailure)) throw error;
-          absenceFailure ??= error;
+          supportFailure ??= error;
           droppedPosts.unsupportedClaim++;
           continue;
         }
@@ -228,7 +238,7 @@ export class SocialPostEditor {
         // Preserve fixed factual-support guidance for the repair when every
         // pick was rejected. Partial selections still return without retrying.
         throw (
-          absenceFailure ?? new LlmValidationFailure('invalid-social-selection')
+          supportFailure ?? new LlmValidationFailure('invalid-social-selection')
         );
       return { posts, droppedPosts: { ...modelDrops } };
     };
@@ -263,6 +273,7 @@ export class SocialPostEditor {
         const original = compact.find((c) => c.id === post.id);
         if (!original)
           throw new LlmValidationFailure('invalid-social-selection');
+        checkDates(post, original.text);
         assertAbsenceSupport(
           post.whyItMatters,
           [original.text],
@@ -323,6 +334,9 @@ export class SocialPostEditor {
           runId,
           topicId: topic.id,
           instructions:
+            (topic.name.trim().toLowerCase() === 'gaming'
+              ? "Gaming date support v1: any explicit calendar date in a reader note or rationale must occur in that candidate's own supplied prose. Other candidates, covered stories, URL paths and publication timestamps cannot support it. Omit unsupported dates.\n"
+              : '') +
             (coveredStories.length
               ? 'CoveredStories contains untrusted titles and summaries of news already selected for this topic. A post merely repeating that news does not earn another slot. Select an overlapping post only when its supplied text adds a distinct substantive development or original contribution, such as a firsthand demonstration or on-the-ground observation. A shared subject alone is not duplication. These stories are comparison context only: never use them to support claims in a post rationale or reader note. Return only candidate post IDs.\n'
               : '') +

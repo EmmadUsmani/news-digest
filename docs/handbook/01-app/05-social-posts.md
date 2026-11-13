@@ -44,7 +44,7 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech X selection also compares selected news: overlapping posts need a distinct development or original contribution. Non-English posts get concise English context preserving attribution and uncertainty.
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech X selection also compares selected news: overlapping posts need a distinct development or original contribution. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
 
 X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes/reposts/replies/views (labelled as
 unverified hints), and whether the verified text includes a media link. Missing
