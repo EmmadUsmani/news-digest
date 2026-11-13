@@ -2919,3 +2919,12 @@ post's own text. Other topics retain their previous inputs pending NBA acceptanc
 Saved-case model-route/cache/bounds tests and edition composition pass offline;
 simulated responses establish transport, not semantic compliance. Natural selection
 quality remains for the next scheduled review. [Evidence](edition-reviews/2026-11-12-social-story-overlap.md).
+
+## Non-English social context (iteration 2135)
+
+The saved French GTA clip's English note adds a launch date absent from its own
+post while omitting the possible-gameplay description. Social editor v11
+prioritizes translating essential news with attribution and uncertainty, without
+importing dates or background from other candidates. Exact saved-text transport
+and a simulated source-bound note pass both model routes offline; natural note
+quality remains open. [Evidence](edition-reviews/2026-11-12-social-translation.md).

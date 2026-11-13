@@ -44,7 +44,7 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown.
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Non-English posts get concise English context preserving attribution and uncertainty.
 
 X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes/reposts/replies/views (labelled as
 unverified hints), and whether the verified text includes a media link. Missing

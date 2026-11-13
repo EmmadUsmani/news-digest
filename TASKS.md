@@ -45,6 +45,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 - [ ] Tech story/post repetition (2134): Bluesky selection now receives bounded selected Tech story context; overlapping posts need a distinct development or original contribution. Saved airline overlap, model routes, bounds and preparation verified offline; natural scheduled acceptance remains open. [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
 
+- [ ] Gaming English context (2135): saved French clip note adds a launch date absent from its own post. Social editor v11 prioritizes source-bound English translation with uncertainty; offline saved-text routes verified. Natural scheduled note quality remains open. [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
+
 ## Latest verified step
 
 - [x] Iteration 2129: verified ten fully populated Tech clusters through real budget admission with an offline provider; oversized escaped-control/multibyte payloads now use existing fallback before reservation or dispatch instead of aborting publication. Historical-case acceptance remains open.

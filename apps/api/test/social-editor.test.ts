@@ -75,7 +75,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v10/);
+  assert.match(h.calls[0].instructions, /Social editor v11/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -137,7 +137,7 @@ void test('self-explanatory posts can keep their slot without a repetitive reade
   assert.match(h.calls[0].instructions, /rather than paraphrase or repeat/);
   assert.match(
     h.calls[0].instructions,
-    /English translation of a non-English post/,
+    /English translation of its essential news/,
   );
   assert.match(
     h.calls[0].instructions,
@@ -758,4 +758,57 @@ void test('saved airline overlap receives bounded story context without licensin
       Array.from({ length: 11 }, () => ({ title: 't', summary: 's' })),
     ),
   );
+});
+
+void test('saved French clip reaches both editor routes with source-bound English context', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/social-translation-2026-11-12.json', import.meta.url),
+      'utf8',
+    ),
+  );
+  assert.match(saved.post.text, /potentielle séquence en jeu/);
+  assert.match(saved.post.whyItMatters, /Nov 19/);
+  const translation =
+    'The post describes a possible GTA VI gameplay clip shared by Only In Dade and reportedly reshared by Rockstar on Instagram.';
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    // Simulated translation verifies transport and validation, not model compliance.
+    const selected = {
+      id: 'clip',
+      whyItMatters: translation,
+      rationale: 'A reported Rockstar reshare of a possible gameplay clip.',
+    };
+    const h = harness([{ posts: [selected] }], refuse);
+    const input = [
+      {
+        ...candidates[0],
+        id: 'clip',
+        platform: 'x' as const,
+        text: saved.post.text,
+        author: saved.post.author,
+        publishedAt: saved.post.publishedAt,
+      },
+    ];
+    const result = await h.editor.edit(
+      { ...topic, name: 'Gaming' },
+      input,
+      1,
+      'translation',
+    );
+    assert.deepEqual(result?.posts, [selected]);
+    assert.equal(
+      JSON.parse(h.calls[0].prompt).candidates[0].text,
+      saved.post.text,
+    );
+    assert.equal(input[0].text, saved.post.text);
+    assert.match(
+      h.calls[0].instructions,
+      /English translation of its essential news, preserving attribution and uncertainty/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Do not turn a possible clip into confirmed gameplay or add launch dates/,
+    );
+    assert.equal(h.calls.length, 1);
+  }
 });
