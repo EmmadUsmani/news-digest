@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2105: diagnosed empty U.S. Bluesky seed through bounded official-API comparison; migration 0024 uses verified `Congress` query while preserving owner edits and all collection caps. Stored recovery and checks recorded in PROGRESS.md; scheduled selection quality remains open.
+
 - [x] Iteration 2104: complete disposable public-mode rehearsal; included omitted default-resource browser policy in the aggregate runner. Account isolation, admin audit, rate limits, headers/privacy/log hygiene and private rollback verified; real saved widgets and deployed private-mode boundary pass. Activation still follows scheduled NBA/item 58 acceptance.
 
 - [x] Iteration 2103: removed Grafana from the public Tools list and reconciled the read-only rollout inventory; activation runbook now requires a normal public-mode scheduled edition before item 50 stops for sharing. Full rehearsal remains next.
@@ -72,4 +74,4 @@ Recent completed steps are recorded in PROGRESS.md and its linked archives. [Com
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: prepare the exact activation rollback record and fresh baseline after scheduled Nov 13 NBA/item 58 acceptance, then enable public mode with sharing private and accept its next normal scheduled edition. Disposable rehearsal is complete; public Grafana/capacity work remains excluded. While awaiting the edition, STEERING 59 directs U.S. Bluesky diagnosis next.
+- Next: prepare the exact activation rollback record and fresh baseline after scheduled Nov 13 NBA/item 58 acceptance, then enable public mode with sharing private and accept its next normal scheduled edition. Disposable rehearsal is complete; public Grafana/capacity work remains excluded. U.S. Bluesky query repair is deployed (2105); next confirm its hourly continuation and review scheduled selection, then proceed to X/Bluesky tuning under STEERING 59.

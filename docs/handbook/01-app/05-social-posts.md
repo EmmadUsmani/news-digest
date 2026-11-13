@@ -53,7 +53,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 - **Collected hourly** through the official API, using the owner's app
   password: one search per enabled topic, up to 50 posts each. The topic editor
   offers a dedicated query; blank uses the first news query, include phrase,
-  or topic name. Missing login skips collection.
+  or topic name. U.S. discovery uses `Congress`. Missing login skips collection.
 - **Counts are snapshots:** each observation is stored with its likes,
   reposts, replies and time. An edition sees the counts as they were at its
   cutoff.

@@ -146,3 +146,14 @@
 - Recorded rehearsal receipt and closed its readiness checkbox; activation still requires scheduled NBA/item 58 acceptance, fresh baseline/rollback record and deployed public-mode checks. Latest/direct agree: five topics/25 stories/22 posts.
 - `pnpm format`, `pnpm lint:fix`, build, handbook check and readiness relative-link check pass; existing bundle warning only. TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged.
 - No live flag, sharing, source, budget or provider changes. API/worker restart and post-push health readback follow commit. Next while awaiting scheduled acceptance: diagnose zero U.S. Bluesky collection per STEERING 59.
+
+## 2026-11-13: iteration 2105 — restore U.S. Bluesky collection
+
+- Clean main; no inherited work. Zero alerts, healthz healthy, sources healthy; digest queue staffed/zero failures, next edition Nov 13 15:00 UTC.
+- Official authenticated API comparison, same 24-hour window: original `US Congress courts elections` zero; explicit OR alternative zero; `Congress`/`Senate` 50 each, `politics` 49 with non-U.S. material. Replaced the overconstrained seed with verified `Congress`.
+- Migration 0024 preserves owner-edited/blank queries and other topics; existing one-query/two-page/50-post limits unchanged. Real-Postgres regressions cover normal migration chain, seed repair, reruns and owner edits.
+- Initial `pnpm check`: 922 unit passed; integration caught omitted migration journal entry (289 passed/one failed/four skipped). Registered migration; full rerun passes 922 unit/290 integration, four expected skips.
+- `python3 ops/backups/database.py backup`: fresh 39-table backup. Env-file `node --import tsx apps/api/src/libs/db/migrate.ts` applied 0024. Explicit U.S.-only production collector fetched/submitted 50; DB confirms 50 new observations/50 distinct posts. Temporary verification scripts removed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `check-handbook.ts` (18 pages/22 diagrams, affected-page rerun) and `git diff --check` pass; existing bundle warning only. Updated source evidence, affected handbook and TASKS; no schema metadata change needed.
+- No paid calls, provider/budget/flag/sharing changes; NEEDS_FROM_HUMAN unchanged. API/worker restart and post-push health readback follow commit.
+- Next: confirm hourly U.S. continuation and scheduled selection; Nov 13 scheduled NBA/item 58 acceptance still gates public-mode activation. While waiting, proceed to X/Bluesky tuning per STEERING 59.

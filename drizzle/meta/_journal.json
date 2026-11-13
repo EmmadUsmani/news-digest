@@ -169,6 +169,13 @@
       "when": 1794449980000,
       "tag": "0023_private_account_reader_privileges",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1794544494851,
+      "tag": "0024_us_bluesky_query",
+      "breakpoints": true
     }
   ]
 }

@@ -2503,3 +2503,20 @@ Viral/diversity acceptance remains unmet; tuning stays paused behind item 50.
 World/U.S. each publish five distinct, correctly scoped stories; NBA fallback
 and three Sonnet admission refusals prevent overall scheduled acceptance.
 [Daily review](edition-reviews/2026-11-12.md).
+
+### U.S. Bluesky empty-query repair — Nov 13, iteration 2105
+
+- Authenticated official API comparison over Nov 12 04:24–Nov 13 04:24 UTC:
+  seeded `US Congress courts elections` fetched zero; an explicit `OR` query
+  also fetched zero. Single-term `Congress` and `Senate` each fetched 50;
+  `politics` fetched 49 and included non-U.S. material.
+- Forward migration 0024 replaces only the unchanged U.S. seed with `Congress`;
+  owner-edited queries and other topics are preserved. Existing one-query,
+  two-page/50-post allowance, hourly schedule and editorial scope checks apply.
+- These comparison responses were read-only, not stored or selected. Scheduled
+  collection/storage and edition selection acceptance are recorded separately.
+- Deployed migration applied Nov 13 04:43 UTC after a fresh 39-table backup.
+  Explicit U.S.-only production collection fetched/submitted 50 real posts;
+  database readback confirms 50 new observations and 50 distinct posts.
+  U.S. collection is live; next hourly continuation and scheduled selection
+  quality remain to be reviewed. No inference calls or budget changes.

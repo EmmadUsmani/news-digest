@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
 import { database } from '../src/libs/db/connections';
@@ -19,7 +20,7 @@ void test('U.S. migration preserves World identity, seeds domestic sources and e
     assert.equal(rows[1].enabled, true);
     assert.deepEqual(rows[1].relevance_policy, rows[0].relevance_policy);
     assert.deepEqual(rows[1].relevance_policy.includeAny, []);
-    assert.ok(rows[1].bluesky_query);
+    assert.equal(rows[1].bluesky_query, 'Congress');
     const connections = await db.query(
       `SELECT source_id FROM topic_source_connections WHERE topic_id=$1 ORDER BY source_id`,
       [rows[1].id],
@@ -49,6 +50,53 @@ void test('U.S. migration preserves World identity, seeds domestic sources and e
       ),
     );
   } finally {
+    await db.end();
+  }
+});
+
+void test('U.S. Bluesky query repair changes only the broken seed and preserves owner queries', async () => {
+  const db = database();
+  const client = await db.connect();
+  const migration = await readFile('drizzle/0024_us_bluesky_query.sql', 'utf8');
+  const id = '00000000-0000-4000-8000-000000000015';
+  try {
+    await client.query('BEGIN');
+    for (const [before, after] of [
+      ['US Congress courts elections', 'Congress'],
+      ['Congress', 'Congress'],
+      ['SCOTUS', 'SCOTUS'],
+      ['', ''],
+    ]) {
+      await client.query('UPDATE topics SET bluesky_query=$1 WHERE id=$2', [
+        before,
+        id,
+      ]);
+      const others = await client.query(
+        'SELECT id,bluesky_query FROM topics WHERE id<>$1 ORDER BY id',
+        [id],
+      );
+      await client.query(migration);
+      assert.equal(
+        (
+          await client.query('SELECT bluesky_query FROM topics WHERE id=$1', [
+            id,
+          ])
+        ).rows[0].bluesky_query,
+        after,
+      );
+      assert.deepEqual(
+        (
+          await client.query(
+            'SELECT id,bluesky_query FROM topics WHERE id<>$1 ORDER BY id',
+            [id],
+          )
+        ).rows,
+        others.rows,
+      );
+    }
+  } finally {
+    await client.query('ROLLBACK');
+    client.release();
     await db.end();
   }
 });
