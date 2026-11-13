@@ -194,3 +194,12 @@
 - Handbook initially exceeded 100 lines; shortened affected paragraph. `pnpm exec tsx scripts/check-handbook.ts social-posts` now passes (18 pages/one unchanged diagram/39 tables).
 - API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged.
 - No paid/external verification, collection, provider, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then public activation with sharing private.
+
+## 2026-11-13: iteration 2118 — reconcile public activation handoff
+
+- Clean main; no inherited work. Initial alerts zero; healthz, source readiness and queue readiness pass. Next natural edition is Nov 13 15:00 UTC; NBA/item 58 acceptance remains pending.
+- Corrected the public-access plan's current handoff, which still said to stop for lead review and treated Grafana capacity as a launch gate. It now follows STEERING 59 and the readiness runbook: private-sharing activation after scheduled acceptance, parallel lead review, no public Grafana, public Spend, then scheduled public-mode acceptance before the owner's sharing decision.
+- Updated TASKS; SOURCES and NEEDS_FROM_HUMAN unchanged. No runtime, collection, budget, provider, flag or sharing changes; no paid verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
+- `pnpm exec tsx scripts/check-handbook.ts` passes: 18 pages/22 unchanged diagrams/39 tables. Saved-reader check passes: five topics/25 stories/22 posts. `git diff --check` passes.
+- API/worker restart and post-restart health verified before commit. Next: scheduled NBA/item 58 acceptance, then private-sharing public activation; while waiting, continue X/Bluesky tuning under STEERING 59.

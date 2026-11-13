@@ -3,10 +3,12 @@
 > [!NOTE]
 > Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
-## Phase 4 handoff for security review (2026-11-11, iteration 1837)
+## Phase 4 activation handoff (updated 2026-11-13)
 
-The reader pages are built. Public activation is awaiting lead security review
-and the owner's go-public decision. The VM stays private; `PUBLIC_MODE=0`.
+The reader pages and full disposable public-mode rehearsal are complete.
+STEERING 59 authorizes public-mode activation while the VM stays private after
+a normal scheduled NBA AI-edited edition closes item 58. `PUBLIC_MODE=0`
+until that gate passes. Lead security review proceeds in parallel.
 Earlier preparation notes below are historical; this is the current handoff.
 
 | Audience         | Prepared access                                                                                                                                                                |
@@ -33,14 +35,16 @@ logs and metrics screens need no further rehearsal without a relevant change.
 | `ACCOUNTS_ENABLED`      | Enables stored-session sign-in and account sync; live invite-only accounts enabled             |
 | `SIGNUP_MODE`           | Controls account admission; live `invite`, no open signup                                      |
 
-Grafana's separate aggregate-store candidate is prepared but installation remains
-blocked on scheduled-load or natural-compaction capacity evidence. Its public
-route must remain closed until reviewed/installed; Tools marks it pending.
-The explorer is live in structural-only mode; the reader handbook is installed.
-No new page construction is identified. Remaining activation prerequisites,
-rollback and scheduled public-edition acceptance are recorded in
-[public readiness](public-readiness.md); they are review/owner gates, not reasons
-to repeat accepted screen checks. Agent work on item 50 stops at this handoff.
+Public Grafana is excluded from launch and absent from the public tool list;
+its capacity work does not gate activation. Spend may be public. The explorer
+is live in structural-only mode; the reader handbook is installed.
+
+Follow [public readiness](public-readiness.md) and the
+[deployment record](public-activation-record.md) for the fresh baseline,
+rollback and activation checks. After enabling server and web public mode with
+sharing private, accept one normal scheduled edition in public mode. Then ack
+item 50 and stop for the owner's sharing decision. Only the owner changes
+exe.dev sharing; accepted screens need no repeated rehearsal without a change.
 
 ## Goal
 
@@ -54,8 +58,9 @@ skipping an edition. End state:
 - **There is no owner profile.** Topics, the schedule, editions and edition jobs
   are system-level. Hiding a topic only filters what a reader sees; editions
   are never generated per reader.
-- **Admin pages, the handbook, the DB explorer, Grafana and the jobs browser are
-  publicly viewable.** Every write needs a designated admin.
+- **Read-only admin pages, the reader handbook, the structural DB explorer,
+  Spend and sanitized queue status are publicly viewable.** Grafana stays
+  closed at launch. Every write needs a designated admin.
 - **Ad hoc test editions** run on a separate development budget and never appear
   in the public reader.
 - Old profile tables, columns, flags and code are deleted only after the new
