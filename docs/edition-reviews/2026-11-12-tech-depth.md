@@ -118,3 +118,19 @@ edition mutations were performed.
 
 The rollout is limited to Tech; NBA and other topics keep their existing editor
 input and evidence snapshots while scheduled NBA acceptance remains pending.
+
+## Admission verification — iteration 2129
+
+The real editor and BudgetedLlm now have offline regression coverage for ten
+clusters with three reports each, maximum-length IDs/titles/excerpts/publisher
+labels/source labels and topic guidance. ASCII content reaches the fake provider
+with one reservation and the unchanged 4000-output-token limit. JSON-escaped
+control characters and three-byte Unicode exceed the 100 KB input allowance;
+both now return editor-unavailable before any ledger reservation or provider dispatch. No live model
+was called. These are synthetic bounds fixtures, not historical reporting.
+
+The existing byte guard protects caps but does not guarantee every bounded
+cluster payload fits. Previously its exception could abort publication; the
+editor now returns null at that same bound so the caller uses its existing
+source-excerpt fallback. Limits, prompt content and provider selection stay
+unchanged. Historical saved-case acceptance remains open.

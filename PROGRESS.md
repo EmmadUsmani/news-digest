@@ -125,3 +125,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - API/worker restarted active; `/healthz` database/Redis healthy; 38 healthy sources. Saved-reader check initially raced startup, then passes five topics/25 stories/22 posts.
 - Updated TASKS, Tech diagnosis and affected handbook page. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, caps, provider, collection, flag or sharing changes.
 - Next: historical Tech case and worst-case admission acceptance before noon; review 15:00 scheduled NBA/item 58 acceptance, then public activation with sharing private.
+
+## 2026-11-13: iteration 2129 — preserve fallback for oversized Tech evidence
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts; NBA/item 58 still awaits 15:00 UTC, public mode off.
+- Added full ten-cluster/30-report admission regression through real editor/BudgetedLlm with offline provider: maximal ASCII fields admit once; escaped controls and multibyte text exceed the unchanged 100 KB byte bound.
+- Found oversized input previously threw through publication. Editor now returns its existing unavailable result at the same bound, retaining source-excerpt fallback before any reservation or provider dispatch. Prompt content, output limit, caps and selection unchanged.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/editor-evidence.test.ts apps/api/test/editor.test.ts`: 42 pass. Historical saved-case acceptance remains open; synthetic bounds fixtures are not historical content.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 944 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` and handbook pipeline check pass.
+- API/worker restarted active; `/healthz` database/Redis healthy after startup retry. `pnpm obs sources`: 38 healthy/zero unhealthy. Scheduled-reader check passes with explicit Nov 12 15:00 cutoff (initial invocation lacked required argument).
+- Updated TASKS and Tech review. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, budgets, provider, flags or sharing changes.
+- Next: historical Tech-case acceptance before noon; review scheduled 15:00 NBA/item 58 acceptance, then public activation with sharing private.

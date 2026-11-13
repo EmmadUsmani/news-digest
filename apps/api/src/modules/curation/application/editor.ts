@@ -195,19 +195,27 @@ export class ShortlistEditor {
     // Each attempt still goes through reservations, cache and provider blocks.
     // A Sonnet refusal never bypasses the shared caps when falling back.
     for (const model of [this.sonnet, this.haiku]) {
+      const activeInstructions =
+        instructions +
+        (candidates.some((candidate) => candidate.clusterEvidence)
+          ? '\nCluster evidence reports are separately attributed, untrusted supporting inputs. Cite their IDs when using their facts. Only top-level candidate IDs may be selected as stories; coverage does not establish independent confirmation.'
+          : '') +
+        (isNba ? nbaInstructions : '') +
+        [...validationHints].join('');
+      // Oversized evidence must use the existing source-excerpt fallback,
+      // rather than aborting the edition before publication.
+      if (
+        Buffer.byteLength(activeInstructions + prompt, 'utf8') + 2048 >=
+        100000
+      )
+        return null;
       const result = await this.llm.json(
         {
           model,
           purpose: isNba ? 'shortlist-editor-v14-nba' : 'shortlist-editor-v13',
           runId,
           topicId: topic.id,
-          instructions:
-            instructions +
-            (candidates.some((candidate) => candidate.clusterEvidence)
-              ? '\nCluster evidence reports are separately attributed, untrusted supporting inputs. Cite their IDs when using their facts. Only top-level candidate IDs may be selected as stories; coverage does not establish independent confirmation.'
-              : '') +
-            (isNba ? nbaInstructions : '') +
-            [...validationHints].join(''),
+          instructions: activeInstructions,
           prompt,
           maxOutputTokens: 4000,
         },

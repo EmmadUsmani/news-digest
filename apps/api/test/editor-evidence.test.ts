@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { editorEvidence } from '../src/modules/digests/application/editor-evidence';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 
@@ -125,3 +128,93 @@ void test('representative word-boundary excerpt stays identical through projecti
     ranked[0].excerpt,
   );
 });
+
+for (const character of ['a', '\u0000', '\u0800']) {
+  void test(`ten fully populated Tech clusters enforce byte admission (${JSON.stringify(character)})`, async () => {
+    const pool: Candidate[] = Array.from({ length: 30 }, (_, index) => ({
+      id: `${index}-`.padEnd(200, character),
+      title: character.repeat(300),
+      excerpt: character.repeat(600),
+      publisher: { name: character.repeat(200), url: 'https://example.com' },
+      sources: Array.from({ length: 3 }, () => character.repeat(80)),
+      url: `https://example.com/${index}`,
+      points: 100 - index,
+      publishedAt: '2026-11-12T12:00:00Z',
+    }));
+    const ranked = rank(
+      pool,
+      new Date('2026-11-12'),
+      new Date('2026-11-13'),
+      10,
+      (a, b) =>
+        Math.floor(Number.parseInt(a.id) / 3) ===
+        Math.floor(Number.parseInt(b.id) / 3),
+    );
+    assert.equal(ranked.length, 10);
+    const input = editorEvidence(ranked, pool);
+    assert.ok(
+      input.candidates.every(
+        (candidate) => candidate.clusterEvidence!.length === 3,
+      ),
+    );
+    let reservations = 0;
+    let calls = 0;
+    const ledger: LlmLedger = {
+      async cached() {
+        return undefined;
+      },
+      async cache() {},
+      async reserve(request, estimate) {
+        reservations++;
+        assert.equal(request.maxOutputTokens, 4000);
+        assert.ok(estimate > 0);
+        assert.ok(
+          Buffer.byteLength(request.instructions + request.prompt) + 2048 <
+            100000,
+        );
+        return 'offline';
+      },
+      async settle() {},
+      async fail() {},
+    };
+    const llm = new BudgetedLlm(
+      {
+        async complete() {
+          calls++;
+          return {
+            text: JSON.stringify({ brief: [], stories: [] }),
+            usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+      ledger,
+    );
+    const config = llmConfig({});
+    const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
+    const run = () =>
+      editor.edit(
+        {
+          id: 'tech',
+          name: 'Tech',
+          description: character.repeat(1000),
+          guidance: character.repeat(1000),
+        },
+        input.candidates,
+        5,
+        'offline',
+      );
+    if (character === 'a') {
+      assert.deepEqual(await run(), {
+        brief: [],
+        stories: [],
+        model: config.sonnet.id,
+      });
+      assert.equal(reservations, 1);
+      assert.equal(calls, 1);
+    } else {
+      assert.equal(await run(), null);
+      assert.equal(reservations, 0);
+      assert.equal(calls, 0);
+    }
+  });
+}
