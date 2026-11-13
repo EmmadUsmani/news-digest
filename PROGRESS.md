@@ -109,3 +109,13 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - All four queues register one worker; all 38 enabled active sources have recent successes/no errors. Natural Bluesky collection completed 15:54:53; startup reconciles published reserve unchanged. Post-deploy alerts zero/no failed services.
 - Updated TASKS/daily review; archived progress iterations 2146–2154 to keep this file small. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: deployment activates already-documented behavior.
 - `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. Next: accept Nov 14 15:00 UTC scheduled NBA editing/admission recovery, then item 58/private public-mode gates; lower-priority tuning remains available meanwhile.
+
+## 2026-11-13: iteration 2166 — restore five-topic reader text verification
+
+- Clean main; no inherited work. Initial alerts zero, health database/Redis pass, no failed user services.
+- Fixed stale four-topic precondition/output in `smoke-reader-story-text.ts`; rendered topic count still must equal the immutable saved edition, and strict nonempty story checks remain.
+- Nov 13 live saved-edition browser run now reaches and correctly fails `Tech & AI: missing story text`: all five Tech summaries are empty, with repeated Claude/Microsoft outage headlines. Gaming repeats QSSR three times. Recorded reader impact in daily review/TASKS; deployed admission repair awaits natural recovery.
+- Historical saved edition 3bf10f5b-4c00-48b2-85bd-8e6dac7e3238 passes all four topics, NBA 5/5 summaries, desktop/mobile light/dark, no writes/errors and immutable response comparison. Discarded generated historical screenshot refreshes; no UI change.
+- No provider calls, generation, source/configuration changes or runtime changes; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script/docs-only step needs no service restart/build.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 972 unit/291 integration tests, four expected skips. Initial combined verification process ended with SIGTERM during checks; standalone full rerun passed.
+- Next: Nov 14 scheduled NBA/admission acceptance before item 58/public activation; keep strict reader text gate and do not accept today's degraded content.

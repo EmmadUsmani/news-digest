@@ -21,7 +21,7 @@ async function smoke() {
   const browser = await chromium.launch();
   try {
     const edition = await readEdition();
-    assert.equal(edition.topics.length, 4);
+    assert.ok(edition.topics.length > 0, 'saved edition has no topics');
     const nba = edition.topics.find((topic) => topic.name === 'NBA');
     assert.ok(nba);
     if (!process.argv[2]) assert.equal(nba.stories.length, 5);
@@ -137,7 +137,7 @@ async function smoke() {
     assert.deepEqual(writes, []);
     assert.deepEqual(await readEdition(), edition);
     console.log(
-      `${editionId}: all four topics match saved story titles/text; NBA ${nba.stories.length}/${nba.stories.length} summaries; desktop/mobile light/dark labels/layout passed; no browser writes/errors; saved edition unchanged.`,
+      `${editionId}: all ${edition.topics.length} topics match saved story titles/text; NBA ${nba.stories.length}/${nba.stories.length} summaries; desktop/mobile light/dark labels/layout passed; no browser writes/errors; saved edition unchanged.`,
     );
   } finally {
     await browser.close();
