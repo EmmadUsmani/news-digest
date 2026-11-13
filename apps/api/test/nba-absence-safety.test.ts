@@ -286,3 +286,73 @@ void test('NBA brief preserves the complete attributed departure and expected ab
     assertAbsenceSupport(rename(brief), curry.map(rename), 'brief', true),
   );
 });
+
+void test('saved reordered Curry reports preserve identity, hedge, attribution and evidence scope', () => {
+  const summary = fixture.entries[1].output.stories.find((story) =>
+    story.summary.includes('Stephen Curry'),
+  )!.summary;
+  const claims = [
+    ...fixture.entries.slice(0, 2).map((entry) => ({
+      text: entry.output.brief[0],
+      field: 'brief' as const,
+    })),
+    { text: summary, field: 'summary' as const },
+  ];
+  for (const { text, field } of claims) {
+    assert.doesNotThrow(() => assertAbsenceSupport(text, curry, field, true));
+    assert.throws(() => assertAbsenceSupport(text, curry, field));
+    assert.throws(() => assertAbsenceSupport(text, reaves, field, true));
+    for (const [before, after] of [
+      ['few games', 'few months'],
+      ['bracing to be', 'certain to be'],
+      ['Curry', 'Reaves'],
+      ['Houston', 'Boston'],
+      ['right abdominal', 'left abdominal'],
+    ])
+      assert.throws(() =>
+        assertAbsenceSupport(
+          text.replaceAll(before, after),
+          curry,
+          field,
+          true,
+        ),
+      );
+    assert.throws(() =>
+      assertAbsenceSupport(
+        text + ' No return date is known.',
+        curry,
+        field,
+        true,
+      ),
+    );
+  }
+  for (const [before, after] of [
+    ['Nick Friedell', 'Steve Kerr'],
+    ['The Athletic', 'ESPN'],
+  ])
+    assert.throws(() =>
+      assertAbsenceSupport(
+        summary.replace(before, after),
+        curry,
+        'summary',
+        true,
+      ),
+    );
+  assert.throws(() =>
+    assertAbsenceSupport(
+      summary.replace(/, writes Nick Friedell of The Athletic/, ''),
+      curry,
+      'summary',
+      true,
+    ),
+  );
+  for (const entry of fixture.entries.slice(0, 2))
+    assert.throws(() =>
+      assertAbsenceSupport(
+        entry.output.brief[0].replace('reportedly ', ''),
+        curry,
+        'brief',
+        true,
+      ),
+    );
+});

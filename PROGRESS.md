@@ -177,3 +177,14 @@
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warning only.
 - First `pnpm check` stalled in telemetry-export transport test; terminated that test process. Isolated three-test rerun passed; full `pnpm check` retry passed (921 unit/289 integration, four expected skips). No code change or reproduced failure.
 - Initial push rejected by newer upstream commits; merged origin/main without rewriting history. New STEERING 59 closes the proxy gate and prioritizes four saved NBA responses, then private-sharing public-mode activation. API/worker restarted; health passes. Next: implement item 59 NBA fixes before noon; sharing remains owner-gated.
+
+## 2026-11-13: iteration 2101 — accept supported split/reordered NBA reports
+
+- Clean main; no inherited work. Health/services and 38 sources green, zero alerts.
+- STEERING 59 breakage first: source-bound Curry report equivalences now accept split summary attribution and reordered reportedly-qualified briefs.
+- Offline production four-response replay: unchanged Sonnet initial/repair and Haiku repair pass; Haiku initial retains its malformed-ID refusal. Existing ID-only simulated repair remains valid.
+- Twelve targeted tests pass, including changed player/venue/injury/duration, missing hedge/attribution, unrelated evidence and added unsupported absence refusals. No paid calls or saved-publication changes.
+- Build and handbook check pass (18 pages/22 diagrams/39 tables); existing bundle warning only. Latest/direct/history agree on five topics/25 stories/22 posts.
+- TASKS and Nov 12 evidence updated. SOURCES/NEEDS_FROM_HUMAN unchanged; no source, budget, public-mode or sharing changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (922 unit/289 integration pass, four expected skips), `pnpm build`, handbook check and `git diff --check` pass. First check caught lint-induced formatting; reformatted test and full retry passed.
+- API/worker restart and post-push health readback follow commit. Next: natural Nov 13 NBA AI-edited acceptance; meanwhile item 59 public-readiness work.

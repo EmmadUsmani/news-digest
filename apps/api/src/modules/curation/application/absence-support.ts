@@ -229,6 +229,61 @@ function supportsAttributedBrief(claim: string, evidence: Set<string>) {
   return false;
 }
 
+// Match a single supplied report before allowing its facts to move across
+// sentences. Every identity, injury, duration and attribution stays bound to
+// that report; “reportedly” may summarize attribution only in the brief.
+function supportsReorderedReport(
+  supplied: string[],
+  claim: string,
+  previous: string | undefined,
+  evidence: Set<string>,
+  field: ValidationField | undefined,
+) {
+  const canonical = (text: string) => text.replace(/’/g, "'");
+  for (const sentence of evidence) {
+    const source =
+      /^the (.+) are bracing to be without ([\p{L}’'-]+ [\p{L}’'-]+) for (.+) after he left (.+) with (.+), writes (.+) of (.+)$/u.exec(
+        sentence,
+      );
+    if (!source) continue;
+    const [, team, person, duration, event, condition, reporter, outlet] =
+      source;
+    const departure = `${person} left ${event.replace(/\bcontest\b/g, 'game')} with ${condition}`;
+    if (field === 'brief') {
+      const datedDeparture = departure.replace(/ night(?=['’]s game)/, '');
+      for (const subject of [person, `${team} guard ${person}`]) {
+        for (const group of [`the ${team} are`, 'the team is']) {
+          const brief = `${datedDeparture.replace(person, subject)}, and ${group} reportedly bracing to be without him for ${duration}`;
+          if (canonical(claim) === canonical(brief)) return true;
+        }
+      }
+    }
+    if (
+      field === 'summary' &&
+      previous &&
+      canonical(previous) ===
+        canonical(`${departure}, writes ${reporter} of ${outlet}`) &&
+      canonical(claim) ===
+        canonical(
+          `the ${team} are bracing to be without ${person.split(' ')[1]} for ${duration}, and ${person.split(' ')[1]} went to the locker room`,
+        ) &&
+      supplied.some((input) => {
+        const parts = sentences(input).map(normalize).map(canonical);
+        return (
+          parts.includes(canonical(sentence)) &&
+          parts.some((part) =>
+            part.endsWith(
+              `, but ${canonical(person.split(' ')[1])} went to the locker room to […]`,
+            ),
+          )
+        );
+      })
+    )
+      return true;
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
@@ -247,7 +302,14 @@ export function assertAbsenceSupport(
       !inputs.has(claim) &&
       !(
         allowNbaRewrite &&
-        ((field === 'brief' && supportsAttributedBrief(claim, inputs)) ||
+        (supportsReorderedReport(
+          evidence,
+          claim,
+          index > 0 ? normalize(parts[index - 1]) : undefined,
+          inputs,
+          field,
+        ) ||
+          (field === 'brief' && supportsAttributedBrief(claim, inputs)) ||
           (field === 'summary' &&
             (supportsUncertaintyReport(claim, inputs) ||
               supportsCombinedAbsence(claim, inputs) ||

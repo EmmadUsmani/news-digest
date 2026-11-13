@@ -151,18 +151,8 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
   assert.deepEqual(
     replay.results.map((r) => [r.model, r.attempt, r.validated, r.failure]),
     [
-      [
-        'claude-sonnet-5-5',
-        'initial',
-        false,
-        { category: 'unsupported-absence', field: 'brief' },
-      ],
-      [
-        'claude-sonnet-5-5',
-        'repair',
-        false,
-        { category: 'unsupported-absence', field: 'summary' },
-      ],
+      ['claude-sonnet-5-5', 'initial', true, null],
+      ['claude-sonnet-5-5', 'repair', true, null],
       [
         'claude-haiku-5-5',
         'initial',
@@ -172,9 +162,9 @@ void test('Nov 12 recorded NBA outputs replay through production validation with
       ['claude-haiku-5-5', 'repair', true, null],
     ],
   );
-  // Pin the additional failures that a Curry-summary-only fix would conceal.
+  // Check every factual field, including those behind a selection failure.
   assert.deepEqual(
     replay.results.map((r) => r.absenceFailures.map((f) => f.field)),
-    [['brief'], ['summary', 'brief'], [], []],
+    [[], [], [], []],
   );
 });
