@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2103: removed Grafana from the public Tools list and reconciled the read-only rollout inventory; activation runbook now requires a normal public-mode scheduled edition before item 50 stops for sharing. Full rehearsal remains next.
+
 - [x] Iteration 2102: activation checklist now follows STEERING 59: private-sharing activation authorized after scheduled NBA/item 58 acceptance, lead re-check parallel, public Grafana/capacity excluded and Spend allowed. Historical rehearsal receipts retained in [evidence](docs/public-readiness-evidence.md).
 
 - [x] Iteration 2004: reviewed first scheduled five-topic publication (25 stories/22 posts); World/U.S. scope passes observation, but NBA fallback and three Sonnet budget refusals block acceptance. Diagnosed supported Curry absence refusals from saved outputs with no paid replay. [Review](docs/edition-reviews/2026-11-12.md).
@@ -68,4 +70,4 @@ Recent completed steps are recorded in PROGRESS.md and its linked archives. [Com
 
 Earlier completed markers: [through 1042](docs/progress-archive/2026-11-06-task-done-1043.md).
 
-- Next: finish the remaining non-Grafana read-only rollout and complete public-mode rehearsal under STEERING 59. Scheduled Nov 13 NBA acceptance closes item 58 before private-sharing activation; public Grafana/capacity work is excluded from launch. Metrics recovery remains background monitoring, not an activation gate.
+- Next: complete the public-mode rehearsal under STEERING 59. Scheduled Nov 13 NBA acceptance closes item 58 before private-sharing activation; public Grafana/capacity work is excluded from launch. Metrics recovery remains background monitoring, not an activation gate.

@@ -133,51 +133,47 @@ export function AdminTools({ publicMode = false }: { publicMode?: boolean }) {
   const identity = useQuery(identityQuery);
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      {tools.map(([name, href, description]) => {
-        const pending = publicMode && href === '/grafana/';
-        const restricted =
-          publicMode &&
-          ['/logs/', '/metrics/'].includes(href) &&
-          !identity.data?.isAdmin;
-        return (
-          <Card key={href}>
-            <h2 className="mt-0 mb-3 font-sans text-base font-semibold">
-              {pending || restricted ? (
-                <span>{name}</span>
-              ) : (
-                <a
-                  className="inline-flex items-center gap-2 rounded-sm text-[var(--foreground)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 [&_svg]:size-4"
-                  href={
-                    publicMode && href === '/queues/' ? '/admin/queues' : href
-                  }
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {name}
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
+      {tools
+        .filter(([, href]) => !publicMode || href !== '/grafana/')
+        .map(([name, href, description]) => {
+          const restricted =
+            publicMode &&
+            ['/logs/', '/metrics/'].includes(href) &&
+            !identity.data?.isAdmin;
+          return (
+            <Card key={href}>
+              <h2 className="mt-0 mb-3 font-sans text-base font-semibold">
+                {restricted ? (
+                  <span>{name}</span>
+                ) : (
+                  <a
+                    className="inline-flex items-center gap-2 rounded-sm text-[var(--foreground)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 [&_svg]:size-4"
+                    href={
+                      publicMode && href === '/queues/' ? '/admin/queues' : href
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {name}
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                )}
+              </h2>
+              <p className="m-0 text-sm leading-6 text-[var(--secondary)]">
+                {publicMode && href === '/db/'
+                  ? 'Browse table definitions and relationships.'
+                  : publicMode && href === '/queues/'
+                    ? 'View job counts and next scheduled runs.'
+                    : description}
+              </p>
+              {restricted && (
+                <p className="mt-3 text-sm text-[var(--secondary)]">
+                  Admin sign-in required.
+                </p>
               )}
-            </h2>
-            <p className="m-0 text-sm leading-6 text-[var(--secondary)]">
-              {publicMode && href === '/db/'
-                ? 'Browse table definitions and relationships.'
-                : publicMode && href === '/queues/'
-                  ? 'View job counts and next scheduled runs.'
-                  : description}
-            </p>
-            {pending && (
-              <p className="mt-3 text-sm text-[var(--secondary)]">
-                Public access is being prepared.
-              </p>
-            )}
-            {restricted && (
-              <p className="mt-3 text-sm text-[var(--secondary)]">
-                Admin sign-in required.
-              </p>
-            )}
-          </Card>
-        );
-      })}
+            </Card>
+          );
+        })}
     </div>
   );
 }

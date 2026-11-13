@@ -34,8 +34,10 @@ Public mode and sharing remain unchanged until the activation steps are run.
    cookie/security headers and trusted-proxy handling over the private HTTPS
    URL. Do not treat a private-mode response or a proxy login redirect as
    proof of public-mode admission. Any failure stops sharing.
-4. Record successful public-mode verification and obtain the owner's sharing
-   decision. Only then may the owner run
+4. Accept one normal scheduled edition with public mode enabled and record its
+   edition ID, NBA AI editing and reader verification. Provide the lead the
+   security handoff, then ack item 50 and stop for the owner's sharing decision.
+   Only then may the owner run
    `ssh exe.dev share set-public news-digest`. Keep server public mode and the
    public web build enabled throughout sharing. Verify anonymous HTTPS reader
    access and privileged refusals without an exe.dev login; monitor health,
@@ -105,14 +107,10 @@ activation review, rather than adding more variants of already-covered refusals.
       work; keep Grafana closed and off the public Tools list. Spend may be public.
 - [ ] Close item 58 with a normal scheduled NBA AI-edited edition and its ID.
       Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
-- [ ] Finish remaining read-only admin/tool rollout work against the deployed
-      route inventory. Prepared overview, topics, schedule, sources, Spend, Tools,
-      Queues and published history/detail have rehearsals; retain their existing
-      evidence rather than rerunning accepted screens. Handbook/explorer and
-      fresh-admin logs/metrics must retain their reviewed boundaries.
-      Earlier findings: [read rollout](public-read-rollout-review.md) and
-      [tool review](public-tool-response-review.md). Grafana work in those
-      historical reviews is excluded from launch.
+- [x] Read-only admin/tool rollout inventory reconciled (2103): reviewed pages,
+      handbook/explorer and fresh-admin telemetry are installed behind the flag.
+      Exact routes and retained evidence: [current inventory](public-read-rollout-review.md#current-rollout-inventory--iteration-2103).
+      Accepted screens need no rerun; complete rehearsal and activation remain below.
 - [ ] Run the complete public-mode rehearsal: anonymous reader/admin reads,
       ordinary-reader isolation, fresh-admin writes and durable audit, rate limits,
       security headers, privacy page, log hygiene and private-mode rollback.

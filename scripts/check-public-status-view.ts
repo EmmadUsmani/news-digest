@@ -546,7 +546,7 @@ window.showPage = () => {
       await page
         .getByText('Public access is being prepared.', { exact: true })
         .count(),
-      1,
+      0,
     );
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 1000 });

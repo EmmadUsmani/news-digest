@@ -129,3 +129,13 @@ IDs and status records while omitting email, code, cookie, token and client IP.
 The capture disables environment-value redaction to verify omission directly.
 This covers request middleware output; other application logs and the complete
 Phase 4 rehearsal remain separate. Public mode remains off.
+
+### Public Tools launch scope (iteration 2103)
+
+`pnpm exec tsx scripts/check-public-tools-view.ts` checks the affected Tools
+component offline with fixture identities. Public readers and admins see no
+Grafana card; anonymous telemetry links remain disabled, handbook/explorer and
+sanitized Queues remain linked, and private mode retains Grafana/Bull Board.
+Four desktop/mobile light/dark captures are saved as
+`docs/screenshots/ui/public-tools-fixture-*.png`; no overflow or page errors.
+Older routed screenshots remain historical evidence. No live tool calls occur.

@@ -1,7 +1,34 @@
 # Public read rollout review — iteration 1620
 
-Reviewed Nov 10, 2026, updated iteration 1716, before the Phase 3 scheduled-edition gate. Public mode
-remains off. This is an implementation review, not Phase 4 acceptance.
+## Current rollout inventory — iteration 2103
+
+The read-only rollout is implemented behind `PUBLIC_MODE`/`VITE_PUBLIC_MODE`;
+production flags remain off. This inventory supersedes the historical findings
+below. It closes implementation rollout, not the complete rehearsal or activation.
+
+| Surface                                    | Installed boundary                                                                                                    | Retained evidence                                                                                                                    |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Overview, schedule, topics/detail, sources | Exact GET/HEAD HTML; sanitized system/status contracts; writes require admin                                          | [Page receipts](public-readiness-evidence.md#later-rehearsal-receipts), iterations 1705, 1828–1831                                   |
+| Published history/detail/latest            | Published-only projections; private previews, cost/jobs and generation remain restricted                              | [Rollout history](#evidence-and-next-step), iterations 1706–1715                                                                     |
+| Spend, Tools, Queues                       | Production budget totals and safe queue counts/next runs; legacy Bull Board denied                                    | [Receipts](public-readiness-evidence.md#read-only-spend-iteration-1833), iterations 1832–1835                                        |
+| Handbook                                   | Separate reader service on 8110; only root/style routes, no images or owner corpus                                    | [Tool review](public-tool-response-review.md), iterations 1762–1764, 1781                                                            |
+| Explorer                                   | Exact root/assets/schema GETs; structural-only response and catalog-only role                                         | [Tool review](public-tool-response-review.md), iterations 1765–1780                                                                  |
+| Logs/metrics                               | Exact reviewed installed assets, metadata and queries; fresh stored-session admin required; no anonymous prefix grant | [Stored-session results](public-tool-response-review.md#stored-session-installed-metrics-chart-iteration-1827), iterations 1782–1827 |
+| Grafana                                    | Omitted from public proxy; no public route grant or public Tools link                                                 | STEERING 59; `selectInternalTools(true)`                                                                                             |
+
+Source inventory: `apps/api/src/public-route-policy.ts`, `internal-tools.ts`,
+`telemetry-query-policy.ts`, application module selection and the web router.
+Native UI data coverage is bounded to the reviewed flows; historical notes on
+other controls do not reopen accepted screens (plan handoff and STEERING 55).
+The complete rehearsal must still cover actor isolation, writes/audit, admission,
+headers, privacy/log hygiene and rollback. Activation then needs the scheduled
+NBA/item 58 gate, matching server/web flags and a normal public-mode edition.
+See [remaining activation work](public-readiness.md#remaining-activation-work).
+
+## Historical review (iterations 1620–1835)
+
+The following records describe implementation at their stated dates. Their open
+findings are superseded by the inventory above and later receipts.
 
 ## Current application boundary
 

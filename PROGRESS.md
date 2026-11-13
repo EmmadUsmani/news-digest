@@ -198,3 +198,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check (18 pages/22 diagrams/39 tables), readiness relative-link/evidence-preservation check and `git diff --check` pass; existing bundle warning only.
 - `pnpm check` passes: 922 unit/289 integration tests, four expected skips. API/worker restart and post-push health readback follow commit.
 - Next: finish remaining non-Grafana read-only rollout and full public-mode rehearsal; scheduled NBA acceptance must close item 58 before activation.
+
+## 2026-11-13: iteration 2103 — finish public Tools launch scope
+
+- Clean main; no inherited work. Zero alerts, healthy services/healthz and 38 sources; digest queue staffed, next edition Nov 13 15:00 UTC.
+- Removed Grafana's disabled preparation card from public Tools for readers and admins, as STEERING 59 requires. Private Tools retains Grafana; public handbook/explorer/Queues links and admin-only telemetry links remain intact.
+- Focused offline Playwright check passes for reader/admin/private variants and four viewport/theme screenshots; inspected mobile capture, no overflow/page errors. First harness attempt timed out because its admin fixture refetched a reader identity; corrected the fixture actor, then reran successfully.
+- Reconciled exact installed read-only route/tool inventory and closed its stale rollout checkbox, retaining historical evidence. Runbook now requires a normal public-mode scheduled edition before item 50 stops for sharing.
+- Updated affected operations handbook and TASKS. Handbook initially exceeded 100 lines; shortened it and validation passes (18 pages/one diagram/39 tables). Review/checklist relative file links resolve.
+- `pnpm format`, `pnpm lint:fix`, final typecheck/build, focused browser check and `git diff --check` pass; existing bundle warning only. Full `pnpm check` retry passes: 922 unit/289 integration, four expected skips; initial command-session run terminated (143) during integration with no reported failure. Retry ran in a transient systemd unit and exited zero.
+- Saved Nov 12 latest/direct/history agree: five topics/25 stories/22 posts. No paid calls, source/budget/provider changes or public activation; SOURCES and NEEDS_FROM_HUMAN unchanged.
+- API/worker restart and post-push health readback follow commit. Next: complete public-mode rehearsal; Nov 13 scheduled NBA acceptance must close item 58 before activation with sharing private.
