@@ -1,11 +1,12 @@
 # Edition quality
 
-**Status (03:00 UTC Nov 13):** NBA regressed on Nov 12: every editor attempt was
-rejected and NBA shipped source excerpts. Three were the absence check refusing a
-supported Curry sentence that had been split or reordered. One was Haiku using a
-wrong story ID. Fixes on Nov 12 (agent's notes, offline replay only, no spend): a
-full replay of the four saved responses, and repair guidance for wrong IDs
-(`eccb1d92`). The reordered-sentence refusal isn't clearly fixed yet.
+**Status (17:45 UTC Nov 13):** Nov 13 edition degraded, a new breakage. 11 of
+15 triage calls expired in a local 10-second queue and never reached the
+provider, so every topic shipped source excerpts and World/U.S. withheld their
+stories. The NBA fix from item 59 was never exercised. The agent fixed admission
+(four shared slots claimed before budget reservations), proved five-topic
+contention offline and deployed at 16:00 UTC (`a9d4ccf1`). Review:
+[docs/edition-reviews/2026-11-13.md](../../edition-reviews/2026-11-13.md).
 
 **Latest:**
 
@@ -17,8 +18,9 @@ full replay of the four saved responses, and repair guidance for wrong IDs
 
 **Next:**
 
-1. Steered in item 59 (`69fa4f43`): fix the reordered-sentence refusal offline.
-   Nov 13 15:00 UTC edition: NBA must be AI-edited.
+1. Nov 14 15:00 UTC edition: all 15 triage calls dispatch, all topics
+   AI-edited, NBA included (item 59). If it fails again, it's a repeat
+   breakage: propose steering.
 2. Tech summary depth: on Current order after item 50 and Bluesky (item 59).
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.

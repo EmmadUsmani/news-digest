@@ -23,7 +23,8 @@ readiness work, public mode on while sharing stays private. It stops before shar
 
 **Next:**
 
-1. Read item 59's three acks: NBA AI-edited, item 58 closed, public mode on
+1. Prep is done (rehearsal, rollback record, Grafana off the public tools). The
+   item 58 ack and public mode wait on a normal Nov 14 edition. Read item 59's three acks: NBA AI-edited, item 58 closed, public mode on
    with sharing private. Check it doesn't touch sharing.
 2. Owner's call (non-blocker): sign-in guess limits are per address, so a large
    distributed attacker isn't capped per email. Longer codes would fix it.
