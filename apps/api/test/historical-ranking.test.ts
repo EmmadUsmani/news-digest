@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  evaluateGamingWindow,
   evaluateNbaWindow,
   evaluateTechWindow,
   evaluateWorldWindow,
@@ -78,4 +79,36 @@ void test('recorded Tech window reports all labeled articles and omits labeled f
     result.targetSlotYield,
     result.foundEvents.length / result.selected.length,
   );
+});
+
+// A later Gaming window adds topic/date coverage without fitting production scores.
+void test('recorded Gaming window counts a ceremony once and preserves its event baseline', () => {
+  const result = evaluateGamingWindow();
+  assert.equal(result.candidates, 200);
+  assert.equal(result.targetEvents, 5);
+  assert.ok(
+    result.selected.length > 0 && result.selected.length <= result.budget,
+  );
+  assert.ok(result.eventRecall >= 0.2, JSON.stringify(result));
+  assert.ok(result.targetSlotYield >= 0.2, JSON.stringify(result));
+  assert.deepEqual(result.forbiddenSelected, []);
+  const ceremony = result.eventDiagnostics.find(
+    (event) => event.name === 'Golden Joystick ceremony winners',
+  );
+  assert.ok(ceremony && ceremony.recordedArticles > 1);
+  assert.equal(
+    result.foundEvents.filter((name) => name === ceremony.name).length,
+    ceremony.articles.some((article) => article.selected) ? 1 : 0,
+  );
+  for (const event of result.eventDiagnostics) {
+    assert.equal(event.articles.length, event.recordedArticles);
+    assert.equal(
+      result.foundEvents.includes(event.name),
+      event.articles.some((article) => article.selected),
+    );
+    assert.equal(
+      event.relevanceEligibleArticles,
+      event.articles.filter((article) => article.relevanceEligible).length,
+    );
+  }
 });

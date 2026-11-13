@@ -2928,3 +2928,34 @@ prioritizes translating essential news with attribution and uncertainty, without
 importing dates or background from other candidates. Exact saved-text transport
 and a simulated source-bound note pass both model routes offline; natural note
 quality remains open. [Evidence](edition-reviews/2026-11-12-social-translation.md).
+
+## Iteration 2192: later Gaming window
+
+`ranking-gaming-2026-11-12.json` records the production candidate loader's
+200-row bounded result for Nov 11 15:00–Nov 12 15:00 UTC. Exported Nov 13 in a
+read-only repeatable-read transaction, it retains current stored observations
+and current topic policy, not exact historical scheduled inputs. No article
+pages or inference were requested. The limit means older candidates can be
+absent. This fixture is offline recorded feed content, never seeded live.
+
+Before running selection, the agent labeled five target events from supplied
+headlines/excerpts: Golden Joystick winners (one ceremony across outlets and
+winners), Intergalactic's production update, Geralt's Polish voice assistance,
+Hidden Horses' formation and PS5's reported shipment milestone. The PS5 excerpt
+says shipped despite its headline saying sold. Two routine key/code guides are
+negative labels. These remain subjective agent labels; independent owner labels
+and general quality acceptance remain open. A mistaken draft index was corrected
+by checking target headlines before the first scoring run.
+
+`pnpm evaluate:ranking` now includes this window. The unchanged deterministic
+fallback finds the awards event in five slots: 20% event recall and target slot
+yield, with both negative labels omitted. It selects a hardware deal, Japanese
+sales chart, awards report, regulation report and Zero Hour launch report. The
+other four targets do not appear in the twenty-slot audit horizon. Phrase
+screening admits only 3/6 Intergalactic and 5/10 Geralt reports; all three Hidden
+Horses reports and the PS5 report pass it. Newer eligible reports outrank those
+remaining targets. Unlabeled selections are not automatically wrong.
+
+The regression checks the measured floor, omission labels and one-count ceremony
+accounting. This evaluates fallback ranking, not semantic grouping, paid editing,
+source truth or a scheduled edition. No policy, score or production path changed.

@@ -192,3 +192,13 @@ Archived entries: [iterations 2175–2176](docs/progress-archive/2026-11-13-iter
 - Corrected targeted test's expected error wording; first full check stopped on new archive formatting, fixed before successful rerun. Browser initially reached API during restart; retried after healthy startup and passed.
 - TASKS/owner handbook updated; archived progress 2175–2176. SOURCES/NEEDS_FROM_HUMAN unchanged: no source or owner decision changes.
 - API restarted with rebuilt reader; health/database/Redis pass. Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and item 58/private public activation.
+
+## 2026-11-13: iteration 2192 — record Gaming fallback event coverage
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. Generation cutoff respected; scheduled NBA/item 58 acceptance and feed-depth implementation remain time-gated.
+- Open M5 step: recorded the production loader's bounded 200 Gaming candidates for Nov 11–12 in a read-only transaction. Current stored observations/policy are not exact scheduled inputs; no live article fetches, inference or writes.
+- Labeled five events before scoring; Golden Joystick winners count as one ceremony. Corrected one draft article index after headline verification, before evaluation. Labels are agent judgments; independent acceptance stays open.
+- Unchanged fallback finds one of five events in five slots (20% recall/yield); two guide negatives omitted. Partial Intergalactic/Geralt phrase eligibility and recency explain missed targets; no ranking/policy tuning.
+- Extended `pnpm evaluate:ranking` and historical regression; targeted four tests pass. TASKS/RANKING updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/system-flow/owner-decision change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking` and `git diff --check` pass: 980 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; browser screenshots unnecessary.
+- Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and NBA/item 58/private public activation. Independent M5 labels and semantic grouping remain open.

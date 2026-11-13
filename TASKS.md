@@ -32,7 +32,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. Waste/latency unmeasured. [Evidence](docs/edition-reviews/2026-11-05-incremental-admission.md).
 
-- [ ] M5 grouping: independent labels, different dates and Gaming coverage still needed; agent-labelled windows are not general quality estimates.
+- [ ] M5 grouping: Gaming/later-date fallback benchmark added (2192), 200 recorded candidates/one of five labeled events found, guide negatives omitted; ceremony counts once. Independent labels and semantic grouping evaluation still needed; agent-labelled windows are not general quality estimates. [Evidence](docs/RANKING.md#iteration-2192-later-gaming-window).
 
 - [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; real raw-response golden open. No paid replay or re-recording unchanged prompts. [Database verification](docs/DATABASE-VERIFICATION.md).
 
