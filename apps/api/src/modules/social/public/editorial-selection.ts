@@ -210,7 +210,22 @@ export async function editTopicPosts<T extends EditorialPost>(
               relevance: s.relevance,
               interestingness: s.importance,
               engagementEvidence:
-                post.platform === 'x' ? post.xSearchRanking?.reason : undefined,
+                post.platform === 'x'
+                  ? [
+                      post.xSearchRanking?.reason?.slice(0, 600),
+                      JSON.stringify({
+                        reportedLikes:
+                          post.xTriageEvidence?.reportedLikes ?? 'unknown',
+                        likesEvidence: 'unverified hint, not official metrics',
+                        media:
+                          post.xTriageEvidence?.media === 'linked'
+                            ? 'media link present; contents unknown'
+                            : 'unknown',
+                      }),
+                    ]
+                      .filter(Boolean)
+                      .join('\n')
+                  : undefined,
             },
           ]
         : [];

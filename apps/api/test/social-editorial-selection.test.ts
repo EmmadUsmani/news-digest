@@ -289,9 +289,9 @@ void test('reported engagement changes semantic shortlist admission without bypa
     socialEditor: {
       async edit(_topic, shortlist) {
         assert.equal(shortlist.length, 10);
-        assert.equal(
-          shortlist[0].engagementEvidence,
-          'Unverified synthetic search report',
+        assert.match(
+          shortlist[0].engagementEvidence!,
+          /^Unverified synthetic search report\n/,
         );
         assert.deepEqual(
           shortlist.slice(0, 2).map((p) => p.id),
@@ -612,4 +612,71 @@ void test('saved X order follows editor ranking rather than input or triage orde
     result.posts.map((post) => post.externalId),
     ['2', '0', '1'],
   );
+});
+
+void test('final X editor retains bounded unverified engagement and media evidence without changing selected posts', async () => {
+  for (const reportedLikes of [1700, 0, undefined]) {
+    const candidate = {
+      ...posts[0],
+      xSearchRanking: { bonus: 0, reason: 'Fixture ranking '.repeat(200) },
+      ...(reportedLikes === undefined
+        ? {}
+        : { xTriageEvidence: { reportedLikes, media: 'linked' as const } }),
+    };
+    const original = structuredClone(candidate);
+    const result = await editTopicPosts(
+      {
+        socialTriage: {
+          async score() {
+            return {
+              scores: [
+                {
+                  id: candidate.externalId,
+                  relevance: 8,
+                  importance: 7,
+                  event: 'fixture',
+                  rationale: 'fixture',
+                },
+              ],
+              unscoredIds: [],
+            };
+          },
+        },
+        socialEditor: {
+          async edit(_topic, shortlist) {
+            const evidence = shortlist[0].engagementEvidence!;
+            assert.ok(evidence.length <= 1200);
+            const hints = JSON.parse(evidence.split('\n')[1]);
+            assert.equal(hints.reportedLikes, reportedLikes ?? 'unknown');
+            assert.match(hints.likesEvidence, /unverified/);
+            assert.equal(
+              hints.media,
+              reportedLikes === undefined
+                ? 'unknown'
+                : 'media link present; contents unknown',
+            );
+            assert.equal(shortlist[0].text, candidate.text);
+            return {
+              model: 'fake',
+              posts: [
+                {
+                  id: candidate.externalId,
+                  whyItMatters: '',
+                  rationale: 'fixture',
+                },
+              ],
+            };
+          },
+        },
+      },
+      topic,
+      [candidate],
+      [candidate],
+      1,
+      'offline-editor-evidence',
+    );
+    assert.equal(result.posts[0].text, candidate.text);
+    assert.deepEqual(result.posts[0].metrics, candidate.metrics);
+    assert.deepEqual(candidate, original);
+  }
 });

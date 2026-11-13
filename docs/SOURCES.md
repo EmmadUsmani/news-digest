@@ -2587,3 +2587,10 @@ previously could truncate the JSON before counts and media reached scoring.
 Offline production composition verifies complete evidence, unchanged post text,
 repeat-call caching and refresh when reported likes change. Official metrics
 remain untouched; no collection, ranking-weight, budget or provider changes.
+
+### Iteration 2114: X final selection evidence
+
+The final X editor now retains reported likes and media-link presence alongside
+a bounded ranking explanation. Counts remain unverified hints, missing counts
+remain unknown, and linked media contents remain unknown. No collection, official
+metrics, ranking weights or discovery budgets changed; verification is offline.
