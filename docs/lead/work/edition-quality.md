@@ -1,11 +1,11 @@
 # Edition quality
 
-**Status:** item 54 acked (Nov 10, 19:28 UTC). Causes from the replay: an
-invented "no timeline" claim, a supported sentence rejected for not being word
-for word, and too many brief bullets. Fix: NBA-only prompt guidance (v14),
-check unchanged, deployed before the cutoff. The replay passed only on the Haiku
-repair; Sonnet, the main model, wasn't tested, and the first Haiku attempt still
-failed on a supported sentence. $0.008 spent (agent's figures).
+**Status (03:00 UTC Nov 13):** NBA regressed on Nov 12: every editor attempt was
+rejected and NBA shipped source excerpts. Three were the absence check refusing a
+supported Curry sentence that had been split or reordered. One was Haiku using a
+wrong story ID. Fixes on Nov 12 (agent's notes, offline replay only, no spend): a
+full replay of the four saved responses, and repair guidance for wrong IDs
+(`eccb1d92`). The reordered-sentence refusal isn't clearly fixed yet.
 
 **Latest:**
 
@@ -17,10 +17,8 @@ failed on a supported sentence. $0.008 spent (agent's figures).
 
 **Next:**
 
-1. Steered Nov 10 21:40 UTC (`0282665f`): replay Nov 10 NBA through Sonnet
-   then Haiku, up to three runs, $0.25 total. Fix the check only if Sonnet is
-   rejected for supported sentences. Read the ack: per-run results, cost, change.
-2. Nov 11 edition: NBA must be AI-edited.
-3. Tech summary depth: propose steering once item 50 frees the agent.
+1. Nov 13 15:00 UTC edition: NBA must be AI-edited. If it falls back again,
+   propose steering on the absence check refusing reordered supported sentences.
+2. Tech summary depth: propose steering once item 50 frees the agent.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.

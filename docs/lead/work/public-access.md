@@ -29,8 +29,9 @@ export (about 10 commits).
 2. Check phase 4 stays behind flags. Watch the Grafana export work for drift
    into hardening: 17 of the last 46 commits were guards or re-checks.
 3. Item 58 (security fixes): fixes 1–7 done and deployed by 00:33 UTC Nov 12,
-   with migrations 0021 and 0022 after backups. Left: broken public-mode
-   features, the leftover port-8011 process (still running), live checks.
+   with migrations 0021 and 0022 after backups. Left: authenticated exe.dev proxy checks, which
+   the VM can't run (NEEDS_FROM_HUMAN, Nov 12). Port 8011 no longer listening
+   (lead check 03:00 UTC Nov 13).
    Sign-in links now give reader-only sessions, even for the owner. When the
    ack lands, re-check each fix against `~/lead-private/phase4-security-review.md`.
 
