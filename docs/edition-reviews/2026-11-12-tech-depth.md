@@ -158,3 +158,15 @@ remain unchanged. Missing publisher metadata stays unknown rather than inferred.
 No live provider calls, collection, publication changes or budget changes. Offline
 transport/admission acceptance is complete; actual next-edition prose quality is
 still reviewed after the scheduled edition.
+
+## Live-name rollout correction — iteration 2136
+
+Read-only Nov 13 database and saved-reader inspection confirm the live topic
+name is `Tech & AI`. The Tech-only production conditions compared it only to
+`tech`, so both cluster-member evidence and story comparison for Bluesky were
+bypassed. A shared exact-name policy now accepts `Tech` and `Tech & AI`, with
+case/outer-space normalization; NBA and other topics remain excluded.
+The saved NVIDIA editor regression now uses the live-name gate before proving
+that its substantive member reaches the editor and cited evidence. Natural
+summary depth and post overlap still need the next scheduled edition review.
+No historical snapshot or source data was changed.

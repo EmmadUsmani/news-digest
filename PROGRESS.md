@@ -115,3 +115,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2117-2125
 - `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes. API/worker/docs restarted active; initial reader request raced startup, retry verifies five topics/25 stories/22 posts. `/healthz` database/Redis healthy; 38 sources/zero unhealthy.
 - Updated TASKS, ranking notes, saved-case review and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, collection, generation, budgets, flags or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review Gaming translation and other pending natural quality cases.
+
+## 2026-11-13: iteration 2136 — enable Tech context for the actual live name
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits Nov 13 15:00 UTC; public mode remains off.
+- Read saved Tech stories/evidence and current topic rows read-only. Live name is `Tech & AI`; both production conditions required `tech`, silently bypassing cluster-member evidence (2128–2130) and Bluesky story comparison (2134).
+- Shared exact-name policy accepts `Tech`/`Tech & AI` with case/outer-space normalization. Other topics remain excluded; payload bounds, caps and historical snapshots unchanged.
+- Saved NVIDIA editor regression now exercises the live-name gate and verifies substantive member transport/cited evidence. Topic exclusion regression passes; `pnpm exec tsx --test apps/api/test/editor-evidence.test.ts apps/api/test/bluesky-edition.test.ts`: 23/23 pass.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 951 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
+- API/worker/docs restarted active; health database/Redis healthy after one startup retry. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
+- Updated TASKS and existing Tech-depth evidence. No source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budget, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, public activation with sharing private; review naturally enabled Tech evidence depth and post overlap.

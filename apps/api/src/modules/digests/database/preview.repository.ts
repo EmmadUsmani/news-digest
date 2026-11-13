@@ -70,6 +70,7 @@ import {
 import { qualityRejection } from '../domain/quality';
 import { rank } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
+import { usesTechEditorialContext } from '../domain/tech-editorial-context';
 import { loadArticleCandidates } from './article-candidates';
 /** Explicit, per-test-edition discovery only. Both pools come from one shared
  * discovery so fallback and editorial selection cannot trigger separate calls. */
@@ -479,7 +480,7 @@ export class PostgresPreviewRepository
                 const evidence = editorEvidence(
                   ranked,
                   candidates,
-                  topic.name.trim().toLowerCase() === 'tech',
+                  usesTechEditorialContext(topic.name),
                 );
                 const result = await editorialServices.editor.edit(
                   context,
@@ -612,13 +613,12 @@ export class PostgresPreviewRepository
                 end,
                 budget: Number(topic.post_budget),
                 selectedPosts: postSelection.posts,
-                coveredStories:
-                  topic.name.trim().toLowerCase() === 'tech'
-                    ? stories.slice(0, 10).map(({ title, summary }) => ({
-                        title,
-                        summary: summary ?? '',
-                      }))
-                    : undefined,
+                coveredStories: usesTechEditorialContext(topic.name)
+                  ? stories.slice(0, 10).map(({ title, summary }) => ({
+                      title,
+                      summary: summary ?? '',
+                    }))
+                  : undefined,
                 runId,
               },
             );

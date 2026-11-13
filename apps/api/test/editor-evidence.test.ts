@@ -7,6 +7,7 @@ import { ShortlistEditor } from '../src/modules/curation/application/editor';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { editorEvidence } from '../src/modules/digests/application/editor-evidence';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
+import { usesTechEditorialContext } from '../src/modules/digests/domain/tech-editorial-context';
 
 void test('grouped reporting reaches editing and immutable evidence with separate attribution', async () => {
   const pool: Candidate[] = ['lead', 'member', 'unrelated'].map((id, i) => ({
@@ -234,7 +235,11 @@ void test('saved NVIDIA cluster transports direct reporting before aggregator he
     (fixture.story.evidence as { id: string }[]).map((x) => x.id),
     [story.id],
   );
-  const input = editorEvidence([story], pool);
+  const input = editorEvidence(
+    [story],
+    pool,
+    usesTechEditorialContext('Tech & AI'),
+  );
   const evidence = input.candidates[0].clusterEvidence;
   assert.equal(evidence.length, 3);
   assert.equal(evidence[1].id, memberId);
@@ -303,4 +308,19 @@ void test('saved NVIDIA cluster transports direct reporting before aggregator he
     .clusterEvidence;
   assert.equal(fallback.length, 3);
   assert.equal(fallback[1].id, '5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4');
+});
+
+void test('Tech editorial rollout recognizes the live name and excludes other topics', () => {
+  for (const name of ['Tech & AI', 'Tech', '  TECH & AI  ']) {
+    assert.equal(usesTechEditorialContext(name), true, name);
+  }
+  for (const name of [
+    'NBA',
+    'Gaming',
+    'World news & politics',
+    'U.S. news & politics',
+    'Biotech',
+  ]) {
+    assert.equal(usesTechEditorialContext(name), false, name);
+  }
 });
