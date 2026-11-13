@@ -60,7 +60,8 @@ uses the ordinary relevance and recency fallback. Neither fallback writes a brie
   within 600 characters and mark omitted text with an ellipsis. The reader hides a terminal “The post … appeared
   first on …” credit when it matches the story title; saved source text stays intact.
 - **Tech story evidence:** each editor candidate includes its representative and up to
-  two substantive reports from the same cluster, with separate publisher names.
+  two reports from the same cluster, preferring direct publisher excerpts over
+  Google News snippets, with separate publisher names.
   Cited reports are copied into the immutable edition with the same bounded text.
 - **Story composition:** the editor keeps separate developments in separate
   stories. Direct follow-ups, reactions and consequences can share a story;

@@ -17,6 +17,17 @@ export function clusterEvidence(
     seen.add(id);
     return [member];
   });
+  // Aggregator excerpts can contain headline lists from several publishers.
+  // Prefer direct reporting inside the existing cluster, retaining rank order
+  // within each tier and using aggregator snippets when no direct text exists.
+  const isAggregator = (item: Candidate) => {
+    try {
+      return new URL(item.url).hostname === 'news.google.com';
+    } catch {
+      return false;
+    }
+  };
+  members.sort((a, b) => Number(isAggregator(a)) - Number(isAggregator(b)));
   return [lead, ...members.slice(0, 2)].map((item) => ({
     id: item.id,
     title: item.title.slice(0, 300),

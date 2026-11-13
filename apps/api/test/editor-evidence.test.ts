@@ -218,3 +218,89 @@ for (const character of ['a', '\u0000', '\u0800']) {
     }
   });
 }
+
+void test('saved NVIDIA cluster transports direct reporting before aggregator headline lists', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const fixture = JSON.parse(
+    await readFile('apps/api/test/fixtures/tech-cluster-evidence.json', 'utf8'),
+  );
+  const story = fixture.story as ReturnType<typeof rank>[number];
+  const pool = fixture.pool as Candidate[];
+  const before = JSON.stringify(fixture);
+  const memberId = 'cde99a3e-4762-42d4-90d4-7e7dd4829c7b';
+  assert.equal(story.coverage.length, 23);
+  assert.equal(story.excerpt, '');
+  assert.deepEqual(
+    (fixture.story.evidence as { id: string }[]).map((x) => x.id),
+    [story.id],
+  );
+  const input = editorEvidence([story], pool);
+  const evidence = input.candidates[0].clusterEvidence;
+  assert.equal(evidence.length, 3);
+  assert.equal(evidence[1].id, memberId);
+  assert.match(evidence[1].excerpt, /board announced that Jensen Huang/);
+  assert.match(evidence[1].excerpt, /alleged Chinese spy/);
+  assert.equal(evidence[1].publisher, undefined);
+  assert.deepEqual(input.candidates[0].coverage, story.coverage);
+  assert.equal(input.candidates[0].score, story.score);
+  let calls = 0;
+  const price = {
+    id: 'offline',
+    input: 0,
+    cacheWrite: 0,
+    cacheRead: 0,
+    output: 0,
+  };
+  const editor = new ShortlistEditor(
+    {
+      async json(request, validate) {
+        calls++;
+        const prompt = JSON.parse(request.prompt);
+        assert.equal(prompt.candidates[0].clusterEvidence[0].id, memberId);
+        assert.match(request.prompt, /alleged Chinese spy/);
+        return validate({
+          brief: [
+            'Nvidia announced a leadership change.',
+            'The Verge reports Jensen Huang resigned.',
+          ],
+          stories: [
+            {
+              id: story.id,
+              evidenceIds: [story.id, memberId],
+              headline: 'Nvidia CEO Jensen Huang resigns',
+              summary:
+                "The Verge reports that Nvidia's board announced Jensen Huang's resignation as CEO and president after reports of two extramarital affairs, including one with an alleged Chinese spy.",
+              whyItMatters: 'The resignation changes leadership at Nvidia.',
+              rationale: 'A leadership development.',
+            },
+          ],
+        });
+      },
+    },
+    price,
+    price,
+  );
+  const result = await editor.edit(
+    { id: 'tech', name: 'Tech & AI', description: '', guidance: '' },
+    input.candidates,
+    1,
+    'offline',
+  );
+  assert.ok(result);
+  assert.equal(calls, 1);
+  const saved = input.cited(result.stories[0].evidenceIds);
+  assert.equal(saved[0].excerpt, '');
+  assert.equal(saved[1].id, memberId);
+  assert.equal(saved[1].url, pool.find((x) => x.id === memberId)!.url);
+  assert.equal(saved[1].excerpt, evidence[1].excerpt);
+  assert.deepEqual(JSON.parse(JSON.stringify(saved)), saved);
+  assert.equal(JSON.stringify(fixture), before);
+  // With no direct reporting, preserve the existing ranked aggregator fallback.
+  const aggregators = pool.filter(
+    (x) => x.id === story.id || new URL(x.url).hostname === 'news.google.com',
+  );
+  const fallback = editorEvidence([story], aggregators).candidates[0]
+    .clusterEvidence;
+  assert.equal(fallback.length, 3);
+  assert.equal(fallback[1].id, '5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4');
+});

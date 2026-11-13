@@ -134,3 +134,27 @@ cluster payload fits. Previously its exception could abort publication; the
 editor now returns null at that same bound so the caller uses its existing
 source-excerpt fallback. Limits, prompt content and provider selection stay
 unchanged. Historical saved-case acceptance remains open.
+
+## Saved-case acceptance — iteration 2130
+
+Recorded `apps/api/test/fixtures/tech-cluster-evidence.json` from a repeatable-read,
+read-only transaction: immutable Nov 12 NVIDIA story, all 23 coverage members and
+its single empty-excerpt saved evidence record, paired with current Nov 13 member
+excerpts/publishers. Member text is bounded to 600 characters. Current member text
+is explicitly dated and is not historical editor input; the offline editor reply
+is simulated rather than a saved provider response.
+
+The complete cluster exposed another transport omission: two Google News
+headline lists preceded the substantive Verge report. Projection now prefers
+non-Google-News member URLs, preserving existing coverage order within each tier.
+The representative, score, coverage, attribution, two-member bound and fallback
+remain unchanged. Aggregator snippets still fill slots when direct text is absent.
+
+The regression passes the saved cluster through production evidence projection,
+editor serialization/validation and immutable citation projection. It verifies the
+Verge resignation detail and allegation wording reach editing, accepts a simulated
+attributed summary, preserves its exact cited URL/text, and proves input snapshots
+remain unchanged. Missing publisher metadata stays unknown rather than inferred.
+No live provider calls, collection, publication changes or budget changes. Offline
+transport/admission acceptance is complete; actual next-edition prose quality is
+still reviewed after the scheduled edition.

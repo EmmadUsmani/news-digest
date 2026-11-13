@@ -1,0 +1,540 @@
+{
+  "provenance": {
+    "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+    "capturedOn": "2026-11-13",
+    "note": "Story and coverage are immutable Nov 12 snapshot fields. Member excerpts/publishers are Nov 13 current content rows, bounded to 600 characters; not a reconstruction of historical editor input. Offline editor response in test is simulated, not a saved provider response."
+  },
+  "story": {
+    "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+    "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+    "score": 18.37,
+    "title": "NVIDIA Announces CEO Transition",
+    "excerpt": "",
+    "reasons": [
+      "Recency: 9.5/10",
+      "Observed in 1 source label (independence unverified; no score bonus)",
+      "HN engagement: 8.8/10",
+      "Headline cluster: 23 articles; 4 observed source labels (independence unverified); no extra score bonus",
+      "Semantic relevance 8/10; importance 9/10: Official Nvidia CEO transition announcement",
+      "Editor: Leadership change at a central AI hardware company, covered by multiple sources."
+    ],
+    "sources": [
+      "Ars Technica",
+      "Google News: artificial intelligence",
+      "Hacker News",
+      "The Verge"
+    ],
+    "summary": "A headline carried by Ars Technica, Google News and Hacker News says NVIDIA has announced a CEO transition.",
+    "coverage": [
+      {
+        "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+        "title": "NVIDIA Announces CEO Transition",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-12T13:52:29.000Z"
+      },
+      {
+        "id": "21bb78dc-1d5d-4508-9a76-47731519cf31",
+        "url": "https://www.reuters.com/live/nvidia-live-board-meets-fate-ceo-jensen-huang-after-affair-reports-2026-11-12/",
+        "title": "Jensen Huang resigns as Nvidia CEO immediately",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-12T13:56:11.000Z"
+      },
+      {
+        "id": "fb4b10ce-81d5-4f16-8481-7e12e91d419e",
+        "url": "https://www.bbc.co.uk/news/live/c6zjry11v8w1t",
+        "title": "Nvidia CEO Jensen Huang resigns after reports of second affair deepened scandal",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-12T13:56:38.000Z"
+      },
+      {
+        "id": "4670222f-bc54-4d0d-b7b0-3680911d1386",
+        "url": "https://www.wsj.com/business/nvidia-is-preparing-to-oust-nvidia-ceo-jensen-huang-30f421ad",
+        "title": "Nvidia is preparing to oust Jensen Huang",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-11T22:31:06.000Z"
+      },
+      {
+        "id": "6c59c32c-81a6-46a0-a4a7-4ea7d7c8c2b9",
+        "url": "https://www.nytimes.com/2026/11/11/technology/jensen-huang-nvidia-affair.html",
+        "title": "Jensen Huang said to have had relationship with executive who reports to him",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-11T22:03:58.000Z"
+      },
+      {
+        "id": "2680c4c2-8658-427f-8d16-e5a0dcebf01d",
+        "url": "https://twitter.com/watcherguru/status/2120645607866188008",
+        "title": "Nvidia prepares to fire CEO Jensen Huang, WSJ reports",
+        "sources": ["Hacker News"],
+        "publishedAt": "2026-11-11T22:36:35.000Z"
+      },
+      {
+        "id": "5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxONVRMTUR1NEswVFUzUTVOdU5XaFJla0xoVG1KTmxLRzc1M09ram14NDlPQklsZ0FIb3JYbF9EVnlqN3dXeTQ1c1lNdEZXTnZRdnZyYXhiWmNybkduVk9LaS1TTGdhT0Y4aklpZms5eVJfcmVQS3VWbDRIcTE0SjA4ZzZnRWNVQ3A3ZFRLUHcwczc5OU1iRmNLODgzUlZ4anFtU2cxM0JISmlvNlZyQVN3T0I5YTZNQzNTUENIM3ktaVlHeS1HanJFdk1URQ?oc=5",
+        "title": "The fall of Jensen Huang, iconic Nvidia CEO and godfather of AI - Le Monde.fr",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.lemonde.fr/",
+          "name": "Le Monde.fr"
+        },
+        "publishedAt": "2026-11-12T14:02:42.000Z"
+      },
+      {
+        "id": "49404c80-36ee-4d10-a84f-a7933aac0c10",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSFg4VHBscm9wN2FBNG84c1VCMGRRMnFMUUtNVWsxMEQ2TXRTLWpNaGRMcjh2ZER4a01SLXplYVdGUy1PWEtkOUxVNjFxdWhLNXJWM0xKUURCaHZEcXRMV1ZvaW0ybmh6WnpGSHRlaDFmLTNmUXVYM0FQSnRJOWRGTm9oellzRkps0gGOAUFVX3lxTE5pQ2ZVTUdTdVhRcjVldUJINE8xN0pVR0t5d3NBLTktUk1CaTlyNUR6WUhVTjRsQzBIVDBVcHY1SFhzS09na3lETXdudzY1cnZ3Z21UMjFCRUd0U2l3WXJSc1ZTeFZGci14M09hMUoyWUFxbUJqUkZyVG1xX1ExQXpsaTk4RjlieGc1a2JiOXc?oc=5",
+        "title": "AI titan Jensen Huang out as Nvidia CEO - Al Jazeera",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.aljazeera.com/",
+          "name": "Al Jazeera"
+        },
+        "publishedAt": "2026-11-12T13:55:18.000Z"
+      },
+      {
+        "id": "cde99a3e-4762-42d4-90d4-7e7dd4829c7b",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/1031689/jensen-huang-nvidia-ceo-resigns",
+        "title": "Nvidia CEO Jensen Huang resigns amid spy, affair scandals",
+        "sources": ["The Verge"],
+        "publishedAt": "2026-11-12T13:53:16.000Z"
+      },
+      {
+        "id": "e0d40563-ca71-44a5-b0eb-2fd836da964b",
+        "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxON2NYNHM1b1NZX3RCWE1qbWU2YXpSY00xSGt2XzI3TmJmUFZ2bXRoMDdMMWZLUmwyTHQ1VkpPcXpQUWhidFk2QWkxdlg3dnBSdHFYUUR5bmtELXRhRmFLNERCZnZhMldmQ0k5Zm5pSTlaZUdIbFg1Zl9EaVZlNmZlWU90SUVRbkMzQUNXREJtQTFBNVFIVUs2Vm4yOVoyQjlSUzVUMG1UcGlQOEtGS0dPdkNQZDBfT1pONTlFN19qczYyTmhCNXhUb0dwSkZyX3FMclpaLU5ZMEpuVkpt?oc=5",
+        "title": "Nvidia chief executive Jensen Huang’s rapid fall from grace has rocked Washington and Silicon Valley, triggering concern that Nvidia, whose powerful chips have fueled the artificial intelligence era, could threaten a U.S. stock market boom it helped fuel. - Facebook",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.facebook.com/",
+          "name": "Facebook"
+        },
+        "publishedAt": "2026-11-12T13:30:10.000Z"
+      },
+      {
+        "id": "5bd87f15-5f57-4295-9857-1de4ee8d9a9e",
+        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQmlOM1RNVjV1V1ZucC1vdFE1bUFZbkt6S0xVUEZJWmZXZGVwRjM0ZmhsdVVKeWdfTGFvNThfd1VvM2VFVGJlNGF0dDMwODczRTZuZXcxQlZkcU5qa0VoMVU3cGg3Z1lZd1JudmhIc1V2amdWazFSMkpGME5oNUZZOVktMEtqT0UtekhUSk12X2Vua0ZGMlk4QUxVaW9GQkUtU1pUUWlCaGxIaHc?oc=5",
+        "title": "Jensen Huang’s recklessness leaves Nvidia with no good options - The Economist",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.economist.com/",
+          "name": "The Economist"
+        },
+        "publishedAt": "2026-11-12T10:20:28.000Z"
+      },
+      {
+        "id": "197cc065-b943-41c1-9834-4d52744927f7",
+        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPc1EtU18tWjZNZTZtOFBZNzdqZkRFMk1nbm9MTm9VWUQwUHlLc1dTdDNLWmNCcllESHVVYjFnXzlKcFJrSWpHUkY2S1lhcTFtWWdPVG9WdkcyTkFSaEpLanVzeWctM1hCTkdxUEJ6VnBrLXFYVnBsalpKUkJVUGQyUE5DOEJtaTctZlFEaV9VR1loQ1JrVlhyRmRxR25UMkI2MVgtZnBFU1pVaXhBcmw0ZV9jb0RPYlduY1ppbnpCTlc?oc=5",
+        "title": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs - Reuters",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.reuters.com/",
+          "name": "Reuters"
+        },
+        "publishedAt": "2026-11-12T05:31:00.000Z"
+      },
+      {
+        "id": "0c80fef3-f0f6-486f-82ba-e05a6f1dcce5",
+        "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBoVWJPa29uOWhQdVY0TFJQVXZnMjR3QWFKSjVlcWFaWkNJVmFCT3RTY3dtNWQ2b1hpRHZWbW5UY2lGdjhlLWFPRDFtRXFNZjhEaXdac2NJX1FlY01mU29oSXpKOUlKSklYVU01WHNSOXFxaDhhd1k4MHR3?oc=5",
+        "title": "What to Know About the Turmoil at Nvidia - The New York Times",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.nytimes.com/",
+          "name": "The New York Times"
+        },
+        "publishedAt": "2026-11-12T03:55:11.000Z"
+      },
+      {
+        "id": "f9766737-0c32-4b23-81be-11cdae726a89",
+        "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNVVB0dDJEQW85QUdlQ25MajUyc2QyeUI2RzhGMU1tMFl0ZGlZeUJlOGozbW9RZUhDbDlkZGhEbzVCVk84SjVSOHBhRm9vcW8tbGctS09oVnpKaFhmS1lRcmFRN2dIWm1lRTVSYmFKSEh4dG83aWtab3RvOE53YWRzT3g0WFdlY0M1OXN6SGZNbzI2bnN0cDdKWHMyTHladmV1Q2xmakljNExxbXctWWFKOXBLNEpBNzl5S29QYUJHelR5TVVKaFlrMzJVNXgyMERkNmdtSjB5dklPcEhxZ3lPQzY3OEVmQS1hM0Zqb2hIajU4Y1VKZlFUQVUzc196X3ZNbWdRMWRCUlhSOTA?oc=5",
+        "title": "Nvidia CEO faces allegations of second affair with employee after ties to Chinese woman suspected of espionage - Le Monde.fr",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.lemonde.fr/",
+          "name": "Le Monde.fr"
+        },
+        "publishedAt": "2026-11-12T01:13:18.000Z"
+      },
+      {
+        "id": "777a48e9-8a82-4f2b-bf84-0e6c47a6f93b",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxObGlyc2s2UWVRcW5vSmdmODdWYzMwd2oyRmRjMmdWTFdWMzA1UXVjTnhCalZBQ2VlY2JYMlhiMWVLa1Z1dmJjY1VUcUIzc0pieTBlSl9HaUJXb3Y1eUV4NllyczU4Zm1UZVVBbS1DTzRwbUlTVXlqT0dCa0Rld1FuVkd3Q2ppMFBpdGFxWU9UUnFxWnZyc2xzLW41Y0pDclB6LTMzSVU5M19IYzlwbGJDQU43MmxTaXQteTJCODln0gHGAUFVX3lxTE16ZzRCdXMyeFdLQWhMVWNOejNKdC10ZFlRYU04amNkUTZSNFdEbWJldzBVSkRFbTlPZ3EyYnJkQlE3UnlhSExUcWpfYm5NYWJzRFhaYnpyZzhNcFVpeDg5UGN3dlZlalJKVHJFdmtsRkRrWUhuRHhHUnpsYXlqV0ZVZlNPb3JCazAyN2plRnBEbEFMTnA3R0NtQUpfZ2x2eTBQLWRxRG1EZFlYWmhtNkpKUndJWml4dDhLcFZjN1Bla1VpX3c0dw?oc=5",
+        "title": "Nvidia shares drop after hours amid reports of meeting over CEO Jensen Huang's future - NBC4 Washington",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.nbcwashington.com/",
+          "name": "NBC4 Washington"
+        },
+        "publishedAt": "2026-11-12T00:29:26.000Z"
+      },
+      {
+        "id": "2684ba65-0b24-4614-ab07-68852b3df522",
+        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxON2VaZ01EcWdXc1ZGb3plNUNMM294WGZlT0tTbWw2SFNPOHZ3ZERtQlR6RkhLRWF2cHExRnNfWGZINm1NWVoxVjRSUDRTVXRFb1RaRGcyMXFUdEd0LWtlME5SVHJETVdzOHR6eHhyNXJLVXF6cldFbnhHMXcydFMzTGhzVnhWN2RQX2d0X1N4QVZvdUU?oc=5",
+        "title": "Exclusive | Nvidia Is Preparing to Oust CEO Jensen Huang - WSJ",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.wsj.com/",
+          "name": "WSJ"
+        },
+        "publishedAt": "2026-11-12T00:17:00.000Z"
+      },
+      {
+        "id": "cd754b46-3e65-4713-927e-a2ddcff5ccd3",
+        "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SV0s4M3NYaTUtT2tIVWpBRHdfTk51cUIxcE0tLU9LV3M1akRWMTRheE9qY3BCa0pRVDR0MGhxaGVIcERRakZ0LWxJUWtpeFk4aW50TlRLVWt0NUEwSzVBVWFoZGNMQ0NEUWl4eUZyR3h0YmpHRjNfVk1n?oc=5",
+        "title": "Nvidia’s Board Is Meeting to Discuss Jensen Huang’s Future - The New York Times",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.nytimes.com/",
+          "name": "The New York Times"
+        },
+        "publishedAt": "2026-11-11T23:32:14.000Z"
+      },
+      {
+        "id": "8d033083-1f8c-45e2-98d3-320a08042357",
+        "url": "https://arstechnica.com/gadgets/2026/11/ceo-jensen-huangs-job-is-suddenly-on-the-line-at-nvidia/",
+        "title": "Nvidia CEO Jensen Huang has resigned",
+        "sources": ["Ars Technica"],
+        "publishedAt": "2026-11-11T23:10:17.000Z"
+      },
+      {
+        "id": "84ada437-b1fb-4862-bbcf-f9c8bb60ef98",
+        "url": "https://www.theverge.com/tech/1031652/jensen-huang-rumor",
+        "title": "Nvidia is reportedly preparing to fire Jensen Huang",
+        "sources": ["The Verge"],
+        "publishedAt": "2026-11-11T22:44:36.000Z"
+      },
+      {
+        "id": "824ac5b4-49c9-41fd-90aa-aaa1e8a31c4b",
+        "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPOXlNcXJodVp6cXdIS1laVnhsQ21aRVdyQ3dDbnVGZVN3ZFZ5SWRoWUVkMDFwRVV5TkVaYm5WU2ppSThrZ3RpMjBkMWZKSmR0dU9wbjhtMk5VUFp3R2dtTGFhdXFTS0sySjZGbVd2N21zdmV2a29vTm05ZWZVN21wVk9NdDY?oc=5",
+        "title": "Nvidia Board Weighs Huang's Future After Report of Second Affair - Gizmodo",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://gizmodo.com/",
+          "name": "Gizmodo"
+        },
+        "publishedAt": "2026-11-11T22:37:12.000Z"
+      },
+      {
+        "id": "8def8f27-fcc9-4022-9fae-68f3f8bc5114",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWjJRY2daaGR0MlE5NzU0bndocWZPVF9qODRlRlBzUUVLN1dyNkE2VXlJeUdGanF2NkQ5OGVZMmJTYk9xY244NU9sUHppeFU2dVlHcVRwWFptNG9CSUN6ay1Ic3NVdFJRZTNkY05nQzJJUFJsSVp1N21LRElnSHotZmZyYVR2a25v?oc=5",
+        "title": "Jensen Huang affair in DC: Resignation calls and moves to tighten Nvidia China exports - CNBC",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.cnbc.com/",
+          "name": "CNBC"
+        },
+        "publishedAt": "2026-11-11T21:59:34.000Z"
+      },
+      {
+        "id": "3ad7f40a-038e-4f06-adcc-37481a795e91",
+        "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPV0NCNjVPR0M2THpMdkhiTW5jZUlmVXJzNHk4YjZYeWtGZHc3Vk81V3czUXBBVjktcXlSLWs3MFdyWkRtcmRpV1BmY1hKckhyU3RYWEdsTWlGcnhFVFVNakRLLWZvREpURHJnRVVSdmZEcHJWU2p5YWJZX1pEWGRWRDB1aw?oc=5",
+        "title": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him - The New York Times",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.nytimes.com/",
+          "name": "The New York Times"
+        },
+        "publishedAt": "2026-11-11T21:55:36.000Z"
+      },
+      {
+        "id": "dab1c666-08f3-4aec-9c95-f03ae75988c7",
+        "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxPYWR1ai1tUTVoYXdQSE43a1VtQURndVpWbzk1WnFIS21wcjNhOFhxcmpFSHV6Nm52ZWNkWTQyTGdRYlM3TFcwRXJrOE8tN01DUFlwTnFqYUhETjlBRUFzZFNqRm9GSUtDQWkwSXRnLWJ2ZG9OUEFLV29GaVpkTThPZHdrY0hucGJBZ0lqdHZ2cVNqbGpYTlpVOFJreko3YUlfaTRvdlo4X1JQWTJHZXVraTZHVVRPUUZfQm1vcmIxOU9Xbk11STQtalBFM1UxMFlGdkxuMU1pbWxXaE9CYzg5dUw1TmhNaUNUM3R4TzVTbmxtQkp5YnhvNHNqVnJJeTFC?oc=5",
+        "title": "A Chinese spy, a chip war and Trump's indifference: How Nvidia became caught in an international scandal - Le Monde.fr",
+        "sources": ["Google News: artificial intelligence"],
+        "publisher": {
+          "url": "https://www.lemonde.fr/",
+          "name": "Le Monde.fr"
+        },
+        "publishedAt": "2026-11-11T19:30:07.000Z"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+        "title": "NVIDIA Announces CEO Transition",
+        "excerpt": "",
+        "sources": [
+          "Ars Technica",
+          "Google News: artificial intelligence",
+          "Hacker News",
+          "The Verge"
+        ],
+        "publishedAt": "2026-11-12T13:52:29.000Z"
+      }
+    ],
+    "imageUrl": null,
+    "publishedAt": "2026-11-12T13:52:29.000Z",
+    "whyItMatters": "A leadership change at a major AI chip company can affect the wider AI hardware industry."
+  },
+  "pool": [
+    {
+      "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+      "title": "NVIDIA Announces CEO Transition",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-12T13:52:29.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "21bb78dc-1d5d-4508-9a76-47731519cf31",
+      "url": "https://www.reuters.com/live/nvidia-live-board-meets-fate-ceo-jensen-huang-after-affair-reports-2026-11-12/",
+      "title": "Jensen Huang resigns as Nvidia CEO immediately",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-12T13:56:11.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "fb4b10ce-81d5-4f16-8481-7e12e91d419e",
+      "url": "https://www.bbc.co.uk/news/live/c6zjry11v8w1t",
+      "title": "Nvidia CEO Jensen Huang resigns after reports of second affair deepened scandal",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-12T13:56:38.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "4670222f-bc54-4d0d-b7b0-3680911d1386",
+      "url": "https://www.wsj.com/business/nvidia-is-preparing-to-oust-nvidia-ceo-jensen-huang-30f421ad",
+      "title": "Nvidia is preparing to oust Jensen Huang",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-11T22:31:06.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "6c59c32c-81a6-46a0-a4a7-4ea7d7c8c2b9",
+      "url": "https://www.nytimes.com/2026/11/11/technology/jensen-huang-nvidia-affair.html",
+      "title": "Jensen Huang said to have had relationship with executive who reports to him",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-11T22:03:58.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "2680c4c2-8658-427f-8d16-e5a0dcebf01d",
+      "url": "https://twitter.com/watcherguru/status/2120645607866188008",
+      "title": "Nvidia prepares to fire CEO Jensen Huang, WSJ reports",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-11T22:36:35.000Z",
+      "excerpt": "",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxONVRMTUR1NEswVFUzUTVOdU5XaFJla0xoVG1KTmxLRzc1M09ram14NDlPQklsZ0FIb3JYbF9EVnlqN3dXeTQ1c1lNdEZXTnZRdnZyYXhiWmNybkduVk9LaS1TTGdhT0Y4aklpZms5eVJfcmVQS3VWbDRIcTE0SjA4ZzZnRWNVQ3A3ZFRLUHcwczc5OU1iRmNLODgzUlZ4anFtU2cxM0JISmlvNlZyQVN3T0I5YTZNQzNTUENIM3ktaVlHeS1HanJFdk1URQ?oc=5",
+      "title": "The fall of Jensen Huang, iconic Nvidia CEO and godfather of AI - Le Monde.fr",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.lemonde.fr/",
+        "name": "Le Monde.fr"
+      },
+      "publishedAt": "2026-11-12T14:02:42.000Z",
+      "excerpt": "The fall of Jensen Huang, iconic Nvidia CEO and godfather of AI Le Monde.fr",
+      "points": 0
+    },
+    {
+      "id": "49404c80-36ee-4d10-a84f-a7933aac0c10",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSFg4VHBscm9wN2FBNG84c1VCMGRRMnFMUUtNVWsxMEQ2TXRTLWpNaGRMcjh2ZER4a01SLXplYVdGUy1PWEtkOUxVNjFxdWhLNXJWM0xKUURCaHZEcXRMV1ZvaW0ybmh6WnpGSHRlaDFmLTNmUXVYM0FQSnRJOWRGTm9oellzRkps0gGOAUFVX3lxTE5pQ2ZVTUdTdVhRcjVldUJINE8xN0pVR0t5d3NBLTktUk1CaTlyNUR6WUhVTjRsQzBIVDBVcHY1SFhzS09na3lETXdudzY1cnZ3Z21UMjFCRUd0U2l3WXJSc1ZTeFZGci14M09hMUoyWUFxbUJqUkZyVG1xX1ExQXpsaTk4RjlieGc1a2JiOXc?oc=5",
+      "title": "AI titan Jensen Huang out as Nvidia CEO - Al Jazeera",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.aljazeera.com/",
+        "name": "Al Jazeera"
+      },
+      "publishedAt": "2026-11-12T13:55:18.000Z",
+      "excerpt": "Nvidia CEO Jensen Huang steps down amid spy scandal and market loss Al Jazeera What Jensen Huang leaving Nvidia means for AI Scientific American China Is the Biggest Loser From Jensen Huang’s Downfall Bloomberg.com",
+      "points": 0
+    },
+    {
+      "id": "cde99a3e-4762-42d4-90d4-7e7dd4829c7b",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1031689/jensen-huang-nvidia-ceo-resigns",
+      "title": "Nvidia CEO Jensen Huang resigns amid spy, affair scandals",
+      "sources": ["The Verge"],
+      "publishedAt": "2026-11-12T13:53:16.000Z",
+      "excerpt": "Nvidia's board announced that Jensen Huang - its longtime co-founder, president, and CEO - has resigned after reports of two extramarital affairs, one with an alleged Chinese spy and one with an Nvidia executive who reported to Huang. Following a late Wednesday night meeting, the board accepted Huang's letter of resignation as CEO, president, and […]",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "e0d40563-ca71-44a5-b0eb-2fd836da964b",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxON2NYNHM1b1NZX3RCWE1qbWU2YXpSY00xSGt2XzI3TmJmUFZ2bXRoMDdMMWZLUmwyTHQ1VkpPcXpQUWhidFk2QWkxdlg3dnBSdHFYUUR5bmtELXRhRmFLNERCZnZhMldmQ0k5Zm5pSTlaZUdIbFg1Zl9EaVZlNmZlWU90SUVRbkMzQUNXREJtQTFBNVFIVUs2Vm4yOVoyQjlSUzVUMG1UcGlQOEtGS0dPdkNQZDBfT1pONTlFN19qczYyTmhCNXhUb0dwSkZyX3FMclpaLU5ZMEpuVkpt?oc=5",
+      "title": "Nvidia chief executive Jensen Huang’s rapid fall from grace has rocked Washington and Silicon Valley, triggering concern that Nvidia, whose powerful chips have fueled the artificial intelligence era, could threaten a U.S. stock market boom it helped fuel. - Facebook",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.facebook.com/",
+        "name": "Facebook"
+      },
+      "publishedAt": "2026-11-12T13:30:10.000Z",
+      "excerpt": "Nvidia chief executive Jensen Huang’s rapid fall from grace has rocked Washington and Silicon Valley, triggering concern that Nvidia, whose powerful chips have fueled the artificial intelligence era, could threaten a U.S. stock market boom it helped fuel. Facebook",
+      "points": 0
+    },
+    {
+      "id": "5bd87f15-5f57-4295-9857-1de4ee8d9a9e",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQmlOM1RNVjV1V1ZucC1vdFE1bUFZbkt6S0xVUEZJWmZXZGVwRjM0ZmhsdVVKeWdfTGFvNThfd1VvM2VFVGJlNGF0dDMwODczRTZuZXcxQlZkcU5qa0VoMVU3cGg3Z1lZd1JudmhIc1V2amdWazFSMkpGME5oNUZZOVktMEtqT0UtekhUSk12X2Vua0ZGMlk4QUxVaW9GQkUtU1pUUWlCaGxIaHc?oc=5",
+      "title": "Jensen Huang’s recklessness leaves Nvidia with no good options - The Economist",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.economist.com/",
+        "name": "The Economist"
+      },
+      "publishedAt": "2026-11-12T10:20:28.000Z",
+      "excerpt": "Jensen Huang’s recklessness leaves Nvidia with no good options The Economist",
+      "points": 0
+    },
+    {
+      "id": "197cc065-b943-41c1-9834-4d52744927f7",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPc1EtU18tWjZNZTZtOFBZNzdqZkRFMk1nbm9MTm9VWUQwUHlLc1dTdDNLWmNCcllESHVVYjFnXzlKcFJrSWpHUkY2S1lhcTFtWWdPVG9WdkcyTkFSaEpLanVzeWctM1hCTkdxUEJ6VnBrLXFYVnBsalpKUkJVUGQyUE5DOEJtaTctZlFEaV9VR1loQ1JrVlhyRmRxR25UMkI2MVgtZnBFU1pVaXhBcmw0ZV9jb0RPYlduY1ppbnpCTlc?oc=5",
+      "title": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs - Reuters",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-12T05:31:00.000Z",
+      "excerpt": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs Reuters",
+      "points": 0
+    },
+    {
+      "id": "0c80fef3-f0f6-486f-82ba-e05a6f1dcce5",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBoVWJPa29uOWhQdVY0TFJQVXZnMjR3QWFKSjVlcWFaWkNJVmFCT3RTY3dtNWQ2b1hpRHZWbW5UY2lGdjhlLWFPRDFtRXFNZjhEaXdac2NJX1FlY01mU29oSXpKOUlKSklYVU01WHNSOXFxaDhhd1k4MHR3?oc=5",
+      "title": "What to Know About the Turmoil at Nvidia - The New York Times",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-12T03:55:11.000Z",
+      "excerpt": "What to Know About the Turmoil at Nvidia as Jensen Huang Resigns as C.E.O. The New York Times",
+      "points": 0
+    },
+    {
+      "id": "f9766737-0c32-4b23-81be-11cdae726a89",
+      "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNVVB0dDJEQW85QUdlQ25MajUyc2QyeUI2RzhGMU1tMFl0ZGlZeUJlOGozbW9RZUhDbDlkZGhEbzVCVk84SjVSOHBhRm9vcW8tbGctS09oVnpKaFhmS1lRcmFRN2dIWm1lRTVSYmFKSEh4dG83aWtab3RvOE53YWRzT3g0WFdlY0M1OXN6SGZNbzI2bnN0cDdKWHMyTHladmV1Q2xmakljNExxbXctWWFKOXBLNEpBNzl5S29QYUJHelR5TVVKaFlrMzJVNXgyMERkNmdtSjB5dklPcEhxZ3lPQzY3OEVmQS1hM0Zqb2hIajU4Y1VKZlFUQVUzc196X3ZNbWdRMWRCUlhSOTA?oc=5",
+      "title": "Nvidia CEO faces allegations of second affair with employee after ties to Chinese woman suspected of espionage - Le Monde.fr",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.lemonde.fr/",
+        "name": "Le Monde.fr"
+      },
+      "publishedAt": "2026-11-12T01:13:18.000Z",
+      "excerpt": "Nvidia CEO faces allegations of second affair with employee after ties to Chinese woman suspected of espionage Le Monde.fr",
+      "points": 0
+    },
+    {
+      "id": "777a48e9-8a82-4f2b-bf84-0e6c47a6f93b",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxObGlyc2s2UWVRcW5vSmdmODdWYzMwd2oyRmRjMmdWTFdWMzA1UXVjTnhCalZBQ2VlY2JYMlhiMWVLa1Z1dmJjY1VUcUIzc0pieTBlSl9HaUJXb3Y1eUV4NllyczU4Zm1UZVVBbS1DTzRwbUlTVXlqT0dCa0Rld1FuVkd3Q2ppMFBpdGFxWU9UUnFxWnZyc2xzLW41Y0pDclB6LTMzSVU5M19IYzlwbGJDQU43MmxTaXQteTJCODln0gHGAUFVX3lxTE16ZzRCdXMyeFdLQWhMVWNOejNKdC10ZFlRYU04amNkUTZSNFdEbWJldzBVSkRFbTlPZ3EyYnJkQlE3UnlhSExUcWpfYm5NYWJzRFhaYnpyZzhNcFVpeDg5UGN3dlZlalJKVHJFdmtsRkRrWUhuRHhHUnpsYXlqV0ZVZlNPb3JCazAyN2plRnBEbEFMTnA3R0NtQUpfZ2x2eTBQLWRxRG1EZFlYWmhtNkpKUndJWml4dDhLcFZjN1Bla1VpX3c0dw?oc=5",
+      "title": "Nvidia shares drop after hours amid reports of meeting over CEO Jensen Huang's future - NBC4 Washington",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.nbcwashington.com/",
+        "name": "NBC4 Washington"
+      },
+      "publishedAt": "2026-11-12T00:29:26.000Z",
+      "excerpt": "Nvidia shares drop after hours amid reports of meeting over CEO Jensen Huang's future NBC4 Washington",
+      "points": 0
+    },
+    {
+      "id": "2684ba65-0b24-4614-ab07-68852b3df522",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxON2VaZ01EcWdXc1ZGb3plNUNMM294WGZlT0tTbWw2SFNPOHZ3ZERtQlR6RkhLRWF2cHExRnNfWGZINm1NWVoxVjRSUDRTVXRFb1RaRGcyMXFUdEd0LWtlME5SVHJETVdzOHR6eHhyNXJLVXF6cldFbnhHMXcydFMzTGhzVnhWN2RQX2d0X1N4QVZvdUU?oc=5",
+      "title": "Exclusive | Nvidia Is Preparing to Oust CEO Jensen Huang - WSJ",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.wsj.com/",
+        "name": "WSJ"
+      },
+      "publishedAt": "2026-11-12T00:17:00.000Z",
+      "excerpt": "Exclusive | Nvidia Is Preparing to Oust CEO Jensen Huang WSJ",
+      "points": 0
+    },
+    {
+      "id": "cd754b46-3e65-4713-927e-a2ddcff5ccd3",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SV0s4M3NYaTUtT2tIVWpBRHdfTk51cUIxcE0tLU9LV3M1akRWMTRheE9qY3BCa0pRVDR0MGhxaGVIcERRakZ0LWxJUWtpeFk4aW50TlRLVWt0NUEwSzVBVWFoZGNMQ0NEUWl4eUZyR3h0YmpHRjNfVk1n?oc=5",
+      "title": "Nvidia’s Board Is Meeting to Discuss Jensen Huang’s Future - The New York Times",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-11T23:32:14.000Z",
+      "excerpt": "Nvidia’s Board Is Meeting to Discuss Jensen Huang’s Future The New York Times",
+      "points": 0
+    },
+    {
+      "id": "8d033083-1f8c-45e2-98d3-320a08042357",
+      "url": "https://arstechnica.com/gadgets/2026/11/ceo-jensen-huangs-job-is-suddenly-on-the-line-at-nvidia/",
+      "title": "Nvidia CEO Jensen Huang has resigned",
+      "sources": ["Ars Technica"],
+      "publishedAt": "2026-11-11T23:10:17.000Z",
+      "excerpt": "Nvidia CEO also had an affair with a senior executive at the firm.",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "84ada437-b1fb-4862-bbcf-f9c8bb60ef98",
+      "url": "https://www.theverge.com/tech/1031652/jensen-huang-rumor",
+      "title": "Nvidia is reportedly preparing to fire Jensen Huang",
+      "sources": ["The Verge"],
+      "publishedAt": "2026-11-11T22:44:36.000Z",
+      "excerpt": "Nvidia's board is preparing to dismiss CEO Jensen Huang following a report from The New York Times about a second alleged extramarital affair, just days after he admitted to a separate affair with a woman alleged to be a Chinese spy, The Wall Street Journal reports. The second alleged affair was with an executive who […]",
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "824ac5b4-49c9-41fd-90aa-aaa1e8a31c4b",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPOXlNcXJodVp6cXdIS1laVnhsQ21aRVdyQ3dDbnVGZVN3ZFZ5SWRoWUVkMDFwRVV5TkVaYm5WU2ppSThrZ3RpMjBkMWZKSmR0dU9wbjhtMk5VUFp3R2dtTGFhdXFTS0sySjZGbVd2N21zdmV2a29vTm05ZWZVN21wVk9NdDY?oc=5",
+      "title": "Nvidia Board Weighs Huang's Future After Report of Second Affair - Gizmodo",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-11T22:37:12.000Z",
+      "excerpt": "Nvidia Board Weighs Huang's Future After Report of Second Affair Gizmodo",
+      "points": 0
+    },
+    {
+      "id": "8def8f27-fcc9-4022-9fae-68f3f8bc5114",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWjJRY2daaGR0MlE5NzU0bndocWZPVF9qODRlRlBzUUVLN1dyNkE2VXlJeUdGanF2NkQ5OGVZMmJTYk9xY244NU9sUHppeFU2dVlHcVRwWFptNG9CSUN6ay1Ic3NVdFJRZTNkY05nQzJJUFJsSVp1N21LRElnSHotZmZyYVR2a25v?oc=5",
+      "title": "Jensen Huang affair in DC: Resignation calls and moves to tighten Nvidia China exports - CNBC",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.cnbc.com/",
+        "name": "CNBC"
+      },
+      "publishedAt": "2026-11-11T21:59:34.000Z",
+      "excerpt": "Jensen Huang affair in DC: Resignation calls and moves to tighten Nvidia China exports CNBC",
+      "points": 0
+    },
+    {
+      "id": "3ad7f40a-038e-4f06-adcc-37481a795e91",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPV0NCNjVPR0M2THpMdkhiTW5jZUlmVXJzNHk4YjZYeWtGZHc3Vk81V3czUXBBVjktcXlSLWs3MFdyWkRtcmRpV1BmY1hKckhyU3RYWEdsTWlGcnhFVFVNakRLLWZvREpURHJnRVVSdmZEcHJWU2p5YWJZX1pEWGRWRDB1aw?oc=5",
+      "title": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him - The New York Times",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-11T21:55:36.000Z",
+      "excerpt": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him The New York Times",
+      "points": 0
+    },
+    {
+      "id": "dab1c666-08f3-4aec-9c95-f03ae75988c7",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxPYWR1ai1tUTVoYXdQSE43a1VtQURndVpWbzk1WnFIS21wcjNhOFhxcmpFSHV6Nm52ZWNkWTQyTGdRYlM3TFcwRXJrOE8tN01DUFlwTnFqYUhETjlBRUFzZFNqRm9GSUtDQWkwSXRnLWJ2ZG9OUEFLV29GaVpkTThPZHdrY0hucGJBZ0lqdHZ2cVNqbGpYTlpVOFJreko3YUlfaTRvdlo4X1JQWTJHZXVraTZHVVRPUUZfQm1vcmIxOU9Xbk11STQtalBFM1UxMFlGdkxuMU1pbWxXaE9CYzg5dUw1TmhNaUNUM3R4TzVTbmxtQkp5YnhvNHNqVnJJeTFC?oc=5",
+      "title": "A Chinese spy, a chip war and Trump's indifference: How Nvidia became caught in an international scandal - Le Monde.fr",
+      "sources": ["Google News: artificial intelligence"],
+      "publisher": {
+        "url": "https://www.lemonde.fr/",
+        "name": "Le Monde.fr"
+      },
+      "publishedAt": "2026-11-11T19:30:07.000Z",
+      "excerpt": "A Chinese spy, a chip war and Trump's indifference: How Nvidia became caught in an international scandal Le Monde.fr",
+      "points": 0
+    }
+  ]
+}

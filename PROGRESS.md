@@ -136,3 +136,15 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-pre-2126.md).
 - API/worker restarted active; `/healthz` database/Redis healthy after startup retry. `pnpm obs sources`: 38 healthy/zero unhealthy. Scheduled-reader check passes with explicit Nov 12 15:00 cutoff (initial invocation lacked required argument).
 - Updated TASKS and Tech review. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, budgets, provider, flags or sharing changes.
 - Next: historical Tech-case acceptance before noon; review scheduled 15:00 NBA/item 58 acceptance, then public activation with sharing private.
+
+## 2026-11-13: iteration 2130 — accept saved Tech cluster and retain direct reporting
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts; scheduled NBA/item 58 acceptance remains due 15:00 UTC, public mode off.
+- Read-only repeatable-read capture records immutable Nov 12 NVIDIA story/23-member coverage alongside explicitly dated current Nov 13 member text; not a reconstruction of historical editor input.
+- Full saved cluster exposed two Google News headline lists crowding out Verge reporting. Evidence projection now prefers direct publisher URLs within the same explicit cluster, preserving tier order, representative/score/coverage, two-member bound and aggregator fallback.
+- Offline production projection/editor/citation regression accepts a simulated attributed resignation summary with allegation wording and exact cited URL/text; snapshots unchanged, missing publisher stays unknown. Historical transport acceptance complete; scheduled prose review remains.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/editor-evidence.test.ts apps/api/test/group-shortlist.test.ts`: 12 pass after correcting test expectations for supplemental-only prompt indexing and two-bullet minimum. Initial temporary capture needed an async wrapper; removed after read-only extraction.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline`: pass; existing bundle warning. Full `pnpm check`: pass, 945 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- API/worker restarted active; `/healthz` database/Redis healthy after startup retries. `pnpm obs sources`: 38 healthy/zero unhealthy. Scheduled-reader check passes: five topics/25 stories/22 posts.
+- Updated TASKS, Tech review and affected handbook text. SOURCES/NEEDS_FROM_HUMAN unchanged; no provider calls, caps, flags, sharing, collection or publication changes.
+- Next: review Nov 13 15:00 UTC NBA/item 58 acceptance, then public activation with sharing private; assess natural Tech summary quality in the same review.
