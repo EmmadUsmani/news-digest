@@ -130,6 +130,32 @@ export function ReaderSaved() {
                     {copy.excerpt}
                   </p>
                 )}
+                {copy.platform === 'story' && !copy.excerpt.trim() && (
+                  <p className="my-3 text-sm text-[var(--secondary)]">
+                    Summary unavailable.
+                  </p>
+                )}
+                {((copy.platform === 'story' &&
+                  (!copy.excerpt.trim() ||
+                    /(?:…|\.{3})\s*$/.test(copy.excerpt))) ||
+                  (copy.platform === 'x' &&
+                    /(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(
+                      copy.excerpt,
+                    ))) && (
+                  <a
+                    href={copy.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${copy.excerpt.trim() ? 'Continue reading' : 'Read source'}: ${copy.title}`}
+                    className="mb-3 inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                  >
+                    {!copy.excerpt.trim()
+                      ? 'Read source'
+                      : copy.platform === 'x'
+                        ? 'Continue reading on X'
+                        : 'Continue reading at source'}
+                  </a>
+                )}
                 <div className="flex items-center justify-between gap-4">
                   <Link
                     to="/editions/$id"
