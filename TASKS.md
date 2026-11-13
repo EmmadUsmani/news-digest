@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2124: completed saved Tech launch-versus-promotion comparison; FishAudio retains its distinct voice capability, and no stronger distinct replacement is established. [Review](docs/edition-reviews/2026-11-11-tech-social-launch.md). No ranking or publication change.
+
 - [x] Iteration 2123: Bluesky growth compares publication instants across equivalent timestamp formats; mismatched authors/times and conflicting endpoint counts remain excluded.
 
 - [x] Iteration 2122: Bluesky growth is unknown when counts conflict at either observation endpoint; deterministic ranking and valid net changes preserved.

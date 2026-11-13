@@ -191,3 +191,14 @@
 - API/worker restarted active; healthz passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z` passes: five topics/25 stories/22 posts.
 - TASKS updated; bug fix needs no handbook/source change. SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
+
+## 2026-11-13: iteration 2124 — resolve Tech launch/promotion comparison
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts; NBA/item 58 awaits 15:00 UTC.
+- Completed the saved Nov 11 FishAudio comparison from docs/ideas.md using a temporary read-only `pnpm exec tsx scripts/tmp-social-review.ts` probe (removed afterward). Read-only repeatable-read transaction; no provider instantiated or writes.
+- Nine of 84 saved scores qualify; the only higher-interestingness unselected post duplicates the selected official Claude launch. Remaining distinct alternatives have equal/lower scores and less concrete topic substance. Retain the voice launch; no ranking/prompt/publication change justified.
+- Both saved editorial stages recognized its promotion. Corrected the earlier metrics ambiguity: official metrics empty, saved reasons retain unverified xAI counts and bounded bonus. Evidence in docs/edition-reviews/2026-11-11-tech-social-launch.md.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 934 unit/290 integration tests, four expected skips. `pnpm build` passes with existing bundle warnings. Full handbook check passes: 18 pages/22 diagrams/39 tables.
+- API/worker restarted active; `/healthz` database/Redis healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts, pass.
+- TASKS and resolved idea updated; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, budgets, flags, provider or sharing changes.
+- Next: 15:00 UTC scheduled NBA/item 58 acceptance, then private-sharing public activation; continue remaining authorized social tuning meanwhile.
