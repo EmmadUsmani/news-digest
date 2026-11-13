@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
+import { LinkedPostText } from './LinkedPostText';
 import { readerAccountStatus } from './reader-account-status';
 import { ReaderAccount } from './ReaderAccount';
 import { ReaderSkipLink } from './ReaderSkipLink';
@@ -137,8 +138,12 @@ export function ReaderSaved() {
                   </time>
                 </p>
                 {copy.excerpt && (
-                  <p className="my-3 whitespace-pre-line leading-7">
-                    {copy.excerpt}
+                  <p className="post-text my-3 whitespace-pre-line leading-7">
+                    {copy.platform === 'story' ? (
+                      copy.excerpt
+                    ) : (
+                      <LinkedPostText text={copy.excerpt} postUrl={copy.url} />
+                    )}
                   </p>
                 )}
                 {copy.context?.trim() && (

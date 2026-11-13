@@ -26,16 +26,7 @@ Archived entries: [iterations 2179–2180](docs/progress-archive/2026-11-13-iter
 
 Archived entries: [iterations 2181–2182](docs/progress-archive/2026-11-13-iterations-2181-2182.md).
 
-## 2026-11-13: iteration 2183 — disclose missing story summaries
-
-- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass, no failed user services.
-- Owner value: five saved Tech headlines have no summary; readers now see an explicit unavailable message and an accessible source link instead of an unexplained gap.
-- Whitespace-only summaries use the same fallback; existing summaries render unchanged. Saved editions, generation, budgets and activation gates unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass; 977 unit/291 integration tests, four expected skips.
-- Restarted API; `/healthz` passes. GET-only `node /tmp/iteration-2183-reader.cjs` checks the real saved edition at 390/1440px, light/dark: five fallbacks, correct source URLs, retained summaries, no overflow/browser errors.
-- Corrected the temporary browser check’s exact-text matcher (message includes its link); rerun passes. Four screenshots saved under `docs/screenshots/ui/reader-missing-summaries-*`; inspected mobile light and desktop dark.
-- Updated TASKS; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged (reader presentation only); no paid calls.
-- Next: Nov 14 scheduled all-topic AI/event-diversity acceptance, then item 58/private public activation.
+Archived entry: [earliest retained iteration](docs/progress-archive/2026-11-13-iteration-2183.md).
 
 ## 2026-11-13: iteration 2184 — continue incomplete saved X excerpts
 
@@ -181,3 +172,15 @@ Archived entries: [iterations 2181–2182](docs/progress-archive/2026-11-13-iter
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Follow-up smoke-script lint passes.
 - Rebuilt API/worker restarted active; health/database/Redis pass. Latest reader retains five topics/15 stories/20 posts. Commit/push and final restart follow verification.
 - Next: pre-noon feed-content precedence fix, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. No paid calls or edition writes.
+
+## 2026-11-13: iteration 2197 — clickable saved post excerpts
+
+- Clean main; no inherited work. Alert snapshot zero; health/Postgres/Redis pass. Scheduled acceptance waits for Nov 14; generation cutoff retained.
+- Reader weakness: saved Gaming post supplied a complete patch-notes URL, but saved excerpts rendered plain text. Saved social excerpts now reuse edition link rendering; explicit URLs open their destination and other text opens the original post.
+- Stored text, editorial context, publication dates and story rendering retained. No source, prompt, generation, budget or data changes; no paid calls.
+- Actual Nov 13 Gaming post browser check: `pnpm exec tsx scripts/smoke-saved-post-links.ts` passes desktop/mobile light/dark, exact patch destination/text and reload, legacy dates, no overflow/errors. Four screenshots saved; mobile light inspected.
+- Visual review caught oversized inherited link typography; shared post-text styling and a 16px browser assertion fix it before final verification.
+- Handbook reading preferences and TASKS updated; progress 2183 archived. SOURCES/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted lint, `pnpm check`, `pnpm build`, web rebuild, handbook/schema check and `git diff --check`; all pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning.
+- Rebuilt API/worker restarted; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
+- Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

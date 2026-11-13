@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Saved post links (2197): saved excerpts retain clickable full URLs and original-post navigation; actual Gaming patch notes survive reload on desktop/mobile light/dark.
+
 - [x] Visible publication dates (2196): edition stories/posts older than 24 hours show a calendar date, including year, without requiring a hover; recent items retain relative times.
 
 - [x] Saved publication dates (2195): new story/post bookmarks show original publication time separately from save date; optional metadata survives reload and account sync, while legacy saves retain no invented date.
