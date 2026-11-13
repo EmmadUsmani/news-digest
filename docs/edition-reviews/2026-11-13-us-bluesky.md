@@ -63,3 +63,43 @@ independently verified claims. No new U.S. discovery rollout is justified here.
 - Private exports in `/tmp/us-trace-2174.json`, `/tmp/bluesky-2174.json` and
   `/tmp/edition-2174.json`; temporary script removed. No provider calls,
   collection, generation, configuration changes or database writes.
+
+## Free discovery comparison — iteration 2181
+
+`pnpm exec tsx scripts/probe-bluesky.ts --us` compared four free searches
+in one 24-hour window ending 2026-11-13T18:44:43.343Z. Each query fetches
+at most two pages of 25. No observations were stored, media fetched or AI called.
+
+| Query                    | Fetched | Safety/engagement eligible | Attached videos in eligible pool |
+| ------------------------ | ------: | -------------------------: | -------------------------------: |
+| Congress                 |      49 |                         49 |                                7 |
+| Senate                   |      49 |                         49 |                                6 |
+| House of Representatives |      50 |                         49 |                                8 |
+| US politics              |      48 |                         48 |                                0 |
+
+The three highest-ranked bounded text examples per query show:
+
+- `Congress`: attributed Jeffries campaign-finance remarks, the already-selected
+  Ávila Chevalier election report and Omar commentary. The baseline has concrete
+  developments as well as commentary.
+- `Senate`: a first-person leadership candidacy announcement, a second post
+  reporting the same challenge and a linked Alaska election report. The
+  first-person text is a promising provenance lead, but identity was not
+  independently verified. The leadership event already appears in selected X
+  coverage; higher likes do not make it an additional reader development.
+- `House of Representatives`: the same election report as the baseline,
+  Ukraine/Starshield foreign-policy coverage and a first-person count of doctors
+  entering Congress. This adds scope ambiguity and repeated election coverage.
+- `US politics`: a leadership endorsement, political strategy commentary and
+  a policy wishlist. The broad phrase does not establish better concrete supply.
+
+Retain `Congress`. `Senate` is worth revisiting if future scheduled pools lack
+first-person reporting, but this sample does not justify replacing the baseline
+or broadening production. Semantic scope and cross-platform event deduplication
+remain necessary. These are live search observations, not a generated edition;
+media and linked claims were not checked, and eligibility is not publication approval.
+
+Four exported-result assertions pass: common window, expected query names,
+counts bounded by 50, zero submitted/stored posts, false semantic/publication
+flags and mode-600 export `/tmp/bluesky-us-2181.jsonl`. `--us --store` refuses
+before credentials/network access. Production collection and generation are unchanged.

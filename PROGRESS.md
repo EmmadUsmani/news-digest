@@ -8,23 +8,7 @@ Archived entries: [earliest retained entries before iteration 2172](docs/progres
 
 Archived entries: [iterations 2162–2163](docs/progress-archive/2026-11-13-iterations-2162-2163.md).
 
-## 2026-11-13: iteration 2164 — verify admission under deadline expiry and cache load
-
-- Clean main; no inherited work. Initial alerts zero, `/healthz` database/Redis pass, no failed user services. Deployment remains prohibited during 13:00–16:00 UTC.
-- Added offline BudgetedLlm composition regression with all four shared slots occupied: cached results return immediately without reservations; queued edition expiry prevents provider dispatch and budget holds; transferred slots and the same service remain reusable.
-- Targeted `pnpm exec tsx --test apps/api/test/llm.test.ts`: 49/49 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 972 unit/291 integration tests, four expected skips.
-- TASKS updated. Test-only change; no build/restart, paid calls, configuration or runtime changes. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
-- Next: deploy prepared API/worker admission fix after 16:00 UTC; accept next scheduled NBA edition before item 58/public activation.
-
-## 2026-11-13: iteration 2165 — deploy shared inference admission after hold
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed services. Waited until after the explicit 13:00–16:00 deployment hold.
-- `pnpm check` passes: 972 unit/291 integration tests, four expected skips. `pnpm build` passes with existing bundle-size warning; AI handbook verification passes (18 pages/two diagrams/39 tables).
-- Confirmed compiled shared admission, then restarted API/worker at 16:00:23 UTC with no active/waiting queue work. Four-call bound, deadlines, caps, providers and public mode unchanged; no paid replay.
-- Post-restart `/healthz`, `check-scheduled-reader.ts 2026-11-13T15:00:00Z` and `smoke-admin-gate.ts` pass. Saved edition f901ba6c-cba3-4116-8539-fd0e92b98ec4 remains five topics/15 stories/20 posts.
-- All four queues register one worker; all 38 enabled active sources have recent successes/no errors. Natural Bluesky collection completed 15:54:53; startup reconciles published reserve unchanged. Post-deploy alerts zero/no failed services.
-- Updated TASKS/daily review; archived progress iterations 2146–2154 to keep this file small. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: deployment activates already-documented behavior.
-- `pnpm format`, `pnpm lint:fix`, `git diff --check` pass. Next: accept Nov 14 15:00 UTC scheduled NBA editing/admission recovery, then item 58/private public-mode gates; lower-priority tuning remains available meanwhile.
+Archived entries: [iterations 2164–2165](docs/progress-archive/2026-11-13-iterations-2164-2165.md).
 
 ## 2026-11-13: iteration 2166 — restore five-topic reader text verification
 
@@ -199,3 +183,14 @@ Archived entries: [iterations 2162–2163](docs/progress-archive/2026-11-13-iter
 - Updated TASKS and capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only; no runtime restart required.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
 - Next: Nov 14 scheduled all-topic AI/event-diversity review, item 58, then private public activation; no next passive sample before 19:35 UTC.
+
+## 2026-11-13: iteration 2181 — compare U.S. Bluesky reporting supply
+
+- Clean main; no inherited work. Initial alerts zero, database/Redis healthy, no failed user services.
+- Owner value: test whether alternate U.S. searches supply concrete reporting beyond the repaired Congress pool, without risking tomorrow’s edition.
+- Added non-storing `probe-bluesky.ts --us`; four free searches return 49/49/50/48 observations for Congress/Senate/House of Representatives/US politics.
+- Senate exposes first-person leadership text but repeats selected X coverage; House repeats election coverage/adds foreign-policy scope; broad politics adds commentary. Retain Congress and semantic/editorial gates.
+- Four-result window/count/non-storage/publication assertions pass; combined `--us --store` refuses before credentials/network. Export mode 600; no media or paid calls.
+- Updated TASKS/SOURCES and U.S. selection evidence; archived iterations 2164–2165 to keep progress small. Handbook/NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 977 unit/291 integration tests, four expected skips; existing build warnings only.
+- Local probe only; runtime unchanged, no restart required. Next: Nov 14 scheduled recovery/AI/event-diversity review, then item 58/private public activation.

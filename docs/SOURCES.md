@@ -2760,3 +2760,10 @@ Bounded examples show off-topic commentary, old clips and repeated coverage;
 the title query rediscovers the already-selected beta update. Retain `game`
 and semantic/editorial gates; no writes, paid calls or configuration changes.
 [Evidence](edition-reviews/2026-11-13-gaming-bluesky.md).
+
+Nov 13 U.S. free discovery comparison (2181): `Congress`, `Senate`,
+`House of Representatives`, `US politics` return 49/49/50/48 observations.
+Senate exposes a first-person leadership announcement but repeats an X-covered
+event; House adds repeated election/foreign-policy material, broad politics adds
+commentary. Retain `Congress`; no writes, paid calls or production changes.
+[Comparison](edition-reviews/2026-11-13-us-bluesky.md#free-discovery-comparison--iteration-2181).
