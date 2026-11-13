@@ -178,6 +178,9 @@ export const selectedPostSchema = z.object({
   xTriageEvidence: z
     .object({
       reportedLikes: z.number().int().nonnegative().optional(),
+      reportedReposts: z.number().int().nonnegative().optional(),
+      reportedReplies: z.number().int().nonnegative().optional(),
+      reportedViews: z.number().int().nonnegative().optional(),
       observedAt: z.string().datetime().optional(),
       media: z.enum(['linked', 'unknown']),
     })

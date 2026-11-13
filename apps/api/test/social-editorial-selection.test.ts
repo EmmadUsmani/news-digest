@@ -564,6 +564,9 @@ void test('X triage includes bounded author, unverified likes and media hints wi
   assert.equal(known.excerpt, posts[0].text);
   const missing = JSON.parse(socialTriageCandidate(posts[0]).evidence!);
   assert.equal(missing.reportedLikes, 'unknown');
+  assert.equal(missing.reportedReposts, 'unknown');
+  assert.equal(missing.reportedReplies, 'unknown');
+  assert.equal(missing.reportedViews, 'unknown');
   assert.equal(missing.media, 'unknown');
   assert.equal(
     JSON.parse(
@@ -624,6 +627,9 @@ void test('final X editor retains bounded unverified engagement and media eviden
         : {
             xTriageEvidence: {
               reportedLikes,
+              reportedReposts: 0,
+              reportedReplies: 12,
+              reportedViews: 75000,
               observedAt: '2026-11-12T14:00:00.000Z',
               media: 'linked' as const,
             },
@@ -654,6 +660,18 @@ void test('final X editor retains bounded unverified engagement and media eviden
             assert.ok(evidence.length <= 1200);
             const hints = JSON.parse(evidence.split('\n')[1]);
             assert.equal(hints.reportedLikes, reportedLikes ?? 'unknown');
+            assert.equal(
+              hints.reportedReposts,
+              reportedLikes === undefined ? 'unknown' : 0,
+            );
+            assert.equal(
+              hints.reportedReplies,
+              reportedLikes === undefined ? 'unknown' : 12,
+            );
+            assert.equal(
+              hints.reportedViews,
+              reportedLikes === undefined ? 'unknown' : 75000,
+            );
             assert.equal(
               hints.observedAt,
               reportedLikes === undefined

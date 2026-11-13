@@ -2617,3 +2617,11 @@ Final X selection now receives the validated report observation time alongside
 reported likes, with explicit unknown growth from a single snapshot. Missing
 timestamps stay unknown. Offline selection covers dated/unknown evidence, the
 1,200-character bound and original-post preservation; collection and weights unchanged.
+
+### Iteration 2119: preserve all reported X counts for selection
+
+X triage and final selection now receive reported reposts, replies and views
+alongside likes from the already validated xAI report. Zero stays zero and missing
+counts stay unknown; these remain unverified hints, separate from official metrics.
+Offline coverage verifies report rejection, cache invalidation and bounded editor
+transport. No collection, budget, provider or ranking-weight changes.

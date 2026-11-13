@@ -73,14 +73,22 @@ export function selectXPosts(
         ...(signal.reason.startsWith('Unverified xai_search') &&
         row.reportedEngagement
           ? {
+              ...(row.reportedEngagement.likes === undefined
+                ? {}
+                : { reportedLikes: row.reportedEngagement.likes }),
+              ...(row.reportedEngagement.reposts === undefined
+                ? {}
+                : { reportedReposts: row.reportedEngagement.reposts }),
+              ...(row.reportedEngagement.replies === undefined
+                ? {}
+                : { reportedReplies: row.reportedEngagement.replies }),
+              ...(row.reportedEngagement.views === undefined
+                ? {}
+                : { reportedViews: row.reportedEngagement.views }),
               observedAt: new Date(
                 row.reportedEngagement.observedAt,
               ).toISOString(),
             }
-          : {}),
-        ...(signal.reason.startsWith('Unverified xai_search') &&
-        row.reportedEngagement?.likes !== undefined
-          ? { reportedLikes: row.reportedEngagement.likes }
           : {}),
         media: /\bpic\.twitter\.com\//i.test(
           officialPostDisplayText(row.embedHtml),

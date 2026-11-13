@@ -82,6 +82,9 @@ export function socialTriageCandidate(post: EditorialPost) {
             publishedAt: post.publishedAt,
             author: post.author.slice(0, 200),
             reportedLikes: post.xTriageEvidence?.reportedLikes ?? 'unknown',
+            reportedReposts: post.xTriageEvidence?.reportedReposts ?? 'unknown',
+            reportedReplies: post.xTriageEvidence?.reportedReplies ?? 'unknown',
+            reportedViews: post.xTriageEvidence?.reportedViews ?? 'unknown',
             observedAt: post.xTriageEvidence?.observedAt ?? 'unknown',
             growth:
               'unknown; a single reported snapshot is not measured growth',
@@ -220,6 +223,12 @@ export async function editTopicPosts<T extends EditorialPost>(
                       JSON.stringify({
                         reportedLikes:
                           post.xTriageEvidence?.reportedLikes ?? 'unknown',
+                        reportedReposts:
+                          post.xTriageEvidence?.reportedReposts ?? 'unknown',
+                        reportedReplies:
+                          post.xTriageEvidence?.reportedReplies ?? 'unknown',
+                        reportedViews:
+                          post.xTriageEvidence?.reportedViews ?? 'unknown',
                         observedAt:
                           post.xTriageEvidence?.observedAt ?? 'unknown',
                         growthEvidence: 'single snapshot; growth unknown',

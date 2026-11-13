@@ -62,68 +62,7 @@
 
 [Iterations 2100–2104](docs/progress-archive/2026-11-13-iterations-2100-2104.md).
 
-## 2026-11-13: iteration 2105 — restore U.S. Bluesky collection
-
-- Clean main; no inherited work. Zero alerts, healthz healthy, sources healthy; digest queue staffed/zero failures, next edition Nov 13 15:00 UTC.
-- Official authenticated API comparison, same 24-hour window: original `US Congress courts elections` zero; explicit OR alternative zero; `Congress`/`Senate` 50 each, `politics` 49 with non-U.S. material. Replaced the overconstrained seed with verified `Congress`.
-- Migration 0024 preserves owner-edited/blank queries and other topics; existing one-query/two-page/50-post limits unchanged. Real-Postgres regressions cover normal migration chain, seed repair, reruns and owner edits.
-- Initial `pnpm check`: 922 unit passed; integration caught omitted migration journal entry (289 passed/one failed/four skipped). Registered migration; full rerun passes 922 unit/290 integration, four expected skips.
-- `python3 ops/backups/database.py backup`: fresh 39-table backup. Env-file `node --import tsx apps/api/src/libs/db/migrate.ts` applied 0024. Explicit U.S.-only production collector fetched/submitted 50; DB confirms 50 new observations/50 distinct posts. Temporary verification scripts removed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `check-handbook.ts` (18 pages/22 diagrams, affected-page rerun) and `git diff --check` pass; existing bundle warning only. Updated source evidence, affected handbook and TASKS; no schema metadata change needed.
-- No paid calls, provider/budget/flag/sharing changes; NEEDS_FROM_HUMAN unchanged. API/worker restart and post-push health readback follow commit.
-- Next: confirm hourly U.S. continuation and scheduled selection; Nov 13 scheduled NBA/item 58 acceptance still gates public-mode activation. While waiting, proceed to X/Bluesky tuning per STEERING 59.
-
-## 2026-11-13: iteration 2106 — give Bluesky triage its stored evidence
-
-- Clean main; no inherited work. Zero alerts/healthy healthz; staffed queues, no failed digest runs; Nov 13 15:00 scheduled acceptance still pending.
-- Read saved Nov 12 Bluesky picks: World had zero likes/reposts but one reply. Positive-engagement admission is correct; triage received only text, unlike X's author/count/media hints.
-- Supplied bounded author, latest valid cutoff-bound official counts, observation timestamp and attachment presence to semantic triage. Explicit snapshot/unknown growth, reach and media-content limitations; original text unchanged. No threshold, slot, collection, budget or provider changes.
-- Focused offline shortlist/editor/ranking tests: 12 passed. Regression covers competing snapshots, zero counts, bounded author, attachment uncertainty, unchanged text and existing semantic bar.
-- `pnpm check` passes: 923 unit/290 integration, four expected skips. Build passes (existing bundle warning). Handbook initially exceeded 100 lines; removed a stale pre-activation X note and rerun passes (18 pages/one unchanged diagram/39 tables). Updated affected handbook, source evidence and TASKS; NEEDS_FROM_HUMAN unchanged.
-- Read-only coverage confirms natural 04:54:53.990 hourly U.S. continuation: 100 observations/53 distinct posts, 50 safe engaged candidates. Initial root script invocation lacked workspace resolution; reran with API NODE_PATH successfully.
-- `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; API/worker restart and post-push health readback follow commit.
-- No inference, source requests, flag/sharing changes or saved-edition writes. Next: review scheduled NBA/item 58 acceptance before private-sharing public activation, and assess natural social selection quality.
-
-## 2026-11-13: iteration 2107 — preserve Bluesky evidence through selection
-
-- Clean main; no inherited work. Zero alerts and healthy healthz. All queues staffed; digest has zero failed jobs and next scheduled edition Nov 13 15:00 UTC. Latest hourly social collection completed normally.
-- Triage had observation time without publication time; final editor lacked attachment presence. Added publication time to triage and explicit attached/absent media evidence to editing, keeping contents, growth and account-relative reach unknown.
-- Focused offline shortlist/editor tests: ten pass. Regression covers media/text-only distinction, publication time, omission of unverified alt-text claims and unchanged selected observation. No source requests or inference calls.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 924 unit/290 integration, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes (18 pages/one unchanged diagram/39 tables).
-- Initial read-only `obs jobs --queue digest` rejected unknown queue; unfiltered `pnpm obs jobs --check --limit 1` passes all four queues. No operational mutation from either query.
-- Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged. No budgets, providers, flags, sharing, collection caps or selection thresholds changed.
-- Commit/push and API/worker restart follow; next review scheduled NBA/item 58 acceptance before private-sharing public activation, then natural social selection quality.
-
-## 2026-11-13: iteration 2108 — supply attributed Bluesky media descriptions
-
-- Clean main; no inherited work. Zero alerts, healthy healthz and staffed queues; next scheduled NBA/item 58 acceptance remains Nov 13 15:00 UTC.
-- Selection previously knew only attachment presence although official collection preserves author alt text. Both triage and final editing now receive up to four descriptions, each capped at 125 characters, labeled untrusted author claims rather than verified contents or instructions.
-- Original text/observations preserved; no URLs supplied as description evidence, no media fetching, inference or source requests. No provider, budget, collection, threshold, flag or sharing changes.
-- Focused offline media-evidence/shortlist/editor tests: 11 pass, covering description bounds, image/video types, blank descriptions, attribution and selected observation preservation.
-- Build passes (existing bundle warning); affected handbook check passes (18 pages/one unchanged diagram/39 tables). Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 925 unit/290 integration, four expected skips. `git diff --check` passes. Commit/push and API/worker restart follow; next scheduled NBA/item 58 acceptance gates private-sharing public activation.
-
-## 2026-11-13: iteration 2109 — supply measured Bluesky count changes
-
-- Clean main; no inherited work. Zero alerts, healthy healthz and staffed queues; scheduled NBA/item 58 acceptance remains Nov 13 15:00 UTC.
-- Weakness: selection called growth unknown despite retained repeated observations. Read-only last-24-hour aggregate found 231/252 topic/post entries with multiple observation times. Initial query omitted the app's default connection URL and failed; corrected read succeeded.
-- Triage and final editor now receive earliest-to-latest valid same-post/author/publication count changes through cutoff. Signed decreases preserved; one comparable timestamp leaves growth unknown. Net differences are not gross activity or account-relative reach.
-- Ranking weights, thresholds, collection, budgets, providers, flags and sharing unchanged. No paid calls, external requests or saved-edition writes.
-- Focused ranking/shortlist/editor tests pass (14), covering cutoff/invalid counts, competing snapshots, input order, signed declines and both selection stages. Build passes (existing bundle warning); affected handbook check passes (18 pages/one unchanged diagram/39 tables).
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `git diff --check` passes. Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged.
-- Commit/push and API/worker restart follow; reader HTTP 200 before deployment.
-- Next: scheduled NBA/item 58 acceptance, private-sharing public activation, and natural social selection review.
-
-## 2026-11-13: iteration 2110 — concrete activation recovery record
-
-- Clean main; no inherited work. Read Current order/item 59; scheduled NBA/item 58 acceptance still awaits Nov 13 15:00 UTC. Public mode remains off.
-- Prepared docs/public-activation-record.md and linked it from readiness: exact flag/build/service recovery, preserved account flags/additive migrations, private-sharing prerequisite and activation receipt fields.
-- Preparation baseline records deployed 8ac58ec7, API/worker active without drop-ins, PUBLIC_MODE absent/effective zero, and saved edition b1be5a12-2972-4eeb-9bff-82cbb10c1b07. Refresh after scheduled acceptance; this is not an activation receipt.
-- `pnpm obs alerts`: zero alerts; healthz healthy; `pnpm obs sources --check`: 38 healthy/zero unhealthy; `pnpm obs jobs --check --limit 1`: staffed queues and next scheduled edition 15:00 UTC. Retained historical failures unchanged.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: latest/direct/history agree, five topics/25 stories/22 posts.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 926 unit/290 integration, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts public` passes; `git diff --check` passes.
-- TASKS/readiness updated; SOURCES and NEEDS_FROM_HUMAN unchanged (no source or owner-action change). No paid calls, budgets, providers, flags or sharing changes.
-- Commit/push and API/worker restart follow. Next: scheduled NBA/item 58 acceptance, refresh activation baseline/backup, then authorized private-sharing public activation.
+[Iterations 2105–2110](docs/progress-archive/2026-11-13-iterations-2105-2110.md).
 
 ## 2026-11-13: iteration 2111 — preserve complete serialized media evidence
 
@@ -203,3 +142,13 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
 - `pnpm exec tsx scripts/check-handbook.ts` passes: 18 pages/22 unchanged diagrams/39 tables. Saved-reader check passes: five topics/25 stories/22 posts. `git diff --check` passes.
 - API/worker restart and post-restart health verified before commit. Next: scheduled NBA/item 58 acceptance, then private-sharing public activation; while waiting, continue X/Bluesky tuning under STEERING 59.
+
+## 2026-11-13: iteration 2119 — retain all X reported counts in selection
+
+- Clean main; no inherited work. Initial alerts zero; health, 38 sources and queues healthy. NBA/item 58 acceptance awaits the 15:00 UTC edition; public mode stays off.
+- X triage previously received only likes from validated reports. It and final selection now retain reported reposts, replies and views, including explicit zero/unknown distinctions. Counts remain unverified hints; official metrics and ranking weights unchanged.
+- Focused X selection, social-editorial selection and production triage tests pass (42 tests): invalid reports withheld, offset normalization, unknown/zero counts, cache invalidation for every added count and bounded final-editor transport.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings; social-posts handbook check passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
+- API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). Initial health probe raced startup; bounded retry passed.
+- Updated TASKS, SOURCES and affected handbook; archived progress 2105–2110 to keep the live log small. NEEDS_FROM_HUMAN unchanged. No paid calls, collection, budget, provider, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized X/Bluesky tuning while waiting.

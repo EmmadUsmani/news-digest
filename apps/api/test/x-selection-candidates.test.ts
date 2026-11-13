@@ -91,6 +91,8 @@ void test('X evidence dates only usable reports, normalizes offsets and preserve
     reported_by: 'xai_search' as const,
     observedAt: '2026-11-07T03:00:00-07:00',
     replies: 12,
+    reposts: 0,
+    views: 75000,
   };
   const select = (value: typeof report) =>
     selectXPosts(
@@ -103,6 +105,9 @@ void test('X evidence dates only usable reports, normalizes offsets and preserve
   const selected = select(report);
   assert.deepEqual(selected.xTriageEvidence, {
     observedAt: '2026-11-07T10:00:00.000Z',
+    reportedReplies: 12,
+    reportedReposts: 0,
+    reportedViews: 75000,
     media: 'unknown',
   });
   assert.deepEqual(selected.metrics, {});
@@ -113,6 +118,8 @@ void test('X evidence dates only usable reports, normalizes offsets and preserve
     { ...report, observedAt: '2026-11-06T23:59:59Z' },
     { ...report, externalId: 'other' },
     { ...report, replies: -1 },
+    { ...report, reposts: -1 },
+    { ...report, views: -1 },
   ]) {
     assert.deepEqual(select(invalid).xTriageEvidence, { media: 'unknown' });
   }
