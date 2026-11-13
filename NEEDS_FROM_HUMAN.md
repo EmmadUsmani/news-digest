@@ -174,3 +174,10 @@ has no configured SSH credentials or known-host entry; the documented
 `ssh exe.dev help all` attempt failed host-key verification. No sharing changes
 or account setup attempted. Existing Nov 9 visitor-address proof remains valid.
 Public activation stays gated on these checks and the owner's decision.
+
+**Resolved Nov 13 (owner, from the Mac, read-only):** `ssh exe.dev share show`
+reports proxy port 8000. A signed-in browser `fetch('/api/me')` sending a
+spoofed non-admin `X-ExeDev-Email` returned `isAdmin: true`, so the proxy
+replaced the client's header with the real identity. Not covered: the
+`X-ExeDev-UserID` header, and anonymous visitors once the proxy is public.
+Public activation remains gated on the owner's go-public decision.
