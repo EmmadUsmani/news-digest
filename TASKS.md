@@ -41,6 +41,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2123: Bluesky growth compares publication instants across equivalent timestamp formats; mismatched authors/times and conflicting endpoint counts remain excluded.
+
 - [x] Iteration 2122: Bluesky growth is unknown when counts conflict at either observation endpoint; deterministic ranking and valid net changes preserved.
 
 - [x] Iteration 2121: X engagement ranking treats invalid publication/cutoff dates as unknown evidence instead of producing a NaN bonus; valid-date scoring unchanged.

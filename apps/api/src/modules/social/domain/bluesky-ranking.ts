@@ -126,7 +126,7 @@ function observedCountChanges(
   const earlier = observations
     .filter(
       (post) =>
-        post.publishedAt === latest.publishedAt &&
+        Date.parse(post.publishedAt) === Date.parse(latest.publishedAt) &&
         post.author === latest.author &&
         Date.parse(post.observedAt) < Date.parse(latest.observedAt),
     )
@@ -141,7 +141,7 @@ function observedCountChanges(
     if (
       observations.some(
         (post) =>
-          post.publishedAt === latest.publishedAt &&
+          Date.parse(post.publishedAt) === Date.parse(latest.publishedAt) &&
           post.author === latest.author &&
           Date.parse(post.observedAt) === Date.parse(endpoint.observedAt) &&
           (post.metrics.likes !== endpoint.metrics.likes ||

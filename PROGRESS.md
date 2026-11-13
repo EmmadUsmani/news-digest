@@ -181,3 +181,13 @@
 - API/worker restarted active; healthz passes after bounded startup retry. Saved-reader Nov 12 check passes (five topics/25 stories/22 posts).
 - TASKS, SOURCES and affected handbook updated; NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
+
+## 2026-11-13: iteration 2123 — compare Bluesky publication instants
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. Scheduled NBA/item 58 acceptance remains due at 15:00 UTC; public mode stays off.
+- Equivalent publication timestamps previously prevented valid same-post growth comparisons. Compare parsed instants in history and conflict checks; mismatched authors/times remain excluded.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/bluesky-ranking.test.ts`: six pass, including offset/UTC equivalence, input-order independence, mismatched identity/time and equivalent-format count conflicts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 934 unit/290 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warnings.
+- API/worker restarted active; healthz passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z` passes: five topics/25 stories/22 posts.
+- TASKS updated; bug fix needs no handbook/source change. SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.

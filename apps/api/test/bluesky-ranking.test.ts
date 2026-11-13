@@ -194,3 +194,40 @@ void test('Bluesky growth withholds conflicting endpoint counts independent of i
     /Official API count changes/,
   );
 });
+
+void test('Bluesky growth compares publication instants across equivalent timestamp formats', () => {
+  const latest = post('same', {
+    metrics: { likes: 150, reposts: 20, replies: 8 },
+  });
+  const earlier = post('same', {
+    publishedAt: '2026-11-03T12:00:00+01:00',
+    observedAt: '2026-11-03T11:30:00Z',
+  });
+  assert.match(
+    rank([earlier, latest])[0].growthEvidence,
+    /"likes":50,"reposts":10,"replies":3/,
+  );
+  assert.deepEqual(rank([earlier, latest]), rank([latest, earlier]));
+  for (const changes of [
+    { publishedAt: '2026-11-03T10:59:59Z' },
+    { author: 'another.bsky.social' },
+  ]) {
+    assert.match(
+      rank([{ ...earlier, ...changes }, latest])[0].growthEvidence,
+      /only one distinct valid observation time/,
+    );
+  }
+  const conflicting = {
+    ...earlier,
+    publishedAt: latest.publishedAt,
+    metrics: { ...earlier.metrics, likes: 101 },
+  };
+  assert.match(
+    rank([earlier, conflicting, latest])[0].growthEvidence,
+    /conflicting counts/,
+  );
+  assert.deepEqual(
+    rank([earlier, conflicting, latest]),
+    rank([latest, conflicting, earlier]),
+  );
+});
