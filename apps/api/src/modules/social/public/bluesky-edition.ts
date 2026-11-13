@@ -91,6 +91,7 @@ export async function prepareBlueskyEditionPosts(
     end: Date;
     budget: number;
     selectedPosts: SelectedSocialPost[];
+    coveredStories?: { title: string; summary: string }[];
     runId: string;
   },
 ): Promise<{
@@ -159,6 +160,7 @@ export async function prepareBlueskyEditionPosts(
     remaining,
     input.runId,
     input.selectedPosts,
+    input.coveredStories,
   );
   evidence.candidatesShortlisted = edited.candidatesShortlisted;
   if ('droppedPosts' in edited && edited.droppedPosts)

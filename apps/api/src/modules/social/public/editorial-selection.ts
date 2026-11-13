@@ -35,6 +35,7 @@ export interface SocialSelectionServices {
         SocialEditorialCandidate,
         'platform' | 'text' | 'author'
       >[],
+      coveredStories?: { title: string; summary: string }[],
     ): Promise<SocialEditorialOutcome>;
     edit(
       topic: TriageTopic,
@@ -45,6 +46,7 @@ export interface SocialSelectionServices {
         SocialEditorialCandidate,
         'platform' | 'text' | 'author'
       >[],
+      coveredStories?: { title: string; summary: string }[],
     ): Promise<SocialEditorialResult | null>;
   };
 }

@@ -21,6 +21,7 @@ export async function editBlueskyPosts(
   budget: number,
   runId: string,
   alreadySelected: SelectedSocialPost[] = [],
+  coveredStories: { title: string; summary: string }[] = [],
 ) {
   if (!Number.isInteger(budget) || budget < 0 || budget > 20)
     throw new Error('Expected Bluesky editorial budget 0–20');
@@ -41,6 +42,7 @@ export async function editBlueskyPosts(
     budget,
     runId,
     alreadySelected,
+    coveredStories,
   );
 }
 
@@ -53,6 +55,7 @@ export async function editShortlistedBlueskyPosts(
   budget: number,
   runId: string,
   alreadySelected: SelectedSocialPost[] = [],
+  coveredStories: { title: string; summary: string }[] = [],
 ) {
   if (!Number.isInteger(budget) || budget < 0 || budget > 20)
     throw new Error('Expected Bluesky editorial budget 0–20');
@@ -95,6 +98,7 @@ export async function editShortlistedBlueskyPosts(
       text,
       author,
     })),
+    coveredStories,
   ];
   const outcome = editor.editOutcome ? await editor.editOutcome(...args) : null;
   const edited = outcome

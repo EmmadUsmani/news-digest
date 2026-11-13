@@ -2906,3 +2906,16 @@ publisher labels, counters and URLs without reporting prose. Social editor v10
 explicitly disallows reconstructing news from URL slugs; substantive linked
 prose stays eligible. Exact saved-text transport and simulated selections pass
 on both model routes offline. Natural semantic acceptance remains open.
+
+## Tech story/post comparison (iteration 2134)
+
+The saved Nov 12 Tech Bluesky pick repeats United Airlines' agent-booking
+restriction already covered by a selected news story. Bluesky selection received
+existing social picks but no stories. Tech now supplies up to ten selected story
+titles/summaries, bounded to 300/400 characters, as untrusted comparison context.
+Overlapping posts need a distinct substantive development or original contribution;
+a shared subject alone does not disqualify them. Post claims still require the
+post's own text. Other topics retain their previous inputs pending NBA acceptance.
+Saved-case model-route/cache/bounds tests and edition composition pass offline;
+simulated responses establish transport, not semantic compliance. Natural selection
+quality remains for the next scheduled review. [Evidence](edition-reviews/2026-11-12-social-story-overlap.md).

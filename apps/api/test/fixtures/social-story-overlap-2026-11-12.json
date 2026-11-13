@@ -1,0 +1,47 @@
+{
+  "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+  "windowEnd": "2026-11-12T15:00:00.000Z",
+  "topic": "Tech & AI",
+  "story": {
+    "publisher": {
+      "name": "The Washington Post",
+      "url": "https://www.washingtonpost.com/"
+    },
+    "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+    "title": "United Airlines blocks AI agents from booking flights",
+    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNkVsZUJhUHZoMTlPa05zbzFaSHBObFhuSTJ3QUx5QU15NEVCanBwanpmeHUybDNJWVpQRDVWUEt1T2JvejU2bXhMOWFkNTdLR1FLMTBPS3VqUU1TTUg1VjltMFQ1TF9ZTkFxclB0RTJEZEFvSGlKMEFqRXdCLTFYNG4zLWkzdjZTdXRJUGlMZTRWU042U212YzRUNGQtR2s?oc=5",
+    "summary": "The Washington Post reports that United Airlines blocks AI agents from booking flights.",
+    "imageUrl": null,
+    "publishedAt": "2026-11-12T12:31:39.000Z",
+    "sources": ["Google News: artificial intelligence"],
+    "coverage": [
+      {
+        "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+        "title": "United Airlines blocks AI agents from booking flights - The Washington Post",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNkVsZUJhUHZoMTlPa05zbzFaSHBObFhuSTJ3QUx5QU15NEVCanBwanpmeHUybDNJWVpQRDVWUEt1T2JvejU2bXhMOWFkNTdLR1FLMTBPS3VqUU1TTUg1VjltMFQ1TF9ZTkFxclB0RTJEZEFvSGlKMEFqRXdCLTFYNG4zLWkzdjZTdXRJUGlMZTRWU042U212YzRUNGQtR2s?oc=5",
+        "publisher": {
+          "name": "The Washington Post",
+          "url": "https://www.washingtonpost.com/"
+        },
+        "sources": ["Google News: artificial intelligence"],
+        "publishedAt": "2026-11-12T12:31:39.000Z"
+      }
+    ]
+  },
+  "post": {
+    "whyItMatters": "Relevant to builders of agents that make purchases online.",
+    "platform": "bluesky",
+    "externalId": "at://did:plc:pehp4bugsgjil44yqxji6gpi/app.bsky.feed.post/3n22jxks7wk2o",
+    "url": "https://bsky.app/profile/did%3Aplc%3Apehp4bugsgjil44yqxji6gpi/post/3n22jxks7wk2o",
+    "author": "livesquawknews.bsky.social",
+    "publishedAt": "2026-11-11T18:01:13.307Z",
+    "text": "United Airlines Is Banning AI Bots From Booking Flights \u2013 WSJ\nwww.wsj.com/tech/ai/unit...",
+    "displayText": "United Airlines Is Banning AI Bots From Booking Flights \u2013 WSJ\nhttps://www.wsj.com/tech/ai/united-airlines-is-banning-ai-bots-from-booking-flights-5b514b38",
+    "metrics": {
+      "likes": 242,
+      "reposts": 44,
+      "replies": 10
+    },
+    "media": []
+  }
+}

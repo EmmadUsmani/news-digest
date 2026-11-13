@@ -501,3 +501,25 @@ void test('held slot keeps zero-budget topics idle and uses ordinary empty slots
   assert.equal(result.posts.length, 2);
   assert.equal(result.evidence.replacedXPostId, undefined);
 });
+
+void test('edition preparation carries story comparison context through Bluesky selection', async () => {
+  const h = harness();
+  const coveredStories = [
+    {
+      title: 'Existing selected news',
+      summary: 'Already covered development.',
+    },
+  ];
+  let received: unknown;
+  const original = h.services.socialEditor.edit.bind(h.services.socialEditor);
+  h.services.socialEditor.edit = async (...args) => {
+    received = args[5];
+    return original(...args);
+  };
+  await prepareBlueskyEditionPosts(h.repository, h.services, {
+    ...h.input,
+    enabled: true,
+    coveredStories,
+  });
+  assert.deepEqual(received, coveredStories);
+});

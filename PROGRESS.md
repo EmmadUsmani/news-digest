@@ -93,3 +93,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2117-2125
 - `pnpm format`, `pnpm lint:fix` pass. First `pnpm check` stopped on new archive formatting; targeted Prettier fixed it. Full rerun passes: 947 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Documentation/evidence only; deployed runtime already matches main, so no rebuild/restart. No provider calls, spend, collection, generation, flags or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; natural Tech/Gaming/World quality review remains pending.
+
+## 2026-11-13: iteration 2134 — compare Tech Bluesky picks with selected stories
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 awaits Nov 13 15:00 UTC; public mode off.
+- Saved Tech airline post repeats its selected airline story. Cause: Bluesky comparison received social picks but no selected stories. Retained exact immutable reader objects and provenance.
+- Tech now supplies up to ten selected story titles/summaries (300/400 characters) as untrusted comparison context. Overlapping posts need a distinct development or original contribution; story text cannot support post claims. Other topics retain their input.
+- `pnpm exec tsx --test apps/api/test/social-editor.test.ts apps/api/test/bluesky-edition.test.ts`: 34 pass. Both model routes, saved-text transport, context bounds/cache isolation and edition preparation verified using simulated decisions; natural quality remains open.
+- First lint/check refused an unbound test method; bound the wrapper and reran. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 949 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning. Handbook initially hit 101 lines; shortened text and `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes.
+- API/worker/docs restarted active; `/healthz` database/Redis healthy after startup retries. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
+- Updated TASKS, ranking notes, saved-case review and affected handbook. SOURCES/NEEDS_FROM_HUMAN unchanged; no paid calls, collection, generation, caps, flags or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review natural Tech depth/overlap, Gaming repetition and World social quality.

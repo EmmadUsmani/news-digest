@@ -612,6 +612,13 @@ export class PostgresPreviewRepository
                 end,
                 budget: Number(topic.post_budget),
                 selectedPosts: postSelection.posts,
+                coveredStories:
+                  topic.name.trim().toLowerCase() === 'tech'
+                    ? stories.slice(0, 10).map(({ title, summary }) => ({
+                        title,
+                        summary: summary ?? '',
+                      }))
+                    : undefined,
                 runId,
               },
             );

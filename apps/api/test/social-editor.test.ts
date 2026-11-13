@@ -672,3 +672,90 @@ void test('saved publisher link list stays unexpanded while substantive linked p
     assert.equal(h.calls.length, 2);
   }
 });
+
+void test('saved airline overlap receives bounded story context without licensing post claims', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/social-story-overlap-2026-11-12.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    const h = harness(
+      [{ posts: [] }, { posts: [{ ...post, id: 'separate' }] }],
+      refuse,
+    );
+    const input = [
+      {
+        ...candidates[0],
+        platform: 'bluesky' as const,
+        text: saved.post.text,
+        author: saved.post.author,
+        publishedAt: saved.post.publishedAt,
+      },
+    ];
+    const covered = [
+      { title: saved.story.title, summary: saved.story.summary },
+    ];
+    // Simulated decisions prove transport/cache isolation, not model compliance.
+    assert.deepEqual(
+      (await h.editor.edit(topic, input, 1, 'overlap', [], covered))?.posts,
+      [],
+    );
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).coveredStories, covered);
+    assert.equal(
+      JSON.parse(h.calls[0].prompt).candidates[0].text,
+      saved.post.text,
+    );
+    assert.match(h.calls[0].instructions, /comparison context only/);
+    assert.match(h.calls[0].instructions, /original contribution/);
+    assert.equal(
+      (
+        await h.editor.edit(
+          topic,
+          [
+            {
+              ...input[0],
+              id: 'separate',
+              text: 'United Airlines released a separate agent-booking demo.',
+            },
+          ],
+          1,
+          'separate',
+          [],
+          covered,
+        )
+      )?.posts[0].id,
+      'separate',
+    );
+  }
+  const h = harness([{ posts: [] }]);
+  await h.editor.edit(
+    topic,
+    candidates,
+    1,
+    'bounded',
+    [],
+    [{ title: 'T'.repeat(500), summary: 'S'.repeat(800) }],
+  );
+  assert.deepEqual(JSON.parse(h.calls[0].prompt).coveredStories, [
+    { title: 'T'.repeat(300), summary: 'S'.repeat(400) },
+  ]);
+  await h.editor.edit(topic, candidates, 1, 'no-context');
+  assert.equal(h.calls.length, 2);
+  assert.ok(!('coveredStories' in JSON.parse(h.calls[1].prompt)));
+  assert.ok(!h.calls[1].instructions.includes('CoveredStories contains'));
+  await assert.rejects(
+    h.editor.edit(
+      topic,
+      candidates,
+      1,
+      'too-many',
+      [],
+      Array.from({ length: 11 }, () => ({ title: 't', summary: 's' })),
+    ),
+  );
+});
