@@ -2537,3 +2537,13 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
 - Natural hourly continuation at 04:54:53.990 UTC confirms U.S. recovery:
   100 stored observations across 53 distinct posts, with 50 safe engaged
   candidates in the rolling 24-hour read. No manual collection was triggered.
+
+### Bluesky selection evidence continuity — Nov 13, iteration 2107
+
+- Triage now receives publication time alongside observation time, so it can
+  distinguish post age from snapshot age without treating either as measured growth.
+- The final editor now receives attachment presence as triage does; media contents
+  remain unknown. Alt text and image URLs are not supplied as verified reporting.
+- Offline regression checks both attachment and text-only candidates, unchanged
+  original text and exact selected observation. No source or inference requests;
+  collection limits, semantic thresholds and slots remain unchanged.

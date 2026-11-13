@@ -30,6 +30,7 @@ export async function shortlistBlueskyPosts(
       title: JSON.stringify({
         platform: 'Bluesky',
         author: post.author.slice(0, 200),
+        publishedAt: post.publishedAt,
         likes: post.metrics.likes,
         reposts: post.metrics.reposts,
         replies: post.metrics.replies,

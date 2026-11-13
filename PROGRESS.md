@@ -168,3 +168,13 @@
 - Read-only coverage confirms natural 04:54:53.990 hourly U.S. continuation: 100 observations/53 distinct posts, 50 safe engaged candidates. Initial root script invocation lacked workspace resolution; reran with API NODE_PATH successfully.
 - `pnpm format`, `pnpm lint:fix` and `git diff --check` pass; API/worker restart and post-push health readback follow commit.
 - No inference, source requests, flag/sharing changes or saved-edition writes. Next: review scheduled NBA/item 58 acceptance before private-sharing public activation, and assess natural social selection quality.
+
+## 2026-11-13: iteration 2107 — preserve Bluesky evidence through selection
+
+- Clean main; no inherited work. Zero alerts and healthy healthz. All queues staffed; digest has zero failed jobs and next scheduled edition Nov 13 15:00 UTC. Latest hourly social collection completed normally.
+- Triage had observation time without publication time; final editor lacked attachment presence. Added publication time to triage and explicit attached/absent media evidence to editing, keeping contents, growth and account-relative reach unknown.
+- Focused offline shortlist/editor tests: ten pass. Regression covers media/text-only distinction, publication time, omission of unverified alt-text claims and unchanged selected observation. No source requests or inference calls.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 924 unit/290 integration, four expected skips. `pnpm build` passes (existing bundle warning); `pnpm exec tsx scripts/check-handbook.ts 05-social-posts` passes (18 pages/one unchanged diagram/39 tables).
+- Initial read-only `obs jobs --queue digest` rejected unknown queue; unfiltered `pnpm obs jobs --check --limit 1` passes all four queues. No operational mutation from either query.
+- Updated TASKS, source evidence and affected handbook; NEEDS_FROM_HUMAN unchanged. No budgets, providers, flags, sharing, collection caps or selection thresholds changed.
+- Commit/push and API/worker restart follow; next review scheduled NBA/item 58 acceptance before private-sharing public activation, then natural social selection quality.

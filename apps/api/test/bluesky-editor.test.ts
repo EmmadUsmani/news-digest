@@ -222,3 +222,58 @@ void test('Bluesky prepared incomplete scores never reach the editor', async () 
     /budget/,
   );
 });
+
+void test('Bluesky editor distinguishes attachments from text-only posts without treating alt text as verified contents', async () => {
+  const withMedia = {
+    ...posts[0],
+    media: [
+      {
+        type: 'image' as const,
+        thumbnail: 'https://example.com/thumb',
+        fullsize: 'https://example.com/image',
+        alt: 'UNVERIFIED_CONTENT_CLAIM',
+      },
+    ],
+  };
+  let called = false;
+  const result = await editBlueskyPosts(
+    harness(async (_topic, candidates) => {
+      called = true;
+      const media = candidates.find((c) => c.id === 'bluesky:0')!;
+      const text = candidates.find((c) => c.id === 'bluesky:1')!;
+      assert.match(
+        media.engagementEvidence!,
+        /Media attached; contents unknown/,
+      );
+      assert.match(text.engagementEvidence!, /No attached media/);
+      assert.equal(media.publishedAt, withMedia.publishedAt);
+      assert.equal(media.text, withMedia.text);
+      assert.ok(
+        !JSON.stringify(candidates).includes('UNVERIFIED_CONTENT_CLAIM'),
+      );
+      assert.match(
+        media.engagementEvidence!,
+        /measured growth and account-relative reach unknown/,
+      );
+      return {
+        model: 'fake',
+        posts: [
+          {
+            id: media.id,
+            whyItMatters: 'Demo released.',
+            rationale: 'First-hand release.',
+          },
+        ],
+      };
+    }),
+    topic,
+    [withMedia, posts[1]],
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+    1,
+    'offline-media',
+  );
+  assert.ok(called);
+  assert.deepEqual(result.posts[0].post, withMedia);
+});

@@ -199,6 +199,7 @@ void test('Bluesky triage sees latest official counts and bounded author/media e
         assert.deepEqual(JSON.parse(candidate.title), {
           platform: 'Bluesky',
           author: 'a'.repeat(200),
+          publishedAt: latest.publishedAt,
           likes: 0,
           reposts: 0,
           replies: 1,
