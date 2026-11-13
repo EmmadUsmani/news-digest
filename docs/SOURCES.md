@@ -2602,3 +2602,11 @@ engagement hints, so scoring can distinguish newer and older posts. This is not
 a count-observation timestamp or measured growth. Offline production composition
 verifies timestamp transport and cache invalidation; no collection, weights,
 budgets or provider changes.
+
+### Iteration 2116: date X reported-count evidence
+
+X triage now receives the normalized observation timestamp from the same valid
+xAI engagement report used for ranking. Invalid, mismatched or out-of-window
+reports supply no timestamp; missing counts remain unknown. One reported snapshot
+is explicitly not measured growth. Offline transport/cache and admission checks
+cover the change; no collection, provider, budget or ranking-weight changes.

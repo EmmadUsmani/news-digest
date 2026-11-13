@@ -174,3 +174,13 @@
 - Updated TASKS, SOURCES and affected handbook. No paid/external calls, collection, ranking-weight, budget, provider, flag or sharing changes; NEEDS_FROM_HUMAN unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 930 unit/290 integration tests, four expected skips. Handbook social-posts check passes (18 pages/one unchanged diagram/39 tables); `pnpm build` passes with existing bundle warning.
 - API/worker restarted active. Initial endpoint probe raced startup; retry passes healthz and saved reader (five topics/25 stories/22 posts). Next: NBA/item 58 scheduled acceptance, then private-sharing public activation.
+
+## 2026-11-13: iteration 2116 — date X reported-count evidence
+
+- Clean main; no inherited work. Initial alerts zero; healthz, 38 sources and all queues healthy. NBA/item 58 scheduled acceptance still awaits 15:00 UTC; public mode remains off.
+- Found X triage received reported likes without their observation time. It now receives normalized UTC time from the same validated report used by ranking, with an explicit single-snapshot/unknown-growth label.
+- Invalid, mismatched, pre-publication and post-cutoff reports supply no timestamp. Missing counts remain unknown; original text, official metrics, ranking weights and final-editor behavior unchanged.
+- Offline targeted X/triage/social selection tests: 42 pass. Production triage verifies transport and cache invalidation on timestamp changes; repository integration verifies offset normalization and invalid-report omission.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 931 unit/290 integration tests, four expected skips. `pnpm build` passes (existing bundle warning); social-posts handbook check passes (18 pages/one unchanged diagram/39 tables); `git diff --check` passes.
+- API/worker restarted active; healthz and `check-scheduled-reader.ts 2026-11-12T15:00:00Z` pass (five topics/25 stories/22 posts). `pnpm obs sources --check` and `pnpm obs jobs --check --limit 1` pass; edition remains scheduled 15:00 UTC.
+- Updated TASKS, SOURCES and affected handbook; NEEDS_FROM_HUMAN unchanged. No paid/external verification, collection, provider, budget, flag or sharing changes. Next: scheduled NBA/item 58 acceptance, then authorized public activation with sharing private.

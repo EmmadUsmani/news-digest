@@ -442,6 +442,7 @@ void test('X selection uses latest topic engagement at cutoff and ascending call
     assert.deepEqual(selected.metrics, {}); // Reported counts never become verified metrics.
     assert.deepEqual(selected.xTriageEvidence, {
       reportedLikes: 111,
+      observedAt: '2026-10-24T00:00:00.000Z',
       media: 'unknown',
     });
     await db.query('DELETE FROM x_search_citations WHERE call_id=$1', [

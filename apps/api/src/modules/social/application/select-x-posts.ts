@@ -71,6 +71,14 @@ export function selectXPosts(
       xSearchRanking: signal,
       xTriageEvidence: {
         ...(signal.reason.startsWith('Unverified xai_search') &&
+        row.reportedEngagement
+          ? {
+              observedAt: new Date(
+                row.reportedEngagement.observedAt,
+              ).toISOString(),
+            }
+          : {}),
+        ...(signal.reason.startsWith('Unverified xai_search') &&
         row.reportedEngagement?.likes !== undefined
           ? { reportedLikes: row.reportedEngagement.likes }
           : {}),

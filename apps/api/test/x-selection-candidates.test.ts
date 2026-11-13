@@ -83,3 +83,37 @@ void test('isolated ranking is deterministic, bounded and leaves input candidate
   );
   assert.deepEqual(rows, original);
 });
+
+void test('X evidence dates only usable reports, normalizes offsets and preserves unknown counts', () => {
+  const row = candidate('1', 'AI demonstration');
+  const report = {
+    externalId: '1',
+    reported_by: 'xai_search' as const,
+    observedAt: '2026-11-07T03:00:00-07:00',
+    replies: 12,
+  };
+  const select = (value: typeof report) =>
+    selectXPosts(
+      [{ ...row, reportedEngagement: value }],
+      policy,
+      start,
+      end,
+      5,
+    )[0];
+  const selected = select(report);
+  assert.deepEqual(selected.xTriageEvidence, {
+    observedAt: '2026-11-07T10:00:00.000Z',
+    media: 'unknown',
+  });
+  assert.deepEqual(selected.metrics, {});
+  assert.equal(selected.text, 'AI demonstration');
+  for (const invalid of [
+    { ...report, observedAt: 'invalid' },
+    { ...report, observedAt: '2026-11-08T00:00:01Z' },
+    { ...report, observedAt: '2026-11-06T23:59:59Z' },
+    { ...report, externalId: 'other' },
+    { ...report, replies: -1 },
+  ]) {
+    assert.deepEqual(select(invalid).xTriageEvidence, { media: 'unknown' });
+  }
+});

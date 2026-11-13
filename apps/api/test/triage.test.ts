@@ -1078,7 +1078,11 @@ void test('production X triage retains escaped author, reported counts and cache
     text: 'A concrete prototype released today',
     metrics: {},
     reasons: [],
-    xTriageEvidence: { reportedLikes: 1700, media: 'linked' as const },
+    xTriageEvidence: {
+      reportedLikes: 1700,
+      observedAt: '2026-11-03T12:00:00.000Z',
+      media: 'linked' as const,
+    },
   };
   const run = () =>
     h.service.score(topic, [socialTriageCandidate(post)], 'offline');
@@ -1093,6 +1097,8 @@ void test('production X triage retains escaped author, reported counts and cache
   assert.equal(evidence.author, post.author);
   assert.equal(evidence.publishedAt, post.publishedAt);
   assert.equal(evidence.reportedLikes, 1700);
+  assert.equal(evidence.observedAt, post.xTriageEvidence.observedAt);
+  assert.match(evidence.growth, /not measured growth/);
   assert.match(evidence.likesEvidence, /unverified/);
   assert.match(evidence.media, /contents unknown/);
   await run();
@@ -1103,9 +1109,16 @@ void test('production X triage retains escaped author, reported counts and cache
   post.publishedAt = '2026-11-03T11:00:00Z';
   await run();
   assert.equal(h.calls.length, 3);
-  const changed = JSON.parse(h.calls[2].prompt.split('\nReturn only')[0])
+  post.xTriageEvidence.observedAt = '2026-11-03T13:00:00.000Z';
+  await run();
+  assert.equal(h.calls.length, 4);
+  const changed = JSON.parse(h.calls[3].prompt.split('\nReturn only')[0])
     .candidates[0];
   assert.equal(JSON.parse(changed.evidence).publishedAt, post.publishedAt);
+  assert.equal(
+    JSON.parse(changed.evidence).observedAt,
+    post.xTriageEvidence.observedAt,
+  );
   assert.equal(changed.excerpt, post.text);
   assert.deepEqual(post.metrics, {});
 });

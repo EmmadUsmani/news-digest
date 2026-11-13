@@ -47,7 +47,7 @@ flowchart LR
 The final X editor also receives reported likes and media-link presence alongside
 the ranking explanation; counts remain unverified and media contents unknown.
 
-X triage receives a separate evidence field with publication time, author, reported likes (labelled as
+X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes (labelled as
 unverified hints), and whether the verified text includes a media link. Missing
 counts and media stay unknown; a link supplies no evidence of media contents.
 

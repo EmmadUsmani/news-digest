@@ -82,6 +82,9 @@ export function socialTriageCandidate(post: EditorialPost) {
             publishedAt: post.publishedAt,
             author: post.author.slice(0, 200),
             reportedLikes: post.xTriageEvidence?.reportedLikes ?? 'unknown',
+            observedAt: post.xTriageEvidence?.observedAt ?? 'unknown',
+            growth:
+              'unknown; a single reported snapshot is not measured growth',
             likesEvidence: 'unverified hint, not official metrics',
             media:
               post.xTriageEvidence?.media === 'linked'
