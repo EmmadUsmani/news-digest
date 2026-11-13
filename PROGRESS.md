@@ -139,3 +139,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
 - API/worker/docs restarted before protected window. Initial health probe raced startup; repeat `pnpm obs health --check` and `/healthz` pass database/Redis. Sources check passes; saved-reader check Nov 12 verifies five topics/25 stories/22 posts.
 - Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing public activation outside 13:00–16:00; explicit World query tuning follows the gate.
+
+## 2026-11-13: iteration 2148 — verify private activation rollback artifacts
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass, 38 sources healthy, digest worker available with Nov 13 15:00 UTC scheduled run pending.
+- Completed concrete item 50 rollback preparation while NBA/item 58 waits: `python3 ops/backups/database.py backup` created a 17,053,163-byte snapshot; `python3 ops/backups/database.py restore` verified checksum and all 39 tables/98,127 rows in an isolated container, then removed it. Live database not restored.
+- Verified private dump/manifest permissions and receipt-to-backup match. Created byte-identical mode-600 environment rollback copy under a mode-700 private directory; contents never printed. Recorded artifact paths and live migration head in `docs/public-activation-record.md`.
+- Updated TASKS with preparation evidence; baseline and artifacts must be refreshed after scheduled acceptance. SOURCES/NEEDS_FROM_HUMAN unchanged: no source behavior or owner request changed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `pnpm exec tsx scripts/check-handbook.ts public-activation-record` and `git diff --check` pass.
+- No runtime code, collection/query, generation, budget, public flag or sharing changes. No service restart needed for operational receipts/docs; deployed runtime remains unchanged.
+- Next: accept scheduled NBA AI editing/item 58 at 15:00, then refresh baseline and activate public mode with private sharing outside 13:00–16:00 UTC.

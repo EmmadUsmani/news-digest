@@ -23,6 +23,27 @@ Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 | Latest saved edition | `b1be5a12-2972-4eeb-9bff-82cbb10c1b07`                            |
 | Saved reader         | Latest/direct/history agree: five topics, 25 stories, 22 posts    |
 
+## Rollback preparation verified (12:47 UTC; iteration 2148)
+
+- Deployed commit at backup: `d349176b`; activation has not started.
+- Snapshot: `~/backups/news-digest/news-digest-20261113T124650Z.dump`;
+  manifest at the same path with `.json` instead of `.dump`.
+- `python3 ops/backups/database.py backup` completed: 17,053,163 bytes.
+- `python3 ops/backups/database.py restore` verified the checksum and all
+  39 table counts (98,127 rows) in a network-isolated temporary container,
+  then removed that container. The live database was not restored.
+- Restore receipt: `~/backups/news-digest/restore-proof.json`; its backup field
+  matches this snapshot. Dump and manifest have no group/other permissions.
+- Environment rollback copy:
+  `~/.local/state/news-digest/activation/env-before-public-20261113T124659Z`.
+  Bytes match the current environment; file mode is 600, parent mode 700.
+- Live migration head: `drizzle/0024_us_bluesky_query.sql`.
+- Health database/Redis pass; 38 sources healthy; zero active alerts. Digest
+  queue has one worker and the Nov 13 15:00 UTC run is delayed as expected.
+- These are preparation receipts, not scheduled acceptance. Refresh the backup,
+  environment copy and baseline after NBA/item 58 acceptance before activation;
+  the scheduled edition and continued collection will change the database.
+
 ## Activation receipt to complete
 
 - Scheduled gate: edition ID, NBA AI editor and item 58 acknowledgement.
