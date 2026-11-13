@@ -126,3 +126,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2117-2125
 - API/worker/docs restarted active; health database/Redis healthy after one startup retry. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
 - Updated TASKS and existing Tech-depth evidence. No source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budget, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, public activation with sharing private; review naturally enabled Tech evidence depth and post overlap.
+
+## 2026-11-13: iteration 2137 — saved Tech evidence through budget admission
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 still awaits Nov 13 15:00 UTC; public mode remains off.
+- Closed a verification gap for the saved thin NVIDIA story: its editor regression bypassed BudgetedLlm, while admission tests used synthetic maximum-size clusters. Replaced that bypass with real budgeted composition and offline ledger/provider.
+- Saved cluster now verifies Sonnet admission, Haiku after Sonnet refusal, positive reservation/settlement costs, unchanged 4000-output-token allowance, cache reuse without another provider dispatch and exact immutable cited text. Both-model refusal returns unavailable with zero dispatches/settlements/cache writes. Simulated responses are not saved provider responses or natural quality evidence.
+- `pnpm exec tsx --test apps/api/test/editor-evidence.test.ts`: 10/10 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 953 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning.
+- API/worker/docs restarted active; `/healthz` database/Redis healthy. `pnpm obs sources`: 38 sources/zero unhealthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-12T15:00:00Z`: five topics/25 stories/22 posts agree.
+- Updated TASKS and existing Tech evidence review. No runtime/source/handbook behavior change; SOURCES/NEEDS_FROM_HUMAN unchanged. No paid calls, manual collection/generation, budgets, flags or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; review natural Tech evidence depth/post overlap and pending Gaming/World social quality.

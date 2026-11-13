@@ -170,3 +170,16 @@ The saved NVIDIA editor regression now uses the live-name gate before proving
 that its substantive member reaches the editor and cited evidence. Natural
 summary depth and post overlap still need the next scheduled edition review.
 No historical snapshot or source data was changed.
+
+## Saved-case budget routes — iteration 2137
+
+The saved NVIDIA regression now uses `BudgetedLlm` with the configured model
+prices and an in-memory ledger/provider, rather than bypassing admission at
+the editor boundary. The simulated response passes on Sonnet and on Haiku
+after a Sonnet reservation refusal. Each admitted route reserves the bounded
+input with the unchanged 4000-token output allowance, settles recorded usage,
+caches the validated result and reuses it without another provider dispatch.
+Cited reporting and fixture bytes remain unchanged. Refusing both reservations
+returns editor-unavailable with zero provider dispatches, settlements or cache
+writes, allowing the existing caller fallback. This verifies offline admission
+composition; natural summary quality still awaits the scheduled edition.

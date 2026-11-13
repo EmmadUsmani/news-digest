@@ -49,6 +49,8 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 
 ## Latest verified step
 
+- [x] Iteration 2137: saved NVIDIA case now runs through real budgeted editing with an offline ledger/provider: Sonnet, Haiku after Sonnet refusal, cache reuse and both-model refusal verified; exact cited text/snapshot preserved. Natural scheduled acceptance remains open.
+
 - [x] Iteration 2136: corrected both Tech-only production gates to recognize the live `Tech & AI` name; cluster evidence and story/post comparison were bypassed by a `Tech`-only check. Saved NVIDIA transport now exercises the live-name gate; other topics remain excluded. Natural scheduled acceptance remains open.
 
 - [x] Iteration 2129: verified ten fully populated Tech clusters through real budget admission with an offline provider; oversized escaped-control/multibyte payloads now use existing fallback before reservation or dispatch instead of aborting publication. Historical-case acceptance remains open.

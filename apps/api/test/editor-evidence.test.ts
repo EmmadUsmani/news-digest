@@ -220,95 +220,157 @@ for (const character of ['a', '\u0000', '\u0800']) {
   });
 }
 
-void test('saved NVIDIA cluster transports direct reporting before aggregator headline lists', async () => {
-  const { readFile } = await import('node:fs/promises');
-  const fixture = JSON.parse(
-    await readFile('apps/api/test/fixtures/tech-cluster-evidence.json', 'utf8'),
-  );
-  const story = fixture.story as ReturnType<typeof rank>[number];
-  const pool = fixture.pool as Candidate[];
-  const before = JSON.stringify(fixture);
-  const memberId = 'cde99a3e-4762-42d4-90d4-7e7dd4829c7b';
-  assert.equal(story.coverage.length, 23);
-  assert.equal(story.excerpt, '');
-  assert.deepEqual(
-    (fixture.story.evidence as { id: string }[]).map((x) => x.id),
-    [story.id],
-  );
-  const input = editorEvidence(
-    [story],
-    pool,
-    usesTechEditorialContext('Tech & AI'),
-  );
-  const evidence = input.candidates[0].clusterEvidence;
-  assert.equal(evidence.length, 3);
-  assert.equal(evidence[1].id, memberId);
-  assert.match(evidence[1].excerpt, /board announced that Jensen Huang/);
-  assert.match(evidence[1].excerpt, /alleged Chinese spy/);
-  assert.equal(evidence[1].publisher, undefined);
-  assert.deepEqual(input.candidates[0].coverage, story.coverage);
-  assert.equal(input.candidates[0].score, story.score);
-  let calls = 0;
-  const price = {
-    id: 'offline',
-    input: 0,
-    cacheWrite: 0,
-    cacheRead: 0,
-    output: 0,
-  };
-  const editor = new ShortlistEditor(
-    {
-      async json(request, validate) {
-        calls++;
-        const prompt = JSON.parse(request.prompt);
-        assert.equal(prompt.candidates[0].clusterEvidence[0].id, memberId);
-        assert.match(request.prompt, /alleged Chinese spy/);
-        return validate({
-          brief: [
-            'Nvidia announced a leadership change.',
-            'The Verge reports Jensen Huang resigned.',
-          ],
-          stories: [
-            {
-              id: story.id,
-              evidenceIds: [story.id, memberId],
-              headline: 'Nvidia CEO Jensen Huang resigns',
-              summary:
-                "The Verge reports that Nvidia's board announced Jensen Huang's resignation as CEO and president after reports of two extramarital affairs, including one with an alleged Chinese spy.",
-              whyItMatters: 'The resignation changes leadership at Nvidia.',
-              rationale: 'A leadership development.',
-            },
-          ],
-        });
+for (const route of ['sonnet', 'haiku', 'refused'] as const) {
+  void test(`saved NVIDIA cluster preserves reporting through budget admission (${route})`, async () => {
+    const { readFile } = await import('node:fs/promises');
+    const fixture = JSON.parse(
+      await readFile(
+        'apps/api/test/fixtures/tech-cluster-evidence.json',
+        'utf8',
+      ),
+    );
+    const story = fixture.story as ReturnType<typeof rank>[number];
+    const pool = fixture.pool as Candidate[];
+    const before = JSON.stringify(fixture);
+    const memberId = 'cde99a3e-4762-42d4-90d4-7e7dd4829c7b';
+    assert.equal(story.coverage.length, 23);
+    assert.equal(story.excerpt, '');
+    assert.deepEqual(
+      (fixture.story.evidence as { id: string }[]).map((x) => x.id),
+      [story.id],
+    );
+    const input = editorEvidence(
+      [story],
+      pool,
+      usesTechEditorialContext('Tech & AI'),
+    );
+    const evidence = input.candidates[0].clusterEvidence;
+    assert.equal(evidence.length, 3);
+    assert.equal(evidence[1].id, memberId);
+    assert.match(evidence[1].excerpt, /board announced that Jensen Huang/);
+    assert.match(evidence[1].excerpt, /alleged Chinese spy/);
+    assert.equal(evidence[1].publisher, undefined);
+    assert.deepEqual(input.candidates[0].coverage, story.coverage);
+    assert.equal(input.candidates[0].score, story.score);
+    const config = llmConfig({});
+    const reservations: string[] = [];
+    const dispatches: string[] = [];
+    const settlements: string[] = [];
+    const cached = new Map<string, unknown>();
+    const ledger: LlmLedger = {
+      async cached(key) {
+        return cached.get(key);
       },
-    },
-    price,
-    price,
-  );
-  const result = await editor.edit(
-    { id: 'tech', name: 'Tech & AI', description: '', guidance: '' },
-    input.candidates,
-    1,
-    'offline',
-  );
-  assert.ok(result);
-  assert.equal(calls, 1);
-  const saved = input.cited(result.stories[0].evidenceIds);
-  assert.equal(saved[0].excerpt, '');
-  assert.equal(saved[1].id, memberId);
-  assert.equal(saved[1].url, pool.find((x) => x.id === memberId)!.url);
-  assert.equal(saved[1].excerpt, evidence[1].excerpt);
-  assert.deepEqual(JSON.parse(JSON.stringify(saved)), saved);
-  assert.equal(JSON.stringify(fixture), before);
-  // With no direct reporting, preserve the existing ranked aggregator fallback.
-  const aggregators = pool.filter(
-    (x) => x.id === story.id || new URL(x.url).hostname === 'news.google.com',
-  );
-  const fallback = editorEvidence([story], aggregators).candidates[0]
-    .clusterEvidence;
-  assert.equal(fallback.length, 3);
-  assert.equal(fallback[1].id, '5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4');
-});
+      async cache(key, value) {
+        cached.set(key, value);
+      },
+      async reserve(request, estimate) {
+        reservations.push(request.model.id);
+        assert.equal(request.maxOutputTokens, 4000);
+        assert.ok(estimate > 0);
+        assert.ok(
+          Buffer.byteLength(request.instructions + request.prompt) + 2048 <
+            100000,
+        );
+        if (
+          route === 'refused' ||
+          (route === 'haiku' && request.model.id === config.sonnet.id)
+        )
+          return null;
+        return request.model.id;
+      },
+      async settle(id, usage, cost) {
+        settlements.push(id);
+        assert.equal(usage.output, 100);
+        assert.ok(cost > 0);
+      },
+      async fail() {
+        assert.fail('Valid offline response must not fail');
+      },
+    };
+    const llm = new BudgetedLlm(
+      {
+        async complete(request) {
+          dispatches.push(request.model.id);
+          const prompt = JSON.parse(request.prompt);
+          assert.equal(prompt.candidates[0].clusterEvidence[0].id, memberId);
+          assert.match(request.prompt, /alleged Chinese spy/);
+          return {
+            text: JSON.stringify({
+              brief: [
+                'Nvidia announced a leadership change.',
+                'The Verge reports Jensen Huang resigned.',
+              ],
+              stories: [
+                {
+                  id: story.id,
+                  evidenceIds: [story.id, memberId],
+                  headline: 'Nvidia CEO Jensen Huang resigns',
+                  summary:
+                    "The Verge reports that Nvidia's board announced Jensen Huang's resignation as CEO and president after reports of two extramarital affairs, including one with an alleged Chinese spy.",
+                  whyItMatters: 'The resignation changes leadership at Nvidia.',
+                  rationale: 'A leadership development.',
+                },
+              ],
+            }),
+            usage: { input: 100, output: 100, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+      ledger,
+    );
+    const editor = new ShortlistEditor(llm, config.sonnet, config.haiku);
+    const result = await editor.edit(
+      { id: 'tech', name: 'Tech & AI', description: '', guidance: '' },
+      input.candidates,
+      1,
+      'offline',
+    );
+    assert.deepEqual(
+      reservations,
+      route === 'sonnet'
+        ? [config.sonnet.id]
+        : [config.sonnet.id, config.haiku.id],
+    );
+    if (route === 'refused') {
+      assert.equal(result, null);
+      assert.deepEqual(dispatches, []);
+      assert.deepEqual(settlements, []);
+      assert.equal(cached.size, 0);
+      assert.equal(JSON.stringify(fixture), before);
+      return;
+    }
+    assert.ok(result);
+    const expectedModel = config[route].id;
+    assert.equal(result.model, expectedModel);
+    assert.deepEqual(dispatches, [expectedModel]);
+    assert.deepEqual(settlements, [expectedModel]);
+    assert.equal(cached.size, 1);
+    const again = await editor.edit(
+      { id: 'tech', name: 'Tech & AI', description: '', guidance: '' },
+      input.candidates,
+      1,
+      'offline-cached',
+    );
+    assert.deepEqual(again, result);
+    assert.deepEqual(dispatches, [expectedModel]);
+    const saved = input.cited(result.stories[0].evidenceIds);
+    assert.equal(saved[0].excerpt, '');
+    assert.equal(saved[1].id, memberId);
+    assert.equal(saved[1].url, pool.find((x) => x.id === memberId)!.url);
+    assert.equal(saved[1].excerpt, evidence[1].excerpt);
+    assert.deepEqual(JSON.parse(JSON.stringify(saved)), saved);
+    assert.equal(JSON.stringify(fixture), before);
+    // With no direct reporting, preserve the existing ranked aggregator fallback.
+    const aggregators = pool.filter(
+      (x) => x.id === story.id || new URL(x.url).hostname === 'news.google.com',
+    );
+    const fallback = editorEvidence([story], aggregators).candidates[0]
+      .clusterEvidence;
+    assert.equal(fallback.length, 3);
+    assert.equal(fallback[1].id, '5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4');
+  });
+}
 
 void test('Tech editorial rollout recognizes the live name and excludes other topics', () => {
   for (const name of ['Tech & AI', 'Tech', '  TECH & AI  ']) {
