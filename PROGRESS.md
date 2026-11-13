@@ -129,3 +129,13 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `git diff --check` pass: 973 unit/291 integration tests, four expected skips; existing bundle-size warning.
 - Restarted API/worker; `/healthz` and `check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass. Reader response SHA-256 unchanged; 38 enabled active sources have successes/no errors, latest 16:22:47 UTC; post-deploy alerts zero/no failed services.
 - TASKS/daily review updated. SOURCES/NEEDS_FROM_HUMAN unchanged: no source, owner decision, budget, provider or public-mode change. Next: scheduled NBA/admission recovery before item 58/private public-mode activation; today's saved edition remains degraded.
+
+## 2026-11-13: iteration 2168 — passive metrics recovery evidence
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass, no failed user services.
+- Highest scheduled NBA/item 58 acceptance remains pending Nov 14. Took the permitted short passive probe for the open metrics breakage; no limits/configuration/provider changes.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` passes: 24 healthy rules, four uncached queries ≤0.572 s, unchanged process starts and zero new evaluator errors/missed iterations, admission limits, queue timeouts or slow queries.
+- Two natural small merges processed 16,476 rows; no large-tier merge, comparable recovery still unaccepted. `journalctl -u obs-metrics.service --since '2026-11-13 14:43:13 UTC' --no-pager -p warning` has no entries.
+- Updated TASKS/capacity evidence; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Documentation-only step leaves running services matching main; no restart/build needed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 973 unit/291 integration tests, four expected skips; `git diff --check` passes.
+- Next: Nov 14 scheduled NBA/admission acceptance, then item 58/private public-mode activation. Next passive capacity probe no earlier than 17:26 UTC.

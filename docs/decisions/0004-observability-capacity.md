@@ -855,3 +855,14 @@ recovery remains open. Limits unchanged; next short passive probe no earlier
 than 15:44 UTC Nov 13. System journal since 09:53:30 UTC contains isolated
 API/worker scrape connection refusals at 10:34 and 12:31; current probes pass.
 No forced merge, service restart, configuration change or provider call.
+
+### Passive follow-up (iteration 2168)
+
+Nov 13 16:24:44–16:25:15 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.572 s, no new evaluator errors
+or missed iterations, query admission limits, queue timeouts or slow queries.
+Process starts unchanged; two small merges processed 16,476 rows, no large-tier
+merge. Neither interval meets the comparable-merge threshold; recovery remains
+open. Warning-level metrics journal since 14:43:13 UTC has no entries. Limits
+unchanged; next short passive probe no earlier than 17:26 UTC Nov 13. No forced
+merge, service restart, configuration change or provider call.
