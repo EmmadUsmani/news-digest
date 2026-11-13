@@ -67,3 +67,18 @@ the edition ID, 23 coverage members, empty representative excerpt, single saved
 evidence ID, Verge triage scores/rationale and current substantive excerpt.
 All five public-reader summaries matched the saved snapshot. Probe removed;
 no jobs, provider calls, collection or database writes.
+
+## Projection preparation — iteration 2126
+
+`clusterEvidence` now projects the representative plus at most two substantive
+explicit coverage members in rank order. Each retains its own ID, publisher,
+URL, source labels and publication time; titles are capped at 300 characters
+and excerpts at 600. Missing and duplicate members cannot consume the bound.
+The helper does not change ranking, editing, saved evidence or publication yet.
+Production transport and shared editor/validator/persistence verification remain
+open; the final prompt must still fit existing admission and token limits.
+
+Offline regression uses a synthetic NVIDIA-shaped empty-lead case, not saved
+provider output. It verifies attribution, representative identity/score,
+complete coverage, member bounds, order independence and unrelated-event
+isolation. Historical saved-case acceptance remains part of the wiring step.

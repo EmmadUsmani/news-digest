@@ -37,9 +37,11 @@ Fix failures first. STEERING overrides older notes. [Prior detail through 846](d
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; stop CLI/dashboard refinements. O11 isolated benchmark deferred; 1059 cold-cache Grafana repair needs 754.1 MiB whole-stack RAM within the owner-approved ~800 MiB target (45), 2.05% CPU. [Capacity evidence](docs/decisions/0004-observability-capacity.md#nov-6-grafana-cold-cache-recurrence-iteration-1059). Monitor existing limits.
 - Editorial audit closed under STEERING 5; resume only for actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
 
-- [ ] Tech evidence depth: repair bounded, attributed cluster-member evidence transport before new collection. Nov 12 NVIDIA has 23 coverage links but an empty-excerpt representative and one editor evidence ID; saved triage already recognized the discarded Verge resignation report. Preserve IDs, scores, ownership, attribution, fallback and caps; verify editor/validator/publication together offline. [Diagnosis and scope](docs/edition-reviews/2026-11-12-tech-depth.md). Other four Nov 12 summaries retain supplied facts; genuinely missing discovery reporting remains deferred.
+- [ ] Tech evidence depth: repair bounded, attributed cluster-member evidence transport before new collection. Nov 12 NVIDIA has 23 coverage links but an empty-excerpt representative and one editor evidence ID; saved triage already recognized the discarded Verge resignation report. 2126 adds a tested bounded member-evidence projection (lead plus two substantive explicit members), not yet wired to editorial transport. Next: wire editor/validator/saved evidence together within existing admission limits. Preserve IDs, scores, ownership, attribution, fallback and caps; verify together offline. [Diagnosis and scope](docs/edition-reviews/2026-11-12-tech-depth.md). Other four Nov 12 summaries retain supplied facts; genuinely missing discovery reporting remains deferred.
 
 ## Latest verified step
+
+- [x] Iteration 2126: prepared bounded, attributed explicit-cluster evidence projection; empty representative, member identity, bounds, deduplication and unrelated-event isolation verified offline. Runtime editor/publication wiring remains open.
 
 - [x] Iteration 2125: compared all five saved Tech summaries; isolated NVIDIA depth loss between grouping and editing, distinct from missing source reporting. [Evidence and bounded repair scope](docs/edition-reviews/2026-11-12-tech-depth.md).
 
