@@ -147,3 +147,13 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2135-2137
 - Updated TASKS and pilot plan; rotation implementation/activation and its own rollover/override tests remain pending. SOURCES/NEEDS_FROM_HUMAN unchanged because source behavior and owner needs did not change.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, filtered handbook/schema check and `git diff --check` pass: 966 unit/291 integration tests, four expected skips; existing build bundle warning only.
 - No runtime/configuration/generation/budget/public-mode changes; no restart during deployment hold. Next: scheduled NBA/item 58 acceptance, then private public-mode activation outside 13:00–16:00 UTC.
+
+## 2026-11-13: iteration 2152 — implement optional World collector rotation
+
+- Clean main; no inherited work. `pnpm obs alerts` zero; `/healthz` database/Redis pass. Scheduled NBA/item 58 gate remains pending; no deployment during 13:00–16:00 hold.
+- Implemented optional World topic-ID policy in the collector: fallback/Ukraine/fallback/Gaza from the captured UTC-hour slot. Explicit override wins; no production caller supplies the policy, so live queries remain unchanged.
+- Updated the fake-port rehearsal to exercise the policy directly: 24 hours/120 searches, World 12/6/6, unchanged other topics and metadata; six admission/override/failure checks plus eight midnight/retry checks pass, including a moving observation clock.
+- `pnpm exec tsx scripts/rehearse-world-bluesky-rotation.ts` passes with zero provider calls/live writes. No generation, prompt, budget, schedule, public-mode or sharing changes.
+- Updated TASKS/SOURCES and pilot contract. Scheduler wiring, coverage-report explanation, activation and natural quality remain open; NEEDS_FROM_HUMAN unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, filtered handbook/schema check pass; build retains dependency annotation/bundle warnings. `pnpm check` passes: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `git diff --check` clean.
+- No restart: production behavior remains unchanged and protected deployment hold applies. Next: 15:00 NBA/item 58 scheduled acceptance, then private public-mode activation outside hold; wire discovery policy afterward.

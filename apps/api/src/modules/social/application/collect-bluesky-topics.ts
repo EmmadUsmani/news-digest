@@ -19,6 +19,7 @@ export async function collectBlueskyTopics(
     | 'blueskyQuery'
   >[],
   now: () => Date = () => new Date(),
+  policy?: { worldTopicId: string },
 ) {
   const end = now();
   const start = new Date(end.getTime() - 86400000);
@@ -26,11 +27,18 @@ export async function collectBlueskyTopics(
   for (const topic of topics
     .filter((t) => t.enabled && t.postBudget > 0)
     .slice(0, 5)) {
-    const query = (
-      (topic.blueskyQuery?.trim() || topic.queries.find((q) => q.trim())) ??
+    const fallback =
+      topic.queries.find((q) => q.trim()) ??
       topic.relevancePolicy.includeAny[0] ??
-      topic.name
-    )
+      topic.name;
+    // Opt-in by stable ID; no scheduler enables this policy yet. Capture the
+    // slot from the shared window end so retries/restarts do not reset it.
+    const slot = Math.floor(end.getTime() / 3600000) % 4;
+    const rotated =
+      policy?.worldTopicId === topic.id
+        ? [fallback, 'Ukraine', fallback, 'Gaza'][slot]
+        : fallback;
+    const query = (topic.blueskyQuery?.trim() || rotated || fallback)
       .trim()
       .slice(0, 500);
     const result = await collectBluesky(

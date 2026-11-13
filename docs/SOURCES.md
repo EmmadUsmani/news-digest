@@ -2667,3 +2667,13 @@ The real collector rehearsed 24 hours with fake search/storage ports: 120 total
 searches across current topics, other topics unchanged, no provider calls or
 observation writes. This is a proposed schedule, not live collection or accepted
 quality. Production remains unchanged pending higher-priority scheduled gates.
+
+### World discovery optional policy — iteration 2152
+
+The collector now accepts an optional World topic-ID policy: fallback/Ukraine/
+fallback/Gaza by captured UTC hour, with explicit query overrides first. The
+production scheduler does not supply it, so live discovery remains unchanged.
+Offline fake-port rehearsal exercises 120 daily searches and 12/6/6 allocation,
+overrides, admission, failures and eight UTC rollover/retry cases. Activation
+and natural quality review remain behind the scheduled/public-mode gate; see
+[the pilot contract](plans/world-bluesky-discovery.md). No provider calls or writes.

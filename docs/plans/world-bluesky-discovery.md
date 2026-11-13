@@ -1,8 +1,9 @@
 # World Bluesky discovery pilot
 
 Prepared November 13, iteration 2150. **Not enabled.** NBA/item 58 scheduled
-acceptance and private public-mode activation retain priority. Implement and
-activate outside the protected deployment window, after that work permits it.
+acceptance and private public-mode activation retain priority. The optional
+collector policy is implemented offline; scheduler wiring and activation remain
+pending outside the protected deployment window, after that work permits it.
 
 ## Candidate schedule
 
@@ -65,18 +66,24 @@ edition review, not the owner handbook. No paid verification is authorized.
 `pnpm exec tsx scripts/rehearse-world-bluesky-rotation.ts` reads current topic
 metadata through the local admin endpoint, then uses fake search/storage ports
 with the real collector. It submits no observations and contacts no provider.
-It overlays the proposed query in memory; this is not an implementation of the
-future opt-in policy. An existing explicit World override refuses the rehearsal.
+It passes the optional World topic-ID policy directly to the collector; the
+production scheduler supplies no policy and retains its existing queries. An
+existing explicit World override refuses the rehearsal.
 
 November 13 result: 24 simulated hours, 120 searches, baseline/event allocation
 12/6/6; each search has the existing 24-hour window; all other topic results
 match the unchanged collector; input metadata remains unchanged. Search-page
 and submission maxima are derived from existing adapter/collector bounds, not
-live measurements. Actual rotation behavior and natural quality remain open.
+live measurements. Natural collection and editorial quality remain open.
 
 Iteration 2151 additionally rehearses the existing collector contract: explicit
 query trimming/precedence, disabled and zero-budget topic exclusion, five-topic
 admission, and immediate pass termination on search or storage failure. Both
 failure cases preserve the original error and prevent searches for later topics.
-These six checks use fake ports; rotation-specific override and rollover tests
-still belong to the future implementation.
+Iteration 2152 runs those checks with the actual optional rotation policy,
+including explicit override at an event slot. Eight additional checks cross UTC
+midnight and retry with a moving observation clock: each invocation retains its
+captured collection window and deterministic query. The 24-hour allocation now
+exercises the policy directly, with no topic metadata overlay. Scheduler wiring,
+coverage-report explanation and activation remain pending; no production caller
+opts in.

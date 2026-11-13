@@ -1,5 +1,5 @@
 // Read local topic metadata; all search and storage ports below are fakes.
-// This rehearses a proposed schedule, not production collection or post quality.
+// Exercises the optional collector policy; production does not enable it.
 import assert from 'node:assert/strict';
 
 import { topicSchema } from '@digest/contracts';
@@ -25,6 +25,7 @@ async function main() {
     'Revisit plan: explicit World override exists',
   );
   const original = JSON.stringify(topics);
+  const policy = { worldTopicId: world.id };
   const queries = [
     'World news & politics',
     'Ukraine',
@@ -61,10 +62,9 @@ async function main() {
           return Promise.resolve([]);
         },
       },
-      topics.map((topic) =>
-        topic.id === world.id ? { ...topic, blueskyQuery: query } : topic,
-      ),
+      topics,
       () => end,
+      policy,
     );
     assert.equal(hourlyCalls, enabled.length);
     assert.equal(
@@ -98,9 +98,8 @@ async function main() {
     [...counts.values()].sort((a, b) => a - b),
     [6, 6, 12],
   );
-  // Exercise the existing collector's admission and failure contract. These
-  // checks do not implement or activate the proposed rotation policy.
-  const end = new Date('2026-11-14T00:00:00Z');
+  // Exercise admission and failure handling with the optional policy enabled.
+  const end = new Date('2026-11-14T01:00:00Z');
   const queryCalls: string[] = [];
   const fakeSearch = {
     search(query: string) {
@@ -113,6 +112,7 @@ async function main() {
     fakeSearch,
     [{ ...world, blueskyQuery: '  explicit World override  ' }],
     () => end,
+    policy,
   );
   assert.equal(override.topics[0]?.query, 'explicit World override');
   for (const skipped of [
@@ -125,6 +125,7 @@ async function main() {
       fakeSearch,
       [skipped],
       () => end,
+      policy,
     );
     assert.equal(result.topics.length, 0);
     assert.equal(queryCalls.length, 0);
@@ -140,6 +141,7 @@ async function main() {
     fakeSearch,
     sixTopics,
     () => end,
+    policy,
   );
   assert.deepEqual(
     admitted.topics.map((topic) => topic.topicId),
@@ -167,13 +169,36 @@ async function main() {
               : Promise.resolve([]);
           },
         },
-        sixTopics,
+        [world, ...sixTopics],
         () => end,
+        policy,
       ),
       (error: unknown) => error === failure,
     );
     assert.equal(searched, 1, 'No later topic searched after failure');
     assert.equal(stored, failureStage === 'search' ? 0 : 1);
+  }
+  // Cross midnight and repeat each slot with a fresh invocation. A moving
+  // observation clock must not change the selected query or collection window.
+  for (const [timestamp, expected] of [
+    ['2026-11-14T23:59:59.999Z', 'Gaza'],
+    ['2026-11-15T00:00:00.000Z', queries[0]],
+    ['2026-11-15T01:00:00.000Z', 'Ukraine'],
+    ['2026-11-15T02:00:00.000Z', queries[0]],
+  ]) {
+    for (let retry = 0; retry < 2; retry++) {
+      let clockCalls = 0;
+      const windowEnd = new Date(timestamp);
+      const result = await collectBlueskyTopics(
+        repository,
+        fakeSearch,
+        [world],
+        () => new Date(windowEnd.getTime() + clockCalls++ * 3600000),
+        policy,
+      );
+      assert.equal(result.topics[0]?.query, expected);
+      assert.equal(result.end.getTime(), windowEnd.getTime());
+    }
   }
   assert.equal(JSON.stringify(topics), original);
   console.log(
@@ -186,6 +211,8 @@ async function main() {
       maximumSubmissions: calls * 50,
       otherTopicQueriesUnchanged: true,
       collectorContractChecks: 6,
+      rolloverAndRetryChecks: 8,
+      productionPolicyEnabled: false,
       liveSearches: 0,
       liveWrites: 0,
     }),
