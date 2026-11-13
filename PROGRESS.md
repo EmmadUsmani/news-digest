@@ -128,3 +128,14 @@ Earlier entries: [archive](docs/progress-archive/2026-11-13-iterations-2126-2134
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips; typecheck/lint/format/boundaries green. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
 - API/worker/docs restarted before the protected window; health database/Redis pass, 38 sources/zero unhealthy, Nov 12 saved reader passes five topics/25 stories/22 posts. No generation, collection configuration, budget, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then private-sharing activation outside 13:00–16:00; explicit World discovery query tuning follows the scheduled gate.
+
+## 2026-11-13: iteration 2147 — distinguish weak supply from author concentration
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. Scheduled NBA/item 58 acceptance remains due at 15:00 UTC; generation cutoff preserved.
+- Read-only Bluesky coverage now reports distinct authors and per-author distinct posts within the capped safe engaged pool, using the ranker's latest valid snapshots.
+- Historical World: 29 candidates/25 authors/max two posts per author; rolling World: 19/16/two. Weak discovery is not explained by one dominant author. Rolling U.S.: 50/37/six; relevance/event diversity still unmeasured.
+- Default and historical report commands pass. Independent Python JSON assertions reconcile candidate totals, unique authors and maxima for all five topics, including the empty historical U.S. pool. No provider requests or database writes.
+- Updated TASKS/SOURCES/pool evidence; NEEDS_FROM_HUMAN unchanged. No collection/query, generation, budget, flag or sharing changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 966 unit/291 integration tests, four expected skips. `pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker/docs restarted before protected window. Initial health probe raced startup; repeat `pnpm obs health --check` and `/healthz` pass database/Redis. Sources check passes; saved-reader check Nov 12 verifies five topics/25 stories/22 posts.
+- Next: 15:00 scheduled NBA/item 58 acceptance, then private-sharing public activation outside 13:00–16:00; explicit World query tuning follows the gate.

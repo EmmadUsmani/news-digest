@@ -2639,3 +2639,11 @@ alongside likes from the already validated xAI report. Zero stays zero and missi
 counts stay unknown; these remain unverified hints, separate from official metrics.
 Offline coverage verifies report rejection, cache invalidation and bounded editor
 transport. No collection, budget, provider or ranking-weight changes.
+
+### Iteration 2147: Bluesky candidate author concentration
+
+The stored coverage report includes distinct authors and per-author distinct
+post counts within its capped safe engaged candidates. Historical World has
+29 candidates from 25 authors, maximum two from one author: weak discovery is
+not explained by one dominant author. See the [pool review](edition-reviews/2026-11-12-bluesky-pool.md).
+No query, collection, ranking or editorial change; no provider calls.

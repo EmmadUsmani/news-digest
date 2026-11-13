@@ -64,6 +64,19 @@ async function main() {
           cutoff,
           topic.postBudget,
         );
+        const authorCounts = new Map<string, number>();
+        for (const { post } of safe)
+          authorCounts.set(
+            post.author,
+            (authorCounts.get(post.author) ?? 0) + 1,
+          );
+        const safeAuthors = [...authorCounts]
+          .map(([author, distinctPosts]) => ({ author, distinctPosts }))
+          .sort(
+            (a, b) =>
+              b.distinctPosts - a.distinctPosts ||
+              a.author.localeCompare(b.author),
+          );
         coverage.push({
           topic: topic.name,
           configuredBlueskyQuery: topic.blueskyQuery ?? null,
@@ -93,6 +106,11 @@ async function main() {
               .sort()
               .at(-1) ?? null,
           safeEngagedCandidatesUpTo50: safe.length,
+          safeEngagedAuthorCoverageUpTo50: {
+            distinctAuthors: safeAuthors.length,
+            largestAuthorPostCount: safeAuthors[0]?.distinctPosts ?? 0,
+            authors: safeAuthors,
+          },
           phraseEligibleShortlist: phrase.length,
           strongestSafeLikesUpTo50: Math.max(
             0,
@@ -116,7 +134,7 @@ async function main() {
           policyBasis:
             'Current enabled topics and relevance policies; not a replay of historical editorial selection.',
           coverage,
-          note: '24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes.',
+          note: '24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Author counts describe distinct posts within those capped candidates, not the full pool or measured relevance. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes.',
         }),
       );
     } finally {

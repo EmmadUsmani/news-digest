@@ -70,3 +70,27 @@ Verification: historical report succeeds; a separate offline invocation of
 `collectBlueskyTopics` with current topics and fake search/storage ports matches
 all five reported effective queries. Current policies are not historical query
 provenance; the U.S. zero is from the pre-repair window.
+
+## Author concentration — iteration 2147
+
+The read-only report now counts distinct authors and posts per author within
+its capped safe engaged candidates. Repeated observations do not inflate these
+counts: the ranker uses one latest valid snapshot per external post ID.
+
+| Topic     | Nov 12 candidates / authors / largest author | Nov 13 candidates / authors / largest author |
+| --------- | -------------------------------------------: | -------------------------------------------: |
+| Tech & AI |                                  50 / 44 / 3 |                                  48 / 45 / 3 |
+| NBA       |                                  48 / 43 / 3 |                                  46 / 42 / 2 |
+| Gaming    |                                  47 / 46 / 2 |                                  50 / 47 / 2 |
+| World     |                                  29 / 25 / 2 |                                  19 / 16 / 2 |
+| U.S.      |                                    0 / 0 / 0 |                                  50 / 37 / 6 |
+
+November 13 sample: 12:36:39 UTC rolling window. World's weak pool spans many
+authors; domination by one author does not explain it. The U.S. sample has
+six posts from one author, worth comparing after natural editorial selection.
+These counts measure neither relevance nor diversity of events. Keep the
+explicit World query as the next tuning action after scheduled acceptance.
+
+Verification: default and historical reports pass; independent JSON checks
+reconcile every author count with the candidate total, unique author count and
+maximum, including the empty historical U.S. pool. No live provider call or write.
