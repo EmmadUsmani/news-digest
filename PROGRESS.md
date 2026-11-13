@@ -150,3 +150,14 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - TASKS/public readiness updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged. Script-only change requires no build/service restart.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` pass: 975 unit/291 integration tests, four expected skips. Default Nov 13 publication check passes; Nov 14 reports pending.
 - Next: run this gate plus normal scheduled-job/editorial review after Nov 14 publication; only then close item 58 and activate public mode privately.
+
+## 2026-11-13: iteration 2170 — trace repeated fallback events
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass and no failed user services.
+- Owner impact: next-edition recovery must restore event diversity as well as readable text and NBA AI provenance.
+- GET-only review of saved edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`: seven Tech/Gaming cards cover three events (Claude outage, Microsoft outage, PS5 QSSR expansion), consuming four repeated slots.
+- Traced publication: incomplete triage retains ungrouped `rankFallback`; only complete triage reaches explicit AI membership, which scored fallback can retain. Canonical-URL dedupe cannot merge different publishers. Blank-excerpt repair alone cannot restore grouping.
+- Updated daily review/TASKS with concrete labels and next-run decision: verify complete triage, then inspect grouping/editor evidence if repeats persist. No heuristic, prompt, paid replay, source, provider, budget or saved-edition changes.
+- Targeted quality/group-shortlist/clustering tests: 16/16 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
+- Documentation-only; running services remain on unchanged runtime code, no rebuild/restart needed. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
+- Next: Nov 14 scheduled NBA/admission acceptance plus Tech/Gaming diversity review; then item 58/private public-mode activation.
