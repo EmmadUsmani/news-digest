@@ -176,4 +176,4 @@
 - Documentation-only change; no paid calls, source/budget changes, public activation or repeated accepted-screen checks. SOURCES unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check (18 pages/22 diagrams/39 tables) and `git diff --check` pass; existing bundle warning only.
 - First `pnpm check` stalled in telemetry-export transport test; terminated that test process. Isolated three-test rerun passed; full `pnpm check` retry passed (921 unit/289 integration, four expected skips). No code change or reproduced failure.
-- Commit/push and API/worker restart with health readback follow. Next: Nov 13 15:00 scheduled NBA/settlement acceptance; public activation remains owner-gated.
+- Initial push rejected by newer upstream commits; merged origin/main without rewriting history. New STEERING 59 closes the proxy gate and prioritizes four saved NBA responses, then private-sharing public-mode activation. API/worker restarted; health passes. Next: implement item 59 NBA fixes before noon; sharing remains owner-gated.
