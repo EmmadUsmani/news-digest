@@ -161,3 +161,15 @@ Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iter
 - Targeted quality/group-shortlist/clustering tests: 16/16 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
 - Documentation-only; running services remain on unchanged runtime code, no rebuild/restart needed. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged.
 - Next: Nov 14 scheduled NBA/admission acceptance plus Tech/Gaming diversity review; then item 58/private public-mode activation.
+
+## 2026-11-13: iteration 2171 — trace weak NBA Bluesky supply
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass and no failed user services.
+- Reader weakness: NBA's fifth post is a low-engagement attributed scoring-list claim; viral quality remains unaccepted.
+- Historical read-only pool has 593 observations/54 distinct posts. Reconstructed production shortlist from 50 saved semantic scores: complete, ten picks, six repeat X-covered events.
+- Final cached editor chooses the distinct Vucevic milestone (18 likes/zero reposts/one reply); no X displacement. One unsupported-claim rejection is counted but its candidate is not identified.
+- Cause and next eligible action recorded: limited distinct high-interest supply from generic NBA discovery; compare discovery later, preserve semantic/media gates. No forced slot, prompt, source/query, budget or provider change.
+- Verification: historical coverage report, protected saved-preview GET, read-only cache queries and temporary cached-score production-shortlist invocation pass; temporary script removed. No inference, collection or generation.
+- Updated TASKS/SOURCES and saved review; NEEDS_FROM_HUMAN/handbook unchanged. Documentation only; runtime unchanged, no rebuild/restart needed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 975 unit/291 integration tests, four expected skips.
+- Next: Nov 14 scheduled NBA/admission acceptance and event-diversity review, then item 58/private public-mode activation.
