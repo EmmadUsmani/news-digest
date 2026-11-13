@@ -2557,7 +2557,8 @@ and three Sonnet admission refusals prevent overall scheduled acceptance.
 - Selection now supplies net likes/reposts/replies changes between the earliest
   and latest valid observations of the same post, author and publication time.
 - Future, pre-publication and malformed-count snapshots cannot supply evidence;
-  equal-time observations do not establish growth. Negative changes remain signed.
+  equal-time observations do not establish growth. Conflicting counts at either
+  endpoint make growth unknown (2122). Negative changes remain signed.
 - Triage and final editing receive the observation interval and net-count limits.
   One timestamp still means unknown growth; account-relative reach stays unknown.
 - No collection, source requests, scoring thresholds, ranking weights or paid calls changed.

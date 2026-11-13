@@ -161,3 +161,36 @@ void test('Bluesky growth uses valid same-post observations before cutoff and pr
   );
   assert.deepEqual(rows, before);
 });
+
+void test('Bluesky growth withholds conflicting endpoint counts independent of input order', () => {
+  const earlier = post('same', { observedAt: '2026-11-03T11:30:00Z' });
+  const latest = post('same', {
+    metrics: { likes: 150, reposts: 20, replies: 8 },
+  });
+  for (const endpoint of [earlier, latest]) {
+    for (const metric of ['likes', 'reposts', 'replies'] as const) {
+      const conflict = {
+        ...endpoint,
+        observedAt: new Date(endpoint.observedAt).toISOString(),
+        metrics: {
+          ...endpoint.metrics,
+          [metric]: endpoint.metrics[metric] + 1,
+        },
+      };
+      const rows = [earlier, latest, conflict];
+      const result = rank(rows);
+      assert.match(result[0].growthEvidence, /unknown: conflicting counts/);
+      assert.deepEqual(rank([...rows].reverse()), result);
+      assert.ok(Number.isFinite(result[0].strength));
+    }
+  }
+  assert.match(
+    rank([
+      earlier,
+      latest,
+      structuredClone(earlier),
+      structuredClone(latest),
+    ])[0].growthEvidence,
+    /Official API count changes/,
+  );
+});

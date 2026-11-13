@@ -137,6 +137,20 @@ function observedCountChanges(
     )[0];
   if (!earlier)
     return 'Measured growth unknown: only one distinct valid observation time.';
+  for (const endpoint of [earlier, latest]) {
+    if (
+      observations.some(
+        (post) =>
+          post.publishedAt === latest.publishedAt &&
+          post.author === latest.author &&
+          Date.parse(post.observedAt) === Date.parse(endpoint.observedAt) &&
+          (post.metrics.likes !== endpoint.metrics.likes ||
+            post.metrics.reposts !== endpoint.metrics.reposts ||
+            post.metrics.replies !== endpoint.metrics.replies),
+      )
+    )
+      return 'Measured growth unknown: conflicting counts at an observation time.';
+  }
   const changes = {
     likes: latest.metrics.likes - earlier.metrics.likes,
     reposts: latest.metrics.reposts - earlier.metrics.reposts,

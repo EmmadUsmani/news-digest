@@ -64,7 +64,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   API counts in a separate bounded evidence field, preserving context beyond article-title limits.
   Triage and the editor receive attachment presence and bounded author-written
   descriptions as unverified claims, bounded after JSON escaping. Repeated valid snapshots supply net count
-  changes through the cutoff; usual account reach stays unknown.
+  changes through cutoff; conflicting counts leave growth unknown. Usual account reach stays unknown.
 - **At edition time:** AI triage screens up to 50 candidates, then the editor
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips

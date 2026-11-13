@@ -171,3 +171,13 @@
 - API/worker restarted; healthz database/Redis healthy after startup retry. Saved-reader check for Nov 12 passes: five topics/25 stories/22 posts.
 - Updated TASKS; bug fix needs no handbook/source change. SOURCES and NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
 - Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
+
+## 2026-11-13: iteration 2122 — withhold ambiguous Bluesky growth
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero alerts. NBA/item 58 acceptance still awaits 15:00 UTC; public mode remains off.
+- Conflicting counts at an earliest/latest observation timestamp previously supplied arbitrary net growth. Growth now stays unknown for either conflict, including equivalent timestamp formats; ranking and valid signed changes unchanged.
+- `pnpm exec tsx --test --test-reporter=dot apps/api/test/bluesky-ranking.test.ts`: five pass, covering all three counts at either endpoint, input-order independence and identical duplicate controls.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: pass; 933 unit/290 integration tests, four expected skips. `pnpm build`: pass with existing bundle warnings; handbook social-posts check passes (18 pages/one unchanged diagram/39 tables).
+- API/worker restarted active; healthz passes after bounded startup retry. Saved-reader Nov 12 check passes (five topics/25 stories/22 posts).
+- TASKS, SOURCES and affected handbook updated; NEEDS_FROM_HUMAN unchanged. No paid calls, provider, collection, budget, flag or sharing changes.
+- Next: scheduled NBA/item 58 acceptance, then public activation with sharing private; continue authorized social tuning while waiting.
