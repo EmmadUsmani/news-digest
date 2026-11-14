@@ -28,7 +28,11 @@ function evidence() {
       topics: [
         {
           id: 'nba',
-          editorial: { mode: 'ai' as 'ai' | 'non-ai', model: 'saved-model' },
+          editorial: {
+            mode: 'ai' as 'ai' | 'non-ai',
+            model: 'saved-model',
+            unscoredIds: [] as string[],
+          },
         },
       ],
     },
@@ -108,7 +112,11 @@ void test('multi-topic acceptance refuses partial recovery and absent sections',
   });
   preview.topics.push({
     id: 'tech',
-    editorial: { mode: 'non-ai', model: 'fallback' },
+    editorial: {
+      mode: 'non-ai',
+      model: 'fallback',
+      unscoredIds: [] as string[],
+    },
   });
   const names = parseRequiredAiTopics([
     '--require-ai-topic',
@@ -136,4 +144,17 @@ void test('reader gate rejects malformed options before making requests', () => 
   ]) {
     assert.throws(() => parseRequiredAiTopics(args));
   }
+});
+
+void test('AI editing alone cannot accept recovery after partial candidate triage', () => {
+  const { reader, preview } = evidence();
+  preview.topics[0].editorial.unscoredIds = ['missed-candidate'];
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /NBA: scheduled story triage is incomplete/,
+  );
+  // Cached scores are valid evidence too: admission recovery requires complete
+  // saved coverage, without requiring fresh provider calls for every candidate.
+  preview.topics[0].editorial.unscoredIds = [];
+  assert.equal(requireScheduledAiTopic(reader, preview, 'NBA').stories, 1);
 });

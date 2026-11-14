@@ -11,7 +11,11 @@ interface ReaderEvidence extends EditionIdentity {
 interface EditorialEvidence extends EditionIdentity {
   topics: {
     id: string;
-    editorial?: { mode: 'ai' | 'non-ai'; model: string | null };
+    editorial?: {
+      mode: 'ai' | 'non-ai';
+      model: string | null;
+      unscoredIds: string[];
+    };
   }[];
 }
 
@@ -45,6 +49,11 @@ export function requireScheduledAiTopic(
   assert.ok(
     saved[0].editorial?.model?.trim(),
     `${name}: missing editorial model`,
+  );
+  assert.equal(
+    saved[0].editorial.unscoredIds.length,
+    0,
+    `${name}: scheduled story triage is incomplete`,
   );
   assert.ok(topic.stories.length > 0, `${name}: no published stories`);
   assert.ok(

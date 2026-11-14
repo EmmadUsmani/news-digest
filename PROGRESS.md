@@ -200,3 +200,16 @@ Archived entry: [iteration 2206](docs/progress-archive/2026-11-14-iteration-2206
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/307 integration, four expected skips. `pnpm build` passes with existing chunk warning; `check-handbook.ts 07-data-model` and diff checks pass.
 - Built API/worker restarted active; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status reports all 38 active sources with data/success/no errors; initial inline probe needed a CJS-compatible promise wrapper.
 - Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2219 — require complete triage for recovery acceptance
+
+- Clean main; no inherited work. Zero alerts and healthy API/database/Redis; scheduled recovery remains due at 15:00 UTC.
+- Nov 13's missing sections/repeated fallback events came from partial triage. AI provenance alone could accept a partially scored shortlist.
+- Read-only required-topic gate now also requires zero saved unscored candidates; cached scores remain valid. No generation, provider, budget, activation or UI change.
+- Five focused gate tests pass, including AI-edited but partially scored refusal. Initial test expectation accidentally included an internal evidence field; corrected before verification.
+- Saved Nov 13 NBA still fails non-AI acceptance. In-memory synthetic AI-provenance control on its unchanged 59 unscored IDs also fails; no saved data mutation or paid call.
+- TASKS and Nov 13 review updated. No source/handbook/schema change.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 990 unit/307 integration, four expected skips. `pnpm build`, handbook/schema (18 pages/39 tables) and diff checks pass.
+- Built API/worker restarted active; health/database/Redis pass. Initial reader check raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors.
+- Commit/push and final restart follow.
+- Next: scheduled all-topic/NBA recovery and manual diversity/support review, item 58 closure, then private public-mode activation.
