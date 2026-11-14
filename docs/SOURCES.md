@@ -2876,3 +2876,11 @@ that exact two-link structure when the headline link canonicalizes to the articl
 External links, nonterminal paragraphs and prose mentions remain. Five recorded
 articles and synthetic boundaries pass offline; no new source or inference calls.
 Reporting, original URLs and publisher metadata remain the source evidence.
+
+## 2026-11-14 iteration 2225 — GameSpot excerpt navigation
+
+The recorded GameSpot RSS includes an in-page table of contents before the
+article body. Its named navigation block is now omitted before the existing
+1,500-character excerpt cap, retaining article headings, lists, dates and
+metadata. The unchanged recorded fixture verifies this offline; source status
+remains blocked, with no new fetch or bypass. Other navigation remains intact.

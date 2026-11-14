@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2212](docs/progress-archive/2026-11-14-iteration-2212.md).
+
 Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-13-iterations-before-2155.md).
 
 Archived entries: [iterations 2146–2154](docs/progress-archive/2026-11-13-iterations-2146-2154.md).
@@ -71,18 +73,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2212 — NBA repair publication coverage
-
-- Clean main; no inherited work. Zero alerts and healthy database/Redis/API at orientation. Scheduled NBA/item 58/private public-mode gates still await today's normal edition; no paid replay.
-- Reader risk: supported NBA repair summaries had validator coverage but only the Sonnet initial body had publication/reader coverage. Extended that regression to saved Sonnet and Haiku repair outputs.
-- All three preserve exact story fields through two publications, immutable retrieval, cache reuse and public reader latest/history/detail HTTP reads; unpublished copies remain hidden.
-- Only Sonnet initial transport is verbatim historical. Repair requests/serialization, triage, URLs/dates/attribution and zero usage are explicit test scaffolding; this does not replay automatic repair or establish scheduled acceptance.
-- First integration run exposed shared synthetic job IDs reusing the initial edition; gave each response distinct IDs. All three corrected cases pass. Invalid Haiku initial remains covered by separate refusal tests.
-- TASKS/DATABASE-VERIFICATION updated; archived iteration 2199. Production generation, saved editions, providers, budgets and public flags unchanged; no UI/source/handbook behavior change.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (989 unit/299 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web chunk warning only.
-- API/worker restarted active; `/healthz` passes, `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; all 38 sources report data/no errors. Commit/push follow.
-- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Full-edition raw-response golden remains open.
 
 ## 2026-11-14: iteration 2213 — Verge source continuation
 
@@ -222,3 +212,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - No source, schema, production code/configuration, provider calls or live content writes; SOURCES/handbook unchanged. Services already run main; no restart needed for evidence-only documentation.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, affected handbook/schema and diff checks pass: 990 unit/309 integration tests, four expected integration skips.
 - Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No further passive metrics sample before 05:36 UTC.
+
+## 2026-11-14: iteration 2225 — GameSpot navigation in feed excerpts
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/public activation still await the 15:00 UTC edition.
+- Reader weakness: recorded GameSpot table-of-contents navigation repeats headings and displaces reporting inside the excerpt cap. Remove only its named navigation block before truncation.
+- Unchanged recorded feed retains event dates, Pokemon list, metadata and the 1,500-character bound; boundary controls retain headings, article lists, other navigation and literal class-name prose.
+- Focused GameSpot tests pass (3). Initial whole-file direct test had 37 passes/two isolation guards; no live DB access occurred. Full isolated verification follows below.
+- TASKS, SOURCES and affected handbook updated; archived iteration 2212 to keep PROGRESS small. GameSpot remains blocked; no source requests, paid calls, flags or generation-policy changes.
+- Build and handbook/schema checks pass (18 pages/39 tables; existing bundle-size warning). Reader gate verifies five topics/15 stories/20 posts in the unchanged saved edition.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 990 unit/311 integration tests, four expected skips; finite systemd check unit exits 0. Diff check passes.
+- API/worker restarted active; health/database/Redis pass. All 38 active sources have successful collection/stored data and zero errors. No UI change or new screenshots required.
+- Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No passive metrics sample before 05:36 UTC.

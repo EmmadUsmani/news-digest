@@ -28,6 +28,12 @@ function excerpt(value: unknown, articleUrl: string): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
   const body = text(value)
+    // GameSpot's feed includes its in-page table of contents before reporting.
+    // Keep article headings/lists; only this named navigation is redundant.
+    .replace(
+      /<nav\b[^>]*\bclass\s*=\s*(["'])wp-block-gamespot-blocks-toc\1[^>]*>[\s\S]*?<\/nav\s*>/gi,
+      ' ',
+    )
     // An opening image caption describes the photo, not the article event.
     // Require the image/caption-only figure so other reporting stays intact.
     .replace(

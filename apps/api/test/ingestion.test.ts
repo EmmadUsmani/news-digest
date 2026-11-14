@@ -10,6 +10,34 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded GameSpot navigation gives excerpt space back to reporting', async () => {
+  const xml = await fixture('gamespot.xml');
+  const [item] = parseFeed(xml);
+  const withoutNavigation = xml.replace(/<nav\b[^>]*>[\s\S]*?<\/nav>/g, ' ');
+  assert.deepEqual(parseFeed(xml), parseFeed(withoutNavigation));
+  assert.doesNotMatch(item.excerpt, /In This Article/);
+  assert.match(item.excerpt, /10 AM local time on October 27/);
+  assert.match(item.excerpt, /Pikachu wearing a hat and capelet/);
+  assert.ok(item.excerpt.length <= 1500);
+  assert.match(item.excerpt, /…$/);
+});
+
+void test('GameSpot navigation removal preserves headings, lists and other navigation', () => {
+  const body = `<p>Opening reporting.</p>
+    <nav class="wp-block-gamespot-blocks-toc" aria-label="Table of Contents"><a href="#event">Repeated heading</a></nav>
+    <h2 id="event">Event schedule</h2><ul><li>October 27</li></ul>
+    <nav class="other-navigation">Other navigation</nav>
+    <p>The article discusses wp-block-gamespot-blocks-toc.</p>`;
+  const [item] = parseFeed(`<rss><channel><item>
+    <title>Report</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description></item></channel></rss>`);
+  assert.equal(
+    item.excerpt,
+    'Opening reporting. Event schedule October 27 Other navigation The article discusses wp-block-gamespot-blocks-toc.',
+  );
+});
+
 void test('recorded post footers omit repeated headlines and retain reporting metadata', async () => {
   for (const name of ['basketball-insiders.xml', 'insider-gaming.xml']) {
     const items = parseFeed(await fixture(name));
