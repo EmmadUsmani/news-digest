@@ -864,3 +864,16 @@ This exercises the reader controller and database, not the complete public serve
 authorization middleware, proxy or provider transport. Fixture provenance and
 synthetic triage/metadata/usage limits above still apply. No runtime behavior,
 live data, provider usage or scheduled acceptance changes.
+
+## NBA repair publication paths (iteration 2212)
+
+The isolated historical NBA publication/reader regression also covers the saved
+Sonnet and Haiku repair outputs, preserving every story field through two
+publications, immutable retrieval, cache reuse and public reader HTTP reads.
+Repair outputs are historical structured values serialized by the test; their
+requests are synthetic model-adjusted copies of the initial request. Only the
+Sonnet initial case retains verbatim historical request/body transport. This
+does not simulate a failed initial call followed by automatic model repair.
+Synthetic triage, metadata and zero usage remain explicit. The invalid Haiku
+initial ID remains refused in the separate validator/repair regressions.
+Scheduled acceptance and the full-edition raw-response golden remain open.

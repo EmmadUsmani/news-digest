@@ -50,15 +50,7 @@ Archived entry: [iteration 2197](docs/progress-archive/2026-11-14-iteration-2197
 
 Archived entry: [iteration 2198](docs/progress-archive/2026-11-13-iteration-2198.md).
 
-## 2026-11-13: iteration 2199 — label saved engagement snapshots
-
-- Clean main; no inherited work. Alert snapshot zero; health/Postgres/Redis pass. Scheduled acceptance awaits Nov 14; after-noon generation cutoff retained.
-- Reader weakness: all four actual Nov 13 Bluesky count rows lacked a snapshot label, making historical engagement appear current. Bluesky and parked Reddit cards now say “at collection”, matching X; counts and saved data unchanged.
-- Inline read-only Playwright (`node --input-type=module`) reproduced all four missing labels before rebuild, then verified exact saved counts and labels on desktop/mobile light/dark; no overflow/browser errors. Four screenshots added; mobile light inspected.
-- Social-post handbook and TASKS updated; archived progress 2185. SOURCES/NEEDS_FROM_HUMAN unchanged: no collection, source, generation, budget or paid-call change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, social-post handbook/schema check and diff checks pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. First combined run terminated during formatting; next run hung in unchanged telemetry-export test. Isolated test passes (3/3); terminated stuck child and complete standalone retry passes.
-- Rebuilt API/worker restarted healthy; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow verification.
-- Next: before-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2199](docs/progress-archive/2026-11-13-iteration-2199.md).
 
 ## 2026-11-13: iteration 2200 — publisher teaser continuation
 
@@ -195,3 +187,15 @@ Archived entry: [iteration 2198](docs/progress-archive/2026-11-13-iteration-2198
 - Source/handbook behavior and NEEDS_FROM_HUMAN unchanged; no UI change or browser replay needed. Archived iteration 2198 to retain the progress size bound.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (989 unit/297 integration; four expected skips), `pnpm build`, handbook/schema checks and `git diff --check` pass; existing web chunk warning only. Commit/push and built API/worker restart follow.
 - Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Corrected fallback evidence shows ranking loss persists without headline-only cards.
+
+## 2026-11-14: iteration 2212 — NBA repair publication coverage
+
+- Clean main; no inherited work. Zero alerts and healthy database/Redis/API at orientation. Scheduled NBA/item 58/private public-mode gates still await today's normal edition; no paid replay.
+- Reader risk: supported NBA repair summaries had validator coverage but only the Sonnet initial body had publication/reader coverage. Extended that regression to saved Sonnet and Haiku repair outputs.
+- All three preserve exact story fields through two publications, immutable retrieval, cache reuse and public reader latest/history/detail HTTP reads; unpublished copies remain hidden.
+- Only Sonnet initial transport is verbatim historical. Repair requests/serialization, triage, URLs/dates/attribution and zero usage are explicit test scaffolding; this does not replay automatic repair or establish scheduled acceptance.
+- First integration run exposed shared synthetic job IDs reusing the initial edition; gave each response distinct IDs. All three corrected cases pass. Invalid Haiku initial remains covered by separate refusal tests.
+- TASKS/DATABASE-VERIFICATION updated; archived iteration 2199. Production generation, saved editions, providers, budgets and public flags unchanged; no UI/source/handbook behavior change.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (989 unit/299 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web chunk warning only.
+- API/worker restarted active; `/healthz` passes, `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; all 38 sources report data/no errors. Commit/push follow.
+- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Full-edition raw-response golden remains open.
