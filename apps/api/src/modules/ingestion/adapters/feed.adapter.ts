@@ -24,6 +24,22 @@ function leadFigureImage(value: unknown): string | null {
   const src = figure?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
   return canonicalUrl(src?.[2] ?? '');
 }
+function gematsuDescriptionImage(
+  value: unknown,
+  articleUrl: string,
+): string | null {
+  if (new URL(articleUrl).hostname !== 'www.gematsu.com') return null;
+  const opening = text(value).match(/^\s*<img\b[^>]*>/i);
+  const src = opening?.[0].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
+  const image = canonicalUrl(src?.[2] ?? '');
+  if (!image) return null;
+  const parsed = new URL(image);
+  return parsed.protocol === 'https:' &&
+    parsed.hostname === 'www.gematsu.com' &&
+    parsed.pathname.startsWith('/wp-content/uploads/')
+    ? image
+    : null;
+}
 function excerpt(value: unknown, articleUrl: string): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
@@ -193,7 +209,8 @@ export function parseFeed(xml: string): ContentItem[] {
           imageUrl:
             canonicalUrl(String(media?.['@_url'] ?? '')) ??
             leadFigureImage(entry['content:encoded']) ??
-            leadFigureImage(entry.content),
+            leadFigureImage(entry.content) ??
+            gematsuDescriptionImage(entry.description, url),
           engagement: {},
           ...(publisherName
             ? { publisher: { name: publisherName, url: publisherUrl } }

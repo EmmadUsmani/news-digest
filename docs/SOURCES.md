@@ -2937,3 +2937,13 @@ link matches the article; retain reporting and an omission marker for reader
 continuation. Other hosts, changed wording, other destinations and nonterminal
 links remain intact. Verified offline against the unchanged recording; no live
 request or saved-edition rewrite.
+
+## 2026-11-14 iteration 2235 — Gematsu description images
+
+The saved Nov 13 Gaming section has two Gematsu stories without images. Its
+recorded feed supplies lead images as opening description `<img>` elements.
+Ingestion now uses these when media metadata and opening content figures are
+absent, restricted to HTTPS `www.gematsu.com/wp-content/uploads/` images on
+Gematsu articles. Later images, other hosts/paths and lazy attributes are ignored.
+Recorded excerpts and metadata remain unchanged; saved editions are not rewritten.
+No live source or article request was made.

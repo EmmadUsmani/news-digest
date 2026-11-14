@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2222](docs/progress-archive/2026-11-14-iteration-2222.md).
+
 Archived entry: [iteration 2221](docs/progress-archive/2026-11-14-iteration-2221.md).
 
 Archived entry: [iteration 2220](docs/progress-archive/2026-11-14-iteration-2220.md).
@@ -85,17 +87,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2222 — saved social continuation
-
-- Clean main; no inherited work. Zero alerts; NBA/item 58 acceptance awaits the scheduled edition.
-- Reader value: clipped saved Bluesky/Reddit posts now offer explicit platform-labelled continuation links, matching X; complete posts remain unchanged. Shared 600-character bounds exposed the gap.
-- `smoke-saved-post-continuation.ts` passes desktop/mobile light/dark: real bookmark clipping with explicit offline fixtures, three platforms, complete controls, destinations, focus, reload/storage preservation, no overflow/page errors. Four screenshots saved; mobile light/desktop dark inspected.
-- TASKS/affected handbook updated; SOURCES unchanged (no ingestion change). No paid calls, server content writes, generation/configuration or activation changes.
-- `pnpm format`, `pnpm lint:fix`, build, handbook/schema and diff checks pass. Archived iteration 2210 to keep this file small.
-- Restarted API/worker active; health/database/Redis pass. Reader gate: five topics/15 stories/20 posts. All 38 active sources have data/success and no errors.
-- Interactive check and isolated retry each terminated (143) after case 313, before summary. Finite temporary systemd unit completes `pnpm check` exit 0: 990 unit/309 integration pass, four expected skips. Unit collected after success.
-- Next: 15:00 UTC scheduled recovery/NBA/diversity review, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2223 — pending disk alert recovery
 
@@ -225,4 +216,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Formatting, lint fix and build pass; handbook check passes on retry (initial render failure). Initial full check caught new archive formatting, corrected before final verification.
 - Final pnpm check passes: 990 unit/320 integration tests, four expected skips; format/lint/typecheck/boundaries pass. Existing build bundle warnings only.
 - Rebuilt API/worker restarted active; health passes. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 sources healthy. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2235 — Gematsu lead images from descriptions
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
+- Owner-visible weakness: both saved Nov 13 Gematsu stories lack images. The recorded publisher feed puts lead images at the beginning of descriptions, outside existing media/content-figure extraction.
+- Preserve opening Gematsu HTTPS upload images as the last fallback; existing media/content images retain priority. Recorded excerpts and metadata remain unchanged; other publishers, image hosts/paths, later images and lazy attributes excluded.
+- New offline recorded-feed regression passes; no live source requests, paid calls or saved-edition rewrites. Updated TASKS, SOURCES and affected handbook prose; archived iteration 2222 to keep PROGRESS small.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check and full `pnpm check` pass: 991 unit/320 integration tests, four expected skips. Existing build bundle warnings only.
+- Rebuilt API/worker restarted active; health passes after startup retry. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

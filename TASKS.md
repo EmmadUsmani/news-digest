@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Gematsu lead images (2235): preserve opening publisher-hosted description images when media/content images are absent; recorded reporting unchanged, with host/path/position/HTTPS and media-precedence controls.
+
 - [x] Push Square teaser navigation (2234): omit its terminal article self-link while preserving reporting, metadata and an omission marker for reader continuation; recorded feed and host/destination/nonterminal controls pass offline.
 
 - [x] Verge purchase navigation (2233): omit its recorded “Where to Buy” widget to avoid ambiguous flattened old/current prices; article prices, discounts, product details and metadata retained, with publisher/structure controls.
