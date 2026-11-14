@@ -1,4 +1,5 @@
-// Local GET-only publication gate. No jobs, provider calls or publication writes.
+// Read-only local publication gate: reader GETs and saved database provenance.
+// No jobs, provider calls or publication writes.
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 
@@ -8,10 +9,12 @@ import {
   readerEditionSchema,
 } from '@digest/contracts';
 
+import { database } from '../apps/api/src/libs/db/connections';
 import { localAdminJson } from './lib/local-admin-fetch';
 import {
   assessScheduledAiTopics,
   parseRequiredAiTopics,
+  requireScheduledPublication,
 } from './lib/scheduled-editorial-gate';
 
 async function read(path: string): Promise<unknown> {
@@ -55,6 +58,23 @@ async function main() {
     expected,
     'latest reader window is newer than requested; review the requested saved edition explicitly',
   );
+  const db = database();
+  let publication;
+  try {
+    const result = await db.query<{
+      kind: string;
+      scheduledKey: string | null;
+      publishedAt: string | null;
+    }>(
+      `SELECT kind, scheduled_key AS "scheduledKey",
+        published_at::text AS "publishedAt" FROM digest_previews WHERE id=$1`,
+      [latest.id],
+    );
+    assert.equal(result.rows.length, 1, 'missing saved publication provenance');
+    publication = requireScheduledPublication(result.rows[0]);
+  } finally {
+    await db.end();
+  }
   const direct = readerEditionSchema.parse(
     await read(`/api/editions/${encodeURIComponent(latest.id)}`),
   );
@@ -109,6 +129,7 @@ async function main() {
             ...(aiTopics.length === 1 ? { aiTopic: aiTopics[0] } : {}),
           }
         : {}),
+      publication,
       editionId: latest.id,
       windowEnd: latest.windowEnd,
       topics: latest.topics.length,

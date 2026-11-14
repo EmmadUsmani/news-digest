@@ -169,6 +169,8 @@ pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z \
 pnpm obs alerts
 ```
 
+- The reader gate also checks saved publication kind, a non-integration scheduled
+  key and publication time; a manually published reader response cannot pass.
 - Run the log query within one hour of publication; for a later review, extend
   `--since` and correlate `runId` with the scheduled generation logs. If output
   reaches the limit, increase it within the CLI bound or narrow the time range

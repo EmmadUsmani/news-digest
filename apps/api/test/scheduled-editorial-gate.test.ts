@@ -5,6 +5,7 @@ import {
   assessScheduledAiTopics,
   parseRequiredAiTopics,
   requireScheduledAiTopic,
+  requireScheduledPublication,
 } from '../../../scripts/lib/scheduled-editorial-gate';
 
 function evidence() {
@@ -235,4 +236,26 @@ void test('AI acceptance requires the published story identities and order', () 
   );
   preview.topics[0].stories.reverse();
   assert.equal(requireScheduledAiTopic(reader, preview, 'NBA').stories, 2);
+});
+
+void test('scheduled acceptance refuses manual, test and unpublished provenance', () => {
+  const scheduled = {
+    kind: 'scheduled',
+    scheduledKey: 'daily:2026-11-14',
+    publishedAt: '2026-11-14T15:01:00Z',
+  };
+  assert.deepEqual(requireScheduledPublication(scheduled), scheduled);
+  for (const override of [
+    { kind: 'manual' },
+    { kind: 'test' },
+    { scheduledKey: null },
+    { scheduledKey: ' ' },
+    { scheduledKey: 'integration:daily' },
+    { publishedAt: null },
+    { publishedAt: 'invalid' },
+  ]) {
+    assert.throws(() =>
+      requireScheduledPublication({ ...scheduled, ...override }),
+    );
+  }
 });

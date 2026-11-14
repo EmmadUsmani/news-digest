@@ -24,6 +24,25 @@ interface EditorialEvidence extends EditionIdentity {
   }[];
 }
 
+// A public reader response can also be a manually published edition.
+export function requireScheduledPublication(evidence: {
+  kind: string;
+  scheduledKey: string | null;
+  publishedAt: string | null;
+}) {
+  assert.equal(evidence.kind, 'scheduled', 'publication is not scheduled');
+  assert.ok(evidence.scheduledKey?.trim(), 'missing scheduled publication key');
+  assert.ok(
+    !evidence.scheduledKey.startsWith('integration:'),
+    'integration publication cannot establish scheduled acceptance',
+  );
+  assert.ok(
+    evidence.publishedAt && Number.isFinite(Date.parse(evidence.publishedAt)),
+    'missing valid scheduled publication time',
+  );
+  return evidence;
+}
+
 // AI provenance comes from the saved admin snapshot, never inferred from prose.
 export function requireScheduledAiTopic(
   reader: ReaderEvidence,

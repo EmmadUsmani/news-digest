@@ -249,3 +249,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,011 unit and 328 integration tests, four expected skips. Archived iterations 2262–2263 to keep this file bounded.
 - Probe/docs-only change; deployed app unchanged, no rebuild/restart during 13:00–16:00 hold. Isolated integration runner builds API without restarting live services.
 - Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold; HUD provenance repair after edition protection.
+
+## 2026-11-14: iteration 2273 — scheduled publication provenance gate
+
+- Clean main; no inherited work. Initial alerts zero; no repeated service/source probes or generation calls.
+- Read-only scheduled reader gate now requires saved scheduled kind, nonblank/non-integration key and valid publication time before reader/editorial acceptance. Manual publication can no longer establish a normal scheduled edition.
+- Added offline refusal controls for manual/test kinds, missing/blank/integration keys and missing/invalid publication times; existing editorial requirements remain intact.
+- Live read-only Nov 13 check returns scheduled provenance for `f901ba6c-cba3-4116-8539-fd0e92b98ec4` and correctly exits 1 for non-AI NBA. Nov 14 returns pending/exit 2; no acceptance claimed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,012 unit and 328 integration tests, four expected skips. Initial query-overload/import lint issues corrected before final verification.
+- Tool/tests/plan only; no inference, production database writes, runtime configuration or restart. API rebuilt only inside isolated test runner. Protected 13:00–16:00 deployment hold preserved; deployed app unchanged.
+- Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold; HUD provenance repair after edition protection.
