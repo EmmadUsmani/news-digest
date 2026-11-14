@@ -556,7 +556,7 @@ void test('recorded Ars content takes precedence and retains reporting and metad
   assert.equal(original.excerpt, body.excerpt);
   assert.match(body.excerpt, /Recovery actions are ongoing/);
   assert.match(body.excerpt, /extended email timeout to 48 hours/);
-  assert.equal(body.excerpt.length, 593);
+  assert.equal(body.excerpt.length, 567);
   assert.doesNotMatch(body.excerpt, /<[^>]+>/);
   assert.equal(body.author, 'Ashley Belanger');
   assert.equal(body.publishedAt, '2026-11-13T15:26:53.000Z');

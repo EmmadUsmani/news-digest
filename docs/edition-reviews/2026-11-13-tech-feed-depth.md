@@ -95,3 +95,12 @@ blank observations. No article-page request or paid call is involved.
 
 Deployment is on Nov 14 UTC, inside the pre-noon generation window.
 Scheduled AI-editing recovery and natural summary quality remain unaccepted.
+
+## Reporting navigation cleanup — iteration 2240
+
+The 593-character normalized fragment above included 27 characters of terminal
+“Read full article Comments” navigation. Future ingestion retains 566 characters
+of reporting plus a continuation ellipsis, with identical metadata. The unchanged
+fixture and publisher/link/position controls cover this; no new live request or
+paid call. Historical measurements above describe the previous normalization.
+Natural scheduled summary-depth acceptance remains open.

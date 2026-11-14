@@ -125,7 +125,7 @@ function excerpt(value: unknown, articleUrl: string): string {
     );
   }
   // A publisher link back to this article is navigation, not reporting.
-  const withoutSelfLink = body.replace(
+  let withoutSelfLink = body.replace(
     /<p\b[^>]*>\s*<a\b([^>]*)>\s*Source\s*<\/a>\s*<\/p>\s*$/i,
     (footer, attributes: string) => {
       const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
@@ -135,6 +135,27 @@ function excerpt(value: unknown, articleUrl: string): string {
   // These publishers syndicate teasers followed by self-links, not more reporting.
   // Keep an omission marker so source continuation remains available to readers.
   let teaserClipped = false;
+  // Ars supplies a reporting fragment followed by article/comments navigation.
+  // Both links must identify this article; ordinary reporting stays intact.
+  if (new URL(articleUrl).hostname === 'arstechnica.com') {
+    withoutSelfLink = withoutSelfLink.replace(
+      /<p\b[^>]*>\s*<a\b([^>]*)>Read full article<\/a>\s*<\/p>\s*<p\b[^>]*>\s*<a\b([^>]*)>Comments<\/a>\s*<\/p>\s*$/i,
+      (footer, articleAttributes: string, commentAttributes: string) => {
+        const href = (attributes: string) =>
+          attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i)?.[2] ?? '';
+        const article = href(articleAttributes);
+        const comments = href(commentAttributes);
+        if (
+          canonicalUrl(article) !== articleUrl ||
+          canonicalUrl(comments) !== articleUrl ||
+          !comments.endsWith('#comments')
+        )
+          return footer;
+        teaserClipped = true;
+        return '';
+      },
+    );
+  }
   const withoutTeaserFooter = withoutSelfLink.replace(
     /<p\b[^>]*>\s*Read the\s+<a\b([^>]*)>full article on (pushsquare\.com|nintendolife\.com)<\/a>\s*<\/p>\s*$/i,
     (footer, attributes: string, publisher: string) => {

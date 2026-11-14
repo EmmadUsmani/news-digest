@@ -1,5 +1,9 @@
 # Progress
 
+Archived entry: [iteration 2228](docs/progress-archive/2026-11-14-iteration-2228.md).
+
+Archived entry: [iteration 2227](docs/progress-archive/2026-11-14-iteration-2227.md).
+
 Archived entry: [iteration 2226](docs/progress-archive/2026-11-14-iteration-2226.md).
 
 Archived entry: [iteration 2225](docs/progress-archive/2026-11-14-iteration-2225.md).
@@ -95,29 +99,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2227 — Destructoid contents in feed excerpts
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/public-mode gates still await 15:00 UTC.
-- Reader weakness: recorded Destructoid contents navigation repeats headings and displaces reporting. Omit only its named Yoast heading/list block before the existing excerpt cap; retain article headings/lists and unrelated blocks.
-- Focused offline tests pass (2): unchanged recorded feed, metadata equivalence, retained location instructions, 1,500-character cap and boundary controls. No live source/inference calls or saved-edition changes.
-- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2214 to keep PROGRESS small. No UI, schema, configuration or budget changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and affected handbook/schema checks pass (18 pages/39 tables; existing bundle warning). All 38 active sources healthy; saved reader gate confirms five topics/15 stories/20 posts.
-- First full check stalled in unchanged telemetry-export transport after test 828; stopped the finite unit. Standalone telemetry tests pass (3); fresh full check in `news-digest-check-2227-retry` passes: 990 unit/313 integration passes, four expected skips; unit exits 0.
-- API/worker rebuilt and restarted active; health/database/Redis and saved reader gate pass after restart. Diff check passes. No UI change or screenshots required.
-- Next: investigate intermittent telemetry-export unit hang if reproduced; 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
-
-## 2026-11-14: iteration 2228 — telemetry cancellation hang
-
-- Clean main; no inherited work. Initial alerts zero and app health/database/Redis pass. Scheduled NBA/item 58/private public-mode gates still await 15:00 UTC.
-- Reproduced the transport hang in unchanged tests on stress run 38; instrumented run 13 locates it at caller cancellation (`/cancel`), past the fetch deadline. Server-close ordering was not the cause of this occurrence.
-- Replaced pooled fetch with a one-shot HTTP(S) socket; cancellation/deadline reject directly and destroy the request. Byte cap, content type, credential stripping, redirect refusal and downstream buffering remain enforced; route admission unchanged.
-- Added 50 body-start-synchronized cancellations per focused run, plus cookie/status/truncated-body/protocol refusals. Local 15-second diagnostics and a 60-second unit-file watchdog bound future failures; deliberately hung fixture proves the runner exits nonzero even with an open socket.
-- Initial unchanged full unit suite passes 990 tests. Replacement passes 80 focused runs/4,000 synchronized cancellations; `pnpm build` passes (existing bundle warning). No paid calls, source requests, schema, budget, UI or generation changes.
-- Updated TASKS; archived iteration 2215 to keep PROGRESS small. No handbook/SOURCES behavior changes.
-- `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 990 unit/313 integration passes, four expected skips; handbook/schema check passes (18 pages/39 tables). Diff check passes.
-- API/worker rebuilt and restarted active; health/database/Redis pass. Saved reader gate verifies five topics/15 stories/20 posts; all 38 active sources healthy. No UI change or screenshots required.
-- Next: 15:00 UTC all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation. Watch for any further transport failures; no paid replay.
 
 ## 2026-11-14: iteration 2229 — Google News headline-only descriptions
 
@@ -231,4 +212,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS and SOURCES; archived iteration 2226 to keep PROGRESS small. No live requests, paid calls, source configuration changes or saved-edition rewrites.
 - Targeted `pnpm exec tsx --test apps/api/test/feed-nintendo-teaser.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 993 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Existing build bundle warnings only.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local admin status read confirms all 38 active sources healthy with stored content. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2240 — Ars fragment navigation
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
+- Reader weakness: supplied Ars outage reporting ends with “Read full article Comments”, contaminating evidence sent to summaries. Omit only that terminal pair on the publisher host with article-matching links and #comments.
+- Unchanged recorded fragment retains all 566 reporting characters plus continuation ellipsis and identical metadata. Publisher, wording, destinations, fragment and nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
+- Updated TASKS, SOURCES and source-depth evidence; archived iterations 2227–2228 to keep PROGRESS small. No affected handbook behavior change beyond existing feed normalization.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-ars-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing bundle-size warnings only.
+- Full `pnpm check` passes: 994 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Diff check passes.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts; local admin status confirms all 38 active sources healthy with stored content.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

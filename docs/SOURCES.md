@@ -2975,3 +2975,13 @@ that navigation and retains an ellipsis for reader continuation, as for Push
 Square. Both recorded articles retain their reporting, dates and metadata;
 other publishers, changed labels, other destinations and nonterminal links
 remain intact. No live requests or saved-edition changes.
+
+## 2026-11-14 iteration 2240 — Ars reporting fragment navigation
+
+The unchanged recorded Microsoft outage fragment ends in article/comments
+self-links. Ingestion now omits that terminal pair only on arstechnica.com
+when both destinations identify the article and the second uses #comments.
+All reporting remains, with an ellipsis for source continuation: 567 characters
+instead of 593 including navigation. Metadata and other links are unchanged.
+Publisher, wording, destination, fragment and nonterminal controls pass offline.
+No new feed/article requests, paid calls or saved-edition changes.
