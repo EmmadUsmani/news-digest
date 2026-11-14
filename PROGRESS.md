@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2224](docs/progress-archive/2026-11-14-iteration-2224.md).
+
 Archived entry: [iteration 2223](docs/progress-archive/2026-11-14-iteration-2223.md).
 
 Archived entry: [iteration 2222](docs/progress-archive/2026-11-14-iteration-2222.md).
@@ -89,15 +91,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2224 — passive compaction recovery evidence
-
-- Clean main; no inherited work. Health/database/Redis pass; zero pending/firing alerts. Scheduled NBA/item 58/public-mode gates still await 15:00 UTC.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.643 s; unchanged process starts and zero new evaluator/admission/timeout/slow-query failures. Neither storage tier merged; recovery stays open.
-- Metrics/alerts warning journal since Nov 13 22:47 UTC empty. Updated capacity evidence/TASKS; archived iteration 2211 to keep PROGRESS small.
-- No source, schema, production code/configuration, provider calls or live content writes; SOURCES/handbook unchanged. Services already run main; no restart needed for evidence-only documentation.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, affected handbook/schema and diff checks pass: 990 unit/309 integration tests, four expected integration skips.
-- Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No further passive metrics sample before 05:36 UTC.
 
 ## 2026-11-14: iteration 2225 — GameSpot navigation in feed excerpts
 
@@ -225,4 +218,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS and database-verification evidence; archived iteration 2223 to keep PROGRESS small. Runtime, budgets, source configuration and saved editions unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 991 unit/321 integration tests, four expected skips. Final targeted isolated edition-golden run passes all 14 cases; final API typecheck/targeted ESLint pass. Existing build bundle warnings only.
 - API/worker restarted active; health/database/Redis pass. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. Diff check passes.
+- Next: 15:00 scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2237 — CBS lead photos from RSS enclosures
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58/private public-mode acceptance awaits 15:00 UTC.
+- Reader weakness: saved NBA CBS story lacks an image. Current CBS feed explicitly supplies JPEG/PNG photos as RSS enclosures; one free feed GET confirmed the unchanged recorded fixture's format.
+- Ingestion now retains HTTPS raster-image enclosures as the last image fallback, so future NBA cards can show publisher-supplied photos. Recorded reporting/metadata remain unchanged; unsupported/missing MIME, HTTP, credential URLs, audio-first and existing-image precedence controls pass offline.
+- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2224 to keep PROGRESS small. No paid calls, article crawling, selection changes or saved-edition rewrites.
+- Targeted two-test run, `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook check pass; existing build bundle warnings only.
+- Full `pnpm check` passes: 992 unit/321 integration tests, four expected skips; typecheck/lint/format/boundaries pass.
+- Rebuilt API/worker/docs restarted active; health passes. Saved-reader gate passes on startup retry: five topics/15 stories/20 posts. All 38 active sources have successful collection/stored content/no errors. Diff check passes.
 - Next: 15:00 scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

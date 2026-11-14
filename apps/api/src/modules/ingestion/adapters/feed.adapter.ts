@@ -24,6 +24,19 @@ function leadFigureImage(value: unknown): string | null {
   const src = figure?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
   return canonicalUrl(src?.[2] ?? '');
 }
+function enclosureImage(value: unknown): string | null {
+  for (const enclosure of list(value)) {
+    if (
+      !/^image\/(?:jpeg|png|gif|webp|avif)$/i.test(
+        String(enclosure['@_type'] ?? ''),
+      )
+    )
+      continue;
+    const url = canonicalUrl(String(enclosure['@_url'] ?? ''));
+    if (url && new URL(url).protocol === 'https:') return url;
+  }
+  return null;
+}
 function gematsuDescriptionImage(
   value: unknown,
   articleUrl: string,
@@ -210,7 +223,8 @@ export function parseFeed(xml: string): ContentItem[] {
             canonicalUrl(String(media?.['@_url'] ?? '')) ??
             leadFigureImage(entry['content:encoded']) ??
             leadFigureImage(entry.content) ??
-            gematsuDescriptionImage(entry.description, url),
+            gematsuDescriptionImage(entry.description, url) ??
+            enclosureImage(entry.enclosure),
           engagement: {},
           ...(publisherName
             ? { publisher: { name: publisherName, url: publisherUrl } }

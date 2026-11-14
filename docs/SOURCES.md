@@ -2947,3 +2947,13 @@ absent, restricted to HTTPS `www.gematsu.com/wp-content/uploads/` images on
 Gematsu articles. Later images, other hosts/paths and lazy attributes are ignored.
 Recorded excerpts and metadata remain unchanged; saved editions are not rewritten.
 No live source or article request was made.
+
+## 2026-11-14 iteration 2237 — CBS RSS enclosure photos
+
+The saved Nov 13 NBA CBS story has no image, although CBS supplies photos in
+RSS enclosures. One explicit free feed GET on Nov 14 confirmed JPEG/PNG
+enclosures in current entries. The unchanged recorded `rss.xml` fixture already
+contains both formats. Ingestion now uses HTTPS JPEG/PNG/GIF/WebP/AVIF
+enclosures after existing image fallbacks; audio, SVG, missing MIME types,
+HTTP and credential-bearing URLs are excluded. Reporting and metadata stay
+unchanged. No article crawling, paid calls or saved-edition rewrites.
