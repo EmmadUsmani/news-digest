@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2238](docs/progress-archive/2026-11-14-iteration-2238.md).
+
 Archived entry: [iteration 2237](docs/progress-archive/2026-11-14-iteration-2237.md).
 
 Archived entry: [iteration 2236](docs/progress-archive/2026-11-14-iteration-2236.md).
@@ -116,17 +118,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2238 — Guardian lead-photo resolution
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
-- Recorded Guardian World RSS supplies 140/460/700px versions of each lead photo; ingestion previously selected 140px. It now retains the largest supplied width of that same HTTPS publisher-hosted photo, preserving its signed URL.
-- Unchanged recorded reporting/metadata verified; other-publisher, host/path, insecure URL, invalid/mismatched width and reordered-entry controls pass. No live requests, paid calls, source configuration changes or saved-edition rewrites.
-- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2225 to keep PROGRESS small.
-- Targeted recorded-feed regression, `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook check pass. Existing build bundle warnings only. Initial full check caught archived-entry formatting; fixed with Prettier and reran successfully.
-- Full `pnpm check` passes: 992 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass.
-- Rebuilt API/worker/docs restarted active; health/database/Redis pass. Saved-reader gate passes after startup retry: five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2239 — Nintendo Life teaser continuation
 
@@ -259,4 +250,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check`: 1,000 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts.
 - One explicit free Ars RSS GET found readable reporting; no additional change or article crawl. Source status has no enabled-source errors; DeepMind has no articles in 24h but returns 60 entries normally.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2251 — Ars newsletter excerpt
+
+- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass; 38 enabled sources healthy and scheduled digest queued for 15:00 UTC.
+- Reader weakness: live Ars Rocket Report body spends a paragraph on subscription/submission instructions between launch reports. Omit that exact publisher/destination/copy block so future excerpts focus on Starship/Electron reporting.
+- One explicit free RSS GET recorded the unchanged item. Offline test preserves reporting/metadata and continuation; publisher, destination and altered-copy controls retain unrelated text. No crawl, prompt, budget or paid call; saved editions unchanged.
+- Updated TASKS/SOURCES; archived iteration 2238 to bound PROGRESS. No handbook behavior change.
+- `pnpm exec tsx --test apps/api/test/feed-ars-newsletter.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check`: 1,001 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted active; `/healthz` passes after startup retry.
+- Saved reader gate passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.

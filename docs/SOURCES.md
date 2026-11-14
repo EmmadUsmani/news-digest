@@ -3061,3 +3061,14 @@ and a clipped music credit. Omit that exact terminal sequence on the PlayStation
 Blog, preserving the episode introduction, metadata and an ellipsis for source
 continuation. Changed wording, intervening reporting, nonterminal text and other
 publishers remain intact. Offline recording only; saved editions stay unchanged.
+
+## 2026-11-14 iteration 2251 — Ars Rocket Report subscription navigation
+
+One explicit free GET of the existing live Ars RSS feed recorded the Rocket
+Report item. Its article body includes a subscription/submission paragraph
+between Starship and Electron reporting. Ingestion omits that exact paragraph
+only on arstechnica.com with the recorded submission destination and copy.
+Launch facts, article identity, date, author, image, citations and source
+continuation remain intact. The unchanged one-item recording verifies the
+result and publisher/link/copy controls offline. No crawl, new source, prompt
+change or paid call; saved editions remain unchanged.

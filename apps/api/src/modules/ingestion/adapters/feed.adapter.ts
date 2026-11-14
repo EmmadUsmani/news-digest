@@ -124,6 +124,14 @@ function excerpt(value: unknown, articleUrl: string): string {
       ' ',
     );
   }
+  // Ars Rocket Report syndicates its subscription/submission promo between
+  // reporting paragraphs. Require the recorded publisher link and full copy.
+  if (new URL(articleUrl).hostname === 'arstechnica.com') {
+    body = body.replace(
+      /<p>As always, we <a href="https:\/\/arstechnica\.wufoo\.com\/forms\/launch-stories\/">welcome reader submissions<\/a>, and if you don't want to miss an issue, please subscribe using the box below \(the form will not appear on AMP-enabled versions of the site\)\. Each report will include information on small-, medium-, and heavy-lift rockets as well as a quick look ahead at the next three launches on the calendar\.<\/p>/g,
+      ' ',
+    );
+  }
   // A publisher link back to this article is navigation, not reporting.
   let withoutSelfLink = body.replace(
     /<p\b[^>]*>\s*<a\b([^>]*)>\s*Source\s*<\/a>\s*<\/p>\s*$/i,
