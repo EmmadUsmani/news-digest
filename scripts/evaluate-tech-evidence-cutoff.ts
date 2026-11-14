@@ -23,6 +23,7 @@ function evaluate(path: string, groupingPath?: string) {
       baselinePublished: number;
       clusters: number;
       reservationSweep: number[][];
+      semanticSweep: number[][];
     };
     editionId: string;
     windowStart: string;
@@ -95,13 +96,17 @@ function evaluate(path: string, groupingPath?: string) {
       (member) =>
         fixture.reportingIds.includes(member.id) && member.excerpt.trim(),
     );
-  const semantic = (item: (typeof evidence)[number]) =>
+  const semantic = (
+    item: (typeof evidence)[number],
+    first: 'importance' | 'relevance' = 'importance',
+  ) =>
     fixture.scores
       .filter((score) => item.coverage.some((member) => member.id === score.id))
       .sort(
         (a, b) =>
-          b.importance - a.importance ||
-          b.relevance - a.relevance ||
+          b[first] - a[first] ||
+          b[first === 'importance' ? 'relevance' : 'importance'] -
+            a[first === 'importance' ? 'relevance' : 'importance'] ||
           a.id.localeCompare(b.id),
       )[0];
   // Study a single reserved reporting slot, without altering production selection.
@@ -208,6 +213,49 @@ function evaluate(path: string, groupingPath?: string) {
     ]),
     fixture.expected.reservationSweep,
   );
+  // Test the identified cutoff cause without an oracle reporting reservation:
+  // use saved semantic scores for admission, retaining the existing clusters.
+  const semanticSweep = (['importance', 'relevance'] as const).map((first) => {
+    const second = first === 'importance' ? 'relevance' : 'importance';
+    const pool = [...evidence]
+      .sort(
+        (a, b) =>
+          semantic(b, first)[first] - semantic(a, first)[first] ||
+          semantic(b, first)[second] - semantic(a, first)[second] ||
+          b.score - a.score ||
+          a.id.localeCompare(b.id),
+      )
+      .slice(0, 10);
+    assert.equal(pool.length, 10);
+    assert.equal(new Set(pool.map((item) => item.id)).size, 10);
+    for (const item of pool)
+      assert.deepEqual(
+        item,
+        evidence.find((original) => original.id === item.id),
+      );
+    return {
+      first,
+      reporting: pool.filter(readable).length,
+      publishedRetained: retained(pool),
+      displacedPublished: fixture.publishedIds.filter(
+        (id) =>
+          baseline.some((item) => item.id === id) &&
+          !pool.some((item) => item.id === id),
+      ),
+      added: pool
+        .filter((item) => !baseline.includes(item))
+        .map((item) => item.title),
+    };
+  });
+  assert.deepEqual(
+    semanticSweep.map((row) => [
+      row.reporting,
+      row.publishedRetained,
+      row.added.length,
+      row.displacedPublished.length,
+    ]),
+    fixture.expected.semanticSweep,
+  );
   const describe = (item: (typeof evidence)[number]) => ({
     id: item.id,
     title: item.title,
@@ -233,6 +281,7 @@ function evaluate(path: string, groupingPath?: string) {
         admitted: challenger ? describe(challenger) : null,
         displaced: challenger ? describe(baseline[9]) : null,
         reservationSweep,
+        semanticSweep,
         productionChanged: false,
       },
       null,

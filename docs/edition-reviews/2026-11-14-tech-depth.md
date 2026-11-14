@@ -180,3 +180,35 @@ The small labelled recordings still do not justify a generic production rule;
 reviewed grouping alone removes Nov 12's deficit. Production remains unchanged.
 The offline command pins every row, ten unique slots, retained controls and
 unchanged evidence; it performs no source, database, cache or provider access.
+
+## Semantic ordering control — iteration 2312
+
+The offline evaluator now tests the identified ranking cause directly: order
+existing clusters by their best saved importance/relevance pair, or by their
+best relevance/importance pair, then use recency/engagement and ID as ties.
+Each pair comes from one member, rather than combining scores from different
+members. Neither order uses the manually reviewed reporting labels to select
+candidates; those labels only measure the resulting ten-slot pools.
+
+| Recorded control       | Baseline reporting | Importance first | Relevance first |
+| ---------------------- | ------------------ | ---------------- | --------------- |
+| Nov 12 ungrouped       | 0                  | 2                | 2               |
+| Nov 12 reviewed groups | 3                  | 2                | 2               |
+| Nov 14 recorded groups | 1                  | 2                | 1               |
+
+Importance-first admits Wallet and retains all four Nov 14 published
+representatives. However, it loses the published Google smartglasses story in
+the Nov 12 reviewed-group control and reduces reporting from three clusters
+to two. Relevance-first admits Wallet but displaces both Nov 14's Meta fine
+and Nvidia cluster, leaving the reporting count unchanged. In the Nov 12
+reviewed groups it retains all five published representatives, versus two in
+the baseline, while still reducing reporting. Ungrouped gains include repeated
+CEO-departure reports; more prose is not necessarily more events.
+
+The controls reject a blanket semantic reorder as an established depth fix:
+either ordering has a concrete regression in these recordings. Keep production
+unchanged and inspect the next natural grouped editor input before choosing
+an admission policy. This study predicts admission only, not model selection
+or summary quality. The existing offline command pins both orderings' reporting,
+retained-publication, added-cluster and displaced-publication counts, ten unique
+slots and unchanged evidence across all three controls. No external calls.

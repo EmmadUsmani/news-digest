@@ -896,6 +896,10 @@
       [1, 4, 0],
       [2, 4, 1],
       [2, 4, 1]
+    ],
+    "semanticSweep": [
+      [2, 4, 5, 0],
+      [1, 2, 5, 2]
     ]
   },
   "provenance": "Current-input capture with saved grouping reused; grouping fingerprint differs from scheduled request. Counterfactual only."

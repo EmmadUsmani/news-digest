@@ -131,3 +131,12 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Warning-level system metrics/alerts journal since 21:08:39 UTC has no entries. Second comparable natural merge remains unobserved; retain CPU-only 2% trial. Next passive probe no earlier than 23:24 UTC; no forced merge or capacity tuning.
 - Receipt `/tmp/2311-metrics.jsonl`. No source/schema/system-flow change; SOURCES and handbook unchanged. No paid calls, generation changes or runtime configuration changes.
 - Verification: `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips). Private build checked separately; no application changes retained, so no service restart needed. Next: normal scheduled five-topic acceptance and due passive recovery evidence.
+
+## 2026-11-14: iteration 2312 — compare semantic Tech admission
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy and source check passes. Public mode remains off, VM private; scheduled five-topic acceptance pending. Metrics probe not due before 23:24 UTC.
+- Reader weakness (items 42/59): three Tech summaries have headline-only evidence. Owner-visible value: avoid replacing that weakness with a ranking change that loses important published stories.
+- Extended the existing offline admission evaluator to compare importance-first and relevance-first saved semantic scores across Nov 12 ungrouped/reviewed groups and Nov 14 recorded groups; neither uses reporting labels for selection. Pair scores belong to one member; existing groups, evidence, ten slots and tie ordering retained.
+- Importance-first admits Wallet/retains four Nov 14 stories, but loses published smartglasses and reduces reporting in Nov 12 grouped control. Relevance-first loses Meta/Nvidia on Nov 14. Recorded counts pinned; no production admission change justified. Updated depth study and TASKS.
+- `pnpm format`, `pnpm lint:fix`, offline evaluator and private build pass (existing bundle warning); full `pnpm check` passes (1,025 unit/329 integration passes, four expected skips). API/worker restarted; initial health request raced startup, retry healthy/database/Redis true. `git diff --check` clean.
+- No source/schema/system-flow/UI changes; SOURCES, handbook and screenshots unchanged. Trimmed old TASKS done markers (history remains in PROGRESS/archive) to 8 KB. No provider calls, edition writes or runtime configuration changes. Receipts `/tmp/2312-*`.

@@ -48,7 +48,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
-- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded cutoff/grouping controls retain published selections; natural grouped evidence needed before admission changes. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
+- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded semantic ordering admits Wallet but regresses other published/reporting controls (2312); no blanket reorder. Natural grouped evidence needed before admission changes. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
 
@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2312: tested saved semantic ordering against three Tech admission controls; identified concrete reporting/publication regressions and retained production policy.
+
 - [x] 2310: older saved discovery stories identify the linked site on display, preserving bookmark snapshots.
 
 - [x] 2309: new saved discovery-linked stories retain the linked hostname alongside the feed; real Reuters save/reload verified.
@@ -67,22 +69,5 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [x] 2308: discovery-only source labels identify the linked site alongside the feed, in collapsed and expanded coverage.
 
 - [x] 2307: restored per-report destinations and distinct site labels for grouped stories sharing a discovery feed; two real historical Tech cases verified.
-
-- [x] 2306: scoped official X media on Saved cards as an owner-review proposal; no new feature or generation change.
-
-- [x] 2305: refreshed due metrics recovery evidence; one small natural merge stayed healthy, below acceptance threshold; restart-related scrape warnings traced.
-
-- [x] 2304: reconciled the top-level public activation handoff and readiness introduction with the existing five-topic AI gate; Nov 14 NBA recovery alone remains insufficient.
-
-- [x] 2303: new saved-story attribution follows the linked coverage report, with legacy fallback; real grouped-story/browser controls pass.
-
-- [x] 2302: activation/runbook now require the existing explicit five-topic AI gate before activation and after its first scheduled edition; today correctly refuses Gaming/World/U.S.
-
-- [x] 2301: reconciled Yardbarker feed versus disabled article-page harvesting against live configuration; no activation change.
-
-- [x] 2300: compacted this handoff; every open item and all historical detail/evidence retained in the linked archive.
-- [x] 2299: bounded selected NBA story context reaches both social editing stages; natural selection acceptance pending.
-- [x] 2298: natural U.S. social trace confirms intentional empty notes and distinct funding/Jeffries updates; retain Congress query.
-- [x] 2297: recorded Tech reporting-minimum controls retain published selections; production admission unchanged.
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
