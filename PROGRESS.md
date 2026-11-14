@@ -1,5 +1,9 @@
 # Progress
 
+Archived entry: [iteration 2251](docs/progress-archive/2026-11-14-iteration-2251.md).
+
+Archived entry: [iteration 2250](docs/progress-archive/2026-11-14-iteration-2250.md).
+
 Archived entry: [iteration 2249](docs/progress-archive/2026-11-14-iteration-2249.md).
 
 Archived entry: [iteration 2248](docs/progress-archive/2026-11-14-iteration-2248.md).
@@ -135,29 +139,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2250 — PlayStation podcast footer
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
-- Reader weakness: the recorded podcast excerpt ends with empty section headings and a clipped music credit. Omit that exact terminal footer on the publisher host, preserving the episode introduction and source-continuation ellipsis.
-- Owner value: future podcast cards devote their excerpt to the episode rather than flattened navigation/credits. Saved editions remain immutable; no new source, prompt, budget or paid call.
-- Offline recording verifies reporting/metadata equality and publisher, wording, intervening-reporting and terminal-position controls. Updated TASKS/SOURCES; archived iteration 2237 to bound PROGRESS. No handbook behavior change.
-- `pnpm exec tsx --test --test-name-pattern='PlayStation podcast' apps/api/test/ingestion.test.ts`: two pass. Initial unfiltered direct run exposed the assertion's space mismatch (fixed) and three DB isolation refusals; no live DB accessed.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check`: 1,000 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts.
-- One explicit free Ars RSS GET found readable reporting; no additional change or article crawl. Source status has no enabled-source errors; DeepMind has no articles in 24h but returns 60 entries normally.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
-## 2026-11-14: iteration 2251 — Ars newsletter excerpt
-
-- Clean main; no inherited work. Initial alerts zero, health/database/Redis pass; 38 enabled sources healthy and scheduled digest queued for 15:00 UTC.
-- Reader weakness: live Ars Rocket Report body spends a paragraph on subscription/submission instructions between launch reports. Omit that exact publisher/destination/copy block so future excerpts focus on Starship/Electron reporting.
-- One explicit free RSS GET recorded the unchanged item. Offline test preserves reporting/metadata and continuation; publisher, destination and altered-copy controls retain unrelated text. No crawl, prompt, budget or paid call; saved editions unchanged.
-- Updated TASKS/SOURCES; archived iteration 2238 to bound PROGRESS. No handbook behavior change.
-- `pnpm exec tsx --test apps/api/test/feed-ars-newsletter.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check`: 1,001 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes after startup retry.
-- Saved reader gate passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2252 — Guardian live-report signup
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
@@ -255,3 +236,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: targeted gate tests 6/6; pnpm format/lint:fix; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Initial check stopped on archive formatting, corrected before successful full rerun.
 - Rebuilt API/worker restarted; health database/Redis pass. Publication-only saved-reader check passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
 - Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. No paid replay.
+
+## 2026-11-14: iteration 2261 — World social breadth traced to saved selection
+
+- Clean main; no inherited work. Initial alerts zero and health database/Redis pass. Scheduled NBA/item 58 acceptance remains pending 15:00 UTC.
+- Reader weakness: two of three saved World posts concern Iran/U.S. confrontation. Traced whether distinct material was lost before editing rather than repeating the earlier selected-text assessment.
+- Read-only production selection plus saved complete scores: 16 candidates, four qualifying, all four reach the editor. Only omitted candidate is clipped Ukraine-child-abduction commentary; no demonstrated additional firsthand reporting. Shortlist capacity is not the cause.
+- Exact reconstructed editor fingerprint matches saved cache; normal validator reproduces all three published IDs in order. Cache reasons describe Pompeo as another prominent voice; no omission reason exists. No invented rejection rationale or event-label merge.
+- Updated X-quality evidence, Nov 14 breadth checklist and TASKS. Archived iterations 2250–2251 to bound PROGRESS. Private trace `/tmp/2261-world-trace.json`; temporary script removed. No source/media requests, paid calls, generation/configuration changes or stored-data writes.
+- Verification: offline 16-ID/four-shortlist/exact-cache/three-publication assertions pass; pnpm format and lint:fix pass; pnpm build passes with existing bundle warnings. Full pnpm check passes: 1,008 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted; health database/Redis passes. Saved-reader check passes after startup retry: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
+- Next: 15:00 UTC all-topic AI/recovery/diversity review; include World breadth without inferring that conflict overlap equals duplicate announcements. NBA/item 58 closure, fresh rollback baseline and private public-mode activation retain priority. No paid replay.
