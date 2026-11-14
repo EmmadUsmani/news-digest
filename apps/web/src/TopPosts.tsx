@@ -509,6 +509,19 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           postUrl={post.url}
         />
       </p>
+      {/(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(
+        post.displayText ?? post.text,
+      ) && (
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Continue reading on Bluesky ${postIdentity}`}
+          className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
+          Continue reading on Bluesky
+        </a>
+      )}
       <div
         className={`bluesky-media grid grid-cols-1 gap-2 ${(post.media?.length ?? 0) > 1 ? '@min-[480px]:grid-cols-2' : ''}`}
       >

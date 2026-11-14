@@ -1,5 +1,6 @@
 # Progress
 
+Archived entry: [iteration 2253](docs/progress-archive/2026-11-14-iteration-2253.md).
 Archived entry: [iteration 2252](docs/progress-archive/2026-11-14-iteration-2252.md).
 
 Archived entry: [iteration 2251](docs/progress-archive/2026-11-14-iteration-2251.md).
@@ -141,16 +142,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2253 — NPR lead photos
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and enabled sources report healthy. Scheduled NBA/item 58 acceptance still awaits 15:00 UTC.
-- Reader weakness: NPR's current U.S. reporting supplies an opening bare CDN image, but only figures/media metadata were recognized, leaving future cards without the available photo.
-- One explicit free NPR Politics RSS GET recorded the unchanged item. Preserve its opening HTTPS publisher-CDN photo; reject unrelated publishers/hosts/paths, unsafe URLs, later images and the terminal tracking pixel. Reporting/metadata and preferred media images stay intact.
-- Updated TASKS/SOURCES; archived iteration 2240 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-npr-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,003 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2254 — Yahoo NBA lead photos
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58 acceptance awaits 15:00 UTC.
@@ -251,3 +242,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: offline parse/legacy-retention/five-ID/replacement assertions pass; pnpm format and lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings.
 - Rebuilt API/worker restarted active; health passes. Saved-reader command passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
 - Next: 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Review HUD evidence during Tech acceptance; provenance repair follows the protected edition.
+
+## 2026-11-14: iteration 2263 — Bluesky source continuation
+
+- Clean main; no inherited work. Initial alerts zero. NBA/item 58 and private public-mode activation remain gated on 15:00 UTC scheduled acceptance; generation hold retained.
+- Owner-visible weakness: saved Nov 7 Gaming survey and World news posts end in shortened source URLs. Readers cannot open those destinations and had no explicit continuation action on edition cards.
+- Added “Continue reading on Bluesky” for terminal-ellipsis display text, matching existing X/saved-item behavior. Link opens the original post; unchanged saved text retains unknown/shortened destinations without inventing URLs. Complete posts unchanged.
+- GET-only real saved-edition Playwright replay passes both clipped posts and complete controls on desktop/mobile, light/dark: text, link destinations, keyboard focus, 44px targets, layout and no page errors. Third-party requests blocked; eight screenshots saved; mobile light and desktop dark images inspected.
+- Updated TASKS; archived iteration 2253 to bound PROGRESS. No source/provider requests, paid calls, stored-data writes, prompt/ranking/budget/flag changes. Handbook describes unchanged system flows.
+- Verification: pnpm format/lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Browser command: pnpm exec tsx scripts/smoke-reader-bluesky-continuation.ts.
+- Rebuilt API/worker restarted before 13:00 UTC; both active, health database/Redis pass. Publication-only saved-reader check passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
+- Next: 15:00 UTC all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Tech provenance repair follows the protected edition. No paid replay.

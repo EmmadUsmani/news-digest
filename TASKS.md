@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Bluesky continuation (2263): saved edition cards with terminal ellipses now offer an explicit original-post link, including the shortened game-worker survey/news source URLs; saved text and selection unchanged.
+
 - [x] All-topic recovery report (2260): scheduled reader gate reports every requested section and exits nonzero for any refusal; Nov 13 confirms all five failures without stopping at Tech. No generation change.
 
 - [x] Tech candidate-cap study (2259): full-window control adds five readable reports but leaves all five fallback selections unchanged; retain the 200 cap pending scheduled AI review. [Evidence](docs/edition-reviews/2026-11-14-tech-cap.md).
