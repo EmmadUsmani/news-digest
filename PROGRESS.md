@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2220](docs/progress-archive/2026-11-14-iteration-2220.md).
+
 Archived entry: [iterations 2218–2219](docs/progress-archive/2026-11-14-iterations-2218-2219.md).
 
 Archived entry: [iteration 2217](docs/progress-archive/2026-11-14-iteration-2217.md).
@@ -81,17 +83,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2220 — omit repeated publisher post footers
-
-- Clean main; no inherited work. Zero alerts. Scheduled recovery/NBA/item 58 acceptance awaits 15:00 UTC.
-- Recorded NBA/Gaming feeds repeat headlines and publisher names after reporting in “The post … appeared first on …” navigation.
-- Omit only terminal two-link paragraphs whose headline link canonicalizes to the article. Preserve external/nonterminal links and prose mentions; reporting and metadata remain intact.
-- Two focused tests pass: five recorded Basketball Insiders/Insider Gaming articles plus synthetic boundary controls. No new source requests, paid calls, saved-edition writes or UI changes.
-- TASKS/SOURCES/affected handbook updated; archived iteration 2207 to keep PROGRESS small. Budgets, provider and activation unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 990 unit/309 integration, four expected skips. Build passes with existing bundle warnings; affected handbook/schema and diff checks pass.
-- API/worker restarted active; `/healthz` database/Redis pass. Reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection and no errors.
-- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2221 — Gaming Read more continuation
 
@@ -223,3 +214,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, API typecheck and `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 990 unit/318 integration tests, four expected skips; format/lint/typecheck/boundaries pass.
 - Rebuilt API/worker restarted active; `/healthz` passes after startup retry. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local status read confirms all 38 active sources have stored content/success/no errors. Diff check passes.
 - Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2233 — Verge reporting without purchase navigation
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC scheduled acceptance.
+- Reader weakness: recorded Verge commerce excerpts flatten widget old/current prices into ambiguous “$59 $39” between reporting paragraphs. Omit its exact purchase-widget structure on the publisher host; article prices, discounts, battery life and customization details remain.
+- Three focused recorded-Verge tests pass, including unchanged fixture/metadata equivalence and other-host/changed-structure/nested-reporting controls. No live source requests, inference calls or saved-edition edits.
+- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2220 to keep PROGRESS small. No UI/schema/budget/flag changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/319 integration tests, four expected skips; format/lint/typecheck/boundaries pass; 18 handbook pages/39 tables. Existing bundle warnings only.
+- API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts after startup retry. Local source status confirms all 38 active sources have successful collection/stored content/no errors. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.

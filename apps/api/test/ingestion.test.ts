@@ -376,6 +376,41 @@ void test('feed lead figures preserve media priority and reject unsafe or later 
   );
 });
 
+void test('recorded Verge purchase widget leaves reported prices and product details intact', async () => {
+  const xml = await fixture('verge-commerce-2026-11-13.xml');
+  const widget = xml.match(
+    /&lt;div class="product-block"&gt;[\s\S]*?&lt;\/div&gt;/,
+  )?.[0];
+  assert.ok(widget);
+  const [item] = parseFeed(xml);
+  assert.deepEqual(item, parseFeed(xml.replace(widget, ''))[0]);
+  assert.doesNotMatch(item.excerpt, /Where to Buy|\$59 \$39/);
+  assert.match(item.excerpt, /just \$39/);
+  assert.match(item.excerpt, /solid \$20 discount/);
+  assert.match(item.excerpt, /for \$79 \(\$30 off\)/);
+  assert.match(item.excerpt, /18 hours on a single charge/);
+  assert.match(item.excerpt, /create their own attachments and looks\.$/);
+  assert.ok(item.excerpt.length <= 1500);
+  // Preserve other publishers and blocks that don't match this navigation.
+  assert.match(
+    parseFeed(xml.replaceAll('www.theverge.com', 'example.com'))[0].excerpt,
+    /Where to Buy/,
+  );
+  for (const changed of [
+    widget.replace('product-block', 'article-reporting'),
+    widget.replace('Where to Buy:', 'Price analysis:'),
+    widget.replace(
+      '&lt;ul&gt;',
+      '&lt;div&gt;Reporting inside.&lt;/div&gt;&lt;ul&gt;',
+    ),
+  ]) {
+    assert.match(
+      parseFeed(xml.replace(widget, changed))[0].excerpt,
+      /\$59 \$39/,
+    );
+  }
+});
+
 void test('recorded Verge commerce keeps reporting without the terminal ad config', async () => {
   const xml = await fixture('verge-commerce-2026-11-13.xml');
   const [item] = parseFeed(xml);

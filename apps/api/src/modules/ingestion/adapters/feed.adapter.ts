@@ -27,7 +27,7 @@ function leadFigureImage(value: unknown): string | null {
 function excerpt(value: unknown, articleUrl: string): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
-  const body = text(value)
+  let body = text(value)
     // GameSpot's feed includes its in-page table of contents before reporting.
     // Keep article headings/lists; only this named navigation is redundant.
     .replace(
@@ -55,6 +55,14 @@ function excerpt(value: unknown, articleUrl: string): string {
       /<div\s+id=["']hype-desk-root["']\s*>\s*<\/div>\s*window\.HYPE_DESK_CONFIG\s*=\s*\{[^<>]*\};\s*$/,
       '',
     );
+  // The Verge repeats prices in a purchase widget, where struck-out prices
+  // lose their meaning in plain text. Keep prices and details in reporting.
+  if (new URL(articleUrl).hostname === 'www.theverge.com') {
+    body = body.replace(
+      /<div\b[^>]*\bclass\s*=\s*(["'])product-block\1[^>]*>\s*<h3>[^<]*<\/h3>\s*<figure\b[^>]*>\s*<img\b[^>]*>\s*<\/figure>\s*<h3>Where to Buy:<\/h3>\s*<ul>(?:(?!<\/?div\b)[\s\S])*?<\/ul>\s*<\/div>/gi,
+      ' ',
+    );
+  }
   // A publisher link back to this article is navigation, not reporting.
   const withoutSelfLink = body.replace(
     /<p\b[^>]*>\s*<a\b([^>]*)>\s*Source\s*<\/a>\s*<\/p>\s*$/i,

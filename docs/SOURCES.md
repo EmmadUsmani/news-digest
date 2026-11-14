@@ -2920,3 +2920,11 @@ subscription navigation. Omit that exact leading promotion on
 1,500-character cap. Other publishers, changed wording and non-opening mentions
 remain intact. Verified offline against the unchanged recording; no source
 request or saved-edition rewrite.
+
+## 2026-11-14 iteration 2233 — Verge purchase navigation
+
+The unchanged recorded Verge commerce feed repeats old/current prices in its
+“Where to Buy” product widget. Omit this exact widget structure on the publisher
+host before the excerpt cap; retain prices, discounts and product details in
+article paragraphs. Other publishers, different blocks and nested reporting
+remain. Offline fixture checks only; no source requests or saved-edition edits.
