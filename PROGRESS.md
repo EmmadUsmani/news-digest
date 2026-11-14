@@ -122,3 +122,12 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); private web build passes with existing bundle warning. Initial lint rejected a smoke-script type assertion; corrected with explicit generic before successful full rerun.
 - Saved-source Playwright passes desktop/mobile light/dark, including exact legacy labels, URLs, reload and unchanged storage; screenshots refreshed (same visual output), mobile light inspected. API/worker restarted; health/database/Redis healthy and source check passes. `git diff --check` clean.
 - No generation, source, schema, provider or budget changes; SOURCES and handbook unchanged. Receipts `/tmp/2310-*`. Next: normal five-topic scheduled acceptance before public activation.
+
+## 2026-11-14: iteration 2311 — outstanding metrics recovery sample
+
+- Clean main; no inherited work. Initial `pnpm obs alerts` reports zero alerts. Public mode remains off and scheduled five-topic acceptance remains pending.
+- Investigated expanded coverage ordering; saved editions already put the primary report first. Deliberately discarded the speculative UI/test change rather than ship a guard for an unobserved failure. No screenshots or app behavior changed.
+- Outstanding metrics recovery: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 22:22:42–22:23:13 UTC finds 24 healthy rules, uncached queries ≤1.119 s, no new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries; process starts unchanged and neither tier merged.
+- Warning-level system metrics/alerts journal since 21:08:39 UTC has no entries. Second comparable natural merge remains unobserved; retain CPU-only 2% trial. Next passive probe no earlier than 23:24 UTC; no forced merge or capacity tuning.
+- Receipt `/tmp/2311-metrics.jsonl`. No source/schema/system-flow change; SOURCES and handbook unchanged. No paid calls, generation changes or runtime configuration changes.
+- Verification: `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips). Private build checked separately; no application changes retained, so no service restart needed. Next: normal scheduled five-topic acceptance and due passive recovery evidence.
