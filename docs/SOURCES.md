@@ -2858,3 +2858,12 @@ and figures containing article paragraphs remain intact. Caption-only content
 falls back to the publisher summary. Recorded commerce reporting/metadata and
 synthetic boundary controls pass offline; no new requests or paid calls.
 Previously saved editions remain unchanged.
+
+### Publisher self-link footers — Nov 14, iteration 2218
+
+Recorded VGC and Gematsu feed excerpts end in “… Source”. Feed normalization
+now omits a terminal standalone “Source” paragraph only when its link resolves
+to the same canonical article URL. This preserves the supplied ellipsis so the
+reader can offer continuation. External, inline and nonterminal links remain.
+Four recorded articles and synthetic boundary controls pass offline; no live
+request, paid call or saved-edition rewrite is involved.

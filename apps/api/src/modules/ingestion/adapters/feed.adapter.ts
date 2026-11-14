@@ -24,7 +24,7 @@ function leadFigureImage(value: unknown): string | null {
   const src = figure?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
   return canonicalUrl(src?.[2] ?? '');
 }
-function excerpt(value: unknown): string {
+function excerpt(value: unknown, articleUrl: string): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
   const body = text(value)
@@ -38,8 +38,16 @@ function excerpt(value: unknown): string {
       /<div\s+id=["']hype-desk-root["']\s*>\s*<\/div>\s*window\.HYPE_DESK_CONFIG\s*=\s*\{[^<>]*\};\s*$/,
       '',
     );
+  // A publisher link back to this article is navigation, not reporting.
+  const withoutSelfLink = body.replace(
+    /<p\b[^>]*>\s*<a\b([^>]*)>\s*Source\s*<\/a>\s*<\/p>\s*$/i,
+    (footer, attributes: string) => {
+      const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+      return canonicalUrl(href?.[2] ?? '') === articleUrl ? '' : footer;
+    },
+  );
   // Inline formatting contributes no spacing; block tags still separate text.
-  const reporting = body.replace(
+  const reporting = withoutSelfLink.replace(
     /<\/?(?:a|abbr|b|bdi|bdo|cite|code|del|em|i|ins|kbd|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr)\b[^>]*>/gi,
     '',
   );
@@ -97,7 +105,7 @@ export function parseFeed(xml: string): ContentItem[] {
               entry.description,
               entry.summary,
             ]
-              .map(excerpt)
+              .map((value) => excerpt(value, url))
               .find(Boolean) ?? '',
           author:
             plainText(

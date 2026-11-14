@@ -10,6 +10,56 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded publisher self-link footers leave truncated reporting visible', async () => {
+  for (const name of ['vgc.xml', 'gematsu.xml']) {
+    const xml = await fixture(name);
+    const items = parseFeed(xml);
+    const withoutFooter = parseFeed(
+      xml.replace(/<p><a [^>]*>Source<\/a><\/p>/g, ''),
+    );
+    assert.equal(items.length, 2);
+    assert.deepEqual(items, withoutFooter);
+    for (const item of items) assert.match(item.excerpt, /…$/);
+  }
+});
+
+void test('feed self-link removal preserves external, inline and nonterminal source links', () => {
+  const item = (body: string) =>
+    parseFeed(`<rss><channel><item>
+    <title>Report</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description></item></channel></rss>`)[0];
+  const source = (url: string) =>
+    `<p><a rel="nofollow" href="${url}">Source</a></p>`;
+  assert.equal(
+    item('Reporting…' + source('https://example.com/story?utm_source=feed'))
+      .excerpt,
+    'Reporting…',
+  );
+  assert.equal(
+    item('Reporting…' + source('https://example.com/other')).excerpt,
+    'Reporting… Source',
+  );
+  assert.equal(
+    item(
+      'Reporting…' +
+        source('https://example.com/story') +
+        '<p>More reporting.</p>',
+    ).excerpt,
+    'Reporting… Source More reporting.',
+  );
+  assert.equal(
+    item(
+      '<p>Reporting cites <a href="https://example.com/story">Source</a>.</p>',
+    ).excerpt,
+    'Reporting cites Source.',
+  );
+  assert.equal(
+    item('Reporting…' + source('javascript:alert(1)')).excerpt,
+    'Reporting… Source',
+  );
+});
+
 void test('recorded Verge opening figure supplies its missing lead image', async () => {
   const xml = await fixture('verge-commerce-2026-11-13.xml');
   const [item] = parseFeed(xml);

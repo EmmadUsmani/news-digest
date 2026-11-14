@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Publisher self-link footers (2218): omit terminal standalone Source links to the same article, preserving the reporting ellipsis and reader continuation; four recorded VGC/Gematsu articles and boundary controls pass.
+
 - [x] Opening photo captions (2217): exclude image-and-caption-only lead figures from excerpts while retaining lead images, reporting and publisher-summary fallback. Recorded Verge and boundary controls pass.
 
 - [x] Feed lead images (2215): retain the opening article-content figure when media metadata is absent; recorded Verge image and reporting verified, with later/unsafe image controls.

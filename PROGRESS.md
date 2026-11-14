@@ -60,16 +60,7 @@ Archived entry: [iteration 2204](docs/progress-archive/2026-11-14-iteration-2204
 
 Archived entry: [iteration 2205](docs/progress-archive/2026-11-14-iteration-2205.md).
 
-## 2026-11-14: iteration 2206 — mark bounded feed reporting
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. NBA/item 58 acceptance awaits today's normal scheduled edition; public mode stays off/private.
-- Saved Gaming fallback already marks its 600-character shortening; upstream feed normalization silently cut reporting at 1,500 characters, including within words or Unicode pairs.
-- Feed excerpt caps now use an ellipsis, whole-word boundaries where possible and intact surrogate pairs. Complete text stays exact; content precedence, blank fallback, limits and all-field X citations retained.
-- Offline tests cover exact cap, complete text, split date word, emoji, blank HTML, RSS/Atom content and citations beyond the cap. No paid/live requests or saved-edition rewrites.
-- TASKS, SOURCES and affected handbook pages updated; corrected stale summary-first data-model wording. Archived oldest progress entry; NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/296 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
-- Targeted feed 4/4 and X links 2/2 pass. Initial X expectation omitted a complete trailing word; corrected. First full check caught archive formatting; fixed before successful retry. Commit/push and built API/worker restart follow.
-- Next: Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2206](docs/progress-archive/2026-11-14-iteration-2206.md).
 
 ## 2026-11-14: iteration 2207 — preserve inline feed sentence spacing
 
@@ -197,4 +188,15 @@ Archived entry: [iteration 2205](docs/progress-archive/2026-11-14-iteration-2205
 - TASKS/SOURCES/affected handbook updated; archived iteration 2205 to keep PROGRESS small. Saved editions, provider, budgets and activation flags unchanged.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/305 integration, four expected skips. `pnpm build` passes with existing chunk warning; handbook/schema and diff checks pass.
 - Built API/worker restarted; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status: all 38 active sources have data/success and no errors.
+- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2218 — preserve publisher truncation signals
+
+- Clean main; no inherited work. Zero alerts; API/database/Redis healthy. Scheduled NBA/item 58 acceptance awaits today's edition.
+- Recorded VGC/Gematsu excerpts end in “… Source”, hiding truncation from the reader's existing continuation detection.
+- Remove only terminal standalone Source paragraphs linking to the same canonical article. Preserve reporting, external/inline/nonterminal links and all metadata.
+- Focused ingestion self-link tests pass 2/2: four recorded articles plus synthetic boundaries. No live source request, paid call, saved-edition rewrite or UI change.
+- TASKS/SOURCES/affected handbook updated; archived iteration 2206 to keep PROGRESS small. Initial handbook check exceeded its length limit by one line; shortened affected text and recheck passes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/307 integration, four expected skips. `pnpm build` passes with existing chunk warning; `check-handbook.ts 07-data-model` and diff checks pass.
+- Built API/worker restarted active; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status reports all 38 active sources with data/success/no errors; initial inline probe needed a CJS-compatible promise wrapper.
 - Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.
