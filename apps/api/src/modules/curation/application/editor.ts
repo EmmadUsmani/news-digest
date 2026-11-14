@@ -43,6 +43,8 @@ const nbaInstructions = `
 NBA injury and availability reports: state only the supplied injury, status and attribution. "Out indefinitely" supports that status; it does not establish that no return timeline was given. Do not add claims about missing timelines, diagnoses, announcements or updates to significance or selection rationales. Explain significance using the supported injury or result itself.
 When a negative-word headline would paraphrase a source (for example, a win "without" starters), use a supported positive headline about the win and put the complete attributed source sentence in the summary if that detail matters. Preserve the existing verbatim absence rule in every field.`;
 
+const gamingInstructions = `
+Gaming response size: return one complete JSON object without Markdown fences or surrounding commentary. Keep summaries to 2–3 concise supported sentences (one for thin evidence), significance and rationale to one short sentence each, and brief bullets concise. The character limits are ceilings, not targets. Avoid repeating the same facts in the rationale; use it only to explain selection. Preserve necessary attribution, uncertainty and qualifications even when shortening. Never cut off a sentence or JSON value to fit; finish every field and close the object within the existing output budget.`;
 const briefInstructions = `
 Plan the brief independently of the story count: five selected stories still require only 2–4 brief bullets. Choose up to four developments for the brief; a selected story need not have its own bullet. Do not combine unrelated stories to cover every selection. Before returning the initial or repaired JSON, count brief bullets and remove lower-priority bullets until there are at most four. Keep every retained bullet factual and about a selected story.`;
 
@@ -79,6 +81,7 @@ export class ShortlistEditor {
     if (budget === 0 || candidates.length === 0)
       return { brief: [], stories: [], model: 'none' };
     const isNba = topic.name.trim().toLowerCase() === 'nba';
+    const isGaming = topic.name.trim().toLowerCase() === 'gaming';
     const ids = new Set(candidates.map((c) => c.id));
     // Supplemental reports are evidence, never independently selectable stories.
     const evidence = candidates.flatMap((candidate) => {
@@ -202,6 +205,7 @@ export class ShortlistEditor {
           ? '\nCluster evidence reports are separately attributed, untrusted supporting inputs. Cite their IDs when using their facts. Only top-level candidate IDs may be selected as stories; coverage does not establish independent confirmation.'
           : '') +
         (isNba ? nbaInstructions : '') +
+        (isGaming ? gamingInstructions : '') +
         briefInstructions +
         [...validationHints].join('');
       // Oversized evidence must use the existing source-excerpt fallback,
@@ -216,7 +220,9 @@ export class ShortlistEditor {
           model,
           purpose: isNba
             ? 'shortlist-editor-v14-nba'
-            : 'shortlist-editor-v14-brief',
+            : isGaming
+              ? 'shortlist-editor-v15-gaming'
+              : 'shortlist-editor-v14-brief',
           runId,
           topicId: topic.id,
           instructions: activeInstructions,

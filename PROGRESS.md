@@ -126,3 +126,13 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,021 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean.
 - API/worker restarted; first health probe preceded listener readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. Scheduled-reader check: five topics/14 stories/19 posts; saved JSON SHA-256 unchanged (`1726bb29…`).
 - No UI/schema/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership acceptance before private public-mode activation; review fallback breadth after editor recovery rather than widening grouping.
+
+## 2026-11-14: iteration 2292 — bound Gaming JSON verbosity
+
+- Clean main; no inherited work. Initial alerts zero; natural Gaming/ownership recovery still gates item 58 and private public-mode activation.
+- Addressed observed Gaming Haiku 4,000-token truncation with Gaming-only complete JSON/no-fences/concise-field guidance. Preserve attribution, uncertainty and qualifications; character ceilings are not targets. New `shortlist-editor-v15-gaming` cache purpose; other topics unchanged.
+- No token/cap/model/repair/validation changes. Synthetic raw-wire truncated and fenced responses verify Sonnet/Haiku repair, corrected-only cache reuse and fail-closed exhaustion; natural model compliance remains unobserved.
+- `pnpm exec tsx --test apps/api/test/editor.test.ts`: 39 pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check`: static checks, 1,022 unit/329 integration pass, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker restarted; `pnpm obs health --check` database/Redis healthy; `pnpm obs sources --check` 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts.
+- Reader JSON SHA-256 unchanged (`1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5`). No inference, external collection, publication or database writes by this iteration.
+- TASKS and Nov 14 review updated. No UI/schema/source/system-flow changes; handbook/SOURCES/screenshots unchanged. Next: natural scheduled Gaming/ownership acceptance before activation; retain unsupported-absence protections.

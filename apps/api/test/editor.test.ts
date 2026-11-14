@@ -35,7 +35,11 @@ const valid = {
   brief: ['A company announced a model.', 'A model launch.'],
   stories: [story],
 };
-function harness(outputs: unknown[] = [valid], refuse: string[] = []) {
+function harness(
+  outputs: unknown[] = [valid],
+  refuse: string[] = [],
+  rawBodies = false,
+) {
   const config = llmConfig({});
   const calls: LlmRequest[] = [];
   const cache = new Map<string, unknown>();
@@ -57,9 +61,11 @@ function harness(outputs: unknown[] = [valid], refuse: string[] = []) {
       async complete(request) {
         calls.push(request);
         return {
-          text: JSON.stringify(
-            outputs[Math.min(calls.length - 1, outputs.length - 1)],
-          ),
+          text: rawBodies
+            ? String(outputs[Math.min(calls.length - 1, outputs.length - 1)])
+            : JSON.stringify(
+                outputs[Math.min(calls.length - 1, outputs.length - 1)],
+              ),
           usage: { input: 1, output: 1, cacheWrite: 0, cacheRead: 0 },
         };
       },
@@ -1166,7 +1172,13 @@ void test('Gaming five-story brief repairs without dropping stories or raising t
     assert.equal(h.calls.length, 2);
     assert.deepEqual(h.diagnostics()[0].schemaIssues, ['too_big']);
     for (const call of h.calls) {
-      assert.equal(call.purpose, 'shortlist-editor-v14-brief');
+      assert.equal(call.purpose, 'shortlist-editor-v15-gaming');
+      assert.match(call.instructions, /without Markdown fences/);
+      assert.match(
+        call.instructions,
+        /character limits are ceilings, not targets/,
+      );
+      assert.match(call.instructions, /Preserve necessary attribution/);
       assert.equal(call.maxOutputTokens, 4000);
       assert.match(
         call.instructions,
@@ -1589,4 +1601,51 @@ void test('cluster validation cannot use member text beyond the transported exce
   const prompt = JSON.parse(h.calls[0].prompt);
   assert.equal(prompt.candidates[0].clusterEvidence[0].excerpt.length, 600);
   assert.ok(!h.calls[0].prompt.includes(hidden));
+});
+
+void test('Gaming truncated or fenced JSON repairs within the unchanged budget and fails closed on exhaustion', async () => {
+  // Synthetic wire bodies reproduce syntax boundaries, not model compliance.
+  const complete = JSON.stringify(valid);
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    for (const broken of [
+      complete.slice(0, -12),
+      '```json\n' + complete + '\n```',
+    ]) {
+      const h = harness([broken, complete], refuse, true);
+      const result = await h.editor.edit(
+        { ...topic, name: 'Gaming' },
+        candidates,
+        1,
+        'gaming-json-repair',
+      );
+      assert.deepEqual(result?.stories, valid.stories);
+      assert.equal(h.calls.length, 2);
+      for (const call of h.calls) {
+        assert.equal(call.maxOutputTokens, 4000);
+        assert.equal(call.purpose, 'shortlist-editor-v15-gaming');
+        assert.match(
+          call.instructions,
+          /close the object within the existing output budget/,
+        );
+      }
+      await h.editor.edit(
+        { ...topic, name: 'Gaming' },
+        candidates,
+        1,
+        'gaming-json-cache',
+      );
+      assert.equal(h.calls.length, 2);
+      const exhausted = harness([broken], refuse, true);
+      assert.equal(
+        await exhausted.editor.edit(
+          { ...topic, name: 'Gaming' },
+          candidates,
+          1,
+          'gaming-json-exhausted',
+        ),
+        null,
+      );
+      assert.ok(exhausted.calls.length <= 4);
+    }
+  }
 });
