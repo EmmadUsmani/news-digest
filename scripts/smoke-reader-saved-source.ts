@@ -124,6 +124,20 @@ async function main() {
             item.getByRole('link', { name: story.title, exact: true }),
           ).toHaveAttribute('href', story.url);
         }
+        // Reproduce a pre-site-attribution bookmark without changing its URL or timestamp.
+        const legacySnapshot = await page.evaluate(() => {
+          const key = 'news-digest.reader-preferences.v1';
+          const store = JSON.parse(localStorage.getItem(key)!);
+          for (const change of Object.values<{
+            copy: { attribution: string } | null;
+          }>(store.bookmarks)) {
+            if (change.copy?.attribution.endsWith(' · via Hacker News'))
+              change.copy.attribution = 'Hacker News';
+          }
+          const snapshot = JSON.stringify(store);
+          localStorage.setItem(key, snapshot);
+          return snapshot;
+        });
         await page.reload();
         await expect(
           page
@@ -137,6 +151,13 @@ async function main() {
             .locator(':scope > p')
             .first(),
         ).toHaveText(discoveryAttribution);
+        assert.equal(
+          await page.evaluate(() =>
+            localStorage.getItem('news-digest.reader-preferences.v1'),
+          ),
+          legacySnapshot,
+          'rendering old attribution must preserve stored snapshots',
+        );
         await expect(
           page.getByRole('link', { name: grouped.title, exact: true }),
         ).toBeVisible();

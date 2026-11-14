@@ -113,3 +113,12 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` confirms scheduled provenance and five topics/14 stories/19 posts. No model calls or edition mutation.
 - Archived progress 2295–2298 to keep the active handoff below 25 KB. No source/schema/system-flow change; SOURCES and handbook unchanged. Existing bookmark snapshots are retained; improved attribution applies when saving a story.
 - Receipts `/tmp/2309-*`. Next: natural scheduled five-topic AI acceptance before activation; retain NBA breadth/Tech depth evidence gates.
+
+## 2026-11-14: iteration 2310 — identify sites in older saved stories
+
+- Clean main; no inherited work. Initial alerts zero and health/database/Redis healthy. Public mode off; normal five-topic scheduled acceptance remains pending.
+- Reader weakness: pre-2309 saved discovery stories show only Hacker News, hiding the linked site. Saved cards now derive the site from their retained URL for bare discovery-feed attribution, preserving snapshots and timestamps. Publisher and social attribution stay intact.
+- Extended existing saved-source browser smoke to reproduce older snapshots, verify linked-site display after reload and assert storage remains byte-for-byte unchanged. Real edition story plus synthetic publisher/legacy controls; external traffic blocked, GET-only.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); private web build passes with existing bundle warning. Initial lint rejected a smoke-script type assertion; corrected with explicit generic before successful full rerun.
+- Saved-source Playwright passes desktop/mobile light/dark, including exact legacy labels, URLs, reload and unchanged storage; screenshots refreshed (same visual output), mobile light inspected. API/worker restarted; health/database/Redis healthy and source check passes. `git diff --check` clean.
+- No generation, source, schema, provider or budget changes; SOURCES and handbook unchanged. Receipts `/tmp/2310-*`. Next: normal five-topic scheduled acceptance before public activation.

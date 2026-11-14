@@ -7,6 +7,7 @@ import { LinkedPostText } from './LinkedPostText';
 import { readerAccountStatus } from './reader-account-status';
 import { ReaderAccount } from './ReaderAccount';
 import { ReaderSkipLink } from './ReaderSkipLink';
+import { savedStoryAttribution } from './story-attribution';
 import { storyNeedsContinuation } from './story-continuation';
 import { useReaderAccount } from './use-reader-account';
 import { useReaderPreferences } from './use-reader-preferences';
@@ -114,7 +115,7 @@ export function ReaderSaved() {
                 </h2>
                 <p className="mt-2 text-sm text-[var(--secondary)]">
                   {copy.platform === 'story'
-                    ? copy.attribution
+                    ? savedStoryAttribution(copy.attribution, copy.url)
                     : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
                 </p>
                 {copy.publishedAt && (

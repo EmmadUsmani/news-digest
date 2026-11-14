@@ -14,3 +14,12 @@ export function primaryStoryAttribution(
     )
     .join(', ');
 }
+
+export function savedStoryAttribution(attribution: string, url: string) {
+  if (attribution !== 'Hacker News' && !attribution.startsWith('Google News:'))
+    return attribution;
+  // Older bookmarks contain only the discovery feed. Keep their snapshots intact.
+  if (attribution.includes(' · via ') || attribution.includes(', '))
+    return attribution;
+  return `${new URL(url).hostname.replace(/^www\./, '')} · via ${attribution}`;
+}
