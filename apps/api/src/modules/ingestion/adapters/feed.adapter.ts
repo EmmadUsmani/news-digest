@@ -39,6 +39,12 @@ function excerpt(value: unknown, articleUrl: string): string {
       /<div\b[^>]*\bclass\s*=\s*(["'])wp-block-yoast-seo-table-of-contents yoast-table-of-contents\1[^>]*>\s*<h2\b[^>]*>Table of contents<\/h2>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/gi,
       ' ',
     )
+    // These recorded image credits add no reporting, including mid-article.
+    // Descriptive captions and ordinary article text remain evidence.
+    .replace(
+      /<figcaption\b[^>]*>\s*Screenshot(?: and remix)? by Destructoid\s*<\/figcaption\s*>/gi,
+      ' ',
+    )
     // An opening image caption describes the photo, not the article event.
     // Require the image/caption-only figure so other reporting stays intact.
     .replace(

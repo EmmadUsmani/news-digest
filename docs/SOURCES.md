@@ -2903,3 +2903,11 @@ publisher metadata and X discovery stay unchanged. Existing saved excerpts and
 editions are not rewritten; ingestion retains saved text when incoming text is
 blank. New blank candidates use the existing readable-fallback exclusion.
 Offline fixture verification only; no new source or article request.
+
+## 2026-11-14 iteration 2230 — Destructoid screenshot credits
+
+The unchanged recorded feed repeats credit-only screenshot captions inside the
+article body. Omit the exact “Screenshot by Destructoid” and “Screenshot and
+remix by Destructoid” figcaptions before the excerpt cap, leaving more room for
+reporting. Descriptive captions, ordinary article text, images and metadata
+remain intact. Offline verification only; saved editions are unchanged.

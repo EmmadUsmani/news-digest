@@ -59,6 +59,41 @@ void test('recorded Google News headline links are not reporting excerpts', asyn
   assert.ok(otherPath.every((item) => item.excerpt.length > 0));
 });
 
+void test('recorded Destructoid credit-only captions leave more room for reporting', async () => {
+  const xml = await fixture('destructoid.xml');
+  const withoutCredits = xml.replace(
+    /<figcaption class="wp-element-caption">Screenshot(?: and remix)? by Destructoid<\/figcaption>/g,
+    '',
+  );
+  assert.notEqual(xml, withoutCredits);
+  const items = parseFeed(xml);
+  assert.deepEqual(items, parseFeed(withoutCredits));
+  assert.doesNotMatch(
+    items[0].excerpt,
+    /Screenshot(?: and remix)? by Destructoid/,
+  );
+  assert.match(items[0].excerpt, /simply breaking/);
+  assert.ok(items[0].excerpt.length <= 1500);
+  assert.match(items[0].excerpt, /…$/);
+});
+
+void test('credit-only caption removal retains descriptive captions and reporting', () => {
+  const [item] = parseFeed(`<rss><channel><item>
+    <title>Report</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[<p>Opening reporting.</p>
+    <figure><img src="https://example.com/image.jpg"><figcaption>Screenshot by Destructoid</figcaption></figure>
+    <figure><img src="https://example.com/image2.jpg"><figcaption>Screenshot and remix by Destructoid</figcaption></figure>
+    <figure><figcaption>You might have done too much of this. Image via Bungie</figcaption></figure>
+    <figcaption>Screenshot by Destructoid shows the new location.</figcaption>
+    <p>Screenshot by Destructoid</p><p>Closing reporting.</p>]]></description>
+    </item></channel></rss>`);
+  assert.equal(
+    item.excerpt,
+    'Opening reporting. You might have done too much of this. Image via Bungie Screenshot by Destructoid shows the new location. Screenshot by Destructoid Closing reporting.',
+  );
+});
+
 void test('recorded Destructoid contents gives excerpt space back to reporting', async () => {
   const xml = await fixture('destructoid.xml');
   const [item] = parseFeed(xml);

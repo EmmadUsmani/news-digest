@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2217](docs/progress-archive/2026-11-14-iteration-2217.md).
+
 Archived entry: [iteration 2216](docs/progress-archive/2026-11-14-iteration-2216.md).
 
 Archived entry: [iteration 2213](docs/progress-archive/2026-11-14-iteration-2213.md).
@@ -77,17 +79,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2217 — keep opening photo captions out of reporting
-
-- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. NBA/item 58 acceptance awaits today's scheduled edition.
-- Reader weakness: four entries in the saved Nov 13 Verge response start excerpts with photo captions; the FAA report begins with a June airport-photo date ahead of November reporting.
-- Exclude only opening image-and-caption-only figures from excerpt text. Keep the separately extracted lead image, subsequent reporting, later captions and figures containing reporting paragraphs; caption-only content falls back to the publisher teaser.
-- Recorded commerce regression preserves reporting/metadata; synthetic boundary controls pass. Offline saved ten-entry feed probe confirms FAA reporting starts the excerpt, June date is absent and lead image survives. No new source requests, paid calls or UI changes.
-- TASKS/SOURCES/affected handbook updated; archived iteration 2205 to keep PROGRESS small. Saved editions, provider, budgets and activation flags unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/305 integration, four expected skips. `pnpm build` passes with existing chunk warning; handbook/schema and diff checks pass.
-- Built API/worker restarted; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status: all 38 active sources have data/success and no errors.
-- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2218 — preserve publisher truncation signals
 
@@ -224,3 +215,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Initial full check raced import autofix; next check found archived-entry formatting. Fixed both; final `pnpm check` passes: 990 unit/314 integration, four expected skips.
 - Rebuilt API/worker restarted active; health/database/Redis pass. First reader request raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have stored content/success/no errors.
 - Next: 15:00 UTC all-topic/NBA recovery/diversity review, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2230 — omit screenshot-only credits
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await the 15:00 UTC scheduled edition.
+- Reader weakness: repeated Destructoid screenshot credits consume excerpt space mid-report. Omit its two exact credit-only figcaption forms before the cap so readers get more reporting; descriptive captions and ordinary article text remain.
+- Two focused offline tests pass: unchanged recorded feed/metadata equivalence, retained additional reporting, 1,500-character bound, descriptive-caption and ordinary-text controls. No live source requests, inference calls or saved-edition changes.
+- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2217 to keep PROGRESS small. No UI, schema, flag or budget changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and affected handbook/schema check pass (18 pages/39 tables; existing bundle warning). Full `pnpm check` passes typecheck/lint/format/boundaries and 990 unit tests; integration has one unchanged Grafana listener startup failure (Postgres administrator disconnect), with 315 passes/four skips. Listener passes unchanged standalone; fresh `pnpm test:integration` passes 316 tests/four expected skips, unit exits 0.
+- Rebuilt API/worker restarted active; health/database/Redis pass after startup retry. Saved reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. No UI change or screenshots required.
+- Diff check passes. Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
