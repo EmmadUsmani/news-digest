@@ -3083,3 +3083,13 @@ continuation remain intact; the unchanged recorded item and altered publisher,
 destination and copy controls verify this offline. More reporting fits within
 the existing excerpt cap. No crawl, new source, prompt or paid call; saved
 editions remain unchanged.
+
+## 2026-11-14 iteration 2253 — NPR opening photos
+
+One explicit free GET of the existing NPR Politics RSS feed returned reporting
+with an opening bare image from `npr.brightspotcdn.com`, followed by an NPR
+tracking pixel. Preserve that opening HTTPS `/dims3/` photo when media metadata
+and opening figures supply no image. Do not select later images or tracking
+pixels. The unchanged recorded item verifies reporting/metadata preservation
+and publisher, host, path, protocol, credentials, position and precedence
+controls. No crawl, source change or paid call; saved editions stay unchanged.

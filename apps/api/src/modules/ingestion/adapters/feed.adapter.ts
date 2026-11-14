@@ -85,6 +85,21 @@ function gematsuDescriptionImage(
     ? image
     : null;
 }
+function nprContentImage(value: unknown, articleUrl: string): string | null {
+  if (new URL(articleUrl).hostname !== 'www.npr.org') return null;
+  // NPR opens its syndicated reporting with a bare photo and ends with a
+  // tracking pixel. Only the opening publisher-hosted photo is a lead image.
+  const opening = text(value).match(/^\s*<img\b[^>]*>/i);
+  const src = opening?.[0].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
+  const image = canonicalUrl(src?.[2] ?? '');
+  if (!image) return null;
+  const parsed = new URL(image);
+  return parsed.protocol === 'https:' &&
+    parsed.hostname === 'npr.brightspotcdn.com' &&
+    parsed.pathname.startsWith('/dims3/')
+    ? image
+    : null;
+}
 function excerpt(value: unknown, articleUrl: string): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
@@ -348,6 +363,7 @@ export function parseFeed(xml: string): ContentItem[] {
             mediaImage(entry, url) ??
             leadFigureImage(entry['content:encoded']) ??
             leadFigureImage(entry.content) ??
+            nprContentImage(entry['content:encoded'], url) ??
             gematsuDescriptionImage(entry.description, url) ??
             enclosureImage(entry.enclosure),
           engagement: {},

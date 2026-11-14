@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2240](docs/progress-archive/2026-11-14-iteration-2240.md).
+
 Archived entry: [iteration 2239](docs/progress-archive/2026-11-14-iteration-2239.md).
 
 Archived entry: [iteration 2238](docs/progress-archive/2026-11-14-iteration-2238.md).
@@ -120,17 +122,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2240 — Ars fragment navigation
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
-- Reader weakness: supplied Ars outage reporting ends with “Read full article Comments”, contaminating evidence sent to summaries. Omit only that terminal pair on the publisher host with article-matching links and #comments.
-- Unchanged recorded fragment retains all 566 reporting characters plus continuation ellipsis and identical metadata. Publisher, wording, destinations, fragment and nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
-- Updated TASKS, SOURCES and source-depth evidence; archived iterations 2227–2228 to keep PROGRESS small. No affected handbook behavior change beyond existing feed normalization.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-ars-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing bundle-size warnings only.
-- Full `pnpm check` passes: 994 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Diff check passes.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts; local admin status confirms all 38 active sources healthy with stored content.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2241 — Sonnet repair publication regression
 
@@ -263,4 +254,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS/SOURCES; archived iteration 2239 to bound PROGRESS. No handbook behavior change or UI change.
 - `pnpm exec tsx --test apps/api/test/feed-guardian-signup.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warning). Full `pnpm check`: 1,002 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2253 — NPR lead photos
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and enabled sources report healthy. Scheduled NBA/item 58 acceptance still awaits 15:00 UTC.
+- Reader weakness: NPR's current U.S. reporting supplies an opening bare CDN image, but only figures/media metadata were recognized, leaving future cards without the available photo.
+- One explicit free NPR Politics RSS GET recorded the unchanged item. Preserve its opening HTTPS publisher-CDN photo; reject unrelated publishers/hosts/paths, unsafe URLs, later images and the terminal tracking pixel. Reporting/metadata and preferred media images stay intact.
+- Updated TASKS/SOURCES; archived iteration 2240 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-npr-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,003 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
