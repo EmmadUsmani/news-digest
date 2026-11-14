@@ -124,3 +124,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. Targeted editor/context/orchestration tests: 37 pass. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; handbook check passes; `git diff --check` clean.
 - API/worker restarted; `pnpm obs health --check` healthy/database/Redis true, `pnpm obs sources --check` 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance/five topics/14 stories/19 posts. Private logs `/tmp/2299-*`.
 - No verification inference, source requests or production writes. Next: natural scheduled Gaming/ownership recovery before activation; review NBA story/post distinctions and retain broader social-quality challenges.
+
+## 2026-11-14: iteration 2300 — compact current task handoff
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
+- TASKS.md had grown to 36,435 bytes, obscuring current acceptance work and exceeding the ~8 KB standing target. Reduced it below 8 KB; next scheduled acceptance and deployed fixes now lead the handoff.
+- Preserved all 23 open items in order, with current concise status and individual links to a complete historical snapshot in `docs/progress-archive/2026-11-14-task-detail-2300.md`. No task closed or priority changed.
+- Offline integrity check compares all 23 original open paragraphs against the archive, verifies every local linked file and all 23 anchors, and enforces the size target. No product, source, UI, schema, budget or runtime behavior changes; handbook/SOURCES/screenshots unchanged.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean. Private receipts `/tmp/2300-*`.
+- `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified. No inference, source requests or production writes.
+- Next: natural scheduled Gaming/ownership recovery before activation, plus NBA story/post distinction review. Public mode remains off and sharing private.

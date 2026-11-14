@@ -1,200 +1,68 @@
 # Tasks
 
-Fix failures first. STEERING Current order wins. Detailed pre-compaction state and completed markers: [iteration 2144 archive](docs/progress-archive/2026-11-13-task-detail-2144.md).
+Fix failures first. STEERING Current order wins. Complete pre-compaction detail and completed markers: [iteration 2300 archive](docs/progress-archive/2026-11-14-task-detail-2300.md).
+
+## Next scheduled acceptance
+
+- Public mode remains OFF; VM sharing stays private. NBA passed Nov 14, but Gaming fallback and withheld World/U.S. stories still block item 58 and activation.
+- Deployed recovery: four-request triage admission, compact ownership aliases/rejection artifacts, Gaming brief/complete-JSON guidance. Verify natural Gaming/ownership recovery; no paid replay or cap changes.
+- NBA selected-story context deployed in both social stages (2299); inspect next natural selection for distinct contributions, including the Murray overlap.
+- Nov 14 review is complete. Next normal edition: check all five AI sections, provenance, reader agreement, source flow, admission and social quality. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
+- After normal scheduled acceptance, follow public readiness in order; refresh rollback/baseline, enable public mode while private, then accept its next scheduled edition. Stop before owner sharing decision.
 
 ## Open work
 
-- [x] NBA social/story context (2299): after scheduled NBA acceptance, both social editor stages now compare bounded selected NBA news, addressing Nov 14 Murray story/post repetition. Distinct follow-ups remain eligible; model-route, orchestration and bounds tests pass offline. Natural selection quality remains open.
+- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
-- [x] Tech grouping sensitivity (2289): four reviewed Nov 12 same-event groups move all three labelled reporting candidates into ten editor slots (ungrouped zero); no reservation needed in this counterfactual. Historical/model grouping and natural acceptance remain unverified; production unchanged. [Evidence](docs/edition-reviews/2026-11-14-tech-depth.md#grouping-sensitivity-control--iteration-2289).
+- [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
 
-- [x] Stored Bluesky supply inspection (2274): bounded `--examples 1..50` replaces temporary script edits; fixed-window default/full/single reports preserve counts and ranking. No search, inference or writes.
+- [ ] STEERING 58: security fixes/rehearsals deployed; owner proxy port/email replacement recorded and STEERING 59 closes the proxy block. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-3).
 
-- [ ] BREAKAGE (2160): Nov 13 scheduled edition lost 11 candidate-triage calls to local ten-second inference-slot expiry; all stories non-AI, World/U.S. stories withheld. Four dispatched calls succeeded in 16–37 s. Shared four-request pre-reservation admission implemented (2161); five-topic/750-candidate composition and nine-editor/18-call repair ownership pass offline (2162). Saturated cache/deadline composition verified offline (2164): expired queued work creates no hold and slots remain reusable. Deployed API/worker at 16:00 UTC (2165); health/reader/access checks pass. Reader text check now accepts saved topic counts and exposes five empty Tech summaries in Nov 13 (2166). Headline-only fallback repair (2167) filters blank source text before story budgets; AI evidence and saved editions unchanged. Fallback repetition diagnosed (2170): seven Tech/Gaming cards cover three events; incomplete triage bypasses explicit AI grouping. Blank-text repair alone does not restore grouping. Read-only gate now accepts repeated `--require-ai-topic` names for all five sections (2176); Nov 13 Tech correctly fails. Acceptance gate also refuses saved unscored candidates even with AI editing (2219), missing saved AI summaries and reader/editorial story or text mismatches (2266). Saved scheduled-kind/key/publication-time provenance is now required, so manual publication cannot establish scheduled acceptance (2273). Nov 14 (2275): all 19 triage calls succeed; NBA/Tech AI accepted, but Gaming exhausts Sonnet/Haiku validation and World/U.S. joint ownership returns invalid JSON (repair disabled), withholding both story sections. Offline diagnosis (2276): ownership exhausts 4,096 output tokens; raw ownership body was never retained. Gaming initial invents PS5 price-cut absence, repair funding paraphrase fails lexical support, Haiku initial is fenced AND truncated, repair has five brief bullets. Compact ownership aliases implemented offline (2277): strict complete/exclusive mapping, maximum 40-singleton response under 1,500 bytes, unchanged 4,096-token limit and no repairs. Gaming brief-count guidance extended from NBA to all topics (2278); synthetic Sonnet/Haiku repair controls retain five stories and enforce four bullets. Gaming absence recovery controls (2279) verify rejection, bounded Sonnet/Haiku repair, corrected-only cache and fail-closed exhaustion with synthetic inputs; no guard relaxation or model-compliance claim. Ownership/brief fixes deployed 2279 at 16:02 UTC after hold; local health/reader and 38 sources healthy. Gaming fallback trace (2291): exact grouping-cache hit, seven groups/19 members; production fallback reproduces all five saved IDs/order/coverage. Four GTA cards are separate singleton developments in importance order, not lost grouping; retain grouping and prioritize editor recovery. Gaming JSON-size recovery (2292): Gaming-only concise complete-object guidance and new cache purpose retain 4,000 output tokens; synthetic truncated/fenced Sonnet/Haiku repair, cache and exhaustion controls pass. Ownership truncation recovery (2293): synthetic raw transport through real BudgetedLlm verifies one settled/no-repair failed call, retained rejection body, no failed cache, and later valid partition/cache recovery. Natural model compliance remains unobserved. Next natural Gaming recovery and natural scheduled acceptance; no paid replay/cap changes. [Nov 14 review](docs/edition-reviews/2026-11-14.md). [Review](docs/edition-reviews/2026-11-13.md).
+- [ ] STEERING 56/57: World/U.S. split deployed; review three consecutive scheduled editions. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
-- [x] NBA recurrence accepted (2275): Nov 14 scheduled `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes five Sonnet-edited summaries after repair, complete triage and reader agreement. Full edition remains degraded; item 58 stays open. [Review](docs/edition-reviews/2026-11-14.md).
+- [ ] STEERING 50: public mode OFF, VM private; private accounts accepted. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. Log event-name filtering repaired (2179); message/event queries reconcile all 14 saved admission records. Nov 13: 14 immediate Sonnet admissions, no waits/refusals, $0.236599 settled; natural recovery unobserved. Nov 14: 20 immediate admissions, no waits/refusals, $0.474821 settled; natural settlement recovery still unobserved (2275). Review the next normal run using the [checklist](docs/plans/sonnet-settlement-admission.md#natural-scheduled-review). Offline gates pass.
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 14 passive probe healthy; second comparable natural merge needed. No retuning or public Grafana work. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
-- [ ] STEERING 58: security fixes/rehearsals deployed; owner proxy port/email replacement recorded and STEERING 59 closes the proxy block. Nov 14 NBA passes, but Gaming fallback and withheld World/U.S. stories prevent normal-edition acceptance (2275). After normal scheduled publication, ack item 58 with edition ID; lead review proceeds in parallel. [Handoff](docs/phase4-security-handoff.md).
+- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
-- [ ] STEERING 56/57: World/U.S. split deployed; review three consecutive scheduled editions. Nov 12 scope passes, but NBA fallback/admission refusals prevent acceptance. Nov 13 World/U.S. stories withheld after triage queue expiry; no accepted story observation. Effective approved caps AI $20/month/$0.65/day; X $15/month/$0.50/day. [Review](docs/edition-reviews/2026-11-12.md).
+- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 
-- [ ] STEERING 50: public mode OFF, VM private; private accounts accepted. Full public rehearsal complete (2104), Grafana excluded, Spend allowed. After NBA/item 58 scheduled acceptance: refresh [baseline/rollback](docs/public-activation-record.md), enable server/web public mode with sharing private, accept its next scheduled edition, then ack/stop for owner sharing decision. Rollback preparation (2148): private DB snapshot restored in isolation, 39 tables/98,127 rows matched; mode-600 environment copy verified. Refresh these after scheduled acceptance. Follow [readiness](docs/public-readiness.md). No deploy 13:00–16:00 UTC; no generation changes after noon except breakages.
+- [ ] STEERING 7 speed: targets <60 seconds/current volume and <2 minutes/1,500 unmet. Offline staging exposes NBA repair admission risk; protected ownership/handoff design follows NBA acceptance. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
 
-- [ ] Breakage / metrics-store: retain Nov 7 CPU-only 2% trial. Natural compaction confirmed Nov 8; second comparable natural-merge sample needed for recovery acceptance; Nov 14 13:51 passive probe has 24 healthy rules/no new failures, uncached queries ≤0.690 s and no warning journal entries since 09:20; neither storage tier merged, so comparable recovery remains unobserved (2269). No capacity retuning or public Grafana launch work. [Evidence](docs/decisions/0004-observability-capacity.md).
+- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
 
-- [ ] STEERING 34: fixed keyword X search ON; semantic dropped, Grok/caps unchanged. Continue daily quality review: [Nov 13 saved-text review](docs/edition-reviews/2026-11-13-x-quality.md) (2163) finds eight of 16 picks in daily-search citations (all outside-list), missing official metrics throughout, overlapping Tech launch coverage and weak teasers. Gaming translation/repetition and Tech overlap fixes await natural acceptance; viral quality unaccepted. World shortlist traced offline (2261): four qualifying X candidates reach the editor; exact cached request reproduces two Iran statements plus Macron, with clipped Ukraine commentary omitted. Review breadth separately from duplicate announcements; no ranking/cap change justified. Tech saved selection traced (2265): 58 scored/five qualifying/three Sonnet picks; recap/Search overlap survives successful social editing, independently of failed story triage. Review social quality separately on the natural run. Nov 14 NBA trace (2290): 70 scored/29 qualified; reconstructed shortlist has distinct alternatives, but editor chooses three related Murray updates. Reserved Bluesky slot replaces fifth-ranked Spurs record, preserving the concentration; no ranking/prompt change justified by this single trace. [Selection evidence](docs/edition-reviews/2026-11-14-nba-social.md). Do not infer engagement from missing official metrics.
+- [ ] STEERING 9/15 first-week report: Nov 2–8 $1.036785/28 calls/zero holds, 131 new verified candidates/115 outside-list. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
 
-- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. Same-story production pass enabled, four-call bound $0.058192. No wording rules. [Review](docs/edition-reviews/2026-11-05.md).
+- [ ] STEERING 18 Bluesky: U.S. Congress query restored natural selection; retain current queries. World discovery pilot default-off, activation follows item 58/public-mode gates. Overall social quality remains open. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-12).
 
-- [ ] STEERING 7 speed: Nov 12 fifth-topic delay diagnosed; isolated staged scheduler demonstrates NBA repair admission risk. Failure draining/cycle controls pass offline; production unchanged. Protected ownership/handoff design follows NBA scheduled acceptance. Targets <60 seconds/current volume and <2 minutes/1,500 unmet. [Evidence](docs/edition-reviews/2026-11-12-social-latency.md).
+- [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-13).
 
-- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. Retain original post/media and official embeds; missing X metrics are unknown.
+- [ ] M5 grouping: later-date Gaming/Tech recorded benchmarks and same-story pairs added. Grouping alone restores no target slots; independent labels and semantic evaluation still needed. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-14).
 
-- [ ] STEERING 9/15 first-week report: Nov 2–8 $1.036785/28 calls/zero holds, 131 new verified candidates/115 outside-list. Novelty/viral-quality acceptance remains open; do not equate outside-list with viral.
+- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; saved raw NBA repair outputs pass isolated publication/public-reader transport. Retain no-live-test/no-paid-replay policy; acceptance detail archived. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-15).
 
-- [ ] STEERING 18 Bluesky: collection/session refresh healthy. Repaired U.S. Congress query (2105) now reaches natural selection: Nov 13 511 read/10 shortlisted/two concrete published posts; restored presence accepted, overall quality open. Nov 14 natural selection (2298): 670 observations/50 scored/nine shortlisted; cached Sonnet chooses one concrete ATC funding update plus a distinct Jeffries quote, both with video metadata. Empty notes match intentional model output; no X displacement. Retain `Congress`; normal story-overlap acceptance remains open. [Review](docs/edition-reviews/2026-11-14-us-social.md). Scheduled U.S. trace (2174): all 50 cached scores reconcile; three RFK candidates become one detailed pick, election adds a distinct event, leadership overlap is omitted; retain Congress query. Free four-query comparison (2181): Senate exposes a first-person leadership announcement but repeats selected X coverage; House repeats the election report/adds foreign-policy scope, broad US politics adds commentary. Retain `Congress`; production unchanged. [Selection evidence](docs/edition-reviews/2026-11-13-us-bluesky.md). [Scheduled review](docs/edition-reviews/2026-11-13.md). [Saved-pool/selection evidence](docs/edition-reviews/2026-11-12-bluesky-pool.md) retains weak World supply, Tech/Gaming overlap and U.S. 55-post reporting baseline. NBA saved-pool trace (2171): 593 observations/54 distinct posts, six of ten shortlisted posts overlap X-covered events; milestone pick fills an empty slot, no X displacement. Media trace (2172): zero safe attached-video posts; sole stored video is an NFT-tagged game chart, correctly excluded. Free four-query comparison (2173): NBA/#NBA/highlights/basketball yield 0/1/0/3 safe videos; broader supply includes off-topic/repeated material. Comparison complete; retain production query until gated trial. [Evidence](docs/edition-reviews/2026-11-13-nba-bluesky.md). World prospective stored supply (2267): 525 observations/56 distinct/26 safe candidates, all within semantic intake; text includes Uganda/Canada/UK leads amid U.S./generic noise. No cap increase justified. [Baseline](docs/edition-reviews/2026-11-14-world-bluesky.md). World 12/6/6 baseline/Ukraine/Gaza discovery pilot is default-off and fully rehearsed offline (2149–2155): 120 daily searches, override/admission/failure/rollover contracts, scheduler configuration and read-only job export; retained 24 baseline passes have shared-retention limits. [Rollout contract and evidence](docs/plans/world-bluesky-discovery.md). Deployment/activation follows NBA/item 58/private public-mode gates; production query unchanged, no paid replay. Tech stored-media/query correction (2270): current fallback is `AI`, not the earlier probe’s `artificial intelligence`; 50 safe candidates include three videos with outage/ambiguous captions and no clear demo in supplied text. Probe now resolves current metadata for every baseline (2272); bounded actual-AI comparison completed, with no query/cap change. Tech free four-query comparison (2177): baseline/product-name/demo queries expose commentary, ambiguous names and game promotions; none establishes a better standalone launch/demo query. Retain production query and semantic gates. [Evidence](docs/edition-reviews/2026-11-13-tech-bluesky.md). Gaming comparison (2178): gaming vocabulary adds commentary/old clips; title query repeats the already-selected beta update. Retain `game`. [Evidence](docs/edition-reviews/2026-11-13-gaming-bluesky.md).
+- [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-16).
 
-- [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. Waste/latency unmeasured. [Evidence](docs/edition-reviews/2026-11-05-incremental-admission.md).
+- [ ] STEERING 10 source balance paused under 27: Yardbarker prepared/disabled; no new source without coverage review. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-17).
 
-- [x] Tech excerpt evidence (2287): exact reviewed HUD data correction applied after guarded isolated verification; dry-run and repeated apply pass. Current 200-candidate pool changes only that excerpt (70→0 characters), with unchanged five fallback picks and byte-identical saved reader edition. Prospective old-headline prevention (2281) and URL-only rejection (2282) retained; no fuzzy classifier or saved-edition rewrite. [Evidence](docs/edition-reviews/2026-11-14-tech-cap.md#reviewed-historical-correction--iteration-2287).
+- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
-- [ ] M5 grouping: Gaming/later-date fallback benchmark added (2192), 200 recorded candidates/one of five labeled events found, guide negatives omitted; ceremony counts once. Label-only grouping comparison (2193) merges up to seven reports but restores no target slots in these four windows; ranking/relevance remain separate gaps. Later Gaming same-story pair evaluation (2194) adds six positive/four negative boundaries, including ceremony versus franchise overlap; historical/paid benchmark unchanged. Later Tech benchmark corrected (2211): deployed fallback excludes 16 blank-text candidates; neither five-slot baseline nor label-grouped control finds a target. Original 2209 general-rank result incorrectly described fallback; Microsoft is slot 18 in the readable pool. Later Tech same-story pairs (2210) add eight positive/five negative boundaries: outage recovery versus separate providers, lawsuit claims, and subsequent executive allegations. Independent labels and semantic grouping evaluation still needed; agent-labelled windows are not general quality estimates. [Evidence](docs/RANKING.md#iteration-2192-later-gaming-window).
+- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded cutoff/grouping controls retain published selections; natural grouped evidence needed before admission changes. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
 
-- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; historical NBA raw-body transport/validation/cache regression (2202) now extends through isolated publication, immutable retrieval, reader projection and public-mode HTTP latest/history/detail reads (2204); Sonnet/Haiku saved repair outputs now pass the same publication/HTTP path (2212); malformed Haiku ID now verifies non-AI source fallback/no cache through the same path (2216), using explicitly synthetic request/serialization; synthetic triage/metadata/zero usage explicit. Automatic Haiku invalid-ID → saved repair now passes real budgeted retry, corrected-only caching, publication and reader HTTP (2232). Repair-admission exhaustion now verifies one dispatch/settlement, no cache and source-only publication/reader HTTP for Haiku and Sonnet (2236, 2248; synthetic mixed-model Sonnet sequence). Real full-edition raw-response golden open. No paid replay or re-recording unchanged prompts. [Database verification](docs/DATABASE-VERIFICATION.md).
+- [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
 
-- [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass.
+- [ ] World link-list social quality: v10 deployed. Nov 14 attributed RAF reporting passes; bare links rejected by triage, so final-editor rejection challenge remains open. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-21).
 
-- [ ] STEERING 10 source balance paused under 27: Yardbarker prepared/disabled; no new source without coverage review.
+- [ ] Tech story/post repetition: bounded story context deployed to both social routes. Nov 14 four stories/two X picks cover six events; Bluesky and editor-level duplicate challenge unexercised. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-22).
 
-- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 benchmark deferred. Stop CLI/dashboard refinements. Retain existing limits; Grafana capacity excluded from public launch. [Capacity](docs/decisions/0004-observability-capacity.md).
+- [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
-- [ ] Tech feed evidence depth (2205): explicit RSS/Atom article content now precedes descriptions/summaries with blank fallback, retaining the 1,500-character cap and no-crawl rule. Unchanged recorded Ars fragment supplies 593 characters; metadata, Atom precedence, X citations and isolated repeat-ingestion/enrichment checks cover the change. Natural Nov 14 depth diagnosis (2284): three of four saved stories have no reporting evidence; current-input/saved-grouping reconstruction loses the qualified readable Wallet cluster below the editor cutoff. Evaluate bounded evidence-preserving admission before the next permitted generation window; no ranking change or exact historical replay claimed. [Depth study](docs/edition-reviews/2026-11-14-tech-depth.md). [Evidence](docs/edition-reviews/2026-11-13-tech-feed-depth.md).
+## Latest completed steps
 
-- [ ] Gaming same-ceremony repetition (2131): editor v9 guidance verified offline. Nov 14 natural review (2296) finds one nominees-broadcast announcement and four separate developments; no winning-work/ceremony duplicate challenge, so acceptance stays open. [Review](docs/edition-reviews/2026-11-14-gaming-social.md). [Evidence](docs/edition-reviews/2026-11-12-social-awards.md).
+- [x] 2300: compacted this handoff; every open item and all historical detail/evidence retained in the linked archive.
+- [x] 2299: bounded selected NBA story context reaches both social editing stages; natural selection acceptance pending.
+- [x] 2298: natural U.S. social trace confirms intentional empty notes and distinct funding/Jeffries updates; retain Congress query.
+- [x] 2297: recorded Tech reporting-minimum controls retain published selections; production admission unchanged.
 
-- [ ] World link-list social quality (2132): editor v10 refuses inference from URL slugs alone; offline transport/selection verified. Nov 14 natural pick supplies attributed RAF drone reporting with no inferred URL context (2294); reconstructed 26 scored/two shortlisted candidates show bare links, bulletins and aggregator rejected by triage, so editor-level natural challenge remains unexercised. [Selection trace](docs/edition-reviews/2026-11-14-world-social.md). Review next natural picks. [Evidence](docs/edition-reviews/2026-11-12-social-link-list.md).
-
-- [ ] Tech story/post repetition (2134, 2138): bounded selected-story context supplied to both social routes; offline saved overlap/model controls pass. Nov 14 natural X observation (2295): four stories/two AI-selected posts cover six distinct events; reader/admin text and notes agree. No selected Bluesky post and no proven editor-level duplicate challenge, so overall acceptance remains open. [Natural review](docs/edition-reviews/2026-11-14-tech-social.md). [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
-
-- [ ] Gaming English context (2135, 2139): editor v11 translation guidance and Gaming calendar-date guard refuse saved invented launch date offline. Nov 14 natural notes are source-bound, but all five posts are English; translation/date challenge remains unexercised (2296). Bluesky initial absence-rationale rejection repairs naturally, a separate guard. [Natural review](docs/edition-reviews/2026-11-14-gaming-social.md). [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
-
-## Completed and deferred
-
-- [x] Verge Installer welcome navigation (2288): recorded opening archive promotion omitted while its reading list, reporting and metadata remain intact. All supplied recommendations fit the 600-character editor evidence view; publisher/link/wording/opening-position controls pass offline.
-
-- [x] Tech second-window cutoff control (2286): Nov 12 explicitly ungrouped recording adds one reviewed Verge excerpt while retaining its one represented published ID; nonempty Google headline-list negative control rejects naive reporting counts. Nov 14 four published controls still pass. Reporting-minimum sweep (2297): minimum one leaves Nov 14 unchanged; minimum two admits Wallet, while Nov 12 grouping already supplies three reporting clusters. Recorded published controls retained at all tested minima. Production unchanged; generic admission needs reporting eligibility and grouped-window evidence. [Evidence](docs/edition-reviews/2026-11-14-tech-depth.md#second-window-control--iteration-2286).
-
-- [x] Tech evidence-cutoff experiment (2285): fixed forty-candidate offline recording retains all four published story IDs while one reporting slot admits Wallet (596 characters) instead of excerpt-free Perplexity; readable clusters 1→2, ten slots unchanged. Counterfactual only; production unchanged. [Evidence](docs/edition-reviews/2026-11-14-tech-depth.md#recorded-cutoff-experiment--iteration-2285).
-
-- [x] Compact ownership publication composition (2283): synthetic wire responses pass real budgeted ownership, UUID restoration, exclusive World/U.S. publication and serialized reader projection; duplicate membership/truncated JSON withhold both sections without repair. Natural scheduled recovery remains pending.
-
-- [x] Ownership rejection evidence (2280): failed cross-topic ownership bodies now use the private bounded editor-artifact store; repair-disabled dispatch/settlement, no invalid cache and successful-response exclusion verified offline. Natural recovery remains pending.
-
-- [x] Pool text evidence (2268): read-only capture separates empty, URL-only and other text; two recorded HN FAA excerpts no longer inflate implied reporting counts. Admission and stored text unchanged; scheduled acceptance remains open.
-
-- [x] Clipped social URLs (2264): shortened saved URLs now open the original post for its full destination; complete external links and saved text remain intact. Real Nov 7 browser replay covers both clipped posts.
-
-- [x] Bluesky continuation (2263): saved edition cards with terminal ellipses now offer an explicit original-post link, including the shortened game-worker survey/news source URLs; saved text and selection unchanged.
-
-- [x] All-topic recovery report (2260): scheduled reader gate reports every requested section and exits nonzero for any refusal; Nov 13 confirms all five failures without stopping at Tech. No generation change.
-
-- [x] Tech candidate-cap study (2259): full-window control adds five readable reports but leaves all five fallback selections unchanged; retain the 200 cap pending scheduled AI review. [Evidence](docs/edition-reviews/2026-11-14-tech-cap.md).
-
-- [x] Nov 14 preflight (2258): all five topics have readable production candidates; Tech has 24 eligible reporting excerpts. Ars category move changes both link and GUID, so stable-GUID dedupe is unavailable. [Scheduled acceptance handoff](docs/edition-reviews/2026-11-14.md).
-
-- [x] Legacy Google headline evidence (2257): candidate loading suppresses exact stored Google RSS headline/publisher repetitions; prospective Tech capture identifies 113 affected candidates. Stored data and editions unchanged; isolated persistence/fallback controls retain additional reporting.
-
-- [x] Xbox headline-only fallback verification (2256): recorded self-link-only entry stays empty through both fallback selectors; a readable control fills the one-story budget. Reporting and foreign-link preservation controls pass; production unchanged.
-
-- [x] Xbox store badges (2255): omit nested publisher store widgets before excerpt truncation; recorded release dates/descriptions and article prices remain, with publisher/class/incomplete-widget controls.
-
-- [x] Yahoo NBA lead photos (2254): retain recorded opening bare publisher-CDN images; reject later/unsafe/unrelated images and retain reporting, metadata and preferred image precedence.
-
-- [x] NPR lead photos (2253): retain the recorded opening publisher-CDN photo from bare content images; reject later images/tracking pixels and preserve reporting, metadata and existing image precedence.
-
-- [x] Guardian newsletter signup (2252): omit the recorded Breaking News US signup list item with exact publisher/destination/copy checks; retain report links, flight facts, metadata and continuation. Offline recording and preservation controls pass.
-
-- [x] Ars newsletter excerpt (2251): omit the recorded Rocket Report subscription/submission paragraph while retaining Starship/Electron reporting, metadata and continuation; publisher/link/copy controls pass offline.
-
-- [x] PlayStation podcast footer (2250): omit the recorded terminal empty section headings and clipped music credit, retaining the episode description and continuation marker; exact wording, publisher and terminal-position controls pass offline.
-
-- [x] Missing-photo enrichment (2249): repeat collection now fills a previously absent article image while retaining existing photos; recorded CBS ingestion/candidate regression covers repeated, sparse and competing observations. Saved editions remain immutable.
-
-- [x] Push Square outage recovery (2246): unchanged feed returned HTTP 200; normal 09:16 UTC collection accepted 25 dated articles and cleared HTTP 522. All 38 active sources error-free; retained 192 stored articles. No URL, retry or schedule changes.
-
-- [x] Gaming teaser navigation (2245): recorded Eurogamer/RPS excerpts omit terminal article-matching “Read more” links, retaining reporting, metadata and a continuation ellipsis; publisher/destination/wording/nonterminal controls pass offline.
-
-- [x] Verge teaser navigation (2243): omit terminal article-matching full-story self-links in recorded Atom excerpts, retaining all reporting, metadata and continuation; publisher/destination/wording/nonterminal controls pass offline.
-
-- [x] Guardian teaser navigation (2242): omit terminal article-matching “Continue reading...” links on Guardian feeds, retaining reporting, metadata and source-continuation ellipsis; recorded World/U.S. and boundary controls pass offline.
-
-- [x] NBA Sonnet automatic repair publication (2241): saved corrected Sonnet output now passes the full automatic rejection/repair/cache/public-reader cycle offline; separate reservations/settlements and immutable published copies verified. Historical output with synthetic transport/triage; scheduled acceptance remains open.
-
-- [x] Ars excerpt navigation (2240): remove terminal article/comments self-links from the recorded reporting fragment; preserve all reporting, metadata and source continuation, with publisher/destination/nonterminal controls.
-
-- [x] Nintendo Life teaser navigation (2239): omit terminal publisher self-links while retaining reporting and a continuation marker; unchanged recorded feed plus publisher/destination/nonterminal controls pass offline.
-
-- [x] Guardian lead-photo resolution (2238): use the largest supplied size of the same publisher-hosted photo instead of its first 140px thumbnail; unchanged recorded World reporting/metadata and host/path/width/order controls pass offline.
-
-- [x] RSS enclosure photos (2237): recorded CBS JPEG/PNG enclosures now supply lead images as the last fallback; reporting/metadata unchanged, unsafe/non-image enclosure and existing-image precedence controls pass offline.
-
-- [x] Gematsu lead images (2235): preserve opening publisher-hosted description images when media/content images are absent; recorded reporting unchanged, with host/path/position/HTTPS and media-precedence controls.
-
-- [x] Push Square teaser navigation (2234): omit its terminal article self-link while preserving reporting, metadata and an omission marker for reader continuation; recorded feed and host/destination/nonterminal controls pass offline.
-
-- [x] Verge purchase navigation (2233): omit its recorded “Where to Buy” widget to avoid ambiguous flattened old/current prices; article prices, discounts, product details and metadata retained, with publisher/structure controls.
-
-- [x] PlayStation podcast opening (2231): omit the exact leading email/subscription promotion on the publisher blog; recorded episode reporting and metadata retained, with other-host/non-opening/changed-wording controls.
-
-- [x] Destructoid screenshot credits (2230): omit exact credit-only figcaptions before the excerpt cap; unchanged recorded reporting, descriptive captions, article text and metadata verified offline.
-
-- [x] Google News headline-only descriptions (2229): recorded linked headline/publisher repetitions remain blank, so new candidates cannot fill readable fallback slots with repeated titles; extra reporting, explicit article content and metadata retained. Saved excerpts/editions unchanged.
-
-- [x] Telemetry transport hang (2228): repeated offline runs caught pooled fetch stuck during caller cancellation beyond its deadline. One-shot HTTP sockets settle cancellation directly; 50 synchronized cancellations per run and response-safety controls cover the replacement. Unit files now have a 60-second outer watchdog with local transport phase diagnostics.
-
-- [x] Destructoid excerpt navigation (2227): omit the recorded Yoast contents block before the excerpt cap, retaining article headings/lists and more reporting; unchanged fixture and unrelated-block controls pass offline.
-
-- [x] Bracketed publisher teasers (2226): edition cards and saved stories recognize terminal `[…]`/`[...]` as clipped reporting and offer source continuation. Recorded PlayStation/Xbox browser checks cover desktop/mobile, light/dark and reload.
-
-- [x] GameSpot excerpt navigation (2225): omit its named table of contents before truncation, retaining reporting headings/lists and metadata; unchanged recorded feed and boundary controls pass offline. Source remains blocked.
-
-- [x] Disk alert prevention (2223): removed two verified inactive integration-test roots from interrupted runs (about 542 MiB); disk 79%→77%. Existing one-hour automatic cleanup and active-process guards retained; telemetry-export test teardown now stops listeners before closing sockets to prevent shutdown races.
-
-- [x] Saved social continuation (2222): clipped saved Bluesky/Reddit posts now offer platform-labelled original-post links alongside X; complete posts unchanged. Offline browser cases cover the shared 600-character cap, reload, focus and layout.
-
-- [x] Gaming teaser continuation (2221): terminal standalone “Read more” prompts offer source links in edition cards and saved copies; recorded Eurogamer/RPS browser checks cover desktop/mobile and both themes.
-
-- [x] Repeated publisher post footers (2220): omit terminal “The post … appeared first on …” navigation linking back to the article; recorded NBA/Gaming reporting and external/nonterminal controls pass.
-
-- [x] Publisher self-link footers (2218): omit terminal standalone Source links to the same article, preserving the reporting ellipsis and reader continuation; four recorded VGC/Gematsu articles and boundary controls pass.
-
-- [x] Opening photo captions (2217): exclude image-and-caption-only lead figures from excerpts while retaining lead images, reporting and publisher-summary fallback. Recorded Verge and boundary controls pass.
-
-- [x] Feed lead images (2215): retain the opening article-content figure when media metadata is absent; recorded Verge image and reporting verified, with later/unsafe image controls.
-
-- [x] Verge ad contamination (2214): remove the exact terminal Hype Desk widget/configuration from feed excerpts; recorded CMF reporting and metadata remain intact, with ordinary code mentions preserved.
-
-- [x] Verge continuation (2213): explicit “Read the full story at The Verge” footers now offer a source continuation link; recorded reporting and saved-copy limits retained.
-
-- [x] Ars continuation (2208): explicit “Read full article” footers, including trailing Comments, offer source continuation in editions and saved copies; recorded reporting retained.
-
-- [x] Feed inline spacing (2207): inline emphasis/links preserve punctuation and joined words; paragraphs, breaks and list items retain separators. Saved editions unchanged.
-
-- [x] Feed excerpt boundaries (2206): capped reporting marks omissions, preserves word boundaries where possible and avoids split Unicode; complete text, content precedence and X citation discovery retained.
-
-- [x] Explorer rollback test (2201): compare stable catalog details while validating mutable size/row statistics separately; public statistics omission and restricted-role checks retained.
-
-- [x] Publisher continuation (2200): explicit full-article prompts in story teasers now offer a source continuation link in editions and saved copies; original excerpts retained.
-
-- [x] Engagement snapshots (2199): Bluesky and Reddit reader cards label saved counts “at collection”, matching X; displayed counts and saved editions unchanged.
-
-- [x] X media references (2198): `pic.twitter.com` references now open HTTPS media destinations in edition text and saved post excerpts; original text preserved.
-
-- [x] Saved post links (2197): saved excerpts retain clickable full URLs and original-post navigation; actual Gaming patch notes survive reload on desktop/mobile light/dark.
-
-- [x] Visible publication dates (2196): edition stories/posts older than 24 hours show a calendar date, including year, without requiring a hover; recent items retain relative times.
-
-- [x] Saved publication dates (2195): new story/post bookmarks show original publication time separately from save date; optional metadata survives reload and account sync, while legacy saves retain no invented date.
-
-- [x] Saved editorial context (2191): newly bookmarked posts retain their editorial context separately from the original excerpt, including the U.S. constitutional-claim attribution; bounded optional copies support older bookmarks and account sync.
-
-- [x] Saved-item reading continuity (2190): bookmarked truncated stories and X excerpts now offer explicit source continuation; headline-only saved stories explain the missing summary and label the source link. Actual-edition desktop/mobile light/dark checks preserve bookmark text and storage.
-
-- [x] Truncated story continuation (2189): saved summaries ending in an ellipsis now offer an explicit source continuation link; text and generation unchanged. Nov 13 actual-edition desktop/mobile light/dark checks cover all truncated and complete stories.
-
-- [x] Historical empty-post wording (2188): Nov 4 World section now says “No posts in this edition”; avoids an unsupported quality claim and calling saved history “today”. Actual saved-edition desktop/mobile light/dark checks pass; generation unchanged.
-
-- [x] Saved X excerpt continuation (2184): three Nov 13 posts ending in ellipses now offer “Continue reading on X”; original saved text remains intact.
-
-- [x] Missing reader summaries (2183): headline-only cards disclose “Summary unavailable” and offer a labelled source link; saved content and generation unchanged.
-
-- [x] Reader empty-story wording (2182): saved World/U.S. sections now say “No stories in this edition” rather than claiming a quiet news day after failed triage. Actual saved-edition desktop/mobile light/dark checks pass; generation and snapshots unchanged.
-
-- [x] STEERING 30/31 historical accounting reconciled (2175): 33 calls, $1.168639 settled + two $0.15 unknown Gaming holds = $1.468639 charged. Holds stay charged; reopen only with request-specific usage evidence. No further experiment authorized. [Evidence](docs/x-search-experiment.md#historical-accounting-reconciled--nov-13-iteration-2175).
-
-- [x] NBA item 54 accepted Nov 11 (1824); Nov 12 recurrence remains open above.
-- [x] Tech evidence depth: direct publisher cluster excerpts and bounded immutable snapshots verified offline through budgeted production editing (2130–2137); natural summary quality still needs scheduled review. [Evidence](docs/edition-reviews/2026-11-12-tech-depth.md).
-- [x] Iteration 2144: compacted task handoff with all 23 open items preserved; scheduled review follows STEERING 59 proxy decision.
-- Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
+Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
