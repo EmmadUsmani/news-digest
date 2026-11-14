@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2236](docs/progress-archive/2026-11-14-iteration-2236.md).
+
 Archived entry: [iteration 2235](docs/progress-archive/2026-11-14-iteration-2235.md).
 
 Archived entry: [iteration 2234](docs/progress-archive/2026-11-14-iteration-2234.md).
@@ -112,16 +114,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2236 — NBA repair budget exhaustion at publication
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58/public-mode acceptance remains gated on the 15:00 UTC edition.
-- Added isolated historical NBA regression for malformed initial output consuming the last reservation: automatic repair carries selection feedback but admission refuses; only one dispatch/settlement, no cache writes.
-- Two published snapshots retain five source-only fallback stories/non-AI provenance through immutable retrieval and public reader HTTP latest/history/detail; unpublished generation stays hidden. Requests/triage/metadata/zero usage and ledger exhaustion are synthetic; no live inference.
-- Updated TASKS and database-verification evidence; archived iteration 2223 to keep PROGRESS small. Runtime, budgets, source configuration and saved editions unchanged.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 991 unit/321 integration tests, four expected skips. Final targeted isolated edition-golden run passes all 14 cases; final API typecheck/targeted ESLint pass. Existing build bundle warnings only.
-- API/worker restarted active; health/database/Redis pass. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. Diff check passes.
-- Next: 15:00 scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2237 — CBS lead photos from RSS enclosures
 
@@ -252,3 +244,16 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,000 unit/324 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
 - Next: scheduled NBA/all-topic recovery/diversity acceptance at 15:00 UTC, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2249 — fill missing photos on repeat collection
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
+- Reader weakness: CBS NBA cards lack publisher photos. One explicit feed GET/read-only comparison found all 36 feed images absent from their stored articles; repeat-ingestion upsert never enriched image_url.
+- Repeat collection now fills null image fields while preserving existing photos. Owner value: future editions can show publisher photos for already-known articles; saved editions stay immutable.
+- Recorded CBS fixture passes real isolated ingestion/candidate retrieval: stable identity/reporting, one observation, repeated enrichment, sparse/different-image retention. No new source, generation change or paid call.
+- Updated TASKS, SOURCES and affected handbook text; archived iteration 2236 to bound PROGRESS.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,000 unit/325 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- `pnpm exec tsx scripts/check-handbook.ts 07-data-model` passes: 18 pages/three diagrams, 39 tables; diagrams unchanged.
+- Rebuilt API/worker restarted active; `/healthz` passes. One explicit free CBS job through the production ingestion worker accepted 36 articles; all 36 stored photos match the feed. Saved reader JSON remains identical.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.

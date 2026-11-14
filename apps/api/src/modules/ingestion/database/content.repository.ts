@@ -82,6 +82,8 @@ export class PostgresContentRepository
                 title: sql`excluded.title`,
                 // Title-only feeds must not erase text collected from another source.
                 excerpt: sql`CASE WHEN btrim(excluded.excerpt) = '' THEN ${contentItems.excerpt} ELSE excluded.excerpt END`,
+                // Sparse first observations may predate the publisher photo.
+                imageUrl: sql`coalesce(${contentItems.imageUrl}, excluded.image_url)`,
                 engagement: sql`${contentItems.engagement} || excluded.engagement`,
                 publisher: sql`coalesce(excluded.publisher, ${contentItems.publisher})`,
               },

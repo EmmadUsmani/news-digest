@@ -1113,6 +1113,69 @@ void test('recorded feed reporting survives enrichment, repeat ingestion and tit
     await repository.onModuleDestroy();
   }
 });
+void test('repeat collection fills a missing recorded CBS photo without replacing existing images', async () => {
+  const repository = new PostgresContentRepository();
+  const id = `cbs-photo-${Date.now()}`;
+  const url = `https://example.org/${id}`;
+  try {
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url) SELECT $1,id,'Recorded CBS photo','feed','https://example.org/fixture' FROM topics ORDER BY position LIMIT 1`,
+      [id],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) SELECT topic_id,id FROM content_sources WHERE id=$1',
+      [id],
+    );
+    const source = (await repository.sources()).find(
+      (entry) => entry.id === id,
+    )!;
+    const body = { ...parseFeed(await fixture('rss.xml'))[0], url };
+    assert.ok(body.imageUrl);
+    const read = async () =>
+      (
+        await loadArticleCandidates(
+          repository.db,
+          source.topicId,
+          new Date(body.publishedAt),
+          new Date(Date.parse(body.publishedAt) + 1),
+        )
+      ).filter((candidate) => candidate.url === url);
+    await repository.store(source, [{ ...body, imageUrl: null }]);
+    const [before] = await read();
+    assert.equal(before.imageUrl, null);
+    for (const imageUrl of [
+      body.imageUrl,
+      body.imageUrl,
+      null,
+      'https://example.org/different-photo.jpg',
+    ]) {
+      await repository.store(source, [{ ...body, imageUrl }]);
+      const candidates = await read();
+      assert.equal(candidates.length, 1);
+      assert.deepEqual(candidates[0], { ...before, imageUrl: body.imageUrl });
+    }
+    const observations = await repository.db.query(
+      'SELECT count(*)::int AS n FROM content_observations WHERE source_id=$1',
+      [id],
+    );
+    assert.equal(observations.rows[0].n, 1);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [id]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [url],
+    );
+    await repository.onModuleDestroy();
+  }
+});
 void test('recorded AI announcement feeds preserve publisher dates, missing fields and media', async () => {
   const openai = parseFeed(await fixture('openai.xml'));
   const deepmind = parseFeed(await fixture('deepmind.xml'));

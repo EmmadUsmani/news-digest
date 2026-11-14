@@ -3038,3 +3038,18 @@ All 38 active sources were error-free afterward. The outage is resolved without
 URL, schedule, retry or parser changes; no manual collection or paid call ran.
 The protected Gaming content-window read also found 29 stored Push Square
 articles since Nov 12, with the newest matching the feed's Nov 14 02:30 article.
+
+## 2026-11-14 iteration 2249 — repeat collection restores missing photos
+
+A read-only comparison of the current CBS NBA feed with stored articles found
+all 36 publisher enclosure photos missing from already-known articles, including the
+Curry-absence story in the Nov 13 edition. The parser supplied the image, but
+the article upsert did not enrich its image field on repeat collection.
+Repeat collection now fills null images while retaining any existing photo.
+The unchanged recorded CBS fixture verifies enrichment through stored digest
+candidates, stable article identity, repeated collection and sparse/different
+image observations. Saved editions keep their original snapshots.
+
+After verification and deployment, one explicit free collection through the
+existing ingestion worker accepted 36 CBS articles; all 36 stored photos match
+the publisher feed. The Nov 13 reader edition remains unchanged.
