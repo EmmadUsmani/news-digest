@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2213](docs/progress-archive/2026-11-14-iteration-2213.md).
+
 Archived entry: [iteration 2212](docs/progress-archive/2026-11-14-iteration-2212.md).
 
 Earlier entries: [archive before iteration 2155](docs/progress-archive/2026-11-13-iterations-before-2155.md).
@@ -73,18 +75,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2213 — Verge source continuation
-
-- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. NBA/item 58/private public-mode gates still await the normal scheduled edition.
-- Reader weakness: recorded Verge excerpts end with “Read the full story at The Verge” but offered no explicit continuation link. Added full-story/named-publisher handoffs alongside existing full-article recognition.
-- Reused the publisher browser replay with unchanged recorded Atom reporting in a simulated edition; source URLs/text and normal saved-copy limits retained. Complete-story control unchanged.
-- Before-change Verge replay reproduced the missing link; `pnpm exec tsx scripts/smoke-ars-continuation.ts verge` and `pnpm exec tsx scripts/smoke-ars-continuation.ts` pass desktop/mobile light/dark, including saved-copy reload, focus and overflow checks. Updated/inspected screenshots.
-- One live Verge feed GET exposed untagged commerce JavaScript. Script-tag stripping would not solve it, so no heuristic removal or ingestion change was made; evidence noted in SOURCES.
-- TASKS/SOURCES/affected handbook updated; archived iterations 2200–2201. No generation, provider, budget, public-flag or saved-server-content change.
-- First full check stopped on new archive formatting; corrected it. Typecheck/lint, `pnpm exec tsx scripts/check-handbook.ts 01-app/README`, web build and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass; all 38 sources report data/no errors. Final `pnpm check` passes (989 unit/299 integration; four expected skips); `pnpm build` passes with the existing chunk warning.
-- Final `pnpm format`, `pnpm lint:fix` and diff checks precede commit/push; built API/worker restart follows. No paid calls.
-- Next: normal scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.
 
 ## 2026-11-14: iteration 2214 — Verge commerce evidence cleanup
 
@@ -224,3 +214,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 990 unit/311 integration tests, four expected skips; finite systemd check unit exits 0. Diff check passes.
 - API/worker restarted active; health/database/Redis pass. All 38 active sources have successful collection/stored data and zero errors. No UI change or new screenshots required.
 - Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No passive metrics sample before 05:36 UTC.
+
+## 2026-11-14: iteration 2226 — bracketed publisher teaser continuation
+
+- Clean main; no inherited work. Initial alerts zero; scheduled NBA/item 58/public-mode acceptance still awaits 15:00 UTC.
+- Reader weakness: unchanged PlayStation/Xbox feed excerpts end in `[…]`, which hid the source-continuation link in edition cards and saved copies. Shared detection now recognizes terminal bracketed Unicode/ASCII ellipses.
+- `pnpm exec tsx scripts/smoke-ars-continuation.ts playstation` and `... xbox` pass all eight desktop/mobile light/dark cases: original reporting, source URL, focus, reload, complete-story control and overflow. Responses are simulated using recorded reporting; no live edition writes.
+- Sixteen screenshots saved; inspected Xbox mobile edition card. No feed, generation, schema, budget or runtime configuration changes; SOURCES/handbook remain accurate. Archived iteration 2213 to keep PROGRESS small.
+- `pnpm format`, `pnpm lint:fix` and `pnpm build` pass (existing bundle warning); API/worker restarted active. Health/database/Redis pass; read-only scheduled reader check confirms five topics/15 stories/20 posts in the unchanged Nov 13 edition.
+- First shell `pnpm check` ended with signal 143 during integration (990 unit passes, no reported failures); reran full verification in finite systemd unit `news-digest-check-2226`. Handbook/schema check passes: 18 pages/39 tables.
+- Final `pnpm check` passes: 990 unit/311 integration passes, four expected integration skips; finite check unit exits 0. Diff check passes.
+- Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.

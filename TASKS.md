@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Bracketed publisher teasers (2226): edition cards and saved stories recognize terminal `[…]`/`[...]` as clipped reporting and offer source continuation. Recorded PlayStation/Xbox browser checks cover desktop/mobile, light/dark and reload.
+
 - [x] GameSpot excerpt navigation (2225): omit its named table of contents before truncation, retaining reporting headings/lists and metadata; unchanged recorded feed and boundary controls pass offline. Source remains blocked.
 
 - [x] Disk alert prevention (2223): removed two verified inactive integration-test roots from interrupted runs (about 542 MiB); disk 79%→77%. Existing one-hour automatic cleanup and active-process guards retained; telemetry-export test teardown now stops listeners before closing sockets to prevent shutdown races.

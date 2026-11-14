@@ -10,11 +10,17 @@ import { storyNeedsContinuation } from '../apps/web/src/story-continuation';
 
 async function smoke() {
   const publisher = process.argv[2] ?? 'ars';
-  assert.ok(['ars', 'verge', 'eurogamer', 'rps'].includes(publisher));
+  assert.ok(
+    ['ars', 'verge', 'eurogamer', 'rps', 'playstation', 'xbox'].includes(
+      publisher,
+    ),
+  );
   for (const text of [
     'Read more',
     'Reporting. Read more',
     'Reporting! Read more.',
+    'Reporting […]',
+    'Reporting [...]',
   ])
     assert.ok(storyNeedsContinuation(text));
   for (const text of [
@@ -22,6 +28,8 @@ async function smoke() {
     'Readers should read more.',
     'Read more about the announcement here.',
     'Reporting. Read more. Further reporting.',
+    'Reporting […] continues.',
+    'Reporting [citation]',
   ])
     assert.equal(storyNeedsContinuation(text), false);
   const origin = 'http://127.0.0.1:8000';
@@ -53,7 +61,9 @@ async function smoke() {
         ? 'Read full article Comments'
         : publisher === 'verge'
           ? 'Read the full story at The Verge.'
-          : 'Read more',
+          : ['playstation', 'xbox'].includes(publisher)
+            ? '[…]'
+            : 'Read more',
     ),
   );
   // Keep the fixture's actual reporting, URL and title; publication is simulated.
@@ -69,7 +79,11 @@ async function smoke() {
           ? 'The Verge'
           : publisher === 'rps'
             ? 'Rock Paper Shotgun'
-            : 'Eurogamer',
+            : publisher === 'playstation'
+              ? 'PlayStation Blog'
+              : publisher === 'xbox'
+                ? 'Xbox Wire'
+                : 'Eurogamer',
     ],
     coverage: undefined,
     publisher: undefined,
