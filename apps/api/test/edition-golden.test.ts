@@ -104,7 +104,7 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
           );
           calls.push(request.purpose);
           assert.ok(
-            ['candidate-triage-v1', 'shortlist-editor-v13'].includes(
+            ['candidate-triage-v1', 'shortlist-editor-v14-brief'].includes(
               request.purpose,
             ),
           );
@@ -212,7 +212,7 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
                               purpose:
                                 request.role === 'haiku'
                                   ? 'candidate-triage-v1'
-                                  : 'shortlist-editor-v13',
+                                  : 'shortlist-editor-v14-brief',
                             }),
                           }),
                         },
@@ -284,7 +284,7 @@ for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
         mode === 'ai'
           ? Array.from({ length: systemTest ? 2 : 1 }, () => [
               'candidate-triage-v1',
-              'shortlist-editor-v13',
+              'shortlist-editor-v14-brief',
             ]).flat()
           : [],
       );

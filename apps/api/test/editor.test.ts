@@ -427,7 +427,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(
       h.calls[0].instructions,
@@ -483,7 +483,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -632,7 +632,7 @@ void test('editor preserves practical release qualifications in both headline an
     );
     assert.deepEqual(result?.stories, output.stories);
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
     assert.match(
       h.calls[0].instructions,
       /qualifications.*both headline and summary/,
@@ -705,7 +705,7 @@ void test('routine roster guidance reaches both editors and allows unfilled stor
     assert.deepEqual(result?.stories, []);
     assert.deepEqual(result?.brief, []);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v13');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
     assert.match(
       h.calls[0].instructions,
@@ -1124,11 +1124,65 @@ void test('NBA repair recovers five-bullet response within the unchanged brief b
   assert.match(h.calls[1].prompt, /previous response failed schema validation/);
   const other = harness();
   await other.editor.edit(topic, candidates, 1, 'unchanged-tech');
-  assert.equal(other.calls[0].purpose, 'shortlist-editor-v13');
+  assert.equal(other.calls[0].purpose, 'shortlist-editor-v14-brief');
   assert.doesNotMatch(
     other.calls[0].instructions,
     /NBA injury and availability reports/,
   );
+});
+
+void test('Gaming five-story brief repairs without dropping stories or raising the bullet bound', async () => {
+  // Synthetic outputs reproduce the stored Nov 14 schema failure, without inference.
+  const inputs = Array.from({ length: 5 }, (_, index) => ({
+    id: `gaming-${index}`,
+    title: `Studio ${index} announces a game`,
+    excerpt: `Studio ${index} announced a game for next year.`,
+    sources: ['Gaming publisher'],
+  }));
+  const stories = inputs.map((input) => ({
+    ...story,
+    id: input.id,
+    evidenceIds: [input.id],
+    headline: input.title,
+    summary: input.excerpt,
+  }));
+  const brief = inputs.map((input) => input.excerpt);
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    const h = harness(
+      [
+        { brief, stories },
+        { brief: brief.slice(0, 4), stories },
+      ],
+      refuse,
+    );
+    const result = await h.editor.edit(
+      { ...topic, name: 'Gaming' },
+      inputs,
+      5,
+      'gaming-brief-repair',
+    );
+    assert.deepEqual(result?.stories, stories);
+    assert.deepEqual(result?.brief, brief.slice(0, 4));
+    assert.equal(h.calls.length, 2);
+    assert.deepEqual(h.diagnostics()[0].schemaIssues, ['too_big']);
+    for (const call of h.calls) {
+      assert.equal(call.purpose, 'shortlist-editor-v14-brief');
+      assert.equal(call.maxOutputTokens, 4000);
+      assert.match(
+        call.instructions,
+        /five selected stories still require only 2–4 brief bullets/,
+      );
+      assert.match(call.instructions, /Do not combine unrelated stories/);
+      assert.match(
+        call.instructions,
+        /complete supplied source sentence verbatim/,
+      );
+      assert.doesNotMatch(
+        call.instructions,
+        /NBA injury and availability reports/,
+      );
+    }
+  }
 });
 
 void test('scheduled execution shares its deadline across editor repair and Haiku fallback', async () => {

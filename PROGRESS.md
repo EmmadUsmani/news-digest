@@ -107,3 +107,14 @@ Older entries: [through iteration 2267](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,015 unit and 328 integration passes, four expected skips; isolated runner rebuilt API. No live restart.
 - Archived older progress through 2267 to keep the orientation file small. No system-flow/handbook change.
 - Next: deploy this breakage fix outside hold; evidence-preserving Gaming recovery, then normal scheduled acceptance before item 58/public activation.
+
+## 2026-11-14: iteration 2278 — Gaming brief-count recovery guidance
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending. Protected 13:00–16:00 UTC deployment hold remains in effect.
+- Extended the existing NBA brief-planning guidance to all topics after Gaming's stored Haiku repair exceeded four bullets. Five selected stories may have only four overview bullets; unrelated events must stay distinct.
+- Non-NBA purpose now `shortlist-editor-v14-brief`; NBA instructions/namespace preserved. Strict four-bullet schema, absence guards, models, 4,000 output tokens and repair/budget limits unchanged.
+- Synthetic Gaming regression exercises real budgeted validation/repair on Sonnet and Haiku fallback: rejects five bullets, accepts corrected four, retains all five stories. No future model compliance or scheduled acceptance claimed.
+- Initial full check exposed two synthetic replay fixtures tied to the old prompt; updated purpose expectations and authored-response fingerprint offline. No provider re-recording.
+- `pnpm exec tsx --test apps/api/test/editor.test.ts`: 37 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: typecheck/lint/format/boundaries, 1,016 unit and 328 integration passes, four expected skips.
+- No paid inference, production writes or live restart. Isolated integration checks rebuild API only. No UI/system-flow change; handbook/screenshots unchanged.
+- Next: after 16:00 UTC rebuild/restart and verify pending ownership/brief guidance; evidence-preserving Gaming absence/truncation recovery, then normal scheduled acceptance before item 58/private public activation.
