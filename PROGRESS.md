@@ -136,3 +136,13 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - API/worker restarted; `pnpm obs health --check` database/Redis healthy; `pnpm obs sources --check` 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts.
 - Reader JSON SHA-256 unchanged (`1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5`). No inference, external collection, publication or database writes by this iteration.
 - TASKS and Nov 14 review updated. No UI/schema/source/system-flow changes; handbook/SOURCES/screenshots unchanged. Next: natural scheduled Gaming/ownership acceptance before activation; retain unsupported-absence protections.
+
+## 2026-11-14: iteration 2293 — ownership truncation recovery lifecycle
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership acceptance still gates item 58 and private public-mode activation.
+- Added an explicitly synthetic raw-transport ownership truncation regression through production EventGrouping/BudgetedLlm. Incomplete JSON yields null, one reservation/settlement, no repair and no cache; rejection body/category retained.
+- A later identical request recovers the complete exclusive partition; a third run reuses only the valid cache without a dispatch/reservation. This verifies the observed failure cannot poison later ownership recovery; no runtime or model-compliance change claimed.
+- Targeted `pnpm exec tsx --test apps/api/test/joint-story-grouping.test.ts`: 12 pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check`: static checks, 1,023 unit/329 integration pass, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean.
+- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check` 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts, scheduled provenance verified.
+- Updated TASKS and Nov 14 review. No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. No live inference, source requests or production data writes by this iteration.
+- Next: natural scheduled Gaming/ownership acceptance before activation; caps, no-repair ownership and unsupported-absence protections retained.

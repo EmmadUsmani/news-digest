@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
+import type { RejectedEditorRecord } from '../src/modules/curation/domain/rejected-editor.port';
 
 const scopes = [
   {
@@ -92,6 +93,79 @@ const wireGroups = [
   { topicId: 't1', ids: ['a0', 'a1'] },
   { topicId: 't0', ids: ['a2'] },
 ];
+void test('truncated ownership settles once, preserves rejection evidence and allows a later complete partition', async () => {
+  // Synthetic raw transport response, modelling the observed output truncation.
+  const truncated = '{"groups":[{"topicId":"t1","ids":["a0","a1"]},';
+  const cache = new Map<string, unknown>();
+  const rejections: RejectedEditorRecord[] = [];
+  const settled: string[] = [];
+  let calls = 0;
+  let reservations = 0;
+  const llm = new BudgetedLlm(
+    {
+      async complete(request) {
+        calls++;
+        assert.equal(request.maxOutputTokens, 4096);
+        return {
+          text:
+            calls === 1 ? truncated : JSON.stringify({ groups: wireGroups }),
+          usage: { input: 100, output: 4096, cacheWrite: 0, cacheRead: 0 },
+        };
+      },
+    },
+    {
+      async cached(key) {
+        return cache.get(key);
+      },
+      async cache(key, value) {
+        cache.set(key, value);
+      },
+      async reserve() {
+        return `hold-${++reservations}`;
+      },
+      async settle(id, usage, cost) {
+        assert.equal(usage.output, 4096);
+        assert.ok(cost > 0);
+        settled.push(id);
+      },
+      async fail() {
+        assert.fail('A received invalid response still incurs usage');
+      },
+    },
+    undefined,
+    {
+      async save(record) {
+        rejections.push(record);
+      },
+    },
+  );
+  const service = new EventGrouping(llm, llmConfig({}).haiku);
+  assert.equal(
+    await service.assignTopics(scopes, candidates, 'truncated'),
+    null,
+  );
+  assert.equal(calls, 1); // Ownership has no repair dispatch.
+  assert.equal(reservations, 1);
+  assert.deepEqual(settled, ['hold-1']);
+  assert.equal(cache.size, 0);
+  assert.equal(rejections.length, 1);
+  assert.equal(rejections[0].responseText, truncated);
+  assert.equal(rejections[0].diagnostic.category, 'invalid-json');
+  assert.equal(rejections[0].request.runId, 'truncated');
+  assert.deepEqual(
+    await service.assignTopics(scopes, candidates, 'recovered'),
+    groups,
+  );
+  assert.deepEqual(settled, ['hold-1', 'hold-2']);
+  assert.equal(cache.size, 1);
+  assert.deepEqual(
+    await service.assignTopics(scopes, candidates, 'cached'),
+    groups,
+  );
+  assert.equal(calls, 2);
+  assert.equal(reservations, 2);
+  assert.equal(rejections.length, 1);
+});
 void test('joint ownership merges cross-source events, reassigns singletons and caches the complete partition', async () => {
   const h = harness({ groups: wireGroups });
   assert.deepEqual(
