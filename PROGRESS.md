@@ -260,3 +260,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm check` passes: typecheck/lint/format/boundaries, 1,012 unit and 328 integration passes, four expected skips. Review/preflight evidence retained; archived progress 2264–2265 for size.
 - `pnpm format` and `pnpm lint:fix` pass. Docs/status only; no new inference, production writes, flags, rebuild or restart. Protected deployment hold preserved; isolated integration runner rebuilt API without live restart.
 - Next: stored World/U.S. ownership JSON/output-limit and Gaming validation diagnosis offline; normal full-edition acceptance before item 58/private public activation. No replay or cap changes.
+
+## 2026-11-14: iteration 2276 — offline edition failure diagnosis
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending. No repeated health/source/reader probes after the daily review.
+- Worker journal 15:00–15:04 confirms joint ownership admitted and settled $0.002961, but hit exactly 4,096 output tokens (`max_tokens`) before invalid JSON. Raw ownership body was never retained; exact-body replay is unavailable.
+- Four stored Gaming rejections diagnosed offline: unsupported PS5 price-cut claim; Pioner funding paraphrase rejected by lexical support; fenced AND truncated Haiku initial JSON; complete Haiku repair has five brief bullets (maximum four).
+- `pnpm exec tsx -e` with production `assertAbsenceSupport` reproduces exactly one summary refusal per Sonnet response; strict assertions reject raw/unfenced Haiku initial JSON and confirm five repair bullets. No factual guard relaxed; clipped funding evidence remains qualified.
+- Updated Nov 14 review and open breakage task with bounded next action: compact ownership identifiers, exact complete/exclusive mapping tests, unchanged output budget; then evidence-preserving Gaming recovery. Item 58/public activation remain open.
+- No inference, production writes, flags, runtime rebuild or restart. Documentation/evidence only; protected deployment hold preserved and live app unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,012 unit and 328 integration passes, four expected skips. Isolated test runner rebuilt API; production unchanged.
+- Next: implement and verify compact ownership representation offline, deploy outside hold, then resolve Gaming at its distinct failure boundaries; no new paid replay.
