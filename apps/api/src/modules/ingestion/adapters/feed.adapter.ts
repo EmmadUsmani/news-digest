@@ -230,6 +230,12 @@ function excerpt(value: unknown, articleUrl: string): string {
       /^Email us at PSPodcast@sony\.com! Subscribe via Apple Podcasts, Spotify, or download here\s+/,
       '',
     );
+    // The recorded teaser flattens empty section headings and a clipped music
+    // credit after the episode introduction. Keep its continuation marker.
+    normalized = normalized.replace(
+      /\s+Stuff We Talked About The Cast Thanks to Dormilón for \[…\]$/,
+      '…',
+    );
   }
   if (teaserClipped && normalized && !/(?:…|\.{3})$/.test(normalized))
     normalized += '…';

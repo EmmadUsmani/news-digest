@@ -3053,3 +3053,11 @@ image observations. Saved editions keep their original snapshots.
 After verification and deployment, one explicit free collection through the
 existing ingestion worker accepted 36 CBS articles; all 36 stored photos match
 the publisher feed. The Nov 13 reader edition remains unchanged.
+
+## 2026-11-14 iteration 2250 — PlayStation podcast excerpt footer
+
+The recorded podcast description also ends with flattened empty section headings
+and a clipped music credit. Omit that exact terminal sequence on the PlayStation
+Blog, preserving the episode introduction, metadata and an ellipsis for source
+continuation. Changed wording, intervening reporting, nonterminal text and other
+publishers remain intact. Offline recording only; saved editions stay unchanged.

@@ -118,7 +118,11 @@ void test('recorded PlayStation podcast opens with episode reporting, not subscr
   assert.deepEqual(items, parseFeed(xml.replace(prefix, '')));
   assert.match(items[0].excerpt, /^Hey, y’all! Sid, O’Dell, and Kristen/);
   assert.match(items[0].excerpt, /big games of October/);
-  assert.match(items[0].excerpt, /Stuff We Talked About/);
+  assert.doesNotMatch(
+    items[0].excerpt,
+    /Stuff We Talked About|Thanks to Dormilón/,
+  );
+  assert.ok(items[0].excerpt.endsWith('what remains this year.…'));
   assert.ok(items.every((item) => item.excerpt.length <= 1500));
   // Subscription instructions elsewhere or from another publisher are evidence.
   const otherHost = parseFeed(
@@ -135,6 +139,24 @@ void test('recorded PlayStation podcast opens with episode reporting, not subscr
     xml.replace('PSPodcast@sony.com!', 'reader@example.com!'),
   );
   assert.match(changed[0].excerpt, /^Email us at reader@example.com!/);
+});
+
+void test('PlayStation podcast footer omission preserves reporting and requires the exact terminal credit', async () => {
+  const xml = await fixture('playstation.xml');
+  const footer =
+    'Stuff We Talked About The Cast Thanks to Dormilón for [&#8230;]';
+  assert.ok(xml.includes(footer));
+  assert.deepEqual(parseFeed(xml), parseFeed(xml.replace(' ' + footer, '…')));
+  for (const control of [
+    xml.replaceAll('blog.playstation.com', 'example.com'),
+    xml.replace(footer, footer + ' More episode reporting.'),
+    xml.replace('Thanks to Dormilón', 'Thanks to the studio'),
+    xml.replace(
+      'Stuff We Talked About The Cast',
+      'Stuff We Talked About A new game The Cast',
+    ),
+  ])
+    assert.match(parseFeed(control)[0].excerpt, /Stuff We Talked About/);
 });
 
 void test('recorded Google News headline links are not reporting excerpts', async () => {

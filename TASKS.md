@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] PlayStation podcast footer (2250): omit the recorded terminal empty section headings and clipped music credit, retaining the episode description and continuation marker; exact wording, publisher and terminal-position controls pass offline.
+
 - [x] Missing-photo enrichment (2249): repeat collection now fills a previously absent article image while retaining existing photos; recorded CBS ingestion/candidate regression covers repeated, sparse and competing observations. Saved editions remain immutable.
 
 - [x] Push Square outage recovery (2246): unchanged feed returned HTTP 200; normal 09:16 UTC collection accepted 25 dated articles and cleared HTTP 522. All 38 active sources error-free; retained 192 stored articles. No URL, retry or schedule changes.
