@@ -88,8 +88,12 @@ void test('export transport buffers exact cap and aborts overflow, deadline and 
       assert.ok(closed.has(path), path);
     assert.equal(closed.has('/never'), false);
   } finally {
+    // Stop accepting before closing sockets: a pooled client can reconnect.
+    const stopped = new Promise<void>((resolve) =>
+      server.close(() => resolve()),
+    );
     server.closeAllConnections();
-    await new Promise<void>((resolve) => server.close(() => resolve()));
+    await stopped;
   }
 });
 
@@ -192,13 +196,14 @@ void test('prepared export HTTP handler bounds responses, strips credentials and
       }),
     ]);
   } finally {
-    proxy.closeAllConnections();
-    upstream.closeAllConnections();
     await Promise.all(
-      [proxy, upstream].map(
-        (server) =>
-          new Promise<void>((resolve) => server.close(() => resolve())),
-      ),
+      [proxy, upstream].map((server) => {
+        const stopped = new Promise<void>((resolve) =>
+          server.close(() => resolve()),
+        );
+        server.closeAllConnections();
+        return stopped;
+      }),
     );
   }
 });
