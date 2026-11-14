@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Google News headline-only descriptions (2229): recorded linked headline/publisher repetitions remain blank, so new candidates cannot fill readable fallback slots with repeated titles; extra reporting, explicit article content and metadata retained. Saved excerpts/editions unchanged.
+
 - [x] Telemetry transport hang (2228): repeated offline runs caught pooled fetch stuck during caller cancellation beyond its deadline. One-shot HTTP sockets settle cancellation directly; 50 synchronized cancellations per run and response-safety controls cover the replacement. Unit files now have a 60-second outer watchdog with local transport phase diagnostics.
 
 - [x] Destructoid excerpt navigation (2227): omit the recorded Yoast contents block before the excerpt cap, retaining article headings/lists and more reporting; unchanged fixture and unrelated-block controls pass offline.

@@ -191,7 +191,7 @@ foreign key, because a citation is stored before the post is verified.
   Feed images prefer media metadata, then an opening article-content figure.
   Feed excerpts prefer article content, then summaries; opening photo captions
   and self-linked publisher footers are omitted, along with named GameSpot/Yoast contents blocks. The 1,500-character cap marks cuts with “…”.
-  A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
+  Google News descriptions repeating only a headline and publisher stay blank. A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
   rounding errors.
 - **Migrations** start with the historical SQL in `migrations/`, then the

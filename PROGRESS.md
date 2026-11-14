@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2216](docs/progress-archive/2026-11-14-iteration-2216.md).
+
 Archived entry: [iteration 2213](docs/progress-archive/2026-11-14-iteration-2213.md).
 
 Archived entry: [iteration 2212](docs/progress-archive/2026-11-14-iteration-2212.md).
@@ -75,18 +77,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2216 — rejected NBA output stays out of publication
-
-- Clean main; no inherited work. Zero active alerts; API/database/Redis healthy. Scheduled NBA/item 58/private public-mode acceptance still waits for today's edition.
-- Reader risk: saved malformed Haiku initial story ID was refused in isolation but lacked publication/HTTP coverage. Extend the existing historical NBA regression so rejected generated text cannot become reader content.
-- Feed both simulated model attempts the unchanged saved malformed output; require non-AI source-only fallback, five supplied story IDs/headlines/excerpts and no generated summaries/context/brief. Immutable retrieval and public reader latest/history/detail checks include these fallback snapshots; unpublished copies stay hidden.
-- Repeated generations dispatch/settle six synthetic-zero-usage responses, produce six invalid-selection diagnostics and never cache the rejection. Accepted initial/repair cache cases remain covered. Historical structured output, synthetic transport/triage/metadata; no paid calls or production changes.
-- Typecheck and targeted fresh-container malformed-Haiku regression pass. Initial targeted attempt exhausted the one-record replay; corrected it to supply every simulated dispatch. Temporary scoped runner removed.
-- TASKS and DATABASE-VERIFICATION updated; archived iteration 2204 to keep PROGRESS small. No UI, diagram, schema, source, provider, budget or activation change. Handbook/schema check passes (18 pages/39 tables).
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/304 integration, four expected skips. `pnpm build` passes with existing chunk warnings; diff checks pass.
-- Built API/worker restarted active; `/healthz` healthy. Immediate reader check raced startup; retry of `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected source read: all 38 have data/success/no errors. Commit/push follow.
-- Next: today's scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.
 
 ## 2026-11-14: iteration 2217 — keep opening photo captions out of reporting
 
@@ -223,3 +213,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 990 unit/313 integration passes, four expected skips; handbook/schema check passes (18 pages/39 tables). Diff check passes.
 - API/worker rebuilt and restarted active; health/database/Redis pass. Saved reader gate verifies five topics/15 stories/20 posts; all 38 active sources healthy. No UI change or screenshots required.
 - Next: 15:00 UTC all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation. Watch for any further transport failures; no paid replay.
+
+## 2026-11-14: iteration 2229 — Google News headline-only descriptions
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
+- Reader weakness: both recorded Google News descriptions repeat only their linked headline and publisher; nonblank text could fill source-fallback slots without additional reporting. Leave exact repetitions blank on Google's RSS article path.
+- Recorded fixture/fallback check passes: both headline-only candidates excluded; added reporting supplies one readable slot. Explicit article content, metadata and other host/path controls remain intact. Existing stored excerpts/editions are not rewritten; blank ingestion retains saved text. No external or inference calls.
+- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2216 to keep PROGRESS small. No UI/schema/budget/flag changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warning). Five news-query tests and the focused recorded-feed test pass. Handbook/schema check passes: 18 pages/39 tables; initial render timing failure cleared on retry, and prose remains within 100 lines.
+- Initial full check raced import autofix; next check found archived-entry formatting. Fixed both; final `pnpm check` passes: 990 unit/314 integration, four expected skips.
+- Rebuilt API/worker restarted active; health/database/Redis pass. First reader request raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have stored content/success/no errors.
+- Next: 15:00 UTC all-topic/NBA recovery/diversity review, item 58 closure, then private public-mode activation; no paid replay.

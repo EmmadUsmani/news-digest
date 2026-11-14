@@ -113,6 +113,14 @@ export function parseFeed(xml: string): ContentItem[] {
       const publisherUrl = canonicalUrl(
         String((entry.source as Node)?.['@_url'] ?? ''),
       );
+      const parsedUrl = new URL(url);
+      const headlineOnlyDescription =
+        parsedUrl.hostname === 'news.google.com' &&
+        parsedUrl.pathname.startsWith('/rss/articles/') &&
+        publisherName &&
+        title.endsWith(` - ${publisherName}`)
+          ? `${title.slice(0, -` - ${publisherName}`.length)} ${publisherName}`
+          : null;
       return [
         {
           url,
@@ -124,7 +132,13 @@ export function parseFeed(xml: string): ContentItem[] {
               entry.description,
               entry.summary,
             ]
-              .map((value) => excerpt(value, url))
+              .map((value) => {
+                const reporting = excerpt(value, url);
+                // Google News descriptions can repeat only the linked headline
+                // and publisher. They supply no reporting beyond the title.
+                if (reporting === headlineOnlyDescription) return '';
+                return reporting;
+              })
               .find(Boolean) ?? '',
           author:
             plainText(

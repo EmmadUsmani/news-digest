@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
 import { loadArticleCandidates } from '../src/modules/digests/database/article-candidates';
+import { rankFallback } from '../src/modules/digests/domain/rank';
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { HackerNewsAdapter } from '../src/modules/ingestion/adapters/hn.adapter';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
@@ -10,6 +11,54 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Google News headline links are not reporting excerpts', async () => {
+  const xml = await fixture('google-news.xml');
+  const items = parseFeed(xml);
+  assert.equal(items.length, 2);
+  assert.ok(items.every((item) => item.excerpt === ''));
+  assert.equal(items[0].publisher?.name, 'Futurism');
+  assert.equal(items[1].publisher?.name, "Tom's Hardware");
+  const fallback = (rows: typeof items) =>
+    rankFallback(
+      rows.map((item, index) => ({
+        ...item,
+        id: String(index),
+        points: 0,
+        sources: ['Google News'],
+      })),
+      new Date('2026-10-31T00:00:00Z'),
+      new Date('2026-11-01T00:00:00Z'),
+      5,
+    );
+  assert.deepEqual(fallback(items), []);
+  const withReporting = xml.replace(
+    '</description>',
+    ' Additional reporting supplied by the feed.</description>',
+  );
+  const revised = parseFeed(withReporting);
+  assert.match(
+    revised[0].excerpt,
+    /Additional reporting supplied by the feed\.$/,
+  );
+  assert.equal(revised[1].excerpt, '');
+  assert.equal(fallback(revised).length, 1);
+  for (let i = 0; i < items.length; i++) {
+    assert.deepEqual({ ...revised[i], excerpt: '' }, items[i]);
+  }
+  const content = parseFeed(
+    xml.replace(
+      '</item>',
+      '<content:encoded><![CDATA[<p>Actual article evidence.</p>]]></content:encoded></item>',
+    ),
+  );
+  assert.equal(content[0].excerpt, 'Actual article evidence.');
+  assert.equal(content[1].excerpt, '');
+  const otherHost = parseFeed(xml.replaceAll('news.google.com', 'example.com'));
+  assert.ok(otherHost.every((item) => item.excerpt.length > 0));
+  const otherPath = parseFeed(xml.replaceAll('/rss/articles/', '/report/'));
+  assert.ok(otherPath.every((item) => item.excerpt.length > 0));
+});
+
 void test('recorded Destructoid contents gives excerpt space back to reporting', async () => {
   const xml = await fixture('destructoid.xml');
   const [item] = parseFeed(xml);

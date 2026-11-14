@@ -2892,3 +2892,14 @@ of contents. Omit that exact heading/list block before the 1,500-character cap
 so more reporting fits. Article headings, lists, metadata and unrelated blocks
 remain. The unchanged recorded feed and synthetic boundary controls verify this
 offline; no source requests, inference calls or source-status changes.
+
+## 2026-11-14 iteration 2229 — Google News headline-only descriptions
+
+The two unchanged recorded Google News articles contain only their linked
+headline and publisher in the description. Those exact repetitions now remain
+blank on the Google News RSS article path; actual article content and
+descriptions with additional reporting remain available. URLs, titles, dates,
+publisher metadata and X discovery stay unchanged. Existing saved excerpts and
+editions are not rewritten; ingestion retains saved text when incoming text is
+blank. New blank candidates use the existing readable-fallback exclusion.
+Offline fixture verification only; no new source or article request.
