@@ -120,3 +120,33 @@ never counts as reporting. These labels describe usable prose, not factual
 verification or a production classifier. No runtime evidence or selection
 changes. Before any generic reservation ships, resolve reporting eligibility
 and verify grouped inputs; a nonempty excerpt alone is insufficient.
+
+## Grouping sensitivity control — iteration 2289
+
+The same offline evaluator now also applies four manually reviewed same-event
+sets to the Nov 12 recording: six CEO-resignation reports, four prospective
+CEO-dismissal reports, two reports of an executive relationship, and two United
+Airlines booking restrictions. Board deliberations, export policy, analysis
+and other developments remain separate. This is a title-reviewed sensitivity
+control, not a historical or model grouping replay or factual verification.
+
+| Nov 12 reconstructed editor input  | Ungrouped | Reviewed groups |
+| ---------------------------------- | --------- | --------------- |
+| Ranked clusters                    | 40        | 30              |
+| Baseline clusters with reporting   | 0         | 3               |
+| Reporting after reservation        | 1         | 3               |
+| Published representatives retained | 1         | 2               |
+
+With reviewed grouping, all three labelled reporting candidates already reach
+the ten-slot editor input; there is no reporting challenger below the cutoff,
+so the trial makes no replacement. A headline-list member shares a cluster
+with genuine reporting and remains excluded from reporting labels itself.
+The evaluator permits this distinction and pins both grouped and ungrouped
+results, complete membership uniqueness, ten slots and unchanged evidence.
+
+This weakens the case for a generic reserved reporting slot: grouping alone
+can remove the reconstructed deficit. Keep production unchanged; natural
+scheduled grouped evidence remains necessary before changing admission.
+`pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` checks all three
+controls with no database, source, cache or provider access. New recording:
+`apps/api/test/fixtures/tech-evidence-grouping-2026-11-12.json`.

@@ -11,7 +11,7 @@ import {
   rank,
 } from '../apps/api/src/modules/digests/domain/rank';
 
-function evaluate(path: string) {
+function evaluate(path: string, groupingPath?: string) {
   const fixture = JSON.parse(readFileSync(path, 'utf8')) as {
     provenance: string;
     reportingIds: string[];
@@ -35,6 +35,16 @@ function evaluate(path: string) {
     historicalGroupingCacheHit: boolean;
   };
   assert.equal(fixture.historicalGroupingCacheHit, false);
+  if (groupingPath) {
+    const grouping = JSON.parse(readFileSync(groupingPath, 'utf8')) as {
+      provenance: string;
+      groups: string[][];
+      expected: typeof fixture.expected;
+    };
+    fixture.groups = grouping.groups;
+    fixture.provenance = grouping.provenance;
+    fixture.expected = grouping.expected;
+  }
   const start = new Date(fixture.windowStart);
   const end = new Date(fixture.windowEnd);
   const { shortlist } = editorialShortlist(
@@ -49,6 +59,10 @@ function evaluate(path: string) {
   assert.equal(shortlist.length, 40);
   const memberships = new Map<string, number>();
   for (const [index, group] of fixture.groups.entries()) {
+    assert(
+      group.length >= 2,
+      'Grouping controls must combine explicit members',
+    );
     for (const id of group) {
       assert(shortlist.some((item) => item.id === id));
       assert(!memberships.has(id));
@@ -100,21 +114,24 @@ function evaluate(path: string) {
         b.score - a.score ||
         a.id.localeCompare(b.id),
     )[0];
-  assert(challenger, 'Expected qualified reporting below cutoff');
-  const trial = [...baseline.slice(0, 9), challenger];
+  if (!groupingPath)
+    assert(challenger, 'Expected qualified reporting below cutoff');
+  const trial = challenger
+    ? [...baseline.slice(0, 9), challenger]
+    : [...baseline];
+  const retained = (pool: typeof baseline) =>
+    fixture.publishedIds.filter((id) => pool.some((item) => item.id === id))
+      .length;
   assert.equal(
     baseline.filter(readable).length,
     fixture.expected.baselineReadable,
   );
   assert.equal(trial.filter(readable).length, fixture.expected.trialReadable);
   assert.equal(all.length, fixture.expected.clusters);
-  assert.equal(trial.length, baseline.length);
-  assert.equal(new Set(trial.map((item) => item.id)).size, 10);
-  const retained = (pool: typeof baseline) =>
-    fixture.publishedIds.filter((id) => pool.some((item) => item.id === id))
-      .length;
   assert.equal(retained(baseline), fixture.expected.baselinePublished);
   assert.equal(retained(trial), fixture.expected.publishedControlsRetained);
+  assert.equal(trial.length, baseline.length);
+  assert.equal(new Set(trial.map((item) => item.id)).size, 10);
   for (const id of fixture.nonReportingIds) {
     const item = evidence.find((item) =>
       item.coverage.some((member) => member.id === id),
@@ -123,7 +140,12 @@ function evaluate(path: string) {
       item && item.clusterEvidence.some((member) => member.excerpt.trim()),
     );
     assert(
-      !readable(item),
+      !readable({
+        ...item,
+        clusterEvidence: item.clusterEvidence.filter(
+          (member) => member.id === id,
+        ),
+      }),
       'Headline-list control must not count as reporting',
     );
   }
@@ -150,14 +172,15 @@ function evaluate(path: string) {
       {
         editionId: fixture.editionId,
         counterfactual: true,
+        groupingControl: groupingPath ?? null,
         clusters: all.length,
         baselineReadable: baseline.filter(readable).length,
         trialReadable: trial.filter(readable).length,
         publishedControlsRetained: retained(trial),
         baselinePublished: retained(baseline),
         provenance: fixture.provenance,
-        admitted: describe(challenger),
-        displaced: describe(baseline[9]),
+        admitted: challenger ? describe(challenger) : null,
+        displaced: challenger ? describe(baseline[9]) : null,
         productionChanged: false,
       },
       null,
@@ -167,3 +190,7 @@ function evaluate(path: string) {
 }
 for (const date of ['2026-11-12', '2026-11-14'])
   evaluate(`apps/api/test/fixtures/tech-evidence-cutoff-${date}.json`);
+evaluate(
+  'apps/api/test/fixtures/tech-evidence-cutoff-2026-11-12.json',
+  'apps/api/test/fixtures/tech-evidence-grouping-2026-11-12.json',
+);

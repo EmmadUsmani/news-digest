@@ -90,3 +90,15 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - Restarted API/worker healthy; `/healthz` database/Redis true, `pnpm obs sources --check` 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies five topics/14 stories/19 posts; reader JSON byte-identical (SHA-256 1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5).
 - TASKS/SOURCES updated; older progress archived through 2280 (active file 16 KB). No UI/schema/system-flow change; handbook/screenshots unchanged. Natural ingestion refreshes this source excerpt; no manual data writes.
 - Next: natural Gaming/ownership acceptance before item 58/private public-mode activation; generic Tech reporting admission remains unready.
+
+## 2026-11-14: iteration 2289 — test Tech reporting depth against reviewed grouping
+
+- Clean main; no inherited work. Initial alerts zero, health database/Redis true and 38/38 sources healthy. Natural Gaming/ownership acceptance remains pending; public mode off, VM private.
+- Reader weakness: thin Tech summaries can follow repeated headline-only candidates consuming editor slots. Added four manually reviewed same-event sets to the recorded Nov 12 cutoff study; no historical/model grouping replay or factual verification claimed.
+- Grouped control produces 30 clusters instead of 40 and brings all three labelled reporting candidates into the ten-slot baseline (ungrouped zero). Published representatives retained rise 1→2. No reporting challenger remains below cutoff, so reservation makes no replacement; current Nov 14 and ungrouped controls retained.
+- Evaluator pins grouped counts, membership uniqueness, fixed slot count and unchanged evidence; headline-list members remain non-reporting even inside a reporting cluster. This weakens the generic reservation case; production admission unchanged.
+- Checked Pioner stored reporting read-only: complete funding quote exists beyond the editor's 600-character boundary; text expansion alone would not resolve the separate lexical paraphrase refusal. Existing safe repair controls remain unchanged.
+- `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` passes three controls; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass static checks, 1,021 unit / 329 integration tests and four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker restarted healthy; `/healthz` database/Redis true. Saved reader edition b9d55088-892a-4e34-b77c-a398d64c6a9f byte-identical (SHA-256 1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5).
+- TASKS/depth study updated. No runtime/UI/schema/source-flow change; handbook/SOURCES/screenshots unchanged. No inference, external source requests or publication writes.
+- Next: natural Gaming/ownership acceptance before item 58/private public-mode activation; verify natural grouped Tech evidence before proposing a reporting reservation.
