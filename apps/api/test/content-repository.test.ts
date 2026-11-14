@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
+import { repairRecordedTechExcerpt } from '../scripts/lib/repair-recorded-tech-excerpt';
 import { reportingExcerpt } from '../src/modules/digests/domain/reporting-excerpt';
 import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
@@ -11,7 +12,7 @@ import {
   type Source,
 } from '../src/modules/ingestion/domain/ports';
 
-void test('recorded HUD rediscovery exposes legacy excerpt provenance loss without erasing reporting', async () => {
+void test('reviewed HUD correction clears only the exact recorded excerpt and survives rediscovery', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const repository = new PostgresContentRepository();
   const topicId = randomUUID();
@@ -61,10 +62,64 @@ void test('recorded HUD rediscovery exposes legacy excerpt provenance loss witho
     await repository.store(source, [{ ...fresh, ...stored }]);
     await repository.store(source, [fresh]);
     assert.deepEqual(await persisted(), stored);
-    // Known defect, deliberately characterized until the post-hold repair:
-    // the changed headline survives both blank preservation and exact matching.
+    // Rediscovery alone cannot recognize a differently worded old headline.
     assert.equal(reportingExcerpt(await persisted()), stored.excerpt);
-    assert.notEqual(reportingExcerpt(await persisted()), '');
+    const { id } = (
+      await repository.db.query(
+        'SELECT id FROM content_items WHERE canonical_url=$1',
+        [fresh.url],
+      )
+    ).rows[0] as { id: string };
+    assert.equal(
+      (await repairRecordedTechExcerpt(repository.db, id, false)).status,
+      'would-clear',
+    );
+    assert.deepEqual(await persisted(), stored);
+    const before = (
+      await repository.db.query('SELECT * FROM content_items WHERE id=$1', [id])
+    ).rows[0];
+    assert.equal(
+      (await repairRecordedTechExcerpt(repository.db, id, true)).status,
+      'cleared',
+    );
+    const after = (
+      await repository.db.query('SELECT * FROM content_items WHERE id=$1', [id])
+    ).rows[0];
+    assert.deepEqual(after, { ...before, excerpt: '' });
+    assert.equal(
+      (await repairRecordedTechExcerpt(repository.db, id, true)).status,
+      'already-cleared',
+    );
+    await repository.store(source, [fresh]);
+    assert.equal(reportingExcerpt(await persisted()), '');
+
+    // Refuse changed records, including added prose, rather than guessing.
+    for (const change of [
+      { title: `${stored.title} updated` },
+      { url: `${stored.url}&updated=1` },
+      { publisher: { ...stored.publisher, name: 'Another publisher' } },
+      { excerpt: `${stored.excerpt}. Additional reported facts.` },
+    ]) {
+      const changed = { ...stored, ...change };
+      await repository.db.query(
+        'UPDATE content_items SET canonical_url=$2,title=$3,excerpt=$4,publisher=$5 WHERE id=$1',
+        [id, changed.url, changed.title, changed.excerpt, changed.publisher],
+      );
+      await assert.rejects(repairRecordedTechExcerpt(repository.db, id, true));
+      assert.deepEqual(
+        (
+          await repository.db.query(
+            'SELECT canonical_url AS url,title,excerpt,publisher FROM content_items WHERE id=$1',
+            [id],
+          )
+        ).rows[0],
+        changed,
+      );
+    }
+    await repository.db.query(
+      'UPDATE content_items SET canonical_url=$2,title=$3,excerpt=$4,publisher=$5 WHERE id=$1',
+      [id, stored.url, stored.title, stored.excerpt, stored.publisher],
+    );
 
     // When the earlier title is known, recognize its exact headline-only
     // description before the new title replaces that provenance.

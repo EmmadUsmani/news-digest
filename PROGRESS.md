@@ -145,3 +145,14 @@ Older entries: [through iteration 2273](docs/progress-archive/2026-11-14-through
 - `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; initial reader raced startup, retry verifies unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f (five topics/14 stories/19 posts). Health database/Redis true; 38/38 sources healthy.
 - TASKS and depth study updated. No runtime/source/schema/UI change; handbook/SOURCES/screenshots unchanged. No paid inference, source requests or publication writes; public mode off, VM private.
 - Next: natural Gaming/ownership acceptance before item 58/public activation; do not ship nonempty-text reporting reservation.
+
+## 2026-11-14: iteration 2287 — correct the reviewed stale Tech headline excerpt
+
+- Clean main; no inherited work. Initial alerts zero and health database/Redis true. Scheduled Gaming/ownership acceptance still pending; public mode off, VM private.
+- Reader value: prevent a known headline-only HUD description from masquerading as reporting in later summaries; close the recorded historical provenance defect without erasing prose.
+- Added default-dry-run one-record correction with locked ID/URL/title/publisher/excerpt guards. Explicit apply clears only the excerpt; changed records refuse, repeated apply is a no-op. No runtime classifier, ranking/prompt change or saved-edition rewrite.
+- Isolated repository test now verifies dry-run preservation, single-field correction, idempotence, rediscovery and changed URL/title/publisher/added-reporting refusals; existing reporting-preservation controls retained.
+- Live `pnpm exec tsx apps/api/scripts/repair-recorded-tech-excerpt.ts` returned would-clear; `--apply` returned cleared then already-cleared. Read-only `/tmp/2287-verify.ts` confirms 200 current Tech candidates differ only in HUD excerpt (70→0); current five fallback picks unchanged. Earlier slot improvement remains an offline control.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,019 unit tests, 329 integration tests and four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; no UI/schema/source-flow change, so screenshots/handbook/SOURCES unchanged.
+- API/worker restarted. `/healthz` database/Redis true; `pnpm obs sources --check` passes. Saved edition b9d55088-892a-4e34-b77c-a398d64c6a9f remains byte-identical before/after repair and restart (SHA-256 1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5).
+- TASKS and Tech evidence updated; no paid inference, explicit source request or publication. Next: natural Gaming/ownership acceptance before item 58/private public-mode activation; general Tech reporting admission remains unready.
