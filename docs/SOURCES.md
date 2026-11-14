@@ -2847,3 +2847,14 @@ This reuses the recorded response; no source request or article crawl occurred.
 Previously saved editions remain immutable. The recorded SB Nation NBA entry
 also retains its supplied opening figure; the entry beginning with video keeps
 its missing image.
+
+### Opening photo captions — Nov 14, iteration 2217
+
+The saved Nov 13 Verge response puts photo captions before reporting in four
+entries, including a June airport photo before the November FAA closure report.
+Exclude an opening image-and-caption-only figure from excerpt text, preserving
+the separately extracted lead image and all following reporting. Later captions
+and figures containing article paragraphs remain intact. Caption-only content
+falls back to the publisher summary. Recorded commerce reporting/metadata and
+synthetic boundary controls pass offline; no new requests or paid calls.
+Previously saved editions remain unchanged.

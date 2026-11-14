@@ -189,7 +189,7 @@ foreign key, because a citation is stored before the post is verified.
 - **Dedup by URL.** An article is stored once (`canonical_url` is unique) even
   when several sources publish it. `content_observations` records who saw it.
   Feed images prefer media metadata, then an opening article-content figure.
-  Feed excerpts prefer supplied article content, falling back to summaries.
+  Feed excerpts prefer article content without opening photo captions, then summaries.
   They stay within 1,500 characters and mark shortened text with an ellipsis.
   A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid

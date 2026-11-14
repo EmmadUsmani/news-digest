@@ -58,17 +58,7 @@ Archived entries: [iterations 2202–2203](docs/progress-archive/2026-11-14-iter
 
 Archived entry: [iteration 2204](docs/progress-archive/2026-11-14-iteration-2204.md).
 
-## 2026-11-14: iteration 2205 — prefer supplied feed reporting
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis and API/worker active. NBA/item 58 scheduled acceptance remains pending.
-- RSS encoded/Atom content now precedes teasers, with blank fallback and unchanged 1,500-character cap, metadata and all-field X citation extraction. No article-page crawl, new source, provider or budget change.
-- Unchanged recorded Ars fragment supplies 593 reporting characters; precedence/cap/blank/Atom tests and isolated teaser-to-body enrichment/repeat/blank-observation regression updated.
-- TASKS, SOURCES, affected handbook and evidence updated; archived iteration 2192. NEEDS_FROM_HUMAN unchanged.
-- Implementation/checks began Nov 13 evening; deployment held until Nov 14 UTC to obey the pre-noon generation window. Natural summary-depth/AI-editing acceptance remains open.
-- Initial full check caught an X-link test pinning old teaser precedence; updated bounded-body expectation, retaining both-field citation assertions. Targeted X tests pass 2/2.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/295 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
-- Read-only live Ars fetch/parser check: 20/20 nonempty bounded excerpts, first 883 characters. No live storage writes or paid calls. Commit/push and built API/worker restart follow; saved reader checked after restart.
-- Next: Nov 14 normal scheduled all-topic AI editing/diversity, NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2205](docs/progress-archive/2026-11-14-iteration-2205.md).
 
 ## 2026-11-14: iteration 2206 — mark bounded feed reporting
 
@@ -197,3 +187,14 @@ Archived entry: [iteration 2204](docs/progress-archive/2026-11-14-iteration-2204
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/304 integration, four expected skips. `pnpm build` passes with existing chunk warnings; diff checks pass.
 - Built API/worker restarted active; `/healthz` healthy. Immediate reader check raced startup; retry of `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected source read: all 38 have data/success/no errors. Commit/push follow.
 - Next: today's scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.
+
+## 2026-11-14: iteration 2217 — keep opening photo captions out of reporting
+
+- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. NBA/item 58 acceptance awaits today's scheduled edition.
+- Reader weakness: four entries in the saved Nov 13 Verge response start excerpts with photo captions; the FAA report begins with a June airport-photo date ahead of November reporting.
+- Exclude only opening image-and-caption-only figures from excerpt text. Keep the separately extracted lead image, subsequent reporting, later captions and figures containing reporting paragraphs; caption-only content falls back to the publisher teaser.
+- Recorded commerce regression preserves reporting/metadata; synthetic boundary controls pass. Offline saved ten-entry feed probe confirms FAA reporting starts the excerpt, June date is absent and lead image survives. No new source requests, paid calls or UI changes.
+- TASKS/SOURCES/affected handbook updated; archived iteration 2205 to keep PROGRESS small. Saved editions, provider, budgets and activation flags unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/305 integration, four expected skips. `pnpm build` passes with existing chunk warning; handbook/schema and diff checks pass.
+- Built API/worker restarted; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status: all 38 active sources have data/success and no errors.
+- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.

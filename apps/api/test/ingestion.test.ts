@@ -17,9 +17,41 @@ void test('recorded Verge opening figure supplies its missing lead image', async
     item.imageUrl,
     'https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/cmf-by-nothing-speaker-s-breakout.png?crop=0%2C0%2C100%2C100&quality=90&strip=all',
   );
-  const [withoutFigure] = parseFeed(xml.replace(/&lt;img\b[\s\S]*?\/&gt;/, ''));
+  const [withoutFigure] = parseFeed(
+    xml.replace(/&lt;figure&gt;[\s\S]*?&lt;\/figure&gt;/, ''),
+  );
   assert.equal(withoutFigure.imageUrl, null);
   assert.equal(item.excerpt, withoutFigure.excerpt);
+  assert.match(item.excerpt, /^Bluetooth speakers are often boring boxes/);
+  assert.doesNotMatch(item.excerpt, /Image: CMF by Nothing/);
+});
+
+void test('feed opening photo captions do not displace reporting', () => {
+  const item = (body: string) =>
+    parseFeed(`<rss><channel><item><title>Airport report</title>
+    <link>https://example.com/airport</link><pubDate>2026-11-14T00:00:00Z</pubDate>
+    <content:encoded><![CDATA[${body}]]></content:encoded>
+    <description>Publisher teaser.</description></item></channel></rss>`)[0];
+  const figure =
+    '<figure class="lead"><img src="https://example.com/photo.jpg" /><figcaption>Planes on June 3. | Photo: Agency <a href="https://example.com/credit">Credit</a></figcaption></figure>';
+  assert.equal(
+    item(figure + '<p>Flights stopped on Friday.</p>').excerpt,
+    'Flights stopped on Friday.',
+  );
+  assert.equal(item(figure).excerpt, 'Publisher teaser.');
+  assert.equal(item(figure).imageUrl, 'https://example.com/photo.jpg');
+  // Later captions, caption-like prose and reporting inside a figure survive.
+  assert.match(item('<p>Reporting.</p>' + figure).excerpt, /Planes on June 3/);
+  assert.equal(
+    item('<p>Photo: Agency reported the closure.</p>').excerpt,
+    'Photo: Agency reported the closure.',
+  );
+  assert.match(
+    item(
+      figure.replace('<figcaption>', '<p>Article reporting.</p><figcaption>'),
+    ).excerpt,
+    /Article reporting/,
+  );
 });
 
 void test('feed lead figures preserve media priority and reject unsafe or later images', () => {
