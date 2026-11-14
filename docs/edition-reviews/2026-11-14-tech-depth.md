@@ -150,3 +150,33 @@ scheduled grouped evidence remains necessary before changing admission.
 `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` checks all three
 controls with no database, source, cache or provider access. New recording:
 `apps/api/test/fixtures/tech-evidence-grouping-2026-11-12.json`.
+
+## Reporting minimum sensitivity — iteration 2297
+
+The recorded evaluator now compares minimums of zero through three reporting
+clusters in the same ten slots. It reserves the highest semantic-priority
+labelled reporting clusters, then fills remaining slots in ranking order.
+Unlike the earlier trial, this counts reporting already inside the cutoff
+against the minimum. Evidence text, groups and scores stay fixed.
+
+| Recorded control                           | Minimum 0 | Minimum 1 | Minimum 2 | Minimum 3 |
+| ------------------------------------------ | --------- | --------- | --------- | --------- |
+| Nov 12 ungrouped: reporting clusters       | 0         | 1         | 2         | 3         |
+| Nov 12 reviewed groups: reporting clusters | 3         | 3         | 3         | 3         |
+| Nov 14 recorded groups: reporting clusters | 1         | 1         | 2         | 2         |
+
+All four settings retain the same published controls: one Nov 12 ungrouped,
+two Nov 12 reviewed-grouped and four Nov 14. These counts only cover published
+representatives present in each reconstructed baseline, not the full edition.
+The extra Nov 12 ungrouped admissions repeat CEO-resignation reporting before
+adding prospective dismissal reporting; added prose does not imply new events.
+Nov 14's Wallet report requires a minimum of two; a minimum of one changes
+nothing because another reporting cluster already qualifies. Only two labelled
+reporting clusters exist there, so a minimum of three cannot supply a third.
+
+This distinguishes a minimum from an unconditional extra reporting slot and
+shows why simply reserving one slot would not address the observed Nov 14 gap.
+The small labelled recordings still do not justify a generic production rule;
+reviewed grouping alone removes Nov 12's deficit. Production remains unchanged.
+The offline command pins every row, ten unique slots, retained controls and
+unchanged evidence; it performs no source, database, cache or provider access.

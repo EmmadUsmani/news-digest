@@ -890,7 +890,13 @@
     "trialReadable": 2,
     "publishedControlsRetained": 4,
     "baselinePublished": 4,
-    "clusters": 26
+    "clusters": 26,
+    "reservationSweep": [
+      [1, 4, 0],
+      [1, 4, 0],
+      [2, 4, 1],
+      [2, 4, 1]
+    ]
   },
   "provenance": "Current-input capture with saved grouping reused; grouping fingerprint differs from scheduled request. Counterfactual only."
 }

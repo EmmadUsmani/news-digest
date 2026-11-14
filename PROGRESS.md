@@ -91,3 +91,14 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check` passes. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance, five topics/14 stories/19 posts.
 - No inference, external source requests, production writes, UI/schema/source/system-flow change or saved-edition mutation. Handbook/SOURCES/screenshots unchanged.
 - Next: natural scheduled Gaming/ownership recovery before activation; retain translation/award challenges and broader social quality acceptance.
+
+## 2026-11-14: iteration 2297 — Tech reporting-minimum sensitivity
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58 and private public-mode activation.
+- Extended offline recorded Tech cutoff evaluation with reporting minimums 0–3, ten unique slots, unchanged evidence and pinned per-window reporting/published-control/admission counts.
+- Nov 14 minimum one changes nothing; minimum two admits Wallet, retaining all four represented published controls. Nov 12 reviewed grouping already supplies three reporting clusters; ungrouped reservations add repeated resignation reporting before prospective dismissal reporting.
+- All minima retain each baseline's represented published controls (Nov 12 ungrouped one/grouped two, Nov 14 four). Recordings/manual prose labels do not establish a general production policy; ranking, prompts, budgets and selection unchanged.
+- Updated depth review/TASKS. `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker restarted; initial health request preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts with scheduled provenance verified.
+- No inference, external source requests or production writes by evaluation; no UI/schema/source/system-flow change. Handbook/SOURCES/screenshots unchanged. Private receipts `/tmp/2297-*`.
+- Next: natural Gaming/ownership scheduled acceptance before activation; preserve social-quality challenges and obtain natural grouped Tech evidence before admission changes.

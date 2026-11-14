@@ -29,6 +29,12 @@
     "trialReadable": 3,
     "publishedControlsRetained": 2,
     "baselinePublished": 2,
-    "clusters": 30
+    "clusters": 30,
+    "reservationSweep": [
+      [3, 2, 0],
+      [3, 2, 0],
+      [3, 2, 0],
+      [3, 2, 0]
+    ]
   }
 }

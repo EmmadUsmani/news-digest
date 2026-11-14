@@ -22,6 +22,7 @@ function evaluate(path: string, groupingPath?: string) {
       publishedControlsRetained: number;
       baselinePublished: number;
       clusters: number;
+      reservationSweep: number[][];
     };
     editionId: string;
     windowStart: string;
@@ -157,6 +158,56 @@ function evaluate(path: string, groupingPath?: string) {
       evidence.find((original) => original.id === item.id),
     );
   }
+  // Compare the cost of reserving more evidence slots on the same fixed pool.
+  // Labels are manually reviewed prose eligibility, not a runtime classifier.
+  const reportingOrder = evidence
+    .filter(readable)
+    .sort(
+      (a, b) =>
+        semantic(b).importance - semantic(a).importance ||
+        semantic(b).relevance - semantic(a).relevance ||
+        b.score - a.score ||
+        a.id.localeCompare(b.id),
+    );
+  const reservationSweep = [0, 1, 2, 3].map((reserved) => {
+    const guaranteed = reportingOrder.slice(0, reserved);
+    const guaranteedIds = new Set(guaranteed.map((item) => item.id));
+    const pool = [
+      ...evidence
+        .filter((item) => !guaranteedIds.has(item.id))
+        .slice(0, 10 - guaranteed.length),
+      ...guaranteed,
+    ];
+    assert.equal(pool.length, 10);
+    assert.equal(new Set(pool.map((item) => item.id)).size, 10);
+    for (const item of pool)
+      assert.deepEqual(
+        item,
+        evidence.find((original) => original.id === item.id),
+      );
+    if (reserved === 0) assert.deepEqual(pool, baseline);
+    return {
+      reserved,
+      reporting: pool.filter(readable).length,
+      publishedRetained: retained(pool),
+      displacedPublished: fixture.publishedIds.filter(
+        (id) =>
+          baseline.some((item) => item.id === id) &&
+          !pool.some((item) => item.id === id),
+      ),
+      added: pool
+        .filter((item) => !baseline.includes(item))
+        .map((item) => item.title),
+    };
+  });
+  assert.deepEqual(
+    reservationSweep.map((row) => [
+      row.reporting,
+      row.publishedRetained,
+      row.added.length,
+    ]),
+    fixture.expected.reservationSweep,
+  );
   const describe = (item: (typeof evidence)[number]) => ({
     id: item.id,
     title: item.title,
@@ -181,6 +232,7 @@ function evaluate(path: string, groupingPath?: string) {
         provenance: fixture.provenance,
         admitted: challenger ? describe(challenger) : null,
         displaced: challenger ? describe(baseline[9]) : null,
+        reservationSweep,
         productionChanged: false,
       },
       null,
