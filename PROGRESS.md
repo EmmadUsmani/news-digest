@@ -1,5 +1,7 @@
 # Progress
 
+Archived entries: [iterations 2264–2265](docs/progress-archive/2026-11-14-iterations-2264-2265.md).
+
 Archived entries: [iterations 2262–2263](docs/progress-archive/2026-11-14-iterations-2262-2263.md).
 
 Archived entries: [iterations 2260–2261](docs/progress-archive/2026-11-14-iterations-2260-2261.md).
@@ -154,28 +156,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2264 — clipped social URL destinations
-
-- Clean main; no inherited work. Initial alerts zero. NBA/item 58/public activation remain gated on 15:00 scheduled acceptance; generation hold retained.
-- Reader weakness: Nov 7 Gaming survey and World posts display shortened bare-domain URLs without a distinct link affordance; protocol-prefixed shortened URLs would incorrectly open partial paths.
-- Recognize clipped bare-domain URLs, underline their visible text and open the original post for the full destination. Protocol-prefixed clipped URLs also use the original post. Saved text and complete destinations remain intact.
-- GET-only real Nov 7/Nov 13 Playwright replay passes desktop/mobile light/dark: both clipped destinations, complete Steam patch-notes control, text, focus, layout and no page errors. External requests blocked. Eight screenshots saved; mobile light/desktop dark inspected.
-- Updated TASKS; archived iterations 2254–2255 to bound PROGRESS. No source/provider requests, paid calls, data writes or generation/configuration changes. Existing handbook flows unchanged.
-- Verification: pnpm format/lint:fix pass; pnpm check passes 1,008 unit/327 integration tests, four expected skips, after correcting initial formatting failures. pnpm build passes with existing bundle warnings; pnpm exec tsx scripts/smoke-reader-clipped-links.ts passes.
-- API/worker rebuilt and restarted before 13:00 UTC; both active, health database/Redis passes after startup retry. Browser reload verifies served build; check-scheduled-reader.ts 2026-11-13T15:00:00Z passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
-- Next: 15:00 all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold. Tech provenance repair follows protected edition; no paid replay.
-
-## 2026-11-14: iteration 2265 — Tech social selection cause
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. Protected 13:00–16:00 UTC window retained: no build deployment or restart, no generation changes.
-- GET-only saved Nov 13 preview/reader reconciliation establishes successful Tech Sonnet social editing: 58 scored, zero unscored, five qualifying and three selected. Publication IDs/rationales agree; empty optional notes do not mean fallback.
-- Saved rationale selects recap for naming three launches alongside the detailed Search rollout. Agent-run rationale values time/cost while acknowledging unseen result. This is selection-quality recurrence independent of failed story triage; existing instructions already address weak recaps.
-- All five qualifying candidates fit the ten-candidate bound; no truncation cause established. No omission reasons saved. Bluesky explicitly chose none from one shortlisted candidate, not collection failure.
-- Updated X review, today's acceptance checklist and TASKS. Private receipt `/tmp/2265-tech-social.json`; temporary probe removed. Initial probe CJS top-level-await error corrected with async main; all GET/contract/metadata assertions then pass.
-- No paid calls, source requests, stored-data/configuration changes or production code changes. Existing services keep serving unchanged main application code throughout the hold.
-- Verification: pnpm format and pnpm lint:fix pass; pnpm check passes typecheck/lint/format/boundaries, 1,008 unit and 327 integration tests with four expected skips. Documentation-only step; no build/restart during protected hold. Archived iterations 2256–2257 to keep this file bounded.
-- Next: 15:00 all-topic scheduled acceptance, assess Tech social quality separately, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold.
-
 ## 2026-11-14: iteration 2266 — saved-summary acceptance
 
 - Clean main; no inherited work. Initial alerts zero. NBA/item 58/public activation still await 15:00 UTC; protected deployment/generation hold retained.
@@ -269,3 +249,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - No searches, inference, database writes, production configuration or restart. Protected deployment hold preserved; standalone reporting/docs change needs no runtime rebuild or restart.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,012 unit and 328 integration passes, four expected skips; isolated runner rebuilt API.
 - Next: review 15:00 all-topic scheduled acceptance/event diversity and admissions; NBA/item 58 closure, then fresh rollback/private public-mode activation after 16:00. HUD provenance repair remains after edition protection.
+
+## 2026-11-14: iteration 2275 — scheduled review and NBA recovery
+
+- Clean main; no inherited work. Alerts zero. Nov 14 scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes 15:03:47.533 UTC, 227.528-second worker attempt: five topics/14 stories/19 posts.
+- All-topic `check-scheduled-reader.ts` returns editorial-refused/exit 1: NBA and Tech accepted; Gaming/World/U.S. refused. Latest/direct/history and scheduled provenance agree. NBA five Sonnet summaries after repair close recurrence; STEERING 59 step 1 acked.
+- All 19 candidate-triage calls succeed; prior inference-slot expiry absent. World/U.S. ownership invalid JSON (repair disabled) withholds both sections; Gaming exhausts Sonnet absence and Haiku JSON/schema validation. Item 58/activation stay open; no weak acceptance.
+- Read `report-edition-timing.ts --scheduled-only --limit 1`, worker validation/ledger/settlement logs and saved story/post text. Anthropic 60 successful calls/$0.474821/zero holds; all 60 admissions accepted. Twenty immediate Sonnet admissions, no settlement recovery observed. xAI five successful daily calls/$0.326709.
+- `/healthz` via `pnpm obs health --check` passes; `pnpm obs sources --check`: 38/38 healthy. Chromium verifies all 14 story titles/five sections at 1440/390 px, light/dark; `/tmp/2275-reader-*.png`. No UI changes.
+- `pnpm check` passes: typecheck/lint/format/boundaries, 1,012 unit and 328 integration passes, four expected skips. Review/preflight evidence retained; archived progress 2264–2265 for size.
+- `pnpm format` and `pnpm lint:fix` pass. Docs/status only; no new inference, production writes, flags, rebuild or restart. Protected deployment hold preserved; isolated integration runner rebuilt API without live restart.
+- Next: stored World/U.S. ownership JSON/output-limit and Gaming validation diagnosis offline; normal full-edition acceptance before item 58/private public activation. No replay or cap changes.

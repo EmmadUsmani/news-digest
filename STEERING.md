@@ -2738,3 +2738,5 @@ separately, with commits and the edition ID.
 UTC. Nothing that touches edition generation after 12:00 UTC unless it fixes a
 breakage. Protect the edition: if it fails or looks wrong, turn the newest flag
 off first.
+
+ack: 2026-11-14 item 59 step 1 — iteration 2275: scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes five NBA Sonnet-edited summaries after successful repair, zero unscored candidates and reader/latest/direct/history agreement. NBA recurrence accepted. Item 58 remains open: Gaming falls back and World/U.S. ownership JSON fails, so the overall edition is not normal; public mode remains off and sharing private. See docs/edition-reviews/2026-11-14.md.

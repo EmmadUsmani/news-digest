@@ -49,6 +49,9 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   triage queue expiry prevented every story editor and withheld World/U.S.
   stories. NBA/item 58 acceptance remains open; no activation follows this run.
   [Admission breakage review](edition-reviews/2026-11-13.md).
+- Nov 14 edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` restores NBA AI editing,
+  but Gaming fallback and failed World/U.S. ownership prevent normal full-edition
+  acceptance. Item 58 and activation remain open. [Review](edition-reviews/2026-11-14.md).
 - Item 58 stays open until the live checks are answered and a normal scheduled
   edition publishes after the fixes. Then add the required steering ack and
   request the lead re-check; the owner retains the go-public decision.
