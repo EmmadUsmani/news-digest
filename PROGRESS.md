@@ -114,3 +114,15 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - No runtime/UI/schema/source-flow change; handbook/SOURCES/screenshots unchanged. No paid inference, external source/embed request, publication or database write.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,021 unit / 329 integration tests, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
 - API/worker restarted healthy; immediate health request preceded listener readiness, subsequent `/healthz` database/Redis true. `pnpm obs sources --check` 38/38 healthy; scheduled-reader check verifies five topics/14 stories/19 posts. Saved JSON SHA-256 unchanged: `1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5`.
+
+## 2026-11-14: iteration 2291 — explain Gaming fallback concentration
+
+- Clean main; no inherited work. Initial alerts zero. Public mode off/private; normal Gaming/ownership acceptance still gates item 58.
+- Owner-visible weakness: four GTA cards crowd Gaming fallback. Traced the real selection to distinguish failed editing from lost grouping before changing event breadth.
+- Read-only production reconstruction: 196 current-window candidates versus 195 saved, 192 saved scores/zero unscored; forty shortlisted candidates produce an exact grouping-cache hit (`e85e4614…`). Seven groups/19 unique members retained; production fallback reproduces all five saved IDs, order and coverage.
+- First five importance-ranked candidates are GTA multiplayer, PS5 sales, franchise valuation, GTA forecast and Take-Two acquisition stance; all singleton events. Existing groups already combine Rainbow Six, industry-survey and Pioner reporting. No title/franchise merge justified; prioritize deployed editor recovery and next natural breadth review.
+- Natural Gaming social review finds five separate developments, source-bound English notes and no repeated ceremony or invented explicit calendar date. No non-English pick or same-ceremony pair exercises those challenge regressions; their acceptance remains open.
+- Added evidence to Nov 14 review and TASKS. Private receipt `/tmp/2291-gaming.json`; temporary read-only script removed. No inference, external collection, database/publication writes or runtime changes.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,021 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean.
+- API/worker restarted; first health probe preceded listener readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. Scheduled-reader check: five topics/14 stories/19 posts; saved JSON SHA-256 unchanged (`1726bb29…`).
+- No UI/schema/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership acceptance before private public-mode activation; review fallback breadth after editor recovery rather than widening grouping.
