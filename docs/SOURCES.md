@@ -1806,6 +1806,11 @@ This supersedes the historical default-off notes above.
 
 ## Stored Bluesky coverage — iteration 444 (2026-11-03)
 
+The report accepts `--examples 1..50` (default 3) for both safe-post and
+safe-video examples, alongside optional `--window-end past-UTC-ISO`. This changes
+only report output; use `--examples 50` to inspect the complete capped safe pool
+without editing the script. Output records `exampleLimit`.
+
 `pnpm exec tsx scripts/report-bluesky-coverage.ts` reads stored observations only;
 no API search, collection, LLM call or edition creation. At 17:05 UTC, the rolling
 24-hour publication window contained Tech/AI 124 observations / 77 distinct

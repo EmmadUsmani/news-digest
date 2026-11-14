@@ -259,3 +259,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,012 unit and 328 integration tests, four expected skips. Initial query-overload/import lint issues corrected before final verification.
 - Tool/tests/plan only; no inference, production database writes, runtime configuration or restart. API rebuilt only inside isolated test runner. Protected 13:00–16:00 deployment hold preserved; deployed app unchanged.
 - Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold; HUD provenance repair after edition protection.
+
+## 2026-11-14: iteration 2274 — bounded stored Bluesky examples
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; all 38 sources healthy. Digest queue has one worker, no failed runs, next edition 15:00 UTC. Deployed account boundary: 32 checks pass.
+- Stored coverage report now accepts `--examples 1..50` (default 3), in either order with `--window-end`; both safe-post/video lists honor the bound and output records it. Removes the temporary-script edit needed in iteration 2267.
+- Actual stored fixed-window reports at 13:27:44.705 UTC with limits 3/50/1 have identical counts and ranked prefixes. Full World output reproduces 525 observations/26 safe examples, including Lakenheath; no new relevance or editorial acceptance claimed.
+- Eight invalid argument controls fail with no report output: zero, over-cap, fractional, missing, duplicate, unknown flag, invalid date and future cutoff. Private mode-600 receipts `/tmp/2274-bluesky-{3,50,1}.json`.
+- No searches, inference, database writes, production configuration or restart. Protected deployment hold preserved; standalone reporting/docs change needs no runtime rebuild or restart.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,012 unit and 328 integration passes, four expected skips; isolated runner rebuilt API.
+- Next: review 15:00 all-topic scheduled acceptance/event diversity and admissions; NBA/item 58 closure, then fresh rollback/private public-mode activation after 16:00. HUD provenance repair remains after edition protection.

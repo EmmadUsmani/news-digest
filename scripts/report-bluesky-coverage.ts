@@ -12,20 +12,31 @@ import { localAdminFetch } from './lib/local-admin-fetch';
 async function main() {
   const args = process.argv.slice(2);
   const now = new Date();
-  const cutoff = args.length === 0 ? now : new Date(args[1]);
-  if (
-    args.length !== 0 &&
-    (args.length !== 2 ||
-      args[0] !== '--window-end' ||
-      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(args[1]) ||
-      !Number.isFinite(cutoff.getTime()) ||
-      cutoff > now ||
-      cutoff.toISOString().replace('.000Z', 'Z') !==
-        args[1].replace('.000Z', 'Z'))
-  )
-    throw new Error(
-      'Usage: report-bluesky-coverage.ts [--window-end past-UTC-ISO]',
-    );
+  let cutoff = now;
+  let exampleLimit = 3;
+  const seen = new Set<string>();
+  for (let index = 0; index < args.length; index += 2) {
+    const flag = args[index];
+    const value = args[index + 1];
+    if (seen.has(flag) || value === undefined)
+      throw new Error('Duplicate flag or missing value');
+    seen.add(flag);
+    if (flag === '--examples' && /^(?:[1-9]|[1-4][0-9]|50)$/.test(value)) {
+      exampleLimit = Number(value);
+    } else if (flag === '--window-end') {
+      cutoff = new Date(value);
+      if (
+        !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) ||
+        !Number.isFinite(cutoff.getTime()) ||
+        cutoff > now ||
+        cutoff.toISOString().replace('.000Z', 'Z') !==
+          value.replace('.000Z', 'Z')
+      )
+        throw new Error('Invalid past UTC window end');
+    } else {
+      throw new Error('Unknown flag or invalid example count');
+    }
+  }
   const response = await localAdminFetch(
     'http://127.0.0.1:8000/api/admin/topics',
     {
@@ -141,24 +152,26 @@ async function main() {
             .filter(({ post }) =>
               post.media?.some((media) => media.type === 'video'),
             )
-            .slice(0, 3)
+            .slice(0, exampleLimit)
             .map(({ post }) => ({
               url: post.url,
               author: post.author,
               metrics: post.metrics,
               text: (post.displayText ?? post.text).slice(0, 600),
             })),
-          strongestSafeExamples: safe.slice(0, 3).map(({ post }) => ({
-            url: post.url,
-            author: post.author,
-            publishedAt: post.publishedAt,
-            observedAt: post.observedAt,
-            metrics: post.metrics,
-            attachedMediaTypes: [
-              ...new Set(post.media?.map((media) => media.type) ?? []),
-            ],
-            text: (post.displayText ?? post.text).slice(0, 600),
-          })),
+          strongestSafeExamples: safe
+            .slice(0, exampleLimit)
+            .map(({ post }) => ({
+              url: post.url,
+              author: post.author,
+              publishedAt: post.publishedAt,
+              observedAt: post.observedAt,
+              metrics: post.metrics,
+              attachedMediaTypes: [
+                ...new Set(post.media?.map((media) => media.type) ?? []),
+              ],
+              text: (post.displayText ?? post.text).slice(0, 600),
+            })),
         });
       }
       await client.query('COMMIT');
@@ -166,6 +179,7 @@ async function main() {
         JSON.stringify({
           start,
           cutoff,
+          exampleLimit,
           policyBasis:
             'Current enabled topics and relevance policies; not a replay of historical editorial selection.',
           collectionQueryBasis:
@@ -183,7 +197,7 @@ async function main() {
 }
 void main().catch(() => {
   console.error(
-    'Stored Bluesky coverage report failed; check API/database access',
+    'Stored Bluesky coverage report failed; usage: report-bluesky-coverage.ts [--window-end past-UTC-ISO] [--examples 1..50]. Check arguments or API/database access',
   );
   process.exitCode = 1;
 });
