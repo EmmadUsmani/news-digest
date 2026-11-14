@@ -937,3 +937,14 @@ HTTP preserves both published snapshots and hides the unpublished copy.
 
 Historical corrected output, synthetic requests/triage/metadata and zero usage
 remain explicitly distinguished. No live calls or scheduled acceptance.
+
+## NBA Sonnet repair admission refusal (iteration 2248)
+
+The same isolated publication/reader HTTP refusal scenario now covers Sonnet.
+It serializes the historical malformed Haiku selection under a synthetic Sonnet
+request, consumes the last reservation, and refuses the feedback-bearing repair.
+Only one response dispatches and settles; no invalid selection is cached. Two
+published editions preserve source excerpts and non-AI provenance through public
+latest/history/detail reads, while the unpublished generation stays hidden.
+This mixed-model sequence tests orchestration with synthetic admission, triage,
+metadata and zero usage; normal scheduled NBA acceptance remains separate.

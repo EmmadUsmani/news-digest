@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2235](docs/progress-archive/2026-11-14-iteration-2235.md).
+
 Archived entry: [iteration 2234](docs/progress-archive/2026-11-14-iteration-2234.md).
 Archived entry: [iteration 2233](docs/progress-archive/2026-11-14-iteration-2233.md).
 
@@ -110,16 +112,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2235 — Gematsu lead images from descriptions
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
-- Owner-visible weakness: both saved Nov 13 Gematsu stories lack images. The recorded publisher feed puts lead images at the beginning of descriptions, outside existing media/content-figure extraction.
-- Preserve opening Gematsu HTTPS upload images as the last fallback; existing media/content images retain priority. Recorded excerpts and metadata remain unchanged; other publishers, image hosts/paths, later images and lazy attributes excluded.
-- New offline recorded-feed regression passes; no live source requests, paid calls or saved-edition rewrites. Updated TASKS, SOURCES and affected handbook prose; archived iteration 2222 to keep PROGRESS small.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check and full `pnpm check` pass: 991 unit/320 integration tests, four expected skips. Existing build bundle warnings only.
-- Rebuilt API/worker restarted active; health passes after startup retry. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2236 — NBA repair budget exhaustion at publication
 
@@ -250,3 +242,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; existing bundle warnings only. Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
 - Next: 15:00 UTC NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2248 — NBA Sonnet repair-admission fallback publication
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
+- Extended the known NBA invalid-selection/admission-exhaustion publication regression to Sonnet: historical malformed Haiku selection serialized under a synthetic Sonnet request, not an observed Sonnet response pair.
+- Isolated case verifies feedback-bearing repair refusal, one dispatch/settlement, no cache, two immutable source-only publications and public reader latest/history/detail; unpublished generation remains hidden.
+- No runtime, generation, budget, source or handbook behavior change; no paid calls. Updated TASKS/database verification; archived iteration 2235 to bound PROGRESS.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,000 unit/324 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
+- Next: scheduled NBA/all-topic recovery/diversity acceptance at 15:00 UTC, item 58 closure, then private public-mode activation. No paid replay.

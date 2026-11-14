@@ -607,8 +607,9 @@ for (const [entryIndex, label, automaticRepair, repairBudgetRefused] of [
   [3, 'Haiku repair', false, false],
   [3, 'Haiku automatic repair', true, false],
   [2, 'Haiku repair budget refused', true, true],
+  [1, 'Sonnet repair budget refused', true, true],
 ] as const) {
-  void test(`historical NBA ${label} ${entryIndex === 2 ? 'falls back to source excerpts' : 'survives publication'} through public reader HTTP with synthetic triage and metadata`, async (t) => {
+  void test(`historical NBA ${label} ${entryIndex === 2 || repairBudgetRefused ? 'falls back to source excerpts' : 'survives publication'} through public reader HTTP with synthetic triage and metadata`, async (t) => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
     assert.equal(process.env.ANTHROPIC_API_KEY, '');
     const raw = JSON.parse(
@@ -638,12 +639,17 @@ for (const [entryIndex, label, automaticRepair, repairBudgetRefused] of [
       }[];
     };
     const { input, output, model } = saved.entries[entryIndex];
-    const rejected = entryIndex === 2;
+    const rejected = entryIndex === 2 || repairBudgetRefused;
     // Only entry 0 retains verbatim transport. Other outputs are historical
     // structured values serialized here, with a synthetic request using that model.
     const request = entryIndex === 0 ? raw.request : { ...raw.request, model };
-    const responseText =
-      entryIndex === 0 ? raw.responseText : JSON.stringify(output);
+    // Refusal cases use the historical malformed Haiku selection under the
+    // configured model; the Sonnet sequence is deliberately synthetic.
+    const responseText = repairBudgetRefused
+      ? JSON.stringify(saved.entries[2].output)
+      : entryIndex === 0
+        ? raw.responseText
+        : JSON.stringify(output);
     const provenance =
       entryIndex === 0
         ? raw.provenance
