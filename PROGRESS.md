@@ -141,3 +141,14 @@ Older entries: [through iteration 2267](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix` ran; first `pnpm check` caught formatting after a test edit, corrected with targeted Prettier. Full retry passes: typecheck/lint/format/boundaries, 1,018 unit and 328 integration passes, four expected skips.
 - `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle-size warning; API/worker restarted healthy; `/healthz` ok/database/Redis true. Initial source check raced startup; retry passes all 38 sources. Saved scheduled reader check passes five topics/14 stories/19 posts with unchanged Nov 14 edition ID.
 - Next: observe natural scheduled ownership/Gaming recovery before item 58/public activation; no paid replay or cap changes.
+
+## 2026-11-14: iteration 2281 — preserve headline provenance during rediscovery
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending. Scheduled ownership/Gaming acceptance still awaits the next natural edition.
+- Reader weakness: Google News headline changes can leave old headline text looking like reporting. Blank rediscovery now clears exact stored headline/publisher descriptions before replacing their title; real reporting survives.
+- Recorded HUD persistence case verifies known-title recovery while retaining its already-mismatched historical defect. Extended Google integration coverage preserves headline-plus-reporting through a subsequent blank observation. No fuzzy matching, cleanup or saved-edition changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`: static checks and 1,018 unit tests pass; integration initially found one obsolete stored-headline assertion (327 pass/four skips), corrected to the new behavior. Targeted ESLint and `pnpm format:check` pass; integration retry passes 328 tests/four expected skips.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; `/healthz` ok/database/Redis true; source retry passes 38/38 (initial check raced startup).
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` passes unchanged edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts.
+- No paid inference, generation, schema or UI change; handbook/screenshots unchanged. Public mode off; VM private.
+- Next: natural scheduled ownership/Gaming recovery before item 58/public activation; already-mismatched legacy HUD text remains open.

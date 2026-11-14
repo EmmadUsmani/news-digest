@@ -80,8 +80,19 @@ export class PostgresContentRepository
               target: contentItems.canonicalUrl,
               set: {
                 title: sql`excluded.title`,
-                // Title-only feeds must not erase text collected from another source.
-                excerpt: sql`CASE WHEN btrim(excluded.excerpt) = '' THEN ${contentItems.excerpt} ELSE excluded.excerpt END`,
+                // Compare against the previous title before replacing it: otherwise a
+                // changed Google headline turns its old description into reporting.
+                // Blank observations still preserve genuine reporting.
+                excerpt: sql`CASE WHEN btrim(excluded.excerpt) = '' THEN
+                  CASE WHEN ${contentItems.canonicalUrl} ~ '^https?://news[.]google[.]com/rss/articles/'
+                    AND coalesce(${contentItems.publisher}->>'name', '') <> ''
+                    AND right(${contentItems.title}, length(${contentItems.publisher}->>'name') + 3)
+                      = ' - ' || (${contentItems.publisher}->>'name')
+                    AND ${contentItems.excerpt}
+                      = left(${contentItems.title}, length(${contentItems.title}) - length(${contentItems.publisher}->>'name') - 3)
+                        || ' ' || (${contentItems.publisher}->>'name')
+                  THEN '' ELSE ${contentItems.excerpt} END
+                  ELSE excluded.excerpt END`,
                 // Sparse first observations may predate the publisher photo.
                 imageUrl: sql`coalesce(${contentItems.imageUrl}, excluded.image_url)`,
                 engagement: sql`${contentItems.engagement} || excluded.engagement`,

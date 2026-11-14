@@ -1495,7 +1495,7 @@ void test('feed inline formatting preserves punctuation and block separation', (
   );
 });
 
-void test('legacy Google headline excerpts stay stored but cannot enter readable fallback slots', async () => {
+void test('legacy Google headline excerpts clear on rediscovery and cannot enter readable fallback slots', async () => {
   const repository = new PostgresContentRepository();
   const id = `google-legacy-${Date.now()}`;
   const item = parseFeed(await fixture('google-news.xml'))[0];
@@ -1526,8 +1526,8 @@ void test('legacy Google headline excerpts stay stored but cannot enter readable
     ).rows[0];
     assert.equal(
       stored.excerpt,
-      legacy.excerpt,
-      'sparse observation still preserves stored text',
+      '',
+      'blank rediscovery clears exact stored Google headline descriptions',
     );
     const start = new Date(item.publishedAt);
     const end = new Date(start.getTime() + 1);
@@ -1544,6 +1544,7 @@ void test('legacy Google headline excerpts stay stored but cannot enter readable
     const reporting =
       legacy.excerpt + ' Additional reporting supplied by the feed.';
     await repository.store(source, [{ ...item, excerpt: reporting }]);
+    await repository.store(source, [item]);
     assert.equal((await read())[0].excerpt, reporting);
     assert.equal(rankFallback(await read(), start, end, 1).length, 1);
   } finally {

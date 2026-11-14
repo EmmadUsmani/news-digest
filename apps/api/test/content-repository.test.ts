@@ -66,6 +66,22 @@ void test('recorded HUD rediscovery exposes legacy excerpt provenance loss witho
     assert.equal(reportingExcerpt(await persisted()), stored.excerpt);
     assert.notEqual(reportingExcerpt(await persisted()), '');
 
+    // When the earlier title is known, recognize its exact headline-only
+    // description before the new title replaces that provenance.
+    const oldTitle =
+      'HUD OCIO Reorganization to Establish Data and AI Division';
+    await repository.store(source, [
+      {
+        ...fresh,
+        title: `${oldTitle} - ${stored.publisher.name}`,
+        excerpt: stored.excerpt,
+      },
+    ]);
+    await repository.store(source, [fresh]);
+    assert.equal((await persisted()).title, fresh.title);
+    assert.equal((await persisted()).excerpt, '');
+    assert.equal(reportingExcerpt(await persisted()), '');
+
     // Synthetic reporting control: clearing all retained excerpts on blank
     // rediscovery would destroy real reporting as well as this headline.
     const report =
