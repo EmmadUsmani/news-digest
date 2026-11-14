@@ -923,3 +923,17 @@ merge recovery remains open. System journal for `obs-metrics`/`obs-alerts` at
 warning level since 09:20:17 UTC has no entries. Keep the CPU-only trial and
 limits; next short passive probe no earlier than 14:52 UTC Nov 14. No forced
 merge, restart, configuration change or provider call.
+
+### Passive follow-up (iteration 2305)
+
+Nov 14 21:08:39–21:09:10 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤1.368 s, no new evaluator errors
+or missed iterations, admission-limit hits, queue timeouts or slow queries.
+Both process starts unchanged; one small merge processed 14,631 rows, no
+large-tier merge. This is below the five-million-row comparable-merge threshold;
+recovery remains open. Since 13:51:07 UTC, warning-level system metrics/alerts
+journal contains two app scrape connection refusals, at 19:22:36 and 20:29:55.
+User-unit journals show matching API/worker restarts; no metrics-store or
+evaluator restart occurred. Keep the CPU-only trial and limits; next short
+passive probe no earlier than 22:10 UTC Nov 14. No forced merge, capacity
+change or provider call. Private raw receipt: `/tmp/2305-metrics.jsonl`.

@@ -108,3 +108,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Verification: static link/topic/repeated-gate agreement check passes; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); targeted Prettier and `git diff --check` pass.
 - `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. Receipts `/tmp/2304-*`.
 - No UI/source/schema/system-flow change; screenshots, SOURCES and handbook unchanged. Next: natural Gaming/ownership acceptance, then activation in runbook order; NBA social breadth review pending.
+
+## 2026-11-14: iteration 2305 — due natural metrics recovery sample
+
+- Clean main; no inherited work. Initial alerts zero; app/database/Redis healthy, 38/38 sources healthy. Public mode remains off, sharing private; scheduled Gaming/ownership acceptance still pending.
+- Owner benefit: retained evidence-based capacity limits rather than declaring metrics recovered from a small compaction. Due passive sample follows the Nov 14 13:51 observation; no new monitoring feature or capacity change.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 21:08:39–21:09:10: 24 healthy fresh rules, four uncached queries ≤1.368 s; no new evaluator errors/missed iterations, admission-limit hits, queue timeouts or slow queries. Both process starts unchanged.
+- One natural small merge processed 14,631 rows, no big merge; below the five-million-row acceptance threshold. Recovery stays open. Warning journal since 13:51 has two app scrape refusals; user journals confirm matching API/worker restarts at 19:22/20:29, with no metrics/evaluator restart.
+- Updated TASKS and capacity decision evidence; no source/schema/UI/system-flow change, so SOURCES, handbook and screenshots unchanged. No provider calls, generation changes or forced merges.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; targeted Prettier and `git diff --check` pass. API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. Receipts `/tmp/2305-*`.
+- Next: natural scheduled five-topic acceptance before activation; NBA social breadth review remains pending. Metrics next passive sample no earlier than Nov 14 22:10 UTC.
