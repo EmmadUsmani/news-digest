@@ -2800,3 +2800,11 @@ Iteration 2207 removes inline formatting tags without adding spaces inside
 reporting (for example, `<em>Spider-Man 2</em>.` stays `Spider-Man 2.`).
 Block tags still separate paragraphs, breaks and list items. Feed precedence,
 excerpt caps, X citations and saved editions are unchanged. Offline checks only.
+
+### Ars source continuation — Nov 14, iteration 2208
+
+The unchanged recorded Ars outage body ends with “Read full article”; other
+observed Ars bodies append “Comments”. Reader continuation now recognizes these
+explicit publisher footers as well as the existing named-publisher form. Source
+text and ingestion remain unchanged. Browser replay uses the recorded body in a
+simulated edition, never a newly published live story.

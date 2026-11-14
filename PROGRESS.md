@@ -42,17 +42,7 @@ Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192
 
 Archived entry: [iteration 2194](docs/progress-archive/2026-11-13-iteration-2194.md).
 
-## 2026-11-13: iteration 2195 — publication dates in saved items
-
-- Clean main; no inherited work. Alert triage found PlayStation HTTP 502/OpenAI timeout, both recovered on automatic second attempts; health/database/Redis pass. No source or digest outage requiring a generation change.
-- Reader weakness: saved cards showed save dates but omitted original publication dates, obscuring the age of bookmarked news/posts. New saves now retain and show publication time separately; legacy saves have no invented date.
-- Bounded optional timestamp normalizes in browser storage and validates in account sync; deterministic merge ordering stays aligned. No migration, generation, prompt, source or budget changes.
-- Targeted store/sync tests: 19 pass, including legacy compatibility, invalid date handling, reload and browser/server merge convergence.
-- Playwright `pnpm exec tsx scripts/smoke-saved-publication.ts`: actual Nov 13 story/post saves pass desktop/mobile light/dark, reload, legacy absence, no overflow or browser errors; four screenshots updated and mobile inspected.
-- Handbook reading preferences and TASKS updated; SOURCES/NEEDS_FROM_HUMAN unchanged. Handbook/schema check passes: 18 pages, 39 tables.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Corrected smoke-script lint assertion; interrupted first lint invocation rerun successfully.
-- Pushed `a0ba49ad`; `systemctl --user restart news-digest-api.service news-digest-worker.service` leaves both active. `curl /healthz` confirms app/Postgres/Redis; latest reader serves five topics/15 stories/20 posts. Recent NPR feed and hourly social jobs complete. No paid calls or production edition writes.
-- Next: pre-noon feed precedence fix, Nov 14 scheduled all-topic editing/diversity and NBA/item 58/private public activation. Evening generation cutoff retained; no paid calls.
+Archived entry: [iteration 2195](docs/progress-archive/2026-11-13-iteration-2195.md).
 
 ## 2026-11-13: iteration 2196 — visible dates in older editions
 
@@ -187,3 +177,14 @@ Archived entry: [iteration 2194](docs/progress-archive/2026-11-13-iteration-2194
 - Targeted feed/recorded-Ars checks pass 5/5. Initial broad test filter also selected a DB test without isolation; guard refused it. Corrected targeted filter; full suite uses disposable services.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
 - Next: Nov 14 normal scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2208 — Ars publisher continuation
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. NBA/item 58 still awaits today's normal scheduled edition; public mode off/private.
+- Recorded Ars outage reporting ends “Read full article Comments”; the existing reader recognized only the named-publisher footer. Retained Nov 13 feed bodies also use the plain “Read full article” form.
+- Continuation recognition now covers both explicit Ars forms, preserving reporting and source destinations in edition cards and saved copies. No ingestion, generation, spend or saved-edition changes.
+- Added GET-only/external-blocked browser replay: unchanged recorded Ars reporting inside a simulated edition; desktop/mobile light/dark, local bookmark, reload, keyboard focus and complete-story negative control.
+- TASKS and SOURCES updated; minor link recognition needs no handbook behavior change. NEEDS_FROM_HUMAN unchanged; archived iteration 2195.
+- Verification: `pnpm format`, `pnpm lint:fix`, build, handbook/schema and diff checks pass; existing web chunk warning only. Seven direct continuation checks and both publisher browser replays pass all four viewport/theme combinations.
+- Initial replay assertion omitted the recorded trailing “Comments”; corrected to match the unchanged fixture. Screenshot review corrected inherited synthetic publisher metadata to Ars. `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
+- Next: scheduled all-topic editing/diversity, NBA/item 58 acceptance, then private public-mode activation.

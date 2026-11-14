@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Ars continuation (2208): explicit “Read full article” footers, including trailing Comments, offer source continuation in editions and saved copies; recorded reporting retained.
+
 - [x] Feed inline spacing (2207): inline emphasis/links preserve punctuation and joined words; paragraphs, breaks and list items retain separators. Saved editions unchanged.
 
 - [x] Feed excerpt boundaries (2206): capped reporting marks omissions, preserves word boundaries where possible and avoids split Unicode; complete text, content precedence and X citation discovery retained.
