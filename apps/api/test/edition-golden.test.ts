@@ -601,9 +601,10 @@ void test('system edition scope preserves publication filters, replay and rollba
 for (const [entryIndex, label] of [
   [0, 'Sonnet initial'],
   [1, 'Sonnet repair'],
+  [2, 'malformed Haiku initial'],
   [3, 'Haiku repair'],
 ] as const) {
-  void test(`historical NBA ${label} response survives publication and public reader HTTP with synthetic triage and metadata`, async (t) => {
+  void test(`historical NBA ${label} ${entryIndex === 2 ? 'falls back to source excerpts' : 'survives publication'} through public reader HTTP with synthetic triage and metadata`, async (t) => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
     assert.equal(process.env.ANTHROPIC_API_KEY, '');
     const raw = JSON.parse(
@@ -633,7 +634,8 @@ for (const [entryIndex, label] of [
       }[];
     };
     const { input, output, model } = saved.entries[entryIndex];
-    // Only entry 0 retains verbatim transport. Repair outputs are historical
+    const rejected = entryIndex === 2;
+    // Only entry 0 retains verbatim transport. Other outputs are historical
     // structured values serialized here, with a synthetic request using that model.
     const request = entryIndex === 0 ? raw.request : { ...raw.request, model };
     const responseText =
@@ -641,20 +643,18 @@ for (const [entryIndex, label] of [
     const provenance =
       entryIndex === 0
         ? raw.provenance
-        : 'Historical NBA repair output; synthetic request, serialization and zero usage.';
+        : 'Historical NBA structured output; synthetic request, serialization and zero usage.';
     // Only the initial request/body and candidate reporting are historical. Triage,
     // URLs, dates, attribution and zero token usage below are test scaffolding.
     const usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
     const replay = new ReplayLlmAdapter({
       version: 1,
       provenance,
-      records: [
-        {
-          fingerprint: llmFingerprint(request),
-          model: model.id,
-          response: { text: responseText, usage },
-        },
-      ],
+      records: Array.from({ length: rejected ? 6 : 1 }, () => ({
+        fingerprint: llmFingerprint(request),
+        model: model.id,
+        response: { text: responseText, usage },
+      })),
     });
     const cache = new Map<string, unknown>();
     let dispatches = 0;
@@ -688,7 +688,7 @@ for (const [entryIndex, label] of [
     );
     const editor = new ShortlistEditor(
       {
-        // Preserve initial transport identity (repairs use synthetic requests); validate against candidates actually
+        // Preserve Sonnet initial transport identity (others use synthetic requests); validate against candidates actually
         // loaded and shortlisted by the publication pipeline, using today's guard.
         json: (_request, validate) =>
           llm.json(request, validate, { repair: false }),
@@ -768,33 +768,61 @@ for (const [entryIndex, label] of [
           ),
         );
         assert.equal(edition.topics.length, 1);
-        assert.equal(edition.topics[0].editorial.mode, 'ai');
-        assert.equal(edition.topics[0].editorial.model, model.id);
-        assert.deepEqual(
-          edition.topics[0].stories.map((story) => ({
-            id: story.id,
-            title: story.title,
-            summary: story.summary,
-            whyItMatters: story.whyItMatters,
-            evidenceIds: story.evidence.map((item) => item.id).sort(),
-          })),
-          expected,
-        );
+        if (rejected) {
+          const section = edition.topics[0];
+          assert.equal(section.editorial.mode, 'non-ai');
+          assert.equal(section.editorial.model, null);
+          assert.deepEqual(section.editorial.brief, []);
+          assert.match(section.editorial.reason, /validation exhausted/);
+          assert.equal(section.stories.length, 5);
+          for (const story of section.stories) {
+            const source = input.candidates.find(
+              (item) => item.id === story.id,
+            );
+            assert.ok(source, 'fallback may only select supplied story IDs');
+            assert.equal(story.title, source.title);
+            assert.equal(story.excerpt, source.excerpt);
+            assert.equal(story.summary, undefined);
+            assert.equal(story.whyItMatters, undefined);
+          }
+          const reader = readerEdition(edition);
+          assert.deepEqual(reader.topics[0].brief, []);
+          for (const story of reader.topics[0].stories) {
+            assert.equal(
+              story.summary,
+              input.candidates.find((item) => item.id === story.id)!.excerpt,
+            );
+          }
+        } else {
+          assert.equal(edition.topics[0].editorial.mode, 'ai');
+          assert.equal(edition.topics[0].editorial.model, model.id);
+          assert.deepEqual(
+            edition.topics[0].stories.map((story) => ({
+              id: story.id,
+              title: story.title,
+              summary: story.summary,
+              whyItMatters: story.whyItMatters,
+              evidenceIds: story.evidence.map((item) => item.id).sort(),
+            })),
+            expected,
+          );
+          assert.deepEqual(await adapter.find(edition.id, true), edition);
+          const reader = readerEdition((await adapter.find(edition.id, true))!);
+          assert.deepEqual(
+            reader.topics[0].brief,
+            output.stories.slice(0, 4).map((story) => story.headline),
+          );
+          assert.deepEqual(
+            reader.topics[0].stories.map(({ id, title, summary }) => ({
+              id,
+              title,
+              summary,
+            })),
+            // Reader contracts intentionally omit editorial context from stories.
+            expected.map(({ id, title, summary }) => ({ id, title, summary })),
+          );
+        }
         assert.deepEqual(await adapter.find(edition.id, true), edition);
-        const reader = readerEdition((await adapter.find(edition.id, true))!);
-        assert.deepEqual(
-          reader.topics[0].brief,
-          output.stories.slice(0, 4).map((story) => story.headline),
-        );
-        assert.deepEqual(
-          reader.topics[0].stories.map(({ id, title, summary }) => ({
-            id,
-            title,
-            summary,
-          })),
-          // Reader contracts intentionally omit editorial context from stories.
-          expected.map(({ id, title, summary }) => ({ id, title, summary })),
-        );
         editions.push(edition);
       }
       assert.notEqual(editions[0].id, editions[1].id);
@@ -882,9 +910,34 @@ for (const [entryIndex, label] of [
       } finally {
         await app.close();
       }
-      assert.equal(dispatches, 1);
-      assert.equal(settlements, 1);
-      assert.deepEqual(llm.validationDiagnostics(), []);
+      if (rejected) {
+        assert.equal(
+          dispatches,
+          6,
+          'two refused model attempts per generation',
+        );
+        assert.equal(
+          settlements,
+          6,
+          'invalid output still settles provider usage',
+        );
+        assert.equal(
+          cache.size,
+          0,
+          'invalid responses must never enter the cache',
+        );
+        assert.deepEqual(
+          llm.validationDiagnostics(),
+          Array.from({ length: 6 }, () => ({
+            attempt: 'initial',
+            category: 'invalid-selection',
+          })),
+        );
+      } else {
+        assert.equal(dispatches, 1);
+        assert.equal(settlements, 1);
+        assert.deepEqual(llm.validationDiagnostics(), []);
+      }
     } finally {
       await adapter.db.query(
         'DELETE FROM content_observations WHERE source_id=$1',

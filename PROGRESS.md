@@ -56,16 +56,7 @@ Archived entries: [iterations 2200–2201](docs/progress-archive/2026-11-14-iter
 
 Archived entries: [iterations 2202–2203](docs/progress-archive/2026-11-14-iterations-2202-2203.md).
 
-## 2026-11-13: iteration 2204 — historical NBA public reader HTTP
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass; all 38 monitored sources healthy. NBA/item 58 acceptance still awaits Nov 14; generation cutoff retained.
-- Extended the historical NBA publication regression through the deployed Nest reader controller over local HTTP with real isolated repository reads and public/published-only mode.
-- Both published snapshots retain exact reader content without private editorial fields. A newer unpublished copy returns 404, stays out of history, and cannot replace latest. ID caching is private/immutable; latest/history/errors remain no-store.
-- Archived request/body and candidate reporting remain historical; triage, metadata and zero usage remain synthetic. No live writes, paid calls, runtime generation or provider/budget changes. Complete recorded-response edition golden stays open.
-- TASKS/database-verification evidence updated; archived iteration 2191. SOURCES/NEEDS_FROM_HUMAN unchanged; handbook behavior unchanged.
-- Initial full check stalled in existing telemetry-export transport test; terminated that child. File-only rerun passed 3/3; complete `pnpm check` retry passed 986 unit/295 integration tests, four expected skips.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full-check retry passes typecheck/lint/format/boundaries and tests; commit/push and built API/worker restart follow.
-- Next: pre-noon feed-content precedence fix; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
+Archived entry: [iteration 2204](docs/progress-archive/2026-11-14-iteration-2204.md).
 
 ## 2026-11-14: iteration 2205 — prefer supplied feed reporting
 
@@ -194,3 +185,15 @@ Archived entries: [iterations 2202–2203](docs/progress-archive/2026-11-14-iter
 - Final `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/303 integration, four expected skips. `pnpm build` passes with existing chunk warning; `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and diff checks pass.
 - Built API/worker restarted active. First immediate reader request raced startup; retry passes. `/healthz` healthy; `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; protected source read reports all 38 with data/no errors.
 - Commit/push and final service restart follow. Next: normal scheduled all-topic/NBA acceptance, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2216 — rejected NBA output stays out of publication
+
+- Clean main; no inherited work. Zero active alerts; API/database/Redis healthy. Scheduled NBA/item 58/private public-mode acceptance still waits for today's edition.
+- Reader risk: saved malformed Haiku initial story ID was refused in isolation but lacked publication/HTTP coverage. Extend the existing historical NBA regression so rejected generated text cannot become reader content.
+- Feed both simulated model attempts the unchanged saved malformed output; require non-AI source-only fallback, five supplied story IDs/headlines/excerpts and no generated summaries/context/brief. Immutable retrieval and public reader latest/history/detail checks include these fallback snapshots; unpublished copies stay hidden.
+- Repeated generations dispatch/settle six synthetic-zero-usage responses, produce six invalid-selection diagnostics and never cache the rejection. Accepted initial/repair cache cases remain covered. Historical structured output, synthetic transport/triage/metadata; no paid calls or production changes.
+- Typecheck and targeted fresh-container malformed-Haiku regression pass. Initial targeted attempt exhausted the one-record replay; corrected it to supply every simulated dispatch. Temporary scoped runner removed.
+- TASKS and DATABASE-VERIFICATION updated; archived iteration 2204 to keep PROGRESS small. No UI, diagram, schema, source, provider, budget or activation change. Handbook/schema check passes (18 pages/39 tables).
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/304 integration, four expected skips. `pnpm build` passes with existing chunk warnings; diff checks pass.
+- Built API/worker restarted active; `/healthz` healthy. Immediate reader check raced startup; retry of `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected source read: all 38 have data/success/no errors. Commit/push follow.
+- Next: today's scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.

@@ -877,3 +877,18 @@ does not simulate a failed initial call followed by automatic model repair.
 Synthetic triage, metadata and zero usage remain explicit. The invalid Haiku
 initial ID remains refused in the separate validator/repair regressions.
 Scheduled acceptance and the full-edition raw-response golden remain open.
+
+## Historical NBA rejection at publication (iteration 2216)
+
+The same isolated publication/HTTP regression now exercises the saved malformed
+Haiku initial output. Its story ID is absent from the supplied candidates. Both
+model attempts are deliberately fed that same historical structured output, using
+synthetic requests, serialization and zero usage; this is an exhausted-validation
+scenario, not a reconstruction of the original provider sequence.
+
+Each publication must retain five source headlines and excerpts, no generated
+summary/context/brief, and non-AI provenance. Public reader latest/history/detail
+serve only those published fallback snapshots; the newer unpublished copy remains
+hidden. Repeated generations must not cache rejected output, and every dispatched
+response still settles its synthetic usage. Accepted initial/repair cases retain
+their one-dispatch cache assertions. No live provider calls or runtime changes.
