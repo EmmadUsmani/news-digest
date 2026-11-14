@@ -3020,18 +3020,26 @@ market analysis and separate patent litigation are outside those labels. General
 inflation and building-collapse reports are omission controls. These labels need
 independent review; headline-only reports do not establish causes or source truth.
 
-`pnpm evaluate:ranking` includes this later Tech window. Unchanged fallback
-selects two Claude outage reports in five slots, finding one of five labeled
-events (20% recall). The label-only grouping control combines that pair and
-admits the Microsoft outage, recovering one distinct event without increasing
-the budget. All fifteen labeled articles pass phrase relevance; neither control
-selects the two omission labels. Gemini, lawsuit and resignation remain absent
-from the twenty-slot audit horizon, so grouping alone does not solve ranking.
+The initial iteration 2209 measurement used the general ranker and selected two
+headline-only Claude outage reports in five slots (one of five labeled events).
+Label-only grouping admitted Microsoft outage coverage. That was a general-rank
+counterfactual, incorrectly described as the deployed fallback: iteration 2167
+already excludes blank source text before fallback budgeting.
 
-This supplies a concrete repeated-slot regression alongside the later Gaming
-window, whose grouping control recovered no target event. It changes no score,
-policy, matcher, prompt or production selection. Scheduled AI editing and event
-diversity still require the next normal edition; this is not their acceptance.
+Iteration 2211 corrects the command to use `rankFallback` for selection and the
+twenty-slot audit, and the same readable pool for the label-only control.
+Sixteen relevance-eligible candidates have blank text, including both Claude
+reports. The corrected five-slot fallback and grouping control each find **zero
+of five targets**, with no known repeated target slots and both omission labels
+excluded. Microsoft first appears at slot 18; the other targets remain absent
+from the twenty-slot horizon. Grouping alone recovers no target in this readable
+pool. The two earlier Tech blank-text candidates are also excluded; NBA, World
+and Gaming fixtures have none. Existing candidate bytes and labels are unchanged.
+
+Diagnostics distinguish phrase eligibility from fallback text availability;
+headline-only evidence remains valid for AI editing. This corrects offline
+measurement only: no production score, policy, prompt, matcher or saved edition
+changes. Scheduled AI editing and diversity still need natural acceptance.
 
 ## Iteration 2210: later Tech same-story boundaries
 

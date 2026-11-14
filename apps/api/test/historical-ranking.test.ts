@@ -207,31 +207,83 @@ void test('recorded label grouping measures only known events and retains omissi
   }
 });
 
-void test('later Tech outage labels expose a recoverable repeated slot', () => {
+void test('later Tech fallback exposes ranking loss after headline-only exclusion', () => {
   const result = evaluateLaterTechWindow();
   assert.equal(result.candidates, 200);
   assert.equal(result.targetEvents, 5);
+  assert.equal(result.fallbackTextRejected, 16);
   assert.deepEqual(result.forbiddenSelected, []);
+  assert.deepEqual(result.foundEvents, []);
   const comparison = result.labeledGroupingComparison;
-  // Measured fallback floor: two Claude reports consume separate slots.
-  assert.equal(comparison.knownRepeatedSlots, 1);
-  assert.equal(
-    comparison.baselineSlots.find(
-      (event) => event.name === 'Claude service outage',
-    )?.slots,
-    2,
-  );
-  assert.equal(
-    comparison.groupedSlots.find(
-      (event) => event.name === 'Claude service outage',
-    )?.slots,
-    1,
-  );
-  // ID labels are a counterfactual control, not a production semantic matcher.
-  assert.ok(
-    comparison.groupedFoundEvents.includes('Microsoft Outlook and 365 outage'),
-  );
-  assert.ok(comparison.groupedFoundEvents.length > result.foundEvents.length);
+  assert.equal(comparison.knownRepeatedSlots, 0);
+  assert.deepEqual(comparison.groupedFoundEvents, []);
   assert.equal(comparison.groupedSelected.length, result.budget);
   assert.deepEqual(comparison.groupedForbiddenSelected, []);
+  const outage = result.eventDiagnostics.find(
+    (event) => event.name === 'Claude service outage',
+  );
+  assert.ok(outage);
+  assert.ok(outage.articles.every((article) => !article.fallbackTextAvailable));
+  assert.equal(outage.firstRankWithinTwenty, null);
+  assert.equal(
+    result.eventDiagnostics.find(
+      (event) => event.name === 'Microsoft Outlook and 365 outage',
+    )?.firstRankWithinTwenty,
+    18,
+  );
+});
+
+void test('fallback evaluation leaves headline-only targets out before budgeting and label grouping', () => {
+  const candidates = [
+    '',
+    '   ',
+    'Supplied report.',
+    'Another supplied report.',
+  ].map((excerpt, index) => ({
+    id: String(index),
+    title: `Reported development ${index}`,
+    url: `https://example.com/${index}`,
+    excerpt,
+    publishedAt: `2026-11-12T${String(14 - index).padStart(2, '0')}:00:00Z`,
+    sources: ['Synthetic publisher'],
+    points: 0,
+  }));
+  const result = evaluateFixture({
+    topic: 'Synthetic fallback control',
+    windowStart: '2026-11-11T15:00:00Z',
+    windowEnd: '2026-11-12T15:00:00Z',
+    budget: 2,
+    relevancePolicy: { includeAny: ['development'], excludeAny: [] },
+    candidates,
+    events: [
+      { name: 'Headline-only event', reason: 'Control', ids: ['0', '1'] },
+      { name: 'Readable event', reason: 'Control', ids: ['2', '3'] },
+    ],
+    mustOmit: [],
+  });
+  assert.equal(result.fallbackTextRejected, 2);
+  assert.deepEqual(
+    result.selected.map((item) => item.id),
+    ['2', '3'],
+  );
+  assert.deepEqual(result.foundEvents, ['Readable event']);
+  const headlineOnly = result.eventDiagnostics[0];
+  assert.equal(headlineOnly.relevanceEligibleArticles, 2);
+  assert.equal(headlineOnly.firstRankWithinTwenty, null);
+  assert.ok(
+    headlineOnly.articles.every(
+      (article) => !article.fallbackTextAvailable && !article.selected,
+    ),
+  );
+  assert.deepEqual(result.labeledGroupingComparison.groupedFoundEvents, [
+    'Readable event',
+  ]);
+  assert.deepEqual(
+    result.labeledGroupingComparison.groupedSelected.map((item) => item.id),
+    ['2'],
+  );
+  assert.equal(
+    result.labeledGroupingComparison.groupedSelected[0].coveredArticles,
+    2,
+  );
 });

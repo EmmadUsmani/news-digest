@@ -48,16 +48,7 @@ Archived entry: [iteration 2196](docs/progress-archive/2026-11-13-iteration-2196
 
 Archived entry: [iteration 2197](docs/progress-archive/2026-11-14-iteration-2197.md).
 
-## 2026-11-13: iteration 2198 — clickable X media references
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass. Scheduled acceptance awaits Nov 14; generation cutoff retained.
-- Reader weakness: actual NBA Cade Cunningham post includes a plain `pic.twitter.com` media reference. Shared edition/saved-post text now opens these references over HTTPS, retaining visible original text and punctuation handling.
-- No generation, source, prompt, budget or stored-data changes; no paid calls. Feed-depth implementation remains gated before noon.
-- `pnpm exec tsx scripts/smoke-saved-media-links.ts`: actual NBA saved post passes desktop/mobile light/dark, destination/text/reload, typography, no overflow/errors. Four screenshots added; mobile light inspected. Existing full-URL Gaming browser regression also passes all four variants.
-- Handbook reading preferences and TASKS updated; archived iteration 2184. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: format/lint fixes, full check, build, final web rebuild, handbook/schema check and diff checks. 985 unit/294 integration tests pass, four expected skips; existing web chunk warning. First combined check terminated during typechecking without a reported failure; standalone retry used for acceptance.
-- Next: pre-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
-- Full standalone check passes; built API/worker restart and push follow verification.
+Archived entry: [iteration 2198](docs/progress-archive/2026-11-13-iteration-2198.md).
 
 ## 2026-11-13: iteration 2199 — label saved engagement snapshots
 
@@ -192,3 +183,15 @@ Archived entry: [iteration 2197](docs/progress-archive/2026-11-14-iteration-2197
 - TASKS/RANKING updated; source/handbook behavior and NEEDS_FROM_HUMAN unchanged. Archived iteration 2197. No UI change; browser replay unnecessary.
 - Verification: targeted event-grouping suite (11/11), offline CLI, `pnpm format`, `pnpm lint:fix`, `pnpm check` (988 unit/297 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web bundle warning only; commit/push and built API/worker restart follow.
 - Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2211 — correct the fallback ranking measurement
+
+- Clean main; no inherited work. Zero alerts; health/database/Redis healthy. Scheduled NBA/item 58/private public-mode gates await today's normal edition; no paid replay.
+- Reader weakness remains repeated/weak Tech coverage. Investigation found the offline benchmark used general `rank`, despite describing deployed fallback; it missed iteration 2167's blank-text exclusion.
+- Baseline and twenty-slot audit now call production `rankFallback`; label-only grouping uses the same readable pool. Diagnostics expose missing text separately from relevance/quality rejection.
+- Corrected later Tech result: 16 relevance-eligible blanks excluded, including both Claude reports; zero of five targets in both five-slot selections. Microsoft is slot 18. Prior claim that grouping recovers a target is withdrawn in RANKING/TASKS.
+- Earlier Tech has two blanks; NBA/World/Gaming have none. Fixture content/labels, production generation, budgets, providers and saved editions unchanged. Agent labels still need independent review.
+- Added synthetic blank/whitespace high-score and grouped-target controls; updated recorded Tech regression to preserve the measured weakness. Targeted historical ranking passes 8/8; offline CLI passes.
+- Source/handbook behavior and NEEDS_FROM_HUMAN unchanged; no UI change or browser replay needed. Archived iteration 2198 to retain the progress size bound.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (989 unit/297 integration; four expected skips), `pnpm build`, handbook/schema checks and `git diff --check` pass; existing web chunk warning only. Commit/push and built API/worker restart follow.
+- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Corrected fallback evidence shows ranking loss persists without headline-only cards.

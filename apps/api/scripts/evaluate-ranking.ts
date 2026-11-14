@@ -5,7 +5,11 @@ import { join } from 'node:path';
 import { relevancePolicySchema } from '@digest/contracts';
 
 import { qualityRejection } from '../src/modules/digests/domain/quality';
-import { type Candidate, rank } from '../src/modules/digests/domain/rank';
+import {
+  type Candidate,
+  rank,
+  rankFallback,
+} from '../src/modules/digests/domain/rank';
 import { assessRelevance } from '../src/modules/digests/domain/relevance';
 
 export function evaluateWindow(filename: string) {
@@ -46,9 +50,10 @@ export function evaluateFixture(fixture: RankingFixture) {
   );
   const start = new Date(fixture.windowStart),
     end = new Date(fixture.windowEnd);
-  const stories = rank(eligible, start, end, fixture.budget);
+  const readable = eligible.filter((item) => item.excerpt.trim());
+  const stories = rankFallback(eligible, start, end, fixture.budget);
   // Expand only the offline audit horizon to twenty slots; production selection keeps the saved budget.
-  const auditStories = rank(eligible, start, end, 20);
+  const auditStories = rankFallback(eligible, start, end, 20);
   const selectedIds = new Set(
     stories.flatMap((story) => story.coverage.map((item) => item.id)),
   );
@@ -62,7 +67,7 @@ export function evaluateFixture(fixture: RankingFixture) {
       event.ids.map((id) => [id, event.name] as const),
     ),
   );
-  const labeledGrouping = rank(eligible, start, end, fixture.budget, (a, b) => {
+  const labeledGrouping = rank(readable, start, end, fixture.budget, (a, b) => {
     const event = eventById.get(a.id);
     return event !== undefined && event === eventById.get(b.id);
   });
@@ -84,6 +89,7 @@ export function evaluateFixture(fixture: RankingFixture) {
     windowStart: fixture.windowStart,
     windowEnd: fixture.windowEnd,
     candidates: fixture.candidates.length,
+    fallbackTextRejected: eligible.length - readable.length,
     budget: fixture.budget,
     selected: stories.map((story) => ({
       id: story.id,
@@ -111,6 +117,7 @@ export function evaluateFixture(fixture: RankingFixture) {
               title: item.title,
               relevanceEligible: relevance.eligible,
               relevanceReason: relevance.reason,
+              fallbackTextAvailable: Boolean(item.excerpt.trim()),
               qualityRule: quality?.rule ?? null,
               selected: selectedIds.has(item.id),
             };
