@@ -36,7 +36,7 @@ Public mode and sharing remain unchanged until the activation steps are run.
    URL. Do not treat a private-mode response or a proxy login redirect as
    proof of public-mode admission. Any failure stops sharing.
 4. Accept one normal scheduled edition with public mode enabled and record its
-   edition ID, NBA AI editing and reader verification. Provide the lead the
+   edition ID, all-topic AI editing and reader verification using the gate below. Provide the lead the
    security handoff, then ack item 50 and stop for the owner's sharing decision.
    Only then may the owner run
    `ssh exe.dev share set-public news-digest`. Keep server public mode and the
@@ -108,9 +108,21 @@ activation review, rather than adding more variants of already-covered refusals.
       work; keep Grafana closed and off the public Tools list. Spend may be public.
 - [ ] Close item 58 with a normal scheduled NBA AI-edited edition and its ID.
       Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
-      Require saved NBA AI provenance and nonempty published summaries with
-      `pnpm exec tsx scripts/check-scheduled-reader.ts <window-end> --require-ai-topic NBA`
-      alongside the scheduled-job and editorial review.
+      Require saved AI provenance, complete triage and matching nonempty summaries
+      for all five expected topics using the command below, alongside the
+      scheduled-job and editorial review. NBA-only success does not close this gate.
+
+```sh
+pnpm exec tsx scripts/check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ \
+  --require-ai-topic 'Tech & AI' --require-ai-topic NBA \
+  --require-ai-topic Gaming --require-ai-topic 'World news & politics' \
+  --require-ai-topic 'U.S. news & politics'
+```
+
+Replace the timestamp with the scheduled window end. Use this same command for
+the first public-mode scheduled edition in step 4.
+The expected topic names are explicit so a missing section also refuses acceptance.
+
 - [x] Read-only admin/tool rollout inventory reconciled (2103): reviewed pages,
       handbook/explorer and fresh-admin telemetry are installed behind the flag.
       Exact routes and retained evidence: [current inventory](public-read-rollout-review.md#current-rollout-inventory--iteration-2103).

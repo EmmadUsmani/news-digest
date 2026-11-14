@@ -46,7 +46,9 @@ Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 
 ## Activation receipt to complete
 
-- Scheduled gate: edition ID, NBA AI editor and item 58 acknowledgement.
+- Scheduled gate: edition ID, all five AI editors and item 58 acknowledgement.
+  Run the [all-topic gate](public-readiness.md#remaining-activation-work); retain
+  its per-topic results before activation and for the first public-mode edition.
 - Fresh UTC timestamp, deployed commit, health, source and queue results.
 - Confirm private sharing; retain the owner’s proxy result separately from an anonymous check.
 - Run `python3 ops/backups/database.py backup`; record the private backup receipt path.
@@ -54,7 +56,7 @@ Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 - Record migration head and preserve additive migrations; activation needs no schema rollback.
 - Record `PUBLIC_MODE=1`, `VITE_PUBLIC_MODE=1`, build result and API restart time.
 - Record deployed admission/browser checks from runbook step 3.
-- Record the next normal public-mode scheduled edition ID and NBA editing result.
+- Record the next normal public-mode scheduled edition ID and all-topic gate result.
 
 ## Exact private-mode recovery
 
