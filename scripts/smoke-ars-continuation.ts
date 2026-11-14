@@ -6,10 +6,24 @@ import { readerEditionSchema } from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 import { parseFeed } from '../apps/api/src/modules/ingestion/adapters/feed.adapter';
+import { storyNeedsContinuation } from '../apps/web/src/story-continuation';
 
 async function smoke() {
   const publisher = process.argv[2] ?? 'ars';
-  assert.ok(publisher === 'ars' || publisher === 'verge');
+  assert.ok(['ars', 'verge', 'eurogamer', 'rps'].includes(publisher));
+  for (const text of [
+    'Read more',
+    'Reporting. Read more',
+    'Reporting! Read more.',
+  ])
+    assert.ok(storyNeedsContinuation(text));
+  for (const text of [
+    'Readers should read more',
+    'Readers should read more.',
+    'Read more about the announcement here.',
+    'Reporting. Read more. Further reporting.',
+  ])
+    assert.equal(storyNeedsContinuation(text), false);
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
@@ -26,15 +40,20 @@ async function smoke() {
     await readFile(
       publisher === 'ars'
         ? 'apps/api/test/fixtures/ars-outage-2026-11-13.xml'
-        : 'apps/api/test/fixtures/atom.xml',
+        : publisher === 'verge'
+          ? 'apps/api/test/fixtures/atom.xml'
+          : `apps/api/test/fixtures/${publisher}.xml`,
       'utf8',
     ),
   );
+  assert.ok(storyNeedsContinuation(report.excerpt));
   assert.ok(
     report.excerpt.endsWith(
       publisher === 'ars'
         ? 'Read full article Comments'
-        : 'Read the full story at The Verge.',
+        : publisher === 'verge'
+          ? 'Read the full story at The Verge.'
+          : 'Read more',
     ),
   );
   // Keep the fixture's actual reporting, URL and title; publication is simulated.
@@ -43,7 +62,15 @@ async function smoke() {
     summary: report.excerpt,
     url: report.url,
     publishedAt: report.publishedAt,
-    sources: [publisher === 'ars' ? 'Ars Technica' : 'The Verge'],
+    sources: [
+      publisher === 'ars'
+        ? 'Ars Technica'
+        : publisher === 'verge'
+          ? 'The Verge'
+          : publisher === 'rps'
+            ? 'Rock Paper Shotgun'
+            : 'Eurogamer',
+    ],
     coverage: undefined,
     publisher: undefined,
   });
@@ -102,7 +129,8 @@ async function smoke() {
           has: page.getByRole('link', { name: story.title, exact: true }),
         });
         const savedText = await saved.locator('p.post-text').innerText();
-        if (publisher === 'ars') assert.equal(savedText, story.summary);
+        if (story.summary!.length <= 600)
+          assert.equal(savedText, story.summary);
         else {
           assert.ok(savedText.length <= 600 && savedText.endsWith('…'));
           assert.ok(story.summary!.startsWith(savedText.slice(0, -1)));

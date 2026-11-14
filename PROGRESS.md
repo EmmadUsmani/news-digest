@@ -64,28 +64,9 @@ Archived entry: [iteration 2206](docs/progress-archive/2026-11-14-iteration-2206
 
 Archived entry: [iteration 2207](docs/progress-archive/2026-11-14-iteration-2207.md).
 
-## 2026-11-14: iteration 2208 — Ars publisher continuation
+Archived entry: [iteration 2208](docs/progress-archive/2026-11-14-iteration-2208.md).
 
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. NBA/item 58 still awaits today's normal scheduled edition; public mode off/private.
-- Recorded Ars outage reporting ends “Read full article Comments”; the existing reader recognized only the named-publisher footer. Retained Nov 13 feed bodies also use the plain “Read full article” form.
-- Continuation recognition now covers both explicit Ars forms, preserving reporting and source destinations in edition cards and saved copies. No ingestion, generation, spend or saved-edition changes.
-- Added GET-only/external-blocked browser replay: unchanged recorded Ars reporting inside a simulated edition; desktop/mobile light/dark, local bookmark, reload, keyboard focus and complete-story negative control.
-- TASKS and SOURCES updated; minor link recognition needs no handbook behavior change. NEEDS_FROM_HUMAN unchanged; archived iteration 2195.
-- Verification: `pnpm format`, `pnpm lint:fix`, build, handbook/schema and diff checks pass; existing web chunk warning only. Seven direct continuation checks and both publisher browser replays pass all four viewport/theme combinations.
-- Initial replay assertion omitted the recorded trailing “Comments”; corrected to match the unchanged fixture. Screenshot review corrected inherited synthetic publisher metadata to Ars. `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
-- Next: scheduled all-topic editing/diversity, NBA/item 58 acceptance, then private public-mode activation.
-
-## 2026-11-14: iteration 2209 — measure recoverable Tech repetition
-
-- Clean main; no inherited work. Zero alerts; health/database/Redis healthy. NBA/item 58 and private public activation await the normal scheduled edition; no paid replay.
-- Owner-visible weakness: two Claude outage cards consume scarce Tech slots while Microsoft outage coverage is omitted. A later-date recorded benchmark now measures the available grouping benefit before changing production.
-- Exported 200 Tech candidates/current policy read-only in repeatable-read; this is current stored feed evidence for Nov 12–13, not exact scheduled inputs. No content, jobs or inference written.
-- Five agent event labels authored before scoring; two unrelated-report omission controls. Ambiguous Orchestrator text, second-relationship allegation, market analysis and patent lawsuit remain outside the selected event labels.
-- Fallback finds one of five targets and repeats Claude twice; label-only grouping restores one slot for Microsoft outage. All 15 labeled articles pass relevance; three other target events stay outside the twenty-slot horizon. Independent labels/semantic evaluation remain open.
-- Added later Tech window to offline ranking command and regression suite; production selection, budgets, providers, saved editions and public flags unchanged. TASKS/RANKING updated; no source/handbook behavior change.
-- Verification: targeted historical ranking 7/7 and `pnpm evaluate:ranking` pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (987 unit/297 integration; four expected skips), `pnpm build`, targeted formatting and diff checks pass. Existing web bundle warnings only. Archived iteration 2196.
-- All 38 sources healthy; API/worker restart and endpoint verification follow commit/push. No UI change; browser replay unnecessary.
-- Next: normal all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209.md).
 
 ## 2026-11-14: iteration 2210 — Tech same-story boundaries
 
@@ -216,3 +197,14 @@ Archived entry: [iteration 2207](docs/progress-archive/2026-11-14-iteration-2207
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 990 unit/309 integration, four expected skips. Build passes with existing bundle warnings; affected handbook/schema and diff checks pass.
 - API/worker restarted active; `/healthz` database/Redis pass. Reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection and no errors.
 - Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2221 — Gaming Read more continuation
+
+- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. Scheduled recovery/NBA/item 58 acceptance awaits 15:00 UTC.
+- Recorded Eurogamer/RPS reporting ends in plain “Read more” without the reader's explicit source continuation; recognize that terminal standalone prompt in edition cards and saved copies.
+- Preserve reporting and destinations; ordinary read-more prose and nonterminal prompts stay unchanged. No generation, paid calls, saved-edition writes, source requests or activation changes.
+- Four unchanged recorded excerpts recognized offline. `smoke-ars-continuation.ts eurogamer` and `rps` pass all eight desktop/mobile light/dark cases: source links, focus, saved text/reload, complete-story negative control, no overflow/page errors. Sixteen screenshots saved; mobile edition/saved images inspected.
+- TASKS/affected handbook updated; archived iterations 2208–2209 to keep PROGRESS small. SOURCES unchanged: no collection change.
+- `pnpm format`, `pnpm lint:fix`, build and affected handbook/schema checks pass. Initial concurrent `pnpm check` reached lint before autofix sorted smoke imports; corrected and full recheck passes: 990 unit/309 integration tests, four expected skips.
+- API/worker restarted; health passes. Reader gate verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors; initial probe used nonexistent lastSuccessAt/lastError fields, corrected to actual status fields.
+- Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.

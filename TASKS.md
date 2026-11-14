@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Gaming teaser continuation (2221): terminal standalone “Read more” prompts offer source links in edition cards and saved copies; recorded Eurogamer/RPS browser checks cover desktop/mobile and both themes.
+
 - [x] Repeated publisher post footers (2220): omit terminal “The post … appeared first on …” navigation linking back to the article; recorded NBA/Gaming reporting and external/nonterminal controls pass.
 
 - [x] Publisher self-link footers (2218): omit terminal standalone Source links to the same article, preserving the reporting ellipsis and reader continuation; four recorded VGC/Gematsu articles and boundary controls pass.

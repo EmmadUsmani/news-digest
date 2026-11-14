@@ -58,7 +58,7 @@ data when enabled, deletion and third-party post connections.
   excerpts, including X media links written as `pic.twitter.com/…`; other post text opens the original. Saves survive reloads.
   With accounts enabled, this page shows sign-in and sync status; open Account beside
   its heading to retry a failed sync.
-- Stories ending in an ellipsis or a publisher’s full-article or full-story prompt offer **Continue reading at source**, including saved copies.
+- Stories ending in an ellipsis or a publisher’s “Read more”, full-article or full-story prompt offer **Continue reading at source**, including saved copies.
 - This browser holds up to 1,000 saved identities, including removal records.
 - Choices are stored locally and shared between tabs. No account is needed.
   Clearing site storage resets saved items and hidden topics in open tabs too.
