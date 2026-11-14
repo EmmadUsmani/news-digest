@@ -192,9 +192,9 @@ void test('real ownership parser feeds the ranked bridge with a recorded respons
   const grouping = new EventGrouping(
     {
       async json(request, parse) {
-        assert.equal(request.purpose, 'joint-story-grouping-v1');
+        assert.equal(request.purpose, 'joint-story-grouping-v2');
         return parse({
-          groups: [{ topicId: 'us', ids: ['a', 'b', 'c', 'd'] }],
+          groups: [{ topicId: 't1', ids: ['a0', 'a1', 'a2', 'a3'] }],
         });
       },
     },

@@ -52,12 +52,12 @@ function harness(response: unknown, available = true) {
     {
       async complete(request) {
         calls++;
-        assert.equal(request.purpose, 'joint-story-grouping-v1');
+        assert.equal(request.purpose, 'joint-story-grouping-v2');
         assert.equal(request.maxOutputTokens, 4096);
         const input = JSON.parse(request.prompt);
         assert.deepEqual(
           input.scopes.map((scope: { id: string }) => scope.id),
-          ['world', 'us'],
+          ['t0', 't1'],
         );
         return {
           text: JSON.stringify(response),
@@ -88,8 +88,12 @@ const groups = [
   { topicId: 'us', ids: ['a', 'b'] },
   { topicId: 'world', ids: ['c'] },
 ];
+const wireGroups = [
+  { topicId: 't1', ids: ['a0', 'a1'] },
+  { topicId: 't0', ids: ['a2'] },
+];
 void test('joint ownership merges cross-source events, reassigns singletons and caches the complete partition', async () => {
-  const h = harness({ groups });
+  const h = harness({ groups: wireGroups });
   assert.deepEqual(
     await h.service.assignTopics(scopes, candidates, 'one'),
     groups,
@@ -108,11 +112,13 @@ void test('joint ownership merges cross-source events, reassigns singletons and 
 });
 for (const response of [
   { groups: [] },
-  { groups: [{ topicId: 'us', ids: ['a', 'b'] }] },
-  { groups: [...groups, { topicId: 'world', ids: ['a'] }] },
-  { groups: [{ topicId: 'tech', ids: ['a', 'b', 'c'] }] },
-  { groups: [{ topicId: 'us', ids: ['a', 'b', 'c', 'unknown'] }] },
-  { groups, extra: true },
+  { groups: [{ topicId: 't1', ids: ['a0', 'a1'] }] },
+  { groups: [...wireGroups, { topicId: 't0', ids: ['a0'] }] },
+  { groups: [{ topicId: 'tech', ids: ['a0', 'a1', 'a2'] }] },
+  { groups: [{ topicId: 't1', ids: ['a0', 'a1', 'a2', 'unknown'] }] },
+  { groups: [{ topicId: 't1', ids: ['a0', 'a0', 'a2'] }] },
+  { groups: wireGroups, extra: true },
+  { groups }, // Stored identifiers are not valid wire aliases.
 ]) {
   void test(`invalid ownership is unavailable without repairs: ${JSON.stringify(response)}`, async () => {
     const h = harness(response);
@@ -121,13 +127,13 @@ for (const response of [
   });
 }
 void test('budget refusal and invalid inputs never produce a successful partition', async () => {
-  const denied = harness({ groups }, false);
+  const denied = harness({ groups: wireGroups }, false);
   assert.equal(
     await denied.service.assignTopics(scopes, candidates, 'run'),
     null,
   );
   assert.equal(denied.calls(), 0);
-  const h = harness({ groups });
+  const h = harness({ groups: wireGroups });
   for (const items of [
     [candidates[0], candidates[0]],
     [{ ...candidates[0], topicId: 'tech' }],
@@ -141,4 +147,56 @@ void test('budget refusal and invalid inputs never produce a successful partitio
   );
   assert.deepEqual(await h.service.assignTopics(scopes, [], 'run'), []);
   assert.equal(h.calls(), 0);
+});
+
+void test('forty long identifiers round-trip through a bounded singleton response and aliased citations', async () => {
+  const longScopes = scopes.map((scope, i) => ({
+    ...scope,
+    id: `${i}-${'t'.repeat(198)}`,
+  }));
+  const items = Array.from({ length: 40 }, (_, i) => ({
+    ...candidates[i % 3],
+    id: `${String(i).padStart(2, '0')}-${'a'.repeat(197)}`,
+    topicId: longScopes[i % 2].id,
+    outboundLinks: ['https://example.com/report'],
+  }));
+  const wire = {
+    groups: items.map((_, i) => ({
+      topicId: `t${1 - (i % 2)}`,
+      ids: [`a${i}`],
+    })),
+  };
+  assert.ok(Buffer.byteLength(JSON.stringify(wire)) < 1500);
+  const service = new EventGrouping(
+    {
+      async json(request, parse, options) {
+        assert.equal(request.maxOutputTokens, 4096);
+        assert.deepEqual(options, { repair: false });
+        const input = JSON.parse(request.prompt);
+        assert.deepEqual(
+          input.sharedReferences[0].ids,
+          items.map((_, i) => `a${i}`),
+        );
+        assert.deepEqual(
+          input.candidates.map((item: { id: string; topicId: string }) => [
+            item.id,
+            item.topicId,
+          ]),
+          items.map((_, i) => [`a${i}`, `t${i % 2}`]),
+        );
+        assert.ok(!request.prompt.includes(items[0].id));
+        return parse(wire);
+      },
+    },
+    llmConfig({}).haiku,
+  );
+  const before = structuredClone(items);
+  assert.deepEqual(
+    await service.assignTopics(longScopes, items, 'long'),
+    items.map((item, i) => ({
+      topicId: longScopes[1 - (i % 2)].id,
+      ids: [item.id],
+    })),
+  );
+  assert.deepEqual(items, before);
 });
