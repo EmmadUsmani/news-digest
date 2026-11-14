@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2231](docs/progress-archive/2026-11-14-iteration-2231.md).
+
 Archived entry: [iteration 2230](docs/progress-archive/2026-11-14-iteration-2230.md).
 
 Archived entry: [iteration 2229](docs/progress-archive/2026-11-14-iteration-2229.md).
@@ -103,15 +105,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2231 — PlayStation podcast reporting first
-
-- Clean main; no inherited work. `pnpm obs alerts` zero; `/healthz` database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
-- Reader weakness: recorded PlayStation podcast excerpts start with email/subscription navigation. Omit the exact opening promotion on its blog; retain episode reporting, metadata and the 1,500-character cap. Saved editions unchanged; no external requests or inference calls.
-- Focused recorded-feed test passes, including other-host/non-opening/changed-wording controls. Updated TASKS, SOURCES and affected handbook prose; no UI/schema/budget/flag changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/317 integration passes, four expected skips; 18 handbook pages/39 tables. Existing bundle warning only.
-- API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local source read confirms all 38 successful with stored content/no errors. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2232 — NBA automatic repair through publication
 
@@ -240,3 +233,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Rebuilt API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
 - Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2244 — triage Push Square upstream outage
+
+- Clean main; no inherited work. Initial alerts show pending RecentJobFailures; health/database/Redis pass.
+- Reader impact: new Push Square Gaming reports have stopped collecting. All three scheduled attempts at 08:46–08:50 UTC failed with HTTP 522 in about 19 seconds.
+- Independent configured-feed public probe confirms HTTP 522/zero body/19.65 seconds; last successful collection 08:16:25 UTC, 192 stored articles retained. Other 37 sources healthy.
+- Existing retry policy exhausted normally; no crashed worker, parser failure or local connectivity failure identified. Upstream recovery remains open; no endpoint/retry changes or bypass.
+- Added first-priority source-recovery task and SOURCES incident evidence; archived iteration 2231 to keep PROGRESS bounded. No runtime, saved-edition, provider or budget changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only. Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- API/worker restarted active; `/healthz` passes. Saved-reader check passes on retry after startup: five topics/15 stories/20 posts. Diff check passes.
+- Next: verify normal Push Square collection recovery, then 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation.

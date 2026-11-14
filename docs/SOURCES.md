@@ -3000,3 +3000,17 @@ Iteration 2243: recorded Verge Atom fragments omit terminal “Read the full sto
 at The Verge.” links only when they point to the same article on the publisher
 host. Supplied reporting, continuation ellipsis and metadata remain intact.
 Offline fixture and boundary controls pass; no new source requests.
+
+## 2026-11-14 iteration 2244 — Push Square upstream outage
+
+The configured public feed `https://www.pushsquare.com/feeds/latest` returned
+HTTP 522 on scheduled attempts at 08:46, 08:48 and 08:50 UTC. A separate public
+feed request also returned HTTP 522 after 19.65 seconds with no response body.
+The last successful collection was 08:16:25 UTC (25 feed items); 192 stored
+articles remain available. The other 37 active sources are healthy.
+
+The ingestion worker exhausted its existing three-attempt exponential retry
+policy and retained the source error. This is an upstream outage; the feed URL,
+collection schedule and retry policy are unchanged. Accept recovery only when a
+normal scheduled collection succeeds with usable dated items and clears the
+source error. No alternate endpoint or bot-protection workaround was used.
