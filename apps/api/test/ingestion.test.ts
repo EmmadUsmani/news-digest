@@ -11,6 +11,48 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Push Square teasers retain reporting and omission without self-link navigation', async () => {
+  const xml = await fixture('pushsquare.xml');
+  const items = parseFeed(xml);
+  assert.equal(items.length, 2);
+  for (const item of items) {
+    assert.ok(item.excerpt.endsWith('…'));
+    assert.doesNotMatch(item.excerpt, /Read the full article/);
+    assert.ok(item.excerpt.length <= 1500);
+  }
+  assert.match(items[0].excerpt, /singular patch note/);
+  assert.match(items[1].excerpt, /everyone on your team gets the reward/);
+  const withoutFooter = parseFeed(
+    xml.replace(
+      /<p>Read the <a[^>]*>full article on pushsquare\.com<\/a><\/p>/g,
+      '',
+    ),
+  );
+  assert.deepEqual(
+    items,
+    withoutFooter.map((item) => ({ ...item, excerpt: item.excerpt + '…' })),
+  );
+  for (const changed of [
+    xml.replaceAll('www.pushsquare.com', 'example.com'),
+    xml.replaceAll(
+      'full article on pushsquare.com',
+      'full review on pushsquare.com',
+    ),
+    xml.replaceAll(
+      'full article on pushsquare.com</a></p>',
+      'full article on pushsquare.com</a></p><p>More reporting.</p>',
+    ),
+    xml.replace(
+      /Read the <a href="[^"]*"/g,
+      'Read the <a href="https://www.pushsquare.com/other"',
+    ),
+  ]) {
+    assert.match(
+      parseFeed(changed)[0].excerpt,
+      /Read the full (?:article|review)/,
+    );
+  }
+});
 void test('recorded PlayStation podcast opens with episode reporting, not subscription navigation', async () => {
   const xml = await fixture('playstation.xml');
   const prefix =

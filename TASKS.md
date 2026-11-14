@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Push Square teaser navigation (2234): omit its terminal article self-link while preserving reporting, metadata and an omission marker for reader continuation; recorded feed and host/destination/nonterminal controls pass offline.
+
 - [x] Verge purchase navigation (2233): omit its recorded “Where to Buy” widget to avoid ambiguous flattened old/current prices; article prices, discounts, product details and metadata retained, with publisher/structure controls.
 
 - [x] PlayStation podcast opening (2231): omit the exact leading email/subscription promotion on the publisher blog; recorded episode reporting and metadata retained, with other-host/non-opening/changed-wording controls.

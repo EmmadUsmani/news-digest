@@ -2928,3 +2928,12 @@ The unchanged recorded Verge commerce feed repeats old/current prices in its
 host before the excerpt cap; retain prices, discounts and product details in
 article paragraphs. Other publishers, different blocks and nested reporting
 remain. Offline fixture checks only; no source requests or saved-edition edits.
+
+## 2026-11-14 iteration 2234 — Push Square teaser navigation
+
+The recorded Push Square feed ends its reporting teasers with a self-link to the
+full article. Omit that terminal navigation on the publisher host when the
+link matches the article; retain reporting and an omission marker for reader
+continuation. Other hosts, changed wording, other destinations and nonterminal
+links remain intact. Verified offline against the unchanged recording; no live
+request or saved-edition rewrite.

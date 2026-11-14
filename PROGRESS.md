@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2221](docs/progress-archive/2026-11-14-iteration-2221.md).
+
 Archived entry: [iteration 2220](docs/progress-archive/2026-11-14-iteration-2220.md).
 
 Archived entry: [iterations 2218–2219](docs/progress-archive/2026-11-14-iterations-2218-2219.md).
@@ -83,17 +85,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2221 — Gaming Read more continuation
-
-- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. Scheduled recovery/NBA/item 58 acceptance awaits 15:00 UTC.
-- Recorded Eurogamer/RPS reporting ends in plain “Read more” without the reader's explicit source continuation; recognize that terminal standalone prompt in edition cards and saved copies.
-- Preserve reporting and destinations; ordinary read-more prose and nonterminal prompts stay unchanged. No generation, paid calls, saved-edition writes, source requests or activation changes.
-- Four unchanged recorded excerpts recognized offline. `smoke-ars-continuation.ts eurogamer` and `rps` pass all eight desktop/mobile light/dark cases: source links, focus, saved text/reload, complete-story negative control, no overflow/page errors. Sixteen screenshots saved; mobile edition/saved images inspected.
-- TASKS/affected handbook updated; archived iterations 2208–2209 to keep PROGRESS small. SOURCES unchanged: no collection change.
-- `pnpm format`, `pnpm lint:fix`, build and affected handbook/schema checks pass. Initial concurrent `pnpm check` reached lint before autofix sorted smoke imports; corrected and full recheck passes: 990 unit/309 integration tests, four expected skips.
-- API/worker restarted; health passes. Reader gate verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors; initial probe used nonexistent lastSuccessAt/lastError fields, corrected to actual status fields.
-- Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2222 — saved social continuation
 
@@ -224,3 +215,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/319 integration tests, four expected skips; format/lint/typecheck/boundaries pass; 18 handbook pages/39 tables. Existing bundle warnings only.
 - API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts after startup retry. Local source status confirms all 38 active sources have successful collection/stored content/no errors. Diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2234 — Push Square reporting without teaser navigation
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
+- Reader weakness: saved Gaming excerpt includes Push Square's “Read the full article” self-link as reporting. Omit its exact terminal footer on the publisher host when the destination matches; retain reporting, metadata and an omission marker for source continuation.
+- Recorded-feed regression passes with other-host/changed-wording/other-destination/nonterminal controls; unchanged fixture, reporting and metadata verified. No live source requests, paid calls or saved-edition rewrites.
+- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2221 to keep PROGRESS small. No UI/schema/budget/flag changes.
+- Formatting, lint fix and build pass; handbook check passes on retry (initial render failure). Initial full check caught new archive formatting, corrected before final verification.
+- Final pnpm check passes: 990 unit/320 integration tests, four expected skips; format/lint/typecheck/boundaries pass. Existing build bundle warnings only.
+- Rebuilt API/worker restarted active; health passes. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 sources healthy. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

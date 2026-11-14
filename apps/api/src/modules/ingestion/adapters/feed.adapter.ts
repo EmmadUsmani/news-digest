@@ -71,8 +71,24 @@ function excerpt(value: unknown, articleUrl: string): string {
       return canonicalUrl(href?.[2] ?? '') === articleUrl ? '' : footer;
     },
   );
+  // Push Square syndicates a teaser followed by a self-link, not more reporting.
+  // Keep an omission marker so source continuation remains available to readers.
+  let teaserClipped = false;
+  const withoutTeaserFooter = withoutSelfLink.replace(
+    /<p\b[^>]*>\s*Read the\s+<a\b([^>]*)>full article on pushsquare\.com<\/a>\s*<\/p>\s*$/i,
+    (footer, attributes: string) => {
+      const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+      if (
+        new URL(articleUrl).hostname !== 'www.pushsquare.com' ||
+        canonicalUrl(href?.[2] ?? '') !== articleUrl
+      )
+        return footer;
+      teaserClipped = true;
+      return '';
+    },
+  );
   // WordPress syndication footers repeat the headline and publisher, not facts.
-  const withoutPostFooter = withoutSelfLink.replace(
+  const withoutPostFooter = withoutTeaserFooter.replace(
     /<p\b[^>]*>\s*The post\s+<a\b([^>]*)>[^<]*<\/a>\s+appeared first on\s+<a\b[^>]*>[^<]*<\/a>\.\s*<\/p>\s*$/i,
     (footer, attributes: string) => {
       const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
@@ -93,6 +109,8 @@ function excerpt(value: unknown, articleUrl: string): string {
       '',
     );
   }
+  if (teaserClipped && normalized && !/(?:…|\.{3})$/.test(normalized))
+    normalized += '…';
   if (normalized.length <= 1500) return normalized;
   let prefix = normalized.slice(0, 1499).replace(/[\uD800-\uDBFF]$/, '');
   if (/\S$/.test(prefix) && /\S/.test(normalized[prefix.length])) {

@@ -190,7 +190,7 @@ foreign key, because a citation is stored before the post is verified.
   when several sources publish it. `content_observations` records who saw it.
   Feed images prefer media metadata, then an opening article-content figure.
   Feed excerpts prefer article content, then summaries; opening photo captions
-  and self-linked publisher footers are omitted, along with named GameSpot/Yoast contents blocks and Destructoid screenshot-only credits. PlayStation podcast excerpts omit the opening email/subscription promotion; Verge purchase widgets are omitted while reported prices remain. The 1,500-character cap marks cuts with “…”.
+  and self-linked publisher footers are omitted, along with named GameSpot/Yoast contents blocks and Destructoid screenshot-only credits. PlayStation podcast excerpts omit the opening email/subscription promotion; Verge purchase widgets are omitted while reported prices remain. Push Square teaser self-links become an omission marker. The 1,500-character cap marks cuts with “…”.
   Google News descriptions repeating only a headline and publisher stay blank. A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
   rounding errors.
