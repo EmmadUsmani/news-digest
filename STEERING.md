@@ -1697,6 +1697,8 @@ ack: 2026-11-07 item 42/43 — iteration 1239: Bluesky media links identify thei
 
 ack: 2026-11-14 item 42/43 — iteration 2307: fixed grouped Tech coverage collapsing independent linked sites behind one Hacker News URL. Two real saved stories restore 13→18 and 1→2 site/outlet counts; repeated discovery labels show the linked hostname. Desktop/mobile light/dark coverage checks pass; no generation changes or paid calls.
 
+ack: 2026-11-14 item 42/43 — iteration 2309: saving discovery-linked stories now preserves their linked hostname alongside feed attribution; today’s Reuters story, grouped primary provenance, publisher overrides and reload pass desktop/mobile light/dark. No generation changes or paid calls.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 > **Superseded in part (Nov 7):** item 50 is owner-approved feature work and ranks

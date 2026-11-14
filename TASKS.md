@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2309: new saved discovery-linked stories retain the linked hostname alongside the feed; real Reuters save/reload verified.
+
 - [x] 2308: discovery-only source labels identify the linked site alongside the feed, in collapsed and expanded coverage.
 
 - [x] 2307: restored per-report destinations and distinct site labels for grouped stories sharing a discovery feed; two real historical Tech cases verified.

@@ -5,5 +5,12 @@ export function primaryStoryAttribution(
 ) {
   const report =
     story.coverage?.find((article) => article.url === story.url) ?? story;
-  return report.publisher?.name ?? report.sources.join(', ');
+  if (report.publisher) return report.publisher.name;
+  return report.sources
+    .map((name) =>
+      name === 'Hacker News' || name.startsWith('Google News:')
+        ? `${new URL(report.url).hostname.replace(/^www\./, '')} · via ${name}`
+        : name,
+    )
+    .join(', ');
 }

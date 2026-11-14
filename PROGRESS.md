@@ -1,51 +1,6 @@
 # Progress
 
-Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through-2288.md), [2289–2294](docs/progress-archive/2026-11-14-2289-through-2294.md).
-
-## 2026-11-14: iteration 2295 — natural Tech story/post overlap review
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Gaming/ownership scheduled recovery still gates item 58 and private public-mode activation.
-- Reviewed actual Nov 14 Tech reader/admin copies: four stories and two Sonnet-selected X posts cover distinct developments; IDs, original text and reader notes agree, with zero unscored social IDs.
-- Grok usage optimization and FAA SMART deployment repeat neither each other nor saved stories. Nvidia governance candidate is low-scored before editing; no causal duplicate-rejection claim. Bluesky shortlisted one/selected none with three open slots, so overall overlap acceptance stays open.
-- Added `docs/edition-reviews/2026-11-14-tech-social.md`; TASKS distinguishes the natural X observation from unexercised Bluesky/editor-level challenges. No new prompt/ranking change justified.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
-- API/worker restarted; first health probe preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance, five topics/14 stories/19 posts verified.
-- No inference, external source requests, production writes or edition changes; private read-only receipts `/tmp/2295-{reader,preview}.json`.
-- No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership recovery before activation; retain Tech Bluesky overlap challenge.
-
-## 2026-11-14: iteration 2296 — natural Gaming social context review
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58 and private public-mode activation.
-- Reviewed all five actual Gaming social picks: original text/notes match saved admin copies, AI editing and zero unscored social IDs. Notes preserve reporting attribution, tournament stages/year, forthcoming nominees reveal and the 100-studio claim.
-- Reader weakness tracked: prior French-clip note invented a launch date, and award results repeated across platforms. Nov 14 has five distinct English-language developments, so neither acceptance challenge is exercised; both remain open rather than claiming success from absence.
-- Natural Bluesky initial rationale fails unsupported-absence validation and bounded repair publishes one post; saved diagnostics show one unsupported-claim drop. This is separate from calendar-date protection. Reserved slot displaces a distinct MSI event, not proven duplication.
-- Added `docs/edition-reviews/2026-11-14-gaming-social.md`, updated TASKS. Read-only reader/admin assertions pass; filtered worker journal identifies initial rejection and two admitted/settled attempts. Private receipts `/tmp/2296-{reader,preview}.json`.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean. Archived entries through 2288 to keep active PROGRESS under 25 KB.
-- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check` passes. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance, five topics/14 stories/19 posts.
-- No inference, external source requests, production writes, UI/schema/source/system-flow change or saved-edition mutation. Handbook/SOURCES/screenshots unchanged.
-- Next: natural scheduled Gaming/ownership recovery before activation; retain translation/award challenges and broader social quality acceptance.
-
-## 2026-11-14: iteration 2297 — Tech reporting-minimum sensitivity
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58 and private public-mode activation.
-- Extended offline recorded Tech cutoff evaluation with reporting minimums 0–3, ten unique slots, unchanged evidence and pinned per-window reporting/published-control/admission counts.
-- Nov 14 minimum one changes nothing; minimum two admits Wallet, retaining all four represented published controls. Nov 12 reviewed grouping already supplies three reporting clusters; ungrouped reservations add repeated resignation reporting before prospective dismissal reporting.
-- All minima retain each baseline's represented published controls (Nov 12 ungrouped one/grouped two, Nov 14 four). Recordings/manual prose labels do not establish a general production policy; ranking, prompts, budgets and selection unchanged.
-- Updated depth review/TASKS. `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
-- API/worker restarted; initial health request preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts with scheduled provenance verified.
-- No inference, external source requests or production writes by evaluation; no UI/schema/source/system-flow change. Handbook/SOURCES/screenshots unchanged. Private receipts `/tmp/2297-*`.
-- Next: natural Gaming/ownership scheduled acceptance before activation; preserve social-quality challenges and obtain natural grouped Tech evidence before admission changes.
-
-## 2026-11-14: iteration 2298 — natural U.S. social selection
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
-- Reader concern: both U.S. Bluesky videos lack notes. Cached successful Sonnet output intentionally leaves them empty; original text already states the developments. Owner-facing benefit: establish whether context was lost before changing selection or adding redundant prose.
-- Read-only production-shortlist reconstruction reconciles 670 observations, 50 uniquely cached scores and nine finalists. Final aliases select one Duffy funding estimate over repeated announcements plus a distinct Jeffries quote; saved IDs/text/empty notes match exactly.
-- Selected funding update adds a separate development from SFO's X departure status. No X displacement; one slot remains empty. Unsupported-claim drop cannot be assigned to a specific candidate from the accepted cache. Media contents/identities unverified; no normal story-overlap acceptance while U.S. stories are withheld.
-- Added `docs/edition-reviews/2026-11-14-us-social.md`; updated TASKS. Retain `Congress`, gates, prompts and budgets. Private cache-only receipt `/tmp/2298-us-receipt.json`; no inference, source requests, production writes or saved-edition mutation.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle/annotation warnings; `git diff --check` clean.
-- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified.
-- No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership scheduled acceptance before activation; retain broader social quality and normal story-overlap challenges.
+Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through-2288.md), [2289–2294](docs/progress-archive/2026-11-14-2289-through-2294.md), [2295–2298](docs/progress-archive/2026-11-14-2295-through-2298.md).
 
 ## 2026-11-14: iteration 2299 — NBA selected-story social comparison
 
@@ -148,3 +103,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Updated screenshots; inspected mobile light capture of Reuters collapsed/expanded attribution. No schema/system-flow change; SOURCES and handbook unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Initial browser smoke raced the build and correctly saw old served assets; post-build API/worker restart and both smokes pass.
 - Post-restart `pnpm obs health --check` healthy/database/Redis true; source check passes. Receipts `/tmp/2308-*`. Next: natural scheduled full-edition AI acceptance before activation; existing NBA breadth/Tech depth evidence remains pending.
+
+## 2026-11-14: iteration 2309 — retain linked sites when saving stories
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy; source check passes. Public mode remains off, VM private; Gaming/World/U.S. scheduled acceptance still pending.
+- Reader weakness (items 42/43): saving today's Reuters-linked Meta story retained only “Hacker News”, losing the linked site visible in the edition. New saved discovery-only attribution now includes hostname and discovery feed; explicit publisher names still win and grouped stories still use primary-report provenance.
+- Extended existing saved-source Playwright smoke with the real Reuters story, grouped primary report, explicit synthetic publisher/legacy controls, exact attribution/destinations and reload persistence. Desktop/mobile light/dark pass; updated screenshots and inspected mobile light. External browser traffic blocked; GET-only.
+- `pnpm format`, `pnpm lint:fix`, `VITE_PUBLIC_MODE=0 pnpm build` pass (existing bundle warning); full `pnpm check` passes (1,025 unit/329 integration passes, four expected skips). Browser smoke passes; `git diff --check` clean.
+- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` confirms scheduled provenance and five topics/14 stories/19 posts. No model calls or edition mutation.
+- Archived progress 2295–2298 to keep the active handoff below 25 KB. No source/schema/system-flow change; SOURCES and handbook unchanged. Existing bookmark snapshots are retained; improved attribution applies when saving a story.
+- Receipts `/tmp/2309-*`. Next: natural scheduled five-topic AI acceptance before activation; retain NBA breadth/Tech depth evidence gates.

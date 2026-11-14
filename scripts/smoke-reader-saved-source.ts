@@ -5,10 +5,34 @@ import { readerEditionSchema } from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 const origin = 'http://127.0.0.1:8000';
+function expectedAttribution(report: {
+  publisher?: { name: string };
+  sources: string[];
+  url: string;
+}) {
+  if (report.publisher) return report.publisher.name;
+  const host = new URL(report.url).hostname.replace(/^www\./, '');
+  return report.sources
+    .map((source) =>
+      source === 'Hacker News' || source.startsWith('Google News:')
+        ? `${host} · via ${source}`
+        : source,
+    )
+    .join(', ');
+}
 async function main() {
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
   );
+  const discovery = edition.topics
+    .flatMap((topic) => topic.stories)
+    .find((story) => {
+      const report =
+        story.coverage?.find((item) => item.url === story.url) ?? story;
+      return !report.publisher && report.sources.join(', ') === 'Hacker News';
+    });
+  assert.ok(discovery, 'a real discovery-only story is required');
+  const discoveryAttribution = `${new URL(discovery.url).hostname.replace(/^www\./, '')} · via Hacker News`;
   const grouped = edition.topics
     .flatMap((topic) => topic.stories)
     .find(
@@ -44,7 +68,7 @@ async function main() {
   legacy.id = '00000000-0000-4000-8000-000000000002';
   legacy.title = 'Synthetic legacy attribution control';
   delete legacy.coverage;
-  edition.topics[0].stories = [grouped, publisher, legacy];
+  edition.topics[0].stories = [discovery, grouped, publisher, legacy];
   readerEditionSchema.parse(edition);
   const browser = await chromium.launch();
   try {
@@ -83,9 +107,10 @@ async function main() {
           page.getByRole('heading', { name: 'Saved items', exact: true }),
         ).toBeVisible();
         for (const [story, attribution] of [
-          [grouped, primary.publisher?.name ?? primary.sources.join(', ')],
+          [discovery, discoveryAttribution],
+          [grouped, expectedAttribution(primary)],
           [publisher, 'Primary publisher'],
-          [legacy, legacy.publisher?.name ?? legacy.sources.join(', ')],
+          [legacy, expectedAttribution(legacy)],
         ] as const) {
           const titleLink = page.getByRole('link', {
             name: story.title,
@@ -100,6 +125,18 @@ async function main() {
           ).toHaveAttribute('href', story.url);
         }
         await page.reload();
+        await expect(
+          page
+            .locator('li')
+            .filter({
+              has: page.getByRole('link', {
+                name: discovery.title,
+                exact: true,
+              }),
+            })
+            .locator(':scope > p')
+            .first(),
+        ).toHaveText(discoveryAttribution);
         await expect(
           page.getByRole('link', { name: grouped.title, exact: true }),
         ).toBeVisible();
@@ -118,7 +155,7 @@ async function main() {
       }
     }
     console.log(
-      'Saved source attribution: real grouped report, synthetic publisher override and legacy fallback pass in desktop/mobile light/dark; reload and URLs preserved.',
+      'Saved source attribution: real discovery site and grouped report, synthetic publisher override and legacy fallback pass in desktop/mobile light/dark; reload and URLs preserved.',
     );
   } finally {
     await browser.close();
