@@ -3072,3 +3072,14 @@ Launch facts, article identity, date, author, image, citations and source
 continuation remain intact. The unchanged one-item recording verifies the
 result and publisher/link/copy controls offline. No crawl, new source, prompt
 change or paid call; saved editions remain unchanged.
+
+## 2026-11-14 iteration 2252 — Guardian live-report newsletter signup
+
+One explicit free GET of the configured World RSS feed found the Breaking News
+US email signup among report links in its ground-stop live coverage. Ingestion
+omits that exact signup list item only for Guardian articles and the recorded
+HTTPS signup destination. Reporting links, flight counts, identity, image and
+continuation remain intact; the unchanged recorded item and altered publisher,
+destination and copy controls verify this offline. More reporting fits within
+the existing excerpt cap. No crawl, new source, prompt or paid call; saved
+editions remain unchanged.

@@ -143,6 +143,26 @@ function excerpt(value: unknown, articleUrl: string): string {
   // These publishers syndicate teasers followed by self-links, not more reporting.
   // Keep an omission marker so source continuation remains available to readers.
   let teaserClipped = false;
+  // Guardian live coverage includes this newsletter signup among report links.
+  // Keep the reports; only the exact signup copy and destination are navigation.
+  if (new URL(articleUrl).hostname === 'www.theguardian.com') {
+    withoutSelfLink = withoutSelfLink.replace(
+      /<li>\s*<p>\s*<a\b([^>]*)>Sign up for the Breaking News US email<\/a>\s*<\/p>\s*<\/li>/gi,
+      (promo, attributes: string) => {
+        const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+        try {
+          const destination = new URL(href?.[2] ?? '');
+          return destination.origin === 'https://www.theguardian.com' &&
+            destination.pathname ===
+              '/news/2026/feb/17/sign-up-for-the-breaking-news-us-email-to-get-newsletter-alerts-direct-to-your-inbox'
+            ? ''
+            : promo;
+        } catch {
+          return promo;
+        }
+      },
+    );
+  }
   // Verge Atom fragments end with a link back to the full article.
   if (new URL(articleUrl).hostname === 'www.theverge.com') {
     withoutSelfLink = withoutSelfLink.replace(

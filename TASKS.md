@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Guardian newsletter signup (2252): omit the recorded Breaking News US signup list item with exact publisher/destination/copy checks; retain report links, flight facts, metadata and continuation. Offline recording and preservation controls pass.
+
 - [x] Ars newsletter excerpt (2251): omit the recorded Rocket Report subscription/submission paragraph while retaining Starship/Electron reporting, metadata and continuation; publisher/link/copy controls pass offline.
 
 - [x] PlayStation podcast footer (2250): omit the recorded terminal empty section headings and clipped music credit, retaining the episode description and continuation marker; exact wording, publisher and terminal-position controls pass offline.

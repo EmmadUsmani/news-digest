@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2239](docs/progress-archive/2026-11-14-iteration-2239.md).
+
 Archived entry: [iteration 2238](docs/progress-archive/2026-11-14-iteration-2238.md).
 
 Archived entry: [iteration 2237](docs/progress-archive/2026-11-14-iteration-2237.md).
@@ -118,16 +120,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2239 — Nintendo Life teaser continuation
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
-- Reader weakness: Nintendo Life feed teasers include publisher navigation as reporting. The owner will see cleaner future summaries with source continuation retained.
-- Extended the existing publisher/self-destination/terminal-only teaser rule to Nintendo Life; both unchanged recorded articles preserve reporting and metadata with an omission marker. Other hosts, cross-publisher labels, changed wording, other destinations and nonterminal controls pass offline.
-- Updated TASKS and SOURCES; archived iteration 2226 to keep PROGRESS small. No live requests, paid calls, source configuration changes or saved-edition rewrites.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-nintendo-teaser.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 993 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Existing build bundle warnings only.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local admin status read confirms all 38 active sources healthy with stored content. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2240 — Ars fragment navigation
 
@@ -261,4 +253,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm exec tsx --test apps/api/test/feed-ars-newsletter.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check`: 1,001 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes after startup retry.
 - Saved reader gate passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2252 — Guardian live-report signup
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
+- Reader weakness: current Guardian ground-stop coverage includes a newsletter signup among reporting links. Omit that exact list item on the publisher host with the recorded HTTPS destination/copy, leaving more space for flight reporting.
+- One explicit free World RSS GET recorded the item. Offline test preserves flight facts, report links, metadata, image and continuation; altered publisher/destination/copy controls retain unrelated text. No crawl, prompt, budget or paid call; saved editions unchanged.
+- Updated TASKS/SOURCES; archived iteration 2239 to bound PROGRESS. No handbook behavior change or UI change.
+- `pnpm exec tsx --test apps/api/test/feed-guardian-signup.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warning). Full `pnpm check`: 1,002 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
