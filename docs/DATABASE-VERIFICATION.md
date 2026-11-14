@@ -923,3 +923,17 @@ latest/history/detail preserve those fallback snapshots and hide the newer
 unpublished generation. Historical output serialization, requests, triage,
 metadata, zero usage and the ledger exhaustion are synthetic test scaffolding.
 No live inference or scheduled acceptance is claimed.
+
+## NBA Sonnet automatic repair publication (iteration 2241)
+
+The publication regression now also runs the saved corrected Sonnet output
+through automatic repair, following the historical malformed Haiku selection
+serialized as a synthetic Sonnet initial response. This deliberately mixed
+sequence verifies current orchestration, not an observed Sonnet request pair.
+Fingerprint matching checks the model and validator feedback; both calls reserve
+and settle independently. Only the corrected result is cached, and subsequent
+published/unpublished generations make no further dispatches. Public reader
+HTTP preserves both published snapshots and hides the unpublished copy.
+
+Historical corrected output, synthetic requests/triage/metadata and zero usage
+remain explicitly distinguished. No live calls or scheduled acceptance.

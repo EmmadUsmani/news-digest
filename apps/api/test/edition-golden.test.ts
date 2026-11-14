@@ -602,6 +602,7 @@ void test('system edition scope preserves publication filters, replay and rollba
 for (const [entryIndex, label, automaticRepair, repairBudgetRefused] of [
   [0, 'Sonnet initial', false, false],
   [1, 'Sonnet repair', false, false],
+  [1, 'Sonnet automatic repair', true, false],
   [2, 'malformed Haiku initial', false, false],
   [3, 'Haiku repair', false, false],
   [3, 'Haiku automatic repair', true, false],

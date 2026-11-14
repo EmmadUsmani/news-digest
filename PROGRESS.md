@@ -224,3 +224,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Full `pnpm check` passes: 994 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Diff check passes.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts; local admin status confirms all 38 active sources healthy with stored content.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2241 — Sonnet repair publication regression
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Scheduled NBA/item 58/public-mode acceptance still awaits 15:00 UTC.
+- Owner-visible purpose: protect AI-edited NBA summaries through repair and publication rather than accepting a corrected response only in isolation.
+- Added the saved corrected Sonnet response to the existing automatic repair/publication/public-reader HTTP regression. The malformed initial output is historical Haiku output under synthetic Sonnet transport; this is an offline orchestration case, not a historical request pair.
+- Verifies two separate reservations/settlements, exactly one corrected cache write, cache reuse across generations, immutable published snapshots and hidden unpublished content.
+- Updated TASKS and database verification evidence. No runtime behavior changes, provider requests, paid replay or saved-edition changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 994 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Existing build bundle warnings only.
+- API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts. New Sonnet automatic repair publication case passes; diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation.

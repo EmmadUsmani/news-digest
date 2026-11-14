@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] NBA Sonnet automatic repair publication (2241): saved corrected Sonnet output now passes the full automatic rejection/repair/cache/public-reader cycle offline; separate reservations/settlements and immutable published copies verified. Historical output with synthetic transport/triage; scheduled acceptance remains open.
+
 - [x] Ars excerpt navigation (2240): remove terminal article/comments self-links from the recorded reporting fragment; preserve all reporting, metadata and source continuation, with publisher/destination/nonterminal controls.
 
 - [x] Nintendo Life teaser navigation (2239): omit terminal publisher self-links while retaining reporting and a continuation marker; unchanged recorded feed plus publisher/destination/nonterminal controls pass offline.
