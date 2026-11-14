@@ -11,8 +11,13 @@ async function main() {
   );
   const saved = edition.topics
     .flatMap((topic) => topic.posts)
-    .find((post) => post.platform === 'bluesky');
-  assert.ok(saved, 'A real saved Bluesky post is required');
+    .find(
+      (post) =>
+        post.platform === 'bluesky' &&
+        /https?:\/\//.test(post.displayText ?? post.text),
+    );
+  assert.ok(saved, 'A real saved Bluesky post with a source link is required');
+  const displayText = saved.displayText ?? saved.text;
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -35,11 +40,13 @@ async function main() {
           return route.continue();
         });
         await page.goto(origin);
-        const card = page.locator('.bluesky-card').first();
+        const card = page.locator('.bluesky-card').filter({
+          has: page.locator(`.byline a[href="${saved.url}"]`),
+        });
         await card.waitFor();
         await card.scrollIntoViewIfNeeded();
         const text = card.locator('.post-text');
-        assert.equal(await text.textContent(), saved.text);
+        assert.equal(await text.textContent(), displayText);
         assert.equal(
           await card
             .locator('.byline time')
@@ -51,7 +58,7 @@ async function main() {
         assert.equal(await original.count(), 1);
         assert.equal(await original.getAttribute('href'), saved.url);
         assert.equal(await original.getAttribute('target'), '_blank');
-        const urls = saved.text.match(/https?:\/\/[^\s<>]+/g) ?? [];
+        const urls = displayText.match(/https?:\/\/[^\s<>]+/g) ?? [];
         assert.ok(urls.length > 0, 'Saved post exercises inline source links');
         for (const url of urls) {
           assert.equal(
