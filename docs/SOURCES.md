@@ -3166,3 +3166,13 @@ metadata using the collector's default-off rotation precedence; exports mark
 bounded four-query comparison. Alternatives still supply substantial unrelated
 or promotional material; retain production queries and semantic/editorial gates.
 No collection writes, inference or media fetches. [Comparison](edition-reviews/2026-11-13-tech-bluesky.md#configured-baseline-comparison--iteration-2272).
+
+### Verge Installer opening navigation (2026-11-14, iteration 2288)
+
+One explicit GET of the configured Atom feed retained the unmodified Installer
+No. 152 entry as a fixture. The parser omits its exact opening welcome/archive
+promotion, retaining the linked recommendations and source-continuation marker.
+All supplied recommendations now fit the 600-character editor evidence view;
+metadata and the lead image are unchanged. Other publishers, changed copy,
+other archive destinations and non-opening text retain the paragraph. No source,
+schedule, ranking or saved-edition change; normal ingestion refreshes the excerpt.

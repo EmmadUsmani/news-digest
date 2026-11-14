@@ -173,6 +173,12 @@ function excerpt(value: unknown, articleUrl: string): string {
   // The Verge repeats prices in a purchase widget, where struck-out prices
   // lose their meaning in plain text. Keep prices and details in reporting.
   if (new URL(articleUrl).hostname === 'www.theverge.com') {
+    // Installer opens with a welcome/archive promotion before its recommendations.
+    // Match the recorded opening copy and archive URL; keep the reading list.
+    body = body.replace(
+      /^\s*<p class="wp-block-paragraph">Hi, friends! Welcome to <em>Installer<\/em> No\. \d+, your guide to the best and <em>Verge<\/em>-iest stuff in the world\. \(If you're new here, welcome, thank you for taking time away from <em>Zelda<\/em> to be here, and also you can read all the old editions at the <a href="https:\/\/www\.theverge\.com\/installer-newsletter"><em>Installer<\/em> homepage<\/a>\.\)<\/p>/,
+      '',
+    );
     body = body.replace(
       /<div\b[^>]*\bclass\s*=\s*(["'])product-block\1[^>]*>\s*<h3>[^<]*<\/h3>\s*<figure\b[^>]*>\s*<img\b[^>]*>\s*<\/figure>\s*<h3>Where to Buy:<\/h3>\s*<ul>(?:(?!<\/?div\b)[\s\S])*?<\/ul>\s*<\/div>/gi,
       ' ',
