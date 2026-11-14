@@ -76,18 +76,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2214 — Verge commerce evidence cleanup
-
-- Clean main; no inherited work. Zero alerts, healthy API/database/Redis. Scheduled NBA/item 58/private public-mode gates still await today's normal edition.
-- Reader weakness: saved Verge CMF feed reporting ended with untagged Hype Desk JavaScript advertising unrelated Beats/Walmart products; its first configuration field entered the bounded excerpt.
-- Remove only the exact empty widget plus terminal configuration before normalization; all preceding reporting remains. Plain configuration mentions, different configuration and following reporting are preserved.
-- Added a minimal recorded Atom entry from the previous iteration's saved response; XML serialization differs. No new source request, crawl, paid call or change to saved editions/budgets/providers.
-- Five targeted feed cases pass, including recorded metadata/reporting equality and negative controls. Handbook/SOURCES/TASKS updated; no UI or diagram change.
-- First full check stalled in telemetry-export.test.ts after its first test; stopped that child after several minutes. Independent telemetry test file passes 3/3. Full `pnpm check` retry passes: 989 unit/301 integration, four expected skips.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` (existing bundler warnings), handbook/schema and diff checks pass. Saved reader verifies five topics/15 stories/20 posts; all 38 active sources report data/no errors.
-- Commit/push and built API/worker restart follow; no activation flag changes.
-- Next: today's scheduled all-topic/NBA acceptance, item 58 closure, then private public-mode activation.
-
 ## 2026-11-14: iteration 2215 — retain feed lead images
 
 - Clean main; no inherited work. Zero active alerts and healthy API/database/Redis. NBA/item 58/private public-mode gates await today's normal scheduled edition.
@@ -225,3 +213,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - First shell `pnpm check` ended with signal 143 during integration (990 unit passes, no reported failures); reran full verification in finite systemd unit `news-digest-check-2226`. Handbook/schema check passes: 18 pages/39 tables.
 - Final `pnpm check` passes: 990 unit/311 integration passes, four expected integration skips; finite check unit exits 0. Diff check passes.
 - Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2227 — Destructoid contents in feed excerpts
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/public-mode gates still await 15:00 UTC.
+- Reader weakness: recorded Destructoid contents navigation repeats headings and displaces reporting. Omit only its named Yoast heading/list block before the existing excerpt cap; retain article headings/lists and unrelated blocks.
+- Focused offline tests pass (2): unchanged recorded feed, metadata equivalence, retained location instructions, 1,500-character cap and boundary controls. No live source/inference calls or saved-edition changes.
+- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2214 to keep PROGRESS small. No UI, schema, configuration or budget changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and affected handbook/schema checks pass (18 pages/39 tables; existing bundle warning). All 38 active sources healthy; saved reader gate confirms five topics/15 stories/20 posts.
+- First full check stalled in unchanged telemetry-export transport after test 828; stopped the finite unit. Standalone telemetry tests pass (3); fresh full check in `news-digest-check-2227-retry` passes: 990 unit/313 integration passes, four expected skips; unit exits 0.
+- API/worker rebuilt and restarted active; health/database/Redis and saved reader gate pass after restart. Diff check passes. No UI change or screenshots required.
+- Next: investigate intermittent telemetry-export unit hang if reproduced; 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.

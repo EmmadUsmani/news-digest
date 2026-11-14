@@ -10,6 +10,44 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Destructoid contents gives excerpt space back to reporting', async () => {
+  const xml = await fixture('destructoid.xml');
+  const [item] = parseFeed(xml);
+  const withoutContents = xml.replace(
+    /<div class="wp-block-yoast-seo-table-of-contents yoast-table-of-contents">[\s\S]*?<\/div>/g,
+    ' ',
+  );
+  assert.deepEqual(parseFeed(xml), parseFeed(withoutContents));
+  assert.doesNotMatch(item.excerpt, /Table of contents/);
+  assert.equal(
+    item.excerpt.match(/Map fragment at The \$\.\$\. Rocky location/g)?.length,
+    1,
+  );
+  assert.match(item.excerpt, /southern end/);
+  assert.match(item.excerpt, /lower levels of the large ship/);
+  assert.ok(item.excerpt.length <= 1500);
+  assert.match(item.excerpt, /…$/);
+});
+
+void test('Yoast contents removal preserves article structure and unrelated blocks', () => {
+  const contents =
+    '<h2>Table of contents</h2><ul><li><a href="#event">Repeated heading</a></li></ul>';
+  const body = `<p>Opening reporting.</p>
+    <div class="wp-block-yoast-seo-table-of-contents yoast-table-of-contents">${contents}</div>
+    <h2 id="event">Event schedule</h2><ul><li>October 27</li></ul>
+    <div class="other-contents">${contents}</div>
+    <div class="wp-block-yoast-seo-table-of-contents yoast-table-of-contents"><p>Article reporting inside a different structure.</p></div>
+    <p>The article discusses yoast-table-of-contents.</p>`;
+  const [item] = parseFeed(`<rss><channel><item>
+    <title>Report</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description></item></channel></rss>`);
+  assert.equal(
+    item.excerpt,
+    'Opening reporting. Event schedule October 27 Table of contents Repeated heading Article reporting inside a different structure. The article discusses yoast-table-of-contents.',
+  );
+});
+
 void test('recorded GameSpot navigation gives excerpt space back to reporting', async () => {
   const xml = await fixture('gamespot.xml');
   const [item] = parseFeed(xml);

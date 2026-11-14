@@ -2884,3 +2884,11 @@ article body. Its named navigation block is now omitted before the existing
 1,500-character excerpt cap, retaining article headings, lists, dates and
 metadata. The unchanged recorded fixture verifies this offline; source status
 remains blocked, with no new fetch or bypass. Other navigation remains intact.
+
+## 2026-11-14 iteration 2227 — Destructoid excerpt navigation
+
+The recorded Destructoid RSS repeats article headings in its named Yoast table
+of contents. Omit that exact heading/list block before the 1,500-character cap
+so more reporting fits. Article headings, lists, metadata and unrelated blocks
+remain. The unchanged recorded feed and synthetic boundary controls verify this
+offline; no source requests, inference calls or source-status changes.
