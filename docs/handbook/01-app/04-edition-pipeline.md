@@ -30,6 +30,10 @@ the shortlist in importance order and shows source excerpts. Incomplete triage
 uses the ordinary relevance and recency fallback. Both omit articles without source
 text, so a topic can have fewer stories. Neither fallback writes a brief.
 
+Feed excerpts use explicit RSS/Atom article content before descriptions or
+summaries, falling back when content is blank. Text stays capped at 1,500
+characters; collection does not fetch linked article pages.
+
 ## The steps in one line each
 
 | Step          | Plain-language purpose                                                                  |

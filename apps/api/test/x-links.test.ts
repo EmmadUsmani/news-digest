@@ -47,5 +47,8 @@ void test('feed harvest keeps embedded links before stripping HTML and truncatin
     items[0].xLinks?.map((link) => link.externalId),
     ['123456789', '987654321'],
   );
-  assert.equal(items[0].excerpt, 'Clip');
+  assert.equal(
+    items[0].excerpt,
+    'Long article '.repeat(200).trim().slice(0, 1500),
+  );
 });

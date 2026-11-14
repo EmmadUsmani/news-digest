@@ -10,14 +10,14 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
-void test('recorded Ars content fallback retains recovery reporting and article metadata', async () => {
+void test('recorded Ars content takes precedence and retains reporting and metadata', async () => {
   const xml = await fixture('ars-outage-2026-11-13.xml');
   const [original] = parseFeed(xml);
-  // Remove only the teaser to exercise the existing content path before the
-  // scheduled content-precedence fix. The recorded fragment stays unchanged.
+  // Removing the teaser must leave the same reporting and metadata.
   const [body] = parseFeed(
     xml.replace(/<description>[\s\S]*?<\/description>/, ''),
   );
+  assert.equal(original.excerpt, body.excerpt);
   assert.match(body.excerpt, /Recovery actions are ongoing/);
   assert.match(body.excerpt, /extended email timeout to 48 hours/);
   assert.equal(body.excerpt.length, 593);
@@ -40,6 +40,10 @@ void test('feed content paths retain bounded text, blank fallback and X citation
   const rss = (fields: string) =>
     `<rss xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><item><title>Test</title><link>https://example.org/story</link><pubDate>2026-11-13T00:00:00Z</pubDate>${fields}</item></channel></rss>`;
   const [contentOnly] = parseFeed(rss(body));
+  assert.equal(
+    parseFeed(rss(description + body))[0].excerpt,
+    contentOnly.excerpt,
+  );
   assert.equal(contentOnly.excerpt.length, 1500);
   assert.equal(
     contentOnly.excerpt,
@@ -63,7 +67,7 @@ void test('feed content paths retain bounded text, blank fallback and X citation
   assert.equal(
     parseFeed(
       atom(
-        '<content type="html">&lt;p&gt;Atom article evidence&lt;/p&gt;</content>',
+        '<summary>Atom teaser</summary><content type="html">&lt;p&gt;Atom article evidence&lt;/p&gt;</content>',
       ),
     )[0].excerpt,
     'Atom article evidence',
@@ -510,11 +514,15 @@ void test('recorded feed reporting survives enrichment, repeat ingestion and tit
       (entry) => entry.id === id,
     )!;
     const xml = await fixture('ars-outage-2026-11-13.xml');
-    const teaser = { ...parseFeed(xml)[0], url };
-    // Simulate the forthcoming parser output without changing production
-    // precedence: remove only the recorded teaser, not the supplied reporting.
+    const teaser = {
+      ...parseFeed(
+        xml.replace(/<content:encoded>[\s\S]*?<\/content:encoded>/, ''),
+      )[0],
+      url,
+    };
+    // A prior teaser-only observation is enriched by the unchanged feed fragment.
     const body = {
-      ...parseFeed(xml.replace(/<description>[\s\S]*?<\/description>/, ''))[0],
+      ...parseFeed(xml)[0],
       url,
     };
     assert.notEqual(teaser.excerpt, body.excerpt);
@@ -800,7 +808,7 @@ void test('recorded Yardbarker NBA feed preserves bylines, offset dates and synd
   assert.ok(items.every((item) => item.xLinks.length === 0));
 });
 
-void test('feed excerpts fall back to bounded body text only when summaries are blank', () => {
+void test('feed excerpts prefer bounded content and fall back to summaries', () => {
   const item = (fields: string) =>
     parseFeed(`<rss><channel><item>
     <title>Synthetic feed fallback</title><link>https://example.com/article</link>
@@ -810,13 +818,13 @@ void test('feed excerpts fall back to bounded body text only when summaries are 
     item(
       '<description>Publisher summary</description><content:encoded>Long body</content:encoded>',
     ).excerpt,
-    'Publisher summary',
+    'Long body',
   );
   assert.equal(
     item(
       '<description> </description><summary>Alternative summary</summary><content:encoded>Long body</content:encoded>',
     ).excerpt,
-    'Alternative summary',
+    'Long body',
   );
   assert.equal(
     item(

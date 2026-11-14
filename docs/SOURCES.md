@@ -2782,3 +2782,8 @@ pre-noon generation-change window; tonight’s runtime is unchanged.
 Iteration 2186 records the single outage article as an offline fixture and
 verifies its 593-character body, metadata, text cap and X-link transport.
 No new fetch, ingestion or production precedence change.
+
+Feed excerpt precedence (2205): explicit RSS encoded/Atom content now precedes
+summary/description, with blank fallback and the existing 1,500-character cap.
+No added source, article crawl or request. Recorded Ars reporting/storage checks
+cover the change; scheduled summary-quality acceptance remains open.

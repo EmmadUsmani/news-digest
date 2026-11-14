@@ -38,15 +38,7 @@ Archived entry: [iteration 2190](docs/progress-archive/2026-11-13-iteration-2190
 
 Archived entry: [iteration 2191](docs/progress-archive/2026-11-13-iteration-2191.md).
 
-## 2026-11-13: iteration 2192 — record Gaming fallback event coverage
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. Generation cutoff respected; scheduled NBA/item 58 acceptance and feed-depth implementation remain time-gated.
-- Open M5 step: recorded the production loader's bounded 200 Gaming candidates for Nov 11–12 in a read-only transaction. Current stored observations/policy are not exact scheduled inputs; no live article fetches, inference or writes.
-- Labeled five events before scoring; Golden Joystick winners count as one ceremony. Corrected one draft article index after headline verification, before evaluation. Labels are agent judgments; independent acceptance stays open.
-- Unchanged fallback finds one of five events in five slots (20% recall/yield); two guide negatives omitted. Partial Intergalactic/Geralt phrase eligibility and recency explain missed targets; no ranking/policy tuning.
-- Extended `pnpm evaluate:ranking` and historical regression; targeted four tests pass. TASKS/RANKING updated; SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source/system-flow/owner-decision change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking` and `git diff --check` pass: 980 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; browser screenshots unnecessary.
-- Next: pre-noon feed-content precedence, then Nov 14 scheduled AI editing/event diversity and NBA/item 58/private public activation. Independent M5 labels and semantic grouping remain open.
+Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192.md).
 
 ## 2026-11-13: iteration 2193 — isolate grouping from missing-event recall
 
@@ -183,3 +175,15 @@ Archived entry: [iteration 2191](docs/progress-archive/2026-11-13-iteration-2191
 - Initial full check stalled in existing telemetry-export transport test; terminated that child. File-only rerun passed 3/3; complete `pnpm check` retry passed 986 unit/295 integration tests, four expected skips.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full-check retry passes typecheck/lint/format/boundaries and tests; commit/push and built API/worker restart follow.
 - Next: pre-noon feed-content precedence fix; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2205 — prefer supplied feed reporting
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis and API/worker active. NBA/item 58 scheduled acceptance remains pending.
+- RSS encoded/Atom content now precedes teasers, with blank fallback and unchanged 1,500-character cap, metadata and all-field X citation extraction. No article-page crawl, new source, provider or budget change.
+- Unchanged recorded Ars fragment supplies 593 reporting characters; precedence/cap/blank/Atom tests and isolated teaser-to-body enrichment/repeat/blank-observation regression updated.
+- TASKS, SOURCES, affected handbook and evidence updated; archived iteration 2192. NEEDS_FROM_HUMAN unchanged.
+- Implementation/checks began Nov 13 evening; deployment held until Nov 14 UTC to obey the pre-noon generation window. Natural summary-depth/AI-editing acceptance remains open.
+- Initial full check caught an X-link test pinning old teaser precedence; updated bounded-body expectation, retaining both-field citation assertions. Targeted X tests pass 2/2.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/295 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
+- Read-only live Ars fetch/parser check: 20/20 nonempty bounded excerpts, first 883 characters. No live storage writes or paid calls. Commit/push and built API/worker restart follow; saved reader checked after restart.
+- Next: Nov 14 normal scheduled all-topic AI editing/diversity, NBA/item 58 acceptance, then private public-mode activation.

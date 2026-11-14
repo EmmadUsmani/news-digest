@@ -82,3 +82,16 @@ only the fixture description in memory; production precedence is unchanged.
 This closes persistence verification for the planned fix, not natural edition
 quality acceptance. Implement the precedence change before noon; avoid further
 preparation iterations on this same area while that cutoff is pending.
+
+## Content precedence implementation — iteration 2205
+
+Explicit RSS encoded content and Atom content now precede descriptions and
+summaries, with normalized blank fallback. The 1,500-character cap, metadata
+and extraction of X links from all fields remain unchanged. The unchanged
+recorded Ars fragment now supplies all 593 reporting characters directly.
+The isolated enrichment regression starts with a teaser-only observation, then
+ingests the unchanged fragment and retains its reporting across repeats and
+blank observations. No article-page request or paid call is involved.
+
+Deployment is on Nov 14 UTC, inside the pre-noon generation window.
+Scheduled AI-editing recovery and natural summary quality remain unaccepted.
