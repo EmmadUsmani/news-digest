@@ -2808,3 +2808,13 @@ observed Ars bodies append “Comments”. Reader continuation now recognizes th
 explicit publisher footers as well as the existing named-publisher form. Source
 text and ingestion remain unchanged. Browser replay uses the recorded body in a
 simulated edition, never a newly published live story.
+
+### Verge source continuation — Nov 14, iteration 2213
+
+The unchanged recorded Verge Atom entries end with “Read the full story at
+The Verge.” Edition cards now recognize that explicit source handoff alongside
+full-article footers; saved copies retain continuation after their normal
+excerpt limit. Browser replay uses recorded reporting in a simulated edition.
+No source text, ingestion, saved server edition or generation behavior changes.
+One live feed GET also exposed untagged JavaScript in a commerce entry; no
+text-removal heuristic was added because script-tag removal cannot fix it.

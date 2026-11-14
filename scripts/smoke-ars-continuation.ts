@@ -1,4 +1,4 @@
-// Recorded Ars reporting injected into an edition fixture; browser-local saves, GET-only.
+// Recorded publisher reporting injected into an edition fixture; browser-local saves, GET-only.
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
@@ -8,6 +8,8 @@ import { chromium, expect } from 'playwright/test';
 import { parseFeed } from '../apps/api/src/modules/ingestion/adapters/feed.adapter';
 
 async function smoke() {
+  const publisher = process.argv[2] ?? 'ars';
+  assert.ok(publisher === 'ars' || publisher === 'verge');
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
@@ -21,16 +23,27 @@ async function smoke() {
   );
   assert.ok(story && complete);
   const [report] = parseFeed(
-    await readFile('apps/api/test/fixtures/ars-outage-2026-11-13.xml', 'utf8'),
+    await readFile(
+      publisher === 'ars'
+        ? 'apps/api/test/fixtures/ars-outage-2026-11-13.xml'
+        : 'apps/api/test/fixtures/atom.xml',
+      'utf8',
+    ),
   );
-  assert.ok(report.excerpt.endsWith('Read full article Comments'));
+  assert.ok(
+    report.excerpt.endsWith(
+      publisher === 'ars'
+        ? 'Read full article Comments'
+        : 'Read the full story at The Verge.',
+    ),
+  );
   // Keep the fixture's actual reporting, URL and title; publication is simulated.
   Object.assign(story, {
     title: report.title,
     summary: report.excerpt,
     url: report.url,
     publishedAt: report.publishedAt,
-    sources: ['Ars Technica'],
+    sources: [publisher === 'ars' ? 'Ars Technica' : 'The Verge'],
     coverage: undefined,
     publisher: undefined,
   });
@@ -70,6 +83,9 @@ async function smoke() {
         await expect(continuation).toHaveAttribute('target', '_blank');
         await continuation.focus();
         await expect(continuation).toBeFocused();
+        await card.screenshot({
+          path: `docs/screenshots/ui/${publisher}-continuation-edition-${device}-${theme}.png`,
+        });
         await expect(
           page
             .locator(`[id="story-${complete.id}"]`)
@@ -85,7 +101,12 @@ async function smoke() {
         const saved = page.getByRole('listitem').filter({
           has: page.getByRole('link', { name: story.title, exact: true }),
         });
-        await expect(saved.locator('p.post-text')).toHaveText(story.summary!);
+        const savedText = await saved.locator('p.post-text').innerText();
+        if (publisher === 'ars') assert.equal(savedText, story.summary);
+        else {
+          assert.ok(savedText.length <= 600 && savedText.endsWith('…'));
+          assert.ok(story.summary!.startsWith(savedText.slice(0, -1)));
+        }
         await expect(
           saved.getByRole('link', {
             name: `Continue reading: ${story.title}`,
@@ -93,7 +114,7 @@ async function smoke() {
           }),
         ).toHaveAttribute('href', story.url);
         await page.reload();
-        await expect(saved.locator('p.post-text')).toHaveText(story.summary!);
+        await expect(saved.locator('p.post-text')).toHaveText(savedText);
         await expect(
           saved.getByRole('link', {
             name: `Continue reading: ${story.title}`,
@@ -106,13 +127,13 @@ async function smoke() {
           ),
         );
         await page.screenshot({
-          path: `docs/screenshots/ui/ars-continuation-${device}-${theme}.png`,
+          path: `docs/screenshots/ui/${publisher}-continuation-${device}-${theme}.png`,
           fullPage: true,
         });
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${device}/${theme}: recorded Ars fixture and saved copy retain text, source destination and reload; complete story unchanged`,
+          `${device}/${theme}: recorded ${publisher} fixture and saved copy retain text, source destination and reload; complete story unchanged`,
         );
       }
     }

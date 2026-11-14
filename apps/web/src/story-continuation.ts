@@ -2,7 +2,7 @@
 export function storyNeedsContinuation(text: string) {
   return (
     /(?:…|\.{3})\s*$/.test(text) ||
-    /\bRead (?:the )?full article(?: on [a-z0-9.-]+)?\s*[.!]?(?:\s+Comments)?\s*$/i.test(
+    /\bRead (?:the )?full (?:article|story)(?: on [a-z0-9.-]+| at [a-z0-9][a-z0-9 .&’'-]{0,79})?\s*[.!]?(?:\s+Comments)?\s*$/i.test(
       text,
     )
   );

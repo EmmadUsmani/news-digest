@@ -52,28 +52,7 @@ Archived entry: [iteration 2198](docs/progress-archive/2026-11-13-iteration-2198
 
 Archived entry: [iteration 2199](docs/progress-archive/2026-11-13-iteration-2199.md).
 
-## 2026-11-13: iteration 2200 — publisher teaser continuation
-
-- Clean main; no inherited work. Initial alerts zero and health/Postgres/Redis pass; scheduled recovery acceptance awaits Nov 14. Generation cutoff retained.
-- Reader weakness: actual Gaming PS5 QSSR teaser ends “Read the full article on pushsquare.com” as plain text. Editions and saved story copies now offer source continuation for explicit publisher full-article prompts as well as ellipses. Owner can continue the incomplete report directly.
-- Original summary, source URL, storage, source collection, generation and budgets unchanged; no paid calls. Older STEERING 35 requires plain summaries without mode labels; retained.
-- Handbook reading preferences and TASKS updated; oldest progress entry archived. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- `pnpm exec tsx scripts/smoke-publisher-continuation.ts`: actual published Gaming teaser passes desktop/mobile light/dark, exact source URL/text, keyboard focus, saved reload and no overflow/browser errors; complete NBA story retains no continuation. Four screenshots added; mobile light inspected.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 985 unit/294 integration tests; four expected skips, existing web chunk warning. Initial checks caught import order then smoke-script formatting; fixed before final complete pass.
-- Built API/worker restarted healthy; Postgres/Redis pass and latest edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
-- Next: pre-noon feed-content precedence; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
-
-## 2026-11-13: iteration 2201 — stabilize explorer rollback verification
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis pass; all 38 sources healthy. Recent failure was OpenAI feed's 20-second timeout at 21:24; natural collection recovered by 22:24 with 60 items. No retry or source change needed.
-- Highest scheduled/public gates await Nov 14; after-noon generation hold retained. No new reader defect established; no speculative UI change.
-- Open metrics-store recovery step: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` observed 24 healthy rules, queries ≤1.273 s, zero new evaluator failures/missed iterations/admission hits/timeouts/slow queries. One small natural merge/14,648 rows; no comparable merge, so recovery remains open.
-- Warning-level system metrics/alerts journal since 18:34:06 UTC empty. CPU-only limits retained; next passive probe no earlier than 23:48 UTC. Grafana remains excluded from public launch.
-- Updated TASKS and capacity evidence; archived oldest progress entry. SOURCES/NEEDS_FROM_HUMAN unchanged. No app, generation, budget, provider or stored-content changes; no paid calls.
-- Full check caught existing explorer rollback test comparing changing physical relation sizes (49,152→57,344 bytes). Fixed assertion to retain structural/comment equality and separately validate private statistics; public omission and denied-grant checks retained. This test-only breakage fix changes no production code.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry, `pnpm build`, handbook/schema check, selected-file formatting and diff checks pass: 985 unit/294 integration tests, four expected skips; existing bundle-size warning.
-- Rebuilt API/worker restarted active; health/Postgres/Redis pass; latest saved edition retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
-- Next: before-noon feed-content precedence; Nov 14 all-topic AI editing/diversity and NBA/item 58 scheduled acceptance, then private public-mode activation.
+Archived entries: [iterations 2200–2201](docs/progress-archive/2026-11-14-iterations-2200-2201.md).
 
 ## 2026-11-13: iteration 2202 — historical NBA raw-body replay
 
@@ -199,3 +178,15 @@ Archived entry: [iteration 2199](docs/progress-archive/2026-11-13-iteration-2199
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (989 unit/299 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web chunk warning only.
 - API/worker restarted active; `/healthz` passes, `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; all 38 sources report data/no errors. Commit/push follow.
 - Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Full-edition raw-response golden remains open.
+
+## 2026-11-14: iteration 2213 — Verge source continuation
+
+- Clean main; no inherited work. Zero alerts and healthy API/database/Redis. NBA/item 58/private public-mode gates still await the normal scheduled edition.
+- Reader weakness: recorded Verge excerpts end with “Read the full story at The Verge” but offered no explicit continuation link. Added full-story/named-publisher handoffs alongside existing full-article recognition.
+- Reused the publisher browser replay with unchanged recorded Atom reporting in a simulated edition; source URLs/text and normal saved-copy limits retained. Complete-story control unchanged.
+- Before-change Verge replay reproduced the missing link; `pnpm exec tsx scripts/smoke-ars-continuation.ts verge` and `pnpm exec tsx scripts/smoke-ars-continuation.ts` pass desktop/mobile light/dark, including saved-copy reload, focus and overflow checks. Updated/inspected screenshots.
+- One live Verge feed GET exposed untagged commerce JavaScript. Script-tag stripping would not solve it, so no heuristic removal or ingestion change was made; evidence noted in SOURCES.
+- TASKS/SOURCES/affected handbook updated; archived iterations 2200–2201. No generation, provider, budget, public-flag or saved-server-content change.
+- First full check stopped on new archive formatting; corrected it. Typecheck/lint, `pnpm exec tsx scripts/check-handbook.ts 01-app/README`, web build and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass; all 38 sources report data/no errors. Final `pnpm check` passes (989 unit/299 integration; four expected skips); `pnpm build` passes with the existing chunk warning.
+- Final `pnpm format`, `pnpm lint:fix` and diff checks precede commit/push; built API/worker restart follows. No paid calls.
+- Next: normal scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.
