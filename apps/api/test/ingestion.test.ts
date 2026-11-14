@@ -11,6 +11,34 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded PlayStation podcast opens with episode reporting, not subscription navigation', async () => {
+  const xml = await fixture('playstation.xml');
+  const prefix =
+    'Email us at PSPodcast@sony.com! Subscribe via Apple Podcasts, Spotify, or download here ';
+  assert.ok(xml.includes(prefix));
+  const items = parseFeed(xml);
+  assert.deepEqual(items, parseFeed(xml.replace(prefix, '')));
+  assert.match(items[0].excerpt, /^Hey, y’all! Sid, O’Dell, and Kristen/);
+  assert.match(items[0].excerpt, /big games of October/);
+  assert.match(items[0].excerpt, /Stuff We Talked About/);
+  assert.ok(items.every((item) => item.excerpt.length <= 1500));
+  // Subscription instructions elsewhere or from another publisher are evidence.
+  const otherHost = parseFeed(
+    xml.replaceAll('blog.playstation.com', 'example.com'),
+  );
+  assert.ok(otherHost[0].excerpt.startsWith(prefix));
+  const nonOpening = parseFeed(
+    xml.replace(prefix, 'Episode introduction. ' + prefix),
+  );
+  assert.ok(
+    nonOpening[0].excerpt.startsWith('Episode introduction. ' + prefix),
+  );
+  const changed = parseFeed(
+    xml.replace('PSPodcast@sony.com!', 'reader@example.com!'),
+  );
+  assert.match(changed[0].excerpt, /^Email us at reader@example.com!/);
+});
+
 void test('recorded Google News headline links are not reporting excerpts', async () => {
   const xml = await fixture('google-news.xml');
   const items = parseFeed(xml);

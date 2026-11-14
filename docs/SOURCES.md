@@ -2911,3 +2911,12 @@ article body. Omit the exact “Screenshot by Destructoid” and “Screenshot a
 remix by Destructoid” figcaptions before the excerpt cap, leaving more room for
 reporting. Descriptive captions, ordinary article text, images and metadata
 remain intact. Offline verification only; saved editions are unchanged.
+
+## 2026-11-14 iteration 2231 — PlayStation podcast excerpt opening
+
+The recorded PlayStation Blog RSS podcast description starts with email and
+subscription navigation. Omit that exact leading promotion on
+`blog.playstation.com`, retaining the episode description, metadata and the
+1,500-character cap. Other publishers, changed wording and non-opening mentions
+remain intact. Verified offline against the unchanged recording; no source
+request or saved-edition rewrite.

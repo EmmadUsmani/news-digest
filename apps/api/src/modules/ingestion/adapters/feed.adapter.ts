@@ -76,7 +76,15 @@ function excerpt(value: unknown, articleUrl: string): string {
     /<\/?(?:a|abbr|b|bdi|bdo|cite|code|del|em|i|ins|kbd|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr)\b[^>]*>/gi,
     '',
   );
-  const normalized = plainText(reporting, Number.MAX_SAFE_INTEGER);
+  let normalized = plainText(reporting, Number.MAX_SAFE_INTEGER);
+  // PlayStation's podcast RSS opens with subscription navigation, not reporting.
+  // Limit this exact leading promotion to the publisher that syndicates it.
+  if (new URL(articleUrl).hostname === 'blog.playstation.com') {
+    normalized = normalized.replace(
+      /^Email us at PSPodcast@sony\.com! Subscribe via Apple Podcasts, Spotify, or download here\s+/,
+      '',
+    );
+  }
   if (normalized.length <= 1500) return normalized;
   let prefix = normalized.slice(0, 1499).replace(/[\uD800-\uDBFF]$/, '');
   if (/\S$/.test(prefix) && /\S/.test(normalized[prefix.length])) {

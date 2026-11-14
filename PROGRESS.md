@@ -225,3 +225,12 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and affected handbook/schema check pass (18 pages/39 tables; existing bundle warning). Full `pnpm check` passes typecheck/lint/format/boundaries and 990 unit tests; integration has one unchanged Grafana listener startup failure (Postgres administrator disconnect), with 315 passes/four skips. Listener passes unchanged standalone; fresh `pnpm test:integration` passes 316 tests/four expected skips, unit exits 0.
 - Rebuilt API/worker restarted active; health/database/Redis pass after startup retry. Saved reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. No UI change or screenshots required.
 - Diff check passes. Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2231 — PlayStation podcast reporting first
+
+- Clean main; no inherited work. `pnpm obs alerts` zero; `/healthz` database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
+- Reader weakness: recorded PlayStation podcast excerpts start with email/subscription navigation. Omit the exact opening promotion on its blog; retain episode reporting, metadata and the 1,500-character cap. Saved editions unchanged; no external requests or inference calls.
+- Focused recorded-feed test passes, including other-host/non-opening/changed-wording controls. Updated TASKS, SOURCES and affected handbook prose; no UI/schema/budget/flag changes.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/317 integration passes, four expected skips; 18 handbook pages/39 tables. Existing bundle warning only.
+- API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local source read confirms all 38 successful with stored content/no errors. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.

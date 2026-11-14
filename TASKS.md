@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] PlayStation podcast opening (2231): omit the exact leading email/subscription promotion on the publisher blog; recorded episode reporting and metadata retained, with other-host/non-opening/changed-wording controls.
+
 - [x] Destructoid screenshot credits (2230): omit exact credit-only figcaptions before the excerpt cap; unchanged recorded reporting, descriptive captions, article text and metadata verified offline.
 
 - [x] Google News headline-only descriptions (2229): recorded linked headline/publisher repetitions remain blank, so new candidates cannot fill readable fallback slots with repeated titles; extra reporting, explicit article content and metadata retained. Saved excerpts/editions unchanged.
