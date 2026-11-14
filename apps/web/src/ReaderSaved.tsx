@@ -161,7 +161,7 @@ export function ReaderSaved() {
                 {((copy.platform === 'story' &&
                   (!copy.excerpt.trim() ||
                     storyNeedsContinuation(copy.excerpt))) ||
-                  (copy.platform === 'x' &&
+                  (copy.platform !== 'story' &&
                     /(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(
                       copy.excerpt,
                     ))) && (
@@ -174,9 +174,15 @@ export function ReaderSaved() {
                   >
                     {!copy.excerpt.trim()
                       ? 'Read source'
-                      : copy.platform === 'x'
-                        ? 'Continue reading on X'
-                        : 'Continue reading at source'}
+                      : copy.platform === 'story'
+                        ? 'Continue reading at source'
+                        : copy.platform === 'x'
+                          ? 'Continue reading on X'
+                          : copy.platform === 'bluesky'
+                            ? 'Continue reading on Bluesky'
+                            : copy.platform === 'reddit'
+                              ? 'Continue reading on Reddit'
+                              : 'Continue reading original post'}
                   </a>
                 )}
                 <div className="flex items-center justify-between gap-4">

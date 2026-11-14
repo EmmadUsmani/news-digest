@@ -68,16 +68,7 @@ Archived entry: [iteration 2208](docs/progress-archive/2026-11-14-iteration-2208
 
 Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209.md).
 
-## 2026-11-14: iteration 2210 — Tech same-story boundaries
-
-- Clean main; no inherited changes. Alerts zero and health/database/Redis healthy. Scheduled NBA/item 58/public-mode gates await today's normal edition; no paid replay.
-- Reader weakness: repeated Tech outage coverage consumes scarce slots. Added 13 same-story pair labels from unchanged recorded Nov 12–13 evidence: eight positives/five negatives.
-- Cases cover outage recovery, separate providers, Gemini launch, AI-freeze versus patent claims, syndicated resignation versus a later allegation, and product review versus downtime.
-- Offline CLI accepts `--later-tech` and saved memberships. No-grouping misses eight positives; deliberately broad downtime control falsely merges two cross-provider pairs; event-label control matches eight with no known false merge. Unknown pairs stay unknown.
-- Agent labels are not independent judgments or semantic accuracy; production matcher/selection, budgets, providers and saved editions unchanged. Historical and paid evaluation plans unchanged.
-- TASKS/RANKING updated; source/handbook behavior and NEEDS_FROM_HUMAN unchanged. Archived iteration 2197. No UI change; browser replay unnecessary.
-- Verification: targeted event-grouping suite (11/11), offline CLI, `pnpm format`, `pnpm lint:fix`, `pnpm check` (988 unit/297 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web bundle warning only; commit/push and built API/worker restart follow.
-- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 ## 2026-11-14: iteration 2211 — correct the fallback ranking measurement
 
@@ -208,3 +199,14 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 - `pnpm format`, `pnpm lint:fix`, build and affected handbook/schema checks pass. Initial concurrent `pnpm check` reached lint before autofix sorted smoke imports; corrected and full recheck passes: 990 unit/309 integration tests, four expected skips.
 - API/worker restarted; health passes. Reader gate verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors; initial probe used nonexistent lastSuccessAt/lastError fields, corrected to actual status fields.
 - Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2222 — saved social continuation
+
+- Clean main; no inherited work. Zero alerts; NBA/item 58 acceptance awaits the scheduled edition.
+- Reader value: clipped saved Bluesky/Reddit posts now offer explicit platform-labelled continuation links, matching X; complete posts remain unchanged. Shared 600-character bounds exposed the gap.
+- `smoke-saved-post-continuation.ts` passes desktop/mobile light/dark: real bookmark clipping with explicit offline fixtures, three platforms, complete controls, destinations, focus, reload/storage preservation, no overflow/page errors. Four screenshots saved; mobile light/desktop dark inspected.
+- TASKS/affected handbook updated; SOURCES unchanged (no ingestion change). No paid calls, server content writes, generation/configuration or activation changes.
+- `pnpm format`, `pnpm lint:fix`, build, handbook/schema and diff checks pass. Archived iteration 2210 to keep this file small.
+- Restarted API/worker active; health/database/Redis pass. Reader gate: five topics/15 stories/20 posts. All 38 active sources have data/success and no errors.
+- Interactive check and isolated retry each terminated (143) after case 313, before summary. Finite temporary systemd unit completes `pnpm check` exit 0: 990 unit/309 integration pass, four expected skips. Unit collected after success.
+- Next: 15:00 UTC scheduled recovery/NBA/diversity review, item 58 closure, then private public-mode activation.
