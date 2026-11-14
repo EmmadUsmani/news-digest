@@ -102,3 +102,14 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - API/worker restarted; initial health request preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts with scheduled provenance verified.
 - No inference, external source requests or production writes by evaluation; no UI/schema/source/system-flow change. Handbook/SOURCES/screenshots unchanged. Private receipts `/tmp/2297-*`.
 - Next: natural Gaming/ownership scheduled acceptance before activation; preserve social-quality challenges and obtain natural grouped Tech evidence before admission changes.
+
+## 2026-11-14: iteration 2298 — natural U.S. social selection
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
+- Reader concern: both U.S. Bluesky videos lack notes. Cached successful Sonnet output intentionally leaves them empty; original text already states the developments. Owner-facing benefit: establish whether context was lost before changing selection or adding redundant prose.
+- Read-only production-shortlist reconstruction reconciles 670 observations, 50 uniquely cached scores and nine finalists. Final aliases select one Duffy funding estimate over repeated announcements plus a distinct Jeffries quote; saved IDs/text/empty notes match exactly.
+- Selected funding update adds a separate development from SFO's X departure status. No X displacement; one slot remains empty. Unsupported-claim drop cannot be assigned to a specific candidate from the accepted cache. Media contents/identities unverified; no normal story-overlap acceptance while U.S. stories are withheld.
+- Added `docs/edition-reviews/2026-11-14-us-social.md`; updated TASKS. Retain `Congress`, gates, prompts and budgets. Private cache-only receipt `/tmp/2298-us-receipt.json`; no inference, source requests, production writes or saved-edition mutation.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle/annotation warnings; `git diff --check` clean.
+- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified.
+- No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership scheduled acceptance before activation; retain broader social quality and normal story-overlap challenges.
