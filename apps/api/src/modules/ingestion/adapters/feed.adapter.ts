@@ -17,6 +17,13 @@ function text(v: unknown): string {
     ? decodeHTML(String((v as Node)['#text'] ?? ''))
     : decodeHTML(String(v ?? ''));
 }
+function leadFigureImage(value: unknown): string | null {
+  // Only the opening figure establishes a lead image. Later inline images may
+  // be products, advertisements or tracking pixels.
+  const figure = text(value).match(/^\s*<figure\b[^>]*>\s*(<img\b[^>]*>)/i);
+  const src = figure?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
+  return canonicalUrl(src?.[2] ?? '');
+}
 function excerpt(value: unknown): string {
   // This feed ad arrives without script tags. Only remove the known empty
   // widget plus its terminal configuration; preserve reporting around code.
@@ -95,7 +102,10 @@ export function parseFeed(xml: string): ContentItem[] {
               200,
             ) || null,
           publishedAt: date.toISOString(),
-          imageUrl: canonicalUrl(String(media?.['@_url'] ?? '')),
+          imageUrl:
+            canonicalUrl(String(media?.['@_url'] ?? '')) ??
+            leadFigureImage(entry['content:encoded']) ??
+            leadFigureImage(entry.content),
           engagement: {},
           ...(publisherName
             ? { publisher: { name: publisherName, url: publisherUrl } }

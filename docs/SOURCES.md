@@ -2835,3 +2835,15 @@ reporting and metadata survive. A configuration mentioned without that widget,
 a different configuration, and content followed by more reporting stay intact.
 No JavaScript executes, article destination is fetched or source is added.
 Saved editions remain unchanged; natural scheduled summary acceptance is open.
+
+### Feed lead images — Nov 14, iteration 2215
+
+The existing recorded Verge commerce entry supplies its cover image in the
+opening HTML figure, without media metadata. Feed ingestion now retains that
+HTTP(S) image when no valid media image is supplied. Only an opening figure
+with an immediate image qualifies; later product images, bare tracking images,
+relative URLs and credential-bearing URLs are excluded. Excerpts are unchanged.
+This reuses the recorded response; no source request or article crawl occurred.
+Previously saved editions remain immutable. The recorded SB Nation NBA entry
+also retains its supplied opening figure; the entry beginning with video keeps
+its missing image.

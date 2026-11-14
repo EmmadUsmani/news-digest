@@ -54,28 +54,7 @@ Archived entry: [iteration 2199](docs/progress-archive/2026-11-13-iteration-2199
 
 Archived entries: [iterations 2200–2201](docs/progress-archive/2026-11-14-iterations-2200-2201.md).
 
-## 2026-11-13: iteration 2202 — historical NBA raw-body replay
-
-- Clean main; no inherited work. Initial alerts zero; health/Postgres/Redis pass. NBA/item 58 scheduled acceptance awaits Nov 14; after-noon generation hold retained.
-- Closed one recorded-response test gap: retained the actual Nov 12 Sonnet initial request and verbatim body, without credentials/headers. Fixed fingerprint refuses changed prompts/instructions.
-- New offline regression transports the historical body through replay, JSON parsing and today's complete NBA validator; all fields match the saved parsed fixture. Second read uses cache with one total reservation/settlement.
-- Token usage was not retained: test usage is explicitly synthetic zero and ledger is in memory. Full recorded-response edition golden stays open; no paid calls or production/generation/source/budget changes.
-- TASKS and database-verification evidence updated; archived iteration 2188. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: targeted NBA tests 4/4; `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build`, handbook/schema and diff checks pass: 986 unit/294 integration tests, four expected skips; existing web chunk warning. Initial full check caught archive formatting; fixed before complete retry.
-- API/worker rebuilt/restarted active; health/Postgres/Redis and latest five-topic reader pass. Commit/push and final restart follow verification.
-- Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
-
-## 2026-11-13: iteration 2203 — historical NBA publication regression
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis and API/worker active. Scheduled NBA/item 58 acceptance awaits Nov 14; generation cutoff retained.
-- Extended the historical Sonnet raw-body replay through real isolated Postgres publication, published-only retrieval and reader projection using today's complete validator and database-loaded candidates.
-- All five story IDs/headlines/summaries/context/evidence and the selected-headline brief compared with the saved response. Second publication must use cache, create a new snapshot and preserve the first.
-- Historical candidate reporting/body distinguished from synthetic triage, attribution, URLs/dates and zero usage. No paid calls, live database writes or production behavior changes. Full recorded-response edition golden stays open.
-- TASKS and database-verification evidence updated; archived iterations 2189–2190. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification caught two test setup assumptions: manual generation is unpublished, and reader contracts omit story context. Explicit offline scheduled keys and reader-field assertions now match those contracts; stored context still checked. Final integration rerun passes.
-- Verification: `pnpm check` passed typecheck/lint/format/boundaries and 986 unit tests, then caught the reader assertion above. Corrected `pnpm test:integration` passes 295 tests/four expected skips; targeted API typecheck/lint and changed-file formatting pass. `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
-- Final formatting/lint, commit/push and built API/worker restart follow checks; latest reader retains five topics/15 stories/20 posts.
-- Next: pre-noon feed-content precedence fix; Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entries: [iterations 2202–2203](docs/progress-archive/2026-11-14-iterations-2202-2203.md).
 
 ## 2026-11-13: iteration 2204 — historical NBA public reader HTTP
 
@@ -202,3 +181,16 @@ Archived entries: [iterations 2200–2201](docs/progress-archive/2026-11-14-iter
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` (existing bundler warnings), handbook/schema and diff checks pass. Saved reader verifies five topics/15 stories/20 posts; all 38 active sources report data/no errors.
 - Commit/push and built API/worker restart follow; no activation flag changes.
 - Next: today's scheduled all-topic/NBA acceptance, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2215 — retain feed lead images
+
+- Clean main; no inherited work. Zero active alerts and healthy API/database/Redis. NBA/item 58/private public-mode gates await today's normal scheduled edition.
+- Reader weakness: Verge supplies its lead image in an opening HTML figure, but ingestion discarded it because only media metadata was read. Retain the supplied figure image when valid media metadata is absent.
+- Only an opening figure/immediate image qualifies; preserve media priority and reject later/bare images, relative URLs, unsafe schemes and credentials. Reporting text and immutable saved editions remain unchanged.
+- Recorded commerce fixture verifies the exact canonical image and unchanged excerpt; synthetic RSS controls verify priority/safety. All ten entries in the existing saved Verge response retain their supplied images. No new source/page request or paid call.
+- Focused `pnpm exec tsx --test --test-name-pattern='Verge|lead figures' apps/api/test/ingestion.test.ts` passes 4/4 with the recorded SB Nation case included. Initial fixture comparison removed the caption too; corrected the control to remove only the image.
+- TASKS/SOURCES/affected handbook updated; archived iterations 2202–2203 to keep PROGRESS small. No diagram, schema, UI, budget, provider or activation change.
+- First full check passed 989 unit tests but failed the SB Nation no-image expectation (302 integration passed/four skipped). Its recorded opening figure now supplies the exact expected cover URL; the video-first entry remains null. Full retry follows.
+- Final `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/303 integration, four expected skips. `pnpm build` passes with existing chunk warning; `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and diff checks pass.
+- Built API/worker restarted active. First immediate reader request raced startup; retry passes. `/healthz` healthy; `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; protected source read reports all 38 with data/no errors.
+- Commit/push and final service restart follow. Next: normal scheduled all-topic/NBA acceptance, item 58 closure, then private public-mode activation.

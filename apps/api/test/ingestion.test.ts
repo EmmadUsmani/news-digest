@@ -10,6 +10,62 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Verge opening figure supplies its missing lead image', async () => {
+  const xml = await fixture('verge-commerce-2026-11-13.xml');
+  const [item] = parseFeed(xml);
+  assert.equal(
+    item.imageUrl,
+    'https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/cmf-by-nothing-speaker-s-breakout.png?crop=0%2C0%2C100%2C100&quality=90&strip=all',
+  );
+  const [withoutFigure] = parseFeed(xml.replace(/&lt;img\b[\s\S]*?\/&gt;/, ''));
+  assert.equal(withoutFigure.imageUrl, null);
+  assert.equal(item.excerpt, withoutFigure.excerpt);
+});
+
+void test('feed lead figures preserve media priority and reject unsafe or later images', () => {
+  const item = (body: string, media = '') =>
+    parseFeed(`<rss><channel><item>
+    <title>Lead image</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>${media}
+    <content:encoded><![CDATA[${body}]]></content:encoded>
+    </item></channel></rss>`)[0];
+  const figure = (src: string) =>
+    `<figure><img alt="Cover" src='${src}' /></figure>`;
+  assert.equal(
+    item(figure('https://example.com/cover.jpg')).imageUrl,
+    'https://example.com/cover.jpg',
+  );
+  assert.equal(
+    item(
+      figure('https://example.com/cover.jpg'),
+      '<media:thumbnail url="https://example.com/media.jpg"/>',
+    ).imageUrl,
+    'https://example.com/media.jpg',
+  );
+  for (const src of [
+    'javascript:alert(1)',
+    'data:image/png;base64,a',
+    '/relative.jpg',
+    'https://user:password@example.com/cover.jpg',
+  ]) {
+    assert.equal(item(figure(src)).imageUrl, null);
+  }
+  assert.equal(
+    item('<p>Reporting first.</p>' + figure('https://example.com/later.jpg'))
+      .imageUrl,
+    null,
+  );
+  assert.equal(
+    item('<figure><img data-src="https://example.com/lazy.jpg" /></figure>')
+      .imageUrl,
+    null,
+  );
+  assert.equal(
+    item('<img src="https://example.com/pixel.jpg" />').imageUrl,
+    null,
+  );
+});
+
 void test('recorded Verge commerce keeps reporting without the terminal ad config', async () => {
   const xml = await fixture('verge-commerce-2026-11-13.xml');
   const [item] = parseFeed(xml);
@@ -778,7 +834,13 @@ void test('recorded SB Nation NBA Atom preserves dates, authors and embedded hig
         !item.excerpt.includes('<p>'),
     ),
   );
-  assert.ok(items.every((item) => item.imageUrl === null));
+  assert.deepEqual(
+    items.map((item) => item.imageUrl),
+    [
+      null,
+      'https://platform.sbnation.com/wp-content/uploads/sites/2/2026/11/gettyimages-2303061353.jpg?crop=0%2C0%2C100%2C100&quality=90&strip=all',
+    ],
+  );
 });
 
 void test('recorded Basketball Insiders feed preserves authored game reporting and UTC dates', async () => {
