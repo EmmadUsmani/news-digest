@@ -1,5 +1,6 @@
 # Progress
 
+Archived entry: [iteration 2234](docs/progress-archive/2026-11-14-iteration-2234.md).
 Archived entry: [iteration 2233](docs/progress-archive/2026-11-14-iteration-2233.md).
 
 Archived entry: [iteration 2232](docs/progress-archive/2026-11-14-iteration-2232.md).
@@ -109,17 +110,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2234 — Push Square reporting without teaser navigation
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
-- Reader weakness: saved Gaming excerpt includes Push Square's “Read the full article” self-link as reporting. Omit its exact terminal footer on the publisher host when the destination matches; retain reporting, metadata and an omission marker for source continuation.
-- Recorded-feed regression passes with other-host/changed-wording/other-destination/nonterminal controls; unchanged fixture, reporting and metadata verified. No live source requests, paid calls or saved-edition rewrites.
-- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2221 to keep PROGRESS small. No UI/schema/budget/flag changes.
-- Formatting, lint fix and build pass; handbook check passes on retry (initial render failure). Initial full check caught new archive formatting, corrected before final verification.
-- Final pnpm check passes: 990 unit/320 integration tests, four expected skips; format/lint/typecheck/boundaries pass. Existing build bundle warnings only.
-- Rebuilt API/worker restarted active; health passes. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 sources healthy. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2235 — Gematsu lead images from descriptions
 
@@ -249,3 +239,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
 - Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
 - Next: 15:00 UTC scheduled NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2247 — passive metrics recovery evidence
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` passes database/Redis. NBA/item 58/private public-mode activation awaits the normal 15:00 UTC edition.
+- Owner value: keep the known metrics outage recovery evidence current without perturbing the protected edition or relaxing capacity limits.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 09:20:17–09:20:48 UTC, 24 fresh healthy rules, four uncached queries ≤0.970 s, zero new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries.
+- Neither storage tier merged; process starts unchanged. Comparable natural-merge acceptance remains open. Metrics/alerts warning journal since 04:35:17 UTC has no entries. No forced merge, configuration change or provider call.
+- Updated TASKS/capacity evidence; next passive probe no earlier than 10:21 UTC. Archived iteration 2234 to bound PROGRESS. No runtime or handbook behavior changes.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; existing bundle warnings only. Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
+- Next: 15:00 UTC NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.

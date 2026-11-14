@@ -901,3 +901,14 @@ merge recovery remains open. Warning-level system journal for metrics/alerts
 since Nov 13 22:47 UTC has no entries. Keep the CPU-only trial and limits;
 next short passive probe no earlier than 05:36 UTC Nov 14. No forced merge,
 metrics restart, configuration change or provider call.
+
+### Passive follow-up (iteration 2247)
+
+Nov 14 09:20:17–09:20:48 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.970 s, no new evaluator errors
+or missed iterations, admission-limit hits, queue timeouts or slow queries.
+Both process starts unchanged; neither storage tier merged. Comparable natural
+merge recovery remains open. Warning-level system journal for metrics/alerts
+since 04:35:17 UTC has no entries. Keep the CPU-only trial and limits; next
+short passive probe no earlier than 10:21 UTC Nov 14. No forced merge, metrics
+restart, configuration change or provider call.
