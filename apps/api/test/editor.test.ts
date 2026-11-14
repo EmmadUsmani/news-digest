@@ -1185,6 +1185,95 @@ void test('Gaming five-story brief repairs without dropping stories or raising t
   }
 });
 
+void test('Gaming repair omits unsupported absences without losing supported sales or closure facts', async () => {
+  // Synthetic transport and source excerpts model the Nov 14 failure boundaries.
+  // The clipped funding quotation cannot establish its missing qualifications.
+  const inputs = [
+    {
+      id: 'ps5',
+      title: 'PS5 sales reach 100 million',
+      excerpt: 'Sony reported that PS5 sales reached 100 million units.',
+      sources: ['Gaming publisher'],
+    },
+    {
+      id: 'pioner',
+      title: 'Pioner studio announces closure',
+      excerpt:
+        'The Pioner studio announced its closure. “We were unable to agree on the funding…',
+      sources: ['Gaming publisher'],
+    },
+  ];
+  const stories = inputs.map((input) => ({
+    ...story,
+    id: input.id,
+    evidenceIds: [input.id],
+    headline: input.title,
+    summary: input.excerpt.split('. ')[0].replace(/\.$/, '') + '.',
+    whyItMatters: input.title + '.',
+    rationale: 'A substantial development.',
+  }));
+  const corrected = {
+    brief: stories.map((item) => item.summary),
+    stories,
+  };
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    for (const [index, summary] of [
+      [0, 'PS5 reached 100 million sales without a price cut.'],
+      [1, 'The Pioner studio did not reach agreement on funding.'],
+    ] as const) {
+      const invalid = {
+        ...corrected,
+        stories: stories.map((item, position) =>
+          position === index ? { ...item, summary } : item,
+        ),
+      };
+      const h = harness([invalid, corrected], refuse);
+      const result = await h.editor.edit(
+        { ...topic, name: 'Gaming' },
+        inputs,
+        2,
+        'gaming-absence-repair',
+      );
+      assert.deepEqual(result?.stories, stories);
+      assert.deepEqual(result?.brief, corrected.brief);
+      assert.equal(
+        result?.model,
+        refuse.length ? 'claude-haiku-5-5' : 'claude-sonnet-5-5',
+      );
+      assert.equal(h.calls.length, 2);
+      assert.deepEqual(
+        h.diagnostics().map((event) => event.category),
+        ['unsupported-absence'],
+      );
+      assert.doesNotMatch(
+        JSON.stringify(result),
+        /without a price cut|did not reach agreement|funding/,
+      );
+      // Rejected material never enters the cache; only the corrected result does.
+      assert.deepEqual(
+        await h.editor.edit(
+          { ...topic, name: 'Gaming' },
+          inputs,
+          2,
+          'gaming-absence-cache',
+        ),
+        result,
+      );
+      assert.equal(h.calls.length, 2);
+      const exhausted = harness([invalid], refuse);
+      assert.equal(
+        await exhausted.editor.edit(
+          { ...topic, name: 'Gaming' },
+          inputs,
+          2,
+          'gaming-absence-exhausted',
+        ),
+        null,
+      );
+    }
+  }
+});
+
 void test('scheduled execution shares its deadline across editor repair and Haiku fallback', async () => {
   for (const expireAfter of [1, 2, 3, Infinity]) {
     let now = 0;

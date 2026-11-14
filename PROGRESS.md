@@ -118,3 +118,15 @@ Older entries: [through iteration 2267](docs/progress-archive/2026-11-14-through
 - `pnpm exec tsx --test apps/api/test/editor.test.ts`: 37 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: typecheck/lint/format/boundaries, 1,016 unit and 328 integration passes, four expected skips.
 - No paid inference, production writes or live restart. Isolated integration checks rebuild API only. No UI/system-flow change; handbook/screenshots unchanged.
 - Next: after 16:00 UTC rebuild/restart and verify pending ownership/brief guidance; evidence-preserving Gaming absence/truncation recovery, then normal scheduled acceptance before item 58/private public activation.
+
+## 2026-11-14: iteration 2279 — Gaming repair controls and pending-fix deployment
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending. Honored the 13:00–16:00 UTC deployment hold.
+- Added synthetic Gaming regression through real budgeted validation/repair: unsupported PS5 price-cut absence and clipped Pioner funding paraphrase fail on Sonnet/Haiku; supported repair retains both stories, caches only corrected output, and invalid exhaustion returns no AI result.
+- No prompt, factual guard, provider, model, token cap or budget changes; no paid inference or edition generation. Synthetic response compliance is not natural acceptance.
+- `pnpm exec tsx --test apps/api/test/editor.test.ts`: 38 pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: typecheck/lint/format/boundaries, 1,017 unit and 328 integration passes, four expected skips.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes (existing bundle-size warning). API/worker restarted at 16:02:35 UTC, deploying pending ownership aliases and all-topic brief guidance; public mode stays off.
+- `/healthz` returns ok/database/Redis true; local root 200. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` passes scheduled provenance/latest/direct/history: b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts.
+- `pnpm obs sources`: 38/38 ok, no empty last collections. HTTPS curl unavailable from VM: hostname resolves to VM 10.42.0.42 with no 443 listener; local HTTP checks pass. No sharing/DNS changes.
+- Updated TASKS and Nov 14 evidence; no UI/system-flow/schema change, so no handbook/screenshots needed. Existing saved editorial failures remain; item 58/public activation open.
+- Next: observe natural scheduled ownership/Gaming recovery; retain strict absence/truncation guards and no paid replay/cap changes.
