@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2317: traced World X breadth to three minimum-score qualifying candidates, including a duplicate; saved next-edition supply comparison, with no tuning change.
+
 - [x] 2316: repaired Bluesky source-link browser verification to select a linked saved post and compare rendered display text; reader behavior unchanged.
 
 - [x] 2315: repaired failing saved-reader layout verification for linked-site attribution, per-report destinations and publication dates; all four browser views pass.
