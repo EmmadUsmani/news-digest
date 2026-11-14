@@ -3014,3 +3014,12 @@ policy and retained the source error. This is an upstream outage; the feed URL,
 collection schedule and retry policy are unchanged. Accept recovery only when a
 normal scheduled collection succeeds with usable dated items and clears the
 source error. No alternate endpoint or bot-protection workaround was used.
+
+## 2026-11-14 iteration 2245 — Eurogamer/RPS teaser navigation
+
+Unchanged recorded Eurogamer and Rock Paper Shotgun feeds end their reporting
+teasers with standalone “Read more” links back to the article. New ingestion
+omits only terminal article-matching links on these two publisher hosts and
+retains all reporting, metadata and a continuation ellipsis. Offline recorded
+and boundary controls verify the change; no fresh external requests or saved
+edition changes. Push Square's separate HTTP 522 recovery gate remains open.

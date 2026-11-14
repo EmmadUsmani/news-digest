@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2232](docs/progress-archive/2026-11-14-iteration-2232.md).
+
 Archived entry: [iteration 2231](docs/progress-archive/2026-11-14-iteration-2231.md).
 
 Archived entry: [iteration 2230](docs/progress-archive/2026-11-14-iteration-2230.md).
@@ -105,17 +107,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2232 — NBA automatic repair through publication
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. Scheduled NBA/item 58/private public-mode gates still await 15:00 UTC.
-- Owner-visible value: protect corrected NBA summaries through automatic repair and publication, covering the actual malformed saved Haiku story ID rather than adding another excerpt cleanup.
-- Added one isolated regression: saved invalid initial output → real budgeted repair → saved supported output → publication/immutable retrieval/public reader HTTP. Fingerprinted requests reject unexpected repair transport; only corrected output is cached, with two reservations/settlements and no extra calls across later generations.
-- Targeted temporary Testcontainers runner passes the new case (one test); runner removed. Historical structured outputs/candidate reporting retained; synthetic request, triage, metadata and zero usage explicit. No live provider call, data mutation or runtime behavior change.
-- Updated TASKS and DATABASE-VERIFICATION; archived iterations 2218–2219 to keep PROGRESS small. Full-edition raw-response golden remains open because historical triage responses are absent. No handbook/UI/source changes.
-- `pnpm format`, `pnpm lint:fix`, API typecheck and `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 990 unit/318 integration tests, four expected skips; format/lint/typecheck/boundaries pass.
-- Rebuilt API/worker restarted active; `/healthz` passes after startup retry. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local status read confirms all 38 active sources have stored content/success/no errors. Diff check passes.
-- Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2233 — Verge reporting without purchase navigation
 
@@ -244,3 +235,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only. Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - API/worker restarted active; `/healthz` passes. Saved-reader check passes on retry after startup: five topics/15 stories/20 posts. Diff check passes.
 - Next: verify normal Push Square collection recovery, then 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation.
+
+## 2026-11-14: iteration 2245 — Gaming excerpts without teaser navigation
+
+- Clean main; no inherited work. Push Square remains the only source error (HTTP 522); API/worker active and health/database/Redis pass. Scheduled recovery gate retained without URL/retry changes.
+- Reader weakness: recorded Eurogamer/RPS reporting teasers include terminal “Read more” self-navigation. New ingestion omits only article-matching links on those two hosts, keeping reporting and a source-continuation ellipsis.
+- All four recorded article excerpts retain reporting and metadata; unrelated destination/publisher/wording/nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
+- Updated TASKS/SOURCES and archived iteration 2232 to keep PROGRESS bounded. Existing handbook feed-normalization description remains accurate.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-gaming-navigation.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only.
+- Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Saved-reader check verifies five topics/15 stories/20 posts.
+- Next: normal Push Square recovery; 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation. No paid replay.

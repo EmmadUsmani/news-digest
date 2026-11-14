@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Gaming teaser navigation (2245): recorded Eurogamer/RPS excerpts omit terminal article-matching “Read more” links, retaining reporting, metadata and a continuation ellipsis; publisher/destination/wording/nonterminal controls pass offline.
+
 - [x] Verge teaser navigation (2243): omit terminal article-matching full-story self-links in recorded Atom excerpts, retaining all reporting, metadata and continuation; publisher/destination/wording/nonterminal controls pass offline.
 
 - [x] Guardian teaser navigation (2242): omit terminal article-matching “Continue reading...” links on Guardian feeds, retaining reporting, metadata and source-continuation ellipsis; recorded World/U.S. and boundary controls pass offline.

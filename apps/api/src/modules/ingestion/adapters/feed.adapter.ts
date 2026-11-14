@@ -147,6 +147,22 @@ function excerpt(value: unknown, articleUrl: string): string {
       },
     );
   }
+  // These Gaming feeds append a standalone link to the full report.
+  if (
+    ['www.eurogamer.net', 'www.rockpapershotgun.com'].includes(
+      new URL(articleUrl).hostname,
+    )
+  ) {
+    withoutSelfLink = withoutSelfLink.replace(
+      /<p\b[^>]*>\s*<a\b([^>]*)>Read more<\/a>\s*<\/p>\s*$/i,
+      (footer, attributes: string) => {
+        const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+        if (canonicalUrl(href?.[2] ?? '') !== articleUrl) return footer;
+        teaserClipped = true;
+        return '';
+      },
+    );
+  }
   // Guardian teasers end with navigation back to the same article.
   if (new URL(articleUrl).hostname === 'www.theguardian.com') {
     withoutSelfLink = withoutSelfLink.replace(
