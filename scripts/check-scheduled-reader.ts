@@ -10,8 +10,8 @@ import {
 
 import { localAdminJson } from './lib/local-admin-fetch';
 import {
+  assessScheduledAiTopics,
   parseRequiredAiTopics,
-  requireScheduledAiTopic,
 } from './lib/scheduled-editorial-gate';
 
 async function read(path: string): Promise<unknown> {
@@ -96,13 +96,13 @@ async function main() {
       )
     : undefined;
   const aiTopics = preview
-    ? requiredTopics.map((name) =>
-        requireScheduledAiTopic(latest, preview, name),
-      )
+    ? assessScheduledAiTopics(latest, preview, requiredTopics)
     : [];
+  const refused = aiTopics.some((topic) => topic.status === 'refused');
+  if (refused) process.exitCode = 1;
   console.log(
     JSON.stringify({
-      status: 'reader-verified',
+      status: refused ? 'editorial-refused' : 'reader-verified',
       ...(aiTopics.length
         ? {
             aiTopics,

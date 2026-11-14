@@ -84,3 +84,28 @@ export function parseRequiredAiTopics(args: string[]): string[] {
   }
   return names;
 }
+
+// Evaluate every requested section even when an earlier section failed.
+export function assessScheduledAiTopics(
+  reader: ReaderEvidence,
+  preview: EditorialEvidence,
+  names: string[],
+) {
+  return names.map((name) => {
+    try {
+      return {
+        status: 'accepted' as const,
+        ...requireScheduledAiTopic(reader, preview, name),
+      };
+    } catch (error) {
+      return {
+        status: 'refused' as const,
+        name,
+        reason:
+          error instanceof Error
+            ? error.message
+            : 'Editorial evidence check failed',
+      };
+    }
+  });
+}

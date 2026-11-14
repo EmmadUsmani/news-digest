@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  assessScheduledAiTopics,
   parseRequiredAiTopics,
   requireScheduledAiTopic,
 } from '../../../scripts/lib/scheduled-editorial-gate';
@@ -157,4 +158,33 @@ void test('AI editing alone cannot accept recovery after partial candidate triag
   // saved coverage, without requiring fresh provider calls for every candidate.
   preview.topics[0].editorial.unscoredIds = [];
   assert.equal(requireScheduledAiTopic(reader, preview, 'NBA').stories, 1);
+});
+
+void test('all-topic assessment reports failures after a failure and retains accepted sections', () => {
+  const { reader, preview } = evidence();
+  const result = assessScheduledAiTopics(reader, preview, [
+    'Tech',
+    'NBA',
+    'World',
+  ]);
+  assert.deepEqual(
+    result.map(({ name, status }) => ({ name, status })),
+    [
+      { name: 'Tech', status: 'refused' },
+      { name: 'NBA', status: 'accepted' },
+      { name: 'World', status: 'refused' },
+    ],
+  );
+  assert.match(result[0].reason!, /Tech: expected exactly one reader topic/);
+  assert.match(result[2].reason!, /World: expected exactly one reader topic/);
+  preview.topics[0].editorial.unscoredIds = ['unfinished'];
+  assert.equal(
+    assessScheduledAiTopics(reader, preview, ['NBA'])[0].status,
+    'refused',
+  );
+  preview.topics[0].editorial.unscoredIds = [];
+  assert.equal(
+    assessScheduledAiTopics(reader, preview, ['NBA'])[0].status,
+    'accepted',
+  );
 });

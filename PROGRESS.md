@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2249](docs/progress-archive/2026-11-14-iteration-2249.md).
+
 Archived entry: [iteration 2248](docs/progress-archive/2026-11-14-iteration-2248.md).
 Archived entry: [iteration 2245](docs/progress-archive/2026-11-14-iteration-2245.md).
 Archived entry: [iteration 2246](docs/progress-archive/2026-11-14-iteration-2246.md).
@@ -133,19 +135,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2249 — fill missing photos on repeat collection
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
-- Reader weakness: CBS NBA cards lack publisher photos. One explicit feed GET/read-only comparison found all 36 feed images absent from their stored articles; repeat-ingestion upsert never enriched image_url.
-- Repeat collection now fills null image fields while preserving existing photos. Owner value: future editions can show publisher photos for already-known articles; saved editions stay immutable.
-- Recorded CBS fixture passes real isolated ingestion/candidate retrieval: stable identity/reporting, one observation, repeated enrichment, sparse/different-image retention. No new source, generation change or paid call.
-- Updated TASKS, SOURCES and affected handbook text; archived iteration 2236 to bound PROGRESS.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,000 unit/325 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- `pnpm exec tsx scripts/check-handbook.ts 07-data-model` passes: 18 pages/three diagrams, 39 tables; diagrams unchanged.
-- Rebuilt API/worker restarted active; `/healthz` passes. One explicit free CBS job through the production ingestion worker accepted 36 articles; all 36 stored photos match the feed. Saved reader JSON remains identical.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2250 — PlayStation podcast footer
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
@@ -255,3 +244,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` pass: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green; existing bundle warnings only. Exact five-ID/score comparison passes.
 - Rebuilt API/worker restarted active; `/healthz` passes. Saved-reader check passes after startup retry: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not repeat this cap audit or paid replay.
+
+## 2026-11-14: iteration 2260 — complete scheduled recovery reporting
+
+- Clean main; no inherited work. Initial alerts zero and health database/Redis pass. NBA/item 58 acceptance still awaits 15:00 UTC.
+- Reader weakness remains the degraded Nov 13 edition: headline-only Tech, repeated Gaming QSSR reports and absent World/U.S. stories. Existing fixes await natural acceptance; no generation change after noon.
+- Fixed the GET-only scheduled acceptance command's first-failure short circuit: every requested topic now has accepted/refused status and its own reason; any refusal exits 1 with edition identity/counts. Pending remains exit 2; publication-only success remains supported.
+- Known Nov 13 all-topic run reports all five non-AI refusals and exits 1. Offline mixed success/failure regression confirms later failures and accepted sections survive; incomplete triage stays refused. This improves the next recovery decision, not the saved content.
+- Updated TASKS and Nov 14 review instructions; archived iteration 2249 to bound PROGRESS. No paid calls, source requests, schema, UI, prompt, budget or stored-data changes.
+- Verification: targeted gate tests 6/6; pnpm format/lint:fix; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Initial check stopped on archive formatting, corrected before successful full rerun.
+- Rebuilt API/worker restarted; health database/Redis pass. Publication-only saved-reader check passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
+- Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. No paid replay.

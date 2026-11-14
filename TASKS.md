@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] All-topic recovery report (2260): scheduled reader gate reports every requested section and exits nonzero for any refusal; Nov 13 confirms all five failures without stopping at Tech. No generation change.
+
 - [x] Tech candidate-cap study (2259): full-window control adds five readable reports but leaves all five fallback selections unchanged; retain the 200 cap pending scheduled AI review. [Evidence](docs/edition-reviews/2026-11-14-tech-cap.md).
 
 - [x] Nov 14 preflight (2258): all five topics have readable production candidates; Tech has 24 eligible reporting excerpts. Ars category move changes both link and GUID, so stable-GUID dedupe is unavailable. [Scheduled acceptance handoff](docs/edition-reviews/2026-11-14.md).
