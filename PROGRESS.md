@@ -112,3 +112,14 @@ Older entries: [through iteration 2273](docs/progress-archive/2026-11-14-through
 - `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; `pnpm obs health --check` passes database/Redis, `pnpm obs sources --check`: 38/38 healthy.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` passes unchanged edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts.
 - Test/docs-only; no UI/schema/flow change, screenshots/handbook unchanged. No paid inference or generation; public mode off, VM private. Next: natural ownership/Gaming acceptance before item 58/public activation.
+
+## 2026-11-14: iteration 2284 — trace Tech headline-depth summaries
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending; initial health and all 38 sources healthy.
+- Owner-visible weakness: three of four published Tech summaries repeat headlines. Saved immutable evidence has no excerpts for Meta, Claude Code and Ggml; Nvidia alone includes 600 characters of Verge reporting. HN metadata collection never fetches linked article bodies.
+- Read-only current-input reconstruction uses 200 saved scores, forty qualified candidates and the saved five-group Tech result. Nine of ten editor clusters have empty evidence; qualified readable ChatGPT Wallet falls below twenty slots (isolated recency/engagement score 2.40).
+- Current grouping fingerprint differs from the scheduled cache key: explicitly a counterfactual, not exact historical input/model replay. Only two of forty current qualified candidates contain prose. No prompt, rank, source, cap or generation change; bounded Wallet-admission evaluation recorded for a permitted generation window.
+- Added `docs/edition-reviews/2026-11-14-tech-depth.md` and updated TASKS. No new source, system flow, schema or UI; SOURCES/handbook/screenshots unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,019 unit and 329 integration tests; four expected integration skips. `git diff --check` clean.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; initial reader request raced startup, retry passes unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f (five topics/14 stories/19 posts). Health database/Redis true and 38/38 sources healthy.
+- No paid inference or source requests; public mode off, VM private. Next: natural ownership/Gaming acceptance before item 58/public activation; evaluate readable Tech evidence retention without erasing important headline-only news.
