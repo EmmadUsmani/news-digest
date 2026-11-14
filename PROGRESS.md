@@ -1,5 +1,9 @@
 # Progress
 
+Archived entry: [iteration 2255](docs/progress-archive/2026-11-14-iteration-2255.md).
+
+Archived entry: [iteration 2254](docs/progress-archive/2026-11-14-iteration-2254.md).
+
 Archived entry: [iteration 2253](docs/progress-archive/2026-11-14-iteration-2253.md).
 Archived entry: [iteration 2252](docs/progress-archive/2026-11-14-iteration-2252.md).
 
@@ -142,26 +146,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2254 — Yahoo NBA lead photos
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58 acceptance awaits 15:00 UTC.
-- Reader weakness: Yahoo NBA supplies some lead photos as bare content images, leaving future cards without the available photo. Preserve only opening HTTPS publisher-CDN images.
-- One explicit free GET of the configured Yahoo NBA RSS recorded the Lakers 11–2 article (an initial obsolete URL returned a redirect document). Offline fixture preserves reporting/metadata; host/path/protocol/credentials/later-image and preferred-media controls pass.
-- Updated TASKS/SOURCES; archived iteration 2241 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-yahoo-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Initial full check found archive formatting; corrected it and reran. Full `pnpm check` passes: 1,004 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
-## 2026-11-14: iteration 2255 — Xbox store badge excerpts
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
-- Reader weakness: Xbox Wire's current release roundup flattens store star ratings/prices/preorder buttons ahead of reporting. Remove complete nested store badges on the publisher host before the cap; readers get more game descriptions and dates instead.
-- One explicit free GET of the configured Xbox RSS recorded the unchanged roundup. Offline publisher/class controls retain unrelated content; repeated nested badges, article prices and incomplete-widget preservation pass. No crawl, paid call, prompt/budget or saved-edition change.
-- Updated TASKS/SOURCES; archived iteration 2242 to bound PROGRESS. No handbook flow or UI change.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-xbox-store-badges.test.ts` passes after correcting an overly early truncation assertion. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,005 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2256 — Recorded headline-only fallback gate
 
 - Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis pass. Scheduled NBA/item 58/private activation still await 15:00 UTC.
@@ -253,3 +237,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: pnpm format/lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Browser command: pnpm exec tsx scripts/smoke-reader-bluesky-continuation.ts.
 - Rebuilt API/worker restarted before 13:00 UTC; both active, health database/Redis pass. Publication-only saved-reader check passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
 - Next: 15:00 UTC all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Tech provenance repair follows the protected edition. No paid replay.
+
+## 2026-11-14: iteration 2264 — clipped social URL destinations
+
+- Clean main; no inherited work. Initial alerts zero. NBA/item 58/public activation remain gated on 15:00 scheduled acceptance; generation hold retained.
+- Reader weakness: Nov 7 Gaming survey and World posts display shortened bare-domain URLs without a distinct link affordance; protocol-prefixed shortened URLs would incorrectly open partial paths.
+- Recognize clipped bare-domain URLs, underline their visible text and open the original post for the full destination. Protocol-prefixed clipped URLs also use the original post. Saved text and complete destinations remain intact.
+- GET-only real Nov 7/Nov 13 Playwright replay passes desktop/mobile light/dark: both clipped destinations, complete Steam patch-notes control, text, focus, layout and no page errors. External requests blocked. Eight screenshots saved; mobile light/desktop dark inspected.
+- Updated TASKS; archived iterations 2254–2255 to bound PROGRESS. No source/provider requests, paid calls, data writes or generation/configuration changes. Existing handbook flows unchanged.
+- Verification: pnpm format/lint:fix pass; pnpm check passes 1,008 unit/327 integration tests, four expected skips, after correcting initial formatting failures. pnpm build passes with existing bundle warnings; pnpm exec tsx scripts/smoke-reader-clipped-links.ts passes.
+- API/worker rebuilt and restarted before 13:00 UTC; both active, health database/Redis passes after startup retry. Browser reload verifies served build; check-scheduled-reader.ts 2026-11-13T15:00:00Z passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
+- Next: 15:00 all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold. Tech provenance repair follows protected edition; no paid replay.

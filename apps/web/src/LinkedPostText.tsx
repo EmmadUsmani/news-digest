@@ -7,9 +7,14 @@ export function LinkedPostText({
   text: string;
   postUrl: string;
 }) {
-  const parts = text.split(/((?:https?:\/\/|pic\.twitter\.com\/)[^\s<>]+)/gi);
+  const parts = text.split(
+    /((?:https?:\/\/|pic\.twitter\.com\/)[^\s<>]+|(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3}))/gi,
+  );
   return parts.map((part, index) => {
-    if (!/^(?:https?:\/\/|pic\.twitter\.com\/)/i.test(part))
+    if (
+      !/^(?:https?:\/\/|pic\.twitter\.com\/)/i.test(part) &&
+      !/^(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3})$/i.test(part)
+    )
       return part ? (
         <a key={index} href={postUrl} target="_blank" rel="noreferrer">
           {part}
@@ -38,9 +43,14 @@ export function LinkedPostText({
       if (url.split(close).length <= url.split(open).length) break;
       url = url.slice(0, -1).replace(/[.,;:!?\x22\x27”’»。、！？：；…]+$/, '');
     }
-    const destination = /^pic\.twitter\.com\//i.test(url)
-      ? `https://${url}`
-      : url;
+    // A saved display URL ending in an ellipsis is incomplete. The original
+    // post can resolve its full destination; the shortened path cannot.
+    const clipped = /(?:…|\.{3})$/.test(part);
+    const destination = clipped
+      ? postUrl
+      : /^pic\.twitter\.com\//i.test(url)
+        ? `https://${url}`
+        : url;
     try {
       new URL(destination);
     } catch {
@@ -50,6 +60,7 @@ export function LinkedPostText({
       <React.Fragment key={index}>
         <a
           href={destination}
+          title={clipped ? 'Open original post for the full link' : undefined}
           target="_blank"
           rel="noreferrer"
           // Some official paragraphs place an anchor directly after a word.

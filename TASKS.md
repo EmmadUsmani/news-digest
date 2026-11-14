@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Clipped social URLs (2264): shortened saved URLs now open the original post for its full destination; complete external links and saved text remain intact. Real Nov 7 browser replay covers both clipped posts.
+
 - [x] Bluesky continuation (2263): saved edition cards with terminal ellipses now offer an explicit original-post link, including the shortened game-worker survey/news source URLs; saved text and selection unchanged.
 
 - [x] All-topic recovery report (2260): scheduled reader gate reports every requested section and exits nonzero for any refusal; Nov 13 confirms all five failures without stopping at Tech. No generation change.
