@@ -8,11 +8,13 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { ReplayLlmAdapter } from '../src/modules/curation/adapters/recorded-llm';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { EditionProgress } from '../src/modules/digests/domain/preview.repository';
+import { readerEdition } from '../src/modules/digests/reader-edition.controller';
 
 const start = new Date('2026-11-01T00:00:00Z');
 const end = new Date('2026-11-02T00:00:00Z');
@@ -62,6 +64,7 @@ async function harness(
     parallel?: boolean;
     reddit?: boolean;
     provider?: LlmPort;
+    ownershipProvider?: LlmPort;
   } = {},
 ) {
   const support = {
@@ -124,11 +127,15 @@ async function harness(
             { length: options.politics ? 2 : options.parallel ? 4 : 1 },
             (_, index) => ({
               id: `00000000-0000-4000-8000-${String(index + (options.politics ? 14 : 1)).padStart(12, '0')}`,
-              name: options.tech
-                ? 'Tech'
-                : options.parallel
-                  ? `AI ${index}`
-                  : 'AI',
+              name: options.politics
+                ? index === 0
+                  ? 'World'
+                  : 'U.S.'
+                : options.tech
+                  ? 'Tech'
+                  : options.parallel
+                    ? `AI ${index}`
+                    : 'AI',
               description: 'AI tools',
               include_guidance: '',
               exclude_guidance: '',
@@ -235,8 +242,12 @@ async function harness(
                 };
               },
             },
-            grouping:
-              options.grouping || options.politics
+            grouping: options.ownershipProvider
+              ? new EventGrouping(
+                  new BudgetedLlm(options.ownershipProvider, ledger),
+                  config.haiku,
+                )
+              : options.grouping || options.politics
                 ? {
                     async assignTopics(scopes: { id: string }[]) {
                       return [
@@ -324,7 +335,12 @@ async function harness(
   assert.ok(progress[0].topics.every((topic) => topic.stage === 'triage'));
   assert.equal(progress.at(-1)?.stage, 'publishing');
   assert.ok(progress.at(-1)?.topics.every((topic) => topic.stage === 'ready'));
-  if (!options.disabled && !options.incomplete)
+  if (
+    !options.disabled &&
+    !options.incomplete &&
+    (!options.ownershipProvider ||
+      snapshot.topics.some((topic) => topic.editorial?.mode === 'ai'))
+  )
     assert.ok(
       progress.some((value) =>
         value.topics.some((topic) => topic.stage === 'editing'),
@@ -526,4 +542,127 @@ void test('Tech production publication saves cited cluster members with their so
     new Set([candidate.url, 'https://example.org/support']),
   );
   assert.ok(evidence.every((member) => member.excerpt === candidate.excerpt));
+});
+
+void test('compact ownership wire output survives production publication with exclusive UUID evidence', async () => {
+  for (const outcome of ['valid', 'duplicate', 'truncated']) {
+    const invalid = outcome !== 'valid';
+    const requests: string[] = [];
+    const snapshot = await harness({
+      politics: true,
+      supporting: true,
+      scheduledKey: 'daily:2026-11-14:offline-ownership',
+      ownershipProvider: {
+        async complete(request) {
+          requests.push(request.purpose);
+          assert.equal(request.maxOutputTokens, 4096);
+          const input = JSON.parse(request.prompt);
+          assert.deepEqual(
+            input.scopes.map((scope: { id: string; name: string }) => [
+              scope.id,
+              scope.name,
+            ]),
+            [
+              ['t0', 'World'],
+              ['t1', 'U.S.'],
+            ],
+          );
+          assert.equal(input.candidates.length, 2);
+          const aliasFor = (title: string) => {
+            const item = input.candidates.find(
+              (item: { title: string }) => item.title === title,
+            );
+            assert.ok(item);
+            assert.match(item.id, /^a\d+$/);
+            return item.id;
+          };
+          return {
+            // Explicitly synthetic response: no claim of natural model recovery.
+            text:
+              outcome === 'truncated'
+                ? '{"groups":[{"topicId":"t0","ids":['
+                : JSON.stringify({
+                    groups: [
+                      {
+                        topicId: 't0',
+                        ids: [aliasFor('Independent hardware announcement')],
+                      },
+                      {
+                        topicId: 't1',
+                        ids: [
+                          invalid
+                            ? aliasFor('Independent hardware announcement')
+                            : aliasFor(candidate.title),
+                        ],
+                      },
+                    ],
+                  }),
+            usage: { input: 10, output: 10, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+    });
+    assert.deepEqual(
+      requests,
+      ['joint-story-grouping-v2'],
+      'ownership never dispatches a repair',
+    );
+    const reader = readerEdition(
+      digestPreviewSchema.parse(JSON.parse(JSON.stringify(snapshot))),
+    );
+    assert.deepEqual(
+      reader.topics.map((topic) => topic.stories.map((story) => story.id)),
+      snapshot.topics.map((topic) => topic.stories.map((story) => story.id)),
+    );
+    if (invalid) {
+      assert.ok(reader.topics.every((topic) => topic.stories.length === 0));
+      assert.ok(
+        snapshot.topics.every(
+          (topic) =>
+            topic.stories.length === 0 &&
+            topic.editorial?.reason?.includes('ownership unavailable'),
+        ),
+      );
+    } else {
+      assert.deepEqual(
+        snapshot.topics.map((topic) => topic.stories.map((story) => story.id)),
+        [['00000000-0000-4000-8000-000000000098'], [id]],
+      );
+      assert.ok(
+        snapshot.topics.every(
+          (topic) =>
+            topic.editorial?.mode === 'ai' &&
+            topic.editorial.unscoredIds?.length === 0,
+        ),
+      );
+      const evidence = snapshot.topics.flatMap((topic) =>
+        topic.stories.flatMap((story) => story.evidence ?? []),
+      );
+      assert.deepEqual(
+        new Set(evidence.map((item) => item.url)),
+        new Set([candidate.url, 'https://example.org/support']),
+      );
+      assert.ok(evidence.every((item) => item.excerpt === candidate.excerpt));
+      assert.ok(
+        reader.topics.every(
+          (topic) => topic.stories[0].summary === edit.stories[0].summary,
+        ),
+      );
+      assert.deepEqual(
+        new Set(
+          reader.topics.flatMap((topic) =>
+            topic.stories.flatMap(
+              (story) => story.coverage?.map((item) => item.url) ?? [],
+            ),
+          ),
+        ),
+        new Set([candidate.url, 'https://example.org/support']),
+      );
+      assert.doesNotMatch(
+        JSON.stringify(snapshot),
+        /"(?:t[01]|a\d+)"/,
+        'wire aliases never enter saved reader evidence',
+      );
+    }
+  }
 });

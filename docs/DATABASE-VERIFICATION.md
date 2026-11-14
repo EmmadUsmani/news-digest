@@ -948,3 +948,18 @@ published editions preserve source excerpts and non-AI provenance through public
 latest/history/detail reads, while the unpublished generation stays hidden.
 This mixed-model sequence tests orchestration with synthetic admission, triage,
 metadata and zero usage; normal scheduled NBA acceptance remains separate.
+
+## Compact ownership publication composition (iteration 2283)
+
+`editorial-publication.test.ts` now passes synthetic compact `t0`/`a0` wire
+responses through real `BudgetedLlm` and `EventGrouping` into production edition
+orchestration. Valid ownership restores persistent UUIDs, publishes each article
+in exactly one World/U.S. section and retains source excerpts, URLs and edited
+summaries through JSON serialization and the reader projection. Wire aliases
+never enter the saved snapshot. Duplicate membership and truncated JSON withhold both sections
+and dispatch no repair, preserving fail-closed ownership.
+
+The repository transaction, triage, story editor and ledger are test doubles;
+this composition test does not exercise database persistence or HTTP retrieval.
+It runs in the integration suite alongside the existing database-backed tests.
+No provider calls, paid replay, prompt changes or natural acceptance claims.

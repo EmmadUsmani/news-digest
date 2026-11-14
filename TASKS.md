@@ -58,6 +58,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Compact ownership publication composition (2283): synthetic wire responses pass real budgeted ownership, UUID restoration, exclusive World/U.S. publication and serialized reader projection; duplicate membership/truncated JSON withhold both sections without repair. Natural scheduled recovery remains pending.
+
 - [x] Ownership rejection evidence (2280): failed cross-topic ownership bodies now use the private bounded editor-artifact store; repair-disabled dispatch/settlement, no invalid cache and successful-response exclusion verified offline. Natural recovery remains pending.
 
 - [x] Pool text evidence (2268): read-only capture separates empty, URL-only and other text; two recorded HN FAA excerpts no longer inflate implied reporting counts. Admission and stored text unchanged; scheduled acceptance remains open.
