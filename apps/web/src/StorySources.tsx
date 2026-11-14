@@ -41,16 +41,7 @@ export function StorySources({
       if (!outlets.has(publisher)) outlets.set(publisher, { name, url });
     }
   }
-  const sources = [...outlets.values()].map((source, _, all) =>
-    isDiscovery(source.name) &&
-    all.some((other) => other !== source && other.name === source.name)
-      ? {
-          ...source,
-          name: new URL(source.url).hostname.replace(/^www\./, ''),
-          via: source.name,
-        }
-      : source,
-  );
+  const sources = [...outlets.values()];
   const articles = story.coverage ?? [];
   return (
     <div className="story-sources flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-[var(--secondary)]">
@@ -131,6 +122,9 @@ function SourceLink({
   via?: string;
 }) {
   const origin = new URL(url);
+  const discovery = isDiscovery(name);
+  const label = discovery ? origin.hostname.replace(/^www\./, '') : name;
+  const provenance = discovery ? name : via;
   const favicon = ['https:', 'http:'].includes(origin.protocol)
     ? `${origin.origin}/favicon.ico`
     : undefined;
@@ -156,9 +150,12 @@ function SourceLink({
         />
       )}
       <span className="text-xs break-words">
-        {isDiscovery(name) ? `via ${name}` : name}
-        {via && (
-          <span className="text-xs text-[var(--secondary)]"> · via {via}</span>
+        {label}
+        {provenance && (
+          <span className="text-xs text-[var(--secondary)]">
+            {' '}
+            · via {provenance}
+          </span>
         )}
       </span>
     </a>

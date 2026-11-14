@@ -35,6 +35,33 @@ async function main() {
           return route.continue();
         });
         await page.goto(origin);
+        const discoveryStories = edition.topics
+          .flatMap((topic) => topic.stories)
+          .filter((story) => {
+            const primary = story.coverage?.find(
+              (item) => item.url === story.url,
+            );
+            const report = primary ?? story;
+            return !report.publisher && report.sources.some(isDiscovery);
+          });
+        assert.ok(
+          discoveryStories.length,
+          'Real discovery-only stories required',
+        );
+        for (const story of discoveryStories) {
+          const primary = story.coverage?.find(
+            (item) => item.url === story.url,
+          );
+          const feed = (primary ?? story).sources.find(isDiscovery)!;
+          const link = page
+            .locator(`#story-${story.id} .story-sources > a`)
+            .first();
+          assert.equal(await link.getAttribute('href'), story.url);
+          assert.equal(
+            (await link.innerText()).replace(/\s+/g, ' ').trim(),
+            `${new URL(story.url).hostname.replace(/^www\./, '')} · via ${feed}`,
+          );
+        }
         for (const story of stories) {
           const count = story.coverage!.length;
           const card = page.locator(`#story-${story.id}`);
@@ -70,6 +97,18 @@ async function main() {
               await report.getAttribute('href'),
               story.coverage![index].url,
             );
+            const article = story.coverage![index];
+            if (!article.publisher && isDiscovery(article.sources[0] ?? '')) {
+              const attribution = card
+                .locator('details.coverage li')
+                .nth(index)
+                .locator('span > a');
+              assert.equal(
+                (await attribution.innerText()).replace(/\s+/g, ' ').trim(),
+                `${new URL(article.url).hostname.replace(/^www\./, '')} · via ${article.sources[0]}`,
+              );
+              assert.equal(await attribution.getAttribute('href'), article.url);
+            }
           }
           assert.ok(
             await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
@@ -96,5 +135,8 @@ async function main() {
   } finally {
     await browser.close();
   }
+}
+function isDiscovery(name: string) {
+  return name === 'Hacker News' || name.startsWith('Google News:');
 }
 void main();

@@ -138,3 +138,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Extended existing coverage browser smoke to accept historical edition/story IDs and assert collapsed primary URLs as well as exact counts and every expanded report link. Both saved cases plus latest mixed-publisher control pass desktop/mobile light/dark; external traffic blocked, GET-only. Screenshots updated.
 - Verification: `pnpm format`, `pnpm lint:fix`, standalone `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; all three coverage smokes and `git diff --check` pass. First combined validation shell exited 143 during unit tests without an assertion failure; complete standalone rerun passed. No schema/system-flow change; SOURCES and handbook unchanged.
 - Next: natural scheduled all-topic AI acceptance before activation; pending NBA social breadth and Tech depth evidence retained. Receipts `/tmp/2307-*`.
+
+## 2026-11-14: iteration 2308 — identify discovery-linked report sites
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy. Scheduled Gaming/World/U.S. acceptance remains pending; public mode off, sharing private.
+- Owner benefit (items 42/43): today's Meta fine story links to Reuters but called its source only “via Hacker News”; readers now see “reuters.com · via Hacker News” without opening the link.
+- Centralized discovery-label rendering in SourceLink, so single-source stories and expanded report attribution identify their linked hostname just as grouped collapsed sources do. Publisher labels and report destinations remain intact; no generation/source/provider/budget change.
+- Extended existing browser smoke using real saved discovery-only stories and per-report provenance. All 14 coverage controls, exact labels/destinations, keyboard expansion/focus, 44px targets and layout pass desktop/mobile light/dark; mixed-publisher count regression passes. External requests blocked, GET-only.
+- Updated screenshots; inspected mobile light capture of Reuters collapsed/expanded attribution. No schema/system-flow change; SOURCES and handbook unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Initial browser smoke raced the build and correctly saw old served assets; post-build API/worker restart and both smokes pass.
+- Post-restart `pnpm obs health --check` healthy/database/Redis true; source check passes. Receipts `/tmp/2308-*`. Next: natural scheduled full-edition AI acceptance before activation; existing NBA breadth/Tech depth evidence remains pending.

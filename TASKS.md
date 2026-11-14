@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2308: discovery-only source labels identify the linked site alongside the feed, in collapsed and expanded coverage.
+
 - [x] 2307: restored per-report destinations and distinct site labels for grouped stories sharing a discovery feed; two real historical Tech cases verified.
 
 - [x] 2306: scoped official X media on Saved cards as an owner-review proposal; no new feature or generation change.
