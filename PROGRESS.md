@@ -190,3 +190,15 @@ Archived entries: [iterations 2200–2201](docs/progress-archive/2026-11-14-iter
 - First full check stopped on new archive formatting; corrected it. Typecheck/lint, `pnpm exec tsx scripts/check-handbook.ts 01-app/README`, web build and `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` pass; all 38 sources report data/no errors. Final `pnpm check` passes (989 unit/299 integration; four expected skips); `pnpm build` passes with the existing chunk warning.
 - Final `pnpm format`, `pnpm lint:fix` and diff checks precede commit/push; built API/worker restart follows. No paid calls.
 - Next: normal scheduled all-topic/NBA acceptance, close item 58, then private public-mode activation.
+
+## 2026-11-14: iteration 2214 — Verge commerce evidence cleanup
+
+- Clean main; no inherited work. Zero alerts, healthy API/database/Redis. Scheduled NBA/item 58/private public-mode gates still await today's normal edition.
+- Reader weakness: saved Verge CMF feed reporting ended with untagged Hype Desk JavaScript advertising unrelated Beats/Walmart products; its first configuration field entered the bounded excerpt.
+- Remove only the exact empty widget plus terminal configuration before normalization; all preceding reporting remains. Plain configuration mentions, different configuration and following reporting are preserved.
+- Added a minimal recorded Atom entry from the previous iteration's saved response; XML serialization differs. No new source request, crawl, paid call or change to saved editions/budgets/providers.
+- Five targeted feed cases pass, including recorded metadata/reporting equality and negative controls. Handbook/SOURCES/TASKS updated; no UI or diagram change.
+- First full check stalled in telemetry-export.test.ts after its first test; stopped that child after several minutes. Independent telemetry test file passes 3/3. Full `pnpm check` retry passes: 989 unit/301 integration, four expected skips.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` (existing bundler warnings), handbook/schema and diff checks pass. Saved reader verifies five topics/15 stories/20 posts; all 38 active sources report data/no errors.
+- Commit/push and built API/worker restart follow; no activation flag changes.
+- Next: today's scheduled all-topic/NBA acceptance, item 58 closure, then private public-mode activation.

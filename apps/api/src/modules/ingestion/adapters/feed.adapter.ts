@@ -18,8 +18,14 @@ function text(v: unknown): string {
     : decodeHTML(String(v ?? ''));
 }
 function excerpt(value: unknown): string {
+  // This feed ad arrives without script tags. Only remove the known empty
+  // widget plus its terminal configuration; preserve reporting around code.
+  const body = text(value).replace(
+    /<div\s+id=["']hype-desk-root["']\s*>\s*<\/div>\s*window\.HYPE_DESK_CONFIG\s*=\s*\{[^<>]*\};\s*$/,
+    '',
+  );
   // Inline formatting contributes no spacing; block tags still separate text.
-  const reporting = text(value).replace(
+  const reporting = body.replace(
     /<\/?(?:a|abbr|b|bdi|bdo|cite|code|del|em|i|ins|kbd|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr)\b[^>]*>/gi,
     '',
   );

@@ -33,6 +33,7 @@ text, so a topic can have fewer stories. Neither fallback writes a brief.
 Feed excerpts use explicit RSS/Atom article content before descriptions or
 summaries, falling back when content is blank. Text stays capped at 1,500
 characters, with an ellipsis when shortened and whole words where possible.
+The Verge's trailing Hype Desk ad configuration is removed before excerpting.
 Collection does not fetch linked article pages.
 
 ## The steps in one line each

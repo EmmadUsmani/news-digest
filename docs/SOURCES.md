@@ -2818,3 +2818,20 @@ excerpt limit. Browser replay uses recorded reporting in a simulated edition.
 No source text, ingestion, saved server edition or generation behavior changes.
 One live feed GET also exposed untagged JavaScript in a commerce entry; no
 text-removal heuristic was added because script-tag removal cannot fix it.
+
+### Verge commerce ad configuration — Nov 14, iteration 2214
+
+The previous iteration's saved feed response includes a CMF Speaker S article
+whose supplied content ends with an empty `hype-desk-root` widget followed by
+untagged `window.HYPE_DESK_CONFIG` JavaScript. The configuration advertises
+unrelated Beats headphones at Walmart. Production parsing included its first
+configuration field inside the 1,500-character excerpt. No new request was made.
+
+A minimal Atom fragment retains that entry's supplied fields and content in
+`apps/api/test/fixtures/verge-commerce-2026-11-13.xml`; XML serialization differs
+from the original response. The parser now removes only the exact empty widget
+and its terminal configuration, before normalization/capping. All preceding CMF
+reporting and metadata survive. A configuration mentioned without that widget,
+a different configuration, and content followed by more reporting stay intact.
+No JavaScript executes, article destination is fetched or source is added.
+Saved editions remain unchanged; natural scheduled summary acceptance is open.

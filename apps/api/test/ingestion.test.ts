@@ -10,6 +10,43 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Verge commerce keeps reporting without the terminal ad config', async () => {
+  const xml = await fixture('verge-commerce-2026-11-13.xml');
+  const [item] = parseFeed(xml);
+  assert.match(item.excerpt, /CMF Speaker S/);
+  assert.match(item.excerpt, /18 hours on a single charge/);
+  assert.ok(item.excerpt.endsWith('create their own attachments and looks.'));
+  assert.doesNotMatch(item.excerpt, /HYPE_DESK|productImageUrl|Beats|Walmart/);
+  assert.ok(item.excerpt.length < 1500);
+  const reportingOnly = xml.replace(
+    /&lt;div id="hype-desk-root"[\s\S]*?(?=<\/content>)/,
+    '',
+  );
+  assert.notEqual(reportingOnly, xml);
+  const [withoutWidget] = parseFeed(reportingOnly);
+  assert.deepEqual(item, withoutWidget);
+  assert.equal(item.author, 'Brad Bourque');
+  assert.equal(item.publishedAt, '2026-11-13T20:30:00.000Z');
+});
+
+void test('feed ad removal requires the exact terminal widget and configuration', () => {
+  const excerpt = (body: string) =>
+    parseFeed(`<rss><channel><item><title>Code reporting</title>
+    <link>https://example.com/code</link><pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description></item></channel></rss>`)[0]
+      .excerpt;
+  const widget = '<div id="hype-desk-root"></div>';
+  const config = 'window.HYPE_DESK_CONFIG = { productTitle: "Advertisement" };';
+  assert.equal(excerpt(`<p>Reporting.</p>${widget}${config}`), 'Reporting.');
+  assert.equal(excerpt(config), config);
+  assert.match(
+    excerpt(`${widget}${config}<p>More reporting.</p>`),
+    /More reporting\.$/,
+  );
+  assert.match(excerpt(`${widget}window.OTHER_CONFIG = {};`), /OTHER_CONFIG/);
+  assert.equal(excerpt(`${widget}<p>Reporting.</p>`), 'Reporting.');
+});
+
 void test('recorded Ars content takes precedence and retains reporting and metadata', async () => {
   const xml = await fixture('ars-outage-2026-11-13.xml');
   const [original] = parseFeed(xml);

@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Verge ad contamination (2214): remove the exact terminal Hype Desk widget/configuration from feed excerpts; recorded CMF reporting and metadata remain intact, with ordinary code mentions preserved.
+
 - [x] Verge continuation (2213): explicit “Read the full story at The Verge” footers now offer a source continuation link; recorded reporting and saved-copy limits retained.
 
 - [x] Ars continuation (2208): explicit “Read full article” footers, including trailing Comments, offer source continuation in editions and saved copies; recorded reporting retained.
