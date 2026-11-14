@@ -248,3 +248,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Three targeted tests pass, including recorded HN excerpts, prose/link controls and unchanged admission/candidate fields. Initial test used an incomplete policy fixture; corrected to the required include/exclude arrays.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (typecheck/lint/format/boundaries; 1,011 unit, 327 integration tests, four expected skips). Private receipt assertions pass for topic labels, exact HN IDs and mode 600. Tool/test/docs-only: no build/restart during hold; deployed app code unchanged.
 - Next: 15:00 all-topic scheduled acceptance/diversity review; NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Address stale headline provenance after protected edition.
+
+## 2026-11-14: iteration 2269 — metrics recovery observation
+
+- Clean main; no inherited work. Alerts zero, health database/Redis pass, all 38 sources healthy; jobs check passes with normal 15:00 digest queued.
+- Open metrics-store breakage: read-only natural-recovery sample at 13:51:07–13:51:39 finds 24 fresh healthy rules, four uncached queries ≤0.690 s, no new evaluation/admission/timeout/slow-query failures.
+- Neither storage tier merged; process starts unchanged. Warning journal for system obs-metrics/obs-alerts since 09:20:17 has no entries. Comparable recovery remains unaccepted; retain 2% CPU-only trial and existing limits.
+- Recorded actual evidence in capacity decision and TASKS; next passive probe no earlier than 14:52 UTC. No paid calls, forced merges, configuration/generation changes or deploy during protected hold.
+- Verification: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` and system warning journal pass; `pnpm format`/`pnpm lint:fix` pass; `pnpm check` passes typecheck/lint/format/boundaries, 1,011 unit and 327 integration tests, four expected skips.
+- Documentation-only: deployed app code remains unchanged, so no rebuild/restart during 13:00–16:00 hold.
+- Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold.
