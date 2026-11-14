@@ -1,0 +1,883 @@
+{
+  "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+  "windowStart": "2026-11-13T15:00:00.000Z",
+  "windowEnd": "2026-11-14T15:00:00.000Z",
+  "topicId": "00000000-0000-4000-8000-000000000011",
+  "policy": {
+    "excludeAny": ["sponsored", "promo code", "gift guide", "best deals"],
+    "includeAny": [
+      "AI",
+      "artificial intelligence",
+      "machine learning",
+      "LLM",
+      "OpenAI",
+      "Anthropic",
+      "Claude",
+      "GPT",
+      "Gemini",
+      "DeepMind",
+      "software",
+      "programming",
+      "developer",
+      "code",
+      "coding",
+      "computer",
+      "computing",
+      "technology",
+      "tech",
+      "chip",
+      "semiconductor",
+      "GPU",
+      "Apple",
+      "Microsoft",
+      "Google",
+      "Meta",
+      "Linux",
+      "browser",
+      "internet",
+      "cybersecurity",
+      "robot",
+      "robotics",
+      "design",
+      "startup",
+      "smartphone",
+      "iPhone",
+      "Android",
+      "database",
+      "JavaScript",
+      "Python",
+      "Rust"
+    ]
+  },
+  "scores": [
+    {
+      "id": "c876500d-4007-4487-b883-43be26bac461",
+      "event": "GLM-5.3 served at 607.8 tok/s on Nvidia DGX with vLLM",
+      "rationale": "Practical LLM serving benchmark for builders",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+      "event": "Italy fines Meta $887M over Android data access",
+      "rationale": "Major regulatory fine involving Meta and Android users' data",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "5400cf1e-5553-4ac6-b85e-0362f12c40a2",
+      "event": "Private 8-V100 server runs DeepSeek V4.1 Flash at 4-bit",
+      "rationale": "Self-hosted LLM hardware upgrade with practical details",
+      "relevance": 8,
+      "importance": 4
+    },
+    {
+      "id": "3c7313cb-da9d-40a2-bb26-a9f7483e4e90",
+      "event": "Jensen Huang leaves Nvidia amid scandals",
+      "rationale": "CEO departure reported; allegations described in article",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "078bb928-a50e-47ae-9e9e-f03759c17bca",
+      "event": "Nvidia CEO Jensen Huang scandal",
+      "rationale": "Industry reaction to Huang scandal in Silicon Valley",
+      "relevance": 6,
+      "importance": 7
+    },
+    {
+      "id": "63260e45-301f-4386-8073-6223b8d764a8",
+      "event": "Microsoft 365 outage restored after Copilot impact",
+      "rationale": "Service outage affecting Outlook, Teams and Copilot",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "fa9e79fa-2601-4df2-a010-88c61462b765",
+      "event": "Nvidia scandal before Trump China visit",
+      "rationale": "Scandal affects US-China AI rivalry ahead of summit",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "8ef108fe-2bb6-4b0e-831e-787b62a4fa60",
+      "event": "Nvidia scandal before Trump China visit",
+      "rationale": "Syndicated report on Nvidia scandal and AI rivalry",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "262aa879-f21b-43fd-a8e1-03246ec404f4",
+      "event": "Nvidia scandal before Trump China visit",
+      "rationale": "Syndicated report on Nvidia scandal and AI rivalry",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "f8cec796-211e-49c8-81f2-f1df858cbc35",
+      "event": "Nvidia scandal before Trump China visit",
+      "rationale": "Syndicated report on Nvidia scandal and AI rivalry",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "d2fafca9-f77a-4268-bea0-820dc4736449",
+      "event": "Nvidia scandal before Trump China visit",
+      "rationale": "Syndicated report on Nvidia scandal and AI rivalry",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "8089652a-6599-4912-9a54-4e0ed8748c84",
+      "event": "Run Cloudflare Workers anywhere",
+      "rationale": "Developer platform portability; useful to builders",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "6cf8b3d5-2dac-4f59-bbd8-faddd6178bd1",
+      "event": "Nvidia scandal looms over US-China AI talks",
+      "rationale": "Scandal affects upcoming US-China AI negotiations",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "f80f3334-232a-4a47-a5b0-9eb549295dc5",
+      "event": "US officials alarmed by Nvidia AI chips reaching China",
+      "rationale": "Export-control concern over restricted AI chips",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "2ad218c7-f1ce-4563-86f3-d08e9a9cb858",
+      "event": "Alleged Nvidia GPU scarcity via startup funding",
+      "rationale": "Allegation of market manipulation; not verified",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "e80b7cbe-d5c1-44ab-a0ec-511349cff9a2",
+      "event": "US officials alarmed by Nvidia AI chips reaching China",
+      "rationale": "Syndicated report on export-control concern",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "1502df76-9323-4167-bcf0-3527989b08b4",
+      "event": "US officials alarmed by Nvidia AI chips reaching China",
+      "rationale": "Syndicated report on export-control concern",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "98702f88-64c9-450a-bfac-f9fa51256285",
+      "event": "US officials alarmed by Nvidia AI chips reaching China",
+      "rationale": "Syndicated report on export-control concern",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "997a23c0-7ebc-4509-a345-66ace75a83de",
+      "event": "Nvidia scandal and US-China AI talks",
+      "rationale": "Nvidia controversy tied to AI diplomacy, not builder-focused",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+      "event": "ggml v1.0.0 release",
+      "rationale": "ML tensor library reaching 1.0, useful to builders",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+      "event": "Nvidia director stock sales scandal",
+      "rationale": "Insider sales reported before Nvidia scandal; chip sector",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+      "event": "Claude Code parallel AI workers",
+      "rationale": "Anthropic feature enabling parallel agents for developers",
+      "relevance": 10,
+      "importance": 8
+    },
+    {
+      "id": "8e43fb23-1c08-4468-bd6c-7dd61eb4badf",
+      "event": "Unsloth Qwen quantization update",
+      "rationale": "Model quantization release useful to local LLM builders",
+      "relevance": 9,
+      "importance": 6
+    },
+    {
+      "id": "9cb538d1-3bee-48d9-abed-6ecdabab0d16",
+      "event": "Patent suit against Anthropic AI",
+      "rationale": "Infringement claims against major AI developer",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "34f1de7c-6312-4788-b595-6d9476c54586",
+      "event": "Zed remote server on FreeBSD",
+      "rationale": "Developer tool setup on FreeBSD, practical",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "b86d465b-5b1c-4082-8944-37c841f0eae3",
+      "event": "Google AI school classroom backlash",
+      "rationale": "Google AI rollout in schools drew criticism",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "43901a92-3843-41c4-a9a2-2ec60a52f735",
+      "event": "Claude Meetings feature",
+      "rationale": "Claude product feature, details limited",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "363db6f3-0f81-48a9-aae3-001a66371bee",
+      "event": "Curtis letter on AI export controls",
+      "rationale": "Senator urges tighter AI export controls",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "df3f9e8e-ad78-415d-8491-f5673534e116",
+      "event": "Fed survey: AI top financial risk",
+      "rationale": "Financial stability survey flags AI risk",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "6b1577c7-4342-4146-ae9a-8589bdec4986",
+      "event": "Fed survey: AI top financial risk",
+      "rationale": "Same Fed survey reported by CNBC",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "d8bc8db4-79c4-42cf-9c43-511d08feafb7",
+      "event": "OpenAI ChatGPT Wallet launch",
+      "rationale": "Agent purchasing with biometric checks; Pro US users",
+      "relevance": 9,
+      "importance": 6
+    },
+    {
+      "id": "e45e95c1-98ff-4e42-8cfd-e547a05e4c6b",
+      "event": "Nvidia CEO ousted",
+      "rationale": "Leadership change at major AI chip firm",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "4bd0bb85-5d53-4dba-b9b8-a236bd439671",
+      "event": "Perplexity Decider v1.3",
+      "rationale": "Model training and eval details; builder relevant",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "8435ab2a-7eed-4a54-8c7c-76be12be3ac0",
+      "event": "OpenAI ChatGPT Wallet launch",
+      "rationale": "Same Wallet launch covered by Gizmodo",
+      "relevance": 9,
+      "importance": 6
+    },
+    {
+      "id": "84687120-b021-43a5-9ede-4f01cd548ff1",
+      "event": "Anthropic spending expectations",
+      "rationale": "Market outlook on Anthropic spending",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "de86603f-b58b-43e3-a94d-9d8d7ff1ba56",
+      "event": "AWS Bedrock AI cost controls",
+      "rationale": "Cost attribution tooling for AI developers",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "ca7eadee-204b-4190-a610-2d729198f601",
+      "event": "Qwen3.6 speedup on RTX 4090",
+      "rationale": "Practical inference speedup with full repo",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "e0fd3fb5-baee-460c-abfe-b51fdd5ab2fd",
+      "event": "Android clipboard read security bypass",
+      "rationale": "Android security vulnerability research",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "c23c3c4d-346d-4cf5-ba95-c3e9f4001aa5",
+      "event": "600 experiments on JEPA world models",
+      "rationale": "Hands-on ML research on world models",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "251743f5-5e4f-4781-95c3-48cf01ad21d6",
+      "event": "OpenAI disbands robotics team",
+      "rationale": "Major OpenAI shift toward general models in robots",
+      "relevance": 9,
+      "importance": 7
+    }
+  ],
+  "candidates": [
+    {
+      "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+      "title": "Anthropic Upgrades Claude Code Projects to Run Parallel AI Workers Hands-Free",
+      "url": "https://alphasignal.ai/news/anthropic-upgrades-claude-code-projects-to-run-parallel-ai-workers-hands-free",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T00:28:11.000Z",
+      "sources": ["Hacker News"],
+      "points": 55
+    },
+    {
+      "id": "3c7313cb-da9d-40a2-bb26-a9f7483e4e90",
+      "title": "Jensen Huang and the decline of the visionary showman founder CEO",
+      "url": "https://www.theverge.com/tech/1033781/nvidia-jensen-huang-last-visionary-showman-founder-ceo",
+      "excerpt": "On January 6th, 2025, Nvidia CEO Jensen Huang got his rockstar moment at last. He strode triumphantly onstage, hand raised in the air, to the claps and cheers of a 14,000-person arena absolutely packed with influencers and fans, their faces awash in blue glow, as he made his entrance in a black leather jacket that shimmered in the stadium's lights. Few are cheering for Jensen Huang now. He has left Nvidia after seemingly enabling two chip smuggling scandals and allegedly having three extramarital affairs, including one with an alleged Chinese spy at the same time he was mingling with President Donald Trump. The world is watching to see if …",
+      "imageUrl": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2194622930.jpg?crop=0%2C0%2C100%2C100&quality=90&strip=all",
+      "publisher": null,
+      "publishedAt": "2026-11-14T12:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "251743f5-5e4f-4781-95c3-48cf01ad21d6",
+      "title": "OpenAI disbands its robotics team as its general models start running robots",
+      "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T17:55:23.000Z",
+      "sources": ["Hacker News"],
+      "points": 99
+    },
+    {
+      "id": "078bb928-a50e-47ae-9e9e-f03759c17bca",
+      "title": "The Jensen Huang Scandal Has Shocked Even Scandal-Prone Silicon Valley - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQblNsX09zbmEwUEVYUDhQTnFXUy1UMDVfX2NjTV8za2wyLXZTWjNiMlh3MHNLMGo2SW1veUVETEQ1S3pyZTB4d1p2dlVTdkNJSFg4VDRFS3d1NUpZSV9NNnVRVFMwX19wRngxeVZDSFB6amdaMEdTdUdxcUE0WnBhSjNvT3hsTDBQQTJlZU5iQ3ZCSk13ZXRBQw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-14T11:55:40.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8435ab2a-7eed-4a54-8c7c-76be12be3ac0",
+      "title": "ChatGPT Is Ready to Reach Into Your Wallet - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFA0UEJyMTY4M1lOTDgxZFBRcUpCcEFCclpzcUtvUXZOY2UwOVZLeF9idjJGYWd0MWQyd1V6cGs5NzFCSEdGa1ZRX3RzRm5tZUVIVmJMYUVjUGV2OTMtS1B0Y2R6cHF2Z1lKbUtJc1RqdnlScndDdU9GLTFjUnkyZw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-13T19:15:01.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8e43fb23-1c08-4468-bd6c-7dd61eb4badf",
+      "title": "Unsloth Qwen3.8-27B Quantizations – Dynamic v3.1 Update",
+      "url": "https://unsloth.ai/docs/models/qwen3.8",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T00:06:04.000Z",
+      "sources": ["Hacker News"],
+      "points": 214
+    },
+    {
+      "id": "d8bc8db4-79c4-42cf-9c43-511d08feafb7",
+      "title": "ChatGPT Wallet lets OpenAI’s Dots agents make purchases for you",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet",
+      "excerpt": "After launching its Dots AI agents platform earlier this year, OpenAI is launching a wallet for the agents. ChatGPT Wallet is rolling out starting today for ChatGPT Pro subscribers in the US aged 18 and older using a US billing address and \"eligible US-issued American Express, Chase, Mastercard and Visa cards.\" After adding a card to the wallet, your Dots agents can use it to buy things in response to your prompts, but they'll check in with you each time before checking out. OpenAI's support page says every purchase with ChatGPT Wallet requires a security check with biometric verification like Face ID or a fingerprint scan. Now your dot c …",
+      "imageUrl": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/STKS539_AI_AGENTS_SHOPPING_B.jpg?crop=0%2C0%2C100%2C100&quality=90&strip=all",
+      "publisher": null,
+      "publishedAt": "2026-11-13T20:45:10.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+      "title": "Ggml v1.0.0",
+      "url": "https://github.com/ggml-org/ggml/releases/tag/v1.0.0",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T02:28:29.000Z",
+      "sources": ["Hacker News"],
+      "points": 369
+    },
+    {
+      "id": "1502df76-9323-4167-bcf0-3527989b08b4",
+      "title": "US officials raise alarm over restricted Nvidia AI chips reaching China - KATU",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPMFpobkxyVTA0ZzV3YXMwdVowaGxzRFduTXpGSzZNbUx4c1hiUzVybzZXaV9oNk1FaVRjdm9ZTEVIUUh2a2RWNWlmVHQ0eVNwNTRMS2NpRzBZYzQ2YUJPSTd0Q1FOejFaNWN0V3RudTlUSHlEd2pXV2JlN29VTHVuMWNLLVpNWkZ6S0NZMmJnVmE1SzNnUm1jYnM1WlYwc2pDRENtcFBLaHE1NVZ1bldDdlF5ei1iZw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://katu.com/",
+        "name": "KATU"
+      },
+      "publishedAt": "2026-11-14T02:44:04.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "98702f88-64c9-450a-bfac-f9fa51256285",
+      "title": "US officials raise alarm over restricted Nvidia AI chips reaching China - WLUK",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNc0hKeEtFS1M2MzluVERETGNPYlV6VFJUV1hCWE1jalBKNzdZV05iaVVPT2lYYjUxa2k4N1UyMVJaVTE4R0hvNjJILVZRRGpPcWxiQ2NSZDJsSFl1WHhldWg5bHdCU21MWTJ6X082TlBGREJ6dmVFMzBMTDZMWjY0Mkd2eXllZmFXaVZOTjhCVzBVOXZXOHIxMTVMcWlNc2FPa0s5VWJweVdXRWp3RkNXNEY5bWVkdWZKWVVNS0pYbw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://fox11online.com/",
+        "name": "WLUK"
+      },
+      "publishedAt": "2026-11-14T02:43:21.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "9cb538d1-3bee-48d9-abed-6ecdabab0d16",
+      "title": "PATENT NEWS: Anthropic’s artificial intelligence systems accused of infringing neural network patents - VitalLaw.com",
+      "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQa09ZQllGRFA4eTctdzhDMFk4VmkxeGhZcTNpcWQ5SXhSVU83akhfT3lTMDZoMG00U3NTNHl4amhsTjBTYjhmbi1hZGtVZF8xSTFqZ29aZE02WEZvcXpzbW9Zb2s0azROS25sZHpCUlNGbFQ5WHhBRlpja3ZwcktkREZmMDNFbGVDcnlvdHdkeTNFRVV6N21rc3hlQTJUSUk1WFFiM1FidlRfT2RpWVByR2ZYN2lUVU1EUXB1R0JGQkdWaWRzQXFhaERnaTljZDN3QUN0V05WOWtnbkl2ZElqYTAtcVE5TU5NaGItcEctQ0x0SnhBUnBuU2tUdUw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.vitallaw.com/",
+        "name": "VitalLaw.com"
+      },
+      "publishedAt": "2026-11-13T23:03:48.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e45e95c1-98ff-4e42-8cfd-e547a05e4c6b",
+      "title": "Wall Street Loses a Powerful Dealmaker After Nvidia’s CEO Is Ousted - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNbXBvOHJYRmdHTG5FaUpvVVRoRFZaLUlWeXNHQ01ZZi1ReXBJRUVIUnNCN0g5blRzNjdCUE9VNGJPQnI2S29obU9SdmpLTU5mMEhJRDVsQTNKM093b3Z6NzhTTF92NDI1T3lIZmZCQzNHSHo1bHpYbExlM05WR0F0cmduSHpwTnc?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-13T19:52:01.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e80b7cbe-d5c1-44ab-a0ec-511349cff9a2",
+      "title": "US officials raise alarm over restricted Nvidia AI chips reaching China - WJLA",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNVlhBMFFZZUhfdTJsLW1pTGlVMmJWd1dXZWRWZ1BIdHVfck9LcVZWRXZTN0FFS09CNXhpcnlaN0JYMDRRN2w5dU9ONEt2V0o3WkEwd0xzSXVQZ1l1OWpxSDlrcENmZXlzNDZxTzN3NUhCX1BHelkySXBublRONDZpeDlRQ3hHV3Atd3FpUFlIM1RHWXQ1LXlFS094Qk9TUVZwVm5POVB4LThqN29QUEVTUDZubk1Fdw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://wjla.com/",
+        "name": "WJLA"
+      },
+      "publishedAt": "2026-11-14T02:44:14.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+      "title": "Italy fines Meta $887M over Android users' data access",
+      "url": "https://www.reuters.com/world/italy-fines-meta-887-million-over-android-users-data-access-2026-11-14/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T13:48:06.000Z",
+      "sources": ["Hacker News"],
+      "points": 129
+    },
+    {
+      "id": "f80f3334-232a-4a47-a5b0-9eb549295dc5",
+      "title": "US officials raise alarm over restricted Nvidia AI chips reaching China - KEYE",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxORkIyZ2k4WVExc3RRdS1ZZkhLcDl1ZHNZUGxFNjVWT3NmT3U0ODdyeENDN092bU1kVWdDQm05dzNWYUJra3Z6V0tEeTZXMmN3X0tBaHU5UnJobkhidkx2dFptVWlnSnA3RFhERjJNd2ZGUjdFR2xfYUw1VXpQeU9VTlVKZDJnTVc1UlU2NGpFcjI2cEdHWDdDbTEzeHltaDlhd1VYd3JXY1ZlRkNGWWFoa01mcFNWTUtXdVotag?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://cbsaustin.com/",
+        "name": "KEYE"
+      },
+      "publishedAt": "2026-11-14T02:54:13.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "262aa879-f21b-43fd-a8e1-03246ec404f4",
+      "title": "The Nvidia scandal is heightening America’s AI rivalry with China ahead of Trump’s visit - WTOP News",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxONVljNTFyVTBob3FTSTFEWjNjeldvelllSkphSjI0clRGSEl4WjhuYXhVdElzU01GdS05My1YeFhkNW9fd1c4MzBWVERWaUN5OVpHbmpOeVhjaXFEOWhGZTY2TThOYVU2dEg5NjhjQVllMWpFYlNjVHJxcDh2STlIU2hGYVpSUHNpcjllUkdUYWhJaGRGYjVoR2xxUER5NlR1QklqY2ljNnlnYVBIX3hacllzU3dhRnB4TmZMSm5n?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://wtop.com/",
+        "name": "WTOP News"
+      },
+      "publishedAt": "2026-11-14T05:28:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6b1577c7-4342-4146-ae9a-8589bdec4986",
+      "title": "AI risks are the biggest threat to the financial system, Fed survey finds - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOd1luSGcydUl6NE15cEcydlNhSnRuNjNjVHdMQldrQjRYcXpLZ3FfbnNrWndndDNTaUowRWJ6NDg0dUdaN084LW00YU4tNEhPTXh6Ymx3WVFpZk5MQTgwVFpMX1o4cFdXT2lCQi1xSzlncG9mUkpDa0xTUF9BY2E3cXVnS2fSAYoBQVVfeXFMTmZFcVNQMElxVkdHNTFNMVBOYTg0SGVKNm5ISHM5N3pGUUxKSE5Za2ZuMmZNb3RnY0FpVWxNbWtIdXFIdm0wOWVIa3FXWVJJaVhhTHBzOVpJbzVnY2VGZk04WE5aRHVBdjdkRlVpSm1VQXo1ckRPRTV4aDNjNGJNeGlhSXZ4ZEhIa1dR?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cnbc.com/",
+        "name": "CNBC"
+      },
+      "publishedAt": "2026-11-13T21:00:12.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6cf8b3d5-2dac-4f59-bbd8-faddd6178bd1",
+      "title": "Nvidia scandal looms over US-China AI talks - AFP.com",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9zbW1tdkR2V0N2VFlYSlc5UkRJamR5d0FwbS1wcHk0dUdCNWZFcElGem1FWExSVEltVnIzMHhMVEZZTVlhT0dlcXV1bGwyS3Uzd0dtc3pWWThreXhTYWtjbzVFRTZVdzFpU1BUWDR6a2JYVlFU?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.afp.com/",
+        "name": "AFP.com"
+      },
+      "publishedAt": "2026-11-14T03:26:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8ef108fe-2bb6-4b0e-831e-787b62a4fa60",
+      "title": "The Nvidia scandal is heightening America's AI rivalry with China ahead of Trump's visit - ABC News - Breaking News, Latest News and Videos",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPRTdIb1dVWXp1MFVRQmJfY3lVelBQN0RDZzJoQnI4V19GQVAyZ0Fkdk9JdU5LenRnY3lYejRzdy1UYVRjVXh4SmVrb09rbjFxLU96d0pGN0NYdmJQT3BwaVNLdjVJSjNBUzFwcUhXVDZYNU9QYWdMWURzQWNfd3dUbnZORGlROFFWaENQTjNOcE9vdmtPanRQWEpzUTdmV1dMSy1j0gGoAUFVX3lxTFBIdGZpRWxLclBvWlBpQkt0OURmdXdSYklEZHp6bVhORWFkMDQ3NDFuUzVoQkRrRks4ZW8ydF83UmhJOFdrTV9GN1d4UWtjYlRmX3owYXRpaW9OZEl5VDZWdUwybUdZLXlHNWpsNWFLMzNwRTgtRG1RUXFLdUYyVHBmcGNkdF95Q3o4Tm1SN1laeFdZQmwwY1BVRncyMjIzblRfaTE3OGgtOQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://abcnews.com/",
+        "name": "ABC News - Breaking News, Latest News and Videos"
+      },
+      "publishedAt": "2026-11-14T05:51:32.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "d2fafca9-f77a-4268-bea0-820dc4736449",
+      "title": "The Nvidia Scandal Is Heightening America's AI Rivalry With China Ahead of Trump's Visit - U.S. News & World Report",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQRkJHX1NheTI0ZlhOb0otWE5oTlVHamNWT0YzazVKZF9OZnprRkFHVTNPbWlrV0hiVFl6OWNNYk1ZaUNkanVpYVVuTnQ0M3VyaTU5Ymc4SkNCSHlacU9faHpTTWQzakViMVRyM0tWOXllWnBERHdUMno4cFZhSzZCdGxoU1ROYTJ1cFVyMHE4Vl9BWlQyTHRJWDdBTmpTOHdxb0czUkVFOGJvSW5nYWVyajNXR0xjcDVWVVNQZHBZR1RBSEN4OFp4M1h1dFBWQW5BMms1bWw1cS1vaFE?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.usnews.com/",
+        "name": "U.S. News & World Report"
+      },
+      "publishedAt": "2026-11-14T05:17:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "df3f9e8e-ad78-415d-8491-f5673534e116",
+      "title": "AI rockets to top of worries about financial system in latest Fed survey - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNa05md1paYmE4WGRIS2pmdGhmS3ZkQUhQdnFNUHNpTURuUmNXc3A1OUNvQkQxamNhUmROd3o4a09ENzhkamVvSlJMUDcyR1FYVW5MOXhid3RjNEtLLVY0NDVTMWlxdGZxYWJ3YVVuRmhRSEQzbDJvSk9VakI2d3lORXZZbFdkdlJHcEpPdmpxOWh5Z1J1UjJQbG96S016ck1MSk1VVzJ4SFliWkhUMng3NEJuYVpEWjQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-13T21:03:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f8cec796-211e-49c8-81f2-f1df858cbc35",
+      "title": "The Nvidia scandal is heightening America's AI rivalry with China ahead of Trump's visit | World News | 2news.com - KTVN",
+      "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxPQWw1aERZSXBnaW5yQmUtYlA4QkdTSzd1SFV0Q3JLVEs5TUxxcW1FSGt5SWg5Znc2aUFYaGREYWdqaFRxQWJac1Rldm9vZi13b2pQVmkzWndVUHdORHd4MUw5UnFtNUZNT1IwUjRob1dmaXRXdlBlcDRGdDRJNzBZcDBJSGtNazFaQVpzN2FqRy03Mmdtb2hfXzJwZ1YzMUZoc2R6NVpOdFd2dGloU081MllTR1Q1RXNGWE9Bem5Hal9QdEIwZ1ZmLXo3ay1zdDBYcXpHUDZadjAwbGRPR0V1enhiUk1ablZsZ2tuZ3k1UUdHWmc2WjNScWZqQQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "http://www.ktvn.com/",
+        "name": "KTVN"
+      },
+      "publishedAt": "2026-11-14T05:17:46.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fa9e79fa-2601-4df2-a010-88c61462b765",
+      "title": "The Nvidia scandal is heightening America's AI rivalry with China ahead of Trump's visit - MySA",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNQTJJUVZrWGtTbmRSOTJDM0pZQlFJZm96YVBMQWRRc0ZyYTJRMjJnX2lSSDdRWkw1Sld1bG5Bclloenp5TUZRNEdFNmFvcnNGUUQ4YWpLSW1DbFdYVWJ3YUFGcWgzMkNRc2ltMDNCRFRtSjUtUnNIOW1VV0Z1dm5fTWY2ZzJ6bzREXy1xMTJHcnhyeHhIbHZBWngza2R1dVo3dkVOY1VuSE43cVhmeG9B?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.mysanantonio.com/",
+        "name": "MySA"
+      },
+      "publishedAt": "2026-11-14T08:51:56.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "43901a92-3843-41c4-a9a2-2ec60a52f735",
+      "title": "Claude Meetings",
+      "url": "https://claude.com/resources/articles/claude-meetings",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T22:39:15.000Z",
+      "sources": ["Hacker News"],
+      "points": 49
+    },
+    {
+      "id": "c23c3c4d-346d-4cf5-ba95-c3e9f4001aa5",
+      "title": "After 600 experiments, here's what I discovered about JEPA world models",
+      "url": "https://haddyalchaer.com/jepa",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T17:55:28.000Z",
+      "sources": ["Hacker News"],
+      "points": 273
+    },
+    {
+      "id": "c876500d-4007-4487-b883-43be26bac461",
+      "title": "Serving GLM-5.3 at 607.8 tok/s across two Nvidia DGX stations with vLLM",
+      "url": "https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T14:09:25.000Z",
+      "sources": ["Hacker News"],
+      "points": 71
+    },
+    {
+      "id": "ca7eadee-204b-4190-a610-2d729198f601",
+      "title": "6-11X speedup running Qwen3.6 on my RTX 4090, full repo.",
+      "url": "https://github.com/me-farza/lightreason/tree/main",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T18:40:37.000Z",
+      "sources": ["Hacker News"],
+      "points": 13
+    },
+    {
+      "id": "de86603f-b58b-43e3-a94d-9d8d7ff1ba56",
+      "title": "Cost attribution and controls for AI developer and productivity tools on Amazon Bedrock - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPNDhuWHJsYkZJQ3p6R1g3bkNsa25JSHVCY3hwQWJQTzNVN0k3Q3hkRXYySnJHWVJ4dWkyVGctUUtLaGYxZkhnWm9uRDliZ0JJMi0xM0d3YjB2ZVpCQVRyV19ab2c3a2RCUTRiclZKTGxfZi03V0p4b1ljRkpSbnlOUFhOVDN1amFVenNmTXRibHdNYXBzMDZvSWxtNC04RS1ld3JDbTNDNGtQNmtFQ2JuRlZLZ1ZkNWJTUUVnemlLN3d5TXJlRnlobk1acWFxTWs?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-13T18:44:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "2ad218c7-f1ce-4563-86f3-d08e9a9cb858",
+      "title": "Nvidia allegedly engineered scarcity by funding AI startups to buy its GPUs",
+      "url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T02:52:59.000Z",
+      "sources": ["Hacker News"],
+      "points": 921
+    },
+    {
+      "id": "363db6f3-0f81-48a9-aae3-001a66371bee",
+      "title": "Sen. John Curtis pens bipartisan letter urging tighter export controls on Artificial Intelligence - KVNU News Talk",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQa0hOOTg0ZDcwRzlyb3ZhanlzbVAwNm41MGF0bmlSRktCdlR4d2R4OUV3b0RyVVhaUHVOTFdFTTFjenpUeW1CYU5rSkswZGZTSmJUM1dHNVRlQlMwVlczVTduMm1MWXhhWVJVQ1poX2pxbWN2Y2czRTBscm1oUDhxOU9rcTNNSzBCNVBTeUE2UjY3Nm41Z0IzUG9PWFFINDVUdmZfcWs2SndEdlFTZ18zU2ZFOVZrRnMxS0E?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://kvnutalk.com/",
+        "name": "KVNU News Talk"
+      },
+      "publishedAt": "2026-11-13T21:30:04.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "63260e45-301f-4386-8073-6223b8d764a8",
+      "title": "Microsoft outage update: Company says Microsoft 365 services fully restored after Outlook, Teams and AI assistant Copilot impacted - ABC7 New York",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPWTBoelFkT0tadXZRMkd1YWEwTzliT2lUSGgzcVVKcFZrWXZUNXh5X3RLcGlPaW1pZTVYRDBXc0hyT3dKNU1TVl9sMkZCNTM1Mkx3aDNCbWtHdDNXLUs5cUI1MzlaeWdWRmp0Z190cHZyaVRsVThOdUt1T1J4T1NTNjBQN0dObjNCQ2dOb1VpODNVM0k5Z0pDalgwR0hKcU9UY2xYUno0cWc1ZXJQNFBWY25INlBELTJqU29UWWpMck9GRk1ocjl5MmtFbGhtMTdnQUpjNGVIRUF3Z9IB3wFBVV95cUxPOVhBa19SQ05oNkVpMHhEaTd4OTNPSEdyX0RDbWlKeVdHYm4zckEtekNOb1hjZktqcDBTMWtoM0tWVFRBc2FHZmJKU256ODMxaDF6Ri1jdXVEUXQxRTBIOVhIUGRWVW9NWUlHcEJkdDM1aEMzMzkzOFVZbDVadFM4ZVZaY3d4N0ZJS2t4a2pSeTc0OERlYlp6TlJDaVE3aDFuOGdTUjFFSkRka2VqVXpiUGVaWi04NU9iMlo4eWNEb1pmQkhMXzUzNTlrcWcwWEtHYS1sRnpySlFZQ190ZFpZ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://abc7ny.com/",
+        "name": "ABC7 New York"
+      },
+      "publishedAt": "2026-11-14T11:41:19.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e0fd3fb5-baee-460c-abfe-b51fdd5ab2fd",
+      "title": "Ctrl+C, Ctrl+v, Ctrl+cve: Bypassing Android's Clipboard Read Security Measures",
+      "url": "https://toninoble.com/post/ctrlc-ctrlv-ctrlcve",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T18:23:49.000Z",
+      "sources": ["Hacker News"],
+      "points": 68
+    },
+    {
+      "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+      "title": "Nvidia director sold nearly $1B in stock weeks before the Jensen Huang scandal",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-director-sold-nearly-1b-160000846.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T02:21:36.000Z",
+      "sources": ["Hacker News"],
+      "points": 195
+    },
+    {
+      "id": "84687120-b021-43a5-9ede-4f01cd548ff1",
+      "title": "Wall Street Braces for Anthropic’s Spending - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPTVpSYzU1cWtsQ0gxRXJPRUdXZlVmc1c5T1V4SlcySnEtd051UUIweW52UzhGOExhNTNrNklaaS1vTmFWZnozN3dic0dVcTZFMVdpRzFYY0FEX3pteHVjSTBmTEZiTjBVWlRKd0FzeFpGazN3Q2NXY1V0SmMxUWxxaW1UOXhDUQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-13T18:52:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "997a23c0-7ebc-4509-a345-66ace75a83de",
+      "title": "Nvidia scandal looms over US-China AI talks - France 24",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNX2tLbjNPWlltQUF6MWIxWWJweEdRZ1dKZFNaWFN6bnBUNGpwcWltUzdLajdHUkNSQlpNcHlub0VhNnV2WGNncE9UX0dhTmVWX25sSDVNc0NiRG5adjlObVlZWnhZVS1OMDZ0OGhhUlpIZGJ2VzI5cHc2TGctYjltRUxPS0VRY3R4MDFIeDFTVHZZR01L?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.france24.com/",
+        "name": "France 24"
+      },
+      "publishedAt": "2026-11-14T02:29:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b86d465b-5b1c-4082-8944-37c841f0eae3",
+      "title": "Fierce backlash erupts after Google tried to force its AI into school classrooms - The Independent",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQcE5NZ1F4X2hkdnMtRlpESy1KWVpsOFh6TGZzX1Rfal9sYUh6anY1VklXaGJwamRmcEQ5ZlEyN09ReldObHJCTVNfcEZEbTRycm90U3NqclRCbXNzTDhTTE9ub3NrY1FZVFVwWHlfLUstTnFhRTJnam14MWNzZ2xtSXlreUk3d3dPNWdKcW94cUZCaDdTSXFyY0Q0S2NFenBPWmVlWlhBN2E1M25jcG5ybUthbE5iUkE?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.independent.co.uk/",
+        "name": "The Independent"
+      },
+      "publishedAt": "2026-11-13T22:44:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5400cf1e-5553-4ac6-b85e-0362f12c40a2",
+      "title": "Lawyer upgrades eight-V100 private AI server to run 80% of DeepSeek V4.1 Flash at 4-bit NVFP4 precision — adds 1TB of RAM, an Nvidia RTX 3090, and fixes crashes caused by a bad PSU - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMi6gJBVV95cUxORmVNQ0JsdXR6NHc5aF9tNENEV2RwRGJKZGNheDJNRkZYS05oOVV2VV9lRTA5cTFhckFpZmFnZUtDWFlRTEJLejlTVzlxTDRBVHRzbUJtYVBRcmlDMjJkVmtaTl9YMWlNdWZFdGt4eTgyUHpyMHFxVnVXUTlSVm9HYWxqVGNaWUVzbElpZUtsT3d5X21fODJmYmZDdnpZWFJESFNaZFNqTF83aEw2UVdHWU1BSUg4TDJucnNBYUppX242cnJQaWF4T3l2dDdhVm54MmRNV2NJVHo4NnhTLThqT2xQUVhRbjBTdUJKNTlkSF8zblhUUEd6SjFkRHlMOU53eHJTREI1VzdyVXlmMmdBdkc2ejFQODdsUTlpUjJHYkxoaUNHUkgwTnIyX29nZF9VNTFBc1gxd2puZm9kc1lGSTUyTU9aQ004ZmlUNk9DbE1Fa3lnUTR5SzVKaHdXbklXcmNMUGx4a2V4QQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.tomshardware.com/",
+        "name": "Tom's Hardware"
+      },
+      "publishedAt": "2026-11-14T12:50:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "34f1de7c-6312-4788-b595-6d9476c54586",
+      "title": "Lying to Zed to get its remote server running on FreeBSD",
+      "url": "https://hayzam.com/blog/03-lying-to-zeds-remote-editor/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T22:54:47.000Z",
+      "sources": ["Hacker News"],
+      "points": 11
+    },
+    {
+      "id": "4bd0bb85-5d53-4dba-b9b8-a236bd439671",
+      "title": "Perplexity Decider v1.3: Training, eval, and use cases",
+      "url": "https://www.perplexity.ai/hub/blog/perplexity-decider",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T19:24:47.000Z",
+      "sources": ["Hacker News"],
+      "points": 133
+    },
+    {
+      "id": "8089652a-6599-4912-9a54-4e0ed8748c84",
+      "title": "Run Cloudflare Workers Anywhere",
+      "url": "https://openorange.dev/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-14T03:58:32.000Z",
+      "sources": ["Hacker News"],
+      "points": 8
+    }
+  ],
+  "groups": [
+    [
+      "3c7313cb-da9d-40a2-bb26-a9f7483e4e90",
+      "078bb928-a50e-47ae-9e9e-f03759c17bca",
+      "e45e95c1-98ff-4e42-8cfd-e547a05e4c6b",
+      "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1"
+    ],
+    [
+      "1502df76-9323-4167-bcf0-3527989b08b4",
+      "98702f88-64c9-450a-bfac-f9fa51256285",
+      "e80b7cbe-d5c1-44ab-a0ec-511349cff9a2",
+      "f80f3334-232a-4a47-a5b0-9eb549295dc5"
+    ],
+    [
+      "262aa879-f21b-43fd-a8e1-03246ec404f4",
+      "8ef108fe-2bb6-4b0e-831e-787b62a4fa60",
+      "d2fafca9-f77a-4268-bea0-820dc4736449",
+      "f8cec796-211e-49c8-81f2-f1df858cbc35",
+      "fa9e79fa-2601-4df2-a010-88c61462b765",
+      "6cf8b3d5-2dac-4f59-bbd8-faddd6178bd1",
+      "997a23c0-7ebc-4509-a345-66ace75a83de"
+    ],
+    [
+      "8435ab2a-7eed-4a54-8c7c-76be12be3ac0",
+      "d8bc8db4-79c4-42cf-9c43-511d08feafb7"
+    ],
+    [
+      "6b1577c7-4342-4146-ae9a-8589bdec4986",
+      "df3f9e8e-ad78-415d-8491-f5673534e116"
+    ]
+  ],
+  "publishedIds": [
+    "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+    "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+    "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+    "328e97d8-86c8-4c7a-8216-188a4185cb14"
+  ],
+  "historicalGroupingCacheHit": false
+}

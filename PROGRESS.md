@@ -123,3 +123,14 @@ Older entries: [through iteration 2273](docs/progress-archive/2026-11-14-through
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,019 unit and 329 integration tests; four expected integration skips. `git diff --check` clean.
 - `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; initial reader request raced startup, retry passes unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f (five topics/14 stories/19 posts). Health database/Redis true and 38/38 sources healthy.
 - No paid inference or source requests; public mode off, VM private. Next: natural ownership/Gaming acceptance before item 58/public activation; evaluate readable Tech evidence retention without erasing important headline-only news.
+
+## 2026-11-14: iteration 2285 — evaluate retaining qualified Tech reporting
+
+- Clean main; no inherited work. Alerts zero; health and all 38 sources healthy. Scheduled Gaming/ownership acceptance remains pending; generation unchanged after noon.
+- Reader weakness: three Tech summaries have headline-only evidence. Added fixed forty-candidate recording and offline cutoff evaluator using production shortlist/rank/evidence code and saved grouping; no DB/provider imports in evaluator.
+- One reserved reporting slot admits Wallet (596 characters, semantic 9/6), displacing empty Perplexity (7/4). Readable clusters 1→2 within ten slots; all four published story IDs and unchanged evidence retained. Current-input counterfactual, not historical model replay or proof of better generated summaries.
+- Initial fixture trimming counted an unavailable triage ID; recaptured the actual production shortlist inside a read-only transaction. Forty-input controls and membership assertions now pass. No paid inference, source requests or publication writes.
+- `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` passes; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,019 unit and 329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean.
+- API/worker restarted after build. First reader check raced startup; retry verifies unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts. Health database/Redis true; 38/38 sources healthy.
+- Updated TASKS and Tech evidence; no system flow/schema/UI/source change, so handbook/SOURCES/screenshots unchanged. Public mode off; VM private.
+- Next: natural Gaming/ownership acceptance before item 58/public activation; compare another recorded Tech window before any generic reporting-slot policy in a permitted generation window.

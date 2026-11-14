@@ -68,3 +68,31 @@ scheduled-window cache; `loadArticleCandidates` inside `BEGIN READ ONLY` /
 `editorEvidence` with a cache-only substitute. No provider dispatch, cache
 write, source request or publication. Temporary outputs:
 `/tmp/2284-preview.json`, `/tmp/2284-tech-replay.json`, `/tmp/2284-replay.log`.
+
+## Recorded cutoff experiment — iteration 2285
+
+`pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` evaluates a fixed
+40-candidate recording, the saved five grouping sets and production ranking /
+evidence projection. It imports no database or provider adapter. This remains
+a current-input counterfactual, not a replay of the historical request.
+
+| Ten-slot editor input        | Baseline | One reporting slot reserved |
+| ---------------------------- | -------- | --------------------------- |
+| Clusters with reporting      | 1        | 2                           |
+| Published story IDs retained | 4        | 4                           |
+| Wallet reporting supplied    | None     | 596 characters              |
+
+The trial keeps the first nine ranked clusters and admits the highest
+semantic-priority readable cluster outside the ten-slot cutoff. Wallet's
+cluster has relevance 9 / importance 6; it displaces excerpt-free Perplexity
+Decider (7 / 4, recency/engagement score 8.90 versus Wallet's 2.40).
+All four published representatives, including the three headline-only
+controls, survive. Evidence objects and text are unchanged; no new grouping,
+text fetching or editorial call occurs. The recording produces 26 clusters.
+
+This supports a bounded admission option for the next permitted generation
+window. It does not establish what the editor would select or write, or that
+one reserved slot is the best general policy. Production selection is
+unchanged. Compare more saved windows before shipping a generic reservation;
+keep semantic admission, the ten-slot limit and important headline-only news.
+The fixture is `apps/api/test/fixtures/tech-evidence-cutoff-2026-11-14.json`.

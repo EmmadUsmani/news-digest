@@ -58,6 +58,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Tech evidence-cutoff experiment (2285): fixed forty-candidate offline recording retains all four published story IDs while one reporting slot admits Wallet (596 characters) instead of excerpt-free Perplexity; readable clusters 1→2, ten slots unchanged. Counterfactual only; production unchanged. [Evidence](docs/edition-reviews/2026-11-14-tech-depth.md#recorded-cutoff-experiment--iteration-2285).
+
 - [x] Compact ownership publication composition (2283): synthetic wire responses pass real budgeted ownership, UUID restoration, exclusive World/U.S. publication and serialized reader projection; duplicate membership/truncated JSON withhold both sections without repair. Natural scheduled recovery remains pending.
 
 - [x] Ownership rejection evidence (2280): failed cross-topic ownership bodies now use the private bounded editor-artifact store; repair-disabled dispatch/settlement, no invalid cache and successful-response exclusion verified offline. Natural recovery remains pending.
