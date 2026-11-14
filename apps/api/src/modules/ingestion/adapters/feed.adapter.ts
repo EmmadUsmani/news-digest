@@ -46,8 +46,16 @@ function excerpt(value: unknown, articleUrl: string): string {
       return canonicalUrl(href?.[2] ?? '') === articleUrl ? '' : footer;
     },
   );
+  // WordPress syndication footers repeat the headline and publisher, not facts.
+  const withoutPostFooter = withoutSelfLink.replace(
+    /<p\b[^>]*>\s*The post\s+<a\b([^>]*)>[^<]*<\/a>\s+appeared first on\s+<a\b[^>]*>[^<]*<\/a>\.\s*<\/p>\s*$/i,
+    (footer, attributes: string) => {
+      const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+      return canonicalUrl(href?.[2] ?? '') === articleUrl ? '' : footer;
+    },
+  );
   // Inline formatting contributes no spacing; block tags still separate text.
-  const reporting = withoutSelfLink.replace(
+  const reporting = withoutPostFooter.replace(
     /<\/?(?:a|abbr|b|bdi|bdo|cite|code|del|em|i|ins|kbd|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr)\b[^>]*>/gi,
     '',
   );

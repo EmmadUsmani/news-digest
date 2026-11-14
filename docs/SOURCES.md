@@ -2867,3 +2867,12 @@ to the same canonical article URL. This preserves the supplied ellipsis so the
 reader can offer continuation. External, inline and nonterminal links remain.
 Four recorded articles and synthetic boundary controls pass offline; no live
 request, paid call or saved-edition rewrite is involved.
+
+### Repeated post attribution footers — Nov 14, iteration 2220
+
+Recorded Basketball Insiders and Insider Gaming feeds append “The post [headline]
+appeared first on [publisher]” to reporting. Omit only terminal paragraphs with
+that exact two-link structure when the headline link canonicalizes to the article.
+External links, nonterminal paragraphs and prose mentions remain. Five recorded
+articles and synthetic boundaries pass offline; no new source or inference calls.
+Reporting, original URLs and publisher metadata remain the source evidence.

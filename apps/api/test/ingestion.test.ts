@@ -10,6 +10,56 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded post footers omit repeated headlines and retain reporting metadata', async () => {
+  for (const name of ['basketball-insiders.xml', 'insider-gaming.xml']) {
+    const items = parseFeed(await fixture(name));
+    assert.ok(items.length >= 2);
+    for (const item of items) {
+      assert.doesNotMatch(item.excerpt, /The post .* appeared first on/);
+      assert.ok(item.excerpt.length > 50);
+      assert.ok(item.url && item.title && item.publishedAt);
+    }
+  }
+  const nba = parseFeed(await fixture('basketball-insiders.xml'))[0];
+  assert.match(nba.excerpt, /43 points/);
+  assert.match(nba.excerpt, /117-112/);
+  const gaming = parseFeed(await fixture('insider-gaming.xml'))[0];
+  assert.match(gaming.excerpt, /security ahead of GTA 6/);
+});
+
+void test('post footer removal requires terminal navigation back to the article', () => {
+  const item = (body: string) =>
+    parseFeed(`<rss><channel><item>
+    <title>Report</title><link>https://example.com/story</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description>
+    </item></channel></rss>`)[0];
+  const footer = (url: string) =>
+    `<p>The post <a href="${url}">Report</a> appeared first on <a href="https://example.com">Publisher</a>.</p>`;
+  assert.equal(
+    item(
+      '<p>Reporting…</p>' +
+        footer('https://example.com/story?utm_source=rss#top'),
+    ).excerpt,
+    'Reporting…',
+  );
+  assert.match(
+    item('<p>Reporting.</p>' + footer('https://other.example/story')).excerpt,
+    /appeared first on/,
+  );
+  assert.match(
+    item(footer('https://example.com/story') + '<p>More reporting.</p>')
+      .excerpt,
+    /appeared first on/,
+  );
+  assert.match(
+    item('<p>Reporting. The post Report appeared first on Publisher.</p>')
+      .excerpt,
+    /appeared first on/,
+  );
+  assert.equal(item(footer('https://example.com/story')).excerpt, '');
+});
+
 void test('recorded publisher self-link footers leave truncated reporting visible', async () => {
   for (const name of ['vgc.xml', 'gematsu.xml']) {
     const xml = await fixture(name);

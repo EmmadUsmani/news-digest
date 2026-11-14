@@ -62,15 +62,7 @@ Archived entry: [iteration 2205](docs/progress-archive/2026-11-14-iteration-2205
 
 Archived entry: [iteration 2206](docs/progress-archive/2026-11-14-iteration-2206.md).
 
-## 2026-11-14: iteration 2207 — preserve inline feed sentence spacing
-
-- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. Scheduled NBA/item 58 acceptance remains pending; public mode stays off/private.
-- Saved Gaming reporting exposes `Spider-Man 2 .`: feed normalization inserted whitespace for every inline HTML tag. Known inline tags now contribute no spacing; block tags retain separators.
-- Offline regression covers emphasis, nested links, punctuation, subscripts, adjacent spans, breaks, paragraphs and list items. Caps, field precedence, metadata, X extraction and saved editions retained.
-- TASKS and SOURCES updated; archived iteration 2194. Minor normalization fix needs no handbook behavior change; NEEDS_FROM_HUMAN unchanged. No paid/live source calls, budget/provider changes or stored-edition rewrites.
-- Targeted feed/recorded-Ars checks pass 5/5. Initial broad test filter also selected a DB test without isolation; guard refused it. Corrected targeted filter; full suite uses disposable services.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
-- Next: Nov 14 normal scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2207](docs/progress-archive/2026-11-14-iteration-2207.md).
 
 ## 2026-11-14: iteration 2208 — Ars publisher continuation
 
@@ -213,3 +205,14 @@ Archived entry: [iteration 2206](docs/progress-archive/2026-11-14-iteration-2206
 - Built API/worker restarted active; health/database/Redis pass. Initial reader check raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors.
 - Commit/push and final restart follow.
 - Next: scheduled all-topic/NBA recovery and manual diversity/support review, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2220 — omit repeated publisher post footers
+
+- Clean main; no inherited work. Zero alerts. Scheduled recovery/NBA/item 58 acceptance awaits 15:00 UTC.
+- Recorded NBA/Gaming feeds repeat headlines and publisher names after reporting in “The post … appeared first on …” navigation.
+- Omit only terminal two-link paragraphs whose headline link canonicalizes to the article. Preserve external/nonterminal links and prose mentions; reporting and metadata remain intact.
+- Two focused tests pass: five recorded Basketball Insiders/Insider Gaming articles plus synthetic boundary controls. No new source requests, paid calls, saved-edition writes or UI changes.
+- TASKS/SOURCES/affected handbook updated; archived iteration 2207 to keep PROGRESS small. Budgets, provider and activation unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 990 unit/309 integration, four expected skips. Build passes with existing bundle warnings; affected handbook/schema and diff checks pass.
+- API/worker restarted active; `/healthz` database/Redis pass. Reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection and no errors.
+- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
