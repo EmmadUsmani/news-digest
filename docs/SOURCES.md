@@ -2966,3 +2966,12 @@ same HTTPS `i.guim.co.uk` photo path, preserving its signed URL. Other photos,
 hosts, invalid widths and mismatched width parameters cannot replace the lead.
 Other publishers retain existing image precedence. Offline fixture checks only;
 no live requests, new source, article crawling or saved-edition rewrites.
+
+## Nintendo Life teaser continuation — iteration 2239 (2026-11-14)
+
+The unchanged recorded feed supplies reporting followed by a terminal
+“Read the full article on nintendolife.com” self-link. Normalization now omits
+that navigation and retains an ellipsis for reader continuation, as for Push
+Square. Both recorded articles retain their reporting, dates and metadata;
+other publishers, changed labels, other destinations and nonterminal links
+remain intact. No live requests or saved-edition changes.

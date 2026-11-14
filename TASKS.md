@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Nintendo Life teaser navigation (2239): omit terminal publisher self-links while retaining reporting and a continuation marker; unchanged recorded feed plus publisher/destination/nonterminal controls pass offline.
+
 - [x] Guardian lead-photo resolution (2238): use the largest supplied size of the same publisher-hosted photo instead of its first 140px thumbnail; unchanged recorded World reporting/metadata and host/path/width/order controls pass offline.
 
 - [x] RSS enclosure photos (2237): recorded CBS JPEG/PNG enclosures now supply lead images as the last fallback; reporting/metadata unchanged, unsafe/non-image enclosure and existing-image precedence controls pass offline.

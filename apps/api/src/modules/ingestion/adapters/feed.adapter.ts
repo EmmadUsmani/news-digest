@@ -132,15 +132,15 @@ function excerpt(value: unknown, articleUrl: string): string {
       return canonicalUrl(href?.[2] ?? '') === articleUrl ? '' : footer;
     },
   );
-  // Push Square syndicates a teaser followed by a self-link, not more reporting.
+  // These publishers syndicate teasers followed by self-links, not more reporting.
   // Keep an omission marker so source continuation remains available to readers.
   let teaserClipped = false;
   const withoutTeaserFooter = withoutSelfLink.replace(
-    /<p\b[^>]*>\s*Read the\s+<a\b([^>]*)>full article on pushsquare\.com<\/a>\s*<\/p>\s*$/i,
-    (footer, attributes: string) => {
+    /<p\b[^>]*>\s*Read the\s+<a\b([^>]*)>full article on (pushsquare\.com|nintendolife\.com)<\/a>\s*<\/p>\s*$/i,
+    (footer, attributes: string, publisher: string) => {
       const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
       if (
-        new URL(articleUrl).hostname !== 'www.pushsquare.com' ||
+        new URL(articleUrl).hostname !== `www.${publisher}` ||
         canonicalUrl(href?.[2] ?? '') !== articleUrl
       )
         return footer;

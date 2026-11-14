@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2226](docs/progress-archive/2026-11-14-iteration-2226.md).
+
 Archived entry: [iteration 2225](docs/progress-archive/2026-11-14-iteration-2225.md).
 
 Archived entry: [iteration 2224](docs/progress-archive/2026-11-14-iteration-2224.md).
@@ -93,17 +95,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2226 — bracketed publisher teaser continuation
-
-- Clean main; no inherited work. Initial alerts zero; scheduled NBA/item 58/public-mode acceptance still awaits 15:00 UTC.
-- Reader weakness: unchanged PlayStation/Xbox feed excerpts end in `[…]`, which hid the source-continuation link in edition cards and saved copies. Shared detection now recognizes terminal bracketed Unicode/ASCII ellipses.
-- `pnpm exec tsx scripts/smoke-ars-continuation.ts playstation` and `... xbox` pass all eight desktop/mobile light/dark cases: original reporting, source URL, focus, reload, complete-story control and overflow. Responses are simulated using recorded reporting; no live edition writes.
-- Sixteen screenshots saved; inspected Xbox mobile edition card. No feed, generation, schema, budget or runtime configuration changes; SOURCES/handbook remain accurate. Archived iteration 2213 to keep PROGRESS small.
-- `pnpm format`, `pnpm lint:fix` and `pnpm build` pass (existing bundle warning); API/worker restarted active. Health/database/Redis pass; read-only scheduled reader check confirms five topics/15 stories/20 posts in the unchanged Nov 13 edition.
-- First shell `pnpm check` ended with signal 143 during integration (990 unit passes, no reported failures); reran full verification in finite systemd unit `news-digest-check-2226`. Handbook/schema check passes: 18 pages/39 tables.
-- Final `pnpm check` passes: 990 unit/311 integration passes, four expected integration skips; finite check unit exits 0. Diff check passes.
-- Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2227 — Destructoid contents in feed excerpts
 
@@ -230,4 +221,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Targeted recorded-feed regression, `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook check pass. Existing build bundle warnings only. Initial full check caught archived-entry formatting; fixed with Prettier and reran successfully.
 - Full `pnpm check` passes: 992 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass.
 - Rebuilt API/worker/docs restarted active; health/database/Redis pass. Saved-reader gate passes after startup retry: five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2239 — Nintendo Life teaser continuation
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
+- Reader weakness: Nintendo Life feed teasers include publisher navigation as reporting. The owner will see cleaner future summaries with source continuation retained.
+- Extended the existing publisher/self-destination/terminal-only teaser rule to Nintendo Life; both unchanged recorded articles preserve reporting and metadata with an omission marker. Other hosts, cross-publisher labels, changed wording, other destinations and nonterminal controls pass offline.
+- Updated TASKS and SOURCES; archived iteration 2226 to keep PROGRESS small. No live requests, paid calls, source configuration changes or saved-edition rewrites.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-nintendo-teaser.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 993 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass. Existing build bundle warnings only.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local admin status read confirms all 38 active sources healthy with stored content. Diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
