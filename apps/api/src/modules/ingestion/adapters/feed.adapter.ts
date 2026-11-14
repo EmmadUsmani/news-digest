@@ -135,6 +135,18 @@ function excerpt(value: unknown, articleUrl: string): string {
   // These publishers syndicate teasers followed by self-links, not more reporting.
   // Keep an omission marker so source continuation remains available to readers.
   let teaserClipped = false;
+  // Guardian teasers end with navigation back to the same article.
+  if (new URL(articleUrl).hostname === 'www.theguardian.com') {
+    withoutSelfLink = withoutSelfLink.replace(
+      /<a\b([^>]*)>Continue reading\.\.\.<\/a>\s*$/i,
+      (footer, attributes: string) => {
+        const href = attributes.match(/\shref\s*=\s*(["'])(.*?)\1/i);
+        if (canonicalUrl(href?.[2] ?? '') !== articleUrl) return footer;
+        teaserClipped = true;
+        return '';
+      },
+    );
+  }
   // Ars supplies a reporting fragment followed by article/comments navigation.
   // Both links must identify this article; ordinary reporting stays intact.
   if (new URL(articleUrl).hostname === 'arstechnica.com') {

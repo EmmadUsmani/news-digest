@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2229](docs/progress-archive/2026-11-14-iteration-2229.md).
+
 Archived entry: [iteration 2228](docs/progress-archive/2026-11-14-iteration-2228.md).
 
 Archived entry: [iteration 2227](docs/progress-archive/2026-11-14-iteration-2227.md).
@@ -99,17 +101,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2229 — Google News headline-only descriptions
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC.
-- Reader weakness: both recorded Google News descriptions repeat only their linked headline and publisher; nonblank text could fill source-fallback slots without additional reporting. Leave exact repetitions blank on Google's RSS article path.
-- Recorded fixture/fallback check passes: both headline-only candidates excluded; added reporting supplies one readable slot. Explicit article content, metadata and other host/path controls remain intact. Existing stored excerpts/editions are not rewritten; blank ingestion retains saved text. No external or inference calls.
-- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2216 to keep PROGRESS small. No UI/schema/budget/flag changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warning). Five news-query tests and the focused recorded-feed test pass. Handbook/schema check passes: 18 pages/39 tables; initial render timing failure cleared on retry, and prose remains within 100 lines.
-- Initial full check raced import autofix; next check found archived-entry formatting. Fixed both; final `pnpm check` passes: 990 unit/314 integration, four expected skips.
-- Rebuilt API/worker restarted active; health/database/Redis pass. First reader request raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have stored content/success/no errors.
-- Next: 15:00 UTC all-topic/NBA recovery/diversity review, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2230 — omit screenshot-only credits
 
@@ -235,3 +226,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 994 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Existing build bundle warnings only.
 - API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts. New Sonnet automatic repair publication case passes; diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2242 — Guardian teaser navigation
+
+- Clean main; no inherited work. Alerts zero and health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the scheduled 15:00 UTC edition.
+- Reader weakness: recorded World/U.S. Guardian teasers pass terminal “Continue reading...” navigation to summary evidence. Omit only the terminal article-matching link on the Guardian host; retain reporting, metadata and a source-continuation ellipsis.
+- Unchanged recorded feeds and publisher/destination/wording/nonterminal controls pass offline. GamesRadar body-loss suspicion was ruled out: its content:encoded already supplies reporting. No external requests, paid calls or saved-edition changes.
+- Updated TASKS and SOURCES; archived iteration 2229 to keep PROGRESS small. No affected handbook system behavior beyond existing feed normalization.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-guardian-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing build warnings only. Full check initially stopped on archive formatting; corrected with Prettier and rerun.
+- Full `pnpm check` passes: 996 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file Prettier and diff checks pass.
+- Rebuilt API/worker active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

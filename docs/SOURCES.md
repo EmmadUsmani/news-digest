@@ -2985,3 +2985,13 @@ All reporting remains, with an ellipsis for source continuation: 567 characters
 instead of 593 including navigation. Metadata and other links are unchanged.
 Publisher, wording, destination, fragment and nonterminal controls pass offline.
 No new feed/article requests, paid calls or saved-edition changes.
+
+## Guardian teaser navigation — iteration 2242 (2026-11-14)
+
+- Recorded `guardian-world.xml` and `guardian-us.xml` include terminal
+  “Continue reading...” links back to their articles. These are navigation.
+- Feed normalization removes only this terminal self-link on
+  `www.theguardian.com`, retaining reporting and an omission ellipsis.
+  Article metadata and lead images remain identical. Changed destinations,
+  publishers, wording and nonterminal links retain their text.
+- Offline fixture verification only; no new requests or saved-edition changes.

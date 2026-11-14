@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Guardian teaser navigation (2242): omit terminal article-matching “Continue reading...” links on Guardian feeds, retaining reporting, metadata and source-continuation ellipsis; recorded World/U.S. and boundary controls pass offline.
+
 - [x] NBA Sonnet automatic repair publication (2241): saved corrected Sonnet output now passes the full automatic rejection/repair/cache/public-reader cycle offline; separate reservations/settlements and immutable published copies verified. Historical output with synthetic transport/triage; scheduled acceptance remains open.
 
 - [x] Ars excerpt navigation (2240): remove terminal article/comments self-links from the recorded reporting fragment; preserve all reporting, metadata and source continuation, with publisher/destination/nonterminal controls.
