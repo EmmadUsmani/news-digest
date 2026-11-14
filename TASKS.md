@@ -48,7 +48,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
-- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded semantic ordering admits Wallet but regresses other published/reporting controls (2312); no blanket reorder. Natural grouped evidence needed before admission changes. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
+- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded admission study complete: reservation/grouping/semantic controls justify no production change. Next scheduled review must distinguish missing prose, admission loss and unused supplied reporting; see [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
 
@@ -60,14 +60,12 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
-- [x] 2312: tested saved semantic ordering against three Tech admission controls; identified concrete reporting/publication regressions and retained production policy.
+- [x] 2313: closed recorded Tech admission study; replaced stale experiment instructions with a natural-edition evidence decision.
 
 - [x] 2310: older saved discovery stories identify the linked site on display, preserving bookmark snapshots.
 
 - [x] 2309: new saved discovery-linked stories retain the linked hostname alongside the feed; real Reuters save/reload verified.
 
 - [x] 2308: discovery-only source labels identify the linked site alongside the feed, in collapsed and expanded coverage.
-
-- [x] 2307: restored per-report destinations and distinct site labels for grouped stories sharing a discovery feed; two real historical Tech cases verified.
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.

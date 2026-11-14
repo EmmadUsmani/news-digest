@@ -140,3 +140,11 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Importance-first admits Wallet/retains four Nov 14 stories, but loses published smartglasses and reduces reporting in Nov 12 grouped control. Relevance-first loses Meta/Nvidia on Nov 14. Recorded counts pinned; no production admission change justified. Updated depth study and TASKS.
 - `pnpm format`, `pnpm lint:fix`, offline evaluator and private build pass (existing bundle warning); full `pnpm check` passes (1,025 unit/329 integration passes, four expected skips). API/worker restarted; initial health request raced startup, retry healthy/database/Redis true. `git diff --check` clean.
 - No source/schema/system-flow/UI changes; SOURCES, handbook and screenshots unchanged. Trimmed old TASKS done markers (history remains in PROGRESS/archive) to 8 KB. No provider calls, edition writes or runtime configuration changes. Receipts `/tmp/2312-*`.
+
+## 2026-11-14: iteration 2313 — close recorded Tech admission study
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy and source check passes. Public mode off; next normal five-topic scheduled acceptance still required.
+- Read the current saved Tech summaries and coverage: three headline-only summaries remain the reader weakness. Existing evidence already identifies missing supplied prose and a Wallet admission loss; further variants on the same recordings would not establish a safe production fix.
+- Consolidated the completed study's decision at the top of the depth review, corrected superseded next-step wording, and updated TASKS. Next daily review separates missing prose, admission loss and editor use of supplied reporting using natural grouped artifacts; later reconstructions must stay labelled. Production admission unchanged.
+- Verification: recorded evaluator passes with productionChanged=false; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips) and `pnpm build` pass with existing bundle warnings. API/worker restarted; health/database/Redis healthy. `git diff --check` clean.
+- No app/UI/source/schema/system-flow change, provider calls, edition writes or runtime configuration changes. SOURCES, handbook and screenshots unchanged. Receipts `/tmp/2313-*`. Metrics probe remains not due before 23:24 UTC.

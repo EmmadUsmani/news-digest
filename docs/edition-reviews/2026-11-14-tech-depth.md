@@ -1,4 +1,30 @@
-# Nov 14 Tech summary depth — iteration 2284
+# Nov 14 Tech summary depth
+
+## Decision — iteration 2313
+
+The recorded admission study is complete. Keep production admission unchanged:
+the reporting minimum depends on manually labelled prose, while both semantic
+orders lose published stories in at least one control. Do not repeat these
+experiments or extend the same recordings with more ranking variants.
+
+The next evidence comes from the next normal scheduled edition, not a paid
+replay. During its existing daily review:
+
+- Read Tech's published summaries and the saved evidence supplied for each.
+- If summaries remain thin, distinguish missing collected prose from reporting
+  excluded before editing, and from supplied reporting the editor did not use.
+- Compare the natural grouped editor input with the published selections. Use
+  saved request/response artifacts where available; a later loader reconstruction
+  is not the historical input. Record missing artifacts rather than treating
+  reconstructed membership as exact.
+- Reopen admission only for an observed loss of usable reporting. Preserve
+  important headline-only stories, distinct events and the existing ten slots.
+
+No longer-summary instruction can repair missing source evidence. No new source,
+linked-page crawl, cap increase or generation change follows from this study.
+The sections below retain the measurements and their recording limitations.
+
+## Published evidence — iteration 2284
 
 Scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` has four
 AI-edited Tech stories. Three summaries repeat headline-level information.
@@ -49,16 +75,15 @@ They differ. Later collection and excerpt fixes can change inputs; no exact
 historical candidate text/engagement or editor-choice replay is claimed.
 The immutable three-empty-evidence finding does not depend on reconstruction.
 
-## Bounded next step
+## Original experiment scope — completed
 
-Before the next permitted generation-change window, evaluate retaining this
+The original experiment evaluated retaining this
 already-qualified readable Wallet cluster in the ten editor slots, using the
-saved grouping and a fixed candidate recording. Compare selected event IDs,
-semantic scores and reporting text; retain important headline-only news as a
-control. Do not simply demand longer summaries, raise the 200-candidate cap,
-crawl linked articles or add sources. Existing feed-depth parsing cannot
-supply text that HN never collected. No ranking or generation change ships
-from this study.
+saved grouping and a fixed candidate recording. It compared selected event IDs,
+semantic scores and reporting text, retaining important headline-only news as
+controls. It used no longer-summary prompt, candidate-cap increase, linked-page
+crawl or new source. Existing feed-depth parsing cannot supply text that HN
+never collected. No ranking or generation change shipped from this study.
 
 ## Evidence collection
 
@@ -90,10 +115,10 @@ All four published representatives, including the three headline-only
 controls, survive. Evidence objects and text are unchanged; no new grouping,
 text fetching or editorial call occurs. The recording produces 26 clusters.
 
-This supports a bounded admission option for the next permitted generation
-window. It does not establish what the editor would select or write, or that
-one reserved slot is the best general policy. Production selection is
-unchanged. Compare more saved windows before shipping a generic reservation;
+This initially supported testing a bounded admission option. The later grouped
+and semantic controls below do not justify shipping it. It does not establish
+what the editor would select or write, or that one reserved slot is the best
+general policy. Production selection is unchanged;
 keep semantic admission, the ten-slot limit and important headline-only news.
 The fixture is `apps/api/test/fixtures/tech-evidence-cutoff-2026-11-14.json`.
 
