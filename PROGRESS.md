@@ -40,18 +40,6 @@ Archived entry: [iteration 2191](docs/progress-archive/2026-11-13-iteration-2191
 
 Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192.md).
 
-## 2026-11-13: iteration 2193 — isolate grouping from missing-event recall
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass, no failed user units. At 21:04 UTC, generation cutoff protects feed parser and scheduled acceptance waits for Nov 14.
-- Owner value: distinguish repeated coverage from ranking/relevance omissions before changing selection; this step supplies offline evidence, not a reader-visible fix.
-- Extended recorded ranking evaluation with label-only grouping at unchanged policy, scores, windows and budgets; unknown articles stay separate. Reports labeled slots, repeated-slot count, consolidated selections and omission violations. No inference, new labels or live writes.
-- Four windows retain baseline target counts (NBA 2, World 1, Tech 0, Gaming 1); selected groups contain up to five NBA/seven Gaming articles, but no extra targets enter. Zero known repeats does not measure unlabeled duplicates or accept semantic grouping.
-- Synthetic control proves grouping can recover a slot when two top reports share a label; unknown reports stay separate. Empty labels yield null recall. Six targeted tests pass.
-- TASKS/RANKING updated; archived progress 2177–2178. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, owner-decision or system-flow change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, `pnpm evaluate:ranking`, handbook/schema check and `git diff --check` pass: 982 unit/294 integration tests, four expected skips; existing web chunk warning. No UI change; no browser screenshots needed.
-- Saved reader endpoint serves five topics/15 stories/20 posts. API/worker restart follows push; no runtime generation or budget changes.
-- Next: pre-noon feed-content precedence, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. Independent labels and semantic grouping remain open.
-
 ## 2026-11-13: iteration 2194 — later Gaming grouping boundaries
 
 - Clean main; no inherited work. Alerts zero; health/database/Redis pass. Evening cutoff retains the feed parser; scheduled NBA/item 58 acceptance awaits Nov 14.
@@ -187,3 +175,14 @@ Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/295 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
 - Read-only live Ars fetch/parser check: 20/20 nonempty bounded excerpts, first 883 characters. No live storage writes or paid calls. Commit/push and built API/worker restart follow; saved reader checked after restart.
 - Next: Nov 14 normal scheduled all-topic AI editing/diversity, NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2206 — mark bounded feed reporting
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. NBA/item 58 acceptance awaits today's normal scheduled edition; public mode stays off/private.
+- Saved Gaming fallback already marks its 600-character shortening; upstream feed normalization silently cut reporting at 1,500 characters, including within words or Unicode pairs.
+- Feed excerpt caps now use an ellipsis, whole-word boundaries where possible and intact surrogate pairs. Complete text stays exact; content precedence, blank fallback, limits and all-field X citations retained.
+- Offline tests cover exact cap, complete text, split date word, emoji, blank HTML, RSS/Atom content and citations beyond the cap. No paid/live requests or saved-edition rewrites.
+- TASKS, SOURCES and affected handbook pages updated; corrected stale summary-first data-model wording. Archived oldest progress entry; NEEDS_FROM_HUMAN unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/296 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
+- Targeted feed 4/4 and X links 2/2 pass. Initial X expectation omitted a complete trailing word; corrected. First full check caught archive formatting; fixed before successful retry. Commit/push and built API/worker restart follow.
+- Next: Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

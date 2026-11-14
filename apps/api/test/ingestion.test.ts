@@ -44,11 +44,8 @@ void test('feed content paths retain bounded text, blank fallback and X citation
     parseFeed(rss(description + body))[0].excerpt,
     contentOnly.excerpt,
   );
-  assert.equal(contentOnly.excerpt.length, 1500);
-  assert.equal(
-    contentOnly.excerpt,
-    'Evidence '.repeat(250).trim().slice(0, 1500),
-  );
+  assert.ok(contentOnly.excerpt.length <= 1500);
+  assert.equal(contentOnly.excerpt, 'Evidence '.repeat(166).trim() + '…');
   assert.deepEqual(
     parseFeed(rss(description + body))[0].xLinks,
     contentOnly.xLinks,
@@ -835,6 +832,26 @@ void test('feed excerpts prefer bounded content and fall back to summaries', () 
   const atom = parseFeed(
     `<feed><entry><title>Synthetic Atom</title><link href="https://example.com/atom"/><updated>2026-11-06T12:00:00Z</updated><content type="html">&lt;p&gt;${'x'.repeat(1800)}&lt;/p&gt;</content></entry></feed>`,
   )[0];
-  assert.equal(atom.excerpt, 'x'.repeat(1500));
+  assert.equal(atom.excerpt, 'x'.repeat(1499) + '…');
   assert.equal(item('').excerpt, '');
+});
+
+void test('feed caps mark omitted reporting without splitting words or Unicode', () => {
+  const item = (body: string) =>
+    parseFeed(`<rss><channel><item>
+    <title>Bounded reporting</title><link>https://example.com/bounded</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[${body}]]></description>
+    </item></channel></rss>`)[0];
+  const exact = 'x'.repeat(1500);
+  assert.equal(item(exact).excerpt, exact);
+  assert.equal(
+    item('Short complete reporting.').excerpt,
+    'Short complete reporting.',
+  );
+  const words = 'word '.repeat(299) + 'November 14 reporting continues';
+  assert.equal(item(words).excerpt, 'word '.repeat(299).trimEnd() + '…');
+  const unicode = 'x'.repeat(1498) + '🏀' + 'continued';
+  assert.equal(item(unicode).excerpt, 'x'.repeat(1498) + '…');
+  assert.equal(item('<p> </p>').excerpt, '');
 });

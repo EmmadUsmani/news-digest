@@ -17,6 +17,16 @@ function text(v: unknown): string {
     ? decodeHTML(String((v as Node)['#text'] ?? ''))
     : decodeHTML(String(v ?? ''));
 }
+function excerpt(value: unknown): string {
+  const normalized = plainText(text(value), Number.MAX_SAFE_INTEGER);
+  if (normalized.length <= 1500) return normalized;
+  let prefix = normalized.slice(0, 1499).replace(/[\uD800-\uDBFF]$/, '');
+  if (/\S$/.test(prefix) && /\S/.test(normalized[prefix.length])) {
+    const boundary = prefix.search(/\s+\S*$/);
+    if (boundary > 0) prefix = prefix.slice(0, boundary);
+  }
+  return prefix.trimEnd() + '…';
+}
 export function parseFeed(xml: string): ContentItem[] {
   if (/<!DOCTYPE|<!ENTITY/i.test(xml) || XMLValidator.validate(xml) !== true)
     throw new Error('Invalid XML feed');
@@ -62,7 +72,7 @@ export function parseFeed(xml: string): ContentItem[] {
               entry.description,
               entry.summary,
             ]
-              .map((value) => plainText(text(value)))
+              .map(excerpt)
               .find(Boolean) ?? '',
           author:
             plainText(

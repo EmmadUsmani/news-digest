@@ -2787,3 +2787,11 @@ Feed excerpt precedence (2205): explicit RSS encoded/Atom content now precedes
 summary/description, with blank fallback and the existing 1,500-character cap.
 No added source, article crawl or request. Recorded Ars reporting/storage checks
 cover the change; scheduled summary-quality acceptance remains open.
+
+### Feed excerpt boundaries — Nov 14, iteration 2206
+
+Bounded feed text now marks omitted reporting with an ellipsis, retains whole
+words where possible and never leaves a split UTF-16 surrogate pair. Complete
+text at or below 1,500 characters stays exact. Article-content precedence,
+blank fallback, all-field X citations and the no-article-crawl rule remain.
+Offline fixtures verify this; no new source or live import is claimed.

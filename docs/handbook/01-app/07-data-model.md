@@ -188,7 +188,8 @@ foreign key, because a citation is stored before the post is verified.
   computed from these tables.
 - **Dedup by URL.** An article is stored once (`canonical_url` is unique) even
   when several sources publish it. `content_observations` records who saw it.
-  Feed excerpts use the first nonblank summary or feed body, capped at 1,500 characters.
+  Feed excerpts prefer supplied article content, falling back to summaries.
+  They stay within 1,500 characters and mark shortened text with an ellipsis.
   A blank incoming excerpt keeps the saved text; a nonblank excerpt updates it.
 - **Money is integer micro-dollars** (`*_micros`, 1,000,000 = $1) to avoid
   rounding errors.
