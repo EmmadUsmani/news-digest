@@ -1695,6 +1695,8 @@ ack: 2026-11-07 item 42 — iteration 1238: failed X media controls repeated ide
 
 ack: 2026-11-07 item 42/43 — iteration 1239: Bluesky media links identify their image/video action and saved author/time while retaining supplied descriptions; keyboard destinations and image recovery verified on desktop/mobile light/dark. No spend or generation changes.
 
+ack: 2026-11-14 item 42/43 — iteration 2307: fixed grouped Tech coverage collapsing independent linked sites behind one Hacker News URL. Two real saved stories restore 13→18 and 1→2 site/outlet counts; repeated discovery labels show the linked hostname. Desktop/mobile light/dark coverage checks pass; no generation changes or paid calls.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 > **Superseded in part (Nov 7):** item 50 is owner-approved feature work and ranks

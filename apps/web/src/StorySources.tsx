@@ -34,26 +34,28 @@ export function StorySources({
     for (const name of article.sources) {
       const sourceName = name.trim().toLocaleLowerCase();
       if (!sourceName) continue;
-      // Feed labels can name different sections of the same publisher.
-      // Prefer the headline article when several reports share its source name.
-      const report = [primary, ...(story.coverage ?? [])].find(
-        (item) =>
-          item &&
-          item.sources.some(
-            (source) => source.trim().toLocaleLowerCase() === sourceName,
-          ),
-      );
-      const url = report?.url ?? article.url;
+      // Each coverage report owns its URL. A discovery feed can link to
+      // several independent sites within the same story.
+      const url = article.url;
       const publisher = new URL(url).hostname.replace(/^www\./, '');
       if (!outlets.has(publisher)) outlets.set(publisher, { name, url });
     }
   }
-  const sources = [...outlets.values()];
+  const sources = [...outlets.values()].map((source, _, all) =>
+    isDiscovery(source.name) &&
+    all.some((other) => other !== source && other.name === source.name)
+      ? {
+          ...source,
+          name: new URL(source.url).hostname.replace(/^www\./, ''),
+          via: source.name,
+        }
+      : source,
+  );
   const articles = story.coverage ?? [];
   return (
     <div className="story-sources flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-[var(--secondary)]">
       {sources.slice(0, 2).map((source) => (
-        <SourceLink key={source.name} {...source} />
+        <SourceLink key={source.url} {...source} />
       ))}
       {articles.length > 0 && (
         <details className="coverage order-2 max-w-full text-xs open:order-4 open:w-full">

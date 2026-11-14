@@ -7,11 +7,14 @@ import { chromium } from 'playwright';
 async function main() {
   const origin = 'http://127.0.0.1:8000';
   const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
+    await (
+      await fetch(`${origin}/api/editions/${process.argv[2] ?? 'latest'}`)
+    ).json(),
   );
   const story = edition.topics
     .flatMap((topic) => topic.stories)
     .find((item) => {
+      if (process.argv[3]) return item.id === process.argv[3];
       const primary = item.coverage?.find((report) => report.url === item.url);
       return (
         primary &&
@@ -22,14 +25,15 @@ async function main() {
       );
     });
   assert.ok(story?.coverage, 'Saved mixed feed/publisher coverage is required');
-  const outletCount = new Set(
-    story.coverage.map((report) =>
-      report.publisher
-        ? `publisher:${report.publisher.name.trim().toLocaleLowerCase()}`
-        : new URL(report.url).hostname.replace(/^www\./, ''),
-    ),
-  ).size;
-  assert.ok(outletCount > 2);
+  const outlets = new Map<string, string>();
+  for (const report of story.coverage) {
+    const key = report.publisher
+      ? `publisher:${report.publisher.name.trim().toLocaleLowerCase()}`
+      : new URL(report.url).hostname.replace(/^www\./, '');
+    if (!outlets.has(key)) outlets.set(key, report.url);
+  }
+  const outletCount = outlets.size;
+  assert.ok(outletCount > 0);
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -58,11 +62,19 @@ async function main() {
         await summary.waitFor();
         assert.equal(
           await summary.innerText(),
-          `${story.coverage.length} articles · +${outletCount - 2} ${outletCount === 3 ? 'outlet' : 'outlets'}`,
+          `${story.coverage.length} ${story.coverage.length === 1 ? 'article' : 'articles'}${outletCount > 2 ? ` · +${outletCount - 2} ${outletCount === 3 ? 'outlet' : 'outlets'}` : ''}`,
         );
         assert.equal(
           await sources.locator('details').getAttribute('open'),
           null,
+        );
+        assert.deepEqual(
+          await sources
+            .locator(':scope > a')
+            .evaluateAll((nodes) =>
+              nodes.map((node) => node.getAttribute('href')),
+            ),
+          [...outlets.values()].slice(0, 2),
         );
         await summary.click();
         assert.deepEqual(
@@ -79,7 +91,7 @@ async function main() {
           await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
         );
         await card.screenshot({
-          path: `docs/screenshots/ui/reader-coverage-count-${device}-${theme}.png`,
+          path: `docs/screenshots/ui/reader-coverage-count-${process.argv[3] ? story.id + '-' : ''}${device}-${theme}.png`,
         });
         assert.deepEqual(errors, []);
         await page.close();

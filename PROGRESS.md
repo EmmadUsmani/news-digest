@@ -128,3 +128,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Evidence: GET latest edition plus static bookmark/renderer assertions confirm the real NBA media link and text-only Saved rendering. No third-party requests or provider calls. No UI/source/schema/system-flow changes; screenshots, SOURCES and handbook unchanged.
 - Verification: final `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); clean-source `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Targeted Prettier and `git diff --check` pass. API/worker restart healthy/database/Redis true. Receipts `/tmp/2306-*`.
 - Next: natural scheduled five-topic acceptance before activation, then existing Current order; saved-media proposal waits on owner approval.
+
+## 2026-11-14: iteration 2307 — retain independent discovery-linked coverage
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy; all 38 sources healthy. Public mode off, VM private; scheduled Gaming/World/U.S. acceptance still pending.
+- Reader benefit (items 42/43): grouped Tech coverage no longer hides independent sites merely because Hacker News discovered them. No generation, source, budget or provider changes.
+- Actual saved NVIDIA transition story `3020ff24-fcbc-489b-8fd1-3e10be2bec00` has 23 reports: previous source-list algorithm counted 13 sites/outlets instead of 18. Saved AI Frontiers story `fb27faa4-5cea-427e-9df9-e1e64f89cc00` collapsed two sites to one.
+- Cause/fix: source-name lookup reassigned later reports to the first matching feed URL. Use each report's own URL; distinguish repeated discovery labels by linked hostname, retaining “via Hacker News”. Primary-first deduplication and expanded report links remain.
+- Extended existing coverage browser smoke to accept historical edition/story IDs and assert collapsed primary URLs as well as exact counts and every expanded report link. Both saved cases plus latest mixed-publisher control pass desktop/mobile light/dark; external traffic blocked, GET-only. Screenshots updated.
+- Verification: `pnpm format`, `pnpm lint:fix`, standalone `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; all three coverage smokes and `git diff --check` pass. First combined validation shell exited 143 during unit tests without an assertion failure; complete standalone rerun passed. No schema/system-flow change; SOURCES and handbook unchanged.
+- Next: natural scheduled all-topic AI acceptance before activation; pending NBA social breadth and Tech depth evidence retained. Receipts `/tmp/2307-*`.
