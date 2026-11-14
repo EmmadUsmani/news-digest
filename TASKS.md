@@ -60,14 +60,12 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2315: repaired failing saved-reader layout verification for linked-site attribution, per-report destinations and publication dates; all four browser views pass.
+
 - [x] 2314: captured next-window supply and reconciled the daily review handoff with deployed recovery; scheduled acceptance remains pending.
 
 - [x] 2313: closed recorded Tech admission study; replaced stale experiment instructions with a natural-edition evidence decision.
 
 - [x] 2310: older saved discovery stories identify the linked site on display, preserving bookmark snapshots.
-
-- [x] 2309: new saved discovery-linked stories retain the linked hostname alongside the feed; real Reuters save/reload verified.
-
-- [x] 2308: discovery-only source labels identify the linked site alongside the feed, in collapsed and expanded coverage.
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.

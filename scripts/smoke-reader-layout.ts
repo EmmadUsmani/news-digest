@@ -10,18 +10,19 @@ import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
 
-const discoveryLabel = (name: string) =>
+const isDiscovery = (name: string) =>
+  name === 'Hacker News' || name.startsWith('Google News:');
+
+const discoveryLabel = (name: string, url: string) =>
   name === 'Hacker News' || name.startsWith('Google News:')
-    ? `via ${name}`
+    ? `${new URL(url).hostname.replace(/^www\./, '')} · via ${name}`
     : name;
 
 function publisherLabel(article: {
   publisher?: { name: string };
   sources: string[];
 }) {
-  const via = article.sources
-    .filter((source) => discoveryLabel(source) !== source)
-    .join(', ');
+  const via = article.sources.filter(isDiscovery).join(', ');
   return `${article.publisher!.name}${via ? ` · via ${via}` : ''}`;
 }
 
@@ -480,39 +481,40 @@ async function smoke() {
               }
               await card.locator('.coverage summary').click();
             }
-            const expected = new Map<string, string>();
+            const expected = new Map<string, { label: string; url: string }>();
             const primary = story.coverage?.find(
               (article) => article.url === story.url,
             );
             for (const article of [
               primary ?? story,
-              story,
               ...(story.coverage ?? []),
             ]) {
               if (article.publisher) {
                 const name = article.publisher.name;
                 const key = `publisher:${name.trim().toLocaleLowerCase()}`;
                 if (!expected.has(key))
-                  expected.set(key, publisherLabel(article));
+                  expected.set(key, {
+                    label: publisherLabel(article),
+                    url: article.url,
+                  });
                 continue;
               }
               if (article === story && primary?.publisher) continue;
               for (const name of article.sources) {
-                const report = story.coverage?.find((item) =>
-                  item.sources.includes(name),
-                );
-                const key = new URL(
-                  report?.url ?? article.url,
-                ).hostname.replace(/^www\./, '');
-                if (name.trim() && !expected.has(key)) expected.set(key, name);
+                const key = new URL(article.url).hostname.replace(/^www\./, '');
+                if (name.trim() && !expected.has(key))
+                  expected.set(key, {
+                    label: discoveryLabel(name, article.url),
+                    url: article.url,
+                  });
               }
             }
             if (primary) {
               assert.equal(
-                [...expected.values()][0],
+                [...expected.values()][0]?.label,
                 primary.publisher
                   ? publisherLabel(primary)
-                  : primary.sources[0],
+                  : discoveryLabel(primary.sources[0], primary.url),
                 'Headline attribution starts with the primary publisher',
               );
             }
@@ -528,24 +530,16 @@ async function smoke() {
             }
             assert.deepEqual(
               await visibleLinks.allTextContents(),
-              [...expected.values()].slice(0, 2).map(discoveryLabel),
+              [...expected.values()].slice(0, 2).map((source) => source.label),
             );
-            for (const link of await visibleLinks.all()) {
-              const name = (await link.innerText()).trim().replace(/^via /, '');
-              const report = story.coverage?.find((article) =>
-                article.publisher
-                  ? name.split(' · via ')[0] === article.publisher.name
-                  : article.sources.includes(name),
-              );
-              assert.equal(
-                await link.getAttribute('href'),
-                report?.url ?? story.url,
-              );
+            for (const [index, link] of (await visibleLinks.all()).entries()) {
+              const report = [...expected.values()][index];
+              assert.equal(await link.getAttribute('href'), report.url);
               const icon = link.locator('img');
               if (await icon.count()) {
                 assert.equal(
                   await icon.getAttribute('src'),
-                  `${new URL(report?.url ?? story.url).origin}/favicon.ico`,
+                  `${new URL(report.url).origin}/favicon.ico`,
                 );
               }
             }
@@ -569,7 +563,7 @@ async function smoke() {
             if (primary && story.sources[0] !== primary.sources[0]) {
               assert.equal(
                 await visibleLinks.first().innerText(),
-                [...expected.values()].map(discoveryLabel)[0],
+                [...expected.values()][0]?.label,
                 'Grouped story credits the headline destination first',
               );
               assert.equal(
@@ -628,7 +622,9 @@ async function smoke() {
                 story.coverage.map((article) =>
                   article.publisher
                     ? [publisherLabel(article)]
-                    : article.sources.slice(0, 1).map(discoveryLabel),
+                    : article.sources
+                        .slice(0, 1)
+                        .map((name) => discoveryLabel(name, article.url)),
                 ),
                 'Each report credits one publisher rather than repeating feed sections',
               );
@@ -858,7 +854,18 @@ async function smoke() {
         for (const [age, label] of [
           [60_000, '1m ago'],
           [60 * 60_000, '1h ago'],
-          [1440 * 60_000, '1d ago'],
+          [
+            1440 * 60_000,
+            await page.evaluate(
+              (publishedAt) =>
+                new Date(publishedAt).toLocaleDateString(undefined, {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                }),
+              firstStory.publishedAt,
+            ),
+          ],
         ] as const) {
           await page.clock.setFixedTime(publication + age);
           await page.clock.fastForward(60_000);
