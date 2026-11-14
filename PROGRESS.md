@@ -146,3 +146,14 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check` 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts, scheduled provenance verified.
 - Updated TASKS and Nov 14 review. No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. No live inference, source requests or production data writes by this iteration.
 - Next: natural scheduled Gaming/ownership acceptance before activation; caps, no-repair ownership and unsupported-absence protections retained.
+
+## 2026-11-14: iteration 2294 — World natural social selection trace
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Scheduled Gaming/ownership acceptance still gates item 58 and private public-mode activation.
+- Reader weakness under review: Nov 12 World selected publisher labels/article links without reporting. Nov 14's sole Bluesky pick supplies attributed RAF Lakenheath drone reporting; exact saved reader text/ID match the reconstructed shortlist, with no invented URL context.
+- `pnpm exec tsx scripts/report-bluesky-coverage.ts --window-end 2026-11-14T15:00:00Z --examples 50` plus a temporary read-only transaction/production-shortlist probe: 596 observations/60 distinct posts, 26 consistently cached scores, two admitted candidates, one published. Bare links, generic bulletins and aggregator fail triage; editor-level natural link-list challenge remains unexercised.
+- Added `docs/edition-reviews/2026-11-14-world-social.md` and updated TASKS. Current stored inputs/scores are a reconstruction, not an exact historical request replay; omitted Nvidia headline has no saved rejection rationale. No prompt/ranking change justified.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean.
+- API/worker restarted; first health probe preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance, five topics/14 stories/19 posts verified.
+- Temporary probe removed; private receipts under `/tmp/2294-*`. No inference, source/embed/article requests, or production data writes by review. No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged.
+- Next: natural scheduled Gaming/ownership acceptance before activation; retain the World editor challenge and broader viral-quality acceptance as open work.
