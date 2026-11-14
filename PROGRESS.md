@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2252](docs/progress-archive/2026-11-14-iteration-2252.md).
+
 Archived entry: [iteration 2251](docs/progress-archive/2026-11-14-iteration-2251.md).
 
 Archived entry: [iteration 2250](docs/progress-archive/2026-11-14-iteration-2250.md).
@@ -139,16 +141,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2252 — Guardian live-report signup
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
-- Reader weakness: current Guardian ground-stop coverage includes a newsletter signup among reporting links. Omit that exact list item on the publisher host with the recorded HTTPS destination/copy, leaving more space for flight reporting.
-- One explicit free World RSS GET recorded the item. Offline test preserves flight facts, report links, metadata, image and continuation; altered publisher/destination/copy controls retain unrelated text. No crawl, prompt, budget or paid call; saved editions unchanged.
-- Updated TASKS/SOURCES; archived iteration 2239 to bound PROGRESS. No handbook behavior change or UI change.
-- `pnpm exec tsx --test apps/api/test/feed-guardian-signup.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warning). Full `pnpm check`: 1,002 unit/326 integration pass, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2253 — NPR lead photos
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass and enabled sources report healthy. Scheduled NBA/item 58 acceptance still awaits 15:00 UTC.
@@ -247,3 +239,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: offline 16-ID/four-shortlist/exact-cache/three-publication assertions pass; pnpm format and lint:fix pass; pnpm build passes with existing bundle warnings. Full pnpm check passes: 1,008 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted; health database/Redis passes. Saved-reader check passes after startup retry: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
 - Next: 15:00 UTC all-topic AI/recovery/diversity review; include World breadth without inferring that conflict overlap equals duplicate announcements. NBA/item 58 closure, fresh rollback baseline and private public-mode activation retain priority. No paid replay.
+
+## 2026-11-14: iteration 2262 — residual Tech headline evidence
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. NBA/item 58 still awaits 15:00 UTC scheduled acceptance.
+- Reader weakness: a differently worded Google headline fills prospective Tech fallback slot four despite the exact-headline fix. Saved HUD title/excerpt differ; production normalization retains the older headline.
+- One free configured-feed GET now parses blank for that same article. Ingestion deliberately preserves old nonempty text on blank updates, so recollection cannot clear it. Two HN URL-only excerpts also inflate nonempty counts but do not enter these five slots.
+- Offline production ranking reproduces the saved five-ID baseline. Blanking only the manually identified HUD excerpt admits ChatGPT Wallet reporting; this is an evidence control, not a matching algorithm or AI prediction.
+- Updated Tech evidence, scheduled checklist, TASKS and SOURCES; archived iteration 2252 to bound PROGRESS. Private capture/trace: `/tmp/2262-google.xml`, `/tmp/2262-trace.json`; reproduction `/tmp/2262-trace.ts`.
+- No paid call, database write, production code/configuration or generation change. Preserve the after-noon generation hold; do not suppress changed headlines with an unproven fuzzy threshold or overwrite reporting globally.
+- Verification: offline parse/legacy-retention/five-ID/replacement assertions pass; pnpm format and lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings.
+- Rebuilt API/worker restarted active; health passes. Saved-reader command passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
+- Next: 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Review HUD evidence during Tech acceptance; provenance repair follows the protected edition.

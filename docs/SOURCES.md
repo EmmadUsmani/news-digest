@@ -3143,3 +3143,11 @@ resolve this pair; no URL rewrite or ingestion change was made. No article
 destinations or paid services were called. All-topic read-only candidate counts,
 raw-response hash and scheduled acceptance steps are in the
 [Nov 14 review](edition-reviews/2026-11-14.md).
+
+## 2026-11-14 iteration 2262 — changed Google headline retained
+
+One free configured-feed GET confirms HUD's description now repeats its current
+linked headline/publisher and parses blank. A stored differently worded headline
+survives exact normalization and blank-preserving ingestion, entering the
+prospective Tech fallback. [Trace and single-item control](edition-reviews/2026-11-14-tech-cap.md#residual-headline-evidence--iteration-2262-1230-utc).
+No source configuration, stored data or generation change.
