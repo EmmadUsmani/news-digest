@@ -2995,3 +2995,8 @@ No new feed/article requests, paid calls or saved-edition changes.
   Article metadata and lead images remain identical. Changed destinations,
   publishers, wording and nonterminal links retain their text.
 - Offline fixture verification only; no new requests or saved-edition changes.
+
+Iteration 2243: recorded Verge Atom fragments omit terminal “Read the full story
+at The Verge.” links only when they point to the same article on the publisher
+host. Supplied reporting, continuation ellipsis and metadata remain intact.
+Offline fixture and boundary controls pass; no new source requests.

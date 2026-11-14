@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2230](docs/progress-archive/2026-11-14-iteration-2230.md).
+
 Archived entry: [iteration 2229](docs/progress-archive/2026-11-14-iteration-2229.md).
 
 Archived entry: [iteration 2228](docs/progress-archive/2026-11-14-iteration-2228.md).
@@ -101,16 +103,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2230 — omit screenshot-only credits
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await the 15:00 UTC scheduled edition.
-- Reader weakness: repeated Destructoid screenshot credits consume excerpt space mid-report. Omit its two exact credit-only figcaption forms before the cap so readers get more reporting; descriptive captions and ordinary article text remain.
-- Two focused offline tests pass: unchanged recorded feed/metadata equivalence, retained additional reporting, 1,500-character bound, descriptive-caption and ordinary-text controls. No live source requests, inference calls or saved-edition changes.
-- Updated TASKS, SOURCES and affected data-model handbook; archived iteration 2217 to keep PROGRESS small. No UI, schema, flag or budget changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and affected handbook/schema check pass (18 pages/39 tables; existing bundle warning). Full `pnpm check` passes typecheck/lint/format/boundaries and 990 unit tests; integration has one unchanged Grafana listener startup failure (Postgres administrator disconnect), with 315 passes/four skips. Listener passes unchanged standalone; fresh `pnpm test:integration` passes 316 tests/four expected skips, unit exits 0.
-- Rebuilt API/worker restarted active; health/database/Redis pass after startup retry. Saved reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. No UI change or screenshots required.
-- Diff check passes. Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2231 — PlayStation podcast reporting first
 
@@ -236,4 +228,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Targeted `pnpm exec tsx --test apps/api/test/feed-guardian-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing build warnings only. Full check initially stopped on archive formatting; corrected with Prettier and rerun.
 - Full `pnpm check` passes: 996 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file Prettier and diff checks pass.
 - Rebuilt API/worker active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2243 — Verge teaser navigation
+
+- Clean main; no inherited work. Alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits 15:00 UTC.
+- Reader weakness: recorded Verge Atom fragments append “Read the full story at The Verge.” to reporting evidence. Remove only terminal article-matching links on the publisher host; preserve reporting and continuation ellipsis.
+- Unchanged recorded feed retains all reporting and metadata; publisher/destination/wording/nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
+- Updated TASKS and SOURCES; archived iteration 2230 to keep PROGRESS small. Existing handbook feed-normalization description remains accurate.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-verge-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing bundle warnings only.
+- Rebuilt API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
+- Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
