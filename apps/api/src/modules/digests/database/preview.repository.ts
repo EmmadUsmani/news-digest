@@ -70,6 +70,7 @@ import {
 import { qualityRejection } from '../domain/quality';
 import { rank, rankFallback } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
+import { socialStoryContext } from '../domain/social-story-context';
 import { usesTechEditorialContext } from '../domain/tech-editorial-context';
 import { loadArticleCandidates } from './article-candidates';
 /** Explicit, per-test-edition discovery only. Both pools come from one shared
@@ -588,12 +589,7 @@ export class PostgresPreviewRepository
                   )
                 : [];
             postCandidates.push(...redditPosts);
-            const coveredStories = usesTechEditorialContext(topic.name)
-              ? stories.slice(0, 10).map(({ title, summary }) => ({
-                  title,
-                  summary: summary ?? '',
-                }))
-              : undefined;
+            const coveredStories = socialStoryContext(topic.name, stories);
             const postSelection = await editTopicPosts(
               editorialServices,
               {

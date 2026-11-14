@@ -760,6 +760,41 @@ void test('saved airline overlap receives bounded story context without licensin
   );
 });
 
+void test('NBA comparison context reaches both model routes and preserves a distinct follow-up', async () => {
+  const covered = [
+    {
+      title: 'Murray requests a trade',
+      summary: 'Murray asked his team to trade him.',
+    },
+  ];
+  const input = [
+    {
+      ...candidates[0],
+      id: 'separate',
+      text: 'The team has now completed a trade for Murray.',
+    },
+  ];
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([{ posts: [{ ...post, id: 'separate' }] }], refuse);
+    const result = await h.editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nba-context',
+      [],
+      covered,
+    );
+    assert.equal(result?.posts[0].id, 'separate');
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).coveredStories, covered);
+    assert.equal(
+      JSON.parse(h.calls[0].prompt).candidates[0].text,
+      input[0].text,
+    );
+    assert.match(h.calls[0].instructions, /comparison context only/);
+    // Synthetic decision tests transport, not future semantic model compliance.
+  }
+});
+
 void test('saved French clip reaches both editor routes with source-bound English context', async () => {
   const saved = JSON.parse(
     readFileSync(

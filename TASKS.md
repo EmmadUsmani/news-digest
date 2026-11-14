@@ -4,6 +4,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Open work
 
+- [x] NBA social/story context (2299): after scheduled NBA acceptance, both social editor stages now compare bounded selected NBA news, addressing Nov 14 Murray story/post repetition. Distinct follow-ups remain eligible; model-route, orchestration and bounds tests pass offline. Natural selection quality remains open.
+
 - [x] Tech grouping sensitivity (2289): four reviewed Nov 12 same-event groups move all three labelled reporting candidates into ten editor slots (ungrouped zero); no reservation needed in this counterfactual. Historical/model grouping and natural acceptance remain unverified; production unchanged. [Evidence](docs/edition-reviews/2026-11-14-tech-depth.md#grouping-sensitivity-control--iteration-2289).
 
 - [x] Stored Bluesky supply inspection (2274): bounded `--examples 1..50` replaces temporary script edits; fixed-window default/full/single reports preserve counts and ranking. No search, inference or writes.

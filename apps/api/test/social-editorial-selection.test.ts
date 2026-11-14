@@ -752,16 +752,16 @@ void test('X/Reddit orchestration transports selected news only to final editing
         assert.equal(budget, 1);
         assert.equal(candidates[0].text, original.text);
         assert.deepEqual(alreadySelected, []);
-        assert.deepEqual(stories, edits++ === 0 ? covered : []);
+        assert.deepEqual(stories, edits++ === 1 ? [] : covered);
         // Simulated rejection verifies orchestration, not semantic compliance.
         return { model: 'fake', posts: [] };
       },
     },
   };
-  for (const context of [covered, undefined]) {
+  for (const context of [covered, undefined, covered]) {
     const result = await editTopicPosts(
       services,
-      { ...topic, name: 'Tech & AI' },
+      { ...topic, name: edits === 2 ? 'NBA' : 'Tech & AI' },
       [original],
       [original],
       1,
@@ -771,6 +771,6 @@ void test('X/Reddit orchestration transports selected news only to final editing
     assert.deepEqual(result.posts, []);
     assert.equal(result.postEditorial.mode, 'ai');
   }
-  assert.equal(edits, 2);
+  assert.equal(edits, 3);
   assert.deepEqual(original, posts[0]);
 });

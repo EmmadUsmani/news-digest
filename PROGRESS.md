@@ -113,3 +113,14 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle/annotation warnings; `git diff --check` clean.
 - API/worker restarted; `pnpm obs health --check` healthy/database/Redis true; `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified.
 - No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership scheduled acceptance before activation; retain broader social quality and normal story-overlap challenges.
+
+## 2026-11-14: iteration 2299 — NBA selected-story social comparison
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
+- Owner-visible benefit: address Nov 14 NBA's Murray story/post repetition at its missing-input cause. NBA now receives bounded selected-story context in X/Reddit and Bluesky final editing after scheduled NBA AI acceptance.
+- Shared projection limits ten titles/summaries to 300/400 characters; Tech context remains supported, story-evidence enrichment remains Tech-only, other topics retain their rollout. No keyword filter, cap change, extra call or saved-edition mutation.
+- Synthetic Sonnet/Haiku transport preserves distinct follow-ups; orchestration retains empty AI selections, context-free behavior and original post text. Bounds/topic-isolation controls pass. Natural semantic selection remains unverified; review next scheduled NBA picks.
+- Updated TASKS, Nov 14 review and affected social handbook prose; no source/schema/UI change. SOURCES/screenshots unchanged.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. Targeted editor/context/orchestration tests: 37 pass. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; handbook check passes; `git diff --check` clean.
+- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true, `pnpm obs sources --check` 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance/five topics/14 stories/19 posts. Private logs `/tmp/2299-*`.
+- No verification inference, source requests or production writes. Next: natural scheduled Gaming/ownership recovery before activation; review NBA story/post distinctions and retain broader social-quality challenges.

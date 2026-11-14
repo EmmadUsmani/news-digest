@@ -44,7 +44,7 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech X selection also compares selected news: overlapping posts need a distinct development or original contribution. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech and NBA X selection also compare selected news: overlapping posts need a distinct development or original contribution. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
 
 X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes/reposts/replies/views (labelled as
 unverified hints), and whether the verified text includes a media link. Missing
@@ -68,7 +68,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips posts that repeat an X moment; extra awards for the same winning work at
   one ceremony add detail, while separate releases can qualify. Link lists and URL slugs
-  alone supply no news. Tech compares selected news stories too: overlapping posts
+  alone supply no news. Tech and NBA compare selected news stories too: overlapping posts
   need a distinct development or original contribution.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
