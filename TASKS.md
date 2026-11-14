@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Xbox headline-only fallback verification (2256): recorded self-link-only entry stays empty through both fallback selectors; a readable control fills the one-story budget. Reporting and foreign-link preservation controls pass; production unchanged.
+
 - [x] Xbox store badges (2255): omit nested publisher store widgets before excerpt truncation; recorded release dates/descriptions and article prices remain, with publisher/class/incomplete-widget controls.
 
 - [x] Yahoo NBA lead photos (2254): retain recorded opening bare publisher-CDN images; reject later/unsafe/unrelated images and retain reporting, metadata and preferred image precedence.

@@ -127,17 +127,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2243 — Verge teaser navigation
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits 15:00 UTC.
-- Reader weakness: recorded Verge Atom fragments append “Read the full story at The Verge.” to reporting evidence. Remove only terminal article-matching links on the publisher host; preserve reporting and continuation ellipsis.
-- Unchanged recorded feed retains all reporting and metadata; publisher/destination/wording/nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
-- Updated TASKS and SOURCES; archived iteration 2230 to keep PROGRESS small. Existing handbook feed-normalization description remains accurate.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-verge-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing bundle warnings only.
-- Rebuilt API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
-- Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
-
 ## 2026-11-14: iteration 2244 — triage Push Square upstream outage
 
 - Clean main; no inherited work. Initial alerts show pending RecentJobFailures; health/database/Redis pass.
@@ -267,3 +256,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Targeted `pnpm exec tsx --test apps/api/test/feed-xbox-store-badges.test.ts` passes after correcting an overly early truncation assertion. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,005 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2256 — Recorded headline-only fallback gate
+
+- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis pass. Scheduled NBA/item 58/private activation still await 15:00 UTC.
+- Reader risk: three of ten entries in the unchanged iteration-2255 Xbox recording contain only headline/self-link footers. Existing normalization already removes them; deliberately discarded a redundant parser edit after checking the full path.
+- Added one minimal recorded Bethesda fixture, preserving its original body/description/metadata and restoring the `content` namespace prefix after XML serialization. No new source request or paid call.
+- Both production fallback selectors now have recorded-source verification that empty text cannot consume a one-story budget ahead of a synthetic readable control. Reporting and foreign-link preservation controls pass; production behavior unchanged.
+- Owner-visible purpose: source-only editions retain readable reporting rather than repeating titles as summaries. This is offline regression coverage, not new live content or scheduled acceptance.
+- Updated TASKS/SOURCES; archived iteration 2243 to bound PROGRESS. Targeted `pnpm exec tsx --test apps/api/test/feed-xbox-fallback.test.ts` passes; full-recording probe asserts ten entries, three empty/seven readable.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `pnpm build` pass: 1,006 unit/326 integration tests, four expected skips; existing bundle warnings only. Typecheck/lint/format/boundaries green.
+- API/worker restarted active; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. Avoid more verification of already-covered feed cleanup; no paid replay.

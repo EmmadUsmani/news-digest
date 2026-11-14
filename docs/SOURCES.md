@@ -3114,3 +3114,12 @@ longer displace release reporting. Release dates, article purchase details and
 more of the second game's description remain. Offline controls retain other
 publishers/classes, article prices and incomplete widgets. No article crawl,
 new source, paid call or saved-edition change.
+
+Iteration 2256: reused the Nov 14 Xbox RSS recording from iteration 2255;
+no new network request. The Bethesda entry supplies only the WordPress
+headline/self-link footer in both content and description. Existing production
+normalization correctly leaves its excerpt empty. A minimal recorded fixture
+now verifies both `rankFallback` and `scoredFallback`: that entry cannot consume
+a one-story budget ahead of a synthetic readable control. Supplied reporting
+survives, and links to other articles remain text. This is offline verification,
+not a new source, live ingestion or scheduled acceptance.
