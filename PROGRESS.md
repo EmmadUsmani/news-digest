@@ -1,5 +1,7 @@
 # Progress
 
+Archived entries: [iterations 2256–2257](docs/progress-archive/2026-11-14-iterations-2256-2257.md).
+
 Archived entry: [iteration 2255](docs/progress-archive/2026-11-14-iteration-2255.md).
 
 Archived entry: [iteration 2254](docs/progress-archive/2026-11-14-iteration-2254.md).
@@ -146,30 +148,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2256 — Recorded headline-only fallback gate
-
-- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis pass. Scheduled NBA/item 58/private activation still await 15:00 UTC.
-- Reader risk: three of ten entries in the unchanged iteration-2255 Xbox recording contain only headline/self-link footers. Existing normalization already removes them; deliberately discarded a redundant parser edit after checking the full path.
-- Added one minimal recorded Bethesda fixture, preserving its original body/description/metadata and restoring the `content` namespace prefix after XML serialization. No new source request or paid call.
-- Both production fallback selectors now have recorded-source verification that empty text cannot consume a one-story budget ahead of a synthetic readable control. Reporting and foreign-link preservation controls pass; production behavior unchanged.
-- Owner-visible purpose: source-only editions retain readable reporting rather than repeating titles as summaries. This is offline regression coverage, not new live content or scheduled acceptance.
-- Updated TASKS/SOURCES; archived iteration 2243 to bound PROGRESS. Targeted `pnpm exec tsx --test apps/api/test/feed-xbox-fallback.test.ts` passes; full-recording probe asserts ten entries, three empty/seven readable.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `pnpm build` pass: 1,006 unit/326 integration tests, four expected skips; existing bundle warnings only. Typecheck/lint/format/boundaries green.
-- API/worker restarted active; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. Avoid more verification of already-covered feed cleanup; no paid replay.
-
-## 2026-11-14: iteration 2257 — Legacy headline-only candidate evidence
-
-- Clean main; no inherited work. Alerts zero, health/database/Redis pass, all 38 sources healthy. Push Square’s earlier HTTP 522 recovered naturally; scheduled acceptance still awaits 15:00 UTC.
-- Prospective read-only production-pool capture at 11:25 UTC finds 113 exact Google News headline/publisher repetitions retained from old observations. Sparse ingestion deliberately preserves nonempty stored text, leaving a hole in the parser-only repair.
-- Candidate loading now suppresses only exact repetitions with stored publisher and Google RSS article URL evidence; real reporting, other destinations, stored rows and immutable editions remain unchanged. Captured Tech readable pool becomes 25 of 200; 17 of 20 Ars/Verge entries already have at least 500 characters.
-- Isolated recorded-feed regression covers legacy storage, sparse repeat, candidate loading, fallback omission and subsequent additional reporting. Unit boundary controls preserve differing text, missing publisher and unrelated URLs. No new source requests, provider calls, prompt or budget change.
-- Updated TASKS/SOURCES and Tech depth evidence; archived iteration 2244 to bound PROGRESS. No handbook flow or UI change.
-- `pnpm exec tsx --test apps/api/test/reporting-excerpt.test.ts`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `pnpm build` pass: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green, existing bundle warnings only.
-- Second read-only production-loader capture at 11:32 UTC matches all 200 Tech IDs: exactly 113 excerpts blanked; every other excerpt equals its original. No database writes.
-- Rebuilt API/worker restarted active; `/healthz` database/Redis pass after startup retry. Saved-reader check for Nov 13 passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay; avoid further cleanup of already-covered feeds.
-
 ## 2026-11-14: iteration 2258 — Scheduled supply and duplicate-identity handoff
 
 - Clean main; no inherited work. Initial alerts zero and database/Redis health pass; normal 15:00 UTC acceptance still pending.
@@ -248,3 +226,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: pnpm format/lint:fix pass; pnpm check passes 1,008 unit/327 integration tests, four expected skips, after correcting initial formatting failures. pnpm build passes with existing bundle warnings; pnpm exec tsx scripts/smoke-reader-clipped-links.ts passes.
 - API/worker rebuilt and restarted before 13:00 UTC; both active, health database/Redis passes after startup retry. Browser reload verifies served build; check-scheduled-reader.ts 2026-11-13T15:00:00Z passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
 - Next: 15:00 all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold. Tech provenance repair follows protected edition; no paid replay.
+
+## 2026-11-14: iteration 2265 — Tech social selection cause
+
+- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. Protected 13:00–16:00 UTC window retained: no build deployment or restart, no generation changes.
+- GET-only saved Nov 13 preview/reader reconciliation establishes successful Tech Sonnet social editing: 58 scored, zero unscored, five qualifying and three selected. Publication IDs/rationales agree; empty optional notes do not mean fallback.
+- Saved rationale selects recap for naming three launches alongside the detailed Search rollout. Agent-run rationale values time/cost while acknowledging unseen result. This is selection-quality recurrence independent of failed story triage; existing instructions already address weak recaps.
+- All five qualifying candidates fit the ten-candidate bound; no truncation cause established. No omission reasons saved. Bluesky explicitly chose none from one shortlisted candidate, not collection failure.
+- Updated X review, today's acceptance checklist and TASKS. Private receipt `/tmp/2265-tech-social.json`; temporary probe removed. Initial probe CJS top-level-await error corrected with async main; all GET/contract/metadata assertions then pass.
+- No paid calls, source requests, stored-data/configuration changes or production code changes. Existing services keep serving unchanged main application code throughout the hold.
+- Verification: pnpm format and pnpm lint:fix pass; pnpm check passes typecheck/lint/format/boundaries, 1,008 unit and 327 integration tests with four expected skips. Documentation-only step; no build/restart during protected hold. Archived iterations 2256–2257 to keep this file bounded.
+- Next: 15:00 all-topic scheduled acceptance, assess Tech social quality separately, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold.
