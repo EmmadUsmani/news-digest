@@ -58,6 +58,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Ownership rejection evidence (2280): failed cross-topic ownership bodies now use the private bounded editor-artifact store; repair-disabled dispatch/settlement, no invalid cache and successful-response exclusion verified offline. Natural recovery remains pending.
+
 - [x] Pool text evidence (2268): read-only capture separates empty, URL-only and other text; two recorded HN FAA excerpts no longer inflate implied reporting counts. Admission and stored text unchanged; scheduled acceptance remains open.
 
 - [x] Clipped social URLs (2264): shortened saved URLs now open the original post for its full destination; complete external links and saved text remain intact. Real Nov 7 browser replay covers both clipped posts.

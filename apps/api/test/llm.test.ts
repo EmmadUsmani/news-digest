@@ -1274,6 +1274,63 @@ void test('story editor rejections retain initial and repair bodies privately, n
   );
 });
 
+void test('ownership rejection retains truncated and invalid-membership bodies without repairs or successful output', async () => {
+  for (const body of ['{"owners":[', '{"owners":[]}']) {
+    const records: import('../src/modules/curation/domain/rejected-editor.port').RejectedEditorRecord[] =
+      [];
+    const ledger = new MemoryLedger();
+    const provider = fake([body]);
+    const service = new BudgetedLlm(provider.llm, ledger, undefined, {
+      async save(record) {
+        records.push(record);
+      },
+    });
+    const ownership = { ...request, purpose: 'joint-story-grouping-v2' };
+    const result = await service.jsonOutcome(
+      ownership,
+      () => {
+        return z
+          .object({ owners: z.array(z.string()).min(1) })
+          .parse(JSON.parse(body));
+      },
+      { repair: false },
+    );
+    assert.equal(result.status, 'validation-failed');
+    assert.equal(provider.count(), 1);
+    assert.equal(ledger.calls.length, 1);
+    assert.equal(typeof ledger.calls[0].cost, 'number');
+    assert.equal(ledger.values.size, 0);
+    assert.equal(records.length, 1);
+    assert.deepEqual(records[0].request, ownership);
+    assert.equal(records[0].responseText, body);
+    assert.equal(records[0].diagnostic.attempt, 'initial');
+    assert.equal(
+      records[0].diagnostic.category,
+      body.endsWith('[') ? 'invalid-json' : 'invalid-schema',
+    );
+  }
+  for (const purpose of ['joint-story-grouping-v2', 'triage-v1']) {
+    let saved = 0;
+    const ledger = new MemoryLedger();
+    const service = new BudgetedLlm(
+      fake(['{"ok":true}']).llm,
+      ledger,
+      undefined,
+      {
+        async save() {
+          saved++;
+        },
+      },
+    );
+    assert.deepEqual(
+      await service.json({ ...request, purpose }, valid, { repair: false }),
+      { ok: true },
+    );
+    assert.equal(saved, 0);
+    assert.equal(ledger.values.size, 1);
+  }
+});
+
 void test('inference queue expires without dispatch and recovers its capacity', async () => {
   const slots = new InferenceSlots(1, 20);
   let release!: () => void;

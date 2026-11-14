@@ -130,3 +130,14 @@ Older entries: [through iteration 2267](docs/progress-archive/2026-11-14-through
 - `pnpm obs sources`: 38/38 ok, no empty last collections. HTTPS curl unavailable from VM: hostname resolves to VM 10.42.0.42 with no 443 listener; local HTTP checks pass. No sharing/DNS changes.
 - Updated TASKS and Nov 14 evidence; no UI/system-flow/schema change, so no handbook/screenshots needed. Existing saved editorial failures remain; item 58/public activation open.
 - Next: observe natural scheduled ownership/Gaming recovery; retain strict absence/truncation guards and no paid replay/cap changes.
+
+## 2026-11-14: iteration 2280 — retain rejected ownership evidence
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending.
+- Reader weakness: missing World/U.S. stories; prior ownership output exhaustion could not be replayed because the rejected body was discarded. Extend the existing private rejection store to cross-topic ownership attempts so any recurrence preserves exact evidence.
+- Existing 100-file/256-KiB/30-day limits and private permissions unchanged; no new logs, exports, retries, inference, model, prompt, budget or acceptance changes. Historical missing body remains unavailable.
+- Synthetic malformed/truncated JSON and invalid-membership-shaped output verify one repair-disabled dispatch/settlement, exact private input/body retention and no invalid cache; successful ownership output stays cache-only.
+- `pnpm exec tsx --test apps/api/test/llm.test.ts apps/api/test/rejected-editor-store.test.ts`: 51 pass. Handbook page updated; `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline`: 18 pages/one diagram/39 tables pass; diagrams unchanged.
+- `pnpm format`, `pnpm lint:fix` ran; first `pnpm check` caught formatting after a test edit, corrected with targeted Prettier. Full retry passes: typecheck/lint/format/boundaries, 1,018 unit and 328 integration passes, four expected skips.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle-size warning; API/worker restarted healthy; `/healthz` ok/database/Redis true. Initial source check raced startup; retry passes all 38 sources. Saved scheduled reader check passes five topics/14 stories/19 posts with unchanged Nov 14 edition ID.
+- Next: observe natural scheduled ownership/Gaming recovery before item 58/public activation; no paid replay or cap changes.

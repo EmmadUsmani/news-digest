@@ -86,7 +86,8 @@ export class BudgetedLlm {
       diagnostic.schemaIssues = schemaIssueCategories(error.issues);
     if (
       responseText !== undefined &&
-      request.purpose.startsWith('shortlist-editor-')
+      (request.purpose.startsWith('shortlist-editor-') ||
+        request.purpose.startsWith('joint-story-grouping-'))
     ) {
       try {
         await this.rejectedEditors?.save({ request, responseText, diagnostic });

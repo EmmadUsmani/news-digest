@@ -75,7 +75,7 @@ Collection does not fetch linked article pages.
   stories. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.
 - **Validation:** AI output is schema-checked. Stories the model returns that
-  aren't backed by a real candidate are rejected. Rejected story-editor attempts
+  aren't backed by a real candidate are rejected. Rejected story-editor and cross-topic ownership attempts
   keep their input, response and reason in private VM files at
   `~/.local/state/news-digest/rejected-editors/` for replay. The store retains
   at most 100 files, each at most 256 KiB, and removes files over 30 days old
