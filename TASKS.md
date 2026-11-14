@@ -4,8 +4,6 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Open work
 
-- [ ] Verification flake (2227): first full check hung in `telemetry-export.test.ts` after bounds test (828), with one self-connected HTTP socket; stopped finite unit. Standalone three tests and fresh full check pass. Existing close-order fix (2223) did not eliminate recurrence; capture/resolve the stalled transport if reproduced.
-
 - [ ] BREAKAGE (2160): Nov 13 scheduled edition lost 11 candidate-triage calls to local ten-second inference-slot expiry; all stories non-AI, World/U.S. stories withheld. Four dispatched calls succeeded in 16–37 s. Shared four-request pre-reservation admission implemented (2161); five-topic/750-candidate composition and nine-editor/18-call repair ownership pass offline (2162). Saturated cache/deadline composition verified offline (2164): expired queued work creates no hold and slots remain reusable. Deployed API/worker at 16:00 UTC (2165); health/reader/access checks pass. Reader text check now accepts saved topic counts and exposes five empty Tech summaries in Nov 13 (2166). Headline-only fallback repair (2167) filters blank source text before story budgets; AI evidence and saved editions unchanged. Fallback repetition diagnosed (2170): seven Tech/Gaming cards cover three events; incomplete triage bypasses explicit AI grouping. Blank-text repair alone does not restore grouping. Read-only gate now accepts repeated `--require-ai-topic` names for all five sections (2176); Nov 13 Tech correctly fails. Acceptance gate also refuses saved unscored candidates even with AI editing (2219). Next scheduled run must establish recovery, including Tech/Gaming event diversity; no paid replay/cap changes. [Review](docs/edition-reviews/2026-11-13.md).
 
 - [ ] NBA recurrence (2004): saved Sonnet initial/repair and Haiku repair pass full offline validation (2101); malformed Haiku initial ID remains refused. Nov 13 acceptance failed before editing: local triage queue expiry; no story-editor call exercised the validator. Admission fix deployed after the hold (2165); accept the next scheduled NBA section. Read-only `check-scheduled-reader.ts <window-end> --require-ai-topic NBA` now refuses the saved Nov 13 non-AI edition (2169); publication alone is insufficient. No paid replay.
@@ -55,6 +53,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 - [ ] Gaming English context (2135, 2139): editor v11 translation guidance and Gaming calendar-date guard refuse saved invented launch date offline. Review natural notes. [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
 
 ## Completed and deferred
+
+- [x] Telemetry transport hang (2228): repeated offline runs caught pooled fetch stuck during caller cancellation beyond its deadline. One-shot HTTP sockets settle cancellation directly; 50 synchronized cancellations per run and response-safety controls cover the replacement. Unit files now have a 60-second outer watchdog with local transport phase diagnostics.
 
 - [x] Destructoid excerpt navigation (2227): omit the recorded Yoast contents block before the excerpt cap, retaining article headings/lists and more reporting; unchanged fixture and unrelated-block controls pass offline.
 

@@ -1,4 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
 
 // Prepared export transport only. Admission stays closed until proxy composition
 // and installed-browser acceptance are complete.
@@ -41,47 +43,73 @@ export function boundedTelemetryExport(target: string): string | null {
 }
 
 // Buffer before forwarding: a partial oversized export must never become a
-// successful downstream response. Abort fetch on overflow, deadline or caller
+// successful downstream response. Destroy the request on overflow, deadline or caller
 // disconnect, including while headers or a body chunk are stalled.
 export async function readBoundedTelemetryExport(
   url: URL,
   signal: AbortSignal,
   timeoutMs = 5000,
 ): Promise<Buffer> {
-  const controller = new AbortController();
-  const abort = () => controller.abort();
-  signal.addEventListener('abort', abort, { once: true });
-  if (signal.aborted) abort();
-  const timer = setTimeout(abort, timeoutMs);
+  if (signal.aborted) throw new Error('Telemetry export cancelled');
+  const request =
+    url.protocol === 'http:'
+      ? httpRequest
+      : url.protocol === 'https:'
+        ? httpsRequest
+        : null;
+  if (!request) throw new Error('Invalid telemetry export protocol');
+  // A one-shot socket avoids pooled fetch reconnects during cancellation.
+  // Reject directly as well as destroying the socket: settlement must not
+  // depend on a response-body reader noticing an abort.
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let abort = () => {};
   try {
-    const response = await fetch(url, {
-      signal: controller.signal,
-      redirect: 'error',
-      headers: { 'Accept-Encoding': 'identity' },
+    return await new Promise<Buffer>((resolve, reject) => {
+      const upstream = request(url, {
+        agent: false,
+        headers: { 'Accept-Encoding': 'identity' },
+      });
+      const fail = (error: Error) => {
+        reject(error);
+        upstream.destroy();
+      };
+      abort = () => fail(new Error('Telemetry export cancelled'));
+      signal.addEventListener('abort', abort, { once: true });
+      timer = setTimeout(
+        () => fail(new Error('Telemetry export deadline exceeded')),
+        timeoutMs,
+      );
+      upstream.once('error', fail);
+      upstream.once('response', (response) => {
+        response.once('error', fail);
+        if (
+          !response.statusCode ||
+          response.statusCode < 200 ||
+          response.statusCode >= 300 ||
+          !/application\/.*json/i.test(
+            response.headers['content-type'] ?? '',
+          ) ||
+          response.headers['set-cookie']
+        ) {
+          fail(new Error('Invalid telemetry export response'));
+          return;
+        }
+        const chunks: Buffer[] = [];
+        let bytes = 0;
+        response.on('data', (chunk: Buffer) => {
+          bytes += chunk.length;
+          if (bytes > maximumBytes) {
+            fail(new Error('Telemetry export exceeds byte limit'));
+            return;
+          }
+          chunks.push(chunk);
+        });
+        response.once('end', () => resolve(Buffer.concat(chunks, bytes)));
+      });
+      if (signal.aborted) abort();
+      else upstream.end();
     });
-    if (
-      !response.ok ||
-      !response.body ||
-      !/application\/.*json/i.test(
-        response.headers.get('content-type') ?? '',
-      ) ||
-      response.headers.has('set-cookie')
-    )
-      throw new Error('Invalid telemetry export response');
-    const reader = response.body.getReader();
-    const chunks: Uint8Array[] = [];
-    let bytes = 0;
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      bytes += value.byteLength;
-      if (bytes > maximumBytes)
-        throw new Error('Telemetry export exceeds byte limit');
-      chunks.push(value);
-    }
-    return Buffer.concat(chunks, bytes);
   } finally {
-    controller.abort();
     clearTimeout(timer);
     signal.removeEventListener('abort', abort);
   }

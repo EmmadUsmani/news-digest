@@ -4,7 +4,8 @@ import { testEnvironment, testFiles } from './test-suites';
 
 const result = spawnSync(
   'pnpm',
-  ['exec', 'tsx', '--test', ...testFiles('unit')],
+  // Bound each isolated test file, including leaked sockets after test timeout.
+  ['exec', 'tsx', '--test', '--test-timeout=60000', ...testFiles('unit')],
   {
     env: testEnvironment(),
     stdio: 'inherit',
