@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2303: new saved-story attribution follows the linked coverage report, with legacy fallback; real grouped-story/browser controls pass.
+
 - [x] 2302: activation/runbook now require the existing explicit five-topic AI gate before activation and after its first scheduled edition; today correctly refuses Gaming/World/U.S.
 
 - [x] 2301: reconciled Yardbarker feed versus disabled article-page harvesting against live configuration; no activation change.

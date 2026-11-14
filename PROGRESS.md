@@ -87,3 +87,14 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Verification: nine targeted gate tests pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration tests, four expected skips). `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
 - API/worker restarted; first immediate health probe preceded startup, retry healthy/database/Redis true; 38/38 sources healthy. Archived 2289–2294 verbatim to keep PROGRESS below 25 KB; integrity comparison passes. Private receipts `/tmp/2302-*`.
 - No source/schema/UI/system-flow change; SOURCES, handbook and screenshots unchanged. Next: natural scheduled Gaming/ownership recovery, then activation in runbook order; NBA social breadth review remains open.
+
+## 2026-11-14: iteration 2303 — preserve linked-report attribution when saving
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Known Gaming/ownership recovery remains scheduled-only; public mode off, sharing private.
+- Owner benefit: saved grouped stories no longer attribute one linked report to every source in the cluster. Today's Nvidia stock-sale link previously saved Google News/Hacker News/The Verge; now it saves its actual per-report Hacker News provenance.
+- Save uses the matching coverage URL's publisher or source labels, falling back to the story only when that report is absent. Existing saved copies are unchanged; resaving captures corrected attribution. No edition-generation, source, budget or provider changes.
+- Browser check `pnpm exec tsx scripts/smoke-reader-saved-source.ts` passes real saved Nvidia provenance plus explicitly synthetic publisher-precedence/legacy controls, preserved links, reload and no overflow/errors in desktop/mobile light/dark. Four screenshots retained under `docs/screenshots/ui/reader-saved-source-*`; mobile light visually checked.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Initial lint caught a component/helper export; moved the helper to a utility before final verification.
+- Final `pnpm format`, `pnpm lint:fix`, targeted Prettier and full `pnpm check` pass: 1,025 unit tests, 329 integration passes/four expected skips. Corrected a browser-script formatting conflict before the successful full run; `git diff --check` clean.
+- API/worker restarted; startup health retry healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/latest/direct/history agree on five topics/14 stories/19 posts. Receipts `/tmp/2303-*`.
+- No schema/system-flow/source change; handbook/SOURCES unchanged. Next: scheduled Gaming/ownership acceptance before activation, NBA social breadth review. Continue Current order while those await evidence.

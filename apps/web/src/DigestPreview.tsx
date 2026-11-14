@@ -12,6 +12,7 @@ import { ReaderContents } from './ReaderContents';
 import { ReaderPreferences } from './ReaderPreferences';
 import { ReaderSkeleton } from './ReaderSkeleton';
 import { ReaderSkipLink } from './ReaderSkipLink';
+import { primaryStoryAttribution } from './story-attribution';
 import { storyNeedsContinuation } from './story-continuation';
 import { StorySources } from './StorySources';
 import { StoryTime } from './StoryTime';
@@ -304,8 +305,7 @@ export function DigestPreview() {
                                       title: story.title,
                                       url: story.url,
                                       attribution:
-                                        story.publisher?.name ??
-                                        story.sources.join(', '),
+                                        primaryStoryAttribution(story),
                                       excerpt: story.summary ?? '',
                                       publishedAt: story.publishedAt,
                                       platform: 'story',
