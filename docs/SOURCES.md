@@ -2795,3 +2795,8 @@ words where possible and never leaves a split UTF-16 surrogate pair. Complete
 text at or below 1,500 characters stays exact. Article-content precedence,
 blank fallback, all-field X citations and the no-article-crawl rule remain.
 Offline fixtures verify this; no new source or live import is claimed.
+
+Iteration 2207 removes inline formatting tags without adding spaces inside
+reporting (for example, `<em>Spider-Man 2</em>.` stays `Spider-Man 2.`).
+Block tags still separate paragraphs, breaks and list items. Feed precedence,
+excerpt caps, X citations and saved editions are unchanged. Offline checks only.

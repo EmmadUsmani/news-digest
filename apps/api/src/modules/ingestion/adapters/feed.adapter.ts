@@ -18,7 +18,12 @@ function text(v: unknown): string {
     : decodeHTML(String(v ?? ''));
 }
 function excerpt(value: unknown): string {
-  const normalized = plainText(text(value), Number.MAX_SAFE_INTEGER);
+  // Inline formatting contributes no spacing; block tags still separate text.
+  const reporting = text(value).replace(
+    /<\/?(?:a|abbr|b|bdi|bdo|cite|code|del|em|i|ins|kbd|mark|q|s|samp|small|span|strong|sub|sup|time|u|var|wbr)\b[^>]*>/gi,
+    '',
+  );
+  const normalized = plainText(reporting, Number.MAX_SAFE_INTEGER);
   if (normalized.length <= 1500) return normalized;
   let prefix = normalized.slice(0, 1499).replace(/[\uD800-\uDBFF]$/, '');
   if (/\S$/.test(prefix) && /\S/.test(normalized[prefix.length])) {

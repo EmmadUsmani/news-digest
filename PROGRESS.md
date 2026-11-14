@@ -40,16 +40,7 @@ Archived entry: [iteration 2191](docs/progress-archive/2026-11-13-iteration-2191
 
 Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192.md).
 
-## 2026-11-13: iteration 2194 — later Gaming grouping boundaries
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Evening cutoff retains the feed parser; scheduled NBA/item 58 acceptance awaits Nov 14.
-- Open M5 step: added six positive/four negative same-story pairs from the recorded Nov 11–12 Gaming pool. Ceremony reports group across winners; Witcher awards stay separate from Geralt voice-production news.
-- Separate offline `--later-gaming` report leaves historical reports and the paid evaluation plan unchanged. Default matcher misses six positives; broad Witcher-title control falsely merges two negatives. Event-label control finds six with zero known false merges; other pairs stay unknown.
-- Labels are agent judgments, not independent acceptance or model accuracy. No inference, new fetch, production generation or budget changes. Semantic evaluation remains open.
-- Verification: ten targeted tests; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, offline CLI, handbook/schema check and `git diff --check` pass: 983 unit/294 integration tests, four expected skips; existing web chunk warning.
-- TASKS/RANKING updated; archived progress 2179–2180. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: no source, owner decision or system-flow change. No UI change; browser screenshots unnecessary.
-- Rebuilt API/worker restarted; both active, health/database/Redis pass, latest reader endpoint serves five topics. Commit/push follows verification.
-- Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/event diversity, then NBA/item 58/private public activation. No paid replay.
+Archived entry: [iteration 2194](docs/progress-archive/2026-11-13-iteration-2194.md).
 
 ## 2026-11-13: iteration 2195 — publication dates in saved items
 
@@ -186,3 +177,13 @@ Archived entry: [iteration 2192](docs/progress-archive/2026-11-13-iteration-2192
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` retry pass (986 unit/296 integration, four expected skips); `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only.
 - Targeted feed 4/4 and X links 2/2 pass. Initial X expectation omitted a complete trailing word; corrected. First full check caught archive formatting; fixed before successful retry. Commit/push and built API/worker restart follow.
 - Next: Nov 14 scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2207 — preserve inline feed sentence spacing
+
+- Clean main; no inherited work. Alerts zero; health/Postgres/Redis healthy. Scheduled NBA/item 58 acceptance remains pending; public mode stays off/private.
+- Saved Gaming reporting exposes `Spider-Man 2 .`: feed normalization inserted whitespace for every inline HTML tag. Known inline tags now contribute no spacing; block tags retain separators.
+- Offline regression covers emphasis, nested links, punctuation, subscripts, adjacent spans, breaks, paragraphs and list items. Caps, field precedence, metadata, X extraction and saved editions retained.
+- TASKS and SOURCES updated; archived iteration 2194. Minor normalization fix needs no handbook behavior change; NEEDS_FROM_HUMAN unchanged. No paid/live source calls, budget/provider changes or stored-edition rewrites.
+- Targeted feed/recorded-Ars checks pass 5/5. Initial broad test filter also selected a DB test without isolation; guard refused it. Corrected targeted filter; full suite uses disposable services.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook/schema and diff checks pass; existing web chunk warning only. Full `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
+- Next: Nov 14 normal scheduled all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

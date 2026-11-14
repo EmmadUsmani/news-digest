@@ -855,3 +855,15 @@ void test('feed caps mark omitted reporting without splitting words or Unicode',
   assert.equal(item(unicode).excerpt, 'x'.repeat(1498) + '…');
   assert.equal(item('<p> </p>').excerpt, '');
 });
+
+void test('feed inline formatting preserves punctuation and block separation', () => {
+  const [item] = parseFeed(`<rss><channel><item>
+    <title>Inline reporting</title><link>https://example.com/inline</link>
+    <pubDate>2026-11-14T00:00:00Z</pubDate>
+    <description><![CDATA[<p>Live in <em>Marvel's Spider-Man 2</em>.</p><p>A <a href="https://example.com">free <strong>update</strong></a>, with H<sub>2</sub>O and co<span>op</span> support.<br/>More details.</p><ul><li>First</li><li>Second</li></ul>]]></description>
+    </item></channel></rss>`);
+  assert.equal(
+    item.excerpt,
+    "Live in Marvel's Spider-Man 2. A free update, with H2O and coop support. More details. First Second",
+  );
+});

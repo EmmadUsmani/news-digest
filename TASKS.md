@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Feed inline spacing (2207): inline emphasis/links preserve punctuation and joined words; paragraphs, breaks and list items retain separators. Saved editions unchanged.
+
 - [x] Feed excerpt boundaries (2206): capped reporting marks omissions, preserves word boundaries where possible and avoids split Unicode; complete text, content precedence and X citation discovery retained.
 
 - [x] Explorer rollback test (2201): compare stable catalog details while validating mutable size/row statistics separately; public statistics omission and restricted-role checks retained.
