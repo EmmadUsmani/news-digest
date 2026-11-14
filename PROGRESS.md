@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2225](docs/progress-archive/2026-11-14-iteration-2225.md).
+
 Archived entry: [iteration 2224](docs/progress-archive/2026-11-14-iteration-2224.md).
 
 Archived entry: [iteration 2223](docs/progress-archive/2026-11-14-iteration-2223.md).
@@ -91,18 +93,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2225 — GameSpot navigation in feed excerpts
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/public activation still await the 15:00 UTC edition.
-- Reader weakness: recorded GameSpot table-of-contents navigation repeats headings and displaces reporting inside the excerpt cap. Remove only its named navigation block before truncation.
-- Unchanged recorded feed retains event dates, Pokemon list, metadata and the 1,500-character bound; boundary controls retain headings, article lists, other navigation and literal class-name prose.
-- Focused GameSpot tests pass (3). Initial whole-file direct test had 37 passes/two isolation guards; no live DB access occurred. Full isolated verification follows below.
-- TASKS, SOURCES and affected handbook updated; archived iteration 2212 to keep PROGRESS small. GameSpot remains blocked; no source requests, paid calls, flags or generation-policy changes.
-- Build and handbook/schema checks pass (18 pages/39 tables; existing bundle-size warning). Reader gate verifies five topics/15 stories/20 posts in the unchanged saved edition.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 990 unit/311 integration tests, four expected skips; finite systemd check unit exits 0. Diff check passes.
-- API/worker restarted active; health/database/Redis pass. All 38 active sources have successful collection/stored data and zero errors. No UI change or new screenshots required.
-- Next: 15:00 UTC all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No passive metrics sample before 05:36 UTC.
 
 ## 2026-11-14: iteration 2226 — bracketed publisher teaser continuation
 
@@ -230,3 +220,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Full `pnpm check` passes: 992 unit/321 integration tests, four expected skips; typecheck/lint/format/boundaries pass.
 - Rebuilt API/worker/docs restarted active; health passes. Saved-reader gate passes on startup retry: five topics/15 stories/20 posts. All 38 active sources have successful collection/stored content/no errors. Diff check passes.
 - Next: 15:00 scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2238 — Guardian lead-photo resolution
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the 15:00 UTC scheduled edition.
+- Recorded Guardian World RSS supplies 140/460/700px versions of each lead photo; ingestion previously selected 140px. It now retains the largest supplied width of that same HTTPS publisher-hosted photo, preserving its signed URL.
+- Unchanged recorded reporting/metadata verified; other-publisher, host/path, insecure URL, invalid/mismatched width and reordered-entry controls pass. No live requests, paid calls, source configuration changes or saved-edition rewrites.
+- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2225 to keep PROGRESS small.
+- Targeted recorded-feed regression, `pnpm format`, `pnpm lint:fix`, `pnpm build` and handbook check pass. Existing build bundle warnings only. Initial full check caught archived-entry formatting; fixed with Prettier and reran successfully.
+- Full `pnpm check` passes: 992 unit/322 integration tests, four expected skips; typecheck/lint/format/boundaries pass.
+- Rebuilt API/worker/docs restarted active; health/database/Redis pass. Saved-reader gate passes after startup retry: five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
+- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.

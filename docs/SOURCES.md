@@ -2957,3 +2957,12 @@ contains both formats. Ingestion now uses HTTPS JPEG/PNG/GIF/WebP/AVIF
 enclosures after existing image fallbacks; audio, SVG, missing MIME types,
 HTTP and credential-bearing URLs are excluded. Reporting and metadata stay
 unchanged. No article crawling, paid calls or saved-edition rewrites.
+
+## Guardian lead-photo sizes — iteration 2238 (2026-11-14)
+
+The unchanged recorded World RSS supplies 140-, 460- and 700-pixel versions
+of each lead photo. Ingestion now selects the largest supplied width for the
+same HTTPS `i.guim.co.uk` photo path, preserving its signed URL. Other photos,
+hosts, invalid widths and mismatched width parameters cannot replace the lead.
+Other publishers retain existing image precedence. Offline fixture checks only;
+no live requests, new source, article crawling or saved-edition rewrites.

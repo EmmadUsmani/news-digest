@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Guardian lead-photo resolution (2238): use the largest supplied size of the same publisher-hosted photo instead of its first 140px thumbnail; unchanged recorded World reporting/metadata and host/path/width/order controls pass offline.
+
 - [x] RSS enclosure photos (2237): recorded CBS JPEG/PNG enclosures now supply lead images as the last fallback; reporting/metadata unchanged, unsafe/non-image enclosure and existing-image precedence controls pass offline.
 
 - [x] Gematsu lead images (2235): preserve opening publisher-hosted description images when media/content images are absent; recorded reporting unchanged, with host/path/position/HTTPS and media-precedence controls.

@@ -11,6 +11,62 @@ import { canonicalUrl } from '../src/modules/ingestion/domain/normalize';
 import { ingest } from '../src/modules/ingestion/ingest';
 const fixture = (name: string) =>
   readFile(`apps/api/test/fixtures/${name}`, 'utf8');
+void test('recorded Guardian photos use the largest supplied size of the lead photo', async () => {
+  const xml = await fixture('guardian-world.xml');
+  const items = parseFeed(xml);
+  assert.equal(items.length, 2);
+  for (const item of items) {
+    const image = new URL(item.imageUrl!);
+    assert.equal(image.hostname, 'i.guim.co.uk');
+    assert.equal(image.searchParams.get('width'), '700');
+    assert.ok(image.searchParams.get('s'), 'publisher signature retained');
+  }
+  // Removing the larger variants changes only the selected image.
+  const smallXml = xml.replace(
+    /<media:content width="(?:460|700)"[\s\S]*?<\/media:content>/g,
+    '',
+  );
+  const small = parseFeed(smallXml);
+  assert.deepEqual(
+    items.map((item, i) => ({ ...item, imageUrl: small[i].imageUrl })),
+    small,
+  );
+  assert.ok(
+    small.every(
+      (item) => new URL(item.imageUrl!).searchParams.get('width') === '140',
+    ),
+  );
+  for (const changed of [
+    xml.replaceAll('www.theguardian.com', 'example.com'),
+    xml
+      .replaceAll('width="700"', 'width="unknown"')
+      .replaceAll('width="460"', 'width="-1"'),
+    xml
+      .replaceAll('width="700"', 'width="701"')
+      .replaceAll('width="460"', 'width="461"'),
+    xml.replace(/(<media:content width="(?:460|700)" url=")https:/g, '$1http:'),
+    xml.replace(
+      /(<media:content width="(?:460|700)" url="https:\/\/)i.guim.co.uk/g,
+      '$1example.com',
+    ),
+    xml.replace(
+      /(<media:content width="(?:460|700)" url="https:\/\/i.guim.co.uk)\/img\/media/g,
+      '$1/other/media',
+    ),
+  ]) {
+    assert.ok(
+      parseFeed(changed).every(
+        (item) => new URL(item.imageUrl!).searchParams.get('width') === '140',
+      ),
+    );
+  }
+  // Ordering does not matter: the 460px entry cannot displace the 700px one.
+  const reversed = xml.replace(
+    /(<media:content width="140"[\s\S]*?<\/media:content>)(\s*)(<media:content width="460"[\s\S]*?<\/media:content>)(\s*)(<media:content width="700"[\s\S]*?<\/media:content>)/g,
+    '$5$2$3$4$1',
+  );
+  assert.deepEqual(parseFeed(reversed), items);
+});
 void test('recorded Push Square teasers retain reporting and omission without self-link navigation', async () => {
   const xml = await fixture('pushsquare.xml');
   const items = parseFeed(xml);

@@ -17,6 +17,38 @@ function text(v: unknown): string {
     ? decodeHTML(String((v as Node)['#text'] ?? ''))
     : decodeHTML(String(v ?? ''));
 }
+function mediaImage(entry: Node, articleUrl: string): string | null {
+  const images = list(entry['media:content']);
+  const first = images[0] ?? list(entry['media:thumbnail'])[0];
+  const original = canonicalUrl(String(first?.['@_url'] ?? ''));
+  if (!original || new URL(articleUrl).hostname !== 'www.theguardian.com')
+    return original;
+  const lead = new URL(original);
+  if (lead.protocol !== 'https:' || lead.hostname !== 'i.guim.co.uk')
+    return original;
+  // Guardian supplies several sizes of the same photo. Keep the publisher's
+  // signed URL intact and do not substitute a different photo or media host.
+  let selected = original;
+  let width = Number(first?.['@_width']) || 0;
+  for (const image of images) {
+    const url = canonicalUrl(String(image['@_url'] ?? ''));
+    if (!url) continue;
+    const candidate = new URL(url);
+    const candidateWidth = Number(image['@_width']);
+    if (
+      candidate.protocol === 'https:' &&
+      candidate.hostname === lead.hostname &&
+      candidate.pathname === lead.pathname &&
+      Number.isFinite(candidateWidth) &&
+      candidateWidth > width &&
+      Number(candidate.searchParams.get('width')) === candidateWidth
+    ) {
+      selected = url;
+      width = candidateWidth;
+    }
+  }
+  return selected;
+}
 function leadFigureImage(value: unknown): string | null {
   // Only the opening figure establishes a lead image. Later inline images may
   // be products, advertisements or tracking pixels.
@@ -174,8 +206,6 @@ export function parseFeed(xml: string): ContentItem[] {
         text(entry.pubDate ?? entry.published ?? entry.updated),
       );
       if (!url || !title || !Number.isFinite(date.getTime())) return [];
-      const media =
-        list(entry['media:content'])[0] ?? list(entry['media:thumbnail'])[0];
       // RSS source is publisher evidence; Atom source describes the origin feed.
       // Neither title suffixes nor destination hosts establish a publisher.
       const publisherName = doc.rss ? plainText(text(entry.source), 200) : '';
@@ -220,7 +250,7 @@ export function parseFeed(xml: string): ContentItem[] {
             ) || null,
           publishedAt: date.toISOString(),
           imageUrl:
-            canonicalUrl(String(media?.['@_url'] ?? '')) ??
+            mediaImage(entry, url) ??
             leadFigureImage(entry['content:encoded']) ??
             leadFigureImage(entry.content) ??
             gematsuDescriptionImage(entry.description, url) ??
