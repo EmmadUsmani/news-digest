@@ -1,5 +1,6 @@
 # Progress
 
+Archived entry: [iteration 2248](docs/progress-archive/2026-11-14-iteration-2248.md).
 Archived entry: [iteration 2245](docs/progress-archive/2026-11-14-iteration-2245.md).
 Archived entry: [iteration 2246](docs/progress-archive/2026-11-14-iteration-2246.md).
 Archived entry: [iteration 2247](docs/progress-archive/2026-11-14-iteration-2247.md).
@@ -132,16 +133,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2248 — NBA Sonnet repair-admission fallback publication
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
-- Extended the known NBA invalid-selection/admission-exhaustion publication regression to Sonnet: historical malformed Haiku selection serialized under a synthetic Sonnet request, not an observed Sonnet response pair.
-- Isolated case verifies feedback-bearing repair refusal, one dispatch/settlement, no cache, two immutable source-only publications and public reader latest/history/detail; unpublished generation remains hidden.
-- No runtime, generation, budget, source or handbook behavior change; no paid calls. Updated TASKS/database verification; archived iteration 2235 to bound PROGRESS.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,000 unit/324 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
-- Next: scheduled NBA/all-topic recovery/diversity acceptance at 15:00 UTC, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2249 — fill missing photos on repeat collection
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
@@ -252,3 +243,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green. `git diff --check` passes.
 - API/worker restarted active; `/healthz` database/Redis pass after startup retries. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not revisit GUID dedupe or already-covered feed cleanup; no paid replay.
+
+## 2026-11-14: iteration 2259 — Tech cap counterfactual
+
+- Clean main; no inherited work. Alerts zero; API/worker active and `/healthz` database/Redis healthy. Scheduled NBA/item 58 acceptance remains pending 15:00 UTC.
+- Reader weakness: Tech has few readable candidates despite the 200-item limit. Audited all five uncapped window pools in a read-only transaction; only Tech exceeds 200 (215); five omitted reports have text.
+- Matched the full Tech query's first 200 IDs and every excerpt/points value to the actual production loader. Strict fallback phrase policy leaves 14 readable capped/17 uncapped, versus relaxed triage's 24/29; these are different admission stages.
+- Production `rankFallback` with saved policy selects identical five IDs/scores with or without the cap. Additional eligible reports rank 15–17; increasing the cap alone restores no reader slot. Owner benefit: avoid widening paid triage without demonstrated fallback benefit before the protected edition.
+- Saved cap-study evidence/review and TASKS marker; private captures `/tmp/2259-cap-audit.json` and `/tmp/2259-tech-counterfactual.json`. Temporary audit scripts removed. Archived iteration 2248 to bound PROGRESS.
+- No source request, paid call, production code, prompt, budget or stored-data change. AI editing and natural acceptance remain open; retain the cap and review scheduled selection first.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` pass: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green; existing bundle warnings only. Exact five-ID/score comparison passes.
+- Rebuilt API/worker restarted active; `/healthz` passes. Saved-reader check passes after startup retry: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not repeat this cap audit or paid replay.
