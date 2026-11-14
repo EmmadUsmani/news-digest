@@ -237,3 +237,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Added pre-pilot baseline review and TASKS handoff. World pilot stays off behind existing activation gates; rolling pool is not scheduled acceptance. No paid/provider calls or data writes; temporary probe removed, private mode-600 receipt retained.
 - Verification: private receipt assertions pass for 26 distinct URLs, uncapped read, media totals and rank-24 lead. `pnpm format`/`pnpm lint:fix` pass; `pnpm check` passes typecheck/lint/format/boundaries, 1,010 unit and 327 integration tests, four expected skips. Archived iterations 2258–2259 to bound this file. Documentation-only: no build/restart during hold.
 - Next: 15:00 all-topic scheduled acceptance and diversity review, NBA/item 58 closure, fresh rollback baseline/private public-mode activation outside hold.
+
+## 2026-11-14: iteration 2268 — distinguish URL-only pool text
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; all 38 sources healthy; jobs check passes with normal 15:00 digest queued.
+- Protected deployment/generation hold retained. NBA/item 58/private public-mode activation still await scheduled acceptance.
+- Corrected preflight's misleading reporting label: nonempty includes two URL-only HN excerpts and the known legacy HUD headline. Reader already links original titles; no reader change needed.
+- Read-only pool capture now labels empty/URLs-only/other text and reports eligible counts. This changes no production selection, admission or stored content.
+- Actual 13:40 UTC Tech capture: 200 eligible, 175 empty, two URL-only, 23 other text; other text is explicitly not verified reporting. All five topic counts recorded in today's edition review; private receipt `/tmp/2268-pool.json` mode 600.
+- Three targeted tests pass, including recorded HN excerpts, prose/link controls and unchanged admission/candidate fields. Initial test used an incomplete policy fixture; corrected to the required include/exclude arrays.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (typecheck/lint/format/boundaries; 1,011 unit, 327 integration tests, four expected skips). Private receipt assertions pass for topic labels, exact HN IDs and mode 600. Tool/test/docs-only: no build/restart during hold; deployed app code unchanged.
+- Next: 15:00 all-topic scheduled acceptance/diversity review; NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Address stale headline provenance after protected edition.

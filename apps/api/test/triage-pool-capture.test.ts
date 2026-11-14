@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   poolAdmission,
   poolOptions,
+  poolTextEvidence,
 } from '../../../scripts/capture-triage-pool';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -52,4 +53,45 @@ void test('pool evidence preserves semantic recovery and excludes only hard rule
   );
   assert.equal(rows[0].id, candidate.id);
   assert.equal(poolAdmission([candidate], policy, 0)[0].triageEligible, false);
+});
+
+void test('pool text evidence separates recorded URL-only HN excerpts without changing admission', () => {
+  // Stored Tech excerpts captured 2026-11-14, iteration 2259; shortened URLs
+  // are the saved text, not reconstructed destinations or source reporting.
+  const excerpts = [
+    'https://www.fly.faa.gov/adv/adv_otherdis?adv_date=11132026&a... https://www.fly.faa.gov/adv/adv_otherdis?adv_date=11142026&a... https://www.nytimes.com/live/2026/11/13/us/ground-stop-natio...',
+    'https://www.nytimes.com/live/2026/11/13/us/ground-stop-natio...',
+  ];
+  for (const excerpt of excerpts) {
+    assert.equal(poolTextEvidence(excerpt), 'urls-only');
+    assert.equal(poolTextEvidence(` \n${excerpt}\t`), 'urls-only');
+    const candidate = {
+      id: 'recorded-text-control',
+      title: 'FAA Issues National Ground Stop',
+      excerpt,
+      url: 'https://example.org/report',
+      publishedAt: '2026-11-13T20:00Z',
+      sources: ['Fixture source'],
+      points: 0,
+    } satisfies Candidate;
+    const [row] = poolAdmission(
+      [candidate],
+      { includeAny: [], excludeAny: [] },
+      5,
+    );
+    assert.equal(row.textEvidence, 'urls-only');
+    assert.equal(row.triageEligible, true);
+    for (const key of Object.keys(candidate) as (keyof Candidate)[])
+      assert.deepEqual(row[key], candidate[key]);
+  }
+  for (const empty of ['', '  \n\t'])
+    assert.equal(poolTextEvidence(empty), 'empty');
+  for (const text of [
+    'Flights resumed after the ground stop.',
+    'Details: https://example.org/report',
+    'https://example.org/report Controllers resumed departures.',
+    'HUD OCIO Reorganization to Establish Data and AI Division ExecutiveGov',
+    'http is a protocol',
+  ])
+    assert.equal(poolTextEvidence(text), 'other-text');
 });

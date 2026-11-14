@@ -28,6 +28,15 @@ export function poolOptions(args: string[], now = Date.now()) {
   return { start: new Date(from), end: new Date(to), path };
 }
 
+// Evidence labels describe text shape only, never source quality or factual support.
+export function poolTextEvidence(excerpt: string) {
+  const text = excerpt.trim();
+  if (!text) return 'empty' as const;
+  if (text.split(/\s+/u).every((token) => /^https?:\/\/\S+$/iu.test(token)))
+    return 'urls-only' as const;
+  return 'other-text' as const;
+}
+
 // Mirrors edition triage admission, including semantic recovery of missing
 // required phrases. Captures are prospective observations, never backdated.
 export function poolAdmission(
@@ -38,6 +47,7 @@ export function poolAdmission(
   const parsed = relevancePolicySchema.parse(policy);
   return candidates.map((candidate) => ({
     ...candidate,
+    textEvidence: poolTextEvidence(candidate.excerpt),
     triageEligible:
       storyBudget > 0 &&
       !qualityRejection(candidate) &&
@@ -95,7 +105,7 @@ async function main() {
           windowStart: options.start,
           windowEnd: options.end,
           evidence:
-            'Current edition loader (newest 200 per topic), current text/settings and hard-exclusion admission. Not historical membership, cache misses, scored work, spend or latency. Compare only captures for the same edition window; eligibility loss is potential waste until matched to actual scoring.',
+            'Current edition loader (newest 200 per topic), current text/settings and hard-exclusion admission. Text evidence labels distinguish empty, URL-only and other text; other text is not verified reporting. Not historical membership, cache misses, scored work, spend or latency. Compare only captures for the same edition window; eligibility loss is potential waste until matched to actual scoring.',
           pools,
         },
         null,
@@ -111,6 +121,14 @@ async function main() {
           topic: topic.name,
           candidates: candidates.length,
           eligible: candidates.filter((c) => c.triageEligible).length,
+          eligibleText: Object.fromEntries(
+            ['empty', 'urls-only', 'other-text'].map((kind) => [
+              kind,
+              candidates.filter(
+                (c) => c.triageEligible && c.textEvidence === kind,
+              ).length,
+            ]),
+          ),
         })),
       }),
     );

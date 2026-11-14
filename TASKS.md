@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Pool text evidence (2268): read-only capture separates empty, URL-only and other text; two recorded HN FAA excerpts no longer inflate implied reporting counts. Admission and stored text unchanged; scheduled acceptance remains open.
+
 - [x] Clipped social URLs (2264): shortened saved URLs now open the original post for its full destination; complete external links and saved text remain intact. Real Nov 7 browser replay covers both clipped posts.
 
 - [x] Bluesky continuation (2263): saved edition cards with terminal ellipses now offer an explicit original-post link, including the shortened game-worker survey/news source URLs; saved text and selection unchanged.
