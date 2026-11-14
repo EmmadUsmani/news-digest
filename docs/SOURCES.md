@@ -3093,3 +3093,12 @@ and opening figures supply no image. Do not select later images or tracking
 pixels. The unchanged recorded item verifies reporting/metadata preservation
 and publisher, host, path, protocol, credentials, position and precedence
 controls. No crawl, source change or paid call; saved editions stay unchanged.
+
+### Yahoo NBA bare lead photos (2026-11-14, iteration 2254)
+
+One explicit free GET of the configured Yahoo NBA RSS feed recorded the Lakers
+11–2 start article. Its opening bare `media.zenfs.com/en/` image now supplies
+a missing lead photo for future collection. Publisher, HTTPS, CDN path and
+opening-position checks exclude unrelated/later images; existing media/figure
+precedence, reporting and metadata remain intact. Offline fixture:
+`yahoo-nba-bare-image-2026-11-14.xml`. Saved editions remain unchanged.

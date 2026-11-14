@@ -85,6 +85,19 @@ function gematsuDescriptionImage(
     ? image
     : null;
 }
+function yahooContentImage(value: unknown, articleUrl: string): string | null {
+  if (new URL(articleUrl).hostname !== 'sports.yahoo.com') return null;
+  const opening = text(value).match(/^\s*(<img\b[^>]*>)/i);
+  const src = opening?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
+  const image = canonicalUrl(src?.[2] ?? '');
+  if (!image) return null;
+  const parsed = new URL(image);
+  return parsed.protocol === 'https:' &&
+    parsed.hostname === 'media.zenfs.com' &&
+    parsed.pathname.startsWith('/en/')
+    ? image
+    : null;
+}
 function nprContentImage(value: unknown, articleUrl: string): string | null {
   if (new URL(articleUrl).hostname !== 'www.npr.org') return null;
   // NPR opens its syndicated reporting with a bare photo and ends with a
@@ -364,6 +377,7 @@ export function parseFeed(xml: string): ContentItem[] {
             leadFigureImage(entry['content:encoded']) ??
             leadFigureImage(entry.content) ??
             nprContentImage(entry['content:encoded'], url) ??
+            yahooContentImage(entry['content:encoded'], url) ??
             gematsuDescriptionImage(entry.description, url) ??
             enclosureImage(entry.enclosure),
           engagement: {},

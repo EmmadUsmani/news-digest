@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2241](docs/progress-archive/2026-11-14-iteration-2241.md).
+
 Archived entry: [iteration 2240](docs/progress-archive/2026-11-14-iteration-2240.md).
 
 Archived entry: [iteration 2239](docs/progress-archive/2026-11-14-iteration-2239.md).
@@ -122,17 +124,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2241 — Sonnet repair publication regression
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Scheduled NBA/item 58/public-mode acceptance still awaits 15:00 UTC.
-- Owner-visible purpose: protect AI-edited NBA summaries through repair and publication rather than accepting a corrected response only in isolation.
-- Added the saved corrected Sonnet response to the existing automatic repair/publication/public-reader HTTP regression. The malformed initial output is historical Haiku output under synthetic Sonnet transport; this is an offline orchestration case, not a historical request pair.
-- Verifies two separate reservations/settlements, exactly one corrected cache write, cache reuse across generations, immutable published snapshots and hidden unpublished content.
-- Updated TASKS and database verification evidence. No runtime behavior changes, provider requests, paid replay or saved-edition changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 994 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Existing build bundle warnings only.
-- API/worker restarted healthy; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts. New Sonnet automatic repair publication case passes; diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2242 — Guardian teaser navigation
 
@@ -264,4 +255,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS/SOURCES; archived iteration 2240 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
 - Targeted `pnpm exec tsx --test apps/api/test/feed-npr-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,003 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2254 — Yahoo NBA lead photos
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58 acceptance awaits 15:00 UTC.
+- Reader weakness: Yahoo NBA supplies some lead photos as bare content images, leaving future cards without the available photo. Preserve only opening HTTPS publisher-CDN images.
+- One explicit free GET of the configured Yahoo NBA RSS recorded the Lakers 11–2 article (an initial obsolete URL returned a redirect document). Offline fixture preserves reporting/metadata; host/path/protocol/credentials/later-image and preferred-media controls pass.
+- Updated TASKS/SOURCES; archived iteration 2241 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-yahoo-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Initial full check found archive formatting; corrected it and reran. Full `pnpm check` passes: 1,004 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.

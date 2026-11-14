@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Yahoo NBA lead photos (2254): retain recorded opening bare publisher-CDN images; reject later/unsafe/unrelated images and retain reporting, metadata and preferred image precedence.
+
 - [x] NPR lead photos (2253): retain the recorded opening publisher-CDN photo from bare content images; reject later images/tracking pixels and preserve reporting, metadata and existing image precedence.
 
 - [x] Guardian newsletter signup (2252): omit the recorded Breaking News US signup list item with exact publisher/destination/copy checks; retain report links, flight facts, metadata and continuation. Offline recording and preservation controls pass.
