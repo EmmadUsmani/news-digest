@@ -118,3 +118,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Updated TASKS and capacity decision evidence; no source/schema/UI/system-flow change, so SOURCES, handbook and screenshots unchanged. No provider calls, generation changes or forced merges.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; targeted Prettier and `git diff --check` pass. API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. Receipts `/tmp/2305-*`.
 - Next: natural scheduled five-topic acceptance before activation; NBA social breadth review remains pending. Metrics next passive sample no earlier than Nov 14 22:10 UTC.
+
+## 2026-11-14: iteration 2306 — scope official media on saved X cards
+
+- Clean main; no inherited work. Initial alerts zero; app/database/Redis healthy and 38/38 sources healthy. Natural Gaming/World/U.S. acceptance remains pending; public mode off, sharing private.
+- Reader gap: today's Giannis/Bam X post carries a media link, but Saved retains linked text/context without the official embed. Owner would notice losing the media when returning to a saved post.
+- Added a bounded owner-review proposal to docs/ideas.md: reuse official embed behavior with text/original/edition fallbacks, compatible bookmarks, no new collection/model spend. No feature implementation or generation/configuration change.
+- Discarded this iteration's proposed escaped-newline display helper and browser script: character-level inspection proved the saved posts already contain actual newlines. Initial format encountered the removed temporary script; final clean formatting rerun succeeds. No inherited work discarded.
+- Evidence: GET latest edition plus static bookmark/renderer assertions confirm the real NBA media link and text-only Saved rendering. No third-party requests or provider calls. No UI/source/schema/system-flow changes; screenshots, SOURCES and handbook unchanged.
+- Verification: final `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); clean-source `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Targeted Prettier and `git diff --check` pass. API/worker restart healthy/database/Redis true. Receipts `/tmp/2306-*`.
+- Next: natural scheduled five-topic acceptance before activation, then existing Current order; saved-media proposal waits on owner approval.

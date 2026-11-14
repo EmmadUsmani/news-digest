@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2306: scoped official X media on Saved cards as an owner-review proposal; no new feature or generation change.
+
 - [x] 2305: refreshed due metrics recovery evidence; one small natural merge stayed healthy, below acceptance threshold; restart-related scrape warnings traced.
 
 - [x] 2304: reconciled the top-level public activation handoff and readiness introduction with the existing five-topic AI gate; Nov 14 NBA recovery alone remains insufficient.

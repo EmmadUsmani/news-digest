@@ -408,3 +408,17 @@ evidence and owner approval; do not repeat the completed availability checks.
   launches alongside giveaway-led posts before proposing any scoring change.
 - Completed without vendor, collection or paid model calls. This comparison
   does not justify altering scoring, budgets or publication.
+
+## Keep official X media available from saved items
+
+- Reader problem: today's saved NBA Giannis/Bam post includes a media link,
+  but saving it keeps only text, attribution and context. The Saved page has
+  no official embed; readers must reopen the edition or original to see media.
+- Proposal: offer the existing official X embed on saved X cards, retaining
+  their text, original link and edition link when embedding fails. Reuse the
+  reader's lazy loading, retry and theme behavior; never re-host X media.
+- Scope: approximately 1–2 days if approved. Derive a validated status ID from
+  the saved URL; keep existing bookmarks compatible. No source searches, model
+  calls, new vendor or app API spend; loading embeds still contacts X.
+- Status: proposal only under STEERING 38, awaiting owner review. Public-mode
+  acceptance and natural social-quality review keep their current priority.
