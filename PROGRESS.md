@@ -157,3 +157,14 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - API/worker restarted; first health probe preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance, five topics/14 stories/19 posts verified.
 - Temporary probe removed; private receipts under `/tmp/2294-*`. No inference, source/embed/article requests, or production data writes by review. No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged.
 - Next: natural scheduled Gaming/ownership acceptance before activation; retain the World editor challenge and broader viral-quality acceptance as open work.
+
+## 2026-11-14: iteration 2295 — natural Tech story/post overlap review
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Gaming/ownership scheduled recovery still gates item 58 and private public-mode activation.
+- Reviewed actual Nov 14 Tech reader/admin copies: four stories and two Sonnet-selected X posts cover distinct developments; IDs, original text and reader notes agree, with zero unscored social IDs.
+- Grok usage optimization and FAA SMART deployment repeat neither each other nor saved stories. Nvidia governance candidate is low-scored before editing; no causal duplicate-rejection claim. Bluesky shortlisted one/selected none with three open slots, so overall overlap acceptance stays open.
+- Added `docs/edition-reviews/2026-11-14-tech-social.md`; TASKS distinguishes the natural X observation from unexercised Bluesky/editor-level challenges. No new prompt/ranking change justified.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: static checks, 1,023 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker restarted; first health probe preceded readiness, subsequent `pnpm obs health --check` healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance, five topics/14 stories/19 posts verified.
+- No inference, external source requests, production writes or edition changes; private read-only receipts `/tmp/2295-{reader,preview}.json`.
+- No UI/schema/source/system-flow change; handbook/SOURCES/screenshots unchanged. Next: natural Gaming/ownership recovery before activation; retain Tech Bluesky overlap challenge.

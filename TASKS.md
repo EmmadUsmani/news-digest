@@ -54,7 +54,7 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 - [ ] World link-list social quality (2132): editor v10 refuses inference from URL slugs alone; offline transport/selection verified. Nov 14 natural pick supplies attributed RAF drone reporting with no inferred URL context (2294); reconstructed 26 scored/two shortlisted candidates show bare links, bulletins and aggregator rejected by triage, so editor-level natural challenge remains unexercised. [Selection trace](docs/edition-reviews/2026-11-14-world-social.md). Review next natural picks. [Evidence](docs/edition-reviews/2026-11-12-social-link-list.md).
 
-- [ ] Tech story/post repetition (2134, 2138): bounded selected-story context supplied to both social routes; offline saved overlap/model controls pass. Natural acceptance pending. [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
+- [ ] Tech story/post repetition (2134, 2138): bounded selected-story context supplied to both social routes; offline saved overlap/model controls pass. Nov 14 natural X observation (2295): four stories/two AI-selected posts cover six distinct events; reader/admin text and notes agree. No selected Bluesky post and no proven editor-level duplicate challenge, so overall acceptance remains open. [Natural review](docs/edition-reviews/2026-11-14-tech-social.md). [Evidence](docs/edition-reviews/2026-11-12-social-story-overlap.md).
 
 - [ ] Gaming English context (2135, 2139): editor v11 translation guidance and Gaming calendar-date guard refuse saved invented launch date offline. Review natural notes. [Evidence](docs/edition-reviews/2026-11-12-social-translation.md).
 
