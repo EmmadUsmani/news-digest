@@ -3023,3 +3023,18 @@ omits only terminal article-matching links on these two publisher hosts and
 retains all reporting, metadata and a continuation ellipsis. Offline recorded
 and boundary controls verify the change; no fresh external requests or saved
 edition changes. Push Square's separate HTTP 522 recovery gate remains open.
+
+## 2026-11-14 iteration 2246 — Push Square recovery
+
+At 09:11 UTC the unchanged configured public feed returned HTTP 200 in 0.32
+seconds (34,418 bytes). The production feed parser accepted all 25 entries,
+with reporting text and valid publication dates from Nov 12 17:30 through
+Nov 14 02:30 UTC. This was a direct public feed check, not a collection job.
+
+The normal scheduled collection then succeeded at 09:16:25 UTC: 25 accepted
+items, cleared source error, and 192 retained articles (16 in the last 24 hours).
+The feed contained no newly published article beyond those already retained.
+All 38 active sources were error-free afterward. The outage is resolved without
+URL, schedule, retry or parser changes; no manual collection or paid call ran.
+The protected Gaming content-window read also found 29 stored Push Square
+articles since Nov 12, with the newest matching the feed's Nov 14 02:30 article.

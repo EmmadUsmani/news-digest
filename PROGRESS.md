@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2233](docs/progress-archive/2026-11-14-iteration-2233.md).
+
 Archived entry: [iteration 2232](docs/progress-archive/2026-11-14-iteration-2232.md).
 
 Archived entry: [iteration 2231](docs/progress-archive/2026-11-14-iteration-2231.md).
@@ -107,16 +109,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2233 — Verge reporting without purchase navigation
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private public-mode gates await 15:00 UTC scheduled acceptance.
-- Reader weakness: recorded Verge commerce excerpts flatten widget old/current prices into ambiguous “$59 $39” between reporting paragraphs. Omit its exact purchase-widget structure on the publisher host; article prices, discounts, battery life and customization details remain.
-- Three focused recorded-Verge tests pass, including unchanged fixture/metadata equivalence and other-host/changed-structure/nested-reporting controls. No live source requests, inference calls or saved-edition edits.
-- Updated TASKS, SOURCES and affected handbook prose; archived iteration 2220 to keep PROGRESS small. No UI/schema/budget/flag changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/319 integration tests, four expected skips; format/lint/typecheck/boundaries pass; 18 handbook pages/39 tables. Existing bundle warnings only.
-- API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts after startup retry. Local source status confirms all 38 active sources have successful collection/stored content/no errors. Diff check passes.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2234 — Push Square reporting without teaser navigation
 
@@ -245,3 +237,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Targeted `pnpm exec tsx --test apps/api/test/feed-gaming-navigation.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only.
 - Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Saved-reader check verifies five topics/15 stories/20 posts.
 - Next: normal Push Square recovery; 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2246 — Push Square scheduled recovery accepted
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis and API/worker pass. Prioritized the open Push Square outage.
+- Direct unchanged-feed probe at 09:11 UTC: HTTP 200, 34,418 bytes, 0.32 seconds. Production `parseFeed` accepts 25 reporting excerpts dated Nov 12–14; newest Nov 14 02:30 UTC.
+- Observed normal scheduled collection at 09:16:25 UTC: 25 accepted items, error cleared, 192 stored articles retained (16 published in last 24 hours). All 38 active sources error-free; no manual job or paid call.
+- Protected Gaming content-window read confirms 29 stored Push Square articles since Nov 12; newest date/title matches the recovered feed. No newly published feed articles or URL/retry/schedule changes.
+- Closed outage task and updated SOURCES. Archived iteration 2233 to keep PROGRESS bounded; no runtime or handbook behavior changes.
+- `pnpm build` passes (existing bundle warnings); `pnpm format` and `pnpm lint:fix` pass.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
+- Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
+- Next: 15:00 UTC scheduled NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
