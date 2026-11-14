@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2242](docs/progress-archive/2026-11-14-iteration-2242.md).
+
 Archived entry: [iteration 2241](docs/progress-archive/2026-11-14-iteration-2241.md).
 
 Archived entry: [iteration 2240](docs/progress-archive/2026-11-14-iteration-2240.md).
@@ -124,17 +126,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2242 — Guardian teaser navigation
-
-- Clean main; no inherited work. Alerts zero and health/database/Redis pass. NBA/item 58/private public-mode acceptance awaits the scheduled 15:00 UTC edition.
-- Reader weakness: recorded World/U.S. Guardian teasers pass terminal “Continue reading...” navigation to summary evidence. Omit only the terminal article-matching link on the Guardian host; retain reporting, metadata and a source-continuation ellipsis.
-- Unchanged recorded feeds and publisher/destination/wording/nonterminal controls pass offline. GamesRadar body-loss suspicion was ruled out: its content:encoded already supplies reporting. No external requests, paid calls or saved-edition changes.
-- Updated TASKS and SOURCES; archived iteration 2229 to keep PROGRESS small. No affected handbook system behavior beyond existing feed normalization.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-guardian-navigation.test.ts`, `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; existing build warnings only. Full check initially stopped on archive formatting; corrected with Prettier and rerun.
-- Full `pnpm check` passes: 996 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file Prettier and diff checks pass.
-- Rebuilt API/worker active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Local admin status confirms all 38 active sources have stored content and no recorded errors.
-- Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
 
 ## 2026-11-14: iteration 2243 — Verge teaser navigation
 
@@ -265,4 +256,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS/SOURCES; archived iteration 2241 to bound PROGRESS. No UI, handbook flow, prompt, budget or paid-call change; saved editions remain immutable.
 - Targeted `pnpm exec tsx --test apps/api/test/feed-yahoo-image.test.ts` passes. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Initial full check found archive formatting; corrected it and reran. Full `pnpm check` passes: 1,004 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
 - Rebuilt API/worker restarted; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
+
+## 2026-11-14: iteration 2255 — Xbox store badge excerpts
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. NBA/item 58/private activation await the normal 15:00 UTC edition.
+- Reader weakness: Xbox Wire's current release roundup flattens store star ratings/prices/preorder buttons ahead of reporting. Remove complete nested store badges on the publisher host before the cap; readers get more game descriptions and dates instead.
+- One explicit free GET of the configured Xbox RSS recorded the unchanged roundup. Offline publisher/class controls retain unrelated content; repeated nested badges, article prices and incomplete-widget preservation pass. No crawl, paid call, prompt/budget or saved-edition change.
+- Updated TASKS/SOURCES; archived iteration 2242 to bound PROGRESS. No handbook flow or UI change.
+- Targeted `pnpm exec tsx --test apps/api/test/feed-xbox-store-badges.test.ts` passes after correcting an overly early truncation assertion. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 1,005 unit/326 integration tests, four expected skips; typecheck/lint/format/boundaries green.
+- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.

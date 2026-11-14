@@ -56,6 +56,29 @@ function leadFigureImage(value: unknown): string | null {
   const src = figure?.[1].match(/\ssrc\s*=\s*(["'])(.*?)\1/i);
   return canonicalUrl(src?.[2] ?? '');
 }
+function withoutXboxStoreBadges(body: string): string {
+  const badges =
+    /<div\b[^>]*\bclass\s*=\s*(["'])ms-product-badge mspb-normal\1[^>]*>/gi;
+  const tags = /<\/?div\b[^>]*>/gi;
+  let result = '';
+  let retainedFrom = 0;
+  let badge: RegExpExecArray | null;
+  while ((badge = badges.exec(body))) {
+    tags.lastIndex = badges.lastIndex;
+    let depth = 1;
+    let tag: RegExpExecArray | null;
+    while ((tag = tags.exec(body))) {
+      depth += /^<\/div/i.test(tag[0]) ? -1 : 1;
+      if (depth === 0) break;
+    }
+    // An incomplete widget must not consume the remaining reporting.
+    if (depth !== 0) break;
+    result += body.slice(retainedFrom, badge.index) + ' ';
+    retainedFrom = tags.lastIndex;
+    badges.lastIndex = retainedFrom;
+  }
+  return result + body.slice(retainedFrom);
+}
 function enclosureImage(value: unknown): string | null {
   for (const enclosure of list(value)) {
     if (
@@ -144,6 +167,9 @@ function excerpt(value: unknown, articleUrl: string): string {
       /<div\s+id=["']hype-desk-root["']\s*>\s*<\/div>\s*window\.HYPE_DESK_CONFIG\s*=\s*\{[^<>]*\};\s*$/,
       '',
     );
+  if (new URL(articleUrl).hostname === 'news.xbox.com') {
+    body = withoutXboxStoreBadges(body);
+  }
   // The Verge repeats prices in a purchase widget, where struck-out prices
   // lose their meaning in plain text. Keep prices and details in reporting.
   if (new URL(articleUrl).hostname === 'www.theverge.com') {

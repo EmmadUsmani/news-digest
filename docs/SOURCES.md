@@ -3102,3 +3102,15 @@ a missing lead photo for future collection. Publisher, HTTPS, CDN path and
 opening-position checks exclude unrelated/later images; existing media/figure
 precedence, reporting and metadata remain intact. Offline fixture:
 `yahoo-nba-bare-image-2026-11-14.xml`. Saved editions remain unchanged.
+
+## 2026-11-14 iteration 2255 — Xbox store badges
+
+One free GET of the configured Xbox Wire RSS recorded the November 13
+“Next Week on XBOX” item in `xbox-store-badges-2026-11-14.xml`.
+Its full content places nested Microsoft store badges before game descriptions.
+Omit complete `ms-product-badge mspb-normal` divs only on `news.xbox.com`
+before the excerpt cap: star ratings, store prices and preorder buttons no
+longer displace release reporting. Release dates, article purchase details and
+more of the second game's description remain. Offline controls retain other
+publishers/classes, article prices and incomplete widgets. No article crawl,
+new source, paid call or saved-edition change.

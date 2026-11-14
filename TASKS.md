@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Xbox store badges (2255): omit nested publisher store widgets before excerpt truncation; recorded release dates/descriptions and article prices remain, with publisher/class/incomplete-widget controls.
+
 - [x] Yahoo NBA lead photos (2254): retain recorded opening bare publisher-CDN images; reject later/unsafe/unrelated images and retain reporting, metadata and preferred image precedence.
 
 - [x] NPR lead photos (2253): retain the recorded opening publisher-CDN photo from bare content images; reject later images/tracking pixels and preserve reporting, metadata and existing image precedence.
