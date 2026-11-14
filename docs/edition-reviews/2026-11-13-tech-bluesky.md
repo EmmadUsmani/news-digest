@@ -104,3 +104,39 @@ Verification: a temporary copy of `report-bluesky-coverage.ts` expanded only
 `/tmp/2270-bluesky-pool.json` is mode 600. Assertions check 50 unique example
 URLs, media counts, ranks/authors of all three videos and uncapped observations.
 No source searches, model calls, media fetches, writes or production changes.
+
+## Configured-baseline comparison — iteration 2272
+
+The explicit probe now resolves the first query for each topic from its current
+`blueskyQuery` override, first nonblank topic query, first relevance term, then
+name, with the collector's trimming/500-character bound. Later comparison
+queries stay explicit. `configuredBaseline` identifies the first search in the
+export. This follows the default-off rotation configuration; it does not claim
+to reproduce an enabled World hourly rotation or historical collection queries.
+The same correction applies to all comparison modes and the default probe.
+
+Four free searches share a 24-hour window ending **2026-11-14T14:22:42.383Z**:
+
+| Query                      | Fetched | Safety/engagement eligible | Attached videos in eligible pool |
+| -------------------------- | ------: | -------------------------: | -------------------------------: |
+| `AI` (configured baseline) |      48 |                         47 |                                3 |
+| `Claude`                   |      50 |                         50 |                                2 |
+| `Gemini`                   |      49 |                         48 |                                1 |
+| `AI demo`                  |      44 |                         24 |                                3 |
+
+The baseline's three video captions remain outage speculation, an interview
+exchange and “Found a AI gem”. Claude's video examples include ambiguous
+“Welcome to the Claude” and unrelated Claude Bolling jazz footage. Gemini's
+video describes generated kittens, rather than a new product launch. The
+`AI demo` examples include game promotions, a blockchain-wallet promotion,
+a claimed Krea 2 workflow breakdown and an online-review sales pitch. The Krea
+caption names a workflow but supplies no actual steps in the exported text;
+its linked media was not inspected. These bounded examples do not justify
+replacing the baseline or forcing a Bluesky slot. Keep semantic/editorial gates.
+
+`pnpm exec tsx scripts/probe-bluesky.ts --tech` succeeded; the private mode-600
+receipt is `/tmp/bluesky-tech-2272.jsonl`. Assertions verify four query results,
+exact baseline/alternative labels, shared windows, at most 50 fetched per query,
+zero submitted/stored observations and false semantic/publication flags.
+Transport log records are excluded from result assertions. No inference,
+media fetch, database write, production query change or deployment occurred.

@@ -75,7 +75,7 @@ async function main() {
           ]
         : args.includes('--tech')
           ? [
-              ['Tech & AI', 'artificial intelligence'],
+              ['Tech & AI', 'AI'],
               ['Tech & AI', 'Claude'],
               ['Tech & AI', 'Gemini'],
               ['Tech & AI', 'AI demo'],
@@ -95,16 +95,28 @@ async function main() {
                   ['World news & politics', 'geopolitics'],
                 ]
               : [
-                  ['Tech & AI', 'artificial intelligence'],
+                  ['Tech & AI', 'AI'],
                   ['NBA', 'NBA'],
                   ['Gaming', 'game'],
                   ['World news & politics', 'world news'],
                 ];
-    for (const [topic, query] of searches) {
+    const comparedTopics = new Set<string>();
+    for (const [topic, proposedQuery] of searches) {
       const configured = topics.find(
         (item) => item.name === topic && item.enabled,
       );
       if (!configured) throw new Error('Expected enabled topic missing');
+      // First search per topic is its configured baseline, using the collector's
+      // default-off rotation resolution. Alternatives remain explicit probes.
+      const baseline = !comparedTopics.has(topic);
+      comparedTopics.add(topic);
+      const fallback =
+        configured.queries.find((query) => query.trim()) ??
+        configured.relevancePolicy.includeAny[0] ??
+        configured.name;
+      const query = baseline
+        ? (configured.blueskyQuery?.trim() || fallback).trim().slice(0, 500)
+        : proposedQuery;
       const collection = repository
         ? await collectBluesky(
             repository,
@@ -150,6 +162,7 @@ async function main() {
         JSON.stringify({
           topic,
           query,
+          configuredBaseline: baseline,
           since,
           until,
           fetched: collection?.fetched ?? posts.length,

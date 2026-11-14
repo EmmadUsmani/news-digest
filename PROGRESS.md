@@ -1,5 +1,7 @@
 # Progress
 
+Archived entries: [iterations 2262–2263](docs/progress-archive/2026-11-14-iterations-2262-2263.md).
+
 Archived entries: [iterations 2260–2261](docs/progress-archive/2026-11-14-iterations-2260-2261.md).
 
 Archived entries: [iterations 2258–2259](docs/progress-archive/2026-11-14-iterations-2258-2259.md).
@@ -152,29 +154,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2262 — residual Tech headline evidence
-
-- Clean main; no inherited work. Initial alerts zero; health database/Redis pass. NBA/item 58 still awaits 15:00 UTC scheduled acceptance.
-- Reader weakness: a differently worded Google headline fills prospective Tech fallback slot four despite the exact-headline fix. Saved HUD title/excerpt differ; production normalization retains the older headline.
-- One free configured-feed GET now parses blank for that same article. Ingestion deliberately preserves old nonempty text on blank updates, so recollection cannot clear it. Two HN URL-only excerpts also inflate nonempty counts but do not enter these five slots.
-- Offline production ranking reproduces the saved five-ID baseline. Blanking only the manually identified HUD excerpt admits ChatGPT Wallet reporting; this is an evidence control, not a matching algorithm or AI prediction.
-- Updated Tech evidence, scheduled checklist, TASKS and SOURCES; archived iteration 2252 to bound PROGRESS. Private capture/trace: `/tmp/2262-google.xml`, `/tmp/2262-trace.json`; reproduction `/tmp/2262-trace.ts`.
-- No paid call, database write, production code/configuration or generation change. Preserve the after-noon generation hold; do not suppress changed headlines with an unproven fuzzy threshold or overwrite reporting globally.
-- Verification: offline parse/legacy-retention/five-ID/replacement assertions pass; pnpm format and lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings.
-- Rebuilt API/worker restarted active; health passes. Saved-reader command passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
-- Next: 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Review HUD evidence during Tech acceptance; provenance repair follows the protected edition.
-
-## 2026-11-14: iteration 2263 — Bluesky source continuation
-
-- Clean main; no inherited work. Initial alerts zero. NBA/item 58 and private public-mode activation remain gated on 15:00 UTC scheduled acceptance; generation hold retained.
-- Owner-visible weakness: saved Nov 7 Gaming survey and World news posts end in shortened source URLs. Readers cannot open those destinations and had no explicit continuation action on edition cards.
-- Added “Continue reading on Bluesky” for terminal-ellipsis display text, matching existing X/saved-item behavior. Link opens the original post; unchanged saved text retains unknown/shortened destinations without inventing URLs. Complete posts unchanged.
-- GET-only real saved-edition Playwright replay passes both clipped posts and complete controls on desktop/mobile, light/dark: text, link destinations, keyboard focus, 44px targets, layout and no page errors. Third-party requests blocked; eight screenshots saved; mobile light and desktop dark images inspected.
-- Updated TASKS; archived iteration 2253 to bound PROGRESS. No source/provider requests, paid calls, stored-data writes, prompt/ranking/budget/flag changes. Handbook describes unchanged system flows.
-- Verification: pnpm format/lint:fix pass; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Browser command: pnpm exec tsx scripts/smoke-reader-bluesky-continuation.ts.
-- Rebuilt API/worker restarted before 13:00 UTC; both active, health database/Redis pass. Publication-only saved-reader check passes unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
-- Next: 15:00 UTC all-topic recovery/diversity acceptance, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside the hold. Tech provenance repair follows the protected edition. No paid replay.
-
 ## 2026-11-14: iteration 2264 — clipped social URL destinations
 
 - Clean main; no inherited work. Initial alerts zero. NBA/item 58/public activation remain gated on 15:00 scheduled acceptance; generation hold retained.
@@ -259,3 +238,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Production repair stays after the protected edition; no generation/runtime/database changes, paid calls, rebuild or restart during 13:00–16:00 hold. Test runner builds API only for isolated tests; deployed app remains unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,011 unit and 328 integration passes, four expected skips. New recorded HUD persistence case passes; API rebuilt inside isolated test runner.
 - Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold. Fix HUD provenance after edition protection.
+
+## 2026-11-14: iteration 2272 — configured Bluesky probe baselines
+
+- Clean main; no inherited work. Initial alert snapshot has zero firing/pending alerts; no repeated service/edition probes.
+- Fixed discovery probe's first query per topic to resolve current metadata with collector precedence and bounds; exports label configured baselines. Explicit alternatives unchanged; hourly World rotation is not claimed.
+- Four free Tech searches share 14:22:42.383 UTC cutoff: AI 48/47/3 fetched/safe/videos, Claude 50/50/2, Gemini 49/48/1, AI demo 44/24/3. Baseline outage captions and alternatives' unrelated/promotional material do not justify a production query change.
+- Private mode-600 receipt `/tmp/bluesky-tech-2272.jsonl`; result assertions pass for exact queries/baseline labels, common window, bounded counts, zero writes and false semantic/publication flags. Transport records filtered explicitly.
+- `--tech --store` is rejected before credentials/network. No inference/media calls, production query/configuration changes, database writes or deployment.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,011 unit and 328 integration tests, four expected skips. Archived iterations 2262–2263 to keep this file bounded.
+- Probe/docs-only change; deployed app unchanged, no rebuild/restart during 13:00–16:00 hold. Isolated integration runner builds API without restarting live services.
+- Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold; HUD provenance repair after edition protection.

@@ -3151,3 +3151,13 @@ linked headline/publisher and parses blank. A stored differently worded headline
 survives exact normalization and blank-preserving ingestion, entering the
 prospective Tech fallback. [Trace and single-item control](edition-reviews/2026-11-14-tech-cap.md#residual-headline-evidence--iteration-2262-1230-utc).
 No source configuration, stored data or generation change.
+
+### Configured Bluesky probe baseline (2026-11-14, iteration 2272)
+
+The free discovery probe now resolves each topic's first search from current
+metadata using the collector's default-off rotation precedence; exports mark
+`configuredBaseline`. Explicit alternatives remain unchanged. Tech's actual
+`AI` baseline supplied 48 posts/47 safety-eligible/three attached videos in a
+bounded four-query comparison. Alternatives still supply substantial unrelated
+or promotional material; retain production queries and semantic/editorial gates.
+No collection writes, inference or media fetches. [Comparison](edition-reviews/2026-11-13-tech-bluesky.md#configured-baseline-comparison--iteration-2272).
