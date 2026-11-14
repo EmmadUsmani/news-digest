@@ -164,6 +164,9 @@ export function evaluateTechWindow() {
 export function evaluateGamingWindow() {
   return evaluateWindow('ranking-gaming-2026-11-12.json');
 }
+export function evaluateLaterTechWindow() {
+  return evaluateWindow('ranking-tech-2026-11-13.json');
+}
 if (require.main === module)
   console.log(
     JSON.stringify(
@@ -172,6 +175,7 @@ if (require.main === module)
         evaluateWorldWindow(),
         evaluateTechWindow(),
         evaluateGamingWindow(),
+        evaluateLaterTechWindow(),
       ],
       null,
       2,

@@ -44,16 +44,7 @@ Archived entry: [iteration 2194](docs/progress-archive/2026-11-13-iteration-2194
 
 Archived entry: [iteration 2195](docs/progress-archive/2026-11-13-iteration-2195.md).
 
-## 2026-11-13: iteration 2196 — visible dates in older editions
-
-- Clean main; no inherited work. Alerts zero; health/database/Redis pass. Scheduled acceptance awaits Nov 14; evening generation cutoff retained.
-- Reader weakness: older story/post timestamps required hover to discover a calendar date. Owner benefit: publication dates now remain visible on mobile and in historical editions.
-- Shared story/post timestamps show month/day/year after 24 hours, preserving recent relative times and exact accessible labels. No saved data, generation, sources, prompts or budget changes.
-- Actual-edition Playwright checks (`pnpm exec tsx scripts/smoke-reader-publication-dates.ts`) pass desktop/mobile light/dark at the one-hour and 24-hour boundary; four screenshots added, mobile light inspected. No overflow or browser errors. Initial selector included an article-detail timestamp; narrowed to the shared timestamp.
-- TASKS updated; archived progress 2181–2182. SOURCES/NEEDS_FROM_HUMAN/handbook unchanged: display-only fix. Initial handbook run overlapped service restart and hit connection refusal; rerun after recovery.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build`, handbook/schema check and `git diff --check` pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning. Follow-up smoke-script lint passes.
-- Rebuilt API/worker restarted active; health/database/Redis pass. Latest reader retains five topics/15 stories/20 posts. Commit/push and final restart follow verification.
-- Next: pre-noon feed-content precedence fix, Nov 14 scheduled all-topic AI editing/diversity, then NBA/item 58/private public activation. No paid calls or edition writes.
+Archived entry: [iteration 2196](docs/progress-archive/2026-11-13-iteration-2196.md).
 
 ## 2026-11-13: iteration 2197 — clickable saved post excerpts
 
@@ -188,3 +179,15 @@ Archived entry: [iteration 2195](docs/progress-archive/2026-11-13-iteration-2195
 - Verification: `pnpm format`, `pnpm lint:fix`, build, handbook/schema and diff checks pass; existing web chunk warning only. Seven direct continuation checks and both publisher browser replays pass all four viewport/theme combinations.
 - Initial replay assertion omitted the recorded trailing “Comments”; corrected to match the unchanged fixture. Screenshot review corrected inherited synthetic publisher metadata to Ars. `pnpm check` passes: 986 unit/297 integration tests, four expected skips. Commit/push and built API/worker restart follow.
 - Next: scheduled all-topic editing/diversity, NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2209 — measure recoverable Tech repetition
+
+- Clean main; no inherited work. Zero alerts; health/database/Redis healthy. NBA/item 58 and private public activation await the normal scheduled edition; no paid replay.
+- Owner-visible weakness: two Claude outage cards consume scarce Tech slots while Microsoft outage coverage is omitted. A later-date recorded benchmark now measures the available grouping benefit before changing production.
+- Exported 200 Tech candidates/current policy read-only in repeatable-read; this is current stored feed evidence for Nov 12–13, not exact scheduled inputs. No content, jobs or inference written.
+- Five agent event labels authored before scoring; two unrelated-report omission controls. Ambiguous Orchestrator text, second-relationship allegation, market analysis and patent lawsuit remain outside the selected event labels.
+- Fallback finds one of five targets and repeats Claude twice; label-only grouping restores one slot for Microsoft outage. All 15 labeled articles pass relevance; three other target events stay outside the twenty-slot horizon. Independent labels/semantic evaluation remain open.
+- Added later Tech window to offline ranking command and regression suite; production selection, budgets, providers, saved editions and public flags unchanged. TASKS/RANKING updated; no source/handbook behavior change.
+- Verification: targeted historical ranking 7/7 and `pnpm evaluate:ranking` pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (987 unit/297 integration; four expected skips), `pnpm build`, targeted formatting and diff checks pass. Existing web bundle warnings only. Archived iteration 2196.
+- All 38 sources healthy; API/worker restart and endpoint verification follow commit/push. No UI change; browser replay unnecessary.
+- Next: normal all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

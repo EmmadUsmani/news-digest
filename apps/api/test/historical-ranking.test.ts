@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   evaluateFixture,
   evaluateGamingWindow,
+  evaluateLaterTechWindow,
   evaluateNbaWindow,
   evaluateTechWindow,
   evaluateWorldWindow,
@@ -183,6 +184,7 @@ void test('recorded label grouping measures only known events and retains omissi
     evaluateWorldWindow,
     evaluateTechWindow,
     evaluateGamingWindow,
+    evaluateLaterTechWindow,
   ]) {
     const result = evaluate();
     const comparison = result.labeledGroupingComparison;
@@ -203,4 +205,33 @@ void test('recorded label grouping measures only known events and retains omissi
       ),
     );
   }
+});
+
+void test('later Tech outage labels expose a recoverable repeated slot', () => {
+  const result = evaluateLaterTechWindow();
+  assert.equal(result.candidates, 200);
+  assert.equal(result.targetEvents, 5);
+  assert.deepEqual(result.forbiddenSelected, []);
+  const comparison = result.labeledGroupingComparison;
+  // Measured fallback floor: two Claude reports consume separate slots.
+  assert.equal(comparison.knownRepeatedSlots, 1);
+  assert.equal(
+    comparison.baselineSlots.find(
+      (event) => event.name === 'Claude service outage',
+    )?.slots,
+    2,
+  );
+  assert.equal(
+    comparison.groupedSlots.find(
+      (event) => event.name === 'Claude service outage',
+    )?.slots,
+    1,
+  );
+  // ID labels are a counterfactual control, not a production semantic matcher.
+  assert.ok(
+    comparison.groupedFoundEvents.includes('Microsoft Outlook and 365 outage'),
+  );
+  assert.ok(comparison.groupedFoundEvents.length > result.foundEvents.length);
+  assert.equal(comparison.groupedSelected.length, result.budget);
+  assert.deepEqual(comparison.groupedForbiddenSelected, []);
 });

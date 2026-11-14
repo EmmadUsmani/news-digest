@@ -3006,3 +3006,29 @@ The seven-window strict-event and same-story historical reports, paid evaluation
 plan, production matcher, budgets and generation remain unchanged. A fresh
 semantic evaluation and independent labels remain open; no provider calls were
 made and no production selection improvement is claimed.
+
+## Iteration 2209: later Tech repetition and recoverable breadth
+
+`ranking-tech-2026-11-13.json` records the production loader's bounded 200
+candidates for Nov 12 15:00–Nov 13 15:00 UTC. Exported Nov 14 in a read-only
+repeatable-read transaction, it contains current stored observations and policy,
+not exact scheduled inputs. It is offline feed evidence, never seeded live.
+Before selection, agent labels identify five events: Microsoft outage/recovery,
+Claude outage, Gemini Hydrogen launch, AI-freeze lawsuit and syndicated Huang
+resignation reports. Ambiguous Orchestrator text, later relationship allegations,
+market analysis and separate patent litigation are outside those labels. General
+inflation and building-collapse reports are omission controls. These labels need
+independent review; headline-only reports do not establish causes or source truth.
+
+`pnpm evaluate:ranking` includes this later Tech window. Unchanged fallback
+selects two Claude outage reports in five slots, finding one of five labeled
+events (20% recall). The label-only grouping control combines that pair and
+admits the Microsoft outage, recovering one distinct event without increasing
+the budget. All fifteen labeled articles pass phrase relevance; neither control
+selects the two omission labels. Gemini, lawsuit and resignation remain absent
+from the twenty-slot audit horizon, so grouping alone does not solve ranking.
+
+This supplies a concrete repeated-slot regression alongside the later Gaming
+window, whose grouping control recovered no target event. It changes no score,
+policy, matcher, prompt or production selection. Scheduled AI editing and event
+diversity still require the next normal edition; this is not their acceptance.

@@ -1,0 +1,2660 @@
+{
+  "provenance": "Recorded publisher-feed candidates exported read-only Nov 14; current stored observations, not a reconstruction of scheduled inputs. Offline only; never seed into production. Agent labels, not independent owner judgments.",
+  "topic": "Tech & AI",
+  "windowStart": "2026-11-12T15:00:00.000Z",
+  "windowEnd": "2026-11-13T15:00:00.000Z",
+  "budget": 5,
+  "relevancePolicy": {
+    "excludeAny": ["sponsored", "promo code", "gift guide", "best deals"],
+    "includeAny": [
+      "AI",
+      "artificial intelligence",
+      "machine learning",
+      "LLM",
+      "OpenAI",
+      "Anthropic",
+      "Claude",
+      "GPT",
+      "Gemini",
+      "DeepMind",
+      "software",
+      "programming",
+      "developer",
+      "code",
+      "coding",
+      "computer",
+      "computing",
+      "technology",
+      "tech",
+      "chip",
+      "semiconductor",
+      "GPU",
+      "Apple",
+      "Microsoft",
+      "Google",
+      "Meta",
+      "Linux",
+      "browser",
+      "internet",
+      "cybersecurity",
+      "robot",
+      "robotics",
+      "design",
+      "startup",
+      "smartphone",
+      "iPhone",
+      "Android",
+      "database",
+      "JavaScript",
+      "Python",
+      "Rust"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "a387bde4-0da7-4b00-99ad-95fa516e1598",
+      "title": "EU Digital Identity Wallet rollout: every EU state on one board",
+      "url": "https://myid.ie/business/eu-digital-wallet-tracker/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:58:07.000Z",
+      "sources": ["Hacker News"],
+      "points": 101
+    },
+    {
+      "id": "05a62b1a-c769-402f-aaec-a6cdc1af5cac",
+      "title": "U.S. October PPI Rises 6.5% YoY, Highest in Nearly Four Years",
+      "url": "https://news.ycombinator.com/item?id=50484421",
+      "excerpt": "U.S. producer prices rose 6.5% YoY in October, the highest since November 2022, below expectations of 6.6% and up from 6.3% previously. PPI increased 0.3% MoM, below the expected 0.4%, while September’s reading was revised up from 1.3% to 1.4%.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:53:32.000Z",
+      "sources": ["Hacker News"],
+      "points": 129
+    },
+    {
+      "id": "0a1e8c8a-7d18-4840-bea8-1fdc9963e984",
+      "title": "What’s really at stake in the Jensen Huang saga",
+      "url": "https://www.theverge.com/podcast/1032866/jensen-huang-nvidia-china-trump-vergecast",
+      "excerpt": "One part of the saga surrounding Nvidia CEO Jensen Huang ended on Thursday, when Huang resigned from his position at the top of AI's most important company. But in the coming weeks and months, a much bigger story may be about to unfold. A story about Nvidia's dealings in China, about the US government's willingness […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:47:16.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "6e6c9524-ca2a-4525-bb79-e9fd56fed6c2",
+      "title": "Screenless GPS: Slate Auto says, \"Remember the road atlas\"",
+      "url": "https://arstechnica.com/culture/2026/11/screenless-gps-slate-auto-says-remember-the-road-atlas/",
+      "excerpt": "Whether it's nostalgia or a sense that technology has gotten a bit too pervasive, there’s no denying that Slate Auto appears to be tuned into the particular moment. The startup has a simple pitch : an affordable electric truck with just the basics , leaving owners to DIY and BYOD for everything else, all for a sub-$25,000 starting price. Among the things Slate does without is an embedded infotainment system. The small digital display on the dashboard that shows your speed and range is also where the backup camera appears if you engage reverse, and there are two USB-C ports that provide power but not connectivity, and that’s that. But there is a solution to getting lost, and it's called “Screenless GPS.” Even though we don’t have a Slate truck to test it with, the OEM sent us a unit to review. That’s right, it’s a good old spiral-bound road atlas! “We believe you should use the devices you know and love,” Slate says, and it reckons that maps worked just fine for past generations, so they should still work now. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Slate-GPS-1-of-3-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:45:04.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "5add3f6b-4449-49d2-8b85-638b6652d607",
+      "title": "A technical vision for the Haskell ecosystem",
+      "url": "https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:43:12.000Z",
+      "sources": ["Hacker News"],
+      "points": 173
+    },
+    {
+      "id": "3e64ff58-4984-4bde-a5e8-973cb8a4b7d7",
+      "title": "News | AI companies are driving demand for flexible office space in Spain - CoStar",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOMVhrazNiaFNaMnBoNFpObE50aHhTTzZOMV9ad2xOMlJXcFMtMW5LRmJ0QlVGRTBzQkhoNWZnMW1FMG41RnFwN1Y0RGFBTGRuSTltZDc1MlAxM0NCVzdmaU96LUxXWUhsV1dQWTNoMEJTa0QtSmFEN3ZISmtIUlNEb051ZmxYdVlEaTRBejFScUFzWVMtNEY3X2w4Tmo1UEFnRlUwNG9Wc2pnNlVu?oc=5",
+      "excerpt": "News | AI companies are driving demand for flexible office space in Spain CoStar",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.costar.com/",
+        "name": "CoStar"
+      },
+      "publishedAt": "2026-11-13T14:34:30.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "1ab37d52-33d9-481f-8e71-4be0ae31bf0a",
+      "title": "Amodei Says AI Will Cure Cancer in a Decade. Doctors Are Skeptical",
+      "url": "https://www.businessinsider.com/dario-amodei-anthropic-cancer-cure-ipo-roadshow-backlash-doctors-2026-11",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:34:13.000Z",
+      "sources": ["Hacker News"],
+      "points": 18
+    },
+    {
+      "id": "60eec937-71d5-4998-941a-6ade6fc93b97",
+      "title": "SMX Brings American Ingenuity to the Next Frontier of Artificial Intelligence - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQMURDNFd0WFpQUUNZLU5qV3NKeU15bmtKOFI3S3d0TXNPWkxhcmxFWkgzcnhyME9nNzRlUm5jZlV4VzhSZU5fc1lkeWNHUHY4SzhkM2QtREN2bDFnLUZOT2FHNkRtM2JWTjVwajRtcy1LeVgxd3F5TU1xZUNOdEFRdVU4TnliRDMtbGgzQmlxQ2dyUEU1bXRpdkpKZmRkbmc?oc=5",
+      "excerpt": "SMX Brings American Ingenuity to the Next Frontier of Artificial Intelligence Yahoo Finance",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://finance.yahoo.com/",
+        "name": "Yahoo Finance"
+      },
+      "publishedAt": "2026-11-13T14:30:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "63943532-9daf-4f9d-9fbd-de2d6b479c97",
+      "title": "Meta discussed attacking Jonathan Haidt — now even his haters are annoyed",
+      "url": "https://www.theverge.com/policy/1032645/jonathan-haidt-critics-response-meta",
+      "excerpt": "Three years ago, Meta apparently considered a plan to turn public opinion against one of its most influential opponents, Jonathan Haidt. But since the proposal was revealed in court filings last month, it's backfired. In fact, if there's one thing Anxious Generation author Haidt and his critics can agree on, it's being mad at Meta. […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:30:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "b92cb795-1166-4dfa-8da2-a1a6aacd1442",
+      "title": "Scientists warn 1.5°C climate change threshold could arrive by 2029",
+      "url": "https://arstechnica.com/science/2026/11/scientists-warn-the-1-5c-climate-change-threshold-could-arrive-by-2029/",
+      "excerpt": "ANTALYA, Turkey—Amid upbeat green-tech pep talks and notices for happy hours at the annual United Nations COP31 climate change conference on Thursday, two new reports offered a stark reminder of how far the world remains from containing global warming. Climate Action Tracker , a nonprofit group that analyzes climate policies, found that the planet is still on track to warm nearly 5° Fahrenheit by 2100, a rise that would devastate coral reefs, disrupt agriculture and forests and melt most of the world’s ice. In a separate bulletin, the European Union’s Copernicus climate change service reported that global warming has accelerated significantly since the 2015 Paris climate agreement . When the Paris agreement was adopted, the average global temperature was projected to surpass the pact’s long-term threshold of 2.7° Fahrenheit above the preindustrial average around 2045. After another decade of global climate summits, warming is now projected to cross that benchmark as soon as 2029, according to Copernicus. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/cop31-1024x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:29:15.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "56e07cea-cb15-46fa-af08-9490858f1edb",
+      "title": "Lonewolf 0.3 – A standalone XMPP server written in Rust",
+      "url": "https://github.com/lonewolf-im/lonewolf/releases/tag/v0.3.0",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:28:40.000Z",
+      "sources": ["Hacker News"],
+      "points": 113
+    },
+    {
+      "id": "9124ad90-8f8e-49a5-93a2-3e1491c897df",
+      "title": "The 42-Year Journey to Bring 'Neuromancer' to the Screen",
+      "url": "https://www.wired.com/story/exclusive-apple-tv-neuromancer-creator-interviews/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:28:32.000Z",
+      "sources": ["Hacker News"],
+      "points": 65
+    },
+    {
+      "id": "e086fc18-79ec-4773-8975-4769d39f066a",
+      "title": "CERN Built the Large Hadron Collider's Next-Gen Magnets",
+      "url": "https://spectrum.ieee.org/large-hadron-collider-superconducting-magnets",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:25:46.000Z",
+      "sources": ["Hacker News"],
+      "points": 46
+    },
+    {
+      "id": "dddef760-5cc3-4da5-b698-22f2ac17e34f",
+      "title": "Mercedes-Benz to halt 'all future investments' in Germany",
+      "url": "https://www.ft.com/content/f4a1fd87-9abc-4965-963a-a5349dbfdab7",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:19:50.000Z",
+      "sources": ["Hacker News"],
+      "points": 42
+    },
+    {
+      "id": "6fc8b305-79e5-455c-9a23-c175505298ca",
+      "title": "Explainable Artificial Intelligence Directs Hybrid Neural Networks for Precise Vineyard Component Segmentation - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQdHd0bkRGYWdlU2t6cU50LU56cDk5UHZsdk5qc3d0NTBqVmpIRy1uUVpFUno2NTAxMmxXVFZQRUZxTGxiT000amdidV9hSEZQaGtQbm1tQTZxSlJRNjRPTlNNeTl2SmZweG5uLVVwNFBfTG5aM1Bwa3I2eFEzcUt4XzlfLWRVVHVqRjhGSmU0OGVsNHVzcUQ1VzdGS0J6eDBuX3dRUUVsbjgzeGVseTktSFdtZmlLNmdDRjlqZDdwTG02VWVzQ29zWXBsM2tVTDlL?oc=5",
+      "excerpt": "Explainable Artificial Intelligence Directs Hybrid Neural Networks for Precise Vineyard Component Segmentation Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T14:15:50.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "dba0b2cb-af6c-4117-8e4d-54bf77733024",
+      "title": "US university students tell surveillance cameras to Flock off",
+      "url": "https://www.theguardian.com/technology/ng-interactive/2026/nov/13/universities-drop-flock-camera-contracts",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:11:56.000Z",
+      "sources": ["Hacker News"],
+      "points": 93
+    },
+    {
+      "id": "7d7cc890-9beb-40be-b1b5-1ea4200ac1b8",
+      "title": "Department of War Redesignates CDAO as Super Intelligence Office - U.S. Department of War (.gov)",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQR3dGS3AyeUgxYTAzTjRxLU9hVURMS3lrM2tCdUhoUzQ3elFpdGt1Qm9KX1pPcUJTR3B6NFp5UF9zZW0yb1JMenkzdnB3SE5jeTZTYmJZS2pGRFB2TVhjbDJId1doVUpyZGJDa3NYcGw3XzY4Z2NtOVBLSHA3UkgwcVkxNVJ0VUZ6eWNKNmtHM1lXS0xCdzY2Y0dPOU91TXA2aHBwYklHcGRYcVcxWVdQRDJDOXFmaS16YjUzY0NYXy0?oc=5",
+      "excerpt": "Department of War Redesignates CDAO as Super Intelligence Office U.S. Department of War (.gov)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.war.gov/",
+        "name": "U.S. Department of War (.gov)"
+      },
+      "publishedAt": "2026-11-13T14:03:25.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "103bc51d-231f-4bfb-a2b1-679f838edaf5",
+      "title": "Why Zig over C for Systems Programming",
+      "url": "https://www.mtsoukalos.eu/2026/11/why-zig-over-c-for-systems-programming/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:01:13.000Z",
+      "sources": ["Hacker News"],
+      "points": 189
+    },
+    {
+      "id": "c0573b23-60fa-495b-a64f-7a562573a50f",
+      "title": "Claude’s Duet agent is a little neurotic and surprisingly helpful",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032518/claude-duet-ai-agent-hands-on",
+      "excerpt": "Normally, the products I test don't offer to help me write up my experience with them. Duet is different. Claude Duet is Anthropic's AI agent for consumers, the latest attempt by an AI company to try to convince us that agents can be useful for people who don't write code. It's been an interesting couple […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T14:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "cf477d20-2751-4755-98bc-ebe953cc7556",
+      "title": "Building collapses in Brooklyn with 8 people dead so far",
+      "url": "https://www.nytimes.com/live/2026/11/12/nyregion/building-collapse-nyc-brooklyn",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T13:55:32.000Z",
+      "sources": ["Hacker News"],
+      "points": 12
+    },
+    {
+      "id": "b3301a4d-da4c-4c64-9f59-430e27f6aa03",
+      "title": "Eli Lilly CEO pushes back on Dario Amodei's ludicrous medical claims",
+      "url": "https://garymarcus.substack.com/p/breaking-eli-lilly-ceo-becomes-latest",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T13:51:27.000Z",
+      "sources": ["Hacker News"],
+      "points": 178
+    },
+    {
+      "id": "a5b25ba4-40ae-4a0c-b995-1b749d0efff0",
+      "title": "When Forecasts May Amplify Drug Shortages: Artificial Intelligence and Medication Supply Governance - Cureus",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQdnBPUXlkUWJkYm5jU0RwVFB3NGhIRWZoajV2VHBrNE9iVWhOMWtkNEtVZ1FvcE9pRGI5eVlVMm9LeGpqSkFkRk55dDJWYkZyZXYtWXRIYl9QZ2tDdHIyc0tyZU5BSlFLQjVxM3luXzl1bzBIcHRMMXEtaG1xcVdHdF9nVGpGc19sZ2F6TXlrQkxOWHhkdGxRQjZfRFVZTHo5YmUzWVFqNmdQUWJpU0FtNTlWLUgzLUpMZGgycXh3RkYzQW5SenZzd0k4cmZWRkgzWUdJ?oc=5",
+      "excerpt": "When Forecasts May Amplify Drug Shortages: Artificial Intelligence and Medication Supply Governance Cureus",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cureus.com/",
+        "name": "Cureus"
+      },
+      "publishedAt": "2026-11-13T13:45:56.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "ff52ce05-66b3-4b42-924a-a5685357adcb",
+      "title": "From Soldier to AI Expert: Fort Buchanan's Transition Program Helps Veteran Find New Mission - Army.mil",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOUkM3VmtONWd3SWZnd3VGQWxyUnc2RkxtQ3JMaVYycjBTWmE0OHM1RVp0YVJGRGNZc1pmOUppR3pDRjNWWlRCMkprRkpJRzhIOWtGVHAtRFMxUmJ5N1BmakFienBYZWlXUS03d1Vsa0xqRkNUZ1lqaUc0QTVxcUIzLURUTFY2cXFON0VYZmhvTmdISEJFN1NpNFl2S1d5VWRRUEM2UmR2NTIwazUwRlFkSmxDSjVPTFlSdWRvU3d0VnZHaFNM0gHKAUFVX3lxTE5JTVNxclAtOUVjOEtUWWk4RWw2R1NfUEVYVWZYbGhXUW5NUWpEX2hoZDhoakxScnVQOU1CQW1Ua3ZkdG9oNlFRNjN2ZEFMUUJpN0lxWWIwX0c0XzhSZDZxbGJUbG9qQTQzM09QTm1PTnMzcFNRRF92OVFUWXo2bUo2Zk9MRFVCYm9mbHhRY052ZlBWVnJSZUhWYmh6a3FwZzJpUmFYMmFTT2k2THhTTllMYlpLUjlVY1VSbkdWMWw3RmJhZTJOTVFIRFE?oc=5",
+      "excerpt": "From Soldier to AI Expert: Fort Buchanan's Transition Program Helps Veteran Find New Mission Army.mil",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.army.mil/",
+        "name": "Army.mil"
+      },
+      "publishedAt": "2026-11-13T13:39:56.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "1f31f2d1-3fd8-4fe1-ae56-69b77fb5ae3e",
+      "title": "Dyania Health, Nvidia team up to bring clinical reasoning AI inside hospital networks - Fierce Healthcare",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNQkZoc0Y5WWVRczl3ZUdKSjRfUk1KNFpSbThDVzlabGF2dmJOOG9sVFN2bWk5VTEwY3ZiNFMtcDBRRDI3LW9aMWYxZFJCckdrLTgycTBpX3JGVEJVeWR6cmt3cFVWVUhqT1NVX2VFTGJCSm9jNkNiNzhxMWFpSGRjVklneTEzbHdCYlkyMXhXOGNMdFlvLWVjV21R?oc=5",
+      "excerpt": "Dyania Health, Nvidia team up to bring clinical reasoning AI inside hospital networks Fierce Healthcare",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.fiercehealthcare.com/",
+        "name": "Fierce Healthcare"
+      },
+      "publishedAt": "2026-11-13T13:30:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "4bc1f7c1-01bb-4ac7-a907-a84afbfd35f9",
+      "title": "Democratic political group launches new push to shape AI agenda before 2028 | National News | 2news.com - KTVN",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPak1qRm5MYTlkalJhNVF0M3l6dk9iNjA4cG4yM0ZfVjFNWXhfRTh3c2RFckgybjdOZ3dYbEcxTTJ2RDRCWkNibi1wbncycnZZWDdZR0Q1RUZMSGZRZWQ2a3VSSHdQNXJkZ3JLRGN2WlZWeV9uQ1lXTENJMWJJdWRpZ0E2b2Vmc3d5dTRuOTdkaTB4Q3E4U092SkFCMXE1eWdyZDRkRV92UWVBRm5PYUJDd1FmOFBpdG00SVNpeDlkajJLZ1U2b3dTOVZhczRyOHpKWG12NEY1WV95Z19tMUhQdTI4QlNPcWt3cHVQU0szSzg?oc=5",
+      "excerpt": "Democratic political group launches new push to shape AI agenda before 2028 | National News | 2news.com KTVN",
+      "imageUrl": null,
+      "publisher": {
+        "url": "http://www.ktvn.com/",
+        "name": "KTVN"
+      },
+      "publishedAt": "2026-11-13T13:29:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "61fac3e7-fe2f-4133-bcc5-903e612eb8aa",
+      "title": "The pathetic tyranny of artificial intelligence - Observer Online",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPeWlkY3hOZ0ZrcDRWUWZIUVF0cjhydk5LYjcwVXBTRDNVTVdtTWVodnB6SHI2Mmx6b0JrcEVJYWNQME9QbTkxaTk1bW4tV3NZS2FrNk9fbkpVQlZmc0tqb2JaWXlRZ054Qmd2bEZuVERIWXVfUnFLQ2FjamVSZ2lZNUZkVVRCWm5qdnI1Z3dHajkyTm05YUxxSThR?oc=5",
+      "excerpt": "The pathetic tyranny of artificial intelligence Observer Online",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.ndsmcobserver.com/",
+        "name": "Observer Online"
+      },
+      "publishedAt": "2026-11-13T13:18:45.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8dc999a4-de7e-4aaa-b744-207d1c388342",
+      "title": "Jensen Huang Admitted He Was Facing an \"Avalanche\" of Excess Wafers and Memory",
+      "url": "https://respawnfirst.com/before-resigning-jensen-huang-admitted-he-was-facing-an-avalanche-of-excess-wafers-and-memory-new-report-sheds-more-light-on-the-gpu-ram-crisis/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T13:08:48.000Z",
+      "sources": ["Hacker News"],
+      "points": 14
+    },
+    {
+      "id": "4e7fed89-c7a6-40f2-b6ee-b5ae523a1ea9",
+      "title": "Boost CTO Rinku Sharma’s Recipe For Artificial Intelligence Payments Success - Crowdfund Insider",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQelFRYjJPMHlCN0lOeHNwR1NEczhtTjVqOHJSQU1HSHlQT0x0cl9xSGttUTdaTDlNN2xDN3NvblpfazVBeHo1MWxzdGQxZ2V4elVRY3VZVk01YThEdG9mcWI4dGlZbUxjVk5aUkVHVE1ZN042anBPQUx4VlZtTlVWdi1adXBtUkpfaDMyTTZLWHJsWVF0SUpMdzVYWkNXYVBsbzB5aEZkb3dITnFyRm1oUmxfb0lCR3JSSmdPOWZZYWlHdw?oc=5",
+      "excerpt": "Boost CTO Rinku Sharma’s Recipe For Artificial Intelligence Payments Success Crowdfund Insider",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.crowdfundinsider.com/",
+        "name": "Crowdfund Insider"
+      },
+      "publishedAt": "2026-11-13T13:05:38.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "9ae710c2-94e1-4cac-ad56-c50abe7e4ea1",
+      "title": "Apple should have made the MacBook logo RGB",
+      "url": "https://www.theverge.com/tech/1032550/apple-macbook-pro-proled-xdr-lid-logo-led-rgb-colors",
+      "excerpt": "When Apple CEO John Ternus announced the first touchscreen Mac last month, the biggest reaction in the room wasn't for the PROLED MacBook Pro's OLED touchscreen or the thinner and lighter chassis; it was for the illuminated lid logo. It's a throwback to the light-up logos on the old MacBooks, which Apple started phasing out […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T13:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "d4f58ab3-5b37-4e92-abf2-b5c31550ed46",
+      "title": "Weekly Rundown: Ohio State Wexner, Microsoft ink tech deal; OpenEvidence launches free Access Intelligence tools - Fierce Healthcare",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxORlM1UVJPaVFSNXJJRlNTaEE3bFNmbkFscFdnUURpWUp6X29kbWV1cTc2V291UmUxQkVXektHWThRWEE5US1uQmpvdFVTNDdCUWR2ZngzZThrdkdBc0JTYjBSY1oyejJyOEZBQndBUVVIRFhlbGhRMnhEOW03YTlYekM1ZnF1ekdXZjNNQlZ5NHV5RUl1WXUzRkYxaWI1TnJhWW5SUjJ6X2JPdjh2bVVmU3hFbHdTRkJFbmJVR21McFR4SGM2?oc=5",
+      "excerpt": "Weekly Rundown: Ohio State Wexner, Microsoft ink tech deal; OpenEvidence launches free Access Intelligence tools Fierce Healthcare",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.fiercehealthcare.com/",
+        "name": "Fierce Healthcare"
+      },
+      "publishedAt": "2026-11-13T13:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "63cb5c08-4398-46f2-ae86-c984805315d9",
+      "title": "What's ahead for AI financing after Nvidia CEO Jensen Huang departs - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPNmVPNWtoSGZwRHo4alI0Ql9LT1ZuN2ZmTFNDSkR0REg0M3FPYy1rLW05SGdCbHBOWV9FR0diZE1KVmVSUGFRNlZpN3BoNkRvWWJUa21WNE14bDBXTzJqWXY2T3B3YVFtRlJVdGM3SlBWTVB6ZHpleUlzT1hvUnpMYktobDJLUGNp0gGOAUFVX3lxTE10dDVweW9VX1NSdy1Md2JSWE5rbVRXOEo5N1FFVFVhaUJGakRfQ29scXdIOEh2QlJPQ29PcjhZN2JvNm1wWnlKdnpNRC1RQ1p3dG9rRjRvSHJQYkprODBoc2FhbDFlUFROS3Q1RkF0c3VReDJXY2Myd2pEa0VmRjlvYURzeFctaEQzWS10VGc?oc=5",
+      "excerpt": "What's ahead for AI financing after Nvidia CEO Jensen Huang departs CNBC",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cnbc.com/",
+        "name": "CNBC"
+      },
+      "publishedAt": "2026-11-13T12:54:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3d87c1f8-86e4-4fa1-a899-2dbea3c0913c",
+      "title": "Microsoft’s massive Outlook outage might be over",
+      "url": "https://www.theverge.com/tech/1032862/microsoft-outlook-down-outage",
+      "excerpt": "Service is recovering for Microsoft Outlook and 365 after an almost two-day outage impacting millions of users around the world. While some apps and features are still running in a degraded state on Friday morning, some people (including Verge staffers) reported that access to their emails had been restored, though the flow of Outlook mail might be delayed. Just before noon on Friday, Microsoft said it's seeing \"broad recovery,\" and that the problem \"was a technical issue not related to cyber or AI / agents.\" Microsoft : We are deeply sorry for the disruption this incident has caused our customers and partners. We know the trust they plac … Read the full story at The Verge.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T12:48:03.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "133e5a8c-ba84-4ad1-be94-80e0539a7306",
+      "title": "Ohio State, Microsoft launch five-year AI and cloud partnership reportedly valued at $250 million - Ohio Tech News",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNanNzTXBHOGNvdHFnTnFCSDZianlGbzBGczA1Yy0yYTlXMEpWVHgzYkhPakJmZnlNeEQ0eEJJREIwc3hJcy1icUZ5d0R1UktYNUxxckJMRTdIYTE0U3JSQVQ2Z2Nvek5fUlRIUHdVQXBzUng4SzBGb3RsdzZITmFPR2tKcHZjREJ1WmVaOENHcjYzUQ?oc=5",
+      "excerpt": "Ohio State, Microsoft launch five-year AI and cloud partnership reportedly valued at $250 million Ohio Tech News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.ohiotechnews.com/",
+        "name": "Ohio Tech News"
+      },
+      "publishedAt": "2026-11-13T12:38:20.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "eda04cdd-4518-4b2d-888b-34ed4a555cea",
+      "title": "Show HN: Reflota – Open-source data recovery for NTFS/FAT disks with phased copy",
+      "url": "https://github.com/Christ10-8/reflota",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T12:17:52.000Z",
+      "sources": ["Hacker News"],
+      "points": 12
+    },
+    {
+      "id": "21a93a79-51e3-4b3e-b6c6-b7c992c2ff41",
+      "title": "Doomsday: Friday, 13 November, A.D. 2026 (1960)",
+      "url": "https://www.science.org/doi/10.1126/science.132.3436.1291",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T12:10:24.000Z",
+      "sources": ["Hacker News"],
+      "points": 440
+    },
+    {
+      "id": "afb8a658-1063-42b7-90e5-32241a217f4b",
+      "title": "COP31: New initiative targets AI and reliable climate change information - UN News",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1yUWRNNGFVOHB2dEMtcGhhYk1CbFFybmdLdi1IS2o2cmVmNTdJSzRaSDIwcVM1cnF2MDZsNW5TMVlnVmxHYlVNLWhVRUNkV3pvN0MtbllTYw?oc=5",
+      "excerpt": "COP31: New initiative targets AI and reliable climate change information UN News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://news.un.org/",
+        "name": "UN News"
+      },
+      "publishedAt": "2026-11-13T12:06:51.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c6d0e3f9-a2f8-41b0-a2bc-86f6b3dc2fcc",
+      "title": "Rocket Report: Starship set for historic test flight; a century of Electron",
+      "url": "https://arstechnica.com/space/2026/11/rocket-report-starship-set-for-historic-test-flight-a-century-of-electron/",
+      "excerpt": "Welcome to Edition 9.19 of the Rocket Report! Will something historic happen this weekend? No orbital rocket has ever been fully recovered with the intent of reusing all of its components. But that's just what SpaceX is going to try to do with a Starship launch on Friday, and an upper stage landing attempt 22.5 hours later on Saturday afternoon, local time. Ars will be on hand in Starbase, Texas, to provide coverage of it all. As always, we welcome reader submissions , and if you don't want to miss an issue, please subscribe using the box below (the form will not appear on AMP-enabled versions of the site). Each report will include information on small-, medium-, and heavy-lift rockets as well as a quick look ahead at the next three launches on the calendar. Electron set for milestone launch . The next launch of Rocket Lab’s Electron vehicle is due to lift off from the Mahia Peninsula in New Zealand on November 14 at 5:30 UTC. This mission will serve as Electron’s 100th overall mission—a notable milestone for the small rocket that first flew in 2017, NASASpaceflight.com reports . Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/electron-livery-1152x648.jpeg",
+      "publisher": null,
+      "publishedAt": "2026-11-13T12:00:40.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "f3ef9fc4-d991-4207-9e46-bb87720b9268",
+      "title": "Let’s talk about Jensen Huang’s many affairs!",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032339/lets-talk-about-the-nvidia-shitshow",
+      "excerpt": "Usually, we'd be offering to answer your questions about a news event, but honestly we don't really have any answers about what the hell is going on over at Nvidia. I can't speak for Nilay but at the rate Jensen Huang's new mistresses are dropping, I am concerned we are approaching an affair Singularity. If […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T12:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "e2dd299f-f75d-495a-aabb-c44599501bda",
+      "title": "Specialized’s Tarmac SL9 S-Level is built to wreck your Zone 2 ride",
+      "url": "https://arstechnica.com/gadgets/2026/11/specializeds-tarmac-sl9-s-level-is-built-to-wreck-your-zone-2-ride/",
+      "excerpt": "I love a good Zone 2 ride . There’s nothing like getting on the bike, settling into a groove, and letting the miles (and hours) flow by. But sometimes when I hopped on the Specialized Tarmac SL9 S-Level, Zone 2 would turn into a tempo ride. It was like having a little imp—the stereotype dressed in red with the pitchfork—on my left shoulder whispering into my ear: “Go fast. This bike was built to go fast. Speed is good. You can do a Zone 2 ride tomorrow.” Normally, I'd count on the good imp—the dude with the harp and wings—on my right shoulder to restrain these urges. But the Tarmac is so seductive that he would just shrug and say “he’s got a point.” And in a moment of weakness, I would drop the hammer and head into the red, just because the SL9 makes that so rewarding. The Tarmac SL9 is Specialized’s aero road bike, with the S-Level sitting just below the S-Works in Specialized’s top tier of carbon, aero road bikes, where it replaced the Tarmac SL8 Pro. After it got an update this year, I spent several weeks riding it, putting nearly 1,000 miles on it Specialized offers the Tarmac SL9 in four models, all available with SRAM and Shimano drivetrains (Ars tested the SRAM version). Notably, you don't need to buy the top-of-the-line bike to get the top-of-the-line groupset. Here's the breakdown of the Tarmac SL9 lineup (note that the Shimano versions of the Expert is 20 g lighter and Comp is 70 grams heavier than the SRAM versions): Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/specialized_3170-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-13T11:50:38.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "ebf416e8-084b-4363-ba74-3fc7eb5171b3",
+      "title": "PM Mitsotakis: Greece Is at the Forefront of Artificial Intelligence Strategy (Video) - The National Herald",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNTHhFdjlsbXJLSjlxcjJJSHJuckRtc21PS04wMTVEZDVsX05IdFBjLXVycEFvdmZHeHFuQlA1QzhLRTJPX0xuQW5KMWhqREhVVE1FeVVHa3JGLU1uT1hQaEx5d2wxNERJazBISklaSGt1VVMxcGVPWjFTM09RRDFOcTBydW1oelRvOS1kMVdLWWJxMklKWUtXX0FhdGh4NjNxNFN6amxSeDVMR0xicWs1QQ?oc=5",
+      "excerpt": "PM Mitsotakis: Greece Is at the Forefront of Artificial Intelligence Strategy (Video) The National Herald",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.thenationalherald.com/",
+        "name": "The National Herald"
+      },
+      "publishedAt": "2026-11-13T11:41:32.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b0698eba-f2ba-48fc-a8e1-d39d2ee743b8",
+      "title": "Europe's electric car sales jump 49% as global EV sales grow",
+      "url": "https://electrek.co/2026/11/11/europes-electric-car-sales-jump-49-as-global-ev-sales-grow/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T11:34:25.000Z",
+      "sources": ["Hacker News"],
+      "points": 23
+    },
+    {
+      "id": "f6e2e5f8-ec3a-44ae-b630-c697ecb6d378",
+      "title": "Why AI Could Create More Places Like Youngstown, Ohio - Time Magazine",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOQk5YX1VGa1RqNnVHLWlxdzExMGMybUVYeW5yVk53NnFaQUs5bEVCTVJDXzZralRObmRLWG1IeFAzNVVPT3dXWG1BaHJIM1VSdzcwd0xLSHItbkkwQTFPcWVpNTlPYjB5WXk4UEVBYnM0SHBVRlZma0FIY3lvZUpCRjlfd2dDbHdWZnFnVzYxWW8tRGM?oc=5",
+      "excerpt": "Why AI Could Create More Places Like Youngstown, Ohio Time Magazine",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://time.com/",
+        "name": "Time Magazine"
+      },
+      "publishedAt": "2026-11-13T11:30:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b57dfc1a-6d7d-44d2-90f9-69a90a211359",
+      "title": "The Morning News: UNC Football, UNC Soccer, UNC Artificial Intelligence - Chapelboro.com",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQWjFUNGUtR0RvQ21yVVRaMVU5Z182aVNfUnkzTUdmTTRyRjNocEM0U0Z4LUNkLVhfUlBHU2NYUG42NENRR0hFYkNuZ0QzMDdOYXdqdk9GRVkydEpGTWpMUlZBN2FxQjVrbkJ0VnFLU2QzMkVKaXNKb1VtMktQc0RMakgtQnRtcFF0OF85OWV4YnZGczBjaTNWWmVBekFMdWNxRGtHcHFsci1HYmhzT0E?oc=5",
+      "excerpt": "The Morning News: UNC Football, UNC Soccer, UNC Artificial Intelligence Chapelboro.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://chapelboro.com/",
+        "name": "Chapelboro.com"
+      },
+      "publishedAt": "2026-11-13T11:26:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "495cce99-1a0d-45bc-8d52-1a2addcc5b32",
+      "title": "AI Is Destroying the Trust Between Writers and Readers",
+      "url": "https://www.theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T11:13:46.000Z",
+      "sources": ["Hacker News"],
+      "points": 192
+    },
+    {
+      "id": "5c40d879-02de-478c-849b-1e5834c8e940",
+      "title": "Mass smuggling of up to 1.5 million Nvidia AI GPUs could be the underlying cause of Jensen Huang's departure, leading analysts claim — more than 1.5 gigawatts of banned chips tracked to China despite export controls - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMi7AJBVV95cUxPa05TQWhhVXlHQVIxZHdoazBqQUJSNmlfRkRVc29ROGNyLVAzbmxDb0Q1UnpEZUtBd0RueEVRZ0ZRaXJMemxIeWxtRU9iNld1cHVfOEVhZVg4bEFfamFmZEc2T3liSF9pT2huRDBOVkhMdVRHSmkyY2lsY2h0dkcwNlVmekZhZW5xSVNfd1FfdXc0NG5sNm45TDJxT09mQ1dQdUJveWRCbzB0OE5yYW5aTkYtakJyTFhnelhIcWVWY3lxVDJFc3V5Wl9rMWxST3RORzVMckFhY2dNSkUtS1JCc2ptMzd2Q0ZsVGVwRWxxR3Qwd214Z1JHaDJJMkUwWFpmMVdfYmRGbWt1VXpCTWhjVWdnbXpqYjhjUGJOUU5KQ2hfTDdhRXpIV3BSa1FMVFp5elNQNTNqLThHYzJsQVQ3NV9pZjdBRm5UcFRtVVBXN1JJb0ZvcGRqWVpsN1FSSDFHOVd0S2lUZGVzSVFL?oc=5",
+      "excerpt": "Mass smuggling of up to 1.5 million Nvidia AI GPUs could be the underlying cause of Jensen Huang's departure, leading analysts claim — more than 1.5 gigawatts of banned chips tracked to China despite export controls Tom's Hardware",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.tomshardware.com/",
+        "name": "Tom's Hardware"
+      },
+      "publishedAt": "2026-11-13T11:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "160ab01f-8268-42ea-a97a-2f47efdf8522",
+      "title": "Jews are having the wrong conversation about artificial intelligence - eJewishPhilanthropy",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOTDNyM0RKUDlOaHMzUlNTZzVRUkZfN195Q1d0NjkwVVA0WXRzaUNQcTU4eERrNDVEVGhVdlpZcVRaQXFZYXYzQVFQeFhhY1FUallhdHphb2EyNlh3bTFYaDQwNEktZjc5UHJfVjV0eDJlbTBXM3lHLVpFYU5oeGdiREJWTnlqRlRCaFZaR2YzZ0dTRVlVdWtnUXBpVnc5N1R3TWpR?oc=5",
+      "excerpt": "Jews are having the wrong conversation about artificial intelligence eJewishPhilanthropy",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://ejewishphilanthropy.com/",
+        "name": "eJewishPhilanthropy"
+      },
+      "publishedAt": "2026-11-13T10:45:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "59518148-998c-4ce6-ac76-4d7fabb6f924",
+      "title": "Llama.cpp: 6.5x faster prompt processing on Arm with a NEON kernel",
+      "url": "https://github.com/hardwiredagent/silicon-forge-arm-neon-study",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T10:28:36.000Z",
+      "sources": ["Hacker News"],
+      "points": 6
+    },
+    {
+      "id": "7068ebba-cd37-4786-8201-de89b683c2c4",
+      "title": "Claude Is Down",
+      "url": "https://status.claude.com/history",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T10:20:09.000Z",
+      "sources": ["Hacker News"],
+      "points": 150
+    },
+    {
+      "id": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+      "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+      "url": "https://status.claude.com/incidents/nn11wk485zfn",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T10:18:13.000Z",
+      "sources": ["Hacker News"],
+      "points": 449
+    },
+    {
+      "id": "20e47e89-cc17-4c14-abc5-2c42feb510ac",
+      "title": "Saying no to AI spend is how we protect AI value - CIO",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOQmtlYXlyMG1KTm1XcnpFM0NaVVRMd0Q2Tmx4VDVYMGpMb3ctRHliYkgyN3JOTWQ5SU1WdXFoQnpSTFg0clZHSXdqaEtLZW1GbV9JSVZCOXZNLUJlSjB1X1daYlV3TU5JUDYzdElNT3NmRzhhQTNDekRtMjNKb2JyLTNLeWlGY1phWkVPT0k3aG1RN2M?oc=5",
+      "excerpt": "Saying no to AI spend is how we protect AI value CIO",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cio.com/",
+        "name": "CIO"
+      },
+      "publishedAt": "2026-11-13T10:03:29.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "100c7ffb-992e-45cf-8976-b5bc349a9fe6",
+      "title": "This AI finds patterns in visual brain activity and turns them into pictures - Live Science",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOM3JDazJKNVBsNG1hUnFjVVA3T1dZd194cm5vWGllbExxckg1ZFRwcmZMdzRydkZJaDVvTFNZSDV2SGMzSHZkY0xuanJOQ0pxNWJYVTQ0QlhlZUk4X21ZWnNEalpsUHlZUDhfSi10MGdlWnNLUHNRTmU5MzZfamQ5MjRwSndENGNNWDZjVldiVEEtVEE2U3FXa29zQlcyN3Y3N1lvNWs0YWlzV1FIampmd3VBVkE2NUk2MDhSaXFHSWpUckQyWnFqSEgwWDg5ZFBkWlBoVlhR?oc=5",
+      "excerpt": "This AI finds patterns in visual brain activity and turns them into pictures Live Science",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.livescience.com/",
+        "name": "Live Science"
+      },
+      "publishedAt": "2026-11-13T10:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3db2073b-a409-476d-98b0-941a6a73db94",
+      "title": "EU leaders set for Dublin artificial intelligence summit - Silicon Republic",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxONC0ycGkzbVBhT2tpV2xqcm1UVXRoOUMzV01HVnFyRDJCMjFMZ1RPZlRWOFluRmpkV0EwbW1Ia2M4eUhYelVIXzhlVWZrV3YxYkY0M1d5ZzJiNHhENHlEbXF2NUJ4Vkpja1Jwd240bTh4WEZWXzM0VWMtNE82cnRHclJ1T0dpblQ1ZEk4RkRZckw3aUpaLV9BdExiMURGQQ?oc=5",
+      "excerpt": "EU leaders set for Dublin artificial intelligence summit Silicon Republic",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.siliconrepublic.com/",
+        "name": "Silicon Republic"
+      },
+      "publishedAt": "2026-11-13T09:53:56.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "949f9993-1689-49b0-b300-3f9dc7a7e462",
+      "title": "Q&A: Leveraging artificial intelligence to propel engineering education - The Pennsylvania State University",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOeC1rSXpha1YyNnVNWkp5eGluRVZ6alpsYWRYNEFDNGp2a2tDMmRLRDh1aG1aellwdkFYa2I3cVVEaTc0RndLZXVCU2dYd3ZhYmkzbFFkOVQ4d2Vpa2tHRnQwWnkzWm0walhTbEpKQURHRFdvNDdjRkEwVkFRVVVXX29Yd29QeVRmbDA5OGxYOWxfWEROLXh6OFVTZUZFWUtaTGVrMFhPRzR2UGJvdlE?oc=5",
+      "excerpt": "Q&A: Leveraging artificial intelligence to propel engineering education The Pennsylvania State University",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.psu.edu/",
+        "name": "The Pennsylvania State University"
+      },
+      "publishedAt": "2026-11-13T09:46:18.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b77d604b-bec9-498a-9c2c-6b6944c6cc70",
+      "title": "Is there a 'right amount' of AI?",
+      "url": "https://coyotetracks.org/blog/right-amount-of-ai/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T09:27:05.000Z",
+      "sources": ["Hacker News"],
+      "points": 29
+    },
+    {
+      "id": "7d9c8589-cf87-4541-9697-0660687272b5",
+      "title": "The Dawn of the Data Intelligence Engineer",
+      "url": "https://motherduck.com/blog/the-data-intelligence-engineer/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T09:08:18.000Z",
+      "sources": ["Hacker News"],
+      "points": 94
+    },
+    {
+      "id": "5b2cac1e-2285-47fb-9ee5-0e98f3db4348",
+      "title": "60% of Small Business AI Users Do More Without Adding Staff - PYMNTS.com",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPN0VQQllGYkUzdmxKc3pKRTN0Y1JXbkVoVHZUZ3FRZDZuOU9qbTBMdTRpM3FNTVJVREZvOHBhenFYaC1sLUdwT1IxanVDeUdiUF8tZlpWcGYtT0xmbC1BUHVPY0dCWVhlTXFKZ0ZSSkZab29LYkNERHM3OWhucjE5MnZvRXdGcllLRE5WTldvY0xuT2ZGNDc4RUFLc2o3MW83ZkNsYXNlU1VFa1VndWJnSktrV2RINF9HV3BJZA?oc=5",
+      "excerpt": "60% of Small Business AI Users Do More Without Adding Staff PYMNTS.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.pymnts.com/",
+        "name": "PYMNTS.com"
+      },
+      "publishedAt": "2026-11-13T09:05:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "a685bb45-3593-40fc-922f-67d419023768",
+      "title": "Latvia's Saeima Speaker wants MPs to use artificial intelligence to work faster and more efficiently in parliament - Baltic News Network",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxPRXM0cnVtWUVJQ2puSW96RVc2Nk1mVmc0ckswTVJJMnlLUjFvamh2XzBGbVoyNkRCNEJKOGszTG9Kd3BpdHpLQ1d1RVRuaWpTWXJSSkt6dkJpa1hITEQ5ZE5UdE9KNDl1V0d4TUU0aUQ1LW4xT2s1ZERCdUFvaDg1RHJVd2VwWWVtN3BzWWI3LTA1WDZMRjh0b1NZVGctemwzY0RsakY2ajNrdlBMclNWaXN5T09pMFUyWHRiTlZtZEQtdW83LVZCZFNDN2Z5ci1Wc2JRQ1pVc3lhNnFTREJZRF9NLXRXb0U?oc=5",
+      "excerpt": "Latvia's Saeima Speaker wants MPs to use artificial intelligence to work faster and more efficiently in parliament Baltic News Network",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bnn-news.com/",
+        "name": "Baltic News Network"
+      },
+      "publishedAt": "2026-11-13T08:46:49.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "76ca9750-2668-4ed1-859e-526cd2a61dd3",
+      "title": "Could AI help decide medals at LA28 Olympics? - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9CNjlRdVBKeHBMcDhjdi0yZnNEZ2V4M0R0WVB1MkNISnJxVmFYY0JVQlJZMzV6cXBRb0FPTDVNRGJ2Y2JZZ01mNUxBWm5UcUdCZ1B2aGQ1ZlgzNDBJOGQ5OXVUMEZVMjFZ?oc=5",
+      "excerpt": "Could AI help decide medals at LA28 Olympics? BBC",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bbc.com/",
+        "name": "BBC"
+      },
+      "publishedAt": "2026-11-13T08:46:14.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "0858a30b-12da-4977-af49-9d9630043baf",
+      "title": "EXCLUSIVE: Huang exit and US scrutiny imperil $3 billion in Chinese AI projects reliant on Nvidia - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOcGIzcVZhWDU2cVlTWlhGZFZUMGlCcldoTU4wc2Z2UUpqUzJiNWp3Sy1kTVFQTnRKbHVnY2cwWHh0WEx3YkV5ZVMxOUFnMmVIc0kzaHdHc0NEVm9NS3hsVTdfTHR1ZWR4OTc2NUNpXzUteWZvblRYcEFVRDBIVTQyanVZTGdDYVFTaDJLTWFYdWNmSzBtU09Dd1RZVkhLUjB0WkR2Rm0tVTZnXzctWTREMXF3QjhZNTUxMHhDWjJZMHc?oc=5",
+      "excerpt": "EXCLUSIVE: Huang exit and US scrutiny imperil $3 billion in Chinese AI projects reliant on Nvidia Reuters",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-13T08:42:14.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "d38e773b-da70-40eb-8000-9f1b2d4c4bdb",
+      "title": "Penn State Berks AIMS Lab to host seminar on ethics and algorithmic fairness - The Pennsylvania State University",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQY1ExVGJ1UGdDMVlqM1dGSEI4S2M1MUUzMG4wRXEyb1JMU05HOE1BMW9rWExTbFgza0p3ZFVJTXQwU0FRdjljMGJ0T1RGNVM3UmNXemx0Y1VJaDBiQU1tMzJoZGpXMmQ2cC01MzRJTklGQmo2dDhqRml0dC00eEFqMVk1WUJvNGN2cTliQndjbWJTRE1kRWVpc2IwTFVId0pJV2ppYXRqY0txOEk?oc=5",
+      "excerpt": "Penn State Berks AIMS Lab to host seminar on ethics and algorithmic fairness The Pennsylvania State University",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.psu.edu/",
+        "name": "The Pennsylvania State University"
+      },
+      "publishedAt": "2026-11-13T08:39:13.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e809d85f-ce93-4821-b6a3-d6db923e98b9",
+      "title": "STALLARD: Artificial intelligence can't replace the real kind - The Lufkin Daily News",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOa1ZzRjg2OXFKdWFidkluVllTQjBIM1NvQmFDN0xRcDg1WU85bURDMTVHU1NrdmdlUWNGd2ZfQldIdjBXQUh0LTV1UUNjaWdJQ3E5VFdjSUNzWlJDQzV6NEdKOUptVUVDQnFRdFFnYmp3UF9HZHc3Uk12eFVmVHROeEFDaHVhOVR0TGREclJORV9YRXlUZlE0ZVc5N2plOTJaXzU2SzFQbTFyZ0MySUtoZkNpZS1BUS1IQVpsTHpaRmpRTjFSQ29TSi1WU1YzdWRJa2czOVJqUE1TNnZENkVaeEZLY21DZS1y?oc=5",
+      "excerpt": "STALLARD: Artificial intelligence can't replace the real kind The Lufkin Daily News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://lufkindailynews.com/",
+        "name": "The Lufkin Daily News"
+      },
+      "publishedAt": "2026-11-13T08:30:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "a39ec225-cba4-4c09-ae7a-94a7f519814b",
+      "title": "Shield helps technicians hand off legacy portal work with OpenAI",
+      "url": "https://openai.com/business/customer-stories/shield",
+      "excerpt": "Shield uses OpenAI to help IT technicians hand off work in legacy portals. Its Forge agents navigate systems so technicians can focus on issues needing their judgment.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T08:00:00.000Z",
+      "sources": ["OpenAI News"],
+      "points": 0
+    },
+    {
+      "id": "c981e08e-4f9e-428d-a8ea-12ea2e12e04c",
+      "title": "Asian shares decline as investors assess impact of Nvidia's fallout on global AI development - KTVN",
+      "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxPRmZRbEpHWURkQnNMYmxxWWN6QTFSSFFZcmcxc1cwLXcwMU83ZWhlbGNacGRuQkgzY2xOQUJoallabUhoOXJFSm9DeFcwMDNmZXNZZF9uYkVheXprbi1pQXBaa09wdmJlRVN5S01YSV9LQjZLRzhKWlpaZWFxejgzdDE2UTFHZDNQZEZEOHdDTnFrR01fWHpSZmUwdC1HbU41aU1IaFBRQjVMeDJ3UnJJM3BZZDU4UzFhQjQxOHpCRldnRnV6ZnNLLVl1ZGFuWnpHdkFqd3Z2c0pEbWZ6VGUzYWRIN1ZOcUVsMlFsc0Q1a01GQjd3MXJhYjJkbFdzbFREWUxYeFNn?oc=5",
+      "excerpt": "Asian shares decline as investors assess impact of Nvidia's fallout on global AI development KTVN",
+      "imageUrl": null,
+      "publisher": {
+        "url": "http://www.ktvn.com/",
+        "name": "KTVN"
+      },
+      "publishedAt": "2026-11-13T07:41:46.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "87eb0b98-38a8-4a3a-8301-f6b47da2dce2",
+      "title": "TSMC Hacked",
+      "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000800/a20261112statementregardin.htm",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T07:39:55.000Z",
+      "sources": ["Hacker News"],
+      "points": 102
+    },
+    {
+      "id": "c850180c-7ca5-4024-a12b-ef47ec98ebb9",
+      "title": "\"Bring Back The Boss\": Why Nvidia Employees Want Jensen Huang Back - NDTV",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPckFfYmdjeE9iSFFBZTMwWlZma3lHNVNGUEplUGRWbEJRQkxPeFdSVFJNRE1DYS1rVEtnTkpPZ19oX0pnZVNvOTczOHpUaHFQLXkwSGN1NmVObWJ5aWVROW9zVC1IM3FlT3VWbUQtOXZiQjRwNm1TQ0ZzQ2ladTVEWFhuRjNHNnU5OFFHOG9jQXNFS2k5alRfTGREdmlvN0ZTODBDeEc0VWN3LTl6TEFJd2xCRk05MzIx0gHAAUFVX3lxTE8wMkczZktzOUZJcU4xd05hdkViMWlHakVLVkZFeXNvTUhrRFRMU0ZNWjVJZGZBaVZXcHJBWGhSSmJFVExsTFFhejZXOVpkTW9kZ3FJbVhOdm5BX3FlUWNxU0NGcXgtVjk5RFhQc2s0N25MN1E4clVraEhNX2NqY0M3RmM3dmNuLTFDNHBsODVUYjRZQ2JqM0MwZ3NTUDVERkVCakpXZ0ExSnFJeHNvUWxWNXBMQndnRjM0RmlMd0JlQw?oc=5",
+      "excerpt": "\"Bring Back The Boss\": Why Nvidia Employees Want Jensen Huang Back NDTV",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.ndtv.com/",
+        "name": "NDTV"
+      },
+      "publishedAt": "2026-11-13T07:30:49.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+      "title": "Global Microsoft Outage",
+      "url": "https://www.cnn.com/2026/11/12/business/live-news/microsoft-global-outage-intl-hnk",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T06:18:23.000Z",
+      "sources": ["Hacker News"],
+      "points": 189
+    },
+    {
+      "id": "73e7ed5f-23a7-4eee-8a0d-672c1212379f",
+      "title": "EU leaders seek to tackle challenges at first ever AI summit - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOMy10dU5kazRqbk9PSWxUbGRiUm53LU9sLXBHVnBNUW0xbElWLVVoUG9udExuMGlYZ2xldnlOQUJpMzNpNjEzN0N2TllYaUJkQzFDZG5QSXRKZWQwZlF5cUVTWlI3NVZUWkpra0diZGNtT2F3WnRFZ3ZKd3VvQ250c2tOM2VHOFlFMlRYTm5jbGZ4R0ZWaDNQc1ljR2R4SVU4Umo0NQ?oc=5",
+      "excerpt": "EU leaders seek to tackle challenges at first ever AI summit Reuters",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-13T06:06:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fde9f3b8-382e-41b0-b04b-e8f2932035d1",
+      "title": "Server Maker xFusion Gets Shenzhen Nod for $1.2 Billion Listing - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNM09rZGhVaFV2UmdSTzFLdnJXWkxfSENxUk9mT0kwM2E5ZWlSYUQ2bU1jTnlxYzcxWkNjSmxsZ2V0YXJUX2cxeFA4VWtJbXh3cXBYNi1DWXVabTQ4d0VYbUE3OXFjLVdHYXA2U2lGRmxzUDd6SW9YWmU0bVFaUUgzRkFXNURHZGlzQjNZVGtyanZSU29XUGRxRjhTUDVSbVNxaTBNTkhNZWE0Ui1sOTQxOTFUbw?oc=5",
+      "excerpt": "Server Maker xFusion Gets Shenzhen Nod for $1.2 Billion Listing Bloomberg.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      },
+      "publishedAt": "2026-11-13T06:05:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "94fb2d66-9a3b-44d6-b563-35def911f06b",
+      "title": "Multimodal Artificial Intelligence Model Evaluates Aerobics Routines Across Sensor Streams - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOY1ctRHRuTlhLMFlCYVpiQ1ZGUnJPa0x2UHhSXzhxS2FrWXIxOWhZODZST0o0dUVFUkxLTzF0NlV3c2ZpYlBGS3FCblk2YWQ5RmV2MXg5c0tRbXlVeVRod0tlbVRWLVJBQmc4WVgwNWdBLU93aFZJQXhmZUlXcVlXVHpPcHhFa3hGc0lXdklrNnB5eldpYzJpOTBJdHlucFNyZHhmNWo5ZW5tZFJsWmp0M0d4bnVvZw?oc=5",
+      "excerpt": "Multimodal Artificial Intelligence Model Evaluates Aerobics Routines Across Sensor Streams Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T06:04:59.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5b0e3d62-aa9f-4624-bd72-58be7f48ca80",
+      "title": "How to scale AI and avoid common pitfalls - RSM US LLP",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNc2VNdF81TXh6Q3Q4U3JCME55dkhmR0N6NWRnYjgzVkxZV2FqbFRNamNNQkVuNnRTNVM2TVRsV2R1c2NsSUk4YV9YaXR2V3NtNWxkSnhzYnVlSEhIMnlWNXNUNzhCZHR2M08yMXJINGNIMDJGdjRKUVFnSGVocHcxQzVlSzk2aUt5c2xSaXRaNGo?oc=5",
+      "excerpt": "How to scale AI and avoid common pitfalls RSM US LLP",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://rsmus.com/",
+        "name": "RSM US LLP"
+      },
+      "publishedAt": "2026-11-13T05:57:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e9a4999b-5fc7-4ea2-aa25-e38ad821e666",
+      "title": "Democratic political group launches new push to shape AI agenda ahead of 2028 - ABC News - Breaking News, Latest News and Videos",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOX1VOdTJweTIxY2dHVWc0YTNRcVRGdHh1T2R5SnZxNHhmNlZxYjZicDRVQ0phNHNvRzliakhEUFJGQmhTMnJkaUhKTE40ZUEyb09QMVpIWEJNUnV0aDBkTUx5Y3Y0R0VjeURxVWh1YXY1RGRLY29ULUxlNi1jZ21vSEVzOGhTaWpaR0p6U2xEVDZpd0twZXBXM0tFTGhKLUVmQk9QVtIBqgFBVV95cUxPSEVrS0NwZW5oUlFIei1hSWJfRmE3eFVoQ0FTYzNCOXJPb3UtQUNOME1RcktrQ0pKMDRwcTZOdEFVSGp4MklEd2ZBNDNVRGdESjd3QTdHNmN5THNIc3VWaWRHODZxMmZYc0lmV3RuazRJdTJMbnFtdzlKS2UyTzJVOV9qWlVvMnFzTjJFeXpNV0lxMGFkWGdJSHg3eVJGNjVfZ1p5YXcxNWpGQQ?oc=5",
+      "excerpt": "Democratic political group launches new push to shape AI agenda ahead of 2028 ABC News - Breaking News, Latest News and Videos",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://abcnews.com/",
+        "name": "ABC News - Breaking News, Latest News and Videos"
+      },
+      "publishedAt": "2026-11-13T05:41:33.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "d08c636e-b8eb-4b54-b0fc-e37b75bece89",
+      "title": "Democratic political group launches new push to shape AI agenda ahead of 2028 - ABC News - Breaking News, Latest News and Videos",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOMXZXSHdhZmNCU2JKdFk3ajNwVHAwekJZbmFWVUZLQkRFQ3F6d3BHc1BSN3JieWltM3BzOXZObk9KckFnVFVGdjd3a1BjZHlqd3pwRG5QT3RVdW5GbXV2RXRqOXNnTnBzTTEzN25WMG85LXJEYjVhTlRiQzdzbktybDR4R3c4ZnhKdWczTk5HVVk5MjZtNFhuQk55YTPSAaIBQVVfeXFMTkM1Y2FTRkVNTXF0SWo5U0FyUEQ1eUpkNmxtYjJVY09EUjcwZjRUdUQwaFprbmYyaDQ1UDVaNDZLUXFmTzA1dTBncDNkZkQzNmRyMEdmc3R3SFNsZ0ZCb0h0YlRKbjRMbzFJSGZobUZNdmZtZVU4YWpxTEYzbTRIU240VWhHY0c4eUlXNUNYbjRCTTBjWVcyNEtQc3BfZm41aVln?oc=5",
+      "excerpt": "Democratic political group launches new push to shape AI agenda ahead of 2028 ABC News - Breaking News, Latest News and Videos",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://abcnews.com/",
+        "name": "ABC News - Breaking News, Latest News and Videos"
+      },
+      "publishedAt": "2026-11-13T05:39:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "507c3cea-fead-493e-b1c8-277532a5b03a",
+      "title": "Asian Shares Are Mixed as Investors Assess Impact of Nvidia's Fallout on Global AI Development - U.S. News & World Report",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPQWh6b2lDeE5xZEwtY29oem5zVzB5cnQ1eU1UQVNfYy1QaDlYVFR1cTQyRWhtOFpvU2g4bEJRNGVWWnYzbkRwRjQwODlhN2E0RXZqZXpYa1U3djFGZEJubW9HZ19PRG1QY2E2QW5HZ0FVNEpFZnF1TjI5UkM4UldvWUhTS3lvc1prcFRleWZyeEpkN09WLUpYazQyZmk5LTlYdXhJYkVhSjhXT2RLZjFtZDZUMVNmUEdCVFlxaEp4TEU4UjRmWVVrVHVPZzVKUVY3U3lsX1piMzZuQ09idVZPSTdlWnk?oc=5",
+      "excerpt": "Asian Shares Are Mixed as Investors Assess Impact of Nvidia's Fallout on Global AI Development U.S. News & World Report",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.usnews.com/",
+        "name": "U.S. News & World Report"
+      },
+      "publishedAt": "2026-11-13T05:37:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8727584b-5125-4d76-a815-575565a18cc9",
+      "title": "Study Models How Artificial Intelligence Triggers Irreversible Breakdown in Institutional Fact Checking - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNUkJCVlRRRGYyX3lndVRIZ2M2Nk52STJuOVh1TUVHUXNrbWpmTWh2ZUxqMHFEVmRNSTlnSHg2Mk1pZjg4bW1ROVRhV1ZDR29xTkhNU1Yzc2J2UG1PZ1ZrZkhYUm0yWG1tOHZEVVlLSGFtR3lCcXZjd2NHZE8zVlpYUm5PMndyOTl0VjNmRnl2UklFM1hUUkd3ZVlucGRuVUowWkMxd2tOMUV6RE1Gc1dVU0ducFpxSElWekg2bGJhMm9KTGZJRndJ?oc=5",
+      "excerpt": "Study Models How Artificial Intelligence Triggers Irreversible Breakdown in Institutional Fact Checking Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T05:34:39.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6a50abdf-50b8-474b-9944-6c16c8b4ee08",
+      "title": "Scientists claim the universe is twice as old as believed",
+      "url": "https://geekspin.co/scientists-claim-the-universe-is-twice-as-old-as-believed/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T05:13:30.000Z",
+      "sources": ["Hacker News"],
+      "points": 66
+    },
+    {
+      "id": "6f5fbf1a-476a-47fd-8422-a791f04cdfff",
+      "title": "The average cost for a new vehicle in the U.S. hits a record high: over $51,000",
+      "url": "https://www.npr.org/2026/11/10/nx-s1-6026659/average-vehicle-price-record-high",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T05:10:27.000Z",
+      "sources": ["Hacker News"],
+      "points": 30
+    },
+    {
+      "id": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+      "title": "Microsoft Outlook/365 still down after 12 hours",
+      "url": "https://twitter.com/MSFT365Status/status/2121079061774491735",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T05:08:23.000Z",
+      "sources": ["Hacker News"],
+      "points": 303
+    },
+    {
+      "id": "a9e37b40-ae24-4811-9bd0-191b1506725d",
+      "title": "Can Artificial Intelligence help with mental health issues? - Yahoo Health",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNSTl5Z3pOVW5BbmxyR1M1T1NEdDBtYkx6NHJ3MzdnclFrSDlVNEJrR2ZhV29SYWZfM3VsaEJaeno4Nmt2cHRCRXl1bU9ySGwyUEZtZ3VxcEVCRWpKSzM4c3IzdjZlZ2lXR3h2dUNNdmNMa0hsbk9jdEp2a2ZIOElvOUY1OE1FT1U2OWh0eXZpUjVyb3lsRGs3OWtkX1NtWU1KRURPN2E3aDduWW5wRWZ2Q0x1U2tFdmk1eGUxMzJ1N2FPQQ?oc=5",
+      "excerpt": "Can Artificial Intelligence help with mental health issues? Yahoo Health",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://health.yahoo.com/",
+        "name": "Yahoo Health"
+      },
+      "publishedAt": "2026-11-13T05:03:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "a42a29fb-8108-4085-8edd-51ab2f8dea19",
+      "title": "Democratic political group launches new push to shape AI agenda ahead of 2028 | National News | 2news.com - KTVN",
+      "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNbDFUV1VaY0k1dmZMczVnMXRMQ1JDQlA2ajdqV2s4X1hSX1IxWUdzNUE4SFNRekw2M0d2ZWFuekNGOWRub2ZJaDZZclAwUWw4QWlfVi11SWRyRW9KNHdJRUx3cFkxTTM1WXZqY1RwWWdLcmF2UkRUdkh4akw0QTc5bURHYlVIVTJOalRaWUZ3MHRYeHhYY29rWTZBUjduQjg3UVpyMnpxZTB0TUFxUm93MTJSVEgxVXFwaHRxWEtHWXEtN0t3YlhMWnJsMTZXVWFxSF82emxvSHRYcEgtX21maXJNWVd0ZGczclpGZHdPNG13c2s?oc=5",
+      "excerpt": "Democratic political group launches new push to shape AI agenda ahead of 2028 | National News | 2news.com KTVN",
+      "imageUrl": null,
+      "publisher": {
+        "url": "http://www.ktvn.com/",
+        "name": "KTVN"
+      },
+      "publishedAt": "2026-11-13T05:01:28.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c7bf80bf-16e7-43e8-82e0-35502f115184",
+      "title": "Helping robots fit into the human workplace - MIT News",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE40Z1dvcEpVRVZCQkVZYnRNV1ViM0ZaaHVGZkNBTDd2RXpHQXdxMXRmcDY5T3labDZBUER6TFg4N25xNjFlYVVPdFlsUGNQQ1dmRkV1M0drazJUVDV6Q01ENzZJU1BHZC1DWnloeEFtU2xoZ3NvVzYwSVp3?oc=5",
+      "excerpt": "Helping robots fit into the human workplace MIT News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://news.mit.edu/",
+        "name": "MIT News"
+      },
+      "publishedAt": "2026-11-13T05:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b0037ef8-e9dc-4cb8-81f8-b04552d209e0",
+      "title": "Show HN: PharmA2A, an open protocol for pharmacy-to-supplier orders on A2A",
+      "url": "https://github.com/pharma2a/pharma2a",
+      "excerpt": "I'm a pharmacist in France and a nerd. I built an open source protocol based on A2A, Called PharmA2A. Why, because normally I order directly from more than hundred of suppliers, by phone mails or on the web forms. The idea is to automatise orders of selling and buying between pharmacies and their suppliers. Since 12 November, PharmA2A is live on GH. Is anyone of you is using A2A in real life ?",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T04:58:53.000Z",
+      "sources": ["Hacker News"],
+      "points": 4
+    },
+    {
+      "id": "60a07de1-5db2-45dc-93a5-d2250ad8359d",
+      "title": "IceWM",
+      "url": "https://ice-wm.org/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T04:54:53.000Z",
+      "sources": ["Hacker News"],
+      "points": 347
+    },
+    {
+      "id": "aa56f458-4bd0-4de2-ae99-846dd49a78d2",
+      "title": "New private school in downtown Chicago using artificial intelligence to teach students - CBS News",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOQTdkRE5BN1A5STlrTUR2SURJZmliUlJKS3ExOUtITnlxckZoS0o5Wmd0cVkzR3JXU3pXUTl1RFZyb2RRQWZZMktfUVpVVjRnaEhBaUJTMXFBYUd2d2d1ZEwyTWRnWUtCaFZZU1E2WGMwUEV2aGFVU09qbmwtMHE4bjhTZ3NVdFIyVEE?oc=5",
+      "excerpt": "New private school in downtown Chicago using artificial intelligence to teach students CBS News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cbsnews.com/",
+        "name": "CBS News"
+      },
+      "publishedAt": "2026-11-13T04:26:38.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b950fe4d-6ec7-41bb-b578-7a58965e58e9",
+      "title": "Complaint: Investigators link AI deepfake nudes to victim's ex - WISN",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPYmtxZEVNVXFPOXRjNVl2WU9YNEhldFBiSGFFd0dfT1pPaU90SGRIQ0RuWk95X0hDYmpCdkhaN1B0a0p2T2c1cVc5MnRBOXp2dkhkVU9Wa0FhVG1DNUMwZHBrdlM5YUVGSS1PR2t2eVJMQ0tvM1IyRTFfS2FEQm9zRVR0a0Y3WUNqRFhWWC0xdGJpQQ?oc=5",
+      "excerpt": "Complaint: Investigators link AI deepfake nudes to victim's ex WISN",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.wisn.com/",
+        "name": "WISN"
+      },
+      "publishedAt": "2026-11-13T04:26:11.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6a3ba029-2a46-4c6d-99d7-afc847ee5861",
+      "title": "National Animal Nutrition Program Leads the Way: Putting Artificial Intelligence to Work in Feed Management - Tri-State Livestock News",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOSk1seHVKTzJXZ09oTjRDdVZ4bFVQdngySlozQ0YwczhQSnFvS1ZrRG1nR1pGZVduSEJTVWZIVlJaeXRNeC10QjlBX0VXOGVEQWhJOXMwRTZBNGM2MzY2c1JVWXJ0elFmckl6UzdKdnA3elpmb1hTRzN0U29FVTE2RXRqOWY3VWI0c0QxdjNXUjBWSkhaYk44bE8zN1dUWlZhcEwwTURCLWd5dXl1NVJOaWw0bzVlYWlyTzMxVWdPSHFEVjlLdGR5bVk1X3Q3dw?oc=5",
+      "excerpt": "National Animal Nutrition Program Leads the Way: Putting Artificial Intelligence to Work in Feed Management Tri-State Livestock News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.tsln.com/",
+        "name": "Tri-State Livestock News"
+      },
+      "publishedAt": "2026-11-13T04:07:30.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f3e405bc-2c08-48c1-b944-fc650a6cd5aa",
+      "title": "Show HN: I built a Rick and Morty explainer video generator",
+      "url": "https://usediorama.com/rick-and-morty",
+      "excerpt": "> paste any site or article or a script > we turn it into a Rick and Morty sketch with dialogues, scenes, action and Rick and Morty of course > click generate to turn the script into a storyboard you can review > click generate to get a final video (this part is paid as it uses AI video under the hood)",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T03:47:15.000Z",
+      "sources": ["Hacker News"],
+      "points": 9
+    },
+    {
+      "id": "45f79dbc-c5cb-4350-9568-0c0b0bbda434",
+      "title": "VIEWPOINT: ‘ITAR-Free’ Is Coming for American AI - National Defense Magazine",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOeUFjcTNLaFJMU3lIVC1KS0EybnhoMFk0V0x0S293MkRXU2VLNXdLbDQwcjhZdzZnUk0zQloyTW56T1dQQndUa05nSWk3MzkzdWQ1QjVkd0RaS3RwNF9qN1lZM0pXamh6a1dXRElVeWFWMTl0TmZRYW03ajRsMzFtRHJMUElWMWFheGxYTkYyYllWM0VuS2NvRThzQTRMRDV6OXpkMkVOYTg?oc=5",
+      "excerpt": "VIEWPOINT: ‘ITAR-Free’ Is Coming for American AI National Defense Magazine",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nationaldefensemagazine.org/",
+        "name": "National Defense Magazine"
+      },
+      "publishedAt": "2026-11-13T03:28:38.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "99f6b481-0405-4a1f-a509-ae1bbbe4fbc3",
+      "title": "Multimodal Artificial Intelligence Accurately Detects Alzheimer Disease but Stumbles on Staging - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOY3B6dlJUbFhHTFUtZkpUSHBNTDlTN2VteHY0dk9GSEtvbm9oRGIxOUZYb0dnQ003RDN6b0haVUhkZFZNUTAwaXN3MEVSS183X1c1NmNVYUFWSE11XzNmM3pRQTNBek9XMlZ6LTZkaXk1dHZ5aHM1TlozRWo2YWx4QkV3aUQtYWdNSXdqQm5pNGhDUklGRnZERW1iVGFxOTFBUzdEeGpvbXNKeVg4NjVKZzI1YlpnRG5pc2E4Sw?oc=5",
+      "excerpt": "Multimodal Artificial Intelligence Accurately Detects Alzheimer Disease but Stumbles on Staging Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T03:26:46.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "84981849-0962-4c3b-be88-f84780f851b5",
+      "title": "Switcher (2004)",
+      "url": "https://folklore.org/Switcher.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T03:14:59.000Z",
+      "sources": ["Hacker News"],
+      "points": 134
+    },
+    {
+      "id": "4f566efd-67c0-49c4-a7ef-486f45a85e74",
+      "title": "Brave Search API now accepts agentic payments via the x402 protocol",
+      "url": "https://brave.com/blog/search-api-agentic-payments/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T03:08:08.000Z",
+      "sources": ["Hacker News"],
+      "points": 234
+    },
+    {
+      "id": "c59f7c12-4590-4fb9-b4b2-64c18eb8d1a6",
+      "title": "Trump's AI task force met Thursday, discussed AI-powered cyberattacks - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOSTMxZ0ZpeTBfbVZEb3dFbFRpM0xYcU9ta3ZRVnRzc040LUlmWU9IN05La0xrSnBKYzlVVUF3amZuaTJHZGZYa05ObFpJcERkajJiajhVV2RBVzJDVzc0Uzk4NVVfeGhWOG5SSnUtQlRTV1M3MnNON29WZzZZYVlnbGVCVE1LTkpUcm8zOHlmOTdaWGo0dGZJT2Eyb2NqNlB2VWk1bmRCcXdIS3JjRDQ0aTRn?oc=5",
+      "excerpt": "Trump's AI task force met Thursday, discussed AI-powered cyberattacks Reuters",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-13T02:54:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "a9e9eb4a-50cd-4f7f-b367-8ae49c85d83e",
+      "title": "Could AI help detect cancer earlier? A Cincinnati doctor explains its role - WKRC",
+      "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxOSS1Fak0wT3AxYUFaX0d4UE1fdUV2UDZSQWJxV3A5X2ZpY1l5TDhnNVMxWFpoWFBhOTVJZFNIdnFnYUdUdnVCVXFNNDN0ZEdMSHNobnZUajlNOW1fZHNuQnJnb0wxVGpEME02LXpqRGNjaG1IVE04c0doOUxxWU9pNjUyZ29zY0NVdDIxNEdOcXFVYVNtUkZNbno1UGlYLWNfT1MyLThPbExwT1hIaElnREM0dU9DRmNFRGNxVm1LUmFXYi1BUzBqQzlRZnJ4cVlqR1dmSW1ONHJqZkhSdkxLaWhzTnNWVnU4SXRKVEJuVWtuQ0psS3JqMmdPTjFTUEJXMk5mWk1zY3A4NzQ2QkVWbkM4TlRRUQ?oc=5",
+      "excerpt": "Could AI help detect cancer earlier? A Cincinnati doctor explains its role WKRC",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://local12.com/",
+        "name": "WKRC"
+      },
+      "publishedAt": "2026-11-13T02:48:45.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "94ffea5d-591b-42ba-9397-084166d889e4",
+      "title": "The AI Agents Can’t Find Anyone to Help Yet - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9IS0JWd2oxZVZfUVItZUs1cUJqbFFwR0g4Yi1MNzNEdy1vNG1UcXk3TExwdnhoSHl1YTBpaWJoRVZwbURsRlNMVU54dEVIMVA5ZEZCZm5LbXlUWVg0OGMwTjVocDdjbTV0blhYb0txOUVETlFCUEhFQjRDQ1Z4dw?oc=5",
+      "excerpt": "The AI Agents Can’t Find Anyone to Help Yet Gizmodo",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-13T02:35:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3f101b60-deb1-4dbf-ab3a-046e3e071bf1",
+      "title": "Africa's solar revolution is vast and speedy",
+      "url": "https://www.economist.com/middle-east-and-africa/2026/11/12/africas-solar-revolution-is-vast-and-speedy",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T02:28:15.000Z",
+      "sources": ["Hacker News"],
+      "points": 96
+    },
+    {
+      "id": "209d931d-e30c-4455-a72e-7f81e45612d6",
+      "title": "Fastly vs. UiPath: Which Artificial Intelligence Stock Is a Better Buy Going into 2027? - The Motley Fool",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQSnpYV3QyZkp1My1sWGtNYkhJc09ycUo2NWdKZl9jTGxHQ2dRT24ySjJId3d2RG9FNktKV3pOd1NpOTJhZVFQa3ZfUVdZaGFQMzFNek8yWWV6bXBWTGJGZ3VLcFVJZmdLZXJXZXVxd2VITENyV0VEdTA5N0VlSE9FQkRIZjVra1FXZ205Zmwxdl95YUlRTm9lYWJCS2o0N2NUemxjWUx4MUlVWkNRNUhuNXpCdGRGYmpZRkxtNGwxN3RqQno1b01CbmFkaFBVVGpMb0E0?oc=5",
+      "excerpt": "Fastly vs. UiPath: Which Artificial Intelligence Stock Is a Better Buy Going into 2027? The Motley Fool",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.fool.com/",
+        "name": "The Motley Fool"
+      },
+      "publishedAt": "2026-11-13T02:24:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3f950540-0185-48f9-9ebe-5a71d2fc5e6f",
+      "title": "Nvidia employees petition to bring back Jensen Huang",
+      "url": "https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T02:16:24.000Z",
+      "sources": ["Hacker News"],
+      "points": 577
+    },
+    {
+      "id": "44ba07f8-a202-4592-8c10-49144ce04a9f",
+      "title": "AI Tools for Engineers: Limitless Labs CAM Agent - Design News",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNWHNvODdqMVE4NDBjTTdBSzI0UUhabnF5UXRud1l3OXNyQTR6elpQNlpjVHZOc1lLRTctb19oamJDb01rWWpYcFMtc3dCTDdmM3BDR0l3ZDNKUnNmTjFXY2o5VHBJSlpjVHZBWkN0SVdTNjYtT1loUy1LZTNGbXg3SzV0SE1yWFdmZGRfLXc5UnhLUktWUjZYQjZqeGxOa1k?oc=5",
+      "excerpt": "AI Tools for Engineers: Limitless Labs CAM Agent Design News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.designnews.com/",
+        "name": "Design News"
+      },
+      "publishedAt": "2026-11-13T02:10:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "76b577e3-52d8-4296-b9f9-a5aaa7a1ef87",
+      "title": "Explainable Artificial Intelligence Bridges Computational Features and Traditional Chinese Medicine Concepts - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOVnkyT2l6cTRiRzAyU0lKMDFteHk1cmRRaDJXUWFuMnJuUHVQa3VVQWE5SjZjYU11WlluUUdxUDVMUGNVU2luVm9WZ2pZUFhNVXk5QWNmWUIzdmZvb1FLdHdQVHI5X3VIOHVPc3kzcHdZVHRpTUhpUXBpcGRSVnRrTTRkUXYyYnVtN0Rsam1ZX1ZPVmRGeGJCdFpYSDc1NmZVOXlOcjliUHFWaEhIakE1cUx1UjNJZHZyNG40dnNEMVZPdW84ZUQ3a01peFZfQQ?oc=5",
+      "excerpt": "Explainable Artificial Intelligence Bridges Computational Features and Traditional Chinese Medicine Concepts Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T01:57:22.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5296079a-d0b3-4ec4-a87a-ec6f86e30c71",
+      "title": "Advocacy Groups Sue AI Giants to Freeze New Models, Warning of 'Catastrophic' Risks - Broadband Breakfast",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOUlE1SmRuZmY5bHFhdjB5cy1ZRWJCWFlhMlM2N3Zkd3hsVkNLVVNwcUlDd2hDMmNlRm8ta1paOHNNVE1ZMlozR1ktdjc1RTdRZU1OTElxRDFnOTZZVEVLZUg4eU9nalViUTFQbER6ZHk1RHBmSWtNSHVvWUVYd0JkQmNMNUgtYzR3bUIxMzNWeEZ0VVZteHRFYXRaMWlSanB2TTl1dm5yVV9YM2kwbWh1OUFB?oc=5",
+      "excerpt": "Advocacy Groups Sue AI Giants to Freeze New Models, Warning of 'Catastrophic' Risks Broadband Breakfast",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://broadbandbreakfast.com/",
+        "name": "Broadband Breakfast"
+      },
+      "publishedAt": "2026-11-13T01:41:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "0860c417-892e-48c7-8566-f729ec048539",
+      "title": "AI Tools for Engineers: Aetina Mini Series Edge AI Systems - Design News",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQeDNReDMtOGRyTDdlcmN1bkEzaVUxNEVROFI4Q2pnanA2dWU4QXhGbF9GOWRQWkdRWEZkZmpKVXFsVHB4ZW0xcl90ZzFta2JwRHl2dTVVbHFSaHlYX25oRW5CWFpPV1dVWkxEWEFwQ0xiSGIwSm93WVlfRWRycGFqREhVejZsVHpJMUlQai1GY19DU1QwMkxYYU50TXJUazVUS3ctM0pybml4dUdh?oc=5",
+      "excerpt": "AI Tools for Engineers: Aetina Mini Series Edge AI Systems Design News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.designnews.com/",
+        "name": "Design News"
+      },
+      "publishedAt": "2026-11-13T01:40:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "db17b3ac-e474-4c7d-8be8-6b3f14d4266b",
+      "title": "AI Tools for Engineers: HelloTriangle - Design News",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNNWV3aG02TW1IeEd2SWVYUF9ab0xnR1dxVUM4dXBXbWMyUnpQcEJhbi1vaGFzemRoVWJUY25leXRjWmF4ZjQzWENfRzlYVHZLRFNraWlxeHpyNjY0ZmNNNi05bmVFS0VMazZNaGlzTkIzakdYTVJVU0UwUEV0ZU5IQlozZnBTSng4RFpRV0FOQkY?oc=5",
+      "excerpt": "AI Tools for Engineers: HelloTriangle Design News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.designnews.com/",
+        "name": "Design News"
+      },
+      "publishedAt": "2026-11-13T01:35:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "be94f00e-bf3d-46a8-afa9-63d79893c3bc",
+      "title": "Nvidia’s leadership crisis puts enterprise AI’s dependence on one company under scrutiny - Network World",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOaWpFbnVQV19oVmFwR0NEVnFPNXlDTDFWWjAzOTlxTmpMclZpSE9Ia0p3VTExdmNHUHYtdF9LTkJOZWozT1dfTUpENl9zOFVNZTFLWlhOQzZFZk1ocTdFWFRla2VGY1o5Vm5uYjlMV1FsWTlMcDUtVndJb2VTSERBa0J3UTloN2tHM3NOYzFCLUJydFBKTEZaYlVTUHBtYk9nR0gwQTViYzZYaFVIdlg1ekdaRVV2S3p0ck1EQWxOS1FKRFRXaEFXOFRlQWtTYldUWEE?oc=5",
+      "excerpt": "Nvidia’s leadership crisis puts enterprise AI’s dependence on one company under scrutiny Network World",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.networkworld.com/",
+        "name": "Network World"
+      },
+      "publishedAt": "2026-11-13T01:17:55.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f5c4fdb8-8659-477c-b740-714db63b78b8",
+      "title": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair - Indiana Gazette Online",
+      "url": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxOVmlwajRMWFBNU244dXBROHZadVlPZVlqLVl3N0dyMGhEMkNVUUsxN0xMeEUxSU9TTHg4VkViaTVvQ1RGZzloVFFDcFB4TThhVjZDZzdsNlpmWDNQLTFuZEF0LW5uUV9tVFc2UkFiSHRKeDg1eXJrQ0dVY19tZ1hRaEpUaFdDS1Bxb3RCMDBlQ0NHYU1UV1ZIc05JRExUYjhySXNCSXF6M0MtalMtMjJoak9obzlBMk1jX1FDZTNrVnFieGRFeElTQmhLb0JTc0lCOFB0dE5YSEdfclJRandNZTF5eTJWSTNHQ0t3NWJvc2U0NWx0N3hOdDFqa2ZmZk9NRDNVbV91N04?oc=5",
+      "excerpt": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair Indiana Gazette Online",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.indianagazette.com/",
+        "name": "Indiana Gazette Online"
+      },
+      "publishedAt": "2026-11-13T01:15:20.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "19946031-977b-4b68-a5a6-49c4512f4862",
+      "title": "Union County moms say daughters are victims of AI child porn created by classmates - WBTV",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQeDItX1E1dVhYTHBraFJMeTZYVk1URTAtUWFMSm1vbFl6TWZZQUtkdEVZWG1tNk1hM0toUHRWSHFzMGR2d1hQT0d1MFpjOERycllrSXRaaHVmeklOMFRpVlZaR0pRZEZVOHpHZm9oa3NHdUJObWxELVdGdUtKVmJFQWxZZDM4TEtfbWFBYmM3SmZwNW0xNUNrRzNWem5abWVHa1plRkVtNXVDM2FvZlFYcHBB0gHGAUFVX3lxTFA0V28tdVRMcnR3cVE5cWwzQWpRQm8ydWo5cGtDdEhWM0txcWNNeHd6cVdOSGxTbEZQUzE4bzBQYTloVHFLSFNFNnNibzV5U0FlZ0NjSTJXSzRSbzNkdWRTekZobXBYZDVhaExQT2Z2QkdnbHJXYURzMDIzenhRRlFBZFRNeThITnctc0JQMVFqQzB5YVVVc0E2eDRtcy0xUmhoUmYyVzNpalJWUW5MdWpiclcyMUpkVS1TWEQ3bVdJajJERy0wZw?oc=5",
+      "excerpt": "Union County moms say daughters are victims of AI child porn created by classmates WBTV",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.wbtv.com/",
+        "name": "WBTV"
+      },
+      "publishedAt": "2026-11-13T00:54:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f6e2ce57-2374-43b0-91c4-bf3821450e4e",
+      "title": "Donald Trump really wants Tim Cook to run Nvidia",
+      "url": "https://www.theverge.com/tech/1032774/president-donald-trump-tim-cook-nvidia-jensen-huang",
+      "excerpt": "Jensen Huang resigned this morning as Nvidia's CEO following reports of affairs, including one with an alleged Chinese spy. Right now, the company is being led by its CFO on an interim basis. But President Donald Trump is already throwing around one person he thinks should take over the chipmaking giant: former Apple CEO Tim […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T00:46:07.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "64de06af-1ceb-400a-987d-c447d97e4611",
+      "title": "Chicago schools to Google – we'd rather lose Search than be forced to accept AI",
+      "url": "https://www.techspot.com/news/114532-chicago-schools-tell-google-they-can-live-without.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T00:38:41.000Z",
+      "sources": ["Hacker News"],
+      "points": 28
+    },
+    {
+      "id": "8bf43d44-868a-448e-9c65-093a1001b3f3",
+      "title": "Warnings About Artificial Intelligence: Distinguishing Fact from Speculation - www.lvivherald.com",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQNVBVUDEzbW9QaGtBdXF0aXlqb2Z3NEZBR2oxSHhlVEdmVlVsSVl4RF9VS1QwX294aGxOZkNYNE5fZk12TWpyWmRPQW9sanE0VzRYLXBmdjA2SFhOVWZnNXFNLXl1UWlCZnM3RGk4TktNWGVhSmlidkJPZ0N0M19TZ3Q3bmZvcFVDbGVwcUFTS21zS0RDUVNPUm9uR2NTLW12YkJoZEYzMTRPVnM?oc=5",
+      "excerpt": "Warnings About Artificial Intelligence: Distinguishing Fact from Speculation www.lvivherald.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.lvivherald.com/",
+        "name": "www.lvivherald.com"
+      },
+      "publishedAt": "2026-11-13T00:30:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "7f9f4f04-756b-43e5-b486-024138740919",
+      "title": "Wayne Uses Artificial Intelligence To Help Decide Which Roads Get Repaved - News12 | New Jersey",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPd0x3N3JkMnVRNmZqMXZ3U21SLWh2WW5MSlFuaExscHA3SE9iYUNNT3hwR1Y1VERITUxfN2VZOFhxVWpqbEU1NGFHQk5GSm9NcU1WTkt2Nk9nN3dQcERILVRNYklkSXVCS2dYN3NnMVQ5NEdFV29NZHJiaHVIZWJfTk1HQ2p4eWtCTDlpT3ozZzl4QlNnSEpfYWIzeVhORzMwcjVVUw?oc=5",
+      "excerpt": "Wayne Uses Artificial Intelligence To Help Decide Which Roads Get Repaved News12 | New Jersey",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://newjersey.news12.com/",
+        "name": "News12 | New Jersey"
+      },
+      "publishedAt": "2026-11-13T00:25:21.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "232a388d-5404-414e-905a-6c11f23c2fc6",
+      "title": "AI and the geography of expert work: Evidence from radiology - CEPR",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNdHVxU0dGdjdFSy1iUkN6ZmNIdnVPNUNrMlBsZkdzRVZDalpiZWVoLVBfb2lJa1VPMlRMcEtxb0ZHUXJrdVRuMjY3Q19wQ3ZabjhfbmhhUXhEcUVRNGl3cWluTWk5NXliS0ozNTBaZHN2R3BhLS03bTVLQU5yVjk2eVltMld3dw?oc=5",
+      "excerpt": "AI and the geography of expert work: Evidence from radiology CEPR",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://voxeu.org/",
+        "name": "CEPR"
+      },
+      "publishedAt": "2026-11-13T00:17:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c5883b41-4247-4ed4-aefc-be0862a574b7",
+      "title": "Review Assesses Artificial Intelligence as Investigational Support for Cutaneous Lupus Care - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOYklSQTRveDdIU1V6UmRoTE1ZWEVvem12YWx1YjFMX3VtUkxpcVZtT3BtajVRTDlkRDhNZ0k4eEtJcjBCemt1cHRoSDhlMGZYVmVuZzZFLVBlVExHdTBaZV90aWdKdmVpdC1qcm1kanRqdnNSQ0gwdldSSzNQaDVGSEcyU20tQzZjbVd5Z1ZXU0lzZHRIUDRvdllMU2FucXpISXkxTzBST2t2ZFkyMGM2NXlDSDFwN0U?oc=5",
+      "excerpt": "Review Assesses Artificial Intelligence as Investigational Support for Cutaneous Lupus Care Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-13T00:12:19.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c77dbb51-1d68-47c1-8d24-106b42289139",
+      "title": "Xbox announces Wolfenstein 3",
+      "url": "https://www.theverge.com/news/1032431/xbox-bethesda-wolfenstein-3",
+      "excerpt": "It's been nearly a decade since Bethesda's MachineGames released Wolfenstein II: The New Colossus in 2017, and now Xbox is ready to announce a sequel from the studio. Wolfenstein 3 was officially announced today, just days after Bethesda also confirmed that the next Elder Scrolls game will be called The Elder Scrolls VI: Sentinel. In […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T00:11:44.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "24fe5c37-6f65-4021-960b-494e7dda9d44",
+      "title": "US Intel isn't sure if Alice Huang spied on Nvidia for China",
+      "url": "https://www.cnn.com/2026/11/12/politics/alice-huang-us-intel-jensen-huang-nvidia",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-13T00:02:34.000Z",
+      "sources": ["Hacker News"],
+      "points": 20
+    },
+    {
+      "id": "e2f2cbbd-4749-487b-a4a5-e82eaee8ce89",
+      "title": "Massachusetts Invests $3.3M to Find New Challenges for AI - GovTech",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNa2poR0xfd3FRRUZWV2hvS3pGa0kwWGVKMHI5ejlmZWprdUQ1eHNKeVV6SmFyZS05Njk4eHJXLXpieTJBZTk0X09WUFE5MTIxMlZBZHRGaUNDdE9tRWV0dEJsMzhmajI1MW5faE1CeWRMMGVwdV9MWERsaExjZnhta1VOS2w2OU9OVVBzMnpUSUw1OG9sNWZIeDN1RS1uclB2UjBoLVlDOA?oc=5",
+      "excerpt": "Massachusetts Invests $3.3M to Find New Challenges for AI GovTech",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.govtech.com/",
+        "name": "GovTech"
+      },
+      "publishedAt": "2026-11-12T23:44:37.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "dc50924b-3b25-464e-8cd4-289937454df0",
+      "title": "Whoop launched a social network where every user has a ‘verified heartbeat’",
+      "url": "https://www.theverge.com/gadgets/1032630/whoop-humans-social-network",
+      "excerpt": "Starting Thursday, Whoop members can share their data from its wearables on the app's new Whoop Humans social network. Users can make their metrics, activities, and achievements visible to other Whoop wearers, post Story-like \"Moments\" with photos and captions, and add comments and reactions on other members' posts. Whoop claims its platform is \"entirely human,\" […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:43:22.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "7c5c2a04-3885-4693-8d28-aa6e9cac2e77",
+      "title": "Studies Evaluate Artificial Intelligence Tools Across Multiple Cancer Diagnostic Applications - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQaEx6NVV3UmtJNlJTck1OMk9fNnF0UnhrSmY5MXhoYmVScVdvMDRIRGpJWHdDTWZ4N1ltOUo5bk13Z2lNWmZJcTdSZVh3RjJqTktfeDJqUU1qVjVUY1VpZS0yTWM4X19TRGJ6MUFaR1R6VHJxTmpnYll1bXpKcGU0czViRUthYm0zUDMxa1ZxY0xwUFpXWk9HMnVJT0tIRGVEWTBUOHVvR1FxRjRDZXZOTDZDYktxbFdZYmc?oc=5",
+      "excerpt": "Studies Evaluate Artificial Intelligence Tools Across Multiple Cancer Diagnostic Applications Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-12T23:31:57.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "852b84eb-c313-4e30-b91f-00dbd05b9adf",
+      "title": "Humble Bundle redesign removes two-factor verification from settings",
+      "url": "https://www.theverge.com/games/1032659/humble-bundle-redesign-two-factor-verification-security-settings",
+      "excerpt": "The Humble Bundle storefront for buying games and other software recently got a new look, but on the settings page, it no longer offers a way to add or update two-factor verification methods, as reported by Kotaku. PC Gamer also points out that there are Humble Bundle support pages discussing two-factor verification, and the writer […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:30:52.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "f2d2f350-4743-4733-9765-445563c5dbef",
+      "title": "AI Tools for Engineers: AxSTREAM AI - Design News",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOY3d0eXBxOGFYVG5HaHdhdlpWUUYySU92c2VYWkJ0ODNLdkxuWTVicXlLT0ZHaFFwSjZmUTF1VFBWOHFDUkRvRXc0TVlnUVoyWldQdlQyOEFSNlJ1TWItQjdFLUlxMXo1YVdva0pQbDVhZXd0dXh4QjhhTUJsZ01NYnltRy1WTHFCWG4ta3Zn?oc=5",
+      "excerpt": "AI Tools for Engineers: AxSTREAM AI Design News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.designnews.com/",
+        "name": "Design News"
+      },
+      "publishedAt": "2026-11-12T23:30:06.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "939e363f-35ca-4833-8de8-3afdd47b99ee",
+      "title": "Could AI help detect cancer earlier? A Cincinnati doctor explains its role - WKRC",
+      "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOYW5ONGZIN25QaTZkQ2FZWlNuNWNLZU42ZFNxUlVCWVlEVGlxc2R6bkwzUDNlM3dzNGhnZWVKT1BpX3IwMXpOREF3SUF3OXg3U2UyMXliZ19kTDB5ZDhydVVET19Jb3FZRURxOW9zODVQQlpiVXdGUzRDMVl1ZkU0NGNIVE1nNUdfVnZLX2dXWXdHWkxvQUhWdXg2cnF3TFFVR2hOTm5TampCSWg2N3c2cVIyY2JPZnVfVGZCZThBR3RUN0hQcHA1OUNKZUJTS2FEcGg3S294cjBtd25ESXpKdjF2aXJnem9lTWpNdWZDZW9TTXhlWkVnUWJBODI5Rlh2czI0el9FUFFYc3JnUzNtRnF1ODhLOG16TjRZZW1Kb0k?oc=5",
+      "excerpt": "Could AI help detect cancer earlier? A Cincinnati doctor explains its role WKRC",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://local12.com/",
+        "name": "WKRC"
+      },
+      "publishedAt": "2026-11-12T23:24:30.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "51f21a8c-4c62-4873-b8b6-59400388a65b",
+      "title": "Harris County wants to expand AI in government. Could your personal information be at risk? - Click2Houston",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNTnd4WmptQmZQNERGUkw1WXRqZ0RYVmstcUEwZFIweWUxcEpNckFaOWtWR080TjVwVEJXVzBkc21TU240S0ZxSUhMamRYRHF4Vk84LTYzQ2FMMkExLURyb01PZ0xQa0N1WC1aVFpHVjVyM0RnWXVXUm52NUp1aXRuQjV2cXZQQUZTSVF2QUw0dGVsZlc5SXFPeUk2RVVDWmFUMUNYdUZEQVVHSVpMMEdGcjd0bDRWVzU5UzhYc2FtYWlMRkFaYWJEaWZSZHBjRkxnODdQaWo4cGJzUQ?oc=5",
+      "excerpt": "Harris County wants to expand AI in government. Could your personal information be at risk? Click2Houston",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.click2houston.com/",
+        "name": "Click2Houston"
+      },
+      "publishedAt": "2026-11-12T23:24:25.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "0097b48f-a285-4c5e-b625-04d08c830653",
+      "title": "Richard A. Posner has died",
+      "url": "https://www.law.uchicago.edu/news/senior-lecturer-richard-posner-law-and-economics-pioneer-and-former-federal-appellate-judge",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:19:53.000Z",
+      "sources": ["Hacker News"],
+      "points": 20
+    },
+    {
+      "id": "75f7edf4-6c35-4a4e-aeec-baf56d03b855",
+      "title": "Mandeville student's parents say AI altered their daughter's photos into explicit images - WDSU",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNTXFaRFJib0hSNmVmTEQwRmZWUExHRkpEdTNoaS1yMzZkTmFrSXVVd2ZlRjFKclFhNGtaM0U4ZExJeDJjNE84SWZCYnl6bTVKOXZzMkppSjNTaFduWDhTZmt3UjNoWDd2Yk5iOWRNNHdmTFFoWmFQbVBITm0xT25mRTNqdnlLRGx4MDdOeFo1QnZsMS1u?oc=5",
+      "excerpt": "Mandeville student's parents say AI altered their daughter's photos into explicit images WDSU",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.wdsu.com/",
+        "name": "WDSU"
+      },
+      "publishedAt": "2026-11-12T23:19:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "baaa81f9-04f9-4a74-aa1a-4538182f511f",
+      "title": "Why You Should Expect an AI Crash",
+      "url": "https://www.economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:08:31.000Z",
+      "sources": ["Hacker News"],
+      "points": 72
+    },
+    {
+      "id": "0db15022-9c63-4192-a05d-46a320723c3e",
+      "title": "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
+      "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:06:17.000Z",
+      "sources": ["Hacker News"],
+      "points": 307
+    },
+    {
+      "id": "57fc9915-1b7e-4bc3-8c40-25dee75b9b0c",
+      "title": "Xbox owners are getting more customizations for backgrounds and the Guide menu",
+      "url": "https://www.theverge.com/news/1032396/xbox-dashboard-guide-menu-right-side-background-shuffle-feature",
+      "excerpt": "Microsoft is starting to test new customization options for Xbox consoles today. Xbox Insiders will be able to start testing new rotating backgrounds, new library options for digital games, and the ability to move the Xbox Guide menu to the right-hand side. \"Xbox Insiders can now save favorite dynamic backgrounds and shuffle through them automatically,\" […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T23:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "b27a6742-6157-4e49-bd3a-42c53577d006",
+      "title": "In reversal, American Cancer Society urges routine prostate cancer screening",
+      "url": "https://arstechnica.com/health/2026/11/in-reversal-american-cancer-society-urges-prostate-cancer-tests-for-all-men/",
+      "excerpt": "In a significant update to its guidelines for prostate cancer screening, the American Cancer Society is now recommending that men get routinely screened for prostate cancer with a PSA (prostate-specific antigen) test. Men at average risk should get a PSA test every two years from age 50 to 69, according to the new guidelines released Thursday. Men considered at high risk due to race and family history should start testing earlier, at 45, and most are recommended to get tested every year. Specifically, yearly testing starting at age 45 is recommended for all Black men, who have higher rates of prostate cancer. Non-Black men should also get yearly testing starting at 45 if a close relative was diagnosed with prostate cancer before age 65, or if more than one of their relatives has had prostate cancer. On the other hand, if only one close relative was diagnosed with prostate cancer and it was diagnosed at age 65 or older, non-Black men in this case should start PSA screening at 45, but are recommended to get testing only every two years. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Prostate-Cancer.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T22:59:51.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "8480dc7b-c3ff-45ba-850c-6551ceda2ad5",
+      "title": "Zus Health secures $33M to build the infrastructure for AI-powered clinical workflows - Fierce Healthcare",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOUjZORTJVZzI2LVJwVXplRVB4Z3VqSEMyNFcwQU9IRnQySE5XMlA3a3p2a1ZEbEVrRHJWQmJSZWM0a19MTkRjZ2d5eEJqd21WZ1JGVXBXYU51TTQ1ZEZpNXJlMmNiVVk0NDI1WksxM01ucnZNMkdWM2FqdEhkRk9jZlZBM2VDZE5Ed2RxR1k3Z0Z4aFJrdXAzdlVRVnoyV0RwbnhBWU9raXdPZXZ1Z05idnJiWUplNm9nclE?oc=5",
+      "excerpt": "Zus Health secures $33M to build the infrastructure for AI-powered clinical workflows Fierce Healthcare",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.fiercehealthcare.com/",
+        "name": "Fierce Healthcare"
+      },
+      "publishedAt": "2026-11-12T22:55:55.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "69c63759-9d91-4bdc-9a3a-c9e0246f2bec",
+      "title": "AI Tools for Engineers: Acumatica AI Assistant & AI Automation - Design News",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQZnBGd0h0YU16VmpfUV9MVmlJbmJOdnVYRmJXV3dnNTQ4N01xSUIyQ1VWQWI3MWsxUkdsSl9LSWp0WTMzV1M1NWZOX2x0dzJhSXJPWFlZdG1nN3pKdmpJWTQySExfQlUtY0EyWjhpLUtHeGVHcVFldjBYQnJKMnFHYWlRRjNwMF81Wkd0VFJnOVpmdlF2VG9lT3RjWmxVZzgzNXhGUGIxMzlmM096cVFPSnRuYU5SYklac3JXak00UTB1REU4WWUtQmR3T1lWYTRSZ3c?oc=5",
+      "excerpt": "AI Tools for Engineers: Acumatica AI Assistant & AI Automation Design News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.designnews.com/",
+        "name": "Design News"
+      },
+      "publishedAt": "2026-11-12T22:55:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "0f22ea4f-0e60-42b4-bbbb-748a69ec6cf8",
+      "title": "FAA expands AI advice to manage air traffic congestion across entire US airspace",
+      "url": "https://arstechnica.com/ai/2026/11/faa-expands-ai-advice-to-manage-air-traffic-congestion-across-entire-us-airspace/",
+      "excerpt": "Airlines praised the AI tool, but the air traffic controllers’ union wasn’t involved.",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Pilots-during-DFW-departure-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T22:28:47.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "2ac5eca7-3d25-4ce0-b98e-00791ee01390",
+      "title": "Nvidia’s Huang ousted by board in move that roils AI economy - The Japan Times",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQODR1Y290M1NJWUhIOEx0MmlITWhmdGlXYUFCYlAxMDRtakl2WU1kUnREdUsxNTBTMUprU0dTbVJDYjNVXzVPMkdIazZyTEcyOEs5MXNKc0tyd25zaEJTXzVoOHdBTEw2Vk1QdnVjTXBWTE9icEh4aU54NmlGaDZydFhLUHU2UQ?oc=5",
+      "excerpt": "Nvidia’s Huang ousted by board in move that roils AI economy The Japan Times",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.japantimes.co.jp/",
+        "name": "The Japan Times"
+      },
+      "publishedAt": "2026-11-12T22:26:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "37933ab6-7a13-4ca5-adfb-e9b94260e124",
+      "title": "Nvidia’s New CEO Gets to Clean Up Jensen Huang’s Mess - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTEhCeGY5cW1VcjJ4ME9Kdm4yUU5GREZwRnBNZ1A2M2Q0cDFMSUhSZWJfYU9QTTNoOHhtcmRDRTBocEVxRExhek5kU3Y1anFuWFEyUUNEYXhabkU5aTRDc0x2MERxVk1IVUswLUhBMXl1dDNiamVtMks2VTNJbnFOODQtV3NZeGxWWWc?oc=5",
+      "excerpt": "Nvidia’s New CEO Gets to Clean Up Jensen Huang’s Mess Gizmodo",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-12T22:25:45.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c1556b03-1c46-4e03-92be-ef199e6102be",
+      "title": "Nonprofits sue Anthropic, Google, and other tech giants to freeze the AI arms race - Politico",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZTFGbzdtVzREUTBscG9FbC1HSHU2N3pRcDg2TFR3RzRORW9oRWQwTHZrSnBENGRmcno3Nkt4M2lYOElvT2pnNDV5UFRCU3QyMGpkVnRLVXhVRGFWV2cydEI2WlRLaWs5Nmg4eUZ3T2RHbXBFT3ViX3ZmaW9MZ3B6OFZ0QmlJS3g5cFF3Q3cxVERlRExkbDBxRVowdmR1V0pZ?oc=5",
+      "excerpt": "Nonprofits sue Anthropic, Google, and other tech giants to freeze the AI arms race Politico",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.politico.com/",
+        "name": "Politico"
+      },
+      "publishedAt": "2026-11-12T22:24:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "7caba861-5fc4-4096-8419-73224374143b",
+      "title": "Artificial intelligence summit at WMU - WOODTV.com",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPaHdiVEh2VjM5S0d0dGNBRm1pbUxfbUc5WDhKVjVIdXF1a203X0YwMHA1eW5vUjNJSXBnWS1uUEF4TV9JVWtyLVUzbWRvdEliaDlNT2RVMVV6WVRDTkVIdGQydHBQbk5ua2NwUC0tMFpUTU9SVFFoOS1rWmp4UDhxX2RR?oc=5",
+      "excerpt": "Artificial intelligence summit at WMU WOODTV.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.woodtv.com/",
+        "name": "WOODTV.com"
+      },
+      "publishedAt": "2026-11-12T22:18:59.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "7a0071f7-7654-4aaa-9932-832d6395969e",
+      "title": "Federal Agencies Urged to Manage AI Token Costs as Introductory Pricing Ends - ExecutiveGov",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNOUdhd1FSVjVYWXg1ZVlaVE5MemluR0RsZElfYXpMVlJCYXpwVVNScXMwU184MmwtUmlOUTE5alJ0eGg5RV9HZHdBemFrcmlRbXktcmNxaU8xYk1UamNLcjlwNkpDQnlWQnNaOHpybnBSY3ZIRVpIV0t0RktJMVpNdTd1ckVzd2JYVG1R?oc=5",
+      "excerpt": "Federal Agencies Urged to Manage AI Token Costs as Introductory Pricing Ends ExecutiveGov",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.executivegov.com/",
+        "name": "ExecutiveGov"
+      },
+      "publishedAt": "2026-11-12T22:18:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "82bbd812-e50d-43f5-ac09-588e11ddffb5",
+      "title": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOZjFTcmNRZ0JjbE8yRkwwSUtpOS1GTVZfS21UYjFBd2hJOHVkOG9kMVQyQzBpbVBaMzdxYXpaT0lncG4zWl9ydHRzOEQ5d0ZDVWFpM29oV0dueG03ZjJPaXRabWtjeUVCdkIwZHd3c0t5anFnUjdITldWUGFsMlFJbE9uczIyRVk2UFM4dk4zbWJ6WkhWMWdkZEs3MjJSZXFadkdCU2pEelNQOUE?oc=5",
+      "excerpt": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron Amazon Web Services (AWS)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-12T22:03:34.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "728354ea-359b-470c-8c7b-b34694fc25b5",
+      "title": "Reverse engineering my Coway air purifier to ditch the cloud",
+      "url": "https://scottjg.com/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T22:03:09.000Z",
+      "sources": ["Hacker News"],
+      "points": 662
+    },
+    {
+      "id": "b1167d98-5f8f-4ade-a54f-a409596d737d",
+      "title": "Power Landlords Are Highlighting Bitcoin Mining Roots During AI Rout - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOSjIzNXgwQ2xiUlpYM3hNZkFtNUloQlJzc1Fpb19ENUtTWHMtVmczdFhZOXdMVkRfM3FrNE5OR3puQ1JFY2c0WlZQczZ6OF9NMkFCcDJhajhuVWRURjR5ZUlYbVpVbHRjUnZGdjRfVHVDc1VReko3VExtUlB4YTdYQ2N2RTRIVzl5dWNzYnZBMGtxZHJMV3NvQ2FXYjdVZTNSTmlzOXQxeVlNUlczSWRENFFxWnB4QWJJZ0lrNm9Kdw?oc=5",
+      "excerpt": "Power Landlords Are Highlighting Bitcoin Mining Roots During AI Rout Bloomberg.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      },
+      "publishedAt": "2026-11-12T22:00:01.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fe5ac583-1d18-4d03-8b08-dafd0ff4fb18",
+      "title": "Chinese frontier AI models carry the fingerprint of export-controlled GPUs",
+      "url": "https://unemploymentlabs.com/checkpoint-forensics",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:56:11.000Z",
+      "sources": ["Hacker News"],
+      "points": 179
+    },
+    {
+      "id": "31a997d0-e083-4d16-9704-7e51555e4b9e",
+      "title": "Google’s new Gemini model is better at understanding complicated questions",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032505/google-search-ai-mode-gemini-4-hydrogen",
+      "excerpt": "Google says its new Gemini 4 Hydrogen model can give more helpful answers to complex questions, including \"questions with multiple parts, hard-to-understand typos, or highly specific requests.\" The new model can break down your questions and address each part in its responses. It's available starting today in search, the Gemini app, all tiers of Google […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:55:32.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "c80b534a-557d-4ca6-a99e-76df98a624de",
+      "title": "How Natera designed an agentic AI system for lab ops with Amazon Bedrock AgentCore - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPU2NPd1Y0dUdsTUM2a2FrMkMtZm9UemlacVFZczBjXzFtdGM0bnlyUUgzbVJnS19yQU94Y1M3WmYtbUt3SlVPV1c2b1c4ejFxVDViX1gwREo3Wk1TdFlFZW9JcVVGbWpqY1h3T25Famd2YkFiUDRxblBTMWlXdkx2OG9XQnMweFdfS2ttU3J0TTVDTHR4T01QMjAySkNqdjhyamtxWUY2T29pWk1WdHlheHpwN3JxMm56MWtJa2QzZms0SnlnSWV0Ng?oc=5",
+      "excerpt": "How Natera designed an agentic AI system for lab ops with Amazon Bedrock AgentCore Amazon Web Services (AWS)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-12T21:47:07.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8ce22383-0239-4f10-9b9d-5bed6a31cfea",
+      "title": "Jensen Huang's rapid downfall jeopardizes Nvidia’s future and US AI dominance - KATU",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNHhTR240aXh4Mm10bUVOb0FWZlQtdUZHVW50WEw3d1IwblFXT09XRUpVc29MTVJUS19pa0QyRjd2RlNxTXIxVE9xOTF5V2NXMDNiaXF0T2lWa21YbTJuak5acVd2eXJ2VGVPMWR2VFRyalVSZTY5LWVjaTJjZFVYNXFTNXRJdTIxM2F1YlNJNUJ0VGQ5cG16OUNPOXd4N3kweFZFaWIwalpQM2g2MUZHUjgydHdrcGEzMDF3UXR5Wkw2dFg1alpBdkpDZExPQno5c2V3bDhn?oc=5",
+      "excerpt": "Jensen Huang's rapid downfall jeopardizes Nvidia’s future and US AI dominance KATU",
+      "imageUrl": null,
+      "publisher": {
+        "url": "http://www.kunptv.com/",
+        "name": "KATU"
+      },
+      "publishedAt": "2026-11-12T21:46:07.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b6cacd80-05d5-4afb-9455-9f140e2eeb7e",
+      "title": "‘It’s a mistake’: reactions from tech leaders on Jensen Huang’s resignation",
+      "url": "https://www.theverge.com/tech/1032434/nvidia-jensen-huang-resignation-reactions",
+      "excerpt": "Nvidia announced this morning that Jensen Huang has resigned as CEO following reports of two affairs, including one with an alleged Chinese spy and one with a direct report. The situation surrounding Huang has unfolded quickly, with The New York Times only reporting on Friday that Huang and the suspected spy were \"close\" before other […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:45:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "3cb7c624-6726-47c3-b8cf-69a6f4305f7a",
+      "title": "Medical Artificial Intelligence Procurement in China Concentrates Heavily in Tertiary Hospitals - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNQnFZYWtwVHhsRDNoZXkxY2loRGp4NFRUMjc2ZlA2THdqZ2Rpd2pLcFZ4LVBSSTNKeUtwSUVoQjltdXFyTUNSekJmai1LMmFWVGlwUjJVRGJHWlVmcFVPXzJUNWlxaWpNMGkxQUdXeE03dlpiUkljZ1FCTV82ejBmVkpwTy1NcmRZZlpIb0RvRzlBcjV5aU1PQW02UlpCcjBmSEtZUjVvU2ZuNFNuMkhjelRjaDRwYUd6cXh1SQ?oc=5",
+      "excerpt": "Medical Artificial Intelligence Procurement in China Concentrates Heavily in Tertiary Hospitals Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-12T21:40:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "66fb2540-18db-4ce3-a09b-e4618a76d7b6",
+      "title": "Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNY1NTVmFaaGxYUlRucGtIRzJRYlJrMGN6Y3E0TVF0bmhuOFRKTE0wSGc3alFkUnpCQkZDaUhPVFR2NnJ0T0tUVHdTazlYRHVfVFhHU0xxaFJwYV94X003QjZaQmNwdFRadmJEeDNrdmpwZ3gwWWRMdGNiOFFJR0gxOXVIMUVPQmljOWpJRlFfSGM1cnFRLTFwSjNfRkxYeDJqYllKOTl5Qzg0MGFFUzlvMU50RVE?oc=5",
+      "excerpt": "Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade Bloomberg.com Jensen Huang built the company that powers AI. Now Nvidia must find a way forward without him WTOP News Nvidia’s New CEO Gets to Clean Up Jensen Huang’s Mess Gizmodo",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      },
+      "publishedAt": "2026-11-12T21:37:51.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "2efe0d71-2e0e-4d2e-9e6a-769ad5773e4d",
+      "title": "OpenAI Joins Groundswell of Support for AI Chip Control Measures - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMmJ4OENGS1F1RWpJNzlmVHhSZjVvYlZVWnh0YmRKQ2oxSUlicjdzcmMwZ1pBZFJZaG1lX0FXUXl3S01CSTdROHhTdTZ0NjNvei1lLVVqaUpTcEstQlYxRE84alZ6azFYMkR4QU5XakE2VFphTjQzXzVBRjRIM19pWGtad2p6aFNzRFNpb1N4VFBTamxQRmxxMGV5bE5maFQ0Q0JHakJzNGI2bXNBN0dQRFhGcGRHZw?oc=5",
+      "excerpt": "OpenAI Joins Groundswell of Support for AI Chip Control Measures Bloomberg.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      },
+      "publishedAt": "2026-11-12T21:35:58.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fbd2ad52-8fa3-4d39-b25e-069a41989bb5",
+      "title": "Show HN: RealtimeVAD – trading false positives for 110ms earlier end-of-speech",
+      "url": "https://github.com/KoljaB/RealtimeVAD",
+      "excerpt": "Hey guys. I recently watched the latency reports for my local voice assistant, which show a waveform plus silero probability for voice activity. I noticed silero lags visibly on the speech off signal. There had to be a method to get this signal closer to what I felt is optimal. My idea was to use a 10 ms energy detector with a threshold that adapts to environment or room noise. Which worked amazingly well. It created more false positives but in my speculative generation pipeline that would not matter. If it's wrong and the user continues speaking I can abort the pipeline fast. I benchmarked my solution over ~3200 turns from my assistant logs and it came out ~110 ms faster initially. Still 100 ms now after some a fix which was needed for quiet speech. I made it public if you want to have a look. If you measure it on your data I really appreciate any feedback. There's a benchmark script in the repo. Thx for reading, have a good day folks.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:30:57.000Z",
+      "sources": ["Hacker News"],
+      "points": 15
+    },
+    {
+      "id": "7f01e7b4-b625-46fe-ab8e-ec7ce0bf0406",
+      "title": "DGEN TECHNOLOGIES ACQUIRES EXCLUSIVE LICENCE TO HUMANOS ARTIFICIAL INTELLIGENCE TECHNOLOGY - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOYVZkYzUyTVJyVzFYM1dJM1lBRXR1eUNGYTh4dV9QNkg4Y0pxOWNwQ1BIaFlTN092MmhzWDhxbHRGN2J3ZGtMX1lzU3hkQlN0QWZ4ZTBFSXZnd2ZVUzJvc0ZfLVI1bDZ1b3pLZE9NajY5Z2JSWHE2cDdDYTdOSXJuYlpTam1wMTlUaTlEeXdTUjh6QVFxTnE5SkV2dXJHYng4bm9jQ0U1Y1dkNG1J?oc=5",
+      "excerpt": "DGEN TECHNOLOGIES ACQUIRES EXCLUSIVE LICENCE TO HUMANOS ARTIFICIAL INTELLIGENCE TECHNOLOGY Yahoo Finance",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://finance.yahoo.com/",
+        "name": "Yahoo Finance"
+      },
+      "publishedAt": "2026-11-12T21:30:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "ef47f679-3670-4438-8012-297d8b249654",
+      "title": "DGEN TECHNOLOGIES ACQUIRES EXCLUSIVE LICENCE TO HUMANOS ARTIFICIAL INTELLIGENCE TECHNOLOGY - TradingView",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQaG96aTNkYnJLZnBLU25MM0VNUjlCSDQ5QU5RMTJkdE50SW9aN2F0TjJtUzBUb3l0WW96SXlCQzJxLUlXWGtWRXhUTlZFWmVTalVFMm9YXzJycF9FSGpaaF8zVm9idkFSUDVnVEs1LVFJZU03Tm91elljcjlLSHBuTUZGZnBRUGlMWTZNcHhhSzh1aF9JUGxPdTVQdDVhM0lDT2ZwVngyY1l6WWppckhDRWdYM0VXMFMxczMwclZWYU4tLTU2ckdaTVhDZ1RISWFSTUpMVFlnSWFkak1RdXRFNFdYRGlfZw?oc=5",
+      "excerpt": "DGEN TECHNOLOGIES ACQUIRES EXCLUSIVE LICENCE TO HUMANOS ARTIFICIAL INTELLIGENCE TECHNOLOGY TradingView",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.tradingview.com/",
+        "name": "TradingView"
+      },
+      "publishedAt": "2026-11-12T21:30:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "799200fe-aa05-45e2-b4d7-6f930d163d38",
+      "title": "The Oura Ring 4 is almost as good as the newer model, but $150 cheaper",
+      "url": "https://www.theverge.com/gadgets/1032311/oura-ring-4-smart-ring-deal-sale",
+      "excerpt": "The previous-generation Oura Ring 4 is on sale for as low as $249 at Amazon, Best Buy, and Target, $100 off the retail price, and the first big discount on the device since July. The price varies a bit by size and color, with most silver and black models in stock at the lowest price […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:28:53.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "10439936-a4e3-43a0-aa19-48db4fa23151",
+      "title": "OpenAI Board Member Warns AI Takeover Could Be Months Away - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQQVRqSW9hb0lleThEMDFlYnJlbmM4cmRWZkZ4U2JZQUdaMzg4dmp1eXhsR2hYS2ZEUl9MVUVoU1VKaVdaSW9sU0dGRUpzeExySXMwdmJJcDE3eDM1Z2QyZXhyeFBvTkVYWXg1cS0wZVdKcmt4OUR4MVZXaTFZMGNla3FNdmc3NjRHdkNlZTlqTjNCN3RIdDR0d1lTTXN4Zm9BOEJUQV9NWmp1MzRyQmRzVUF3RnI4UUozNnc?oc=5",
+      "excerpt": "OpenAI Board Member Warns AI Takeover Could Be Months Away Gizmodo",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-12T21:24:42.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "445fdbfe-9bd2-4d70-88ef-ec7f100a52c1",
+      "title": "Business Leaders Ponder AI at 25th Banking and Finance Symposium - University of Mississippi | Ole Miss",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOd3J3T0p1cS1HNjdjT0pkX3dBS0JQQVhXZTNPQ29hYmR2VzVxRTNWMzZNd3ZXeGRNMVgyWlkzZU1OZXJVdjY0aFhsRkRwa1dSOURjeU44SXJHdlFHU1hTMGVFU29lN2ZDSFh3bUxjc3ZhbUltcHRFMjZPUTdTNlBKcnV3Y3JSYzZ0bnVsV3puQmJLbEx3d3JCVGowV1VZbkRNZ29veGQzSG5qd0U0?oc=5",
+      "excerpt": "Business Leaders Ponder AI at 25th Banking and Finance Symposium University of Mississippi | Ole Miss",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://olemiss.edu/",
+        "name": "University of Mississippi | Ole Miss"
+      },
+      "publishedAt": "2026-11-12T21:23:20.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3a8b89b6-0afd-4f09-9dc3-107338391c03",
+      "title": "Dignity vs. consciousness: a Catholic response to the A.I. wars - America Magazine",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQdEpnNUFtNngzUUpqclp1NWVnd1NuWGs4VEtiVzlXVmg3T0NpTDdKOV9uOGdaY18yeUtCZ2o2SkZraV9lREIyQ0xieHZFMHlIM1FXaXN4UlQtMk1RQXg4M0M3aS13RWMtYWFYZk41VUJkVFozWGlfNlBReVo5cVliZE5weG1IMF9jemg0akR0S3p2Ymt0QkdXbU9Hb2ZDUVNUX1pYd2ozblhWNHVtLS1KeW12Z1ZWdw?oc=5",
+      "excerpt": "Dignity vs. consciousness: a Catholic response to the A.I. wars America Magazine",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.americamagazine.org/",
+        "name": "America Magazine"
+      },
+      "publishedAt": "2026-11-12T21:22:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6af75362-b294-45e7-91a6-617e1224cd6a",
+      "title": "From snapshot to mission insight: Digital twins for defense and intelligence - Federal News Network",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOaWFLNEVZVzJYZ0ZGR0RkR2hwdmZ1S3N0d1F6MVNHaTh2bjltQ3VjWWF6alRrRjJqQTVtVjZiX0J3bFI2SVdYeGVaNkVacE0tc3VLQmtYM1pKM3ViZFBkTlAtekhVUmZFUFpObThrRmlYNERoeXRUcUZUTWxVUWRidXBDcUJHMHA0a09GZDEwZWN5a2g1QjRZWUVxSGI3TEdtWG1TWnMyX2VSTGprdTNhRU5taGd1VTdsWlVKeUNJcTZMVUpv?oc=5",
+      "excerpt": "From snapshot to mission insight: Digital twins for defense and intelligence Federal News Network",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://federalnewsnetwork.com/",
+        "name": "Federal News Network"
+      },
+      "publishedAt": "2026-11-12T21:17:41.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "ee300693-ee5b-48b7-bfbb-042c1a7343c7",
+      "title": "Foundation Models framework",
+      "url": "https://developer.apple.com/foundation-models-framework/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:13:26.000Z",
+      "sources": ["Hacker News"],
+      "points": 238
+    },
+    {
+      "id": "36375fef-af54-4f4b-9779-dcde73c9966c",
+      "title": "AI is turning Apple's app review process into a nightmare for synth developers",
+      "url": "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:09:49.000Z",
+      "sources": ["Hacker News"],
+      "points": 156
+    },
+    {
+      "id": "d41f0524-000a-46e7-958b-bbb4f13df37c",
+      "title": "Here are the 25 original Xbox games you can now play on PC",
+      "url": "https://www.theverge.com/games/1032321/microsoft-xbox-original-games-pc-backwards-compatibility",
+      "excerpt": "For the 25th anniversary of Xbox, Microsoft is beginning to make good on its paid \"next-gen game preservation\" promise. Starting today, you can play 25 different original Xbox games on your Windows PC, as long as you have (or are willing to pay) for digital copies. In July, Microsoft originally launched the idea with just […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T21:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "9062e66a-0b41-4003-899f-57c7bc0adb22",
+      "title": "From Intelligent Agents to Agent Societies - Communications of the ACM",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE0wRHpsYjlKNjZvOHVNNnJEN2tYS2FwWDVWX3lSUWR6aUNjbS1zOHdVS2ViVTkyeElWOGFuaC1yczdDZElQMDVTUVhuSWRES2htYmV5enNEbm9CSDRsSlcxZ0d4aUVLRG9rYjNHOVNMT3lNdUFfN0ZHTQ?oc=5",
+      "excerpt": "From Intelligent Agents to Agent Societies Communications of the ACM",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://cacm.acm.org/",
+        "name": "Communications of the ACM"
+      },
+      "publishedAt": "2026-11-12T20:59:44.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "bcae74e2-4db4-497b-969e-60365211e038",
+      "title": "Four Amazon Bedrock inference choices that affect cost - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQVDBxQmdGc2FjdUtJLXpEYkQ0bEp6d2pzRUxqV3lHMlQtVHZwa2ZvWWVDMV9ycmZrODR5bEQ3Q0V2dlNFNm4tQVRqOFQ2eWRxTmVYQkhDajVDeXJ6dDJ3a0F2VlZkUERTZDJJMEt5ZnpkYjZFUTJid0lrRzZkWlB6clkxQXhDUmw4RWJpdnQ3YjBzdm1EU1dwVTVjaEt0OHh6X2dj?oc=5",
+      "excerpt": "Four Amazon Bedrock inference choices that affect cost Amazon Web Services (AWS)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-12T20:51:55.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "36dfcd06-57a9-4a0d-a9c6-ab98740821d7",
+      "title": "Announcement: Conductor Is Back",
+      "url": "https://twitter.com/charlieholtz/status/2120973052024598620",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T20:37:55.000Z",
+      "sources": ["Hacker News"],
+      "points": 24
+    },
+    {
+      "id": "859c6d5f-f29b-4509-a676-2338f82be67f",
+      "title": "Review Finds Artificial Intelligence Shows Promise but Limited Real-World Healthcare Infection Surveillance - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQY0dDOFRhVWkwMFU2TWkzelhkRDZoV2V3M0FFcXJaZU5PZEM5MmFQX3cyNjVhamctRzMzWWh1MUtud0JZUVN4QlotR2k3ei1HNktkenpIX1V5a0pjZ001RTM2eV95QWZkek1obm1kMnphY1lpeHE1b0dWUGo0Qmg1Zk03WDFRbEhjQXZJNndYczFDNGpnaEc2TXl6bGxZTlhYVEc2Vnlnc0RhQWQ2WVJUTklRQUs0a0NyNTA1NEM3SHlkdmlyd2hsMUFYdzU?oc=5",
+      "excerpt": "Review Finds Artificial Intelligence Shows Promise but Limited Real-World Healthcare Infection Surveillance Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-12T20:35:47.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fa1dca00-9908-4211-8f5c-dcea3e64c86f",
+      "title": "Intel, RadixArk Collaborate to Advance Open AI Inference on Intel Platforms - Intel",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPc1Rfc251d0hmN3hsejVTT3d5SFZGZ2pwT0VOYVVwZ3VyN21CUnVRNnlMQ0lIWWxYM1hvRWYzSFBELXRHNkhmeEpyZi1DZG54dzlPbi0yZE9WeEdiMThwWlczVzJudWM3NmpJRzUxUGl6UEd0STFheG05RWtRbjU3YU5xWlJLM3QxZHZDb21VT3RtTjZqUlJIZEJSQW50UUZManJFT0N0U0oyQ3hXTkE?oc=5",
+      "excerpt": "Intel, RadixArk Collaborate to Advance Open AI Inference on Intel Platforms Intel",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.intel.com/",
+        "name": "Intel"
+      },
+      "publishedAt": "2026-11-12T20:34:21.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "57fc7714-4888-420b-8606-411cabec16eb",
+      "title": "Anthropic, OpenAI sued for allegedly infringing inventors' neural network patents - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOWTRubERMSXBGblFuaGZHYzh2SDBfRkZCR0F4bnZmUjlXazJhamZaSkhRRzJPT0xuUmZDdlY5RlJQVFE0Rm1VZl9UeVRTVldVRE01VWZORE9NNGxCbjNNTHBrZmdNTXZNbVo1UVdsZ0JLYTlfWkJqa2diNTdCWHUzQ0lYVHNfYWtVNlhlbWh0LUtDNHFsZW5zQ254eHRXdDlkMlJNUnBXY0pLRkx3M1ZRQ3ZKcmZ3RlNYdUxLcWF3?oc=5",
+      "excerpt": "Anthropic, OpenAI sued for allegedly infringing inventors' neural network patents Reuters",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-12T20:26:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "28558d11-136e-4d84-9427-baca936a4c24",
+      "title": "SMX Brings American Innovation to the Next Frontier of Artificial Intelligence - USA Today",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOaFJ4Z2xJRG51bS1ack1rRTlmUzA0bVpYU3hvNTBPYmh5SE5CUEgwaGc1bzJEZElCaXVlcExCYTBIWllfY0RzSy1TeG9kc2pFTnR6aG0zNURValdDQmhSRGxKbWNWYkdyR24waDRhNDlVcDVxaGhqMTNqQ3lkV3NZNEk2bUtoOFViR0JzSzY4RHM1YlZZcW5fVTFhYUZmeHhURjI2MkNyNTMyU1o2d0N5WjlMRG9DbXhTSXZqNGwxdkFtay00V0xpeXlB?oc=5",
+      "excerpt": "SMX Brings American Innovation to the Next Frontier of Artificial Intelligence USA Today",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.usatoday.com/",
+        "name": "USA Today"
+      },
+      "publishedAt": "2026-11-12T20:04:22.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6de6e61d-e050-487f-ae9e-92a64ae039b5",
+      "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
+      "url": "https://openai.com/index/amplitude",
+      "excerpt": "Built primarily on OpenAI models, Amplitude’s proactive product agent, Wave, identifies what to build, helps teams ship changes with coding agents, and measures the impact.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T20:00:00.000Z",
+      "sources": ["OpenAI News"],
+      "points": 0
+    },
+    {
+      "id": "b56d01d3-e501-49b9-953c-93e9049809ea",
+      "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
+      "url": "https://openai.com/business/customer-stories/amplitude",
+      "excerpt": "Built primarily on OpenAI models, Amplitude’s proactive product agent, Wave, identifies what to build, helps teams ship changes with coding agents, and measures the impact.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T20:00:00.000Z",
+      "sources": ["OpenAI News"],
+      "points": 0
+    },
+    {
+      "id": "ea145682-7807-4b85-9552-5433a9ac8f1f",
+      "title": "Meet the people who want peptides to be made in America",
+      "url": "https://www.theverge.com/column/1032243/peptides-american-manufacturing-maha",
+      "excerpt": "This is Optimizer, a weekly newsletter sent from Verge senior reviewer Victoria Song that dissects and discusses the latest gizmos and potions that swear they're going to change your life. We'll be taking a break next week and will be back on November 25th. Opt in for Optimizer here. The SS Jeremiah O'Brien is a […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T20:00:00.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "80f2531b-0df8-4ac8-9858-4d357181f7bd",
+      "title": "Ars Live: What drone attacks on data centers mean for modern life in the cloud",
+      "url": "https://arstechnica.com/gadgets/2026/11/ars-live-can-the-cloud-survive-drone-strikes-on-data-centers/",
+      "excerpt": "Drone and missile strikes have inflicted unprecedented damage on data centers in Eastern Europe and the Middle East this year, disrupting cloud services for millions of people and permanently deleting some Amazon Web Services customer data. This trend represents a new concern for Big Tech companies—but also for governments and everyone else who depends on common digital services in modern life. To explore what this all means for modern society’s reliance on cloud resilience, I will be hosting a live conversation titled \"Drone attacks and data centers: New Risks for Big Tech\" on Tuesday, November 17 at 1 pm ET with Joseph Jarnecki , a senior research fellow at the Royal United Services Institute (RUSI), a UK defense and security think tank. He leads RUSI’s work on how cloud services factor into national security and defense, along with tech sovereignty efforts. Jarnecki has done extensive research on how Ukraine strengthened its cloud resilience with Western partners despite facing both cyberattacks and kinetic attacks at the start of the full-scale Russian invasion, and explored what that means for NATO and European governments’ cloud adoption plans. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Ukraine-data-center-under-attack-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:59:59.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "3172ce6c-9310-4f81-8443-c06055954928",
+      "title": "AI Leaders Weigh In On Ethics and Real-World Application at Fourth Annual Dartmouth AI Conference - Dartmouth Tuck School of Business",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNS1NGSDRweXVycnJOSE1PUklCdHo1RmZHY2NCSWdkeHp3TkpOb0ktblA2Y1VYQU9Fc0FUcDkyaFh5V1hCSFlfT2FIMlpRTWFRaXhpZUhWeTFpZXZ5T01NeHJISkFDdHgycHpkX0FWQVFqWkhocnlZcVhkSE05aFp6ZTUzaTl1aGoxWjBrWi0xTXJjUUlvcjVxYlhyNWg5RXU5czRnaEVqa0hPclFhbC0tZi16cGN5d2xvQ1BLUDVmSDZCRl94clR3bjhUT1dWNmZlN0pSNw?oc=5",
+      "excerpt": "AI Leaders Weigh In On Ethics and Real-World Application at Fourth Annual Dartmouth AI Conference Dartmouth Tuck School of Business",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://tuck.dartmouth.edu/",
+        "name": "Dartmouth Tuck School of Business"
+      },
+      "publishedAt": "2026-11-12T19:57:32.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "721df2c5-e6b5-4bbb-819a-1c4938a8b5f1",
+      "title": "US nonprofits sue tech giants to halt AI development - Al Jazeera",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOUzh3Xzg0ek1tUjktMHMxV1pIR014ckFIT202VFUwTGpDMC0tOWZKaFRkQVg5UzkzaE9VWVVxcnFpclVOU05PZElkMUJXT19qS1NQTE5UbUFPMUFnRDVTeW9oUkpSbkFMcy02WUZwRm44eVV4ZGJNMGxjaEM0TGZ1cVgzejFmaU1sc1diV2R6UDlMZTB1UnYzcXpR0gGfAUFVX3lxTE96N2UydjlyZ3Vmbm9RemR1SGxrMjdQRXFOQ0ZHaUFxOHVlRmVoR3dHV3poMUtuSnNVWEtVWFlpR3RubjRNTkxPVkxSQ1lRNkZsbmozcVYydWRjaTBwM0M1Y21SNWVZNFRzSkZtYVM1OTV6VDFFZkhkSWxyT3BEakZMRkMzeEpzNVhBcXBpY3hIOUw1WlpBMlZLLWpieTZlUQ?oc=5",
+      "excerpt": "US nonprofits sue tech giants to halt AI development Al Jazeera",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.aljazeera.com/",
+        "name": "Al Jazeera"
+      },
+      "publishedAt": "2026-11-12T19:55:29.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "05fe950d-82dd-4b12-9790-ce9c79ae8972",
+      "title": "Data centers need power – lower income, rural residents pay the price",
+      "url": "https://news.cornell.edu/stories/2026/11/data-centers-need-power-lower-income-rural-residents-pay-price",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:53:54.000Z",
+      "sources": ["Hacker News"],
+      "points": 133
+    },
+    {
+      "id": "ee274b3c-1041-4764-84a3-9c30f883b220",
+      "title": "Former Nvidia CEO Huang had a relationship with a second employee, sources say",
+      "url": "https://www.reuters.com/technology/former-nvidia-ceo-huang-had-relationship-with-second-employee-sources-say-2026-11-12/",
+      "excerpt": "https://www.forbes.com/sites/alisondurkee/2026/11/12/jensen-...",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:51:33.000Z",
+      "sources": ["Hacker News"],
+      "points": 406
+    },
+    {
+      "id": "f87bd73d-ca8b-4e9a-8455-67c8909c0955",
+      "title": "A.I., the Incarnation and the true source of human dignity - America Magazine",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOZFpMdTBra2RIdXhnMkZMOUt5d1ZrcHhmWWlfMld1RlE1TlFLZG9TT29ONHc3ZDB1VVk2TUd4M2VCdWpFUUEyOVhmY0I0R1BKNUZ1VHJtYloxVWZnUmVDeFNLR0hXa0lNVEFsVURjVEhJQTh4RHJQc0paRkEyQ0NyaDgyZ3Q1anZ5cnlUTkpMdG41Z184ck82SlJnZW9GTEZkeVVhdg?oc=5",
+      "excerpt": "A.I., the Incarnation and the true source of human dignity America Magazine",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.americamagazine.org/",
+        "name": "America Magazine"
+      },
+      "publishedAt": "2026-11-12T19:51:06.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "50c85475-a53f-4617-b455-33d53c6329e2",
+      "title": "The Elder Scrolls' most obscure adventure gets a 4K PC makeover",
+      "url": "https://arstechnica.com/gaming/2026/11/the-elder-scrolls-most-obscure-adventure-gets-a-4k-pc-makeover/",
+      "excerpt": "So, you think you're an Elder Scrolls superfan? You say you've been there since The Elder Scrolls Arena on MS-DOS and have logged hundreds of hours in The Elder Scrolls Online ? You say you've bought all of the roughly 5,000 re-releases and remasters of Skyrim that have been made available in the last 15 years? Tell me, then: What do you think of The Elder Scrolls Travels: Shadowkey ? What's that? You've never played Shadowkey ? You weren't there day one back in 2004, Nokia N-Gage in hand , ready to experience the game's 176 x 208 resolution mobile hack-and-slash RPG combat for yourself? And you call yourself a real Elder Scrolls fan? Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/torch-hall-1152x648.webp",
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:49:11.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "b3b8889b-8fc2-44e6-a0b4-7d3ef565ddcc",
+      "title": "San Francisco court asked to freeze AI development, stave off catastrophic harm - Courthouse News",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOOE5lTVUwSjdobXpPQ2xRVXJBMXdvaFRTN3NCNVc4aXZMZDJsQUV6VWZvWktrTk5xQ3lCaEJXZUNSZ1Vrc2JWUGRpSE1YSUg5aW9EZGR0TmZQT21TdDRIeEhmdDFLTUg3SDVXVjBsckFDblliWUdub28zSEZaazlTZ2hLUy13N2M1WGVVa3c1WnV3V1c5ampIQmttSmlpRG50cjJKZ3pXNDlzSjE1M3Vv?oc=5",
+      "excerpt": "San Francisco court asked to freeze AI development, stave off catastrophic harm Courthouse News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.courthousenews.com/",
+        "name": "Courthouse News"
+      },
+      "publishedAt": "2026-11-12T19:46:09.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5d07fe9c-0b3a-4834-9520-c05263c69103",
+      "title": "SpaceX Plans $74 Billion Investment to Build Data Centers in Texas and Arizona - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE50Ym5PVmtVcmozcmwzTDBvSVZuSUVuanV6R3FNY0lrQm5GZ3pYZk1TQThWd2xERm9xUWs0NEdpTnpmSEFsOG9NT1hxdHVOb2xUSVNjeWhCckR3eGxoLTlSN2VyTV9EQXJ5VDJsM3Vxalp2NF9oTFE?oc=5",
+      "excerpt": "SpaceX Plans $74 Billion Investment to Build Data Centers in Texas and Arizona The New York Times",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-12T19:45:26.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "db190c2d-895b-4974-bf3a-60efec4ab89e",
+      "title": "No, AI agents did not discover a previously unknown Maya site",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery",
+      "excerpt": "Armed with a team of AI agents, Google researcher Pietro Miotti claimed earlier this week to have discovered a potentially unmapped Maya site in Mexico. There was just one problem: The site had already been discovered and was published in an academic journal last year. The incident, which sparked criticism among archeologists online, underscores a […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:42:40.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "eca8c235-437d-4451-b3fd-7713a2465bb3",
+      "title": "Jensen Huang built the company that powers AI. Now Nvidia must find a way forward without him - Boston Herald",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQYlpMWnlrVkVvRVA2bFlZS01YRGNrVXNEWC1XWjlNbnZDVGRzNnk3YVlNZWo1cWlrUFZPaGwzTzVicWx1U1FVZjNNSDRYTWdna2ZoSlVsNkJHSUplSWJpelpoVkRKLUt4X19ydnd0QWtiMDNraUZ3b2JIZ0RaN25pLTNrb2ZySE5vRFhQbm9ZN20?oc=5",
+      "excerpt": "Jensen Huang built the company that powers AI. Now Nvidia must find a way forward without him Boston Herald",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.bostonherald.com/",
+        "name": "Boston Herald"
+      },
+      "publishedAt": "2026-11-12T19:41:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8c702745-f870-487b-8cf1-9db3fd499daf",
+      "title": "HUD plans OCIO overhaul, new division for data and AI - Nextgov/FCW",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNNnUxX1oxOHV1R1pxVnFvQlp6S2YyUTZDRnR2ajRaNmg0VUMtN1hlQTJnZWdFdGZNUHJPLVlaeC1rcF9GYjRJSW1zTnJ0WWZjQk93Z3BHTHptLTNKWHlGMXZnbTJZbkFCZTEzMXdYQXRQUWNVWkRhenIyX1NxcHQ3dzZGcDY1U1RHSEcwbU5QMnVsNVFDR0FMTXIxU2QzbVVTN3ItZjhSc1U0N2ZkdDREMnhpSEw4LVo1NGlUenA0TWwwZTdiLXlTcFNB?oc=5",
+      "excerpt": "HUD plans OCIO overhaul, new division for data and AI Nextgov/FCW",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nextgov.com/",
+        "name": "Nextgov/FCW"
+      },
+      "publishedAt": "2026-11-12T19:29:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "75449370-e46f-4f31-9308-c5af3c9fb7b7",
+      "title": "Google rolls out Gemini 4 Hydrogen, finally replacing 3.8 Flash",
+      "url": "https://arstechnica.com/google/2026/11/google-rolls-out-gemini-4-hydrogen-finally-replacing-3-8-flash/",
+      "excerpt": "Google is continuing its elemental AI naming scheme with the new Gemini 4 Hydrogen . These names are less descriptive than the Pro/Flash monikers of earlier releases, but Hydrogen's purpose is clear: It replaces the faster, more economical Flash models most people in Google's ecosystem use. With Google's recent Argon and Carbon releases, the rollout was staged and began with cybersecurity researchers. Even when general availability began, Google restricted access to users paying for its most expensive AI subscription. The limits for Hydrogen are much more relaxed, with access beginning immediately. This model has replaced Gemini 3.8 Flash across the company's products. Google claims that Hydrogen represents a major improvement versus the previous Flash model. It runs in one of four thinking levels (low, medium, high, and the new xhigh), and even in high mode, it's 2.5 times faster than Flash 3.8. Plus, it reduces \"fabricated claims\" by more than 5x, according to Google's analysis. Users will also see gains in code generation, with Hydrogen more than tripling 3.8 Flash's score in Terminal-Bench. In some cases, Hydrogen even trades blows with Argon. It managed a score of 54 in the popular Artificial Analysis Intelligence Index with xhigh mode versus 50 for Argon. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/04/gemini-general-6-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:23:03.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "3c1db743-7ff6-4d56-bbd8-ca4b6205573f",
+      "title": "Advocacy groups sue AI giants to freeze models, warning of 'catastrophic' risks - Scripps News",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQS1luaHNxVndSRGswZnFpcW1LcHZXMXhhN2ZicXJqMDUxcjJHSEI0WGd5UTlYeFdZNHhUSlNRbTNNQjY2ZnhBTWFzOGJQaElrbUYzaFh0TEJrdTZBLTZMNl9kblc4QWpmRTdOYjN4SlRMQ3NKbEgyZUdHNkQzc2NGM05ETC0zUWlzR2NzOVBmb1NLOXdBX2ZrMmduWVJpcF9DRFpEeFNIVVBzYnI1ckI1MWVhZlpiS2dGNUY3QzRSSnppVlFJd3YxNDNFaGdCaXVKcklhN1ViV0QxaXJiVnc?oc=5",
+      "excerpt": "Advocacy groups sue AI giants to freeze models, warning of 'catastrophic' risks Scripps News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.scrippsnews.com/",
+        "name": "Scripps News"
+      },
+      "publishedAt": "2026-11-12T19:18:45.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "caccda04-ff0f-40f7-9c8d-36d17985a277",
+      "title": "SDSU researcher puts artificial intelligence to work in wheat fields - The Dakota Scout",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQdXYtUkxPRE5hQmRqMk5zVi1XLUxSUGk3aXBNZWJYekdULXozREZoUlptMkhBQmNHaUFFdjVsMElCZDdBVWVTenVQQUVQcm5CVmh2M1RuNEtGQnEtZGVXRXdvMkZFbURra0dsMVhPN2RhN0lNMk16OV93XzZtR19ubEZOTXRRaENPdXM0SHY4NUtiRUtJQUNLa3VYRVBqekduYmRv?oc=5",
+      "excerpt": "SDSU researcher puts artificial intelligence to work in wheat fields The Dakota Scout",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.thedakotascout.com/",
+        "name": "The Dakota Scout"
+      },
+      "publishedAt": "2026-11-12T19:12:16.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "899d21e8-aed3-4037-adc1-b4b20fa60f3f",
+      "title": "SMX Brings American Innovation to the Next Frontier of Artificial Intelligence - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPV0NESW01eUdUZ2hwR3Q2VkE3RWZiOGZqNktsZlhWQ2M0c3ZlcXluUkpqUVd3Y0Q3c3FkRjkyZkxlaGJHTjNNRk04aXIxNmFRUHRUWHBFUGM2bmgzczFSbnRmTW5IczVGZV83RGlidnlvZnliMHBkUHhGQk1OVHBOSHl3N1dJQ29VQURwWXhWMHFKQ2tVQU9yU1B5cUVVcDhY?oc=5",
+      "excerpt": "SMX Brings American Innovation to the Next Frontier of Artificial Intelligence Yahoo Finance",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://finance.yahoo.com/",
+        "name": "Yahoo Finance"
+      },
+      "publishedAt": "2026-11-12T19:10:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "4615c5b7-7f17-4f54-b8ba-2d33d07c7e21",
+      "title": "Ukraine says it can’t stop Russian strikes because Starshield is limited again",
+      "url": "https://arstechnica.com/tech-policy/2026/11/ukraine-says-spacex-starshield-is-restricted-again-spacex-claims-it-isnt/",
+      "excerpt": "Ukraine President Volodymyr Zelenskyy said today that Starshield has again been disabled on fast-moving drones in Ukrainian territory occupied by Russian forces, and that the US has provided \"very little\" information about the return of the restriction. \"We have detected speed restrictions on Starshield on our Ukrainian territory again, in the temporarily occupied parts of Ukraine,\" Zelenskyy said in a speech at the 9th European Political Community Summit in Ireland. \"The speed limit is back at 161 kilometers per hour—that’s 100 miles per hour.\" Zelenskyy's allegation is that Starshield—the military variant of SpaceX's Starlink satellite service—stops working on Ukrainian military drones when they travel above 161 kilometers per hour. Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/zelenskyy-1152x648-1794506400.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:09:57.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "04854a39-c6af-4de6-a928-a508a23a1604",
+      "title": "Microsoft Outlook is still down",
+      "url": "https://www.theverge.com/tech/1032226/microsoft-outlook-is-down",
+      "excerpt": "Microsoft Outlook continues to be unavailable for people, businesses, and public services across the globe, leaving people unable to access their email, either through the web or apps. Reports around the issue starting rolling in at around 1PM ET on Thursday, with Microsoft since confirming that the outage is impacting Microsoft 365 features that interact […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:07:21.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "e9efa032-1d2b-458e-8071-c6d756302150",
+      "title": "Distributed Ray Tracer",
+      "url": "https://ray.hatchet.run/",
+      "excerpt": "Hey HN, I'm Julius, I'm a backend engineer at Hatchet and created this demo to show off some of Hatchet's new features, primarily durable streams and serverless endpoints. Those, however, are just background details that made this significantly easier to scale. By distributing the rendering across many different nodes, orchestrated using Hatchet, it makes it possible to render quite high fidelity scenes fairly quickly. All of this would be possible on a single machine, but would be much slower without dedicated hardware (RT cores, etc). The renderer itself is using well-known ray tracing techniques, with no special considerations there. The renderer is a slightly modified version of https://github.com/ekzhang/rpt , with additional support for SDF scripting using https://docs.rs/fidget/latest/fidget/ . SDFs have been popular in the demoscene community, though perhaps not super well known outside of that, and are capable of creating some fantastic looking scenes: https://www.shadertoy.com/view/ld3Gz2 . The coolest part here is using a DSL to represent the SDFs in a rendering pipeline, and using LLMs with a chat interface to create them. The source is available here: https://github.com/hatchet-dev/distributed-ray-tracer",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:06:23.000Z",
+      "sources": ["Hacker News"],
+      "points": 32
+    },
+    {
+      "id": "44aa360e-9606-43a0-9633-d8d1de434f1e",
+      "title": "Dwarf planet candidate appears which takes roughly 280 years to orbit our sun",
+      "url": "https://www.smithsonianmag.com/smart-news/astronomers-found-a-mysterious-object-orbiting-far-beyond-pluto-it-could-be-a-new-dwarf-planet-hidden-in-our-solar-system-180989857/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T19:05:33.000Z",
+      "sources": ["Hacker News"],
+      "points": 361
+    },
+    {
+      "id": "fe35fddd-82cc-4e96-9554-e7d7a1a2adc2",
+      "title": "Anthropic Preps for a Trillion-Dollar Debut - Global Finance Magazine",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNRU1PLXRFWThaMlc5emtuWnhRYXI0cmlVTjVjZFBOYU5CUldTMTBsdDZkc2JPR3lWbXFRcEs5VkU3eXBKVEhXUDI5QjR2WkRKUW5aSndQX0VEV1ZDLVRLZnhTSXZ2YmJ2eUVLbGVFVVIteEZMdk9CVVJESXo3d01NMHQyVG5FSmlRY251anVMLUlhRkVQZ1RJ?oc=5",
+      "excerpt": "Anthropic Preps for a Trillion-Dollar Debut Global Finance Magazine",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gfmag.com/",
+        "name": "Global Finance Magazine"
+      },
+      "publishedAt": "2026-11-12T18:59:48.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "ffa99cab-a4ae-4b14-81a8-cdb3593e2f2a",
+      "title": "Google faces calls for AI moratoriums in schools after Gemini pilot backlash",
+      "url": "https://arstechnica.com/tech-policy/2026/11/families-fight-to-keep-googles-disturbing-ai-off-school-issued-chromebooks/",
+      "excerpt": "CHICAGO—Families joined protests in seven cities nationwide on Wednesday, rallying against what they see as Google’s bid to entrench its AI models in schools, turn kids of all ages into Gemini guinea pigs, and hook them on AI. The backlash follows a Google statement last week, confirming that there will be no way for students to use Google Search without AI. While Google claimed it was giving schools “more choice, not less”—by turning off Search, Gemini, and Gemini Notebook by default—it would not provide an option that allowed Search without AI. For students, the only way to avoid interacting with AI was to remember to add “-ai” to every query, parents worried. In Chicago, many families showed up to protest Google, despite cold, rainy weather. Waving signs, dozens of protesters marched up to Google’s downtown office as workers seemed to be leaving for the day, shouting chants like “Hey Google, nice try, we don’t want your Gemini” and “Hey, Google, leave our kids alone!” Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Win-win-1152x648.jpeg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T18:57:45.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "9392ac5b-28ea-4104-9a3a-4c30bfb898cf",
+      "title": "Explainer-Tougher curbs on AI chip sales to China likely after Nvidia CEO resigns - Yahoo! Finance Canada",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxONkotRFd1eEhsdnVwUU9OVDZGUkQwU3JyLW00V05JT1RkZ3NtZGhJX3RObEVYZHlPbHA2UzZsUmJaMVlVMl9Jbl80WVM0NjZIX2VBWE1hV0owNTlTYXMyaHZOMHlrT18ybktTSFZ1b0o2U0pXMUEzZXlucGdGcnB0OTRXQkFWVDA?oc=5",
+      "excerpt": "Explainer-Tougher curbs on AI chip sales to China likely after Nvidia CEO resigns Yahoo! Finance Canada",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://ca.finance.yahoo.com/",
+        "name": "Yahoo! Finance Canada"
+      },
+      "publishedAt": "2026-11-12T18:54:47.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "b51905b3-1148-484c-ba92-53a46cd687df",
+      "title": "Explainer-Tougher curbs on AI chip sales to China likely after Nvidia CEO resigns - Yahoo",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNM0pCanM1N0xJSnpHZVdocEZQODFsLUVfelNGb0JyNXRQZXVGaFBORVktUWJjbGNIbXcyVjdjbVlOd2NNcXp0U2JDc0xTTEZfYnQzVXdUSDVtOVNYaHZPTWc2WVp5aHMyb3V3bUxxbDNKWFk5TUVQeUNreC1ySzZhajJHSlI?oc=5",
+      "excerpt": "Explainer-Tougher curbs on AI chip sales to China likely after Nvidia CEO resigns Yahoo",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://malaysia.news.yahoo.com/",
+        "name": "Yahoo"
+      },
+      "publishedAt": "2026-11-12T18:54:47.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5564be0c-9976-418f-b4bc-d0614b105969",
+      "title": "Higher-Income Parents Use AI More and Encourage Their Children to Do the Same - RAND",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5PRzlkTEhtc1d0V19iajRwUXRYTkRfN1RGZnNnNzhNMFZGaDQ5WDMzc1NCTlRYazEyd2Nta2Y4Tkk0dE41dmEwZ1Nud2lLMkFybTdWand4WHlVN01oNnZqX3AxM3BnUlBR?oc=5",
+      "excerpt": "Higher-Income Parents Use AI More and Encourage Their Children to Do the Same RAND",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.rand.org/",
+        "name": "RAND"
+      },
+      "publishedAt": "2026-11-12T18:53:02.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "a93142a9-2ee7-4364-97ef-81697de86e99",
+      "title": "Gemini 4 Hydrogen and Orchestrator",
+      "url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T18:52:01.000Z",
+      "sources": ["Hacker News"],
+      "points": 480
+    },
+    {
+      "id": "dc2550f9-677c-4cca-ab79-72b24093817f",
+      "title": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair - Courthouse News",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQYW1femlfRjNlV3dYVzZjYklVMmkzZ3U5S1h4c25tV2k2LWQ0a3ROODFLR2M3MW9idHBGMThpVEkxSEs0YVRxX2VRSURaTXFxYVpjQ0E4VjQzLU9KZzNycDVuelVGbjhNRklmVXZQOXBsRlpQbWVKN2FsVFZDZFpORW9vWUZ6eWlUWlB3ZlIyYWN4andWamtsUlY4N0pJVXM1TTBfSUZoOHdwb0RtYVRxUVRwUTNCT3VrN3FmcnBaTQ?oc=5",
+      "excerpt": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair Courthouse News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.courthousenews.com/",
+        "name": "Courthouse News"
+      },
+      "publishedAt": "2026-11-12T18:48:30.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "59198b26-7392-4a74-9982-3c684183a92e",
+      "title": "Optimizing cost per task and proving agent ROI on Amazon Bedrock - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNSi04UWpIVThncVlzN2Z2dW44eWJTT1ZmWHhESllLdVRoVFBzMmVsQmlPYU5hZTlHTUxtazdaUlRoaEJ0RDVkZmdkWTh5MnhuemFLWVZDcktaRWFuSnN5YXM4dVE2WHhKdElFbmpKdXNuYmgyV1h4Qk1EYUxwV29pUDZwNERhbk1uWGlEaVhkLXc5bG9JM0JYRkJyLXhsbWMtU3lfYW5xVUplUWNrTHI1Tw?oc=5",
+      "excerpt": "Optimizing cost per task and proving agent ROI on Amazon Bedrock Amazon Web Services (AWS)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-12T18:43:19.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f7c23c1a-c58a-4607-817a-4797c3aa5fe7",
+      "title": "Building a self-service LLM gateway with Amazon Bedrock and LiteLLM | Amazon Web Services - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQVUUyWmQ2elo4ZXVzSmFBN2x5TVlFSnY2VWktYnpNRi15UmJIQ01ZU1JJeFhwdDBPeU1DU29OQjFHcHhQWDJtVEJZZkNJb09UcVRQMUZ1Z3c4VjlISDRnc01lMjR4cEpVMjdnRVpDQmd4MzMweUcxcDdUbU00enM1YUV5Rmoxd1lSWVljam1JS0FQUG5pYWcxWG90VDE4LTVHRDJNQ3pfc0o2dUdRUWxnUDhRdy0?oc=5",
+      "excerpt": "Building a self-service LLM gateway with Amazon Bedrock and LiteLLM | Amazon Web Services Amazon Web Services (AWS)",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-12T18:41:12.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "7984337a-efa7-49ed-a19a-f0140e237903",
+      "title": "Rust 1.100",
+      "url": "https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T18:39:05.000Z",
+      "sources": ["Hacker News"],
+      "points": 847
+    },
+    {
+      "id": "363b38bd-a83f-41c1-ab38-478ea02726a8",
+      "title": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair - Dallas News",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOWHc0TWFNTDRWUGlZcE1RWElsSldzMU9reXZaa0hJMDItRzlVTzFuYXZzQWZQdjh1cTRXUzlXZTloOGVYOUNfZno4YWkxY0RvbVVkMkhQTW5sVnRSSUYzdnZKSkpMSG5Nc3JYbEs1RlF5aExHZS0tV1hOOFpPUnhhREl4YlVzYlhlMEE3cGNlZmwtN0FmdFlKSEQwcWFQTWhyNTk2U2p4SQ?oc=5",
+      "excerpt": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair Dallas News",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.dallasnews.com/",
+        "name": "Dallas News"
+      },
+      "publishedAt": "2026-11-12T18:38:48.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "1b7698d2-0010-4277-a0d4-b497889019fa",
+      "title": "Netflix releases new trailer for Ray Gunn",
+      "url": "https://arstechnica.com/culture/2026/11/netflix-releases-new-trailer-for-ray-gunn/",
+      "excerpt": "We caught the first trailer for the upcoming Netflix animated film Ray Gunn in September and were charmed by director Brad Bird's blend of a Jetsons-like future with classic 1930s noir detective thrillers. Bird has described it as a mashup of The Maltese Falcon and Buck Rogers , and the latest trailer definitely gives off that energy. As previously reported , Bird has directed some of our all-time favorite animated films: The Iron Giant (1999), The Incredibles (2004), and Ratatouille (2007), with the latter two snagging well-deserved Oscar wins. He's been kicking around the idea for Ray Gunn for the last 30 years, working on his many other film projects while the Ray Gunn script—co-written by Matthew Robbins, who also co-wrote 1987’s Batteries Not Included with Bird—“stayed in a filing cabinet at Warner Brothers,” the director said earlier this year. The film’s inspiration came when Bird heard the opening of the B-52s’ “ Planet Claire ” (a personal favorite that also provides the soundtrack to the new trailer) and initially thought it was a cover of Henry Mancini’s theme music from the classic TV show Peter Gunn . Bird is a longtime fan of film noir and hard-boiled detectives, and he came up with the idea of a futuristic detective named Ray Gunn (a play on \" raygun ,\" of course). “It’s film noir and a hard-boiled detective story, but it’s got a lot more comedy and a lot more action than the average film noir,” said Bird . Read full article Comments",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/raygunn-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T18:38:38.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "06191c9f-b1a6-4df0-b922-35be945aa4c5",
+      "title": "Local student helps lead team to victory in artificial intelligence pitch competition - Marietta Daily Journal",
+      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPMGtNSTNlV0JuWmdFcV9XcnJvVGd1NlJHMjJ2Vm5JeWtseWtCMElXSjFQQmNZSjgwSXA1VlluQVBRUV95LXZJSzc3dkU1M0RmWEI1QTRFYW9veDJGNmFYS1FIcXF1NC1jSzJTWHprLWhFbEVOQjZrRzhsMDFVLXZQY1JJWHVJeWFSMkdWUHFjZG5mUnNEcnkyX3lJMFI3cWVIdFNzNk5Vb2tOb3BXako1Z1dTM1NSZVV5ZkFOV2hfY1kzUEozekdZX29XR0FyVHh1VXlyNF8xd2JUOVpiTXV5TW5QT1pURjh4ZHNzZ0ZDckZhNE9rdWZjZGluNUZQcl91aFRyOWh1dw?oc=5",
+      "excerpt": "Local student helps lead team to victory in artificial intelligence pitch competition Marietta Daily Journal",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.mdjonline.com/",
+        "name": "Marietta Daily Journal"
+      },
+      "publishedAt": "2026-11-12T18:36:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "e0fbb34e-a531-4bf5-91e7-5b0f8704ff76",
+      "title": "Primary Care Patients Report Cautious Perceptions Toward Portal Artificial Intelligence Chatbots - Bioengineer.org",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOOGFOSDg3YTVnRVBxT0YwZ3d1azNoWVRlQ2RRM0c3RUlQcFN4aV9VR1g3NXh4V1lOTnFTbVd3OWRvODBwQXF0NTZzTGxoZjl1MXpqOXNXZFNSWEd5U05fWm1TMnk3R0gzTnU5T05hVXVZZ19ZLXB3OGdxT0hmUkxVdHdwQkdpMlBZTE5ZVEdEeTdxWWo5SXhoVTdEMDNtLXhwcG01WWR3WVp2bXpVMVI0dFZELWt5Y2gzZy1iREVB?oc=5",
+      "excerpt": "Primary Care Patients Report Cautious Perceptions Toward Portal Artificial Intelligence Chatbots Bioengineer.org",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://bioengineer.org/",
+        "name": "Bioengineer.org"
+      },
+      "publishedAt": "2026-11-12T18:35:59.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "fde19f3c-32ba-416d-84ed-e8e553c1b022",
+      "title": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair - SFGATE",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOYjMxeXdiRzJEZDQ4MFpKRUxaWi1SU3paemM0T1hhejctcmlPOVpUdEtSa0F4UTZ1Y3U2UFBRM2RLeDdsMXRDekp6d1lCRWcwRnhvdDhZWUk5bHAyYkRRQ3B6YUUzT1o2c3J6LTZpV1VHTHltdUx6UHZLYnQ1VjZMVE9PN21DcjBOVTliRkVXcHB5eUxRSzlnNmlmUGhqdU1vUkE?oc=5",
+      "excerpt": "Jensen Huang, a global salesman for artificial intelligence, resigns from Nvidia after affair SFGATE",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.sfgate.com/",
+        "name": "SFGATE"
+      },
+      "publishedAt": "2026-11-12T18:32:42.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    }
+  ],
+  "events": [
+    {
+      "name": "Microsoft Outlook and 365 outage",
+      "reason": "Repeated outage and recovery reporting; recovery belongs to the same continuing incident.",
+      "ids": [
+        "3d87c1f8-86e4-4fa1-a899-2dbea3c0913c",
+        "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+        "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+        "04854a39-c6af-4de6-a928-a508a23a1604"
+      ]
+    },
+    {
+      "name": "Claude service outage",
+      "reason": "Both supplied headlines describe Claude service errors; no cause inferred from empty bodies.",
+      "ids": [
+        "7068ebba-cd37-4786-8201-de89b683c2c4",
+        "7daab4a1-b83d-436a-a85d-bd14303c3a10"
+      ]
+    },
+    {
+      "name": "Gemini 4 Hydrogen launch",
+      "reason": "Both excerpts explicitly describe the new Hydrogen model rollout; the ambiguous Orchestrator link is not labeled.",
+      "ids": [
+        "31a997d0-e083-4d16-9704-7e51555e4b9e",
+        "75449370-e46f-4f31-9308-c5af3c9fb7b7"
+      ]
+    },
+    {
+      "name": "Lawsuit seeking AI development freeze",
+      "reason": "Headlines describe the nonprofits seeking a court-ordered halt to AI development; distinct patent litigation is excluded.",
+      "ids": [
+        "c1556b03-1c46-4e03-92be-ef199e6102be",
+        "721df2c5-e6b5-4bbb-819a-1c4938a8b5f1",
+        "b3b8889b-8fc2-44e6-a0b4-7d3ef565ddcc",
+        "3c1db743-7ff6-4d56-bbd8-ca4b6205573f"
+      ]
+    },
+    {
+      "name": "Nvidia Huang resignation",
+      "reason": "Identical resignation headline syndicated across three publishers; later relationship allegations and economic analysis are separate.",
+      "ids": [
+        "dc2550f9-677c-4cca-ab79-72b24093817f",
+        "363b38bd-a83f-41c1-ab38-478ea02726a8",
+        "fde19f3c-32ba-416d-84ed-e8e553c1b022"
+      ]
+    }
+  ],
+  "mustOmit": [
+    {
+      "id": "05a62b1a-c769-402f-aaec-a6cdc1af5cac",
+      "reason": "General producer-price inflation report without supplied technology development."
+    },
+    {
+      "id": "cf477d20-2751-4755-98bc-ebe953cc7556",
+      "reason": "Building-collapse casualty report without supplied technology development."
+    }
+  ]
+}
