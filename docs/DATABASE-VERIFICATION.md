@@ -908,3 +908,18 @@ Both outputs are historical structured values serialized by the test; requests,
 triage, candidate metadata and zero usage are synthetic. This adds automatic
 repair orchestration to the publication regression, not historical triage or a
 full-edition golden. No live data, provider request or scheduled acceptance.
+
+## NBA repair admission refusal at publication (iteration 2236)
+
+The isolated NBA publication regression also consumes the last available
+reservation on the saved malformed Haiku initial output, then refuses admission
+for its automatic repair and every later attempt. The repair request must carry
+the validator's invalid-selection feedback. Only the initial response dispatches
+and settles; no rejected output enters the cache.
+
+Two scheduled publications retain five source headlines/excerpts and non-AI
+provenance, without generated summaries, context or brief. Public reader HTTP
+latest/history/detail preserve those fallback snapshots and hide the newer
+unpublished generation. Historical output serialization, requests, triage,
+metadata, zero usage and the ledger exhaustion are synthetic test scaffolding.
+No live inference or scheduled acceptance is claimed.

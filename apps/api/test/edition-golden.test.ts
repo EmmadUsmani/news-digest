@@ -599,12 +599,13 @@ void test('system edition scope preserves publication filters, replay and rollba
   }
 });
 
-for (const [entryIndex, label, automaticRepair] of [
-  [0, 'Sonnet initial', false],
-  [1, 'Sonnet repair', false],
-  [2, 'malformed Haiku initial', false],
-  [3, 'Haiku repair', false],
-  [3, 'Haiku automatic repair', true],
+for (const [entryIndex, label, automaticRepair, repairBudgetRefused] of [
+  [0, 'Sonnet initial', false, false],
+  [1, 'Sonnet repair', false, false],
+  [2, 'malformed Haiku initial', false, false],
+  [3, 'Haiku repair', false, false],
+  [3, 'Haiku automatic repair', true, false],
+  [2, 'Haiku repair budget refused', true, true],
 ] as const) {
   void test(`historical NBA ${label} ${entryIndex === 2 ? 'falls back to source excerpts' : 'survives publication'} through public reader HTTP with synthetic triage and metadata`, async (t) => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -652,39 +653,41 @@ for (const [entryIndex, label, automaticRepair] of [
     const replay = new ReplayLlmAdapter({
       version: 1,
       provenance,
-      records: automaticRepair
-        ? [
-            {
+      records:
+        automaticRepair && !repairBudgetRefused
+          ? [
+              {
+                fingerprint: llmFingerprint(request),
+                model: model.id,
+                response: {
+                  text: JSON.stringify(saved.entries[2].output),
+                  usage,
+                },
+              },
+              {
+                fingerprint: llmFingerprint({
+                  ...request,
+                  prompt:
+                    request.prompt +
+                    '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
+                    new LlmValidationFailure('invalid-selection').feedback,
+                }),
+                model: model.id,
+                response: { text: responseText, usage },
+              },
+            ]
+          : Array.from({ length: rejected ? 6 : 1 }, () => ({
               fingerprint: llmFingerprint(request),
               model: model.id,
-              response: {
-                text: JSON.stringify(saved.entries[2].output),
-                usage,
-              },
-            },
-            {
-              fingerprint: llmFingerprint({
-                ...request,
-                prompt:
-                  request.prompt +
-                  '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
-                  new LlmValidationFailure('invalid-selection').feedback,
-              }),
-              model: model.id,
               response: { text: responseText, usage },
-            },
-          ]
-        : Array.from({ length: rejected ? 6 : 1 }, () => ({
-            fingerprint: llmFingerprint(request),
-            model: model.id,
-            response: { text: responseText, usage },
-          })),
+            })),
     });
     const cache = new Map<string, unknown>();
     let dispatches = 0;
     let settlements = 0;
     let reservations = 0;
     let cacheWrites = 0;
+    let refusedRepairPrompt: string | undefined;
     const llm = new BudgetedLlm(
       {
         async complete(request) {
@@ -708,8 +711,13 @@ for (const [entryIndex, label, automaticRepair] of [
           }
           cache.set(key, value);
         },
-        async reserve() {
+        async reserve(attempt) {
           reservations++;
+          if (repairBudgetRefused && reservations === 2)
+            refusedRepairPrompt = attempt.prompt;
+          // Simulate the last available reservation being consumed by the invalid
+          // initial response. Repairs and subsequent generations must not dispatch.
+          if (repairBudgetRefused && reservations > 1) return null;
           return 'historical-publication-offline';
         },
         async settle(_id, actual, cost) {
@@ -800,7 +808,7 @@ for (const [entryIndex, label, automaticRepair] of [
           await adapter.generate(
             new Date('2026-11-12'),
             new Date('2026-11-13'),
-            `historical-nba-offline:${entryIndex}:${automaticRepair}:${i}`,
+            `historical-nba-offline:${entryIndex}:${automaticRepair}:${repairBudgetRefused}:${i}`,
           ),
         );
         assert.equal(edition.topics.length, 1);
@@ -946,7 +954,31 @@ for (const [entryIndex, label, automaticRepair] of [
       } finally {
         await app.close();
       }
-      if (rejected) {
+      if (repairBudgetRefused) {
+        assert.equal(
+          refusedRepairPrompt,
+          request.prompt +
+            '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
+            new LlmValidationFailure('invalid-selection').feedback,
+          'the rejected repair must carry invalid-selection feedback',
+        );
+        assert.equal(
+          dispatches,
+          1,
+          'no dispatch after repair admission refuses',
+        );
+        assert.equal(
+          settlements,
+          1,
+          'settle only the dispatched initial response',
+        );
+        assert.ok(reservations > 1, 'repair must attempt separate admission');
+        assert.equal(cacheWrites, 0);
+        assert.equal(cache.size, 0);
+        assert.deepEqual(llm.validationDiagnostics(), [
+          { attempt: 'initial', category: 'invalid-selection' },
+        ]);
+      } else if (rejected) {
         assert.equal(
           dispatches,
           6,

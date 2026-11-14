@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iteration 2223](docs/progress-archive/2026-11-14-iteration-2223.md).
+
 Archived entry: [iteration 2222](docs/progress-archive/2026-11-14-iteration-2222.md).
 
 Archived entry: [iteration 2221](docs/progress-archive/2026-11-14-iteration-2221.md).
@@ -87,19 +89,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2223 — pending disk alert recovery
-
-- Clean main; no inherited work. `pnpm obs alerts` found a pending DiskSpaceLow warning; `/healthz` database/Redis pass.
-- Two interrupted integration runs left about 542 MiB in `/tmp`; both runner PIDs dead and privileged same-UID process scan found no environment/command/cwd/file references.
-- Removed only those two owned integration directories after repeating guards; filesystem used bytes 19,562,258,432→18,993,815,552 (79%→77%, 5.6 GiB available).
-- Shell recursive deletion was rejected by the command guard; guarded Node filesystem removal succeeded. No change to the one-hour startup cleanup policy; recent folders explained retention.
-- `pnpm exec tsx --test apps/api/test/integration-temp.test.ts` passes (killed-run cleanup plus active/recent/unrelated/symlink protections).
-- Full check stalled in telemetry-export teardown; isolated test passed. Stopped stalled child (first check failed), then changed test cleanup to stop listeners before closing connections, avoiding reconnect races. Ten consecutive focused runs pass.
-- TASKS updated; no source, schema, handbook, production/configuration or generation change. No paid calls or live content writes.
-- `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 990 unit/309 integration tests, four expected skips. Reader gate verifies five topics/15 stories/20 posts; disk alert cleared.
-- Build passes (existing chunk warning); API/worker restarted active, `/healthz` database/Redis pass, zero pending/firing alerts.
-- Next: 15:00 UTC scheduled all-topic/NBA recovery, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2224 — passive compaction recovery evidence
 
@@ -227,3 +216,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, handbook check and full `pnpm check` pass: 991 unit/320 integration tests, four expected skips. Existing build bundle warnings only.
 - Rebuilt API/worker restarted active; health passes after startup retry. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources healthy. Diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2236 — NBA repair budget exhaustion at publication
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. Scheduled NBA/item 58/public-mode acceptance remains gated on the 15:00 UTC edition.
+- Added isolated historical NBA regression for malformed initial output consuming the last reservation: automatic repair carries selection feedback but admission refuses; only one dispatch/settlement, no cache writes.
+- Two published snapshots retain five source-only fallback stories/non-AI provenance through immutable retrieval and public reader HTTP latest/history/detail; unpublished generation stays hidden. Requests/triage/metadata/zero usage and ledger exhaustion are synthetic; no live inference.
+- Updated TASKS and database-verification evidence; archived iteration 2223 to keep PROGRESS small. Runtime, budgets, source configuration and saved editions unchanged.
+- `pnpm format`, `pnpm lint:fix`, `pnpm build` and full `pnpm check` pass: 991 unit/321 integration tests, four expected skips. Final targeted isolated edition-golden run passes all 14 cases; final API typecheck/targeted ESLint pass. Existing build bundle warnings only.
+- API/worker restarted active; health/database/Redis pass. Saved-reader gate verifies five topics/15 stories/20 posts; all 38 active sources have successful collection/stored content/no errors. Diff check passes.
+- Next: 15:00 scheduled all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
