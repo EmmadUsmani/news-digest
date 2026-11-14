@@ -6,6 +6,14 @@ export function reportingExcerpt(item: {
   excerpt: string;
   publisher?: { name: string } | null;
 }): string {
+  // HN link submissions can retain one or more bare URLs as their text.
+  // They identify destinations, but supply no prose for a reader summary.
+  const text = item.excerpt.trim();
+  if (
+    text &&
+    text.split(/\s+/u).every((token) => /^https?:\/\/\S+$/iu.test(token))
+  )
+    return '';
   const name = item.publisher?.name;
   if (!name || !item.title.endsWith(` - ${name}`)) return item.excerpt;
   try {

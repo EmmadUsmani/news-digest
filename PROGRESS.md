@@ -152,3 +152,14 @@ Older entries: [through iteration 2267](docs/progress-archive/2026-11-14-through
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` passes unchanged edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts.
 - No paid inference, generation, schema or UI change; handbook/screenshots unchanged. Public mode off; VM private.
 - Next: natural scheduled ownership/Gaming recovery before item 58/public activation; already-mismatched legacy HUD text remains open.
+
+## 2026-11-14: iteration 2282 — exclude URL-only reporting excerpts
+
+- Clean main; no inherited work. `pnpm obs alerts`: zero firing/pending. Natural ownership/Gaming recovery still awaits the next scheduled edition.
+- Candidate loading now clears excerpts consisting only of HTTP(S) URLs: two recorded HN FAA excerpts cannot supply source-only reader summaries. Titles remain available; mixed prose/links, raw stored observations and saved editions survive.
+- Recorded excerpt tests cover single/multiple/clipped URLs, surrounding whitespace, both production fallback selectors and synthetic reporting-slot preservation. No fuzzy matching or unsupported HUD cleanup.
+- `pnpm exec tsx --test apps/api/test/reporting-excerpt.test.ts`: two pass. `pnpm format`, `pnpm lint:fix`, `pnpm check`: static checks, 1,019 unit and 328 integration passes, four expected skips.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle-size warning. API/worker restarted; `/healthz` ok/database/Redis true; `pnpm obs sources`: 38/38 healthy.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z` passes unchanged edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts.
+- Updated TASKS and Tech evidence. Bug fix changes no system flow/schema/UI; no handbook/screenshots needed. No paid inference or generation; public mode off, VM private.
+- Next: natural scheduled ownership/Gaming acceptance before item 58/public activation. Already-mismatched HUD excerpt still needs safe provenance evidence.
