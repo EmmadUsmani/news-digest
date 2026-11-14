@@ -2,67 +2,7 @@
 
 Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through-2288.md), [2289–2294](docs/progress-archive/2026-11-14-2289-through-2294.md), [2295–2298](docs/progress-archive/2026-11-14-2295-through-2298.md).
 
-## 2026-11-14: iteration 2299 — NBA selected-story social comparison
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
-- Owner-visible benefit: address Nov 14 NBA's Murray story/post repetition at its missing-input cause. NBA now receives bounded selected-story context in X/Reddit and Bluesky final editing after scheduled NBA AI acceptance.
-- Shared projection limits ten titles/summaries to 300/400 characters; Tech context remains supported, story-evidence enrichment remains Tech-only, other topics retain their rollout. No keyword filter, cap change, extra call or saved-edition mutation.
-- Synthetic Sonnet/Haiku transport preserves distinct follow-ups; orchestration retains empty AI selections, context-free behavior and original post text. Bounds/topic-isolation controls pass. Natural semantic selection remains unverified; review next scheduled NBA picks.
-- Updated TASKS, Nov 14 review and affected social handbook prose; no source/schema/UI change. SOURCES/screenshots unchanged.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. Targeted editor/context/orchestration tests: 37 pass. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; handbook check passes; `git diff --check` clean.
-- API/worker restarted; `pnpm obs health --check` healthy/database/Redis true, `pnpm obs sources --check` 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance/five topics/14 stories/19 posts. Private logs `/tmp/2299-*`.
-- No verification inference, source requests or production writes. Next: natural scheduled Gaming/ownership recovery before activation; review NBA story/post distinctions and retain broader social-quality challenges.
-
-## 2026-11-14: iteration 2300 — compact current task handoff
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Natural Gaming/ownership recovery still gates item 58/private public-mode activation.
-- TASKS.md had grown to 36,435 bytes, obscuring current acceptance work and exceeding the ~8 KB standing target. Reduced it below 8 KB; next scheduled acceptance and deployed fixes now lead the handoff.
-- Preserved all 23 open items in order, with current concise status and individual links to a complete historical snapshot in `docs/progress-archive/2026-11-14-task-detail-2300.md`. No task closed or priority changed.
-- Offline integrity check compares all 23 original open paragraphs against the archive, verifies every local linked file and all 23 anchors, and enforces the size target. No product, source, UI, schema, budget or runtime behavior changes; handbook/SOURCES/screenshots unchanged.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean. Private receipts `/tmp/2300-*`.
-- `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified. No inference, source requests or production writes.
-- Next: natural scheduled Gaming/ownership recovery before activation, plus NBA story/post distinction review. Public mode remains off and sharing private.
-
-## 2026-11-14: iteration 2301 — clarify live NBA source coverage
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts; health/database/Redis healthy and 38 sources healthy.
-- Owner benefit: the handoff no longer misidentifies an active NBA feed as disabled, avoiding redundant activation or incorrect coverage decisions.
-- TASKS conflated Yardbarker RSS with its disabled article-page X harvesting. Migrations 053–055 and read-only live SELECT confirm RSS success at 20:16:53 UTC, 20 fetched items, 83 stored observations, null discovery host and no error.
-- Corrected current TASKS and clarified SOURCES; historical task archive preserved. No runtime/source activation, provider calls, external collection requests or saved-edition writes.
-- Natural Gaming/ownership recovery still gates item 58/public activation; NBA social-context acceptance awaits the next scheduled edition. Public mode off, sharing private.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration tests, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean. Private receipts `/tmp/2301-*`.
-- API/worker restarted; `pnpm obs health --check` healthy; `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance, five topics/14 stories/19 posts. No UI/schema/system-flow change; handbook/screenshots unchanged.
-
-## 2026-11-14: iteration 2302 — require full-edition activation evidence
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy.
-- Found activation checklist still prescribed an NBA-only command despite known Gaming/World/U.S. failures. Updated readiness and activation record to use the existing explicit five-topic gate before activation and after its first public-mode scheduled edition.
-- Explicit names retain missing-section refusal; saved AI provenance, complete triage, published selection and summary agreement remain required. No checker variant or runtime/generation change.
-- Read-only live gate for Nov 14 returns exit 1/editorial-refused: Tech/NBA accepted, Gaming/World/U.S. refused. Latest/direct/history agree on five topics/14 stories/19 posts. Public mode remains off, sharing private; no provider calls or publication writes.
-- Verification: nine targeted gate tests pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration tests, four expected skips). `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
-- API/worker restarted; first immediate health probe preceded startup, retry healthy/database/Redis true; 38/38 sources healthy. Archived 2289–2294 verbatim to keep PROGRESS below 25 KB; integrity comparison passes. Private receipts `/tmp/2302-*`.
-- No source/schema/UI/system-flow change; SOURCES, handbook and screenshots unchanged. Next: natural scheduled Gaming/ownership recovery, then activation in runbook order; NBA social breadth review remains open.
-
-## 2026-11-14: iteration 2303 — preserve linked-report attribution when saving
-
-- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts. Known Gaming/ownership recovery remains scheduled-only; public mode off, sharing private.
-- Owner benefit: saved grouped stories no longer attribute one linked report to every source in the cluster. Today's Nvidia stock-sale link previously saved Google News/Hacker News/The Verge; now it saves its actual per-report Hacker News provenance.
-- Save uses the matching coverage URL's publisher or source labels, falling back to the story only when that report is absent. Existing saved copies are unchanged; resaving captures corrected attribution. No edition-generation, source, budget or provider changes.
-- Browser check `pnpm exec tsx scripts/smoke-reader-saved-source.ts` passes real saved Nvidia provenance plus explicitly synthetic publisher-precedence/legacy controls, preserved links, reload and no overflow/errors in desktop/mobile light/dark. Four screenshots retained under `docs/screenshots/ui/reader-saved-source-*`; mobile light visually checked.
-- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. Initial lint caught a component/helper export; moved the helper to a utility before final verification.
-- Final `pnpm format`, `pnpm lint:fix`, targeted Prettier and full `pnpm check` pass: 1,025 unit tests, 329 integration passes/four expected skips. Corrected a browser-script formatting conflict before the successful full run; `git diff --check` clean.
-- API/worker restarted; startup health retry healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/latest/direct/history agree on five topics/14 stories/19 posts. Receipts `/tmp/2303-*`.
-- No schema/system-flow/source change; handbook/SOURCES unchanged. Next: scheduled Gaming/ownership acceptance before activation, NBA social breadth review. Continue Current order while those await evidence.
-
-## 2026-11-14: iteration 2304 — reconcile activation handoff with full-edition gate
-
-- Clean main; no inherited work. Initial `pnpm obs alerts` zero; health/database/Redis healthy; `pnpm obs sources --check` confirms 38/38 sources healthy.
-- Owner benefit: the top-level public plan no longer suggests NBA-only success permits activation while Gaming/World/U.S. remain broken.
-- Reconciled current plan handoff and readiness introduction/checklist with the existing explicit five-topic gate, before activation and after its first public-mode scheduled edition. Historical plan sections retained.
-- Nov 14 NBA recovery remains accepted; Gaming fallback and World/U.S. ownership recovery still await a natural scheduled edition. Public mode off, VM private; no provider calls or generation/configuration changes.
-- Verification: static link/topic/repeated-gate agreement check passes; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); targeted Prettier and `git diff --check` pass.
-- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. Receipts `/tmp/2304-*`.
-- No UI/source/schema/system-flow change; screenshots, SOURCES and handbook unchanged. Next: natural Gaming/ownership acceptance, then activation in runbook order; NBA social breadth review pending.
+Archived continuation: [2299–2304](docs/progress-archive/2026-11-14-2299-through-2304.md).
 
 ## 2026-11-14: iteration 2305 — due natural metrics recovery sample
 
@@ -148,3 +88,12 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Consolidated the completed study's decision at the top of the depth review, corrected superseded next-step wording, and updated TASKS. Next daily review separates missing prose, admission loss and editor use of supplied reporting using natural grouped artifacts; later reconstructions must stay labelled. Production admission unchanged.
 - Verification: recorded evaluator passes with productionChanged=false; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips) and `pnpm build` pass with existing bundle warnings. API/worker restarted; health/database/Redis healthy. `git diff --check` clean.
 - No app/UI/source/schema/system-flow change, provider calls, edition writes or runtime configuration changes. SOURCES, handbook and screenshots unchanged. Receipts `/tmp/2313-*`. Metrics probe remains not due before 23:24 UTC.
+
+## 2026-11-14: iteration 2314 — next-edition supply baseline
+
+- Clean main; no inherited work. Initial alerts zero; health/database/Redis healthy and all 38 sources healthy.
+- Reader weakness remains missing World/U.S. stories and Gaming fallback; deployed recovery awaits natural acceptance. Owner benefit: the next review now distinguishes available supply from another ownership/editor failure instead of repeating completed diagnosis.
+- Captured the next scheduled window read-only at 22:55 UTC: Tech 40/40 eligible, NBA 23/20, Gaming 32/32, World 37/37, U.S. 15/15. Tech has only five nonempty excerpts, including a shopping roundup; no semantic reporting-quality claim. Early sample, not scheduled membership or recovery acceptance.
+- Added Nov 15 review baseline and five-topic acceptance checklist; replaced stale Nov 14 repair instructions with deployed status and the remaining natural gate. Archived PROGRESS 2299–2304 after crossing 25 KB, preserving all entries.
+- Verification: `capture-triage-pool.ts` succeeds; review/handoff links resolve; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips) and `pnpm build` pass with existing bundle warnings. `git diff --check` clean. Private receipts `/tmp/2314-*`.
+- API/worker restarted and active; `/healthz` confirms database/Redis healthy. No app/UI/source/schema/system-flow changes, provider calls, edition writes or runtime settings changed. SOURCES, handbook and screenshots unchanged. Public mode remains off; metrics probe not due before 23:24 UTC.

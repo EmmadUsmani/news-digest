@@ -7,7 +7,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - Public mode remains OFF; VM sharing stays private. NBA passed Nov 14, but Gaming fallback and withheld World/U.S. stories still block item 58 and activation.
 - Deployed recovery: four-request triage admission, compact ownership aliases/rejection artifacts, Gaming brief/complete-JSON guidance. Verify natural Gaming/ownership recovery; no paid replay or cap changes.
 - NBA selected-story context deployed in both social stages (2299); inspect next natural selection for distinct contributions, including the Murray overlap.
-- Nov 14 review is complete. Next normal edition: check all five AI sections, provenance, reader agreement, source flow, admission and social quality. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
+- Nov 14 review is complete; [Nov 15 early supply baseline](docs/edition-reviews/2026-11-15.md) records available articles in all five topics, without accepting recovery. Next normal edition: check all five AI sections, provenance, reader agreement, source flow, admission and social quality. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
 - After normal scheduled acceptance, follow public readiness in order; refresh rollback/baseline, enable public mode while private, then accept its next scheduled edition. Stop before owner sharing decision.
 
 ## Open work
@@ -59,6 +59,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2314: captured next-window supply and reconciled the daily review handoff with deployed recovery; scheduled acceptance remains pending.
 
 - [x] 2313: closed recorded Tech admission study; replaced stale experiment instructions with a natural-edition evidence decision.
 
