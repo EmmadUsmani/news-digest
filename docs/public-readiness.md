@@ -1,17 +1,17 @@
 # Phase 4 readiness checklist
 
 Public mode is off; the VM remains private. STEERING 59 authorizes activation
-with sharing private after the scheduled NBA/item 58 gate. Only the owner may
-change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases)
+with sharing private after the scheduled all-topic/item 58 gate. Only the owner
+may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases)
 and STEERING 59 where older plan gates conflict.
 
 Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
 
 ## Activation and rollback runbook
 
-Complete item 58 after a normal scheduled NBA AI-edited edition. The lead
-re-check proceeds in parallel and does not block the authorized private-sharing
-activation. Public Grafana is excluded from launch; Spend may be public.
+Complete item 58 after a normal scheduled edition passes the all-topic AI gate
+below. The lead re-check proceeds in parallel and does not block the authorized
+private-sharing activation. Public Grafana is excluded from launch; Spend may be public.
 Public mode and sharing remain unchanged until the activation steps are run.
 
 ### Activate while the VM is private
@@ -106,7 +106,7 @@ activation review, rather than adding more variants of already-covered refusals.
       or a deletion/forced merge. Normal queries and scraping remain available.
 - [x] Owner launch decisions (STEERING 59): omit public Grafana and its capacity
       work; keep Grafana closed and off the public Tools list. Spend may be public.
-- [ ] Close item 58 with a normal scheduled NBA AI-edited edition and its ID.
+- [ ] Close item 58 with a normal scheduled all-topic AI-edited edition and its ID.
       Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
       Require saved AI provenance, complete triage and matching nonempty summaries
       for all five expected topics using the command below, alongside the

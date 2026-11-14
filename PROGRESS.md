@@ -98,3 +98,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - Final `pnpm format`, `pnpm lint:fix`, targeted Prettier and full `pnpm check` pass: 1,025 unit tests, 329 integration passes/four expected skips. Corrected a browser-script formatting conflict before the successful full run; `git diff --check` clean.
 - API/worker restarted; startup health retry healthy/database/Redis true. `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/latest/direct/history agree on five topics/14 stories/19 posts. Receipts `/tmp/2303-*`.
 - No schema/system-flow/source change; handbook/SOURCES unchanged. Next: scheduled Gaming/ownership acceptance before activation, NBA social breadth review. Continue Current order while those await evidence.
+
+## 2026-11-14: iteration 2304 — reconcile activation handoff with full-edition gate
+
+- Clean main; no inherited work. Initial `pnpm obs alerts` zero; health/database/Redis healthy; `pnpm obs sources --check` confirms 38/38 sources healthy.
+- Owner benefit: the top-level public plan no longer suggests NBA-only success permits activation while Gaming/World/U.S. remain broken.
+- Reconciled current plan handoff and readiness introduction/checklist with the existing explicit five-topic gate, before activation and after its first public-mode scheduled edition. Historical plan sections retained.
+- Nov 14 NBA recovery remains accepted; Gaming fallback and World/U.S. ownership recovery still await a natural scheduled edition. Public mode off, VM private; no provider calls or generation/configuration changes.
+- Verification: static link/topic/repeated-gate agreement check passes; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration passes, four expected skips); targeted Prettier and `git diff --check` pass.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning. API/worker restarted; `pnpm obs health --check` healthy/database/Redis true. Receipts `/tmp/2304-*`.
+- No UI/source/schema/system-flow change; screenshots, SOURCES and handbook unchanged. Next: natural Gaming/ownership acceptance, then activation in runbook order; NBA social breadth review pending.

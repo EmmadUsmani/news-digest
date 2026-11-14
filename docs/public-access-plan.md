@@ -3,12 +3,16 @@
 > [!NOTE]
 > Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
-## Phase 4 activation handoff (updated 2026-11-13)
+## Phase 4 activation handoff (updated 2026-11-14)
 
 The reader pages and full disposable public-mode rehearsal are complete.
 STEERING 59 authorizes public-mode activation while the VM stays private after
-a normal scheduled NBA AI-edited edition closes item 58. `PUBLIC_MODE=0`
-until that gate passes. Lead security review proceeds in parallel.
+a normal scheduled edition closes item 58. The
+[all-topic gate](public-readiness.md#remaining-activation-work) requires saved AI
+provenance, complete triage and reader agreement for Tech & AI, NBA, Gaming,
+World news & politics and U.S. news & politics. Nov 14 restored NBA, but Gaming
+fallback and withheld World/U.S. stories keep this gate open. `PUBLIC_MODE=0`
+until it passes. Lead security review proceeds in parallel.
 Earlier preparation notes below are historical; this is the current handoff.
 
 | Audience         | Prepared access                                                                                                                                                                |
@@ -42,9 +46,10 @@ is live in structural-only mode; the reader handbook is installed.
 Follow [public readiness](public-readiness.md) and the
 [deployment record](public-activation-record.md) for the fresh baseline,
 rollback and activation checks. After enabling server and web public mode with
-sharing private, accept one normal scheduled edition in public mode. Then ack
-item 50 and stop for the owner's sharing decision. Only the owner changes
-exe.dev sharing; accepted screens need no repeated rehearsal without a change.
+sharing private, accept one normal scheduled edition in public mode using the
+same all-topic gate. Then ack item 50 and stop for the owner's sharing decision.
+Only the owner changes exe.dev sharing; accepted screens need no repeated
+rehearsal without a change.
 
 ## Goal
 
