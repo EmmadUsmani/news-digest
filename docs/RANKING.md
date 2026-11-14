@@ -3032,3 +3032,21 @@ This supplies a concrete repeated-slot regression alongside the later Gaming
 window, whose grouping control recovered no target event. It changes no score,
 policy, matcher, prompt or production selection. Scheduled AI editing and event
 diversity still require the next normal edition; this is not their acceptance.
+
+## Iteration 2210: later Tech same-story boundaries
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --later-tech` evaluates
+13 agent-labeled pairs from the unchanged Nov 12–13 Tech candidate recording.
+Eight positives cover Microsoft outage/recovery, Claude downtime, Gemini
+Hydrogen launch, the AI-freeze lawsuit and syndicated Huang resignation reports.
+Five negatives separate the two outage providers, AI-freeze versus patent
+litigation, resignation versus a later allegation, and Duet review versus downtime.
+
+No-grouping misses all eight positives. An intentionally broad downtime-word
+control falsely merges both cross-provider negatives. The event-label membership
+control finds all eight positives and no known false merge; additional within-group
+pairs stay unknown. These controls check evaluation boundaries, not model accuracy.
+Saved predictions can be evaluated with `--later-tech --memberships file.json`
+using `ranking-tech-2026-11-13.json` as the window key. Historical reports and the
+paid evaluation plan stay unchanged. Independent review and semantic evaluation
+remain open; no provider calls or production changes.

@@ -46,17 +46,7 @@ Archived entry: [iteration 2195](docs/progress-archive/2026-11-13-iteration-2195
 
 Archived entry: [iteration 2196](docs/progress-archive/2026-11-13-iteration-2196.md).
 
-## 2026-11-13: iteration 2197 — clickable saved post excerpts
-
-- Clean main; no inherited work. Alert snapshot zero; health/Postgres/Redis pass. Scheduled acceptance waits for Nov 14; generation cutoff retained.
-- Reader weakness: saved Gaming post supplied a complete patch-notes URL, but saved excerpts rendered plain text. Saved social excerpts now reuse edition link rendering; explicit URLs open their destination and other text opens the original post.
-- Stored text, editorial context, publication dates and story rendering retained. No source, prompt, generation, budget or data changes; no paid calls.
-- Actual Nov 13 Gaming post browser check: `pnpm exec tsx scripts/smoke-saved-post-links.ts` passes desktop/mobile light/dark, exact patch destination/text and reload, legacy dates, no overflow/errors. Four screenshots saved; mobile light inspected.
-- Visual review caught oversized inherited link typography; shared post-text styling and a 16px browser assertion fix it before final verification.
-- Handbook reading preferences and TASKS updated; progress 2183 archived. SOURCES/NEEDS_FROM_HUMAN unchanged.
-- Verification: `pnpm format`, `pnpm lint:fix`, targeted lint, `pnpm check`, `pnpm build`, web rebuild, handbook/schema check and `git diff --check`; all pass: 985 unit/294 integration tests, four expected skips; existing web chunk warning.
-- Rebuilt API/worker restarted; latest reader retains five topics/15 stories/20 posts. Commit/push and final service restart follow checks.
-- Next: pre-noon feed-content precedence, Nov 14 all-topic AI editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+Archived entry: [iteration 2197](docs/progress-archive/2026-11-14-iteration-2197.md).
 
 ## 2026-11-13: iteration 2198 — clickable X media references
 
@@ -191,3 +181,14 @@ Archived entry: [iteration 2196](docs/progress-archive/2026-11-13-iteration-2196
 - Verification: targeted historical ranking 7/7 and `pnpm evaluate:ranking` pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (987 unit/297 integration; four expected skips), `pnpm build`, targeted formatting and diff checks pass. Existing web bundle warnings only. Archived iteration 2196.
 - All 38 sources healthy; API/worker restart and endpoint verification follow commit/push. No UI change; browser replay unnecessary.
 - Next: normal all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.
+
+## 2026-11-14: iteration 2210 — Tech same-story boundaries
+
+- Clean main; no inherited changes. Alerts zero and health/database/Redis healthy. Scheduled NBA/item 58/public-mode gates await today's normal edition; no paid replay.
+- Reader weakness: repeated Tech outage coverage consumes scarce slots. Added 13 same-story pair labels from unchanged recorded Nov 12–13 evidence: eight positives/five negatives.
+- Cases cover outage recovery, separate providers, Gemini launch, AI-freeze versus patent claims, syndicated resignation versus a later allegation, and product review versus downtime.
+- Offline CLI accepts `--later-tech` and saved memberships. No-grouping misses eight positives; deliberately broad downtime control falsely merges two cross-provider pairs; event-label control matches eight with no known false merge. Unknown pairs stay unknown.
+- Agent labels are not independent judgments or semantic accuracy; production matcher/selection, budgets, providers and saved editions unchanged. Historical and paid evaluation plans unchanged.
+- TASKS/RANKING updated; source/handbook behavior and NEEDS_FROM_HUMAN unchanged. Archived iteration 2197. No UI change; browser replay unnecessary.
+- Verification: targeted event-grouping suite (11/11), offline CLI, `pnpm format`, `pnpm lint:fix`, `pnpm check` (988 unit/297 integration; four expected skips), `pnpm build`, handbook/schema and diff checks pass. Existing web bundle warning only; commit/push and built API/worker restart follow.
+- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation.

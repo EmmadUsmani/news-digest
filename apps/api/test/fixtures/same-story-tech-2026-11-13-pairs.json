@@ -1,0 +1,96 @@
+{
+  "note": "Iteration 2210: agent labels from recorded Nov 12\u201313 Tech headlines/excerpts. Eight positive and five negative boundaries, not independent review or model accuracy. No provider calls; historical and paid evaluations unchanged.",
+  "pairs": [
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "3d87c1f8-86e4-4fa1-a899-2dbea3c0913c",
+      "right": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+      "sameEvent": true,
+      "reason": "Ongoing Outlook/365 disruption and recovery reporting describe the same outage, including different stages of recovery."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+      "right": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+      "sameEvent": true,
+      "reason": "Ongoing Outlook/365 disruption and recovery reporting describe the same outage, including different stages of recovery."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "3d87c1f8-86e4-4fa1-a899-2dbea3c0913c",
+      "right": "04854a39-c6af-4de6-a928-a508a23a1604",
+      "sameEvent": true,
+      "reason": "Ongoing Outlook/365 disruption and recovery reporting describe the same outage, including different stages of recovery."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "7068ebba-cd37-4786-8201-de89b683c2c4",
+      "right": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+      "sameEvent": true,
+      "reason": "Claude downtime and elevated errors describe the same service interruption."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "31a997d0-e083-4d16-9704-7e51555e4b9e",
+      "right": "75449370-e46f-4f31-9308-c5af3c9fb7b7",
+      "sameEvent": true,
+      "reason": "Both reports announce Gemini 4 Hydrogen availability, despite emphasizing different model capabilities."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "c1556b03-1c46-4e03-92be-ef199e6102be",
+      "right": "721df2c5-e6b5-4bbb-819a-1c4938a8b5f1",
+      "sameEvent": true,
+      "reason": "Both reports cover the nonprofit lawsuit seeking to freeze AI development, rather than a separate patent dispute."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "b3b8889b-8fc2-44e6-a0b4-7d3ef565ddcc",
+      "right": "3c1db743-7ff6-4d56-bbd8-ca4b6205573f",
+      "sameEvent": true,
+      "reason": "Both reports cover the nonprofit lawsuit seeking to freeze AI development, rather than a separate patent dispute."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "dc2550f9-677c-4cca-ab79-72b24093817f",
+      "right": "fde19f3c-32ba-416d-84ed-e8e553c1b022",
+      "sameEvent": true,
+      "reason": "Both outlets report Huang resigning from Nvidia after an affair."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+      "right": "7068ebba-cd37-4786-8201-de89b683c2c4",
+      "sameEvent": false,
+      "reason": "Microsoft and Claude outages are separate service incidents; shared downtime language is insufficient."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "3d87c1f8-86e4-4fa1-a899-2dbea3c0913c",
+      "right": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+      "sameEvent": false,
+      "reason": "Microsoft recovery and Claude elevated errors concern different providers and incidents."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "c1556b03-1c46-4e03-92be-ef199e6102be",
+      "right": "57fc7714-4888-420b-8606-411cabec16eb",
+      "sameEvent": false,
+      "reason": "A suit seeking an AI-development freeze and a neural-network patent infringement suit seek different remedies for different claims, despite shared defendants."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "dc2550f9-677c-4cca-ab79-72b24093817f",
+      "right": "ee274b3c-1041-4764-84a3-9c30f883b220",
+      "sameEvent": false,
+      "reason": "The resignation and a subsequent allegation about a second employee are distinct reported developments involving the same executive."
+    },
+    {
+      "window": "ranking-tech-2026-11-13.json",
+      "left": "7068ebba-cd37-4786-8201-de89b683c2c4",
+      "right": "c0573b23-60fa-495b-a64f-7a562573a50f",
+      "sameEvent": false,
+      "reason": "A Claude Duet product review is separate from Claude downtime; a shared product name does not establish an event."
+    }
+  ]
+}

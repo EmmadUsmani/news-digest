@@ -386,3 +386,38 @@ void test('later Gaming pairs distinguish ceremony coverage from franchise overl
   // Additional within-event pairs remain unknown rather than silently accepted.
   assert.ok(control.windows[0].membership.unlabeledMergedPairs > 0);
 });
+
+void test('later Tech pairs separate outage providers, lawsuit claims and subsequent allegations', () => {
+  const baseline = evaluateEventGrouping(undefined, undefined, 'later-tech');
+  assert.equal(baseline.pairs, 13);
+  assert.equal(baseline.positives, 8);
+  assert.equal(baseline.negatives, 5);
+  assert.equal(baseline.falseNegatives, 8);
+  assert.equal(baseline.falsePositives, 0);
+  assert.equal(baseline.windows.length, 1);
+  const window = baseline.windows[0].window;
+  assert.equal(window, 'ranking-tech-2026-11-13.json');
+  // Downtime words alone incorrectly merge independent cloud-provider incidents.
+  const outages = evaluateEventGrouping(
+    (a, b) =>
+      /outage|down|errors/i.test(a.title) &&
+      /outage|down|errors/i.test(b.title),
+    undefined,
+    'later-tech',
+  );
+  assert.equal(outages.falsePositives, 2);
+  assert.ok(outages.windows[0].membership.unlabeledMergedPairs > 0);
+  const recorded = JSON.parse(
+    readFileSync(join(__dirname, 'fixtures', window), 'utf8'),
+  ) as { events: { ids: string[] }[] };
+  const control = evaluateEventGrouping(
+    undefined,
+    { [window]: recorded.events.map((event) => event.ids) },
+    'later-tech',
+  );
+  assert.equal(control.truePositives, 8);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.recall, 1);
+  // Unreviewed pairs stay unknown even when the event-label control merges them.
+  assert.ok(control.windows[0].membership.unlabeledMergedPairs > 0);
+});
