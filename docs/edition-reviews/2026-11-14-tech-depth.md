@@ -96,3 +96,27 @@ one reserved slot is the best general policy. Production selection is
 unchanged. Compare more saved windows before shipping a generic reservation;
 keep semantic admission, the ten-slot limit and important headline-only news.
 The fixture is `apps/api/test/fixtures/tech-evidence-cutoff-2026-11-14.json`.
+
+## Second-window control — iteration 2286
+
+The same offline command now includes the Nov 12 window, with forty qualified
+candidates captured through the current loader in a read-only transaction.
+No compatible scheduled grouping response was found in the publication-hour
+cache, so this control explicitly leaves candidates ungrouped. It cannot
+reproduce historical grouping or explain the five historical selections.
+Only one published representative appears in this reconstructed baseline;
+the trial retains that one. The Nov 14 four-of-four control still passes.
+
+The Nov 12 ten-slot baseline contains zero reviewed reporting excerpts. A
+reserved slot admits the Verge Nvidia resignation report (352 characters,
+importance 9 / relevance 8), replacing an excerpt-free Nvidia dismissal report
+(importance 8 / relevance 7). Reporting clusters increase from zero to one.
+This adds detail about an already represented event, rather than event breadth.
+
+Crucially, a nonempty-text heuristic instead admits a Google News headline
+list before the Verge report. The evaluator now uses explicit, manually
+reviewed reporting IDs in both recordings and asserts that this headline list
+never counts as reporting. These labels describe usable prose, not factual
+verification or a production classifier. No runtime evidence or selection
+changes. Before any generic reservation ships, resolve reporting eligibility
+and verify grouped inputs; a nonempty excerpt alone is insufficient.

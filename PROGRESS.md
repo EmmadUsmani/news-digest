@@ -134,3 +134,14 @@ Older entries: [through iteration 2273](docs/progress-archive/2026-11-14-through
 - API/worker restarted after build. First reader check raced startup; retry verifies unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f, five topics/14 stories/19 posts. Health database/Redis true; 38/38 sources healthy.
 - Updated TASKS and Tech evidence; no system flow/schema/UI/source change, so handbook/SOURCES/screenshots unchanged. Public mode off; VM private.
 - Next: natural Gaming/ownership acceptance before item 58/public activation; compare another recorded Tech window before any generic reporting-slot policy in a permitted generation window.
+
+## 2026-11-14: iteration 2286 — distinguish reporting from headline lists at cutoff
+
+- Clean main; no inherited work. Alerts zero; initial health and all 38 sources healthy. Natural Gaming/ownership acceptance still pending; no generation change after noon.
+- Reader weakness: headline-only Tech summaries lack reporting. Captured forty qualified Nov 12-window candidates through current loader in read-only transaction; no compatible publication-hour grouping cache found, so recording is explicitly ungrouped, not historical replay.
+- Naive nonempty-text reservation chooses a Google News headline list. Offline evaluator now uses reviewed prose IDs and a headline-list negative control; these labels do not verify factual claims or implement a runtime classifier.
+- Nov 12 control admits 352-character Verge Nvidia reporting instead of excerpt-free dismissal coverage: reporting 0→1, same event, one represented published ID retained. Nov 14 still 1→2 reporting clusters/all four published IDs retained; evidence unchanged. Generic admission needs reporting eligibility and grouped-window evidence.
+- `pnpm exec tsx scripts/evaluate-tech-evidence-cutoff.ts` passes both recordings; `pnpm format` and `pnpm lint:fix` ran. `pnpm check` passes static checks, 1,019 unit and 329 integration tests, four expected skips; `git diff --check` clean.
+- `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings. API/worker restarted; initial reader raced startup, retry verifies unchanged scheduled edition b9d55088-892a-4e34-b77c-a398d64c6a9f (five topics/14 stories/19 posts). Health database/Redis true; 38/38 sources healthy.
+- TASKS and depth study updated. No runtime/source/schema/UI change; handbook/SOURCES/screenshots unchanged. No paid inference, source requests or publication writes; public mode off, VM private.
+- Next: natural Gaming/ownership acceptance before item 58/public activation; do not ship nonempty-text reporting reservation.

@@ -1,0 +1,1989 @@
+{
+  "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+  "windowStart": "2026-11-11T15:00:00.000Z",
+  "windowEnd": "2026-11-12T15:00:00.000Z",
+  "topicId": "00000000-0000-4000-8000-000000000011",
+  "policy": {
+    "excludeAny": ["sponsored", "promo code", "gift guide", "best deals"],
+    "includeAny": [
+      "AI",
+      "artificial intelligence",
+      "machine learning",
+      "LLM",
+      "OpenAI",
+      "Anthropic",
+      "Claude",
+      "GPT",
+      "Gemini",
+      "DeepMind",
+      "software",
+      "programming",
+      "developer",
+      "code",
+      "coding",
+      "computer",
+      "computing",
+      "technology",
+      "tech",
+      "chip",
+      "semiconductor",
+      "GPU",
+      "Apple",
+      "Microsoft",
+      "Google",
+      "Meta",
+      "Linux",
+      "browser",
+      "internet",
+      "cybersecurity",
+      "robot",
+      "robotics",
+      "design",
+      "startup",
+      "smartphone",
+      "iPhone",
+      "Android",
+      "database",
+      "JavaScript",
+      "Python",
+      "Rust"
+    ]
+  },
+  "scores": [
+    {
+      "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+      "event": "Google Gemini smartglasses launch at $395",
+      "rationale": "Major AI hardware launch; source is Ars Technica",
+      "relevance": 9,
+      "importance": 6
+    },
+    {
+      "id": "8618408f-cdaa-420f-af71-10613cfeb506",
+      "event": "Warby Parker bets on Google AI glasses",
+      "rationale": "Business strategy and privacy concerns around AI glasses",
+      "relevance": 8,
+      "importance": 4
+    },
+    {
+      "id": "1a87fbac-2096-46bc-8023-38d1075577b2",
+      "event": "Classroom AI learning study",
+      "rationale": "Research blurb with unverified claims, limited tech impact",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "86e3b7ef-c484-4c40-9252-8900204b77a1",
+      "event": "BrickLink marketplace outage",
+      "rationale": "Week-long online outage after unusual activity",
+      "relevance": 4,
+      "importance": 4
+    },
+    {
+      "id": "4ef9b422-471d-4123-a780-24cf2e1f688a",
+      "event": "AI thyroid cancer diagnosis review",
+      "rationale": "Medical AI review, mostly outside tech focus",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "b4a8c5f2-d72e-487d-a134-18b187de45cc",
+      "event": "Apple HomeView review AMA",
+      "rationale": "Product Q&A from reviewer, little consequential news",
+      "relevance": 6,
+      "importance": 2
+    },
+    {
+      "id": "bc747b44-9241-48e1-90d9-08c4aad4be2d",
+      "event": "Nvidia vs AMD AI stock comparison",
+      "rationale": "Investment opinion piece, not product news",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "279bd3a3-1cd0-45e0-bdb3-7828ff1af3b1",
+      "event": "AI sceptics opinion piece",
+      "rationale": "Commentary on AI risks, no new event",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4",
+      "event": "Jensen Huang fall from Nvidia",
+      "rationale": "Major Nvidia leadership news, reported by Le Monde",
+      "relevance": 6,
+      "importance": 7
+    },
+    {
+      "id": "4456c827-bee9-4108-b835-114eb7777f29",
+      "event": "Streaming discovery complaints",
+      "rationale": "General streaming commentary, not tech-core",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "3d75a19d-3cc6-4e3c-bdca-280f0786b957",
+      "event": "Apple TV 4K review",
+      "rationale": "Consumer product review, minor news",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "7cebad2e-0800-4f4a-a38f-a475aa03cb6b",
+      "event": "Google AI glasses review vs Meta",
+      "rationale": "Hands-on AI glasses comparison with Meta",
+      "relevance": 8,
+      "importance": 4
+    },
+    {
+      "id": "ab466190-7d74-4915-a4b7-6342a67659fb",
+      "event": "Apple HomeView review",
+      "rationale": "Consumer product review, minor news",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "dbd1277b-ea7b-42bf-bbe4-1ed868d87103",
+      "event": "Florida schools AI student rules",
+      "rationale": "Local policy on AI use in schools",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "fb4b10ce-81d5-4f16-8481-7e12e91d419e",
+      "event": "Jensen Huang resigns as Nvidia CEO",
+      "rationale": "Major Nvidia CEO resignation amid affair reports",
+      "relevance": 8,
+      "importance": 9
+    },
+    {
+      "id": "21bb78dc-1d5d-4508-9a76-47731519cf31",
+      "event": "Jensen Huang resigns as Nvidia CEO",
+      "rationale": "Major Nvidia CEO resignation, same event",
+      "relevance": 8,
+      "importance": 9
+    },
+    {
+      "id": "49404c80-36ee-4d10-a84f-a7933aac0c10",
+      "event": "Jensen Huang resigns as Nvidia CEO",
+      "rationale": "Major Nvidia CEO exit reported by Al Jazeera",
+      "relevance": 8,
+      "importance": 9
+    },
+    {
+      "id": "cde99a3e-4762-42d4-90d4-7e7dd4829c7b",
+      "event": "Jensen Huang resigns as Nvidia CEO",
+      "rationale": "Board confirms resignation amid spy and affair scandals",
+      "relevance": 8,
+      "importance": 9
+    },
+    {
+      "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+      "event": "Jensen Huang resigns as Nvidia CEO",
+      "rationale": "Official Nvidia CEO transition announcement",
+      "relevance": 8,
+      "importance": 9
+    },
+    {
+      "id": "7b49bff8-d258-4cf1-8105-cbcdfd1eaa18",
+      "event": "AI firms recruit ex-spies after Nvidia drama",
+      "rationale": "Security risk angle tied to Nvidia scandal",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "24f2c193-5fa9-432c-ace4-0fe255fbfdf2",
+      "event": "City government AI use example",
+      "rationale": "Feature on municipal AI use, limited news value",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "e0d40563-ca71-44a5-b0eb-2fd836da964b",
+      "event": "Huang fall rattles markets",
+      "rationale": "Concern Nvidia scandal could threaten AI stock boom",
+      "relevance": 8,
+      "importance": 8
+    },
+    {
+      "id": "897bc811-3202-468b-a5a8-3f42855d1cc0",
+      "event": "IAEA World Fusion Outlook 2026",
+      "rationale": "Energy report with AI mention, weak tech fit",
+      "relevance": 2,
+      "importance": 2
+    },
+    {
+      "id": "907a3711-3c7a-481b-927e-696c303a640b",
+      "event": "Indiana AI roadshow in Fort Wayne",
+      "rationale": "Local business event promotion",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "36823321-7dc3-48d2-9b56-f17025dfe40b",
+      "event": "IAB AI-era attribution guide",
+      "rationale": "Advertising industry guidance, low consequence",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "0ce0ec55-e0da-4dd7-881b-f7e4b8ca7c61",
+      "event": "AI models recommend promoted drugs study",
+      "rationale": "Study on AI bias toward pharma promotion",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "68c7532e-1c96-4d44-a484-ad22b855101e",
+      "event": "AI healthcare simulation debriefing research",
+      "rationale": "Academic research summary, minor news",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+      "event": "United Airlines blocks AI booking agents",
+      "rationale": "Notable policy on AI agents booking flights",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "687dbf67-9c20-4fb2-acc7-65c10edfd222",
+      "event": "US data centre backlash",
+      "rationale": "Infrastructure opposition affecting AI buildout",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "6247da17-4261-40bc-87ad-4834b834df24",
+      "event": "AI finds decades-old Linux kernel bugs",
+      "rationale": "Significant AI security finding in Linux kernel",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "ca451e77-8302-43a9-bd67-2a56571026f8",
+      "event": "Operators should stop flawed AI workflows",
+      "rationale": "Opinion piece on AI workflow oversight",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "424e2df7-d375-4ac3-bdf6-8064a27cc04a",
+      "event": "AI trained on physicians ICU bias study",
+      "rationale": "Medical AI research, limited tech relevance",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "732d0d1a-a2ed-4c57-a0d9-aeb76f8f3737",
+      "event": "Apple M6 iMac review",
+      "rationale": "Computer hardware review, incremental update",
+      "relevance": 7,
+      "importance": 3
+    },
+    {
+      "id": "ff1201ed-9ec3-41d3-8751-1034542cc8e0",
+      "event": "Anthropic IPO",
+      "rationale": "Potentially major AI company listing; headline only",
+      "relevance": 9,
+      "importance": 8
+    },
+    {
+      "id": "8f2d0d58-53ba-4218-baeb-22fef567138e",
+      "event": "Parkland Health 5-year AI plan",
+      "rationale": "Local healthcare plan mentioning AI",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "dc48a92e-16ab-4c7b-a480-954d075dab1a",
+      "event": "French army defence AI centre",
+      "rationale": "Government defence AI initiative",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "9ab91e90-4720-4d4c-aabe-091bcec8fb10",
+      "event": "French army defence AI centre",
+      "rationale": "Same French defence AI centre report",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "3885e228-6b44-4f85-90e3-7dabf19dee09",
+      "event": "AI shakeout favors convertible investors",
+      "rationale": "Financing terms in AI sector shakeout",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "81f2dce2-41d5-44e6-8430-ca06ebbbf8fc",
+      "event": "Ring drone cam lacks manual control",
+      "rationale": "Autonomous AI drone policy after failed demo",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "26d25412-7ae5-4fd0-b26b-0acddd683528",
+      "event": "AI Futures intelligence explosion forecast",
+      "rationale": "Forecast update on AI timelines, speculative",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+      "event": "Google specialized TPU systems",
+      "rationale": "Chip strategy for AI agents and security",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "f66a6cdb-95fc-49d2-be81-9087e3313f2c",
+      "event": "Conversational AI sensor network security",
+      "rationale": "Academic research summary, minor news",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "a02406f5-326d-4c80-855d-c7091f299d93",
+      "event": "NZ AI toilet break tracking",
+      "rationale": "Workplace AI monitoring concern",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "2318b103-2f12-446e-9eaf-53e1a9738fd4",
+      "event": "Rare star radio signals",
+      "rationale": "Astronomy news, unrelated to tech",
+      "relevance": 0,
+      "importance": 1
+    },
+    {
+      "id": "081a226a-3755-471a-a913-9226f24526ab",
+      "event": "Code smells essay",
+      "rationale": "Older programming essay, little news",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "b2992bf4-a425-404e-93f2-7b7844563bf8",
+      "event": "Hong Kong responsible AI guide",
+      "rationale": "Industry guidance on responsible AI use",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "523ed864-50f0-4db3-8405-2a78963cb928",
+      "event": "Why correct software is hard",
+      "rationale": "Programming essay, no new event",
+      "relevance": 6,
+      "importance": 2
+    },
+    {
+      "id": "5bd87f15-5f57-4295-9857-1de4ee8d9a9e",
+      "event": "Huang conduct leaves Nvidia options limited",
+      "rationale": "Analysis of Nvidia leadership fallout",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "2b7c0c2b-d84a-406a-b410-1a805329aea5",
+      "event": "Airlines differ on AI flight booking",
+      "rationale": "Comparison of United and JetBlue AI booking stances",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "eba548fc-ef4c-4953-bea7-ca08fcdb09a1",
+      "event": "Huang affair and AI trade commentary",
+      "rationale": "Investment commentary on Nvidia scandal",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "37924782-269d-4174-bd09-939b8b95f50e",
+      "event": "AI peril and promise editorial",
+      "rationale": "Opinion piece on AI risks and benefits",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "edf4c853-931f-45cc-8436-a47ddb9969a2",
+      "event": "AI crash warning analysis",
+      "rationale": "Analysis of possible AI market downturn",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "c9a550cf-5eda-4e11-bd58-3484ea14ff1d",
+      "event": "AI boom profitability analysis",
+      "rationale": "Questions whether AI spending can be sustained",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "9957e496-692e-408b-9ba0-6a3b2ce676ca",
+      "event": "Holiday Extras Codex case study",
+      "rationale": "Vendor-style story on OpenAI Codex use",
+      "relevance": 7,
+      "importance": 3
+    },
+    {
+      "id": "56cb8b1a-7471-48f0-9f4f-b1bd8a5e501e",
+      "event": "Nvidia troubles hit AI stocks",
+      "rationale": "Market report on Nvidia weighing on AI shares",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "a6de989b-4c70-4813-9082-97f3498d0a3c",
+      "event": "Caine Prize clears AI writing allegations",
+      "rationale": "Literary prize clears author; new rules added",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "c6ad2add-7ac1-41cd-b02d-98757345724f",
+      "event": "Firms plan open-weight AI use survey",
+      "rationale": "Study on firms adopting open-weight models to cut costs",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "ad10ea00-0c85-4991-ab55-d19689da6e88",
+      "event": "Nvidia troubles hit AI stocks",
+      "rationale": "Market report on Nvidia weighing on AI shares",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "e7d7288f-b6ee-4ff6-af0d-427ad5d3ab96",
+      "event": "Goldman AI investment forecast 2027",
+      "rationale": "Forecast that AI remains top US business investment driver",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "2a3103ff-8780-496f-97be-496ea0c77441",
+      "event": "Anthropic IPO stock analysis",
+      "rationale": "Investment commentary on Anthropic IPO stock",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "ad20e110-bb22-49d7-87d8-6e25a15346a5",
+      "event": "AI in egg industry",
+      "rationale": "Agriculture feature on AI and automation",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "222b2935-8fba-4dc6-8f1e-c7f6cf9cfbf2",
+      "event": "AI learning matrix framework",
+      "rationale": "Higher-ed framework for AI use",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "ec6c5527-3b24-484b-8884-70bd6ed8aab8",
+      "event": "AI risk explainer",
+      "rationale": "General explainer on AI threats",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "44defe5a-c9a7-479e-852c-08a3278264df",
+      "event": "Qualcomm AI fellowship awards",
+      "rationale": "Student fellowship news at UCLA",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "4a897842-2b60-4692-a1eb-d9eb34fdb8b4",
+      "event": "Qualcomm AI fellowship awards",
+      "rationale": "Duplicate report of UCLA fellowship news",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "7ffaf1d9-5cda-4efe-915b-ffec4c3476c7",
+      "event": "FT names AI correspondent",
+      "rationale": "Staff appointment at Financial Times",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "ebbee2a2-e65e-4bd4-a344-7de2fbef2dad",
+      "event": "AI spending boosts UK growth",
+      "rationale": "Reports AI investment lifted UK GDP growth",
+      "relevance": 4,
+      "importance": 4
+    },
+    {
+      "id": "f9bdfa54-3b88-456b-b8b8-77303259b59b",
+      "event": "Rivian autonomy AI day",
+      "rationale": "Local event coverage of Rivian autonomy",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "f7468ae4-44b9-46b1-9e1d-c74632f79327",
+      "event": "Foxconn Q3 profit rise",
+      "rationale": "Electronics maker beats profit forecasts",
+      "relevance": 3,
+      "importance": 3
+    },
+    {
+      "id": "03ff26fb-fc9e-4e85-a882-93801683cb3f",
+      "event": "AI effects on employer workforce",
+      "rationale": "Commentary on AI impact on work conditions",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "10d8a8d5-758c-4bc0-a833-a31d50c9ba13",
+      "event": "Humble Bundle vibecoded security flaws",
+      "rationale": "Reports AI-generated code undermined site security",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "63eb7299-6e1e-461c-bc29-6b771e0a98b5",
+      "event": "Europe economic bills",
+      "rationale": "General economics, not tech",
+      "relevance": 1,
+      "importance": 2
+    },
+    {
+      "id": "610e0531-8327-4e43-887b-20146f90c8c9",
+      "event": "MRI preprocessing pipeline for AI",
+      "rationale": "Research pipeline for AI on breast MRI",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "f59b2571-f14f-4e85-b3e3-c5602dc59a4d",
+      "event": "AI reduces artist commissions",
+      "rationale": "Local artists report fewer commissions from AI use",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "da283888-f186-4d74-a390-18dc0d9fd915",
+      "event": "Public funding AI megatrends",
+      "rationale": "Commentary on public AI investment",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "8566bceb-5d0c-43bc-ac34-42ff29d269f6",
+      "event": "Military students AI attitudes",
+      "rationale": "Reflections from a military college course",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "b4414749-5bb4-41a5-a408-fe305c6071f8",
+      "event": "Linux pinball engine project",
+      "rationale": "Open-source Linux project announcement",
+      "relevance": 6,
+      "importance": 2
+    },
+    {
+      "id": "e733889f-0125-45f6-abe6-44edfbff349a",
+      "event": "Robotics startup $8.5B funding",
+      "rationale": "Big tech investors back German robotics startup",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "197cc065-b943-41c1-9834-4d52744927f7",
+      "event": "Chinese firms rush Nvidia chip capacity",
+      "rationale": "Report on Chinese AI firms securing chips amid curbs fears",
+      "relevance": 7,
+      "importance": 6
+    },
+    {
+      "id": "65502485-350d-4708-8a49-30192accddfe",
+      "event": "Anthropic IPO impact on Big Tech",
+      "rationale": "Analysis of Anthropic IPO effects on tech stocks",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "8c6ad173-6ff6-41c8-bcc8-d14384fd8ac7",
+      "event": "CoreWeave revenue surge",
+      "rationale": "CoreWeave revenue jump eases AI spending concerns",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "793f00db-f994-430f-958a-df8a51893a8d",
+      "event": "Recession-proof jobs list",
+      "rationale": "Career list mentioning AI in passing",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "3680a085-fcbe-4c14-98c2-6c45a0c86ea9",
+      "event": "MIT faster AI climate models",
+      "rationale": "Research on faster trustworthy AI climate prediction",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "6e64a61f-7297-49cf-8953-5886aee1a654",
+      "event": "MIT faster AI climate models",
+      "rationale": "Duplicate MIT report on climate AI research",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "f369540b-62d4-4286-8405-cee5e9808879",
+      "event": "Darling Development update",
+      "rationale": "Unrelated company update",
+      "relevance": 1,
+      "importance": 1
+    },
+    {
+      "id": "9ee25f37-853e-4848-a944-3515832e1b98",
+      "event": "Edge AI latency scheduling",
+      "rationale": "Research on reducing edge AI latency",
+      "relevance": 6,
+      "importance": 2
+    },
+    {
+      "id": "c6faaf96-822d-43af-82a8-eb4b5a87fb7d",
+      "event": "Nvidia troubles hit AI stocks",
+      "rationale": "Asian markets slip on Nvidia troubles",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "b2566f3c-6c9c-4f1b-912f-c740f77592d0",
+      "event": "Nvidia troubles hit AI stocks",
+      "rationale": "Asian markets slip on Nvidia troubles",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "85156640-9353-49cb-b3d4-993d2ab9a4ba",
+      "event": "AMD vs Marvell stock comparison",
+      "rationale": "Investment opinion comparing chip stocks",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "a93db252-2d16-43b9-9ee5-cc203cd86253",
+      "event": "AMD vs Marvell stock comparison",
+      "rationale": "Investment opinion comparing chip stocks",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "0c80fef3-f0f6-486f-82ba-e05a6f1dcce5",
+      "event": "Nvidia turmoil over CEO allegations",
+      "rationale": "Reports turmoil at Nvidia amid executive allegations",
+      "relevance": 7,
+      "importance": 7
+    },
+    {
+      "id": "e46a66e7-f66c-400b-a15d-ccac06b8f44d",
+      "event": "AMD vs Marvell stock comparison",
+      "rationale": "Investment opinion comparing chip stocks",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "452362e4-5166-4802-ae47-e5a7b68dcc6e",
+      "event": "United bans AI booking bots",
+      "rationale": "Airline rule restricting AI booking agents",
+      "relevance": 4,
+      "importance": 4
+    },
+    {
+      "id": "6bc67085-9a1d-460d-a733-2e7b5594ba6a",
+      "event": "AMD vs Marvell stock comparison",
+      "rationale": "Investment opinion comparing chip stocks",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "d5ae42ec-a7c6-462a-9132-3006a6bbaa93",
+      "event": "Bad ideas revisited essay",
+      "rationale": "Essay with no clear tech news",
+      "relevance": 2,
+      "importance": 2
+    },
+    {
+      "id": "038a57e1-081b-4f66-bff3-201561aa64a4",
+      "event": "Lean Grimoire search tool",
+      "rationale": "Lean programming reference resource",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "8867beb0-35ef-463e-9bf1-ef182c51309d",
+      "event": "Apache HTTP Server RCE vulnerability",
+      "rationale": "Critical remote code execution flaw in Apache",
+      "relevance": 8,
+      "importance": 7
+    },
+    {
+      "id": "0be2a7b3-25d4-4fc0-9a36-916e3f098c58",
+      "event": "JetBlue on AI booking agents",
+      "rationale": "Airline executive comments on AI booking agents",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "aa4bff8c-7052-4e31-9eae-57ccaa58782e",
+      "event": "AWS guide AI agents Bedrock",
+      "rationale": "Developer guide to building AI agents on AWS",
+      "relevance": 8,
+      "importance": 4
+    },
+    {
+      "id": "f9766737-0c32-4b23-81be-11cdae726a89",
+      "event": "Nvidia CEO affair allegations",
+      "rationale": "Allegations tied to espionage suspect, unverified",
+      "relevance": 6,
+      "importance": 6
+    },
+    {
+      "id": "2eccb270-590c-4fbc-a774-5e6fdc1bc261",
+      "event": "United blocks AI booking agents",
+      "rationale": "AI agent access policy; airline travel, not core builder news",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "4b526f0a-39aa-4216-bb3a-c998b62c5605",
+      "event": "UA AI guidelines faculty dispute",
+      "rationale": "Local university AI policy dispute",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "45c38406-513c-4caa-bcf7-76886a74ae10",
+      "event": "SIIM-CAIMI radiology AI preview",
+      "rationale": "Medical imaging AI conference preview",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "e7aa3fdd-fccf-4ee1-ab64-f354d441d2cc",
+      "event": "Blackstone AI in deal process",
+      "rationale": "Finance AI use, limited tech relevance",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "b2fa0fb5-d18b-40b8-ab44-25c49429f4f6",
+      "event": "CEPR AI contract commentary",
+      "rationale": "Opinion on AI contracts and student projects",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "0bb1daff-ccbd-48c2-9a8e-0bcf683d3ad7",
+      "event": "Cape Gazette AI art talk",
+      "rationale": "Local event listing",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "777a48e9-8a82-4f2b-bf84-0e6c47a6f93b",
+      "event": "Nvidia CEO succession reports",
+      "rationale": "Reported board meeting on Huang's future; chip sector impact",
+      "relevance": 7,
+      "importance": 7
+    },
+    {
+      "id": "43abd618-0b15-49ba-bbfd-c28a06ea8504",
+      "event": "Meta infrastructure leader hire",
+      "rationale": "AI infrastructure executive hire amid spending growth",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "2ae32a06-7786-4a36-8b2d-7c13f06cd5b3",
+      "event": "AI muddle opinion piece",
+      "rationale": "General commentary, no concrete news",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "2684ba65-0b24-4614-ab07-68852b3df522",
+      "event": "Nvidia preparing to oust Huang",
+      "rationale": "WSJ report of planned CEO removal; unverified in input",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "b9b5d399-6f29-4ca4-a0c9-844071d51b80",
+      "event": "OpenAI $2M child safety research",
+      "rationale": "Funding for AI child-safety measurement research",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "befac91d-2a89-4d94-8c0c-d8125144769a",
+      "event": "Gilbert+Tobin AI in law interview",
+      "rationale": "Interview on law firm AI use",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "c605609d-2e01-439d-856c-8f0a2251f83a",
+      "event": "Gemini Live on Apple CarPlay",
+      "rationale": "Google AI assistant integration into car platform",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "c183f68b-25fa-432e-bdec-39c638df4b00",
+      "event": "AI forensic sex estimation study",
+      "rationale": "Medical imaging AI research, niche application",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "cd754b46-3e65-4713-927e-a2ddcff5ccd3",
+      "event": "Nvidia board discusses Huang future",
+      "rationale": "NYT report of urgent board talks on CEO; chip sector impact",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "9ac42307-cb14-4e46-8aad-944b98c53160",
+      "event": "Modern Web Guidance 1.0 release",
+      "rationale": "Web platform guidance for coding agents, useful to developers",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "37f3de4b-93d2-43db-8ac3-5e12b7d7609f",
+      "event": "United blocks AI booking agents",
+      "rationale": "Same airline AI agent policy, NYT report",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "9aeb713b-f758-4c9a-8681-e98fed05f1c0",
+      "event": "AWS Web Search API for AgentCore",
+      "rationale": "New agent tooling API for AI builders",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "38365540-b75f-4c77-a5a5-7a89d6afe7ba",
+      "event": "Parents survey on AI in K-12",
+      "rationale": "Education survey, limited builder relevance",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "8d033083-1f8c-45e2-98d3-320a08042357",
+      "event": "Huang resignation report, FBI probe",
+      "rationale": "Claims CEO resigned amid FBI investigation; unverified",
+      "relevance": 7,
+      "importance": 9
+    },
+    {
+      "id": "3621a8e8-25f5-4bec-9ad3-b7749bfcdfd4",
+      "event": "Sheriff's office AI call screening",
+      "rationale": "Local government AI deployment",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "d2cd2056-cea9-4fe8-bdd8-63ab10e55261",
+      "event": "VisionQuest AI commentary",
+      "rationale": "Film criticism touching AI themes",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "758f98d6-bd1d-4a54-b680-277432465788",
+      "event": "AI data center sites near parks",
+      "rationale": "Data center siting map, infrastructure context",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "65647fcb-fb68-4bb3-8ae4-a487cca6a049",
+      "event": "Apple Silicon layer for x86-64",
+      "rationale": "Compatibility layer tool for developers, notable tech",
+      "relevance": 8,
+      "importance": 5
+    },
+    {
+      "id": "e0e18d97-a094-4884-ab3e-e1be356f1444",
+      "event": "Cincinnati healthcare AI summit",
+      "rationale": "Local event coverage",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "29c1b708-a124-4ae3-abcb-390935067da3",
+      "event": "Winneshiek County AI use policy",
+      "rationale": "Local government employee AI policy",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "651a2290-78f8-487d-ab38-f64eac713d39",
+      "event": "WellSaid AI voice for agents",
+      "rationale": "Voice AI product pivot, modest significance",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "8f53d92d-d530-4af9-bfe9-7c711cad99e1",
+      "event": "Jeannette Wing NY AI safety center",
+      "rationale": "Appointment to regional AI safety research center",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "84ada437-b1fb-4862-bbcf-f9c8bb60ef98",
+      "event": "Nvidia preparing to fire Huang",
+      "rationale": "WSJ-reported dismissal plans tied to affair reports",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "9d3f69d9-b06e-445a-bca5-48caf59353b6",
+      "event": "United bans AI booking bots",
+      "rationale": "WSJ report on airline AI agent ban",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "824ac5b4-49c9-41fd-90aa-aaa1e8a31c4b",
+      "event": "Nvidia board weighs Huang future",
+      "rationale": "Report of second affair and board deliberation",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "2680c4c2-8658-427f-8d16-e5a0dcebf01d",
+      "event": "Nvidia preparing to fire Huang",
+      "rationale": "Aggregated WSJ report on planned CEO dismissal",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "7d1230c9-2b99-43b5-8466-a6b8319e5871",
+      "event": "Perl paint splatter article",
+      "rationale": "Old programming humor piece, low importance",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "4670222f-bc54-4d0d-b7b0-3680911d1386",
+      "event": "Nvidia preparing to oust Huang",
+      "rationale": "Aggregated report of planned CEO removal",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "20481399-c34e-4f68-a2c4-df3e2693c7c2",
+      "event": "Bilt AI neighborhood OS launch",
+      "rationale": "Housing platform product, promotional tone",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "f83ae60d-e3ae-4f61-8665-f36a15765e4a",
+      "event": "AWS AI builder updates roundup",
+      "rationale": "Monthly AI product roundup, useful but incremental",
+      "relevance": 7,
+      "importance": 4
+    },
+    {
+      "id": "88f00086-a853-4592-b4b4-d35aee073ddc",
+      "event": "Latham AI contribution bonuses",
+      "rationale": "Law firm compensation tied to AI use",
+      "relevance": 3,
+      "importance": 3
+    },
+    {
+      "id": "fe5bf5ca-e5b6-4150-8630-c25264fffdc4",
+      "event": "AI imaging of brain cancer cells",
+      "rationale": "Biomedical imaging research, limited tech angle",
+      "relevance": 3,
+      "importance": 3
+    },
+    {
+      "id": "fd7cef70-8df9-43a3-9b1b-27e6ee0e78dd",
+      "event": "GitHub Actions security hardening",
+      "rationale": "CI security guidance relevant to developers",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "dabd8393-4717-445f-898a-25407967cb75",
+      "event": "AI agents for wildfire evacuation",
+      "rationale": "Research proposal on AI agents, public safety",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "8401dff2-a55e-478d-8a7a-72a598f5bccb",
+      "event": "AI inflammation score for CV risk",
+      "rationale": "Medical AI study, limited tech relevance",
+      "relevance": 2,
+      "importance": 3
+    },
+    {
+      "id": "0d40c6dd-0fc8-4435-8f44-d498a542b31f",
+      "event": "AI horse racing betting piece",
+      "rationale": "Promotional-leaning gambling content",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "6c59c32c-81a6-46a0-a4a7-4ea7d7c8c2b9",
+      "event": "Huang relationship with report",
+      "rationale": "Reports of CEO relationship with subordinate; unverified",
+      "relevance": 6,
+      "importance": 7
+    },
+    {
+      "id": "03e63135-7c0b-4732-b3c7-33fa5314a563",
+      "event": "DOE AI cybersecurity initiative",
+      "rationale": "Government AI security effort for critical infrastructure",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "8e0da445-2da8-445a-9843-ad761346a397",
+      "event": "Home Assistant Connect Aux-2 hands-on",
+      "rationale": "Smart home hardware review, moderate interest",
+      "relevance": 5,
+      "importance": 3
+    },
+    {
+      "id": "8def8f27-fcc9-4022-9fae-68f3f8bc5114",
+      "event": "Huang affair, resignation calls, export curbs",
+      "rationale": "Calls to resign and tighter Nvidia China export moves",
+      "relevance": 7,
+      "importance": 8
+    },
+    {
+      "id": "3ad7f40a-038e-4f06-adcc-37481a795e91",
+      "event": "Huang relationship with reporting exec",
+      "rationale": "NYT report of CEO relationship with subordinate; unverified",
+      "relevance": 6,
+      "importance": 7
+    },
+    {
+      "id": "e5eed488-6085-45e6-93f2-9504a6a49bae",
+      "event": "United blocks AI agent bookings",
+      "rationale": "Airline policy on personal AI agents, privacy concerns",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "6aa77e5f-acf4-44c1-983e-f74e9dce7b46",
+      "event": "United bans AI agents booking",
+      "rationale": "Same airline AI agent ban, HN link",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "66d09305-d418-4318-af6d-94d419f23967",
+      "event": "AI healthcare simulation debriefing review",
+      "rationale": "Medical education review, limited tech relevance",
+      "relevance": 2,
+      "importance": 2
+    },
+    {
+      "id": "3a4ffeb5-803b-4cc0-a69c-28e5197355fc",
+      "event": "Quantum computing policy 'put up or shut up' moment",
+      "rationale": "Quantum computing news; general tech relevance, no builder focus",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "f57e3742-567c-4ff3-9e5f-2d1296e13236",
+      "event": "Agentic AI risk in oilfield operations",
+      "rationale": "Opinion piece on agentic AI errors in energy sector",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "4195ab72-1546-4938-b7d1-3e85b2afe3cf",
+      "event": "NY proposes daily fines for AI safety violations",
+      "rationale": "Proposed regulation with major penalties for AI developers",
+      "relevance": 8,
+      "importance": 7
+    },
+    {
+      "id": "0578e6c8-aff0-429a-b88d-bb3d6b8af7c7",
+      "event": "GTA5 playable in browser",
+      "rationale": "Browser gaming novelty, minor tech interest",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "268657b0-be34-4167-b60e-18d266c303a3",
+      "event": "Study on racial identity projected onto AI",
+      "rationale": "Human-AI perception study, limited builder relevance",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "4fe5f7a7-8e20-4954-bfbf-3478915bcd56",
+      "event": "Kentucky employee religious exemption from AI use",
+      "rationale": "Workplace AI policy case, modest significance",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "ab3dd75b-8ad9-4833-9b51-6cefdf4818d4",
+      "event": "Kentucky employee religious exemption from AI use",
+      "rationale": "Duplicate-looking report of same exemption story",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "ef34bea0-7761-404e-8e77-2cfcd555e058",
+      "event": "GitHub webhooks and Actions incident",
+      "rationale": "Developer platform outage affecting builders",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "4afa7b3a-e872-4444-9885-9613b454d966",
+      "event": "AI-driven market volatility",
+      "rationale": "Market swings tied to AI, general business framing",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "9ff74bc8-6e9d-48ac-8f25-00f0a7015828",
+      "event": "Autistic individuals' AI interaction study",
+      "rationale": "Feature on AI user research, low builder value",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "0f6430aa-9b63-4d54-ba0c-9c157dbb2aca",
+      "event": "NY says T-Mobile illegally capped low-income internet",
+      "rationale": "Internet access enforcement, regulatory but not AI",
+      "relevance": 3,
+      "importance": 4
+    },
+    {
+      "id": "392e252b-f96b-4eac-8c78-bc3b920871fc",
+      "event": "AI access-to-justice study accepted at AI4Law",
+      "rationale": "Academic presentation acceptance, minor news",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "5e92ccaf-61d1-4d7d-803d-0f3b6359c9f2",
+      "event": "Emacs in the age of AI",
+      "rationale": "Programming tool essay, opinion-based",
+      "relevance": 6,
+      "importance": 3
+    },
+    {
+      "id": "b22c4ed7-2a1a-4605-a4d3-d1b4521ed7ec",
+      "event": "AHA webinar on AI training programs",
+      "rationale": "Event promotion, filler",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "30edd667-02f5-40f2-bf51-47fcde9aca96",
+      "event": "Huawei releases MACaQ quantizer for local inference",
+      "rationale": "Model quantization tool useful for local LLM builders",
+      "relevance": 9,
+      "importance": 6
+    },
+    {
+      "id": "3e9d02c9-5484-421b-81d8-c93b25e70251",
+      "event": "Data center poster child responds to backlash",
+      "rationale": "Data center AI infrastructure controversy",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "0a74b2ae-2f26-4176-864f-721b06c90300",
+      "event": "Anduril satellite tracks orbital maneuvers",
+      "rationale": "Defense space sensing; minimal AI or builder content",
+      "relevance": 4,
+      "importance": 4
+    },
+    {
+      "id": "04ff5997-e359-4bee-8ac5-7c577f21bad0",
+      "event": "Essay on overwork",
+      "rationale": "General opinion, not tech news",
+      "relevance": 2,
+      "importance": 2
+    },
+    {
+      "id": "af9c01b7-6028-43c3-bb70-16a7aff209f8",
+      "event": "Suno AI music review 2026",
+      "rationale": "Product review with promotional tone",
+      "relevance": 3,
+      "importance": 1
+    },
+    {
+      "id": "4af2c920-ec6d-49e4-9b5f-abbeb0049358",
+      "event": "IBM Quantum Nighthawk performance gains",
+      "rationale": "Quantum hardware advance, limited AI builder use",
+      "relevance": 6,
+      "importance": 5
+    },
+    {
+      "id": "6198aff2-4d27-48fd-85a3-326586be7dd0",
+      "event": "AI and dual tracers in prostate cancer",
+      "rationale": "Medical imaging research, weak tech focus",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "6a07573f-f5c2-4283-8429-c3df4250c06d",
+      "event": "WIU cybersecurity director on AI risks",
+      "rationale": "Interview on cybersecurity, generic insights",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "63d0c8f2-342f-41ca-ba42-e1032df1f9d0",
+      "event": "Utah Teapot computer graphics history",
+      "rationale": "Graphics history video, low news value",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "5e918d62-0266-4674-9875-098c1831868e",
+      "event": "NY launches AI Safety Center before RAISE Act deadline",
+      "rationale": "State AI safety infrastructure tied to regulation",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "4733f3c6-d70d-4e5e-8745-b06804c36d54",
+      "event": "Americans' comfort with AI in medicine",
+      "rationale": "Survey on public attitudes, limited tech depth",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "dab1c666-08f3-4aec-9c95-f03ae75988c7",
+      "event": "Nvidia caught in Chinese spy and chip war scandal",
+      "rationale": "Major chip and AI hardware geopolitical controversy",
+      "relevance": 8,
+      "importance": 7
+    },
+    {
+      "id": "d5214689-0f3b-48d5-8db0-e143a00b66b8",
+      "event": "AI enhances CAR-T immunotherapies in autoimmune models",
+      "rationale": "Biomedical research, weak tech relevance",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "9b6f561d-160d-4275-8208-437a4adf7239",
+      "event": "AWS reusable generative AI assets",
+      "rationale": "Vendor delivery content, promotional",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "2afb04b8-b08d-4834-9c2c-455133d3279e",
+      "event": "Museums using AI to engage art",
+      "rationale": "Cultural feature, limited builder value",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "49c08055-2a86-4b6b-a8e3-3c034052eca8",
+      "event": "MRF operations forum on AI",
+      "rationale": "Event announcement in recycling sector",
+      "relevance": 2,
+      "importance": 1
+    },
+    {
+      "id": "b8f31df9-d715-4fcb-a1fd-d7a1981fc2ca",
+      "event": "Papers Please-style YC funding game",
+      "rationale": "Hobby project Show HN, minor",
+      "relevance": 4,
+      "importance": 2
+    },
+    {
+      "id": "81a8dfca-413b-4fd2-8f36-ff72f3a388b2",
+      "event": "BoE/FCA survey on AI in financial services",
+      "rationale": "Regulatory survey on AI adoption in finance",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "61808dd7-54b0-4330-8be5-d80b8ec163f4",
+      "event": "Retirement savings tied to AI bubble",
+      "rationale": "Investment analysis on AI market exposure",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "5d8332c4-1ab0-40e4-ac62-227fb41a8496",
+      "event": "Tech workers read Pope Leo's AI encyclical",
+      "rationale": "Ethics and AI discourse event, moderate significance",
+      "relevance": 5,
+      "importance": 4
+    },
+    {
+      "id": "b78762d9-e3bc-4291-8518-5028125f33fd",
+      "event": "NASA procurement reform for lunar race",
+      "rationale": "Space procurement, not AI or software",
+      "relevance": 2,
+      "importance": 3
+    },
+    {
+      "id": "1190c152-4d9c-4b34-ac23-6b9502a4aefc",
+      "event": "Debate on future of AI brain models",
+      "rationale": "Neuroscience AI discussion, limited tech news",
+      "relevance": 4,
+      "importance": 3
+    },
+    {
+      "id": "b77d84a2-121e-4f60-b6d3-31a813682911",
+      "event": "CareSource $1M AI grant program",
+      "rationale": "Healthcare grant announcement, modest scale",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "391a5bf5-3f1c-4088-9df3-e86b428bb31b",
+      "event": "Gemini Decisions API launch",
+      "rationale": "Google model API useful to developers",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "97931007-135a-456a-882f-e32ce54e5f0c",
+      "event": "AWS emulator for AI agent code",
+      "rationale": "Developer tooling implications for coding agents",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "bfce232e-65e4-4a7b-b85e-3c141518079a",
+      "event": "Possible AI market bust",
+      "rationale": "Economic analysis of AI valuations",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "863a8269-d1ce-4955-bec8-5dc1d47d358a",
+      "event": "AWS emulator for AI agent code",
+      "rationale": "Same AWS emulator story, developer-relevant",
+      "relevance": 7,
+      "importance": 5
+    },
+    {
+      "id": "9c3f8341-35ce-47ad-a458-ff050facde5c",
+      "event": "Bidirectional search: BFS to Dijkstra",
+      "rationale": "Algorithms article, educational rather than news",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "85536674-86a5-44f1-ab9d-c20452dfb8e1",
+      "event": "PolyU wins CES 2027 innovation awards",
+      "rationale": "Award announcement, promotional",
+      "relevance": 3,
+      "importance": 2
+    },
+    {
+      "id": "e00d1f4d-1a45-47aa-96e1-30e80f003194",
+      "event": "TSMC invests $1B in Anthropic and OpenAI",
+      "rationale": "Major chip maker investment in leading AI labs",
+      "relevance": 8,
+      "importance": 7
+    },
+    {
+      "id": "4cf9ca0d-0323-46e8-8dec-b2054345bce0",
+      "event": "Intel and Altera edge AI sensor partnership",
+      "rationale": "Hardware partnership for edge AI, moderate impact",
+      "relevance": 6,
+      "importance": 4
+    },
+    {
+      "id": "52eec162-93a8-4bbc-aff4-3ce69ce75b14",
+      "event": "Anthropic launches Claude Meetings",
+      "rationale": "New Claude product for workplace collaboration",
+      "relevance": 8,
+      "importance": 6
+    },
+    {
+      "id": "8643d9c1-1db4-4312-b53a-aa8cff4f6b1c",
+      "event": "AI verifies fundamental physics theory",
+      "rationale": "AI-assisted science result, notable research claim",
+      "relevance": 5,
+      "importance": 5
+    },
+    {
+      "id": "4b8bd409-9d91-4a13-84af-033f53a59c87",
+      "event": "EU Digital Fairness Act proposal",
+      "rationale": "Regulatory proposal on online consumer practices",
+      "relevance": 3,
+      "importance": 5
+    },
+    {
+      "id": "d5f9940c-b2ff-40f5-8a18-83dfc5689f0c",
+      "event": "Armanino AI App Factory on Microsoft Foundry",
+      "rationale": "Vendor case study with promotional framing",
+      "relevance": 5,
+      "importance": 2
+    },
+    {
+      "id": "455f142f-3397-45fc-a7ec-ec7ac055e50f",
+      "event": "Nvidia AI financing web and systemic risk",
+      "rationale": "Analysis of Nvidia's AI investment exposure",
+      "relevance": 6,
+      "importance": 5
+    }
+  ],
+  "candidates": [
+    {
+      "id": "21bb78dc-1d5d-4508-9a76-47731519cf31",
+      "title": "Jensen Huang resigns as Nvidia CEO immediately",
+      "url": "https://www.reuters.com/live/nvidia-live-board-meets-fate-ceo-jensen-huang-after-affair-reports-2026-11-12/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T13:56:11.000Z",
+      "sources": ["Hacker News"],
+      "points": 286
+    },
+    {
+      "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+      "title": "NVIDIA Announces CEO Transition",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T13:52:29.000Z",
+      "sources": ["Hacker News"],
+      "points": 1584
+    },
+    {
+      "id": "49404c80-36ee-4d10-a84f-a7933aac0c10",
+      "title": "Nvidia CEO Jensen Huang steps down amid spy scandal and market loss - Al Jazeera",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSFg4VHBscm9wN2FBNG84c1VCMGRRMnFMUUtNVWsxMEQ2TXRTLWpNaGRMcjh2ZER4a01SLXplYVdGUy1PWEtkOUxVNjFxdWhLNXJWM0xKUURCaHZEcXRMV1ZvaW0ybmh6WnpGSHRlaDFmLTNmUXVYM0FQSnRJOWRGTm9oellzRkps0gGOAUFVX3lxTE5pQ2ZVTUdTdVhRcjVldUJINE8xN0pVR0t5d3NBLTktUk1CaTlyNUR6WUhVTjRsQzBIVDBVcHY1SFhzS09na3lETXdudzY1cnZ3Z21UMjFCRUd0U2l3WXJSc1ZTeFZGci14M09hMUoyWUFxbUJqUkZyVG1xX1ExQXpsaTk4RjlieGc1a2JiOXc?oc=5",
+      "excerpt": "Nvidia CEO Jensen Huang steps down amid spy scandal and market loss Al Jazeera What Jensen Huang leaving Nvidia means for AI Scientific American China Is the Biggest Loser From Jensen Huang’s Downfall Bloomberg.com",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.aljazeera.com/",
+        "name": "Al Jazeera"
+      },
+      "publishedAt": "2026-11-12T13:55:18.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "cde99a3e-4762-42d4-90d4-7e7dd4829c7b",
+      "title": "Nvidia CEO Jensen Huang resigns amid spy, affair scandals",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1031689/jensen-huang-nvidia-ceo-resigns",
+      "excerpt": "Nvidia's board announced that Jensen Huang - its longtime co-founder, president, and CEO - has resigned after reports of two extramarital affairs, one with an alleged Chinese spy and one with an Nvidia executive who reported to Huang. Following a late Wednesday night meeting, the board accepted Huang's letter of resignation as CEO, president, and […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T13:53:16.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "fb4b10ce-81d5-4f16-8481-7e12e91d419e",
+      "title": "Nvidia CEO Jensen Huang resigns after reports of second affair deepened scandal",
+      "url": "https://www.bbc.co.uk/news/live/c6zjry11v8w1t",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T13:56:38.000Z",
+      "sources": ["Hacker News"],
+      "points": 140
+    },
+    {
+      "id": "8d033083-1f8c-45e2-98d3-320a08042357",
+      "title": "Nvidia CEO Jensen Huang has resigned",
+      "url": "https://arstechnica.com/gadgets/2026/11/ceo-jensen-huangs-job-is-suddenly-on-the-line-at-nvidia/",
+      "excerpt": "Nvidia CEO also had an affair with a senior executive at the firm.",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2296993009-1024x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-11T23:10:17.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "ff1201ed-9ec3-41d3-8751-1034542cc8e0",
+      "title": "Anthropic IPO",
+      "url": "https://ipo.anthropic.com/us/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T11:46:41.000Z",
+      "sources": ["Hacker News"],
+      "points": 918
+    },
+    {
+      "id": "e0d40563-ca71-44a5-b0eb-2fd836da964b",
+      "title": "Nvidia chief executive Jensen Huang’s rapid fall from grace has rocked Washington and Silicon Valley, triggering concern that Nvidia, whose powerful chips have fueled the artificial intelligence era, could threaten a U.S. stock market boom it helped fuel. - Facebook",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxON2NYNHM1b1NZX3RCWE1qbWU2YXpSY00xSGt2XzI3TmJmUFZ2bXRoMDdMMWZLUmwyTHQ1VkpPcXpQUWhidFk2QWkxdlg3dnBSdHFYUUR5bmtELXRhRmFLNERCZnZhMldmQ0k5Zm5pSTlaZUdIbFg1Zl9EaVZlNmZlWU90SUVRbkMzQUNXREJtQTFBNVFIVUs2Vm4yOVoyQjlSUzVUMG1UcGlQOEtGS0dPdkNQZDBfT1pONTlFN19qczYyTmhCNXhUb0dwSkZyX3FMclpaLU5ZMEpuVkpt?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.facebook.com/",
+        "name": "Facebook"
+      },
+      "publishedAt": "2026-11-12T13:30:10.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "2680c4c2-8658-427f-8d16-e5a0dcebf01d",
+      "title": "Nvidia prepares to fire CEO Jensen Huang, WSJ reports",
+      "url": "https://twitter.com/watcherguru/status/2120645607866188008",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T22:36:35.000Z",
+      "sources": ["Hacker News"],
+      "points": 180
+    },
+    {
+      "id": "2684ba65-0b24-4614-ab07-68852b3df522",
+      "title": "Exclusive | Nvidia Is Preparing to Oust CEO Jensen Huang - WSJ",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxON2VaZ01EcWdXc1ZGb3plNUNMM294WGZlT0tTbWw2SFNPOHZ3ZERtQlR6RkhLRWF2cHExRnNfWGZINm1NWVoxVjRSUDRTVXRFb1RaRGcyMXFUdEd0LWtlME5SVHJETVdzOHR6eHhyNXJLVXF6cldFbnhHMXcydFMzTGhzVnhWN2RQX2d0X1N4QVZvdUU?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.wsj.com/",
+        "name": "WSJ"
+      },
+      "publishedAt": "2026-11-12T00:17:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "4670222f-bc54-4d0d-b7b0-3680911d1386",
+      "title": "Nvidia is preparing to oust Jensen Huang",
+      "url": "https://www.wsj.com/business/nvidia-is-preparing-to-oust-nvidia-ceo-jensen-huang-30f421ad",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T22:31:06.000Z",
+      "sources": ["Hacker News"],
+      "points": 1168
+    },
+    {
+      "id": "824ac5b4-49c9-41fd-90aa-aaa1e8a31c4b",
+      "title": "Nvidia Board Weighs Huang's Future After Report of Second Affair - Gizmodo",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPOXlNcXJodVp6cXdIS1laVnhsQ21aRVdyQ3dDbnVGZVN3ZFZ5SWRoWUVkMDFwRVV5TkVaYm5WU2ppSThrZ3RpMjBkMWZKSmR0dU9wbjhtMk5VUFp3R2dtTGFhdXFTS0sySjZGbVd2N21zdmV2a29vTm05ZWZVN21wVk9NdDY?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://gizmodo.com/",
+        "name": "Gizmodo"
+      },
+      "publishedAt": "2026-11-11T22:37:12.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "84ada437-b1fb-4862-bbcf-f9c8bb60ef98",
+      "title": "Nvidia is reportedly preparing to fire Jensen Huang",
+      "url": "https://www.theverge.com/tech/1031652/jensen-huang-rumor",
+      "excerpt": "Nvidia's board is preparing to dismiss CEO Jensen Huang following a report from The New York Times about a second alleged extramarital affair, just days after he admitted to a separate affair with a woman alleged to be a Chinese spy, The Wall Street Journal reports. The second alleged affair was with an executive who […]",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T22:44:36.000Z",
+      "sources": ["The Verge"],
+      "points": 0
+    },
+    {
+      "id": "8def8f27-fcc9-4022-9fae-68f3f8bc5114",
+      "title": "Jensen Huang affair in DC: Resignation calls and moves to tighten Nvidia China exports - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWjJRY2daaGR0MlE5NzU0bndocWZPVF9qODRlRlBzUUVLN1dyNkE2VXlJeUdGanF2NkQ5OGVZMmJTYk9xY244NU9sUHppeFU2dVlHcVRwWFptNG9CSUN6ay1Ic3NVdFJRZTNkY05nQzJJUFJsSVp1N21LRElnSHotZmZyYVR2a25v?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.cnbc.com/",
+        "name": "CNBC"
+      },
+      "publishedAt": "2026-11-11T21:59:34.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "cd754b46-3e65-4713-927e-a2ddcff5ccd3",
+      "title": "Nvidia’s Board Is Meeting to Discuss Jensen Huang’s Future - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SV0s4M3NYaTUtT2tIVWpBRHdfTk51cUIxcE0tLU9LV3M1akRWMTRheE9qY3BCa0pRVDR0MGhxaGVIcERRakZ0LWxJUWtpeFk4aW50TlRLVWt0NUEwSzVBVWFoZGNMQ0NEUWl4eUZyR3h0YmpHRjNfVk1n?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-11T23:32:14.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "4195ab72-1546-4938-b7d1-3e85b2afe3cf",
+      "title": "New York Proposes $3 Million Daily Fines for AI Safety Violations - PYMNTS.com",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOQkxUWDhVTk43VWJCU3liMTB0Z1RjSGpmYXNObjJCUl9ONU95T2hwY2RtQjZpOEpRQ1dJcS1ramo2a3VielVrOU8xU1ZWREw4ckQ1cldQNm5JaVR4dUZMbXlfWVM4WU5jR1hOZFhUUWhZdHRFMHc2UDBfTy1zOTFZaWhqWDRPYmVtX2xvdy1WNkZPZTI4SWpaZnZFbVlFUFBjckI5OW1jbHJfR1ZXZThhbXlHTS1iYnlYVjBkN2JINA?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.pymnts.com/",
+        "name": "PYMNTS.com"
+      },
+      "publishedAt": "2026-11-11T21:11:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "8867beb0-35ef-463e-9bf1-ef182c51309d",
+      "title": "Critical RCE Vulnerability in Apache HTTP Server",
+      "url": "https://www.wiz.io/blog/cve-2026-119618-rce-apache-http-server-vulnerability",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T02:11:11.000Z",
+      "sources": ["Hacker News"],
+      "points": 323
+    },
+    {
+      "id": "0c80fef3-f0f6-486f-82ba-e05a6f1dcce5",
+      "title": "What to Know About the Turmoil at Nvidia as Jensen Huang Resigns as C.E.O. - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBoVWJPa29uOWhQdVY0TFJQVXZnMjR3QWFKSjVlcWFaWkNJVmFCT3RTY3dtNWQ2b1hpRHZWbW5UY2lGdjhlLWFPRDFtRXFNZjhEaXdac2NJX1FlY01mU29oSXpKOUlKSklYVU01WHNSOXFxaDhhd1k4MHR3?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-12T03:55:11.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "777a48e9-8a82-4f2b-bf84-0e6c47a6f93b",
+      "title": "Nvidia shares drop after hours amid reports of meeting over CEO Jensen Huang's future - NBC4 Washington",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxObGlyc2s2UWVRcW5vSmdmODdWYzMwd2oyRmRjMmdWTFdWMzA1UXVjTnhCalZBQ2VlY2JYMlhiMWVLa1Z1dmJjY1VUcUIzc0pieTBlSl9HaUJXb3Y1eUV4NllyczU4Zm1UZVVBbS1DTzRwbUlTVXlqT0dCa0Rld1FuVkd3Q2ppMFBpdGFxWU9UUnFxWnZyc2xzLW41Y0pDclB6LTMzSVU5M19IYzlwbGJDQU43MmxTaXQteTJCODln0gHGAUFVX3lxTE16ZzRCdXMyeFdLQWhMVWNOejNKdC10ZFlRYU04amNkUTZSNFdEbWJldzBVSkRFbTlPZ3EyYnJkQlE3UnlhSExUcWpfYm5NYWJzRFhaYnpyZzhNcFVpeDg5UGN3dlZlalJKVHJFdmtsRkRrWUhuRHhHUnpsYXlqV0ZVZlNPb3JCazAyN2plRnBEbEFMTnA3R0NtQUpfZ2x2eTBQLWRxRG1EZFlYWmhtNkpKUndJWml4dDhLcFZjN1Bla1VpX3c0dw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nbcwashington.com/",
+        "name": "NBC4 Washington"
+      },
+      "publishedAt": "2026-11-12T00:29:26.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "3ad7f40a-038e-4f06-adcc-37481a795e91",
+      "title": "Jensen Huang Said to Have Had Relationship With Nvidia Executive Who Reports to Him - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPV0NCNjVPR0M2THpMdkhiTW5jZUlmVXJzNHk4YjZYeWtGZHc3Vk81V3czUXBBVjktcXlSLWs3MFdyWkRtcmRpV1BmY1hKckhyU3RYWEdsTWlGcnhFVFVNakRLLWZvREpURHJnRVVSdmZEcHJWU2p5YWJZX1pEWGRWRDB1aw?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      },
+      "publishedAt": "2026-11-11T21:55:36.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5c2b0f3f-7bb6-44bb-9d41-54bb2dc4aec4",
+      "title": "The fall of Jensen Huang, iconic Nvidia CEO and godfather of AI - Le Monde.fr",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxONVRMTUR1NEswVFUzUTVOdU5XaFJla0xoVG1KTmxLRzc1M09ram14NDlPQklsZ0FIb3JYbF9EVnlqN3dXeTQ1c1lNdEZXTnZRdnZyYXhiWmNybkduVk9LaS1TTGdhT0Y4aklpZms5eVJfcmVQS3VWbDRIcTE0SjA4ZzZnRWNVQ3A3ZFRLUHcwczc5OU1iRmNLODgzUlZ4anFtU2cxM0JISmlvNlZyQVN3T0I5YTZNQzNTUENIM3ktaVlHeS1HanJFdk1URQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.lemonde.fr/",
+        "name": "Le Monde.fr"
+      },
+      "publishedAt": "2026-11-12T14:02:42.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6c59c32c-81a6-46a0-a4a7-4ea7d7c8c2b9",
+      "title": "Jensen Huang said to have had relationship with executive who reports to him",
+      "url": "https://www.nytimes.com/2026/11/11/technology/jensen-huang-nvidia-affair.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T22:03:58.000Z",
+      "sources": ["Hacker News"],
+      "points": 264
+    },
+    {
+      "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+      "title": "Google pushes privacy angle as Gemini-powered smartglasses debut starting at $395",
+      "url": "https://arstechnica.com/google/2026/11/google-pushes-privacy-angle-as-gemini-powered-smartglasses-debut-starting-at-395/",
+      "excerpt": "The first Gemini smartglasses are a collab between Google, Samsung, Gentle Monster, and Warby Parker.",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/WP_ALDEN-Carousel_Lifestyle-copy-1152x648.jpg",
+      "publisher": null,
+      "publishedAt": "2026-11-12T14:50:17.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0
+    },
+    {
+      "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+      "title": "United Airlines blocks AI agents from booking flights - The Washington Post",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNkVsZUJhUHZoMTlPa05zbzFaSHBObFhuSTJ3QUx5QU15NEVCanBwanpmeHUybDNJWVpQRDVWUEt1T2JvejU2bXhMOWFkNTdLR1FLMTBPS3VqUU1TTUg1VjltMFQ1TF9ZTkFxclB0RTJEZEFvSGlKMEFqRXdCLTFYNG4zLWkzdjZTdXRJUGlMZTRWU042U212YzRUNGQtR2s?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.washingtonpost.com/",
+        "name": "The Washington Post"
+      },
+      "publishedAt": "2026-11-12T12:31:39.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "6247da17-4261-40bc-87ad-4834b834df24",
+      "title": "AI found Linux kernel bugs that remained undetected for decades - CSO Online",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOejJMSjVBXzBRbWtacUotQ1YtMUVmVDlGMXpOZEkyVHZTc0p4UU1NamQyNk4zWnd3VVg0aEk1U3ZQU0VXLXk4Y2UtbHpTb1lHakFCcHg4TXFfbHpPUklKa245WkRNZnJwZzhQX1AwMUJON2FqeHUwMEtfUlB5SDJYWVFDU05RSEVVZ0ZteE9WUkpTTG1tQ01GcGZBbF8wMlEzMkEzUkVDSlU2QjZDMjc0?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.csoonline.com/",
+        "name": "CSO Online"
+      },
+      "publishedAt": "2026-11-12T12:10:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "9aeb713b-f758-4c9a-8681-e98fed05f1c0",
+      "title": "Introducing the Web Search API on Amazon Bedrock AgentCore - Amazon Web Services (AWS)",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPbWV6aXZOWENsNl9ORWZWdXJ3cG5LdmN5OFZQTk1Iekc1bmNxR1loRzVqNVpCLTQxZDF3M1hCOE1kVzgxTmkwVkxrWFhJcWVkUURuSE9LTWhNb3FrWExjWjBYUW1HdzNTT2lNaVpyQnE5eVI0clN1czZIM21kZFpsejFfeW5iVm04dzAtZEJRdFhzRHZzQmFfUjNaTnF5TFJac0I2NFZQSEQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://aws.amazon.com/",
+        "name": "Amazon Web Services (AWS)"
+      },
+      "publishedAt": "2026-11-11T23:13:16.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+      "title": "Google reworks TPU silicon into specialized systems for agents and security - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMi7gJBVV95cUxNUFdBQlBXR3dOb0dJUUh5Rk9wX19ucEY1QlB5cnVtOXhvSk9Xd21KWW9xcXdQc2RuQ3lMY0RVOHl0cDhVNUh4Q0N5Q2xlWWRxRmpSYjRnWHJ6X19XOEFKVFB3N28yMjJlUTdPMy1CWG5wNFdVMTZncEZmN2tvSWVaa0pIMURmOE5sM0ZsbTY5MzBHamZxelByenBwSFUwWFhjb3VwTWZLaWlDTlVXd1ZaMWZ5RnQ4VHZKLUNnLTdkYmpoeUxUc3Zld0VZcExsQ1JoNU80MkhNYzhCR2dHNy1LdFlmVmxfUm9qUndLb2VhdUhDcDVia3ZuckI3NlpqWGJPNGtOdHo3R2JyWnB6Yy1VQnJNYkhiWUoxMnlXZXlRUi01YnVPMndFSWVqSHl0LTVIdUxQSEhFZ0daYTlsZktKN3p2UHFzVWlfendrbUNMSmUydUJWZjd0RkN0dzNYS1d0Zm5oQ3BycXlMVWtiOWc?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.tomshardware.com/",
+        "name": "Tom's Hardware"
+      },
+      "publishedAt": "2026-11-12T11:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "197cc065-b943-41c1-9834-4d52744927f7",
+      "title": "EXCLUSIVE: Chinese AI firms rush to secure Nvidia chip capacity as spy scandal stirs fear of US curbs - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPc1EtU18tWjZNZTZtOFBZNzdqZkRFMk1nbm9MTm9VWUQwUHlLc1dTdDNLWmNCcllESHVVYjFnXzlKcFJrSWpHUkY2S1lhcTFtWWdPVG9WdkcyTkFSaEpLanVzeWctM1hCTkdxUEJ6VnBrLXFYVnBsalpKUkJVUGQyUE5DOEJtaTctZlFEaV9VR1loQ1JrVlhyRmRxR25UMkI2MVgtZnBFU1pVaXhBcmw0ZV9jb0RPYlduY1ppbnpCTlc?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-12T05:31:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "5bd87f15-5f57-4295-9857-1de4ee8d9a9e",
+      "title": "Jensen Huang’s recklessness leaves Nvidia with no good options - The Economist",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQmlOM1RNVjV1V1ZucC1vdFE1bUFZbkt6S0xVUEZJWmZXZGVwRjM0ZmhsdVVKeWdfTGFvNThfd1VvM2VFVGJlNGF0dDMwODczRTZuZXcxQlZkcU5qa0VoMVU3cGg3Z1lZd1JudmhIc1V2amdWazFSMkpGME5oNUZZOVktMEtqT0UtekhUSk12X2Vua0ZGMlk4QUxVaW9GQkUtU1pUUWlCaGxIaHc?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.economist.com/",
+        "name": "The Economist"
+      },
+      "publishedAt": "2026-11-12T10:20:28.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "f9766737-0c32-4b23-81be-11cdae726a89",
+      "title": "Nvidia CEO faces allegations of second affair with employee after ties to Chinese woman suspected of espionage - Le Monde.fr",
+      "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNVVB0dDJEQW85QUdlQ25MajUyc2QyeUI2RzhGMU1tMFl0ZGlZeUJlOGozbW9RZUhDbDlkZGhEbzVCVk84SjVSOHBhRm9vcW8tbGctS09oVnpKaFhmS1lRcmFRN2dIWm1lRTVSYmFKSEh4dG83aWtab3RvOE53YWRzT3g0WFdlY0M1OXN6SGZNbzI2bnN0cDdKWHMyTHladmV1Q2xmakljNExxbXctWWFKOXBLNEpBNzl5S29QYUJHelR5TVVKaFlrMzJVNXgyMERkNmdtSjB5dklPcEhxZ3lPQzY3OEVmQS1hM0Zqb2hIajU4Y1VKZlFUQVUzc196X3ZNbWdRMWRCUlhSOTA?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.lemonde.fr/",
+        "name": "Le Monde.fr"
+      },
+      "publishedAt": "2026-11-12T01:13:18.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "65647fcb-fb68-4bb3-8ae4-a487cca6a049",
+      "title": "A general purpose Apple Silicon layer for x86-64 PCs",
+      "url": "https://github.com/tylertms/Stela",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T23:02:38.000Z",
+      "sources": ["Hacker News"],
+      "points": 113
+    },
+    {
+      "id": "9ac42307-cb14-4e46-8aad-944b98c53160",
+      "title": "Modern Web Guidance 1.0: The web platform expertise your coding agent is missing",
+      "url": "https://developer.chrome.com/blog/modern-web-guidance-v1",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T23:22:29.000Z",
+      "sources": ["Hacker News"],
+      "points": 7
+    },
+    {
+      "id": "c6ad2add-7ac1-41cd-b02d-98757345724f",
+      "title": "Most large firms plan higher open-weight AI use to cap bills, study shows - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOYWVBOHhodjNxVmZ6Q05XeEJBOFlHNUFzTjRyMVBUMEtoOEgwRWJKT0dqWlU0RGo2ZmZFNm5nZ0ZYSXJydEZfbTJyUmxCQmc1OEhvMmlBc1N0aUJNZXFjb2FFM2Y3N0ZoQzN2bEZKcEU4N3pUeWxiYWhwT1kzUHdLTkwzSUJyZXhpSUxQck1RUzUzQ1JNa2EzV0hURFl6V3VsRDR5eUl1SzBVczN1WV9BTkU3cno?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      },
+      "publishedAt": "2026-11-12T09:04:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "10d8a8d5-758c-4bc0-a833-a31d50c9ba13",
+      "title": "Humble Bundle just killed most of their security through vibecoding",
+      "url": "https://forums.spacebattles.com/threads/humble-bundle-just-completely-killed-most-of-their-security-through-vibecoding.1346295/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-12T06:52:48.000Z",
+      "sources": ["Hacker News"],
+      "points": 262
+    },
+    {
+      "id": "43abd618-0b15-49ba-bbfd-c28a06ea8504",
+      "title": "Meta Taps Former AWS Executive to Lead Infrastructure as AI Spending Surges - PYMNTS.com",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPdlUtVzMwUDFxdVNtbm44cmc0WUd2Q3d3NUM4SXQ0dHJwRjhOMUhaalg1SlFqRFRMMzFZai03MnF3Qk5qT3VtOFNxYTlGWFhaSUp5U1pEZ0hUbXdoaUpYWkxxbVRJQ2w5NUh2ckR0S2l4VmFXcy0xVC1ydW81U29jSkF6Z21KUnFPLUY5OUNNb2tFUFBMYXBxaWg3T3daWVlDem1ITTVra1dERlJlR2xJQkFKUFZ0ZHFNcTFIUmJtLTYwN2s4WGxmQWZ5ME5rQQ?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.pymnts.com/",
+        "name": "PYMNTS.com"
+      },
+      "publishedAt": "2026-11-12T00:24:46.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "c605609d-2e01-439d-856c-8f0a2251f83a",
+      "title": "Google Brings Gemini Live to Apple CarPlay - PYMNTS.com",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPZlBkWUppQkFFTDdhR2N5RTFTanBidVZSOGJNcFhFRFFheHhKOHFyc1ZpTU05aW00SWRiaXFFT2V5Q0F4MGtEallGRW5BVU9Uem5uQXFITDBWYXlLSUtzUHZZVWdwNjViWnRfeW9Vd0xseTNqYXJCRklLb3VQakJrUUFaMU52UUM5SXRpS3Y2RTRMUTZ3RzdHc1ZEczYyUlo4U3c?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.pymnts.com/",
+        "name": "PYMNTS.com"
+      },
+      "publishedAt": "2026-11-11T23:46:07.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "ef34bea0-7761-404e-8e77-2cfcd555e058",
+      "title": "GitHub Incident with Webhooks, Actions, etc.",
+      "url": "https://www.githubstatus.com/incidents/dvy0t3mvh1lg",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T20:54:37.000Z",
+      "sources": ["Hacker News"],
+      "points": 70
+    },
+    {
+      "id": "fd7cef70-8df9-43a3-9b1b-27e6ee0e78dd",
+      "title": "Lock Your GitHub Actions",
+      "url": "https://hugovk.dev/blog/2026/lock-github-actions/",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-11T22:16:41.000Z",
+      "sources": ["Hacker News"],
+      "points": 301
+    },
+    {
+      "id": "0ce0ec55-e0da-4dd7-881b-f7e4b8ca7c61",
+      "title": "AI models from Google, Anthropic and more lean on recommending promoted drugs: study - Fierce Pharma",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTlh1MGktTFl3SEdkWkN3Rlk2ZHNtTlhabzY2UkFuelZ5dFJfaHZ4U0VHc2dacDZ0bHoyVU1vSmRwTHdad1U3a3NDTUFHeEtGWlZreUxJMnJaRXFNaEV6VjY0bnVEVGhLWlVGR05CUnM4eldSZFJBXzRLT1F3Uk1VRm94c2ZaekR0S2hqTEVkRFhuX0d5MWx4ZDhVdnZqaHNfZVdIV3VLNS0yeTA?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.fiercepharma.com/",
+        "name": "Fierce Pharma"
+      },
+      "publishedAt": "2026-11-12T12:45:05.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    },
+    {
+      "id": "2eccb270-590c-4fbc-a774-5e6fdc1bc261",
+      "title": "United Airlines Blocks AI Bots From Booking Flights - PYMNTS.com",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQcUFVMU1MVWR3OWlrQ3NYWEkwYzBmYzZET0NoZGZOUC1NblVZNXdINGg1bTdkUkNRUzlJVGYxbXRnT3FjSEpWdVd6OVVrRHBoRFBiNF9EWlB1TERiS0JSUmJXLUpRb050aWJwR0RhLWJjakhxdmdLTnl6Q20wOEFGT2Q4Sm0tLS1EcmFidTY1cTdmNUJxdmFiUnFlVlhWVWlvbUxQUjJwVUF2YUgwZkE?oc=5",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": "https://www.pymnts.com/",
+        "name": "PYMNTS.com"
+      },
+      "publishedAt": "2026-11-12T01:09:58.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0
+    }
+  ],
+  "groups": [],
+  "publishedIds": [
+    "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+    "1f671bbf-23db-4b99-b421-954c881121f6",
+    "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+    "12d701f7-ab49-4205-8214-18c51efdf97e",
+    "6247da17-4261-40bc-87ad-4834b834df24"
+  ],
+  "historicalGroupingCacheHit": false,
+  "provenance": "Read-only current-loader capture on 2026-11-14 for Nov 12 window, not historical model input. No compatible scheduled grouping cache response found; explicitly ungrouped control, not a grouping replay.",
+  "reportingIds": [
+    "cde99a3e-4762-42d4-90d4-7e7dd4829c7b",
+    "8d033083-1f8c-45e2-98d3-320a08042357",
+    "84ada437-b1fb-4862-bbcf-f9c8bb60ef98",
+    "1f671bbf-23db-4b99-b421-954c881121f6"
+  ],
+  "nonReportingIds": ["49404c80-36ee-4d10-a84f-a7933aac0c10"],
+  "expected": {
+    "baselineReadable": 0,
+    "trialReadable": 1,
+    "publishedControlsRetained": 1,
+    "baselinePublished": 1,
+    "clusters": 40
+  }
+}
