@@ -102,3 +102,15 @@ Older entries: [through iteration 2280](docs/progress-archive/2026-11-14-through
 - API/worker restarted healthy; `/healthz` database/Redis true. Saved reader edition b9d55088-892a-4e34-b77c-a398d64c6a9f byte-identical (SHA-256 1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5).
 - TASKS/depth study updated. No runtime/UI/schema/source-flow change; handbook/SOURCES/screenshots unchanged. No inference, external source requests or publication writes.
 - Next: natural Gaming/ownership acceptance before item 58/private public-mode activation; verify natural grouped Tech evidence before proposing a reporting reservation.
+
+## 2026-11-14: iteration 2290 — trace NBA social event concentration
+
+- Clean main; no inherited work. Initial alerts zero and `/healthz` database/Redis true. Natural Gaming/ownership acceptance still gates item 58 and private public-mode activation.
+- Reader weakness: three of five NBA posts concern Murray's trade request, already covered by a story. Traced saved scores, selection reasons and Bluesky replacement rather than repeating the Tech cutoff studies.
+- Read-only temporary `scripts/.2290-review.ts` assertions pass: 70 saved scores, zero unscored, 29 qualified, all saved IDs recovered, ten reconstructed editor candidates. Stored publication-hour cache has five chosen X IDs; first four match publication and fifth matches the reserved-slot replacement.
+- Editor explicitly distinguishes the scoop, team response and Suns interest; it removes direct request/performance repetitions. Distinct retirement and Spurs-record candidates reach the shortlist. Bluesky replaces the fifth-ranked Spurs record with Beck's Nets travel report, preserving rather than creating trade concentration.
+- Current stored text/engagement plus saved score membership do not establish the exact historical request fingerprint. Official X metrics unknown; no unseen media judgment or omission rationale invented. Private receipt `/tmp/2290-nba-social.json`; temporary script removed.
+- Added NBA selection evidence and updated TASKS. Keep prompts/ranking/reservation unchanged: a shared player alone does not make the reports duplicates. Next natural review should assess whole-section breadth alongside exact duplication.
+- No runtime/UI/schema/source-flow change; handbook/SOURCES/screenshots unchanged. No paid inference, external source/embed request, publication or database write.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,021 unit / 329 integration tests, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warning; `git diff --check` clean.
+- API/worker restarted healthy; immediate health request preceded listener readiness, subsequent `/healthz` database/Redis true. `pnpm obs sources --check` 38/38 healthy; scheduled-reader check verifies five topics/14 stories/19 posts. Saved JSON SHA-256 unchanged: `1726bb2948580c1e9b18471cc7632f9e5029ae67f3bd348923a6e41147b3b3a5`.
