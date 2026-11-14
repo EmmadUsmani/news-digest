@@ -249,3 +249,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (typecheck/lint/format/boundaries; 1,011 unit and 327 integration tests, four expected skips). Archived iterations 2260–2261 to keep this file bounded.
 - Documentation-only; deployed app unchanged and 13:00–16:00 hold preserved, with no rebuild/restart.
 - Next: 15:00 scheduled all-topic acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold.
+
+## 2026-11-14: iteration 2271 — durable HUD provenance reproducer
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; all 38 sources healthy and jobs check passes, with normal 15:00 digest queued.
+- Reader weakness remains the known changed-headline HUD excerpt counted as reporting. Recorded one actual Nov 14 Google feed item and four stored candidate fields in durable fixtures; no new source/provider requests.
+- Isolated repository test now composes feed parsing, repeated persistence and production evidence filtering: blank recollection retains the old headline and exact-title suppression misses it. This explicitly characterizes a known defect, not desired behavior or acceptance.
+- Synthetic reporting-preservation control replaces the old excerpt with prose and repeats blank recollection; future repair must preserve that prose. Original older feed body/title unknown; fixture seeds current storage, not invented observation history.
+- Production repair stays after the protected edition; no generation/runtime/database changes, paid calls, rebuild or restart during 13:00–16:00 hold. Test runner builds API only for isolated tests; deployed app remains unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: typecheck/lint/format/boundaries, 1,011 unit and 328 integration passes, four expected skips. New recorded HUD persistence case passes; API rebuilt inside isolated test runner.
+- Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold. Fix HUD provenance after edition protection.

@@ -1,12 +1,94 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 
+import { reportingExcerpt } from '../src/modules/digests/domain/reporting-excerpt';
+import { parseFeed } from '../src/modules/ingestion/adapters/feed.adapter';
 import { PostgresContentRepository } from '../src/modules/ingestion/database/content.repository';
 import {
   type ContentItem,
   type Source,
 } from '../src/modules/ingestion/domain/ports';
+
+void test('recorded HUD rediscovery exposes legacy excerpt provenance loss without erasing reporting', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const repository = new PostgresContentRepository();
+  const topicId = randomUUID();
+  const source: Source = {
+    id: `hud-${topicId}`,
+    topicId,
+    name: 'Recorded HUD fixture',
+    kind: 'feed',
+    url: 'https://example.org/recorded-hud',
+  };
+  const stored = JSON.parse(
+    await readFile(
+      'apps/api/test/fixtures/google-hud-stored-2026-11-14.json',
+      'utf8',
+    ),
+  ) as {
+    url: string;
+    title: string;
+    excerpt: string;
+    publisher: { name: string; url: string };
+  };
+  const [fresh] = parseFeed(
+    await readFile('apps/api/test/fixtures/google-hud-2026-11-14.xml', 'utf8'),
+  );
+  assert.equal(fresh.url, stored.url);
+  assert.equal(fresh.title, stored.title);
+  assert.equal(fresh.excerpt, '');
+  const persisted = async () =>
+    (
+      await repository.db.query(
+        'SELECT canonical_url AS url,title,excerpt,publisher FROM content_items WHERE canonical_url=$1',
+        [fresh.url],
+      )
+    ).rows[0] as typeof stored;
+  try {
+    await repository.db.query(
+      `INSERT INTO topics(id,profile_id,name,description,include_guidance,position)
+       SELECT $1,id,'HUD provenance fixture','','',100 FROM profiles LIMIT 1`,
+      [topicId],
+    );
+    await repository.db.query(
+      'INSERT INTO content_sources(id,topic_id,name,kind,url) VALUES($1,$2,$3,$4,$5)',
+      [source.id, topicId, source.name, source.kind, source.url],
+    );
+    // The earlier observation's original title/body was not saved. Seed only
+    // the recorded current storage state; this is not a reconstructed old feed.
+    await repository.store(source, [{ ...fresh, ...stored }]);
+    await repository.store(source, [fresh]);
+    assert.deepEqual(await persisted(), stored);
+    // Known defect, deliberately characterized until the post-hold repair:
+    // the changed headline survives both blank preservation and exact matching.
+    assert.equal(reportingExcerpt(await persisted()), stored.excerpt);
+    assert.notEqual(reportingExcerpt(await persisted()), '');
+
+    // Synthetic reporting control: clearing all retained excerpts on blank
+    // rediscovery would destroy real reporting as well as this headline.
+    const report =
+      'The division will oversee department data governance, according to the supplied report.';
+    await repository.store(source, [{ ...fresh, excerpt: report }]);
+    await repository.store(source, [fresh]);
+    assert.equal(reportingExcerpt(await persisted()), report);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [source.id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [
+      source.id,
+    ]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [fresh.url],
+    );
+    await repository.db.query('DELETE FROM topics WHERE id=$1', [topicId]);
+    await repository.onModuleDestroy();
+  }
+});
 
 void test('content repository characterizes eligibility, shared observations, ordering, upserts and rollback', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
