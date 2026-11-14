@@ -70,17 +70,7 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
-## 2026-11-14: iteration 2211 — correct the fallback ranking measurement
-
-- Clean main; no inherited work. Zero alerts; health/database/Redis healthy. Scheduled NBA/item 58/private public-mode gates await today's normal edition; no paid replay.
-- Reader weakness remains repeated/weak Tech coverage. Investigation found the offline benchmark used general `rank`, despite describing deployed fallback; it missed iteration 2167's blank-text exclusion.
-- Baseline and twenty-slot audit now call production `rankFallback`; label-only grouping uses the same readable pool. Diagnostics expose missing text separately from relevance/quality rejection.
-- Corrected later Tech result: 16 relevance-eligible blanks excluded, including both Claude reports; zero of five targets in both five-slot selections. Microsoft is slot 18. Prior claim that grouping recovers a target is withdrawn in RANKING/TASKS.
-- Earlier Tech has two blanks; NBA/World/Gaming have none. Fixture content/labels, production generation, budgets, providers and saved editions unchanged. Agent labels still need independent review.
-- Added synthetic blank/whitespace high-score and grouped-target controls; updated recorded Tech regression to preserve the measured weakness. Targeted historical ranking passes 8/8; offline CLI passes.
-- Source/handbook behavior and NEEDS_FROM_HUMAN unchanged; no UI change or browser replay needed. Archived iteration 2198 to retain the progress size bound.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (989 unit/297 integration; four expected skips), `pnpm build`, handbook/schema checks and `git diff --check` pass; existing web chunk warning only. Commit/push and built API/worker restart follow.
-- Next: scheduled all-topic editing/diversity and NBA/item 58 acceptance, then private public-mode activation. Corrected fallback evidence shows ranking loss persists without headline-only cards.
+Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
 ## 2026-11-14: iteration 2212 — NBA repair publication coverage
 
@@ -223,3 +213,12 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 - `pnpm format`, `pnpm lint:fix`, final `pnpm check` pass: 990 unit/309 integration tests, four expected skips. Reader gate verifies five topics/15 stories/20 posts; disk alert cleared.
 - Build passes (existing chunk warning); API/worker restarted active, `/healthz` database/Redis pass, zero pending/firing alerts.
 - Next: 15:00 UTC scheduled all-topic/NBA recovery, item 58 closure, then private public-mode activation.
+
+## 2026-11-14: iteration 2224 — passive compaction recovery evidence
+
+- Clean main; no inherited work. Health/database/Redis pass; zero pending/firing alerts. Scheduled NBA/item 58/public-mode gates still await 15:00 UTC.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 healthy rules, four uncached queries ≤0.643 s; unchanged process starts and zero new evaluator/admission/timeout/slow-query failures. Neither storage tier merged; recovery stays open.
+- Metrics/alerts warning journal since Nov 13 22:47 UTC empty. Updated capacity evidence/TASKS; archived iteration 2211 to keep PROGRESS small.
+- No source, schema, production code/configuration, provider calls or live content writes; SOURCES/handbook unchanged. Services already run main; no restart needed for evidence-only documentation.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, affected handbook/schema and diff checks pass: 990 unit/309 integration tests, four expected integration skips.
+- Next: scheduled all-topic/NBA recovery and diversity review, item 58 closure, then private public-mode activation. No further passive metrics sample before 05:36 UTC.
