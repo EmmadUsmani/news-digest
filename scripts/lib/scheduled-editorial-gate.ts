@@ -6,11 +6,16 @@ interface EditionIdentity {
   windowEnd: string;
 }
 interface ReaderEvidence extends EditionIdentity {
-  topics: { id: string; name: string; stories: { summary: string }[] }[];
+  topics: {
+    id: string;
+    name: string;
+    stories: { id: string; summary?: string }[];
+  }[];
 }
 interface EditorialEvidence extends EditionIdentity {
   topics: {
     id: string;
+    stories: { id: string; summary?: string }[];
     editorial?: {
       mode: 'ai' | 'non-ai';
       model: string | null;
@@ -57,9 +62,22 @@ export function requireScheduledAiTopic(
   );
   assert.ok(topic.stories.length > 0, `${name}: no published stories`);
   assert.ok(
-    topic.stories.every((story) => story.summary.trim()),
+    topic.stories.every((story) => story.summary?.trim()),
     `${name}: missing published story text`,
   );
+  assert.deepEqual(
+    saved[0].stories.map((story) => story.id),
+    topic.stories.map((story) => story.id),
+    `${name}: published story selection differs from editorial evidence`,
+  );
+  for (const [index, story] of saved[0].stories.entries()) {
+    assert.ok(story.summary?.trim(), `${name}: missing saved AI story summary`);
+    assert.equal(
+      topic.stories[index].summary,
+      story.summary,
+      `${name}: published summary differs from saved AI summary`,
+    );
+  }
   return {
     name,
     model: saved[0].editorial.model,

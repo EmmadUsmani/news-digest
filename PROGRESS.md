@@ -237,3 +237,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - No paid calls, source requests, stored-data/configuration changes or production code changes. Existing services keep serving unchanged main application code throughout the hold.
 - Verification: pnpm format and pnpm lint:fix pass; pnpm check passes typecheck/lint/format/boundaries, 1,008 unit and 327 integration tests with four expected skips. Documentation-only step; no build/restart during protected hold. Archived iterations 2256–2257 to keep this file bounded.
 - Next: 15:00 all-topic scheduled acceptance, assess Tech social quality separately, NBA/item 58 closure, then fresh rollback baseline/private public-mode activation outside hold.
+
+## 2026-11-14: iteration 2266 — saved-summary acceptance
+
+- Clean main; no inherited work. Initial alerts zero. NBA/item 58/public activation still await 15:00 UTC; protected deployment/generation hold retained.
+- Found an acceptance gap: reader projection fills absent saved summaries with source excerpts, so readable reader text plus topic AI metadata alone cannot establish edited-summary publication.
+- GET-only scheduled gate now requires nonblank saved AI summaries and identical saved/published story IDs, order and summary text. No production reader or generation behavior changed.
+- Eight targeted tests pass, including excerpt fallback, changed text, different/missing/reordered stories and matching publication controls.
+- Actual Nov 13 GET-only gate remains editorial-refused for all five topics; edition f901ba6c-cba3-4116-8539-fd0e92b98ec4 unchanged (15 stories/20 posts). No paid calls, source requests or stored-data/configuration writes.
+- Updated TASKS and today's review checklist. Existing handbook flows unchanged. No rebuild/restart during 13:00–16:00 UTC: only local verification tooling/tests and handoff docs changed.
+- Verification: pnpm format/lint:fix pass; pnpm check passes typecheck/lint/format/boundaries, 1,010 unit and 327 integration tests, four expected skips. Targeted command: pnpm exec tsx --test apps/api/test/scheduled-editorial-gate.test.ts.
+- Next: normal 15:00 all-topic recovery/diversity review, NBA/item 58 closure, then refreshed rollback baseline/private public-mode activation outside the hold.

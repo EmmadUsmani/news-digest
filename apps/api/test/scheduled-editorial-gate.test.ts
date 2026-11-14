@@ -20,7 +20,7 @@ function evidence() {
         {
           id: 'nba',
           name: 'NBA',
-          stories: [{ summary: 'A saved supported summary.' }],
+          stories: [{ id: 'story-nba', summary: 'A saved supported summary.' }],
         },
       ],
     },
@@ -29,6 +29,7 @@ function evidence() {
       topics: [
         {
           id: 'nba',
+          stories: [{ id: 'story-nba', summary: 'A saved supported summary.' }],
           editorial: {
             mode: 'ai' as 'ai' | 'non-ai',
             model: 'saved-model',
@@ -109,10 +110,11 @@ void test('multi-topic acceptance refuses partial recovery and absent sections',
   reader.topics.push({
     id: 'tech',
     name: 'Tech',
-    stories: [{ summary: 'Saved Tech text.' }],
+    stories: [{ id: 'story-tech', summary: 'Saved Tech text.' }],
   });
   preview.topics.push({
     id: 'tech',
+    stories: [{ id: 'story-tech', summary: 'Saved Tech text.' }],
     editorial: {
       mode: 'non-ai',
       model: 'fallback',
@@ -187,4 +189,50 @@ void test('all-topic assessment reports failures after a failure and retains acc
     assessScheduledAiTopics(reader, preview, ['NBA'])[0].status,
     'accepted',
   );
+});
+
+void test('source-excerpt reader fallback cannot stand in for a missing saved AI summary', () => {
+  const { reader, preview } = evidence();
+  // Reader projection supplies an excerpt when the saved summary is empty.
+  reader.topics[0].stories[0].summary = 'Readable source reporting.';
+  preview.topics[0].stories[0].summary = '';
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /missing saved AI story summary/,
+  );
+  preview.topics[0].stories[0].summary = 'Different saved AI summary.';
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /published summary differs from saved AI summary/,
+  );
+  reader.topics[0].stories[0].summary = preview.topics[0].stories[0].summary;
+  assert.equal(requireScheduledAiTopic(reader, preview, 'NBA').stories, 1);
+});
+
+void test('AI acceptance requires the published story identities and order', () => {
+  const { reader, preview } = evidence();
+  preview.topics[0].stories[0].id = 'different-story';
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /published story selection differs/,
+  );
+  preview.topics[0].stories = [];
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /published story selection differs/,
+  );
+  preview.topics[0].stories = [
+    { id: 'second-story', summary: 'Second summary.' },
+    { id: 'story-nba', summary: 'A saved supported summary.' },
+  ];
+  reader.topics[0].stories.push({
+    id: 'second-story',
+    summary: 'Second summary.',
+  });
+  assert.throws(
+    () => requireScheduledAiTopic(reader, preview, 'NBA'),
+    /published story selection differs/,
+  );
+  preview.topics[0].stories.reverse();
+  assert.equal(requireScheduledAiTopic(reader, preview, 'NBA').stories, 2);
 });
