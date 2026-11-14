@@ -3176,3 +3176,16 @@ All supplied recommendations now fit the 600-character editor evidence view;
 metadata and the lead image are unchanged. Other publishers, changed copy,
 other archive destinations and non-opening text retain the paragraph. No source,
 schedule, ranking or saved-edition change; normal ingestion refreshes the excerpt.
+
+## Yardbarker status clarification — iteration 2301 (2026-11-14)
+
+The NBA RSS feed is **live**. Only article-page X-link harvesting is
+**prepared, disabled** under STEERING 27. Migration 055 clears
+`article_discovery_host`; it does not disable the RSS feed. TASKS previously
+collapsed these two states into “Yardbarker prepared/disabled.”
+
+Read-only live configuration during this iteration confirms a null discovery host,
+no collection error, 20 items in the latest successful fetch (20:16:53 UTC),
+and 83 stored source observations. These are collected articles, not verified
+X posts or independent reporting. No source activation, external request or
+collection setting changed. Source expansion still requires coverage review.

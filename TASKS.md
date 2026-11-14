@@ -44,7 +44,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-16).
 
-- [ ] STEERING 10 source balance paused under 27: Yardbarker prepared/disabled; no new source without coverage review. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-17).
+- [ ] STEERING 10 source balance paused under 27: Yardbarker NBA feed live; article-page X harvesting prepared/disabled (2301). No new source without coverage review. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-17).
 
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
@@ -59,6 +59,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2301: reconciled Yardbarker feed versus disabled article-page harvesting against live configuration; no activation change.
 
 - [x] 2300: compacted this handoff; every open item and all historical detail/evidence retained in the linked archive.
 - [x] 2299: bounded selected NBA story context reaches both social editing stages; natural selection acceptance pending.

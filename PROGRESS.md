@@ -134,3 +134,13 @@ Older entries: [through iteration 2288](docs/progress-archive/2026-11-14-through
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,025 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean. Private receipts `/tmp/2300-*`.
 - `pnpm obs sources --check`: 38/38 healthy. `check-scheduled-reader.ts 2026-11-14T15:00:00Z`: scheduled provenance/five topics/14 stories/19 posts verified. No inference, source requests or production writes.
 - Next: natural scheduled Gaming/ownership recovery before activation, plus NBA story/post distinction review. Public mode remains off and sharing private.
+
+## 2026-11-14: iteration 2301 — clarify live NBA source coverage
+
+- Clean main; no inherited work. Initial `pnpm obs alerts`: zero active alerts; health/database/Redis healthy and 38 sources healthy.
+- Owner benefit: the handoff no longer misidentifies an active NBA feed as disabled, avoiding redundant activation or incorrect coverage decisions.
+- TASKS conflated Yardbarker RSS with its disabled article-page X harvesting. Migrations 053–055 and read-only live SELECT confirm RSS success at 20:16:53 UTC, 20 fetched items, 83 stored observations, null discovery host and no error.
+- Corrected current TASKS and clarified SOURCES; historical task archive preserved. No runtime/source activation, provider calls, external collection requests or saved-edition writes.
+- Natural Gaming/ownership recovery still gates item 58/public activation; NBA social-context acceptance awaits the next scheduled edition. Public mode off, sharing private.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,025 unit/329 integration tests, four expected skips); `VITE_PUBLIC_MODE=0 pnpm build` passes with existing bundle warnings; `git diff --check` clean. Private receipts `/tmp/2301-*`.
+- API/worker restarted; `pnpm obs health --check` healthy; `check-scheduled-reader.ts 2026-11-14T15:00:00Z` verifies scheduled provenance, five topics/14 stories/19 posts. No UI/schema/system-flow change; handbook/screenshots unchanged.
