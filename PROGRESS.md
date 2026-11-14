@@ -1,5 +1,6 @@
 # Progress
 
+Archived entry: [iteration 2244](docs/progress-archive/2026-11-14-iteration-2244.md).
 Archived entry: [iteration 2242](docs/progress-archive/2026-11-14-iteration-2242.md).
 
 Archived entry: [iteration 2241](docs/progress-archive/2026-11-14-iteration-2241.md).
@@ -126,17 +127,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2244 — triage Push Square upstream outage
-
-- Clean main; no inherited work. Initial alerts show pending RecentJobFailures; health/database/Redis pass.
-- Reader impact: new Push Square Gaming reports have stopped collecting. All three scheduled attempts at 08:46–08:50 UTC failed with HTTP 522 in about 19 seconds.
-- Independent configured-feed public probe confirms HTTP 522/zero body/19.65 seconds; last successful collection 08:16:25 UTC, 192 stored articles retained. Other 37 sources healthy.
-- Existing retry policy exhausted normally; no crashed worker, parser failure or local connectivity failure identified. Upstream recovery remains open; no endpoint/retry changes or bypass.
-- Added first-priority source-recovery task and SOURCES incident evidence; archived iteration 2231 to keep PROGRESS bounded. No runtime, saved-edition, provider or budget changes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only. Full `pnpm check` passes: 998 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- API/worker restarted active; `/healthz` passes. Saved-reader check passes on retry after startup: five topics/15 stories/20 posts. Diff check passes.
-- Next: verify normal Push Square collection recovery, then 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation.
 
 ## 2026-11-14: iteration 2245 — Gaming excerpts without teaser navigation
 
@@ -268,3 +258,15 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `pnpm build` pass: 1,006 unit/326 integration tests, four expected skips; existing bundle warnings only. Typecheck/lint/format/boundaries green.
 - API/worker restarted active; `/healthz` passes after startup retry. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC NBA/all-topic recovery/diversity acceptance, item 58 closure, then private public-mode activation. Avoid more verification of already-covered feed cleanup; no paid replay.
+
+## 2026-11-14: iteration 2257 — Legacy headline-only candidate evidence
+
+- Clean main; no inherited work. Alerts zero, health/database/Redis pass, all 38 sources healthy. Push Square’s earlier HTTP 522 recovered naturally; scheduled acceptance still awaits 15:00 UTC.
+- Prospective read-only production-pool capture at 11:25 UTC finds 113 exact Google News headline/publisher repetitions retained from old observations. Sparse ingestion deliberately preserves nonempty stored text, leaving a hole in the parser-only repair.
+- Candidate loading now suppresses only exact repetitions with stored publisher and Google RSS article URL evidence; real reporting, other destinations, stored rows and immutable editions remain unchanged. Captured Tech readable pool becomes 25 of 200; 17 of 20 Ars/Verge entries already have at least 500 characters.
+- Isolated recorded-feed regression covers legacy storage, sparse repeat, candidate loading, fallback omission and subsequent additional reporting. Unit boundary controls preserve differing text, missing publisher and unrelated URLs. No new source requests, provider calls, prompt or budget change.
+- Updated TASKS/SOURCES and Tech depth evidence; archived iteration 2244 to bound PROGRESS. No handbook flow or UI change.
+- `pnpm exec tsx --test apps/api/test/reporting-excerpt.test.ts`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `pnpm build` pass: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green, existing bundle warnings only.
+- Second read-only production-loader capture at 11:32 UTC matches all 200 Tech IDs: exactly 113 excerpts blanked; every other excerpt equals its original. No database writes.
+- Rebuilt API/worker restarted active; `/healthz` database/Redis pass after startup retry. Saved-reader check for Nov 13 passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay; avoid further cleanup of already-covered feeds.

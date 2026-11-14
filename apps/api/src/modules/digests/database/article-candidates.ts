@@ -9,6 +9,7 @@ import {
   topicSourceConnections as connections,
 } from '../../../libs/db/schema';
 import type { Candidate } from '../domain/rank';
+import { reportingExcerpt } from '../domain/reporting-excerpt';
 
 // Shared by edition selection and pre-edition reaction discovery.
 export async function loadArticleCandidates(
@@ -48,6 +49,7 @@ export async function loadArticleCandidates(
     .limit(200);
   return rows.map((row) => ({
     ...row,
+    excerpt: reportingExcerpt(row),
     publishedAt: new Date(row.publishedAt).toISOString(),
     points: Number(row.points ?? 0),
   }));

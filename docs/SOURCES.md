@@ -3123,3 +3123,13 @@ now verifies both `rankFallback` and `scoredFallback`: that entry cannot consume
 a one-story budget ahead of a synthetic readable control. Supplied reporting
 survives, and links to other articles remain text. This is offline verification,
 not a new source, live ingestion or scheduled acceptance.
+
+## 2026-11-14 iteration 2257 — Legacy Google headline evidence
+
+A read-only prospective Tech pool has 113 exact headline/publisher repetitions
+retained from older Google observations. Edition candidate loading now treats
+these as blank reporting using the stored publisher and Google RSS article URL;
+extra reporting and other destinations remain unchanged. Stored content and
+saved editions are preserved. Recorded-source persistence/fallback verification
+uses isolated Postgres; no new source request or paid call. See the
+[Tech feed-depth evidence](edition-reviews/2026-11-13-tech-feed-depth.md#prospective-stored-pool-check--iteration-2257).

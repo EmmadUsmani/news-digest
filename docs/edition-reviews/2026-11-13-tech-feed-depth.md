@@ -104,3 +104,41 @@ of reporting plus a continuation ellipsis, with identical metadata. The unchange
 fixture and publisher/link/position controls cover this; no new live request or
 paid call. Historical measurements above describe the previous normalization.
 Natural scheduled summary-depth acceptance remains open.
+
+## Prospective stored-pool check — iteration 2257
+
+At Nov 14 11:25:07 UTC, a read-only repeatable-read capture used the production
+candidate loader for the upcoming `[Nov 13 15:00, Nov 14 15:00)` window.
+It contains the newest 200 Tech candidates, not the final scheduled pool.
+
+| Source         | Candidates | Blank excerpts | Excerpts at least 500 characters |
+| -------------- | ---------: | -------------: | -------------------------------: |
+| Google News AI |        129 |             15 |                                0 |
+| Hacker News    |         51 |             47 |                                2 |
+| Ars Technica   |          9 |              0 |                                8 |
+| The Verge      |         11 |              0 |                                9 |
+
+The richer publisher bodies are reaching the real candidate loader. The larger
+remaining weakness is legacy Google News text: 113 descriptions exactly repeat
+the headline and its explicitly stored publisher. Sparse repeat observations
+preserve the old excerpt by design, so the parser repair alone cannot remove it.
+One other Google description has different headline wording and remains intact.
+
+The loader now omits only the exact Google RSS article headline/publisher
+repetition from edition evidence. The frozen capture changes from 62 to 175
+blank excerpts, retaining 25 readable candidates; no item is deleted. Original
+stored content, saved editions and triage membership remain unchanged. The
+blank-excerpt fallback gates prevent these 113 repetitions taking story slots.
+The same capture includes two Ars URLs for one article after its category path
+changed; AI same-event grouping remains responsible for that duplication.
+
+Verification uses an isolated legacy observation followed by a sparse repeat,
+then real candidate loading and fallback selection. Additional reporting stays
+readable. No source fetch, provider call, data rewrite or scheduled acceptance
+is implied. Capture command: `scripts/capture-triage-pool.ts` with the window
+above; private temporary output `/tmp/iteration-2257-pool.json`.
+
+A second production-loader capture at 11:32:22 UTC matches all 200 original Tech
+IDs. Every resulting excerpt equals the expected normalization: exactly 113
+headline repetitions become blank and all other excerpts remain unchanged.
+Private temporary output: `/tmp/iteration-2257-pool-after.json`.

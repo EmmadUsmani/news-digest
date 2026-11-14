@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Legacy Google headline evidence (2257): candidate loading suppresses exact stored Google RSS headline/publisher repetitions; prospective Tech capture identifies 113 affected candidates. Stored data and editions unchanged; isolated persistence/fallback controls retain additional reporting.
+
 - [x] Xbox headline-only fallback verification (2256): recorded self-link-only entry stays empty through both fallback selectors; a readable control fills the one-story budget. Reporting and foreign-link preservation controls pass; production unchanged.
 
 - [x] Xbox store badges (2255): omit nested publisher store widgets before excerpt truncation; recorded release dates/descriptions and article prices remain, with publisher/class/incomplete-widget controls.

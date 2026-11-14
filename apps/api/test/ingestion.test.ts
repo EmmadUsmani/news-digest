@@ -1494,3 +1494,72 @@ void test('feed inline formatting preserves punctuation and block separation', (
     "Live in Marvel's Spider-Man 2. A free update, with H2O and coop support. More details. First Second",
   );
 });
+
+void test('legacy Google headline excerpts stay stored but cannot enter readable fallback slots', async () => {
+  const repository = new PostgresContentRepository();
+  const id = `google-legacy-${Date.now()}`;
+  const item = parseFeed(await fixture('google-news.xml'))[0];
+  const name = item.publisher!.name;
+  const legacy = {
+    ...item,
+    excerpt: `${item.title.slice(0, -` - ${name}`.length)} ${name}`,
+  };
+  try {
+    await repository.db.query(
+      `INSERT INTO content_sources(id,topic_id,name,kind,url) SELECT $1,id,'Legacy headline fixture','feed','https://example.org/fixture' FROM topics ORDER BY position LIMIT 1`,
+      [id],
+    );
+    await repository.db.query(
+      'INSERT INTO topic_source_connections(topic_id,source_id) SELECT topic_id,id FROM content_sources WHERE id=$1',
+      [id],
+    );
+    const source = (await repository.sources()).find(
+      (entry) => entry.id === id,
+    )!;
+    await repository.store(source, [legacy]);
+    await repository.store(source, [item]);
+    const stored = (
+      await repository.db.query(
+        'SELECT excerpt FROM content_items WHERE canonical_url=$1',
+        [item.url],
+      )
+    ).rows[0];
+    assert.equal(
+      stored.excerpt,
+      legacy.excerpt,
+      'sparse observation still preserves stored text',
+    );
+    const start = new Date(item.publishedAt);
+    const end = new Date(start.getTime() + 1);
+    const read = async () =>
+      (
+        await loadArticleCandidates(repository.db, source.topicId, start, end)
+      ).filter((c) => c.url === item.url);
+    const candidates = await read();
+    assert.equal(candidates.length, 1);
+    assert.equal(candidates[0].excerpt, '');
+    assert.equal(candidates[0].title, item.title);
+    assert.deepEqual(candidates[0].publisher, item.publisher);
+    assert.deepEqual(rankFallback(candidates, start, end, 1), []);
+    const reporting =
+      legacy.excerpt + ' Additional reporting supplied by the feed.';
+    await repository.store(source, [{ ...item, excerpt: reporting }]);
+    assert.equal((await read())[0].excerpt, reporting);
+    assert.equal(rankFallback(await read(), start, end, 1).length, 1);
+  } finally {
+    await repository.db.query(
+      'DELETE FROM content_observations WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query(
+      'DELETE FROM topic_source_connections WHERE source_id=$1',
+      [id],
+    );
+    await repository.db.query('DELETE FROM content_sources WHERE id=$1', [id]);
+    await repository.db.query(
+      'DELETE FROM content_items WHERE canonical_url=$1',
+      [item.url],
+    );
+    await repository.onModuleDestroy();
+  }
+});
