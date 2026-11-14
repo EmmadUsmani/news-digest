@@ -892,3 +892,19 @@ serve only those published fallback snapshots; the newer unpublished copy remain
 hidden. Repeated generations must not cache rejected output, and every dispatched
 response still settles its synthetic usage. Accepted initial/repair cases retain
 their one-dispatch cache assertions. No live provider calls or runtime changes.
+
+## NBA automatic repair at publication (iteration 2232)
+
+The isolated historical NBA regression now supplies the malformed Haiku initial
+output followed by its saved corrected output in one automatic `BudgetedLlm`
+repair cycle. The real story validator rejects the initial ID and supplies the
+fixed selection feedback. Fingerprinted replay refuses unexpected requests.
+Both attempts reserve and settle separately; only the corrected response enters
+the cache. Two published snapshots and a later unpublished generation reuse that
+cache without another dispatch. Public reader HTTP preserves the corrected
+summaries, hides private editorial fields and omits the unpublished generation.
+
+Both outputs are historical structured values serialized by the test; requests,
+triage, candidate metadata and zero usage are synthetic. This adds automatic
+repair orchestration to the publication regression, not historical triage or a
+full-edition golden. No live data, provider request or scheduled acceptance.

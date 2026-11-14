@@ -25,6 +25,7 @@ import {
   type TriageCandidate,
   type TriageTopic,
 } from '../src/modules/curation/application/triage';
+import { LlmValidationFailure } from '../src/modules/curation/application/validation-failure';
 import type {
   LlmPort,
   LlmRequest,
@@ -598,11 +599,12 @@ void test('system edition scope preserves publication filters, replay and rollba
   }
 });
 
-for (const [entryIndex, label] of [
-  [0, 'Sonnet initial'],
-  [1, 'Sonnet repair'],
-  [2, 'malformed Haiku initial'],
-  [3, 'Haiku repair'],
+for (const [entryIndex, label, automaticRepair] of [
+  [0, 'Sonnet initial', false],
+  [1, 'Sonnet repair', false],
+  [2, 'malformed Haiku initial', false],
+  [3, 'Haiku repair', false],
+  [3, 'Haiku automatic repair', true],
 ] as const) {
   void test(`historical NBA ${label} ${entryIndex === 2 ? 'falls back to source excerpts' : 'survives publication'} through public reader HTTP with synthetic triage and metadata`, async (t) => {
     assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
@@ -650,15 +652,39 @@ for (const [entryIndex, label] of [
     const replay = new ReplayLlmAdapter({
       version: 1,
       provenance,
-      records: Array.from({ length: rejected ? 6 : 1 }, () => ({
-        fingerprint: llmFingerprint(request),
-        model: model.id,
-        response: { text: responseText, usage },
-      })),
+      records: automaticRepair
+        ? [
+            {
+              fingerprint: llmFingerprint(request),
+              model: model.id,
+              response: {
+                text: JSON.stringify(saved.entries[2].output),
+                usage,
+              },
+            },
+            {
+              fingerprint: llmFingerprint({
+                ...request,
+                prompt:
+                  request.prompt +
+                  '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
+                  new LlmValidationFailure('invalid-selection').feedback,
+              }),
+              model: model.id,
+              response: { text: responseText, usage },
+            },
+          ]
+        : Array.from({ length: rejected ? 6 : 1 }, () => ({
+            fingerprint: llmFingerprint(request),
+            model: model.id,
+            response: { text: responseText, usage },
+          })),
     });
     const cache = new Map<string, unknown>();
     let dispatches = 0;
     let settlements = 0;
+    let reservations = 0;
+    let cacheWrites = 0;
     const llm = new BudgetedLlm(
       {
         async complete(request) {
@@ -671,9 +697,19 @@ for (const [entryIndex, label] of [
           return cache.get(key);
         },
         async cache(key, value) {
+          cacheWrites++;
+          if (automaticRepair) {
+            assert.equal(
+              dispatches,
+              2,
+              'only the corrected response may be cached',
+            );
+            assert.deepEqual(value, output);
+          }
           cache.set(key, value);
         },
         async reserve() {
+          reservations++;
           return 'historical-publication-offline';
         },
         async settle(_id, actual, cost) {
@@ -691,7 +727,7 @@ for (const [entryIndex, label] of [
         // Preserve Sonnet initial transport identity (others use synthetic requests); validate against candidates actually
         // loaded and shortlisted by the publication pipeline, using today's guard.
         json: (_request, validate) =>
-          llm.json(request, validate, { repair: false }),
+          llm.json(request, validate, { repair: automaticRepair }),
       },
       model,
       model,
@@ -764,7 +800,7 @@ for (const [entryIndex, label] of [
           await adapter.generate(
             new Date('2026-11-12'),
             new Date('2026-11-13'),
-            `historical-nba-offline:${entryIndex}:${i}`,
+            `historical-nba-offline:${entryIndex}:${automaticRepair}:${i}`,
           ),
         );
         assert.equal(edition.topics.length, 1);
@@ -934,9 +970,18 @@ for (const [entryIndex, label] of [
           })),
         );
       } else {
-        assert.equal(dispatches, 1);
-        assert.equal(settlements, 1);
-        assert.deepEqual(llm.validationDiagnostics(), []);
+        const expectedCalls = automaticRepair ? 2 : 1;
+        assert.equal(dispatches, expectedCalls);
+        assert.equal(reservations, expectedCalls);
+        assert.equal(settlements, expectedCalls);
+        assert.equal(cacheWrites, 1);
+        assert.equal(cache.size, 1);
+        assert.deepEqual(
+          llm.validationDiagnostics(),
+          automaticRepair
+            ? [{ attempt: 'initial', category: 'invalid-selection' }]
+            : [],
+        );
       }
     } finally {
       await adapter.db.query(

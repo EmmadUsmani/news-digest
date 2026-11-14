@@ -1,5 +1,7 @@
 # Progress
 
+Archived entry: [iterations 2218–2219](docs/progress-archive/2026-11-14-iterations-2218-2219.md).
+
 Archived entry: [iteration 2217](docs/progress-archive/2026-11-14-iteration-2217.md).
 
 Archived entry: [iteration 2216](docs/progress-archive/2026-11-14-iteration-2216.md).
@@ -79,30 +81,6 @@ Archived entry: [iteration 2209](docs/progress-archive/2026-11-14-iteration-2209
 Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210.md).
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
-
-## 2026-11-14: iteration 2218 — preserve publisher truncation signals
-
-- Clean main; no inherited work. Zero alerts; API/database/Redis healthy. Scheduled NBA/item 58 acceptance awaits today's edition.
-- Recorded VGC/Gematsu excerpts end in “… Source”, hiding truncation from the reader's existing continuation detection.
-- Remove only terminal standalone Source paragraphs linking to the same canonical article. Preserve reporting, external/inline/nonterminal links and all metadata.
-- Focused ingestion self-link tests pass 2/2: four recorded articles plus synthetic boundaries. No live source request, paid call, saved-edition rewrite or UI change.
-- TASKS/SOURCES/affected handbook updated; archived iteration 2206 to keep PROGRESS small. Initial handbook check exceeded its length limit by one line; shortened affected text and recheck passes.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 989 unit/307 integration, four expected skips. `pnpm build` passes with existing chunk warning; `check-handbook.ts 07-data-model` and diff checks pass.
-- Built API/worker restarted active; `/healthz` healthy. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts. Protected status reports all 38 active sources with data/success/no errors; initial inline probe needed a CJS-compatible promise wrapper.
-- Commit/push and final restart follow. Next: scheduled all-topic/NBA recovery and diversity acceptance, item 58 closure, then private public-mode activation.
-
-## 2026-11-14: iteration 2219 — require complete triage for recovery acceptance
-
-- Clean main; no inherited work. Zero alerts and healthy API/database/Redis; scheduled recovery remains due at 15:00 UTC.
-- Nov 13's missing sections/repeated fallback events came from partial triage. AI provenance alone could accept a partially scored shortlist.
-- Read-only required-topic gate now also requires zero saved unscored candidates; cached scores remain valid. No generation, provider, budget, activation or UI change.
-- Five focused gate tests pass, including AI-edited but partially scored refusal. Initial test expectation accidentally included an internal evidence field; corrected before verification.
-- Saved Nov 13 NBA still fails non-AI acceptance. In-memory synthetic AI-provenance control on its unchanged 59 unscored IDs also fails; no saved data mutation or paid call.
-- TASKS and Nov 13 review updated. No source/handbook/schema change.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 990 unit/307 integration, four expected skips. `pnpm build`, handbook/schema (18 pages/39 tables) and diff checks pass.
-- Built API/worker restarted active; health/database/Redis pass. Initial reader check raced startup; retry verifies five topics/15 stories/20 posts. All 38 active sources have data/success/no errors.
-- Commit/push and final restart follow.
-- Next: scheduled all-topic/NBA recovery and manual diversity/support review, item 58 closure, then private public-mode activation.
 
 ## 2026-11-14: iteration 2220 — omit repeated publisher post footers
 
@@ -234,3 +212,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - `pnpm format`, `pnpm lint:fix`, `pnpm build`, `pnpm exec tsx scripts/check-handbook.ts 07-data-model` and full `pnpm check` pass: 990 unit/317 integration passes, four expected skips; 18 handbook pages/39 tables. Existing bundle warning only.
 - API/worker restarted active; `/healthz` passes. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local source read confirms all 38 successful with stored content/no errors. Diff check passes.
 - Next: scheduled all-topic/NBA recovery/diversity acceptance, close item 58, then private public-mode activation; no paid replay.
+
+## 2026-11-14: iteration 2232 — NBA automatic repair through publication
+
+- Clean main; no inherited work. Initial alerts zero; `/healthz` database/Redis pass. Scheduled NBA/item 58/private public-mode gates still await 15:00 UTC.
+- Owner-visible value: protect corrected NBA summaries through automatic repair and publication, covering the actual malformed saved Haiku story ID rather than adding another excerpt cleanup.
+- Added one isolated regression: saved invalid initial output → real budgeted repair → saved supported output → publication/immutable retrieval/public reader HTTP. Fingerprinted requests reject unexpected repair transport; only corrected output is cached, with two reservations/settlements and no extra calls across later generations.
+- Targeted temporary Testcontainers runner passes the new case (one test); runner removed. Historical structured outputs/candidate reporting retained; synthetic request, triage, metadata and zero usage explicit. No live provider call, data mutation or runtime behavior change.
+- Updated TASKS and DATABASE-VERIFICATION; archived iterations 2218–2219 to keep PROGRESS small. Full-edition raw-response golden remains open because historical triage responses are absent. No handbook/UI/source changes.
+- `pnpm format`, `pnpm lint:fix`, API typecheck and `pnpm build` pass (existing bundle warnings). Full `pnpm check` passes: 990 unit/318 integration tests, four expected skips; format/lint/typecheck/boundaries pass.
+- Rebuilt API/worker restarted active; `/healthz` passes after startup retry. `check-scheduled-reader.ts 2026-11-13T15:00:00Z` verifies five topics/15 stories/20 posts; local status read confirms all 38 active sources have stored content/success/no errors. Diff check passes.
+- Next: 15:00 UTC all-topic/NBA recovery/diversity acceptance, item 58 closure, then private public-mode activation; no paid replay.
