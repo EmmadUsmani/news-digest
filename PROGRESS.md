@@ -1,5 +1,7 @@
 # Progress
 
+Archived entries: [iterations 2260–2261](docs/progress-archive/2026-11-14-iterations-2260-2261.md).
+
 Archived entries: [iterations 2258–2259](docs/progress-archive/2026-11-14-iterations-2258-2259.md).
 
 Archived entries: [iterations 2256–2257](docs/progress-archive/2026-11-14-iterations-2256-2257.md).
@@ -150,28 +152,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2260 — complete scheduled recovery reporting
-
-- Clean main; no inherited work. Initial alerts zero and health database/Redis pass. NBA/item 58 acceptance still awaits 15:00 UTC.
-- Reader weakness remains the degraded Nov 13 edition: headline-only Tech, repeated Gaming QSSR reports and absent World/U.S. stories. Existing fixes await natural acceptance; no generation change after noon.
-- Fixed the GET-only scheduled acceptance command's first-failure short circuit: every requested topic now has accepted/refused status and its own reason; any refusal exits 1 with edition identity/counts. Pending remains exit 2; publication-only success remains supported.
-- Known Nov 13 all-topic run reports all five non-AI refusals and exits 1. Offline mixed success/failure regression confirms later failures and accepted sections survive; incomplete triage stays refused. This improves the next recovery decision, not the saved content.
-- Updated TASKS and Nov 14 review instructions; archived iteration 2249 to bound PROGRESS. No paid calls, source requests, schema, UI, prompt, budget or stored-data changes.
-- Verification: targeted gate tests 6/6; pnpm format/lint:fix; full pnpm check passes 1,008 unit/327 integration tests, four expected skips; pnpm build passes with existing bundle warnings. Initial check stopped on archive formatting, corrected before successful full rerun.
-- Rebuilt API/worker restarted; health database/Redis pass. Publication-only saved-reader check passes: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
-- Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. No paid replay.
-
-## 2026-11-14: iteration 2261 — World social breadth traced to saved selection
-
-- Clean main; no inherited work. Initial alerts zero and health database/Redis pass. Scheduled NBA/item 58 acceptance remains pending 15:00 UTC.
-- Reader weakness: two of three saved World posts concern Iran/U.S. confrontation. Traced whether distinct material was lost before editing rather than repeating the earlier selected-text assessment.
-- Read-only production selection plus saved complete scores: 16 candidates, four qualifying, all four reach the editor. Only omitted candidate is clipped Ukraine-child-abduction commentary; no demonstrated additional firsthand reporting. Shortlist capacity is not the cause.
-- Exact reconstructed editor fingerprint matches saved cache; normal validator reproduces all three published IDs in order. Cache reasons describe Pompeo as another prominent voice; no omission reason exists. No invented rejection rationale or event-label merge.
-- Updated X-quality evidence, Nov 14 breadth checklist and TASKS. Archived iterations 2250–2251 to bound PROGRESS. Private trace `/tmp/2261-world-trace.json`; temporary script removed. No source/media requests, paid calls, generation/configuration changes or stored-data writes.
-- Verification: offline 16-ID/four-shortlist/exact-cache/three-publication assertions pass; pnpm format and lint:fix pass; pnpm build passes with existing bundle warnings. Full pnpm check passes: 1,008 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted; health database/Redis passes. Saved-reader check passes after startup retry: unchanged edition f901ba6c-cba3-4116-8539-fd0e92b98ec4, five topics/15 stories/20 posts.
-- Next: 15:00 UTC all-topic AI/recovery/diversity review; include World breadth without inferring that conflict overlap equals duplicate announcements. NBA/item 58 closure, fresh rollback baseline and private public-mode activation retain priority. No paid replay.
-
 ## 2026-11-14: iteration 2262 — residual Tech headline evidence
 
 - Clean main; no inherited work. Initial alerts zero; health database/Redis pass. NBA/item 58 still awaits 15:00 UTC scheduled acceptance.
@@ -258,3 +238,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Verification: `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` and system warning journal pass; `pnpm format`/`pnpm lint:fix` pass; `pnpm check` passes typecheck/lint/format/boundaries, 1,011 unit and 327 integration tests, four expected skips.
 - Documentation-only: deployed app code remains unchanged, so no rebuild/restart during 13:00–16:00 hold.
 - Next: 15:00 all-topic scheduled acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold.
+
+## 2026-11-14: iteration 2270 — correct Tech discovery baseline
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; source/job checks pass, with the normal 15:00 digest queued.
+- Read-only stored Tech capture at 14:01:25 UTC: 643 observations/53 distinct posts, 50 safe candidates/46 authors, ten image and three video posts. All 50 supplied texts inspected; no clear named launch/demo description.
+- Found a comparison error: current collector fallback resolves to `AI`, while iteration 2177 explicitly probed `artificial intelligence`. Corrected review; historical observation queries are not stored, so no historical query change inferred.
+- Video captions are outage speculation/interview and ambiguous “AI gem”; attachments and up to 8,679 likes do not establish demos or accurate reporting. Future comparisons must include the actual baseline; no query/cap changes.
+- Private mode-600 receipt `/tmp/2270-bluesky-pool.json`; assertions pass for unique URLs, media counts and all three video ranks/authors. Temporary expanded report removed; no searches, model/media calls or database writes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass (typecheck/lint/format/boundaries; 1,011 unit and 327 integration tests, four expected skips). Archived iterations 2260–2261 to keep this file bounded.
+- Documentation-only; deployed app unchanged and 13:00–16:00 hold preserved, with no rebuild/restart.
+- Next: 15:00 scheduled all-topic acceptance/diversity review, NBA/item 58 closure, then rollback refresh/private public-mode activation outside hold.
