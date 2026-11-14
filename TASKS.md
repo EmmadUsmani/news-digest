@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Detailed pre-compaction state a
 
 ## Completed and deferred
 
+- [x] Nov 14 preflight (2258): all five topics have readable production candidates; Tech has 24 eligible reporting excerpts. Ars category move changes both link and GUID, so stable-GUID dedupe is unavailable. [Scheduled acceptance handoff](docs/edition-reviews/2026-11-14.md).
+
 - [x] Legacy Google headline evidence (2257): candidate loading suppresses exact stored Google RSS headline/publisher repetitions; prospective Tech capture identifies 113 affected candidates. Stored data and editions unchanged; isolated persistence/fallback controls retain additional reporting.
 
 - [x] Xbox headline-only fallback verification (2256): recorded self-link-only entry stays empty through both fallback selectors; a readable control fills the one-story budget. Reporting and foreign-link preservation controls pass; production unchanged.

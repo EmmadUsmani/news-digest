@@ -1,5 +1,9 @@
 # Progress
 
+Archived entry: [iteration 2245](docs/progress-archive/2026-11-14-iteration-2245.md).
+Archived entry: [iteration 2246](docs/progress-archive/2026-11-14-iteration-2246.md).
+Archived entry: [iteration 2247](docs/progress-archive/2026-11-14-iteration-2247.md).
+
 Archived entry: [iteration 2244](docs/progress-archive/2026-11-14-iteration-2244.md).
 Archived entry: [iteration 2242](docs/progress-archive/2026-11-14-iteration-2242.md).
 
@@ -128,39 +132,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2245 — Gaming excerpts without teaser navigation
-
-- Clean main; no inherited work. Push Square remains the only source error (HTTP 522); API/worker active and health/database/Redis pass. Scheduled recovery gate retained without URL/retry changes.
-- Reader weakness: recorded Eurogamer/RPS reporting teasers include terminal “Read more” self-navigation. New ingestion omits only article-matching links on those two hosts, keeping reporting and a source-continuation ellipsis.
-- All four recorded article excerpts retain reporting and metadata; unrelated destination/publisher/wording/nonterminal controls pass offline. No external requests, paid calls or saved-edition changes.
-- Updated TASKS/SOURCES and archived iteration 2232 to keep PROGRESS bounded. Existing handbook feed-normalization description remains accurate.
-- Targeted `pnpm exec tsx --test apps/api/test/feed-gaming-navigation.test.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; existing bundle warnings only.
-- Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Saved-reader check verifies five topics/15 stories/20 posts.
-- Next: normal Push Square recovery; 15:00 UTC NBA/all-topic acceptance, item 58 closure and private public-mode activation. No paid replay.
-
-## 2026-11-14: iteration 2246 — Push Square scheduled recovery accepted
-
-- Clean main; no inherited work. Initial alerts zero; health/database/Redis and API/worker pass. Prioritized the open Push Square outage.
-- Direct unchanged-feed probe at 09:11 UTC: HTTP 200, 34,418 bytes, 0.32 seconds. Production `parseFeed` accepts 25 reporting excerpts dated Nov 12–14; newest Nov 14 02:30 UTC.
-- Observed normal scheduled collection at 09:16:25 UTC: 25 accepted items, error cleared, 192 stored articles retained (16 published in last 24 hours). All 38 active sources error-free; no manual job or paid call.
-- Protected Gaming content-window read confirms 29 stored Push Square articles since Nov 12; newest date/title matches the recovered feed. No newly published feed articles or URL/retry/schedule changes.
-- Closed outage task and updated SOURCES. Archived iteration 2233 to keep PROGRESS bounded; no runtime or handbook behavior changes.
-- `pnpm build` passes (existing bundle warnings); `pnpm format` and `pnpm lint:fix` pass.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
-- Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green. Final changed-file formatting and diff checks pass.
-- Next: 15:00 UTC scheduled NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
-## 2026-11-14: iteration 2247 — passive metrics recovery evidence
-
-- Clean main; no inherited work. Initial alerts zero; `/healthz` passes database/Redis. NBA/item 58/private public-mode activation awaits the normal 15:00 UTC edition.
-- Owner value: keep the known metrics outage recovery evidence current without perturbing the protected edition or relaxing capacity limits.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 09:20:17–09:20:48 UTC, 24 fresh healthy rules, four uncached queries ≤0.970 s, zero new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries.
-- Neither storage tier merged; process starts unchanged. Comparable natural-merge acceptance remains open. Metrics/alerts warning journal since 04:35:17 UTC has no entries. No forced merge, configuration change or provider call.
-- Updated TASKS/capacity evidence; next passive probe no earlier than 10:21 UTC. Archived iteration 2234 to bound PROGRESS. No runtime or handbook behavior changes.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; existing bundle warnings only. Full `pnpm check` passes: 1,000 unit/323 integration tests, four expected skips; typecheck/lint/format/boundaries green.
-- Rebuilt API/worker restarted active; `/healthz` passes. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes after startup retry: five topics/15 stories/20 posts.
-- Next: 15:00 UTC NBA/all-topic recovery and diversity acceptance, item 58 closure, then private public-mode activation. No paid replay.
-
 ## 2026-11-14: iteration 2248 — NBA Sonnet repair-admission fallback publication
 
 - Clean main; no inherited work. Initial alerts zero; health/database/Redis pass. NBA/item 58/private activation still await the normal 15:00 UTC edition.
@@ -270,3 +241,14 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Second read-only production-loader capture at 11:32 UTC matches all 200 Tech IDs: exactly 113 excerpts blanked; every other excerpt equals its original. No database writes.
 - Rebuilt API/worker restarted active; `/healthz` database/Redis pass after startup retry. Saved-reader check for Nov 13 passes: five topics/15 stories/20 posts, edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
 - Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, item 58 closure, then private public-mode activation. No paid replay; avoid further cleanup of already-covered feeds.
+
+## 2026-11-14: iteration 2258 — Scheduled supply and duplicate-identity handoff
+
+- Clean main; no inherited work. Initial alerts zero and database/Redis health pass; normal 15:00 UTC acceptance still pending.
+- Reader weakness: duplicate Tech reports can consume scarce readable slots. Investigated the Ars category-move pair instead of adding more feed cleanup.
+- One explicit free configured-feed GET shows both link and GUID changed from `/features/` to `/ai/`; production parser yields identical 1,072-character reporting from both historical/current feeds. Raw HTML differs (1,728/1,716 chars), so a raw-equality probe correctly refused equality; parsed-reporting comparison passes. No reliable stable identity found; no risky canonicalization or grouping change shipped.
+- Read-only all-topic production capture at 11:38 UTC: eligible/readable Tech 199/24, NBA 106/106, Gaming 179/179, World 142/142, U.S. 48/48. No jobs, stored-data writes or paid calls.
+- Owner benefit: next scheduled review can distinguish absent reporting from admission failure and must check all-topic AI/diversity before accepting recovery. Saved Nov 14 preflight/checklist, updated TASKS/SOURCES; archived iterations 2245–2247 to bound PROGRESS. No handbook/system/UI change.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green. `git diff --check` passes.
+- API/worker restarted active; `/healthz` database/Redis pass after startup retries. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
+- Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not revisit GUID dedupe or already-covered feed cleanup; no paid replay.

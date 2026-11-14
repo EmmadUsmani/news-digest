@@ -3133,3 +3133,13 @@ extra reporting and other destinations remain unchanged. Stored content and
 saved editions are preserved. Recorded-source persistence/fallback verification
 uses isolated Postgres; no new source request or paid call. See the
 [Tech feed-depth evidence](edition-reviews/2026-11-13-tech-feed-depth.md#prospective-stored-pool-check--iteration-2257).
+
+## 2026-11-14 iteration 2258 — Ars identity and scheduled supply
+
+One explicit free GET of the configured Ars RSS confirms that the OpenAI
+board-member article's category move changes both link and GUID. The older
+recording has `/features/`; today's has `/ai/`. Stable-GUID dedupe would not
+resolve this pair; no URL rewrite or ingestion change was made. No article
+destinations or paid services were called. All-topic read-only candidate counts,
+raw-response hash and scheduled acceptance steps are in the
+[Nov 14 review](edition-reviews/2026-11-14.md).
