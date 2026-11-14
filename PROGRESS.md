@@ -1,5 +1,7 @@
 # Progress
 
+Archived entries: [iterations 2258–2259](docs/progress-archive/2026-11-14-iterations-2258-2259.md).
+
 Archived entries: [iterations 2256–2257](docs/progress-archive/2026-11-14-iterations-2256-2257.md).
 
 Archived entry: [iteration 2255](docs/progress-archive/2026-11-14-iteration-2255.md).
@@ -148,29 +150,6 @@ Archived entry: [iteration 2210](docs/progress-archive/2026-11-14-iteration-2210
 
 Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-oldest-before-2224.md).
 
-## 2026-11-14: iteration 2258 — Scheduled supply and duplicate-identity handoff
-
-- Clean main; no inherited work. Initial alerts zero and database/Redis health pass; normal 15:00 UTC acceptance still pending.
-- Reader weakness: duplicate Tech reports can consume scarce readable slots. Investigated the Ars category-move pair instead of adding more feed cleanup.
-- One explicit free configured-feed GET shows both link and GUID changed from `/features/` to `/ai/`; production parser yields identical 1,072-character reporting from both historical/current feeds. Raw HTML differs (1,728/1,716 chars), so a raw-equality probe correctly refused equality; parsed-reporting comparison passes. No reliable stable identity found; no risky canonicalization or grouping change shipped.
-- Read-only all-topic production capture at 11:38 UTC: eligible/readable Tech 199/24, NBA 106/106, Gaming 179/179, World 142/142, U.S. 48/48. No jobs, stored-data writes or paid calls.
-- Owner benefit: next scheduled review can distinguish absent reporting from admission failure and must check all-topic AI/diversity before accepting recovery. Saved Nov 14 preflight/checklist, updated TASKS/SOURCES; archived iterations 2245–2247 to bound PROGRESS. No handbook/system/UI change.
-- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm build` pass (existing bundle warnings); full `pnpm check` passes: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green. `git diff --check` passes.
-- API/worker restarted active; `/healthz` database/Redis pass after startup retries. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-13T15:00:00Z` passes: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: normal 15:00 UTC all-topic AI/recovery/diversity acceptance, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not revisit GUID dedupe or already-covered feed cleanup; no paid replay.
-
-## 2026-11-14: iteration 2259 — Tech cap counterfactual
-
-- Clean main; no inherited work. Alerts zero; API/worker active and `/healthz` database/Redis healthy. Scheduled NBA/item 58 acceptance remains pending 15:00 UTC.
-- Reader weakness: Tech has few readable candidates despite the 200-item limit. Audited all five uncapped window pools in a read-only transaction; only Tech exceeds 200 (215); five omitted reports have text.
-- Matched the full Tech query's first 200 IDs and every excerpt/points value to the actual production loader. Strict fallback phrase policy leaves 14 readable capped/17 uncapped, versus relaxed triage's 24/29; these are different admission stages.
-- Production `rankFallback` with saved policy selects identical five IDs/scores with or without the cap. Additional eligible reports rank 15–17; increasing the cap alone restores no reader slot. Owner benefit: avoid widening paid triage without demonstrated fallback benefit before the protected edition.
-- Saved cap-study evidence/review and TASKS marker; private captures `/tmp/2259-cap-audit.json` and `/tmp/2259-tech-counterfactual.json`. Temporary audit scripts removed. Archived iteration 2248 to bound PROGRESS.
-- No source request, paid call, production code, prompt, budget or stored-data change. AI editing and natural acceptance remain open; retain the cap and review scheduled selection first.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `pnpm build` pass: 1,007 unit/327 integration tests, four expected skips; typecheck/lint/format/boundaries green; existing bundle warnings only. Exact five-ID/score comparison passes.
-- Rebuilt API/worker restarted active; `/healthz` passes. Saved-reader check passes after startup retry: five topics/15 stories/20 posts, unchanged edition `f901ba6c-cba3-4116-8539-fd0e92b98ec4`.
-- Next: 15:00 UTC all-topic AI/recovery/diversity review, NBA/item 58 closure, fresh rollback baseline and private public-mode activation outside the hold. Do not repeat this cap audit or paid replay.
-
 ## 2026-11-14: iteration 2260 — complete scheduled recovery reporting
 
 - Clean main; no inherited work. Initial alerts zero and health database/Redis pass. NBA/item 58 acceptance still awaits 15:00 UTC.
@@ -248,3 +227,13 @@ Archived entry: [oldest retained iteration](docs/progress-archive/2026-11-14-old
 - Updated TASKS and today's review checklist. Existing handbook flows unchanged. No rebuild/restart during 13:00–16:00 UTC: only local verification tooling/tests and handoff docs changed.
 - Verification: pnpm format/lint:fix pass; pnpm check passes typecheck/lint/format/boundaries, 1,010 unit and 327 integration tests, four expected skips. Targeted command: pnpm exec tsx --test apps/api/test/scheduled-editorial-gate.test.ts.
 - Next: normal 15:00 all-topic recovery/diversity review, NBA/item 58 closure, then refreshed rollback baseline/private public-mode activation outside the hold.
+
+## 2026-11-14: iteration 2267 — World discovery supply baseline
+
+- Clean main; no inherited work. Alerts zero; health database/Redis pass; `pnpm obs sources --check` reports all 38 healthy and `pnpm obs jobs --check --limit 1` succeeds.
+- Protected 13:00–16:00 hold retained. Scheduled NBA/item 58/public-mode gates await 15:00; no generation/configuration changes or restart.
+- GET/read-only stored Bluesky report at 13:27 UTC: World 525 observations/56 distinct/26 safe engaged candidates, 20 authors, two image posts/no video. All fit production's 50-candidate semantic intake; zero lexical shortlist does not mean zero semantic supply.
+- Inspected all 26 supplied texts: Uganda/Canada/UK event leads coexist with U.S. outage/political coverage, generic bulletins, unrelated and URL-only material. Lakenheath rank 24 still reaches intake; no cap increase justified. Claims/media not externally verified.
+- Added pre-pilot baseline review and TASKS handoff. World pilot stays off behind existing activation gates; rolling pool is not scheduled acceptance. No paid/provider calls or data writes; temporary probe removed, private mode-600 receipt retained.
+- Verification: private receipt assertions pass for 26 distinct URLs, uncapped read, media totals and rank-24 lead. `pnpm format`/`pnpm lint:fix` pass; `pnpm check` passes typecheck/lint/format/boundaries, 1,010 unit and 327 integration tests, four expected skips. Archived iterations 2258–2259 to bound this file. Documentation-only: no build/restart during hold.
+- Next: 15:00 all-topic scheduled acceptance and diversity review, NBA/item 58 closure, fresh rollback baseline/private public-mode activation outside hold.
