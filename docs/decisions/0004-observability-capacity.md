@@ -1080,3 +1080,19 @@ Comparable recovery remains open; these small merges do not establish a
 five-million-row compaction. Retain CPU-only 2% trial; next sample ≥21:03 UTC.
 No retuning, forced compaction or provider calls. Receipts:
 `/tmp/2425-metrics.jsonl`, `/tmp/2425-metrics-journal.log`; delta assertions pass.
+
+### Comparable natural big merge observed (iteration 2430)
+
+Nov 15 21:03:24–26 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 2`:
+24 fresh healthy rules; four uncached queries ≤0.096 s. No new evaluator errors,
+missed iterations, admission hits, timeouts or slow queries since 20:02:34.
+Counters advanced by one big merge/26,799,900 rows and 58 small merges/1,646,743
+rows. The system journal confirms a natural 14-part, 26,799,900-row big merge
+completed at 21:00:07 in 104.004 seconds. Historical self-scrape `up` is 1 at
+all 11 thirty-second query points from 20:58–21:03. Process starts unchanged;
+correct system-unit warning journals are empty. NRestarts=0, memory 74.6 MiB,
+lifetime peak 88.7 MiB, no max/OOM events; 13,677 cumulative memory-high events
+lack a before-merge baseline. Comparable compaction is now observed, but this
+post-event sample does not measure resource use throughout it. Retain CPU-only
+2% trial and incident for sustained evaluation/resource follow-up ≥22:04 UTC.
+No retuning or forced compaction. Receipts: `/tmp/2430-metrics*`; assertions pass.

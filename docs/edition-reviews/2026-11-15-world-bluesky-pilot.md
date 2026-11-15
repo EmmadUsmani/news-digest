@@ -87,6 +87,14 @@ Private receipts: `/tmp/2424-{bluesky-collections,coverage-before,coverage-after
 Keep queries, gates and budgets unchanged. Export again by November 16
 06:56 UTC, compare the first full UTC day and read the next natural edition.
 
+## Exact Gaza cohort reviewed — iteration 2430
+
+[First-pass quality review](2026-11-15-world-gaza-quality.md) reads all 50 saved
+posts and retains representative snapshots. Outlet reporting and an image
+correction coexist with popular commentary and repeated developments; retain
+the query and selection gates. The linked job export now also preserves the
+20:54 baseline return (46 World observations). Natural acceptance remains open.
+
 ## Acceptance still needed
 
 Retain actual query/count results, compare November 16 as the first full UTC

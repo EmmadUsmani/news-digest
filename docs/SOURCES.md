@@ -3346,3 +3346,13 @@ were unchanged. [Four retained jobs](edition-reviews/2026-11-15-world-bluesky-jo
 confirm baseline/Ukraine/baseline/Gaza execution. Rolling World coverage grew
 from 107 to 157 distinct posts; final selection quality remains pending.
 Retain queries and gates; next export by November 16 06:56 UTC.
+
+### World Gaza cohort quality — iteration 2430
+
+The first scheduled Gaza cohort contains 50 distinct posts by 45 authors,
+including outlet reporting, a flood-image correction, commentary and repeated
+roundup/aid-truck developments. Its strongest engagement is commentary.
+[Exact-cohort review](edition-reviews/2026-11-15-world-gaza-quality.md) retains
+saved examples and identifies natural-selection acceptance checks. Keep queries,
+gates and budgets unchanged. Five retained jobs now include the 20:54 baseline
+return (46 World observations); full-day and published quality remain open.

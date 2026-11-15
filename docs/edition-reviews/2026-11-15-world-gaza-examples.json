@@ -1,0 +1,268 @@
+{
+  "source": "Unmodified saved World observations from the completed 19:54 UTC Gaza collection; examples selected for qualitative review, not a shortlist or verified factual claims.",
+  "jobId": "repeat:bluesky-hourly:1794772483867",
+  "cohort": {
+    "observations": 50,
+    "distinctPosts": 50,
+    "distinctAuthors": 45,
+    "postsWithImages": 21,
+    "postsWithVideo": 4,
+    "strongestLikes": 643
+  },
+  "examples": [
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A2lofqead276vtc5647ye7sl2/post/3n2cr3pjs4524",
+      "text": "Israel has pledged to continue its 'offensive policy' on Gaza as fighting in Yemen grips the region.",
+      "media": [],
+      "author": "aljazeera.com",
+      "metrics": {
+        "likes": 80,
+        "replies": 4,
+        "reposts": 47
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:2lofqead276vtc5647ye7sl2/app.bsky.feed.post/3n2cr3pjs4524",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "Israel has pledged to continue its 'offensive policy' on Gaza as fighting in Yemen grips the region.",
+      "publishedAt": "2026-11-15T00:30:06.188Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A2lofqead276vtc5647ye7sl2/post/3n2cw4nxpz72s",
+      "text": "Israeli air strike kills senior Hamas commander in Gaza https://aje.news/lxkc1k",
+      "media": [
+        {
+          "alt": "Israeli air strike kills senior Hamas commander in Gaza",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:2lofqead276vtc5647ye7sl2/bafkreietd33n4rwy4lobhyeqq4mcrqpvjdwighx6p35uxq4zsravabu4ea",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:2lofqead276vtc5647ye7sl2/bafkreietd33n4rwy4lobhyeqq4mcrqpvjdwighx6p35uxq4zsravabu4ea"
+        }
+      ],
+      "author": "aljazeera.com",
+      "metrics": {
+        "likes": 34,
+        "replies": 5,
+        "reposts": 13
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:2lofqead276vtc5647ye7sl2/app.bsky.feed.post/3n2cw4nxpz72s",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "Israeli air strike kills senior Hamas commander in Gaza https://aje.news/lxkc1k",
+      "publishedAt": "2026-11-15T02:00:06.951Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A554uh3zchoid3tyseo2mfml5/post/3n2cc7x3myg2x",
+      "text": "Zeteo’s weekly round-up of the stories you may have missed out of occupied Gaza and the West Bank, as Israel continues its genocidal war and apartheid policies. ",
+      "media": [],
+      "author": "zeteo.com",
+      "metrics": {
+        "likes": 89,
+        "replies": 1,
+        "reposts": 47
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:554uh3zchoid3tyseo2mfml5/app.bsky.feed.post/3n2cc7x3myg2x",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "Zeteo’s weekly round-up of the stories you may have missed out of occupied Gaza and the West Bank, as Israel continues its genocidal war and apartheid policies. ",
+      "publishedAt": "2026-11-14T20:04:02.342Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A554uh3zchoid3tyseo2mfml5/post/3n2e6f2k6ic2f",
+      "text": "This week in Palestine,\n\n- more than 70,000 tents flooded in Gaza\n- Israeli forces killed Palestinians across the occupied West Bank and Gaza\n- Israel attacked the Nasser Hospital Complex in Khan Younis\n\nRead Zeteo’s weekly roundup as Israel enforces violent crackdowns: zeteo.com/p/this-week-...",
+      "media": [
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreibbgn2epwrc3ysznwsc4oe4uzjvtequhc4g7xvvpktkcegqyvhiim",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreibbgn2epwrc3ysznwsc4oe4uzjvtequhc4g7xvvpktkcegqyvhiim"
+        },
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreierd3cfahorp5fwoe3byrz4i6enjajliot6puulwxm34c7mhs3qoy",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreierd3cfahorp5fwoe3byrz4i6enjajliot6puulwxm34c7mhs3qoy"
+        },
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreibnskc3pt5xtcs2bj4edi7v73c6kghvc5gfkvndeegbdfiapzdjga",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreibnskc3pt5xtcs2bj4edi7v73c6kghvc5gfkvndeegbdfiapzdjga"
+        },
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreicargfvbyiszty4f3d5iovuoh3qkf7htsgsxw3imsx2wpvncmwuri",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:554uh3zchoid3tyseo2mfml5/bafkreicargfvbyiszty4f3d5iovuoh3qkf7htsgsxw3imsx2wpvncmwuri"
+        }
+      ],
+      "author": "zeteo.com",
+      "metrics": {
+        "likes": 82,
+        "replies": 3,
+        "reposts": 49
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:554uh3zchoid3tyseo2mfml5/app.bsky.feed.post/3n2e6f2k6ic2f",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "This week in Palestine,\n\n- more than 70,000 tents flooded in Gaza\n- Israeli forces killed Palestinians across the occupied West Bank and Gaza\n- Israel attacked the Nasser Hospital Complex in Khan Younis\n\nRead Zeteo’s weekly roundup as Israel enforces violent crackdowns: https://zeteo.com/p/this-week-in-palestine-israel-kills-5a6",
+      "publishedAt": "2026-11-15T14:00:38.497Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Affccycfh6c6pmxwkhvq5clkv/post/3n2e2yxawmi2b",
+      "text": "🎥 \"Inside Gaza\", documentaire réalisé par Hélène Lam Trong qui suit des journalistes du bureau de l'AFP à Gaza après le 7 octobre 2023, a reçu samedi le prix du meilleur film documentaire au festival du film francophone Cinemania à Montréal ⤵️",
+      "media": [
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:ffccycfh6c6pmxwkhvq5clkv/bafkreic5el2sa347xdderx3qyf2xabaggsz4tnrzdbaco5qaqpth42g7ca",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ffccycfh6c6pmxwkhvq5clkv/bafkreic5el2sa347xdderx3qyf2xabaggsz4tnrzdbaco5qaqpth42g7ca"
+        }
+      ],
+      "author": "afp.com",
+      "metrics": {
+        "likes": 86,
+        "replies": 1,
+        "reposts": 26
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:ffccycfh6c6pmxwkhvq5clkv/app.bsky.feed.post/3n2e2yxawmi2b",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "🎥 \"Inside Gaza\", documentaire réalisé par Hélène Lam Trong qui suit des journalistes du bureau de l'AFP à Gaza après le 7 octobre 2023, a reçu samedi le prix du meilleur film documentaire au festival du film francophone Cinemania à Montréal ⤵️",
+      "publishedAt": "2026-11-15T13:00:11.176Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Agk6rmhqrprzk5zwmt46lbndk/post/3n2dvkumd4k27",
+      "text": "This is Gaza. A wasteland",
+      "media": [
+        {
+          "alt": "",
+          "type": "image",
+          "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gk6rmhqrprzk5zwmt46lbndk/bafkreidnfhm6xu77yvjaxif2k5q7bcfr7ir7muj5ylqkzlnguphvejlrru",
+          "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:gk6rmhqrprzk5zwmt46lbndk/bafkreidnfhm6xu77yvjaxif2k5q7bcfr7ir7muj5ylqkzlnguphvejlrru"
+        }
+      ],
+      "author": "rimaanabtawi.bsky.social",
+      "metrics": {
+        "likes": 15,
+        "replies": 0,
+        "reposts": 9
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2dvkumd4k27",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "This is Gaza. A wasteland",
+      "publishedAt": "2026-11-15T11:22:49.935Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Agkgmduxh722ocstroyi75gbg/post/3n2cw5ztpvc2z",
+      "text": "The UN found that 459 of 564 schools in Gaza took a direct hits.\n\nYou don't accidentally bomb 459 schools.",
+      "media": [],
+      "author": "mjfree.bsky.social",
+      "metrics": {
+        "likes": 514,
+        "replies": 18,
+        "reposts": 255
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:gkgmduxh722ocstroyi75gbg/app.bsky.feed.post/3n2cw5ztpvc2z",
+      "observedAt": "2026-11-15T19:54:51.055Z",
+      "displayText": "The UN found that 459 of 564 schools in Gaza took a direct hits.\n\nYou don't accidentally bomb 459 schools.",
+      "publishedAt": "2026-11-15T02:00:53.199Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A6q4kxwoeyvr3rebrbreiyw7y/post/3n2cfngt66k2m",
+      "text": "Certamente, para algumas pessoas, as fotos que mais vão impressionar são as do 'antes', porque somos condicionados a acreditar que a Gaza normal sempre foi essa do 'depois'.\n\nA desumanização e o genocídio começam claramente aí.",
+      "media": [],
+      "author": "gabrieldivan.bsky.social",
+      "metrics": {
+        "likes": 643,
+        "replies": 1,
+        "reposts": 210
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:6q4kxwoeyvr3rebrbreiyw7y/app.bsky.feed.post/3n2cfngt66k2m",
+      "observedAt": "2026-11-15T19:54:52.079Z",
+      "displayText": "Certamente, para algumas pessoas, as fotos que mais vão impressionar são as do 'antes', porque somos condicionados a acreditar que a Gaza normal sempre foi essa do 'depois'.\n\nA desumanização e o genocídio começam claramente aí.",
+      "publishedAt": "2026-11-14T21:05:16.527Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Agk6rmhqrprzk5zwmt46lbndk/post/3n2edzsjgi22j",
+      "text": "Under the cease-fire deal, Israel pledged to allow about 18,000 trucks into Gaza monthly, but IDF data obtained by Haaretz show that since March, the number has averaged about half that target\n\nwww.haaretz.com/gaza/2026-11...",
+      "media": [],
+      "author": "rimaanabtawi.bsky.social",
+      "metrics": {
+        "likes": 41,
+        "replies": 0,
+        "reposts": 16
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2edzsjgi22j",
+      "observedAt": "2026-11-15T19:54:52.079Z",
+      "displayText": "Under the cease-fire deal, Israel pledged to allow about 18,000 trucks into Gaza monthly, but IDF data obtained by Haaretz show that since March, the number has averaged about half that target\n\nhttps://www.haaretz.com/gaza/2026-11-15/ty-article/.premium/israels-own-numbers-reveal-gaza-aid-deliveries-fell-far-short-of-commitments/000001a1-de03-d1ce-a9a3-fe1371dd0000",
+      "publishedAt": "2026-11-15T15:41:43.448Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Asv2ivxvf7fxchmo2xamo3wwx/post/3n2dtcf2kj22z",
+      "text": "Las lluvias y el bloqueo israelí arrasan Gaza: “No nos queda ningún colchón seco para dormir”",
+      "media": [],
+      "author": "eldiario.es",
+      "metrics": {
+        "likes": 136,
+        "replies": 11,
+        "reposts": 175
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:sv2ivxvf7fxchmo2xamo3wwx/app.bsky.feed.post/3n2dtcf2kj22z",
+      "observedAt": "2026-11-15T19:54:52.079Z",
+      "displayText": "Las lluvias y el bloqueo israelí arrasan Gaza: “No nos queda ningún colchón seco para dormir”",
+      "publishedAt": "2026-11-15T10:42:17.708Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3A2ns6vcwxutr7zqwnuloode7e/post/3n2cnfkynlr2q",
+      "text": "❌ No, an image doesn't authentically show flooding in Gaza that has damaged thousands of shelters.\n\nWhile this image isn't real, there are dozens of authentic images showing destruction from the floods: www.snopes.com/fact-check/g...",
+      "media": [],
+      "author": "snopes.com",
+      "metrics": {
+        "likes": 21,
+        "replies": 0,
+        "reposts": 11
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:2ns6vcwxutr7zqwnuloode7e/app.bsky.feed.post/3n2cnfkynlr2q",
+      "observedAt": "2026-11-15T19:54:52.080Z",
+      "displayText": "❌ No, an image doesn't authentically show flooding in Gaza that has damaged thousands of shelters.\n\nWhile this image isn't real, there are dozens of authentic images showing destruction from the floods: https://www.snopes.com/fact-check/gaza-flooding-tents-image/",
+      "publishedAt": "2026-11-14T23:24:01.089Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Aam76ptemaw3eordgfoyrwepi/post/3n2ebvvw3zh2z",
+      "text": "Israel's data shows it allowed half the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+      "media": [],
+      "author": "middleeasteye-rss.bsky.social",
+      "metrics": {
+        "likes": 12,
+        "replies": 1,
+        "reposts": 8
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ebvvw3zh2z",
+      "observedAt": "2026-11-15T19:54:52.080Z",
+      "displayText": "Israel's data shows it allowed half the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+      "publishedAt": "2026-11-15T15:03:44.884Z"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Aam76ptemaw3eordgfoyrwepi/post/3n2ec6tjuvf2z",
+      "text": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+      "media": [],
+      "author": "middleeasteye-rss.bsky.social",
+      "metrics": {
+        "likes": 11,
+        "replies": 0,
+        "reposts": 8
+      },
+      "platform": "bluesky",
+      "externalId": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ec6tjuvf2z",
+      "observedAt": "2026-11-15T19:54:52.080Z",
+      "displayText": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+      "publishedAt": "2026-11-15T15:08:44.376Z"
+    }
+  ]
+}
