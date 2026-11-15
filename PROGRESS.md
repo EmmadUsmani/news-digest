@@ -88,3 +88,12 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Metrics journal since 01:31 UTC has one API scrape refusal at 02:05:06; current health/probes pass. Updated capacity evidence and TASKS.md; no runtime/source/schema/UI or sharing changes, provider calls or generation. Raw receipt `/tmp/2332-metrics.jsonl`.
 - Corrected unsupported `obs queues`/`--queue digest` invocations to `pnpm obs jobs --check`; queue name is `digest-generation`. Historical ingestion/social failed counts remain visible; current sources and alerts healthy.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,027 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart, health and signed-out saved-reader checks follow commit. Logs `/tmp/2332-*.log`.
+
+## 2026-11-15: iteration 2333 — offline owned editorial capacity
+
+- Clean main at 486609b4; no inherited work. Alerts zero, health/database/Redis healthy, source check passes; digest queue has one worker/no failures, next edition 15:00 UTC. Metrics probe not due until ≥03:43 UTC; no repeated probe or paid generation.
+- Owner value: prevent a faster scheduler from consuming NBA repair capacity or silently losing another topic under unchanged caps. Added isolated integer-unit ownership model, with no runtime wiring, provider calls, budget or sharing changes.
+- Seven fixture tests cover the 11-unit counterexample, initial refusal, validation/cache release, repair growth, atomic transfer, duplicate settlement and fenced recovery retaining uncertain calls. Existing whole-topic simulation admits U.S. later where early owned admission refuses it: protection alone does not establish a safe rollout or speedup.
+- Updated decision 0005 and TASKS.md. Next: integrate owned balances into the four-slot event/draining simulation and measure actual saved-request bounds; production stays unchanged. Natural Gaming/World/U.S. recovery and public-mode scheduled publication gate remain pending.
+- Verification: 14 targeted experiment tests pass; `pnpm format`, `pnpm lint:fix`, public `VITE_PUBLIC_MODE=1 pnpm build` and diff checks pass (existing bundle warning only). `pnpm check` passes: 1,034 unit and 329 integration tests, four expected skips. Logs `/tmp/2333-*.log`.
+- No service restart: no running code/config changed, following STEERING 22; current runtime remains the deployed main implementation.

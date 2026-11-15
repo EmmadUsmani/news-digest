@@ -92,3 +92,29 @@ any migration or runtime wiring. Nov 12 timestamps do not reconstruct historical
 reservation order and cannot establish a speedup. Public activation and the next
 scheduled recovery review remain independent gates; no rollout is authorized
 by this design note.
+
+## Offline accounting result — iteration 2333
+
+`EditorialEnvelopeModel` is an isolated integer-unit experiment, with no
+runtime imports or provider calls. Its seven fixture tests establish:
+
+- At cap 11, NBA owns initial 4 plus repair 6 before dispatch; shared ownership
+  preparation uses 1. Early U.S. reservation 6 is refused. NBA's initial settles
+  at 1 and its repair transfers 6 without double-counting; peak exposure is 11.
+- An initial-plus-repair bound of 10 is refused entirely at cap 9. A growing
+  repair cannot consume another owner's balance. Validation success/cache hits
+  release unused capacity; definite nondispatch releases the call hold.
+- Duplicate transfer/settlement cannot double-charge; conflicting repeats fail.
+  Fencing prevents old transfers, and recovery releases only unused capacity.
+  Uncertain calls keep their holds and may settle after recovery.
+- The whole-topic simulator admits U.S. after NBA repair at the same cap,
+  finishing the synthetic scenario at 60 ms. Protecting NBA while refusing an
+  early U.S. editor is therefore an admission regression unless a future queue
+  can wait safely. These numbers are supplied fixtures, not measured latency.
+
+This step checks accounting transitions only. It does not model durable locks,
+trusted occurrence identities, crash-atomic persistence or recovery evidence.
+Next: integrate owned admission with the four-slot event simulator, including
+failure draining and per-topic comparisons, then size actual saved request
+bounds. Do not implement production envelopes or claim a speedup from this
+model; unchanged caps and all-topic acceptance remain rejection criteria.
