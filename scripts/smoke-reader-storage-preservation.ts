@@ -1,4 +1,5 @@
-// GET-only published content; local preferences only, external requests blocked.
+// Capture published reader content, then replay it through storage recovery.
+// Local preferences only; server writes, admin and external requests blocked.
 import assert from 'node:assert/strict';
 
 import { readerEditionSchema } from '@digest/contracts';
@@ -6,9 +7,14 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const headers = { 'X-Forwarded-For': '192.0.2.168' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers,
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'capture published reader edition');
+  const edition = readerEditionSchema.parse(await response.json());
   const topic = edition.topics.find(
     (topic) => topic.stories.length && topic.posts.length,
   );
@@ -23,14 +29,21 @@ async function smoke() {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          if (
+            url.pathname === '/api/editions/latest' ||
+            url.pathname === `/api/editions/${edition.id}`
+          )
+            return route.fulfill({ json: edition });
+          return route.continue();
         });
         const key = 'news-digest.reader-preferences.v1';
         const original = JSON.stringify({

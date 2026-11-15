@@ -156,3 +156,12 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. API rebuild included in integration checks. Receipts `/tmp/2363-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
 - Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2364 — restore public-mode storage-read recovery verification
+
+- Clean main at 6e5b9fa9; no inherited work. Alerts zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2364-sources.log`).
+- Reader verification weakness: storage-preservation smoke failed parsing public-mode admission refusal before exercising recovery (`/tmp/2364-before.log`). Capture one checked public reader response with an explicit test visitor and replay it; refuse server writes, admin requests and external traffic.
+- `pnpm exec tsx scripts/smoke-reader-storage-preservation.ts` passes desktop/mobile light/dark: failed reads preserve the original saved fixture; recovery merges it with pending saves/topic choices and clears transient warnings. Fixture remains explicitly offline. Eight screenshots refreshed; inspected mobile dark (`/tmp/2364-browser.log`).
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. API rebuild included in integration checks. Receipts `/tmp/2364-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
+- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
