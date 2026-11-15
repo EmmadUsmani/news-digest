@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2372: account deletion moves keyboard focus to confirmation and returns it to Delete account on cancellation; desktop/mobile fixture checks pass.
+
 - [x] 2371: enlarged reader Account, retry, sign-out and deletion buttons to 44px; desktop/mobile fixture browser checks enforce touch targets.
 
 - [x] 2370: keyboard skip-link verification now requires published topic/archive content and no reader alerts; desktop/mobile light/dark pass.

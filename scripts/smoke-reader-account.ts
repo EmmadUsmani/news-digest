@@ -124,6 +124,7 @@ window.renderAccount({});
         name: 'Permanently delete account',
         exact: true,
       });
+      await expect(page.getByLabel('Type DELETE to confirm')).toBeFocused();
       await expect(confirm).toBeDisabled();
       await page.getByLabel('Type DELETE to confirm').fill('delete');
       await expect(confirm).toBeDisabled();
@@ -146,6 +147,9 @@ window.renderAccount({});
       });
       await page.getByRole('button', { name: 'Cancel deletion' }).click();
       await expect(page.getByLabel('Type DELETE to confirm')).toHaveCount(0);
+      await expect(
+        page.getByRole('button', { name: 'Delete account', exact: true }),
+      ).toBeFocused();
       await page.getByRole('button', { name: 'Sign out', exact: true }).click();
       await page.getByRole('button', { name: 'Sign out all devices' }).click();
       await render({ status: 'signing-out' });

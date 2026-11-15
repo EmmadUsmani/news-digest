@@ -113,3 +113,13 @@ Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2371-{format,lint,check}.log`. Archived iterations 2355–2360 to keep progress small.
 - Public mode ON, VM private; no paid calls or sharing changes. Known edition recovery remains awaiting natural scheduled evidence.
 - Next: metrics probe ≥10:35 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.
+
+## 2026-11-15: iteration 2372 — keep keyboard focus during account deletion
+
+- Clean main at 987fdd1f; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2372-{health,sources}.log`).
+- Reader-visible weakness: opening deletion removed the focused button without focusing confirmation. Focus now moves to the confirmation input and returns to Delete account on cancellation; deletion behavior unchanged.
+- `pnpm exec tsx scripts/smoke-reader-account.ts` passes desktop/mobile fixture checks, including both focus transitions; account screenshots refreshed and mobile inspected (`/tmp/2372-browser.log`).
+- Public web build passes; restarted API and health recovered. Initial deployed smoke hit shared loopback HTTP 429; temporary documentation-range visitor header passes desktop/mobile light/dark signed-out entry with zero writes. Probe script restored (`/tmp/2372-deployed-visitor.log`).
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included (`/tmp/2372-{format,lint,check}.log`). Latest published endpoint returns b9d55088 with five topics.
+- Public mode ON, VM private; no paid calls, generation changes or sharing changes. Natural recovery/publication gate still awaits 15:00 edition.
+- Next: metrics probe ≥10:35 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.

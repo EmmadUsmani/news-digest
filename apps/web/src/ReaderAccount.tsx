@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { AdminSessionRevocation } from './AdminSessionRevocation';
 import { AdminSignInLink } from './AdminSignInLink';
@@ -17,6 +17,14 @@ export function ReaderAccount({
 }) {
   const [deleting, setDeleting] = useState(false);
   const [confirmation, setConfirmation] = useState('');
+  const confirmationInput = useRef<HTMLInputElement>(null);
+  const deleteButton = useRef<HTMLButtonElement>(null);
+  const wasDeleting = useRef(false);
+  useEffect(() => {
+    if (deleting) confirmationInput.current?.focus();
+    else if (wasDeleting.current) deleteButton.current?.focus();
+    wasDeleting.current = deleting;
+  }, [deleting]);
   if (!enabled) return null;
   const busy =
     account.status === 'checking' ||
@@ -115,6 +123,7 @@ export function ReaderAccount({
                   Type DELETE to confirm
                 </label>
                 <input
+                  ref={confirmationInput}
                   id="delete-account-confirmation"
                   className="w-full rounded border border-[var(--border)] bg-[var(--surface)] p-3"
                   value={confirmation}
@@ -147,6 +156,7 @@ export function ReaderAccount({
                 className="min-h-11 min-w-11"
                 variant="ghost"
                 disabled={busy}
+                ref={deleteButton}
                 onClick={() => setDeleting(true)}
               >
                 Delete account
