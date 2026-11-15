@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2363: restored public-mode storage-reset browser verification; removing preferences or clearing storage resets saved items and hidden topics across three tabs and reloads without recreating storage.
+
 - [x] 2362: restored public-mode saved-item capacity browser verification; concurrent tabs retain the saved story and 1,000 removal records across reloads without repeated storage writes.
 
 - [x] 2361: Saved items offers Retry sync beside a failure; failed retry and recovery preserve saved copies without opening Account.

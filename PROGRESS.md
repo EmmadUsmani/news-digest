@@ -147,3 +147,12 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2362-{format,lint,check}.log`; API build passes within integration checks.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
 - Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2363 — restore public-mode preference reset verification
+
+- Clean main at 4344ca03; no inherited work. `pnpm obs alerts` zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2363-sources.log`).
+- Reader verification weakness: storage-reset smoke failed parsing the public-mode admission refusal before exercising browser reset (`/tmp/2363-before.log`). Capture one checked public reader response with an explicit test visitor and replay it across tabs; refuse server writes, admin requests and external traffic.
+- `pnpm exec tsx scripts/smoke-reader-storage-reset.ts` passes desktop/mobile light/dark: removing the preference key and clearing local storage reset saved items and hidden topics across three tabs. Reload retains default topics/unsaved controls and does not recreate the removed key; zero page errors/server writes. Four screenshots refreshed; inspected mobile dark. Receipt `/tmp/2363-browser.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. API rebuild included in integration checks. Receipts `/tmp/2363-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
+- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
