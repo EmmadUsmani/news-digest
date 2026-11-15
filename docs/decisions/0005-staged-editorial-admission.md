@@ -158,3 +158,42 @@ loss but establishes no speedup. The fixtures also cover invalid wait limits,
 impossible idle admission and failure cancellation. No production wiring,
 provider calls or budget changes were made. Next: size saved-request bounds
 and determine whether a useful waiting limit exists for actual requests.
+
+## Saved-request measurement — iteration 2336
+
+Run `pnpm exec tsx scripts/measure-editor-envelope.ts` offline. It sends the
+committed Nov 12 NBA initial request through `BudgetedLlm` with synthetic
+invalid responses, a memory ledger and zero synthetic usage. It imports no
+provider adapter, database or secrets. The saved model prices and 4,000-token
+output limit remain unchanged; this is a measurement of that historical input,
+not a reconstruction of its ledger or a fresh production request.
+
+| Reservation                                        | Microdollars |
+| -------------------------------------------------- | -----------: |
+| Initial                                            |       76,118 |
+| Repair, invalid JSON/no feedback                   |       76,303 |
+| Repair, all schema hints                           |       77,440 |
+| Repair, selection failure                          |       77,368 |
+| Largest tested absence-field repair (whyItMatters) |       77,585 |
+| Initial plus largest tested repair                 |      153,703 |
+
+Nine self-checking probes cover invalid JSON, generic validator failure, all
+five schema hints together, selection and all five absence fields. They use
+production repair construction and reservation estimation, including UTF-8
+input bounds, the 2,048 allowance and conservative cache pricing. The maximum
+above covers these story-editor paths; it is not a bound for other editors,
+models, new feedback or future prompt versions.
+
+At a supplied idle capacity of 153,702 microdollars, sequential initial and
+repair reservations each fit with synthetic zero charges. Their combined
+153,703 envelope cannot open, even with a 60-second admission wait. This
+counterexample uses measured request estimates but supplied capacity, duration
+and usage; it does not claim this was the historical refusal. Actual usage
+would further reduce later capacity. Waiting cannot solve an envelope larger
+than idle capacity, and historical timestamps do not supply a useful wait limit.
+
+Reject unconditional owned-envelope rollout under the unchanged-admission
+criterion. Keep production whole-topic scheduling. Stop expanding synthetic
+scheduling variants; revisit only with a concrete policy that preserves topic
+admission and repair protection under the same caps. Scheduled recovery and
+public-reader acceptance remain separate pending gates.
