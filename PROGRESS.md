@@ -66,3 +66,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - `pnpm obs sources --check`: 38/38 healthy. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-14T15:00:00Z`: five topics/14 stories/19 posts and scheduled provenance verified. Receipts `/tmp/2320-*`.
 - No application/UI/source/schema/system-flow changes, provider calls, edition writes or settings changes. SOURCES, handbook and screenshots unchanged. Metrics probe remains due no earlier than 00:25 UTC; no premature probe or waiting loop.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle-size warning only. No app deployment changes; API/worker restart and health verification follow the commit.
+
+## 2026-11-15: iteration 2321 — due passive metrics recovery evidence
+
+- Clean main; no inherited work. Initial disk alert pending; filesystem recovered to 78% used and health confirms database/Redis healthy. Established transient diagnosis not repeated; no deletion or threshold changes.
+- Due `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`: 24 fresh healthy rules, four uncached queries ≤1.482 s, no new evaluator/missed/admission/timeout/slow-query failures. Both process starts unchanged; neither tier merged. Comparable natural merge acceptance remains open; CPU-only 2% trial unchanged.
+- Warning-level system metrics/alerts journal since Nov 14 23:24 UTC empty. Updated capacity evidence/TASKS; next sample no earlier than Nov 15 01:27 UTC. No forced merge or metrics restart.
+- `pnpm obs sources --check`: 38/38 healthy. Saved-reader check for Nov 14 15:00 UTC verifies scheduled provenance, five topics/14 stories/19 posts. Public mode off, VM private; next normal edition must establish Gaming/World/U.S. recovery before activation.
+- No application/UI/source/schema/system-flow changes, provider calls, edition writes or settings changes; handbook/SOURCES/screenshots unchanged. Verification receipts `/tmp/2321-*`; full checks/build and service restart results recorded below.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit.

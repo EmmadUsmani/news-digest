@@ -937,3 +937,14 @@ User-unit journals show matching API/worker restarts; no metrics-store or
 evaluator restart occurred. Keep the CPU-only trial and limits; next short
 passive probe no earlier than 22:10 UTC Nov 14. No forced merge, capacity
 change or provider call. Private raw receipt: `/tmp/2305-metrics.jsonl`.
+
+### Passive follow-up (iteration 2321)
+
+Nov 15 00:25:32–00:26:03 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤1.482 s, no new evaluator errors
+or missed iterations, admission-limit hits, queue timeouts or slow queries.
+Both process starts unchanged; neither storage tier merged. Comparable natural
+merge recovery remains open. Warning-level system metrics/alerts journal since
+Nov 14 23:24 UTC has no entries. Keep the CPU-only trial and limits; next short
+passive probe no earlier than 01:27 UTC Nov 15. No forced merge, metrics restart,
+configuration change or provider call. Receipt: `/tmp/2321-metrics.jsonl`.

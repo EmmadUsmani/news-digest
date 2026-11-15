@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50: public mode OFF, VM private; private accounts accepted. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 14 23:24 passive probe: 24 healthy rules, one small 28,120-row merge and no new failures; second comparable natural merge still needed. No retuning or public Grafana work. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 00:26 passive probe: 24 healthy rules, neither tier merged and no new failures; second comparable natural merge still needed. Next sample no earlier than 01:27 UTC. No retuning or public Grafana work. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2321: collected due passive metrics recovery evidence; 24 healthy rules, no new failures, no comparable merge. Retained CPU-only trial and public activation gates.
 
 - [x] 2320: bounded disk-capacity investigation with a read-only inventory; identified 380.4 MiB of old observability scratch artifacts for owner-scoped maintenance, preserving item 51 deletion limits.
 
