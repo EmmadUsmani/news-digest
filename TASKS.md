@@ -18,13 +18,13 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [x] STEERING 58 (2330): fixes deployed; owner proxy result and Nov 14 scheduled edition b9d55088 accepted under STEERING 62; acknowledgement committed. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-3).
 
-- [ ] STEERING 56/57: World/U.S. split deployed; review three consecutive scheduled editions. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
+- [ ] STEERING 56/57: World/U.S. split deployed; Nov 15 semantic scope/event review (2412) passes: five stories each, 14/6 coverage IDs, no repeated or misplaced event. World fallback depth and three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
 - [x] STEERING 50/62 (2398): Nov 15 edition `a0fa3916` passes scheduled publication and signed-out reader/refusal gate; item 50 acked. Public mode ON, VM private; owner sharing decision pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
 - [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 16:54 passive sample: 24 healthy rules, no merge during sample; 64 small merges/1,658,148 rows since prior sample, no big merge. No new admission hits, evaluator failures/timeouts/slow queries. Queries ≤0.920 s. Comparable recovery remains open; next sample ≥17:55 UTC. No retuning/public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
-- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
+- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 15 NBA review (2402) finds no Murray repetition; spoof exclusion still awaits natural acceptance. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 

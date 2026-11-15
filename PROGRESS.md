@@ -152,3 +152,13 @@ Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes: a0fa3916, five topics/23 stories/16 posts. Public-mode build passes. No UI, schema, handbook or runtime behavior change.
 - Next: natural 17:54 UTC World Ukraine collection; retain export by Nov 16 05:20 UTC. World/NBA acceptance awaits next scheduled edition; metrics sample due ≥17:55 UTC. Public mode ON, VM private; owner sharing decision pending.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); public-mode build and `git diff --check` pass. Receipts `/tmp/2411-{format,lint,check,build}.log`. API/worker restarted; initial health raced startup, retry and post-restart scheduled reader pass.
+
+## 2026-11-15: iteration 2412 — finish natural World/U.S. event ownership review
+
+- Clean main at 87eb1fa8; no inherited work. Alerts zero; health passes.
+- Read all ten World/U.S. story texts and twenty coverage entries against the topic plan: five stories each, 14/6 distinct coverage IDs, no shared ID, repeated event or misplaced scope. Iran-war policy belongs in World despite US political actors; domestic election stories concern distinct offices/results.
+- Read-only Python assertions pass; reduced receipt `/tmp/2412-ownership.json`. Updated dated review and TASKS; corrected stale NBA Murray note using already-completed Nov 15 review. No source/provider/budget/runtime changes.
+- World fallback depth and three consecutive successful editions keep items 56/57 open. No new paid calls or acceptance claim for overall editorial quality.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass. Receipts `/tmp/2412-{format,lint,check,build}.log`.
+- API/worker restarted; initial reader/health probes raced startup, retry passes: a0fa3916, five topics/23 stories/16 posts. Public mode ON, VM private; sharing stays with owner.
+- Next: 17:54 UTC World Ukraine collection and retained export by Nov 16 05:20 UTC; metrics sample ≥17:55 UTC. Natural World/NBA acceptance awaits next edition.
