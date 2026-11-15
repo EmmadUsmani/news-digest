@@ -2921,6 +2921,8 @@ edition accepted. Ack each step separately with its commit.
 
 **Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
 
+ack: 2026-11-15 step 1 complete in 622d5802: atomic staged web releases, ≥24-hour retired hashed assets, automatic exact-path admission refresh and role-specific restart runbook. Two real public HTTPS deploy polls (54 samples) and signed-out desktop/mobile checks pass; no API/worker restart during either web deploy. Steps 2–4 remain open.
+
 ## 64. NOW: let admins open the New edition page directly (2026-11-15)
 
 **Why:** in public mode, typing or refreshing `/admin/editions/new` returns
