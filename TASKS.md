@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2362: restored public-mode saved-item capacity browser verification; concurrent tabs retain the saved story and 1,000 removal records across reloads without repeated storage writes.
+
 - [x] 2361: Saved items offers Retry sync beside a failure; failed retry and recovery preserve saved copies without opening Account.
 
 - [x] 2360: topic picker shows account sync status and retries failed sync without losing topic choices; corrected browser-only wording.

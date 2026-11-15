@@ -138,3 +138,12 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - API restarted for public build. Immediate health request raced startup; subsequent `pnpm obs health --check` and deployed browser checks pass (`/tmp/2361-health-final.log`).
 - Due passive metrics sample (`pnpm exec tsx scripts/sample-metrics-recovery.ts`): 08:27–08:30, 24 healthy rules, three small merges/33,643 rows, no big merge/new evaluator failures/admission hits/timeouts/slow queries; uncached probes ≤0.976 s. System obs-metrics/obs-alerts warning journal empty since 07:25. Comparable recovery remains pending; next sample ≥09:31.
 - Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes. Next: 15:00 scheduled publication/access gate and editorial recovery review.
+
+## 2026-11-15: iteration 2362 — restore saved-item capacity browser verification
+
+- Clean main at d9326009; no inherited work. `pnpm obs alerts` reports zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2362-sources.log`).
+- Reader verification weakness: capacity smoke failed parsing the public-mode admission refusal before testing saved-copy preservation (`/tmp/2362-before.log`). Capture one checked public reader response with an explicit test visitor and replay it across tabs/reloads; refuse server writes, admin requests and external traffic.
+- `pnpm exec tsx scripts/smoke-reader-preference-capacity.ts` passes desktop/mobile light/dark: a saved published story and 1,000 synthetic removal records survive concurrent stale-tab writes and reloads, independent topic choice survives, and storage writes settle. Four screenshots refreshed; inspected mobile dark. Receipt `/tmp/2362-browser.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2362-{format,lint,check}.log`; API build passes within integration checks.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
+- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.

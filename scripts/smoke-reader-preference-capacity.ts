@@ -1,5 +1,5 @@
 // Real published story plus synthetic removal records to exercise capacity.
-// GET-only app traffic; external requests blocked; no provider calls.
+// Capture one public reader response, then replay it; no server writes or provider calls.
 import assert from 'node:assert/strict';
 
 import { readerEditionSchema } from '@digest/contracts';
@@ -7,9 +7,14 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const headers = { 'X-Forwarded-For': '192.0.2.166' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers,
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'capture published reader edition');
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics[0].stories[0];
   const browser = await chromium.launch();
   try {
@@ -21,14 +26,26 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const errors: string[] = [];
-        await context.route('**/*', (route) =>
-          ['GET', 'HEAD'].includes(route.request().method()) &&
-          new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort(),
-        );
+        const writes: string[] = [];
+        await context.route('**/*', (route) => {
+          const request = route.request();
+          if (!['GET', 'HEAD'].includes(request.method())) {
+            writes.push(request.method());
+            return route.abort();
+          }
+          const url = new URL(request.url());
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          if (
+            url.pathname === '/api/editions/latest' ||
+            url.pathname === `/api/editions/${edition.id}`
+          )
+            return route.fulfill({ json: edition });
+          return route.continue();
+        });
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
@@ -145,6 +162,7 @@ async function smoke() {
           path: `docs/screenshots/ui/saved-capacity-${device}-${theme}.png`,
         });
         assert.deepEqual(errors, []);
+        assert.deepEqual(writes, []);
         await context.close();
         console.log(
           `${device}/${theme}: capacity union preserves saved story and removal records on reload; storage settles`,
