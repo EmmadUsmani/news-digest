@@ -123,3 +123,14 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 - Ran `pnpm format` and `pnpm lint:fix`; first full check terminated with signal 143 during formatting. Clean `pnpm check` rerun passes: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2366-{format,lint,check-retry}.log`. `git diff --check` passes.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
 - Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2367 — restore reading-position verification
+
+- Clean main at 562207b2; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2367-{health,sources}.log`).
+- Reading-position smoke failed parsing public-mode refusal before testing navigation (`/tmp/2367-before.log`). Capture a checked published reader response with a documentation-range visitor; block writes, admin and external requests.
+- Corrected replay navigation: keyboard input ends opening-anchor stabilization; settle native scrolling before recording the later position. Script-only scrolling had left stabilization active.
+- `pnpm exec tsx scripts/smoke-reader-position.ts` passes desktop/mobile light/dark: opening deep links align, changed background refresh preserves later reading position/hash, no page errors or overflow. Four screenshots refreshed; inspected mobile dark (`/tmp/2367-browser.log`).
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2367-{format,lint,check}.log`. `git diff --check` passes.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`: 09:31–09:34, 24 healthy rules, four small merges/149,209 rows, no big merge or new failures/admission hits/timeouts/slow queries. User warning journal empty since 08:30; second comparable natural merge still pending. Limits unchanged (`/tmp/2367-metrics.log`).
+- Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.

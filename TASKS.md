@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 08:27–08:30 passive probe: 24 healthy rules; three small merges/33,643 rows, no big merge or new failures/admission hits/timeouts/slow queries; system warning journal empty since 07:25. Second comparable natural merge still needed. Next sample no earlier than 09:31 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 09:31–09:34 passive probe: 24 healthy rules; four small merges/149,209 rows, no big merge or new failures/admission hits/timeouts/slow queries; user warning journal empty since 08:30. Second comparable natural merge still needed. Next sample no earlier than 10:35 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2367: restored public-mode reading-position browser verification; opening deep links align and changed background refreshes preserve the reader’s later position across desktop/mobile themes.
 
 - [x] 2366: restored public-mode hidden-destination browser verification; hidden story/post links reveal their topic, focus the destination and persist across reloads.
 
