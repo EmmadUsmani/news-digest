@@ -3290,3 +3290,12 @@ engaged shortlist reaching its 50-post limit (36 authors). Strong examples
 mix reporting, commentary, speculation and satire. Keep the pilot and semantic
 selection gates; collection success does not accept final editorial quality.
 [First-pass review](edition-reviews/2026-11-15-world-bluesky-pilot.md).
+
+### Nov 15 Gaming Bluesky intake — iteration 2415
+
+The saved-window reconstruction reads 672 observations for `game`, recovering
+all 50 intake scores by exact production fingerprints. Two pass relevance ≥6;
+none pass interestingness ≥4, so no Bluesky editor is reached despite four
+open slots. Sports, jokes and commentary dominate this intake. Retain queries
+and gates; the earlier alternative-query comparison supplies no replacement.
+[Review](edition-reviews/2026-11-15-gaming-social.md). No external search or paid call.

@@ -133,3 +133,11 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - No source, provider, publication, schema or runtime behavior changes; no paid calls. Natural World/NBA acceptance remains pending; public mode ON, VM private, sharing stays with owner.
 - Next: metrics sample ≥19:01 UTC; retain Bluesky jobs by Nov 16 05:20 UTC, compare full Nov 16 day and next scheduled edition.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips). Public-mode build and `git diff --check` pass; receipts `/tmp/2414-{format,lint,check,build}.log`. API/worker restarted; post-restart health and scheduled reader pass.
+
+## 2026-11-15: iteration 2415 — diagnose natural Gaming social scarcity
+
+- Clean main at 058a2d1c; no inherited work. Alerts zero; health, all 38 sources and queue workers pass. Reader weakness: Gaming publishes one modest Roblox milestone and no Bluesky posts.
+- Read-only repeatable-read reconstruction loads all 672 saved-window observations, recovers 50 exact production-fingerprint cached scores and matches zero saved finalists. Two pass relevance; none pass interestingness. Read all 50 texts/event labels: sports, personal posts, jokes and commentary dominate. No final-shortlist overflow or Bluesky editor failure explains the gap.
+- Added dated Gaming supply review and source/task evidence. Retain query/gates/budgets: Nov 13 alternatives already supplied no better replacement. No external search, inference, cache writes, publication or runtime changes.
+- Next: metrics sample ≥19:01 UTC; retain Bluesky jobs by Nov 16 05:20 UTC. Next natural edition must establish World recovery/NBA spoof exclusion; overall Gaming social quality remains open. Public mode ON, VM private; sharing stays with owner.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check` pass. Receipts `/tmp/2415-{format,lint,check,build,reader}.log`.
