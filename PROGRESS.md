@@ -87,3 +87,11 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Verification: `pnpm obs alerts`, `pnpm obs sources --check`, `/healthz`, `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z`, `pnpm exec tsx scripts/check-live-account-boundary.ts`, metrics sampler and warning journal; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips), diff checks. Logs `/tmp/2346-*`.
 - Archived older progress and completed task markers to keep orientation files bounded; history retained with links.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private. Next: scheduled publication/reader gate and natural editorial recovery review; avoid more browser-smoke restoration or repeated Tech admission studies.
+
+## 2026-11-15: iteration 2348 — correct Nov 14 recovery handoff
+
+- Clean main at 819957c3; no inherited work. Saved review still instructed all-topic recovery before item 58 closure/public activation, contradicting STEERING 62 and deployed state.
+- Updated that actionable paragraph to record closure/activation and separate next scheduled publication/access acceptance from Gaming/World/U.S. editorial recovery; historical diagnosis retained.
+- Initial alerts zero; health/database/Redis pass and all 38 sources healthy. No paid calls, generation, settings or sharing changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); `pnpm exec tsx scripts/check-handbook.ts --owner-services` passes (18 pages, 22 diagrams, 39 tables). Logs `/tmp/2348-{format,lint,check,handbook,sources}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Next: Nov 15 15:00 UTC scheduled publication/access acceptance and separate editorial review; VM stays private.
