@@ -107,3 +107,12 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Recorded result matrix and next repair constraints in the World review/TASKS. Existing fixed feedback already requests all-field review; repeating that hint alone is not justified. No prompt/guard/runtime changes, spend, sharing or restart during freeze.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2401-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips.
 - Next: focused supported-warning equivalence with adversarial coverage; remaining NBA/social/Tech daily review. Passive metrics sample due ≥15:49 UTC; public mode ON, VM private.
+
+## 2026-11-15: iteration 2402 — complete remaining daily content review
+
+- Clean main at 9b414719; no inherited work. Alerts zero, `/healthz` database/Redis healthy; 38/38 sources healthy and all four queues have workers (`/tmp/2402-{sources,jobs}.log`).
+- Reviewed remaining NBA/Gaming/Tech stories and all 16 saved posts in edition a0fa3916. NBA stories are distinct; GG Jackson post adds preliminary coach/test context. Gaming's two GTA stories cover separate developments. U.S. Bluesky recovers three substantive picks.
+- Found concrete NBA credibility failure: NBACentel X post 2121689455056613397 cites spoof `@SharmsCharania`; saved triage/editor label it reputable injury news, published context empty. Exact candidate/reasons and bounded source-quality fix handoff recorded in the daily review/TASKS.
+- Tech remains thin: three of four stories have empty saved evidence excerpts; Nvidia has 600 characters and two attributed sentences. No admission/query tuning justified. All 11 X posts lack verified engagement metrics; viral quality remains open.
+- Documentation-only step; no runtime changes, inference, edition writes, spend or restart/deployment during freeze. World repair remains open; next trace/exclude the known spoof source with genuine-reporter controls. Passive metrics sample due ≥15:49 UTC. Public mode ON, VM private.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2402-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips. Documentation-only; live runtime still matches main's application artifacts.
