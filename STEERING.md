@@ -2770,6 +2770,8 @@ rule for other `/tmp` scratch.
 
 **Limits:** not between 13:00 and 16:00 UTC.
 
+ack: 2026-11-15 item 60 — iteration 2329: privileged fuser checks of both paths and all descendants found no open references. Deleted only `/tmp/obs355` and `/tmp/news-digest-vmutils.tgz`; reclaimed 398,888,960 allocated bytes (380.4 MiB), disk 78%→77%. Disk headroom request resolved.
+
 ## 61. Standing rule: clean up your own old `/tmp` scratch (2026-11-15)
 
 **Why:** item 51 said "don't touch other `/tmp` content". That fenced one task,
