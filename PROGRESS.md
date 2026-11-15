@@ -110,3 +110,11 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Recorded evidence in Tech social review and refreshed four desktop/mobile fallback screenshots; inspected mobile light. Discarded all other incidental screenshot refreshes. No observed app defect or code change.
 - `pnpm exec tsx scripts/smoke-reader-coverage-count.ts` also passes all four views; discarded its screenshot refreshes. No external requests, provider calls, production writes or configuration changes; handbook/SOURCES unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Private receipts `/tmp/2325-*.log`.
+
+## 2026-11-15: iteration 2326 — restore saved edition selection verification
+
+- Clean main; no inherited work. Initial alerts zero, health passes, all 38 sources healthy. Scheduled acceptance and metrics probe not due; public mode off/VM private.
+- Actual failure: `pnpm exec tsx scripts/smoke-edition-selection.ts` expects a desktop date without the visible weekday, then compares Bluesky rendered text against raw text despite saved display text. Updated assertions to match the current reader contract, preserving exact date/accessibility and content/destination checks; added post URL to mismatch diagnostics.
+- Selection and `pnpm exec tsx scripts/smoke-edition-history.ts` pass 16 combined desktop/mobile light/dark delayed-success/error scenarios: late responses preserve the chosen saved edition, without writes or browser errors. External browser traffic blocked. Refreshed eight screenshots; inspected both mobile light views.
+- No app behavior, source, schema, runtime settings or editorial changes; handbook/SOURCES unchanged. No provider calls or production writes. Receipts `/tmp/2326-*.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Next: due passive metrics sample, then scheduled Nov 15 review.

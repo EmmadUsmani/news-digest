@@ -124,7 +124,9 @@ async function smoke() {
               new Date(edition.windowEnd).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
-                ...(device === 'desktop' ? { year: 'numeric' as const } : {}),
+                ...(device === 'desktop'
+                  ? { weekday: 'short' as const, year: 'numeric' as const }
+                  : {}),
               }),
             );
             if (device === 'mobile')
@@ -163,10 +165,11 @@ async function smoke() {
                 const expectedText =
                   post.platform === 'reddit'
                     ? post.title
-                    : post.platform === 'x'
-                      ? (post.displayText ?? post.text)
-                      : post.text;
-                assert.ok(savedText?.startsWith(expectedText));
+                    : (post.displayText ?? post.text);
+                assert.ok(
+                  savedText?.startsWith(expectedText),
+                  `Selected post display text differs: ${post.url}`,
+                );
               }
               for (const story of topic.stories) {
                 const item = section.locator(`[id="story-${story.id}"]`);

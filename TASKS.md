@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2326: restored delayed edition-selection browser checks for desktop weekday and saved Bluesky display text; selection/history success and failure checks pass in desktop/mobile light/dark.
+
 - [x] 2325: verified saved X text survives media failure/retry and theme changes in six browser views; refreshed four fallback screenshots, with local-stub recovery explicitly distinguished from live X.
 
 - [x] 2324: repaired X source-link browser verification to accept a linked saved post without requiring a URL glued to prose; all four desktop/mobile theme views pass, with screenshots refreshed.
