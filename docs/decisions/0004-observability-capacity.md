@@ -959,3 +959,15 @@ merge recovery remains open. Warning-level system metrics/alerts journal since
 00:25:32 UTC has no entries. Keep the CPU-only trial and limits; next short
 passive probe no earlier than 02:32 UTC Nov 15. No forced merge, metrics restart,
 configuration change or provider call. Receipt: `/tmp/2327-metrics.jsonl`.
+
+### Passive follow-up (iteration 2332)
+
+Nov 15 02:42:19–02:42:50 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤1.408 s, no new evaluator errors,
+missed iterations, queue timeouts or slow queries. One admission-limit hit;
+one small merge (1,890 rows), no big merge, both process starts unchanged.
+The small merge is below the comparable-merge threshold, so recovery stays open.
+Journal since 01:31 UTC contains one API scrape connection refusal at 02:05:06;
+current API health and metrics probes pass. Keep the CPU-only 2% trial and limits;
+next passive probe no earlier than 03:43 UTC. No forced merge, metrics restart,
+configuration change or provider call. Receipt: `/tmp/2332-metrics.jsonl`.
