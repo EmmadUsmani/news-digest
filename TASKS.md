@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2353: restored source-management browser verification in public mode; public status/topic contracts, closed profile handling and desktop/mobile light/dark replays pass without live writes.
+
 - [x] 2352: restored read-only reviewed X account settings check in public mode; all four documented lists match live settings across desktop/mobile replays, with zero writes.
 
 - [x] 2351: restored the live Bluesky probe in public mode; bounded free World comparison confirms stronger engaged supply for event queries, with commentary/U.S. overlap still requiring editorial filtering. No storage or production-query changes.

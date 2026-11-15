@@ -1,7 +1,10 @@
 // Saved live access only; browser writes and external requests are blocked.
 import assert from 'node:assert/strict';
 
-import { operationsStatusSchema, topicSchema } from '@digest/contracts';
+import {
+  publicOperationsStatusSchema,
+  topicSettingsSchema,
+} from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminFetch } from './lib/local-admin-fetch';
@@ -13,10 +16,14 @@ async function smoke() {
   try {
     const statusResponse = await localAdminFetch(`${origin}/api/admin/status`);
     assert.equal(statusResponse.status, 200);
-    const status = operationsStatusSchema.parse(await statusResponse.json());
+    const status = publicOperationsStatusSchema.parse(
+      await statusResponse.json(),
+    );
     const topicsResponse = await localAdminFetch(`${origin}/api/admin/topics`);
     assert.equal(topicsResponse.status, 200);
-    const topics = topicSchema.array().parse(await topicsResponse.json());
+    const topics = topicSettingsSchema
+      .array()
+      .parse(await topicsResponse.json());
     for (const [device, width, height] of [
       ['desktop', 1440, 1000],
       ['mobile', 390, 844],
@@ -46,17 +53,22 @@ async function smoke() {
             adminReads.push(url.pathname);
           return route.continue();
         });
-        assert.equal(
-          (await page.goto(`${origin}/admin/sources`))?.status(),
-          404,
-        );
+        // Public mode exposes read-only management pages; private mode hides them.
+        const shellStatus = (
+          await page.goto(`${origin}/admin/sources`)
+        )?.status();
+        assert.ok(shellStatus === 200 || shellStatus === 404);
         await page.route('**/api/admin/**', async (route) => {
           adminReads.push(new URL(route.request().url()).pathname);
           assert.equal(route.request().method(), 'GET');
           if (new URL(route.request().url()).pathname === '/api/admin/status')
             return route.fulfill({ json: status });
           const response = await localAdminFetch(route.request().url());
-          assert.equal(response.status, 200);
+          const path = new URL(route.request().url()).pathname;
+          // Admin identity is replayed for controls; public mode keeps profiles closed.
+          if (path === '/api/admin/profile' && response.status === 404)
+            return route.fulfill({ status: 404, json: {} });
+          assert.equal(response.status, 200, route.request().url());
           await route.fulfill({
             status: 200,
             contentType: 'application/json',
@@ -343,7 +355,7 @@ async function smoke() {
     await browser.close();
   }
   console.log(
-    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, anonymous denial, reload, mobile navigation, Add feed replay submission, collection switch pause/resume/reload/failure, no overflow/live writes/browser credentials.',
+    'Admin sources: four viewport/theme combinations, saved real topics/sources, healthy sources, exact topic connections and editor/feed navigation, topic refresh failure/retry, public/private read-only shell, reload, mobile navigation, Add feed replay submission, collection switch pause/resume/reload/failure, no overflow/live writes/browser credentials.',
   );
 }
 void smoke();

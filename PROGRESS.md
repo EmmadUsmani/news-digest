@@ -130,3 +130,12 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Due passive metrics probe: 24 healthy rules, two small merges/17,411 rows below comparable threshold, no new evaluator errors/missed evaluations/admission hits/timeouts/slow queries; warnings journal empty. Next sample ≥07:25 UTC; recovery stays open.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); `git diff --check` passes. Receipts `/tmp/2352-{x-before,x,format,lint,check}.log` and `/tmp/2352-metrics.jsonl`.
 - Runtime/config unchanged; no restart under STEERING 22. No paid calls, generation, query, budget or sharing changes. Scratch cleanup already applied today (2339). Next: 15:00 UTC scheduled publication/access acceptance and separate editorial recovery review.
+
+## 2026-11-15: iteration 2353 — restore public-mode source-management verification
+
+- Clean main at 85e953f6; no inherited work. Alerts zero; health/database/Redis pass; all 38 enabled sources returning items, zero source errors.
+- Reproduced source-management smoke failure on private status fields, then obsolete hidden-page/profile assumptions. Switched to public status/topic contracts; accepts read-only management shell and preserves public profile refusal.
+- `pnpm exec tsx scripts/smoke-admin-sources.ts` passes four desktop/mobile light/dark replays: exact source counts/topic connections, navigation, simulated feed submission and collection pause/resume/failure; no live writes or browser credentials. Refreshed eight screenshots and inspected mobile source view.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips.
+- Updated SOURCES and TASKS. Before/final smoke receipts `/tmp/2353-{before,sources}.log`; formatting/lint/check receipts `/tmp/2353-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. No provider calls, generation, source settings, budgets or sharing changes. Public mode ON, VM private; next: 15:00 UTC scheduled publication/access gate and separate editorial recovery review.

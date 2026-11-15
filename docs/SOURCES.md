@@ -3211,3 +3211,7 @@ U.S. collection uses `Congress`; zero lexical-shortlist matches do not mean
 zero collected posts or zero semantic candidates. These are stored official API
 observations, not accepted editorial picks. No provider calls, collection
 changes, policy changes or pilot activation.
+
+The read-only source-management browser check (`scripts/smoke-admin-sources.ts`)
+uses public status/topic settings contracts in public mode. Feed submissions and
+collection switches are local browser replays, never live source changes.
