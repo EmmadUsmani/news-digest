@@ -176,3 +176,15 @@ Archived: [iterations 2411–2420](docs/progress-archive/2026-11-15-2411-2420.md
 - No handbook change needed for this display fix. Public mode ON; VM private.
 - Next: metrics sample ≥22:04 UTC; World retained-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance.
 - Full check passes: 1,050 unit/329 integration tests, four expected skips; public build and all six browser cases pass. API/worker restarted; health and scheduled reader pass (five topics/23 stories/16 posts). No push blocker.
+
+## 2026-11-15: iteration 2435 — quantify sustained metrics recovery and reclaim
+
+- Clean main at fad98d51; no inherited work. Alerts zero, health passes, all 38 sources healthy; no failed scheduled digest runs. Daily scratch cleanup already applied; no deletion.
+- Completed due metrics resource comparison: 21:54:55–22:04:59, 11 samples, 24 healthy rules, 22 uncached queries ≤0.831 s; unchanged processes and no new evaluator/admission/timeout/slow-query counters.
+- Since 21:33 baseline: +181 memory-high events (+51 during sample), no max/OOM/kill; 32 small merges/1,143,475 rows, no new big merge. Sustained query/evaluation health observed; continuing reclaim keeps resource acceptance open.
+- Capacity 21:56:44–21:57:44: whole-stack CPU 1.589%, sampled peak 702.5 MiB; metrics CPU 0.452%, six high events, no OOM. Checks overlap; no causal claim. Limits unchanged.
+- Updated task/decision evidence; no production code, provider calls, sharing changes or observability restart. No handbook change needed.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` (1,050 unit/329 integration pass, four skips), `VITE_PUBLIC_MODE=1 pnpm build`; comparison assertions pass. Receipts `/tmp/2435-*`.
+- API/worker restarted; initial immediate reader/health probes ran before API startup and failed; retried after startup below.
+- Next: metrics ≥23:06 UTC, ideally natural big merge; World retained-job export by Nov 16 06:56 UTC; natural content acceptance Nov 16. Public mode ON; VM private.
+- Post-startup health and scheduled-reader retry pass (five topics/23 stories/16 posts); `git diff --check` clean. No push blocker.

@@ -1114,3 +1114,37 @@ of 3,654 rows, no big merge. Retain CPU-only 2% trial; recovery remains open.
 The next due ≥22:04 UTC sample can compare resource counters against this
 saved baseline. Receipt: `/tmp/2433-metrics.jsonl`. No provider calls,
 forced compaction or metrics-service restart. Four targeted tests pass.
+
+### Sustained post-merge resource comparison (iteration 2435)
+
+The Nov 15 follow-up compares saved cgroup counters with the 21:33 baseline,
+then samples every minute while the full checks and public build run. This
+measures resource pressure after the 21:00 big merge; it does not assign the
+pressure to that merge. Limits remain CPU 2%, MemoryHigh 88 MiB and MemoryMax
+112 MiB.
+
+A separate 21:56:44–21:57:44 capacity sample measured whole-stack CPU 1.589%
+and 702.5 MiB sampled peak memory. Metrics averaged 0.452% CPU, throttled
+83/236 active periods and recorded six memory-high events, no OOM/kill events.
+These measurements overlap verification load.
+
+All 38 sources report healthy; the scheduled digest queue has no failed runs.
+Grafana health answers. One worker scrape refusal at 21:45 predates this
+sample and coincides with the preceding deployment; no metrics restart.
+Receipts: `/tmp/2435-metrics.jsonl`, `/tmp/2435-capacity.json`,
+`/tmp/2435-metrics-journal.log`, `/tmp/2435-sources.json`, `/tmp/2435-jobs.json`.
+
+21:54:55–22:04:59 UTC: all 11 samples found 24 fresh healthy rules; 22
+uncached queries returned the expected series in ≤0.831 seconds. Against
+21:33:13, process starts are unchanged, with no new evaluator errors/missed
+iterations, admission hits, timeouts or slow-query counters. Small merges
+advanced by 32/1,143,475 rows; no new big merge. Memory-high increased by
+181 since baseline, including 51 during the ten-minute sample; max/OOM/kill
+counters remain zero. Ending memory 86.4 MiB, lifetime peak 88.7 MiB;
+NRestarts=0. Assertions in `/tmp/2435-compare.py` pass.
+
+Sustained post-merge evaluation/query health is observed, but continuing
+reclaim prevents resource acceptance. Keep the incident and unchanged CPU
+trial open; next sample ≥23:06 UTC, preferably spanning another natural
+big merge with the retained resource baseline. No forced compaction, provider
+calls or observability restarts.
