@@ -99,3 +99,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or service restart needed; deployment freeze preserved.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2386-{before,browser,format,lint,check}.log`.
 - Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2387 — restore public-mode post-context browser checks
+
+- Clean main at 33f56f05; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy. Digest queue has zero failures and next run at 15:00 UTC.
+- Reproduced browser-tooling breakage: post-context smoke receives HTTP 429 before reaching its assertions because public-mode visitor admission is missing. Added the loopback visitor header to browser and API requests, granting no identity.
+- `pnpm exec tsx scripts/smoke-reader-context-targets.ts` passes six 1440/390/320px light/dark variants against nine actual published notes: source-context agreement, 44px controls, keyboard toggle/focus, touch expansion, overflow and browser errors. GET/HEAD only; external requests blocked. Six screenshots refreshed; 320px light inspected.
+- No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or service restart needed; deployment freeze preserved.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2387-{before,browser,format,lint,check}.log`.
+- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.

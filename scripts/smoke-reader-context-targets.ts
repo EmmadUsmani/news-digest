@@ -6,11 +6,14 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
+  // Loopback probe of trusted-proxy visitor admission; grants no identity.
+  const headers = { 'X-Forwarded-For': '192.0.2.160' };
   const browser = await chromium.launch();
   try {
     for (const width of [1440, 390, 320]) {
       for (const theme of ['light', 'dark'] as const) {
         const context = await browser.newContext({
+          extraHTTPHeaders: headers,
           viewport: { width, height: 900 },
           colorScheme: theme,
           reducedMotion: 'reduce',

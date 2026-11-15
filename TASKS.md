@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2387: restored social-post context browser verification in public mode; six viewport/theme variants pass with refreshed screenshots.
+
 - [x] 2386: restored date-navigation browser verification in public mode; six viewport/theme variants pass with refreshed screenshots.
 
 - [x] 2385: publication-date browser smoke admits signed-out visitors in public mode; four viewport/theme variants pass with refreshed screenshots.
