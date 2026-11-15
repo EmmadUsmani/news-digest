@@ -126,3 +126,13 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Read-only evidence only; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2389-{metrics.jsonl,sources.log,jobs.log}`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Check receipts: `/tmp/2389-{format,lint,check}.log`.
 - Next: passive sample ≥14:48 UTC; scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC.
+
+## 2026-11-15: iteration 2390 — restore public-mode headline browser checks
+
+- Clean main at 2768f8fb; no inherited work. Alerts zero; health database/Redis healthy; all 38 sources healthy. Digest queue has zero failures, next run 15:00 UTC.
+- Reproduced headline browser check failure: latest-edition request returns 429 without public-mode visitor admission. Added the loopback visitor header to browser/API context; grants no identity.
+- `pnpm exec tsx scripts/smoke-reader-headline-targets.ts` passes all 14 published headline titles/destinations, 44px targets, keyboard focus, overflow and browser-error checks across 1440/390/320px light/dark. External requests blocked; no writes.
+- Six screenshots refreshed; 320px light inspected. Existing source-target smoke also passes six variants; incidental screenshots discarded deliberately.
+- No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or restart needed; 13:00–16:00 deployment freeze preserved.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips; check receipts `/tmp/2390-{before,headline-before,browser,format,lint,check}.log`.
+- Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.
