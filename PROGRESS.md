@@ -142,3 +142,13 @@ Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md
 - Updated source report, rollout plan and affected handbook pages. Owner-services handbook check passes (18 pages, schema 39 tables); initial public-route check refused 404 and a 102-line page was cut to 100. No diagrams/UI changed.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); public-mode build and `git diff --check` pass. Receipts `/tmp/2410-{check,build,handbook}.log`. API/worker restarted; health and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts).
 - Next: natural 17:54 UTC Ukraine pass; export retained jobs by Nov 16 05:20 UTC and every ≤12 hours, compare Nov 16 full UTC day and next edition. World/NBA natural acceptance still pending; metrics sample ≥17:55 UTC. Public mode ON, VM private; sharing stays with owner.
+
+## 2026-11-15: iteration 2411 — natural World X supply comparison
+
+- Clean main at 504a3219; no inherited work. Alerts zero; health, 38 sources and four queue workers pass.
+- Reader weakness: World X still offers attributed unverified claims rather than independent reporting. Compared Nov 15 immutable social scores and reader posts with Nov 14; 13 scored/four qualifying/three selected, versus three qualifying/two selected previously.
+- Four qualifying IDs cannot overflow the ten-candidate shortlist; omitted Netanyahu stance scores no higher than the selected alternatives. Exact omission rationale is unknown; no new ranking defect or tuning justified. Three selected X metrics remain empty.
+- Read-only Python assertions passed: complete/unique scores, qualifying/selected/omitted IDs, empty X metrics and saved/public post fields. Receipt `/tmp/2411-world-x.json`; no provider/source/queue/cache/publication writes. Updated TASKS, SOURCES and dated review.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes: a0fa3916, five topics/23 stories/16 posts. Public-mode build passes. No UI, schema, handbook or runtime behavior change.
+- Next: natural 17:54 UTC World Ukraine collection; retain export by Nov 16 05:20 UTC. World/NBA acceptance awaits next scheduled edition; metrics sample due ≥17:55 UTC. Public mode ON, VM private; owner sharing decision pending.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); public-mode build and `git diff --check` pass. Receipts `/tmp/2411-{format,lint,check,build}.log`. API/worker restarted; initial health raced startup, retry and post-restart scheduled reader pass.

@@ -3270,3 +3270,13 @@ now rotates baseline/Ukraine/baseline/Gaza by UTC hour; explicit topic overrides
 win. No added searches, pages, paid calls or edition replay. Retained pre-pilot
 job results privately; collect exports at least every 12 hours. Natural quality
 and first full-day comparison remain pending; VM sharing stays private.
+
+### Nov 15 World X natural comparison — iteration 2411
+
+Saved social scores contain 13 candidates, four qualifying and three selected,
+versus Nov 14's three qualifying and two selected. All three Nov 15 X picks
+are explicitly unverified claims in triage; their reader notes attribute them.
+No shortlist overflow or stronger scored alternative is established. Verified
+X metrics remain empty. Retain gates, caps and prompts; assess the already
+activated bounded World discovery pilot on natural collection and publication.
+[Saved supply and reader comparison](edition-reviews/2026-11-15-world-x.md).

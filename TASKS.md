@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 16:54 passive sample: 24 healthy rules, no merge during sample; 64 small merges/1,658,148 rows since prior sample, no big merge. No new admission hits, evaluator failures/timeouts/slow queries. Queries ≤0.920 s. Comparable recovery remains open; next sample ≥17:55 UTC. No retuning/public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
-- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
+- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 
