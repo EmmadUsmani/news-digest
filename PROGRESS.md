@@ -107,3 +107,11 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Updated decision 0005 and TASKS.md. Next: saved-request bounds and bounded waiting feasibility. Natural scheduled recovery/public publishing acceptance still pending; no restart needed under STEERING 22 because no running code/config changed.
 - Verification: 18 targeted experiment tests pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,038 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass. Existing bundle warning only. Logs `/tmp/2334-*.log`.
 - Initial push rejected because remote main gained owner lead notes (eb0b7ee9). Merged those notes without editing owner files or rewriting history; no runtime changes or additional test scope.
+
+## 2026-11-15: iteration 2335 — bounded offline editorial waiting
+
+- Clean main at dbae7d77; no inherited work. Alerts zero, health/database/Redis healthy, all 38 sources healthy; digest worker has no failures and next edition is 15:00 UTC. Metrics sample not due before 03:43 UTC; no repeat probe or generation.
+- Added optional bounded admission waiting to the isolated owned scheduler. Waiting holds no capacity or inference slot; retries at settlements, permits exact-deadline admission, refuses idle impossible capacity and cancels on failure.
+- Cap-11 synthetic scenario: U.S. waits 10–30 ms while NBA repairs, both finish by 60 ms with peak exposure 11/spend 4, matching whole-topic ordering. A 19 ms wait refuses U.S. at 29 ms. This recovers synthetic admission, not a measured speedup.
+- Updated decision 0005 and TASKS.md. Next: saved-request bounds and useful actual wait limits. No runtime imports/config, provider calls, budgets, sources, schema, UI or sharing changes; scheduled recovery/publication acceptance remains pending.
+- Verification: 20 targeted experiment tests pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass; existing build warnings only. Logs `/tmp/2335-*.log`. No restart under STEERING 22: running code/config unchanged.

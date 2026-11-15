@@ -281,3 +281,85 @@ void test('invalid owned scenarios fail rather than inventing admissible capacit
     /Owned balance exceeded/,
   );
 });
+
+void test('bounded admission waiting preserves NBA repair and admits U.S. after release', () => {
+  const jobs: SchedulingJob[] = [
+    { ...job('nba-initial', [], 4, 1, 20), owner: 'nba' },
+    { ...job('pair', [], 1, 1), owner: 'pair', releaseOwner: true },
+    { ...job('us', ['pair'], 6, 1, 30), owner: 'us', releaseOwner: true },
+    {
+      ...job('repair', ['nba-initial'], 6, 1),
+      owner: 'nba',
+      releaseOwner: true,
+    },
+  ];
+  const bounds = { nba: 10, pair: 1, us: 6 };
+  // Pair settles at 10; NBA releases at 30. Equality admits after settlement.
+  const result = simulateStagedScheduling(jobs, 11, 0, bounds, 20);
+  assert.equal(result.elapsedMs, 60);
+  assert.equal(result.spent, 4);
+  assert.equal(result.accounting?.peak, 11);
+  assert.equal(result.held, 0);
+  assert.ok(!result.trace.some((row) => row.event === 'refused'));
+  assert.deepEqual(
+    result.trace.filter((row) => row.id === 'us'),
+    [
+      { id: 'us', time: 10, event: 'waiting' },
+      { id: 'us', time: 30, event: 'start' },
+      { id: 'us', time: 60, event: 'settle' },
+    ],
+  );
+  const expired = simulateStagedScheduling(jobs, 11, 0, bounds, 19);
+  assert.ok(
+    expired.trace.some(
+      (row) => row.id === 'us' && row.time === 29 && row.event === 'refused',
+    ),
+  );
+  assert.equal(expired.spent, 3);
+});
+
+void test('waiting refuses impossible idle capacity and cancels on failure', () => {
+  const impossible = simulateStagedScheduling(
+    [{ ...job('too-large', [], 12), owner: 'a' }],
+    11,
+    0,
+    { a: 12 },
+    100,
+  );
+  assert.equal(impossible.elapsedMs, 0);
+  assert.equal(impossible.trace.at(-1)?.event, 'refused');
+  const failed = simulateStagedScheduling(
+    [
+      { ...job('fail', [], 10, 1, 20), owner: 'a', fails: true },
+      { ...job('waiting', [], 6), owner: 'b' },
+      { ...job('dependent', ['waiting']), owner: 'b' },
+    ],
+    11,
+    0,
+    { a: 10, b: 6 },
+    100,
+  );
+  assert.equal(failed.failed, true);
+  assert.equal(failed.elapsedMs, 20);
+  assert.ok(
+    failed.trace.some(
+      (row) => row.id === 'waiting' && row.event === 'cancelled',
+    ),
+  );
+  assert.deepEqual(failed.accounting, {
+    spent: 1,
+    held: 0,
+    owned: 0,
+    total: 1,
+    peak: 10,
+  });
+  for (const wait of [-1, 0.5, Infinity])
+    assert.throws(
+      () => simulateStagedScheduling([], 11, 0, {}, wait),
+      /Invalid scheduling/,
+    );
+  assert.throws(
+    () => simulateStagedScheduling([], 11, 0, undefined, 1),
+    /Invalid scheduling/,
+  );
+});

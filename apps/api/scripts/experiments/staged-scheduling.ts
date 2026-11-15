@@ -18,9 +18,11 @@ export function simulateStagedScheduling(
   budget: number,
   protectedBudget = 0,
   envelopes?: Readonly<Record<string, number>>,
+  maxAdmissionWaitMs = 0,
 ) {
   const ledger = new EditorialEnvelopeModel(budget);
   const opened = new Set<string>();
+  const deadlines = new Map<string, number>();
   const rejectedOwners = new Set<string>();
   if (
     envelopes &&
@@ -32,6 +34,9 @@ export function simulateStagedScheduling(
     throw new Error('Invalid envelope configuration');
   const ids = new Set(jobs.map((job) => job.id));
   if (
+    !Number.isSafeInteger(maxAdmissionWaitMs) ||
+    maxAdmissionWaitMs < 0 ||
+    (maxAdmissionWaitMs > 0 && !envelopes) ||
     ids.size !== jobs.length ||
     !Number.isSafeInteger(budget) ||
     !Number.isSafeInteger(protectedBudget) ||
@@ -88,16 +93,35 @@ export function simulateStagedScheduling(
         refused.add(job.id);
         trace.push({ id: job.id, time, event: 'blocked' });
       } else if (active.length < 4 && job.after.every((id) => done.has(id))) {
-        pending.splice(i, 1);
         if (
           envelopes &&
           !opened.has(job.owner!) &&
           !rejectedOwners.has(job.owner!)
         ) {
-          if (ledger.open(job.owner!, 1, envelopes[job.owner!]))
+          if (time > (deadlines.get(job.owner!) ?? Infinity))
+            rejectedOwners.add(job.owner!);
+          else if (ledger.open(job.owner!, 1, envelopes[job.owner!]))
             opened.add(job.owner!);
-          else rejectedOwners.add(job.owner!);
+          else {
+            const deadline =
+              deadlines.get(job.owner!) ?? time + maxAdmissionWaitMs;
+            if (!Number.isSafeInteger(deadline))
+              throw new Error('Invalid waiting deadline');
+            // Waiting owns no capacity or inference slot. Retry after settlement;
+            // at the deadline, a just-settled call may still make admission fit.
+            if (maxAdmissionWaitMs > 0 && time < deadline) {
+              if (!deadlines.has(job.owner!)) {
+                deadlines.set(job.owner!, deadline);
+                trace.push({ id: job.id, time, event: 'waiting' });
+              }
+              i++;
+              continue;
+            }
+            rejectedOwners.add(job.owner!);
+          }
         }
+        deadlines.delete(job.owner!);
+        pending.splice(i, 1);
         if (
           envelopes
             ? rejectedOwners.has(job.owner!)
@@ -115,13 +139,25 @@ export function simulateStagedScheduling(
       } else i++;
     }
     if (!active.length) {
+      // No dispatched work can free capacity: do not burn the waiting bound.
+      const waiting = pending.filter((job) => deadlines.has(job.owner!));
+      if (waiting.length) {
+        for (const job of waiting) {
+          rejectedOwners.add(job.owner!);
+          deadlines.delete(job.owner!);
+        }
+        continue;
+      }
       // A dependent may precede its refused prerequisite in input order.
       if (pending.some((job) => job.after.some((id) => refused.has(id))))
         continue;
       if (pending.length) throw new Error('Cyclic scheduling dependencies');
       break;
     }
-    time = Math.min(...active.map((item) => item.finish));
+    time = Math.min(
+      ...active.map((item) => item.finish),
+      ...[...deadlines.values()].filter((deadline) => deadline > time),
+    );
     for (let i = 0; i < active.length;) {
       const item = active[i];
       if (item.finish === time) {

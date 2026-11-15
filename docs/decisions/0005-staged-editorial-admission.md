@@ -141,3 +141,20 @@ have definite settlements; uncertain dispatch holds remain covered by the
 separate ledger recovery tests. Next: measure saved-request bounds and test a
 bounded waiting policy against whole-topic admission before considering any
 runtime design. Production scheduling, caps and public activation are unchanged.
+
+## Bounded waiting result — iteration 2335
+
+The offline simulator accepts an optional admission wait limit, disabled by
+default. Waiting holds neither capacity nor an inference slot. It retries after
+settlements, admits at an exact deadline if capacity has just become available,
+and refuses when the deadline expires. If no active work can release capacity,
+it refuses immediately; unexpected failure cancels waiting work before draining.
+
+In the same cap-11 fixture, U.S. waits from 10 to 30 ms while NBA finishes its
+protected repair. A 20 ms wait admits both routes, spends 4 units and finishes
+at 60 ms, matching whole-topic ordering with peak exposure 11. A 19 ms wait
+refuses U.S. at 29 ms. Thus bounded waiting can recover this synthetic admission
+loss but establishes no speedup. The fixtures also cover invalid wait limits,
+impossible idle admission and failure cancellation. No production wiring,
+provider calls or budget changes were made. Next: size saved-request bounds
+and determine whether a useful waiting limit exists for actual requests.
