@@ -159,3 +159,15 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial check terminated (143) during lint; transient systemd rerun succeeded. Receipts `/tmp/2355-{before,browser,format,lint,check-final,build}.log`.
 - API restarted for the public build; health/source flow pass. Initial browser attempt raced startup (connection refused); rerun after health succeeded. Bare loopback reader GET receives expected public admission refusal; explicit test visitor succeeds.
 - Public mode ON, VM private. Next: 15:00 UTC scheduled publication/access acceptance and separate editorial recovery review; World discovery pilot stays off pending its gates.
+
+## 2026-11-15: iteration 2356 — restore public-mode saved-item verification
+
+- Clean main at 9344bb5b; no inherited work. Alerts zero; health/database/Redis pass.
+- Owner-visible value: verify readers can save stories/posts, keep copies across reloads/tabs and return to the correct historical edition in public mode.
+- Reproduced anonymous loopback admission failure; browser smoke now uses an explicit test visitor and validates public history/edition contracts and HTTP status before parsing.
+- Updated stale keyboard/account, context-paragraph, publication/save-date and removal-announcement assertions; GET-only, third-party blocking and no-admin-request guards remain enforced.
+- `pnpm exec tsx scripts/smoke-reader-bookmarks.ts` passes desktop/mobile light/dark: save/reload, cross-tab sync/removal, keyboard focus/announcements, original destinations, historical story/post jumps, malformed-date recovery and blocked storage. Refreshed screenshots; inspected desktop/mobile light.
+- Repeated live reads initially reached HTTP 429; after natural expiry, final replay captures three real responses once, then serves saved bodies across reloads without repeated reader admission. Receipt `/tmp/2356-bookmarks-final.log`; earlier failures `/tmp/2356-bookmarks{,-before}.log`.
+- `pnpm obs sources --check` passes all 38 enabled sources; receipt `/tmp/2356-sources.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2356-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. No live writes, paid calls, generation, source/budget or sharing changes. Next: 15:00 UTC scheduled publication/access gate and editorial recovery review.

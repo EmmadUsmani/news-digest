@@ -1,23 +1,34 @@
-// Actual saved editions; GET-only, external requests blocked.
+// Actual saved editions; public-mode anonymous visitor, GET-only, external requests blocked.
 import assert from 'node:assert/strict';
 
-import { readerEditionSchema } from '@digest/contracts';
+import {
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
+  const headers = { 'X-Forwarded-For': '192.0.2.164' };
+  const read = async (path: string) => {
+    const response = await fetch(`${origin}${path}`, {
+      headers,
+      redirect: 'error',
+      signal: AbortSignal.timeout(15_000),
+    });
+    assert.equal(response.status, 200, `reader GET ${path}`);
+    return response.json();
+  };
+  const edition = readerEditionSchema.parse(await read('/api/editions/latest'));
+  const history = readerEditionHistorySchema.parse(
+    await read('/api/editions?offset=0'),
   );
-  const history = await (
-    await fetch(`${origin}/api/editions?limit=20&offset=0`)
-  ).json();
   const older = history.entries.find(
     (entry: { id: string }) => entry.id !== edition.id,
   );
   assert.ok(older, 'a historical edition is required');
   const historical = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/${older.id}`)).json(),
+    await read(`/api/editions/${older.id}`),
   );
   const historicalStory = historical.topics.flatMap(
     (topic) => topic.stories,
@@ -36,6 +47,7 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const errors: string[] = [],
           writes: string[] = [];
@@ -44,9 +56,21 @@ async function smoke() {
             writes.push(route.request().method());
             return route.abort();
           }
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          if (url.origin !== origin) return route.abort();
+          // Replay the captured editions across reloads; repeated saves must not
+          // consume live reader API admission or race a scheduled publication.
+          if (
+            url.pathname === '/api/editions/latest' ||
+            url.pathname === `/api/editions/${edition.id}`
+          )
+            return route.fulfill({ json: edition });
+          if (url.pathname === `/api/editions/${historical.id}`)
+            return route.fulfill({ json: historical });
+          if (url.pathname === '/api/editions')
+            return route.fulfill({ json: history });
+          return route.continue();
         });
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));
@@ -169,6 +193,14 @@ async function smoke() {
         });
         await expect(browse).toHaveAttribute('href', '/');
         await other.keyboard.press('Tab');
+        const accountControl = other.getByRole('button', {
+          name: 'Account',
+          exact: true,
+        });
+        if (await accountControl.count()) {
+          await expect(accountControl).toBeFocused();
+          await other.keyboard.press('Tab');
+        }
         await expect(browse).toBeFocused();
         await other.screenshot({
           path: `docs/screenshots/ui/saved-empty-${device}-${theme}.png`,
@@ -210,8 +242,8 @@ async function smoke() {
           await expect(link).toHaveAttribute('href', post.url);
           const card = link.locator('xpath=ancestor::li');
           const excerpt = card.locator('p.whitespace-pre-line');
-          if (await excerpt.count()) {
-            await expect(excerpt).toHaveCSS('white-space', 'pre-line');
+          for (const paragraph of await excerpt.all()) {
+            await expect(paragraph).toHaveCSS('white-space', 'pre-line');
           }
           assert.ok(
             await other.evaluate(
@@ -261,7 +293,10 @@ async function smoke() {
             'saved item actions offer at least 44 × 44 pixel touch targets',
           );
         }
-        const savedDates = other.locator('li time');
+        const savedDates = other
+          .locator('li p')
+          .filter({ hasText: /^Saved on / })
+          .locator('time');
         assert.equal(
           await savedDates.count(),
           await other.locator('li').count(),
@@ -298,7 +333,9 @@ async function smoke() {
         const removedName = await removals.last().getAttribute('aria-label');
         const remainingCount = (await removals.count()) - 1;
         await other.keyboard.press('Enter');
-        await expect(other.getByRole('status')).toHaveText(
+        await expect(
+          other.getByRole('status').filter({ hasText: /^Removed / }),
+        ).toHaveText(
           `Removed ${removedName!.replace('Remove saved item: ', '')}. ${remainingCount} saved items remaining.`,
         );
         await expect(
@@ -316,7 +353,9 @@ async function smoke() {
         await removals.first().focus();
         const finalName = await removals.first().getAttribute('aria-label');
         await other.keyboard.press('Enter');
-        await expect(other.getByRole('status')).toHaveText(
+        await expect(
+          other.getByRole('status').filter({ hasText: /^Removed / }),
+        ).toHaveText(
           `Removed ${finalName!.replace('Remove saved item: ', '')}. No saved items remaining.`,
         );
         await expect(

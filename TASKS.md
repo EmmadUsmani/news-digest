@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2356: restored saved-item browser verification in public mode, including account keyboard order, post context/publication dates, cross-tab removal and historical edition jumps.
+
 - [x] 2355: clipped social URLs followed by sentence punctuation now open the original post instead of a partial address; complete URL destinations remain intact.
 
 - [x] 2354: corrected Bluesky singular engagement labels after reader review found “1 likes” on the saved World card; zero/plural counts retain their labels.
