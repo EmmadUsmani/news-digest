@@ -5,9 +5,12 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const history = await (
-    await fetch(`${origin}/api/editions?limit=20&offset=0`)
-  ).json();
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.165' };
+  const response = await fetch(`${origin}/api/editions?limit=20&offset=0`, {
+    headers: visitorHeaders,
+  });
+  assert.equal(response.status, 200, 'Published history must be available');
+  const history = await response.json();
   const older = history.entries[1];
   assert.ok(older?.id, 'An older published edition is required');
   const browser = await chromium.launch();
@@ -21,7 +24,9 @@ async function smoke() {
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
           return new URL(route.request().url()).origin === origin
-            ? route.continue()
+            ? route.continue({
+                headers: { ...route.request().headers(), ...visitorHeaders },
+              })
             : route.abort();
         });
         const page = await context.newPage();

@@ -12,7 +12,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] Public-mode smoke tooling: `scripts/smoke-reader-theme-target.ts` lacks the loopback visitor header on its initial history fetch and fails JSON parsing; use existing public-compatible admission pattern before reusing it. Found in 2381; default/enlarged navigation verified separately.
+- [x] 2382: repaired public-mode theme smoke admission for history and browser requests; six viewport/theme variants pass against saved published content.
 
 - [x] Public-mode local tooling (2331): `check-handbook.ts --owner-services` verifies the owner handbook/catalog through existing loopback services without a fetch shim or app admission change.
 

@@ -151,3 +151,13 @@ Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; health recovered. Public mode ON, VM private. No handbook change needed for this layout fix.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Logs `/tmp/2381-{before,browser,build,format,lint,check}.log`.
 - Next: passive metrics sample ≥12:43 UTC; scheduled publication/access gate and separate editorial review at 15:00 UTC. No generation changes after noon; no deploys 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2382 — repair public-mode theme smoke
+
+- Clean main at 87df4c8e; no inherited work. Alerts zero; database/Redis healthy; all 38 sources have stored content and no reported errors.
+- Reproduced open tooling breakage: theme smoke's initial history read fails JSON parsing because public mode requires visitor admission. Added the existing loopback visitor header to history and browser requests, plus an explicit history HTTP-status assertion.
+- `pnpm exec tsx scripts/smoke-reader-theme-target.ts` now passes all six viewport/theme variants across four reader routes; keyboard toggle/focus, 44px targets, persistence and overflow checks pass. GET/HEAD only, external traffic blocked; real saved editions used.
+- Refreshed six screenshots; 320px light inspected. No app access policy, generation, source, spend, provider or sharing changes; no handbook change needed.
+- `pnpm format`, `pnpm lint:fix`, public `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass. API restarted before blackout; health recovered.
+- Initial full check terminated 143 during lint without an assertion failure; PTY rerun passes: 1,040 unit and 329 integration tests, four expected skips (`/tmp/2382-check-final.log`). Browser/build/format/lint receipts: `/tmp/2382-*.log`.
+- Next: passive metrics sample ≥12:43 UTC; scheduled publication/access gate and separate editorial review at 15:00 UTC. No generation changes after noon; no deploys/restarts 13:00–16:00 UTC.
