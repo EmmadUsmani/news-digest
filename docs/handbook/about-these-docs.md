@@ -75,4 +75,5 @@ GitHub syntax: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`.
 - Bug fixes and internal refactors usually need **no** doc change.
 - Check with `pnpm exec tsx scripts/check-handbook.ts`. It catches render
   errors, broken links and metadata drift, and saves each diagram as a PNG
-  for a visual check.
+  for a visual check. In public mode, add `--owner-services` to check the owner
+  handbook and catalog through their existing loopback services.

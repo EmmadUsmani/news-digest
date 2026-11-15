@@ -12,7 +12,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] Public-mode local tooling: owner handbook checker needs a supported loopback-owner-service selection; public `/docs` serves the reader handbook. Iteration 2330 verified owner pages using an explicit temporary fetch shim to the existing port-8100 owner service; no app route or admission bypass deployed.
+- [x] Public-mode local tooling (2331): `check-handbook.ts --owner-services` verifies the owner handbook/catalog through existing loopback services without a fetch shim or app admission change.
 
 - [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 

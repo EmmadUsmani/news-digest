@@ -2,6 +2,7 @@
 // running services. Usage:
 //   pnpm exec tsx scripts/check-handbook.ts            # every page
 //   pnpm exec tsx scripts/check-handbook.ts data-model # pages whose path matches
+//   pnpm exec tsx scripts/check-handbook.ts --owner-services # public mode
 // Fails on Mermaid render errors, broken handbook links, pages (or README.md)
 // over 100 lines outside code blocks, schema-meta warnings or unassigned
 // tables. Saves a PNG per diagram (dark mode, as the owner reads it) to
@@ -24,8 +25,23 @@ if (
 )
   throw new Error('Handbook verification requires the local app on port 8000');
 
+// This explicit mode reads existing loopback services directly. It never changes
+// app admission or sends an admin credential to a different port.
+const ownerServices = process.argv.includes('--owner-services');
 async function readTool(path: string) {
-  const response = await localAdminFetch(`${base}${path}`, {
+  const tool = ownerServices
+    ? [
+        { prefix: '/docs/', origin: 'http://127.0.0.1:8100' },
+        { prefix: '/db/', origin: 'http://127.0.0.1:8200' },
+      ].find((candidate) => path.startsWith(candidate.prefix))
+    : undefined;
+  if (ownerServices && !tool) throw new Error('Unexpected owner tool path');
+  const url = tool
+    ? `${tool.origin}/${path.slice(tool.prefix.length)}`
+    : `${base}${path}`;
+  const read = ownerServices ? fetch : localAdminFetch;
+  const response = await read(url, {
+    redirect: 'error',
     signal: AbortSignal.timeout(15_000),
   });
   if (!response.ok)
@@ -33,7 +49,7 @@ async function readTool(path: string) {
   return response;
 }
 const out = '/tmp/handbook-diagrams';
-const filter = process.argv[2];
+const filter = process.argv.slice(2).find((arg) => arg !== '--owner-services');
 // Owner docs stay short: lines outside code blocks (diagrams, commands).
 const maxProseLines = 100;
 const proseLines = (file: string) =>
