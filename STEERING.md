@@ -15,7 +15,8 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44), the leaked test folders (item 51) and NBA editing (items 54, 59).
+   (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
+   and deleting two old scratch files (item 60).
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
    `docs/public-access-plan.md` and item 59: close item 58, then take public
@@ -2744,3 +2745,24 @@ breakage. Protect the edition: if it fails or looks wrong, turn the newest flag
 off first.
 
 ack: 2026-11-14 item 59 step 1 — iteration 2275: scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes five NBA Sonnet-edited summaries after successful repair, zero unscored candidates and reader/latest/direct/history agreement. NBA recurrence accepted. Item 58 remains open: Gaming falls back and World/U.S. ownership JSON fails, so the overall edition is not normal; public mode remains off and sharing private. See docs/edition-reviews/2026-11-14.md.
+
+## 60. NOW: delete two old scratch files to free disk (2026-11-15)
+
+**Why:** the disk sits at 78% and full-check runs briefly cross the 80% warning
+(iteration 2320, `NEEDS_FROM_HUMAN.md` "Disk headroom"). The owner approved
+deleting the two Nov 3 scratch files that inventory found, about 380 MiB.
+
+**Priority:** Current order line 1 (breakage prevention). Small: do it next.
+
+**What to do:**
+
+1. Check no running process has either path open (`lsof` or `fuser`).
+2. Delete `/tmp/obs355` and `/tmp/news-digest-vmutils.tgz`. No copy is needed.
+3. Mark the "Disk headroom" entry in `NEEDS_FROM_HUMAN.md` resolved.
+
+**What not to do:** delete only these two paths. Item 51's "don't touch other
+`/tmp` content" still holds for everything else.
+
+**Done when:** both are gone. Ack the bytes freed and the disk percentage.
+
+**Limits:** not between 13:00 and 16:00 UTC.
