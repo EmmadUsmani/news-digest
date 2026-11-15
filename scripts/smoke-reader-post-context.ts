@@ -6,9 +6,14 @@ import { chromium } from 'playwright';
 
 const origin = 'http://127.0.0.1:8000';
 async function main() {
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Loopback public visitor admission only; supplies no reader identity.
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.172' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const post = edition.topics
     .flatMap((topic) => topic.posts)
     .find((post) => post.platform === 'bluesky');
@@ -22,6 +27,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -29,13 +35,17 @@ async function main() {
           colorScheme: theme,
           hasTouch: true,
         });
+        const errors: string[] = [];
+        page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
           assert.equal(route.request().method(), 'GET');
           const url = new URL(route.request().url());
           if (url.origin !== origin) return route.abort();
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
-          return route.continue();
+          return route.continue({
+            headers: { ...route.request().headers(), ...visitorHeaders },
+          });
         });
         await page.goto(origin);
         const card = page.locator('.bluesky-card').first();
@@ -62,11 +72,18 @@ async function main() {
         assert.equal(await note.getAttribute('open'), null);
         await page.keyboard.press('Space');
         assert.notEqual(await note.getAttribute('open'), null);
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= window.innerWidth,
+          ),
+          'Expanded context must not widen the reader',
+        );
+        assert.deepEqual(errors, []);
         await page.close();
       }
     }
     console.log(
-      'Context expands by touch and keyboard in desktop/mobile light/dark; synthetic replay, no writes.',
+      'Context expands by touch and keyboard in desktop/mobile/320px light/dark; synthetic replay, no writes.',
     );
   } finally {
     await browser.close();

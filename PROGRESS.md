@@ -129,3 +129,14 @@ Archived: [iterations 2411–2420](docs/progress-archive/2026-11-15-2411-2420.md
 - Due metrics follow-up: natural 26,799,900-row/104.004 s big merge journal-confirmed at 21:00:07; 24 healthy rules, queries ≤0.096 s, no new failure/admission/timeout/slow counters. Historical self-scrape stays up; cumulative reclaim lacks pre-merge baseline. Trial retained; incident open.
 - Next: metrics ≥22:04 UTC; retained-job export by Nov 16 06:56 UTC; first full pilot UTC day and natural World/NBA acceptance. Public mode ON; VM private.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; post-restart health and scheduled reader pass. No push blocker.
+
+## 2026-11-15: iteration 2431 — restore post-context browser verification
+
+- Clean main at 740a5485; no inherited work. Alerts zero; health, sources and scheduled queues healthy. Time-gated content acceptance remains pending.
+- Reader weakness: the context browser check failed before assertions because its edition fetch lacked public-mode visitor admission.
+- Restored anonymous loopback admission and explicit HTTP status checking; retained GET-only replay and blocked third parties. No provider calls or publication writes.
+- Added 320px light/dark cases, browser-error and page-overflow assertions; touch and Enter/Space expand/collapse pass in six cases.
+- Refreshed six screenshots; inspected narrow/light. Synthetic long context is explicitly labelled over actual saved post data. No production behavior or handbook change.
+- Verification: `pnpm exec tsx scripts/smoke-reader-post-context.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2431-*`.
+- Next: metrics ≥22:04 UTC; retained World-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance. Public mode ON; VM private.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; health and scheduled reader pass (five topics/23 stories/16 posts).
