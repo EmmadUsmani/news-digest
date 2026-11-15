@@ -6,72 +6,7 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 
 Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md).
 
-## 2026-11-15: iteration 2361 — retry saved-item sync where it fails
-
-- Clean main at 98fc8d9a; no inherited work. Alerts zero; health/database/Redis and all 38 enabled sources pass (`/tmp/2361-sources.log`).
-- Reader weakness: Saved items displayed sync failure but required opening Account to retry. Added Retry sync beside the failure using the mounted account controller; it disappears after recovery or a failed session refresh.
-- Extended `pnpm exec tsx scripts/smoke-saved-sync-status.ts`: failed retry then successful retry retain a saved fixture without opening Account; signed-out/session-failure states have no retry. Desktop/mobile light/dark pass with fixture account transport, no live account writes. Eight screenshots refreshed; inspected mobile dark failure.
-- Updated owner handbook instructions; `pnpm exec tsx scripts/check-handbook.ts 01-app/README --owner-services` passes (18 pages/39 tables).
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2361-{format,lint,check,build,browser}.log`.
-- API restarted for public build. Immediate health request raced startup; subsequent `pnpm obs health --check` and deployed browser checks pass (`/tmp/2361-health-final.log`).
-- Due passive metrics sample (`pnpm exec tsx scripts/sample-metrics-recovery.ts`): 08:27–08:30, 24 healthy rules, three small merges/33,643 rows, no big merge/new evaluator failures/admission hits/timeouts/slow queries; uncached probes ≤0.976 s. System obs-metrics/obs-alerts warning journal empty since 07:25. Comparable recovery remains pending; next sample ≥09:31.
-- Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes. Next: 15:00 scheduled publication/access gate and editorial recovery review.
-
-## 2026-11-15: iteration 2362 — restore saved-item capacity browser verification
-
-- Clean main at d9326009; no inherited work. `pnpm obs alerts` reports zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2362-sources.log`).
-- Reader verification weakness: capacity smoke failed parsing the public-mode admission refusal before testing saved-copy preservation (`/tmp/2362-before.log`). Capture one checked public reader response with an explicit test visitor and replay it across tabs/reloads; refuse server writes, admin requests and external traffic.
-- `pnpm exec tsx scripts/smoke-reader-preference-capacity.ts` passes desktop/mobile light/dark: a saved published story and 1,000 synthetic removal records survive concurrent stale-tab writes and reloads, independent topic choice survives, and storage writes settle. Four screenshots refreshed; inspected mobile dark. Receipt `/tmp/2362-browser.log`.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2362-{format,lint,check}.log`; API build passes within integration checks.
-- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
-- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
-
-## 2026-11-15: iteration 2363 — restore public-mode preference reset verification
-
-- Clean main at 4344ca03; no inherited work. `pnpm obs alerts` zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2363-sources.log`).
-- Reader verification weakness: storage-reset smoke failed parsing the public-mode admission refusal before exercising browser reset (`/tmp/2363-before.log`). Capture one checked public reader response with an explicit test visitor and replay it across tabs; refuse server writes, admin requests and external traffic.
-- `pnpm exec tsx scripts/smoke-reader-storage-reset.ts` passes desktop/mobile light/dark: removing the preference key and clearing local storage reset saved items and hidden topics across three tabs. Reload retains default topics/unsaved controls and does not recreate the removed key; zero page errors/server writes. Four screenshots refreshed; inspected mobile dark. Receipt `/tmp/2363-browser.log`.
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. API rebuild included in integration checks. Receipts `/tmp/2363-{format,lint,check}.log`.
-- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
-- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
-
-## 2026-11-15: iteration 2364 — restore public-mode storage-read recovery verification
-
-- Clean main at 6e5b9fa9; no inherited work. Alerts zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2364-sources.log`).
-- Reader verification weakness: storage-preservation smoke failed parsing public-mode admission refusal before exercising recovery (`/tmp/2364-before.log`). Capture one checked public reader response with an explicit test visitor and replay it; refuse server writes, admin requests and external traffic.
-- `pnpm exec tsx scripts/smoke-reader-storage-preservation.ts` passes desktop/mobile light/dark: failed reads preserve the original saved fixture; recovery merges it with pending saves/topic choices and clears transient warnings. Fixture remains explicitly offline. Eight screenshots refreshed; inspected mobile dark (`/tmp/2364-browser.log`).
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. API rebuild included in integration checks. Receipts `/tmp/2364-{format,lint,check}.log`.
-- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
-- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
-
-## 2026-11-15: iteration 2365 — restore concurrent-tab preference race verification
-
-- Clean main at 62617724; no inherited work. Alerts zero; `pnpm obs health --check` and all 38 enabled sources pass (`/tmp/2365-{health,sources}.log`).
-- Concurrent-tab smoke failed parsing public-mode refusal before testing preservation (`/tmp/2365-before.log`). Capture a checked published reader response with an explicit test visitor and replay across tabs; refuse server writes, admin and external requests.
-- `pnpm exec tsx scripts/smoke-reader-preference-race.ts` passes desktop/mobile light/dark: saved story and independent hidden-topic choice survive stale writes/reload; storage settles. Four screenshots refreshed; inspected mobile dark (`/tmp/2365-browser.log`).
-- Ran `pnpm format` and `pnpm lint:fix`; first full-check process ended with signal 143. Retry identified archive formatting; corrected it before rerunning full `pnpm check`. Final full check passes: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipt: `/tmp/2365-check.log`.
-- Archived progress entries 2348–2354 to keep orientation small. Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
-- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
-
-## 2026-11-15: iteration 2366 — restore hidden-destination verification
-
-- Clean main at 61fc12d6; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2366-{health,sources}.log`).
-- Hidden-destination smoke failed parsing public-mode admission refusal before testing reader links (`/tmp/2366-before.log`). Capture one checked published edition with an explicit test visitor and replay it; refuse server writes, admin and external requests.
-- `pnpm exec tsx scripts/smoke-reader-hidden-destination.ts` passes desktop/mobile light/dark: hidden story/post links offer topic reveal, focus the destination after reveal and retain visibility on reload. Zero page errors or horizontal overflow. Four screenshots refreshed; inspected mobile dark (`/tmp/2366-browser.log`).
-- Ran `pnpm format` and `pnpm lint:fix`; first full check terminated with signal 143 during formatting. Clean `pnpm check` rerun passes: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2366-{format,lint,check-retry}.log`. `git diff --check` passes.
-- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
-- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
-
-## 2026-11-15: iteration 2367 — restore reading-position verification
-
-- Clean main at 562207b2; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2367-{health,sources}.log`).
-- Reading-position smoke failed parsing public-mode refusal before testing navigation (`/tmp/2367-before.log`). Capture a checked published reader response with a documentation-range visitor; block writes, admin and external requests.
-- Corrected replay navigation: keyboard input ends opening-anchor stabilization; settle native scrolling before recording the later position. Script-only scrolling had left stabilization active.
-- `pnpm exec tsx scripts/smoke-reader-position.ts` passes desktop/mobile light/dark: opening deep links align, changed background refresh preserves later reading position/hash, no page errors or overflow. Four screenshots refreshed; inspected mobile dark (`/tmp/2367-browser.log`).
-- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2367-{format,lint,check}.log`. `git diff --check` passes.
-- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`: 09:31–09:34, 24 healthy rules, four small merges/149,209 rows, no big merge or new failures/admission hits/timeouts/slow queries. User warning journal empty since 08:30; second comparable natural merge still pending. Limits unchanged (`/tmp/2367-metrics.log`).
-- Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md).
 
 ## 2026-11-15: iteration 2368 — verify usable archive/saved navigation
 
@@ -164,3 +99,14 @@ Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health passes. No generation, budget, provider or sharing changes; public mode ON and VM private.
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted final lint/format and `git diff --check` pass. Initial full check caught script import order during editing; autofixed, then full `pnpm check` exits 0: 1,040 unit/329 integration pass, four expected skips (`/tmp/2376-check-final.log`).
 - Next: passive metrics sample ≥11:39 UTC; public-mode scheduled publication/access gate and separate editorial review at 15:00 UTC.
+
+## 2026-11-15: iteration 2377 — repair public-mode saved-post link check
+
+- Clean main at 20459ad9; no inherited work. Alerts zero; health confirms database/Redis healthy.
+- Actual breakage: `pnpm exec tsx scripts/smoke-saved-post-links.ts` fails parsing an empty response. Unidentified loopback requests receive empty 429 in public mode; the script also required a historical Patch notes post absent from the current edition.
+- Fixed trusted loopback visitor metadata, bounded/status-checked publication capture and selection of a currently published Bluesky source link. Replay that captured real edition across browser variants; no fixture labelled live.
+- Owner benefit: the saved-post source-link regression check works again after public activation and edition turnover, protecting direct access to underlying reporting. No reader UI or generation change.
+- Browser check passes desktop/mobile light/dark: source destination, excerpt/publication dates, reload, legacy undated saves, readable link type and no overflow/errors. Four screenshots refreshed; mobile light inspected (`/tmp/2377-{before,browser}.log`). GET-only; external traffic blocked; saves are browser-local.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health recovered. Public mode ON, VM private; no paid calls, budget or provider changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2377-{format,lint-final,check}.log`). First concurrent lint-fix process exited 143; explicit rerun exits 0. Archived iterations 2361–2367 to keep this file small.
+- Next: metrics sample ≥11:39 UTC; scheduled public-reader/private-route gate and separate editorial review at 15:00 UTC. World pilot remains OFF pending public-mode scheduled acceptance.

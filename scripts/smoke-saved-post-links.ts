@@ -6,22 +6,26 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const headers = { 'X-Forwarded-For': '192.0.2.177' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers,
+    signal: AbortSignal.timeout(15_000),
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Capture published edition');
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics.flatMap((topic) => topic.stories)[0];
   const post = edition.topics
     .flatMap((topic) => topic.posts)
     .find(
       (item) =>
-        item.platform === 'bluesky' && item.text.includes('Patch notes:'),
+        item.platform === 'bluesky' &&
+        /https?:\/\/[^\s<>]+/.test(item.displayText ?? item.text),
     );
   assert.ok(story && post);
   const excerpt = post.displayText ?? post.text;
-  const patchUrl = excerpt.match(
-    /https:\/\/store\.steampowered\.com\/\S+/,
-  )?.[0];
-  assert.ok(patchUrl);
+  const sourceUrl = excerpt.match(/https?:\/\/[^\s<>]+/)?.[0];
+  assert.ok(sourceUrl, 'Published Bluesky post has an explicit source URL');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -32,12 +36,15 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          if (url.pathname === `/api/editions/${edition.id}`)
+            return route.fulfill({ json: edition });
+          return route.continue();
         });
         const page = await context.newPage();
         const errors: string[] = [];
@@ -61,17 +68,16 @@ async function smoke() {
           .getByRole('listitem')
           .filter({ hasText: excerpt });
         await expect(savedPost.locator('p.leading-7')).toHaveText(excerpt);
-        await expect(savedPost.locator('p.leading-7 a').last()).toHaveAttribute(
-          'href',
-          patchUrl,
-        );
+        await expect(
+          savedPost.locator('p.leading-7 a').filter({ hasText: sourceUrl }),
+        ).toHaveAttribute('href', sourceUrl);
         await expect(
           savedPost.locator('p.leading-7 a').first(),
         ).toHaveAttribute('href', post.url);
         assert.equal(
           await savedPost
             .locator('p.leading-7 a')
-            .last()
+            .filter({ hasText: sourceUrl })
             .evaluate((link) => getComputedStyle(link).fontSize),
           '16px',
         );
@@ -83,10 +89,9 @@ async function smoke() {
           ).toBeVisible();
         }
         await page.reload();
-        await expect(savedPost.locator('p.leading-7 a').last()).toHaveAttribute(
-          'href',
-          patchUrl,
-        );
+        await expect(
+          savedPost.locator('p.leading-7 a').filter({ hasText: sourceUrl }),
+        ).toHaveAttribute('href', sourceUrl);
         await expect(savedPost.locator('p.leading-7')).toHaveText(excerpt);
         await expect(page.locator('.saved-published')).toHaveCount(2);
         assert.ok(
@@ -113,7 +118,7 @@ async function smoke() {
         await expect(page.getByRole('listitem')).toHaveCount(2);
         assert.deepEqual(errors, []);
         console.log(
-          `${device}/${theme}: actual saved patch-notes link and excerpt survive reload; readable link type; no overflow`,
+          `${device}/${theme}: published Bluesky source link and excerpt survive reload; readable link type; no overflow`,
         );
         await context.close();
       }

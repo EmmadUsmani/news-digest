@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2377: repaired saved-post source-link browser check for public-mode admission and current published Bluesky content; four device/theme variants pass.
+
 - [x] 2376: desktop contents links gain 44px targets; six desktop/mobile light/dark published-content browser checks pass.
 
 - [x] 2375: Privacy gains keyboard skip navigation; desktop/mobile light/dark, accounts off/on and forward focus checks pass.
