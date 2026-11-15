@@ -166,3 +166,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Preliminary saved snapshot: Tech/NBA/Gaming/U.S. AI story text/order agrees with reader; World source fallback. Gaming recovers; full ownership/social/evidence/ledger review remains next. Optional AI CLI cannot parse public preview projection; used read-only saved snapshot plus existing assessor instead; diagnostic repair remains open.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2398-{format,lint,check,reader,browser,boundary}.log` and `/tmp/2398-editorial-db.json`. All pass: 1,040 unit and 329 integration tests, four expected skips.
 - Next: finish Nov 15 editorial review/World diagnosis, repair AI diagnostic; passive metrics sample ≥15:49 UTC. Stop before sharing.
+
+## 2026-11-15: iteration 2399 — restore saved AI diagnostic in public mode
+
+- Clean main at 20665f15; no inherited work. Alerts zero; health database/Redis healthy; all 38 sources and scheduled jobs checks pass. Receipts `/tmp/2399-{sources,jobs}.log`.
+- Fixed optional `check-scheduled-reader.ts --require-ai-topic` to parse the immutable local database snapshot; the public-mode admin projection intentionally omits editorial evidence. Publication output retains only provenance, never the snapshot.
+- Natural Nov 15 edition a0fa3916: saved selection/order/summary and complete-triage checks accept Tech/NBA/Gaming/U.S. (4/4/5/5 stories); World correctly returns `editorial-refused` for non-AI source fallback. All-topic receipt `/tmp/2399-reader.log`; Gaming-only returns `reader-verified`; publication-only also passes.
+- Updated daily review and task handoff. This is a local CLI fix; no runtime artifact changes, deployment/restart during freeze, inference, edition writes, budget or sharing changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2399-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips.
+- Next: complete saved ownership/editor/social/ledger review and World fallback diagnosis; passive metrics sample ≥15:49 UTC. VM remains private pending owner sharing decision.

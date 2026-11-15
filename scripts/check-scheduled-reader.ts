@@ -10,7 +10,6 @@ import {
 } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
-import { localAdminJson } from './lib/local-admin-fetch';
 import {
   assessScheduledAiTopics,
   parseRequiredAiTopics,
@@ -63,18 +62,28 @@ async function main() {
   );
   const db = database();
   let publication;
+  let preview;
   try {
     const result = await db.query<{
+      snapshot: unknown;
       kind: string;
       scheduledKey: string | null;
       publishedAt: string | null;
     }>(
-      `SELECT kind, scheduled_key AS "scheduledKey",
+      `SELECT snapshot, kind, scheduled_key AS "scheduledKey",
         published_at::text AS "publishedAt" FROM digest_previews WHERE id=$1`,
       [latest.id],
     );
     assert.equal(result.rows.length, 1, 'missing saved publication provenance');
-    publication = requireScheduledPublication(result.rows[0]);
+    publication = requireScheduledPublication({
+      kind: result.rows[0].kind,
+      scheduledKey: result.rows[0].scheduledKey,
+      publishedAt: result.rows[0].publishedAt,
+    });
+    // Public-mode admin projections omit editorial details. Read the immutable
+    // saved evidence locally rather than weakening the diagnostic contract.
+    if (requiredTopics.length)
+      preview = digestPreviewSchema.parse(result.rows[0].snapshot);
   } finally {
     await db.end();
   }
@@ -111,13 +120,6 @@ async function main() {
     ),
     'history topics differ',
   );
-  const preview = requiredTopics.length
-    ? digestPreviewSchema.parse(
-        await localAdminJson(
-          `/api/admin/digest-previews/${encodeURIComponent(latest.id)}`,
-        ),
-      )
-    : undefined;
   const aiTopics = preview
     ? assessScheduledAiTopics(latest, preview, requiredTopics)
     : [];
