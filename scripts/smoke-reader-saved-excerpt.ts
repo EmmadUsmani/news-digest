@@ -7,9 +7,13 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.172' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics[0].stories[0];
   assert.ok(story?.summary);
   // Exercise the display limit without rewriting any saved server content.
@@ -23,6 +27,7 @@ async function smoke() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const context = await browser.newContext({
@@ -39,7 +44,9 @@ async function smoke() {
             return route.fulfill({ json: fixture });
           }
           return new URL(route.request().url()).origin === origin
-            ? route.continue()
+            ? route.continue({
+                headers: { ...route.request().headers(), ...visitorHeaders },
+              })
             : route.abort();
         });
         const page = await context.newPage();

@@ -199,3 +199,14 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: `pnpm exec tsx scripts/smoke-reader-coverage-labels.ts`, alerts, sources/jobs, scheduled reader, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2428-*`.
 - Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. Final restart and health/reader checks complete before handoff.
+
+## 2026-11-15: iteration 2429 — restore saved-excerpt browser verification
+
+- Clean main at c3e8dea9; no inherited work. Alerts zero; health, 38 sources and scheduled queue checks pass. Metrics sample not yet due.
+- Owner value: saved long stories retain readable excerpts, persistence and working source links on narrow phones.
+- Reproduced browser check failing before assertions on public-mode loopback refusal; added visitor admission and explicit HTTP status validation.
+- Six desktop/mobile/320px light/dark cases pass: explicit offline long-excerpt fixture shortens at a word boundary and survives reload; real saved story retains summary, source destination and keyboard focus.
+- Refreshed 12 screenshots; inspected narrow/light. GET-only replay blocks third parties; no provider calls, publication writes or production behavior changes. No handbook update needed.
+- Verification: `pnpm exec tsx scripts/smoke-reader-saved-excerpt.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader, health and `git diff --check`; receipts `/tmp/2429-*`.
+- Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private.
+- Full check: 1,049 unit/329 integration tests pass, four expected skips; public build passes. API/worker restarted; startup-retried health and scheduled reader pass (five topics/23 stories/16 posts).

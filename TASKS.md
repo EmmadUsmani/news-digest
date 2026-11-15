@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2429: restored public-mode saved-excerpt browser verification; word-boundary shortening, persistence, source links and focus pass six viewport/theme cases including 320px.
+
 - [x] 2428: coverage controls announce Hide while expanded and Show after closing; real saved coverage keyboard checks cover desktop/mobile/320px light/dark.
 
 - [x] 2427: repaired public-mode saved-item publisher attribution check; real discovery/grouped reports and synthetic publisher/legacy controls pass six viewport/theme cases; screenshots refreshed.
