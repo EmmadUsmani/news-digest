@@ -1,13 +1,15 @@
 # Public access and reader accounts
 
-**Status (22:30 UTC Nov 15):** item 50 acked (iteration 2398). The Nov 15
-edition `a0fa3916` published at 15:03 UTC under public mode; signed-out
-latest, history and direct reads agree; anonymous admin writes get 404 and
-account sync 401. Public mode on, VM sharing private. **Waiting on the owner's
-go-public decision.** Lead checks from the VM must send a forwarded client
-header: without one the visitor limiter returns an empty 429
-([api-admission-http.ts](../../../apps/api/src/public-write/api-admission-http.ts)).
-This also broke the edition step of `status-check/status.sh`.
+**Status (22:50 UTC Nov 15):** **public.** The owner ran
+`ssh exe.dev share set-public news-digest`. Lead checked signed out from the
+Mac over HTTPS: reader, `/healthz` and latest edition `a0fa3916` return 200;
+`/api/me`, admin writes, `/logs` and `/metrics` return 404, with or without
+a faked `X-ExeDev-Email` admin header; account sync gets 401 with our origin
+and 400 with a foreign one; no cookies issued. Admin and `/db/` pages are
+viewable read-only, as decided Nov 7. The VM can't reach its own public URL,
+so run these checks from the Mac. Undo:
+`ssh exe.dev share set-private news-digest`, then the rollback in
+[public-readiness.md](../../public-readiness.md).
 
 **Owner decisions (Nov 7):**
 
@@ -28,11 +30,10 @@ This also broke the edition step of `status-check/status.sh`.
 
 **Next:**
 
-1. Owner decides whether to run `share set-public`.
-2. After that: repeat the fake-header check from a signed-out browser, and
-   confirm admin pages refuse writes.
+1. Owner approval pending: change the "VM stays private" rule in `CLAUDE.md`
+   and tell the build agent that sharing is public.
+2. Watch the Nov 16 edition publish publicly; check health and alerts.
 3. Fix the edition step of `status-check/status.sh` for public mode.
 
-**Owner gates later:** published manual editions (phase 0), go public and the
-"VM stays private" rule change (phase 5), email provider (phase 6), clean-up
+**Owner gates later:** published manual editions (phase 0), email provider (phase 6), clean-up
 (phase 7).
