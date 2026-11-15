@@ -12,13 +12,9 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [x] 2382: repaired public-mode theme smoke admission for history and browser requests; six viewport/theme variants pass against saved published content.
-
-- [x] Public-mode local tooling (2331): `check-handbook.ts --owner-services` verifies the owner handbook/catalog through existing loopback services without a fetch shim or app admission change.
-
 - [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
-- [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
+- [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
 
 - [x] STEERING 58 (2330): fixes deployed; owner proxy result and Nov 14 scheduled edition b9d55088 accepted under STEERING 62; acknowledgement committed. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-3).
 
@@ -26,17 +22,17 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 11:39–11:42 passive probe: 24 healthy rules; five small merges/152,821 rows, no big merge or new evaluator failures/admission hits/timeouts/slow queries. Since 10:38, 62 small merges total 5,072,637 rows; cumulative volume does not establish one comparable merge. System journal records one API scrape refusal at the prior 11:30 restart; current probes pass. Second comparable natural merge still needed. Next sample no earlier than 12:43 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 12:43–12:46 passive sample: 24 healthy rules; 3 small merges/132,484 rows, no big merge or new evaluator failures/admission hits/timeouts/slow queries. Queries ≤1.566 s. Second comparable natural merge still needed; next sample ≥13:47 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 
-- [ ] STEERING 7 speed: <60 seconds/current volume and <2 minutes/1,500 remain unmet. Offline owned-envelope handoff, draining and bounded waiting protect NBA repair but still refuse U.S. admission despite idle capacity. Saved Nov 12 NBA envelope: 153,703 µ$. No useful real wait limit established; reject unconditional rollout and stop synthetic expansion. Production unchanged; return to reader/source work until scheduled evidence. [Decision](docs/decisions/0005-staged-editorial-admission.md), [detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
+- [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but still refuses U.S. admission. No useful wait limit established; production unchanged. Stop synthetic expansion; await scheduled evidence. [Decision](docs/decisions/0005-staged-editorial-admission.md), [detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
 
 - [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
 
-- [ ] STEERING 9/15 first-week report: Nov 2–8 $1.036785/28 calls/zero holds, 131 new verified candidates/115 outside-list. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
+- [ ] STEERING 9/15 report: Nov 2–8 $1.036785, 28 calls, 131 new verified candidates/115 outside-list. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
 
 - [ ] STEERING 18 Bluesky: U.S. Congress query restored natural selection; retain current queries. World discovery pilot default-off, activation follows item 58/public-mode gates. Overall social quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-12).
 
@@ -44,7 +40,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] M5 grouping: later-date Gaming/Tech recorded benchmarks and same-story pairs added. Grouping alone restores no target slots; independent labels and semantic evaluation still needed. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-14).
 
-- [ ] STEERING 4: fake/replay LlmPort and verification ledger implemented; saved raw NBA repair outputs pass isolated publication/public-reader transport. Retain no-live-test/no-paid-replay policy; acceptance detail archived. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-15).
+- [ ] STEERING 4: fake/replay LlmPort and ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-15).
 
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-16).
 
@@ -52,7 +48,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
-- [ ] Tech feed evidence depth: publisher reporting precedence and bounded cluster evidence deployed. Recorded admission study complete: reservation/grouping/semantic controls justify no production change. Next scheduled review must distinguish missing prose, admission loss and unused supplied reporting; see [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
+- [ ] Tech feed evidence depth: reporting precedence and bounded evidence deployed; recorded admission study justifies no production change. Next review: distinguish missing prose, admission loss and unused reporting; see [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
 
@@ -63,6 +59,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2382: public-mode theme smoke admission repaired; six browser variants pass.
 
 - [x] 2381: archive and saved-items navigation reflows at 200% text, including 320px screens; keyboard navigation and touch targets pass six browser variants.
 
