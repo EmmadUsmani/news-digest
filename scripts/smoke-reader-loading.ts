@@ -6,9 +6,16 @@ import { chromium, type Route } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const saved = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Documentation-range visitor for fixed loopback public reads; no identity.
+  const visitor = '192.0.2.167';
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
+    signal: AbortSignal.timeout(15000),
+  });
+  assert.equal(response.status, 200);
+  const saved = readerEditionSchema.parse(await response.json());
+  assert.ok(saved.topics.length, 'Use a real published edition');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -20,20 +27,26 @@ async function smoke() {
           viewport: { width, height },
           colorScheme: theme,
           reducedMotion: 'reduce',
+          serviceWorkers: 'block',
         });
         let pending: Route | undefined;
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
           const request = route.request();
+          assert.equal('admin_local_token' in request.headers(), false);
+          assert.equal('x-exedev-email' in request.headers(), false);
           const url = new URL(request.url());
           if (url.origin !== origin) return route.abort();
           assert.ok(['GET', 'HEAD'].includes(request.method()));
+          assert.equal(url.pathname.startsWith('/api/admin'), false);
           if (url.pathname === '/api/editions/latest') {
             pending = route;
             return;
           }
-          return route.continue();
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         await page.goto(origin);
         const loading = page.getByRole('status');

@@ -135,3 +135,12 @@ Archived continuation: [2325–2330](docs/progress-archive/2026-11-15-2325-throu
 - Refreshed eight timeout screenshots and inspected mobile light archive. Stalls are simulated; recovered content is the real published edition.
 - Verification: `pnpm exec tsx scripts/smoke-reader-timeout.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass (1,040 unit/329 integration passes, four expected skips). Logs `/tmp/2343-{timeout,sources,format,lint,check}.log`.
 - No restart under STEERING 22: runtime code/config unchanged. No collection, generation, budget or sharing changes. Next: scheduled recovery/public-reader acceptance; keep VM private.
+
+## 2026-11-15: iteration 2344 — restore edition loading verification
+
+- Clean main at 4c60b771; no inherited work. Initial orientation output was overbroad; narrowed later reads. Alerts zero, health/database/Redis healthy and all 38 sources pass. Scheduled acceptance remains due 15:00 UTC.
+- Reproduced loading smoke failure before browser launch: visitor-less latest-edition fetch returned an empty non-JSON response. Added documentation-range visitor admission, explicit HTTP status/timeout/redirect checks and a published-topic assertion to fixed loopback reads.
+- Browser traffic now asserts no admin reads, identity headers or writes; external requests and service workers are blocked. No application admission-policy change.
+- Desktop/mobile light/dark pass loading skeletons, real saved-topic rendering and controlled 404 recovery. Refreshed four screenshots; inspected mobile light. Delay/error responses are simulated; rendered edition content is real saved content.
+- Verification: `pnpm exec tsx scripts/smoke-reader-loading.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass (1,040 unit/329 integration passes, four expected integration skips). Logs `/tmp/2344-{loading,sources,format,lint,check}.log`.
+- No restart under STEERING 22: runtime code/config unchanged. No generation, source, budget or sharing changes. Next: scheduled recovery/public-reader acceptance; VM stays private.
