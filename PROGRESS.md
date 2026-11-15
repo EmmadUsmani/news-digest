@@ -123,3 +123,14 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: `pnpm exec tsx /tmp/2421-us.ts`, scheduled reader, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`. Receipts `/tmp/2421-{us,reader,sources,jobs,format,lint,check,build}.log`.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.
 - Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC. Natural World/NBA acceptance remains pending. Public mode ON; VM private, sharing stays with owner.
+
+## 2026-11-15: iteration 2422 — review natural NBA Bluesky selection
+
+- Clean main at 8a156c2b; no inherited work. Alerts zero; health, source/job checks and scheduled reader pass (five topics/23 stories/16 posts).
+- Owner value: distinguish useful NBA social coverage from teasers/repetition and avoid weakening factual guards to fill a slot.
+- Read all seven finalists and saved posts/stories. Read-only reconstruction: 622 observations, 42 exact cached scores, seven finalists; the one saved pick matches finalist text and adds concrete Pacers–Knicks officiating news.
+- Two slots available, one accepted pick and one unsupported-claim rejection. Rejected wording/identity is not established; OPB offers another distinct game result, so no claim that every omitted candidate is unusable. Retain discovery/gates/budgets; no provider calls or publication writes.
+- Review, TASKS and SOURCES updated. Initial `pnpm console sources:status`/`jobs:status` opened the console without running checks; corrected `pnpm obs sources --check` and `pnpm obs jobs --check` pass.
+- Verification: `pnpm exec tsx /tmp/2422-nba.ts`, scheduled reader, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2422-*`.
+- Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC. Natural World/NBA acceptance pending. Public mode ON; VM private, sharing stays with owner.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.

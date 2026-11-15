@@ -3328,3 +3328,12 @@ funding posts is selected; duplicated mayor commentary is skipped. The Duffy
 exchange and X ground-stop claim share aviation context but contribute distinct
 claims. Keep query/gates/budgets; natural presence accepted, broader viral
 quality remains open. [Review](edition-reviews/2026-11-15-us-social.md).
+
+### Nov 15 NBA Bluesky selection — iteration 2422
+
+The **live** stored NBA pool contains 622 observations in the saved window;
+42 exact cached intake scores produce seven finalists. One saved Bluesky
+pick matches finalist text and adds specific Pacers–Knicks officiating news.
+One other pick was rejected for unsupported claims; rejected wording is not
+established by this reconstruction. Retain discovery, gates and budgets.
+[Review](edition-reviews/2026-11-15-nba-social.md). No new searches or paid calls.
