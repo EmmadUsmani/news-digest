@@ -6,9 +6,14 @@ import { chromium } from 'playwright';
 
 async function main() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Loopback visitor admission only; this supplies no reader identity.
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.169' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const linkedPosts = edition.topics
     .flatMap((topic) => topic.posts)
     .filter(
@@ -28,6 +33,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -42,7 +48,9 @@ async function main() {
           assert.equal(route.request().method(), 'GET');
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
-          return route.continue();
+          return route.continue({
+            headers: { ...route.request().headers(), ...visitorHeaders },
+          });
         });
         await page.goto(origin);
         const card = page

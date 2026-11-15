@@ -167,3 +167,13 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: alerts, sources/jobs checks, scheduled reader, metrics delta assertions, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2425-*`.
 - Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private, sharing stays with owner.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.
+
+## 2026-11-15: iteration 2426 — repair saved X source-link browser check
+
+- Clean main at 8f6bac9c; no inherited work. Alerts zero; health, 38 sources and job checks pass. Metrics sample is not due.
+- Actual check defect: X source-link replay parsed the public-mode loopback refusal as JSON. Reproduced failure, then added visitor admission and explicit HTTP status validation, matching the repaired Bluesky check.
+- Saved X text, original/source destinations, keyboard focus, URL separation and overflow pass six desktop/mobile/320px light/dark cases. Refreshed six screenshots and visually inspected narrow/light. GET-only replay blocks third parties; no provider calls or publication writes.
+- No production behavior, queries, budgets or gates changed. TASKS updated; no handbook change needed.
+- Verification: `pnpm exec tsx scripts/smoke-reader-x-links.ts`, alerts, sources/jobs, health, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2426-*`.
+- Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON, VM private.
+- Full check: 1,049 unit/329 integration tests pass, four expected skips; public build passes. API/worker restarted; startup-retried health and scheduled reader pass (five topics/23 stories/16 posts).
