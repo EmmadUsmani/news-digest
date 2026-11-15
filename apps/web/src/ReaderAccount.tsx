@@ -27,14 +27,21 @@ export function ReaderAccount({
   return (
     <Sheet
       title="Your account"
-      trigger={<Button variant="ghost">Account</Button>}
+      trigger={
+        <Button className="min-h-11 min-w-11" variant="ghost">
+          Account
+        </Button>
+      }
     >
       <div className="space-y-4 py-4">
         <p role="status" className="text-sm text-[var(--secondary)]">
           {readerAccountStatus(account)}
         </p>
         {account.status === 'failed' && (
-          <Button onClick={() => run(account.refresh)}>
+          <Button
+            className="min-h-11 min-w-11"
+            onClick={() => run(account.refresh)}
+          >
             Retry sign-in check
           </Button>
         )}
@@ -57,7 +64,11 @@ export function ReaderAccount({
                 </>
               )}
             {account.sync === 'failed' && account.status !== 'failed' && (
-              <Button disabled={busy} onClick={() => run(account.retrySync)}>
+              <Button
+                className="min-h-11 min-w-11"
+                disabled={busy}
+                onClick={() => run(account.retrySync)}
+              >
                 Retry sync
               </Button>
             )}
@@ -65,12 +76,14 @@ export function ReaderAccount({
               Signing out clears this browser’s synced topics and saved items.
             </p>
             <Button
+              className="min-h-11 min-w-11"
               disabled={busy}
               onClick={() => run(() => account.signOut())}
             >
               Sign out
             </Button>
             <Button
+              className="min-h-11 min-w-11"
               disabled={busy}
               variant="ghost"
               onClick={() => run(() => account.signOut(true))}
@@ -110,12 +123,14 @@ export function ReaderAccount({
                   autoComplete="off"
                 />
                 <Button
+                  className="min-h-11 min-w-11"
                   type="submit"
                   disabled={busy || confirmation !== 'DELETE'}
                 >
                   Permanently delete account
                 </Button>
                 <Button
+                  className="min-h-11 min-w-11"
                   type="button"
                   variant="ghost"
                   disabled={busy}
@@ -129,6 +144,7 @@ export function ReaderAccount({
               </form>
             ) : (
               <Button
+                className="min-h-11 min-w-11"
                 variant="ghost"
                 disabled={busy}
                 onClick={() => setDeleting(true)}

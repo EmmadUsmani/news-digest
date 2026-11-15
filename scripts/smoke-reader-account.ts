@@ -84,6 +84,17 @@ window.renderAccount({});
             ).renderAccount(state, enabled),
           { state, enabled },
         );
+      const assertTouchTargets = async () => {
+        for (const button of await page.getByRole('button').all()) {
+          if (!(await button.isVisible())) continue;
+          const box = await button.boundingBox();
+          assert.ok(
+            box && box.height >= 44 && box.width >= 44,
+            `${await button.innerText()}: account controls need 44px touch targets`,
+          );
+        }
+      };
+      await assertTouchTargets();
       await page.getByRole('button', { name: 'Account', exact: true }).click();
       await expect(
         page.getByRole('link', { name: 'Sign in', exact: true }),
@@ -94,6 +105,7 @@ window.renderAccount({});
         page.getByRole('link', { name: 'Sign in', exact: true }),
       ).toHaveCount(0);
       await render({ status: 'failed' });
+      await assertTouchTargets();
       await page.getByRole('button', { name: 'Retry sign-in check' }).click();
       await render({
         status: 'idle',
@@ -128,6 +140,7 @@ window.renderAccount({});
       ).toBeDisabled();
       await expect(page.getByRole('status')).toHaveText('Deleting account…');
       await render({ status: 'idle' });
+      await assertTouchTargets();
       await page.screenshot({
         path: `docs/screenshots/accounts/reader-account-${width}.png`,
       });
