@@ -9,9 +9,7 @@ Owner removed its app-deploy hold (item 49). The queued fixes deployed at
 **Next:**
 
 1. Grafana passes 22:33 UTC Nov 7 with no restart: close the Grafana check.
-2. Disk (04:20 UTC Nov 15): 76%. Item 60 freed 380 MiB; item 61's first
-   daily run freed 90 MiB of stale installers (iteration 2339). Check later
-   runs stay within its rule: own files, over 7 days old, not open.
+2. Disk: see [disk-space.md](disk-space.md).
 
 **Budget:** the owner raised the whole-stack RAM target to about 800 MiB on Nov 7
 (item 45). The stack uses about 754 MiB. CPU and disk budgets are unchanged.
