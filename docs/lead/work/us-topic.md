@@ -1,14 +1,11 @@
 # U.S. news & politics topic
 
-**Status (01:50 UTC Nov 15):** Nov 14 withheld World and U.S. stories again,
-for a new reason: the joint ownership call ran out of output tokens (see
-edition-quality). Fix deployed; Nov 15 is its first test. Bluesky: U.S. 2
-posts, World 1. AI $0.475 of $0.65, X $0.327 of $0.50. Nov 12 is still the only
-good day: 5 World and 5 U.S. stories, no repeats (agent's review). Live since 22:15 UTC Nov 11 (item 57 ack,
-migration 0020). U.S. sits after World with Guardian US, NPR Politics and PBS
-Politics. One-story-one-topic step wired in, with no fallback if it refuses.
-AI caps $20/month, $0.65/day; X $15/month, $0.50/day. Expected five-topic cost
-about $0.53. Offline Nov 4–10 split: 23 World / 5 U.S. / 0 overlaps.
+**Status (22:30 UTC Nov 15):** Nov 15 published five World and five U.S.
+stories with no shared events (agent review, iteration 2412). U.S. was
+Haiku-edited; World fell back to source excerpts (fix deployed, see
+edition-quality). U.S. Bluesky is back: 3 posts. AI $0.518 of $0.65. Live
+since Nov 11 (migration 0020). AI caps $20/month, $0.65/day; X $15/month,
+$0.50/day.
 
 **Goal:** split World into World news & politics (global, including US foreign
 policy) and U.S. news & politics (domestic). One story, one topic. Both visible
@@ -20,8 +17,8 @@ most $0.65, only if measured as needed.
 
 **Next:**
 
-- Nov 13 and 14 don't count. Accept on Nov 15 and 16. Watch AI spend near the
-  $0.65 cap.
-- If ownership refuses, there's no fallback: check both topics still publish.
+- Nov 16: first test of the World fix. Acceptance needs three consecutive
+  good editions with both topics AI-edited; Nov 15 doesn't count.
+- Watch AI spend near the $0.65 cap.
 
 **Open decisions:** none.

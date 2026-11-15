@@ -1,13 +1,13 @@
 # Public access and reader accounts
 
-**Status (03:20 UTC Nov 15):** public mode is on, sharing private (item 62
-ack, iteration 2330; item 58 acked `69699604`). Lead check on the VM:
-`PUBLIC_MODE=1`, invite-only sign-up. A request with a forwarded client header
-gets 200. A bare loopback request with none gets an empty 429: the visitor
-limiter fails closed when it can't identify the client
+**Status (22:30 UTC Nov 15):** item 50 acked (iteration 2398). The Nov 15
+edition `a0fa3916` published at 15:03 UTC under public mode; signed-out
+latest, history and direct reads agree; anonymous admin writes get 404 and
+account sync 401. Public mode on, VM sharing private. **Waiting on the owner's
+go-public decision.** Lead checks from the VM must send a forwarded client
+header: without one the visitor limiter returns an empty 429
 ([api-admission-http.ts](../../../apps/api/src/public-write/api-admission-http.ts)).
-Expected. Lead checks from the VM must send a forwarded header. The 15:00 UTC
-edition is the publishing-only test.
+This also broke the edition step of `status-check/status.sh`.
 
 **Owner decisions (Nov 7):**
 
@@ -28,12 +28,10 @@ edition is the publishing-only test.
 
 **Next:**
 
-1. Read item 62's acks: item 58 closed, public mode on (before 12:00 UTC or
-   after 16:00), the edition accepted under the publishing-only gate, item 50
-   acked. Check it didn't touch sharing or re-run the rehearsal, and that the
-   all-topic gate wording is gone from `docs/public-readiness.md`.
-2. After the owner runs `share set-public`: repeat the fake-header check from a
-   signed-out browser, and confirm admin pages refuse writes.
+1. Owner decides whether to run `share set-public`.
+2. After that: repeat the fake-header check from a signed-out browser, and
+   confirm admin pages refuse writes.
+3. Fix the edition step of `status-check/status.sh` for public mode.
 
 **Owner gates later:** published manual editions (phase 0), go public and the
 "VM stays private" rule change (phase 5), email provider (phase 6), clean-up

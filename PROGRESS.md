@@ -116,3 +116,4 @@ Archived: [iterations 2421–2429](docs/progress-archive/2026-11-15-2421-2429.md
 - `pnpm obs jobs --check --state failed` unavailable in public mode; queue-count fallback passes with zero digest failures. Existing ingestion failures do not coincide with any unhealthy source.
 - Next: metrics ≥23:06 UTC; retained-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance Nov 16 15:00 UTC. Public mode ON; VM private.
 - Full check passes: 1,050 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; startup-aware health and scheduled-reader probes pass (five topics/23 stories/16 posts). `git diff --check` clean; no push blocker.
+- Initial push rejected: owner lead-note commit 8896a47c arrived during verification. Integrated it with a merge (no rewritten history or edits to owner files); retrying push. App code unchanged by the remote commit.
