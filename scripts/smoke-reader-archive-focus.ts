@@ -6,10 +6,16 @@ import { chromium } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const saved = readerEditionHistorySchema.parse(
-    await (await fetch(`${origin}/api/editions?offset=0`)).json(),
-  );
-  assert.ok(saved.entries.length);
+  // Documentation-range visitor for loopback public admission; no identity.
+  const visitor = '192.0.2.164';
+  const response = await fetch(`${origin}/api/editions?offset=0`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'Saved history is available');
+  const saved = readerEditionHistorySchema.parse(await response.json());
+  assert.ok(saved.entries.length, 'Use real published history');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -39,7 +45,10 @@ async function smoke() {
               },
             });
           }
-          return route.continue();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         await page.goto(`${origin}/editions`);
         const heading = page.getByRole('heading', { name: 'Past editions' });
@@ -77,8 +86,17 @@ async function smoke() {
               heading?.getAttribute('aria-description') === `Page ${number}`
             );
           }, number);
+          await page.waitForFunction(() => {
+            const box = document
+              .getElementById('archive-content')
+              ?.getBoundingClientRect();
+            return box && box.y >= 0 && box.y < innerHeight / 2;
+          });
           const box = await heading.boundingBox();
-          assert.ok(box && box.y >= 0 && box.y < height / 2);
+          assert.ok(
+            box && box.y >= 0 && box.y < height / 2,
+            JSON.stringify({ device, theme, number, box }),
+          );
           await page.screenshot({
             path: `docs/screenshots/ui/reader-archive-page-${number}-${device}-${theme}.png`,
           });

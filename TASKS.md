@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2341: restored public-mode archive keyboard/loading checks; delayed pagination focus, visible outlines, loading placeholders and retry pass desktop/mobile light/dark; refreshed twenty screenshots.
+
 - [x] 2340: restored public-mode archive browser verification; saved history/date navigation and controlled paging/error/retry pass at desktop/mobile in light/dark, with eight refreshed screenshots.
 
 - [x] 2339: applied STEERING 61 daily scratch cleanup at 76% disk use; removed four unused, agent-owned installer/binary artifacts older than seven days, freeing 90.1 MiB. Logs, metrics, backups and browser sessions retained.

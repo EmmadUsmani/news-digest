@@ -6,9 +6,16 @@ import { chromium, type Route } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const saved = readerEditionHistorySchema.parse(
-    await (await fetch(`${origin}/api/editions?offset=0`)).json(),
-  );
+  // Documentation-range visitor for loopback public admission; no identity.
+  const visitor = '192.0.2.164';
+  const response = await fetch(`${origin}/api/editions?offset=0`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'Saved history is available');
+  const saved = readerEditionHistorySchema.parse(await response.json());
+  assert.ok(saved.entries.length, 'Use real published history');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -33,7 +40,10 @@ async function smoke() {
             pending = route;
             return;
           }
-          return route.continue();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         await page.goto(`${origin}/editions`);
         const loading = page.getByRole('status');
