@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2342: restored public-mode keyboard skip-link verification; edition/archive focus, heading visibility and next content target pass desktop/mobile light/dark; refreshed eight screenshots.
+
 - [x] 2341: restored public-mode archive keyboard/loading checks; delayed pagination focus, visible outlines, loading placeholders and retry pass desktop/mobile light/dark; refreshed twenty screenshots.
 
 - [x] 2340: restored public-mode archive browser verification; saved history/date navigation and controlled paging/error/retry pass at desktop/mobile in light/dark, with eight refreshed screenshots.

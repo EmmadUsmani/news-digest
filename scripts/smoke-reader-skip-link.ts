@@ -6,9 +6,16 @@ import { chromium } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const saved = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // A documentation-range visitor admits fixed loopback public reads, without identity.
+  const visitor = '192.0.2.165';
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'Saved edition is available');
+  const saved = readerEditionSchema.parse(await response.json());
+  assert.ok(saved.topics.length, 'Use a real published edition');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -26,11 +33,14 @@ async function smoke() {
         await page.route('**/*', (route) => {
           const request = route.request();
           const url = new URL(request.url());
-          if (url.origin !== origin) return route.abort();
           assert.ok(['GET', 'HEAD'].includes(request.method()));
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: saved });
-          return route.continue();
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         for (const [name, path, target] of [
           ['edition', '/', `topic-${saved.topics[0].id}`],

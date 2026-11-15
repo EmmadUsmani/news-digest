@@ -116,3 +116,12 @@ Archived continuation: [2325–2330](docs/progress-archive/2026-11-15-2325-throu
 - Controlled pagination/delay/failure responses replay real saved history, not live pagination evidence. Refreshed twenty screenshots; inspected mobile light pagination. No app/admission, source, schema, inference, budget or sharing change.
 - Verification: both Playwright scripts pass all four viewport/theme combinations; `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips). Initial check stopped at formatting after the progress archive was created; formatted and reran successfully. Logs `/tmp/2341-{focus,loading,sources,format-retry,lint-retry,check-retry}.log`.
 - Archived iterations 2325–2330 to keep PROGRESS.md below 25 KB. No restart under STEERING 22: runtime code/config unchanged. Next: Nov 15 scheduled recovery/public-reader acceptance; keep VM private.
+
+## 2026-11-15: iteration 2342 — restore keyboard skip verification
+
+- Clean main at d4e8e38b; no inherited work. Initial orientation output was overbroad; narrowed subsequent reads. Alerts zero, health/database/Redis healthy and source check passes. Scheduled acceptance remains due 15:00 UTC.
+- Reproduced keyboard skip check failing before browser launch on visitor-less public-mode latest-edition fetch. Added documentation-range visitor admission to fixed loopback reads, status/timeout assertions and published-topic assertion; no identity, writes or external requests.
+- Real saved edition and archive pass desktop/mobile light/dark: first Tab reveals the skip link, Enter focuses the visible content heading, next Tab reaches content and no overflow/page errors occur.
+- Refreshed eight screenshots and inspected mobile light edition. No app/admission, content, source, schema, budget or sharing changes.
+- Verification: `pnpm exec tsx scripts/smoke-reader-skip-link.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass. Logs `/tmp/2342-{skip,sources,format,lint,check}.log`.
+- No restart under STEERING 22: runtime code/config unchanged. Next: scheduled recovery/public-reader gate; keep VM private.
