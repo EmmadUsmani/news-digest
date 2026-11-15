@@ -14,18 +14,17 @@ those areas.
 **This list wins if an item's wording says otherwise.** It sets the order only:
 details, budgets and rules stay in the items. Every new item goes on this list.
 
-**First, today (owner, Nov 15):** item 62. Ack item 58 and turn on public mode
-before 12:00 UTC Nov 15. Publishing, not content quality, is the gate. Stop
-before sharing.
+**The site is public (owner, Nov 15).** Item 62 is done.
 
-1. Breakages and protecting the morning edition. Includes the hung Grafana
+1. Breakages and protecting the morning edition. First, item 63: deploy
+   without downtime, fix the `/db/` diagram, make the full handbook public.
+   Then item 64: let admins open the New edition page directly.
+   Also includes the hung Grafana
    (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
    and `/tmp` scratch cleanup (items 60, 61).
    The review after each scheduled edition is a fixed daily task.
-2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md` and items 59 and 62: take public mode live
-   while the VM stays private. Stop before sharing for the owner's go-public
-   decision.
+2. Public access (item 50) is done and the site is shared. Reader accounts
+   follow `docs/public-access-plan.md`; later phases need the owner.
 3. U.S. news & politics acceptance (items 56, 57) continues in the daily
    edition review.
 4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
@@ -2857,4 +2856,97 @@ edition fails to publish or the reader breaks in public mode, set
 `PUBLIC_MODE=0` and rebuild first (runbook rollback step 2; sharing is already
 private), then report.
 
+_Superseded Nov 15: sharing is now public. Never set `PUBLIC_MODE=0`; see item 63._
+
 ack: 2026-11-15 item 62 activation — iteration 2330: item 58 acked in 69699604 against scheduled edition b9d55088 and owner proxy evidence. Enabled server/web public mode while sharing stays private; fresh backup, environment rollback copy, health, deployed boundary/session checks and desktop/mobile reader pass (docs/public-activation-record.md). Next scheduled publication at Nov 15 15:00 UTC remains pending; item 50 is not yet acked.
+
+## 63. NOW: the site is public; deploy without downtime, fix `/db/`, publish the full handbook (2026-11-15)
+
+**Why:** the owner ran `ssh exe.dev share set-public news-digest` at about
+22:30 UTC Nov 15. The site is public on purpose. This is not a breach, and it
+replaces the "VM stays private" rule and item 62's "stop before sharing".
+The owner then saw these, all confirmed by the lead:
+
+- **Downtime on every deploy.** Iteration 2438 ran `VITE_PUBLIC_MODE=1 pnpm build`
+  straight into the live `apps/web/dist` (22:34:21), then restarted API and
+  worker (22:35:42–22:35:56). Visitors got a blank page during the build and
+  for open tabs still pointing at deleted asset hashes, then a 503 from the
+  proxy during the restart. There were 81 API restarts on Nov 15, about one per iteration.
+- **`/db/` diagram broken:** "Could not load the schema. ELK is not defined."
+  `apps/schema-explorer/public/index.html` loads elkjs from jsdelivr, and the
+  public-mode CSP (`script-src 'self' …`) blocks it.
+- **Handbook reduced to one page.** In public mode `/docs` goes to the
+  one-page reader handbook on port 8110 (`apps/api/src/internal-tools.ts`).
+  The owner wants the **full handbook** public: that is intended.
+
+**Priority:** first in Current order line 1 (breakages), ahead of everything
+except protecting the next scheduled edition.
+
+**What to do, in order:**
+
+1. **Deploy without downtime.** Build web output somewhere other than the
+   directory being served, then switch to it in one step (for example a
+   symlink swap). Keep the previous build's hashed assets for at least a day so
+   open tabs keep working. Restart API or worker only when their own code or
+   config changed, never for a web-only change. Write the procedure into the
+   runbook you deploy from, and use it from now on.
+   _Check:_ poll the public URL and one hashed asset every second during a
+   real deploy. No 503, no blank page, no failed asset.
+2. **Serve elkjs from `/db/` itself** (vendored or bundled, pinned version), and
+   allow its path in `apps/api/src/public-route-policy.ts` and the internal-tool
+   proxy. Don't loosen the CSP to an outside host.
+   _Check:_ in a signed-out public-mode browser, the diagram renders and the
+   console has no errors. HTTP 200 alone doesn't count.
+3. **Make the full handbook public.** In public mode serve the full docs site at
+   `/docs`, with its scripts and assets allowed in the route policy and proxy,
+   in place of the one-page reader handbook. Before switching, check that its pages
+   contain no secrets or private details (the repo is public, so its pages should be
+   too). Keep writes refused.
+   _Check:_ signed out, the handbook's navigation, search and the pages it
+   links to all work in a browser, on desktop and mobile.
+4. **Watch the Nov 16 scheduled edition** publish publicly, with the same gate
+   as item 62 step 3, signed out over the public HTTPS URL.
+
+**What not to do:** never set `PUBLIC_MODE=0` while sharing is public. That
+reverses the rollback order in `docs/public-readiness.md`. Don't run
+`ssh exe.dev share`; only the owner changes sharing. Don't loosen CSP to
+outside hosts. Don't re-run the full public-mode rehearsal.
+
+**If publishing or access breaks:** put one short line at the top of
+`NEEDS_FROM_HUMAN.md` asking the owner to run
+`ssh exe.dev share set-private news-digest`, then fix forward.
+
+**Done when:** steps 1–3 deployed and checked as above, and the Nov 16
+edition accepted. Ack each step separately with its commit.
+
+**Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
+
+## 64. NOW: let admins open the New edition page directly (2026-11-15)
+
+**Why:** in public mode, typing or refreshing `/admin/editions/new` returns
+an empty 404 for everyone, the signed-in admin included. The server route list
+in `apps/api/src/public-route-policy.ts` has no rule for that page, and
+`apps/api/src/public-access.ts` refuses unlisted routes before checking who is
+asking. The admin nav link only works because it switches page in the browser.
+The lead checked every other reader and admin page: all return 200 signed out,
+so this page is the only gap.
+
+**Priority:** right after item 63 steps 1–3, in Current order line 1.
+
+**What to do:**
+
+1. Add `GET /admin/editions/new` (and `HEAD`) to the route policy as `admin`,
+   not `public-read`. Its API calls are already admin-only. Add a test next to
+   the existing route-policy tests: signed-out direct load gets 404 and a fresh
+   admin session gets the page.
+2. Deploy with item 63's zero-downtime procedure.
+   _Check:_ over the public HTTPS URL, signed out gets 404. In a signed-in
+   admin browser, a typed URL and a refresh both show the Create an edition
+   form. Don't create an edition to test it.
+
+**What not to do:** don't make the page `public-read`. Don't generate a test
+edition or spend money to check it. Don't widen any other route.
+
+**Done when:** deployed and checked as above. Ack with the commit.
+
+**Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.

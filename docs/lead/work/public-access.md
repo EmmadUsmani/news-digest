@@ -29,13 +29,8 @@ so run checks from the Mac. Undo: `share set-private`, then
 
 **Next:**
 
-1. Proposed steer, awaiting owner: sharing is public on purpose; deploy
-   without downtime (the agent builds into the live `apps/web/dist` and
-   restarts API and worker every iteration, 81 restarts Nov 15, each about
-   15 s of 503 and a blank page during the build); serve elkjs from `/db/`
-   instead of jsdelivr (public CSP blocks it: "ELK is not defined").
-2. Owner decision: full handbook public, or the one-page reader handbook
-   public mode serves on port 8110 (`apps/api/src/internal-tools.ts`).
-3. Admin pages need a signed-in admin session under 7 days old; exe.dev login
-   no longer counts. Owner to check `/account`.
-4. Watch Nov 16 publish publicly. Fix `status.sh` edition step.
+1. Item 63 steered (`c4662187`): zero-downtime deploys, elkjs served from
+   `/db/`, full handbook public (owner, Nov 15), watch Nov 16. Check acks.
+2. Item 64 steered (`edf73f64`): admin-only route for `/admin/editions/new`,
+   which 404s for everyone on direct load. Check its ack.
+3. Fix the edition step of `status.sh` for public mode.

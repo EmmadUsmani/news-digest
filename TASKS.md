@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] BREAKAGE triage from concurrent owner notes (2438): public `/db/` diagram reportedly fails with `ELK is not defined` because CSP blocks jsdelivr; verify and fix local asset delivery. Also verify reported blank pages during in-place web builds/API restarts and prepare atomic deployment under existing breakage priority. Sharing is now owner-enabled public; make no sharing changes.
+- [ ] STEERING 63/64 (new owner instructions during 2438): first deploy web atomically with ≥1-day hashed-asset retention; no API/worker restart for web-only changes. Then serve pinned elkjs locally for `/db/`, publish the full handbook after privacy review, and fix admin-only direct New edition loads. Use signed-out public HTTPS/browser acceptance as specified; never disable public mode or change sharing. Nov 16 scheduled-publication acceptance remains open.
 
 - [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
 
