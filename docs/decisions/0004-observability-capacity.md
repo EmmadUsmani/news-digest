@@ -993,3 +993,14 @@ user journal since 03:53:55 UTC has no entries. Comparable natural merge recover
 remains open. Keep the CPU-only 2% trial and limits; next short passive probe no
 earlier than 06:24 UTC. No forced merge, restart, configuration or provider call.
 Receipt: `/tmp/2346-metrics.jsonl`.
+
+### Passive follow-up (iteration 2352)
+
+Nov 15 06:24:20–06:24:51 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.277 s, no new evaluator errors,
+missed iterations, admission-limit hits, queue timeouts or slow queries. Two
+small merges total 17,411 rows, below the comparable threshold; no big merge.
+Both process starts unchanged; warning-level user metrics/alerts journal since
+05:23:06 UTC has no entries. Keep the CPU-only 2% trial; recovery remains open.
+Next passive sample no earlier than 07:25 UTC. No forced merge or restart.
+Receipt: `/tmp/2352-metrics.jsonl`.

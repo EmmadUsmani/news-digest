@@ -121,3 +121,12 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Strongest examples mix reporting/commentary and U.S. overlap; zero legacy phrase shortlists do not establish semantic rejection. Updated SOURCES; no production-query or pilot changes.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); diff checks pass. Logs `/tmp/2351-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private. Next: 15:00 UTC publication/access acceptance and separate natural editorial recovery review.
+
+## 2026-11-15: iteration 2352 — restore reviewed X account settings verification
+
+- Clean main at e7f8ad2f; no inherited work. Alerts zero; health/database/Redis pass; all 38 enabled sources returning data with no source errors.
+- Reproduced read-only X account smoke failure on missing private profile IDs; switched both snapshots to the public topic-settings contract. No production policy or settings changes.
+- `pnpm exec tsx scripts/smoke-reviewed-x-accounts.ts` passes: all four documented lists match live settings in desktop/mobile local browser replays, zero writes/errors/overflow. Refreshed eight screenshots; inspected mobile output. Access is replayed, not signed-out public acceptance.
+- Due passive metrics probe: 24 healthy rules, two small merges/17,411 rows below comparable threshold, no new evaluator errors/missed evaluations/admission hits/timeouts/slow queries; warnings journal empty. Next sample ≥07:25 UTC; recovery stays open.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); `git diff --check` passes. Receipts `/tmp/2352-{x-before,x,format,lint,check}.log` and `/tmp/2352-metrics.jsonl`.
+- Runtime/config unchanged; no restart under STEERING 22. No paid calls, generation, query, budget or sharing changes. Scratch cleanup already applied today (2339). Next: 15:00 UTC scheduled publication/access acceptance and separate editorial recovery review.

@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-import { topicSchema } from '@digest/contracts';
+import { topicSettingsSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 import { localAdminJson } from './lib/local-admin-fetch';
@@ -24,7 +24,7 @@ async function main() {
   const browser = await chromium.launch();
   try {
     const context = await browser.newContext();
-    const topics = topicSchema
+    const topics = topicSettingsSchema
       .array()
       .parse(await localAdminJson('/api/admin/topics'));
     await context.route('**/api/admin/topics', async (route) => {
@@ -71,7 +71,9 @@ async function main() {
       await page.close();
     }
     assert.deepEqual(
-      topicSchema.array().parse(await localAdminJson('/api/admin/topics')),
+      topicSettingsSchema
+        .array()
+        .parse(await localAdminJson('/api/admin/topics')),
       topics,
     );
     console.log(

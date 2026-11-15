@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 05:23 passive probe: 24 healthy rules, no merges or new evaluator errors/admission hits/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 06:24 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 06:25 passive probe: 24 healthy rules, two small merges (17,411 rows), no new evaluator errors/admission hits/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 07:25 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2352: restored read-only reviewed X account settings check in public mode; all four documented lists match live settings across desktop/mobile replays, with zero writes.
 
 - [x] 2351: restored the live Bluesky probe in public mode; bounded free World comparison confirms stronger engaged supply for event queries, with commentary/U.S. overlap still requiring editorial filtering. No storage or production-query changes.
 

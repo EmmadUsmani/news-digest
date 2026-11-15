@@ -207,6 +207,7 @@ Iteration 431 activated them after the Nov 3 results were recorded and acknowled
 API readback and read-only desktop/mobile checks confirm all four active lists
 (11/10/12/11); other topic fields and the existing edition stayed unchanged.
 Screenshots: `docs/screenshots/reviewed-x-accounts-{1..4}-{desktop,mobile}.png`.
+The read-only `scripts/smoke-reviewed-x-accounts.ts` check uses the public topic-settings contract; browser access is replayed locally without credentials or writes.
 No discovery call was made; account-list effectiveness remains unmeasured.
 
 The live topic settings are the source of truth. Change them under **Manage
