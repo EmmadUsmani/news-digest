@@ -20,15 +20,15 @@ readiness work, public mode on while sharing stays private. It stops before shar
 - Dev budget: Anthropic $5, xAI $2, one-time. xAI balance about $18 covers it.
 - Backfill: published editions keep working; owner confirms manual ones.
 - No skipped editions; flags undo each phase until the final clean-up.
+- Nov 15: keep sign-in codes and guess limits as they are; the site isn't
+  being shared widely. Harden later if needed.
 
 **Next:**
 
 1. Prep is done (rehearsal, rollback record, Grafana off the public tools). The
    item 58 ack and public mode wait on a normal Nov 14 edition. Read item 59's three acks: NBA AI-edited, item 58 closed, public mode on
    with sharing private. Check it doesn't touch sharing.
-2. Owner's call (non-blocker): sign-in guess limits are per address, so a large
-   distributed attacker isn't capped per email. Longer codes would fix it.
-3. After the owner runs `share set-public`: repeat the fake-header check from a
+2. After the owner runs `share set-public`: repeat the fake-header check from a
    signed-out browser, and confirm admin pages refuse writes.
 
 **Owner gates later:** published manual editions (phase 0), go public and the

@@ -15,7 +15,8 @@ those areas.
 details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. Includes the hung Grafana
-   (item 44), the leaked test folders (item 51) and NBA editing (items 54, 59).
+   (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
+   and `/tmp` scratch cleanup (items 60, 61).
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
    `docs/public-access-plan.md` and item 59: close item 58, then take public
@@ -2330,6 +2331,9 @@ alert fires.
 
 ack: 2026-11-07 iteration 1248: removed all 41 unused integration folders (2,943,540 KiB / 2.81 GiB), disk 71%→59%. Startup cleanup keeps roots younger than one hour; live runner PID plus same-UID /proc environment, command, cwd and open-file references protect active/orphaned children. A read-only sudo probe handles protected proc entries; inspection failure skips deletion. Killed-child cleanup and recent/active/unrelated/symlink preservation tested.
 
+> **Nov 15:** item 61 replaces this item's "don't touch other `/tmp` content"
+> line with a standing cleanup rule.
+
 ## 52. NOW, small: make the proxy probe say why it failed (2026-11-09)
 
 **Why:** the owner ran `scripts/probe-account-proxy.ts 8765` on Nov 9 and got
@@ -2744,3 +2748,50 @@ breakage. Protect the edition: if it fails or looks wrong, turn the newest flag
 off first.
 
 ack: 2026-11-14 item 59 step 1 — iteration 2275: scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes five NBA Sonnet-edited summaries after successful repair, zero unscored candidates and reader/latest/direct/history agreement. NBA recurrence accepted. Item 58 remains open: Gaming falls back and World/U.S. ownership JSON fails, so the overall edition is not normal; public mode remains off and sharing private. See docs/edition-reviews/2026-11-14.md.
+
+## 60. NOW: delete two old scratch files to free disk (2026-11-15)
+
+**Why:** the disk sits at 78% and full-check runs briefly cross the 80% warning
+(iteration 2320, `NEEDS_FROM_HUMAN.md` "Disk headroom"). The owner approved
+deleting the two Nov 3 scratch files that inventory found, about 380 MiB.
+
+**Priority:** Current order line 1 (breakage prevention). Small: do it next.
+
+**What to do:**
+
+1. Check no running process has either path open (`lsof` or `fuser`).
+2. Delete `/tmp/obs355` and `/tmp/news-digest-vmutils.tgz`. No copy is needed.
+3. Mark the "Disk headroom" entry in `NEEDS_FROM_HUMAN.md` resolved.
+
+**What not to do:** delete only these two paths here. Item 61 sets the standing
+rule for other `/tmp` scratch.
+
+**Done when:** both are gone. Ack the bytes freed and the disk percentage.
+
+**Limits:** not between 13:00 and 16:00 UTC.
+
+## 61. Standing rule: clean up your own old `/tmp` scratch (2026-11-15)
+
+**Why:** item 51 said "don't touch other `/tmp` content". That fenced one task,
+but it has been read as a permanent ban, so stale scratch needs the owner's
+approval each time (item 60). The owner chose a standing rule instead.
+
+**Priority:** no task of its own. Apply it when the disk is at 75% or more, at
+most once a day.
+
+**What to do:** you may delete a top-level `/tmp` entry when all of these hold:
+
+- it is owned by the user the agent runs as;
+- it and everything inside it were last modified more than 7 days ago;
+- no running process has it open (`lsof` or `fuser`).
+
+Record each deleted path and its size, and the disk percentage before and
+after, in that iteration's `PROGRESS.md` entry. Older reviews may then point to
+deleted receipts; that is accepted.
+
+**What not to do:** never delete backups, Docker volumes, metrics or log data,
+or browser profiles and sessions, wherever they are. Nothing outside `/tmp`.
+Don't move evidence out of `/tmp` to dodge the rule, and don't ask the owner
+about files this rule covers.
+
+**Limits:** not between 13:00 and 16:00 UTC.
