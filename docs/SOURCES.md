@@ -3299,3 +3299,12 @@ none pass interestingness ≥4, so no Bluesky editor is reached despite four
 open slots. Sports, jokes and commentary dominate this intake. Retain queries
 and gates; the earlier alternative-query comparison supplies no replacement.
 [Review](edition-reviews/2026-11-15-gaming-social.md). No external search or paid call.
+
+### World pilot baseline return retained — iteration 2419
+
+The November 15 18:54 UTC scheduled pass completed all five queries; World
+returned to its baseline query with 47 fetched/submitted observations.
+[Three retained actual job results](edition-reviews/2026-11-15-world-bluesky-jobs.json)
+preserve baseline/Ukraine/baseline execution before queue retention prunes it.
+No collection settings or selection gates changed. First Gaza pass and full-day
+quality comparison remain pending; observation counts are not unique posts.

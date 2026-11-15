@@ -54,6 +54,22 @@ apart from World, and the intended Ukraine query. Receipts:
 `/tmp/2413-bluesky-after.json`, `/tmp/2413-coverage-after.json`.
 The first event collection works; retain the current pilot and selection rules.
 
+## Baseline return retained — iteration 2419
+
+The 18:54:43–54 UTC scheduled job completed all five topics. World used
+`World news & politics` and fetched/submitted 47 observations; the other
+queries remained `AI`, `NBA`, `game`, `Congress`. All topics stayed within
+50 fetched/submitted observations. The first three pilot jobs therefore show
+baseline → Ukraine → baseline at 16:54, 17:54 and 18:54 UTC.
+
+[Retained job results](2026-11-15-world-bluesky-jobs.json) preserve the actual
+query, window, counts, job ID and timestamps for those three completed jobs.
+Assertions verify completion, query sequence, five-topic admission and counts.
+The full 28-job export is private at `/tmp/2419-bluesky-collections.json`.
+Counts describe observations, not unique or eligible posts; no new selection
+quality conclusion follows. Retain the pilot unchanged. Capture the first
+Gaza pass after 19:54 UTC and export again by November 16 06:56 UTC.
+
 ## Acceptance still needed
 
 Retain actual query/count results, compare November 16 as the first full UTC

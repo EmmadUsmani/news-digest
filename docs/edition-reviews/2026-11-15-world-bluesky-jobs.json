@@ -1,0 +1,139 @@
+{
+  "capturedAt": "2026-11-15T18:56:30.249Z",
+  "source": "retained BullMQ social-collection results",
+  "limitations": "Up to 48 completed and 48 failed social jobs, shared with non-Bluesky collection. Retention and concurrent pruning can omit runs; this is not proof of a complete day. Counts are fetched/submitted, not unique, safe or relevant posts. Failed runs do not expose partial results. Save this export separately before retention expires. This extract retains only the three completed 16:54\u201318:54 UTC jobs; full private receipt: /tmp/2419-bluesky-collections.json.",
+  "runs": [
+    {
+      "id": "repeat:bluesky-hourly:1794761683867",
+      "state": "completed",
+      "startedAt": "2026-11-15T16:54:43.883Z",
+      "finishedAt": "2026-11-15T16:54:54.093Z",
+      "result": {
+        "status": "complete",
+        "start": "2026-11-14T16:54:43.908Z",
+        "end": "2026-11-15T16:54:43.908Z",
+        "topics": [
+          {
+            "topicId": "00000000-0000-4000-8000-000000000011",
+            "query": "AI",
+            "fetched": 45,
+            "submitted": 45
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000012",
+            "query": "NBA",
+            "fetched": 47,
+            "submitted": 47
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000013",
+            "query": "game",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000014",
+            "query": "World news & politics",
+            "fetched": 47,
+            "submitted": 47
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000015",
+            "query": "Congress",
+            "fetched": 50,
+            "submitted": 50
+          }
+        ]
+      },
+      "failureRecorded": false
+    },
+    {
+      "id": "repeat:bluesky-hourly:1794765283867",
+      "state": "completed",
+      "startedAt": "2026-11-15T17:54:43.964Z",
+      "finishedAt": "2026-11-15T17:54:54.229Z",
+      "result": {
+        "status": "complete",
+        "start": "2026-11-14T17:54:43.992Z",
+        "end": "2026-11-15T17:54:43.992Z",
+        "topics": [
+          {
+            "topicId": "00000000-0000-4000-8000-000000000011",
+            "query": "AI",
+            "fetched": 49,
+            "submitted": 49
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000012",
+            "query": "NBA",
+            "fetched": 47,
+            "submitted": 47
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000013",
+            "query": "game",
+            "fetched": 49,
+            "submitted": 49
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000014",
+            "query": "Ukraine",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000015",
+            "query": "Congress",
+            "fetched": 48,
+            "submitted": 48
+          }
+        ]
+      },
+      "failureRecorded": false
+    },
+    {
+      "id": "repeat:bluesky-hourly:1794768883867",
+      "state": "completed",
+      "startedAt": "2026-11-15T18:54:43.956Z",
+      "finishedAt": "2026-11-15T18:54:54.167Z",
+      "result": {
+        "status": "complete",
+        "start": "2026-11-14T18:54:43.971Z",
+        "end": "2026-11-15T18:54:43.971Z",
+        "topics": [
+          {
+            "topicId": "00000000-0000-4000-8000-000000000011",
+            "query": "AI",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000012",
+            "query": "NBA",
+            "fetched": 47,
+            "submitted": 47
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000013",
+            "query": "game",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000014",
+            "query": "World news & politics",
+            "fetched": 47,
+            "submitted": 47
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000015",
+            "query": "Congress",
+            "fetched": 50,
+            "submitted": 50
+          }
+        ]
+      },
+      "failureRecorded": false
+    }
+  ]
+}

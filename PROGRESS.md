@@ -170,3 +170,13 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `pnpm exec tsx scripts/smoke-reader-bluesky-links.ts`, scheduled reader and `git diff --check`; receipts `/tmp/2418-{format,lint,check,build,links,reader}.log`.
 - Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted, active; post-restart health and scheduled reader pass.
 - Next: metrics ≥19:01 UTC; retained Bluesky export by Nov 16 05:20 UTC. Public mode ON; VM private, sharing stays with owner.
+
+## 2026-11-15: iteration 2419 — retain natural World discovery rotation evidence
+
+- Clean main at bfc872a6; no inherited work. Alerts zero; health, source/job checks and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts).
+- Owner value: preserve actual source-query results before queue retention erases the evidence needed to judge the World discovery pilot. Changed direction after three small browser-verification iterations; no further browser repairs.
+- Metrics became due during verification. 19:01 sample: 24 healthy rules, queries ≤0.561 s, 62 small merges/1,993,832 rows since 18:00, no big merge. One admission hit (16→17), no new evaluator failures/timeouts/slow queries; initial unchanged-counter assertion refused the hit, explicit delta assertions pass. Warning journal empty; trial unchanged, next sample ≥20:02 UTC.
+- Read-only `pnpm exec tsx scripts/report-bluesky-collections.ts` exported 28 retained runs. Committed a three-job extract: 16:54 baseline, 17:54 Ukraine, 18:54 baseline; latest World fetched/submitted 47 observations.
+- Assertions verify completion, unchanged other queries, five-topic admission and ≤50 fetched/submitted counts. Updated review, TASKS and SOURCES; no provider calls or publication writes. Counts do not establish unique/eligible posts or editorial quality.
+- Next: first Gaza pass after 19:54 UTC, export again by Nov 16 06:56 UTC; natural World/NBA acceptance remains pending. Public mode ON, VM private; sharing stays with owner.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,049 unit/329 integration, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build`, evidence assertions and `git diff --check` pass. Receipts `/tmp/2419-{format,lint,check,build,reader}.log`; final formatting/lint repeated after evidence updates.

@@ -1054,3 +1054,16 @@ warning-level metrics/alerts user journal since 16:54:17 is empty.
 Comparable recovery remains open. Retain CPU-only 2% trial; next short passive
 sample ≥19:01 UTC. No retuning, forced compaction or provider calls.
 Receipt: `/tmp/2414-metrics.jsonl`; counter-delta assertions passed.
+
+### Passive follow-up (iteration 2419)
+
+Nov 15 19:01:22–24 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 2`:
+24 fresh healthy rules, four uncached queries ≤0.561 s. One new admission-limit
+hit since 18:00:13 (16→17); no new evaluator errors, missed iterations, queue
+timeouts or slow queries. Neither tier merged during the sample; 62 small
+merges total 1,993,832 rows since the prior sample, no big merge. Process starts
+unchanged; warning-level metrics/alerts user journal since 18:00:13 is empty.
+Initial unchanged-counter assertion correctly refused the new admission hit;
+explicit delta assertions pass. Comparable recovery remains open. Retain
+CPU-only 2% trial; next short passive sample ≥20:02 UTC. No retuning or forced
+compaction. Receipts: `/tmp/2419-metrics.jsonl`, `/tmp/2419-metrics-journal.log`.
