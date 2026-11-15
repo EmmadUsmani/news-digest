@@ -141,3 +141,12 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - Added dated Gaming supply review and source/task evidence. Retain query/gates/budgets: Nov 13 alternatives already supplied no better replacement. No external search, inference, cache writes, publication or runtime changes.
 - Next: metrics sample ≥19:01 UTC; retain Bluesky jobs by Nov 16 05:20 UTC. Next natural edition must establish World recovery/NBA spoof exclusion; overall Gaming social quality remains open. Public mode ON, VM private; sharing stays with owner.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check` pass. Receipts `/tmp/2415-{format,lint,check,build,reader}.log`.
+
+## 2026-11-15: iteration 2416 — restore public-mode video preview verification
+
+- Clean main at 550c4a15; no inherited work. Alerts zero and health passes. World/NBA natural recovery and due metrics sample remain pending.
+- Reader-facing value: preserve a usable original-video link when a Bluesky preview fails. Existing browser verification broke before rendering because public-mode loopback admission returned an empty response.
+- Restored anonymous visitor forwarding for local GETs and asserted reader HTTP success before decoding; no identity, account, publication or source changes.
+- Playwright passes all 12 synthetic loaded/failed/missing video cases across desktop/mobile light/dark; original destinations, accessible labels, fallback placement and overflow verified. Refreshed four failed-preview screenshots; inspected mobile light. Media variants are synthetic, not live evidence.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2416-{format,lint,check,build,reader,video}.log`. Initial check shell terminated during lint; reran in transient user service.
+- Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted and active; initial health raced startup, retry and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts). Next: metrics sample ≥19:01 UTC; Bluesky retained export by Nov 16 05:20 UTC. Public mode ON, VM private; sharing stays with owner.

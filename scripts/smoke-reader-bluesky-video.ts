@@ -6,9 +6,14 @@ import { chromium } from 'playwright';
 
 async function main() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Loopback visitor admission only; this supplies no reader identity.
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.166' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const post = edition.topics
     .flatMap((topic) => topic.posts)
     .find((post) => post.platform === 'bluesky');
@@ -49,7 +54,9 @@ async function main() {
             if (url.origin !== origin) return route.abort();
             if (url.pathname === '/api/editions/latest')
               return route.fulfill({ json: edition });
-            return route.continue();
+            return route.continue({
+              headers: { ...route.request().headers(), ...visitorHeaders },
+            });
           });
           await page.goto(origin);
           const card = page.locator('.bluesky-card').first();
