@@ -62,26 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
-- [x] 2377: repaired saved-post source-link browser check for public-mode admission and current published Bluesky content; four device/theme variants pass.
+- [x] 2379: narrow archive pagination keeps both direction labels on one line with the page number above; six desktop/mobile light/dark browser variants pass.
 
-- [x] 2376: desktop contents links gain 44px targets; six desktop/mobile light/dark published-content browser checks pass.
-
-- [x] 2375: Privacy gains keyboard skip navigation; desktop/mobile light/dark, accounts off/on and forward focus checks pass.
-
-- [x] 2374: dismissing Account clears deletion confirmation; Escape/close and fresh-confirmation desktop/mobile checks pass.
-
-- [x] 2373: saved social posts with empty text show an explanation and Read source link; X/Bluesky/Reddit desktop/mobile light/dark checks pass.
-
-- [x] 2372: account deletion moves keyboard focus to confirmation and returns it to Delete account on cancellation; desktop/mobile fixture checks pass.
-
-- [x] 2371: enlarged reader Account, retry, sign-out and deletion buttons to 44px; desktop/mobile fixture browser checks enforce touch targets.
-
-- [x] 2370: keyboard skip-link verification now requires published topic/archive content and no reader alerts; desktop/mobile light/dark pass.
-
-- [x] 2369: home-link keyboard verification now requires published topics after returning from saved items/archive; four public-mode browser variants pass with error-free content.
-
-- [x] 2368: strengthened public-mode archive/saved keyboard navigation verification to require published history links and an error-free saved-items empty state; four browser variants pass.
-
-Earlier completed steps: [2352–2367](docs/progress-archive/2026-11-15-completed-2352-2367.md), [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
+Earlier completed steps: [2368–2377](docs/progress-archive/2026-11-15-completed-2368-2377.md), [2352–2367](docs/progress-archive/2026-11-15-completed-2352-2367.md), [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.

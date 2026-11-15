@@ -141,7 +141,7 @@ export function ReaderArchive() {
         )}
         <nav
           aria-label="Edition pages"
-          className="mt-8 flex items-center justify-between gap-3 text-sm"
+          className="mt-8 flex flex-wrap items-center justify-between gap-3 text-sm"
         >
           {page > 1 ? (
             <Link
@@ -154,7 +154,9 @@ export function ReaderArchive() {
           ) : (
             <span />
           )}
-          <span className="text-[var(--secondary)]">Page {page}</span>
+          <span className="order-first w-full text-center text-[var(--secondary)] sm:order-none sm:w-auto">
+            Page {page}
+          </span>
           {history.data?.hasMore ? (
             <Link
               to="/editions"

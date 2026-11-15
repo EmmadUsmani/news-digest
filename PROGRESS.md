@@ -120,3 +120,13 @@ Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md
 - Owner value: preserves the natural-compaction recovery decision using new due evidence without forced work or limit changes. Recovery remains open; next passive sample ≥12:43 UTC.
 - Disk 77%; cleanup already performed today in 2339, so no further deletion. Public mode ON, VM private; no paid calls or generation/config changes. Services not restarted under STEERING 22.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2378-{format,lint,check}.log`). Documentation-only; no build or restart needed. Next: 15:00 UTC scheduled publication/access gate and separate editorial review.
+
+## 2026-11-15: iteration 2379 — readable narrow archive pagination
+
+- Clean main at da511383; no inherited work. Alerts zero; `/healthz` database/Redis healthy; public source-health reports all 38 sources with stored content and no errors.
+- Reproduced reader weakness: both archive direction labels wrap at 320px when a middle page has newer and older editions. Page number now occupies its own small-screen row, preserving single-line labels and 44px targets.
+- Added `pnpm exec tsx scripts/smoke-reader-archive-pagination.ts`: captures real published history and simulates middle-page pagination locally; GET-only, external requests blocked. Before fix fails on wrapped labels; after fix all 1440/390/320px light/dark variants pass with no overflow/page errors (`/tmp/2379-browser.log`).
+- Six screenshots saved; narrow light inspected. Archived older task completion markers to keep TASKS.md small. No handbook change needed for layout correction.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; health recovered. Public mode ON, VM private; no generation, provider, budget or sharing changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, final targeted formatting and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2379-check-final.log`). First check terminated 143 during unit tests with no failure; fresh PTY rerun exits 0.
+- Next: passive metrics sample ≥12:43 UTC; 15:00 UTC scheduled publication/access gate and separate editorial review. No generation changes after noon; no deploys 13:00–16:00 UTC.
