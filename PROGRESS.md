@@ -130,3 +130,13 @@ Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; health recovered. Public mode ON, VM private; no generation, provider, budget or sharing changes.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, final targeted formatting and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2379-check-final.log`). First check terminated 143 during unit tests with no failure; fresh PTY rerun exits 0.
 - Next: passive metrics sample ≥12:43 UTC; 15:00 UTC scheduled publication/access gate and separate editorial review. No generation changes after noon; no deploys 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2380 — escape empty archive pages
+
+- Clean main at 9d65be01; no inherited work. Alerts zero; health database/Redis healthy; source-health reports all 38 sources with stored content and no errors.
+- Reader weakness: an out-of-range archive URL (page 999) shows no editions and only steps back one page, making recovery needlessly slow. Added a direct newest-editions link on empty pages after page one.
+- `pnpm exec tsx scripts/smoke-reader-archive-empty.ts` fails before the fix (missing link), then passes all 1440/390/320px light/dark variants: keyboard activation, page-one real saved history, heading focus, 44px target, no overflow/errors. Empty page is simulated locally; real saved history is captured read-only, external requests blocked.
+- Six screenshots saved; narrow light inspected. No generation, budget, provider, sharing or handbook behavior change. Public mode ON; VM private.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; `/healthz` healthy. Verification logs: `/tmp/2380-{before,browser,build,format,lint,check}.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips.
+- Next: passive metrics sample ≥12:43 UTC; 15:00 scheduled publication/access gate and separate editorial review. No generation changes after noon; no deploys 13:00–16:00 UTC.

@@ -62,7 +62,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
-- [x] 2379: narrow archive pagination keeps both direction labels on one line with the page number above; six desktop/mobile light/dark browser variants pass.
+- [x] 2380: empty out-of-range archive pages offer a direct newest-editions link with keyboard focus recovery; six desktop/mobile light/dark browser variants pass.
 
 Earlier completed steps: [2368–2377](docs/progress-archive/2026-11-15-completed-2368-2377.md), [2352–2367](docs/progress-archive/2026-11-15-completed-2352-2367.md), [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
 

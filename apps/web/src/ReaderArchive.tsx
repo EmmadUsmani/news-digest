@@ -133,9 +133,18 @@ export function ReaderArchive() {
               ))}
             </ul>
             {!history.data.entries.length && (
-              <p className="my-8 text-sm text-[var(--secondary)]">
-                No editions on this page.
-              </p>
+              <div className="my-8 text-sm text-[var(--secondary)]">
+                <p>No editions on this page.</p>
+                {page > 1 && (
+                  <Link
+                    to="/editions"
+                    search={{ page: 1 }}
+                    className="inline-flex min-h-11 items-center rounded-md font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                  >
+                    Back to newest editions
+                  </Link>
+                )}
+              </div>
             )}
           </>
         )}
