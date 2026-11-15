@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2323: traced U.S. X breadth to three qualifying IDs across two events; SFO/JFK duplicate removal succeeds, with no stronger qualifying alternative lost. [Evidence](docs/edition-reviews/2026-11-14-us-x.md).
+
 - [x] 2322: traced absent Tech Bluesky selection to one borderline FAA timeline finalist among 50 scored candidates; saved fixed-window evidence and retained gates, with no inferred editor omission rationale.
 
 - [x] 2321: collected due passive metrics recovery evidence; 24 healthy rules, no new failures, no comparable merge. Retained CPU-only trial and public activation gates.

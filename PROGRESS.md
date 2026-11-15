@@ -83,3 +83,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Sole finalist juxtaposes FAA AI adoption and grounding; saved triage flags unverified causation (relevance 7/importance 4). No stronger qualifying alternative is lost to shortlist capacity. Saved publication records editor-chose-none/zero validation drops; exact omission rationale remains unknown. Retained gates, budgets and prompts; forcing this candidate would add no established reporting.
 - Added evidence/next-comparison guidance to Nov 14 Tech social review and TASKS. No provider/source requests, publication/database writes, runtime settings or application/UI/schema changes; SOURCES, handbook and screenshots unchanged. Private receipts `/tmp/2322-tech-*`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. `pnpm obs sources --check`: all 38 healthy. Check/build receipts `/tmp/2322-*.log`. API/worker restart and health verification follow commit.
+
+## 2026-11-15: iteration 2323 — diagnose U.S. X breadth
+
+- Clean main; no inherited work. Initial alerts zero; scheduled acceptance and metrics sampling not due.
+- Reader weakness: U.S. has two X posts, including an unverified court claim, beside withheld stories. Saved complete triage has 15 unique scores, only three qualifying IDs across two events. Editor explicitly drops JFK in favor of SFO's timed status change; no stronger qualifying alternative is lost to shortlist capacity.
+- Recorded supply diagnosis and next-edition comparison; retain gates/prompts/budgets. Court context remains attributed; official X metrics unknown. Ownership recovery remains the existing scheduled gate; public mode off/VM private.
+- Read-only local GETs and offline assertions verify IDs, scores, selection, attribution and reader-field agreement. Temporary capture script initially needed a CJS async wrapper; corrected and removed. Private receipts `/tmp/2323-*`.
+- No application/UI/source/schema/system-flow changes, provider/source requests, production writes or runtime changes; SOURCES, handbook and screenshots unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit.
