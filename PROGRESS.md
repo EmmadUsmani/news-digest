@@ -95,3 +95,11 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Initial alerts zero; health/database/Redis pass and all 38 sources healthy. No paid calls, generation, settings or sharing changes.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); `pnpm exec tsx scripts/check-handbook.ts --owner-services` passes (18 pages, 22 diagrams, 39 tables). Logs `/tmp/2348-{format,lint,check,handbook,sources}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Next: Nov 15 15:00 UTC scheduled publication/access acceptance and separate editorial review; VM stays private.
+
+## 2026-11-15: iteration 2349 — restore stored Bluesky coverage reporting
+
+- Clean main at 9e53e81f; no inherited work. Initial orientation was overbroad; subsequent reads narrowed. Alerts zero.
+- Found a real public-mode tooling failure while taking the next source-quality task: coverage report required private `profileId`, omitted by the public topics response. Switched to the existing public `topicSettingsSchema`; no application-policy change.
+- Read-only production report now succeeds for all five topics. Tech/NBA/Gaming/World/U.S. distinct stored posts: 52/48/51/46/49; safe engaged candidates capped at 50: 50/43/49/16/48. U.S. Congress collection is returning data; lexical zero is not semantic rejection. Updated SOURCES.
+- Verification: `pnpm exec tsx scripts/report-bluesky-coverage.ts --examples 1` with private environment loaded; receipt `/tmp/2349-bluesky.json`. No provider calls or writes. `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); diff checks pass. Logs `/tmp/2349-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. No generation, budget, query or sharing changes. Next: natural scheduled publication/access acceptance and editorial recovery review at 15:00 UTC; public mode ON, VM private.

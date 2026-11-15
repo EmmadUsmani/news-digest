@@ -1,5 +1,5 @@
 // Read stored observations only: no search, collection, inference or edition writes.
-import { topicSchema } from '@digest/contracts';
+import { topicSettingsSchema } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { readBlueskyObservations } from '../apps/api/src/modules/social/database/bluesky.repository';
@@ -44,7 +44,7 @@ async function main() {
     },
   );
   if (!response.ok) throw new Error('Topics unavailable');
-  const topics = topicSchema.array().parse(await response.json());
+  const topics = topicSettingsSchema.array().parse(await response.json());
   const start = new Date(cutoff.getTime() - 86_400_000);
   const db = database();
   try {

@@ -3189,3 +3189,14 @@ no collection error, 20 items in the latest successful fetch (20:16:53 UTC),
 and 83 stored source observations. These are collected articles, not verified
 X posts or independent reporting. No source activation, external request or
 collection setting changed. Source expansion still requires coverage review.
+
+## Stored Bluesky coverage in public mode — iteration 2349 (2026-11-15)
+
+The read-only coverage report now accepts the public topic-settings contract,
+which omits private profile IDs. At 05:53:57 UTC, its rolling 24-hour window
+contains Tech/NBA/Gaming/World/U.S. distinct stored post counts of
+52/48/51/46/49; safe engaged candidates (capped at 50) are 50/43/49/16/48.
+U.S. collection uses `Congress`; zero lexical-shortlist matches do not mean
+zero collected posts or zero semantic candidates. These are stored official API
+observations, not accepted editorial picks. No provider calls, collection
+changes, policy changes or pilot activation.
