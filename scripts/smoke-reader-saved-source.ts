@@ -21,9 +21,14 @@ function expectedAttribution(report: {
     .join(', ');
 }
 async function main() {
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Loopback visitor admission only; this supplies no reader identity.
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.170' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const discovery = edition.topics
     .flatMap((topic) => topic.stories)
     .find((story) => {
@@ -75,6 +80,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const context = await browser.newContext({
@@ -88,7 +94,9 @@ async function main() {
           if (url.origin !== origin) return route.abort();
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
-          return route.continue();
+          return route.continue({
+            headers: { ...route.request().headers(), ...visitorHeaders },
+          });
         });
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));
@@ -176,7 +184,7 @@ async function main() {
       }
     }
     console.log(
-      'Saved source attribution: real discovery site and grouped report, synthetic publisher override and legacy fallback pass in desktop/mobile light/dark; reload and URLs preserved.',
+      'Saved source attribution: real discovery site and grouped report, synthetic publisher override and legacy fallback pass in desktop/mobile/320px light/dark; reload and URLs preserved.',
     );
   } finally {
     await browser.close();

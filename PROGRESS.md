@@ -177,3 +177,13 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: `pnpm exec tsx scripts/smoke-reader-x-links.ts`, alerts, sources/jobs, health, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2426-*`.
 - Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON, VM private.
 - Full check: 1,049 unit/329 integration tests pass, four expected skips; public build passes. API/worker restarted; startup-retried health and scheduled reader pass (five topics/23 stories/16 posts).
+
+## 2026-11-15: iteration 2427 — restore saved-item attribution browser verification
+
+- Clean main at 65fb4f57; no inherited work. Alerts zero; health and all 38 sources healthy, queues available and scheduled digest completed.
+- Reader concern: saved bookmarks must retain the original report publisher instead of misleading aggregate provenance. Existing verification failed before assertions because public-mode loopback admission returned an empty refusal.
+- Added visitor admission and explicit HTTP status validation to the GET-only replay; six desktop/mobile/320px light/dark cases pass. Real discovery/grouped saved reports and explicit synthetic publisher/legacy controls retain attribution, destinations and stored snapshots after reload.
+- Refreshed screenshots and inspected narrow/light. No production behavior, provider calls, publication writes or handbook changes.
+- Verification: `pnpm exec tsx scripts/smoke-reader-saved-source.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader, health and `git diff --check`; receipts `/tmp/2427-*`.
+- Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader verification complete before handoff.

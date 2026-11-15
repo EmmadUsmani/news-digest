@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2427: repaired public-mode saved-item publisher attribution check; real discovery/grouped reports and synthetic publisher/legacy controls pass six viewport/theme cases; screenshots refreshed.
+
 - [x] 2426: repaired public-mode saved X source-link browser check; six desktop/mobile/320px light/dark cases pass with refreshed screenshots.
 
 - [x] 2423: restored public-mode saved Bluesky continuation verification; two clipped posts and complete controls pass six desktop/mobile/320px light/dark cases; screenshots refreshed.
