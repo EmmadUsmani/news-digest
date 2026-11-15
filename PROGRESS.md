@@ -152,3 +152,15 @@ Archived: [iterations 2411–2420](docs/progress-archive/2026-11-15-2411-2420.md
 - No handbook change needed for this display fix. Public mode ON; VM private.
 - Next: metrics ≥22:04 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA/Tech acceptance.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build and six browser cases pass. No push blocker.
+
+## 2026-11-15: iteration 2433 — capture metrics memory-pressure baselines
+
+- Clean main at 7af0a6f7; no inherited work. Alerts zero; health passes. Daily scratch cleanup already applied (2339); no deletion.
+- Owner value: the next natural compaction can be assessed for memory pressure, closing the resource-evidence gap behind the unresolved metrics incident.
+- Read-only sampler now saves kernel memory high/max/OOM/OOM-kill counters and current/lifetime-peak bytes; interval deltas refuse process changes, resets and invalid values.
+- 21:33 sample: high=13,820, max/OOM/OOM-kill=0; no interval pressure, but +143 high events since 21:03. Current 85.2 MiB, lifetime peak 88.7 MiB; no claim of interval peak or recovery.
+- 24 healthy rules, queries ≤1.517 s; no new evaluator failures, one small merge/3,654 rows, no big merge. Baseline receipt `/tmp/2433-metrics.jsonl`.
+- No limits, production behavior, provider calls or sharing changes. No handbook page describes sampler internals; decision/task notes updated.
+- Verification: four targeted recovery tests; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`; full results and restart checks below.
+- Next: compare memory counters at metrics sample ≥22:04 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA/Tech acceptance. Public mode ON; VM private.
+- Full check passes: 1,050 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; health and scheduled reader pass (five topics/23 stories/16 posts); `git diff --check` clean. Receipts `/tmp/2433-*`.

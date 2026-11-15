@@ -1,8 +1,10 @@
 // Read-only, local-only evidence collection. No force merge or provider calls.
+import { readFile } from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 
 import {
   evaluationInterval,
+  memoryInterval,
   mergeInterval,
   type MergeSnapshot,
 } from './lib/metrics-recovery';
@@ -14,6 +16,27 @@ async function get(path: string) {
 }
 
 async function sample() {
+  // obs-metrics is a system unit; these are kernel cgroup-v2 counters.
+  const cgroup = '/sys/fs/cgroup/system.slice/obs-metrics.service';
+  const [memoryEvents, memoryCurrent, memoryPeak] = await Promise.all(
+    ['memory.events', 'memory.current', 'memory.peak'].map((file) =>
+      readFile(`${cgroup}/${file}`, 'utf8'),
+    ),
+  );
+  const memoryCounter = (name: string) => {
+    const line = memoryEvents
+      .split('\n')
+      .find((row) => row.startsWith(`${name} `));
+    const value = line ? Number(line.slice(name.length + 1)) : NaN;
+    if (!Number.isSafeInteger(value) || value < 0)
+      throw new Error(`Missing or invalid cgroup memory counter: ${name}`);
+    return value;
+  };
+  const memoryBytes = [memoryCurrent, memoryPeak].map((value) =>
+    Number(value.trim()),
+  );
+  if (!memoryBytes.every((value) => Number.isSafeInteger(value) && value >= 0))
+    throw new Error('Invalid cgroup memory usage');
   const queries = [
     'up{job="metrics-store"}',
     'news_digest_unit_active{scope="user",unit="news-digest-api.service"}',
@@ -82,6 +105,14 @@ async function sample() {
       rows: counter('vm_rows_merged_total{type="storage/big"}'),
       merges: counter('vm_merges_total{type="storage/big"}'),
     } satisfies MergeSnapshot,
+    memory: {
+      processStart: counter('process_start_time_seconds'),
+      high: memoryCounter('high'),
+      max: memoryCounter('max'),
+      oom: memoryCounter('oom'),
+      oomKill: memoryCounter('oom_kill'),
+    },
+    memoryBytes: { current: memoryBytes[0], lifetimePeak: memoryBytes[1] },
     evaluator: {
       processStart: counter('process_start_time_seconds', evaluatorMetrics),
       errors: counter('vmalert_execution_errors_total', evaluatorMetrics),
@@ -118,6 +149,7 @@ async function main() {
       JSON.stringify({
         ...current,
         interval: {
+          memory: memoryInterval(previous.memory, current.memory),
           evaluator: evaluationInterval(previous.evaluator, current.evaluator),
           small: mergeInterval(previous.counters, current.counters),
           big: mergeInterval(previous.bigCounters, current.bigCounters),

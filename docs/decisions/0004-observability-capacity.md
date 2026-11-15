@@ -1096,3 +1096,21 @@ lack a before-merge baseline. Comparable compaction is now observed, but this
 post-event sample does not measure resource use throughout it. Retain CPU-only
 2% trial and incident for sustained evaluation/resource follow-up ≥22:04 UTC.
 No retuning or forced compaction. Receipts: `/tmp/2430-metrics*`; assertions pass.
+
+### Memory-pressure baseline for the next merge (iteration 2433)
+
+The post-merge review lacked a pre-event resource baseline. The read-only
+sampler now saves kernel cgroup-v2 `memory.events` high/max/OOM/OOM-kill
+counters, current bytes and lifetime peak bytes for `obs-metrics.service`.
+Interval deltas reject process changes, invalid counters and resets. Peak is
+explicitly lifetime usage, not a measured interval peak. No limits change.
+
+Nov 15 21:33:09–13 UTC: high=13,820, max/OOM/OOM-kill=0; current
+89,292,800–89,329,664 bytes, lifetime peak 92,995,584 bytes. No new memory
+pressure during this sample, but high increased by 143 since the 21:03 review.
+This does not locate those events within a merge. All 24 rules healthy;
+four uncached queries ≤1.517 s, no new evaluation failures, one small merge
+of 3,654 rows, no big merge. Retain CPU-only 2% trial; recovery remains open.
+The next due ≥22:04 UTC sample can compare resource counters against this
+saved baseline. Receipt: `/tmp/2433-metrics.jsonl`. No provider calls,
+forced compaction or metrics-service restart. Four targeted tests pass.

@@ -17,7 +17,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 56/57: World/U.S. split deployed; Nov 15 semantic scope/event review (2412) passes: five stories each, 14/6 coverage IDs, no repeated or misplaced event. World fallback depth and three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 21:03 sample: 24 healthy rules, queries ≤0.096 s, no new failure/admission/timeout/slow-query counters. Journal confirms natural 26,799,900-row big merge at 21:00:07 (104.004 s); historical self-scrape stays up. Comparable merge now observed; sustained evaluation/resource acceptance remains open (cumulative memory-high events lack pre-merge baseline). Next sample ≥22:04 UTC. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#comparable-natural-big-merge-observed-iteration-2430).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 21:03 sample: 24 healthy rules, queries ≤0.096 s, no new failure/admission/timeout/slow-query counters. Journal confirms natural 26,799,900-row big merge at 21:00:07 (104.004 s); historical self-scrape stays up. Comparable merge now observed; sustained evaluation/resource acceptance remains open (cumulative memory-high events lack pre-merge baseline). 2433 adds cgroup memory-event baselines: 21:33 high=13,820, max/OOM=0; no interval pressure, but +143 high events since 21:03. Next sample ≥22:04 UTC must compare resource deltas. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#comparable-natural-big-merge-observed-iteration-2430).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 15 NBA review (2402) finds no Murray repetition; spoof exclusion still awaits natural acceptance. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -54,6 +54,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2433: recovery sampler records memory-pressure baselines and interval deltas; next natural merge can be compared without treating lifetime reclaim counts as interval evidence.
 
 - [x] 2432: expanded article coverage shows local timezone beside each publication time; saved reports verified in New York/Tokyo across desktop/mobile/320px and both themes.
 

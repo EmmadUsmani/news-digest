@@ -54,3 +54,33 @@ export function evaluationInterval(
       after.errors === before.errors && after.missed === before.missed,
   };
 }
+
+export interface MemorySnapshot {
+  processStart: number;
+  high: number;
+  max: number;
+  oom: number;
+  oomKill: number;
+}
+
+export function memoryInterval(before: MemorySnapshot, after: MemorySnapshot) {
+  if (
+    !Object.values(before).every(
+      (value) => Number.isFinite(value) && value >= 0,
+    ) ||
+    !Object.values(after).every(
+      (value) => Number.isFinite(value) && value >= 0,
+    ) ||
+    before.processStart !== after.processStart ||
+    (['high', 'max', 'oom', 'oomKill'] as const).some(
+      (key) => after[key] < before[key],
+    )
+  )
+    throw new Error('Memory counters changed or invalid; discard interval');
+  return {
+    high: after.high - before.high,
+    max: after.max - before.max,
+    oom: after.oom - before.oom,
+    oomKill: after.oomKill - before.oomKill,
+  };
+}
