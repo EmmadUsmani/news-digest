@@ -53,7 +53,8 @@ extend to the next.
 - Never route app AI traffic through the ChatGPT subscription.
 - No scraping of x.com or bot evasion. No third-party X data APIs without the
   owner's approval.
-- The VM stays private. YouTube is deferred, and Reddit is parked.
+- The site is public (owner, Nov 15); sign-up stays invite-only. YouTube is
+  deferred, and Reddit is parked.
 - X production caps stay $0.50 a day and $15 a month (raised by the owner, 2026-11-11).
 - No hand-written wording rules for grouping, anywhere.
 
