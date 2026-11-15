@@ -1,13 +1,14 @@
 # Public access and reader accounts
 
-**Status (22:30 UTC Nov 15):** item 50 acked (iteration 2398). The Nov 15
-edition `a0fa3916` published at 15:03 UTC under public mode; signed-out
-latest, history and direct reads agree; anonymous admin writes get 404 and
-account sync 401. Public mode on, VM sharing private. **Waiting on the owner's
-go-public decision.** Lead checks from the VM must send a forwarded client
-header: without one the visitor limiter returns an empty 429
-([api-admission-http.ts](../../../apps/api/src/public-write/api-admission-http.ts)).
-This also broke the edition step of `status-check/status.sh`.
+**Status (22:50 UTC Nov 15):** **public.** The owner ran
+`ssh exe.dev share set-public news-digest`. Lead checked signed out from the
+Mac over HTTPS: reader, `/healthz` and latest edition `a0fa3916` return 200;
+`/api/me`, admin writes, `/logs` and `/metrics` return 404, with or without
+a faked `X-ExeDev-Email` admin header; account sync gets 401 with our origin
+and 400 with a foreign one; no cookies issued. Admin and `/db/` pages are
+viewable read-only, as decided Nov 7. The VM can't reach its own public URL,
+so run checks from the Mac. Undo: `share set-private`, then
+[public-readiness.md](../../public-readiness.md) rollback.
 
 **Owner decisions (Nov 7):**
 
@@ -21,18 +22,20 @@ This also broke the edition step of `status-check/status.sh`.
   publicly viewable; launch without public Grafana (Nov 13); `/logs` and `/metrics` admin-only; all writes admin-only.
 - Sign-up is invite-only at launch. New topics shown by default.
 - Dev budget: Anthropic $5, xAI $2, one-time. xAI balance about $18 covers it.
-- Backfill: published editions keep working; owner confirms manual ones.
-- No skipped editions; flags undo each phase until the final clean-up.
+- Backfill keeps published editions; no skipped editions. Later owner gates:
+  manual editions, email provider, clean-up.
 - Nov 15: keep sign-in codes and guess limits as they are; the site isn't
   being shared widely. Harden later if needed.
 
 **Next:**
 
-1. Owner decides whether to run `share set-public`.
-2. After that: repeat the fake-header check from a signed-out browser, and
-   confirm admin pages refuse writes.
-3. Fix the edition step of `status-check/status.sh` for public mode.
-
-**Owner gates later:** published manual editions (phase 0), go public and the
-"VM stays private" rule change (phase 5), email provider (phase 6), clean-up
-(phase 7).
+1. Proposed steer, awaiting owner: sharing is public on purpose; deploy
+   without downtime (the agent builds into the live `apps/web/dist` and
+   restarts API and worker every iteration, 81 restarts Nov 15, each about
+   15 s of 503 and a blank page during the build); serve elkjs from `/db/`
+   instead of jsdelivr (public CSP blocks it: "ELK is not defined").
+2. Owner decision: full handbook public, or the one-page reader handbook
+   public mode serves on port 8110 (`apps/api/src/internal-tools.ts`).
+3. Admin pages need a signed-in admin session under 7 days old; exe.dev login
+   no longer counts. Owner to check `/account`.
+4. Watch Nov 16 publish publicly. Fix `status.sh` edition step.
