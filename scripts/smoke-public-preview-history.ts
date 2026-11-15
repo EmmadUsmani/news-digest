@@ -1,4 +1,4 @@
-// Offline anonymous public-shape replay; live public mode remains disabled.
+// Offline anonymous public-shape replay; no live API calls.
 import assert from 'node:assert/strict';
 
 import { chromium } from 'playwright';
@@ -24,16 +24,20 @@ async function smoke() {
     windowEnd: '2026-11-10T15:00:00Z',
     topics: [{ id, name: 'Technology' }],
   };
+  const timeZone = process.env.READER_TIME_ZONE ?? 'America/New_York';
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
       ['desktop', 1440, 1000],
       ['mobile', 390, 844],
+      ['narrow', 320, 740],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          locale: 'en-US',
+          timezoneId: timeZone,
         });
         let fail = false;
         let latestStatus = 200;
@@ -95,6 +99,25 @@ async function smoke() {
           name: 'Published editions',
         });
         await section.getByText('Technology', { exact: true }).waitFor();
+        for (const timestamp of [
+          '2026-11-09T15:00:00Z',
+          '2026-11-10T15:00:00Z',
+        ]) {
+          const time = section.locator(`time[datetime="${timestamp}"]`);
+          assert.equal(
+            await time.innerText(),
+            new Date(timestamp).toLocaleString('en-US', {
+              timeZone,
+              timeZoneName: 'short',
+            }),
+          );
+        }
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        );
+
         assert.equal(
           await section.getByRole('link').last().getAttribute('href'),
           `/editions/${id}`,
@@ -106,6 +129,7 @@ async function smoke() {
           0,
         );
         await page.screenshot({
+          fullPage: true,
           path: `docs/screenshots/ui/public-preview-history-${device}-${theme}.png`,
         });
         await section.getByRole('button', { name: 'Older editions' }).click();
@@ -130,6 +154,7 @@ async function smoke() {
           `/editions/${id}`,
         );
         await page.screenshot({
+          fullPage: true,
           path: `docs/screenshots/ui/public-preview-history-${device}-${theme}.png`,
         });
         for (latestStatus of [401, 403, 404, 503]) {
@@ -155,11 +180,7 @@ async function smoke() {
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         );
-        for (const path of [
-          '/admin/editions/new',
-          '/admin/spend',
-          '/admin/tools',
-        ]) {
+        for (const path of ['/admin/editions/new']) {
           const readCount = reads.length;
           await page.goto(origin + path);
           await page
@@ -171,7 +192,7 @@ async function smoke() {
       }
     }
     console.log(
-      'Public preview history: four offline browser views, pagination, failure/retry and restricted reads pass.',
+      'Public preview history: six offline browser views, pagination, failure/retry and restricted reads pass.',
     );
   } finally {
     await browser.close();

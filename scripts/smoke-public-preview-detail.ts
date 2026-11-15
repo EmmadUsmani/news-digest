@@ -17,16 +17,20 @@ async function smoke() {
   assert.ok(address && typeof address === 'object');
   const origin = `http://127.0.0.1:${address.port}`;
   const id = '11111111-1111-4111-8111-111111111111';
+  const timeZone = process.env.READER_TIME_ZONE ?? 'America/New_York';
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
       ['desktop', 1440, 1000],
       ['mobile', 390, 844],
+      ['narrow', 320, 740],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          locale: 'en-US',
+          timezoneId: timeZone,
         });
         let status = 200;
         let empty = false;
@@ -70,6 +74,25 @@ async function smoke() {
           exact: true,
         });
         await section.getByText('Offline published brief.').waitFor();
+        for (const timestamp of [
+          '2026-11-09T15:00:00Z',
+          '2026-11-10T15:00:00Z',
+        ]) {
+          const time = section.locator(`time[datetime="${timestamp}"]`);
+          assert.equal(
+            await time.innerText(),
+            new Date(timestamp).toLocaleString('en-US', {
+              timeZone,
+              timeZoneName: 'short',
+            }),
+          );
+        }
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        );
+
         assert.equal(
           await section
             .getByRole('link', { name: 'Read published edition' })
@@ -77,6 +100,7 @@ async function smoke() {
           `/editions/${id}`,
         );
         await page.screenshot({
+          fullPage: true,
           path: `docs/screenshots/ui/public-preview-detail-${device}-${theme}.png`,
         });
         for (status of [401, 403, 404, 503]) {
@@ -108,7 +132,7 @@ async function smoke() {
       }
     }
     console.log(
-      'Public preview detail: four offline views, restricted reads, empty topics, 401/403/404/503 and recovery pass.',
+      'Public preview detail: six offline views, restricted reads, empty topics, 401/403/404/503 and recovery pass.',
     );
   } finally {
     await browser.close();

@@ -67,11 +67,15 @@ export function PublicPreviewHistory() {
               <p className="text-sm text-[var(--secondary)]">
                 Coverage:{' '}
                 <time dateTime={entry.windowStart}>
-                  {new Date(entry.windowStart).toLocaleString()}
+                  {new Date(entry.windowStart).toLocaleString(undefined, {
+                    timeZoneName: 'short',
+                  })}
                 </time>
                 {' – '}
                 <time dateTime={entry.windowEnd}>
-                  {new Date(entry.windowEnd).toLocaleString()}
+                  {new Date(entry.windowEnd).toLocaleString(undefined, {
+                    timeZoneName: 'short',
+                  })}
                 </time>
               </p>
               <p className="text-sm">

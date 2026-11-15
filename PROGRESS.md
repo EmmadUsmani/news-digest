@@ -117,3 +117,14 @@ Archived: [iterations 2421–2429](docs/progress-archive/2026-11-15-2421-2429.md
 - Next: metrics ≥23:06 UTC; retained-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance Nov 16 15:00 UTC. Public mode ON; VM private.
 - Full check passes: 1,050 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; startup-aware health and scheduled-reader probes pass (five topics/23 stories/16 posts). `git diff --check` clean; no push blocker.
 - Initial push rejected: owner lead-note commit 8896a47c arrived during verification. Integrated it with a merge (no rewritten history or edits to owner files); retrying push. App code unchanged by the remote commit.
+
+## 2026-11-15: iteration 2438 — identify published-preview coverage timezones
+
+- Clean main at d3aee674; no inherited work. Alerts zero, health passes and all 38 sources healthy; scheduled/content acceptance and metrics follow-up remain time-gated.
+- Reader weakness: published-edition history/detail previews showed ambiguous local coverage times, unlike the reader archive. Both now show the local timezone; detail boundaries also retain machine-readable instants.
+- Expanded existing offline public-preview browser checks to New York/Tokyo and desktop/mobile/320px in both themes, checking exact localized boundaries and overflow alongside restricted reads/error recovery. Synthetic preview responses are explicitly offline, not live content.
+- Verification commands: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, both preview scripts in both timezones, scheduled-reader check and health. Receipts `/tmp/2438-*`; final results below.
+- No provider calls, sharing, selection or handbook behavior changes. Next: metrics ≥23:06 UTC, retained-job export by Nov 16 06:56 UTC, natural edition acceptance Nov 16 15:00 UTC.
+- Browser history check also contained stale denials for now-public `/admin/spend` and `/admin/tools`; restricted generation remains checked. Two shell-attached checks ended on SIGTERM (143), one during units and one after the final integration case; detached systemd check completed successfully.
+- Concurrent owner commits change sharing status to public and report `/db/` CSP/ELK failure plus deployment interruptions; preserved owner files unchanged and queued explicit breakage triage. No sharing change by this iteration.
+- Final verification: detached `pnpm check` exits 0 (1,050 unit/329 integration pass, four expected skips); public build, preview browser checks in both zones, targeted lint and `git diff --check` pass. Tokyo full-page narrow screenshots inspected. API/worker restarted; startup-aware health and scheduled-reader probes pass (five topics/23 stories/16 posts).

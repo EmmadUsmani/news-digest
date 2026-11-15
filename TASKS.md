@@ -11,6 +11,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] BREAKAGE triage from concurrent owner notes (2438): public `/db/` diagram reportedly fails with `ELK is not defined` because CSP blocks jsdelivr; verify and fix local asset delivery. Also verify reported blank pages during in-place web builds/API restarts and prepare atomic deployment under existing breakage priority. Sharing is now owner-enabled public; make no sharing changes.
+
 - [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
 
 - [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
@@ -54,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2438: published-edition history/detail previews identify coverage timezones; New York/Tokyo desktop/mobile/320px checks cover both themes.
 
 - [x] 2437: reviewed exact second Ukraine cohort: 13 new/35 repeated World post identities; preserved new reporting and event-overlap evidence, retained pilot unchanged.
 

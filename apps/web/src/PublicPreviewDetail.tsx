@@ -22,9 +22,18 @@ export function PublicPreviewDetail() {
       {result.data && !result.isError && (
         <>
           <p>
-            Coverage: {new Date(result.data.windowStart).toLocaleString()}
+            Coverage:{' '}
+            <time dateTime={result.data.windowStart}>
+              {new Date(result.data.windowStart).toLocaleString(undefined, {
+                timeZoneName: 'short',
+              })}
+            </time>
             {' – '}
-            {new Date(result.data.windowEnd).toLocaleString()}
+            <time dateTime={result.data.windowEnd}>
+              {new Date(result.data.windowEnd).toLocaleString(undefined, {
+                timeZoneName: 'short',
+              })}
+            </time>
           </p>
           <Link
             to="/editions/$id"
