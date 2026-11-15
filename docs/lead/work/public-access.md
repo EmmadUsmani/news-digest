@@ -7,9 +7,8 @@ Mac over HTTPS: reader, `/healthz` and latest edition `a0fa3916` return 200;
 a faked `X-ExeDev-Email` admin header; account sync gets 401 with our origin
 and 400 with a foreign one; no cookies issued. Admin and `/db/` pages are
 viewable read-only, as decided Nov 7. The VM can't reach its own public URL,
-so run these checks from the Mac. Undo:
-`ssh exe.dev share set-private news-digest`, then the rollback in
-[public-readiness.md](../../public-readiness.md).
+so run checks from the Mac. Undo: `share set-private`, then
+[public-readiness.md](../../public-readiness.md) rollback.
 
 **Owner decisions (Nov 7):**
 
@@ -23,8 +22,7 @@ so run these checks from the Mac. Undo:
   publicly viewable; launch without public Grafana (Nov 13); `/logs` and `/metrics` admin-only; all writes admin-only.
 - Sign-up is invite-only at launch. New topics shown by default.
 - Dev budget: Anthropic $5, xAI $2, one-time. xAI balance about $18 covers it.
-- Backfill: published editions keep working; owner confirms manual ones.
-- No skipped editions; flags undo each phase until the final clean-up.
+- Backfill keeps published editions; no skipped editions.
 - Nov 15: keep sign-in codes and guess limits as they are; the site isn't
   being shared widely. Harden later if needed.
 
@@ -41,5 +39,4 @@ so run these checks from the Mac. Undo:
    no longer counts. Owner to check `/account`.
 4. Watch the Nov 16 edition publish publicly. Fix `status.sh` edition step.
 
-**Owner gates later:** published manual editions (phase 0), email provider (phase 6), clean-up
-(phase 7).
+**Owner gates later:** manual editions, email provider, clean-up.
