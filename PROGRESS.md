@@ -147,3 +147,10 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. Seven staged tests, saved-timeline reproduction and local decision links pass. API/worker restart and health verification follow commit.
 - Initial push rejected by concurrent owner/lead commits; merged without conflicts or owner-file edits. New STEERING 60 authorizes the two inventoried artifacts: privileged `fuser` checks across 50 paths found no open references. Removed `/tmp/obs355` (254,668,800 allocated bytes) and `/tmp/news-digest-vmutils.tgz` (144,220,160); disk 78%→77%. Marked owner request resolved and acked item 60; no other cleanup.
 - API/worker restart and `/healthz` passed. Incoming commits only change steering/lead notes; no application rebuild needed after merge. Final doc formatting and diff checks pass; retrying push.
+
+## 2026-11-15: iteration 2330 — item 58 acceptance
+
+- Clean main at 576fd167; no inherited work. Alerts zero, database/Redis healthy, 38 sources healthy; next scheduled digest Nov 15 15:00 UTC with no failed digest jobs.
+- New owner STEERING 62 supersedes the all-topic AI gate. Acked item 58 against Nov 14 edition b9d55088-892a-4e34-b77c-a398d64c6a9f and owner proxy/TLS result; security fix commits and evidence retained in handoff. No lead/security rehearsal rerun.
+- Next: fresh private backup/baseline, activate server/web public mode while sharing stays private, verify deployed admission, then wait for next scheduled publication. No new spend or sharing changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), public `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass; existing bundle warning only. Activation follows this separate item 58 acknowledgement commit.

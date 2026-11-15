@@ -2695,6 +2695,8 @@ is fixed. Describe fixes by what they protect.
 > **Nov 13:** item 59 closes the proxy checks (owner passed them) and says what
 > follows item 58. Don't stop item 50 at the ack: continue with item 59.
 
+ack: 2026-11-15 item 58 — iteration 2330: items 1–9 and minor fixes deployed (fix commits in docs/phase4-security-handoff.md); item 10 proxy/TLS/live checks answered by the owner under item 59. Scheduled Nov 14 edition b9d55088-892a-4e34-b77c-a398d64c6a9f published with NBA AI editing after the fixes. Item 62 accepts this publication and closes item 58; continuing private-sharing public-mode activation, without rerunning the lead review.
+
 ## 59. NOW: fix NBA, then take public mode live privately; stop idling (2026-11-13)
 
 **Why:** from 21:41 UTC Nov 12 the agent ran 60+ iterations ending "no
