@@ -150,3 +150,12 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - Playwright passes all 12 synthetic loaded/failed/missing video cases across desktop/mobile light/dark; original destinations, accessible labels, fallback placement and overflow verified. Refreshed four failed-preview screenshots; inspected mobile light. Media variants are synthetic, not live evidence.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2416-{format,lint,check,build,reader,video}.log`. Initial check shell terminated during lint; reran in transient user service.
 - Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted and active; initial health raced startup, retry and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts). Next: metrics sample ≥19:01 UTC; Bluesky retained export by Nov 16 05:20 UTC. Public mode ON, VM private; sharing stays with owner.
+
+## 2026-11-15: iteration 2417 — restore public-mode image recovery verification
+
+- Clean main at e8238c4f; no inherited work. Alerts zero. Natural World/NBA acceptance and next metrics sample (≥19:01 UTC) remain pending.
+- Reader weakness: image-failure browser verification broke before rendering in public mode. Restored anonymous loopback visitor forwarding and explicit reader HTTP-status assertion, matching the deployed proxy admission contract.
+- Playwright passes 24 loaded/recovered/failed/same-URL cases across desktop/mobile/320px, light/dark: exact retry order, original destinations, alt text, keyboard focus, touch targets and overflow. Refreshed 12 synthetic-image screenshots; inspected narrow light failure fallback. No external media calls or publication writes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2417-{format,lint,check,build,reader,image}.log`.
+- Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted and active; initial probe raced startup, retry health and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts).
+- Next: metrics ≥19:01 UTC; retained Bluesky export by Nov 16 05:20 UTC. Public mode ON; VM private, sharing stays with owner.

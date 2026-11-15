@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2417: restored public-mode Bluesky image recovery verification; all 24 loaded/recovered/failed/same-URL desktop/mobile/narrow light/dark cases pass; synthetic screenshots refreshed.
+
 - [x] 2416: restored public-mode Bluesky video browser verification; loaded/failed/missing previews and original links pass 12 desktop/mobile light/dark cases, with refreshed synthetic-media screenshots.
 
 - [x] 2409: recorded all four Nov 15 World responses in offline production-decoder/full-validator tests; unchanged Sonnet repair recovers five stories and cache reuse, other responses remain refused. Natural acceptance pending.
