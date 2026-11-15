@@ -3308,3 +3308,12 @@ returned to its baseline query with 47 fetched/submitted observations.
 preserve baseline/Ukraine/baseline execution before queue retention prunes it.
 No collection settings or selection gates changed. First Gaza pass and full-day
 quality comparison remain pending; observation counts are not unique posts.
+
+### Nov 15 Tech Bluesky intake — iteration 2420
+
+Read-only saved-window reconstruction finds 426 observations and 49 safe engaged
+intake posts, all with exact cached triage scores. None reaches relevance 6 or
+interestingness 4; production shortlisting returns zero, matching the saved
+outcome. AI-art tags, political commentary and jokes dominate. No final-editor
+or shortlist-cap loss is established. Retain `AI`, gates and budgets; no new
+searches or paid calls. [Review](edition-reviews/2026-11-15-tech-social.md).
