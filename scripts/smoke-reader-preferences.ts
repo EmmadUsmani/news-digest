@@ -1,23 +1,32 @@
 // Saved editions only; no external calls or server writes.
 import assert from 'node:assert/strict';
 
-import { readerEditionSchema } from '@digest/contracts';
+import {
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
+  const headers = { 'X-Forwarded-For': '192.0.2.165' };
+  const read = async (path: string) => {
+    const response = await fetch(`${origin}${path}`, {
+      headers,
+      redirect: 'error',
+      signal: AbortSignal.timeout(15_000),
+    });
+    assert.equal(response.status, 200, `reader GET ${path}`);
+    return response.json();
+  };
+  const edition = readerEditionSchema.parse(await read('/api/editions/latest'));
+  const history = readerEditionHistorySchema.parse(
+    await read('/api/editions?offset=0'),
   );
-  const history = await (
-    await fetch(`${origin}/api/editions?limit=20&offset=0`)
-  ).json();
-  const older = history.entries.find(
-    (entry: { id: string }) => entry.id !== edition.id,
-  );
-  assert.ok(older);
+  const older = history.entries.find((entry) => entry.id !== edition.id);
+  assert.ok(older, 'a historical edition is required');
   const oldEdition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/${older.id}`)).json(),
+    await read(`/api/editions/${older.id}`),
   );
   assert.ok(
     oldEdition.topics.some((topic) => topic.id === edition.topics[0].id),
@@ -32,6 +41,7 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const writes: string[] = [],
           errors: string[] = [];
@@ -40,9 +50,21 @@ async function smoke() {
             writes.push(route.request().method());
             return route.abort();
           }
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          // Capture once, then replay across tabs and reloads without repeated
+          // reader admission or a race with scheduled publication.
+          if (
+            url.pathname === '/api/editions/latest' ||
+            url.pathname === `/api/editions/${edition.id}`
+          )
+            return route.fulfill({ json: edition });
+          if (url.pathname === `/api/editions/${oldEdition.id}`)
+            return route.fulfill({ json: oldEdition });
+          if (url.pathname === '/api/editions')
+            return route.fulfill({ json: history });
+          return route.continue();
         });
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));

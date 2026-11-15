@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2359: restored public-mode topic preference browser verification; hidden topics persist across historical editions/tabs, preserve saved items and recover from all-hidden/corrupt/blocked storage.
+
 - [x] 2358: restored public-mode account integration replay; desktop/mobile light/dark sign-out/deletion and two-device saved-story removal sync pass with fixture account transport.
 
 - [x] 2357: post Save controls identify X/Bluesky/Reddit and use readable local publication times in screen-reader labels, preserving author/time distinctions.

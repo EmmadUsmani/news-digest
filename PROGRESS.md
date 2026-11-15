@@ -107,3 +107,13 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial shell verification ended 143 during formatting; transient user-service rerun exited 0. Receipts `/tmp/2358-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private. No paid calls or source/editorial/budget/sharing changes.
 - Next: metrics probe ≥08:26 UTC; 15:00 UTC scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2359 — restore public-mode topic preference verification
+
+- Clean main at e381d9ef; no inherited work. Alerts zero; health/database/Redis and all 38 sources pass (`/tmp/2359-sources.log`).
+- Reader verification weakness: topic preference smoke failed parsing public-mode admission refusal (`/tmp/2359-before.log`), leaving hide/show persistence and storage recovery unverified.
+- Capture latest/history/older edition once with an explicit test visitor and checked HTTP/contracts, then replay those real saved bodies across reloads/tabs. External traffic, writes and admin API requests remain blocked.
+- `pnpm exec tsx scripts/smoke-reader-preferences.ts` passes desktop/mobile light/dark: hide/show across reloads and history, all-hidden recovery, cross-tab sync, tombstones, saved-copy preservation and corrupt/blocked storage. Receipt `/tmp/2359-browser.log`; refreshed twelve screenshots and inspected mobile light topic menu.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2359-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
+- Next: metrics probe ≥08:26 UTC; 15:00 UTC scheduled publication/access gate and separate editorial recovery review.
