@@ -1,6 +1,6 @@
 # Disk space
 
-**Status (04:40 UTC Nov 15):** owner flagged this as the next priority to work
+**Status (22:30 UTC Nov 15, disk 78%, 5.3 GB free):** owner flagged this as the next priority to work
 on together. Not started, not steered. Disk 76% of 25 GB (5.7 GB free); the
 warning is at 80%, and test runs already cross it briefly.
 

@@ -1,14 +1,13 @@
 # Edition quality
 
-**Status (01:50 UTC Nov 15):** Nov 14 edition (`b9d55088`) fixed triage:
-all 19 calls dispatched, none expired. NBA and Tech were AI-edited (NBA passed
-on repair, so item 59's NBA check closes). Two new breakages: the joint
-World/U.S. ownership call hit its 4,096-token output limit (`max_tokens`), so
-both withheld stories; Gaming's editor failed validation and JSON, so it shipped
-source excerpts (four GTA cards). Fixes deployed by the agent: compact ownership
-IDs (`336a0917`), concise Gaming JSON (`d0a8900e`), deploy `54f5b742`. No caps
-raised. AI $0.475 of $0.65. Review:
-[docs/edition-reviews/2026-11-14.md](../../edition-reviews/2026-11-14.md).
+**Status (22:30 UTC Nov 15):** Nov 15 edition `a0fa3916` published on time
+(15:03 UTC): five topics, 23 stories, 16 posts, AI $0.518 of $0.65. Gaming
+recovered (Sonnet); World and U.S. both published, with no shared events.
+World stories fell back to source excerpts: a guard rejected paraphrases of
+"must not" warnings, and Haiku wrapped JSON in fences. Fixed after the
+edition (`0316f305`, `1fd56c87`). NBA ran a fake-Shams injury post from the
+spoof account TheNBACentel; that account is now excluded (`3b631378`).
+Review: [docs/edition-reviews/2026-11-15.md](../../edition-reviews/2026-11-15.md).
 
 **Latest:**
 
@@ -20,10 +19,10 @@ raised. AI $0.475 of $0.65. Review:
 
 **Next:**
 
-1. Nov 15 15:00 UTC edition: World and U.S. publish stories (ownership under
-   its output limit), Gaming AI-edited. If either fails again, it's a repeat
-   breakage: propose steering. Item 50's private activation waits on this.
-2. Tech summary depth: three of four Nov 14 Tech summaries were headline-deep.
-   On Current order after item 50 and Bluesky (item 59).
+1. Nov 16 edition: World AI-edited, no spoof posts in NBA, Gaming still
+   AI-edited. If World falls back again, it's a repeat breakage: propose
+   steering.
+2. Tech summary depth: three of four Nov 15 Tech stories had no saved prose
+   and headline-deep summaries. Item 6 on Current order.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
