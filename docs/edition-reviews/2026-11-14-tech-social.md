@@ -79,3 +79,21 @@ saved metadata. Private receipts: `/tmp/2322-tech-receipt.json` and
 cache-only triage substitute and rolls back its read-only transaction. Current
 stored observations and policy are a reconstruction, not an exact historical
 request replay. No inference, collection, publication or database writes.
+
+## Saved X media fallback — iteration 2325
+
+The saved FAA post remains readable with X widgets blocked: its complete saved
+text, author, timestamp, original destination and expandable context remain
+available. The browser check also covers every selected X post's failure state.
+A local widget stub exercises retry, keyboard recovery, width changes and saved
+text disclosure persistence across theme changes at 1440, 390 and 320 pixels in
+light and dark modes. All six views pass without writes or external requests.
+This establishes reader fallback behavior, not live X media availability.
+
+Refreshed desktop/mobile light/dark `x-media-failure-*` screenshots from the
+Nov 14 saved edition; inspected mobile light. Other incidental screenshot
+refreshes were discarded. `pnpm exec tsx scripts/smoke-reader-x-media.ts` passes
+(private receipt `/tmp/2325-media.log`). The independent saved mixed-publisher
+coverage browser check also passes; its screenshots were discarded. No reader,
+editorial, discovery, budget or activation setting changed. Scheduled acceptance
+for Gaming and World/U.S. remains required before public activation.

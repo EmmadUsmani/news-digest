@@ -101,3 +101,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Browser check now passes desktop/mobile light/dark with external traffic blocked; refreshed its four screenshots and inspected mobile light. Synthetic context-expansion check also passes all four views; discarded its unrelated screenshot refreshes.
 - No provider/source requests, production writes, runtime settings, schema or system-flow changes; SOURCES and handbook unchanged. Verification receipts `/tmp/2324-*.log`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. `pnpm obs sources --check`: 38/38 healthy. API/worker restart and health verification follow commit.
+
+## 2026-11-15: iteration 2325 — saved X fallback evidence
+
+- Clean main; no inherited work. Alerts zero, health passes and all 38 sources healthy. Scheduled acceptance and metrics probe not due; public mode off/VM private.
+- Reader concern: selected X posts must stay readable when third-party media is unavailable. The owner would notice missing text or broken recovery beside already-thin topic sections.
+- `pnpm exec tsx scripts/smoke-reader-x-media.ts` passes desktop/mobile/320px light/dark: saved text, all selected failure states, original links, retry/keyboard recovery and theme persistence. Recovery uses a local widget stub, not live X.
+- Recorded evidence in Tech social review and refreshed four desktop/mobile fallback screenshots; inspected mobile light. Discarded all other incidental screenshot refreshes. No observed app defect or code change.
+- `pnpm exec tsx scripts/smoke-reader-coverage-count.ts` also passes all four views; discarded its screenshot refreshes. No external requests, provider calls, production writes or configuration changes; handbook/SOURCES unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Private receipts `/tmp/2325-*.log`.
