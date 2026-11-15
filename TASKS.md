@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2368: strengthened public-mode archive/saved keyboard navigation verification to require published history links and an error-free saved-items empty state; four browser variants pass.
+
 - [x] 2367: restored public-mode reading-position browser verification; opening deep links align and changed background refreshes preserve the reader’s later position across desktop/mobile themes.
 
 - [x] 2366: restored public-mode hidden-destination browser verification; hidden story/post links reveal their topic, focus the destination and persist across reloads.

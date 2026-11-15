@@ -1,10 +1,20 @@
-// Read-only navigation against the deployed reader; external requests blocked.
+// Saved-history replay: keyboard navigation must reach usable reader pages.
 import assert from 'node:assert/strict';
 
+import { readerEditionHistorySchema } from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
+  const headers = { 'X-Forwarded-For': '192.0.2.172' };
+  const response = await fetch(`${origin}/api/editions?offset=0`, {
+    headers,
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'Capture published history');
+  const history = readerEditionHistorySchema.parse(await response.json());
+  assert.ok(history.entries.length, 'Published history contains editions');
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -15,16 +25,21 @@ async function smoke() {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          if (url.pathname === '/api/editions')
+            return route.fulfill({ json: history });
+          return route.continue();
         });
         await page.goto(`${origin}/editions`);
+        await expect(page.locator('main li').first()).toBeVisible();
         for (const [label, path, heading, name] of [
           ['Saved items', '/saved', 'Saved items', 'saved'],
           ['Past editions', '/editions', 'Past editions', 'archive'],
@@ -48,6 +63,17 @@ async function smoke() {
           await expect(
             page.getByRole('heading', { name: heading, exact: true }),
           ).toBeVisible();
+          if (name === 'archive') {
+            const date = page.locator('main li').first().getByRole('link');
+            await expect(date).toBeVisible();
+            await expect(date).toHaveAttribute(
+              'href',
+              `/editions/${history.entries[0].id}`,
+            );
+          } else {
+            await expect(page.getByText('No saved items yet.')).toBeVisible();
+          }
+          await expect(page.getByRole('alert')).toHaveCount(0);
           assert.ok(
             await page.evaluate(
               () => document.documentElement.scrollWidth <= innerWidth,

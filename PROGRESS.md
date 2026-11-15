@@ -134,3 +134,13 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
 - `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`: 09:31–09:34, 24 healthy rules, four small merges/149,209 rows, no big merge or new failures/admission hits/timeouts/slow queries. User warning journal empty since 08:30; second comparable natural merge still pending. Limits unchanged (`/tmp/2367-metrics.log`).
 - Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2368 — verify usable archive/saved navigation
+
+- Clean main at 772e71ed; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2368-{health,sources}.log`).
+- Reader weakness: navigation smoke accepted page headings without checking history dates or error alerts. Baseline passed despite this gap (`/tmp/2368-before.log`).
+- Capture checked published history through an explicit documentation-range visitor; replay it while blocking external requests, admin routes and writes. Require published date links, correct edition destinations, saved-items empty state and no alerts.
+- `pnpm exec tsx scripts/smoke-reader-navigation.ts` passes desktop/mobile light/dark: keyboard navigation, 44px targets, usable content, no errors or overflow. Eight screenshots refreshed; inspected mobile dark archive (`/tmp/2368-browser.log`).
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2368-{format,lint,check}.log`. `git diff --check` passes.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
+- Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
