@@ -158,4 +158,15 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - Playwright passes 24 loaded/recovered/failed/same-URL cases across desktop/mobile/320px, light/dark: exact retry order, original destinations, alt text, keyboard focus, touch targets and overflow. Refreshed 12 synthetic-image screenshots; inspected narrow light failure fallback. No external media calls or publication writes.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader and `git diff --check`; receipts `/tmp/2417-{format,lint,check,build,reader,image}.log`.
 - Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted and active; initial probe raced startup, retry health and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts).
+- Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted, active; post-restart health and scheduled reader pass.
+- Next: metrics ≥19:01 UTC; retained Bluesky export by Nov 16 05:20 UTC. Public mode ON; VM private, sharing stays with owner.
+
+## 2026-11-15: iteration 2418 — restore public-mode Bluesky source-link verification
+
+- Clean main at cda205fb; no inherited work. Alerts zero; health passes and API/worker active. Natural World/NBA acceptance and ≥19:01 UTC metrics sample remain pending.
+- Confirmed saved-source-link browser check failed decoding the public-mode loopback refusal. Restored anonymous visitor forwarding and explicit HTTP-status assertion; no identity or runtime changes.
+- Playwright passes six desktop/mobile/320px light/dark cases using a real saved Bluesky post: exact text, original/source destinations, keyboard focus and contained layout. Refreshed six screenshots; inspected narrow light.
+- Scheduled reader gate passes a0fa3916, five topics/23 stories/16 posts. No publication writes, external media requests or paid calls.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `pnpm exec tsx scripts/smoke-reader-bluesky-links.ts`, scheduled reader and `git diff --check`; receipts `/tmp/2418-{format,lint,check,build,links,reader}.log`.
+- Full check passes: 1,049 unit/329 integration, four expected skips; public build passes. API/worker restarted, active; post-restart health and scheduled reader pass.
 - Next: metrics ≥19:01 UTC; retained Bluesky export by Nov 16 05:20 UTC. Public mode ON; VM private, sharing stays with owner.
