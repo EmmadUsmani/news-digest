@@ -12,61 +12,7 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 
 Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md).
 
-## 2026-11-15: iteration 2387 — restore public-mode post-context browser checks
-
-- Clean main at 33f56f05; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy. Digest queue has zero failures and next run at 15:00 UTC.
-- Reproduced browser-tooling breakage: post-context smoke receives HTTP 429 before reaching its assertions because public-mode visitor admission is missing. Added the loopback visitor header to browser and API requests, granting no identity.
-- `pnpm exec tsx scripts/smoke-reader-context-targets.ts` passes six 1440/390/320px light/dark variants against nine actual published notes: source-context agreement, 44px controls, keyboard toggle/focus, touch expansion, overflow and browser errors. GET/HEAD only; external requests blocked. Six screenshots refreshed; 320px light inspected.
-- No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or service restart needed; deployment freeze preserved.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2387-{before,browser,format,lint,check}.log`.
-- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
-
-## 2026-11-15: iteration 2388 — restore primary-source destination replay
-
-- Clean main at 245087ae; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy. Digest queue has zero failures and next scheduled run at 15:00 UTC.
-- Reproduced browser-tooling breakage: primary-source replay fails JSON parsing before opening the browser because public-mode visitor admission is missing. Added the loopback visitor header to API/browser requests and an explicit HTTP-status assertion; grants no identity.
-- `pnpm exec tsx scripts/smoke-reader-primary-source.ts` passes desktop/mobile light/dark: primary publisher points to the primary report despite reordered coverage, other publisher points to its report, all three coverage destinations remain intact, no card overflow or browser errors. Existing synthetic coverage replay on a saved edition; GET only, external traffic blocked, no writes.
-- Four synthetic-replay screenshots refreshed; mobile light inspected. No runtime, generation, source, provider, spend or sharing changes; no handbook update, build or restart needed. Deployment freeze preserved.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial nonpersistent lint process terminated 143; persistent-terminal rerun succeeds. Receipts `/tmp/2388-{before,browser,format,lint,check}.log`.
-- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
-
-## 2026-11-15: iteration 2389 — passive metrics recovery follow-up
-
-- Clean main at 7d39e17f; no inherited work. `pnpm obs alerts` reports zero; `/healthz` database/Redis healthy; API/worker active. `pnpm obs sources --check` passes all 38 sources; `pnpm obs jobs --check` passes, digest failures zero, next edition 15:00 UTC.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 13:47:09–39 UTC: 24 fresh healthy rules, four uncached queries ≤1.273 s; no new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries. Both process starts unchanged.
-- One small merge/16,413 rows during sample; 57 small merges/1,489,036 rows since previous sample, no big merge. Below comparable-merge threshold; recovery acceptance stays open. Warning-level metrics/alerts user journal since 12:46 UTC has no entries.
-- Read-only evidence only; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2389-{metrics.jsonl,sources.log,jobs.log}`.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Check receipts: `/tmp/2389-{format,lint,check}.log`.
-- Next: passive sample ≥14:48 UTC; scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC.
-
-## 2026-11-15: iteration 2390 — restore public-mode headline browser checks
-
-- Clean main at 2768f8fb; no inherited work. Alerts zero; health database/Redis healthy; all 38 sources healthy. Digest queue has zero failures, next run 15:00 UTC.
-- Reproduced headline browser check failure: latest-edition request returns 429 without public-mode visitor admission. Added the loopback visitor header to browser/API context; grants no identity.
-- `pnpm exec tsx scripts/smoke-reader-headline-targets.ts` passes all 14 published headline titles/destinations, 44px targets, keyboard focus, overflow and browser-error checks across 1440/390/320px light/dark. External requests blocked; no writes.
-- Six screenshots refreshed; 320px light inspected. Existing source-target smoke also passes six variants; incidental screenshots discarded deliberately.
-- No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or restart needed; 13:00–16:00 deployment freeze preserved.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips; check receipts `/tmp/2390-{before,headline-before,browser,format,lint,check}.log`.
-- Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.
-
-## 2026-11-15: iteration 2391 — pre-edition recovery supply evidence
-
-- Clean main at abcdc33d; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy; digest failures zero, next scheduled run 15:00 UTC.
-- Reader value: an empty Gaming/World/U.S. section needs diagnosis against available reporting, while thin Tech summaries need comparison with actually supplied prose.
-- Read-only `pnpm exec tsx scripts/capture-triage-pool.ts 2026-11-14T15:00:00Z 2026-11-15T15:00:00Z /tmp/2391-pool.json` at 14:08 UTC: eligible Tech/NBA/Gaming/World/U.S. 113/63/61/124/33; no URL-only excerpts; all pools below newest-200 limit.
-- Added prospective supply table and concrete review anchors to Nov 15 review. Six World/U.S. shared eligible IDs; Gaming has substantive League reporting; Tech 103/113 excerpts empty and two of ten nonempty entries are a tiny description/shopping roundup. No final selection or recovery acceptance inferred.
-- No model/cache/queue calls, generation/source/runtime changes, spend or sharing changes. Documentation only; no build/restart needed; deployment freeze preserved. Sources/jobs receipts `/tmp/2391-{sources,jobs}.log`.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2391-{format,lint,check}.log`.
-- Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. Use natural saved inputs, not this prospective pool, for exact editorial attribution.
-
-## 2026-11-15: iteration 2397 — due passive metrics sample
-
-- Clean main at d8b9f496; no inherited work. `pnpm obs alerts` zero; `/healthz` database/Redis healthy; API/worker active. `pnpm obs sources --check` passes all 38 sources; `pnpm obs jobs --check` passes, digest failures zero, next edition 15:00 UTC.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 14:48:09–40 UTC: 24 fresh healthy rules, four uncached queries ≤1.829 s; no new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries. Process starts unchanged.
-- One small merge/1,482 rows during sample; 64 small merges/1,655,119 rows since previous sample, no big merge. Below five-million-row comparable threshold; recovery acceptance remains open. Metrics/alerts warning journal since 13:47 UTC has no entries.
-- Read-only evidence; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2397-{metrics.jsonl,sources.log,jobs.log}`.
-- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts: `/tmp/2397-{format,lint,check}.log`.
-- Next: scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC; passive metrics sample ≥15:49 UTC.
+Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md).
 
 ## 2026-11-15: iteration 2398 — scheduled public-mode gate accepted
 
@@ -157,3 +103,12 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Exact grouping fingerprint misses cache; historical grouped editor membership is unavailable, so no new admission loss is established. Retain Nov 14 decision and production rules; no ranking variants, external calls, cache writes, source requests or spend.
 - Evidence assertions pass via `pnpm exec tsx /tmp/2406-tech.ts`; receipts `/tmp/2406-tech.{ts,json,log}`. No app/source/schema/handbook behavior change. Next: natural World/NBA acceptance and next daily Tech evidence review; metrics sample remains due ≥16:54 UTC.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, receipt assertions and `git diff --check` pass: 1,045 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` passed; receipts `/tmp/2406-{format,lint,check,build}.log`.
+
+## 2026-11-15: iteration 2407 — second-week X reliability and yield
+
+- Clean main at 19fddff0; no inherited work. Alerts zero; `pnpm obs health`, `pnpm obs sources --check` (38 healthy), and `pnpm obs jobs --check` (four workers) pass.
+- Owner value: separates dependable paid discovery from useful selection; 32/32 Nov 9–15 keyword calls completed, $2.100622 spent, zero holds, 312 newly verified candidates/305 outside-list. No paid calls or settings changes.
+- Added second-week source report and updated task evidence: 50 saved selection matches/44 outside-list, explicitly not distinct or causal paid yield. Nov 15 spoof remains a quality failure already addressed by deployed exclusion; natural acceptance pending.
+- Read-only `report-x-week.ts 2026-11-15` plus seven `report-x-discovery.ts` reports reconcile with Python assertions for costs, calls, holds, candidate totals and selections; private `/tmp/2407-x-*.json` receipts. No source/schema/handbook behavior changes.
+- Archived iterations 2387–2397 as PROGRESS exceeded about 25 KB. `pnpm format`, `pnpm lint:fix`, full `pnpm check`, receipt assertions and public-mode build passed: 1,045 unit/329 integration tests, four expected skips. Receipts `/tmp/2407-{format,lint,check,build}.log`.
+- Scheduled-reader gate passes: edition a0fa3916, five topics/23 stories/16 posts. API/worker restart and post-restart health verified. Next: natural World/NBA recovery; metrics passive sample due ≥16:54 UTC. Public mode ON; VM private pending owner sharing decision.

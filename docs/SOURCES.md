@@ -31,6 +31,40 @@ current rolling window); U.S. has resumed with 417 observations.
 [Read-only pool evidence](edition-reviews/2026-11-12-bluesky-pool.md).
 No collection/query or source status change.
 
+### Nov 9–15 production X report — iteration 2407
+
+Read-only saved-ledger capture at Nov 15 16:40 UTC. All 32 keyword calls
+succeeded with completed tool execution, 320 fetched posts and zero remaining
+holds. U.S. joined Nov 12 (four calls); the other topics each have seven.
+Nov 15 is still an incomplete UTC day.
+
+| Topic     | Calls |      Cost | New verified / outside-list |
+| --------- | ----: | --------: | --------------------------: |
+| Tech & AI |     7 | $0.461545 |                     67 / 66 |
+| NBA       |     7 | $0.454523 |                     68 / 66 |
+| Gaming    |     7 | $0.459090 |                     70 / 66 |
+| World     |     7 | $0.462975 |                     67 / 67 |
+| U.S.      |     4 | $0.262489 |                     40 / 40 |
+| Total     |    32 | $2.100622 |                   312 / 305 |
+
+Daily cost / saved selected-citation matches (outside-list matches):
+Nov 9 $0.260092 / 2 (2); Nov 10 $0.260932 / 6 (4);
+Nov 11 $0.263845 / 7 (7); Nov 12 $0.327795 / 9 (8);
+Nov 13 $0.330667 / 8 (8); Nov 14 $0.326709 / 8 (5);
+Nov 15 $0.330582 / 10 (10). Each recorded day is below $0.40.
+
+Counts sum call-level evidence, using saved new-candidate baselines and current
+verification/account lists. The 50 selection matches (44 outside-list) do not
+establish distinct posts, incremental paid benefit or viral quality. In
+particular, Nov 15 NBA includes the spoof already diagnosed in the
+[daily review](edition-reviews/2026-11-15.md); its exclusion awaits the next
+natural edition. Search reliability alone does not accept selection quality.
+No model, budget, query or source changes and no provider calls.
+
+Reproduce with `pnpm exec tsx scripts/report-x-week.ts 2026-11-15` and
+`pnpm exec tsx scripts/report-x-discovery.ts YYYY-MM-DD` for Nov 9–15.
+Private receipts: `/tmp/2407-x-week.json`, `/tmp/2407-x-{09..15}.json`.
+
 ### Nov 8 daily and first-week production X report — iteration 1381
 
 Iteration 1385 selected-citation review: all eight picks have recorded new-candidate

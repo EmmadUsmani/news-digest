@@ -32,7 +32,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
 
-- [ ] STEERING 9/15 report: Nov 2–8 $1.036785, 28 calls, 131 new verified candidates/115 outside-list. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
+- [ ] STEERING 9/15 report: Nov 9–15 $2.100622, 32/32 completed keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list; quality remains open. [Weekly evidence](docs/SOURCES.md#nov-915-production-x-report--iteration-2407). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
 
 - [ ] STEERING 18 Bluesky: U.S. Congress query restored natural selection; retain current queries. World discovery pilot default-off, activation follows item 58/public-mode gates. Overall social quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-12).
 
