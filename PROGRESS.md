@@ -97,3 +97,12 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Updated decision 0005 and TASKS.md. Next: integrate owned balances into the four-slot event/draining simulation and measure actual saved-request bounds; production stays unchanged. Natural Gaming/World/U.S. recovery and public-mode scheduled publication gate remain pending.
 - Verification: 14 targeted experiment tests pass; `pnpm format`, `pnpm lint:fix`, public `VITE_PUBLIC_MODE=1 pnpm build` and diff checks pass (existing bundle warning only). `pnpm check` passes: 1,034 unit and 329 integration tests, four expected skips. Logs `/tmp/2333-*.log`.
 - No service restart: no running code/config changed, following STEERING 22; current runtime remains the deployed main implementation.
+
+## 2026-11-15: iteration 2334 — four-slot owned scheduling and draining
+
+- Clean main at e359743e; no inherited work. `pnpm obs alerts` zero, `pnpm obs health --check` healthy, source check passes; digest queue has one worker/no failures and next edition 15:00 UTC. No repeated metrics probe or generation.
+- Extended the isolated event simulator with optional owner envelopes, atomic call transfers and explicit validation release. No runtime imports, provider calls, budget or sharing changes.
+- Cap-11 synthetic comparison: owned scheduling protects NBA repair at 30 ms but refuses U.S.; whole-topic ordering admits both at 60 ms. Reject the shorter incomplete result as a speedup. Peak owned exposure 11.
+- Four-active-call failure cancels queued editor/repair, drains through 30 ms, charges 5 units once and releases balances; peak exposure 17/20. Successful validation frees repair balance before dependent admission; invalid ownership/bounds fail closed.
+- Updated decision 0005 and TASKS.md. Next: saved-request bounds and bounded waiting feasibility. Natural scheduled recovery/public publishing acceptance still pending; no restart needed under STEERING 22 because no running code/config changed.
+- Verification: 18 targeted experiment tests pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,038 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass. Existing bundle warning only. Logs `/tmp/2334-*.log`.

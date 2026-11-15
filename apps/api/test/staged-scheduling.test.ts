@@ -160,3 +160,124 @@ void test('unrelated failures cannot hide cyclic scenario dependencies', () => {
     );
   }
 });
+
+void test('owned four-slot scheduling protects NBA repair but refuses early U.S. work', () => {
+  const jobs: SchedulingJob[] = [
+    { ...job('nba-initial', [], 4, 1, 20), owner: 'nba' },
+    { ...job('pair', [], 1, 1), owner: 'pair', releaseOwner: true },
+    {
+      ...job('us-editor', ['pair'], 6, 1, 30),
+      owner: 'us',
+      releaseOwner: true,
+    },
+    {
+      ...job('nba-repair', ['nba-initial'], 6, 1),
+      owner: 'nba',
+      releaseOwner: true,
+    },
+  ];
+  const result = simulateStagedScheduling(jobs, 11, 0, {
+    nba: 10,
+    pair: 1,
+    us: 6,
+  });
+  assert.ok(
+    result.trace.some(
+      (row) => row.id === 'us-editor' && row.event === 'refused',
+    ),
+  );
+  assert.ok(
+    result.trace.some(
+      (row) => row.id === 'nba-repair' && row.event === 'settle',
+    ),
+  );
+  assert.deepEqual(result.accounting, {
+    spent: 3,
+    held: 0,
+    owned: 0,
+    total: 3,
+    peak: 11,
+  });
+  assert.equal(result.elapsedMs, 30);
+  const serialized = simulateStagedScheduling(
+    [
+      job('nba-initial', [], 4, 1, 20),
+      job('pair', [], 1, 1),
+      job('nba-repair', ['nba-initial'], 6, 1),
+      job('us-editor', ['pair', 'nba-repair'], 6, 1, 30),
+    ],
+    11,
+  );
+  assert.equal(serialized.spent, 4);
+  assert.equal(serialized.elapsedMs, 60);
+  assert.ok(!serialized.trace.some((row) => row.event === 'refused'));
+});
+
+void test('owned failure drains four active slots and releases queued repair balances', () => {
+  const result = simulateStagedScheduling(
+    [
+      { ...job('failed', [], 2, 1), owner: 'a', fails: true },
+      { ...job('slow', [], 2, 2, 30), owner: 'b' },
+      { ...job('same-time', [], 2, 1), owner: 'c' },
+      { ...job('fourth', [], 2, 1, 20), owner: 'd' },
+      { ...job('fifth'), owner: 'e' },
+      { ...job('repair', ['slow'], 3, 2), owner: 'b', releaseOwner: true },
+    ],
+    20,
+    0,
+    { a: 4, b: 5, c: 4, d: 4, e: 1 },
+  );
+  assert.equal(result.failed, true);
+  assert.equal(result.elapsedMs, 30);
+  assert.deepEqual(result.accounting, {
+    spent: 5,
+    held: 0,
+    owned: 0,
+    total: 5,
+    peak: 17,
+  });
+  assert.deepEqual(
+    result.trace.filter((row) => row.event === 'start').map((row) => row.id),
+    ['failed', 'slow', 'same-time', 'fourth'],
+  );
+  assert.deepEqual(
+    result.trace
+      .filter((row) => row.event === 'cancelled')
+      .map((row) => row.id),
+    ['fifth', 'repair'],
+  );
+});
+
+void test('successful validation releases unused repair balance before queued admission', () => {
+  const result = simulateStagedScheduling(
+    [
+      { ...job('nba', [], 4, 1), owner: 'nba', releaseOwner: true },
+      { ...job('us', ['nba'], 6, 1), owner: 'us', releaseOwner: true },
+    ],
+    10,
+    0,
+    { nba: 10, us: 6 },
+  );
+  assert.equal(result.spent, 2);
+  assert.equal(result.accounting?.peak, 10);
+  assert.ok(!result.trace.some((row) => row.event === 'refused'));
+});
+
+void test('invalid owned scenarios fail rather than inventing admissible capacity', () => {
+  assert.throws(() => simulateStagedScheduling([job('missing')], 10, 0, {}));
+  assert.throws(() => simulateStagedScheduling([], 10, 1, {}));
+  assert.throws(() => simulateStagedScheduling([], 10, 0, { a: -1 }));
+  assert.throws(
+    () =>
+      simulateStagedScheduling(
+        [
+          { ...job('initial', [], 2), owner: 'a' },
+          { ...job('repair', ['initial'], 3), owner: 'a' },
+        ],
+        10,
+        0,
+        { a: 4 },
+      ),
+    /Owned balance exceeded/,
+  );
+});

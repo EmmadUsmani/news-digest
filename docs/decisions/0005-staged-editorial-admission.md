@@ -118,3 +118,26 @@ Next: integrate owned admission with the four-slot event simulator, including
 failure draining and per-topic comparisons, then size actual saved request
 bounds. Do not implement production envelopes or claim a speedup from this
 model; unchanged caps and all-topic acceptance remain rejection criteria.
+
+## Four-slot owned scheduling result — iteration 2334
+
+The event simulator now optionally uses the isolated ownership ledger. Each
+scenario supplies owner bounds, call owners and the validation point that
+releases unused repair capacity. No production caller uses these options.
+
+- The same cap-11 fixture completes NBA repair at 30 ms but refuses U.S.
+  editing; whole-topic ordering admits both and finishes at 60 ms. The shorter
+  result loses a topic and is rejected as a speedup. Peak owned exposure is 11.
+- A failure with four running calls cancels the fifth and a queued repair,
+  drains the slowest call through 30 ms, charges 5 units and releases all
+  unused balances. Peak exposure is 17 of 20 units. Equal-time settlements do
+  not open a dispatch window after failure.
+- Successful validation releases unused repair capacity before a dependent
+  editor's admission. Missing ownership, invalid bounds and a repair exceeding
+  its owned balance fail the experiment rather than borrowing silently.
+
+These are synthetic scenarios, not saved-request measurements. Failure cases
+have definite settlements; uncertain dispatch holds remain covered by the
+separate ledger recovery tests. Next: measure saved-request bounds and test a
+bounded waiting policy against whole-topic admission before considering any
+runtime design. Production scheduling, caps and public activation are unchanged.

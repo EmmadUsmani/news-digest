@@ -1,5 +1,7 @@
 // Offline scheduling experiment only. Durations and costs are supplied scenarios,
 // never inferred provider traces or production budget decisions.
+import { EditorialEnvelopeModel } from './editorial-envelope';
+
 export interface SchedulingJob {
   id: string;
   after: string[];
@@ -7,13 +9,27 @@ export interface SchedulingJob {
   reservation: number;
   cost: number;
   fails?: boolean;
+  owner?: string;
+  releaseOwner?: boolean;
 }
 
 export function simulateStagedScheduling(
   jobs: readonly SchedulingJob[],
   budget: number,
   protectedBudget = 0,
+  envelopes?: Readonly<Record<string, number>>,
 ) {
+  const ledger = new EditorialEnvelopeModel(budget);
+  const opened = new Set<string>();
+  const rejectedOwners = new Set<string>();
+  if (
+    envelopes &&
+    (protectedBudget !== 0 ||
+      Object.entries(envelopes).some(
+        ([owner, bound]) => !owner || !Number.isSafeInteger(bound) || bound < 0,
+      ))
+  )
+    throw new Error('Invalid envelope configuration');
   const ids = new Set(jobs.map((job) => job.id));
   if (
     ids.size !== jobs.length ||
@@ -24,6 +40,10 @@ export function simulateStagedScheduling(
     jobs.some(
       (job) =>
         !job.id ||
+        (envelopes !== undefined &&
+          (!job.owner || !Object.hasOwn(envelopes, job.owner))) ||
+        (envelopes === undefined &&
+          (job.owner !== undefined || job.releaseOwner !== undefined)) ||
         job.after.some((id) => !ids.has(id)) ||
         [job.durationMs, job.reservation, job.cost].some(
           (value) => !Number.isSafeInteger(value) || value < 0,
@@ -69,10 +89,25 @@ export function simulateStagedScheduling(
         trace.push({ id: job.id, time, event: 'blocked' });
       } else if (active.length < 4 && job.after.every((id) => done.has(id))) {
         pending.splice(i, 1);
-        if (spent + held + job.reservation + protectedBudget > budget) {
+        if (
+          envelopes &&
+          !opened.has(job.owner!) &&
+          !rejectedOwners.has(job.owner!)
+        ) {
+          if (ledger.open(job.owner!, 1, envelopes[job.owner!]))
+            opened.add(job.owner!);
+          else rejectedOwners.add(job.owner!);
+        }
+        if (
+          envelopes
+            ? rejectedOwners.has(job.owner!)
+            : spent + held + job.reservation + protectedBudget > budget
+        ) {
           refused.add(job.id);
           trace.push({ id: job.id, time, event: 'refused' });
         } else {
+          if (envelopes)
+            ledger.transfer(job.owner!, 1, job.id, job.reservation);
           held += job.reservation;
           active.push({ job, finish: time + job.durationMs });
           trace.push({ id: job.id, time, event: 'start' });
@@ -93,6 +128,10 @@ export function simulateStagedScheduling(
         active.splice(i, 1);
         held -= item.job.reservation;
         spent += item.job.cost;
+        if (envelopes) {
+          ledger.settle(item.job.id, item.job.cost);
+          if (item.job.releaseOwner) ledger.close(item.job.owner!, 1);
+        }
         if (item.job.fails) {
           failed = true;
           trace.push({ id: item.job.id, time, event: 'failed' });
@@ -103,5 +142,21 @@ export function simulateStagedScheduling(
       } else i++;
     }
   }
-  return { elapsedMs: time, spent, held, protectedBudget, failed, trace };
+  // Drain every dispatched call before fencing/releasing unused ownership.
+  // This models definite settlements only; uncertain calls belong in recovery tests.
+  if (envelopes)
+    for (const owner of opened) {
+      ledger.fence(owner, 1);
+      ledger.recover(owner, 1, 2);
+    }
+  const accounting = envelopes ? ledger.snapshot() : undefined;
+  return {
+    accounting,
+    elapsedMs: time,
+    spent,
+    held,
+    protectedBudget,
+    failed,
+    trace,
+  };
 }
