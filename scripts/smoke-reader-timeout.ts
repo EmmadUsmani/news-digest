@@ -6,8 +6,12 @@ import { chromium } from 'playwright';
 import { localAdminJson } from './lib/local-admin-fetch';
 
 const base = 'http://127.0.0.1:8000';
+// Documentation-range visitor for fixed loopback public reads; no account identity.
+const visitor = '192.0.2.166';
 async function savedEdition() {
   const response = await fetch(`${base}/api/editions/latest`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
     signal: AbortSignal.timeout(15000),
   });
   assert.equal(response.status, 200);
@@ -15,6 +19,7 @@ async function savedEdition() {
 }
 async function smoke() {
   const saved = await savedEdition();
+  assert.ok(saved.topics.length, 'Use a real published edition');
   const original = await localAdminJson(
     `/api/admin/digest-previews/${saved.id}`,
   );
@@ -45,7 +50,10 @@ async function smoke() {
             writes.push(request.method());
             return route.abort();
           }
-          const path = new URL(request.url()).pathname;
+          const url = new URL(request.url());
+          if (url.origin !== base) return route.abort();
+          const path = url.pathname;
+          assert.ok(!path.startsWith('/api/admin/'));
           if (path === `/api/editions/${saved.id}`) {
             editionAttempts++;
             if (stalled) return; // Simulate a connection that never responds.
@@ -54,7 +62,9 @@ async function smoke() {
             historyAttempts++;
             if (stalled) return;
           }
-          return route.continue();
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         await page.goto(`${base}/editions/${saved.id}`);
         const retryEdition = page.getByRole('button', {

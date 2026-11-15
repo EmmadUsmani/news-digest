@@ -125,3 +125,13 @@ Archived continuation: [2325–2330](docs/progress-archive/2026-11-15-2325-throu
 - Refreshed eight screenshots and inspected mobile light edition. No app/admission, content, source, schema, budget or sharing changes.
 - Verification: `pnpm exec tsx scripts/smoke-reader-skip-link.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass. Logs `/tmp/2342-{skip,sources,format,lint,check}.log`.
 - No restart under STEERING 22: runtime code/config unchanged. Next: scheduled recovery/public-reader gate; keep VM private.
+
+## 2026-11-15: iteration 2343 — restore timeout recovery verification
+
+- Clean main at f851b6b2; no inherited work. Initial orientation output was overbroad; narrowed subsequent reads. Alerts zero, health/database/Redis healthy; all 38 sources pass the source check. Scheduled acceptance remains due 15:00 UTC.
+- Reproduced timeout smoke failure before browser launch: visitor-less public-mode latest-edition read returned 429. Added documentation-range visitor admission to fixed loopback reads, redirect refusal and a published-topic assertion.
+- Browser reads now carry the local visitor; external requests are blocked and admin reads/writes remain asserted absent. No app or admission-policy change.
+- Controlled stalled edition/archive requests reach bounded timeout without automatic retries; manual retry restores real saved content on desktop/mobile light/dark. Saved reader and admin-preview data remain unchanged; zero browser errors or writes.
+- Refreshed eight timeout screenshots and inspected mobile light archive. Stalls are simulated; recovered content is the real published edition.
+- Verification: `pnpm exec tsx scripts/smoke-reader-timeout.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass (1,040 unit/329 integration passes, four expected skips). Logs `/tmp/2343-{timeout,sources,format,lint,check}.log`.
+- No restart under STEERING 22: runtime code/config unchanged. No collection, generation, budget or sharing changes. Next: scheduled recovery/public-reader acceptance; keep VM private.
