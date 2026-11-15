@@ -112,3 +112,12 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Verification: rehearsal fails before the fix and passes after it: 24 simulated hours, 120 fake searches, 12/6/6 World query allocation, six collector, eight rollover/retry and nine scheduler checks; other-topic queries unchanged; zero live searches/writes. Receipts `/tmp/2350-rotation{,-before}.log`.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass; logs `/tmp/2350-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; World pilot remains off. Next: scheduled publication/access acceptance and separate natural editorial recovery review at 15:00 UTC.
+
+## 2026-11-15: iteration 2351 — restore live Bluesky probe in public mode
+
+- Clean main at 11e263db; no inherited work. Alerts zero, health/database/Redis healthy, all 38 sources returning data.
+- Reproduced probe failure before searches; read-only contract check isolates missing private profile IDs for all five topics. Switched probe to public topic-settings schema.
+- Explicit free `pnpm exec tsx scripts/probe-bluesky.ts --world` succeeded after fix: common 24-hour window, baseline/Ukraine/Gaza/geopolitics fetched 45/49/49/47, engaged 19/49/49/35; eight search-page requests, no observation writes or paid calls. Receipts `/tmp/2351-{probe-before,contract}.log`, `/tmp/2351-world.jsonl`.
+- Strongest examples mix reporting/commentary and U.S. overlap; zero legacy phrase shortlists do not establish semantic rejection. Updated SOURCES; no production-query or pilot changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); diff checks pass. Logs `/tmp/2351-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private. Next: 15:00 UTC publication/access acceptance and separate natural editorial recovery review.

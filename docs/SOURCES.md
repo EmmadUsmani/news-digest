@@ -1638,8 +1638,18 @@ Official `com.atproto.server.createSession` on bsky.social and account-PDS
 `app.bsky.feed.searchPosts` work with the owner-provided app password. The
 standalone `pnpm exec tsx scripts/probe-bluesky.ts` reuses one in-memory session,
 refreshes once on access expiry, serializes requests with a one-second floor,
-honors Retry-After and limits each query to two 25-post pages. It prints aggregate
-counts only; it does not write to the database or create editions.
+honors Retry-After and limits each query to two 25-post pages. It prints aggregate counts and
+bounded public examples in topic-specific modes; it does not write to the
+database or create editions. Topic policies use the public topic-settings
+contract, so probes also work while public mode omits private profile IDs.
+
+Nov 15 06:14 UTC World comparison (iteration 2351), common preceding 24-hour
+window, no storage: configured `World news & politics` returned 45 posts/19
+with engagement; `Ukraine` 49/49; `Gaza` 49/49; `geopolitics` 47/35. All four
+legacy phrase shortlists were zero; this is not semantic rejection. Strongest
+examples included reporting, commentary and U.S. political overlap. These
+results support the existing bounded discovery investigation, not a query
+change or pilot activation. World rotation remains off.
 
 Live probe on 2026-11-03 at 03:21 UTC, preceding 24 hours, `sort=top`:
 

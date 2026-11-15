@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 
-import { topicSchema } from '@digest/contracts';
+import { topicSettingsSchema } from '@digest/contracts';
 
 import { BlueskySearch } from '../apps/api/src/modules/social/adapters/bluesky-search';
 import { collectBluesky } from '../apps/api/src/modules/social/application/collect-bluesky';
@@ -52,7 +52,7 @@ async function main() {
     },
   );
   if (!response.ok) throw new Error('Topic policies unavailable');
-  const topics = topicSchema.array().parse(await response.json());
+  const topics = topicSettingsSchema.array().parse(await response.json());
   const until = new Date();
   const since = new Date(until.getTime() - 86400000);
   const repository = args.includes('--store')

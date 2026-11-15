@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2351: restored the live Bluesky probe in public mode; bounded free World comparison confirms stronger engaged supply for event queries, with commentary/U.S. overlap still requiring editorial filtering. No storage or production-query changes.
+
 - [x] 2350: restored World Bluesky offline rotation rehearsal in public mode; public topic-settings contract removes the obsolete private profile-ID requirement. Pilot remains off.
 
 - [x] 2349: restored stored Bluesky coverage reporting in public mode using the public topic-settings contract; all five topics report successfully without profile IDs.
