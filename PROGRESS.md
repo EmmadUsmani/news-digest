@@ -124,3 +124,12 @@ Archived: [iterations 2398–2402](docs/progress-archive/2026-11-15-2398-2402.md
 - Offline rotation rehearsal passes (120 searches, 12/6/6 World allocation, six collector/eight rollover/nine configuration checks). Private exports `/tmp/2413-{bluesky,coverage}-{before,after}.json`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); public-mode build, final changed-document formatting and `git diff --check` pass. Initial check caught new-note formatting; corrected before rerun. Reader verifies a0fa3916, five topics/23 stories/16 posts. Archived oldest progress entries below 25 KB. API/worker restarted; both active, health and scheduled reader pass.
 - Next: metrics sample due ≥17:55 UTC; retain jobs by Nov 16 05:20 UTC, compare full Nov 16 day and next natural edition. World/NBA recovery pending. Public mode ON, VM private; sharing stays with owner.
+
+## 2026-11-15: iteration 2414 — due passive metrics recovery check
+
+- Clean main at b68243be; no inherited work. Alerts zero; health, 14 services, 38 sources and queue checks pass. Scheduled reader verifies a0fa3916, five topics/23 stories/16 posts.
+- Due 18:00:10–13 UTC passive sample: 24 healthy rules, queries ≤0.751 s; no merge during sample. Since 16:54:17, 62 small merges/4,603,098 rows, no big merge; cumulative rows do not establish one comparable compaction.
+- Process starts unchanged; no new evaluator errors/missed iterations, admission hits, timeouts or slow queries. Warning journal empty. Counter-delta assertions pass; receipt `/tmp/2414-metrics.jsonl`. Updated TASKS and capacity decision; CPU-only 2% trial unchanged.
+- No source, provider, publication, schema or runtime behavior changes; no paid calls. Natural World/NBA acceptance remains pending; public mode ON, VM private, sharing stays with owner.
+- Next: metrics sample ≥19:01 UTC; retain Bluesky jobs by Nov 16 05:20 UTC, compare full Nov 16 day and next scheduled edition.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips). Public-mode build and `git diff --check` pass; receipts `/tmp/2414-{format,lint,check,build}.log`. API/worker restarted; post-restart health and scheduled reader pass.
