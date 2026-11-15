@@ -11,8 +11,8 @@ Owner removed its app-deploy hold (item 49). The queued fixes deployed at
 1. Grafana passes 22:33 UTC Nov 7 with no restart: close the Grafana check.
 2. Disk (Nov 15): 78% used; full-check runs briefly cross the 80% warning.
    Item 60 deletes two Nov 3 scratch files (~380 MiB, owner approved). Check
-   its ack for bytes freed. Whether item 51's `/tmp` fence should become a
-   standing cleanup rule is with the owner.
+   its ack for bytes freed. Item 61 (owner chose, Nov 15) lets the agent delete
+   its own `/tmp` scratch over 7 days old when disk is at 75% or more.
 
 **Budget:** the owner raised the whole-stack RAM target to about 800 MiB on Nov 7
 (item 45). The stack uses about 754 MiB. CPU and disk budgets are unchanged.
