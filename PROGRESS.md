@@ -103,3 +103,12 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Read-only production report now succeeds for all five topics. Tech/NBA/Gaming/World/U.S. distinct stored posts: 52/48/51/46/49; safe engaged candidates capped at 50: 50/43/49/16/48. U.S. Congress collection is returning data; lexical zero is not semantic rejection. Updated SOURCES.
 - Verification: `pnpm exec tsx scripts/report-bluesky-coverage.ts --examples 1` with private environment loaded; receipt `/tmp/2349-bluesky.json`. No provider calls or writes. `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips); diff checks pass. Logs `/tmp/2349-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. No generation, budget, query or sharing changes. Next: natural scheduled publication/access acceptance and editorial recovery review at 15:00 UTC; public mode ON, VM private.
+
+## 2026-11-15: iteration 2350 — restore public-mode World rotation rehearsal
+
+- Clean main at 5e7c0e9d; no inherited work. Alerts zero, health/database/Redis healthy and all 38 sources returning data.
+- Reproduced a concrete discovery-tool breakage: the offline World rotation rehearsal fails against current public-mode topic metadata because the private topic schema requires `profileId`.
+- Changed the rehearsal to the existing public topic-settings contract and documented that contract. No collector, source-query, pilot-flag or admission changes.
+- Verification: rehearsal fails before the fix and passes after it: 24 simulated hours, 120 fake searches, 12/6/6 World query allocation, six collector, eight rollover/retry and nine scheduler checks; other-topic queries unchanged; zero live searches/writes. Receipts `/tmp/2350-rotation{,-before}.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass; logs `/tmp/2350-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; World pilot remains off. Next: scheduled publication/access acceptance and separate natural editorial recovery review at 15:00 UTC.

@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2350: restored World Bluesky offline rotation rehearsal in public mode; public topic-settings contract removes the obsolete private profile-ID requirement. Pilot remains off.
+
 - [x] 2349: restored stored Bluesky coverage reporting in public mode using the public topic-settings contract; all five topics report successfully without profile IDs.
 
 - [x] 2348: corrected the Nov 14 review's obsolete recovery-first activation handoff; item 58 closure/public-mode activation and the next publication/access gate now match STEERING 62.

@@ -2,7 +2,7 @@
 // Exercises the optional collector policy; production does not enable it.
 import assert from 'node:assert/strict';
 
-import { topicSchema } from '@digest/contracts';
+import { topicSettingsSchema } from '@digest/contracts';
 
 import { collectBlueskyTopics } from '../apps/api/src/modules/social/application/collect-bluesky-topics';
 import type { BlueskyRepository } from '../apps/api/src/modules/social/domain/bluesky';
@@ -18,7 +18,7 @@ async function main() {
     },
   );
   assert(response.ok, 'Local topic metadata unavailable');
-  const topics = topicSchema.array().parse(await response.json());
+  const topics = topicSettingsSchema.array().parse(await response.json());
   const world = topics.find((topic) => topic.name === 'World news & politics');
   assert(world?.enabled && world.postBudget > 0, 'Expected active World topic');
   assert(

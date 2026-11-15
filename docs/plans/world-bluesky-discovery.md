@@ -65,7 +65,8 @@ edition review, not the owner handbook. No paid verification is authorized.
 ## Reproducible offline rehearsal
 
 `pnpm exec tsx scripts/rehearse-world-bluesky-rotation.ts` reads current topic
-metadata through the local admin endpoint, then uses fake search/storage ports
+metadata through the local admin endpoint using the public topic-settings
+contract (no private profile ID required), then uses fake search/storage ports
 with the real collector. It submits no observations and contacts no provider.
 It passes the optional World topic-ID policy directly to the collector; the
 scheduler supplies no policy unless explicitly enabled and retains its existing
