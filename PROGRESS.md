@@ -117,3 +117,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Four synthetic-replay screenshots refreshed; mobile light inspected. No runtime, generation, source, provider, spend or sharing changes; no handbook update, build or restart needed. Deployment freeze preserved.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial nonpersistent lint process terminated 143; persistent-terminal rerun succeeds. Receipts `/tmp/2388-{before,browser,format,lint,check}.log`.
 - Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2389 — passive metrics recovery follow-up
+
+- Clean main at 7d39e17f; no inherited work. `pnpm obs alerts` reports zero; `/healthz` database/Redis healthy; API/worker active. `pnpm obs sources --check` passes all 38 sources; `pnpm obs jobs --check` passes, digest failures zero, next edition 15:00 UTC.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 13:47:09–39 UTC: 24 fresh healthy rules, four uncached queries ≤1.273 s; no new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries. Both process starts unchanged.
+- One small merge/16,413 rows during sample; 57 small merges/1,489,036 rows since previous sample, no big merge. Below comparable-merge threshold; recovery acceptance stays open. Warning-level metrics/alerts user journal since 12:46 UTC has no entries.
+- Read-only evidence only; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2389-{metrics.jsonl,sources.log,jobs.log}`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Check receipts: `/tmp/2389-{format,lint,check}.log`.
+- Next: passive sample ≥14:48 UTC; scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC.
