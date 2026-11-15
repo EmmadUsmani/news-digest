@@ -158,3 +158,13 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - `df -B1 --output=size,used,avail,pcent /`: available 6,008,619,008→6,102,863,872 bytes; rounded disk use 76%→76%. Retained all logs, metrics/data, backups, browser profiles/sessions and installed executables.
 - Verification: ownership/age/regular-file assertions, archive inspection, privileged open-reference checks and post-delete absence checks pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips). Logs `/tmp/2339-{format,lint,check}.log`.
 - No app code/config, source, schema, budget, inference or sharing changes; no restart under STEERING 22. Next: scheduled recovery and public-reader acceptance; keep VM private.
+
+## 2026-11-15: iteration 2340 — restore archive verification in public mode
+
+- Clean main at 03926499; no inherited work. Alerts zero, API/database/Redis healthy; all 38 sources healthy and collecting. Scheduled acceptance still due 15:00 UTC.
+- Owner value: past editions and older/newer navigation must remain usable before sharing. Reproduced the archive check failing before browser launch: its visitor-less loopback fetch returned an empty public-mode refusal response.
+- Repaired `smoke-reader-archive.ts` with an explicit documentation-range local visitor for fixed-origin history reads and loopback GET/HEAD browser requests. No account identity; external requests blocked and admin/writes asserted absent.
+- Real published history and saved-edition date navigation pass desktop/mobile light/dark. Controlled pagination/empty/error/retry cases replay saved history and are not live pagination evidence. Zero page errors or horizontal overflow.
+- Refreshed eight archive/date screenshots and inspected mobile light archive and saved edition. App, admission policy, collection, generation, budgets and VM sharing unchanged.
+- Verification: `pnpm exec tsx scripts/smoke-reader-archive.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass (1,040 unit/329 integration passes, four expected skips). Initial non-TTY full check exited 143 during unit tests; persistent-terminal retry completed. Logs `/tmp/2340-{archive,sources,format,lint,check-retry}.log`.
+- No restart under STEERING 22: services run unchanged code/config. Next: Nov 15 scheduled recovery/public-reader gate; retain private VM sharing.

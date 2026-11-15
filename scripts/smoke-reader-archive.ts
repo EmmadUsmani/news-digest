@@ -1,4 +1,5 @@
-// Read-only archive checks; pagination and failures replay saved response bodies.
+// Read-only loopback archive checks with a public-mode visitor, no identity.
+// External requests blocked; pagination and failures replay saved response bodies.
 import assert from 'node:assert/strict';
 
 import { readerEditionHistorySchema } from '@digest/contracts';
@@ -6,9 +7,32 @@ import { chromium } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const saved = readerEditionHistorySchema.parse(
-    await (await fetch(`${origin}/api/editions?offset=0`)).json(),
-  );
+  const readHistory = async (offset: number) => {
+    const response = await fetch(`${origin}/api/editions?offset=${offset}`, {
+      headers: { 'X-Forwarded-For': '192.0.2.163' },
+      redirect: 'error',
+      signal: AbortSignal.timeout(15_000),
+    });
+    assert.equal(response.status, 200, `history offset ${offset}`);
+    return readerEditionHistorySchema.parse(await response.json());
+  };
+  const admitReader = async (context: import('playwright').BrowserContext) => {
+    await context.route('**/*', (route) => {
+      const request = route.request();
+      assert.ok(['GET', 'HEAD'].includes(request.method()));
+      const url = new URL(request.url());
+      assert.ok(!url.pathname.startsWith('/api/admin/'));
+      return url.origin === origin
+        ? route.continue({
+            headers: {
+              ...request.headers(),
+              'X-Forwarded-For': '192.0.2.163',
+            },
+          })
+        : route.abort();
+    });
+  };
+  const saved = await readHistory(0);
   assert.ok(saved.entries.length);
   assert.ok(saved.entries[0].topics.length);
   const browser = await chromium.launch();
@@ -23,20 +47,9 @@ async function smoke() {
           colorScheme: theme,
         });
         const page = await context.newPage();
-        const errors: string[] = [],
-          forbidden: string[] = [];
+        const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
-        await context.route('**/*', (route) => {
-          const request = route.request();
-          if (
-            !['GET', 'HEAD'].includes(request.method()) ||
-            new URL(request.url()).pathname.startsWith('/api/admin/')
-          ) {
-            forbidden.push(request.url());
-            return route.abort();
-          }
-          return route.continue();
-        });
+        await admitReader(context);
         await page.goto(`${origin}/editions`);
         await page
           .getByRole('link', {
@@ -157,25 +170,22 @@ async function smoke() {
         await page.unroute('**/api/editions?offset=*');
         await page.getByRole('button', { name: 'Try again' }).click();
         // Published-only history can legitimately have no entries on page 3.
-        const recovered = await (
-          await fetch(`${origin}/api/editions?offset=40`)
-        ).json();
+        const recovered = await readHistory(40);
         if (recovered.entries.length)
           await page.locator('li').first().waitFor();
         else await page.getByText('No editions on this page.').waitFor();
         assert.equal(await page.getByRole('alert').count(), 0);
         assert.deepEqual(errors, []);
-        assert.deepEqual(forbidden, []);
         await context.close();
       }
     }
     if (saved.hasMore) {
-      const next = readerEditionHistorySchema.parse(
-        await (await fetch(`${origin}/api/editions?offset=20`)).json(),
-      );
+      const next = await readHistory(20);
       const boundary = saved.entries.at(-1)!;
       if (next.entries.length) {
-        const page = await browser.newPage();
+        const context = await browser.newContext();
+        await admitReader(context);
+        const page = await context.newPage();
         await page.goto(`${origin}/editions/${boundary.id}`);
         await page
           .getByRole('link', { name: 'Older edition', exact: true })
@@ -185,7 +195,7 @@ async function smoke() {
           .getByRole('link', { name: 'Newer edition', exact: true })
           .click();
         await page.waitForURL(`**/editions/${boundary.id}`);
-        await page.close();
+        await context.close();
       }
     }
     console.log(

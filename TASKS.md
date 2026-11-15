@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2340: restored public-mode archive browser verification; saved history/date navigation and controlled paging/error/retry pass at desktop/mobile in light/dark, with eight refreshed screenshots.
+
 - [x] 2339: applied STEERING 61 daily scratch cleanup at 76% disk use; removed four unused, agent-owned installer/binary artifacts older than seven days, freeing 90.1 MiB. Logs, metrics, backups and browser sessions retained.
 
 - [x] 2338: saved-post verification now waits for actual X embed settlement, supports explicit blocked-external fallback checks and works under public-mode local admission; Nov 14 desktop/mobile embeds and unavailable-media destinations verified.
