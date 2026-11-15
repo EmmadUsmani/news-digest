@@ -149,3 +149,13 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Four screenshots added under docs/screenshots/ui/reader-bluesky-metrics-*; inspected mobile light. Replay command: `node --input-type=module < /tmp/2354-reader-check.mjs`; receipts `/tmp/2354-browser{,-before}.log`.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2354-{format,lint,check,build}.log`.
 - Post-restart health and source flow pass; runtime now serves the public build. Public mode ON, VM private. Next: 15:00 UTC publication/access acceptance and separate editorial recovery review.
+
+## 2026-11-15: iteration 2355 — preserve clipped social link destinations through punctuation
+
+- Clean main at 88115605; no inherited work. Alerts zero; health/database/Redis pass; all 38 enabled sources return items without errors.
+- Owner-visible improvement: clipped social URLs followed by sentence punctuation/closing quotes opened incomplete addresses. They now open the original post for the full link, preserving saved text and complete URL destinations.
+- Reproduced before fix with synthetic punctuation in saved-edition browser replay; not a claim that the latest live post contains this punctuation. No editorial, discovery, budget or sharing changes.
+- `pnpm exec tsx scripts/smoke-reader-clipped-punctuation.ts` passes six clipped/complete cases in desktop/mobile light/dark, including balanced URL parentheses, keyboard focus, text and no overflow/errors/writes/external traffic. Four screenshots added; inspected mobile light.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial check terminated (143) during lint; transient systemd rerun succeeded. Receipts `/tmp/2355-{before,browser,format,lint,check-final,build}.log`.
+- API restarted for the public build; health/source flow pass. Initial browser attempt raced startup (connection refused); rerun after health succeeded. Bare loopback reader GET receives expected public admission refusal; explicit test visitor succeeds.
+- Public mode ON, VM private. Next: 15:00 UTC scheduled publication/access acceptance and separate editorial recovery review; World discovery pilot stays off pending its gates.

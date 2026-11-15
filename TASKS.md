@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2355: clipped social URLs followed by sentence punctuation now open the original post instead of a partial address; complete URL destinations remain intact.
+
 - [x] 2354: corrected Bluesky singular engagement labels after reader review found “1 likes” on the saved World card; zero/plural counts retain their labels.
 
 - [x] 2353: restored source-management browser verification in public mode; public status/topic contracts, closed profile handling and desktop/mobile light/dark replays pass without live writes.

@@ -45,7 +45,10 @@ export function LinkedPostText({
     }
     // A saved display URL ending in an ellipsis is incomplete. The original
     // post can resolve its full destination; the shortened path cannot.
-    const clipped = /(?:…|\.{3})$/.test(part);
+    const clipped =
+      /(?:…|\.{3})[.,;:!?\x22\x27”’»。、！？：；)\]}>）］｝】》〉」』]*$/.test(
+        part,
+      );
     const destination = clipped
       ? postUrl
       : /^pic\.twitter\.com\//i.test(url)

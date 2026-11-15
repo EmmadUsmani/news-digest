@@ -3215,3 +3215,10 @@ changes, policy changes or pilot activation.
 The read-only source-management browser check (`scripts/smoke-admin-sources.ts`)
 uses public status/topic settings contracts in public mode. Feed submissions and
 collection switches are local browser replays, never live source changes.
+
+### Reader clipped-link punctuation — iteration 2355
+
+Shortened social URLs followed by punctuation or closing quotes now open the
+original post for the full destination. Saved text stays unchanged; complete
+URLs retain their destinations. Collection, selection and source policies are
+unchanged. Browser coverage uses synthetic text in a saved-edition replay.
