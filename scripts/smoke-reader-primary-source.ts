@@ -5,10 +5,12 @@ import { readerEditionSchema } from '@digest/contracts';
 import { chromium } from 'playwright';
 
 const origin = 'http://127.0.0.1:8000';
+// Loopback probe of trusted-proxy visitor admission; grants no identity.
+const headers = { 'X-Forwarded-For': '192.0.2.162' };
 async function main() {
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const response = await fetch(`${origin}/api/editions/latest`, { headers });
+  assert.equal(response.status, 200);
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics[0].stories[0];
   assert.ok(story);
   story.url = 'https://publisher.example/primary';
@@ -43,6 +45,7 @@ async function main() {
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
+          extraHTTPHeaders: headers,
           viewport: { width, height },
           colorScheme: theme,
         });

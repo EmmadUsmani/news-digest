@@ -108,3 +108,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or service restart needed; deployment freeze preserved.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2387-{before,browser,format,lint,check}.log`.
 - Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2388 — restore primary-source destination replay
+
+- Clean main at 245087ae; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy. Digest queue has zero failures and next scheduled run at 15:00 UTC.
+- Reproduced browser-tooling breakage: primary-source replay fails JSON parsing before opening the browser because public-mode visitor admission is missing. Added the loopback visitor header to API/browser requests and an explicit HTTP-status assertion; grants no identity.
+- `pnpm exec tsx scripts/smoke-reader-primary-source.ts` passes desktop/mobile light/dark: primary publisher points to the primary report despite reordered coverage, other publisher points to its report, all three coverage destinations remain intact, no card overflow or browser errors. Existing synthetic coverage replay on a saved edition; GET only, external traffic blocked, no writes.
+- Four synthetic-replay screenshots refreshed; mobile light inspected. No runtime, generation, source, provider, spend or sharing changes; no handbook update, build or restart needed. Deployment freeze preserved.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial nonpersistent lint process terminated 143; persistent-terminal rerun succeeds. Receipts `/tmp/2388-{before,browser,format,lint,check}.log`.
+- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.

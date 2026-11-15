@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2388: restored primary-publisher destination replay in public mode; four desktop/mobile light/dark variants pass with refreshed synthetic-replay screenshots.
+
 - [x] 2387: restored social-post context browser verification in public mode; six viewport/theme variants pass with refreshed screenshots.
 
 - [x] 2386: restored date-navigation browser verification in public mode; six viewport/theme variants pass with refreshed screenshots.
