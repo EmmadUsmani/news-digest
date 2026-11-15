@@ -31,6 +31,6 @@ so run checks from the Mac. Undo: `share set-private`, then
 
 1. Item 63 steered (`c4662187`): zero-downtime deploys, elkjs served from
    `/db/`, full handbook public (owner, Nov 15), watch Nov 16. Check acks.
-2. Proposed to owner: `/admin/editions/new` 404s for everyone on direct load
-   or refresh; `apps/api/src/public-route-policy.ts` has no rule for it.
+2. Item 64 steered (`edf73f64`): admin-only route for `/admin/editions/new`,
+   which 404s for everyone on direct load. Check its ack.
 3. Fix the edition step of `status.sh` for public mode.
