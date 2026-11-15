@@ -25,7 +25,7 @@ export function ReaderSaved() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16">
       <ReaderSkipLink target="saved-content" />
-      <header className="flex h-[65px] items-center justify-between gap-3 border-b border-[var(--border)]">
+      <header className="flex min-h-[65px] flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-2.5">
         <Link
           to="/"
           className="inline-flex min-h-11 min-w-11 items-center whitespace-nowrap rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
@@ -34,7 +34,7 @@ export function ReaderSaved() {
         </Link>
         <nav
           aria-label="Reader navigation"
-          className="flex shrink-0 items-center gap-3"
+          className="flex max-w-full flex-wrap items-center gap-3"
         >
           <Link
             to="/editions"
@@ -100,7 +100,7 @@ export function ReaderSaved() {
           </p>
           <Link
             to="/"
-            className="inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Browse the latest edition
           </Link>

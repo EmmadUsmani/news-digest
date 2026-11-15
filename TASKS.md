@@ -12,6 +12,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] Public-mode smoke tooling: `scripts/smoke-reader-theme-target.ts` lacks the loopback visitor header on its initial history fetch and fails JSON parsing; use existing public-compatible admission pattern before reusing it. Found in 2381; default/enlarged navigation verified separately.
+
 - [x] Public-mode local tooling (2331): `check-handbook.ts --owner-services` verifies the owner handbook/catalog through existing loopback services without a fetch shim or app admission change.
 
 - [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
@@ -61,6 +63,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2381: archive and saved-items navigation reflows at 200% text, including 320px screens; keyboard navigation and touch targets pass six browser variants.
 
 - [x] 2380: empty out-of-range archive pages offer a direct newest-editions link with keyboard focus recovery; six desktop/mobile light/dark browser variants pass.
 

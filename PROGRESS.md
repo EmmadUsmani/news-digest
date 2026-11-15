@@ -140,3 +140,14 @@ Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; `/healthz` healthy. Verification logs: `/tmp/2380-{before,browser,build,format,lint,check}.log`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips.
 - Next: passive metrics sample ≥12:43 UTC; 15:00 scheduled publication/access gate and separate editorial review. No generation changes after noon; no deploys 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2381 — navigation with enlarged text
+
+- Clean main at 9601bba9; no inherited work. Alerts zero; health database/Redis healthy; all 38 sources have stored content and no errors.
+- Reproduced horizontal overflow at 320px/200% text: archive 336px, saved-items 435px. Header rows now wrap; saved header grows with its controls, navigation groups wrap, and the empty-state edition link can break across lines.
+- `pnpm exec tsx scripts/smoke-reader-enlarged-navigation.ts`: fails before fix, then passes all 1440/390/320px light/dark variants, including real saved history, keyboard route navigation, visible 44px targets and no horizontal overflow. External requests blocked; GET/HEAD only.
+- Twelve header screenshots saved; narrow saved light inspected. Default-text layout also checked across both routes/six variants with a read-only Playwright probe.
+- Existing `smoke-reader-theme-target.ts` cannot parse its initial history response in public mode (no visitor admission header); used the public-compatible probe above instead. No source/generation/budget/provider/sharing changes.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted; health recovered. Public mode ON, VM private. No handbook change needed for this layout fix.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Logs `/tmp/2381-{before,browser,build,format,lint,check}.log`.
+- Next: passive metrics sample ≥12:43 UTC; scheduled publication/access gate and separate editorial review at 15:00 UTC. No generation changes after noon; no deploys 13:00–16:00 UTC.
