@@ -48,7 +48,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
 
-- [ ] Tech feed evidence depth: reporting precedence and bounded evidence deployed; recorded admission study justifies no production change. Next review: distinguish missing prose, admission loss and unused reporting; see [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
+- [ ] Tech feed evidence depth: reporting precedence and bounded evidence deployed; recorded admission study justifies no production change. Nov 15 follow-up (2406): three empty saved evidence sets confirmed; two current prose candidates pass triage, but exact historical grouping unavailable. No new admission loss established; retain production rules and review next natural edition. See [review](docs/edition-reviews/2026-11-15-tech-depth.md) and [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
 

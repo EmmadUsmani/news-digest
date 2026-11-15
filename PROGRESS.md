@@ -148,3 +148,12 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, targeted editor tests and `git diff --check` pass: 1,045 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` passed; receipts `/tmp/2405-{format,lint,check,targeted,build}.log`.
 - API/worker restarted at 16:27 UTC; immediate health probe raced startup, retry and `/healthz` pass. All 38 sources/four queue-worker checks pass; reader latest returns 200 and byte-identical JSON before/after. Public mode ON, VM private; no sharing changes.
 - Next: natural World recovery/NBA spoof exclusion acceptance at next scheduled edition; ICJ/Haiku content refusals stay open. Metrics sample due ≥16:54 UTC; no retuning.
+
+## 2026-11-15: iteration 2406 — resolve natural Tech depth follow-up
+
+- Clean main at 1fd56c87; no inherited work. Alerts zero, `/healthz` database/Redis healthy; all 38 sources and four queue workers healthy (`/tmp/2406-{sources,jobs}.log`).
+- Followed owner waiting-edition order to Tech depth. Immutable Nov 15 evidence confirms three of four stories lack prose; Nvidia uses 595 saved characters in two attributed sentences. Added focused daily depth review and updated tasks.
+- Read-only production-loader/saved-score reconstruction: 126 current candidates versus 121 saved scores, 11 with text, 29 admitted and only two admitted with prose. Nvidia publishes; substantive Toner interview is outside the first twenty ungrouped ranks. Other text fails saved triage thresholds.
+- Exact grouping fingerprint misses cache; historical grouped editor membership is unavailable, so no new admission loss is established. Retain Nov 14 decision and production rules; no ranking variants, external calls, cache writes, source requests or spend.
+- Evidence assertions pass via `pnpm exec tsx /tmp/2406-tech.ts`; receipts `/tmp/2406-tech.{ts,json,log}`. No app/source/schema/handbook behavior change. Next: natural World/NBA acceptance and next daily Tech evidence review; metrics sample remains due ≥16:54 UTC.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, receipt assertions and `git diff --check` pass: 1,045 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` passed; receipts `/tmp/2406-{format,lint,check,build}.log`.
