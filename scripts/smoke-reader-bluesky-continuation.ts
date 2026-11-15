@@ -6,11 +6,14 @@ import { chromium, expect } from 'playwright/test';
 
 async function main() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (
-      await fetch(`${origin}/api/editions/0b73eb47-19cf-48e8-8190-f9500c140fa4`)
-    ).json(),
+  // Loopback visitor admission only; this supplies no reader identity.
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.169' };
+  const response = await fetch(
+    `${origin}/api/editions/0b73eb47-19cf-48e8-8190-f9500c140fa4`,
+    { headers: visitorHeaders, redirect: 'error' },
   );
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const posts = edition.topics
     .flatMap((topic) => topic.posts)
     .filter((post) => post.platform === 'bluesky');
@@ -29,6 +32,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -43,7 +47,9 @@ async function main() {
           if (url.origin !== origin) return route.abort();
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
-          return route.continue();
+          return route.continue({
+            headers: { ...route.request().headers(), ...visitorHeaders },
+          });
         });
         await page.goto(origin);
         for (const post of [...clipped, ...complete]) {
@@ -81,7 +87,7 @@ async function main() {
       }
     }
     console.log(
-      'Saved Bluesky continuation: two clipped posts and complete controls pass desktop/mobile light/dark; text, destinations, focus and layout preserved.',
+      'Saved Bluesky continuation: two clipped posts and complete controls pass desktop/mobile/320px light/dark; text, destinations, focus and layout preserved.',
     );
   } finally {
     await browser.close();

@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2423: restored public-mode saved Bluesky continuation verification; two clipped posts and complete controls pass six desktop/mobile/320px light/dark cases; screenshots refreshed.
+
 - [x] 2418: restored public-mode saved Bluesky source-link verification; six desktop/mobile/320px light/dark cases pass, screenshots refreshed.
 
 - [x] 2417: restored public-mode Bluesky image recovery verification; all 24 loaded/recovered/failed/same-URL desktop/mobile/narrow light/dark cases pass; synthetic screenshots refreshed.

@@ -134,3 +134,14 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: `pnpm exec tsx /tmp/2422-nba.ts`, scheduled reader, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2422-*`.
 - Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC. Natural World/NBA acceptance pending. Public mode ON; VM private, sharing stays with owner.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.
+
+## 2026-11-15: iteration 2423 — restore saved Bluesky continuation browser check
+
+- Clean main at 6d5eeb78; no inherited work. Alerts zero; health and source/job checks pass. Timed World/metrics work is not due.
+- Reader weakness: continuation browser check fails parsing the public-mode refusal because its loopback request lacks visitor admission. Added visitor headers and explicit HTTP status validation; replay remains GET-only with third parties blocked.
+- Two real saved clipped posts and complete negative controls pass six desktop/mobile/320px light/dark cases: exact text, original destinations, keyboard focus, 44px targets and no horizontal overflow. Refreshed 12 screenshots; visually inspected both narrow post examples.
+- TASKS updated. No production behavior, queries, gates, provider calls or publication writes changed.
+- Verification: `pnpm exec tsx scripts/smoke-reader-bluesky-continuation.ts`, `pnpm obs sources --check`, `pnpm obs jobs --check`, scheduled reader, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2423-*`.
+- Initial scheduled-reader probe used 08:00 instead of the actual 15:00 window and refused; corrected invocation passes five topics/23 stories/16 posts.
+- Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC; retained jobs by Nov 16 06:56 UTC. Natural World/NBA acceptance pending; public mode ON, VM private.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restarted and active; startup-retried health and scheduled reader pass.
