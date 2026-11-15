@@ -156,3 +156,14 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: alerts, sources/jobs checks, scheduled reader, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; logs `/tmp/2424-*`.
 - Next: metrics sample ≥20:02 UTC; retained-job export by Nov 16 06:56 UTC; first full UTC day and natural World/NBA acceptance. Public mode ON; VM private.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader verification complete before handoff.
+
+## 2026-11-15: iteration 2425 — due metrics-store recovery observation
+
+- Clean main at ee09155c; no inherited work. Alerts zero; health, 38 sources, job checks and scheduled reader pass (five topics/23 stories/16 posts).
+- Due read-only `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 20:02:03–34 UTC: 24 healthy rules, four uncached queries ≤0.432 s; unchanged metrics/evaluator process starts.
+- No new evaluator errors, missed iterations, admission-limit hits, queue timeouts or slow queries since 19:01:24. One small merge/16,968 rows during sample; 59 small merges/1,473,603 rows since previous sample, no big merge. User warning journal empty.
+- Comparable natural compaction remains unobserved; retain CPU-only 2% trial. Updated decision evidence and TASKS; no retuning, forced merge, provider calls or publication writes.
+- Initial delta assertion ran before the second sample existed and refused; rerun after completion passes all counter/process/rule assertions. Initial system journal corrected to user-unit journal.
+- Verification: alerts, sources/jobs checks, scheduled reader, metrics delta assertions, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2425-*`.
+- Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private, sharing stays with owner.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.

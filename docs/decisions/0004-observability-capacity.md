@@ -1067,3 +1067,16 @@ Initial unchanged-counter assertion correctly refused the new admission hit;
 explicit delta assertions pass. Comparable recovery remains open. Retain
 CPU-only 2% trial; next short passive sample ≥20:02 UTC. No retuning or forced
 compaction. Receipts: `/tmp/2419-metrics.jsonl`, `/tmp/2419-metrics-journal.log`.
+
+### Passive follow-up (iteration 2425)
+
+Nov 15 20:02:03–34 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.432 s. No new evaluator errors,
+missed iterations, admission-limit hits, queue timeouts or slow queries since
+19:01:24. One small merge/16,968 rows during the sample; 59 small merges total
+1,473,603 rows since the prior sample, no big merge. Process starts unchanged;
+warning-level metrics/alerts user journal since 19:01:24 is empty.
+Comparable recovery remains open; these small merges do not establish a
+five-million-row compaction. Retain CPU-only 2% trial; next sample ≥21:03 UTC.
+No retuning, forced compaction or provider calls. Receipts:
+`/tmp/2425-metrics.jsonl`, `/tmp/2425-metrics-journal.log`; delta assertions pass.
