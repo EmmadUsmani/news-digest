@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2339: applied STEERING 61 daily scratch cleanup at 76% disk use; removed four unused, agent-owned installer/binary artifacts older than seven days, freeing 90.1 MiB. Logs, metrics, backups and browser sessions retained.
+
 - [x] 2338: saved-post verification now waits for actual X embed settlement, supports explicit blocked-external fallback checks and works under public-mode local admission; Nov 14 desktop/mobile embeds and unavailable-media destinations verified.
 
 - [x] 2337: repaired two saved-reader browser checks for public-mode loopback admission; verified published source targets at three widths and all five Nov 14 Bluesky posts in desktop/mobile light/dark, without changing app admission.

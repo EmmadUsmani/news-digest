@@ -148,3 +148,13 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Due passive metrics sample: 24 healthy rules, queries ≤0.368 s, no new errors/admission hits/timeouts/slow queries or merges. Recovery stays open; next probe ≥04:54 UTC. Metrics/alerts warning journal empty.
 - Verification: both browser modes pass; public build passes (existing bundle warning). `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips) and diff checks pass. Early non-TTY verification processes exited 143; rerun completed successfully. Logs `/tmp/2338-{posts,fallback,metrics,format,lint,check,build}.*`.
 - No restart under STEERING 22: running app/config unchanged. Next: Nov 15 scheduled recovery and signed-out publication/refusal acceptance.
+
+## 2026-11-15: iteration 2339 — reclaim stale installer scratch
+
+- Clean main at accf2897; no inherited work. Orientation output was overbroad; subsequent reads narrowed. Alerts zero; health/database/Redis healthy, sources collecting and scheduled digest due 15:00 UTC. No duplicate acceptance or metrics probe.
+- Owner value: reclaim disk headroom before the scheduled edition and test-container peaks, applying STEERING 61 once today at 76% use.
+- Deleted only four top-level regular files, each exedev-owned, older than seven days and unused according to privileged `fuser -v` (exit 1, empty output). Installer archive listings confirmed tools rather than backups.
+- Deleted `/tmp/vmalert-tool-prod` (36,474,880 allocated bytes), `/tmp/vmalert-prod` (28,065,792), `/tmp/news-digest-age-v1.3.2.tar.gz` (19,406,848) and `/tmp/nd-postgres-exporter.tgz` (10,559,488). Total 94,507,008 bytes (90.1 MiB); absence asserted after deletion.
+- `df -B1 --output=size,used,avail,pcent /`: available 6,008,619,008→6,102,863,872 bytes; rounded disk use 76%→76%. Retained all logs, metrics/data, backups, browser profiles/sessions and installed executables.
+- Verification: ownership/age/regular-file assertions, archive inspection, privileged open-reference checks and post-delete absence checks pass. `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,040 unit/329 integration passes, four expected skips). Logs `/tmp/2339-{format,lint,check}.log`.
+- No app code/config, source, schema, budget, inference or sharing changes; no restart under STEERING 22. Next: scheduled recovery and public-reader acceptance; keep VM private.
