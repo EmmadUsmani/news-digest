@@ -55,6 +55,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2436: archive coverage windows identify their local timezone; New York/Tokyo browser checks cover desktop/mobile/320px in both themes.
+
 - [x] 2435: compared post-merge resource baselines over eleven samples; sustained query/evaluation health observed, continuing memory reclaim quantified; resource acceptance remains open.
 
 - [x] 2434: saved-item publication timestamps now show their timezone; New York/Tokyo browser checks pass at desktop/mobile/320px in both themes.

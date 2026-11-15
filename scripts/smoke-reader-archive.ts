@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
+  const timeZone = process.env.READER_TIME_ZONE ?? 'America/New_York';
   const readHistory = async (offset: number) => {
     const response = await fetch(`${origin}/api/editions?offset=${offset}`, {
       headers: { 'X-Forwarded-For': '192.0.2.163' },
@@ -40,11 +41,14 @@ async function smoke() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 740],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          locale: 'en-US',
+          timezoneId: timeZone,
         });
         const page = await context.newPage();
         const errors: string[] = [];
@@ -72,9 +76,14 @@ async function smoke() {
           for (const timestamp of [entry.windowStart, entry.windowEnd]) {
             assert.ok(
               (await window.innerText()).includes(
-                new Date(timestamp).toLocaleString(undefined, {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
+                new Date(timestamp).toLocaleString('en-US', {
+                  timeZone,
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  timeZoneName: 'short',
                 }),
               ),
             );
@@ -96,7 +105,7 @@ async function smoke() {
           /why selected|auto-ranked|fallback|triage|budget|AI edited/i,
         );
         await page.screenshot({
-          path: `docs/screenshots/ui/reader-archive-${device}-${theme}.png`,
+          path: `docs/screenshots/ui/reader-archive-${device}-${theme}${timeZone === 'America/New_York' ? '' : '-tokyo'}.png`,
         });
         await page
           .locator(`a[href="/editions/${saved.entries[0].id}"]`)
@@ -137,7 +146,7 @@ async function smoke() {
           false,
         );
         await page.screenshot({
-          path: `docs/screenshots/ui/reader-dates-${device}-${theme}.png`,
+          path: `docs/screenshots/ui/reader-dates-${device}-${theme}${timeZone === 'America/New_York' ? '' : '-tokyo'}.png`,
         });
         await dates.getByRole('link', { name: 'Browse past editions' }).click();
         await page.getByRole('heading', { name: 'Past editions' }).waitFor();
@@ -199,7 +208,7 @@ async function smoke() {
       }
     }
     console.log(
-      'Archive: four viewport/theme screenshots; saved links, paging/reload, empty/error/retry, reader-only requests passed.',
+      `Archive (${timeZone}): six viewport/theme cases; exact zoned coverage, saved links, paging/reload, empty/error/retry, reader-only requests passed.`,
     );
   } finally {
     await browser.close();

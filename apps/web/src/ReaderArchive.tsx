@@ -116,15 +116,23 @@ export function ReaderArchive() {
                       Coverage:{' '}
                       <time dateTime={entry.windowStart}>
                         {new Date(entry.windowStart).toLocaleString(undefined, {
-                          dateStyle: 'medium',
-                          timeStyle: 'short',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                          timeZoneName: 'short',
                         })}
                       </time>
                       {' – '}
                       <time dateTime={entry.windowEnd}>
                         {new Date(entry.windowEnd).toLocaleString(undefined, {
-                          dateStyle: 'medium',
-                          timeStyle: 'short',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                          timeZoneName: 'short',
                         })}
                       </time>
                     </span>
