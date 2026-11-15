@@ -14,14 +14,18 @@ those areas.
 **This list wins if an item's wording says otherwise.** It sets the order only:
 details, budgets and rules stay in the items. Every new item goes on this list.
 
+**First, today (owner, Nov 15):** item 62. Ack item 58 and turn on public mode
+before 12:00 UTC Nov 15. Publishing, not content quality, is the gate. Stop
+before sharing.
+
 1. Breakages and protecting the morning edition. Includes the hung Grafana
    (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
    and `/tmp` scratch cleanup (items 60, 61).
    The review after each scheduled edition is a fixed daily task.
 2. Public access and reader accounts (item 50), following
-   `docs/public-access-plan.md` and item 59: close item 58, then take public
-   mode live while the VM stays private. Stop before sharing for the owner's
-   go-public decision.
+   `docs/public-access-plan.md` and items 59 and 62: take public mode live
+   while the VM stays private. Stop before sharing for the owner's go-public
+   decision.
 3. U.S. news & politics acceptance (items 56, 57) continues in the daily
    edition review.
 4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
@@ -2749,6 +2753,9 @@ off first.
 
 ack: 2026-11-14 item 59 step 1 — iteration 2275: scheduled edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` publishes five NBA Sonnet-edited summaries after successful repair, zero unscored candidates and reader/latest/direct/history agreement. NBA recurrence accepted. Item 58 remains open: Gaming falls back and World/U.S. ownership JSON fails, so the overall edition is not normal; public mode remains off and sharing private. See docs/edition-reviews/2026-11-14.md.
 
+> **Nov 15:** item 62 replaces the edition gate for item 58 and public mode.
+> Content quality no longer blocks; follow item 62.
+
 ## 60. NOW: delete two old scratch files to free disk (2026-11-15)
 
 **Why:** the disk sits at 78% and full-check runs briefly cross the 80% warning
@@ -2797,3 +2804,51 @@ Don't move evidence out of `/tmp` to dodge the rule, and don't ask the owner
 about files this rule covers.
 
 **Limits:** not between 13:00 and 16:00 UTC.
+
+## 62. NOW: turn on public mode today; publishing, not content, is the gate (2026-11-15)
+
+**Why:** the owner decided that public mode goes on now, even if some topics
+fall back or come out sloppy. Item 59 asked for an edition that "publishes
+normally (NBA AI-edited)". Nov 14 (`b9d55088`) did. The "all-topic AI gate"
+added on Nov 14 (`e4afe286`, `6086b51c`) went beyond that and is dropped.
+Public mode changes access and responses, not story writing, so its check is
+whether editions still publish and readers still see them.
+
+**Priority:** ahead of everything else in Current order, including the
+breakage work in line 1, until step 3 is done.
+
+**What to do, in order:**
+
+1. **Ack item 58 now**, citing edition `b9d55088` and the owner's proxy result.
+   Don't re-run the lead's security checks.
+2. **Activate before 12:00 UTC Nov 15**, following runbook steps 1–3 in
+   `docs/public-readiness.md` (record, backup, `PUBLIC_MODE=1`, public web build,
+   verify). If you can't start before 12:00, start after 16:00 UTC instead.
+3. **Accept the next scheduled edition in public mode** with this gate only:
+   - it publishes on schedule;
+   - the latest page, history and the edition's own page show it to a
+     signed-out reader through the public-mode router;
+   - admin and private reads and writes are still refused.
+
+   AI fallbacks, withheld topics or thin summaries don't fail the gate. Record
+   them in the edition review as breakages.
+4. **Update `docs/public-readiness.md` and `docs/public-access-plan.md`** to this
+   gate, and remove the all-topic AI gate wording.
+5. **Ack item 50** with the edition ID, and stop for the owner's sharing decision.
+
+**What to do while waiting:** the edition breakages stay first in Current
+order: World/U.S. ownership output and Gaming editing. Then continue down the
+list.
+
+**What not to do:** don't change sharing (`ssh exe.dev share`); the owner does
+that. Don't change budgets or the "VM stays private" rule. Don't re-run the
+full public-mode rehearsal.
+
+**Done when:** item 58 acked, public mode on, one scheduled edition accepted
+under the gate above, item 50 acked. Ack each separately, with commits and the
+edition ID.
+
+**Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend. If an
+edition fails to publish or the reader breaks in public mode, set
+`PUBLIC_MODE=0` and rebuild first (runbook rollback step 2; sharing is already
+private), then report.
