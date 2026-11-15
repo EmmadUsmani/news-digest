@@ -71,3 +71,13 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Archived ten progress entries (2368–2377), preserving their text; ten-entry count and archive link verified. Condensed completed/open task descriptions for cheaper orientation.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2383-{check,format,lint}.log`. Documentation-only; no build or restart under STEERING 22.
 - Next: 15:00 scheduled publication/access gate and separate editorial recovery review; no deploys/restarts 13:00–16:00 UTC. Disk 77%; daily scratch cleanup already done, no further deletion.
+
+## 2026-11-15: iteration 2384 — keep enlarged saved actions inside cards
+
+- Clean main at ed371755; no inherited work. Alerts zero; database/Redis healthy; all 38 sources returning content. Scheduled digest has no failed jobs; next run 15:00 UTC.
+- Owner value: readers using enlarged text can view an item's edition or remove it without controls spilling into the card padding.
+- Reproduced on a real published story at 320px/200% text; fixed saved-card action row with flex wrapping. No generation, source, spend, provider or sharing changes.
+- `pnpm exec tsx scripts/smoke-reader-saved-actions.ts`: fails before fix at 320px; passes six 1440/390/320px light/dark variants afterward. Checks padded bounds, 44px controls, keyboard order and removal focus; GET/HEAD only, browser-local bookmarks. Six screenshots saved; 320px light inspected.
+- Public web/API build passes; API restarted at 12:51 UTC before blackout; health recovered. No handbook change needed for this layout fix.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial check terminated 143 during formatting; persistent-terminal rerun succeeds. Receipts `/tmp/2384-*.log` (full check: `check-final`).
+- Next: 15:00 publication/access gate and separate editorial recovery review; passive metrics sample ≥13:47 UTC. No deploys/restarts 13:00–16:00 UTC.

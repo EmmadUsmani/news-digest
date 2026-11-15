@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2384: saved-item actions wrap inside narrow cards at 200% text; six browser variants and keyboard removal pass.
+
 - [x] 2382: public-mode theme smoke admission repaired; six browser variants pass.
 
 - [x] 2381: archive and saved-items navigation reflows at 200% text, including 320px screens; keyboard navigation and touch targets pass six browser variants.

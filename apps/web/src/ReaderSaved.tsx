@@ -199,7 +199,7 @@ export function ReaderSaved() {
                               : 'Continue reading original post'}
                   </a>
                 )}
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-4">
                   <Link
                     to="/editions/$id"
                     params={{ id: copy.editionId }}
