@@ -6,9 +6,11 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  // Loopback probe of the trusted proxy visitor boundary; grants no identity.
+  const headers = { 'X-Forwarded-For': '192.0.2.158' };
+  const response = await fetch(`${origin}/api/editions/latest`, { headers });
+  assert.equal(response.status, 200, 'latest edition HTTP status');
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics.flatMap((topic) => topic.stories)[0];
   assert.ok(story);
   const published = new Date(story.publishedAt);
@@ -23,6 +25,7 @@ async function smoke() {
           viewport: { width, height },
           colorScheme: theme,
           locale: 'en-US',
+          extraHTTPHeaders: headers,
         });
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));

@@ -81,3 +81,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Public web/API build passes; API restarted at 12:51 UTC before blackout; health recovered. No handbook change needed for this layout fix.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial check terminated 143 during formatting; persistent-terminal rerun succeeds. Receipts `/tmp/2384-*.log` (full check: `check-final`).
 - Next: 15:00 publication/access gate and separate editorial recovery review; passive metrics sample ≥13:47 UTC. No deploys/restarts 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2385 — restore publication-date browser verification
+
+- Clean main at 4faddb7d; no inherited work. Alerts zero; health database/Redis healthy; all 38 sources healthy. Digest queue has zero failures and next scheduled run at 15:00 UTC.
+- Reproduced tooling breakage: publication-date smoke fails JSON parsing before opening a browser because public mode requires visitor admission. Added the loopback visitor header to latest-edition and browser requests, plus an explicit HTTP-status assertion.
+- `pnpm exec tsx scripts/smoke-reader-publication-dates.ts` passes four desktop/mobile light/dark variants on the actual published edition: relative time, 24-hour calendar boundary, accessible timestamps, overflow and browser-error checks. GET/HEAD only; external requests blocked. Four screenshots refreshed; mobile light inspected.
+- No app/runtime code, generation, source, spend, provider or sharing changes; no handbook update or service restart needed. Freeze preserved.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts: `/tmp/2385-{before,browser,format,lint,check}.log`.
+- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.

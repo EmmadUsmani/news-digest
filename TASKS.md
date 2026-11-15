@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2385: publication-date browser smoke admits signed-out visitors in public mode; four viewport/theme variants pass with refreshed screenshots.
+
 - [x] 2384: saved-item actions wrap inside narrow cards at 200% text; six browser variants and keyboard removal pass.
 
 - [x] 2382: public-mode theme smoke admission repaired; six browser variants pass.
