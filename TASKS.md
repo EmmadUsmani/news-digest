@@ -12,7 +12,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] Disk capacity: 2318 pending alert cleared naturally after two brief >80% samples; 5.2 GiB available. One 29 MiB integration root is younger than one hour. Identify the writer if sustained use recurs; preserve item 51 cleanup boundaries.
+- [ ] Disk capacity: 2319 reproduced the brief >80% crossing during full-check coverage: isolated root peaked at 271.8 MiB and was removed normally; available space recovered 4,998.1→5,270.0 MiB. Baseline headroom is narrow. Preserve item 51 cleanup boundaries; investigate sustained loss or roots surviving the one-hour safeguard, rather than treating this verified transient as a leak.
 
 - [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2319: attributed recurring brief disk alerts to transient integration coverage, verified normal cleanup and space recovery, and archived progress entries 2305–2314.
 
 - [x] 2318: triaged new pending disk alert; verified natural recovery and bounded integration leftovers, preserving cleanup safeguards and alert thresholds.
 
