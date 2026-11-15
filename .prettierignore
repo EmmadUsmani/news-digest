@@ -7,3 +7,7 @@ docs/screenshots/
 MISSION.md
 BOOTSTRAP.md
 STEERING.md
+
+# Generated atomic web releases
+apps/web/.releases/
+apps/web/.dist-next

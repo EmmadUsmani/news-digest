@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && python3 ../../scripts/deploy-web.py",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

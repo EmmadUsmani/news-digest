@@ -27,7 +27,9 @@ Local scripts use public projections in public mode, with no legacy credential. 
 
 ```bash
 systemctl --user status 'news-digest-*'            # are they up?
-systemctl --user restart news-digest-api news-digest-worker
+# Only restart roles whose code or configuration changed:
+systemctl --user restart news-digest-api # API changes
+systemctl --user restart news-digest-worker # worker changes
 journalctl --user -u news-digest-worker -n 100     # recent worker logs
 docker compose ps                                  # Postgres + Redis
 ```
@@ -71,8 +73,7 @@ or timers.
 
 ## Connect to the database from your laptop
 
-Use your own client (Beekeeper Studio, DBeaver) through its built-in SSH
-tunnel. No port is opened on the VM.
+Use your own client (Beekeeper Studio, DBeaver) through its built-in SSH tunnel.
 
 | Setting       | Value                                                           |
 | ------------- | --------------------------------------------------------------- |
@@ -82,21 +83,17 @@ tunnel. No port is opened on the VM.
 | Read-only     | user `owner_ro`: can't write or change schema, 60 s query limit |
 | Read-write    | user `owner_rw`: can change rows, but can't change schema       |
 
-Passwords live only in the VM's env file. To see them, run this in your own
-terminal:
+Passwords live only in the VM's env file. To see them, run:
 `ssh news-digest.exe.xyz 'grep ^OWNER_DB_ ~/.config/news-digest/env'`.
-
-> [!TIP]
-> Make read-only your default connection. Save read-write as a second
-> connection, colored red.
 
 ## How code reaches production
 
-```mermaid
-flowchart LR
-  a["Agent edits code"] --> b["pnpm check<br/>(typecheck, lint, format,<br/>boundaries, tests)"]
-  b --> c["pnpm build<br/>+ migrate"] --> d["restart services"] --> e["verify /healthz,<br/>smoke scripts"] --> f["commit + push main"]
-```
+- Run `pnpm format`, `pnpm lint:fix`, then `pnpm check` before committing.
+- Web only: `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build`. Builds separately, then atomically switches `apps/web/dist`. No restart.
+- Old hashed assets stay available for at least 24 hours after retirement, across later deployments. Failed builds keep the live release.
+- API/worker: build and restart only changed roles. Migrate when needed; check `/healthz` after startup.
+- During web deployment, poll the public reader and a previous hashed asset every second; check the reader signed out afterwards.
+- Commit and push `main`. Never deploy or restart during 13:00–16:00 UTC.
 
 ## Tests
 

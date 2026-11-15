@@ -109,7 +109,7 @@ links jump directly to the bookmarked story or post. The reader makes no operati
 navigation opens Editions, Sources, Topics, Schedule, Spend and Tools. These
 dedicated pages replace the old combined management screen.
 
-Public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 files by exact path; restart to refresh the list.
+Public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 files by exact path. Atomic web releases refresh this list automatically.
 
 ## Admin identity
 

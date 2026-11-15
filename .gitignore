@@ -24,3 +24,8 @@ __pycache__/
 
 # Owner-only local files (e.g. backup decryption key). Never commit.
 .local/
+
+# Atomic web releases and temporary switch
+apps/web/.releases/
+apps/web/.dist-next
+apps/web/dist

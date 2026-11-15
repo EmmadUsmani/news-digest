@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {
   mkdirSync,
   mkdtempSync,
+  renameSync,
   rmSync,
   symlinkSync,
   writeFileSync,
@@ -65,6 +66,32 @@ void test('public static admission snapshots only deployed scripts/styles, refus
     rmSync(join(root, 'theme.js'));
     symlinkSync(join(root, 'assets/index-aB_12.js'), join(root, 'theme.js'));
     assert.equal(publicStaticRoutes(root).has('/theme.js'), false);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+void test('atomic release switches refresh admission without losing retained assets', () => {
+  const root = mkdtempSync(join(tmpdir(), 'public-release-'));
+  try {
+    for (const release of ['old', 'new']) {
+      mkdirSync(join(root, release, 'assets'), { recursive: true });
+      writeFileSync(join(root, release, 'assets/old.js'), 'old fixture');
+    }
+    writeFileSync(join(root, 'new/assets/new.js'), 'new fixture');
+    writeFileSync(join(root, 'new/assets/private.json'), 'denied fixture');
+    symlinkSync(join(root, 'old'), join(root, 'dist'));
+    assert.equal(
+      publicStaticRoutes(join(root, 'dist')).has('/assets/new.js'),
+      false,
+    );
+    symlinkSync(join(root, 'new'), join(root, 'next'));
+    renameSync(join(root, 'next'), join(root, 'dist'));
+    const routes = publicStaticRoutes(join(root, 'dist'));
+    assert.equal(routes.has('/assets/old.js'), true);
+    assert.equal(routes.has('/assets/new.js'), true);
+    assert.equal(routes.has('/assets/private.json'), false);
+    assert.equal(classifyPublicRoute('POST', '/assets/new.js', routes), null);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

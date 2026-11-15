@@ -53,16 +53,16 @@ loopback. Secrets live only in `~/.config/news-digest/env` (mode 600), never
 in the repo.
 
 ```sh
-systemctl --user restart news-digest-api news-digest-worker
+systemctl --user status news-digest-api news-digest-worker
 journalctl --user -u news-digest-api -u news-digest-worker -f
 curl --fail http://localhost:8000/healthz
 pnpm console   # production REPL with the app loaded; no web server or workers
 pnpm obs alerts
 ```
 
-To deploy: pull, then `pnpm build && pnpm migrate`, then restart the
-services. Details, and how to connect a database client from your laptop, are
-in [Operations](docs/handbook/01-app/08-operations.md).
+Web-only deploy: `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build`; no restart.
+Restart only roles whose code or configuration changed. Follow
+[Operations](docs/handbook/01-app/08-operations.md) for deployment and database access.
 
 ## Useful scripts
 

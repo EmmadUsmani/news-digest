@@ -34,7 +34,6 @@ export function publicAccess(
   recordAdminWrite?: RecordAdminWrite,
   now: () => Date = () => new Date(),
 ) {
-  const staticRoutes = enabled ? publicStaticRoutes() : new Set<string>();
   return async (
     request: IncomingMessage,
     response: ServerResponse,
@@ -48,7 +47,7 @@ export function publicAccess(
     const access = classifyPublicRoute(
       request.method ?? '',
       request.url ?? '',
-      staticRoutes,
+      enabled ? publicStaticRoutes() : new Set<string>(),
     );
     if (access === null) {
       response.writeHead(404).end();
