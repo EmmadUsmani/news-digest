@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2366: restored public-mode hidden-destination browser verification; hidden story/post links reveal their topic, focus the destination and persist across reloads.
+
 - [x] 2365: restored public-mode concurrent-tab preference race verification; saved stories and independent topic choices survive stale writes/reloads without repeated storage writes.
 
 - [x] 2364: restored public-mode storage-read recovery browser verification; unreadable storage preserves saved copies, merges pending choices after recovery and clears warnings across desktop/mobile themes.

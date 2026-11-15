@@ -114,3 +114,12 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 - Ran `pnpm format` and `pnpm lint:fix`; first full-check process ended with signal 143. Retry identified archive formatting; corrected it before rerunning full `pnpm check`. Final full check passes: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipt: `/tmp/2365-check.log`.
 - Archived progress entries 2348–2354 to keep orientation small. Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
 - Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2366 — restore hidden-destination verification
+
+- Clean main at 61fc12d6; no inherited work. Alerts zero; health and all 38 enabled sources pass (`/tmp/2366-{health,sources}.log`).
+- Hidden-destination smoke failed parsing public-mode admission refusal before testing reader links (`/tmp/2366-before.log`). Capture one checked published edition with an explicit test visitor and replay it; refuse server writes, admin and external requests.
+- `pnpm exec tsx scripts/smoke-reader-hidden-destination.ts` passes desktop/mobile light/dark: hidden story/post links offer topic reveal, focus the destination after reveal and retain visibility on reload. Zero page errors or horizontal overflow. Four screenshots refreshed; inspected mobile dark (`/tmp/2366-browser.log`).
+- Ran `pnpm format` and `pnpm lint:fix`; first full check terminated with signal 143 during formatting. Clean `pnpm check` rerun passes: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2366-{format,lint,check-retry}.log`. `git diff --check` passes.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
+- Next: metrics probe ≥09:31 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
