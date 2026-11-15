@@ -2,13 +2,17 @@
 import assert from 'node:assert/strict';
 
 import { readerEditionSchema } from '@digest/contracts';
-import { chromium } from 'playwright';
+import { chromium, expect } from 'playwright/test';
 
 const origin = 'http://127.0.0.1:8000';
 async function main() {
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const visitorHeaders = { 'X-Forwarded-For': '192.0.2.171' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers: visitorHeaders,
+    redirect: 'error',
+  });
+  assert.equal(response.status, 200, 'Saved reader edition must be available');
+  const edition = readerEditionSchema.parse(await response.json());
   const stories = edition.topics
     .flatMap((topic) => topic.stories)
     .filter((story) => story.coverage?.length);
@@ -18,6 +22,7 @@ async function main() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -32,7 +37,9 @@ async function main() {
           if (url.origin !== origin) return route.abort();
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
-          return route.continue();
+          return route.continue({
+            headers: { ...route.request().headers(), ...visitorHeaders },
+          });
         });
         await page.goto(origin);
         const discoveryStories = edition.topics
@@ -80,6 +87,9 @@ async function main() {
             await card.locator('details.coverage').getAttribute('open'),
             '',
           );
+          await expect(control).toHaveAccessibleName(
+            `Hide ${count} ${count === 1 ? 'article' : 'articles'} covering ${story.title}`,
+          );
           const links = card.locator('details.coverage li > a');
           assert.equal(await links.count(), count);
           for (let index = 0; index < count; index++) {
@@ -114,7 +124,10 @@ async function main() {
             await card.evaluate((node) => node.scrollWidth <= node.clientWidth),
           );
           await control.focus();
-          await page.keyboard.press('Enter');
+          await page.keyboard.press('Space');
+          await expect(control).toHaveAccessibleName(
+            `Show ${count} ${count === 1 ? 'article' : 'articles'} covering ${story.title}`,
+          );
           assert.equal(
             await card.locator('details.coverage').getAttribute('open'),
             null,
@@ -130,7 +143,7 @@ async function main() {
       }
     }
     console.log(
-      `${stories.length} saved coverage controls name their story; keyboard expansion, 44px report targets, focus outlines, destinations and layout pass desktop/mobile light/dark. GET-only; external traffic blocked.`,
+      `${stories.length} saved coverage controls name their story; keyboard expansion/collapse with matching accessible labels, 44px report targets, focus outlines, destinations and layout pass desktop/mobile/320px light/dark. GET-only; external traffic blocked.`,
     );
   } finally {
     await browser.close();

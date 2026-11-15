@@ -1,5 +1,5 @@
 import type { readerStorySchema } from '@digest/contracts';
-import type { ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 import type { z } from 'zod';
 
 export function StorySources({
@@ -9,6 +9,7 @@ export function StorySources({
   story: z.infer<typeof readerStorySchema>;
   children: ReactNode;
 }) {
+  const [coverageOpen, setCoverageOpen] = useState(false);
   // Preserve the primary outlet first, then show each publisher once.
   const outlets = new Map<
     string,
@@ -49,11 +50,14 @@ export function StorySources({
         <SourceLink key={source.url} {...source} />
       ))}
       {articles.length > 0 && (
-        <details className="coverage order-2 max-w-full text-xs open:order-4 open:w-full">
+        <details
+          className="coverage order-2 max-w-full text-xs open:order-4 open:w-full"
+          onToggle={(event) => setCoverageOpen(event.currentTarget.open)}
+        >
           <summary
             className="min-h-11 min-w-11 cursor-pointer content-center rounded-md px-2 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
-            aria-label={`Show ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering ${story.title}`}
+            aria-label={`${coverageOpen ? 'Hide' : 'Show'} ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering ${story.title}`}
           >
             {sources.length > 2
               ? `${articles.length} ${articles.length === 1 ? 'article' : 'articles'} · +${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`

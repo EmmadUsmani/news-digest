@@ -187,3 +187,15 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification: `pnpm exec tsx scripts/smoke-reader-saved-source.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, scheduled reader, health and `git diff --check`; receipts `/tmp/2427-*`.
 - Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader verification complete before handoff.
+
+## 2026-11-15: iteration 2428 — keep coverage disclosure labels accurate
+
+- Clean main at 59ca48ae; no inherited work. Alerts zero; health, sources and job checks pass. Daily scratch cleanup already applied (2339), so no deletion.
+- Owner value: screen-reader users can tell whether their expanded source coverage can be hidden, instead of hearing the misleading Show instruction.
+- Reproduced expanded coverage retaining Show against the previous build; native details toggles now update the story-specific accessible label to Hide and back to Show.
+- Public-mode visitor admission restored in the GET-only saved coverage replay, with explicit HTTP validation; added 320px cases and Enter/Space open/close assertions.
+- No generation, query, budget, provider or sharing changes; bug fix needs no handbook update.
+- Browser replay passes all 23 saved coverage controls across six viewport/theme cases; refreshed six screenshots and inspected mobile/320px light. API/worker restarted; scheduled reader passes (five topics/23 stories/16 posts).
+- Verification: `pnpm exec tsx scripts/smoke-reader-coverage-labels.ts`, alerts, sources/jobs, scheduled reader, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; receipts `/tmp/2428-*`.
+- Next: metrics ≥21:03 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA acceptance. Public mode ON; VM private.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. Final restart and health/reader checks complete before handoff.
