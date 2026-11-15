@@ -89,6 +89,7 @@ export function DigestPreview() {
             <ReaderPreferences
               topics={preview.topics}
               preferences={preferences}
+              account={accountsEnabled ? account : undefined}
             />
           )}
           <EditionDateSwitcher edition={preview} />

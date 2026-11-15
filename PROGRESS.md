@@ -117,3 +117,13 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2359-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes.
 - Next: metrics probe ≥08:26 UTC; 15:00 UTC scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2360 — show topic sync and recover in the picker
+
+- Clean main at 7fe64531; no inherited work. Alerts zero; health/database/Redis and all 38 enabled sources pass (`/tmp/2360-sources.log`).
+- Reader weakness: the topic picker described choices as browser-only after account sync shipped, and hid sync failures behind Account. The owner can now see topic sync status and retry a failed upload in the picker without losing choices.
+- Corrected the browser-only description; reused the mounted account controller/status and explicit retry, with no new requests on opening Topics or background retry loop.
+- `pnpm exec tsx scripts/smoke-reader-account-integration.ts` passes desktop/mobile light/dark with real saved reader bodies and fixture account transport: injected 503 retains the changed checkbox, Retry sync recovers, existing sign-out/deletion and two-device bookmark/tombstone checks pass. Eight new screenshots; inspected mobile dark success/failure. Receipt `/tmp/2360-browser.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial shell chain ended 143 during lint; transient rerun caught an unsupported button variant, corrected to the existing ghost variant before the final passing run. Receipts `/tmp/2360-{format,lint,check-final,build}.log`.
+- API restarted for the public build; health passes. Initial pre-restart browser probe could not find Topics; post-restart desktop/mobile GET-only checks pass deployed signed-out sync guidance with no retry button (`/tmp/2360-deployed-browser-final.log`).
+- Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes. Next: metrics probe ≥08:26 UTC; 15:00 scheduled publication/access gate and editorial recovery review.

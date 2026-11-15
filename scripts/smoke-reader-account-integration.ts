@@ -72,6 +72,7 @@ async function main() {
         const errors: string[] = [];
         let signedIn = true;
         let syncs = 0;
+        let failSync = false;
         page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
           const url = new URL(route.request().url());
@@ -87,6 +88,7 @@ async function main() {
           if (url.pathname === '/api/account/sync') {
             assert.equal(route.request().method(), 'POST');
             syncs++;
+            if (failSync) return route.fulfill({ status: 503, json: {} });
             return route.fulfill({ json: route.request().postDataJSON() });
           }
           if (
@@ -123,6 +125,40 @@ async function main() {
         assert.ok(syncs > 0);
         await page.screenshot({
           path: `docs/screenshots/accounts/reader-header-${width}${theme === 'dark' ? '-dark' : ''}.png`,
+        });
+        await page.keyboard.press('Escape');
+        await page.getByRole('button', { name: 'Topics', exact: true }).click();
+        const topics = page.getByRole('dialog', { name: 'Your topics' });
+        await expect(
+          topics.getByRole('status', { name: 'Topic sync' }),
+        ).toHaveText('Your topics and saved items are synced.');
+        await expect(topics).toContainText(
+          'Choose topics to show in your editions.',
+        );
+        const previousSyncs = syncs;
+        failSync = true;
+        await topics.getByRole('checkbox').first().uncheck();
+        await expect.poll(() => syncs).toBeGreaterThan(previousSyncs);
+        await expect(
+          topics.getByRole('status', { name: 'Topic sync' }),
+        ).toHaveText('Could not sync. Your choices are kept here. Try again.');
+        await expect(topics.getByRole('checkbox').first()).not.toBeChecked();
+        await topics
+          .getByRole('button', { name: 'Retry sync', exact: true })
+          .focus();
+        await page.screenshot({
+          path: `docs/screenshots/accounts/topic-sync-failed-${width}-${theme}.png`,
+        });
+        failSync = false;
+        await topics
+          .getByRole('button', { name: 'Retry sync', exact: true })
+          .click();
+        await expect(
+          topics.getByRole('status', { name: 'Topic sync' }),
+        ).toHaveText('Your topics and saved items are synced.');
+        await topics.getByRole('checkbox').first().check();
+        await page.screenshot({
+          path: `docs/screenshots/accounts/topic-sync-${width}-${theme}.png`,
         });
         await page.keyboard.press('Escape');
         await page

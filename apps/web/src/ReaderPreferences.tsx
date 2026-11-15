@@ -2,14 +2,18 @@ import type { ReaderEdition } from '@digest/contracts';
 
 import { Button } from './components/ui/button';
 import { Sheet } from './components/ui/sheet';
+import { readerAccountStatus } from './reader-account-status';
+import type { useReaderAccount } from './use-reader-account';
 import type { useReaderPreferences } from './use-reader-preferences';
 
 export function ReaderPreferences({
   topics,
   preferences,
+  account,
 }: {
   topics: ReaderEdition['topics'];
   preferences: ReturnType<typeof useReaderPreferences>;
+  account?: ReturnType<typeof useReaderAccount>;
 }) {
   return (
     <Sheet
@@ -21,8 +25,26 @@ export function ReaderPreferences({
       }
     >
       <p className="text-sm text-[var(--secondary)]">
-        Choose topics to show in this browser. New topics appear automatically.
+        Choose topics to show in your editions. New topics appear automatically.
       </p>
+      {account && (
+        <p
+          role="status"
+          aria-label="Topic sync"
+          className="mt-3 text-sm text-[var(--secondary)]"
+        >
+          {readerAccountStatus(account)}
+        </p>
+      )}
+      {account?.session?.signedIn && account.sync === 'failed' && (
+        <Button
+          variant="ghost"
+          className="mt-3 min-h-11"
+          onClick={() => void account.retrySync().catch(() => undefined)}
+        >
+          Retry sync
+        </Button>
+      )}
       <div className="space-y-2 py-4">
         {topics.map((topic) => (
           <label
