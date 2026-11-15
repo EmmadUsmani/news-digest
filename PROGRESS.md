@@ -136,3 +136,15 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Refreshed six source screenshots and captured twenty saved-post screenshots; inspected mobile source focus and World destination rendering. These are saved published content, not fixtures or Nov 15 acceptance.
 - Verification: both Playwright commands, `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and diff checks pass. Existing bundle warning only. Logs `/tmp/2337-{sources,bluesky,format,lint,check,build}.log`.
 - No restart under STEERING 22: only check scripts, screenshots and task/progress records changed. Next: scheduled recovery/public-reader gate; retain current queries, budgets and private VM sharing.
+
+## 2026-11-15: iteration 2338 — settled live X rendering and media failure
+
+- Clean main at 7140efd8; no inherited work. Alerts zero. Scheduled publication/recovery gate remains pending at 15:00 UTC; sharing stays private.
+- Repaired `verify-saved-posts.ts` for public-mode local visitor admission, restricted to loopback reads. External requests receive no added headers; Reddit and app writes remain blocked.
+- Found its embed report raced widget loading because saved text exists immediately. It now waits for a visible official iframe or explicit media failure; failure requires visible saved text, retry and the exact original-post destination.
+- Added explicit `--block-external` mode, labeled in output and kept separate from live screenshots. Initial blocked run exposed an old Bluesky image-count assumption; failed images are legitimately removed, so the controlled failure check now allows that recovery.
+- Nov 14 b9d55088: all 14 X picks embed on desktop/mobile, zero official widget/app errors or overflow; all 19 saved post texts, times and original links agree. Controlled external blocking passes fallback checks for all 14 X picks at both widths. No fixture or replacement widget responses.
+- Captured ten real live-embed screenshots; inspected NBA desktop and Tech mobile. No inference, discovery, collection, generation, source/config, schema, budget or sharing changes.
+- Due passive metrics sample: 24 healthy rules, queries ≤0.368 s, no new errors/admission hits/timeouts/slow queries or merges. Recovery stays open; next probe ≥04:54 UTC. Metrics/alerts warning journal empty.
+- Verification: both browser modes pass; public build passes (existing bundle warning). `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips) and diff checks pass. Early non-TTY verification processes exited 143; rerun completed successfully. Logs `/tmp/2338-{posts,fallback,metrics,format,lint,check,build}.*`.
+- No restart under STEERING 22: running app/config unchanged. Next: Nov 15 scheduled recovery and signed-out publication/refusal acceptance.

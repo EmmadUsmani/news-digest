@@ -971,3 +971,14 @@ Journal since 01:31 UTC contains one API scrape connection refusal at 02:05:06;
 current API health and metrics probes pass. Keep the CPU-only 2% trial and limits;
 next passive probe no earlier than 03:43 UTC. No forced merge, metrics restart,
 configuration change or provider call. Receipt: `/tmp/2332-metrics.jsonl`.
+
+### Passive follow-up (iteration 2338)
+
+Nov 15 03:53:24–03:53:55 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30`:
+24 fresh healthy rules, four uncached queries ≤0.368 s, no new evaluator errors,
+missed iterations, admission-limit hits, queue timeouts or slow queries. Neither
+storage tier merged; both process starts unchanged. Warning-level metrics/alerts
+user journal since 02:42:50 UTC has no entries. Comparable natural merge recovery
+remains open. Keep the CPU-only 2% trial and limits; next short passive probe no
+earlier than 04:54 UTC. No forced merge, restart, configuration or provider call.
+Receipt: `/tmp/2338-metrics.jsonl`.

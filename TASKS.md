@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 02:42 passive probe: 24 healthy rules, one small 1,890-row merge and one admission-limit hit; no evaluator errors/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 03:43 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 03:53 passive probe: 24 healthy rules, no merges or new evaluator errors/admission hits/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 04:54 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2338: saved-post verification now waits for actual X embed settlement, supports explicit blocked-external fallback checks and works under public-mode local admission; Nov 14 desktop/mobile embeds and unavailable-media destinations verified.
 
 - [x] 2337: repaired two saved-reader browser checks for public-mode loopback admission; verified published source targets at three widths and all five Nov 14 Bluesky posts in desktop/mobile light/dark, without changing app admission.
 

@@ -7,8 +7,14 @@ import { z } from 'zod';
 
 async function main() {
   const editionId = z.string().uuid().parse(process.argv[2]);
+  const blockExternal = process.argv[3] === '--block-external';
+  assert.ok(
+    process.argv.length === 3 || (process.argv.length === 4 && blockExternal),
+    'Usage: verify-saved-posts.ts <edition-id> [--block-external]',
+  );
   const base = 'http://127.0.0.1:8000';
   const response = await fetch(`${base}/api/editions/${editionId}`, {
+    headers: { 'X-Forwarded-For': '192.0.2.163' },
     signal: AbortSignal.timeout(10000),
     redirect: 'error',
   });
@@ -28,10 +34,18 @@ async function main() {
         const request = route.request();
         const url = new URL(request.url());
         if (
+          (blockExternal && url.origin !== base) ||
           /(^|\.)reddit\.com$/.test(url.hostname) ||
           (url.origin === base && !['GET', 'HEAD'].includes(request.method()))
         )
           return route.abort();
+        if (url.origin === base)
+          return route.continue({
+            headers: {
+              ...request.headers(),
+              'X-Forwarded-For': '192.0.2.163',
+            },
+          });
         return route.continue();
       });
       const errors: { name: string; officialWidget: boolean }[] = [];
@@ -80,10 +94,12 @@ async function main() {
           }
           if (post.platform === 'bluesky') {
             const images = card.locator('.bluesky-media img');
-            assert.equal(
-              await images.count(),
-              post.media?.filter((media) => media.thumbnail).length ?? 0,
-            );
+            const expectedImages =
+              post.media?.filter((media) => media.thumbnail).length ?? 0;
+            // Failed Bluesky images can be removed by the reader's recovery UI.
+            if (blockExternal)
+              assert.ok((await images.count()) <= expectedImages);
+            else assert.equal(await images.count(), expectedImages);
             const loadedMediaImages = await images.evaluateAll(
               (elements) =>
                 elements.filter(
@@ -99,11 +115,30 @@ async function main() {
             });
           }
           if (post.platform !== 'x') continue;
+          // Saved text exists while the widget is still loading; wait for an
+          // actual embed or the explicit unavailable-media state before reporting.
           await card
-            .locator('.saved-post-text, .post-embed-status')
+            .locator('.official-post iframe, .x-media-error')
+            .first()
             .waitFor({ timeout: 35000 });
           const iframe = card.locator('.official-post iframe');
           const embedded = (await iframe.count()) > 0;
+          if (blockExternal) assert.equal(embedded, false);
+          if (!embedded) {
+            assert.equal(
+              await card
+                .getByRole('link', { name: /^Open original on X / })
+                .getAttribute('href'),
+              post.url,
+              `${topic.name}: unavailable media retains original destination`,
+            );
+            assert.ok(
+              await card
+                .getByRole('button', { name: /^Retry X post / })
+                .isVisible(),
+            );
+            assert.ok(await card.locator('.post-text').isVisible());
+          }
           const frame = embedded
             ? await iframe.elementHandle().then((el) => el?.contentFrame())
             : null;
@@ -140,12 +175,16 @@ async function main() {
           'No horizontal page overflow',
         );
         const slug = topic.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        await page.screenshot({
-          path: `docs/screenshots/saved-${edition.id.slice(0, 8)}-${slug}-${view}.png`,
-        });
+        if (!blockExternal)
+          await page.screenshot({
+            path: `docs/screenshots/saved-${edition.id.slice(0, 8)}-${slug}-${view}.png`,
+          });
         console.log(
           JSON.stringify({
             editionId,
+            networkMode: blockExternal
+              ? 'external requests blocked'
+              : 'live embeds',
             view,
             topic: topic.name,
             posts: topic.posts.length,
