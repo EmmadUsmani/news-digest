@@ -3058,3 +3058,11 @@ Saved predictions can be evaluated with `--later-tech --memberships file.json`
 using `ranking-tech-2026-11-13.json` as the window key. Historical reports and the
 paid evaluation plan stay unchanged. Independent review and semantic evaluation
 remain open; no provider calls or production changes.
+
+### Nov 15 World warning repair (iteration 2404)
+
+Complete terminal attributed warning clauses may stand alone in summaries and
+briefs, preserving speaker and full “must not” scope. Only warn/warned and
+optional “that” vary. Saved Sonnet repair now validates all five stories offline;
+other saved responses retain independent refusals. Scope/attribution/condition
+mutations are regression-tested. [Saved-response result](edition-reviews/2026-11-15-world-fallback.md#next-action).

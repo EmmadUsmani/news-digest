@@ -73,3 +73,85 @@ void test('numeric No. ranks are not absence claims, but negatives retain full s
     LlmValidationFailure,
   );
 });
+
+// Saved Nov 15 World summit source clause and both Sonnet warning sentences.
+const summitWarningEvidence =
+  'Australia has endorsed this week’s historic summit between Donald Trump, Xi Jinping and Vladimir Putin in China, even as European leaders warn that the US president must not make major concessions over the war in Ukraine.';
+
+void test('saved World warning can stand alone with complete attribution and scope', () => {
+  assert.doesNotThrow(() =>
+    assertAbsenceSupport(
+      'Prime Minister Anthony Albanese said, \"We think dialogue is a good thing.\" European leaders warn that the US president must not make major concessions over the war in Ukraine.',
+      [summitWarningEvidence],
+      'summary',
+    ),
+  );
+  for (const field of ['summary', 'brief'] as const)
+    for (const verb of ['warn that', 'warned that', 'warn', 'warned'])
+      assert.doesNotThrow(() =>
+        assertAbsenceSupport(
+          `European leaders ${verb} the US president must not make major concessions over the war in Ukraine.`,
+          [summitWarningEvidence],
+          field,
+        ),
+      );
+});
+
+void test('warning extraction refuses changes to attribution, modality, scope and evidence boundaries', () => {
+  const claims = [
+    'The US president must not make major concessions over the war in Ukraine.',
+    'European leaders confirm that the US president will not make major concessions over the war in Ukraine.',
+    'European leaders warn that the US president must not make any concessions over the war in Ukraine.',
+    'European leaders warn that the US president must not make major concessions.',
+    'European leaders warn that the US president must not make major concessions over Ukraine.',
+    'European leaders warn that the US president must not make major concessions over the war in Gaza.',
+    'American leaders warn that the US president must not make major concessions over the war in Ukraine.',
+    'European leaders warn that the US president must not make major concessions over the war in Ukraine, officials confirmed.',
+    'Officials said, \"No agreement exists.\" European leaders warn that the US president must not make major concessions over the war in Ukraine.',
+    'No agreement exists, and European leaders warn that the US president must not make major concessions over the war in Ukraine.',
+  ];
+  const supported =
+    'European leaders warn that the US president must not make major concessions over the war in Ukraine.';
+  for (const field of ['summary', 'brief'] as const) {
+    for (const claim of claims)
+      assert.throws(
+        () => assertAbsenceSupport(claim, [summitWarningEvidence], field),
+        LlmValidationFailure,
+        claim,
+      );
+    for (const evidence of [
+      summitWarningEvidence.replace(
+        'Ukraine.',
+        'Ukraine if negotiations begin.',
+      ),
+      summitWarningEvidence.replace('warn that', 'deny that'),
+      summitWarningEvidence.replace(
+        'European leaders',
+        'Some European leaders',
+      ),
+      summitWarningEvidence.replace('has endorsed', 'has not endorsed'),
+    ])
+      assert.throws(
+        () => assertAbsenceSupport(supported, [evidence], field),
+        LlmValidationFailure,
+        evidence,
+      );
+    assert.throws(
+      () =>
+        assertAbsenceSupport(
+          supported,
+          [
+            'Australia endorsed the summit, even as European leaders warn that',
+            'the US president must not make major concessions over the war in Ukraine.',
+          ],
+          field,
+        ),
+      LlmValidationFailure,
+    );
+  }
+  for (const field of ['headline', 'whyItMatters', 'rationale'] as const)
+    assert.throws(
+      () => assertAbsenceSupport(supported, [summitWarningEvidence], field),
+      LlmValidationFailure,
+    );
+});

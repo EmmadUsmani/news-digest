@@ -97,9 +97,23 @@ the separate ICJ failure and JSON wrapper must remain visible in its replay. No 
 
 ## Next action
 
-Implement a narrowly scoped repair from the completed offline study: preserve
-attribution and warning scope, or omit optional clauses; retain rejection of
-invented negative claims in every field. Do not loosen the guard generally or
-raise caps. No runtime change was made during the 13:00–16:00 freeze.
+Iteration 2404 adds bounded terminal-warning extraction in summaries and brief
+bullets. A complete attributed “even as … warn that … must not …” clause may
+stand alone; warn/warned and optional “that” are the only wording changes.
+Speaker, subject, modal, full predicate and trailing qualifications must match
+one supplied sentence. An absence-free statement ending in a closing quote may
+precede the warning, as in the saved Sonnet repair. Other fields retain their
+existing rules.
+
+The unchanged saved Sonnet repair now passes the full production validator with
+five stories. Sonnet initial still fails its separate ICJ absence claim; Haiku
+initial still has fenced JSON and the ICJ failure after offline fence removal;
+Haiku repair still fails its compound warning summary and shortened brief.
+These are explicit remaining refusals, not recovered outputs. Attribution,
+modality, geographical scope, quantity, conditional suffix, negative prefix and
+cross-evidence mutations remain refused in summaries and brief bullets.
+Private replay receipt: `/tmp/2404-replay.log`, using `/tmp/2401-study.ts`.
+No provider calls, edition writes or paid replay. Natural World acceptance
+requires the next scheduled edition; the Nov 15 saved fallback is immutable.
 NBA repetition, all-topic social quality and Tech evidence depth still need
 their separate daily review; social presence alone accepts none of them.

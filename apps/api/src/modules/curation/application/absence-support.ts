@@ -6,6 +6,7 @@ import {
 // Conservative lexical guard, not entailment or independent fact-checking.
 // Require whole-sentence support, with narrow NBA equivalences for attributed
 // availability summaries, complete direct quotes and attributed absence briefs.
+// Complete terminal warning clauses may also stand alone with their attribution.
 const absence =
   /\b(?:not|never|no|without|unconfirmed|unverified|unavailable|unknown)\b|\b(?:hasn|haven|isn|aren|wasn|weren|couldn|didn|doesn|don)['’]t\b|\b(?:rather than an? announcement|details remain limited)\b/i;
 // Keep the rank abbreviation attached to its number, including in evidence.
@@ -284,6 +285,31 @@ function supportsReorderedReport(
   return false;
 }
 
+// A terminal “even as” clause reports a warning independently of the event
+// before it. Keep the complete speaker, modal and warning scope; only permit
+// warn/warned and optional “that”. Do not extract fragments or join evidence.
+function supportsWarningClause(claim: string, evidence: Set<string>) {
+  const warning =
+    /^([\p{L}’'-]+(?: [\p{L}’'-]+){0,5}) warn(?:ed)? (?:that )?(.+\bmust not\b.+)$/u;
+  // The sentence splitter retains a closing quote with a following sentence.
+  // Permit that boundary only after an absence-free preceding statement.
+  const quotedBoundary = /^(.+[.!?]["”]) (.+)$/.exec(claim);
+  const standalone =
+    quotedBoundary && !absenceMatch(quotedBoundary[1])
+      ? quotedBoundary[2]
+      : claim;
+  const rewrite = warning.exec(standalone);
+  if (!rewrite) return false;
+  for (const sentence of evidence) {
+    const parts = sentence.split(', even as ');
+    if (parts.length !== 2 || absenceMatch(parts[0])) continue;
+    const source = warning.exec(parts[1]);
+    if (source && source[1] === rewrite[1] && source[2] === rewrite[2])
+      return true;
+  }
+  return false;
+}
+
 export function assertAbsenceSupport(
   text: string,
   evidence: string[],
@@ -300,6 +326,10 @@ export function assertAbsenceSupport(
     const claim = normalize(sentence);
     if (
       !inputs.has(claim) &&
+      !(
+        (field === 'summary' || field === 'brief') &&
+        supportsWarningClause(claim, inputs)
+      ) &&
       !(
         allowNbaRewrite &&
         (supportsReorderedReport(
