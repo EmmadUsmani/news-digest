@@ -128,6 +128,26 @@ window.renderAccount({});
       await expect(confirm).toBeDisabled();
       await page.getByLabel('Type DELETE to confirm').fill('delete');
       await expect(confirm).toBeDisabled();
+      for (const dismiss of ['escape', 'close'] as const) {
+        await page.getByLabel('Type DELETE to confirm').fill('DELETE');
+        await expect(confirm).toBeEnabled();
+        if (dismiss === 'escape') await page.keyboard.press('Escape');
+        else await page.getByRole('button', { name: 'Close menu' }).click();
+        await expect(page.getByRole('dialog')).toHaveCount(0);
+        await expect(
+          page.getByRole('button', { name: 'Account', exact: true }),
+        ).toBeFocused();
+        await page
+          .getByRole('button', { name: 'Account', exact: true })
+          .click();
+        await expect(page.getByLabel('Type DELETE to confirm')).toHaveCount(0);
+        await page
+          .getByRole('button', { name: 'Delete account', exact: true })
+          .click();
+        await expect(page.getByLabel('Type DELETE to confirm')).toHaveValue('');
+        await expect(page.getByLabel('Type DELETE to confirm')).toBeFocused();
+        await expect(confirm).toBeDisabled();
+      }
       await page.getByLabel('Type DELETE to confirm').fill('DELETE');
       await expect(confirm).toBeEnabled();
       await confirm.click();

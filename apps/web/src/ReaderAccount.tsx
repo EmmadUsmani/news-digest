@@ -35,6 +35,12 @@ export function ReaderAccount({
   return (
     <Sheet
       title="Your account"
+      onOpenChange={(open) => {
+        if (!open) {
+          setDeleting(false);
+          setConfirmation('');
+        }
+      }}
       trigger={
         <Button className="min-h-11 min-w-11" variant="ghost">
           Account

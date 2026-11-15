@@ -133,3 +133,14 @@ Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md
 - Verification: `pnpm format`, `pnpm lint:fix`, targeted final script lint/format and `git diff --check` pass; full `pnpm check` passes: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2373-{format,lint,build,check}.log`.
 - Due passive metrics sample: 10:35–10:38, 24 healthy rules, three small merges/131,212 rows, no big merge/new evaluator failures/timeouts/slow queries; one admission hit, max uncached query 1.135 s. User warning journal empty since 09:34; comparable recovery pending, limits unchanged (`/tmp/2373-metrics.log`).
 - Public mode ON, VM private; no paid calls, generation or sharing changes. Next: metrics sample ≥11:39 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.
+
+## 2026-11-15: iteration 2374 — clear dismissed deletion confirmation
+
+- Clean main at 2986baf2; no inherited work. Alerts zero; health, 14 services and all 38 enabled sources pass (`/tmp/2374-{health,services,sources}.log`).
+- Reader-visible weakness: dismissing Account retained typed DELETE and an enabled deletion action on reopen. Closing now resets the confirmation and returns to normal account actions; readers must confirm afresh.
+- Extended `pnpm exec tsx scripts/smoke-reader-account.ts`: old UI fails; fixed desktop/mobile Escape and close-button checks pass, including restored trigger focus, empty refocused input and disabled deletion (`/tmp/2374-{before,browser}.log`). Account screenshots refreshed; mobile inspected.
+- `pnpm exec tsx scripts/smoke-reader-account-integration.ts` passes fixture-account two-device sync (`/tmp/2374-account-integration.log`). No live account writes.
+- Public web build passes; API restarted. Immediate health probe raced startup; subsequent health confirms database/Redis healthy (`/tmp/2374-{build,deployed-health}.log`).
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2374-{format,lint-final,check}.log`). Initial combined verification shell exited 143; explicit lint and full-check reruns both exit 0.
+- Deployed `pnpm exec tsx scripts/smoke-reader-home-links.ts` passes desktop/mobile light/dark with published content (`/tmp/2374-deployed-browser.log`); unrelated generated screenshots discarded.
+- Public mode ON, VM private; no paid calls, generation or sharing changes. Scheduled recovery/publication gate still awaits 15:00 UTC; next passive metrics sample no earlier than 11:39 UTC.

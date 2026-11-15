@@ -10,15 +10,17 @@ export function Sheet({
   title = 'News Digest admin',
   onCloseAutoFocus,
   onOpenAutoFocus,
+  onOpenChange,
 }: {
   trigger: ReactNode;
   title?: string;
   children: ReactNode;
   onCloseAutoFocus?: Dialog.DialogContentProps['onCloseAutoFocus'];
   onOpenAutoFocus?: Dialog.DialogContentProps['onOpenAutoFocus'];
+  onOpenChange?: Dialog.DialogProps['onOpenChange'];
 }) {
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
