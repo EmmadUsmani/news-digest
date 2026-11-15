@@ -70,6 +70,23 @@ Counts describe observations, not unique or eligible posts; no new selection
 quality conclusion follows. Retain the pilot unchanged. Capture the first
 Gaza pass after 19:54 UTC and export again by November 16 06:56 UTC.
 
+## First Gaza pass retained — iteration 2424
+
+The 19:54:43–54 UTC scheduled job completed all five topics. World used
+`Gaza` and fetched/submitted 50 observations; companion queries stayed
+`AI`, `NBA`, `game`, `Congress`. Assertions on the four retained jobs confirm
+the complete baseline → Ukraine → baseline → Gaza rotation, completion,
+five-topic admission and the existing 50-observation bound for every topic.
+The linked retained-job export now preserves all four actual results.
+
+Read-only rolling coverage immediately before/after the Gaza pass shows
+484 → 534 observations and 107 → 157 distinct posts. Safe engaged candidates
+remain capped at 50; the strongest examples still come from the Ukraine
+pass. This establishes collection and pool growth, not Gaza selection quality.
+Private receipts: `/tmp/2424-{bluesky-collections,coverage-before,coverage-after}.json`.
+Keep queries, gates and budgets unchanged. Export again by November 16
+06:56 UTC, compare the first full UTC day and read the next natural edition.
+
 ## Acceptance still needed
 
 Retain actual query/count results, compare November 16 as the first full UTC

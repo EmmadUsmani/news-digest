@@ -3337,3 +3337,12 @@ pick matches finalist text and adds specific Pacers–Knicks officiating news.
 One other pick was rejected for unsupported claims; rejected wording is not
 established by this reconstruction. Retain discovery, gates and budgets.
 [Review](edition-reviews/2026-11-15-nba-social.md). No new searches or paid calls.
+
+### World pilot full rotation retained — iteration 2424
+
+November 15 19:54 UTC: the scheduled `Gaza` pass completed with 50 fetched
+and submitted observations. All four companion queries and request bounds
+were unchanged. [Four retained jobs](edition-reviews/2026-11-15-world-bluesky-jobs.json)
+confirm baseline/Ukraine/baseline/Gaza execution. Rolling World coverage grew
+from 107 to 157 distinct posts; final selection quality remains pending.
+Retain queries and gates; next export by November 16 06:56 UTC.

@@ -145,3 +145,14 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Initial scheduled-reader probe used 08:00 instead of the actual 15:00 window and refused; corrected invocation passes five topics/23 stories/16 posts.
 - Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC; retained jobs by Nov 16 06:56 UTC. Natural World/NBA acceptance pending; public mode ON, VM private.
 - Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restarted and active; startup-retried health and scheduled reader pass.
+
+## 2026-11-15: iteration 2424 — retain first natural Gaza collection
+
+- Clean main at d45d1e10; no inherited work. Alerts zero; health, sources/jobs and scheduled reader pass (five topics/23 stories/16 posts).
+- Reader weakness: generic World discovery lacks strong international supply. Captured first natural Gaza pass without manual searches, provider calls or publication writes.
+- Scheduled 19:54:43–54 UTC job completed: Gaza fetched/submitted 50 observations. Four retained actual jobs verify baseline/Ukraine/baseline/Gaza, unchanged companion queries, five topics and ≤50 observations per topic.
+- Read-only rolling World snapshots: 484→534 observations, 107→157 distinct posts; safe engaged candidate cap remains 50. Collection works; Gaza selection quality and full-day comparison remain pending. Queries/gates/budgets unchanged.
+- Updated retained results, review, TASKS and SOURCES. Receipts `/tmp/2424-{bluesky-collections,coverage-before,coverage-after}.json`; assertions `python3 /tmp/2424-retain.py` pass.
+- Verification: alerts, sources/jobs checks, scheduled reader, `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`; logs `/tmp/2424-*`.
+- Next: metrics sample ≥20:02 UTC; retained-job export by Nov 16 06:56 UTC; first full UTC day and natural World/NBA acceptance. Public mode ON; VM private.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader verification complete before handoff.
