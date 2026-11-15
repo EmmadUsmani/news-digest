@@ -144,3 +144,13 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2368-{format,lint,check}.log`. `git diff --check` passes.
 - Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
 - Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2369 — require published content after returning home
+
+- Clean main at dc12cc7e; no inherited work. `pnpm obs alerts`: zero; `pnpm obs health --check` and `pnpm obs sources --check`: healthy/all 38 enabled sources pass (`/tmp/2369-{health,sources}.log`).
+- Home-link smoke accepted a visible main container even when public-mode content failed admission. Baseline passed despite this gap (`/tmp/2369-before.log`).
+- Capture schema-checked published history/latest with an explicit documentation-range visitor; replay content while blocking writes, admin and external requests. Require usable archive/saved content and every published topic after keyboard navigation home, with no alerts.
+- `pnpm exec tsx scripts/smoke-reader-home-links.ts` passes desktop/mobile light/dark: keyboard focus, 44px targets, real published topic IDs, no errors or overflow. Eight screenshots refreshed; inspected mobile dark archive (`/tmp/2369-browser.log`).
+- Archived older completed task markers to keep orientation small. Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2369-{format,lint,check}.log`. `git diff --check` passes.
+- Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.

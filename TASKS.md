@@ -62,40 +62,10 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2369: home-link keyboard verification now requires published topics after returning from saved items/archive; four public-mode browser variants pass with error-free content.
+
 - [x] 2368: strengthened public-mode archive/saved keyboard navigation verification to require published history links and an error-free saved-items empty state; four browser variants pass.
 
-- [x] 2367: restored public-mode reading-position browser verification; opening deep links align and changed background refreshes preserve the reader’s later position across desktop/mobile themes.
-
-- [x] 2366: restored public-mode hidden-destination browser verification; hidden story/post links reveal their topic, focus the destination and persist across reloads.
-
-- [x] 2365: restored public-mode concurrent-tab preference race verification; saved stories and independent topic choices survive stale writes/reloads without repeated storage writes.
-
-- [x] 2364: restored public-mode storage-read recovery browser verification; unreadable storage preserves saved copies, merges pending choices after recovery and clears warnings across desktop/mobile themes.
-
-- [x] 2363: restored public-mode storage-reset browser verification; removing preferences or clearing storage resets saved items and hidden topics across three tabs and reloads without recreating storage.
-
-- [x] 2362: restored public-mode saved-item capacity browser verification; concurrent tabs retain the saved story and 1,000 removal records across reloads without repeated storage writes.
-
-- [x] 2361: Saved items offers Retry sync beside a failure; failed retry and recovery preserve saved copies without opening Account.
-
-- [x] 2360: topic picker shows account sync status and retries failed sync without losing topic choices; corrected browser-only wording.
-
-- [x] 2359: restored public-mode topic preference browser verification; hidden topics persist across historical editions/tabs, preserve saved items and recover from all-hidden/corrupt/blocked storage.
-
-- [x] 2358: restored public-mode account integration replay; desktop/mobile light/dark sign-out/deletion and two-device saved-story removal sync pass with fixture account transport.
-
-- [x] 2357: post Save controls identify X/Bluesky/Reddit and use readable local publication times in screen-reader labels, preserving author/time distinctions.
-
-- [x] 2356: restored saved-item browser verification in public mode, including account keyboard order, post context/publication dates, cross-tab removal and historical edition jumps.
-
-- [x] 2355: clipped social URLs followed by sentence punctuation now open the original post instead of a partial address; complete URL destinations remain intact.
-
-- [x] 2354: corrected Bluesky singular engagement labels after reader review found “1 likes” on the saved World card; zero/plural counts retain their labels.
-
-- [x] 2353: restored source-management browser verification in public mode; public status/topic contracts, closed profile handling and desktop/mobile light/dark replays pass without live writes.
-
-- [x] 2352: restored read-only reviewed X account settings check in public mode; all four documented lists match live settings across desktop/mobile replays, with zero writes.
-
-Earlier completed steps: [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
+Earlier completed steps: [2352–2367](docs/progress-archive/2026-11-15-completed-2352-2367.md), [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
