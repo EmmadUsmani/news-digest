@@ -165,14 +165,16 @@ export function ReaderSaved() {
                     {copy.context}
                   </p>
                 )}
-                {copy.platform === 'story' && !copy.excerpt.trim() && (
+                {!copy.excerpt.trim() && (
                   <p className="my-3 text-sm text-[var(--secondary)]">
-                    Summary unavailable.
+                    {copy.platform === 'story'
+                      ? 'Summary unavailable.'
+                      : 'Post text unavailable.'}
                   </p>
                 )}
-                {((copy.platform === 'story' &&
-                  (!copy.excerpt.trim() ||
-                    storyNeedsContinuation(copy.excerpt))) ||
+                {(!copy.excerpt.trim() ||
+                  (copy.platform === 'story' &&
+                    storyNeedsContinuation(copy.excerpt)) ||
                   (copy.platform !== 'story' &&
                     /(?:…|\.{3})(?:\s+(?:https?:\/\/|pic\.twitter\.com\/)\S+)*\s*$/.test(
                       copy.excerpt,

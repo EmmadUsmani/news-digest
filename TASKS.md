@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 09:31–09:34 passive probe: 24 healthy rules; four small merges/149,209 rows, no big merge or new failures/admission hits/timeouts/slow queries; user warning journal empty since 08:30. Second comparable natural merge still needed. Next sample no earlier than 10:35 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 10:35–10:38 passive probe: 24 healthy rules; three small merges/131,212 rows, no big merge or new evaluator failures/timeouts/slow queries; one admission hit, user warning journal empty since 09:34. Second comparable natural merge still needed. Next sample no earlier than 11:39 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2373: saved social posts with empty text show an explanation and Read source link; X/Bluesky/Reddit desktop/mobile light/dark checks pass.
 
 - [x] 2372: account deletion moves keyboard focus to confirmation and returns it to Delete account on cancellation; desktop/mobile fixture checks pass.
 

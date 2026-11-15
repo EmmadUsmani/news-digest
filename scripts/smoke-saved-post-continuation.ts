@@ -24,22 +24,28 @@ async function main() {
   const fullText =
     'Offline fixture: a long post saved for later reading. '.repeat(20);
   for (const [platform, url] of platforms) {
-    for (const complete of [false, true]) {
-      const title = `Offline ${platform} ${complete ? 'complete' : 'clipped'}`;
+    for (const state of ['clipped', 'complete', 'empty'] as const) {
+      const complete = state === 'complete';
+      const title = `Offline ${platform} ${state}`;
       const copy = boundBookmarkCopy({
         title,
         url,
         attribution: 'Explicit offline fixture',
-        excerpt: complete ? 'A complete short post.' : fullText,
+        excerpt:
+          state === 'empty'
+            ? ''
+            : complete
+              ? 'A complete short post.'
+              : fullText,
         platform,
         editionId: '00000000-0000-4000-8000-000000000001',
       });
       assert.ok(copy);
-      if (!complete) {
+      if (state === 'clipped') {
         assert.ok(copy.excerpt.length <= 600 && copy.excerpt.endsWith('…'));
         assert.ok(fullText.startsWith(copy.excerpt.slice(0, -1)));
       }
-      store.bookmarks[`post:${platform}-${complete}`] = {
+      store.bookmarks[`post:${platform}-${state}`] = {
         updatedAt: 1,
         copy,
       };
@@ -64,6 +70,10 @@ async function main() {
         );
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
+          if (
+            new URL(route.request().url()).pathname === '/api/account/session'
+          )
+            return route.fulfill({ json: { signedIn: false, isAdmin: false } });
           return new URL(route.request().url()).origin === origin
             ? route.continue()
             : route.abort();
@@ -89,8 +99,26 @@ async function main() {
           await link.focus();
           await expect(link).toBeFocused();
           await expect(card.locator('.post-text')).toHaveText(
-            store.bookmarks[`post:${platform}-false`].copy!.excerpt,
+            store.bookmarks[`post:${platform}-clipped`].copy!.excerpt,
           );
+          const empty = page.getByRole('listitem').filter({
+            has: page.getByRole('link', {
+              name: `Offline ${platform} empty`,
+              exact: true,
+            }),
+          });
+          await expect(
+            empty.getByText('Post text unavailable.', { exact: true }),
+          ).toBeVisible();
+          const source = empty.getByRole('link', {
+            name: `Read source: Offline ${platform} empty`,
+            exact: true,
+          });
+          await expect(source).toBeVisible();
+          await expect(source).toHaveAttribute('href', url);
+          await expect(source).toHaveAttribute('target', '_blank');
+          await source.focus();
+          await expect(source).toBeFocused();
           const complete = page.getByRole('listitem').filter({
             has: page.getByRole('link', {
               name: `Offline ${platform} complete`,
@@ -104,6 +132,9 @@ async function main() {
         await page.reload();
         await expect(
           page.getByRole('link', { name: /^Continue reading:/ }),
+        ).toHaveCount(3);
+        await expect(
+          page.getByRole('link', { name: /^Read source:/ }),
         ).toHaveCount(3);
         assert.equal(
           await page.evaluate((key) => localStorage.getItem(key), storageKey),
@@ -121,7 +152,7 @@ async function main() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${device}/${theme}: three clipped platforms, complete controls, focus, reload and layout pass`,
+          `${device}/${theme}: three clipped and empty platforms, complete controls, focus, reload and layout pass`,
         );
       }
     }
