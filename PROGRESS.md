@@ -2,6 +2,14 @@
 
 Older entries: [archived through the first half of Nov 15](docs/progress-archive/2026-11-15-before-2346.md).
 
+## 2026-11-15: iteration 2347 — separate launch acceptance from editorial quality
+
+- Clean main at 4ea39e3c; no inherited work. Initial orientation was overbroad; subsequent reads narrowed. Alerts zero, health/database/Redis healthy; all 38 sources pass.
+- Owner value: the Nov 15 review still required complete all-topic triage under the public readiness gate, contradicting STEERING 62 and risking an incorrect launch refusal.
+- Split the checklist into scheduled publication/access acceptance and editorial breakage review; added exact read-only commands and item 50 handoff. Fallbacks, withheld topics and thin summaries remain recorded without blocking access acceptance.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; handbook/schema validation passes with `pnpm exec tsx scripts/check-handbook.ts --owner-services public-readiness` (18 pages, 39 tables). Initial handbook invocation without owner-services returned expected public-mode HTTP 404; corrected invocation passed. Logs `/tmp/2347-*`.
+- No runtime/config changes or restart under STEERING 22; no spend or sharing changes. Scratch cleanup already applied today (2339), so not repeated. Next: Nov 15 15:00 UTC publication/access acceptance and separate natural editorial review.
+
 ## 2026-11-15: iteration 2339 — reclaim stale installer scratch
 
 - Clean main at accf2897; no inherited work. Orientation output was overbroad; subsequent reads narrowed. Alerts zero; health/database/Redis healthy, sources collecting and scheduled digest due 15:00 UTC. No duplicate acceptance or metrics probe.

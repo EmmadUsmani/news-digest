@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2347: separated Nov 15 public-mode publication/access acceptance from all-topic editorial review; fallbacks are recorded as breakages under STEERING 62.
+
 - [x] 2346: recorded due passive metrics sample (24 healthy rules, no new failures; comparable merge still pending) and corrected Nov 15 review activation chronology; scheduled-reader gate remains pending as expected before 15:00 UTC.
 
 Earlier completed steps: [archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
