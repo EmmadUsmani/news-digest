@@ -3317,3 +3317,14 @@ interestingness 4; production shortlisting returns zero, matching the saved
 outcome. AI-art tags, political commentary and jokes dominate. No final-editor
 or shortlist-cap loss is established. Retain `AI`, gates and budgets; no new
 searches or paid calls. [Review](edition-reviews/2026-11-15-tech-social.md).
+
+### Nov 15 U.S. Bluesky selection — iteration 2421
+
+Read-only production-shortlist reconstruction: `Congress` supplies 561
+observations, 50 exact cached scores and ten finalists. All three saved picks
+match shortlist text: Duffy funding exchange, congressional stock-trading
+letter and Mother Jones surveillance reporting. Only one of three Rupar
+funding posts is selected; duplicated mayor commentary is skipped. The Duffy
+exchange and X ground-stop claim share aviation context but contribute distinct
+claims. Keep query/gates/budgets; natural presence accepted, broader viral
+quality remains open. [Review](edition-reviews/2026-11-15-us-social.md).

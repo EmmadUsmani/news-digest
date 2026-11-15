@@ -113,3 +113,13 @@ Archived: [iterations 2403–2410](docs/progress-archive/2026-11-15-2403-2410.md
 - Verification passes: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,049 unit/329 integration, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build`, diagnostic assertions and scheduled reader (five topics/23 stories/16 posts). Reader probe first omitted its required timestamp; corrected invocation passes. Receipts `/tmp/2420-{format,lint,check,build,reader}.log`.
 - Next: first World Gaza pass after 19:54 UTC, metrics ≥20:02 UTC, retained jobs by Nov 16 06:56 UTC; natural World/NBA acceptance pending. Public mode ON, VM private; sharing stays with owner.
 - API/worker restarted and active; post-restart health and scheduled reader pass. `git diff --check` passes.
+
+## 2026-11-15: iteration 2421 — accept natural U.S. Bluesky contributions
+
+- Clean main at b88ecb0c; no inherited work. Alerts zero; health, source and job checks pass. Scheduled reader agrees with five topics/23 stories/16 posts.
+- Owner value: establish whether U.S. fills its social slots with distinct reporting after the Congress query change, rather than merely counting posts.
+- Read ten shortlist texts and saved U.S. stories/posts. Reconstructed 561 observations, 50 exact cached scores, ten finalists in a read-only transaction; all three saved Bluesky picks match finalist membership and text. Only one of three Rupar funding posts selected; duplicated mayor commentary skipped.
+- Duffy funding exchange, stock-trading letter and surveillance reporting add distinct contributions. Duffy/FAA X share context but make different claims; funding purpose cannot be inferred from the quoted text. Retain query/gates/budgets. Review, TASKS and SOURCES updated; no provider calls or publication writes.
+- Verification: `pnpm exec tsx /tmp/2421-us.ts`, scheduled reader, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `git diff --check`. Receipts `/tmp/2421-{us,reader,sources,jobs,format,lint,check,build}.log`.
+- Full check passes: 1,049 unit/329 integration tests, four expected skips; public build passes. API/worker restart and post-restart health/reader checks complete before handoff.
+- Next: World Gaza collection after 19:54 UTC; metrics ≥20:02 UTC. Natural World/NBA acceptance remains pending. Public mode ON; VM private, sharing stays with owner.
