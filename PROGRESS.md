@@ -146,3 +146,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - No model/cache/queue calls, generation/source/runtime changes, spend or sharing changes. Documentation only; no build/restart needed; deployment freeze preserved. Sources/jobs receipts `/tmp/2391-{sources,jobs}.log`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2391-{format,lint,check}.log`.
 - Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. Use natural saved inputs, not this prospective pool, for exact editorial attribution.
+
+## 2026-11-15: iteration 2397 — due passive metrics sample
+
+- Clean main at d8b9f496; no inherited work. `pnpm obs alerts` zero; `/healthz` database/Redis healthy; API/worker active. `pnpm obs sources --check` passes all 38 sources; `pnpm obs jobs --check` passes, digest failures zero, next edition 15:00 UTC.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 30` at 14:48:09–40 UTC: 24 fresh healthy rules, four uncached queries ≤1.829 s; no new evaluator errors/missed iterations, admission hits, queue timeouts or slow queries. Process starts unchanged.
+- One small merge/1,482 rows during sample; 64 small merges/1,655,119 rows since previous sample, no big merge. Below five-million-row comparable threshold; recovery acceptance remains open. Metrics/alerts warning journal since 13:47 UTC has no entries.
+- Read-only evidence; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2397-{metrics.jsonl,sources.log,jobs.log}`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts: `/tmp/2397-{format,lint,check}.log`.
+- Next: scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC; passive metrics sample ≥15:49 UTC.
