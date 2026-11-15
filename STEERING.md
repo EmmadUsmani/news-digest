@@ -18,6 +18,7 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 
 1. Breakages and protecting the morning edition. First, item 63: deploy
    without downtime, fix the `/db/` diagram, make the full handbook public.
+   Then item 64: let admins open the New edition page directly.
    Also includes the hung Grafana
    (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
    and `/tmp` scratch cleanup (items 60, 61).
@@ -2917,5 +2918,35 @@ outside hosts. Don't re-run the full public-mode rehearsal.
 
 **Done when:** steps 1–3 deployed and checked as above, and the Nov 16
 edition accepted. Ack each step separately with its commit.
+
+**Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
+
+## 64. NOW: let admins open the New edition page directly (2026-11-15)
+
+**Why:** in public mode, typing or refreshing `/admin/editions/new` returns
+an empty 404 for everyone, the signed-in admin included. The server route list
+in `apps/api/src/public-route-policy.ts` has no rule for that page, and
+`apps/api/src/public-access.ts` refuses unlisted routes before checking who is
+asking. The admin nav link only works because it switches page in the browser.
+The lead checked every other reader and admin page: all return 200 signed out,
+so this page is the only gap.
+
+**Priority:** right after item 63 steps 1–3, in Current order line 1.
+
+**What to do:**
+
+1. Add `GET /admin/editions/new` (and `HEAD`) to the route policy as `admin`,
+   not `public-read`. Its API calls are already admin-only. Add a test next to
+   the existing route-policy tests: signed-out direct load gets 404 and a fresh
+   admin session gets the page.
+2. Deploy with item 63's zero-downtime procedure.
+   _Check:_ over the public HTTPS URL, signed out gets 404. In a signed-in
+   admin browser, a typed URL and a refresh both show the Create an edition
+   form. Don't create an edition to test it.
+
+**What not to do:** don't make the page `public-read`. Don't generate a test
+edition or spend money to check it. Don't widen any other route.
+
+**Done when:** deployed and checked as above. Ack with the commit.
 
 **Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
