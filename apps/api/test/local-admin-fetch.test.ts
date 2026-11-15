@@ -149,3 +149,30 @@ void test('script request passes the HTTP admin gate and refuses redirects', asy
     );
   }
 });
+
+void test('public-mode local probes carry a visitor field without legacy credentials or remote forwarding', async () => {
+  const requests: Array<{ url: string; init?: RequestInit }> = [];
+  const read = createLocalAdminFetch(
+    () => {
+      throw new Error('Public mode must not read legacy credentials');
+    },
+    async (input, init) => {
+      requests.push({
+        url: input instanceof Request ? input.url : input.toString(),
+        init,
+      });
+      return new Response('{}');
+    },
+    () => true,
+  );
+  await read('http://127.0.0.1:8000/api/admin/status', {
+    headers: { ADMIN_LOCAL_TOKEN: 'discard', accept: 'application/json' },
+  });
+  const headers = new Headers(requests[0].init?.headers);
+  assert.equal(headers.get('ADMIN_LOCAL_TOKEN'), null);
+  assert.equal(headers.get('X-Forwarded-For'), '192.0.2.157');
+  assert.equal(headers.get('accept'), 'application/json');
+  assert.equal(requests[0].init?.redirect, 'error');
+  await read('https://example.com/api/admin/status');
+  assert.equal(requests[1].init, undefined);
+});

@@ -1,7 +1,8 @@
 # Phase 4 security fix handoff
 
-Prepared Nov 12, 2026 (iteration 1881). Public mode remains off and the VM
-remains private. This records fixes, not acceptance or permission to activate.
+Prepared Nov 12, 2026; accepted Nov 15 under STEERING 62 (iteration 2330).
+Public mode is enabled while VM sharing stays private. Item 58 is acked against
+Nov 14 edition `b9d55088` and the owner proxy result.
 The private review remains in `~/lead-private/phase4-security-review.md`.
 
 ## Item 58 fixes deployed
@@ -50,11 +51,10 @@ The private review remains in `~/lead-private/phase4-security-review.md`.
   stories. NBA/item 58 acceptance remains open; no activation follows this run.
   [Admission breakage review](edition-reviews/2026-11-13.md).
 - Nov 14 edition `b9d55088-892a-4e34-b77c-a398d64c6a9f` restores NBA AI editing,
-  but Gaming fallback and failed World/U.S. ownership prevent normal full-edition
-  acceptance. Item 58 and activation remain open. [Review](edition-reviews/2026-11-14.md).
-- Item 58 stays open until the live checks are answered and a normal scheduled
-  edition publishes after the fixes. Then add the required steering ack and
-  request the lead re-check; the owner retains the go-public decision.
+  with Gaming fallback and failed World/U.S. ownership retained as breakages.
+  STEERING 62 accepts this publication for item 58. [Review](edition-reviews/2026-11-14.md).
+- Item 58 is closed under STEERING 62; the next public-mode scheduled edition
+  must pass the publishing/reader gate before item 50 is acked.
 - The broader [readiness checklist](public-readiness.md) still applies to future
   activation, including public-mode verification and ordered rollback.
 

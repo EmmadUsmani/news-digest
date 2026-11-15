@@ -2854,3 +2854,5 @@ edition ID.
 edition fails to publish or the reader breaks in public mode, set
 `PUBLIC_MODE=0` and rebuild first (runbook rollback step 2; sharing is already
 private), then report.
+
+ack: 2026-11-15 item 62 activation — iteration 2330: item 58 acked in 69699604 against scheduled edition b9d55088 and owner proxy evidence. Enabled server/web public mode while sharing stays private; fresh backup, environment rollback copy, health, deployed boundary/session checks and desktop/mobile reader pass (docs/public-activation-record.md). Next scheduled publication at Nov 15 15:00 UTC remains pending; item 50 is not yet acked.

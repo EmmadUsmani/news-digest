@@ -1,18 +1,17 @@
 # Phase 4 readiness checklist
 
-Public mode is off; the VM remains private. STEERING 59 authorizes activation
-with sharing private after the scheduled all-topic/item 58 gate. Only the owner
-may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases)
-and STEERING 59 where older plan gates conflict.
+Public mode is enabled while VM sharing remains private under STEERING 62.
+Only the owner may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases).
+The next scheduled edition must pass the publishing and reader gate below.
 
 Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
 
 ## Activation and rollback runbook
 
-Complete item 58 after a normal scheduled edition passes the all-topic AI gate
-below. The lead re-check proceeds in parallel and does not block the authorized
-private-sharing activation. Public Grafana is excluded from launch; Spend may be public.
-Public mode and sharing remain unchanged until the activation steps are run.
+Item 58 is accepted against Nov 14 edition `b9d55088` and the owner's proxy result.
+STEERING 62 replaces the former all-topic AI gate with scheduled publication,
+signed-out reader agreement and continued private/admin refusals.
+Public Grafana is excluded from launch; Spend may be public.
 
 ### Activate while the VM is private
 
@@ -36,7 +35,7 @@ Public mode and sharing remain unchanged until the activation steps are run.
    URL. Do not treat a private-mode response or a proxy login redirect as
    proof of public-mode admission. Any failure stops sharing.
 4. Accept one normal scheduled edition with public mode enabled and record its
-   edition ID, all-topic AI editing and reader verification using the gate below. Provide the lead the
+   edition ID and reader verification using the gate below. Provide the lead the
    security handoff, then ack item 50 and stop for the owner's sharing decision.
    Only then may the owner run
    `ssh exe.dev share set-public news-digest`. Keep server public mode and the
@@ -106,22 +105,21 @@ activation review, rather than adding more variants of already-covered refusals.
       or a deletion/forced merge. Normal queries and scraping remain available.
 - [x] Owner launch decisions (STEERING 59): omit public Grafana and its capacity
       work; keep Grafana closed and off the public Tools list. Spend may be public.
-- [ ] Close item 58 with a normal scheduled all-topic AI-edited edition and its ID.
-      Proxy result is recorded in the [security handoff](phase4-security-handoff.md).
-      Require saved AI provenance, complete triage and matching nonempty summaries
-      for all five expected topics using the command below, alongside the
-      scheduled-job and editorial review. NBA-only success does not close this gate.
+- [x] Item 58 accepted under STEERING 62: Nov 14 scheduled edition
+      `b9d55088-892a-4e34-b77c-a398d64c6a9f` published with NBA AI editing.
+      Owner proxy result is recorded in the [security handoff](phase4-security-handoff.md).
+- [ ] Accept the next scheduled edition in public mode: publication on schedule;
+      latest, history and direct edition agree for signed-out readers; private/admin
+      reads and writes remain refused. Record fallbacks and thin or withheld topics
+      as edition breakages; they do not fail this access/publication gate.
 
 ```sh
-pnpm exec tsx scripts/check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ \
-  --require-ai-topic 'Tech & AI' --require-ai-topic NBA \
-  --require-ai-topic Gaming --require-ai-topic 'World news & politics' \
-  --require-ai-topic 'U.S. news & politics'
+pnpm exec tsx scripts/check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ
+pnpm exec tsx scripts/check-live-account-boundary.ts
 ```
 
-Replace the timestamp with the scheduled window end. Use this same command for
-the first public-mode scheduled edition in step 4.
-The expected topic names are explicit so a missing section also refuses acceptance.
+Replace the timestamp with the scheduled window end. Verify signed-out private/admin
+refusals through the deployed router as well. Do not add AI-topic requirements.
 
 - [x] Read-only admin/tool rollout inventory reconciled (2103): reviewed pages,
       handbook/explorer and fresh-admin telemetry are installed behind the flag.
@@ -132,12 +130,12 @@ The expected topic names are explicit so a missing section also refuses acceptan
       rate limits, security headers, privacy page, request-log hygiene and
       private-mode rollback. Commands and scope: [rehearsal receipt](public-readiness-evidence.md#complete-public-mode-rehearsal-iteration-2104).
       Deployed public-mode acceptance remains in activation step 3.
-- [ ] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
+- [x] Build the web app with `VITE_PUBLIC_MODE=1` when activating server
       `PUBLIC_MODE=1`; rollback rebuilds with `VITE_PUBLIC_MODE=0`. Only the
       reviewed overview, topics, schedule, sources, Spend, Tools, Queues and published-edition history/detail are anonymous-capable; other admin pages remain guarded.
-- [ ] Prepare an exact flag/migration/service rollback record and fresh baseline
+- [x] Prepare an exact flag/migration/service rollback record and fresh baseline
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
-      If the scheduled edition fails or looks abnormal, follow the ordered
+      If publication fails or the public reader breaks, follow the ordered
       rollback above: unshare and confirm private access before disabling public mode.
 - [ ] Accept a normal scheduled edition with public mode enabled, then provide
       the lead a security-review handoff with evidence and unresolved findings.

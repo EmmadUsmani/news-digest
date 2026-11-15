@@ -1,7 +1,7 @@
 # Private-sharing public-mode activation record
 
-Prepared November 13, iteration 2110. Activation has not started.
-Refresh this record after scheduled NBA/item 58 acceptance and before activation.
+Activated November 15, iteration 2330, while VM sharing stays private.
+The next scheduled edition is pending the STEERING 62 publishing/reader gate.
 Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 
 ## Preparation baseline (05:32 UTC; refresh before activation)
@@ -44,19 +44,35 @@ Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
   environment copy and baseline after NBA/item 58 acceptance before activation;
   the scheduled edition and continued collection will change the database.
 
-## Activation receipt to complete
+## Activation receipt — November 15, iteration 2330
 
-- Scheduled gate: edition ID, all five AI editors and item 58 acknowledgement.
-  Run the [all-topic gate](public-readiness.md#remaining-activation-work); retain
-  its per-topic results before activation and for the first public-mode edition.
-- Fresh UTC timestamp, deployed commit, health, source and queue results.
-- Confirm private sharing; retain the owner’s proxy result separately from an anonymous check.
-- Run `python3 ops/backups/database.py backup`; record the private backup receipt path.
-- Keep a mode-600 copy of the environment file outside the repository; record its path only.
-- Record migration head and preserve additive migrations; activation needs no schema rollback.
-- Record `PUBLIC_MODE=1`, `VITE_PUBLIC_MODE=1`, build result and API restart time.
-- Record deployed admission/browser checks from runbook step 3.
-- Record the next normal public-mode scheduled edition ID and all-topic gate result.
+- Item 58 ack commit `69699604`; deployment `7db9cf6b` includes the concurrent
+  owner notes merge. Activation began before noon, at 02:15 UTC.
+- Fresh snapshot `~/backups/news-digest/news-digest-20261115T020603Z.dump`:
+  39 tables, 19,637,477 bytes; private manifest alongside it. No migration applied.
+- Mode-600 environment copy in mode-700 directory:
+  `~/.local/state/news-digest/activation/env-before-public-20261115T020630Z`.
+- Private baseline `~/.local/state/news-digest/activation/2330-reader-baseline.json`;
+  Nov 14 edition `b9d55088-892a-4e34-b77c-a398d64c6a9f`, five topics,
+  14 stories and 19 posts. Latest/direct/history agree after activation.
+- `PUBLIC_MODE=1`; `VITE_PUBLIC_MODE=1 pnpm build` passed. API and worker
+  restarted because the shared environment changed; database/Redis healthy.
+- Deployed account boundary: all 32 checks pass. Explicit deployed probe:
+  26 checks pass, including anonymous reader/assets, private cost/tool refusals,
+  legacy-header refusal, fresh-admin cost read and disposable reader isolation.
+  Disposable reader deleted and admin logged out; no owner preference or schedule writes.
+- Desktop/mobile Chromium show the saved real edition with no page errors;
+  external embeds blocked. Screenshots: `docs/screenshots/public-activation-{desktop,mobile}.png`.
+- HTTPS through public DNS address returns 307 to exe.dev login with HSTS;
+  sharing remains private. Application admission checks use loopback and the
+  configured trusted visitor field; this does not claim signed-out proxy passage.
+- All 38 sources have no error; digest queue has one worker, no failures and
+  next run Nov 15 15:00 UTC. Alerts zero. Private CLI probes adapted to public
+  source/queue projections without legacy-token admission or private run claims.
+- Next: accept Nov 15 scheduled publication with signed-out latest/history/direct
+  agreement and continued private/admin refusals, then ack item 50. AI quality is
+  reviewed separately. No sharing change, paid call or full rehearsal rerun.
+- Private receipts: `/tmp/2330-{deployed,https-headers,public-status,public-queues}.*`.
 
 ## Exact private-mode recovery
 
@@ -79,4 +95,4 @@ Keep public mode enabled until private sharing is confirmed.
    and rollback reason. Preserve published data and additive migrations.
 
 No sharing command, budget change or activation is authorized by this record alone;
-the scheduled gate and STEERING 59 remain controlling.
+STEERING 62 and the publishing/reader gate remain controlling.

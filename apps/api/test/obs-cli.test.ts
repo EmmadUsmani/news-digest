@@ -803,3 +803,57 @@ void test('alerts queries local evaluator and bounds active results with firing 
     runObs(['alerts'], async () => new Response('', { status: 503 })),
   );
 });
+
+void test('public operational probes preserve source errors and queue health without inventing private runs', async () => {
+  const checkedAt = '2026-11-15T02:00:00Z';
+  const source = {
+    id: 'feed',
+    name: 'Feed',
+    lastAttempt: checkedAt,
+    lastSuccess: checkedAt,
+    hasError: false,
+    active: true,
+    enabled: true,
+    lastItemCount: 2,
+    storedItems: 3,
+    items24h: 2,
+    items7d: 3,
+  };
+  const queue = {
+    name: 'digest-generation',
+    available: true,
+    workers: 1,
+    paused: false,
+    counts: { delayed: 1 },
+    nextRun: '2026-11-15T15:00:00Z',
+  };
+  const read: typeof fetch = async () =>
+    Response.json({
+      checkedAt,
+      sources: [source],
+      queues: [queue],
+      privateOtherField: 'discard',
+    });
+  assert.equal((await runObsCli(['sources', '--check'], read)).exitCode, 0);
+  const jobs = await runObsCli(
+    ['jobs', '--check', '--queue', 'digest-generation'],
+    read,
+  );
+  assert.equal(jobs.exitCode, 0);
+  const output = JSON.parse(jobs.output);
+  assert.equal(output.detail, 'public-counts-only');
+  assert.deepEqual(output.queues, [queue]);
+  assert.equal(output.privateOtherField, undefined);
+  await assert.rejects(
+    runObs(['jobs', '--state', 'failed'], read),
+    /public mode exposes queue counts only/,
+  );
+  source.hasError = true;
+  assert.equal((await runObsCli(['sources', '--check'], read)).exitCode, 1);
+  queue.workers = 0;
+  assert.equal(
+    (await runObsCli(['jobs', '--check', '--queue', 'digest-generation'], read))
+      .exitCode,
+    1,
+  );
+});

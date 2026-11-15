@@ -19,6 +19,9 @@ import {
 
 async function read(path: string): Promise<unknown> {
   const response = await fetch(`http://127.0.0.1:8000${path}`, {
+    // This loopback-only probe supplies the visitor field required by the
+    // configured trusted proxy boundary in public mode; it grants no identity.
+    headers: { 'X-Forwarded-For': '192.0.2.158' },
     redirect: 'error',
     signal: AbortSignal.timeout(15_000),
   });

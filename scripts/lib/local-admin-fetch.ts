@@ -7,6 +7,7 @@ const origin = 'http://127.0.0.1:8000';
 export function createLocalAdminFetch(
   readToken: () => string | undefined,
   read: typeof fetch = fetch,
+  publicMode: () => boolean = () => false,
 ): typeof fetch {
   return async (input, init) => {
     const url = new URL(input instanceof Request ? input.url : String(input));
@@ -25,6 +26,18 @@ export function createLocalAdminFetch(
           url.pathname === prefix || url.pathname.startsWith(`${prefix}/`),
       );
     if (url.origin !== origin || !protectedPath) return read(input, init);
+    if (publicMode()) {
+      const headers = new Headers(
+        input instanceof Request ? input.headers : undefined,
+      );
+      new Headers(init?.headers).forEach((value, name) =>
+        headers.set(name, value),
+      );
+      headers.delete('ADMIN_LOCAL_TOKEN');
+      // Explicit local probe visitor; this conveys no account identity.
+      headers.set('X-Forwarded-For', '192.0.2.157');
+      return read(input, { ...init, headers, redirect: 'error' });
+    }
     const token = readToken();
     if (!token || /[\r\n]/.test(token))
       throw new Error('Local admin token is missing or invalid');
@@ -40,15 +53,21 @@ export function createLocalAdminFetch(
   };
 }
 
-export const localAdminFetch = createLocalAdminFetch(() => {
-  try {
-    return parseEnv(
-      readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8'),
-    ).ADMIN_LOCAL_TOKEN;
-  } catch {
-    throw new Error('Cannot read local admin credentials');
-  }
-});
+function privateEnvironment() {
+  return parseEnv(readFileSync(`${homedir()}/.config/news-digest/env`, 'utf8'));
+}
+
+export const localAdminFetch = createLocalAdminFetch(
+  () => {
+    try {
+      return privateEnvironment().ADMIN_LOCAL_TOKEN;
+    } catch {
+      throw new Error('Cannot read local admin credentials');
+    }
+  },
+  fetch,
+  () => privateEnvironment().PUBLIC_MODE === '1',
+);
 
 // Read protected operational state without putting credentials in a browser context.
 export async function localAdminJson(path: string): Promise<unknown> {

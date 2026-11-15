@@ -24,7 +24,7 @@ snapshots.
 > A prepared source toggle uses this boundary and returns changed, unchanged
 > or not-found. Missing sources leave no admission record. Its prepared HTTP
 > boundary checks a bounded request and fresh admin before calling the writer.
-> The default-off public runtime routes source toggles, topic toggles and complete
+> The public runtime routes source toggles, topic toggles and complete
 > topic ordering through this boundary. Changes and changed/unchanged outcomes
 > commit together; stale topic catalogs leave no admission or ordering change.
 > Null outcomes describe admission only, including rows predating migration 0019.
@@ -37,7 +37,7 @@ snapshots.
 > Admins can issue one-time friend links and revoke a reader’s sessions;
 > issuance and revocation write private audit records. Saved topics and bookmarks
 > sync between signed-in devices. Deletion removes personal settings and sessions.
-> The VM stays private and public mode remains disabled. See the
+> The VM stays private with public mode enabled. See the
 > [account rollout](../../account-activation.md).
 
 Reader source rows use saved publisher names when available, alongside discovery

@@ -182,7 +182,9 @@ replaced the client's header with the real identity. Not covered: the
 `X-ExeDev-UserID` header, and anonymous visitors once the proxy is public.
 Under STEERING 59, private public-mode activation follows scheduled NBA/item 58
 acceptance without another owner decision. Sharing remains private; the owner's
-go-public decision gates sharing only.
+go-public decision gates sharing only. STEERING 62 accepts Nov 14 publication for
+item 58; iteration 2330 enabled public mode while sharing stays private. The next
+scheduled publishing/reader gate remains pending; no new owner action is requested.
 
 ## Resolved: disk headroom — Nov 15, iteration 2329
 

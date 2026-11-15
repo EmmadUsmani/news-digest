@@ -109,16 +109,16 @@ links jump directly to the bookmarked story or post. The reader makes no operati
 navigation opens Editions, Sources, Topics, Schedule, Spend and Tools. These
 dedicated pages replace the old combined management screen.
 
-Prepared public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 files by exact path; restart to refresh the list.
+Public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 files by exact path; restart to refresh the list.
 
 ## Admin identity
 
 - Trusted proxy peers match exact addresses. IPv6 visitors share a /64 for API admission and sign-in challenges; IPv4 uses individual addresses. Code requests and redemption share a 100-attempt, 24-hour allowance per recipient/client, alongside the ten-minute limits. Code-request responses wait at least one second, including unknown recipients and throttled requests. With accounts enabled, admin access lasts seven days after a verified mailbox code. Sign-in links create reader sessions and cannot renew admin access. With signup off, issuing and redeeming links requires an existing account. `GET /api/me` returns `{ isAdmin }` with caching disabled.
-- `/admin` and `/api/admin` paths return 404 unless `X-ExeDev-Email`
-  exactly matches an entry in the comma-separated `ADMIN_EMAILS` setting.
-- Direct VM scripts can send the `ADMIN_LOCAL_TOKEN` header, matching the
-  secret of the same name. This requires a loopback socket and no forwarding
-  headers; loopback alone grants no access. Missing settings deny access.
-- Operational APIs under `/api/admin` serve topics, profile, status, content
-  and digest previews. Old API paths are removed. The same gate protects
-  `/docs`, `/db`, `/grafana`, `/logs`, `/metrics` and `/queues`. See the [access decision](../../decisions/2026-11-05-admin-access.md).
+- Public mode is enabled while VM sharing stays private. Published readers and
+  reviewed operational overviews allow signed-out reads. Private/admin routes
+  and writes require a stored, fresh admin session; proxy identity and local token headers do not grant public-mode access.
+- The legacy private-mode guard accepts the configured proxy email or a local
+  admin token over loopback without forwarding headers. It is inactive in public mode.
+- `/docs` serves the reader handbook and `/db` exposes schema only. Logs and
+  metrics require fresh-admin sessions; Grafana is closed. Queues expose sanitized
+  counts. See the [access plan](../../public-access-plan.md).

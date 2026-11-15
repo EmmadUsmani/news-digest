@@ -1,6 +1,7 @@
 import {
   type OperationsStatus,
   operationsStatusSchema,
+  publicOperationsStatusSchema,
 } from '@digest/contracts';
 
 import type { AlertEvent } from './alerting/dispatcher';
@@ -227,18 +228,62 @@ export async function runObs(
     return JSON.stringify(serviceSummary(await response.json(), Date.now()));
   }
   if (args[0] === 'sources') {
-    const snapshot = operationsStatusSchema
+    const body = await response.json();
+    const privateSnapshot = operationsStatusSchema
       .pick({ checkedAt: true, sources: true })
-      .parse(await response.json());
+      .safeParse(body);
+    const snapshot = privateSnapshot.success
+      ? privateSnapshot.data
+      : (() => {
+          const publicSnapshot = publicOperationsStatusSchema
+            .extend({
+              sources: publicOperationsStatusSchema.shape.sources.element
+                .strict()
+                .array(),
+            })
+            .pick({ checkedAt: true, sources: true })
+            .parse(body);
+          return {
+            ...publicSnapshot,
+            sources: publicSnapshot.sources.map(({ hasError, ...source }) => ({
+              ...source,
+              error: hasError ? 'Source error' : null,
+            })),
+          };
+        })();
     return JSON.stringify(sourceSummary(snapshot));
   }
   if (args[0] === 'targets') {
     return JSON.stringify(targetSummary(await response.json(), Date.now()));
   }
   if (args[0] === 'jobs') {
-    const status = operationsStatusSchema
+    const body = await response.json();
+    const privateStatus = operationsStatusSchema
       .pick({ checkedAt: true, queues: true })
-      .parse(await response.json());
+      .safeParse(body);
+    if (!privateStatus.success) {
+      const status = publicOperationsStatusSchema
+        .extend({
+          queues: publicOperationsStatusSchema.shape.queues.element
+            .strict()
+            .array(),
+        })
+        .pick({ checkedAt: true, queues: true })
+        .parse(body);
+      const options = jobOptions(args.slice(1));
+      if (options.state)
+        throw new Error(
+          'Job state filtering requires private run details; public mode exposes queue counts only',
+        );
+      return JSON.stringify({
+        ...status,
+        detail: 'public-counts-only',
+        queues: status.queues.filter(
+          (queue) => !options.queue || queue.name === options.queue,
+        ),
+      });
+    }
+    const status = privateStatus.data;
     const options = jobOptions(args.slice(1));
     return JSON.stringify({
       checkedAt: status.checkedAt,

@@ -3,16 +3,14 @@
 > [!NOTE]
 > Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
-## Phase 4 activation handoff (updated 2026-11-14)
+## Phase 4 activation handoff (updated 2026-11-15)
 
-The reader pages and full disposable public-mode rehearsal are complete.
-STEERING 59 authorizes public-mode activation while the VM stays private after
-a normal scheduled edition closes item 58. The
-[all-topic gate](public-readiness.md#remaining-activation-work) requires saved AI
-provenance, complete triage and reader agreement for Tech & AI, NBA, Gaming,
-World news & politics and U.S. news & politics. Nov 14 restored NBA, but Gaming
-fallback and withheld World/U.S. stories keep this gate open. `PUBLIC_MODE=0`
-until it passes. Lead security review proceeds in parallel.
+Server and web public mode are enabled while VM sharing remains private.
+STEERING 62 accepts item 58 against Nov 14 edition `b9d55088` and the owner's
+proxy result. The former all-topic AI gate is removed. The next scheduled edition
+must publish on schedule, appear consistently in signed-out latest/history/direct
+reads and preserve private/admin refusals. Editorial fallbacks, withheld topics
+and thin summaries are breakages to review, not activation blockers.
 Earlier preparation notes below are historical; this is the current handoff.
 
 | Audience         | Prepared access                                                                                                                                                                |
@@ -29,15 +27,15 @@ cannot grant public-mode admin rights. Admin writes require provenance and audit
 admission; telemetry reads require recent admin authentication. Accepted sign-in,
 logs and metrics screens need no further rehearsal without a relevant change.
 
-| Switch                  | Meaning and current rollout                                                                    |
-| ----------------------- | ---------------------------------------------------------------------------------------------- |
-| `PUBLIC_MODE`           | Server route/admission/projection boundary; remains off                                        |
-| `VITE_PUBLIC_MODE`      | Build-time reader/admin UI behavior; must match server activation; live private build retained |
-| `SYSTEM_OWNERSHIP`      | System topics/settings and edition ownership; on                                               |
-| `READER_PUBLISHED_ONLY` | Excludes private/test editions from reader APIs                                                |
-| `READER_PREFERENCES`    | Browser topic hiding and bookmarks                                                             |
-| `ACCOUNTS_ENABLED`      | Enables stored-session sign-in and account sync; live invite-only accounts enabled             |
-| `SIGNUP_MODE`           | Controls account admission; live `invite`, no open signup                                      |
+| Switch                  | Meaning and current rollout                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------- |
+| `PUBLIC_MODE`           | Server route/admission/projection boundary; on while VM sharing stays private      |
+| `VITE_PUBLIC_MODE`      | Build-time reader/admin UI behavior; public build deployed                         |
+| `SYSTEM_OWNERSHIP`      | System topics/settings and edition ownership; on                                   |
+| `READER_PUBLISHED_ONLY` | Excludes private/test editions from reader APIs                                    |
+| `READER_PREFERENCES`    | Browser topic hiding and bookmarks                                                 |
+| `ACCOUNTS_ENABLED`      | Enables stored-session sign-in and account sync; live invite-only accounts enabled |
+| `SIGNUP_MODE`           | Controls account admission; live `invite`, no open signup                          |
 
 Public Grafana is excluded from launch and absent from the public tool list;
 its capacity work does not gate activation. Spend may be public. The explorer
@@ -47,7 +45,7 @@ Follow [public readiness](public-readiness.md) and the
 [deployment record](public-activation-record.md) for the fresh baseline,
 rollback and activation checks. After enabling server and web public mode with
 sharing private, accept one normal scheduled edition in public mode using the
-same all-topic gate. Then ack item 50 and stop for the owner's sharing decision.
+publishing and reader gate above. Then ack item 50 and stop for the owner's sharing decision.
 Only the owner changes exe.dev sharing; accepted screens need no repeated
 rehearsal without a change.
 
@@ -83,7 +81,7 @@ STEERING 53 accepts loopback trust and the last-entry visitor selector;
 owner two-device/proxy/TLS checks passed. The owner accepted Phase 3 after the
 Nov 10 scheduled edition; NBA editorial acceptance belongs to STEERING 54.
 Natural 24-hour sign-in link expiry passed live on Nov 11 (1757).
-`PUBLIC_MODE` remains off. Migration 0019 passed a fresh private backup/restore
+At that historical stage, `PUBLIC_MODE` remained off. Migration 0019 passed a fresh private backup/restore
 rehearsal and bounded live runner twice, preserving admissions and private grants.
 Historical preparation notes below describe their iteration, not current gates.
 Use the [Phase 3 checklist](account-activation.md) and
