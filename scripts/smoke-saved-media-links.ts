@@ -50,7 +50,7 @@ async function smoke() {
           .click();
         await page
           .getByRole('button', {
-            name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
+            name: `Save post on ${post.platform === 'x' ? 'X' : post.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`,
             exact: true,
           })
           .click();

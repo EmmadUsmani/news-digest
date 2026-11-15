@@ -1004,3 +1004,16 @@ Both process starts unchanged; warning-level user metrics/alerts journal since
 05:23:06 UTC has no entries. Keep the CPU-only 2% trial; recovery remains open.
 Next passive sample no earlier than 07:25 UTC. No forced merge or restart.
 Receipt: `/tmp/2352-metrics.jsonl`.
+
+### Passive follow-up (iteration 2357)
+
+Nov 15 07:25:06–09 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 2`:
+24 fresh healthy rules, four uncached queries ≤0.995 s, no new evaluator errors,
+missed iterations, admission-limit hits, queue timeouts or slow queries. Neither
+tier merged during the short sample; since the previous sample, 58 small merges
+total 1,631,768 rows, below the comparable threshold, with no big merge or new
+failures/admission hits/timeouts/slow queries. Both process starts unchanged.
+Warning-level metrics/alerts journal since 06:24:51 UTC has no entries. Keep the
+CPU-only 2% trial; recovery remains open. Next passive sample no earlier than
+08:26 UTC. No forced merge or restart.
+Receipt: `/tmp/2357-metrics.json`.

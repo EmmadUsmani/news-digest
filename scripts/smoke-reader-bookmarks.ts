@@ -221,7 +221,7 @@ async function smoke() {
         ).toBeVisible();
         for (const post of edition.topics.flatMap((topic) => topic.posts)) {
           const control = page.getByRole('button', {
-            name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
+            name: `Save post on ${post.platform === 'x' ? 'X' : post.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`,
             exact: true,
           });
           await expect(control).toBeVisible();
@@ -274,7 +274,7 @@ async function smoke() {
           assert.ok(post, `actual ${platform} post required`);
           await page
             .getByRole('button', {
-              name: `Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`,
+              name: `Save post on ${post.platform === 'x' ? 'X' : post.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`,
               exact: true,
             })
             .click();
@@ -380,7 +380,7 @@ async function smoke() {
             anchor: `story-${historicalStory.id}`,
           },
           {
-            name: `Save post on ${historicalPost.platform} from ${historicalPost.author}, ${historicalPost.publishedAt}`,
+            name: `Save post on ${historicalPost.platform === 'x' ? 'X' : historicalPost.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${historicalPost.author}, ${new Date(historicalPost.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`,
             title:
               historicalPost.platform === 'reddit'
                 ? historicalPost.title

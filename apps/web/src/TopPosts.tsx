@@ -123,7 +123,7 @@ export function TopPosts({
                 <Button
                   variant="ghost"
                   className="mt-2 h-11 min-w-11 px-3 text-sm"
-                  aria-label={`Save post on ${post.platform} from ${post.author}, ${post.publishedAt}`}
+                  aria-label={`Save post on ${post.platform === 'x' ? 'X' : post.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`}
                   aria-pressed={bookmark.isSaved(post)}
                   onClick={() => bookmark.toggle(post)}
                 >

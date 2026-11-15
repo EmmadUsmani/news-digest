@@ -24,13 +24,13 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 06:25 passive probe: 24 healthy rules, two small merges (17,411 rows), no new evaluator errors/admission hits/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 07:25 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 07:25 passive probe: 24 healthy rules; since the previous sample, 58 small merges/1,631,768 rows, no big merge or new failures/admission hits/timeouts/slow queries. Second comparable natural merge still needed. Next sample no earlier than 08:26 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 
-- [ ] STEERING 7 speed: targets <60 seconds/current volume and <2 minutes/1,500 unmet. Offline staging exposes NBA repair admission risk; proposed [owned-envelope handoff](docs/decisions/0005-staged-editorial-admission.md) specifies atomic transfer, fenced recovery and draining (2329). Offline owned-balance transitions verified (2333): NBA repair protected, early U.S. refused where whole-topic serialization admits it. Four-slot owned/draining simulation verified (2334): NBA repair survives, early U.S. still refused; four active calls drain before release. Bounded waiting (2335) recovers synthetic U.S. admission at 20 ms, matching whole-topic 60 ms; 19 ms refuses. Saved Nov 12 NBA bounds (2336): initial 76,118 µ$, repair up to 77,585 µ$, envelope 153,703 µ$. Idle-capacity counterexample still refuses with 60 s waiting; reject unconditional owned-envelope rollout. No useful actual wait limit established; stop synthetic expansion and return to reader/source work while scheduled evidence is pending. Production unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
+- [ ] STEERING 7 speed: <60 seconds/current volume and <2 minutes/1,500 remain unmet. Offline owned-envelope handoff, draining and bounded waiting protect NBA repair but still refuse U.S. admission despite idle capacity. Saved Nov 12 NBA envelope: 153,703 µ$. No useful real wait limit established; reject unconditional rollout and stop synthetic expansion. Production unchanged; return to reader/source work until scheduled evidence. [Decision](docs/decisions/0005-staged-editorial-admission.md), [detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
 
 - [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
 
@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2357: post Save controls identify X/Bluesky/Reddit and use readable local publication times in screen-reader labels, preserving author/time distinctions.
+
 - [x] 2356: restored saved-item browser verification in public mode, including account keyboard order, post context/publication dates, cross-tab removal and historical edition jumps.
 
 - [x] 2355: clipped social URLs followed by sentence punctuation now open the original post instead of a partial address; complete URL destinations remain intact.
@@ -72,18 +74,6 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [x] 2352: restored read-only reviewed X account settings check in public mode; all four documented lists match live settings across desktop/mobile replays, with zero writes.
 
-- [x] 2351: restored the live Bluesky probe in public mode; bounded free World comparison confirms stronger engaged supply for event queries, with commentary/U.S. overlap still requiring editorial filtering. No storage or production-query changes.
-
-- [x] 2350: restored World Bluesky offline rotation rehearsal in public mode; public topic-settings contract removes the obsolete private profile-ID requirement. Pilot remains off.
-
-- [x] 2349: restored stored Bluesky coverage reporting in public mode using the public topic-settings contract; all five topics report successfully without profile IDs.
-
-- [x] 2348: corrected the Nov 14 review's obsolete recovery-first activation handoff; item 58 closure/public-mode activation and the next publication/access gate now match STEERING 62.
-
-- [x] 2347: separated Nov 15 public-mode publication/access acceptance from all-topic editorial review; fallbacks are recorded as breakages under STEERING 62.
-
-- [x] 2346: recorded due passive metrics sample (24 healthy rules, no new failures; comparable merge still pending) and corrected Nov 15 review activation chronology; scheduled-reader gate remains pending as expected before 15:00 UTC.
-
-Earlier completed steps: [archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
+Earlier completed steps: [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
