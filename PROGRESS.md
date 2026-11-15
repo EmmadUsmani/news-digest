@@ -142,3 +142,15 @@ Archived: [iterations 2421–2429](docs/progress-archive/2026-11-15-2421-2429.md
 - Full checks caught generated-release linting and a millisecond-mtime cache collision; excluded build output and keyed admission on nanosecond timestamps plus theme inode/type. Handbook initially exceeded 100-line limit; shortened affected page and rechecked successfully. No changed diagrams remain; removed obsolete deployment diagram in favor of the executable runbook.
 - Next: item 63 local pinned ELK for `/db/`, then full public handbook/privacy/browser acceptance, item 64 direct admin loads. Nov 16 public scheduled-edition acceptance remains open; metrics follow-up ≥23:06 UTC and Bluesky export by 06:56 UTC.
 - Final `pnpm check` exits 0: 1,052 unit/329 integration tests pass, four expected skips. API build and both atomic web deployments pass; final public browsers, scheduled reader, health, affected handbook checks and `git diff --check` pass. No service restart needed for remaining docs/tooling-only changes.
+
+## 2026-11-15: iteration 2440 — restore the public DB schema diagram
+
+- Clean main at a7c4c1d4; no inherited work. Alerts zero; DB/Redis health green. Followed item 63 step 2; no provider calls or sharing changes.
+- Pinned elkjs 0.9.3 as an explorer dependency and serve its bundled browser engine at `/db/elk.bundled.js`; removed the CDN script. Exact GET path admitted by public policy/proxy; CSP and write restrictions unchanged.
+- Expanded existing route/proxy acceptance cases and added a read-only signed-out public browser check (public DNS resolution preserves TLS host). Desktop/mobile render 39 tables, search/select users, and report zero console/page/HTTP errors or external scripts. Diagram/detail screenshots saved and inspected.
+- Updated affected handbook engine description. `pnpm exec tsx scripts/check-handbook.ts about-these-docs --owner-services` passes (18 pages, one diagram, 39 tables); unchanged diagram inspected. Initial default invocation correctly refused the private handbook in current public mode.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, API build, public schema browser script, scheduled-reader probe, `/healthz` and `git diff --check`; receipts `/tmp/2440-*`, final full-check result below.
+- Restarted changed API and schema roles only; worker/web unchanged. Reader verifies Nov 15 scheduled edition: five topics/23 stories/16 posts; health green after restart.
+- Shell-attached full check ended on SIGTERM (143) after integration case 333 without a final summary; detached systemd full check started for a reliable completion receipt.
+- Next: item 63 full handbook privacy review/public browser acceptance, then item 64 admin direct loads. Nov 16 15:00 scheduled publication acceptance remains open; retained Bluesky job export due 06:56 UTC. Metrics follow-up remains pending.
+- Final detached `pnpm check` exits 0: 1,052 unit/329 integration tests pass, four expected skips. API build, handbook check, signed-out public browser checks, scheduled-reader provenance, targeted script lint and `git diff --check` pass. No deployment/push blocker.

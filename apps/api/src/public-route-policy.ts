@@ -86,9 +86,14 @@ export function classifyPublicRoute(
     return null;
   if (isAdminTelemetryRead(method, target)) return 'admin';
   if (
-    ['/db', '/db/', '/db/app.js', '/db/style.css', '/db/api/schema'].includes(
-      target,
-    )
+    [
+      '/db',
+      '/db/',
+      '/db/app.js',
+      '/db/elk.bundled.js',
+      '/db/style.css',
+      '/db/api/schema',
+    ].includes(target)
   )
     return method === 'GET' ? 'public-read' : null;
   if (path === '/db' || path.startsWith('/db/')) return null;

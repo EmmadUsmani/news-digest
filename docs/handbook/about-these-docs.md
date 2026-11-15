@@ -27,7 +27,8 @@ flowchart LR
 - **The DB explorer is generated** from the live database. Only grouping,
   short notes and relations without a foreign key are written by hand, in
   `docs/schema-meta.json`. Tables it doesn't mention show up as "Unassigned",
-  and stale entries show up as warnings.
+  and stale entries show up as warnings. Its layout engine (ELK 0.9.3) is
+  served locally under `/db/`, using the same script policy as the app.
 
 ## Style rules
 

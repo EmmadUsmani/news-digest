@@ -158,6 +158,7 @@ void test('explorer admission permits only exact structural GET routes', () => {
     '/db',
     '/db/',
     '/db/app.js',
+    '/db/elk.bundled.js',
     '/db/style.css',
     '/db/api/schema',
   ]) {

@@ -137,6 +137,7 @@ void test('public readiness HTTP matrix admits reviewed explorer reads and close
         '/db',
         '/db/',
         '/db/app.js',
+        '/db/elk.bundled.js',
         '/db/style.css',
         '/db/api/schema',
       ]) {

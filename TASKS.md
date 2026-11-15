@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 63/64 (new owner instructions during 2438): atomic web deployment with ≥1-day hashed-asset retention completed (2439); no API/worker restart for web-only changes. Next serve pinned elkjs locally for `/db/`, publish the full handbook after privacy review, and fix admin-only direct New edition loads. Use signed-out public HTTPS/browser acceptance as specified; never disable public mode or change sharing. Nov 16 scheduled-publication acceptance remains open.
+- [ ] STEERING 63/64 (new owner instructions during 2438): atomic web deployment with ≥1-day hashed-asset retention completed (2439); no API/worker restart for web-only changes. Local pinned ELK for `/db/` completed (2440), with signed-out public desktop/mobile rendering and zero console errors. Next publish the full handbook after privacy review, then fix admin-only direct New edition loads. Use signed-out public HTTPS/browser acceptance as specified; never disable public mode or change sharing. Nov 16 scheduled-publication acceptance remains open.
 
 - [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2440: `/db/` serves pinned ELK 0.9.3 locally under unchanged CSP; signed-out public desktop/mobile diagram, search and detail pass without errors.
 
 - [x] 2439: atomic web releases retain retired assets ≥24 hours; dynamic exact-path admission, isolated deployment tests, public deployment polling and signed-out reader checks pass.
 

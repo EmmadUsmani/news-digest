@@ -1,9 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { createRequire } from 'node:module';
 import { extname, resolve } from 'node:path';
 
 import type { SchemaModel } from './model.ts';
 import { buildPublicModel } from './public-model.ts';
+
+const elkBundle = createRequire(import.meta.url).resolve(
+  'elkjs/lib/elk.bundled.js',
+);
 
 const types: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -56,7 +61,9 @@ export function createExplorerServer(options: {
           res.writeHead(404).end('Not found');
           return;
         }
-        const body = await readFile(path);
+        const body = await readFile(
+          url.pathname === '/elk.bundled.js' ? elkBundle : path,
+        );
         res.writeHead(200, {
           'content-type': types[extname(path)],
           'cache-control': 'no-cache',

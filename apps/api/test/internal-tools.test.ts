@@ -244,7 +244,12 @@ void test('reader explorer refuses private responses and forwards only exact str
       404,
     );
     assert.equal(requests.length, before);
-    for (const path of ['/db/', '/db/app.js', '/db/style.css'])
+    for (const path of [
+      '/db/',
+      '/db/app.js',
+      '/db/elk.bundled.js',
+      '/db/style.css',
+    ])
       assert.equal((await fetch(base + path)).status, 200);
   } finally {
     await close(app);

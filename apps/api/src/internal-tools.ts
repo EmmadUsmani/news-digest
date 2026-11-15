@@ -65,7 +65,14 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
     if (
       tool.readerExplorer &&
       (req.method !== 'GET' ||
-        !['', '/', '/app.js', '/style.css', '/api/schema'].includes(rest))
+        ![
+          '',
+          '/',
+          '/app.js',
+          '/elk.bundled.js',
+          '/style.css',
+          '/api/schema',
+        ].includes(rest))
     ) {
       res.writeHead(404, { 'cache-control': 'no-store' }).end();
       return;
