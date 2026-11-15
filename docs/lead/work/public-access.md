@@ -30,10 +30,16 @@ so run these checks from the Mac. Undo:
 
 **Next:**
 
-1. Owner approval pending: change the "VM stays private" rule in `CLAUDE.md`
-   and tell the build agent that sharing is public.
-2. Watch the Nov 16 edition publish publicly; check health and alerts.
-3. Fix the edition step of `status-check/status.sh` for public mode.
+1. Proposed steer, awaiting owner: sharing is public on purpose; deploy
+   without downtime (the agent builds into the live `apps/web/dist` and
+   restarts API and worker every iteration, 81 restarts Nov 15, each about
+   15 s of 503 and a blank page during the build); serve elkjs from `/db/`
+   instead of jsdelivr (public CSP blocks it: "ELK is not defined").
+2. Owner decision: full handbook public, or the one-page reader handbook
+   public mode serves on port 8110 (`apps/api/src/internal-tools.ts`).
+3. Admin pages need a signed-in admin session under 7 days old; exe.dev login
+   no longer counts. Owner to check `/account`.
+4. Watch the Nov 16 edition publish publicly. Fix `status.sh` edition step.
 
 **Owner gates later:** published manual editions (phase 0), email provider (phase 6), clean-up
 (phase 7).
