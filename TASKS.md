@@ -55,6 +55,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2434: saved-item publication timestamps now show their timezone; New York/Tokyo browser checks pass at desktop/mobile/320px in both themes.
+
 - [x] 2433: recovery sampler records memory-pressure baselines and interval deltas; next natural merge can be compared without treating lifetime reclaim counts as interval evidence.
 
 - [x] 2432: expanded article coverage shows local timezone beside each publication time; saved reports verified in New York/Tokyo across desktop/mobile/320px and both themes.

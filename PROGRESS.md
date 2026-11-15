@@ -164,3 +164,15 @@ Archived: [iterations 2411–2420](docs/progress-archive/2026-11-15-2411-2420.md
 - Verification: four targeted recovery tests; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`; full results and restart checks below.
 - Next: compare memory counters at metrics sample ≥22:04 UTC; World retained-job export by Nov 16 06:56 UTC; natural World/NBA/Tech acceptance. Public mode ON; VM private.
 - Full check passes: 1,050 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; health and scheduled reader pass (five topics/23 stories/16 posts); `git diff --check` clean. Receipts `/tmp/2433-*`.
+
+## 2026-11-15: iteration 2434 — identify saved publication timezones
+
+- Clean main at 98a35918; no inherited work. Alerts zero; health passes. Scheduled content acceptance remains pending; no provider calls.
+- Owner value: saved stories and posts now identify the timezone of their publication times, matching expanded report coverage.
+- Saved-item timestamps previously omitted the zone; retained local calendar/time and machine-readable instant while adding the short zone.
+- Browser assertions verify exact New York/Tokyo formatting and original publication instant, desktop/mobile/320px and both themes; six screenshots refreshed, narrow/light inspected.
+- Saved source controls include explicitly labelled synthetic publisher/legacy variants over saved production stories; no publication or remote writes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build`, `pnpm exec tsx scripts/smoke-reader-saved-source.ts`, scheduled reader, health and `git diff --check`; receipts `/tmp/2434-*`.
+- No handbook change needed for this display fix. Public mode ON; VM private.
+- Next: metrics sample ≥22:04 UTC; World retained-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance.
+- Full check passes: 1,050 unit/329 integration tests, four expected skips; public build and all six browser cases pass. API/worker restarted; health and scheduled reader pass (five topics/23 stories/16 posts). No push blocker.

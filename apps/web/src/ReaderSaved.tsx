@@ -134,8 +134,12 @@ export function ReaderSaved() {
                     Published on{' '}
                     <time dateTime={copy.publishedAt}>
                       {new Date(copy.publishedAt).toLocaleString(undefined, {
-                        dateStyle: 'medium',
-                        timeStyle: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        timeZoneName: 'short',
                       })}
                     </time>
                   </p>

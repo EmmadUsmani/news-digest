@@ -86,6 +86,8 @@ async function main() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          locale: 'en-US',
+          timezoneId: theme === 'light' ? 'America/New_York' : 'Asia/Tokyo',
         });
         const errors: string[] = [];
         await context.route('**/*', (route) => {
@@ -127,6 +129,21 @@ async function main() {
           const item = page.locator('li').filter({ has: titleLink });
           await expect(item.locator(':scope > p').first()).toHaveText(
             attribution,
+          );
+          await expect(item.locator('.saved-published time')).toHaveAttribute(
+            'datetime',
+            story.publishedAt,
+          );
+          await expect(item.locator('.saved-published time')).toHaveText(
+            new Date(story.publishedAt).toLocaleString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              timeZoneName: 'short',
+              timeZone: theme === 'light' ? 'America/New_York' : 'Asia/Tokyo',
+            }),
           );
           await expect(
             item.getByRole('link', { name: story.title, exact: true }),
