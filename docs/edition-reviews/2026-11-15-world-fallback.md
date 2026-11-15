@@ -128,3 +128,19 @@ This removes the saved Haiku initial wrapper blocker; its separate ICJ claim
 still needs repair. It does not establish natural World recovery or change the
 published edition. Synthetic editor tests cover one-call acceptance/cache reuse,
 invalid selected IDs, and malformed wrappers without external calls.
+
+## Durable offline recovery regression (iteration 2409)
+
+The four original World inputs and response bodies are now recorded in
+`apps/api/test/fixtures/llm/world-2026-11-15-rejected.json`, without request
+credentials or headers. `world-editor-recovery.test.ts` runs them through the
+production response decoder, budgeted repair flow and full shortlist validator
+using an in-memory provider and ledger. It makes no external calls.
+
+The original Sonnet initial response fails content validation; its unchanged
+saved repair produces five stories in two attempts, and the validated result
+is reused from cache. Each other saved output remains refused without a cache
+entry. In particular, the fenced Haiku initial response reaches content
+validation and fails its summary, rather than stopping at JSON decoding.
+This preserves the deployed recovery and remaining refusals in the normal test
+suite; it does not change generation or establish natural scheduled acceptance.

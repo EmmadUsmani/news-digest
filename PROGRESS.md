@@ -122,3 +122,13 @@ Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,045 unit/329 integration, four expected skips); counter assertions and `git diff --check` pass. Receipts `/tmp/2408-{format,lint,check,build}.log`. No UI change; no new browser screenshots required.
 - Next: natural World/NBA acceptance at the next scheduled edition; metrics sample ≥17:55 UTC. Public mode ON, VM private; sharing remains the owner's decision.
 - `VITE_PUBLIC_MODE=1 pnpm build` passed; API/worker restarted. Immediate health probe raced startup; retry passed with database/Redis healthy, and post-restart scheduled-reader gate passed unchanged.
+
+## 2026-11-15: iteration 2409 — retain real World recovery in offline tests
+
+- Clean main at 1c2ad322; no inherited work. Alerts zero; database/Redis, all 38 sources and four queue workers healthy.
+- Owner value: protect the actual five-story World recovery from regressions without weakening factual-support rules or spending the edition budget.
+- Recorded the four original Nov 15 World inputs/responses without request credentials or headers. New tests use production JSON decoding, repair, full shortlist validation and cache with in-memory provider/ledger only.
+- Sonnet initial rejects; unchanged saved repair validates five stories in two attempts and reuses cache. Other three responses remain refused without caching; fenced Haiku reaches content validation. ICJ/Haiku content blockers and natural scheduled acceptance stay open; no generation or provider changes.
+- Four targeted tests pass. Updated TASKS and World review; no source/schema/handbook/UI behavior changes or new screenshots required.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,049 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass; receipts `/tmp/2409-{targeted,format,lint,check,build}.log`.
+- API/worker restarted; scheduled reader verified five topics/23 stories/16 posts. Public mode ON, VM private; no sharing changes. Next: natural World/NBA acceptance; metrics passive sample due ≥17:55 UTC.

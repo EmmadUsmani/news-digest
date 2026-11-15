@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2409: recorded all four Nov 15 World responses in offline production-decoder/full-validator tests; unchanged Sonnet repair recovers five stories and cache reuse, other responses remain refused. Natural acceptance pending.
+
 - [x] 2391: captured pre-edition supply for natural Gaming/ownership recovery review: all five topics have candidates; six World/U.S. shared IDs and Tech excerpt scarcity recorded. No generation changes.
 
 - [x] 2390: restored headline destination/target browser verification in public mode; all 14 published headlines pass six viewport/theme variants with refreshed screenshots.

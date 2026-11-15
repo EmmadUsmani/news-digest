@@ -1,0 +1,305 @@
+{
+  "description": "Recorded rejected World responses from the Nov 15 scheduled edition; offline regression only, not published content. Request credentials and headers are excluded.",
+  "entries": [
+    {
+      "artifact": "1794754904976-96e1088b-baf8-49b3-bdcc-c1c6fd36f8f5.json",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000014",
+          "name": "World news & politics",
+          "description": "Global news and international affairs, including US foreign policy.",
+          "guidance": "Consequential international developments: wars, diplomacy, cross-border trade and US foreign policy.\nExclude: Principally domestic US politics, policy, courts, elections and events.\nRequired phrases: \nExcluded phrases: sponsored, promo code, horoscope, gift guide"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+            "title": "Iran targets US military base in Bahrain with drone attack",
+            "excerpt": "It marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.",
+            "sources": ["Al Jazeera", "BBC World", "The Guardian World"]
+          },
+          {
+            "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+            "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+            "excerpt": "A rift is opening up between President Trump and Vice President Vance when it comes to the Iran War. NPR's Ayesha Rascoe talks to Susan Glasser, staff writer at the New Yorker.",
+            "sources": ["NPR Politics", "PBS NewsHour Politics"]
+          },
+          {
+            "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+            "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+            "excerpt": "Ukraine's NATO ambition has always been a red line for the Kremlin. Giving up territory has been a no-no for Ukraine.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+            "title": "Drone attacks on power stations plunge Sudan\u2019s cities into darkness",
+            "excerpt": "Sudan's power stations are being targeted in waves of drone attacks, resulting in power outages.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+            "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+            "excerpt": "Both Hamas and IDF officials confirm the death of Samir Abu Younis, commander of the Rafah Brigade.",
+            "sources": ["Al Jazeera", "BBC World"]
+          },
+          {
+            "id": "b386bdc3-2a97-4d9b-8fc2-e89d489514e7",
+            "title": "Anthony Albanese welcomes Trump-Xi-Putin summit \u2013 even as European leaders express reservations",
+            "excerpt": "\u2018We think dialogue is a good thing,\u2019 Australian PM says after German chancellor urges the US to work with Europe for peace in Ukraine Australia has endorsed this week\u2019s historic summit between Donald Trump, Xi Jinping and Vladimir Putin in China, even as European leaders warn that the US president must not make major concessions over the war in Ukraine. The three-way summit is planned to take place in Shenzhen, where the leaders will gather for the Asia-Pacific Economic Cooperation (Apec) meeting. The Ukrainian president, Volodymyr Zelenskyy, has warned the talks must not lead to a\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "98c5e42c-f12f-4ae7-b91d-657ab6deebf1",
+            "title": "Secret votes and vetoes: How will the next UN chief be picked?",
+            "excerpt": "With no frontrunner for the job, eight candidates are vying for the UN Security Council's recommendation.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "b77c2d4b-4751-430e-9259-10843dd31059",
+            "title": "World\u2019s top court to rule if Myanmar committed genocide against Rohingya",
+            "excerpt": "International court of justice has never before found a state guilty of genocide, and ruling will have implications for case against Israel The world\u2019s top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, in a landmark case that will set a critical 21st-century benchmark for the gravest of all international crimes. The closely watched judgment could become one of the most significant moments in international law since the end of the second world war.\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "586b0b95-4ca8-4c94-a43d-a9e4c52474a4",
+            "title": "Saudi-led coalition intercepts suspected Houthi missiles and drones",
+            "excerpt": "Fighting escalates in Yemen's Marib and al-Jawf, as UN agency says more than 340,000 Yemenis displaced since August.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "41c0ebae-75ae-459d-9f05-38671afa01ab",
+            "title": "EU calls for immediate humanitarian access to Gaza",
+            "excerpt": "The EU said that \u201cIsrael must enable the work of the UN and its agencies\" after the group was blocked access into Gaza.",
+            "sources": ["Al Jazeera"]
+          }
+        ]
+      },
+      "responseText": "{\"brief\":[\"Iran reportedly targeted a US military base in Bahrain with a drone attack, the second attack on the country in three days, amid the US-Iran stand-off over the Strait of Hormuz.\",\"Australia endorsed this week's planned Trump-Xi-Putin summit in Shenzhen, while European leaders warned against major US concessions over Ukraine.\",\"The International Court of Justice is to rule this week on whether Myanmar committed genocide against the Rohingya.\",\"Hamas and IDF officials confirmed that Israel killed Rafah Brigade commander Samir Abu Younis in a strike on a Gaza camp.\"],\"stories\":[{\"id\":\"3cccf465-358b-4c2c-aa89-85b7feb44404\",\"evidenceIds\":[\"3cccf465-358b-4c2c-aa89-85b7feb44404\"],\"headline\":\"Iran targets US military base in Bahrain with drone attack\",\"summary\":\"Reports from Al Jazeera, BBC World and The Guardian World say Iran targeted a US military base in Bahrain with a drone attack. It is described as the second attack on the country in three days. It comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.\",\"whyItMatters\":\"An attack on a US base during an unresolved Hormuz stand-off raises the stakes of the US-Iran confrontation.\",\"rationale\":\"Direct military escalation involving the US and Iran, covered by multiple outlets.\"},{\"id\":\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\",\"evidenceIds\":[\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\"],\"headline\":\"Australia welcomes planned Trump-Xi-Putin summit as European leaders voice reservations\",\"summary\":\"The Guardian reports that Australia has endorsed this week's planned summit between Donald Trump, Xi Jinping and Vladimir Putin in Shenzhen, to be held around the Apec meeting. Prime Minister Anthony Albanese said \\\"We think dialogue is a good thing.\\\" European leaders warned that the US president must not make major concessions over the war in Ukraine.\",\"whyItMatters\":\"A three-way meeting of the US, Chinese and Russian leaders, with Ukraine's future a concern for European leaders, could shape diplomacy over the war.\",\"rationale\":\"Major great-power diplomacy with international reactions.\"},{\"id\":\"b77c2d4b-4751-430e-9259-10843dd31059\",\"evidenceIds\":[\"b77c2d4b-4751-430e-9259-10843dd31059\"],\"headline\":\"International Court of Justice to rule on whether Myanmar committed genocide against Rohingya\",\"summary\":\"The Guardian reports that the world's top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority. It says the International Court of Justice has never before found a state guilty of genocide. The Guardian also says the ruling will have implications for the case against Israel.\",\"whyItMatters\":\"The Guardian describes the judgment as a landmark that could become one of the most significant moments in international law since the end of the second world war.\",\"rationale\":\"Landmark international law ruling with wide implications.\"},{\"id\":\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\",\"evidenceIds\":[\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\"],\"headline\":\"Israel kills Hamas Rafah Brigade commander in strike on Gaza camp\",\"summary\":\"Al Jazeera and BBC World report that Israel killed Samir Abu Younis, commander of Hamas's Rafah Brigade, in a strike on a Gaza camp. Both Hamas and IDF officials confirmed his death.\",\"whyItMatters\":\"The death of a senior Hamas commander, confirmed by both sides, is a significant development in the Gaza conflict.\",\"rationale\":\"Confirmed killing of a senior militant commander in an ongoing war.\"},{\"id\":\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\",\"evidenceIds\":[\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\"],\"headline\":\"Drone attacks on power stations plunge Sudan's cities into darkness\",\"summary\":\"Al Jazeera reports that Sudan's power stations are being targeted in waves of drone attacks, causing power outages that have left cities in darkness.\",\"whyItMatters\":\"Repeated attacks on electricity infrastructure affect civilians in Sudan's cities.\",\"rationale\":\"Significant humanitarian and conflict impact outside the main headlines.\"}]}"
+    },
+    {
+      "artifact": "1794754926773-6e0e751b-5975-4b8f-9596-4ee9c7847060.json",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000014",
+          "name": "World news & politics",
+          "description": "Global news and international affairs, including US foreign policy.",
+          "guidance": "Consequential international developments: wars, diplomacy, cross-border trade and US foreign policy.\nExclude: Principally domestic US politics, policy, courts, elections and events.\nRequired phrases: \nExcluded phrases: sponsored, promo code, horoscope, gift guide"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+            "title": "Iran targets US military base in Bahrain with drone attack",
+            "excerpt": "It marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.",
+            "sources": ["Al Jazeera", "BBC World", "The Guardian World"]
+          },
+          {
+            "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+            "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+            "excerpt": "A rift is opening up between President Trump and Vice President Vance when it comes to the Iran War. NPR's Ayesha Rascoe talks to Susan Glasser, staff writer at the New Yorker.",
+            "sources": ["NPR Politics", "PBS NewsHour Politics"]
+          },
+          {
+            "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+            "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+            "excerpt": "Ukraine's NATO ambition has always been a red line for the Kremlin. Giving up territory has been a no-no for Ukraine.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+            "title": "Drone attacks on power stations plunge Sudan\u2019s cities into darkness",
+            "excerpt": "Sudan's power stations are being targeted in waves of drone attacks, resulting in power outages.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+            "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+            "excerpt": "Both Hamas and IDF officials confirm the death of Samir Abu Younis, commander of the Rafah Brigade.",
+            "sources": ["Al Jazeera", "BBC World"]
+          },
+          {
+            "id": "b386bdc3-2a97-4d9b-8fc2-e89d489514e7",
+            "title": "Anthony Albanese welcomes Trump-Xi-Putin summit \u2013 even as European leaders express reservations",
+            "excerpt": "\u2018We think dialogue is a good thing,\u2019 Australian PM says after German chancellor urges the US to work with Europe for peace in Ukraine Australia has endorsed this week\u2019s historic summit between Donald Trump, Xi Jinping and Vladimir Putin in China, even as European leaders warn that the US president must not make major concessions over the war in Ukraine. The three-way summit is planned to take place in Shenzhen, where the leaders will gather for the Asia-Pacific Economic Cooperation (Apec) meeting. The Ukrainian president, Volodymyr Zelenskyy, has warned the talks must not lead to a\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "98c5e42c-f12f-4ae7-b91d-657ab6deebf1",
+            "title": "Secret votes and vetoes: How will the next UN chief be picked?",
+            "excerpt": "With no frontrunner for the job, eight candidates are vying for the UN Security Council's recommendation.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "b77c2d4b-4751-430e-9259-10843dd31059",
+            "title": "World\u2019s top court to rule if Myanmar committed genocide against Rohingya",
+            "excerpt": "International court of justice has never before found a state guilty of genocide, and ruling will have implications for case against Israel The world\u2019s top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, in a landmark case that will set a critical 21st-century benchmark for the gravest of all international crimes. The closely watched judgment could become one of the most significant moments in international law since the end of the second world war.\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "586b0b95-4ca8-4c94-a43d-a9e4c52474a4",
+            "title": "Saudi-led coalition intercepts suspected Houthi missiles and drones",
+            "excerpt": "Fighting escalates in Yemen's Marib and al-Jawf, as UN agency says more than 340,000 Yemenis displaced since August.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "41c0ebae-75ae-459d-9f05-38671afa01ab",
+            "title": "EU calls for immediate humanitarian access to Gaza",
+            "excerpt": "The EU said that \u201cIsrael must enable the work of the UN and its agencies\" after the group was blocked access into Gaza.",
+            "sources": ["Al Jazeera"]
+          }
+        ]
+      },
+      "responseText": "{\"brief\":[\"Iran reportedly targeted a US military base in Bahrain with a drone attack, the second attack on the country in three days, amid a US-Iran stand-off over the Strait of Hormuz.\",\"Australia's prime minister welcomed a planned Trump-Xi-Putin summit in Shenzhen, while European leaders voiced reservations over possible concessions on Ukraine.\",\"The International Court of Justice is due to rule this week on whether Myanmar committed genocide against the Rohingya.\",\"Israel killed Hamas Rafah Brigade commander Samir Abu Younis in a strike on a Gaza camp, and both Hamas and IDF officials confirmed his death.\"],\"stories\":[{\"id\":\"3cccf465-358b-4c2c-aa89-85b7feb44404\",\"evidenceIds\":[\"3cccf465-358b-4c2c-aa89-85b7feb44404\"],\"headline\":\"Iran targets US military base in Bahrain with drone attack\",\"summary\":\"Al Jazeera, BBC World and The Guardian World report that Iran targeted a US military base in Bahrain with a drone attack. It marks the second attack on the country in three days. It comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.\",\"whyItMatters\":\"The strike on a US base adds to regional escalation while the Strait of Hormuz stand-off continues.\",\"rationale\":\"Major military escalation involving the US and Iran, reported by multiple outlets.\"},{\"id\":\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\",\"evidenceIds\":[\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\"],\"headline\":\"Albanese welcomes planned Trump-Xi-Putin summit as European leaders voice reservations\",\"summary\":\"The Guardian reports that Australia has endorsed this week's summit between Donald Trump, Xi Jinping and Vladimir Putin, planned for Shenzhen on the sidelines of the Apec meeting. Prime Minister Anthony Albanese said, \\\"We think dialogue is a good thing.\\\" European leaders warn that the US president must not make major concessions over the war in Ukraine.\",\"whyItMatters\":\"A three-way meeting of the leaders has implications for the Ukraine war and for relations between major powers.\",\"rationale\":\"Significant diplomacy involving the US, China and Russia, with reactions from allies.\"},{\"id\":\"b77c2d4b-4751-430e-9259-10843dd31059\",\"evidenceIds\":[\"b77c2d4b-4751-430e-9259-10843dd31059\"],\"headline\":\"ICJ to rule this week on whether Myanmar committed genocide against Rohingya\",\"summary\":\"The Guardian reports that the International Court of Justice will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority. The Guardian says the ruling will have implications for the case against Israel and could become one of the most significant moments in international law since the end of the second world war.\",\"whyItMatters\":\"The judgment could set a major benchmark in international law on the crime of genocide.\",\"rationale\":\"Landmark international legal ruling due this week.\"},{\"id\":\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\",\"evidenceIds\":[\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\"],\"headline\":\"Israel kills Hamas Rafah Brigade commander in strike on Gaza camp\",\"summary\":\"Al Jazeera and BBC World report that Israel killed Samir Abu Younis, commander of Hamas's Rafah Brigade, in a strike on a camp in Gaza. Both Hamas and IDF officials confirm his death.\",\"whyItMatters\":\"The death of a senior Hamas commander, confirmed by both sides, is a notable development in the Gaza conflict.\",\"rationale\":\"Confirmed killing of a senior militant commander in an ongoing war.\"},{\"id\":\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\",\"evidenceIds\":[\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\"],\"headline\":\"Drone attacks on power stations plunge Sudan's cities into darkness\",\"summary\":\"Al Jazeera reports that waves of drone attacks are targeting Sudan's power stations, resulting in power outages in the country's cities.\",\"whyItMatters\":\"Strikes on electricity infrastructure affect civilians in Sudan's cities.\",\"rationale\":\"Humanitarian and conflict impact of attacks on civilian infrastructure in Sudan.\"}]}"
+    },
+    {
+      "artifact": "1794754940499-6068f46d-aeb1-40ad-8eb3-8bacf058e56e.json",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000014",
+          "name": "World news & politics",
+          "description": "Global news and international affairs, including US foreign policy.",
+          "guidance": "Consequential international developments: wars, diplomacy, cross-border trade and US foreign policy.\nExclude: Principally domestic US politics, policy, courts, elections and events.\nRequired phrases: \nExcluded phrases: sponsored, promo code, horoscope, gift guide"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+            "title": "Iran targets US military base in Bahrain with drone attack",
+            "excerpt": "It marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.",
+            "sources": ["Al Jazeera", "BBC World", "The Guardian World"]
+          },
+          {
+            "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+            "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+            "excerpt": "A rift is opening up between President Trump and Vice President Vance when it comes to the Iran War. NPR's Ayesha Rascoe talks to Susan Glasser, staff writer at the New Yorker.",
+            "sources": ["NPR Politics", "PBS NewsHour Politics"]
+          },
+          {
+            "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+            "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+            "excerpt": "Ukraine's NATO ambition has always been a red line for the Kremlin. Giving up territory has been a no-no for Ukraine.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+            "title": "Drone attacks on power stations plunge Sudan\u2019s cities into darkness",
+            "excerpt": "Sudan's power stations are being targeted in waves of drone attacks, resulting in power outages.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+            "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+            "excerpt": "Both Hamas and IDF officials confirm the death of Samir Abu Younis, commander of the Rafah Brigade.",
+            "sources": ["Al Jazeera", "BBC World"]
+          },
+          {
+            "id": "b386bdc3-2a97-4d9b-8fc2-e89d489514e7",
+            "title": "Anthony Albanese welcomes Trump-Xi-Putin summit \u2013 even as European leaders express reservations",
+            "excerpt": "\u2018We think dialogue is a good thing,\u2019 Australian PM says after German chancellor urges the US to work with Europe for peace in Ukraine Australia has endorsed this week\u2019s historic summit between Donald Trump, Xi Jinping and Vladimir Putin in China, even as European leaders warn that the US president must not make major concessions over the war in Ukraine. The three-way summit is planned to take place in Shenzhen, where the leaders will gather for the Asia-Pacific Economic Cooperation (Apec) meeting. The Ukrainian president, Volodymyr Zelenskyy, has warned the talks must not lead to a\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "98c5e42c-f12f-4ae7-b91d-657ab6deebf1",
+            "title": "Secret votes and vetoes: How will the next UN chief be picked?",
+            "excerpt": "With no frontrunner for the job, eight candidates are vying for the UN Security Council's recommendation.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "b77c2d4b-4751-430e-9259-10843dd31059",
+            "title": "World\u2019s top court to rule if Myanmar committed genocide against Rohingya",
+            "excerpt": "International court of justice has never before found a state guilty of genocide, and ruling will have implications for case against Israel The world\u2019s top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, in a landmark case that will set a critical 21st-century benchmark for the gravest of all international crimes. The closely watched judgment could become one of the most significant moments in international law since the end of the second world war.\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "586b0b95-4ca8-4c94-a43d-a9e4c52474a4",
+            "title": "Saudi-led coalition intercepts suspected Houthi missiles and drones",
+            "excerpt": "Fighting escalates in Yemen's Marib and al-Jawf, as UN agency says more than 340,000 Yemenis displaced since August.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "41c0ebae-75ae-459d-9f05-38671afa01ab",
+            "title": "EU calls for immediate humanitarian access to Gaza",
+            "excerpt": "The EU said that \u201cIsrael must enable the work of the UN and its agencies\" after the group was blocked access into Gaza.",
+            "sources": ["Al Jazeera"]
+          }
+        ]
+      },
+      "responseText": "```json\n{\"brief\":[\"Iran reportedly targeted a US military base in Bahrain with a drone attack, the second attack on the country in three days, as the US and Iran remain in a stand-off over the Strait of Hormuz.\",\"Australian PM Anthony Albanese endorsed a planned Trump-Xi-Putin summit in Shenzhen, China, while European leaders warned the US must avoid major concessions over Ukraine.\",\"The International Court of Justice is set to deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority.\",\"Hamas and IDF officials confirmed the death of Samir Abu Younis, commander of the Rafah Brigade, in an Israeli strike on a Gaza camp.\"],\"stories\":[{\"id\":\"3cccf465-358b-4c2c-aa89-85b7feb44404\",\"evidenceIds\":[\"3cccf465-358b-4c2c-aa89-85b7feb44404\"],\"headline\":\"Iran targets US military base in Bahrain with drone attack\",\"summary\":\"Reports carried by Al Jazeera, BBC World and The Guardian World say Iran targeted a US military base in Bahrain with a drone attack. It is the second attack on the country in three days, and it comes as the US and Iran remain in a stand-off over the Strait of Hormuz.\",\"whyItMatters\":\"The attack raises tensions in a strategic waterway and involves direct targeting of US forces in the Gulf.\",\"rationale\":\"Major cross-border military escalation involving US forces and Iran, covered by multiple outlets.\"},{\"id\":\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\",\"evidenceIds\":[\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\"],\"headline\":\"Albanese welcomes planned Trump-Xi-Putin summit as European leaders voice reservations\",\"summary\":\"Australian Prime Minister Anthony Albanese has endorsed a planned three-way summit between Donald Trump, Xi Jinping and Vladimir Putin in Shenzhen, China, saying \\\"We think dialogue is a good thing.\\\" European leaders have warned that the US president must not make major concessions over the war in Ukraine, according to The Guardian World.\",\"whyItMatters\":\"The summit involves the leaders of the US, China and Russia and bears on the course of the war in Ukraine.\",\"rationale\":\"Major diplomatic development among great powers with direct implications for the Ukraine war.\"},{\"id\":\"b77c2d4b-4751-430e-9259-10843dd31059\",\"evidenceIds\":[\"b77c2d4b-4751-430e-9259-10843dd31059\"],\"headline\":\"World's top court to rule if Myanmar committed genocide against Rohingya\",\"summary\":\"The International Court of Justice will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, according to The Guardian World. The court has never before found a state guilty of genocide, and the ruling is expected to have implications for the case against Israel.\",\"whyItMatters\":\"The judgment could set a major precedent in international law on the gravest international crimes.\",\"rationale\":\"Landmark international court ruling with wide legal significance, reported by The Guardian World.\"},{\"id\":\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\",\"evidenceIds\":[\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\"],\"headline\":\"Israel kills Hamas commander in strike on Gaza camp, officials say\",\"summary\":\"Hamas and IDF officials confirmed the death of Samir Abu Younis, commander of the Rafah Brigade, in an Israeli strike on a Gaza camp, according to Al Jazeera and BBC World.\",\"whyItMatters\":\"The killing of a senior Hamas commander in Gaza is a significant development in the ongoing conflict.\",\"rationale\":\"Senior militant commander death confirmed by both sides and reported by two outlets.\"},{\"id\":\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\",\"evidenceIds\":[\"fad61782-c1cc-4d87-8343-ef70b67bf8e0\"],\"headline\":\"Drone attacks on power stations plunge Sudan's cities into darkness\",\"summary\":\"Sudan's power stations are being targeted in waves of drone attacks, causing power outages across the country's cities, according to Al Jazeera.\",\"whyItMatters\":\"Repeated strikes on power infrastructure affect civilian life and services across Sudan's cities.\",\"rationale\":\"Significant civilian-impact development in an ongoing conflict, reported by Al Jazeera.\"}]}\n```"
+    },
+    {
+      "artifact": "1794754953329-ee7f7c1b-c738-4ed0-afa2-6d54eb9d8c20.json",
+      "input": {
+        "topic": {
+          "id": "00000000-0000-4000-8000-000000000014",
+          "name": "World news & politics",
+          "description": "Global news and international affairs, including US foreign policy.",
+          "guidance": "Consequential international developments: wars, diplomacy, cross-border trade and US foreign policy.\nExclude: Principally domestic US politics, policy, courts, elections and events.\nRequired phrases: \nExcluded phrases: sponsored, promo code, horoscope, gift guide"
+        },
+        "budget": 5,
+        "candidates": [
+          {
+            "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+            "title": "Iran targets US military base in Bahrain with drone attack",
+            "excerpt": "It marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.",
+            "sources": ["Al Jazeera", "BBC World", "The Guardian World"]
+          },
+          {
+            "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+            "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+            "excerpt": "A rift is opening up between President Trump and Vice President Vance when it comes to the Iran War. NPR's Ayesha Rascoe talks to Susan Glasser, staff writer at the New Yorker.",
+            "sources": ["NPR Politics", "PBS NewsHour Politics"]
+          },
+          {
+            "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+            "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+            "excerpt": "Ukraine's NATO ambition has always been a red line for the Kremlin. Giving up territory has been a no-no for Ukraine.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+            "title": "Drone attacks on power stations plunge Sudan\u2019s cities into darkness",
+            "excerpt": "Sudan's power stations are being targeted in waves of drone attacks, resulting in power outages.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+            "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+            "excerpt": "Both Hamas and IDF officials confirm the death of Samir Abu Younis, commander of the Rafah Brigade.",
+            "sources": ["Al Jazeera", "BBC World"]
+          },
+          {
+            "id": "b386bdc3-2a97-4d9b-8fc2-e89d489514e7",
+            "title": "Anthony Albanese welcomes Trump-Xi-Putin summit \u2013 even as European leaders express reservations",
+            "excerpt": "\u2018We think dialogue is a good thing,\u2019 Australian PM says after German chancellor urges the US to work with Europe for peace in Ukraine Australia has endorsed this week\u2019s historic summit between Donald Trump, Xi Jinping and Vladimir Putin in China, even as European leaders warn that the US president must not make major concessions over the war in Ukraine. The three-way summit is planned to take place in Shenzhen, where the leaders will gather for the Asia-Pacific Economic Cooperation (Apec) meeting. The Ukrainian president, Volodymyr Zelenskyy, has warned the talks must not lead to a\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "98c5e42c-f12f-4ae7-b91d-657ab6deebf1",
+            "title": "Secret votes and vetoes: How will the next UN chief be picked?",
+            "excerpt": "With no frontrunner for the job, eight candidates are vying for the UN Security Council's recommendation.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "b77c2d4b-4751-430e-9259-10843dd31059",
+            "title": "World\u2019s top court to rule if Myanmar committed genocide against Rohingya",
+            "excerpt": "International court of justice has never before found a state guilty of genocide, and ruling will have implications for case against Israel The world\u2019s top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, in a landmark case that will set a critical 21st-century benchmark for the gravest of all international crimes. The closely watched judgment could become one of the most significant moments in international law since the end of the second world war.\u2026",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "586b0b95-4ca8-4c94-a43d-a9e4c52474a4",
+            "title": "Saudi-led coalition intercepts suspected Houthi missiles and drones",
+            "excerpt": "Fighting escalates in Yemen's Marib and al-Jawf, as UN agency says more than 340,000 Yemenis displaced since August.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "41c0ebae-75ae-459d-9f05-38671afa01ab",
+            "title": "EU calls for immediate humanitarian access to Gaza",
+            "excerpt": "The EU said that \u201cIsrael must enable the work of the UN and its agencies\" after the group was blocked access into Gaza.",
+            "sources": ["Al Jazeera"]
+          }
+        ]
+      },
+      "responseText": "{\"brief\":[\"Iran targeted a US military base in Bahrain with a drone attack, the second attack on the country in three days, amid a US-Iran stand-off over the Strait of Hormuz.\",\"Trump, Xi Jinping and Vladimir Putin plan a summit in Shenzhen alongside APEC. Australia endorsed it, while European leaders warned the US must not make major concessions over Ukraine.\",\"Israel killed Samir Abu Younis, commander of the Rafah Brigade, in a strike on a Gaza camp. Both Hamas and IDF officials confirmed his death.\",\"The International Court of Justice will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority.\"],\"stories\":[{\"id\":\"3cccf465-358b-4c2c-aa89-85b7feb44404\",\"evidenceIds\":[\"3cccf465-358b-4c2c-aa89-85b7feb44404\"],\"headline\":\"Iran targets US military base in Bahrain with drone attack\",\"summary\":\"Iran targeted a US military base in Bahrain with a drone attack, according to the headline reported by Al Jazeera, BBC World and The Guardian World. The excerpt says it marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.\",\"whyItMatters\":\"The attack raises tensions in the Gulf during a standoff between the US and Iran over the Strait of Hormuz.\",\"rationale\":\"Consequential military escalation involving the US and Iran with reporting from three named outlets.\"},{\"id\":\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\",\"evidenceIds\":[\"b386bdc3-2a97-4d9b-8fc2-e89d489514e7\"],\"headline\":\"Australia endorses planned Trump-Xi-Putin summit as European leaders voice reservations\",\"summary\":\"Australia has endorsed this week's planned summit between Donald Trump, Xi Jinping and Vladimir Putin in China, according to The Guardian World. The three-way summit is planned for Shenzhen alongside the Asia-Pacific Economic Cooperation meeting, and European leaders warn the US president must not make major concessions over the war in Ukraine.\",\"whyItMatters\":\"The summit could shape diplomacy over the Ukraine war, and European leaders are pressing for limits on any US concessions.\",\"rationale\":\"Major great-power diplomacy with direct implications for the Ukraine war and US foreign policy.\"},{\"id\":\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\",\"evidenceIds\":[\"fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5\"],\"headline\":\"Israel kills Hamas commander in strike on Gaza camp, officials say\",\"summary\":\"Israel killed Samir Abu Younis, commander of the Rafah Brigade, in a strike on a Gaza camp. Both Hamas and IDF officials confirm his death, as reported by Al Jazeera and BBC World.\",\"whyItMatters\":\"The death of a senior Hamas commander is a significant development in the Gaza conflict.\",\"rationale\":\"Significant military development in the Gaza conflict confirmed by both sides.\"},{\"id\":\"b77c2d4b-4751-430e-9259-10843dd31059\",\"evidenceIds\":[\"b77c2d4b-4751-430e-9259-10843dd31059\"],\"headline\":\"World's top court to rule if Myanmar committed genocide against Rohingya\",\"summary\":\"The world's top court will deliver a judgment this week on whether Myanmar committed genocide against its Rohingya minority, according to The Guardian World. The excerpt says the ruling will have implications for the case against Israel.\",\"whyItMatters\":\"The judgment could be one of the most significant moments in international law since the Second World War, according to the report.\",\"rationale\":\"Landmark international court ruling on genocide with broad legal implications.\"},{\"id\":\"586b0b95-4ca8-4c94-a43d-a9e4c52474a4\",\"evidenceIds\":[\"586b0b95-4ca8-4c94-a43d-a9e4c52474a4\"],\"headline\":\"Saudi-led coalition intercepts suspected Houthi missiles and drones\",\"summary\":\"The Saudi-led coalition intercepted suspected Houthi missiles and drones, according to Al Jazeera. Fighting is escalating in Yemen's Marib and al-Jawf, and a UN agency says more than 340,000 Yemenis have been displaced since August.\",\"whyItMatters\":\"The escalation adds to a large displacement crisis in Yemen.\",\"rationale\":\"Escalating Yemen conflict with a large displacement figure from a UN agency.\"}]}"
+    }
+  ]
+}
