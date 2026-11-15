@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2365: restored public-mode concurrent-tab preference race verification; saved stories and independent topic choices survive stale writes/reloads without repeated storage writes.
+
 - [x] 2364: restored public-mode storage-read recovery browser verification; unreadable storage preserves saved copies, merges pending choices after recovery and clears warnings across desktop/mobile themes.
 
 - [x] 2363: restored public-mode storage-reset browser verification; removing preferences or clearing storage resets saved items and hidden topics across three tabs and reloads without recreating storage.

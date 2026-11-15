@@ -1,4 +1,4 @@
-// Real published content; simulate the last write of a concurrent browser race.
+// Capture published reader content; simulate a concurrent browser race.
 // GET-only app traffic; external requests blocked; no provider calls.
 import assert from 'node:assert/strict';
 
@@ -7,9 +7,14 @@ import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
-  const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
-  );
+  const headers = { 'X-Forwarded-For': '192.0.2.169' };
+  const response = await fetch(`${origin}/api/editions/latest`, {
+    headers,
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(response.status, 200, 'capture published reader edition');
+  const edition = readerEditionSchema.parse(await response.json());
   const story = edition.topics[0].stories[0];
   const browser = await chromium.launch();
   try {
@@ -21,14 +26,21 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         const errors: string[] = [];
-        await context.route('**/*', (route) =>
-          ['GET', 'HEAD'].includes(route.request().method()) &&
-          new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort(),
-        );
+        await context.route('**/*', (route) => {
+          assert.ok(['GET', 'HEAD'].includes(route.request().method()));
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          assert.ok(!url.pathname.startsWith('/api/admin/'));
+          if (
+            url.pathname === '/api/editions/latest' ||
+            url.pathname === `/api/editions/${edition.id}`
+          )
+            return route.fulfill({ json: edition });
+          return route.continue();
+        });
         const page = await context.newPage();
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
