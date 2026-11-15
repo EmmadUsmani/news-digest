@@ -28,6 +28,7 @@ async function main() {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          timezoneId: theme === 'light' ? 'America/New_York' : 'Asia/Tokyo',
         });
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
@@ -42,6 +43,8 @@ async function main() {
           });
         });
         await page.goto(origin);
+        await expect(page.locator('.story-sources').first()).toBeVisible();
+        console.log(`${device}/${theme}: reader loaded`);
         const discoveryStories = edition.topics
           .flatMap((topic) => topic.stories)
           .filter((story) => {
@@ -83,6 +86,29 @@ async function main() {
             await control.evaluate((node) => document.activeElement === node),
           );
           await page.keyboard.press('Enter');
+          for (const [index, article] of story.coverage!.entries()) {
+            const timestamp = card
+              .locator('details.coverage li')
+              .nth(index)
+              .locator('time');
+            await expect(timestamp).toHaveAttribute(
+              'datetime',
+              article.publishedAt,
+            );
+            const expected = await page.evaluate(
+              (publishedAt) =>
+                new Date(publishedAt).toLocaleString(undefined, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  timeZoneName: 'short',
+                }),
+              article.publishedAt,
+            );
+            await expect(timestamp).toHaveText(expected);
+          }
           assert.equal(
             await card.locator('details.coverage').getAttribute('open'),
             '',

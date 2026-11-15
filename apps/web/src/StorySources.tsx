@@ -77,8 +77,12 @@ export function StorySources({
                 <span className="flex flex-wrap gap-x-3 gap-y-1">
                   <time dateTime={article.publishedAt}>
                     {new Date(article.publishedAt).toLocaleString(undefined, {
-                      dateStyle: 'medium',
-                      timeStyle: 'short',
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      timeZoneName: 'short',
                     })}
                   </time>
                   {/* Feed sections describe discovery, not extra publishers. */}

@@ -55,6 +55,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2432: expanded article coverage shows local timezone beside each publication time; saved reports verified in New York/Tokyo across desktop/mobile/320px and both themes.
+
 - [x] 2431: restored public-mode post-context browser verification; long synthetic notes over a saved post expand by touch/keyboard at desktop/mobile/320px in both themes without horizontal overflow.
 
 - [x] 2430: reviewed all 50 saved first-pass Gaza posts; retained examples/fifth pilot job. Reporting/correction value and repetition risks documented; natural selection pending. Natural 26.8M-row metrics merge confirmed; sustained recovery remains open.
