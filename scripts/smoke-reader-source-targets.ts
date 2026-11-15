@@ -1,4 +1,5 @@
 // Published content only; GET/HEAD requests, with external traffic blocked.
+// Explicit loopback test visitor for public-mode admission; no account identity.
 import assert from 'node:assert/strict';
 
 import { chromium, expect } from 'playwright/test';
@@ -16,7 +17,12 @@ async function smoke() {
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
           return new URL(route.request().url()).origin === origin
-            ? route.continue()
+            ? route.continue({
+                headers: {
+                  ...route.request().headers(),
+                  'X-Forwarded-For': '192.0.2.161',
+                },
+              })
             : route.abort();
         });
         const page = await context.newPage();

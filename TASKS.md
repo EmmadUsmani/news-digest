@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2337: repaired two saved-reader browser checks for public-mode loopback admission; verified published source targets at three widths and all five Nov 14 Bluesky posts in desktop/mobile light/dark, without changing app admission.
+
 - [x] 2330: acked item 58 under STEERING 62; activated server/web public mode while sharing stays private; deployed reader/session boundaries verified. Local operational probes now use public source/queue projections. Next scheduled publication gate pending.
 
 - [x] 2329: specified protected editorial admission after NBA acceptance; documented envelope accounting, repair ownership, fallback/recovery and offline rejection gates. No scheduler or budget change.

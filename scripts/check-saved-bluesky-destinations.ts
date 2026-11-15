@@ -1,4 +1,5 @@
 // GET-only saved-content check; blocks third-party requests and all writes.
+// Explicit loopback test visitor for public-mode admission; no account identity.
 import assert from 'node:assert/strict';
 
 import { readerEditionSchema } from '@digest/contracts';
@@ -10,6 +11,7 @@ async function main() {
   const origin = 'http://127.0.0.1:8000';
   const response = await fetch(`${origin}/api/editions/${id}`, {
     redirect: 'error',
+    headers: { 'X-Forwarded-For': '192.0.2.162' },
     signal: AbortSignal.timeout(10000),
   });
   assert.equal(response.status, 200);
@@ -36,7 +38,12 @@ async function main() {
             !['GET', 'HEAD'].includes(request.method())
           )
             return route.abort();
-          return route.continue();
+          return route.continue({
+            headers: {
+              ...request.headers(),
+              'X-Forwarded-For': '192.0.2.162',
+            },
+          });
         });
         await page.goto(`${origin}/editions/${id}`);
         await page.locator('.digest-topic').last().waitFor();

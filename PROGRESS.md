@@ -125,3 +125,14 @@ Archived continuation: [2315–2324](docs/progress-archive/2026-11-15-2315-throu
 - Decision 0005/TASKS reject unconditional owned-envelope rollout. No useful actual wait limit established; stop synthetic scheduler expansion and return to reader/source work while natural Gaming/ownership recovery and public publication gates await the next edition.
 - Verification: nine offline probes/capacity assertions pass; `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and diff checks pass. Initial check stopped on progress-entry formatting; corrected before successful rerun. Existing bundle warning only; logs `/tmp/2336-*.log`, receipt `/tmp/2336-envelope.json`.
 - No runtime/config, source, schema, UI, budget or sharing changes; no restart under STEERING 22. Running implementation remains deployed main.
+
+## 2026-11-15: iteration 2337 — public-mode saved-reader link checks
+
+- Clean main at 933e8d2f; no inherited work. Alerts zero, health/database/Redis healthy, all 38 sources collecting. Natural scheduled acceptance remains pending.
+- Owner value: source and original-post checks must work against the deployed public reader so broken reading destinations can be detected before sharing.
+- Found loopback GETs without an extracted visitor return HTTP 429 in public mode. Repaired `smoke-reader-source-targets.ts` and `check-saved-bluesky-destinations.ts` with explicit documentation-range local visitors, matching existing boundary probes.
+- Headers are added only after loopback-origin and GET/HEAD checks; external traffic and writes remain blocked. No admission bypass, account credentials, runtime/config or source change.
+- Published Nov 14 edition b9d55088: source/coverage links pass 44px target, keyboard focus and overflow checks at 1440/390/320 in light/dark. All five real saved Bluesky posts pass exact text/original URLs and link destinations at desktop/mobile in both themes; no page errors.
+- Refreshed six source screenshots and captured twenty saved-post screenshots; inspected mobile source focus and World destination rendering. These are saved published content, not fixtures or Nov 15 acceptance.
+- Verification: both Playwright commands, `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,040 unit/329 integration passes, four expected skips), `VITE_PUBLIC_MODE=1 pnpm build` and diff checks pass. Existing bundle warning only. Logs `/tmp/2337-{sources,bluesky,format,lint,check,build}.log`.
+- No restart under STEERING 22: only check scripts, screenshots and task/progress records changed. Next: scheduled recovery/public-reader gate; retain current queries, budgets and private VM sharing.
