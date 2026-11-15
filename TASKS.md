@@ -8,11 +8,11 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - Deployed recovery: four-request triage admission, compact ownership aliases/rejection artifacts, Gaming brief/complete-JSON guidance. Verify natural Gaming/ownership recovery; no paid replay or cap changes.
 - NBA selected-story context deployed in both social stages (2299); inspect next natural selection for distinct contributions, including the Murray overlap.
 - Nov 14 review is complete; [Nov 15 early supply baseline](docs/edition-reviews/2026-11-15.md) records available articles in all five topics, without accepting recovery. Nov 15 published: four AI sections, World source fallback; reader agreement passes. Finish source/admission/social and ownership review. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
-- Next daily review: Nov 15 Gaming AI recovered; World falls back, U.S. uses Haiku. Inspect saved ownership/editor artifacts, social quality and ledger settlement. Optional AI diagnostic repaired (2399): saved-snapshot verification accepts four AI topics and explicitly refuses World fallback; access gate already passes.
+- Next daily review: Nov 15 Gaming AI recovered; World falls back, U.S. uses Haiku. World editor/ledger diagnosed (2400); selected/coverage IDs disjoint. Finish NBA/social quality and Tech evidence review. Optional AI diagnostic repaired (2399): saved-snapshot verification accepts four AI topics and explicitly refuses World fallback; access gate already passes.
 
 ## Open work
 
-- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Nov 15 Gaming AI recovered and both ownership sections publish; World source fallback remains. Detailed saved-artifact/content review pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
+- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Nov 15 Gaming AI recovered and both ownership sections publish; World source fallback remains. World saved artifacts diagnosed (2400): supported summit-warning paraphrases fail verbatim absence guard; Haiku initial JSON fenced. All 55 calls settled ($0.518206), World/U.S. selected/coverage IDs disjoint. Offline narrow repair study and remaining content review pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
 - [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
 
