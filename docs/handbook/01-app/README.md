@@ -56,8 +56,8 @@ data when enabled, deletion and third-party post connections.
   editorial context alongside the original excerpt. New saves show the original
   publication date separately from the save date. Post links stay clickable in saved
   excerpts, including X media links written as `pic.twitter.com/…`; other post text opens the original. Clipped saved posts offer a labelled continuation link to their platform. Saves survive reloads.
-  With accounts enabled, this page shows sign-in and sync status; open Account beside
-  its heading to retry a failed sync.
+  With accounts enabled, this page shows sign-in and sync status; use **Retry sync**
+  beside a failure to try again. Saved choices stay available while syncing fails.
 - Stories ending in an ellipsis or a publisher’s “Read more”, full-article or full-story prompt offer **Continue reading at source**, including saved copies.
 - This browser holds up to 1,000 saved identities, including removal records.
 - Choices are stored locally and shared between tabs. No account is needed.

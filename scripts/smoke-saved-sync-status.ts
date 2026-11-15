@@ -16,6 +16,32 @@ async function main() {
           viewport: { width, height: 900 },
           colorScheme,
         });
+        await context.addInitScript(() => {
+          const key = 'news-digest.reader-preferences.v1';
+          if (!localStorage.getItem(key)) {
+            localStorage.setItem(
+              key,
+              JSON.stringify({
+                version: 1,
+                hiddenTopics: {},
+                bookmarks: {
+                  'story:sync-recovery': {
+                    updatedAt: 1,
+                    copy: {
+                      title: 'Saved sync recovery fixture',
+                      url: 'https://example.org/sync-recovery',
+                      attribution: 'Offline fixture',
+                      excerpt:
+                        'Fixture content for sync recovery verification.',
+                      platform: 'story',
+                      editionId: 'fixture-edition',
+                    },
+                  },
+                },
+              }),
+            );
+          }
+        });
         let signedIn = false;
         let failing = false;
         let failSession = false;
@@ -66,6 +92,9 @@ async function main() {
           brand && navigation && brand.x + brand.width + 12 <= navigation.x,
           'Saved-items brand and header navigation must not overlap',
         );
+        await expect(
+          page.getByRole('button', { name: 'Retry sync', exact: true }),
+        ).toHaveCount(0);
         assert.equal(syncs, 0);
         signedIn = true;
         await page.reload();
@@ -82,19 +111,34 @@ async function main() {
           path: `docs/screenshots/accounts/saved-sync-failed-${device}-${colorScheme}.png`,
         });
         await page
-          .getByRole('button', { name: 'Account', exact: true })
+          .getByRole('button', { name: 'Retry sync', exact: true })
           .click();
+        await expect(status).toHaveText(
+          'Could not sync. Your choices are kept here. Try again.',
+        );
+        await expect(
+          page.getByRole('link', {
+            name: 'Saved sync recovery fixture',
+            exact: true,
+          }),
+        ).toBeVisible();
         failing = false;
         await page
           .getByRole('button', { name: 'Retry sync', exact: true })
           .click();
-        await expect(page.getByRole('dialog').getByRole('status')).toHaveText(
-          'Your topics and saved items are synced.',
-        );
-        await page.keyboard.press('Escape');
+        await expect(
+          page.getByRole('button', { name: 'Retry sync', exact: true }),
+        ).toHaveCount(0);
+        await expect(page.getByRole('dialog')).toHaveCount(0);
         await expect(status).toHaveText(
           'Your topics and saved items are synced.',
         );
+        await expect(
+          page.getByRole('link', {
+            name: 'Saved sync recovery fixture',
+            exact: true,
+          }),
+        ).toBeVisible();
         await page.screenshot({
           path: `docs/screenshots/accounts/saved-sync-restored-${device}-${colorScheme}.png`,
         });
@@ -109,6 +153,9 @@ async function main() {
         await expect(status).toHaveText(
           'Could not update your sign-in. Your choices are kept here and syncing is paused.',
         );
+        await expect(
+          page.getByRole('button', { name: 'Retry sync', exact: true }),
+        ).toHaveCount(0);
         assert.deepEqual(unexpected, []);
         assert.deepEqual(errors, []);
         await context.close();

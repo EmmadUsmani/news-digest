@@ -127,3 +127,14 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial shell chain ended 143 during lint; transient rerun caught an unsupported button variant, corrected to the existing ghost variant before the final passing run. Receipts `/tmp/2360-{format,lint,check-final,build}.log`.
 - API restarted for the public build; health passes. Initial pre-restart browser probe could not find Topics; post-restart desktop/mobile GET-only checks pass deployed signed-out sync guidance with no retry button (`/tmp/2360-deployed-browser-final.log`).
 - Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes. Next: metrics probe ≥08:26 UTC; 15:00 scheduled publication/access gate and editorial recovery review.
+
+## 2026-11-15: iteration 2361 — retry saved-item sync where it fails
+
+- Clean main at 98fc8d9a; no inherited work. Alerts zero; health/database/Redis and all 38 enabled sources pass (`/tmp/2361-sources.log`).
+- Reader weakness: Saved items displayed sync failure but required opening Account to retry. Added Retry sync beside the failure using the mounted account controller; it disappears after recovery or a failed session refresh.
+- Extended `pnpm exec tsx scripts/smoke-saved-sync-status.ts`: failed retry then successful retry retain a saved fixture without opening Account; signed-out/session-failure states have no retry. Desktop/mobile light/dark pass with fixture account transport, no live account writes. Eight screenshots refreshed; inspected mobile dark failure.
+- Updated owner handbook instructions; `pnpm exec tsx scripts/check-handbook.ts 01-app/README --owner-services` passes (18 pages/39 tables).
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2361-{format,lint,check,build,browser}.log`.
+- API restarted for public build. Immediate health request raced startup; subsequent `pnpm obs health --check` and deployed browser checks pass (`/tmp/2361-health-final.log`).
+- Due passive metrics sample (`pnpm exec tsx scripts/sample-metrics-recovery.ts`): 08:27–08:30, 24 healthy rules, three small merges/33,643 rows, no big merge/new evaluator failures/admission hits/timeouts/slow queries; uncached probes ≤0.976 s. System obs-metrics/obs-alerts warning journal empty since 07:25. Comparable recovery remains pending; next sample ≥09:31.
+- Public mode ON, VM private; no paid calls, source/editorial/budget or sharing changes. Next: 15:00 scheduled publication/access gate and editorial recovery review.

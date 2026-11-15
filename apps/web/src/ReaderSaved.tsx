@@ -70,6 +70,17 @@ export function ReaderSaved() {
           Saved in this browser. No account is needed.
         </p>
       )}
+      {accountsEnabled &&
+        account.session?.signedIn &&
+        account.sync === 'failed' && (
+          <Button
+            variant="ghost"
+            className="mb-4 min-h-11"
+            onClick={() => void account.retrySync().catch(() => undefined)}
+          >
+            Retry sync
+          </Button>
+        )}
       {preferences.storageFailed && (
         <p role="alert">
           Your browser could not save these choices. They apply until this page
