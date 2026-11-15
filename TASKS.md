@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2376: desktop contents links gain 44px targets; six desktop/mobile light/dark published-content browser checks pass.
+
 - [x] 2375: Privacy gains keyboard skip navigation; desktop/mobile light/dark, accounts off/on and forward focus checks pass.
 
 - [x] 2374: dismissing Account clears deletion confirmation; Escape/close and fresh-confirmation desktop/mobile checks pass.

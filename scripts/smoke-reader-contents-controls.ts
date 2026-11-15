@@ -1,10 +1,32 @@
 // Published content only; external traffic and mutations are blocked.
 import assert from 'node:assert/strict';
 
+import {
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
+  const headers = { 'X-Forwarded-For': '192.0.2.176' };
+  async function readPublished(path: string) {
+    const response = await fetch(`${origin}${path}`, {
+      headers,
+      signal: AbortSignal.timeout(15_000),
+      redirect: 'error',
+    });
+    assert.equal(response.status, 200, `Capture ${path}`);
+    return response.json();
+  }
+  const edition = readerEditionSchema.parse(
+    await readPublished('/api/editions/latest'),
+  );
+  const history = readerEditionHistorySchema.parse(
+    await readPublished('/api/editions?offset=0'),
+  );
+  assert.ok(edition.topics.length);
+  assert.equal(history.entries[0]?.id, edition.id);
   const browser = await chromium.launch();
   try {
     for (const width of [1440, 390, 320]) {
@@ -12,12 +34,17 @@ async function smoke() {
         const context = await browser.newContext({
           viewport: { width, height: 900 },
           colorScheme: theme,
+          extraHTTPHeaders: headers,
         });
         await context.route('**/*', (route) => {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
+          const url = new URL(route.request().url());
+          if (url.origin !== origin) return route.abort();
+          if (url.pathname === '/api/editions/latest')
+            return route.fulfill({ json: edition });
+          if (url.pathname === '/api/editions')
+            return route.fulfill({ json: history });
+          return route.continue();
         });
         const page = await context.newPage();
         const errors: string[] = [];
@@ -39,6 +66,15 @@ async function smoke() {
           await trigger.click();
         }
         await expect(navigation).toBeVisible();
+        const sectionLinks = navigation.locator('a[href^="#"]');
+        assert.ok((await sectionLinks.count()) > 0);
+        for (const link of await sectionLinks.all()) {
+          const target = await link.boundingBox();
+          assert.ok(
+            target && target.height >= 44 && target.width >= 44,
+            `${await link.innerText()}: contents links need 44px targets`,
+          );
+        }
         const archive = navigation.getByRole('link', { name: 'Past editions' });
         const bounds = await archive.boundingBox();
         assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);

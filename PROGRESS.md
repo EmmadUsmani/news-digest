@@ -154,3 +154,13 @@ Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health recovered. Deployed Privacy skip passes after waiting for React heading readiness (initial probe pressed Tab too early). Latest reader endpoint still returns b9d55088 with five topics (`/tmp/2375-{build,deployed-final}.log`).
 - Verification: `pnpm format`, `pnpm lint:fix`, standalone `pnpm check` and `git diff --check` pass; 1,040 unit/329 integration passes, four expected skips. Combined format/lint/check shell exited 143 after complete passing summaries; standalone full check exits 0 (`/tmp/2375-check-final.log`).
 - Public mode ON, VM private; no paid calls or generation changes. Next: metrics sample ≥11:39 UTC; scheduled public-reader acceptance and separate editorial review at 15:00 UTC.
+
+## 2026-11-15: iteration 2376 — enlarge desktop contents targets
+
+- Clean main at d2355f50; no inherited work. Alerts zero; health confirms database/Redis healthy. Public source-health read reports all 38 sources hold content with no errors.
+- Owner-visible weakness: desktop contents topic/story/post links had 32px targets, making adjacent entries harder to select. All contents links now have at least 44px height, matching mobile.
+- `pnpm exec tsx scripts/smoke-reader-contents-controls.ts` passes 1440/390/320px light/dark: all contents targets, keyboard focus, archive navigation and no page errors. Six screenshots updated; desktop light inspected (`/tmp/2376-browser.log`).
+- Browser verification captures and validates the published latest/history once, then replays that real content across variants. Initial startup probe raced API restart; following loopback read stalled on loading. Capture-based run passes without repeated edition queries.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health passes. No generation, budget, provider or sharing changes; public mode ON and VM private.
+- Verification: `pnpm format`, `pnpm lint:fix`, targeted final lint/format and `git diff --check` pass. Initial full check caught script import order during editing; autofixed, then full `pnpm check` exits 0: 1,040 unit/329 integration pass, four expected skips (`/tmp/2376-check-final.log`).
+- Next: passive metrics sample ≥11:39 UTC; public-mode scheduled publication/access gate and separate editorial review at 15:00 UTC.
