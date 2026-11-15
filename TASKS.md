@@ -24,7 +24,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 10:35–10:38 passive probe: 24 healthy rules; three small merges/131,212 rows, no big merge or new evaluator failures/timeouts/slow queries; one admission hit, user warning journal empty since 09:34. Second comparable natural merge still needed. Next sample no earlier than 11:39 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 11:39–11:42 passive probe: 24 healthy rules; five small merges/152,821 rows, no big merge or new evaluator failures/admission hits/timeouts/slow queries. Since 10:38, 62 small merges total 5,072,637 rows; cumulative volume does not establish one comparable merge. System journal records one API scrape refusal at the prior 11:30 restart; current probes pass. Second comparable natural merge still needed. Next sample no earlier than 12:43 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 14 NBA picks concentrate on Murray despite distinct alternatives. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 

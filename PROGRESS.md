@@ -110,3 +110,13 @@ Archived: [iterations 2361–2367](docs/progress-archive/2026-11-15-2361-2367.md
 - Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health recovered. Public mode ON, VM private; no paid calls, budget or provider changes.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2377-{format,lint-final,check}.log`). First concurrent lint-fix process exited 143; explicit rerun exits 0. Archived iterations 2361–2367 to keep this file small.
 - Next: metrics sample ≥11:39 UTC; scheduled public-reader/private-route gate and separate editorial review at 15:00 UTC. World pilot remains OFF pending public-mode scheduled acceptance.
+
+## 2026-11-15: iteration 2378 — due natural compaction follow-up
+
+- Clean main at cb2d60c8; no inherited work. `pnpm obs alerts`: zero alerts; `/healthz`: database/Redis healthy. API/worker active.
+- Due recovery evidence: `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` passes at 11:39:11–11:42:13 UTC: 24 fresh healthy rules, 14 uncached probes ≤1.310 s; five small merges/152,821 rows, no big merge. Receipt `/tmp/2378-metrics.jsonl`.
+- Compared with 10:38 receipt: 62 small merges/5,072,637 rows; volume across many merges does not prove a comparable individual compaction. No new evaluator failures/misses, admission hits, queue timeouts or slow queries; process starts unchanged. Retain 2% CPU trial, zero metrics restarts.
+- Journal check: user metrics/alerts warning journal empty since 10:38; system metrics journal has one 11:30 API scrape refusal during the previous iteration's restart. Current app/metrics probes pass; no new runtime change warranted.
+- Owner value: preserves the natural-compaction recovery decision using new due evidence without forced work or limit changes. Recovery remains open; next passive sample ≥12:43 UTC.
+- Disk 77%; cleanup already performed today in 2339, so no further deletion. Public mode ON, VM private; no paid calls or generation/config changes. Services not restarted under STEERING 22.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2378-{format,lint,check}.log`). Documentation-only; no build or restart needed. Next: 15:00 UTC scheduled publication/access gate and separate editorial review.
