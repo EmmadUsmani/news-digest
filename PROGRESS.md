@@ -96,3 +96,14 @@ Older entries: [earlier Nov 15](docs/progress-archive/2026-11-15-before-2346.md)
 - `pnpm format`, `pnpm lint:fix`, `VITE_PUBLIC_MODE=1 pnpm build` pass. Full check initially ended with signal 143 during integration after 1,040 unit passes; transient systemd rerun passes 1,040 unit/329 integration tests, four expected skips. `git diff --check` passes. Receipt `/tmp/2357-check-final.log`.
 - Due metrics sample at 07:25: 24 healthy rules, no new failures; since prior sample 58 small merges/1,631,768 rows, no big merge. Recovery still open; next probe ≥08:26 UTC. Receipt `/tmp/2357-metrics.json`.
 - API restarted for public build; health and all 38 sources pass afterward. Public mode ON, VM private. Next: 15:00 UTC publication/access acceptance and separate editorial recovery review.
+
+## 2026-11-15: iteration 2358 — restore public-mode account integration verification
+
+- Clean main at ad66f930; no inherited work. Alerts zero; health/database/Redis and all 38 enabled sources pass (`/tmp/2358-sources.log`).
+- Reader verification weakness: account integration failed parsing an admission refusal, leaving sign-out/deletion and cross-device saved items unverified after public activation. Reproduced in `/tmp/2358-before.log`.
+- Replay now reads saved public edition/history with an explicit test visitor, checks HTTP status/contracts, and runs the public-mode UI with fixture account transport. Removed the obsolete assertion that deployed accounts are disabled.
+- Scoped sync assertions to the account dialog (the saved page also announces sync); reject unexpected fixture API requests and check account HTTP methods. Browser traffic stays isolated from live account writes/external services.
+- `pnpm exec tsx scripts/smoke-reader-account-integration.ts` passes desktop/mobile light/dark sign-out, deletion/cleared preferences, no admin link, and two-device save/remove/tombstone persistence. Refreshed five screenshots; inspected mobile dark. Receipt `/tmp/2358-browser.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Initial shell verification ended 143 during formatting; transient user-service rerun exited 0. Receipts `/tmp/2358-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private. No paid calls or source/editorial/budget/sharing changes.
+- Next: metrics probe ≥08:26 UTC; 15:00 UTC scheduled publication/access gate and separate editorial recovery review.

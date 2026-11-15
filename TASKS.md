@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2358: restored public-mode account integration replay; desktop/mobile light/dark sign-out/deletion and two-device saved-story removal sync pass with fixture account transport.
+
 - [x] 2357: post Save controls identify X/Bluesky/Reddit and use readable local publication times in screen-reader labels, preserving author/time distinctions.
 
 - [x] 2356: restored saved-item browser verification in public mode, including account keyboard order, post context/publication dates, cross-tab removal and historical edition jumps.
