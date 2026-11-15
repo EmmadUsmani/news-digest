@@ -1,16 +1,14 @@
 # Edition quality
 
-**Status (17:45 UTC Nov 13):** Nov 13 edition degraded, a new breakage. 11 of
-15 triage calls expired in a local 10-second queue and never reached the
-provider, so every topic shipped source excerpts and World/U.S. withheld their
-stories. The NBA fix from item 59 was never exercised. A Claude API incident
-was open 13:09–15:38 UTC (status.claude.com), but no call got a provider
-error: the timer was ours, added Nov 12 18:00 (`da45b0f4`), and Nov 13 was its
-first edition. The outage may have slowed calls; normal speeds would likely
-still fail (lead inference, normal triage latency not checked). The agent fixed admission
-(four shared slots claimed before budget reservations), proved five-topic
-contention offline and deployed at 16:00 UTC (`a9d4ccf1`). Review:
-[docs/edition-reviews/2026-11-13.md](../../edition-reviews/2026-11-13.md).
+**Status (01:50 UTC Nov 15):** Nov 14 edition (`b9d55088`) fixed triage:
+all 19 calls dispatched, none expired. NBA and Tech were AI-edited (NBA passed
+on repair, so item 59's NBA check closes). Two new breakages: the joint
+World/U.S. ownership call hit its 4,096-token output limit (`max_tokens`), so
+both withheld stories; Gaming's editor failed validation and JSON, so it shipped
+source excerpts (four GTA cards). Fixes deployed by the agent: compact ownership
+IDs (`336a0917`), concise Gaming JSON (`d0a8900e`), deploy `54f5b742`. No caps
+raised. AI $0.475 of $0.65. Review:
+[docs/edition-reviews/2026-11-14.md](../../edition-reviews/2026-11-14.md).
 
 **Latest:**
 
@@ -22,9 +20,10 @@ contention offline and deployed at 16:00 UTC (`a9d4ccf1`). Review:
 
 **Next:**
 
-1. Nov 14 15:00 UTC edition: all 15 triage calls dispatch, all topics
-   AI-edited, NBA included (item 59). If it fails again, it's a repeat
-   breakage: propose steering.
-2. Tech summary depth: on Current order after item 50 and Bluesky (item 59).
+1. Nov 15 15:00 UTC edition: World and U.S. publish stories (ownership under
+   its output limit), Gaming AI-edited. If either fails again, it's a repeat
+   breakage: propose steering. Item 50's private activation waits on this.
+2. Tech summary depth: three of four Nov 14 Tech summaries were headline-deep.
+   On Current order after item 50 and Bluesky (item 59).
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
