@@ -3356,3 +3356,14 @@ roundup/aid-truck developments. Its strongest engagement is commentary.
 saved examples and identifies natural-selection acceptance checks. Keep queries,
 gates and budgets unchanged. Five retained jobs now include the 20:54 baseline
 return (46 World observations); full-day and published quality remain open.
+
+### World Ukraine refresh quality — iteration 2437
+
+The second natural Ukraine pass (Nov 15 21:54 UTC) stored 48 distinct World
+posts: 35 repeat the first Ukraine pass and 13 are new to the World observations.
+New outlet reporting includes attributed airfield/drone-site strikes and YouTube
+channel blocks; other new identities repeat existing strike, Macron and veterans
+visit developments. Popular repeated commentary/satire still outranks the new
+reporting by likes. [Exact saved-cohort review](edition-reviews/2026-11-15-world-ukraine-refresh.md)
+retains examples and six actual rotation jobs. Keep queries, limits and selection
+gates unchanged; full-day and natural-edition acceptance remain pending.

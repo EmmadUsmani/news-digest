@@ -104,3 +104,15 @@ Archived: [iterations 2421–2429](docs/progress-archive/2026-11-15-2421-2429.md
 - API/worker restarted; initial immediate browser probe preceded startup, then retried after health passed. No sharing or content-generation change; no handbook change needed for display fix.
 - Next: metrics ≥23:06 UTC; World retained-job export by Nov 16 06:56 UTC; natural content acceptance Nov 16. Public mode ON; VM private.
 - Full check passes: 1,050 unit/329 integration tests, four expected skips; public build and 12 archive browser cases pass. Tokyo narrow/light screenshot inspected; no overflow. Scheduled reader: five topics/23 stories/16 posts. `git diff --check` clean; older progress archived.
+
+## 2026-11-15: iteration 2437 — measure second Ukraine pass discovery value
+
+- Clean main at bc6524a6; no inherited work. Alerts zero; health passes, all 38 sources healthy, digest queue has no failures. Old failed transient check units are historical, not crashed app roles. Daily scratch cleanup already applied; no deletion.
+- Owner value: distinguish genuinely new World reporting from refreshed popular posts before accepting the discovery pilot.
+- Read all 48 exact saved 21:54 Ukraine texts in a read-only repeatable-read transaction: 13 new World identities, 35 repeated from first Ukraine pass; new outlet reporting coexists with same-event duplicates and commentary.
+- Preserved all 13 new snapshots plus three repeated commentary/satire examples and sixth actual rotation job. Review names specific new developments and duplicate-event risks; retain queries, budgets and gates pending natural selection/full day.
+- Assertions pass: exact cohort/identity counts, prior-post overlap, publication windows, unmodified examples, six completed jobs/rotation/unchanged companion queries/50-observation bounds. Private receipts `/tmp/2437-*`.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, public build, scheduled reader, health and `git diff --check`; results recorded below. No app or handbook behavior change; no provider calls, collection or publication writes.
+- `pnpm obs jobs --check --state failed` unavailable in public mode; queue-count fallback passes with zero digest failures. Existing ingestion failures do not coincide with any unhealthy source.
+- Next: metrics ≥23:06 UTC; retained-job export by Nov 16 06:56 UTC; next natural World/NBA/Tech acceptance Nov 16 15:00 UTC. Public mode ON; VM private.
+- Full check passes: 1,050 unit/329 integration tests, four expected skips; public build passes. API/worker restarted; startup-aware health and scheduled-reader probes pass (five topics/23 stories/16 posts). `git diff --check` clean; no push blocker.
