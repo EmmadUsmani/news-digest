@@ -136,3 +136,13 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or restart needed; 13:00–16:00 deployment freeze preserved.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips; check receipts `/tmp/2390-{before,headline-before,browser,format,lint,check}.log`.
 - Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.
+
+## 2026-11-15: iteration 2391 — pre-edition recovery supply evidence
+
+- Clean main at abcdc33d; no inherited work. Alerts zero; health database/Redis healthy; API/worker active; all 38 sources healthy; digest failures zero, next scheduled run 15:00 UTC.
+- Reader value: an empty Gaming/World/U.S. section needs diagnosis against available reporting, while thin Tech summaries need comparison with actually supplied prose.
+- Read-only `pnpm exec tsx scripts/capture-triage-pool.ts 2026-11-14T15:00:00Z 2026-11-15T15:00:00Z /tmp/2391-pool.json` at 14:08 UTC: eligible Tech/NBA/Gaming/World/U.S. 113/63/61/124/33; no URL-only excerpts; all pools below newest-200 limit.
+- Added prospective supply table and concrete review anchors to Nov 15 review. Six World/U.S. shared eligible IDs; Gaming has substantive League reporting; Tech 103/113 excerpts empty and two of ten nonempty entries are a tiny description/shopping roundup. No final selection or recovery acceptance inferred.
+- No model/cache/queue calls, generation/source/runtime changes, spend or sharing changes. Documentation only; no build/restart needed; deployment freeze preserved. Sources/jobs receipts `/tmp/2391-{sources,jobs}.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2391-{format,lint,check}.log`.
+- Next: passive metrics sample ≥14:48 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. Use natural saved inputs, not this prospective pool, for exact editorial attribution.

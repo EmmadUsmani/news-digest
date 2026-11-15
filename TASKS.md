@@ -60,6 +60,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2391: captured pre-edition supply for natural Gaming/ownership recovery review: all five topics have candidates; six World/U.S. shared IDs and Tech excerpt scarcity recorded. No generation changes.
+
 - [x] 2390: restored headline destination/target browser verification in public mode; all 14 published headlines pass six viewport/theme variants with refreshed screenshots.
 
 - [x] 2388: restored primary-publisher destination replay in public mode; four desktop/mobile light/dark variants pass with refreshed synthetic-replay screenshots.
