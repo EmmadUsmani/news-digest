@@ -30,7 +30,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
 
-- [ ] STEERING 7 speed: targets <60 seconds/current volume and <2 minutes/1,500 unmet. Offline staging exposes NBA repair admission risk; protected ownership/handoff design follows NBA acceptance. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
+- [ ] STEERING 7 speed: targets <60 seconds/current volume and <2 minutes/1,500 unmet. Offline staging exposes NBA repair admission risk; proposed [owned-envelope handoff](docs/decisions/0005-staged-editorial-admission.md) specifies atomic transfer, fenced recovery and draining (2329). Next: offline owned-balance simulation and actual request-bound feasibility; production unchanged. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
 
 - [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
 
@@ -61,6 +61,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2329: specified protected editorial admission after NBA acceptance; documented envelope accounting, repair ownership, fallback/recovery and offline rejection gates. No scheduler or budget change.
 
 - [x] 2328: verified saved-reader discovery/grouped-report attribution, publisher override and legacy fallback in desktop/mobile light/dark; refreshed four screenshots, with synthetic controls explicitly identified.
 

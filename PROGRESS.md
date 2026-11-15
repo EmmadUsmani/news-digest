@@ -136,3 +136,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - No provider calls, production writes, configuration/schema/source changes; handbook/SOURCES unchanged. Receipts `/tmp/2328-reader.log` and `/tmp/2328-story.log`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Next: metrics no earlier than 02:32 UTC, then Nov 15 scheduled recovery acceptance.
 - Initial push rejected after concurrent lead commit `50c0295b` (owner notes only); merged without editing owner files or rewriting history. API/worker restarted; `/healthz` confirms database/Redis healthy. Retrying push.
+
+## 2026-11-15: iteration 2329 — protected editorial handoff design
+
+- Clean main; no inherited work. Alerts zero, health passes, 38 sources healthy. Metrics sample not due until 02:32 UTC; scheduled recovery pending, public mode off/VM private.
+- Owner benefit: earlier U.S. editing must not steal NBA repair capacity; five-topic latency remains over target. Chose the explicitly deferred handoff design after NBA scheduled acceptance instead of repeating accepted reader checks.
+- Added proposed decision 0005: owned topic/model/attempt envelopes, atomic transfer into real ledger holds, bounded initial/repair estimates, fallback separation, cache/uncertainty accounting, fenced recovery and drain-before-rollback. No production implementation or speedup claimed.
+- Read existing production ledger/admission and topic scheduling; static subtraction and a story/social barrier alone cannot solve editor-versus-editor contention. Next: owned-balance simulator counterexample and saved-request bound feasibility before any migration/runtime change.
+- No provider/source requests, production writes, runtime/schema/UI changes; handbook/SOURCES/screenshots unchanged. Existing seven staged scheduler tests pass; receipts `/tmp/2329-*.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. Seven staged tests, saved-timeline reproduction and local decision links pass. API/worker restart and health verification follow commit.
