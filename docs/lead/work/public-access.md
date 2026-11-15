@@ -1,10 +1,13 @@
 # Public access and reader accounts
 
-**Status (02:10 UTC Nov 15):** phases 0–3 accepted, prep done. Owner decided
-Nov 15 that content quality doesn't gate public mode; steered as item 62
-(`576fd167`). The agent acks item 58, turns on public mode before 12:00 UTC
-(sharing stays private), and accepts the 15:00 UTC edition if it publishes and
-signed-out readers see it. It drops its own Nov 14 all-topic AI gate.
+**Status (03:20 UTC Nov 15):** public mode is on, sharing private (item 62
+ack, iteration 2330; item 58 acked `69699604`). Lead check on the VM:
+`PUBLIC_MODE=1`, invite-only sign-up. A request with a forwarded client header
+gets 200. A bare loopback request with none gets an empty 429: the visitor
+limiter fails closed when it can't identify the client
+([api-admission-http.ts](../../../apps/api/src/public-write/api-admission-http.ts)).
+Expected. Lead checks from the VM must send a forwarded header. The 15:00 UTC
+edition is the publishing-only test.
 
 **Owner decisions (Nov 7):**
 
