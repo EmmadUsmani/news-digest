@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2322: traced absent Tech Bluesky selection to one borderline FAA timeline finalist among 50 scored candidates; saved fixed-window evidence and retained gates, with no inferred editor omission rationale.
+
 - [x] 2321: collected due passive metrics recovery evidence; 24 healthy rules, no new failures, no comparable merge. Retained CPU-only trial and public activation gates.
 
 - [x] 2320: bounded disk-capacity investigation with a read-only inventory; identified 380.4 MiB of old observability scratch artifacts for owner-scoped maintenance, preserving item 51 deletion limits.

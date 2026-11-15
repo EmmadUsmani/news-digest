@@ -44,3 +44,38 @@ agreement. Event comparisons above are a manual supplied-text review, not an
 automated semantic test. Private receipts: `/tmp/2295-reader.json` and
 `/tmp/2295-preview.json`. No inference, external source requests, production
 writes or saved-edition changes.
+
+## Bluesky supply diagnosis — iteration 2322
+
+Reconstructed the fixed window with production `shortlistBlueskyPosts`, using
+stored candidate scores inside a repeatable-read, read-only transaction.
+All 671 observations load; the safe intake has 50 uniquely scored candidates,
+complete scores and exactly one finalist, matching saved selection counts.
+
+The finalist is `spavel.bsky.social`'s post
+`at://did:plc:o7xt7svg2xtjbb4e2xqahqqc/app.bsky.feed.post/3n27xqfn2gk2r`:
+
+> Nov 12: FAA adopts AI tool for managing air traffic
+> Nov 13: FAA grounds all US flights
+
+Its stored relevance is 7 and importance 4. Triage's rationale says:
+“Timeline links AI adoption to grounding; causation unverified.” This supplies
+no independent evidence of a causal connection. The selected X FAA SMART
+post already covers tool deployment, although the exact historical editor
+request and omission rationale are not retained here. Do not claim either
+causation or overlap was the editor's recorded reason for omitting this post.
+
+The publication records `editor-chose-none`, three open slots and zero
+validation drops. The publication-window cache contains one empty social
+selection, also with zero drops; matching its shape alone does not establish
+its request identity. No stronger qualifying Bluesky alternative is lost to
+the ten-post shortlist cap in this reconstruction. Keep gates and budgets:
+forcing this finalist into an empty slot would add no established reporting.
+Compare the next natural intake for independent developments before tuning.
+
+Assertions verify complete scoring, observation and shortlist counts against
+saved metadata. Private receipts: `/tmp/2322-tech-receipt.json` and
+`/tmp/2322-tech-output.json`; temporary script `/tmp/2322-tech.ts` uses a
+cache-only triage substitute and rolls back its read-only transaction. Current
+stored observations and policy are a reconstruction, not an exact historical
+request replay. No inference, collection, publication or database writes.
