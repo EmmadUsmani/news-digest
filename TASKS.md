@@ -12,6 +12,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] Disk capacity: 2318 pending alert cleared naturally after two brief >80% samples; 5.2 GiB available. One 29 MiB integration root is younger than one hour. Identify the writer if sustained use recurs; preserve item 51 cleanup boundaries.
+
 - [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
 - [ ] Morning edition admission (2026): bounded Sonnet settlement waiting deployed; caps unchanged. [Full status/evidence](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
@@ -60,14 +62,12 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2318: triaged new pending disk alert; verified natural recovery and bounded integration leftovers, preserving cleanup safeguards and alert thresholds.
+
 - [x] 2317: traced World X breadth to three minimum-score qualifying candidates, including a duplicate; saved next-edition supply comparison, with no tuning change.
 
 - [x] 2316: repaired Bluesky source-link browser verification to select a linked saved post and compare rendered display text; reader behavior unchanged.
 
 - [x] 2315: repaired failing saved-reader layout verification for linked-site attribution, per-report destinations and publication dates; all four browser views pass.
-
-- [x] 2313: closed recorded Tech admission study; replaced stale experiment instructions with a natural-edition evidence decision.
-
-- [x] 2310: older saved discovery stories identify the linked site on display, preserving bookmark snapshots.
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
