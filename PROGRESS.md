@@ -118,3 +118,11 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Selection and `pnpm exec tsx scripts/smoke-edition-history.ts` pass 16 combined desktop/mobile light/dark delayed-success/error scenarios: late responses preserve the chosen saved edition, without writes or browser errors. External browser traffic blocked. Refreshed eight screenshots; inspected both mobile light views.
 - No app behavior, source, schema, runtime settings or editorial changes; handbook/SOURCES unchanged. No provider calls or production writes. Receipts `/tmp/2326-*.log`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Next: due passive metrics sample, then scheduled Nov 15 review.
+
+## 2026-11-15: iteration 2327 — due passive metrics recovery sample
+
+- Clean main; no inherited work. Alerts zero, health passes, all 38 sources and 14 monitored services healthy; recent collection jobs completed. Historical failed transient check units are not monitored app services.
+- Due read-only sample at 01:31:24–01:31:55 UTC: 24 fresh healthy rules; uncached queries ≤0.456 s; no new evaluator errors, missed iterations, admission hits, timeouts or slow queries. Neither tier merged; process starts unchanged.
+- Warning-level system metrics/alerts journal since 00:25:32 UTC has no entries. Comparable natural merge still required; retain CPU-only 2% trial, no retuning/forced merge/restart. Next probe no earlier than 02:32 UTC. Raw receipt `/tmp/2327-metrics.jsonl`.
+- Updated recovery evidence and open task. Public mode remains off/VM private; scheduled Nov 15 acceptance still pending. No provider/source requests, production writes, UI/schema/system-flow changes; handbook/SOURCES/screenshots unchanged.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit.
