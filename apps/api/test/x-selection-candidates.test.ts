@@ -28,6 +28,56 @@ const candidate = (
   metrics: {},
 });
 
+void test('known spoof source cannot enter lexical fallback or semantic triage; genuine reporters remain eligible', () => {
+  const nbaPolicy = relevancePolicySchema.parse({
+    includeAny: ['Draymond'],
+    excludeAny: [],
+  });
+  const text =
+    'Draymond Green (refuses to play without Steph) ruled out for 2-4 weeks (Via @SharmsCharania ) pic.twitter.com/s3tGZs4gVb';
+  const spoof = {
+    ...candidate('2121689455056613397', text),
+    author: 'NBACentel',
+    authorUrl: 'https://x.com/TheNBACentel',
+  };
+  for (const mode of ['lexical', 'semantic-candidates'] as const) {
+    for (const authorUrl of [
+      'https://x.com/TheNBACentel',
+      'https://twitter.com/THENBACENTEL/',
+    ]) {
+      const original = { ...spoof, authorUrl };
+      assert.deepEqual(
+        selectXPosts([original], nbaPolicy, start, end, 5, mode),
+        [],
+      );
+      assert.equal(original.authorUrl, authorUrl);
+    }
+    const controls = [
+      {
+        ...candidate('2', 'Draymond injury report from the team.'),
+        authorUrl: 'https://x.com/ShamsCharania',
+      },
+      {
+        ...candidate(
+          '3',
+          'Draymond satire discussion quotes @SharmsCharania and NBACentel.',
+        ),
+        authorUrl: 'https://x.com/RealReporter',
+      },
+      {
+        ...candidate('4', 'Draymond post from another account.'),
+        authorUrl: 'https://x.com/TheNBACentelNews',
+      },
+    ];
+    assert.deepEqual(
+      selectXPosts([spoof, ...controls], nbaPolicy, start, end, 5, mode).map(
+        (p) => p.externalId,
+      ),
+      ['2', '3', '4'],
+    );
+  }
+});
+
 void test('isolated candidates retain official text and reject unsafe, out-of-window and footer-only matches', () => {
   const rows = [
     candidate('1', 'AI demo<br>https://example.org/demo'),

@@ -1,7 +1,6 @@
 # Social posts
 
-Each topic shows a few social posts next to its stories: X posts, the #1
-source, and Bluesky posts. Reddit is parked.
+Each topic shows X and Bluesky posts next to its stories. X is the #1 source; Reddit is parked.
 
 ## How X posts are found
 
@@ -83,8 +82,9 @@ counts and media stay unknown; a link supplies no evidence of media contents.
 ## Verification and safety
 
 - **Official only:** X uses official oEmbed and embeds; Bluesky uses its API.
-  Original Bluesky text is saved; display text expands official link targets.
-  Neither site is scraped.
+  X selection excludes known spoof source `@TheNBACentel` by official author URL.
+  Embed verification confirms existence and text, not claims or credibility.
+  Original Bluesky text is saved; display text expands official link targets. Neither site is scraped.
 - **Engagement numbers are hints, not facts.** xAI's counts are stored as
   "reported by xAI", and Bluesky's as timestamped API counts. The editor
   sees them, but relevance and distinct content come first.

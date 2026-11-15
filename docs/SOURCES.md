@@ -7,6 +7,11 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+Nov 15 (2403): X selection excludes official-embed author `@TheNBACentel`
+from future editions after its spoof injury claim was treated as reporting.
+Discovery/storage remain unchanged; genuine reporters and quoted handles remain
+eligible. The saved Nov 15 edition stays immutable. See [review](edition-reviews/2026-11-15.md).
+
 Nov 13 NBA Bluesky trace (2171): 593 stored observations cover 54 distinct posts;
 six of ten semantic shortlist entries repeat X-covered events. The selected
 Vucevic milestone fills a vacant fifth slot, with 18 official likes; viral

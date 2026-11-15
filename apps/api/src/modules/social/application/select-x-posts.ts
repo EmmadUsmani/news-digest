@@ -8,6 +8,7 @@ import { postDuplicateKey } from '../adapters/post-duplicate-key';
 import { assessPostEligibility, assessPostSafety } from '../domain/eligibility';
 import { xEngagementSignal } from '../domain/x-engagement-ranking';
 import type { XReportedEngagement } from '../domain/x-search.port';
+import { isExcludedXNewsSource } from '../domain/x-source-quality';
 
 export interface XSelectionCandidate {
   externalId: string;
@@ -50,6 +51,7 @@ export function selectXPosts(
         a.row.externalId.localeCompare(b.row.externalId),
     );
   for (const { row, signal } of ranked) {
+    if (isExcludedXNewsSource(row.authorUrl)) continue;
     const text = officialPostText(row.embedHtml);
     const publishedAt = row.publishedAt.toISOString();
     const assessment = (

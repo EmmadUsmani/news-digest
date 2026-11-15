@@ -116,3 +116,14 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Tech remains thin: three of four stories have empty saved evidence excerpts; Nvidia has 600 characters and two attributed sentences. No admission/query tuning justified. All 11 X posts lack verified engagement metrics; viral quality remains open.
 - Documentation-only step; no runtime changes, inference, edition writes, spend or restart/deployment during freeze. World repair remains open; next trace/exclude the known spoof source with genuine-reporter controls. Passive metrics sample due ≥15:49 UTC. Public mode ON, VM private.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2402-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips. Documentation-only; live runtime still matches main's application artifacts.
+
+## 2026-11-15: iteration 2403 — exclude known NBA spoof source
+
+- Clean main at 78affa5d; no inherited work. Alerts zero, `/healthz` database/Redis healthy; 38 sources and all queue-worker checks pass (`/tmp/2403-{sources,jobs}.log`).
+- Traced saved NBACentel post 2121689455056613397 through shared stored/development X selection: embed existence/text verification had no source-credibility exclusion before lexical fallback or semantic triage.
+- Added exact official-author-URL exclusion for TheNBACentel before both paths. Saved claim/identity regression plus genuine ShamsCharania, quoted-spoof and similar-handle synthetic controls pass; no blanket humour ban or live calls. Discovery/storage and immutable Nov 15 edition unchanged.
+- Updated source inventory, daily review, tasks and affected handbook page; handbook check passes (18 pages, one unchanged diagram, 39 tables). No model/provider/budget/sharing changes.
+- Passive 15:53 metrics sample: 24 healthy rules, uncached queries ≤0.972 s, two new admission-limit hits, no evaluator failures/timeouts/slow queries. No merge during sample; 60 small merges/2,158,432 rows since 14:48. Recovery open; next sample ≥16:54 UTC.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, targeted selection tests, handbook check and `git diff --check` pass: 1,041 unit/329 integration tests, four expected skips. Receipts `/tmp/2403-{format,lint,check,handbook,targeted}.log`.
+- `VITE_PUBLIC_MODE=1 pnpm build` passed; API/worker restarted at 16:04 UTC outside freeze (concrete credibility breakage fix). Health and all 38 sources/four queue-worker checks pass. Reader latest is byte-equivalent JSON before/after, edition a0fa3916/five topics. Bare loopback reader probes were rate-limited; standard documented local probe identity succeeds. No new edition/inference/spend.
+- Next: focused supported-warning World repair with adversarial controls; natural acceptance of NBA exclusion and Tech evidence depth. Public mode ON, VM private pending owner sharing decision.
