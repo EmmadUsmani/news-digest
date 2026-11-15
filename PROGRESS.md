@@ -126,3 +126,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Warning-level system metrics/alerts journal since 00:25:32 UTC has no entries. Comparable natural merge still required; retain CPU-only 2% trial, no retuning/forced merge/restart. Next probe no earlier than 02:32 UTC. Raw receipt `/tmp/2327-metrics.jsonl`.
 - Updated recovery evidence and open task. Public mode remains off/VM private; scheduled Nov 15 acceptance still pending. No provider/source requests, production writes, UI/schema/system-flow changes; handbook/SOURCES/screenshots unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit.
+
+## 2026-11-15: iteration 2328 — saved-reader reporting provenance
+
+- Clean main; no inherited work. Alerts zero, health passes and all 38 sources healthy. Scheduled acceptance and metrics sample not due; public mode remains off/VM private.
+- Reader weakness under review: thin Tech reporting makes discovery-site versus publisher attribution material, including after bookmarking. No new editorial change is justified before the next natural edition.
+- `pnpm exec tsx scripts/smoke-reader-saved-source.ts` passes desktop/mobile light/dark: real Nov 14 discovery and grouped primary-report provenance survives saved-item reload, with exact destinations; explicit synthetic publisher override and legacy fallback also pass. All external browser requests blocked. Refreshed four screenshots; inspected mobile light. No observed app defect.
+- `pnpm exec tsx scripts/smoke-reader-story-text.ts` passes all four views for the older saved regression edition: exact story text, five NBA summaries, no writes/errors or saved-data changes. Discarded its incidental screenshot refreshes; this is not Nov 15 acceptance.
+- No provider calls, production writes, configuration/schema/source changes; handbook/SOURCES unchanged. Receipts `/tmp/2328-reader.log` and `/tmp/2328-story.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit. Next: metrics no earlier than 02:32 UTC, then Nov 15 scheduled recovery acceptance.

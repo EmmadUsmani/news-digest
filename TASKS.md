@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2328: verified saved-reader discovery/grouped-report attribution, publisher override and legacy fallback in desktop/mobile light/dark; refreshed four screenshots, with synthetic controls explicitly identified.
+
 - [x] 2327: due passive metrics sample confirms 24 healthy rules, no new failures and no tier merge; recovery remains pending a comparable natural merge.
 
 - [x] 2326: restored delayed edition-selection browser checks for desktop weekday and saved Bluesky display text; selection/history success and failure checks pass in desktop/mobile light/dark.
