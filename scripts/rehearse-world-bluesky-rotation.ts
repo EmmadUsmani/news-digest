@@ -1,5 +1,5 @@
 // Read local topic metadata; all search and storage ports below are fakes.
-// Exercises the optional collector policy; production does not enable it.
+// Exercises the optional collector policy independently of production settings.
 import assert from 'node:assert/strict';
 
 import { topicSettingsSchema } from '@digest/contracts';

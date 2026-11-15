@@ -3261,3 +3261,12 @@ Shortened social URLs followed by punctuation or closing quotes now open the
 original post for the full destination. Saved text stays unchanged; complete
 URLs retain their destinations. Collection, selection and source policies are
 unchanged. Browser coverage uses synthetic text in a saved-edition replay.
+
+### World discovery pilot activated — iteration 2410
+
+November 15: enabled the [prepared rotation](plans/world-bluesky-discovery.md)
+after NBA/item 58 and private public-mode gates passed. World hourly fallback
+now rotates baseline/Ukraine/baseline/Gaza by UTC hour; explicit topic overrides
+win. No added searches, pages, paid calls or edition replay. Retained pre-pilot
+job results privately; collect exports at least every 12 hours. Natural quality
+and first full-day comparison remain pending; VM sharing stays private.

@@ -1,10 +1,9 @@
 # World Bluesky discovery pilot
 
-Prepared November 13, iteration 2150. **Not enabled.** NBA/item 58 scheduled
-acceptance and private public-mode activation retain priority. The optional
-collector policy and default-off scheduler wiring are implemented offline.
-Deployment and activation remain pending outside the protected window, after
-that work permits it.
+Enabled November 15, iteration 2410, after NBA/item 58 scheduled acceptance
+and private public-mode acceptance. VM sharing remains private. The worker
+uses the bounded schedule below; natural collection and edition quality remain
+pending. Default configuration remains off for other installations.
 
 ## Candidate schedule
 
@@ -126,3 +125,17 @@ World fallback submitted 46 observations and U.S. `Congress` submitted 49. These
 are submission counts, not unique relevant posts. Observation-level query
 attribution remains unavailable; use this export alongside the coverage report
 and reader review rather than inferring individual query provenance.
+
+## Activation — iteration 2410
+
+Verified current World UUID `00000000-0000-4000-8000-000000000014`, enabled
+with five post slots and no explicit query override. Enabled
+`BLUESKY_WORLD_ROTATION_ENABLED=1` with that UUID in the private environment.
+The existing hourly job remains the only collector; no manual search or
+edition replay. Next expected event slot: November 15 17:54 UTC, `Ukraine`.
+
+Pre-activation retained-job export: `/tmp/2410-bluesky-before.json`; keep the
+next export before November 16 05:20 UTC, then at least every 12 hours.
+Compare the first full UTC day (November 16) and the next natural edition.
+No quality acceptance yet. Roll back by setting the flag to `0` and restarting
+the worker. Existing topic metadata and aggregate request bounds are unchanged.

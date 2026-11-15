@@ -34,7 +34,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 9/15 report: Nov 9–15 $2.100622, 32/32 completed keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list; quality remains open. [Weekly evidence](docs/SOURCES.md#nov-915-production-x-report--iteration-2407). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
 
-- [ ] STEERING 18 Bluesky: U.S. Congress query restored natural selection; retain current queries. World discovery pilot default-off, activation follows item 58/public-mode gates. Overall social quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-12).
+- [ ] STEERING 18 Bluesky: U.S. Congress query restored natural selection; retain current queries. World discovery pilot enabled Nov 15 (2410) after gates passed; baseline/Ukraine/baseline/Gaza rotation, next retained-job export by Nov 16 05:20 UTC. Review first full UTC day and natural edition. Overall social quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-12).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-13).
 

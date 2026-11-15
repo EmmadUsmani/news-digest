@@ -132,3 +132,13 @@ Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md
 - Four targeted tests pass. Updated TASKS and World review; no source/schema/handbook/UI behavior changes or new screenshots required.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,049 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` and `git diff --check` pass; receipts `/tmp/2409-{targeted,format,lint,check,build}.log`.
 - API/worker restarted; scheduled reader verified five topics/23 stories/16 posts. Public mode ON, VM private; no sharing changes. Next: natural World/NBA acceptance; metrics passive sample due ≥17:55 UTC.
+
+## 2026-11-15: iteration 2410 — activate bounded World Bluesky discovery
+
+- Clean main at 78b68ee0; no inherited work. Alerts zero; health, sources and four queue workers pass.
+- Owner value (items 39/34/42): replace half of World's weak generic discovery with tested event queries, preserving search allowance and selection standards.
+- NBA/item 58 and private public-mode gates passed; verified current World UUID, enabled/five slots, no query override. Enabled prepared baseline/Ukraine/baseline/Gaza hourly policy in private environment; worker restart and selected process-environment assertions pass. No manual collection, paid call, cap or edition change.
+- Offline `rehearse-world-bluesky-rotation.ts` passes: 120 searches, 12/6/6 World allocation, six collector/eight rollover/nine configuration checks, zero live writes/searches. Baseline `report-bluesky-collections.ts` retains 24 completed/four historical failed jobs; latest World baseline submits 47 observations. Private receipts `/tmp/2410-{rehearsal.log,bluesky-before.json,world.json}`.
+- Updated source report, rollout plan and affected handbook pages. Owner-services handbook check passes (18 pages, schema 39 tables); initial public-route check refused 404 and a 102-line page was cut to 100. No diagrams/UI changed.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,049 unit/329 integration, four expected skips); public-mode build and `git diff --check` pass. Receipts `/tmp/2410-{check,build,handbook}.log`. API/worker restarted; health and scheduled reader pass (a0fa3916, five topics/23 stories/16 posts).
+- Next: natural 17:54 UTC Ukraine pass; export retained jobs by Nov 16 05:20 UTC and every ≤12 hours, compare Nov 16 full UTC day and next edition. World/NBA natural acceptance still pending; metrics sample ≥17:55 UTC. Public mode ON, VM private; sharing stays with owner.
