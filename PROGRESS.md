@@ -154,3 +154,13 @@ Archived: [iterations 2348–2354](docs/progress-archive/2026-11-15-2348-2354.md
 - Archived older completed task markers to keep orientation small. Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. Receipts `/tmp/2369-{format,lint,check}.log`. `git diff --check` passes.
 - Next: metrics probe ≥10:35 UTC; 15:00 scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2370 — require content at keyboard skip destinations
+
+- Clean main at 8088d6af; no inherited work. `pnpm obs alerts`: zero; `pnpm obs health --check` and `pnpm obs sources --check`: healthy/all 38 enabled sources pass (`/tmp/2370-{health,sources}.log`).
+- Reader weakness: keyboard skip-link smoke could accept archive focus without confirming published entries or checking reader errors. Baseline passed despite the gap (`/tmp/2370-before.log`).
+- Capture schema-checked published history, require latest/history agreement, replay it while blocking writes/admin/external requests. Require all published topic targets, archive entry count/latest destination and no alerts before keyboard checks.
+- `pnpm exec tsx scripts/smoke-reader-skip-link.ts`: desktop/mobile light/dark pass; keyboard focus, visible destination, next content link and no overflow/page errors. Refreshed edition screenshots; archive screenshots unchanged; inspected mobile dark archive (`/tmp/2370-browser.log`).
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass: 1,040 unit/329 integration passes, four expected skips; API rebuild included. `git diff --check` passes; receipts `/tmp/2370-{format,lint,check}.log`.
+- Runtime/config unchanged; no restart under STEERING 22. Public mode ON, VM private; no paid calls or sharing changes.
+- Next: metrics probe ≥10:35 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC.

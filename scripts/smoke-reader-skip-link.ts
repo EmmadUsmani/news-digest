@@ -1,8 +1,11 @@
 // Keyboard-only navigation against saved reader data; no writes or external requests.
 import assert from 'node:assert/strict';
 
-import { readerEditionSchema } from '@digest/contracts';
-import { chromium } from 'playwright';
+import {
+  readerEditionHistorySchema,
+  readerEditionSchema,
+} from '@digest/contracts';
+import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
   const origin = 'http://127.0.0.1:8000';
@@ -16,6 +19,16 @@ async function smoke() {
   assert.equal(response.status, 200, 'Saved edition is available');
   const saved = readerEditionSchema.parse(await response.json());
   assert.ok(saved.topics.length, 'Use a real published edition');
+  const historyResponse = await fetch(`${origin}/api/editions?offset=0`, {
+    headers: { 'X-Forwarded-For': visitor },
+    redirect: 'error',
+    signal: AbortSignal.timeout(15_000),
+  });
+  assert.equal(historyResponse.status, 200, 'Published history is available');
+  const history = readerEditionHistorySchema.parse(
+    await historyResponse.json(),
+  );
+  assert.equal(history.entries[0]?.id, saved.id);
   const browser = await chromium.launch();
   try {
     for (const [device, width, height] of [
@@ -38,6 +51,8 @@ async function smoke() {
           assert.ok(!url.pathname.startsWith('/api/admin/'));
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: saved });
+          if (url.pathname === '/api/editions')
+            return route.fulfill({ json: history });
           return route.continue({
             headers: { ...request.headers(), 'X-Forwarded-For': visitor },
           });
@@ -47,6 +62,24 @@ async function smoke() {
           ['archive', '/editions', 'archive-content'],
         ]) {
           await page.goto(`${origin}${path}`);
+          if (name === 'edition') {
+            await expect(page.locator('.digest-topic')).toHaveCount(
+              saved.topics.length,
+            );
+            for (const topic of saved.topics) {
+              await expect(
+                page.locator(`[id="topic-${topic.id}"]`),
+              ).toBeAttached();
+            }
+          } else {
+            await expect(
+              page.locator('main li').first().getByRole('link'),
+            ).toHaveAttribute('href', `/editions/${saved.id}`);
+            await expect(page.locator('main li')).toHaveCount(
+              history.entries.length,
+            );
+          }
+          await expect(page.getByRole('alert')).toHaveCount(0);
           const skip = page.getByRole('link', { name: 'Skip to content' });
           await skip.waitFor({ state: 'attached' });
           // Hidden until keyboard focus, leaving the normal reader layout intact.

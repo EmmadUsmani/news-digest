@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2370: keyboard skip-link verification now requires published topic/archive content and no reader alerts; desktop/mobile light/dark pass.
+
 - [x] 2369: home-link keyboard verification now requires published topics after returning from saved items/archive; four public-mode browser variants pass with error-free content.
 
 - [x] 2368: strengthened public-mode archive/saved keyboard navigation verification to require published history links and an error-free saved-items empty state; four browser variants pass.
