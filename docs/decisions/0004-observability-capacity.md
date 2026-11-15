@@ -1029,3 +1029,15 @@ warning-level metrics/alerts user journal since 14:48:40 has no entries.
 Comparable natural-merge recovery remains unaccepted. Retain CPU-only 2% trial;
 next short passive sample ≥16:54 UTC. No retuning or forced compaction.
 Receipt: `/tmp/2403-metrics.jsonl`.
+
+### Passive follow-up (iteration 2408)
+
+Nov 15 16:54:15–17 UTC `pnpm exec tsx scripts/sample-metrics-recovery.ts 1 2`:
+24 fresh healthy rules, four uncached queries ≤0.920 s. No new evaluator errors,
+missed iterations, admission-limit hits, queue timeouts or slow queries since
+15:53:23. Neither tier merged during the sample; 64 small merges total
+1,658,148 rows since the prior sample, with no big merge. Process starts
+unchanged; warning-level metrics/alerts user journal since 15:53:23 is empty.
+Comparable recovery remains open. Retain CPU-only 2% trial; next short passive
+sample ≥17:55 UTC. No retuning, forced compaction or provider calls.
+Receipt: `/tmp/2408-metrics.jsonl`; counter-delta assertions passed.

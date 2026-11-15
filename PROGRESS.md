@@ -112,3 +112,13 @@ Archived: [iterations 2387–2397](docs/progress-archive/2026-11-15-2387-2397.md
 - Read-only `report-x-week.ts 2026-11-15` plus seven `report-x-discovery.ts` reports reconcile with Python assertions for costs, calls, holds, candidate totals and selections; private `/tmp/2407-x-*.json` receipts. No source/schema/handbook behavior changes.
 - Archived iterations 2387–2397 as PROGRESS exceeded about 25 KB. `pnpm format`, `pnpm lint:fix`, full `pnpm check`, receipt assertions and public-mode build passed: 1,045 unit/329 integration tests, four expected skips. Receipts `/tmp/2407-{format,lint,check,build}.log`.
 - Scheduled-reader gate passes: edition a0fa3916, five topics/23 stories/16 posts. API/worker restart and post-restart health verified. Next: natural World/NBA recovery; metrics passive sample due ≥16:54 UTC. Public mode ON; VM private pending owner sharing decision.
+
+## 2026-11-15: iteration 2408 — passive metrics recovery follow-up
+
+- Clean main at 5e243d1a; no inherited work. Owner value: keep the outstanding metrics incident honest without changing the healthy reader or spending provider budget.
+- Alerts zero; `pnpm obs health`, `pnpm obs sources --check` and `pnpm obs jobs --check` pass. Scheduled-reader gate passes for Nov 15 15:00 UTC: a0fa3916, five topics/23 stories/16 posts. Initial 13:00 probe refused the wrong expected window; corrected to saved 15:00 schedule.
+- Passive sample at 16:54:15–17: 24 healthy rules, uncached queries ≤0.920 s; no new failures/admission hits/timeouts/slow queries. Since 15:53:23, 64 small merges/1,658,148 rows and no big merge; no merge during sample. Process starts unchanged; warning journal empty.
+- Counter-delta assertions pass; receipts `/tmp/2408-metrics.jsonl` and `/tmp/2408-metrics-journal.log`. Updated TASKS and capacity decision. Comparable natural-merge recovery remains open; retain CPU-only 2% limits, next short sample ≥17:55 UTC. No provider calls, forced merge, source or app behavior change.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` pass (1,045 unit/329 integration, four expected skips); counter assertions and `git diff --check` pass. Receipts `/tmp/2408-{format,lint,check,build}.log`. No UI change; no new browser screenshots required.
+- Next: natural World/NBA acceptance at the next scheduled edition; metrics sample ≥17:55 UTC. Public mode ON, VM private; sharing remains the owner's decision.
+- `VITE_PUBLIC_MODE=1 pnpm build` passed; API/worker restarted. Immediate health probe raced startup; retry passed with database/Redis healthy, and post-restart scheduled-reader gate passed unchanged.
