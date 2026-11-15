@@ -139,3 +139,13 @@ Older entries: [archived through the first half of Nov 15](docs/progress-archive
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips.
 - Updated SOURCES and TASKS. Before/final smoke receipts `/tmp/2353-{before,sources}.log`; formatting/lint/check receipts `/tmp/2353-{format,lint,check}.log`.
 - Runtime/config unchanged; no restart under STEERING 22. No provider calls, generation, source settings, budgets or sharing changes. Public mode ON, VM private; next: 15:00 UTC scheduled publication/access gate and separate editorial recovery review.
+
+## 2026-11-15: iteration 2354 — correct reader Bluesky engagement labels
+
+- Clean main at e9ac8eb8; no inherited work. Alerts zero; health/database/Redis pass; all 38 sources returning items without errors.
+- Owner-visible improvement: saved World Bluesky card displayed “1 likes”; singular likes/reposts/replies now read “1 like”, “1 repost”, “1 reply”. Counts and collection-time labels unchanged.
+- Reader review confirms larger editorial weaknesses already await natural scheduled evidence; no generation, source, budget or sharing changes.
+- Browser assertion reproduced the saved-card defect before the fix. After public-mode rebuild/API restart, desktop/mobile light/dark pass saved World-card checks plus synthetic 0/1/2/1,000 counts, zero writes/external requests/errors/overflow.
+- Four screenshots added under docs/screenshots/ui/reader-bluesky-metrics-*; inspected mobile light. Replay command: `node --input-type=module < /tmp/2354-reader-check.mjs`; receipts `/tmp/2354-browser{,-before}.log`.
+- `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `VITE_PUBLIC_MODE=1 pnpm build` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2354-{format,lint,check,build}.log`.
+- Post-restart health and source flow pass; runtime now serves the public build. Public mode ON, VM private. Next: 15:00 UTC publication/access acceptance and separate editorial recovery review.

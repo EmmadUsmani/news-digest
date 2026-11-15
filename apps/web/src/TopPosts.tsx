@@ -556,9 +556,12 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         ))}
       </div>
       <p className="byline">
-        {post.metrics.likes.toLocaleString()} likes ·{' '}
-        {post.metrics.reposts.toLocaleString()} reposts ·{' '}
-        {post.metrics.replies.toLocaleString()} replies · at collection
+        {post.metrics.likes.toLocaleString()}{' '}
+        {post.metrics.likes === 1 ? 'like' : 'likes'} ·{' '}
+        {post.metrics.reposts.toLocaleString()}{' '}
+        {post.metrics.reposts === 1 ? 'repost' : 'reposts'} ·{' '}
+        {post.metrics.replies.toLocaleString()}{' '}
+        {post.metrics.replies === 1 ? 'reply' : 'replies'} · at collection
       </p>
       <PostContext post={post} />
     </Card>
