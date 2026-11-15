@@ -1,10 +1,10 @@
 # Public access and reader accounts
 
-**Status (Nov 13):** phases 0–3 accepted. Item 58 security fixes deployed; the
-owner passed the proxy checks and the lead re-check found every finding fixed
-(details in `~/lead-private/phase4-security-review.md` on the VM). Item 59
-(steered `69fa4f43`) takes the agent through: NBA fix, item 58 ack, remaining
-readiness work, public mode on while sharing stays private. It stops before sharing.
+**Status (02:10 UTC Nov 15):** phases 0–3 accepted, prep done. Owner decided
+Nov 15 that content quality doesn't gate public mode; steered as item 62
+(`576fd167`). The agent acks item 58, turns on public mode before 12:00 UTC
+(sharing stays private), and accepts the 15:00 UTC edition if it publishes and
+signed-out readers see it. It drops its own Nov 14 all-topic AI gate.
 
 **Owner decisions (Nov 7):**
 
@@ -25,9 +25,10 @@ readiness work, public mode on while sharing stays private. It stops before shar
 
 **Next:**
 
-1. Prep is done (rehearsal, rollback record, Grafana off the public tools). The
-   item 58 ack and public mode wait on a normal Nov 14 edition. Read item 59's three acks: NBA AI-edited, item 58 closed, public mode on
-   with sharing private. Check it doesn't touch sharing.
+1. Read item 62's acks: item 58 closed, public mode on (before 12:00 UTC or
+   after 16:00), the edition accepted under the publishing-only gate, item 50
+   acked. Check it didn't touch sharing or re-run the rehearsal, and that the
+   all-topic gate wording is gone from `docs/public-readiness.md`.
 2. After the owner runs `share set-public`: repeat the fake-header check from a
    signed-out browser, and confirm admin pages refuse writes.
 
