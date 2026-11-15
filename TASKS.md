@@ -57,6 +57,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2441: recovered 544 MiB from two unused interrupted integration-run folders under STEERING 51; disk 80%→78%, cleanup regression passes. Full handbook publication remains next.
+
 - [x] 2440: `/db/` serves pinned ELK 0.9.3 locally under unchanged CSP; signed-out public desktop/mobile diagram, search and detail pass without errors.
 
 - [x] 2439: atomic web releases retain retired assets ≥24 hours; dynamic exact-path admission, isolated deployment tests, public deployment polling and signed-out reader checks pass.
