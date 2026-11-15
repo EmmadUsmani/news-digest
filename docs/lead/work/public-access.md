@@ -22,7 +22,8 @@ so run checks from the Mac. Undo: `share set-private`, then
   publicly viewable; launch without public Grafana (Nov 13); `/logs` and `/metrics` admin-only; all writes admin-only.
 - Sign-up is invite-only at launch. New topics shown by default.
 - Dev budget: Anthropic $5, xAI $2, one-time. xAI balance about $18 covers it.
-- Backfill keeps published editions; no skipped editions.
+- Backfill keeps published editions; no skipped editions. Later owner gates:
+  manual editions, email provider, clean-up.
 - Nov 15: keep sign-in codes and guess limits as they are; the site isn't
   being shared widely. Harden later if needed.
 
@@ -37,6 +38,4 @@ so run checks from the Mac. Undo: `share set-private`, then
    public mode serves on port 8110 (`apps/api/src/internal-tools.ts`).
 3. Admin pages need a signed-in admin session under 7 days old; exe.dev login
    no longer counts. Owner to check `/account`.
-4. Watch the Nov 16 edition publish publicly. Fix `status.sh` edition step.
-
-**Owner gates later:** manual editions, email provider, clean-up.
+4. Watch Nov 16 publish publicly. Fix `status.sh` edition step.
