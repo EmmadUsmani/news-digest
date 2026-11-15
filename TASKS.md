@@ -12,7 +12,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Nov 15 Gaming AI recovered and both ownership sections publish; World source fallback remains. World saved artifacts diagnosed (2400): supported summit-warning paraphrases fail verbatim absence guard; Haiku initial JSON fenced. All 55 calls settled ($0.518206), World/U.S. selected/coverage IDs disjoint. Offline narrow repair study and remaining content review pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
+- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Nov 15 Gaming AI recovered and both ownership sections publish; World source fallback remains. World saved artifacts diagnosed (2400): supported summit-warning paraphrases fail verbatim absence guard; Haiku initial JSON fenced. All 55 calls settled ($0.518206), World/U.S. selected/coverage IDs disjoint. Offline full-validator study (2401): summary-only repair leaves Haiku brief/ICJ blockers; manual omission counterfactual validates five stories in all four outputs (Haiku initial requires fence removal). Focused repair and remaining content review pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
 - [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
 

@@ -97,3 +97,13 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Documentation-only change; no build/restart needed or permitted during freeze. No generation, source, provider, budget, sharing or secret changes. Archived older progress entries after 25 KB threshold.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2400-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips.
 - Next: offline narrow World repair study; finish NBA/social quality and Tech evidence-depth review. Passive metrics sample due ≥15:49 UTC. Public mode ON, VM private pending owner sharing decision.
+
+## 2026-11-15: iteration 2401 — full-validator World repair study
+
+- Clean main at 00517043; no inherited work. Alerts zero, `/healthz` database/Redis healthy; 38/38 sources healthy and every queue has a worker (`/tmp/2401-{sources,jobs}.log`).
+- Offline fake-adapter replay exercises the full production ShortlistEditor validator against all four saved World responses, without provider/DB/cache/ledger access. Receipt/script `/tmp/2401-study.{log,ts}`.
+- Summary-only summit repair validates Sonnet repair's five stories, but exposes a hidden Haiku repair brief failure; stripping Haiku initial's JSON fences exposes a separate ICJ summary refusal. Original responses remain unchanged.
+- Manual omission counterfactuals validate five stories in all four responses (Haiku initial also needs fences removed). Three attribution/modality/scope mutations still fail the unchanged guard. This is offline validation, not generated or published recovery.
+- Recorded result matrix and next repair constraints in the World review/TASKS. Existing fixed feedback already requests all-field review; repeating that hint alone is not justified. No prompt/guard/runtime changes, spend, sharing or restart during freeze.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2401-{format,lint,check}.log`. All pass: 1,040 unit/329 integration tests, four expected skips.
+- Next: focused supported-warning equivalence with adversarial coverage; remaining NBA/social/Tech daily review. Passive metrics sample due ≥15:49 UTC; public mode ON, VM private.
