@@ -2,7 +2,8 @@
 
 Public mode is enabled while VM sharing remains private under STEERING 62.
 Only the owner may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases).
-The next scheduled edition must pass the publishing and reader gate below.
+Nov 15 scheduled edition `a0fa3916` passed the publishing and reader gate.
+[Acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398); sharing awaits the owner.
 
 Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
 
@@ -108,7 +109,7 @@ activation review, rather than adding more variants of already-covered refusals.
 - [x] Item 58 accepted under STEERING 62: Nov 14 scheduled edition
       `b9d55088-892a-4e34-b77c-a398d64c6a9f` published with NBA AI editing.
       Owner proxy result is recorded in the [security handoff](phase4-security-handoff.md).
-- [ ] Accept the next scheduled edition in public mode: publication on schedule;
+- [x] Nov 15 edition `a0fa3916` accepted in public mode: publication on schedule;
       latest, history and direct edition agree for signed-out readers; private/admin
       reads and writes remain refused. Record fallbacks and thin or withheld topics
       as edition breakages; they do not fail this access/publication gate.

@@ -2171,6 +2171,8 @@ ack: 2026-11-07 item 42/43 — iteration 1237: retrying X media after a failed r
 
 ## 50. NOW: public access and reader accounts (2026-11-07)
 
+ack: 2026-11-15 item 50 — iteration 2398: scheduled edition a0fa3916-f1dc-4fbd-8d76-2884d5e01c06 published at 15:03:33 UTC with public mode on. Signed-out latest/history/direct APIs and desktop/mobile pages agree; 32 account-boundary checks and targeted private API read/write refusals pass. STEERING 62 publication/access gate accepted; editorial recovery remains separate (World source fallback). VM sharing stays private; phases 5–7 await the owner. Evidence: docs/edition-reviews/2026-11-15.md.
+
 **Why:** the owner wants the site publicly readable. Readers can hide topics
 and bookmark stories and posts, signed in or not; signed-in readers sync across
 devices. Admin pages are publicly viewable, and only admins can change

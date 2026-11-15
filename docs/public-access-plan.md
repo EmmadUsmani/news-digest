@@ -7,9 +7,10 @@
 
 Server and web public mode are enabled while VM sharing remains private.
 STEERING 62 accepts item 58 against Nov 14 edition `b9d55088` and the owner's
-proxy result. The former all-topic AI gate is removed. The next scheduled edition
-must publish on schedule, appear consistently in signed-out latest/history/direct
-reads and preserve private/admin refusals. Editorial fallbacks, withheld topics
+proxy result. The former all-topic AI gate is removed. Nov 15 scheduled edition `a0fa3916`
+published at 15:03:33 UTC; signed-out latest/history/direct APIs and desktop/mobile
+pages agree, and private/admin refusals pass. Item 50 is acknowledged;
+[acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398). Sharing awaits the owner. Editorial fallbacks, withheld topics
 and thin summaries are breakages to review, not activation blockers.
 Earlier preparation notes below are historical; this is the current handoff.
 

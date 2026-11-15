@@ -1,7 +1,8 @@
 # Private-sharing public-mode activation record
 
 Activated November 15, iteration 2330, while VM sharing stays private.
-The next scheduled edition is pending the STEERING 62 publishing/reader gate.
+Nov 15 scheduled edition `a0fa3916` passed the STEERING 62 publishing/reader gate
+([acceptance](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398)); VM sharing stays private.
 Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 
 ## Preparation baseline (05:32 UTC; refresh before activation)

@@ -4,15 +4,15 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Next scheduled acceptance
 
-- Public mode is ON; VM sharing stays private. STEERING 62 accepts item 58 against Nov 14 publication and owner proxy checks. Next scheduled Nov 15 edition must publish and pass signed-out reader/private-route verification; editorial quality is not this gate.
+- Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; VM sharing stays private pending owner decision.
 - Deployed recovery: four-request triage admission, compact ownership aliases/rejection artifacts, Gaming brief/complete-JSON guidance. Verify natural Gaming/ownership recovery; no paid replay or cap changes.
 - NBA selected-story context deployed in both social stages (2299); inspect next natural selection for distinct contributions, including the Murray overlap.
-- Nov 14 review is complete; [Nov 15 early supply baseline](docs/edition-reviews/2026-11-15.md) records available articles in all five topics, without accepting recovery. Next normal edition: check all five AI sections, provenance, reader agreement, source flow, admission and social quality. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
-- After the next public-mode scheduled publication passes the reader/refusal gate, ack item 50 with its edition ID. Stop before owner sharing decision.
+- Nov 14 review is complete; [Nov 15 early supply baseline](docs/edition-reviews/2026-11-15.md) records available articles in all five topics, without accepting recovery. Nov 15 published: four AI sections, World source fallback; reader agreement passes. Finish source/admission/social and ownership review. No generation changes after noon except breakages; no deploys 13:00–16:00 UTC.
+- Next daily review: Nov 15 Gaming AI recovered; World falls back, U.S. uses Haiku. Inspect saved ownership/editor artifacts, social quality and ledger settlement. Repair optional AI diagnostic public-projection incompatibility; access gate already passes.
 
 ## Open work
 
-- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Compact ownership and Gaming JSON recovery deployed; natural scheduled acceptance pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
+- [ ] BREAKAGE: Nov 14 triage/NBA/Tech recovered; Gaming editing and World/U.S. ownership failed. Nov 15 Gaming AI recovered and both ownership sections publish; World source fallback remains. Detailed saved-artifact/content review pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-1).
 
 - [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
 
@@ -20,7 +20,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 56/57: World/U.S. split deployed; review three consecutive scheduled editions. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
-- [ ] STEERING 50/62: public mode ON, VM private; next scheduled publication/reader/refusal gate pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
+- [x] STEERING 50/62 (2398): Nov 15 edition `a0fa3916` passes scheduled publication and signed-out reader/refusal gate; item 50 acked. Public mode ON, VM private; owner sharing decision pending. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-5).
 
 - [ ] Breakage / metrics-store: retain CPU-only 2% trial. Nov 15 14:48 passive sample: 24 healthy rules; one small merge/1,482 rows during sample, 64 small merges/1,655,119 rows since prior sample; no big merge or new evaluator failures/admission hits/timeouts/slow queries. Queries ≤1.829 s. Second comparable natural merge still needed; next sample ≥15:49 UTC. No retuning or public Grafana work. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-6).
 

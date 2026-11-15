@@ -155,3 +155,14 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - Read-only evidence; no runtime, generation, source, provider, spend or sharing changes. No build/restart needed; 13:00–16:00 freeze preserved. Receipts: `/tmp/2397-{metrics.jsonl,sources.log,jobs.log}`.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts: `/tmp/2397-{format,lint,check}.log`.
 - Next: scheduled public-mode publication/access gate and separate editorial recovery review at 15:00 UTC; passive metrics sample ≥15:49 UTC.
+
+## 2026-11-15: iteration 2398 — scheduled public-mode gate accepted
+
+- Clean main at fe5e8305; no inherited work. Alerts zero, health database/Redis healthy, API/worker active; all 38 sources and jobs checks pass before/after publication.
+- Natural scheduled edition `a0fa3916-f1dc-4fbd-8d76-2884d5e01c06` published 15:03:33.094 UTC: five topics, 23 stories, 16 posts. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` verifies scheduled provenance and signed-out latest/direct/history agreement.
+- Explicit Playwright probe passes latest/history/direct on desktop 1440px and mobile 390px: real published content, no page errors/overflow; external requests blocked. Two screenshots saved; mobile inspected.
+- `pnpm exec tsx scripts/check-live-account-boundary.ts`: 32 passes. Targeted private profile/cost reads/admin writes return 404, account sync 401, no cookies. Initial probe expected 403 rather than deployed 404 and wrongly expected public structural explorer denial; corrected interpretation, no runtime defect.
+- Item 50 acknowledged under STEERING 62; readiness/activation/plan and owner handoff updated. Public mode remains ON; VM sharing private, awaiting owner decision. No deployment/restart during freeze, generation/source/provider/budget changes or paid verification.
+- Preliminary saved snapshot: Tech/NBA/Gaming/U.S. AI story text/order agrees with reader; World source fallback. Gaming recovers; full ownership/social/evidence/ledger review remains next. Optional AI CLI cannot parse public preview projection; used read-only saved snapshot plus existing assessor instead; diagnostic repair remains open.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, `git diff --check`; receipts `/tmp/2398-{format,lint,check,reader,browser,boundary}.log` and `/tmp/2398-editorial-db.json`. All pass: 1,040 unit and 329 integration tests, four expected skips.
+- Next: finish Nov 15 editorial review/World diagnosis, repair AI diagnostic; passive metrics sample ≥15:49 UTC. Stop before sharing.
