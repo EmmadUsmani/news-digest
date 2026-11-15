@@ -92,3 +92,12 @@ Archived continuation: [2305–2314](docs/progress-archive/2026-11-14-2305-throu
 - Read-only local GETs and offline assertions verify IDs, scores, selection, attribution and reader-field agreement. Temporary capture script initially needed a CJS async wrapper; corrected and removed. Private receipts `/tmp/2323-*`.
 - No application/UI/source/schema/system-flow changes, provider/source requests, production writes or runtime changes; SOURCES, handbook and screenshots unchanged.
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. API/worker restart and health verification follow commit.
+
+## 2026-11-15: iteration 2324 — restore saved X source-link verification
+
+- Clean main; no inherited work. Initial alerts zero. Scheduled recovery and the next metrics sample are not due; public mode remains off and VM private.
+- Actual failure: `pnpm exec tsx scripts/smoke-reader-x-links.ts` rejects Nov 14's saved edition before opening the browser because its selector requires a URL glued to prose. Gaming's saved nominee announcement contains a normal spaced source link.
+- Prefer joined-URL examples when available, otherwise select a real saved X post containing an HTTP link; retain exact display-text, original/source destination, spacing, keyboard-focus, typography and overflow assertions. No reader or editorial behavior changes. No claim that this edition exercises joined-URL spacing.
+- Browser check now passes desktop/mobile light/dark with external traffic blocked; refreshed its four screenshots and inspected mobile light. Synthetic context-expansion check also passes all four views; discarded its unrelated screenshot refreshes.
+- No provider/source requests, production writes, runtime settings, schema or system-flow changes; SOURCES and handbook unchanged. Verification receipts `/tmp/2324-*.log`.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` (1,025 unit/329 integration passes, four expected skips), `pnpm build` and `git diff --check` pass; existing bundle warning only. `pnpm obs sources --check`: 38/38 healthy. API/worker restart and health verification follow commit.

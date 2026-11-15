@@ -9,14 +9,18 @@ async function main() {
   const edition = readerEditionSchema.parse(
     await (await fetch(`${origin}/api/editions/latest`)).json(),
   );
-  const saved = edition.topics
+  const linkedPosts = edition.topics
     .flatMap((topic) => topic.posts)
-    .find(
+    .filter(
       (post) =>
         post.platform === 'x' &&
-        /[\p{L}\p{N}.!?…]https?:\/\//u.test(post.displayText ?? post.text),
+        /https?:\/\//.test(post.displayText ?? post.text),
     );
-  assert.ok(saved, 'A real saved X post is required');
+  const saved =
+    linkedPosts.find((post) =>
+      /[\p{L}\p{N}.!?…]https?:\/\//u.test(post.displayText ?? post.text),
+    ) ?? linkedPosts[0];
+  assert.ok(saved, 'A real saved X post with a source link is required');
   assert.equal(saved.platform, 'x');
   const savedText = saved.displayText ?? saved.text;
   const browser = await chromium.launch();
