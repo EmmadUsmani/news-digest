@@ -144,3 +144,13 @@ Archived: [iterations 2355–2360](docs/progress-archive/2026-11-15-2355-2360.md
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips (`/tmp/2374-{format,lint-final,check}.log`). Initial combined verification shell exited 143; explicit lint and full-check reruns both exit 0.
 - Deployed `pnpm exec tsx scripts/smoke-reader-home-links.ts` passes desktop/mobile light/dark with published content (`/tmp/2374-deployed-browser.log`); unrelated generated screenshots discarded.
 - Public mode ON, VM private; no paid calls, generation or sharing changes. Scheduled recovery/publication gate still awaits 15:00 UTC; next passive metrics sample no earlier than 11:39 UTC.
+
+## 2026-11-15: iteration 2375 — complete Privacy keyboard navigation
+
+- Clean main at a5d8cf89; no inherited work. `pnpm obs alerts` reports zero alerts; `/healthz` confirms database/Redis healthy.
+- Owner-visible weakness: Privacy lacked the skip navigation available on other reader pages. Added a focusable policy heading and shared skip link so keyboard readers can bypass the header.
+- `pnpm exec tsx scripts/smoke-privacy.ts` passes desktop/mobile light/dark with accounts off/on, keyboard entry/skip/forward focus, reload, layout and zero API/external requests. Four focused screenshots added; mobile light inspected (`/tmp/2375-privacy-final.log`).
+- Higher-priority content fixes await scheduled evidence. World pilot remains OFF: rollout notes require private public-mode acceptance; no provider or environment changes. Offline rotation rehearsal passes; baseline collection export retained at `/tmp/2375-bluesky-baseline.json`.
+- Public `VITE_PUBLIC_MODE=1 pnpm build` passes; API restarted and health recovered. Deployed Privacy skip passes after waiting for React heading readiness (initial probe pressed Tab too early). Latest reader endpoint still returns b9d55088 with five topics (`/tmp/2375-{build,deployed-final}.log`).
+- Verification: `pnpm format`, `pnpm lint:fix`, standalone `pnpm check` and `git diff --check` pass; 1,040 unit/329 integration passes, four expected skips. Combined format/lint/check shell exited 143 after complete passing summaries; standalone full check exits 0 (`/tmp/2375-check-final.log`).
+- Public mode ON, VM private; no paid calls or generation changes. Next: metrics sample ≥11:39 UTC; scheduled public-reader acceptance and separate editorial review at 15:00 UTC.

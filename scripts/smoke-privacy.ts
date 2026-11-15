@@ -62,6 +62,23 @@ async function main() {
             await expect(
               page.getByRole('heading', { name: 'Privacy', exact: true }),
             ).toBeVisible();
+            const skip = page.getByRole('link', { name: 'Skip to content' });
+            await page.keyboard.press('Tab');
+            await expect(skip).toBeFocused();
+            const skipBox = await skip.boundingBox();
+            assert.ok(skipBox && skipBox.width > 100 && skipBox.y >= 0);
+            if (enabled === '1')
+              await page.screenshot({
+                path: `docs/screenshots/privacy/skip-${width}-${colorScheme}.png`,
+              });
+            await page.keyboard.press('Enter');
+            await expect(
+              page.getByRole('heading', { name: 'Privacy', exact: true }),
+            ).toBeFocused();
+            await page.keyboard.press('Tab');
+            await expect(
+              page.getByRole('link', { name: 'Back to the latest edition' }),
+            ).toBeFocused();
             await expect(
               page.getByText('Reader accounts are currently disabled.', {
                 exact: false,
@@ -101,7 +118,7 @@ async function main() {
       }
     }
     console.log(
-      'Privacy page: desktop/mobile light/dark, accounts off/on, reload and zero API/external requests pass.',
+      'Privacy page: desktop/mobile light/dark, accounts off/on, keyboard skip/resume, reload and zero API/external requests pass.',
     );
   } finally {
     await browser.close();

@@ -1,11 +1,13 @@
 import { Link } from '@tanstack/react-router';
 
 import { ThemeToggle } from './components/theme-toggle';
+import { ReaderSkipLink } from './ReaderSkipLink';
 
 export function Privacy() {
   const accountsEnabled = import.meta.env.VITE_READER_ACCOUNTS === '1';
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
+      <ReaderSkipLink target="privacy-content" />
       <header className="flex items-center justify-between border-b border-[var(--border)] py-5">
         <Link
           to="/"
@@ -16,7 +18,11 @@ export function Privacy() {
         <ThemeToggle />
       </header>
       <article className="space-y-8 pt-12 text-base leading-relaxed">
-        <h1 className="m-0 font-sans text-3xl font-semibold tracking-tight">
+        <h1
+          id="privacy-content"
+          tabIndex={-1}
+          className="m-0 scroll-mt-6 font-sans text-3xl font-semibold tracking-tight"
+        >
           Privacy
         </h1>
         <section className="space-y-3 p-0">

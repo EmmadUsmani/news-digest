@@ -62,6 +62,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2375: Privacy gains keyboard skip navigation; desktop/mobile light/dark, accounts off/on and forward focus checks pass.
+
 - [x] 2374: dismissing Account clears deletion confirmation; Escape/close and fresh-confirmation desktop/mobile checks pass.
 
 - [x] 2373: saved social posts with empty text show an explanation and Read source link; X/Bluesky/Reddit desktop/mobile light/dark checks pass.
