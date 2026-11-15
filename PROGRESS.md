@@ -90,3 +90,12 @@ Archived: [iterations 2368–2377](docs/progress-archive/2026-11-15-2368-2377.md
 - No app/runtime code, generation, source, spend, provider or sharing changes; no handbook update or service restart needed. Freeze preserved.
 - `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts: `/tmp/2385-{before,browser,format,lint,check}.log`.
 - Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
+
+## 2026-11-15: iteration 2386 — restore date-navigation browser verification
+
+- Clean main at 25d70d56; no inherited work. Alerts zero; database/Redis healthy; all 38 sources healthy. API/worker active; digest queue has zero failures and next run at 15:00 UTC.
+- Reproduced existing browser-check breakage: date navigation smoke times out waiting for the older-edition link because requests lack public-mode visitor admission. Added the loopback visitor header to browser requests, granting no account identity.
+- `pnpm exec tsx scripts/smoke-reader-date-targets.ts` now passes six 1440/390/320px light/dark variants: older/newer navigation, archive entry, 44px targets, keyboard focus, overflow and browser errors. GET/HEAD only; external requests blocked. Six screenshots refreshed; 320px light inspected.
+- No runtime, generation, source, provider, spend or sharing changes. No handbook update, build or service restart needed; deployment freeze preserved.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check` and `git diff --check` pass: 1,040 unit/329 integration passes, four expected skips. Receipts `/tmp/2386-{before,browser,format,lint,check}.log`.
+- Next: passive metrics sample ≥13:47 UTC; scheduled publication/access gate and separate editorial recovery review at 15:00 UTC. No deploys/restarts 13:00–16:00 UTC.
