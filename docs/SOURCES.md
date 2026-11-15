@@ -3280,3 +3280,13 @@ No shortlist overflow or stronger scored alternative is established. Verified
 X metrics remain empty. Retain gates, caps and prompts; assess the already
 activated bounded World discovery pilot on natural collection and publication.
 [Saved supply and reader comparison](edition-reviews/2026-11-15-world-x.md).
+
+### First natural World event collection — iteration 2413
+
+November 15 17:54 UTC: scheduled `Ukraine` pass completed with 50 fetched
+and submitted observations; the other four topic queries were unchanged.
+World rolling coverage grew from 63 to 113 distinct posts, with the safe
+engaged shortlist reaching its 50-post limit (36 authors). Strong examples
+mix reporting, commentary, speculation and satire. Keep the pilot and semantic
+selection gates; collection success does not accept final editorial quality.
+[First-pass review](edition-reviews/2026-11-15-world-bluesky-pilot.md).
