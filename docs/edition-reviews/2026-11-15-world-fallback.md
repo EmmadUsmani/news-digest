@@ -117,3 +117,14 @@ No provider calls, edition writes or paid replay. Natural World acceptance
 requires the next scheduled edition; the Nov 15 saved fallback is immutable.
 NBA repetition, all-topic social quality and Tech evidence depth still need
 their separate daily review; social presence alone accepts none of them.
+
+## JSON wrapper recovery (iteration 2405)
+
+The budgeted response decoder now unwraps one whole-response Markdown JSON
+fence (an empty language tag or `json`) before parsing. It still runs the same
+schema and editorial validators before caching. Commentary outside the fence,
+multiple blocks, unsupported language tags and incomplete JSON remain failures.
+This removes the saved Haiku initial wrapper blocker; its separate ICJ claim
+still needs repair. It does not establish natural World recovery or change the
+published edition. Synthetic editor tests cover one-call acceptance/cache reuse,
+invalid selected IDs, and malformed wrappers without external calls.

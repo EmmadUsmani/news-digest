@@ -137,3 +137,14 @@ Archived: [iterations 2378–2386](docs/progress-archive/2026-11-15-2378-2386.md
 - Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, targeted absence tests and `git diff --check` pass: 1,043 unit/329 integration tests, four expected skips. Receipts `/tmp/2404-{format,lint,check,targeted-final}.log`. `VITE_PUBLIC_MODE=1 pnpm build` passed.
 - API/worker restarted outside freeze at 16:16 UTC; health, 38 sources and all queue-worker checks pass. Public reader/latest returns 200 and byte-identical JSON before/after (`/tmp/2404-reader-{before,after}.json`). No source/data-flow/schema changes requiring handbook/source metadata updates.
 - Next: natural World recovery and NBA spoof-exclusion acceptance at the next scheduled edition; remaining ICJ/Haiku refusals stay visible. Metrics passive sample due ≥16:54 UTC; no retuning. Public mode ON, VM private pending owner sharing decision.
+
+## 2026-11-15: iteration 2405 — decode complete fenced JSON before validation
+
+- Clean main at 0316f305; no inherited work. Alerts zero; health, all 38 sources and four queue-worker checks pass (`/tmp/2405-{health,sources,jobs}.log`).
+- Owner-visible benefit: a complete editorial response can survive its Markdown wrapper without spending a repair call; malformed or unsupported content still requires repair/fallback.
+- Budgeted decoder unwraps only one whole-response JSON/untagged fence before existing parsing/schema/editorial validation. Rejects outside commentary, multiple blocks, other language tags and truncated JSON. Model/provider, caps, retry limits and cache identity unchanged.
+- Saved Haiku initial wrapper matches and decodes five stories offline; separate ICJ content failure remains. Natural World/NBA acceptance awaits next scheduled edition; immutable reader edition unchanged. No external inference, paid replay, or edition writes.
+- Targeted editor tests pass (41): one-call fenced acceptance/cache reuse, invalid selected-ID refusal and malformed-wrapper exhaustion. Updated daily World review and tasks; internal decoder change needs no handbook/source/schema metadata change.
+- Verification: `pnpm format`, `pnpm lint:fix`, full `pnpm check`, targeted editor tests and `git diff --check` pass: 1,045 unit/329 integration tests, four expected skips. `VITE_PUBLIC_MODE=1 pnpm build` passed; receipts `/tmp/2405-{format,lint,check,targeted,build}.log`.
+- API/worker restarted at 16:27 UTC; immediate health probe raced startup, retry and `/healthz` pass. All 38 sources/four queue-worker checks pass; reader latest returns 200 and byte-identical JSON before/after. Public mode ON, VM private; no sharing changes.
+- Next: natural World recovery/NBA spoof exclusion acceptance at next scheduled edition; ICJ/Haiku content refusals stay open. Metrics sample due ≥16:54 UTC; no retuning.

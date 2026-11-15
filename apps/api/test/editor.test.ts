@@ -1603,14 +1603,11 @@ void test('cluster validation cannot use member text beyond the transported exce
   assert.ok(!h.calls[0].prompt.includes(hidden));
 });
 
-void test('Gaming truncated or fenced JSON repairs within the unchanged budget and fails closed on exhaustion', async () => {
+void test('Gaming truncated JSON repairs within the unchanged budget and fails closed on exhaustion', async () => {
   // Synthetic wire bodies reproduce syntax boundaries, not model compliance.
   const complete = JSON.stringify(valid);
   for (const refuse of [[], ['claude-sonnet-5-5']]) {
-    for (const broken of [
-      complete.slice(0, -12),
-      '```json\n' + complete + '\n```',
-    ]) {
+    for (const broken of [complete.slice(0, -12)]) {
       const h = harness([broken, complete], refuse, true);
       const result = await h.editor.edit(
         { ...topic, name: 'Gaming' },
@@ -1647,5 +1644,59 @@ void test('Gaming truncated or fenced JSON repairs within the unchanged budget a
       );
       assert.ok(exhausted.calls.length <= 4);
     }
+  }
+});
+
+void test('whole-response JSON fences preserve editor validation and cache behavior', async () => {
+  for (const tag of ['json', '']) {
+    const h = harness(
+      ['  ```' + tag + '\r\n' + JSON.stringify(valid) + '\r\n```\n'],
+      [],
+      true,
+    );
+    const result = await h.editor.edit(topic, candidates, 1, 'fenced');
+    assert.deepEqual(result, { ...valid, model: 'claude-sonnet-5-5' });
+    assert.deepEqual(
+      await h.editor.edit(topic, candidates, 1, 'cached'),
+      result,
+    );
+    assert.equal(h.calls.length, 1);
+    assert.deepEqual(h.diagnostics(), []);
+  }
+  const invalid = { ...valid, stories: [{ ...story, id: 'invented' }] };
+  const h = harness(
+    ['```json\n' + JSON.stringify(invalid) + '\n```'],
+    [],
+    true,
+  );
+  assert.equal(
+    await h.editor.edit(topic, candidates, 1, 'invalid-fenced'),
+    null,
+  );
+  assert.equal(h.calls.length, 4);
+  assert.ok(
+    h.diagnostics().every((event) => event.category !== 'invalid-json'),
+  );
+});
+
+void test('JSON fence handling rejects commentary, multiple blocks and malformed bodies', async () => {
+  const fence = '```json\n' + JSON.stringify(valid) + '\n```';
+  for (const text of [
+    'Here is the result:\n' + fence,
+    fence + '\nCommentary',
+    fence + '\n' + fence,
+    '```json\n{"stories":\n```',
+    '```javascript\n' + JSON.stringify(valid) + '\n```',
+    '```json\n' + JSON.stringify(valid),
+  ]) {
+    const h = harness([text], [], true);
+    assert.equal(
+      await h.editor.edit(topic, candidates, 1, 'bad-wrapper'),
+      null,
+    );
+    assert.equal(h.calls.length, 4);
+    assert.ok(
+      h.diagnostics().every((event) => event.category === 'invalid-json'),
+    );
   }
 });

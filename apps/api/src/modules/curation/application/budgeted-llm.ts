@@ -373,7 +373,12 @@ export class BudgetedLlm {
       let parsed: T;
       let decoded: unknown;
       try {
-        decoded = JSON.parse(response.text) as unknown;
+        // Only unwrap a single whole-response JSON fence. Commentary, multiple
+        // blocks and incomplete JSON still fail before schema validation.
+        const fenced = /^\s*```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n```\s*$/.exec(
+          response.text,
+        );
+        decoded = JSON.parse(fenced ? fenced[1] : response.text) as unknown;
       } catch (error) {
         await this.recordFailure(
           request,
