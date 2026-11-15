@@ -183,3 +183,25 @@ replaced the client's header with the real identity. Not covered: the
 Under STEERING 59, private public-mode activation follows scheduled NBA/item 58
 acceptance without another owner decision. Sharing remains private; the owner's
 go-public decision gates sharing only.
+
+## Disk headroom — scoped maintenance (Nov 15, iteration 2320)
+
+The app is healthy; no immediate intervention is required. Full-check coverage
+briefly crosses the 80% disk warning and cleans up normally (2319). At 00:16 UTC
+the filesystem has 5,527,068,672 bytes available and reports 78% used.
+
+Read-only inventory identifies two old observability scratch artifacts:
+
+| Path                           | Allocated size | Last directory/file modification |
+| ------------------------------ | -------------: | -------------------------------- |
+| `/tmp/obs355`                  |      242.9 MiB | Nov 3                            |
+| `/tmp/news-digest-vmutils.tgz` |      137.5 MiB | Nov 3                            |
+
+Together these occupy 380.4 MiB, more than the measured 271.8 MiB integration
+coverage peak. This is an inventory, not proof that deletion is safe: future
+maintenance must verify their consumers and recovery needs. STEERING 51 says
+“don't touch other `/tmp` content, backups, Docker volumes or anything outside
+these folders,” so neither was removed. Owner-scoped authorization for these
+two paths, or owner-managed maintenance, is needed before reclaiming them.
+Do not remove browser caches, sessions, backups or observability data to clear
+a brief warning. No purchase or VM size change is proposed.
