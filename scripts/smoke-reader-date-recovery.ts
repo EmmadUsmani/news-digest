@@ -9,11 +9,22 @@ import { chromium, type Route } from 'playwright';
 
 async function main() {
   const origin = 'http://127.0.0.1:8000';
+  // Documentation-range visitor for fixed loopback public reads; no identity.
+  const visitor = '192.0.2.168';
+  async function readSaved(path: string) {
+    const response = await fetch(`${origin}${path}`, {
+      headers: { 'X-Forwarded-For': visitor },
+      redirect: 'error',
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200);
+    return response.json();
+  }
   const edition = readerEditionSchema.parse(
-    await (await fetch(`${origin}/api/editions/latest`)).json(),
+    await readSaved('/api/editions/latest'),
   );
   const history = readerEditionHistorySchema.parse(
-    await (await fetch(`${origin}/api/editions?offset=0`)).json(),
+    await readSaved('/api/editions?offset=0'),
   );
   assert.ok(
     edition &&
@@ -30,6 +41,8 @@ async function main() {
         const page = await browser.newPage({
           viewport: { width, height },
           colorScheme: theme,
+          reducedMotion: 'reduce',
+          serviceWorkers: 'block',
         });
         let calls = 0;
         let recovering = false;
@@ -37,9 +50,13 @@ async function main() {
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.route('**/*', (route) => {
-          const url = new URL(route.request().url());
+          const request = route.request();
+          assert.equal('admin_local_token' in request.headers(), false);
+          assert.equal('x-exedev-email' in request.headers(), false);
+          const url = new URL(request.url());
           if (url.origin !== origin) return route.abort();
-          assert.equal(route.request().method(), 'GET');
+          assert.equal(request.method(), 'GET');
+          assert.equal(url.pathname.startsWith('/api/admin'), false);
           if (url.pathname === '/api/editions/latest')
             return route.fulfill({ json: edition });
           if (url.pathname === '/api/editions') {
@@ -48,7 +65,9 @@ async function main() {
             pending = route;
             return;
           }
-          return route.continue();
+          return route.continue({
+            headers: { ...request.headers(), 'X-Forwarded-For': visitor },
+          });
         });
         await page.goto(origin);
         const nav = page.getByRole('navigation', {

@@ -144,3 +144,12 @@ Archived continuation: [2325–2330](docs/progress-archive/2026-11-15-2325-throu
 - Desktop/mobile light/dark pass loading skeletons, real saved-topic rendering and controlled 404 recovery. Refreshed four screenshots; inspected mobile light. Delay/error responses are simulated; rendered edition content is real saved content.
 - Verification: `pnpm exec tsx scripts/smoke-reader-loading.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass (1,040 unit/329 integration passes, four expected integration skips). Logs `/tmp/2344-{loading,sources,format,lint,check}.log`.
 - No restart under STEERING 22: runtime code/config unchanged. No generation, source, budget or sharing changes. Next: scheduled recovery/public-reader acceptance; VM stays private.
+
+## 2026-11-15: iteration 2345 — restore date-navigation recovery verification
+
+- Clean main at 208e24d5; no inherited work. Initial orientation output was overbroad; narrowed subsequent reads. Alerts zero, health/database/Redis healthy and all 38 sources pass. Scheduled acceptance remains due 15:00 UTC.
+- Reproduced date-navigation smoke failure before browser launch: visitor-less latest-edition fetch returned empty non-JSON. Added documentation-range visitor admission to fixed loopback reads, status/timeout checks and redirect refusal.
+- Browser requests assert no identity headers, admin reads or writes; external traffic and service workers blocked. No application admission-policy change.
+- Desktop/mobile light/dark pass invalid history, repeated failure, manual retry, older-date destination and keyboard-focus recovery using real saved edition/history. Failures are simulated; refreshed four screenshots and inspected mobile light.
+- Verification: `pnpm exec tsx scripts/smoke-reader-date-recovery.ts`, `pnpm obs sources --check`, `pnpm format`, `pnpm lint:fix`, full `pnpm check` and diff checks pass. Logs `/tmp/2345-{date,sources,format,lint,check}.log`.
+- No restart under STEERING 22: runtime code/config unchanged. No source, generation, budget or sharing changes. Next: scheduled publication/public-reader acceptance; VM stays private.
