@@ -16,8 +16,10 @@ flowchart LR
   pg[("Postgres catalog")] --> explorer
 ```
 
-- **No build step.** Edit a `.md` file, commit and pull, and the page updates
-  on the next reload.
+- **Markdown needs no build.** Edit a `.md` file and it updates on reload.
+  Viewer dependencies are pinned and bundled locally with
+  `pnpm --filter @digest/docs-site build`; restart docs after server changes.
+  Both public and private modes serve this full handbook, with read-only APIs.
 - **Navigation is the folder structure:** `NN-section/README.md` is a section's
   overview (its `#` title names the section), and `NN-page.md` files are
   ordered by number.

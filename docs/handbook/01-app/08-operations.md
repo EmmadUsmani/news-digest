@@ -59,8 +59,7 @@ Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private 
 
 ## Production console
 
-`pnpm console`, run from `~/news-digest` on the VM, opens a Node REPL with
-the app loaded and a `[PRODUCTION]` prompt. It starts no web server, workers
+`pnpm console`, run from `~/news-digest` on the VM, opens a Node REPL with the app loaded and a `[PRODUCTION]` prompt. It starts no web server, workers
 or timers.
 
 - **Available:** `app`, `get(Token)`, `db.query(sql, params)`, and
@@ -94,6 +93,8 @@ Passwords live only in the VM's env file. To see them, run:
 - API/worker: build and restart only changed roles. Migrate when needed; check `/healthz` after startup.
 - During web deployment, poll the public reader and a previous hashed asset every second; check the reader signed out afterwards.
 - Commit and push `main`. Never deploy or restart during 13:00–16:00 UTC.
+
+- Handbook: `pnpm --filter @digest/docs-site build` bundles local scripts; restart only docs after server changes. Markdown updates on reload.
 
 ## Tests
 

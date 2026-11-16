@@ -29,7 +29,7 @@ nightly run. Encrypted uploads are downloaded and checked before success is reco
 
 ## Encryption and storage
 
-- B2 bucket: `news-digest-backups`, endpoint `https://s3.us-east-005.backblazeb2.com`.
+- B2 bucket and regional endpoint come from the private backup configuration.
 - Every upload is encrypted with age to the owner's public recipient. The private key stays with the owner.
 - The VM bundle contains the env file, user units, system observability units/configuration and app state. It excludes dump history, logs, metrics, caches and symlinks.
 - exe.dev's disk export requires AWS federation; this installation uses the recovery bundle with B2.
@@ -61,7 +61,7 @@ read -r -p 'B2 key ID: ' AWS_ACCESS_KEY_ID
 read -r -s -p 'B2 application key: ' AWS_SECRET_ACCESS_KEY; echo
 export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION=us-east-005
 endpoint=https://s3.us-east-005.backblazeb2.com
-bucket=news-digest-backups
+read -r -p 'Configured B2 bucket: ' bucket
 key=$(aws --endpoint-url "$endpoint" s3api list-objects-v2 --bucket "$bucket" --prefix database/ --query 'reverse(sort_by(Contents,&LastModified))[0].Key' --output text)
 aws --endpoint-url "$endpoint" s3 cp "s3://$bucket/$key" database.dump.age
 age --decrypt -i "$HOME/.config/age/news-digest.key" -o database.dump database.dump.age

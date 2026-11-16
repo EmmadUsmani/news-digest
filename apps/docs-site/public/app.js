@@ -1,10 +1,10 @@
 // news-digest docs viewer. Renders docs/handbook Markdown in the browser:
 // marked (GFM) + DOMPurify + Mermaid diagrams. Hash routes: #/01-app/02-stack,
 // optionally with a heading: #/01-app/02-stack?h=tech-stack
-import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.es.mjs';
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js';
-import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+import DOMPurify from 'dompurify';
+import { marked } from 'marked';
+import mermaid from 'mermaid';
+import elkLayouts from '@mermaid-js/layout-elk';
 
 import {
   rankPages,
@@ -245,6 +245,10 @@ function enhance(root, path) {
       a.rel = 'noopener';
       continue;
     }
+    if (href.startsWith('/') && !href.startsWith('//')) {
+      a.href = href;
+      continue;
+    }
     if (href.startsWith('#')) {
       a.addEventListener('click', (ev) => {
         ev.preventDefault();
@@ -329,10 +333,8 @@ function renderPager(path, updated) {
 // ---------- command palette (⌘K / Ctrl+K, or /) ----------
 const TOOLS = [
   ['App', '../'],
-  ['Grafana', '../grafana/'],
-  ['Logs', '../logs/'],
-  ['Metrics', '../metrics/'],
-  ['Queues', '../queues/'],
+  ['Tools', '../admin/tools'],
+  ['Queues', '../admin/queues'],
   ['DB explorer', '../db/'],
   ['GitHub', 'https://github.com/EmmadUsmani/news-digest'],
 ].map(([title, href]) => ({ title, href }));

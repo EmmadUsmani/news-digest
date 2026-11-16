@@ -1,86 +1,136 @@
-// Explicit installed-loopback check; public mode and the live API are unchanged.
+// Signed-out, read-only full-handbook acceptance over the public HTTPS URL.
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { createServer } from 'node:http';
-import type { AddressInfo } from 'node:net';
+import { Resolver } from 'node:dns/promises';
+import { mkdir } from 'node:fs/promises';
 
-import {
-  proxyInternalTools,
-  selectInternalTools,
-} from '../apps/api/src/internal-tools';
+import { chromium } from 'playwright';
 
 async function main() {
-  const server = createServer((req, res) =>
-    proxyInternalTools(selectInternalTools(true))(req, res, () =>
-      res.writeHead(404).end(),
-    ),
-  );
-  await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
-  const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  const host = 'news-digest.exe.xyz';
+  const resolver = new Resolver();
+  resolver.setServers(['1.1.1.1']);
+  const [address] = await resolver.resolve4(host);
+  const browser = await chromium.launch({
+    args: [`--host-resolver-rules=MAP ${host} ${address}`],
+  });
   try {
-    for (const [route, file] of [
-      ['/', 'index.html'],
-      ['/style.css', 'style.css'],
-    ]) {
-      const expected = await readFile(`apps/docs-site/reader/${file}`, 'utf8');
-      for (const method of ['GET', 'HEAD']) {
-        const direct = await fetch(`http://127.0.0.1:8110${route}`, { method });
-        assert.equal(direct.status, 200);
-        assert.equal(direct.headers.get('x-digest-reader-handbook'), '1');
-        assert.equal(await direct.text(), method === 'HEAD' ? '' : expected);
-        const response = await fetch(`${base}/docs${route}`, {
-          method,
-          headers: {
-            Cookie: 'private=must-not-propagate',
-            Authorization: 'Bearer invalid',
-          },
-        });
-        assert.equal(response.status, 200);
-        assert.equal(response.headers.get('cache-control'), 'no-store');
-        assert.equal(response.headers.get('set-cookie'), null);
-        assert.ok(
-          response.headers
-            .get('content-security-policy')
-            ?.includes("default-src 'none'"),
+    await mkdir('docs/screenshots/handbook', { recursive: true });
+    for (const width of [1440, 390]) {
+      const context = await browser.newContext({
+        viewport: { width, height: 900 },
+      });
+      const page = await context.newPage();
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (message) => {
+        if (message.type() === 'error') errors.push(message.text());
+      });
+      page.on('response', (response) => {
+        if (response.status() >= 400)
+          errors.push(`${response.status()} ${response.url()}`);
+      });
+      page.on('request', (request) => {
+        if (new URL(request.url()).hostname !== host)
+          errors.push(`External request: ${request.url()}`);
+        assert.ok(['GET', 'HEAD'].includes(request.method()));
+      });
+      await page.goto(`https://${host}/docs/`);
+      await page.locator('#content h1').waitFor();
+      const links = await page.evaluate(async () => {
+        const tree = (await (await fetch('api/tree')).json()) as {
+          home: { path: string; title: string };
+          sections: {
+            index: { path: string; title: string } | null;
+            pages: { path: string; title: string }[];
+          }[];
+        };
+        return [
+          tree.home,
+          ...tree.sections.flatMap((section) => [
+            ...(section.index ? [section.index] : []),
+            ...section.pages,
+          ]),
+        ].map((entry) => ({
+          href:
+            '#/' + entry.path.replace(/README\.md$/, '').replace(/\.md$/, ''),
+          title: entry.title,
+        }));
+      });
+      assert.equal(links.length, 18);
+      let diagrams = 0;
+      for (const link of links) {
+        if (
+          width < 600 &&
+          !(await page
+            .locator('#sidebar')
+            .evaluate((node) => node.classList.contains('open')))
+        )
+          await page.locator('#menu').click();
+        await page.locator(`#sidebar a[href="${link.href}"]`).click();
+        await page.waitForFunction(
+          (title) =>
+            document.querySelector('#content h1')?.textContent === title,
+          link.title,
         );
-        assert.equal(await response.text(), method === 'HEAD' ? '' : expected);
+        await page.waitForFunction(() =>
+          [...document.querySelectorAll('#content pre.mermaid')].every(
+            (node) =>
+              node.querySelector('svg') &&
+              !node.querySelector('[aria-roledescription="error"]'),
+          ),
+        );
+        diagrams += await page.locator('#content pre.mermaid').count();
+        for (const href of await page
+          .locator('#content a[href^="#/"]')
+          .evaluateAll((nodes) =>
+            nodes.map((node) => node.getAttribute('href')!),
+          ))
+          assert.ok(
+            links.some((candidate) => candidate.href === href),
+            href,
+          );
+        assert.ok(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= window.innerWidth,
+          ),
+          `${width}: overflow on ${link.title}`,
+        );
       }
+      await page.locator('#search').click();
+      await page.locator('#palette-input').fill('Backups');
+      const option = page
+        .getByRole('option')
+        .filter({ hasText: 'Database and VM backups' })
+        .first();
+      await option.waitFor();
+      await page.screenshot({
+        path: `docs/screenshots/handbook/public-search-${width}.png`,
+      });
+      await option.click();
+      await page.waitForFunction(
+        () =>
+          document.querySelector('#content h1')?.textContent ===
+          'Database and VM backups',
+      );
+      await page.reload();
+      await page
+        .getByRole('heading', { name: 'Database and VM backups', exact: true })
+        .waitFor();
+      await page.screenshot({
+        path: `docs/screenshots/handbook/public-page-${width}.png`,
+      });
+      assert.deepEqual(errors, []);
+      assert.deepEqual(await context.cookies(), []);
+      console.log(
+        `Public signed-out handbook ${width}px: 18 pages/${diagrams} diagrams, navigation/search/direct refresh, local assets, no overflow or errors.`,
+      );
+      await context.close();
     }
-    const redirect = await fetch(`${base}/docs`, { redirect: 'manual' });
-    assert.equal(redirect.status, 308);
-    assert.equal(redirect.headers.get('location'), '/docs/');
-    for (const path of [
-      '/api/tree',
-      '/api/search?q=backup',
-      '/README.md',
-      '/images/test.png',
-      '/?query=1',
-    ]) {
-      assert.equal((await fetch(`http://127.0.0.1:8110${path}`)).status, 404);
-      assert.equal((await fetch(`${base}/docs${path}`)).status, 404);
-    }
-    assert.equal(
-      (await fetch('http://127.0.0.1:8110/', { method: 'POST' })).status,
-      405,
-    );
-    assert.equal(
-      (await fetch(`${base}/docs/`, { method: 'POST' })).status,
-      404,
-    );
-    assert.equal(
-      (await fetch('http://127.0.0.1:8000/docs/', { redirect: 'manual' }))
-        .status,
-      404,
-    );
-    console.log(
-      'Installed reader handbook: exact GET/HEAD bodies, public proxy, legacy-route/write refusals and live private admission pass.',
-    );
   } finally {
-    server.closeAllConnections();
-    await new Promise<void>((done) => server.close(() => done()));
+    await browser.close();
   }
 }
-main().catch((error: unknown) => {
+void main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });

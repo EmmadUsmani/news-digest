@@ -19,7 +19,7 @@ const handbook = join(repo, 'docs/handbook');
 const publicDir = resolve(import.meta.dirname, '../public');
 const assets = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
-  ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/app.js', ['../dist/app.js', 'text/javascript; charset=utf-8']],
   ['/search.js', ['search.js', 'text/javascript; charset=utf-8']],
   ['/style.css', ['style.css', 'text/css; charset=utf-8']],
 ]);
@@ -46,9 +46,10 @@ function json(res: import('node:http').ServerResponse, body: unknown) {
 
 const server = createServer((req, res) => {
   void (async () => {
+    res.setHeader('x-digest-handbook', '1');
     const url = new URL(req.url ?? '/', 'http://localhost');
     try {
-      if (req.method !== 'GET') {
+      if (!['GET', 'HEAD'].includes(req.method ?? '')) {
         res.writeHead(405).end();
         return;
       }

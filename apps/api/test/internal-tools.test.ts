@@ -73,7 +73,7 @@ void test('forwards tool subpaths, redirects bare prefixes, passes others throug
   }
 });
 
-void test('public handbook isolates the reader upstream and rolls back to guarded owner docs', async () => {
+void test('public full handbook admits viewer and inventory reads while isolating credentials and writes', async () => {
   const owner = 'owner@example.test';
   const secretHeaders = {
     'x-exedev-email': owner,
@@ -88,7 +88,7 @@ void test('public handbook isolates the reader upstream and rolls back to guarde
       .writeHead(200, {
         'content-type': 'text/css',
         'set-cookie': 'upstream=forbidden',
-        ...(expectedUpstream && { 'x-digest-reader-handbook': '1' }),
+        ...(expectedUpstream && { 'x-digest-handbook': '1' }),
         'content-security-policy': 'default-src *',
       })
       .end('reader');
@@ -140,6 +140,16 @@ void test('public handbook isolates the reader upstream and rolls back to guarde
     assert.equal(await head.text(), '');
     for (const path of [
       '/docs/api/tree',
+      '/docs/api/pages',
+      '/docs/app.js',
+      '/docs/api/page?path=01-app%2FREADME.md',
+    ]) {
+      for (const method of ['GET', 'HEAD'])
+        assert.equal((await fetch(base + path, { method })).status, 200);
+      assert.equal((await fetch(base + path, { method: 'POST' })).status, 404);
+    }
+    for (const path of [
+      '/docs/api/page?path=..%2FREADME.md',
       '/docs/api/search?q=test',
       '/docs/files/test.png',
       '/docs/?q=test',
@@ -156,10 +166,9 @@ void test('public handbook isolates the reader upstream and rolls back to guarde
       (await fetch(base + '/docs/', { method: 'POST' })).status,
       404,
     );
-    assert.deepEqual(upstreamRequests, [
-      ['GET', '/style.css', ['host', 'connection']],
-      ['HEAD', '/', ['host', 'connection']],
-    ]);
+    assert.equal(upstreamRequests.length, 10);
+    for (const entry of upstreamRequests)
+      assert.deepEqual((entry as unknown[])[2], ['host', 'connection']);
 
     expectedUpstream = false;
     const wrongUpstream = await fetch(base + '/docs/');

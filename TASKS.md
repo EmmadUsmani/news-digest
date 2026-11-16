@@ -4,14 +4,14 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Next scheduled acceptance
 
-- Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; VM sharing stays private pending owner decision.
+- Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
 - Recovery/ownership fixes deployed; natural World/Gaming admission recovery and NBA source-exclusion/context acceptance remain pending. No paid replay or cap changes.
 - Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
 - Next natural edition Nov 16 15:00 UTC. Inspect World AI, NBA spoof absence/distinct social contributions and Tech saved prose; protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
 
 ## Open work
 
-- [ ] STEERING 63/64 (new owner instructions during 2438): atomic web deployment with ≥1-day hashed-asset retention completed (2439); no API/worker restart for web-only changes. Local pinned ELK for `/db/` completed (2440), with signed-out public desktop/mobile rendering and zero console errors. Next publish the full handbook after privacy review, then fix admin-only direct New edition loads. Use signed-out public HTTPS/browser acceptance as specified; never disable public mode or change sharing. Nov 16 scheduled-publication acceptance remains open.
+- [ ] STEERING 63/64: atomic web deployment/≥24h retired assets (2439), local pinned `/db/` ELK (2440), and full public handbook/privacy/navigation/search acceptance (2442) complete. Next: admin-only direct New edition loads. Nov 16 scheduled-publication acceptance remains open; protect 13:00–16:00 UTC. Keep public mode/sharing unchanged.
 
 - [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2442: full handbook public at `/docs/`; pinned local rendering, narrow read-only routes, credential isolation and desktop/mobile acceptance for all 18 pages/21 diagrams.
 
 - [x] 2441: recovered 544 MiB from two unused interrupted integration-run folders under STEERING 51; disk 80%→78%, cleanup regression passes. Full handbook publication remains next.
 

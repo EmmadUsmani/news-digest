@@ -61,14 +61,14 @@ flowchart LR
 > base. The API answers the UI. The worker does everything on a timer or
 > queue: collecting, verifying posts and generating editions. The docs and
 > schema tools are small separate services, listening only on the VM's
-> loopback. The API forwards `/docs/` and `/db/` to them. The installed reader guide on port 8110 is reserved for public mode; private mode uses the owner handbook on 8100. Local log collection
+> loopback. The API forwards `/docs/` and `/db/` to them. Both modes serve the full handbook on 8100, including locally bundled rendering libraries. Local log collection
 > uses separate system units and `/logs/`; see [Observability](09-observability.md).
 
 ## Configuration and secrets
 
 - Secrets (API keys) live only in `~/.config/news-digest/env` on the VM
   (mode 600). They are never committed. The API and worker load this file.
-- `PUBLIC_MODE` is off. Its prepared access stack sets HTTPS, MIME, referrer
+- `PUBLIC_MODE=1` is enabled. Its access stack sets HTTPS, MIME, referrer
   and same-origin framing headers before account handling and authorization.
   The CSP denies unspecified resource types, allows local styles and inline styling, and limits base URLs, plugin objects, embedding ancestors and form destinations; images use the app origin or HTTPS sources.
   Document fonts and audio/video use the app origin; social media plays in X frames. Document workers, inline scripts/handlers and eval are blocked. Scripts use the app origin or `https://platform.twitter.com`; theme setup is a local file and browser validation uses no generated code.
@@ -99,7 +99,7 @@ next-page flag, excluding generation methods. Saved editions carry a scheduled,
 manual or test kind and a publication timestamp; scheduled saves publish immediately,
 manual saves stay private and tests cannot publish. `READER_PUBLISHED_ONLY=1`
 limits reader endpoints to published editions and is enabled. Latest and history
-responses use `no-store`. Prepared public mode allows a browser to reuse a published
+responses use `no-store`. Public mode allows a browser to reuse a published
 edition ID for one hour in its private cache; other ID reads use `no-store`. The browser uses these reader
 endpoints for both edition content and history. Stories use compact cards in a
 672 px column, with expandable grouped articles. Desktop contents follow the
@@ -114,11 +114,11 @@ Public routing admits the deployed theme script and built JavaScript/CSS/WOFF2 f
 ## Admin identity
 
 - Trusted proxy peers match exact addresses. IPv6 visitors share a /64 for API admission and sign-in challenges; IPv4 uses individual addresses. Code requests and redemption share a 100-attempt, 24-hour allowance per recipient/client, alongside the ten-minute limits. Code-request responses wait at least one second, including unknown recipients and throttled requests. With accounts enabled, admin access lasts seven days after a verified mailbox code. Sign-in links create reader sessions and cannot renew admin access. With signup off, issuing and redeeming links requires an existing account. `GET /api/me` returns `{ isAdmin }` with caching disabled.
-- Public mode is enabled while VM sharing stays private. Published readers and
+- Public mode and public VM sharing are enabled. Published readers and
   reviewed operational overviews allow signed-out reads. Private/admin routes
   and writes require a stored, fresh admin session; proxy identity and local token headers do not grant public-mode access.
 - The legacy private-mode guard accepts the configured proxy email or a local
   admin token over loopback without forwarding headers. It is inactive in public mode.
-- `/docs` serves the reader handbook and `/db` exposes schema only. Logs and
+- `/docs` serves the full system handbook and `/db` exposes schema only. Logs and
   metrics require fresh-admin sessions; Grafana is closed. Queues expose sanitized
   counts. See the [access plan](../../public-access-plan.md).

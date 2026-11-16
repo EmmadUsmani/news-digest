@@ -6,9 +6,15 @@
   "scripts": {
     "start": "node src/server.ts",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "node --test src/*.test.ts"
+    "test": "node --test src/*.test.ts",
+    "build": "node build.mjs"
   },
   "dependencies": {
-    "@digest/tool-metrics": "workspace:*"
+    "@digest/tool-metrics": "workspace:*",
+    "@mermaid-js/layout-elk": "0.2.0",
+    "dompurify": "3.3.0",
+    "esbuild": "0.25.12",
+    "marked": "15.0.12",
+    "mermaid": "11.12.1"
   }
 }

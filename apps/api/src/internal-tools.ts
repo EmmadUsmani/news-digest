@@ -1,5 +1,6 @@
 import { type IncomingMessage, request, type ServerResponse } from 'node:http';
 
+import { isPublicHandbookTarget } from './handbook-route-policy';
 import {
   isAdminTelemetryAsset,
   isAdminTelemetryRead,
@@ -29,7 +30,7 @@ export const internalTools: InternalTool[] = [
 export function selectInternalTools(publicMode: boolean): InternalTool[] {
   if (!publicMode) return internalTools;
   return [
-    { prefix: '/docs', port: 8110, readerHandbook: true },
+    { ...internalTools[0], readerHandbook: true },
     ...internalTools
       .filter((tool) => !['/docs', '/grafana'].includes(tool.prefix))
       .map((tool) =>
@@ -83,18 +84,12 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
       res.setHeader('x-content-type-options', 'nosniff');
     }
     if (tool.readerHandbook) {
-      if (
-        !['GET', 'HEAD'].includes(req.method ?? '') ||
-        !['', '/', '/style.css'].includes(rest)
-      ) {
+      if (!isPublicHandbookTarget(req.method ?? '', url)) {
         res.writeHead(404).end();
         return;
       }
       res.setHeader('cache-control', 'no-store');
-      res.setHeader(
-        'content-security-policy',
-        "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'none'",
-      );
+      res.setHeader('content-security-policy', telemetryContentSecurityPolicy);
     }
     // The tools use relative URLs, so they need the trailing slash.
     if (!rest.startsWith('/')) {
@@ -126,11 +121,11 @@ export function proxyInternalTools(tools: InternalTool[], host = '127.0.0.1') {
         (response) => {
           if (
             readerTool &&
-            (response.statusCode !== 200 ||
+            ((tool.readerExplorer && response.statusCode !== 200) ||
               response.headers[
                 tool.readerExplorer
                   ? 'x-digest-reader-explorer'
-                  : 'x-digest-reader-handbook'
+                  : 'x-digest-handbook'
               ] !== '1')
           ) {
             response.destroy();

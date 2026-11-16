@@ -1,3 +1,4 @@
+import { isPublicHandbookTarget } from './handbook-route-policy';
 import { isAdminTelemetryRead } from './telemetry-query-policy';
 
 // Public-mode policy; live public mode remains off pending Phase 4 acceptance.
@@ -97,8 +98,8 @@ export function classifyPublicRoute(
   )
     return method === 'GET' ? 'public-read' : null;
   if (path === '/db' || path.startsWith('/db/')) return null;
-  if (['/docs', '/docs/', '/docs/style.css'].includes(target))
-    return method === 'GET' || method === 'HEAD' ? 'public-read' : null;
+  if (isPublicHandbookTarget(method, target)) return 'public-read';
+  if (path === '/docs' || path.startsWith('/docs/')) return null;
   if ((method === 'GET' || method === 'HEAD') && staticRoutes.has(path))
     return 'public-read';
   return (

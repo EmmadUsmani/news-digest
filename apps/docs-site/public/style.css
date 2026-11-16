@@ -297,6 +297,7 @@ main {
 
 /* Content typography */
 .content {
+  overflow-wrap: anywhere;
   max-width: 860px;
   font-size: 16px;
   line-height: 1.6;
@@ -349,6 +350,7 @@ main {
   margin: 0 0 16px;
 }
 .content table {
+  overflow-wrap: normal;
   border-collapse: collapse;
   font-size: 14.5px;
   min-width: 60%;
@@ -561,5 +563,10 @@ main {
   }
   main {
     padding: 20px 18px 50px;
+  }
+  .prevnext a {
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: anywhere;
   }
 }

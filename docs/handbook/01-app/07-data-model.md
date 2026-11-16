@@ -37,7 +37,7 @@ snapshots.
 > Admins can issue one-time friend links and revoke a reader’s sessions;
 > issuance and revocation write private audit records. Saved topics and bookmarks
 > sync between signed-in devices. Deletion removes personal settings and sessions.
-> The VM stays private with public mode enabled. See the
+> The VM is public with public mode enabled. See the
 > [account rollout](../../account-activation.md).
 
 Reader source rows use saved publisher names when available, alongside discovery
