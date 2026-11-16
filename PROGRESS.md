@@ -252,3 +252,15 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Health, all 14 monitored services and all 38 sources pass; digest queue zero failed/active, next Nov 17 15:00 UTC. Historical ingestion/social failures unchanged. Alerts snapshot has zero active/pending.
 - Verification: bash -n, filtered check-handbook, pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2534-{format,lint,check,handbook}.log.
 - No app runtime changes, rebuild or app restart needed (STEERING 65 forbids app restarts); only journald restarted and rotated/vacuumed. Live health passes. Next: daily retention installer/timer, metrics ≥18:50 UTC, Bluesky export by 20:36 UTC.
+
+## 2026-11-16: iteration 2535 — daily session and temporary-file retention
+
+- Clean main at b2be7a38; no inherited work to recover or discard. STEERING 65 remains first; agent-control stays untouched under the run prohibition.
+- Added VM-setup-installed system timer at 04:40 UTC (persistent): seven-day Codex session expiry preserving newest file, then systemd-tmpfiles three-day /tmp age cleanup. No app restart or paid calls.
+- Reviewed session deletion preview (1,563 files) and conservative /tmp timestamp candidates (18,534 entries) before enabling; receipts /tmp/2535-{sessions-preview.jsonl,tmp-preview.json}. tmpfiles applies its own additional in-use protections.
+- First run service Result=success/ExecMainStatus=0. Sessions logical size 1,738,599,670→667,874,013 bytes; /tmp 2,376,833,709→724,779,517 bytes. Filesystem used 17,942,138,880→15,162,171,392 bytes; 72%→61% (2,779,967,488 bytes net freed).
+- Two Python tests pass: expiry boundary, newest-file protection, symlinks, empty folders, repeat runs, plus real systemd-tmpfiles locked/socket/recent-file protection. bash -n and systemd-analyze verify pass.
+- Health, 14 monitored services, 38 sources and digest-generation queue healthy (zero failed/active, next Nov 17 15:00 UTC); zero active/pending alerts. Initial obs queue alias rejected; corrected to digest-generation.
+- Updated operations handbook and retention page, TASKS and partial steering ack. Agent-control log retention remains blocked in NEEDS_FROM_HUMAN.md; no protected data touched.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Filtered check-handbook passes (19 pages/39 tables); logs /tmp/2535-{format,lint,check,handbook,retention-test}.log.
+- Operations-only change: no app rebuild/restart required or permitted by item 65. Retention service/timer deployed; final /healthz passes. Next: due metrics checkpoint, Bluesky export by 20:36 UTC; owner must reconcile agent-control retention prohibition.

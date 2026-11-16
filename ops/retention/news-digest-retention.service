@@ -1,0 +1,10 @@
+[Unit]
+Description=Expire old Codex sessions and temporary files
+
+[Service]
+Type=oneshot
+User=exedev
+ExecStart=/usr/bin/python3 /home/exedev/news-digest/ops/retention/sessions.py --apply
+ExecStart=+/usr/bin/systemd-tmpfiles --clean /etc/tmpfiles.d/news-digest-retention.conf
+Nice=19
+IOSchedulingClass=idle

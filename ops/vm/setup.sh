@@ -68,6 +68,9 @@ for _ in $(seq 1 30); do [[ -S $XDG_RUNTIME_DIR/bus ]] && break; sleep 1; done
 [[ -S $XDG_RUNTIME_DIR/bus ]] || { echo 'ERROR: user systemd bus not available' >&2; exit 1; }
 echo "user systemd: $(systemctl --user is-system-running 2>/dev/null || true)"
 
+step "Install daily disk retention"
+bash "$REPO/ops/retention/install.sh"
+
 step "Install the build harness"
 bash "$REPO/ops/agent-control/install.sh"
 python3 "$HOME/agent-control/verify.py" 2>&1 | tail -3

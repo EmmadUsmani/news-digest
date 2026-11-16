@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily session and temporary-file retention
+
+[Timer]
+OnCalendar=*-*-* 04:40:00 UTC
+Persistent=true
+Unit=news-digest-retention.service
+
+[Install]
+WantedBy=timers.target

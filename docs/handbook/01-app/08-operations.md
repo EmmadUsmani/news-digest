@@ -46,7 +46,7 @@ Backups: `~/backups/news-digest/` plus encrypted B2 copies; [timers and recovery
 - **Tools at `/admin/tools`:** public mode lists the handbook, structural DB explorer and sanitized Queues. Logs and Metrics links require admin sign-in. Grafana appears only in private mode.
 - **Spend at `/admin/spend`:** public mode shows production AI/X totals, caps and holds from sanitized status. Private mode shows AI/X budget totals, scheduled reserve and the latest 20 calls for each provider, with status, cost, unresolved hold and token counts.
 - **Overview at `/admin`:** health, firing and pending monitoring alerts, daily spend, latest edition with recorded AI cost, unresolved holds and inspector link, source issues and next runs.
-- **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest.
+- **`/healthz`:** 200 when Postgres and Redis respond; `pnpm obs alerts` and [Grafana](09-observability.md) cover the rest. [Disk retention](16-disk-retention.md) bounds sessions and temporary files.
 
 Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:
 
