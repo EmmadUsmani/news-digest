@@ -13,7 +13,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
-- [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
+- [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. 2508: scheduled-reader gate supports signed-out HTTPS via `SCHEDULED_READER_ORIGIN`; Nov 15 verified publicly, Nov 16 correctly pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
 
 - [ ] BREAKAGE: World fallback repairs pass offline (2404/2405/2409); natural recovery pending. NBA exact spoof-source exclusion deployed (2403), natural absence pending. Tech 3/4 excerpts empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2508: enabled public HTTPS origin in the scheduled-reader gate; existing publication passes and future scheduled window stays pending, with local provenance checks retained.
 
 - [x] 2507: quantified Tech cutoff loss read-only: 28/228 articles omitted, four with text; identified smart-glasses reporting for natural scheduled admission review. [Review](docs/edition-reviews/2026-11-16.md#tech-cutoff-impact--iteration-2507).
 

@@ -198,3 +198,16 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 - Local and signed-out public HTTPS /healthz pass (public DNS override on VM). No provider calls, spending, runtime changes, rebuild or restart during deployment hold.
 - Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2507-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2508 — signed-out HTTPS scheduled-reader gate
+
+- Clean main at 8d7d7637; no inherited work. Health, monitored services and all sources pass; digest queue zero failures, next run 15:00 UTC. Disk 79%.
+- Owner would care: the scheduled publication check can now compare latest/direct/history through the public HTTPS boundary, retaining local saved scheduled provenance.
+- Added optional SCHEDULED_READER_ORIGIN; default loopback unchanged. Remote reads send no forwarded visitor header, cookies or credentials; redirects remain refused.
+- Require HTTPS outside loopback and reject origin credentials, paths, queries and fragments. Updated publication runbook command and TASKS.md.
+- Nov 15 a0fa3916 passes locally and through signed-out public HTTPS (five topics/23 stories/16 posts); Nov 16 correctly returns pending/exit 2 on both origins.
+- Public check used temporary /tmp/2508-public-dns.cjs to resolve through public DNS; VM default DNS cannot reach the public HTTPS route. No DNS configuration changed.
+- Remote HTTP rejection verified before network access. Existing local provenance and AI requirements remain intact; browser/editorial acceptance still due after publication.
+- No source/configuration/runtime changes, provider calls, spending, rebuild or restart during STEERING 63 deployment hold. Tooling takes effect directly from main.
+- Next: metrics ≥14:09 UTC; Nov 16 scheduled publication/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2508-{format,lint,check}.log.

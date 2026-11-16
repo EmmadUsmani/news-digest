@@ -121,6 +121,7 @@ activation review, rather than adding more variants of already-covered refusals.
 
 ```sh
 pnpm exec tsx scripts/check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ
+SCHEDULED_READER_ORIGIN=https://news-digest.exe.xyz pnpm exec tsx scripts/check-scheduled-reader.ts YYYY-MM-DDTHH:mm:ssZ
 pnpm exec tsx scripts/check-live-account-boundary.ts
 ```
 

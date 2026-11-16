@@ -1,4 +1,4 @@
-// Read-only local publication gate: reader GETs and saved database provenance.
+// Read-only publication gate: signed-out reader GETs and local saved provenance.
 // No jobs, provider calls or publication writes.
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
@@ -16,11 +16,29 @@ import {
   requireScheduledPublication,
 } from './lib/scheduled-editorial-gate';
 
+const origin = new URL(
+  process.env.SCHEDULED_READER_ORIGIN ?? 'http://127.0.0.1:8000',
+);
+const loopback = ['127.0.0.1', 'localhost', '[::1]'].includes(origin.hostname);
+assert.ok(
+  origin.protocol === 'https:' || (loopback && origin.protocol === 'http:'),
+  'reader origin requires HTTPS outside loopback',
+);
+assert.ok(
+  !origin.username && !origin.password,
+  'reader origin must be signed out',
+);
+assert.equal(origin.pathname, '/', 'reader origin must not contain a path');
+assert.ok(
+  !origin.search && !origin.hash,
+  'reader origin must not contain query or fragment',
+);
+
 async function read(path: string): Promise<unknown> {
-  const response = await fetch(`http://127.0.0.1:8000${path}`, {
+  const response = await fetch(`${origin.origin}${path}`, {
     // This loopback-only probe supplies the visitor field required by the
     // configured trusted proxy boundary in public mode; it grants no identity.
-    headers: { 'X-Forwarded-For': '192.0.2.158' },
+    headers: loopback ? { 'X-Forwarded-For': '192.0.2.158' } : {},
     redirect: 'error',
     signal: AbortSignal.timeout(15_000),
   });
@@ -48,6 +66,7 @@ async function main() {
     console.log(
       JSON.stringify({
         status: 'pending',
+        origin: origin.origin,
         expectedWindowEnd: expected,
         latestWindowEnd: latest?.windowEnd ?? null,
       }),
@@ -128,6 +147,7 @@ async function main() {
   console.log(
     JSON.stringify({
       status: refused ? 'editorial-refused' : 'reader-verified',
+      origin: origin.origin,
       ...(aiTopics.length
         ? {
             aiTopics,
