@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2457: coverage titles omit exact duplicate publisher suffixes; publisher attribution and saved evidence stay intact.
+
 - [x] 2456: removed duplicate Google News wrapper citations from reader coverage; saved editions and editorial selection unchanged.
 
 - [x] 2455: compacted task handoff; preserved all 22 open gates and original evidence in linked archive.

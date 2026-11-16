@@ -43,6 +43,32 @@ async function main() {
       await card.locator('.coverage summary').click();
       assert.equal(await card.locator('.coverage li').count(), 2);
       assert.equal(
+        await card.locator('.coverage li > a').first().innerText(),
+        'Anthropic’s IPO lands as the embattled AI trade looks for a much-needed bright spot',
+      );
+      assert.equal(
+        await card.locator('.coverage li > a').nth(1).innerText(),
+        'A Human Reads the Anthropic I.P.O. Filing',
+      );
+      for (const [index, report] of story.coverage.entries()) {
+        assert.equal(
+          await card
+            .locator('.coverage li > a')
+            .nth(index)
+            .getAttribute('href'),
+          report.url,
+        );
+        assert.ok(report.title.endsWith(` - ${report.publisher?.name}`));
+        assert.equal(
+          await card
+            .locator('.coverage li')
+            .nth(index)
+            .locator('span a')
+            .innerText(),
+          `${report.publisher?.name} · via Google News: artificial intelligence`,
+        );
+      }
+      assert.equal(
         await card
           .locator('.coverage li > a')
           .filter({ hasText: 'A Human Reads the Anthropic' })

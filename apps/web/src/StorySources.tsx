@@ -72,7 +72,13 @@ export function StorySources({
                   rel="noreferrer"
                   className="flex min-h-11 min-w-11 items-center rounded-md py-2 text-sm font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 >
-                  {article.title}
+                  {article.publisher &&
+                  article.title.endsWith(` - ${article.publisher.name}`)
+                    ? article.title.slice(
+                        0,
+                        -` - ${article.publisher.name}`.length,
+                      )
+                    : article.title}
                 </a>
                 <span className="flex flex-wrap gap-x-3 gap-y-1">
                   <time dateTime={article.publishedAt}>

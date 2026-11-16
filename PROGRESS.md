@@ -129,3 +129,14 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` verifies five topics/23 stories/16 posts and saved scheduled provenance. Final alerts zero; receipts `/tmp/2456-{check,build,browser,provenance,alerts}.log`.
 - Initial plain HTTPS curl hit the VM's managed private host mapping; browser acceptance used public DNS as existing live scripts do. No sharing/config changes, provider calls or new blocker.
 - Next: metrics ≥03:25 UTC; Bluesky export by 12:36; public scheduled edition acceptance at 15:00. Protect 13:00–16:00 UTC; retain all production budgets and pilot settings.
+
+## 2026-11-16: iteration 2457 — simplify coverage titles
+
+- Clean main at f5ebd224; no inherited edits. Health/database/Redis and all 38 sources pass; alerts zero. Scheduled/content gates still await natural evidence.
+- Owner value: Tech coverage repeated CNBC/NYT publisher names in both headlines and the outlet line, making an already long report list harder to scan.
+- Display now removes only an exact trailing ` - publisher` when the report has explicit publisher metadata; the attribution below, destination, original saved title and other headlines stay intact.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Receipts `/tmp/2457-{format,lint,check}.log`.
+- `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build` atomically deployed under `/tmp/2457-deploy.py`: 11 public reader/previous-asset probe pairs pass, zero failed requests. No service restart for this web-only change, per STEERING 63.
+- `pnpm exec tsx scripts/check-live-coverage-dedup.ts` passes public HTTPS desktop/mobile, original API titles/links and publisher credit preserved, no browser errors; screenshots updated and viewed.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance; final `pnpm obs alerts` zero.
+- No paid calls or new blocker. Next metrics ≥03:25 UTC, Bluesky export by 12:36, public scheduled edition acceptance at 15:00; protect 13:00–16:00 UTC.
