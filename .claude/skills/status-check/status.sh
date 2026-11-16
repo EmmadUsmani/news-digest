@@ -76,16 +76,17 @@ e = json.load(open(p))["entries"]
 spent = sum(x["actualMicros"] if x.get("actualMicros") is not None else x.get("reservedMicros", 0) for x in e)
 print("calls", len(e), "charged $%.2f of $2.50" % (spent / 1e6))
 '
+REMOTE
+
+# Public mode refuses API calls without the proxy's visitor identity, and the
+# VM can't reach its own public URL, so read the edition from here over HTTPS.
 echo "== Latest edition"
-email="$(sed -n 's/^ADMIN_EMAILS=//p' ~/.config/news-digest/env | cut -d, -f1)"
-curl -s localhost:8000/api/admin/digest-previews/latest -H "X-ExeDev-Email: $email" | python3 -c '
+curl -s https://news-digest.exe.xyz/api/editions/latest | python3 -c '
 import json, sys
 from collections import Counter
 d = json.load(sys.stdin)
 print(d.get("createdAt"), d.get("id"))
 for t in d["topics"]:
-    e = t.get("editorial") or {}
     posts = dict(Counter(p.get("platform") for p in t.get("posts") or []))
-    print(" ", t["name"], "| stories", len(t["stories"]), "|", e.get("mode"), "| posts", posts)
-'
-REMOTE
+    print(" ", t["name"], "| stories", len(t["stories"]), "| posts", posts)
+' || echo "latest edition unavailable"
