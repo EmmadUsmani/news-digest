@@ -1,8 +1,12 @@
 # Phase 4 security fix handoff
 
 Prepared Nov 12, 2026; accepted Nov 15 under STEERING 62 (iteration 2330).
-Public mode is enabled while VM sharing stays private. Item 58 is acked against
-Nov 14 edition `b9d55088` and the owner proxy result.
+Public mode is enabled and the owner made VM sharing public Nov 15 under
+STEERING 63. Item 58 is acked against Nov 14 edition `b9d55088` and the owner
+proxy result. Nov 15 scheduled publication passed; the next gate is Nov 16
+scheduled publication over public HTTPS. Keep public mode enabled while shared;
+follow the [current rollback order](public-readiness.md#roll-back-in-this-order).
+The verification snapshots below retain their original dates.
 The private review remains in `~/lead-private/phase4-security-review.md`.
 
 ## Item 58 fixes deployed

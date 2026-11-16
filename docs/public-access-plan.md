@@ -3,21 +3,22 @@
 > [!NOTE]
 > Approved by the owner on 2026-11-07 and steered as STEERING item 50.
 
-## Phase 4 activation handoff (updated 2026-11-15)
+## Phase 4 activation handoff (updated 2026-11-16)
 
-Server and web public mode are enabled while VM sharing remains private.
+Server and web public mode are enabled, and the owner made VM sharing public
+on Nov 15 at about 22:30 UTC (STEERING 63).
 STEERING 62 accepts item 58 against Nov 14 edition `b9d55088` and the owner's
 proxy result. The former all-topic AI gate is removed. Nov 15 scheduled edition `a0fa3916`
 published at 15:03:33 UTC; signed-out latest/history/direct APIs and desktop/mobile
 pages agree, and private/admin refusals pass. Item 50 is acknowledged;
-[acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398). Sharing awaits the owner. Editorial fallbacks, withheld topics
+[acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398). Nov 16 scheduled publication over public HTTPS is the next acceptance gate. Editorial fallbacks, withheld topics
 and thin summaries are breakages to review, not activation blockers.
 Earlier preparation notes below are historical; this is the current handoff.
 
 | Audience         | Prepared access                                                                                                                                                                |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Anonymous        | Published editions/history/detail, local bookmarks/topic hiding, privacy, sign-in, read-only status, schedule, topics/detail, sources, Tools, Spend and Queues                 |
-| Anonymous tools  | Reader handbook; structural-only DB explorer with no row browser; sanitized queue counts/next runs, source health and production spend totals                                  |
+| Anonymous tools  | Full handbook; structural-only DB explorer with no row browser; sanitized queue counts/next runs, source health and production spend totals                                    |
 | Signed-in reader | Own synchronized preferences/bookmarks, account deletion and logout; no system editing                                                                                         |
 | Fresh admin      | System writes, development previews/jobs, detailed costs, account invitations/session revocation; exact reviewed logs/metrics assets, metadata and bounded query/export routes |
 | Denied           | Unknown routes/methods, legacy tool overlaps, anonymous writes, private/test editions in reader APIs, raw queue payloads and telemetry mutations                               |
@@ -30,7 +31,7 @@ logs and metrics screens need no further rehearsal without a relevant change.
 
 | Switch                  | Meaning and current rollout                                                        |
 | ----------------------- | ---------------------------------------------------------------------------------- |
-| `PUBLIC_MODE`           | Server route/admission/projection boundary; on while VM sharing stays private      |
+| `PUBLIC_MODE`           | Server route/admission/projection boundary; stays on while sharing is public       |
 | `VITE_PUBLIC_MODE`      | Build-time reader/admin UI behavior; public build deployed                         |
 | `SYSTEM_OWNERSHIP`      | System topics/settings and edition ownership; on                                   |
 | `READER_PUBLISHED_ONLY` | Excludes private/test editions from reader APIs                                    |
@@ -40,13 +41,15 @@ logs and metrics screens need no further rehearsal without a relevant change.
 
 Public Grafana is excluded from launch and absent from the public tool list;
 its capacity work does not gate activation. Spend may be public. The explorer
-is live in structural-only mode; the reader handbook is installed.
+is live in structural-only mode; the full handbook is public at `/docs/`.
 
 Follow [public readiness](public-readiness.md) and the
 [deployment record](public-activation-record.md) for the fresh baseline,
-rollback and activation checks. After enabling server and web public mode with
-sharing private, accept one normal scheduled edition in public mode using the
-publishing and reader gate above. Then ack item 50 and stop for the owner's sharing decision.
+rollback and publication checks. Keep public mode enabled while sharing is public.
+Deploy web changes atomically and restart only changed roles, outside
+13:00–16:00 UTC, following the [operations runbook](handbook/01-app/08-operations.md).
+If rollback requires disabling public mode, the owner must first unshare and
+private access must be confirmed.
 Only the owner changes exe.dev sharing; accepted screens need no repeated
 rehearsal without a change.
 
@@ -62,7 +65,7 @@ skipping an edition. End state:
 - **There is no owner profile.** Topics, the schedule, editions and edition jobs
   are system-level. Hiding a topic only filters what a reader sees; editions
   are never generated per reader.
-- **Read-only admin pages, the reader handbook, the structural DB explorer,
+- **Read-only admin pages, the full handbook, the structural DB explorer,
   Spend and sanitized queue status are publicly viewable.** Grafana stays
   closed at launch. Every write needs a designated admin.
 - **Ad hoc test editions** run on a separate development budget and never appear

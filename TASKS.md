@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2503: aligned public-access plan, security handoff and completed account activation with public sharing/full handbook; account rollback preserves public mode and uses atomic web deployment.
+
 - [x] 2502: added saved U.S. grouping cases; offline controls distinguish Alaska duplicate coverage from separate leadership, legislature, policy and litigation developments.
 
 - [x] 2501: corrected activation record’s stale private-sharing status; marked historical receipts and aligned recovery with atomic web-only deployment and the deployment hold.

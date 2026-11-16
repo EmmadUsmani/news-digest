@@ -1,10 +1,12 @@
 # Phase 3 activation checklist
 
 Account migrations through 0018 and invite-only server/web account gates are
-live (iteration 1591). Public mode remains disabled and the VM stays private.
-Live lifecycle and owner two-device/proxy/TLS checks passed. The Nov 10
-scheduled edition published with NBA story-validation fallback; assess that
-degraded outcome before accepting Phase 3. See the
+live (iteration 1591). The owner accepted Phase 3 on Nov 10; live lifecycle
+and owner two-device/proxy/TLS checks passed. Public mode and public VM sharing
+are now enabled under STEERING 63. Keep public mode enabled while shared.
+The steps below record the completed Phase 3 activation; use the
+[current public runbook](public-readiness.md) for deployment and rollback.
+NBA editorial acceptance is tracked separately in the
 [daily review](edition-reviews/2026-11-10.md).
 [The public-access plan](public-access-plan.md) defines acceptance and owner gates.
 
@@ -20,7 +22,10 @@ degraded outcome before accepting Phase 3. See the
   last-entry selector. Explicit loopback peers (`127.0.0.1,::1`) are configured
   in the private environment; invite-only account gates are now enabled.
   Offline policy and real HTTP tests cover zero, one and two forged prefixes.
-- Run `pnpm check`, `pnpm build` and the account browser smokes before deployment.
+- Run `pnpm check` and the account browser smokes before deployment. Build only
+  changed roles; publish web changes atomically with
+  `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build`, following the
+  [operations runbook](handbook/01-app/08-operations.md).
   Include `pnpm exec tsx scripts/smoke-account-code-lifecycle.ts` for the composed
   code-login flow over a temporary loopback HTTPS server, with isolated storage
   and admission. It covers the production HTTP adapter, browser cookie exchange,
@@ -158,10 +163,13 @@ The owner reported two-browser sign-in and saved-item sync passed at about
 ## Rollback
 
 Set `ACCOUNTS_ENABLED=0` in the private environment and
-`VITE_READER_ACCOUNTS=0` in the ignored production build file, then rebuild.
+`VITE_READER_ACCOUNTS=0` in the ignored production build file, then publish
+atomically with `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build`.
 Restart the API outside the protection window (worker only if its code changes).
 Confirm healthy reader routes and
 normal job processing. Leave additive account tables and stored preferences
 intact; do not drop tables, restore over live storage or rotate the account key.
-A failed or abnormal scheduled edition takes priority: turn the newest flag off,
-then diagnose under the public-access plan's breakage exception.
+Keep `PUBLIC_MODE=1` while sharing is public. A failed or abnormal scheduled
+edition takes priority: diagnose under the public-access plan's breakage exception.
+Disabling public mode requires owner-confirmed unsharing first, following the
+[current public rollback order](public-readiness.md#roll-back-in-this-order).

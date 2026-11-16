@@ -196,3 +196,16 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Targeted grouping suite: 14/14 pass. Full checks recorded below; receipts /tmp/2502-{targeted,format,lint,check}.log and us-baseline.json.
 - No rebuild/restart needed: offline evaluation/fixtures/docs only, per STEERING 63. Next metrics ≥13:07; publication acceptance 15:00; Bluesky export by 20:36 UTC.
 - Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix, exact snapshot-provenance assertions and git diff --check pass.
+
+## 2026-11-16: iteration 2503 — consistent public security handoff
+
+- Clean main at 3d18a8c8; no inherited work. Health, services and all 38 sources pass; latest published reader has five topics, digest due 15:00 UTC.
+- Disk 79%; pending disk warning matches recorded threshold fluctuation. No repeated cleanup or protected-data deletion.
+- Owner would care: the linked public-access/security handoffs still claimed private sharing, and the account runbook claimed public mode was disabled.
+- Updated current handoffs for owner-enabled public sharing, full handbook and Nov 16 public publication gate; retained dated historical activation evidence.
+- Account activation now records Phase 3 acceptance; deployment/rollback use atomic web-only builds and preserve public mode while shared.
+- No runtime, configuration, sharing, source or budget changes; no paid calls. No rebuild/restart required under STEERING 63.
+- Verification: pnpm format, pnpm lint:fix, pnpm check, git diff --check; 27 local documentation link targets exist. Final check results below.
+- Receipts: /tmp/2503-{services,sources,jobs,format,lint,check}.log. No new owner input needed.
+- Next: metrics ≥13:07 UTC; public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
+- Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; formatting, lint and git diff --check pass. Final health passes; disk remains 79%.
