@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2462: post text preserves whitespace between links without creating unnamed keyboard stops; real archived Gaming post verified on desktop/mobile in both themes.
+
 - [x] 2461: reviewed Nov 15 published grouping against saved/served coverage; recorded two unresolved boundaries for natural-edition acceptance.
 
 - [x] 2460: links to hidden topic/posts sections offer Show, then restore and focus their destination.

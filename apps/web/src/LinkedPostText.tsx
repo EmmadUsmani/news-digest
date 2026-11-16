@@ -15,11 +15,13 @@ export function LinkedPostText({
       !/^(?:https?:\/\/|pic\.twitter\.com\/)/i.test(part) &&
       !/^(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3})$/i.test(part)
     )
-      return part ? (
+      return part.trim() ? (
         <a key={index} href={postUrl} target="_blank" rel="noreferrer">
           {part}
         </a>
-      ) : null;
+      ) : (
+        part
+      );
     // Leave sentence punctuation and closing quotes outside the link; preserve
     // quotes inside paths and keep the original saved text unchanged.
     let url = part.replace(/[.,;:!?\x22\x27”’»。、！？：；…]+$/, '');

@@ -189,3 +189,15 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Final alerts zero; `git diff --check` passes.
 - Receipts `/tmp/2461-{snapshot,edition,grouping-check}.json`, `/tmp/2461-{format,lint,check,reader,services,sources,jobs}.log`.
 - Evidence/docs only: live runtime unchanged; no rebuild/restart under STEERING 63. Next metrics ≥04:30 UTC, Bluesky export by 12:36, public scheduled edition review 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2462 — remove empty post-link keyboard stops
+
+- Clean main at 6bbb5338; no inherited work. `/healthz` database/Redis, services, all 38 sources and scheduled jobs pass; initial/final alerts zero.
+- STEERING 38/42 reader weakness: the archived Gaming Geoff Keighley reminder post rendered the space between its reminder/media URLs as an unnamed, focusable link. Keyboard readers would notice the useless extra stop.
+- `LinkedPostText` now renders whitespace-only segments as text; preserves the full saved excerpt and both destinations. Shared rendering also applies to saved-item excerpts; no snapshot or selection changes.
+- `pnpm exec tsx scripts/smoke-reader-post-link-spacing.ts` reproduces the failure against the old deployment, then passes desktop/mobile light/dark after deployment: exact text/URLs, named links, direct Tab navigation, no overflow or browser errors. Four screenshots saved and viewed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass; four expected skips. No handbook/source metadata change needed for this rendering bug.
+- `python3 /tmp/2457-deploy.py` rebuilds/publishes web atomically; 12 public page/previous-asset probe pairs pass without interruption. No API/worker restart under STEERING 63.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. No paid calls, new blockers or budget changes.
+- Receipts `/tmp/2462-{before,format,lint,check,deploy,browser,reader,services,sources,jobs,alerts-final}.log`; original archived snapshot `/tmp/2462-whitespace-edition.json`.
+- Next: metrics ≥04:30 UTC, Bluesky export by 12:36, Nov 16 public scheduled edition/content acceptance at 15:00; protect 13:00–16:00 UTC.
