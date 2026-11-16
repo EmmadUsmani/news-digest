@@ -1500,19 +1500,20 @@ Receipts: `/tmp/2536-{metrics.jsonl,metrics-error.log}`; command
 checks used `journalctl -u obs-metrics.service --since '2026-11-16 17:48:00 UTC'`
 and `systemctl show obs-metrics.service -p NRestarts`.
 
-### Evening recovery checkpoint (iteration 2542)
+### Evening recovery checkpoint (iteration 2546)
 
-Nov 16 20:07:30–20:08:32 UTC: three read-only samples found all 24 rules
-fresh and healthy; six uncached expected-series queries completed in ≤1.276 s.
-Since 18:58, process-start, admission-limit, queue-timeout, slow-query and
+Nov 16 21:10:05–21:11:06 UTC: three read-only samples found all 24 rules
+fresh and healthy; six uncached expected-series queries completed in ≤0.364 s.
+Since 20:08:32, process-start, admission-limit, queue-timeout, slow-query and
 evaluator error/missed counters stayed unchanged. Small merges increased by
-66 / 2,264,797 rows; no big merge occurred. Memory-high events increased by
-495 (12 during sampling); max/OOM/kill stayed zero. Ending memory was
-89,923,584 bytes, lifetime peak 92,995,584. NRestarts=0, no metrics journal
-entries since 18:58. Formatting overlapped sampling. Disk is 60%.
+58 / 1,748,918 rows; no big merge occurred. Memory-high events increased by
+383 (nine during sampling); max/OOM/kill stayed zero. Ending memory was
+89,546,752 bytes, lifetime peak 92,995,584. NRestarts=0. Journal records one
+worker scrape refusal at 21:07:55 during the preceding API/worker deployment;
+current worker and all 38 sources are healthy. Disk is 60%.
 
 Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Acceptance stays open:
 reclaim persists and no natural big-merge comparison is available. Next check
-≥21:10 UTC, preferably after a natural big merge; no restart or force merge.
-Receipts: `/tmp/2542-{metrics.jsonl,metrics-error.log}`; command
-`pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`.
+≥22:12 UTC, preferably after a natural big merge; no restart or force merge.
+Receipts: `/tmp/2546-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+command `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`.

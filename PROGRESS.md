@@ -147,3 +147,14 @@
 - Restarted API/worker at 21:07 UTC; both active, /healthz database/Redis OK. Published reader response exactly matches the pre-deploy five-topic/25-story snapshot; no private prompt field. Digest queue zero active/failed, next edition Nov 17 15:00 UTC.
 - Preserved natural 20:54 Bluesky result in /tmp/2545-bluesky-collections.json: 21 consecutive hourly runs, five topics each, fetched/submitted matches and expected World rotation; shared prior receipts unchanged. Full-day review remains after midnight, export again by 22:36 UTC.
 - Handbook pipeline updated; no UI changes, source requests or sharing changes. Next: metrics ≥21:10 UTC, retention timer receipt 04:40 UTC, next natural Tech inputs.
+
+## 2026-11-16: iteration 2546 — due metrics recovery checkpoint
+
+- Clean main at 9881245a; no inherited work to recover/discard. Protected paths untouched.
+- Read-only 21:10:05–21:11:06 UTC checkpoint: three samples, 24 fresh healthy rules, six uncached probes ≤0.364 s; baseline comparison assertions pass.
+- Since 20:08:32: +383 memory-high events (nine during sampling), 58 small merges/1,748,918 rows; no big merge. Process starts, admission/timeout/slow-query and evaluator failures unchanged; max/OOM/kill zero, NRestarts=0; ending memory 89,546,752 bytes.
+- Journal has one worker scrape refusal at 21:07:55 during iteration 2545 deployment; worker now healthy. Retain CPU 2%/88 MiB high/112 MiB max; reclaim and absent big-merge evidence keep acceptance open. Decision record and task checkpoint updated.
+- All 14 services/38 sources healthy, zero alerts, /healthz OK; disk 60%, digest queue zero active/failed jobs, next edition Nov 17 15:00 UTC. Local SPA HTTP 200. Headerless local reader API HTTP 429 is expected fail-closed proxy visitor extraction; public HTTPS unavailable from session (HTTP 000), so no new public-reader acceptance claimed.
+- Evidence/docs only; running main code unchanged, no rebuild/restart under STEERING 22/65. No source requests, paid calls, new digests or sharing changes.
+- Receipts /tmp/2546-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,sources.json,alerts-final.log,format.log,lint.log,check.log}; pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,061 unit/329 integration passes, four expected skips.
+- Next: Bluesky export by 22:36 UTC, metrics ≥22:12 UTC, retention timer receipt 04:40 UTC; next natural Tech inputs Nov 17.
