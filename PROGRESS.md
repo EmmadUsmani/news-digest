@@ -154,3 +154,14 @@ Archived: [iterations 2468–2470](docs/progress-archive/2026-11-16-2468-2470.md
 - No runtime/source/budget change; no rebuild/restart under STEERING 63. Preserve 13:00–16:00 UTC window; abandoned integration cleanup eligible ≥08:59:26; Bluesky export by 14:36; edition review 15:00.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration tests, four expected skips. Disk 79%, zero firing/one pending alert. Initial comparison correctly failed unchanged-admission assertion: one new event; comparison now reports its delta while retaining timeout/evaluator/OOM assertions. Receipts `/tmp/2482-{format,lint,check,alerts-final}.log`.
 - Final 08:45:04–08:50:11 sample: 11 snapshots, 24 healthy rules, 22 queries ≤2.187 s; admission +1, timeouts/evaluator failures/OOM/restarts unchanged. Since 07:44 +442 memory-high events (31 during sample), 80 small merges/1,966,399 rows, no big merge. Capacity acceptance stays open; next ≥09:51 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2482).
+
+## 2026-11-16: iteration 2483 — public handbook and disk housekeeping
+
+- Clean main at 0c325202; no inherited work. Owner value: keep the public handbook usable and reclaim eligible abandoned test storage before disk pressure returns.
+- Initial alerts clear; health database/Redis, 14 monitored services and 38 sources pass. Digest queue has no failures; next scheduled edition 15:00 UTC.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes: five topics/23 stories/16 posts. No provider calls or publication writes.
+- `pnpm exec tsx scripts/check-live-reader-handbook.ts` passes over public HTTPS at 390/1440px: all 18 pages/21 diagrams, navigation/search/direct refresh, local assets and no overflow/errors. Incidental screenshot raster differences discarded deliberately; no UI change.
+- At 08:59 UTC existing guarded cleanup reclaimed `/tmp/news-digest-integration-whnKT6`, 15,818,752 allocated bytes (15,448 KiB); disk 79%→79%. Age/PID/process-reference safeguards unchanged. First call retained it while its path appeared in the probe shell command; standalone retry removed it. No repeated general scratch cleanup.
+- Verification receipts `/tmp/2483-{reader,services,sources,jobs,handbook,format,lint,check}.log`; final checks and cleanup outcome recorded below.
+- No runtime change; no rebuild/restart under STEERING 63. Next: metrics ≥09:51, Bluesky export by 14:36, edition review 15:00; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, targeted documentation formatting and `git diff --check` pass: 1,056 unit tests; 329 integration passes/four expected skips. Final database/Redis health passes, disk 79%, zero firing/pending alerts. No source, budget or handbook behavior change.
