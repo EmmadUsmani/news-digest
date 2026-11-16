@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2548: desktop edition contents follows the measured sticky header height, preserving more topic-navigation space with enlarged text.
+
 - [x] 2547: enlarged the published edition header home link from 28px to a 44px touch target; desktop/mobile keyboard focus and normal/enlarged text verified.
 
 - [x] 2545: future private edition snapshots retain prepared editor candidate prompts, including unselected reports and budget refusals; public reader responses omit them. Natural Tech depth review remains open.

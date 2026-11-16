@@ -168,3 +168,15 @@
 - Initial health/database/Redis OK, all 14 services/38 sources healthy, zero active alerts; disk 60%. Digest queue zero active/failed, next Nov 17 15:00 UTC. Historical ingestion/social failures retained; current sources healthy. Initial obs status/digest queue aliases rejected; corrected to supported health/jobs commands.
 - Atomic web build serves the changed assets immediately; no app process code/config changes or restart under STEERING 22/65. No source requests, paid calls, new editions or sharing changes.
 - Next: metrics ≥22:12 UTC; Bluesky export by 22:36 UTC/full-day review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2548 — contents follows the reader header
+
+- Clean main at caa879b4; no inherited edits to recover/discard. Protected paths untouched.
+- Reader weakness: desktop contents used a fixed 6rem top offset while the header already reports its actual height. At 1024px/200% text this left 103px below the 89px header unused. Contents now starts one rem below the measured header; its maximum height uses the same measurement, gaining 71px of navigation space.
+- Owner value: more topic/story links fit beside the edition with enlarged text; keyboard focus still reveals the final archive link inside the scrollable panel.
+- Playwright on real published content passes 1024/1440/390px, both themes, 100%/200% text: measured desktop offset, viewport bounds, final-link keyboard visibility, mobile contents and zero browser errors. Two enlarged-text screenshots saved. GET-only loopback reader admission; external requests blocked.
+- Initial browser harness incorrectly assumed the mobile chips were a named nav, then guessed the topic name as Tech; corrected to the actual fixed topic-link container. Final 12 configurations pass; /tmp/2548-contents-final.log. Original fixed-offset assertion reproduced before deployment.
+- Verification: pnpm format, pnpm lint:fix, atomic web build and git diff --check pass. pnpm check passed static checks and 1,061 unit tests, then exited 143 as integration began; separate pnpm test:integration passes 329 tests with four expected skips. Receipts /tmp/2548-{format,lint,web-build,check,integration}.log.
+- Initial /healthz database/Redis OK; all 14 services/38 sources healthy, zero alerts, disk 60%; digest-generation queue check passes. Initial shorthand digest queue rejected; corrected to supported name.
+- Atomic web deployment serves the changed assets; no app process changes or restart under STEERING 22/65. No source requests, paid calls, new editions or sharing changes.
+- Next: metrics ≥22:12 UTC; Bluesky export by 22:36 UTC/full-day review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.

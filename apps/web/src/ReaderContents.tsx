@@ -212,7 +212,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     <>
       <div
         ref={sidebar}
-        className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-60 shrink-0 self-start overflow-y-auto pr-5 lg:block"
+        className="sticky top-[calc(var(--reader-header-height,65px)+1rem)] hidden max-h-[calc(100vh-var(--reader-header-height,65px)-2rem)] w-60 shrink-0 self-start overflow-y-auto pr-5 lg:block"
       >
         {contents(false)}
       </div>
