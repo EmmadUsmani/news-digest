@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2477 checkpoint 07:39–07:44 UTC: 11 samples/24 healthy rules, 22 queries ≤1.877 s; no new failures/restarts. Since 06:34 +490 memory-high events (27 during sample); no big merge. Resource acceptance stays open. Next short check ≥08:45 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2477).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2482 checkpoint 08:45–08:50 UTC: 11 samples/24 healthy rules, 22 queries ≤2.187 s; one new admission event, no timeouts/evaluator failures/restarts. Since 07:44 +442 memory-high events (31 during sample); no big merge. Resource acceptance stays open. Next short check ≥09:51 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2482).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2482: due metrics checkpoint confirms healthy queries/rules during integration tests; one admission event and continued reclaim keep capacity acceptance open.
 
 - [x] 2481: archive empty-page recovery uses real public history; 200% text, keyboard return and 44px targets pass at 320/390/1440px in both themes. No runtime change.
 

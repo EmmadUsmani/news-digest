@@ -144,3 +144,13 @@ Archived: [iterations 2468–2470](docs/progress-archive/2026-11-16-2468-2470.md
 - Verification-only change; no rebuild/restart under STEERING 63. Required formatting/lint/full-check results recorded below.
 - Next: metrics ≥08:45 UTC; eligible abandoned integration cleanup ≥08:59:26; Bluesky export by 14:36; edition review 15:00. Preserve 13:00–16:00 UTC window.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Final health database/Redis passes; alert outcome recorded at commit. Receipts `/tmp/2481-{format,lint,check,alerts-final}.log`. Archived iterations 2468–2470 to keep this file small.
+
+## 2026-11-16: iteration 2482 — due metrics resource checkpoint
+
+- Clean main at 15f275d7; no inherited tracked work. Owner value: confirm constrained monitoring still detects failures while repository verification loads the public VM.
+- Initial DiskSpaceLow pending; filesystem recovered to 79%. All 14 services and 38 sources healthy; digest queue has no failures, next scheduled edition 15:00 UTC. No cleanup eligibility bypass.
+- `/healthz` passes database/Redis; `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` confirms five topics/23 stories/16 posts. Receipts `/tmp/2482-{reader,sources}.log`.
+- Due read-only metrics sample began 08:45 UTC during `pnpm check`; no force merge, provider call, limit change or service restart. Final sample and verification results recorded below.
+- No runtime/source/budget change; no rebuild/restart under STEERING 63. Preserve 13:00–16:00 UTC window; abandoned integration cleanup eligible ≥08:59:26; Bluesky export by 14:36; edition review 15:00.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration tests, four expected skips. Disk 79%, zero firing/one pending alert. Initial comparison correctly failed unchanged-admission assertion: one new event; comparison now reports its delta while retaining timeout/evaluator/OOM assertions. Receipts `/tmp/2482-{format,lint,check,alerts-final}.log`.
+- Final 08:45:04–08:50:11 sample: 11 snapshots, 24 healthy rules, 22 queries ≤2.187 s; admission +1, timeouts/evaluator failures/OOM/restarts unchanged. Since 07:44 +442 memory-high events (31 during sample), 80 small merges/1,966,399 rows, no big merge. Capacity acceptance stays open; next ≥09:51 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2482).
