@@ -223,3 +223,16 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 - No source/configuration/runtime changes, provider calls, spending, rebuild, cleanup or restart during STEERING 63's 13:00–16:00 hold.
 - Next: metrics checkpoint no earlier than 14:09 UTC; scheduled signed-out HTTPS/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2509-{format,lint,check}.log. All 14 monitored services healthy.
+
+## 2026-11-16: iteration 2510 — due metrics checkpoint during edition hold
+
+- Clean main at e18fbc58; no inherited work. Health, 38 sources and digest queue healthy; scheduled run remains 15:00 UTC.
+- pnpm obs alerts: zero firing/one pending DiskSpaceLow; disk 79%, 5.0 GiB available. No cleanup during hold.
+- Owner would care: preserve the public scheduled edition; no product/runtime change while awaiting natural admission evidence.
+- pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30: three samples at 14:09–14:10, 24 healthy rules, six queries ≤1.325 s.
+- Since 13:08: admission counter +1 (none during sampling), memory-high +402 (17 during sampling), 70 small merges/1,633,175 rows; no big merge.
+- No new timeout, slow-query, evaluator failure, process restart or OOM; NRestarts=0; metrics journal empty. Resource acceptance stays open; limits unchanged.
+- Updated TASKS.md and capacity decision with actual counters; receipts /tmp/2510-{metrics.jsonl,summary.json,metrics-journal.log}.
+- No deploy, rebuild, restart, provider calls or spending under STEERING 63 hold.
+- Next: 15:00 public HTTPS scheduled publication/browser/editorial review; metrics ≥15:11 only after edition work; Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2510-{format,lint,check}.log.

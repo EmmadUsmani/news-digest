@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2504 checkpoint 13:07–13:08 UTC: three samples/24 healthy rules, six queries ≤1.552 s; no new admission events/timeouts/evaluator failures/restarts. Since 12:06 +414 memory-high events (six during sample); no big merge. Resource acceptance stays open. Next short check ≥14:09 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2504).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2510 checkpoint 14:09–14:10 UTC: three samples/24 healthy rules, six queries ≤1.325 s; one admission-limit event since 13:08, none during sample; no timeouts/evaluator failures/restarts. +402 memory-high events (17 during sample); no big merge. Resource acceptance stays open. Next short check ≥15:11 UTC, preferably after natural big merge; scheduled edition review comes first. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2510).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2510: due metrics checkpoint retains healthy rules/queries; one admission-limit event and ongoing reclaim keep resource acceptance open. Deployment hold preserved.
 
 - [x] 2509: protected-edition triage passes: health, 38 sources and scheduled digest queue healthy; no runtime change during hold. Selection impact still awaits 15:00 edition.
 

@@ -1404,3 +1404,21 @@ open: reclaim and the natural big-merge comparison remain pending. Next short
 check no earlier than 14:09 UTC, preferably after a natural big merge; do not
 hold reader work. No force merge, limit change, restart or provider call.
 Receipts: `/tmp/2504-metrics.jsonl`, `/tmp/2504-metrics-error.log`.
+
+### Short verification checkpoint (iteration 2510)
+
+Nov 16 14:09:01–14:10:03 UTC: three read-only samples overlapping repository
+verification found all 24 rules fresh and healthy. Six uncached expected-series
+queries completed in ≤1.325 seconds. The admission-limit counter increased by
+one since 13:08, with no increase during sampling; queue timeouts, slow queries,
+process-start and evaluator error/missed counters stayed unchanged. NRestarts=0
+and no journal entries since the baseline. Small merges increased by 70 and
+1,633,175 rows; no big merge occurred. Memory-high events increased by 402
+(17 during sampling); max/OOM/kill stayed zero. Ending usage was 87,941,120
+bytes; lifetime peak 92,995,584 bytes.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Resource acceptance stays
+open: the admission event, reclaim and natural big-merge comparison remain
+unresolved. Next short check no earlier than 15:11 UTC; scheduled edition review
+comes first. No force merge, limit change, restart or provider call.
+Receipts: `/tmp/2510-{metrics.jsonl,metrics-error.log,metrics-journal.log,summary.json}`.
