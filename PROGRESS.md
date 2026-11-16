@@ -52,43 +52,7 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 
 Archived: [iterations 2511–2515](docs/progress-archive/2026-11-16-2511-2515.md).
 
-## 2026-11-16: iteration 2516 — accept scheduled public publication
-
-- Clean main at ce8960de; no inherited work to recover or discard.
-- Nov 16 scheduled edition 93aefc45-33d7-4639-ad53-78e316a40f14 published 15:03:11.281 UTC: 25 stories/18 posts; all five story sections Sonnet, zero unscored.
-- Signed-out public HTTPS latest/direct/history and immutable scheduled provenance agree; all-five-topic scheduled-reader gate passes using temporary public-DNS preload.
-- Playwright public HTTPS desktop/mobile root/direct/history pass with zero page errors; New edition/private profile/unlisted account GETs return 404. Intentional public status/topic reads excluded from refusal assertions.
-- World AI recovery and NBA selected spoof-source absence accepted; World/U.S. selected/coverage IDs disjoint. Three-edition quality and social review remain open.
-- Tech three of five story evidence sets empty; two other groups have 600-character reporting/146-character announcement. Thin evidence remains open; omitted smart-glasses score unknown.
-- Item 63 step 4 acked; TASKS/public-readiness/review updated. Browser/snapshot receipts /tmp/2516-{review.log,snapshot.json,desktop.png,mobile.png}; temporary script removed.
-- pnpm obs health, all 38 sources and scheduled queue healthy; zero failed/active digest jobs. DiskSpaceLow firing, immediate df 79%/5.0 GiB free; no cleanup during hold.
-- No runtime changes, rebuild, deployment, restart or paid calls; public mode/sharing retained. Next daily cost/speed/social review, metrics ≥15:11, Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2516-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2517 — daily settlement and social review
-
-- Clean main at 4190c5b5; no inherited work to recover or discard.
-- Health, all 38 sources and scheduled queue pass; zero failed/active jobs. DiskSpaceLow firing; immediate df 79%/5.0 GiB free, no cleanup.
-- Nov 16 edition ledger: $0.500315/56 successful calls, zero failed/unresolved calls or holds; $0.149685 left under $0.65 daily cap. Reserve succeeded/full-ai.
-- Retained BullMQ job: one attempt, 191.260 s worker/191.308 s schedule-to-finish; previous 213.039 s. Speed target remains unmet.
-- Reviewed all 18 saved post texts/context notes: Tech distinct demos; NBA specific performances/updates; Gaming one promotional pick; World overlap; U.S. four Bluesky/no X.
-- Recorded docs/edition-reviews/2026-11-16.md and TASKS.md; no generation/runtime/access changes or provider calls.
-- Timing report private-status read unavailable in public mode; used existing ledger/usage adapters and BullMQ read-only temporary script, then removed it. Receipt /tmp/2517-ledger.json.
-- Deployment hold preserved: no rebuild, deploy or restart before 16:00 UTC. Next due metrics checkpoint, U.S. X/Gaming supply review and Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2517-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2518 — due metrics checkpoint
-
-- Clean main at eff3c408; no inherited work to recover or discard.
-- pnpm obs alerts/health/sources/jobs: health and all 38 sources healthy, digest queue zero failed/active; next edition Nov 17 15:00 UTC. Historical ingestion/social failures retained.
-- DiskSpaceLow intermittent; immediate df 79%/5.0 GiB free. No cleanup during protected window.
-- Read-only sample 15:29:42–15:30:43: all 24 rules healthy, six uncached queries ≤1.158 s, zero new admission/timeouts/slow-query/evaluator failures or restarts since 14:10.
-- Small merges +85/+2,557,256 rows; no big merge. Memory-high +676 since baseline/zero during sample; max/OOM/kill zero. Ending usage 77,201,408 bytes; peak 92,995,584.
-- Retained 2% CPU/88 MiB high/112 MiB max; resource acceptance remains open. Next sample ≥16:31 UTC, preferably after natural big merge. Decision 0004/TASKS updated.
-- Receipts /tmp/2518-{metrics.jsonl,metrics-error.log,metrics-journal.log}; journal empty, NRestarts=0.
-- Deployment hold preserved: no runtime changes, rebuild, deploy, restart or provider calls. Live runtime remains unchanged from main.
-- Next U.S. X/Gaming supply diagnosis; Bluesky export by 20:36 UTC; full rotation-day review after Nov 17 00:00.
-- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2518-{format,final-format,lint,check}.log.
+Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md).
 
 ## 2026-11-16: iteration 2519 — localize sparse social selection
 
@@ -237,3 +201,15 @@ Archived: [iterations 2511–2515](docs/progress-archive/2026-11-16-2511-2515.md
 - Evidence: /tmp/2530-{metrics.jsonl,metrics-error.log}; sampler `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`; baseline /tmp/2524-metrics.jsonl.
 - Documentation only; no runtime/source/provider changes, jobs, rebuild or restart; live code remains main. Bluesky export due by 20:36 UTC.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, receipt assertions and `git diff --check` pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2530-{format,lint,check}.log; final health passes.
+
+## 2026-11-16: iteration 2531 — resolve World/U.S. coverage provenance
+
+- Clean main at 8d3332fb; no inherited work to recover or discard.
+- Reader weakness: Shenzhen previews and flight-grounding newsletters might mix separate events in coverage. Recovered all 18 stored members across those groups and Nvidia read-only.
+- Shenzhen's four members directly preview the same trip/trilateral; all seven flight reports explicitly cover the same stoppage or aftermath, including newsletter leads. Thirteen of sixteen groups now have apparent same-story support.
+- Nvidia has five empty excerpts; GTA/Helix/Nvidia edges remain unresolved. Production unchanged; no title rules, publisher fetches, paid calls or jobs.
+- Assertions pass: 18 unique IDs, all URLs/publication timestamps match immutable snapshot. Current excerpts are not claimed as historical editor inputs. Receipt /tmp/2531-members.json.
+- Health/14 services/all 38 sources pass; scheduled digest queue zero failed/active. Disk 79%/5.0 GiB free; intermittent alert, daily permitted cleanup already done, no further deletion.
+- Updated TASKS/review; archived progress 2516–2518 to keep orientation small. Documentation only; no rebuild/restart needed, live runtime matches main.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2531-{format,lint,check}.log; final health passes.
+- Next: metrics ≥18:50 UTC; Bluesky export by 20:36 UTC; further grouping decisions require new evidence.
