@@ -1,0 +1,257 @@
+{
+  "note": "Iteration 2467 agent headline labels: explicit same-story developments and distinct events only. Trump analysis unknown. Published subset only; not independent labels or candidate-pool recall. No provider calls.",
+  "pairs": [
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "sameEvent": true,
+      "reason": "Same explicitly named Bahrain attack, Donbas/NATO proposal or Gaza commander strike."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "sameEvent": true,
+      "reason": "Same explicitly named Bahrain attack, Donbas/NATO proposal or Gaza commander strike."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "sameEvent": true,
+      "reason": "Same explicitly named Bahrain attack, Donbas/NATO proposal or Gaza commander strike."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "464e5d64-85f0-453b-984e-4b082775b48c",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c5a67785-b640-45ca-948f-d86d7e1de968",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "right": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "right": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "960621a8-61b7-4569-b2aa-f4964574eea3",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "right": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "sameEvent": true,
+      "reason": "Same explicitly named Bahrain attack, Donbas/NATO proposal or Gaza commander strike."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "right": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "c7122227-5224-4ff1-8878-c45d3c3970d4",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "right": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": false,
+      "reason": "Distinct attack, diplomatic proposal or political position; shared conflicts do not make these the same story."
+    },
+    {
+      "window": "event-grouping-world-2026-11-15.json",
+      "left": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+      "right": "ac1296d6-2571-44d6-a2ba-8dae2c14d099",
+      "sameEvent": true,
+      "reason": "Same explicitly named Bahrain attack, Donbas/NATO proposal or Gaza commander strike."
+    }
+  ]
+}

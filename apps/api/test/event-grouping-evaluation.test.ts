@@ -469,3 +469,53 @@ void test('later NBA pairs retain game injury consequences and leave the Irving 
   assert.equal(unresolved.falsePositives, 0);
   assert.equal(unresolved.windows[0].membership.unlabeledMergedPairs, 1);
 });
+
+void test('later World labels separate conflicts and keep broad Trump analysis unknown', () => {
+  const baseline = evaluateEventGrouping(undefined, undefined, 'later-world');
+  assert.equal(baseline.pairs, 36);
+  assert.equal(baseline.positives, 5);
+  assert.equal(baseline.negatives, 31);
+  assert.equal(baseline.falseNegatives, 5);
+  const control = evaluateEventGrouping(
+    undefined,
+    {
+      'event-grouping-world-2026-11-15.json': [
+        [
+          '3cccf465-358b-4c2c-aa89-85b7feb44404',
+          '464e5d64-85f0-453b-984e-4b082775b48c',
+          'c5a67785-b640-45ca-948f-d86d7e1de968',
+        ],
+        [
+          '4aba097c-9e4a-4159-9e21-fc6a8ac60475',
+          'c7122227-5224-4ff1-8878-c45d3c3970d4',
+        ],
+        [
+          'fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5',
+          'ac1296d6-2571-44d6-a2ba-8dae2c14d099',
+        ],
+      ],
+    },
+    'later-world',
+  );
+  assert.equal(control.truePositives, 5);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.windows[0].membership.unlabeledMergedPairs, 0);
+  const broad = evaluateEventGrouping(() => true, undefined, 'later-world');
+  assert.equal(broad.falsePositives, 31);
+  assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 9);
+  const unresolved = evaluateEventGrouping(
+    undefined,
+    {
+      'event-grouping-world-2026-11-15.json': [
+        [
+          '960621a8-61b7-4569-b2aa-f4964574eea3',
+          '5aa1e63b-7dc7-46be-9010-e5961f4df549',
+        ],
+      ],
+    },
+    'later-world',
+  );
+  assert.equal(unresolved.truePositives, 0);
+  assert.equal(unresolved.falsePositives, 0);
+  assert.equal(unresolved.windows[0].membership.unlabeledMergedPairs, 1);
+});

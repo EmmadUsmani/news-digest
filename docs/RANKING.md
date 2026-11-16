@@ -3083,3 +3083,17 @@ eleven false positives and six unknown merges; reviewed-membership controls
 recover four positives without a false positive. These controls test the audit,
 not production semantic accuracy. Independent labels and a model evaluation
 remain outstanding; no provider calls, production grouping or admission changes.
+
+## Nov 15 published World grouping cases (iteration 2467)
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --later-world` evaluates
+ten saved published reports: Bahrain attack, Vance's war position, Donbas/NATO
+proposal, Sudan power-station attacks and the Gaza commander strike.
+Five positive and 31 negative agent headline labels distinguish explicit
+developments from shared conflicts. Broad live blogs and the Europe–Russia
+talks report are omitted; World fallback supplied no editor prose, so excerpts
+stay empty. The broader Trump analysis retains nine unknown relationships.
+Merge-all exposes 31 false positives and nine unknown merges. The unresolved
+Vance/Trump pair stays unknown in saved-membership evaluation. This is a
+published subset, not independent labels, candidate-pool recall or production
+semantic accuracy. Production and budgets are unchanged; no provider calls.

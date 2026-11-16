@@ -163,3 +163,15 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,055 unit/329 integration pass, four expected skips; API build passes within isolated integration. Exact seven-report metadata/prose comparison passes; scheduled reader GET passes five topics/23 stories/16 posts; final alerts zero.
 - `pnpm exec tsx scripts/evaluate-event-grouping.ts --later-nba` succeeds; `git diff --check` passes. Receipts `/tmp/2466-{format,lint,check,targeted-final,reader,alerts-final}.log` and `/tmp/2466-grouping.json`.
 - No runtime change: no rebuild/restart under STEERING 63. Next: metrics ≥05:30 UTC, Bluesky export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2467 — retain World grouping boundaries offline
+
+- Clean main at 0b787456; no inherited work. Health database/Redis and sources healthy. Initial pending disk alert cleared naturally; filesystem 78%, daily scratch cleanup already recorded.
+- Reader weakness: shared conflicts can collapse distinct World developments. Retained ten saved published reports spanning Bahrain, Vance, Donbas/NATO, Sudan and Gaza for future offline grouping evaluation.
+- Five positive/31 negative agent headline labels; broad Trump analysis retains nine unknown relationships. Broad live blogs and Europe–Russia talks omitted. Fallback supplies no editor prose; excerpts stay empty.
+- Added `--later-world`; merge-all exposes false positives/unknowns, reviewed memberships recover five positives, unresolved Vance/Trump pair stays unknown. Independent labels and semantic evaluation remain open.
+- Exact saved metadata comparison passes for all ten reports. Targeted grouping tests: 13 pass; final full check includes the added positive-membership control.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass; 1,056 unit/329 integration tests, four expected skips; API build passes inside isolated integration. Scheduled reader GET passes five topics/23 stories/16 posts; final alerts zero. `git diff --check` passes.
+- Offline fixtures/evaluation only: no runtime rebuild/restart under STEERING 63, no provider calls, source/budget changes or new blockers. Handbook unchanged.
+- Receipts `/tmp/2467-{targeted,format,lint,check,reader,alerts-final}.log` and `/tmp/2467-grouping.json`.
+- Next: metrics ≥05:30 UTC, Bluesky export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.
