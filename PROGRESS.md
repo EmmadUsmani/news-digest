@@ -171,3 +171,13 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Scheduled reader passes five topics/23 stories/16 posts. Receipts `/tmp/2486-{services,sources,jobs,reader,topics,format,lint,check}.log`.
 - Full verification and final health results recorded below. Next: metrics ≥09:51, Bluesky export by 14:36, scheduled review 15:00 UTC; protect 13:00–16:00.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final database/Redis health passes; disk 79%, DiskSpaceLow pending, zero firing alerts.
+
+## 2026-11-16: iteration 2487 — enlarged attribution across the published edition
+
+- Clean main at d623e302; no inherited work. Owner value: enlarged-text readers can reach publisher attribution and every supporting report across the real edition.
+- Health, services and sources pass; alerts initially clear, digest queue check passes. Latest saved reader passes five topics/23 stories/16 posts. Thin Tech/World evidence remains scheduled acceptance, with no new generation changes.
+- Expanded source-target browser acceptance from the first story to every story/coverage link at 200% text, 320/390/1440px in both themes. Checks HTTP destinations, 44px targets, horizontal reachability and keyboard focus; local real GETs only, no writes/provider calls.
+- Refreshed six screenshots; screenshot-only styling hides fixed navigation so it cannot obscure the captured attribution. No runtime/source/budget/handbook changes; no rebuild/restart under STEERING 63.
+- Receipts `/tmp/2487-{health,services,sources,jobs,reader,source,format,lint,check}.log`. Final verification results follow.
+- Next: due metrics ≥09:51, Bluesky export by 14:36, scheduled review 15:00 UTC; protect 13:00–16:00. Move away from additional small reader acceptance work unless it reveals a defect.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; DiskSpaceLow pending after verification, zero firing alerts (`/tmp/2487-alerts-final.log`). Inspected refreshed narrow dark screenshot; all six final browser cases pass.

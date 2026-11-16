@@ -29,6 +29,9 @@ async function smoke() {
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         const card = page.locator('.story-sources').first();
         const source = card.locator(':scope > a').first();
         await expect(source).toBeVisible();
@@ -38,6 +41,10 @@ async function smoke() {
           await link.scrollIntoViewIfNeeded();
           const bounds = await link.boundingBox();
           assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44);
+          assert.ok(
+            bounds.x >= 0 && bounds.x + bounds.width <= width,
+            'Attribution stays horizontally reachable',
+          );
           await link.focus();
           await page.keyboard.press('Tab');
           await page.keyboard.press('Shift+Tab');
@@ -53,18 +60,33 @@ async function smoke() {
         const reportSource = card.locator('details li span a').first();
         await expect(reportSource).toBeVisible();
         await check(reportSource);
+        // Check the full edition, including long coverage titles and outlets.
+        for (const attribution of await page.locator('.story-sources').all()) {
+          const disclosure = attribution.locator('summary');
+          if (await disclosure.count()) {
+            await disclosure.evaluate((node) => {
+              (node.parentElement as HTMLDetailsElement).open = true;
+            });
+          }
+          for (const link of await attribution.locator('a').all()) {
+            const href = await link.getAttribute('href');
+            assert.ok(href && /^https?:/.test(href));
+            await check(link);
+          }
+        }
         assert.ok(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         );
         await card.screenshot({
+          style: 'header, .fixed { visibility: hidden !important; }',
           path: `docs/screenshots/ui/reader-source-targets-${width}-${theme}.png`,
         });
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: published source and coverage attribution targets/focus pass`,
+          `${width}/${theme}: full published edition attribution targets/focus pass at 200% text`,
         );
       }
     }
