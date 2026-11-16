@@ -1439,3 +1439,22 @@ open: continued reclaim and the natural big-merge comparison remain unresolved.
 Next short check no earlier than 16:31 UTC, preferably after a natural big merge.
 No force merge, limit change, restart or provider call.
 Receipts: `/tmp/2518-{metrics.jsonl,metrics-error.log,metrics-journal.log}`.
+
+### Short verification checkpoint (iteration 2524)
+
+Nov 16 16:41:05–16:42:06 UTC: three read-only samples found all 24 rules
+fresh and healthy. Six uncached expected-series queries completed in ≤0.376
+seconds. Since the 15:30 baseline, admission-limit, queue timeout, slow-query,
+process-start and evaluator error/missed counters stayed unchanged. NRestarts=0;
+no metrics journal entries since 15:29. Small merges increased by 83 and
+5,719,926 rows; no big merge occurred. Memory-high events increased by 595
+(zero during sampling); max/OOM/kill stayed zero. Ending usage was 79,704,064
+bytes; lifetime peak 92,995,584 bytes.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Resource acceptance stays
+open: continued reclaim and the natural big-merge comparison remain unresolved.
+Next short check no earlier than 17:43 UTC, preferably after a natural big merge.
+No force merge, limit change, restart or provider call.
+Receipts: `/tmp/2524-{metrics.jsonl,metrics-error.log}`; journal and restart
+checks used `journalctl -u obs-metrics.service --since '2026-11-16 15:29:00 UTC'`
+and `systemctl show obs-metrics.service -p NRestarts`.

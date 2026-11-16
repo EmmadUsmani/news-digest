@@ -206,3 +206,14 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 - Documentation-only; running code unchanged from main, no rebuild/deploy/restart needed. Final local /healthz passes.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2523-{format,lint,check}.log.
 - Next metrics checkpoint now due; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.
+
+## 2026-11-16: iteration 2524 — due metrics-store checkpoint
+
+- Clean main at 49d370bc; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs/services: health, 14 services and all 38 sources healthy; digest queue zero failed/active. Intermittent disk warning; df 79%/5.0 GiB free.
+- pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30: 16:41:05–16:42:06 UTC, three samples/24 healthy rules; six uncached expected-series queries ≤0.376 s.
+- Since 15:30, no new admission-limit/timeout/slow-query/evaluator failures or process starts; NRestarts=0 and journal empty. +83 small merges/5,719,926 rows; no big merge.
+- Memory-high +595 (zero during sample), max/OOM/kill zero; ending 79,704,064 bytes, lifetime peak 92,995,584. Retain limits; resource acceptance remains open.
+- Updated TASKS and capacity evidence; no provider calls, runtime/source changes or restart needed: running code unchanged from main. Final local /healthz passes.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Receipts /tmp/2524-{format,lint,check}.log and /tmp/2524-{metrics.jsonl,metrics-error.log}.
+- Next metrics ≥17:43 UTC, preferably after a natural big merge; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.
