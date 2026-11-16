@@ -1478,3 +1478,24 @@ Receipts: `/tmp/2530-{metrics.jsonl,metrics-error.log}`; command
 `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`; journal and restart
 checks used `journalctl -u obs-metrics.service --since '2026-11-16 16:41:00 UTC'`
 and `systemctl show obs-metrics.service -p NRestarts`.
+
+### Short post-retention checkpoint (iteration 2536)
+
+Nov 16 18:57:33–18:58:35 UTC: three read-only samples found all 24 rules
+fresh and healthy. Six uncached expected-series queries completed in ≤0.567
+seconds. Since 17:49, admission-limit, queue timeout, slow-query, process-start
+and evaluator error/missed counters stayed unchanged. NRestarts=0; no metrics
+journal entries since 17:48. Small merges increased by 76 and 1,779,619 rows;
+no big merge occurred. Memory-high events increased by 501 (two during sampling);
+max/OOM/kill stayed zero. Ending usage was 84,692,992 bytes; lifetime peak
+92,995,584 bytes. Repository formatting overlapped sampling. Disk retention
+has restored 61% disk usage but has not eliminated metrics memory reclaim.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Resource acceptance stays
+open: continued reclaim and the natural big-merge comparison remain unresolved.
+Next short check no earlier than 20:00 UTC, preferably after a natural big merge.
+No force merge, limit change, restart or provider call.
+Receipts: `/tmp/2536-{metrics.jsonl,metrics-error.log}`; command
+`pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`; journal and restart
+checks used `journalctl -u obs-metrics.service --since '2026-11-16 17:48:00 UTC'`
+and `systemctl show obs-metrics.service -p NRestarts`.
