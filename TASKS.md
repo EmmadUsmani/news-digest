@@ -19,7 +19,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 56/57: World/U.S. split deployed; Nov 15 semantic scope/event review (2412) passes: five stories each, 14/6 coverage IDs, no repeated or misplaced event. World fallback depth and three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. 2435 follow-up through Nov 15 22:04:59: 11 samples/24 healthy rules, 22 uncached queries ≤0.831 s, unchanged processes and no new failure/admission/timeout/slow-query counters. Since 21:33: +181 memory-high events (+51 during ten-minute sample), max/OOM/kill=0; 32 small merges/1,143,475 rows, no new big merge. Sustained post-merge query/evaluation health observed; continuing reclaim leaves resource acceptance open. Next sample ≥23:06 UTC, preferably across a natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#sustained-post-merge-resource-comparison-iteration-2435).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. 2444 overnight follow-up through Nov 16 00:33:23: 11 samples/24 healthy rules, 22 uncached queries ≤2.832 s, unchanged processes and no new failure/admission/timeout/slow-query counters. Since Nov 15 22:04:59: +940 memory-high events (+74 during sample), max/OOM/kill=0; 161 small merges/3,860,439 rows, no new big merge. Reclaim and slower probe leave resource acceptance open. Next sample ≥01:34 UTC, preferably across a natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#overnight-resource-follow-up-iteration-2444).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 15 NBA review (2402) finds no Murray repetition; spoof exclusion still awaits natural acceptance. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2444: overnight metrics follow-up preserves healthy evaluations and zero failure deltas; continuing reclaim keeps resource acceptance open. Pending disk alert cleared without deletion; full checks pass.
 
 - [x] 2443: New edition direct GET/HEAD requires fresh admin; client guard uses stored account session in public mode. Signed-out refusal and admin desktop/mobile typed URL/reload accepted without edition creation.
 

@@ -1148,3 +1148,40 @@ reclaim prevents resource acceptance. Keep the incident and unchanged CPU
 trial open; next sample ≥23:06 UTC, preferably spanning another natural
 big merge with the retained resource baseline. No forced compaction, provider
 calls or observability restarts.
+
+### Overnight resource follow-up (iteration 2444)
+
+Nov 16 read-only sampling compares the unchanged metrics and evaluator
+processes with the Nov 15 22:04:59 baseline. CPU 2%, MemoryHigh 88 MiB
+and MemoryMax 112 MiB remain unchanged. No forced merge or restart.
+
+The 00:23:13–00:24:13 UTC capacity sample measured the whole stack at
+1.696% CPU and 636.1 MiB sampled peak memory. Metrics averaged 0.550% CPU,
+throttled 114/266 active periods and recorded five memory-high events,
+with no OOM/kill events. Full repository verification overlapped sampling.
+
+The initial pending disk alert cleared without deletion; disk remained 78%.
+No leftover integration directories were present. All 38 sources were
+healthy; the scheduled queue had zero failed runs. The published Nov 15
+reader retained five topics, 23 stories and 16 posts. Grafana health answered
+and metrics NRestarts remained zero.
+
+Receipts: `/tmp/2444-metrics.jsonl`, `/tmp/2444-capacity.json`,
+`/tmp/2444-compare.py`, `/tmp/2444-metrics-journal.log`,
+`/tmp/2444-sources.txt`, `/tmp/2444-jobs.txt`, `/tmp/2444-reader.json`
+and `/tmp/2444-check.log`.
+
+00:23:16–00:33:23 UTC: all 11 samples found 24 fresh healthy rules;
+22 uncached probes returned the expected series in ≤2.832 seconds. Against
+the previous final sample, process starts were unchanged, with no new
+evaluator errors/missed iterations, admission hits, timeouts or slow-query
+counters. Small merges advanced by 161/3,860,439 rows; no new big merge.
+Memory-high increased by 940 since baseline, including 74 during sampling;
+max/OOM/kill counters stayed zero. Ending memory was 84.6 MiB and lifetime
+peak 88.7 MiB. `/tmp/2444-compare.py` assertions pass.
+
+Query/evaluation health persists, but ongoing reclaim and the 2.832-second
+probe leave resource acceptance open. Retain the unchanged CPU trial;
+next sample ≥01:34 UTC, preferably across a natural big merge. The full
+`pnpm check` passed (1,053 unit and 329 integration tests, four expected
+skips); no integration roots remained afterward. No runtime changes.

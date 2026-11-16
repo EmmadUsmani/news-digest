@@ -122,3 +122,15 @@ Archived: [iterations 2430–2435](docs/progress-archive/2026-11-15-2430-2435.md
 - Next: Nov 16 15:00 UTC scheduled public-publication/editorial acceptance; protect 13:00–16:00 UTC. Retained Bluesky export due 06:56 UTC and metrics follow-up remain pending.
 - Final detached `pnpm check` exits 0: 1,053 unit/329 integration tests pass, four expected skips. Detached `pnpm format`/`pnpm lint:fix` exit 0; targeted final client/browser-script lint and handbook verification pass. Shell-attached style rerun was terminated (143), so used the detached receipt. Both screenshots inspected.
 - Atomic web deployment poll: 21 public reader/old/current asset samples, zero failures. Final alerts zero and `/healthz` green; no deployment/push blocker.
+
+## 2026-11-16: iteration 2444 — overnight metrics resource acceptance
+
+- Clean main at 0d53d5c4; no inherited work. Initial disk alert pending; current disk 78%, no leftover integration directories. Alert cleared without deletion; no daily scratch cleanup performed.
+- Followed open metrics breakage under Current order 1; kept CPU 2%/MemoryHigh 88 MiB/MemoryMax 112 MiB. No forced compaction, paid calls, runtime changes or service restarts; deployed app remains main.
+- `sample-metrics-recovery.ts 10 60`: 00:23:16–00:33:23 UTC, 11 samples/24 fresh healthy rules, 22 successful uncached queries ≤2.832 s. Unchanged metrics/evaluator processes; no new errors/missed evaluations/admission hits/timeouts/slow counters.
+- Compared Nov 15 22:04:59 baseline: +940 memory-high events (+74 during sampling), max/OOM/kill=0; 161 small merges/3,860,439 rows, no big merge. Ending memory 84.6 MiB, peak 88.7 MiB, NRestarts=0. `/tmp/2444-compare.py` assertions pass.
+- `sample-observability-capacity.ts 6 10`: stack 1.696% CPU/636.1 MiB sampled peak; metrics 0.550% CPU, throttled 114/266 periods, five memory-high events, no OOM/kill. Full-check load overlapped samples.
+- `pnpm obs sources --check`: 38/38 healthy; `pnpm obs jobs --check`: scheduled queue zero failures, next Nov 16 15:00 UTC. `check-scheduled-reader.ts 2026-11-15T15:00:00Z`: five topics/23 stories/16 posts. Grafana health and `/healthz` green; final alerts zero.
+- Detached `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; no integration roots remained. Evidence `/tmp/2444-{metrics.jsonl,capacity.json,compare.py,metrics-journal.log,check.log}`; decision and TASKS updated.
+- Resource acceptance remains open due to reclaim/slower probe; next sample ≥01:34 UTC, preferably natural big merge. No retuning. Next product gate: Nov 16 15:00 scheduled review, protect 13:00–16:00; retained Bluesky export due 06:56.
+- Final `pnpm format`/`pnpm lint:fix` exit 0; changed Markdown formatting and `git diff --check` pass. Documentation-only commit; no build/deployment/service restart needed. No new blocker.
