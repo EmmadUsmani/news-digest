@@ -148,3 +148,15 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Receipts: `/tmp/2498-{health,services,sources,jobs,post-text,format,lint,check}.log`.
 - Next: metrics ≥11:58 UTC; Nov 16 natural edition/public HTTPS acceptance at 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
 - Full verification passes: 1,056 unit/329 integration tests, four expected skips. Archive formatting failure corrected before the successful full rerun; `git diff --check` and final health pass. Final alerts: zero firing/one pending disk warning after isolated verification.
+
+## 2026-11-16: iteration 2499 — current public publication runbook
+
+- Clean main at 69e4fe6a; no inherited work. Corrected stale private-sharing status and unfinished Nov 15 gate in public-readiness.md.
+- Runbook now links current operations, names atomic web-only build and retains owner-first rollback; Nov 16 public HTTPS gate remains pending.
+- Initial disk warning cleared without deletion; health/services/sources/jobs pass. No provider calls, runtime changes, rebuild or restart; STEERING 63 preserves service availability.
+- Due metrics checkpoint 12:01–12:06: 11 samples/24 healthy rules, 22 queries ≤1.078 s; no new admission/timeouts/evaluator failures/restarts or big merge.
+- Memory-high +456 since 10:57 (+28 sampled); limits unchanged and resource acceptance open. Next short check ≥13:07 UTC.
+- Local runbook links verified; pnpm format and pnpm lint:fix pass. Full pnpm check results recorded below.
+- Receipts: /tmp/2499-{health,services,sources,jobs,format,lint,check,metrics*,summary.json,compare.py,alerts.log}.
+- Next: Nov 16 15:00 scheduled public publication and editorial acceptance; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips. Final formatting/lint and health pass; zero firing/pending alerts before commit; git diff --check passes.

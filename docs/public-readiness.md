@@ -1,9 +1,13 @@
 # Phase 4 readiness checklist
 
-Public mode is enabled while VM sharing remains private under STEERING 62.
+Public mode and public VM sharing are enabled under STEERING 63 (Nov 15).
 Only the owner may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases).
 Nov 15 scheduled edition `a0fa3916` passed the publishing and reader gate.
-[Acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398); sharing awaits the owner.
+[Acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398).
+Nov 16 scheduled publication over public HTTPS remains the next acceptance gate.
+Keep public mode enabled while sharing is public. Deploy using the
+[operations runbook](handbook/01-app/08-operations.md); restart only changed services
+and never deploy or restart between 13:00 and 16:00 UTC.
 
 Item 58 fix evidence and remaining live gates: [security handoff](phase4-security-handoff.md).
 
@@ -14,7 +18,7 @@ STEERING 62 replaces the former all-topic AI gate with scheduled publication,
 signed-out reader agreement and continued private/admin refusals.
 Public Grafana is excluded from launch; Spend may be public.
 
-### Activate while the VM is private
+### Initial activation (completed Nov 15)
 
 1. Record the deployed commit, current private sharing state and proxy port
    (8000), service health, latest published edition ID, source freshness and
@@ -23,7 +27,8 @@ Public Grafana is excluded from launch; Spend may be public.
    Work outside 13:00–16:00 UTC and preserve the noon generation cutoff.
 2. While sharing is still private, set `PUBLIC_MODE=1` in the private
    `~/.config/news-digest/env`, preserving account, origin, trusted-proxy and
-   secret settings. Build with `VITE_PUBLIC_MODE=1 pnpm build`, then run
+   secret settings. Publish the web build with
+   `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build`, then run
    `systemctl --user restart news-digest-api.service`. Restart the worker only
    if its deployed code or configuration changed. A failed build or restart
    stops activation; do not share.
@@ -53,7 +58,7 @@ Public Grafana is excluded from launch; Spend may be public.
    If this cannot be confirmed, keep public mode enabled and resolve sharing;
    do not restore the private-mode application while the proxy is public.
 2. With sharing confirmed private, restore `PUBLIC_MODE=0` in the private env,
-   build with `VITE_PUBLIC_MODE=0 pnpm build`, then run
+   publish atomically with `VITE_PUBLIC_MODE=0 pnpm --filter @digest/web build`, then run
    `systemctl --user restart news-digest-api.service`. Preserve account flags,
    credentials, additive migrations and published data. No destructive
    migration rollback is needed. Restart the worker only if it changed.
@@ -138,9 +143,10 @@ refusals through the deployed router as well. Do not add AI-topic requirements.
       reader responses before enabling `PUBLIC_MODE`, after Phase 3 acceptance.
       If publication fails or the public reader breaks, follow the ordered
       rollback above: unshare and confirm private access before disabling public mode.
-- [ ] Accept a normal scheduled edition with public mode enabled, then provide
-      the lead a security-review handoff with evidence and unresolved findings.
+- [x] Nov 15 scheduled public-mode edition and security handoff accepted.
+- [ ] Accept the Nov 16 scheduled edition signed out over public HTTPS; latest,
+      history and direct edition must agree, with private/admin refusals retained.
 
-Phase 5 sharing, real email and destructive cleanup remain owner decisions.
+The owner enabled sharing Nov 15. Real email and destructive cleanup remain owner decisions.
 
 Earlier native-tool and public-page receipts: [rehearsal evidence](public-readiness-evidence.md).
