@@ -3404,3 +3404,11 @@ five topics; World fetched/submitted 48/48 and 49/49 observations respectively.
 These counts include repeated snapshots, not distinct or editor-approved posts.
 Continue the existing rotation; extend this day's evidence before 12:36 UTC,
 then review its full UTC day after November 17 00:00. No new searches or spend.
+
+### Nov 16 overnight Ukraine rotation — iteration 2454
+
+The third natural Ukraine pass adds nine new World post identities among 49;
+40 refresh earlier observations. New texts include an overlapping Macron
+statement and image-only military estimates, alongside commentary. Retain
+the pilot and inspect natural selection; no more partial-pass reviews before
+the edition/full-day evidence. [Review](edition-reviews/2026-11-16-world-ukraine.md).

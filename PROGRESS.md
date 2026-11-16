@@ -166,3 +166,14 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - Short checkpoint cannot establish sustained recovery; keep CPU 2%/88 MiB high/112 MiB max. Next short check ≥03:25 UTC, preferably after natural big merge; no waiting for compaction.
 - Updated capacity evidence/task handoff only; runtime build unchanged, no restart needed. Bluesky export by 12:36, scheduled review 15:00; protect 13:00–16:00 UTC.
 - Receipts `/tmp/2453-{format,lint,check,reader,sources,alerts}.log`, `/tmp/2453-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`. Final `pnpm format` and `git diff --check` pass; documentation-only edits after full checks.
+
+## 2026-11-16: iteration 2454 — overnight Ukraine contribution review
+
+- Clean main at 91c0b060; no inherited edits. Current priorities read; no new breakage or due timed acceptance.
+- Owner value: distinguish genuinely new reporting from refreshed popular posts before judging the discovery pilot.
+- Read all 49 saved texts from the third natural Ukraine job (Nov 16 01:54); read-only repeatable-read SQL finds nine new/40 prior identities, 27 overlapping the first pass. Assertions pass for counts and uniqueness.
+- Preserved all nine new public examples: Macron statement overlaps prior coverage; military estimates are image-only; other texts include local relief, video promotion, recap and commentary. Retain attribution and event checks.
+- Retained production pilot/limits. Task handoff closes further partial-pass reviews until new edition/full UTC-day evidence; no provider call, collection, app-data write or generation change.
+- All 14 services/38 sources healthy; alerts zero; `/healthz` database/Redis pass. Scheduled reader provenance passes for five topics/23 stories/16 posts.
+- Evidence/docs only; runtime unchanged, no restart needed. Next metrics ≥03:25 UTC, export by 12:36, edition review 15:00; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Final alerts zero; receipts `/tmp/2454-{format,lint,check,reader,final-alerts}.log`.
