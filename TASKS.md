@@ -57,6 +57,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2451: overnight health checkpoint confirms active services, current sources and scheduled reader provenance (five topics/23 stories/16 posts); timed acceptance remains open.
+
 - [x] 2450: reviewed exact second Gaza collection: 11 new/38 repeated identities, with reporting overlaps; preserved examples and retained pilot pending natural selection.
 
 - [x] 2449: compared Tech baseline against machine learning/LLM/OpenAI using four free read-only searches; preserved public examples, retained production rules and closed generic probing until new edition evidence.

@@ -132,3 +132,15 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - No live search, inference, media fetches, app-data writes or runtime changes; documentation-only change needs no service restart. Private receipts `/tmp/2450-{export.ts,gaza-posts.json}`.
 - Verification results recorded below. Next metrics ≥02:22 UTC, Bluesky export by 12:36, scheduled review 15:00; protect 13:00–16:00. No new blocker.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; cohort/window/snapshot assertions and scheduled-reader provenance pass (five topics/23 stories/16 posts). Final alerts zero; `git diff --check` clean. Receipts `/tmp/2450-{format,lint,check,reader,alerts}.log`.
+
+## 2026-11-16: iteration 2451 — overnight publication health checkpoint
+
+- Clean main at a12c8742; no inherited work to recover or discard. Current priorities and open acceptance read; no new owner instruction.
+- Owner value: confirm the public edition and scheduled intake remain healthy without stacking changes on editorial fixes awaiting natural acceptance.
+- `/healthz` database/Redis green; `pnpm obs services --check` and `pnpm obs sources --check` pass, all 38 sources current. `pnpm obs jobs --check --limit 2` passes; digest queue has zero failures and next publication is Nov 16 15:00 UTC.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes scheduled provenance, latest/direct/history agreement: five topics, 23 stories, 16 posts.
+- Initial disk alert pending; direct disk usage 78%. Today's permitted scratch cleanup already completed in 2446; no repeated deletion. Retain all resource limits.
+- Reader/code inspection found no new actionable failure. Existing World fallback/Tech prose weakness already has causes recorded; no repeated historical reconstruction, query probing, speculative rules or paid calls.
+- Health checkpoint only; no runtime/configuration change or service restart needed. Pending work remains metrics sample ≥02:22 UTC, retained Bluesky export by 12:36, natural edition review 15:00; protect 13:00–16:00.
+- Receipts `/tmp/2451-{reader,services,alerts}.log`; repository verification results follow.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Final alerts zero; `git diff --check` clean. Receipts `/tmp/2451-{format,lint,check,final-alerts}.log`.
