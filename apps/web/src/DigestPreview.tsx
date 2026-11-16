@@ -100,7 +100,7 @@ export function DigestPreview() {
       >
         <Link
           to="/"
-          className="min-w-0 truncate text-base font-semibold tracking-tight sm:text-lg"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-md text-base font-semibold tracking-tight sm:text-lg"
         >
           News Digest
         </Link>

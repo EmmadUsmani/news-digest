@@ -158,3 +158,13 @@
 - Evidence/docs only; running main code unchanged, no rebuild/restart under STEERING 22/65. No source requests, paid calls, new digests or sharing changes.
 - Receipts /tmp/2546-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,sources.json,alerts-final.log,format.log,lint.log,check.log}; pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,061 unit/329 integration passes, four expected skips.
 - Next: Bluesky export by 22:36 UTC, metrics ≥22:12 UTC, retention timer receipt 04:40 UTC; next natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2547 — reachable edition home link
+
+- Clean main at 611fd076; no inherited work to recover/discard. Protected paths untouched.
+- Reader weakness: the published edition header home link measured only 28px tall. It now has a 44px minimum target, matching archive/saved navigation, while retaining header reflow. Owner value: easier return to the latest edition on touch screens.
+- Real published-content Playwright smoke reproduces the original 106×28px failure, then checks 1440/390/320px, light/dark, 100%/200% text, horizontal reachability and keyboard focus; six header screenshots refreshed. Loopback visitor admission only; external requests blocked.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,061 unit/329 integration passes, four expected skips), atomic web build and git diff --check pass; receipts /tmp/2547-{format,lint,check,web-build,home-before,home-after}.log.
+- Initial health/database/Redis OK, all 14 services/38 sources healthy, zero active alerts; disk 60%. Digest queue zero active/failed, next Nov 17 15:00 UTC. Historical ingestion/social failures retained; current sources healthy. Initial obs status/digest queue aliases rejected; corrected to supported health/jobs commands.
+- Atomic web build serves the changed assets immediately; no app process code/config changes or restart under STEERING 22/65. No source requests, paid calls, new editions or sharing changes.
+- Next: metrics ≥22:12 UTC; Bluesky export by 22:36 UTC/full-day review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.

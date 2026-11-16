@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2547: enlarged the published edition header home link from 28px to a 44px touch target; desktop/mobile keyboard focus and normal/enlarged text verified.
+
 - [x] 2545: future private edition snapshots retain prepared editor candidate prompts, including unselected reports and budget refusals; public reader responses omit them. Natural Tech depth review remains open.
 
 - [x] 2543: Google News AI naturally recovered at 20:07 UTC/60 items after HTTP 429; completed scheduled-job receipt and cleared persisted error verified. Backoff and schedule unchanged.
