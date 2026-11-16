@@ -12,16 +12,19 @@ how the app and the agent harness work.
 
 ## Links
 
-The app and its tools are private, behind the exe.dev login.
+The reader, full handbook and schema-only DB explorer are public.
+Management writes, logs and metrics require admin sign-in; Grafana is closed
+in public mode.
 
-| What               | Where                                                                                                                                                                                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| App                | https://news-digest.exe.xyz/                                                                                                                                                                       |
-| Handbook           | [/docs/](https://news-digest.exe.xyz/docs/), or [docs/handbook/](docs/handbook/README.md) on GitHub                                                                                                |
-| DB explorer        | [/db/](https://news-digest.exe.xyz/db/)                                                                                                                                                            |
-| Observability      | [/grafana/](https://news-digest.exe.xyz/grafana/), [/logs/](https://news-digest.exe.xyz/logs/), [/metrics/](https://news-digest.exe.xyz/metrics/), [/queues/](https://news-digest.exe.xyz/queues/) |
-| Agent plan         | [MISSION.md](MISSION.md), [TASKS.md](TASKS.md), [PROGRESS.md](PROGRESS.md), [NEEDS_FROM_HUMAN.md](NEEDS_FROM_HUMAN.md)                                                                             |
-| VM and agent setup | [BOOTSTRAP.md](BOOTSTRAP.md), [ops/agent-control/](ops/agent-control/README.md)                                                                                                                    |
+| What               | Where                                                                                                                  |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| App                | https://news-digest.exe.xyz/                                                                                           |
+| Handbook           | [/docs/](https://news-digest.exe.xyz/docs/), or [docs/handbook/](docs/handbook/README.md) on GitHub                    |
+| DB explorer        | [/db/](https://news-digest.exe.xyz/db/)                                                                                |
+| Public operations  | [Spend](https://news-digest.exe.xyz/admin/spend), [Queues](https://news-digest.exe.xyz/admin/queues)                   |
+| Admin monitoring   | [Logs](https://news-digest.exe.xyz/logs/), [Metrics](https://news-digest.exe.xyz/metrics/)                             |
+| Agent plan         | [MISSION.md](MISSION.md), [TASKS.md](TASKS.md), [PROGRESS.md](PROGRESS.md), [NEEDS_FROM_HUMAN.md](NEEDS_FROM_HUMAN.md) |
+| VM and agent setup | [BOOTSTRAP.md](BOOTSTRAP.md), [ops/agent-control/](ops/agent-control/README.md)                                        |
 
 ## Run locally
 

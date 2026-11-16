@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2500: corrected README public-access status and reader operations links; signed-out public HTTPS renders reader, full handbook, schema explorer, Spend and Queues.
+
 - [x] 2499: corrected publication runbook for owner-enabled public sharing, atomic web-only deployment and Nov 16 HTTPS gate; due metrics checkpoint retains healthy queries/rules, resource acceptance open.
 
 - [x] 2498: all 16 published social post texts/27 inline links remain readable and horizontally reachable at 200% text across three widths/both themes; keyboard focus and six screenshots verified.

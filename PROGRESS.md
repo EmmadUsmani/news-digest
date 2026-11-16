@@ -160,3 +160,16 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Receipts: /tmp/2499-{health,services,sources,jobs,format,lint,check,metrics*,summary.json,compare.py,alerts.log}.
 - Next: Nov 16 15:00 scheduled public publication and editorial acceptance; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips. Final formatting/lint and health pass; zero firing/pending alerts before commit; git diff --check passes.
+
+## 2026-11-16: iteration 2500 — accurate public landing page
+
+- Clean main at 179ccef8; no inherited work. README incorrectly claimed every tool was private and sent readers to closed Grafana.
+- Updated public/admin access description, linked public Spend and Queues, and retained admin Logs/Metrics links. No runtime or source changes.
+- Health/services/sources/jobs checks pass; next scheduled edition remains Nov 16 15:00 UTC. Initial pending disk warning at 79%; no repeated daily cleanup or protected-data deletion.
+- Signed-out Playwright over public HTTPS renders /, /docs/, /db/, /admin/spend and /admin/queues with HTTP 200 and nonempty intended content.
+- Default VM DNS initially refused HTTPS; public-DNS browser mapping succeeds, as in existing live checks. No server writes or provider calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm exec tsx scripts/check-handbook.ts operations, pnpm check; final results below.
+- Receipts: /tmp/2500-{health,services,sources,jobs,public-links-dns,format,lint,handbook,check}.log.
+- Documentation only: rebuild/restart unnecessary under STEERING 63; deployed services retain current runtime.
+- Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
+- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; handbook check passes (18 pages/one diagram/39 tables). Final health and git diff --check pass; final alerts recorded in /tmp/2500-final-alerts.log.
