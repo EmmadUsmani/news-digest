@@ -113,3 +113,15 @@
 - Initial pnpm obs alerts/health/services --check/sources --check/jobs --queue digest-generation --check pass: zero alerts, database/Redis healthy, 14 services/38 sources healthy, no active/failed digest jobs; next edition Nov 17 15:00 UTC. Unsupported obs --help rejected, then used documented commands.
 - Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass (1,061 unit/329 integration passes, four expected skips); receipts /tmp/2550-{format,lint,check}.log. Final /healthz healthy; disk 60%. Documentation/evidence only; no app assets or process/config changes, so no deployment/restart under STEERING 22/65.
 - Next: metrics ≥22:12 UTC; Bluesky export by 23:36 UTC/full-day quality review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2551 — due late-evening metrics recovery evidence
+
+- Clean main at d42f7321; no inherited edits to recover/discard. Protected paths untouched.
+- Due read-only 22:12:13–22:13:13 UTC checkpoint: three samples, 24 fresh healthy rules, six uncached probes ≤0.526 s. Baseline assertions pass against final 2546 sample.
+- Since 21:11:06: +467 memory-high events (six during sampling), 60 small merges/4,679,652 rows; no big merge. Failure/admission/timeout/slow-query/process-start counters unchanged; zero new OOM/max/kill, NRestarts=0, no journal entries.
+- Retain CPU 2%/88 MiB high/112 MiB max. Continued reclaim and missing natural big-merge evidence keep acceptance open; decision record/task checkpoint updated.
+- Initial health, 14 services/38 sources and digest-generation queue pass; zero alerts, disk 60%, next edition Nov 17 15:00 UTC. Final /healthz database/Redis healthy and zero alerts.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,061 unit/329 integration passes, four expected skips.
+- Verification receipts: /tmp/2551-{format.log,lint.log,check.log,metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,alerts-final.log}; baseline assertions: python3 /tmp/2551-summarize.py.
+- Evidence/docs only: no application changes, rebuild/deployment/restart under STEERING 22/65; no source requests, paid calls or new editions.
+- Next: Bluesky export by 23:36 UTC; full-day review after midnight; metrics ≥23:14 UTC, preferably after natural big merge; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
