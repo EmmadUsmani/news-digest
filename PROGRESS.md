@@ -175,3 +175,13 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - Offline fixtures/evaluation only: no runtime rebuild/restart under STEERING 63, no provider calls, source/budget changes or new blockers. Handbook unchanged.
 - Receipts `/tmp/2467-{targeted,format,lint,check,reader,alerts-final}.log` and `/tmp/2467-grouping.json`.
 - Next: metrics ≥05:30 UTC, Bluesky export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2468 — due overnight metrics checkpoint
+
+- Clean main at 239a0397; no inherited work. Health database/Redis, 14 services, 38 sources and scheduled queues pass; saved reader serves five topics/23 stories/16 posts.
+- Due read-only metrics sample 05:31:22–05:32:22 UTC: three samples, 24 healthy/fresh rules, six expected-series queries ≤1.143 s. No new evaluator/admission/timeout/slow-query failures, process starts or restarts; max/OOM/kill zero.
+- Since 04:32:20: +363 memory-high events (none during sample), 59 small merges/2,037,755 rows, no big merge. Ending memory 85.1 MiB, lifetime peak 88.7 MiB; journal empty. Short idle interval does not establish sustained recovery.
+- Retained CPU 2%/MemoryHigh 88 MiB/MemoryMax 112 MiB; resource acceptance open. Updated TASKS and capacity decision. No retuning, forced merge, provider calls or runtime changes; no rebuild/restart under STEERING 63.
+- Initial pending disk alert cleared naturally; disk 78%, daily scratch cleanup already applied. Final alerts zero.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration tests, four expected skips; isolated API build passes. `git diff --check` passes. Receipts `/tmp/2468-{format,lint,check,reader,services,sources,jobs,alerts}.log`, metrics JSONL/summary/compare and metrics journal/error logs.
+- Next: short metrics check ≥06:33 UTC, Bluesky export by 14:36 UTC, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC. No new blockers.

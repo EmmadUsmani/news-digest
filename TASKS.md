@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2463 checkpoint 04:30–04:32 UTC: five samples/24 healthy rules, ten queries ≤0.875 s, no new failure counters/restarts. Since 03:26 +359 memory-high events, +5 during sample; no big merge. Resource acceptance stays open. Next short check ≥05:30 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#overnight-retained-baseline-checkpoint-iteration-2463).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2468 checkpoint 05:31–05:32 UTC: three samples/24 healthy rules, six queries ≤1.143 s, no new failure counters/restarts. Since 04:32 +363 memory-high events, none during sample; no big merge. Resource acceptance stays open. Next short check ≥06:33 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-overnight-checkpoint-iteration-2468).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2468: due metrics checkpoint retains healthy reads/rules and unchanged limits; continuing reclaim leaves resource acceptance open.
 
 - [x] 2467: retained World same-story and distinct-conflict cases offline; broad Trump analysis stays unknown, production unchanged.
 

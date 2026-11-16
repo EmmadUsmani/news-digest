@@ -1269,3 +1269,19 @@ MemoryHigh 88 MiB and MemoryMax 112 MiB. Next short check ≥05:30 UTC,
 preferably after a natural big merge; do not hold reader work. No retuning,
 forced compaction, restart or provider call.
 Receipts: `/tmp/2463-{metrics.jsonl,summary.json,compare.py,metrics-error.log}`.
+
+### Short overnight checkpoint (iteration 2468)
+
+Nov 16 05:31:22–05:32:22 UTC: three read-only samples found all 24 rules
+fresh and healthy; six uncached expected-series queries completed in ≤1.143
+seconds. Both process starts, evaluator error/missed, admission, timeout and
+slow-query counters stayed unchanged. Max/OOM/kill stayed zero; NRestarts=0.
+Since 04:32:20, memory-high rose by 363, with none during this minute; small
+merges advanced by 59/2,037,755 rows, with no big merge. Ending memory was
+85.1 MiB and lifetime peak 88.7 MiB. This short interval does not establish
+sustained recovery.
+
+Retain CPU 2%, MemoryHigh 88 MiB and MemoryMax 112 MiB. Resource acceptance
+remains open; next short check ≥06:33 UTC, preferably after a natural big
+merge. No retuning, forced merge, restart or provider call; reader work
+continues independently. Receipts: `/tmp/2468-{metrics.jsonl,summary.json,compare.py,metrics-error.log,metrics-journal.log}`.
