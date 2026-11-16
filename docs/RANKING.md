@@ -3145,3 +3145,15 @@ report to the shooting group exposes three false positives; merge-all exposes 17
 The Nov 12 `--later-gaming` benchmark remains available. These controls verify
 the evaluation, not production semantic accuracy. Independent labels and
 candidate-pool recall remain open. No provider calls or production changes.
+
+## Nov 16 published GTA forecast grouping case (iteration 2539)
+
+`event-grouping-gaming-2026-11-16.json` preserves the two coverage IDs and
+published merged membership from edition `93aefc45-33d7-4639-ad53-78e316a40f14`.
+The negative same-event label distinguishes GamingBolt’s IBD analyst roundup
+from Eurogamer’s Joost van Dreunen newsletter forecast. Excerpts are exact
+passages recovered from publisher pages in iteration 2533, not historical editor
+inputs. The evaluation test reports one false positive for published membership
+and zero for separate groups, including both candidate orders. This is an
+agent-reviewed regression case for future semantic grouping, not a production
+fix or independent accuracy measurement. No provider calls or runtime changes.

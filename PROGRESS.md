@@ -202,3 +202,14 @@ Archived: [iterations 2519–2526](docs/progress-archive/2026-11-16-2519-2526.md
 - Health, 14 services, 38 sources and digest-generation queue healthy; zero failed/active digest jobs, next Nov 17 15:00 UTC. Zero alerts; disk 61%.
 - Updated grouping review and TASKS. Review-only change; no app rebuild/restart required, respecting STEERING 65. Next metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2538-{format,lint,check}.log. No runtime change or paid calls.
+
+## 2026-11-16: iteration 2539 — recorded GTA forecast overmerge regression
+
+- Clean main at b3ee3ed5; no inherited work to recover/discard. Owner value: a real published coverage error now has an executable case for future semantic grouping changes.
+- Recorded both Nov 16 GTA forecast coverage records and published membership; exact short publisher passages distinguish IBD/Brian Pitz from SuperJoost/Joost van Dreunen. Current publisher prose is explicitly not historical editor input.
+- Offline regression reproduces one false-positive pair for the published merge; separate groups pass in both orders. Agent-reviewed label only; independent labeling and semantic production evaluation remain open. No title rules or runtime changes.
+- Both coverage records match preserved edition metadata; both excerpts are exact substrings of iteration 2533 publisher captures. Targeted evaluation tests: 17/17 pass. Updated TASKS, grouping review and RANKING; no handbook/source behavior changes.
+- Health, all 14 monitored services, all 38 sources and digest queue healthy; zero failed/active digest jobs, next Nov 17 15:00 UTC. Zero alerts; disk 61%. Old failed transient check units are outside the healthy monitored service set.
+- Agent-control retention remains blocked by explicit run prohibition; no protected paths touched. No paid calls, production writes, rebuild or app restart (STEERING 65).
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected skips. Logs /tmp/2539-{targeted,format,lint,check}.log.
+- Next: metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.

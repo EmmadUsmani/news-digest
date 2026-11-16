@@ -39,7 +39,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Published Tech subset added (2504): six reports, two positive/13 negative pairs; chip-policy and leadership developments stay separate. Published Gaming subset added (2505): seven reports, four positive/17 negative pairs; announcement/shooting duplicates stay together, separate studio developments stay apart. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
+- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Published Tech subset added (2504): six reports, two positive/13 negative pairs; chip-policy and leadership developments stay separate. Published Gaming subset added (2505): seven reports, four positive/17 negative pairs; announcement/shooting duplicates stay together, separate studio developments stay apart. 2539 adds the Nov 16 published GTA pair: saved merged membership exposes one false positive; separate control passes using publisher-attributed forecasts. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2539: recorded Nov 16 GTA forecast overmerge as an offline negative grouping case; published membership fails, separate control passes. Production unchanged.
 
 - [x] 2538: resolved Verge Nvidia leadership/comeback coverage using publisher prose; corrected Ars attribution. Five Nvidia member edges remain unresolved; production unchanged.
 

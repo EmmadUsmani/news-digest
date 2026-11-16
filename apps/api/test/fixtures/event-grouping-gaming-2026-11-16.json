@@ -1,0 +1,42 @@
+{
+  "provenance": "Immutable Nov 16 edition 93aefc45-33d7-4639-ad53-78e316a40f14. Coverage metadata and published membership from saved edition; excerpts are exact passages from ordinary publisher GETs at 18:21 UTC in iteration 2533, not historical editor evidence. See docs/edition-reviews/2026-11-16-grouping.md#GTA-forecast-provenance--iteration-2533. Agent-reviewed negative label, not independent annotation. Offline only; never seed production.",
+  "topic": "Gaming",
+  "windowStart": "2026-11-15T15:00:00.000Z",
+  "windowEnd": "2026-11-16T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "7ca1dabd-791a-4b23-996f-ed4b113ca992",
+      "title": "Grand Theft Auto 6 Will Sell Over 45 Million Copies Before March 31st, Say Analysts",
+      "url": "https://gamingbolt.com/grand-theft-auto-6-will-sell-over-45-million-copies-before-march-31st-say-analysts",
+      "sources": ["GamingBolt"],
+      "publishedAt": "2026-11-16T13:58:27.000Z",
+      "excerpt": "According to BMO Capital Markets’ Brian Pitz, around 45 million copies of\nGTA 6\nare expected to sell in the first quarter of its release.",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "516d8cba-9352-495d-ad56-8fd36449e364",
+      "title": "Can GTA 6 make $2 billion in its opening weekend? One industry analyst has run the numbers, and seems to think so",
+      "url": "https://www.eurogamer.net/can-gta-6-make-2-billion-in-its-opening-weekend-one-industry-analyst-has-run-the-numbers-and-seems-to-think-so",
+      "sources": ["Eurogamer"],
+      "publishedAt": "2026-11-16T13:20:30.000Z",
+      "excerpt": "At least, that's according to one analyst, Joost van Dreunen, a senior data analyst and great writer/numbers diviner who wrote some predictions in his respected\nSuperJoost PlayList newsletter\n. \"My prediction: Take-Two announces opening-weekend sales above $2 billion by Monday, 23rd November,\" he wrote. And you know what? I reckon he's onto something.",
+      "imageUrl": null,
+      "points": 0
+    }
+  ],
+  "publishedGroups": [
+    [
+      "7ca1dabd-791a-4b23-996f-ed4b113ca992",
+      "516d8cba-9352-495d-ad56-8fd36449e364"
+    ]
+  ],
+  "pairs": [
+    {
+      "left": "7ca1dabd-791a-4b23-996f-ed4b113ca992",
+      "right": "516d8cba-9352-495d-ad56-8fd36449e364",
+      "sameEvent": false,
+      "reason": "Separate analyst publications: GamingBolt reports the IBD analyst roundup including Brian Pitz first-quarter copies; Eurogamer reports Joost van Dreunen’s SuperJoost newsletter opening-weekend revenue forecast. Shared GTA launch context is not the same forecast."
+    }
+  ]
+}

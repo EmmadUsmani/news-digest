@@ -7,6 +7,42 @@ import {
   evaluateClusterMembership,
   evaluateEventGrouping,
 } from '../scripts/evaluate-event-grouping';
+import type { Candidate } from '../src/modules/digests/domain/rank';
+
+void test('published Nov 16 GTA forecast merge fails distinct-publication labels', () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/event-grouping-gaming-2026-11-16.json'),
+      'utf8',
+    ),
+  ) as {
+    candidates: Candidate[];
+    publishedGroups: string[][];
+    pairs: { left: string; right: string; sameEvent: boolean }[];
+  };
+  const published = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    (a, b) =>
+      fixture.publishedGroups.some(
+        (ids) => ids.includes(a.id) && ids.includes(b.id),
+      ),
+  );
+  assert.equal(published.falsePositives, 1);
+  assert.equal(published.labeledPrecision, 0);
+  assert.equal(published.unlabeledMergedPairs, 0);
+  assert.equal(published.permutationCheck.maxFalsePositives, 1);
+
+  // A proposed grouping must keep these separate even with shared launch context.
+  const separate = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    () => false,
+  );
+  assert.equal(separate.clusters, 2);
+  assert.equal(separate.falsePositives, 0);
+  assert.equal(separate.permutationCheck.maxFalsePositives, 0);
+});
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
   const result = evaluateEventGrouping();
