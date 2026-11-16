@@ -16,12 +16,10 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 
 **The site is public (owner, Nov 15).** Item 62 is done.
 
-1. Breakages and protecting the morning edition. First, item 63: deploy
-   without downtime, fix the `/db/` diagram, make the full handbook public.
-   Then item 64: let admins open the New edition page directly.
+1. Breakages and protecting the morning edition. First, item 65: automatic
+   retention to keep the disk below 80%. Items 63 and 64 are done.
    Also includes the hung Grafana
-   (item 44), the leaked test folders (item 51), NBA editing (items 54, 59)
-   and `/tmp` scratch cleanup (items 60, 61).
+   (item 44), the leaked test folders (item 51) and NBA editing (items 54, 59).
    The review after each scheduled edition is a fixed daily task.
 2. Public access (item 50) is done and the site is shared. Reader accounts
    follow `docs/public-access-plan.md`; later phases need the owner.
@@ -2816,6 +2814,8 @@ about files this rule covers.
 
 **Limits:** not between 13:00 and 16:00 UTC.
 
+**Replaced by item 65 (Nov 16):** `/tmp` now uses a 3-day automatic rule.
+
 ## 62. NOW: turn on public mode today; publishing, not content, is the gate (2026-11-15)
 
 **Why:** the owner decided that public mode goes on now, even if some topics
@@ -2968,3 +2968,44 @@ edition or spend money to check it. Don't widen any other route.
 **Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
 
 ack: 2026-11-16 item 64 complete in this commit (Allow fresh admins to load New edition directly): exact admin GET/HEAD route plus public client session guard. Public HTTPS signed-out GET/HEAD 404; fresh stored admin typed URL and refresh show the form at desktop/mobile, with no edition creation or paid calls. API-only restart and atomic web deployment; 21 public deployment samples without page/asset failure. Nov 16 scheduled acceptance remains open under item 63 step 4.
+
+## 65. NOW: keep the disk below 80% with automatic retention (2026-11-16)
+
+**Why:** the VM disk sits at 80% (4.9 GB free), so `DiskSpaceLow` flaps every
+few minutes, and free space fell about 0.8 GB in a day. Lead measurements on
+Nov 16: `~/.codex/sessions` 1.7 GB (about 100 MB a day), `~/agent-control/logs`
+566 MB, `/tmp` 2.4 GB, journal 475 MB, `~/.cursor-server` and `~/.warp` about
+1.3 GB. The owner decided none of this needs keeping long: git, `PROGRESS.md`,
+reviews and acks are the durable record. No off-VM copies (B2 stays for backups).
+
+**Priority:** Current order line 1, ahead of other open work there.
+
+**What to do:**
+
+1. Delete `~/.cursor-server` and `~/.warp` (owner: unused).
+2. Lower the journal cap from 500M to 200M in `ops/observability/install.sh`
+   and apply it.
+3. Add a daily systemd timer, installed by the VM setup code under `ops/`, so
+   a VM rebuild keeps it. It:
+   - deletes files in `~/.codex/sessions` last modified more than 7 days ago,
+     then empty date folders;
+   - deletes `~/agent-control/logs/iter-*` and `report-*` files older than 7 days.
+     Keep `supervisor.log`, `usage.tsv` and `health.log`;
+   - cleans `/tmp` of anything not accessed or modified for 3 days, through a
+     `systemd-tmpfiles` age rule (for example `q /tmp 1777 root root 3d`).
+     In-use sockets and locked entries must survive. List what the first run
+     would delete and check it before enabling it.
+4. Run the cleanup once now.
+
+**This replaces item 61** and, for these paths only, its ban on deleting log
+data. Don't keep evidence anywhere permanent to dodge retention: reviews may
+point to deleted `/tmp` receipts, which the owner accepts.
+
+**What not to do:** never touch backups, Docker volumes, Postgres, metrics data
+or `~/.codex/thread_history_1.sqlite`. Don't delete the newest session file
+(the supervisor reads it for quota pacing). Don't grow the disk or add spend.
+
+**Done when:** steps 1–4 are deployed and the alert has stopped. Ack with the
+commit, disk % before and after, and the size freed per path.
+
+**Limits:** not between 13:00 and 16:00 UTC. No restarts of app services.

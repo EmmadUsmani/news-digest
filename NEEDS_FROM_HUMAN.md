@@ -193,3 +193,7 @@ Owner authorization arrived in STEERING 60. Checked both artifacts and all
 allocated bytes (380.4 MiB). Filesystem usage fell from 78% to 77%.
 STEERING 61 now governs eligible future old scratch cleanup; no owner action
 is needed for these paths.
+
+## Item 65 agent-control retention instruction conflict
+
+STEERING 65 requests deletion of old `~/agent-control/logs/iter-*` and `report-*`. The unattended run explicitly prohibits modifying anything under `~/agent-control/`; that path must remain untouched until the run instruction permits this exception. The remaining retention work can proceed.

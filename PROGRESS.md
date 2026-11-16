@@ -239,3 +239,4 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Health, 14 services, all 38 sources and digest queue pass; next scheduled Nov 17 15:00 UTC. Disk 79%/5.0 GiB free; no cleanup repeated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2533-{format,lint,check}.log; final health passes.
 - Documentation only; no rebuild or restart needed, live runtime remains main. Next metrics ≥18:50 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
+- Initial push rejected by concurrent owner commits; merged without rewriting history. New STEERING 65 makes automatic disk retention the next priority; its agent-control deletion conflicts with the run’s explicit prohibition, so leave that path untouched.
