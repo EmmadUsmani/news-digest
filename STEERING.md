@@ -1555,6 +1555,8 @@ changed, and why a reader would notice. The ack reports the same in one line.
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
 
+ack: 2026-11-16 item 42 — iteration 2549: backward keyboard navigation exposed story links and Save controls behind the sticky reader header. Viewport scroll padding now accounts for its measured height; mobile/desktop, both themes and enlarged text verified.
+
 ack: 2026-11-16 item 42 — iteration 2471: oldest public archive exposed long publisher labels overflowing at 320px/200% text. Publisher flex text now shrinks and wraps; recent/oldest editions verified in both themes without generation changes.
 
 ack: 2026-11-16 item 42 — iteration 2464: 200% reader text no longer pushes header controls, long handles or summary words offscreen. Header/topic navigation reflows together; desktop/mobile light/dark checks preserve topic destinations without generation changes.

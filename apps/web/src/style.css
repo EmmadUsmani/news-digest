@@ -9,14 +9,13 @@
   .reader-edition .byline a {
     overflow-wrap: anywhere;
   }
-  .reader-edition
-    :is([id^='topic-'], [id^='story-'], [id^='posts-'], [id^='post-']) {
-    scroll-margin-top: calc(var(--reader-header-height, 65px) + 5rem);
+  html:has(.reader-edition) {
+    /* Keep keyboard focus and anchor destinations below the sticky reader UI. */
+    scroll-padding-top: calc(var(--reader-header-height, 65px) + 5rem);
   }
   @media (min-width: 1024px) {
-    .reader-edition
-      :is([id^='topic-'], [id^='story-'], [id^='posts-'], [id^='post-']) {
-      scroll-margin-top: calc(var(--reader-header-height, 65px) + 2rem);
+    html:has(.reader-edition) {
+      scroll-padding-top: calc(var(--reader-header-height, 65px) + 2rem);
     }
   }
 }

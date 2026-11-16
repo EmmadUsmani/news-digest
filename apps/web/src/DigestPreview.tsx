@@ -39,8 +39,12 @@ export function DigestPreview() {
   useEffect(() => {
     const element = header.current;
     if (!element) return;
+    const root = document.documentElement;
+    const previousHeight = root.style.getPropertyValue(
+      '--reader-header-height',
+    );
     const resize = () => {
-      content.current?.style.setProperty(
+      root.style.setProperty(
         '--reader-header-height',
         `${element.getBoundingClientRect().height}px`,
       );
@@ -48,7 +52,12 @@ export function DigestPreview() {
     const observer = new ResizeObserver(resize);
     observer.observe(element);
     resize();
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (previousHeight)
+        root.style.setProperty('--reader-header-height', previousHeight);
+      else root.style.removeProperty('--reader-header-height');
+    };
   }, []);
   const recovering = useRef(false);
   useEffect(() => {

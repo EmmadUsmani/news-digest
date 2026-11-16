@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2549: reader scroll padding keeps keyboard-focused story links and Save controls below the sticky header; anchor spacing and route cleanup verified.
+
 - [x] 2548: desktop edition contents follows the measured sticky header height, preserving more topic-navigation space with enlarged text.
 
 - [x] 2547: enlarged the published edition header home link from 28px to a 44px touch target; desktop/mobile keyboard focus and normal/enlarged text verified.
