@@ -1,0 +1,152 @@
+{
+  "note": "Iteration 2505 agent labels from saved coverage headlines and exact-ID supplied evidence. Published subset only, not independent labels or candidate-pool recall. GTA release-calendar relationship left unlabeled by excluding that report.",
+  "pairs": [
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "sameEvent": true,
+      "reason": "Same League of Legends: New Dawn announcement during Worlds."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "right": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "right": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "right": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "right": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "right": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "right": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "right": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "right": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "right": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": false,
+      "reason": "Separate developments: Riot game update, GTA download-code defects, Coffee Stain acquisition after bankruptcy, or inXile building shooting; shared gaming/studio context is insufficient."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "right": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "sameEvent": true,
+      "reason": "Same shooting at the inXile office building with no injuries."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": true,
+      "reason": "Same shooting at the inXile office building with no injuries."
+    },
+    {
+      "window": "event-grouping-gaming-2026-11-15.json",
+      "left": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "right": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "sameEvent": true,
+      "reason": "Same shooting at the inXile office building with no injuries."
+    }
+  ]
+}

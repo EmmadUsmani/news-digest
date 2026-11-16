@@ -1,0 +1,78 @@
+{
+  "provenance": "Immutable Nov 15 edition a0fa3916-f1dc-4fbd-8d76-2884d5e01c06 published Gaming subset. Coverage fields from saved snapshot; excerpts only exact-ID supplied editor evidence, never summaries. GTA release-calendar analysis omitted: relationship to download-code issue needs fuller evidence. Offline only; never seed production.",
+  "topic": "Gaming",
+  "windowStart": "2026-11-14T15:00:00.000Z",
+  "windowEnd": "2026-11-15T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+      "url": "https://www.gamesradar.com/games/league-of-legends/after-17-years-league-of-legends-new-dawn-is-the-riot-mobas-next-era-we-want-league-to-stand-the-test-of-time/",
+      "title": "League of Legends: New Dawn is the Riot MOBA's next era: \"We want League to stand the test of time\"",
+      "sources": ["GamesRadar+"],
+      "publishedAt": "2026-11-15T13:14:45.000Z",
+      "excerpt": "Riot Games has properly revealed League of Legends: New Dawn, the next big evolution of the long-running MOBA that's coming next year. Announced during the 2026 League of Legends World Championship, New Dawn is said to be a sweeping update to the 17-year-old game that'll touch up everything from the gameplay to the client and much more. \"The client, for one, has to be better,\" executive producer Paul Bellezza said during the reveal. \"So, next year, we're releasing a modernized client.\" The last time Riot Games overhauled League's under-the-hood architecture was a decade ago in 2016, so a…",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "65d6d4a4-b54e-4c35-b3f7-19d987145e1a",
+      "url": "https://insider-gaming.com/league-of-legends-new-dawn-update-revealed-worlds/",
+      "title": "League of Legends New Dawn Update Revealed During Worlds Final",
+      "sources": ["Insider Gaming"],
+      "publishedAt": "2026-11-14T22:04:40.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+      "url": "https://kotaku.com/some-gta-6-box-copies-reported-to-have-download-code-issues-2000756883",
+      "title": "Some GTA 6 Box Copies Reported To Have Download Code Issues With No Disc To Fall Back On",
+      "sources": ["Kotaku"],
+      "publishedAt": "2026-11-14T23:24:45.000Z",
+      "excerpt": "Shipped with no disc inside, fans who purchased a physical copy of Grand Theft Auto in advance are claiming their codes have already been used, or are missing entirely",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+      "url": "https://www.pcgamer.com/games/strategy/chronicles-medieval-developer-declared-bankruptcy-on-the-day-it-announced-it-was-in-trouble-but-development-will-continue-after-a-usd5-million-reprieve-from-coffee-stain/",
+      "title": "Chronicles: Medieval developer declared bankruptcy on the day it announced it was in trouble, but development will continue after a $5 million reprieve from Coffee Stain",
+      "sources": ["PC Gamer"],
+      "publishedAt": "2026-11-15T11:27:41.000Z",
+      "excerpt": "In late October, Chronicles: Medieval developer Raw Power Games announced that it was in trouble. Funding for its ambitious, historical sandbox strategy had suddenly been pulled, and as a result the studio was at \"real risk of closing\". But it turns out the situation was even more dire than the announcement suggested, as Raw Power Games declared bankruptcy on the same day. Despite this, development of Chronicles: Medieval will continue with at least some of its original creators involved, after Satisfactory developers Coffee Stain swooped in to purchase the assets and IP. In a press release,…",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+      "url": "https://www.destructoid.com/no-one-was-harmed-in-allegd-shooting-at-inxile-offices/",
+      "title": "Shooter reportedly hits XBOX’s inXile studio building, but none were harmed",
+      "sources": ["Destructoid"],
+      "publishedAt": "2026-11-14T23:53:36.000Z",
+      "excerpt": "On Nov. 11, a gunman reportedly opened fire at the inXile office building in Tustin, California, with XBOX now saying no one was injured in the incident. Police have since apprehended the suspect, but the motive is still unclear. As NBC Los Angeles reported, a gunman had opened fire at a “commercial complex in Tustin” earlier this week on Nov. 11. “Several bullets struck at least one building in the area,” which seems to be inXile’s offices. At the time, the gunman was said to have fled the scene, but Aftermath confirmed today that they were in custody. The police responded to the incident…",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "d0f974b6-0fc6-4b19-9939-201af2b71d2b",
+      "url": "https://insider-gaming.com/inxile-building-shooting-no-injuries/",
+      "title": "inXile Office Building Hit by Gunfire; No Injuries Reported",
+      "sources": ["Insider Gaming"],
+      "publishedAt": "2026-11-14T21:03:14.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "6ab69983-3f2d-47c4-9bc6-3b0ad35da966",
+      "url": "https://kotaku.com/not-one-hurt-at-xbox-studio-inxile-entertainment-after-a-gunman-allegedly-opened-fire-on-the-building-2000756851",
+      "title": "No One Hurt At Xbox Studio InXile Entertainment After A Gunman Allegedly Opened Fire On The Building",
+      "sources": ["Kotaku"],
+      "publishedAt": "2026-11-14T17:13:06.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    }
+  ]
+}

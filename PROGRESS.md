@@ -224,3 +224,17 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Due metrics 13:07–13:08: three samples/24 healthy rules, six queries ≤1.552s; no new failures/restarts, +414 memory-high since 12:06 (six sampled), no big merge; retain limits.
 - Next: metrics ≥14:09 UTC; scheduled public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
 - Full pnpm check passes: 1,058 unit/329 integration passes, four expected skips; format, lint:fix, exact evidence assertions and git diff --check pass.
+
+## 2026-11-16: iteration 2505 — published Gaming grouping boundaries
+
+- Clean main at 6a38dba5; no inherited work. Health, 14 monitored services and all 38 sources pass; digest next runs 15:00 UTC.
+- Disk 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
+- Owner would care: duplicate Gaming coverage should stay together without collapsing unrelated studio developments.
+- Added seven immutable published Gaming reports and 21 agent labels: four positive/17 negative; four exact-ID supplied excerpts, no edited-summary evidence.
+- All seven coverage records match signed-out public HTTPS (200); coverage/excerpts match immutable snapshot exactly.
+- New offline --published-gaming retains --later-gaming; correct memberships recover four pairs, studio overmerge exposes three errors, merge-all exposes 17.
+- GTA calendar-analysis/code-issue relationship remains unlabeled; independent labels and candidate-pool recall stay open.
+- Targeted evaluation suite 16/16 passes. Full checks recorded below; receipts /tmp/2505-{targeted,services,sources,jobs,format,lint,check}.log.
+- No source, configuration, runtime or budget changes, provider calls or paid replay. No rebuild/restart under STEERING 63's 13:00–16:00 hold.
+- Next: metrics ≥14:09 UTC; public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
+- Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass.

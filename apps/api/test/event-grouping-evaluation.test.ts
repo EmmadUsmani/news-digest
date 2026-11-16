@@ -599,3 +599,54 @@ void test('published Tech labels separate AI industry events while retaining off
   assert.equal(broad.falsePositives, 13);
   assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 0);
 });
+
+void test('published Gaming labels retain duplicate announcements without merging separate studio developments', () => {
+  const baseline = evaluateEventGrouping(
+    undefined,
+    undefined,
+    'published-gaming',
+  );
+  assert.equal(baseline.pairs, 21);
+  assert.equal(baseline.positives, 4);
+  assert.equal(baseline.negatives, 17);
+  assert.equal(baseline.falseNegatives, 4);
+  const window = 'event-grouping-gaming-2026-11-15.json';
+  const announcement = [
+    '9b8c2c91-3501-41ef-a32a-91e6acc857b2',
+    '65d6d4a4-b54e-4c35-b3f7-19d987145e1a',
+  ];
+  const shooting = [
+    'f7f09d35-c00d-412e-aa3e-91e3222201e9',
+    'd0f974b6-0fc6-4b19-9939-201af2b71d2b',
+    '6ab69983-3f2d-47c4-9bc6-3b0ad35da966',
+  ];
+  const control = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [announcement, shooting],
+    },
+    'published-gaming',
+  );
+  assert.equal(control.truePositives, 4);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.windows[0].membership.unlabeledMergedPairs, 0);
+  const studioOvermerge = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [
+        announcement,
+        [...shooting, '7fbb3455-8bec-441c-97ee-1a5576556a5e'],
+      ],
+    },
+    'published-gaming',
+  );
+  assert.equal(studioOvermerge.truePositives, 4);
+  assert.equal(studioOvermerge.falsePositives, 3);
+  const broad = evaluateEventGrouping(
+    () => true,
+    undefined,
+    'published-gaming',
+  );
+  assert.equal(broad.falsePositives, 17);
+  assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 0);
+});

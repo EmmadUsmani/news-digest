@@ -3129,3 +3129,19 @@ exposes 13. The existing Nov 13 `--later-tech` benchmark remains available.
 These controls verify the evaluation, not production semantic accuracy.
 Independent labeling and candidate-pool recall remain open; no provider calls,
 production grouping, source or budget changes.
+
+## Nov 15 published Gaming grouping cases (iteration 2505)
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --published-gaming` evaluates
+seven published reports with four positive and 17 negative agent labels. Two
+New Dawn announcement reports and three inXile shooting reports form separate
+same-story groups. GTA download-code defects and Coffee Stain's acquisition
+remain distinct developments. The GTA release-calendar analysis is excluded:
+its relationship to the code issue needs fuller evidence before labeling.
+Coverage comes from the immutable edition snapshot; excerpts use only exact-ID
+supplied editor evidence, never edited summaries. Saved two-group memberships
+recover all four positive pairs without false positives. Adding the Coffee Stain
+report to the shooting group exposes three false positives; merge-all exposes 17.
+The Nov 12 `--later-gaming` benchmark remains available. These controls verify
+the evaluation, not production semantic accuracy. Independent labels and
+candidate-pool recall remain open. No provider calls or production changes.
