@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2514: 14:46 UTC pre-publication triage passes: health, all 38 sources and digest queue healthy; disk 79%/5.0 GiB free. Deployment hold preserved; natural acceptance due at 15:00.
+
 - [x] 2513: 14:34 UTC triage passes: health, 38 sources and scheduled queue healthy; disk 79%/5.0 GiB free, low-space alert oscillating. Protected edition unchanged; acceptance pending.
 
 - [x] 2512: 14:24 UTC triage passes: health, all 38 sources and digest queue healthy; 79% disk/5.0 GiB free. Scheduled acceptance remains pending; deployment hold preserved.

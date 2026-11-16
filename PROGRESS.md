@@ -199,3 +199,14 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - Next: 15:00 signed-out HTTPS publication/browser/editorial review, then metrics ≥15:11; Bluesky export by 20:36 UTC.
 - Archived iterations 2496–2501 to keep PROGRESS.md below 25 KB. Initial check caught archive formatting; corrected and reran full check.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2513-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2514 — preserve pre-publication runtime
+
+- Clean main at 18d479c7; no inherited work to recover or discard.
+- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
+- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
+- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
+- Reader weaknesses remain World fallback and Tech evidence scarcity; recorded causes await natural selection/admission evidence. NBA exclusion acceptance also pending.
+- Preserved STEERING 63 deployment hold: no runtime changes, deploy, rebuild, restart, cleanup, provider calls or spending.
+- Next: 15:00 signed-out public HTTPS publication/browser/editorial review; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2514-{format,lint,check}.log.
