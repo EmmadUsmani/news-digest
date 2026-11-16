@@ -29,8 +29,8 @@ so run checks from the Mac. Undo: `share set-private`, then
 
 **Next:**
 
-1. Item 63 steered (`c4662187`): zero-downtime deploys, elkjs served from
-   `/db/`, full handbook public (owner, Nov 15), watch Nov 16. Check acks.
-2. Item 64 steered (`edf73f64`): admin-only route for `/admin/editions/new`,
-   which 404s for everyone on direct load. Check its ack.
-3. Fix the edition step of `status.sh` for public mode.
+1. Item 63 steps 1–3 and item 64 acked by 00:22 UTC Nov 16. Lead checked
+   signed out over HTTPS at 02:50: `/db/`, `/db/elk.bundled.js`, `/docs/` 200;
+   `/admin/editions/new` and `/api/me` 404. Admin direct load not checked.
+2. Item 63 step 4: watch the Nov 16 scheduled edition (about 15:00 UTC)
+   publish with no downtime, then read its ack.
