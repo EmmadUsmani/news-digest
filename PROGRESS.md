@@ -116,3 +116,4 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - Preservation assertions pass for all 22 original bodies (relative link relocation only), six progress entries and 22 open markers. Relative link destinations exist in all four changed files.
 - Documentation only; running build unchanged, no service restart under STEERING 63. Next metrics ≥03:25 UTC, Bluesky export by 12:36, scheduled public edition review 15:00; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Final targeted Prettier and `git diff --check` pass; receipts `/tmp/2455-{format,lint,check}.log`. No new blocker.
+- Initial push rejected because remote advanced to e5d942c7 (owner status-check/lead notes only). Fetched and merged without conflicts or history rewrite; owner files preserved, runtime unchanged; pushed merged main.
