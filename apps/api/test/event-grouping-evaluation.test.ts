@@ -519,3 +519,42 @@ void test('later World labels separate conflicts and keep broad Trump analysis u
   assert.equal(unresolved.falsePositives, 0);
   assert.equal(unresolved.windows[0].membership.unlabeledMergedPairs, 1);
 });
+
+void test('later U.S. labels separate election outcomes from leadership, health policy and litigation', () => {
+  const baseline = evaluateEventGrouping(undefined, undefined, 'later-us');
+  assert.equal(baseline.pairs, 15);
+  assert.equal(baseline.positives, 1);
+  assert.equal(baseline.negatives, 14);
+  assert.equal(baseline.falseNegatives, 1);
+  const window = 'event-grouping-us-2026-11-15.json';
+  const alaska = [
+    '31c4d3d9-bbf1-4844-8f3a-29d8780cee67',
+    '662e60eb-cc10-4e3d-ba61-0de2bd87b95e',
+  ];
+  const control = evaluateEventGrouping(
+    undefined,
+    { [window]: [alaska] },
+    'later-us',
+  );
+  assert.equal(control.truePositives, 1);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.windows[0].membership.unlabeledMergedPairs, 0);
+  const electionOvermerge = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [
+        [
+          ...alaska,
+          '560c9e5e-38c6-4ee7-9b1b-008ba001ef42',
+          'e459a5aa-e56e-4dda-a685-31410206b53c',
+        ],
+      ],
+    },
+    'later-us',
+  );
+  assert.equal(electionOvermerge.truePositives, 1);
+  assert.equal(electionOvermerge.falsePositives, 5);
+  const broad = evaluateEventGrouping(() => true, undefined, 'later-us');
+  assert.equal(broad.falsePositives, 14);
+  assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 0);
+});

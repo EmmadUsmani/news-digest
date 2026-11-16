@@ -3097,3 +3097,17 @@ Merge-all exposes 31 false positives and nine unknown merges. The unresolved
 Vance/Trump pair stays unknown in saved-membership evaluation. This is a
 published subset, not independent labels, candidate-pool recall or production
 semantic accuracy. Production and budgets are unchanged; no provider calls.
+
+## Nov 15 published U.S. grouping cases (iteration 2502)
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --later-us` evaluates
+six saved published reports with one positive and 14 negative agent labels.
+The two Alaska governor reports describe the same result. Johnson's leadership
+departure and state-legislature outcomes remain distinct despite shared election
+context; vaccine reimbursement and self-enrichment litigation are separate too.
+Excerpts use only exact-ID immutable supplied evidence, never the edited summary.
+The Alaska-only membership gets one correct merge with no false positives.
+Combining the four election-related reports exposes five false positives;
+merge-all exposes all 14. These controls check the benchmark, not production
+semantic accuracy. This published subset is not independent labeling or
+candidate-pool recall. Production grouping, sources and budgets are unchanged.

@@ -184,3 +184,15 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check (results below); receipt logs /tmp/2501-{health,services,sources,jobs,format,lint,check}.log.
 - Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC.
 - Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; local file links resolve and git diff --check passes. Final health passes; zero firing/one pending disk warning after isolated verification.
+
+## 2026-11-16: iteration 2502 — U.S. same-story benchmark
+
+- Clean main at 8ab6f0ee; no inherited work. Health and all 38 sources pass; scheduled publication remains Nov 16 15:00 UTC.
+- Disk warning matches recorded threshold fluctuation; disk currently 79%. No repeated cleanup or protected-data deletion.
+- Owner would care: grouping must keep distinct U.S. election developments separate while combining duplicate Alaska governor reporting.
+- Added six immutable published reports, exact-ID supplied evidence and 15 explicit agent labels (one positive/14 negative); no edited summaries used as evidence.
+- Added offline --later-us evaluation and controls: Alaska-only merge passes; election overmerge exposes five errors; merge-all exposes 14.
+- Published subset only; independent labels and candidate-pool recall remain open. No provider calls, runtime/configuration changes or paid replay.
+- Targeted grouping suite: 14/14 pass. Full checks recorded below; receipts /tmp/2502-{targeted,format,lint,check}.log and us-baseline.json.
+- No rebuild/restart needed: offline evaluation/fixtures/docs only, per STEERING 63. Next metrics ≥13:07; publication acceptance 15:00; Bluesky export by 20:36 UTC.
+- Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix, exact snapshot-provenance assertions and git diff --check pass.

@@ -37,7 +37,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
+- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2502: added saved U.S. grouping cases; offline controls distinguish Alaska duplicate coverage from separate leadership, legislature, policy and litigation developments.
 
 - [x] 2501: corrected activation record’s stale private-sharing status; marked historical receipts and aligned recovery with atomic web-only deployment and the deployment hold.
 

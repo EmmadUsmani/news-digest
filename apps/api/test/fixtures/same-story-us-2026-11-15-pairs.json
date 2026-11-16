@@ -1,0 +1,110 @@
+{
+  "note": "Iteration 2502 agent labels from saved headlines and supplied prose. Published subset only; not independent labels or candidate-pool recall. Alaska reports describe the same result; other developments remain separate.",
+  "pairs": [
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+      "right": "662e60eb-cc10-4e3d-ba61-0de2bd87b95e",
+      "sameEvent": true,
+      "reason": "Same Alaska governor election result."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+      "right": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+      "right": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+      "right": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+      "right": "e459a5aa-e56e-4dda-a685-31410206b53c",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "662e60eb-cc10-4e3d-ba61-0de2bd87b95e",
+      "right": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "662e60eb-cc10-4e3d-ba61-0de2bd87b95e",
+      "right": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "662e60eb-cc10-4e3d-ba61-0de2bd87b95e",
+      "right": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "662e60eb-cc10-4e3d-ba61-0de2bd87b95e",
+      "right": "e459a5aa-e56e-4dda-a685-31410206b53c",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+      "right": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+      "right": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+      "right": "e459a5aa-e56e-4dda-a685-31410206b53c",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+      "right": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+      "right": "e459a5aa-e56e-4dda-a685-31410206b53c",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    },
+    {
+      "window": "event-grouping-us-2026-11-15.json",
+      "left": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+      "right": "e459a5aa-e56e-4dda-a685-31410206b53c",
+      "sameEvent": false,
+      "reason": "Distinct developments: governor election, House leadership departure, vaccine reimbursement rule, self-enrichment litigation or state-legislature results; shared party/election context is insufficient."
+    }
+  ]
+}
