@@ -1253,3 +1253,19 @@ hold reader work behind this incident. Next short check no earlier than
 Grafana work. No forced merge, restart, provider call or runtime change.
 Receipts: `/tmp/2458-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`
 and `/tmp/2458-{format,lint,check,sources,services,jobs,reader,alerts}.log`.
+
+### Overnight retained-baseline checkpoint (iteration 2463)
+
+Nov 16 04:30:17–04:32:20 UTC: five read-only samples found 24 fresh,
+healthy rules and ten expected-series queries completing in ≤0.875 seconds.
+Both process starts and evaluator error/missed, admission, timeout and
+slow-query counters stayed unchanged. Max/OOM/kill counters stayed zero;
+NRestarts=0. Since 03:26:52, memory-high increased by 359 (five during this
+sample), with 64 small merges/4,824,494 rows and no big merge. Ending memory
+was 78.1 MiB; lifetime peak remained 88.7 MiB.
+
+Resource acceptance remains open because reclaim continues. Retain CPU 2%,
+MemoryHigh 88 MiB and MemoryMax 112 MiB. Next short check ≥05:30 UTC,
+preferably after a natural big merge; do not hold reader work. No retuning,
+forced compaction, restart or provider call.
+Receipts: `/tmp/2463-{metrics.jsonl,summary.json,compare.py,metrics-error.log}`.

@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2458 checkpoint 03:18–03:26 UTC overlapping full checks: nine samples/24 healthy rules, 18 queries ≤1.037 s, no new failure counters/restarts. Since 02:23 +373 memory-high events, +37 during sample; no big merge. Resource acceptance stays open. Next short check ≥04:30 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2458).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2463 checkpoint 04:30–04:32 UTC: five samples/24 healthy rules, ten queries ≤0.875 s, no new failure counters/restarts. Since 03:26 +359 memory-high events, +5 during sample; no big merge. Resource acceptance stays open. Next short check ≥05:30 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#overnight-retained-baseline-checkpoint-iteration-2463).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -33,7 +33,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54/01:54 jobs retained. Next export by 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
+- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–03:54 jobs retained (2463): first complete baseline/Ukraine/baseline/Gaza rotation, 20 topic/job stored-count matches. Next export by 14:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2463: preserved the first complete Nov 16 overnight Bluesky query rotation; all 20 topic/job cohorts match stored observations, with no query or selection changes.
 
 - [x] 2462: post text preserves whitespace between links without creating unnamed keyboard stops; real archived Gaming post verified on desktop/mobile in both themes.
 
