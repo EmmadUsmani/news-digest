@@ -121,3 +121,14 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - No inference, media fetches, app-data writes or paid calls. Probe/docs-only change; running app build/configuration unchanged, no service restart required.
 - Verification receipts `/tmp/2449-{format,lint,check}.log`; final results below. Next metrics ≥02:22 UTC, Bluesky export by 12:36, natural edition review 15:00; protect 13:00–16:00 UTC. No new blocker.
 - Final `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; `git diff --check` clean.
+
+## 2026-11-16: iteration 2450 — second Gaza cohort distinctness
+
+- Clean main at 55744d9f; no inherited work. Read current priorities/open tasks; overnight edition and metrics acceptance not yet due.
+- Disk alert initially pending; current disk 78%, no integration folders remain. Daily scratch cleanup already applied (2446), so no repeated deletion.
+- Health/database/Redis green, 38 sources healthy, scheduled digest queue no failures; next edition Nov 16 15:00 UTC.
+- Read-only exact 23:54 Gaza cohort: 49 distinct identities, 11 new to World/38 repeated; all repeats from first Gaza pass. Assertions pass; retained all new examples and reporting overlap comparators.
+- Owner value: new identities do not equal new stories. New aid-truck mirror repeats prior reporting; outlet shelter appeal overlaps prior coverage. Retained pilot/gates/budgets pending natural selection.
+- No live search, inference, media fetches, app-data writes or runtime changes; documentation-only change needs no service restart. Private receipts `/tmp/2450-{export.ts,gaza-posts.json}`.
+- Verification results recorded below. Next metrics ≥02:22 UTC, Bluesky export by 12:36, scheduled review 15:00; protect 13:00–16:00. No new blocker.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; cohort/window/snapshot assertions and scheduled-reader provenance pass (five topics/23 stories/16 posts). Final alerts zero; `git diff --check` clean. Receipts `/tmp/2450-{format,lint,check,reader,alerts}.log`.

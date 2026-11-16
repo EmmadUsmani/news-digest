@@ -1,0 +1,427 @@
+{
+  "source": "Stored production Bluesky observations; claims not independently verified",
+  "jobId": "repeat:bluesky-hourly:1794786883867",
+  "startedAt": "2026-11-15T23:54:43.872Z",
+  "finishedAt": "2026-11-15T23:54:53.116Z",
+  "total": 49,
+  "newWorldIdentities": 11,
+  "repeatedWorldIdentities": 38,
+  "examples": [
+    {
+      "external_id": "at://did:plc:2lofqead276vtc5647ye7sl2/app.bsky.feed.post/3n2f2tzqeff2z",
+      "observed_at": "2026-11-15T23:54:49.977Z",
+      "published_at": "2026-11-15T22:30:05.393Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3A2lofqead276vtc5647ye7sl2/post/3n2f2tzqeff2z",
+        "text": "The countries accuse Israel of preventing tents and other supplies from entering Gaza, despite the humanitarian crisis.",
+        "media": [],
+        "author": "aljazeera.com",
+        "metrics": {
+          "likes": 153,
+          "replies": 11,
+          "reposts": 89
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:2lofqead276vtc5647ye7sl2/app.bsky.feed.post/3n2f2tzqeff2z",
+        "observedAt": "2026-11-15T23:54:49.977Z",
+        "displayText": "The countries accuse Israel of preventing tents and other supplies from entering Gaza, despite the humanitarian crisis.",
+        "publishedAt": "2026-11-15T22:30:05.393Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2exkmxg6s2p",
+      "observed_at": "2026-11-15T23:54:49.977Z",
+      "published_at": "2026-11-15T21:31:09.133Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Avlpy6zuqqum5tumv7b6dw5fp/post/3n2exkmxg6s2p",
+        "text": "The UK, Canada, Australia and Italy also endorse Israel's starvation and deprivation of Gaza",
+        "media": [
+          {
+            "alt": "JOINT FOREIGN MINISTERS STATEMENT ON GAZA\n15 November 2026\nWe, the Foreign Ministers of Australia, Canada, Italy and the United Kingdom, are clear that as winter takes hold in Gaza, the humanitarian situation on the ground is dire.\nThe recent floods have brought further suffering - and this was only the first storm of the winter.\nPeople in Gaza desperately need shelter and humanitarian assistance.\nYet 150,000 tents and other vital supplies are being held at the border and prevented from entering Gaza. This situation is entirely reversible - and there is still time to act before the winter fully sets in.\nSo we today urge the Government of Israel to stop the delays now and allow immediate, rapid and unimpeded humanitarian access throughout Gaza.\nThe crossings must be opened, and the tents allowed in. Dual-use items necessary for humanitarian operations and early recovery must be granted entry before it is too late.\nAnd all parties must implement the Comprehensive Plan for Gaza, respecting the ceasefire and their obligations under international humanitarian law, and allowing aid to reach the people who need it.",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:vlpy6zuqqum5tumv7b6dw5fp/bafkreiao7e3rng26ebohmojjzkc7hedsylc6wp6xpjra63x6qua3r2q5vi",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:vlpy6zuqqum5tumv7b6dw5fp/bafkreiao7e3rng26ebohmojjzkc7hedsylc6wp6xpjra63x6qua3r2q5vi"
+          }
+        ],
+        "author": "diplomatofnight.com",
+        "metrics": {
+          "likes": 276,
+          "replies": 5,
+          "reposts": 99
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2exkmxg6s2p",
+        "observedAt": "2026-11-15T23:54:49.977Z",
+        "displayText": "The UK, Canada, Australia and Italy also endorse Israel's starvation and deprivation of Gaza",
+        "publishedAt": "2026-11-15T21:31:09.133Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2eyv5fkxk2p",
+      "observed_at": "2026-11-15T23:54:49.977Z",
+      "published_at": "2026-11-15T21:54:55.661Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Avlpy6zuqqum5tumv7b6dw5fp/post/3n2eyv5fkxk2p",
+        "text": "Wow a Palestinian from Gaza thinks AIPAC is bad? Are you fucking stupid",
+        "media": [],
+        "author": "diplomatofnight.com",
+        "metrics": {
+          "likes": 171,
+          "replies": 4,
+          "reposts": 10
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2eyv5fkxk2p",
+        "observedAt": "2026-11-15T23:54:49.977Z",
+        "displayText": "Wow a Palestinian from Gaza thinks AIPAC is bad? Are you fucking stupid",
+        "publishedAt": "2026-11-15T21:54:55.661Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:3c2g5bimrmzh7beoltwt5jea/app.bsky.feed.post/3n2eqzoko4k2o",
+      "observed_at": "2026-11-15T23:54:49.978Z",
+      "published_at": "2026-11-15T19:34:17.934Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3A3c2g5bimrmzh7beoltwt5jea/post/3n2eqzoko4k2o",
+        "text": "Ve lo ripeteremo ogni giorno. \nGiuseppe Civati \n\n#Gaza #Palestina",
+        "media": [
+          {
+            "alt": "",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3c2g5bimrmzh7beoltwt5jea/bafkreig64oysljdnyyurqvufyg4hrlgooxroefejsh5ne7kh5ckxzsbxwi",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:3c2g5bimrmzh7beoltwt5jea/bafkreig64oysljdnyyurqvufyg4hrlgooxroefejsh5ne7kh5ckxzsbxwi"
+          }
+        ],
+        "author": "possibileit.bsky.social",
+        "metrics": {
+          "likes": 42,
+          "replies": 1,
+          "reposts": 14
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:3c2g5bimrmzh7beoltwt5jea/app.bsky.feed.post/3n2eqzoko4k2o",
+        "observedAt": "2026-11-15T23:54:49.978Z",
+        "displayText": "Ve lo ripeteremo ogni giorno. \nGiuseppe Civati \n\n#Gaza #Palestina",
+        "publishedAt": "2026-11-15T19:34:17.934Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2dvkumd4k27",
+      "observed_at": "2026-11-15T23:54:49.978Z",
+      "published_at": "2026-11-15T11:22:49.935Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Agk6rmhqrprzk5zwmt46lbndk/post/3n2dvkumd4k27",
+        "text": "This is Gaza. A wasteland",
+        "media": [
+          {
+            "alt": "",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gk6rmhqrprzk5zwmt46lbndk/bafkreidnfhm6xu77yvjaxif2k5q7bcfr7ir7muj5ylqkzlnguphvejlrru",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:gk6rmhqrprzk5zwmt46lbndk/bafkreidnfhm6xu77yvjaxif2k5q7bcfr7ir7muj5ylqkzlnguphvejlrru"
+          }
+        ],
+        "author": "rimaanabtawi.bsky.social",
+        "metrics": {
+          "likes": 16,
+          "replies": 0,
+          "reposts": 9
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2dvkumd4k27",
+        "observedAt": "2026-11-15T23:54:49.978Z",
+        "displayText": "This is Gaza. A wasteland",
+        "publishedAt": "2026-11-15T11:22:49.935Z"
+      },
+      "seen_before": true,
+      "first_gaza": true
+    },
+    {
+      "external_id": "at://did:plc:wwhxhdtgakhxjzacxlacsn6n/app.bsky.feed.post/3n2ewwe5s4k2t",
+      "observed_at": "2026-11-15T23:54:49.978Z",
+      "published_at": "2026-11-15T21:19:48.819Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Awwhxhdtgakhxjzacxlacsn6n/post/3n2ewwe5s4k2t",
+        "text": "We can't vote for Obama; he didn't get us a Public Option.\n\nWe can't vote for Hillary.  Her emails...\n\nWe can't vote for Biden.  He's not Bernie.\n\nWe can't vote for Biden.  Gaza.\n\nWe can't vote for Kamala.  Gaza.\n\nYt Leftist excuses never end...",
+        "media": [],
+        "author": "admiralmpj.bsky.social",
+        "metrics": {
+          "likes": 94,
+          "replies": 12,
+          "reposts": 30
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:wwhxhdtgakhxjzacxlacsn6n/app.bsky.feed.post/3n2ewwe5s4k2t",
+        "observedAt": "2026-11-15T23:54:49.978Z",
+        "displayText": "We can't vote for Obama; he didn't get us a Public Option.\n\nWe can't vote for Hillary.  Her emails...\n\nWe can't vote for Biden.  He's not Bernie.\n\nWe can't vote for Biden.  Gaza.\n\nWe can't vote for Kamala.  Gaza.\n\nYt Leftist excuses never end...",
+        "publishedAt": "2026-11-15T21:19:48.819Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:yw6wbtma6fynxiafh5v7j5sf/app.bsky.feed.post/3n2edhqmrtc2w",
+      "observed_at": "2026-11-15T23:54:49.978Z",
+      "published_at": "2026-11-15T15:31:37.481Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Ayw6wbtma6fynxiafh5v7j5sf/post/3n2edhqmrtc2w",
+        "text": "\"Friday, 53 countries and international organisations issued a similar appeal, stating that Israeli restrictions were aggravating the already severe humanitarian crisis in Gaza.\" vovworld.vn/news/interna... \"essential shelter materials, including tents and waterproof tarpaulins, remain outside Gaza\"",
+        "media": [],
+        "author": "cecallihelper.bsky.social",
+        "metrics": {
+          "likes": 43,
+          "replies": 1,
+          "reposts": 21
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:yw6wbtma6fynxiafh5v7j5sf/app.bsky.feed.post/3n2edhqmrtc2w",
+        "observedAt": "2026-11-15T23:54:49.978Z",
+        "displayText": "\"Friday, 53 countries and international organisations issued a similar appeal, stating that Israeli restrictions were aggravating the already severe humanitarian crisis in Gaza.\" https://vovworld.vn/news/international-community-urges-israel-to-lift-gaza-blockade-2480551.vov5 \"essential shelter materials, including tents and waterproof tarpaulins, remain outside Gaza\"",
+        "publishedAt": "2026-11-15T15:31:37.481Z"
+      },
+      "seen_before": true,
+      "first_gaza": true
+    },
+    {
+      "external_id": "at://did:plc:4nxwcmz4sani43egu7j5zwb5/app.bsky.feed.post/3n2eqwrio7s2j",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T19:32:40.343Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3A4nxwcmz4sani43egu7j5zwb5/post/3n2eqwrio7s2j",
+        "text": "Great Ride raising awareness on the Gaza Sunbirds para cycling team, who pivoted to delivering aid in Gaza against all odds\ngazasunbirds.org\n\n#FreePalestine",
+        "media": [
+          {
+            "alt": "Cyclists gather at the Oval. A person is holding a Palestinian flag",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:4nxwcmz4sani43egu7j5zwb5/bafkreiharud3pcf23e2zyvz4iuc4kn5usg5nibjpe3yrzcfe3h55wpv4ra",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:4nxwcmz4sani43egu7j5zwb5/bafkreiharud3pcf23e2zyvz4iuc4kn5usg5nibjpe3yrzcfe3h55wpv4ra"
+          },
+          {
+            "alt": "Cyclists head towards the Citadel from Spring Garden Road. A sign says \"FREE GAZA\"",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:4nxwcmz4sani43egu7j5zwb5/bafkreia76wkvvsusruiauls4gjcqzmbjhiryyuj6zh55h5jastz3rewsfm",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:4nxwcmz4sani43egu7j5zwb5/bafkreia76wkvvsusruiauls4gjcqzmbjhiryyuj6zh55h5jastz3rewsfm"
+          }
+        ],
+        "author": "safehrm.bsky.social",
+        "metrics": {
+          "likes": 15,
+          "replies": 2,
+          "reposts": 3
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:4nxwcmz4sani43egu7j5zwb5/app.bsky.feed.post/3n2eqwrio7s2j",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Great Ride raising awareness on the Gaza Sunbirds para cycling team, who pivoted to delivering aid in Gaza against all odds\nhttps://gazasunbirds.org/\n\n#FreePalestine",
+        "publishedAt": "2026-11-15T19:32:40.343Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:7kttlbdwzl3w655fkgx4liho/app.bsky.feed.post/3n2eeflo4ps2f",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T15:48:18.911Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3A7kttlbdwzl3w655fkgx4liho/post/3n2eeflo4ps2f",
+        "text": "Stay safe everyone traveling. #Gaza Congo needs help see page and bio",
+        "media": [
+          {
+            "alt": "",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:7kttlbdwzl3w655fkgx4liho/bafkreifivgqatsija7qu6hj5id2q2t4ofbrylohfsxhtl3o4qjjhcbwroe",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:7kttlbdwzl3w655fkgx4liho/bafkreifivgqatsija7qu6hj5id2q2t4ofbrylohfsxhtl3o4qjjhcbwroe"
+          }
+        ],
+        "author": "ryuma21.bsky.social",
+        "metrics": {
+          "likes": 23,
+          "replies": 0,
+          "reposts": 5
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:7kttlbdwzl3w655fkgx4liho/app.bsky.feed.post/3n2eeflo4ps2f",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Stay safe everyone traveling. #Gaza Congo needs help see page and bio",
+        "publishedAt": "2026-11-15T15:48:18.911Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ebvvw3zh2z",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T15:03:44.884Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aam76ptemaw3eordgfoyrwepi/post/3n2ebvvw3zh2z",
+        "text": "Israel's data shows it allowed half the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+        "media": [],
+        "author": "middleeasteye-rss.bsky.social",
+        "metrics": {
+          "likes": 14,
+          "replies": 1,
+          "reposts": 8
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ebvvw3zh2z",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Israel's data shows it allowed half the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+        "publishedAt": "2026-11-15T15:03:44.884Z"
+      },
+      "seen_before": true,
+      "first_gaza": true
+    },
+    {
+      "external_id": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ec6tjuvf2z",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T15:08:44.376Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aam76ptemaw3eordgfoyrwepi/post/3n2ec6tjuvf2z",
+        "text": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+        "media": [],
+        "author": "middleeasteye-rss.bsky.social",
+        "metrics": {
+          "likes": 13,
+          "replies": 0,
+          "reposts": 9
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ec6tjuvf2z",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/news/israels-data-shows-allowed-half-promised-aid-trucks-gaza",
+        "publishedAt": "2026-11-15T15:08:44.376Z"
+      },
+      "seen_before": true,
+      "first_gaza": true
+    },
+    {
+      "external_id": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ev7cy7a32b",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T20:49:01.617Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aam76ptemaw3eordgfoyrwepi/post/3n2ev7cy7a32b",
+        "text": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/live-blog/live-blog-update/israels-data-shows-it-allowed-half-promised-aid-trucks-gaza",
+        "media": [],
+        "author": "middleeasteye-rss.bsky.social",
+        "metrics": {
+          "likes": 17,
+          "replies": 1,
+          "reposts": 11
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:am76ptemaw3eordgfoyrwepi/app.bsky.feed.post/3n2ev7cy7a32b",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Israel's data shows it allowed half of the promised aid trucks into Gaza - https://www.middleeasteye.net/live-blog/live-blog-update/israels-data-shows-it-allowed-half-promised-aid-trucks-gaza",
+        "publishedAt": "2026-11-15T20:49:01.617Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2edzsjgi22j",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T15:41:43.448Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Agk6rmhqrprzk5zwmt46lbndk/post/3n2edzsjgi22j",
+        "text": "Under the cease-fire deal, Israel pledged to allow about 18,000 trucks into Gaza monthly, but IDF data obtained by Haaretz show that since March, the number has averaged about half that target\n\nwww.haaretz.com/gaza/2026-11...",
+        "media": [],
+        "author": "rimaanabtawi.bsky.social",
+        "metrics": {
+          "likes": 42,
+          "replies": 0,
+          "reposts": 17
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:gk6rmhqrprzk5zwmt46lbndk/app.bsky.feed.post/3n2edzsjgi22j",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Under the cease-fire deal, Israel pledged to allow about 18,000 trucks into Gaza monthly, but IDF data obtained by Haaretz show that since March, the number has averaged about half that target\n\nhttps://www.haaretz.com/gaza/2026-11-15/ty-article/.premium/israels-own-numbers-reveal-gaza-aid-deliveries-fell-far-short-of-commitments/000001a1-de03-d1ce-a9a3-fe1371dd0000",
+        "publishedAt": "2026-11-15T15:41:43.448Z"
+      },
+      "seen_before": true,
+      "first_gaza": true
+    },
+    {
+      "external_id": "at://did:plc:nokemk66rajihxxbqooxtqib/app.bsky.feed.post/3n2er66s5gk25",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T19:36:49.168Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Anokemk66rajihxxbqooxtqib/post/3n2er66s5gk25",
+        "text": "Free Gaza\nFree Palestine \n\nSeen in Vancouver. \n\n#FreePalestine #StopTheGenocide",
+        "media": [
+          {
+            "alt": "Sticker on street box.",
+            "type": "image",
+            "fullsize": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:nokemk66rajihxxbqooxtqib/bafkreie5veex5mrsz7vt2c4kebe7dbsmd7rkrlwrs67s2mfhbyhvqkslyi",
+            "thumbnail": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:nokemk66rajihxxbqooxtqib/bafkreie5veex5mrsz7vt2c4kebe7dbsmd7rkrlwrs67s2mfhbyhvqkslyi"
+          }
+        ],
+        "author": "critcrim.bsky.social",
+        "metrics": {
+          "likes": 21,
+          "replies": 0,
+          "reposts": 8
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:nokemk66rajihxxbqooxtqib/app.bsky.feed.post/3n2er66s5gk25",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Free Gaza\nFree Palestine \n\nSeen in Vancouver. \n\n#FreePalestine #StopTheGenocide",
+        "publishedAt": "2026-11-15T19:36:49.168Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:upeoyam5mpawsxn22wmxezfk/app.bsky.feed.post/3n2d7cv45kc2z",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T04:44:39.674Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aupeoyam5mpawsxn22wmxezfk/post/3n2d7cv45kc2z",
+        "text": "Hint: Van Hollen tried to airdrop aid to Gaza in August 2025.",
+        "media": [],
+        "author": "catalystmeow.bsky.social",
+        "metrics": {
+          "likes": 31,
+          "replies": 5,
+          "reposts": 7
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:upeoyam5mpawsxn22wmxezfk/app.bsky.feed.post/3n2d7cv45kc2z",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Hint: Van Hollen tried to airdrop aid to Gaza in August 2025.",
+        "publishedAt": "2026-11-15T04:44:39.674Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    },
+    {
+      "external_id": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2eicpdnhk2f",
+      "observed_at": "2026-11-15T23:54:50.967Z",
+      "published_at": "2026-11-15T16:58:17.070Z",
+      "snapshot": {
+        "url": "https://bsky.app/profile/did%3Aplc%3Avlpy6zuqqum5tumv7b6dw5fp/post/3n2eicpdnhk2f",
+        "text": "Lots of urging, begging, asking and no mention of a single consequence or the threat of any consequences.",
+        "media": [],
+        "author": "diplomatofnight.com",
+        "metrics": {
+          "likes": 67,
+          "replies": 2,
+          "reposts": 19
+        },
+        "platform": "bluesky",
+        "externalId": "at://did:plc:vlpy6zuqqum5tumv7b6dw5fp/app.bsky.feed.post/3n2eicpdnhk2f",
+        "observedAt": "2026-11-15T23:54:50.967Z",
+        "displayText": "Lots of urging, begging, asking and no mention of a single consequence or the threat of any consequences.",
+        "publishedAt": "2026-11-15T16:58:17.070Z"
+      },
+      "seen_before": false,
+      "first_gaza": false
+    }
+  ]
+}

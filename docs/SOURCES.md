@@ -3387,3 +3387,11 @@ Fetched/eligible counts are 48/48, 43/31, 48/48 and 45/43; eligible videos
 no supported query replacement emerges. Retain production configuration and
 pause generic probing until new natural selection evidence. No observation
 writes, paid calls or media fetches. [Results](edition-reviews/2026-11-16-tech-discovery.md).
+
+### World Gaza refresh — iteration 2450
+
+The November 15 23:54 UTC natural pass fetched/submitted 49 observations:
+11 new World post identities and 38 repeated from the first Gaza pass. New
+aid-truck reporting repeats a prior development; a shelter-supply appeal also
+overlaps earlier coverage. Retain the pilot and gates pending natural
+selection. [Exact cohort and examples](edition-reviews/2026-11-15-world-gaza-refresh.md).
