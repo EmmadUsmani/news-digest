@@ -168,3 +168,15 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Receipts: `/tmp/2493-{health,services,sources,jobs,reader,format,lint,check}.log`; metrics/summary/compare/journal receipts linked in capacity decision.
 - Next: scheduled publication/public HTTPS acceptance at 15:00 UTC and Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/pending.
+
+## 2026-11-16: iteration 2494 — enlarged published post identity acceptance
+
+- Clean main at b5c66182; no inherited work. Reader concern: author and publication-time links must remain reachable at 200% text on narrow screens.
+- Initial health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
+- Disk 79%, pending warning; no abandoned integration directories and daily scratch cleanup already used. No deletion.
+- Restored byline smoke to the established loopback public visitor-admission setup after initial rate-limited loading timeout; checks now compare card count with the real published API response.
+- At 200% text, all published post author/timestamp links pass horizontal bounds, 44px targets, external-link attributes and keyboard focus at 320/390/1440px in both themes. Refreshed six screenshots; inspected narrow light capture.
+- GET/HEAD only; external requests blocked. No runtime/source/budget changes or provider calls; no rebuild/restart required under STEERING 63.
+- Receipts: `/tmp/2494-{health,services,sources,jobs,reader,byline,format,lint,check}.log`.
+- Next: metrics ≥11:58 UTC, natural edition/public publication acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` (retry after exit 143 during format check without diagnostics) and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes.

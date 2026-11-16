@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2494: published post author/timestamp links remain horizontally reachable at 200% text, with 44px targets and keyboard focus at three widths/both themes; public-admission smoke restored and screenshots refreshed.
+
 - [x] 2493: metrics checkpoint under repository verification retains healthy queries/rules; reclaim and absent natural big merge keep resource acceptance open. Public HTTPS health passes via public DNS.
 
 - [x] 2492: six published expandable post notes retain context, 44px targets, horizontal reachability and keyboard/touch operation at 200% text across three widths/both themes; screenshots refreshed.

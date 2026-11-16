@@ -1,6 +1,7 @@
 // Published content only; GET/HEAD requests, with external traffic blocked.
 import assert from 'node:assert/strict';
 
+import { readerEditionSchema } from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
@@ -10,6 +11,8 @@ async function smoke() {
     for (const width of [1440, 390, 320]) {
       for (const theme of ['light', 'dark'] as const) {
         const context = await browser.newContext({
+          // Loopback probe of trusted-proxy visitor admission; grants no identity.
+          extraHTTPHeaders: { 'X-Forwarded-For': '192.0.2.161' },
           viewport: { width, height: 900 },
           colorScheme: theme,
         });
@@ -22,12 +25,22 @@ async function smoke() {
         const page = await context.newPage();
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
+        const response = await context.request.get(
+          `${origin}/api/editions/latest`,
+        );
+        assert.equal(response.status(), 200);
+        const edition = readerEditionSchema.parse(await response.json());
         await page.goto(origin);
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         const cards = page.locator('.post-card').filter({
           has: page.locator('.byline a:has(time)'),
         });
         await expect(cards.first()).toBeVisible();
-        assert.ok((await cards.count()) > 0);
+        const publishedPosts = edition.topics.flatMap((topic) => topic.posts);
+        assert.ok(publishedPosts.length > 0);
+        await expect(cards).toHaveCount(publishedPosts.length);
         for (const card of await cards.all()) {
           const links = card.locator('.byline').first().locator('a');
           await expect(links).toHaveCount(2);
@@ -35,6 +48,10 @@ async function smoke() {
             await link.scrollIntoViewIfNeeded();
             const bounds = await link.boundingBox();
             assert.ok(bounds && bounds.width >= 44 && bounds.height >= 44);
+            assert.ok(
+              bounds.x >= -1 && bounds.x + bounds.width <= width + 1,
+              'Author and timestamp links stay horizontally reachable at 200% text',
+            );
             assert.match((await link.getAttribute('href'))!, /^https:\/\//);
             await expect(link).toHaveAttribute('target', '_blank');
             await link.focus();
@@ -61,7 +78,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: published post author and timestamp targets/focus pass`,
+          `${width}/${theme}: published post author and timestamp targets/focus pass at 200% text`,
         );
       }
     }
