@@ -173,3 +173,14 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Documentation only: rebuild/restart unnecessary under STEERING 63; deployed services retain current runtime.
 - Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
 - Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; handbook check passes (18 pages/one diagram/39 tables). Final health and git diff --check pass; final alerts recorded in /tmp/2500-final-alerts.log.
+
+## 2026-11-16: iteration 2501 — accurate public recovery record
+
+- Clean main at 4ac76e0c; no inherited work. Health/database/Redis and all 38 sources healthy; no active alerts; next digest Nov 16 15:00 UTC.
+- Owner would care: the linked recovery record claimed sharing was private and instructed a whole-workspace rebuild during recovery.
+- Updated current public-sharing status under STEERING 63; retained dated preparation/activation evidence as historical receipts.
+- Recovery now uses atomic web-only deployment, retained hashed assets and the 13:00–16:00 UTC hold; owner-confirmed unsharing still comes first.
+- No runtime, source, budget or sharing changes; no paid calls or repeated accepted-screen probes. No rebuild/restart required under STEERING 63.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check (results below); receipt logs /tmp/2501-{health,services,sources,jobs,format,lint,check}.log.
+- Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC.
+- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; local file links resolve and git diff --check passes. Final health passes; zero firing/one pending disk warning after isolated verification.

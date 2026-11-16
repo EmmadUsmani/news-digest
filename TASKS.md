@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2501: corrected activation record’s stale private-sharing status; marked historical receipts and aligned recovery with atomic web-only deployment and the deployment hold.
+
 - [x] 2500: corrected README public-access status and reader operations links; signed-out public HTTPS renders reader, full handbook, schema explorer, Spend and Queues.
 
 - [x] 2499: corrected publication runbook for owner-enabled public sharing, atomic web-only deployment and Nov 16 HTTPS gate; due metrics checkpoint retains healthy queries/rules, resource acceptance open.

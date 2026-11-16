@@ -1,11 +1,16 @@
-# Private-sharing public-mode activation record
+# Public-mode activation record
 
-Activated November 15, iteration 2330, while VM sharing stays private.
+Public mode was activated November 15, iteration 2330. The owner enabled public
+VM sharing at about 22:30 UTC November 15 (STEERING 63). Keep public mode enabled
+while sharing is public; only the owner may change sharing.
 Nov 15 scheduled edition `a0fa3916` passed the STEERING 62 publishing/reader gate
-([acceptance](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398)); VM sharing stays private.
-Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
+([acceptance](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398)).
+Nov 16 scheduled publication over public HTTPS remains pending.
+Use the current [runbook](public-readiness.md#activation-and-rollback-runbook) and
+[deployment procedure](handbook/01-app/08-operations.md). The preparation and
+activation receipts below describe their historical state, not current settings.
 
-## Preparation baseline (05:32 UTC; refresh before activation)
+## Historical preparation baseline (November 13, 05:32 UTC)
 
 | Setting              | Observed value                                                    |
 | -------------------- | ----------------------------------------------------------------- |
@@ -24,7 +29,7 @@ Use the [runbook](public-readiness.md#activation-and-rollback-runbook) in order.
 | Latest saved edition | `b1be5a12-2972-4eeb-9bff-82cbb10c1b07`                            |
 | Saved reader         | Latest/direct/history agree: five topics, 25 stories, 22 posts    |
 
-## Rollback preparation verified (12:47 UTC; iteration 2148)
+## Historical rollback preparation (November 13, 12:47 UTC; iteration 2148)
 
 - Deployed commit at backup: `d349176b`; activation has not started.
 - Snapshot: `~/backups/news-digest/news-digest-20261113T124650Z.dump`;
@@ -83,7 +88,9 @@ Keep public mode enabled until private sharing is confirmed.
 
 1. Set only `PUBLIC_MODE=0` in `~/.config/news-digest/env`; preserve current
    account flags, credentials and other settings. Do not blindly restore an old env file.
-2. From `~/news-digest`, run `VITE_PUBLIC_MODE=0 pnpm build`.
+2. Outside 13:00–16:00 UTC, from `~/news-digest`, publish the web build atomically:
+   `VITE_PUBLIC_MODE=0 pnpm --filter @digest/web build`. This retains retired hashed
+   assets for at least 24 hours. Build API or worker only if their code changed.
 3. After the build succeeds, run
    `systemctl --user restart news-digest-api.service`.
    Restart `news-digest-worker.service` only if worker code/configuration changed.
@@ -95,5 +102,5 @@ Keep public mode enabled until private sharing is confirmed.
 6. Record UTC time, commit, flag values, build/restart results, reader edition ID
    and rollback reason. Preserve published data and additive migrations.
 
-No sharing command, budget change or activation is authorized by this record alone;
-STEERING 62 and the publishing/reader gate remain controlling.
+Only the owner may change sharing. STEERING 63 controls current deployment and
+public access; never restore private mode before the owner confirms unsharing.
