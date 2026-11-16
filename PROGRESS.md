@@ -192,3 +192,13 @@ Archived: [iterations 2519–2526](docs/progress-archive/2026-11-16-2519-2526.md
 - Health, 14 services, 38 sources pass; digest-generation has zero failed/active jobs, next Nov 17 15:00 UTC. Zero alerts, disk 61%. Invalid obs queues/queue aliases corrected to obs jobs --queue digest-generation.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2537-{format,lint,check}.log.
 - Review-only change; no rebuild/restart required, respecting item 65 app restart prohibition. Next metrics ≥20:00 UTC, Bluesky export by 20:36 UTC, full-day review after midnight.
+
+## 2026-11-16: iteration 2538 — Nvidia publisher coverage connection
+
+- Clean main at c4f25ca0; no inherited work to recover/discard. Agent-control retention remains blocked by the explicit run prohibition; no protected paths touched.
+- Reader weakness: seven-report Nvidia coverage lacked prose establishing several relationships. Ordinary GETs recover Ars/Verge; Verge explicitly links resignation, board probe and comeback war room, resolving that edge. Corrected prior Ars/TechCrunch attribution.
+- Reuters returned 401; four Google News wrappers returned only `Google News`, no article prose. Five Nvidia members remain unresolved; no retry/bypass, model calls, production writes or grouping rule changes.
+- Seven requested coverage IDs/URLs match preserved publication; two publisher context assertions and four wrapper-content assertions pass. Receipts /tmp/2538-fetch.json and /tmp/2538-{1a7827e4,96f2d7ae}.txt.
+- Health, 14 services, 38 sources and digest-generation queue healthy; zero failed/active digest jobs, next Nov 17 15:00 UTC. Zero alerts; disk 61%.
+- Updated grouping review and TASKS. Review-only change; no app rebuild/restart required, respecting STEERING 65. Next metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2538-{format,lint,check}.log. No runtime change or paid calls.
