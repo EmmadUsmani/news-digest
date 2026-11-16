@@ -3477,3 +3477,11 @@ Ukraine observations and all five topics admitted. Twenty-two consecutive
 hourly results retain the expected World rotation and fetched/submitted counts.
 [Receipt review](edition-reviews/2026-11-15-world-bluesky-pilot.md#next-natural-ukraine-return-retained--iteration-2550).
 Full-day quality review remains after midnight; queries and gates stay unchanged.
+
+### World baseline hourly receipt retained — iteration 2555
+
+The **live** Nov 16 22:54 UTC scheduled baseline collection completes the
+first 23 hourly receipts of the day. The merged private export preserves
+all 115 topic counts and the baseline/Ukraine/baseline/Gaza rotation.
+[Receipt review](edition-reviews/2026-11-15-world-bluesky-pilot.md#next-natural-baseline-return-retained--iteration-2555).
+Full-day quality review remains after midnight; no manual collection or provider calls.

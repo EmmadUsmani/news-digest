@@ -159,3 +159,14 @@
 - pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips. Final health and alerts clear; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
 - Verification receipts: /tmp/2554-{targeted,format,lint,check}.log and /tmp/2554-{edition,services,sources}.json. Evaluation/docs only; no rebuild or service restart under STEERING 22/65.
 - Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2555 — preserve the penultimate Bluesky day receipt
+
+- Clean main at 1bc0c812; no inherited edits to recover/discard. Initial broad orientation was truncated; narrow reads recovered priorities. Protected paths untouched.
+- Reader weakness: weak generic World discovery needs a full rotation-day comparison; ephemeral hourly results would otherwise disappear before review. Owner value: preserve actual supply evidence for choosing stronger social posts without extra collection or spend.
+- Retained natural 22:54:43–22:54:53 UTC baseline result: AI 50, NBA 45, game 49, World 49, Congress 49 fetched/submitted observations. No unique-post or selection-quality claim.
+- Read-only Redis export plus /tmp/2555-merge.py preserves 23 consecutive Nov 16 hours in /tmp/2555-bluesky-collections.json. Assertions pass for 115 positive equal fetched/submitted counts, five distinct topic IDs per hour, expected World rotation, completed status and 27 unchanged overlapping receipts.
+- Initial /healthz, 14 services, 38 sources and queues healthy; zero alerts, disk 61%. Final health and alerts clear. No provider requests or production changes.
+- Updated TASKS.md, source receipt and pilot review. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
+- Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; receipts /tmp/2555-{format,lint,check}.log.
+- Next: metrics ≥23:14 UTC; retain final 23:54 Bluesky job after completion, then full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.

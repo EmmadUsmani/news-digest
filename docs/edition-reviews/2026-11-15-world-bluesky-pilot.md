@@ -121,3 +121,16 @@ hours; all 110 topic counts, hourly continuity and the expected World rotation
 pass assertions. All 27 overlapping receipts from the prior export are unchanged.
 Full-day quality review remains due after Nov 17 midnight; export again by
 23:36 UTC. Read-only Redis export; no collection or provider calls.
+
+## Next natural baseline return retained — iteration 2555
+
+The Nov 16 22:54 UTC baseline return is preserved in the merged private
+export `/tmp/2555-bluesky-collections.json`. It retains 23 consecutive Nov 16
+hourly results, all 115 topic counts and the expected World rotation.
+The latest fetched/submitted counts are AI 50, NBA 45, game 49, World 49
+and Congress 49; all 27 overlapping receipts match the prior export.
+Read-only assertions check completed status, five distinct topic IDs,
+positive equal fetched/submitted counts and unchanged overlapping receipts.
+These are collection observations; distinct-post and selection quality still
+need the full-day review after Nov 17 midnight. Queries and gates stay unchanged.
+The final Nov 16 job is due at 23:54 UTC; retain it after completion for that review.
