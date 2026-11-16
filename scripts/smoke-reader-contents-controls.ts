@@ -1,4 +1,4 @@
-// Published content only; external traffic and mutations are blocked.
+// Real published content at 200% text; external traffic and mutations are blocked.
 import assert from 'node:assert/strict';
 
 import {
@@ -40,10 +40,6 @@ async function smoke() {
           assert.ok(['GET', 'HEAD'].includes(route.request().method()));
           const url = new URL(route.request().url());
           if (url.origin !== origin) return route.abort();
-          if (url.pathname === '/api/editions/latest')
-            return route.fulfill({ json: edition });
-          if (url.pathname === '/api/editions')
-            return route.fulfill({ json: history });
           return route.continue();
         });
         const page = await context.newPage();
@@ -51,6 +47,9 @@ async function smoke() {
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
         await expect(page.locator('.digest-topic').first()).toBeVisible();
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         const mobile = width < 1024;
         const trigger = page.getByRole('button', {
           name: 'Contents',
@@ -69,10 +68,15 @@ async function smoke() {
         const sectionLinks = navigation.locator('a[href^="#"]');
         assert.ok((await sectionLinks.count()) > 0);
         for (const link of await sectionLinks.all()) {
+          await link.scrollIntoViewIfNeeded();
           const target = await link.boundingBox();
           assert.ok(
             target && target.height >= 44 && target.width >= 44,
             `${await link.innerText()}: contents links need 44px targets`,
+          );
+          assert.ok(
+            target.x >= 0 && target.x + target.width <= width,
+            'Enlarged contents links stay horizontally reachable',
           );
         }
         const archive = navigation.getByRole('link', { name: 'Past editions' });
@@ -107,7 +111,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: contents targets, keyboard focus, archive navigation pass`,
+          `${width}/${theme}: real enlarged contents targets, keyboard focus, archive navigation pass`,
         );
       }
     }

@@ -151,3 +151,13 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Receipts `/tmp/2484-{alerts,services,sources,jobs,reader,skip,format,lint,check}.log`. Full verification results recorded below.
 - No runtime/source/budget/handbook change; no rebuild/restart under STEERING 63. Next: metrics ≥09:51, Bluesky export by 14:36, edition review 15:00 UTC; protect 13:00–16:00.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health database/Redis passes; DiskSpaceLow pending again after integration load (zero firing). Archived iterations 2471–2473 to keep this file small.
+
+## 2026-11-16: iteration 2485 — enlarged real-content Contents navigation
+
+- Clean main at 042a4482; no inherited work. Owner value: readers using enlarged text can reach the full edition and its archive through Contents.
+- Initial alerts clear; health database/Redis, 14 services and 38 sources healthy. Digest queue has zero failures; next edition 15:00 UTC. Historical source/social failed counts remain retained, with current sources healthy.
+- Contents acceptance used captured edition/history and normal text. Removed response replay, added 200% text and horizontal reachability assertions for every section link; real public GETs only, no writes/provider calls.
+- Browser check passes 320/390/1440px in both themes: 44px targets, visible keyboard focus, Escape focus return and archive navigation. Refreshed six screenshots; inspected narrow dark panel. No production defect found.
+- Scheduled reader passes five topics/23 stories/16 posts. Receipts `/tmp/2485-{alerts,services,sources,jobs,reader,contents,format,lint,check}.log`.
+- No runtime/source/budget/handbook change; no rebuild/restart under STEERING 63. Next: metrics ≥09:51, Bluesky export by 14:36, edition review 15:00 UTC; protect 13:00–16:00.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; disk 79%, DiskSpaceLow pending after verification load, zero firing alerts.
