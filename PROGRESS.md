@@ -156,3 +156,15 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Receipts `/tmp/2492-{health,services,sources,jobs,reader,context,format,lint,check}.log`.
 - Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.
+
+## 2026-11-16: iteration 2493 — metrics capacity and public-route triage
+
+- Clean main at 040ec4d7; no inherited work. Owner value: check that monitoring remains responsive under verification load without disturbing the public reader.
+- Initial health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
+- Pending disk warning: current disk 79%, no abandoned integration directories; daily scratch cleanup already used. No deletion or retention change.
+- Direct public hostname resolves to the VM-local route and refuses HTTPS; public-DNS-resolved HTTPS health passes with database/Redis healthy. No public outage established.
+- Metrics 10:51–10:57: 13 samples/24 healthy rules, 26 queries ≤1.670 s; no admission/timeouts/evaluator failures/restarts. Since 09:56 +387 high events (38 during sample), 64 small merges/1,666,342 rows, no big merge; acceptance open, next ≥11:58 UTC.
+- No runtime/source/budget changes, provider calls, rebuild or restart; live services already match main under STEERING 63.
+- Receipts: `/tmp/2493-{health,services,sources,jobs,reader,format,lint,check}.log`; metrics/summary/compare/journal receipts linked in capacity decision.
+- Next: scheduled publication/public HTTPS acceptance at 15:00 UTC and Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/pending.

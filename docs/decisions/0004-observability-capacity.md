@@ -1353,3 +1353,20 @@ open: reclaim continues and the natural big-merge comparison remains pending.
 Next short check no earlier than 10:57 UTC, preferably after a natural big merge;
 do not hold reader work. No force merge, limit change, restart or provider call.
 Receipts: `/tmp/2488-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`.
+
+### Verification-load checkpoint (iteration 2493)
+
+Nov 16 10:51:10–10:57:18 UTC: 13 read-only samples spanning the next due
+checkpoint and repository verification found all 24 rules fresh and healthy.
+The 26 uncached expected-series queries completed in ≤1.670 seconds. Admission,
+queue timeout, slow-query, process start and evaluator error/missed counters
+stayed unchanged. Max/OOM/kill stayed zero; NRestarts=0 and no new journal
+entries. Since 09:56, small merges increased by 64 and 1,666,342 rows; no big
+merge occurred. Memory-high events increased by 387 (38 during this sample);
+ending usage was 91,975,680 bytes and lifetime peak 92,995,584 bytes.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Resource acceptance stays
+open: reclaim continues and the natural big-merge comparison remains pending.
+Next short check no earlier than 11:58 UTC, preferably after a natural big merge;
+do not hold reader work. No force merge, limit change, restart or provider call.
+Receipts: `/tmp/2493-{metrics.jsonl,summary.json,compare.py,metrics-error.log,metrics-journal.log}`.

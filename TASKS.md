@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2488 checkpoint 09:51–09:56 UTC: 11 samples/24 healthy rules, 22 queries ≤1.473 s; no new admission events/timeouts/evaluator failures/restarts. Since 08:50 +513 memory-high events (33 during sample); no big merge. Resource acceptance stays open. Next short check ≥10:57 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2488).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2493 checkpoint 10:51–10:57 UTC: 13 samples/24 healthy rules, 26 queries ≤1.670 s; no new admission events/timeouts/evaluator failures/restarts. Since 09:56 +387 memory-high events (38 during sample); no big merge. Resource acceptance stays open. Next short check ≥11:58 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2493).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2493: metrics checkpoint under repository verification retains healthy queries/rules; reclaim and absent natural big merge keep resource acceptance open. Public HTTPS health passes via public DNS.
 
 - [x] 2492: six published expandable post notes retain context, 44px targets, horizontal reachability and keyboard/touch operation at 200% text across three widths/both themes; screenshots refreshed.
 
