@@ -211,3 +211,16 @@ Archived: [iterations 2511–2515](docs/progress-archive/2026-11-16-2511-2515.md
 - Updated TASKS/review; archived progress 2511–2515 to keep orientation small. No provider calls, runtime changes, rebuild or restart; live code matches main.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2528-{format,lint,check}.log. Final /healthz passes.
 - Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; fuller Gaming member evidence before grouping decisions.
+
+## 2026-11-16: iteration 2529 — establish Helix same-interview core
+
+- Clean main at 9d4ae22b; no inherited work to recover or discard.
+- Reader weakness: twelve-report Helix coverage might mix unrelated developments; recovered current stored prose rather than infer from headlines.
+- Read-only repeatable-read lookup resolves all 14 IDs in unresolved Gaming pairs; six Helix reports explicitly cite the same Ronald anniversary-magazine interview, connecting preservation/console-PC/affordability.
+- Six short Helix excerpts omit interview provenance; GTA second report omits forecast analyst/source. Those edges remain unresolved; production grouping unchanged, no wording rule or paid replay.
+- Current GTA publisher title differs from published coverage; preserved historical title and distinguished current records from historical editor inputs. Review updated with source/ID anchors.
+- Assertions pass: 14 unique coverage IDs and matching URLs/timestamps; six explicit Ronald/magazine attributions. Receipt /tmp/2529-gaming-members.json; broader probe's separate China singleton excluded.
+- Initial probe lacked default local connection URL; corrected to app default and completed read-only. No database writes, source requests, provider calls or jobs created.
+- Health/14 services/all 38 sources pass; digest queue zero failed/active. Disk 79%/5.0 GiB free, intermittent warning; daily permitted cleanup already done, no deletion repeated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2529-{format,lint,check}.log; final health/all 38 sources pass.
+- Documentation only; runtime unchanged, no rebuild/restart needed. Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; fuller short-member provenance only when new evidence exists.
