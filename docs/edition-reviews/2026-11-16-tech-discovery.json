@@ -1,0 +1,190 @@
+[
+  {
+    "topic": "Tech & AI",
+    "query": "AI",
+    "configuredBaseline": true,
+    "since": "2026-11-15T01:25:51.043Z",
+    "until": "2026-11-16T01:25:51.043Z",
+    "fetched": 48,
+    "submitted": 0,
+    "storedWindowObservations": 0,
+    "withEngagement": 48,
+    "withImages": 23,
+    "withVideo": 3,
+    "phraseEligibleShortlist": 5,
+    "observationCutoff": "2026-11-16T01:25:53.126Z",
+    "safeEngaged": 48,
+    "safeVideo": 3,
+    "safeExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3A4lx6nur5wstwoc4wtgj56kyu/post/3n2eimlxxtk2y",
+        "likes": 4899,
+        "text": "Lutnick needs to go.  \n\nAnd he needs to be subjected to the most intensive legal and financial proctology examination imaginable.\n\nAI could probably help with that.",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3A2whlowi5jjjqrdrrj4lxh2lx/post/3n2dzq3pxtc2x",
+        "likes": 4201,
+        "text": "Trump is now posting AI generated stories with made up claims alongside AI generated pictures about what a humane and good person he is.",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Axjc7mkotpenvhh6ffewkdpyn/post/3n2edxjicfc2u",
+        "likes": 2499,
+        "text": "Incredibly creepy to post AI slop of you embracing someone else’s child",
+        "video": false
+      }
+    ],
+    "safeVideoExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2eznsim622a",
+        "likes": 819,
+        "text": "Perfect. (Not Ai )"
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2ey7zsam22u",
+        "likes": 138,
+        "text": "Not Ai"
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aq7rv2wta4qb2534kxjmbr6dm/post/3n2evazwnjv23",
+        "likes": 131,
+        "text": "Does Trump realize these are AI?"
+      }
+    ],
+    "semanticReviewed": false,
+    "productionInclusion": false
+  },
+  {
+    "topic": "Tech & AI",
+    "query": "machine learning",
+    "configuredBaseline": false,
+    "since": "2026-11-15T01:25:51.043Z",
+    "until": "2026-11-16T01:25:51.043Z",
+    "fetched": 43,
+    "submitted": 0,
+    "storedWindowObservations": 0,
+    "withEngagement": 31,
+    "withImages": 9,
+    "withVideo": 0,
+    "phraseEligibleShortlist": 5,
+    "observationCutoff": "2026-11-16T01:25:55.121Z",
+    "safeEngaged": 31,
+    "safeVideo": 0,
+    "safeExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Ad6ljbenezxo5svau6u3fnhn2/post/3n2e5woqhmk2r",
+        "likes": 91,
+        "text": "3 or 4 years ago I got the “ai will replace you” comment about screenwriting. That pissed me off. Decided to look into machine learning, how to build an LLM, read every paper even that one about stochastic parrots. How transformers work. Conclusion it's the biggest con Silicone Valley has pulled. 🧵",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3A372jahoh5hnmw6yh3w5roxsc/post/3n2d7eu324c2o",
+        "likes": 35,
+        "text": "A review on The global 🌐 distribution of plant diversity:\n https://www.nature.com/articles/s41477-026-02463-w\nEfforts integrating data collection & mobilization, analysis techniques and collaborative research will be essential to advance our understanding and conservation of plant diversity amid anthropogenic change.",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Alspv3a3ysrh3noqfvrajcpqa/post/3n2fd5xceqk2n",
+        "likes": 3,
+        "text": "Zoey is learning how to roll its R sounds right now while we're in VC and it sounds like I'm being blasted by machine guns and laser beams",
+        "video": false
+      }
+    ],
+    "safeVideoExamples": [],
+    "semanticReviewed": false,
+    "productionInclusion": false
+  },
+  {
+    "topic": "Tech & AI",
+    "query": "LLM",
+    "configuredBaseline": false,
+    "since": "2026-11-15T01:25:51.043Z",
+    "until": "2026-11-16T01:25:51.043Z",
+    "fetched": 48,
+    "submitted": 0,
+    "storedWindowObservations": 0,
+    "withEngagement": 48,
+    "withImages": 7,
+    "withVideo": 1,
+    "phraseEligibleShortlist": 5,
+    "observationCutoff": "2026-11-16T01:25:57.132Z",
+    "safeEngaged": 48,
+    "safeVideo": 1,
+    "safeExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Adekb4twfjeoyphkdg7sqzcl2/post/3n2elbw3qhk2s",
+        "likes": 983,
+        "text": "For anyone wondering, since I did see at least one person asking, yes, this Athena patch was done by people and isn't an AI/LLM translation!",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Ah57al2oeb7ebnvpexaayx5su/post/3n2eiga6a3x22",
+        "likes": 378,
+        "text": "Let’s hear it for AI!",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Auemns7yqb62n5kpwe34wgdhs/post/3n2f6y5xfzc23",
+        "likes": 120,
+        "text": "Again because AI boosters love to talk about how people should \"understand the technology\" but they will constantly make dishonest arguments that rest on people not understanding it: All LLM models, commercial and open weights, include training data harvested without consent.",
+        "video": false
+      }
+    ],
+    "safeVideoExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Acwa5qtro5bhfz25opigbe6qi/post/3n2etqtdfak2b",
+        "likes": 26,
+        "text": "\"Build me an ELI5 video in the style of PBS spacetime on the subject of 3 cutting edge topics in LLM research\""
+      }
+    ],
+    "semanticReviewed": false,
+    "productionInclusion": false
+  },
+  {
+    "topic": "Tech & AI",
+    "query": "OpenAI",
+    "configuredBaseline": false,
+    "since": "2026-11-15T01:25:51.043Z",
+    "until": "2026-11-16T01:25:51.043Z",
+    "fetched": 45,
+    "submitted": 0,
+    "storedWindowObservations": 0,
+    "withEngagement": 45,
+    "withImages": 5,
+    "withVideo": 1,
+    "phraseEligibleShortlist": 5,
+    "observationCutoff": "2026-11-16T01:25:59.144Z",
+    "safeEngaged": 43,
+    "safeVideo": 1,
+    "safeExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3As55ha5ykvjo3irso6p6ksbth/post/3n2dvzelpdc2v",
+        "likes": 184,
+        "text": "With the Nvidia scandal now in full swing, I wonder if Chuck schumers daughter being a lobbyist for OpenAI will suddenly become more relevant. 🤔",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Aldc7uz3j3ix337w3vht3j6gf/post/3n2ej4q4yr22u",
+        "likes": 109,
+        "text": "this image has a SynthID watermark",
+        "video": false
+      },
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3A65j3ldpe7dk7xldlmbuj5j7h/post/3n2dwkhsuqs2e",
+        "likes": 121,
+        "text": "KI-Boykott: 1.000 Mathematiker wehren sich gegen die KI\n\nDie neu gegründete Association for Human Mathematics setzt sich gegen KI-Unternehmen wie OpenAI zur Wehr.\n\n Die zentrale Kritik: Die Technologie untergrabe die intellektuellen Grundlagen des Fachgebiets.",
+        "video": false
+      }
+    ],
+    "safeVideoExamples": [
+      {
+        "url": "https://bsky.app/profile/did%3Aplc%3Ayvyncxwcjde76ch24vacz5if/post/3n2eponayp22k",
+        "likes": 5,
+        "text": "#huang #chinesespy #ai #openai #jensonhuang #musk #anthropic"
+      }
+    ],
+    "semanticReviewed": false,
+    "productionInclusion": false
+  }
+]

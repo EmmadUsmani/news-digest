@@ -3377,3 +3377,13 @@ and pilot hours; the first full World rotation day is November 16. New evening
 Gaming examples include creator process/art, while high-engagement Tech examples
 remain mostly commentary. Keep collection and selection rules unchanged; assess
 natural selection in the next edition. [Day review and receipts](edition-reviews/2026-11-15-bluesky-day.md).
+
+### Tech technical-term discovery comparison — iteration 2449
+
+November 16: four free official Bluesky searches compare configured `AI`
+against `machine learning`, `LLM` and `OpenAI` over one fixed 24-hour window.
+Fetched/eligible counts are 48/48, 43/31, 48/48 and 45/43; eligible videos
+3/0/1/1. Exported examples still mix criticism, politics and ambiguous captions;
+no supported query replacement emerges. Retain production configuration and
+pause generic probing until new natural selection evidence. No observation
+writes, paid calls or media fetches. [Results](edition-reviews/2026-11-16-tech-discovery.md).

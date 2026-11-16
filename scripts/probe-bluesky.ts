@@ -76,9 +76,11 @@ async function main() {
         : args.includes('--tech')
           ? [
               ['Tech & AI', 'AI'],
-              ['Tech & AI', 'Claude'],
-              ['Tech & AI', 'Gemini'],
-              ['Tech & AI', 'AI demo'],
+              // Earlier named-model/demo probes were dominated by unrelated
+              // posts. Compare technical terms without adding search volume.
+              ['Tech & AI', 'machine learning'],
+              ['Tech & AI', 'LLM'],
+              ['Tech & AI', 'OpenAI'],
             ]
           : args.includes('--nba')
             ? [

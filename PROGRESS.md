@@ -110,3 +110,14 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - Receipts `/tmp/2448-{metrics.jsonl,summary.json,compare.py,capacity.json,metrics-journal.log,format.log,lint.log,check.log,reader.log}`.
 - Next resource sample ≥02:22 UTC, preferably a natural big merge; Bluesky export by 12:36; scheduled acceptance 15:00, protect 13:00–16:00. No new blocker.
 - Final `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; final alerts zero and `git diff --check` clean. Documentation-only deployment remains unchanged.
+
+## 2026-11-16: iteration 2449 — bound Tech discovery alternatives
+
+- Clean main at 4d632410; no inherited work. Alerts zero, 38 sources healthy, scheduled queue no failures, `/healthz` database/Redis green. Next edition Nov 16 15:00 UTC.
+- Owner value: test whether technical discovery terms can replace commentary-heavy Tech intake without increasing collection volume or weakening relevance gates.
+- Updated the existing explicit Tech probe's three alternatives; four free official searches share the window ending 01:25:51.043 UTC. AI/machine learning/LLM/OpenAI fetched 48/43/48/45, safety-engagement eligible 48/31/48/43, attached videos 3/0/1/1.
+- Read all exported safe/video examples; none establishes a better launch/demo query. Preserved bounded public output and review; retain production queries and stop generic term probing until new natural selection evidence.
+- Assertions pass: four expected queries/shared window, exact baseline labels, ≤50 fetched each, zero submissions/stored observations, false semantic/publication flags. Private raw receipt `/tmp/2449-tech-probe.jsonl` mode 600.
+- No inference, media fetches, app-data writes or paid calls. Probe/docs-only change; running app build/configuration unchanged, no service restart required.
+- Verification receipts `/tmp/2449-{format,lint,check}.log`; final results below. Next metrics ≥02:22 UTC, Bluesky export by 12:36, natural edition review 15:00; protect 13:00–16:00 UTC. No new blocker.
+- Final `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; `git diff --check` clean.
