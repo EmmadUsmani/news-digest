@@ -228,3 +228,14 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Documentation/evidence only; no rebuild or service restart needed, live runtime remains main.
 - Next metrics checkpoint ≥18:50 UTC; unresolved grouping/admission gates await new evidence.
 - Initial push rejected: owner commit f10fd207 arrived during checks (docs/lead status only); merged without editing owner files or rewriting history, then retried push.
+
+## 2026-11-16: iteration 2533 — resolve GTA forecast overmerge
+
+- Clean main at aeb24e25; no inherited work to recover or discard.
+- Reader weakness: Gaming's GTA forecast summary carries two coverage sources without establishing a shared forecast. Both linked publisher pages returned 200 with ordinary GETs.
+- New attribution resolves the pair: GamingBolt cites an IBD analyst roundup; Eurogamer cites Joost van Dreunen's newsletter. Different publications, analysts and horizons confirm a separate-forecast merge.
+- Updated grouping review and TASKS with negative same-event evidence. Thirteen groups supported, GTA overmerged, Helix/Nvidia unresolved. Production/immutable edition unchanged; no title rules or paid calls.
+- Receipt assertions pass for two exact saved IDs/URLs, HTTP status, named sources and figures; /tmp/2533-fetch.json and /tmp/2533-source-{0,1}.{html,txt}. Current pages are not historical model inputs.
+- Health, 14 services, all 38 sources and digest queue pass; next scheduled Nov 17 15:00 UTC. Disk 79%/5.0 GiB free; no cleanup repeated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2533-{format,lint,check}.log; final health passes.
+- Documentation only; no rebuild or restart needed, live runtime remains main. Next metrics ≥18:50 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
