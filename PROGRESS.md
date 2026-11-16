@@ -210,3 +210,15 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - Preserved STEERING 63 deployment hold: no runtime changes, deploy, rebuild, restart, cleanup, provider calls or spending.
 - Next: 15:00 signed-out public HTTPS publication/browser/editorial review; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2514-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2515 — final pre-publication handoff
+
+- Clean main at c5375764; no inherited work to recover or discard.
+- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
+- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
+- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
+- Reader weaknesses remain World fallback and Tech evidence scarcity; natural NBA spoof exclusion also awaits the scheduled run.
+- Preserved STEERING 63 hold: no runtime changes, rebuild, deploy, restart, cleanup, provider calls or spending.
+- Next: Nov 16 signed-out HTTPS publication/browser/editorial acceptance at 15:00; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
+- 15:00:39 UTC queue check confirms scheduled run active: one worker/one active job, zero failed; next schedule Nov 17 15:00. Publication/editorial acceptance remains pending.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2515-{format,lint,check}.log.
