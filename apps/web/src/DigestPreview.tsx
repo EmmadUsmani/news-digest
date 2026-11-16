@@ -85,13 +85,6 @@ export function DigestPreview() {
           News Digest
         </Link>
         <div className="flex shrink-0 items-center gap-0 sm:gap-2">
-          {preview && preferencesEnabled && (
-            <ReaderPreferences
-              topics={preview.topics}
-              preferences={preferences}
-              account={accountsEnabled ? account : undefined}
-            />
-          )}
           <EditionDateSwitcher edition={preview} />
           <ThemeToggle />
         </div>
@@ -99,8 +92,15 @@ export function DigestPreview() {
       {(preferencesEnabled || accountsEnabled) && (
         <nav
           aria-label="Reader preferences"
-          className="mt-16 flex items-center justify-end gap-2 lg:mt-3"
+          className="mt-16 flex flex-wrap items-center justify-end gap-2 lg:mt-3"
         >
+          {preview && preferencesEnabled && (
+            <ReaderPreferences
+              topics={preview.topics}
+              preferences={preferences}
+              account={accountsEnabled ? account : undefined}
+            />
+          )}
           {preferencesEnabled && (
             <Link
               to="/saved"

@@ -1703,6 +1703,8 @@ ack: 2026-11-14 item 42/43 — iteration 2307: fixed grouped Tech coverage colla
 
 ack: 2026-11-14 item 42/43 — iteration 2309: saving discovery-linked stories now preserves their linked hostname alongside feed attribution; today’s Reuters story, grouped primary provenance, publisher overrides and reload pass desktop/mobile light/dark. No generation changes or paid calls.
 
+ack: 2026-11-16 item 42 — iteration 2459: mobile edition headers now show the full News Digest title at 320px; Topics moved beside Saved items and Account. Public GET-only browser checks pass at 320/390/1440px, with all five topic controls available; no paid calls or generation changes.
+
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
 
 > **Superseded in part (Nov 7):** item 50 is owner-approved feature work and ranks

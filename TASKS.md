@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2459: mobile reader title fits at 320px; Topics sits beside Saved items and Account, with all date controls preserved.
+
 - [x] 2458: measured metrics recovery across verification load; healthy reads/evaluations persist, continuing reclaim keeps resource acceptance open.
 
 - [x] 2457: coverage titles omit exact duplicate publisher suffixes; publisher attribution and saved evidence stay intact.

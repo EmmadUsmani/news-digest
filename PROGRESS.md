@@ -152,3 +152,15 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with saved scheduled provenance; final `pnpm obs alerts` zero.
 - Updated TASKS.md and capacity evidence. Receipts `/tmp/2458-{format,lint,check,sources,services,jobs,reader,alerts}.log`, `/tmp/2458-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`.
 - Evidence/docs only: runtime unchanged, no rebuild or service restart under STEERING 63. No paid calls or new blocker. Next Bluesky export by 12:36, public scheduled edition review at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2459 — keep the mobile reader title visible
+
+- Clean main at 4641d494; no inherited work. Health/database/Redis and all 38 sources pass; scheduled generation remains queued for 15:00 UTC; alerts zero.
+- Item 42 reader weakness: the Topics button crowded the mobile header, truncating the site title even at 390px. Moved it beside Saved items and Account; the preferences row can wrap.
+- Initial 320px acceptance exposed another seven pixels of clipping; removing mobile-only date-control gaps keeps the full title and existing 44px arrow targets visible.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Targeted ESLint and `git diff --check` pass.
+- `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build` atomically deployed via `/tmp/2457-deploy.py`; final deploy: 15 public page/previous-asset probe pairs, zero failures; prior hashed assets retained.
+- `pnpm exec tsx scripts/check-live-reader-header.ts` passes signed-out public HTTPS at 320/390/1440px: full title, controls within viewport, Topics dialog with five checkboxes, GET-only and no browser errors. Screenshots saved and viewed.
+- Updated affected handbook instructions; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes, 39 tables and no metadata warnings. No changed diagrams.
+- Web-only change: no API/worker restart under STEERING 63. No paid calls, budget changes or new blocker. Receipts `/tmp/2459-{format,lint,check,deploy-final,browser-final,handbook,sources,jobs,alerts}.log`.
+- Next: metrics ≥04:30 UTC, Bluesky export by 12:36, scheduled public edition/content review at 15:00; protect 13:00–16:00 UTC.

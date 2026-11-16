@@ -49,7 +49,7 @@ data when enabled, deletion and third-party post connections.
 
 ## Reading preferences
 
-- Open **Topics** in an edition to hide or restore its topics. Choices apply
+- Open **Topics** beside **Saved items** below the edition header to hide or restore topics. Choices apply
   to current and past editions in this browser; new topics appear automatically.
 - Use **Save** beside a story or post, then **Saved items** to read its bounded copy at
   `/saved`, open the original or its edition, or remove it. Newly saved posts retain their

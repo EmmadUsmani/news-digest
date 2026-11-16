@@ -61,7 +61,7 @@ export function EditionDateSwitcher({
     <nav
       ref={navigation}
       aria-label="Edition dates"
-      className="flex items-center gap-1"
+      className="flex items-center gap-0 sm:gap-1"
     >
       {neighbors.data?.older && !neighbors.isError && !retrying ? (
         <Link
