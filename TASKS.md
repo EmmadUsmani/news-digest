@@ -15,6 +15,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
 
+- [ ] Disk warning (2470): filesystem 80%; interrupted integration root `/tmp/news-digest-integration-VOU6rW` retains 285,188,096 bytes. Runner absent; last modification 05:52:46 UTC. After 06:53 UTC, the next integration startup may reclaim it using item 51’s age/process safeguards. Item 61’s daily general-scratch limit does not replace item 51’s integration-specific authorization. No deletion performed this iteration.
+
 - [ ] BREAKAGE: World fallback repairs pass offline (2404/2405/2409); natural recovery pending. NBA exact spoof-source exclusion deployed (2403), natural absence pending. Tech 3/4 excerpts empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
 - [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; natural admission pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
@@ -58,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2470: diagnosed disk warning after interrupted verification; identified 272 MiB integration root and its safe cleanup window under item 51.
 
 - [x] 2469: populated Saved items acceptance passes at 200% text, 320/390/1440px in both themes; real story/post persistence, source links and keyboard removal verified. No runtime change.
 
