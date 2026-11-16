@@ -1,0 +1,100 @@
+{
+  "provenance": "Immutable Nov 15 scheduled edition a0fa3916-f1dc-4fbd-8d76-2884d5e01c06 coverage, supplied editor evidence and its matching public reader projection. Published subset only, not the candidate pool. Offline only; never seed production. Irving retrospective is deliberately unlabeled.",
+  "topic": "NBA",
+  "windowStart": "2026-11-14T15:00:00.000Z",
+  "windowEnd": "2026-11-15T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "title": "YouTube Gold: Tyrese Proctor Goes Off For Cleveland",
+      "url": "https://sports.yahoo.com/articles/youtube-gold-tyrese-proctor-goes-120800628.html",
+      "excerpt": "The Cleveland Cavaliers came into Saturday\u2019s game against the Dallas Mavericks with its top six players out with injuries: two knees, two hamstrings, one calf, and one big toe. Not the ideal way to take on a team led by Kyrie Irving and Cooper Flagg, but don\u2019t tell that to Tyrese Proctor. Proctor, a former Duke star like Irving and Flagg, had his best game since joining the league last year, racking up 24 points on 10-19 from the floor, pulling down 11 rebounds, passing out 10 assists, and leading Cleveland to a 127-117 win over the Mavs. Triple-doubles are not easy to do, needless to say,\u2026",
+      "imageUrl": null,
+      "publisher": {
+        "url": null,
+        "name": "SB Nation"
+      },
+      "publishedAt": "2026-11-15T12:08:00.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "189a8242-21fd-4f13-a8a0-4dd3ffb58f13",
+      "title": "Kyrie Irving reflects on 2016 championship in return to Cleveland: \u2018I\u2019m so grateful for all the Cavs fans\u2019",
+      "url": "https://sports.yahoo.com/articles/kyrie-irving-reflects-2016-championship-120000917.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": null,
+        "name": "SB Nation"
+      },
+      "publishedAt": "2026-11-15T12:00:00.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "title": "Cavaliers backups beat Mavericks as all 5 Cleveland starters sit out Saturday night's win",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/cavaliers-backups-beat-mavericks-as-all-5-cleveland-starters-sit-out-saturday-nights-win-030626448.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": {
+        "url": null,
+        "name": "Yahoo Sports"
+      },
+      "publishedAt": "2026-11-15T03:06:26.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "title": "Grizzlies Snap Four-Game Home Skid With 129-110 Rout of Nets, Lose GG Jackson to Foot Injury",
+      "url": "https://www.basketballinsiders.com/news/grizzlies-win-first-three-quarters-beat-nets-129-110-to-end-home-skid/",
+      "excerpt": "Cedric Coward's double-double and a career night from Taylor Hendricks carried a short-handed Memphis team past Brooklyn. The win lifted the Grizzlies to 9-4, but a foot injury to GG Jackson II clouds the result.",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-15T09:18:00.000Z",
+      "sources": ["Basketball Insiders", "Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "title": "\u2018Relatively Serious\u2019 Foot Injury For Grizzlies\u2019 GG Jackson II",
+      "url": "https://www.hoopsrumors.com/2026/11/relatively-serious-foot-injury-for-grizzlies-gg-jackson-ii.html",
+      "excerpt": "",
+      "imageUrl": null,
+      "publisher": null,
+      "publishedAt": "2026-11-15T05:02:21.000Z",
+      "sources": ["Hoops Rumors"],
+      "points": 0
+    },
+    {
+      "id": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "title": "Antetokounmpo scores 34, Heat block 14 shots and roll past Pistons 137-117 for 4th straight win",
+      "url": "https://sports.yahoo.com/articles/antetokounmpo-scores-34-heat-block-060649711.html",
+      "excerpt": "MIAMI \u2014 Giannis Antetokounmpo had 34 points, 14 rebounds and eight assists, some of the spectacular variety, and the Miami Heat beat the Detroit Pistons 137-117 on Saturday night for their fourth straight win. Klay Thompson scored 26 points in his return from a sprained ankle and Bam Adebayo added 20 for the Heat. Davion Mitchell had 15 points and nine rebounds for Miami. Cade Cunningham had 33 points and eight assists for Detroit, which got 20 points and seven assists from Kevin Huerter. Miami had nine players record at least one block and finished with 14 as a team \u2014 one shy of the\u2026",
+      "imageUrl": null,
+      "publisher": {
+        "url": null,
+        "name": "NBC Sports"
+      },
+      "publishedAt": "2026-11-15T06:06:49.000Z",
+      "sources": ["Yahoo Sports NBA"],
+      "points": 0
+    },
+    {
+      "id": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "title": "Nets can\u2019t overcome slow start in 129-110 loss to Grizzlies",
+      "url": "https://sports.yahoo.com/articles/nets-t-overcome-slow-start-072936208.html",
+      "publisher": {
+        "name": "SB Nation",
+        "url": null
+      },
+      "sources": ["Yahoo Sports NBA"],
+      "publishedAt": "2026-11-15T07:29:36.000Z",
+      "excerpt": "\u201cThey played harder than us.\u201d Those are words you never want to hear from the head coach of a rebuilding team. Especially not in Year 3. The Brooklyn Nets had a chance to build on their blowout win over New Orleans. Mikel Brown Jr. was back after missing the last two games. There was a small window to finally pick up some momentum. Instead, they followed it up with another frustrating loss, 129-110, in the finale of a four-game road-trip. Brooklyn fell behind early and trailed 38-23 after the first quarter. You\u2019d never think Memphis played a game just the night before. The Nets struggled to\u2026",
+      "imageUrl": null,
+      "points": 0
+    }
+  ]
+}

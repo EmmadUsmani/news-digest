@@ -421,3 +421,51 @@ void test('later Tech pairs separate outage providers, lawsuit claims and subseq
   // Unreviewed pairs stay unknown even when the event-label control merges them.
   assert.ok(control.windows[0].membership.unlabeledMergedPairs > 0);
 });
+
+void test('later NBA pairs retain game injury consequences and leave the Irving retrospective unknown', () => {
+  const baseline = evaluateEventGrouping(undefined, undefined, 'later-nba');
+  assert.equal(baseline.pairs, 15);
+  assert.equal(baseline.positives, 4);
+  assert.equal(baseline.negatives, 11);
+  assert.equal(baseline.falseNegatives, 4);
+  const broad = evaluateEventGrouping(() => true, undefined, 'later-nba');
+  assert.equal(broad.falsePositives, 11);
+  assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 6);
+  const window = 'event-grouping-nba-2026-11-15.json';
+  const control = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [
+        [
+          'cc023ec6-2a0a-4bc3-a824-6db973d3e855',
+          '427f7fbb-00ea-4091-8d42-6bfb6171c373',
+        ],
+        [
+          'fdcfcd18-321b-4028-81fc-eb6ef6d28d21',
+          'd1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496',
+          '04aa058e-0688-4086-843f-5a75cfadd6cf',
+        ],
+      ],
+    },
+    'later-nba',
+  );
+  assert.equal(control.truePositives, 4);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.windows[0].membership.unlabeledMergedPairs, 0);
+  // A historical unknown must not turn into a positive or negative judgment.
+  const unresolved = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [
+        [
+          'cc023ec6-2a0a-4bc3-a824-6db973d3e855',
+          '189a8242-21fd-4f13-a8a0-4dd3ffb58f13',
+        ],
+      ],
+    },
+    'later-nba',
+  );
+  assert.equal(unresolved.truePositives, 0);
+  assert.equal(unresolved.falsePositives, 0);
+  assert.equal(unresolved.windows[0].membership.unlabeledMergedPairs, 1);
+});

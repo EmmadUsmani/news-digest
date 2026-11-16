@@ -3066,3 +3066,20 @@ briefs, preserving speaker and full “must not” scope. Only warn/warned and
 optional “that” vary. Saved Sonnet repair now validates all five stories offline;
 other saved responses retain independent refusals. Scope/attribution/condition
 mutations are regression-tested. [Saved-response result](edition-reviews/2026-11-15-world-fallback.md#next-action).
+
+## Nov 15 published NBA grouping cases (iteration 2466)
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --later-nba` evaluates
+seven recorded reports from scheduled edition `a0fa3916`, including matching
+public coverage and supplied editor prose. This published subset covers
+Cavaliers–Mavericks, Grizzlies–Nets and Heat–Pistons; it is not a candidate-pool
+recall benchmark. IDs, headlines, URLs and timestamps retain saved values.
+
+Fifteen agent-labeled pairs contain four same-story relationships and eleven
+separate-game relationships. GG Jackson's foot injury is a direct consequence
+of the Grizzlies game. The Irving championship retrospective remains unlabeled:
+all six of its relationships stay unknown. A merge-all control must expose
+eleven false positives and six unknown merges; reviewed-membership controls
+recover four positives without a false positive. These controls test the audit,
+not production semantic accuracy. Independent labels and a model evaluation
+remain outstanding; no provider calls, production grouping or admission changes.

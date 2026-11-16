@@ -151,3 +151,15 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,054 unit and 329 integration tests, four expected skips. `git diff --check` passes. Receipts `/tmp/2465-{format,lint,check,public-archive,reader,alerts-final}.log`.
 - No runtime change: no rebuild/restart under STEERING 63. No new blockers, paid calls or source changes.
 - Next: metrics ≥05:30 UTC, Bluesky retention export by 14:36, Nov 16 public scheduled publication/content acceptance at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2466 — retain recent NBA grouping boundaries
+
+- Clean main at e7762b4b; no inherited work. Health database/Redis, services, all sources and scheduled jobs pass. Initial pending disk warning below threshold at 78%; daily scratch cleanup already applied, no deletion repeated.
+- Reader weakness: merging separate games loses distinct NBA stories. Added recent saved NBA cases to the offline grouping audit so future changes can be judged against actual edition coverage.
+- Seven recorded Nov 15 reports retain saved IDs/titles/URLs/timestamps and available supplied prose; published subset only, not full intake or scheduled-input reconstruction.
+- Fifteen agent labels: four positives (same game/direct injury consequence), eleven separate-game negatives. Irving retrospective remains unlabeled; six relationships stay unknown. Independent labels/semantic evaluation still needed.
+- Added `--later-nba`; controls expose broad false merges and preserve unknown relationships. Production generation, budgets, sources and reader unchanged; no provider calls.
+- Targeted `pnpm exec tsx --test apps/api/test/event-grouping-evaluation.test.ts`: 12 pass. First run found fixture lacked the public projection's extra Nets report; included that saved report and reran successfully.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,055 unit/329 integration pass, four expected skips; API build passes within isolated integration. Exact seven-report metadata/prose comparison passes; scheduled reader GET passes five topics/23 stories/16 posts; final alerts zero.
+- `pnpm exec tsx scripts/evaluate-event-grouping.ts --later-nba` succeeds; `git diff --check` passes. Receipts `/tmp/2466-{format,lint,check,targeted-final,reader,alerts-final}.log` and `/tmp/2466-grouping.json`.
+- No runtime change: no rebuild/restart under STEERING 63. Next: metrics ≥05:30 UTC, Bluesky export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.

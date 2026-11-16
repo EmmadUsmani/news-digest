@@ -1,0 +1,110 @@
+{
+  "note": "Iteration 2466: agent labels from saved published coverage and supplied prose; four positive and eleven negative pairs. Irving retrospective has no pair label because its relationship is unresolved. Not independent labels, a recall study or model accuracy; no provider calls.",
+  "pairs": [
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "right": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "sameEvent": true,
+      "reason": "Same Cavaliers\u2013Mavericks 127\u2013117 game, with Proctor supplied prose identifying the opponent and score."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "right": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "right": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "right": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "right": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "right": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "right": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "right": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "sameEvent": true,
+      "reason": "Same Grizzlies\u2013Nets 129\u2013110 game or GG Jackson foot injury suffered during it; direct consequence belongs to the same story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "right": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "right": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "sameEvent": false,
+      "reason": "Separate Cavaliers\u2013Mavericks, Grizzlies\u2013Nets or Heat\u2013Pistons games; shared NBA coverage does not make them one story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+      "right": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "sameEvent": false,
+      "reason": "Nets\u2013Grizzlies 129\u2013110 is a separate game from Cavaliers\u2013Mavericks 127\u2013117 and Heat\u2013Pistons 137\u2013117."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "427f7fbb-00ea-4091-8d42-6bfb6171c373",
+      "right": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "sameEvent": false,
+      "reason": "Nets\u2013Grizzlies 129\u2013110 is a separate game from Cavaliers\u2013Mavericks 127\u2013117 and Heat\u2013Pistons 137\u2013117."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+      "right": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "sameEvent": true,
+      "reason": "Same Grizzlies\u2013Nets 129\u2013110 game or GG Jackson injury suffered during it; direct consequences belong to the same story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "d1a8d5ad-8e0f-491c-8b2e-7a02c9d0a496",
+      "right": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "sameEvent": true,
+      "reason": "Same Grizzlies\u2013Nets 129\u2013110 game or GG Jackson injury suffered during it; direct consequences belong to the same story."
+    },
+    {
+      "window": "event-grouping-nba-2026-11-15.json",
+      "left": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+      "right": "04aa058e-0688-4086-843f-5a75cfadd6cf",
+      "sameEvent": false,
+      "reason": "Nets\u2013Grizzlies 129\u2013110 is a separate game from Cavaliers\u2013Mavericks 127\u2013117 and Heat\u2013Pistons 137\u2013117."
+    }
+  ]
+}
