@@ -3434,3 +3434,12 @@ account list. Both actual open-topic queries include `-giveaway`, Top mode and
 the exact edition window. Retain editorial gates and current discovery settings;
 compare natural next-edition contributions before changing account policy.
 [Provenance review](edition-reviews/2026-11-16.md#x-discovery-provenance-and-account-mix--iteration-2521).
+
+### Nov 16 Tech admission follow-up — iteration 2522
+
+All four previously identified prose-bearing articles outside the newest-200
+cutoff remain absent from the natural edition's triage and evidence. Current
+stored text exists on 14 scored articles; six pass semantic floors and three
+are cited. Uncited Apple health-study and Senate chip-enforcement reporting
+need grouping/editor admission tracing before changing source or pool policy.
+[Review](edition-reviews/2026-11-16.md#tech-natural-admission-follow-up--iteration-2522).

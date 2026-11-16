@@ -244,3 +244,15 @@ Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md
 - Documentation-only: no runtime changes, rebuild/deploy or restart needed; running code unchanged from main. Final local and public-DNS HTTPS health pass (default VM DNS curl cannot connect).
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2521-{format,lint,check}.log.
 - Next metrics checkpoint ≥16:31 UTC; Bluesky export by 20:36 UTC; compare next natural edition's discovery contributions.
+
+## 2026-11-16: iteration 2522 — follow Tech natural admission
+
+- Clean main at e9a59267; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and all 38 sources healthy; digest queue zero failed/active. Known intermittent disk warning; df 79%/5.0 GiB free.
+- Immutable Nov 16 Tech snapshot has 200 scores/zero unscored; all four prose-bearing pre-edition cutoff omissions remain absent from triage and evidence.
+- Read-only 204-ID database join finds current reporting text on 14 scored articles; six meet semantic floors, three cited. Text is current storage, not reconstructed historical input.
+- Uncited Apple health study/Senate chip-enforcement report rank 32/18 among threshold-qualified scores; grouping/editor membership remains unknown. LVMH is position 41; King's Trust misses importance floor.
+- Recorded natural follow-up in edition review, SOURCES and TASKS; retain production gates/caps. Next bounded trace must locate actual grouping/editor admission, not infer it from score position.
+- Receipt /tmp/2522-tech-admission.json; assertions cover all 204 IDs, 200 scores, zero unscored and four omitted IDs absent. Temporary read-only script removed; no paid calls or queued work.
+- Documentation-only; runtime unchanged from main, no rebuild/deploy/restart required. Local /healthz passes.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2522-{format,lint,check}.log. Next metrics ≥16:31 UTC; Bluesky export by 20:36 UTC.

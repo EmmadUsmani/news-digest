@@ -47,7 +47,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. Retain production, review next natural edition. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
+- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. 2522 natural follow-up: all four previously omitted texts absent from triage/evidence; current text on 14 scored IDs, six threshold-qualified/three cited. Apple study and Senate enforcement report uncited at semantic positions 32/18; trace grouping/editor admission offline before changing caps. Retain production. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2522: checked natural Tech admission against prior cutoff evidence; identified uncited qualifying Apple study/Senate reporting for bounded stage tracing, retained production.
 
 - [x] 2521: traced Gaming/U.S. X discovery and account mix; verified paid/free partition and actual query exclusions, retained gates/settings for natural next-edition comparison.
 
