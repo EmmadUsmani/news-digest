@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2464: enlarged reader text reflows the header, topic navigation, long handles and summaries; 320/390/1440px light/dark browser checks pass at 200% and 100%.
+
 - [x] 2463: preserved the first complete Nov 16 overnight Bluesky query rotation; all 20 topic/job cohorts match stored observations, with no query or selection changes.
 
 - [x] 2462: post text preserves whitespace between links without creating unnamed keyboard stops; real archived Gaming post verified on desktop/mobile in both themes.

@@ -35,6 +35,21 @@ export function DigestPreview() {
   const edition = useQuery(editionQuery(id));
   const preview = edition.data;
   const content = useRef<HTMLElement>(null);
+  const header = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const element = header.current;
+    if (!element) return;
+    const resize = () => {
+      content.current?.style.setProperty(
+        '--reader-header-height',
+        `${element.getBoundingClientRect().height}px`,
+      );
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(element);
+    resize();
+    return () => observer.disconnect();
+  }, []);
   const recovering = useRef(false);
   useEffect(() => {
     if (!recovering.current || edition.isFetching || !edition.isSuccess) return;
@@ -74,19 +89,22 @@ export function DigestPreview() {
   return (
     <main
       ref={content}
-      className="mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6"
+      className="reader-edition mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6"
     >
       {visibleTopics[0] && (
         <ReaderSkipLink target={`topic-${visibleTopics[0].id}`} />
       )}
-      <header className="sticky top-0 z-30 flex h-[65px] items-center justify-between gap-1 border-b border-[var(--border)] bg-[var(--background)] py-0">
+      <header
+        ref={header}
+        className="sticky top-0 z-30 flex min-h-[65px] flex-wrap items-center justify-between gap-1 border-b border-[var(--border)] bg-[var(--background)] py-0"
+      >
         <Link
           to="/"
           className="min-w-0 truncate text-base font-semibold tracking-tight sm:text-lg"
         >
           News Digest
         </Link>
-        <div className="flex shrink-0 items-center gap-0 sm:gap-2">
+        <div className="flex max-w-full flex-wrap items-center justify-end gap-0 sm:gap-2">
           <EditionDateSwitcher edition={preview} />
           <ThemeToggle />
         </div>

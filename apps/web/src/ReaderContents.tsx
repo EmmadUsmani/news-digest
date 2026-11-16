@@ -21,10 +21,16 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     ]);
     const update = () => {
       // Choose the last heading above the reading line, including deep links.
+      const readingLine = Math.max(
+        180,
+        (chips.current?.parentElement?.getBoundingClientRect().bottom ?? 0) +
+          48,
+      );
       let current = targets[0] ?? '';
       for (const id of targets) {
         const element = document.getElementById(id);
-        if (element && element.getBoundingClientRect().top <= 180) current = id;
+        if (element && element.getBoundingClientRect().top <= readingLine)
+          current = id;
       }
       setActive(current);
     };
@@ -210,7 +216,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       >
         {contents(false)}
       </div>
-      <div className="fixed inset-x-0 top-[65px] z-20 flex items-center gap-2 border-b border-[var(--border)] bg-[var(--background)] px-4 py-2 lg:hidden">
+      <div className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-2 border-b border-[var(--border)] bg-[var(--background)] px-4 py-2 lg:hidden">
         <div ref={chips} className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
           {topics.map((topic) => (
             <a

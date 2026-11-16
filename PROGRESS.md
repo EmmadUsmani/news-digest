@@ -126,3 +126,16 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - Receipts `/tmp/2463-{bluesky-jobs,cohorts}.json`, `/tmp/2463-cohorts.ts`, `/tmp/2463-{format,lint,check,reader,services,sources,jobs}.log`.
 - Due metrics sample 04:30–04:32: five samples/24 healthy rules, ten queries ≤0.875 s; no new failure counters or restarts. Memory-high +359 since 03:26, +5 during sample; no big merge. Resource acceptance stays open; limits unchanged, next short check ≥05:30 UTC. Receipts `/tmp/2463-{metrics.jsonl,summary.json,compare.py}`.
 - Evidence/docs only: live runtime unchanged; no rebuild/restart under STEERING 63. No paid calls or new blockers; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2464 — keep enlarged reader text onscreen
+
+- Clean main at 56042df7; no inherited work. Health database/Redis, services, all sources and scheduled jobs pass; initial/final alerts zero.
+- Owner value: readers who enlarge text can still reach date/theme controls and read complete summaries and author handles without horizontal page scrolling.
+- Reproduced the latest saved edition at 320px/200% text: fixed header controls expanded the document to 362px. Header now wraps; measured height positions the mobile topic bar and anchor offsets. Active-topic tracking follows the enlarged bar.
+- The same check exposed overflowing summary words and Bluesky handles; reader text now wraps those without changing saved content, links, selection or generation.
+- `pnpm exec tsx scripts/smoke-reader-enlarged-header.ts` passes 320/390/1440px light/dark at 200% and back to 100%: no page overflow, reachable header controls, clear topic destinations/current topic and no browser errors. Six screenshots saved; mobile/desktop images viewed.
+- `python3 /tmp/2457-deploy.py` rebuilds/publishes web atomically; final 16 public page/previous-asset probe pairs pass. No API/worker restart under STEERING 63.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. No paid calls, source changes or new blockers; handbook unchanged for this rendering fix.
+- `pnpm format`, `pnpm lint:fix`, final `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. The first combined verification ended with signal 143 during integration; the separate complete rerun passes. `git diff --check` passes.
+- Receipts `/tmp/2464-{before,browser,deploy-final,format-final,lint-final,check-final,reader,services,sources,jobs,alerts-final}.log`.
+- Next: metrics ≥05:30 UTC, Bluesky retention export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.

@@ -4,6 +4,23 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer utilities {
+  .reader-edition .digest-topic,
+  .reader-edition .byline a {
+    overflow-wrap: anywhere;
+  }
+  .reader-edition
+    :is([id^='topic-'], [id^='story-'], [id^='posts-'], [id^='post-']) {
+    scroll-margin-top: calc(var(--reader-header-height, 65px) + 5rem);
+  }
+  @media (min-width: 1024px) {
+    .reader-edition
+      :is([id^='topic-'], [id^='story-'], [id^='posts-'], [id^='post-']) {
+      scroll-margin-top: calc(var(--reader-header-height, 65px) + 2rem);
+    }
+  }
+}
+
 @theme inline {
   --font-sans: 'Inter Variable', sans-serif;
   --color-foreground: var(--foreground);
