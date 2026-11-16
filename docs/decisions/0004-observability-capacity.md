@@ -1458,3 +1458,23 @@ No force merge, limit change, restart or provider call.
 Receipts: `/tmp/2524-{metrics.jsonl,metrics-error.log}`; journal and restart
 checks used `journalctl -u obs-metrics.service --since '2026-11-16 15:29:00 UTC'`
 and `systemctl show obs-metrics.service -p NRestarts`.
+
+### Short verification checkpoint (iteration 2530)
+
+Nov 16 17:48:09–17:49:10 UTC: three read-only samples found all 24 rules
+fresh and healthy. Six uncached expected-series queries completed in ≤0.578
+seconds. Since 16:42, admission-limit, queue timeout, slow-query, process-start
+and evaluator error/missed counters stayed unchanged. NRestarts=0; no metrics
+journal entries since 16:41. Small merges increased by 83 and 1,843,784 rows;
+no big merge occurred. Memory-high events increased by 534 (six during sampling);
+max/OOM/kill stayed zero. Ending usage was 85,327,872 bytes; lifetime peak
+92,995,584 bytes. Repository formatting overlapped sampling.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Resource acceptance stays
+open: continued reclaim and the natural big-merge comparison remain unresolved.
+Next short check no earlier than 18:50 UTC, preferably after a natural big merge.
+No force merge, limit change, restart or provider call.
+Receipts: `/tmp/2530-{metrics.jsonl,metrics-error.log}`; command
+`pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`; journal and restart
+checks used `journalctl -u obs-metrics.service --since '2026-11-16 16:41:00 UTC'`
+and `systemctl show obs-metrics.service -p NRestarts`.

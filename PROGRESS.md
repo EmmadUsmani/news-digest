@@ -224,3 +224,16 @@ Archived: [iterations 2511–2515](docs/progress-archive/2026-11-16-2511-2515.md
 - Health/14 services/all 38 sources pass; digest queue zero failed/active. Disk 79%/5.0 GiB free, intermittent warning; daily permitted cleanup already done, no deletion repeated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2529-{format,lint,check}.log; final health/all 38 sources pass.
 - Documentation only; runtime unchanged, no rebuild/restart needed. Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; fuller short-member provenance only when new evidence exists.
+
+## 2026-11-16: iteration 2530 — due metrics recovery checkpoint
+
+- Clean main at 0d60550d; no inherited work to recover or discard.
+- Three read-only samples at 17:48–17:49 UTC: 24 healthy rules, six uncached expected-series queries ≤0.578 s; receipt assertions pass.
+- Since 16:42: failure/process counters unchanged, NRestarts=0, no journal entries; +83 small merges/1,843,784 rows, no big merge.
+- Memory-high +534 (six during sampling); max/OOM/kill zero. Retain 2% CPU/88 MiB high/112 MiB max; acceptance remains open, next check ≥18:50 UTC.
+- Health/14 services/all 38 sources pass; digest-generation zero failed/active, next scheduled Nov 17 15:00 UTC. Existing historical ingestion/social failures remain, current sources healthy.
+- Disk alert oscillates; df 79%/5.0 GiB free. Today's permitted scratch cleanup already recorded; no deletion repeated.
+- Two CLI probes used unsupported queue names; corrected with documented unfiltered `pnpm obs jobs`, no mutation.
+- Evidence: /tmp/2530-{metrics.jsonl,metrics-error.log}; sampler `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`; baseline /tmp/2524-metrics.jsonl.
+- Documentation only; no runtime/source/provider changes, jobs, rebuild or restart; live code remains main. Bluesky export due by 20:36 UTC.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check`, receipt assertions and `git diff --check` pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2530-{format,lint,check}.log; final health passes.
