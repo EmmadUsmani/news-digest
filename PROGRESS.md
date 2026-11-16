@@ -192,3 +192,16 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Receipts: `/tmp/2495-{health,services,sources,jobs,reader,headlines,format,lint,check}.log`.
 - Next: metrics ≥11:58 UTC; natural edition/public HTTPS acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.
+
+## 2026-11-16: iteration 2496 — disk-pressure Git compaction
+
+- Clean main at 121dd0fb; no inherited work. Pending disk warning takes priority over reader acceptance work.
+- `pnpm obs health|services|sources|jobs --check` pass; published API retains five topics/23 stories/16 posts and next digest is scheduled for 15:00 UTC.
+- Disk 79%; no abandoned integration roots. Daily scratch cleanup already used; no scratch deletion.
+- `git gc --no-prune` compacted existing objects: `.git` 533→489 MiB; loose objects 5,668→0 and packs 6→2. No history rewrite or object pruning; disk remains 79%.
+- `git fsck --connectivity-only --no-dangling` passes; prior five commits and clean working tree preserved before this log update.
+- No runtime/source/budget changes or provider calls; no rebuild/restart needed under STEERING 63. Live services already match main.
+- Receipts: `/tmp/2496-{alerts,health,services,sources,jobs,gc,fsck,format,lint,check}.log`, `/tmp/2496-reader.json`.
+- Next: metrics ≥11:58 UTC; natural edition/public publication acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- Final alert snapshot: zero firing/pending; disk remains 79%. Warning cleared during verification.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, final `/healthz` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips.
