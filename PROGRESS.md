@@ -235,3 +235,15 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - pnpm obs health, all 38 sources and scheduled queue healthy; zero failed/active digest jobs. DiskSpaceLow firing, immediate df 79%/5.0 GiB free; no cleanup during hold.
 - No runtime changes, rebuild, deployment, restart or paid calls; public mode/sharing retained. Next daily cost/speed/social review, metrics ≥15:11, Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2516-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2517 — daily settlement and social review
+
+- Clean main at 4190c5b5; no inherited work to recover or discard.
+- Health, all 38 sources and scheduled queue pass; zero failed/active jobs. DiskSpaceLow firing; immediate df 79%/5.0 GiB free, no cleanup.
+- Nov 16 edition ledger: $0.500315/56 successful calls, zero failed/unresolved calls or holds; $0.149685 left under $0.65 daily cap. Reserve succeeded/full-ai.
+- Retained BullMQ job: one attempt, 191.260 s worker/191.308 s schedule-to-finish; previous 213.039 s. Speed target remains unmet.
+- Reviewed all 18 saved post texts/context notes: Tech distinct demos; NBA specific performances/updates; Gaming one promotional pick; World overlap; U.S. four Bluesky/no X.
+- Recorded docs/edition-reviews/2026-11-16.md and TASKS.md; no generation/runtime/access changes or provider calls.
+- Timing report private-status read unavailable in public mode; used existing ledger/usage adapters and BullMQ read-only temporary script, then removed it. Receipt /tmp/2517-ledger.json.
+- Deployment hold preserved: no rebuild, deploy or restart before 16:00 UTC. Next due metrics checkpoint, U.S. X/Gaming supply review and Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2517-{format,lint,check}.log.

@@ -7,7 +7,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
 - Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; NBA social context quality remains open. No paid replay or cap changes.
 - Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
-- Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review next. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
+- Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review recorded (2517); Gaming sparse, U.S. X absent. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
 
 ## Open work
 
@@ -17,7 +17,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Tech 3/5 selected evidence sets empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
-- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); detailed cost/timing review next. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
+- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; 191.260 s worker still misses speed target. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2517: completed Nov 16 daily settlement/speed/social review: $0.500315, 56 successful calls, no holds, 191.260 s; Gaming one promotional pick/U.S. no X remain open. No paid calls or runtime changes.
 
 - [x] 2516: accepted Nov 16 scheduled edition over signed-out public HTTPS and desktop/mobile reader; 25 stories/18 posts, all five topics Sonnet/zero unscored, World recovery and NBA selected spoof absence. Item 63 complete; Tech thin evidence remains open.
 
