@@ -163,7 +163,7 @@ function SourceLink({
           }}
         />
       )}
-      <span className="text-xs break-words">
+      <span className="min-w-0 text-xs [overflow-wrap:anywhere]">
         {label}
         {provenance && (
           <span className="text-xs text-[var(--secondary)]">

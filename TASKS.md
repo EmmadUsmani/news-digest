@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2471: long publisher labels wrap within narrow enlarged reader layouts; public recent/oldest archives verified at 320/390/1440px in both themes.
+
 - [x] 2470: diagnosed disk warning after interrupted verification; identified 272 MiB integration root and its safe cleanup window under item 51.
 
 - [x] 2469: populated Saved items acceptance passes at 200% text, 320/390/1440px in both themes; real story/post persistence, source links and keyboard removal verified. No runtime change.
