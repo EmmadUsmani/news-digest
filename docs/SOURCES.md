@@ -3459,3 +3459,13 @@ reporting reached grouping. Current-input replay places both below the ten
 editor candidates; historical request fingerprint is not recovered. Retain
 source settings, caps and gates; no fetches or paid calls.
 [Review](edition-reviews/2026-11-16.md#tech-grouping-admission-trace--iteration-2523).
+
+### Nov 16 Google News AI recovery — iteration 2543
+
+The artificial-intelligence RSS feed recovered naturally at 20:07:10 UTC
+after HTTP 429 at 20:04/20:05. Scheduled ingestion job
+`repeat:source-feed-7c2f40dc-94b2-4060-98fd-3b025bd258c0:1794859448624`
+completed at 20:07:10.234 UTC with 60 items. The persisted source record
+reports the same successful attempt, 60 items and no error. The 20:19 UTC
+source snapshot reports all 38 sources healthy. Existing URL, retry/backoff
+and schedule are retained; this verification made no provider requests.

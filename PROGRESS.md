@@ -113,3 +113,14 @@
 - Read-only evidence changes; no app rebuild/restart under STEERING 65, no paid calls or production writes.
 - Verification: hourly receipt assertions, metrics sampler, pnpm format, pnpm lint:fix, pnpm check and git diff --check; PASS: 1,060 unit / 329 integration passes, four expected skips. Logs /tmp/2542-{format,lint,check}.log.
 - Initial push rejected: origin advanced to owner commit 05beb1da; fetched and merged without editing owner files or rewriting history. Lead resolved agent-control retention through supervisor-owned pruning; next 04:40 timer receipt remains. TASKS updated; protected paths untouched.
+
+## 2026-11-16: iteration 2543 — accept natural Google News AI recovery
+
+- Clean main at af646c3e; no inherited edits to recover/discard. Protected paths untouched.
+- Owner value: confirm the AI feed is supplying real articles again after rate limiting, without extra requests or weakening backoff.
+- Read-only Postgres source record and retained BullMQ scheduled-job result agree: 20:07:10 UTC success/60 items, cleared error; prior success 19:34. Closed source-recovery task and recorded receipt in docs/SOURCES.md.
+- Public source snapshot uses an opaque feed ID (not the feed name); matching that ID confirms recovery. All 38 sources and 14 services healthy; zero alerts, /healthz OK, local reader HTTP 200, disk 60%. Digest queue has zero active/failed jobs, next edition Nov 17 15:00 UTC.
+- One initial diagnostic SQL used nonexistent content_items.source_id; read failed without writes. Recovery verification uses source metadata and completed-job receipt instead.
+- Verification: pnpm obs alerts/sources/services/health, pnpm obs jobs, read-only Postgres/Redis receipt checks; pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected integration skips. Logs /tmp/2543-{format,lint,check}.log.
+- Evidence-only change; no rebuild/restart under STEERING 22/65. Public HTTPS remains unverified from this session; no proxy/sharing changes.
+- Next: Bluesky export by 21:36 UTC, metrics ≥21:10, retention timer 04:40 UTC; full-day Bluesky review after midnight.

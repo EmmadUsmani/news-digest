@@ -11,8 +11,6 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] Source recovery (2542): Google News AI returned HTTP 429 at 20:04/20:05; last success 19:34 with 60 items. Check next natural attempt; retain Retry-After/backoff, no extra probes. Public HTTPS connection unavailable from this session; local reader/health pass.
-
 - [ ] STEERING 65: daily session/tmp retention installed and first run verified (2535), disk 72%→61%; prior unused-data/journal cleanup 79%→72%. Lead deployed supervisor-owned log pruning at 20:06 UTC (05beb1da); protected-path prohibition remains. Record the next 04:40 UTC timer run to complete item 65.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
@@ -62,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2543: Google News AI naturally recovered at 20:07 UTC/60 items after HTTP 429; completed scheduled-job receipt and cleared persisted error verified. Backoff and schedule unchanged.
 
 - [x] 2542: preserved twentieth natural Bluesky hourly result before pruning; triaged Google News AI HTTP 429 without extra requests or bypass. Due metrics checkpoint recorded.
 
