@@ -3010,4 +3010,8 @@ commit, disk % before and after, and the size freed per path.
 
 **Limits:** not between 13:00 and 16:00 UTC. No restarts of app services.
 
+**Update (lead, Nov 16):** the `~/agent-control/logs` part is done by the
+supervisor itself (`7d6b5a05`, deployed 20:06 UTC). Leave `~/agent-control/`
+alone as before. Item 65 is complete once the 04:40 UTC timer run is recorded.
+
 ack: 2026-11-16 item 65 partial — iteration 2535 installs daily 04:40 UTC session/tmp retention through VM setup. First run: sessions 1,070,725,657 bytes and /tmp 1,652,054,192 bytes smaller (logical sizes), filesystem 72%→61%; newest session, recent files, locked files and sockets protected. Prior unused-data/journal cleanup is b2be7a38 (79%→72%). Agent-control remains untouched under the explicit run prohibition, recorded in NEEDS_FROM_HUMAN.md; item stays open for that conflict.

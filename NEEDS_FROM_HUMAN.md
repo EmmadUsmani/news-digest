@@ -194,6 +194,8 @@ allocated bytes (380.4 MiB). Filesystem usage fell from 78% to 77%.
 STEERING 61 now governs eligible future old scratch cleanup; no owner action
 is needed for these paths.
 
-## Item 65 agent-control retention instruction conflict
+## Resolved: item 65 agent-control log retention — Nov 16, lead
 
-STEERING 65 requests deletion of old `~/agent-control/logs/iter-*` and `report-*`. The unattended run explicitly prohibits modifying anything under `~/agent-control/`; that path must remain untouched until the run instruction permits this exception. The remaining retention work can proceed.
+The owner chose to have the supervisor prune its own per-iteration logs
+(`7d6b5a05`), so the agent-control prohibition stays intact. The lead deployed
+it at 20:06 UTC; logs fell from 568 MB to 249 MB. No agent action needed.
