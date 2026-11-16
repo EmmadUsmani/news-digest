@@ -31,7 +31,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 9/15 report: Nov 9–15 $2.100622, 32/32 completed keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list; quality remains open. [Weekly evidence](docs/SOURCES.md#nov-915-production-x-report--iteration-2407). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
 
-- [ ] STEERING 18 Bluesky: retain U.S. `Congress` and World baseline/Ukraine/baseline/Gaza pilot. Six natural jobs retained through 21:54 UTC; second Ukraine pass adds 13 new World post identities among 48, with reporting and repeated events ([review](docs/edition-reviews/2026-11-15-world-ukraine-refresh.md)); first Gaza cohort has outlet reporting/correction value alongside commentary and duplicates ([review](docs/edition-reviews/2026-11-15-world-gaza-quality.md)). Next retained-job export by Nov 16 06:56 UTC; review first full UTC day and next natural selection. Nov 15 Gaming/Tech scarcity is at intake; U.S. three distinct picks and NBA officiating pick accepted, one NBA rejection unidentified. Overall social quality open. [Topic reviews and prior detail](docs/progress-archive/2026-11-15-bluesky-task-detail-2430.md).
+- [ ] STEERING 18 Bluesky: retain U.S. `Congress` and World baseline/Ukraine/baseline/Gaza pilot. Six natural jobs retained through 21:54 UTC; second Ukraine pass adds 13 new World post identities among 48, with reporting and repeated events ([review](docs/edition-reviews/2026-11-15-world-ukraine-refresh.md)); first Gaza cohort has outlet reporting/correction value alongside commentary and duplicates ([review](docs/edition-reviews/2026-11-15-world-gaza-quality.md)). 2445 preserved all 24 Nov 15 hourly jobs (18 newly retained); fixed UTC-day supply is Tech/NBA/Gaming/World/U.S. 53/51/50/158/53 distinct posts. Mixed activation-day review retains rules; new Gaming creator contributions await natural selection. [Day review](docs/edition-reviews/2026-11-15-bluesky-day.md). Next export by Nov 16 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Nov 15 Gaming/Tech scarcity is at intake; U.S. three distinct picks and NBA officiating pick accepted, one NBA rejection unidentified. Overall social quality open. [Topic reviews and prior detail](docs/progress-archive/2026-11-15-bluesky-task-detail-2430.md).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-13).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2445: preserved complete Nov 15 Bluesky hourly job evidence and reviewed fixed UTC-day supply; all five topics collect continuously, new Gaming creator contributions await selection.
 
 - [x] 2444: overnight metrics follow-up preserves healthy evaluations and zero failure deltas; continuing reclaim keeps resource acceptance open. Pending disk alert cleared without deletion; full checks pass.
 

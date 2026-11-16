@@ -3367,3 +3367,13 @@ visit developments. Popular repeated commentary/satire still outranks the new
 reporting by likes. [Exact saved-cohort review](edition-reviews/2026-11-15-world-ukraine-refresh.md)
 retains examples and six actual rotation jobs. Keep queries, limits and selection
 gates unchanged; full-day and natural-edition acceptance remain pending.
+
+### Nov 15 complete Bluesky collection day — iteration 2445
+
+Preserved all 24 natural hourly jobs: each completed for all five topics.
+Fixed November 15 UTC publication/observation coverage contains
+53/51/50/158/53 distinct Tech/NBA/Gaming/World/U.S. posts. This mixes baseline
+and pilot hours; the first full World rotation day is November 16. New evening
+Gaming examples include creator process/art, while high-engagement Tech examples
+remain mostly commentary. Keep collection and selection rules unchanged; assess
+natural selection in the next edition. [Day review and receipts](edition-reviews/2026-11-15-bluesky-day.md).

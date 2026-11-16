@@ -1,0 +1,1498 @@
+{
+  "start": "2026-11-15T00:00:00.000Z",
+  "cutoff": "2026-11-16T00:00:00.000Z",
+  "exampleLimit": 5,
+  "policyBasis": "Current enabled topics and relevance policies; not a replay of historical editorial selection.",
+  "collectionQueryBasis": "Current topic metadata without the optional hourly World rotation; not the queries that produced stored observations. An enabled rotation replaces only the fallback, using baseline/Ukraine/baseline/Gaza by UTC hour; an explicit blueskyQuery still wins. Historical collection queries are not stored on observations, so this report cannot attribute posts to baseline or event searches.",
+  "coverage": [
+    {
+      "topic": "Tech & AI",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "AI",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 442,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 53,
+      "distinctStoredPostsWithVideoInAnySnapshot": 4,
+      "newestObservationAt": "2026-11-15T23:54:44.979Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 25,
+        "postsWithVideo": 4,
+        "postsWithoutAttachedMedia": 21,
+        "postsWithAuthorDescriptions": 5
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 38,
+        "largestAuthorPostCount": 4,
+        "authors": [
+          {
+            "author": "yakumo85.bsky.social",
+            "distinctPosts": 4
+          },
+          {
+            "author": "clione-zero.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "coachfinstock.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "futsuyou25.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "jonathanslater.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "llilli4.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "mizuextreme.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "mostlybree.kitrocha.com",
+            "distinctPosts": 2
+          },
+          {
+            "author": "mrsbettybowers.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "neozion2045.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "404media.co",
+            "distinctPosts": 1
+          },
+          {
+            "author": "adammockler.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "aplante.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ascom.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ash243x.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cjzero.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dame.is",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dj-acid-reflux.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dublinbloke.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "eliothiggins.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "enikofox.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "faineg.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "govpritzker.illinois.gov",
+            "distinctPosts": 1
+          },
+          {
+            "author": "gtconway.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jyoshu.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mae.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "meidastouch.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nagasa-go.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ovyerus.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "petersagal.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "piaguerra.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "plognark.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "rae-bae.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "readvesna.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "toonhive.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "underwatermoonlite.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "womensartbluesky.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "z0ne.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 4693,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2eznsim622a",
+          "author": "jonathanslater.bsky.social",
+          "metrics": {
+            "likes": 597,
+            "replies": 23,
+            "reposts": 55
+          },
+          "text": "Perfect. (Not Ai )"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2ey7zsam22u",
+          "author": "jonathanslater.bsky.social",
+          "metrics": {
+            "likes": 115,
+            "replies": 11,
+            "reposts": 17
+          },
+          "text": "Not Ai"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aq7rv2wta4qb2534kxjmbr6dm/post/3n2evazwnjv23",
+          "author": "adammockler.com",
+          "metrics": {
+            "likes": 114,
+            "replies": 8,
+            "reposts": 27
+          },
+          "text": "Does Trump realize these are AI?"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Agq4fo3u6tqzzdkjlwzpb23tj/post/3n2ectxcxxs2x",
+          "author": "dame.is",
+          "metrics": {
+            "likes": 196,
+            "replies": 3,
+            "reposts": 31
+          },
+          "text": "this is NOT an AI video, i repeat… this is NOT an AI video\n\nincredible unfathomable levels of horsing around are happening in Detroit, you love to see it"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4lx6nur5wstwoc4wtgj56kyu/post/3n2eimlxxtk2y",
+          "author": "gtconway.bsky.social",
+          "publishedAt": "2026-11-15T17:03:49.085Z",
+          "observedAt": "2026-11-15T23:54:44.016Z",
+          "metrics": {
+            "likes": 4693,
+            "replies": 133,
+            "reposts": 1147
+          },
+          "attachedMediaTypes": [],
+          "text": "Lutnick needs to go.  \n\nAnd he needs to be subjected to the most intensive legal and financial proctology examination imaginable.\n\nAI could probably help with that."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A2whlowi5jjjqrdrrj4lxh2lx/post/3n2dzq3pxtc2x",
+          "author": "eliothiggins.bsky.social",
+          "publishedAt": "2026-11-15T12:37:20.134Z",
+          "observedAt": "2026-11-15T23:54:44.007Z",
+          "metrics": {
+            "likes": 4134,
+            "replies": 553,
+            "reposts": 1006
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Trump is now posting AI generated stories with made up claims alongside AI generated pictures about what a humane and good person he is."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Axjc7mkotpenvhh6ffewkdpyn/post/3n2edxjicfc2u",
+          "author": "meidastouch.com",
+          "publishedAt": "2026-11-15T15:40:26.860Z",
+          "observedAt": "2026-11-15T23:54:44.007Z",
+          "metrics": {
+            "likes": 2435,
+            "replies": 426,
+            "reposts": 793
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Incredibly creepy to post AI slop of you embracing someone else’s child"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aizxpomdyri45gzhppiiyattq/post/3n2eih6a6qs2r",
+          "author": "coachfinstock.bsky.social",
+          "publishedAt": "2026-11-15T17:00:46.901Z",
+          "observedAt": "2026-11-15T23:54:44.007Z",
+          "metrics": {
+            "likes": 2250,
+            "replies": 49,
+            "reposts": 404
+          },
+          "attachedMediaTypes": [],
+          "text": "This is why they want AI in everything in case you were wondering."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auayevtgtbwot25zhocjzb6lv/post/3n2d3gvm6sc2u",
+          "author": "mrsbettybowers.bsky.social",
+          "publishedAt": "2026-11-15T03:35:19.477Z",
+          "observedAt": "2026-11-15T23:54:44.007Z",
+          "metrics": {
+            "likes": 3509,
+            "replies": 128,
+            "reposts": 424
+          },
+          "attachedMediaTypes": [],
+          "text": "I can't roll my eyes hard enough when AI gives me sources for information, and they are Facebook."
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "NBA",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 478,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 51,
+      "distinctStoredPostsWithVideoInAnySnapshot": 6,
+      "newestObservationAt": "2026-11-15T23:54:46.974Z",
+      "safeEngagedCandidatesUpTo50": 44,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 20,
+        "postsWithVideo": 5,
+        "postsWithoutAttachedMedia": 19,
+        "postsWithAuthorDescriptions": 3
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 36,
+        "largestAuthorPostCount": 4,
+        "authors": [
+          {
+            "author": "tsnofficial.bsky.social",
+            "distinctPosts": 4
+          },
+          {
+            "author": "nbastat.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "frbodis.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "goodifitgoes.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "keithsmithnba.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "academicfabe.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "atrupar.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "aussiemadegames.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "budrohlfing.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dyma-data.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "emoprincessivy.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fouurzip18.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fredsmith.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jacoboleon.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jdiz.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jm539581.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "johnhollinger.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kingfitch1990.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "leask.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lollardfish.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "masterwho.yase.world",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mn-snow-show.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nba.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ngtcollectibles.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "oslogutt.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "patgallen.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "pelicansnba.fucknerds.town",
+            "distinctPosts": 1
+          },
+          {
+            "author": "quietblkgrl.blacksky.app",
+            "distinctPosts": 1
+          },
+          {
+            "author": "raders.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "samuelhughes.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sdy292.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "secretaboutbox.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "susieb.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tomwesterholm.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "velodus.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "wagerwizards.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 365,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2euo4xk2k2k",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 11,
+            "replies": 10,
+            "reposts": 2
+          },
+          "text": "The video is out...\n\nThe women in question are media influencers Brittany Renner and Celina Powell.\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A5hnhc5gto2qbhwfqumds23x4/post/3n2exbquf422w",
+          "author": "jacoboleon.bsky.social",
+          "metrics": {
+            "likes": 3,
+            "replies": 2,
+            "reposts": 0
+          },
+          "text": "Lo de Doncic es una salvajada.\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Azazcjahlcb3jfrhcriq7xpn7/post/3n2cuwskqik2v",
+          "author": "tsnofficial.bsky.social",
+          "metrics": {
+            "likes": 9,
+            "replies": 0,
+            "reposts": 1
+          },
+          "text": "KYRIE BACK IN THE LAND🙌\n\nKyrie Irving receives a WARM welcome in Cleveland, where, ten years ago, he was part of the Cavs team that won the first NBA title in franchise history🏆🔥\n\n(via @NBA)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2czsqd72c2v",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 9,
+            "replies": 0,
+            "reposts": 0
+          },
+          "text": "Erik Spoelstra before challenging the call: “Alright, f**k it.” 💀\n\n(via Legion Hoops)\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Azazcjahlcb3jfrhcriq7xpn7/post/3n2czow2jxs2v",
+          "author": "tsnofficial.bsky.social",
+          "metrics": {
+            "likes": 9,
+            "replies": 0,
+            "reposts": 0
+          },
+          "text": "HOW DOES HE DO THIS?🧐 \n\nKevin, the Amazing Chin Balancer, has some seriously impressive balancing skills😅\n\n(via @NBA)"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4llrhdclvdlmmynkwsmg5tdc/post/3n2d2o2m2ss2k",
+          "author": "atrupar.com",
+          "publishedAt": "2026-11-15T03:21:25.853Z",
+          "observedAt": "2026-11-15T23:54:45.980Z",
+          "metrics": {
+            "likes": 365,
+            "replies": 25,
+            "reposts": 7
+          },
+          "attachedMediaTypes": [],
+          "text": "LaMelo Ball is one 3 point miss away from tying the NBA record and honestly I’ve agreed with every shot he’s taken"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A5becuyumjiks3cne6yshoxtr/post/3n2d26b74n22w",
+          "author": "masterwho.yase.world",
+          "publishedAt": "2026-11-15T03:12:35.901Z",
+          "observedAt": "2026-11-15T23:54:45.981Z",
+          "metrics": {
+            "likes": 58,
+            "replies": 0,
+            "reposts": 25
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "You're telling me this entire time NBA Street Vol. 2 is called NBA Street 2: Dunk Tengoku in Japan and no one's brought up that this is the sickest name ever"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Abzy5rjjduvvkxno5xe3evl3f/post/3n2f6j6rz322h",
+          "author": "lollardfish.bsky.social",
+          "publishedAt": "2026-11-15T23:35:36.917Z",
+          "observedAt": "2026-11-15T23:54:45.981Z",
+          "metrics": {
+            "likes": 14,
+            "replies": 2,
+            "reposts": 0
+          },
+          "attachedMediaTypes": [],
+          "text": "I’m not sure I’ve ever seen 42-9 at any time in the nba. Let alone in the first quarter."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2euo4xk2k2k",
+          "author": "nbastat.bsky.social",
+          "publishedAt": "2026-11-15T20:39:25.354Z",
+          "observedAt": "2026-11-15T23:54:45.981Z",
+          "metrics": {
+            "likes": 11,
+            "replies": 10,
+            "reposts": 2
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "The video is out...\n\nThe women in question are media influencers Brittany Renner and Celina Powell.\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Anatglytz2yjptlzsrl7r656m/post/3n2f6jl3qok2m",
+          "author": "tomwesterholm.bsky.social",
+          "publishedAt": "2026-11-15T23:35:49.819Z",
+          "observedAt": "2026-11-15T23:54:45.981Z",
+          "metrics": {
+            "likes": 11,
+            "replies": 0,
+            "reposts": 0
+          },
+          "attachedMediaTypes": [],
+          "text": "The Celtics are putting my \"no NBA lead is safe in the first half\" theory to the ultimate stress test."
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "game",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 476,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 50,
+      "distinctStoredPostsWithVideoInAnySnapshot": 9,
+      "newestObservationAt": "2026-11-15T23:54:48.991Z",
+      "safeEngagedCandidatesUpTo50": 48,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 19,
+        "postsWithVideo": 9,
+        "postsWithoutAttachedMedia": 20,
+        "postsWithAuthorDescriptions": 7
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 47,
+        "largestAuthorPostCount": 2,
+        "authors": [
+          {
+            "author": "poondonkus.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "4brandonjs4.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "aex13.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "alexkirshner.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "b0tster.yeag.gay",
+            "distinctPosts": 1
+          },
+          {
+            "author": "beachmilf53.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bumbojumbo666.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "celebrityhottub.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chetsucks.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cjzero.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cooperlund.online",
+            "distinctPosts": 1
+          },
+          {
+            "author": "danteslink.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "darekit.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ddragonman731.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "diplomatofnight.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "edsbs.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "evanbernick.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fourverts.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jmrivera.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jock4bigboys.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jonathanslater.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jonnyjonman.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kansascitycurrent.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "krimson.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lonestarplate.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lyssahh.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "minakimes.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nintendometro.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nradiowave.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "opensketchbook.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ordheist.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "pablo0151.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "prashanthiyer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "radobrien.myatproto.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "rapsheet.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "renniultrafox.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "shellbealright.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sickoscommittee.org",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sonic.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tatenokami.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "thebetterjd.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "thezestiestbone.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tural.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "vgdensetsu.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "woodenman.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "xkeeper.net",
+            "distinctPosts": 1
+          },
+          {
+            "author": "yugsly.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 3826,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Akcu5gsklhhensnm6vhu6lhq5/post/3n2emi2xw4227",
+          "author": "b0tster.yeag.gay",
+          "metrics": {
+            "likes": 3826,
+            "replies": 95,
+            "reposts": 756
+          },
+          "text": "Happy to have worked with Glitch again to make another fake game alongside @lumpytouch.bsky.social (who made all the AMAZING sprite work!!) for their black friday video found here! https://youtu.be/G7ECpIyXC2Y\n\nThis time I eschewed making a fully functional game and instead animated it by hand in blender!"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2dzeb34l22h",
+          "author": "jonathanslater.bsky.social",
+          "metrics": {
+            "likes": 632,
+            "replies": 67,
+            "reposts": 111
+          },
+          "text": "20 things going on none related to the game"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aiszb4kwn3lwlpzzrxg3wrpqi/post/3n2f2jzjiec2a",
+          "author": "kansascitycurrent.bsky.social",
+          "metrics": {
+            "likes": 79,
+            "replies": 3,
+            "reposts": 18
+          },
+          "text": "HALEY. HOPKINS. CALLED. GAME."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3As3k57mboc23sxfg65nxnpbwg/post/3n2ctyvsnnk2w",
+          "author": "darekit.bsky.social",
+          "metrics": {
+            "likes": 192,
+            "replies": 4,
+            "reposts": 64
+          },
+          "text": "\"hey Ever Helpful Samoyed! What's the iconic mario level from the first game called?\""
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ahlvr2omhnmvdmfnvmcuhyevz/post/3n2d6m4vxms23",
+          "author": "rapsheet.bsky.social",
+          "metrics": {
+            "likes": 173,
+            "replies": 88,
+            "reposts": 15
+          },
+          "text": "Arch Manning with an unreal throw with the game on the line."
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Akcu5gsklhhensnm6vhu6lhq5/post/3n2emi2xw4227",
+          "author": "b0tster.yeag.gay",
+          "publishedAt": "2026-11-15T18:12:52.008Z",
+          "observedAt": "2026-11-15T23:54:47.996Z",
+          "metrics": {
+            "likes": 3826,
+            "replies": 95,
+            "reposts": 756
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Happy to have worked with Glitch again to make another fake game alongside @lumpytouch.bsky.social (who made all the AMAZING sprite work!!) for their black friday video found here! https://youtu.be/G7ECpIyXC2Y\n\nThis time I eschewed making a fully functional game and instead animated it by hand in blender!"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Axep36sqi2h56wggkqylfdeoq/post/3n2d33h35p222",
+          "author": "poondonkus.bsky.social",
+          "publishedAt": "2026-11-15T03:28:55.141Z",
+          "observedAt": "2026-11-15T23:54:47.996Z",
+          "metrics": {
+            "likes": 3276,
+            "replies": 22,
+            "reposts": 1168
+          },
+          "attachedMediaTypes": [],
+          "text": "\"game devs are bloating filesizes on purpose so that you only have room for 1 game on your system\" has been a lowkey crank theory for so long, it's strange to see it validated like this."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A2buz4gf5sew3rdwzbxsvcd4s/post/3n2eewmcvgc2q",
+          "author": "minakimes.bsky.social",
+          "publishedAt": "2026-11-15T15:57:50.013Z",
+          "observedAt": "2026-11-15T23:54:47.996Z",
+          "metrics": {
+            "likes": 946,
+            "replies": 41,
+            "reposts": 23
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Waking up to the news that Tommy Devito is in the game"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A2az2slcnhcpcq7s6v7tdywvo/post/3n2ep6be35s2t",
+          "author": "yugsly.bsky.social",
+          "publishedAt": "2026-11-15T19:01:04.370Z",
+          "observedAt": "2026-11-15T23:54:47.997Z",
+          "metrics": {
+            "likes": 486,
+            "replies": 7,
+            "reposts": 151
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Happy 2ND anniversary to my game, GREAT GOD GROVE!\nDid some art to commemorate it! 🌩️"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alzsxyxqebfmpx6jia6wjqgtx/post/3n2dzeb34l22h",
+          "author": "jonathanslater.bsky.social",
+          "publishedAt": "2026-11-15T12:30:43.091Z",
+          "observedAt": "2026-11-15T23:54:47.996Z",
+          "metrics": {
+            "likes": 632,
+            "replies": 67,
+            "reposts": 111
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "20 things going on none related to the game"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "World news & politics",
+      "currentUnrotatedQuerySource": "topic name",
+      "postBudget": 5,
+      "storedObservations": 586,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 158,
+      "distinctStoredPostsWithVideoInAnySnapshot": 7,
+      "newestObservationAt": "2026-11-15T23:54:50.967Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 20,
+        "postsWithVideo": 6,
+        "postsWithoutAttachedMedia": 24,
+        "postsWithAuthorDescriptions": 5
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 35,
+        "largestAuthorPostCount": 7,
+        "authors": [
+          {
+            "author": "angel-shalagina.bsky.social",
+            "distinctPosts": 7
+          },
+          {
+            "author": "noelreports.com",
+            "distinctPosts": 5
+          },
+          {
+            "author": "kyivindependent.com",
+            "distinctPosts": 4
+          },
+          {
+            "author": "aljazeera.com",
+            "distinctPosts": 2
+          },
+          {
+            "author": "diplomatofnight.com",
+            "distinctPosts": 2
+          },
+          {
+            "author": "24hoursukraine.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "admiralmpj.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ayoub.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "benthere-2.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "blueskyfanatic.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluewavesurfer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "carmenlazare.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chadbourn.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "clawfoot.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "coco.sheshed.rocks",
+            "distinctPosts": 1
+          },
+          {
+            "author": "darthputinkgb.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "eldiario.es",
+            "distinctPosts": 1
+          },
+          {
+            "author": "governor.ca.gov",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kateinkharkiv.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "maks23.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mcopelov.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mjfree.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "oksii33.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "papootx.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "peterwmurphy1.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "powerfromspace1.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "robertscotthorton.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sulamoon.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sy-soul.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tadhgdalaigh.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tilmane.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tortondo.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "united24media.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "wolverinebear.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "zeteo.com",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 0,
+      "strongestSafeLikesUpTo50": 5687,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Avw2etn54x7fz4rc7q3md4qo7/post/3n2eabgxu5k2h",
+          "author": "angel-shalagina.bsky.social",
+          "metrics": {
+            "likes": 544,
+            "replies": 12,
+            "reposts": 92
+          },
+          "text": "Ukraine refuses to fall.\nWounded, yes.\nBut full of courage.\nStill fighting for freedom🇺🇦\n#ukraine #ukrainian #war #ukrainians #ukrainiangirl"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4aqzua5vsewimmusg66fyajl/post/3n2ed3ie3ck26",
+          "author": "noelreports.com",
+          "metrics": {
+            "likes": 347,
+            "replies": 9,
+            "reposts": 37
+          },
+          "text": "Welcome to the SMO zone. Residents captured the opening moments of the overnight Ukrainian drone attack on Nizhnekamsk, Tatarstan. #Ukraine"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4aqzua5vsewimmusg66fyajl/post/3n2dtsmwe7k26",
+          "author": "noelreports.com",
+          "metrics": {
+            "likes": 199,
+            "replies": 4,
+            "reposts": 59
+          },
+          "text": "Zelensky says Russia launched over 2,300 drones, 1,590 aerial bombs and 15 missiles against Ukraine this week. He warned that Starshield restrictions cause Ukrainian interceptor drones to lose operator links at 161 km/h, preventing them from catching Russian jet-powered Shaheds. #Ukraine"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A6dncjiyu42adb2irwodoskfz/post/3n2dnf2jiz22n",
+          "author": "24hoursukraine.bsky.social",
+          "metrics": {
+            "likes": 261,
+            "replies": 6,
+            "reposts": 33
+          },
+          "text": "Good morning dear friends, I wish everyone happy, healthy, productive, safe and peaceful Sunday. Lviv, Ukraine 🇺🇦"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aig2wp6nfsjuk4szpbzk2i2ax/post/3n2ebywp4us2n",
+          "author": "coco.sheshed.rocks",
+          "metrics": {
+            "likes": 107,
+            "replies": 6,
+            "reposts": 61
+          },
+          "text": "Italian artist #EdoardoCastaldo transformed an image of the Virgin Mary by tearing away part of the original artwork to reveal a Palestinian mama cradling her child.\n\nThe project titled \"Mothers of Holy Gaza,\" draws attention to the Israeli genocide in Gaza 💔\n\n#SheShed"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Abbz3qqostqq5fimttuksyjlb/post/3n2d4jblths24",
+          "author": "blueskyfanatic.bsky.social",
+          "publishedAt": "2026-11-15T03:54:32.896Z",
+          "observedAt": "2026-11-15T21:54:51.029Z",
+          "metrics": {
+            "likes": 5687,
+            "replies": 220,
+            "reposts": 1323
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Imagine being Jared Kushner and asking Ukraine to stop attacking Russian oil refineries, only to see Ukraine continue its campaign against the very infrastructure helping to finance Russia's war.\n============="
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ad2tt2ajbjq6aumjdde46adz3/post/3n2e7q6mlqs2k",
+          "author": "darthputinkgb.bsky.social",
+          "publishedAt": "2026-11-15T14:24:45.590Z",
+          "observedAt": "2026-11-15T21:54:51.030Z",
+          "metrics": {
+            "likes": 1170,
+            "replies": 14,
+            "reposts": 252
+          },
+          "attachedMediaTypes": [],
+          "text": "The leading cause of Starlink technical issues is Ukraine refusing to surrender."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aimihoi76dq74u5jlfnolakmv/post/3n2edkpa2us2k",
+          "author": "kateinkharkiv.bsky.social",
+          "publishedAt": "2026-11-15T15:33:16.675Z",
+          "observedAt": "2026-11-15T21:54:51.030Z",
+          "metrics": {
+            "likes": 788,
+            "replies": 24,
+            "reposts": 177
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Prince Harry has arrived in Ukraine. He visited Lviv for the All-Ukrainian Invictus Games, where he supported Ukrainian warriors during the wheelchair rugby competition, according to the Regional Military Administration (OVA).\n\nThis year, roughly 500 participants from across Ukraine registered"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Avw2etn54x7fz4rc7q3md4qo7/post/3n2emgq46ls2h",
+          "author": "angel-shalagina.bsky.social",
+          "publishedAt": "2026-11-15T18:12:07.059Z",
+          "observedAt": "2026-11-15T21:54:52.031Z",
+          "metrics": {
+            "likes": 551,
+            "replies": 20,
+            "reposts": 86
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "🇺🇦 GOOD NEWS FROM UKRAINE!\n\nUkrainian forces have reportedly advanced north of Dobropillia on the Huliaipole front in the Zaporizhzhia region!"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Abdf5nzzryl4xlimkdm4crycg/post/3n2crsv2me22q",
+          "author": "bluewavesurfer.bsky.social",
+          "publishedAt": "2026-11-15T00:43:04.135Z",
+          "observedAt": "2026-11-15T21:54:51.029Z",
+          "metrics": {
+            "likes": 1121,
+            "replies": 52,
+            "reposts": 269
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Ukraine will eventually have both. #SlavaUkraini \n#WeStandWithUkraine"
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "configuredBlueskyQuery": "Congress",
+      "currentUnrotatedCollectionQuery": "Congress",
+      "currentUnrotatedQuerySource": "blueskyQuery",
+      "postBudget": 5,
+      "storedObservations": 514,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 53,
+      "distinctStoredPostsWithVideoInAnySnapshot": 3,
+      "newestObservationAt": "2026-11-15T23:54:52.992Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 14,
+        "postsWithVideo": 3,
+        "postsWithoutAttachedMedia": 33,
+        "postsWithAuthorDescriptions": 2
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 41,
+        "largestAuthorPostCount": 5,
+        "authors": [
+          {
+            "author": "dworkin.bsky.social",
+            "distinctPosts": 5
+          },
+          {
+            "author": "thelibbojack.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "thewatchdogco.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "joncooper-us.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "aclu.org",
+            "distinctPosts": 1
+          },
+          {
+            "author": "amirtalai.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "andreadevon.sheshed.rocks",
+            "distinctPosts": 1
+          },
+          {
+            "author": "atrupar.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "betsj.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluewavesurfer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cherylrofer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chrisgeidner.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cindyraec.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "danak6jq.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "davmicrot.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "deluzio.house.gov",
+            "distinctPosts": 1
+          },
+          {
+            "author": "diplomatofnight.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dovewoman.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "glennkirschner.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "govpritzker.illinois.gov",
+            "distinctPosts": 1
+          },
+          {
+            "author": "integrity4most.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jefftrnka.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "joemcjoe11.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kenofseattle.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lizzy2016.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mikesacks.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nberlat.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "papootx.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "patriottakes.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "portlandken.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "redriverdog.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "rightardia.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "robertscotthorton.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "service-worker.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "so-portes.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "spacetwinks.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "theguardian.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "thetnholler.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "usarmyoverlord.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "walshfreedom.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "warren.senate.gov",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 0,
+      "strongestSafeLikesUpTo50": 3903,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4llrhdclvdlmmynkwsmg5tdc/post/3n2e7gcc4sn2h",
+          "author": "atrupar.com",
+          "metrics": {
+            "likes": 3599,
+            "replies": 490,
+            "reposts": 795
+          },
+          "text": "BASH: President Trump has been in office with complete control of Congress for Republicans for two years. Is it a failure on his part that you haven't gotten this money?\n\nDUFFY: Not at all"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A5o6k7jvowuyaquloafzn3cfw/post/3n2ed7j2jds2k",
+          "author": "thetnholler.bsky.social",
+          "metrics": {
+            "likes": 723,
+            "replies": 77,
+            "reposts": 180
+          },
+          "text": "“Do you owe the 🇺🇸 people an apology?”\n\n@SecDuffy: \n*pats himself on the back*\n *blames Biden and congress*"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Acid2sm4wpv3nx5owrph7nvxj/post/3n2eohjaqzs2o",
+          "author": "usarmyoverlord.bsky.social",
+          "metrics": {
+            "likes": 69,
+            "replies": 3,
+            "reposts": 19
+          },
+          "text": "Top people Congress should investigate!"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2es5fynys2p",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-15T19:54:16.918Z",
+          "observedAt": "2026-11-15T23:54:51.973Z",
+          "metrics": {
+            "likes": 3903,
+            "replies": 95,
+            "reposts": 1449
+          },
+          "attachedMediaTypes": [],
+          "text": "U.S. Army Maj. Stephen Ramsbottom, \nwho survived a deadly Iranian drone attack, filed a whistleblower complaint to Congress alleging senior military officials ignored warnings and did not plan properly for anti-drone defenses ahead of the war with Iran."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4llrhdclvdlmmynkwsmg5tdc/post/3n2e7gcc4sn2h",
+          "author": "atrupar.com",
+          "publishedAt": "2026-11-15T14:19:13.907Z",
+          "observedAt": "2026-11-15T23:54:51.973Z",
+          "metrics": {
+            "likes": 3599,
+            "replies": 490,
+            "reposts": 795
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "BASH: President Trump has been in office with complete control of Congress for Republicans for two years. Is it a failure on his part that you haven't gotten this money?\n\nDUFFY: Not at all"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A35eccnxm5yqj547shcagl6bx/post/3n2cqtskvxc2v",
+          "author": "spacetwinks.bsky.social",
+          "publishedAt": "2026-11-15T00:25:41.337Z",
+          "observedAt": "2026-11-15T23:54:51.973Z",
+          "metrics": {
+            "likes": 3619,
+            "replies": 14,
+            "reposts": 752
+          },
+          "attachedMediaTypes": [],
+          "text": "lmao it rocks that this guy suddenly knows how to move fast and stop caring about decorum and traditions as to how congress operates the moment it's about protecting his sinecure"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aornpixmpy5ts36lh7hmi7wkp/post/3n2e73a3gts2u",
+          "author": "warren.senate.gov",
+          "publishedAt": "2026-11-15T14:13:02.515Z",
+          "observedAt": "2026-11-15T23:54:52.992Z",
+          "metrics": {
+            "likes": 1399,
+            "replies": 80,
+            "reposts": 266
+          },
+          "attachedMediaTypes": [],
+          "text": "It’s clear the American people can’t rely on Big Tech billionaire CEOs to put our national security above their bottom line.\n \nCongress needs to pass legislation now to keep advanced AI technology out of China’s hands."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A36eqtmzysqf7wsslczw4uxcd/post/3n2er3pjbqk26",
+          "author": "chrisgeidner.bsky.social",
+          "publishedAt": "2026-11-15T19:35:26.049Z",
+          "observedAt": "2026-11-15T23:54:51.973Z",
+          "metrics": {
+            "likes": 859,
+            "replies": 8,
+            "reposts": 220
+          },
+          "attachedMediaTypes": [],
+          "text": "This thread shows why the administration is freaking tf out about Dems running committees and subcommittees in January. \n\nCongress is coming back to life."
+        }
+      ]
+    }
+  ],
+  "note": "24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Stored video counts include any retained snapshot; safe media counts use selected latest snapshots. Attached media and author descriptions do not verify contents or identify highlights. Image/video counts can overlap. Author counts describe distinct posts within those capped candidates, not the full pool or measured relevance. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes."
+}

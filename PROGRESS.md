@@ -134,3 +134,14 @@ Archived: [iterations 2430–2435](docs/progress-archive/2026-11-15-2430-2435.md
 - Detached `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; no integration roots remained. Evidence `/tmp/2444-{metrics.jsonl,capacity.json,compare.py,metrics-journal.log,check.log}`; decision and TASKS updated.
 - Resource acceptance remains open due to reclaim/slower probe; next sample ≥01:34 UTC, preferably natural big merge. No retuning. Next product gate: Nov 16 15:00 scheduled review, protect 13:00–16:00; retained Bluesky export due 06:56.
 - Final `pnpm format`/`pnpm lint:fix` exit 0; changed Markdown formatting and `git diff --check` pass. Documentation-only commit; no build/deployment/service restart needed. No new blocker.
+
+## 2026-11-16: iteration 2445 — preserve and review complete Bluesky day
+
+- Clean main at 54a28264; no inherited work. Alerts zero, health green, 38 sources healthy; next edition Nov 16 15:00 UTC. Metrics follow-up not due until ≥01:34.
+- Owner value: preserve expiring intake evidence and identify real evening Gaming creator contributions for the next reader edition, rather than equating popularity with relevance.
+- Read-only `report-bluesky-collections.ts` preserves all 24 Nov 15 hourly jobs (18 new); each completed with all five topics. Asserted one job/hour, complete results and fetched=submitted for every topic.
+- `report-bluesky-coverage.ts --window-end 2026-11-16T00:00:00Z --examples 5`: fixed UTC-day distinct Tech/NBA/Gaming/World/U.S. 53/51/50/158/53; no 5,000-row cap reached. Saved both reports and reviewed 25 strongest examples.
+- Two Gaming creator posts were published after the prior edition cutoff; Tech leaders remain commentary-heavy. Retain queries/pilot/budgets/gates; mixed activation day does not isolate pilot effects or accept selection quality.
+- Updated TASKS/SOURCES and day review. Next export by Nov 16 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Natural edition review remains 15:00; protect 13:00–16:00.
+- Scheduled-reader check passes: Nov 15 five topics/23 stories/16 posts. No paid calls, collection writes, runtime changes or restarts; documentation-only work leaves deployed app unchanged.
+- Verification: `pnpm format`/`pnpm lint:fix` exit 0; `pnpm check` exit 0 (1,053 unit/329 integration pass, four expected skips). Final alerts zero; `git diff --check` clean. Receipts `/tmp/2445-{check,format,lint,reader}.log`; no new blocker.
