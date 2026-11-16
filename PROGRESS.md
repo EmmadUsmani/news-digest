@@ -192,3 +192,14 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Saved scheduled reader passes five topics/23 stories/16 posts; final health passes. No runtime/source/budget/handbook change, provider calls or restart under STEERING 63.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration passes, four expected skips. Receipts `/tmp/2488-{metrics.jsonl,summary.json,compare.py,metrics-journal,services,sources,jobs,reader,format,lint,check,alerts-final}.log` (metrics/summary suffixes as named).
 - Next: metrics ≥10:57, Bluesky export by 14:36, natural edition review 15:00 UTC; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2489 — preserve natural Bluesky intake evidence
+
+- Clean main at ae8c6ef5; no inherited work. Owner value: preserve real hourly intake evidence for the full-day social-quality decision before shared queue retention expires.
+- Initial alerts clear; `pnpm obs health --check`, `services --check`, `sources --check`, `jobs --check` pass. Scheduled reader passes five topics/23 stories/16 posts using Nov 15 15:00 UTC cutoff.
+- Read-only `report-bluesky-collections.ts` export preserved six additional jobs (04:54–09:54 UTC) in the Nov 16 day evidence. All ten consecutive UTC hours complete for five distinct topics; 50 fetched/submitted matches and exact baseline/Ukraine/baseline/Gaza rotation verified. Previously retained job payloads unchanged.
+- Query observation totals: AI 492, NBA 481, game 493, World baseline 243/Ukraine 144/Gaza 100, Congress 499. These include repeated snapshots, not unique relevant posts; no new DB-count or quality claim.
+- No partial-pass quality review, runtime/source/budget/handbook changes, provider calls or restart under STEERING 63. First full rotation-day review remains after Nov 17 00:00 UTC; next retention export by 20:36 UTC.
+- Initial jobs probe used unsupported queue `digest`; corrected to default `jobs --check`, which passes. Receipts `/tmp/2489-{health,services,sources,jobs,reader}.log`, raw export `/tmp/2489-bluesky.json`.
+- Next: metrics ≥10:57 UTC and natural edition review 15:00 UTC; protect 13:00–16:00 UTC. Verification results follow.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts 0 firing/1 pending. No restart required for evidence-only changes.

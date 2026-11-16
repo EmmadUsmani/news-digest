@@ -33,7 +33,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–03:54 jobs retained (2463): first complete baseline/Ukraine/baseline/Gaza rotation, 20 topic/job stored-count matches. Next export by 14:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
+- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–09:54 jobs retained (2489): ten consecutive hourly runs/five topics each, 50 fetched/submitted matches and expected World rotation; six newly preserved jobs. Prior 20 stored-count matches remain the DB evidence. Next export by 20:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2489: preserved six additional natural Bluesky jobs before retention expiry; ten consecutive hours/five-topic completion and World rotation verified.
 
 - [x] 2488: due metrics checkpoint passes under repository verification; continued reclaim/no big merge keep resource acceptance open.
 
