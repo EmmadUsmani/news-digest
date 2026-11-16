@@ -119,3 +119,13 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - Saved Nov 15 scheduled reader provenance passes: five topics/23 stories/16 posts. No provider calls, source/budget changes or handbook changes.
 - Verification receipts `/tmp/2476-{format,lint,check,account,deploy,deploy-probe,public-browser,reader,services,sources,jobs}.log`. Next: metrics ≥07:35 UTC, Bluesky export by 14:36, scheduled edition review at 15:00; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Initial combined verification command exited 143 during lint; standalone lint and full check both finish successfully. Final health passes; zero firing/pending alerts. Metrics checkpoint now due next iteration.
+
+## 2026-11-16: iteration 2477 — due metrics-store checkpoint
+
+- Clean main at 84705a39; no inherited work. Health, 14 services, 38 sources and queues pass. Initial pending DiskSpaceLow cleared by 07:39:49 without intervention; disk 79%.
+- Due read-only checkpoint 07:39:21–07:44:26 UTC overlaps repository verification: 11 samples, all 24 rules fresh/healthy, 22 uncached expected-series queries ≤1.877 s. Both starts and evaluator/admission/timeout/slow-query counters unchanged; max/OOM/kill zero; NRestarts=0; service journal empty.
+- Since 06:34: +75 small merges/1,652,402 rows, no big merge; +490 memory-high events (27 during sample). Final usage 88,211,456 bytes; lifetime peak 92,995,584. Retain CPU 2%/88 MiB high/112 MiB max; resource acceptance remains open. Updated decision evidence and TASKS; next check ≥08:45 UTC, preferably after natural big merge.
+- Saved Nov 15 scheduled reader provenance passes: five topics/23 stories/16 posts. No provider calls, source/budget changes or runtime changes; no rebuild/restart required under item 63.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Receipts `/tmp/2477-{format,lint,check,metrics.jsonl,summary.json,compare.py,metrics-journal.log,reader,health-final,services,sources,jobs,alerts-final}.log` (metrics/summary/compare paths use their named extensions).
+- Verification again briefly crossed disk threshold: 07:48:46 alert pending/zero firing, disk recovered to 79%/5.1 GiB available by 07:48:50; alert cleared by 07:50:03 (zero firing/pending). Health remains healthy.
+- Next: Bluesky export by 14:36 UTC; scheduled public/content review 15:00; protect 13:00–16:00 UTC.
