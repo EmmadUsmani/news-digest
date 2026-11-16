@@ -35,7 +35,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–17:54 jobs retained (2532): eighteen consecutive hourly runs/five topics each, 90 fetched/submitted matches and expected World rotation; eight newly preserved jobs, prior ten unchanged. Prior 20 stored-count matches remain the DB evidence. Next export by 20:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
+- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–18:54 jobs retained (2540): nineteen consecutive hourly runs/five topics each, 95 fetched/submitted matches and expected World rotation; latest baseline job preserved, prior eighteen unchanged. Prior 20 stored-count matches remain the DB evidence. Next export by 20:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2540: preserved the natural 18:54 Bluesky baseline job before pruning; nineteen consecutive hourly runs/five topics pass, full-day review remains pending.
 
 - [x] 2539: recorded Nov 16 GTA forecast overmerge as an offline negative grouping case; published membership fails, separate control passes. Production unchanged.
 

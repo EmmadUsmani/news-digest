@@ -213,3 +213,14 @@ Archived: [iterations 2519–2526](docs/progress-archive/2026-11-16-2519-2526.md
 - Agent-control retention remains blocked by explicit run prohibition; no protected paths touched. No paid calls, production writes, rebuild or app restart (STEERING 65).
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected skips. Logs /tmp/2539-{targeted,format,lint,check}.log.
 - Next: metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
+
+## 2026-11-16: iteration 2540 — preserve next natural Bluesky baseline
+
+- Clean main at 0bc55491; no inherited work to recover/discard. Agent-control retention remains blocked by the explicit prohibition; no protected paths touched.
+- Owner value: retain natural discovery outcomes before queue pruning so the full-day review can assess supply without paid replay. Switched away from repeated grouping investigation.
+- Read-only export preserves the 18:54 baseline job: nineteen consecutive hourly runs, five topics each, 95 positive fetched/submitted matches and expected World rotation. Prior eighteen records unchanged.
+- Receipt assertions pass after correcting the assertion's baseline query spelling to the actual configured `World news & politics`; no evidence was written by the failed assertion.
+- Updated durable collection evidence and TASKS; no query changes, partial-pass quality review, provider calls, collection jobs or production writes.
+- Health, all 14 services, all 38 sources and digest queue healthy; zero active/failed digest jobs, next Nov 17 15:00 UTC. Zero alerts; disk 61%.
+- Verification: export/receipt assertions, `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,060 unit/329 integration passes, four expected skips. Logs /tmp/2540-{format,lint,check}.log.
+- Evidence-only change; no app rebuild/restart required, respecting STEERING 65. Next metrics ≥20:00 UTC, next Bluesky export by 20:36 UTC, full-day review after midnight.
