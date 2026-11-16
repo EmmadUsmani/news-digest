@@ -4,7 +4,8 @@ Public mode and public VM sharing are enabled under STEERING 63 (Nov 15).
 Only the owner may change exe.dev sharing. Follow the [approved plan](public-access-plan.md#phases).
 Nov 15 scheduled edition `a0fa3916` passed the publishing and reader gate.
 [Acceptance record](edition-reviews/2026-11-15.md#scheduled-acceptance--iteration-2398).
-Nov 16 scheduled publication over public HTTPS remains the next acceptance gate.
+Nov 16 scheduled publication passed signed-out public HTTPS and desktop/mobile reader checks.
+[Acceptance record](edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 Keep public mode enabled while sharing is public. Deploy using the
 [operations runbook](handbook/01-app/08-operations.md); restart only changed services
 and never deploy or restart between 13:00 and 16:00 UTC.

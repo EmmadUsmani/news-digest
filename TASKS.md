@@ -5,25 +5,25 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 ## Next scheduled acceptance
 
 - Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
-- Recovery/ownership fixes deployed; natural World/Gaming admission recovery and NBA source-exclusion/context acceptance remain pending. No paid replay or cap changes.
+- Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; NBA social context quality remains open. No paid replay or cap changes.
 - Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
-- Next natural edition Nov 16 15:00 UTC. Inspect World AI, NBA spoof absence/distinct social contributions and Tech saved prose; protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
+- Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review next. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
 
 ## Open work
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
-- [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. 2508: scheduled-reader gate supports signed-out HTTPS via `SCHEDULED_READER_ORIGIN`; Nov 15 verified publicly, Nov 16 correctly pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
+- [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
-- [ ] BREAKAGE: World fallback repairs pass offline (2404/2405/2409); natural recovery pending. NBA exact spoof-source exclusion deployed (2403), natural absence pending. Tech 3/4 excerpts empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
+- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Tech 3/5 selected evidence sets empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
-- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; natural admission pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
+- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); detailed cost/timing review next. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
-- [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
+- [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
 - [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2510 checkpoint 14:09–14:10 UTC: three samples/24 healthy rules, six queries ≤1.325 s; one admission-limit event since 13:08, none during sample; no timeouts/evaluator failures/restarts. +402 memory-high events (17 during sample); no big merge. Resource acceptance stays open. Next short check ≥15:11 UTC, preferably after natural big merge; scheduled edition review comes first. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2510).
 
-- [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
+- [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
 - [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 15 published coverage reviewed (2461): 11 groups/33 entries; nine apparent same-story, Irving retrospective and Vance/Trump analysis unresolved. Production unchanged; no paid replay. [Review](docs/edition-reviews/2026-11-15-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2516: accepted Nov 16 scheduled edition over signed-out public HTTPS and desktop/mobile reader; 25 stories/18 posts, all five topics Sonnet/zero unscored, World recovery and NBA selected spoof absence. Item 63 complete; Tech thin evidence remains open.
 
 - [x] 2515: 14:55 UTC final pre-publication triage passes: health, all 38 sources and scheduled queue healthy; disk 79%/5.0 GiB free. 15:00:39 scheduled run active, zero failed jobs. No runtime changes during deployment hold; public acceptance remains next.
 

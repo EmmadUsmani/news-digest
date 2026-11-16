@@ -222,3 +222,16 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - Next: Nov 16 signed-out HTTPS publication/browser/editorial acceptance at 15:00; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
 - 15:00:39 UTC queue check confirms scheduled run active: one worker/one active job, zero failed; next schedule Nov 17 15:00. Publication/editorial acceptance remains pending.
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2515-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2516 — accept scheduled public publication
+
+- Clean main at ce8960de; no inherited work to recover or discard.
+- Nov 16 scheduled edition 93aefc45-33d7-4639-ad53-78e316a40f14 published 15:03:11.281 UTC: 25 stories/18 posts; all five story sections Sonnet, zero unscored.
+- Signed-out public HTTPS latest/direct/history and immutable scheduled provenance agree; all-five-topic scheduled-reader gate passes using temporary public-DNS preload.
+- Playwright public HTTPS desktop/mobile root/direct/history pass with zero page errors; New edition/private profile/unlisted account GETs return 404. Intentional public status/topic reads excluded from refusal assertions.
+- World AI recovery and NBA selected spoof-source absence accepted; World/U.S. selected/coverage IDs disjoint. Three-edition quality and social review remain open.
+- Tech three of five story evidence sets empty; two other groups have 600-character reporting/146-character announcement. Thin evidence remains open; omitted smart-glasses score unknown.
+- Item 63 step 4 acked; TASKS/public-readiness/review updated. Browser/snapshot receipts /tmp/2516-{review.log,snapshot.json,desktop.png,mobile.png}; temporary script removed.
+- pnpm obs health, all 38 sources and scheduled queue healthy; zero failed/active digest jobs. DiskSpaceLow firing, immediate df 79%/5.0 GiB free; no cleanup during hold.
+- No runtime changes, rebuild, deployment, restart or paid calls; public mode/sharing retained. Next daily cost/speed/social review, metrics ≥15:11, Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2516-{format,lint,check}.log.
