@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2486: Topics panel uses real edition topic counts at 200% text; all choices remain reachable and local hide/restore survives reload at three widths/both themes.
+
 - [x] 2485: Contents uses real public GETs at 200% text; links remain reachable with 44px targets, keyboard focus and archive navigation at three widths/both themes.
 
 - [x] 2484: real edition/archive keyboard skip passes at 200% text, 320/390/1440px in both themes; replay removed, focus and visible destination verified.
