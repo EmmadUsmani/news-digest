@@ -57,6 +57,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Latest completed steps
 
+- [x] 2446: applied Nov 16 daily scratch rule after pending disk alert; removed four eligible paths (14.8 MiB), preserved logs/metrics/browser state; disk 78%.
+
 - [x] 2445: preserved complete Nov 15 Bluesky hourly job evidence and reviewed fixed UTC-day supply; all five topics collect continuously, new Gaming creator contributions await selection.
 
 - [x] 2444: overnight metrics follow-up preserves healthy evaluations and zero failure deltas; continuing reclaim keeps resource acceptance open. Pending disk alert cleared without deletion; full checks pass.

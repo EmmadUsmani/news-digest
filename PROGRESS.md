@@ -145,3 +145,15 @@ Archived: [iterations 2430–2435](docs/progress-archive/2026-11-15-2430-2435.md
 - Updated TASKS/SOURCES and day review. Next export by Nov 16 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Natural edition review remains 15:00; protect 13:00–16:00.
 - Scheduled-reader check passes: Nov 15 five topics/23 stories/16 posts. No paid calls, collection writes, runtime changes or restarts; documentation-only work leaves deployed app unchanged.
 - Verification: `pnpm format`/`pnpm lint:fix` exit 0; `pnpm check` exit 0 (1,053 unit/329 integration pass, four expected skips). Final alerts zero; `git diff --check` clean. Receipts `/tmp/2445-{check,format,lint,reader}.log`; no new blocker.
+
+## 2026-11-16: iteration 2446 — daily scratch cleanup after disk alert
+
+- Clean main at 102f9470; no inherited work. Pending DiskSpaceLow took priority; current filesystem 78% before cleanup.
+- Owner value: recover stale build/browser screenshot scratch without disturbing edition generation or retained operational evidence. Applied STEERING 61 once for Nov 16, outside protected hours.
+- Verified every entry owned by current user, all descendant mtimes >7 days old, no symlinks, and `lsof` exit 1/no open handles immediately before deletion.
+- Deleted `/tmp/news-digest-drizzle-patch` 10,268,358 bytes; `/tmp/claude-ui-desktop.png` 2,316,319 bytes; `/tmp/claude-ui-mobile.png` 2,193,520 bytes; `/tmp/812-failures.png` 776,598 bytes. Total 15,554,795 bytes (14.8 MiB); disk 78%→78%.
+- Preserved backups, logs, metrics and browser profiles/sessions. No app behavior/configuration changes or paid calls; docs-only commit needs no build or service restart.
+- Health green; `pnpm obs sources --check` passes 38 sources; `pnpm obs jobs --check` passes, scheduled queue zero failures and next edition Nov 16 15:00 UTC.
+- `check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts. Verification receipts `/tmp/2446-{format,lint,check,reader}.log`; final results below.
+- Next: metrics sample ≥01:34 UTC; Bluesky export by 12:36; scheduled acceptance at 15:00, protect 13:00–16:00. No further daily scratch cleanup Nov 16.
+- Final `pnpm format`/`pnpm lint:fix`/`pnpm check` exit 0: 1,053 unit and 329 integration tests pass, four expected skips. Changed Markdown formatting and `git diff --check` pass; final alerts zero. No new blocker.
