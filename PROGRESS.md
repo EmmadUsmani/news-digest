@@ -129,3 +129,14 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Receipts `/tmp/2477-{format,lint,check,metrics.jsonl,summary.json,compare.py,metrics-journal.log,reader,health-final,services,sources,jobs,alerts-final}.log` (metrics/summary/compare paths use their named extensions).
 - Verification again briefly crossed disk threshold: 07:48:46 alert pending/zero firing, disk recovered to 79%/5.1 GiB available by 07:48:50; alert cleared by 07:50:03 (zero firing/pending). Health remains healthy.
 - Next: Bluesky export by 14:36 UTC; scheduled public/content review 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2478 — enlarge sign-in return touch targets
+
+- Clean main at f1270bb8; no inherited work. Initial alerts zero; all 14 services/38 sources and health database/Redis pass. Timed metrics, export and edition acceptance remain pending.
+- Reader weakness: sign-in “Back to the digest” link has a touch target below 44px; isolated browser check reproduces the failure. Shared sign-in styles now provide a 44px minimum with vertically centered text on code and link-confirmation pages.
+- Extended existing isolated code-login browser check to 320/390/1280px, both themes, normal/200% text; viewport/action fit, focus, request/refusal/retry/redemption and privacy checks pass. Link-confirmation transport/keyboard checks pass. Fixture actions only; no real account request, provider call or notification.
+- Updated screenshots and visually inspected narrow enlarged code page. Topics panel enlarged-text inspection found no overflow; no change there. No source, budget, permissions or handbook behavior change.
+- Verification receipts: `/tmp/2478-{format,lint,check,login,confirmation,build,services,sources,jobs}.log`; full check and deployment results recorded below.
+- API build passes; API-only restart applied (health retries covered startup). Live GET-only browser verifies 44px return target and Enter navigation. Health database/Redis and saved Nov 15 reader pass: five topics/23 stories/16 posts. Worker/web unchanged.
+- `pnpm format`, `pnpm lint:fix`, typecheck/lint/format/boundaries and all 1,056 unit tests pass. Combined `pnpm check` exited 143 during integration without a test assertion; standalone `pnpm test:integration` passes 329 tests/four expected skips. `git diff --check` passes.
+- Final alerts zero firing/pending; services healthy. Next: metrics ≥08:45 UTC, Bluesky export by 14:36, scheduled public/content review at 15:00; preserve 13:00–16:00 UTC window. No new blocker.

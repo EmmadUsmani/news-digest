@@ -37,11 +37,23 @@ async function smoke() {
       404,
     );
     await mkdir('docs/screenshots/accounts', { recursive: true });
-    for (const [device, width, height] of [
-      ['desktop', 1280, 900],
-      ['mobile', 390, 844],
-    ] as const) {
-      const page = await browser.newPage({ viewport: { width, height } });
+    for (const [device, width, height, theme, textSize] of (
+      [
+        ['desktop', 1280, 900],
+        ['mobile', 390, 844],
+        ['narrow', 320, 900],
+      ] as const
+    ).flatMap(([device, width, height]) =>
+      (['light', 'dark'] as const).flatMap((theme) =>
+        [100, 200].map(
+          (textSize) => [device, width, height, theme, textSize] as const,
+        ),
+      ),
+    )) {
+      const page = await browser.newPage({
+        viewport: { width, height },
+        colorScheme: theme,
+      });
       const errors: string[] = [];
       const requests: string[] = [];
       const payloads: unknown[] = [];
@@ -59,6 +71,42 @@ async function smoke() {
         });
       });
       await page.goto(`${base}/account/login`);
+      await page.evaluate((size) => {
+        document.documentElement.style.fontSize = `${size}%`;
+      }, textSize);
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        `${device}/${theme}/${textSize}: sign-in page fits at enlarged and normal text`,
+      );
+      for (const button of await page.getByRole('button').all()) {
+        const box = await button.boundingBox();
+        const text = await button.evaluate((node) => {
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          return range.getBoundingClientRect().toJSON();
+        });
+        assert.ok(
+          box && box.height >= 44 && text.right <= box.x + box.width,
+          `${device}/${theme}/${textSize}: enlarged action text stays inside its touch target`,
+        );
+      }
+      const back = page.getByRole('link', { name: 'Back to the digest' });
+      const backBox = await back.boundingBox();
+      assert.ok(
+        backBox && backBox.height >= 44,
+        `${device}/${theme}/${textSize}: digest return link has a 44px touch target`,
+      );
+      await back.focus();
+      assert.equal(
+        await back.evaluate((node) => node === document.activeElement),
+        true,
+      );
+      assert.equal(
+        await back.evaluate((node) => getComputedStyle(node).outlineStyle),
+        'solid',
+      );
       assert.equal(payloads.length, 0);
       await page
         .getByLabel('Email', { exact: true })
@@ -75,10 +123,14 @@ async function smoke() {
         true,
       );
       assert.deepEqual(payloads, [{ email: 'fixture@example.com' }]);
-      await page.screenshot({
-        path: `docs/screenshots/accounts/code-login-${device}.png`,
-        fullPage: true,
-      });
+      if (
+        (theme === 'light' && textSize === 100 && device !== 'narrow') ||
+        (device === 'narrow' && textSize === 200)
+      )
+        await page.screenshot({
+          path: `docs/screenshots/accounts/code-login-${device}${device === 'narrow' ? `-${theme}-200` : ''}.png`,
+          fullPage: true,
+        });
       await code.fill('123456');
       await code.press('Enter');
       await page
@@ -117,7 +169,7 @@ async function smoke() {
       await page.close();
     }
     console.log(
-      'Prepared code login: disabled gate, CSP, no preview writes, request, refusal, retry, keyboard redemption and redirect pass on desktop/mobile; fixture responses only.',
+      'Prepared code login: disabled gate, CSP, no preview writes, request, refusal, retry, keyboard redemption and redirect pass at 320/390/1280px, both themes and 100/200% text; fixture responses only.',
     );
   } finally {
     await browser.close();

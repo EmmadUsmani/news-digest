@@ -42,7 +42,7 @@ export const accountPageStyle = `
   p { line-height: 1.6; }
   button { font: inherit; padding: 12px 24px; border-radius: 6px; border: 1px solid currentColor; cursor: pointer; }
   button:disabled { cursor: default; opacity: .6; }
-  a { color: inherit; text-underline-offset: 3px; }
+  a { display: inline-block; min-height: 44px; align-content: center; color: inherit; text-underline-offset: 3px; }
   :focus-visible { outline: 3px solid #3b82f6; outline-offset: 4px; }
 `;
 

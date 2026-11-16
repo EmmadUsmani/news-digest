@@ -59,6 +59,14 @@ async function smoke() {
       await button.waitFor();
       assert.equal(await button.isEnabled(), true);
       assert.equal(page.url(), `${base}/account/sign-in`);
+      const back = page.getByRole('link', { name: 'Back to the digest' });
+      const backBox = await back.boundingBox();
+      assert.ok(backBox && backBox.height >= 44, 'digest return touch target');
+      await back.focus();
+      assert.equal(
+        await back.evaluate((node) => node === document.activeElement),
+        true,
+      );
       assert.equal(posts, 0);
       assert.equal(
         requests.some((url) => url.includes(token)),

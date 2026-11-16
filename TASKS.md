@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2478: sign-in return links have 44px touch targets; isolated code flow passes 320/390/1280px, both themes and normal/200% text.
+
 - [x] 2477: due metrics checkpoint verifies healthy reads during repository checks; continued reclaim and absent big merge keep resource acceptance open.
 
 - [x] 2476: account action labels wrap at 200% text; retry, sign-out, deletion and admin controls fit 320/390/1440px in both themes.
