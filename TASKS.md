@@ -15,8 +15,6 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
 
-- [ ] Disk warning (2470): filesystem 80%; interrupted integration root `/tmp/news-digest-integration-VOU6rW` retains 285,188,096 bytes. Runner absent; last modification 05:52:46 UTC. After 06:53 UTC, the next integration startup may reclaim it using item 51’s age/process safeguards. Item 61’s daily general-scratch limit does not replace item 51’s integration-specific authorization. No deletion performed this iteration.
-
 - [ ] BREAKAGE: World fallback repairs pass offline (2404/2405/2409); natural recovery pending. NBA exact spoof-source exclusion deployed (2403), natural absence pending. Tech 3/4 excerpts empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
 - [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; natural admission pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
@@ -61,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2473: eligible integration startup reclaimed abandoned root `/tmp/news-digest-integration-VOU6rW` (285,188,096 bytes); disk 80%→78%. Verification and alert recovery recorded in PROGRESS.md.
+
 - [x] 2472: due metrics checkpoint verifies healthy reads under repository verification load; continuing reclaim keeps resource acceptance open.
 
 - [x] 2471: long publisher labels wrap within narrow enlarged reader layouts; public recent/oldest archives verified at 320/390/1440px in both themes.
@@ -69,31 +69,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] 2469: populated Saved items acceptance passes at 200% text, 320/390/1440px in both themes; real story/post persistence, source links and keyboard removal verified. No runtime change.
 
-- [x] 2468: due metrics checkpoint retains healthy reads/rules and unchanged limits; continuing reclaim leaves resource acceptance open.
-
-- [x] 2467: retained World same-story and distinct-conflict cases offline; broad Trump analysis stays unknown, production unchanged.
-
-- [x] 2466: added offline recent NBA grouping cases: separate games, direct injury consequences and unlabeled Irving retrospective; no production or paid evaluation changes.
-
-- [x] 2465: signed-out public HTTPS archive acceptance passes at 1440/390px: 13 real entries, newest/oldest saved edition dates/topics, back navigation and layout; Nov 16 scheduled publication remains pending.
-
-- [x] 2464: enlarged reader text reflows the header, topic navigation, long handles and summaries; 320/390/1440px light/dark browser checks pass at 200% and 100%.
-
-- [x] 2463: preserved the first complete Nov 16 overnight Bluesky query rotation; all 20 topic/job cohorts match stored observations, with no query or selection changes.
-
-- [x] 2462: post text preserves whitespace between links without creating unnamed keyboard stops; real archived Gaming post verified on desktop/mobile in both themes.
-
-- [x] 2461: reviewed Nov 15 published grouping against saved/served coverage; recorded two unresolved boundaries for natural-edition acceptance.
-
-- [x] 2460: links to hidden topic/posts sections offer Show, then restore and focus their destination.
-
-- [x] 2459: mobile reader title fits at 320px; Topics sits beside Saved items and Account, with all date controls preserved.
-
-- [x] 2458: measured metrics recovery across verification load; healthy reads/evaluations persist, continuing reclaim keeps resource acceptance open.
-
-- [x] 2457: coverage titles omit exact duplicate publisher suffixes; publisher attribution and saved evidence stay intact.
-
-- [x] 2456: removed duplicate Google News wrapper citations from reader coverage; saved editions and editorial selection unchanged.
+[Completed 2455–2468](docs/progress-archive/2026-11-16-completed-2455-2468.md).
 
 [Completed through 2454](docs/progress-archive/2026-11-16-task-detail-2455.md#completed-markers-through-2454).
 
