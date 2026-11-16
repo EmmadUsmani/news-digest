@@ -35,20 +35,18 @@ gaps. [Rerun evidence](docs/edition-reviews/2026-11-05-x-experiment-review.md#au
 
 Nov 6 round (1050): keyword usable Tech/NBA/Gaming/World 0 (failed)/3/3/0; semantic zero. Failure rate 3/10 attempts, one of four keyword cells after retries. All $0.442837 settled, no new holds. No owner action requested; saved old-baseline comparison and the plan decision are next. [Evidence](docs/edition-reviews/2026-11-06-x-experiment-review.md).
 
-## Admin access rollout (updated under STEERING 36)
+## Admin access rollout — complete; site public (Nov 15)
 
-No owner action is needed for the private-VM rollout. STEERING 36 confirms
-`ADMIN_EMAILS` is configured and `/api/me` recognizes the owner. The local script
-token is installed. Finish migrating operational routes and tools together.
-Verify proxy identity-header replacement before any future public access;
-the VM stays private. See the [access decision](docs/decisions/2026-11-05-admin-access.md).
+Admin access and operational-route migrations are deployed. `ADMIN_EMAILS`
+and the local script token are configured. The owner confirmed proxy identity
+replacement; the last-entry visitor selector and loopback trust remain in use.
+See the [access decision](docs/decisions/2026-11-05-admin-access.md).
 
-Nov 9 item 53 proxy question resolved by the owner's result in STEERING.md:
-both appended entries match the visitor, and the immediate peer is loopback.
-Keep the existing last-entry selector. No further proxy rerun is requested;
-observed-shape tests and explicit loopback trust are complete (1589). Phase 3
-migrations and invite-only server/web deployment are complete (1591). Public
-mode remains off; sharing is unchanged.
+Public mode was enabled in iteration 2330, and scheduled edition `a0fa3916`
+passed the publishing/reader gate in iteration 2398. The owner made VM sharing
+public on Nov 15, as recorded in STEERING Current order and item 63. No sharing
+or activation decision remains. Keep public mode on; only the owner changes
+sharing. Follow [public readiness](docs/public-readiness.md) for recovery.
 
 ## Owner two-device acceptance — passed (Nov 10)
 
@@ -99,8 +97,8 @@ Phase 4 script-policy blocker resolved in iteration 1567: the earlier reports
 came from app theme startup and Zod code generation. The corrected reader passes
 40 real X widget views with the self/platform script allowlist enforced and no
 inline/eval exceptions. [Review and evidence](docs/public-script-policy-review.md).
-The lead's Phase 4 security review is complete. Item 58 fixes come next,
-then the lead re-check and owner go-public decision.
+The lead's Phase 4 security review and item 58 acceptance are complete.
+The owner made the site public on Nov 15; no go-public decision remains.
 
 ## Backblaze B2 for off-VM backups (2026-11-06, STEERING 37)
 
@@ -180,12 +178,12 @@ reports proxy port 8000. A signed-in browser `fetch('/api/me')` sending a
 spoofed non-admin `X-ExeDev-Email` returned `isAdmin: true`, so the proxy
 replaced the client's header with the real identity. Not covered: the
 `X-ExeDev-UserID` header, and anonymous visitors once the proxy is public.
-Under STEERING 59, private public-mode activation follows scheduled NBA/item 58
-acceptance without another owner decision. Sharing remains private; the owner's
-go-public decision gates sharing only. STEERING 62 accepts Nov 14 publication for
-item 58; iteration 2330 enabled public mode while sharing stays private. Nov 15 scheduled edition `a0fa3916` passed the
-publishing/reader gate (2398); item 50 is acknowledged. The owner may now decide
-whether to share. VM sharing stays private until that decision; no agent sharing action.
+STEERING 62 accepted Nov 14 publication for item 58; iteration 2330 enabled
+public mode. Nov 15 scheduled edition `a0fa3916` passed the publishing/reader
+gate (2398), and item 50 is acknowledged. The owner subsequently made sharing
+public on Nov 15. STEERING 63 now requires public mode to remain on and the
+Nov 16 scheduled edition to be accepted through public HTTPS. That review is
+agent work, not a pending owner decision; no proxy rerun is requested.
 
 ## Resolved: disk headroom — Nov 15, iteration 2329
 

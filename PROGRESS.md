@@ -203,3 +203,14 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Initial jobs probe used unsupported queue `digest`; corrected to default `jobs --check`, which passes. Receipts `/tmp/2489-{health,services,sources,jobs,reader}.log`, raw export `/tmp/2489-bluesky.json`.
 - Next: metrics ≥10:57 UTC and natural edition review 15:00 UTC; protect 13:00–16:00 UTC. Verification results follow.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts 0 firing/1 pending. No restart required for evidence-only changes.
+
+## 2026-11-16: iteration 2490 — disk triage and public-state handoff correction
+
+- Clean main at f875a1c7; no inherited work. Owner value: remove obsolete private-site instructions that could misdirect public-site recovery.
+- Initial health, 14 services, 38 sources and digest jobs pass; saved reader passes five topics/23 stories/16 posts at Nov 15 15:00 UTC cutoff.
+- Pending DiskSpaceLow recovered without intervention: disk 79%, 5,399,887,872 bytes available; zero firing/pending alerts at 10:16:23 UTC. No abandoned integration directories; today's item-61 cleanup already used in 2446.
+- Read-only disk inventory: /tmp 2.3 GiB, observability data 1.1 GiB, journal 468 MiB; no authorized new cleanup target established. No deletion, retention change or service restart.
+- Corrected three stale NEEDS_FROM_HUMAN.md sections: public mode and owner sharing decision are complete; item-63 public HTTPS scheduled acceptance remains agent work. No owner action requested.
+- Receipts `/tmp/2490-{health,services,sources,jobs,reader,alerts,format,lint,check}.log`. No runtime/source/budget changes or provider calls; no rebuild/restart under STEERING 63.
+- Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance at 15:00 UTC, Bluesky retention export by 20:36 UTC; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending after verification.

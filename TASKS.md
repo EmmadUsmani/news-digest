@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2490: triaged pending disk warning without unauthorized cleanup; corrected stale private-site/activation handoff in NEEDS_FROM_HUMAN.md to owner-confirmed public status.
+
 - [x] 2489: preserved six additional natural Bluesky jobs before retention expiry; ten consecutive hours/five-topic completion and World rotation verified.
 
 - [x] 2488: due metrics checkpoint passes under repository verification; continued reclaim/no big merge keep resource acceptance open.
