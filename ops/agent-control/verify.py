@@ -239,6 +239,41 @@ class UsagePacingTests(unittest.TestCase):
             self.assertIn("5-hour window 40% used", control.budget_text({"primary": good}, 10, 1_000_000_000))
 
 
+class LogRetentionTests(unittest.TestCase):
+    def test_prunes_old_iteration_logs_but_keeps_newest_and_shared_logs(self):
+        with tempfile.TemporaryDirectory(prefix="harness-prune-test-") as directory:
+            logs = Path(directory)
+            now = time.time()
+            old = now - 8 * 86400
+            names = ["iter-099.jsonl", "iter-099.err", "iter-100.jsonl", "iter-100.final.md",
+                     "iter-101.jsonl", "iter-101.jsonl.primary", "report-1.prompt.md",
+                     "supervisor.log", "usage.tsv", "health.log"]
+            for name in names:
+                (logs / name).write_text("x")
+            for name in names:
+                if name != "iter-101.jsonl":
+                    os.utime(logs / name, (old, old))
+            os.utime(logs / "iter-100.final.md", (now, now))
+            removed = control.prune_logs(logs, 7, now)
+            self.assertEqual(sorted(p.name for p in removed),
+                             ["iter-099.err", "iter-099.jsonl", "iter-100.jsonl", "report-1.prompt.md"])
+            remaining = sorted(p.name for p in logs.iterdir())
+            self.assertEqual(remaining, ["health.log", "iter-100.final.md", "iter-101.jsonl",
+                                         "iter-101.jsonl.primary", "supervisor.log", "usage.tsv"])
+
+    def test_numbering_continues_after_everything_is_old(self):
+        with tempfile.TemporaryDirectory(prefix="harness-prune-test-") as directory:
+            logs = Path(directory)
+            old = time.time() - 30 * 86400
+            for name in ("iter-2540.jsonl", "iter-2541.jsonl", "iter-2541.err"):
+                (logs / name).write_text("x")
+                os.utime(logs / name, (old, old))
+            control.prune_logs(logs, 7, time.time())
+            self.assertEqual(sorted(p.name for p in logs.iterdir()), ["iter-2541.err", "iter-2541.jsonl"])
+            numbers = [int(p.stem.split("-")[1]) for p in logs.glob("iter-*.jsonl")]
+            self.assertEqual(max(numbers) + 1, 2542)
+
+
 class SupervisorTests(unittest.TestCase):
     def run_case(self, mode, stop=False, overrides=None):
         with tempfile.TemporaryDirectory(prefix="harness-supervisor-test-") as directory:

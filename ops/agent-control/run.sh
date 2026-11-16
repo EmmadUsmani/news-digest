@@ -20,6 +20,8 @@ PACE_WEEKLY=${PACE_WEEKLY:-1}
 PACE_SLACK_PCT=${PACE_SLACK_PCT:-10}
 PACE_MAX_WAIT_MIN=${PACE_MAX_WAIT_MIN:-60}
 USAGE_MAX_WAIT_MIN=${USAGE_MAX_WAIT_MIN:-720}
+# Per-iteration logs older than this are deleted; the newest iteration is kept.
+LOG_RETENTION_DAYS=${LOG_RETENTION_DAYS:-7}
 CODEX_SESSIONS=${CODEX_SESSIONS:-$HOME/.codex/sessions}
 SMOKE=${SMOKE:-0}
 # When the provider refuses the default model, rerun that iteration on this
@@ -273,6 +275,8 @@ while true; do
         fi
     fi
     PACED=0
+    PRUNED=$(python3 "$CONTROL/control.py" prune "$CONTROL/logs" "$LOG_RETENTION_DAYS" 2>&1) \
+        || log "WARNING: log pruning failed: $PRUNED"
     ITERATION=$(python3 "$CONTROL/control.py" next "$CONTROL/logs")
     printf -v LABEL '%03d' "$ITERATION"
     PREFIX="$CONTROL/logs/iter-$LABEL"

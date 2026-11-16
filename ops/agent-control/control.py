@@ -218,6 +218,21 @@ def budget_text(usage, slack_pct, now):
     return "Codex usage: " + "; ".join(parts) + f". Status: {status}. {advice}"
 
 
+def prune_logs(logs_dir, max_age_days, now):
+    """Delete per-iteration logs older than max_age_days, always keeping the newest
+    iteration's files: `next` numbers iterations from the highest iter-*.jsonl."""
+    logs = Path(logs_dir)
+    numbered = [(int(m.group(1)), p) for p in logs.glob("iter-*")
+                if (m := re.match(r"iter-(\d+)\.", p.name))]
+    newest = max((n for n, _ in numbered), default=None)
+    cutoff = now - max_age_days * 86400
+    old = [p for n, p in numbered if n != newest] + list(logs.glob("report-*"))
+    removed = [p for p in old if p.is_file() and p.stat().st_mtime < cutoff]
+    for path in removed:
+        path.unlink()
+    return removed
+
+
 def main():
     action, *args = sys.argv[1:]
     if action == "classify":
@@ -275,6 +290,10 @@ def main():
         tmp = path.with_suffix(".tmp")
         tmp.write_text(json.dumps(data, indent=2) + "\n")
         os.replace(tmp, path)
+    elif action == "prune":
+        logs_dir, days = args
+        removed = prune_logs(logs_dir, float(days), time.time())
+        print(f"pruned {len(removed)} log files")
     elif action == "next":
         numbers = [int(p.stem.split("-")[1]) for p in Path(args[0]).glob("iter-*.jsonl")]
         print(max(numbers, default=0) + 1)

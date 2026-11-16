@@ -50,6 +50,11 @@ the run, and a productive iteration resets it. Apart from the model fallback
 above, the harness never switches model, provider, account or billing, never attempts login, and never buys
 credits.
 
+Per-iteration logs (`logs/iter-*`, `logs/report-*`) older than
+`LOG_RETENTION_DAYS` (default 7) are deleted before each iteration. The newest
+iteration's files are always kept, because iteration numbers continue from
+them. `supervisor.log`, `usage.tsv` and `health.log` are never pruned.
+
 Each retry starts a fresh Codex session from repo history, progress notes and
 the last nonempty final summary. Interrupted work stays on disk for the next
 iteration to recover.
