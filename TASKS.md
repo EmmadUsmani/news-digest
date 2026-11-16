@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2509: protected-edition triage passes: health, 38 sources and scheduled digest queue healthy; no runtime change during hold. Selection impact still awaits 15:00 edition.
+
 - [x] 2508: enabled public HTTPS origin in the scheduled-reader gate; existing publication passes and future scheduled window stays pending, with local provenance checks retained.
 
 - [x] 2507: quantified Tech cutoff loss read-only: 28/228 articles omitted, four with text; identified smart-glasses reporting for natural scheduled admission review. [Review](docs/edition-reviews/2026-11-16.md#tech-cutoff-impact--iteration-2507).

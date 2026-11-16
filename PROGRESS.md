@@ -211,3 +211,15 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 - No source/configuration/runtime changes, provider calls, spending, rebuild or restart during STEERING 63 deployment hold. Tooling takes effect directly from main.
 - Next: metrics ≥14:09 UTC; Nov 16 scheduled publication/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2508-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2509 — protected-edition triage and handoff
+
+- Clean main at ea479229; no inherited work to recover or discard.
+- pnpm obs alerts: zero firing, one pending DiskSpaceLow; df -h / reports 79% used/5.0 GiB available. No cleanup during the protected window.
+- pnpm obs health passes; pnpm obs sources --check reports all 38 healthy.
+- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next scheduled run 15:00 UTC.
+- Owner would care: preserve the scheduled public edition without another generation change or service interruption.
+- No new product change: Tech cutoff cause and omitted prose are already captured in 2507; actual scoring/selection impact needs natural publication. Stopped duplicate analysis under STEERING 42/55.
+- No source/configuration/runtime changes, provider calls, spending, rebuild, cleanup or restart during STEERING 63's 13:00–16:00 hold.
+- Next: metrics checkpoint no earlier than 14:09 UTC; scheduled signed-out HTTPS/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2509-{format,lint,check}.log. All 14 monitored services healthy.
