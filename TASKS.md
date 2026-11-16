@@ -25,7 +25,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 15 published coverage reviewed (2461): 11 groups/33 entries; nine apparent same-story, Irving retrospective and Vance/Trump analysis unresolved. Production unchanged; no paid replay. [Review](docs/edition-reviews/2026-11-15-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
+- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 15 published coverage reviewed (2461): 11 groups/33 entries; nine apparent same-story, Irving retrospective and Vance/Trump analysis unresolved. Nov 16 review (2528): 16 groups/68 entries; eleven apparent same-story, five unresolved edges (GTA/Helix/Nvidia/Shenzhen/flight grounding). Spurs/Lakers analysis directly linked by saved prose. Production unchanged; no paid replay. [Latest review](docs/edition-reviews/2026-11-16-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2528: reviewed all Nov 16 published multi-report groups; saved prose resolves Spurs/Lakers game reactions, five grouping edges await fuller evidence. Retained production.
 
 - [x] 2527: restored complete Tech scored membership from preserved pre-edition/current records; both variants exclude Senate/Apple before editing, exact historical request remains unavailable. Closed further historical probing without a matching capture.
 

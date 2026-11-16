@@ -50,63 +50,7 @@ Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md
 
 Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md).
 
-## 2026-11-16: iteration 2511 — scheduled-edition protection
-
-- Clean main at a1eb0247; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
-- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs, next run 15:00 UTC.
-- Reader weakness remains Tech evidence scarcity/World fallback; causes already recorded, fixes await natural publication. No duplicate investigation under STEERING 42/55.
-- No runtime/source changes, cleanup, rebuild, restart, provider calls or spending during STEERING 63 hold.
-- Next: scheduled signed-out public HTTPS/browser/editorial review at 15:00; metrics ≥15:11 after edition work; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, full pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2511-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2512 — preserve natural publication acceptance
-
-- Clean main at dddde0f3; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
-- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
-- Reader weaknesses remain Tech evidence scarcity and World fallback; causes already documented. Natural selection/admission evidence is pending.
-- Preserved deployment hold: no runtime/source changes, rebuild, restart, cleanup, provider calls or spending.
-- No repeated accepted-screen checks or duplicate investigation under STEERING 42/55.
-- Next: 15:00 signed-out public publication/editorial review; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix and full pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2512-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2513 — protect scheduled publication
-
-- Clean main at e7951478; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; recent firing/resolution oscillation. df -h /: 79%, 5.0 GiB available.
-- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
-- Natural public publication, World admission, NBA exclusion and Tech prose acceptance remain pending; no new selection evidence before the run.
-- Preserved STEERING 63 hold: no runtime changes, deploy, rebuild, restart, cleanup, provider calls or spending.
-- Next: 15:00 signed-out HTTPS publication/browser/editorial review, then metrics ≥15:11; Bluesky export by 20:36 UTC.
-- Archived iterations 2496–2501 to keep PROGRESS.md below 25 KB. Initial check caught archive formatting; corrected and reran full check.
-- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2513-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2514 — preserve pre-publication runtime
-
-- Clean main at 18d479c7; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
-- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
-- Reader weaknesses remain World fallback and Tech evidence scarcity; recorded causes await natural selection/admission evidence. NBA exclusion acceptance also pending.
-- Preserved STEERING 63 deployment hold: no runtime changes, deploy, rebuild, restart, cleanup, provider calls or spending.
-- Next: 15:00 signed-out public HTTPS publication/browser/editorial review; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2514-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2515 — final pre-publication handoff
-
-- Clean main at c5375764; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; df -h /: 79%, 5.0 GiB available.
-- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
-- Reader weaknesses remain World fallback and Tech evidence scarcity; natural NBA spoof exclusion also awaits the scheduled run.
-- Preserved STEERING 63 hold: no runtime changes, rebuild, deploy, restart, cleanup, provider calls or spending.
-- Next: Nov 16 signed-out HTTPS publication/browser/editorial acceptance at 15:00; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
-- 15:00:39 UTC queue check confirms scheduled run active: one worker/one active job, zero failed; next schedule Nov 17 15:00. Publication/editorial acceptance remains pending.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2515-{format,lint,check}.log.
+Archived: [iterations 2511–2515](docs/progress-archive/2026-11-16-2511-2515.md).
 
 ## 2026-11-16: iteration 2516 — accept scheduled public publication
 
@@ -253,3 +197,17 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 - Updated TASKS and edition review. No provider calls, writes, jobs, runtime/source changes, rebuild or restart; live app code still matches main.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Receipts /tmp/2527-{format,lint,check}.log; final /healthz passes.
 - Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; preserve next-edition Tech inputs rather than repeat historical reconstruction.
+
+## 2026-11-16: iteration 2528 — review published same-story coverage
+
+- Clean main at 939094fa; no inherited work to recover or discard.
+- Owner value: check whether the newly published coverage groups mix unrelated developments before changing grouping.
+- Read all 16 multi-report groups (68 coverage entries/167 pairs): eleven apparent same-story groups; GTA/Helix/Nvidia/Shenzhen/flight-grounding edges remain unresolved with saved evidence.
+- Saved Spurs/Jazz and Lakers/Suns prose explicitly connects analysis to the grouped games; no counterpart to the unresolved Nov 15 Irving retrospective established.
+- Python assertions match every served coverage ID/title/URL/timestamp to saved coverage/editor evidence and confirm unique IDs within groups. Receipts /tmp/2528-{edition,grouping-check}.json; acceptance snapshot /tmp/2516-snapshot.json.
+- Public HTTPS retrieval passes via public DNS with TLS checks; default VM hostname mapping unreachable, direct localhost API rejected 429 by public admission. Public edition ID matches expected publication.
+- Health/14 services/all 38 sources pass; digest queue zero failed/active. GamesRadar natural scheduled fetch succeeded at 17:20 (50 fetched/592 stored).
+- Disk warning intermittent; df 79%/5.0 GiB free. Daily permitted scratch cleanup already done; no further deletion.
+- Updated TASKS/review; archived progress 2511–2515 to keep orientation small. No provider calls, runtime changes, rebuild or restart; live code matches main.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2528-{format,lint,check}.log. Final /healthz passes.
+- Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; fuller Gaming member evidence before grouping decisions.
