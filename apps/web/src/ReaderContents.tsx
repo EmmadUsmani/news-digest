@@ -21,8 +21,15 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     ]);
     const update = () => {
       // Choose the last heading above the reading line, including deep links.
+      const headerHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--reader-header-height',
+          ),
+        ) || 0;
       const readingLine = Math.max(
         180,
+        headerHeight + 48,
         (chips.current?.parentElement?.getBoundingClientRect().bottom ?? 0) +
           48,
       );

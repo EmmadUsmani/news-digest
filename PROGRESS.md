@@ -125,3 +125,14 @@
 - Verification receipts: /tmp/2551-{format.log,lint.log,check.log,metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,alerts-final.log}; baseline assertions: python3 /tmp/2551-summarize.py.
 - Evidence/docs only: no application changes, rebuild/deployment/restart under STEERING 22/65; no source requests, paid calls or new editions.
 - Next: Bluesky export by 23:36 UTC; full-day review after midnight; metrics ≥23:14 UTC, preferably after natural big merge; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2552 — align contents with enlarged reader header
+
+- Clean main at 61dc4e93; no inherited edits to recover/discard. Protected paths untouched.
+- Reader weakness: at 1024px/300% text the header is 277px tall, but desktop contents tracking used a fixed 180px reading line, leaving the highlighted story behind the visible reading position.
+- Contents tracking now includes the existing measured header height plus reading space. Owner value: enlarged-text readers can identify their current story in the contents. No generation, source or budget changes.
+- Playwright against real published content passes twelve configurations: 390/1024px, 100/200/300% text, light/dark; desktop contents and mobile sheet identify the scrolled story, no browser errors. GET-only loopback requests; external requests blocked. Screenshot: docs/screenshots/2552-contents-enlarged-desktop.png.
+- Initial browser assertion ran before smooth scrolling settled; reduced-motion/instant scrolling corrected the harness. Receipt: /tmp/2552-contents.log.
+- Initial health, services, all 38 sources and digest-generation queue healthy; zero alerts, next edition Nov 17 15:00 UTC.
+- Verification: pnpm format, pnpm lint:fix, full pnpm check, atomic web build and git diff --check pass: 1,061 unit/329 integration tests, four expected skips. Receipts: /tmp/2552-{format,lint,check,web-build-final,contents-final}.log. Static deployment needs no service restart under STEERING 22/65.
+- Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.

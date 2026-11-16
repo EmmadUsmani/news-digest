@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2552: edition contents follows the measured header reading line at enlarged desktop text; real-content mobile/desktop light/dark checks at 100–300% pass.
+
 - [x] 2551: retained due 22:12 metrics recovery evidence; six uncached queries/24 rules pass, no new failures or restarts. Continued reclaim keeps resource acceptance open.
 
 - [x] 2550: preserved natural 21:54 Bluesky Ukraine run before pruning; 22 consecutive hourly runs/all 110 topic counts and expected World rotation pass. Full-day quality review remains after midnight.
