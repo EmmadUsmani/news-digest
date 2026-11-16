@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2497: disk warning reproduced during isolated verification (+281 MiB, 79→80%); teardown returned disk to 79%. Protected storage retained; published reader healthy.
+
 - [x] 2496: disk-pressure triage compacted Git objects without pruning or changing history; `.git` 533→489 MiB, connectivity verified. Disk remains 79%; services and published reader healthy.
 
 - [x] 2495: all 23 published story headlines retain full titles/links, horizontal reachability, 44px targets and keyboard focus at 200% text across three widths/both themes; six screenshots refreshed.

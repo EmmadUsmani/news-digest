@@ -205,3 +205,15 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Next: metrics ≥11:58 UTC; natural edition/public publication acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - Final alert snapshot: zero firing/pending; disk remains 79%. Warning cleared during verification.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, final `/healthz` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips.
+
+## 2026-11-16: iteration 2497 — disk-alert verification burst diagnosis
+
+- Clean main at ddcaea2d; no inherited work. Reader impact: establish whether recurrent disk warnings threaten scheduled publication before changing production.
+- Initial pending DiskSpaceLow cleared without deletion; health/services/sources/jobs pass. Published edition a0fa3916 retains five topics/23 stories/16 posts.
+- Read-only inventory: `/tmp` 2.3 GiB, repo 1.3 GiB, observability 1.1 GiB, journal 468 MiB; protected data untouched. Daily scratch cleanup already used.
+- Sampled required verification every five seconds: used bytes 19,534,794,752→19,829,514,240 (+281.1 MiB), crossing 79→80% while isolated test containers ran.
+- After test teardown, usage returned to 19,544,076,288 bytes/79%; this reproduces verification-related threshold crossings, without establishing the cause of the initial warning.
+- No runtime/source/budget changes or provider calls; no rebuild/restart needed under STEERING 63. Live services match main.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration passes, four expected skips. Receipts `/tmp/2497-{health,services,sources,jobs,reader,format,lint,check,alerts*,disk-*}.*`.
+- Next: metrics ≥11:58 UTC; Nov 16 natural edition/public HTTPS acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC; no extra scratch cleanup today.
+- Final `/healthz` passes; temporary test containers removed, disk 79%, zero firing/pending alerts. `git diff --check` passes.
