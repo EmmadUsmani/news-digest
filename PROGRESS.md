@@ -139,3 +139,15 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - `pnpm format`, `pnpm lint:fix`, final `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. The first combined verification ended with signal 143 during integration; the separate complete rerun passes. `git diff --check` passes.
 - Receipts `/tmp/2464-{before,browser,deploy-final,format-final,lint-final,check-final,reader,services,sources,jobs,alerts-final}.log`.
 - Next: metrics ≥05:30 UTC, Bluesky retention export by 14:36, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2465 — verify signed-out public archive access
+
+- Clean main at ac9e56bf; no inherited work. Health database/Redis, 14 services, 38 sources and scheduled jobs healthy.
+- Initial pending disk warning cleared naturally; filesystem 78%. Nov 16 scratch cleanup already applied in 2446, so no repeated deletion.
+- Added `scripts/check-live-reader-archive.ts`: real public HTTPS browser acceptance, signed out, GET/HEAD only, external requests blocked; no replay, provider calls or publication writes.
+- Desktop 1440px/mobile 390px: 13 real archive entries; newest Nov 15 and oldest Nov 3 saved editions open with matching dates/topic IDs, working browser Back, no horizontal overflow or page errors. Six screenshots saved; mobile archive and oldest edition viewed.
+- Public DNS resolved explicitly as in the existing handbook probe; default VM hostname resolution cannot reach public HTTPS. Deployment/sharing unchanged.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. This does not close Nov 16 scheduled acceptance.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,054 unit and 329 integration tests, four expected skips. `git diff --check` passes. Receipts `/tmp/2465-{format,lint,check,public-archive,reader,alerts-final}.log`.
+- No runtime change: no rebuild/restart under STEERING 63. No new blockers, paid calls or source changes.
+- Next: metrics ≥05:30 UTC, Bluesky retention export by 14:36, Nov 16 public scheduled publication/content acceptance at 15:00; protect 13:00–16:00 UTC.
