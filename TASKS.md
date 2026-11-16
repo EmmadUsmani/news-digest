@@ -19,7 +19,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] STEERING 56/57: World/U.S. split deployed; Nov 15 semantic scope/event review (2412) passes: five stories each, 14/6 coverage IDs, no repeated or misplaced event. World fallback depth and three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. 2448 verification-load follow-up through Nov 16 01:20:27: 11 samples/24 healthy rules, 22 uncached queries ≤1.772 s, unchanged processes and no new failure/admission/timeout/slow-query counters. Since 00:33:23: +300 memory-high events (+76 during sample), max/OOM/kill=0; 43 small merges/1,432,343 rows, no new big merge. Early sample overlaps repository checks; reclaim leaves acceptance open. Next sample ≥02:22 UTC, preferably across a natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-recovery-follow-up-iteration-2448).
+- [ ] Breakage / metrics-store: retain CPU-only 2% trial. 2453 short post-verification checkpoint Nov 16 02:22:31–02:23:32: three samples/24 healthy rules, six uncached queries ≤0.766 s, unchanged processes and no new failure/admission/timeout/slow-query counters. Since 01:20:27: +329 memory-high events, zero during this minute; max/OOM/kill=0. Small merges +62/2,073,596 rows; no new big merge. Sustained recovery remains unproven. Next short check ≥03:25 UTC, preferably after a natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-post-verification-checkpoint-iteration-2453).
 
 - [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 15 NBA review (2402) finds no Murray repetition; spoof exclusion still awaits natural acceptance. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2453: due short metrics checkpoint after repository checks confirms healthy queries/evaluations and no reclaim during one minute; sustained resource acceptance stays open.
 
 - [x] 2452: preserved first two Nov 16 natural Bluesky jobs; baseline/Ukraine rotation and all-topic submissions confirmed without collecting or changing production.
 

@@ -1211,3 +1211,26 @@ natural big merge. No forced merge, restart, provider call or runtime change.
 Receipts: `/tmp/2448-metrics.jsonl`, `/tmp/2448-summary.json`,
 `/tmp/2448-compare.py`, `/tmp/2448-capacity.json`,
 `/tmp/2448-metrics-journal.log` and `/tmp/2448-{check,reader}.log`.
+
+### Short post-verification checkpoint (iteration 2453)
+
+Nov 16 02:22:31–02:23:32 UTC: three read-only samples, taken after
+repository checks completed, found all 24 rules fresh and healthy. Six
+uncached probes returned expected series in ≤0.766 seconds. No memory-high
+events occurred during this minute; this short interval does not establish
+sustained idle-load recovery.
+
+Against the 01:20:27 baseline, memory-high increased by 329; max/OOM/kill
+remained zero. Both process starts, evaluator error/missed, admission,
+timeout and slow-query counters stayed unchanged. Small merges advanced by
+62/2,073,596 rows; no new big merge. Ending metrics memory was 83.9 MiB;
+lifetime peak 88.7 MiB; NRestarts=0. Metrics journal had no entries since
+the baseline. All 38 sources, services and scheduled jobs passed; the saved
+reader served five topics, 23 stories and 16 posts. Final alerts were zero.
+
+Retain CPU 2%, MemoryHigh 88 MiB and MemoryMax 112 MiB. Resource acceptance
+remains open; next short check ≥03:25 UTC, preferably after a natural big
+merge. No forced merge, restart, provider call or runtime change. Receipts:
+`/tmp/2453-metrics.jsonl`, `/tmp/2453-summary.json`,
+`/tmp/2453-compare.py`, `/tmp/2453-metrics-journal.log`,
+`/tmp/2453-{check,reader,sources,alerts}.log`.

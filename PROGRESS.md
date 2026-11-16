@@ -154,3 +154,15 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - `/healthz` database/Redis green; `pnpm obs services --check`, `pnpm obs jobs --check --limit 2`, `pnpm obs sources --check` pass. Initial disk alert pending, current disk 78%; today's cleanup already applied, no repeat deletion.
 - Documentation/evidence only; running build unchanged, no service restart needed. Next metrics ≥02:22 UTC, extend export by 12:36, scheduled review 15:00; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; `git diff --check` clean. Receipts `/tmp/2452-{format,lint,check,sources,final-alerts}.log`; no new blocker.
+
+## 2026-11-16: iteration 2453 — due short metrics recovery checkpoint
+
+- Clean main at daffacb7; no inherited work. Read current priorities/open acceptance; no new owner instruction.
+- Owner value: confirm the metrics service continues serving healthy reads without disturbing intake or editorial changes awaiting natural acceptance. Reader weakness remains known Tech evidence scarcity/World fallback; no new editorial rule justified.
+- Services, all 38 sources, scheduled jobs and `/healthz` pass; reader provenance passes for five topics/23 stories/16 posts. Initial disk alert pending; direct disk 78%, today's cleanup already done, no repeated deletion. Final alerts zero.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Sampling began after checks completed and after the 02:22 checkpoint.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` passes: three samples/24 fresh healthy rules, six uncached probes ≤0.766 s; baseline comparison assertions pass.
+- Since 01:20:27: +329 memory-high events, zero during this minute; max/OOM/kill=0, process starts and failure/admission/timeout/slow counters unchanged. Small merges +62/2,073,596 rows; no big merge. Memory 83.9 MiB, NRestarts=0; journal empty.
+- Short checkpoint cannot establish sustained recovery; keep CPU 2%/88 MiB high/112 MiB max. Next short check ≥03:25 UTC, preferably after natural big merge; no waiting for compaction.
+- Updated capacity evidence/task handoff only; runtime build unchanged, no restart needed. Bluesky export by 12:36, scheduled review 15:00; protect 13:00–16:00 UTC.
+- Receipts `/tmp/2453-{format,lint,check,reader,sources,alerts}.log`, `/tmp/2453-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`. Final `pnpm format` and `git diff --check` pass; documentation-only edits after full checks.
