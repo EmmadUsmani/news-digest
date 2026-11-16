@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2559: Saved items Account control and archive headings reflow at 300% reader text; saved real-story and account focus checks pass at three widths in both themes.
+
 - [x] 2558: mobile contents keeps its title and Close control visible while long menus scroll; real-edition checks pass at three widths, both themes and 100–300% text.
 
 - [x] 2557: due metrics checkpoint verifies 24 healthy rules/six uncached queries and unchanged failure counters; ongoing reclaim/no big merge keeps resource acceptance open.

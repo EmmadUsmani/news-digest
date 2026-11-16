@@ -205,3 +205,15 @@
 - Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
 - Web rebuilt and published atomically with prior hashed assets retained; no API/worker runtime change or restart needed under STEERING 22. Health, 14 services and 38 sources healthy; zero failed digest jobs, next edition Nov 17 15:00 UTC.
 - Next: retain final 23:54 Bluesky collection, review full day after midnight; metrics ≥00:16 UTC and retention timer receipt 04:40 UTC.
+
+## 2026-11-16: iteration 2559 — enlarged-text saved/archive reflow
+
+- Clean main at adcbafd0; no inherited edits to recover/discard. Protected paths untouched.
+- Item 42 reader weakness: 320px/300% text pushes Saved items Account offscreen (410px right edge); archive long heading also overflows. Saved heading/account now wrap into rows, navigation labels can wrap, and both pages wrap long words.
+- Real Nov 16 story saved locally in Playwright; saved/archive checks pass at 320/390/768px, 100/200/300% text, light/dark (18 cases/two pages). No horizontal overflow; Account opens, Escape closes and focus returns. No browser errors or paid calls.
+- Inspected screenshots: docs/screenshots/2559-{saved,editions}-300-light.png. Browser receipts: /tmp/2559-{reflow.cjs,reflow.log}; original 300% diagnosis also exposed nonwrapping navigation, fixed before final browser pass.
+- Web rebuilt/published atomically via python3 scripts/deploy-web.py; previous hashed assets retained. No runtime service restart under STEERING 22; no generation/source/system behavior change requiring handbook edits.
+- Health database/Redis, 14 services and 38 sources healthy; digest queue zero failed jobs, next edition Nov 17 15:00 UTC. Receipts /tmp/2559-{health,services,sources,jobs}.log.
+- Public hostname HTTPS connection unavailable from this VM during verification; browser checks used the live local API/static service. Initial check terminated (143); complete check rerun in transient systemd verification unit.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,062 unit/329 integration passes, four expected skips), python3 scripts/deploy-web.py, node /tmp/2559-reflow.cjs and git diff --check pass. Receipts /tmp/2559-{format,lint,check-retry,deploy,reflow}.log; check.exit=0.
+- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.

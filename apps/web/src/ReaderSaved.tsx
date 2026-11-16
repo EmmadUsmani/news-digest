@@ -23,12 +23,12 @@ export function ReaderSaved() {
     .filter(([, change]) => change.copy !== null)
     .sort((a, b) => b[1].updatedAt - a[1].updatedAt);
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16">
+    <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16 [overflow-wrap:anywhere]">
       <ReaderSkipLink target="saved-content" />
       <header className="flex min-h-[65px] flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-2.5">
         <Link
           to="/"
-          className="inline-flex min-h-11 min-w-11 items-center whitespace-nowrap rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           News Digest
         </Link>
@@ -39,14 +39,14 @@ export function ReaderSaved() {
           <Link
             to="/editions"
             search={{ page: 1 }}
-            className="inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Past editions
           </Link>
           <ThemeToggle />
         </nav>
       </header>
-      <div className="mt-8 flex items-center justify-between gap-2">
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-2">
         <h1
           ref={heading}
           id="saved-content"

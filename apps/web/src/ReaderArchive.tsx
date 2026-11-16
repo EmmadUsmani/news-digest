@@ -27,7 +27,7 @@ export function ReaderArchive() {
     heading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
   }, [page, history.isPending]);
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
+    <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 [overflow-wrap:anywhere] sm:px-6">
       <ReaderSkipLink target="archive-content" />
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-5">
         <Link
