@@ -44,79 +44,7 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 
 Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md).
 
-## 2026-11-16: iteration 2496 — disk-pressure Git compaction
-
-- Clean main at 121dd0fb; no inherited work. Pending disk warning takes priority over reader acceptance work.
-- `pnpm obs health|services|sources|jobs --check` pass; published API retains five topics/23 stories/16 posts and next digest is scheduled for 15:00 UTC.
-- Disk 79%; no abandoned integration roots. Daily scratch cleanup already used; no scratch deletion.
-- `git gc --no-prune` compacted existing objects: `.git` 533→489 MiB; loose objects 5,668→0 and packs 6→2. No history rewrite or object pruning; disk remains 79%.
-- `git fsck --connectivity-only --no-dangling` passes; prior five commits and clean working tree preserved before this log update.
-- No runtime/source/budget changes or provider calls; no rebuild/restart needed under STEERING 63. Live services already match main.
-- Receipts: `/tmp/2496-{alerts,health,services,sources,jobs,gc,fsck,format,lint,check}.log`, `/tmp/2496-reader.json`.
-- Next: metrics ≥11:58 UTC; natural edition/public publication acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- Final alert snapshot: zero firing/pending; disk remains 79%. Warning cleared during verification.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check`, final `/healthz` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips.
-
-## 2026-11-16: iteration 2497 — disk-alert verification burst diagnosis
-
-- Clean main at ddcaea2d; no inherited work. Reader impact: establish whether recurrent disk warnings threaten scheduled publication before changing production.
-- Initial pending DiskSpaceLow cleared without deletion; health/services/sources/jobs pass. Published edition a0fa3916 retains five topics/23 stories/16 posts.
-- Read-only inventory: `/tmp` 2.3 GiB, repo 1.3 GiB, observability 1.1 GiB, journal 468 MiB; protected data untouched. Daily scratch cleanup already used.
-- Sampled required verification every five seconds: used bytes 19,534,794,752→19,829,514,240 (+281.1 MiB), crossing 79→80% while isolated test containers ran.
-- After test teardown, usage returned to 19,544,076,288 bytes/79%; this reproduces verification-related threshold crossings, without establishing the cause of the initial warning.
-- No runtime/source/budget changes or provider calls; no rebuild/restart needed under STEERING 63. Live services match main.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration passes, four expected skips. Receipts `/tmp/2497-{health,services,sources,jobs,reader,format,lint,check,alerts*,disk-*}.*`.
-- Next: metrics ≥11:58 UTC; Nov 16 natural edition/public HTTPS acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC; no extra scratch cleanup today.
-- Final `/healthz` passes; temporary test containers removed, disk 79%, zero firing/pending alerts. `git diff --check` passes.
-
-## 2026-11-16: iteration 2498 — published social text link acceptance
-
-- Clean main at 34544b84; no inherited work. Owner value: enlarged social post text and inline destinations remain readable and reachable on narrow phones.
-- `pnpm obs alerts` reports zero firing/pending; `pnpm obs health|services|sources|jobs --check` pass. Scheduled edition remains due at 15:00 UTC.
-- Added GET/HEAD-only published-reader browser check; external requests blocked, no provider calls or server writes.
-- All 16 real published post texts/27 inline links retain saved text at 200% across 320/390/1440px and both themes; every inline fragment stays in bounds, keyboard focus and page overflow pass.
-- Six screenshots saved in `docs/screenshots/ui/reader-post-text-links-*`; narrow light capture inspected. Blocked X widgets exercise saved-text fallback, not live embeds.
-- No runtime/source/budget change; rebuild/restart unnecessary under STEERING 63, preserving public service availability.
-- Verification: `pnpm exec tsx scripts/smoke-reader-post-text-links.ts`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, `git diff --check` (results below).
-- Receipts: `/tmp/2498-{health,services,sources,jobs,post-text,format,lint,check}.log`.
-- Next: metrics ≥11:58 UTC; Nov 16 natural edition/public HTTPS acceptance at 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
-- Full verification passes: 1,056 unit/329 integration tests, four expected skips. Archive formatting failure corrected before the successful full rerun; `git diff --check` and final health pass. Final alerts: zero firing/one pending disk warning after isolated verification.
-
-## 2026-11-16: iteration 2499 — current public publication runbook
-
-- Clean main at 69e4fe6a; no inherited work. Corrected stale private-sharing status and unfinished Nov 15 gate in public-readiness.md.
-- Runbook now links current operations, names atomic web-only build and retains owner-first rollback; Nov 16 public HTTPS gate remains pending.
-- Initial disk warning cleared without deletion; health/services/sources/jobs pass. No provider calls, runtime changes, rebuild or restart; STEERING 63 preserves service availability.
-- Due metrics checkpoint 12:01–12:06: 11 samples/24 healthy rules, 22 queries ≤1.078 s; no new admission/timeouts/evaluator failures/restarts or big merge.
-- Memory-high +456 since 10:57 (+28 sampled); limits unchanged and resource acceptance open. Next short check ≥13:07 UTC.
-- Local runbook links verified; pnpm format and pnpm lint:fix pass. Full pnpm check results recorded below.
-- Receipts: /tmp/2499-{health,services,sources,jobs,format,lint,check,metrics*,summary.json,compare.py,alerts.log}.
-- Next: Nov 16 15:00 scheduled public publication and editorial acceptance; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips. Final formatting/lint and health pass; zero firing/pending alerts before commit; git diff --check passes.
-
-## 2026-11-16: iteration 2500 — accurate public landing page
-
-- Clean main at 179ccef8; no inherited work. README incorrectly claimed every tool was private and sent readers to closed Grafana.
-- Updated public/admin access description, linked public Spend and Queues, and retained admin Logs/Metrics links. No runtime or source changes.
-- Health/services/sources/jobs checks pass; next scheduled edition remains Nov 16 15:00 UTC. Initial pending disk warning at 79%; no repeated daily cleanup or protected-data deletion.
-- Signed-out Playwright over public HTTPS renders /, /docs/, /db/, /admin/spend and /admin/queues with HTTP 200 and nonempty intended content.
-- Default VM DNS initially refused HTTPS; public-DNS browser mapping succeeds, as in existing live checks. No server writes or provider calls.
-- Verification: pnpm format, pnpm lint:fix, pnpm exec tsx scripts/check-handbook.ts operations, pnpm check; final results below.
-- Receipts: /tmp/2500-{health,services,sources,jobs,public-links-dns,format,lint,handbook,check}.log.
-- Documentation only: rebuild/restart unnecessary under STEERING 63; deployed services retain current runtime.
-- Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
-- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; handbook check passes (18 pages/one diagram/39 tables). Final health and git diff --check pass; final alerts recorded in /tmp/2500-final-alerts.log.
-
-## 2026-11-16: iteration 2501 — accurate public recovery record
-
-- Clean main at 4ac76e0c; no inherited work. Health/database/Redis and all 38 sources healthy; no active alerts; next digest Nov 16 15:00 UTC.
-- Owner would care: the linked recovery record claimed sharing was private and instructed a whole-workspace rebuild during recovery.
-- Updated current public-sharing status under STEERING 63; retained dated preparation/activation evidence as historical receipts.
-- Recovery now uses atomic web-only deployment, retained hashed assets and the 13:00–16:00 UTC hold; owner-confirmed unsharing still comes first.
-- No runtime, source, budget or sharing changes; no paid calls or repeated accepted-screen probes. No rebuild/restart required under STEERING 63.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check (results below); receipt logs /tmp/2501-{health,services,sources,jobs,format,lint,check}.log.
-- Next: metrics ≥13:07 UTC; scheduled public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC.
-- Full pnpm check passes: 1,056 unit/329 integration passes, four expected skips; local file links resolve and git diff --check passes. Final health passes; zero firing/one pending disk warning after isolated verification.
+Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md).
 
 ## 2026-11-16: iteration 2502 — U.S. same-story benchmark
 
@@ -259,3 +187,15 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 - No repeated accepted-screen checks or duplicate investigation under STEERING 42/55.
 - Next: 15:00 signed-out public publication/editorial review; metrics ≥15:11 afterward; Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix and full pnpm check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2512-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2513 — protect scheduled publication
+
+- Clean main at e7951478; no inherited work to recover or discard.
+- pnpm obs alerts: zero firing/one pending DiskSpaceLow; recent firing/resolution oscillation. df -h /: 79%, 5.0 GiB available.
+- pnpm obs health passes; pnpm obs sources --check: all 38 healthy.
+- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next run 15:00 UTC.
+- Natural public publication, World admission, NBA exclusion and Tech prose acceptance remain pending; no new selection evidence before the run.
+- Preserved STEERING 63 hold: no runtime changes, deploy, rebuild, restart, cleanup, provider calls or spending.
+- Next: 15:00 signed-out HTTPS publication/browser/editorial review, then metrics ≥15:11; Bluesky export by 20:36 UTC.
+- Archived iterations 2496–2501 to keep PROGRESS.md below 25 KB. Initial check caught archive formatting; corrected and reran full check.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2513-{format,lint,check}.log.
