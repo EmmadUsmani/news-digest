@@ -288,3 +288,42 @@ void test('reader preserves structured publishers in new coverage and leaves his
     undefined,
   );
 });
+
+void test('reader collapses duplicate Google News wrappers but preserves separate coverage reports', () => {
+  const saved = structuredClone(snapshot);
+  const story = saved.topics[0].stories[0];
+  const report = {
+    id,
+    title: 'A Human Reads the Anthropic I.P.O. Filing - The New York Times',
+    url: 'https://news.google.com/rss/articles/first',
+    publisher: { name: 'The New York Times', url: 'https://www.nytimes.com/' },
+    sources: ['Google News: artificial intelligence'],
+    publishedAt: '2026-11-15T10:01:57.000Z',
+  };
+  const variants = [
+    { publishedAt: '2026-11-15T10:01:56.000Z' },
+    { publishedAt: '2026-11-15T10:02:57.000Z' },
+    { title: 'Another development' },
+    { publisher: { name: 'Another publisher', url: null } },
+    { publisher: undefined },
+    { url: 'https://www.nytimes.com/report' },
+    { publishedAt: 'unknown' },
+  ];
+  story.coverage = [
+    report,
+    ...variants.map((variant, index) => ({
+      ...report,
+      id: `00000000-0000-4000-8000-${String(index + 2).padStart(12, '0')}`,
+      url: `https://news.google.com/rss/articles/variant-${index}`,
+      ...variant,
+    })),
+  ];
+  const before = JSON.stringify(saved);
+  const articles = readerEdition(saved).topics[0].stories[0].coverage!;
+  assert.deepEqual(
+    articles.map(({ id }) => id),
+    story.coverage.filter((_, index) => index !== 1).map(({ id }) => id),
+  );
+  assert.equal(articles[0].url, report.url);
+  assert.equal(JSON.stringify(saved), before);
+});

@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2456: removed duplicate Google News wrapper citations from reader coverage; saved editions and editorial selection unchanged.
+
 - [x] 2455: compacted task handoff; preserved all 22 open gates and original evidence in linked archive.
 
 [Completed through 2454](docs/progress-archive/2026-11-16-task-detail-2455.md#completed-markers-through-2454).

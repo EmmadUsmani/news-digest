@@ -29,6 +29,26 @@ function readerExcerpt(title: string, excerpt: string) {
   return excerpt.slice(0, start).trimEnd() || excerpt;
 }
 
+type CoverageArticle = NonNullable<
+  DigestPreview['topics'][number]['stories'][number]['coverage']
+>[number];
+
+function sameCoverageReport(left: CoverageArticle, right: CoverageArticle) {
+  if (left.id === right.id) return true;
+  // Google News can issue two wrapper IDs for the same outlet headline with
+  // one-second feed timestamp jitter. Keep the first saved citation; do not
+  // merge other publishers, later updates or merely similar headlines.
+  return (
+    !!left.publisher?.name &&
+    left.publisher.name === right.publisher?.name &&
+    left.title === right.title &&
+    new URL(left.url).hostname === 'news.google.com' &&
+    new URL(right.url).hostname === 'news.google.com' &&
+    Math.abs(Date.parse(left.publishedAt) - Date.parse(right.publishedAt)) <=
+      1_000
+  );
+}
+
 export function readerEdition(snapshot: DigestPreview) {
   return readerEditionSchema.parse({
     ...snapshot,
@@ -39,7 +59,7 @@ export function readerEdition(snapshot: DigestPreview) {
         ...story,
         summary: story.summary || readerExcerpt(story.title, story.excerpt),
         // Editors may cite a second ranked story outside the selected group.
-        // Keep original coverage metadata first and expose every saved citation.
+        // Keep original metadata first, collapsing duplicate wrapper citations.
         coverage:
           story.coverage || story.evidence
             ? [
@@ -55,8 +75,9 @@ export function readerEdition(snapshot: DigestPreview) {
                 })),
               ].filter(
                 (article, index, articles) =>
-                  articles.findIndex((other) => other.id === article.id) ===
-                  index,
+                  articles.findIndex((other) =>
+                    sameCoverageReport(other, article),
+                  ) === index,
               )
             : undefined,
       })),

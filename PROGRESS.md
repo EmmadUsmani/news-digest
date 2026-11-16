@@ -117,3 +117,15 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - Documentation only; running build unchanged, no service restart under STEERING 63. Next metrics ≥03:25 UTC, Bluesky export by 12:36, scheduled public edition review 15:00; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Final targeted Prettier and `git diff --check` pass; receipts `/tmp/2455-{format,lint,check}.log`. No new blocker.
 - Initial push rejected because remote advanced to e5d942c7 (owner status-check/lead notes only). Fetched and merged without conflicts or history rewrite; owner files preserved, runtime unchanged; pushed merged main.
+
+## 2026-11-16: iteration 2456 — remove duplicate reader coverage citations
+
+- Clean main at 39a4d603; no inherited work. Services/38 sources/jobs healthy, alerts zero; timed acceptance gates not yet due.
+- Owner value: the latest Tech IPO story counted the same NYT article twice, cluttering its coverage list and inflating three reports from two distinct reports.
+- Reader projection now collapses exact publisher/headline Google News wrappers with ≤1-second timestamp jitter; preserves later updates, different publishers/headlines, direct links and unknown dates. Saved editions, selection, summaries and collection unchanged.
+- Regression `pnpm exec tsx --test apps/api/test/reader-edition.test.ts`: 8 pass, including duplicate/independent-report guards and snapshot immutability.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. API build passes; restarted API only, `/healthz` database/Redis healthy.
+- `pnpm exec tsx scripts/check-live-coverage-dedup.ts` passes signed-out public HTTPS desktop/mobile, GET-only with no browser errors. Screenshots saved/viewed; only the duplicate NYT citation disappeared in exact before/after comparison.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` verifies five topics/23 stories/16 posts and saved scheduled provenance. Final alerts zero; receipts `/tmp/2456-{check,build,browser,provenance,alerts}.log`.
+- Initial plain HTTPS curl hit the VM's managed private host mapping; browser acceptance used public DNS as existing live scripts do. No sharing/config changes, provider calls or new blocker.
+- Next: metrics ≥03:25 UTC; Bluesky export by 12:36; public scheduled edition acceptance at 15:00. Protect 13:00–16:00 UTC; retain all production budgets and pilot settings.
