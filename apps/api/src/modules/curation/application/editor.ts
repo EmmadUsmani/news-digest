@@ -66,6 +66,7 @@ export class ShortlistEditor {
     candidates: EditorialCandidate[],
     budget: number,
     runId: string,
+    captureInput?: (prompt: string) => void,
   ): Promise<EditorialResult | null> {
     if (
       !Number.isInteger(budget) ||
@@ -215,6 +216,9 @@ export class ShortlistEditor {
         100000
       )
         return null;
+      // Preserve the bounded candidate input even when admission is refused.
+      // This records preparation, not proof that a provider received the call.
+      captureInput?.(prompt);
       const result = await this.llm.json(
         {
           model,

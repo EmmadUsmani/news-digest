@@ -135,3 +135,15 @@
 - Initial health/database/Redis and digest queue healthy; zero active alerts, no failed/active digest jobs; next edition Nov 17 15:00 UTC.
 - Offline fixture/test change only; no production code/config changes, source requests, paid calls, rebuild or service restart under STEERING 22/65.
 - Next: metrics ≥21:10 UTC; Bluesky export by 21:36 UTC; retention receipt 04:40 UTC; full-day review after midnight.
+
+## 2026-11-16: iteration 2545 — preserve prepared editor inputs for the next Tech review
+
+- Clean main at 5d25883b; no inherited edits to recover/discard. Protected paths untouched.
+- Owner value: future thin-summary reviews can establish which reporting actually reached editor preparation, including unselected reports, without historical reconstruction.
+- Added bounded candidatePrompt to private immutable editorial snapshots, captured from the editor's existing prompt after its size guard. Captures include cache reuse and budget refusal; they establish preparation, not provider admission. Public reader contracts omit the field; old snapshots remain readable.
+- Existing model inputs/fingerprints, selection rules, budgets and provider traffic unchanged. No paid calls or new digest generation. Next natural capture awaits Nov 17's edition; historical Tech investigation remains closed.
+- Verification: targeted editor/publication/public-filter tests 59 pass; pnpm format, pnpm lint:fix, pnpm check (including API rebuild), handbook check and git diff --check pass. Final suite: 1,061 unit/329 integration passes, four expected skips. Logs /tmp/2545-{targeted,final-format,final-lint,final-check,handbook}.log.
+- Initial direct publication tests hit the isolation guard before DB access; reran with mocked storage and unreachable connection settings. First full check exposed two golden snapshots missing the new field; updated their shared synthetic fixture and reran the full check successfully.
+- Restarted API/worker at 21:07 UTC; both active, /healthz database/Redis OK. Published reader response exactly matches the pre-deploy five-topic/25-story snapshot; no private prompt field. Digest queue zero active/failed, next edition Nov 17 15:00 UTC.
+- Preserved natural 20:54 Bluesky result in /tmp/2545-bluesky-collections.json: 21 consecutive hourly runs, five topics each, fetched/submitted matches and expected World rotation; shared prior receipts unchanged. Full-day review remains after midnight, export again by 22:36 UTC.
+- Handbook pipeline updated; no UI changes, source requests or sharing changes. Next: metrics ≥21:10 UTC, retention timer receipt 04:40 UTC, next natural Tech inputs.

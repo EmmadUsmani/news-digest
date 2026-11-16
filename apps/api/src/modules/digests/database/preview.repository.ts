@@ -488,6 +488,9 @@ export class PostgresPreviewRepository
                   evidence.candidates,
                   Math.min(10, topic.story_budget),
                   runId,
+                  (prompt) => {
+                    editorial.candidatePrompt = prompt;
+                  },
                 );
                 if (result) {
                   stories = result.stories.map((edit) => {

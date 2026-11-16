@@ -287,6 +287,7 @@ export const digestPreviewSchema = z.object({
           model: z.string().nullable(),
           reason: z.string(),
           brief: z.array(z.string()),
+          candidatePrompt: z.string().max(100000).optional(),
           triage: z.array(
             z.object({
               id: z.string(),

@@ -85,6 +85,39 @@ void test('editor selects supplied IDs, records model and reuses cache across ru
   assert.deepEqual(await h.editor.edit(topic, candidates, 1, 'second'), result);
   assert.equal(h.calls.length, 1);
 });
+void test('prepared candidate input survives cache reuse and budget refusal without implying a provider call', async () => {
+  const captures: string[] = [];
+  const h = harness();
+  const input = [
+    { ...candidates[0], excerpt: 'x'.repeat(900) },
+    { ...candidates[0], id: 'unselected', title: 'Another launch' },
+  ];
+  await h.editor.edit(topic, input, 1, 'first', (prompt) =>
+    captures.push(prompt),
+  );
+  await h.editor.edit(topic, input, 1, 'cached', (prompt) =>
+    captures.push(prompt),
+  );
+  assert.equal(h.calls.length, 1);
+  assert.deepEqual(captures, [h.calls[0].prompt, h.calls[0].prompt]);
+  assert.equal(JSON.parse(captures[0]).candidates[0].excerpt.length, 600);
+  assert.deepEqual(
+    JSON.parse(captures[0]).candidates.map(
+      (candidate: { id: string }) => candidate.id,
+    ),
+    ['one', 'unselected'],
+  );
+  const refused = harness([], ['claude-sonnet-5-5', 'claude-haiku-5-5']);
+  assert.equal(
+    await refused.editor.edit(topic, input, 1, 'refused', (prompt) =>
+      captures.push(prompt),
+    ),
+    null,
+  );
+  assert.equal(refused.calls.length, 0);
+  assert.equal(captures.length, 4);
+  assert.ok(captures.every((prompt) => prompt === captures[0]));
+});
 void test('Sonnet reservation refusal falls back to capped Haiku; total refusal returns no AI result', async () => {
   const h = harness([valid], ['claude-sonnet-5-5']);
   assert.equal(

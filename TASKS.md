@@ -35,7 +35,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Twenty Nov 16 hourly jobs retained through 19:54 (2542). Export by 21:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Twenty-one Nov 16 hourly jobs retained through 20:54 (2545), /tmp/2545-bluesky-collections.json. Export by 22:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; exact historical request unavailable. Historical probing closed; preserve next-edition inputs. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; compare next natural edition inputs. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2545: future private edition snapshots retain prepared editor candidate prompts, including unselected reports and budget refusals; public reader responses omit them. Natural Tech depth review remains open.
 
 - [x] 2543: Google News AI naturally recovered at 20:07 UTC/60 items after HTTP 429; completed scheduled-job receipt and cleared persisted error verified. Backoff and schedule unchanged.
 

@@ -15,7 +15,23 @@ const snapshot: DigestPreview = {
   windowStart: '2026-11-09T15:00:00Z',
   windowEnd: '2026-11-10T15:00:00Z',
   method: secret,
-  topics: [{ id, name: 'Tech', candidateCount: 15, stories: [] }],
+  topics: [
+    {
+      id,
+      name: 'Tech',
+      candidateCount: 15,
+      stories: [],
+      editorial: {
+        mode: 'non-ai',
+        model: null,
+        reason: 'Budget refused',
+        brief: [],
+        triage: [],
+        unscoredIds: [],
+        candidatePrompt: 'private-prepared-candidates',
+      },
+    },
+  ],
 };
 
 void test('prepared preview reads force published storage and expose only reader contracts', async () => {
@@ -59,7 +75,7 @@ void test('prepared preview reads force published storage and expose only reader
   assert.deepEqual(await reads.find(id), latest);
   assert.doesNotMatch(
     JSON.stringify([history, latest]),
-    /private-|candidateCount|method|topicModes/,
+    /private-|candidateCount|method|topicModes|candidatePrompt/,
   );
   await assert.rejects(reads.find('missing'), NotFoundException);
   assert.deepEqual(calls, [
