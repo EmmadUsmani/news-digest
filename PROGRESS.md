@@ -227,3 +227,4 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2532-{format,lint,check}.log.
 - Documentation/evidence only; no rebuild or service restart needed, live runtime remains main.
 - Next metrics checkpoint ≥18:50 UTC; unresolved grouping/admission gates await new evidence.
+- Initial push rejected: owner commit f10fd207 arrived during checks (docs/lead status only); merged without editing owner files or rewriting history, then retried push.
