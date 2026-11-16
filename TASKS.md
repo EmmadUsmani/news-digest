@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. 2551 checkpoint: 24 healthy rules, unchanged failure counters; +467 memory-high events/60 small merges, no big merge. Next check ≥23:14 UTC, preferably after a natural big merge; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. 2557 checkpoint: 24 healthy rules, unchanged failure counters; +563 memory-high events/57 small merges, no big merge. Next check ≥00:16 UTC, preferably after a natural big merge; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2557: due metrics checkpoint verifies 24 healthy rules/six uncached queries and unchanged failure counters; ongoing reclaim/no big merge keeps resource acceptance open.
 
 - [x] 2556: added retained Helix affordability/interview evidence to offline grouping controls; all ten pairs/five articles and 120 orders verified without production changes.
 

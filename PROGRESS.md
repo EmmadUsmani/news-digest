@@ -181,3 +181,14 @@
 - Verification receipts: /tmp/2556-{targeted,format,lint,check}.log. Targeted suite passes 18 tests; pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips.
 - Evaluation/docs only; no rebuild or service restart under STEERING 22/65. Updated task and grouping-review evidence; source configuration unchanged.
 - Next: metrics ≥23:14 UTC; final Bluesky 23:54 collection/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2557 — due metrics recovery checkpoint
+
+- Clean main at d6a255d2; no inherited edits to recover/discard. Protected paths untouched.
+- Due read-only checkpoint at 23:14:05–23:15:07 UTC: 24 healthy rules, six uncached expected-series queries ≤1.274 s, unchanged admission/timeout/slow-query/evaluator failure counters and process starts.
+- Since 22:13:13: 57 small merges/1,996,391 rows, no big merge; +563 memory-high events (eleven during sampling), zero max/OOM/kill. Current memory 91,107,328 bytes; lifetime peak 92,995,584; NRestarts=0 and empty journal since prior sample.
+- Keep CPU 2%/88 MiB high/112 MiB max; ongoing reclaim and absent natural big merge keep resource acceptance open. Updated task and capacity evidence; no production configuration change.
+- Health database/Redis, 14 services and 38 sources healthy; zero alerts, root disk 61%; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
+- Sampling/baseline assertions: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2557-summarize.py. Receipts /tmp/2557-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}.
+- Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; /tmp/2557-{format,lint,check}.log. Final health and alerts clear. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
+- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.

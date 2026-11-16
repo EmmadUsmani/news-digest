@@ -1535,3 +1535,21 @@ reclaim persists and no natural big-merge comparison is available. Next check
 Receipts: `/tmp/2551-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
 command `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`. Baseline comparison
 assertions: `python3 /tmp/2551-summarize.py`.
+
+### Overnight recovery checkpoint (iteration 2557)
+
+Nov 16 23:14:05–23:15:07 UTC: three read-only samples found all 24 rules
+fresh and healthy; six uncached expected-series queries completed in ≤1.274 s.
+Compared with 22:13:13, process-start, admission-limit, queue-timeout, slow-query
+and evaluator error/missed counters stayed unchanged. Small merges increased
+by 57 / 1,996,391 rows; no big merge occurred. Memory-high events increased
+by 563 (eleven during sampling); max/OOM/kill stayed zero. Ending memory was
+91,107,328 bytes, lifetime peak 92,995,584. NRestarts=0; metrics journal has
+no entries since the previous checkpoint. Root disk is 61%.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Acceptance stays open:
+reclaim persists and no natural big-merge comparison is available. Next check
+≥00:16 UTC, preferably after a natural big merge; no restart or force merge.
+Receipts: `/tmp/2557-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+command `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30`. Baseline comparison
+assertions: `python3 /tmp/2557-summarize.py`.
