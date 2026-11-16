@@ -240,3 +240,15 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2533-{format,lint,check}.log; final health passes.
 - Documentation only; no rebuild or restart needed, live runtime remains main. Next metrics ≥18:50 UTC; Bluesky export by 20:36 UTC; full-day review after midnight.
 - Initial push rejected by concurrent owner commits; merged without rewriting history. New STEERING 65 makes automatic disk retention the next priority; its agent-control deletion conflicts with the run’s explicit prohibition, so leave that path untouched.
+
+## 2026-11-16: iteration 2534 — restore disk headroom and cap the journal
+
+- Clean main at 79a9bbb7; no inherited work to recover or discard. Highest priority STEERING 65, steps 1–2 completed; daily session/tmp timer remains next.
+- Privileged `lsof +D` found no open files in either owner-confirmed unused directory. Removed only ~/.cursor-server (942,288,896 allocated bytes) and ~/.warp (462,585,856 bytes).
+- Changed ops/observability/install.sh SystemMaxUse 500M→200M; applied the drop-in, restarted only systemd-journald, rotated/vacuumed journal. Journal 483.2→171.0 MiB (about 312 MiB freed).
+- Filesystem used 19,668,856,832→17,937,461,248 bytes: 1,731,395,584 bytes net reclaimed, disk 79%→72%, free 6.5 GiB. No app restart, paid calls or protected-data deletion.
+- Automatic review rejected shell rm syntax; used Python deletion restricted to the two exact nonsymlink paths. No approval request needed; owner explicitly authorized these paths.
+- Updated owner operations handbook and TASKS; agent-control remains untouched under the run prohibition (existing NEEDS_FROM_HUMAN conflict retained).
+- Health, all 14 monitored services and all 38 sources pass; digest queue zero failed/active, next Nov 17 15:00 UTC. Historical ingestion/social failures unchanged. Alerts snapshot has zero active/pending.
+- Verification: bash -n, filtered check-handbook, pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2534-{format,lint,check,handbook}.log.
+- No app runtime changes, rebuild or app restart needed (STEERING 65 forbids app restarts); only journald restarted and rotated/vacuumed. Live health passes. Next: daily retention installer/timer, metrics ≥18:50 UTC, Bluesky export by 20:36 UTC.

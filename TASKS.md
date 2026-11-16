@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 65 (new highest priority): deploy automatic disk retention; remove unused Cursor/Warp data, lower journal cap, add daily session/tmp retention and run once. Never modify `~/agent-control/` under this run’s explicit instruction; reconcile that part in NEEDS_FROM_HUMAN.md.
+- [ ] STEERING 65 (new highest priority): finish automatic disk retention: 2534 removed unused Cursor/Warp data and applied the 200 MiB journal cap (disk 79%→72%); add daily session/tmp retention and run once. Never modify `~/agent-control/` under this run’s explicit instruction; reconcile that part in NEEDS_FROM_HUMAN.md.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 

@@ -52,7 +52,7 @@ INPUT
 done
 sudo install -m 644 "$obs_tmp/containers.conf" "$obs_config/containers.conf"
 sudo install -d /etc/systemd/journald.conf.d
-printf '[Journal]\nSystemMaxUse=500M\n' | sudo tee /etc/systemd/journald.conf.d/news-digest-observability.conf >/dev/null
+printf '[Journal]\nSystemMaxUse=200M\n' | sudo tee /etc/systemd/journald.conf.d/news-digest-observability.conf >/dev/null
 sudo systemctl daemon-reload
 sudo systemctl start obs-log-volume.service
 sudo install -d -o exedev -g exedev /var/lib/news-digest-logs/data

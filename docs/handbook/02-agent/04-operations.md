@@ -60,3 +60,9 @@ The agent may **not** modify `~/agent-control/`. To change the harness:
 | `state=pace_wait`                          | Ahead of weekly pace   | Normal; it self-corrects within an hour             |
 | Many `no_progress` iterations              | Blocked or confused    | Read `PROGRESS.md` and `NEEDS_FROM_HUMAN.md`; steer |
 | Health shows a failed `news-digest-*` unit | App service crashed    | The agent fixes it next iteration, or restart it    |
+
+## Disk headroom
+
+- Unused Cursor server and Warp data have been removed from the VM.
+- The system journal has a 200 MiB cap, preserved by the observability installer.
+- Daily session and temporary-file retention is pending under STEERING 65.
