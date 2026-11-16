@@ -181,3 +181,14 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Receipts `/tmp/2487-{health,services,sources,jobs,reader,source,format,lint,check}.log`. Final verification results follow.
 - Next: due metrics ≥09:51, Bluesky export by 14:36, scheduled review 15:00 UTC; protect 13:00–16:00. Move away from additional small reader acceptance work unless it reveals a defect.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; DiskSpaceLow pending after verification, zero firing alerts (`/tmp/2487-alerts-final.log`). Inspected refreshed narrow dark screenshot; all six final browser cases pass.
+
+## 2026-11-16: iteration 2488 — due metrics verification-load checkpoint
+
+- Clean main at 259dee22; no inherited work. Chose due capacity acceptance instead of more small reader checks.
+- Initial database/Redis, 14 services and 38 sources healthy; digest queue zero failures. Disk warning pending at 79%; final alert snapshot clear, no cleanup performed.
+- Read-only metrics sampler: 09:51:22–09:56:27 UTC, 11 samples, 24 fresh healthy rules, 22 uncached queries ≤1.473 s during repository verification.
+- Since 08:50: +513 memory-high events (33 during sample), 67 small merges/5,568,263 rows; no big merge. Admission/timeouts/slow queries/evaluator failures/process starts unchanged; no OOM/restarts or journal entries.
+- Retained CPU 2%/88 MiB high/112 MiB max. Resource acceptance remains open because reclaim continues and natural big-merge evidence is absent. Decision record/task updated.
+- Saved scheduled reader passes five topics/23 stories/16 posts; final health passes. No runtime/source/budget/handbook change, provider calls or restart under STEERING 63.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration passes, four expected skips. Receipts `/tmp/2488-{metrics.jsonl,summary.json,compare.py,metrics-journal,services,sources,jobs,reader,format,lint,check,alerts-final}.log` (metrics/summary suffixes as named).
+- Next: metrics ≥10:57, Bluesky export by 14:36, natural edition review 15:00 UTC; protect 13:00–16:00 UTC.

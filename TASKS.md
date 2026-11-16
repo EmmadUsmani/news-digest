@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2482 checkpoint 08:45–08:50 UTC: 11 samples/24 healthy rules, 22 queries ≤2.187 s; one new admission event, no timeouts/evaluator failures/restarts. Since 07:44 +442 memory-high events (31 during sample); no big merge. Resource acceptance stays open. Next short check ≥09:51 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2482).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2488 checkpoint 09:51–09:56 UTC: 11 samples/24 healthy rules, 22 queries ≤1.473 s; no new admission events/timeouts/evaluator failures/restarts. Since 08:50 +513 memory-high events (33 during sample); no big merge. Resource acceptance stays open. Next short check ≥10:57 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2488).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2488: due metrics checkpoint passes under repository verification; continued reclaim/no big merge keep resource acceptance open.
 
 - [x] 2487: full published edition source/coverage links checked at 200% text, three widths/both themes; keyboard focus, 44px targets and horizontal reachability verified.
 
