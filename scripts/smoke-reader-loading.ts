@@ -21,6 +21,7 @@ async function smoke() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 900],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -51,6 +52,9 @@ async function smoke() {
         await page.goto(origin);
         const loading = page.getByRole('status');
         await loading.waitFor();
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         assert.equal(await loading.innerText(), 'Loading edition…');
         assert.equal(await loading.locator('[data-slot="card"]').count(), 3);
         assert.equal(await loading.getByRole('link').count(), 0);

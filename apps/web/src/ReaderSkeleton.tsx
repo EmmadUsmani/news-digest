@@ -17,7 +17,7 @@ export function ReaderSkeleton() {
           ))}
         </div>
         <div className="min-w-0 max-w-2xl flex-1">
-          <Skeleton className="h-7 w-40" />
+          <Skeleton className="h-7 w-40 max-w-full" />
           <div className="my-6 space-y-3">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-4/5" />

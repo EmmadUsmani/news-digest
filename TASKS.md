@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2474: enlarged narrow loading placeholder stays within the viewport; saved-edition loading/recovery verified at 320/390/1440px in both themes.
+
 - [x] 2473: eligible integration startup reclaimed abandoned root `/tmp/news-digest-integration-VOU6rW` (285,188,096 bytes); disk 80%→78%. Verification and alert recovery recorded in PROGRESS.md.
 
 - [x] 2472: due metrics checkpoint verifies healthy reads under repository verification load; continuing reclaim keeps resource acceptance open.
