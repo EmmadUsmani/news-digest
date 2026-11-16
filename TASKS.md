@@ -11,6 +11,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] Source recovery (2542): Google News AI returned HTTP 429 at 20:04/20:05; last success 19:34 with 60 items. Check next natural attempt; retain Retry-After/backoff, no extra probes. Public HTTPS connection unavailable from this session; local reader/health pass.
+
 - [ ] STEERING 65: daily session/tmp retention installed and first run verified (2535), disk 72%→61%; prior unused-data/journal cleanup 79%→72%. Only agent-control log retention remains blocked by this run’s explicit prohibition; see NEEDS_FROM_HUMAN.md.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
@@ -23,7 +25,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. Next check ≥20:00 UTC; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. 2542 checkpoint healthy; next check ≥21:10 UTC, preferably after a natural big merge; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -35,7 +37,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Nineteen Nov 16 hourly jobs retained through 18:54 (2540). Export by 20:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Twenty Nov 16 hourly jobs retained through 19:54 (2542). Export by 21:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -60,6 +62,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2542: preserved twentieth natural Bluesky hourly result before pruning; triaged Google News AI HTTP 429 without extra requests or bypass. Due metrics checkpoint recorded.
 
 - [x] 2541: compacted task and progress handoffs; all prior open detail and completed markers remain linked in dated archives.
 

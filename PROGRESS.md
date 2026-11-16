@@ -101,3 +101,14 @@
 - Documentation-only change; no rebuild or app restart, respecting STEERING 65. No paid calls or production writes.
 - Next: metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after Nov 17 midnight.
 - Initial push rejected because origin advanced to owner commit 63c9e48e (lead documentation only); fetched and merged without rewriting history or editing owner files, then retried push.
+
+## 2026-11-16: iteration 2542 — preserve natural collection and triage rate limit
+
+- Clean main at e3b995db; no inherited edits to recover/discard. No protected paths touched; agent-control retention remains blocked.
+- Preserved 19:54 natural Gaza job before pruning: twenty consecutive hours, five topics each, 100 fetched/submitted matches and expected rotation; prior nineteen records unchanged. Full-day review remains after midnight; export again by 21:36 UTC.
+- Initial alert traced to Google News AI HTTP 429 at 20:04/20:05; last success 19:34/60 items. Existing Retry-After/backoff retained; no extra fetch, bypass or schedule change. Recovery awaits next natural attempt.
+- API health/database/Redis and digest queue healthy; next edition Nov 17 15:00 UTC, no failed/active digest jobs. Service snapshot briefly showed agent inactive; direct systemd check and refreshed snapshot confirm all 14 active, Result=success.
+- Due metrics checkpoint: 24 healthy rules, six queries ≤1.276 s, no new failure/admission counters, zero OOM/restarts; reclaim persists, no big merge. Limits unchanged; next check ≥21:10 UTC. Disk 60%.
+- Public HTTPS probe could not connect from this session (DNS 10.42.0.42:443); local reader HTTP 200 and /healthz OK. External access could not be reverified; no proxy/sharing changes.
+- Read-only evidence changes; no app rebuild/restart under STEERING 65, no paid calls or production writes.
+- Verification: hourly receipt assertions, metrics sampler, pnpm format, pnpm lint:fix, pnpm check and git diff --check; PASS: 1,060 unit / 329 integration passes, four expected skips. Logs /tmp/2542-{format,lint,check}.log.

@@ -102,3 +102,12 @@ day and read the next natural edition. Rolling windows and observation-level
 query attribution prevent treating a before/after difference as a controlled
 query-quality estimate. Keep selection gates, request bounds and sharing
 unchanged.
+
+## Next natural Gaza return retained — iteration 2542
+
+The Nov 16 19:54 UTC job completed all five topics: AI 49, NBA 46, game 50,
+Gaza 50 and Congress 50 fetched/submitted observations. The Nov 16 retained
+export now preserves twenty consecutive hours; all 100 topic counts and the
+World baseline/Ukraine/baseline/Gaza rotation pass assertions. The prior
+nineteen records are unchanged. Full-day quality review remains due after
+Nov 17 midnight; next export by 21:36 UTC. No collection or provider calls.

@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-11-16T19:39:43.537Z",
+  "capturedAt": "2026-11-16T20:07:31.390Z",
   "source": "retained BullMQ social-collection results",
   "limitations": "Up to 48 completed and 48 failed social jobs, shared with non-Bluesky collection. Retention and concurrent pruning can omit runs; this is not proof of a complete day. Counts are fetched/submitted, not unique, safe or relevant posts. Failed runs do not expose partial results. Save this export separately before retention expires.",
   "runs": [
@@ -828,6 +828,50 @@
             "query": "World news & politics",
             "fetched": 48,
             "submitted": 48
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000015",
+            "query": "Congress",
+            "fetched": 50,
+            "submitted": 50
+          }
+        ]
+      },
+      "failureRecorded": false
+    },
+    {
+      "id": "repeat:bluesky-hourly:1794858883867",
+      "state": "completed",
+      "startedAt": "2026-11-16T19:54:43.911Z",
+      "finishedAt": "2026-11-16T19:54:55.107Z",
+      "result": {
+        "status": "complete",
+        "start": "2026-11-15T19:54:43.921Z",
+        "end": "2026-11-16T19:54:43.921Z",
+        "topics": [
+          {
+            "topicId": "00000000-0000-4000-8000-000000000011",
+            "query": "AI",
+            "fetched": 49,
+            "submitted": 49
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000012",
+            "query": "NBA",
+            "fetched": 46,
+            "submitted": 46
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000013",
+            "query": "game",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000014",
+            "query": "Gaza",
+            "fetched": 50,
+            "submitted": 50
           },
           {
             "topicId": "00000000-0000-4000-8000-000000000015",
