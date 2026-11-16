@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2460: links to hidden topic/posts sections offer Show, then restore and focus their destination.
+
 - [x] 2459: mobile reader title fits at 320px; Topics sits beside Saved items and Account, with all date controls preserved.
 
 - [x] 2458: measured metrics recovery across verification load; healthy reads/evaluations persist, continuing reclaim keeps resource acceptance open.
@@ -66,8 +68,6 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [x] 2457: coverage titles omit exact duplicate publisher suffixes; publisher attribution and saved evidence stay intact.
 
 - [x] 2456: removed duplicate Google News wrapper citations from reader coverage; saved editions and editorial selection unchanged.
-
-- [x] 2455: compacted task handoff; preserved all 22 open gates and original evidence in linked archive.
 
 [Completed through 2454](docs/progress-archive/2026-11-16-task-detail-2455.md#completed-markers-through-2454).
 

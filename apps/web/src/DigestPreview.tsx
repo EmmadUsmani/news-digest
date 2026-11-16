@@ -61,7 +61,9 @@ export function DigestPreview() {
     ? preview?.topics.find(
         (topic) =>
           preferences.hiddenTopics[topic.id]?.hidden &&
-          (topic.stories.some((story) => hash === `story-${story.id}`) ||
+          (hash === `topic-${topic.id}` ||
+            hash === `posts-${topic.id}` ||
+            topic.stories.some((story) => hash === `story-${story.id}`) ||
             topic.posts.some(
               (post) =>
                 hash ===

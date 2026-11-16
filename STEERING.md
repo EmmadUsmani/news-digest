@@ -1557,6 +1557,8 @@ changed, and why a reader would notice. The ack reports the same in one line.
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
 
+ack: 2026-11-16 item 42 — iteration 2460: hidden topic and posts-section links now offer Show, restoring and focusing their destination. Public desktop/mobile light/dark browser checks pass with saved edition data; no generation changes or paid calls.
+
 ack: 2026-11-06 item 42 — iteration 987: reread all four saved topics (17 summaries, 14 posts, 14 brief bullets). World breadth remains the largest weakness; its pool fix and the other observed content fixes already await publication. Saved a concrete Nov 6 comparison checklist instead of stacking further unmeasured prompt changes. No paid calls or runtime changes.
 
 ack: 2026-11-06 (925) Read all four saved topics; World pool fix awaits publication. Fixed hidden post context at the reader API/UI, making Gaming’s Japanese announcement understandable without changing its original text.

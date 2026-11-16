@@ -164,3 +164,16 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - Updated affected handbook instructions; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes, 39 tables and no metadata warnings. No changed diagrams.
 - Web-only change: no API/worker restart under STEERING 63. No paid calls, budget changes or new blocker. Receipts `/tmp/2459-{format,lint,check,deploy-final,browser-final,handbook,sources,jobs,alerts}.log`.
 - Next: metrics ≥04:30 UTC, Bluesky export by 12:36, scheduled public edition/content review at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2460 — recover links to hidden topic sections
+
+- Clean main at 9081115b; no inherited work. Health/database/Redis, services, all 38 sources and scheduled jobs pass; alerts zero.
+- Item 42 reader weakness: a direct topic or posts-section link silently lost its destination when that topic was hidden. The owner can now restore the topic at the link, as already supported for individual stories/posts.
+- Expanded hidden-destination matching to both section anchors; existing Show action restores, scrolls to and focuses the requested heading. No saved edition or generation changes.
+- Expanded browser acceptance first reproduces the missing Show button against the old deployment. Captured published-edition replay passes all four destination types on desktop/mobile in light/dark, including focus, persistence and no horizontal overflow/browser errors; screenshots updated and viewed.
+- Public live-data browser matrix passed three combinations; fourth initially stalled loading the edition (5s, then 20s), then passes in isolation (`/tmp/2460-live-dark.log`). All four combinations accepted with live API data; separate signed-out public reader GET returns HTTP 200 in 0.075s. No production limits changed.
+- Atomic web deployment via `/tmp/2457-deploy.py`: 16 public page/previous-asset probe pairs, zero failures. No service restart for this web-only change under STEERING 63.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Targeted script ESLint, final handoff Prettier and `git diff --check` pass.
+- Affected handbook updated; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes, 39 tables and no metadata warnings; no changed diagrams.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. Final alerts zero; no paid calls or new blocker.
+- Receipts `/tmp/2460-{before,format,lint,check,deploy,browser-final,browser-replay,handbook,reader,sources,jobs,services,alerts-final}.log`. Next: metrics ≥04:30 UTC, Bluesky export by 12:36, edition review at 15:00; protect 13:00–16:00 UTC.
