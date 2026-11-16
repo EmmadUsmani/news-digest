@@ -38,7 +38,7 @@ Backups: `~/backups/news-digest/` plus encrypted B2 copies; [timers and recovery
 
 ## How to tell if things are healthy
 
-- **New edition at `/admin/editions/new`:** choose 6 h, 24 h, 7 d or a custom window; uses AI budget, shows topic progress and links to the saved result.
+- **New edition at `/admin/editions/new`:** open directly or refresh with a fresh admin session. Choose 6 h, 24 h, 7 d or a custom window; creates a private test from collected content, free by default, with optional AI editing.
 - **Editions at `/admin/editions`:** saved windows, per-topic story/post modes and retained job type, attempts and final-attempt duration; open an edition for recorded AI cost and unresolved holds by model/purpose, inspect topic stories, scores, selection reasons, grouping and source evidence, browse retained articles published in the window (up to 500 per topic, using current source connections), or view it as a reader. `READER_PUBLISHED_ONLY=1` restricts reader latest/history/direct links to published, non-test editions; admin keeps all editions. Enabled for public mode ([rollout](../../public-access-plan.md)).
 - **Topics at `/admin/topics`:** drag or arrow ordering, enable controls, story/post budgets and New topic dialog. Open a topic for guidance, budgets, phrase filters, X accounts, X minimum likes and exclusions, a dedicated Bluesky query (blank keeps the existing fallback), Reddit communities, connected feeds and news queries, or deletion. Public mode shows the catalog and linked topic details read-only, with disabled controls; private mode requires admin sign-in.
 - **Schedule at `/admin/schedule`:** next run, daily local time, timezone, coverage and default topic budgets.

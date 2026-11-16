@@ -34,6 +34,18 @@ async function read<T>(url: string, schema: z.ZodType<T>, signal: AbortSignal) {
   return schema.parse(await response.json());
 }
 
+export const accountSessionQuery = queryOptions({
+  queryKey: ['account-session'],
+  staleTime: 0,
+  retry: false,
+  queryFn: ({ signal }) =>
+    read(
+      '/api/account/session',
+      z.object({ signedIn: z.boolean(), isAdmin: z.boolean() }).strict(),
+      signal,
+    ),
+});
+
 export const identityQuery = queryOptions({
   queryKey: ['identity'],
   staleTime: 0,

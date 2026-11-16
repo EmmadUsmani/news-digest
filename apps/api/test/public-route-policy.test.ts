@@ -155,7 +155,7 @@ void test('published previews and their pages permit anonymous reads without gra
   ])
     for (const method of ['GET', 'HEAD'])
       assert.equal(classifyPublicRoute(method, path), 'public-read', path);
-  for (const path of ['/admin/editions/new', '/admin/editions/not-a-uuid'])
+  for (const path of ['/admin/editions/not-a-uuid'])
     assert.equal(classifyPublicRoute('GET', path), null, path);
 });
 
@@ -191,4 +191,11 @@ void test('browser error admission permits only the reviewed POST endpoint', () 
     '/api/%62rowser-errors',
   ])
     assert.equal(classifyPublicRoute('POST', path), null);
+});
+
+void test('new edition page admits only admin GET and HEAD', () => {
+  for (const method of ['GET', 'HEAD'])
+    assert.equal(classifyPublicRoute(method, '/admin/editions/new'), 'admin');
+  for (const method of ['POST', 'PUT', 'DELETE', 'PATCH'])
+    assert.equal(classifyPublicRoute(method, '/admin/editions/new'), null);
 });

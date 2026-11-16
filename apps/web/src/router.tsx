@@ -26,7 +26,12 @@ import { PublicPreviewDetail } from './PublicPreviewDetail';
 import { PublicPreviewHistory } from './PublicPreviewHistory';
 import { PublicQueues } from './PublicQueues';
 import { PublicStatusPage } from './PublicStatusPage';
-import { editionHistoryQuery, editionQuery, identityQuery } from './queries';
+import {
+  accountSessionQuery,
+  editionHistoryQuery,
+  editionQuery,
+  identityQuery,
+} from './queries';
 import { ReaderArchive } from './ReaderArchive';
 import { ReaderSaved } from './ReaderSaved';
 
@@ -139,7 +144,9 @@ const adminRoute = createRoute({
           z.string().uuid().safeParse(location.pathname.slice(16)).success))
     )
       return;
-    const identity = await context.queryClient.fetchQuery(identityQuery);
+    const identity = publicMode
+      ? await context.queryClient.fetchQuery(accountSessionQuery)
+      : await context.queryClient.fetchQuery(identityQuery);
     if (!identity.isAdmin) throw notFound();
   },
   component: AdminLayout,

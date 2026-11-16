@@ -1,7 +1,7 @@
 import { isPublicHandbookTarget } from './handbook-route-policy';
 import { isAdminTelemetryRead } from './telemetry-query-policy';
 
-// Public-mode policy; live public mode remains off pending Phase 4 acceptance.
+// Public-mode policy: routes are admitted individually after review.
 // Routes are admitted individually after their response/privacy review.
 export type RouteClass = 'public-read' | 'user' | 'admin';
 
@@ -15,6 +15,7 @@ const rules: readonly Rule[] = [
   ['POST', /^\/api\/browser-errors$/, 'public-read'],
   ['GET', /^\/admin\/?$/, 'public-read'],
   ['GET', /^\/admin\/editions$/, 'public-read'],
+  ['GET', /^\/admin\/editions\/new$/, 'admin'],
   ['GET', /^\/admin\/schedule$/, 'public-read'],
   ['GET', /^\/admin\/sources$/, 'public-read'],
   ['GET', /^\/admin\/tools$/, 'public-read'],

@@ -108,3 +108,17 @@ Archived: [iterations 2430–2435](docs/progress-archive/2026-11-15-2430-2435.md
 - Full CI initially found a stale readiness matrix expecting the now-authorized handbook API to be closed; updated anonymous/reader/admin GET/HEAD coverage and retained traversal/write refusals. Targeted matrix passes; docs-site tests 10/10 pass. Final detached rerun exits 0: 1,052 unit/329 integration tests pass, four expected skips; final detached `pnpm lint:fix` exits 0.
 - Archived progress 2430–2435 after crossing 25 KB; updated TASKS with the owner’s public sharing decision. Final reader/browser/health/alerts and formatting checks pass; no deployment/push blocker.
 - Next: STEERING 64 fresh-admin direct New edition loads, then Nov 16 scheduled public-edition acceptance. Retained Bluesky export remains due 06:56 UTC; metrics follow-up still open.
+
+## 2026-11-16: iteration 2443 — restore admin direct New edition loads
+
+- Clean main at 3b28b100; no inherited work. Alerts zero; followed STEERING 64 after item 63 steps 1–3.
+- Exact GET/HEAD `/admin/editions/new` now classified admin; other routes/methods unchanged. Policy/HTTP tests cover anonymous/reader refusal and fresh-admin admission (10 tests pass).
+- Real browser acceptance exposed a second blocker: client guard called closed `/api/me`. Public-mode protected-page guard now reads `/api/account/session`; private identity path unchanged.
+- Built/restarted changed API only; initial immediate health probe preceded readiness, subsequent `/healthz` green. Built web with atomic release procedure; no worker/web restart.
+- HTTPS browser harness initially hit Node request DNS failure, then shared loopback rate limit; corrected to Chromium-resolved requests and dedicated existing forwarded-IP pattern. First real form check found the client guard failure above.
+- Final public HTTPS acceptance: signed-out GET/HEAD 404; fresh stored admin session GET/HEAD 200; typed URL and reload show Create an edition at 1440/390px, no overflow/browser errors. Screenshots saved; mobile inspected. Local file-mailbox authentication only; session logged out; no real email, edition creation or paid calls.
+- Updated operations handbook; `check-handbook.ts 08-operations` passes (18 pages, 39 tables, no changed diagrams). Sources 38/38 healthy; scheduled-reader verifies Nov 15 five topics/23 stories/16 posts; scheduled queue remains healthy.
+- Verification: `pnpm format`, `pnpm lint:fix`, detached `pnpm check`, API/web builds, policy/access tests, live browser, scheduled reader, sources/jobs and `git diff --check`; final completion receipt follows. Receipts `/tmp/2443-*`.
+- Next: Nov 16 15:00 UTC scheduled public-publication/editorial acceptance; protect 13:00–16:00 UTC. Retained Bluesky export due 06:56 UTC and metrics follow-up remain pending.
+- Final detached `pnpm check` exits 0: 1,053 unit/329 integration tests pass, four expected skips. Detached `pnpm format`/`pnpm lint:fix` exit 0; targeted final client/browser-script lint and handbook verification pass. Shell-attached style rerun was terminated (143), so used the detached receipt. Both screenshots inspected.
+- Atomic web deployment poll: 21 public reader/old/current asset samples, zero failures. Final alerts zero and `/healthz` green; no deployment/push blocker.

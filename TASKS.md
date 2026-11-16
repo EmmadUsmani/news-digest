@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 63/64: atomic web deployment/≥24h retired assets (2439), local pinned `/db/` ELK (2440), and full public handbook/privacy/navigation/search acceptance (2442) complete. Next: admin-only direct New edition loads. Nov 16 scheduled-publication acceptance remains open; protect 13:00–16:00 UTC. Keep public mode/sharing unchanged.
+- [ ] STEERING 63/64: atomic web deployment/≥24h retired assets (2439), local pinned `/db/` ELK (2440), and full public handbook/privacy/navigation/search acceptance (2442) complete. Admin-only direct New edition loads accepted (2443). Nov 16 scheduled-publication acceptance remains open; protect 13:00–16:00 UTC. Keep public mode/sharing unchanged.
 
 - [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
 
@@ -56,6 +56,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
 
 ## Latest completed steps
+
+- [x] 2443: New edition direct GET/HEAD requires fresh admin; client guard uses stored account session in public mode. Signed-out refusal and admin desktop/mobile typed URL/reload accepted without edition creation.
 
 - [x] 2442: full handbook public at `/docs/`; pinned local rendering, narrow read-only routes, credential isolation and desktop/mobile acceptance for all 18 pages/21 diagrams.
 

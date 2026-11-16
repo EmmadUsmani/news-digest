@@ -2956,3 +2956,5 @@ edition or spend money to check it. Don't widen any other route.
 **Done when:** deployed and checked as above. Ack with the commit.
 
 **Limits:** no deploys or restarts 13:00–16:00 UTC. No new spend.
+
+ack: 2026-11-16 item 64 complete in this commit (Allow fresh admins to load New edition directly): exact admin GET/HEAD route plus public client session guard. Public HTTPS signed-out GET/HEAD 404; fresh stored admin typed URL and refresh show the form at desktop/mobile, with no edition creation or paid calls. API-only restart and atomic web deployment; 21 public deployment samples without page/asset failure. Nov 16 scheduled acceptance remains open under item 63 step 4.
