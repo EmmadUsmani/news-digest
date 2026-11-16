@@ -29,7 +29,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
-- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality open. Nov 16 bottleneck diagnosed (2519): Gaming 13 scored/four qualifying/one selected X; U.S. 11/three/zero, both successful Sonnet/zero unscored. Gaming Bluesky one shortlisted/none chosen. 2520 reviewed seven stored texts/cache outputs: weak promotion, truncated claims and bare Xbox media caption; retain sparse selection. Next inspect discovery provenance/account mix; no gate changes. [Review](docs/edition-reviews/2026-11-16.md#social-selection-bottleneck--iteration-2519). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-9).
+- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality open. Nov 16 bottleneck diagnosed (2519): Gaming 13 scored/four qualifying/one selected X; U.S. 11/three/zero, both successful Sonnet/zero unscored. Gaming Bluesky one shortlisted/none chosen. 2520 reviewed seven stored texts/cache outputs: weak promotion, truncated claims and bare Xbox media caption; retain sparse selection. 2521 traced all 24 scored IDs: each topic ten new paid results, Gaming three/U.S. one free; five U.S. paid results from White House/Oltmann. Actual queries include `-giveaway`; no curated-account overlap. Next compare natural next-edition contributions; no gate changes. [Review](docs/edition-reviews/2026-11-16.md#social-selection-bottleneck--iteration-2519). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-9).
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2521: traced Gaming/U.S. X discovery and account mix; verified paid/free partition and actual query exclusions, retained gates/settings for natural next-edition comparison.
 
 - [x] 2520: reviewed seven qualifying Gaming/U.S. X texts and cached selections; identified weak supplied evidence and unpublished Xbox triage overstatement, retained gates.
 

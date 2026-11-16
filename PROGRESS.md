@@ -232,3 +232,15 @@ Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md
 - No paid calls, runtime changes, build/deploy or restart during 13:00–16:00 UTC hold; live runtime unchanged from main.
 - Next metrics checkpoint ≥16:31 UTC, Bluesky export by 20:36 UTC; full rotation-day review after Nov 17 00:00 UTC.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2520-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2521 — trace sparse X discovery
+
+- Clean main at e8d816dd; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and 38 sources healthy; digest queue zero failed/active. Disk warning intermittent; df 79%/5.0 GiB free.
+- Read-only citation joins explain all 24 Gaming/U.S. scored X IDs: each ten new paid candidates, Gaming three/U.S. one free; routes disjoint and paid citations pre-cutoff.
+- Gaming qualifying paid/free 3/1; U.S. 3/0. Five U.S. paid results from White House/Oltmann; no scored curated-account overlap.
+- Both actual keyword queries include -giveaway, Top mode, exact window and unchanged likes floors; keep gates/settings/budgets. No paid replay or provider calls.
+- Updated edition review, SOURCES and TASKS. Receipt /tmp/2521-provenance.json; 24-ID route/account/query assertions pass; temporary read-only script removed.
+- Documentation-only: no runtime changes, rebuild/deploy or restart needed; running code unchanged from main. Final local and public-DNS HTTPS health pass (default VM DNS curl cannot connect).
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2521-{format,lint,check}.log.
+- Next metrics checkpoint ≥16:31 UTC; Bluesky export by 20:36 UTC; compare next natural edition's discovery contributions.

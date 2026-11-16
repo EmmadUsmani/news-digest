@@ -3424,3 +3424,13 @@ and a White House funding appeal overlapping the lead story. Yakkamon's dated
 early-access announcement was selected. No media/report fetch or source change.
 Next inspect discovery provenance/account mix; preserve editorial gates.
 [Saved edition review](edition-reviews/2026-11-16.md#qualifying-x-text-review--iteration-2520).
+
+### Nov 16 X discovery provenance — iteration 2521
+
+Gaming's scored X pool is ten new paid keyword results plus three free mined
+links; U.S. is ten plus one. Paid/free IDs are disjoint. Five U.S. paid results
+come from White House/Oltmann; no scored author matches either topic's saved
+account list. Both actual open-topic queries include `-giveaway`, Top mode and
+the exact edition window. Retain editorial gates and current discovery settings;
+compare natural next-edition contributions before changing account policy.
+[Provenance review](edition-reviews/2026-11-16.md#x-discovery-provenance-and-account-mix--iteration-2521).
