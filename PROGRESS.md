@@ -170,3 +170,14 @@
 - Updated TASKS.md, source receipt and pilot review. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
 - Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; receipts /tmp/2555-{format,lint,check}.log.
 - Next: metrics ≥23:14 UTC; retain final 23:54 Bluesky job after completion, then full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2556 — retain Helix affordability grouping evidence
+
+- Clean main at e017bd08; no inherited edits to recover/discard. Initial oversized orientation output was truncated; narrow reads recovered task priorities. Protected paths untouched.
+- Item 27/42 reader weakness: solving the confirmed GTA overmerge must preserve distinct angles from the same Helix interview. Extended offline controls with retained Insider Gaming affordability/neural-rendering reporting, beyond preservation and console/PC angles.
+- Added exact short publisher passage from iteration 2537; metadata matches immutable coverage retained in iteration 2529. Read-only assertions verify all five metadata fields, exact passage and complete ten-pair labeling. No new fetch, paid calls or production changes.
+- Five articles/ten agent-reviewed pairs: three Helix positives/seven negatives. Published control retains three positives and the GTA false merge; all-separate misses three. Correct split/merge control checks all 120 orders. Independent labels and semantic evaluation remain open.
+- Initial /healthz database/Redis healthy, 14 services/38 sources healthy, zero alerts, disk 61%; digest queue zero failed jobs, next scheduled edition Nov 17 15:00 UTC.
+- Verification receipts: /tmp/2556-{targeted,format,lint,check}.log. Targeted suite passes 18 tests; pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips.
+- Evaluation/docs only; no rebuild or service restart under STEERING 22/65. Updated task and grouping-review evidence; source configuration unchanged.
+- Next: metrics ≥23:14 UTC; final Bluesky 23:54 collection/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.

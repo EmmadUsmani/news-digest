@@ -71,8 +71,8 @@ void test('published Nov 16 grouping separates GTA forecasts while retaining Hel
       ),
   );
   assert.equal(published.falsePositives, 1);
-  assert.equal(published.truePositives, 1);
-  assert.equal(published.labeledPrecision, 0.5);
+  assert.equal(published.truePositives, 3);
+  assert.equal(published.labeledPrecision, 0.75);
   assert.equal(published.unlabeledMergedPairs, 0);
   assert.equal(published.permutationCheck.maxFalsePositives, 1);
 
@@ -82,8 +82,8 @@ void test('published Nov 16 grouping separates GTA forecasts while retaining Hel
     fixture.pairs,
     () => false,
   );
-  assert.equal(separate.clusters, 4);
-  assert.equal(separate.missedPositivePairs, 1);
+  assert.equal(separate.clusters, 5);
+  assert.equal(separate.missedPositivePairs, 3);
   assert.equal(separate.falsePositives, 0);
   assert.equal(separate.permutationCheck.maxFalsePositives, 0);
 
@@ -99,14 +99,16 @@ void test('published Nov 16 grouping separates GTA forecasts while retaining Hel
           [pair.left, pair.right].includes(b.id),
       ),
   );
-  assert.equal(fixture.pairs.length, 6);
+  assert.equal(fixture.pairs.length, 10);
   assert.equal(control.clusters, 3);
-  assert.equal(control.truePositives, 1);
+  assert.equal(control.truePositives, 3);
   assert.equal(control.falsePositives, 0);
   assert.equal(control.missedPositivePairs, 0);
   assert.equal(control.unlabeledMergedPairs, 0);
   assert.equal(control.permutationCheck.maxFalsePositives, 0);
   assert.equal(control.orderSensitivePairs, 0);
+  assert.equal(control.permutationCheck.orders, 120);
+  assert.equal(control.permutationCheck.minMatchedPositivePairs, 3);
 });
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {
