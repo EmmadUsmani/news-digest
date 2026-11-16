@@ -48,70 +48,7 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 
 Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md).
 
-## 2026-11-16: iteration 2506 — scheduled review supply anchors
-
-- Clean main at fd331a66; no inherited work. Health and all 38 sources pass; digest queue has zero failures, next run 15:00 UTC.
-- Disk 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
-- Owner would care: the scheduled review can distinguish thin source evidence from editing failures and spot duplicate World/U.S. coverage.
-- Captured current production-loader pools read-only at 13:20:58 UTC; no model/cache/queue calls. Receipt /tmp/2506-pool.json.
-- Tech now hits newest-200 cap: 199 eligible, 185 empty excerpts; oldest loaded report 18:29:53 Nov 15. Fourteen nonempty texts include short announcements/music.
-- Added Nov 16 review with exact prose anchors, 17 shared eligible World/U.S. IDs and natural recovery acceptance questions; no pre-run quality acceptance inferred.
-- Python capture assertions pass for all five pool/text counts, Tech cutoff and shared IDs. Local and signed-out public HTTPS health pass (public DNS override needed on VM).
-- No source/configuration/runtime changes, spending, rebuild or restart under STEERING 63's 13:00–16:00 hold.
-- Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
-- Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass. Older progress archived.
-
-## 2026-11-16: iteration 2507 — Tech newest-200 cutoff impact
-
-- Clean main at 81517ed5; no inherited work. Health, all 14 monitored services and all 38 sources pass; digest next runs 15:00 UTC, zero failed digest jobs.
-- Disk 79%; known threshold warning pending. No cleanup during protected 13:00–16:00 window.
-- Owner would care: Tech’s candidate limit omits some real reporting before editorial selection.
-- Read-only full-window capture at 13:32:35: 228 articles; first 200 normalized rows exactly match production loader in the same repeatable-read transaction.
-- Loaded pool: 199 eligible/15 with text. Beyond cutoff: 28 eligible/four with text; 24 also empty.
-- Read excluded excerpts: Apple smart-glasses reporting, Mac utility announcement, shopping deal and podcast profile. Exact IDs/character counts recorded in Nov 16 review.
-- Smart-glasses reporting is concrete potential admission loss; actual scoring/selection effect awaits natural edition. Cap and generation unchanged.
-- Deep loader equality and Python receipt assertions pass; receipts /tmp/2507-tech-cutoff{,-summary}.json. Temporary capture script removed.
-- Local and signed-out public HTTPS /healthz pass (public DNS override on VM). No provider calls, spending, runtime changes, rebuild or restart during deployment hold.
-- Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2507-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2508 — signed-out HTTPS scheduled-reader gate
-
-- Clean main at 8d7d7637; no inherited work. Health, monitored services and all sources pass; digest queue zero failures, next run 15:00 UTC. Disk 79%.
-- Owner would care: the scheduled publication check can now compare latest/direct/history through the public HTTPS boundary, retaining local saved scheduled provenance.
-- Added optional SCHEDULED_READER_ORIGIN; default loopback unchanged. Remote reads send no forwarded visitor header, cookies or credentials; redirects remain refused.
-- Require HTTPS outside loopback and reject origin credentials, paths, queries and fragments. Updated publication runbook command and TASKS.md.
-- Nov 15 a0fa3916 passes locally and through signed-out public HTTPS (five topics/23 stories/16 posts); Nov 16 correctly returns pending/exit 2 on both origins.
-- Public check used temporary /tmp/2508-public-dns.cjs to resolve through public DNS; VM default DNS cannot reach the public HTTPS route. No DNS configuration changed.
-- Remote HTTP rejection verified before network access. Existing local provenance and AI requirements remain intact; browser/editorial acceptance still due after publication.
-- No source/configuration/runtime changes, provider calls, spending, rebuild or restart during STEERING 63 deployment hold. Tooling takes effect directly from main.
-- Next: metrics ≥14:09 UTC; Nov 16 scheduled publication/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2508-{format,lint,check}.log.
-
-## 2026-11-16: iteration 2509 — protected-edition triage and handoff
-
-- Clean main at ea479229; no inherited work to recover or discard.
-- pnpm obs alerts: zero firing, one pending DiskSpaceLow; df -h / reports 79% used/5.0 GiB available. No cleanup during the protected window.
-- pnpm obs health passes; pnpm obs sources --check reports all 38 healthy.
-- pnpm obs jobs --queue digest-generation --limit 1: one worker, zero failed/active/waiting jobs; next scheduled run 15:00 UTC.
-- Owner would care: preserve the scheduled public edition without another generation change or service interruption.
-- No new product change: Tech cutoff cause and omitted prose are already captured in 2507; actual scoring/selection impact needs natural publication. Stopped duplicate analysis under STEERING 42/55.
-- No source/configuration/runtime changes, provider calls, spending, rebuild, cleanup or restart during STEERING 63's 13:00–16:00 hold.
-- Next: metrics checkpoint no earlier than 14:09 UTC; scheduled signed-out HTTPS/browser/editorial review at 15:00; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2509-{format,lint,check}.log. All 14 monitored services healthy.
-
-## 2026-11-16: iteration 2510 — due metrics checkpoint during edition hold
-
-- Clean main at e18fbc58; no inherited work. Health, 38 sources and digest queue healthy; scheduled run remains 15:00 UTC.
-- pnpm obs alerts: zero firing/one pending DiskSpaceLow; disk 79%, 5.0 GiB available. No cleanup during hold.
-- Owner would care: preserve the public scheduled edition; no product/runtime change while awaiting natural admission evidence.
-- pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30: three samples at 14:09–14:10, 24 healthy rules, six queries ≤1.325 s.
-- Since 13:08: admission counter +1 (none during sampling), memory-high +402 (17 during sampling), 70 small merges/1,633,175 rows; no big merge.
-- No new timeout, slow-query, evaluator failure, process restart or OOM; NRestarts=0; metrics journal empty. Resource acceptance stays open; limits unchanged.
-- Updated TASKS.md and capacity decision with actual counters; receipts /tmp/2510-{metrics.jsonl,summary.json,metrics-journal.log}.
-- No deploy, rebuild, restart, provider calls or spending under STEERING 63 hold.
-- Next: 15:00 public HTTPS scheduled publication/browser/editorial review; metrics ≥15:11 only after edition work; Bluesky export by 20:36 UTC.
-- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2510-{format,lint,check}.log.
+Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md).
 
 ## 2026-11-16: iteration 2511 — scheduled-edition protection
 
@@ -256,3 +193,16 @@ Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md
 - Receipt /tmp/2522-tech-admission.json; assertions cover all 204 IDs, 200 scores, zero unscored and four omitted IDs absent. Temporary read-only script removed; no paid calls or queued work.
 - Documentation-only; runtime unchanged from main, no rebuild/deploy/restart required. Local /healthz passes.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2522-{format,lint,check}.log. Next metrics ≥16:31 UTC; Bluesky export by 20:36 UTC.
+
+## 2026-11-16: iteration 2523 — locate Tech grouping admission
+
+- Clean main at eacb7e5c; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and 38 sources healthy; zero failed/active digest jobs. Known intermittent disk warning; df 79%/5.0 GiB free.
+- Saved 15:00:59 Tech grouping response proves Apple study/Senate enforcement report reached grouping; eight groups entirely within immutable triage.
+- Current-input production-loader/shortlist/rank replay admits all six qualified texts to 40; saved grouping leaves Apple/Senate/LVMH outside editor top ten.
+- Historical fingerprint misses cache/current pool lacks one saved group member; historical editor admission remains unknown. Retained caps/gates; no paid calls or jobs.
+- Receipts /tmp/2523-{tech-trace,grouped-replay,saved-groups}.json; eight-group/membership/exclusion assertions pass. Temporary read-only script removed.
+- Updated edition review, SOURCES and TASKS; archived progress 2506–2510 to keep orientation small.
+- Documentation-only; running code unchanged from main, no rebuild/deploy/restart needed. Final local /healthz passes.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2523-{format,lint,check}.log.
+- Next metrics checkpoint now due; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.

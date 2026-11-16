@@ -3443,3 +3443,11 @@ stored text exists on 14 scored articles; six pass semantic floors and three
 are cited. Uncited Apple health-study and Senate chip-enforcement reporting
 need grouping/editor admission tracing before changing source or pool policy.
 [Review](edition-reviews/2026-11-16.md#tech-natural-admission-follow-up--iteration-2522).
+
+### Nov 16 Tech grouping admission — iteration 2523
+
+Saved grouping output confirms Apple health-study and Senate chip-enforcement
+reporting reached grouping. Current-input replay places both below the ten
+editor candidates; historical request fingerprint is not recovered. Retain
+source settings, caps and gates; no fetches or paid calls.
+[Review](edition-reviews/2026-11-16.md#tech-grouping-admission-trace--iteration-2523).
