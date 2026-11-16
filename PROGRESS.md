@@ -157,3 +157,13 @@ Archived: [iterations 2430–2435](docs/progress-archive/2026-11-15-2430-2435.md
 - `check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts. Verification receipts `/tmp/2446-{format,lint,check,reader}.log`; final results below.
 - Next: metrics sample ≥01:34 UTC; Bluesky export by 12:36; scheduled acceptance at 15:00, protect 13:00–16:00. No further daily scratch cleanup Nov 16.
 - Final `pnpm format`/`pnpm lint:fix`/`pnpm check` exit 0: 1,053 unit and 329 integration tests pass, four expected skips. Changed Markdown formatting and `git diff --check` pass; final alerts zero. No new blocker.
+
+## 2026-11-16: iteration 2447 — close unavailable NBA rejection reconstruction
+
+- Clean main at 5807e2df; no inherited work. Alerts zero; source/job checks healthy, next scheduled edition Nov 16 15:00 UTC. Metrics not due until ≥01:34; no scratch cleanup repeated.
+- Owner value: distinguish a real empty NBA social slot from an unproven false rejection, without changing selection rules on incomplete evidence.
+- Read-only cache inspection finds one matching accepted Nembhard rationale at 15:02:36.208: one accepted post, unsupportedClaim=1, other drops zero; exact envelope/post field assertions pass.
+- Traced sanitizer→validated cache and allowlisted provider logging: rejected identity/wording are not retained. Historical reconstruction closed; no inference that OPB was rejected. Content/time match does not establish exact historical request identity.
+- Updated NBA review and TASKS; natural selection quality/spoof exclusion remain pending. Private receipt `/tmp/2447-cache.{ts,json}`; no paid calls, writes to app data, runtime changes or service restart needed.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Receipts `/tmp/2447-{format,lint,check}.log`; `git diff --check` clean.
+- Next: metrics ≥01:34, Bluesky export by 12:36, scheduled review 15:00; protect 13:00–16:00 UTC. No new blocker.

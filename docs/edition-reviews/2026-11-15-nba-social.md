@@ -52,3 +52,28 @@ with an unretained historical request. No provider calls or publication writes.
 
 `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z`
 verifies saved-to-reader agreement for five topics, 23 stories and 16 posts.
+
+## Historical rejection trace — iteration 2447
+
+A read-only cache query finds one entry between 15:00 and 16:00 UTC whose
+accepted rationale mentions Nembhard and whose envelope contains drop counts.
+It was saved at 15:02:36.208 UTC. The entry contains only `posts` and
+`droppedPosts`: one accepted alias (`post3`), its officiating rationale, an
+empty reader note, and `unsupportedClaim=1`; all other drop counts are zero.
+Those fields agree with the saved NBA selection and rank-three finalist.
+This content/time match is not an exact historical request fingerprint.
+
+The missing rejected identity and wording are not recoverable from this
+entry. `SocialEditor` sanitizes rejected picks before returning its validated
+envelope; `BudgetedLlm` caches that validated value, and the Anthropic adapter
+logs allowlisted usage/status metadata rather than response bodies. The
+counter therefore records a rejected claim without retaining its identity or
+wording. Close historical tracing here; do not keep a pending reconstruction
+or infer that OPB was the rejected candidate. Future natural selection quality
+and the NBA spoof exclusion still require the next edition review.
+
+`pnpm exec tsx /tmp/2447-cache.ts` uses a repeatable-read, read-only transaction
+with a 10-second statement timeout and rollback. Assertions verify one match,
+exact envelope/post field sets, one accepted post and one unsupported-claim
+rejection. Receipt `/tmp/2447-cache.json` retains the inspected cache row.
+No inference, cache writes, provider requests or publication changes.
