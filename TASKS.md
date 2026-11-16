@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2469: populated Saved items acceptance passes at 200% text, 320/390/1440px in both themes; real story/post persistence, source links and keyboard removal verified. No runtime change.
+
 - [x] 2468: due metrics checkpoint retains healthy reads/rules and unchanged limits; continuing reclaim leaves resource acceptance open.
 
 - [x] 2467: retained World same-story and distinct-conflict cases offline; broad Trump analysis stays unknown, production unchanged.

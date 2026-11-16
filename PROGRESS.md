@@ -30,52 +30,7 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 
 Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md).
 
-## 2026-11-16: iteration 2456 — remove duplicate reader coverage citations
-
-- Clean main at 39a4d603; no inherited work. Services/38 sources/jobs healthy, alerts zero; timed acceptance gates not yet due.
-- Owner value: the latest Tech IPO story counted the same NYT article twice, cluttering its coverage list and inflating three reports from two distinct reports.
-- Reader projection now collapses exact publisher/headline Google News wrappers with ≤1-second timestamp jitter; preserves later updates, different publishers/headlines, direct links and unknown dates. Saved editions, selection, summaries and collection unchanged.
-- Regression `pnpm exec tsx --test apps/api/test/reader-edition.test.ts`: 8 pass, including duplicate/independent-report guards and snapshot immutability.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. API build passes; restarted API only, `/healthz` database/Redis healthy.
-- `pnpm exec tsx scripts/check-live-coverage-dedup.ts` passes signed-out public HTTPS desktop/mobile, GET-only with no browser errors. Screenshots saved/viewed; only the duplicate NYT citation disappeared in exact before/after comparison.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` verifies five topics/23 stories/16 posts and saved scheduled provenance. Final alerts zero; receipts `/tmp/2456-{check,build,browser,provenance,alerts}.log`.
-- Initial plain HTTPS curl hit the VM's managed private host mapping; browser acceptance used public DNS as existing live scripts do. No sharing/config changes, provider calls or new blocker.
-- Next: metrics ≥03:25 UTC; Bluesky export by 12:36; public scheduled edition acceptance at 15:00. Protect 13:00–16:00 UTC; retain all production budgets and pilot settings.
-
-## 2026-11-16: iteration 2457 — simplify coverage titles
-
-- Clean main at f5ebd224; no inherited edits. Health/database/Redis and all 38 sources pass; alerts zero. Scheduled/content gates still await natural evidence.
-- Owner value: Tech coverage repeated CNBC/NYT publisher names in both headlines and the outlet line, making an already long report list harder to scan.
-- Display now removes only an exact trailing ` - publisher` when the report has explicit publisher metadata; the attribution below, destination, original saved title and other headlines stay intact.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Receipts `/tmp/2457-{format,lint,check}.log`.
-- `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build` atomically deployed under `/tmp/2457-deploy.py`: 11 public reader/previous-asset probe pairs pass, zero failed requests. No service restart for this web-only change, per STEERING 63.
-- `pnpm exec tsx scripts/check-live-coverage-dedup.ts` passes public HTTPS desktop/mobile, original API titles/links and publisher credit preserved, no browser errors; screenshots updated and viewed.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance; final `pnpm obs alerts` zero.
-- No paid calls or new blocker. Next metrics ≥03:25 UTC, Bluesky export by 12:36, public scheduled edition acceptance at 15:00; protect 13:00–16:00 UTC.
-
-## 2026-11-16: iteration 2458 — metrics recovery across verification load
-
-- Clean main at fc93e6d3; no inherited work. Alerts zero, health/database/Redis, services, 38 sources and scheduled jobs pass.
-- Owner value: keep resource recovery open on measured reclaim while healthy monitoring protects the scheduled public edition; no generation change justified by the saved reader's known World/Tech/NBA weaknesses.
-- `pnpm exec tsx scripts/sample-metrics-recovery.ts 8 60`: nine samples, 03:18:46–03:26:52 UTC, all 24 rules fresh/healthy; 18 uncached queries ≤1.037 s.
-- Compared with 02:23:32: +373 memory-high events, +37 during the sample; small merges +60/1,758,238 rows, no big merge. Processes unchanged, no new failure/admission/timeout/slow-query counters; max/OOM/kill=0. Ending memory 78.5 MiB, lifetime peak 88.7 MiB; NRestarts=0, journal empty.
-- Resource acceptance stays open; CPU 2%/88 MiB high/112 MiB max unchanged. Next short check ≥04:30 UTC, preferably after natural big merge; no waiting for compaction or holding reader work.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Comparison assertions pass.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with saved scheduled provenance; final `pnpm obs alerts` zero.
-- Updated TASKS.md and capacity evidence. Receipts `/tmp/2458-{format,lint,check,sources,services,jobs,reader,alerts}.log`, `/tmp/2458-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`.
-- Evidence/docs only: runtime unchanged, no rebuild or service restart under STEERING 63. No paid calls or new blocker. Next Bluesky export by 12:36, public scheduled edition review at 15:00; protect 13:00–16:00 UTC.
-
-## 2026-11-16: iteration 2459 — keep the mobile reader title visible
-
-- Clean main at 4641d494; no inherited work. Health/database/Redis and all 38 sources pass; scheduled generation remains queued for 15:00 UTC; alerts zero.
-- Item 42 reader weakness: the Topics button crowded the mobile header, truncating the site title even at 390px. Moved it beside Saved items and Account; the preferences row can wrap.
-- Initial 320px acceptance exposed another seven pixels of clipping; removing mobile-only date-control gaps keeps the full title and existing 44px arrow targets visible.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Targeted ESLint and `git diff --check` pass.
-- `VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build` atomically deployed via `/tmp/2457-deploy.py`; final deploy: 15 public page/previous-asset probe pairs, zero failures; prior hashed assets retained.
-- `pnpm exec tsx scripts/check-live-reader-header.ts` passes signed-out public HTTPS at 320/390/1440px: full title, controls within viewport, Topics dialog with five checkboxes, GET-only and no browser errors. Screenshots saved and viewed.
-- Updated affected handbook instructions; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes, 39 tables and no metadata warnings. No changed diagrams.
-- Web-only change: no API/worker restart under STEERING 63. No paid calls, budget changes or new blocker. Receipts `/tmp/2459-{format,lint,check,deploy-final,browser-final,handbook,sources,jobs,alerts}.log`.
-- Next: metrics ≥04:30 UTC, Bluesky export by 12:36, scheduled public edition/content review at 15:00; protect 13:00–16:00 UTC.
+Archived: [iterations 2456–2459](docs/progress-archive/2026-11-16-2456-2459.md).
 
 ## 2026-11-16: iteration 2460 — recover links to hidden topic sections
 
@@ -185,3 +140,13 @@ Archived: [iterations 2448–2455](docs/progress-archive/2026-11-16-2448-2455.md
 - Initial pending disk alert cleared naturally; disk 78%, daily scratch cleanup already applied. Final alerts zero.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration tests, four expected skips; isolated API build passes. `git diff --check` passes. Receipts `/tmp/2468-{format,lint,check,reader,services,sources,jobs,alerts}.log`, metrics JSONL/summary/compare and metrics journal/error logs.
 - Next: short metrics check ≥06:33 UTC, Bluesky export by 14:36 UTC, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC. No new blockers.
+
+## 2026-11-16: iteration 2469 — accept enlarged saved-content reading
+
+- Clean main at acc9f682; no inherited work. Health database/Redis and source ingestion pass. Pending disk alert was transient; disk 79%, today's permitted scratch cleanup already recorded, no additional deletion.
+- Reader value: people enlarging text can still read their saved stories/posts, follow source links and remove items without losing keyboard position. Earlier enlarged checks covered headers and empty saved state only.
+- Added read-only browser acceptance using actual Nov 15 edition a0fa3916; saves one real story and one real post through the UI in isolated browser profiles, then verifies copies survive reload. No account writes or external requests.
+- Six cases pass at 320/390/1440px, light/dark, 200% text: no horizontal overflow, source URLs unchanged, controls focusable, removal focuses the remaining item then the empty-state heading; announcements and browse recovery pass. Six screenshots retained; mobile light and desktop dark inspected. No layout defect established; runtime unchanged.
+- Initial acceptance assertion incorrectly required inline prose links to have 44px height; corrected to exempt inline text links, retaining bounds/focus checks for them and touch-target checks for standalone controls.
+- `pnpm format`, `pnpm lint:fix`, typecheck/lint/format/boundaries and 1,056 unit tests pass. Combined `pnpm check` exited 143 after integration case 333, before its summary; isolated `pnpm test:integration` rerun exits 0: 329 pass/four expected skips, API build passes. Browser check and `git diff --check` pass.
+- Saved reader: five topics/23 stories/16 posts; 14 services and 38 sources healthy, final alerts zero. Receipts `/tmp/2469-{saved,format,lint,check,integration-retry,reader,services,sources,jobs,alerts}.log`. No paid calls, source/budget changes, new blockers or runtime restart under STEERING 63. Next: metrics ≥06:33 UTC, Bluesky export by 14:36, scheduled public/content review 15:00; protect 13:00–16:00 UTC.
