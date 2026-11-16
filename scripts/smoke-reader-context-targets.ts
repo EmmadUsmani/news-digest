@@ -34,6 +34,9 @@ async function smoke() {
         assert.equal(response.status(), 200);
         const edition = readerEditionSchema.parse(await response.json());
         await page.goto(origin);
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         await page.evaluate(() => document.fonts.ready);
         const summaries = page.locator('.post-context summary');
         const normalize = (value: string) =>
@@ -60,6 +63,10 @@ async function smoke() {
           );
           const bounds = await link.boundingBox();
           assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+          assert.ok(
+            bounds.x >= 0 && bounds.x + bounds.width <= width,
+            `post note ${index}: enlarged target stays horizontally reachable`,
+          );
         }
         const first = summaries.first();
         await first.scrollIntoViewIfNeeded();
@@ -97,7 +104,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: ${notes.length} published post notes retain context and have 44px targets; touch expansion, keyboard toggle/focus and overflow pass`,
+          `${width}/${theme}: ${notes.length} published post notes at 200% text retain context and have 44px targets; touch expansion, keyboard toggle/focus and overflow pass`,
         );
       }
     }

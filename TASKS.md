@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2492: six published expandable post notes retain context, 44px targets, horizontal reachability and keyboard/touch operation at 200% text across three widths/both themes; screenshots refreshed.
+
 - [x] 2491: real published older/newer/archive date navigation passes 200% text, horizontal reachability, keyboard focus and 44px targets at three widths/both themes; screenshots refreshed.
 
 - [x] 2490: triaged pending disk warning without unauthorized cleanup; corrected stale private-site/activation handoff in NEEDS_FROM_HUMAN.md to owner-confirmed public status.

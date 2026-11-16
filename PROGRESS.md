@@ -145,3 +145,14 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Receipts: /tmp/2491-{health,services,sources,jobs,reader,dates,format,lint,check,alerts-final}.log.
 - Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance at 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. First lint was terminated (143) without diagnostics; rerun succeeded. Final health passes; alerts zero firing/one pending disk warning.
+
+## 2026-11-16: iteration 2492 — enlarged published post-context acceptance
+
+- Clean main at 009244d9; no inherited work. Reader concern: expandable context must remain reachable when text is enlarged on narrow screens.
+- Initial `pnpm obs alerts` clear; `health --check`, `services --check`, `sources --check`, `jobs --check` pass. No source outage or failed digest run.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes: five topics/23 stories/16 posts from the saved scheduled publication.
+- Enhanced `smoke-reader-context-targets.ts` with 200% text and horizontal bounds checks. Six real published notes pass at 320/390/1440px in both themes, with 44px targets, preserved text, keyboard focus/toggle and touch expansion. Refreshed six screenshots; inspected narrow light capture.
+- GET/HEAD only, external requests blocked; no runtime/source/budget changes or provider calls. No rebuild/restart required under STEERING 63.
+- Receipts `/tmp/2492-{health,services,sources,jobs,reader,context,format,lint,check}.log`.
+- Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.
