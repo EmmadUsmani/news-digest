@@ -140,3 +140,13 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - API build passes; API-only restart applied (health retries covered startup). Live GET-only browser verifies 44px return target and Enter navigation. Health database/Redis and saved Nov 15 reader pass: five topics/23 stories/16 posts. Worker/web unchanged.
 - `pnpm format`, `pnpm lint:fix`, typecheck/lint/format/boundaries and all 1,056 unit tests pass. Combined `pnpm check` exited 143 during integration without a test assertion; standalone `pnpm test:integration` passes 329 tests/four expected skips. `git diff --check` passes.
 - Final alerts zero firing/pending; services healthy. Next: metrics ≥08:45 UTC, Bluesky export by 14:36, scheduled public/content review at 15:00; preserve 13:00–16:00 UTC window. No new blocker.
+
+## 2026-11-16: iteration 2479 — triage recurring disk pressure
+
+- Clean main at 98df38c9; no inherited tracked work. Initial DiskSpaceLow pending; filesystem already recovered to 79% (5,444,804,608 bytes available). No service or source failure.
+- Found abandoned `/tmp/news-digest-integration-whnKT6`, 16 MiB, last modified 07:59:26 UTC; marker PID 2792067 no longer exists. Safeguarded integration startup may reclaim after 08:59:26 UTC. No manual deletion or age bypass; today's general scratch cleanup already used in 2446.
+- `pnpm obs services`: 14 healthy; `pnpm obs sources`: all 38 healthy; `pnpm obs jobs`: digest queue has no failures, next edition 15:00 UTC. Historical ingestion/social failed counts coexist with healthy current sources.
+- `/healthz` passes database/Redis. `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` verifies saved scheduled publication, five topics/23 stories/16 posts. First invocation omitted required date; corrected command passes.
+- No runtime, source or budget change; no rebuild/restart under STEERING 63. Receipts `/tmp/2479-{reader,sources,jobs,alerts}.log`. Formatting/lint and final alert outcome recorded below.
+- Next: metrics ≥08:45 UTC; eligible integration cleanup ≥08:59:26; Bluesky export by 14:36; scheduled review at 15:00. Preserve 13:00–16:00 UTC window.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Verification briefly returned disk to 80% with one pending/zero firing alerts at 08:13:55; health remains healthy. Full receipts `/tmp/2479-{format,lint,check,alerts-final}.log`.

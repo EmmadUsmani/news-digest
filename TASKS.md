@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2479: transient disk-pressure triage; live reader/services/sources pass. A 16 MiB abandoned integration root is eligible for safeguarded startup cleanup after 08:59 UTC.
+
 - [x] 2478: sign-in return links have 44px touch targets; isolated code flow passes 320/390/1280px, both themes and normal/200% text.
 
 - [x] 2477: due metrics checkpoint verifies healthy reads during repository checks; continued reclaim and absent big merge keep resource acceptance open.
