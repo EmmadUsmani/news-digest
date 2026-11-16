@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2510 checkpoint 14:09–14:10 UTC: three samples/24 healthy rules, six queries ≤1.325 s; one admission-limit event since 13:08, none during sample; no timeouts/evaluator failures/restarts. +402 memory-high events (17 during sample); no big merge. Resource acceptance stays open. Next short check ≥15:11 UTC, preferably after natural big merge; scheduled edition review comes first. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2510).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2518 checkpoint 15:29–15:30 UTC: three samples/24 healthy rules, six queries ≤1.158 s; no new admission-limit events, timeouts/evaluator failures/restarts since 14:10. +676 memory-high events (zero during sample); no big merge. Resource acceptance stays open. Next short check ≥16:31 UTC, preferably after natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2518).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2518: due metrics checkpoint retains healthy rules/queries and unchanged failure counters; continued reclaim/no big merge keep resource acceptance open. Deployment hold preserved.
 
 - [x] 2517: completed Nov 16 daily settlement/speed/social review: $0.500315, 56 successful calls, no holds, 191.260 s; Gaming one promotional pick/U.S. no X remain open. No paid calls or runtime changes.
 

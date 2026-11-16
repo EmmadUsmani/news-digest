@@ -247,3 +247,16 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - Timing report private-status read unavailable in public mode; used existing ledger/usage adapters and BullMQ read-only temporary script, then removed it. Receipt /tmp/2517-ledger.json.
 - Deployment hold preserved: no rebuild, deploy or restart before 16:00 UTC. Next due metrics checkpoint, U.S. X/Gaming supply review and Bluesky export by 20:36 UTC.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2517-{format,lint,check}.log.
+
+## 2026-11-16: iteration 2518 — due metrics checkpoint
+
+- Clean main at eff3c408; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and all 38 sources healthy, digest queue zero failed/active; next edition Nov 17 15:00 UTC. Historical ingestion/social failures retained.
+- DiskSpaceLow intermittent; immediate df 79%/5.0 GiB free. No cleanup during protected window.
+- Read-only sample 15:29:42–15:30:43: all 24 rules healthy, six uncached queries ≤1.158 s, zero new admission/timeouts/slow-query/evaluator failures or restarts since 14:10.
+- Small merges +85/+2,557,256 rows; no big merge. Memory-high +676 since baseline/zero during sample; max/OOM/kill zero. Ending usage 77,201,408 bytes; peak 92,995,584.
+- Retained 2% CPU/88 MiB high/112 MiB max; resource acceptance remains open. Next sample ≥16:31 UTC, preferably after natural big merge. Decision 0004/TASKS updated.
+- Receipts /tmp/2518-{metrics.jsonl,metrics-error.log,metrics-journal.log}; journal empty, NRestarts=0.
+- Deployment hold preserved: no runtime changes, rebuild, deploy, restart or provider calls. Live runtime remains unchanged from main.
+- Next U.S. X/Gaming supply diagnosis; Bluesky export by 20:36 UTC; full rotation-day review after Nov 17 00:00.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2518-{format,final-format,lint,check}.log.
