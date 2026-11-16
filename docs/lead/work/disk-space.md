@@ -1,8 +1,13 @@
 # Disk space
 
-**Status (22:30 UTC Nov 15, disk 78%, 5.3 GB free):** owner flagged this as the next priority to work
-on together. Not started, not steered. Disk 76% of 25 GB (5.7 GB free); the
-warning is at 80%, and test runs already cross it briefly.
+**Status (18:15 UTC Nov 16, disk 80%, 4.9 GB free):** owner flagged this as the next
+priority to work on together. Not started, not steered. Disk is now sitting at
+the 80% warning line, so `DiskSpaceLow` flaps firing/resolved every few minutes.
+Free space fell 5.7 → 4.9 GB in about a day, faster than the estimate below.
+
+**Growth since Nov 15 (lead read-only check, Nov 16):** `~/.codex/sessions`
+1.5 → 1.7 GB, thread history 553 → 601 MB, agent logs 514 → 566 MB, `/tmp`
+about 2.0 → 2.4 GB (the agent saves review receipts there).
 
 **What fills it (lead read-only check, Nov 15):**
 
@@ -28,7 +33,6 @@ warning is at 80%, and test runs already cross it briefly.
 
 **Next:**
 
-1. Raise with the owner by about Nov 18, or sooner if the disk passes 80%
-   outside test runs. Measure the database's daily growth first (not yet
-   measured).
+1. Trigger met (80% outside test runs): raised with the owner Nov 16. Waiting
+   for their choice of options. Database daily growth still not measured.
 2. Nothing goes on Current order until the owner says so.

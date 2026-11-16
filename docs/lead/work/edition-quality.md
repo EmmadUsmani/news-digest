@@ -1,13 +1,12 @@
 # Edition quality
 
-**Status (22:30 UTC Nov 15):** Nov 15 edition `a0fa3916` published on time
-(15:03 UTC): five topics, 23 stories, 16 posts, AI $0.518 of $0.65. Gaming
-recovered (Sonnet); World and U.S. both published, with no shared events.
-World stories fell back to source excerpts: a guard rejected paraphrases of
-"must not" warnings, and Haiku wrapped JSON in fences. Fixed after the
-edition (`0316f305`, `1fd56c87`). NBA ran a fake-Shams injury post from the
-spoof account TheNBACentel; that account is now excluded (`3b631378`).
-Review: [docs/edition-reviews/2026-11-15.md](../../edition-reviews/2026-11-15.md).
+**Status (18:15 UTC Nov 16):** Nov 16 edition `93aefc45` published on time
+(15:03 UTC): five topics, 25 stories, 18 posts, AI $0.500 of $0.65. All five
+story and social sections Sonnet-edited, zero unscored. World fix held (no
+fallback to excerpts). No spoof NBA account. Weak spots: Gaming 1 post, Tech
+0 Bluesky, U.S. 0 X. Tech still thin: 185 of 199 eligible Tech candidates have
+no saved excerpt; the agent has traced this several times but not fixed it.
+Review: [docs/edition-reviews/2026-11-16.md](../../edition-reviews/2026-11-16.md).
 
 **Latest:**
 
@@ -19,10 +18,9 @@ Review: [docs/edition-reviews/2026-11-15.md](../../edition-reviews/2026-11-15.md
 
 **Next:**
 
-1. Nov 16 edition: World AI-edited, no spoof posts in NBA, Gaming still
-   AI-edited. If World falls back again, it's a repeat breakage: propose
-   steering.
-2. Tech summary depth: three of four Nov 15 Tech stories had no saved prose
-   and headline-deep summaries. Item 6 on Current order.
+1. Nov 17 edition: World and U.S. both AI-edited again (day 2 of 3 for U.S.
+   acceptance); Gaming and U.S. social counts.
+2. Tech summary depth: missing excerpts are the cause, not the editor. Item 6
+   on Current order. If the agent keeps tracing without a fix, propose steering.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
