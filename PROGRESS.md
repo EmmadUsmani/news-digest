@@ -99,3 +99,13 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - Saved Nov 15 scheduled reader provenance passes: five topics/23 stories/16 posts. Receipts `/tmp/2474-{format,lint,check,deploy,loading,public-browser,deploy-probe-final,reader,health,services,sources,jobs,alerts}.log`.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips; isolated API and web builds pass. Final health remains healthy with zero firing/pending alerts.
 - Next: metrics ≥07:35 UTC, Bluesky export by 14:36, scheduled public/content review 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2475 — verify transient disk-alert recovery
+
+- Clean main at 1e0aa5b0; no inherited work. Initial DiskSpaceLow pending at 07:13:28 UTC cleared by 07:13:59 without intervention; filesystem 79%, 5.48 GB available. Previous verification completed at 07:12, consistent with temporary coverage pressure.
+- No abandoned integration directories remain. Daily scratch cleanup already applied in 2446; no repeated deletion, age bypass or runtime changes. Preserve protected 13:00–16:00 UTC window.
+- Health database/Redis, all 14 services/38 sources and scheduled queues pass. Historical retained ingestion/social failures remain, with healthy current sources and no recent-failure alert. Scheduled digest queue has zero failures; next edition 15:00 UTC.
+- Read-only scheduled-reader provenance passes against Nov 15 15:00 UTC: five topics/23 stories/16 posts. Receipts `/tmp/2475-{services,sources,jobs,reader}.log`.
+- No provider calls, budget/source/handbook changes or restart required under item 63. Next: metrics ≥07:35 UTC, Bluesky export by 14:36, natural edition review 15:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Public HTTPS health passes with public DNS (VM default hostname resolves locally without port 443). No rebuild needed for records only.
+- This verification also briefly crossed the disk threshold. At 07:24:49 UTC node-exporter reports 5,481,598,976 available / 26,309,095,424 total bytes (20.84% available); no leftover integration roots. Alert snapshot still pending (zero firing) at 07:24:43; next iteration should confirm its delayed clearance. Check receipts `/tmp/2475-{format,lint,check,alerts-final}.log`.
