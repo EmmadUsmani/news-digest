@@ -39,7 +39,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2544 adds supported cross-angle Helix positive control; all six four-article pairs labeled, correct split/merge control passes. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2544 adds supported cross-angle Helix positive control; all six four-article pairs labeled, correct split/merge control passes. 2554 adds Nvidia comeback/fallout positive and separate chip-policy negatives; all three pairs/six orders pass supported membership. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2554: recorded published Nvidia follow-up versus separate chip-policy grouping controls; supported merge passes, broad merge and all-separate expose distinct errors.
 
 - [x] 2553: post context has a named toggle and a separate expanded explanation; compact previews remain, with touch/keyboard and enlarged-text checks.
 

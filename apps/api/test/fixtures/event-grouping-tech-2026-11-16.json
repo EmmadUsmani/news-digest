@@ -1,0 +1,65 @@
+{
+  "provenance": "Immutable Nov 16 scheduled edition 93aefc45-33d7-4639-ad53-78e316a40f14 coverage metadata. Exact short publisher passages from ordinary GETs recovered in iteration 2538; these are not historical editor inputs. Chip-policy report has no recovered reporting excerpt; negative labels use its specific published rule announcement, not inferred article prose. Agent-reviewed labels, not independent annotation. Only two of seven leadership members are included; five remain unresolved. Offline only; never seed production.",
+  "topic": "Tech & AI",
+  "windowStart": "2026-11-15T15:00:00.000Z",
+  "windowEnd": "2026-11-16T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "1a7827e4-a285-485e-8bbb-01f33bff3b63",
+      "title": "Jensen Huang allies build a \"war room\" to get him back at Nvidia",
+      "url": "https://arstechnica.com/ai/2026/11/jensen-huang-allies-build-a-war-room-to-get-him-back-at-nvidia/",
+      "sources": ["Ars Technica"],
+      "publishedAt": "2026-11-16T14:06:16.000Z",
+      "points": 0,
+      "excerpt": "Jensen Huang is considering a comeback as Nvidia’s chief executive, as allies in Silicon Valley pressure the company’s board to reinstate him days after the tech executive resigned over reports he had affairs with a suspected Chinese spy and a subordinate."
+    },
+    {
+      "id": "96f2d7ae-e75c-4bc9-8c08-cc3813b6deef",
+      "title": "The Nvidia scandal isn’t slowing down",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1031740/jensen-huang-nvidia-scandal-isnt-slowing-down",
+      "sources": ["The Verge"],
+      "publishedAt": "2026-11-16T13:00:00.000Z",
+      "points": 0,
+      "excerpt": "There’s reportedly been a petition to bring back Huang by some Nvidia employees, as well as reports of Huang assembling a “war room” of allies to float a comeback as Nvidia CEO."
+    },
+    {
+      "id": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+      "title": "US issues rule to protect advanced AI chips from being accessed remotely - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPOFRscFU2Tnd4dkpNWURqN2NDcEg1eHBNUW9VTTd5YkRBNlA2eVJkV0xsWHpqNExCek4xTUY0VlU5TjJYM1ZJaWE3YkVNZndhUE5CamYyZlh3WGhRUHhUVzhDRW1IUkVTXzBBQ1hXMTkzM0tiNF9DZGpZcUlTb0xQOFBsVEM1VDhnV0taSlpYYTNsQUpyMnlKQzNSenU3alBia0ZJR1QyQ2hSX3g5bG1yX3d3dTBublY1?oc=5",
+      "publisher": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/"
+      },
+      "sources": ["Google News: artificial intelligence"],
+      "publishedAt": "2026-11-16T13:55:48.000Z",
+      "points": 0,
+      "excerpt": ""
+    }
+  ],
+  "publishedGroups": [
+    [
+      "1a7827e4-a285-485e-8bbb-01f33bff3b63",
+      "96f2d7ae-e75c-4bc9-8c08-cc3813b6deef"
+    ]
+  ],
+  "pairs": [
+    {
+      "left": "1a7827e4-a285-485e-8bbb-01f33bff3b63",
+      "right": "96f2d7ae-e75c-4bc9-8c08-cc3813b6deef",
+      "sameEvent": true,
+      "reason": "The Verge fallout report explicitly covers the same resignation and allies’ war-room comeback effort reported by Ars/Financial Times; direct follow-up under same-story definition."
+    },
+    {
+      "left": "1a7827e4-a285-485e-8bbb-01f33bff3b63",
+      "right": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+      "sameEvent": false,
+      "reason": "The US remote-access chip rule announcement is a separate policy action; shared Nvidia/AI-chip context does not establish the leadership comeback event."
+    },
+    {
+      "left": "96f2d7ae-e75c-4bc9-8c08-cc3813b6deef",
+      "right": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+      "sameEvent": false,
+      "reason": "The US remote-access chip rule announcement is a separate policy action; shared Nvidia/AI-chip context does not establish the leadership comeback event."
+    }
+  ]
+}

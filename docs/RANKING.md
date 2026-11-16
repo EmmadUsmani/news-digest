@@ -3157,3 +3157,14 @@ inputs. The evaluation test reports one false positive for published membership
 and zero for separate groups, including both candidate orders. This is an
 agent-reviewed regression case for future semantic grouping, not a production
 fix or independent accuracy measurement. No provider calls or runtime changes.
+
+## Nov 16 Nvidia follow-up control (iteration 2554)
+
+`event-grouping-tech-2026-11-16.json` records two connected leadership reports
+and a separate chip-policy announcement from published coverage. The Ars and
+Verge passages explicitly connect the resignation and comeback effort. All
+three pairs are labeled: one positive, two negatives. The supported published
+subset passes all six orders; all-separate misses one positive and all-merged
+adds two false positives. Run `pnpm exec tsx --test apps/api/test/event-grouping-evaluation.test.ts`.
+Labels are agent-reviewed; five other leadership members remain unresolved.
+This is an offline control, not a semantic evaluation or production change.

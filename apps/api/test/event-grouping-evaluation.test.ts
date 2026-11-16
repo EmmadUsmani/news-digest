@@ -9,6 +9,48 @@ import {
 } from '../scripts/evaluate-event-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
+void test('published Nvidia follow-up stays together without absorbing separate chip policy', () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/event-grouping-tech-2026-11-16.json'),
+      'utf8',
+    ),
+  ) as {
+    candidates: Candidate[];
+    publishedGroups: string[][];
+    pairs: { left: string; right: string; sameEvent: boolean }[];
+  };
+  assert.equal(fixture.candidates.length, 3);
+  assert.equal(fixture.pairs.length, 3);
+  const published = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    (a, b) =>
+      fixture.publishedGroups.some(
+        (group) => group.includes(a.id) && group.includes(b.id),
+      ),
+  );
+  assert.equal(published.clusters, 2);
+  assert.equal(published.truePositives, 1);
+  assert.equal(published.falsePositives, 0);
+  assert.equal(published.missedPositivePairs, 0);
+  assert.equal(published.unlabeledMergedPairs, 0);
+  assert.equal(published.permutationCheck.orders, 6);
+  assert.equal(published.permutationCheck.orderSensitivePairs, 0);
+  assert.equal(published.permutationCheck.maxFalsePositives, 0);
+  assert.equal(published.permutationCheck.minMatchedPositivePairs, 1);
+  const separate = evaluateClusterMembership(fixture.candidates, fixture.pairs);
+  assert.equal(separate.missedPositivePairs, 1);
+  const broad = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    () => true,
+  );
+  assert.equal(broad.falsePositives, 2);
+  assert.equal(broad.permutationCheck.maxFalsePositives, 2);
+  assert.equal(broad.unlabeledMergedPairs, 0);
+});
+
 void test('published Nov 16 grouping separates GTA forecasts while retaining Helix interview angles', () => {
   const fixture = JSON.parse(
     readFileSync(

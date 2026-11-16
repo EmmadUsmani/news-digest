@@ -147,3 +147,15 @@
 - pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,061 unit/329 integration passes, four expected skips; final health and alerts clear.
 - Verification receipts: /tmp/2553-{format,lint,check,web-build,context,targets}.log. Atomic web deployment serves the change; no service restart needed for static assets under STEERING 22/65.
 - Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2554 — preserve Nvidia follow-up grouping control
+
+- Clean main at 0991d8a2; no inherited edits to recover/discard. Protected paths untouched. Initial broad orientation output was truncated; narrower reads recovered current priorities and task details.
+- Reader/content weakness: future grouping fixes must retain supported comeback/fallout reporting without absorbing separate chip-policy news. Owner value: relevant follow-ups remain together while unrelated developments remain distinct.
+- Added offline Nov 16 Tech subset: three exact published coverage records, two short publisher passages retained from iteration 2538, one positive/two negative agent-reviewed pairs. Five other Nvidia members remain unresolved; no new fetches, paid calls or production changes.
+- Supported published membership passes all six permutations; all-separate misses the follow-up and all-merged creates two false positives. Controls exercise evaluation, not semantic-model performance; independent labels remain open.
+- Verification: pnpm exec tsx --test apps/api/test/event-grouping-evaluation.test.ts passes 18 tests. Read-only assertions confirm all metadata matches the published edition and both passages exactly match retained publisher prose.
+- Initial /healthz database/Redis healthy, 14 services/38 sources healthy, zero alerts. Published coverage at 320px/200% text fits without overflow; no UI change needed.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips. Final health and alerts clear; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
+- Verification receipts: /tmp/2554-{targeted,format,lint,check}.log and /tmp/2554-{edition,services,sources}.json. Evaluation/docs only; no rebuild or service restart under STEERING 22/65.
+- Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
