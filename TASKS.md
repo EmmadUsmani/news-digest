@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2468 checkpoint 05:31–05:32 UTC: three samples/24 healthy rules, six queries ≤1.143 s, no new failure counters/restarts. Since 04:32 +363 memory-high events, none during sample; no big merge. Resource acceptance stays open. Next short check ≥06:33 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-overnight-checkpoint-iteration-2468).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2472 checkpoint 06:29–06:34 UTC: 11 samples/24 healthy rules, 22 queries ≤0.684 s; no new failures/restarts. Since 05:32 +440 memory-high events (42 during sample); no big merge. Resource acceptance stays open. Next short check ≥07:35 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2472).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2472: due metrics checkpoint verifies healthy reads under repository verification load; continuing reclaim keeps resource acceptance open.
 
 - [x] 2471: long publisher labels wrap within narrow enlarged reader layouts; public recent/oldest archives verified at 320/390/1440px in both themes.
 

@@ -1285,3 +1285,19 @@ Retain CPU 2%, MemoryHigh 88 MiB and MemoryMax 112 MiB. Resource acceptance
 remains open; next short check ≥06:33 UTC, preferably after a natural big
 merge. No retuning, forced merge, restart or provider call; reader work
 continues independently. Receipts: `/tmp/2468-{metrics.jsonl,summary.json,compare.py,metrics-error.log,metrics-journal.log}`.
+
+### Verification-load checkpoint (iteration 2472)
+
+Nov 16 06:29:13–06:34:17 UTC: 11 read-only samples overlapping repository
+verification found all 24 rules fresh and healthy. The 22 uncached expected-series
+queries completed in ≤0.684 seconds. Both process starts, evaluator error/missed,
+admission, timeout and slow-query counters stayed unchanged. Max/OOM/kill
+counters stayed zero; NRestarts=0. Since 05:32:22, memory-high rose by 440
+(42 during this sample); small merges advanced by 75/1,560,739 rows, with
+no big merge. Ending memory was 84.2 MiB; lifetime peak remained 88.7 MiB.
+Metrics journal had no entries since the baseline.
+
+Continuing reclaim keeps resource acceptance open. Retain CPU 2%, MemoryHigh
+88 MiB and MemoryMax 112 MiB. Next short check ≥07:35 UTC, preferably after
+a natural big merge; do not hold reader work. No retuning, forced merge,
+restart or provider call. Receipts: `/tmp/2472-{metrics.jsonl,summary.json,compare.py,metrics-error.log,metrics-journal.log}`.
