@@ -1185,3 +1185,29 @@ probe leave resource acceptance open. Retain the unchanged CPU trial;
 next sample ≥01:34 UTC, preferably across a natural big merge. The full
 `pnpm check` passed (1,053 unit and 329 integration tests, four expected
 skips); no integration roots remained afterward. No runtime changes.
+
+### Verification-load recovery follow-up (iteration 2448)
+
+Nov 16 01:10:23–01:20:27 UTC: 11 read-only samples found all 24 rules
+fresh and healthy; 22 uncached probes returned expected series in ≤1.772
+seconds. This sample started before the planned 01:34 checkpoint and
+overlapped repository checks. It does not establish idle-load recovery.
+
+Against the 00:33:23 baseline, both process starts and evaluator error/missed,
+admission, timeout and slow-query counters stayed unchanged. Small merges
+advanced by 43/1,432,343 rows; no new big merge. Memory-high rose by 300
+since baseline, including 76 during sampling; max/OOM/kill remained zero.
+Ending metrics memory was 82.1 MiB; lifetime peak 88.7 MiB; NRestarts=0.
+
+The 01:11:28–01:12:29 capacity sample measured the stack at 1.513% CPU
+and 641.7 MiB sampled peak memory. Metrics averaged 0.447% CPU, throttled
+80/240 active periods and recorded five memory-high events, no OOM/kill.
+All 38 sources and scheduled jobs were healthy; the saved reader served
+five topics, 23 stories and 16 posts. Disk remained 78%.
+
+Ongoing reclaim leaves resource acceptance open. Retain CPU 2%, MemoryHigh
+88 MiB and MemoryMax 112 MiB; next sample ≥02:22 UTC, preferably across a
+natural big merge. No forced merge, restart, provider call or runtime change.
+Receipts: `/tmp/2448-metrics.jsonl`, `/tmp/2448-summary.json`,
+`/tmp/2448-compare.py`, `/tmp/2448-capacity.json`,
+`/tmp/2448-metrics-journal.log` and `/tmp/2448-{check,reader}.log`.
