@@ -213,3 +213,17 @@ Archived: [iterations 2516–2518](docs/progress-archive/2026-11-16-2516-2518.md
 - Updated TASKS/review; archived progress 2516–2518 to keep orientation small. Documentation only; no rebuild/restart needed, live runtime matches main.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2531-{format,lint,check}.log; final health passes.
 - Next: metrics ≥18:50 UTC; Bluesky export by 20:36 UTC; further grouping decisions require new evidence.
+
+## 2026-11-16: iteration 2532 — preserve natural Bluesky collection evidence
+
+- Clean main at 6819e6c3; no inherited work to recover or discard.
+- Owner value: preserve natural discovery outcomes before queue pruning so full-day tuning can assess relevant social supply without paid replay.
+- Read-only export at 18:08 UTC retains 00:54–17:54: eight new jobs, eighteen consecutive hours, five topics each; prior ten job records unchanged.
+- Assertions pass: 90 positive fetched/submitted matches, complete states/unique topic IDs, expected baseline/Ukraine/baseline/Gaza rotation. No partial-day quality review or query changes.
+- Updated durable job evidence and TASKS; next retention export still by 20:36 UTC, first full rotation-day quality review after Nov 17 00:00 UTC.
+- Health/14 services/all 38 sources pass; digest queue zero failed/active, next scheduled Nov 17 15:00 UTC. Historical ingestion/social failures unchanged.
+- Disk 79%/5.0 GiB free; intermittent alert, today's permitted cleanup already done; no deletion repeated.
+- Evidence: `pnpm exec tsx scripts/report-bluesky-collections.ts` → /tmp/2532-bluesky-collections.json; receipt assertions pass. No database writes, provider calls, collection jobs or runtime changes.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2532-{format,lint,check}.log.
+- Documentation/evidence only; no rebuild or service restart needed, live runtime remains main.
+- Next metrics checkpoint ≥18:50 UTC; unresolved grouping/admission gates await new evidence.
