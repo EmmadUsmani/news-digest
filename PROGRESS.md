@@ -124,3 +124,14 @@
 - Verification: pnpm obs alerts/sources/services/health, pnpm obs jobs, read-only Postgres/Redis receipt checks; pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected integration skips. Logs /tmp/2543-{format,lint,check}.log.
 - Evidence-only change; no rebuild/restart under STEERING 22/65. Public HTTPS remains unverified from this session; no proxy/sharing changes.
 - Next: Bluesky export by 21:36 UTC, metrics ≥21:10, retention timer 04:40 UTC; full-day Bluesky review after midnight.
+
+## 2026-11-16: iteration 2544 — preserve same-interview grouping while rejecting overmerge
+
+- Clean main at 73fa5da3; no inherited work to recover/discard. Protected paths untouched.
+- Owner value: the offline grouping case now requires retaining useful Helix coverage across different interview angles while rejecting unrelated GTA forecasts.
+- Added exact stored GamingBolt preservation/GameSpot console excerpts and immutable metadata to the Nov 16 Gaming fixture; all six pairs across four articles labeled. Agent review only; independent labels and semantic evaluation remain open.
+- Published membership: one correct merge/one false merge. Splitting everything misses Helix; separating GTA/retaining Helix passes all 24 permutations with no unknown merged pairs or order sensitivity.
+- Verification: 17 targeted tests; pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected skips. Immutable coverage metadata matches for all four candidates. Logs /tmp/2544-{targeted,format,lint,check}.log.
+- Initial health/database/Redis and digest queue healthy; zero active alerts, no failed/active digest jobs; next edition Nov 17 15:00 UTC.
+- Offline fixture/test change only; no production code/config changes, source requests, paid calls, rebuild or service restart under STEERING 22/65.
+- Next: metrics ≥21:10 UTC; Bluesky export by 21:36 UTC; retention receipt 04:40 UTC; full-day review after midnight.

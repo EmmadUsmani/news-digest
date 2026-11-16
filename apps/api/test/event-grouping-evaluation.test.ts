@@ -9,7 +9,7 @@ import {
 } from '../scripts/evaluate-event-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
-void test('published Nov 16 GTA forecast merge fails distinct-publication labels', () => {
+void test('published Nov 16 grouping separates GTA forecasts while retaining Helix interview angles', () => {
   const fixture = JSON.parse(
     readFileSync(
       join(__dirname, 'fixtures/event-grouping-gaming-2026-11-16.json'),
@@ -29,7 +29,8 @@ void test('published Nov 16 GTA forecast merge fails distinct-publication labels
       ),
   );
   assert.equal(published.falsePositives, 1);
-  assert.equal(published.labeledPrecision, 0);
+  assert.equal(published.truePositives, 1);
+  assert.equal(published.labeledPrecision, 0.5);
   assert.equal(published.unlabeledMergedPairs, 0);
   assert.equal(published.permutationCheck.maxFalsePositives, 1);
 
@@ -39,9 +40,31 @@ void test('published Nov 16 GTA forecast merge fails distinct-publication labels
     fixture.pairs,
     () => false,
   );
-  assert.equal(separate.clusters, 2);
+  assert.equal(separate.clusters, 4);
+  assert.equal(separate.missedPositivePairs, 1);
   assert.equal(separate.falsePositives, 0);
   assert.equal(separate.permutationCheck.maxFalsePositives, 0);
+
+  // Rejecting every merge misses the supported same-interview coverage.
+  const control = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    (a, b) =>
+      fixture.pairs.some(
+        (pair) =>
+          pair.sameEvent &&
+          [pair.left, pair.right].includes(a.id) &&
+          [pair.left, pair.right].includes(b.id),
+      ),
+  );
+  assert.equal(fixture.pairs.length, 6);
+  assert.equal(control.clusters, 3);
+  assert.equal(control.truePositives, 1);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.missedPositivePairs, 0);
+  assert.equal(control.unlabeledMergedPairs, 0);
+  assert.equal(control.permutationCheck.maxFalsePositives, 0);
+  assert.equal(control.orderSensitivePairs, 0);
 });
 
 void test('recorded strict event labels expose false merges and missed paraphrases', () => {

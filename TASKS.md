@@ -39,7 +39,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2544 adds supported cross-angle Helix positive control; all six four-article pairs labeled, correct split/merge control passes. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
