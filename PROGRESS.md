@@ -240,3 +240,16 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 - Updated SOURCES/TASKS; no app/source configuration changes, paid calls or schedule changes. Running code unchanged from main; no rebuild/restart needed.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; receipts /tmp/2526-{format,lint,check}.log. Final /healthz and all 38 sources pass.
 - Next: metrics checkpoint ≥17:43 UTC; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.
+
+## 2026-11-16: iteration 2527 — bound Tech historical reconstruction
+
+- Clean main at 8a7d4120; no inherited work to recover or discard.
+- Owner value: identify why concrete Tech reporting misses thin summaries before changing selection or spending on replays.
+- pnpm obs alerts/health/services/sources/jobs: health/14 services/all 38 sources pass; zero failed/active digest jobs. Disk 79%/5.0 GiB free; daily scratch cleanup already done, no deletion repeated.
+- Read-only repeatable-read probe merges preserved 13:20:58 capture/current records against immutable 200 scores; restores every scored ID, including missing Nvidia group member.
+- Captured-first/current-first variants give identical 40-member shortlist and ranked IDs; saved grouping puts Senate at 11 and Apple study group at 19, outside editor ten.
+- Both request fingerprints still miss cache. Complete membership is not historical request recovery; closed further historical probing absent matching capture, retain production caps/settings.
+- Initial diagnostic rank budget 40 rejected; corrected to supported 20. Assertions pass for complete ID recovery, identical shortlist/ranking and report positions; receipt /tmp/2527-reconstruction.json. Temporary script removed.
+- Updated TASKS and edition review. No provider calls, writes, jobs, runtime/source changes, rebuild or restart; live app code still matches main.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Receipts /tmp/2527-{format,lint,check}.log; final /healthz passes.
+- Next: metrics ≥17:43 UTC; Bluesky export by 20:36 UTC; preserve next-edition Tech inputs rather than repeat historical reconstruction.

@@ -47,7 +47,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. 2522 natural follow-up: all four previously omitted texts absent from triage/evidence; current text on 14 scored IDs, six threshold-qualified/three cited. Apple study and Senate enforcement report uncited at semantic positions 32/18; 2523 saved grouping proves Apple/Senate admitted; current-input replay excludes both before editor top ten, historical request fingerprint misses. Compare ranking admission with preserved historical inputs before changing caps. Retain production. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
+- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. 2522 natural follow-up: all four previously omitted texts absent from triage/evidence; current text on 14 scored IDs, six threshold-qualified/three cited. Apple study and Senate enforcement report uncited at semantic positions 32/18; 2523 saved grouping proves Apple/Senate admitted; current-input replay excludes both before editor top ten, historical request fingerprint misses. 2527 pre-edition/current union recovers all 200 scored IDs; both reconstructions give Senate rank 11/Apple group 19, identical shortlist/ranking but cache miss. Historical reconstruction closed absent matching request; next preserve next-edition inputs. Retain production. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2527: restored complete Tech scored membership from preserved pre-edition/current records; both variants exclude Senate/Apple before editing, exact historical request remains unavailable. Closed further historical probing without a matching capture.
 
 - [x] 2526: GamesRadar official RSS recovered; existing-worker recovery job fetched 50 items, stored count 585→590; all 38 sources healthy. URL/schedule unchanged.
 
