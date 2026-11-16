@@ -23,23 +23,23 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2536 checkpoint 18:57–18:58 UTC: three samples/24 healthy rules, six queries ≤0.567 s; failure counters/restarts unchanged since 17:49. +501 memory-high events (two during sample); no big merge. Resource acceptance stays open. Next short check ≥20:00 UTC, preferably after natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-post-retention-checkpoint-iteration-2536).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. Next check ≥20:00 UTC; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 15 published coverage reviewed (2461): 11 groups/33 entries; nine apparent same-story, Irving retrospective and Vance/Trump analysis unresolved. Nov 16 review (2528): 16 groups/68 entries; eleven apparent same-story, five unresolved edges (GTA/Helix/Nvidia/Shenzhen/flight grounding). Spurs/Lakers analysis directly linked by saved prose. 2529 stored excerpts connect six Helix reports to the same magazine interview; six short-member provenance edges and GTA source remain unresolved. 2531 stored-member review resolves Shenzhen and flight-grounding links (including newsletter leads); thirteen groups now apparent same-story, GTA/Helix/Nvidia unresolved. 2533 ordinary publisher fetches resolve GTA as separate IBD-roundup/van Dreunen forecasts: confirmed overmerge; Helix/Nvidia remain unresolved. 2537 ordinary publisher pages connect five more Helix members to the same magazine (eleven/twelve supported); VGC 403 leaves one edge unresolved. 2538 full Verge page directly links the comeback/resignation; five Nvidia members remain unresolved (Reuters 401, four Google wrappers without prose); corrected Ars source attribution. Production unchanged; no paid replay. [Latest review](docs/edition-reviews/2026-11-16-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
+- [ ] STEERING 27 grouping: Nov 16 GTA forecast overmerge confirmed; Helix one/Nvidia five member edges unresolved. Production unchanged; no paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
-- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality open. Nov 16 bottleneck diagnosed (2519): Gaming 13 scored/four qualifying/one selected X; U.S. 11/three/zero, both successful Sonnet/zero unscored. Gaming Bluesky one shortlisted/none chosen. 2520 reviewed seven stored texts/cache outputs: weak promotion, truncated claims and bare Xbox media caption; retain sparse selection. 2521 traced all 24 scored IDs: each topic ten new paid results, Gaming three/U.S. one free; five U.S. paid results from White House/Oltmann. Actual queries include `-giveaway`; no curated-account overlap. Next compare natural next-edition contributions; no gate changes. [Review](docs/edition-reviews/2026-11-16.md#social-selection-bottleneck--iteration-2519). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-9).
+- [ ] STEERING 16 / M4 Social posts: Nov 16 Gaming one X/U.S. zero despite qualifying pools; weak stored texts explain sparse selection. Compare next natural edition; retain gates. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54–18:54 jobs retained (2540): nineteen consecutive hourly runs/five topics each, 95 fetched/submitted matches and expected World rotation; latest baseline job preserved, prior eighteen unchanged. Prior 20 stored-count matches remain the DB evidence. Next export by 20:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
+- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Nineteen Nov 16 hourly jobs retained through 18:54 (2540). Export by 20:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Published Tech subset added (2504): six reports, two positive/13 negative pairs; chip-policy and leadership developments stay separate. Published Gaming subset added (2505): seven reports, four positive/17 negative pairs; announcement/shooting duplicates stay together, separate studio developments stay apart. 2539 adds the Nov 16 published GTA pair: saved merged membership exposes one false positive; separate control passes using publisher-attributed forecasts. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
+- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. 2522 natural follow-up: all four previously omitted texts absent from triage/evidence; current text on 14 scored IDs, six threshold-qualified/three cited. Apple study and Senate enforcement report uncited at semantic positions 32/18; 2523 saved grouping proves Apple/Senate admitted; current-input replay excludes both before editor top ten, historical request fingerprint misses. 2527 pre-edition/current union recovers all 200 scored IDs; both reconstructions give Senate rank 11/Apple group 19, identical shortlist/ranking but cache miss. Historical reconstruction closed absent matching request; next preserve next-edition inputs. Retain production. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; exact historical request unavailable. Historical probing closed; preserve next-edition inputs. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -61,104 +61,12 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2541: compacted task and progress handoffs; all prior open detail and completed markers remain linked in dated archives.
+
 - [x] 2540: preserved the natural 18:54 Bluesky baseline job before pruning; nineteen consecutive hourly runs/five topics pass, full-day review remains pending.
 
 - [x] 2539: recorded Nov 16 GTA forecast overmerge as an offline negative grouping case; published membership fails, separate control passes. Production unchanged.
 
-- [x] 2538: resolved Verge Nvidia leadership/comeback coverage using publisher prose; corrected Ars attribution. Five Nvidia member edges remain unresolved; production unchanged.
-
-- [x] 2537: resolved five short Helix members via ordinary publisher pages; eleven/twelve now share magazine provenance, VGC 403 remains unresolved. Production unchanged.
-
-- [x] 2533: resolved GTA coverage provenance using both publisher pages; separate analyst publications confirm an overmerge. Preserved negative same-event evidence; production unchanged.
-
-- [x] 2532: preserved eight more natural Bluesky jobs; all eighteen hourly runs/five topics match fetched/submitted and expected World rotation. Full-day quality review remains due after midnight.
-
-- [x] 2531: recovered 18 stored Nvidia/World/U.S. members; resolved Shenzhen and flight-grounding event links, retained three unresolved groups and production.
-
-- [x] 2530: due metrics checkpoint retains 24 healthy rules and unchanged failure counters; continued reclaim/no big merge keep resource acceptance open.
-
-- [x] 2529: recovered stored Gaming member prose; six Helix reports explicitly share the Ronald magazine interview, six short-member provenance edges/GTA source remain unresolved. Retained production.
-
-- [x] 2528: reviewed all Nov 16 published multi-report groups; saved prose resolves Spurs/Lakers game reactions, five grouping edges await fuller evidence. Retained production.
-
-- [x] 2527: restored complete Tech scored membership from preserved pre-edition/current records; both variants exclude Senate/Apple before editing, exact historical request remains unavailable. Closed further historical probing without a matching capture.
-
-- [x] 2526: GamesRadar official RSS recovered; existing-worker recovery job fetched 50 items, stored count 585→590; all 38 sources healthy. URL/schedule unchanged.
-
-- [x] 2525: diagnosed new GamesRadar collection failure as publisher RSS 404; preserved stored content and scheduled retries, documented next-cycle recovery gate.
-
-- [x] 2524: due metrics checkpoint retains 24 healthy rules and unchanged failure counters; continued reclaim/no big merge keep resource acceptance open.
-
-- [x] 2523: recovered saved Tech grouping membership for Apple/Senate reporting; localized current-input exclusion to final ranking, retained production and historical-input uncertainty.
-
-- [x] 2522: checked natural Tech admission against prior cutoff evidence; identified uncited qualifying Apple study/Senate reporting for bounded stage tracing, retained production.
-
-- [x] 2521: traced Gaming/U.S. X discovery and account mix; verified paid/free partition and actual query exclusions, retained gates/settings for natural next-edition comparison.
-
-- [x] 2520: reviewed seven qualifying Gaming/U.S. X texts and cached selections; identified weak supplied evidence and unpublished Xbox triage overstatement, retained gates.
-
-- [x] 2519: localized Nov 16 Gaming/U.S. X scarcity after completed triage to editorial selection; preserved gates and deployment hold, no paid calls.
-
-- [x] 2518: due metrics checkpoint retains healthy rules/queries and unchanged failure counters; continued reclaim/no big merge keep resource acceptance open. Deployment hold preserved.
-
-- [x] 2517: completed Nov 16 daily settlement/speed/social review: $0.500315, 56 successful calls, no holds, 191.260 s; Gaming one promotional pick/U.S. no X remain open. No paid calls or runtime changes.
-
-- [x] 2516: accepted Nov 16 scheduled edition over signed-out public HTTPS and desktop/mobile reader; 25 stories/18 posts, all five topics Sonnet/zero unscored, World recovery and NBA selected spoof absence. Item 63 complete; Tech thin evidence remains open.
-
-- [x] 2515: 14:55 UTC final pre-publication triage passes: health, all 38 sources and scheduled queue healthy; disk 79%/5.0 GiB free. 15:00:39 scheduled run active, zero failed jobs. No runtime changes during deployment hold; public acceptance remains next.
-
-- [x] 2514: 14:46 UTC pre-publication triage passes: health, all 38 sources and digest queue healthy; disk 79%/5.0 GiB free. Deployment hold preserved; natural acceptance due at 15:00.
-
-- [x] 2513: 14:34 UTC triage passes: health, 38 sources and scheduled queue healthy; disk 79%/5.0 GiB free, low-space alert oscillating. Protected edition unchanged; acceptance pending.
-
-- [x] 2512: 14:24 UTC triage passes: health, all 38 sources and digest queue healthy; 79% disk/5.0 GiB free. Scheduled acceptance remains pending; deployment hold preserved.
-
-- [x] 2511: protected-edition triage healthy at 14:14 UTC; 38 sources and scheduled queue pass. Natural publication evidence still pending; no runtime changes.
-
-- [x] 2510: due metrics checkpoint retains healthy rules/queries; one admission-limit event and ongoing reclaim keep resource acceptance open. Deployment hold preserved.
-
-- [x] 2509: protected-edition triage passes: health, 38 sources and scheduled digest queue healthy; no runtime change during hold. Selection impact still awaits 15:00 edition.
-
-- [x] 2508: enabled public HTTPS origin in the scheduled-reader gate; existing publication passes and future scheduled window stays pending, with local provenance checks retained.
-
-- [x] 2507: quantified Tech cutoff loss read-only: 28/228 articles omitted, four with text; identified smart-glasses reporting for natural scheduled admission review. [Review](docs/edition-reviews/2026-11-16.md#tech-cutoff-impact--iteration-2507).
-
-- [x] 2506: captured Nov 16 pre-edition supply: Tech reaches newest-200 cap with 185/199 eligible excerpts empty; recorded prose and shared World/U.S. anchors for scheduled acceptance. [Review](docs/edition-reviews/2026-11-16.md).
-
-- [x] 2505: added published Gaming grouping cases; offline controls retain New Dawn/inXile duplicate coverage and expose merging separate studio developments.
-
-- [x] 2504: added published Tech grouping cases; offline controls preserve IPO/leadership duplicate coverage and expose chip-industry overmerging.
-
-- [x] 2503: aligned public-access plan, security handoff and completed account activation with public sharing/full handbook; account rollback preserves public mode and uses atomic web deployment.
-
-- [x] 2502: added saved U.S. grouping cases; offline controls distinguish Alaska duplicate coverage from separate leadership, legislature, policy and litigation developments.
-
-- [x] 2501: corrected activation record’s stale private-sharing status; marked historical receipts and aligned recovery with atomic web-only deployment and the deployment hold.
-
-- [x] 2500: corrected README public-access status and reader operations links; signed-out public HTTPS renders reader, full handbook, schema explorer, Spend and Queues.
-
-- [x] 2499: corrected publication runbook for owner-enabled public sharing, atomic web-only deployment and Nov 16 HTTPS gate; due metrics checkpoint retains healthy queries/rules, resource acceptance open.
-
-- [x] 2498: all 16 published social post texts/27 inline links remain readable and horizontally reachable at 200% text across three widths/both themes; keyboard focus and six screenshots verified.
-
-- [x] 2497: disk warning reproduced during isolated verification (+281 MiB, 79→80%); teardown returned disk to 79%. Protected storage retained; published reader healthy.
-
-- [x] 2496: disk-pressure triage compacted Git objects without pruning or changing history; `.git` 533→489 MiB, connectivity verified. Disk remains 79%; services and published reader healthy.
-
-- [x] 2495: all 23 published story headlines retain full titles/links, horizontal reachability, 44px targets and keyboard focus at 200% text across three widths/both themes; six screenshots refreshed.
-
-- [x] 2494: published post author/timestamp links remain horizontally reachable at 200% text, with 44px targets and keyboard focus at three widths/both themes; public-admission smoke restored and screenshots refreshed.
-
-- [x] 2493: metrics checkpoint under repository verification retains healthy queries/rules; reclaim and absent natural big merge keep resource acceptance open. Public HTTPS health passes via public DNS.
-
-- [x] 2492: six published expandable post notes retain context, 44px targets, horizontal reachability and keyboard/touch operation at 200% text across three widths/both themes; screenshots refreshed.
-
-- [x] 2491: real published older/newer/archive date navigation passes 200% text, horizontal reachability, keyboard focus and 44px targets at three widths/both themes; screenshots refreshed.
-
-[Completed 2469–2490](docs/progress-archive/2026-11-16-completed-2469-2490.md).
-
-[Completed 2455–2468](docs/progress-archive/2026-11-16-completed-2455-2468.md).
-
-[Completed through 2454](docs/progress-archive/2026-11-16-task-detail-2455.md#completed-markers-through-2454).
+[Earlier completed markers and full open detail](docs/progress-archive/2026-11-16-task-detail-2541.md).
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
