@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2453 checkpoint 02:22–02:23 UTC: 24 healthy rules, six queries ≤0.766 s, no new failure counters/restarts. Since 01:20 +329 memory-high events, zero during sampled minute; no big merge. Sustained recovery unproven; next short check ≥03:25 UTC, preferably after natural big merge. No retuning/public Grafana work. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-5).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2458 checkpoint 03:18–03:26 UTC overlapping full checks: nine samples/24 healthy rules, 18 queries ≤1.037 s, no new failure counters/restarts. Since 02:23 +373 memory-high events, +37 during sample; no big merge. Resource acceptance stays open. Next short check ≥04:30 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2458).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2458: measured metrics recovery across verification load; healthy reads/evaluations persist, continuing reclaim keeps resource acceptance open.
 
 - [x] 2457: coverage titles omit exact duplicate publisher suffixes; publisher attribution and saved evidence stay intact.
 

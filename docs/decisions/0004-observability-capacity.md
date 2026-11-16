@@ -1234,3 +1234,22 @@ merge. No forced merge, restart, provider call or runtime change. Receipts:
 `/tmp/2453-metrics.jsonl`, `/tmp/2453-summary.json`,
 `/tmp/2453-compare.py`, `/tmp/2453-metrics-journal.log`,
 `/tmp/2453-{check,reader,sources,alerts}.log`.
+
+### Verification-load checkpoint (iteration 2458)
+
+Nov 16 03:18:46–03:26:52 UTC: nine read-only samples overlapping
+repository checks found all 24 rules fresh and healthy; 18 uncached probes
+returned the expected series in ≤1.037 seconds. Memory-high increased by 37
+during the eight-minute sample and by 373 since 02:23:32. Max/OOM/kill
+counters remained zero. Both process starts, evaluator error/missed,
+admission, timeout and slow-query counters were unchanged. Small merges
+advanced by 60/1,758,238 rows since the baseline; no new big merge. Ending
+memory was 78.5 MiB, lifetime peak 88.7 MiB; NRestarts=0.
+
+Continuing reclaim keeps resource acceptance open. Retain CPU 2%,
+MemoryHigh 88 MiB and MemoryMax 112 MiB. Do not wait for compaction or
+hold reader work behind this incident. Next short check no earlier than
+04:30 UTC, preferably after a natural big merge; no retuning or public
+Grafana work. No forced merge, restart, provider call or runtime change.
+Receipts: `/tmp/2458-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`
+and `/tmp/2458-{format,lint,check,sources,services,jobs,reader,alerts}.log`.

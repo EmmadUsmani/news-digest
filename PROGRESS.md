@@ -140,3 +140,15 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - `pnpm exec tsx scripts/check-live-coverage-dedup.ts` passes public HTTPS desktop/mobile, original API titles/links and publisher credit preserved, no browser errors; screenshots updated and viewed.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance; final `pnpm obs alerts` zero.
 - No paid calls or new blocker. Next metrics ≥03:25 UTC, Bluesky export by 12:36, public scheduled edition acceptance at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2458 — metrics recovery across verification load
+
+- Clean main at fc93e6d3; no inherited work. Alerts zero, health/database/Redis, services, 38 sources and scheduled jobs pass.
+- Owner value: keep resource recovery open on measured reclaim while healthy monitoring protects the scheduled public edition; no generation change justified by the saved reader's known World/Tech/NBA weaknesses.
+- `pnpm exec tsx scripts/sample-metrics-recovery.ts 8 60`: nine samples, 03:18:46–03:26:52 UTC, all 24 rules fresh/healthy; 18 uncached queries ≤1.037 s.
+- Compared with 02:23:32: +373 memory-high events, +37 during the sample; small merges +60/1,758,238 rows, no big merge. Processes unchanged, no new failure/admission/timeout/slow-query counters; max/OOM/kill=0. Ending memory 78.5 MiB, lifetime peak 88.7 MiB; NRestarts=0, journal empty.
+- Resource acceptance stays open; CPU 2%/88 MiB high/112 MiB max unchanged. Next short check ≥04:30 UTC, preferably after natural big merge; no waiting for compaction or holding reader work.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Comparison assertions pass.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with saved scheduled provenance; final `pnpm obs alerts` zero.
+- Updated TASKS.md and capacity evidence. Receipts `/tmp/2458-{format,lint,check,sources,services,jobs,reader,alerts}.log`, `/tmp/2458-{metrics.jsonl,summary.json,compare.py,metrics-journal.log}`.
+- Evidence/docs only: runtime unchanged, no rebuild or service restart under STEERING 63. No paid calls or new blocker. Next Bluesky export by 12:36, public scheduled edition review at 15:00; protect 13:00–16:00 UTC.
