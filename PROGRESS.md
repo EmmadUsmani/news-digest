@@ -144,3 +144,13 @@ Archived: [iterations 2436–2441](docs/progress-archive/2026-11-15-2436-2441.md
 - Health checkpoint only; no runtime/configuration change or service restart needed. Pending work remains metrics sample ≥02:22 UTC, retained Bluesky export by 12:36, natural edition review 15:00; protect 13:00–16:00.
 - Receipts `/tmp/2451-{reader,services,alerts}.log`; repository verification results follow.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips. Final alerts zero; `git diff --check` clean. Receipts `/tmp/2451-{format,lint,check,final-alerts}.log`.
+
+## 2026-11-16: iteration 2452 — retain overnight Bluesky rotation evidence
+
+- Clean main at ffadac6c; no inherited work. Read current priorities and open tasks; scheduled acceptance remains time-bound.
+- Owner value: preserve actual collection results before queue retention removes the evidence needed to judge the first full rotation day.
+- Read-only `pnpm exec tsx scripts/report-bluesky-collections.ts` retained Nov 16 00:54 baseline/01:54 Ukraine jobs; both complete for five topics. World fetched/submitted 48/48 and 49/49; counts are observations, not distinct or relevant posts.
+- Assertions pass for two jobs, exact query order, complete status, five topic results and fetched=submitted throughout. Updated source evidence and task handoff; no production rule, search, inference or app-data write.
+- `/healthz` database/Redis green; `pnpm obs services --check`, `pnpm obs jobs --check --limit 2`, `pnpm obs sources --check` pass. Initial disk alert pending, current disk 78%; today's cleanup already applied, no repeat deletion.
+- Documentation/evidence only; running build unchanged, no service restart needed. Next metrics ≥02:22 UTC, extend export by 12:36, scheduled review 15:00; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,053 unit/329 integration pass, four expected skips; `git diff --check` clean. Receipts `/tmp/2452-{format,lint,check,sources,final-alerts}.log`; no new blocker.

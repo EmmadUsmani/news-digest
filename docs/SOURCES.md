@@ -3395,3 +3395,12 @@ The November 15 23:54 UTC natural pass fetched/submitted 49 observations:
 aid-truck reporting repeats a prior development; a shelter-supply appeal also
 overlaps earlier coverage. Retain the pilot and gates pending natural
 selection. [Exact cohort and examples](edition-reviews/2026-11-15-world-gaza-refresh.md).
+
+### Nov 16 overnight Bluesky retention — iteration 2452
+
+[Retained natural jobs](edition-reviews/2026-11-16-world-bluesky-jobs.json)
+preserve 00:54 baseline and 01:54 Ukraine collections. Both completed for all
+five topics; World fetched/submitted 48/48 and 49/49 observations respectively.
+These counts include repeated snapshots, not distinct or editor-approved posts.
+Continue the existing rotation; extend this day's evidence before 12:36 UTC,
+then review its full UTC day after November 17 00:00. No new searches or spend.
