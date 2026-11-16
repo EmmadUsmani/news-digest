@@ -170,4 +170,4 @@ Archived: [iterations 2471–2473](docs/progress-archive/2026-11-16-2471-2473.md
 - Initial health database/Redis, 14 services and 38 sources healthy; digest queue has zero failures. Disk 79%, DiskSpaceLow pending, zero firing alerts. No scratch cleanup.
 - Scheduled reader passes five topics/23 stories/16 posts. Receipts `/tmp/2486-{services,sources,jobs,reader,topics,format,lint,check}.log`.
 - Full verification and final health results recorded below. Next: metrics ≥09:51, Bluesky export by 14:36, scheduled review 15:00 UTC; protect 13:00–16:00.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final database/Redis health passes; disk 79%, zero firing/pending alerts.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final database/Redis health passes; disk 79%, DiskSpaceLow pending, zero firing alerts.
