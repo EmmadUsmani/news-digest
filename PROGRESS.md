@@ -182,3 +182,13 @@ Archived: [iterations 2519–2526](docs/progress-archive/2026-11-16-2519-2526.md
 - Recorded checkpoint in capacity decision/TASKS; archived progress 2519–2526 to keep orientation small. No source behavior or owner handbook change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Receipts /tmp/2536-{metrics.jsonl,metrics-error.log,format.log,lint.log,check.log}.
 - Documentation only; no rebuild/restart needed, item 65 forbids app restarts. Next metrics ≥20:00 UTC, Bluesky export by 20:36 UTC, full-day review after midnight.
+
+## 2026-11-16: iteration 2537 — Helix short-member publisher provenance
+
+- Clean main at 78d58107; no inherited work to recover/discard. Retention conflict remains blocked; no agent-control paths touched.
+- Reader weakness: twelve-report Helix coverage included six short excerpts without interview provenance. Six ordinary publisher GETs recover five explicit Xbox anniversary magazine/Ronald attributions; eleven/twelve members now supported.
+- Eurogamer, Kotaku and three Insider Gaming pages returned HTTP 200; VGC returned 403, with no retry/bypass. One Helix edge and Nvidia remain unresolved; GTA stays a confirmed overmerge. No title rules, model calls or production writes.
+- Updated grouping review and TASKS. Six coverage IDs/URLs match saved publication; five final URLs and extracted magazine/Ronald attributions asserted. Receipts /tmp/2537-fetch.json and /tmp/2537-<id-prefix>.{html,txt}.
+- Health, 14 services, 38 sources pass; digest-generation has zero failed/active jobs, next Nov 17 15:00 UTC. Zero alerts, disk 61%. Invalid obs queues/queue aliases corrected to obs jobs --queue digest-generation.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2537-{format,lint,check}.log.
+- Review-only change; no rebuild/restart required, respecting item 65 app restart prohibition. Next metrics ≥20:00 UTC, Bluesky export by 20:36 UTC, full-day review after midnight.
