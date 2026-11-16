@@ -209,3 +209,18 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - Receipts: /tmp/2503-{services,sources,jobs,format,lint,check}.log. No new owner input needed.
 - Next: metrics ≥13:07 UTC; public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
 - Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; formatting, lint and git diff --check pass. Final health passes; disk remains 79%.
+
+## 2026-11-16: iteration 2504 — published Tech grouping boundary
+
+- Clean main at 8538ce4d; no inherited work. Health and all 38 sources pass; digest next scheduled at 15:00 UTC.
+- Disk remains 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
+- Owner would care: shared AI/chip context must not collapse distinct developments into one story.
+- Added six immutable published Tech reports and 15 explicit agent labels: two positive/13 negative; one exact-ID supplied excerpt, no edited-summary evidence.
+- All six coverage records match signed-out public HTTPS. Local API without verified proxy identity correctly returns 429; public HTTPS returns 200.
+- New offline --published-tech retains the earlier --later-tech benchmark; two-pair control passes, chip-policy overmerge exposes two errors, merge-all exposes 13.
+- Published subset only; independent labels/candidate-pool recall remain open. No provider calls, source/configuration/runtime changes or paid replay.
+- Targeted evaluation suite: 15/15 pass; full checks below. Receipts /tmp/2504-{targeted,tech-baseline,format,lint,check}.*.
+- No rebuild/restart required for offline evaluation/fixtures/docs under STEERING 63; protect 13:00–16:00 UTC.
+- Due metrics 13:07–13:08: three samples/24 healthy rules, six queries ≤1.552s; no new failures/restarts, +414 memory-high since 12:06 (six sampled), no big merge; retain limits.
+- Next: metrics ≥14:09 UTC; scheduled public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
+- Full pnpm check passes: 1,058 unit/329 integration passes, four expected skips; format, lint:fix, exact evidence assertions and git diff --check pass.

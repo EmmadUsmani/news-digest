@@ -141,6 +141,7 @@ export function evaluateEventGrouping(
     | 'strict-event'
     | 'same-story'
     | 'later-gaming'
+    | 'published-tech'
     | 'later-us'
     | 'later-world'
     | 'later-nba'
@@ -151,19 +152,21 @@ export function evaluateEventGrouping(
     readFileSync(
       join(
         root,
-        definition === 'later-us'
-          ? 'same-story-us-2026-11-15-pairs.json'
-          : definition === 'later-world'
-            ? 'same-story-world-2026-11-15-pairs.json'
-            : definition === 'later-nba'
-              ? 'same-story-nba-2026-11-15-pairs.json'
-              : definition === 'later-tech'
-                ? 'same-story-tech-2026-11-13-pairs.json'
-                : definition === 'later-gaming'
-                  ? 'same-story-gaming-2026-11-12-pairs.json'
-                  : definition === 'same-story'
-                    ? 'same-story-pairs.json'
-                    : 'event-grouping-pairs.json',
+        definition === 'published-tech'
+          ? 'same-story-tech-2026-11-15-pairs.json'
+          : definition === 'later-us'
+            ? 'same-story-us-2026-11-15-pairs.json'
+            : definition === 'later-world'
+              ? 'same-story-world-2026-11-15-pairs.json'
+              : definition === 'later-nba'
+                ? 'same-story-nba-2026-11-15-pairs.json'
+                : definition === 'later-tech'
+                  ? 'same-story-tech-2026-11-13-pairs.json'
+                  : definition === 'later-gaming'
+                    ? 'same-story-gaming-2026-11-12-pairs.json'
+                    : definition === 'same-story'
+                      ? 'same-story-pairs.json'
+                      : 'event-grouping-pairs.json',
       ),
       'utf8',
     ),
@@ -183,6 +186,10 @@ export function evaluateEventGrouping(
   const windowMatchers = new Map<string, typeof matches>();
   const pairs = fixture.pairs.map((pair) => {
     if (
+      !(
+        definition === 'published-tech' &&
+        pair.window === 'event-grouping-tech-2026-11-15.json'
+      ) &&
       !(
         definition === 'later-us' &&
         pair.window === 'event-grouping-us-2026-11-15.json'

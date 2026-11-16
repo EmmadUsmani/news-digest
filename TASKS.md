@@ -21,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2499 checkpoint 12:01–12:06 UTC: 11 samples/24 healthy rules, 22 queries ≤1.078 s; no new admission events/timeouts/evaluator failures/restarts. Since 10:57 +456 memory-high events (28 during sample); no big merge. Resource acceptance stays open. Next short check ≥13:07 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#verification-load-checkpoint-iteration-2499).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2504 checkpoint 13:07–13:08 UTC: three samples/24 healthy rules, six queries ≤1.552 s; no new admission events/timeouts/evaluator failures/restarts. Since 12:06 +414 memory-high events (six during sample); no big merge. Resource acceptance stays open. Next short check ≥14:09 UTC, preferably after natural big merge; do not hold reader work. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-verification-checkpoint-iteration-2504).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -37,7 +37,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
+- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Nov 15 published NBA subset added (2466): seven reports, four positive/eleven negative pairs; Irving relationships remain unknown. World subset added (2467): ten reports, five positive/31 negative pairs; Trump analysis unknown. U.S. published subset added (2502): six reports, one positive/14 negative pairs; distinct election developments remain separate. Published Tech subset added (2504): six reports, two positive/13 negative pairs; chip-policy and leadership developments stay separate. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2504: added published Tech grouping cases; offline controls preserve IPO/leadership duplicate coverage and expose chip-industry overmerging.
 
 - [x] 2503: aligned public-access plan, security handoff and completed account activation with public sharing/full handbook; account rollback preserves public mode and uses atomic web deployment.
 

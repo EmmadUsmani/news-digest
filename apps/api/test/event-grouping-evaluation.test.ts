@@ -558,3 +558,44 @@ void test('later U.S. labels separate election outcomes from leadership, health 
   assert.equal(broad.falsePositives, 14);
   assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 0);
 });
+
+void test('published Tech labels separate AI industry events while retaining offering and leadership coverage', () => {
+  const baseline = evaluateEventGrouping(
+    undefined,
+    undefined,
+    'published-tech',
+  );
+  assert.equal(baseline.pairs, 15);
+  assert.equal(baseline.positives, 2);
+  assert.equal(baseline.negatives, 13);
+  assert.equal(baseline.falseNegatives, 2);
+  const window = 'event-grouping-tech-2026-11-15.json';
+  const ipo = [
+    'b509c8e8-981c-4116-b97e-becb0b4ae68e',
+    '462ed47c-3e59-4729-a2d7-705bb398a15d',
+  ];
+  const leadership = [
+    'ef668c6e-3bac-4452-919b-90830aad4638',
+    '05c320f9-328e-4b7f-8f14-4d7bac911ac5',
+  ];
+  const control = evaluateEventGrouping(
+    undefined,
+    { [window]: [ipo, leadership] },
+    'published-tech',
+  );
+  assert.equal(control.truePositives, 2);
+  assert.equal(control.falsePositives, 0);
+  assert.equal(control.windows[0].membership.unlabeledMergedPairs, 0);
+  const chipOvermerge = evaluateEventGrouping(
+    undefined,
+    {
+      [window]: [ipo, [...leadership, '1a5c3722-6efa-45a3-9b8f-ccb0304856fd']],
+    },
+    'published-tech',
+  );
+  assert.equal(chipOvermerge.truePositives, 2);
+  assert.equal(chipOvermerge.falsePositives, 2);
+  const broad = evaluateEventGrouping(() => true, undefined, 'published-tech');
+  assert.equal(broad.falsePositives, 13);
+  assert.equal(broad.windows[0].membership.unlabeledMergedPairs, 0);
+});

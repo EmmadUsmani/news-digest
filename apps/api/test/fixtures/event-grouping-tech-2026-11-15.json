@@ -1,0 +1,68 @@
+{
+  "provenance": "Saved Nov 15 edition a0fa3916-f1dc-4fbd-8d76-2884d5e01c06 published Tech subset; all coverage fields rechecked against public HTTPS in iteration 2504. Excerpts use exact-ID immutable supplied editor evidence, never edited summaries. Excludes three Nvidia reports with less specific headlines. Offline only; never seed production.",
+  "topic": "Tech & AI",
+  "windowStart": "2026-11-14T15:00:00.000Z",
+  "windowEnd": "2026-11-15T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOOFFaaTFOMmRsSmNwRlBQZTNqWUJhZXlDbzRYQk5TRWpoLVQ5R0trbFZySzNhQU9pa1JZRXE5Q2VhVTNBUVhxOFB2b0JiUVNLZHpWQkxsYW5EeHY5YW9jU09hNzFhbnMxMnctaVFaUTdyYnhGS1g2Z2pNU0pWdmlYUUtuR0pWR2ZnMVhMWHhjd3VweXMyd0h2X2ZRc9IBoAFBVV95cUxObFlSaHJnalF6bnZ6eDUwbTlYZGlPNjlFN2xxZ3Q1blZNREx3YTlQaWx4NEtXeHlEbmZqc0doTExsM1RXSXMzM05TaVEzTjIxd1N6OGVWYkFhZUZLaXZKZWkyLW5EaW85eHQtMk5FMUcxMmVkNmJwSHZOWWZpVUZVd1FROVJKYjBlWUxERUpxZTNYdUZ0aldWX3RIa0ZrUXR3?oc=5",
+      "title": "Anthropic’s IPO lands as the embattled AI trade looks for a much-needed bright spot - CNBC",
+      "sources": ["Google News: artificial intelligence"],
+      "publishedAt": "2026-11-15T12:00:01.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPX0RWQ19WVmdZdzNSV2VQcV9TM2c1UGlEdjM5TUVWRmwtTXltMnZ5MTA0a3phZ2xVMjBsbjVmTUNycmhUMi14STh5N2dwTUxpVGhkdUFWbHdrQ1V6ekJ2OFd0UVp1UjM2Y0VhUTI0NWRQVElBdWsyUU5Zdzlud2J5VXZhVDZfNmc?oc=5",
+      "title": "A Human Reads the Anthropic I.P.O. Filing - The New York Times",
+      "sources": ["Google News: artificial intelligence"],
+      "publishedAt": "2026-11-15T10:01:57.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "url": "https://www.crissyfield.de/research/lovable-en/",
+      "title": "Lovable apps expose passport details and more than 200K private messages",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-14T17:43:10.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "url": "https://www.theverge.com/column/1033943/jensen-huang-nvidia-china-spying-scandal-resignation",
+      "title": "An overview of Jensen Huang’s messy days",
+      "sources": ["The Verge"],
+      "publishedAt": "2026-11-15T13:00:00.000Z",
+      "excerpt": "This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on Jensen Huang's resignation and the fallout from Nvidia's leadership crisis, follow Terrence O'Brien. The Stepback arrives in our subscribers' inboxes on Sunday at 8AM ET. Opt in for The Stepback here. How it started On October 29th, The New York Times reported that Nvidia co-founder and showman CEO Jensen Huang appeared to be the target of a Chinese spy plot. Any major tech CEO potentially being compromised by the Chinese government is concerning - especially Jensen Huang. \"If you…",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUm9IdVZ5VzluRUU1a05WdV83eWFQZVJOWXJCaVV4amVCWmk0VU9BYlJYc3NpejdJWUJPWm9sUVkwQTVnekQ4RHQyVGNyVWNHVVVrMkhBLVVaSmJnbXVZUmtMZEdpVW1yTEtjQjVPVTZJMWdVNGo3RzBuNURVN1JiZHpB?oc=5",
+      "title": "Jensen Huang Carried a Secret for More Than a Year. It Led to His Downfall. - The New York Times",
+      "sources": ["Google News: artificial intelligence"],
+      "publishedAt": "2026-11-14T21:50:16.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    },
+    {
+      "id": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "url": "https://www.nytimes.com/2026/11/15/us/politics/lutnick-pushed-to-weaken-chip-rules-that-overlap-with-his-family-business.html",
+      "title": "Lutnick Pushed to Weaken Chip Rules That Overlap with His Family Business",
+      "sources": ["Hacker News"],
+      "publishedAt": "2026-11-15T11:40:51.000Z",
+      "excerpt": "",
+      "imageUrl": null,
+      "points": 0
+    }
+  ]
+}

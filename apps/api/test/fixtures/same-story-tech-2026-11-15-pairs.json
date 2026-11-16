@@ -1,0 +1,110 @@
+{
+  "note": "Iteration 2504 agent labels from immutable saved headlines and supplied prose. Published subset only; not independent labels or candidate-pool recall. Two duplicate-coverage pairs; distinct AI/chip-industry developments remain separate.",
+  "pairs": [
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "right": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "sameEvent": true,
+      "reason": "Same Anthropic IPO: launch report and analysis of the offering filing."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "right": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "right": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "right": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "right": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "right": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "right": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "right": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "462ed47c-3e59-4729-a2d7-705bb398a15d",
+      "right": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "right": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "right": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+      "right": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "right": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "sameEvent": true,
+      "reason": "Same Nvidia leadership crisis: saved Verge prose explicitly connects the spy reporting, resignation and fallout."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "ef668c6e-3bac-4452-919b-90830aad4638",
+      "right": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    },
+    {
+      "window": "event-grouping-tech-2026-11-15.json",
+      "left": "05c320f9-328e-4b7f-8f14-4d7bac911ac5",
+      "right": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+      "sameEvent": false,
+      "reason": "Distinct developments: Anthropic public offering, Lovable data exposure, Nvidia leadership crisis or Lutnick chip-rule conflicts; shared AI/chip-industry context is insufficient."
+    }
+  ]
+}

@@ -5,23 +5,25 @@ import { evaluateEventGrouping } from '../apps/api/scripts/evaluate-event-groupi
 // Offline only. Saved memberships contain window names mapped to arrays of ID groups.
 const args = process.argv.slice(2);
 const definition =
-  args[0] === '--later-us'
-    ? 'later-us'
-    : args[0] === '--later-world'
-      ? 'later-world'
-      : args[0] === '--later-nba'
-        ? 'later-nba'
-        : args[0] === '--later-tech'
-          ? 'later-tech'
-          : args[0] === '--later-gaming'
-            ? 'later-gaming'
-            : args[0] === '--same-story'
-              ? 'same-story'
-              : 'strict-event';
+  args[0] === '--published-tech'
+    ? 'published-tech'
+    : args[0] === '--later-us'
+      ? 'later-us'
+      : args[0] === '--later-world'
+        ? 'later-world'
+        : args[0] === '--later-nba'
+          ? 'later-nba'
+          : args[0] === '--later-tech'
+            ? 'later-tech'
+            : args[0] === '--later-gaming'
+              ? 'later-gaming'
+              : args[0] === '--same-story'
+                ? 'same-story'
+                : 'strict-event';
 if (definition !== 'strict-event') args.shift();
 if (args.length && (args.length !== 2 || args[0] !== '--memberships'))
   throw new Error(
-    'Usage: tsx scripts/evaluate-event-grouping.ts [--later-us | --later-world | --same-story | --later-gaming | --later-tech | --later-nba] [--memberships file.json]',
+    'Usage: tsx scripts/evaluate-event-grouping.ts [--published-tech | --later-us | --later-world | --same-story | --later-gaming | --later-tech | --later-nba] [--memberships file.json]',
   );
 let memberships: Record<string, string[][]> | undefined;
 if (args.length) {

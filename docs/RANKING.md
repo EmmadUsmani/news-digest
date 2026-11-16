@@ -3111,3 +3111,21 @@ Combining the four election-related reports exposes five false positives;
 merge-all exposes all 14. These controls check the benchmark, not production
 semantic accuracy. This published subset is not independent labeling or
 candidate-pool recall. Production grouping, sources and budgets are unchanged.
+
+## Nov 15 published Tech grouping cases (iteration 2504)
+
+`pnpm exec tsx scripts/evaluate-event-grouping.ts --published-tech` evaluates
+six published reports with two positive and 13 negative agent labels. Anthropic's
+IPO launch and filing analysis belong together. The saved Verge leadership-crisis
+excerpt explicitly connects the spy reporting, resignation and fallout, supporting
+the second pair with the NYT downfall report. Lovable's data exposure and Lutnick's
+chip-rule conflicts remain separate developments despite shared AI/chip context.
+The six coverage records match the public HTTPS projection; excerpts come only
+from exact-ID immutable supplied editor evidence. Three other Nvidia coverage
+reports are excluded from this bounded subset; no inferred prose fills gaps.
+Two-pair saved memberships produce two correct merges with no false positives.
+Adding Lutnick to the leadership pair exposes two false positives; merge-all
+exposes 13. The existing Nov 13 `--later-tech` benchmark remains available.
+These controls verify the evaluation, not production semantic accuracy.
+Independent labeling and candidate-pool recall remain open; no provider calls,
+production grouping, source or budget changes.
