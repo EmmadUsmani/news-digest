@@ -1,10 +1,12 @@
 # Disk space
 
-**Status (18:40 UTC Nov 16, disk 80%, 4.9 GB free):** steered as item 65
-(`be4d8afd`), not yet acked. Owner decisions (Nov 16): no long-term keeping of
-agent transcripts or logs, no B2 copies (B2's 10 GB stays for backups, and the
-owner doesn't want to fill it), journal capped at 200 MB, Cursor and Warp data
-deleted (unused), `/tmp` is not persistent storage.
+**Status (19:55 UTC Nov 16, disk 61%, 9.1 GB free):** item 65 mostly done
+(`b2be7a38`, `7a790a58`), lead-verified on the VM: 80% → 61%, alert quiet
+since 18:34, `news-digest-retention.timer` runs daily 04:40 UTC, quota pacing
+still reads the newest session (19:50). Open: the agent left
+`~/agent-control/logs` (568 MB, about 50 MB a day) alone, because its run
+prompt (`ops/agent-control/ITERATION_PROMPT.md`) forbids touching
+`~/agent-control/`. Correct call; raised with the owner.
 
 **Item 65 in short:** a daily timer deletes Codex sessions and per-iteration
 agent logs older than 7 days, plus a `systemd-tmpfiles` rule clears `/tmp`
@@ -20,8 +22,8 @@ alone: Codex reads it). Database small (Postgres 181 MB on Nov 15).
 
 **Next:**
 
-1. Check the item 65 ack: disk % before and after, sizes freed, and that the
-   timer exists in the VM setup code. Confirm `DiskSpaceLow` stopped flapping.
-2. A day later, check the disk stayed flat and that the agent loop's quota
-   pacing still works (it reads the newest Codex session file).
+1. Owner decides how `~/agent-control/logs` gets retention. Lead proposal: the
+   supervisor (`ops/agent-control/run.sh`) prunes its own `iter-*`/`report-*`
+   files older than 7 days; the lead makes and deploys that change.
+2. Nov 17 after 04:40 UTC: check the first timed run and that disk stayed flat.
 3. Later, only if the database starts growing: retention for old collected items.
