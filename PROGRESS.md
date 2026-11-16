@@ -180,3 +180,15 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 - Receipts: `/tmp/2494-{health,services,sources,jobs,reader,byline,format,lint,check}.log`.
 - Next: metrics ≥11:58 UTC, natural edition/public publication acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` (retry after exit 143 during format check without diagnostics) and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes.
+
+## 2026-11-16: iteration 2495 — enlarged published headline acceptance
+
+- Clean main at 625e662b; no inherited work. Reader concern: long story headlines must retain their titles, source links and keyboard access at 200% text.
+- Health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
+- Pending disk warning at 79%; daily scratch cleanup already used, no deletion.
+- Updated published-headline smoke with shared contract validation, 200% text and per-headline horizontal bounds/keyboard reachability checks.
+- All 23 real published headlines pass at 320/390/1440px in both themes, retaining exact titles/URLs and 44px targets. Six screenshots refreshed; inspected narrow light capture.
+- GET/HEAD only, external traffic blocked; no provider calls or runtime/source/budget changes. No rebuild/restart required under STEERING 63; live services match main.
+- Receipts: `/tmp/2495-{health,services,sources,jobs,reader,headlines,format,lint,check}.log`.
+- Next: metrics ≥11:58 UTC; natural edition/public HTTPS acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.

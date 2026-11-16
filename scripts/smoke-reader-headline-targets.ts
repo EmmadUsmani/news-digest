@@ -1,6 +1,7 @@
 // Published content only; external requests blocked and no server writes.
 import assert from 'node:assert/strict';
 
+import { readerEditionSchema } from '@digest/contracts';
 import { chromium, expect } from 'playwright/test';
 
 async function smoke() {
@@ -30,14 +31,14 @@ async function smoke() {
           `${origin}/api/editions/latest`,
         );
         assert.equal(response.status(), 200);
-        const edition = await response.json();
+        const edition = readerEditionSchema.parse(await response.json());
         await page.goto(origin);
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         await page.evaluate(() => document.fonts.ready);
         const headlines = page.locator('.digest-topic h3 a');
-        const stories = edition.topics.flatMap(
-          (topic: { stories: { title: string; url: string }[] }) =>
-            topic.stories,
-        );
+        const stories = edition.topics.flatMap((topic) => topic.stories);
         assert.ok(stories.length > 0);
         await expect(headlines).toHaveCount(stories.length);
         for (let index = 0; index < stories.length; index++) {
@@ -45,8 +46,17 @@ async function smoke() {
           await expect(link).toHaveText(stories[index].title);
           await expect(link).toHaveAttribute('href', stories[index].url);
           await expect(link).toHaveAttribute('target', '_blank');
+          await link.scrollIntoViewIfNeeded();
           const bounds = await link.boundingBox();
           assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+          assert.ok(
+            bounds.x >= -1 && bounds.x + bounds.width <= width + 1,
+            'Published headlines stay horizontally reachable at 200% text',
+          );
+          await link.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          await expect(link).toBeFocused();
         }
         const first = headlines.first();
         await first.scrollIntoViewIfNeeded();
@@ -72,7 +82,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: ${stories.length} published headlines retain titles/links and have 44px targets; keyboard focus and overflow pass`,
+          `${width}/${theme}: ${stories.length} published headlines retain titles/links at 200% text with 44px targets; horizontal bounds, keyboard focus and overflow pass`,
         );
       }
     }

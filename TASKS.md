@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2495: all 23 published story headlines retain full titles/links, horizontal reachability, 44px targets and keyboard focus at 200% text across three widths/both themes; six screenshots refreshed.
+
 - [x] 2494: published post author/timestamp links remain horizontally reachable at 200% text, with 44px targets and keyboard focus at three widths/both themes; public-admission smoke restored and screenshots refreshed.
 
 - [x] 2493: metrics checkpoint under repository verification retains healthy queries/rules; reclaim and absent natural big merge keep resource acceptance open. Public HTTPS health passes via public DNS.
