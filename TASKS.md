@@ -25,7 +25,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
+- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 15 published coverage reviewed (2461): 11 groups/33 entries; nine apparent same-story, Irving retrospective and Vance/Trump analysis unresolved. Production unchanged; no paid replay. [Review](docs/edition-reviews/2026-11-15-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2461: reviewed Nov 15 published grouping against saved/served coverage; recorded two unresolved boundaries for natural-edition acceptance.
 
 - [x] 2460: links to hidden topic/posts sections offer Show, then restore and focus their destination.
 

@@ -177,3 +177,15 @@ Archived [iterations 2442–2447](docs/progress-archive/2026-11-16-iterations-24
 - Affected handbook updated; `pnpm exec tsx scripts/check-handbook.ts 01-app/README` passes, 39 tables and no metadata warnings; no changed diagrams.
 - `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. Final alerts zero; no paid calls or new blocker.
 - Receipts `/tmp/2460-{before,format,lint,check,deploy,browser-final,browser-replay,handbook,reader,sources,jobs,services,alerts-final}.log`. Next: metrics ≥04:30 UTC, Bluesky export by 12:36, edition review at 15:00; protect 13:00–16:00 UTC.
+
+## 2026-11-16: iteration 2461 — review published same-story coverage
+
+- Clean main at 4a6e81d4; no inherited work. `/healthz` database/Redis green; `pnpm obs services --check`, `sources --check`, `jobs --check` pass; initial alerts zero.
+- STEERING 27/42: read all Nov 15 published multi-report groups, including saved summaries/excerpts/editor evidence. Eleven groups contain 33 reader coverage entries (42 within-group pairs).
+- Nine groups have apparent same-story relationships. Irving's championship reflection under the Cavaliers recap and broader Trump/Iran analysis under Vance lack enough saved prose to establish direct follow-ups; recorded both boundaries in `docs/edition-reviews/2026-11-15-grouping.md`.
+- Initial raw coverage-array equality failed: expected reader projection collapses one IPO wrapper and adds one Grizzlies editor-evidence report. Corrected provenance assertions pass for every served report's ID/title/URL/time/publisher against saved coverage/evidence; no runtime defect established.
+- No grouping prompt/title rules, model calls, source requests, budget changes or publication writes. Retain production grouping; natural-edition acceptance and independent evaluation remain open.
+- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes five topics/23 stories/16 posts with scheduled provenance. Evidence read inside `BEGIN READ ONLY` / `ROLLBACK`.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` exit 0: 1,054 unit/329 integration pass, four expected skips. Final alerts zero; `git diff --check` passes.
+- Receipts `/tmp/2461-{snapshot,edition,grouping-check}.json`, `/tmp/2461-{format,lint,check,reader,services,sources,jobs}.log`.
+- Evidence/docs only: live runtime unchanged; no rebuild/restart under STEERING 63. Next metrics ≥04:30 UTC, Bluesky export by 12:36, public scheduled edition review 15:00; protect 13:00–16:00 UTC.
