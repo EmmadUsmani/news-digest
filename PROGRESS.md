@@ -42,74 +42,7 @@ Archived: [iterations 2474–2481](docs/progress-archive/2026-11-16-2474-2481.md
 
 Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md).
 
-## 2026-11-16: iteration 2490 — disk triage and public-state handoff correction
-
-- Clean main at f875a1c7; no inherited work. Owner value: remove obsolete private-site instructions that could misdirect public-site recovery.
-- Initial health, 14 services, 38 sources and digest jobs pass; saved reader passes five topics/23 stories/16 posts at Nov 15 15:00 UTC cutoff.
-- Pending DiskSpaceLow recovered without intervention: disk 79%, 5,399,887,872 bytes available; zero firing/pending alerts at 10:16:23 UTC. No abandoned integration directories; today's item-61 cleanup already used in 2446.
-- Read-only disk inventory: /tmp 2.3 GiB, observability data 1.1 GiB, journal 468 MiB; no authorized new cleanup target established. No deletion, retention change or service restart.
-- Corrected three stale NEEDS_FROM_HUMAN.md sections: public mode and owner sharing decision are complete; item-63 public HTTPS scheduled acceptance remains agent work. No owner action requested.
-- Receipts `/tmp/2490-{health,services,sources,jobs,reader,alerts,format,lint,check}.log`. No runtime/source/budget changes or provider calls; no rebuild/restart under STEERING 63.
-- Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance at 15:00 UTC, Bluesky retention export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending after verification.
-
-## 2026-11-16: iteration 2491 — enlarged edition-date navigation acceptance
-
-- Clean main at 75b4da48; no inherited work. Owner value: readers using enlarged text can move between real published editions without losing date controls.
-- Health, services, sources and jobs pass; saved scheduled reader passes Nov 15 cutoff, five topics/23 stories/16 posts.
-- Disk remains 79% with a pending warning; no abandoned integration directories. Today’s item-61 cleanup already used; no deletion or service changes.
-- Existing live date-navigation smoke now checks 200% text and horizontal reachability, 44px targets, keyboard focus and older/newer/archive destinations at 320/390/1440px in both themes. All six cases pass; refreshed six screenshots. GET/HEAD only; external traffic blocked.
-- Archived iterations 2474–2481 to keep PROGRESS.md below 25 KB. No runtime, provider, source or budget changes; no rebuild/restart required under STEERING 63.
-- Receipts: /tmp/2491-{health,services,sources,jobs,reader,dates,format,lint,check,alerts-final}.log.
-- Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance at 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. First lint was terminated (143) without diagnostics; rerun succeeded. Final health passes; alerts zero firing/one pending disk warning.
-
-## 2026-11-16: iteration 2492 — enlarged published post-context acceptance
-
-- Clean main at 009244d9; no inherited work. Reader concern: expandable context must remain reachable when text is enlarged on narrow screens.
-- Initial `pnpm obs alerts` clear; `health --check`, `services --check`, `sources --check`, `jobs --check` pass. No source outage or failed digest run.
-- `pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-15T15:00:00Z` passes: five topics/23 stories/16 posts from the saved scheduled publication.
-- Enhanced `smoke-reader-context-targets.ts` with 200% text and horizontal bounds checks. Six real published notes pass at 320/390/1440px in both themes, with 44px targets, preserved text, keyboard focus/toggle and touch expansion. Refreshed six screenshots; inspected narrow light capture.
-- GET/HEAD only, external requests blocked; no runtime/source/budget changes or provider calls. No rebuild/restart required under STEERING 63.
-- Receipts `/tmp/2492-{health,services,sources,jobs,reader,context,format,lint,check}.log`.
-- Next: metrics ≥10:57 UTC, natural edition/public HTTPS acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.
-
-## 2026-11-16: iteration 2493 — metrics capacity and public-route triage
-
-- Clean main at 040ec4d7; no inherited work. Owner value: check that monitoring remains responsive under verification load without disturbing the public reader.
-- Initial health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
-- Pending disk warning: current disk 79%, no abandoned integration directories; daily scratch cleanup already used. No deletion or retention change.
-- Direct public hostname resolves to the VM-local route and refuses HTTPS; public-DNS-resolved HTTPS health passes with database/Redis healthy. No public outage established.
-- Metrics 10:51–10:57: 13 samples/24 healthy rules, 26 queries ≤1.670 s; no admission/timeouts/evaluator failures/restarts. Since 09:56 +387 high events (38 during sample), 64 small merges/1,666,342 rows, no big merge; acceptance open, next ≥11:58 UTC.
-- No runtime/source/budget changes, provider calls, rebuild or restart; live services already match main under STEERING 63.
-- Receipts: `/tmp/2493-{health,services,sources,jobs,reader,format,lint,check}.log`; metrics/summary/compare/journal receipts linked in capacity decision.
-- Next: scheduled publication/public HTTPS acceptance at 15:00 UTC and Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/pending.
-
-## 2026-11-16: iteration 2494 — enlarged published post identity acceptance
-
-- Clean main at b5c66182; no inherited work. Reader concern: author and publication-time links must remain reachable at 200% text on narrow screens.
-- Initial health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
-- Disk 79%, pending warning; no abandoned integration directories and daily scratch cleanup already used. No deletion.
-- Restored byline smoke to the established loopback public visitor-admission setup after initial rate-limited loading timeout; checks now compare card count with the real published API response.
-- At 200% text, all published post author/timestamp links pass horizontal bounds, 44px targets, external-link attributes and keyboard focus at 320/390/1440px in both themes. Refreshed six screenshots; inspected narrow light capture.
-- GET/HEAD only; external requests blocked. No runtime/source/budget changes or provider calls; no rebuild/restart required under STEERING 63.
-- Receipts: `/tmp/2494-{health,services,sources,jobs,reader,byline,format,lint,check}.log`.
-- Next: metrics ≥11:58 UTC, natural edition/public publication acceptance 15:00 UTC, Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` (retry after exit 143 during format check without diagnostics) and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes.
-
-## 2026-11-16: iteration 2495 — enlarged published headline acceptance
-
-- Clean main at 625e662b; no inherited work. Reader concern: long story headlines must retain their titles, source links and keyboard access at 200% text.
-- Health/services/sources/jobs checks pass; saved scheduled reader retains five topics/23 stories/16 posts. No stalled source or failed digest run.
-- Pending disk warning at 79%; daily scratch cleanup already used, no deletion.
-- Updated published-headline smoke with shared contract validation, 200% text and per-headline horizontal bounds/keyboard reachability checks.
-- All 23 real published headlines pass at 320/390/1440px in both themes, retaining exact titles/URLs and 44px targets. Six screenshots refreshed; inspected narrow light capture.
-- GET/HEAD only, external traffic blocked; no provider calls or runtime/source/budget changes. No rebuild/restart required under STEERING 63; live services match main.
-- Receipts: `/tmp/2495-{health,services,sources,jobs,reader,headlines,format,lint,check}.log`.
-- Next: metrics ≥11:58 UTC; natural edition/public HTTPS acceptance at 15:00 UTC; Bluesky export by 20:36 UTC; protect 13:00–16:00 UTC.
-- `pnpm format`, `pnpm lint:fix` (retry after exit 143 without diagnostics), `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration passes, four expected skips. Final health passes; alerts zero firing/one pending disk warning.
+Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md).
 
 ## 2026-11-16: iteration 2496 — disk-pressure Git compaction
 
@@ -238,3 +171,16 @@ Archived: [iterations 2482–2489](docs/progress-archive/2026-11-16-2482-2489.md
 - No source, configuration, runtime or budget changes, provider calls or paid replay. No rebuild/restart under STEERING 63's 13:00–16:00 hold.
 - Next: metrics ≥14:09 UTC; public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
 - Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass.
+
+## 2026-11-16: iteration 2506 — scheduled review supply anchors
+
+- Clean main at fd331a66; no inherited work. Health and all 38 sources pass; digest queue has zero failures, next run 15:00 UTC.
+- Disk 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
+- Owner would care: the scheduled review can distinguish thin source evidence from editing failures and spot duplicate World/U.S. coverage.
+- Captured current production-loader pools read-only at 13:20:58 UTC; no model/cache/queue calls. Receipt /tmp/2506-pool.json.
+- Tech now hits newest-200 cap: 199 eligible, 185 empty excerpts; oldest loaded report 18:29:53 Nov 15. Fourteen nonempty texts include short announcements/music.
+- Added Nov 16 review with exact prose anchors, 17 shared eligible World/U.S. IDs and natural recovery acceptance questions; no pre-run quality acceptance inferred.
+- Python capture assertions pass for all five pool/text counts, Tech cutoff and shared IDs. Local and signed-out public HTTPS health pass (public DNS override needed on VM).
+- No source/configuration/runtime changes, spending, rebuild or restart under STEERING 63's 13:00–16:00 hold.
+- Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
+- Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass. Older progress archived.

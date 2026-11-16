@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2506: captured Nov 16 pre-edition supply: Tech reaches newest-200 cap with 185/199 eligible excerpts empty; recorded prose and shared World/U.S. anchors for scheduled acceptance. [Review](docs/edition-reviews/2026-11-16.md).
+
 - [x] 2505: added published Gaming grouping cases; offline controls retain New Dawn/inXile duplicate coverage and expose merging separate studio developments.
 
 - [x] 2504: added published Tech grouping cases; offline controls preserve IPO/leadership duplicate coverage and expose chip-industry overmerging.
