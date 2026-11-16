@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2491: real published older/newer/archive date navigation passes 200% text, horizontal reachability, keyboard focus and 44px targets at three widths/both themes; screenshots refreshed.
+
 - [x] 2490: triaged pending disk warning without unauthorized cleanup; corrected stale private-site/activation handoff in NEEDS_FROM_HUMAN.md to owner-confirmed public status.
 
 - [x] 2489: preserved six additional natural Bluesky jobs before retention expiry; ten consecutive hours/five-topic completion and World rotation verified.

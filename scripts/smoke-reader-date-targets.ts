@@ -26,6 +26,9 @@ async function smoke() {
         const errors: string[] = [];
         page.on('pageerror', (error) => errors.push(error.message));
         await page.goto(origin);
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         const navigation = page.getByRole('navigation', {
           name: 'Edition dates',
         });
@@ -52,6 +55,10 @@ async function smoke() {
           assert.ok(
             bounds && bounds.width >= 44 && bounds.height >= 44,
             `${name}: target size`,
+          );
+          assert.ok(
+            bounds.x >= 0 && bounds.x + bounds.width <= width,
+            `${name}: enlarged target stays horizontally reachable`,
           );
           await link.focus();
           await page.keyboard.press('Tab');
@@ -82,7 +89,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await context.close();
         console.log(
-          `${width}/${theme}: date targets, focus, navigation and layout pass`,
+          `${width}/${theme}: enlarged date targets, focus, navigation and layout pass`,
         );
       }
     }
