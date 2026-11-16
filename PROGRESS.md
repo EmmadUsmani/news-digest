@@ -46,59 +46,7 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 
 Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md).
 
-## 2026-11-16: iteration 2502 — U.S. same-story benchmark
-
-- Clean main at 8ab6f0ee; no inherited work. Health and all 38 sources pass; scheduled publication remains Nov 16 15:00 UTC.
-- Disk warning matches recorded threshold fluctuation; disk currently 79%. No repeated cleanup or protected-data deletion.
-- Owner would care: grouping must keep distinct U.S. election developments separate while combining duplicate Alaska governor reporting.
-- Added six immutable published reports, exact-ID supplied evidence and 15 explicit agent labels (one positive/14 negative); no edited summaries used as evidence.
-- Added offline --later-us evaluation and controls: Alaska-only merge passes; election overmerge exposes five errors; merge-all exposes 14.
-- Published subset only; independent labels and candidate-pool recall remain open. No provider calls, runtime/configuration changes or paid replay.
-- Targeted grouping suite: 14/14 pass. Full checks recorded below; receipts /tmp/2502-{targeted,format,lint,check}.log and us-baseline.json.
-- No rebuild/restart needed: offline evaluation/fixtures/docs only, per STEERING 63. Next metrics ≥13:07; publication acceptance 15:00; Bluesky export by 20:36 UTC.
-- Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix, exact snapshot-provenance assertions and git diff --check pass.
-
-## 2026-11-16: iteration 2503 — consistent public security handoff
-
-- Clean main at 3d18a8c8; no inherited work. Health, services and all 38 sources pass; latest published reader has five topics, digest due 15:00 UTC.
-- Disk 79%; pending disk warning matches recorded threshold fluctuation. No repeated cleanup or protected-data deletion.
-- Owner would care: the linked public-access/security handoffs still claimed private sharing, and the account runbook claimed public mode was disabled.
-- Updated current handoffs for owner-enabled public sharing, full handbook and Nov 16 public publication gate; retained dated historical activation evidence.
-- Account activation now records Phase 3 acceptance; deployment/rollback use atomic web-only builds and preserve public mode while shared.
-- No runtime, configuration, sharing, source or budget changes; no paid calls. No rebuild/restart required under STEERING 63.
-- Verification: pnpm format, pnpm lint:fix, pnpm check, git diff --check; 27 local documentation link targets exist. Final check results below.
-- Receipts: /tmp/2503-{services,sources,jobs,format,lint,check}.log. No new owner input needed.
-- Next: metrics ≥13:07 UTC; public publication/editorial acceptance 15:00 UTC; Bluesky export by 20:36 UTC. Protect 13:00–16:00 UTC.
-- Full pnpm check passes: 1,057 unit/329 integration passes, four expected skips; formatting, lint and git diff --check pass. Final health passes; disk remains 79%.
-
-## 2026-11-16: iteration 2504 — published Tech grouping boundary
-
-- Clean main at 8538ce4d; no inherited work. Health and all 38 sources pass; digest next scheduled at 15:00 UTC.
-- Disk remains 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
-- Owner would care: shared AI/chip context must not collapse distinct developments into one story.
-- Added six immutable published Tech reports and 15 explicit agent labels: two positive/13 negative; one exact-ID supplied excerpt, no edited-summary evidence.
-- All six coverage records match signed-out public HTTPS. Local API without verified proxy identity correctly returns 429; public HTTPS returns 200.
-- New offline --published-tech retains the earlier --later-tech benchmark; two-pair control passes, chip-policy overmerge exposes two errors, merge-all exposes 13.
-- Published subset only; independent labels/candidate-pool recall remain open. No provider calls, source/configuration/runtime changes or paid replay.
-- Targeted evaluation suite: 15/15 pass; full checks below. Receipts /tmp/2504-{targeted,tech-baseline,format,lint,check}.*.
-- No rebuild/restart required for offline evaluation/fixtures/docs under STEERING 63; protect 13:00–16:00 UTC.
-- Due metrics 13:07–13:08: three samples/24 healthy rules, six queries ≤1.552s; no new failures/restarts, +414 memory-high since 12:06 (six sampled), no big merge; retain limits.
-- Next: metrics ≥14:09 UTC; scheduled public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
-- Full pnpm check passes: 1,058 unit/329 integration passes, four expected skips; format, lint:fix, exact evidence assertions and git diff --check pass.
-
-## 2026-11-16: iteration 2505 — published Gaming grouping boundaries
-
-- Clean main at 6a38dba5; no inherited work. Health, 14 monitored services and all 38 sources pass; digest next runs 15:00 UTC.
-- Disk 79%; pending warning matches recorded threshold fluctuation. No cleanup or protected-data deletion.
-- Owner would care: duplicate Gaming coverage should stay together without collapsing unrelated studio developments.
-- Added seven immutable published Gaming reports and 21 agent labels: four positive/17 negative; four exact-ID supplied excerpts, no edited-summary evidence.
-- All seven coverage records match signed-out public HTTPS (200); coverage/excerpts match immutable snapshot exactly.
-- New offline --published-gaming retains --later-gaming; correct memberships recover four pairs, studio overmerge exposes three errors, merge-all exposes 17.
-- GTA calendar-analysis/code-issue relationship remains unlabeled; independent labels and candidate-pool recall stay open.
-- Targeted evaluation suite 16/16 passes. Full checks recorded below; receipts /tmp/2505-{targeted,services,sources,jobs,format,lint,check}.log.
-- No source, configuration, runtime or budget changes, provider calls or paid replay. No rebuild/restart under STEERING 63's 13:00–16:00 hold.
-- Next: metrics ≥14:09 UTC; public publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
-- Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass.
+Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md).
 
 ## 2026-11-16: iteration 2506 — scheduled review supply anchors
 
@@ -260,3 +208,15 @@ Archived: [iterations 2496–2501](docs/progress-archive/2026-11-16-2496-2501.md
 - Deployment hold preserved: no runtime changes, rebuild, deploy, restart or provider calls. Live runtime remains unchanged from main.
 - Next U.S. X/Gaming supply diagnosis; Bluesky export by 20:36 UTC; full rotation-day review after Nov 17 00:00.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2518-{format,final-format,lint,check}.log.
+
+## 2026-11-16: iteration 2519 — localize sparse social selection
+
+- Clean main at ba3de7e6; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and 38 sources healthy; digest queue zero failures/active jobs. Historical ingestion/social failures retained.
+- DiskSpaceLow intermittent; immediate df 79%/5.0 GiB free. No cleanup during protected window.
+- Saved Nov 16 snapshot: Gaming 13 X scored/four qualifying/one selected; U.S. 11/three/zero. Both Sonnet/zero unscored; pools fit ten-candidate editor limit.
+- Gaming Bluesky read 659/shortlisted one/chose none, no validation drops. U.S. four Bluesky picks/one unsupported drop are separate from X selection.
+- Recorded qualifying events and evidence limits in edition review/TASKS; zero X cannot be attributed to missing triage or an empty qualifying pool.
+- Next inspect seven qualifying X texts and retained editor response; preserve gates/budgets, no paid replay. Bluesky export by 20:36; metrics ≥16:31 UTC.
+- No runtime changes, rebuild, deploy or restart during 13:00–16:00 UTC hold; live runtime unchanged.
+- Saved-edition identity/count assertions, pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2519-{format,lint,check}.log. Archived progress 2502–2505 to keep orientation small.
