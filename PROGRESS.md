@@ -100,3 +100,4 @@
 - Verification: preservation/link assertions, pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,060 unit/329 integration passes, four expected skips. Logs /tmp/2541-{format,lint,check}.log.
 - Documentation-only change; no rebuild or app restart, respecting STEERING 65. No paid calls or production writes.
 - Next: metrics ≥20:00 UTC; Bluesky export by 20:36 UTC; full-day review after Nov 17 midnight.
+- Initial push rejected because origin advanced to owner commit 63c9e48e (lead documentation only); fetched and merged without rewriting history or editing owner files, then retried push.
