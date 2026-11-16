@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2558: mobile contents keeps its title and Close control visible while long menus scroll; real-edition checks pass at three widths, both themes and 100–300% text.
+
 - [x] 2557: due metrics checkpoint verifies 24 healthy rules/six uncached queries and unchanged failure counters; ongoing reclaim/no big merge keeps resource acceptance open.
 
 - [x] 2556: added retained Helix affordability/interview evidence to offline grouping controls; all ten pairs/five articles and 120 orders verified without production changes.

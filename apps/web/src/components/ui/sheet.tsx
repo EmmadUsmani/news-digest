@@ -28,22 +28,24 @@ export function Sheet({
           aria-describedby={undefined}
           onCloseAutoFocus={onCloseAutoFocus}
           onOpenAutoFocus={onOpenAutoFocus}
-          className="fixed inset-y-0 left-0 z-50 w-72 max-w-full overflow-y-auto bg-[var(--surface)] p-6 shadow-xl"
+          className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-full flex-col overflow-hidden bg-[var(--surface)] shadow-xl"
         >
-          <Dialog.Title className="mt-0 pr-11 font-sans text-lg font-semibold">
-            {title}
-          </Dialog.Title>
-          <Dialog.Close asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-3 right-3 min-h-11 min-w-11"
-              aria-label="Close menu"
-            >
-              <X />
-            </Button>
-          </Dialog.Close>
-          {children}
+          <div className="relative shrink-0 px-6 py-6">
+            <Dialog.Title className="m-0 pr-11 font-sans text-lg font-semibold">
+              {title}
+            </Dialog.Title>
+            <Dialog.Close asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-3 right-3 min-h-11 min-w-11"
+                aria-label="Close menu"
+              >
+                <X />
+              </Button>
+            </Dialog.Close>
+          </div>
+          <div className="min-h-0 overflow-y-auto px-6 pb-6">{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

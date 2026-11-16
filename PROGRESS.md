@@ -192,3 +192,16 @@
 - Sampling/baseline assertions: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2557-summarize.py. Receipts /tmp/2557-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}.
 - Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; /tmp/2557-{format,lint,check}.log. Final health and alerts clear. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
 - Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2558 — keep mobile contents dismissible
+
+- Clean main at 8260dc45; no inherited edits to recover/discard. Initial broad orientation was truncated; narrow reads recovered priorities. Protected paths untouched.
+- Item 42 reader weakness: opening mobile Contents near the final topic scrolls its Close button partly above the viewport (390px reproduction: y=-15px). The owner can now dismiss long menus without finding an offscreen control.
+- Shared Sheet now keeps its title/Close in a non-scrolling header and scrolls only its body; contents navigation/focus callbacks remain intact. Bug fix; no handbook system behavior change or source changes. Web deployed atomically; no process restart needed under item 22.
+- Real Nov 16 edition Playwright checks: 320/390/768px, light/dark, 100/200/300% text (18 cases); Close visible/hit-testable after focus and manual scroll, pointer dismissal, focus return, story navigation and Escape pass. Topics/Account panels also pass at 200% in both themes.
+- Screenshots inspected: docs/screenshots/2558-contents-{100-light,200-dark}.png. GET-only local checks block external requests; published content is real, no fixture content or model calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm --filter @digest/web build; node /tmp/2558-sheet.cjs; git diff --check. Receipts /tmp/2558-{format,lint,check,web-build,sheet}.log.
+- Web assets published atomically without restarting healthy services, per STEERING 22/63. Health/14 services/38 sources healthy; digest queue zero failed jobs, next edition Nov 17 15:00 UTC; existing historical queue failures remain outside active alerts.
+- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+- Web rebuilt and published atomically with prior hashed assets retained; no API/worker runtime change or restart needed under STEERING 22. Health, 14 services and 38 sources healthy; zero failed digest jobs, next edition Nov 17 15:00 UTC.
+- Next: retain final 23:54 Bluesky collection, review full day after midnight; metrics ≥00:16 UTC and retention timer receipt 04:40 UTC.
