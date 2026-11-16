@@ -2925,6 +2925,8 @@ ack: 2026-11-15 step 1 complete in 622d5802: atomic staged web releases, ≥24-h
 
 ack: 2026-11-15 step 2 complete in 1be6ef27: pinned ELK 0.9.3 served at `/db/elk.bundled.js`, exact public/proxy admission, unchanged CSP. Signed-out public HTTPS desktop/mobile diagrams, search and table details pass with zero console errors or external scripts. Steps 3–4 remain open.
 
+ack: 2026-11-16 step 3 complete in 2150f2d4: full handbook public at `/docs/`, pinned local rendering libraries, read-only inventory routes and credential-isolating proxy. Privacy scan/review and signed-out public HTTPS desktop/mobile navigation, search, all 18 pages/21 diagrams and direct refresh pass with no external requests or browser errors. Step 4 remains open; item 64 is next.
+
 ## 64. NOW: let admins open the New edition page directly (2026-11-15)
 
 **Why:** in public mode, typing or refreshing `/admin/editions/new` returns
