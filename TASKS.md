@@ -11,104 +11,56 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 63/64: atomic web deployment/≥24h retired assets (2439), local pinned `/db/` ELK (2440), and full public handbook/privacy/navigation/search acceptance (2442) complete. Admin-only direct New edition loads accepted (2443). Nov 16 scheduled-publication acceptance remains open; protect 13:00–16:00 UTC. Keep public mode/sharing unchanged.
+Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
-- [ ] BREAKAGE: Nov 15 Gaming/ownership recovered; World source fallback remains. Complete-warning extraction (2404) and whole-response JSON fence decoding (2405) deployed; unchanged saved Sonnet repair passes full offline validation (2409). Natural World recovery pending. Exact-source NBA spoof exclusion deployed (2403), natural absence pending; Tech 3/4 excerpts empty. No further generation change without new evidence. [Saved-artifact findings](docs/progress-archive/2026-11-15-breakage-task-detail-2430.md).
+- [ ] STEERING 63/64: deployment, `/db/`, full handbook and direct admin New edition accepted (2439–2443). Nov 16 scheduled public publication acceptance pending. Keep public mode/sharing unchanged. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-1).
 
-- [ ] Morning edition admission: bounded Sonnet settlement waiting deployed; caps unchanged. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-2).
+- [ ] BREAKAGE: World fallback repairs pass offline (2404/2405/2409); natural recovery pending. NBA exact spoof-source exclusion deployed (2403), natural absence pending. Tech 3/4 excerpts empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
-- [ ] STEERING 56/57: World/U.S. split deployed; Nov 15 semantic scope/event review (2412) passes: five stories each, 14/6 coverage IDs, no repeated or misplaced event. World fallback depth and three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-4).
+- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; natural admission pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
-- [ ] Breakage / metrics-store: retain CPU-only 2% trial. 2453 short post-verification checkpoint Nov 16 02:22:31–02:23:32: three samples/24 healthy rules, six uncached queries ≤0.766 s, unchanged processes and no new failure/admission/timeout/slow-query counters. Since 01:20:27: +329 memory-high events, zero during this minute; max/OOM/kill=0. Small merges +62/2,073,596 rows; no new big merge. Sustained recovery remains unproven. Next short check ≥03:25 UTC, preferably after a natural big merge. No retuning/public Grafana work. [Evidence](docs/decisions/0004-observability-capacity.md#short-post-verification-checkpoint-iteration-2453).
+- [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. World fallback depth and three consecutive successful scheduled editions open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] STEERING 34: fixed keyword X ON, semantic OFF. Nov 15 World follow-up (2411): 13 scored/four qualifying/three selected X claims; no shortlist overflow or stronger scored alternative, verified metrics empty. [Review](docs/edition-reviews/2026-11-15-world-x.md). Nov 15 NBA review (2402) finds no Murray repetition; spoof exclusion still awaits natural acceptance. Review natural quality; missing metrics remain unknown. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-7).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2453 checkpoint 02:22–02:23 UTC: 24 healthy rules, six queries ≤0.766 s, no new failure counters/restarts. Since 01:20 +329 memory-high events, zero during sampled minute; no big merge. Sustained recovery unproven; next short check ≥03:25 UTC, preferably after natural big merge. No retuning/public Grafana work. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-5).
 
-- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-8).
+- [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; natural spoof-exclusion acceptance pending. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but still refuses U.S. admission. No useful wait limit established; production unchanged. Stop synthetic expansion; await scheduled evidence. [Decision](docs/decisions/0005-staged-editorial-admission.md), [detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-9).
+- [ ] STEERING 27 grouping: verify same-event quality on later editions; Nov 5 Tech combined separate developments. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-7).
 
-- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-10).
+- [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
-- [ ] STEERING 9/15 report: Nov 9–15 $2.100622, 32/32 completed keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list; quality remains open. [Weekly evidence](docs/SOURCES.md#nov-915-production-x-report--iteration-2407). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-11).
+- [ ] STEERING 16 / M4 Social posts: all-topic presence achieved; viral/outside-list quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-9).
 
-- [ ] STEERING 18 Bluesky: 2449 technical-term comparison finds no supported Tech query replacement; retain baseline and pause generic probes until natural selection evidence ([comparison](docs/edition-reviews/2026-11-16-tech-discovery.md)). Retain U.S. `Congress` and World baseline/Ukraine/baseline/Gaza pilot. Six natural jobs retained through 21:54 UTC; second Ukraine pass adds 13 new World post identities among 48, with reporting and repeated events ([review](docs/edition-reviews/2026-11-15-world-ukraine-refresh.md)); 2450 second Gaza pass adds 11 new/38 repeated identities; new reporting overlaps prior aid/shelter developments ([refresh](docs/edition-reviews/2026-11-15-world-gaza-refresh.md)); first Gaza cohort has outlet reporting/correction value alongside commentary and duplicates ([review](docs/edition-reviews/2026-11-15-world-gaza-quality.md)). 2445 preserved all 24 Nov 15 hourly jobs (18 newly retained); fixed UTC-day supply is Tech/NBA/Gaming/World/U.S. 53/51/50/158/53 distinct posts. Mixed activation-day review retains rules; new Gaming creator contributions await natural selection. [Day review](docs/edition-reviews/2026-11-15-bluesky-day.md). 2454 [overnight Ukraine review](docs/edition-reviews/2026-11-16-world-ukraine.md): nine new/40 repeated identities, limited new reporting; stop partial-pass reviews until full-day/edition evidence. 2452 retained Nov 16 00:54 baseline/01:54 Ukraine jobs in [day evidence](docs/edition-reviews/2026-11-16-world-bluesky-jobs.json); both complete for five topics. Next export by Nov 16 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Nov 15 Gaming/Tech scarcity is at intake; U.S. three distinct picks and NBA officiating pick accepted, one NBA rejection cannot be identified from sanitized retention (2447); historical tracing closed. Overall social quality open. [Topic reviews and prior detail](docs/progress-archive/2026-11-15-bluesky-task-detail-2430.md).
+- [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-13).
+- [ ] STEERING 18 Bluesky: retain Tech baseline, U.S. `Congress`, World baseline/Ukraine/baseline/Gaza pilot. All 24 Nov 15 jobs retained; distinct supply Tech/NBA/Gaming/World/U.S. 53/51/50/158/53. Nov 16 00:54/01:54 jobs retained. Next export by 12:36 UTC; first full rotation-day review after Nov 17 00:00 UTC. Stop partial-pass/generic probes until edition/full-day evidence. Gaming creator contributions await selection; U.S. three picks and NBA officiating accepted. Sanitized NBA rejection unrecoverable; historical tracing closed. Overall quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-11).
 
-- [ ] M5 grouping: later-date Gaming/Tech recorded benchmarks and same-story pairs added. Grouping alone restores no target slots; independent labels and semantic evaluation still needed. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-14).
+- [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] STEERING 4: fake/replay LlmPort and ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-15).
+- [ ] M5 grouping: recorded Gaming/Tech benchmarks and same-story pairs added. Independent labels/semantic evaluation needed; grouping alone restores no target slots. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-13).
 
-- [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests without owner re-enabling official API credentials. YouTube deferred; no bypass. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-16).
+- [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
-- [ ] STEERING 10 source balance paused under 27: Yardbarker NBA feed live; article-page X harvesting prepared/disabled (2301). No new source without coverage review. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-17).
+- [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-15).
 
-- [ ] STEERING 24/25 background: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-18).
+- [ ] STEERING 10 paused under 27: Yardbarker NBA live; article-page X harvesting prepared/disabled (2301). No new source without coverage review. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-16).
 
-- [ ] Tech feed evidence depth: reporting precedence and bounded evidence deployed; recorded admission study justifies no production change. Nov 15 follow-up (2406): three empty saved evidence sets confirmed; two current prose candidates pass triage, but exact historical grouping unavailable. No new admission loss established; retain production rules and review next natural edition. See [review](docs/edition-reviews/2026-11-15-tech-depth.md) and [decision](docs/edition-reviews/2026-11-14-tech-depth.md). [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-19).
+- [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Gaming same-ceremony repetition: v9 deployed. Nov 14 has separate developments, so winning-work/ceremony duplicate challenge remains unexercised. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-20).
+- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. No established admission loss; retain production, review next natural edition. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
 
-- [ ] World link-list social quality: v10 deployed. Nov 14 attributed RAF reporting passes; bare links rejected by triage, so final-editor rejection challenge remains open. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-21).
+- [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
-- [ ] Tech story/post repetition: bounded story context deployed to both social routes. Nov 14 four stories/two X picks cover six events; Bluesky and editor-level duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-22).
+- [ ] World link-list quality: v10 deployed; Nov 14 attributed RAF reporting passes. Bare links rejected in triage; final-editor rejection challenge open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-20).
 
-- [ ] Gaming English context: v11/date guard deployed. Nov 14 notes source-bound but all English; translation/date challenge unexercised. Natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-14-task-detail-2300.md#open-item-23).
+- [ ] Tech story/post repetition: bounded context deployed in both social routes. Nov 14 four stories/two X picks cover six events; Bluesky/editor duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-21).
+
+- [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
 
-- [x] 2454: reviewed third natural Ukraine cohort; preserved nine new identities and reporting limits, retained pilot and closed partial-pass reviews pending edition/full-day evidence.
+- [x] 2455: compacted task handoff; preserved all 22 open gates and original evidence in linked archive.
 
-- [x] 2453: due short metrics checkpoint after repository checks confirms healthy queries/evaluations and no reclaim during one minute; sustained resource acceptance stays open.
-
-- [x] 2452: preserved first two Nov 16 natural Bluesky jobs; baseline/Ukraine rotation and all-topic submissions confirmed without collecting or changing production.
-
-- [x] 2451: overnight health checkpoint confirms active services, current sources and scheduled reader provenance (five topics/23 stories/16 posts); timed acceptance remains open.
-
-- [x] 2450: reviewed exact second Gaza collection: 11 new/38 repeated identities, with reporting overlaps; preserved examples and retained pilot pending natural selection.
-
-- [x] 2449: compared Tech baseline against machine learning/LLM/OpenAI using four free read-only searches; preserved public examples, retained production rules and closed generic probing until new edition evidence.
-
-- [x] 2448: quantified continuing metrics reclaim under verification load; query/evaluation health persists, resource acceptance stays open. Archived progress 2436–2441 below the size limit.
-
-- [x] 2447: traced retained NBA social cache; rejected identity/wording are discarded before caching, so historical reconstruction is closed without inferring a false rejection. Natural quality review remains open.
-
-- [x] 2446: applied Nov 16 daily scratch rule after pending disk alert; removed four eligible paths (14.8 MiB), preserved logs/metrics/browser state; disk 78%.
-
-- [x] 2445: preserved complete Nov 15 Bluesky hourly job evidence and reviewed fixed UTC-day supply; all five topics collect continuously, new Gaming creator contributions await selection.
-
-- [x] 2444: overnight metrics follow-up preserves healthy evaluations and zero failure deltas; continuing reclaim keeps resource acceptance open. Pending disk alert cleared without deletion; full checks pass.
-
-- [x] 2443: New edition direct GET/HEAD requires fresh admin; client guard uses stored account session in public mode. Signed-out refusal and admin desktop/mobile typed URL/reload accepted without edition creation.
-
-- [x] 2442: full handbook public at `/docs/`; pinned local rendering, narrow read-only routes, credential isolation and desktop/mobile acceptance for all 18 pages/21 diagrams.
-
-- [x] 2441: recovered 544 MiB from two unused interrupted integration-run folders under STEERING 51; disk 80%→78%, cleanup regression passes. Full handbook publication remains next.
-
-- [x] 2440: `/db/` serves pinned ELK 0.9.3 locally under unchanged CSP; signed-out public desktop/mobile diagram, search and detail pass without errors.
-
-- [x] 2439: atomic web releases retain retired assets ≥24 hours; dynamic exact-path admission, isolated deployment tests, public deployment polling and signed-out reader checks pass.
-
-- [x] 2438: published-edition history/detail previews identify coverage timezones; New York/Tokyo desktop/mobile/320px checks cover both themes.
-
-- [x] 2437: reviewed exact second Ukraine cohort: 13 new/35 repeated World post identities; preserved new reporting and event-overlap evidence, retained pilot unchanged.
-
-- [x] 2436: archive coverage windows identify their local timezone; New York/Tokyo browser checks cover desktop/mobile/320px in both themes.
-
-- [x] 2435: compared post-merge resource baselines over eleven samples; sustained query/evaluation health observed, continuing memory reclaim quantified; resource acceptance remains open.
-
-- [x] 2434: saved-item publication timestamps now show their timezone; New York/Tokyo browser checks pass at desktop/mobile/320px in both themes.
-
-- [x] 2433: recovery sampler records memory-pressure baselines and interval deltas; next natural merge can be compared without treating lifetime reclaim counts as interval evidence.
-
-- [x] 2432: expanded article coverage shows local timezone beside each publication time; saved reports verified in New York/Tokyo across desktop/mobile/320px and both themes.
-
-- [x] 2431: restored public-mode post-context browser verification; long synthetic notes over a saved post expand by touch/keyboard at desktop/mobile/320px in both themes without horizontal overflow.
-
-- [x] 2430: reviewed all 50 saved first-pass Gaza posts; retained examples/fifth pilot job. Reporting/correction value and repetition risks documented; natural selection pending. Natural 26.8M-row metrics merge confirmed; sustained recovery remains open.
-
-[Completed 2380–2429 markers](docs/progress-archive/2026-11-15-completed-2380-2429.md).
-
-Earlier completed steps: [2368–2377](docs/progress-archive/2026-11-15-completed-2368-2377.md), [2352–2367](docs/progress-archive/2026-11-15-completed-2352-2367.md), [2346–2351](docs/progress-archive/2026-11-15-completed-2346-2351.md), [earlier archive](docs/progress-archive/2026-11-15-completed-before-2346.md).
+[Completed through 2454](docs/progress-archive/2026-11-16-task-detail-2455.md#completed-markers-through-2454).
 
 Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
