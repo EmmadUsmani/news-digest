@@ -7,6 +7,15 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+Nov 16 (2525): **blocked (publisher feed outage)** — GamesRadar's configured
+`https://www.gamesradar.com/feeds.xml` returns HTTP 404 on scheduled attempts
+1/2 at 16:50–16:51 UTC and a direct GET at 16:52 UTC. Last stored success
+16:20:39 UTC: 50 fetched items, 585 stored articles retained. The homepage
+returns 200 and still advertises this exact RSS URL; `/feeds/all/`, `/rss/`
+and `/feeds.xml/` also return 404. Retain the configured official URL and
+normal scheduled retries; no verified replacement, scraping or source expansion.
+Recheck the next scheduled attempt before treating this as a persistent outage.
+
 Nov 15 (2403): X selection excludes official-embed author `@TheNBACentel`
 from future editions after its spoof injury claim was treated as reporting.
 Discovery/storage remain unchanged; genuine reporters and quoted handles remain

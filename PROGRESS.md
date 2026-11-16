@@ -217,3 +217,15 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 - Updated TASKS and capacity evidence; no provider calls, runtime/source changes or restart needed: running code unchanged from main. Final local /healthz passes.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Receipts /tmp/2524-{format,lint,check}.log and /tmp/2524-{metrics.jsonl,metrics-error.log}.
 - Next metrics ≥17:43 UTC, preferably after a natural big merge; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.
+
+## 2026-11-16: iteration 2525 — GamesRadar publisher feed outage
+
+- Clean main at 29b2d38b; no inherited work to recover or discard.
+- pnpm obs alerts/health/services/jobs/sources: health and 14 services pass; zero failed digest jobs; 37/38 sources healthy. Disk 79%/5.0 GiB free, intermittent warning.
+- New GamesRadar failure takes priority: scheduled attempts 1/2 return HTTP 404; last success 16:20:39 UTC, 50 items fetched/585 articles retained.
+- Direct GET confirms 404; homepage 200 still advertises exact configured /feeds.xml URL. /feeds/all/, /rss/, /feeds.xml/ also 404; no verified replacement.
+- Retain official URL, normal retries and stored content. Updated SOURCES/TASKS; next iteration must check recovery on next ingestion cycle. No paid calls or app changes.
+- Public mode refuses private failed-job detail filtering; used aggregate queue counts and worker journal for attribution instead.
+- Documentation-only; running code unchanged from main, no rebuild or restart needed.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; final /healthz passes. Logs /tmp/2525-{format,lint,check}.log.
+- Next: GamesRadar scheduled recovery check; metrics ≥17:43 UTC; Bluesky export by 20:36 UTC.
