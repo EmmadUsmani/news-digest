@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2484: real edition/archive keyboard skip passes at 200% text, 320/390/1440px in both themes; replay removed, focus and visible destination verified.
+
 - [x] 2483: guarded cleanup reclaimed 15 MiB abandoned integration root; full public handbook passes mobile/desktop acceptance.
 
 - [x] 2482: due metrics checkpoint confirms healthy queries/rules during integration tests; one admission event and continued reclaim keep capacity acceptance open.

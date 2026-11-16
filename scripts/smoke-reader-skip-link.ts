@@ -1,4 +1,4 @@
-// Keyboard-only navigation against saved reader data; no writes or external requests.
+// Real saved edition/history at 200% text; keyboard-only, no writes or external requests.
 import assert from 'node:assert/strict';
 
 import {
@@ -34,6 +34,7 @@ async function smoke() {
     for (const [device, width, height] of [
       ['desktop', 1440, 1100],
       ['mobile', 390, 844],
+      ['narrow', 320, 844],
     ] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const page = await browser.newPage({
@@ -49,10 +50,6 @@ async function smoke() {
           assert.ok(['GET', 'HEAD'].includes(request.method()));
           if (url.origin !== origin) return route.abort();
           assert.ok(!url.pathname.startsWith('/api/admin/'));
-          if (url.pathname === '/api/editions/latest')
-            return route.fulfill({ json: saved });
-          if (url.pathname === '/api/editions')
-            return route.fulfill({ json: history });
           return route.continue({
             headers: { ...request.headers(), 'X-Forwarded-For': visitor },
           });
@@ -79,6 +76,10 @@ async function smoke() {
               history.entries.length,
             );
           }
+          await page.addStyleTag({
+            content: 'html { font-size: 200% !important; }',
+          });
+          await page.evaluate(() => document.fonts.ready);
           await expect(page.getByRole('alert')).toHaveCount(0);
           const skip = page.getByRole('link', { name: 'Skip to content' });
           await skip.waitFor({ state: 'attached' });
@@ -92,7 +93,14 @@ async function smoke() {
             true,
           );
           const box = await skip.boundingBox();
-          assert.ok(box && box.width > 100 && box.y >= 0 && box.x >= 0);
+          assert.ok(
+            box &&
+              box.width > 100 &&
+              box.height >= 44 &&
+              box.y >= 0 &&
+              box.x >= 0 &&
+              box.x + box.width <= width,
+          );
           assert.equal(
             await skip.evaluate((element) => {
               const box = element.getBoundingClientRect();
@@ -117,10 +125,13 @@ async function smoke() {
             true,
           );
           const headingBox = await heading.boundingBox();
+          const headerBox = await page.locator('header').boundingBox();
           assert.ok(
             headingBox &&
               headingBox.y >=
-                (name === 'edition' ? (device === 'mobile' ? 120 : 65) : 0) &&
+                (name === 'edition' && headerBox
+                  ? headerBox.y + headerBox.height
+                  : 0) &&
               headingBox.y < height,
           );
           await page.keyboard.press('Tab');
@@ -146,7 +157,7 @@ async function smoke() {
         assert.deepEqual(errors, []);
         await page.close();
         console.log(
-          `${device} ${theme}: keyboard skip, focus, heading visibility and next content link passed`,
+          `${device} ${theme}: real reader/history at 200% text: keyboard skip, focus, heading visibility and next content link passed`,
         );
       }
     }
