@@ -229,3 +229,14 @@ Archived: [iterations 2506–2510](docs/progress-archive/2026-11-16-2506-2510.md
 - Documentation-only; running code unchanged from main, no rebuild or restart needed.
 - pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; final /healthz passes. Logs /tmp/2525-{format,lint,check}.log.
 - Next: GamesRadar scheduled recovery check; metrics ≥17:43 UTC; Bluesky export by 20:36 UTC.
+
+## 2026-11-16: iteration 2526 — restore GamesRadar collection after publisher recovery
+
+- Clean main at 017cde41; no inherited work to recover or discard.
+- pnpm obs alerts/health/services/jobs/sources: health/14 services pass, zero failed digest jobs; GamesRadar alone failed after all three scheduled attempts (last 16:53:39 UTC).
+- Official feed direct GET returned HTTP 200/valid RSS at 17:03 UTC; homepage still advertises exact URL.
+- Enqueued one existing-worker ingestion job recovery-gamesradar-2526; completed 17:03:23 UTC, 50 fetched/590 stored (previously 585). All 38 sources now healthy.
+- Initial polling wrapper used unsupported Job.reload after completion; corrected with Queue.getJob and verified completed result. Collection itself succeeded once; no duplicate job.
+- Updated SOURCES/TASKS; no app/source configuration changes, paid calls or schedule changes. Running code unchanged from main; no rebuild/restart needed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; receipts /tmp/2526-{format,lint,check}.log. Final /healthz and all 38 sources pass.
+- Next: metrics checkpoint ≥17:43 UTC; Bluesky export by 20:36 UTC, full rotation review after Nov 17 00:00 UTC.

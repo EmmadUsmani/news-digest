@@ -13,8 +13,6 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
-- [ ] BREAKAGE (2525): GamesRadar official RSS returns 404; last success Nov 16 16:20:39 UTC (50 fetched/585 stored). Homepage still advertises the configured URL; no verified replacement. Retain scheduled retries and stored content; recheck next ingestion cycle. Other 37 sources and /healthz healthy. [Source evidence](docs/SOURCES.md).
-
 - [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
 - [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Tech 3/5 selected evidence sets empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
@@ -60,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2526: GamesRadar official RSS recovered; existing-worker recovery job fetched 50 items, stored count 585→590; all 38 sources healthy. URL/schedule unchanged.
 
 - [x] 2525: diagnosed new GamesRadar collection failure as publisher RSS 404; preserved stored content and scheduled retries, documented next-cycle recovery gate.
 
