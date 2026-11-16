@@ -220,3 +220,15 @@ Archived: [iterations 2502–2505](docs/progress-archive/2026-11-16-2502-2505.md
 - Next inspect seven qualifying X texts and retained editor response; preserve gates/budgets, no paid replay. Bluesky export by 20:36; metrics ≥16:31 UTC.
 - No runtime changes, rebuild, deploy or restart during 13:00–16:00 UTC hold; live runtime unchanged.
 - Saved-edition identity/count assertions, pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; /tmp/2519-{format,lint,check}.log. Archived progress 2502–2505 to keep orientation small.
+
+## 2026-11-16: iteration 2520 — inspect sparse X evidence
+
+- Clean main at 4844800f; no inherited work to recover or discard.
+- pnpm obs alerts/health/sources/jobs: health and 38 sources healthy; digest queue zero failed/active. Historical ingestion/social failures retained; disk warning oscillates, immediate df 79%/5.0 GiB free.
+- Reviewed seven qualifying Gaming/U.S. stored official-embed texts and five primary cached social responses; selection-ID assertions pass, including the sole empty primary U.S. response.
+- Gaming omitted texts are handbook promotion, a bare Xbox caption and a creator anecdote; U.S. has two truncated Oltmann claim promotions and a truncated FAA appeal overlapping its lead story.
+- Xbox triage incorrectly calls Wavys a platform holder; candidate was not selected. No independently supported missed selection found; U.S. individual rejection reasons remain unavailable.
+- Edition review, SOURCES and TASKS updated; next inspect discovery provenance/account mix without filling slots with weak posts. Receipt /tmp/2520-evidence.json; temporary read-only script removed.
+- No paid calls, runtime changes, build/deploy or restart during 13:00–16:00 UTC hold; live runtime unchanged from main.
+- Next metrics checkpoint ≥16:31 UTC, Bluesky export by 20:36 UTC; full rotation-day review after Nov 17 00:00 UTC.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips; logs /tmp/2520-{format,lint,check}.log.

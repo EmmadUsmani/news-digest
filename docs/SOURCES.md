@@ -3414,3 +3414,13 @@ The third natural Ukraine pass adds nine new World post identities among 49;
 statement and image-only military estimates, alongside commentary. Retain
 the pilot and inspect natural selection; no more partial-pass reviews before
 the edition/full-day evidence. [Review](edition-reviews/2026-11-16-world-ukraine.md).
+
+### Nov 16 sparse X supply review — iteration 2520
+
+Stored official-embed texts explain limited useful Gaming/U.S. supply: Gaming
+qualifiers include a wallet/market handbook, a bare Wavys Xbox media caption,
+and a creator anecdote; U.S. includes two truncated Oltmann claim promotions
+and a White House funding appeal overlapping the lead story. Yakkamon's dated
+early-access announcement was selected. No media/report fetch or source change.
+Next inspect discovery provenance/account mix; preserve editorial gates.
+[Saved edition review](edition-reviews/2026-11-16.md#qualifying-x-text-review--iteration-2520).
