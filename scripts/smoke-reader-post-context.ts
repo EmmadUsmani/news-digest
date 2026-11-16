@@ -51,8 +51,10 @@ async function main() {
         const card = page.locator('.bluesky-card').first();
         const note = card.locator('.post-context');
         const text = note.locator('.post-context-text');
+        const body = note.locator('.post-context-body');
         await note.scrollIntoViewIfNeeded();
         assert.equal(await note.getAttribute('open'), null);
+        assert.equal(await body.isVisible(), false);
         assert.ok(
           await text.evaluate((node) => node.scrollWidth > node.clientWidth),
         );
@@ -60,9 +62,14 @@ async function main() {
         await note.locator('summary').tap();
         assert.notEqual(await note.getAttribute('open'), null);
         assert.ok((await note.boundingBox())!.height > collapsed * 2);
-        assert.equal((await text.innerText()).trim(), post.whyItMatters.trim());
+        assert.equal(await text.isVisible(), false);
+        assert.equal((await body.innerText()).trim(), post.whyItMatters.trim());
+        assert.equal(
+          await note.locator('summary').getAttribute('aria-label'),
+          `Context for post from ${post.author}`,
+        );
         assert.ok(
-          await text.evaluate((node) => node.scrollWidth <= node.clientWidth),
+          await body.evaluate((node) => node.scrollWidth <= node.clientWidth),
         );
         await card.screenshot({
           path: `docs/screenshots/ui/reader-expanded-context-${device}-${theme}.png`,

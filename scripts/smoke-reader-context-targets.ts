@@ -82,7 +82,8 @@ async function smoke() {
         await expect(first.locator('..')).toHaveAttribute('open', '');
         assert.ok(
           await first
-            .locator('.post-context-text')
+            .locator('..')
+            .locator('.post-context-body')
             .evaluate((node) => node.scrollWidth <= node.clientWidth),
         );
         await page.keyboard.press('Space');

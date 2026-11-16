@@ -153,14 +153,24 @@ function PostContext({ post }: { post: ReaderPost }) {
     return null;
   return (
     <details className="post-context group min-w-0 text-sm text-[var(--secondary)]">
-      <summary className="flex min-h-11 cursor-pointer list-none items-start gap-2 rounded px-1 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
+      <summary
+        aria-label={`Context for post from ${post.author}`}
+        className="flex min-h-11 cursor-pointer list-none items-start gap-2 rounded px-1 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      >
         <span aria-hidden="true" className="shrink-0 group-open:rotate-90">
           ›
         </span>
-        <span className="post-context-text min-w-0 flex-1 truncate group-open:whitespace-normal group-open:[overflow-wrap:anywhere]">
+        <span className="shrink-0 font-medium">Context</span>
+        <span
+          aria-hidden="true"
+          className="post-context-text min-w-0 flex-1 truncate group-open:hidden"
+        >
           {note}
         </span>
       </summary>
+      <p className="post-context-body px-1 pb-3 whitespace-pre-line [overflow-wrap:anywhere]">
+        {note}
+      </p>
     </details>
   );
 }

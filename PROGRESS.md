@@ -136,3 +136,14 @@
 - Initial health, services, all 38 sources and digest-generation queue healthy; zero alerts, next edition Nov 17 15:00 UTC.
 - Verification: pnpm format, pnpm lint:fix, full pnpm check, atomic web build and git diff --check pass: 1,061 unit/329 integration tests, four expected skips. Receipts: /tmp/2552-{format,lint,check,web-build-final,contents-final}.log. Static deployment needs no service restart under STEERING 22/65.
 - Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2553 — separate post context from its toggle
+
+- Clean main at ed8fe790; no inherited edits to recover/discard. Protected paths untouched.
+- Reader weakness: the entire post explanation lived inside its disclosure toggle, with no expanded body. A named Context toggle now expands a separate readable paragraph; the collapsed preview remains visual only, avoiding a repeated accessible explanation.
+- Owner value: readers can distinguish the original post from editorial context and expand the explanation with touch or keyboard. No generation, source, account or budget changes.
+- Published-content Playwright: pnpm exec tsx scripts/smoke-reader-context-targets.ts passes nine saved notes at 1440/390/320px, both themes and 200% text. Synthetic long-note replay: pnpm exec tsx scripts/smoke-reader-post-context.ts passes six configurations, checking separate body visibility, complete text, wrapping and keyboard/touch toggles. Screenshots updated; no live external requests or writes.
+- Initial health, 14 services/38 sources and digest queue healthy; zero alerts. Initial narrow-reader exploratory probe omitted trusted-proxy visitor headers and timed out; rerun with documented probe headers passes.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,061 unit/329 integration passes, four expected skips; final health and alerts clear.
+- Verification receipts: /tmp/2553-{format,lint,check,web-build,context,targets}.log. Atomic web deployment serves the change; no service restart needed for static assets under STEERING 22/65.
+- Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
