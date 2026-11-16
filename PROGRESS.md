@@ -112,3 +112,4 @@
 - Public HTTPS probe could not connect from this session (DNS 10.42.0.42:443); local reader HTTP 200 and /healthz OK. External access could not be reverified; no proxy/sharing changes.
 - Read-only evidence changes; no app rebuild/restart under STEERING 65, no paid calls or production writes.
 - Verification: hourly receipt assertions, metrics sampler, pnpm format, pnpm lint:fix, pnpm check and git diff --check; PASS: 1,060 unit / 329 integration passes, four expected skips. Logs /tmp/2542-{format,lint,check}.log.
+- Initial push rejected: origin advanced to owner commit 05beb1da; fetched and merged without editing owner files or rewriting history. Lead resolved agent-control retention through supervisor-owned pruning; next 04:40 timer receipt remains. TASKS updated; protected paths untouched.

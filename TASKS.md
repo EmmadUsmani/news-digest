@@ -13,7 +13,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] Source recovery (2542): Google News AI returned HTTP 429 at 20:04/20:05; last success 19:34 with 60 items. Check next natural attempt; retain Retry-After/backoff, no extra probes. Public HTTPS connection unavailable from this session; local reader/health pass.
 
-- [ ] STEERING 65: daily session/tmp retention installed and first run verified (2535), disk 72%→61%; prior unused-data/journal cleanup 79%→72%. Only agent-control log retention remains blocked by this run’s explicit prohibition; see NEEDS_FROM_HUMAN.md.
+- [ ] STEERING 65: daily session/tmp retention installed and first run verified (2535), disk 72%→61%; prior unused-data/journal cleanup 79%→72%. Lead deployed supervisor-owned log pruning at 20:06 UTC (05beb1da); protected-path prohibition remains. Record the next 04:40 UTC timer run to complete item 65.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
