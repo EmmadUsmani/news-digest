@@ -150,3 +150,14 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - No runtime, source or budget change; no rebuild/restart under STEERING 63. Receipts `/tmp/2479-{reader,sources,jobs,alerts}.log`. Formatting/lint and final alert outcome recorded below.
 - Next: metrics ≥08:45 UTC; eligible integration cleanup ≥08:59:26; Bluesky export by 14:36; scheduled review at 15:00. Preserve 13:00–16:00 UTC window.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Verification briefly returned disk to 80% with one pending/zero firing alerts at 08:13:55; health remains healthy. Full receipts `/tmp/2479-{format,lint,check,alerts-final}.log`.
+
+## 2026-11-16: iteration 2480 — enlarged public footer acceptance
+
+- Clean main at 576c4362; no inherited work. Initial pending DiskSpaceLow recovered to 79%; zero firing/pending by 08:16 UTC. No cleanup or runtime intervention.
+- Existing footer browser check could not read public loopback history (empty response); updated it to the established documentation-range visitor header, bounded fetch and explicit HTTP status assertion.
+- Extended latest/historical footer navigation to normal/200% text at 320/390/1440px, both themes: 24 page checks pass for 44px targets, viewport fit, visible keyboard focus and Enter navigation to history. No UI defect found or production change.
+- Updated screenshots; visually inspected narrow dark enlarged target. GET/HEAD-only local traffic; external requests blocked. No account writes, provider calls or notifications.
+- Health database/Redis passes; all 14 services and 38 sources healthy. Saved scheduled Nov 15 reader verifies five topics/23 stories/16 posts. Receipts `/tmp/2480-{footer,reader,services,sources,jobs,alerts}.log`.
+- No build/restart required under STEERING 63: browser verification only. Required formatting/lint/full-check outcome recorded below.
+- Next: metrics ≥08:45; eligible abandoned integration cleanup ≥08:59:26; Bluesky export by 14:36; edition review 15:00. Preserve 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Receipts `/tmp/2480-{format,lint,check}.log`. Final disk 79%; verification briefly returned DiskSpaceLow to pending (zero firing), health remains healthy.
