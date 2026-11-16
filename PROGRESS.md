@@ -184,3 +184,17 @@ Archived: [iterations 2490–2495](docs/progress-archive/2026-11-16-2490-2495.md
 - No source/configuration/runtime changes, spending, rebuild or restart under STEERING 63's 13:00–16:00 hold.
 - Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
 - Full pnpm check passes: 1,059 unit/329 integration passes, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass. Older progress archived.
+
+## 2026-11-16: iteration 2507 — Tech newest-200 cutoff impact
+
+- Clean main at 81517ed5; no inherited work. Health, all 14 monitored services and all 38 sources pass; digest next runs 15:00 UTC, zero failed digest jobs.
+- Disk 79%; known threshold warning pending. No cleanup during protected 13:00–16:00 window.
+- Owner would care: Tech’s candidate limit omits some real reporting before editorial selection.
+- Read-only full-window capture at 13:32:35: 228 articles; first 200 normalized rows exactly match production loader in the same repeatable-read transaction.
+- Loaded pool: 199 eligible/15 with text. Beyond cutoff: 28 eligible/four with text; 24 also empty.
+- Read excluded excerpts: Apple smart-glasses reporting, Mac utility announcement, shopping deal and podcast profile. Exact IDs/character counts recorded in Nov 16 review.
+- Smart-glasses reporting is concrete potential admission loss; actual scoring/selection effect awaits natural edition. Cap and generation unchanged.
+- Deep loader equality and Python receipt assertions pass; receipts /tmp/2507-tech-cutoff{,-summary}.json. Temporary capture script removed.
+- Local and signed-out public HTTPS /healthz pass (public DNS override on VM). No provider calls, spending, runtime changes, rebuild or restart during deployment hold.
+- Next: metrics ≥14:09 UTC; scheduled publication/editorial acceptance 15:00; Bluesky export by 20:36 UTC.
+- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,059 unit/329 integration passes, four expected skips. Logs /tmp/2507-{format,lint,check}.log.

@@ -47,7 +47,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. No established admission loss; retain production, review next natural edition. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
+- [ ] Tech depth: bounded evidence/reporting precedence deployed. Nov 15 three empty saved evidence sets; two current prose candidates pass triage, exact historical grouping unavailable. 2507 full-window capture finds 28 articles beyond the newest-200 cutoff, including one concrete smart-glasses report and one product announcement with text; scored/selected impact unknown. Retain production, review next natural edition. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-18).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -58,6 +58,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2507: quantified Tech cutoff loss read-only: 28/228 articles omitted, four with text; identified smart-glasses reporting for natural scheduled admission review. [Review](docs/edition-reviews/2026-11-16.md#tech-cutoff-impact--iteration-2507).
 
 - [x] 2506: captured Nov 16 pre-edition supply: Tech reaches newest-200 cap with 185/199 eligible excerpts empty; recorded prose and shared World/U.S. anchors for scheduled acceptance. [Review](docs/edition-reviews/2026-11-16.md).
 
