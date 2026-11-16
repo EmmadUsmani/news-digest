@@ -35,7 +35,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Twenty-one Nov 16 hourly jobs retained through 20:54 (2545), /tmp/2545-bluesky-collections.json. Export by 22:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. Twenty-two Nov 16 hourly jobs retained through 21:54 (2550), /tmp/2550-bluesky-collections.json. Export by 23:36 UTC; full-day review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2550: preserved natural 21:54 Bluesky Ukraine run before pruning; 22 consecutive hourly runs/all 110 topic counts and expected World rotation pass. Full-day quality review remains after midnight.
 
 - [x] 2549: reader scroll padding keeps keyboard-focused story links and Save controls below the sticky header; anchor spacing and route cleanup verified.
 

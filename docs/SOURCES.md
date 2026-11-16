@@ -3469,3 +3469,11 @@ completed at 20:07:10.234 UTC with 60 items. The persisted source record
 reports the same successful attempt, 60 items and no error. The 20:19 UTC
 source snapshot reports all 38 sources healthy. Existing URL, retry/backoff
 and schedule are retained; this verification made no provider requests.
+
+### World Ukraine hourly receipt retained — iteration 2550
+
+The **live** Nov 16 21:54 UTC scheduled collection completed with 48 World
+Ukraine observations and all five topics admitted. Twenty-two consecutive
+hourly results retain the expected World rotation and fetched/submitted counts.
+[Receipt review](edition-reviews/2026-11-15-world-bluesky-pilot.md#next-natural-ukraine-return-retained--iteration-2550).
+Full-day quality review remains after midnight; queries and gates stay unchanged.

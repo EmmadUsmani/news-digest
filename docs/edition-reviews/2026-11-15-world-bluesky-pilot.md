@@ -111,3 +111,13 @@ export now preserves twenty consecutive hours; all 100 topic counts and the
 World baseline/Ukraine/baseline/Gaza rotation pass assertions. The prior
 nineteen records are unchanged. Full-day quality review remains due after
 Nov 17 midnight; next export by 21:36 UTC. No collection or provider calls.
+
+## Next natural Ukraine return retained — iteration 2550
+
+The Nov 16 21:54 UTC job completed all five topics: AI 50, NBA 46, game 50,
+Ukraine 48 and Congress 50 fetched/submitted observations. The merged private
+export at `/tmp/2550-bluesky-collections.json` retains 22 consecutive Nov 16
+hours; all 110 topic counts, hourly continuity and the expected World rotation
+pass assertions. All 27 overlapping receipts from the prior export are unchanged.
+Full-day quality review remains due after Nov 17 midnight; export again by
+23:36 UTC. Read-only Redis export; no collection or provider calls.

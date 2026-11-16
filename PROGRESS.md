@@ -103,3 +103,13 @@
 - Initial health/database/Redis, all 14 services/38 sources and digest-generation queue healthy; zero alerts, disk 60%, next edition Nov 17 15:00 UTC. Final health/alerts receipts retained. No source requests, paid calls, new editions or sharing changes.
 - Atomic web deployment serves the changed assets; no app process/config changes or restart under STEERING 22/65. Archived older progress entries after the file crossed 25 KB; history remains linked.
 - Next: metrics ≥22:12 UTC; Bluesky export by 22:36 UTC/full-day review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-16: iteration 2550 — retain natural Ukraine collection evidence
+
+- Clean main at b7f0d237; no inherited edits to recover/discard. Protected paths untouched.
+- Preserved real 21:54 UTC Bluesky result before shared queue retention prunes it; owner value: the full-day source review retains actual collection evidence rather than inferred queries. No new collection or paid calls.
+- Read-only `pnpm exec tsx scripts/report-bluesky-collections.ts` exported retained Redis results; merged with /tmp/2545-bluesky-collections.json into /tmp/2550-bluesky-collections.json.
+- Python assertions pass: 22 consecutive Nov 16 hours, 110 five-topic fetched/submitted matches within bounds and expected World rotation; all 27 overlapping receipts unchanged. Latest AI/NBA/game/Ukraine/Congress counts 50/46/50/48/50.
+- Initial pnpm obs alerts/health/services --check/sources --check/jobs --queue digest-generation --check pass: zero alerts, database/Redis healthy, 14 services/38 sources healthy, no active/failed digest jobs; next edition Nov 17 15:00 UTC. Unsupported obs --help rejected, then used documented commands.
+- Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass (1,061 unit/329 integration passes, four expected skips); receipts /tmp/2550-{format,lint,check}.log. Final /healthz healthy; disk 60%. Documentation/evidence only; no app assets or process/config changes, so no deployment/restart under STEERING 22/65.
+- Next: metrics ≥22:12 UTC; Bluesky export by 23:36 UTC/full-day quality review after midnight; retention receipt 04:40 UTC; natural Tech inputs Nov 17.
