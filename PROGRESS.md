@@ -109,3 +109,13 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - No provider calls, budget/source/handbook changes or restart required under item 63. Next: metrics ≥07:35 UTC, Bluesky export by 14:36, natural edition review 15:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Public HTTPS health passes with public DNS (VM default hostname resolves locally without port 443). No rebuild needed for records only.
 - This verification also briefly crossed the disk threshold. At 07:24:49 UTC node-exporter reports 5,481,598,976 available / 26,309,095,424 total bytes (20.84% available); no leftover integration roots. Alert snapshot still pending (zero firing) at 07:24:43; next iteration should confirm its delayed clearance. Check receipts `/tmp/2475-{format,lint,check,alerts-final}.log`.
+
+## 2026-11-16: iteration 2476 — keep enlarged account actions within the panel
+
+- Clean main at e86b3dd1; no inherited work. Initial alert snapshot has zero firing/pending; health database/Redis and services pass. Previous transient disk alert cleared.
+- Reader-visible weakness: at 320px/200% text, the account panel’s “Retry sign-in check” extends beyond the viewport. Account actions now wrap and grow vertically, including sign-out, deletion and admin actions; no account behavior or permissions changed.
+- Existing isolated account browser check first reproduces the overflow, then passes at 320/390/1440px in both themes with 44px targets, confirmation/focus checks and mocked actions. Updated screenshots; narrow enlarged deletion panel visually inspected. Fixtures are not live account operations.
+- Public web build published atomically; 12 public HTML/previous-asset pairs pass during deployment. No API/worker restart under item 63. Initial probe exceeded its output buffer reading the bundle; corrected probe completes successfully.
+- Saved Nov 15 scheduled reader provenance passes: five topics/23 stories/16 posts. No provider calls, source/budget changes or handbook changes.
+- Verification receipts `/tmp/2476-{format,lint,check,account,deploy,deploy-probe,public-browser,reader,services,sources,jobs}.log`. Next: metrics ≥07:35 UTC, Bluesky export by 14:36, scheduled edition review at 15:00; protect 13:00–16:00 UTC.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Initial combined verification command exited 143 during lint; standalone lint and full check both finish successfully. Final health passes; zero firing/pending alerts. Metrics checkpoint now due next iteration.

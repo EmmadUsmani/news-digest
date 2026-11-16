@@ -58,8 +58,18 @@ window.renderAccount({});
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     browser = await chromium.launch();
-    for (const width of [1440, 390]) {
-      const page = await browser.newPage({ viewport: { width, height: 900 } });
+    for (const [width, theme] of [
+      [320, 'light'],
+      [320, 'dark'],
+      [390, 'light'],
+      [390, 'dark'],
+      [1440, 'light'],
+      [1440, 'dark'],
+    ] as const) {
+      const page = await browser.newPage({
+        viewport: { width, height: 900 },
+        colorScheme: theme,
+      });
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.route('**/*', (route) =>
@@ -74,6 +84,9 @@ window.renderAccount({});
         }),
       );
       await page.goto(origin);
+      await page.addStyleTag({
+        content: 'html { font-size: 200% !important; }',
+      });
       const render = async (state: Record<string, unknown>, enabled = true) =>
         page.evaluate(
           ({ state, enabled }) =>
@@ -89,8 +102,12 @@ window.renderAccount({});
           if (!(await button.isVisible())) continue;
           const box = await button.boundingBox();
           assert.ok(
-            box && box.height >= 44 && box.width >= 44,
-            `${await button.innerText()}: account controls need 44px touch targets`,
+            box &&
+              box.height >= 44 &&
+              box.width >= 44 &&
+              box.x >= 0 &&
+              box.x + box.width <= width,
+            `${await button.innerText()}: account controls must fit the viewport and retain 44px touch targets`,
           );
         }
       };
@@ -163,7 +180,7 @@ window.renderAccount({});
       await render({ status: 'idle' });
       await assertTouchTargets();
       await page.screenshot({
-        path: `docs/screenshots/accounts/reader-account-${width}.png`,
+        path: `docs/screenshots/accounts/reader-account-${width}-${theme}-enlarged.png`,
       });
       await page.getByRole('button', { name: 'Cancel deletion' }).click();
       await expect(page.getByLabel('Type DELETE to confirm')).toHaveCount(0);
@@ -218,8 +235,9 @@ window.renderAccount({});
         origin + '/account/sign-in#' + 'a'.repeat(43),
       );
       await expect(page.getByLabel('Reader email')).toHaveValue('');
+      await assertTouchTargets();
       await page.screenshot({
-        path: `docs/screenshots/accounts/admin-invite-${width}.png`,
+        path: `docs/screenshots/accounts/admin-invite-${width}-${theme}-enlarged.png`,
       });
       await page.getByRole('button', { name: 'Dismiss link' }).click();
       await expect(page.getByLabel('One-time sign-in link')).toHaveCount(0);
@@ -319,8 +337,9 @@ window.renderAccount({});
       await page.getByLabel('Reader account ID').fill('');
 
       await page.getByLabel('Reader account ID').scrollIntoViewIfNeeded();
+      await assertTouchTargets();
       await page.screenshot({
-        path: `docs/screenshots/accounts/admin-revoke-${width}.png`,
+        path: `docs/screenshots/accounts/admin-revoke-${width}-${theme}-enlarged.png`,
       });
       assert.equal(
         await page.evaluate(() => localStorage.length + sessionStorage.length),
@@ -337,7 +356,7 @@ window.renderAccount({});
       await page.close();
     }
     console.log(
-      'Prepared reader account controls pass desktop/mobile fixture checks; disabled UI hidden.',
+      'Account fixture controls fit at 200% text in light/dark at 320/390/1440px; focus, confirmation and mocked actions pass.',
     );
   } finally {
     server.stop();

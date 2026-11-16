@@ -47,7 +47,7 @@ export function ReaderAccount({
         </Button>
       }
     >
-      <div className="space-y-4 py-4">
+      <div className="space-y-4 py-4 [&_button]:h-auto [&_button]:max-w-full [&_button]:whitespace-normal">
         <p role="status" className="text-sm text-[var(--secondary)]">
           {readerAccountStatus(account)}
         </p>
