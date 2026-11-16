@@ -34,34 +34,7 @@ Archived: [iterations 2456–2459](docs/progress-archive/2026-11-16-2456-2459.md
 
 Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md).
 
-## 2026-11-16: iteration 2468 — due overnight metrics checkpoint
-
-- Clean main at 239a0397; no inherited work. Health database/Redis, 14 services, 38 sources and scheduled queues pass; saved reader serves five topics/23 stories/16 posts.
-- Due read-only metrics sample 05:31:22–05:32:22 UTC: three samples, 24 healthy/fresh rules, six expected-series queries ≤1.143 s. No new evaluator/admission/timeout/slow-query failures, process starts or restarts; max/OOM/kill zero.
-- Since 04:32:20: +363 memory-high events (none during sample), 59 small merges/2,037,755 rows, no big merge. Ending memory 85.1 MiB, lifetime peak 88.7 MiB; journal empty. Short idle interval does not establish sustained recovery.
-- Retained CPU 2%/MemoryHigh 88 MiB/MemoryMax 112 MiB; resource acceptance open. Updated TASKS and capacity decision. No retuning, forced merge, provider calls or runtime changes; no rebuild/restart under STEERING 63.
-- Initial pending disk alert cleared naturally; disk 78%, daily scratch cleanup already applied. Final alerts zero.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,056 unit/329 integration tests, four expected skips; isolated API build passes. `git diff --check` passes. Receipts `/tmp/2468-{format,lint,check,reader,services,sources,jobs,alerts}.log`, metrics JSONL/summary/compare and metrics journal/error logs.
-- Next: short metrics check ≥06:33 UTC, Bluesky export by 14:36 UTC, Nov 16 scheduled public/content acceptance at 15:00; protect 13:00–16:00 UTC. No new blockers.
-
-## 2026-11-16: iteration 2469 — accept enlarged saved-content reading
-
-- Clean main at acc9f682; no inherited work. Health database/Redis and source ingestion pass. Pending disk alert was transient; disk 79%, today's permitted scratch cleanup already recorded, no additional deletion.
-- Reader value: people enlarging text can still read their saved stories/posts, follow source links and remove items without losing keyboard position. Earlier enlarged checks covered headers and empty saved state only.
-- Added read-only browser acceptance using actual Nov 15 edition a0fa3916; saves one real story and one real post through the UI in isolated browser profiles, then verifies copies survive reload. No account writes or external requests.
-- Six cases pass at 320/390/1440px, light/dark, 200% text: no horizontal overflow, source URLs unchanged, controls focusable, removal focuses the remaining item then the empty-state heading; announcements and browse recovery pass. Six screenshots retained; mobile light and desktop dark inspected. No layout defect established; runtime unchanged.
-- Initial acceptance assertion incorrectly required inline prose links to have 44px height; corrected to exempt inline text links, retaining bounds/focus checks for them and touch-target checks for standalone controls.
-- `pnpm format`, `pnpm lint:fix`, typecheck/lint/format/boundaries and 1,056 unit tests pass. Combined `pnpm check` exited 143 after integration case 333, before its summary; isolated `pnpm test:integration` rerun exits 0: 329 pass/four expected skips, API build passes. Browser check and `git diff --check` pass.
-- Saved reader: five topics/23 stories/16 posts; 14 services and 38 sources healthy. Final DiskSpaceLow firing at 80% after verification; health remains OK. Daily scratch cleanup already used; no additional deletion allowed today. Receipts `/tmp/2469-{saved,format,lint,check,integration-retry,reader,services,sources,jobs,alerts}.log`. No paid calls, source/budget changes, new blockers or runtime restart under STEERING 63. Next: metrics ≥06:33 UTC, Bluesky export by 14:36, scheduled public/content review 15:00; protect 13:00–16:00 UTC.
-
-## 2026-11-16: iteration 2470 — diagnose disk warning and safe recovery window
-
-- Clean main at d650c523; no inherited work. Health database/Redis, 14 services, 38 sources and scheduled queues pass. Saved reader serves five topics/23 stories/16 posts; next edition remains scheduled for 15:00 UTC.
-- Disk warning persists at 80% (19,748,016,128 used bytes; 5,202,124,800 available). Interrupted prior verification left `/tmp/news-digest-integration-VOU6rW`: 285,188,096 allocated bytes (272 MiB), last directory modification 05:52:46 UTC; recorded runner absent. No live integration process or test container remains.
-- Corrected the handoff implication that all cleanup is forbidden today: item 61 replaces only item 51's other-scratch prohibition. Integration startup still has separate authorization to remove unused roots older than one hour, with PID/process-reference safeguards. This root is not eligible before 06:53 UTC; no age bypass, manual deletion or general scratch cleanup performed.
-- TASKS now carries the exact root, size and recovery window so the next eligible verification can reclaim it. No owner action needed; warning remains open until observed recovery. Broad inventory was read-only; backups, logs, metrics, browser profiles and volumes untouched.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips; isolated API build passes. Final disk remains 80% with DiskSpaceLow firing. Receipts `/tmp/2470-{format,format-final,lint,check,services,sources,jobs,reader,alerts-final}.log`. No runtime change or restart under item 63, provider call, source/budget change or handbook change.
-- Next: metrics ≥06:33 UTC; integration-startup cleanup after 06:53 UTC subject to safeguards; Bluesky export by 14:36; scheduled public/content review at 15:00. Protect 13:00–16:00 UTC.
+Archived: [iterations 2468–2470](docs/progress-archive/2026-11-16-2468-2470.md).
 
 ## 2026-11-16: iteration 2471 — keep archived publisher labels within enlarged layouts
 
@@ -161,3 +134,13 @@ Archived: [iterations 2460–2467](docs/progress-archive/2026-11-16-2460-2467.md
 - No build/restart required under STEERING 63: browser verification only. Required formatting/lint/full-check outcome recorded below.
 - Next: metrics ≥08:45; eligible abandoned integration cleanup ≥08:59:26; Bluesky export by 14:36; edition review 15:00. Preserve 13:00–16:00 UTC.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Receipts `/tmp/2480-{format,lint,check}.log`. Final disk 79%; verification briefly returned DiskSpaceLow to pending (zero firing), health remains healthy.
+
+## 2026-11-16: iteration 2481 — live enlarged archive recovery
+
+- Clean main at 9aca65a2; no inherited work. Initial DiskSpaceLow pending, filesystem recovered to 79%; all 14 services healthy and digest queue has no failures. No cleanup eligibility bypass.
+- Reader inspection: out-of-range archive recovery previously used simulated history. Replaced replay with real public GETs and checked 200% text at 320/390/1440px in both themes; recovery returns to real saved editions, restores heading focus and preserves 44px targets without overflow. No production defect found.
+- Refreshed six full-page screenshots and visually inspected narrow dark recovery. No server writes, external provider calls or notifications; no source/budget/handbook behavior change.
+- Health database/Redis and all 38 sources healthy; saved scheduled Nov 15 reader passes, five topics/23 stories/16 posts. Receipts `/tmp/2481-{empty,reader,sources}.log`.
+- Verification-only change; no rebuild/restart under STEERING 63. Required formatting/lint/full-check results recorded below.
+- Next: metrics ≥08:45 UTC; eligible abandoned integration cleanup ≥08:59:26; Bluesky export by 14:36; edition review 15:00. Preserve 13:00–16:00 UTC window.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` and `git diff --check` pass: 1,056 unit/329 integration tests, four expected skips. Final health database/Redis passes; alert outcome recorded at commit. Receipts `/tmp/2481-{format,lint,check,alerts-final}.log`. Archived iterations 2468–2470 to keep this file small.

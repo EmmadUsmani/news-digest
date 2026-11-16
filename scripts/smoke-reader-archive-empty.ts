@@ -1,4 +1,4 @@
-// Real saved history plus an empty out-of-range page replay; no server writes.
+// Real saved history and out-of-range public page; GET/HEAD only, no writes.
 import assert from 'node:assert/strict';
 
 import { readerEditionHistorySchema } from '@digest/contracts';
@@ -35,19 +35,6 @@ async function smoke() {
           const url = new URL(request.url());
           assert.ok(['GET', 'HEAD'].includes(request.method()));
           if (url.origin !== origin) return route.abort();
-          if (url.pathname === '/api/editions') {
-            const second = url.searchParams.get('offset') === '20';
-            if (url.searchParams.get('offset') === '19960')
-              return route.fulfill({ json: { entries: [], hasMore: false } });
-            if (second)
-              await new Promise((resolve) => setTimeout(resolve, 600));
-            return route.fulfill({
-              json: {
-                entries: saved.entries,
-                hasMore: true,
-              },
-            });
-          }
           assert.ok(!url.pathname.startsWith('/api/admin/'));
           return route.continue({
             headers: { ...request.headers(), 'X-Forwarded-For': visitor },
@@ -63,6 +50,9 @@ async function smoke() {
         );
         await page.goto(`${origin}/editions?page=999`);
         await page.getByText('No editions on this page.').waitFor();
+        await page.addStyleTag({
+          content: 'html { font-size: 200% !important; }',
+        });
         const recovery = page.getByRole('link', {
           name: 'Back to newest editions',
         });
@@ -73,6 +63,7 @@ async function smoke() {
           box && box.height >= 44 && box.x >= 0 && box.x + box.width <= width,
         );
         await page.screenshot({
+          fullPage: true,
           path: `docs/screenshots/ui/archive-empty-recovery-${device}-${theme}.png`,
         });
         await page.keyboard.press('Enter');
@@ -99,7 +90,7 @@ async function smoke() {
         );
         await page.close();
         console.log(
-          `${device} ${theme}: empty-page keyboard recovery, touch targets and overflow passed`,
+          `${device} ${theme}: live empty-page keyboard recovery, 200% text, touch targets and overflow passed`,
         );
       }
     }

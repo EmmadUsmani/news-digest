@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2481: archive empty-page recovery uses real public history; 200% text, keyboard return and 44px targets pass at 320/390/1440px in both themes. No runtime change.
+
 - [x] 2480: public footer browser check restored; latest/historical archive navigation fits normal/200% text at 320/390/1440px in both themes. No runtime change.
 
 - [x] 2479: transient disk-pressure triage; live reader/services/sources pass. A 16 MiB abandoned integration root is eligible for safeguarded startup cleanup after 08:59 UTC.
