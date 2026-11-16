@@ -59,6 +59,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2512: 14:24 UTC triage passes: health, all 38 sources and digest queue healthy; 79% disk/5.0 GiB free. Scheduled acceptance remains pending; deployment hold preserved.
+
 - [x] 2511: protected-edition triage healthy at 14:14 UTC; 38 sources and scheduled queue pass. Natural publication evidence still pending; no runtime changes.
 
 - [x] 2510: due metrics checkpoint retains healthy rules/queries; one admission-limit event and ongoing reclaim keep resource acceptance open. Deployment hold preserved.
