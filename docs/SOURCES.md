@@ -3502,3 +3502,15 @@ jobs/120 matched topic counts retained. Reading the strongest five safe texts
 per topic finds concrete reporting leads alongside commentary and keyword noise.
 Keep queries, rotation and selection gates unchanged; compare Nov 17 natural
 selection. [Full comparison and saved evidence](edition-reviews/2026-11-16-bluesky-day.md).
+
+### Nov 17 Google News AI recovery — iteration 2564
+
+The **live** artificial-intelligence RSS feed returned HTTP 429 on the first
+two scheduled attempts at 00:34:09 and 00:35:09 UTC. Attempt three completed
+at 00:37:10.243 UTC after HTTP 200, with 60 items in the persisted source
+record (2,706 stored items). The job was
+`repeat:source-feed-7c2f40dc-94b2-4060-98fd-3b025bd258c0:1794875648624`.
+All 38 sources were healthy at 00:38:26 UTC. The recent-failures alert
+correctly caught the failed attempts; its ten-minute window can outlast
+recovery. Retain the URL, schedule and retry policy; no manual collection,
+provider calls or access workarounds were used.

@@ -110,3 +110,12 @@
 - First browser pass exposed remaining article text overflow; added article wrapping and rebuilt before final verification. Public HTTPS connection refused from VM; signed-out browser checks use local deployed endpoint. Local reader/assets return 200; atomic web deployment needs no service restart.
 - Health database/Redis, 14 services and 38 sources healthy; alerts clear. Receipts /tmp/2563-{format,lint,check,build,browser}.log; source/queue snapshots retained privately.
 - Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; scheduled Tech/social/edition review 15:00 UTC.
+
+## 2026-11-17: iteration 2564 — Google News AI rate-limit recovery
+
+- Clean main at a3307bcc; no inherited edits. Initial broad orientation truncated; recovered relevant instructions narrowly. Protected paths untouched.
+- Triaged firing RecentJobFailures before new work: Google News AI scheduled attempts at 00:34/00:35 returned HTTP 429. Third attempt naturally returned HTTP 200 and finished at 00:37:10.243 UTC; stored source confirms 60 items/2,706 total. No manual collection, paid calls or bypass; policy unchanged.
+- Recorded actual recovery in docs/SOURCES.md and task marker. All 38 sources healthy, service inventory healthy, /healthz database/Redis true, digest queue zero failed/next edition 15:00 UTC. Alert cleared by 00:46 UTC after its rolling failure window.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. Detailed receipts /tmp/2564-{format,lint,check,recovery,alerts-final}.log and /tmp/2564-{sources,services}.json. Invalid obs log option rejected read-only, corrected queue/job filter used.
+- Documentation only; deployed runtime matches main, no rebuild/restart under STEERING 22/65.
+- Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
