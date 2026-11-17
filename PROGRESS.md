@@ -1,79 +1,6 @@
 # Progress
 
-[Earlier entries](docs/progress-archive/2026-11-17-progress-before-2567.md).
-
-## 2026-11-17: iteration 2567 — due metrics recovery checkpoint
-
-- Clean main at 6add2a1c; no inherited edits. Broad orientation output truncated; recovered current tasks/instructions narrowly. Protected paths untouched.
-- Due 01:18:05–01:19:06 UTC samples: 24 healthy fresh rules/six uncached expected-series queries ≤0.836 s. Baseline assertions pass: failure counters, process starts and evaluator errors/misses unchanged; no restarts/OOM.
-- Since 00:17:05, +542 memory-high events (none during sample), 60 small merges/1,674,898 rows, no big merge; ending memory 79,532,032 bytes. Resource acceptance stays open; retain 2% CPU/88 MiB high/112 MiB max. No tuning, force merge or paid calls.
-- All 14 services/38 sources healthy; health database/Redis true; digest queue zero failed/next 15:00 UTC; alerts clear; disk 61%. Recorded evidence in capacity decision and TASKS.md.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. Sampler and python3 /tmp/2567-summarize.py pass; receipts /tmp/2567-{metrics.jsonl,summary.json,metrics-journal.log,format,lint,check}.
-- Documentation only; deployed runtime matches main, no rebuild/restart under STEERING 22/65. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2568 — preserve enlarged-text social post width
-
-- Clean main at b161247e; no inherited edits. Initial orientation output truncated; recovered applicable instructions/tasks narrowly. Health, 14 services/38 sources and alerts healthy; scheduled checks not due. Protected paths untouched.
-- Reader weakness: 320px/300% post-card padding grew to 60px each side, leaving 166px for saved post text. Fixed 20px padding across X/Bluesky/Reddit retains 246px while text scales.
-- Deployed real Nov 16 edition: 18 post cards fit at 320/390/1440px, light/dark, 100/200/300% text; context keyboard expand/collapse retains focus, text/page bounds and zero browser errors pass. Screenshots docs/screenshots/2568-posts-{light,dark}.png inspected. External browser requests aborted; no provider calls or fixture content.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2568-verify.cjs; git diff --check. Initial chained check terminated (143) during lint; standalone full rerun passed (1,062 unit/329 integration, four expected skips).
-- Web built/published atomically; no service restart under STEERING 22. No generation, source or budget changes. Health database/Redis true; scheduled digest queue zero failed/next 15:00 UTC.
-- Receipts /tmp/2568-{probe,browser,format,lint,check-final,build,jobs}.log. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2569 — preserve enlarged-text archive width
-
-- Clean main at 84ae7fbd; no inherited edits. Health, 14 services/38 sources and alerts healthy; scheduled evidence not due. Protected paths untouched.
-- Reader weakness: Past editions gutters grew to 60px each at 320px/300% text, leaving only 200px for dates and coverage. Fixed 20px mobile/24px desktop gutters preserve 280px on narrow screens while text scales; readers can scan past editions with fewer forced wraps.
-- Browser verification: all 14 real archive entries fit at 320/390/1440px, light/dark, 100/200/300% text; all 18 cases pass text/page bounds, keyboard opening a real edition and zero page errors. No provider calls or fixture content. Screenshots docs/screenshots/2569-archive-{light,dark}.png inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2569-verify.cjs; git diff --check. Full check: 1,062 unit/329 integration passes, four expected skips. Receipts /tmp/2569-{format,lint,check,build,browser}.log.
-- Web built/published atomically; runtime matches commit without service restart under STEERING 22. No source, generation or budget changes; health database/Redis true.
-- Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2570 — preserve enlarged-text saved-story width
-
-- Clean main at 91ae832b; no inherited edits. Initial broad orientation truncated; recovered task-specific instructions narrowly. Health, 14 services/38 sources and alerts healthy; scheduled checks not due. Protected paths untouched.
-- Reader weakness: Saved items page/card padding expanded with text, leaving just 102px at 320px/300%. Fixed 16px page/20px card padding preserves 246px for saved stories while text scales.
-- Browser verification: 18 cases at 320/390/1440px, both themes, 100/200/300% text; real Nov 16 story saved, text/page bounds and keyboard account/remove focus pass, zero page errors. Initial probe needed to await dialog focus restoration; no product focus change. Screenshots docs/screenshots/2570-saved-{light,dark}.png inspected. No paid/provider calls or fixture content.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2570-verify.cjs; git diff --check. Full rerun passed: 1,062 unit/329 integration passes, four expected skips; initial concurrent check terminated during lint (143).
-- Web built/published atomically; no service restart under STEERING 22. No generation/source/budget changes. Receipts /tmp/2570-{format,lint,check-final,build,browser}.log. Final health database/Redis true; alerts clear.
-- Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2571 — preserve enlarged-text edition brief width
-
-- Clean main at 29d208b7; no inherited edits. Initial broad orientation truncated; recovered applicable sections narrowly. All 14 services/38 sources healthy; alerts clear, health database/Redis true; digest queue zero failed/next 15:00 UTC.
-- Reader weakness/owner value: bullet indentation consumed 60px at 320px/300% text, leaving 228px for each brief line. Fixed 24px indentation retains 264px; the reader can scan the edition with fewer forced wraps.
-- Browser verification: all 20 real Nov 16 brief lines across five topics fit at 320/390/1440px, light/dark, 100/200/300% text; all 18 cases pass page/text bounds and keyboard story destination focus. No browser errors or provider calls; external requests aborted. Screenshots docs/screenshots/2571-brief-{light,dark}.png inspected.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2571-verify.cjs; git diff --check. Standalone full rerun passed: 1,062 unit/329 integration tests, four expected skips; initial chained check terminated during lint (143).
-- Web built/published atomically; no service restart under STEERING 22. No generation/source/budget changes. Initial browser probe without a distinct forwarded client hit public rate limiting; isolated browser client passed. Receipts /tmp/2571-{format,lint,check-final,build,browser,jobs}.log.
-- Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2572 — due metrics recovery checkpoint
-
-- Clean main at 77ad6a4a; no inherited edits. All 14 services/38 sources healthy; health database/Redis true and alerts clear. Protected paths untouched.
-- Due 02:20:05–02:21:06 read-only checkpoint: 24 healthy/fresh rules and six uncached queries ≤0.569 s; baseline assertions pass. Failures/process starts/restarts unchanged; 61 small merges/2,017,283 rows, no big merge.
-- Memory-high +492 since prior checkpoint, +13 during sampling; max/OOM/kill unchanged at zero. Ending memory 88,948,736 bytes; peak 92,995,584. Journal empty; disk 62%. Retain CPU 2%/88 MiB high/112 MiB max; resource acceptance remains open.
-- Receipts /tmp/2572-{metrics-early.jsonl,metrics.jsonl,summary.json,metrics-journal.log}; sampled seven times with `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`, retained last three due samples; `python3 /tmp/2572-summarize.py` passes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm exec tsx scripts/check-handbook.ts observability; git diff --check. Full check passes: 1,062 unit/329 integration tests, four expected skips; API rebuilt. Handbook passes (19 pages, 39 tables).
-- Documentation/evidence only; runtime unchanged, no restart under STEERING 22. No provider calls or generation/source/budget changes. Initial obs queue name `digest` rejected; unfiltered jobs check succeeded.
-- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2573 — preserve enlarged-text topic navigation
-
-- Clean main at 5f6594b0; no inherited edits. Health database/Redis true, sources healthy and alerts clear; next digest 15:00 UTC, no failed digest jobs. Retention/metrics checkpoints not due. Protected paths untouched.
-- Reader weakness/owner value: enlarged-text spacing squeezed the mobile topic strip. Fixed 16px gutters, 8px control gap, 8px Contents padding and 12px chip padding preserve 71px of topic viewport at 320px/300%, with text scaling retained.
-- Browser verification: 18 cases at 320/390/768px, both themes, 100/200/300% text; all five real Nov 16 topic destinations and keyboard Contents open/close pass, no page overflow or browser errors. Screenshots docs/screenshots/2573-topic-bar-{light,dark}.png inspected. Initial probe needed reduced motion before checking destination position; no product scrolling change.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2573-verify.cjs; git diff --check. Full check passes: 1,062 unit and 329 integration tests, four expected skips. Final health database/Redis true and alerts clear. No provider calls or generation/source/budget changes.
-- Web published atomically; no service restart under STEERING 22. Receipts /tmp/2573-{format,lint,check,build,browser}.log.
-- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
-
-## 2026-11-17: iteration 2574 — keep enlarged-text anchor destinations visible
-
-- Clean main at 230ae5f0; no inherited edits. Alerts clear, health database/Redis true, sources healthy; no failed digest jobs, next edition 15:00 UTC. Metrics/retention checks not due; protected paths untouched.
-- Reader weakness/owner value: selecting NBA at 320px/300% text positioned its heading below the 844px viewport. Relative anchor margins compounded page scroll padding; earlier navigation probes only checked a nonnegative destination position.
-- Measure the mobile topic-bar height and use one page scroll offset below the fixed controls. Removed redundant margins from topic/story/posts/post destinations; measurement clears on route exit. Readers now see the heading they choose.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2574-verify.cjs; git diff --check. Browser checks cover real Nov 16 content at 320/390/1440px, both themes, 100/200/300% text; all 18 cases pass with topic headings below fixed controls and inside the viewport; brief/story/posts and individual post anchors pass. Full check: 1,062 unit and 329 integration tests pass, four expected skips.
-- Screenshots docs/screenshots/2574-anchor-{light,dark}.png inspected; receipts /tmp/2574-{format,lint,check,build,browser}.log. Initial probe had a nonmatching posts selector and used the wrong theme attribute; corrected both and reran all 18 cases. No provider calls or generation/source/budget changes; atomic web publication, no service restart under STEERING 22.
-- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+[Earlier entries](docs/progress-archive/2026-11-17-progress-before-2575.md).
 
 ## 2026-11-17: iteration 2575 — reclaim enlarged-text reading space from the header
 
@@ -148,3 +75,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0, 1,062 unit/329 integration passes, four expected skips); git diff --check. No app code/config change, rebuild/restart unnecessary under STEERING 22. Receipts /tmp/2582-{format,lint,check}.log.
 - Initial timer probe used user scope; corrected to the installed system timer. No provider, source, generation or budget changes.
 - Next: metrics ≥05:35 UTC; natural scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2583 — fit Save controls around enlarged text
+
+- Clean main at 17cb4c66; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs and next edition 15:00 UTC. Disk 62%; metrics checkpoint not due until ≥05:35 UTC.
+- Owner value: every story/post Save control occupied 132px height and 36px side padding at 300% text. Fixed 44px target minimum and 12px/8px padding let controls grow around enlarged labels: 44/60/80px at 100/200/300%, preserving more room for content.
+- Browser: node /tmp/2583-verify.cjs passes 36 real-edition story/post cases across 320/390/1440px, 100–300% text and both themes; font enlargement, touch targets, keyboard save/unsave, pressed state, retained focus and page bounds pass. Both docs/screenshots/2583-save-{light,dark}.png inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Receipts /tmp/2583-{format,lint,check,build,browser,sources,jobs}.log.
+- Atomic web publication; no restart under STEERING 22. Public HTTPS 200 and local health pass. No generation, source, provider, budget or handbook behavior changes.
+- Archived older progress and completed task markers to keep orientation files compact; original evidence links retained.
+- Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.

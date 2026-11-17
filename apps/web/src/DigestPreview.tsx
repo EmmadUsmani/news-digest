@@ -321,7 +321,7 @@ export function DigestPreview() {
                         {preferencesEnabled && (
                           <Button
                             variant="ghost"
-                            className="mt-2 h-11 min-w-11 px-3 text-sm"
+                            className="mt-2 h-auto min-h-[44px] min-w-[44px] px-[12px] py-[8px] text-sm"
                             aria-label={`Save story: ${story.title}`}
                             aria-pressed={
                               !!preferences.bookmarks[`story:${story.id}`]?.copy
