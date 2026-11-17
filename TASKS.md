@@ -35,7 +35,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: retain Tech baseline/U.S. Congress/World rotation. All 24 Nov 16 hourly jobs retained through 23:54 (2560), /tmp/2560-bluesky-collections.json; 120 topic counts/World rotation verified. Full-day quality review after Nov 17 00:00 UTC. No partial probes. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 18 Bluesky: first full rotation day reviewed (2561): 24 jobs/120 counts; World 155 distinct posts vs 158 on mixed Nov 15, top-five quality mixed across topics. Retain queries/gates; compare Nov 17 natural selections. [Review](docs/edition-reviews/2026-11-16-bluesky-day.md).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2561: completed first full World rotation-day comparison; retained final job hours and 25 saved-text examples across five topics.
 
 - [x] 2560: retained final Nov 16 Bluesky collection; all 24 hourly results/120 topic counts pass, with 27 overlapping receipts unchanged.
 

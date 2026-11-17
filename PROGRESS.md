@@ -81,3 +81,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); python3 /tmp/2560-merge.py; git diff --check. Receipts `/tmp/2560-{format,lint,check}.log` and `/tmp/2560-assertions.json`.
 - Health database/Redis, 14 services and 38 sources healthy; zero active alerts; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
 - Next: full-day Bluesky quality review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+
+## 2026-11-17: iteration 2561 — full rotation-day Bluesky comparison
+
+- Clean main at a8572399; no inherited edits. Initial broad orientation truncated; recovered relevant instructions narrowly. Protected files untouched.
+- Completed due Nov 16 full UTC-day review: all 24 jobs/120 positive matched topic counts; durable job record now includes final hours. Fixed-end read-only coverage preserves 25 strongest safe saved texts/URLs and all five topic counts.
+- World 155 distinct posts versus 158 on mixed Nov 15; other topics 52–57. Concrete reporting leads coexist with commentary/keyword noise; no demonstrated supply growth or causal rotation effect. Retain queries, cadence, gates and budgets; natural Nov 17 selection remains next evidence.
+- Updated source yield/tasks and review; no provider calls, collection, publication or runtime changes. No rebuild/restart needed under STEERING 22; live runtime already matches main.
+- Health database/Redis, 14 services and 38 sources pass; alerts zero. Incorrect queue alias `digest` rejected without action; corrected digest-generation check retained privately.
+- Verification: fixed-end coverage report, Python hourly/count/window/read-limit assertions; pnpm format, pnpm lint:fix, pnpm check (1,062 unit/329 integration passes, four expected skips) and git diff --check pass. Receipts /tmp/2561-{coverage.json,format,lint,check,health.json,services,sources,jobs}.log where applicable.
+- Next: metrics checkpoint ≥00:16 UTC; retention timer 04:40 UTC; natural Tech/editor and social inputs Nov 17 at 15:00 UTC.

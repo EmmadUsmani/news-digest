@@ -3493,3 +3493,12 @@ and the World rotation are preserved and verified. Final 23:54 UTC pass:
 AI 50, NBA 46, game 50, Gaza 49 and Congress 47 fetched/submitted.
 Collection rules stay unchanged pending the full-day quality review after
 midnight. [Receipt](edition-reviews/2026-11-15-world-bluesky-pilot.md#final-nov-16-hourly-result-retained--iteration-2560).
+
+### First full World rotation-day review — iteration 2561
+
+**Live stored observations**, Nov 16: World 155 distinct published-day posts
+versus 158 on Nov 15; Tech 52, NBA 57, Gaming 52, U.S. 54. All 24 hourly
+jobs/120 matched topic counts retained. Reading the strongest five safe texts
+per topic finds concrete reporting leads alongside commentary and keyword noise.
+Keep queries, rotation and selection gates unchanged; compare Nov 17 natural
+selection. [Full comparison and saved evidence](edition-reviews/2026-11-16-bluesky-day.md).
