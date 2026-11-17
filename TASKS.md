@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2599: Archive rows retain 40px combined padding with enlarged text; at 320px/300%, 14 real edition rows take 1,120px less space while dates enlarge and keyboard opening/pagination work.
+
 - [x] 2598: Saved-page heading/sync spacing and card gaps stay compact with enlarged text; at 300%, removes 128px above the list and 48px between cards while preserving enlarged type and keyboard removal.
 
 - [x] 2597: Topic chooser spacing stays fixed as reader text grows; at 320px/300% the five choices use 338px less height, preserving enlarged labels, checkboxes and 44px targets.

@@ -92,3 +92,13 @@
 - Web published atomically; no service restart under STEERING 22. No generation, source, provider, budget or handbook behavior changes.
 - Due metrics checkpoint: three samples 07:44–07:46, 24 healthy rules/six passing queries (≤1.135 s), no new admission-limit/failure events; +835 memory-high events/63 small merges, no big merge. Limits unchanged; acceptance open. Decision 0004/TASKS updated; next ≥08:50 UTC.
 - Next: scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2599 — compact archive rows with enlarged text
+
+- Clean main at a17dde37; no inherited work. Alerts clear, local health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics next due ≥08:50 UTC.
+- Reader weakness / STEERING 38/42: archive link padding enlarged from 40px to 120px combined at 300% text. Fixed 20px top/bottom padding preserves enlarged dates and coverage text. Owner-visible benefit: 80px less scrolling per row; 14 real archive rows shrink from 14,712px to 13,592px at 320px/300%.
+- Browser: node /tmp/2599-verify.cjs passes 18 combinations (320/768/1440px, 100–300%, both themes): 14 real edition links, fixed padding, enlarged dates, no horizontal overflow, keyboard opening and return. Pagination assertions are conditional; current archive has one page. Both docs/screenshots/2599-archive-rows images inspected.
+- First browser attempt hit local API rate limiting; separate local test client addresses resolved it. First pnpm check ended with exit 143 during unit tests without a reported failure; full retry passed.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2599-verify.cjs; pnpm check retry exit 0 (1,062 unit / 329 integration passes, four expected skips); git diff --check. Receipts /tmp/2599-{format,lint,build,browser,check-retry}.log.
+- Public archive HTTPS 200 via public DNS/curl --resolve; local health passes. Web published atomically; no service restart under STEERING 22. Sources, generation, providers and budgets unchanged; no handbook behavior changed.
+- Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC.

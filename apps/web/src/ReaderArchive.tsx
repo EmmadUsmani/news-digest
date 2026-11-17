@@ -99,7 +99,7 @@ export function ReaderArchive() {
                   <Link
                     to="/editions/$id"
                     params={{ id: entry.id }}
-                    className="block rounded-md py-5 hover:bg-[var(--muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="block rounded-md py-[20px] hover:bg-[var(--muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     <time
                       dateTime={entry.windowEnd}
