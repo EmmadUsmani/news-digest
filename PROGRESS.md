@@ -117,3 +117,13 @@
 - Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; final 1 1 sample; python3 /tmp/2608-summarize.py. Receipts /tmp/2608-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}. Updated decision 0004 and TASKS checkpoint.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes, four expected skips); pnpm exec tsx scripts/check-handbook.ts observability (19 pages / one diagram / 39 tables); focused Prettier and git diff --check pass. Receipts /tmp/2608-{format,lint,check,handbook,doc-format,alerts}.log. Documentation-only change; no rebuild or restart under STEERING 22.
 - Next: metrics ≥11:00 UTC; natural edition/Tech/social acceptance after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2609 — compact Topics preference button
+
+- Clean main at 73801e96; no inherited work. Alerts clear; monitored services/active sources pass (Destructoid paused); health database/Redis true, generation queue zero failures and next edition 15:00 UTC.
+- Reader weakness / STEERING 38/42: Topics button inherited a 132px minimum height at 300% text. Fixed 44px minimum target and pixel padding let it follow the enlarged label; now 80px at 300%, reducing blank space before the edition.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2609-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2609-{format,lint,build,browser,check,alerts}.log.
+- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): real published topics, enlarged text, minimum target, keyboard hide/restore, focus return and no horizontal overflow. Screenshots docs/screenshots/2609-topics-{light,dark}.png; light inspected. Initial probe hit local API rate limiting; final probe uses separate test client addresses and passes.
+- Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; git diff --check passes.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.

@@ -19,7 +19,10 @@ export function ReaderPreferences({
     <Sheet
       title="Your topics"
       trigger={
-        <Button variant="ghost" className="min-h-11 min-w-11 px-2 text-sm">
+        <Button
+          variant="ghost"
+          className="h-auto min-h-[44px] min-w-[44px] px-[8px] py-[8px] text-sm"
+        >
           Topics
         </Button>
       }
