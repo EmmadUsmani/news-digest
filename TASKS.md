@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2642: Saved-item keyboard removal focuses after layout updates and keeps the next control/final heading visible, including its focus ring; twelve real-content browser combinations pass.
+
 - [x] 2640: Implemented recorded-only Tech reservation control with full eligible event membership, bounded tradeoff and fallback tests; production unchanged.
 
 - [x] 2639: Defined bounded Tech semantic admission (two reservations/eight baseline events), failure behavior, Windows tradeoff and next-window acceptance; production unchanged.

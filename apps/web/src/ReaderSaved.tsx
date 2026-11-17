@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -19,6 +19,16 @@ export function ReaderSaved() {
   const [announcement, setAnnouncement] = useState('');
   const heading = useRef<HTMLHeadingElement>(null);
   const removeButtons = useRef(new Map<string, HTMLButtonElement>());
+  const pendingFocus = useRef<string | null | undefined>(undefined);
+  useLayoutEffect(() => {
+    if (pendingFocus.current === undefined) return;
+    const target = pendingFocus.current
+      ? removeButtons.current.get(pendingFocus.current)
+      : heading.current;
+    pendingFocus.current = undefined;
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+  }, [preferences.bookmarks]);
   const saved = Object.entries(preferences.bookmarks)
     .filter(([, change]) => change.copy !== null)
     .sort((a, b) => b[1].updatedAt - a[1].updatedAt);
@@ -51,7 +61,7 @@ export function ReaderSaved() {
           ref={heading}
           id="saved-content"
           tabIndex={-1}
-          className="font-sans text-2xl font-semibold"
+          className="scroll-m-[8px] font-sans text-2xl font-semibold"
         >
           Saved items
         </h1>
@@ -219,7 +229,7 @@ export function ReaderSaved() {
                   </Link>
                   <Button
                     variant="ghost"
-                    className="h-auto min-h-[44px] min-w-[44px] px-[12px] py-[8px]"
+                    className="h-auto min-h-[44px] min-w-[44px] scroll-m-[8px] px-[12px] py-[8px]"
                     aria-label={`Remove saved item: ${copy.title}`}
                     ref={(button) => {
                       if (button) removeButtons.current.set(id, button);
@@ -227,10 +237,8 @@ export function ReaderSaved() {
                     }}
                     onClick={() => {
                       const neighbor = saved[index + 1] ?? saved[index - 1];
-                      const target = neighbor
-                        ? removeButtons.current.get(neighbor[0])
-                        : heading.current;
-                      target?.focus();
+                      // Focus after the removed card leaves the layout.
+                      pendingFocus.current = neighbor?.[0] ?? null;
                       preferences.setBookmark(id, null);
                       const remaining = saved.length - 1;
                       setAnnouncement(

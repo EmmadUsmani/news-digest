@@ -187,3 +187,16 @@
 - Verification: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2641-summarize.py; pnpm obs services/sources/jobs --check; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
 - Receipts: /tmp/2641-{metrics.jsonl,metrics-error.log,summary.json,services.json,sources.json,jobs.json,format.log,lint.log,check.log}.
 - Full check exit 0: 1,067 unit/329 integration passes, four expected skips. Documentation-only checkpoint; running application code remains aligned, so no rebuild or restart needed.
+
+## 2026-11-17: iteration 2642 — keep saved-item removal focus visible
+
+- Clean main at e0d70b46; no inherited changes. Alerts clear, 14 services healthy; /healthz database/Redis pass, active sources and digest queue pass (next Nov 18 15:00 UTC).
+- Owner value: keyboard readers can remove saved items without losing their place offscreen. Generation work stays deferred to the next pre-noon window.
+- Real five-story reproduction at 390px/200% left the next focused Remove button 1,188–2,208px below the viewport after deletion.
+- Focus now moves after bookmark layout updates; nearest scrolling and 8px scroll margins keep the neighbor or final heading visible, including the focus ring.
+- Browser-local saves of published stories; first/middle/last/final removal verified at 1440/390/320px, both themes and 100%/200% text (60 removals). No server writes or external calls.
+- Verification: pnpm exec tsx scripts/smoke-reader-saved-removal.ts; pnpm format; pnpm lint:fix; pnpm check; python3 scripts/deploy-web.py; git diff --check. Receipts /tmp/2642-{browser,format,lint,check,build}.log; screenshots docs/screenshots/ui/saved-removal-{light,dark}.png.
+- Atomic web publication updates live assets without app downtime or a service restart; no generation, source, budget or handbook behavior change.
+- Public HTTPS curl could not connect from this VM; local latest endpoint serves 6216cb7a with five topics/25 stories. Public-path acceptance not claimed.
+- Initial combined verification command was terminated (143) during format:check after passing typecheck/lint. Separate full rerun exit 0: 1,067 unit/329 integration passes, four expected skips; receipt /tmp/2642-check-rerun.log.
+- Next: metrics checkpoint >=17:55 UTC; Tech explicit grouping result/default-off switch in the next pre-noon deployment window.
