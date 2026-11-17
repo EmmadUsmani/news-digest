@@ -94,7 +94,7 @@ export function ReaderSaved() {
         {announcement}
       </p>
       {saved.length === 0 && (
-        <div className="space-y-4">
+        <div className="space-y-[16px]">
           <p>
             No saved items yet. Use Save beside a story or post in an edition.
           </p>
@@ -124,13 +124,13 @@ export function ReaderSaved() {
                     {copy.title}
                   </a>
                 </h2>
-                <p className="mt-2 text-sm text-[var(--secondary)]">
+                <p className="mt-[8px] text-sm text-[var(--secondary)]">
                   {copy.platform === 'story'
                     ? savedStoryAttribution(copy.attribution, copy.url)
                     : `${copy.platform === 'x' ? 'X' : copy.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} · ${copy.attribution}`}
                 </p>
                 {copy.publishedAt && (
-                  <p className="saved-published mt-1 text-sm text-[var(--secondary)]">
+                  <p className="saved-published mt-[4px] text-sm text-[var(--secondary)]">
                     Published on{' '}
                     <time dateTime={copy.publishedAt}>
                       {new Date(copy.publishedAt).toLocaleString(undefined, {
@@ -144,7 +144,7 @@ export function ReaderSaved() {
                     </time>
                   </p>
                 )}
-                <p className="mt-1 text-sm text-[var(--secondary)]">
+                <p className="mt-[4px] text-sm text-[var(--secondary)]">
                   Saved on{' '}
                   <time dateTime={new Date(updatedAt).toISOString()}>
                     {new Date(updatedAt).toLocaleDateString(undefined, {
@@ -155,7 +155,7 @@ export function ReaderSaved() {
                   </time>
                 </p>
                 {copy.excerpt && (
-                  <p className="post-text my-3 whitespace-pre-line leading-7">
+                  <p className="post-text my-[12px] whitespace-pre-line leading-7">
                     {copy.platform === 'story' ? (
                       copy.excerpt
                     ) : (
@@ -164,13 +164,13 @@ export function ReaderSaved() {
                   </p>
                 )}
                 {copy.context?.trim() && (
-                  <p className="saved-context my-3 whitespace-pre-line text-sm leading-6 text-[var(--secondary)]">
+                  <p className="saved-context my-[12px] whitespace-pre-line text-sm leading-6 text-[var(--secondary)]">
                     <span className="font-semibold">Context: </span>
                     {copy.context}
                   </p>
                 )}
                 {!copy.excerpt.trim() && (
-                  <p className="my-3 text-sm text-[var(--secondary)]">
+                  <p className="my-[12px] text-sm text-[var(--secondary)]">
                     {copy.platform === 'story'
                       ? 'Summary unavailable.'
                       : 'Post text unavailable.'}
@@ -188,7 +188,7 @@ export function ReaderSaved() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`${copy.excerpt.trim() ? 'Continue reading' : 'Read source'}: ${copy.title}`}
-                    className="mb-3 inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="mb-[12px] inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     {!copy.excerpt.trim()
                       ? 'Read source'
@@ -203,7 +203,7 @@ export function ReaderSaved() {
                               : 'Continue reading original post'}
                   </a>
                 )}
-                <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-[16px]">
                   <Link
                     to="/editions/$id"
                     params={{ id: copy.editionId }}

@@ -143,3 +143,14 @@
 - Next: metrics ≥12:05 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
 - Push blocker: commit 5f7413b3 verified/deployed locally; git push origin main returns HTTP 403, permission denied to exe-dev-github-integration[bot]. Recorded in NEEDS_FROM_HUMAN.md; no remote/credential changes.
 - Push recovered on the next attempt: origin/main now includes 5f7413b3 and 2587c50c. Cleared the temporary owner-action notice; working tree clean after follow-up documentation commit.
+
+## 2026-11-17: iteration 2617 — compact saved-item details with enlarged text
+
+- Clean main at a77d2207; no inherited work. Alerts clear; health database/Redis true; services/active sources healthy (Destructoid paused); generation queue zero failures, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: saved-item metadata, excerpts, context, continuation links and action gaps grew with text size. Fixed spacing keeps enlarged text readable with less blank scrolling: at 300%, attribution saves 16px, each date gap 8px, each excerpt/context margin 24px and wrapped action gap 32px.
+- Browser passes all 12 combinations (320/1440px, 100–300%, both themes) using a real published story: save, enlarged title, fixed spacing, no horizontal overflow, keyboard edition return/removal, 44px Remove target and heading focus after last removal.
+- Screenshots docs/screenshots/2617-saved-spacing-{light,dark}.png; light inspected. Adjusted initial screenshot from long title to changed metadata/excerpt spacing.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2617-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2617-{format,lint,build,browser,check,services,sources,jobs}.log.
+- Initial combined check exited 143 during unit tests after passing static checks; nohup retry ended before completion. A setsid detached full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips, coverage complete; /tmp/2617-check-detached.log.
+- Web published atomically; no service restart under STEERING 22. Final health/alerts and diff checks pass. No source/generation/budget/handbook behavior changes.
+- Next: metrics checkpoint now due (≥12:05 UTC); natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
