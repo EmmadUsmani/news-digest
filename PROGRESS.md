@@ -127,3 +127,14 @@
 - Verification: pnpm exec tsx /tmp/2636-replay.ts --read-only-cache; ordered-ID equality and independent prose/group-count assertions pass. Receipts /tmp/2636-replay.{ts,json}.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); git diff --check. Logs /tmp/2636-{format,lint,check}.log.
 - Next: China event-boundary and story-value comparison before proposing ranking changes; metrics checkpoint ≥16:40 UTC.
+
+## 2026-11-17: iteration 2637 — close Tech boundary and story-value comparison
+
+- Clean main at 92e1726b; no inherited changes. Alerts clear; database/Redis health pass; disk 70%.
+- Offline event-set assertions pass: four shared events/six substitutions between actual and grouped semantic controls; both China singleton excerpts empty. Receipt /tmp/2637-comparison.json.
+- Title-level review separates model distillation from compute restrictions provisionally; buyer warning has no supported separate development. Eight-member access group still lacks article-level boundary validation.
+- California lawsuit/Google attack rank strongly in saved triage but miss actual ten; semantic control also loses relevant Windows tooling coverage. Retain ranking; no paid calls or production writes.
+- Review/tasks updated; next preserve attributed non-lead prose within existing editor-input bounds (California positive/all-empty China negative). Bounded ranking comparison closed.
+- Verification: offline Python set/excerpt assertions; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2637-{format,lint,check}.log.
+- Full check exit 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
+- Documentation-only change; live application code remains aligned, no rebuild/restart required. No new blockers or source changes.
