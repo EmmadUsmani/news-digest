@@ -139,3 +139,12 @@
 - Initial probe lacked a dedicated test identity and hit local API rate limiting; rerun with the established browser test header passed. Baseline receipt /tmp/2581-baseline.log confirms 132px minimum before deployment.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Receipts /tmp/2581-{format,lint,check,build,browser}.log. Atomic web publication; public HTTPS 200 and local health pass. No service restart under STEERING 22. No source, generation, provider or budget changes.
 - Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2582 — accept scheduled retention and record due metrics
+
+- Clean main at f910855c; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC.
+- Item 65 complete: natural system timer ran 04:40:03–04:40:04 UTC, Result=success / ExecMainStatus=0; deleted 55 expired sessions / 41,185,972 bytes. Tmpfiles completed with five unavailable-pipe notices ignored; next run Nov 18 04:40 UTC. Disk 63% before/after; no protected-path edits. Ack added; supervisor pruning remains lead-owned.
+- Due metrics: three samples 04:31:32–04:32:34, 24 healthy rules/six passing queries ≤2.185 s; one admission-limit event, +667 memory-high events/63 small merges, no big merge. Baseline process/failure/OOM/evaluator assertions pass. Retain limits; acceptance open, next ≥05:35 UTC. Evidence in capacity decision and /tmp/2582-{metrics.jsonl,summary.json,metrics-journal.log}.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0, 1,062 unit/329 integration passes, four expected skips); git diff --check. No app code/config change, rebuild/restart unnecessary under STEERING 22. Receipts /tmp/2582-{format,lint,check}.log.
+- Initial timer probe used user scope; corrected to the installed system timer. No provider, source, generation or budget changes.
+- Next: metrics ≥05:35 UTC; natural scheduled edition/Tech/social review after 15:00 UTC.

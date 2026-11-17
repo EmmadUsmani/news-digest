@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 65: daily session/tmp retention installed and first run verified (2535), disk 72%→61%; prior unused-data/journal cleanup 79%→72%. Lead deployed supervisor-owned log pruning at 20:06 UTC (05beb1da); protected-path prohibition remains. Record the next 04:40 UTC timer run to complete item 65.
+- [x] STEERING 65 complete (2582): natural Nov 17 04:40 UTC retention succeeded; 55 expired sessions / 41,185,972 bytes deleted, tmpfiles completed, disk 63%, alerts clear. Next run Nov 18 04:40 UTC; supervisor log pruning remains lead-owned.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2577: 24 healthy rules/six passing queries; one new admission-limit event, +622 memory-high events/62 small merges, no big merge. Next check ≥04:30 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fourth-nov-17-recovery-checkpoint-iteration-2577).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2582: 24 healthy rules/six passing queries; one new admission-limit event, +667 memory-high events/63 small merges, no big merge. Next check ≥05:35 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fifth-nov-17-recovery-checkpoint-iteration-2582).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2582: due metrics checkpoint passes rule/query and baseline failure-counter assertions; another admission-limit event and continued reclaim keep acceptance open.
 
 - [x] 2581: coverage disclosure keeps a 44px touch minimum as reader text enlarges; wrapped labels, keyboard expansion and article links verified.
 
