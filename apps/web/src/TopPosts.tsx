@@ -155,7 +155,7 @@ function PostContext({ post }: { post: ReaderPost }) {
     <details className="post-context group min-w-0 text-sm text-[var(--secondary)]">
       <summary
         aria-label={`Context for post from ${post.author}`}
-        className="flex min-h-11 cursor-pointer list-none items-start gap-2 rounded px-1 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        className="flex min-h-[44px] cursor-pointer list-none flex-wrap items-center gap-x-[8px] gap-y-[4px] rounded px-[4px] py-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         <span aria-hidden="true" className="shrink-0 group-open:rotate-90">
           ›
@@ -163,7 +163,7 @@ function PostContext({ post }: { post: ReaderPost }) {
         <span className="shrink-0 font-medium">Context</span>
         <span
           aria-hidden="true"
-          className="post-context-text min-w-0 flex-1 truncate group-open:hidden"
+          className="post-context-text min-w-0 flex-1 basis-[12ch] truncate group-open:hidden"
         >
           {note}
         </span>

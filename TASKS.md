@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2590: Social context previews wrap when enlarged text leaves too little room, replacing one-pixel mobile previews with a readable second line; keyboard disclosure and full notes retained.
+
 - [x] 2589: Contents topic/story labels now follow reader text enlargement (14/28/42px at 100/200/300%) instead of remaining at legacy 18px; desktop sidebar and mobile drawer retain wrapping and keyboard story navigation.
 
 - [x] 2588: Mobile topic bar shrinks from 181px to 97px at 300% text; enlarged labels, 44px targets, topic/story navigation and drawer focus retained.
