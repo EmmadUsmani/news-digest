@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2650: 24 healthy rules/18 passing queries (≤0.913 s); natural 28,008,902-row big merge in 103.802 s, no new admission/failure events. +1,190 memory-high events; resource acceptance remains open. Next check ≥20:00 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#eighteenth-nov-17-recovery-checkpoint-iteration-2650).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2655: 24 healthy rules/12 passing queries (≤0.753 s); 65 small merges/2,151,711 rows since prior checkpoint, no new big merge or admission/failure events. +841 memory-high events; resource acceptance remains open. Next check ≥21:05 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#nineteenth-nov-17-recovery-checkpoint-iteration-2655).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2655: Six read-only metrics recovery samples through 20:01 UTC pass rule/query/failure checks; continued memory reclaim keeps resource acceptance open, limits unchanged.
 
 - [x] 2654: Curation grouping exposes validated/unavailable status without changing publication membership, prompts, calls or budgets; 25 targeted grouping tests pass.
 
