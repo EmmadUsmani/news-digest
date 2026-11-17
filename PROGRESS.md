@@ -109,3 +109,14 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final format/lint, health/alerts and diff checks pass.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
 - Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2620 — compact saved X transcript separation
+
+- Clean main at 9e9df5bc; no inherited work. Alerts/health/services/active sources/jobs checks pass; Destructoid remains paused, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: the saved X transcript separation grew from 16px to 48px with enlarged text. A fixed 16px margin saves 32px per transcript at 300%, keeping the text enlarged.
+- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): fixed 16px separation, enlarged transcript text, no horizontal overflow, real saved post text and keyboard fallback retry. Separate simulated successful embed preserves keyboard disclosure at 300%.
+- Screenshots docs/screenshots/2620-x-transcript-spacing-{light,dark}.png; both inspected after repositioning to show attribution and transcript.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2620-{verify,disclosure}.cjs; pnpm check; git diff --check. Receipts /tmp/2620-{format,lint,build,browser,disclosure,check}.log.
+- Initial full check terminated with exit 143 during unit tests (no reported assertion failure); detached setsid retry exits 0: 1,062 unit / 329 integration passes, four expected skips; receipt /tmp/2620-check-detached.log. Final health/alerts clear.
+- Web published atomically; no restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
+- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.

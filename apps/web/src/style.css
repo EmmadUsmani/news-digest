@@ -634,7 +634,7 @@
     margin-bottom: 1rem;
   }
   .post-card details {
-    margin-top: 1rem;
+    margin-top: 16px;
   }
   .post-card > a {
     font-size: 0.95rem;

@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2620: Saved X post text keeps a 16px separation at enlarged reader sizes, saving 32px per transcript at 300%; real saved text, keyboard retry and wrapping pass across all 12 browser combinations.
+
 - [x] 2619: Archive coverage/topic metadata keeps 4px gaps with enlarged text, saving 16px per row at 300%; real edition links retain keyboard access across all 12 browser combinations.
 
 - [x] 2617: Saved-item metadata, excerpts, continuation links and action rows keep compact spacing with enlarged text; all 12 browser combinations preserve real-story saving, keyboard edition return/removal, heading focus and wrapping.
