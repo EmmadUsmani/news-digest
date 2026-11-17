@@ -25,7 +25,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2623: 24 healthy rules/six passing queries; no new admission-limit events, +770 memory-high events/61 small merges, no big merge. Next check ≥14:20 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#thirteenth-nov-17-recovery-checkpoint-iteration-2623).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2629: 24 healthy rules/six passing queries; no new admission-limit events, +737 memory-high events/66 small merges, no big merge. Next check ≥15:25 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fourteenth-nov-17-recovery-checkpoint-iteration-2629).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 

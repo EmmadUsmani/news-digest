@@ -123,3 +123,13 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final health, alerts and diff checks pass.
 - Atomic web publication; no service restart under STEERING 22. No source, budget or handbook behavior changes; no paid calls.
 - Next: metrics ≥14:20 UTC; edition/Tech/social review after 15:00 UTC. Protect scheduled generation.
+
+## 2026-11-17: iteration 2629 — bounded metrics recovery checkpoint
+
+- Clean main at fce81d80; no inherited work. Health database/Redis pass, alerts clear, 14 monitored services active, active-source checks pass; Destructoid remains paused. Digest queue has zero failures; next scheduled run 15:00 UTC. Disk 69%.
+- Owner benefit / Current order 1: measured whether the constrained metrics store can still protect the scheduled edition; three samples spanning the due 14:20 checkpoint establish fresh rules and responsive queries without changing production.
+- All 24 rules healthy/fresh; six expected-series queries ≤0.658 s. Since 13:15:57: no admission/query/evaluator failures or restarts, +66 small merges/4,972,131 rows, +737 memory-high events, no big merge or OOM. Resource acceptance remains open; retain limits.
+- Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2629-summarize.py; systemctl show obs-metrics; journalctl since previous checkpoint (no entries). Receipts /tmp/2629-{metrics.jsonl,summary.json,metrics-error.log,metrics-journal.log}.
+- No app/config changes, paid calls, force merge or service restart; running app remains aligned with main under STEERING 22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit / 329 integration passes, four expected skips); pnpm exec tsx scripts/check-handbook.ts observability (19 pages, one diagram, 39 tables pass); git diff --check. Receipts /tmp/2629-{format,lint,check,handbook}.log.
+- Next: natural edition/Tech/social review after 15:00 UTC; bounded metrics checkpoint ≥15:25 UTC.
