@@ -116,3 +116,14 @@
 - Verification: pnpm exec tsx /tmp/2635-replay.ts; metrics sampler and /tmp/2635-summarize.py assertions; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
 - Full check exit 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes. Receipts /tmp/2635-{format,lint,check}.log.
 - No restart/deployment under 13:00–16:00 hold; documentation-only changes leave live code aligned. Next: historical grouping comparison and event-diversity review before any ranking change.
+
+## 2026-11-17: iteration 2636 — resolve Tech grouping replay and diversity baseline
+
+- Clean main at ec22db91; no inherited changes. Alerts clear; database/Redis health pass.
+- Read-only forty-article grouping cache hit validates five groups; rank reproduces all ten actual editor candidate IDs in order (asserted), closing the nine-ID mismatch.
+- Actual grouped input still has one prose-bearing candidate. Semantic-order control with cached membership has four prose-bearing events/three nonempty leads, versus two articles in the duplicate-heavy ungrouped control.
+- Eight of the first ten semantic articles cover California's OpenAI lawsuit; retaining non-lead group evidence matters. China restriction/distillation/buyer-risk boundaries still need independent review.
+- Updated review/tasks; no production ranking/source/cap changes or provider calls. No restart under protected window; documentation-only change leaves live code aligned.
+- Verification: pnpm exec tsx /tmp/2636-replay.ts --read-only-cache; ordered-ID equality and independent prose/group-count assertions pass. Receipts /tmp/2636-replay.{ts,json}.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); git diff --check. Logs /tmp/2636-{format,lint,check}.log.
+- Next: China event-boundary and story-value comparison before proposing ranking changes; metrics checkpoint ≥16:40 UTC.

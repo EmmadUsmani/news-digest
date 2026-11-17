@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2635 semantic-order control retains two text-bearing reports/ten vs one; historical grouping replay remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2636 cached grouping reproduces all ten editor IDs in order; grouped semantic control retains four prose-bearing events vs actual one. China event-boundary/story-value comparison remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2636: Read-only cached Tech grouping reproduces actual ten-ID order; grouped semantic control retains four prose-bearing events and exposes duplicate-heavy ungrouped baseline.
 
 - [x] 2635: Metrics checkpoint passes without new failures; Tech semantic-order control retains two text-bearing candidates, leaving depth and historical grouping unresolved.
 
