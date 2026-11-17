@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2625: Archive loading preview keeps fixed 32px margins and compact 120px rows at enlarged text sizes; all 12 browser combinations preserve accessible loading, real archive links and keyboard edition navigation.
+
 - [x] 2624: Edition loading placeholder uses the loaded reader’s fixed top spacing, 240px sidebar and 24px column gap; all 12 browser combinations preserve identical story-column position and width when real content arrives.
 
 - [x] 2623: Brief/story-list spacing stays compact with enlarged text; explicit 64px topic gaps restore separation previously suppressed by zero card margins. Real-content keyboard story links and wrapping verified.

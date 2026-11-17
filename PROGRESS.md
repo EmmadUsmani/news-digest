@@ -164,3 +164,14 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips; final format/lint, health, alerts and diff checks pass.
 - Atomic web publication serves final code; no service restart under STEERING 22. No generation, source, budget or handbook behavior changes; no paid calls.
 - Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during scheduled window.
+
+## 2026-11-17: iteration 2625 — compact archive loading preview
+
+- Clean main at 3bc5ec73; no inherited work. Initial alerts clear, health database/Redis pass and app services running. Destructoid remains blocked pending documented publisher access.
+- Reader benefit / STEERING 38/42: archive loading rows inflated to 360px at 300% while loaded rows use fixed padding. Fixed 32px outer margins, 20px row padding, 12px gaps and decorative bar sizes keep each preview row at 120px plus divider.
+- All 12 browser combinations pass (320/1440px, 100–300%, both themes): accessible delayed loading, stable list width/position, real archive coverage links, keyboard navigation into published content and no horizontal overflow.
+- Screenshots docs/screenshots/2625-archive-loading-{light,dark}.png inspected. Initial geometry assertion omitted the 1px divider; initial archive response hit HTTP 429 on shared loopback. Distinct test client addresses pass; production limits unchanged.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2625-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2625-{format,lint,build,browser,check}.log.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final formatting/lint, health, alerts and diff checks pass.
+- Atomic web publication serves final code; no restart under STEERING 22. No source, generation, budget or handbook behavior change; no paid calls.
+- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect scheduled production generation.

@@ -60,14 +60,14 @@ export function ReaderArchive() {
           Past editions
         </h1>
         {history.isPending && (
-          <div role="status" className="my-8">
+          <div role="status" className="my-[32px]">
             <span className="sr-only">Loading editions…</span>
             <div aria-hidden="true" className="divide-y divide-[var(--border)]">
               {[0, 1, 2, 3].map((index) => (
-                <div key={index} className="space-y-3 py-5">
-                  <Skeleton className="h-6 w-3/4 max-w-80" />
-                  <Skeleton className="h-4 w-full max-w-md" />
-                  <Skeleton className="h-4 w-2/3 max-w-64" />
+                <div key={index} className="flex flex-col gap-[12px] py-[20px]">
+                  <Skeleton className="h-[24px] w-3/4 max-w-[320px]" />
+                  <Skeleton className="h-[16px] w-full max-w-[448px]" />
+                  <Skeleton className="h-[16px] w-2/3 max-w-[256px]" />
                 </div>
               ))}
             </div>
