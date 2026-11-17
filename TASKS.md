@@ -20,9 +20,9 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
-- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku, all five AI/zero unscored (2632). No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
+- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku traced to Sonnet schema/absence rejection, not admission refusal (2633); rejected text unavailable. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
-- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; 191.260 s worker still misses speed target. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
+- [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; Nov 17 worker 247.524 s still misses speed target (2633). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; compare next natural edition inputs. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). Admission/ranking remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2633: Saved worker/input diagnosis separates World validation fallback from budget refusal, confirms Tech 1/10 prepared excerpts, and recovers measured 247.524 s worker duration.
 
 - [x] 2632: Nov 17 scheduled public edition and desktop/mobile reader accepted; immutable editorial, scope, social and ledger review recorded. Tech depth and NBA context remain open.
 

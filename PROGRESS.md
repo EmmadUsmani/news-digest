@@ -168,3 +168,15 @@
 - First full check caught draft formatting; formatted and reran fully. Receipts /tmp/2632-{check-final,public-reader,browser-final}.log and private snapshot/summary/ledger/pool JSON. Digest queue 32 completed/zero failed or active; next Nov 18 15:00 UTC.
 - No deployment/restart under STEERING 22 hold; documentation-only commit leaves running app aligned. No paid replay, manual generation, source, cap or sharing change.
 - Next: investigate saved World Haiku outcome and Tech admission evidence without paid calls; bounded metrics checkpoint ≥15:25 UTC; retain NBA context and three-edition scope acceptance as open.
+
+## 2026-11-17: iteration 2633 — diagnose saved World and Tech editor outcomes
+
+- Clean main at fbe18345; no inherited changes. Health database/Redis pass, alerts clear, 14 services active; source check passes with Destructoid paused.
+- World Sonnet initial/repair admitted; schema then unsupported-absence summary rejection caused Haiku fallback. Haiku token-truncated initial JSON failed; repair accepted. No budget refusal caused this outcome.
+- Rejected response text unavailable: correctness of the absence rejection remains unknown; no guard relaxation or paid replay justified.
+- Actual saved Tech prompt: 10 candidates, only Grok has a 600-character excerpt; nine have empty excerpts/cluster evidence. Four thin selections came from those nine; richer prospective reports absent from editor input.
+- Worker logs recover edition duration 247,524 ms/job 247,535 ms; speed remains open. Evidence and next boundaries in docs/edition-reviews/2026-11-17.md.
+- Verification: saved-input assertions; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2633-{format,lint,check}.log and worker JSONL.
+- Full check exits 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
+- Documentation-only change; no generation/source/cap changes or provider calls. No deployment/restart during 13:00–16:00 hold; running code remains aligned with main.
+- Next: investigate Tech candidate admission using saved evidence; retain NBA context/scope acceptance. Metrics checkpoint no earlier than 15:25 UTC.
