@@ -119,3 +119,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. Detailed receipts /tmp/2564-{format,lint,check,recovery,alerts-final}.log and /tmp/2564-{sources,services}.json. Invalid obs log option rejected read-only, corrected queue/job filter used.
 - Documentation only; deployed runtime matches main, no rebuild/restart under STEERING 22/65.
 - Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2565 — enlarged-text topic panel
+
+- Clean main at 36dcbf11; no inherited edits. Alerts, health, services and all 38 sources pass. Scheduled retention/metrics/edition evidence not due; followed item 42 reader work. Protected paths untouched.
+- Reproduced real Topics help/labels clipping at 320px/300% text. Help and topic names now wrap; fixed label spacing preserves room beside scaled checkboxes.
+- Screenshot inspection exposed shared panel padding/Close growth overlapping the title. Fixed pixel padding and a 44px Close control preserve text space; contents still scroll independently.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build; deployed Playwright Topics and Contents checks at three widths, both themes and 100/200/300% text. Both 18-case browser matrices pass; git diff --check passes.
+- Browser checks use deployed loopback with the existing simulated proxy-header approach and real stored editions; unforwarded loopback API requests correctly return 429. No provider calls or fixture content.
+- Screenshots docs/screenshots/2565-{topics-300,contents-*}-{light,dark}.png; receipts /tmp/2565-{format,lint,check,build,browser,contents}.log. Web published atomically; no service restart needed under item 22. No generation, budget or source changes.
+- Next: metrics ≥01:18 UTC; retention receipt 04:40 UTC; Nov 17 scheduled edition/Tech/social review after 15:00 UTC.

@@ -30,22 +30,24 @@ export function Sheet({
           onOpenAutoFocus={onOpenAutoFocus}
           className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-full flex-col overflow-hidden bg-[var(--surface)] shadow-xl"
         >
-          <div className="relative shrink-0 px-6 py-6">
-            <Dialog.Title className="m-0 pr-11 font-sans text-lg font-semibold">
+          <div className="relative shrink-0 px-[24px] py-[24px]">
+            <Dialog.Title className="m-0 pr-[44px] font-sans text-lg font-semibold">
               {title}
             </Dialog.Title>
             <Dialog.Close asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-3 right-3 min-h-11 min-w-11"
+                className="absolute top-[12px] right-[12px] size-[44px] min-h-[44px] min-w-[44px] [&_svg]:size-[20px]"
                 aria-label="Close menu"
               >
                 <X />
               </Button>
             </Dialog.Close>
           </div>
-          <div className="min-h-0 overflow-y-auto px-6 pb-6">{children}</div>
+          <div className="min-h-0 overflow-y-auto px-[24px] pb-[24px]">
+            {children}
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

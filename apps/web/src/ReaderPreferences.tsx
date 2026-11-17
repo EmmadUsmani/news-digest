@@ -24,7 +24,7 @@ export function ReaderPreferences({
         </Button>
       }
     >
-      <p className="text-sm text-[var(--secondary)]">
+      <p className="text-sm text-[var(--secondary)] [overflow-wrap:anywhere]">
         Choose topics to show in your editions. New topics appear automatically.
       </p>
       {account && (
@@ -49,7 +49,7 @@ export function ReaderPreferences({
         {topics.map((topic) => (
           <label
             key={topic.id}
-            className="flex min-h-11 cursor-pointer items-center gap-3 rounded-md px-3 py-2 hover:bg-[var(--muted)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--accent)]"
+            className="flex min-h-11 cursor-pointer items-center gap-[12px] rounded-md px-[12px] py-2 hover:bg-[var(--muted)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--accent)]"
           >
             <input
               type="checkbox"
@@ -59,7 +59,9 @@ export function ReaderPreferences({
                 preferences.setHidden(topic.id, !event.target.checked)
               }
             />
-            {topic.name}
+            <span className="min-w-0 [overflow-wrap:anywhere]">
+              {topic.name}
+            </span>
           </label>
         ))}
       </div>
