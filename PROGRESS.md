@@ -103,3 +103,12 @@
 - Archived oldest progress entries after file crossed 25 KB; earlier evidence remains linked. Receipts /tmp/2577-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,sources.log,jobs.log}; sample and assertion commands recorded in decision 0004.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and git diff --check pass; 1,062 unit/329 integration tests, four expected skips. Initial detached check used the wrong working directory and failed before checking; corrected repository working directory, full rerun exit 0. Receipts /tmp/2577-{format,lint,check-final}.log and /tmp/2577-check-final.exit.
 - Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; daily edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2578 — preserve Contents story reading width
+
+- Clean main at 18408f9c; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest queue zero failed jobs and next edition 15:00 UTC. Metrics ≥04:30 and retention 04:40 remain pending.
+- Reader weakness: at 320px/300% text, Contents story titles had only 188px because indentation, gap and decorative markers enlarged with text. Fixed pixel spacing and marker size preserve 244px for titles (+56px), while reader text stays enlarged.
+- Browser verification: node /tmp/2578-verify.cjs covers real-edition Contents at 320/390/768px, 100–400% text, both themes; reading width, scrolling, visible Close, focus return, story destinations and Escape. node /tmp/2578-desktop.cjs checks 1440px/100–400% title widths and keyboard destinations. Light/dark screenshots docs/screenshots/2578-contents-{light,dark}.png inspected.
+- Initial browser assertion expected short titles to fill wide panels; corrected the probe to assert minimum reading width rather than full available width. No application change needed.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration tests pass, four expected skips); VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Atomic web publication; no restart under STEERING 22. No generation/source/provider/budget changes or protected-path edits. Receipts /tmp/2578-{format,lint,check,build,browser,desktop}.log.
+- Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
