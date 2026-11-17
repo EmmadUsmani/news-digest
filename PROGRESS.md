@@ -160,3 +160,14 @@
 - Evidence: node /tmp/2670-saved.cjs; pnpm exec tsx /tmp/2670-verify.ts; node /tmp/2670-browser.cjs. Receipts /tmp/2670-copy-summary.json, /tmp/2670-browser.log and /tmp/2670-{services,sources,jobs}.log.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2670-{format,lint,check}.log. API/worker restart after push.
 - Next: metrics ≥23:15 UTC; final Bluesky collection/full-day review after midnight; Tech runtime wiring before noon. Do not repeat this completed bookmark review absent a reader regression.
+
+## 2026-11-17: iteration 2671 — due metrics recovery checkpoint
+
+- Clean main at e479452f; no inherited work. Alerts clear, all 14 services and active sources healthy; digest queue has no failures. Destructoid remains paused.
+- Three read-only samples straddle 23:15 UTC: 24 healthy rules/six uncached queries ≤0.436 s; failure, process, evaluator and OOM counters unchanged.
+- Since prior checkpoint: 68 small merges/1,774,326 rows, no new big merge, +2,005 memory-high events. Continued reclaim keeps resource acceptance open; retain CPU 2%/88 MiB high/112 MiB max.
+- Worker scrape warnings align with prior restart windows; current health passes. Local/public HTTPS health and five-topic/25-story/20-post edition pass; disk 73%. Public probe used public DNS because local DNS returned the private VM address.
+- No runtime, source, UI, provider call or budget change; existing builds retained, no screenshot or handbook change required.
+- Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; python3 /tmp/2671-summarize.py; /tmp/2671-summary.json and /tmp/2671-{metrics-journal,services,sources,jobs}.log.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. API/worker restart after push.
+- Next: metrics ≥00:20 UTC Nov 18; final Bluesky collection/full-day review after midnight; Tech runtime wiring before noon.

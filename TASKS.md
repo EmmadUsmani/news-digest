@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2665: 24 healthy rules/24 passing queries (≤0.640 s); 65 small merges/1,617,262 rows since prior checkpoint, no new big merge or admission/failure events. +1,261 memory-high events; resource acceptance remains open. Next check ≥23:15 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#twenty-first-nov-17-recovery-checkpoint-iteration-2665).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2671: 24 healthy rules/six passing queries (≤0.436 s); 68 small merges/1,774,326 rows since prior checkpoint, no new big merge or admission/failure events. +2,005 memory-high events; resource acceptance remains open. Next check ≥00:20 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#twenty-second-nov-17-recovery-checkpoint-iteration-2671).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2671: Due metrics checkpoint passes all rule/query/failure assertions; continued reclaim keeps resource acceptance open, limits unchanged.
 
 - [x] 2670: Saved all 45 real Nov 17 stories/posts; exact bookmark copies, eight explanations and edition fragments pass 12 reader combinations; keyboard removal retains focus. No defect or runtime change. [Review](docs/edition-reviews/2026-11-17.md#saved-item-reader-acceptance--iteration-2670).
 
