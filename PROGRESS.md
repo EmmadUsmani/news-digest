@@ -141,3 +141,12 @@
 - First pnpm check: 1,062 unit passes; 328 integration passes / one failure / four expected skips. Aggregate-listener test received administrator connection termination during startup; strengthened readiness to await both fresh Postgres startup messages plus Compose health, matching isolated harness. Focused NEWS_DIGEST_ISOLATED_TEST=1 pnpm exec tsx --test apps/api/test/grafana-export-listener.test.ts passes. No runtime changes; no rebuild/restart needed under STEERING 22. No source/handbook behavior changed.
 - Final verification: pnpm format and pnpm lint:fix pass; full pnpm check retry exit 0 (1,062 unit / 329 integration passes, four expected skips), including listener test. Receipts /tmp/2603-{format-retry,lint-retry,check-retry,listener}.log; git diff --check passes.
 - Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2604 — compact publisher targets with enlarged text
+
+- Clean main at 1a209d67; no inherited work. Alerts clear, all 14 monitored services healthy, active sources healthy (Destructoid paused), health database/Redis true; digest queue zero failures, next edition 15:00 UTC.
+- Reader weakness / STEERING 38/42: publisher and coverage links used rem-based minimum targets that grew to 132px at 300%. Fixed 44px minimum targets and 8px coverage-title padding preserve enlarged labels and natural wrapping. The owner sees less empty space around publisher links; tested desktop link now 48px tall at 300%.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2604-verify.cjs. Browser passes 12 combinations (320/1440px, 100–300%, both themes): real published sources, enlarged fonts, minimum targets, keyboard coverage disclosure/focus and no horizontal overflow. Screenshots docs/screenshots/2604-story-sources-{light,dark}.png.
+- Initial browser probe timed out because its anonymous requests lacked the separate test-client header used by prior browser checks; rerun with isolated client headers passes. Receipts /tmp/2604-{format,lint,build,browser,check}.log.
+- Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; git diff --check passes. Web published atomically; no service restart under STEERING 22. No source, generation, budget or handbook behavior changed.
+- Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid remains paused pending documented publisher access.

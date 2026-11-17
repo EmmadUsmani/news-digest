@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2604: Publisher and coverage links keep 44px minimum targets as reader text grows; desktop publisher links shrink from a 132px minimum to natural 48px height at 300%, with enlarged labels, wrapping and keyboard disclosure retained.
+
 - [x] 2603: Aggregate-listener integration test waits for both fresh Postgres startup readiness messages plus Compose health; due metrics checkpoint retains resource limits, acceptance open.
 
 - [x] 2602: Edition top spacing stays at 80px mobile / 40px desktop with enlarged reader text; at 300%, readers reach the first topic with 160px / 80px less blank scrolling.

@@ -70,7 +70,7 @@ export function StorySources({
                   href={article.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex min-h-11 min-w-11 items-center rounded-md py-2 text-sm font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                  className="flex min-h-[44px] min-w-[44px] items-center rounded-md py-[8px] text-sm font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 >
                   {article.publisher &&
                   article.title.endsWith(` - ${article.publisher.name}`)
@@ -147,7 +147,7 @@ function SourceLink({
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex min-h-11 min-w-11 max-w-full items-center gap-[6px] rounded-md text-xs font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center gap-[6px] rounded-md text-xs font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
     >
       {favicon && (
         <img
