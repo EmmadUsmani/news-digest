@@ -63,52 +63,10 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2626: Saved-post URLs adjoining emoji now receive visual separation, preserving exact saved text, destinations and opening-delimiter placement; real Gaming post passes all 12 browser combinations.
+
 - [x] 2625: Archive loading preview keeps fixed 32px margins and compact 120px rows at enlarged text sizes; all 12 browser combinations preserve accessible loading, real archive links and keyboard edition navigation.
 
 - [x] 2624: Edition loading placeholder uses the loaded reader’s fixed top spacing, 240px sidebar and 24px column gap; all 12 browser combinations preserve identical story-column position and width when real content arrives.
 
-- [x] 2623: Brief/story-list spacing stays compact with enlarged text; explicit 64px topic gaps restore separation previously suppressed by zero card margins. Real-content keyboard story links and wrapping verified.
-
-- [x] 2622: Expanded post context keeps 4px side / 12px bottom padding as reader text grows, preserving reading width and removing 24px of blank space at 300%; real context and keyboard disclosure verified.
-
-- [x] 2621: Edition footer keeps 48px top separation and 16px padding with enlarged reader text, saving 160px of blank space at 300%; all 12 browser combinations preserve enlarged Privacy text, keyboard navigation and wrapping.
-
-- [x] 2620: Saved X post text keeps a 16px separation at enlarged reader sizes, saving 32px per transcript at 300%; real saved text, keyboard retry and wrapping pass across all 12 browser combinations.
-
-- [x] 2619: Archive coverage/topic metadata keeps 4px gaps with enlarged text, saving 16px per row at 300%; real edition links retain keyboard access across all 12 browser combinations.
-
-- [x] 2617: Saved-item metadata, excerpts, continuation links and action rows keep compact spacing with enlarged text; all 12 browser combinations preserve real-story saving, keyboard edition return/removal, heading focus and wrapping.
-
-- [x] 2616: Social-post section keeps compact spacing with enlarged text: 120px less blank space before the first post at 300%, plus 32px per card gap / 16px above each Save button; all 12 browser combinations preserve real-post keyboard save/remove.
-
-- [x] 2615: Reader header/navigation/source-reading links retain 44px minimum targets with enlarged text; at 300%, sticky header saves 60px mobile / 48px desktop, with keyboard Saved items round trip preserved. Aggregate DB test now uses a unique Compose network per run; concurrent probes pass.
-
-- [x] 2614: Archive pagination keeps 32px top spacing and 12px gaps with enlarged reader text, saving 64px before the page controls at 300%; real keyboard navigation retained.
-
-- [x] 2613: Desktop contents keeps a 16px sticky gap and 32px total vertical allowance at enlarged text, adding 64px of usable navigation height at 300%.
-
-- [x] 2612: Privacy page keeps readable content width and compact spacing with enlarged text; at 320px/300%, the title starts 200px sooner and content gains 80px width.
-
-- [x] 2611: Edition retry controls fit enlarged labels within the viewport, retain 44px minimum targets, and recover by keyboard to real published topics.
-
-- [x] 2610: Archive retry button follows enlarged labels with a 44px minimum; 300% text uses 80px instead of 108px. Keyboard retry recovers from simulated failure to real history and restores heading focus.
-
-- [x] 2609: Topics preference button retains a 44px minimum target with enlarged text; 300% text uses 80px rather than a 132px minimum, preserving keyboard topic hide/restore and focus return.
-
-- [x] 2607: Saved-title, continuation and empty-list browse links retain 44px minimum targets with enlarged text; desktop browse link is 60px at 300%, with real save/remove/return and keyboard flow preserved.
-
-- [x] 2606: X fallback links, retry and saved-text disclosure retain 44px minimum targets with enlarged text; desktop original link is 56px at 300%, with saved text and keyboard retry preserved.
-
-- [x] 2605: X and Bluesky author/timestamp links retain 44px minimum targets with enlarged text; first live author link measures 48px rather than a 132px minimum at 300%, preserving wrapping and keyboard focus.
-
-- [x] 2604: Publisher and coverage links keep 44px minimum targets as reader text grows; desktop publisher links shrink from a 132px minimum to natural 48px height at 300%, with enlarged labels, wrapping and keyboard disclosure retained.
-
-- [x] 2603: Aggregate-listener integration test waits for both fresh Postgres startup readiness messages plus Compose health; due metrics checkpoint retains resource limits, acceptance open.
-
-- [x] 2602: Edition top spacing stays at 80px mobile / 40px desktop with enlarged reader text; at 300%, readers reach the first topic with 160px / 80px less blank scrolling.
-
-- [x] 2600: Contents links retain 44px minimum targets and compact padding/gaps with enlarged text; the menu is 556px shorter at 320px/300%, preserving 42px labels and keyboard story navigation.
-
-[Earlier completed steps](docs/progress-archive/2026-11-17-completed-before-2600.md).
-
-Editorial audit closed under STEERING 5; reopen only for an actual unsupported saved summary. Message Batches, cross-process cache coordination, full articles and larger editor shortlists deferred.
+[Earlier completed steps](docs/progress-archive/2026-11-17-completed-tasks-2600-2623.md).

@@ -1555,6 +1555,8 @@ changed, and why a reader would notice. The ack reports the same in one line.
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
 
+ack: 2026-11-17 item 42 — iteration 2626: the real Gaming post joined a trophy emoji directly to its URL; visual link separation now includes emoji while preserving saved text and destinations.
+
 ack: 2026-11-17 item 42 — iteration 2575: enlarged-text edition header consumed 409px at 320px/300%. Fixed-size date arrows/placeholders and theme icon preserve 44px targets and text enlargement while reducing it to 205px; keyboard dates/theme and topic anchors pass.
 
 ack: 2026-11-16 item 42 — iteration 2549: backward keyboard navigation exposed story links and Save controls behind the sticky reader header. Viewport scroll padding now accounts for its measured height; mobile/desktop, both themes and enlarged text verified.

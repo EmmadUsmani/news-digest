@@ -68,9 +68,10 @@ export function LinkedPostText({
           title={clipped ? 'Open original post for the full link' : undefined}
           target="_blank"
           rel="noreferrer"
-          // Some official paragraphs place an anchor directly after a word.
-          // Separate its destination visually without changing the saved text.
-          className={`underline underline-offset-2 ${/[\p{L}\p{N}.!?…]$/u.test(parts[index - 1] ?? '') ? 'ms-1' : ''}`}
+          // Some official paragraphs place an anchor directly after text or emoji.
+          // Separate it visually, keeping opening delimiters beside their URL
+          // and leaving the saved text unchanged.
+          className={`underline underline-offset-2 ${/[^\s([{（［｛【《〈「『]$/u.test(parts[index - 1] ?? '') ? 'ms-1' : ''}`}
         >
           {url}
         </a>
