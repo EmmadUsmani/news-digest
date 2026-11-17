@@ -81,7 +81,7 @@ export function ReaderArchive() {
                 : 'Could not load past editions.'}
             </p>
             <Button
-              className="min-h-[44px]"
+              className="h-auto min-h-[44px] px-[16px] py-[8px]"
               onClick={() => {
                 recovering.current = true;
                 void history.refetch();

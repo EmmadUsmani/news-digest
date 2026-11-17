@@ -127,3 +127,13 @@
 - Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; git diff --check passes.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2610 — compact archive recovery control
+
+- Clean main at 7a47e9eb; no inherited edits. Alerts clear, monitored services and active sources healthy (Destructoid paused), health database/Redis true; digest-generation queue zero failures, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: archive retry inherited a 108px fixed height at 300% text. Natural height with pixel padding retains a 44px minimum target and enlarged label, reducing it to 80px.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2610-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2610-{format,lint,build,browser,check,services}.log.
+- Browser passes 12 combinations (320/1440px, 100–300%, both themes): simulated archive HTTP failure, enlarged labels, 44px minimum, keyboard retry, recovery to real published history, heading focus and no horizontal overflow. Screenshots docs/screenshots/2610-archive-retry-{light,dark}.png; light inspected. Initial probe before deployment reproduced the old excessive height; post-deploy checks pass.
+- Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; final health and alerts pass, git diff --check clean.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
