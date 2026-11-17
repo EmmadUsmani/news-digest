@@ -108,3 +108,14 @@
 - Screenshots docs/screenshots/2613-contents-{light,dark}.png show the sticky panel at 300% text. Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
 - Full check passed static checks, then exited 143 during unit tests without a reported failure. Separate pnpm test:unit and pnpm test:integration exit 0: 1,062 unit / 329 integration passes, four expected skips; final format/lint, health/alerts and diff checks pass. Light screenshot inspected.
 - Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2614 — keep archive pagination close at enlarged text
+
+- Clean main at 3e5ef7c2; no inherited edits. Alerts clear, health database/Redis true, monitored services/active sources pass (Destructoid paused); digest-generation check passes.
+- Reader benefit / STEERING 38/42: archive pagination used text-relative margins/gaps, adding blank scrolling with enlarged text. Fixed 32px top margin / 12px gap save 64px before controls at 300%, preserving enlarged labels and minimum 44px targets.
+- Browser passes 12 combinations (320/1440px, 100–300%, both themes): fixed margins/gaps, enlarged labels, no horizontal overflow, keyboard navigation from empty page 2 to real saved page-1 dates and restored heading focus. Initial probe incorrectly expected dates on empty page 2; corrected to its actual recovery flow.
+- Screenshots docs/screenshots/2614-archive-pages-{light,dark}.png; light inspected. Web rebuilt and published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Due metrics checkpoint: 24 healthy rules/six uncached queries ≤0.769s; unchanged failure/process counters, +59 small merges/+757 memory-high events, no big merge/OOM. Retain limits; next ≥12:05 UTC. Evidence in docs/decisions/0004-observability-capacity.md.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2614-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2614-{format,lint,build,browser,check,services,sources,jobs,alerts-final}.log.
+- Full pnpm check exits 0: static checks, 1,062 unit / 329 integration passes, four expected skips. Final health/alerts and git diff --check pass.
+- Next: natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.

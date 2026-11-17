@@ -161,7 +161,7 @@ export function ReaderArchive() {
         )}
         <nav
           aria-label="Edition pages"
-          className="mt-8 flex flex-wrap items-center justify-between gap-3 text-sm"
+          className="mt-[32px] flex flex-wrap items-center justify-between gap-[12px] text-sm"
         >
           {page > 1 ? (
             <Link
