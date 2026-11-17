@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2563: Privacy header and text reflow at 300%; theme control remains visible and keyboard accessible on narrow screens.
+
 - [x] 2562: retained due metrics checkpoint; healthy rules/probes but one admission-limit event and continued reclaim keep acceptance open.
 
 - [x] 2561: completed first full World rotation-day comparison; retained final job hours and 25 saved-text examples across five topics.

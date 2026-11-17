@@ -8,16 +8,16 @@ export function Privacy() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
       <ReaderSkipLink target="privacy-content" />
-      <header className="flex items-center justify-between border-b border-[var(--border)] py-5">
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-5">
         <Link
           to="/"
-          className="inline-flex min-h-11 items-center rounded-md text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-11 min-w-0 items-center rounded-md text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           News Digest
         </Link>
         <ThemeToggle />
       </header>
-      <article className="space-y-8 pt-12 text-base leading-relaxed">
+      <article className="space-y-8 pt-12 text-base leading-relaxed [overflow-wrap:anywhere]">
         <h1
           id="privacy-content"
           tabIndex={-1}

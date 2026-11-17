@@ -101,3 +101,12 @@
 - Updated decision evidence/task handoff only; no runtime change, rebuild or restart under STEERING 22/65. No provider calls.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected integration skips); read-only sampler and explicit raw-counter comparison; git diff --check. Receipts /tmp/2562-{format,lint,check,metrics.jsonl,summary.json,services.json,sources.json,jobs.json,alerts-final.log}.
 - Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; Nov 17 scheduled edition/Tech/social review at 15:00 UTC.
+
+## 2026-11-17: iteration 2563 — Privacy enlarged-text reflow
+
+- Clean main at 9857d6c2; no inherited work. Protected paths untouched. Retention/metrics/edition evidence not yet due; followed item 42 reader work.
+- Reader weakness reproduced: Privacy at 320px/300% text scrolls to 370px and places theme button beyond the viewport. Header now wraps; article permits long words to wrap at enlarged sizes. No content, budget or generation changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build; deployed Playwright at 320/390/1440px, 100/200/300% text, both themes checks overflow, visible theme control, keyboard activation and return link. Screenshots docs/screenshots/2563-privacy-300-{light,dark}.png.
+- First browser pass exposed remaining article text overflow; added article wrapping and rebuilt before final verification. Public HTTPS connection refused from VM; signed-out browser checks use local deployed endpoint. Local reader/assets return 200; atomic web deployment needs no service restart.
+- Health database/Redis, 14 services and 38 sources healthy; alerts clear. Receipts /tmp/2563-{format,lint,check,build,browser}.log; source/queue snapshots retained privately.
+- Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; scheduled Tech/social/edition review 15:00 UTC.
