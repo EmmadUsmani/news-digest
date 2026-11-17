@@ -133,3 +133,14 @@
 - No app/config changes, paid calls, force merge or service restart; running app remains aligned with main under STEERING 22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit / 329 integration passes, four expected skips); pnpm exec tsx scripts/check-handbook.ts observability (19 pages, one diagram, 39 tables pass); git diff --check. Receipts /tmp/2629-{format,lint,check,handbook}.log.
 - Next: natural edition/Tech/social review after 15:00 UTC; bounded metrics checkpoint ≥15:25 UTC.
+
+## 2026-11-17: iteration 2630 — keep topic names readable with enlarged text
+
+- Clean main at e2a38c7b; no inherited work. Health database/Redis pass, alerts clear, 14 monitored services active and active-source checks pass; disk 69%. Destructoid remains paused pending publisher access.
+- Reader benefit / STEERING 38/42: topic checkboxes grew from 16px to 48px at 300% text, crowding real topic names on mobile. Keep controls at 16px while labels enlarge and their full rows remain clickable (minimum 44px).
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2630-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2630-{format,lint,build,browser,check}.log.
+- Browser matrix: 320/1440px, 100–300%, both themes; all 12 combinations pass checkbox geometry, enlarged labels, 44px rows, keyboard hide/restore and focus return. Screenshots docs/screenshots/2630-topics-{light,dark}.png inspected.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final health, alerts and diff checks pass.
+- Public HTTPS reader HTTP 200 and health database/Redis pass using public DNS from 1.1.1.1 with TLS verification intact; VM hosts entry points at an unreachable local address (known).
+- Atomic web publication; no service restart under STEERING 22. No source, generation, budget or handbook behavior changes; no paid calls.
+- Next: natural edition/Tech/social review after 15:00 UTC; metrics checkpoint ≥15:25 UTC.

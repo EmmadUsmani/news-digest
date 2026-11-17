@@ -38,7 +38,7 @@ export function ReaderPreferences({
           >
             <input
               type="checkbox"
-              className="size-4 shrink-0 accent-[var(--accent)]"
+              className="size-[16px] shrink-0 accent-[var(--accent)]"
               checked={!preferences.hiddenTopics[topic.id]?.hidden}
               onChange={(event) =>
                 preferences.setHidden(topic.id, !event.target.checked)
