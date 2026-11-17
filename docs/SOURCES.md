@@ -3526,3 +3526,13 @@ provider calls or access workarounds were used.
 - Verified the disabled source is absent from the active catalog and `ingest`
   returns without invoking either adapter. The other 37 active sources remain
   healthy. Resume only after documented publisher access is available.
+
+### Nov 17 Bluesky retention checkpoint — iteration 2658
+
+Preserved [20 hourly results](edition-reviews/2026-11-17-world-bluesky-jobs.json)
+from 00:54 through 19:54 UTC before shared queue retention drops early jobs.
+All completed successfully, with 100 positive matched fetched/submitted topic
+counts and the expected baseline/Ukraine/baseline/Gaza World rotation.
+The [partial-day review](edition-reviews/2026-11-17-bluesky-day.md) compares the
+same hours on Nov 16. Retain queries and gates; preserve the final four hours
+and review the full UTC day after midnight. No new collection or model calls.

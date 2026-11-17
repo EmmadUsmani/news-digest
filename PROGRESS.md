@@ -172,3 +172,16 @@
 - Public HTTPS health and latest edition pass: five topics/25 stories/20 posts; initial local reader request returned 429. No UI change or screenshot refresh.
 - API/worker restarted after push; final health checked at handoff.
 - Receipts: /tmp/2657-{targeted-final,format,lint,build,check-final}.log. Next: pre-noon default-off runtime switch; metrics checkpoint ≥21:05 UTC.
+
+## 2026-11-17: iteration 2658 — preserve today's Bluesky rotation evidence
+
+- Clean main at 4cf03752; no inherited work. Alerts clear; 14 services, active sources and queues pass; Destructoid remains paused.
+- Owner value: preserve the hourly evidence needed to judge World query rotation before shared queue retention removes it.
+- Tech runtime connection remains pre-noon only; no generation deployment. Date navigator probe passes at 320px/300%; archive already has empty-page recovery, so no UI change was made.
+- Exported Nov 17 00:54–19:54 UTC: 20 successful hourly jobs, 100 positive fetched/submitted matches, five unique topics each, no hourly gaps and expected World rotation.
+- Retained results and partial-day comparison cover the same first 20 Nov 16 hours; counts are observations, not unique/relevant posts. Queries and gates unchanged; final four hours/full UTC-day quality review remain open.
+- Verification: pnpm exec tsx scripts/report-bluesky-collections.ts plus Python assertions for job/hour/topic uniqueness, successful states, positive matching counts and exact rotation; pnpm obs services/sources/jobs --check; git diff --check.
+- Local/public HTTPS health pass; published edition 6216cb7a retains five topics/25 stories/20 posts. VM DNS still maps public hostname to stale 10.42.0.42; curl --resolve with public DNS 161.210.94.95 succeeds with certificate checks intact.
+- Documentation/data only; existing application build retained, no screenshots changed. pnpm format and pnpm lint:fix pass; pnpm check passes: 1,078 unit/329 integration tests, four expected skips.
+- Receipts: /tmp/2658-{bluesky-jobs,edition}.json and /tmp/2658-{services,sources,jobs,format,lint,check}.log. API/worker restart after push.
+- Next: preserve 20:54–23:54 UTC results and complete day review after midnight; metrics checkpoint ≥21:05 UTC; runtime Tech switch before noon.
