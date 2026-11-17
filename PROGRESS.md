@@ -161,3 +161,14 @@
 - Nine combined targeted tests pass; public HTTPS health and edition pass (five topics/25 stories/20 posts). Initial local reader probe returned 429; public probe succeeded.
 - API/worker restart at handoff; receipts /tmp/2656-{targeted-final,format,lint,check,build,services,sources,jobs}.log. No UI change or screenshot refresh.
 - Next: connect preparation/default-off Tech runtime switch before noon; metrics checkpoint ≥21:05 UTC.
+
+## 2026-11-17: iteration 2657 — prepared grouping through recorded Tech admission
+
+- Clean main at 0721bce7; no inherited work. Alerts clear; 14 services, active sources, digest queue and local/public health pass; Destructoid remains paused.
+- Recorded-only evidence bridge now consumes prepared grouping status/matcher. Validated recorded membership preserves representatives, coverage, reservations and editor evidence.
+- Unavailable grouping retains separate-article baseline evidence with no reservations. Runtime publication, prompts, caps and paid traffic unchanged; generation deployment remains pre-noon only.
+- Seven targeted tests pass: pnpm exec tsx --test apps/api/test/prepare-story-grouping.test.ts apps/api/test/tech-admission-evidence.test.ts.
+- pnpm format, pnpm lint:fix and pnpm build pass. Initial check raced import-sort autofix; corrected-tree pnpm check passes: 1,078 unit/329 integration, four expected skips.
+- Public HTTPS health and latest edition pass: five topics/25 stories/20 posts; initial local reader request returned 429. No UI change or screenshot refresh.
+- API/worker restarted after push; final health checked at handoff.
+- Receipts: /tmp/2657-{targeted-final,format,lint,build,check-final}.log. Next: pre-noon default-off runtime switch; metrics checkpoint ≥21:05 UTC.

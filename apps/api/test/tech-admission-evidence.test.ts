@@ -4,6 +4,7 @@ import { test } from 'node:test';
 
 import { recordedTechEvidence } from '../../../scripts/lib/tech-admission-evidence';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { prepareStoryGrouping } from '../src/modules/digests/application/prepare-story-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
 const recorded = JSON.parse(
@@ -144,4 +145,58 @@ void test('recorded reservations reach the real editor with attributed Californi
       () => result.evidence.cited([id]),
       /Unknown editorial evidence/,
     );
+});
+
+void test('prepared recorded membership reaches reservations without changing representative or evidence transport', async () => {
+  let calls = 0;
+  const prepared = await prepareStoryGrouping(
+    {
+      async groupWithResult() {
+        calls++;
+        return {
+          status: 'validated',
+          groups: recorded.ranked
+            .filter((event) => event.coverage.length > 1)
+            .map((event) => event.coverage.map((member) => member.id)),
+        };
+      },
+    },
+    'tech',
+    sources.candidates,
+    'offline-prepared',
+  );
+  assert.equal(calls, 1);
+  assert.equal(prepared.status, 'validated');
+  const result = recordedTechEvidence({ ...input, prepared });
+  const baseline = recordedTechEvidence(input);
+  assert.deepEqual(result.ranked, baseline.ranked);
+  assert.deepEqual(result.decision, baseline.decision);
+  assert.equal(
+    JSON.stringify(result.evidence),
+    JSON.stringify(baseline.evidence),
+  );
+});
+
+void test('unavailable prepared grouping refuses reservations and retains ungrouped baseline evidence', async () => {
+  const prepared = await prepareStoryGrouping(
+    {
+      async groupWithResult() {
+        return { status: 'unavailable', reason: 'no-result' };
+      },
+    },
+    'tech',
+    sources.candidates,
+    'offline-unavailable',
+  );
+  const result = recordedTechEvidence({ ...input, prepared });
+  const disabled = recordedTechEvidence({ ...input, prepared, enabled: false });
+  assert.equal(result.decision.status, 'baseline');
+  assert.equal(result.decision.reason, 'grouping-unavailable');
+  assert.deepEqual(result.decision.reserved, []);
+  assert.deepEqual(result.decision.admitted, disabled.decision.admitted);
+  assert.equal(
+    JSON.stringify(result.evidence),
+    JSON.stringify(disabled.evidence),
+  );
+  assert.ok(result.ranked.every((event) => event.coverage.length === 1));
 });

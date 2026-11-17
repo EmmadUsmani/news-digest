@@ -3323,3 +3323,13 @@ checks run before any call. Ungrouped articles remain separate.
 The helper is isolated: publication still uses `groupShortlist`, with no runtime
 consumer, switch, prompt, budget or admission change. Connect it only in the
 authorized pre-noon deployment window.
+
+## Prepared grouping admission transport (iteration 2657)
+
+The recorded-only Tech evidence bridge can consume `prepareStoryGrouping`
+results directly. With recorded validated membership, the 40-article control
+preserves event representatives, coverage, reservations and editor evidence.
+An unavailable result uses separate articles and retains the corresponding
+baseline ten events without reservations; it cannot authorize evidence-based
+admission. These are fixture checks, with no provider calls or runtime wiring.
+The default-off production switch still awaits the pre-noon deployment window.

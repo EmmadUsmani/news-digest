@@ -1,5 +1,6 @@
 // Recorded-only bridge from admission decisions to the real editor evidence path.
 import { editorEvidence } from '../../apps/api/src/modules/digests/application/editor-evidence';
+import type { prepareStoryGrouping } from '../../apps/api/src/modules/digests/application/prepare-story-grouping';
 import {
   type Candidate,
   rank,
@@ -17,14 +18,17 @@ export function recordedTechEvidence(input: {
   windowStart: string;
   windowEnd: string;
   enabled: boolean;
+  prepared?: Awaited<ReturnType<typeof prepareStoryGrouping>>;
 }) {
   const membership = new Map(
     input.ranked.flatMap((event) =>
       event.coverage.map((member) => [member.id, event.id] as const),
     ),
   );
-  const matches = (a: Candidate, b: Candidate) =>
-    membership.has(a.id) && membership.get(a.id) === membership.get(b.id);
+  const matches =
+    input.prepared?.matches ??
+    ((a: Candidate, b: Candidate) =>
+      membership.has(a.id) && membership.get(a.id) === membership.get(b.id));
   const start = new Date(input.windowStart);
   const end = new Date(input.windowEnd);
   // rank's public budget is capped at twenty. Preserve that contract while
@@ -47,7 +51,7 @@ export function recordedTechEvidence(input: {
     ...input,
     ranked,
     topic: 'tech',
-    grouping: 'validated',
+    grouping: input.prepared?.status ?? 'validated',
     triage: 'complete',
   });
   return {
