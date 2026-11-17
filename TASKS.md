@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2572: 24 healthy rules/six passing queries; failure counters/restarts unchanged, +492 memory-high events/61 small merges, no big merge. Next check ≥03:22 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#third-nov-17-recovery-checkpoint-iteration-2572).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2577: 24 healthy rules/six passing queries; one new admission-limit event, +622 memory-high events/62 small merges, no big merge. Next check ≥04:30 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fourth-nov-17-recovery-checkpoint-iteration-2577).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2577: due metrics checkpoint retained; queries/rules pass but one new admission-limit event and continued reclaim keep acceptance open.
 
 - [x] 2576: keyboard Skip to content link fits the viewport at 400% text on all four reader routes; enlarged text and content focus preserved.
 

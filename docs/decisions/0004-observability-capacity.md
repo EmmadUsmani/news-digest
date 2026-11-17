@@ -1610,3 +1610,23 @@ Receipts: `/tmp/2572-{metrics.jsonl,metrics-error.log,summary.json,metrics-journ
 command `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30` retained seven
 samples, with the last three selected for the due checkpoint;
 `python3 /tmp/2572-summarize.py` passes baseline assertions.
+
+### Fourth Nov 17 recovery checkpoint (iteration 2577)
+
+Nov 17 03:28:19–03:29:21 UTC: three read-only samples found all 24 rules
+fresh and healthy; six uncached expected-series queries completed in ≤3.352 s.
+Compared with 02:21:06, admission-limit events increased by one (20→21);
+the unchanged-counter assertion correctly failed. Process-start, queue-timeout,
+slow-query and evaluator error/missed counters stayed unchanged. Small merges
+increased by 62 / 4,546,966 rows; no big merge occurred. Memory-high events
+increased by 622 (six during sampling); max/OOM/kill stayed zero. Ending memory
+was 87,158,784 bytes, lifetime peak 92,995,584. NRestarts=0; journal has no
+entries since the previous checkpoint. Root disk is 63%; alerts are clear.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Acceptance stays open:
+a new admission-limit event, continued reclaim and no natural big-merge
+comparison. Next short check ≥04:30 UTC; no restart or force merge. Receipts:
+`/tmp/2577-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` and
+`python3 /tmp/2577-summarize.py` (remaining baseline assertions pass after
+recording the admission-limit delta separately).
