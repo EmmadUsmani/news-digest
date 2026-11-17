@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2670: Saved all 45 real Nov 17 stories/posts; exact bookmark copies, eight explanations and edition fragments pass 12 reader combinations; keyboard removal retains focus. No defect or runtime change. [Review](docs/edition-reviews/2026-11-17.md#saved-item-reader-acceptance--iteration-2670).
+
 - [x] 2669: Preserved the natural 22:54 UTC Bluesky collection; 23 consecutive successful hours/115 matching topic counts, 24-hour windows and expected World rotation verified. Final hour/full-day review pending.
 
 - [x] 2668: Preserved two additional natural Bluesky hourly results before shared retention; all 22 hours/110 topic counts and expected World queries verified. Full-day review remains due after midnight.
