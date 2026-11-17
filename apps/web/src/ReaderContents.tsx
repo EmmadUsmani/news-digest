@@ -223,7 +223,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       >
         {contents(false)}
       </div>
-      <div className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-2 border-b border-[var(--border)] bg-[var(--background)] px-4 py-2 lg:hidden">
+      <div className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-[8px] border-b border-[var(--border)] bg-[var(--background)] px-[16px] py-2 lg:hidden">
         <div ref={chips} className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
           {topics.map((topic) => (
             <a
@@ -233,7 +233,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
               aria-current={
                 activeTopic?.id === topic.id ? 'location' : undefined
               }
-              className={`inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-full px-3 py-1 text-sm font-medium focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--accent)] ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
+              className={`inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-full px-[12px] py-1 text-sm font-medium focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--accent)] ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
             >
               {topic.name}
             </a>
@@ -261,7 +261,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
             }
           }}
           trigger={
-            <Button variant="ghost" className="min-h-11 min-w-11 px-2 text-sm">
+            <Button
+              variant="ghost"
+              className="min-h-11 min-w-11 px-[8px] text-sm"
+            >
               Contents
             </Button>
           }

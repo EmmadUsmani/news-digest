@@ -114,3 +114,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm exec tsx scripts/check-handbook.ts observability; git diff --check. Full check passes: 1,062 unit/329 integration tests, four expected skips; API rebuilt. Handbook passes (19 pages, 39 tables).
 - Documentation/evidence only; runtime unchanged, no restart under STEERING 22. No provider calls or generation/source/budget changes. Initial obs queue name `digest` rejected; unfiltered jobs check succeeded.
 - Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2573 — preserve enlarged-text topic navigation
+
+- Clean main at 5f6594b0; no inherited edits. Health database/Redis true, sources healthy and alerts clear; next digest 15:00 UTC, no failed digest jobs. Retention/metrics checkpoints not due. Protected paths untouched.
+- Reader weakness/owner value: enlarged-text spacing squeezed the mobile topic strip. Fixed 16px gutters, 8px control gap, 8px Contents padding and 12px chip padding preserve 71px of topic viewport at 320px/300%, with text scaling retained.
+- Browser verification: 18 cases at 320/390/768px, both themes, 100/200/300% text; all five real Nov 16 topic destinations and keyboard Contents open/close pass, no page overflow or browser errors. Screenshots docs/screenshots/2573-topic-bar-{light,dark}.png inspected. Initial probe needed reduced motion before checking destination position; no product scrolling change.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2573-verify.cjs; git diff --check. Full check passes: 1,062 unit and 329 integration tests, four expected skips. Final health database/Redis true and alerts clear. No provider calls or generation/source/budget changes.
+- Web published atomically; no service restart under STEERING 22. Receipts /tmp/2573-{format,lint,check,build,browser}.log.
+- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

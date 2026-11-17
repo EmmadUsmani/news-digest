@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2573: mobile topic bar preserves a 71px topic viewport at 320px/300% text; fixed gutters, gap and button padding keep all five keyboard destinations reachable.
+
 - [x] 2572: due metrics checkpoint passes rule/query and unchanged-failure assertions; continued reclaim/no big merge keep resource acceptance open.
 
 - [x] 2571: edition briefs retain 264px reading width at 320px/300% text, up from 228px; all 20 real brief lines and keyboard story destinations pass across widths/themes.
