@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2619: Archive coverage/topic metadata keeps 4px gaps with enlarged text, saving 16px per row at 300%; real edition links retain keyboard access across all 12 browser combinations.
+
 - [x] 2617: Saved-item metadata, excerpts, continuation links and action rows keep compact spacing with enlarged text; all 12 browser combinations preserve real-story saving, keyboard edition return/removal, heading focus and wrapping.
 
 - [x] 2616: Social-post section keeps compact spacing with enlarged text: 120px less blank space before the first post at 300%, plus 32px per card gap / 16px above each Save button; all 12 browser combinations preserve real-post keyboard save/remove.

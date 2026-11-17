@@ -98,3 +98,14 @@
 - Verification: pnpm obs alerts; pnpm obs {health,services,sources,jobs} --check; pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2618-summarize.py; systemctl show; journalctl; df -h /.
 - Final verification: pnpm format; pnpm lint:fix; pnpm check exits 0 (1,062 unit / 329 integration passes, four expected skips); git diff --check. Receipts /tmp/2618-{check,format-final,lint-final}.log.
 - Next: metrics ≥13:15 UTC, natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2619 — compact archive metadata with enlarged text
+
+- Clean main at 5fd4d249; no inherited work. Alerts/health/services/active sources/jobs checks pass; Destructoid remains paused, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: archive coverage and topic gaps grew with text size. Fixed 4px gaps save 16px per published-edition row at 300%, with dates and metadata still enlarged.
+- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): real archive rows, 4px metadata gaps, enlarged date text, minimum 44px links, no horizontal overflow, keyboard opening of real published editions.
+- Initial browser attempt timed out; distinct forwarded client addresses passed. Repositioned screenshots to show changed metadata; docs/screenshots/2619-archive-metadata-{light,dark}.png, light inspected.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2619-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2619-{format,lint,build,browser,check}.log.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final format/lint, health/alerts and diff checks pass.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
+- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.

@@ -112,7 +112,7 @@ export function ReaderArchive() {
                         year: 'numeric',
                       })}
                     </time>
-                    <span className="archive-window mt-1 block text-sm font-normal text-[var(--secondary)]">
+                    <span className="archive-window mt-[4px] block text-sm font-normal text-[var(--secondary)]">
                       Coverage:{' '}
                       <time dateTime={entry.windowStart}>
                         {new Date(entry.windowStart).toLocaleString(undefined, {
@@ -136,7 +136,7 @@ export function ReaderArchive() {
                         })}
                       </time>
                     </span>
-                    <span className="mt-1 block text-sm font-normal text-[var(--secondary)]">
+                    <span className="mt-[4px] block text-sm font-normal text-[var(--secondary)]">
                       {entry.topics.map((topic) => topic.name).join(' · ')}
                     </span>
                   </Link>
