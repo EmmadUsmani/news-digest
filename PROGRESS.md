@@ -185,3 +185,14 @@
 - No source, runtime, UI, provider or budget change; existing builds retained. No screenshot or handbook update needed.
 - Evidence assertions pass: pnpm exec tsx /tmp/2667-review.ts. pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2667-{services,sources,jobs,format,lint,check}.log.
 - API/worker restart after push. Next: metrics ≥23:15 UTC, Bluesky full-day after midnight, Tech runtime wiring before noon.
+
+## 2026-11-17: iteration 2668 — retain late-day Bluesky collection evidence
+
+- Clean main at 96218bee; no inherited work. Alerts/health, services and active sources pass; digest queue zero failures. Destructoid remains paused.
+- Preserved 20:54/21:54 UTC natural Bluesky results before shared queue retention can remove them; merged by job ID and verified overlapping results unchanged.
+- Retained day now has 22 consecutive successful hours/110 positive matching fetched/submitted topic counts; World baseline/Ukraine rotation matches each hour.
+- Updated same-hours Nov 16 comparison and daily review. These counts are repeated observations, not unique posts or editorial-quality acceptance.
+- No source, runtime, UI, provider call or budget change; existing builds retained. No screenshots or handbook change required.
+- Evidence: pnpm exec tsx scripts/report-bluesky-collections.ts; python3 /tmp/2668-retain.py passes all job/hour/topic/count/rotation assertions.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2668-{format,lint,check,services,sources,jobs,evidence}.log. API/worker restart after push.
+- Next: metrics ≥23:15 UTC; retain 22:54/23:54 results and complete Bluesky day after midnight; Tech runtime wiring before noon.
