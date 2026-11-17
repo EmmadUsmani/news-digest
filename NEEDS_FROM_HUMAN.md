@@ -199,3 +199,10 @@ is needed for these paths.
 The owner chose to have the supervisor prune its own per-iteration logs
 (`7d6b5a05`), so the agent-control prohibition stays intact. The lead deployed
 it at 20:06 UTC; logs fell from 568 MB to 249 MB. No agent action needed.
+
+## Destructoid feed access (2026-11-17, iteration 2601)
+
+Collection is paused because the official RSS feed now returns Cloudflare
+HTTP 403 (“Sorry, you have been blocked”). Existing articles remain available
+and the other Gaming feeds continue. No immediate action is needed; restoring
+this feed requires documented publisher access. No access workaround was tried.

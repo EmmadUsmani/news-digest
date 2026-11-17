@@ -11,6 +11,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] Destructoid access blocked (2601): official feed returns Cloudflare HTTP 403; collection paused, 304 observations retained. Resume only after documented publisher access is available; no bypass or replacement source. Other 37 active sources healthy.
+
 - [x] STEERING 65 complete (2582): natural Nov 17 04:40 UTC retention succeeded; 55 expired sessions / 41,185,972 bytes deleted, tmpfiles completed, disk 63%, alerts clear. Next run Nov 18 04:40 UTC; supervisor log pruning remains lead-owned.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.

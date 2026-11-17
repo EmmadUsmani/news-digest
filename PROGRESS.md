@@ -111,3 +111,13 @@
 - First pnpm check ended with exit 143 during unit tests without a reported failure; full retry exit 0 (1,062 unit / 329 integration passes; four expected skips). Verification receipts /tmp/2600-{format,lint,build,browser-retry,check-retry}.log; pnpm format, pnpm lint:fix, VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py, git diff --check.
 - Public HTTPS 200 via public DNS/curl --resolve; local health database/Redis true. Web published atomically; no service restart under STEERING 22. Sources, generation, providers and budgets unchanged; no handbook behavior changed.
 - Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2601 — pause access-blocked Destructoid feed
+
+- Clean main at 5de3eeb9; no inherited work. Pending RecentJobFailures exposed a new Destructoid breakage: scheduled HTTP 403 at 08:18/08:19 UTC, last success 07:48 UTC. Health/database/Redis and all 14 monitored services pass; scheduled digest queue has zero failed jobs, next edition 15:00 UTC.
+- One direct GET of the configured official feed confirmed Cloudflare HTTP 403 / “Sorry, you have been blocked”. No alternative host, proxy, challenge solver or access workaround attempted.
+- Paused Destructoid via existing PostgresTopicRepository.setSourceEnabled; retained all 304 observations and topic connections. Owner-visible benefit: remaining Gaming feeds continue without repeatedly requesting an access-blocked publisher; previously collected stories remain usable.
+- Temporary live repository probe asserts disabled source absent from 37-source active catalog, ingest returns without calling either adapter, and observation count unchanged. Initial probe failed before execution because root scripts use CJS; wrapped main and reran successfully, then deleted probe.
+- Source snapshot now reports zero unhealthy sources (38 configured, one paused). TASKS, SOURCES and NEEDS_FROM_HUMAN record the access blocker; no immediate owner action needed. Resume only with documented publisher access.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes, four expected skips; receipts /tmp/2601-{format,lint,check}.log); git diff --check. No runtime code/config artifacts changed, so no rebuild or service restart under STEERING 22; live database pause is already effective.
+- Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC. Destructoid remains paused pending documented access.

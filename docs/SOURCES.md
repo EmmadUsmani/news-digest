@@ -3514,3 +3514,15 @@ All 38 sources were healthy at 00:38:26 UTC. The recent-failures alert
 correctly caught the failed attempts; its ten-minute window can outlast
 recovery. Retain the URL, schedule and retry policy; no manual collection,
 provider calls or access workarounds were used.
+
+## 2026-11-17 iteration 2601 — Destructoid access denial
+
+- Scheduled collection returned HTTP 403 at 08:18 and 08:19 UTC; its last
+  successful fetch was 07:48 UTC (30 items). One direct check of the configured
+  official feed returned HTTP 403 and Cloudflare “Sorry, you have been blocked”.
+- Paused collection through the existing source-enabled repository operation.
+  All 304 stored observations and topic connections remain available; no
+  alternate host, challenge solver, proxy or scraping workaround was tried.
+- Verified the disabled source is absent from the active catalog and `ingest`
+  returns without invoking either adapter. The other 37 active sources remain
+  healthy. Resume only after documented publisher access is available.
