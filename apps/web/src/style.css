@@ -11,11 +11,14 @@
   }
   html:has(.reader-edition) {
     /* Keep keyboard focus and anchor destinations below the sticky reader UI. */
-    scroll-padding-top: calc(var(--reader-header-height, 65px) + 5rem);
+    scroll-padding-top: calc(
+      var(--reader-header-height, 65px) + var(--reader-topic-bar-height, 80px) +
+        12px
+    );
   }
   @media (min-width: 1024px) {
     html:has(.reader-edition) {
-      scroll-padding-top: calc(var(--reader-header-height, 65px) + 2rem);
+      scroll-padding-top: calc(var(--reader-header-height, 65px) + 16px);
     }
   }
 }

@@ -123,3 +123,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2573-verify.cjs; git diff --check. Full check passes: 1,062 unit and 329 integration tests, four expected skips. Final health database/Redis true and alerts clear. No provider calls or generation/source/budget changes.
 - Web published atomically; no service restart under STEERING 22. Receipts /tmp/2573-{format,lint,check,build,browser}.log.
 - Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2574 — keep enlarged-text anchor destinations visible
+
+- Clean main at 230ae5f0; no inherited edits. Alerts clear, health database/Redis true, sources healthy; no failed digest jobs, next edition 15:00 UTC. Metrics/retention checks not due; protected paths untouched.
+- Reader weakness/owner value: selecting NBA at 320px/300% text positioned its heading below the 844px viewport. Relative anchor margins compounded page scroll padding; earlier navigation probes only checked a nonnegative destination position.
+- Measure the mobile topic-bar height and use one page scroll offset below the fixed controls. Removed redundant margins from topic/story/posts/post destinations; measurement clears on route exit. Readers now see the heading they choose.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2574-verify.cjs; git diff --check. Browser checks cover real Nov 16 content at 320/390/1440px, both themes, 100/200/300% text; all 18 cases pass with topic headings below fixed controls and inside the viewport; brief/story/posts and individual post anchors pass. Full check: 1,062 unit and 329 integration tests pass, four expected skips.
+- Screenshots docs/screenshots/2574-anchor-{light,dark}.png inspected; receipts /tmp/2574-{format,lint,check,build,browser}.log. Initial probe had a nonmatching posts selector and used the wrong theme attribute; corrected both and reran all 18 cases. No provider calls or generation/source/budget changes; atomic web publication, no service restart under STEERING 22.
+- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

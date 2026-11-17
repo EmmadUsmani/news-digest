@@ -11,8 +11,26 @@ const topicAnchor = (id: string) => `topic-${id}`;
 export function ReaderContents({ topics }: { topics: Topic[] }) {
   const [active, setActive] = useState('');
   const chips = useRef<HTMLDivElement>(null);
+  const topicBar = useRef<HTMLDivElement>(null);
   const sidebar = useRef<HTMLDivElement>(null);
   const selectedTarget = useRef<string | null>(null);
+  useEffect(() => {
+    const element = topicBar.current;
+    if (!element) return;
+    const root = document.documentElement;
+    const measure = () =>
+      root.style.setProperty(
+        '--reader-topic-bar-height',
+        `${element.getBoundingClientRect().height}px`,
+      );
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty('--reader-topic-bar-height');
+    };
+  }, []);
   useEffect(() => {
     const targets = topics.flatMap((topic) => [
       topicAnchor(topic.id),
@@ -223,7 +241,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       >
         {contents(false)}
       </div>
-      <div className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-[8px] border-b border-[var(--border)] bg-[var(--background)] px-[16px] py-2 lg:hidden">
+      <div
+        ref={topicBar}
+        className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-[8px] border-b border-[var(--border)] bg-[var(--background)] px-[16px] py-2 lg:hidden"
+      >
         <div ref={chips} className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
           {topics.map((topic) => (
             <a

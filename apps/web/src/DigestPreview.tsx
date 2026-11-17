@@ -236,7 +236,7 @@ export function DigestPreview() {
                 <h2
                   id={`topic-${topic.id}`}
                   tabIndex={-1}
-                  className="m-0 scroll-mt-36 font-sans text-2xl leading-tight font-semibold tracking-tight lg:scroll-mt-24"
+                  className="m-0 font-sans text-2xl leading-tight font-semibold tracking-tight"
                 >
                   {topic.name}
                 </h2>
@@ -274,7 +274,7 @@ export function DigestPreview() {
                       <Card
                         id={`story-${story.id}`}
                         tabIndex={-1}
-                        className="scroll-mt-36 rounded-lg p-[20px] shadow-none lg:scroll-mt-24"
+                        className="rounded-lg p-[20px] shadow-none"
                       >
                         <h3 className="m-0 font-sans text-lg leading-7 font-semibold tracking-tight">
                           <a
@@ -353,11 +353,7 @@ export function DigestPreview() {
                     </li>
                   ))}
                 </ol>
-                <div
-                  id={`posts-${topic.id}`}
-                  tabIndex={-1}
-                  className="scroll-mt-36 lg:scroll-mt-24"
-                >
+                <div id={`posts-${topic.id}`} tabIndex={-1}>
                   <TopPosts
                     posts={topic.posts}
                     bookmark={
