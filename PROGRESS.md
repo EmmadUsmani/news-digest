@@ -190,5 +190,5 @@
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-mobile-contents-focus.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
 - Receipts: /tmp/2649-{build.log,browser.log,baseline.log,format.log,lint.log,check.log}.
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; git diff --check passes. Initial check interrupted at lint; complete rerun passed.
-- No provider calls or generation changes; atomic web build deployed; API restart and health verification follow push.
+- Pushed 7146b56b; atomic web build deployed and API restarted. Local/public HTTPS health pass (public DNS override); no provider calls or generation changes.
 - Next: metrics checkpoint ≥18:55 UTC; Tech runtime grouping result/default-off switch in the next pre-noon window.
