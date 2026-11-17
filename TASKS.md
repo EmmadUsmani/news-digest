@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2643: Offline Tech admission emits winning-member score/baseline receipts separately from unchanged representatives; five control tests pass. Production unchanged.
+
 - [x] 2642: Saved-item keyboard removal focuses after layout updates and keeps the next control/final heading visible, including its focus ring; twelve real-content browser combinations pass.
 
 - [x] 2640: Implemented recorded-only Tech reservation control with full eligible event membership, bounded tradeoff and fallback tests; production unchanged.

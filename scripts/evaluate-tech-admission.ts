@@ -43,6 +43,10 @@ console.log(
       events: fixture.ranked.length,
       members: fixture.ranked.reduce((n, e) => n + e.coverage.length, 0),
       reserved: result.reserved.map(describe),
+      reservations: result.reservations.map((decision) => ({
+        ...decision,
+        title: describe(decision.eventId).title,
+      })),
       displaced: result.displaced.map(describe),
       admitted: result.admitted.map((event) => describe(event.id)),
     },

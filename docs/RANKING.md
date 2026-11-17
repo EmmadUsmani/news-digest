@@ -3251,3 +3251,17 @@ explicit complete-triage/validated-grouping states. It is not imported by runtim
 code. This verifies the admission algorithm, not the production status contract:
 next implement the explicit grouping-success result and default-off runtime
 switch before noon UTC, then build and accept a natural scheduled edition.
+
+## Tech reservation decision receipts (iteration 2643)
+
+The recorded control now emits each reserved event's winning eligible member,
+importance/relevance tuple and original baseline position (null for an entrant).
+This keeps the semantic justification separate from the unchanged ranked lead
+and coverage. California's winning member differs from its representative;
+the receipt exposes that distinction rather than implying the lead earned the
+semantic score. Displaced IDs remain explicit, with no inferred pairing between
+an entrant and a displaced event. Five offline tests cover the saved tradeoff,
+receipt-to-score/member identity, baseline positions and fallback silence.
+The CLI includes these receipts. Runtime code and deployment remain unchanged;
+the production grouping-status contract and switch still await the next
+pre-noon window.

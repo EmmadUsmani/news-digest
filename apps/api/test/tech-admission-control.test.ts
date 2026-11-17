@@ -74,6 +74,7 @@ void test('control is off by default and failures/non-Tech keep the exact baseli
     const result = techAdmissionControl({ ...input, ...change });
     assert.deepEqual(result.admitted, recorded.ranked.slice(0, 10));
     assert.deepEqual(result.reserved, []);
+    assert.deepEqual(result.reservations, []);
   }
 });
 
@@ -167,5 +168,47 @@ void test('ambiguous groups and incomplete/invalid eligible scores refuse reserv
     const result = techAdmissionControl(candidate);
     assert.deepEqual(result.admitted, candidate.ranked.slice(0, 10));
     assert.deepEqual(result.reserved, []);
+    assert.deepEqual(result.reservations, []);
   }
+});
+
+void test('reservation receipts identify the winning member without replacing the ranked lead', () => {
+  const result = techAdmissionControl(input);
+  assert.deepEqual(
+    result.reservations.map((receipt) => receipt.eventId),
+    result.reserved,
+  );
+  for (const receipt of result.reservations) {
+    const event = recorded.ranked.find(
+      (candidate) => candidate.id === receipt.eventId,
+    )!;
+    const score = recorded.scores.find(
+      (candidate) => candidate.id === receipt.memberId,
+    )!;
+    assert.ok(event.coverage.some((member) => member.id === receipt.memberId));
+    assert.equal(receipt.importance, score.importance);
+    assert.equal(receipt.relevance, score.relevance);
+    assert.equal(receipt.baselineRank, null);
+    assert.equal(
+      result.admitted.find((candidate) => candidate.id === event.id),
+      event,
+    );
+  }
+  // California's strongest semantic report is not the ranked representative.
+  assert.notEqual(
+    result.reservations[0].memberId,
+    result.reservations[0].eventId,
+  );
+  const ranked = recorded.ranked.slice(0, 2);
+  const short = techAdmissionControl({ ...input, ranked });
+  for (const receipt of short.reservations)
+    assert.equal(
+      receipt.baselineRank,
+      ranked.findIndex((event) => event.id === receipt.eventId) + 1,
+    );
+  assert.deepEqual(
+    techAdmissionControl({ ...input, scores: [...input.scores].reverse() })
+      .reservations,
+    result.reservations,
+  );
 });

@@ -22,6 +22,13 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
     admitted: baseline,
     reserved: [] as string[],
     displaced: [] as string[],
+    reservations: [] as {
+      eventId: string;
+      memberId: string;
+      importance: number;
+      relevance: number;
+      baselineRank: number | null;
+    }[],
   });
   if (
     !input.enabled ||
@@ -78,6 +85,15 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
   return {
     admitted: input.ranked.filter((event) => selected.has(event.id)),
     reserved,
+    reservations: semantic.slice(0, 2).map(({ event, score }) => ({
+      eventId: event.id,
+      memberId: score.id,
+      importance: score.importance,
+      relevance: score.relevance,
+      baselineRank: baseline.some((candidate) => candidate.id === event.id)
+        ? baseline.findIndex((candidate) => candidate.id === event.id) + 1
+        : null,
+    })),
     displaced: baseline
       .filter((event) => !selected.has(event.id))
       .map((event) => event.id),

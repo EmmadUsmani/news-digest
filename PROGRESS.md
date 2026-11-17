@@ -200,3 +200,15 @@
 - Public HTTPS curl could not connect from this VM; local latest endpoint serves 6216cb7a with five topics/25 stories. Public-path acceptance not claimed.
 - Initial combined verification command was terminated (143) during format:check after passing typecheck/lint. Separate full rerun exit 0: 1,067 unit/329 integration passes, four expected skips; receipt /tmp/2642-check-rerun.log.
 - Next: metrics checkpoint >=17:55 UTC; Tech explicit grouping result/default-off switch in the next pre-noon deployment window.
+
+## 2026-11-17: iteration 2643 — explain offline Tech reservations
+
+- Clean main at 397eb56c; no inherited work. Alerts clear; services, active sources, queue and /healthz pass.
+- Advances item 59 Tech depth: recorded admission now emits winning member, semantic scores and baseline position independently of the preserved event representative/coverage.
+- California's winning non-lead scores 8/9; Google's lead scores 8/8. Both are outside the baseline ten; Windows remains and exactly two baseline events leave.
+- Five offline tests pass, including receipt-to-member/score identity, baseline positions, score-order stability and empty receipts on fallback.
+- Verification: pnpm exec tsx --test apps/api/test/tech-admission-control.test.ts; pnpm exec tsx scripts/evaluate-tech-admission.ts --recorded-tech; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Receipts: /tmp/2643-{targeted.log,control.json,services.json,sources.json,jobs.json,format.log,lint.log,check.log}.
+- Full check exit 0: 1,068 unit/329 integration passes, four expected skips.
+- No provider calls or runtime changes; no rebuild/restart required, running application code remains aligned with main.
+- Next: metrics checkpoint >=17:55 UTC; explicit production grouping status/default-off Tech switch in the next pre-noon window, then scheduled acceptance.
