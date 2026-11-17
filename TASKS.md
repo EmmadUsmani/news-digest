@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2641: 24 healthy rules/six passing queries (≤2.783 s); +1 admission-limit event, +981 memory-high events/74 small merges, no big merge. Next check ≥17:55 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#sixteenth-nov-17-recovery-checkpoint-iteration-2641).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2646: 24 healthy rules/six passing queries (≤0.874 s); no new admission/failure events, +731 memory-high events/56 small merges, no big merge. Next check ≥18:55 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#seventeenth-nov-17-recovery-checkpoint-iteration-2646).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2646: Hourly metrics checkpoint passes without new admission/failure events; limits retained, resource acceptance open. Archived progress iterations 2627–2635.
 
 - [x] 2645: Offline Tech admission distinguishes evaluated inputs from exact-baseline fallback with explicit reasons; eight targeted tests pass. Production unchanged.
 

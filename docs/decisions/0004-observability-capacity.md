@@ -1864,3 +1864,24 @@ force merge. Receipts: `/tmp/2641-{metrics.jsonl,metrics-error.log,summary.json}
 commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` and
 `python3 /tmp/2641-summarize.py` (queue/process/evaluator/OOM counters asserted
 unchanged; admission-limit increment reported).
+
+### Seventeenth Nov 17 recovery checkpoint (iteration 2646)
+
+Nov 17 17:49:49–17:50:50 UTC: three read-only samples found all 24 rules
+healthy; six uncached expected-series queries completed in ≤0.874 s.
+Sampling began more than an hour after the prior checkpoint, a few minutes
+before the task's estimated 17:55 time. Admission-limit, queue-timeout,
+slow-query, process-start and evaluator error/missed counters stayed unchanged.
+Small merges increased by 56 / 2,191,388 rows; no big merge occurred.
+Memory-high events increased by 731 (25 during sampling); max/OOM/kill stayed
+zero. Ending memory was 83,075,072 bytes, lifetime peak 93,560,832.
+NRestarts=0; the unit journal has no entries since the previous checkpoint.
+Disk is 69%; services, active sources, digest jobs and /healthz pass.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Continued reclaim
+and absence of a natural big-merge comparison leave resource acceptance open.
+Next short check ≥18:55 UTC; no restart or force merge. Receipts:
+`/tmp/2646-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` and
+`python3 /tmp/2646-summarize.py` (queue/process/evaluator/OOM counters asserted
+unchanged; admission-limit increment zero).
