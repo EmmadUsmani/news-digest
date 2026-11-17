@@ -104,3 +104,12 @@
 - Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0: 1,062 unit/329 integration passes, four expected skips; final alerts zero firing/pending. Receipts /tmp/2585-{format,lint,check,build,browser,sources,jobs}.log.
 - Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2586 — preserve saved-items header space with enlarged text
+
+- Clean main at 75a188ca; no inherited edits. Alerts clear, local health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥05:35 UTC.
+- Owner value: Saved items header consumed 453px at 320px/300% text. Fixed 10px vertical padding, 12px gaps and 44px link target minimums reduce it to 293px while labels enlarge and wrap, leaving more room for saved content.
+- Browser: node /tmp/2586-verify.cjs passes 18 real-edition combinations (320/390/1440px, 100–300%, both themes): saved story retention, font enlargement, target sizes, page bounds, theme switching and keyboard archive/home navigation. Both docs/screenshots/2586-saved-header images inspected.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); receipts /tmp/2586-{format,lint,check,build,browser,sources,jobs,alerts}.log.
+- Web published atomically; no restart under STEERING 22. Public HTTPS /saved 200 (public DNS via curl --resolve), local health passes, final alerts zero firing/pending. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.

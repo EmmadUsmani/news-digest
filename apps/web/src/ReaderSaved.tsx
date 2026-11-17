@@ -25,21 +25,21 @@ export function ReaderSaved() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-[16px] pb-16 [overflow-wrap:anywhere]">
       <ReaderSkipLink target="saved-content" />
-      <header className="flex min-h-[65px] flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-2.5">
+      <header className="flex min-h-[65px] flex-wrap items-center justify-between gap-[12px] border-b border-[var(--border)] py-[10px]">
         <Link
           to="/"
-          className="inline-flex min-h-11 min-w-11 items-center rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-base font-semibold sm:text-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           News Digest
         </Link>
         <nav
           aria-label="Reader navigation"
-          className="flex max-w-full flex-wrap items-center gap-3"
+          className="flex max-w-full flex-wrap items-center gap-[12px]"
         >
           <Link
             to="/editions"
             search={{ page: 1 }}
-            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Past editions
           </Link>
