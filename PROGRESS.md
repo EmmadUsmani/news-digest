@@ -166,3 +166,16 @@
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; atomic web build deployed.
 - Restarted news-digest-api.service after push; localhost /healthz passes.
 - Next: metrics checkpoint ≥18:55 UTC; runtime Tech grouping-status/default-off switch in the next pre-noon window, then scheduled acceptance.
+
+## 2026-11-17: iteration 2648 — visible desktop contents focus rings
+
+- Clean main at e0ec89a9; no inherited work. Alerts, services, active sources, digest jobs and /healthz pass.
+- Live desktop contents links start at the scroll panel's left edge; their 2px outline/2px offset clipped four pixels of keyboard focus.
+- Contents-panel focus outlines now sit inside links, preserving link geometry and the edition position.
+- Published content passes forward/backward focus and story navigation at 1280/1440px, light/dark, 100/200/300% text; screenshots refreshed.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-contents-focus-ring.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Receipts: /tmp/2648-{services.json,sources.json,jobs.json,build.log,browser.log,format.log,lint.log,check.log}.
+- Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; git diff --check passes.
+- Atomic web build deployed; public HTTPS health passes with public DNS (default VM hostname mapping remains stale).
+- No provider calls or generation changes; Tech runtime work remains restricted to the next pre-noon window.
+- Next: metrics checkpoint ≥18:55 UTC; explicit grouping result/default-off Tech switch before noon, then scheduled acceptance.

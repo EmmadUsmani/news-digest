@@ -248,7 +248,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     <>
       <div
         ref={sidebar}
-        className="sticky top-[calc(var(--reader-header-height,65px)+16px)] hidden max-h-[calc(100vh-var(--reader-header-height,65px)-32px)] w-[240px] shrink-0 self-start overflow-y-auto pr-[20px] lg:block"
+        className="sticky top-[calc(var(--reader-header-height,65px)+16px)] hidden max-h-[calc(100vh-var(--reader-header-height,65px)-32px)] w-[240px] shrink-0 self-start overflow-y-auto pr-[20px] lg:block [&_a:focus-visible]:-outline-offset-2"
       >
         {contents(false)}
       </div>
