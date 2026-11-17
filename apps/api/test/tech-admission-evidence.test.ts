@@ -3,7 +3,11 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { recordedTechEvidence } from '../../../scripts/lib/tech-admission-evidence';
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { ShortlistEditor } from '../src/modules/curation/application/editor';
+import { EventGrouping } from '../src/modules/curation/application/event-grouping';
+import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { prepareStoryGrouping } from '../src/modules/digests/application/prepare-story-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -200,3 +204,104 @@ void test('unavailable prepared grouping refuses reservations and retains ungrou
   );
   assert.ok(result.ranked.every((event) => event.coverage.length === 1));
 });
+
+for (const scenario of ['membership', 'empty', 'refused', 'invalid'] as const) {
+  void test(`real budgeted grouping carries ${scenario} through recorded Tech admission`, async () => {
+    const cache = new Map<string, unknown>();
+    let available = scenario !== 'refused';
+    let calls = 0,
+      reservations = 0,
+      settlements = 0;
+    const ledger: LlmLedger = {
+      async cached(key) {
+        return cache.get(key);
+      },
+      async cache(key, value) {
+        cache.set(key, value);
+      },
+      async reserve() {
+        reservations++;
+        return available ? 'offline-hold' : null;
+      },
+      async settle() {
+        settlements++;
+      },
+      async fail() {},
+    };
+    const groups =
+      scenario === 'membership'
+        ? recorded.ranked
+            .filter((event) => event.coverage.length > 1)
+            .map((event) => event.coverage.map((member) => member.id))
+        : scenario === 'invalid'
+          ? [[sources.candidates[0].id, 'unknown']]
+          : [];
+    const service = new EventGrouping(
+      new BudgetedLlm(
+        {
+          async complete(request) {
+            calls++;
+            assert.equal(request.purpose, 'story-grouping-v3');
+            const prompt = JSON.parse(request.prompt) as {
+              candidates: { id: string }[];
+            };
+            assert.deepEqual(
+              prompt.candidates.map((c) => c.id),
+              sources.candidates.map((c) => c.id),
+            );
+            return {
+              text: JSON.stringify({ groups }),
+              usage: { input: 10, output: 10, cacheWrite: 0, cacheRead: 0 },
+            };
+          },
+        },
+        ledger,
+      ),
+      llmConfig({}).haiku,
+    );
+    const prepared = await prepareStoryGrouping(
+      service,
+      'tech',
+      sources.candidates,
+      'offline-budgeted',
+    );
+    const result = recordedTechEvidence({ ...input, prepared });
+    if (scenario === 'membership') {
+      const control = recordedTechEvidence(input);
+      assert.deepEqual(result.decision, control.decision);
+      assert.deepEqual(result.evidence.candidates, control.evidence.candidates);
+    } else if (scenario === 'empty') {
+      assert.equal(prepared.status, 'validated');
+      assert.equal(result.decision.status, 'evaluated');
+      assert.equal(result.decision.reserved.length, 2);
+      assert.ok(result.ranked.every((event) => event.coverage.length === 1));
+    } else {
+      assert.equal(prepared.status, 'unavailable');
+      assert.equal(result.decision.reason, 'grouping-unavailable');
+      assert.deepEqual(result.decision.reserved, []);
+      assert.deepEqual(
+        result.decision.admitted,
+        recordedTechEvidence({ ...input, prepared, enabled: false }).decision
+          .admitted,
+      );
+    }
+    assert.equal(calls, scenario === 'refused' ? 0 : 1);
+    assert.equal(reservations, 1);
+    assert.equal(settlements, scenario === 'refused' ? 0 : 1);
+    if (scenario === 'membership' || scenario === 'empty') {
+      available = false; // A cached validated result must not need another hold.
+      const cached = await prepareStoryGrouping(
+        service,
+        'tech',
+        sources.candidates,
+        'offline-cached',
+      );
+      const replay = recordedTechEvidence({ ...input, prepared: cached });
+      assert.deepEqual(replay.decision, result.decision);
+      assert.deepEqual(replay.evidence.candidates, result.evidence.candidates);
+      assert.equal(calls, 1);
+      assert.equal(reservations, 1);
+      assert.equal(settlements, 1);
+    }
+  });
+}

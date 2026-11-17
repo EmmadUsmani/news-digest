@@ -3333,3 +3333,17 @@ An unavailable result uses separate articles and retains the corresponding
 baseline ten events without reservations; it cannot authorize evidence-based
 admission. These are fixture checks, with no provider calls or runtime wiring.
 The default-off production switch still awaits the pre-noon deployment window.
+
+## Budgeted grouping admission control (iteration 2662)
+
+The recorded Nov 17 Tech control now runs through the real `BudgetedLlm` and
+`EventGrouping` services before shortlist preparation and admission. A fake
+provider and in-memory ledger keep this entirely offline. Recorded membership
+preserves the reservations and attributed editor evidence. Validated empty
+groups keep every article separate and still permit semantic reservations.
+Both validated results replay from cache when new budget holds are refused,
+without another reservation, provider call or settlement. A denied first hold
+makes no provider call; invalid unknown membership makes one settled call with
+no repair. Both return unavailable and retain baseline admission without
+reservations. These checks do not independently accept the recorded event
+boundaries. Runtime wiring still awaits the pre-noon window.

@@ -222,3 +222,15 @@
 - VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build passes and deploys atomically. Local/public HTTPS health pass; web-only change needs no service restart under STEERING 63.
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips. Monitored final deployment: 15 public page/retained-asset pairs pass, no failures. Receipts: /tmp/2661-{browser,build,deploy,services,sources,jobs,format,lint,check}.log.
 - Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.
+
+## 2026-11-17: iteration 2662 — budgeted grouping to recorded Tech admission
+
+- Clean main at f6977c88; no inherited work. Alerts clear; services/active sources healthy; Destructoid remains paused.
+- Added offline end-to-end controls through real BudgetedLlm/EventGrouping, preparation, admission and editor evidence using recorded Nov 17 Tech candidates.
+- Validated membership preserves reservations and attributed evidence; validated empty groups keep articles separate and authorize semantic reservations.
+- Both valid outcomes replay from cache with fresh budget denied: one provider call/hold/settlement total. First-hold refusal calls no provider; invalid membership settles once without repair and retains baseline admission.
+- Seven targeted tests pass. Recorded grouping boundaries remain provisional; runtime wiring is unchanged and awaits pre-noon under item 59.
+- Local health passes; public HTTPS health/latest pass via previously verified proxy IP: edition 6216cb7a, five topics/25 stories/20 posts. Default DNS connection failed; initial local latest probe 429.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. No runtime or UI changes; existing build retained; API/worker restart after push.
+- Receipts: /tmp/2662-{targeted,services,sources,jobs,format,lint,check}.log. No external provider calls.
+- Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.
