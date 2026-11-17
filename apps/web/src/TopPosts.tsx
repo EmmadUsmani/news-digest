@@ -297,7 +297,7 @@ function Post({
           href={post.authorUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex min-h-11 min-w-11 max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           {post.author}
         </a>{' '}
@@ -306,7 +306,7 @@ function Post({
           href={post.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex min-h-11 min-w-11 max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           <span className="sr-only">View post on X · </span>
           <StoryTime publishedAt={post.publishedAt} />
@@ -501,7 +501,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           href={post.url.replace(/\/post\/[^/?#]+(?:[?#].*)?$/, '')}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex min-h-11 min-w-11 max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           {post.author}
         </a>{' '}
@@ -510,7 +510,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
           href={post.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex min-h-11 min-w-11 max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           <span className="sr-only">View post on Bluesky · </span>
           <StoryTime publishedAt={post.publishedAt} />

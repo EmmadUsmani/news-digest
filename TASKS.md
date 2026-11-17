@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2605: X and Bluesky author/timestamp links retain 44px minimum targets with enlarged text; first live author link measures 48px rather than a 132px minimum at 300%, preserving wrapping and keyboard focus.
+
 - [x] 2604: Publisher and coverage links keep 44px minimum targets as reader text grows; desktop publisher links shrink from a 132px minimum to natural 48px height at 300%, with enlarged labels, wrapping and keyboard disclosure retained.
 
 - [x] 2603: Aggregate-listener integration test waits for both fresh Postgres startup readiness messages plus Compose health; due metrics checkpoint retains resource limits, acceptance open.
