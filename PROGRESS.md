@@ -107,3 +107,13 @@
 - Full check passed typecheck/lint/format/boundaries and 1,062 unit tests, then exited 143 during integration without reported assertion failure; isolated integration rerun exit 0: 329 passes / four expected skips.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2608 — hourly metrics recovery evidence
+
+- Clean main at 3f62b7d0; no inherited edits. Alerts clear; all 14 monitored services and active sources healthy (Destructoid paused); health database/Redis true; digest generation zero failures, next edition 15:00 UTC.
+- Owner benefit / STEERING 44/49: verified that the previous checkpoint's admission-limit increase did not recur, preserving monitoring capacity while protecting the next edition. No production limits, source configuration or generation behavior changed.
+- Due checkpoint: five samples through 09:55:02 UTC; 24 healthy/fresh rules, ten uncached queries ≤1.234 s. No new admission-limit/timeouts/slow queries/evaluator failures/process changes. Small merges +62 / 2,127,345 rows; big merges unchanged.
+- Memory-high +690 since 08:50:50 (+55 during sampling), max/OOM/kill zero; ending memory 89,296,896 bytes, lifetime peak 92,995,584; disk 65%, NRestarts=0 and no unit journal entries. Retain 2% CPU / 88 MiB high / 112 MiB max; resource acceptance remains open.
+- Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; final 1 1 sample; python3 /tmp/2608-summarize.py. Receipts /tmp/2608-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}. Updated decision 0004 and TASKS checkpoint.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes, four expected skips); pnpm exec tsx scripts/check-handbook.ts observability (19 pages / one diagram / 39 tables); focused Prettier and git diff --check pass. Receipts /tmp/2608-{format,lint,check,handbook,doc-format,alerts}.log. Documentation-only change; no rebuild or restart under STEERING 22.
+- Next: metrics ≥11:00 UTC; natural edition/Tech/social acceptance after 15:00 UTC. Destructoid awaits documented publisher access.
