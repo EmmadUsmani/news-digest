@@ -43,7 +43,18 @@ void test('prepared aggregate database publishes only loopback on an isolated ne
   let environment;
   try {
     environment = await new DockerComposeEnvironment(dir, 'compose.json')
-      .withWaitStrategy('export-db-1', Wait.forHealthCheck())
+      .withWaitStrategy(
+        'export-db-1',
+        // Fresh Postgres starts an initialization server before the final one.
+        // Wait for both readiness messages as well as the compose healthcheck.
+        Wait.forAll([
+          Wait.forLogMessage(
+            'database system is ready to accept connections',
+            2,
+          ),
+          Wait.forHealthCheck(),
+        ]),
+      )
       .up();
     const container = environment.getContainer('export-db-1');
     const inspect = JSON.parse(
