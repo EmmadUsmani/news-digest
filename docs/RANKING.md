@@ -3168,3 +3168,61 @@ subset passes all six orders; all-separate misses one positive and all-merged
 adds two false positives. Run `pnpm exec tsx --test apps/api/test/event-grouping-evaluation.test.ts`.
 Labels are agent-reviewed; five other leadership members remain unresolved.
 This is an offline control, not a semantic evaluation or production change.
+
+## Bounded Tech admission proposal (iteration 2639)
+
+**Proposed, not deployed.** Change only the final Tech editor admission after
+complete triage and validated grouping. Keep the forty-article pool, ten-event
+editor limit, five-story publication limit, prompts and budgets unchanged.
+The Nov 17 review establishes that recency/HN ranking excludes high-importance
+reports before the editor can use their evidence. Existing evidence transport
+already works; do not add another evidence projection or a prose-length bonus.
+
+Proposed deterministic admission:
+
+1. Build the existing ranked event list before its ten-event truncation, with
+   unchanged quality/window filters, representative IDs and complete coverage.
+2. Give each event the best eligible member's `(importance, relevance)` tuple
+   from completed triage. Sort descending by that tuple, then ascending member
+   ID for ties. Only members surviving the existing eligible pool count.
+3. Reserve the first two slots for the first two distinct semantic events.
+   Fill the remaining eight from the existing ranked event order, skipping
+   admitted event identities. If fewer than ten events exist, return fewer.
+4. Return those admitted events in existing rank order. Retain each event's
+   original lead, coverage, score/reasons and attributed evidence. Record the
+   admission reason separately; the old score does not explain semantic admission.
+
+This changes at most two memberships relative to the current ten; it does not
+replace the shortlist wholesale with semantic order. Use explicit validated
+group membership, with ungrouped reports as singletons. Do not infer extra
+merges or splits from titles. When grouping fails or is unavailable, retain the
+entire current admission path: semantic reservation must not spend two slots on
+two reports of one event. Failed/incomplete triage also keeps current behavior.
+The distinction between successful empty grouping and failure must be explicit;
+the current matcher alone cannot express it.
+
+For the recorded Nov 17 comparison, California's lawsuit and Google's attack
+report are the expected semantic reservations. Windows developer-tool telemetry
+is baseline rank one, so it remains admitted. With two new reservations, baseline
+ranks nine and ten (macOS permissions and the U.S.–China overview) would leave.
+This is a deliberate bounded tradeoff, not evidence that either is unimportant.
+Do not add special title/source protection or a third China buyer-warning slot.
+The cached China grouping is not independently validated; reservations do not
+resolve that existing boundary risk.
+
+Before deployment, implement a Tech-only default-off switch and pure admission
+tests: zero/one/two replacements; stable ties/input permutations; complete group
+coverage; no duplicate event IDs; unchanged quality/window gates; fewer-than-ten
+pools; failed grouping/triage preserving baseline; and unchanged non-Tech paths.
+Use the existing recorded Tech fixture to check California attribution and empty
+China evidence, without repeating the closed historical replay or calling a
+provider. Expose grouping success explicitly rather than treating a fallback
+matcher as validated membership. Run the full check and build before activation.
+
+Deploy/activate only before noon UTC, outside the 13:00–16:00 protection window.
+No paid verification edition. Accept on the next natural scheduled Tech edition:
+record the two reservations, displaced events, final selections and supported
+summary detail, including Windows coverage. Roll back the switch for duplicate
+reserved events, lost attribution, failed generation or weaker reader summaries.
+Other topics, ownership, source collection, fallback and all spending caps stay
+unchanged. This proposal authorizes no production change after today's cutoff.

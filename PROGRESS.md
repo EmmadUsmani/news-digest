@@ -150,3 +150,14 @@
 - Full check exit 0: 1,063 unit / 329 integration passes, four expected skips. Receipts /tmp/2638-{targeted,format,lint,check}.log.
 - Tests/docs only; live code remains aligned, no rebuild/restart needed. Generation restriction after 12:00 UTC retained.
 - Next: define bounded semantic admission with event diversity and Windows tooling tradeoff; implement only in an allowed generation-change window. Metrics checkpoint remains due ≥16:40 UTC.
+
+## 2026-11-17: iteration 2639 — bound the Tech admission proposal
+
+- Clean main at 882faa7c; no inherited work. Alerts clear; /healthz database/Redis pass.
+- Defined a proposed two-event semantic reservation plus eight baseline slots in docs/RANKING.md; no runtime or ranking change.
+- Preserves current group representatives, coverage and evidence; no prose bonus, extra provider calls, budgets or synthetic ranking sweep.
+- Nov 17 expected tradeoff retains Windows rank one; California/Google enter, macOS permissions/U.S.–China overview leave. No claim of superior final selections.
+- Grouping/triage failure must keep baseline; implementation needs an explicit grouping-success result, Tech-only default-off switch and bounded offline tests.
+- Next: implement before noon in an allowed window, accept on a natural edition; metrics checkpoint remains due >=16:40 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2639-{format,lint,check}.log.
+- Full check exit 0: 1,063 unit / 329 integration passes, four expected skips. Documentation-only change leaves live application code aligned; no rebuild/restart needed.
