@@ -139,3 +139,12 @@
 - Web built with VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build and published atomically; no service restart under item 22. Health database/Redis true; digest queue zero failed/next 15:00 UTC; alerts clear.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. First chained check terminated at format verification (143); detached launch did not persist; standalone full rerun passed.
 - Receipts /tmp/2566-{format,lint,check-final,build,browser}.log and health/services/sources/jobs snapshots. Next: metrics ≥01:18 UTC; retention receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2567 — due metrics recovery checkpoint
+
+- Clean main at 6add2a1c; no inherited edits. Broad orientation output truncated; recovered current tasks/instructions narrowly. Protected paths untouched.
+- Due 01:18:05–01:19:06 UTC samples: 24 healthy fresh rules/six uncached expected-series queries ≤0.836 s. Baseline assertions pass: failure counters, process starts and evaluator errors/misses unchanged; no restarts/OOM.
+- Since 00:17:05, +542 memory-high events (none during sample), 60 small merges/1,674,898 rows, no big merge; ending memory 79,532,032 bytes. Resource acceptance stays open; retain 2% CPU/88 MiB high/112 MiB max. No tuning, force merge or paid calls.
+- All 14 services/38 sources healthy; health database/Redis true; digest queue zero failed/next 15:00 UTC; alerts clear; disk 61%. Recorded evidence in capacity decision and TASKS.md.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. Sampler and python3 /tmp/2567-summarize.py pass; receipts /tmp/2567-{metrics.jsonl,summary.json,metrics-journal.log,format,lint,check}.
+- Documentation only; deployed runtime matches main, no rebuild/restart under STEERING 22/65. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
