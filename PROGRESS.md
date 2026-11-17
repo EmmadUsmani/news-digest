@@ -171,3 +171,15 @@
 - Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; python3 /tmp/2671-summarize.py; /tmp/2671-summary.json and /tmp/2671-{metrics-journal,services,sources,jobs}.log.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. API/worker restart after push.
 - Next: metrics ≥00:20 UTC Nov 18; final Bluesky collection/full-day review after midnight; Tech runtime wiring before noon.
+
+## 2026-11-17: iteration 2672 — verify expanded original-report transport
+
+- Clean main at 58e514a0; no inherited work. Alerts clear, health database/Redis pass; monitored services, active sources and jobs checked. Destructoid remains paused.
+- Higher priorities await natural evidence: final Bluesky collection/full-day after midnight, metrics ≥00:20 UTC; Tech runtime wiring waits for pre-noon.
+- Reader value: readers can inspect the original reporting behind every published story at enlarged text using keyboard controls.
+- Checked all 59 saved original reports beneath 25 real Nov 17 stories: destinations, headlines, timestamps and supplied publishers match publication. No transport defect found.
+- Expanded lists fit mobile/desktop in both themes at 100–300% text; keyboard opening/closing preserves focus. Twelve combinations, four screenshots; third-party traffic blocked and browser requests GET-only.
+- No runtime, source, generation, provider or budget change. Existing builds retained; no handbook change needed.
+- Evidence: node /tmp/2672-verify.cjs; /tmp/2672-browser.log and /tmp/2672-{services,sources,jobs}.log. First browser attempt needed to wait for the asynchronous details-toggle accessible label; corrected probe waits for it.
+- Verification: pnpm format/lint:fix pass; pnpm check passed typecheck/lint/format/boundaries and 1,083 unit tests, then ended with signal 15 during integration without a failed assertion. Standalone pnpm test:integration passes 329 tests/four expected skips and rebuilds API. API/worker restart after push.
+- Next: final Bluesky/full-day review after midnight; metrics ≥00:20 UTC; Tech runtime wiring before noon. Do not repeat completed coverage transport review absent a reader regression.

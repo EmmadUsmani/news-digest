@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2672: All 59 original reports beneath 25 published stories preserve saved headlines, destinations, timestamps and publisher labels; expanded lists and keyboard toggles pass 12 reader combinations. No transport defect. [Review](docs/edition-reviews/2026-11-17.md#expanded-original-coverage--iteration-2672).
+
 - [x] 2671: Due metrics checkpoint passes all rule/query/failure assertions; continued reclaim keeps resource acceptance open, limits unchanged.
 
 - [x] 2670: Saved all 45 real Nov 17 stories/posts; exact bookmark copies, eight explanations and edition fragments pass 12 reader combinations; keyboard removal retains focus. No defect or runtime change. [Review](docs/edition-reviews/2026-11-17.md#saved-item-reader-acceptance--iteration-2670).
