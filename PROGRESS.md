@@ -209,3 +209,16 @@
 - Documentation only; existing application build retained, no screenshots changed. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration, four expected skips.
 - Receipts: /tmp/2660-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,services,sources,jobs,format,lint,check}. API/worker restart after push.
 - Next: metrics ≥22:10 UTC; final Bluesky hourly retention/full-day review after midnight; runtime Tech switch before noon.
+
+## 2026-11-17: iteration 2661 — separate glued shortlink hashtags
+
+- Clean main at e3f38c5a; no inherited work. Alerts clear; services, active sources and jobs pass; Destructoid remains paused.
+- Reader weakness: the published Tech Google Colab post joined #GoogleColab to its t.co URL, making the hashtag part of the external destination and underlined URL.
+- LinkedPostText now separates shortlink hashtags, adding visual space while retaining exact saved text. Hashtags open the original post; ordinary URL fragments remain intact.
+- Owner-visible result: the Learn more link and following hashtags are distinct and open their respective destinations. Generation and budgets unchanged; Tech runtime work remains for pre-noon.
+- Five offline rendering controls pass: glued/Unicode hashtags, whitespace, ordinary fragments and nested redirect URLs.
+- Playwright /tmp/2661-links.cjs passes 390px/1440px × light/dark: original text, destinations, keyboard order, no overflow/browser errors. Four screenshots saved; mobile light inspected.
+- Browser blocks third parties and writes; media-unavailable state is intentional. Real published edition data used, no fixtures labeled live.
+- VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build passes and deploys atomically. Local/public HTTPS health pass; web-only change needs no service restart under STEERING 63.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips. Monitored final deployment: 15 public page/retained-asset pairs pass, no failures. Receipts: /tmp/2661-{browser,build,deploy,services,sources,jobs,format,lint,check}.log.
+- Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.

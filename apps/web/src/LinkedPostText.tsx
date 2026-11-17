@@ -8,7 +8,7 @@ export function LinkedPostText({
   postUrl: string;
 }) {
   const parts = text.split(
-    /((?:https?:\/\/|pic\.twitter\.com\/)[^\s<>]+|(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3}))/gi,
+    /(https?:\/\/t\.co\/[a-z0-9]+(?=#[\p{L}\p{N}_])|(?:https?:\/\/|pic\.twitter\.com\/)[^\s<>]+|(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3}))/giu,
   );
   return parts.map((part, index) => {
     if (
@@ -16,7 +16,19 @@ export function LinkedPostText({
       !/^(?:[a-z0-9-]+\.)+[a-z]{2,}\/[^\s<>]*(?:…|\.{3})$/i.test(part)
     )
       return part.trim() ? (
-        <a key={index} href={postUrl} target="_blank" rel="noreferrer">
+        <a
+          key={index}
+          href={postUrl}
+          target="_blank"
+          rel="noreferrer"
+          // Saved short links sometimes run directly into the next hashtag.
+          className={
+            /^#[\p{L}\p{N}_]/u.test(part) &&
+            /^https?:\/\/t\.co\/[a-z0-9]+$/i.test(parts[index - 1] ?? '')
+              ? 'ms-1'
+              : undefined
+          }
+        >
           {part}
         </a>
       ) : (

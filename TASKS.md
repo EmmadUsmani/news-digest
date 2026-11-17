@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2661: Google Colab's saved Tech post separates its glued hashtag from the t.co destination; original text and ordinary URL fragments preserved, four reader browser combinations pass.
+
 - [x] 2660: Eight read-only metrics samples through 21:06 UTC pass rule/query/failure checks; continued reclaim keeps resource acceptance open, limits unchanged.
 
 - [x] 2659: Completed Nov 17 NBA original-text/context review: four distinct self-explanatory posts, no supported extra note needed; public-reader transport verified at mobile/desktop in both themes.
