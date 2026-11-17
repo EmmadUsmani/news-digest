@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2593: 24 healthy rules/six passing queries; no new admission-limit events, +704 memory-high events/64 small merges, no big merge. Next check ≥07:45 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#seventh-nov-17-recovery-checkpoint-iteration-2593).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2598: 24 healthy rules/six passing queries; no new admission-limit events, +835 memory-high events/63 small merges, no big merge. Next check ≥08:50 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#eighth-nov-17-recovery-checkpoint-iteration-2598).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2598: Saved-page heading/sync spacing and card gaps stay compact with enlarged text; at 300%, removes 128px above the list and 48px between cards while preserving enlarged type and keyboard removal.
 
 - [x] 2597: Topic chooser spacing stays fixed as reader text grows; at 320px/300% the five choices use 338px less height, preserving enlarged labels, checkboxes and 44px targets.
 

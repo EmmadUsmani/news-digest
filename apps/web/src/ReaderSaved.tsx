@@ -46,7 +46,7 @@ export function ReaderSaved() {
           <ThemeToggle />
         </nav>
       </header>
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-2">
+      <div className="mt-[32px] flex flex-wrap items-center justify-between gap-[8px]">
         <h1
           ref={heading}
           id="saved-content"
@@ -61,12 +61,12 @@ export function ReaderSaved() {
         <p
           role="status"
           aria-label="Saved item sync"
-          className="my-4 text-sm text-[var(--secondary)]"
+          className="my-[16px] text-sm text-[var(--secondary)]"
         >
           {readerAccountStatus(account)}
         </p>
       ) : (
-        <p className="my-4 text-sm text-[var(--secondary)]">
+        <p className="my-[16px] text-sm text-[var(--secondary)]">
           Saved in this browser. No account is needed.
         </p>
       )}
@@ -106,7 +106,7 @@ export function ReaderSaved() {
           </Link>
         </div>
       )}
-      <ul className="list-none space-y-6 pl-0">
+      <ul className="list-none space-y-[24px] pl-0">
         {saved.map(
           ([id, { copy, updatedAt }], index) =>
             copy && (

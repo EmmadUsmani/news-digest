@@ -1690,3 +1690,23 @@ continued reclaim and no natural big-merge comparison. Next short check
 `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60` and
 `python3 /tmp/2593-summarize.py` (failure counters asserted unchanged against
 the previous checkpoint; admission-limit delta zero).
+
+### Eighth Nov 17 recovery checkpoint (iteration 2598)
+
+Nov 17 07:44:14–07:46:16 UTC: three read-only samples spanning the due
+checkpoint found all 24 rules fresh and healthy; six uncached expected-series
+queries completed in ≤1.135 s. Compared with 06:43:19, admission-limit events
+stayed at 23; process-start, queue-timeout, slow-query and evaluator error/missed
+counters stayed unchanged. Small merges increased by 63 / 2,151,104 rows;
+no big merge occurred. Memory-high events increased by 835 (44 during
+sampling); max/OOM/kill stayed zero. Ending memory was 84,926,464 bytes,
+lifetime peak 92,995,584. NRestarts=0; the unit journal has no entries since
+the previous checkpoint. Disk is 64%; app health passes.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Acceptance stays open:
+continued reclaim and no natural big-merge comparison. Next short check
+≥08:50 UTC; no restart or force merge. Receipts:
+`/tmp/2598-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60` and
+`python3 /tmp/2598-summarize.py` (failure counters asserted unchanged against
+the previous checkpoint; admission-limit delta zero).
