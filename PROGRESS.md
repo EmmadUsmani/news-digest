@@ -14,93 +14,7 @@
 
 [Iterations 2611–2618](docs/progress-archive/2026-11-17-iterations-2611-2618.md)
 
-## 2026-11-17: iteration 2619 — compact archive metadata with enlarged text
-
-- Clean main at 5fd4d249; no inherited work. Alerts/health/services/active sources/jobs checks pass; Destructoid remains paused, next edition 15:00 UTC.
-- Reader benefit / STEERING 38/42: archive coverage and topic gaps grew with text size. Fixed 4px gaps save 16px per published-edition row at 300%, with dates and metadata still enlarged.
-- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): real archive rows, 4px metadata gaps, enlarged date text, minimum 44px links, no horizontal overflow, keyboard opening of real published editions.
-- Initial browser attempt timed out; distinct forwarded client addresses passed. Repositioned screenshots to show changed metadata; docs/screenshots/2619-archive-metadata-{light,dark}.png, light inspected.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2619-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2619-{format,lint,build,browser,check}.log.
-- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
-- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
-
-## 2026-11-17: iteration 2620 — compact saved X transcript separation
-
-- Clean main at 9e9df5bc; no inherited work. Alerts/health/services/active sources/jobs checks pass; Destructoid remains paused, next edition 15:00 UTC.
-- Reader benefit / STEERING 38/42: the saved X transcript separation grew from 16px to 48px with enlarged text. A fixed 16px margin saves 32px per transcript at 300%, keeping the text enlarged.
-- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): fixed 16px separation, enlarged transcript text, no horizontal overflow, real saved post text and keyboard fallback retry. Separate simulated successful embed preserves keyboard disclosure at 300%.
-- Screenshots docs/screenshots/2620-x-transcript-spacing-{light,dark}.png; both inspected after repositioning to show attribution and transcript.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2620-{verify,disclosure}.cjs; pnpm check; git diff --check. Receipts /tmp/2620-{format,lint,build,browser,disclosure,check}.log.
-- Initial full check terminated with exit 143 during unit tests (no reported assertion failure); detached setsid retry exits 0: 1,062 unit / 329 integration passes, four expected skips; receipt /tmp/2620-check-detached.log. Final health/alerts clear.
-- Web published atomically; no restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
-- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
-
-## 2026-11-17: iteration 2621 — compact reader footer with enlarged text
-
-- Clean main at de801366; no inherited work. Alerts/health/services/active sources/jobs pass; Destructoid remains paused, next edition 15:00 UTC.
-- Reader benefit / STEERING 38/42: footer separation and padding grew with reader text. Fixed 48px top margin / 16px vertical padding remove 160px of extra blank space at 300%, retaining enlarged Privacy text.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): computed spacing, enlarged text, minimum 44px target, no horizontal overflow and keyboard navigation to Privacy.
-- Screenshots docs/screenshots/2621-reader-footer-{light,dark}.png; both inspected. Initial browser attempt preceded deployment and saw old spacing; rerun after atomic publication passed.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2621-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2621-{format,lint,build,browser,check}.log.
-- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final format/lint, health/alerts and diff checks pass.
-- Web published atomically; no restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
-- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
-
-## 2026-11-17: iteration 2622 — compact expanded post context
-
-- Clean main at bc69dbc1; no inherited work. Alerts clear, health database/Redis pass, app services running; Destructoid remains paused awaiting documented publisher access.
-- Reader benefit / STEERING 38/42: expanded post context used text-scaled padding. Fixed 4px sides / 12px bottom preserve 16px more reading width and remove 24px of blank space at 300%, retaining enlarged text.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): real published context, computed padding/font size, no horizontal overflow, keyboard expansion/collapse.
-- Screenshots docs/screenshots/2622-post-context-{light,dark}.png; both inspected. Early browser attempts ran before deployment and saw old padding; post-publication run passes.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2622-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2622-{format,lint,build,browser,check}.log.
-- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final formatting/lint, health, alerts and diff checks pass.
-- Web published atomically; no restart under STEERING 22. No source, generation, budget or handbook behavior change; no paid calls.
-- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Keep production generation stable during protection window.
-
-## 2026-11-17: iteration 2623 — compact brief/story spacing and restore topic gaps
-
-- Clean main at c7122c51; no inherited work. Health/services/active sources/jobs pass; Destructoid remains paused pending documented publisher access. Next edition 15:00 UTC.
-- Reader benefit / STEERING 38/42: enlarged reader text inflated brief/list margins and gaps. Fixed 24px margins, 8px brief gaps and 16px story gaps preserve reading density; 300% saves 48px per margin and 32px per story gap.
-- Browser discovery: existing zero topic margins suppress parent space-y entirely. Explicit flex-column gap restores 64px separation between topics at every reader size; no changes to generation or costs.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): computed brief/list/topic spacing, enlarged real content, keyboard brief-to-story navigation and no horizontal overflow.
-- Screenshots docs/screenshots/2623-topic-spacing-{light,dark}.png inspected; desktop 200% framing shows brief/story boundary. Initial browser assertion exposed the ineffective topic spacing; final build passes.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2623-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2623-{format*,lint*,build*,browser,check}.log.
-- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Atomic web deployment serves final code; no restart under STEERING 22. No paid calls.
-- Due metrics 13:14:57–13:15:57: 24 healthy rules/six queries pass; zero admission/failure deltas, 61 small merges, no big merge, +770 memory-high events; disk 68%, NRestarts=0. Retain limits; decision 0004 updated.
-- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during the scheduled window.
-
-## 2026-11-17: iteration 2624 — align loading and loaded edition columns
-
-- Clean main at b4349696; no inherited work. Alerts clear, health database/Redis pass and app services running. Destructoid remains blocked pending documented publisher access.
-- Reader benefit / STEERING 38/42: enlarged text expanded the loading sidebar to 720px at 300%, squeezing placeholders before real stories appeared. Fixed 240px sidebar, 24px gap and 80px mobile / 40px desktop top spacing align loading with the loaded reader.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): delayed actual edition response, accessible loading status, identical loading/loaded story-column position and width, real published content and no horizontal overflow.
-- Screenshots docs/screenshots/2624-loading-layout-{light,dark}.png inspected. Delayed network response uses live saved edition data, not fixture content.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2624-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2624-{format,lint,build,browser,check}.log.
-- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips; final format/lint, health, alerts and diff checks pass.
-- Atomic web publication serves final code; no service restart under STEERING 22. No generation, source, budget or handbook behavior changes; no paid calls.
-- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during scheduled window.
-
-## 2026-11-17: iteration 2625 — compact archive loading preview
-
-- Clean main at 3bc5ec73; no inherited work. Initial alerts clear, health database/Redis pass and app services running. Destructoid remains blocked pending documented publisher access.
-- Reader benefit / STEERING 38/42: archive loading rows inflated to 360px at 300% while loaded rows use fixed padding. Fixed 32px outer margins, 20px row padding, 12px gaps and decorative bar sizes keep each preview row at 120px plus divider.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): accessible delayed loading, stable list width/position, real archive coverage links, keyboard navigation into published content and no horizontal overflow.
-- Screenshots docs/screenshots/2625-archive-loading-{light,dark}.png inspected. Initial geometry assertion omitted the 1px divider; initial archive response hit HTTP 429 on shared loopback. Distinct test client addresses pass; production limits unchanged.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2625-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2625-{format,lint,build,browser,check}.log.
-- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final formatting/lint, health, alerts and diff checks pass.
-- Atomic web publication serves final code; no restart under STEERING 22. No source, generation, budget or handbook behavior change; no paid calls.
-- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect scheduled production generation.
-
-## 2026-11-17: iteration 2626 — separate saved-post links after emoji
-
-- Clean main at 7d049cba; no inherited work. Health database/Redis pass, alerts clear, disk 69%; 14 monitored services healthy, sources healthy, digest queue has zero failures.
-- Reader benefit / STEERING 38/42: the real Gaming post joins a trophy emoji directly to a URL. Existing visual separation covered words but missed emoji; the rule now covers adjacent symbols while preserving opening brackets, saved text and destinations.
-- All 12 browser combinations pass (320/1440px, 100–300%, both themes): actual published Gaming text unchanged, visible separation, exact URL, keyboard focus and no horizontal overflow. Nine focused emoji/text/bracket/whitespace cases pass.
-- Screenshots docs/screenshots/2626-post-link-{light,dark}.png inspected. Reframed screenshots around the focused link after the first framing omitted it; final browser matrix passes.
-- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm exec tsx /tmp/2626-link-cases.ts; node /tmp/2626-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2626-{format,lint,build,browser,check}.log.
-- Full pnpm check retry exits 0: 1,062 unit / 329 integration passes, four expected skips. Initial attempt stopped on new archive formatting; fixed before retry. Archived older progress/task markers with retained links.
-- Atomic web publication serves final code; no service restart under STEERING 22. No generation, source, budget or handbook behavior changes; no paid calls.
-- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid remains blocked pending publisher access; protect scheduled generation.
+[Iterations 2619–2626](docs/progress-archive/2026-11-17-iterations-2619-2626.md)
 
 ## 2026-11-17: iteration 2627 — compact expanded story coverage
 
@@ -191,3 +105,14 @@
 - Verification: pnpm exec tsx /tmp/2634-replay.ts; 200-ID set assertion; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2634-replay.json and /tmp/2634-{format,lint,check}.log.
 - Full check exits 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
 - No deployment/restart during 13:00–16:00 hold; documentation-only change leaves live code aligned. Next: historical grouping replay/semantic-priority comparison; metrics checkpoint now due (≥15:25 UTC).
+
+## 2026-11-17: iteration 2635 — metrics checkpoint and semantic-order control
+
+- Clean main at d0b7fdc0; no inherited work. Alerts clear; health, 14 services, 37 active sources and digest queue pass; Destructoid remains paused.
+- Three metrics samples: 24 healthy rules/six successful queries ≤1.276 s; no new admission-limit, timeout, slow-query, process-start, OOM or evaluator failures.
+- Since 14:20:02: +68 small merges/1,907,668 rows, +794 memory-high events; no big merge, zero restarts. Disk 70%; retain limits, next check ≥16:40 UTC.
+- Offline Tech semantic-order control retains California OpenAI/Grok text (two of ten vs heuristic one); only one actual editor ID overlaps. Eight candidates still lack prose; historical grouping/quality remain open.
+- Updated decision/review/tasks; archived iterations 2619–2626 to keep progress compact. No production/source/cap changes or provider calls.
+- Verification: pnpm exec tsx /tmp/2635-replay.ts; metrics sampler and /tmp/2635-summarize.py assertions; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Full check exit 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes. Receipts /tmp/2635-{format,lint,check}.log.
+- No restart/deployment under 13:00–16:00 hold; documentation-only changes leave live code aligned. Next: historical grouping comparison and event-diversity review before any ranking change.

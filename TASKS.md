@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2629: 24 healthy rules/six passing queries; no new admission-limit events, +737 memory-high events/66 small merges, no big merge. Next check ≥15:25 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fourteenth-nov-17-recovery-checkpoint-iteration-2629).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2635: 24 healthy rules/six passing queries; no new admission-limit events, +794 memory-high events/68 small merges, no big merge. Next check ≥16:40 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fifteenth-nov-17-recovery-checkpoint-iteration-2635).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. Historical grouping replay remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2635 semantic-order control retains two text-bearing reports/ten vs one; historical grouping replay remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2635: Metrics checkpoint passes without new failures; Tech semantic-order control retains two text-bearing candidates, leaving depth and historical grouping unresolved.
 
 - [x] 2634: Tech offline admission control locates recency/HN reranking loss after semantic admission: eight text-bearing reports become one; nine of ten actual prompt IDs reproduced without grouping.
 
