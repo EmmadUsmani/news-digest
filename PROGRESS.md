@@ -161,3 +161,16 @@
 - Next: implement before noon in an allowed window, accept on a natural edition; metrics checkpoint remains due >=16:40 UTC.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2639-{format,lint,check}.log.
 - Full check exit 0: 1,063 unit / 329 integration passes, four expected skips. Documentation-only change leaves live application code aligned; no rebuild/restart needed.
+
+## 2026-11-17: iteration 2640 — execute the bounded Tech admission control offline
+
+- Clean main at 726326e8; no inherited work. Alerts clear and /healthz database/Redis pass; active sources healthy, digest queue zero failures/next run Nov 18 15:00 UTC.
+- Owner value: makes the proposed Tech evidence-admission tradeoff reproducible before risking the next natural edition; noon cutoff keeps production unchanged.
+- Recorded all forty eligible articles/21 ranked events and saved scores; first ten IDs reproduce the published editor admission. Cached grouping is provisional, not accepted boundary truth.
+- Pure offline control defaults off, requires explicit Tech/complete triage/validated grouping, reserves two events and preserves original event objects/coverage/order; invalid membership or scores keep baseline.
+- California/Google enter; Windows remains; macOS permissions/U.S.–China overview leave. California keeps ranked Black Chronicle lead, rather than semantic-order Washington Times lead.
+- Four control tests cover recorded tradeoff, zero/one/two replacements, short pools, ties, preserved membership/identity and fallback; existing California/China evidence regression also passes (five targeted tests).
+- Verification: pnpm exec tsx scripts/evaluate-tech-admission.ts --recorded-tech; targeted control/evidence tests; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2640-control.json and /tmp/2640-{targeted,cleanup-targeted,format,lint,check-rerun}.log.
+- First check found cleanup-test /proc scan race (1,066/1,067 units passed); initial stale-folder assertion now retries the same fail-closed scan outcome as its existing post-kill check. Targeted cleanup passes; full rerun exit 0: 1,067 unit/329 integration passes, four expected skips.
+- No provider calls, runtime imports, source changes, rebuild or service restart needed; live application code remains aligned.
+- Next: explicit grouping-success result/default-off runtime switch before noon; natural scheduled acceptance afterward. Metrics checkpoint remains due >=16:40 UTC.

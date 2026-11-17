@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2636 cached grouping reproduces all ten editor IDs in order; grouped semantic control retains four prose-bearing events vs actual one. 2637 closes bounded boundary/value comparison: distillation provisionally separate, buyer warning unresolved; retain ranking. 2638 recorded California/China regression proves existing non-lead transport works, including bounded editor prompts and saved attribution. 2639 defines a two-event semantic reservation proposal preserving baseline Windows coverage; explicit grouping-success result/default-off Tech switch and offline tests next, before noon activation only. See docs/RANKING.md; no production change. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. Four control tests pass; cached boundaries remain provisional. Next: explicit grouping-success result/default-off runtime Tech switch before noon, then natural scheduled acceptance. No production change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2640: Implemented recorded-only Tech reservation control with full eligible event membership, bounded tradeoff and fallback tests; production unchanged.
 
 - [x] 2639: Defined bounded Tech semantic admission (two reservations/eight baseline events), failure behavior, Windows tradeoff and next-window acceptance; production unchanged.
 

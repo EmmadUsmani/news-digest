@@ -47,7 +47,14 @@ void test('integration cleanup preserves recent, active, unrelated and symlink f
     await once(child, 'spawn');
     writeFileSync(join(orphan, '.runner-pid'), String(child.pid));
     utimesSync(orphan, old, old);
-    assert.deepEqual(cleanupIntegrationTemps(root), [stale.split('/').at(-1)]);
+    // The initial scan has the same fail-closed race as the post-kill scan.
+    const initialDeadline = Date.now() + 10_000;
+    let initialRemoved = cleanupIntegrationTemps(root);
+    while (initialRemoved.length === 0 && Date.now() < initialDeadline) {
+      await setTimeout(100);
+      initialRemoved = cleanupIntegrationTemps(root);
+    }
+    assert.deepEqual(initialRemoved, [stale.split('/').at(-1)]);
     for (const path of [recent, active, orphan, unrelated, link])
       assert.ok(existsSync(path), path);
     const exited = once(child, 'exit');

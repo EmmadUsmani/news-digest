@@ -1,0 +1,466 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "note": "Offline cached-group control; event boundaries are not independently accepted. Ranked eligible events, public titles and saved triage scores only.",
+  "ranked": [
+    {
+      "id": "9d0c0082-f800-4bb5-a7c4-03322b395ad7",
+      "title": "Windows 11 is collecting data on which coding agents and developer tools you use",
+      "coverage": [
+        {
+          "id": "9d0c0082-f800-4bb5-a7c4-03322b395ad7"
+        }
+      ]
+    },
+    {
+      "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+      "title": "Optimizely compromised, served malware on Zoom, GitLab",
+      "coverage": [
+        {
+          "id": "b03cbe03-4be2-4910-a06d-bbea40028526"
+        },
+        {
+          "id": "c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd"
+        }
+      ]
+    },
+    {
+      "id": "c34e3851-02db-416d-af93-d44af9c6b632",
+      "title": "NY Attorney General James announces new unit to oversee AI safety and enforcement - WPEC",
+      "coverage": [
+        {
+          "id": "c34e3851-02db-416d-af93-d44af9c6b632"
+        },
+        {
+          "id": "145d09b9-d32a-4752-8a5a-9bd3445e73a8"
+        }
+      ]
+    },
+    {
+      "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+      "title": "Grok Bot took unapproved actions, ignored orders to stop, and then denied it",
+      "coverage": [
+        {
+          "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9"
+        }
+      ]
+    },
+    {
+      "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+      "title": "Demis Hassabis’ AI company raises $5 billion, months after he left as Google DeepMind CEO - CNBC",
+      "coverage": [
+        {
+          "id": "3fe26e31-cf37-4e38-b139-aeae61404d00"
+        }
+      ]
+    },
+    {
+      "id": "cd05a2cb-ff23-4f33-9d61-8fab6cae2fb1",
+      "title": "What does Huang's ouster mean for the global AI race? - Marketplace.org",
+      "coverage": [
+        {
+          "id": "cd05a2cb-ff23-4f33-9d61-8fab6cae2fb1"
+        },
+        {
+          "id": "43e1631e-1657-4ca4-b78b-b0e1f5a113e5"
+        },
+        {
+          "id": "f549f600-8e8f-4589-93e0-7fd1d73a3017"
+        }
+      ]
+    },
+    {
+      "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - Alabama Daily News",
+      "coverage": [
+        {
+          "id": "9035014e-9153-4f61-98f7-392dfbcec7d9"
+        },
+        {
+          "id": "e99de582-f226-4fbe-a9d7-8ef8411f250c"
+        },
+        {
+          "id": "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19"
+        },
+        {
+          "id": "1d81cbfa-098f-4c55-8cd6-17f8d3f84868"
+        },
+        {
+          "id": "6738ac07-8d4c-4c44-9901-3eee1c8862d5"
+        },
+        {
+          "id": "30822c95-2e72-4aae-8155-e49a790624e1"
+        },
+        {
+          "id": "edbb13ba-3e43-4129-bb66-48f16c2f818f"
+        },
+        {
+          "id": "b3672cf5-e44a-457f-956c-2d47525a3286"
+        }
+      ]
+    },
+    {
+      "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+      "title": "US will say \"no\" to global ban on killer robots",
+      "coverage": [
+        {
+          "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db"
+        }
+      ]
+    },
+    {
+      "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+      "title": "Apple Tightens macOS App Permissions to Limit Data Access Amid AI Agent Security Risks - The Hacker News",
+      "coverage": [
+        {
+          "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d"
+        }
+      ]
+    },
+    {
+      "id": "34c4c89d-481d-43d7-b5b7-48df85d8dc62",
+      "title": "As Trump Goes to China, A.I. Tensions Surge Amid Spying and Safety Fears - The New York Times",
+      "coverage": [
+        {
+          "id": "34c4c89d-481d-43d7-b5b7-48df85d8dc62"
+        }
+      ]
+    },
+    {
+      "id": "2e1b6f36-1e01-4596-89aa-39a8b767e695",
+      "title": "Nvidia warns chip buyers of legal risks tied to China AI access, CNBC reports - Yahoo Finance",
+      "coverage": [
+        {
+          "id": "2e1b6f36-1e01-4596-89aa-39a8b767e695"
+        }
+      ]
+    },
+    {
+      "id": "36f00657-d857-4f30-a8f5-b35892e066e5",
+      "title": "In a first, Google detects AI-automated cyberattack - upi",
+      "coverage": [
+        {
+          "id": "36f00657-d857-4f30-a8f5-b35892e066e5"
+        }
+      ]
+    },
+    {
+      "id": "66b34ecf-98e2-430b-836d-744a79d4726f",
+      "title": "EXCLUSIVE: China taps US AI models to train homegrown rivals as chip curbs bite - Reuters",
+      "coverage": [
+        {
+          "id": "66b34ecf-98e2-430b-836d-744a79d4726f"
+        }
+      ]
+    },
+    {
+      "id": "8c70e31b-cf23-4ed2-9005-4b7d29707607",
+      "title": "California sues OpenAI over artificial intelligence models - The Black Chronicle",
+      "coverage": [
+        {
+          "id": "8c70e31b-cf23-4ed2-9005-4b7d29707607"
+        },
+        {
+          "id": "04cef449-39d2-4adb-af8d-3f4533dac496"
+        },
+        {
+          "id": "887b0419-a275-4cce-b4a2-4c055491d940"
+        },
+        {
+          "id": "d3e843c6-e2d2-4033-b6e7-ff741dd45f4b"
+        },
+        {
+          "id": "fbdcebf3-aa41-4442-96ec-5e2549d7b8e1"
+        },
+        {
+          "id": "280a3af4-381e-4e63-8a8d-7fcf9168c553"
+        },
+        {
+          "id": "315f61a8-dd07-46aa-9780-1eec6d30bac7"
+        },
+        {
+          "id": "b84b6da6-15b6-4961-be06-3313d13cc0d1"
+        },
+        {
+          "id": "9d5c6257-d9c7-471f-9d2b-4a4f3492cf09"
+        }
+      ]
+    },
+    {
+      "id": "841e390d-2d01-4c58-bf91-21323f916a73",
+      "title": "Robo-soldier startup backed by Eric Trump misses payroll, may collapse",
+      "coverage": [
+        {
+          "id": "841e390d-2d01-4c58-bf91-21323f916a73"
+        }
+      ]
+    },
+    {
+      "id": "09b6a53a-15b6-4e5b-a64d-720c167dca62",
+      "title": "Three small failures combined to take down Microsoft 365",
+      "coverage": [
+        {
+          "id": "09b6a53a-15b6-4e5b-a64d-720c167dca62"
+        }
+      ]
+    },
+    {
+      "id": "b6adb8e4-ff19-4f5f-ae6f-5a7f3c509db5",
+      "title": "FBI, Google warn of threat actors using ARTEX, other AI platforms to accelerate cyberattacks - American Hospital Association",
+      "coverage": [
+        {
+          "id": "b6adb8e4-ff19-4f5f-ae6f-5a7f3c509db5"
+        }
+      ]
+    },
+    {
+      "id": "7b2fdfc8-8481-4280-9e6c-a784338694ac",
+      "title": "Hyperscale data centers use 2% of US electricity",
+      "coverage": [
+        {
+          "id": "7b2fdfc8-8481-4280-9e6c-a784338694ac"
+        }
+      ]
+    },
+    {
+      "id": "1c78472b-6276-42a0-892d-603da8e27612",
+      "title": "Shareholders sue Intel, its CEO, and CFO after stock drops 28.6 percent in one day",
+      "coverage": [
+        {
+          "id": "1c78472b-6276-42a0-892d-603da8e27612"
+        }
+      ]
+    },
+    {
+      "id": "3b573991-73a9-49b8-998b-a0248c0c7457",
+      "title": "Apple is testing daily usage limits for more complex Siri AI interactions",
+      "coverage": [
+        {
+          "id": "3b573991-73a9-49b8-998b-a0248c0c7457"
+        }
+      ]
+    },
+    {
+      "id": "2c3fdaaf-6b62-409b-863a-af6e520f964b",
+      "title": "OpenAI wants to stop deepfakes from overwhelming child abuse tiplines",
+      "coverage": [
+        {
+          "id": "2c3fdaaf-6b62-409b-863a-af6e520f964b"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "id": "c34e3851-02db-416d-af93-d44af9c6b632",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "145d09b9-d32a-4752-8a5a-9bd3445e73a8",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "cd05a2cb-ff23-4f33-9d61-8fab6cae2fb1",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "importance": 7,
+      "relevance": 7
+    },
+    {
+      "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+      "importance": 6,
+      "relevance": 9
+    },
+    {
+      "id": "43e1631e-1657-4ca4-b78b-b0e1f5a113e5",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "34c4c89d-481d-43d7-b5b7-48df85d8dc62",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "e99de582-f226-4fbe-a9d7-8ef8411f250c",
+      "importance": 7,
+      "relevance": 8
+    },
+    {
+      "id": "2e1b6f36-1e01-4596-89aa-39a8b767e695",
+      "importance": 6,
+      "relevance": 8
+    },
+    {
+      "id": "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19",
+      "importance": 7,
+      "relevance": 6
+    },
+    {
+      "id": "36f00657-d857-4f30-a8f5-b35892e066e5",
+      "importance": 8,
+      "relevance": 8
+    },
+    {
+      "id": "66b34ecf-98e2-430b-836d-744a79d4726f",
+      "importance": 7,
+      "relevance": 8
+    },
+    {
+      "id": "8c70e31b-cf23-4ed2-9005-4b7d29707607",
+      "importance": 7,
+      "relevance": 7
+    },
+    {
+      "id": "04cef449-39d2-4adb-af8d-3f4533dac496",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "887b0419-a275-4cce-b4a2-4c055491d940",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "d3e843c6-e2d2-4033-b6e7-ff741dd45f4b",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "fbdcebf3-aa41-4442-96ec-5e2549d7b8e1",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "1d81cbfa-098f-4c55-8cd6-17f8d3f84868",
+      "importance": 7,
+      "relevance": 8
+    },
+    {
+      "id": "280a3af4-381e-4e63-8a8d-7fcf9168c553",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "841e390d-2d01-4c58-bf91-21323f916a73",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "9d0c0082-f800-4bb5-a7c4-03322b395ad7",
+      "importance": 6,
+      "relevance": 8
+    },
+    {
+      "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "315f61a8-dd07-46aa-9780-1eec6d30bac7",
+      "importance": 7,
+      "relevance": 9
+    },
+    {
+      "id": "f549f600-8e8f-4589-93e0-7fd1d73a3017",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "09b6a53a-15b6-4e5b-a64d-720c167dca62",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "6738ac07-8d4c-4c44-9901-3eee1c8862d5",
+      "importance": 7,
+      "relevance": 8
+    },
+    {
+      "id": "b6adb8e4-ff19-4f5f-ae6f-5a7f3c509db5",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+      "importance": 7,
+      "relevance": 7
+    },
+    {
+      "id": "c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd",
+      "importance": 7,
+      "relevance": 7
+    },
+    {
+      "id": "7b2fdfc8-8481-4280-9e6c-a784338694ac",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "b84b6da6-15b6-4961-be06-3313d13cc0d1",
+      "importance": 8,
+      "relevance": 9
+    },
+    {
+      "id": "1c78472b-6276-42a0-892d-603da8e27612",
+      "importance": 6,
+      "relevance": 7
+    },
+    {
+      "id": "30822c95-2e72-4aae-8155-e49a790624e1",
+      "importance": 7,
+      "relevance": 8
+    },
+    {
+      "id": "9d5c6257-d9c7-471f-9d2b-4a4f3492cf09",
+      "importance": 8,
+      "relevance": 9
+    },
+    {
+      "id": "3b573991-73a9-49b8-998b-a0248c0c7457",
+      "importance": 6,
+      "relevance": 8
+    },
+    {
+      "id": "2c3fdaaf-6b62-409b-863a-af6e520f964b",
+      "importance": 6,
+      "relevance": 8
+    },
+    {
+      "id": "edbb13ba-3e43-4129-bb66-48f16c2f818f",
+      "importance": 7,
+      "relevance": 7
+    },
+    {
+      "id": "b3672cf5-e44a-457f-956c-2d47525a3286",
+      "importance": 7,
+      "relevance": 8
+    }
+  ],
+  "publishedEditorIds": [
+    "9d0c0082-f800-4bb5-a7c4-03322b395ad7",
+    "b03cbe03-4be2-4910-a06d-bbea40028526",
+    "c34e3851-02db-416d-af93-d44af9c6b632",
+    "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+    "3fe26e31-cf37-4e38-b139-aeae61404d00",
+    "cd05a2cb-ff23-4f33-9d61-8fab6cae2fb1",
+    "9035014e-9153-4f61-98f7-392dfbcec7d9",
+    "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+    "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+    "34c4c89d-481d-43d7-b5b7-48df85d8dc62"
+  ]
+}

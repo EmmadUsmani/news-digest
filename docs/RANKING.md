@@ -3226,3 +3226,28 @@ summary detail, including Windows coverage. Roll back the switch for duplicate
 reserved events, lost attribution, failed generation or weaker reader summaries.
 Other topics, ownership, source collection, fallback and all spending caps stay
 unchanged. This proposal authorizes no production change after today's cutoff.
+
+## Recorded Tech reservation control (iteration 2640)
+
+`scripts/evaluate-tech-admission.ts --recorded-tech` runs the proposal entirely
+offline. Its compact Nov 17 fixture contains all forty eligible articles as
+21 ranked events, saved triage scores and cached memberships. The first ten
+IDs reproduce the published editor admission. The fixture records public
+headlines and IDs, not private prompts or source prose. Cached event boundaries
+remain provisional; this control does not accept the China grouping.
+
+The control reserves California/Google, retains Windows, and displaces exactly
+macOS permissions/U.S.–China overview. Unlike the earlier semantic-order
+comparison, California keeps the existing ranked representative (The Black
+Chronicle), not the Washington Times member encountered first in semantic order.
+Selected event objects and complete coverage are returned unchanged; admission
+reasons are separate. No outside-pool article, prose bonus or new grouping is used.
+
+Four offline tests cover the recorded tradeoff, zero/one/two displacements,
+short pools, score/member-order ties, preserved object/coverage identity,
+duplicate memberships, invalid/missing scores and baseline failure behavior.
+The control defaults off, applies only to its explicit Tech input, and requires
+explicit complete-triage/validated-grouping states. It is not imported by runtime
+code. This verifies the admission algorithm, not the production status contract:
+next implement the explicit grouping-success result and default-off runtime
+switch before noon UTC, then build and accept a natural scheduled edition.
