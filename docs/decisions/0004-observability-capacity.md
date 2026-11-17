@@ -1885,3 +1885,26 @@ Next short check ≥18:55 UTC; no restart or force merge. Receipts:
 commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30` and
 `python3 /tmp/2646-summarize.py` (queue/process/evaluator/OOM counters asserted
 unchanged; admission-limit increment zero).
+
+### Eighteenth Nov 17 recovery checkpoint (iteration 2650)
+
+Nov 17 18:48:37–18:56:41 UTC: 9 read-only samples found all 24 rules
+healthy; 18 uncached expected-series queries completed in ≤0.913 s.
+Since 17:50:50, admission-limit, queue-timeout, slow-query, process-start
+and evaluator error/missed counters stayed unchanged. Small merges increased
+by 62 / 1,333,054 rows; one natural big merge processed 28,008,902 rows.
+The journal records its completion at 18:09:56 in 103.802 seconds (14 parts).
+Historical self-scrape up is 1 at eight 30-second points from 18:07:30–18:11:00.
+Memory-high events increased by 1,190 (112 during sampling); max/OOM/kill
+stayed zero. Ending memory was 91,201,536 bytes; lifetime peak 93,560,832.
+NRestarts=0; disk is 70%. Services, active sources, digest jobs and local/public
+HTTPS health pass. Destructoid remains paused.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. A comparable natural
+big merge is now observed against the memory baseline, without new failure
+counters. Continued reclaim leaves resource acceptance open; hourly samples
+do not isolate merge-time memory pressure. Next short check ≥20:00 UTC.
+No forced merge, metrics restart, retuning or provider calls. Receipts:
+`/tmp/2650-{metrics.jsonl,summary.json,metrics-journal.log,merge-up.json}`;
+commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 8 60`,
+`python3 /tmp/2650-summarize.py`, and a local Prometheus query_range assertion.

@@ -192,3 +192,15 @@
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; git diff --check passes. Initial check interrupted at lint; complete rerun passed.
 - Pushed 7146b56b; atomic web build deployed and API restarted. Local/public HTTPS health pass (public DNS override); no provider calls or generation changes.
 - Next: metrics checkpoint ≥18:55 UTC; Tech runtime grouping result/default-off switch in the next pre-noon window.
+
+## 2026-11-17: iteration 2650 — natural metrics big-merge checkpoint
+
+- Clean main at c33e1930; no inherited work. Owner value: verify metrics survives natural compaction without weakening morning-edition protection.
+- Nine read-only samples span 18:48–18:56 UTC; 24 healthy rules and 18 uncached expected-series queries pass.
+- Natural 28,008,902-row/14-part big merge completed 18:09:56 in 103.802 s; eight historical up points across the merge equal 1.
+- No new admission, timeout, slow-query, evaluator error/missed, process-start or OOM events since 17:50:50.
+- Memory-high pressure continues; keep CPU 2% / 88 MiB high / 112 MiB max and resource acceptance open.
+- Verification: pnpm obs alerts/services/sources/jobs (--check where supported); local/public HTTPS health; pnpm build; pnpm check; pnpm format; pnpm lint:fix; git diff --check.
+- Full check: 1,070 unit / 329 integration passes, four expected skips. Atomic web build deployed; no provider calls or generation changes.
+- Receipts: /tmp/2650-{metrics.jsonl,summary.json,metrics-journal.log,merge-up.json,check.log,build.log,format.log,lint.log,public.log}.
+- Next: metrics ≥20:00 UTC; Tech runtime grouping-status/default-off switch in next pre-noon window.
