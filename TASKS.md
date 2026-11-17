@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2575: date arrows/placeholders and theme icon retain 44px targets; 320px/300% fixed header shrinks from 409px to 205px, preserving enlarged text and keyboard navigation.
+
 - [x] 2574: anchor navigation uses measured fixed-control height once; topic, brief/story and post destinations remain within the viewport at 100–300% reader text.
 
 - [x] 2573: mobile topic bar preserves a 71px topic viewport at 320px/300% text; fixed gutters, gap and button padding keep all five keyboard destinations reachable.

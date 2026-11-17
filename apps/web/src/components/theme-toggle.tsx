@@ -38,7 +38,7 @@ export function ThemeToggle() {
   }, []);
   return (
     <Button
-      className="min-h-11 min-w-11 shrink-0 cursor-pointer border-0 text-foreground"
+      className="size-[44px] min-h-[44px] min-w-[44px] shrink-0 cursor-pointer border-0 text-foreground [&_svg]:size-[20px]"
       variant="ghost"
       size="icon"
       aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
