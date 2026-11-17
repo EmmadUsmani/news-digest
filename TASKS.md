@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2591: Enlarged mobile topic navigation uses a labeled 44px Contents icon when space is tight: topic strip grows 71→236px at 320px/300%, while the bar shrinks 97→85px; normal text retains the visible label.
+
 - [x] 2590: Social context previews wrap when enlarged text leaves too little room, replacing one-pixel mobile previews with a readable second line; keyboard disclosure and full notes retained.
 
 - [x] 2589: Contents topic/story labels now follow reader text enlargement (14/28/42px at 100/200/300%) instead of remaining at legacy 18px; desktop sidebar and mobile drawer retain wrapping and keyboard story navigation.

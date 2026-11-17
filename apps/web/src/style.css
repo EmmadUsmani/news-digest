@@ -5,6 +5,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer utilities {
+  .reader-topic-navigation {
+    container: reader-topics / inline-size;
+  }
+  .reader-contents-icon {
+    display: none;
+  }
+  /* Text enlargement should leave enough of the topic strip to read a label. */
+  @container reader-topics (max-width: 12em) {
+    .reader-contents-label {
+      display: none;
+    }
+    .reader-contents-icon {
+      display: block;
+    }
+  }
   .reader-edition .digest-topic,
   .reader-edition .byline a {
     overflow-wrap: anywhere;

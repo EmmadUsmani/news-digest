@@ -1,5 +1,6 @@
 import type { ReaderEdition } from '@digest/contracts';
 import { Link } from '@tanstack/react-router';
+import { List } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import { Button } from './components/ui/button';
@@ -248,7 +249,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       </div>
       <div
         ref={topicBar}
-        className="fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-[8px] border-b border-[var(--border)] bg-[var(--background)] px-[16px] py-[8px] lg:hidden"
+        className="reader-topic-navigation fixed inset-x-0 top-[var(--reader-header-height,65px)] z-20 flex items-center gap-[8px] border-b border-[var(--border)] bg-[var(--background)] px-[16px] py-[8px] lg:hidden"
       >
         <div
           ref={chips}
@@ -292,9 +293,12 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
           trigger={
             <Button
               variant="ghost"
-              className="h-auto min-h-[44px] min-w-[44px] px-[8px] py-[8px] text-sm"
+              aria-label="Contents"
+              title="Edition contents"
+              className="h-auto min-h-[44px] min-w-[44px] shrink-0 px-[8px] py-[8px] text-sm [&_svg]:size-[20px]"
             >
-              Contents
+              <List aria-hidden="true" className="reader-contents-icon" />
+              <span className="reader-contents-label">Contents</span>
             </Button>
           }
         >

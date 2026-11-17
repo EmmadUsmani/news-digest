@@ -83,3 +83,15 @@
 - Public HTTPS 200 using public DNS with curl --resolve; local health passes and final alerts clear. Recent resolved ingestion failure was HTTP 429; all sources subsequently succeeded. Direct VM DNS resolved to an unreachable private proxy address.
 - Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2591 — make room for enlarged topic labels
+
+- Clean main at b5dbc1fb; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥06:40 UTC.
+- Reader weakness / STEERING 33/42: at 320px/300% text, the Contents label leaves only 71px for topic navigation. A text-relative container query substitutes a labeled 44px list icon when space is tight: topic strip 236px, bar 97→85px; visible label retained when it fits.
+- Owner value: the complete Tech & AI label fits beside Contents again at enlarged mobile text sizes. Topic text enlargement, minimum targets, horizontal navigation and drawer behavior retained.
+- Browser: node /tmp/2591-verify.cjs passes 18 real-edition combinations (320/390/768px, 100–300%, both themes): available strip width, correct icon/label mode, touch targets, topic/story navigation, heading focus, drawer Escape/focus restoration and page bounds. Both docs/screenshots/2591-topic-strip images inspected.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0: 1,062 unit/329 integration passes, four expected integration skips. Receipts /tmp/2591-{format,lint,build,browser,check,sources,jobs,alerts}.log.
+- Initial tool-bound lint/deploy shell terminated (143) before deployment; persistent systemd iteration-2591-deploy reran lint successfully and published the web build. Local endpoint verification hit reader rate limiting once; separate reader identity succeeded.
+- Public HTTPS 200 using public DNS with curl --resolve; local health passes, final alerts clear. Latest live edition 93aefc45 retains five topics/five stories each and 3/5/1/5/4 posts.
+- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
