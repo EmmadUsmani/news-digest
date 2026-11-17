@@ -204,3 +204,16 @@
 - Full check: 1,070 unit / 329 integration passes, four expected skips. Atomic web build deployed; no provider calls or generation changes.
 - Receipts: /tmp/2650-{metrics.jsonl,summary.json,metrics-journal.log,merge-up.json,check.log,build.log,format.log,lint.log,public.log}.
 - Next: metrics ≥20:00 UTC; Tech runtime grouping-status/default-off switch in next pre-noon window.
+
+## 2026-11-17: iteration 2651 — compact story summary spacing
+
+- Clean main at 397f513e; no inherited work. Alerts clear; 14 services healthy, active sources collecting and digest queue healthy; local health passes.
+- Owner value: enlarged-text readers can scan all 25 stories without unnecessary blank space around every summary.
+- Story summaries, unavailable-summary notices and continuation links now use fixed 12px vertical margins; fonts still enlarge normally.
+- Browser baseline reproduces 36px summary margins at 300% text (48px font); changed margins remain 12px.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-story-summary-spacing.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Browser check uses published content only, blocks external requests/writes, checks all 25 summaries and source-link keyboard focus in 12 combinations; screenshots updated.
+- Receipts: /tmp/2651-{alerts,services,sources,jobs,build,browser,format,lint,check}.log.
+- Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; initial command session terminated during formatting, complete transient-service rerun passed.
+- Atomic web build deployed; screenshots visually reviewed; no provider calls or generation changes. Public health passes using public DNS override (default VM mapping stale).
+- Next: metrics checkpoint ≥20:00 UTC; Tech grouping-status/default-off switch in the next pre-noon deployment window.

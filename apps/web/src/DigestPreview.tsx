@@ -293,11 +293,11 @@ export function DigestPreview() {
                           </a>
                         </h3>
                         {story.summary?.trim() ? (
-                          <p className="excerpt my-3 text-base leading-7">
+                          <p className="excerpt my-[12px] text-base leading-7">
                             {story.summary}
                           </p>
                         ) : (
-                          <p className="my-3 text-sm text-[var(--secondary)]">
+                          <p className="my-[12px] text-sm text-[var(--secondary)]">
                             Summary unavailable.{' '}
                             <a
                               href={story.url}
@@ -316,7 +316,7 @@ export function DigestPreview() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`Continue reading: ${story.title}`}
-                            className="mb-3 inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                            className="mb-[12px] inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                           >
                             Continue reading at source
                           </a>

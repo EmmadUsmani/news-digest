@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2651: Story summary spacing stays at 12px with enlarged text; all 25 published summaries retain enlarged type and usable source links across mobile/desktop, light/dark and 100–300% text.
+
 - [x] 2650: Natural 28-million-row metrics merge verified against prior memory baseline; no new admission/failure events, continued reclaim keeps resource acceptance open.
 
 - [x] 2649: Mobile contents links keep keyboard focus outlines inside the scroll area; real published content passes forward/backward focus and story navigation in 12 browser combinations.
