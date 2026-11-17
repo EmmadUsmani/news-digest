@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2627: Expanded story coverage keeps report spacing compact with enlarged reader text; live article links and keyboard access verified across 12 browser combinations.
+
 - [x] 2626: Saved-post URLs adjoining emoji now receive visual separation, preserving exact saved text, destinations and opening-delimiter placement; real Gaming post passes all 12 browser combinations.
 
 - [x] 2625: Archive loading preview keeps fixed 32px margins and compact 120px rows at enlarged text sizes; all 12 browser combinations preserve accessible loading, real archive links and keyboard edition navigation.

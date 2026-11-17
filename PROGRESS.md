@@ -101,3 +101,14 @@
 - Full pnpm check retry exits 0: 1,062 unit / 329 integration passes, four expected skips. Initial attempt stopped on new archive formatting; fixed before retry. Archived older progress/task markers with retained links.
 - Atomic web publication serves final code; no service restart under STEERING 22. No generation, source, budget or handbook behavior changes; no paid calls.
 - Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid remains blocked pending publisher access; protect scheduled generation.
+
+## 2026-11-17: iteration 2627 — compact expanded story coverage
+
+- Clean main at 821a3093; no inherited work. Health database/Redis pass, alerts clear, disk 69%. Destructoid remains blocked pending documented publisher access.
+- Reader benefit / STEERING 38/42: expanded coverage spacing grew threefold at 300% text, adding scrolling between real reports. Fixed report, metadata and outlet gaps preserve text enlargement while keeping related coverage together.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2627-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2627-{format,lint,build,browser,check}.log.
+- Browser matrix: 320/1440px, 100–300%, both themes; actual saved coverage, fixed 12px report gaps, enlarged article text, keyboard disclosure/link access and no horizontal overflow. Screenshots docs/screenshots/2627-coverage-{light,dark}.png.
+- Full pnpm check exits 0: 1,062 unit and 329 integration passes, four expected skips. Final health, alerts, formatting/lint and diff checks pass.
+- Screenshots inspected in both themes. Initial browser assertion used the wrong margin side; corrected for Tailwind’s end-margin spacing, then all 12 combinations passed.
+- Atomic web publication; no restart under STEERING 22. No source, generation, budget or handbook behavior changes; no paid calls.
+- Next: metrics ≥14:20 UTC; edition/Tech/social review after 15:00 UTC. Protect scheduled generation.

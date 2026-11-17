@@ -45,7 +45,7 @@ export function StorySources({
   const sources = [...outlets.values()];
   const articles = story.coverage ?? [];
   return (
-    <div className="story-sources flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-[var(--secondary)]">
+    <div className="story-sources flex flex-wrap items-center gap-x-[8px] gap-y-[8px] text-xs text-[var(--secondary)]">
       {sources.slice(0, 2).map((source) => (
         <SourceLink key={source.url} {...source} />
       ))}
@@ -63,9 +63,9 @@ export function StorySources({
               ? `${articles.length} ${articles.length === 1 ? 'article' : 'articles'} · +${sources.length - 2} ${sources.length === 3 ? 'outlet' : 'outlets'}`
               : `${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
           </summary>
-          <ul className="my-3 list-none space-y-3 pl-0">
+          <ul className="my-[12px] list-none space-y-[12px] pl-0">
             {articles.map((article) => (
-              <li key={article.id} className="space-y-1">
+              <li key={article.id} className="space-y-[4px]">
                 <a
                   href={article.url}
                   target="_blank"
@@ -80,7 +80,7 @@ export function StorySources({
                       )
                     : article.title}
                 </a>
-                <span className="flex flex-wrap gap-x-3 gap-y-1">
+                <span className="flex flex-wrap gap-x-[12px] gap-y-[4px]">
                   <time dateTime={article.publishedAt}>
                     {new Date(article.publishedAt).toLocaleString(undefined, {
                       year: 'numeric',
@@ -114,7 +114,7 @@ export function StorySources({
           </ul>
         </details>
       )}
-      <span className="order-3 inline-flex items-center gap-x-2">
+      <span className="order-3 inline-flex items-center gap-x-[8px]">
         {sources.length > 0 && <span aria-hidden="true">·</span>}
         {children}
       </span>
