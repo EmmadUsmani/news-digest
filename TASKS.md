@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2615: Reader header/navigation/source-reading links retain 44px minimum targets with enlarged text; at 300%, sticky header saves 60px mobile / 48px desktop, with keyboard Saved items round trip preserved. Aggregate DB test now uses a unique Compose network per run; concurrent probes pass.
+
 - [x] 2614: Archive pagination keeps 32px top spacing and 12px gaps with enlarged reader text, saving 64px before the page controls at 300%; real keyboard navigation retained.
 
 - [x] 2613: Desktop contents keeps a 16px sticky gap and 32px total vertical allowance at enlarged text, adding 64px of usable navigation height at 300%.

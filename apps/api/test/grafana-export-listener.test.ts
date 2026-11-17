@@ -38,6 +38,8 @@ void test('prepared aggregate database publishes only loopback on an isolated ne
   config.services['export-db'].restart = 'no';
   delete config.volumes;
   delete config.name;
+  // `compose config` resolves a fixed network name; let each test project own it.
+  delete config.networks['export-only'].name;
   const dir = mkdtempSync(join(tmpdir(), 'grafana-listener-'));
   writeFileSync(join(dir, 'compose.json'), JSON.stringify(config));
   let environment;

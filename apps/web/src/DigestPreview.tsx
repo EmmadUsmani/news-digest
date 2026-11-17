@@ -109,7 +109,7 @@ export function DigestPreview() {
       >
         <Link
           to="/"
-          className="inline-flex min-h-11 min-w-11 items-center rounded-md text-base font-semibold tracking-tight sm:text-lg"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-base font-semibold tracking-tight sm:text-lg"
         >
           News Digest
         </Link>
@@ -133,7 +133,7 @@ export function DigestPreview() {
           {preferencesEnabled && (
             <Link
               to="/saved"
-              className="inline-flex min-h-11 min-w-11 items-center rounded-md px-2 text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md px-2 text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               Saved items
             </Link>
@@ -174,7 +174,7 @@ export function DigestPreview() {
               </h1>
               <Link
                 to="/"
-                className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
               >
                 Back to latest edition
               </Link>
@@ -215,7 +215,7 @@ export function DigestPreview() {
                   hidden.
                 </p>
                 <Button
-                  className="min-h-11"
+                  className="min-h-[44px]"
                   onClick={() => {
                     preferences.setHidden(hiddenDestination.id, false);
                     requestAnimationFrame(() => {
@@ -287,7 +287,7 @@ export function DigestPreview() {
                             href={story.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex min-h-11 min-w-11 items-center rounded-md text-lg leading-7 font-semibold hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                            className="flex min-h-[44px] min-w-[44px] items-center rounded-md text-lg leading-7 font-semibold hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                           >
                             {story.title}
                           </a>
@@ -304,7 +304,7 @@ export function DigestPreview() {
                               target="_blank"
                               rel="noreferrer"
                               aria-label={`Read source: ${story.title}`}
-                              className="inline-flex min-h-11 items-center rounded-md text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                              className="inline-flex min-h-[44px] items-center rounded-md text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                             >
                               Read source
                             </a>
@@ -316,7 +316,7 @@ export function DigestPreview() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label={`Continue reading: ${story.title}`}
-                            className="mb-3 inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                            className="mb-3 inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                           >
                             Continue reading at source
                           </a>
@@ -405,7 +405,7 @@ export function DigestPreview() {
             <Link
               to="/editions"
               search={{ page: 1 }}
-              className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               Past editions →
             </Link>
@@ -415,7 +415,7 @@ export function DigestPreview() {
       <footer className="mt-12 border-t border-[var(--border)] py-4">
         <Link
           to="/privacy"
-          className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           Privacy
         </Link>
