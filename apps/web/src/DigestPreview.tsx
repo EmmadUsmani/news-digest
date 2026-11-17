@@ -204,7 +204,7 @@ export function DigestPreview() {
             })}
           </h1>
           <ReaderContents key={preview.id} topics={visibleTopics} />
-          <div className="min-w-0 max-w-2xl flex-1 space-y-16">
+          <div className="flex min-w-0 max-w-2xl flex-1 flex-col gap-[64px]">
             {hiddenDestination && (
               <div
                 role="status"
@@ -247,7 +247,7 @@ export function DigestPreview() {
                   {topic.name}
                 </h2>
                 {topic.brief.length > 0 && (
-                  <ul className="topic-brief my-6 space-y-2 pl-[24px] text-base leading-7">
+                  <ul className="topic-brief my-[24px] space-y-[8px] pl-[24px] text-base leading-7">
                     {topic.brief.map((line) => {
                       const story = topic.stories.find(
                         (item) => item.title === line,
@@ -270,11 +270,11 @@ export function DigestPreview() {
                   </ul>
                 )}
                 {topic.stories.length === 0 && (
-                  <p className="my-6 text-sm text-[var(--secondary)]">
+                  <p className="my-[24px] text-sm text-[var(--secondary)]">
                     No stories in this edition.
                   </p>
                 )}
-                <ol className="my-6 list-none space-y-4 pl-0">
+                <ol className="my-[24px] list-none space-y-[16px] pl-0">
                   {topic.stories.map((story) => (
                     <li key={story.id} className="border-0 p-0">
                       <Card

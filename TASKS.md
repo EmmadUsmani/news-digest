@@ -25,7 +25,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2618: 24 healthy rules/six passing queries; no new admission-limit events, +756 memory-high events/68 small merges, no big merge. Next check ≥13:15 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#twelfth-nov-17-recovery-checkpoint-iteration-2618).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2623: 24 healthy rules/six passing queries; no new admission-limit events, +770 memory-high events/61 small merges, no big merge. Next check ≥14:20 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#thirteenth-nov-17-recovery-checkpoint-iteration-2623).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -62,6 +62,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2623: Brief/story-list spacing stays compact with enlarged text; explicit 64px topic gaps restore separation previously suppressed by zero card margins. Real-content keyboard story links and wrapping verified.
 
 - [x] 2622: Expanded post context keeps 4px side / 12px bottom padding as reader text grows, preserving reading width and removing 24px of blank space at 300%; real context and keyboard disclosure verified.
 

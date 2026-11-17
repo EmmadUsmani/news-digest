@@ -141,3 +141,15 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final formatting/lint, health, alerts and diff checks pass.
 - Web published atomically; no restart under STEERING 22. No source, generation, budget or handbook behavior change; no paid calls.
 - Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Keep production generation stable during protection window.
+
+## 2026-11-17: iteration 2623 — compact brief/story spacing and restore topic gaps
+
+- Clean main at c7122c51; no inherited work. Health/services/active sources/jobs pass; Destructoid remains paused pending documented publisher access. Next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: enlarged reader text inflated brief/list margins and gaps. Fixed 24px margins, 8px brief gaps and 16px story gaps preserve reading density; 300% saves 48px per margin and 32px per story gap.
+- Browser discovery: existing zero topic margins suppress parent space-y entirely. Explicit flex-column gap restores 64px separation between topics at every reader size; no changes to generation or costs.
+- All 12 browser combinations pass (320/1440px, 100–300%, both themes): computed brief/list/topic spacing, enlarged real content, keyboard brief-to-story navigation and no horizontal overflow.
+- Screenshots docs/screenshots/2623-topic-spacing-{light,dark}.png inspected; desktop 200% framing shows brief/story boundary. Initial browser assertion exposed the ineffective topic spacing; final build passes.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2623-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2623-{format*,lint*,build*,browser,check}.log.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Atomic web deployment serves final code; no restart under STEERING 22. No paid calls.
+- Due metrics 13:14:57–13:15:57: 24 healthy rules/six queries pass; zero admission/failure deltas, 61 small merges, no big merge, +770 memory-high events; disk 68%, NRestarts=0. Retain limits; decision 0004 updated.
+- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during the scheduled window.
