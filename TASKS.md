@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2580: publisher favicon and label gap retain normal dimensions with enlarged reader text, preserving source-name reading width.
+
 - [x] 2579: owner operations handbook now describes installed daily retention and separate supervisor log pruning, with a link to cleanup commands.
 
 - [x] 2578: Contents story indentation and decorative markers retain reading space with enlarged text; mobile keyboard destinations and panel controls verified.

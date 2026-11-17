@@ -121,3 +121,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); affected-page handbook checks with --owner-services (links/render/schema pass); git diff --check. Receipts /tmp/2579-{format,lint,check,handbook-retention,handbook-operations}.log.
 - Handbook Markdown is served per request, so no build or restart needed under STEERING 22. No source, provider, budget or generation changes.
 - Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; natural edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2580 — preserve publisher reading width
+
+- Clean main at 31a3ceb9; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics ≥04:30 and retention 04:40 remain pending.
+- Owner value: publisher favicon and gap enlarged alongside text, leaving only 186px for source labels at 320px/300%. Fixed 14px icons and 6px gaps preserve 226px (+40px), with source text still 36px.
+- Browser verification: node /tmp/2580-verify.cjs checks real published attribution at 320/390/1440px, 100–300% text, both themes; label/icon dimensions, failed-image fallback, keyboard coverage expansion/source focus and page bounds pass. Decorative favicons are controlled layout assets, not live publisher images; story content is the real saved edition. Screenshots docs/screenshots/2580-attribution-{light,dark}.png inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Initial attached check reached zero-failure summaries (1,062 unit/329 integration passes, four expected skips), then received SIGTERM without a final exit code; detached full rerun exited 0 with the same passing counts. Receipts /tmp/2580-{format,lint,check,check-complete,build,browser-final}.log.
+- Atomic web publication; no restart under STEERING 22. Local health and public HTTPS 200. Initial HTTPS curl followed /etc/hosts to VM port 443; curl --resolve using public DNS reached the documented HTTPS proxy successfully. No generation/source/provider/budget changes or protected-path edits.
+- Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; natural edition/Tech/social review after 15:00 UTC.

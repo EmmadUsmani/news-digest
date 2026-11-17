@@ -147,7 +147,7 @@ function SourceLink({
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex min-h-11 min-w-11 max-w-full items-center gap-1.5 rounded-md text-xs font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      className="inline-flex min-h-11 min-w-11 max-w-full items-center gap-[6px] rounded-md text-xs font-normal hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
     >
       {favicon && (
         <img
@@ -157,7 +157,7 @@ function SourceLink({
           height={14}
           loading="lazy"
           referrerPolicy="no-referrer"
-          className="size-3.5 shrink-0 object-contain"
+          className="size-[14px] shrink-0 object-contain"
           onError={(event) => {
             event.currentTarget.hidden = true;
           }}
