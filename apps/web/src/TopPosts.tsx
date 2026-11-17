@@ -536,12 +536,12 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
         </a>
       )}
       <div
-        className={`bluesky-media grid grid-cols-1 gap-2 ${(post.media?.length ?? 0) > 1 ? '@min-[480px]:grid-cols-2' : ''}`}
+        className={`bluesky-media grid grid-cols-1 gap-[8px] ${(post.media?.length ?? 0) > 1 ? '@min-[480px]:grid-cols-2' : ''}`}
       >
         {post.media?.map((media, index) => (
           <a
             key={index}
-            className="relative block min-h-11 min-w-11 content-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="relative block min-h-[44px] min-w-[44px] content-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             href={media.type === 'image' ? media.fullsize : post.url}
             aria-label={`${media.type === 'image' ? `Open image ${index + 1}` : 'Watch video on Bluesky'} ${postIdentity}${media.alt ? ` — ${media.alt}` : ''}`}
             target="_blank"
@@ -560,7 +560,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
               />
             )}
             {media.type === 'video' && (
-              <span className="mt-2 inline-flex items-center gap-2 text-sm underline underline-offset-2">
+              <span className="mt-[8px] inline-flex items-center gap-[8px] text-sm underline underline-offset-2">
                 {!media.thumbnail && <span aria-hidden="true">▶</span>}
                 Watch video on Bluesky ↗
               </span>

@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2631: Bluesky media keeps 8px spacing and 44px minimum targets with enlarged reader text; the real NBA video caption enlarges without adding excess whitespace.
+
 - [x] 2630: Topic chooser keeps checkboxes compact at enlarged text sizes while preserving enlarged names, full-row click targets and keyboard topic hide/restore.
 
 - [x] 2628: NBA Bluesky video play badge stays compact with enlarged reader text; the actual preview, accessible destination and keyboard focus verified across 12 browser combinations.

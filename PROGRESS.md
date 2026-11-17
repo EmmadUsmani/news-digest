@@ -144,3 +144,14 @@
 - Public HTTPS reader HTTP 200 and health database/Redis pass using public DNS from 1.1.1.1 with TLS verification intact; VM hosts entry points at an unreachable local address (known).
 - Atomic web publication; no service restart under STEERING 22. No source, generation, budget or handbook behavior changes; no paid calls.
 - Next: natural edition/Tech/social review after 15:00 UTC; metrics checkpoint ≥15:25 UTC.
+
+## 2026-11-17: iteration 2631 — compact Bluesky media spacing with enlarged text
+
+- Clean main at 9e899690; no inherited work. Health database/Redis pass, alerts clear, monitored services and active-source checks pass; disk 69%. Destructoid remains paused; digest queue has zero failures.
+- Reader benefit / STEERING 38/42: the real NBA video caption's 8px margin became 24px at 300% text. Keep media/caption gaps at 8px and media minimum targets at 44px while caption/post text enlarges.
+- Baseline browser probe reproduced 16px caption margin at 200% (expected 8px). No stored content, destinations, source, budget or generation changes; no paid calls.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2631-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2631-{format,lint,build,browser,check}.log.
+- Browser matrix covers 320/1440px, 100–300%, both themes: real NBA thumbnail, 8px gaps, 44px minimum target, enlarged caption/post text, named original-video destination, keyboard focus and no overflow. Screenshots docs/screenshots/2631-video-{light,dark}.png.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips; /tmp/2631-check-final.log. Initial foreground process ended with signal 143; reran via transient systemd user unit. Both screenshots inspected.
+- Public HTTPS reader HTTP 200, health database/Redis pass, final alerts clear and diff check pass.
+- Atomic web publication; no service restart under STEERING 22. Next: natural edition/Tech/social review after 15:00 UTC; metrics checkpoint ≥15:25 UTC.
