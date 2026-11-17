@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2660: 24 healthy rules/16 passing queries (≤1.883 s); 66 small merges/1,789,261 rows since prior checkpoint, no new big merge or admission/failure events. +1,214 memory-high events; resource acceptance remains open. Next check ≥22:10 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#twentieth-nov-17-recovery-checkpoint-iteration-2660).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2665: 24 healthy rules/24 passing queries (≤0.640 s); 65 small merges/1,617,262 rows since prior checkpoint, no new big merge or admission/failure events. +1,261 memory-high events; resource acceptance remains open. Next check ≥23:15 UTC. [Evidence](docs/decisions/0004-observability-capacity.md#twenty-first-nov-17-recovery-checkpoint-iteration-2665).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2665: Twelve read-only metrics samples through 22:10 UTC pass rule/query/failure checks; continued reclaim keeps resource acceptance open, limits unchanged.
 
 - [x] 2664: Recorded Tech evidence requires explicit triage status; failed/incomplete runs preserve baseline editor evidence with full, partial or empty scores. Runtime unchanged.
 
