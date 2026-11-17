@@ -212,3 +212,40 @@ void test('reservation receipts identify the winning member without replacing th
     result.reservations,
   );
 });
+
+void test('admission status distinguishes successful evaluation from baseline fallback', () => {
+  for (const [change, reason] of [
+    [{ enabled: false }, 'disabled'],
+    [{ topic: 'nba' }, 'non-tech'],
+    [{ grouping: 'failed' as const }, 'grouping-failed'],
+    [{ grouping: 'unavailable' as const }, 'grouping-unavailable'],
+    [{ triage: 'failed' as const }, 'triage-failed'],
+    [{ triage: 'incomplete' as const }, 'triage-incomplete'],
+    [{ scores: [] }, 'invalid-member-score-or-membership'],
+    [
+      { ranked: [...recorded.ranked, recorded.ranked[0]] },
+      'ambiguous-membership-or-scores',
+    ],
+    [
+      { ranked: [{ ...recorded.ranked[0], coverage: [] }] },
+      'invalid-event-membership',
+    ],
+  ] as const) {
+    const candidate = { ...input, ...change };
+    const result = techAdmissionControl(candidate);
+    assert.equal(result.status, 'baseline');
+    assert.equal(result.reason, reason);
+    assert.deepEqual(result.admitted, candidate.ranked.slice(0, 10));
+    assert.deepEqual(result.reservations, []);
+  }
+  const result = techAdmissionControl(input);
+  assert.equal(result.status, 'evaluated');
+  assert.equal(result.reason, 'validated-inputs');
+  // A successful evaluation can preserve a short baseline without being a failure.
+  const short = techAdmissionControl({
+    ...input,
+    ranked: input.ranked.slice(0, 2),
+  });
+  assert.equal(short.status, 'evaluated');
+  assert.deepEqual(short.displaced, []);
+});

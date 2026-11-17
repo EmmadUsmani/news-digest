@@ -226,3 +226,14 @@
 - Receipts: /tmp/2644-{targeted.log,control.json,services.json,sources.json,jobs.json,format.log,lint-final.log,check.log}.
 - Full check exit 0: 1,069 unit/329 integration passes, four expected skips. Runtime code unchanged; no rebuild/restart required, live application remains aligned.
 - Next: metrics checkpoint >=17:55 UTC; explicit production grouping status/default-off Tech switch in next pre-noon window, then natural scheduled acceptance.
+
+## 2026-11-17: iteration 2645 — explain offline Tech admission fallback
+
+- Clean main at 74dcee82; no inherited work. Alerts clear; services, active sources, queues and /healthz pass.
+- Tech's thin evidence remains the reader weakness; offline admission now distinguishes evaluated inputs from exact-baseline fallback before runtime activation.
+- Receipts identify disabled/non-Tech, grouping/triage failure, ambiguous IDs and invalid membership/scores; successful short pools remain distinguishable from refusal.
+- Eight targeted tests pass; recorded CLI still reports source-text events 1→2, unchanged reservations/evidence transport. Cached semantic boundaries remain provisional.
+- Verification: pnpm exec tsx --test apps/api/test/{tech-admission-control,tech-admission-evidence,tech-group-evidence}.test.ts; pnpm exec tsx scripts/evaluate-tech-admission.ts --recorded-tech; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Full check exit 0: 1,070 unit/329 integration passes, four expected skips. Receipts: /tmp/2645-{targeted.log,control.json,services.json,sources.json,jobs.json,format.log,lint.log,check.log}.
+- No provider calls or runtime changes; no rebuild/restart needed, live application code remains aligned with main.
+- Next: metrics checkpoint ≥17:55 UTC; runtime grouping status/default-off Tech switch in the next pre-noon window, then scheduled acceptance.

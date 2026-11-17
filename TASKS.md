@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2645: Offline Tech admission distinguishes evaluated inputs from exact-baseline fallback with explicit reasons; eight targeted tests pass. Production unchanged.
+
 - [x] 2644: Recorded Tech admission now runs through real ranking/evidence/editor serialization; California attribution survives, China/Google stay headline-only, source-text events rise 1→2. Production unchanged.
 
 - [x] 2643: Offline Tech admission emits winning-member score/baseline receipts separately from unchanged representatives; five control tests pass. Production unchanged.

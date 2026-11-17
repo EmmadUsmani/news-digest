@@ -18,7 +18,9 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
   triage: 'complete' | 'failed' | 'incomplete';
 }) {
   const baseline = input.ranked.slice(0, 10);
-  const fallback = () => ({
+  const fallback = (reason: string) => ({
+    status: 'baseline' as const,
+    reason,
     admitted: baseline,
     reserved: [] as string[],
     displaced: [] as string[],
@@ -30,13 +32,11 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
       baselineRank: number | null;
     }[],
   });
-  if (
-    !input.enabled ||
-    input.topic !== 'tech' ||
-    input.grouping !== 'validated' ||
-    input.triage !== 'complete'
-  )
-    return fallback();
+  if (!input.enabled) return fallback('disabled');
+  if (input.topic !== 'tech') return fallback('non-tech');
+  if (input.grouping !== 'validated')
+    return fallback(`grouping-${input.grouping}`);
+  if (input.triage !== 'complete') return fallback(`triage-${input.triage}`);
 
   const scores = new Map(input.scores.map((score) => [score.id, score]));
   const seen = new Set<string>();
@@ -45,7 +45,7 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
     scores.size !== input.scores.length ||
     new Set(input.ranked.map((event) => event.id)).size !== input.ranked.length
   )
-    return fallback();
+    return fallback('ambiguous-membership-or-scores');
   const semantic: { event: T; score: AdmissionScore }[] = [];
   const compare = (a: AdmissionScore, b: AdmissionScore) =>
     b.importance - a.importance ||
@@ -56,7 +56,7 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
       !event.coverage.length ||
       !event.coverage.some((member) => member.id === event.id)
     )
-      return fallback();
+      return fallback('invalid-event-membership');
     const members: AdmissionScore[] = [];
     for (const member of event.coverage) {
       const score = scores.get(member.id);
@@ -68,7 +68,7 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
         score.importance < 4 ||
         score.relevance < 6
       )
-        return fallback();
+        return fallback('invalid-member-score-or-membership');
       seen.add(member.id);
       members.push(score);
     }
@@ -83,6 +83,8 @@ export function techAdmissionControl<T extends AdmissionEvent>(input: {
     selected.add(event.id);
   }
   return {
+    status: 'evaluated' as const,
+    reason: 'validated-inputs',
     admitted: input.ranked.filter((event) => selected.has(event.id)),
     reserved,
     reservations: semantic.slice(0, 2).map(({ event, score }) => ({

@@ -70,6 +70,7 @@ console.log(
       editionId: fixture.editionId,
       mode: 'offline control; production unchanged',
       note: fixture.note,
+      admission: { status: result.status, reason: result.reason },
       events: fixture.ranked.length,
       members: fixture.ranked.reduce((n, e) => n + e.coverage.length, 0),
       eventsWithSourceText: {

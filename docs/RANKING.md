@@ -3285,3 +3285,14 @@ This checks transport, not generated prose or the provisional cached boundaries.
 No provider calls, production changes or historical grouping re-evaluation.
 Next: explicit grouping status/default-off runtime switch before noon, then
 natural scheduled acceptance.
+
+## Tech admission fallback receipts (iteration 2645)
+
+The offline control reports `evaluated` for inputs that passed its checks and
+`baseline` when reservations are refused. Reasons distinguish disabled/non-Tech,
+failed or unavailable grouping, incomplete or failed triage, ambiguous IDs,
+invalid event membership, and missing/invalid member scores. A successful short
+pool can preserve every baseline event; unchanged IDs alone therefore cannot
+establish whether the control ran. The CLI includes the result without prose.
+These receipts describe control validation, not independent validation of cached
+semantic boundaries. Runtime grouping status and activation remain pending.
