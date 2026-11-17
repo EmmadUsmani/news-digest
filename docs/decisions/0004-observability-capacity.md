@@ -1930,3 +1930,26 @@ provider calls. Receipts: `/tmp/2655-{metrics.jsonl,metrics-error.log,summary.js
 commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 5 60` and
 `python3 /tmp/2655-summarize.py` (queue/process/evaluator/OOM counters asserted
 unchanged; admission-limit increment zero).
+
+### Twentieth Nov 17 recovery checkpoint (iteration 2660)
+
+Nov 17 20:58:59–21:06:04 UTC: eight read-only samples found all 24 rules
+healthy; 16 uncached expected-series queries completed in ≤1.883 s.
+Since 20:01:39, admission-limit, queue-timeout, slow-query, process-start
+and evaluator error/missed counters stayed unchanged. Small merges increased
+by 66 / 1,789,261 rows; no further big merge occurred. Memory-high events
+increased by 1,214 (134 during sampling); max/OOM/kill stayed zero. Ending
+memory was 81,567,744 bytes; lifetime peak 93,560,832. NRestarts=0.
+The journal records one refused app-api scrape at 20:44:36 during the prior
+iteration's restart window; the current app-api scrape reports up=1.
+Disk is 72%; services, active sources, digest jobs and local/public HTTPS
+health pass. The published edition retains five topics/25 stories/20 posts.
+Destructoid remains paused.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Continued reclaim
+leaves resource acceptance open; no additional merge-time comparison occurred.
+Next short check ≥22:10 UTC. No forced merge, metrics restart, retuning or
+provider calls. Receipts: `/tmp/2660-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}`;
+commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 7 60` and
+`python3 /tmp/2660-summarize.py` (eight samples; queue/process/evaluator/OOM
+counters asserted unchanged; admission-limit increment zero).

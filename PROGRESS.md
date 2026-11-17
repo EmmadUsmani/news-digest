@@ -196,3 +196,16 @@
 - Documentation/data only; existing application build retained. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips.
 - Receipts: /tmp/2659-{browser,services,sources,jobs,format,lint,check}.log. API/worker restart after push.
 - Next: preserve final Nov 17 Bluesky hourly results/full-day review after midnight; metrics checkpoint ≥21:05 UTC; Tech runtime switch before noon.
+
+## 2026-11-17: iteration 2660 — metrics recovery checkpoint after 21:05 UTC
+
+- Clean main at 47388e81; no inherited work. Alerts clear; services, active sources and jobs pass; Destructoid remains paused.
+- Eight read-only samples 20:58:59–21:06:04: 24 healthy rules/16 successful expected-series queries, ≤1.883 s. No paid calls or generation change.
+- Since 20:01:39: 66 small merges/1,789,261 rows, no big merge; admission/queue/slow-query/process/evaluator/OOM counters unchanged.
+- Memory-high +1,214 (134 during sampling); ending 81,567,744 bytes, lifetime peak 93,560,832. Retain 2% CPU/88 MiB high/112 MiB max; resource acceptance open.
+- Metrics NRestarts=0. Journal retains one 20:44:36 refused API scrape during prior restart window; current app-api up=1. Disk 72%.
+- Local/public HTTPS health pass; published 6216cb7a retains five topics/25 stories/20 posts. Initial local reader probe 429; separate probe passes.
+- Verification: pnpm exec tsx scripts/sample-metrics-recovery.ts 7 60; python3 /tmp/2660-summarize.py asserts eight samples, unchanged failure counters and zero admission delta.
+- Documentation only; existing application build retained, no screenshots changed. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration, four expected skips.
+- Receipts: /tmp/2660-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,services,sources,jobs,format,lint,check}. API/worker restart after push.
+- Next: metrics ≥22:10 UTC; final Bluesky hourly retention/full-day review after midnight; runtime Tech switch before noon.
