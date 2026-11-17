@@ -5,6 +5,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 ## Next scheduled acceptance
 
 - Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
+- Nov 17 scheduled public edition accepted (2632): `6216cb7a`, 25 stories/20 posts, five AI story sections/zero unscored; World Haiku, other four Sonnet. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; NBA context remains open. [Review](docs/edition-reviews/2026-11-17.md).
 - Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; NBA social context quality remains open. No paid replay or cap changes.
 - Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
 - Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review recorded (2517); Gaming sparse, U.S. X absent. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
@@ -19,7 +20,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
-- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Tech 3/5 selected evidence sets empty. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
+- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku, all five AI/zero unscored (2632). No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
 - [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; 191.260 s worker still misses speed target. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
@@ -33,11 +34,11 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
-- [ ] STEERING 16 / M4 Social posts: Nov 16 Gaming one X/U.S. zero despite qualifying pools; weak stored texts explain sparse selection. Compare next natural edition; retain gates. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 16 / M4 Social posts: Nov 16 Gaming one X/U.S. zero despite qualifying pools; weak stored texts explain sparse selection. Nov 17 Gaming four X/one Bluesky and U.S. one X/two Bluesky (2632); retain gates. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: first full rotation day reviewed (2561): 24 jobs/120 counts; World 155 distinct posts vs 158 on mixed Nov 15, top-five quality mixed across topics. Retain queries/gates; compare Nov 17 natural selections. [Review](docs/edition-reviews/2026-11-16-bluesky-day.md).
+- [ ] STEERING 18 Bluesky: first full rotation day reviewed (2561): 24 jobs/120 counts; World 155 distinct posts vs 158 on mixed Nov 15, top-five quality mixed across topics. Retain queries/gates; Nov 17 natural selections: five Bluesky across NBA/Gaming/World/U.S., zero Tech (2632); quality comparison remains open. [Review](docs/edition-reviews/2026-11-16-bluesky-day.md).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -62,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2632: Nov 17 scheduled public edition and desktop/mobile reader accepted; immutable editorial, scope, social and ledger review recorded. Tech depth and NBA context remain open.
 
 - [x] 2631: Bluesky media keeps 8px spacing and 44px minimum targets with enlarged reader text; the real NBA video caption enlarges without adding excess whitespace.
 

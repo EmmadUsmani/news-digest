@@ -155,3 +155,16 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips; /tmp/2631-check-final.log. Initial foreground process ended with signal 143; reran via transient systemd user unit. Both screenshots inspected.
 - Public HTTPS reader HTTP 200, health database/Redis pass, final alerts clear and diff check pass.
 - Atomic web publication; no service restart under STEERING 22. Next: natural edition/Tech/social review after 15:00 UTC; metrics checkpoint ≥15:25 UTC.
+
+## 2026-11-17: iteration 2632 — accept the scheduled public edition
+
+- Clean main at 13ac3e73; no inherited work. Preflight/final health database/Redis pass, alerts clear, 14 services active, 37 active sources healthy; Destructoid paused. Disk 70%.
+- Current order 1/3: accepted Nov 17 scheduled edition 6216cb7a at 15:04:07.594 UTC: 25 stories/20 posts, five AI story sections/zero unscored; World Haiku, other four Sonnet. Public latest/direct/history agree.
+- World/U.S. selected/coverage IDs disjoint; NBA selected spoof absent. Gaming four X/one Bluesky, U.S. one X/two Bluesky. NBA saved context lines empty; Tech four empty selected excerpt sets remain. Review docs/edition-reviews/2026-11-17.md.
+- Pre-run loader capture: Tech 29/200 nonempty eligible texts vs yesterday's initial 14; actual selection still headline-bound except Grok report. No generation change inferred from prospective supply.
+- Edition ledger: $0.556285/65 successful calls, zero failures/unresolved/holds. Publication delay 247.594 s; timing reporter unavailable against public projection, worker duration unmeasured.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit / 329 integration passes, four expected skips); public scheduled-reader all-five-topic gate; node /tmp/2632-browser.cjs; git diff --check.
+- Browser public HTTPS 390/1440px: latest/direct/history render, private routes 404, no page errors/overflow; screenshots /tmp/2632-{390,1440}.png inspected. Corrected probe's hidden contents match and separate request-client DNS; Chromium public DNS keeps TLS verification.
+- First full check caught draft formatting; formatted and reran fully. Receipts /tmp/2632-{check-final,public-reader,browser-final}.log and private snapshot/summary/ledger/pool JSON. Digest queue 32 completed/zero failed or active; next Nov 18 15:00 UTC.
+- No deployment/restart under STEERING 22 hold; documentation-only commit leaves running app aligned. No paid replay, manual generation, source, cap or sharing change.
+- Next: investigate saved World Haiku outcome and Tech admission evidence without paid calls; bounded metrics checkpoint ≥15:25 UTC; retain NBA context and three-edition scope acceptance as open.
