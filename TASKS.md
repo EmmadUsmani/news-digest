@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2664: Recorded Tech evidence requires explicit triage status; failed/incomplete runs preserve baseline editor evidence with full, partial or empty scores. Runtime unchanged.
+
 - [x] 2663: Promoted the verified bounded Tech admission policy into the digest domain; recorded controls use it directly, with no publication consumer or flag change.
 
 - [x] 2662: Real budgeted grouping reaches recorded Tech admission/evidence; validated cache survives refused fresh budget, invalid/refused grouping keeps baseline. Seven offline controls pass.

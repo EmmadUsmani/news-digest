@@ -244,3 +244,13 @@
 - API build passes. Local/public HTTPS health pass; default VM DNS still points to stale 10.42.0.42, previously verified public proxy IP succeeds with certificate verification.
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. Receipts /tmp/2663-{targeted,admission,services,sources,jobs,format,lint,check,build}.*. No UI change; no screenshots needed.
 - API/worker restart after push; no runtime consumer connected. Next: metrics ≥22:10 UTC, final Bluesky retention/full-day review after midnight, connect default-off Tech runtime switch before noon.
+
+## 2026-11-17: iteration 2664 — preserve triage failure through recorded editor evidence
+
+- Clean main at 029919b8; no inherited work. Alerts clear, health passes, 14 monitored services healthy; active sources/jobs checked, Destructoid remains paused.
+- Removed the recorded evidence bridge's assumed complete triage; callers now supply an explicit outcome.
+- Offline control proves validated grouping cannot reserve events after failed/incomplete triage, with complete, partial or empty score sets. Baseline IDs, membership and serialized editor evidence remain identical; complete triage still displaces exactly two events.
+- pnpm exec tsx --test apps/api/test/tech-admission-evidence.test.ts apps/api/test/tech-admission-control.test.ts: 14 pass. Recorded evaluation passes with --recorded-tech (initial invocation omitted required flag and was corrected).
+- No runtime consumer, UI, prompts, budgets or provider calls changed. Existing build retained; no screenshot or handbook change required.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips. Initial check caught progress-entry formatting; corrected and full check rerun. Receipts /tmp/2664-{targeted,admission,services,sources,jobs,format,lint,check}.log.
+- API/worker restart after push. Next: metrics ≥22:10 UTC, Bluesky full-day review after midnight, default-off Tech runtime wiring before noon.

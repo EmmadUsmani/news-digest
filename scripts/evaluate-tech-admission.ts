@@ -44,11 +44,13 @@ const sources = JSON.parse(
 const transport = recordedTechEvidence({
   ...fixture,
   ...sources,
+  triage: 'complete',
   enabled: true,
 });
 const baseline = recordedTechEvidence({
   ...fixture,
   ...sources,
+  triage: 'complete',
   enabled: false,
 });
 const withText = (value: typeof transport) =>

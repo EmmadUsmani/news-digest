@@ -3358,3 +3358,13 @@ validated inputs reserve at most two events by member importance and relevance,
 while preserving representatives, coverage and rank order. Thirteen recorded
 policy and evidence controls pass. No publication consumer or configuration
 change is connected; runtime wiring still awaits the pre-noon window.
+
+## Recorded triage fallback transport (iteration 2664)
+
+The recorded editor-evidence bridge now requires an explicit triage outcome
+instead of assuming every run completed. Failed and incomplete runs retain the
+published baseline and identical serialized editor evidence, including when
+validated grouping and a full score set are available. Partial and empty score
+sets also preserve that baseline. The complete-triage control still makes its
+two recorded displacements. This is offline verification; runtime wiring and
+publication behavior are unchanged.

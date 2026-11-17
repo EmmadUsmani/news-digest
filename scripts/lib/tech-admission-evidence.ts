@@ -18,6 +18,7 @@ export function recordedTechEvidence(input: {
   windowStart: string;
   windowEnd: string;
   enabled: boolean;
+  triage: 'complete' | 'failed' | 'incomplete';
   prepared?: Awaited<ReturnType<typeof prepareStoryGrouping>>;
 }) {
   const membership = new Map(
@@ -52,7 +53,7 @@ export function recordedTechEvidence(input: {
     ranked,
     topic: 'tech',
     grouping: input.prepared?.status ?? 'validated',
-    triage: 'complete',
+    triage: input.triage,
   });
   return {
     ranked,

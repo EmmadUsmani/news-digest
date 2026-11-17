@@ -34,7 +34,12 @@ const sources = JSON.parse(
   windowStart: string;
   windowEnd: string;
 };
-const input = { ...recorded, ...sources, enabled: true };
+const input = {
+  ...recorded,
+  ...sources,
+  enabled: true,
+  triage: 'complete' as const,
+};
 
 void test('recorded reservations reach the real editor with attributed California text and unchanged empty China evidence', async () => {
   const baseline = recordedTechEvidence({ ...input, enabled: false });
@@ -305,3 +310,47 @@ for (const scenario of ['membership', 'empty', 'refused', 'invalid'] as const) {
     }
   });
 }
+
+void test('failed and incomplete triage preserve baseline editor evidence even with validated grouping', async () => {
+  const prepared = await prepareStoryGrouping(
+    {
+      async groupWithResult() {
+        return {
+          status: 'validated',
+          groups: recorded.ranked
+            .map((event) => event.coverage.map((member) => member.id))
+            .filter((group) => group.length > 1),
+        };
+      },
+    },
+    'tech',
+    sources.candidates,
+    'offline-triage-fallback',
+  );
+  assert.equal(prepared.status, 'validated');
+  const complete = recordedTechEvidence({ ...input, prepared });
+  assert.equal(complete.decision.status, 'evaluated');
+  assert.equal(complete.decision.displaced.length, 2);
+  for (const triage of ['failed', 'incomplete'] as const) {
+    // Partial and even apparently full score sets cannot authorize reservations
+    // when the triage run itself did not finish successfully.
+    for (const scores of [input.scores, input.scores.slice(0, 1), []]) {
+      const candidate = { ...input, prepared, triage, scores };
+      const result = recordedTechEvidence(candidate);
+      const baseline = recordedTechEvidence({ ...candidate, enabled: false });
+      assert.equal(result.decision.status, 'baseline');
+      assert.equal(result.decision.reason, `triage-${triage}`);
+      assert.deepEqual(result.decision.reservations, []);
+      assert.deepEqual(result.decision.displaced, []);
+      assert.deepEqual(result.decision.admitted, baseline.decision.admitted);
+      assert.equal(
+        JSON.stringify(result.evidence),
+        JSON.stringify(baseline.evidence),
+      );
+      assert.deepEqual(
+        result.decision.admitted.map((event) => event.id),
+        recorded.publishedEditorIds,
+      );
+    }
+  }
+});
