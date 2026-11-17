@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2621: Edition footer keeps 48px top separation and 16px padding with enlarged reader text, saving 160px of blank space at 300%; all 12 browser combinations preserve enlarged Privacy text, keyboard navigation and wrapping.
+
 - [x] 2620: Saved X post text keeps a 16px separation at enlarged reader sizes, saving 32px per transcript at 300%; real saved text, keyboard retry and wrapping pass across all 12 browser combinations.
 
 - [x] 2619: Archive coverage/topic metadata keeps 4px gaps with enlarged text, saving 16px per row at 300%; real edition links retain keyboard access across all 12 browser combinations.
