@@ -1,31 +1,31 @@
 # November 17 Bluesky: partial-day retention checkpoint
 
-Iterations 2658 and 2668 preserve the first 22 natural hourly collections, 00:54–21:54
+Iterations 2658, 2668 and 2669 preserve the first 23 natural hourly collections, 00:54–22:54
 UTC, in the [retained results](2026-11-17-world-bluesky-jobs.json).
-All 22 jobs completed successfully; all 110 topic results have positive,
-matching fetched/submitted counts. The 22 distinct UTC hours have no gap.
-World follows baseline/Ukraine/baseline/Gaza throughout these hours. The two
-newly retained jobs match the expected baseline/Ukraine queries.
+All 23 jobs completed successfully; all 115 topic results have positive,
+matching fetched/submitted counts. The 23 distinct UTC hours have no gap.
+World follows baseline/Ukraine/baseline/Gaza throughout these hours. The latest
+retained job matches the expected World baseline query.
 
 | Query                 | Jobs | Fetched/submitted observations | Nov 16, same hours |
 | --------------------- | ---: | -----------------------------: | -----------------: |
-| AI                    |   22 |                           1094 |               1081 |
-| NBA                   |   22 |                            998 |               1040 |
-| game                  |   22 |                           1091 |               1091 |
-| World news & politics |   11 |                            532 |                533 |
+| AI                    |   23 |                           1144 |               1131 |
+| NBA                   |   23 |                           1045 |               1085 |
+| game                  |   23 |                           1141 |               1140 |
+| World news & politics |   12 |                            581 |                582 |
 | Ukraine               |    6 |                            291 |                282 |
 | Gaza                  |    5 |                            245 |                250 |
-| Congress              |   22 |                           1088 |               1098 |
+| Congress              |   23 |                           1137 |               1147 |
 
 These are repeated fetched/submitted observations, not unique or editorially
 relevant posts. Collection windows roll over the preceding 24 hours. The
-comparison uses only Nov 16 jobs starting before 22:00 UTC, from the
+comparison uses only Nov 16 jobs starting before 23:00 UTC, from the
 [complete prior-day results](2026-11-16-world-bluesky-jobs.json).
 It checks continued collection and rotation; it does not establish a quality
 improvement. NBA's smaller count alone does not justify a query change.
 
 Keep queries, cadence and selection gates unchanged. Preserve the remaining
-22:54–23:54 UTC results before queue retention expires, merge by job ID, and
+23:54 UTC result before queue retention expires, merge by job ID, and
 then run the fixed-end UTC-day coverage/reader review after midnight. Do not
 call this a complete day or compare partial-day unique supply with Nov 16.
 The [scheduled edition review](2026-11-17.md) already records natural picks;
@@ -33,7 +33,7 @@ this checkpoint does not repeat that acceptance.
 
 Verification: `pnpm exec tsx scripts/report-bluesky-collections.ts`, followed by
 assertions on job state, unique hours, five distinct topics per job, positive
-matched counts and hour-specific World queries. No collection, search, paid
+matched counts, 24-hour collection windows and hour-specific World queries. No collection, search, paid
 inference, publication or runtime change occurred.
 
 ## Scheduled-edition quality — iteration 2666

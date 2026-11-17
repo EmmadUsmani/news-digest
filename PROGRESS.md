@@ -196,3 +196,14 @@
 - Evidence: pnpm exec tsx scripts/report-bluesky-collections.ts; python3 /tmp/2668-retain.py passes all job/hour/topic/count/rotation assertions.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2668-{format,lint,check,services,sources,jobs,evidence}.log. API/worker restart after push.
 - Next: metrics ≥23:15 UTC; retain 22:54/23:54 results and complete Bluesky day after midnight; Tech runtime wiring before noon.
+
+## 2026-11-17: iteration 2669 — retain penultimate Bluesky hourly collection
+
+- Clean main at f119fa94; no inherited work. Alerts/health clear; all 14 services and active sources healthy, digest queue zero failures. Destructoid remains paused.
+- Preserved the natural 22:54 UTC Bluesky result before shared queue retention; existing overlapping results are unchanged.
+- Retained day now covers 23 consecutive successful hours/115 positive matching topic counts; World rotation and all 24-hour collection windows pass assertions.
+- Updated same-hours Nov 16 comparison and partial-day review. Counts remain repeated observations, not unique posts or editorial-quality acceptance.
+- No source, runtime, UI, provider call or budget change; existing builds retained. No screenshot or handbook change required.
+- Evidence: pnpm exec tsx scripts/report-bluesky-collections.ts; python3 /tmp/2669-retain.py. Receipt: /tmp/2669-evidence.log.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2669-{format,lint,check,services,sources,jobs}.log. API/worker restart after push.
+- Next: metrics ≥23:15 UTC; retain 23:54 result and complete Bluesky day after midnight; Tech runtime wiring before noon.
