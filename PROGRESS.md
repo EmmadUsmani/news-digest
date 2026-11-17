@@ -174,3 +174,16 @@
 - First check found cleanup-test /proc scan race (1,066/1,067 units passed); initial stale-folder assertion now retries the same fail-closed scan outcome as its existing post-kill check. Targeted cleanup passes; full rerun exit 0: 1,067 unit/329 integration passes, four expected skips.
 - No provider calls, runtime imports, source changes, rebuild or service restart needed; live application code remains aligned.
 - Next: explicit grouping-success result/default-off runtime switch before noon; natural scheduled acceptance afterward. Metrics checkpoint remains due >=16:40 UTC.
+
+## 2026-11-17: iteration 2641 — due metrics recovery checkpoint
+
+- Clean main at f9501ea3; no inherited changes. Alerts clear; /healthz database/Redis pass.
+- Three read-only samples: 24 healthy rules/six passing uncached queries, maximum 2.783 s; one admission-limit event occurred during sampling.
+- Since 2635: +74 small merges/1,880,099 rows, no big merge; +981 memory-high events (21 during sampling), no max/OOM/kill events.
+- Queue-timeout, slow-query, process-start and evaluator error/missed counters unchanged; NRestarts=0, journal empty, disk 70%.
+- Services 14/14, active-source checks and digest queue pass (zero failed, next Nov 18 15:00 UTC); Destructoid remains paused.
+- Retain CPU 2%/88 MiB high/112 MiB max; resource acceptance open. Next passive check >=17:55 UTC.
+- Corrected Tech handoff to the next pre-noon deployment window; current time is after the generation cutoff. No provider calls or runtime changes.
+- Verification: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2641-summarize.py; pnpm obs services/sources/jobs --check; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Receipts: /tmp/2641-{metrics.jsonl,metrics-error.log,summary.json,services.json,sources.json,jobs.json,format.log,lint.log,check.log}.
+- Full check exit 0: 1,067 unit/329 integration passes, four expected skips. Documentation-only checkpoint; running application code remains aligned, so no rebuild or restart needed.

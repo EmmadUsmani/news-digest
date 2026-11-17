@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2635: 24 healthy rules/six passing queries; no new admission-limit events, +794 memory-high events/68 small merges, no big merge. Next check ≥16:40 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#fifteenth-nov-17-recovery-checkpoint-iteration-2635).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2641: 24 healthy rules/six passing queries (≤2.783 s); +1 admission-limit event, +981 memory-high events/74 small merges, no big merge. Next check ≥17:55 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#sixteenth-nov-17-recovery-checkpoint-iteration-2641).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. Four control tests pass; cached boundaries remain provisional. Next: explicit grouping-success result/default-off runtime Tech switch before noon, then natural scheduled acceptance. No production change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. Four control tests pass; cached boundaries remain provisional. Next: explicit grouping-success result/default-off runtime Tech switch in the next pre-noon deployment window, then natural scheduled acceptance. No production change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
