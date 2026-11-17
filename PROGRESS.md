@@ -121,3 +121,13 @@
 - Source snapshot now reports zero unhealthy sources (38 configured, one paused). TASKS, SOURCES and NEEDS_FROM_HUMAN record the access blocker; no immediate owner action needed. Resume only with documented publisher access.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes, four expected skips; receipts /tmp/2601-{format,lint,check}.log); git diff --check. No runtime code/config artifacts changed, so no rebuild or service restart under STEERING 22; live database pause is already effective.
 - Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC. Destructoid remains paused pending documented access.
+
+## 2026-11-17: iteration 2602 — reach the first topic sooner with enlarged text
+
+- Clean main at e9dccc29; no inherited work. Alerts clear; health database/Redis true; source snapshot zero unhealthy (Destructoid paused), all 14 monitored services active; digest queue zero failed jobs, next edition 15:00 UTC.
+- Reader weakness / STEERING 38/42: blank space before the first topic scaled from 80px to 240px mobile and 40px to 120px desktop at 300% reader text. Fixed spacing preserves enlarged text and saves 160px/80px of blank scrolling before real content.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2602-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2602-{format,lint,build,browser,check}.log.
+- Browser checks cover 18 combinations (320/768/1440px, 100–300%, both themes): five real topics, fixed top spacing, no horizontal overflow and keyboard focus on story save control. Screenshots docs/screenshots/2602-edition-spacing-{light,dark}.png.
+- First pnpm check ended with exit 143 after integration case 333, without a reported assertion failure; full retry exit 0 (1,062 unit / 329 integration passes, four expected skips); receipt /tmp/2602-check-retry.log. Public HTTPS 200 via public DNS/curl --resolve; local lookup resolves to unreachable private address.
+- Web published atomically; no service restart under STEERING 22. No generation/source/budget or handbook behavior changes.
+- Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC. Destructoid remains paused pending documented access.

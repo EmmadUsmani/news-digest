@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2602: Edition top spacing stays at 80px mobile / 40px desktop with enlarged reader text; at 300%, readers reach the first topic with 160px / 80px less blank scrolling.
+
 - [x] 2600: Contents links retain 44px minimum targets and compact padding/gaps with enlarged text; the menu is 556px shorter at 320px/300%, preserving 42px labels and keyboard story navigation.
 
 - [x] 2599: Archive rows retain 40px combined padding with enlarged text; at 320px/300%, 14 real edition rows take 1,120px less space while dates enlarge and keyboard opening/pagination work.

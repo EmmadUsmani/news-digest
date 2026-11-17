@@ -190,7 +190,7 @@ export function DigestPreview() {
         <p className="pt-16 text-sm text-[var(--secondary)]">No edition yet.</p>
       )}
       {preview && (
-        <div className="flex gap-[24px] pt-20 lg:pt-10">
+        <div className="flex gap-[24px] pt-[80px] lg:pt-[40px]">
           <h1 tabIndex={-1} className="sr-only">
             News Digest —{' '}
             {new Date(preview.windowEnd).toLocaleDateString(undefined, {
