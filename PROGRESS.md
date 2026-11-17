@@ -212,3 +212,17 @@
 - Full check exit 0: 1,068 unit/329 integration passes, four expected skips.
 - No provider calls or runtime changes; no rebuild/restart required, running application code remains aligned with main.
 - Next: metrics checkpoint >=17:55 UTC; explicit production grouping status/default-off Tech switch in the next pre-noon window, then scheduled acceptance.
+
+## 2026-11-17: iteration 2644 — verify reserved Tech evidence end to end
+
+- Clean main at bac260b0; no inherited work. Alerts clear; 14 services, active sources, digest queues and /healthz pass.
+- Owner value: before activation, prove the proposed California reservation delivers attributed reporting to the editor rather than only another headline.
+- Recorded forty eligible public inputs reconstruct all 21 ranked events and the exact published baseline ten through real ranking; cached boundaries remain provisional.
+- Enabled control preserves California’s Black Chronicle lead and its Verge member’s 600-character report/source label/original citation URL through real editor serialization.
+- China and Google remain headline-only; source-text events rise only 1→2 of ten. Windows stays; displaced evidence is unavailable for citation.
+- Seven targeted tests pass, including both locally captured editor attempts, prompt bounds and immutable citation transport; no fabricated edited output or provider calls.
+- CLI now reports baseline/control source-text counts and attributed evidence-member lengths without printing prose.
+- Verification: pnpm exec tsx --test apps/api/test/{tech-admission-control,tech-admission-evidence,tech-group-evidence}.test.ts; pnpm exec tsx scripts/evaluate-tech-admission.ts --recorded-tech; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Receipts: /tmp/2644-{targeted.log,control.json,services.json,sources.json,jobs.json,format.log,lint-final.log,check.log}.
+- Full check exit 0: 1,069 unit/329 integration passes, four expected skips. Runtime code unchanged; no rebuild/restart required, live application remains aligned.
+- Next: metrics checkpoint >=17:55 UTC; explicit production grouping status/default-off Tech switch in next pre-noon window, then natural scheduled acceptance.

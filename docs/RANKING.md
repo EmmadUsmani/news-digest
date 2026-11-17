@@ -3265,3 +3265,23 @@ receipt-to-score/member identity, baseline positions and fallback silence.
 The CLI includes these receipts. Runtime code and deployment remain unchanged;
 the production grouping-status contract and switch still await the next
 pre-noon window.
+
+## Tech reservation editor transport (iteration 2644)
+
+The recorded control now includes the forty eligible public source inputs and
+reconstructs all 21 events through real ranking with the recorded memberships.
+The disabled baseline reproduces the ten published editor IDs; enabling the
+control preserves those event identities and the bounded two-event tradeoff.
+The CLI reports source-text availability and attributed member IDs/character
+counts without dumping source prose.
+
+A local capture of both editor attempts verifies that California retains its
+Black Chronicle lead and receives the Verge member’s bounded 600-character
+report, with its source label and original URL preserved in citation evidence.
+China remains empty; Google is also headline-only. Events with source text rise
+from one to two of ten, so reservation alone does not solve all Tech depth.
+Displaced events cannot be cited through the admitted evidence projection.
+This checks transport, not generated prose or the provisional cached boundaries.
+No provider calls, production changes or historical grouping re-evaluation.
+Next: explicit grouping status/default-off runtime switch before noon, then
+natural scheduled acceptance.

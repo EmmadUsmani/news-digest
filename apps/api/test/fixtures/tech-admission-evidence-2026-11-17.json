@@ -1,0 +1,492 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "note": "Recorded public source inputs only; cached event boundaries remain provisional. No live provider output.",
+  "windowStart": "2026-11-16T15:00:00.000Z",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "c34e3851-02db-416d-af93-d44af9c6b632",
+      "title": "NY Attorney General James announces new unit to oversee AI safety and enforcement - WPEC",
+      "url": "https://news.google.com/rss/articles/CBMigwNBVV95cUxOaTlBRV81ZWdZY0lyT2publ9iUjA4ZGw3cGFwZ3E2M1ZUTUxlQllDNUtJVWwyY0hKd0VQOGpqWkxHWUV6NFBYYmM1VThaeUJRa2lsR19mY2E3SG5BMEtiMXJQNUdOUlVTakh4VGIzZGZTMzVfRkhraDhNaXlxSE9nTnltZ0hQWWplaDNHbFc2eFY5LTMwNFFuWFBITTFvRUtXVkJ5WlYtVk9TQkJPcGV1aEI0ZU5tc3BmX1NraGplU1lRcm1KWnJBcjZLOWlKd1NvM1NNTDFDSWhGblpheUdKWVdIc1JtM1BBdG9ubXAtZ3RTdDFhbU1KTjB3bzlVMHJHb3k4cXJ4R1Ezb0NrZV9VVFluWnNJUEVsUnU1cmFFMlBlREY5cGlSdkViZzFrNTM2VG9rR1Awa3cxSmdOdElDN3hyaE40MGs0UzNFQUxZV2F6OW55NlozOGdFazhvdWQwYVllcDZZS2FvX3kxWWFhb1d6YjViSENZR1BZa3Q1MlBkWEk?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T14:27:30.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://cbs12.com/",
+        "name": "WPEC"
+      }
+    },
+    {
+      "id": "145d09b9-d32a-4752-8a5a-9bd3445e73a8",
+      "title": "NY Attorney General James announces new unit to oversee AI safety and enforcement - WSMH",
+      "url": "https://news.google.com/rss/articles/CBMihwNBVV95cUxPZlM1cWxfbXJlekprenVHR1FFaDRET0Mzc0Y1QTlkNUZiUVRDdEN5TVlCM3N5cWg2cllHTXFieG9iZ1phaWlMLXk4LURGMUdCaVRqRjVDb1ZRZWdUcHhPS3JQZEtJcnk0bnZyR3MzZXFXdU9fWXJpdlFhVFRaczR0NnlwR2I0UEJSQW9KQ0VvZGwyVC1hMXpVUnRfQXItUUlhRndzSE9tWFUwcm8wZU84Wm1PenJkRURBRlhLRVc1eTFpeUFmRGg4elB2dXloSDNTTFJKMmtaWWZzRlk2bHltbGdVdFBzVlhzWHVnSFhTZ20yRkF5STNaYnFzY0xSdmFNaVhOemlSTnZsZU85a05aQkt5TmNJVUlUUWlMSGlPTkN1dGpYem00bk1MQjZjN2l6WEIyNl9abENUWTVmNnVXX3VEV0w3aklISlhWSi1hcUx3a0pmOUhlREw0SVJqWG5oTldCeEZWOXVXdnlBcEtMbU0xLTlrTWpQaDBKaDBtX2x4NHJ0a2NZ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T14:23:29.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "http://nbc25news.com/",
+        "name": "WSMH"
+      }
+    },
+    {
+      "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+      "title": "Grok Bot took unapproved actions, ignored orders to stop, and then denied it",
+      "url": "https://arstechnica.com/security/2026/11/grok-bot-took-unapproved-actions-ignored-orders-to-stop-and-then-denied-it/",
+      "excerpt": "Researchers recently discovered unexpected behavior from Grok Bot, the AI agent platform from Elon Musk’s SpaceXSI. Over five days, Grok bots installed on two separate employee laptops made 31 requests to access data stored in employee calendar, email, Slack, and GitHub accounts. The bots performed the actions even though the employees had never ordered them and continued doing them even after employees instructed them to stop. The bots also denied having taken the actions at all. The behavior was reported Tuesday by NewCore, the maker of a managed gateway product that acts as an intermediary between AI agents and the tools and accounts they are assigned to work with. In some cases, the unapproved access attempts occurred while the laptop with Grok Bot installed had its lid shut, or late at night while the employee was sleeping. None of the unprompted actions were recorded in Grok logs. Without the gateway logs, the employees would have had no idea they occurred. And of course, without the gateway, the unapproved accesses would have succeeded—again without the end user's knowledge. It’s “worse than a bug” Once the employees learned that Grok Bot had tried to check in with accounts without prompting, one of them instructed the agent, four separate times, to stop taking any actions on its own. The agent's reply was: “I won’t set that up, and I’ll stop offering recurring check-ins.” Despite acknowledging the explicit instructions, the Grok Bot made more unapproved access…",
+      "publishedAt": "2026-11-17T14:00:29.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+      "title": "Demis Hassabis’ AI company raises $5 billion, months after he left as Google DeepMind CEO - CNBC",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPTFpzOHFHREVGLWRCYk1xQlppZXlkZTJtQ3dsV3JqNHM3al9SVF82UGtNUk52Y2diUTlXYUt2QWZ1MFRnN3dlbEpLQUdiYWc4aDgtOERaLVJLckgzaUFTOTBtMEo0NUcxckFWSy1yRThTSkx6Z3lfV3dQdFBaU1pBelpncTB1d0nSAYwBQVVfeXFMTUtFN2U2MHg1TlE2aVZSa1pRUTQ1ZUY0blFyV1RKaFJHWWVTQlRTeEh5cG0temdzTmFHR2d4MVZlMXpNQ1l4eHBkRXJwOFd6ZUhQMk9pOUI5cWZFdUE4S3hoSngwNXZxTndONlM1cUgycFZZOUttZzdVc056eXF3Q18xbjBOLTZQX2w4Qy0?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T13:58:07.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.cnbc.com/",
+        "name": "CNBC"
+      }
+    },
+    {
+      "id": "cd05a2cb-ff23-4f33-9d61-8fab6cae2fb1",
+      "title": "What does Huang's ouster mean for the global AI race? - Marketplace.org",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNTW9xSmQtV1g1U3BlSjJ0Si1ncFZTQXpaTkl3UXZTenIzUkM2dHlCZ2YtYUVodFlyZFVoY0J1NzVPNk5IOUpRTklZbkxyaXlLSzBvQzRXek82enJwQ0NSVUYzbjBhdTBONjRlcGR2bXFkRzBVWU1LTWN3S3RMdnJ0RjFDOHdCQnhkM0JHTFhUWW8tSlNMWGxjSzF5b0M3MEk?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T13:50:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.marketplace.org/",
+        "name": "Marketplace.org"
+      }
+    },
+    {
+      "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - Alabama Daily News",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZmVNc2gzUVpPRS1uRHRSNUZMR0RSR3hzd18xZVVacXlMVGVQZDhDSFJ4S1E5UjRYQVRnVWdWS1cyMW9pSXk2T21YWmFjVWJnU3NYaUJLSmZVS0V1OU0zMlpQb2xNMTZxdDN5UnBES1ZoQllzdG44SjVQQlJXbVgwUXZsYVRqVTNsOWJnTEgtYUFFN1RVampqc3M2WXljRHBZandFZklkZnZ3aktaLVhIaHpPVQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T13:11:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://aldailynews.com/",
+        "name": "Alabama Daily News"
+      }
+    },
+    {
+      "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+      "title": "Apple Tightens macOS App Permissions to Limit Data Access Amid AI Agent Security Risks - The Hacker News",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNRUNYMngtOTB5YXQ0SWdaT3lkMUtDSjVTTFkzdjlwcFBfbkFfREptaHJfeG85Z1hhaTYzLUVEUExiVVdRaEFHa20xWTFnRmFRZzVqVG9vVlVWaHVmSHQtSjh5SG1JNnNZSnJnWTBXUjM2OEkxSVFCREFCZExHTXJzNmNYci0?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T11:07:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://thehackernews.com/",
+        "name": "The Hacker News"
+      }
+    },
+    {
+      "id": "43e1631e-1657-4ca4-b78b-b0e1f5a113e5",
+      "title": "Nvidia to reveal first earnings since spy scandal - AFP.com",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE16OHc4UTA1ZVUwak55UE1NemF1ZENCYTFtR2I1eGVXY2hWR1RzY1NSWk5rbWM3Q3FqcG9UUllQZUVtT3FBUjctazd6UW5fMTd1RkZoenExbk4taC1TVWU4MENJNzZ4R3pBN1Fxd1pQbkI?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T11:04:34.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.afp.com/",
+        "name": "AFP.com"
+      }
+    },
+    {
+      "id": "34c4c89d-481d-43d7-b5b7-48df85d8dc62",
+      "title": "As Trump Goes to China, A.I. Tensions Surge Amid Spying and Safety Fears - The New York Times",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNeEtwR1l3UEhrZF9aVjlrSXVMalM3eERPcll5OUNMbnRDRXp2SGoybFRQWmpMQVNXa0YweWxNdXpCNXd6TFVGbE9NSEhPUXhZcGhzV0tVamd2VWpibjlFQVpkRW1ickJjTXhjSG5uM3p4czYtQmwwZ2szODNQS3M4bg?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T10:22:54.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.nytimes.com/",
+        "name": "The New York Times"
+      }
+    },
+    {
+      "id": "e99de582-f226-4fbe-a9d7-8ef8411f250c",
+      "title": "How new US chip restrictions on South East Asia will hit China - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1kZVJSX3o4UWtJT05KV0VUY1dPV3F3YUhYVHo5MkpQS0YzdUNDM2JmbXdERGRoTFduT3NlWWxaMUNYRkZxV1VyaUJRZ2dQVTVVekVvel85N2Zpa3c?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T10:22:09.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bbc.com/",
+        "name": "BBC"
+      }
+    },
+    {
+      "id": "2e1b6f36-1e01-4596-89aa-39a8b767e695",
+      "title": "Nvidia warns chip buyers of legal risks tied to China AI access, CNBC reports - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNUjZOV3YyMmVEVldvXzBTVTh5MVpDTXFlNVdfSG9ibWowYXhwZlo3Y3dNVmFKUVBmUHlUUlM1aHZyLXl0djRoaGgtUGpSb2wwVjk4QTBDU1Vfdy1EUGo2TGZXUnJHc29CRUtYeElBbGxhelAwMXJ6V0owVTJITXdGOElR?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T10:01:04.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://finance.yahoo.com/",
+        "name": "Yahoo Finance"
+      }
+    },
+    {
+      "id": "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19",
+      "title": "Chip Stocks Slide as US Sets New Curbs on China’s Compute Access - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSVVjUlBfX1ZxOFRWZ243YkxEbTVJSm1BSkNJLUpCTzdrZlAtU3ktZzdmekJCZVhVc1lubi0tbklQX2wwTEh6WU8wUkI2M05Ecy1OTWJUNk5UVTV6bjltOWZkaXF3UHpJazUwaVlmTGljMFZBUGd3bFliN21xRWItdWhHeHVvSncxLXQ4SHZael9ySVF4QmlQOTNIQTZWTWl2NGdwaTA4eFhDUm5LVzZQc2JhZmFJQQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T09:01:04.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      }
+    },
+    {
+      "id": "36f00657-d857-4f30-a8f5-b35892e066e5",
+      "title": "In a first, Google detects AI-automated cyberattack - upi",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNM2t5RHYxRENmb1ZYUS1ELUU1WlhuV0pna2dOcGFNa0ZyYmJIN216QnpTblRiSF9vb0tpc3BwREhEeVJXN2JDeU11MHZZV202MmpCcjU3U3RXdWxUd01BQUp2MlM1aUV5U1dfdjNMeHRkNkZTSFRRajVQRUdiUS1zS25MRUZRYTZnYTJ4bUZEUk1fZWhuYVlDLXJ1TTJ5cUJBTE04ZUVVMEtHZE830gGyAUFVX3lxTE9VRjZLbTFpRE12VGlZOHViODltbzBGMjhVZkdfRHhoNW1UUWNkNTJmMlVhTzVFTTZGVjMtUFY5c1dtdzk3Zm5vbGFWS09tNWVWTlpIdTdybTFOS01RVi0zZlBPRUtacjhPNDhfTnFtNy1mb2xrMkM0MDVKeHVuUjNsQlF3SUdoVFBkSmRfbjd5THlYQmtobGhxOW5DcnpwdmltOVFiOTdpWm54VzFmbm1oMkE?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T06:48:34.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.upi.com/",
+        "name": "upi"
+      }
+    },
+    {
+      "id": "66b34ecf-98e2-430b-836d-744a79d4726f",
+      "title": "EXCLUSIVE: China taps US AI models to train homegrown rivals as chip curbs bite - Reuters",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQemJ2WmtQZV96U0x6Z1FzanV3YlQwT2k5ZXk3Wnc3RzI2cVFsNDdjaHk5TTJJU0FiNnVPYllVYnRVcjZkTEMwYVZ6bU01SE54THNuRl9NdUVrekhxdXlwaVBubmhJTEt6Z1V4R2kwTGpjdmVkdkxxVl9vVkZXYWFuR1lEdjRWUnVPVG4tQVRLdVp4bXJvaVhSM1pXN25keDRrNXA4S0dvWWZoX3FfSE93?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T03:42:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.reuters.com/",
+        "name": "Reuters"
+      }
+    },
+    {
+      "id": "8c70e31b-cf23-4ed2-9005-4b7d29707607",
+      "title": "California sues OpenAI over artificial intelligence models - The Black Chronicle",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQMEZ3N1Rxb1J4TkkzOGcxUjh3UkJSNGV1RjA5em1RMF9ULWVrOG9iZWtpZm8tZURpaWNTdkQwcmg2UjI4Q2ZDOFNHd2VvZzZKZTRFVXh1bmx6OGc0dnFTMkkwaXJwVzI0QXVUNTlpTDRDVVUxQ3NDS3JFU05HQzFkN3NQS2g4X2czOVNaeXhQdFRqQWxrZFVsTGk1SldwY09fMXVhSFVNeWx0LThFcjNZU1RSdl9Nbms?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T02:45:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://blackchronicle.com/",
+        "name": "The Black Chronicle"
+      }
+    },
+    {
+      "id": "04cef449-39d2-4adb-af8d-3f4533dac496",
+      "title": "California sues OpenAI over artificial intelligence models - Marietta Daily Journal",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQRk5KTWxPNHI4OFBiVDhtUFFqVHFUUEhJbG0tYndsWFppQzlZc3lNTTBXTWp4VmlVZVNIbjMxUHhITzh1VzhDQ2Q4M00wd2hLY0QtMjFicUVlcUV4d1JZWEFUNldtWmlpSlV4QmJnTlI0SDNmR2t6bkFLTG1ib0JlckNJbnE5NHNISlpib1lHbUtLZUNFMWhNREVlVFlqTGxuWmxqWnJ5TVhHVFhoelE5OFc0WU90dlBVV0Nyd0hQNGVTdmRNVUdIaXV4U3ZLSmlGMmVDZTJFUjVKSGI0c2c?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.mdjonline.com/",
+        "name": "Marietta Daily Journal"
+      }
+    },
+    {
+      "id": "887b0419-a275-4cce-b4a2-4c055491d940",
+      "title": "California sues OpenAI over artificial intelligence models - Vermont Community Newspaper Group",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQaW1WenBKYWt2Qk1XeDYtWlZpeUlMejNQelpKUnVNVHF5QjVvNzlUOHd5OHo1ZHJoQ25XWjFLUG83dkNRcmdBZk9ENGZrRHZzUDdJejVEV0N2SGJVdGVnVDJCYVNRTDRBZUcweVVnNndQSXpYbmRhOE9CTW1LMXBROV9oN2VJcUlRMm42NWNRS18yczRpdXM0bGhrN0xGUHdEbTB3T1NVY0FXNVFRdVR2V1B4UFd5aUxLN194TU96NWFSS0RVTFZIaDdpbVRaNk5KQXBVTGdtc1FVWFdYcWF5VXJTeXVWQ05aQ09OeGxpaHRXd3pVVlA4Ty1yaG9PaWpQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.vtcng.com/",
+        "name": "Vermont Community Newspaper Group"
+      }
+    },
+    {
+      "id": "d3e843c6-e2d2-4033-b6e7-ff741dd45f4b",
+      "title": "California sues OpenAI over artificial intelligence models - Yahoo",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQOFd5a01VR09TclFtU2pUOWUzOGJ2Qzg4MHFIcHZZbENyaFpMcC1GS1ZheTdzQWc2RXJxNXR5ZTdIZTF4RDZHWXh1XzFmdHpMRks5Vi1qWmZtTURseUEyblJzRmY5czA3MERaLXpRVTVyZmN1NFFHc041d1o0VlRLY2tHdDdCTHFVZ3RuMjVucTJPNkM2eC1lZlNlaU41ZVU?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.yahoo.com/",
+        "name": "Yahoo"
+      }
+    },
+    {
+      "id": "fbdcebf3-aa41-4442-96ec-5e2549d7b8e1",
+      "title": "California sues OpenAI over artificial intelligence models - Leader Publications",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOQUN4cUtsNWlORkZ6YmkxNERyVUVzYnZEVk5qWWVTcTBRNzhZZnFGdzVfeThvajQxY2wyS3dtb2NVSEJmX3pFNDlab0kzRVJqQXdRWU1WUEJZYlJkWnhYMGdjcEZmVDloNFhET29KcDNxRTRDalFLOXFNWktMbUpKNzZsSGlpSUpGOTdSOGowWHNrejJYZE9BamtReEliTWVaeXlDcHI0endnMGV4cTBoZ29qSjg1dTV6QXNFR1l6emRZSXp5bDV4YVFaUzdEbWUwMVFhdjZEajFDYlpvYmRGQWtVN1hKR1U?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.myleaderpaper.com/",
+        "name": "Leader Publications"
+      }
+    },
+    {
+      "id": "1d81cbfa-098f-4c55-8cd6-17f8d3f84868",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - Los Angeles Times",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxORndmQl9ST0JsenBWc1dGUmpQUW5kRVBOODgtQi1MV1gzSjNlanNvalBtbzJKa3diVGNJR0lPZGFhVEthbVdjRlhXQXEzOFRaQndtb0pacVNISE1FamdkWmtuM2Z1c3Y4OTFpZl83TUlYRVQ3Y20wRmhYZ3B2M0xvRFRNLUJWYUtRc0hUMFJlbGMtc2tEY3d0OWZqYXZWSlllb29Vc1V1a0l5NmVvanNpaEViMVY2aWZTNVNyLXpzZHlFU1pEQzY3MjRrdm0yZXpPUnEzcA?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T23:55:12.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.latimes.com/",
+        "name": "Los Angeles Times"
+      }
+    },
+    {
+      "id": "280a3af4-381e-4e63-8a8d-7fcf9168c553",
+      "title": "OpenAI sued by California over Hugging Face attack - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE44X3h6ZDFZV05Gdzc1TTZtX083U2dlX2tmcWY5ZmVyYmk0cy0teWw0Q1VtWi1ISjRxNFZPYmZBMmZKUVN4WVhGOGVvX1B4VHhtVzBPUjIwOEMwRnM?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T23:12:24.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bbc.com/",
+        "name": "BBC"
+      }
+    },
+    {
+      "id": "841e390d-2d01-4c58-bf91-21323f916a73",
+      "title": "Robo-soldier startup backed by Eric Trump misses payroll, may collapse",
+      "url": "https://arstechnica.com/ai/2026/11/robo-soldier-startup-backed-by-eric-trump-misses-payroll-may-collapse/",
+      "excerpt": "A humanoid robotics company backed and advised by President Donald Trump’s son, Eric Trump, has reportedly missed payroll and may be on the brink of collapse after a funding shortfall. The Silicon Valley startup, Foundation Future Industries, claims it is developing and testing robots for military roles on battlefields from Ukraine to Gaza. Foundation failed to pay employees for the payroll period ending on October 30, anonymous sources told CNBC. The startup’s staff is especially angry because Foundation’s co-founder and CEO, Sankaet Pathak, supposedly borrowed $4.6 million in company funds to buy a luxury home overlooking San Francisco Bay about a year ago. This comes as Pathak and Foundation’s leadership are still looking to raise funding to support a $3 billion valuation, based on their promise to develop a humanoid robot ready for combat duty and capable of wielding various weapons.…",
+      "publishedAt": "2026-11-16T22:58:27.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "9d0c0082-f800-4bb5-a7c4-03322b395ad7",
+      "title": "Windows 11 is collecting data on which coding agents and developer tools you use",
+      "url": "https://xusheng.dev/posts/windows-coding-agent-telemetry/",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T22:58:20.000Z",
+      "sources": ["Hacker News"],
+      "points": 613,
+      "publisher": null
+    },
+    {
+      "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+      "title": "US will say \"no\" to global ban on killer robots",
+      "url": "https://www.newsweek.com/us-expected-to-block-killer-robot-treaty-talks-12722369",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T22:57:49.000Z",
+      "sources": ["Hacker News"],
+      "points": 40,
+      "publisher": null
+    },
+    {
+      "id": "315f61a8-dd07-46aa-9780-1eec6d30bac7",
+      "title": "California sues OpenAI, seeking court-ordered changes after the Hugging Face hack - WRAL",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOOElEaGItV0NZcVpFY3VSdEV5Z2RILUxvSGxzd3U2VjBlSGlhUEdpNUFWc3pDU2ZQRmpZOU1XTXNmNFd3b1FMcXIzVkNyM0pQTE5xdlJ6NDZhMjRVTGtmZWkxY1FKdUt3YTI3NHVDRF9lLVRCOTJ6bFJNSF9kV1ZYT0JyOFp2aWlZQnM2blpwTWhDYVM2ZGxGZGxMSGdNZ0hnZzVoTVQ2RFBoWXg3SW1mY2dlZ2oxUXM?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T22:16:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.wral.com/",
+        "name": "WRAL"
+      }
+    },
+    {
+      "id": "f549f600-8e8f-4589-93e0-7fd1d73a3017",
+      "title": "Nvidia set to issue earnings report, days after Jensen Huang stepped down - ABC News - Breaking News, Latest News and Videos",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQR0NjVnJURjhVb29vT04zN056SkZWOEc5SnpQalpDNHpTdm5MR0k3bV8yRW1HRWNYdmM5ZzBEWUFRNEVVQy1CS0hzSU8zbW8wbVozOHJDSkE4MHg0QnpVZl9pQUw5Y0xMcElzVmtKcHpMY2gxZkMzUkQzNEdBUklpSXdVRDhKbHhWMVMyTExjQkJiNmFkcDZET2x0d1A1RGvSAaQBQVVfeXFMTmtkUk1nN05uYUhjWXFYZmhLaUV0Q1ZsRXQtMW9MMXp5Mk1jM2UtNDdXQ0hyTmdVQVF3WUdaakU5VVdGS2haNmZuTlYtcG1keVAtOHpCQldVUVVpUlN4S2lzQjg1QUNGMGZkaUtSLXI5SktDcHhLRGd1MGtmMVVYU092b2lXUnRNU2pnZ0NndlJqMUViUWF4ZHB6ZVhfUEdseVY3U04?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T22:00:17.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://abcnews.com/",
+        "name": "ABC News - Breaking News, Latest News and Videos"
+      }
+    },
+    {
+      "id": "09b6a53a-15b6-4e5b-a64d-720c167dca62",
+      "title": "Three small failures combined to take down Microsoft 365",
+      "url": "https://arstechnica.com/gadgets/2026/11/microsoft-details-how-three-problems-combined-for-a-global-outage/",
+      "excerpt": "A hidden defect in Microsoft's cloud gateway, dormant since July, was to blame for one of the largest outages in the company's history last week. A preliminary Post-Incident Report (PIR) released by the company outlines how the latent bug, changes in traffic, and reduced server capacity combined to knock much of Microsoft 365 and Exchange infrastructure offline at the end of last week. Microsoft's report lists the incident's final status as \"a technical issue not related to cyber or AI/agents.\" Microsoft's preliminary report places the outage between November 12 at 16:20 UTC and November 13 at 16:10 UTC, just under 24 hours total, and additional monitoring remained in place for any affected systems through November 14. The outage started on November 12 and quickly rippled through businesses and public offices that depend on Microsoft's cloud and email exchange infrastructure. The outage is covered in Microsoft's incident IDs EX1550543 and MO1550821. You need Microsoft 365 admin credentials to see the full report on the company's status pages, but Office Watch has reproduced the preliminary report, and the University of Pennsylvania maintains an archive of Microsoft's service-health updates.…",
+      "publishedAt": "2026-11-16T21:56:39.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "6738ac07-8d4c-4c44-9901-3eee1c8862d5",
+      "title": "New US rules aim to close loophole, restrict Chinese firms’ remote access to AI servers and infrastructure — seeks to combat cloud rental workarounds to export controls - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMirwJBVV95cUxQcUk3QWgyeElRSjVVWmIwZDR4YURwWFl0am5NM1FtTjVrWlFUeEdOb2MxZzNhd1lIX3ctLVBibWRaWnpMQi13YU5HdWdha1RrcGtBUGgzeGZPYi13MFhzWWxlSlhiSDY5cHctWndFOWhfLUFiNmxKZ2tlRFczaGU2LWJWWTlTTUhYMlBKeEQwRnV2NGpGSHFLOHBBYVhRSXBkbERKanE5Z29RTU02N216OWJFd29MS202OXl3VFB1aXJxcEF0T205VmFVNTVmRklwSGVzWXRrQ0Y3SGw5UlY4dTFOaGZsLS1EZjZ6Y1g2el9PcmNlRHNFVjZaVzljOFpXWG9lT01XMFF4SVJMRDNmLVZ2TzUzMnczSVdLRUdmZnd6MHFiazVCN3dEdXFrcTA?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T21:50:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.tomshardware.com/",
+        "name": "Tom's Hardware"
+      }
+    },
+    {
+      "id": "b6adb8e4-ff19-4f5f-ae6f-5a7f3c509db5",
+      "title": "FBI, Google warn of threat actors using ARTEX, other AI platforms to accelerate cyberattacks - American Hospital Association",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNeTJ6U0JscnR5aXJMZWFRU1pVY1luSVBxNjBvSjFMcmRQRnFEZGg2cTJ6NDNIZDBEQ1g4X1Qxd2JxcnlfWDh0TEIzdFRPOWtEejRFUjdJMFU1SzJmZEVlNjhvUlg2bGM5aWMxQ0thbEtsdHh0MWJyQmRVUEFmNnBTMDZZX0MxcklxMzdqUnlRVHlhVzN6dmZuWG9Bak5fNm5JV1kyYlRDdVA2MXk2OHJST0tzMmJacWVIb19tRTl5WkRZMlB6WXJNeQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T21:49:40.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.aha.org/",
+        "name": "American Hospital Association"
+      }
+    },
+    {
+      "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+      "title": "Optimizely compromised, served malware on Zoom, GitLab",
+      "url": "https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely/",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T21:08:38.000Z",
+      "sources": ["Hacker News"],
+      "points": 480,
+      "publisher": null
+    },
+    {
+      "id": "c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd",
+      "title": "Optimizely Compromised",
+      "url": "https://amirulcyber.com/2026/11/16/optimjack-optimizely-skimmer/",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T21:08:38.000Z",
+      "sources": ["Hacker News"],
+      "points": 54,
+      "publisher": null
+    },
+    {
+      "id": "7b2fdfc8-8481-4280-9e6c-a784338694ac",
+      "title": "Hyperscale data centers use 2% of US electricity",
+      "url": "https://arstechnica.com/science/2026/11/hyperscale-data-centers-use-2-of-us-electricity/",
+      "excerpt": "One flashpoint for the tech industry’s all-in push on large language models has been the sudden rush to turn investment money into hyperscale data centers. The rush hasn’t allowed anyone to plan how to supply the required electricity cleanly or with minimal impact on ratepayers. Instead, it has been difficult to even collect information on what’s being built. A new study has tallied energy use and estimated emissions for hyperscalers operating in the United States between May 2024 and April 2025. They weren’t able to differentiate between AI compute and more traditional data services, but it provides a clear point of reference to track moving forward. Finding the centers The team started with a list of 675 facilities from a commercial database based on news reports, company statements, and satellite imagery. They dropped any that didn’t have a reported electrical capacity or that they couldn’t verify was a suitably large building with the expected cooling and electrical connection equipment. That reduced the list to 403 data centers with an average electrical capacity of about 40 megawatts.…",
+      "publishedAt": "2026-11-16T20:52:10.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "b84b6da6-15b6-4961-be06-3313d13cc0d1",
+      "title": "California sues OpenAI over rogue AI hacking incidents",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1034815/california-openai-hugging-face-lawsuit",
+      "excerpt": "California is suing OpenAI after its AI agents broke out of their testing environment and hacked other companies, including Hugging Face. In a lawsuit filed Monday, Attorney General Rob Bonta accuses OpenAI of violating consumer safety law by knowingly developing a \"dangerous product without proper oversight,\" as reported earlier by Reuters. The lawsuit claims the cyberattack on Hugging Face \"was the predictable result of an internal culture at OpenAI that prioritizes growth and rapid model development over safety and accountability.\" It alleges that OpenAI recently told the attorney general's office that it \"lost control\" of its AI agents …",
+      "publishedAt": "2026-11-16T20:46:01.000Z",
+      "sources": ["The Verge"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "1c78472b-6276-42a0-892d-603da8e27612",
+      "title": "Shareholders sue Intel, its CEO, and CFO after stock drops 28.6 percent in one day",
+      "url": "https://arstechnica.com/tech-policy/2026/11/shareholders-sue-intel-its-ceo-and-cfo-after-stock-drops-28-6-percent-in-one-day/",
+      "excerpt": "Intel is being sued by shareholders, who are accusing the chipmaker of misleading them about the impact of the PC sales slump that contributed to a drop of 28.6 percent in the price of Intel's stock on October 30. The lawsuit (PDF), filed on Friday in the San Jose, California, federal court, is seeking class-action certification and lists the City of Southfield Fire and Police Retirement System and “all others similarly situated” as plaintiffs. In addition to Intel, Intel CEO Lip-Bu Tan and Intel’s EVP and CFO David Zinsner are listed as defendants. The plaintiffs claim that Intel made “materially false and misleading statements and omissions” between July 23 and October 29. They are seeking unspecified compensatory damages, plus legal and other associated fees, for shareholders during that period.…",
+      "publishedAt": "2026-11-16T20:37:47.000Z",
+      "sources": ["Ars Technica"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "30822c95-2e72-4aae-8155-e49a790624e1",
+      "title": "Commerce Department moves to close AI chip loophole - Nextgov/FCW",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYmFQTHJZS3RtRE05aU1kZkRJZm1fSzV1MXNZZmJILXZ4OUZWWFRNTjRKdUQ5SkFsVGRNVFRtbDJnZlNzZ215UGU3UUMxYkhnQmhzZlZvX3ZNNklkNlNieXdOVzh4V25XdWlkODZldXN6Q3YzNGJhLTZmbi02bmQzSTNENWZUNTAxZ2QyYkRxR2hVZXJnSUVZQk1rWFdoZllWZUVla3pqN0s5SDk2NFlXTThn?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:32:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.nextgov.com/",
+        "name": "Nextgov/FCW"
+      }
+    },
+    {
+      "id": "9d5c6257-d9c7-471f-9d2b-4a4f3492cf09",
+      "title": "California sues OpenAI as ‘ongoing public nuisance’ after artificial intelligence attacks - Washington Times",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPT19XelpseVQycDJ6NVkwZFc5aGRKdlE0SUxBd3YxQmVnY3FxMXRmc1cydkJIN0hRTVdTV1dCdVN6Mml5MTdHVEJlSWFHRmFqaHJ2UVUwellJRTBNTWh0V1BDZGIyWUF1ZGJyY0xLcDlTanRNQlRoak5fNjhjcTJGS19qcng1anU2dEU3MFkxZEt2dDNEQnZtaHk2YnJqb0xpaWRVcUhRaDVYTkE?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:30:39.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.washingtontimes.com/",
+        "name": "Washington Times"
+      }
+    },
+    {
+      "id": "3b573991-73a9-49b8-998b-a0248c0c7457",
+      "title": "Apple is testing daily usage limits for more complex Siri AI interactions",
+      "url": "https://www.theverge.com/tech/1034581/apple-intelligence-siri-ai-daily-usage-limits-icloud-subscription",
+      "excerpt": "Apple released betas of iOS 27.3, iPadOS 27.3, and macOS 27.3 today, and the company is using the update to test new per device daily usage limits for some Siri AI and Apple Intelligence features, according to MacRumors. Basic Siri commands and requests will remain free and unlimited, but more advanced features that rely on cloud-based processing like generating, cleaning up, or extending images in Photos will be subjected to the daily limits. There are four categories of limited usage, MacRumors reports, including using Siri AI for \"multi-step, personal context requests,\" image generation and editing tools, automations in Shortcuts that \"r …",
+      "publishedAt": "2026-11-16T19:24:40.000Z",
+      "sources": ["The Verge"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "2c3fdaaf-6b62-409b-863a-af6e520f964b",
+      "title": "OpenAI wants to stop deepfakes from overwhelming child abuse tiplines",
+      "url": "https://www.theverge.com/policy/1034527/openai-csam-classifier",
+      "excerpt": "OpenAI is announcing a tool that it says will help child sexual abuse investigators cut through the noise to find harmful material they can act on quickly. At a Monday press briefing in Washington, DC, OpenAI announced a classifier it says can better detect abusive imagery of kids, including whether it's AI-generated. It's also offering free access to vetted organizations, giving developers more guidance on how to detect this type of content, and helping to train law enforcement on how AI can aid their investigations. The news comes as policymakers and others are pushing for more safety restrictions on AI tools, accusing OpenAI and other co …",
+      "publishedAt": "2026-11-16T19:23:45.000Z",
+      "sources": ["The Verge"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "edbb13ba-3e43-4129-bb66-48f16c2f818f",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - KSL",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNFg4c3hVYUpsbG5YM1lWYURyNndYY281M1R3eWFvWWF4ekt0X1pNaTdmTFJNRUJKSWstVnJhdFg2cWZzWFNfMlIyeWFwOWRIVEtja1hlQ1VDNWtkRldTcXdwMGY1MXdRbi1JTTRoNHVGVTMzeWpydVoyNUJfTVh4cldZVS1ZOUZGZ3JhVkI5MmZ6TVNnTWxGdGtjb0NnVzlzUHRHVlJuSUdESVU4MGIzV2V3aWZ5R2VRUjVYNHdkUmh3NUh3N3JvSEZFOUd3cTBoQUpzbU9R?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:15:20.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.ksl.com/",
+        "name": "KSL"
+      }
+    },
+    {
+      "id": "b3672cf5-e44a-457f-956c-2d47525a3286",
+      "title": "US to further curb China's access to AI chips from companies like Nvidia - Sky News",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQcWNxUlVueUVLS0ZjOFptV1JKZl9PUGUxbFFFSjN6ZERnSFQzTlA4eDhsSVllWHlndEtGaER4VEdCX2d4aHByUDVma0RwOVB4ZVVoY0JFdkZPcjlxTXlFTGN2LTZLRm9RTXZLZDZqUlphUUNlbFJyZl9heDNGaEhLMkFhZ1hxaGZrTnU0c0RRVk1SRVU0VGhPc1hQMzUtLVpqSWxGY04tMUh0Rzg?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:13:28.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://news.sky.com/",
+        "name": "Sky News"
+      }
+    }
+  ]
+}
