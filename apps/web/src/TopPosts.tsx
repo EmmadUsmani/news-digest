@@ -322,7 +322,7 @@ function Post({
       >
         <summary
           hidden={!hasEmbedded}
-          className="min-h-11 min-w-11 content-center rounded-md px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="min-h-[44px] min-w-[44px] content-center rounded-md px-[8px] py-[8px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           aria-label={`Saved post text from ${post.author} on X, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`}
         >
           Saved post text
@@ -336,7 +336,7 @@ function Post({
             target="_blank"
             rel="noreferrer"
             aria-label={`Continue reading on X ${postIdentity}`}
-            className="inline-flex min-h-11 items-center rounded px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-[44px] items-center rounded px-[4px] py-[4px] text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Continue reading on X
           </a>
@@ -349,7 +349,7 @@ function Post({
         </p>
       )}
       {failed && (
-        <div className="x-media-error flex flex-wrap items-center gap-x-2 gap-y-1">
+        <div className="x-media-error flex flex-wrap items-center gap-x-[8px] gap-y-[4px]">
           <p
             role="status"
             className="m-0 w-full text-xs text-[var(--secondary)]"
@@ -361,14 +361,14 @@ function Post({
             target="_blank"
             rel="noreferrer"
             aria-label={`Open original on X ${postIdentity}`}
-            className="inline-flex min-h-11 items-center rounded px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-[44px] items-center rounded px-[4px] py-[4px] text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Open original on X
           </a>
           <button
             type="button"
             aria-label={`Retry X post ${postIdentity}`}
-            className="min-h-11 rounded border-0 bg-transparent px-1 py-1 text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="min-h-[44px] rounded border-0 bg-transparent px-[4px] py-[4px] text-xs text-[var(--secondary)] underline underline-offset-4 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             onClick={() => {
               const transcript = savedText.current;
               const summary = transcript?.querySelector('summary');

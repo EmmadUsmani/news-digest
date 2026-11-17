@@ -86,3 +86,14 @@
 - Browser passes 12 combinations (320/1440px, 100–300%, both themes), checking all live social byline links, enlarged fonts, keyboard focus and no horizontal overflow. Screenshots docs/screenshots/2605-social-byline-{light,dark}.png. Initial probe hit the previous bundle before deployment; rerun passes.
 - Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips. Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes. Archived progress iterations 2591–2597 to keep this file small.
 - Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2606 — compact X fallback controls with enlarged text
+
+- Clean main at 7a17a681; no inherited work. Alerts clear; services/active sources checks pass (Destructoid paused), health database/Redis true, digest queue zero failures and next edition 15:00 UTC.
+- Reader weakness / STEERING 38/42: X media fallback controls inherited a 132px minimum height at 300% text. Fixed 44px minimum targets and pixel padding/gaps preserve enlarged labels and wrapping. The owner reaches subsequent posts sooner; desktop original link is now 56px tall, mobile 104px with two-line wrapping.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2606-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2606-{format,lint,build,browser,check}.log.
+- Browser passes 12 combinations (320/1440px, 100–300%, both themes), checking real published post text, 44px targets, enlarged fonts, original URLs, keyboard focus/retry, saved-text retention and no horizontal overflow. External media deliberately blocked to exercise fallback; no provider calls. Separate simulated successful-embed check passes enlarged saved-text disclosure and keyboard opening (44px minimum / 8px padding / 48px text). Screenshots docs/screenshots/2606-x-fallback-{light,dark}.png.
+- Initial browser probes preceded deployment and scrolled to the card rather than the lazy embed; final probe targets the embed and passes against the deployed bundle.
+- Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; git diff --check passes. Archived completed task markers before 2600 to keep the task list small.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
