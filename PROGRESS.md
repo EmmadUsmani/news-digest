@@ -97,3 +97,13 @@
 - Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; git diff --check passes. Archived completed task markers before 2600 to keep the task list small.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2607 — compact saved-list links with enlarged text
+
+- Clean main at 9d3cf4f9; no inherited work. Alerts clear, all 14 monitored services healthy, active sources healthy (Destructoid paused), health database/Redis true; digest queue zero failures, next edition 15:00 UTC.
+- Reader weakness / STEERING 38/42: saved-title, continuation and empty-list browse links inherited 132px minimum targets at 300% text. Fixed 44px minimum targets preserve enlarged labels and natural wrapping. Readers get less blank space; desktop browse link now 60px tall at 300%.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2607-verify.cjs; pnpm check; pnpm test:integration; git diff --check. Receipts /tmp/2607-{format,lint,build,browser,check,integration}.log.
+- Browser passes 12 combinations (320/1440px, 100–300%, both themes): saving a real published story, saved title/URL, enlarged fonts, 44px minimum targets, keyboard focus, removal, empty-list return and no horizontal overflow. Screenshots docs/screenshots/2607-saved-{links,empty}-{light,dark}.png; light saved-title/dark empty-list images inspected.
+- Full check passed typecheck/lint/format/boundaries and 1,062 unit tests, then exited 143 during integration without reported assertion failure; isolated integration rerun exit 0: 329 passes / four expected skips.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥09:55 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.

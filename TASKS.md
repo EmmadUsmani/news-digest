@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2607: Saved-title, continuation and empty-list browse links retain 44px minimum targets with enlarged text; desktop browse link is 60px at 300%, with real save/remove/return and keyboard flow preserved.
+
 - [x] 2606: X fallback links, retry and saved-text disclosure retain 44px minimum targets with enlarged text; desktop original link is 56px at 300%, with saved text and keyboard retry preserved.
 
 - [x] 2605: X and Bluesky author/timestamp links retain 44px minimum targets with enlarged text; first live author link measures 48px rather than a 132px minimum at 300%, preserving wrapping and keyboard focus.

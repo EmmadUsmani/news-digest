@@ -100,7 +100,7 @@ export function ReaderSaved() {
           </p>
           <Link
             to="/"
-            className="inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Browse the latest edition
           </Link>
@@ -119,7 +119,7 @@ export function ReaderSaved() {
                     href={copy.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex min-h-11 min-w-11 items-center rounded-md [font-size:inherit] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="flex min-h-[44px] min-w-[44px] items-center rounded-md [font-size:inherit] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     {copy.title}
                   </a>
@@ -188,7 +188,7 @@ export function ReaderSaved() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`${copy.excerpt.trim() ? 'Continue reading' : 'Read source'}: ${copy.title}`}
-                    className="mb-3 inline-flex min-h-11 items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="mb-3 inline-flex min-h-[44px] items-center rounded-md text-sm text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     {!copy.excerpt.trim()
                       ? 'Read source'
