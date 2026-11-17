@@ -287,7 +287,10 @@ function Post({
     };
   }, [post.externalId, attempt, theme]);
   return (
-    <Card as="article" className="post-card min-w-0 rounded-lg p-5 shadow-none">
+    <Card
+      as="article"
+      className="post-card min-w-0 rounded-lg p-[20px] shadow-none"
+    >
       <p className="byline">
         X ·{' '}
         <a
@@ -398,7 +401,7 @@ function RedditPost({ post }: { post: SelectedRedditPost }) {
   return (
     <Card
       as="article"
-      className="post-card reddit-card min-w-0 rounded-lg p-5 shadow-none"
+      className="post-card reddit-card min-w-0 rounded-lg p-[20px] shadow-none"
     >
       <p className="byline">
         Reddit · r/{post.subreddit} ·{' '}
@@ -490,7 +493,7 @@ function BlueskyPost({ post }: { post: SelectedBlueskyPost }) {
   return (
     <Card
       as="article"
-      className="post-card bluesky-card @container min-w-0 rounded-lg p-5 shadow-none"
+      className="post-card bluesky-card @container min-w-0 rounded-lg p-[20px] shadow-none"
     >
       <p className="byline">
         Bluesky ·{' '}

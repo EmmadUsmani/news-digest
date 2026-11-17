@@ -148,3 +148,12 @@
 - All 14 services/38 sources healthy; health database/Redis true; digest queue zero failed/next 15:00 UTC; alerts clear; disk 61%. Recorded evidence in capacity decision and TASKS.md.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. Sampler and python3 /tmp/2567-summarize.py pass; receipts /tmp/2567-{metrics.jsonl,summary.json,metrics-journal.log,format,lint,check}.
 - Documentation only; deployed runtime matches main, no rebuild/restart under STEERING 22/65. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2568 — preserve enlarged-text social post width
+
+- Clean main at b161247e; no inherited edits. Initial orientation output truncated; recovered applicable instructions/tasks narrowly. Health, 14 services/38 sources and alerts healthy; scheduled checks not due. Protected paths untouched.
+- Reader weakness: 320px/300% post-card padding grew to 60px each side, leaving 166px for saved post text. Fixed 20px padding across X/Bluesky/Reddit retains 246px while text scales.
+- Deployed real Nov 16 edition: 18 post cards fit at 320/390/1440px, light/dark, 100/200/300% text; context keyboard expand/collapse retains focus, text/page bounds and zero browser errors pass. Screenshots docs/screenshots/2568-posts-{light,dark}.png inspected. External browser requests aborted; no provider calls or fixture content.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2568-verify.cjs; git diff --check. Initial chained check terminated (143) during lint; standalone full rerun passed (1,062 unit/329 integration, four expected skips).
+- Web built/published atomically; no service restart under STEERING 22. No generation, source or budget changes. Health database/Redis true; scheduled digest queue zero failed/next 15:00 UTC.
+- Receipts /tmp/2568-{probe,browser,format,lint,check-final,build,jobs}.log. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

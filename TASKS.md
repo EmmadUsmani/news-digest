@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2568: social post cards retain 246px reading space at 320px/300% text; real saved posts and keyboard context checks pass across widths/themes.
+
 - [x] 2567: due metrics checkpoint passes all rule/query and unchanged-failure assertions; continued reclaim/no big merge keep resource acceptance open.
 
 - [x] 2566: fixed enlarged-text edition gutters and desktop contents width; real coverage retains reading space and report/date text fits at 100–300%.
