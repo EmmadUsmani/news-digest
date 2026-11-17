@@ -91,3 +91,13 @@
 - Health database/Redis, 14 services and 38 sources pass; alerts zero. Incorrect queue alias `digest` rejected without action; corrected digest-generation check retained privately.
 - Verification: fixed-end coverage report, Python hourly/count/window/read-limit assertions; pnpm format, pnpm lint:fix, pnpm check (1,062 unit/329 integration passes, four expected skips) and git diff --check pass. Receipts /tmp/2561-{coverage.json,format,lint,check,health.json,services,sources,jobs}.log where applicable.
 - Next: metrics checkpoint ≥00:16 UTC; retention timer 04:40 UTC; natural Tech/editor and social inputs Nov 17 at 15:00 UTC.
+
+## 2026-11-17: iteration 2562 — due metrics checkpoint
+
+- Clean main at 0b49d3b2; no inherited edits. Broad orientation output truncated; recovered task-relevant instructions narrowly. Protected paths untouched.
+- Due 00:16:04–00:17:05 read-only checkpoint: 24 healthy rules/three samples, six uncached queries ≤1.736 s. Admission-limit counter rose 19→20 during sampling; unchanged-counter assertion correctly failed, inspected raw samples and retained actual delta.
+- Queue-timeout/slow-query/evaluator error/missed/process-start counters unchanged; 74 small merges/1,689,754 rows, no big merge. Memory-high +744 (22 during sample), max/OOM/kill zero; metrics NRestarts=0 and journal empty. Disk 61%. Limits unchanged; acceptance open.
+- Health database/Redis, 14 services and 38 sources healthy; alerts clear; digest-generation zero failed jobs/next run 15:00 UTC. Incorrect positional jobs option rejected read-only; corrected --queue command passes.
+- Updated decision evidence/task handoff only; no runtime change, rebuild or restart under STEERING 22/65. No provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected integration skips); read-only sampler and explicit raw-counter comparison; git diff --check. Receipts /tmp/2562-{format,lint,check,metrics.jsonl,summary.json,services.json,sources.json,jobs.json,alerts-final.log}.
+- Next: metrics ≥01:18 UTC; retention timer receipt 04:40 UTC; Nov 17 scheduled edition/Tech/social review at 15:00 UTC.

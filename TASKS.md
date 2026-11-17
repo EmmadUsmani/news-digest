@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max; 2536 rules/queries healthy, reclaim continues/no big merge. 2557 checkpoint: 24 healthy rules, unchanged failure counters; +563 memory-high events/57 small merges, no big merge. Next check ≥00:16 UTC, preferably after a natural big merge; acceptance open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2562: 24 healthy rules/six passing queries, one new admission-limit event during sampling, +744 memory-high events/74 small merges, no big merge. Next check ≥01:18 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#first-nov-17-recovery-checkpoint-iteration-2562).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2562: retained due metrics checkpoint; healthy rules/probes but one admission-limit event and continued reclaim keep acceptance open.
 
 - [x] 2561: completed first full World rotation-day comparison; retained final job hours and 25 saved-text examples across five topics.
 
