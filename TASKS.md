@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2589: Contents topic/story labels now follow reader text enlargement (14/28/42px at 100/200/300%) instead of remaining at legacy 18px; desktop sidebar and mobile drawer retain wrapping and keyboard story navigation.
+
 - [x] 2588: Mobile topic bar shrinks from 181px to 97px at 300% text; enlarged labels, 44px targets, topic/story navigation and drawer focus retained.
 
 - [x] 2586: Saved items header shrinks from 453px to 293px at 320px/300% text; enlarged labels, 44px touch targets, saved content and keyboard navigation retained.

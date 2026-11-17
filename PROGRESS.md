@@ -134,3 +134,14 @@
 - Initial tool-bound check terminated (143) without assertion failure/OOM; detached shell did not persist. Transient systemd iteration-2588-check completed the full check successfully.
 - Latest live edition 93aefc45 has all five topics, each with five stories; post counts 3/5/1/5/4. Public HTTPS 200; final alerts clear. Web published atomically; no service restart under STEERING 22. No generation, source, provider, budget or handbook behavior changes.
 - Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2589 — enlarge contents labels with reader text
+
+- Clean main at f0b749fb; no inherited edits. Alerts clear, local health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥06:40 UTC.
+- Owner value: contents story/topic labels stayed at legacy 18px at 300% reader text. Explicit font-size inheritance restores 14/28/42px labels at 100/200/300% in both desktop sidebar and mobile drawer; fixed-size decorative markers retained.
+- Browser verification: node /tmp/2589-verify.cjs passes 12 real-edition combinations (320/1440px, 100–300%, both themes): label enlargement, wrapping, minimum targets, scroll/focus reachability, keyboard story navigation and drawer Escape/focus restoration. Both docs/screenshots/2589-contents-text images inspected.
+- Initial browser probe hit local rate limiting; browser matrix started before atomic deployment and correctly found the old 18px label. Re-run after publication is the acceptance check.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); git diff --check. Receipts /tmp/2589-{format,lint,build,browser,check}.log.
+- Public HTTPS 200 (public DNS via curl --resolve), local health passes, final alerts clear; latest live edition 93aefc45 retains five topics/five stories each and 3/5/1/5/4 posts.
+- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

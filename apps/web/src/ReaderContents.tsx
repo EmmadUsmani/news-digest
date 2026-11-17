@@ -205,7 +205,9 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
                       ? '▾'
                       : '›'}
                 </span>
-                <span className="min-w-0 [overflow-wrap:anywhere]">{text}</span>
+                <span className="min-w-0 [font-size:inherit] [overflow-wrap:anywhere]">
+                  {text}
+                </span>
               </a>
             );
             return mobile ? <SheetClose asChild>{anchor}</SheetClose> : anchor;
