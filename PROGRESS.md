@@ -162,3 +162,15 @@
 - Local health passes; latest probe returned HTTP 429. Existing builds retained; API/worker restart after push. No screenshot or handbook change required.
 - Archived iterations 2646–2653 to keep PROGRESS.md below 25 KB. Receipts /tmp/2665-{metrics.jsonl,summary.json,services,sources,jobs,format,lint,check}.log (metrics/summary use their named extensions).
 - Next: metrics ≥23:15 UTC; Bluesky full-day review after midnight; default-off Tech runtime wiring before noon.
+
+## 2026-11-17: iteration 2666 — review published Bluesky quality
+
+- Clean main at 00b8facb; no inherited work. Alerts/health clear; service/source checks pass, digest queue zero failures. Destructoid remains paused.
+- Owner value: distinguish useful social developments from popular keyword noise before changing the reader's picks.
+- Read five published Bluesky posts and 25 strongest safe texts for the actual Nov 16–17 15:00 edition window; retained texts/URLs in the review evidence JSON.
+- NBA/Gaming/World supply concrete developments; U.S. picks lack the targeted Democrat/letter detail or mix prediction and opinion. Do not invent missing facts.
+- Higher-engagement candidates include lexical noise, jokes, repeated Kerch claims and bare context. Retain queries, rotation, selection gates and budgets; quality remains open.
+- Fixed-end coverage command and evidence assertions pass: five selected posts, 25 examples, five uncapped reads. Full UTC-day review remains due after midnight.
+- No code, UI, runtime, source, provider call or generation change; existing builds retained. No screenshots or handbook update needed.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2666-{format,lint,check,services,sources,jobs}.log.
+- API/worker restart after push. Next: metrics ≥23:15 UTC, complete Bluesky day after midnight, Tech runtime wiring before noon.

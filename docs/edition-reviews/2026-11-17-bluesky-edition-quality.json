@@ -1,0 +1,440 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "windowStart": "2026-11-16T15:00:00.000Z",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "policyBasis": "Current enabled topics and relevance policies; not a replay of historical editorial selection.",
+  "selectedPosts": [
+    {
+      "topic": "NBA",
+      "url": "https://bsky.app/profile/did%3Aplc%3Ayx55po6zknijied5vxft2rwa/post/3n2i64xemhs22",
+      "author": "jackborman.bsky.social",
+      "text": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench",
+      "publishedAt": "2026-11-17T04:06:45.700Z",
+      "observedAt": "2026-11-17T14:54:48.001Z",
+      "metrics": {
+        "likes": 33,
+        "replies": 0,
+        "reposts": 6
+      },
+      "whyItMatters": ""
+    },
+    {
+      "topic": "Gaming",
+      "url": "https://bsky.app/profile/did%3Aplc%3At53ijuodvbcjbislhyu6te4r/post/3n2hklcykb22a",
+      "author": "kerrblimey.bsky.social",
+      "text": "Earlier today, UK union IWGB Game Workers' Branch—in collaboration with members of Game Workers Unite Ireland, Spanish union CSVI, and the FIOM-CGIL Milan Work Council—published a comprehensive manifesto demanding legal protections for game workers who do not wish to use generative AI.",
+      "publishedAt": "2026-11-16T22:16:52.808Z",
+      "observedAt": "2026-11-17T14:54:51.029Z",
+      "metrics": {
+        "likes": 98,
+        "replies": 2,
+        "reposts": 39
+      },
+      "whyItMatters": "The post attributes the manifesto to a cross-border group of game-worker unions and bodies, and says it demands legal protections around generative AI use."
+    },
+    {
+      "topic": "World news & politics",
+      "url": "https://bsky.app/profile/did%3Aplc%3A4aqzua5vsewimmusg66fyajl/post/3n2hbptnkls24",
+      "author": "noelreports.com",
+      "text": "❗️French military personnel have been operating inside Ukraine since at least summer 2026 under a confidential mission called Volia, RFI reveals. The deployment is non-combat, focused on training Ukrainian troops and maintaining French-supplied CAESAR artillery, Mirage 2000 jets and missiles #Ukraine",
+      "publishedAt": "2026-11-16T19:38:20.819Z",
+      "observedAt": "2026-11-17T13:54:51.063Z",
+      "metrics": {
+        "likes": 450,
+        "replies": 17,
+        "reposts": 60
+      },
+      "whyItMatters": ""
+    },
+    {
+      "topic": "U.S. news & politics",
+      "url": "https://bsky.app/profile/did%3Aplc%3Axgiwtxbtt6xc7low5vdz7dq4/post/3n2hyair5p22l",
+      "author": "altnps.bsky.social",
+      "text": "A fourth Democrat in Congress is now being targeted over plans to investigate the Trump administration. They haven’t even taken the gavels yet, and the intimidation is already happening. U.S. Attorney Aaron Reitz posted a letter today",
+      "publishedAt": "2026-11-17T02:21:22.143Z",
+      "observedAt": "2026-11-17T14:54:55.012Z",
+      "metrics": {
+        "likes": 1876,
+        "replies": 65,
+        "reposts": 506
+      },
+      "whyItMatters": "Attributes the letter to U.S. Attorney Aaron Reitz, as stated in the post, and says the targeting is over plans to investigate the administration."
+    },
+    {
+      "topic": "U.S. news & politics",
+      "url": "https://bsky.app/profile/did%3Aplc%3Asdfhzkjavqo5ifiofn4uafrb/post/3n2h6ichrdc24",
+      "author": "normeisen.bsky.social",
+      "text": "GAO hasn’t had a permanent boss in almost a year...weeks before the new Congress arrives, Rand Paul looks set to try to rush the pick & jam thru a Trump loyalist for a 15 year term\n\nCongress should make this pick, not the guy GAO is supposed to be watching\n\nMy friend Max Stier 👇",
+      "publishedAt": "2026-11-16T18:40:26.697Z",
+      "observedAt": "2026-11-17T14:54:54.036Z",
+      "metrics": {
+        "likes": 1196,
+        "replies": 18,
+        "reposts": 560
+      },
+      "whyItMatters": ""
+    }
+  ],
+  "candidateExamples": [
+    {
+      "topic": "Tech & AI",
+      "distinctStoredPosts": 51,
+      "observationReadLimitReached": false,
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A5h5jfgi7vuqp4bkfogcntzep/post/3n2imsmfpw22x",
+          "author": "garius.eurosky.social",
+          "publishedAt": "2026-11-17T08:29:24.784Z",
+          "observedAt": "2026-11-17T14:54:47.013Z",
+          "metrics": {
+            "likes": 3257,
+            "replies": 71,
+            "reposts": 779
+          },
+          "attachedMediaTypes": [],
+          "text": "we live in a country that likes to pretend its biggest industries are steel, cars and AI\n\nWhen actually it's Warhammer, GTA6 and universities."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Avi2grzfali5xn5rh2ny2n4d4/post/3n2ipa2yo222s",
+          "author": "culturecrave.co",
+          "publishedAt": "2026-11-17T09:12:43.776Z",
+          "observedAt": "2026-11-17T14:54:44.029Z",
+          "metrics": {
+            "likes": 1563,
+            "replies": 24,
+            "reposts": 284
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "\"Blow up the AI data centers, man ... go vote and blow them up\" \n\n— Tony Gilroy \n\n(via Vanity Fair)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A2zmlpiynrrzsqsq2m3b4waxe/post/3n2htkmjnx224",
+          "author": "xelahart.bsky.social",
+          "publishedAt": "2026-11-17T00:57:32.930Z",
+          "observedAt": "2026-11-17T14:54:44.028Z",
+          "metrics": {
+            "likes": 2038,
+            "replies": 328,
+            "reposts": 207
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Clearly this is AI because his face doesn’t look like hammered shit."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aiwq76ekzcrli66ksfzbg3dhw/post/3n2gzvdkrws2m",
+          "author": "lasrina.bsky.social",
+          "publishedAt": "2026-11-16T17:18:15.339Z",
+          "observedAt": "2026-11-17T14:54:44.028Z",
+          "metrics": {
+            "likes": 2125,
+            "replies": 20,
+            "reposts": 602
+          },
+          "attachedMediaTypes": [],
+          "text": "Never attribute to AI what can be adequately explained by Ronald Reagan"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Anvfznp5ls3wcf6aktlfkfkp3/post/3n2hefbiokk2n",
+          "author": "erinbiba.bsky.social",
+          "publishedAt": "2026-11-16T20:26:07.462Z",
+          "observedAt": "2026-11-17T14:54:44.027Z",
+          "metrics": {
+            "likes": 1955,
+            "replies": 37,
+            "reposts": 272
+          },
+          "attachedMediaTypes": [],
+          "text": "All of my normie friends are convinced banks being down is because of AI. The AI industry did such a good job convincing everyone “the AI has done a bunch of stuff we can’t control” that now in normie minds every single bad computer thing that in happens is obviously the fault of AI."
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "distinctStoredPosts": 56,
+      "observationReadLimitReached": false,
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ayx55po6zknijied5vxft2rwa/post/3n2i64xemhs22",
+          "author": "jackborman.bsky.social",
+          "publishedAt": "2026-11-17T04:06:45.700Z",
+          "observedAt": "2026-11-17T14:54:48.001Z",
+          "metrics": {
+            "likes": 33,
+            "replies": 0,
+            "reposts": 6
+          },
+          "attachedMediaTypes": [],
+          "text": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2jabw2sfs2k",
+          "author": "nbastat.bsky.social",
+          "publishedAt": "2026-11-17T14:17:59.324Z",
+          "observedAt": "2026-11-17T14:54:49.004Z",
+          "metrics": {
+            "likes": 11,
+            "replies": 0,
+            "reposts": 0
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Jaylen Brown got hit in the head. First thing he does is check whether the hairline spray didn't leak... 😭\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aoqrvk3biizpecslbl2qyg7dj/post/3n2hnseg4r224",
+          "author": "lucicee.bsky.social",
+          "publishedAt": "2026-11-16T23:14:30.412Z",
+          "observedAt": "2026-11-17T14:54:48.002Z",
+          "metrics": {
+            "likes": 38,
+            "replies": 0,
+            "reposts": 0
+          },
+          "attachedMediaTypes": [],
+          "text": "\"the gender they identify with\" I identify with a tomahawk dunk from NBA Jam. I *AM* a woman. I don't just identify (weasel ass words) as one."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ane344shcm2jowdwh5whzkgfn/post/3n2hemqf2uk2b",
+          "author": "faignews.bsky.social",
+          "publishedAt": "2026-11-16T20:30:17.481Z",
+          "observedAt": "2026-11-17T14:54:48.001Z",
+          "metrics": {
+            "likes": 30,
+            "replies": 2,
+            "reposts": 4
+          },
+          "attachedMediaTypes": [],
+          "text": "\"This may be a strange concept for the billionaires running the NBA, but it’s good to think of your fans and their experience now and then.\"\nhttps://www.bulletsforever.com/washington-wizards-statistical-analysis/74110/turns-out-four-paid-subscriptions-arent-enough-to-watch-live-nba-games"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auz7yhoqx2ukus6jy3zy6zg77/post/3n2hlldw4ps2k",
+          "author": "elaofviolets.bsky.social",
+          "publishedAt": "2026-11-16T22:34:47.523Z",
+          "observedAt": "2026-11-17T14:54:49.003Z",
+          "metrics": {
+            "likes": 21,
+            "replies": 0,
+            "reposts": 8
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Get A 45 Day Free Trial Of Ball When You Purchase A Subscription Of Gun+"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "distinctStoredPosts": 57,
+      "observationReadLimitReached": false,
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Amymwxdm4zedrqufkotuxn72k/post/3n2i5agorkk2j",
+          "author": "tuyoki.bsky.social",
+          "publishedAt": "2026-11-17T03:50:48.682Z",
+          "observedAt": "2026-11-17T14:54:50.009Z",
+          "metrics": {
+            "likes": 4476,
+            "replies": 122,
+            "reposts": 394
+          },
+          "attachedMediaTypes": [],
+          "text": "tem release a game on sunday (soon)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ahyj5gdgpkql2bz7rbset3h33/post/3n2hqewjei22l",
+          "author": "mattufford.bsky.social",
+          "publishedAt": "2026-11-17T00:00:40.856Z",
+          "observedAt": "2026-11-17T14:54:51.029Z",
+          "metrics": {
+            "likes": 2906,
+            "replies": 35,
+            "reposts": 386
+          },
+          "attachedMediaTypes": [],
+          "text": "pathetic. there have been ~170 bird species observed in Miami over the last 7 days. I guess I'll wait for the *next* violent carjacking game to realistically portray birding. 🪶"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aernjxefnyk2hhwhbd3zblykf/post/3n2iev2nnik2r",
+          "author": "tendar.bsky.social",
+          "publishedAt": "2026-11-17T06:07:36.894Z",
+          "observedAt": "2026-11-17T14:54:50.009Z",
+          "metrics": {
+            "likes": 1419,
+            "replies": 42,
+            "reposts": 183
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Game over for the Kerch Bridge. The car section collapsed."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Awt5j2dx66y2bcgqgkbgysqci/post/3n2hpu6n7bc2x",
+          "author": "screechysaywha.bsky.social",
+          "publishedAt": "2026-11-16T23:51:18.945Z",
+          "observedAt": "2026-11-17T14:54:50.009Z",
+          "metrics": {
+            "likes": 1211,
+            "replies": 18,
+            "reposts": 167
+          },
+          "attachedMediaTypes": [],
+          "text": "This is how you know that they know all the people buying this game are 30-40 years old now."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ah4qv23n3kzfag6k7aztl3bau/post/3n2htcwbvm22k",
+          "author": "triple-q.bsky.social",
+          "publishedAt": "2026-11-17T00:53:14.724Z",
+          "observedAt": "2026-11-17T14:54:50.009Z",
+          "metrics": {
+            "likes": 893,
+            "replies": 14,
+            "reposts": 216
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "the Epic AI MegaJam closed submissions yesterday, and the #1 most popular game in the entire jam is a game that doesn't use AI at all\nhttps://polycube2.itch.io/fih"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "distinctStoredPosts": 148,
+      "observationReadLimitReached": false,
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auo2fna47c4v6zcnklxfhcvjb/post/3n2iwm6hzks2k",
+          "author": "cwebbonline.com",
+          "publishedAt": "2026-11-17T11:24:46.268Z",
+          "observedAt": "2026-11-17T13:54:50.051Z",
+          "metrics": {
+            "likes": 2717,
+            "replies": 107,
+            "reposts": 673
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Whoa! Ukraine just delivered a massive blow to Putin.\n\nThey struck Russia’s Crimean Bridge, sending an entire section into the water.\n\nBut here’s the part that really caught my attention…\n\nUkraine pulled this off using its own domestically developed drones & missiles. Not American-supplied weapons."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2ita7di522s",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-17T10:24:23.290Z",
+          "observedAt": "2026-11-17T13:54:50.051Z",
+          "metrics": {
+            "likes": 2896,
+            "replies": 88,
+            "reposts": 646
+          },
+          "attachedMediaTypes": [],
+          "text": "Holy crap! Ukraine did it!! What an absolutely incredible accomplishment!! So great to wake up to such amazing news! Glory to Ukraine!!! 🇺🇦"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2iui6anm22d",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-17T10:46:44.325Z",
+          "observedAt": "2026-11-17T13:54:50.052Z",
+          "metrics": {
+            "likes": 1553,
+            "replies": 35,
+            "reposts": 358
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "🚨🔥Holy crap! Ukraine struck the Kerch Bridge overnight with Flamingo cruise missiles, dealing a double blow to Putin: destroying a critical Russian military supply route into occupied Crimea and shattering one of the most visible symbols of his illegal annexation.\n\nGlory to Ukraine! 🇺🇦"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ask6jryjhuavqchpa53jlcsyu/post/3n2hth5oqxs2v",
+          "author": "nothoodlum.bsky.social",
+          "publishedAt": "2026-11-17T00:55:36.705Z",
+          "observedAt": "2026-11-17T09:54:50.052Z",
+          "metrics": {
+            "likes": 1565,
+            "replies": 78,
+            "reposts": 803
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Denys Sienik is a career Ukrainian diplomat and the current Chargé d’Affaires a.i. (acting head) of the Embassy of Ukraine in the US."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A3vau742gv3basmoqrmfjbd5w/post/3n2hol6yo6c2r",
+          "author": "moranstephen1000.bsky.social",
+          "publishedAt": "2026-11-16T23:28:23.589Z",
+          "observedAt": "2026-11-17T13:54:50.051Z",
+          "metrics": {
+            "likes": 1884,
+            "replies": 40,
+            "reposts": 512
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Crimea is Ukraine"
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "distinctStoredPosts": 50,
+      "observationReadLimitReached": false,
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3At6ubj2wlhc34awzcymh3qpur/post/3n2hslr2mys2t",
+          "author": "ronfilipkowski.bsky.social",
+          "publishedAt": "2026-11-17T00:40:17.488Z",
+          "observedAt": "2026-11-17T14:54:54.037Z",
+          "metrics": {
+            "likes": 6585,
+            "replies": 233,
+            "reposts": 2368
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Trump imposes an illegal tariff. Republicans in Congress let him do it. We pay the tariff. SCOTUS rules the whole scheme was illegal. Corporate executives keep our money. Exactly how Trump wants the economy to work."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3At6ubj2wlhc34awzcymh3qpur/post/3n2i3mkzsas26",
+          "author": "ronfilipkowski.bsky.social",
+          "publishedAt": "2026-11-17T03:21:48.407Z",
+          "observedAt": "2026-11-17T14:54:54.036Z",
+          "metrics": {
+            "likes": 3937,
+            "replies": 88,
+            "reposts": 1090
+          },
+          "attachedMediaTypes": [],
+          "text": "What has to be part of the equation for every appropriation from Congress is an understanding that the Trump Admin has proven that they will not necessarily spend the money the way Congress mandates, and there’s also a good chance it goes to a Trump family member, crony or donor."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Asdhfatr3phn744rjrjuiepal/post/3n2hzsblqc22c",
+          "author": "billkittle.bsky.social",
+          "publishedAt": "2026-11-17T02:49:12.352Z",
+          "observedAt": "2026-11-17T14:54:54.036Z",
+          "metrics": {
+            "likes": 2925,
+            "replies": 125,
+            "reposts": 824
+          },
+          "attachedMediaTypes": [],
+          "text": "Why Supreme Court conservatives should be afraid of the new Congress https://www.dailykos.com/stories/2026/11/16/800129423/courts/supreme-court-conservatives-afraid-new-congress/"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Axgiwtxbtt6xc7low5vdz7dq4/post/3n2hyair5p22l",
+          "author": "altnps.bsky.social",
+          "publishedAt": "2026-11-17T02:21:22.143Z",
+          "observedAt": "2026-11-17T14:54:55.012Z",
+          "metrics": {
+            "likes": 1876,
+            "replies": 65,
+            "reposts": 506
+          },
+          "attachedMediaTypes": [],
+          "text": "A fourth Democrat in Congress is now being targeted over plans to investigate the Trump administration. They haven’t even taken the gavels yet, and the intimidation is already happening. U.S. Attorney Aaron Reitz posted a letter today"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Awpj5z24vsmik5ocqjybwjpso/post/3n2hlhv4kpk2n",
+          "author": "hcrichardson.bsky.social",
+          "publishedAt": "2026-11-16T22:32:51.343Z",
+          "observedAt": "2026-11-17T14:54:54.036Z",
+          "metrics": {
+            "likes": 1825,
+            "replies": 20,
+            "reposts": 685
+          },
+          "attachedMediaTypes": [],
+          "text": "Important."
+        }
+      ]
+    }
+  ]
+}
