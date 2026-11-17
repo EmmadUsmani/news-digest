@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2616: Social-post section keeps compact spacing with enlarged text: 120px less blank space before the first post at 300%, plus 32px per card gap / 16px above each Save button; all 12 browser combinations preserve real-post keyboard save/remove.
+
 - [x] 2615: Reader header/navigation/source-reading links retain 44px minimum targets with enlarged text; at 300%, sticky header saves 60px mobile / 48px desktop, with keyboard Saved items round trip preserved. Aggregate DB test now uses a unique Compose network per run; concurrent probes pass.
 
 - [x] 2614: Archive pagination keeps 32px top spacing and 12px gaps with enlarged reader text, saving 64px before the page controls at 300%; real keyboard navigation retained.

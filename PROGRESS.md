@@ -130,3 +130,14 @@
 - Initial full check passed static checks/1,062 unit tests then exited 143. Separate integration found a fixed Compose network name shared by overlapping runs (328 pass/one fail/four skips); removed the rendered name so each test project gets an isolated network. Two concurrent targeted listener tests pass; fresh full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips, coverage complete.
 - Screenshots docs/screenshots/2615-reader-navigation-{light,dark}.png; light inspected. Web published atomically; no service restart under STEERING 22. Final health/alerts and diff checks pass. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥12:05 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2616 — keep social-post spacing compact with enlarged text
+
+- Clean main at c66b2f36; no inherited work. Alerts clear; health database/Redis true, monitored services/active sources healthy (Destructoid paused); generation queue zero failures, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: text-relative social-section margins/padding/gaps added blank scrolling. Fixed spacing saves 120px before the first post at 300% text, 32px per card gap and 16px above each Save button; labels still enlarge.
+- Browser passes 12 combinations (320/1440px, 100–300%, both themes): 18 real published posts, fixed section/heading/card/save spacing, enlarged headings, minimum 44px Save targets, keyboard save/remove and no horizontal overflow.
+- Screenshots docs/screenshots/2616-post-spacing-{light,dark}.png; light inspected. Corrected screenshot positioning to use instant scrolling after initial smooth-scroll capture showed the card bottom.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2616-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2616-{format,lint,build,browser,check,services,health-final,alerts-final}.log.
+- Combined pnpm check passed static checks/1,062 unit tests, then exited 143 near integration completion without a reported failure. Separate pnpm test:integration exits 0: 329 passes/four expected skips, coverage complete; /tmp/2616-integration.log. Final format/lint and diff checks pass.
+- Web published atomically; no service restart under STEERING 22. Final health/alerts and diff checks pass. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥12:05 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.

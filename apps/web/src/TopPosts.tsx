@@ -93,10 +93,10 @@ export function TopPosts({
   const theme = React.useSyncExternalStore(subscribeTheme, currentTheme);
   return (
     <section
-      className="top-posts mt-8 max-w-none border-t border-[var(--border)] p-0 pt-4"
+      className="top-posts mt-[32px] max-w-none border-t border-[var(--border)] p-0 pt-[16px]"
       aria-label="Top posts"
     >
-      <h3 className="m-0 mb-3 font-sans text-xl leading-7 font-semibold tracking-tight">
+      <h3 className="m-0 mb-[12px] font-sans text-xl leading-7 font-semibold tracking-tight">
         Posts
       </h3>
       {posts.length === 0 ? (
@@ -104,7 +104,7 @@ export function TopPosts({
           No posts in this edition.
         </p>
       ) : (
-        <div className="post-grid grid grid-cols-1 gap-4">
+        <div className="post-grid grid grid-cols-1 gap-[16px]">
           {posts.map((post) => (
             <div
               key={JSON.stringify([post.platform, post.externalId])}
@@ -122,7 +122,7 @@ export function TopPosts({
               {bookmark && (
                 <Button
                   variant="ghost"
-                  className="mt-2 h-auto min-h-[44px] min-w-[44px] px-[12px] py-[8px] text-sm"
+                  className="mt-[8px] h-auto min-h-[44px] min-w-[44px] px-[12px] py-[8px] text-sm"
                   aria-label={`Save post on ${post.platform === 'x' ? 'X' : post.platform === 'bluesky' ? 'Bluesky' : 'Reddit'} from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`}
                   aria-pressed={bookmark.isSaved(post)}
                   onClick={() => bookmark.toggle(post)}
