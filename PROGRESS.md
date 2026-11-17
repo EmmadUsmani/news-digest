@@ -128,3 +128,13 @@
 - Public HTTPS 200 using public DNS with curl --resolve; default VM DNS still points at an unreachable proxy address. Local health passes; real published content saved and reopened in browser verification.
 - Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2595 — preserve archive space with enlarged text
+
+- Clean main at 5d3f8919; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥07:45 UTC.
+- Reader weakness / STEERING 33/42: archive heading padding and edition-list margin enlarged with reader text, making 80px of whitespace become 240px at 300%. Fixed pixel spacing preserves enlarged type and removes 160px of unnecessary scrolling; readers reach the edition links sooner.
+- Before-change browser assertion reproduced 96px heading padding at 200%. node /tmp/2595-verify.cjs passes 18 combinations (320/768/1440px, 100–300%, both themes): fixed 48/32px spacing, enlarged heading, page bounds and keyboard opening of real editions. Both docs/screenshots/2595-archive-spacing images inspected.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); git diff --check. Receipts /tmp/2595-{format,lint,build,browser,check,sources,jobs}.log.
+- Public archive HTTPS 200 via public DNS/curl --resolve; local health passes. Initial browser attempt lacked a distinct client address and timed out; reran with per-case addresses as in prior browser verification.
+- Web published atomically; no service restart under STEERING 22. No generation, source, provider, budget or handbook behavior changes.
+- Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.

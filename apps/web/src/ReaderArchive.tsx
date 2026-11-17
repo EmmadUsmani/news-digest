@@ -49,7 +49,7 @@ export function ReaderArchive() {
           <ThemeToggle />
         </nav>
       </header>
-      <div className="pt-12">
+      <div className="pt-[48px]">
         <h1
           ref={heading}
           id="archive-content"
@@ -93,7 +93,7 @@ export function ReaderArchive() {
         )}
         {history.data && (
           <>
-            <ul className="my-8 list-none divide-y divide-[var(--border)] p-0">
+            <ul className="my-[32px] list-none divide-y divide-[var(--border)] p-0">
               {history.data.entries.map((entry) => (
                 <li key={entry.id}>
                   <Link
