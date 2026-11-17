@@ -141,3 +141,4 @@
 - Combined pnpm check passed static checks/1,062 unit tests, then exited 143 near integration completion without a reported failure. Separate pnpm test:integration exits 0: 329 passes/four expected skips, coverage complete; /tmp/2616-integration.log. Final format/lint and diff checks pass.
 - Web published atomically; no service restart under STEERING 22. Final health/alerts and diff checks pass. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥12:05 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+- Push blocker: commit 5f7413b3 verified/deployed locally; git push origin main returns HTTP 403, permission denied to exe-dev-github-integration[bot]. Recorded in NEEDS_FROM_HUMAN.md; no remote/credential changes.

@@ -1,6 +1,11 @@
 # Needs from human
 
-Nothing is required to start. Optional keys go only in
+Git push is blocked (Nov 17, iteration 2616): the exe.dev GitHub integration
+returns HTTP 403, permission denied to `exe-dev-github-integration[bot]` for
+`EmmadUsmani/news-digest`. Restore integration write access so local `main`
+can be pushed. Verified UI commit `5f7413b3` is deployed on the VM.
+
+Optional keys go only in
 `~/.config/news-digest/env` (mode 600) on the VM.
 
 Possible later:
