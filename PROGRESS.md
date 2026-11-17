@@ -104,3 +104,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2571-verify.cjs; git diff --check. Standalone full rerun passed: 1,062 unit/329 integration tests, four expected skips; initial chained check terminated during lint (143).
 - Web built/published atomically; no service restart under STEERING 22. No generation/source/budget changes. Initial browser probe without a distinct forwarded client hit public rate limiting; isolated browser client passed. Receipts /tmp/2571-{format,lint,check-final,build,browser,jobs}.log.
 - Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2572 — due metrics recovery checkpoint
+
+- Clean main at 77ad6a4a; no inherited edits. All 14 services/38 sources healthy; health database/Redis true and alerts clear. Protected paths untouched.
+- Due 02:20:05–02:21:06 read-only checkpoint: 24 healthy/fresh rules and six uncached queries ≤0.569 s; baseline assertions pass. Failures/process starts/restarts unchanged; 61 small merges/2,017,283 rows, no big merge.
+- Memory-high +492 since prior checkpoint, +13 during sampling; max/OOM/kill unchanged at zero. Ending memory 88,948,736 bytes; peak 92,995,584. Journal empty; disk 62%. Retain CPU 2%/88 MiB high/112 MiB max; resource acceptance remains open.
+- Receipts /tmp/2572-{metrics-early.jsonl,metrics.jsonl,summary.json,metrics-journal.log}; sampled seven times with `pnpm exec tsx scripts/sample-metrics-recovery.ts 6 30`, retained last three due samples; `python3 /tmp/2572-summarize.py` passes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm exec tsx scripts/check-handbook.ts observability; git diff --check. Full check passes: 1,062 unit/329 integration tests, four expected skips; API rebuilt. Handbook passes (19 pages, 39 tables).
+- Documentation/evidence only; runtime unchanged, no restart under STEERING 22. No provider calls or generation/source/budget changes. Initial obs queue name `digest` rejected; unfiltered jobs check succeeded.
+- Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

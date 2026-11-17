@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2567: 24 healthy rules/six passing queries; failure counters/restarts unchanged, +542 memory-high events/60 small merges, no big merge. Next check ≥02:20 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#second-nov-17-recovery-checkpoint-iteration-2567).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2572: 24 healthy rules/six passing queries; failure counters/restarts unchanged, +492 memory-high events/61 small merges, no big merge. Next check ≥03:22 UTC; resource acceptance open. [Evidence](docs/decisions/0004-observability-capacity.md#third-nov-17-recovery-checkpoint-iteration-2572).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2572: due metrics checkpoint passes rule/query and unchanged-failure assertions; continued reclaim/no big merge keep resource acceptance open.
 
 - [x] 2571: edition briefs retain 264px reading width at 320px/300% text, up from 228px; all 20 real brief lines and keyboard story destinations pass across widths/themes.
 
