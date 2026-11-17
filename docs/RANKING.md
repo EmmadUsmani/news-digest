@@ -3347,3 +3347,14 @@ makes no provider call; invalid unknown membership makes one settled call with
 no repair. Both return unavailable and retain baseline admission without
 reservations. These checks do not independently accept the recorded event
 boundaries. Runtime wiring still awaits the pre-noon window.
+
+## Shared Tech admission policy (iteration 2663)
+
+The bounded admission policy now lives in the digest domain. The recorded
+evaluation and editor-evidence bridge import this same implementation, removing
+the need to copy proposal logic when connecting production. Its behavior is
+unchanged: disabled/non-Tech/unavailable inputs retain baseline admission;
+validated inputs reserve at most two events by member importance and relevance,
+while preserving representatives, coverage and rank order. Thirteen recorded
+policy and evidence controls pass. No publication consumer or configuration
+change is connected; runtime wiring still awaits the pre-noon window.

@@ -234,3 +234,13 @@
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. No runtime or UI changes; existing build retained; API/worker restart after push.
 - Receipts: /tmp/2662-{targeted,services,sources,jobs,format,lint,check}.log. No external provider calls.
 - Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.
+
+## 2026-11-17: iteration 2663 — share verified Tech admission policy
+
+- Clean main at 95ebd015; no inherited work. Alerts clear, 14 services healthy, active sources returning data; Destructoid remains paused.
+- Moved the unchanged bounded Tech admission policy from offline scripts into the dependency-free digest domain; recorded evaluation and editor-evidence controls now import it directly.
+- No publication consumer, configuration, prompt, budget or provider call changed. Runtime wiring remains for the next pre-noon window under item 59.
+- Thirteen targeted policy/evidence tests pass; recorded evaluation retains 21 events/40 articles, two reservations and source-text events 1→2.
+- API build passes. Local/public HTTPS health pass; default VM DNS still points to stale 10.42.0.42, previously verified public proxy IP succeeds with certificate verification.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. Receipts /tmp/2663-{targeted,admission,services,sources,jobs,format,lint,check,build}.*. No UI change; no screenshots needed.
+- API/worker restart after push; no runtime consumer connected. Next: metrics ≥22:10 UTC, final Bluesky retention/full-day review after midnight, connect default-off Tech runtime switch before noon.

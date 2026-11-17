@@ -9,7 +9,7 @@ import {
   type AdmissionEvent,
   type AdmissionScore,
   techAdmissionControl,
-} from './tech-admission-control';
+} from '../../apps/api/src/modules/digests/domain/tech-story-admission';
 
 export function recordedTechEvidence(input: {
   ranked: readonly AdmissionEvent[];

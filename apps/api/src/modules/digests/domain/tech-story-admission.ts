@@ -1,4 +1,4 @@
-// Offline proposal control only. Runtime admission does not import this module.
+// Bounded Tech admission policy. No publication consumer is connected yet.
 export interface AdmissionEvent {
   id: string;
   coverage: readonly { id: string }[];

@@ -6,7 +6,7 @@ import {
   type AdmissionEvent,
   type AdmissionScore,
   techAdmissionControl,
-} from './lib/tech-admission-control';
+} from '../apps/api/src/modules/digests/domain/tech-story-admission';
 import { recordedTechEvidence } from './lib/tech-admission-evidence';
 
 if (process.argv.slice(2).join(' ') !== '--recorded-tech')

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
-import { techAdmissionControl } from '../../../scripts/lib/tech-admission-control';
+import { techAdmissionControl } from '../src/modules/digests/domain/tech-story-admission';
 
 const recorded = JSON.parse(
   readFileSync(
