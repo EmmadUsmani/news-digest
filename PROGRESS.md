@@ -174,3 +174,14 @@
 - No code, UI, runtime, source, provider call or generation change; existing builds retained. No screenshots or handbook update needed.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2666-{format,lint,check,services,sources,jobs}.log.
 - API/worker restart after push. Next: metrics ≥23:15 UTC, complete Bluesky day after midnight, Tech runtime wiring before noon.
+
+## 2026-11-17: iteration 2667 — account for sparse U.S. X selection
+
+- Clean main at 65a0d262; no inherited work. Alerts/health clear; 14 services and active sources healthy, digest queue zero failures. Destructoid remains paused.
+- Owner value: determine whether the one-post U.S. X section misses useful reporting before loosening selection gates.
+- Read all ten saved triage candidates against stored official oEmbed paragraphs: ten matches, four qualifiers, one selected; all texts nonempty/in-window and verified before publication.
+- Selected confirmation claim is concrete and explicitly attributed. Other qualifiers are endorsement, unnamed stock-trading allegation and general Alaska promotion; no demonstrated stronger qualifying omission.
+- Retained texts/URLs/scores and comparison in the Nov 17 edition review. Below-gate poll remains a possible alternative with missing survey context; one example does not justify lowering gates.
+- No source, runtime, UI, provider or budget change; existing builds retained. No screenshot or handbook update needed.
+- Evidence assertions pass: pnpm exec tsx /tmp/2667-review.ts. pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2667-{services,sources,jobs,format,lint,check}.log.
+- API/worker restart after push. Next: metrics ≥23:15 UTC, Bluesky full-day after midnight, Tech runtime wiring before noon.

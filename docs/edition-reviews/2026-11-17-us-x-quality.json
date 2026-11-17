@@ -1,0 +1,182 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "windowStart": "2026-11-16T15:00:00Z",
+  "windowEnd": "2026-11-17T15:00:00Z",
+  "note": "Saved edition triage and selected X post, joined to current stored official oEmbed paragraph text. Not a reconstructed historical editor request; no linked article or media fetch. Reported engagement is unverified.",
+  "selected": [
+    {
+      "url": "https://x.com/i/web/status/2122455291220594884",
+      "text": "Senate Republicans have now confirmed 57 Article III judges this Congress. We're confirming circuit and district judges more than three times as fast as the Obama years. Let’s keep the momentum up.",
+      "author": "Sen. Marsha Blackburn",
+      "metrics": {},
+      "reasons": [
+        "Verified X post passes time, text and exclusion checks.",
+        "Semantic relevance 9/10; interestingness 4/10: Senate judicial confirmations, domestic courts",
+        "Editor: A senator's firsthand statement gives a concrete milestone: Senate Republicans have confirmed 57 Article III judges this Congress, and she says circuit and district judges are being confirmed more than three times as fast as in the Obama years. It is the only candidate with a specific domestic-policy development.",
+        "Unverified xai_search engagement observed 2026-11-17T14:31:30.635Z: likes 4448, reposts 602, replies 1638, views 164309. Bounded ranking bonus 1.67/2; lifetime weighted engagement/hour 553.1 is an age proxy, not measured growth.",
+        "Semantic shortlist orders by interestingness plus bounded reported engagement, then relevance; media contents and measured growth were not inferred."
+      ],
+      "platform": "x",
+      "authorUrl": "https://x.com/MarshaBlackburn",
+      "externalId": "2122455291220594884",
+      "displayText": "Senate Republicans have now confirmed 57 Article III judges this Congress.\n\nWe're confirming circuit and district judges more than three times as fast as the Obama years.\n\nLet’s keep the momentum up.",
+      "publishedAt": "2026-11-16T22:22:29.396Z",
+      "whyItMatters": "The figures are Sen. Blackburn's own claim, and the comparison to the Obama years is her characterization.",
+      "citingStories": [],
+      "xSearchRanking": {
+        "bonus": 1.6736636783248078,
+        "reason": "Unverified xai_search engagement observed 2026-11-17T14:31:30.635Z: likes 4448, reposts 602, replies 1638, views 164309. Bounded ranking bonus 1.67/2; lifetime weighted engagement/hour 553.1 is an age proxy, not measured growth."
+      },
+      "xTriageEvidence": {
+        "media": "unknown",
+        "observedAt": "2026-11-17T14:31:30.635Z",
+        "reportedLikes": 4448,
+        "reportedViews": 164309,
+        "reportedReplies": 1638,
+        "reportedReposts": 602
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "id": "2122372897041678733",
+      "event": "Van Hollen endorsed for Senate Majority Leader",
+      "rationale": "Domestic Senate leadership race; promotional post",
+      "relevance": 8,
+      "importance": 4,
+      "url": "https://x.com/i/web/status/2122372897041678733",
+      "author": "Abdul HQ",
+      "publishedAt": "2026-11-16T16:55:05.093Z",
+      "storedVerifiedAt": "2026-11-17T14:31:39.805Z",
+      "text": "Democrats need a change. Support Senator Chris Van Hollen for Senate Majority Leader: pic.twitter.com/dbGDPRZsjQ",
+      "qualified": true,
+      "selected": false
+    },
+    {
+      "id": "2122441043417387216",
+      "event": "Unspecified reaction post",
+      "rationale": "Excerpt lacks политical context",
+      "relevance": 1,
+      "importance": 0,
+      "url": "https://x.com/i/web/status/2122441043417387216",
+      "author": "Catturd ™",
+      "publishedAt": "2026-11-16T21:25:52.455Z",
+      "storedVerifiedAt": "2026-11-17T14:31:36.800Z",
+      "text": "The nerve of this clown.",
+      "qualified": false,
+      "selected": false
+    },
+    {
+      "id": "2122455291220594884",
+      "event": "57 Article III judges confirmed",
+      "rationale": "Senate judicial confirmations, domestic courts",
+      "relevance": 9,
+      "importance": 4,
+      "url": "https://x.com/i/web/status/2122455291220594884",
+      "author": "Sen. Marsha Blackburn",
+      "publishedAt": "2026-11-16T22:22:29.396Z",
+      "storedVerifiedAt": "2026-11-17T14:31:33.798Z",
+      "text": "Senate Republicans have now confirmed 57 Article III judges this Congress. We're confirming circuit and district judges more than three times as fast as the Obama years. Let’s keep the momentum up.",
+      "qualified": true,
+      "selected": true
+    },
+    {
+      "id": "2122442085525868825",
+      "event": "Patel arrest of Democrats question",
+      "rationale": "Domestic congressional and DOJ politics; hypothetical poll-style",
+      "relevance": 7,
+      "importance": 3,
+      "url": "https://x.com/i/web/status/2122442085525868825",
+      "author": "David J Harris Jr",
+      "publishedAt": "2026-11-16T21:30:00.913Z",
+      "storedVerifiedAt": "2026-11-17T14:31:35.811Z",
+      "text": "Would you support Kash Patel arresting Democrats in Congress who have committed fraud? pic.twitter.com/dWruCTRKEq",
+      "qualified": false,
+      "selected": false
+    },
+    {
+      "id": "2122560405088477662",
+      "event": "Personal plea for election win",
+      "rationale": "Election reference unclear; personal sentiment",
+      "relevance": 2,
+      "importance": 1,
+      "url": "https://x.com/i/web/status/2122560405088477662",
+      "author": "Oluwatobi",
+      "publishedAt": "2026-11-17T05:20:10.495Z",
+      "storedVerifiedAt": "2026-11-17T14:31:31.804Z",
+      "text": "I really need PO to win this election badly. My whole life depends on it. God please.",
+      "qualified": false,
+      "selected": false
+    },
+    {
+      "id": "2122388126433763331",
+      "event": "Members of Congress Nvidia stock sales",
+      "rationale": "Congressional stock trading ethics, domestic",
+      "relevance": 8,
+      "importance": 4,
+      "url": "https://x.com/i/web/status/2122388126433763331",
+      "author": "Trade With Congress",
+      "publishedAt": "2026-11-16T17:55:36.063Z",
+      "storedVerifiedAt": "2026-11-17T14:31:38.802Z",
+      "text": "It wasn't a dream Members of Congress legitimately sold Nvidia stock right before it collapsed ~32% Thought we'd remind you pic.twitter.com/iEnplGOkCt",
+      "qualified": true,
+      "selected": false
+    },
+    {
+      "id": "2122522006180749726",
+      "event": "Call to cancel Texas elections",
+      "rationale": "Domestic state election; unsupported fraud claims",
+      "relevance": 8,
+      "importance": 2,
+      "url": "https://x.com/i/web/status/2122522006180749726",
+      "author": "US Homeland Security News",
+      "publishedAt": "2026-11-17T02:47:35.482Z",
+      "storedVerifiedAt": "2026-11-17T14:31:32.819Z",
+      "text": "🚨🚨🚨Alert: Texas Governor Greg Abbott Needs To Declare A State Of Emergency in Texas and Cancel Our Most Recent Elections!! There was clear cheating going on. Cancel the election and Declare A NEW Election for November 2027!! Save Our State!!🔥🔥🔥 @GregAbbott_TX @DanPatrick … pic.twitter.com/CeSJZSwzDu",
+      "qualified": false,
+      "selected": false
+    },
+    {
+      "id": "2122574986154230192",
+      "event": "Bilkis Bano sentence order",
+      "rationale": "Indian court case, not US",
+      "relevance": 0,
+      "importance": 0,
+      "url": "https://x.com/i/web/status/2122574986154230192",
+      "author": "Live Law",
+      "publishedAt": "2026-11-17T06:18:06.892Z",
+      "storedVerifiedAt": "2026-11-17T14:31:30.819Z",
+      "text": "Bilkis Bano expresses shock and disbelief at the Supreme Court order suspending the life sentence of 2 men convicted for gang raping her and murdering her family members. She says the order was passed without hearing her. pic.twitter.com/vbe6HUnOWt",
+      "qualified": false,
+      "selected": false
+    },
+    {
+      "id": "2122438226715791811",
+      "event": "Trump pressure on Alaska midterm results",
+      "rationale": "Domestic midterm vote certification dispute",
+      "relevance": 9,
+      "importance": 5,
+      "url": "https://x.com/i/web/status/2122438226715791811",
+      "author": "Marc E. Elias",
+      "publishedAt": "2026-11-16T21:14:40.901Z",
+      "storedVerifiedAt": "2026-11-17T14:31:37.807Z",
+      "text": "President Donald Trump is zeroing in on Alaska as he desperately attempts to subvert the results of the midterms. And Democracy Docket is on the scene to cover the fight.",
+      "qualified": true,
+      "selected": false
+    },
+    {
+      "id": "2122442097588330692",
+      "event": "Van Hollen leads Schumer in poll",
+      "rationale": "Domestic Senate primary polling; Data for Progress",
+      "relevance": 8,
+      "importance": 3,
+      "url": "https://x.com/i/web/status/2122442097588330692",
+      "author": "News Now",
+      "publishedAt": "2026-11-16T21:30:03.789Z",
+      "storedVerifiedAt": "2026-11-17T14:31:34.810Z",
+      "text": "U.S. SENATE POLL 🟦 Chris Van Hollen: 45% (+8) 🟦 Chuck Schumer: 37% Data for Progress | 11/15 pic.twitter.com/NWbCPsKoyG",
+      "qualified": false,
+      "selected": false
+    }
+  ]
+}
