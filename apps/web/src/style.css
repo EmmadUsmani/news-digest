@@ -259,31 +259,6 @@
       grid-template-columns: 1fr;
     }
   }
-  .headlines {
-    list-style: none;
-    padding: 0;
-    margin: 1.4rem 0 0;
-  }
-  .headlines li {
-    padding: 0.85rem 0;
-    border-top: 1px solid var(--border);
-  }
-  .headlines a {
-    color: var(--foreground);
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.45;
-    overflow-wrap: anywhere;
-  }
-  .headlines a:hover {
-    text-decoration: underline;
-  }
-  .headlines span {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--secondary);
-    margin-top: 0.45rem;
-  }
   .digest-preview {
     padding: 30px 0 0;
   }
@@ -560,42 +535,6 @@
     margin-left: 8px;
   }
 
-  .status-panel {
-    margin: 3rem 0;
-    border-top: 1px solid var(--border);
-    padding-top: 1.5rem;
-  }
-  .status-panel summary {
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-    gap: 1rem;
-  }
-  .status-grid article {
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow-wrap: anywhere;
-  }
-  .status-grid h4 {
-    margin: 0;
-  }
-  .status-grid p,
-  .run-list {
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  .run-list {
-    padding-left: 1.25rem;
-    overflow-wrap: anywhere;
-  }
-  .run-list li {
-    margin-bottom: 0.75rem;
-  }
-
   .story-image {
     display: block;
     width: 100%;
@@ -607,10 +546,6 @@
     margin: 16px 0;
   }
 
-  .post-method {
-    color: var(--secondary);
-    font-size: 0.9rem;
-  }
   .digest-topic .saved-post-text {
     font-size: 1rem;
     color: var(--foreground);
@@ -629,9 +564,6 @@
   }
   .official-post iframe {
     max-width: 100%;
-  }
-  .post-embed-status {
-    margin-bottom: 1rem;
   }
   .post-card details {
     margin-top: 16px;

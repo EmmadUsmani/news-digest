@@ -217,3 +217,17 @@
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; initial command session terminated during formatting, complete transient-service rerun passed.
 - Atomic web build deployed; screenshots visually reviewed; no provider calls or generation changes. Public health passes using public DNS override (default VM mapping stale).
 - Next: metrics checkpoint ≥20:00 UTC; Tech grouping-status/default-off switch in the next pre-noon deployment window.
+
+## 2026-11-17: iteration 2652 — remove obsolete reader styles
+
+- Clean main at 0959146b; no inherited work. Alerts clear, 14 services healthy, active sources collecting, digest queue healthy.
+- Investigated suspected enlarged-text X fallback spacing; the selector was unused, so no reader defect was claimed or patched.
+- Removed 68 lines of unreferenced headline/status/post-method CSS left by earlier UI implementations; active reader rules retained.
+- Archived completed TASKS markers 2624–2646; open tasks and priority order unchanged.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-story-summary-spacing.ts (12 combinations, 25 real summaries each); source selector search.
+- Read-only browser probe finds zero obsolete-selector matches on reader/archive/saved pages; initial extra /status probe used a nonexistent route.
+- No visible layout change; discarded nondeterministic desktop screenshot refreshes. No provider calls or generation changes.
+- pnpm format, pnpm lint:fix, pnpm check and git diff --check pass: 1,070 unit / 329 integration tests, four expected skips.
+- Atomic web build deployed; local/public HTTPS health pass (public DNS override; VM mapping remains stale). API restart at handoff.
+- Receipts: /tmp/2652-{build,browser,css-final,format-final,lint-final,check}.log.
+- Next: metrics checkpoint ≥20:00 UTC; Tech runtime grouping result/default-off switch in next pre-noon window.

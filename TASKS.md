@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2652: Removed 68 lines of unused legacy headline/status CSS; archived older completed-task markers. Active reader layout unchanged.
+
 - [x] 2651: Story summary spacing stays at 12px with enlarged text; all 25 published summaries retain enlarged type and usable source links across mobile/desktop, light/dark and 100–300% text.
 
 - [x] 2650: Natural 28-million-row metrics merge verified against prior memory baseline; no new admission/failure events, continued reclaim keeps resource acceptance open.
@@ -74,46 +76,4 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] 2647: Long mobile topic chips wrap within their scroll area at enlarged text; keyboard focus reveals the full chip without moving the edition. All five live topics pass 12 browser combinations.
 
-- [x] 2646: Hourly metrics checkpoint passes without new admission/failure events; limits retained, resource acceptance open. Archived progress iterations 2627–2635.
-
-- [x] 2645: Offline Tech admission distinguishes evaluated inputs from exact-baseline fallback with explicit reasons; eight targeted tests pass. Production unchanged.
-
-- [x] 2644: Recorded Tech admission now runs through real ranking/evidence/editor serialization; California attribution survives, China/Google stay headline-only, source-text events rise 1→2. Production unchanged.
-
-- [x] 2643: Offline Tech admission emits winning-member score/baseline receipts separately from unchanged representatives; five control tests pass. Production unchanged.
-
-- [x] 2642: Saved-item keyboard removal focuses after layout updates and keeps the next control/final heading visible, including its focus ring; twelve real-content browser combinations pass.
-
-- [x] 2640: Implemented recorded-only Tech reservation control with full eligible event membership, bounded tradeoff and fallback tests; production unchanged.
-
-- [x] 2639: Defined bounded Tech semantic admission (two reservations/eight baseline events), failure behavior, Windows tradeoff and next-window acceptance; production unchanged.
-
-- [x] 2638: Recorded California/China regression closes non-lead transport as already working; retain ranking and focus next on bounded semantic admission.
-
-- [x] 2637: Tech event-level comparison finds four common/six substituted events; China buyer warning lacks a proven separate boundary. Retain ranking; next preserve non-lead prose.
-
-- [x] 2636: Read-only cached Tech grouping reproduces actual ten-ID order; grouped semantic control retains four prose-bearing events and exposes duplicate-heavy ungrouped baseline.
-
-- [x] 2635: Metrics checkpoint passes without new failures; Tech semantic-order control retains two text-bearing candidates, leaving depth and historical grouping unresolved.
-
-- [x] 2634: Tech offline admission control locates recency/HN reranking loss after semantic admission: eight text-bearing reports become one; nine of ten actual prompt IDs reproduced without grouping.
-
-- [x] 2633: Saved worker/input diagnosis separates World validation fallback from budget refusal, confirms Tech 1/10 prepared excerpts, and recovers measured 247.524 s worker duration.
-
-- [x] 2632: Nov 17 scheduled public edition and desktop/mobile reader accepted; immutable editorial, scope, social and ledger review recorded. Tech depth and NBA context remain open.
-
-- [x] 2631: Bluesky media keeps 8px spacing and 44px minimum targets with enlarged reader text; the real NBA video caption enlarges without adding excess whitespace.
-
-- [x] 2630: Topic chooser keeps checkboxes compact at enlarged text sizes while preserving enlarged names, full-row click targets and keyboard topic hide/restore.
-
-- [x] 2628: NBA Bluesky video play badge stays compact with enlarged reader text; the actual preview, accessible destination and keyboard focus verified across 12 browser combinations.
-
-- [x] 2627: Expanded story coverage keeps report spacing compact with enlarged reader text; live article links and keyboard access verified across 12 browser combinations.
-
-- [x] 2626: Saved-post URLs adjoining emoji now receive visual separation, preserving exact saved text, destinations and opening-delimiter placement; real Gaming post passes all 12 browser combinations.
-
-- [x] 2625: Archive loading preview keeps fixed 32px margins and compact 120px rows at enlarged text sizes; all 12 browser combinations preserve accessible loading, real archive links and keyboard edition navigation.
-
-- [x] 2624: Edition loading placeholder uses the loaded reader’s fixed top spacing, 240px sidebar and 24px column gap; all 12 browser combinations preserve identical story-column position and width when real content arrives.
-
-[Earlier completed steps](docs/progress-archive/2026-11-17-completed-tasks-2600-2623.md).
+[Earlier completed steps](docs/progress-archive/2026-11-17-completed-tasks-2624-2646.md).
