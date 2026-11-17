@@ -176,6 +176,6 @@
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-contents-focus-ring.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
 - Receipts: /tmp/2648-{services.json,sources.json,jobs.json,build.log,browser.log,format.log,lint.log,check.log}.
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; git diff --check passes.
-- Atomic web build deployed; public HTTPS health passes with public DNS (default VM hostname mapping remains stale).
+- Pushed 747895bb; atomic web build deployed and API restarted. Local/public HTTPS health pass (public DNS; default VM mapping stale).
 - No provider calls or generation changes; Tech runtime work remains restricted to the next pre-noon window.
 - Next: metrics checkpoint ≥18:55 UTC; explicit grouping result/default-off Tech switch before noon, then scheduled acceptance.
