@@ -23,7 +23,7 @@ export function ReaderSaved() {
     .filter(([, change]) => change.copy !== null)
     .sort((a, b) => b[1].updatedAt - a[1].updatedAt);
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-4 pb-16 [overflow-wrap:anywhere]">
+    <main className="mx-auto min-h-screen max-w-2xl px-[16px] pb-16 [overflow-wrap:anywhere]">
       <ReaderSkipLink target="saved-content" />
       <header className="flex min-h-[65px] flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-2.5">
         <Link
@@ -112,7 +112,7 @@ export function ReaderSaved() {
             copy && (
               <li
                 key={id}
-                className="rounded-lg border border-[var(--border)] p-5 [overflow-wrap:anywhere]"
+                className="rounded-lg border border-[var(--border)] p-[20px] [overflow-wrap:anywhere]"
               >
                 <h2 className="font-sans text-lg font-semibold">
                   <a

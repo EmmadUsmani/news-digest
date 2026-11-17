@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2570: Saved items retains 246px story reading width at 320px/300% text; real saved story, text bounds and account/remove keyboard focus pass across widths/themes.
+
 - [x] 2569: Past editions keeps 280px reading width at 320px/300% text; all 14 real archive entries and keyboard edition navigation pass across widths/themes.
 
 - [x] 2568: social post cards retain 246px reading space at 320px/300% text; real saved posts and keyboard context checks pass across widths/themes.
