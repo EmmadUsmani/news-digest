@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2612: Privacy page keeps readable content width and compact spacing with enlarged text; at 320px/300%, the title starts 200px sooner and content gains 80px width.
+
 - [x] 2611: Edition retry controls fit enlarged labels within the viewport, retain 44px minimum targets, and recover by keyboard to real published topics.
 
 - [x] 2610: Archive retry button follows enlarged labels with a 44px minimum; 300% text uses 80px instead of 108px. Keyboard retry recovers from simulated failure to real history and restores heading focus.

@@ -6,26 +6,26 @@ import { ReaderSkipLink } from './ReaderSkipLink';
 export function Privacy() {
   const accountsEnabled = import.meta.env.VITE_READER_ACCOUNTS === '1';
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-5 pb-16 sm:px-6">
+    <main className="mx-auto min-h-screen max-w-2xl px-[20px] pb-[64px] sm:px-[24px]">
       <ReaderSkipLink target="privacy-content" />
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] py-5">
+      <header className="flex flex-wrap items-center justify-between gap-[12px] border-b border-[var(--border)] py-[20px]">
         <Link
           to="/"
-          className="inline-flex min-h-11 min-w-0 items-center rounded-md text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] min-w-0 items-center rounded-md text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           News Digest
         </Link>
         <ThemeToggle />
       </header>
-      <article className="space-y-8 pt-12 text-base leading-relaxed [overflow-wrap:anywhere]">
+      <article className="space-y-[32px] pt-[48px] text-base leading-relaxed [overflow-wrap:anywhere]">
         <h1
           id="privacy-content"
           tabIndex={-1}
-          className="m-0 scroll-mt-6 font-sans text-3xl font-semibold tracking-tight"
+          className="m-0 scroll-mt-[24px] font-sans text-3xl font-semibold tracking-tight"
         >
           Privacy
         </h1>
-        <section className="space-y-3 p-0">
+        <section className="space-y-[12px] p-0">
           <h2 className="font-sans text-xl font-semibold">In your browser</h2>
           <p>
             Your hidden topics, saved stories and posts, and theme choice stay
@@ -38,7 +38,7 @@ export function Privacy() {
             without error messages, page URLs or saved choices.
           </p>
         </section>
-        <section className="space-y-3 p-0">
+        <section className="space-y-[12px] p-0">
           <h2 className="font-sans text-xl font-semibold">Accounts</h2>
           {accountsEnabled ? (
             <>
@@ -68,7 +68,7 @@ export function Privacy() {
             </p>
           )}
         </section>
-        <section className="space-y-3 p-0">
+        <section className="space-y-[12px] p-0">
           <h2 className="font-sans text-xl font-semibold">
             Posts and external links
           </h2>
@@ -85,7 +85,7 @@ export function Privacy() {
         </section>
         <Link
           to="/"
-          className="inline-flex min-h-11 items-center rounded-md text-sm font-normal text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="inline-flex min-h-[44px] items-center rounded-md text-sm font-normal text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           Back to the latest edition
         </Link>
