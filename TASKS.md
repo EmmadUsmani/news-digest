@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2649: Mobile contents links keep keyboard focus outlines inside the scroll area; real published content passes forward/backward focus and story navigation in 12 browser combinations.
+
 - [x] 2648: Desktop contents links keep their complete keyboard focus outline inside the scroll panel; real published content passes forward/backward focus and story navigation in 12 browser combinations.
 
 - [x] 2647: Long mobile topic chips wrap within their scroll area at enlarged text; keyboard focus reveals the full chip without moving the edition. All five live topics pass 12 browser combinations.

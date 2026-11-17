@@ -179,3 +179,16 @@
 - Pushed 747895bb; atomic web build deployed and API restarted. Local/public HTTPS health pass (public DNS; default VM mapping stale).
 - No provider calls or generation changes; Tech runtime work remains restricted to the next pre-noon window.
 - Next: metrics checkpoint ≥18:55 UTC; explicit grouping result/default-off Tech switch before noon, then scheduled acceptance.
+
+## 2026-11-17: iteration 2649 — visible mobile contents focus rings
+
+- Clean main at 14c7bf2b; no inherited work. Alerts, services, active sources, digest jobs and /healthz pass.
+- Reader weakness: mobile contents keyboard focus outlines clip when links reach the scroll area's top/bottom edges.
+- Mobile contents links now draw outlines inside their bounds; geometry and story targets are preserved.
+- Real published content passes forward/backward focus and Enter navigation at 320/390px, light/dark, 100/200/300% text.
+- Removing the fix in-browser reproduces the failing visibility check; screenshots updated in docs/screenshots/ui/mobile-contents-focus-{light,dark}.png.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-mobile-contents-focus.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Receipts: /tmp/2649-{build.log,browser.log,baseline.log,format.log,lint.log,check.log}.
+- Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; git diff --check passes. Initial check interrupted at lint; complete rerun passed.
+- No provider calls or generation changes; atomic web build deployed; API restart and health verification follow push.
+- Next: metrics checkpoint ≥18:55 UTC; Tech runtime grouping result/default-off switch in the next pre-noon window.

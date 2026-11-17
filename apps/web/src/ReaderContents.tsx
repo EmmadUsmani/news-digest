@@ -177,7 +177,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
     return () => observer.disconnect();
   }, [activeTopic?.id]);
   const contents = (mobile: boolean) => (
-    <nav aria-label={mobile ? 'Mobile contents' : 'Edition contents'}>
+    <nav
+      aria-label={mobile ? 'Mobile contents' : 'Edition contents'}
+      className={mobile ? '[&_a:focus-visible]:-outline-offset-2' : undefined}
+    >
       <p className="mb-[16px] text-xs font-medium tracking-widest text-[var(--secondary)] uppercase">
         Contents
       </p>
