@@ -153,3 +153,14 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Atomic web deployment serves final code; no restart under STEERING 22. No paid calls.
 - Due metrics 13:14:57–13:15:57: 24 healthy rules/six queries pass; zero admission/failure deltas, 61 small merges, no big merge, +770 memory-high events; disk 68%, NRestarts=0. Retain limits; decision 0004 updated.
 - Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during the scheduled window.
+
+## 2026-11-17: iteration 2624 — align loading and loaded edition columns
+
+- Clean main at b4349696; no inherited work. Alerts clear, health database/Redis pass and app services running. Destructoid remains blocked pending documented publisher access.
+- Reader benefit / STEERING 38/42: enlarged text expanded the loading sidebar to 720px at 300%, squeezing placeholders before real stories appeared. Fixed 240px sidebar, 24px gap and 80px mobile / 40px desktop top spacing align loading with the loaded reader.
+- All 12 browser combinations pass (320/1440px, 100–300%, both themes): delayed actual edition response, accessible loading status, identical loading/loaded story-column position and width, real published content and no horizontal overflow.
+- Screenshots docs/screenshots/2624-loading-layout-{light,dark}.png inspected. Delayed network response uses live saved edition data, not fixture content.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2624-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2624-{format,lint,build,browser,check}.log.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips; final format/lint, health, alerts and diff checks pass.
+- Atomic web publication serves final code; no service restart under STEERING 22. No generation, source, budget or handbook behavior changes; no paid calls.
+- Next: metrics ≥14:20 UTC; natural edition/Tech/social review after 15:00 UTC. Protect production generation during scheduled window.

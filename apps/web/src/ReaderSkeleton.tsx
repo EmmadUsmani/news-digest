@@ -3,10 +3,10 @@ import { Skeleton } from './components/ui/skeleton';
 
 export function ReaderSkeleton() {
   return (
-    <div role="status" className="reader-skeleton pt-20 lg:pt-10">
+    <div role="status" className="reader-skeleton pt-[80px] lg:pt-[40px]">
       <span className="sr-only">Loading edition…</span>
-      <div aria-hidden="true" className="flex gap-6">
-        <div className="hidden w-60 shrink-0 space-y-5 lg:block">
+      <div aria-hidden="true" className="flex gap-[24px]">
+        <div className="hidden w-[240px] shrink-0 space-y-[20px] lg:block">
           <Skeleton className="mb-8 h-3 w-20" />
           {[32, 24, 36, 28].map((width) => (
             <Skeleton

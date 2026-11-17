@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2624: Edition loading placeholder uses the loaded reader’s fixed top spacing, 240px sidebar and 24px column gap; all 12 browser combinations preserve identical story-column position and width when real content arrives.
+
 - [x] 2623: Brief/story-list spacing stays compact with enlarged text; explicit 64px topic gaps restore separation previously suppressed by zero card margins. Real-content keyboard story links and wrapping verified.
 
 - [x] 2622: Expanded post context keeps 4px side / 12px bottom padding as reader text grows, preserving reading width and removing 24px of blank space at 300%; real context and keyboard disclosure verified.
