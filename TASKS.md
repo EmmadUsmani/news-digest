@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2584: saved-items Remove and View edition controls retain 44px minimum targets with enlarged text; Remove height falls from 132px to 80px at 300%, with keyboard removal and persistence verified.
+
 - [x] 2583: story/post Save controls keep 44px minimum targets and grow with enlarged labels; 300% text reduces height from 132px to 80px, with keyboard save/unsave verified.
 
 - [x] 2582: due metrics checkpoint passes rule/query and baseline failure-counter assertions; another admission-limit event and continued reclaim keep acceptance open.

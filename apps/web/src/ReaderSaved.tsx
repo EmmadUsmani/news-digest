@@ -213,13 +213,13 @@ export function ReaderSaved() {
                         : `post-${encodeURIComponent(id.slice(5))}`
                     }
                     aria-label={`View edition containing saved item: ${copy.title}`}
-                    className="inline-flex min-h-11 min-w-11 items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-sm text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     View edition
                   </Link>
                   <Button
                     variant="ghost"
-                    className="min-h-11 min-w-11"
+                    className="h-auto min-h-[44px] min-w-[44px] px-[12px] py-[8px]"
                     aria-label={`Remove saved item: ${copy.title}`}
                     ref={(button) => {
                       if (button) removeButtons.current.set(id, button);

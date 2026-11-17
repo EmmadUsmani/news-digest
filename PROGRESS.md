@@ -85,3 +85,12 @@
 - Atomic web publication; no restart under STEERING 22. Public HTTPS 200 and local health pass. No generation, source, provider, budget or handbook behavior changes.
 - Archived older progress and completed task markers to keep orientation files compact; original evidence links retained.
 - Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2584 — fit saved-item actions around enlarged text
+
+- Clean main at add353e7; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs and next edition 15:00 UTC. Metrics checkpoint due ≥05:35 UTC.
+- Owner value: saved-items Remove occupied 132px height with 48px side padding at 300% text. Fixed 44px target minimum and 12px/8px padding give 44/60/80px heights at 100/200/300%; View edition also retains a fixed 44px target minimum.
+- Browser: node /tmp/2584-verify.cjs passes 18 real-edition combinations (320/390/1440px, 100–300%, both themes), two saved items each: enlarged text, touch targets, keyboard removal, neighbor/final-heading focus, reload persistence, empty state and page bounds pass. Both docs/screenshots/2584-saved-{light,dark}.png inspected.
+- Verification: pnpm format; pnpm lint:fix; web rebuilt/published with VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check retry exit 0 (1,062 unit/329 integration passes, four expected skips), receipt /tmp/2584-check-retry.log. First combined command ended SIGTERM during format:check after typecheck/lint passed; separate rerun passed.
+- Atomic web publication; no restart under STEERING 22. Public HTTPS 200 and local health pass. No generation, source, provider, budget or handbook behavior changes.
+- Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
