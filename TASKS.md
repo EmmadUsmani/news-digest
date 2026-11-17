@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2647: Long mobile topic chips wrap within their scroll area at enlarged text; keyboard focus reveals the full chip without moving the edition. All five live topics pass 12 browser combinations.
+
 - [x] 2646: Hourly metrics checkpoint passes without new admission/failure events; limits retained, resource acceptance open. Archived progress iterations 2627–2635.
 
 - [x] 2645: Offline Tech admission distinguishes evaluated inputs from exact-baseline fallback with explicit reasons; eight targeted tests pass. Production unchanged.

@@ -9,6 +9,18 @@ import { Sheet, SheetClose } from './components/ui/sheet';
 type Topic = ReaderEdition['topics'][number];
 const topicAnchor = (id: string) => `topic-${id}`;
 
+function revealChip(chip: HTMLElement) {
+  const container = chip.parentElement;
+  if (!container || container.clientWidth === 0) return;
+  const bounds = chip.getBoundingClientRect();
+  const viewport = container.getBoundingClientRect();
+  // Move only the chip row, preserving the edition's reading position.
+  if (bounds.left < viewport.left)
+    container.scrollLeft += bounds.left - viewport.left;
+  else if (bounds.right > viewport.right)
+    container.scrollLeft += bounds.right - viewport.right;
+}
+
 export function ReaderContents({ topics }: { topics: Topic[] }) {
   const [active, setActive] = useState('');
   const chips = useRef<HTMLDivElement>(null);
@@ -157,14 +169,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       const chip = container.querySelector<HTMLElement>(
         '[aria-current="location"]',
       );
-      if (!chip || container.clientWidth === 0) return;
-      const bounds = chip.getBoundingClientRect();
-      const viewport = container.getBoundingClientRect();
-      // Scroll only the chip row; scrollIntoView would also move the edition.
-      if (bounds.left < viewport.left)
-        container.scrollLeft += bounds.left - viewport.left;
-      else if (bounds.right > viewport.right)
-        container.scrollLeft += bounds.right - viewport.right;
+      if (chip) revealChip(chip);
     };
     reveal();
     const observer = new ResizeObserver(reveal);
@@ -253,17 +258,18 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       >
         <div
           ref={chips}
-          className="flex min-w-0 flex-1 gap-[8px] overflow-x-auto"
+          className="flex min-w-0 flex-1 items-center gap-[8px] overflow-x-auto"
         >
           {topics.map((topic) => (
             <a
               key={topic.id}
               href={`#${topicAnchor(topic.id)}`}
+              onFocus={(event) => revealChip(event.currentTarget)}
 
               aria-current={
                 activeTopic?.id === topic.id ? 'location' : undefined
               }
-              className={`inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center rounded-full px-[12px] py-[4px] text-sm font-medium focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--accent)] ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
+              className={`inline-flex min-h-[44px] min-w-[44px] max-w-full shrink-0 items-center rounded-full px-[12px] py-[4px] text-sm font-medium [overflow-wrap:anywhere] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--accent)] ${activeTopic?.id === topic.id ? 'bg-[var(--muted)]' : 'text-[var(--secondary)]'}`}
             >
               {topic.name}
             </a>
