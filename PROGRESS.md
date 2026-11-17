@@ -151,7 +151,6 @@
 - Receipts: /tmp/2646-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,services.json,sources.json,jobs.json,format.log,lint.log,check.log}.
 - Full pnpm check exit 0: 1,070 unit / 329 integration passes, four expected skips.
 - No provider calls, generation changes or restarts required; running application code remains aligned with main.
-- Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; atomic web build deployed.
 - Next: metrics checkpoint ≥18:55 UTC; runtime Tech grouping-status/default-off switch in the next pre-noon window, then scheduled acceptance.
 
 ## 2026-11-17: iteration 2647 — readable enlarged topic navigation
@@ -165,4 +164,5 @@
 - Verification: pnpm build; pnpm exec tsx scripts/smoke-enlarged-topic-chips.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
 - Receipts: /tmp/2647-{services.json,sources.json,jobs.json,build.log,build-web.log,browser.log,public.log,format.log,lint.log,check.log}.
 - Full check exit 0: 1,070 unit / 329 integration passes, four expected skips; atomic web build deployed.
+- Restarted news-digest-api.service after push; localhost /healthz passes.
 - Next: metrics checkpoint ≥18:55 UTC; runtime Tech grouping-status/default-off switch in the next pre-noon window, then scheduled acceptance.
