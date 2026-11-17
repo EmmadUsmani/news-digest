@@ -95,3 +95,13 @@
 - Public HTTPS 200 using public DNS with curl --resolve; local health passes, final alerts clear. Latest live edition 93aefc45 retains five topics/five stories each and 3/5/1/5/4 posts.
 - Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2592 — enlarge the edition date with reader text
+
+- Clean main at c4714f13; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥06:40 UTC.
+- Reader weakness / STEERING 33/42: the edition date stayed at legacy 18px at 300% reader text. Explicit span font-size inheritance restores 14/28/42px at 100/200/300%; a reader who enlarges text can read the date beside the navigation arrows.
+- Browser: node /tmp/2592-verify.cjs passes 18 real-edition combinations (320/768/1440px, 100–300%, both themes): date enlargement, minimum targets, page bounds, keyboard older/newer navigation and archive access. Both docs/screenshots/2592-edition-date images inspected.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); git diff --check. Receipts /tmp/2592-{format,lint,build,browser,check,sources,jobs}.log.
+- Public HTTPS 200 using public DNS with curl --resolve; VM DNS still points at an unreachable private proxy address. Latest live edition 93aefc45 retains five topics/five stories each and 3/5/1/5/4 posts.
+- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

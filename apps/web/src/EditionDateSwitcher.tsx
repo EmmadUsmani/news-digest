@@ -110,16 +110,16 @@ export function EditionDateSwitcher({
       >
         {edition ? (
           <time dateTime={edition.windowEnd}>
-            <span className="sm:hidden">
+            <span className="[font-size:inherit] sm:hidden">
               {new Date(edition.windowEnd).toLocaleDateString(undefined, {
                 month: 'short',
                 day: 'numeric',
               })}
-              <span className="sr-only">
+              <span className="sr-only [font-size:inherit]">
                 {`, ${new Date(edition.windowEnd).getFullYear()}`}
               </span>
             </span>
-            <span className="hidden sm:inline">
+            <span className="hidden [font-size:inherit] sm:inline">
               {new Date(edition.windowEnd).toLocaleDateString(undefined, {
                 weekday: 'short',
                 month: 'short',
