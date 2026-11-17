@@ -12,101 +12,120 @@ async function smoke() {
   try {
     for (const width of [1440, 390, 320]) {
       for (const theme of ['light', 'dark'] as const) {
-        const context = await browser.newContext({
-          extraHTTPHeaders: headers,
-          viewport: { width, height: 900 },
-          colorScheme: theme,
-          reducedMotion: 'reduce',
-          hasTouch: true,
-        });
-        await context.route('**/*', (route) => {
-          assert.ok(['GET', 'HEAD'].includes(route.request().method()));
-          return new URL(route.request().url()).origin === origin
-            ? route.continue()
-            : route.abort();
-        });
-        const page = await context.newPage();
-        const errors: string[] = [];
-        page.on('pageerror', (error) => errors.push(error.message));
-        const response = await context.request.get(
-          `${origin}/api/editions/latest`,
-        );
-        assert.equal(response.status(), 200);
-        const edition = readerEditionSchema.parse(await response.json());
-        await page.goto(origin);
-        await page.addStyleTag({
-          content: 'html { font-size: 200% !important; }',
-        });
-        await page.evaluate(() => document.fonts.ready);
-        const summaries = page.locator('.post-context summary');
-        const normalize = (value: string) =>
-          value.trim().replace(/\s+/g, ' ').toLowerCase();
-        const notes = edition.topics.flatMap((topic) =>
-          topic.posts.filter(
-            (post) =>
-              post.whyItMatters?.trim() &&
-              ![
-                post.platform === 'reddit' ? post.title : post.text,
-                post.displayText,
-              ].some(
-                (text) =>
-                  text && normalize(text) === normalize(post.whyItMatters!),
-              ),
-          ),
-        );
-        assert.ok(notes.length > 0);
-        await expect(summaries).toHaveCount(notes.length);
-        for (let index = 0; index < notes.length; index++) {
-          const link = summaries.nth(index);
-          await expect(link.locator('.post-context-text')).toHaveText(
-            notes[index].whyItMatters!,
+        for (const scale of [100, 200, 300]) {
+          const context = await browser.newContext({
+            extraHTTPHeaders: headers,
+            viewport: { width, height: 900 },
+            colorScheme: theme,
+            reducedMotion: 'reduce',
+            hasTouch: true,
+          });
+          await context.route('**/*', (route) => {
+            assert.ok(['GET', 'HEAD'].includes(route.request().method()));
+            return new URL(route.request().url()).origin === origin
+              ? route.continue()
+              : route.abort();
+          });
+          const page = await context.newPage();
+          const errors: string[] = [];
+          page.on('pageerror', (error) => errors.push(error.message));
+          const response = await context.request.get(
+            `${origin}/api/editions/latest`,
           );
-          const bounds = await link.boundingBox();
-          assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+          assert.equal(response.status(), 200);
+          const edition = readerEditionSchema.parse(await response.json());
+          await page.goto(origin);
+          await page.addStyleTag({
+            content: `html { font-size: ${scale}% !important; }`,
+          });
+          await page.evaluate(() => document.fonts.ready);
+          const summaries = page.locator('.post-context summary');
+          const normalize = (value: string) =>
+            value.trim().replace(/\s+/g, ' ').toLowerCase();
+          const notes = edition.topics.flatMap((topic) =>
+            topic.posts.filter(
+              (post) =>
+                post.whyItMatters?.trim() &&
+                ![
+                  post.platform === 'reddit' ? post.title : post.text,
+                  post.displayText,
+                ].some(
+                  (text) =>
+                    text && normalize(text) === normalize(post.whyItMatters!),
+                ),
+            ),
+          );
+          assert.ok(notes.length > 0);
+          await expect(summaries).toHaveCount(notes.length);
+          for (let index = 0; index < notes.length; index++) {
+            const link = summaries.nth(index);
+            await expect(link.locator('.post-context-text')).toHaveText(
+              notes[index].whyItMatters!,
+            );
+            const bounds = await link.boundingBox();
+            assert.ok(bounds && bounds.height >= 44 && bounds.width >= 44);
+            assert.ok(
+              bounds.x >= 0 && bounds.x + bounds.width <= width,
+              `post note ${index}: enlarged target stays horizontally reachable`,
+            );
+          }
+          const first = summaries.first();
+          await first.scrollIntoViewIfNeeded();
+          await first.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          await expect(first).toBeFocused();
+          assert.equal(
+            await first.evaluate((node) => getComputedStyle(node).outlineStyle),
+            'solid',
+          );
+          await page.keyboard.press('Enter');
+          await expect(first.locator('..')).toHaveAttribute('open', '');
           assert.ok(
-            bounds.x >= 0 && bounds.x + bounds.width <= width,
-            `post note ${index}: enlarged target stays horizontally reachable`,
+            await first
+              .locator('..')
+              .locator('.post-context-body')
+              .evaluate((node) => node.scrollWidth <= node.clientWidth),
           );
-        }
-        const first = summaries.first();
-        await first.scrollIntoViewIfNeeded();
-        await first.focus();
-        await page.keyboard.press('Tab');
-        await page.keyboard.press('Shift+Tab');
-        await expect(first).toBeFocused();
-        assert.equal(
-          await first.evaluate((node) => getComputedStyle(node).outlineStyle),
-          'solid',
-        );
-        await page.keyboard.press('Enter');
-        await expect(first.locator('..')).toHaveAttribute('open', '');
-        assert.ok(
-          await first
+          const spacing = await first
             .locator('..')
             .locator('.post-context-body')
-            .evaluate((node) => node.scrollWidth <= node.clientWidth),
-        );
-        await page.keyboard.press('Space');
-        await expect(first.locator('..')).not.toHaveAttribute('open', '');
-        await first.tap();
-        await expect(first.locator('..')).toHaveAttribute('open', '');
-        assert.ok(
-          await page.evaluate(
-            () => document.documentElement.scrollWidth <= innerWidth,
-          ),
-        );
-        await page
-          .locator('.post-card')
-          .filter({ has: first })
-          .first()
-          .screenshot({
-            path: `docs/screenshots/ui/reader-context-targets-${width}-${theme}.png`,
+            .evaluate((node) => {
+              const style = getComputedStyle(node);
+              return {
+                top: style.marginTop,
+                bottom: style.marginBottom,
+                font: parseFloat(style.fontSize),
+              };
+            });
+          assert.deepEqual(spacing, {
+            top: '12px',
+            bottom: '12px',
+            font: (14 * scale) / 100,
           });
-        assert.deepEqual(errors, []);
-        await context.close();
-        console.log(
-          `${width}/${theme}: ${notes.length} published post notes at 200% text retain context and have 44px targets; touch expansion, keyboard toggle/focus and overflow pass`,
-        );
+          await page.keyboard.press('Space');
+          await expect(first.locator('..')).not.toHaveAttribute('open', '');
+          await first.tap();
+          await expect(first.locator('..')).toHaveAttribute('open', '');
+          assert.ok(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth,
+            ),
+          );
+          if (scale === 300)
+            await page
+              .locator('.post-card')
+              .filter({ has: first })
+              .first()
+              .screenshot({
+                path: `docs/screenshots/ui/reader-context-targets-${width}-${theme}.png`,
+              });
+          assert.deepEqual(errors, []);
+          await context.close();
+          console.log(
+            `${width}/${theme}/${scale}%: ${notes.length} published post notes retain 12px explanation margins and context with 44px targets; touch expansion, keyboard toggle/focus and overflow pass`,
+          );
+        }
       }
     }
   } finally {

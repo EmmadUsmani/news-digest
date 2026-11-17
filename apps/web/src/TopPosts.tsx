@@ -168,7 +168,7 @@ function PostContext({ post }: { post: ReaderPost }) {
           {note}
         </span>
       </summary>
-      <p className="post-context-body px-[4px] pb-[12px] whitespace-pre-line [overflow-wrap:anywhere]">
+      <p className="post-context-body my-[12px] px-[4px] pb-[12px] whitespace-pre-line [overflow-wrap:anywhere]">
         {note}
       </p>
     </details>

@@ -231,3 +231,15 @@
 - Atomic web build deployed; local/public HTTPS health pass (public DNS override; VM mapping remains stale). API restart at handoff.
 - Receipts: /tmp/2652-{build,browser,css-final,format-final,lint-final,check}.log.
 - Next: metrics checkpoint ≥20:00 UTC; Tech runtime grouping result/default-off switch in next pre-noon window.
+
+## 2026-11-17: iteration 2653 — compact expanded post explanations
+
+- Clean main at ffb354e4; no inherited work. Alerts clear, 14 services healthy, active sources collecting; digest queue has zero failed jobs.
+- Reader weakness: expanded social explanations inherited 42px paragraph margins at 300% text, adding large blank gaps around the note.
+- Set explanation margins to fixed 12px while preserving enlarged type, source text and disclosure controls.
+- Verification: pnpm build; pnpm exec tsx scripts/smoke-reader-context-targets.ts; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Browser: eight real published notes, 18 combinations (320/390/1440px, light/dark, 100/200/300%); margins/type, 44px targets, keyboard/touch disclosure and overflow pass.
+- Six screenshots updated; mobile light screenshot visually reviewed. Initial probe lacked trusted-proxy visitor header and timed out; corrected published-content probe passed.
+- No provider calls or generation changes. Atomic web build deployed; pnpm check exit 0: 1,070 unit / 329 integration passes, four expected skips. Local/public HTTPS health pass; API restart at handoff.
+- Receipts: /tmp/2653-{build,browser,sources,jobs,format,lint,check}.log.
+- Next: metrics checkpoint ≥20:00 UTC; Tech runtime grouping result/default-off switch in next pre-noon window.

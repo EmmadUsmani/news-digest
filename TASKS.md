@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2653: Expanded post explanations keep 12px margins at enlarged text; eight real notes remain usable across 18 mobile/desktop, theme and text-size combinations.
+
 - [x] 2652: Removed 68 lines of unused legacy headline/status CSS; archived older completed-task markers. Active reader layout unchanged.
 
 - [x] 2651: Story summary spacing stays at 12px with enlarged text; all 25 published summaries retain enlarged type and usable source links across mobile/desktop, light/dark and 100–300% text.
