@@ -12,6 +12,20 @@ export interface GroupingCandidate {
   excerpt: string | null;
   outboundLinks?: string[];
 }
+// A validated empty result means the editor deliberately kept all reports separate.
+// Unavailable results must not authorize downstream semantic reservations.
+export type StoryGroupingResult =
+  | { status: 'validated'; groups: string[][] }
+  | {
+      status: 'unavailable';
+      reason:
+        | 'small-pool'
+        | 'invalid-input'
+        | 'input-limit'
+        | 'no-result'
+        | 'provider-error';
+    };
+
 const schema = z
   .object({
     groups: z.array(z.array(z.string().min(1).max(200)).min(2).max(40)).max(20),
@@ -202,7 +216,17 @@ export class EventGrouping {
     candidates: GroupingCandidate[],
     runId: string,
   ): Promise<string[][]> {
-    if (candidates.length < 2) return [];
+    const result = await this.groupWithResult(topicId, candidates, runId);
+    return result.status === 'validated' ? result.groups : [];
+  }
+
+  async groupWithResult(
+    topicId: string,
+    candidates: GroupingCandidate[],
+    runId: string,
+  ): Promise<StoryGroupingResult> {
+    if (candidates.length < 2)
+      return { status: 'unavailable', reason: 'small-pool' };
     const ids = new Set(candidates.map((item) => item.id));
     if (
       !topicId ||
@@ -212,7 +236,7 @@ export class EventGrouping {
         (item) => item.topicId !== topicId || !item.id || item.id.length > 200,
       )
     )
-      return [];
+      return { status: 'unavailable', reason: 'invalid-input' };
     const prompt = JSON.stringify({
       topicId,
       sharedReferences: sharedReferences(candidates),
@@ -225,7 +249,7 @@ export class EventGrouping {
       })),
     });
     if (Buffer.byteLength(instructions + prompt, 'utf8') + 2048 >= 100000)
-      return [];
+      return { status: 'unavailable', reason: 'input-limit' };
     try {
       const result = await this.llm.json(
         {
@@ -250,9 +274,11 @@ export class EventGrouping {
         },
         { repair: false },
       );
-      return result?.groups ?? [];
+      return result
+        ? { status: 'validated', groups: result.groups }
+        : { status: 'unavailable', reason: 'no-result' };
     } catch {
-      return [];
+      return { status: 'unavailable', reason: 'provider-error' };
     }
   }
 }

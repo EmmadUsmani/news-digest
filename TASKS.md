@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. 2644 real ranking/editor transport passes; source-text events rise 1→2, Google/China remain headline-only. Cached boundaries remain provisional. Next: explicit grouping-success result/default-off runtime Tech switch in the next pre-noon deployment window, then natural scheduled acceptance. No production change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. 2644 real ranking/editor transport passes; source-text events rise 1→2, Google/China remain headline-only. Cached boundaries remain provisional. 2654 adds explicit curation grouping status: validated empty membership differs from unavailable/refused/invalid output; legacy publication behavior retained. Next: carry status through shortlist preparation/default-off runtime Tech switch in the next pre-noon deployment window, then natural scheduled acceptance. No admission change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2654: Curation grouping exposes validated/unavailable status without changing publication membership, prompts, calls or budgets; 25 targeted grouping tests pass.
 
 - [x] 2653: Expanded post explanations keep 12px margins at enlarged text; eight real notes remain usable across 18 mobile/desktop, theme and text-size combinations.
 

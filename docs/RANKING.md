@@ -3296,3 +3296,19 @@ pool can preserve every baseline event; unchanged IDs alone therefore cannot
 establish whether the control ran. The CLI includes the result without prose.
 These receipts describe control validation, not independent validation of cached
 semantic boundaries. Runtime grouping status and activation remain pending.
+
+## Explicit story grouping outcome (iteration 2654)
+
+The curation grouping service now exposes `groupWithResult`: only a validated
+model/cache response has status `validated`, including a deliberate empty group
+list. Small pools, invalid input, input-size limits, missing budgeted results
+and thrown provider errors have status `unavailable`. A missing result does not
+claim whether refusal, validation or provider failure caused it.
+
+The existing `group` API delegates to this result and retains its original
+empty-array fallback, prompt, fingerprint, budget and no-repair behavior.
+Tests distinguish cached valid empty groups from denied budgets, invalid JSON,
+unknown/overlapping members and thrown failures; skipped inputs spend nothing.
+No admission consumer or switch is enabled. Next: carry this explicit status
+through shortlist preparation and add the Tech-only default-off reservation
+switch before natural scheduled acceptance. No provider calls in verification.

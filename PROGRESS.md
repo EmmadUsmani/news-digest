@@ -243,3 +243,16 @@
 - No provider calls or generation changes. Atomic web build deployed; pnpm check exit 0: 1,070 unit / 329 integration passes, four expected skips. Local/public HTTPS health pass; API restart at handoff.
 - Receipts: /tmp/2653-{build,browser,sources,jobs,format,lint,check}.log.
 - Next: metrics checkpoint ≥20:00 UTC; Tech runtime grouping result/default-off switch in next pre-noon window.
+
+## 2026-11-17: iteration 2654 — expose explicit grouping outcome
+
+- Clean main at 9030c8bb; no inherited work. Alerts clear; services, active sources and digest queue checks pass; local health healthy.
+- Tech prerequisite: valid empty membership and a refused/failed grouping call previously shared the same empty-array return.
+- Added public validated/unavailable grouping result with bounded skip/failure reasons; retained legacy group API, membership, prompts, fingerprint, no-repair behavior and budgets.
+- No admission switch/selection change or provider calls. Runtime shortlist consumption/default-off Tech switch remain for the next pre-noon step.
+- Targeted: pnpm exec tsx --test apps/api/test/{event-grouping,group-shortlist,event-grouping-evaluation-ledger}.test.ts — 25 pass.
+- pnpm format, pnpm lint:fix, pnpm build and corrected-tree pnpm check pass: 1,072 unit / 329 integration passes, four expected skips. Initial full check raced export-sort autofix; rerun passed.
+- API/worker restarted; 14 services healthy, digest queue healthy; local/public HTTPS health pass. Public edition serves five topics/25 stories/20 posts.
+- Public check uses current public DNS override; default VM hostname mapping still refuses port 443. No UI changes; no screenshot update needed.
+- Receipts: /tmp/2654-{targeted,format,lint,build,check-final,services-final,jobs-final}.log; git diff --check passes.
+- Next: metrics checkpoint ≥20:00 UTC; wire explicit grouping status into Tech reservation before natural scheduled acceptance.

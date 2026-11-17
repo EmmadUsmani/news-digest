@@ -224,3 +224,113 @@ void test('same-story instructions allow direct consequences but reject shared-t
   );
   assert.deepEqual(await service.group('nba', candidates, 'run'), [['a', 'b']]);
 });
+
+void test('explicit grouping status distinguishes validated singletons from refused or invalid results', async () => {
+  const valid = harness('{"groups":[]}');
+  assert.deepEqual(
+    await valid.service.groupWithResult('nba', candidates, 'run'),
+    {
+      status: 'validated',
+      groups: [],
+    },
+  );
+  assert.deepEqual(
+    await valid.service.groupWithResult('nba', candidates, 'cached-run'),
+    {
+      status: 'validated',
+      groups: [],
+    },
+  );
+  assert.deepEqual(valid.counts(), {
+    calls: 1,
+    settlements: 1,
+    reservations: 1,
+  });
+  // The legacy publication API must still keep every report separate.
+  assert.deepEqual(
+    await valid.service.group('nba', candidates, 'legacy-run'),
+    [],
+  );
+  assert.equal(valid.counts().calls, 1);
+  const refused = harness('{"groups":[]}', false);
+  assert.deepEqual(
+    await refused.service.groupWithResult('nba', candidates, 'run'),
+    {
+      status: 'unavailable',
+      reason: 'no-result',
+    },
+  );
+  assert.equal(refused.counts().calls, 0);
+  for (const text of [
+    'not json',
+    '{"groups":[["a","unknown"]]}',
+    '{"groups":[["a","b"],["b","c"]]}',
+  ]) {
+    const invalid = harness(text);
+    assert.deepEqual(
+      await invalid.service.groupWithResult('nba', candidates, 'run'),
+      {
+        status: 'unavailable',
+        reason: 'no-result',
+      },
+    );
+    assert.deepEqual(invalid.counts(), {
+      calls: 1,
+      settlements: 1,
+      reservations: 1,
+    });
+    assert.equal(invalid.values.size, 0);
+  }
+  const merged = harness('{"groups":[["a","b"]]}');
+  assert.deepEqual(
+    await merged.service.groupWithResult('nba', candidates, 'run'),
+    {
+      status: 'validated',
+      groups: [['a', 'b']],
+    },
+  );
+});
+
+void test('explicit grouping status never treats skipped input or provider failure as validated', async () => {
+  const h = harness('{"groups":[]}');
+  for (const items of [[], [candidates[0]]]) {
+    assert.deepEqual(await h.service.groupWithResult('nba', items, 'run'), {
+      status: 'unavailable',
+      reason: 'small-pool',
+    });
+  }
+  for (const items of [
+    [candidates[0], candidates[0]],
+    [{ ...candidates[0], topicId: 'tech' }, candidates[1]],
+    Array.from({ length: 41 }, (_, i) => ({ ...candidates[0], id: String(i) })),
+  ]) {
+    assert.deepEqual(await h.service.groupWithResult('nba', items, 'run'), {
+      status: 'unavailable',
+      reason: 'invalid-input',
+    });
+  }
+  const oversized = Array.from({ length: 40 }, (_, i) => ({
+    ...candidates[0],
+    id: String(i),
+    title: '界'.repeat(500),
+    excerpt: '界'.repeat(600),
+  }));
+  assert.deepEqual(await h.service.groupWithResult('nba', oversized, 'run'), {
+    status: 'unavailable',
+    reason: 'input-limit',
+  });
+  assert.deepEqual(h.counts(), { calls: 0, settlements: 0, reservations: 0 });
+  const failing = new EventGrouping(
+    {
+      async json() {
+        throw new Error('unavailable');
+      },
+    },
+    llmConfig({}).haiku,
+  );
+  assert.deepEqual(await failing.groupWithResult('nba', candidates, 'run'), {
+    status: 'unavailable',
+    reason: 'provider-error',
+  });
+  assert.deepEqual(await failing.group('nba', candidates, 'run'), []);
+});
