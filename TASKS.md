@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2566: fixed enlarged-text edition gutters and desktop contents width; real coverage retains reading space and report/date text fits at 100–300%.
+
 - [x] 2565: Topics help and names wrap at enlarged text; shared panel spacing preserves title/Close separation and reading space at 300%.
 
 - [x] 2564: triaged Google News AI 429 alert; scheduled third attempt recovered with HTTP 200/60 items, all 38 sources healthy. Retry policy retained.

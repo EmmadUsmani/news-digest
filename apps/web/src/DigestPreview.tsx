@@ -98,7 +98,7 @@ export function DigestPreview() {
   return (
     <main
       ref={content}
-      className="reader-edition mx-auto min-h-screen max-w-[1008px] px-4 pb-16 sm:px-6"
+      className="reader-edition mx-auto min-h-screen max-w-[1008px] px-[16px] pb-16 sm:px-[24px]"
     >
       {visibleTopics[0] && (
         <ReaderSkipLink target={`topic-${visibleTopics[0].id}`} />
@@ -190,7 +190,7 @@ export function DigestPreview() {
         <p className="pt-16 text-sm text-[var(--secondary)]">No edition yet.</p>
       )}
       {preview && (
-        <div className="flex gap-6 pt-20 lg:pt-10">
+        <div className="flex gap-[24px] pt-20 lg:pt-10">
           <h1 tabIndex={-1} className="sr-only">
             News Digest —{' '}
             {new Date(preview.windowEnd).toLocaleDateString(undefined, {
@@ -274,7 +274,7 @@ export function DigestPreview() {
                       <Card
                         id={`story-${story.id}`}
                         tabIndex={-1}
-                        className="scroll-mt-36 rounded-lg p-5 shadow-none lg:scroll-mt-24"
+                        className="scroll-mt-36 rounded-lg p-[20px] shadow-none lg:scroll-mt-24"
                       >
                         <h3 className="m-0 font-sans text-lg leading-7 font-semibold tracking-tight">
                           <a

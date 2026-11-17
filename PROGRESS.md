@@ -129,3 +129,13 @@
 - Browser checks use deployed loopback with the existing simulated proxy-header approach and real stored editions; unforwarded loopback API requests correctly return 429. No provider calls or fixture content.
 - Screenshots docs/screenshots/2565-{topics-300,contents-*}-{light,dark}.png; receipts /tmp/2565-{format,lint,check,build,browser,contents}.log. Web published atomically; no service restart needed under item 22. No generation, budget or source changes.
 - Next: metrics ≥01:18 UTC; retention receipt 04:40 UTC; Nov 17 scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2566 — preserve enlarged-text story width
+
+- Clean main at 2ad8df9a; no inherited work. Health, all 14 services/38 sources pass; alerts clear. Scheduled evidence not due; followed item 42 reader work. Protected paths untouched.
+- Reproduced expanded real coverage overflow at 320px/300% (102px available/132px scroll width) and a collapsed desktop story column. Root-font-scaled gutters, card padding, gap and fixed sidebar consumed the reading area.
+- Kept those structural dimensions in pixels while text continues scaling. At 300%, mobile coverage now has 246px and desktop 654px; reports, publisher labels and dates fit. No generation, source or budget changes.
+- Browser verification: deployed real edition at 320/390/1440px, both themes, 100/200/300% text; all 18 cases pass report/date bounds, page overflow, keyboard expand/collapse and retained focus, zero page errors. Screenshots docs/screenshots/2566-coverage-{320,1440}-{light,dark}.png inspected.
+- Web built with VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build and published atomically; no service restart under item 22. Health database/Redis true; digest queue zero failed/next 15:00 UTC; alerts clear.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); git diff --check. First chained check terminated at format verification (143); detached launch did not persist; standalone full rerun passed.
+- Receipts /tmp/2566-{format,lint,check-final,build,browser}.log and health/services/sources/jobs snapshots. Next: metrics ≥01:18 UTC; retention receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
