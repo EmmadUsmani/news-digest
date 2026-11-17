@@ -138,3 +138,13 @@
 - Public archive HTTPS 200 via public DNS/curl --resolve; local health passes. Initial browser attempt lacked a distinct client address and timed out; reran with per-case addresses as in prior browser verification.
 - Web published atomically; no service restart under STEERING 22. No generation, source, provider, budget or handbook behavior changes.
 - Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2596 — put topic choices before secondary help
+
+- Clean main at a3260b4a; no inherited work. Alerts clear, health database/Redis true, 38 sources healthy; digest-generation zero failed, next edition 15:00 UTC. Metrics checkpoint not due until ≥07:45 UTC.
+- Reader weakness / STEERING 38/42: at 320px/300% the topic chooser put its first checkbox at 1,289px, below lengthy instructions and sync text. Shortened the introduction and moved automatic-topic help/sync status below the choices; first checkbox now 587px, saving 702px of scrolling. Owner-visible benefit: topic controls appear in the first viewport with enlarged text.
+- Browser: node /tmp/2596-verify.cjs passes 18 combinations (320/768/1440px, 100–300%, both themes): first checkbox visible, enlarged labels, no horizontal overflow, keyboard hide/show, reload persistence and focus return. Both docs/screenshots/2596-topic-choices images inspected.
+- Initial browser run caught long-word overflow in the relocated help; restored overflow wrapping and reran all combinations successfully.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit / 329 integration passes; four expected skips); git diff --check. Receipts /tmp/2596-{format,lint,build,browser,check}.log.
+- Public HTTPS 200 via public DNS/curl --resolve; local health passes. Web published atomically; no service restart under STEERING 22. Generation, sources, providers and budgets unchanged.
+- Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.

@@ -25,26 +25,8 @@ export function ReaderPreferences({
       }
     >
       <p className="text-sm text-[var(--secondary)] [overflow-wrap:anywhere]">
-        Choose topics to show in your editions. New topics appear automatically.
+        Choose topics to show.
       </p>
-      {account && (
-        <p
-          role="status"
-          aria-label="Topic sync"
-          className="mt-3 text-sm text-[var(--secondary)]"
-        >
-          {readerAccountStatus(account)}
-        </p>
-      )}
-      {account?.session?.signedIn && account.sync === 'failed' && (
-        <Button
-          variant="ghost"
-          className="mt-3 min-h-11"
-          onClick={() => void account.retrySync().catch(() => undefined)}
-        >
-          Retry sync
-        </Button>
-      )}
       <div className="space-y-2 py-4">
         {topics.map((topic) => (
           <label
@@ -65,6 +47,27 @@ export function ReaderPreferences({
           </label>
         ))}
       </div>
+      <p className="text-sm text-[var(--secondary)] [overflow-wrap:anywhere]">
+        New topics appear automatically.
+      </p>
+      {account && (
+        <p
+          role="status"
+          aria-label="Topic sync"
+          className="mt-3 text-sm text-[var(--secondary)]"
+        >
+          {readerAccountStatus(account)}
+        </p>
+      )}
+      {account?.session?.signedIn && account.sync === 'failed' && (
+        <Button
+          variant="ghost"
+          className="mt-3 min-h-11"
+          onClick={() => void account.retrySync().catch(() => undefined)}
+        >
+          Retry sync
+        </Button>
+      )}
       {preferences.storageFailed && (
         <p role="alert">
           Your browser could not save these choices. They apply until this page
