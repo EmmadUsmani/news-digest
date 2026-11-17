@@ -119,7 +119,7 @@ export function ReaderSaved() {
                     href={copy.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex min-h-11 min-w-11 items-center rounded-md hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="flex min-h-11 min-w-11 items-center rounded-md [font-size:inherit] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
                     {copy.title}
                   </a>

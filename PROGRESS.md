@@ -117,3 +117,14 @@
 - Health database/Redis true; pnpm obs alerts clear; pnpm obs sources --check all 38 healthy; pnpm obs jobs --check --queue digest-generation --limit 5 zero failed, next 15:00 UTC. State-filtered jobs unsupported in public mode; reran supported counts query.
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes; four expected skips); git diff --check passes. Evidence /tmp/2593-*; no paid calls, edition writes, deployment or service restart under STEERING 22.
 - Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2594 — enlarge saved item titles with reader text
+
+- Clean main at 4ee6aee7; no inherited edits. Alerts clear, health database/Redis true, all 38 sources healthy; digest-generation zero failed jobs, next edition 15:00 UTC. Metrics checkpoint not due until ≥07:45 UTC.
+- Reader weakness / STEERING 33/42: saved item title links stayed at legacy 24px even with enlarged reader text. Inheriting the heading font restores 18/36/54px at 100/200/300%; readers can enlarge titles alongside saved summaries.
+- Browser: node /tmp/2594-verify.cjs passes 18 real-edition combinations (320/390/1440px, 100–300%, both themes): exact title sizes, page bounds, saved content, header targets, theme and keyboard archive/home navigation. Both docs/screenshots/2594-saved-title images inspected. Before-change assertion reproduced fixed 24px.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); git diff --check. Receipts /tmp/2594-{format,lint,build,browser,check,sources,jobs,alerts}.log.
+- Initial tool-bound check shell terminated (143) during lint; persistent systemd user unit iteration-2594-check reran the full check successfully.
+- Public HTTPS 200 using public DNS with curl --resolve; default VM DNS still points at an unreachable proxy address. Local health passes; real published content saved and reopened in browser verification.
+- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.

@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2594: Saved item titles now follow reader text size (18/36/54px at 100/200/300%) instead of staying at legacy 24px; mobile wrapping and keyboard navigation retained.
+
 - [x] 2592: Edition header dates now follow reader text size (14/28/42px at 100/200/300%) instead of staying at legacy 18px; mobile/desktop date and archive navigation retained.
 
 - [x] 2591: Enlarged mobile topic navigation uses a labeled 44px Contents icon when space is tight: topic strip grows 71→236px at 320px/300%, while the bar shrinks 97→85px; normal text retains the visible label.
