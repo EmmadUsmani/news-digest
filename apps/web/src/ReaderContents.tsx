@@ -173,10 +173,10 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
   }, [activeTopic?.id]);
   const contents = (mobile: boolean) => (
     <nav aria-label={mobile ? 'Mobile contents' : 'Edition contents'}>
-      <p className="mb-4 text-xs font-medium tracking-widest text-[var(--secondary)] uppercase">
+      <p className="mb-[16px] text-xs font-medium tracking-widest text-[var(--secondary)] uppercase">
         Contents
       </p>
-      <ul className="m-0 list-none space-y-4 p-0">
+      <ul className="m-0 list-none space-y-[16px] p-0">
         {topics.map((topic) => {
           const link = (id: string, text: string, nested = false) => {
             const anchor = (
@@ -192,7 +192,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
 
                 title={text}
                 aria-current={active === id ? 'location' : undefined}
-                className={`flex min-h-11 min-w-0 items-center gap-[4px] rounded py-1 text-sm leading-6 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${nested ? 'pl-[12px] font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
+                className={`flex min-h-[44px] min-w-0 items-center gap-[4px] rounded py-[4px] text-sm leading-6 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${nested ? 'pl-[12px] font-normal' : 'font-medium'} ${active === id ? 'text-[var(--accent)]' : ''}`}
               >
                 <span
                   aria-hidden="true"
@@ -233,7 +233,7 @@ export function ReaderContents({ topics }: { topics: Topic[] }) {
       <Link
         to="/editions"
         search={{ page: 1 }}
-        className="mt-8 inline-flex min-h-11 min-w-11 items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        className="mt-[32px] inline-flex min-h-[44px] min-w-[44px] items-center rounded-md text-sm font-medium text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         Past editions →
       </Link>

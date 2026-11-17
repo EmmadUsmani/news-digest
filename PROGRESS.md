@@ -102,3 +102,12 @@
 - Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2599-verify.cjs; pnpm check retry exit 0 (1,062 unit / 329 integration passes, four expected skips); git diff --check. Receipts /tmp/2599-{format,lint,build,browser,check-retry}.log.
 - Public archive HTTPS 200 via public DNS/curl --resolve; local health passes. Web published atomically; no service restart under STEERING 22. Sources, generation, providers and budgets unchanged; no handbook behavior changed.
 - Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2600 — compact enlarged-text contents menu
+
+- Clean main at eaa2ff33; no inherited edits. Pending RecentJobFailures was a feed HTTP 429 at 08:04; automatic retry succeeded at 08:05. All 38 sources/14 monitored services healthy, local health passes, digest-generation zero failed jobs and next edition 15:00 UTC. Metrics next due ≥08:50 UTC.
+- Reader weakness / STEERING 38/42: contents link minimum heights grew to 132px at 300% text, with padding and gaps adding scrolling. Fixed 44px minimum targets, 4px padding and fixed section spacing preserve 42px labels. At 320px/300%, the real edition's menu shrinks from 4,668px to 4,112px (556px less); desktop also saves 556px.
+- Browser: node /tmp/2600-verify.cjs retry passes all 18 combinations (320/768/1440px, 100–300%, both themes): enlarged labels, fixed minimum/padding, no overflow, focused-link visibility, keyboard story navigation and drawer focus return. Initial visibility assertion sampled smooth scrolling too early; retry waits for visibility. Screenshot probe rerun at 320px with first topic focused; both docs/screenshots/2600-contents-spacing images inspected.
+- First pnpm check ended with exit 143 during unit tests without a reported failure; full retry exit 0 (1,062 unit / 329 integration passes; four expected skips). Verification receipts /tmp/2600-{format,lint,build,browser-retry,check-retry}.log; pnpm format, pnpm lint:fix, VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py, git diff --check.
+- Public HTTPS 200 via public DNS/curl --resolve; local health database/Redis true. Web published atomically; no service restart under STEERING 22. Sources, generation, providers and budgets unchanged; no handbook behavior changed.
+- Next: metrics ≥08:50 UTC; scheduled edition/Tech/social review after 15:00 UTC.
