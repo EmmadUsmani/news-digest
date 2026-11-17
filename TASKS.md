@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2636 cached grouping reproduces all ten editor IDs in order; grouped semantic control retains four prose-bearing events vs actual one. 2637 closes bounded boundary/value comparison: distillation provisionally separate, buyer warning unresolved; retain ranking. Next: preserve attributed non-lead prose in bounded grouped editor input. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. 2636 cached grouping reproduces all ten editor IDs in order; grouped semantic control retains four prose-bearing events vs actual one. 2637 closes bounded boundary/value comparison: distillation provisionally separate, buyer warning unresolved; retain ranking. 2638 recorded California/China regression proves existing non-lead transport works, including bounded editor prompts and saved attribution. Next: define bounded semantic admission with event diversity/Windows tooling tradeoff; generation changes only in an allowed window. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2638: Recorded California/China regression closes non-lead transport as already working; retain ranking and focus next on bounded semantic admission.
 
 - [x] 2637: Tech event-level comparison finds four common/six substituted events; China buyer warning lacks a proven separate boundary. Retain ranking; next preserve non-lead prose.
 

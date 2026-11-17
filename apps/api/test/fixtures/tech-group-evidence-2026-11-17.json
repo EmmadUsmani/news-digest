@@ -1,0 +1,249 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "windowStart": "2026-11-16T15:00:00.000Z",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "groups": [
+    [
+      "9d5c6257-d9c7-471f-9d2b-4a4f3492cf09",
+      "b84b6da6-15b6-4961-be06-3313d13cc0d1",
+      "04cef449-39d2-4adb-af8d-3f4533dac496",
+      "280a3af4-381e-4e63-8a8d-7fcf9168c553",
+      "315f61a8-dd07-46aa-9780-1eec6d30bac7",
+      "887b0419-a275-4cce-b4a2-4c055491d940",
+      "d3e843c6-e2d2-4033-b6e7-ff741dd45f4b",
+      "fbdcebf3-aa41-4442-96ec-5e2549d7b8e1",
+      "8c70e31b-cf23-4ed2-9005-4b7d29707607"
+    ],
+    [
+      "1d81cbfa-098f-4c55-8cd6-17f8d3f84868",
+      "30822c95-2e72-4aae-8155-e49a790624e1",
+      "6738ac07-8d4c-4c44-9901-3eee1c8862d5",
+      "b3672cf5-e44a-457f-956c-2d47525a3286",
+      "e99de582-f226-4fbe-a9d7-8ef8411f250c",
+      "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "edbb13ba-3e43-4129-bb66-48f16c2f818f",
+      "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19"
+    ]
+  ],
+  "candidates": [
+    {
+      "id": "9d5c6257-d9c7-471f-9d2b-4a4f3492cf09",
+      "title": "California sues OpenAI as ‘ongoing public nuisance’ after artificial intelligence attacks - Washington Times",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPT19XelpseVQycDJ6NVkwZFc5aGRKdlE0SUxBd3YxQmVnY3FxMXRmc1cydkJIN0hRTVdTV1dCdVN6Mml5MTdHVEJlSWFHRmFqaHJ2UVUwellJRTBNTWh0V1BDZGIyWUF1ZGJyY0xLcDlTanRNQlRoak5fNjhjcTJGS19qcng1anU2dEU3MFkxZEt2dDNEQnZtaHk2YnJqb0xpaWRVcUhRaDVYTkE?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:30:39.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.washingtontimes.com/",
+        "name": "Washington Times"
+      }
+    },
+    {
+      "id": "b84b6da6-15b6-4961-be06-3313d13cc0d1",
+      "title": "California sues OpenAI over rogue AI hacking incidents",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1034815/california-openai-hugging-face-lawsuit",
+      "excerpt": "California is suing OpenAI after its AI agents broke out of their testing environment and hacked other companies, including Hugging Face. In a lawsuit filed Monday, Attorney General Rob Bonta accuses OpenAI of violating consumer safety law by knowingly developing a \"dangerous product without proper oversight,\" as reported earlier by Reuters. The lawsuit claims the cyberattack on Hugging Face \"was the predictable result of an internal culture at OpenAI that prioritizes growth and rapid model development over safety and accountability.\" It alleges that OpenAI recently told the attorney general's office that it \"lost control\" of its AI agents …",
+      "publishedAt": "2026-11-16T20:46:01.000Z",
+      "sources": ["The Verge"],
+      "points": 0,
+      "publisher": null
+    },
+    {
+      "id": "04cef449-39d2-4adb-af8d-3f4533dac496",
+      "title": "California sues OpenAI over artificial intelligence models - Marietta Daily Journal",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQRk5KTWxPNHI4OFBiVDhtUFFqVHFUUEhJbG0tYndsWFppQzlZc3lNTTBXTWp4VmlVZVNIbjMxUHhITzh1VzhDQ2Q4M00wd2hLY0QtMjFicUVlcUV4d1JZWEFUNldtWmlpSlV4QmJnTlI0SDNmR2t6bkFLTG1ib0JlckNJbnE5NHNISlpib1lHbUtLZUNFMWhNREVlVFlqTGxuWmxqWnJ5TVhHVFhoelE5OFc0WU90dlBVV0Nyd0hQNGVTdmRNVUdIaXV4U3ZLSmlGMmVDZTJFUjVKSGI0c2c?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.mdjonline.com/",
+        "name": "Marietta Daily Journal"
+      }
+    },
+    {
+      "id": "280a3af4-381e-4e63-8a8d-7fcf9168c553",
+      "title": "OpenAI sued by California over Hugging Face attack - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE44X3h6ZDFZV05Gdzc1TTZtX083U2dlX2tmcWY5ZmVyYmk0cy0teWw0Q1VtWi1ISjRxNFZPYmZBMmZKUVN4WVhGOGVvX1B4VHhtVzBPUjIwOEMwRnM?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T23:12:24.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bbc.com/",
+        "name": "BBC"
+      }
+    },
+    {
+      "id": "315f61a8-dd07-46aa-9780-1eec6d30bac7",
+      "title": "California sues OpenAI, seeking court-ordered changes after the Hugging Face hack - WRAL",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOOElEaGItV0NZcVpFY3VSdEV5Z2RILUxvSGxzd3U2VjBlSGlhUEdpNUFWc3pDU2ZQRmpZOU1XTXNmNFd3b1FMcXIzVkNyM0pQTE5xdlJ6NDZhMjRVTGtmZWkxY1FKdUt3YTI3NHVDRF9lLVRCOTJ6bFJNSF9kV1ZYT0JyOFp2aWlZQnM2blpwTWhDYVM2ZGxGZGxMSGdNZ0hnZzVoTVQ2RFBoWXg3SW1mY2dlZ2oxUXM?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T22:16:43.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.wral.com/",
+        "name": "WRAL"
+      }
+    },
+    {
+      "id": "887b0419-a275-4cce-b4a2-4c055491d940",
+      "title": "California sues OpenAI over artificial intelligence models - Vermont Community Newspaper Group",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQaW1WenBKYWt2Qk1XeDYtWlZpeUlMejNQelpKUnVNVHF5QjVvNzlUOHd5OHo1ZHJoQ25XWjFLUG83dkNRcmdBZk9ENGZrRHZzUDdJejVEV0N2SGJVdGVnVDJCYVNRTDRBZUcweVVnNndQSXpYbmRhOE9CTW1LMXBROV9oN2VJcUlRMm42NWNRS18yczRpdXM0bGhrN0xGUHdEbTB3T1NVY0FXNVFRdVR2V1B4UFd5aUxLN194TU96NWFSS0RVTFZIaDdpbVRaNk5KQXBVTGdtc1FVWFdYcWF5VXJTeXVWQ05aQ09OeGxpaHRXd3pVVlA4Ty1yaG9PaWpQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.vtcng.com/",
+        "name": "Vermont Community Newspaper Group"
+      }
+    },
+    {
+      "id": "d3e843c6-e2d2-4033-b6e7-ff741dd45f4b",
+      "title": "California sues OpenAI over artificial intelligence models - Yahoo",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQOFd5a01VR09TclFtU2pUOWUzOGJ2Qzg4MHFIcHZZbENyaFpMcC1GS1ZheTdzQWc2RXJxNXR5ZTdIZTF4RDZHWXh1XzFmdHpMRks5Vi1qWmZtTURseUEyblJzRmY5czA3MERaLXpRVTVyZmN1NFFHc041d1o0VlRLY2tHdDdCTHFVZ3RuMjVucTJPNkM2eC1lZlNlaU41ZVU?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.yahoo.com/",
+        "name": "Yahoo"
+      }
+    },
+    {
+      "id": "fbdcebf3-aa41-4442-96ec-5e2549d7b8e1",
+      "title": "California sues OpenAI over artificial intelligence models - Leader Publications",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOQUN4cUtsNWlORkZ6YmkxNERyVUVzYnZEVk5qWWVTcTBRNzhZZnFGdzVfeThvajQxY2wyS3dtb2NVSEJmX3pFNDlab0kzRVJqQXdRWU1WUEJZYlJkWnhYMGdjcEZmVDloNFhET29KcDNxRTRDalFLOXFNWktMbUpKNzZsSGlpSUpGOTdSOGowWHNrejJYZE9BamtReEliTWVaeXlDcHI0endnMGV4cTBoZ29qSjg1dTV6QXNFR1l6emRZSXp5bDV4YVFaUzdEbWUwMVFhdjZEajFDYlpvYmRGQWtVN1hKR1U?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.myleaderpaper.com/",
+        "name": "Leader Publications"
+      }
+    },
+    {
+      "id": "1d81cbfa-098f-4c55-8cd6-17f8d3f84868",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - Los Angeles Times",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxORndmQl9ST0JsenBWc1dGUmpQUW5kRVBOODgtQi1MV1gzSjNlanNvalBtbzJKa3diVGNJR0lPZGFhVEthbVdjRlhXQXEzOFRaQndtb0pacVNISE1FamdkWmtuM2Z1c3Y4OTFpZl83TUlYRVQ3Y20wRmhYZ3B2M0xvRFRNLUJWYUtRc0hUMFJlbGMtc2tEY3d0OWZqYXZWSlllb29Vc1V1a0l5NmVvanNpaEViMVY2aWZTNVNyLXpzZHlFU1pEQzY3MjRrdm0yZXpPUnEzcA?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T23:55:12.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.latimes.com/",
+        "name": "Los Angeles Times"
+      }
+    },
+    {
+      "id": "30822c95-2e72-4aae-8155-e49a790624e1",
+      "title": "Commerce Department moves to close AI chip loophole - Nextgov/FCW",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYmFQTHJZS3RtRE05aU1kZkRJZm1fSzV1MXNZZmJILXZ4OUZWWFRNTjRKdUQ5SkFsVGRNVFRtbDJnZlNzZ215UGU3UUMxYkhnQmhzZlZvX3ZNNklkNlNieXdOVzh4V25XdWlkODZldXN6Q3YzNGJhLTZmbi02bmQzSTNENWZUNTAxZ2QyYkRxR2hVZXJnSUVZQk1rWFdoZllWZUVla3pqN0s5SDk2NFlXTThn?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:32:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.nextgov.com/",
+        "name": "Nextgov/FCW"
+      }
+    },
+    {
+      "id": "6738ac07-8d4c-4c44-9901-3eee1c8862d5",
+      "title": "New US rules aim to close loophole, restrict Chinese firms’ remote access to AI servers and infrastructure — seeks to combat cloud rental workarounds to export controls - Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMirwJBVV95cUxQcUk3QWgyeElRSjVVWmIwZDR4YURwWFl0am5NM1FtTjVrWlFUeEdOb2MxZzNhd1lIX3ctLVBibWRaWnpMQi13YU5HdWdha1RrcGtBUGgzeGZPYi13MFhzWWxlSlhiSDY5cHctWndFOWhfLUFiNmxKZ2tlRFczaGU2LWJWWTlTTUhYMlBKeEQwRnV2NGpGSHFLOHBBYVhRSXBkbERKanE5Z29RTU02N216OWJFd29MS202OXl3VFB1aXJxcEF0T205VmFVNTVmRklwSGVzWXRrQ0Y3SGw5UlY4dTFOaGZsLS1EZjZ6Y1g2el9PcmNlRHNFVjZaVzljOFpXWG9lT01XMFF4SVJMRDNmLVZ2TzUzMnczSVdLRUdmZnd6MHFiazVCN3dEdXFrcTA?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T21:50:00.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.tomshardware.com/",
+        "name": "Tom's Hardware"
+      }
+    },
+    {
+      "id": "b3672cf5-e44a-457f-956c-2d47525a3286",
+      "title": "US to further curb China's access to AI chips from companies like Nvidia - Sky News",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQcWNxUlVueUVLS0ZjOFptV1JKZl9PUGUxbFFFSjN6ZERnSFQzTlA4eDhsSVllWHlndEtGaER4VEdCX2d4aHByUDVma0RwOVB4ZVVoY0JFdkZPcjlxTXlFTGN2LTZLRm9RTXZLZDZqUlphUUNlbFJyZl9heDNGaEhLMkFhZ1hxaGZrTnU0c0RRVk1SRVU0VGhPc1hQMzUtLVpqSWxGY04tMUh0Rzg?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:13:28.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://news.sky.com/",
+        "name": "Sky News"
+      }
+    },
+    {
+      "id": "e99de582-f226-4fbe-a9d7-8ef8411f250c",
+      "title": "How new US chip restrictions on South East Asia will hit China - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1kZVJSX3o4UWtJT05KV0VUY1dPV3F3YUhYVHo5MkpQS0YzdUNDM2JmbXdERGRoTFduT3NlWWxaMUNYRkZxV1VyaUJRZ2dQVTVVekVvel85N2Zpa3c?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T10:22:09.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bbc.com/",
+        "name": "BBC"
+      }
+    },
+    {
+      "id": "8c70e31b-cf23-4ed2-9005-4b7d29707607",
+      "title": "California sues OpenAI over artificial intelligence models - The Black Chronicle",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQMEZ3N1Rxb1J4TkkzOGcxUjh3UkJSNGV1RjA5em1RMF9ULWVrOG9iZWtpZm8tZURpaWNTdkQwcmg2UjI4Q2ZDOFNHd2VvZzZKZTRFVXh1bmx6OGc0dnFTMkkwaXJwVzI0QXVUNTlpTDRDVVUxQ3NDS3JFU05HQzFkN3NQS2g4X2czOVNaeXhQdFRqQWxrZFVsTGk1SldwY09fMXVhSFVNeWx0LThFcjNZU1RSdl9Nbms?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T02:45:23.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://blackchronicle.com/",
+        "name": "The Black Chronicle"
+      }
+    },
+    {
+      "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - Alabama Daily News",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZmVNc2gzUVpPRS1uRHRSNUZMR0RSR3hzd18xZVVacXlMVGVQZDhDSFJ4S1E5UjRYQVRnVWdWS1cyMW9pSXk2T21YWmFjVWJnU3NYaUJLSmZVS0V1OU0zMlpQb2xNMTZxdDN5UnBES1ZoQllzdG44SjVQQlJXbVgwUXZsYVRqVTNsOWJnTEgtYUFFN1RVampqc3M2WXljRHBZandFZklkZnZ3aktaLVhIaHpPVQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T13:11:15.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://aldailynews.com/",
+        "name": "Alabama Daily News"
+      }
+    },
+    {
+      "id": "edbb13ba-3e43-4129-bb66-48f16c2f818f",
+      "title": "Trump administration moves to block China from indirect access to American AI technology - KSL",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNFg4c3hVYUpsbG5YM1lWYURyNndYY281M1R3eWFvWWF4ekt0X1pNaTdmTFJNRUJKSWstVnJhdFg2cWZzWFNfMlIyeWFwOWRIVEtja1hlQ1VDNWtkRldTcXdwMGY1MXdRbi1JTTRoNHVGVTMzeWpydVoyNUJfTVh4cldZVS1ZOUZGZ3JhVkI5MmZ6TVNnTWxGdGtjb0NnVzlzUHRHVlJuSUdESVU4MGIzV2V3aWZ5R2VRUjVYNHdkUmh3NUh3N3JvSEZFOUd3cTBoQUpzbU9R?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-16T19:15:20.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.ksl.com/",
+        "name": "KSL"
+      }
+    },
+    {
+      "id": "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19",
+      "title": "Chip Stocks Slide as US Sets New Curbs on China’s Compute Access - Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSVVjUlBfX1ZxOFRWZ243YkxEbTVJSm1BSkNJLUpCTzdrZlAtU3ktZzdmekJCZVhVc1lubi0tbklQX2wwTEh6WU8wUkI2M05Ecy1OTWJUNk5UVTV6bjltOWZkaXF3UHpJazUwaVlmTGljMFZBUGd3bFliN21xRWItdWhHeHVvSncxLXQ4SHZael9ySVF4QmlQOTNIQTZWTWl2NGdwaTA4eFhDUm5LVzZQc2JhZmFJQQ?oc=5",
+      "excerpt": "",
+      "publishedAt": "2026-11-17T09:01:04.000Z",
+      "sources": ["Google News: artificial intelligence"],
+      "points": 0,
+      "publisher": {
+        "url": "https://www.bloomberg.com/",
+        "name": "Bloomberg.com"
+      }
+    }
+  ],
+  "provenance": "Recorded Nov 17 edition pool and validated cached group membership; offline evidence transport only, not an event-boundary label or live editor result."
+}

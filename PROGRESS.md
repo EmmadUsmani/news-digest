@@ -138,3 +138,15 @@
 - Verification: offline Python set/excerpt assertions; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2637-{format,lint,check}.log.
 - Full check exit 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
 - Documentation-only change; live application code remains aligned, no rebuild/restart required. No new blockers or source changes.
+
+## 2026-11-17: iteration 2638 — verify existing non-lead Tech evidence transport
+
+- Clean main at 3a2a1485; no inherited work. Alerts clear; /healthz database/Redis pass.
+- Read-only cached replay records California nine-member/China eight-member groups as offline regression inputs, not accepted event-boundary labels.
+- Existing projection already carries the California non-lead Verge report: empty representative, separately sourced 600/649 characters, unchanged IDs/order and saved URL/source attribution.
+- Both local editor attempts fit existing byte/member bounds; all-empty China stays empty. Recorded publisher is null; The Verge source label survives without guessing publisher metadata.
+- Added recorded fixture and regression; corrected review/tasks to close the proposed transport fix as already implemented. No ranking/runtime/source changes, provider calls or production writes.
+- Verification: pnpm exec tsx /tmp/2638-replay.ts --read-only-cache; targeted tech-group-evidence test; pnpm format; pnpm lint:fix; pnpm check; git diff --check.
+- Full check exit 0: 1,063 unit / 329 integration passes, four expected skips. Receipts /tmp/2638-{targeted,format,lint,check}.log.
+- Tests/docs only; live code remains aligned, no rebuild/restart needed. Generation restriction after 12:00 UTC retained.
+- Next: define bounded semantic admission with event diversity and Windows tooling tradeoff; implement only in an allowed generation-change window. Metrics checkpoint remains due ≥16:40 UTC.
