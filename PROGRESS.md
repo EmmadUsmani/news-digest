@@ -157,3 +157,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2568-verify.cjs; git diff --check. Initial chained check terminated (143) during lint; standalone full rerun passed (1,062 unit/329 integration, four expected skips).
 - Web built/published atomically; no service restart under STEERING 22. No generation, source or budget changes. Health database/Redis true; scheduled digest queue zero failed/next 15:00 UTC.
 - Receipts /tmp/2568-{probe,browser,format,lint,check-final,build,jobs}.log. Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2569 — preserve enlarged-text archive width
+
+- Clean main at 84ae7fbd; no inherited edits. Health, 14 services/38 sources and alerts healthy; scheduled evidence not due. Protected paths untouched.
+- Reader weakness: Past editions gutters grew to 60px each at 320px/300% text, leaving only 200px for dates and coverage. Fixed 20px mobile/24px desktop gutters preserve 280px on narrow screens while text scales; readers can scan past editions with fewer forced wraps.
+- Browser verification: all 14 real archive entries fit at 320/390/1440px, light/dark, 100/200/300% text; all 18 cases pass text/page bounds, keyboard opening a real edition and zero page errors. No provider calls or fixture content. Screenshots docs/screenshots/2569-archive-{light,dark}.png inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2569-verify.cjs; git diff --check. Full check: 1,062 unit/329 integration passes, four expected skips. Receipts /tmp/2569-{format,lint,check,build,browser}.log.
+- Web built/published atomically; runtime matches commit without service restart under STEERING 22. No source, generation or budget changes; health database/Redis true.
+- Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
