@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2628: NBA Bluesky video play badge stays compact with enlarged reader text; the actual preview, accessible destination and keyboard focus verified across 12 browser combinations.
+
 - [x] 2627: Expanded story coverage keeps report spacing compact with enlarged reader text; live article links and keyboard access verified across 12 browser combinations.
 
 - [x] 2626: Saved-post URLs adjoining emoji now receive visual separation, preserving exact saved text, destinations and opening-delimiter placement; real Gaming post passes all 12 browser combinations.

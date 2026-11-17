@@ -479,7 +479,7 @@ function BlueskyImage({
       {video && (
         <span
           aria-hidden="true"
-          className="absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/75 text-base text-white"
+          className="absolute top-[12px] left-[12px] flex size-[40px] items-center justify-center rounded-full bg-black/75 text-[16px] text-white"
         >
           ▶
         </span>

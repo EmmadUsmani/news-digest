@@ -112,3 +112,14 @@
 - Screenshots inspected in both themes. Initial browser assertion used the wrong margin side; corrected for Tailwind’s end-margin spacing, then all 12 combinations passed.
 - Atomic web publication; no restart under STEERING 22. No source, generation, budget or handbook behavior changes; no paid calls.
 - Next: metrics ≥14:20 UTC; edition/Tech/social review after 15:00 UTC. Protect scheduled generation.
+
+## 2026-11-17: iteration 2628 — keep video previews visible with enlarged text
+
+- Clean main at 179e256b; no inherited work. Health database/Redis pass, alerts clear, disk 69%; 14 monitored services and source-health checks pass. Destructoid remains paused pending documented publisher access.
+- Reader benefit / STEERING 38/42: the real NBA Bluesky video’s decorative play badge grew to 120×120px at 300% text, obscuring the preview. Keep its size at 40px, inset at 12px and glyph at 16px while post text continues to enlarge.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2628-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2628-{format,lint,build,browser,check}.log.
+- Browser matrix covers 320/1440px, 100–300%, both themes: actual NBA video thumbnail, fixed badge geometry, enlarged post text, named original-video link, keyboard focus and no horizontal overflow. Screenshots docs/screenshots/2628-video-{light,dark}.png.
+- Browser probe fixes: wait for the actual video link, allow the thumbnail CDN redirect, decode the lazy image and select the nearest post article. All 12 combinations pass; both screenshots inspected.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final health, alerts and diff checks pass.
+- Atomic web publication; no service restart under STEERING 22. No source, budget or handbook behavior changes; no paid calls.
+- Next: metrics ≥14:20 UTC; edition/Tech/social review after 15:00 UTC. Protect scheduled generation.
