@@ -65,4 +65,5 @@ The agent may **not** modify `~/agent-control/`. To change the harness:
 
 - Unused Cursor server and Warp data have been removed from the VM.
 - The system journal has a 200 MiB cap, preserved by the observability installer.
-- Daily session and temporary-file retention is pending under STEERING 65.
+- [Daily disk retention](../01-app/16-disk-retention.md) cleans old sessions and temporary files at 04:40 UTC.
+- The supervisor separately removes iteration and report logs older than seven days; its main log, usage record and health log stay in place.

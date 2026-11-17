@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2579: owner operations handbook now describes installed daily retention and separate supervisor log pruning, with a link to cleanup commands.
+
 - [x] 2578: Contents story indentation and decorative markers retain reading space with enlarged text; mobile keyboard destinations and panel controls verified.
 
 - [x] 2577: due metrics checkpoint retained; queries/rules pass but one new admission-limit event and continued reclaim keep acceptance open.

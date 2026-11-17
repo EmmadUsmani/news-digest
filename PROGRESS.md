@@ -112,3 +112,12 @@
 - Initial browser assertion expected short titles to fill wide panels; corrected the probe to assert minimum reading width rather than full available width. No application change needed.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration tests pass, four expected skips); VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Atomic web publication; no restart under STEERING 22. No generation/source/provider/budget changes or protected-path edits. Receipts /tmp/2578-{format,lint,check,build,browser,desktop}.log.
 - Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2579 — correct owner retention operations guidance
+
+- Clean main at 3b9220fa; no inherited edits. Alerts clear; health database/Redis true; all 38 sources healthy; digest-generation has zero failed jobs and next run 15:00 UTC.
+- Owner value: the agent operations page incorrectly called daily retention pending. It now links the installed 04:40 UTC cleanup and explains separate supervisor-owned seven-day log pruning; the disk page records the same ownership split. No protected-path edits or runtime changes.
+- Verified installed timer's next run at 04:40 UTC and repository supervisor pruning/default seven-day setting. Initial job probe used unsupported queue `digest`; corrected to the unfiltered queue snapshot (`digest-generation`).
+- Verification: pnpm format; pnpm lint:fix; pnpm check (exit 0: 1,062 unit/329 integration passes, four expected skips); affected-page handbook checks with --owner-services (links/render/schema pass); git diff --check. Receipts /tmp/2579-{format,lint,check,handbook-retention,handbook-operations}.log.
+- Handbook Markdown is served per request, so no build or restart needed under STEERING 22. No source, provider, budget or generation changes.
+- Next: metrics ≥04:30 UTC; retention timer receipt 04:40 UTC; natural edition/Tech/social review after 15:00 UTC.
