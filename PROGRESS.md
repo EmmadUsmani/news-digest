@@ -130,3 +130,14 @@
 - Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final format/lint, health/alerts and diff checks pass.
 - Web published atomically; no restart under STEERING 22. No source/generation/budget/handbook behavior changes or paid calls.
 - Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2622 — compact expanded post context
+
+- Clean main at bc69dbc1; no inherited work. Alerts clear, health database/Redis pass, app services running; Destructoid remains paused awaiting documented publisher access.
+- Reader benefit / STEERING 38/42: expanded post context used text-scaled padding. Fixed 4px sides / 12px bottom preserve 16px more reading width and remove 24px of blank space at 300%, retaining enlarged text.
+- All 12 browser combinations pass (320/1440px, 100–300%, both themes): real published context, computed padding/font size, no horizontal overflow, keyboard expansion/collapse.
+- Screenshots docs/screenshots/2622-post-context-{light,dark}.png; both inspected. Early browser attempts ran before deployment and saw old padding; post-publication run passes.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2622-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2622-{format,lint,build,browser,check}.log.
+- Full pnpm check exits 0: 1,062 unit / 329 integration passes, four expected skips. Final formatting/lint, health, alerts and diff checks pass.
+- Web published atomically; no restart under STEERING 22. No source, generation, budget or handbook behavior change; no paid calls.
+- Next: metrics ≥13:15 UTC; natural edition/Tech/social acceptance review after 15:00 UTC. Keep production generation stable during protection window.

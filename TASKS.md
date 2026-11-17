@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2622: Expanded post context keeps 4px side / 12px bottom padding as reader text grows, preserving reading width and removing 24px of blank space at 300%; real context and keyboard disclosure verified.
+
 - [x] 2621: Edition footer keeps 48px top separation and 16px padding with enlarged reader text, saving 160px of blank space at 300%; all 12 browser combinations preserve enlarged Privacy text, keyboard navigation and wrapping.
 
 - [x] 2620: Saved X post text keeps a 16px separation at enlarged reader sizes, saving 32px per transcript at 300%; real saved text, keyboard retry and wrapping pass across all 12 browser combinations.
