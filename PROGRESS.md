@@ -185,3 +185,14 @@
 - Documentation/data only; existing application build retained, no screenshots changed. pnpm format and pnpm lint:fix pass; pnpm check passes: 1,078 unit/329 integration tests, four expected skips.
 - Receipts: /tmp/2658-{bluesky-jobs,edition}.json and /tmp/2658-{services,sources,jobs,format,lint,check}.log. API/worker restart after push.
 - Next: preserve 20:54–23:54 UTC results and complete day review after midnight; metrics checkpoint ≥21:05 UTC; runtime Tech switch before noon.
+
+## 2026-11-17: iteration 2659 — finish NBA original-text/context review
+
+- Clean main at 524622b1; no inherited work. Alerts clear; services, active sources, jobs and local/public HTTPS health pass; Destructoid remains paused.
+- Reviewed all four Nov 17 NBA originals against its five story summaries: four distinct events, no story repetition, no supported additional context needed. Empty reader notes comply with the editor contract; no generation change justified.
+- Preserved a compact public-reader evidence record. Fresh API identity/text/note fields match the original private edition capture; internal editorial fields are excluded from the public projection.
+- Playwright /tmp/2659-nba.cjs passes 390px/1440px × light/dark: four original texts/destinations match, no empty Context disclosures, no card overflow or browser errors. Four screenshots saved; mobile light inspected.
+- Browser blocks third parties and writes: X media-unavailable state is intentional, not live-media acceptance. Attributed claims/engagement remain independently unverified; broader social quality remains open.
+- Documentation/data only; existing application build retained. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips.
+- Receipts: /tmp/2659-{browser,services,sources,jobs,format,lint,check}.log. API/worker restart after push.
+- Next: preserve final Nov 17 Bluesky hourly results/full-day review after midnight; metrics checkpoint ≥21:05 UTC; Tech runtime switch before noon.

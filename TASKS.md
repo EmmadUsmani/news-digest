@@ -5,8 +5,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 ## Next scheduled acceptance
 
 - Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
-- Nov 17 scheduled public edition accepted (2632): `6216cb7a`, 25 stories/20 posts, five AI story sections/zero unscored; World Haiku, other four Sonnet. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; NBA context remains open. [Review](docs/edition-reviews/2026-11-17.md).
-- Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; NBA social context quality remains open. No paid replay or cap changes.
+- Nov 17 scheduled public edition accepted (2632): `6216cb7a`, 25 stories/20 posts, five AI story sections/zero unscored; World Haiku, other four Sonnet. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; NBA original text/context reviewed (2659), no supported note needed. [Review](docs/edition-reviews/2026-11-17.md).
+- Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; Nov 17 NBA text/context check complete (2659); broader social quality remains open. No paid replay or cap changes.
 - Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
 - Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review recorded (2517); Gaming sparse, U.S. X absent. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2659: Completed Nov 17 NBA original-text/context review: four distinct self-explanatory posts, no supported extra note needed; public-reader transport verified at mobile/desktop in both themes.
 
 - [x] 2658: Preserved the first 20 Nov 17 Bluesky hourly results before shared queue retention; all 100 topic counts match submissions and expected World rotation. Final four hours remain open.
 

@@ -1,0 +1,70 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "windowStart": "2026-11-16T15:00:00.000Z",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "source": "Immutable published edition read from local public API; iteration 2659",
+  "stories": [
+    {
+      "id": "e4439edc-9b2b-413f-b778-b910d81d355e",
+      "title": "Warriors fall to 8-6 with third straight loss as Curry sits out with abdominal tear"
+    },
+    {
+      "id": "08a3fce3-300c-4422-b85c-a022f8d1a61c",
+      "title": "Wembanyama's historic 52-point game headlines Spurs' winning streak"
+    },
+    {
+      "id": "1278f8eb-d1e3-49cb-b3ba-dfbc139c2ee4",
+      "title": "Lakers are 12-2, with Doncic at the center of their title-contender case"
+    },
+    {
+      "id": "14034fe9-8b4b-4229-a1e8-21d0f4609270",
+      "title": "Giannis Antetokounmpo reflects on 13-year Bucks legacy ahead of Milwaukee return"
+    },
+    {
+      "id": "2f0eb38a-2f6e-4f12-8c35-d12a416371a4",
+      "title": "Grizzlies beat Wizards for Washington's eighth straight loss"
+    }
+  ],
+  "posts": [
+    {
+      "externalId": "2122549148042108984",
+      "platform": "x",
+      "author": "Kris Rhim",
+      "url": "https://x.com/i/web/status/2122549148042108984",
+      "text": "Jaylen Brown said his head and injured left hamstring will both be evaluated further tomorrow. He said an MRI is a possibility. pic.twitter.com/kboHapJzj7",
+      "displayText": "Jaylen Brown said his head and injured left hamstring will both be evaluated further tomorrow. He said an MRI is a possibility. pic.twitter.com/kboHapJzj7",
+      "whyItMatters": "",
+      "publishedAt": "2026-11-17T04:35:26.606Z"
+    },
+    {
+      "externalId": "2122361686493712783",
+      "platform": "x",
+      "author": "NBACentral",
+      "url": "https://x.com/i/web/status/2122361686493712783",
+      "text": "LeBron James has asked Sixers coaches to be patient with him as he finds his rhythm and gets his conditioning in line, expecting to ramp up by December, per @mcten pic.twitter.com/HSAk6A5zaG",
+      "displayText": "LeBron James has asked Sixers coaches to be patient with him as he finds his rhythm and gets his conditioning in line, expecting to ramp up by December, per @mcten pic.twitter.com/HSAk6A5zaG",
+      "whyItMatters": "",
+      "publishedAt": "2026-11-16T16:10:32.290Z"
+    },
+    {
+      "externalId": "2122532701848699108",
+      "platform": "x",
+      "author": "NBA on ESPN",
+      "url": "https://x.com/i/web/status/2122532701848699108",
+      "text": "JEREMIAH FEARS DROPPED HIS FIRST CAREER TRIPLE-DOUBLE 🔥 He’s the youngest Pelican EVER to drop a trip-dub, passing Chris Paul 👀 pic.twitter.com/MiYx83Zglm",
+      "displayText": "JEREMIAH FEARS DROPPED HIS FIRST CAREER TRIPLE-DOUBLE 🔥\n\nHe’s the youngest Pelican EVER to drop a trip-dub, passing Chris Paul 👀 pic.twitter.com/MiYx83Zglm",
+      "whyItMatters": "",
+      "publishedAt": "2026-11-17T03:30:05.528Z"
+    },
+    {
+      "externalId": "at://did:plc:yx55po6zknijied5vxft2rwa/app.bsky.feed.post/3n2i64xemhs22",
+      "platform": "bluesky",
+      "author": "jackborman.bsky.social",
+      "url": "https://bsky.app/profile/did%3Aplc%3Ayx55po6zknijied5vxft2rwa/post/3n2i64xemhs22",
+      "text": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench",
+      "displayText": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench",
+      "whyItMatters": "",
+      "publishedAt": "2026-11-17T04:06:45.700Z"
+    }
+  ]
+}
