@@ -3485,3 +3485,11 @@ first 23 hourly receipts of the day. The merged private export preserves
 all 115 topic counts and the baseline/Ukraine/baseline/Gaza rotation.
 [Receipt review](edition-reviews/2026-11-15-world-bluesky-pilot.md#next-natural-baseline-return-retained--iteration-2555).
 Full-day quality review remains after midnight; no manual collection or provider calls.
+
+### Final Nov 16 Bluesky collection retained — iteration 2560
+
+All 24 natural hourly jobs completed for five topics; all 120 topic counts
+and the World rotation are preserved and verified. Final 23:54 UTC pass:
+AI 50, NBA 46, game 50, Gaza 49 and Congress 47 fetched/submitted.
+Collection rules stay unchanged pending the full-day quality review after
+midnight. [Receipt](edition-reviews/2026-11-15-world-bluesky-pilot.md#final-nov-16-hourly-result-retained--iteration-2560).

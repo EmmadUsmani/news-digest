@@ -134,3 +134,15 @@ positive equal fetched/submitted counts and unchanged overlapping receipts.
 These are collection observations; distinct-post and selection quality still
 need the full-day review after Nov 17 midnight. Queries and gates stay unchanged.
 The final Nov 16 job is due at 23:54 UTC; retain it after completion for that review.
+
+## Final Nov 16 hourly result retained — iteration 2560
+
+The 23:54 UTC Gaza job finished at 23:54:55 UTC with fetched/submitted
+counts AI 50, NBA 46, game 50, Gaza 49 and Congress 47. The merged private
+export `/tmp/2560-bluesky-collections.json` preserves all 24 consecutive
+Nov 16 hourly jobs and 120 topic counts. All jobs completed, each has five
+distinct topics with positive equal fetched/submitted counts, and all 27
+overlapping receipts match the prior export. The World baseline/Ukraine/
+baseline/Gaza rotation matches every hour. Read-only Redis export; no searches,
+provider calls or writes. Full-day distinct-post and quality review remains
+due after Nov 17 00:00 UTC; collection settings and selection gates stay unchanged.
