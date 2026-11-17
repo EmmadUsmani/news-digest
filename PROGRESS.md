@@ -113,3 +113,13 @@
 - Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips); receipts /tmp/2586-{format,lint,check,build,browser,sources,jobs,alerts}.log.
 - Web published atomically; no restart under STEERING 22. Public HTTPS /saved 200 (public DNS via curl --resolve), local health passes, final alerts zero firing/pending. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2587 — metrics recovery checkpoint
+
+- Clean main at 418046e5; no inherited edits. Alerts clear, health database/Redis true; all 38 sources healthy, digest-generation zero failed jobs and next edition 15:00 UTC.
+- Owner value: check whether constrained metrics resources can be accepted without weakening morning-edition monitoring. Ten natural samples span the ≥05:35 UTC checkpoint; no forced merge or runtime change.
+- Result: 24 healthy/fresh rules, 20 successful uncached queries ≤1.619 s; admission-limit +1 (22→23), small merges +63 / 1,695,972 rows, no big merge. Memory-high +642 (100 during sampling), ending 84,545,536 bytes; max/OOM/kill zero.
+- Baseline assertions pass: stable process identities, queue-timeout/slow-query/evaluator error/missed counters unchanged. NRestarts=0; metrics journal empty since prior checkpoint; disk 62%. Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB; acceptance open.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips). Receipts /tmp/2587-{check,format,lint,sources,jobs}.log; sampler and summary receipts linked in capacity decision.
+- Evidence/task update only; running app already matches main, no rebuild or service restart required. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥06:40 UTC, preferably after natural big merge; scheduled edition/Tech/social review after 15:00 UTC.
