@@ -27,11 +27,11 @@ export function ReaderPreferences({
       <p className="text-sm text-[var(--secondary)] [overflow-wrap:anywhere]">
         Choose topics to show.
       </p>
-      <div className="space-y-2 py-4">
+      <div className="space-y-[8px] py-[16px]">
         {topics.map((topic) => (
           <label
             key={topic.id}
-            className="flex min-h-11 cursor-pointer items-center gap-[12px] rounded-md px-[12px] py-2 hover:bg-[var(--muted)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--accent)]"
+            className="flex min-h-[44px] cursor-pointer items-center gap-[12px] rounded-md px-[12px] py-[8px] hover:bg-[var(--muted)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--accent)]"
           >
             <input
               type="checkbox"

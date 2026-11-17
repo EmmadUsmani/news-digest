@@ -148,3 +148,13 @@
 - Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit / 329 integration passes; four expected skips); git diff --check. Receipts /tmp/2596-{format,lint,build,browser,check}.log.
 - Public HTTPS 200 via public DNS/curl --resolve; local health passes. Web published atomically; no service restart under STEERING 22. Generation, sources, providers and budgets unchanged.
 - Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2597 — keep enlarged topic choices compact
+
+- Clean main at c403f44c; no inherited edits. Alerts clear, health database/Redis true, 38 sources healthy; digest-generation zero failed, next edition 15:00 UTC. Metrics checkpoint not due until ≥07:45 UTC.
+- Reader weakness / STEERING 38/42: topic row padding, minimum height and list gaps enlarged with reader text. Fixed 8px row padding/gaps, 16px list padding and 44px minimum targets preserve enlarged labels/checkboxes while cutting the five-choice list from 1,072px to 734px at 320px/300%. Owner-visible benefit: 338px less scrolling to choose topics.
+- Browser: node /tmp/2597-verify.cjs passes 18 combinations (320/768/1440px, 100–300%, both themes): fixed spacing, enlarged labels, no overflow, 44px minimum targets, keyboard hide/show, reload persistence and focus return. Both docs/screenshots/2597-topic-spacing images inspected. Before/after row heights recorded via /tmp/2597-probe.cjs.
+- Initial browser assertion read margin-top; Tailwind uses margin-bottom. Corrected the probe to measure the actual gap and reran. No app failure.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; pnpm check exit 0 (1,062 unit / 329 integration passes; four expected skips); git diff --check. Receipts /tmp/2597-{format,lint,build,browser,check}.log.
+- Public HTTPS 200 via public DNS/curl --resolve; local health passes. Web published atomically; no service restart under STEERING 22. Generation, sources, providers and budgets unchanged.
+- Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
