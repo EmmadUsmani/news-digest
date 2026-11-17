@@ -149,3 +149,15 @@
 - pnpm check passes: 1,072 unit / 329 integration tests, four expected skips; pnpm format, pnpm lint:fix and git diff --check pass. Documentation-only; existing build retained.
 - Receipts: /tmp/2655-metrics.jsonl, /tmp/2655-summary.json and /tmp/2655-{metrics-journal,services,sources,jobs,check,format,lint}.log. API/worker restart and final health at handoff.
 - Next: metrics checkpoint ≥21:05 UTC; Tech grouping status/shortlist preparation and default-off switch before the next noon deployment window.
+
+## 2026-11-17: iteration 2656 — prepare explicit shortlist grouping status
+
+- Clean main at b2065ed6; no inherited work. Alerts, services, active sources, queues and local health pass; Destructoid remains paused.
+- Owner value: future Tech evidence reservations can distinguish deliberate separate events from failed grouping without risking duplicate event admission.
+- Added isolated prepareStoryGrouping transport with validated/unavailable status, explicit matcher and membership; publication remains on the existing path.
+- No runtime consumer, switch, selection change or provider calls; deployment/activation remains restricted to before noon UTC.
+- Four offline tests cover empty validation, rank/coverage transport, failed/invalid membership and bounded no-call inputs.
+- Verification: pnpm exec tsx --test apps/api/test/prepare-story-grouping.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. All pass: 1,076 unit / 329 integration, four expected skips; build succeeds.
+- Nine combined targeted tests pass; public HTTPS health and edition pass (five topics/25 stories/20 posts). Initial local reader probe returned 429; public probe succeeded.
+- API/worker restart at handoff; receipts /tmp/2656-{targeted-final,format,lint,check,build,services,sources,jobs}.log. No UI change or screenshot refresh.
+- Next: connect preparation/default-off Tech runtime switch before noon; metrics checkpoint ≥21:05 UTC.

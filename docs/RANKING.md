@@ -3312,3 +3312,14 @@ unknown/overlapping members and thrown failures; skipped inputs spend nothing.
 No admission consumer or switch is enabled. Next: carry this explicit status
 through shortlist preparation and add the Tech-only default-off reservation
 switch before natural scheduled acceptance. No provider calls in verification.
+
+## Prepared shortlist grouping (iteration 2656)
+
+`prepareStoryGrouping` carries validated/unavailable status together with the
+explicit membership matcher for the future admission consumer. Validated empty
+groups remain distinct from missing or failed results. Invalid, overlapping or
+unknown membership and ambiguous input IDs return unavailable; bounded input
+checks run before any call. Ungrouped articles remain separate.
+The helper is isolated: publication still uses `groupShortlist`, with no runtime
+consumer, switch, prompt, budget or admission change. Connect it only in the
+authorized pre-noon deployment window.
