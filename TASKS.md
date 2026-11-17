@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2581: coverage disclosure keeps a 44px touch minimum as reader text enlarges; wrapped labels, keyboard expansion and article links verified.
+
 - [x] 2580: publisher favicon and label gap retain normal dimensions with enlarged reader text, preserving source-name reading width.
 
 - [x] 2579: owner operations handbook now describes installed daily retention and separate supervisor log pruning, with a link to cleanup commands.

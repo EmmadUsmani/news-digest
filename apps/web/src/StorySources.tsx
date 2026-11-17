@@ -55,7 +55,7 @@ export function StorySources({
           onToggle={(event) => setCoverageOpen(event.currentTarget.open)}
         >
           <summary
-            className="min-h-11 min-w-11 cursor-pointer content-center rounded-md px-2 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            className="min-h-[44px] min-w-[44px] cursor-pointer content-center rounded-md px-[8px] text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
             aria-label={`${coverageOpen ? 'Hide' : 'Show'} ${articles.length} ${articles.length === 1 ? 'article' : 'articles'} covering ${story.title}`}
           >
