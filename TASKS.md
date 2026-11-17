@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2571: edition briefs retain 264px reading width at 320px/300% text, up from 228px; all 20 real brief lines and keyboard story destinations pass across widths/themes.
+
 - [x] 2570: Saved items retains 246px story reading width at 320px/300% text; real saved story, text bounds and account/remove keyboard focus pass across widths/themes.
 
 - [x] 2569: Past editions keeps 280px reading width at 320px/300% text; all 14 real archive entries and keyboard edition navigation pass across widths/themes.

@@ -241,7 +241,7 @@ export function DigestPreview() {
                   {topic.name}
                 </h2>
                 {topic.brief.length > 0 && (
-                  <ul className="topic-brief my-6 space-y-2 pl-5 text-base leading-7">
+                  <ul className="topic-brief my-6 space-y-2 pl-[24px] text-base leading-7">
                     {topic.brief.map((line) => {
                       const story = topic.stories.find(
                         (item) => item.title === line,

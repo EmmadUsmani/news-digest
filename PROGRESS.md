@@ -1,86 +1,6 @@
 # Progress
 
-[Earlier entries](docs/progress-archive/2026-11-16-progress-before-2554.md).
-
-## 2026-11-16: iteration 2554 — preserve Nvidia follow-up grouping control
-
-- Clean main at 0991d8a2; no inherited edits to recover/discard. Protected paths untouched. Initial broad orientation output was truncated; narrower reads recovered current priorities and task details.
-- Reader/content weakness: future grouping fixes must retain supported comeback/fallout reporting without absorbing separate chip-policy news. Owner value: relevant follow-ups remain together while unrelated developments remain distinct.
-- Added offline Nov 16 Tech subset: three exact published coverage records, two short publisher passages retained from iteration 2538, one positive/two negative agent-reviewed pairs. Five other Nvidia members remain unresolved; no new fetches, paid calls or production changes.
-- Supported published membership passes all six permutations; all-separate misses the follow-up and all-merged creates two false positives. Controls exercise evaluation, not semantic-model performance; independent labels remain open.
-- Verification: pnpm exec tsx --test apps/api/test/event-grouping-evaluation.test.ts passes 18 tests. Read-only assertions confirm all metadata matches the published edition and both passages exactly match retained publisher prose.
-- Initial /healthz database/Redis healthy, 14 services/38 sources healthy, zero alerts. Published coverage at 320px/200% text fits without overflow; no UI change needed.
-- pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips. Final health and alerts clear; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
-- Verification receipts: /tmp/2554-{targeted,format,lint,check}.log and /tmp/2554-{edition,services,sources}.json. Evaluation/docs only; no rebuild or service restart under STEERING 22/65.
-- Next: metrics ≥23:14 UTC; Bluesky export by 23:36/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-
-## 2026-11-16: iteration 2555 — preserve the penultimate Bluesky day receipt
-
-- Clean main at 1bc0c812; no inherited edits to recover/discard. Initial broad orientation was truncated; narrow reads recovered priorities. Protected paths untouched.
-- Reader weakness: weak generic World discovery needs a full rotation-day comparison; ephemeral hourly results would otherwise disappear before review. Owner value: preserve actual supply evidence for choosing stronger social posts without extra collection or spend.
-- Retained natural 22:54:43–22:54:53 UTC baseline result: AI 50, NBA 45, game 49, World 49, Congress 49 fetched/submitted observations. No unique-post or selection-quality claim.
-- Read-only Redis export plus /tmp/2555-merge.py preserves 23 consecutive Nov 16 hours in /tmp/2555-bluesky-collections.json. Assertions pass for 115 positive equal fetched/submitted counts, five distinct topic IDs per hour, expected World rotation, completed status and 27 unchanged overlapping receipts.
-- Initial /healthz, 14 services, 38 sources and queues healthy; zero alerts, disk 61%. Final health and alerts clear. No provider requests or production changes.
-- Updated TASKS.md, source receipt and pilot review. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
-- Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; receipts /tmp/2555-{format,lint,check}.log.
-- Next: metrics ≥23:14 UTC; retain final 23:54 Bluesky job after completion, then full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-
-## 2026-11-16: iteration 2556 — retain Helix affordability grouping evidence
-
-- Clean main at e017bd08; no inherited edits to recover/discard. Initial oversized orientation output was truncated; narrow reads recovered task priorities. Protected paths untouched.
-- Item 27/42 reader weakness: solving the confirmed GTA overmerge must preserve distinct angles from the same Helix interview. Extended offline controls with retained Insider Gaming affordability/neural-rendering reporting, beyond preservation and console/PC angles.
-- Added exact short publisher passage from iteration 2537; metadata matches immutable coverage retained in iteration 2529. Read-only assertions verify all five metadata fields, exact passage and complete ten-pair labeling. No new fetch, paid calls or production changes.
-- Five articles/ten agent-reviewed pairs: three Helix positives/seven negatives. Published control retains three positives and the GTA false merge; all-separate misses three. Correct split/merge control checks all 120 orders. Independent labels and semantic evaluation remain open.
-- Initial /healthz database/Redis healthy, 14 services/38 sources healthy, zero alerts, disk 61%; digest queue zero failed jobs, next scheduled edition Nov 17 15:00 UTC.
-- Verification receipts: /tmp/2556-{targeted,format,lint,check}.log. Targeted suite passes 18 tests; pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips.
-- Evaluation/docs only; no rebuild or service restart under STEERING 22/65. Updated task and grouping-review evidence; source configuration unchanged.
-- Next: metrics ≥23:14 UTC; final Bluesky 23:54 collection/full-day review after midnight; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-
-## 2026-11-16: iteration 2557 — due metrics recovery checkpoint
-
-- Clean main at d6a255d2; no inherited edits to recover/discard. Protected paths untouched.
-- Due read-only checkpoint at 23:14:05–23:15:07 UTC: 24 healthy rules, six uncached expected-series queries ≤1.274 s, unchanged admission/timeout/slow-query/evaluator failure counters and process starts.
-- Since 22:13:13: 57 small merges/1,996,391 rows, no big merge; +563 memory-high events (eleven during sampling), zero max/OOM/kill. Current memory 91,107,328 bytes; lifetime peak 92,995,584; NRestarts=0 and empty journal since prior sample.
-- Keep CPU 2%/88 MiB high/112 MiB max; ongoing reclaim and absent natural big merge keep resource acceptance open. Updated task and capacity evidence; no production configuration change.
-- Health database/Redis, 14 services and 38 sources healthy; zero alerts, root disk 61%; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
-- Sampling/baseline assertions: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 30; python3 /tmp/2557-summarize.py. Receipts /tmp/2557-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log}.
-- Verification: pnpm format, pnpm lint:fix, full pnpm check and git diff --check pass: 1,062 unit/329 integration passes, four expected skips; /tmp/2557-{format,lint,check}.log. Final health and alerts clear. Documentation/evidence only; no rebuild or service restart under STEERING 22/65.
-- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-
-## 2026-11-16: iteration 2558 — keep mobile contents dismissible
-
-- Clean main at 8260dc45; no inherited edits to recover/discard. Initial broad orientation was truncated; narrow reads recovered priorities. Protected paths untouched.
-- Item 42 reader weakness: opening mobile Contents near the final topic scrolls its Close button partly above the viewport (390px reproduction: y=-15px). The owner can now dismiss long menus without finding an offscreen control.
-- Shared Sheet now keeps its title/Close in a non-scrolling header and scrolls only its body; contents navigation/focus callbacks remain intact. Bug fix; no handbook system behavior change or source changes. Web deployed atomically; no process restart needed under item 22.
-- Real Nov 16 edition Playwright checks: 320/390/768px, light/dark, 100/200/300% text (18 cases); Close visible/hit-testable after focus and manual scroll, pointer dismissal, focus return, story navigation and Escape pass. Topics/Account panels also pass at 200% in both themes.
-- Screenshots inspected: docs/screenshots/2558-contents-{100-light,200-dark}.png. GET-only local checks block external requests; published content is real, no fixture content or model calls.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm --filter @digest/web build; node /tmp/2558-sheet.cjs; git diff --check. Receipts /tmp/2558-{format,lint,check,web-build,sheet}.log.
-- Web assets published atomically without restarting healthy services, per STEERING 22/63. Health/14 services/38 sources healthy; digest queue zero failed jobs, next edition Nov 17 15:00 UTC; existing historical queue failures remain outside active alerts.
-- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-- Web rebuilt and published atomically with prior hashed assets retained; no API/worker runtime change or restart needed under STEERING 22. Health, 14 services and 38 sources healthy; zero failed digest jobs, next edition Nov 17 15:00 UTC.
-- Next: retain final 23:54 Bluesky collection, review full day after midnight; metrics ≥00:16 UTC and retention timer receipt 04:40 UTC.
-
-## 2026-11-16: iteration 2559 — enlarged-text saved/archive reflow
-
-- Clean main at adcbafd0; no inherited edits to recover/discard. Protected paths untouched.
-- Item 42 reader weakness: 320px/300% text pushes Saved items Account offscreen (410px right edge); archive long heading also overflows. Saved heading/account now wrap into rows, navigation labels can wrap, and both pages wrap long words.
-- Real Nov 16 story saved locally in Playwright; saved/archive checks pass at 320/390/768px, 100/200/300% text, light/dark (18 cases/two pages). No horizontal overflow; Account opens, Escape closes and focus returns. No browser errors or paid calls.
-- Inspected screenshots: docs/screenshots/2559-{saved,editions}-300-light.png. Browser receipts: /tmp/2559-{reflow.cjs,reflow.log}; original 300% diagnosis also exposed nonwrapping navigation, fixed before final browser pass.
-- Web rebuilt/published atomically via python3 scripts/deploy-web.py; previous hashed assets retained. No runtime service restart under STEERING 22; no generation/source/system behavior change requiring handbook edits.
-- Health database/Redis, 14 services and 38 sources healthy; digest queue zero failed jobs, next edition Nov 17 15:00 UTC. Receipts /tmp/2559-{health,services,sources,jobs}.log.
-- Public hostname HTTPS connection unavailable from this VM during verification; browser checks used the live local API/static service. Initial check terminated (143); complete check rerun in transient systemd verification unit.
-- Verification: pnpm format, pnpm lint:fix, pnpm check (1,062 unit/329 integration passes, four expected skips), python3 scripts/deploy-web.py, node /tmp/2559-reflow.cjs and git diff --check pass. Receipts /tmp/2559-{format,lint,check-retry,deploy,reflow}.log; check.exit=0.
-- Next: final Bluesky 23:54 collection/full-day review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
-
-## 2026-11-16: iteration 2560 — final Bluesky rotation-day receipt
-
-- Clean main at cae6733a; no inherited work to recover/discard. Initial broad orientation output was truncated; narrow reads recovered relevant instructions. Protected paths untouched.
-- Preserved the natural 23:54 UTC job after completion at 23:54:55: AI 50/NBA 46/game 50/Gaza 49/Congress 47 fetched/submitted observations. No provider calls, searches or writes.
-- Read-only Redis export and merged private receipt `/tmp/2560-bluesky-collections.json` preserve all 24 Nov 16 hours/120 topic counts. Asserted completed status, five distinct topics, positive equal counts, expected World rotation and 27 unchanged overlapping receipts. Initial assertion before job completion correctly rejected 23 hours; completed export passes.
-- Archived older progress because it exceeded 25 KB; preserved prior evidence links. Updated task handoff, source yield and pilot review; distinct-post/quality review remains after midnight. No collection, selection or runtime changes; no rebuild/restart under STEERING 22/65.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (1,062 unit/329 integration passes, four expected skips); python3 /tmp/2560-merge.py; git diff --check. Receipts `/tmp/2560-{format,lint,check}.log` and `/tmp/2560-assertions.json`.
-- Health database/Redis, 14 services and 38 sources healthy; zero active alerts; digest queue zero failed jobs, next edition Nov 17 15:00 UTC.
-- Next: full-day Bluesky quality review after midnight; metrics ≥00:16 UTC; retention timer receipt 04:40 UTC; natural Tech inputs Nov 17.
+[Earlier entries](docs/progress-archive/2026-11-17-progress-before-2561.md).
 
 ## 2026-11-17: iteration 2561 — full rotation-day Bluesky comparison
 
@@ -174,4 +94,13 @@
 - Browser verification: 18 cases at 320/390/1440px, both themes, 100/200/300% text; real Nov 16 story saved, text/page bounds and keyboard account/remove focus pass, zero page errors. Initial probe needed to await dialog focus restoration; no product focus change. Screenshots docs/screenshots/2570-saved-{light,dark}.png inspected. No paid/provider calls or fixture content.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2570-verify.cjs; git diff --check. Full rerun passed: 1,062 unit/329 integration passes, four expected skips; initial concurrent check terminated during lint (143).
 - Web built/published atomically; no service restart under STEERING 22. No generation/source/budget changes. Receipts /tmp/2570-{format,lint,check-final,build,browser}.log. Final health database/Redis true; alerts clear.
+- Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2571 — preserve enlarged-text edition brief width
+
+- Clean main at 29d208b7; no inherited edits. Initial broad orientation truncated; recovered applicable sections narrowly. All 14 services/38 sources healthy; alerts clear, health database/Redis true; digest queue zero failed/next 15:00 UTC.
+- Reader weakness/owner value: bullet indentation consumed 60px at 320px/300% text, leaving 228px for each brief line. Fixed 24px indentation retains 264px; the reader can scan the edition with fewer forced wraps.
+- Browser verification: all 20 real Nov 16 brief lines across five topics fit at 320/390/1440px, light/dark, 100/200/300% text; all 18 cases pass page/text bounds and keyboard story destination focus. No browser errors or provider calls; external requests aborted. Screenshots docs/screenshots/2571-brief-{light,dark}.png inspected.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2571-verify.cjs; git diff --check. Standalone full rerun passed: 1,062 unit/329 integration tests, four expected skips; initial chained check terminated during lint (143).
+- Web built/published atomically; no service restart under STEERING 22. No generation/source/budget changes. Initial browser probe without a distinct forwarded client hit public rate limiting; isolated browser client passed. Receipts /tmp/2571-{format,lint,check-final,build,browser,jobs}.log.
 - Next: metrics ≥02:20 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
