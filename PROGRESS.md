@@ -94,3 +94,13 @@
 - Verification: pnpm format; pnpm lint:fix; web rebuilt/published with VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check retry exit 0 (1,062 unit/329 integration passes, four expected skips), receipt /tmp/2584-check-retry.log. First combined command ended SIGTERM during format:check after typecheck/lint passed; separate rerun passed.
 - Atomic web publication; no restart under STEERING 22. Public HTTPS 200 and local health pass. No generation, source, provider, budget or handbook behavior changes.
 - Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2585 — preserve archive space with enlarged text
+
+- Clean main at 28694c01; no inherited edits. RecentJobFailures traced to one feed HTTP 429 at 05:04:08 UTC; automatic attempt 2 succeeded 05:05:09. All 38 sources healthy, digest-generation zero failed jobs/next edition 15:00 UTC; disk 62%, local/public health passes.
+- Reader weakness: archive header consumed 537px at 320px/300% text. Fixed 20px header padding/12px gaps and 44px navigation target minimums reduce it to 337px while labels enlarge and wrap; page links retain 44px minimums.
+- Browser: node /tmp/2585-verify.cjs passes 18 real-archive combinations (320/390/1440px, 100–300%, both themes), target sizes, enlarged labels, page-heading focus, bounds and keyboard opening of real editions. Light/dark docs/screenshots/2585-archive images inspected.
+- Browser probes corrected for the real ?page=1 route and local reader rate limiting; first baseline expected Older despite only 14 editions. HTTPS uses the public DNS address with curl --resolve because /etc/hosts maps the name directly to the VM.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0: 1,062 unit/329 integration passes, four expected skips; final alerts zero firing/pending. Receipts /tmp/2585-{format,lint,check,build,browser,sources,jobs}.log.
+- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
