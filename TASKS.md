@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). Admission/ranking remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: Nov 16 three empty selected evidence sets. Reconstructed inputs exclude Senate rank 11/Apple group 19; historical probing closed. 2545 preserves bounded prepared editor candidate prompts in private future snapshots; Nov 17 saved prompt has 1/10 nonempty excerpts; richer prospective anchors absent (2633). 2634 ungrouped control: eight text-bearing reports survive forty-article admission, only Grok reaches ten; recency cutoff excludes seven. Historical grouping replay remains open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2634: Tech offline admission control locates recency/HN reranking loss after semantic admission: eight text-bearing reports become one; nine of ten actual prompt IDs reproduced without grouping.
 
 - [x] 2633: Saved worker/input diagnosis separates World validation fallback from budget refusal, confirms Tech 1/10 prepared excerpts, and recovers measured 247.524 s worker duration.
 

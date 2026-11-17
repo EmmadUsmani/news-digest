@@ -180,3 +180,14 @@
 - Full check exits 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
 - Documentation-only change; no generation/source/cap changes or provider calls. No deployment/restart during 13:00–16:00 hold; running code remains aligned with main.
 - Next: investigate Tech candidate admission using saved evidence; retain NBA context/scope acceptance. Metrics checkpoint no earlier than 15:25 UTC.
+
+## 2026-11-17: iteration 2634 — locate Tech evidence loss after admission
+
+- Clean main at db2f402d; no inherited changes. Alerts clear; health database/Redis pass.
+- Offline actual-score/prospective-pool control: all 200 IDs match; forty-article semantic admission retains eight text-bearing reports, ungrouped ten-item ranking only one (Grok).
+- California OpenAI report ranks 2 semantically but 33 by recency/HN score; Microsoft 365 28→29, Intel 30→34. Seven text-bearing admitted reports lose before editing.
+- Initial exact editor-ID assertion failed: ungrouped control reproduces nine of ten saved prompt IDs. Documented the mismatch; historical grouping/input differences remain unmeasured, no exact historical rank claimed.
+- Saved prompt independently confirms all seven absent. Review updated with scores and next bounded comparison; no generation/ranking change or paid calls.
+- Verification: pnpm exec tsx /tmp/2634-replay.ts; 200-ID set assertion; pnpm format; pnpm lint:fix; pnpm check; git diff --check. Receipts /tmp/2634-replay.json and /tmp/2634-{format,lint,check}.log.
+- Full check exits 0: 1,062 unit / 329 integration passes, four expected skips; diff check passes.
+- No deployment/restart during 13:00–16:00 hold; documentation-only change leaves live code aligned. Next: historical grouping replay/semantic-priority comparison; metrics checkpoint now due (≥15:25 UTC).
