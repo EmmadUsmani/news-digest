@@ -98,3 +98,13 @@
 - Full check completed typecheck/lint/format/boundaries and 1,062 unit passes, then exited 143 after integration cases before summary. Separate pnpm test:integration exits 0: 329 passes/four expected skips; coverage completes. Final health/alerts and git diff --check pass.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes. Archived iterations 2598–2603 to keep this file small.
 - Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2613 — give enlarged contents more usable height
+
+- Clean main at e4e17eff; no inherited edits. Alerts clear, health database/Redis true, services and active sources healthy; Destructoid remains paused. Generation queue zero failures, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: desktop contents lost navigation space as text-relative sticky offsets grew. Fixed 16px top gap / 32px vertical allowance preserve enlarged labels and add 64px usable height at 300% text (615px → 679px at 1440×844).
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2613-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2613-{format,lint,build,browser,check,services}.log.
+- Browser passes 18 combinations (320/768/1440px, 100–300%, both themes): enlarged labels, minimum 44px targets, keyboard navigation to real published stories, mobile dialog focus return, no horizontal overflow and fixed desktop sticky offsets. Initial pre-deploy assertion reproduced the growing gap at 200%; an earlier unfiltered browser probe timed out.
+- Screenshots docs/screenshots/2613-contents-{light,dark}.png show the sticky panel at 300% text. Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Full check passed static checks, then exited 143 during unit tests without a reported failure. Separate pnpm test:unit and pnpm test:integration exit 0: 1,062 unit / 329 integration passes, four expected skips; final format/lint, health/alerts and diff checks pass. Light screenshot inspected.
+- Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.

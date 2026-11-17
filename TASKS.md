@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2613: Desktop contents keeps a 16px sticky gap and 32px total vertical allowance at enlarged text, adding 64px of usable navigation height at 300%.
+
 - [x] 2612: Privacy page keeps readable content width and compact spacing with enlarged text; at 320px/300%, the title starts 200px sooner and content gains 80px width.
 
 - [x] 2611: Edition retry controls fit enlarged labels within the viewport, retain 44px minimum targets, and recover by keyboard to real published topics.
