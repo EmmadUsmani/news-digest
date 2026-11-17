@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2611: Edition retry controls fit enlarged labels within the viewport, retain 44px minimum targets, and recover by keyboard to real published topics.
+
 - [x] 2610: Archive retry button follows enlarged labels with a 44px minimum; 300% text uses 80px instead of 108px. Keyboard retry recovers from simulated failure to real history and restores heading focus.
 
 - [x] 2609: Topics preference button retains a 44px minimum target with enlarged text; 300% text uses 80px rather than a 132px minimum, preserving keyboard topic hide/restore and focus return.

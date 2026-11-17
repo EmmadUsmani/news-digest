@@ -159,7 +159,10 @@ export function DigestPreview() {
                 The edition could not be refreshed. Showing the saved edition
                 already loaded.
               </p>
-              <Button className="min-h-11" onClick={retryEdition}>
+              <Button
+                className="h-auto min-h-[44px] max-w-full whitespace-normal px-[16px] py-[8px] [overflow-wrap:anywhere]"
+                onClick={retryEdition}
+              >
                 Try loading edition again
               </Button>
             </>
@@ -179,7 +182,10 @@ export function DigestPreview() {
           ) : (
             <>
               <p>Could not load the edition.</p>
-              <Button className="min-h-11" onClick={retryEdition}>
+              <Button
+                className="h-auto min-h-[44px] max-w-full whitespace-normal px-[16px] py-[8px] [overflow-wrap:anywhere]"
+                onClick={retryEdition}
+              >
                 Try loading edition again
               </Button>
             </>

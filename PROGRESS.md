@@ -137,3 +137,13 @@
 - Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; final health and alerts pass, git diff --check clean.
 - Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
 - Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
+
+## 2026-11-17: iteration 2611 — readable edition recovery at enlarged text
+
+- Clean main at 6530fb84; no inherited work. Alerts clear, health database/Redis true, monitored services/active sources healthy (Destructoid paused); generation zero failures, next edition 15:00 UTC.
+- Reader benefit / STEERING 38/42: edition retry used a 132px minimum at 300% text and an unwrapped long label. Both initial-load and saved-edition refresh controls now wrap within the viewport, fit their text and retain a 44px minimum target; desktop 300% height is 80px.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; node /tmp/2611-verify.cjs; pnpm check; git diff --check. Receipts /tmp/2611-{format,lint,build,browser,check,services,sources,jobs}.log.
+- Browser passes all 12 combinations (320/1440px, 100–300%, both themes): simulated malformed API response, full enlarged labels within the button, no horizontal overflow, keyboard retry to real published topics and restored heading focus. Screenshots docs/screenshots/2611-edition-retry-{light,dark}.png; light inspected. Pre-deploy probe reproduced the inflated minimum at 200%.
+- Full pnpm check exit 0: 1,062 unit / 329 integration passes, four expected skips; final health and alerts pass, git diff --check clean.
+- Web published atomically; no service restart under STEERING 22. No source/generation/budget/handbook behavior changes.
+- Next: metrics ≥11:00 UTC; natural edition/Tech/social review after 15:00 UTC. Destructoid awaits documented publisher access.
