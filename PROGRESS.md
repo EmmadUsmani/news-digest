@@ -9,7 +9,7 @@
 - Browser verification: node /tmp/2575-verify.cjs passes 18 width/text/theme cases, date-control bounds and keyboard theme switching; real older/newer/archive navigation and shared theme control on archive/Saved/Privacy pass. node /tmp/2575-anchors.cjs passes all 18 real-content topic/brief/story/posts anchor cases. Screenshots docs/screenshots/2575-reader-header-{light,dark}.png inspected.
 - First browser probe manually changed the theme class without syncing React state; corrected the probe to use the theme storage event and reran. Initial localhost edition curl hit shared-client 429; isolated test client confirmed Nov 16 edition, five topics/25 stories/18 posts.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. Two attached checks ended with SIGTERM during unit tests without failure summaries. Detached full check completed with exit 0: 1,062 unit and 329 integration tests pass, four expected skips; API rebuilt.
-- Web published atomically; no service restart under STEERING 22. No provider calls or generation/source/budget changes. Receipts /tmp/2575-{format,lint,format-final,lint-final,check,check-final,check-complete,build,browser,anchors}.log and /tmp/2575-check-complete.exit (0).
+- Public HTTPS 200; final alerts clear. Web published atomically; no service restart under STEERING 22. No provider calls or generation/source/budget changes. Receipts /tmp/2575-{format,lint,format-final,lint-final,check,check-final,check-complete,build,browser,anchors}.log and /tmp/2575-check-complete.exit (0).
 - Final triage: RecentJobFailures fired for scheduled feed-7c2f40dc HTTP 429 at 03:04:09 UTC; ordinary retry completed 03:05:09 with HTTP 200/60 items. All 38 sources healthy, health database/Redis true; no failed digest jobs. Alert remains inside its ten-minute lookback; no manual fetch or retry-policy change.
 - Next: metrics ≥03:22 UTC; retention timer receipt 04:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
 
@@ -102,7 +102,7 @@
 - Browser: node /tmp/2585-verify.cjs passes 18 real-archive combinations (320/390/1440px, 100–300%, both themes), target sizes, enlarged labels, page-heading focus, bounds and keyboard opening of real editions. Light/dark docs/screenshots/2585-archive images inspected.
 - Browser probes corrected for the real ?page=1 route and local reader rate limiting; first baseline expected Older despite only 14 editions. HTTPS uses the public DNS address with curl --resolve because /etc/hosts maps the name directly to the VM.
 - Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0: 1,062 unit/329 integration passes, four expected skips; final alerts zero firing/pending. Receipts /tmp/2585-{format,lint,check,build,browser,sources,jobs}.log.
-- Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
+- Public HTTPS 200; final alerts clear. Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥05:35 UTC; scheduled edition/Tech/social review after 15:00 UTC.
 
 ## 2026-11-17: iteration 2586 — preserve saved-items header space with enlarged text
@@ -123,3 +123,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit/329 integration passes, four expected skips). Receipts /tmp/2587-{check,format,lint,sources,jobs}.log; sampler and summary receipts linked in capacity decision.
 - Evidence/task update only; running app already matches main, no rebuild or service restart required. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥06:40 UTC, preferably after natural big merge; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2588 — preserve reading space below mobile topics
+
+- Clean main at 4dd3041d; no inherited edits. Alerts clear, local health database/Redis true; sources healthy and digest-generation zero failed jobs/next edition 15:00 UTC. Next metrics checkpoint ≥06:40 UTC.
+- Owner value: mobile fixed topic bar consumed 181px at 320px/300% text. Fixed padding/gaps and 44px minimum targets reduce it to 97px while labels still enlarge, freeing 84px for real edition content.
+- Browser: node /tmp/2588-verify.cjs passes 12 real-edition combinations (320/390px, 100–300%, both themes): label enlargement, touch targets, topic/story navigation, heading focus, drawer Escape/focus restoration and page bounds. Both docs/screenshots/2588-topic-bar images inspected.
+- Browser probes corrected for local reader rate limiting, actual 97px line-box height and asynchronous drawer focus restoration; no product behavior change required for those probes.
+- Verification: pnpm format; pnpm lint:fix; VITE_PUBLIC_MODE=1 python3 scripts/deploy-web.py; git diff --check. pnpm check exit 0: 1,062 unit/329 integration passes, four expected integration skips. Receipts /tmp/2588-{format,lint,build,browser,check,sources,jobs}.log.
+- Initial tool-bound check terminated (143) without assertion failure/OOM; detached shell did not persist. Transient systemd iteration-2588-check completed the full check successfully.
+- Latest live edition 93aefc45 has all five topics, each with five stories; post counts 3/5/1/5/4. Public HTTPS 200; final alerts clear. Web published atomically; no service restart under STEERING 22. No generation, source, provider, budget or handbook behavior changes.
+- Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.

@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2588: Mobile topic bar shrinks from 181px to 97px at 300% text; enlarged labels, 44px targets, topic/story navigation and drawer focus retained.
+
 - [x] 2586: Saved items header shrinks from 453px to 293px at 320px/300% text; enlarged labels, 44px touch targets, saved content and keyboard navigation retained.
 
 [Earlier completed steps](docs/progress-archive/2026-11-17-completed-before-2586.md).
