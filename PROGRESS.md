@@ -105,3 +105,15 @@
 - Public HTTPS 200 using public DNS with curl --resolve; VM DNS still points at an unreachable private proxy address. Latest live edition 93aefc45 retains five topics/five stories each and 3/5/1/5/4 posts.
 - Web published atomically; no service restart under STEERING 22. No source, generation, provider, budget or handbook behavior changes.
 - Next: metrics ≥06:40 UTC; scheduled edition/Tech/social review after 15:00 UTC.
+
+## 2026-11-17: iteration 2593 — due metrics recovery measurement
+
+- Clean main at 3ea448b8; no inherited work. Due ≥06:40 UTC checkpoint completed; no production code/config changes.
+- Three natural samples 06:41:18–06:43:19: 24/24 healthy fresh rules; six uncached expected-series probes pass, max 0.978 s.
+- Against 05:36:38: admission-limit delta zero (23 retained); process-start, queue-timeout, slow-query, evaluator error/missed and max/OOM/kill counters unchanged.
+- Small merges +64 / 1,785,031 rows; big merges zero; memory-high +704 (26 during sampling). Ending memory 88,068,096 bytes; lifetime peak 92,995,584. No restart/journal errors; disk 63%.
+- Retain CPU 2% / 88 MiB high / 112 MiB max. Resource acceptance open: reclaim persists and natural big-merge evidence absent. Next checkpoint ≥07:45 UTC.
+- Commands: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; python3 /tmp/2593-summarize.py (baseline assertions pass); systemctl show obs-metrics; journalctl -u obs-metrics; df -h /.
+- Health database/Redis true; pnpm obs alerts clear; pnpm obs sources --check all 38 healthy; pnpm obs jobs --check --queue digest-generation --limit 5 zero failed, next 15:00 UTC. State-filtered jobs unsupported in public mode; reran supported counts query.
+- Verification: pnpm format; pnpm lint:fix; pnpm check exit 0 (1,062 unit / 329 integration passes; four expected skips); git diff --check passes. Evidence /tmp/2593-*; no paid calls, edition writes, deployment or service restart under STEERING 22.
+- Next: metrics ≥07:45 UTC; scheduled edition/Tech/social review after 15:00 UTC.
