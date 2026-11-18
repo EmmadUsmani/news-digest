@@ -65,6 +65,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2786: Reader labels fallback story text “Source excerpt”; the five real Nov 18 NBA cards retain identical prose and source destinations. Edited summaries stay unlabelled; scheduled NBA editorial acceptance remains open.
+
 - [x] 2785: Story editor receives representative publisher and article URL separately from cluster coverage labels, addressing the saved U.S. Peltola misattribution. Exact saved null-publisher and known-publisher controls pass both offline model routes; scheduled semantic acceptance pending.
 
 - [x] 2784: Social editor treats clipped quotations/claims as incomplete evidence and marks request-shortened candidate text explicitly; two exact saved X texts and a long control pass offline Sonnet/Haiku transport checks. Full stored/display text retained; scheduled semantic acceptance pending.

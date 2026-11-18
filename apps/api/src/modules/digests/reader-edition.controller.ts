@@ -76,6 +76,9 @@ export function readerEdition(snapshot: DigestPreview) {
       stories: topic.stories.map((story) => ({
         ...story,
         summary: story.summary || readerExcerpt(story.title, story.excerpt),
+        ...(!story.summary && story.excerpt
+          ? { summaryKind: 'source-excerpt' as const }
+          : {}),
         // Editors may cite a second ranked story outside the selected group.
         // Keep original metadata first, collapsing duplicate wrapper citations.
         coverage:

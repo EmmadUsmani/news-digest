@@ -395,17 +395,21 @@ export const digestPreviewSchema = z.object({
 export type DigestPreview = z.infer<typeof digestPreviewSchema>;
 
 // Reader contracts are explicit allowlists: new operational fields stay private.
-export const readerStorySchema = rankedStorySchema.pick({
-  publisher: true,
-  id: true,
-  title: true,
-  url: true,
-  summary: true,
-  imageUrl: true,
-  publishedAt: true,
-  sources: true,
-  coverage: true,
-});
+export const readerStorySchema = rankedStorySchema
+  .pick({
+    publisher: true,
+    id: true,
+    title: true,
+    url: true,
+    summary: true,
+    imageUrl: true,
+    publishedAt: true,
+    sources: true,
+    coverage: true,
+  })
+  .extend({
+    summaryKind: z.literal('source-excerpt').optional(),
+  });
 const readerPostFields = {
   whyItMatters: true,
   platform: true,

@@ -292,6 +292,11 @@ export function DigestPreview() {
                             {story.title}
                           </a>
                         </h3>
+                        {story.summaryKind === 'source-excerpt' && (
+                          <p className="mt-[12px] mb-0 text-xs text-[var(--secondary)]">
+                            Source excerpt
+                          </p>
+                        )}
                         {story.summary?.trim() ? (
                           <p className="excerpt my-[12px] text-base leading-7">
                             {story.summary}

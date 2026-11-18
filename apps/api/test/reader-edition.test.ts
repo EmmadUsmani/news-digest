@@ -163,6 +163,7 @@ void test('reader summaries preserve AI text and restore saved story text across
       const before = JSON.stringify(historical);
       const story = readerEdition(historical).topics[0].stories[0];
       assert.equal(story.summary, 'Saved article text.');
+      assert.equal(story.summaryKind, 'source-excerpt');
       assert.equal('excerpt' in story, false);
       assert.equal(JSON.stringify(historical), before);
     }
@@ -170,6 +171,17 @@ void test('reader summaries preserve AI text and restore saved story text across
   assert.equal(
     readerEdition(snapshot).topics[0].stories[0].summary,
     'A launch.',
+  );
+  assert.equal(
+    readerEdition(snapshot).topics[0].stories[0].summaryKind,
+    undefined,
+  );
+  const empty = structuredClone(snapshot);
+  empty.topics[0].stories[0].summary = '';
+  empty.topics[0].stories[0].excerpt = '';
+  assert.equal(
+    readerEdition(empty).topics[0].stories[0].summaryKind,
+    undefined,
   );
 });
 

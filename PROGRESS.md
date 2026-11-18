@@ -89,3 +89,13 @@
 - Verification so far: 56 targeted tests, pnpm format/lint:fix, 1,137 full unit tests, typecheck/lint/format/boundaries, pnpm build and scoped handbook check pass. Initial build exposed a mixed publisher-type inference error; explicit evidence projection type fixes it. Handbook one-line overflow corrected. Logs /tmp/2785-*.log.
 - API/worker/docs rebuilt and restarted active; startup health probe failed, retry pnpm obs health --check and /healthz pass. Alerts clear; digest queue zero failures. Archived older progress and completed-task detail to keep orientation shorter.
 - Full check initially found three stale integration goldens: two private prompts lacked new URLs and raw synthetic replay fingerprint matched old instructions. Updated only private prompts/fingerprint; published golden stories unchanged. Fresh isolated integration rerun passes 330 tests/four expected skips. Logs /tmp/2785-{check,integration}.log. Next: scheduled attribution/NBA/Tech/World/U.S./Gaming acceptance; Destructoid access and @PS_Support_US authenticity unresolved.
+
+## 2026-11-18: iteration 2786 — identify reader source excerpts
+
+- Clean main at 364f2399; no inherited work. Initial alerts/health clear; 38 monitored sources healthy (Destructoid inactive). Digest queue zero failures; next Nov 19 15:00 UTC.
+- Owner value: five saved NBA fallback cards present source text in the same style as edited summaries. Reader now labels those cards “Source excerpt”, using per-story projection provenance rather than topic mode.
+- Optional reader-only summaryKind marks populated fallback excerpts; edited summaries and blank source text carry no marker. Historical modes remain supported, saved snapshots unchanged. No provider calls, prompt/budget changes or source recovery.
+- Exact saved latest edition reread: all 25 summaries unchanged; only five NBA excerpts marked. Playwright at 320/390/1440px in both themes verifies labels, original destinations, unchanged prose, no overflow/page errors. Six PNGs saved; mobile light/desktop dark inspected.
+- Verification: nine targeted reader projection tests, pnpm format/lint:fix, build, scoped handbook check and git diff --check pass. Full pnpm check passes: 1,137 unit and 330 integration tests, four expected skips; logs /tmp/2786-*.log.
+- API/worker/docs rebuilt and restarted; /healthz, obs health and alerts clear. Updated TASKS, affected pipeline handbook and item 42 ack.
+- Next: scheduled NBA/Tech/World/U.S./Gaming acceptance. Earlier E1 denial fix already awaits scheduled evidence; no duplicate prompt change. Destructoid access and @PS_Support_US authenticity unresolved.
