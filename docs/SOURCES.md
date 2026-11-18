@@ -3668,3 +3668,8 @@ Iteration 2701 recovers two additional blank saved WordPress HN excerpts using
 deployed extraction: Digital Films log workflow and Paleonerdish fossil history,
 1,500 characters each; exact stored text verified. Steve Blank HTTP 200 remains
 without a scoped excerpt. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#more-wordpress-reporting--iteration-2701).
+
+Iteration 2702 adds legacy WordPress hentry/bookmark/entry extraction. The saved
+Steve Blank Nvidia candidate now has 1,500 characters instead of zero, with exact
+stored-text verification; publisher claims remain source-attributed. Metadata and
+comments are excluded. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#legacy-wordpress-entry-bodies--iteration-2702).

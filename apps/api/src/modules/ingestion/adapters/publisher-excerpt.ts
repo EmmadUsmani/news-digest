@@ -185,7 +185,7 @@ function landmarkReporting(html: string): string | undefined {
 
 /** WordPress hentry scopes the article body separately from comments and links. */
 function wordpressReporting(html: string): string | undefined {
-  if (!html.includes('entry-content')) return undefined;
+  if (!/\bentry(?:-content)?\b/.test(html)) return undefined;
   const hasClass = (node: Element, name: string) =>
     node.attrs.some(
       (attr) => attr.name === 'class' && attr.value.split(/\s+/).includes(name),
@@ -196,10 +196,25 @@ function wordpressReporting(html: string): string | undefined {
     !find(
       entry,
       (node) =>
-        ['h1', 'h2'].includes(node.tagName) && hasClass(node, 'entry-title'),
+        ['h1', 'h2'].includes(node.tagName) &&
+        (hasClass(node, 'entry-title') ||
+          Boolean(
+            find(
+              node,
+              (child) =>
+                child.tagName === 'a' &&
+                child.attrs.some(
+                  (attr) =>
+                    attr.name === 'rel' &&
+                    attr.value.split(/\s+/).includes('bookmark'),
+                ),
+            ),
+          )),
     )
   )
     return undefined;
-  const body = find(entry, (node) => hasClass(node, 'entry-content'));
+  const body =
+    find(entry, (node) => hasClass(node, 'entry-content')) ??
+    find(entry, (node) => hasClass(node, 'entry'));
   return body ? serialize(body) : undefined;
 }

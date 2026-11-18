@@ -124,3 +124,13 @@
 - Sources/tasks/recovery receipt updated; older progress entries archived to keep orientation small. Public HTTPS Chromium reader passes five topics/25 stories/20 posts.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,109 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2701-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2702 — recover legacy WordPress entry reporting
+
+- Clean main at 185f5853; no inherited work. Alerts/health/source/job checks pass; no paid calls, budget/provider changes or edition regeneration.
+- Read public Tech in Chromium: Apple/China summaries remain thin. Fixed collection gap in older WordPress hentry/bookmark/entry structure; scoped body excludes metadata/comments.
+- Reduced recorded HTTP 200 fixture and missing-scope/title/body checks pass (22 extraction tests). No new publisher request, schema/UI/handbook change.
+- Saved Nvidia candidate blank-only update 0 → 1,500 characters; exact independent ID/full-text reread passes (/tmp/2702-saved.json). CEO-transition claims remain attributed to the publisher.
+- Public HTTPS reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration tests pass, four expected skips. Logs /tmp/2702-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

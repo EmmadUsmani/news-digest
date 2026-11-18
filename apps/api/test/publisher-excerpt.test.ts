@@ -402,3 +402,26 @@ void test('matching header titles identify main reporting without admitting unti
     reporting,
   );
 });
+
+void test('legacy WordPress bookmark headings scope entry prose without metadata or comments', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-legacy-wordpress.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^Nvidia’s board announced/);
+  assert.match(excerpt, /business model transitions/);
+  assert.doesNotMatch(excerpt, /Metadata|Comment text/);
+  assert.equal(
+    publisherExcerpt(html.replace('class="hentry"', 'class="archive"')),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(html.replace('rel="bookmark"', 'rel="other"')),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(html.replace('class="entry"', 'class="other"')),
+    '',
+  );
+});

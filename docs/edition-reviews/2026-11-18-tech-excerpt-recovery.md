@@ -279,3 +279,15 @@ the second supplies historical expedition and fossil-identification context,
 not a current discovery. Steve Blank's Nvidia page returns HTTP 200 but no
 scoped excerpt and stays blank. No extraction change, paid calls or edition
 regeneration; scheduled Tech acceptance remains pending.
+
+## Legacy WordPress entry bodies — iteration 2702
+
+The previously fetched HTTP 200 [Steve Blank Nvidia article](https://steveblank.com/2026/11/15/whats-next-for-nvidia/)
+uses an hentry with a bookmarked h2 and an entry body. Collection now recognizes
+that scoped legacy structure; metadata and comments remain outside the body.
+A reduced recorded fixture verifies reporting and missing-scope/title/body cases.
+Saved candidate `4532717c-443e-4263-97d2-d2926a22787a` changed from 0 to 1,500
+characters; an independent exact ID/full-text reread passes. The excerpt carries
+the author's CEO-transition claim and management argument, not independent
+confirmation. No new publisher request, paid call or edition regeneration.
+Scheduled Nov 18 candidate-share/depth acceptance remains pending.
