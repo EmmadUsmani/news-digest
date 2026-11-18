@@ -43,6 +43,7 @@ export function publisherExcerpt(html: string): string {
   // heading and take only the reporting after it, excluding opening chrome.
   // A matching header/document title also identifies a separately scoped main.
   const reporting =
+    sectionedReporting(clean) ??
     discourseReporting(clean) ??
     article ??
     mediaWikiReporting(clean) ??
@@ -60,6 +61,44 @@ export function publisherExcerpt(html: string): string {
     .map((match) => plainText(decodeHTML(match[1])))
     .filter((text) => text.length >= 60 && !/^https?:\/\/\S+$/i.test(text));
   return plainText(paragraphs.join(' '));
+}
+
+/** Sectioned magazine layouts keep promotion outside selectable prose. */
+function sectionedReporting(html: string): string | undefined {
+  if (!html.includes('post__content__section')) return undefined;
+  const body = find(parseFragment(html), (node) =>
+    node.attrs.some((attr) => attr.name === 'id' && attr.value === 'postBody'),
+  );
+  if (!body || !find(body, (node) => node.tagName === 'h1')) return undefined;
+  const sections: string[] = [];
+  function collect(node: Node): void {
+    if (!('childNodes' in node)) return;
+    if (
+      'tagName' in node &&
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'class' &&
+          attr.value.split(/\s+/).includes('post__content__section'),
+      ) &&
+      node.attrs.some(
+        (attr) => attr.name === 'data-role' && attr.value === 'selectable',
+      )
+    ) {
+      const prose = find(node, (child) =>
+        child.attrs.some(
+          (attr) =>
+            attr.name === 'class' &&
+            attr.value.split(/\s+/).includes('post__content') &&
+            attr.value.split(/\s+/).includes('wysiwyg'),
+        ),
+      );
+      if (prose) sections.push(serialize(prose));
+      return;
+    }
+    node.childNodes.forEach(collect);
+  }
+  collect(body);
+  return sections.length ? sections.join(' ') : undefined;
 }
 
 /** MediaWiki exposes its prose separately from navigation and infoboxes. */

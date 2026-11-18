@@ -674,3 +674,16 @@ personal opinion about AI-assisted software. Quanta's accessible page yields
 a promotional lead-in and was left unchanged in this step.
 No collection behavior, paid call, budget or immutable edition changed.
 Scheduled Tech depth acceptance remains pending after 15:00 UTC.
+
+## Sectioned magazine reporting — iteration 2728
+
+The saved HTTP 200 [Quanta origins-of-life article](https://www.quantamagazine.org/the-evolving-story-of-how-chemistry-became-biology-20261112/)
+previously yielded promotion before reporting. Collection now requires the
+headed post body and selectable reporting sections, then takes only their
+prose containers, excluding captions and surrounding promotion.
+Saved item `47a3ee03-6f6f-45fc-8f0d-9a9fbf1c434c`: 0 → 1,261 characters.
+Complete extracted passage reviewed before blank-only write; exact stored-ID
+and full-text reread passes (`/tmp/2728-saved.json`). Regression covers missing
+markers and exclusion of promotion, captions and related stories.
+No new external request, paid call, budget change or edition regeneration.
+Scheduled Tech share/depth acceptance remains pending after 15:00 UTC.

@@ -572,3 +572,18 @@ void test('title-matched book chapters start at introduction and stop before foo
     '',
   );
 });
+
+void test('sectioned magazine prose excludes promotion, captions and related stories', () => {
+  const promotion =
+    'Subscribe to our science magazine and support independent journalism today.';
+  const section = `<div class="post__content__section" data-role="selectable"><div class="post__content wysiwyg"><p>${reporting}</p></div><div class="caption"><p>${promotion}</p></div></div>`;
+  const page = `<div id="postBody"><h1>Science reporting</h1><p>${promotion}</p>${section}${section}<div><p>${promotion}</p></div></div>`;
+  assert.equal(publisherExcerpt(page), `${reporting} ${reporting}`);
+  for (const changed of [
+    page.replace('id="postBody"', ''),
+    page.replace('<h1>Science reporting</h1>', ''),
+    page.replaceAll('data-role="selectable"', ''),
+  ]) {
+    assert.equal(publisherExcerpt(changed), '');
+  }
+});

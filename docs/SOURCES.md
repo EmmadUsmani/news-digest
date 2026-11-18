@@ -3817,3 +3817,8 @@ excerpts for Qwen conversation-state visualization and AI coding opinion
 (3,000 characters). Blank-only writes and exact ID/full-text rereads pass 2/2.
 No source or collection behavior changed.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#conversation-visualization-and-ai-coding-opinion--iteration-2727).
+
+Iteration 2728: saved HTTP 200 Quanta origins-of-life page now supplies scoped
+selectable reporting rather than promotion; blank HN excerpt recovered to
+1,261 characters and exact stored-ID/full-text reread passes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#sectioned-magazine-reporting--iteration-2728).
