@@ -3840,3 +3840,9 @@ excerpts for Coway air-purifier reverse engineering and AI-model checkpoint
 forensics (3,000 characters). Exact ID/full-text rereads pass 2/2; collection
 behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#coway-reverse-engineering-and-gpu-forensics--iteration-2731).
+
+Iteration 2732: ordinary HTTP 200 publisher responses recovered blank saved HN
+excerpts for compiler-split binary paths and row/column database storage
+(3,000 characters). Blank-only writes and exact stored-text rereads pass 2/2.
+No adapter changes, paid calls or edition regeneration.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#paths-and-database-storage--iteration-2732).

@@ -165,3 +165,13 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2731-*.log`.
 - API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories and alerts clear.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2732 — recover paths and database-storage context
+
+- Clean main at 51d9c13e; no inherited work. Alerts/health clear, sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
+- Public Chromium reader shows five topics/25 stories; Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for compiler-split binary paths and row/column database storage (3,000 characters).
+- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2732-saved.json`).
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2732-*.log`.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

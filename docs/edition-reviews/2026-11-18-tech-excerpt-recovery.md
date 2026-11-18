@@ -730,3 +730,15 @@ motivation; the second attributes GPU fingerprint findings and limitations to
 the report's authors, including that initialization evidence does not prove
 training hardware. No collection behavior, paid call, budget or immutable
 edition changed. Scheduled Tech depth acceptance remains pending.
+
+## Paths and database storage — iteration 2732
+
+Ordinary shared-client HTTP 200 responses recovered blank saved HN excerpts
+for [Paths in Pieces](https://stoppels.ch/2026/11/12/paths-in-pieces.html)
+and [Rows vs. Columns](https://spiraldb.com/blog/rows-vs-columns).
+Each changed from zero to 1,500 characters. Complete passages reviewed before
+blank-only writes; exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2732-saved.json`). The first explains how GCC can split string constants
+so binary string searches miss build paths; the second introduces row-oriented
+storage and analytical queries. No collection behavior, paid call, budget or
+immutable edition changed. Scheduled Tech depth acceptance remains pending.

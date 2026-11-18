@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2732: Recover saved compiler-split paths and row/column database tutorial excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
+
 - [x] 2731: Recover saved Coway reverse-engineering and GPU-model forensics excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
 
 - [x] 2730: Collect bare-document opening prose; saved PostScript tutorial excerpt 0 → 717 characters, exact ID/full-text reread passes.
