@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2721: Recover saved offline music-player, FreeBSD Zed and room-lighting publisher context (4,500 characters); blank-only writes and exact stored-ID/full-text rereads pass 3/3.
+
 - [x] 2720: Recover saved AI strategy opinion and 3Com history publisher context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
 
 - [x] 2719: Recover Google Research teamwork, EFF ambient privacy and DocSpring infrastructure publisher context (4,500 characters); blank-only writes and exact ID/full-text rereads pass 3/3.

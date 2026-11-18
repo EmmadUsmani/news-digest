@@ -582,3 +582,15 @@ blank-only writes; independent exact stored-ID/full-text rereads pass 2/2
 returned HTTP 200 but only 109 extracted characters and remains unchanged.
 No source, extraction behavior, budget or immutable edition changed.
 Scheduled Tech depth acceptance remains pending after 15:00 UTC.
+
+## Offline music, FreeBSD remote editing and lighting — iteration 2721
+
+Ordinary shared-client HTTP 200 publisher responses recovered blank saved HN
+excerpts for [building an offline music player](https://alichraghi.github.io/blog/how-not-to-build-a-music-player/),
+[Zed remote editing on FreeBSD](https://hayzam.com/blog/03-lying-to-zeds-remote-editor/)
+and [room lighting](https://www.benkuhn.net/lux/).
+Each changed from zero to 1,500 characters. Full passages were reviewed before
+blank-only writes; independent exact stored-ID/full-text rereads pass 3/3
+(`/tmp/2721-saved.json`). Personal experience and measured lighting results
+remain the authors' accounts. No extraction behavior, source, paid call, budget
+or immutable edition changed. Scheduled Tech depth acceptance remains pending.
