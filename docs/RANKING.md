@@ -3474,3 +3474,20 @@ findings. The saved study fixture reproduces the rejected paraphrase and retains
 both complete source sentences through Sonnet and Haiku transport offline.
 Responses are hand-authored controls, not semantic model acceptance. The next
 scheduled daily review must assess retention; no paid replay or guard change.
+
+## Iteration 2776: preserve qualifications during summary repair
+
+Saved Nov 18 Tech failures show Nvidia’s complete quote changed into an
+attribution-shifted quotation initially, then a negative paraphrase in repair.
+The same repair drops the study’s central counterfinding and publication status.
+Summary-specific feedback previously asked only for positive facts; it now
+explicitly offers complete cited sentences with their attribution and scope,
+including the original ordering of quotation and attribution. Unsupported
+claims must still be removed. The absence validator is unchanged.
+
+Offline tests replay both saved Nvidia failures and the study failure through
+the budgeted repair path for both configured model routes. Complete-source
+hand-authored controls pass, retain qualifications, settle two reservations and
+alone enter cache. Feedback contains fixed instructions, never rejected text.
+This tests transport and validation, not model compliance. Natural scheduled
+Tech retention and NBA editorial acceptance remain pending; no paid replay.

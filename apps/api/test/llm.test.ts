@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import type { Job } from 'bullmq';
@@ -1902,4 +1903,91 @@ void test('saturated admission serves cache and refuses expired queued work with
   );
   assert.equal(expiredLedger.calls.length, 1);
   assert.equal(dispatched, 5);
+});
+
+void test('saved Tech summary failures receive qualification-preserving repair feedback through both models', async () => {
+  const read = (name: string) =>
+    JSON.parse(
+      readFileSync(new URL(`./fixtures/llm/${name}`, import.meta.url), 'utf8'),
+    );
+  const shipment = read('tech-shipment-absence-2026-11-18.json') as {
+    title: string;
+    excerpt: string;
+    rejectedSummaries: string[];
+  };
+  const study = read('tech-study-qualifications-2026-11-18.json') as {
+    title: string;
+    excerpt: string;
+    rejectedSummary: string;
+  };
+  const cases = [
+    ...shipment.rejectedSummaries.map((rejectedSummary) => ({
+      ...shipment,
+      rejectedSummary,
+      // Complete source quotation, including its trailing attribution.
+      corrected: shipment.excerpt.slice(
+        0,
+        shipment.excerpt.indexOf(' She did'),
+      ),
+    })),
+    {
+      ...study,
+      corrected: study.excerpt.slice(0, study.excerpt.indexOf(' Harvey')),
+    },
+  ];
+  for (const model of [config.sonnet, config.haiku]) {
+    for (const entry of cases) {
+      const evidence = [entry.title, entry.excerpt];
+      assert.throws(
+        () => assertAbsenceSupport(entry.rejectedSummary, evidence, 'summary'),
+        /unsupported-absence/,
+      );
+      assert.doesNotThrow(() =>
+        assertAbsenceSupport(entry.corrected, evidence, 'summary'),
+      );
+      const requests: LlmRequest[] = [];
+      const ledger = new MemoryLedger();
+      const provider = fake([
+        JSON.stringify({ summary: entry.rejectedSummary }),
+        JSON.stringify({ summary: entry.corrected }),
+      ]);
+      const llm = new BudgetedLlm(
+        {
+          async complete(input) {
+            requests.push(input);
+            return provider.llm.complete(input);
+          },
+        },
+        ledger,
+      );
+      const validate = (value: unknown) => {
+        const parsed = z.object({ summary: z.string() }).strict().parse(value);
+        assertAbsenceSupport(parsed.summary, evidence, 'summary');
+        return parsed;
+      };
+      const input = { ...request, model, prompt: JSON.stringify({ evidence }) };
+      const result = await llm.json(input, validate);
+      assert.equal(result?.summary, entry.corrected);
+      assert.equal(provider.count(), 2);
+      assert.equal(ledger.calls.length, 2);
+      const hint = requests[1].prompt.slice(input.prompt.length);
+      assert.match(hint, /Preserve central findings and qualifications/);
+      assert.match(hint, /complete cited source sentence verbatim/);
+      assert.match(
+        hint,
+        /quotation and its attribution in their supplied order/,
+      );
+      assert.ok(!hint.includes(entry.rejectedSummary));
+      assert.ok(!hint.includes(entry.excerpt));
+      assert.deepEqual(
+        llm
+          .validationDiagnostics()
+          .map(({ category, field }) => [category, field]),
+        [['unsupported-absence', 'summary']],
+      );
+      assert.equal(ledger.values.size, 1);
+      assert.deepEqual(await llm.json(input, validate), result);
+      assert.equal(provider.count(), 2);
+    }
+  }
 });

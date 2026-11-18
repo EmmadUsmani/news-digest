@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2776: summary-repair feedback retains supported qualifications and complete quotation attribution instead of asking only for positive facts. Both saved Nvidia failures and study failure replay offline through both budgeted model routes; guard unchanged. Scheduled semantic acceptance pending.
+
 - [x] 2775: Tech research guidance preserves central counterfindings/publication status; saved Nov 18 study paraphrase fails unchanged guard, complete source-sentence control passes both offline routes. Natural retention acceptance pending; Nvidia rejection still open.
 
 - [x] 2771: HN publisher access policy now follows all redirects and precedes cache reuse; blocked social destinations never reach transport. Offline redirect/cache and adapter wiring checks pass.

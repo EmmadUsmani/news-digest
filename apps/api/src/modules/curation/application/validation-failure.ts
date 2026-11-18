@@ -20,7 +20,7 @@ const fieldFeedback = new Map<string, string>([
   ],
   [
     'summary',
-    '\nThe rejected field was summary. Rewrite summaries using supported positive facts.',
+    '\nThe rejected field was summary. Preserve central findings and qualifications. For a supported negative finding, copy the complete cited source sentence verbatim, keeping attribution and scope. For quotations, keep the full quotation and its attribution in their supplied order; do not turn a quote into a negative paraphrase. Otherwise use supported positive facts or omit the unsupported claim.',
   ],
   [
     'whyItMatters',

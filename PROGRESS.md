@@ -6,96 +6,7 @@
 
 [Iterations 2726–2730](docs/progress-archive/2026-11-18-iterations-2726-2730.md).
 
-## 2026-11-18: iteration 2731 — recover Coway and GPU-forensics context
-
-- Clean main at d2a35ca4; no inherited work. Alerts/health clear, sources healthy; digest-generation queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
-- Public Chromium reader shows five topics/25 stories; Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Coway reverse engineering and AI-model checkpoint forensics (3,000 characters).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2731-saved.json`). GPU initialization/training limitation preserved in source context.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2731-*.log`.
-- API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories and alerts clear.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2732 — recover paths and database-storage context
-
-- Clean main at 51d9c13e; no inherited work. Alerts/health clear, sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
-- Public Chromium reader shows five topics/25 stories; Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for compiler-split binary paths and row/column database storage (3,000 characters).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2732-saved.json`).
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2732-*.log`.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2733 — recover PCIe mapping and C3 library context
-
-- Clean main at e1fbb6ef; no inherited work. Alerts/health clear, 38 monitored sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
-- Read latest public Tech section: thin summaries persist pending scheduled acceptance; Chromium reader shows five topics/25 stories.
-- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Linux GPU BAR allocation and C3 0.8.6 library fetching (3,000 characters).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`pnpm exec tsx /tmp/2733-verify.ts`; receipt `/tmp/2733-saved.json`).
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2733-*.log`.
-- API/worker restarted; `/healthz` database/Redis pass; post-restart public Chromium reader five topics/25 stories and `pnpm obs alerts` clear.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2734 — recover interview-change context
-
-- Clean main at 80c05517; no inherited work. Alerts/health clear; 38 monitored sources healthy. Digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
-- Public Chromium reader shows five topics/25 stories; latest Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered Jane Street's blank saved interview-change excerpt: 0 → 1,500 characters. Complete passage reviewed before blank-only write.
-- `pnpm exec tsx /tmp/2734-verify.ts` passes exact stored-ID/full-text reread 1/1; receipt `/tmp/2734-saved.json`. Faraday-cage and CPython/Yk HTTP 200 pages yield no prose and remain unchanged.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2734-*.log`.
-- API/worker restarted; immediate health request preceded readiness, retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. Consider safe prose scoping for the two unextracted pages outside that window.
-
-## 2026-11-18: iteration 2735 — collect identified blog article bodies
-
-- Clean main at 8f8aa243; no inherited work. Alerts and health clear; scheduled digest queue zero failures, next 15:00 UTC. Historical queue failures unchanged.
-- Latest public Tech remains thin; Chromium reader shows five topics/25 stories. Scheduled acceptance stays pending.
-- Fixed the actual CPython/yk HTTP 200 extraction failure: title-matched identified blog headings can scope explicit article-body divs without sibling recent-post lists.
-- Saved candidate f04942be-5434-4836-8507-4c2e3e20a72a: 0 → 1,500 characters. Reviewed full passage; blank-only write and exact stored-ID/full-text reread pass (`pnpm exec tsx /tmp/2735-verify.ts`).
-- Targeted `pnpm exec tsx --test apps/api/test/publisher-excerpt.test.ts`: 32/32 pass, including mismatched-title, missing-identity and unrelated-container controls.
-- Source receipt, handbook and tasks updated; no paid calls, cap changes or edition regeneration.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline` pass: 1,120 unit/330 integration passes, four expected skips. Logs `/tmp/2735-*.log`.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2736 — recover stellar discovery and correctness context
-
-- Clean main at 6e5169a2; no inherited work. Alerts/health clear, 38 monitored sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
-- Latest public Tech remains thin pending scheduled acceptance; Chromium reader shows five topics/25 stories.
-- Ordinary shared-client HTTP 200 fetches recovered Curtin's stellar radio-pulse discovery and the Correctness and Complexity essay: 0 → 1,500 characters each. Full passages reviewed before blank-only writes.
-- `pnpm exec tsx /tmp/2736-verify.ts` passes exact stored-ID/full-text reread 2/2; receipt `/tmp/2736-saved.json`. Possible Futures extraction skips list context; unchanged.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, and `pnpm exec tsx scripts/check-handbook.ts` pass: 1,120 unit/330 integration passes, four expected skips; 19 handbook pages/21 diagrams checked. Logs `/tmp/2736-*.log`.
-- API/worker restarted before freeze; initial request preceded readiness, retry health passes database/Redis. Post-restart public Chromium reader five topics/25 stories; alerts clear. Older progress entries archived to keep handoff small.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2737 — recover Darling and software-team context
-
-- Clean main at 43b1efa2; no inherited work. Alerts/health clear; all 38 monitored sources healthy. Digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
-- Public Chromium reader shows five topics/25 stories; scheduled Tech depth acceptance stays pending.
-- Ordinary shared-client HTTP 200 fetches recovered Darling's development update and the software-team experience essay: zero to 1,500 characters each. Full passages reviewed before blank-only writes.
-- `pnpm exec tsx /tmp/2737-verify.ts` passes exact stored-ID/full-text reread 2/2; receipt `/tmp/2737-saved.json`. Lean Grimoire HTTP 200 yields no extracted prose and remains unchanged.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass. Full `pnpm check` passes: 1,120 unit/330 integration tests, four expected skips; logs `/tmp/2737-*.log`.
-- Handbook check initially hit HTTP 429 through the app; documented `--owner-services` retry passes 19 pages/21 diagrams/39 tables.
-- API/worker restarted at 12:57 UTC before freeze; readiness retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2760 — scheduled edition review, Tech recovery and NBA regression
-
-- Clean main at a4d8547f; no inherited work. Read-only review during 13:00–16:00 deployment hold; no restart, inference, generation or budget changes.
-- Scheduled cd357e84 published 15:04:15.539 UTC: 25 stories/19 posts. Public HTTPS latest/direct/history and signed-out desktop/mobile pass; screenshots inspected.
-- Tech prospective saved text 56/200 (28%) vs 29/200 (14.5%); all 5/5 selected evidence sets nonempty vs 1/5. Reader summaries materially deeper; item 66 natural acceptance acked.
-- Editorial gate correctly fails NBA non-AI fallback. Sonnet initial whyItMatters, then Sonnet repair/Haiku initial+repair headlines reject unsupported-absence/negative-word. Rejected wording absent from validation logs; offline diagnosis next after 16:00, no speculative guard relaxation.
-- World Sonnet recovery, World/U.S. disjoint IDs, zero unscored candidates and NBA spoof absence checked; remaining content limitations in docs/edition-reviews/2026-11-18.md.
-- Timing reporter: worker 255.561 s, $0.546124/59 successful provider calls, zero failed/unresolved calls/holds. Provider success includes validation-rejected responses.
-- Health, 14 services and 38 monitored sources pass; Destructoid inactive, digest queue zero failures. Transient metrics scrape alert at 15:07 recovered unaided; all targets up and alerts clear at 15:07:43.
-- Verification: pnpm format, pnpm lint:fix and full pnpm check pass: 1,120 unit/330 integration passes, four expected skips. Logs /tmp/2760-{format,lint,check}.log. No runtime changes require rebuild/restart; hold retained.
-- Next: NBA validation-response recovery and offline reproduction after 16:00 UTC; no separate review commit for this edition.
-- Initial push rejected (remote advanced to owner b5449b18). Merged without rewriting history; preserved owner item 67 and lead-owned file unchanged, resolving only appended steering text.
-- New item 67 replaces Tech recovery: one three-day cause table/general fix/bounded backfill after 16:00 and NBA breakage; recorded in TASKS. Prior item 66 daily acceptance does not complete item 67.
+[Iterations 2731–2767](docs/progress-archive/2026-11-18-iterations-2731-2767.md).
 
 ## 2026-11-18: iteration 2768 — reproduce NBA validation exhaustion offline
 
@@ -186,3 +97,15 @@
 - Updated ranking reference, affected owner handbook and TASKS. Initial handbook addition exceeded 100 lines; shortened and recheck passes. Initial test omitted required sources; corrected before checks.
 - Verification: targeted regression passes; pnpm format, pnpm lint:fix, pnpm check and pnpm build; logs /tmp/2775-*.log. Full check passes: 1,126 unit/330 integration tests, four expected skips.
 - Live read confirms unchanged cd357e84: five topics/25 stories/19 posts/five content groups. No UI change; next scheduled daily review checks Tech qualifications plus NBA acceptance. Destructoid access blocked.
+
+## 2026-11-18: iteration 2776 — retain qualifications through summary repair
+
+- Clean main at f1f41324; no inherited work. Alerts clear, health/14 services/38 monitored sources healthy; Destructoid remains paused.
+- Owner value: repairing an unsupported summary should retain central source findings and quoted attribution, helping avoid another fallback or a misleadingly incomplete study summary.
+- Saved Nov 18 Tech Sonnet initial shifts Nvidia quote attribution; repair paraphrases its negative claim and drops the study counterfinding/status. Summary feedback previously asked only for positive facts.
+- Fixed summary-specific repair feedback now permits complete cited negative sentences with attribution/scope and complete quotation ordering. Validator, provider/model selection, budgets and published snapshot unchanged.
+- Both saved Nvidia failures and study failure remain rejected. Six offline budgeted repair cases (three failures × two model routes) pass hand-authored complete-source controls, two settled reservations and validated-only cache reuse; transport evidence, not model compliance.
+- Updated TASKS and ranking evidence; archived older PROGRESS entries to keep orientation small. No UI changes or paid calls.
+- Verification: pnpm exec tsx --test apps/api/test/llm.test.ts passes 51/51; pnpm format, pnpm lint:fix, pnpm check and pnpm build pass. Full check: 1,127 unit/330 integration passes, four expected skips; logs /tmp/2776-*.log.
+- Rebuilt API/worker and docs restarted active. Post-restart health/alerts clear; /tmp/2770-live.ts confirms unchanged cd357e84, five topics/25 stories/19 posts/five content groups. /healthz passes.
+- Next: scheduled Tech qualification/quotation retention, NBA AI editing and same-game selection acceptance; Destructoid remains blocked. No paid replay or recovery backfill.
