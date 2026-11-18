@@ -112,3 +112,40 @@ void test('a release page containing only a link is not reporting evidence', () 
     '',
   );
 });
+
+void test('recorded MediaWiki reporting excludes donation tables and retains shutdown detail', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-archiveteam.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^Apple Discussions\s*, also known as/);
+  assert.match(excerpt, /2026-11-20/);
+  assert.match(excerpt, /no longer accept new posts/);
+  assert.doesNotMatch(excerpt, /donation|warrior|infrastructure|\[1\]/i);
+  assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
+});
+
+void test('MediaWiki extraction bounds nested content and matches class tokens', () => {
+  const prose = `<div id="mw-content-text"><div class="mw-content-ltr mw-parser-output"><table><tr><td><p>${'Donate '.repeat(20)}</p><table><tr><td>Nested table</td></tr></table></td></tr></table><div><p>${reporting}<sup>[1]</sup></p></div></div></div>`;
+  assert.equal(
+    publisherExcerpt(`${prose}<p>${'Outside '.repeat(20)}</p>`),
+    reporting,
+  );
+  assert.equal(
+    publisherExcerpt(`<div class="mw-parser-output"><p>${reporting}</p></div>`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      prose.replace('mw-parser-output', 'mw-parser-output-fake'),
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<article><p>${reporting} Article wins.</p></article>${prose}`,
+    ),
+    `${reporting} Article wins.`,
+  );
+});

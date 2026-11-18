@@ -7,6 +7,13 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+Nov 18 (2683): HN publisher enrichment now reads scoped MediaWiki prose, excluding
+tables and citation markers. Two saved empty Tech candidates gained excerpts:
+ArchiveTeam Apple Discussions 681 characters; Consumer Rights ID.me 1,500.
+Direct shared-client checks returned HTTP 403 for the linked OpenAI announcement
+and FT article, and HTTP 404 for microsoft/onnxruntime; those remain empty.
+No access workaround or new source. Scheduled Tech depth acceptance remains open.
+
 Nov 16 (2526): **live (publisher feed recovered)** — GamesRadar's configured
 `https://www.gamesradar.com/feeds.xml` returned valid RSS/HTTP 200 at 17:03 UTC.
 After all three scheduled attempts failed with 404 (last 16:53:39 UTC), one
@@ -353,7 +360,7 @@ dead, undated and unsafe-URL items are skipped. HN points/comments are stored.
 The shared client has a one-second domain floor, five-minute cache, 20-second
 timeout, 3 MB cap, Retry-After/error backoff; BullMQ retries three times with
 exponential delays. Failed/empty runs retain the previous successful timestamp
-and expose an error. Feed ingestion does not crawl article pages; the separate
+and expose an error. RSS/Atom ingestion does not crawl article pages; HN enrichment above and the separate
 explicit bounded X-link pass is described under iteration 96 below.
 
 Incoming articles are **not curated digests**. Publisher dates are preserved;

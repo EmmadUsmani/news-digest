@@ -206,3 +206,12 @@ Collection is paused because the official RSS feed now returns Cloudflare
 HTTP 403 (“Sorry, you have been blocked”). Existing articles remain available
 and the other Gaming feeds continue. No immediate action is needed; restoring
 this feed requires documented publisher access. No access workaround was tried.
+
+## Tech publisher access failures (2026-11-18, iteration 2683)
+
+The normal shared HTTP client returned HTTP 403 for
+`https://openai.com/index/introducing-gpt-6-2-astra-sol/` and
+`https://www.ft.com/content/dbde7a30-548c-4f9d-a4be-7898a0c24dcf`,
+and HTTP 404 for `https://github.com/microsoft/onnxruntime`. These linked HN
+candidates retain empty excerpts. No bypass attempted; no immediate owner action
+is needed. Improving these candidates requires accessible publisher reporting.

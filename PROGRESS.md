@@ -142,3 +142,14 @@
 - Signed-out public HTTPS reader returns five topics/25 stories/20 posts. All 14 monitored services, sources and job checks pass. Scheduled Tech share/depth acceptance remains after 15:00 UTC.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,094 unit/330 integration tests, four expected skips. Logs /tmp/2682-{format,lint,check,build}.log. Initial formatter rejected the truncated HTML fixture; retained original heading/paragraph tags with layout wrappers omitted, then reran successfully.
 - Handbook initially exceeded its line limit; shortened affected explanation and page check passes (19 pages/39 tables). Final format/lint pass. Commit/push followed by API/worker restart; next: natural Nov 18 Tech share and depth acceptance after 15:00 UTC.
+
+## 2026-11-18: iteration 2683 — recover MediaWiki Tech evidence
+
+- Clean main at 7471ec73; no inherited work. Alerts clear and health passes; outside protected hours. No paid calls, budget/provider/flag/UI changes or edition regeneration.
+- Two readable HN-linked pages use MediaWiki containers rather than article/main reporting. Added parse5-backed extraction scoped to mw-content-text / mw-parser-output, excluding nested tables and citation markers; article precedence and 1,500-character limit retained.
+- Saved empty Tech candidates repaired from normal shared-client HTTP 200 responses: ArchiveTeam Apple Discussions 0 → 681 characters; Consumer Rights ID.me 0 → 1,500. Reporting includes shutdown dates/read-only status and arbitration/privacy/sign-in alternatives. Conditional updates touched only empty excerpts; receipt /tmp/2683-saved.json.
+- Original 2682 20-URL cohort now observed at 15 with excerpts; only the two above are attributed to this step. Earlier 12/20 batch is not a same-time baseline for concurrent ingestion. Scheduled candidate-share/reader-depth acceptance remains after 15:00 UTC.
+- Shared-client requests found linked OpenAI/FT pages HTTP 403 and microsoft/onnxruntime HTTP 404. Named once in NEEDS_FROM_HUMAN.md; no workaround. Browser Engineering has no supported reporting container; link-only jQuery remains empty.
+- Recorded ArchiveTeam fixture and scoped/nested/class-token/precedence cases pass (8/8). Updated source inventory and pipeline handbook; no diagrams/schema/UI changes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,096 unit/330 integration tests, four expected skips. Handbook passes (19 pages/39 tables); initial page length failure fixed. Logs /tmp/2683-{format,lint,check,build,handbook}.log.
+- Signed-out public HTTPS reader passes five topics/25 stories/20 posts. Commit/push and API/worker restart follow; next: natural Nov 18 Tech share and summary-depth acceptance, retention at 04:40 UTC.
