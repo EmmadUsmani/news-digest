@@ -186,3 +186,14 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2733-*.log`.
 - API/worker restarted; `/healthz` database/Redis pass; post-restart public Chromium reader five topics/25 stories and `pnpm obs alerts` clear.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2734 — recover interview-change context
+
+- Clean main at 80c05517; no inherited work. Alerts/health clear; 38 monitored sources healthy. Digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
+- Public Chromium reader shows five topics/25 stories; latest Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered Jane Street's blank saved interview-change excerpt: 0 → 1,500 characters. Complete passage reviewed before blank-only write.
+- `pnpm exec tsx /tmp/2734-verify.ts` passes exact stored-ID/full-text reread 1/1; receipt `/tmp/2734-saved.json`. Faraday-cage and CPython/Yk HTTP 200 pages yield no prose and remain unchanged.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2734-*.log`.
+- API/worker restarted; immediate health request preceded readiness, retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. Consider safe prose scoping for the two unextracted pages outside that window.

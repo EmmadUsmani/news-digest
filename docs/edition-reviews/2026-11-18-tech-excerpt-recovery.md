@@ -755,3 +755,15 @@ ROCm peer-to-peer transfers and the author's BIOS allocation problem; the
 second explains source-library packaging, repository versions and checksums.
 No collection behavior, paid call, budget or immutable edition changed.
 Scheduled Tech depth acceptance remains pending.
+
+## Interview changes — iteration 2734
+
+An ordinary shared-client HTTP 200 response recovered the blank saved HN
+excerpt for [Jane Street's interview changes](https://blog.janestreet.com/software-engineering-interviews-are-changing-a-little/),
+from zero to 1,500 characters. The complete passage was reviewed before a
+blank-only write; exact stored-ID/full-text reread passes 1/1
+(`/tmp/2734-saved.json`). It explains everyday LLM use, unchanged interview
+goals and trials emphasizing design and verification. Faraday-cage and
+CPython/Yk pages returned HTTP 200 but no extracted prose; both remain
+unchanged. No collection behavior, paid call, budget or immutable edition
+changed. Scheduled Tech depth acceptance remains pending.

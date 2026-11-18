@@ -3852,3 +3852,10 @@ excerpts for Linux GPU BAR allocation and C3 0.8.6 library fetching (3,000
 characters). Blank-only writes and exact stored-ID/full-text rereads pass 2/2;
 no paid calls or collection behavior changes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#pcie-mapping-and-c3-libraries--iteration-2733).
+
+Iteration 2734: ordinary HTTP 200 recovered the blank saved Jane Street
+interview-change excerpt (1,500 characters), with a blank-only write and exact
+stored-ID/full-text verification. Faraday-cage and CPython/Yk pages returned
+200 but no extracted prose and remain unchanged. No source configuration or
+paid calls changed.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#interview-changes--iteration-2734).
