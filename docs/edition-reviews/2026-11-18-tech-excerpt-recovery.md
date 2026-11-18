@@ -197,3 +197,25 @@ PIN attack. The essay's Megabank teams are illustrative characters, not reported
 company events. No budgets, extraction behavior or immutable editions changed.
 Public HTTPS reader still shows thin Tech summaries; natural scheduled
 candidate-share/depth acceptance remains pending after 15:00 UTC.
+
+## Publisher header titles — iteration 2697
+
+Infisical and Notifkit returned HTTP 200 but yielded empty excerpts because
+removing `<header>` also removed their only `<h1>`. The collector now retains
+that title while discarding header metadata. Main reporting still requires its
+own heading; unrelated outside headings and header promotions remain excluded.
+Recorded reduced publisher fixtures and regression tests cover the layouts.
+
+Blank-only updates and independent exact ID/text rereads pass for three saved
+HN candidates, each 0 → 1,500 characters (4,500 total):
+
+| Candidate                                                                                          | Retained detail                                                                   |
+| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| [Infisical identity management](https://infisical.com/blog/active-directory-machine-identity)      | Author's AD/LDAP/Kerberos account and modern-cloud identity argument              |
+| [Siterate investigation](https://jack.cab/blog/siterate)                                           | Author's backlink observations and Majestic Million ranking context               |
+| [Notification engineering](https://notifkit.dev/articles/why-notification-systems-are-a-nightmare) | Illustrative shop workflow, provider tradeoffs and first-party project motivation |
+
+The opening AD quotation and notification shop are explicitly fictional;
+product comparisons remain author claims. Jack's investigation is personal
+reporting. Signed-out Tech still has thin summaries; immutable editions and
+budgets unchanged. Scheduled candidate-share/depth acceptance awaits 15:00 UTC.

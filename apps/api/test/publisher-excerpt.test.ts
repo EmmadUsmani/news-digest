@@ -316,3 +316,36 @@ void test('main landmark requires its own heading and excludes surrounding prose
     reporting,
   );
 });
+
+void test('main article headings survive header chrome removal', () => {
+  const chrome =
+    'Subscribe to our newsletter for updates and exclusive offers every week.';
+  assert.equal(
+    publisherExcerpt(
+      `<header><h1>Site name</h1></header><main><header><p>${chrome}</p><h1>Article title</h1><p>${chrome}</p></header><p>${reporting}</p><footer><p>${chrome}</p></footer></main>`,
+    ),
+    reporting,
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<header><h1>Site name</h1></header><main><header><h2>Section</h2><p>${chrome}</p></header><p>${reporting}</p></main>`,
+    ),
+    '',
+  );
+});
+
+void test('recorded publisher headers retain identity and notification reporting', async () => {
+  for (const [name, opening] of [
+    ['identity', /Life was simpler on Active Directory/],
+    ['notifications', /^Every notification system starts the same way/],
+  ] as const) {
+    const html = await readFile(
+      `apps/api/test/fixtures/hn-publisher-${name}-header.html`,
+      'utf8',
+    );
+    const excerpt = publisherExcerpt(html);
+    assert.match(excerpt, opening);
+    assert.ok(excerpt.length >= 100 && excerpt.length <= 1500);
+    assert.doesNotMatch(excerpt, /<h1|<header/);
+  }
+});

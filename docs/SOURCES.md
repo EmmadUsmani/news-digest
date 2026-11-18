@@ -3638,3 +3638,11 @@ S2's DNS account, the Windows Hello RPMC abstract and Arcentry's reuse essay;
 all ordinary HTTP 200, exact saved text verified. First-party/research claims
 and the essay's fictional scenario retain their provenance.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#dns-hardware-security-and-reuse-evidence--iteration-2696).
+
+Iteration 2697 fixes publisher titles nested in page headers: retain the title
+while removing header metadata so the main reporting body remains eligible.
+Ordinary HTTP 200 pages recovered three blank saved HN excerpts (4,500 characters):
+Infisical identity management, Jack's Siterate investigation and Notifkit's
+notification engineering essay. Recorded title/body fixtures cover both affected
+header layouts. Exact stored text rereads pass; no access workaround or paid call.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#publisher-header-titles--iteration-2697).

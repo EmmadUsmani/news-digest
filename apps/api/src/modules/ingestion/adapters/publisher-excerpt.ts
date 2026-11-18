@@ -5,7 +5,14 @@ import { plainText } from '../domain/normalize';
 
 /** Use publisher reporting sections; never navigation, scripts or HN comments. */
 export function publisherExcerpt(html: string): string {
-  const clean = html.replace(
+  // Article headers often contain the only page title. Retain that heading
+  // so main-body scoping survives removal of author, date and header chrome.
+  const titled = html.replace(
+    /<header\b[^>]*>([\s\S]*?)<\/header\s*>/gi,
+    (_header, body: string) =>
+      /<h1\b[^>]*>[\s\S]*?<\/h1\s*>/i.exec(body)?.[0] ?? '',
+  );
+  const clean = titled.replace(
     /<(script|style|nav|aside|header|footer)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
     '',
   );

@@ -151,3 +151,13 @@
 - Natural 04:40 UTC retention succeeds, exit 0: 163 expired session files / 89,331,829 bytes deleted; tmpfiles completes with seven unavailable pipe notices ignored. Disk 74%; protected paths untouched, next run Nov 19.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2696-*.log. pnpm build passes; commit/push and API-worker restart follow.
 - Next: natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC; retention Nov 19 04:40 UTC.
+
+## 2026-11-18: iteration 2697 — preserve publisher article titles
+
+- Clean main at 87f45c17; no inherited work. Alerts clear; health, source, job and service checks pass. Outside protected hours; no paid calls or budget/provider changes.
+- Read signed-out public Tech: thin summaries remain. Found collection cause on Infisical/Notifkit: header removal discarded the only main-body h1 and rejected reporting. Preserve the title while excluding header metadata; main still requires its own heading.
+- Added recorded reduced publisher fixtures and regression coverage for header titles, outside headings and excluded promotion text. No schema/UI/handbook behavior change.
+- Three ordinary HTTP 200 publisher pages recover blank saved HN excerpts: identity management, Siterate investigation and notification engineering; 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters), /tmp/2697-saved.json.
+- Fictional examples and first-party comparisons remain attributed. Immutable editions unchanged; public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks and recovery receipt updated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,107 unit/330 integration tests, four expected skips). Logs /tmp/2697-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; no deployment during 13:00–16:00 UTC.
