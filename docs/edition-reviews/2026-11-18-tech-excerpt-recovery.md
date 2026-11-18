@@ -161,3 +161,20 @@ independent incident verification. TRMNL's intended delivery dates are plans.
 CMU's course page returned HTTP 200 but no scoped excerpt and stays blank.
 No extraction behavior, budgets or immutable editions changed; no paid calls.
 Natural scheduled Tech acceptance remains pending after 15:00 UTC.
+
+## Rust verification and solar research — iteration 2695
+
+Two ordinary shared-client HTTP 200 publisher pages recovered blank saved HN
+excerpts with the deployed extractor. Exact ID/text rereads pass for both rows,
+3,000 characters total; only blank excerpts changed.
+
+| Candidate                                                                                                                             | Before | After | Retained detail                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------- | -----: | ----: | -------------------------------------------------------------------------- |
+| [Aristotle Rust verification](https://www.harmonic.fun/news/aristotle-rust-verification/)                                             |      0 | 1,500 | Harmonic’s claimed verification support, unsafe blocks and C equivalence   |
+| [Cornell solar grazing](https://news.cornell.edu/stories/2026/10/sheep-grazing-solar-fields-offers-farmers-economic-ecological-gains) |      0 | 1,500 | Reported stocking density, beneficial-insect results and study attribution |
+
+Harmonic’s capabilities remain first-party claims; Cornell’s October paper is
+research context, not a newly published November study. Jolt returned HTTP 200
+but lacks a scoped article/main body and stays blank. No access workaround,
+paid call, edition regeneration or budget change. The public Tech edition still
+has thin summaries; scheduled candidate-share/depth acceptance remains pending.

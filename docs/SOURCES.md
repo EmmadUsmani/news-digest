@@ -3627,3 +3627,8 @@ Iteration 2694 recovered blank software reliability and TRMNL Frame HN excerpts
 through the deployed extractor: ordinary HTTP 200, 3,000 characters, exact saved
 ID/text verified. CMU course page yields no scoped prose and stays blank.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#software-reliability-and-display-evidence--iteration-2694).
+
+Iteration 2695 recovered blank Harmonic Rust verification and Cornell solar-grazing
+HN excerpts through ordinary HTTP 200 publisher pages: 3,000 characters,
+exact saved text verified. Jolt returned HTTP 200 without scoped reporting;
+left blank. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-verification-and-solar-research--iteration-2695).

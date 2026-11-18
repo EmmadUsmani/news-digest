@@ -129,3 +129,13 @@
 - Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Source inventory/tasks updated; no application/schema/UI/handbook behavior change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips). Logs /tmp/2694-*.log. Commit/push and API/worker restart follow checks.
 - Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
+
+## 2026-11-18: iteration 2695 — recover Rust verification and solar research evidence
+
+- Clean main at 236b40e6; no inherited work. Alerts clear, health/source/job checks pass, outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
+- Reader weakness: current public Tech still has thin summaries. The owner would notice richer source detail in future digests; recovered two blank HN candidates using deployed collection: Harmonic Rust verification and Cornell solar-grazing research.
+- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent ID/text rereads pass 2/2 (3,000 characters); /tmp/2695-saved.json and docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
+- Harmonic capabilities remain first-party claims; Cornell’s October study retains historical attribution. Jolt HTTP 200 has no scoped article/main prose and stays blank. No bypass or collection scope expansion.
+- Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks updated; no application/schema/UI/handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2695-*.log. Commit/push and API/worker restart follow checks.
+- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
