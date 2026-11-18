@@ -180,3 +180,13 @@
 - Lean candidate blank-only update 0 → 1,500 characters; independent exact ID/text reread passes (/tmp/2699-saved.json). Author's proof-interpretation cautions remain attributed.
 - Sources/tasks/recovery receipt updated. Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,108 unit and 330 integration tests pass, four expected skips. Logs /tmp/2699-*.log.
 - Commit/push and API/worker restart follow successful checks; scheduled Tech share/depth acceptance remains due after 15:00 UTC. Protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2700 — recover header-titled main reporting
+
+- Clean main at c5800837; no inherited work. Alerts, health, service/source/job checks pass; no paid calls or budget/provider changes.
+- Read latest public Tech: Apple/China summaries remain thin. Fixed another collection cause: Dan Luu testing article has header/strong title and main prose without h1. Accept main only when that header title matches the document title.
+- Reduced recorded fixture and missing/mismatched-title, entity, outside-prose and footer boundaries pass (21 extraction tests). No schema/UI/handbook change.
+- Previously fetched ordinary shared-client HTTP 200 article recovers blank saved candidate 0 → 1,500 characters; independent ID/full-text reread matches exactly (/tmp/2700-saved.json). Benchmark claims remain attributed to author.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated; immutable edition unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,109 unit/330 integration passes, four expected skips. Logs /tmp/2700-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

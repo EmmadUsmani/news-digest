@@ -3658,3 +3658,8 @@ Iteration 2699 adds scoped WordPress entry-content extraction within a titled
 hentry. The previously blank Lean interpretation article now has 1,500 saved
 characters, with an exact independent reread; comments are excluded.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#wordpress-article-bodies--iteration-2699).
+
+Iteration 2700 recognizes main reporting with a header/strong title exactly
+matching the document title. Dan Luu’s previously fetched HTTP 200 testing
+article recovers one blank saved excerpt (1,500 characters), exactly reread.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#matching-header-titles--iteration-2700).

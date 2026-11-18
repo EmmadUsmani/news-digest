@@ -252,3 +252,18 @@ changed from 0 to 1,500 characters; independent ID/text reread passes. The openi
 retains the author's distinction between proof checking and checking what was
 formalized; it does not establish that the referenced repositories fail checks.
 Immutable editions and budgets unchanged; scheduled depth acceptance pending.
+
+## Matching header titles — iteration 2700
+
+[Dan Luu’s testing comparison](https://danluu.com/astra-testing/) puts its title
+in header/strong, with reporting in main and no h1. Collection now accepts that
+structure only when the header title exactly matches the document title.
+Main remains the prose boundary; header support links and footers are excluded.
+
+The ordinary shared-client HTTP 200 response saved in iteration 2698 now yields
+1,500 characters. Blank candidate `fc75eed0-0ac9-4d43-8668-96caa3ca94cc` was updated;
+an independent ID/full-text reread matches exactly. The excerpt attributes the
+benchmark comparisons to the author; it does not establish general model quality.
+Reduced recorded fixture and mismatched/missing-title boundary tests pass.
+Scheduled candidate-share/depth acceptance remains after 15:00 UTC; no paid
+calls, edition regeneration or budget changes.

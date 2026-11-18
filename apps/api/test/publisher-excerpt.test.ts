@@ -368,3 +368,37 @@ void test('WordPress article bodies recover Lean reporting without comments', as
     '',
   );
 });
+
+void test('matching header titles identify main reporting without admitting untitled pages', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-astra-testing.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^When we looked at/);
+  assert.match(excerpt, /holdout/);
+  assert.ok(excerpt.length >= 1400 && excerpt.length <= 1500);
+  assert.doesNotMatch(excerpt, /Patreon|Subscribe/);
+  assert.equal(
+    publisherExcerpt(
+      html.replace(
+        '<title>Test/verification technique effectiveness with Astra</title>',
+        '<title>Other page</title>',
+      ),
+    ),
+    '',
+  );
+  assert.equal(publisherExcerpt(html.replace(/<title>.*?<\/title>/, '')), '');
+  assert.equal(
+    publisherExcerpt(
+      `<title>Site name</title><header><strong>Other title</strong></header><main><p>${reporting}</p></main>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<title>Research &amp; testing</title><header><strong>Research &amp; testing</strong></header><main><p>${reporting}</p></main><p>${'Outside '.repeat(15)}</p>`,
+    ),
+    reporting,
+  );
+});

@@ -7,6 +7,14 @@ import { plainText } from '../domain/normalize';
 export function publisherExcerpt(html: string): string {
   // Article headers often contain the only page title. Retain that heading
   // so main-body scoping survives removal of author, date and header chrome.
+  const title = /<title\b[^>]*>([\s\S]*?)<\/title\s*>/i.exec(html)?.[1];
+  const headerTitle =
+    /<header\b[^>]*>\s*<strong\b[^>]*>([\s\S]*?)<\/strong\s*>/i.exec(html)?.[1];
+  const matchingHeaderTitle = Boolean(
+    title &&
+    headerTitle &&
+    plainText(decodeHTML(title)) === plainText(decodeHTML(headerTitle)),
+  );
   const titled = html.replace(
     /<header\b[^>]*>([\s\S]*?)<\/header\s*>/gi,
     (_header, body: string) =>
@@ -26,13 +34,16 @@ export function publisherExcerpt(html: string): string {
     landmarkReporting(clean);
   // Some publisher blogs use main instead of article. Require their page
   // heading and take only the reporting after it, excluding opening chrome.
+  // A matching header/document title also identifies a separately scoped main.
   const reporting =
     article ??
     mediaWikiReporting(clean) ??
     microformatReporting(clean) ??
     wordpressReporting(clean) ??
     templateReporting(clean) ??
-    (main && /<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1]);
+    (main &&
+      (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
+        (matchingHeaderTitle ? main : undefined)));
   if (!reporting) return '';
   const paragraphs = [...reporting.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)]
     .map((match) => plainText(decodeHTML(match[1])))
