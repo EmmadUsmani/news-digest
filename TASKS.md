@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2777: saved World E1 significance implies sanctions influenced the delay despite the supplied diplomatic denial. Shared editor guidance preserves material denials across summary/significance/brief and distinguishes chronology from causation; exact saved evidence and complete-denial control pass both offline model routes. Scheduled semantic acceptance pending.
+
 - [x] 2776: summary-repair feedback retains supported qualifications and complete quotation attribution instead of asking only for positive facts. Both saved Nvidia failures and study failure replay offline through both budgeted model routes; guard unchanged. Scheduled semantic acceptance pending.
 
 - [x] 2775: Tech research guidance preserves central counterfindings/publication status; saved Nov 18 study paraphrase fails unchanged guard, complete source-sentence control passes both offline routes. Natural retention acceptance pending; Nvidia rejection still open.

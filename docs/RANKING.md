@@ -3491,3 +3491,24 @@ hand-authored controls pass, retain qualifications, settle two reservations and
 alone enter cache. Feedback contains fixed instructions, never rejected text.
 This tests transport and validation, not model compliance. Natural scheduled
 Tech retention and NBA editorial acceptance remain pending; no paid replay.
+
+## Iteration 2777: preserve disputed causation in World reporting
+
+The Nov 18 E1 story's published significance says international sanctions “are
+now a factor,” while its cited Guardian excerpt says Israeli diplomats insisted
+the delay was not in response to the measures. The summary reports timing but
+omits that denial. Shared editor guidance now distinguishes chronology from
+causation and retains material denials across summary, significance and brief.
+The complete attributed negative source sentence remains subject to the unchanged
+absence validator; no claim detector or grouping rule was added.
+
+`world-2026-11-18-causation.json` retains the exact saved candidate and published
+summary/significance. A hand-authored control retains the complete denial and
+source-bound significance through both budgeted model routes. This verifies
+input transport and validator compatibility, not semantic model compliance.
+Check the next scheduled World section in the daily review; the published
+immutable edition stays unchanged. No publisher requests or paid replay.
+
+The synthetic publication recording’s editor fingerprint was refreshed offline
+for these changed instructions; its authored response and golden edition are
+unchanged. The old fingerprint correctly refused the changed prompt.

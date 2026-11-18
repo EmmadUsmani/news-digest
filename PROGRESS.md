@@ -109,3 +109,13 @@
 - Verification: pnpm exec tsx --test apps/api/test/llm.test.ts passes 51/51; pnpm format, pnpm lint:fix, pnpm check and pnpm build pass. Full check: 1,127 unit/330 integration passes, four expected skips; logs /tmp/2776-*.log.
 - Rebuilt API/worker and docs restarted active. Post-restart health/alerts clear; /tmp/2770-live.ts confirms unchanged cd357e84, five topics/25 stories/19 posts/five content groups. /healthz passes.
 - Next: scheduled Tech qualification/quotation retention, NBA AI editing and same-game selection acceptance; Destructoid remains blocked. No paid replay or recovery backfill.
+
+## 2026-11-18: iteration 2777 — retain denials of disputed causation
+
+- Clean main at 63efcdc9; no inherited work. Alerts/health/14 monitored services/38 monitored sources healthy; Destructoid remains paused.
+- Reader value: the World E1 significance implies sanctions influenced a delay despite the supplied diplomats’ denial; the summary omits that qualification.
+- Shared editor guidance preserves material denials across summary, significance and brief; timing alone establishes neither cause nor influence. Complete negative source sentences retain attribution under the unchanged guard.
+- Exact saved candidate/published fields retained in a fixture. Complete-denial hand-authored control passes both offline budgeted routes; transport/validation evidence, not model compliance.
+- No UI change, publisher fetch, paid call, model/provider/budget change or mutation of the published edition. TASKS and ranking evidence updated; this corrects a real published weakness.
+- Verification: editor tests 44/44, build and full-check static stages/1,128 unit tests pass. Integration initially 329 pass/one stale synthetic prompt fingerprint fails/four expected skips; fingerprint updated offline, targeted golden test and isolated retry pass (330/four skips). pnpm format/lint:fix pass. Logs /tmp/2777-*.log.
+- Rebuilt API/worker/docs restarted active; health and alerts clear. Reader remains cd357e84: five topics/25 stories/19 posts/five content groups. Next daily review checks World denial retention alongside NBA/Tech acceptance.

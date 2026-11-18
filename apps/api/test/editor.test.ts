@@ -1821,3 +1821,61 @@ void test('Nov 18 retained NBA failures reject all seven fields and bounded word
     );
   }
 });
+
+void test('World timing and disputed causation retain the saved attributed denial on both routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/llm/world-2026-11-18-causation.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const input = [saved.candidate];
+  assert.match(saved.publishedSignificance, /sanctions are now a factor/);
+  assert(saved.candidate.excerpt.includes(saved.denial));
+  const output = {
+    brief: [
+      'Israel postponed E1 settlement construction contracts.',
+      saved.denial,
+    ],
+    stories: [
+      {
+        id: saved.candidate.id,
+        evidenceIds: [saved.candidate.id],
+        headline: 'Israel postpones E1 settlement building contracts',
+        summary: `${saved.publishedSummary} ${saved.denial}`,
+        whyItMatters:
+          'The Guardian describes the settlement as likely to render a two-state solution unviable.',
+        rationale: 'A settlement and diplomatic development.',
+      },
+    ],
+  };
+  // Hand-authored control: tests source transport/validation, not model compliance.
+  for (const refused of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([output], refused);
+    const result = await h.editor.edit(
+      { ...topic, id: 'world', name: 'World news & politics' },
+      input,
+      1,
+      'world-disputed-causation',
+    );
+    assert.deepEqual(result?.stories, output.stories);
+    assert.deepEqual(result?.brief, output.brief);
+    assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
+    assert.match(
+      h.calls[0].instructions,
+      /Timing alone does not establish causation/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /including in significance and brief bullets/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /retain the attributed denial using its complete source sentence/,
+    );
+    assert.deepEqual(h.diagnostics(), []);
+  }
+});
