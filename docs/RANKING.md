@@ -3512,3 +3512,18 @@ immutable edition stays unchanged. No publisher requests or paid replay.
 The synthetic publication recording’s editor fingerprint was refreshed offline
 for these changed instructions; its authored response and golden edition are
 unchanged. The old fingerprint correctly refused the changed prompt.
+
+## U.S. story/post comparison (iteration 2778)
+
+The Nov 18 Peltola Bluesky selection repeats the published election story.
+Unlike Tech/NBA, U.S. selection received no selected-story comparison context.
+U.S. now receives the same bounded titles/summaries (ten stories, 300/400
+characters each) in initial X and later Bluesky selection. Existing originality
+instructions apply; story text cannot support claims in reader notes.
+
+The saved Peltola post and separate congressional stock-trading post are retained
+in `us-social-story-overlap-2026-11-18.json`. Both model routes and platform
+purposes transport context and accept a hand-authored distinct-post selection,
+with validated cache reuse. This does not establish model compliance; check
+natural U.S. selection in the next scheduled daily review. No new calls, caps,
+provider/model changes or mutation of the published edition.

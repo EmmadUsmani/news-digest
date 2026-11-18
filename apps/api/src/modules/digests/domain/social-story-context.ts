@@ -1,13 +1,14 @@
 import { usesTechEditorialContext } from './tech-editorial-context';
 
-/** NBA joins the bounded social-context rollout after scheduled AI acceptance. */
+/** Bounded comparison context for topics with observed story/post repetition. */
 export function socialStoryContext(
   topicName: string,
   stories: readonly { title: string; summary?: string | null }[],
 ): { title: string; summary: string }[] | undefined {
   if (
     !usesTechEditorialContext(topicName) &&
-    topicName.trim().toLowerCase() !== 'nba'
+    topicName.trim().toLowerCase() !== 'nba' &&
+    topicName.trim().toLowerCase() !== 'u.s. news & politics'
   ) {
     return undefined;
   }

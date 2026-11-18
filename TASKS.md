@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2778: Nov 18 U.S. Peltola Bluesky post repeats a selected story because story comparison was limited to Tech/NBA. U.S. now receives the same bounded context in both social routes; saved overlap/distinct stock-trading control and both model routes pass offline. Natural selection acceptance pending.
+
 - [x] 2777: saved World E1 significance implies sanctions influenced the delay despite the supplied diplomatic denial. Shared editor guidance preserves material denials across summary/significance/brief and distinguishes chronology from causation; exact saved evidence and complete-denial control pass both offline model routes. Scheduled semantic acceptance pending.
 
 - [x] 2776: summary-repair feedback retains supported qualifications and complete quotation attribution instead of asking only for positive facts. Both saved Nvidia failures and study failure replay offline through both budgeted model routes; guard unchanged. Scheduled semantic acceptance pending.

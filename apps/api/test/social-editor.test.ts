@@ -7,6 +7,7 @@ import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { SocialPostEditor } from '../src/modules/curation/application/social-editor';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import { socialStoryContext } from '../src/modules/digests/domain/social-story-context';
 
 const topic = {
   id: 'tech',
@@ -1061,4 +1062,66 @@ void test('Gaming date check also constrains rationales and preserves supported 
     [invalid],
   );
   assert.ok(!unchanged.calls[0].instructions.includes('Gaming date support'));
+});
+
+void test('saved U.S. election overlap and distinct stock-trading post receive selected-story context on both routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/us-social-story-overlap-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const usTopic = { ...topic, id: 'us', name: 'U.S. news & politics' };
+  const covered = socialStoryContext(usTopic.name, [saved.story])!;
+  assert.equal(covered.length, 1);
+  for (const platform of ['x', 'bluesky'] as const) {
+    for (const refuse of [[], ['claude-sonnet-5-5']]) {
+      // Hand-authored selection tests transport, not semantic model compliance.
+      const h = harness(
+        [
+          {
+            posts: [
+              {
+                id: 'distinct',
+                whyItMatters: '',
+                rationale:
+                  'Dan Koh is joining 50 incoming Democrats in demanding a ban on stock trading by members of Congress.',
+              },
+            ],
+          },
+        ],
+        refuse,
+      );
+      const input = [
+        { ...candidates[0], ...saved.overlappingPost, id: 'overlap', platform },
+        { ...candidates[0], ...saved.distinctPost, id: 'distinct', platform },
+      ];
+      const result = await h.editor.edit(
+        usTopic,
+        input,
+        2,
+        'us-overlap',
+        [],
+        covered,
+      );
+      assert.deepEqual(
+        result?.posts.map((p) => p.id),
+        ['distinct'],
+      );
+      const prompt = JSON.parse(h.calls[0].prompt);
+      assert.deepEqual(prompt.coveredStories, covered);
+      assert.equal(prompt.candidates[0].text, saved.overlappingPost.text);
+      assert.equal(prompt.candidates[1].text, saved.distinctPost.text);
+      assert.match(h.calls[0].instructions, /comparison context only/);
+      assert.match(h.calls[0].instructions, /distinct substantive development/);
+      assert.deepEqual(
+        await h.editor.edit(usTopic, input, 2, 'us-cached', [], covered),
+        result,
+      );
+      assert.equal(h.calls.length, 1);
+    }
+  }
 });

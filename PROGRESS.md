@@ -119,3 +119,14 @@
 - No UI change, publisher fetch, paid call, model/provider/budget change or mutation of the published edition. TASKS and ranking evidence updated; this corrects a real published weakness.
 - Verification: editor tests 44/44, build and full-check static stages/1,128 unit tests pass. Integration initially 329 pass/one stale synthetic prompt fingerprint fails/four expected skips; fingerprint updated offline, targeted golden test and isolated retry pass (330/four skips). pnpm format/lint:fix pass. Logs /tmp/2777-*.log.
 - Rebuilt API/worker/docs restarted active; health and alerts clear. Reader remains cd357e84: five topics/25 stories/19 posts/five content groups. Next daily review checks World denial retention alongside NBA/Tech acceptance.
+
+## 2026-11-18: iteration 2778 — compare U.S. posts against selected stories
+
+- Clean main at 355bc2f1; no inherited work. Alerts/health/14 monitored services/38 monitored sources healthy; Destructoid remains paused.
+- Reader value: the saved Peltola Bluesky post repeats the selected election story, spending a slot on news the reader just saw.
+- Cause: selected-story comparison was restricted to Tech/NBA. U.S. now receives the same bounded titles/summaries in initial X and later Bluesky selection, using existing originality guidance.
+- Saved Peltola overlap and distinct congressional stock-trading post retained. Both platform purposes/model routes pass offline context transport and validated cache reuse; hand-authored selection is not model compliance.
+- Provider/models/caps/call count unchanged; no paid calls or published-edition mutation. Updated TASKS, ranking evidence and affected handbook page. No UI change.
+- Verification: targeted social/context tests 26/26; pnpm format, pnpm lint:fix, pnpm check (1,129 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2778-*.log.
+- Rebuilt API/worker/docs restarted active. First immediate health probe raced startup; retry health/alerts and /healthz pass. Saved reader unchanged: cd357e84, five topics/25 stories/19 posts/five content groups.
+- Next scheduled daily review checks U.S. story/post repetition alongside NBA/Tech/World acceptance; no extra daily review commit or recovery backfill.
