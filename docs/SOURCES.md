@@ -3704,3 +3704,9 @@ Iteration 2708: collect scoped GitHub release-note paragraphs and changelog list
 excluding repository chrome and bare links. Saved jQuery 4.1.0 HN candidate
 recovered 0 → 991 characters; exact ID/full-text reread passes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#release-note-lists--iteration-2708).
+
+Iteration 2709: ordinary GitHub HTTP 200 responses and deployed extraction
+recover three saved blank HN README excerpts: OpenTodo, VennDB and WINUDF
+(4,493 characters). Blank-only writes and independent exact rereads pass.
+No new source, paid call or regeneration.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#task-database-and-legacy-driver-context--iteration-2709).

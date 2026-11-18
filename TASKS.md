@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2709: Recover OpenTodo, VennDB and WINUDF publisher README excerpts (4,493 characters); blank-only writes and exact ID/full-text rereads pass.
+
 - [x] 2708: Collect scoped GitHub release-note lists; saved jQuery release candidate recovered 0 → 991 characters, exact ID/full-text reread passes.
 
 - [x] 2707: Recover saved Sutra-OS publisher README excerpt (1,500 characters); exact ID/full-text reread passes.

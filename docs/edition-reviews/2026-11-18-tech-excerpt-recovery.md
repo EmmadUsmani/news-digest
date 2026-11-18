@@ -384,3 +384,21 @@ exact ID/full-text reread passes (`/tmp/2708-saved.json`). Saved text includes
 transport callbacks, selector changes and XML support; release claims remain
 attributed to the project. No new publisher request, paid call or regeneration.
 Scheduled Nov 18 Tech share/depth acceptance remains pending.
+
+## Task, database and legacy driver context — iteration 2709
+
+Ordinary shared-client HTTP 200 responses and deployed extraction recovered
+three saved blank HN candidates from their publisher README pages:
+
+| Publisher                                           | Saved candidate                        | Characters after |
+| --------------------------------------------------- | -------------------------------------- | ---------------- |
+| [OpenTodo](https://github.com/OpenTodoApp/OpenTodo) | `1f813e8a-39c8-4d90-9f1b-40868486ac45` | 1,500            |
+| [VennDB](https://github.com/plabayo/venndb)         | `ea826e1d-dbe7-43bb-a20b-d6aa45ddac1d` | 1,500            |
+| [WINUDF](https://github.com/ages2001/WINUDF)        | `47c96b03-66c0-460c-9331-91768de600fd` | 1,493            |
+
+Complete excerpts reviewed before blank-only updates; independent exact
+ID/full-text rereads pass 3/3 (`/tmp/2709-saved.json`, 4,493 JavaScript
+characters; PostgreSQL counts VennDB's emoji as one character). README features,
+benchmark claims and release notes remain project assertions. No collection
+code change, paid calls or edition regeneration. Public Tech still has thin
+Apple/China summaries; scheduled Nov 18 share/depth acceptance remains pending.

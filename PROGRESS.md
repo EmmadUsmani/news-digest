@@ -195,3 +195,13 @@
 - Public HTTPS Chromium reader passes with 25 stories; VM hostname resolves locally, so browser uses public DNS address without changing host/DNS settings. No UI change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,113 unit/330 integration tests pass, four expected skips. Logs /tmp/2708-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2709 — recover task, database and driver context
+
+- Clean main at 57079556; no inherited work. Alerts/health/services/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Public Tech Apple/China summaries remain thin. Recovered three more saved blank HN candidates using deployed extraction: OpenTodo, VennDB and WINUDF.
+- Ordinary shared-client GitHub HTTP 200 responses; full excerpts reviewed before blank-only writes. Independent exact ID/full-text rereads pass 3/3 (4,493 JavaScript characters; /tmp/2709-saved.json).
+- Project features, benchmark claims and release notes remain publisher assertions. No code/schema/UI changes, paid calls, provider/budget changes or edition regeneration.
+- Public HTTPS Chromium reader passes with 25 stories; recovery receipt/sources/tasks updated. No handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix and pnpm build pass; pnpm check passes: 1,113 unit/330 integration tests, four expected skips. Logs /tmp/2709-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
