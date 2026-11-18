@@ -35,7 +35,7 @@ summaries, falling back when content is blank. Text stays capped at 1,500
 characters, with an ellipsis when shortened and whole words where possible.
 Verge ad configuration and GameSpot navigation are removed before excerpting.
 Hacker News fetches article/main (including ARIA main), abstract, e-content,
-article-template, AsciiDoc document bodies or MediaWiki prose for submissions without text (1,500 characters), excluding footers; scoped GitHub release notes supply paragraphs and changelog lists. Discourse announcements use the opening post, excluding reader replies.
+article-template, AsciiDoc document bodies or MediaWiki prose for submissions without text (1,500 characters), excluding footers; scoped GitHub release notes supply paragraphs and changelog lists. Discourse announcements use the opening post, excluding reader replies. Older blogs can supply consecutive paragraphs after a title-matched column heading, ending at the next section or widget.
 
 ## The steps in one line each
 

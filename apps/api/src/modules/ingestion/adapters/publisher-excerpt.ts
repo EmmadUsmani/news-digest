@@ -45,6 +45,7 @@ export function publisherExcerpt(html: string): string {
     wordpressReporting(clean) ??
     templateReporting(clean) ??
     asciiDocReporting(clean, title) ??
+    titledColumnReporting(clean, title) ??
     (main &&
       (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
         (matchingHeaderTitle ? main : matchingMainHeading(main, title))));
@@ -335,4 +336,40 @@ function matchingMainHeading(
       documentTitle.startsWith(`${text} | `))
     ? heading[3]
     : undefined;
+}
+
+/** Older blogs use a title-matched column rather than semantic article tags. */
+function titledColumnReporting(
+  html: string,
+  title?: string,
+): string | undefined {
+  if (!title) return undefined;
+  const documentTitle = plainText(decodeHTML(title));
+  const column = find(
+    parseFragment(html),
+    (node) =>
+      node.tagName === 'div' &&
+      node.childNodes.some(
+        (child) =>
+          'tagName' in child &&
+          child.tagName === 'h1' &&
+          plainText(decodeHTML(serialize(child))) === documentTitle,
+      ),
+  );
+  if (!column) return undefined;
+  const paragraphs: string[] = [];
+  let started = false;
+  for (const child of column.childNodes) {
+    if (!('tagName' in child)) continue;
+    if (!started) {
+      started =
+        child.tagName === 'h1' &&
+        plainText(decodeHTML(serialize(child))) === documentTitle;
+      continue;
+    }
+    // Stop at the next section or nested widget; never traverse sidebars.
+    if (child.tagName !== 'p') break;
+    paragraphs.push(`<p>${serialize(child)}</p>`);
+  }
+  return paragraphs.length ? paragraphs.join('') : undefined;
 }

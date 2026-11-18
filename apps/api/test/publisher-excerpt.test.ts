@@ -516,3 +516,37 @@ void test('Discourse announcement excludes replies and their embedded article pr
     reply,
   );
 });
+
+void test('title-matched legacy columns exclude previous entries, nested widgets and sidebars', () => {
+  const page = `<title>Small compiler</title><div><h1>Small compiler</h1>
+    <p>${reporting}</p><p>A second paragraph documents compiler size and historical measurements from the publisher.</p>
+    <h1>Previously</h1><p>Previous entry prose must never become evidence for the current article.</p>
+    </div><div><p>Sidebar biography must never become evidence for the current article.</p></div>`;
+  assert.match(publisherExcerpt(page), /historical measurements/);
+  assert.doesNotMatch(
+    publisherExcerpt(page),
+    /Previous entry|Sidebar biography/,
+  );
+  assert.equal(
+    publisherExcerpt(
+      page.replace(
+        '<title>Small compiler</title>',
+        '<title>Other page</title>',
+      ),
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(page.replace('<title>Small compiler</title>', '')),
+    '',
+  );
+  assert.doesNotMatch(
+    publisherExcerpt(
+      page.replace(
+        '<h1>Previously</h1>',
+        '<div><p>Nested widget must not enter the excerpt despite a matching page title.</p></div>',
+      ),
+    ),
+    /Nested widget|Previous entry/,
+  );
+});

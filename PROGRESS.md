@@ -197,3 +197,14 @@
 - No paid calls, budget changes or regeneration. Sources, recovery receipt, tasks and pipeline handbook updated; diagram unchanged.
 - Verification: targeted extraction 27/27, public HTTPS Chromium reader 25 stories, build and handbook checks pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass: 1,115 unit/330 integration tests, four expected skips. Logs `/tmp/2715-*.log`. Commit/push and API/worker restart follow checks.
 - Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2716 — collect legacy blog columns
+
+- Clean main at d406405f; no inherited work. Alerts/health/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Read public Tech: Apple and China summaries remain one sentence; missing evidence remains a reader-facing weakness.
+- Ordinary HTTP 200 Pascal blog exposed unsupported plain-column markup. Collection now requires a direct title-matched h1, then consecutive direct paragraphs, stopping at sections/widgets.
+- Regression excludes previous entries, sidebars, nested widgets and mismatched/missing titles; targeted extraction 28/28 passes.
+- Blank saved Pascal historical comparison and AI-agent commentary recovered to 939/1,500 characters. Full text reviewed; independent exact ID/full-text rereads pass 2/2 (`/tmp/2716-saved.json`).
+- Turbo51 HTTP 200 remains blank without supported reporting scope. No paid calls, budget changes or regeneration. Sources/receipt/tasks/pipeline handbook updated; diagram unchanged.
+- Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm format`, `pnpm lint:fix`, build and handbook checks pass. `pnpm check` passes: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2716-*.log`. Commit/push and API/worker restart follow checks.
+- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

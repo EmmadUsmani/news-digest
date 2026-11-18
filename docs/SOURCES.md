@@ -3745,3 +3745,9 @@ Iteration 2715: ordinary HTTP 200 Tor release announcement revealed reader-reply
 contamination. Discourse collection now scopes the opening post's text body;
 blank saved HN candidate recovered to 968 characters, exact ID/text verified.
 No source added or paid calls. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#tor-announcement-scope--iteration-2715).
+
+Iteration 2716: ordinary HTTP 200 pages recovered blank saved HN excerpts for
+Turbo Pascal size comparisons (2011) and AI-agent author commentary (2,439
+characters). Collection now supports title-matched legacy blog columns, stopping
+before subsequent sections/widgets. Exact ID/full-text rereads pass 2/2.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#legacy-blog-columns-and-agent-commentary--iteration-2716).

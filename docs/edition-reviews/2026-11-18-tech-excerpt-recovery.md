@@ -506,3 +506,22 @@ Other HTTP 200 pages checked (CMU Learn, Web Browser Engineering and Coldwater
 Tractors) remain blank because their layouts lack supported reporting scope.
 No publisher block or bypass, paid call, cap change or edition regeneration.
 Natural scheduled share/depth acceptance remains after 15:00 UTC.
+
+## Legacy blog columns and agent commentary — iteration 2716
+
+Ordinary HTTP 200 publisher pages recovered two blank saved HN excerpts:
+
+| Candidate                                                                                                    | Before | After |
+| ------------------------------------------------------------------------------------------------------------ | -----: | ----: |
+| [Turbo Pascal size comparison (2011)](https://prog21.dadgum.com/116.html)                                    |      0 |   939 |
+| [Picasso and building AI agents](https://claramap.com/blog/what-picasso-taught-me-about-building-ai-agents/) |      0 | 1,500 |
+
+The Pascal page exposed an unsupported legacy blog column. Collection now
+requires a direct h1 exactly matching the document title and takes consecutive
+direct paragraphs, stopping at the next section or nested widget. Regression
+excludes previous entries, sidebars, widgets and unmatched titles. Historical
+2011 comparisons remain historical; the agent essay remains author experience.
+Full excerpts reviewed before blank-only writes; independent exact ID/full-text
+rereads pass 2/2 (2,439 characters, `/tmp/2716-saved.json`). Turbo51 also returned
+HTTP 200 but has no supported reporting scope and remains blank. No paid calls,
+cap changes or edition regeneration; scheduled Tech acceptance remains pending.
