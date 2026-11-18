@@ -26,96 +26,7 @@
 
 [Iterations 2659–2664](docs/progress-archive/2026-11-18-iterations-2659-2664.md)
 
-## 2026-11-17: iteration 2665 — due metrics recovery checkpoint
-
-- Clean main at 13310183; no inherited work. Alerts clear, 14 services and source snapshot healthy; digest queue has no failures, Destructoid remains paused.
-- Twelve read-only samples 21:59–22:10 UTC: 24 healthy rules, 24 uncached queries ≤0.640 s; 65 small merges/1,617,262 rows since 21:06, no new big merge.
-- Memory-high +1,261 (247 during window); max/OOM/kill, admission/timeout/slow-query, evaluator and process-start counters unchanged. NRestarts=0; journal quiet; disk 73%.
-- Retain 2% CPU/88 MiB high/112 MiB max; resource acceptance open. No forced merge, retuning, provider calls or runtime/UI changes.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips. Evidence assertions pass via python3 /tmp/2665-summarize.py.
-- Local health passes; latest probe returned HTTP 429. Existing builds retained; API/worker restart after push. No screenshot or handbook change required.
-- Archived iterations 2646–2653 to keep PROGRESS.md below 25 KB. Receipts /tmp/2665-{metrics.jsonl,summary.json,services,sources,jobs,format,lint,check}.log (metrics/summary use their named extensions).
-- Next: metrics ≥23:15 UTC; Bluesky full-day review after midnight; default-off Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2666 — review published Bluesky quality
-
-- Clean main at 00b8facb; no inherited work. Alerts/health clear; service/source checks pass, digest queue zero failures. Destructoid remains paused.
-- Owner value: distinguish useful social developments from popular keyword noise before changing the reader's picks.
-- Read five published Bluesky posts and 25 strongest safe texts for the actual Nov 16–17 15:00 edition window; retained texts/URLs in the review evidence JSON.
-- NBA/Gaming/World supply concrete developments; U.S. picks lack the targeted Democrat/letter detail or mix prediction and opinion. Do not invent missing facts.
-- Higher-engagement candidates include lexical noise, jokes, repeated Kerch claims and bare context. Retain queries, rotation, selection gates and budgets; quality remains open.
-- Fixed-end coverage command and evidence assertions pass: five selected posts, 25 examples, five uncapped reads. Full UTC-day review remains due after midnight.
-- No code, UI, runtime, source, provider call or generation change; existing builds retained. No screenshots or handbook update needed.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2666-{format,lint,check,services,sources,jobs}.log.
-- API/worker restart after push. Next: metrics ≥23:15 UTC, complete Bluesky day after midnight, Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2667 — account for sparse U.S. X selection
-
-- Clean main at 65a0d262; no inherited work. Alerts/health clear; 14 services and active sources healthy, digest queue zero failures. Destructoid remains paused.
-- Owner value: determine whether the one-post U.S. X section misses useful reporting before loosening selection gates.
-- Read all ten saved triage candidates against stored official oEmbed paragraphs: ten matches, four qualifiers, one selected; all texts nonempty/in-window and verified before publication.
-- Selected confirmation claim is concrete and explicitly attributed. Other qualifiers are endorsement, unnamed stock-trading allegation and general Alaska promotion; no demonstrated stronger qualifying omission.
-- Retained texts/URLs/scores and comparison in the Nov 17 edition review. Below-gate poll remains a possible alternative with missing survey context; one example does not justify lowering gates.
-- No source, runtime, UI, provider or budget change; existing builds retained. No screenshot or handbook update needed.
-- Evidence assertions pass: pnpm exec tsx /tmp/2667-review.ts. pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2667-{services,sources,jobs,format,lint,check}.log.
-- API/worker restart after push. Next: metrics ≥23:15 UTC, Bluesky full-day after midnight, Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2668 — retain late-day Bluesky collection evidence
-
-- Clean main at 96218bee; no inherited work. Alerts/health, services and active sources pass; digest queue zero failures. Destructoid remains paused.
-- Preserved 20:54/21:54 UTC natural Bluesky results before shared queue retention can remove them; merged by job ID and verified overlapping results unchanged.
-- Retained day now has 22 consecutive successful hours/110 positive matching fetched/submitted topic counts; World baseline/Ukraine rotation matches each hour.
-- Updated same-hours Nov 16 comparison and daily review. These counts are repeated observations, not unique posts or editorial-quality acceptance.
-- No source, runtime, UI, provider call or budget change; existing builds retained. No screenshots or handbook change required.
-- Evidence: pnpm exec tsx scripts/report-bluesky-collections.ts; python3 /tmp/2668-retain.py passes all job/hour/topic/count/rotation assertions.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; receipts /tmp/2668-{format,lint,check,services,sources,jobs,evidence}.log. API/worker restart after push.
-- Next: metrics ≥23:15 UTC; retain 22:54/23:54 results and complete Bluesky day after midnight; Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2669 — retain penultimate Bluesky hourly collection
-
-- Clean main at f119fa94; no inherited work. Alerts/health clear; all 14 services and active sources healthy, digest queue zero failures. Destructoid remains paused.
-- Preserved the natural 22:54 UTC Bluesky result before shared queue retention; existing overlapping results are unchanged.
-- Retained day now covers 23 consecutive successful hours/115 positive matching topic counts; World rotation and all 24-hour collection windows pass assertions.
-- Updated same-hours Nov 16 comparison and partial-day review. Counts remain repeated observations, not unique posts or editorial-quality acceptance.
-- No source, runtime, UI, provider call or budget change; existing builds retained. No screenshot or handbook change required.
-- Evidence: pnpm exec tsx scripts/report-bluesky-collections.ts; python3 /tmp/2669-retain.py. Receipt: /tmp/2669-evidence.log.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2669-{format,lint,check,services,sources,jobs}.log. API/worker restart after push.
-- Next: metrics ≥23:15 UTC; retain 23:54 result and complete Bluesky day after midnight; Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2670 — accept real edition bookmark transport
-
-- Clean main at afe529c8; no inherited work. Alerts/health, 14 services, active sources and digest jobs pass; Destructoid remains paused.
-- Higher-priority natural evidence is not due yet: metrics ≥23:15 UTC, final Bluesky/full-day after midnight; Tech runtime waits for pre-noon under item 59.
-- Saved all 25 stories/20 posts from the public Nov 17 edition through real reader controls in an isolated browser; all copies exactly match bounded public text, attribution, dates, URLs and eight explanations. No excerpt truncation.
-- All 45 source/edition links, exact displayed excerpts/context and card fit pass 12 mobile/desktop, theme and 100–300% text combinations. Keyboard removal focuses the next control and announces 44 items. Four screenshots retained; no reader defect found.
-- Browser requests were GET-only; saves/removals affected isolated local storage, not accounts/publication. Initial loopback probe lacked a visitor address and was denied; documented local-probe convention and public HTTPS GET pass.
-- No runtime, source, UI, generation, budget or provider change. Existing builds retained; no handbook update required.
-- Evidence: node /tmp/2670-saved.cjs; pnpm exec tsx /tmp/2670-verify.ts; node /tmp/2670-browser.cjs. Receipts /tmp/2670-copy-summary.json, /tmp/2670-browser.log and /tmp/2670-{services,sources,jobs}.log.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. Receipts /tmp/2670-{format,lint,check}.log. API/worker restart after push.
-- Next: metrics ≥23:15 UTC; final Bluesky collection/full-day review after midnight; Tech runtime wiring before noon. Do not repeat this completed bookmark review absent a reader regression.
-
-## 2026-11-17: iteration 2671 — due metrics recovery checkpoint
-
-- Clean main at e479452f; no inherited work. Alerts clear, all 14 services and active sources healthy; digest queue has no failures. Destructoid remains paused.
-- Three read-only samples straddle 23:15 UTC: 24 healthy rules/six uncached queries ≤0.436 s; failure, process, evaluator and OOM counters unchanged.
-- Since prior checkpoint: 68 small merges/1,774,326 rows, no new big merge, +2,005 memory-high events. Continued reclaim keeps resource acceptance open; retain CPU 2%/88 MiB high/112 MiB max.
-- Worker scrape warnings align with prior restart windows; current health passes. Local/public HTTPS health and five-topic/25-story/20-post edition pass; disk 73%. Public probe used public DNS because local DNS returned the private VM address.
-- No runtime, source, UI, provider call or budget change; existing builds retained, no screenshot or handbook change required.
-- Evidence: pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60; python3 /tmp/2671-summarize.py; /tmp/2671-summary.json and /tmp/2671-{metrics-journal,services,sources,jobs}.log.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips; API rebuilt by integration harness. API/worker restart after push.
-- Next: metrics ≥00:20 UTC Nov 18; final Bluesky collection/full-day review after midnight; Tech runtime wiring before noon.
-
-## 2026-11-17: iteration 2672 — verify expanded original-report transport
-
-- Clean main at 58e514a0; no inherited work. Alerts clear, health database/Redis pass; monitored services, active sources and jobs checked. Destructoid remains paused.
-- Higher priorities await natural evidence: final Bluesky collection/full-day after midnight, metrics ≥00:20 UTC; Tech runtime wiring waits for pre-noon.
-- Reader value: readers can inspect the original reporting behind every published story at enlarged text using keyboard controls.
-- Checked all 59 saved original reports beneath 25 real Nov 17 stories: destinations, headlines, timestamps and supplied publishers match publication. No transport defect found.
-- Expanded lists fit mobile/desktop in both themes at 100–300% text; keyboard opening/closing preserves focus. Twelve combinations, four screenshots; third-party traffic blocked and browser requests GET-only.
-- No runtime, source, generation, provider or budget change. Existing builds retained; no handbook change needed.
-- Evidence: node /tmp/2672-verify.cjs; /tmp/2672-browser.log and /tmp/2672-{services,sources,jobs}.log. First browser attempt needed to wait for the asynchronous details-toggle accessible label; corrected probe waits for it.
-- Verification: pnpm format/lint:fix pass; pnpm check passed typecheck/lint/format/boundaries and 1,083 unit tests, then ended with signal 15 during integration without a failed assertion. Standalone pnpm test:integration passes 329 tests/four expected skips and rebuilds API. API/worker restart after push.
-- Next: final Bluesky/full-day review after midnight; metrics ≥00:20 UTC; Tech runtime wiring before noon. Do not repeat completed coverage transport review absent a reader regression.
+[Iterations 2665–2672](docs/progress-archive/2026-11-18-iterations-2665-2672.md)
 
 ## 2026-11-18: iteration 2673 — connect default-off Tech admission
 
@@ -195,3 +106,15 @@
 - Signed-out HTTPS scheduled reader passes: five topics/25 stories/20 posts. Public status still omits job runs and model details. Handbook check passes (19 pages/39 tables). Receipts /tmp/2679-{timing,history,reader}.json and handbook.log.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,088 unit tests/330 integration tests, four expected skips; isolated harness rebuilt API. Logs /tmp/2679-{format,lint,check}.log.
 - API/worker restart after commit/push; next: metrics ≥01:25 UTC, 04:40 retention, natural Nov 18 Tech admission and reader review.
+
+## 2026-11-18: iteration 2680 — due metrics recovery checkpoint
+
+- Clean main at 23bcdaaf; no inherited work. Initial alerts clear; health database/Redis, all 14 monitored services, active sources and jobs pass. Destructoid remains deliberately paused.
+- Reader weakness: Gaming lexical noise has a retained bounded comparison that does not justify a replacement query; retain it rather than repeat the investigation. Tech admission awaits the natural Nov 18 scheduled edition.
+- Completed the due 01:25 metrics checkpoint with eleven samples, 01:16:20–01:26:26, spanning required repository verification: all 24 rules healthy, 22 uncached probes ≤1.890 s.
+- Since 00:22:37: 68 small merges/1,638,424 rows, no new big merge; one admission-limit event without timeout. No new slow query, process/evaluator restart, evaluator error/miss or max/OOM/kill event; metrics journal empty.
+- Memory-high +1,368 (287 sampled); ending memory 90,267,648 bytes, lifetime peak 93,683,712; NRestarts=0, disk 73%. Resource acceptance remains open; retain CPU 2%/88 MiB high/112 MiB max.
+- Signed-out HTTPS latest passes five topics/25 stories/20 posts; certificate checks retained with the existing public DNS override. No inference, source/query/provider/budget/flag/UI change, or metrics restart/retuning.
+- Archived progress iterations 2665–2672 and older scheduled/completed task detail to keep handoffs small; updated capacity evidence and the task checkpoint. No handbook, schema metadata or screenshot change needed.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,088 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2680-{format,lint,check,metrics.jsonl,summary.json,reader.json}; summary assertions pass.
+- API/worker restart after commit/push; next metrics ≥02:30 UTC, retention 04:40 UTC, natural Tech admission and daily reader review after 15:00 UTC.

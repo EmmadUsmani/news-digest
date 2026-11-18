@@ -2017,3 +2017,22 @@ rules pass, but resource acceptance remains open. Retain CPU 2% / MemoryHigh
 88 MiB / MemoryMax 112 MiB; no restart, forced merge or retuning. Next short
 checkpoint ≥01:25 UTC. Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60`
 and `python3 /tmp/2675-summarize.py`; receipts `/tmp/2675-{metrics.jsonl,summary.json}`.
+
+### Second Nov 18 recovery checkpoint (iteration 2680)
+
+01:16:20–01:26:26 UTC: eleven read-only samples span the 01:25 checkpoint
+and the required repository checks. All 24 rules stayed healthy; 22 uncached
+expected-series queries completed in ≤1.890 s. Since 00:22:37, small merges
+increased 68 / 1,638,424 rows; big merges stayed unchanged. Admission-limit
+events increased by one during sampling, without a queue timeout. Slow queries,
+process-start, evaluator error/missed and max/OOM/kill counters stayed unchanged.
+Memory-high increased 1,368 (287 during sampling); ending memory 90,267,648
+bytes, lifetime peak 93,683,712. NRestarts=0; the metrics journal has no entries
+since the previous checkpoint. Disk is 73%. Services, active sources and jobs
+pass; signed-out public HTTPS serves five topics/25 stories/20 posts.
+
+Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Admission pressure
+and continued reclaim keep resource acceptance open; no new comparable big
+merge occurred. No restart of metrics, forced merge, query tuning or provider
+calls. Next short checkpoint ≥02:30 UTC. Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 10 60` and `python3 /tmp/2680-summarize.py`;
+receipts `/tmp/2680-{metrics.jsonl,metrics-error.log,summary.json,reader.json}`.

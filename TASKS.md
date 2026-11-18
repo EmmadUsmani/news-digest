@@ -4,11 +4,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Next scheduled acceptance
 
-- Public-mode scheduled publication/access accepted (2398): Nov 15 `a0fa3916`, item 50 acked; owner made VM sharing public Nov 15 at about 22:30 UTC.
-- Nov 17 scheduled public edition accepted (2632): `6216cb7a`, 25 stories/20 posts, five AI story sections/zero unscored; World Haiku, other four Sonnet. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; NBA original text/context reviewed (2659), no supported note needed. [Review](docs/edition-reviews/2026-11-17.md).
-- Recovery/ownership fixes deployed; natural World/Gaming admission recovery and selected NBA spoof absence accepted Nov 16; Nov 17 NBA text/context check complete (2659); broader social quality remains open. No paid replay or cap changes.
-- Nov 15 review complete: Gaming AI recovered; World fallback and U.S. Haiku. World/U.S. selected/coverage IDs disjoint. NBA spoof exclusion fixed; Tech evidence scarcity diagnosed; U.S. three Bluesky picks accepted.
-- Nov 16 scheduled edition accepted publicly (2516): all five story sections Sonnet, zero unscored; World AI recovered, NBA spoof absent, World/U.S. coverage disjoint. Tech three empty evidence sets remain; daily cost/speed/social review recorded (2517); Gaming sparse, U.S. X absent. Protect 13:00–16:00 UTC. [Prior scheduled detail](docs/progress-archive/2026-11-15-scheduled-task-detail-2430.md).
+- Nov 17 scheduled public edition accepted (2632): `6216cb7a`, five AI story sections/25 stories/20 posts; World Haiku, others Sonnet, no unscored stories. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; admission enabled for Nov 18. [Review](docs/edition-reviews/2026-11-17.md).
+- Next: natural Nov 18 Tech admission and reader review after 15:00 UTC; protect 13:00–16:00 UTC. No paid replay or cap changes. [Prior acceptance and completed detail](docs/progress-archive/2026-11-18-task-handoff-2680.md).
 
 ## Open work
 
@@ -26,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2675: 24 healthy rules/six passing queries (≤0.719 s); 77 small merges/5,414,176 rows, no new big merge or admission/failure events. +4,631 memory-high events and three 00:02 slow queries keep resource acceptance open. Next check ≥01:25 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#first-nov-18-recovery-checkpoint-iteration-2675).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2680: 24 healthy rules/22 passing queries (≤1.890 s); 68 small merges/1,638,424 rows, no new big merge, slow query or timeout. One admission-limit event and +1,368 memory-high events keep resource acceptance open. Next check ≥02:30 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#second-nov-18-recovery-checkpoint-iteration-2680).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -64,18 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
-- [x] 2679: Restore local edition timing report in public mode; Nov 17 retained worker duration 247.549 s, five topics and edition ledger available.
+- [x] 2680: Complete due metrics checkpoint across repository verification; public reader/services healthy, resource acceptance remains open.
 
-- [x] 2678: Add exact-capture GTA shared-estimate grouping control; all three pairs/six orders retain supported coverage, blanket split misses three positives.
-
-- [x] 2677: Review all twelve Nov 17 published multi-report groups against 45 captured member texts; preserve shared-estimate GTA evidence and five unresolved groups.
-
-- [x] 2676: Activate bounded Tech admission for the next scheduled edition; retain immediate flag rollback and private decision receipts.
-
-- [x] 2675: Preserve private Tech admission reservations, displacements and scores through publication; public reader projection omits the receipt. Switch remains off.
-
-- [x] 2674: Completed Nov 17 Bluesky day retention, fixed-cutoff supply comparison and 25-text reader review; collection accepted, quality mixed, queries unchanged.
-
-- [x] 2673: Connected the Tech admission policy to publication behind a default-off switch; recorded 40-article control and real publication transport cover validated grouping and fallback. Production admission remains unchanged.
+[Completed iterations 2673–2679](docs/progress-archive/2026-11-18-task-handoff-2680.md#completed-iterations-26732679).
 
 [Earlier completed steps](docs/progress-archive/2026-11-18-completed-tasks-2647-2672.md).
