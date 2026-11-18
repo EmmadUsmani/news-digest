@@ -355,3 +355,17 @@ Archive counts and compiler capabilities remain publisher claims. EGM returned
 HTTP 200 but mixes product explanation with demonstration text; no saved update.
 No code change, paid call or edition regeneration. Public Tech still has thin
 Apple/China summaries; scheduled Nov 18 share/depth acceptance remains pending.
+
+## Ontology project context — iteration 2707
+
+Ordinary shared-client HTTP 200 and deployed extraction recovered the saved
+[Sutra-OS](https://github.com/0nelight/sutra-os) HN candidate
+`5a518090-e7b0-4c0a-a8f7-3e3008ee50c3`: 0 → 1,500 characters.
+Reviewed the complete excerpt before a blank-only write; an independent exact
+ID/full-text reread passes (`/tmp/2707-saved.json`). The README describes its
+self-hosted ontology model and beta status; capabilities, estimates and historical
+claims remain publisher assertions. No code change, paid call or regeneration.
+
+Web Browser Engineering is an unscoped book index and stays blank; jQuery
+release was not fetched. Public Tech still has thin Apple/China summaries.
+Scheduled Nov 18 Tech share/depth acceptance remains pending.

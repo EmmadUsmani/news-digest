@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2707: Recover saved Sutra-OS publisher README excerpt (1,500 characters); exact ID/full-text reread passes.
+
 - [x] 2706: Recover saved Salon-preservation and Nimony publisher excerpts (2,649 characters); exact rereads pass. EGM demo-mixed excerpt left unchanged.
 
 - [x] 2705: Match lower-level publisher main headings to document titles; saved launch-pitches candidate recovered 0 → 1,500 characters, exact reread passes.

@@ -174,3 +174,13 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts; sources/tasks/recovery receipt updated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2706-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2707 — recover ontology project context
+
+- Clean main at c493e3ff; no inherited work. Alerts/health/services/sources pass; digest queue zero failures, next run 15:00 UTC.
+- Reader weakness: public Tech Apple/China summaries remain thin. Recovered another saved blank candidate so the scheduled editor has publisher context.
+- Ordinary shared-client GitHub HTTP 200 and deployed extraction recover Sutra-OS README: 0 → 1,500 characters. Complete excerpt reviewed before blank-only write; independent exact ID/full-text reread passes (/tmp/2707-saved.json).
+- README capabilities, estimates and historical claims remain attributed. Browser Engineering is an unscoped book index and stays blank. No code/schema/UI change, paid call, budget/provider change or edition regeneration.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts; sources/tasks/recovery receipt updated. Public job state filtering is unavailable as designed; queue counts confirm no failures.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2707-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

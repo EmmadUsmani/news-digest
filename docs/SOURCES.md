@@ -3694,3 +3694,8 @@ Iteration 2706: deployed extraction recovered blank saved Salon-preservation and
 Nimony HN excerpts (2,649 characters); exact ID/full-text rereads pass. EGM's
 demo-mixed extraction remains unsaved.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#archive-and-compiler-context--iteration-2706).
+
+Iteration 2707: ordinary HTTP 200 GitHub page and deployed extraction recover the
+blank saved Sutra-OS HN excerpt (1,500 characters); exact ID/full-text reread passes.
+Project capabilities and historical claims remain attributed to its README.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#ontology-project-context--iteration-2707).
