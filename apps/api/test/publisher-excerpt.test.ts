@@ -503,3 +503,16 @@ void test('AsciiDoc guides retain document prose without table of contents or fo
   ])
     assert.equal(publisherExcerpt(changed), '');
 });
+
+void test('Discourse announcement excludes replies and their embedded article previews', () => {
+  const announcement =
+    'The project released a security update with IPv6 defenses against the ongoing denial of service attack.';
+  const reply =
+    'A reader asks how to upgrade the browser bundle instead of the standalone relay software.';
+  const page = `<main><h1>Security release</h1><div id="post_1" class="topic-body crawler-post"><div class="crawler-post-meta"><p>${reply}</p></div><div class="post" itemprop="text"><p>${announcement}</p></div></div><div id="post_2" class="crawler-post" itemprop="comment"><div class="post" itemprop="text"><p>${reply}</p><article><p>${reply}</p></article></div></div></main>`;
+  assert.equal(publisherExcerpt(page), announcement);
+  assert.equal(
+    publisherExcerpt(page.replace('id="post_1"', 'id="post_9"')),
+    reply,
+  );
+});

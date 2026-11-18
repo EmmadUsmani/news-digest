@@ -3740,3 +3740,8 @@ excerpts for an Odin NES emulator, Turbo-Browser-MCP and EFF’s ALPR warrant
 brief (4,500 characters). Exact ID/full-text rereads pass; no source added or
 collection behavior changed. Legal arguments retain EFF attribution.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#emulator-browser-automation-and-alpr-context--iteration-2714).
+
+Iteration 2715: ordinary HTTP 200 Tor release announcement revealed reader-reply
+contamination. Discourse collection now scopes the opening post's text body;
+blank saved HN candidate recovered to 968 characters, exact ID/text verified.
+No source added or paid calls. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#tor-announcement-scope--iteration-2715).

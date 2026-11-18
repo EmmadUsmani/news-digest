@@ -489,3 +489,20 @@ the developer’s experience, browser capabilities remain project claims, and
 EFF’s constitutional position remains a legal argument rather than a ruling.
 No collection code change, paid call or edition regeneration. Scheduled Tech
 depth acceptance remains pending after 15:00 UTC.
+
+## Tor announcement scope — iteration 2715
+
+The ordinary HTTP 200 [Tor security announcement](https://forum.torproject.org/t/security-release-0-4-9-17/22454)
+exposed a collection error: generic main extraction included a reader's relay
+upgrade question (1,043 characters). Discourse extraction now uses only the
+opening crawler post's text body, excluding reply metadata and embedded previews.
+The saved blank candidate `e3169d46-6216-44b1-ad87-6ca3a84454a6` now has
+968 characters explaining the IPv6 defense, ongoing DDoS and upgrade request.
+Full text reviewed before a blank-only update; independent exact ID/full-text
+reread passes (`/tmp/2715-saved.json`). Regression covers both reply prose and
+an embedded article that could otherwise override the opening announcement.
+
+Other HTTP 200 pages checked (CMU Learn, Web Browser Engineering and Coldwater
+Tractors) remain blank because their layouts lack supported reporting scope.
+No publisher block or bypass, paid call, cap change or edition regeneration.
+Natural scheduled share/depth acceptance remains after 15:00 UTC.

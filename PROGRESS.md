@@ -186,3 +186,14 @@
 - No code/schema/UI changes, paid calls, budget changes or regeneration. Sources/recovery receipt/tasks updated; no handbook behavior change.
 - Public HTTPS Chromium reader passes with 25 stories (external DNS resolution needed because local hostname resolves to VM). `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 1,114 unit/330 integration tests, four expected skips. Logs `/tmp/2714-*.log`. Commit/push and API/worker restart follow checks.
 - Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2715 — isolate Tor announcement evidence
+
+- Clean main at 51dc623b; no inherited work. Alerts/health/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Found a collection cause: Tor’s ordinary HTTP 200 Discourse page mixed its announcement with a reader reply (1,043 characters).
+- Extraction now scopes Discourse opening-post text before generic article/main; regression excludes reply prose and embedded article previews.
+- Blank saved Tor candidate recovered 0 → 968 characters; full excerpt reviewed and independent exact ID/full-text reread passes (`/tmp/2715-saved.json`).
+- CMU Learn, Browser Engineering and Coldwater Tractors return HTTP 200 but lack supported reporting scope; left blank. Harper’s historical memoir opening not recovered as Tech reporting.
+- No paid calls, budget changes or regeneration. Sources, recovery receipt, tasks and pipeline handbook updated; diagram unchanged.
+- Verification: targeted extraction 27/27, public HTTPS Chromium reader 25 stories, build and handbook checks pass. `pnpm format`, `pnpm lint:fix` and `pnpm check` pass: 1,115 unit/330 integration tests, four expected skips. Logs `/tmp/2715-*.log`. Commit/push and API/worker restart follow checks.
+- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

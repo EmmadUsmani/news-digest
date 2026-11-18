@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2715: Scope Discourse publisher evidence to the opening post; Tor announcement recovered 0 → 968 characters without reader replies. Exact saved ID/full-text verification and regression pass.
+
 - [x] 2714: Recover saved NES emulator, browser automation and ALPR publisher context (4,500 characters); three blank-only writes and exact ID/full-text rereads pass.
 
 - [x] 2713: Collect title-matched AsciiDoc document bodies; NetBSD encryption 0 → 1,500 characters. Three blank-only publisher recoveries total 4,500 characters; exact rereads pass.

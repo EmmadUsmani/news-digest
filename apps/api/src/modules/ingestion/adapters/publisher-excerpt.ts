@@ -38,6 +38,7 @@ export function publisherExcerpt(html: string): string {
   // heading and take only the reporting after it, excluding opening chrome.
   // A matching header/document title also identifies a separately scoped main.
   const reporting =
+    discourseReporting(clean) ??
     article ??
     mediaWikiReporting(clean) ??
     microformatReporting(clean) ??
@@ -188,6 +189,36 @@ function microformatReporting(html: string): string | undefined {
     ),
   );
   return content ? serialize(content) : undefined;
+}
+
+/** Discourse exposes the opening announcement separately from reader replies. */
+function discourseReporting(html: string): string | undefined {
+  if (!html.includes('crawler-post')) return undefined;
+  const opening = find(
+    parseFragment(html),
+    (node) =>
+      node.attrs.some(
+        (attr) => attr.name === 'id' && attr.value === 'post_1',
+      ) &&
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'class' &&
+          attr.value.split(/\s+/).includes('crawler-post'),
+      ),
+  );
+  if (!opening) return undefined;
+  const body = find(
+    opening,
+    (node) =>
+      node.attrs.some(
+        (attr) => attr.name === 'itemprop' && attr.value === 'text',
+      ) &&
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'class' && attr.value.split(/\s+/).includes('post'),
+      ),
+  );
+  return body ? serialize(body) : undefined;
 }
 
 /** AsciiDoc separates its document header, content and footer by stable IDs. */
