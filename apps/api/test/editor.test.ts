@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
@@ -1730,6 +1731,93 @@ void test('JSON fence handling rejects commentary, multiple blocks and malformed
     assert.equal(h.calls.length, 4);
     assert.ok(
       h.diagnostics().every((event) => event.category === 'invalid-json'),
+    );
+  }
+});
+
+void test('Nov 18 retained NBA failures reject all seven fields and bounded wording repairs recover', async () => {
+  const fixtures = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/llm/nba-2026-11-18-absence.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    model: string;
+    attempt: string;
+    field: 'headline' | 'summary' | 'whyItMatters';
+    rejected: string;
+    evidence: string[];
+    corrected: string;
+  }[];
+  assert.equal(fixtures.length, 7);
+  assert.equal(new Set(fixtures.map((f) => `${f.model}/${f.attempt}`)).size, 4);
+  for (const fixture of fixtures) {
+    const input = [
+      {
+        ...candidates[0],
+        title: fixture.evidence[0],
+        excerpt: fixture.evidence[1],
+      },
+    ];
+    const base = {
+      ...story,
+      headline: fixture.evidence[0],
+      summary: fixture.evidence[1].split('. ')[0] + '.',
+      whyItMatters: 'A reported injury affects a player.',
+      rationale: 'Injury reporting.',
+    };
+    const rejected = {
+      brief: [base.headline, base.summary],
+      stories: [{ ...base, [fixture.field]: fixture.rejected }],
+    };
+    const corrected = {
+      brief: [base.headline, base.summary],
+      stories: [{ ...base, [fixture.field]: fixture.corrected }],
+    };
+    const h = harness([rejected, corrected]);
+    const result = await h.editor.edit(
+      { ...topic, name: 'NBA' },
+      input,
+      1,
+      'nov18-repair',
+    );
+    assert.ok(
+      result,
+      `${fixture.model}/${fixture.attempt}/${fixture.field} ${JSON.stringify(h.diagnostics())}`,
+    );
+    assert.equal(h.calls.length, 2);
+    assert.ok(
+      h
+        .diagnostics()
+        .some(
+          (d) =>
+            d.category === 'unsupported-absence' && d.field === fixture.field,
+        ),
+    );
+    assert.equal(result.stories[0][fixture.field], fixture.corrected);
+    for (const call of h.calls)
+      assert.match(
+        call.instructions,
+        /a trailing health concern, attribution or uncertainty clause/,
+      );
+    // A fabricated absence remains rejected even after the bounded correction.
+    const unsupported = {
+      ...corrected,
+      stories: [
+        {
+          ...corrected.stories[0],
+          whyItMatters: 'The team has not announced a return date.',
+        },
+      ],
+    };
+    assert.equal(
+      await harness([unsupported]).editor.edit(
+        { ...topic, name: 'NBA' },
+        input,
+        1,
+        'nov18-unsupported',
+      ),
+      null,
     );
   }
 });

@@ -1,0 +1,81 @@
+[
+  {
+    "model": "claude-sonnet-5-5",
+    "attempt": "initial",
+    "field": "whyItMatters",
+    "rejected": "Philadelphia will be without a leading scorer, with his status for the Bucks game still to be determined.",
+    "evidence": [
+      "Jaylen Brown Out Wednesday With Hamstring Strain",
+      "Jaylen Brown is set to miss the Philadelphia 76ers' matchup against the Orlando Magic on Wednesday with a left hamstring strain. Brown will be re-evaluated before Saturday's game against the Bucks. Brown suffered the injury late in the fourth quarter of Monday's win over the Nets. Brown is averaging 22.6 points and 6.6 rebounds on the year.",
+      "Sixers Notes: Brown, Embiid, James, Starters Minutes",
+      "Jaylen Brown suffered a gash on his forehead and experienced some hamstring tightness in the Sixers’ 135-123 win over the Nets on Monday, Gina Mizell of the Philadelphia Inquirer reports. Brown finished the game with 31 points, 13 rebounds and four assists. Brown has already been ruled out of the Sixers’ game against Orlando on Wednesday due to a left hamstring strain, Kyle Neubeck of PHLYSports.com tweets. The veteran wing is expected to be reevaluated before their game against Milwaukee on Saturday. He’s averaging 22.6 points, 6.6 rebounds and 3.6 assists in 14 games. Here’s more on the…"
+    ],
+    "corrected": "The hamstring strain sidelines a player averaging 22.6 points and 6.6 rebounds."
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "attempt": "repair",
+    "field": "headline",
+    "rejected": "Warriors expected to be without Steph Curry for a month with oblique abdominal tear",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "Steph Curry’s oblique abdominal tear raises long-term health concerns"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "attempt": "repair",
+    "field": "summary",
+    "rejected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, per the report. On his podcast Tuesday, Stephen A. Smith said Curry's ongoing injuries and cartilage damage in his right knee could indicate his current contract may be his last.",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health."
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "attempt": "initial",
+    "field": "headline",
+    "rejected": "Warriors expected to be without Steph Curry for a month with oblique tear",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "Steph Curry’s oblique abdominal tear raises long-term health concerns"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "attempt": "initial",
+    "field": "summary",
+    "rejected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear. Stephen A. Smith said on his podcast Tuesday that Curry's ongoing injuries and cartilage damage in his right knee could mean his current contract is his last.",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health."
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "attempt": "repair",
+    "field": "headline",
+    "rejected": "Warriors expected to be without Steph Curry for a month with oblique tear",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "Steph Curry’s oblique abdominal tear raises long-term health concerns"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "attempt": "repair",
+    "field": "summary",
+    "rejected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there is concern it could affect his long-term health. Stephen A. Smith said on his podcast Tuesday that Curry's ongoing injuries and right knee cartilage damage could mean his current contract may be his last.",
+    "evidence": [
+      "Stephen A. Smith drops harsh truth bomb on Steph Curry’s NBA future",
+      "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health. Stephen A. Smith appeared on his podcast on Tuesday and said Curry’s ongoing injuries, along with the cartilage damage in his right knee, could indicate his current contract could be his last. Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news…"
+    ],
+    "corrected": "The Warriors are expected to be without Steph Curry for a month due to an oblique abdominal tear, and there’s concern it could affect his long-term health."
+  }
+]

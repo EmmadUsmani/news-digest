@@ -161,3 +161,13 @@
 - Edition review records exact wording, source sentence, and next bounded regression work. Guard/prompt unchanged; no paid replay, budget change, generation or deployment.
 - Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,120 unit/330 integration passes, four expected skips; logs `/tmp/2768-{format,lint,check}.log`. Documentation-only; no rebuild/restart needed, running app unchanged.
 - Next: pin retained NBA failures and verify bounded correction before Tech item 67 cause table/general fix/backfill. Destructoid remains blocked; no access workarounds.
+
+## 2026-11-18: iteration 2769 — bounded NBA injury wording guidance
+
+- Clean main at 13a6ba6c; no inherited work. Alerts clear; health, 14 services and 38 monitored sources pass.
+- Pinned seven exact rejected fields from all four retained Nov 18 attempts in offline fixtures; no private artifact paths, credentials or provider calls.
+- NBA-only guidance asks for positive injury headlines/significance and complete negative source sentences, retaining trailing health concerns/attribution/uncertainty. Guard, fallback and budgets unchanged.
+- Editor regression proves each original field rejects, a manually corrected response passes repair, and invented return-date absences still fail. This is offline verification, not natural model acceptance.
+- Verification: targeted editor 43/43; pnpm format, pnpm lint:fix, pnpm check (1,121 unit/330 integration passes, four expected skips), pnpm build and handbook check (19 pages/21 diagrams/39 tables) pass; /tmp/2769-*.log.
+- Rebuilt API/worker restarted healthy; /healthz database/Redis pass, alerts clear. No UI/schema/source changes; Nov 18 immutable edition retained.
+- Next: natural scheduled NBA acceptance; resume item 67 three-day cause table/general excerpt fix/backfill while awaiting it. Destructoid remains blocked.
