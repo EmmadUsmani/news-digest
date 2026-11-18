@@ -780,3 +780,17 @@ The saved candidate f04942be-5434-4836-8507-4c2e3e20a72a changed from zero to
 performance results. Blank-only write and exact ID/full-text reread pass
 (`/tmp/2735-saved.json`). Scoped-template regression tests pass; no paid calls,
 budget changes or edition regeneration. Scheduled Tech acceptance remains pending.
+
+## Stellar discovery and software correctness — iteration 2736
+
+Ordinary shared-client HTTP 200 responses recovered two blank saved HN
+excerpts, each from zero to 1,500 characters:
+
+- [Curtin's stellar radio-pulse discovery](https://www.curtin.edu.au/news/media-release/researchers-discover-rare-star-system-that-emits-radio-signals-every-eight-minutes/): white dwarf/Sun-like companion, eight-minute rotation and evidence locating the pulses.
+- [Correctness and complexity](https://pron.github.io/posts/correctness-and-complexity): the author's verification talk and its scope, computational limits and the cost of correctness.
+
+Full passages reviewed before blank-only writes; exact stored-ID/full-text
+rereads pass 2/2 (`/tmp/2736-saved.json`). Possible Futures returned HTTP 200
+but its extracted passage skips list context and remains unchanged. No code,
+paid calls, budget changes or edition regeneration. Scheduled Tech acceptance
+remains pending.

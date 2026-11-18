@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2736: Recover saved stellar radio-pulse discovery and software-correctness context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
+
 - [x] 2735: Fix title-matched blog article-body extraction; CPython/yk saved excerpt 0 → 1,500 characters, exact stored-text verification and scoped regression tests pass.
 
 - [x] 2734: Recover saved Jane Street interview-change excerpt (1,500 characters); blank-only write and exact stored-ID/full-text reread pass.

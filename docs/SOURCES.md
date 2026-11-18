@@ -3865,3 +3865,9 @@ with explicit article-body containers; recent-post sidebars remain excluded.
 The saved CPython/yk candidate now has 1,500 characters instead of zero;
 blank-only write and exact stored-text reread pass. No source or budget changes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#cpython-article-body--iteration-2735).
+
+Iteration 2736: ordinary HTTP 200 publisher fetches recovered blank saved HN
+context for Curtin's stellar radio-pulse discovery and the Correctness and
+Complexity essay (3,000 characters); exact stored-text rereads pass 2/2.
+Possible Futures list context was incomplete and remains unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#stellar-discovery-and-software-correctness--iteration-2736).

@@ -1,47 +1,6 @@
 [Earlier iterations](docs/progress-archive/2026-11-18-progress-through-2716.md).
 
-## 2026-11-18: iteration 2717 — recover tutorial and ground-stop context
-
-- Clean main at 130aa4c1; no inherited work. Pending worker restart/scrape alerts cleared naturally; metrics endpoint and health pass. All active sources healthy; digest-generation zero failures, next run 15:00 UTC.
-- Read public Tech: Apple and China summaries remain one sentence; saved publisher evidence still supports the scheduled depth acceptance.
-- Ordinary shared-client HTTP 200 pages recovered blank positional-embeddings tutorial and L3Harris ground-stop statement excerpts (1,500/636 characters).
-- Complete excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 2/2 (`/tmp/2717-saved.json`). L3Harris claims retain attribution.
-- Kiri left unchanged because extracted text includes sample benchmark language. Constrained-programming HTTP 200 lacks supported extraction scope and remains blank.
-- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/recovery receipt/tasks updated; handbook behavior unchanged.
-- Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` all pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2717-*.log`.
-- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2718 — recover WebKit and Lovable context
-
-- Clean main at 0905aed3; no inherited work. Alerts/health and active sources pass; digest-generation zero failures, next run 15:00 UTC.
-- Read public Tech: Apple and China summaries remain one sentence. Scheduled depth acceptance remains pending.
-- Ordinary shared-client HTTP 200 publisher pages recovered two blank saved HN excerpts: WebKit promise debugging and Lovable security investigation (1,500 characters each).
-- Complete excerpts reviewed before blank-only writes; independent exact stored-ID/full-text rereads pass 2/2 (`/tmp/2718-saved.json`). Research findings retain attribution.
-- Space-data-center and self-booting ZIP pages returned HTTP 200 without supported scoped extraction; left blank. No code/schema/UI changes, paid calls, cap changes or edition regeneration.
-- Sources/recovery receipt/tasks updated; handbook behavior unchanged.
-- Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2718-*.log`.
-- Commit/push and API/worker restart follow checks. Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2719 — recover research, privacy and infrastructure context
-
-- Clean main at b09bccc4; no inherited work. Alerts/health pass; scheduled digest next runs 15:00 UTC with zero failed generation jobs.
-- Read public Tech: Apple and China summaries remain thin; scheduled depth acceptance stays pending.
-- Ordinary shared-client HTTP 200 responses recovered blank Google Research teamwork, EFF ambient privacy and DocSpring infrastructure excerpts (1,500 characters each).
-- Complete excerpts reviewed before blank-only writes; independent exact stored-ID/full-text rereads pass 3/3 (`/tmp/2719-saved.json`). Publisher claims retain attribution.
-- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: public HTTPS Chromium reader five topics/25 stories; build passes. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2719-*.log`. Commit/push and API/worker restart follow checks.
-- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2720 — recover AI opinion and network history context
-
-- Clean main at d962ce72; no inherited work. Alerts/health and active sources pass; scheduled digest next runs 15:00 UTC with zero failed generation jobs.
-- Read public Tech: Apple and China summaries remain thin; natural scheduled depth acceptance remains pending.
-- Ordinary shared-client HTTP 200 responses recovered two blank saved HN excerpts: AI strategy opinion and 3Com history (1,500 characters each).
-- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2720-saved.json`). Predictions retain opinion attribution.
-- UCSD study returned HTTP 200 but only 109 extracted characters; left unchanged. No code/schema/UI, paid calls, cap changes or edition regeneration.
-- Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: public HTTPS Chromium reader five topics/25 stories; build passes. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2720-*.log`. Commit/push and API/worker restart follow checks.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+[Iterations 2717–2720](docs/progress-archive/2026-11-18-iterations-2717-2720.md).
 
 ## 2026-11-18: iteration 2721 — recover offline music, remote editor and lighting context
 
@@ -207,4 +166,15 @@
 - Targeted `pnpm exec tsx --test apps/api/test/publisher-excerpt.test.ts`: 32/32 pass, including mismatched-title, missing-identity and unrelated-container controls.
 - Source receipt, handbook and tasks updated; no paid calls, cap changes or edition regeneration.
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline` pass: 1,120 unit/330 integration passes, four expected skips. Logs `/tmp/2735-*.log`.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2736 — recover stellar discovery and correctness context
+
+- Clean main at 6e5169a2; no inherited work. Alerts/health clear, 38 monitored sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
+- Latest public Tech remains thin pending scheduled acceptance; Chromium reader shows five topics/25 stories.
+- Ordinary shared-client HTTP 200 fetches recovered Curtin's stellar radio-pulse discovery and the Correctness and Complexity essay: 0 → 1,500 characters each. Full passages reviewed before blank-only writes.
+- `pnpm exec tsx /tmp/2736-verify.ts` passes exact stored-ID/full-text reread 2/2; receipt `/tmp/2736-saved.json`. Possible Futures extraction skips list context; unchanged.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, and `pnpm exec tsx scripts/check-handbook.ts` pass: 1,120 unit/330 integration passes, four expected skips; 19 handbook pages/21 diagrams checked. Logs `/tmp/2736-*.log`.
+- API/worker restarted before freeze; initial request preceded readiness, retry health passes database/Redis. Post-restart public Chromium reader five topics/25 stories; alerts clear. Older progress entries archived to keep handoff small.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
