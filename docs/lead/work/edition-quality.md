@@ -20,7 +20,8 @@ Review: [docs/edition-reviews/2026-11-16.md](../../edition-reviews/2026-11-16.md
 
 1. Nov 17 edition: World and U.S. both AI-edited again (day 2 of 3 for U.S.
    acceptance); Gaming and U.S. social counts.
-2. Tech summary depth: missing excerpts are the cause, not the editor. Item 6
-   on Current order. If the agent keeps tracing without a fix, propose steering.
+2. Tech summary depth: steered Nov 18 as item 66 (also stops routine metrics
+   checkpoint commits). Check that the agent's acks report excerpt share before
+   and after, and that guarding commits fall below about a third.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.
