@@ -3663,3 +3663,8 @@ Iteration 2700 recognizes main reporting with a header/strong title exactly
 matching the document title. Dan Luu’s previously fetched HTTP 200 testing
 article recovers one blank saved excerpt (1,500 characters), exactly reread.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#matching-header-titles--iteration-2700).
+
+Iteration 2701 recovers two additional blank saved WordPress HN excerpts using
+deployed extraction: Digital Films log workflow and Paleonerdish fossil history,
+1,500 characters each; exact stored text verified. Steve Blank HTTP 200 remains
+without a scoped excerpt. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#more-wordpress-reporting--iteration-2701).

@@ -267,3 +267,15 @@ benchmark comparisons to the author; it does not establish general model quality
 Reduced recorded fixture and mismatched/missing-title boundary tests pass.
 Scheduled candidate-share/depth acceptance remains after 15:00 UTC; no paid
 calls, edition regeneration or budget changes.
+
+## More WordPress reporting — iteration 2701
+
+Ordinary shared-client HTTP 200 responses now recover two more blank saved HN
+candidates using deployed extraction: [Stop Filming in Log?](https://digitalfilms.wordpress.com/2026/11/15/stop-filming-in-log/)
+and [The Fossils That Haunted Lovecraft](https://paleonerdish.wordpress.com/2026/10/30/halloween-special-xiv-the-fossils-that-haunted-lovecraft/).
+Each changed from 0 to 1,500 characters; independent exact ID/full-text rereads
+pass (3,000 characters). The first retains the colorist's workflow argument;
+the second supplies historical expedition and fossil-identification context,
+not a current discovery. Steve Blank's Nvidia page returns HTTP 200 but no
+scoped excerpt and stays blank. No extraction change, paid calls or edition
+regeneration; scheduled Tech acceptance remains pending.
