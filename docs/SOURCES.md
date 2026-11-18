@@ -3769,3 +3769,9 @@ excerpts for Google Research teamwork, EFF ambient privacy analysis and DocSprin
 infrastructure experience (4,500 characters). Exact ID/full-text rereads pass 3/3.
 No source or collection behavior changed.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#research-privacy-and-infrastructure-context--iteration-2719).
+
+Iteration 2720: ordinary HTTP 200 publisher pages recovered blank saved HN
+excerpts for Geohot's AI strategy opinion and 3Com history (1,500 characters
+each). Exact stored-ID/full-text rereads pass 2/2. UCSD's 109-character extraction
+was left unchanged. No source or collection behavior changed.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#ai-strategy-opinion-and-3com-history--iteration-2720).

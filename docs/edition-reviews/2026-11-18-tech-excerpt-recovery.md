@@ -569,3 +569,16 @@ reviewed before blank-only writes; exact stored-ID/full-text rereads pass 3/3
 (`/tmp/2719-saved.json`). Research outcomes, privacy analysis and operational
 experience remain attributed to their publishers. No extraction behavior, source,
 budget or immutable edition changed. Scheduled Tech acceptance remains pending.
+
+## AI strategy opinion and 3Com history — iteration 2720
+
+Ordinary shared-client HTTP 200 publisher responses recovered blank saved HN
+excerpts for [First Strike](https://geohot.github.io//blog/jekyll/update/2026/11/13/first-strike.html)
+and [What happened to 3Com?](https://dfarq.homeip.net/what-happened-to-3com/).
+Each changed from zero to 1,500 characters. Full excerpts were reviewed before
+blank-only writes; independent exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2720-saved.json`). Strategy predictions remain the author's opinion;
+3Com history remains attributed to its publisher. UCSD's elephant study page
+returned HTTP 200 but only 109 extracted characters and remains unchanged.
+No source, extraction behavior, budget or immutable edition changed.
+Scheduled Tech depth acceptance remains pending after 15:00 UTC.
