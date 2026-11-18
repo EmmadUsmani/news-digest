@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2723: Recover saved shell-command queues, Caltech placenta research and ParadeDB search-join publisher context (4,500 characters); blank-only writes and exact stored-ID/full-text rereads pass 3/3.
+
 - [x] 2722: Recover saved Cornell smartwatch research and JEPA experiment publisher context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
 
 - [x] 2721: Recover saved offline music-player, FreeBSD Zed and room-lighting publisher context (4,500 characters); blank-only writes and exact stored-ID/full-text rereads pass 3/3.

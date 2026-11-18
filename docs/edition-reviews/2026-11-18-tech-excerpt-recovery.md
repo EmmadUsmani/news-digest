@@ -606,3 +606,15 @@ Research claims and experiment results remain attributed to their authors.
 The saved clipboard-security publisher URL returned HTTP 404 and remains blank.
 No collection behavior, source, budget or immutable edition changed. Scheduled
 Tech depth acceptance remains pending after 15:00 UTC.
+
+## Shell queues, placenta research and search joins — iteration 2723
+
+Ordinary shared-client HTTP 200 publisher responses recovered blank saved HN
+excerpts for [concurrent shell queues](https://emmer.dev/blog/concurrent-shell-command-queues/),
+[Caltech placenta research](https://www.caltech.edu/about/news/uncovering-the-hidden-origins-of-the-placenta)
+and [ParadeDB search joins](https://www.paradedb.com/blog/joins). Each changed
+from zero to 1,500 characters. Complete passages reviewed before blank-only
+writes; exact stored-ID/full-text rereads pass 3/3 (`/tmp/2723-saved.json`).
+The mouse-embryo findings retain their species context; benchmark results remain
+the vendor's claims. No collection behavior, source, paid call, budget or
+immutable edition changed. Scheduled Tech depth acceptance remains pending.

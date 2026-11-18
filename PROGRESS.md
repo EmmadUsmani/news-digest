@@ -173,3 +173,13 @@
 - No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
 - Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2722-*.log`. Commit/push and API/worker restart follow checks.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2723 — recover shell queues, placenta and search-join context
+
+- Clean main at a8157650; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
+- Read public Tech in Chromium: Apple and China summaries remain thin; five topics/25 stories render.
+- Ordinary shared-client HTTP 200 publisher responses recovered three blank saved HN excerpts (4,500 characters).
+- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 3/3 (`/tmp/2723-saved.json`). Mouse species and vendor benchmark attribution preserved.
+- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2723-*.log`. Commit/push and API/worker restart follow checks.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

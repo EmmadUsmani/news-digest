@@ -3787,3 +3787,9 @@ excerpts for Cornell smartwatch research and JEPA experiments (3,000 characters)
 Exact stored-ID/full-text rereads pass 2/2. Clipboard-security URL returned 404
 and remains blank; collection behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#smartwatch-research-and-jepa-experiments--iteration-2722).
+
+Iteration 2723: ordinary HTTP 200 publisher pages recovered three blank saved
+HN excerpts: concurrent shell queues, Caltech placenta research and ParadeDB
+search joins (4,500 characters). Exact stored-ID/full-text rereads pass 3/3;
+collection behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#shell-queues-placenta-research-and-search-joins--iteration-2723).
