@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2714: Recover saved NES emulator, browser automation and ALPR publisher context (4,500 characters); three blank-only writes and exact ID/full-text rereads pass.
+
 - [x] 2713: Collect title-matched AsciiDoc document bodies; NetBSD encryption 0 → 1,500 characters. Three blank-only publisher recoveries total 4,500 characters; exact rereads pass.
 
 - [x] 2712: Recover direct game sales, historical Japanese tax and Clice publisher context (4,500 characters); three blank-only writes and exact ID/full-text rereads pass.

@@ -471,3 +471,21 @@ Complete excerpts reviewed before blank-only writes; independent exact ID/text
 rereads pass 3/3 (`/tmp/2713-saved.json`). Emacs usability claims and the
 open-source licensing argument remain author opinions, not established legal
 findings. No paid calls or regeneration; scheduled acceptance remains pending.
+
+## Emulator, browser automation and ALPR context — iteration 2714
+
+Three ordinary shared-client HTTP 200 responses recovered blank saved HN
+excerpts using the deployed extractor (1,500 characters each):
+
+| Candidate                                                                                                               | Before | After |
+| ----------------------------------------------------------------------------------------------------------------------- | -----: | ----: |
+| [NES emulator in Odin](https://lucypero.com/lucynes.html)                                                               |      0 | 1,500 |
+| [Turbo-Browser-MCP](https://github.com/Tthanh2k6/turbo-browser-mcp)                                                     |      0 | 1,500 |
+| [EFF ALPR warrant brief](https://www.eff.org/deeplinks/2026/11/were-asking-appeals-court-require-warrant-alpr-searches) |      0 | 1,500 |
+
+Full excerpts reviewed before blank-only writes; independent exact ID/full-text
+rereads pass 3/3 (`/tmp/2714-saved.json`). Emulator timing observations remain
+the developer’s experience, browser capabilities remain project claims, and
+EFF’s constitutional position remains a legal argument rather than a ruling.
+No collection code change, paid call or edition regeneration. Scheduled Tech
+depth acceptance remains pending after 15:00 UTC.

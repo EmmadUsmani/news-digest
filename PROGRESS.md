@@ -176,3 +176,13 @@
 - Author opinion/legal arguments retain attribution. No paid calls, budget changes or edition regeneration. Sources, receipt, tasks and affected handbook page updated.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and handbook check pass: 1,114 unit/330 integration tests, four expected skips. Targeted extraction 26/26; public reader 25 stories. Logs `/tmp/2713-*.log`. Commit/push and API/worker restart follow checks.
 - Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2714 — recover emulator, automation and ALPR context
+
+- Clean main at 7066a1e8; no inherited work. Alerts/health/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Reader weakness remains thin Tech summaries; more saved publisher context supports the next scheduled edition.
+- Ordinary shared-client HTTP 200 responses recover three blank HN excerpts: Odin NES emulator, Turbo-Browser-MCP and EFF ALPR brief (4,500 characters).
+- Complete excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 3/3 (`/tmp/2714-saved.json`). Developer experience, project claims and legal arguments retain attribution.
+- No code/schema/UI changes, paid calls, budget changes or regeneration. Sources/recovery receipt/tasks updated; no handbook behavior change.
+- Public HTTPS Chromium reader passes with 25 stories (external DNS resolution needed because local hostname resolves to VM). `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm build` pass: 1,114 unit/330 integration tests, four expected skips. Logs `/tmp/2714-*.log`. Commit/push and API/worker restart follow checks.
+- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

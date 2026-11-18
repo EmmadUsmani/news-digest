@@ -3734,3 +3734,9 @@ to their content body, excluding table of contents and footer. Blank saved
 NetBSD, Emacs-browser and AI/open-source excerpts recovered 0 → 1,500 characters
 each; exact ID/full-text rereads pass 3/3. Author opinions retain attribution.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#asciidoc-collection-and-publisher-context--iteration-2713).
+
+Iteration 2714: ordinary publisher HTTP 200 responses recovered blank saved HN
+excerpts for an Odin NES emulator, Turbo-Browser-MCP and EFF’s ALPR warrant
+brief (4,500 characters). Exact ID/full-text rereads pass; no source added or
+collection behavior changed. Legal arguments retain EFF attribution.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#emulator-browser-automation-and-alpr-context--iteration-2714).
