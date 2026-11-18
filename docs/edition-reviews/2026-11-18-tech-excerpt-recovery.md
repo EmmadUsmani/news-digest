@@ -219,3 +219,22 @@ The opening AD quotation and notification shop are explicitly fictional;
 product comparisons remain author claims. Jack's investigation is personal
 reporting. Signed-out Tech still has thin summaries; immutable editions and
 budgets unchanged. Scheduled candidate-share/depth acceptance awaits 15:00 UTC.
+
+## Security research and technical context — iteration 2698
+
+Three ordinary shared-client HTTP 200 publisher responses recovered blank saved
+HN excerpts using deployed extraction. Blank-only writes and independent exact
+ID/text rereads pass: three rows, 0 → 1,500 characters each (4,500 total).
+
+| Candidate                                                                                                               | Retained detail                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [uBlock Origin UXSS](https://iter.ca/post/ubo-uxss/)                                                                    | Researcher's reported one-click filter-injection issue, Firefox scope and explicit fixed status |
+| [ThinkPad recovery](https://masnick.com/posts/the-secret-thinkpad-powerbutton-code-to-bring-dead-laptops-back-to-life/) | Historical first-person laptop failure and support interaction; not a new hardware incident     |
+| [Squircles](https://linebender.org/wiki/curves/squircle/)                                                               | Superellipse definition, exponent and gauge, and alternative curve constructions                |
+
+The ThinkPad opening ends before the complete recovery instructions; it must not
+be treated as a complete procedure. Security findings remain researcher claims.
+Lean and Astra testing pages returned HTTP 200 but no scoped excerpt; left blank.
+No access workaround, paid call, extraction change or edition regeneration.
+Public HTTPS Chromium reader passes five topics/25 stories/20 posts; current
+Tech remains thin. Scheduled candidate-share/depth acceptance is pending.

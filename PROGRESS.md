@@ -161,3 +161,13 @@
 - Fictional examples and first-party comparisons remain attributed. Immutable editions unchanged; public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks and recovery receipt updated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,107 unit/330 integration tests, four expected skips). Logs /tmp/2697-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; no deployment during 13:00–16:00 UTC.
+
+## 2026-11-18: iteration 2698 — recover security and technical context
+
+- Clean main at 0905f5d7; no inherited work. Alerts/health/source/job checks pass. Initially stale service snapshot showed worker inactive; direct systemd/logs and refreshed snapshot pass, no intervention.
+- Read public Tech: thin summaries remain. Recovered three blank saved HN excerpts with deployed extraction: uBlock Origin UXSS research, historical ThinkPad account and squircle explainer.
+- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters), /tmp/2698-saved.json.
+- Researcher says the security issue is fixed; ThinkPad is historical and excerpt is not a complete recovery procedure. Lean/Astra HTTP 200 pages lack scoped excerpts and stay blank.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/receipt updated; no application/schema/UI/handbook change, paid calls, budget changes or edition regeneration.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,107 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2698-*.log. Commit/push and API/worker restart follow checks.
+- Next: natural Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC.

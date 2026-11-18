@@ -3646,3 +3646,10 @@ Infisical identity management, Jack's Siterate investigation and Notifkit's
 notification engineering essay. Recorded title/body fixtures cover both affected
 header layouts. Exact stored text rereads pass; no access workaround or paid call.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#publisher-header-titles--iteration-2697).
+
+Iteration 2698 recovers three further blank saved HN excerpts with the deployed
+publisher extractor: uBlock Origin filter-injection research (explicitly fixed),
+a historical ThinkPad support account, and Linebender's squircle explainer.
+Ordinary shared-client HTTP 200; three exact stored-text rereads, 4,500 characters.
+Lean/Astra pages return 200 without scoped excerpts and remain blank.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#security-research-and-technical-context--iteration-2698).
