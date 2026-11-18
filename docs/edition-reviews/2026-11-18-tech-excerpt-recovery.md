@@ -700,3 +700,20 @@ Microsoft’s research; the second describes Brave’s own product announcement.
 The accessible PostScript interpreter page yields no recognized reporting
 container and remains blank. No collection behavior, paid call, budget or
 immutable edition changed. Scheduled Tech depth acceptance remains pending.
+
+## Bare-document tutorial — iteration 2730
+
+The saved HN candidate “Let’s Write a PostScript Interpreter”
+(`84926ab8-a3bb-47a3-8837-6b7bdce7fe49`,
+<https://beyondloom.com/blog/postscript.html>) had no excerpt despite an ordinary
+HTTP 200 response in iteration 2729. Its page has a top-level heading and
+paragraphs, without article/main landmarks.
+
+Collection now accepts consecutive opening paragraphs after the sole top-level
+heading on minimal documents. It stops at the first other element; preceding
+navigation, multiple headings and embedded widgets fail closed. Only the two
+introductory paragraphs are used, explaining the author's human-scale language
+motivation and the tutorial's simplified PostScript subset. No reference list
+or code is included. The complete 717-character passage was reviewed before a
+blank-only write. Exact stored ID/full-text reread passes 1/1
+(`/tmp/2730-saved.json`). No new external fetch or paid call.

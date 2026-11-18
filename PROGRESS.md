@@ -143,3 +143,14 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; `pnpm check` passes: 1,118 unit/330 integration tests, four expected skips. Logs `/tmp/2729-*.log`.
 - API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. PostScript extraction candidate retained at `/tmp/2729-postscript.html`.
+
+## 2026-11-18: iteration 2730 — collect bare-document tutorial prose
+
+- Clean main at 783fdbf1; no inherited work. `pnpm obs alerts`, `/healthz` and sources pass (38 healthy); digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
+- Public Chromium reader shows five topics/25 stories; Tech still thin pending scheduled acceptance.
+- Fixed missing collection for minimal documents: consecutive opening paragraphs after a sole top-level heading, stopping at other elements; navigation/multiple headings/widgets rejected.
+- Saved PostScript tutorial excerpt 0 → 717 characters from iteration 2729’s HTTP 200 page; full passage reviewed, blank-only write and exact ID/full-text reread pass (`/tmp/2730-saved.json`). No new external fetch or paid call.
+- `pnpm exec tsx --test apps/api/test/publisher-excerpt.test.ts` passes 31/31; sources/receipt/affected handbook page updated. No schema/UI, cap or edition-generation changes.
+- `pnpm build` and filtered `check-handbook.ts edition-pipeline` pass (19 pages/39 tables); API/worker restarted, health database/Redis pass; public Chromium reader five topics/25 stories after restart.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2730-*.log`; post-restart alerts clear.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

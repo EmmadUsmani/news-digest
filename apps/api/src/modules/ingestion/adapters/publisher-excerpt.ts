@@ -53,6 +53,7 @@ export function publisherExcerpt(html: string): string {
     asciiDocReporting(clean, title) ??
     chapterReporting(clean, title) ??
     titledColumnReporting(clean, title) ??
+    bareDocumentReporting(html) ??
     (main &&
       (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
         (matchingHeaderTitle ? main : matchingMainHeading(main, title))));
@@ -61,6 +62,40 @@ export function publisherExcerpt(html: string): string {
     .map((match) => plainText(decodeHTML(match[1])))
     .filter((text) => text.length >= 60 && !/^https?:\/\/\S+$/i.test(text));
   return plainText(paragraphs.join(' '));
+}
+
+/** Minimal documents put opening prose directly after their only page heading. */
+function bareDocumentReporting(html: string): string | undefined {
+  const children = parseFragment(html).childNodes.filter(
+    (node) =>
+      !(
+        node.nodeName === '#comment' ||
+        ('value' in node && !node.value.trim()) ||
+        ('tagName' in node &&
+          ['link', 'style', 'title', 'meta'].includes(node.tagName))
+      ),
+  );
+  const heading = children[0];
+  if (!heading || !('tagName' in heading) || heading.tagName !== 'h1')
+    return undefined;
+  if (
+    children.filter((node) => 'tagName' in node && node.tagName === 'h1')
+      .length !== 1
+  )
+    return undefined;
+  const paragraphs: string[] = [];
+  for (const node of children.slice(1)) {
+    if (!('tagName' in node) || node.tagName !== 'p') break;
+    // A nested widget is not opening document prose.
+    if (
+      find(node, (child) =>
+        ['script', 'iframe', 'form'].includes(child.tagName),
+      )
+    )
+      break;
+    paragraphs.push(serializeOuter(node));
+  }
+  return paragraphs.length >= 2 ? paragraphs.join(' ') : undefined;
 }
 
 /** Sectioned magazine layouts keep promotion outside selectable prose. */

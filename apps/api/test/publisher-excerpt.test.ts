@@ -587,3 +587,17 @@ void test('sectioned magazine prose excludes promotion, captions and related sto
     assert.equal(publisherExcerpt(changed), '');
   }
 });
+
+void test('bare documents provide consecutive opening prose without later sections or widgets', () => {
+  const opening = `<h1>A programming tutorial</h1><p>${reporting}</p><p>${reporting}</p>`;
+  const page = `<link rel="stylesheet" href="style.css">${opening}<h2>References</h2><p>${'Unrelated reference '.repeat(8)}</p>`;
+  assert.equal(publisherExcerpt(page), `${reporting} ${reporting}`);
+  for (const changed of [
+    `<div>Navigation</div>${page}`,
+    page.replace('<h1>A programming tutorial</h1>', ''),
+    `${page}<h1>Another story</h1>`,
+    `<h1>Tutorial</h1><p>${reporting}</p><div>Widget</div><p>${reporting}</p>`,
+    `<h1>Tutorial</h1><p>${reporting}</p><p><script>widget()</script>${reporting}</p>`,
+  ])
+    assert.equal(publisherExcerpt(changed), '');
+});

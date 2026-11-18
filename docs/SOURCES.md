@@ -3828,3 +3828,9 @@ excerpts for Microsoft FORGE Rust memory-safety research and Brave’s agentic
 search-payment announcement (3,000 characters). Exact ID/full-text rereads
 pass 2/2; collection behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-memory-safety-and-brave-announcement--iteration-2729).
+
+Iteration 2730: bare-document opening prose is now collected after a sole
+top-level heading, stopping at the first other element. The previously fetched
+HTTP 200 PostScript tutorial supplies 717 characters to its blank saved HN
+candidate; exact ID/full-text reread passes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#bare-document-tutorial--iteration-2730).
