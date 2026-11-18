@@ -130,3 +130,14 @@
 - Verification: targeted social/context tests 26/26; pnpm format, pnpm lint:fix, pnpm check (1,129 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2778-*.log.
 - Rebuilt API/worker/docs restarted active. First immediate health probe raced startup; retry health/alerts and /healthz pass. Saved reader unchanged: cd357e84, five topics/25 stories/19 posts/five content groups.
 - Next scheduled daily review checks U.S. story/post repetition alongside NBA/Tech/World acceptance; no extra daily review commit or recovery backfill.
+
+## 2026-11-18: iteration 2779 — distinguish NBA injury announcements
+
+- Clean main at 253fef93; no inherited work. Alerts/health/38 monitored sources healthy; Destructoid remains paused.
+- Owner value: coverage counts should collect the same announcement without merging unrelated player injuries or using extra links as proof of independent reporting.
+- Reviewed ten saved Nov 18 reports: Brown/Philadelphia hamstring (four) and McCollum/Atlanta calf (six). All 45 pairs labeled: 21 same-event, 24 separate-event; exact candidates retained in an offline fixture.
+- Published membership passes 34 sampled orders; merge-all fails 24 labels, all-separate misses 21. Agent annotations only; independent labels/semantic evaluation remain open. No grouping rule, prompt, budget, provider or published-edition change.
+- Updated TASKS/RANKING and scoped evidence note; no UI changes, publisher requests, paid calls or production writes.
+- Verification: targeted grouping evaluation tests 20/20; pnpm exec tsx /tmp/2779-live.ts matches both live groups and all ten IDs/URLs/titles to the fixture.
+- pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,130 unit/330 integration tests, four expected skips. Logs /tmp/2779-{format,lint,check,build}.log.
+- Rebuilt API/worker/docs restarted active; post-restart health, alerts and /healthz pass; saved reader unchanged. Next: scheduled NBA editing and U.S./Tech/World acceptance; independent grouping labels/semantic evaluation still open. No paid calls.

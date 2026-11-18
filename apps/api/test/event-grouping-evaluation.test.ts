@@ -9,6 +9,54 @@ import {
 } from '../scripts/evaluate-event-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
+void test('published NBA injury groups retain one announcement without merging separate players', () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/event-grouping-nba-2026-11-18.json'),
+      'utf8',
+    ),
+  ) as {
+    candidates: Candidate[];
+    publishedGroups: string[][];
+    pairs: { left: string; right: string; sameEvent: boolean }[];
+  };
+  assert.equal(fixture.candidates.length, 10);
+  assert.equal(new Set(fixture.candidates.map(({ id }) => id)).size, 10);
+  assert.equal(fixture.pairs.length, 45);
+  assert.equal(
+    new Set(
+      fixture.pairs.map(({ left, right }) => [left, right].sort().join(':')),
+    ).size,
+    45,
+  );
+  const published = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    (a, b) =>
+      fixture.publishedGroups.some(
+        (group) => group.includes(a.id) && group.includes(b.id),
+      ),
+  );
+  assert.equal(published.clusters, 2);
+  assert.equal(published.truePositives, 21);
+  assert.equal(published.falsePositives, 0);
+  assert.equal(published.missedPositivePairs, 0);
+  assert.equal(published.unlabeledMergedPairs, 0);
+  assert.equal(published.permutationCheck.orders, 34);
+  assert.equal(published.permutationCheck.exhaustive, false);
+  assert.equal(published.permutationCheck.orderSensitivePairs, 0);
+  assert.equal(published.permutationCheck.minMatchedPositivePairs, 21);
+  const separate = evaluateClusterMembership(fixture.candidates, fixture.pairs);
+  assert.equal(separate.missedPositivePairs, 21);
+  const broad = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    () => true,
+  );
+  assert.equal(broad.falsePositives, 24);
+  assert.equal(broad.permutationCheck.maxFalsePositives, 24);
+});
+
 void test('published GTA Sensor Tower estimate retains all three reports across every order', () => {
   const fixture = JSON.parse(
     readFileSync(

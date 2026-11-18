@@ -3527,3 +3527,14 @@ purposes transport context and accept a hand-authored distinct-post selection,
 with validated cache reuse. This does not establish model compliance; check
 natural U.S. selection in the next scheduled daily review. No new calls, caps,
 provider/model changes or mutation of the published edition.
+
+## Nov 18 NBA injury membership control (iteration 2779)
+
+Ten saved reports form two published injury announcements: Brown/Philadelphia
+hamstring (four) and McCollum/Atlanta calf (six). The
+[assessment](edition-reviews/2026-11-18-nba-injury-grouping.md) and exact fixture
+label every pair: 21 supported merges and 24 separate events. Published
+membership retains all positives without cross-event merges across 34 sampled
+orders; broad merge and all-separate controls fail their respective labels.
+These agent labels test membership evaluation, not the semantic model. Production
+grouping, prompts and the published edition are unchanged.
