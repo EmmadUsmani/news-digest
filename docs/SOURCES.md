@@ -3757,3 +3757,9 @@ excerpts for a positional-embeddings tutorial and L3Harris's ground-stop stateme
 (2,136 characters). Exact ID/full-text rereads pass 2/2; company claims retain
 attribution. No source or collection behavior changed.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#positional-embeddings-and-ground-stop-statement--iteration-2717).
+
+Iteration 2718: ordinary HTTP 200 publisher pages recovered blank saved HN
+excerpts for a WebKit promise bug explanation and a Lovable security investigation
+(3,000 characters). Exact ID/full-text rereads pass 2/2; investigator findings
+retain attribution. No source or collection behavior changed.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#webkit-promises-and-lovable-investigation--iteration-2718).

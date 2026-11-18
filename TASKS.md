@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2718: Recover WebKit promise bug explanation and Lovable security investigation publisher context (3,000 characters); blank-only writes and exact stored ID/full-text rereads pass 2/2.
+
 - [x] 2717: Recover positional-embeddings tutorial and L3Harris ground-stop statement publisher context (2,136 characters); blank-only writes and exact stored ID/full-text rereads pass 2/2.
 
 - [x] 2716: Collect title-matched legacy blog columns; historical Turbo Pascal excerpt 0 → 939 characters. Agent commentary recovered 0 → 1,500; exact saved ID/full-text rereads pass 2/2.

@@ -542,3 +542,18 @@ attribution. Kiri's extracted passage includes sample benchmark language and was
 left unchanged. The constrained-programming page returned HTTP 200 but no
 supported scoped excerpt; it also remains blank. No source, extraction behavior,
 budget or immutable edition changed. Scheduled Tech acceptance remains pending.
+
+## WebKit promises and Lovable investigation — iteration 2718
+
+Ordinary shared-client HTTP 200 responses and the deployed extractor recovered
+blank saved HN candidates for [WebKit promise handling](https://alistair.sh/thenables)
+and a [Lovable security investigation](https://www.crissyfield.de/research/lovable-en/).
+Each excerpt changed from zero to 1,500 characters. Full excerpts were reviewed
+before blank-only writes; independent exact stored-ID/full-text rereads pass
+2/2 (`/tmp/2718-saved.json`). WebKit behavior is the author's reported debugging
+experience; the Lovable findings remain the investigators' claims.
+
+Space-data-center and self-booting ZIP pages returned HTTP 200 but no supported
+scoped excerpt and remain blank. No source, collection behavior, paid call,
+budget or immutable edition changed. Scheduled Tech share/depth acceptance
+remains pending after 15:00 UTC.
