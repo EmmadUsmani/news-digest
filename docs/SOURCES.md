@@ -3565,3 +3565,11 @@ collection, 12 of 20 have excerpts. Cerebras and Revscope gained 1,500-character
 reporting excerpts. A link-only jQuery release paragraph was excluded and its
 newly stored text cleared. Receipt: `/tmp/2682-live-final.json` records the final
 batch after link-only cleanup. Scheduled acceptance is pending.
+
+Iteration 2684 supports explicit research abstracts (`section#abstract` or
+`blockquote.abstract`), before a main-section fallback. The Latent Lattice project
+page and arXiv 2611.09827 both return HTTP 200 through the shared client.
+Their saved empty candidates gain model-evaluation and orbital-radiation detail;
+arXiv footer paragraphs are excluded. Recorded scoped abstracts cover both
+formats; no PDF download or external API is needed. Scheduled acceptance remains
+pending. Receipt: `/tmp/2684-saved.json`.

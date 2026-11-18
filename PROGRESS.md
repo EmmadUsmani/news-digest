@@ -153,3 +153,14 @@
 - Recorded ArchiveTeam fixture and scoped/nested/class-token/precedence cases pass (8/8). Updated source inventory and pipeline handbook; no diagrams/schema/UI changes.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,096 unit/330 integration tests, four expected skips. Handbook passes (19 pages/39 tables); initial page length failure fixed. Logs /tmp/2683-{format,lint,check,build,handbook}.log.
 - Signed-out public HTTPS reader passes five topics/25 stories/20 posts. Commit/push and API/worker restart follow; next: natural Nov 18 Tech share and summary-depth acceptance, retention at 04:40 UTC.
+
+## 2026-11-18: iteration 2684 — retain research abstracts for Tech evidence
+
+- Clean main at b7f41477; no inherited work. Alerts clear, health passes; outside protected hours. No paid calls, budget/provider/flag changes or edition regeneration.
+- Reader weakness remains thin Tech evidence. Saved HN research links had empty excerpts: Latent Lattice uses section#abstract, while arXiv uses blockquote.abstract rather than paragraph reporting. Old arXiv main fallback selected 456 characters of footer text instead of its abstract.
+- Added scoped named-abstract extraction before main fallback, preserving article precedence and the 1,500-character cap. No body-wide fallback, PDF fetch or access workaround.
+- Shared-client HTTP 200 pages repaired two saved empty candidates: arXiv 2611.09827 0 → 1,194 characters; Latent Lattice 0 → 1,500, including modeled satellite effects and 15.41 → 14.40 validation perplexity. Updates touched only empty rows; receipt /tmp/2684-saved.json.
+- Recorded both abstract containers; targeted extraction suite passes 11/11, including footer exclusion, explicit container boundaries, precedence and length. Updated source inventory and pipeline handbook; no schema/UI/diagram changes.
+- Signed-out public HTTPS reader returns five topics/25 stories/20 posts. All 14 monitored services, active sources and job health checks pass; parked Destructoid remains inactive.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,099 unit/330 integration tests, four expected skips); logs /tmp/2684-*.log. Commit/push followed by API/worker restart. Handbook initially exceeded its line limit; shortened the affected explanation and page check passes (19 pages/39 tables).
+- Next: natural Nov 18 Tech candidate-share and summary-depth acceptance after 15:00 UTC; retention at 04:40 UTC. Scheduled edition unchanged; broader depth acceptance remains open.

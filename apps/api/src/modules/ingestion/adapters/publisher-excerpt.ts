@@ -10,6 +10,10 @@ export function publisherExcerpt(html: string): string {
     '',
   );
   const article = /<article\b[^>]*>([\s\S]*?)<\/article\s*>/i.exec(clean)?.[1];
+  if (!article) {
+    const abstract = researchAbstract(clean);
+    if (abstract) return abstract;
+  }
   const main = /<main\b[^>]*>([\s\S]*?)<\/main\s*>/i.exec(clean)?.[1];
   // Some publisher blogs use main instead of article. Require their page
   // heading and take only the reporting after it, excluding opening chrome.
@@ -27,21 +31,6 @@ export function publisherExcerpt(html: string): string {
 /** MediaWiki exposes its prose separately from navigation and infoboxes. */
 function mediaWikiReporting(html: string): string | undefined {
   if (!html.includes('mw-parser-output')) return undefined;
-  type Node = DefaultTreeAdapterMap['node'];
-  type Element = DefaultTreeAdapterMap['element'];
-  function find(
-    node: Node,
-    matches: (element: Element) => boolean,
-  ): Element | undefined {
-    if ('tagName' in node && matches(node)) return node;
-    if ('childNodes' in node) {
-      for (const child of node.childNodes) {
-        const found = find(child, matches);
-        if (found) return found;
-      }
-    }
-    return undefined;
-  }
   const content = find(parseFragment(html), (node) =>
     node.attrs.some(
       (attr) => attr.name === 'id' && attr.value === 'mw-content-text',
@@ -76,4 +65,54 @@ function mediaWikiReporting(html: string): string | undefined {
   }
   prune(prose);
   return serialize(prose);
+}
+
+type Node = DefaultTreeAdapterMap['node'];
+type Element = DefaultTreeAdapterMap['element'];
+function find(
+  node: Node,
+  matches: (element: Element) => boolean,
+): Element | undefined {
+  if ('tagName' in node && matches(node)) return node;
+  if ('childNodes' in node) {
+    for (const child of node.childNodes) {
+      const found = find(child, matches);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
+
+/** Research pages expose their evidence in a named abstract, not site footers. */
+function researchAbstract(html: string): string {
+  if (!html.includes('abstract')) return '';
+  const abstract = find(
+    parseFragment(html),
+    (node) =>
+      (node.tagName === 'blockquote' &&
+        node.attrs.some(
+          (attr) =>
+            attr.name === 'class' &&
+            attr.value.split(/\s+/).includes('abstract'),
+        )) ||
+      (node.tagName === 'section' &&
+        node.attrs.some(
+          (attr) => attr.name === 'id' && attr.value === 'abstract',
+        )),
+  );
+  if (!abstract) return '';
+  const body = serialize(abstract);
+  const paragraphs = [...body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)];
+  const text =
+    abstract.tagName === 'blockquote'
+      ? body.replace(
+          /<span\b[^>]*class=["']descriptor["'][^>]*>[\s\S]*?<\/span>/gi,
+          '',
+        )
+      : paragraphs
+          .map((match) => match[1])
+          .filter((text) => plainText(decodeHTML(text)).length >= 60)
+          .join(' ');
+  const normalized = plainText(decodeHTML(text));
+  return normalized.length >= 60 ? normalized : '';
 }

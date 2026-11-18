@@ -149,3 +149,62 @@ void test('MediaWiki extraction bounds nested content and matches class tokens',
     `${reporting} Article wins.`,
   );
 });
+
+void test('recorded arXiv abstract wins over main footer paragraphs', async () => {
+  const abstract = await readFile(
+    'apps/api/test/fixtures/hn-publisher-arxiv.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(
+    `<main><h1>Paper</h1>${abstract}<p>${'Submission and subscription help '.repeat(8)}</p></main>`,
+  );
+  assert.match(excerpt, /^More than 13,000 satellites/);
+  assert.match(excerpt, /98% of modeled satellites within one week/);
+  assert.doesNotMatch(excerpt, /Abstract:|subscription|Submission/);
+  assert.ok(excerpt.length > 1000 && excerpt.length <= 1500);
+});
+
+void test('recorded research project abstract retains model evaluation detail', async () => {
+  const abstract = await readFile(
+    'apps/api/test/fixtures/hn-publisher-lattice.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(
+    `<nav><p>${reporting}</p></nav>${abstract}<section><p>${'Outside promotion '.repeat(10)}</p></section>`,
+  );
+  assert.match(excerpt, /^Language models typically/);
+  assert.match(excerpt, /15.41 to 14.40/);
+  assert.doesNotMatch(excerpt, /Outside promotion|Abstract/);
+  assert.ok(excerpt.length > 1000 && excerpt.length <= 1500);
+});
+
+void test('abstract extraction requires an explicit container and preserves article precedence', () => {
+  assert.equal(publisherExcerpt(`<blockquote>${reporting}</blockquote>`), '');
+  assert.equal(
+    publisherExcerpt(
+      `<section id="abstract-notes"><p>${reporting}</p></section>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(`<section id="abstract"><p>Abstract</p></section>`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<blockquote class="not-abstract">${reporting}</blockquote>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<section id="abstract"><p>${reporting}</p></section><article><p>${reporting} Article wins.</p></article>`,
+    ),
+    `${reporting} Article wins.`,
+  );
+  assert.ok(
+    publisherExcerpt(
+      `<blockquote class="mathjax abstract">${reporting.repeat(30)}</blockquote>`,
+    ).length <= 1500,
+  );
+});
