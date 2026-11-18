@@ -91,3 +91,21 @@ app context. Saved ID `6b5b2eeb-c4ad-4612-8647-186a405e1dfa` changed from blank
 to that exact excerpt; an independent database reread matches ID and full text.
 Recorded publisher paragraphs and landmark boundary/precedence tests pass.
 No edition regeneration, paid calls or budget changes; scheduled acceptance pending.
+
+## Optimizely publisher evidence — iteration 2691
+
+The latest public Tech story still describes an HN allegation. Two saved blank
+HN candidates now retain publisher reporting through the deployed extractor:
+
+| Candidate                                                                                             | Before | After | Retained detail                                                       |
+| ----------------------------------------------------------------------------------------------------- | -----: | ----: | --------------------------------------------------------------------- |
+| [Report URI](https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely/) |      0 | 1,500 | Publisher-reported infection scope, wallet/card theft and mitigation  |
+| [OptimJack investigation](https://amirulcyber.com/2026/11/16/optimjack-optimizely-skimmer/)           |      0 | 1,500 | Investigator-reported injected bundles, affected sites and CSP checks |
+
+Both ordinary shared-client requests returned HTTP 200. Exact saved ID/text
+rereads pass for `b03cbe03-4be2-4910-a06d-bbea40028526` and
+`c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd`; only blank excerpts changed.
+The accounts differ in scope and remain attributed publisher claims, not an
+independent confirmation of every affected site. Report URI also promotes its
+own product. No paid calls, generation, budget or collection behavior change.
+The immutable edition is unchanged; natural scheduled acceptance remains pending.

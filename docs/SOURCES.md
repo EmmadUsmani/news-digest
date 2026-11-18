@@ -3607,3 +3607,8 @@ extractor: Windows coding-agent telemetry, Spamhaus sender guidance and a
 historical Krebs interview introduction (4,500 characters; exact reread passes).
 Apple’s Full Disk Access support page returned HTTP 200 but no scoped prose.
 [Recovery receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md#additional-saved-reporting--iteration-2689).
+
+Iteration 2691 recovered two blank saved Optimizely HN candidates from Report URI
+and the OptimJack investigator (ordinary HTTP 200, 3,000 characters total).
+The deployed extractor already supports both; exact saved text rereads pass.
+[Recovery receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#optimizely-publisher-evidence--iteration-2691).

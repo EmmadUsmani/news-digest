@@ -179,3 +179,12 @@
 - Source inventory and affected handbook updated; no schema/UI/diagram change. Affected handbook passes (19-page inventory/one diagram/39 tables). Build passes.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2690-*.log. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. API/worker restart and health check follow commit/push.
 - Next: natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC; retention at 04:40 UTC.
+
+## 2026-11-18: iteration 2691 — recover Optimizely publisher evidence
+
+- Clean main at 6431e143; no inherited work. Alerts clear; health, source and job checks pass. Outside protected hours; no paid calls, budget/provider/flag changes or edition regeneration.
+- Read latest public Tech: the Optimizely story still relies on an HN allegation. Two blank saved publisher candidates yield detailed reporting with the deployed extractor, including injected bundles, wallet/card theft and CSP checks.
+- Ordinary shared-client HTTP 200 for Report URI and OptimJack investigator; blank-only updates 0 → 1,500 characters each. Exact saved ID/text rereads pass 2/2 (3,000 characters). Receipt in docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; full local /tmp/2691-saved.json.
+- Publisher claims remain attributed; scope differs between accounts and Report URI includes product promotion. Existing immutable edition unchanged. Source inventory/tasks updated; no application/schema/UI/handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); exact database reread passes 2/2. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Logs /tmp/2691-*.log.
+- Next: natural Nov 18 candidate-share/reader-depth acceptance after 15:00 UTC; retention at 04:40 UTC. Commit/push and API/worker restart follow checks.
