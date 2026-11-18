@@ -1879,3 +1879,80 @@ void test('World timing and disputed causation retain the saved attributed denia
     assert.deepEqual(h.diagnostics(), []);
   }
 });
+
+for (const refuse of [[], ['claude-sonnet-5-5']]) {
+  void test(`saved U.S. excerpt provenance stays separate from coverage (${refuse.length ? 'Haiku' : 'Sonnet'})`, async () => {
+    const saved = JSON.parse(
+      readFileSync(
+        new URL(
+          './fixtures/editorial-us-attribution-2026-11-18.json',
+          import.meta.url,
+        ),
+        'utf8',
+      ),
+    );
+    const c = saved.candidate;
+    const output = {
+      brief: [
+        'Mary Peltola wins Alaska Senate seat.',
+        'Democrats retake the Senate.',
+      ],
+      stories: [
+        {
+          id: c.id,
+          evidenceIds: [c.id],
+          headline: c.title,
+          summary:
+            'Mary Peltola won the Alaska Senate seat. The report says Democrats gained a 56-44 Senate majority after flipping nine GOP-held seats.',
+          whyItMatters: 'The result completes the midterm Senate contests.',
+          rationale: 'The final Senate result settles chamber control.',
+        },
+      ],
+    };
+    const h = harness([output], refuse);
+    assert.ok(
+      await h.editor.edit(
+        { ...topic, name: 'U.S. news & politics' },
+        [c],
+        1,
+        'offline-attribution',
+      ),
+    );
+    const prompt = JSON.parse(h.calls[0].prompt);
+    assert.equal(prompt.candidates[0].publisher, null);
+    assert.equal(
+      prompt.candidates[0].url,
+      'https://www.pbs.org/newshour/politics/democrat-mary-peltola-wins-alaska-senate-seat-beating-republican-incumbent-dan-sullivan',
+    );
+    assert.deepEqual(prompt.candidates[0].sources, [
+      'Al Jazeera',
+      'BBC World',
+      'NPR Politics',
+    ]);
+    assert.match(
+      h.calls[0].instructions,
+      /sources lists cluster coverage labels/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Never attribute an excerpt’s claim to other coverage labels/,
+    );
+    assert.ok(
+      await h.editor.edit(
+        topic,
+        [
+          {
+            ...c,
+            publisher: { name: 'PBS NewsHour', url: 'https://www.pbs.org' },
+          },
+        ],
+        1,
+        'offline-known-publisher',
+      ),
+    );
+    assert.equal(
+      JSON.parse(h.calls[1].prompt).candidates[0].publisher,
+      'PBS NewsHour',
+    );
+  });
+}

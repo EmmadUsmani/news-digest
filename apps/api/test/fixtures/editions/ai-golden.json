@@ -121,7 +121,7 @@
         ],
         "unscoredIds": [],
         "reason": "AI edited from supplied headlines and excerpts; full articles were not fetched.",
-        "candidatePrompt": "{\"topic\":{\"id\":\"00000000-0000-4000-8000-000000000879\",\"name\":\"Golden science\",\"description\":\"Synthetic science fixture\",\"guidance\":\"\\nExclude: \\nRequired phrases: \\nExcluded phrases: \"},\"budget\":2,\"candidates\":[{\"id\":\"00000000-0000-4000-8000-000000000880\",\"title\":\"Lunar telescope sends its first images\",\"excerpt\":\"Fixture reporting.\",\"sources\":[\"Golden publisher\"]},{\"id\":\"00000000-0000-4000-8000-000000000881\",\"title\":\"Coastal observatory opens a research station\",\"excerpt\":\"Fixture reporting.\",\"sources\":[\"Golden publisher\"]}]}"
+        "candidatePrompt": "{\"topic\":{\"id\":\"00000000-0000-4000-8000-000000000879\",\"name\":\"Golden science\",\"description\":\"Synthetic science fixture\",\"guidance\":\"\\nExclude: \\nRequired phrases: \\nExcluded phrases: \"},\"budget\":2,\"candidates\":[{\"id\":\"00000000-0000-4000-8000-000000000880\",\"title\":\"Lunar telescope sends its first images\",\"excerpt\":\"Fixture reporting.\",\"url\":\"https://example.org/golden/0\",\"sources\":[\"Golden publisher\"]},{\"id\":\"00000000-0000-4000-8000-000000000881\",\"title\":\"Coastal observatory opens a research station\",\"excerpt\":\"Fixture reporting.\",\"url\":\"https://example.org/golden/1\",\"sources\":[\"Golden publisher\"]}]}"
       },
       "qualityRejections": [
         {

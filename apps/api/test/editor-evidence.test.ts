@@ -42,6 +42,7 @@ void test('grouped reporting reaches editing and immutable evidence with separat
         calls++;
         const prompt = JSON.parse(request.prompt);
         assert.equal(prompt.candidates[0].excerpt, '');
+        assert.equal(prompt.candidates[0].publisher, 'lead outlet');
         assert.equal(
           prompt.candidates[0].clusterEvidence[0].publisher,
           'member outlet',

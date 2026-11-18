@@ -7,6 +7,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 - Nov 17 scheduled public edition accepted (2632): `6216cb7a`, five AI story sections/25 stories/20 posts; World Haiku, others Sonnet, no unscored stories. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; admission enabled for Nov 18. [Review](docs/edition-reviews/2026-11-17.md).
 - Nov 18 review (2760): public delivery passes, Tech saved text 56/200 (28%) vs 29/200; selected evidence 5/5 vs 1/5. **NBA non-AI fallback fails editorial acceptance** after four absence-validation rejections. Offline diagnosis and NBA-only guidance deployed (2768–2769); next scheduled NBA acceptance. No paid replay or cap changes. [Review](docs/edition-reviews/2026-11-18.md). [Prior acceptance and completed detail](docs/progress-archive/2026-11-18-task-handoff-2680.md).
 
+Full historical evidence: [2785 handoff](docs/progress-archive/2026-11-18-open-task-detail-2785.md).
+
 ## Open work
 
 - [ ] STEERING 67 (2770): one-time three-day cause table/general description fallback/bounded backfill complete. Unsupported layouts largest non-block cause 25/74 (33.78%); saved Tech blanks 74/261 (28.35%) → 40/261 (15.33%), 34 exact verified updates. No further recovery work; next scheduled Tech section checked once in daily review. [Cause table/receipt](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
@@ -19,7 +21,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
-- [ ] BREAKAGE: Nov 18 NBA unedited fallback (2760): Sonnet/Haiku initial+repair rejected as unsupported-absence/negative-word; Sonnet whyItMatters then three headlines. 2768 offline replay reproduces first rejection 4/4: Brown significance paraphrase; Curry negative headlines and shortened negative summaries (seven failed fields). 2769 pins seven retained fields; positive injury/significance and complete-source-summary corrections pass offline repair, unsupported return-date claims still fail. NBA-only guidance deployed; guard unchanged. Next scheduled NBA acceptance; no paid calls. [Review](docs/edition-reviews/2026-11-18.md). World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku traced to Sonnet schema/absence rejection, not admission refusal (2633); rejected text unavailable. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
+- [ ] BREAKAGE: Nov 18 NBA non-AI fallback fails editorial acceptance. Exact saved absence failures reproduced offline (2768); NBA-only guidance deployed (2769), guard unchanged. Next scheduled NBA acceptance; no paid replay or cap changes. [Review](docs/edition-reviews/2026-11-18.md).
 
 - [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; Nov 17 worker 247.524 s still misses speed target (2633). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
@@ -29,7 +31,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 27 grouping: 2677 reviews all Nov 17 multi-report groups (12/45 members): seven supported, five scope/provenance unresolved; GTA Sensor Tower group is a supported contrast to Nov 16 separate-forecast overmerge. Helix one/Nvidia five older edges unresolved. Production unchanged; no paid replay. [Nov 17 review](docs/edition-reviews/2026-11-17-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 27 grouping: Nov 17 multi-report review (2677): seven supported/five scope or provenance unresolved; older Helix/Nvidia edges unresolved. Production unchanged, no paid replay. [Review](docs/edition-reviews/2026-11-17-grouping.md).
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
@@ -37,13 +39,13 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: 2674 completes Nov 17 UTC-day review: 24 successful jobs/120 matched counts, exact World rotation; distinct posts Tech 49/NBA 49/Gaming 68/World 149/U.S. 51. All 25 top-five saved texts reviewed; Gaming lexical noise, NBA satire and U.S. detail keep quality open. Retain queries/gates. Nov 17 five published picks separately reviewed (2666). 2772 reviews all eight Nov 18 Bluesky picks: NBA three-post Lakers-game concentration remains open; Gaming different-work nominations do not exercise same-winning-work rule. [Selection review](docs/edition-reviews/2026-11-18-bluesky-selection.md). 2773 offline NBA comparison: four exact texts/16 subsets; two labeled developments fit two standalone slots. X-first selection prevents Bluesky replacing earlier repeats; both stages need comparison. [Comparison](docs/edition-reviews/2026-11-18-nba-event-comparison.md). 2774 shared v12 guidance covers initial X and cross-platform game detail, with saved-text transport and distinct trade controls; next natural scheduled acceptance; completed Nov 18 hourly retention. [Review](docs/edition-reviews/2026-11-17-bluesky-day.md).
+- [ ] STEERING 18 Bluesky: Nov 17 UTC-day collection and all top-five texts reviewed (2674); retain queries/gates. Nov 18 eight picks reviewed (2772): NBA Lakers-game repetition; exact comparison complete (2773), shared v12 guidance deployed (2774). Scheduled semantic acceptance pending. [Selection](docs/edition-reviews/2026-11-18-bluesky-selection.md). [Comparison](docs/edition-reviews/2026-11-18-nba-event-comparison.md).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
 - [ ] M5 grouping: 2779 adds ten Nov 18 NBA injury reports with all 45 pairs labeled: Brown four/McCollum six retained, 24 cross-event merges rejected; published membership passes 34 sampled orders. Agent labels only; independent/semantic evaluation remains open. [Evidence](docs/edition-reviews/2026-11-18-nba-injury-grouping.md). 2678 adds Nov 17 shared Sensor Tower estimate positive control (three pairs/six orders), contrasting Nov 16 separate forecasts. published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2556 extends the Helix control to affordability/neural rendering; all ten five-article pairs labeled, correct split/merge passes all 120 orders. 2554 adds Nvidia comeback/fallout positive and separate chip-policy negatives; all three pairs/six orders pass supported membership. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
-- [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
+- [ ] STEERING 4: fake/replay LlmPort/ledger and saved NBA repair publication transport pass. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
 - [ ] STEERING 8 PARKED under 14: Reddit disabled/access denied; no requests until owner re-enables official API credentials. YouTube deferred; no bypass. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-15).
 
@@ -51,7 +53,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [x] Tech depth / STEERING 66 natural acceptance (2760): Nov 18 prospective text 56/200 (28%) vs Nov 17 29/200 (14.5%); selected evidence 5/5 vs 1/5, reader summaries materially deeper. [Review](docs/edition-reviews/2026-11-18.md). Collection work: publisher article/main, MediaWiki, abstract, microformats and AsciiDoc extraction deployed (2681–2685). 2686–2704 recover 49 more blank HN candidates (71,150 characters), including explicit article-template collection; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 18 baseline 144/200 empty; admission naturally exercised. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [x] Tech depth / STEERING 66 natural acceptance (2760): Nov 18 prospective text 56/200 vs 29/200; selected evidence 5/5 vs 1/5, materially deeper summaries. Admission enabled; no cap increases or 13:00–16:00 deployment. STEERING 67 closes further recovery work. [Review](docs/edition-reviews/2026-11-18.md).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +65,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2785: Story editor receives representative publisher and article URL separately from cluster coverage labels, addressing the saved U.S. Peltola misattribution. Exact saved null-publisher and known-publisher controls pass both offline model routes; scheduled semantic acceptance pending.
+
 - [x] 2784: Social editor treats clipped quotations/claims as incomplete evidence and marks request-shortened candidate text explicitly; two exact saved X texts and a long control pass offline Sonnet/Haiku transport checks. Full stored/display text retained; scheduled semantic acceptance pending.
 
 - [x] 2783: Feed collection removes inline image-and-caption-only figures before excerpt truncation; recorded Yahoo NBA caption disappears and more reporting fits, with image/destination retained. Stored editions unchanged; scheduled NBA AI acceptance pending.
@@ -73,48 +77,4 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] 2780: saved Gaming WoW milestone repeats its selected story; selected-story comparison now reaches every topic, removing the topic whitelist in both social routes. Exact milestone/distinct nomination controls pass offline; scheduled selection acceptance pending.
 
-- [x] 2778: Nov 18 U.S. Peltola Bluesky post repeats a selected story because story comparison was limited to Tech/NBA. U.S. now receives the same bounded context in both social routes; saved overlap/distinct stock-trading control and both model routes pass offline. Natural selection acceptance pending.
-
-- [x] 2777: saved World E1 significance implies sanctions influenced the delay despite the supplied diplomatic denial. Shared editor guidance preserves material denials across summary/significance/brief and distinguishes chronology from causation; exact saved evidence and complete-denial control pass both offline model routes. Scheduled semantic acceptance pending.
-
-- [x] 2776: summary-repair feedback retains supported qualifications and complete quotation attribution instead of asking only for positive facts. Both saved Nvidia failures and study failure replay offline through both budgeted model routes; guard unchanged. Scheduled semantic acceptance pending.
-
-- [x] 2775: Tech research guidance preserves central counterfindings/publication status; saved Nov 18 study paraphrase fails unchanged guard, complete source-sentence control passes both offline routes. Natural retention acceptance pending; Nvidia rejection still open.
-
-- [x] 2771: HN publisher access policy now follows all redirects and precedes cache reuse; blocked social destinations never reach transport. Offline redirect/cache and adapter wiring checks pass.
-
-- [x] 2737: Recover saved Darling development update and software-team experience context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2736: Recover saved stellar radio-pulse discovery and software-correctness context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2735: Fix title-matched blog article-body extraction; CPython/yk saved excerpt 0 → 1,500 characters, exact stored-text verification and scoped regression tests pass.
-
-- [x] 2734: Recover saved Jane Street interview-change excerpt (1,500 characters); blank-only write and exact stored-ID/full-text reread pass.
-
-- [x] 2733: Recover saved PCIe Resizable BAR explanation and C3 0.8.6 release excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2732: Recover saved compiler-split paths and row/column database tutorial excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2731: Recover saved Coway reverse-engineering and GPU-model forensics excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2730: Collect bare-document opening prose; saved PostScript tutorial excerpt 0 → 717 characters, exact ID/full-text reread passes.
-
-- [x] 2729: Recover saved Rust memory-safety research and Brave search-payment announcement excerpts (3,000 characters); blank-only writes and exact ID/full-text rereads pass 2/2.
-
-- [x] 2728: Scope sectioned magazine reporting; Quanta saved excerpt 0 → 1,261 characters without promotion/captions, exact stored-ID/full-text reread passes.
-
-- [x] 2727: Recover saved Qwen conversation-state experiment and AI coding opinion publisher context (3,000 characters); blank-only writes and exact ID/full-text rereads pass 2/2.
-
-- [x] 2726: Collect title-matched book chapters from their introduction; 3D modeller excerpt 0 → 1,500 characters, exact ID/full-text reread passes.
-
-- [x] 2725: Recover saved Lonewolf 0.3 release notes and Zig/C systems-programming opinion (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
-
-- [x] 2724: Recover Haskell technical-vision announcement excerpt (1,500 characters); blank-only write and exact stored-ID/full-text reread pass. Semicircle packing rejected because extraction returns unrelated prose.
-
-[Completed iterations 2705–2723](docs/progress-archive/2026-11-18-completed-tasks-2705-2723.md).
-
-[Completed iterations 2680–2704](docs/progress-archive/2026-11-18-completed-tasks-2680-2704.md).
-
-[Completed iterations 2673–2679](docs/progress-archive/2026-11-18-task-handoff-2680.md#completed-iterations-26732679).
-
-[Earlier completed steps](docs/progress-archive/2026-11-18-completed-tasks-2647-2672.md).
+[Earlier completed steps](docs/progress-archive/2026-11-18-completed-tasks-through-2778.md).

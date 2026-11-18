@@ -18,7 +18,7 @@
         }
       ],
       "unscoredIds": [],
-      "candidatePrompt": "{\"topic\":{\"id\":\"00000000-0000-4000-8000-000000000001\",\"name\":\"AI\",\"description\":\"AI tools\",\"guidance\":\"\\nExclude: \\nRequired phrases: artificial intelligence\\nExcluded phrases: \"},\"budget\":5,\"candidates\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"title\":\"Company launches a model\",\"excerpt\":\"The model is available today.\",\"sources\":[\"Publisher\"]}]}"
+      "candidatePrompt": "{\"topic\":{\"id\":\"00000000-0000-4000-8000-000000000001\",\"name\":\"AI\",\"description\":\"AI tools\",\"guidance\":\"\\nExclude: \\nRequired phrases: artificial intelligence\\nExcluded phrases: \"},\"budget\":5,\"candidates\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"title\":\"Company launches a model\",\"excerpt\":\"The model is available today.\",\"url\":\"https://example.org/news\",\"sources\":[\"Publisher\"]}]}"
     },
     "relevanceRejectedCount": 0,
     "relevancePolicy": {

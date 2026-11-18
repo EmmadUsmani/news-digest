@@ -79,7 +79,7 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   reserved, displaced and admitted event IDs and reservation scores. Public
   reader responses omit these private review fields.
 - **Story composition:** the editor keeps separate developments in separate
-  stories. Direct follow-ups, reactions and consequences can share a story;
+  stories. Inputs separate the excerpt’s publisher and URL from coverage labels, which cannot establish reporting attribution. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.
 - **Validation:** AI output is schema-checked. Stories the model returns that
   aren't backed by a real candidate are rejected. Rejected story-editor and cross-topic ownership attempts
