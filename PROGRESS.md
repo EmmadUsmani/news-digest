@@ -175,3 +175,14 @@
 - No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2732-*.log`.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2733 — recover PCIe mapping and C3 library context
+
+- Clean main at e1fbb6ef; no inherited work. Alerts/health clear, 38 monitored sources healthy; scheduled digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
+- Read latest public Tech section: thin summaries persist pending scheduled acceptance; Chromium reader shows five topics/25 stories.
+- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Linux GPU BAR allocation and C3 0.8.6 library fetching (3,000 characters).
+- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`pnpm exec tsx /tmp/2733-verify.ts`; receipt `/tmp/2733-saved.json`).
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2733-*.log`.
+- API/worker restarted; `/healthz` database/Redis pass; post-restart public Chromium reader five topics/25 stories and `pnpm obs alerts` clear.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

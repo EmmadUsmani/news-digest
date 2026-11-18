@@ -3846,3 +3846,9 @@ excerpts for compiler-split binary paths and row/column database storage
 (3,000 characters). Blank-only writes and exact stored-text rereads pass 2/2.
 No adapter changes, paid calls or edition regeneration.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#paths-and-database-storage--iteration-2732).
+
+Iteration 2733: ordinary HTTP 200 publisher responses recovered blank saved HN
+excerpts for Linux GPU BAR allocation and C3 0.8.6 library fetching (3,000
+characters). Blank-only writes and exact stored-ID/full-text rereads pass 2/2;
+no paid calls or collection behavior changes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#pcie-mapping-and-c3-libraries--iteration-2733).

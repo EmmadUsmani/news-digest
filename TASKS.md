@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2733: Recover saved PCIe Resizable BAR explanation and C3 0.8.6 release excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
+
 - [x] 2732: Recover saved compiler-split paths and row/column database tutorial excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
 
 - [x] 2731: Recover saved Coway reverse-engineering and GPU-model forensics excerpts (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.

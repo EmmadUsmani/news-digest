@@ -742,3 +742,16 @@ blank-only writes; exact stored-ID/full-text rereads pass 2/2
 so binary string searches miss build paths; the second introduces row-oriented
 storage and analytical queries. No collection behavior, paid call, budget or
 immutable edition changed. Scheduled Tech depth acceptance remains pending.
+
+## PCIe mapping and C3 libraries — iteration 2733
+
+Ordinary shared-client HTTP 200 responses recovered blank saved HN excerpts
+for [GPU BARs behind a PCIe switch](https://doug.sh/posts/gpu-bars-behind-a-pcie-switch/)
+and [C3 0.8.6](https://c3-lang.org/blog/c3_0_8_6_fetching_libraries/).
+Each changed from zero to 1,500 characters. Complete passages reviewed before
+blank-only writes; exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2733-saved.json`). The first explains full-memory mappings needed for
+ROCm peer-to-peer transfers and the author's BIOS allocation problem; the
+second explains source-library packaging, repository versions and checksums.
+No collection behavior, paid call, budget or immutable edition changed.
+Scheduled Tech depth acceptance remains pending.
