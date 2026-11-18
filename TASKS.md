@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2781: X bylines expose the verified embed’s account handle beside its display name, so the saved “PlayStation Support US” post visibly identifies `@PS_Support_US`. All 11 live saved X identities/profile destinations verified at 320/390/1440px in both themes; source authenticity remains unestablished.
+
 - [x] 2780: saved Gaming WoW milestone repeats its selected story; selected-story comparison now reaches every topic, removing the topic whitelist in both social routes. Exact milestone/distinct nomination controls pass offline; scheduled selection acceptance pending.
 
 - [x] 2778: Nov 18 U.S. Peltola Bluesky post repeats a selected story because story comparison was limited to Tech/NBA. U.S. now receives the same bounded context in both social routes; saved overlap/distinct stock-trading control and both model routes pass offline. Natural selection acceptance pending.

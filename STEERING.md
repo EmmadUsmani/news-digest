@@ -1556,6 +1556,8 @@ changed, and why a reader would notice. The ack reports the same in one line.
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
 
+ack: 2026-11-18 item 42 — iteration 2781: saved X cards concealed account handles behind display names. Reader bylines now show the embed’s handle alongside its display name, making “PlayStation Support US” visibly identify @PS_Support_US; no claim of account authenticity.
+
 ack: 2026-11-17 item 42 — iteration 2626: the real Gaming post joined a trophy emoji directly to its URL; visual link separation now includes emoji while preserving saved text and destinations.
 
 ack: 2026-11-17 item 42 — iteration 2575: enlarged-text edition header consumed 409px at 320px/300%. Fixed-size date arrows/placeholders and theme icon preserve 44px targets and text enlargement while reducing it to 205px; keyboard dates/theme and topic anchors pass.

@@ -152,3 +152,15 @@
 - Verification: targeted tests 27/27; pnpm format, pnpm lint:fix, pnpm check (1,131 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2780-{format,lint,check,build,handbook}.log.
 - Rebuilt API/worker/docs restarted active. Immediate health probe raced startup; retry health/alerts and /healthz pass. Exact live fixture reread passes; saved edition remains cd357e84, five topics/25 stories/19 posts.
 - Next: one scheduled daily review checks NBA editing and Tech/World/U.S./Gaming selection acceptance; independent grouping evaluation remains open. No further prompt stacking or per-publisher recovery.
+
+## 2026-11-18: iteration 2781 — expose X account identities
+
+- Clean main at 70bb3506; no inherited work. Initial alerts/health clear; 14 monitored services and 38 monitored sources healthy; Destructoid remains paused.
+- Reader weakness: the saved Gaming announcement displays “PlayStation Support US” while concealing its embed-author handle @PS_Support_US. Readers cannot distinguish an account from its chosen display name without leaving the edition.
+- X bylines now show the saved embed’s handle beside its display name, linking both to the same profile; identical names/handles appear once. Wrapping preserves narrow layouts. No account-authenticity claim or new exclusion.
+- Saved DB identity and direct official oEmbed author fields agree. Initial generic i/status oEmbed returned an empty body; author-specific URL returned valid JSON. No paid calls, source changes, generation changes or edition mutation.
+- Playwright /tmp/2781-browser.cjs: all 11 saved X bylines/profile destinations, keyboard focus, zero page errors/overflow at 320/390/1440px in light/dark pass. X widget requests deliberately blocked to exercise saved-card fallback; this is not a live widget outage.
+- Inspected and saved mobile-light/desktop-dark screenshots under docs/screenshots/x-account-identity-*.png. Updated affected social handbook page and TASKS; no diagram change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,131 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2781-*.log.
+- Rebuilt API/worker/docs restarted active; post-restart health, alerts and /healthz pass. Exact saved Gaming fixture reread passes; edition unchanged, five topics/25 stories/19 posts.
+- Next: scheduled NBA editing and Tech/World/U.S./Gaming selection acceptance. Account @PS_Support_US authenticity remains unestablished; do not label it official or spoofed from its name alone.

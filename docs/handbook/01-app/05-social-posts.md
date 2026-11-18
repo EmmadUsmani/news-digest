@@ -4,6 +4,7 @@
 
 There are two ways in. Both feed one pool of **candidate posts**, and a post
 is only shown after X's official embed service confirms it exists.
+Reader bylines link the embed's display name and handle to its profile; matching names and handles appear once.
 
 ```mermaid
 flowchart LR

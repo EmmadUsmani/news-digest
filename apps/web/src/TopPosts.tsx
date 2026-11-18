@@ -184,6 +184,7 @@ function Post({
 }) {
   const postIdentity = `from ${post.author}, ${new Date(post.publishedAt).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'long' })}`;
   const text = post.displayText ?? post.text;
+  const authorHandle = new URL(post.authorUrl).pathname.replace(/^\/|\/$/g, '');
   // Official saved excerpts can end in an ellipsis followed by media links.
   // Ignore those trailing links, but preserve all saved text in the reader.
   const endsWithEllipsis =
@@ -299,7 +300,13 @@ function Post({
           rel="noreferrer"
           className="inline-flex min-h-[44px] min-w-[44px] max-w-full items-center rounded-md text-xs font-normal break-words hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
-          {post.author}
+          <span className="flex min-w-0 flex-wrap items-baseline gap-x-2 [overflow-wrap:anywhere]">
+            <span>{post.author}</span>
+            {post.author.replace(/^@/, '').toLowerCase() !==
+              authorHandle.toLowerCase() && (
+              <span className="text-[var(--secondary)]">@{authorHandle}</span>
+            )}
+          </span>
         </a>{' '}
         ·{' '}
         <a
