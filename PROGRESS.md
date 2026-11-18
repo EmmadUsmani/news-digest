@@ -34,76 +34,7 @@
 
 [Iterations 2685–2692](docs/progress-archive/2026-11-18-iterations-2685-2692.md)
 
-## 2026-11-18: iteration 2693 — recover Rust and HTTP/3 publisher evidence
-
-- Clean main at 1b78aba5; no inherited work. Alerts clear, health passes, source/job checks pass; outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
-- Latest public Tech still has four thin summaries; existing edition remains immutable. Continued collection repair using deployed extraction on three blank saved HN candidates: Rust developer essay, HTTP/3 tutorial and Jiff 1.0 announcement.
-- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters); local /tmp/2693-saved.json, receipt in docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
-- Personal experience, first-party tutorial promotion and release/adoption claims retain attribution. jQuery GitHub release has only a bare publisher link and stays blank; no scope expansion or bypass.
-- Source inventory/tasks updated; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2693-*.log. Commit/push and API/worker restart follow.
-- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
-
-## 2026-11-18: iteration 2694 — recover reliability and display publisher evidence
-
-- Clean main at 58b7272b; no inherited work. Alerts clear; health/source/job checks pass, outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
-- Read current public Tech: four summaries still thin; immutable edition unchanged. Two saved blank HN candidates now retain publisher prose through deployed extraction: software reliability essay and TRMNL Frame announcement.
-- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact saved ID/text rereads pass 2/2 (3,000 characters); /tmp/2694-saved.json and docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
-- Essay claims remain attributed opinion; first-party delivery dates remain plans. CMU course page HTTP 200 yields no scoped excerpt and stays blank; no bypass or scope expansion.
-- Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Source inventory/tasks updated; no application/schema/UI/handbook behavior change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips). Logs /tmp/2694-*.log. Commit/push and API/worker restart follow checks.
-- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
-
-## 2026-11-18: iteration 2695 — recover Rust verification and solar research evidence
-
-- Clean main at 236b40e6; no inherited work. Alerts clear, health/source/job checks pass, outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
-- Reader weakness: current public Tech still has thin summaries. The owner would notice richer source detail in future digests; recovered two blank HN candidates using deployed collection: Harmonic Rust verification and Cornell solar-grazing research.
-- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent ID/text rereads pass 2/2 (3,000 characters); /tmp/2695-saved.json and docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
-- Harmonic capabilities remain first-party claims; Cornell’s October study retains historical attribution. Jolt HTTP 200 has no scoped article/main prose and stays blank. No bypass or collection scope expansion.
-- Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks updated; no application/schema/UI/handbook behavior change.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2695-*.log. Commit/push and API/worker restart follow checks.
-- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
-
-## 2026-11-18: iteration 2696 — recover DNS, security and reuse evidence
-
-- Clean main at 5deec8a9; no inherited work. App health/source/job checks pass; no paid calls, budget/provider changes or edition regeneration.
-- Pending metrics scrape alert triggered incident inspection: process active, NRestarts=0, memory below 112 MiB; slow queries/scrapes observed, health and metrics HTTP answer. Metrics-store alert cleared; app-api scrape pending afterward. No metrics restart or retuning.
-- Read signed-out public Tech: thin summaries remain. Three blank saved HN candidates recovered through deployed collection: S2 DNS, Windows Hello RPMC abstract and Arcentry reuse essay.
-- Ordinary shared-client HTTP 200; blank-only 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 total), /tmp/2696-saved.json; receipt in docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
-- First-party/research claims retain attribution; physical-access findings are not remote attacks, and essay banking teams are fictional. No extraction/schema/UI/handbook change.
-- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks updated. Both pending scrape alerts cleared by 04:39:48 UTC without intervention; app metrics HTTP 200 in 0.010 s.
-- Natural 04:40 UTC retention succeeds, exit 0: 163 expired session files / 89,331,829 bytes deleted; tmpfiles completes with seven unavailable pipe notices ignored. Disk 74%; protected paths untouched, next run Nov 19.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2696-*.log. pnpm build passes; commit/push and API-worker restart follow.
-- Next: natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC; retention Nov 19 04:40 UTC.
-
-## 2026-11-18: iteration 2697 — preserve publisher article titles
-
-- Clean main at 87f45c17; no inherited work. Alerts clear; health, source, job and service checks pass. Outside protected hours; no paid calls or budget/provider changes.
-- Read signed-out public Tech: thin summaries remain. Found collection cause on Infisical/Notifkit: header removal discarded the only main-body h1 and rejected reporting. Preserve the title while excluding header metadata; main still requires its own heading.
-- Added recorded reduced publisher fixtures and regression coverage for header titles, outside headings and excluded promotion text. No schema/UI/handbook behavior change.
-- Three ordinary HTTP 200 publisher pages recover blank saved HN excerpts: identity management, Siterate investigation and notification engineering; 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters), /tmp/2697-saved.json.
-- Fictional examples and first-party comparisons remain attributed. Immutable editions unchanged; public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks and recovery receipt updated.
-- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,107 unit/330 integration tests, four expected skips). Logs /tmp/2697-*.log. Commit/push and API/worker restart follow checks.
-- Next: scheduled Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; no deployment during 13:00–16:00 UTC.
-
-## 2026-11-18: iteration 2698 — recover security and technical context
-
-- Clean main at 0905f5d7; no inherited work. Alerts/health/source/job checks pass. Initially stale service snapshot showed worker inactive; direct systemd/logs and refreshed snapshot pass, no intervention.
-- Read public Tech: thin summaries remain. Recovered three blank saved HN excerpts with deployed extraction: uBlock Origin UXSS research, historical ThinkPad account and squircle explainer.
-- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters), /tmp/2698-saved.json.
-- Researcher says the security issue is fixed; ThinkPad is historical and excerpt is not a complete recovery procedure. Lean/Astra HTTP 200 pages lack scoped excerpts and stay blank.
-- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/receipt updated; no application/schema/UI/handbook change, paid calls, budget changes or edition regeneration.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,107 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2698-*.log. Commit/push and API/worker restart follow checks.
-- Next: natural Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC.
-
-## 2026-11-18: iteration 2699 — recognize WordPress reporting bodies
-
-- Clean main at ed77a745; no inherited work. Alerts/health/sources pass; API and worker active. No paid calls, budget/provider changes or edition regeneration.
-- Public HTTPS Chromium reader passes five topics/25 stories/20 posts; Tech still thin. Found collection cause: Lean page uses h2 entry-title and entry-content, missed by h1 main fallback.
-- Added titled-hentry WordPress body extraction, with reduced recorded fixture and regression checks excluding comments and unscoped containers. No schema/UI/handbook change.
-- Lean candidate blank-only update 0 → 1,500 characters; independent exact ID/text reread passes (/tmp/2699-saved.json). Author's proof-interpretation cautions remain attributed.
-- Sources/tasks/recovery receipt updated. Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,108 unit and 330 integration tests pass, four expected skips. Logs /tmp/2699-*.log.
-- Commit/push and API/worker restart follow successful checks; scheduled Tech share/depth acceptance remains due after 15:00 UTC. Protect 13:00–16:00 deployment window.
+[Iterations 2693–2699](docs/progress-archive/2026-11-18-progress-2693-2699.md).
 
 ## 2026-11-18: iteration 2700 — recover header-titled main reporting
 
@@ -224,4 +155,14 @@
 - Full excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 3/3 (`/tmp/2711-saved.json`). Turbo Pascal remains blank without scoped prose.
 - Opinion, dated pricing and project setup instructions retain publisher attribution. No code/schema/UI changes, paid calls, budget changes or regeneration.
 - Recovery receipt/sources/tasks updated; no handbook behavior change. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; `pnpm check` passes: 1,113 unit/330 integration tests, four expected skips; logs `/tmp/2711-*.log`. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2712 — recover sales, tax and C++ publisher context
+
+- Clean main at b3d31875; no inherited work. Alerts/health/services/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Reader value: richer saved evidence gives the next Tech edition more context than bare HN titles; latest public Apple/China summaries remain thin.
+- Ordinary shared-client HTTP 200 responses recover three blank excerpts: direct game sales, Japan’s Hometown Tax (2018) and Clice v1.0 (4,500 characters).
+- Complete excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 3/3 (`/tmp/2712-saved.json`). Historical commentary and author-reported stability retain their framing.
+- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/recovery receipt/tasks updated; older progress/completed markers archived. No handbook behavior change.
+- Public HTTPS Chromium reader passes with 25 stories. `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; `pnpm check` passes: 1,113 unit/330 integration tests, four expected skips. Commit/push and API/worker restart follow checks. Logs `/tmp/2712-*.log`.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

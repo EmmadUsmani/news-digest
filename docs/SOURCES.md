@@ -3721,3 +3721,9 @@ Iteration 2711: ordinary publisher HTTP 200 responses recovered blank saved
 HN excerpts for hackable firmware, Protomaps and Mosquitto (4,500 characters).
 Blank-only writes and independent exact ID/text rereads pass; no source added.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#firmware-maps-and-mqtt-context--iteration-2711).
+
+Iteration 2712: ordinary publisher HTTP 200 responses recovered blank saved
+HN excerpts for outside-Steam sales, Japan’s Hometown Tax (2018) and Clice v1.0
+(4,500 characters). Exact ID/full-text rereads pass; historic and author-claim
+framing retained. Scheduled acceptance pending.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#direct-sales-tax-and-c-context--iteration-2712).

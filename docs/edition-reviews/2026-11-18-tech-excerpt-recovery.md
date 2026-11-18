@@ -433,3 +433,20 @@ remain author opinion, map prices remain dated publisher claims, and Mosquitto
 setup guidance remains project documentation. Turbo Pascal stays blank without
 scoped extractable prose. No collection code change, paid call or regeneration.
 Scheduled Tech share/depth acceptance remains pending.
+
+## Direct sales, tax and C++ context — iteration 2712
+
+Three ordinary shared-client HTTP 200 responses recovered blank saved HN
+excerpts with the unchanged deployed extractor. Full excerpts were reviewed
+before blank-only writes; independent exact ID/full-text rereads pass for all
+three rows (4,500 characters; `/tmp/2712-saved.json`).
+
+| Candidate                                                                                  | Before | After | Retained detail                                                                |
+| ------------------------------------------------------------------------------------------ | -----: | ----: | ------------------------------------------------------------------------------ |
+| [Game sales outside Steam](https://permitcore.dev/blog/sell-game-outside-steam)            |      0 | 1,500 | Distinct Steam entitlements, itch.io download links and application licenses   |
+| [Japan’s Hometown Tax (2018)](https://www.kalzumeus.com/2018/10/19/japanese-hometown-tax/) |      0 | 1,500 | Historical author account of regional migration and tax-policy context         |
+| [Clice v1.0](https://ykiko.me/en/articles/2105384023094834022/)                            |      0 | 1,500 | Author-reported stable release, testing history and C++ language-server design |
+
+The tax essay remains historical commentary; Clice stability claims remain
+author assertions. No edition regeneration, paid calls, budget or collection
+behavior changes. Natural Tech share/depth acceptance remains after 15:00 UTC.
