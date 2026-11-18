@@ -30,7 +30,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
-- [ ] STEERING 27 grouping: Nov 16 GTA forecast overmerge confirmed; Helix one/Nvidia five member edges unresolved. Production unchanged; no paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] STEERING 27 grouping: 2677 reviews all Nov 17 multi-report groups (12/45 members): seven supported, five scope/provenance unresolved; GTA Sensor Tower group is a supported contrast to Nov 16 separate-forecast overmerge. Helix one/Nvidia five older edges unresolved. Production unchanged; no paid replay. [Nov 17 review](docs/edition-reviews/2026-11-17-grouping.md). [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 7 speed: targets unmet; bounded waiting protects NBA repair but refuses U.S. admission. Retain production; stop synthetic expansion, await scheduled evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-8).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2677: Review all twelve Nov 17 published multi-report groups against 45 captured member texts; preserve shared-estimate GTA evidence and five unresolved groups.
 
 - [x] 2676: Activate bounded Tech admission for the next scheduled edition; retain immediate flag rollback and private decision receipts.
 

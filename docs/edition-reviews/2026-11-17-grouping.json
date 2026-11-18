@@ -1,0 +1,387 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "poolCapturedAt": "2026-11-17T14:57:20.901Z",
+  "reviewedAt": "2026-11-18",
+  "iteration": 2677,
+  "provenance": "Immutable Nov 17 acceptance snapshot plus pre-publication loader capture; agent review, no independent annotations or model replay. Captured excerpts are not proof of exact historical editor inputs.",
+  "groups": [
+    {
+      "topic": "Tech & AI",
+      "storyId": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "publishedTitle": "Trump administration moves to block China from indirect access to American AI technology",
+      "assessment": "unresolved",
+      "reason": "All eight captured excerpts are empty; remote compute access, regional restrictions and market fallout need reporting provenance.",
+      "members": [
+        {
+          "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZmVNc2gzUVpPRS1uRHRSNUZMR0RSR3hzd18xZVVacXlMVGVQZDhDSFJ4S1E5UjRYQVRnVWdWS1cyMW9pSXk2T21YWmFjVWJnU3NYaUJLSmZVS0V1OU0zMlpQb2xNMTZxdDN5UnBES1ZoQllzdG44SjVQQlJXbVgwUXZsYVRqVTNsOWJnTEgtYUFFN1RVampqc3M2WXljRHBZandFZklkZnZ3aktaLVhIaHpPVQ?oc=5",
+          "title": "Trump administration moves to block China from indirect access to American AI technology - Alabama Daily News",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "e99de582-f226-4fbe-a9d7-8ef8411f250c",
+          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1kZVJSX3o4UWtJT05KV0VUY1dPV3F3YUhYVHo5MkpQS0YzdUNDM2JmbXdERGRoTFduT3NlWWxaMUNYRkZxV1VyaUJRZ2dQVTVVekVvel85N2Zpa3c?oc=5",
+          "title": "How new US chip restrictions on South East Asia will hit China - BBC",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "ea5c55cc-d33d-4c92-a620-9d7b3ecb7a19",
+          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSVVjUlBfX1ZxOFRWZ243YkxEbTVJSm1BSkNJLUpCTzdrZlAtU3ktZzdmekJCZVhVc1lubi0tbklQX2wwTEh6WU8wUkI2M05Ecy1OTWJUNk5UVTV6bjltOWZkaXF3UHpJazUwaVlmTGljMFZBUGd3bFliN21xRWItdWhHeHVvSncxLXQ4SHZael9ySVF4QmlQOTNIQTZWTWl2NGdwaTA4eFhDUm5LVzZQc2JhZmFJQQ?oc=5",
+          "title": "Chip Stocks Slide as US Sets New Curbs on China’s Compute Access - Bloomberg.com",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "1d81cbfa-098f-4c55-8cd6-17f8d3f84868",
+          "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxORndmQl9ST0JsenBWc1dGUmpQUW5kRVBOODgtQi1MV1gzSjNlanNvalBtbzJKa3diVGNJR0lPZGFhVEthbVdjRlhXQXEzOFRaQndtb0pacVNISE1FamdkWmtuM2Z1c3Y4OTFpZl83TUlYRVQ3Y20wRmhYZ3B2M0xvRFRNLUJWYUtRc0hUMFJlbGMtc2tEY3d0OWZqYXZWSlllb29Vc1V1a0l5NmVvanNpaEViMVY2aWZTNVNyLXpzZHlFU1pEQzY3MjRrdm0yZXpPUnEzcA?oc=5",
+          "title": "Trump administration moves to block China from indirect access to American AI technology - Los Angeles Times",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "6738ac07-8d4c-4c44-9901-3eee1c8862d5",
+          "url": "https://news.google.com/rss/articles/CBMirwJBVV95cUxQcUk3QWgyeElRSjVVWmIwZDR4YURwWFl0am5NM1FtTjVrWlFUeEdOb2MxZzNhd1lIX3ctLVBibWRaWnpMQi13YU5HdWdha1RrcGtBUGgzeGZPYi13MFhzWWxlSlhiSDY5cHctWndFOWhfLUFiNmxKZ2tlRFczaGU2LWJWWTlTTUhYMlBKeEQwRnV2NGpGSHFLOHBBYVhRSXBkbERKanE5Z29RTU02N216OWJFd29MS202OXl3VFB1aXJxcEF0T205VmFVNTVmRklwSGVzWXRrQ0Y3SGw5UlY4dTFOaGZsLS1EZjZ6Y1g2el9PcmNlRHNFVjZaVzljOFpXWG9lT01XMFF4SVJMRDNmLVZ2TzUzMnczSVdLRUdmZnd6MHFiazVCN3dEdXFrcTA?oc=5",
+          "title": "New US rules aim to close loophole, restrict Chinese firms’ remote access to AI servers and infrastructure — seeks to combat cloud rental workarounds to export controls - Tom's Hardware",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "30822c95-2e72-4aae-8155-e49a790624e1",
+          "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYmFQTHJZS3RtRE05aU1kZkRJZm1fSzV1MXNZZmJILXZ4OUZWWFRNTjRKdUQ5SkFsVGRNVFRtbDJnZlNzZ215UGU3UUMxYkhnQmhzZlZvX3ZNNklkNlNieXdOVzh4V25XdWlkODZldXN6Q3YzNGJhLTZmbi02bmQzSTNENWZUNTAxZ2QyYkRxR2hVZXJnSUVZQk1rWFdoZllWZUVla3pqN0s5SDk2NFlXTThn?oc=5",
+          "title": "Commerce Department moves to close AI chip loophole - Nextgov/FCW",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "edbb13ba-3e43-4129-bb66-48f16c2f818f",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNFg4c3hVYUpsbG5YM1lWYURyNndYY281M1R3eWFvWWF4ekt0X1pNaTdmTFJNRUJKSWstVnJhdFg2cWZzWFNfMlIyeWFwOWRIVEtja1hlQ1VDNWtkRldTcXdwMGY1MXdRbi1JTTRoNHVGVTMzeWpydVoyNUJfTVh4cldZVS1ZOUZGZ3JhVkI5MmZ6TVNnTWxGdGtjb0NnVzlzUHRHVlJuSUdESVU4MGIzV2V3aWZ5R2VRUjVYNHdkUmh3NUh3N3JvSEZFOUd3cTBoQUpzbU9R?oc=5",
+          "title": "Trump administration moves to block China from indirect access to American AI technology - KSL",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "b3672cf5-e44a-457f-956c-2d47525a3286",
+          "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQcWNxUlVueUVLS0ZjOFptV1JKZl9PUGUxbFFFSjN6ZERnSFQzTlA4eDhsSVllWHlndEtGaER4VEdCX2d4aHByUDVma0RwOVB4ZVVoY0JFdkZPcjlxTXlFTGN2LTZLRm9RTXZLZDZqUlphUUNlbFJyZl9heDNGaEhLMkFhZ1hxaGZrTnU0c0RRVk1SRVU0VGhPc1hQMzUtLVpqSWxGY04tMUh0Rzg?oc=5",
+          "title": "US to further curb China's access to AI chips from companies like Nvidia - Sky News",
+          "capturedExcerpt": ""
+        }
+      ]
+    },
+    {
+      "topic": "Tech & AI",
+      "storyId": "b03cbe03-4be2-4910-a06d-bbea40028526",
+      "publishedTitle": "Hacker News post alleges Optimizely was compromised and served malware on Zoom and GitLab",
+      "assessment": "unresolved",
+      "reason": "Both captured excerpts are empty; shared Optimizely incident titles alone do not establish provenance.",
+      "members": [
+        {
+          "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+          "url": "https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely/",
+          "title": "Optimizely compromised, served malware on Zoom, GitLab",
+          "capturedExcerpt": ""
+        },
+        {
+          "id": "c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd",
+          "url": "https://amirulcyber.com/2026/11/16/optimjack-optimizely-skimmer/",
+          "title": "Optimizely Compromised",
+          "capturedExcerpt": ""
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "storyId": "08a3fce3-300c-4422-b85c-a022f8d1a61c",
+      "publishedTitle": "Wembanyama's historic 52-point game headlines Spurs' winning streak",
+      "assessment": "scope-unresolved",
+      "reason": "Both discuss the twelve-game streak; one analyzes team performance, the other reviews several games. Their retrospective Dallas accounts disagree on 52 versus 53 points. Do not treat this as two confirmations of the headline statistic.",
+      "members": [
+        {
+          "id": "08a3fce3-300c-4422-b85c-a022f8d1a61c",
+          "url": "https://sports.yahoo.com/articles/spurs-winning-streak-driven-victor-110739957.html",
+          "title": "Spurs winning streak driven by Victor Wembanyama, but he is far from alone",
+          "capturedExcerpt": "Earlier this month, Victor Wembanyama, still in his uniform, sat at the podium and seemed almost disappointed. He had just made history, generating a stat line that had only been replicated one other time since 1974. His 52-point, 24-rebound, 8-block masterclass on Nov. 4 propelled the San Antonio Spurs past the Dallas Mavericks in a one-point win. But Wembanyama had been dealing with a cold, and it was only that night when he felt like he had finally gotten his legs back. “It should be more like this,” Wembanyama said. “More often.” Wembanyama was not wrong. The Spurs are the hottest team in the NBA, winners of 12 consecutive games. They’ve climbed to the top of Western Conference and are tied with the Los Angeles Lakers for best record in the NBA. San Antonio ranks within the top three in offensive rating (119.2), defensive rating (106.6) and net rating (+12.6). And one season after falling short in the NBA Finals, the Spurs are looking like a dominant team, one that could be poised for a championship run. How exactly is San Antonio doing it? Throughout it all, it has been Wembanyama carrying the Spurs. On Monday, Nov. 16, Wembanyama earned Western Conference Player of the Week, his second such honor in the regular season’s first month. He’s averaging career highs in points (28.6), rebounds (11.6) and blocks (4.3). But more than just the numbers, it’s the way Wembanyama is playing the game that is elevating San Antonio. Wembanyama is either attacking the rim and using his…"
+        },
+        {
+          "id": "a40202cb-5317-4d74-a761-dfc154a635f5",
+          "url": "https://sports.yahoo.com/articles/week-review-spurs-young-core-204844831.html",
+          "title": "Week in Review: Spurs’ young core spreads the wealth as win streak extends to 12",
+          "capturedExcerpt": "Welcome to Week in Review: a Monday feature that looks back at the week that was for the San Antonio Spurs, takes a look at the week ahead, and more. Enjoy! Week 3: The Spurs extended their winning streak to 8 with three blowout wins — two expected ones at home against the Jazz and in Sacramento, plus a somewhat surprising one at Portland — sandwiched around an all-time classic against the Mavericks. The Spurs got out to a 19-point lead before blowing it in all-too-familiar fashion, but Victor Wembanyama channeled his inner Wilt Chamberlain to help gut out the one-point win with a historic 53-point, 24-rebound, 8-block effort. Week 4: 4-0 (12-2, 1st in West) 112-96 win at Phoenix Suns Battling off some demons in what is often a challenging venue, the Spurs went into Phoenix and demoralized another middling opponent trying to find its footing. They countered a 32-point outing from Devin Booker with 40-11-8 showing from Wemby, who even had Suns fans cheering after it became clear that the Spurs had this one in the bag, and they decided to just enjoy the show. 124-119 win at Chicago Bulls It wasn’t their prettiest showing, but the Spurs weathered an insanely hot start from the Bulls — who at one point in the second quarter were shooting 83% from both the field and three — before bouncing back and with a dominant second half to overcome a 22-point deficit for their 10th straight win. 123-85 win vs. Golden State Warriors (NBA Emirates Cup) An anticipated match-up lost its luster…"
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "storyId": "2f0eb38a-2f6e-4f12-8c35-d12a416371a4",
+      "publishedTitle": "Grizzlies beat Wizards for Washington's eighth straight loss",
+      "assessment": "supported",
+      "reason": "Both excerpts describe Memphis handing Washington its eighth straight loss and a 24-point third-quarter swing. One headline says 136-120 but its excerpt says 131-120; grouping support is not score validation.",
+      "members": [
+        {
+          "id": "2f0eb38a-2f6e-4f12-8c35-d12a416371a4",
+          "url": "https://sports.yahoo.com/articles/wizards-hammered-memphis-grizzlies-8th-120000270.html",
+          "title": "Wizards hammered by Memphis Grizzlies for 8th straight loss",
+          "capturedExcerpt": "The Wizards played 24 good minutes against the Memphis Grizzlies. Unfortunately, the game lasted 48 minutes. Their worst 12 minutes came in the third quarter. They started the period up 10 and finished it down 14, courtesy of a 42-18 beatdown by Cameron Boozer, Zach Edey, and the rest of the Grizzlies. Fifteen games into the season where they hoped to compete again, the Wizards have a 4-11 record, and they’re currently on an eight-game losing streak. It’s starting to feel like last year. And the year before. And the year before. If you missed this one, a) congratulations, and b) here are a few tidbits to illustrate how this one went: Washington’s defensive game plan was built around defensive indifference — they were going to concede three-point shots to Boozer. He missed his first five…and then made seven of his last eight. Boozer finished with a career-high 29 points,. Edey dominated Washington’s Twin Towers lineup, notching 23 points (on 10-15 shooting) and 10 rebounds in just 21 minutes. Javon Small had his first career double-double — 12 points, 12 assists. The Grizzlies shot 64.2% (effective field goal percentage) and rebounded 42.9% of their misses. That’s the second consecutive game the Wizards gave up a 60+% efg and an opponent offensive rebound rate above 40%. I don’t know for sure because it probably never occurred to anyone to track this combination of stats, but I suspect it’s exceedingly rare to do both in a single game. I mean, it never occurred to me to pay…"
+        },
+        {
+          "id": "1299389a-8cc6-41f7-92f6-9a0e20bdf8fb",
+          "url": "https://sports.yahoo.com/articles/recap-wizards-drop-eighth-straight-022845384.html",
+          "title": "Recap: Wizards drop eighth straight with 136-120 loss to Grizzlies",
+          "capturedExcerpt": "The Washington Wizards couldn’t hold onto a 12-point second-quarter lead Monday night, as the Memphis Grizzlies outscored them by 24 in the third quarter to pull away for a 131-120 victory and hand Washington its eighth consecutive loss. Washington opened the game with a 35-33 lead, fueled by 10 first-quarter points from Anthony Davis who connected on 4-of-6 field goals and knocked down a pair of free throws. AJ Dybantsa and Trae Young each knocked down a three-pointer, while Khris Middleton added two more from beyond the arc. Young, who went scoreless in Sunday’s game against the Houston Rockets, also dished out five assists in the opening quarter, helping set the pace for Washington’s offense. Seven different Wizards scored in the first quarter, including 15 points from the bench, and Washington shot 55.6% from distance. Washington went back and forth with Memphis to start the second quarter, but Young continued to orchestrate the offense. He added five more assists to reach 10 for the half, becoming the second player in the NBA this season to record 10+ assists before halftime. Dybantsa put together an impressive second quarter. He caught a lob from Young, threw down a put-back dunk and picked Cam Spencer’s pocket before finishing the ensuing fast break with a two-handed slam. The rookie scored 12 of his 15 first-half points in the second quarter, helping Washington build a 69-59 halftime lead with a 16-4 run. AJ putback 🤯 pic.twitter.com/SiocG9rBU5 — Washington Wizards…"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "storyId": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+      "publishedTitle": "Sensor Tower estimates GTA 6 has already made $1.45 billion from pre-orders",
+      "assessment": "supported",
+      "reason": "All three excerpts attribute pre-order revenue estimates to Sensor Tower; two specify 14.94 million units and $1.45 billion. Unlike Nov 16 separate forecasts, this is shared reporting provenance.",
+      "members": [
+        {
+          "id": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+          "url": "https://www.gamesradar.com/games/grand-theft-auto/as-gta-6-finally-nears-release-analysts-estimate-rockstar-has-already-made-usd1-45-billion-helped-by-nearly-90-percent-of-fans-buying-the-controversial-usd100-ultimate-edition/",
+          "title": "As GTA 6 finally nears release, analysts estimate Rockstar has already made $1.45 billion",
+          "capturedExcerpt": "GTA 6 isn't even out yet, but it's been estimated that Rockstar's next game has already surpassed $1.45 billion in revenue, with almost 15 million copies sold via pre-orders. That's according to market intelligence firm Sensor Tower, whose latest sales tracker estimates – updated yesterday – continue to put PS5 pre-orders well ahead of Xbox Series X|S, with sales for Sony's console thought to account for 74% of the lot, at 11.13 million copies. Between both platforms, Sensor Tower estimates 14.94 million units have been sold. What's more, as of November 10, Sensor Tower estimated that a whopping 87% of all GTA 6 pre-orders were for the more expensive Ultimate Edition. As a reminder of the different GTA 6 versions, the Standard Edition is $80, while the Ultimate Edition comes in at $100, the price everyone was so worried about before pre-orders were announced. For your extra $20, you get some unique cars and several exclusive shops, among other things – I imagine those shops may have been the selling point for many, given that you're literally missing out on content otherwise. To an extent, I'd imagine a bit of a 'go big or go home' mindset might apply here, too. After all, we've been waiting 13 years since the last game in the series, so a lot of people are just going to want the, well, ultimate experience. It's this sort of thinking that could get you to spend $400 on a box of mostly expensive tat, though, so be careful with that. Anyway, there was never any doubt GTA 6…"
+        },
+        {
+          "id": "d78c49f7-1259-4206-900a-bc164416be87",
+          "url": "https://www.gamesindustry.biz/sensor-tower-gta-6-pre-orders-exceed-14bn-with-87-for-the-ultimate-edition",
+          "title": "Sensor Tower: GTA 6 pre-orders exceed $1.4bn, with 87% for the Ultimate Edition",
+          "capturedExcerpt": "Sensor Tower estimates Grand Theft Auto 6 has generated over $1.4 billion in pre-order revenue, with 87% of orders for the Ultimate Edition. Read more"
+        },
+        {
+          "id": "7f440bee-373a-4cb7-8417-261571a93b67",
+          "url": "https://gamingbolt.com/gta-6-is-close-to-15-million-sold-and-1-5-billion-revenue-rumor",
+          "title": "GTA 6 is Close to 15 Million Sold and $1.5 Billion Revenue – Rumor",
+          "capturedExcerpt": "Only days after analyst firm Sensor Tower estimated over 10 million sales for Grand Theft Auto 6, a new milestone has reportedly been reached. Rockstar Games’ open-world behemoth, launching on November 19th for Xbox Series X/S and PS5, has allegedly neared 15 million sales. It’s currently estimated at 14.94 million units sold, with PlayStation dominating again at 11.13 million sales while Xbox is at 3.81 million. Total revenue has seemingly topped $1.45 billion, with $1.08 billion for PS5 and $368 million for Xbox. Of course, these are estimates, as Rockstar and Take-Two have not offered any official sales figures heading into launch. The most we’ve heard from the latter is that pre-orders are “far in excess” of its expectations, though it promises to share more once the game is out there. Nevertheless, if these are close to the real total, Grand Theft Auto 6 may be close to breaking even on its reported $2 billion+ budget from launch itself. Marketing and distribution wouldn’t be included, but it’s still an incredible achievement, displacing its predecessor’s $800 million launch sales without breaking a sweat. Once it’s finally out there for all and sundry to play after years of waiting, what’s next for Rockstar Games? Thankfully, we won’t have to wait long to find out, per Take-Two CEO Strauss Zelnick, so stay tuned."
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "storyId": "1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6",
+      "publishedTitle": "Ocarina of Time remake is 2026's best-selling US physical game so far, Circana says",
+      "assessment": "partially-supported",
+      "reason": "GameSpot, Nintendo Life and GamesRadar explicitly name Circana/Piscatella and the US physical launch record. Eurogamer/VGC support the same record; Kotaku saved prose only says fans want a cartridge, leaving its reporting provenance unresolved.",
+      "members": [
+        {
+          "id": "1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6",
+          "url": "https://www.gamespot.com/articles/ocarina-of-time-is-2026s-best-selling-physical-game-in-the-us-but-gta-6-is-coming/",
+          "title": "Ocarina Of Time Is 2026’s Best-Selling Physical Game In The US, But GTA 6 Is Coming",
+          "capturedExcerpt": "Nintendo's The Legend of Zelda: Ocarina of Time remake for Switch 2 is the best-selling physical game of 2026, according to Circana, but GTA 6 is coming out soon and could topple that record. Circana's Mat Piscatella said the Ocarina of Time remake for Switch 2 was the first game to surpass 1 million physical units sold in the US for its launch week since 2023's The Legend of Zelda: Tears of the Kingdom. Ocarina of Time for Switch 2 released on November 5, and Circana's reporting period ended on November 7, so the achievement was actually accomplished in just two days, not even a full week. https://www.youtube.com/watch?v=_xMM7L2XoMc Ocarina of Time's physical edition, which includes a cartridge, sells for $70, compared to $60 for its digital counterpart. GTA 6 launches on November 19, and while the game is fully digital, Rockstar is releasing a \"physical\" version of the game at brick-and-mortar retailers. Buyers don't get a disc--only a code for the game. In any event, for Circana, code-in-a-box games are considered new physical game sales, so GTA 6 is no doubt going to topple Ocarina of Time's record. Ocarina of Time's remake for Switch 2 sold more than 5 million copies over its first four days globally. The latest sales data for GTA 6 pre-purchases show that the game has passed 16 million units sold worldwide."
+        },
+        {
+          "id": "128ec301-fb81-4681-b777-5c320e57635a",
+          "url": "https://www.eurogamer.net/the-legend-of-zelda-ocarina-of-time-remake-physical-sales-us-1-million",
+          "title": "The Legend of Zelda: Ocarina of Time on Switch 2 is the US' best-selling physical game so far this year",
+          "capturedExcerpt": "The very popular and critically-acclaimed The Legend of Zelda: Ocarina of Time remake has set another record. After selling 5.2m copies in four days and becoming the Switch 2's fastest-selling game, Ocarina of Time has now been revealed to also be a major seller at retail.…"
+        },
+        {
+          "id": "b971310a-3ae1-49b5-8c07-051038f3e92b",
+          "url": "https://kotaku.com/zelda-ocarina-of-time-remake-sold-1-million-physical-copies-in-its-first-week-the-most-since-tears-of-the-kingdom-2000757645",
+          "title": "Zelda: Ocarina Of Time Remake Sold 1 Million Physical Copies In Its First Week, The Most Since Tears Of The Kingdom",
+          "capturedExcerpt": "Fans still want Zelda on a cartridge"
+        },
+        {
+          "id": "53c11762-6e78-4e33-8016-5e66c2e1f428",
+          "url": "https://www.videogameschronicle.com/news/zelda-ocarina-of-time-remake-is-the-best-selling-physical-game-in-the-us-in-2026-so-far-passing-1-million-in-its-first-week/",
+          "title": "Zelda Ocarina of Time remake is the best-selling physical game in the US in 2026 so far, passing 1 million in its first week",
+          "capturedExcerpt": "It's the first game to sell 1 million physical copies in week one in the US since Tears of the Kingdom…"
+        },
+        {
+          "id": "66af6a3f-b578-49a8-92ca-6d803d033453",
+          "url": "https://www.nintendolife.com/news/2026/11/zelda-ocarina-of-time-remake-crowned-2026s-best-selling-physical-video-game-in-the-us",
+          "title": "Zelda: Ocarina Of Time Remake Crowned 2026's \"Best-Selling Physical Video Game In The US\"",
+          "capturedExcerpt": "\"After just one week\". The Zelda: Ocarina of Time remake for Switch 2 got off to an outstanding start, selling over five million copies (approx 5.2 million units) in just four days. Sales in the UK and Japan have contributed to this, and now, Circana Retail Tracking Service has shared data about the title's US launch. As highlighted by Circana's senior director and video game industry advisor Mat Piscatella (via social media), \"after just one week\", Ocarina of Time for Switch 2 is this year's \"best-selling physical video game in the US\". Interestingly, it's the first title to surpass one million physical units in a US launch week since the 2023 Switch title, The Legend of Zelda: Tears of the Kingdom.…"
+        },
+        {
+          "id": "e6c8b292-05cb-4728-8e9f-559e0b0bba49",
+          "url": "https://www.gamesradar.com/games/the-legend-of-zelda/zelda-ocarina-of-time-remake-is-2026s-best-selling-physical-game-in-the-us-after-just-1-week/",
+          "title": "Zelda: Ocarina of Time remake is 2026's best-selling physical game in the US after just 1 week",
+          "capturedExcerpt": "The Legend of Zelda: Ocarina of Time remake only just released on November 5, but it's already become the best-selling physical release of the year in the US, a record that'll surely hold against another highly anticipated game releasing in a few days that rhymes with Grand Theft Gelato. Per Circana's Mat Piscatella, citing sales data through November 7, Zelda: Ocarina of Time is the first physical launch to surpass 1 million units sold in the US since Zelda: Tears of the Kingdom from 2023, further cementing the new remake as an undeniable commercial success, in case there was any doubt. And yet, with GTA 6 looming on the horizon, Ocarina of Time's days as the year's best-selling physical release are likely numbered. Now, you could make the valid argument that GTA 6 technically isn't getting a physical version considering it's a code-in-box situation where you receive a physical game case but have to download the actual file by typing in a code. In essence, a digital game code inside of a physical case for collectors. That said, Piscatella confirmed in a follow-up post on Bluesky that Circana counts a code in a box as a physical sale, so GTA 6 will definitely qualify at least according to Circana's methods. After just one week in market, The Legend of Zelda: Ocarina of Time is 2026's best-selling physical video game in the US.It is the 1st title to surpass 1M physical units in a US launch week since 2023's The Legend of Zelda: Tears of the Kingdom.Source: Circana Retail…"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "storyId": "200e9509-10d1-41fc-930a-1c86f57c71cf",
+      "publishedTitle": "Arion Kurtaj pleads guilty to charges linked to 2022 GTA 6 leaks",
+      "assessment": "supported",
+      "reason": "Same Arion Kurtaj guilty plea over the 2022 Rockstar breach. Three longer excerpts name the plea; Eurogamer names the guilty plea and Kotaku headline identifies it. Source age details differ; this does not validate every factual detail.",
+      "members": [
+        {
+          "id": "200e9509-10d1-41fc-930a-1c86f57c71cf",
+          "url": "https://gamingbolt.com/gta-6s-hacker-pleads-guilty-to-charges-connected-to-2022-leaks",
+          "title": "GTA 6’s Hacker Pleads Guilty To Charges Connected to 2022 Leaks",
+          "capturedExcerpt": "Remember those GTA 6 leaks from 2022, long before Rockstar even released a trailer or officially confirmed it exists? An artist for Rockstar described them as “weirdly invasive” back then, and it looks like one of the culprits is now facing the consequences. 17-year-old Arion Kurtaj was apprehended for the crime and relegated to custody in a hospital owing to his existing medical conditions. However, he was soon deemed fit to stand trial per the BBC and has pleaded guilty to all charges against him, reportedly with no visible emotion. He is to be sentenced at a later date. It’s probably welcome news for several of Rockstar’s tireless team members whose efforts risked being undermined by Kurtaj’s actions. Well, let’s hope they put this unfortunate business behind them and bask in the admiration they’ll receive for those dynamic weather systems and everything else they’ve been cooking up for us over the last thirteen years. We spoke of not being able to believe we’re this close to playing the game a month ago, and that hasn’t really changed, if we’re being honest, even though we’re just a little over a day away from launch. It’s available at midnight local time on November 19th for Xbox Series X/S and PS5."
+        },
+        {
+          "id": "1cd03ece-bc03-428a-9ac4-fda3ab57eab8",
+          "url": "https://www.pcgamer.com/games/grand-theft-auto/grand-theft-auto-6-hacker-pleads-guilty-to-all-charges/",
+          "title": "Grand Theft Auto 6 hacker pleads guilty to all charges",
+          "capturedExcerpt": "The BBC reports that Arion Kurtaj, who hacked Rockstar and dumped a massive trove of content from Grand Theft Auto 6 more than a year before it was formally revealed, has pleaded guilty to that and other hacks carried out while he was a member of the Lapsus$ hacking group. Kurtaj's hack of Rockstar was notable not for the GTA 6 infodump that followed, but because of how it was carried out: With an Amazon Fire Stick, a mobile phone, and a Bluetooth keyboard and mouse, connected to a TV in a Travelodge hotel room where he was being held under police protection because of threats against him made by rival hackers over stolen bitcoin. A 2023 assessment found Kurtaj had \"acute autism\" and was determined to return to \"cybercrime\" as soon as possible, despite the fact that he was literally standing trial for doing cybercrimes. Because of that, the jury was asked to determine if he had committed the hacks (it found he had) but not whether he had done so with criminal intent; he was subsequently sentenced to an indefinite stay at a secure hospital, where he would remain unless and until doctors determined that he was no longer a danger. As we noted at the time, \"danger\" might seem a bit of a strong word for someone who leaked videogame footage, but the Lapsus$ group had also hacked Microsoft, Samsung, Nvidia and UK telecom company BT&EE, and stole millions in cryptocurrency from individuals. Kurtaj was also reportedly violent while in hospital custody, causing \"dozens\" of reports of…"
+        },
+        {
+          "id": "0c9773de-10a7-4264-8e2c-97e4e23badd9",
+          "url": "https://aftermath.site/gta-6-hacker-2022-pleads-guilty/",
+          "title": "GTA VI Hacker Pleads Guilty To 2022 Rockstar Games Breach",
+          "capturedExcerpt": "Arion Kurtaj, the 21-year-old hacker who posted tons of Grand Theft Auto VI clips online after breaching Rockstar Games' servers, pleaded guilty Monday at the Woolwich Crown Court after being arrested in 2022, according to the BBC. He pleaded guilty to all counts, including those attached to hacks at Uber and others that he carried out while a teenager out on bail (and being housed in a hotel \"to protect him from rival hackers\"), when he used an Amazon Fire Stick plugged into a hotel television to gain access to the clips and publish them online. In 2022, Kurtaj got into Rockstar Games' Slack to threaten to release Grand Theft Auto VI code. When Rockstar Games did not cooperate, Kurtaj posted the clips and source code. Rockstar Games said it spent $5 million to \"recover from the hack, plus thousands of hours of staff time,\" BBC reported. The clips Kurtaj posted in 2022 were the public's first look at GTA VI and in particular its playable female character, Lucia. Kurtaj's original sentence had him held indefinitely at a hospital, but he had recently been deemed fit for trial. He'll move to a prison in January, according to the report. BBC reported Kurtaj and the hacking group Lapsu$, which he was a part of, cost the companies targeted $13 million in damages. The group also stole \"at least $300,000 from individual victims,\" BBC said. Kurtaj's guilty pleas also included charges related to assaults on hospital workers during his custody. BBC said Kurtaj also acquired a mobile…"
+        },
+        {
+          "id": "75a72689-b109-4341-8eeb-ccec0a4f549b",
+          "url": "https://www.eurogamer.net/gta-6-leaker-pleads-guilty",
+          "title": "Original GTA 6 leaker pleads guilty to hacking Rockstar Games, years after first revealing Lucia",
+          "capturedExcerpt": "The 21-year-old responsible for hacking Rockstar Games and leaking in-development GTA 6 footage in 2022 has pleaded guilty to a number of offenses.…"
+        },
+        {
+          "id": "2a7a3bda-9500-4810-ae91-54a376572e70",
+          "url": "https://kotaku.com/grand-theft-auto-6-leak-gta6-hacker-pleads-guilty-2000757500",
+          "title": "GTA 6 Hacker Pleads Guilty To Cybercrimes After Infamous 2022 Leak",
+          "capturedExcerpt": "The leak in 2022 was the first time the game was seen by the public before it was officially unveiled the following year"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "storyId": "799e8759-e7ce-4cae-92fe-929c8485d3a4",
+      "publishedTitle": "Netflix Games hit by another round of layoffs",
+      "assessment": "partially-supported",
+      "reason": "Aftermath explicitly distinguishes the new LinkedIn-reported cuts from sixty late-October layoffs; Kotaku excerpt supplies no timing or affected-worker connection.",
+      "members": [
+        {
+          "id": "799e8759-e7ce-4cae-92fe-929c8485d3a4",
+          "url": "https://aftermath.site/netflix-game-studios-layoffs/",
+          "title": "Netflix Lays Off More Games Workers",
+          "capturedExcerpt": "There's been yet more layoffs in Netflix's gaming department, according to posts by impacted workers on LinkedIn. The number of cuts is unclear, and the announcements come a few weeks after Netflix previously laid off 60 game workers in late October. \"Netflix Games recently went through a restructuring as the team shifts how it approaches making games, and my role, along with those of many talented colleagues, was impacted,\" wrote Andrew Brownell, a game director at Netflix Games, on LinkedIn. Brownell's post lists three artists who were impacted. In their posts and LinkedIn bios, these workers make reference to \"unannounced\" projects connected to \"licensed-IP,\" and Brownell writes that Netflix Games worked on \"cloud-streamed action games, phones as controllers, motion and microphone input, gyro and air-mouse controls, and designing around two screens at once. Alongside that, we worked on concepts for some of Netflix’s biggest franchises, partnering closely with IP owners to create experiences that felt authentic to those worlds and their fans.\" Making games out of its existing properties has been one of Netflix's focus with games, though in recent years that's shifted to a focus on party games that use the kinds of controls Brownell describes. Netflix likes to say that it's \"scratching the surface\" of video games in its quarterly earnings, but notably didn't trot out this usual line in its most recent call in late October. In August, Netflix closed its game studio Moonloot,…"
+        },
+        {
+          "id": "0d63c3fb-9ba6-4649-9339-4be71b590486",
+          "url": "https://kotaku.com/netflix-games-layoffs-cloud-gaming-streaming-mobile-oxenfree-2000757652",
+          "title": "Yet More Netflix Games Staff Are Laid Off As The Streamer Once Again ‘Restructures’ Its Approach To Gaming",
+          "capturedExcerpt": "The company clearly still has no idea why it's trying to make games"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "storyId": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+      "publishedTitle": "Ukraine strikes Kerch Bridge linking Russia to Crimea for second day",
+      "assessment": "supported",
+      "reason": "All seven saved excerpts anchor the renewed Kerch bridge strike, including the live/newsletter entries. Their unrelated secondary material is not a separate reason to merge.",
+      "members": [
+        {
+          "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/17/unprecedented-ukraine-attack-on-crimean-bridge?traffic_source=rss",
+          "title": "‘Unprecedented’ Ukraine attack on Crimean bridge",
+          "capturedExcerpt": "Ukraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day."
+        },
+        {
+          "id": "6c42b79a-0569-46f2-b64d-ad4e4cc0c7bf",
+          "url": "https://www.theguardian.com/us-news/2026/nov/17/first-thing-russia-crimea-kerch-bridge-ukraine-strike",
+          "title": "Bridge between Russia and occupied Crimea ‘no longer usable’ after Kyiv strike | First Thing",
+          "capturedExcerpt": "Blow to Kremlin as prestigious bridge linking occupied Ukrainian peninsula struck by missile. Plus, what is in store for Robert Pattinson, the new 007? Don’t already get First Thing in your inbox? Sign up here Good morning. Ukraine has critically damaged the Kerch bridge linking occupied Crimea with Russia in an overnight missile attack, in what Ukrainian officials say is a symbolic blow to the Kremlin. The strike follows an earlier attack on Monday that targeted an arch across its central section. Ukraine has declared that the Kerch bridge, built eight years ago after Vladimir Putin’s 2014 annexation of Crimea, is illegal. It has repeatedly attempted to destroy it. The Kremlin-appointed governor of Crimea, Sergey Aksyonov, confirmed that the bridge, which was temporarily closed on Monday, was no longer usable. Photos suggest that a 227-metre road arch span has fallen into the Kerch strait. You can follow developments at the Apec and Asean summits with our live blog.…"
+        },
+        {
+          "id": "8f08c8d4-0984-47ac-baeb-fb048dc868a7",
+          "url": "https://www.npr.org/2026/11/17/g-s1-153946/russia-ukraine-war",
+          "title": "Ukraine strikes major Russian bridge with drones and missiles as aerial attacks escalate",
+          "capturedExcerpt": "A Ukrainian drone and missile attack prepared over several weeks struck a vital Russian rail and road bridge to the occupied Crimean Peninsula, Ukrainian President Volodymyr Zelenskyy said Tuesday. (Image credit: AP Photo/)"
+        },
+        {
+          "id": "17ff4318-6f1b-4dfc-8d29-6daef3def9d5",
+          "url": "https://www.theguardian.com/world/live/2026/nov/17/europe-ukraine-russia-crimea-kerch-bridge-attack-latest-news-updates",
+          "title": "Ukraine hails attack on vital Kerch bridge linking Russia and Crimea – Europe live",
+          "capturedExcerpt": "Zelenskyy praises ‘unprecedented attack’ as the Kremlin says bridge will be restored and will be ‘better than ever’ following strike Ukraine critically damages Kerch bridge French ⁠far-right leader Marine Le Pen vowed to ​repeal President Emmanuel Macron’s pension ⁠reform if she is elected ⁠next spring and ​bring ‌down the retirement ‌age to 60 ‌to 62. She also set out plans to create a fund worth €900bn ($990.54bn) to help fund ​pensions in the long term, she added. It ⁠would take a generation ​to ​build up ​the fund, ​she added.…"
+        },
+        {
+          "id": "328efe03-bde7-4f7f-ab02-e59da1eacdc5",
+          "url": "https://www.aljazeera.com/news/2026/11/17/ukrainian-drone-attack-kills-two-in-crimea-as-kyiv-targets-kerch-bridge?traffic_source=rss",
+          "title": "Ukraine drone attack kills two in Crimea as Kyiv targets bridge to Russia",
+          "capturedExcerpt": "Moscow-installed governor says traffic suspended after second attack on bridge in two days."
+        },
+        {
+          "id": "3ed1bff2-37cc-4a28-b92a-8de4cfeebfcd",
+          "url": "https://www.theguardian.com/world/2026/nov/17/ukraine-strikes-critical-damage-russia-kerch-bridge-crimea",
+          "title": "Ukraine critically damages Kerch bridge linking occupied Crimea with Russia",
+          "capturedExcerpt": "Zelenskyy praises ‘unprecedented attack’ but Kremlin claims bridge will be restored and will be ‘better than ever’ Europe live – follow latest Ukraine has critically damaged the Kerch bridge linking occupied Crimea with Russia in an overnight missile attack, in what Volodymyr Zelenskyy hailed as an “unprecedented” military operation. Footage showed a Ukrainian Flamingo cruise missile seconds before it hit the road and railway crossing, followed by an explosion. The strike follows an earlier attack on Monday that targeted an arch across its central section.…"
+        },
+        {
+          "id": "aa38d77a-de70-4c58-8892-2b3882b140d1",
+          "url": "https://www.bbc.co.uk/news/articles/cw772jk4rvmxo?at_campaign=rss&at_medium=RSS",
+          "title": "Putin's Crimea bridge partly collapses as Zelensky hails 'unprecedented' attack by Ukraine",
+          "capturedExcerpt": "Ukraine says the missile and drone attack on the strategic bridge in the Russian-annexed Crimea took weeks to plan."
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "storyId": "ce39b958-3d43-445b-8126-436177ca6daa",
+      "publishedTitle": "Two vessels catch fire after naval mine hit in Strait of Hormuz, Iran says",
+      "assessment": "supported",
+      "reason": "Both excerpts identify tanker/vessel mine strikes in Hormuz; the second also includes Iraq drone context.",
+      "members": [
+        {
+          "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/11/17/vessels-on-fire-after-naval-mine-hit-in-hormuz-strait-iran-says?traffic_source=rss",
+          "title": "Vessels on fire after naval mine hit in Hormuz Strait, Iran says",
+          "capturedExcerpt": "Two vessels have caught fire after hitting a naval mine in the Strait of Hormuz."
+        },
+        {
+          "id": "8d9af693-a4a3-4be5-87b1-7429458db874",
+          "url": "https://www.aljazeera.com/news/2026/11/17/tankers-hit-in-strait-of-hormuz-as-drone-raises-alarm-at-iraq-gas-field?traffic_source=rss",
+          "title": "Tankers hit in Strait of Hormuz as drone raises alarm at Iraq gas field",
+          "capturedExcerpt": "Iran reports tanker mine strikes as a drone alert in Iraq and the arrival of a US aircraft carrier raise tensions."
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "storyId": "e81b3ede-a6a3-45a0-8464-9cbcfca958df",
+      "publishedTitle": "Peltola nears 50% in Alaska Senate race, the final midterms contest",
+      "assessment": "supported",
+      "reason": "Both excerpts concern the ongoing Peltola/Sullivan Alaska Senate count. The live entry also includes unrelated national and diplomatic updates.",
+      "members": [
+        {
+          "id": "e81b3ede-a6a3-45a0-8464-9cbcfca958df",
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/17/donald-trump-alaska-senate-race-midterms-democrats-republicans-latest-news-updates",
+          "title": "Democrat Mary Peltola closes in on victory in closely watched US Senate race in Alaska – live",
+          "capturedExcerpt": "Challenger nears 50% of the ballot to secure victory in final midterms contest Protests greet Trump on Asia visit – follow live Sign up for US Breaking News email And one quick note about the US Senate race in Alaska. If Mary Peltola wins, she will be the first Democrat from the state to be elected to the Senate since 2009. News of the rule commerce department rule comes at an inopportune time for Donald Trump, who is set to meet with China’s Xi Jinping this week at a trilateral summit alongside Russian president Vladimir Putin.…"
+        },
+        {
+          "id": "36d37667-b1a7-4f95-9a48-b892b592e9d7",
+          "url": "https://www.bbc.co.uk/news/articles/cxnv4jlr269eo?at_campaign=rss&at_medium=RSS",
+          "title": "Trump says Alaska voters chose the wrong Dan Sullivan. What does the data show?",
+          "capturedExcerpt": "Votes are still being counted in the Alaska Senate race, with Democrat Mary Peltola ahead of Republican incumbent Senator Dan S Sullivan."
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "storyId": "73cb85ee-45a6-487f-a755-48f104dd8f91",
+      "publishedTitle": "California sues OpenAI over Hugging Face attack",
+      "assessment": "supported",
+      "reason": "Same California lawsuit against OpenAI following the Hugging Face attack; captured excerpts identify Bonta, the investigation or the incident.",
+      "members": [
+        {
+          "id": "73cb85ee-45a6-487f-a755-48f104dd8f91",
+          "url": "https://www.bbc.co.uk/news/articles/c6wy4xv2mxglo?at_campaign=rss&at_medium=RSS",
+          "title": "OpenAI sued by California over Hugging Face attack",
+          "capturedExcerpt": "Attorney General Rob Bonta alleges that the artificial intelligence misled and endangered the public."
+        },
+        {
+          "id": "e3a1069e-f9ba-4350-b007-e6accaf99979",
+          "url": "https://www.npr.org/2026/11/16/nx-s1-6042920/california-sues-openai-hugging-face-hacking-incident",
+          "title": "California sues OpenAI over hacking risks",
+          "capturedExcerpt": "The state's attorney general started investigating OpenAI after the Hugging Face attack and now says this attack was \"entirely foreseeable\" due to OpenAI's poor security practices. (Image credit: California Department of Justice)"
+        },
+        {
+          "id": "284e5083-8722-4b07-b349-8c63fd3f432b",
+          "url": "https://www.theguardian.com/technology/2026/nov/16/california-openai-rogue-agent-hacking-lawsuit",
+          "title": "California sues OpenAI over safety concerns after rogue agent hacking",
+          "capturedExcerpt": "The lawsuit stems from an earlier incident where the tech company’s products hacked into the open-source platform Hugging Face California sued OpenAI on Monday, accusing the artificial intelligence titan of developing its technology without safety or the public’s interest in mind. The lawsuit concerns an incident earlier this year where OpenAI agents – semi-autonomous AI software that can carry out digital actions on behalf of users – launched a cyber-attack into the open-source AI platform Hugging Face.…"
+        },
+        {
+          "id": "8543e58e-dce3-4b48-8894-897f1adb6895",
+          "url": "https://www.aljazeera.com/news/2026/11/16/california-files-lawsuit-against-openai-alleging-lack-of-proper-safeguards?traffic_source=rss",
+          "title": "California files lawsuit against OpenAI alleging lack of proper safeguards",
+          "capturedExcerpt": "Attorney General Rob Bonta says Hugging Face attack was 'entirely predictable' result of emphasis on rapid growth."
+        }
+      ]
+    }
+  ]
+}

@@ -163,3 +163,15 @@
 - Live reader returns Nov 17 five topics/25 stories/20 posts; no immutable edition rewritten. No UI or diagram change, so no screenshot change.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2676-{format,lint,check,handbook,services,sources,jobs}.log and reader.json. Final format/lint also pass.
 - API/worker restart after commit/push loads the flag; next: Nov 18 natural scheduled reader acceptance, metrics ≥01:25 UTC.
+
+## 2026-11-18: iteration 2677 — review published grouping provenance
+
+- Clean main at 54458739; no inherited work. Initial alerts clear; health database/Redis pass; supported services/sources/jobs checks pass. Metrics checkpoint remains due ≥01:25 UTC.
+- Owner value: distinguish shared reporting from broad subject overlap before changing coverage counts or splitting useful multi-source stories.
+- Reviewed all twelve Nov 17 published multi-report groups against all 45 exact ID/URL-matched captured members; saved texts and assessments in docs/edition-reviews/2026-11-17-grouping.{md,json}.
+- Seven groups supported; five retain scope/provenance uncertainty. GTA reports share Sensor Tower estimates, unlike Nov 16's separate forecasts. Empty Tech and short Gaming members remain unresolved; no new grouping wording rule.
+- NBA excerpts disagree on retrospective points and a recap score; preserved attribution and immutable summaries. Published Memphis summary gives no final score. Source discrepancies do not establish a grouping failure.
+- Signed-out public HTTPS latest matches all 45 coverage IDs/URLs/titles and returns five topics/25 stories/20 posts. Receipt /tmp/2677-reader.json; existing DNS override retains certificate checks.
+- No model call, publisher fetch, source/provider/budget/flag change or UI change. No handbook or screenshot update needed. Tech admission remains enabled pending natural scheduled acceptance.
+- Verification: pnpm format/lint:fix/check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Assertions cover unique members, group/assessment counts and public projection. Receipts /tmp/2677-{format,lint,check,services,sources,jobs}.log.
+- Next: natural Nov 18 admission/reader review and 04:40 retention; metrics ≥01:25 UTC. API/worker restart after push.
