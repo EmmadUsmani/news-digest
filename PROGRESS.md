@@ -119,3 +119,15 @@
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,088 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2680-{format,lint,check,metrics.jsonl,summary.json,reader.json}; summary assertions pass.
 - Initial push rejected: owner commit a20e05b0 added item 66 during verification. Merged without rewriting history; routine metrics checks stop, TASKS retains limits only. This checkpoint was committed before the newer instruction arrived.
 - API/worker restart after merge/push; next: fix missing Tech excerpts under item 66, retention 04:40 UTC, natural admission and the single daily reader review after 15:00 UTC.
+
+## 2026-11-18: iteration 2681 — collect publisher evidence for HN Tech stories
+
+- Clean main at d5119173; no inherited work. Alerts clear; health database/Redis pass. Work outside protected hours; no paid calls, cap/flag/provider/UI changes.
+- Read latest public Tech: Grok report has concrete detail; four other summaries remain headline-level. HN collection saved only optional item.text; ordinary link submissions were empty before storage.
+- Added shared-client publisher fetch only for empty link submissions, extracting article paragraphs (1,500 characters), removing scripts/navigation/header/footer. Existing HN text wins; blocked/unavailable pages preserve the valid story without text. No bypass or body-wide fallback.
+- Live HN batch: 19 previously saved candidates, only two with excerpts; after collecting/storing 20, ten have excerpts. Eight existing empty rows enriched, including MAI Code, Solid 2, Java4Shell and Cloudflare Quad9. Receipt /tmp/2681-live.json; original Nov 17 eligible-pool baseline remains 29/200 with text.
+- Added offline extraction/enrichment/failure tests and recorded Java4Shell publisher paragraphs; updated sources and pipeline handbook. No diagram/schema/screenshot changes.
+- Signed-out HTTPS reader passes five topics/25 stories/20 posts. Local reader requests returned 429; public route succeeds. Existing published editions unchanged.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,091 unit/330 integration tests, four expected skips; targeted 3/3 and handbook 19 pages/39 tables pass. Initial format check caught newly added fixtures/tests; final check is green. Logs /tmp/2681-*.log.
+- All 14 monitored services, active sources and job checks pass. Commit/push followed by API/worker restart; no inherited work or paid replay.
+- Next: natural Nov 18 Tech candidate share and summary-depth acceptance after 15:00 UTC; item 66 stays open. Pages without usable article markup remain empty.

@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth / STEERING 66: fix why Tech candidates have no saved excerpts (Nov 17: 171/200 empty). HN adapter stores only optional item.text; inspect saved source attribution, then fix collection/fetch/storage and show before/after saved candidates. Existing admission flag remains enabled for the Nov 18 natural edition, with rollback on regression. No grouping wording rules, budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [ ] Tech depth / STEERING 66: 2681 adds shared-client publisher article fetching for empty HN submissions. Live batch: 2/19 previously saved with excerpts → 10/20 collected with excerpts; eight existing empty rows enriched. Nov 17 baseline 171/200 empty. Await scheduled share and summary-depth acceptance; pages without article markup or blocked remain empty. Existing admission flag remains enabled for the Nov 18 natural edition, with rollback on regression. No grouping wording rules, budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2681: HN publisher article excerpts deployed; eight existing empty saved candidates enriched, live batch 10/20 with excerpts.
 
 - [x] 2680: Complete due metrics checkpoint across repository verification; public reader/services healthy, resource acceptance remains open.
 

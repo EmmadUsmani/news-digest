@@ -33,9 +33,9 @@ text, so a topic can have fewer stories. Neither fallback writes a brief.
 Feed excerpts use explicit RSS/Atom article content before descriptions or
 summaries, falling back when content is blank. Text stays capped at 1,500
 characters, with an ellipsis when shortened and whole words where possible.
-The Verge's trailing Hype Desk ad configuration and GameSpot's table of
-contents navigation are removed before excerpting.
-Collection does not fetch linked article pages.
+Verge ad configuration and GameSpot navigation are removed before excerpting.
+Hacker News submissions without text fetch publisher article paragraphs through the
+shared HTTP client (1,500 characters); unavailable pages leave excerpts empty.
 
 ## The steps in one line each
 

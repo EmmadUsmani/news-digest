@@ -3536,3 +3536,16 @@ counts and the expected baseline/Ukraine/baseline/Gaza World rotation.
 The [partial-day review](edition-reviews/2026-11-17-bluesky-day.md) compares the
 same hours on Nov 16. Retain queries and gates; preserve the final four hours
 and review the full UTC day after midnight. No new collection or model calls.
+
+### Hacker News publisher excerpts (2026-11-18)
+
+Link submissions without HN text now fetch their linked publisher page using
+the shared rate-limited, cached, public-address-validated HTTP client. Only
+paragraphs within an HTML article are retained (1,500-character cap); navigation,
+scripts and page headers/footers are removed. Existing submission text wins.
+Blocked pages are not bypassed and do not discard the HN item. Pages without
+an article element remain empty; no comments or title-only substitute is used.
+
+Live Nov 18 verification collected 20 HN stories: saved excerpts rose from 2/19
+previously stored candidates to 10/20 collected candidates, enriching eight empty
+rows. Receipt: `/tmp/2681-live.json`. Scheduled Tech acceptance remains pending.

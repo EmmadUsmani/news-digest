@@ -1,0 +1,58 @@
+<!-- Recorded https://calif.io/java4shell/ on 2026-11-18; first five article paragraphs. -->
+<article>
+  <p>
+    After we disclosed
+    <a
+      href="https://calif.io/php2shell"
+      target="_blank"
+      rel="noopener noreferrer"
+      >PHP2Shell</a
+    >, we realized many people didn't know what PHP was. So we decided to go
+    after something a little more familiar: Java.
+  </p>
+  <p>
+    Today, we are disclosing Java4Shell (CVE-2026-114938), a memory-corruption
+    vulnerability in OpenJDK's Base64 decoder. OpenJDK is the most popular Java
+    runtime. Under CVSS 4.0, this vulnerability scores 9.2 out of 10 (CRITICAL).
+  </p>
+  <p>
+    While PHP is a high-level web technology, Java sits much deeper. Java is the
+    world's
+    <a
+      href="https://www.tiobe.com/tiobe-index/"
+      target="_blank"
+      rel="noopener noreferrer"
+      >third most popular programming language</a
+    >, powering
+    <a
+      href="https://www.ibm.com/new/announcements/java-at-30-and-beyond-how-ibm-is-securing-the-future-of-java"
+      target="_blank"
+      rel="noopener noreferrer"
+      >90% of Fortune 500 companies</a
+    >. It is the beating heart of the modern economy. Banking, aviation,
+    telecommunications, nearly every critical sector runs on Java, including
+    national security systems.
+  </p>
+  <p>
+    Base64 is a very common way of representing binary data as text. It is used
+    in authentication protocols, to encode file uploads, and to deliver network
+    messages. To decode Base64 faster, OpenJDK uses specialized x86-64 CPU
+    instructions to process many bytes at once. We discovered a bug in that
+    optimized machine-level code that lets malformed input overwrite neighboring
+    memory. With careful exploitation, the corruption can reveal sensitive
+    memory, as
+    <a
+      href="https://www.heartbleed.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Heartbleed</a
+    >
+    did, or lead to remote code execution. The corruption itself can be
+    triggered by just 64 <code>A</code> characters followed by a single
+    <code>=</code>:
+  </p>
+  <p>
+    In older OpenJDK 17, the trigger input is 128 of <code>A</code> followed by
+    <code>=</code>.
+  </p>
+</article>

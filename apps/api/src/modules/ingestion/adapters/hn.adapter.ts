@@ -8,6 +8,7 @@ import type {
   SourcePort,
 } from '../domain/ports';
 import { extractXLinks } from '../domain/x-links';
+import { publisherExcerpt } from './publisher-excerpt';
 export class HackerNewsAdapter implements SourcePort {
   constructor(private readonly http: HttpPort) {}
   async collect(source: Source): Promise<ContentItem[]> {
@@ -26,10 +27,22 @@ export class HackerNewsAdapter implements SourcePort {
         item.url ?? `https://news.ycombinator.com/item?id=${id}`,
       );
       if (!url || !item.title || !Number.isFinite(item.time)) continue;
+      let excerpt = plainText(decodeHTML(String(item.text ?? '')));
+      if (
+        !excerpt &&
+        item.url &&
+        new URL(url).hostname !== 'news.ycombinator.com'
+      ) {
+        try {
+          excerpt = publisherExcerpt(await this.http.get(url));
+        } catch {
+          // A blocked/unavailable publisher must not discard a valid HN story.
+        }
+      }
       items.push({
         url,
         title: plainText(decodeHTML(String(item.title)), 500),
-        excerpt: plainText(decodeHTML(String(item.text ?? ''))),
+        excerpt,
         author: item.by ?? null,
         publishedAt: new Date(item.time * 1000).toISOString(),
         imageUrl: null,
