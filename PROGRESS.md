@@ -24,74 +24,7 @@
 
 [Iterations 2654–2658](docs/progress-archive/2026-11-17-iterations-2654-2658.md).
 
-## 2026-11-17: iteration 2659 — finish NBA original-text/context review
-
-- Clean main at 524622b1; no inherited work. Alerts clear; services, active sources, jobs and local/public HTTPS health pass; Destructoid remains paused.
-- Reviewed all four Nov 17 NBA originals against its five story summaries: four distinct events, no story repetition, no supported additional context needed. Empty reader notes comply with the editor contract; no generation change justified.
-- Preserved a compact public-reader evidence record. Fresh API identity/text/note fields match the original private edition capture; internal editorial fields are excluded from the public projection.
-- Playwright /tmp/2659-nba.cjs passes 390px/1440px × light/dark: four original texts/destinations match, no empty Context disclosures, no card overflow or browser errors. Four screenshots saved; mobile light inspected.
-- Browser blocks third parties and writes: X media-unavailable state is intentional, not live-media acceptance. Attributed claims/engagement remain independently unverified; broader social quality remains open.
-- Documentation/data only; existing application build retained. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips.
-- Receipts: /tmp/2659-{browser,services,sources,jobs,format,lint,check}.log. API/worker restart after push.
-- Next: preserve final Nov 17 Bluesky hourly results/full-day review after midnight; metrics checkpoint ≥21:05 UTC; Tech runtime switch before noon.
-
-## 2026-11-17: iteration 2660 — metrics recovery checkpoint after 21:05 UTC
-
-- Clean main at 47388e81; no inherited work. Alerts clear; services, active sources and jobs pass; Destructoid remains paused.
-- Eight read-only samples 20:58:59–21:06:04: 24 healthy rules/16 successful expected-series queries, ≤1.883 s. No paid calls or generation change.
-- Since 20:01:39: 66 small merges/1,789,261 rows, no big merge; admission/queue/slow-query/process/evaluator/OOM counters unchanged.
-- Memory-high +1,214 (134 during sampling); ending 81,567,744 bytes, lifetime peak 93,560,832. Retain 2% CPU/88 MiB high/112 MiB max; resource acceptance open.
-- Metrics NRestarts=0. Journal retains one 20:44:36 refused API scrape during prior restart window; current app-api up=1. Disk 72%.
-- Local/public HTTPS health pass; published 6216cb7a retains five topics/25 stories/20 posts. Initial local reader probe 429; separate probe passes.
-- Verification: pnpm exec tsx scripts/sample-metrics-recovery.ts 7 60; python3 /tmp/2660-summarize.py asserts eight samples, unchanged failure counters and zero admission delta.
-- Documentation only; existing application build retained, no screenshots changed. pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration, four expected skips.
-- Receipts: /tmp/2660-{metrics.jsonl,metrics-error.log,summary.json,metrics-journal.log,services,sources,jobs,format,lint,check}. API/worker restart after push.
-- Next: metrics ≥22:10 UTC; final Bluesky hourly retention/full-day review after midnight; runtime Tech switch before noon.
-
-## 2026-11-17: iteration 2661 — separate glued shortlink hashtags
-
-- Clean main at e3f38c5a; no inherited work. Alerts clear; services, active sources and jobs pass; Destructoid remains paused.
-- Reader weakness: the published Tech Google Colab post joined #GoogleColab to its t.co URL, making the hashtag part of the external destination and underlined URL.
-- LinkedPostText now separates shortlink hashtags, adding visual space while retaining exact saved text. Hashtags open the original post; ordinary URL fragments remain intact.
-- Owner-visible result: the Learn more link and following hashtags are distinct and open their respective destinations. Generation and budgets unchanged; Tech runtime work remains for pre-noon.
-- Five offline rendering controls pass: glued/Unicode hashtags, whitespace, ordinary fragments and nested redirect URLs.
-- Playwright /tmp/2661-links.cjs passes 390px/1440px × light/dark: original text, destinations, keyboard order, no overflow/browser errors. Four screenshots saved; mobile light inspected.
-- Browser blocks third parties and writes; media-unavailable state is intentional. Real published edition data used, no fixtures labeled live.
-- VITE_PUBLIC_MODE=1 pnpm --filter @digest/web build passes and deploys atomically. Local/public HTTPS health pass; web-only change needs no service restart under STEERING 63.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,078 unit/329 integration tests, four expected skips. Monitored final deployment: 15 public page/retained-asset pairs pass, no failures. Receipts: /tmp/2661-{browser,build,deploy,services,sources,jobs,format,lint,check}.log.
-- Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.
-
-## 2026-11-17: iteration 2662 — budgeted grouping to recorded Tech admission
-
-- Clean main at f6977c88; no inherited work. Alerts clear; services/active sources healthy; Destructoid remains paused.
-- Added offline end-to-end controls through real BudgetedLlm/EventGrouping, preparation, admission and editor evidence using recorded Nov 17 Tech candidates.
-- Validated membership preserves reservations and attributed evidence; validated empty groups keep articles separate and authorize semantic reservations.
-- Both valid outcomes replay from cache with fresh budget denied: one provider call/hold/settlement total. First-hold refusal calls no provider; invalid membership settles once without repair and retains baseline admission.
-- Seven targeted tests pass. Recorded grouping boundaries remain provisional; runtime wiring is unchanged and awaits pre-noon under item 59.
-- Local health passes; public HTTPS health/latest pass via previously verified proxy IP: edition 6216cb7a, five topics/25 stories/20 posts. Default DNS connection failed; initial local latest probe 429.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. No runtime or UI changes; existing build retained; API/worker restart after push.
-- Receipts: /tmp/2662-{targeted,services,sources,jobs,format,lint,check}.log. No external provider calls.
-- Next: metrics ≥22:10 UTC; final Bluesky retention/full-day review after midnight; Tech runtime switch before noon.
-
-## 2026-11-17: iteration 2663 — share verified Tech admission policy
-
-- Clean main at 95ebd015; no inherited work. Alerts clear, 14 services healthy, active sources returning data; Destructoid remains paused.
-- Moved the unchanged bounded Tech admission policy from offline scripts into the dependency-free digest domain; recorded evaluation and editor-evidence controls now import it directly.
-- No publication consumer, configuration, prompt, budget or provider call changed. Runtime wiring remains for the next pre-noon window under item 59.
-- Thirteen targeted policy/evidence tests pass; recorded evaluation retains 21 events/40 articles, two reservations and source-text events 1→2.
-- API build passes. Local/public HTTPS health pass; default VM DNS still points to stale 10.42.0.42, previously verified public proxy IP succeeds with certificate verification.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,082 unit/329 integration tests, four expected skips. Receipts /tmp/2663-{targeted,admission,services,sources,jobs,format,lint,check,build}.*. No UI change; no screenshots needed.
-- API/worker restart after push; no runtime consumer connected. Next: metrics ≥22:10 UTC, final Bluesky retention/full-day review after midnight, connect default-off Tech runtime switch before noon.
-
-## 2026-11-17: iteration 2664 — preserve triage failure through recorded editor evidence
-
-- Clean main at 029919b8; no inherited work. Alerts clear, health passes, 14 monitored services healthy; active sources/jobs checked, Destructoid remains paused.
-- Removed the recorded evidence bridge's assumed complete triage; callers now supply an explicit outcome.
-- Offline control proves validated grouping cannot reserve events after failed/incomplete triage, with complete, partial or empty score sets. Baseline IDs, membership and serialized editor evidence remain identical; complete triage still displaces exactly two events.
-- pnpm exec tsx --test apps/api/test/tech-admission-evidence.test.ts apps/api/test/tech-admission-control.test.ts: 14 pass. Recorded evaluation passes with --recorded-tech (initial invocation omitted required flag and was corrected).
-- No runtime consumer, UI, prompts, budgets or provider calls changed. Existing build retained; no screenshot or handbook change required.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,083 unit/329 integration tests, four expected skips. Initial check caught progress-entry formatting; corrected and full check rerun. Receipts /tmp/2664-{targeted,admission,services,sources,jobs,format,lint,check}.log.
-- API/worker restart after push. Next: metrics ≥22:10 UTC, Bluesky full-day review after midnight, default-off Tech runtime wiring before noon.
+[Iterations 2659–2664](docs/progress-archive/2026-11-18-iterations-2659-2664.md)
 
 ## 2026-11-17: iteration 2665 — due metrics recovery checkpoint
 
@@ -195,3 +128,15 @@
 - Targeted verification: 22 policy/preparation/evidence/consumer tests and 16 publication tests pass; handbook check passes (19 pages, 39 tables).
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2673-{targeted,publication,handbook,check-final}.log. Initial check exposed an unused rank import, removed before rerun. API/worker restart in the pre-noon window after push.
 - Final Bluesky 23:54 UTC result preserved in /tmp/2673-bluesky-jobs.json; combined with the tracked prior 23 hours, all 24 jobs succeeded. Full-day review remains next. Metrics ≥00:20 UTC; consider Tech activation before noon, then scheduled acceptance.
+
+## 2026-11-18: iteration 2674 — complete November 17 Bluesky day
+
+- Clean main at 7699d51c; no inherited work. Initial pending worker/metrics scrape alerts cleared on recheck; 14 monitored services healthy, active sources returning content, health database/Redis pass; disk 73%. Destructoid remains paused.
+- Merged the retained final hour from 2673 by job ID: 24 successful hours/120 positive matched topic counts, exact World rotation and 24-hour windows. Preserved complete results in the tracked day archive.
+- Fixed-cutoff stored-observation read: distinct posts Tech 49/NBA 49/Gaming 68/World 149/U.S. 51, with no capped reads. Compared against November 16 and read all 25 strongest safe texts.
+- Gaming's increased supply still has lexical noise; NBA includes satire/thin links; Tech lacks top-five launches/demos; World repeats Kerch; U.S. mixes reporting leads and commentary. Retain queries, rotation, cadence, budgets and gates; quality acceptance stays open.
+- Updated the full-day review and TASKS; no runtime, UI, source, provider or budget change. Existing builds retained; no handbook/screenshot change needed.
+- Evidence: /tmp/2674-{coverage.json,services.log,sources.log,jobs.log,edition.json}; tracked complete jobs/coverage linked from review. Assertions cover all hours, counts, topics, windows, World queries and five uncapped reads.
+- Live reader probe returns five topics/25 stories/20 posts using an explicit public probe address after the shared loopback address hit its rate limit.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips. Isolated harness rebuilt API. Receipts /tmp/2674-{format,lint,check}.log; API/worker restart after push.
+- Next: metrics recovery checkpoint ≥00:20 UTC; Tech activation assessment before noon; November 18 scheduled publication and social quality review.

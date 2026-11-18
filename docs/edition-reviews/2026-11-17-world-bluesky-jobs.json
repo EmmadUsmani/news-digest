@@ -1,6 +1,6 @@
 {
-  "capturedAt": "2026-11-17T22:55:09.534Z",
-  "source": "Read-only retained BullMQ social-collection exports; November 17 00:54\u201322:54 UTC, iterations 2658, 2668 and 2669",
+  "capturedAt": "2026-11-17T23:55:30.410Z",
+  "source": "Read-only retained BullMQ social-collection exports; complete November 17 UTC day, iterations 2658, 2668, 2669, 2673 and 2674",
   "limitations": "Up to 48 completed and 48 failed social jobs, shared with non-Bluesky collection. Retention and concurrent pruning can omit runs; this is not proof of a complete day. Counts are fetched/submitted, not unique, safe or relevant posts. Failed runs do not expose partial results. Save this export separately before retention expires.",
   "runs": [
     {
@@ -1010,6 +1010,50 @@
             "query": "Congress",
             "fetched": 49,
             "submitted": 49
+          }
+        ]
+      },
+      "failureRecorded": false
+    },
+    {
+      "id": "repeat:bluesky-hourly:1794959683867",
+      "state": "completed",
+      "startedAt": "2026-11-17T23:54:43.947Z",
+      "finishedAt": "2026-11-17T23:54:54.144Z",
+      "result": {
+        "status": "complete",
+        "start": "2026-11-16T23:54:43.959Z",
+        "end": "2026-11-17T23:54:43.959Z",
+        "topics": [
+          {
+            "topicId": "00000000-0000-4000-8000-000000000011",
+            "query": "AI",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000012",
+            "query": "NBA",
+            "fetched": 46,
+            "submitted": 46
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000013",
+            "query": "game",
+            "fetched": 50,
+            "submitted": 50
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000014",
+            "query": "Gaza",
+            "fetched": 49,
+            "submitted": 49
+          },
+          {
+            "topicId": "00000000-0000-4000-8000-000000000015",
+            "query": "Congress",
+            "fetched": 50,
+            "submitted": 50
           }
         ]
       },

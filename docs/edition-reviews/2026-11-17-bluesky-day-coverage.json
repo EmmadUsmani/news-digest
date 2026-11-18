@@ -1,0 +1,1446 @@
+{
+  "start": "2026-11-17T00:00:00.000Z",
+  "cutoff": "2026-11-18T00:00:00.000Z",
+  "exampleLimit": 5,
+  "policyBasis": "Current enabled topics and relevance policies; not a replay of historical editorial selection.",
+  "collectionQueryBasis": "Current topic metadata without the optional hourly World rotation; not the queries that produced stored observations. An enabled rotation replaces only the fallback, using baseline/Ukraine/baseline/Gaza by UTC hour; an explicit blueskyQuery still wins. Historical collection queries are not stored on observations, so this report cannot attribute posts to baseline or event searches.",
+  "coverage": [
+    {
+      "topic": "Tech & AI",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "AI",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 405,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 49,
+      "distinctStoredPostsWithVideoInAnySnapshot": 4,
+      "newestObservationAt": "2026-11-17T23:54:46.047Z",
+      "safeEngagedCandidatesUpTo50": 48,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 22,
+        "postsWithVideo": 4,
+        "postsWithoutAttachedMedia": 22,
+        "postsWithAuthorDescriptions": 2
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 41,
+        "largestAuthorPostCount": 3,
+        "authors": [
+          {
+            "author": "mizuextreme.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "yakumo85.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "coachfinstock.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "discordiankitty.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "sifu.tweety.fish",
+            "distinctPosts": 2
+          },
+          {
+            "author": "75monica.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "abdulelsayed.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "azultauri.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "blackmagnet3400.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluebull2026.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluetauri.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bookspotlight.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chuckwendig.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cinephiliabeyond.org",
+            "distinctPosts": 1
+          },
+          {
+            "author": "contemprainn.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "culturecrave.co",
+            "distinctPosts": 1
+          },
+          {
+            "author": "erahsfeliz.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "errant-signal.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "garius.eurosky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "gingerhaze.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "hqsemroteiro.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jondmaas.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kenney.nl",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kevincollier.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lactose87.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "maiumaiu.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mattgertz.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "merriam-webster.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mjgault.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "neozion2045.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ptklein.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "quest64official.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "rincewind.run",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sarahtaber.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sean8urson.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "t-oriko.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "telhub.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "thebadcode.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "triple-q.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tyleraking.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "xelahart.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 7321,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alrlmw63dqlhqacs6pbu6ffzn/post/3n2jm2esxec2v",
+          "author": "abdulelsayed.bsky.social",
+          "metrics": {
+            "likes": 5989,
+            "replies": 175,
+            "reposts": 1360
+          },
+          "text": "Donald, this is your chance to heal the sick (like in that one AI image. You know the one.)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Avi2grzfali5xn5rh2ny2n4d4/post/3n2ipa2yo222s",
+          "author": "culturecrave.co",
+          "metrics": {
+            "likes": 3112,
+            "replies": 40,
+            "reposts": 600
+          },
+          "text": "\"Blow up the AI data centers, man ... go vote and blow them up\" \n\n\u2014 Tony Gilroy \n\n(via Vanity Fair)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3An2d3rnoxe66isuzodlu2t4a4/post/3n2izjvvyg22c",
+          "author": "cinephiliabeyond.org",
+          "metrics": {
+            "likes": 943,
+            "replies": 18,
+            "reposts": 246
+          },
+          "text": "Tony Gilroy: \u201cBlow up the AI data centers, man... go vote and blow them up.\u201d\n\n#FuckAI"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A3zfcjrvskqxjksbcfapyefyb/post/3n2id7ezxm22a",
+          "author": "contemprainn.bsky.social",
+          "metrics": {
+            "likes": 168,
+            "replies": 4,
+            "reposts": 29
+          },
+          "text": "Oh Mom \u2764\ufe0f (Ai?)"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Al7mwn6iba72xsiayiac5222p/post/3n2jfev2dw22o",
+          "author": "merriam-webster.com",
+          "publishedAt": "2026-11-17T15:49:07.633Z",
+          "observedAt": "2026-11-17T23:54:45.064Z",
+          "metrics": {
+            "likes": 7321,
+            "replies": 60,
+            "reposts": 2237
+          },
+          "attachedMediaTypes": [],
+          "text": "slopaganda | noun | propaganda made with AI"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alrlmw63dqlhqacs6pbu6ffzn/post/3n2jm2esxec2v",
+          "author": "abdulelsayed.bsky.social",
+          "publishedAt": "2026-11-17T17:48:31.261Z",
+          "observedAt": "2026-11-17T23:54:45.066Z",
+          "metrics": {
+            "likes": 5989,
+            "replies": 175,
+            "reposts": 1360
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Donald, this is your chance to heal the sick (like in that one AI image. You know the one.)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A6hit5rjdbmlnscmuk4bbtmuc/post/3n2jrvdpzfs2k",
+          "author": "rincewind.run",
+          "publishedAt": "2026-11-17T19:33:04.795Z",
+          "observedAt": "2026-11-17T23:54:45.065Z",
+          "metrics": {
+            "likes": 2983,
+            "replies": 41,
+            "reposts": 471
+          },
+          "attachedMediaTypes": [],
+          "text": "tired: AI will cause an extinction event for tech employment\n\nwired: AI will cause a job boom for folks trying to fix all the shit that\u2019s constantly breaking"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A5h5jfgi7vuqp4bkfogcntzep/post/3n2imsmfpw22x",
+          "author": "garius.eurosky.social",
+          "publishedAt": "2026-11-17T08:29:24.784Z",
+          "observedAt": "2026-11-17T23:54:46.044Z",
+          "metrics": {
+            "likes": 3853,
+            "replies": 82,
+            "reposts": 870
+          },
+          "attachedMediaTypes": [],
+          "text": "we live in a country that likes to pretend its biggest industries are steel, cars and AI\n\nWhen actually it's Warhammer, GTA6 and universities."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Atbig7qnx4o5ylp5v23w577vl/post/3n2jngsh4fd2h",
+          "author": "sifu.tweety.fish",
+          "publishedAt": "2026-11-17T18:13:21.949Z",
+          "observedAt": "2026-11-17T23:54:45.065Z",
+          "metrics": {
+            "likes": 1879,
+            "replies": 30,
+            "reposts": 474
+          },
+          "attachedMediaTypes": [],
+          "text": "here's the thing right now:\n\n1) these fuckups are not in AI-dependent systems\n2) that's cuz these are systems where \"replace it with AI\" is conceptually incoherent\n3) that didn't stop bosses/doge from laying off the most competent people \"because of 'AI'\"\n4) the fuckups ARE related to the layoffs"
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "NBA",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 562,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 49,
+      "distinctStoredPostsWithVideoInAnySnapshot": 7,
+      "newestObservationAt": "2026-11-17T23:54:48.051Z",
+      "safeEngagedCandidatesUpTo50": 41,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 16,
+        "postsWithVideo": 7,
+        "postsWithoutAttachedMedia": 18,
+        "postsWithAuthorDescriptions": 1
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 33,
+        "largestAuthorPostCount": 6,
+        "authors": [
+          {
+            "author": "nbastat.bsky.social",
+            "distinctPosts": 6
+          },
+          {
+            "author": "pelicansnba.fucknerds.town",
+            "distinctPosts": 3
+          },
+          {
+            "author": "wabbitbunny.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "amicohoops.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "animalonline.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chartedhoops.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "clutchpoints.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "covernba.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cynicalceezy.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dangaurelien.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "davedufour.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "demetri.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "faignews.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ferventdevotion.art",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fiveburger.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "flyingwalruss.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "iammrgreene.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jackborman.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jdub9911.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jeskeets.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "knoebel.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lethaljorts.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "levakabas.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mikedynon.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "notdetroitpistons.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "onionsports.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sbnation.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sichrismannix.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "steventurous.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "steveschulz.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "theathletic.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "yoleo.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "yourmandevine.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 744,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2jemhmw3k2n",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 48,
+            "replies": 14,
+            "reposts": 7
+          },
+          "text": "Maxey with the 20-step dunk... \ud83e\udd37\u200d\u2642\ufe0f\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2jabw2sfs2k",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 18,
+            "replies": 0,
+            "reposts": 0
+          },
+          "text": "Jaylen Brown got hit in the head. First thing he does is check whether the hairline spray didn't leak... \ud83d\ude2d\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2isvmaqis2k",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 15,
+            "replies": 1,
+            "reposts": 1
+          },
+          "text": "\"I'm sure the owner of the TrailBlazers appreciates that he didn't tear his jersey\" \ud83d\ude2d\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A64krpts3m5hvxfffbkl3eu7j/post/3n2hzx5iorq2j",
+          "author": "pelicansnba.fucknerds.town",
+          "metrics": {
+            "likes": 6,
+            "replies": 0,
+            "reposts": 3
+          },
+          "text": "KARLO MATKOVIC. YOU ARE UNREAL. \ud83e\udd2f\n\n[ #NBA #Pelicans #NBAThreads ]"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2j7ceyiek2k",
+          "author": "nbastat.bsky.social",
+          "metrics": {
+            "likes": 5,
+            "replies": 3,
+            "reposts": 0
+          },
+          "text": "What is this????  \n\n(via @brickcenter.bsky.social)\n#NBA"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Abenpiigetkkqikooaeo7cx6n/post/3n2k26qdsss2a",
+          "author": "onionsports.bsky.social",
+          "publishedAt": "2026-11-17T22:01:29.946Z",
+          "observedAt": "2026-11-17T23:54:47.034Z",
+          "metrics": {
+            "likes": 744,
+            "replies": 15,
+            "reposts": 60
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Basketball Viewers Disturbed After Jack Nicholson Spotted Courtside At 8 Simultaneous NBA Games \n\nhttps://theonion.com/basketball-viewers-disturbed-after-jack-nicholson-spotted-courtside-at-8-simultaneous-nba-games/"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2jemhmw3k2n",
+          "author": "nbastat.bsky.social",
+          "publishedAt": "2026-11-17T15:35:28.254Z",
+          "observedAt": "2026-11-17T23:54:47.035Z",
+          "metrics": {
+            "likes": 48,
+            "replies": 14,
+            "reposts": 7
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Maxey with the 20-step dunk... \ud83e\udd37\u200d\u2642\ufe0f\n\n#NBA"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ayx55po6zknijied5vxft2rwa/post/3n2i64xemhs22",
+          "author": "jackborman.bsky.social",
+          "publishedAt": "2026-11-17T04:06:45.700Z",
+          "observedAt": "2026-11-17T23:54:47.035Z",
+          "metrics": {
+            "likes": 36,
+            "replies": 0,
+            "reposts": 6
+          },
+          "attachedMediaTypes": [],
+          "text": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ane344shcm2jowdwh5whzkgfn/post/3n2jseqslbu2m",
+          "author": "faignews.bsky.social",
+          "publishedAt": "2026-11-17T19:41:41.818Z",
+          "observedAt": "2026-11-17T23:54:47.035Z",
+          "metrics": {
+            "likes": 19,
+            "replies": 0,
+            "reposts": 1
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Dejounte Murray trade request status update \n\nhttps://www.sbnation.com/nba/post/kueDy5E_qiqB"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4xpj3xjxsxxcuh3ghaulzdqu/post/3n2jg7lcqks2c",
+          "author": "yourmandevine.bsky.social",
+          "publishedAt": "2026-11-17T16:04:03.391Z",
+          "observedAt": "2026-11-17T23:54:47.036Z",
+          "metrics": {
+            "likes": 15,
+            "replies": 4,
+            "reposts": 4
+          },
+          "attachedMediaTypes": [],
+          "text": "A new video, at the Y! Sports NBA YouTube channel \u2014 On Luka Don\u010di\u0107's remarkable start to the season, unlike anything we've seen before: https://www.youtube.com/watch?v=TiEN8UsHiNg"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "game",
+      "currentUnrotatedQuerySource": "includeAny",
+      "postBudget": 5,
+      "storedObservations": 594,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 68,
+      "distinctStoredPostsWithVideoInAnySnapshot": 4,
+      "newestObservationAt": "2026-11-17T23:54:50.034Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 20,
+        "postsWithVideo": 3,
+        "postsWithoutAttachedMedia": 27,
+        "postsWithAuthorDescriptions": 5
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 48,
+        "largestAuthorPostCount": 2,
+        "authors": [
+          {
+            "author": "airbagged.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "rodger.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "aurahack.ca",
+            "distinctPosts": 1
+          },
+          {
+            "author": "barrykramer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bennascar.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bireeves95.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bloomfilters.plus",
+            "distinctPosts": 1
+          },
+          {
+            "author": "chrisbodegard.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "culturecrave.co",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cwebbonline.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dailydragonites.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dcellgames.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "erininthemorning.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "eurothug4000.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "genc.newgrounds.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "gshowitt.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "haydnpuff.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "headfallsoff.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "hellagur.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ina-strangeworld.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "itoakami.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jaqqqln.gay",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jonbois.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kbluebirdart.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lyssahh.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "marionetter.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "matpiscatella.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mattufford.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mostlybree.kitrocha.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "muis.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nameshiv.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "newrepublic.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "orangeisborange.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "paletteswap.site",
+            "distinctPosts": 1
+          },
+          {
+            "author": "plante.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ponett.dog",
+            "distinctPosts": 1
+          },
+          {
+            "author": "redicnomad.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "remedygames.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "rincewind.run",
+            "distinctPosts": 1
+          },
+          {
+            "author": "spiral2005.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "splendid.land",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tendar.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "thespherehunter.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "triple-q.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tsunamicat108.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "tuyoki.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "xenopavilia.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "zanamaoria.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 5,
+      "strongestSafeLikesUpTo50": 5302,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ad4bmc5dgtopuvelesjw4g7cz/post/3n2jzjilljk2q",
+          "author": "bennascar.bsky.social",
+          "metrics": {
+            "likes": 454,
+            "replies": 8,
+            "reposts": 121
+          },
+          "text": "sonic 06 might actually be the funniest game to ever exist"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ayuqizqx3xlfks57t3nna3dvd/post/3n2hzdtdsik24",
+          "author": "spiral2005.bsky.social",
+          "metrics": {
+            "likes": 633,
+            "replies": 8,
+            "reposts": 60
+          },
+          "text": "fighting game multi hit special fan art (practice piece done with mouse in my own software)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Asexf5wpz635rcqzqcruronod/post/3n2jyxb2lfc2a",
+          "author": "eurothug4000.bsky.social",
+          "metrics": {
+            "likes": 79,
+            "replies": 6,
+            "reposts": 10
+          },
+          "text": "this game is actually killing me"
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Amymwxdm4zedrqufkotuxn72k/post/3n2i5agorkk2j",
+          "author": "tuyoki.bsky.social",
+          "publishedAt": "2026-11-17T03:50:48.682Z",
+          "observedAt": "2026-11-17T23:54:49.066Z",
+          "metrics": {
+            "likes": 5302,
+            "replies": 137,
+            "reposts": 468
+          },
+          "attachedMediaTypes": [],
+          "text": "tem release a game on sunday (soon)"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auo2fna47c4v6zcnklxfhcvjb/post/3n2ji7pjpbc2d",
+          "author": "cwebbonline.com",
+          "publishedAt": "2026-11-17T16:39:55.292Z",
+          "observedAt": "2026-11-17T23:54:49.067Z",
+          "metrics": {
+            "likes": 1607,
+            "replies": 89,
+            "reposts": 568
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "At this point, the only thing functioning in the Trump administration is the blame game."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ajhdja52shoi5t5ijd7etztti/post/3n2jir2nxd22p",
+          "author": "hellagur.bsky.social",
+          "publishedAt": "2026-11-17T16:49:37.394Z",
+          "observedAt": "2026-11-17T23:54:49.066Z",
+          "metrics": {
+            "likes": 1586,
+            "replies": 4,
+            "reposts": 566
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "It\u2019s that time of year again"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ahyj5gdgpkql2bz7rbset3h33/post/3n2hqewjei22l",
+          "author": "mattufford.bsky.social",
+          "publishedAt": "2026-11-17T00:00:40.856Z",
+          "observedAt": "2026-11-17T17:54:49.037Z",
+          "metrics": {
+            "likes": 3098,
+            "replies": 37,
+            "reposts": 425
+          },
+          "attachedMediaTypes": [],
+          "text": "pathetic. there have been ~170 bird species observed in Miami over the last 7 days. I guess I'll wait for the *next* violent carjacking game to realistically portray birding. \ud83e\udeb6"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Alzhoiqcmix7x4umnzrtxzd5h/post/3n2jj65irx22p",
+          "author": "bireeves95.bsky.social",
+          "publishedAt": "2026-11-17T16:56:56.578Z",
+          "observedAt": "2026-11-17T23:54:49.066Z",
+          "metrics": {
+            "likes": 1311,
+            "replies": 142,
+            "reposts": 399
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "This is Capitalism\u2019s end game. \nDestroy Everything for Profit!"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "configuredBlueskyQuery": "",
+      "currentUnrotatedCollectionQuery": "World news & politics",
+      "currentUnrotatedQuerySource": "topic name",
+      "postBudget": 5,
+      "storedObservations": 468,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 149,
+      "distinctStoredPostsWithVideoInAnySnapshot": 16,
+      "newestObservationAt": "2026-11-17T23:54:52.042Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 15,
+        "postsWithVideo": 12,
+        "postsWithoutAttachedMedia": 23,
+        "postsWithAuthorDescriptions": 3
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 37,
+        "largestAuthorPostCount": 6,
+        "authors": [
+          {
+            "author": "noelreports.com",
+            "distinctPosts": 6
+          },
+          {
+            "author": "angel-shalagina.bsky.social",
+            "distinctPosts": 4
+          },
+          {
+            "author": "darthputinkgb.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "joncooper-us.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "jecheverri45.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "antongerashchenko.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "artcandee.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "baltictakes.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluestormcomin1.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bunkerhunter.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "charleskeener.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "cwebbonline.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "dropsitenews.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "emptywheel.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "euvsdisinfo.eu",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fullslack.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "goering-eckardt.de",
+            "distinctPosts": 1
+          },
+          {
+            "author": "hart-frentz.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "implausibleblog.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kenofseattle.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "kyivindependent.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lamentablyawake.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "lorenzothecat.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "maks23.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mariadrutska.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "nothoodlum.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "onestpress.onestnetwork.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "perevaa.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "phillipspobrien.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "prune602.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "realjakebroe.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "robertscotthorton.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "sikadm.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ukrainewarpod.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "ukrainki.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "wired.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "youranoncentral.bsky.social",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 0,
+      "strongestSafeLikesUpTo50": 5043,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auo2fna47c4v6zcnklxfhcvjb/post/3n2iwm6hzks2k",
+          "author": "cwebbonline.com",
+          "metrics": {
+            "likes": 4599,
+            "replies": 175,
+            "reposts": 1209
+          },
+          "text": "Whoa! Ukraine just delivered a massive blow to Putin.\n\nThey struck Russia\u2019s Crimean Bridge, sending an entire section into the water.\n\nBut here\u2019s the part that really caught my attention\u2026\n\nUkraine pulled this off using its own domestically developed drones & missiles. Not American-supplied weapons."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2iui6anm22d",
+          "author": "joncooper-us.bsky.social",
+          "metrics": {
+            "likes": 2837,
+            "replies": 69,
+            "reposts": 644
+          },
+          "text": "\ud83d\udea8\ud83d\udd25Holy crap! Ukraine struck the Kerch Bridge overnight with Flamingo cruise missiles, dealing a double blow to Putin: destroying a critical Russian military supply route into occupied Crimea and shattering one of the most visible symbols of his illegal annexation.\n\nGlory to Ukraine! \ud83c\uddfa\ud83c\udde6"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Anb6uhiglzowsdcbgwv2itwa7/post/3n2jsntzenc2w",
+          "author": "onestpress.onestnetwork.com",
+          "metrics": {
+            "likes": 617,
+            "replies": 97,
+            "reposts": 212
+          },
+          "text": "US criticizes Ukraine for striking inside Russia. Germany\u2019s SecDef Pistorius called the American criticism stupid.\n\nBoth videos \u2b07\ufe0f"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4aqzua5vsewimmusg66fyajl/post/3n2jjfs45js2w",
+          "author": "noelreports.com",
+          "metrics": {
+            "likes": 764,
+            "replies": 20,
+            "reposts": 136
+          },
+          "text": "\u2757\ufe0fUkrainian Defense Minister Yevhenii Khmara, asked about the strike on the Kerch Bridge, responded: \"We're just getting started.\" Speaking to Radio Svoboda in Brussels ahead of his first in-person Ramstein meeting, he also said Ukraine needs continued support from its partners. #Ukraine"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A6yrpknzx7zqsvzfxrljm3q3b/post/3n2hvsspa4c2n",
+          "author": "realjakebroe.bsky.social",
+          "metrics": {
+            "likes": 1467,
+            "replies": 81,
+            "reposts": 280
+          },
+          "text": "Ukraine has finally decided to bring down the Crimean bridge."
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Auo2fna47c4v6zcnklxfhcvjb/post/3n2iwm6hzks2k",
+          "author": "cwebbonline.com",
+          "publishedAt": "2026-11-17T11:24:46.268Z",
+          "observedAt": "2026-11-17T21:54:51.043Z",
+          "metrics": {
+            "likes": 4599,
+            "replies": 175,
+            "reposts": 1209
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "Whoa! Ukraine just delivered a massive blow to Putin.\n\nThey struck Russia\u2019s Crimean Bridge, sending an entire section into the water.\n\nBut here\u2019s the part that really caught my attention\u2026\n\nUkraine pulled this off using its own domestically developed drones & missiles. Not American-supplied weapons."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2ita7di522s",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-17T10:24:23.290Z",
+          "observedAt": "2026-11-17T21:54:51.042Z",
+          "metrics": {
+            "likes": 5043,
+            "replies": 134,
+            "reposts": 1111
+          },
+          "attachedMediaTypes": [],
+          "text": "Holy crap! Ukraine did it!! What an absolutely incredible accomplishment!! So great to wake up to such amazing news! Glory to Ukraine!!! \ud83c\uddfa\ud83c\udde6"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2iui6anm22d",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-17T10:46:44.325Z",
+          "observedAt": "2026-11-17T21:54:51.043Z",
+          "metrics": {
+            "likes": 2837,
+            "replies": 69,
+            "reposts": 644
+          },
+          "attachedMediaTypes": ["video"],
+          "text": "\ud83d\udea8\ud83d\udd25Holy crap! Ukraine struck the Kerch Bridge overnight with Flamingo cruise missiles, dealing a double blow to Putin: destroying a critical Russian military supply route into occupied Crimea and shattering one of the most visible symbols of his illegal annexation.\n\nGlory to Ukraine! \ud83c\uddfa\ud83c\udde6"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Avq3fn2jcelxumsyvq4entjl4/post/3n2jsz3zysc2v",
+          "author": "phillipspobrien.bsky.social",
+          "publishedAt": "2026-11-17T19:53:04.691Z",
+          "observedAt": "2026-11-17T21:54:51.043Z",
+          "metrics": {
+            "likes": 918,
+            "replies": 21,
+            "reposts": 222
+          },
+          "attachedMediaTypes": [],
+          "text": "The best indication that Ukraine is hurting Russia is that US officials are criticizing Ukrainian strategy. \nIf the gang that lost a war to Iran in a few months and regularly sucks up to Putin, is trying to get Ukraine to change strategy, you know Ukraine is ok the right road."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A7qqkq2zdwq4j5jingukgtuky/post/3n2iut6zirc2d",
+          "author": "joncooper-us.bsky.social",
+          "publishedAt": "2026-11-17T10:52:54.242Z",
+          "observedAt": "2026-11-17T21:54:52.051Z",
+          "metrics": {
+            "likes": 2049,
+            "replies": 60,
+            "reposts": 442
+          },
+          "attachedMediaTypes": [],
+          "text": "\ud83d\udea8BREAKING: Ukraine has critically damaged the Kerch bridge linking occupied Crimea with Russia in an overnight missile attack, in what President Zelenskyy hailed as an \u201cunprecedented\u201d military operation."
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "configuredBlueskyQuery": "Congress",
+      "currentUnrotatedCollectionQuery": "Congress",
+      "currentUnrotatedQuerySource": "blueskyQuery",
+      "postBudget": 5,
+      "storedObservations": 527,
+      "observationReadLimitReached": false,
+      "distinctStoredPosts": 51,
+      "distinctStoredPostsWithVideoInAnySnapshot": 1,
+      "newestObservationAt": "2026-11-17T23:54:54.026Z",
+      "safeEngagedCandidatesUpTo50": 50,
+      "safeEngagedMediaCoverageUpTo50": {
+        "postsWithImages": 6,
+        "postsWithVideo": 1,
+        "postsWithoutAttachedMedia": 43,
+        "postsWithAuthorDescriptions": 0
+      },
+      "safeEngagedAuthorCoverageUpTo50": {
+        "distinctAuthors": 35,
+        "largestAuthorPostCount": 6,
+        "authors": [
+          {
+            "author": "thewatchdogco.bsky.social",
+            "distinctPosts": 6
+          },
+          {
+            "author": "dworkin.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "thedemcoalition.bsky.social",
+            "distinctPosts": 3
+          },
+          {
+            "author": "altnps.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "marisakabas.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "nytpitchbot.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "ronfilipkowski.bsky.social",
+            "distinctPosts": 2
+          },
+          {
+            "author": "thebulwark.com",
+            "distinctPosts": 2
+          },
+          {
+            "author": "warren.senate.gov",
+            "distinctPosts": 2
+          },
+          {
+            "author": "billkittle.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bireeves95.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "bluewavesurfer.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "carlquintanilla.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "citizensforethics.org",
+            "distinctPosts": 1
+          },
+          {
+            "author": "clusterfuckocracy.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "contrariannews.org",
+            "distinctPosts": 1
+          },
+          {
+            "author": "diplomatofnight.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "donmoyn.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "fleaingdogfella.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "golikehellmachine.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "govpritzker.illinois.gov",
+            "distinctPosts": 1
+          },
+          {
+            "author": "jerasikehorn.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "joemcjoe11.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "joshtpm.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "joycewhitevance.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "laurenunderwood.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "littlekuriboh.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "mcopelov.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "normeisen.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "phillewis.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "politico.com",
+            "distinctPosts": 1
+          },
+          {
+            "author": "samd.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "stevenbeschloss.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "wajali.bsky.social",
+            "distinctPosts": 1
+          },
+          {
+            "author": "washingtonsun.com",
+            "distinctPosts": 1
+          }
+        ]
+      },
+      "phraseEligibleShortlist": 0,
+      "strongestSafeLikesUpTo50": 7156,
+      "strongestSafeVideoExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Awoi3i7myjmf5ql7nux7zgonj/post/3n2k36cudek25",
+          "author": "contrariannews.org",
+          "metrics": {
+            "likes": 252,
+            "replies": 5,
+            "reposts": 44
+          },
+          "text": "This new Congress is bringing change: \n\nToday, Rep. Jason Crow held a news conference with incoming House members in support of a ban on stock trading by members of Congress."
+        }
+      ],
+      "strongestSafeExamples": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aornpixmpy5ts36lh7hmi7wkp/post/3n2je4bywac2c",
+          "author": "warren.senate.gov",
+          "publishedAt": "2026-11-17T15:26:25.484Z",
+          "observedAt": "2026-11-17T23:54:53.039Z",
+          "metrics": {
+            "likes": 5547,
+            "replies": 156,
+            "reposts": 1278
+          },
+          "attachedMediaTypes": [],
+          "text": "Donald Trump has reportedly traded NVIDIA stock at least 103 times in the past 2 years.\n \nIf the President won\u2019t divest, Congress should make him.\n\nWe need to ban the President, Vice President, and every Member of Congress from owning and trading individual stocks."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3At6ubj2wlhc34awzcymh3qpur/post/3n2hslr2mys2t",
+          "author": "ronfilipkowski.bsky.social",
+          "publishedAt": "2026-11-17T00:40:17.488Z",
+          "observedAt": "2026-11-17T23:54:53.039Z",
+          "metrics": {
+            "likes": 7156,
+            "replies": 243,
+            "reposts": 2571
+          },
+          "attachedMediaTypes": ["image"],
+          "text": "Trump imposes an illegal tariff. Republicans in Congress let him do it. We pay the tariff. SCOTUS rules the whole scheme was illegal. Corporate executives keep our money. Exactly how Trump wants the economy to work."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Aflfa7b6kgjqp3bbh223tmpjk/post/3n2jkses77s2x",
+          "author": "wajali.bsky.social",
+          "publishedAt": "2026-11-17T17:26:09.060Z",
+          "observedAt": "2026-11-17T23:54:54.026Z",
+          "metrics": {
+            "likes": 2026,
+            "replies": 151,
+            "reposts": 972
+          },
+          "attachedMediaTypes": [],
+          "text": "Schumer voted for this. As did 19 other Dems.\n\nYou have to ask them why.\n\n\"The party is about to take control of Congress. So why is it working with Republicans to pass a permitting reform bill that amounts to an irreversible environmental disaster?\"\n\nhttps://newrepublic.com/article/217872/democrats-permitting-reform-baaja-big-oil-giveaway"
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3At6ubj2wlhc34awzcymh3qpur/post/3n2i3mkzsas26",
+          "author": "ronfilipkowski.bsky.social",
+          "publishedAt": "2026-11-17T03:21:48.407Z",
+          "observedAt": "2026-11-17T23:54:53.039Z",
+          "metrics": {
+            "likes": 4496,
+            "replies": 99,
+            "reposts": 1274
+          },
+          "attachedMediaTypes": [],
+          "text": "What has to be part of the equation for every appropriation from Congress is an understanding that the Trump Admin has proven that they will not necessarily spend the money the way Congress mandates, and there\u2019s also a good chance it goes to a Trump family member, crony or donor."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Asdfhzkjavqo5ifiofn4uafrb/post/3n2jd2bklwc2q",
+          "author": "normeisen.bsky.social",
+          "publishedAt": "2026-11-17T15:07:24.164Z",
+          "observedAt": "2026-11-17T23:54:53.039Z",
+          "metrics": {
+            "likes": 2362,
+            "replies": 27,
+            "reposts": 1007
+          },
+          "attachedMediaTypes": [],
+          "text": "GAO has found Trump's admin broke budget law a dozen times by sitting on money Congress appropriated\n\nThe White House shrugged & said it isn't bound by a congressional agency's findings\n\nImagine how that goes if a loyalist is running GAO -TN"
+        }
+      ]
+    }
+  ],
+  "note": "24-hour publication window ending at cutoff; observations after cutoff excluded. Stored official API observations only, capped at 5,000 per topic. Distinct counts are within that read. Safe engaged candidates use latest valid snapshots, safety gates and positive engagement, capped at 50; they have not passed semantic relevance or editorial selection. Stored video counts include any retained snapshot; safe media counts use selected latest snapshots. Attached media and author descriptions do not verify contents or identify highlights. Image/video counts can overlap. Author counts describe distinct posts within those capped candidates, not the full pool or measured relevance. Phrase shortlist uses the topic post budget and lexical relevance. Examples are engagement-ranked safe candidates, not editorial picks or measured growth. Zero means no stored eligible evidence, not no platform activity. No provider calls or writes."
+}

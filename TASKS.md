@@ -38,7 +38,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 9/15: Nov 9–15 X $2.100622, 32/32 keyword calls, 312 new verified candidates/305 outside-list, 50 selection matches/44 outside-list. Quality open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-10).
 
-- [ ] STEERING 18 Bluesky: first full rotation day reviewed (2561): 24 jobs/120 counts; World 155 distinct posts vs 158 on mixed Nov 15, top-five quality mixed across topics. Retain queries/gates; Nov 17 natural selections: five Bluesky across NBA/Gaming/World/U.S., zero Tech (2632); quality comparison remains open. 2658 preserves Nov 17 00:54–19:54 UTC: 20 successful jobs/100 matched topic counts, expected World rotation; 2668 extends retention through 21:54 UTC: 22 successful hours/110 matched topic counts; 2669 extends retention through 22:54 UTC: 23 successful hours/115 matched topic counts; final hour and full-day review pending. 2666 reviews all five published Bluesky picks against 25 edition-window candidates: NBA/Gaming/World add concrete developments; U.S. detail remains weak, retain gates. [Review](docs/edition-reviews/2026-11-17-bluesky-day.md).
+- [ ] STEERING 18 Bluesky: 2674 completes Nov 17 UTC-day review: 24 successful jobs/120 matched counts, exact World rotation; distinct posts Tech 49/NBA 49/Gaming 68/World 149/U.S. 51. All 25 top-five saved texts reviewed; Gaming lexical noise, NBA satire and U.S. detail keep quality open. Retain queries/gates. Nov 17 five published picks separately reviewed (2666). Next: Nov 18 natural selections and hourly retention. [Review](docs/edition-reviews/2026-11-17-bluesky-day.md).
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2674: Completed Nov 17 Bluesky day retention, fixed-cutoff supply comparison and 25-text reader review; collection accepted, quality mixed, queries unchanged.
 
 - [x] 2673: Connected the Tech admission policy to publication behind a default-off switch; recorded 40-article control and real publication transport cover validated grouping and fallback. Production admission remains unchanged.
 
