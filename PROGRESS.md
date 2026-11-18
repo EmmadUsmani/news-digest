@@ -164,3 +164,13 @@
 - Signed-out public HTTPS reader returns five topics/25 stories/20 posts. All 14 monitored services, active sources and job health checks pass; parked Destructoid remains inactive.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,099 unit/330 integration tests, four expected skips); logs /tmp/2684-*.log. Commit/push followed by API/worker restart. Handbook initially exceeded its line limit; shortened the affected explanation and page check passes (19 pages/39 tables).
 - Next: natural Nov 18 Tech candidate-share and summary-depth acceptance after 15:00 UTC; retention at 04:40 UTC. Scheduled edition unchanged; broader depth acceptance remains open.
+
+## 2026-11-18: iteration 2685 — retain microformats Tech article bodies
+
+- Clean main at 1680aa08; no inherited work. Initial pending worker scrape/service alerts followed the prior restart; worker running and alerts subsequently clear. Health passes; outside protected hours.
+- Purism's HN-linked announcement uses a nested e-content body without article/main. Added exact class-token, parse5-scoped extraction; article/abstract precedence and 1,500-character cap remain. No body-wide fallback or access workaround.
+- Shared-client live HTTP 200 returns 32,792 bytes and 1,500 extracted characters. Saved empty Purism candidate repaired 0 → 1,500 characters, retaining RISC-V/PureOS and crowdfunding details. Conditional update touched only its empty excerpt; receipt /tmp/2685-saved.json.
+- Recorded publisher paragraphs plus scope/nesting/class-token/precedence cases pass 13/13. Source inventory and pipeline handbook updated; handbook passes (19 pages/39 tables). No schema/UI/diagram changes or paid calls, budget/provider/flag changes, or edition regeneration.
+- Build passes. Signed-out public HTTPS Chromium reader returns five topics/25 stories/20 posts. Local health, active sources and job checks pass. Direct VM DNS path failed; public DNS resolved Chromium check passes, as in prior iteration.
+- Verification: pnpm format and pnpm lint:fix pass; full pnpm check passes (1,101 unit/330 integration tests, four expected skips). Logs /tmp/2685-{format,lint,check,build,handbook,reader,fetch}.log.
+- Next: natural Nov 18 Tech candidate-share and summary-depth acceptance after 15:00 UTC; scheduled edition unchanged. Commit/push and API/worker restart follow successful checks.

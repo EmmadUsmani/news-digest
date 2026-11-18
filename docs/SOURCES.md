@@ -3573,3 +3573,10 @@ Their saved empty candidates gain model-evaluation and orbital-radiation detail;
 arXiv footer paragraphs are excluded. Recorded scoped abstracts cover both
 formats; no PDF download or external API is needed. Scheduled acceptance remains
 pending. Receipt: `/tmp/2684-saved.json`.
+
+Iteration 2685 supports the microformats `e-content` article body. The Purism
+Librem 5 v2 announcement returns HTTP 200 through the shared client; its saved
+empty candidate now retains 1,500 characters of announcement reporting. Extraction
+stays inside the exact class container and preserves article precedence; a
+recorded fixture covers this layout. Receipt: `/tmp/2685-saved.json`. Scheduled
+Tech acceptance remains pending.

@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth / STEERING 66: 2684 adds named research abstracts; two saved empty candidates gain 1,194/1,500 characters, excluding arXiv footer text. 2681–2682 add shared-client publisher article/main reporting for empty HN submissions. 2683 adds scoped MediaWiki prose: two more saved empty rows enriched (681/1,500 characters); original 2682 URL cohort observed at 15/20 with excerpts (two confirmed repairs this iteration). Three publisher access failures named in NEEDS_FROM_HUMAN.md. Nov 17 baseline 171/200 empty. Await scheduled share and summary-depth acceptance; pages without article markup or blocked remain empty. Existing admission flag remains enabled for the Nov 18 natural edition, with rollback on regression. No grouping wording rules, budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [ ] Tech depth / STEERING 66: 2685 adds exact microformats e-content bodies; saved Purism announcement 0 → 1,500 characters. 2684 adds named research abstracts; two saved empty candidates gain 1,194/1,500 characters, excluding arXiv footer text. 2681–2682 add shared-client publisher article/main reporting for empty HN submissions. 2683 adds scoped MediaWiki prose: two more saved empty rows enriched (681/1,500 characters); original 2682 URL cohort observed at 15/20 with excerpts (two confirmed repairs this iteration). Three publisher access failures named in NEEDS_FROM_HUMAN.md. Nov 17 baseline 171/200 empty. Await scheduled share and summary-depth acceptance; pages without article markup or blocked remain empty. Existing admission flag remains enabled for the Nov 18 natural edition, with rollback on regression. No grouping wording rules, budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2685: Microformats publisher bodies recover the empty Purism Tech candidate; natural edition acceptance pending.
 
 - [x] 2684: Research abstract extraction repairs empty arXiv and Latent Lattice candidates; scheduled acceptance pending.
 

@@ -208,3 +208,37 @@ void test('abstract extraction requires an explicit container and preserves arti
     ).length <= 1500,
   );
 });
+
+void test('microformat content stays within its exact class container', () => {
+  assert.equal(
+    publisherExcerpt(
+      `<div class="blog-entry e-content"><div><p>${reporting}</p></div></div><p>${'Outside copy '.repeat(10)}</p>`,
+    ),
+    reporting,
+  );
+  assert.equal(
+    publisherExcerpt(`<div class="not-e-content"><p>${reporting}</p></div>`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(`<div class="e-content"><p>Short</p></div>`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<div class="e-content"><nav><p>${reporting}</p></nav><p>${reporting} Body.</p></div><article><p>${reporting} Article.</p></article>`,
+    ),
+    `${reporting} Article.`,
+  );
+});
+
+void test('recorded Purism microformat retains announcement reporting', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-purism.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^Powered by open-source software/);
+  assert.match(excerpt, /RISC-V/);
+  assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
+});

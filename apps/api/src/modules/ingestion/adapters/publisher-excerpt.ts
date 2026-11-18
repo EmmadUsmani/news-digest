@@ -20,6 +20,7 @@ export function publisherExcerpt(html: string): string {
   const reporting =
     article ??
     mediaWikiReporting(clean) ??
+    microformatReporting(clean) ??
     (main && /<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1]);
   if (!reporting) return '';
   const paragraphs = [...reporting.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)]
@@ -115,4 +116,16 @@ function researchAbstract(html: string): string {
           .join(' ');
   const normalized = plainText(decodeHTML(text));
   return normalized.length >= 60 ? normalized : '';
+}
+
+/** Publishers mark the article body with the microformats e-content property. */
+function microformatReporting(html: string): string | undefined {
+  if (!html.includes('e-content')) return undefined;
+  const content = find(parseFragment(html), (node) =>
+    node.attrs.some(
+      (attr) =>
+        attr.name === 'class' && attr.value.split(/\s+/).includes('e-content'),
+    ),
+  );
+  return content ? serialize(content) : undefined;
 }
