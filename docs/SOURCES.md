@@ -7,6 +7,12 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+Nov 18 (2770): **live** — general HN description fallback deployed for pages
+without supported body prose. One three-day saved-pool backfill filled 34 blank
+excerpts (18 existing body, 16 metadata); blanks 74/261 → 40/261. HN publisher
+enrichment now excludes X, Nitter and Reddit links. No new source or bypass.
+[Cause table and receipt](edition-reviews/2026-11-18-tech-blank-causes.md).
+
 Nov 18 (2690): HN publisher enrichment recognizes ARIA main landmarks with a
 page heading. Apple’s ordinary HTTP 200 support page now supplies its macOS
 27.3 permissions guidance; one saved blank candidate gained 1,500 characters.

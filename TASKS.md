@@ -9,7 +9,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
-- [ ] STEERING 67 (owner update during 2760): after breakages and the 16:00 UTC hold, measure saved Tech blanks over three days by cause once; implement one general fix for the largest non-block cause and one bounded blank-only backfill. No per-publisher fixes or hand-picked row recovery. Nov 18 acceptance above is historical, not completion of item 67.
+- [ ] STEERING 67 (2770): one-time three-day cause table/general description fallback/bounded backfill complete. Unsupported layouts largest non-block cause 25/74 (33.78%); saved Tech blanks 74/261 (28.35%) → 40/261 (15.33%), 34 exact verified updates. No further recovery work; next scheduled Tech section checked once in daily review. [Cause table/receipt](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
 
 - [ ] Destructoid access blocked (2601): official feed returns Cloudflare HTTP 403; collection paused, 304 observations retained. Resume only after documented publisher access is available; no bypass or replacement source. Other 37 active sources healthy.
 

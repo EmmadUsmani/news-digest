@@ -215,3 +215,11 @@ The normal shared HTTP client returned HTTP 403 for
 and HTTP 404 for `https://github.com/microsoft/onnxruntime`. These linked HN
 candidates retain empty excerpts. No bypass attempted; no immediate owner action
 is needed. Improving these candidates requires accessible publisher reporting.
+
+Item 67 one-time three-day audit (2770): 20 HTTP failures remain blank:
+15 HTTP 403, three 401, one 429, one 404. In addition to the hosts above,
+affected origins are AP, Reuters, CNN, SCMP, NYTimes, The Hill, WREG,
+Downdetector, Retrocomputing Stack Exchange, sas.upenn.edu and arkanumdata.com.
+A Business Insider page exposes a login/paywall marker. No repeated recovery
+or bypass planned; accessible publisher content is needed.
+[Per-candidate causes](docs/edition-reviews/2026-11-18-tech-blank-causes.md).

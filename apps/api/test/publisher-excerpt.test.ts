@@ -4,6 +4,62 @@ import { test } from 'node:test';
 
 import { HackerNewsAdapter } from '../src/modules/ingestion/adapters/hn.adapter';
 import { publisherExcerpt } from '../src/modules/ingestion/adapters/publisher-excerpt';
+import { publisherPageAllowed } from '../src/modules/ingestion/domain/publisher-page';
+
+void test('HN publisher fetch excludes direct X pages and unofficial mirrors', () => {
+  for (const url of [
+    'https://x.com/person/status/1',
+    'https://www.twitter.com/person/status/1',
+    'https://nitter.cf/person/status/1',
+    'https://reddit.com/r/example/comments/1',
+    'http://example.org/article',
+  ])
+    assert.equal(publisherPageAllowed(url), false);
+  assert.equal(publisherPageAllowed('https://example.org/article'), true);
+});
+
+void test('unsupported body layouts fall back to document description metadata', () => {
+  const summary =
+    'A new open-source compiler targets native and browser applications with a self-hosted toolchain.';
+  for (const key of ['description', 'og:description', 'twitter:description']) {
+    assert.equal(
+      publisherExcerpt(
+        `<html><head><meta content="${summary}" property="${key}"></head><body><div>Application shell</div></body></html>`,
+      ),
+      summary,
+    );
+  }
+  assert.equal(
+    publisherExcerpt(
+      `<head><meta name="description" content="${summary}"></head><article><p>${summary} Extra reporting.</p></article>`,
+    ),
+    `${summary} Extra reporting.`,
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<head><meta name="description" content="Short title"></head>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<body><meta name="description" content="${summary}"></body>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<head><meta name="description" content="${'Long description '.repeat(200)}"></head>`,
+    ).length,
+    1500,
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<head><meta name="description" content="A compiler &amp; runtime that supports &quot;native&quot; applications and portable browser execution."></head>`,
+    ),
+    'A compiler & runtime that supports "native" applications and portable browser execution.',
+  );
+});
 
 const reporting =
   'The researchers released a new model and published the evaluation results alongside its training code.';
@@ -44,7 +100,13 @@ void test('publisher excerpt selects bounded article reporting and excludes page
   );
 });
 void test('HN publisher enrichment preserves submission text and tolerates publisher failures', async () => {
-  for (const mode of ['article', 'blocked', 'submission']) {
+  for (const mode of [
+    'article',
+    'blocked',
+    'submission',
+    'metadata',
+    'social',
+  ]) {
     const calls: string[] = [];
     const adapter = new HackerNewsAdapter({
       get: async (url) => {
@@ -54,11 +116,17 @@ void test('HN publisher enrichment preserves submission text and tolerates publi
           return JSON.stringify({
             type: 'story',
             title: 'Model release',
-            url: 'https://example.com/model',
+            url:
+              mode === 'social'
+                ? 'https://x.com/person/status/1'
+                : 'https://example.com/model',
             time: 1700000000,
             text: mode === 'submission' ? reporting : undefined,
           });
         if (mode === 'blocked') throw new Error('HTTP 403');
+        if (mode === 'social') assert.fail('X page must never be requested');
+        if (mode === 'metadata')
+          return `<head><meta name="description" content="${reporting}"></head><body><div>Unsupported layout</div></body>`;
         return html;
       },
     });
@@ -72,13 +140,16 @@ void test('HN publisher enrichment preserves submission text and tolerates publi
     assert.equal(items.length, 1);
     assert.equal(
       items[0].excerpt,
-      mode === 'blocked'
+      mode === 'blocked' || mode === 'social'
         ? ''
-        : mode === 'submission'
+        : mode === 'submission' || mode === 'metadata'
           ? reporting
           : publisherExcerpt(html),
     );
-    assert.equal(calls.length, mode === 'submission' ? 2 : 3);
+    assert.equal(
+      calls.length,
+      mode === 'submission' || mode === 'social' ? 2 : 3,
+    );
   }
 });
 

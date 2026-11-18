@@ -7,9 +7,14 @@ import {
 } from 'parse5';
 
 import { plainText } from '../domain/normalize';
+import { publisherDescription } from './publisher-description';
 
 /** Use publisher reporting sections; never navigation, scripts or HN comments. */
 export function publisherExcerpt(html: string): string {
+  return publisherBodyExcerpt(html) || publisherDescription(html);
+}
+
+function publisherBodyExcerpt(html: string): string {
   // Article headers often contain the only page title. Retain that heading
   // so main-body scoping survives removal of author, date and header chrome.
   const title = /<title\b[^>]*>([\s\S]*?)<\/title\s*>/i.exec(html)?.[1];

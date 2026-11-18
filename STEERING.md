@@ -3111,3 +3111,5 @@ scheduled Tech section is checked once in the daily review.
 
 **Limits:** AI budget unchanged. Not between 13:00 and 16:00 UTC. Protect the
 morning edition.
+
+ack: 2026-11-18 (2770) — item 67 one-time [cause table](docs/edition-reviews/2026-11-18-tech-blank-causes.md): 261 saved Tech candidates/74 blanks over three days; HTTP error/block 20, unsupported body 25, currently extractable/unknown historic cause 18, policy exclusions 6, format/size 2, JS shell 2, paywall 1, confirmed never-fetched 0. Largest non-block cause unsupported body 25/74 (33.78%). General description fallback and HN social-fetch guards are in the same commit as this ack ("Recover blank Tech excerpts through general page descriptions"). One bounded blank-only backfill filled 34 (18 existing body/16 descriptions); blanks 74/261 (28.35%) → 40/261 (15.33%), exact reread of all 261 passes. No paid calls/budget changes; stop recovery and check next scheduled Tech section once.

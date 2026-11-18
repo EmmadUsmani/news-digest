@@ -1,0 +1,2858 @@
+{
+  "windowStart": "2026-11-15T16:21:45Z",
+  "windowEnd": "2026-11-18T16:21:45Z",
+  "total": 261,
+  "beforeBlank": 74,
+  "afterBlank": 40,
+  "apply": true,
+  "updates": 34,
+  "causes": {
+    "http-error-block": 20,
+    "currently-extractable": 18,
+    "no-extractable-prose": 25,
+    "access-policy-excluded": 6,
+    "unsupported-format-size": 2,
+    "js-shell": 2,
+    "paywall-login": 1
+  },
+  "rows": [
+    {
+      "id": "55a479fc-0580-4657-94c5-443aff653bc0",
+      "url": "https://arkanumdata.com/research/house-trades",
+      "publishedAt": "2026-11-15 19:46:02+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 429",
+      "afterChars": 0
+    },
+    {
+      "id": "e3e841bc-44f5-4f1c-936c-09375da95a71",
+      "url": "https://fortune.com/2026/11/14/alpha-school-ai-students-tuition-learning-goals/",
+      "publishedAt": "2026-11-15 19:39:46+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 444399,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "7ff802f8-095e-4324-bdf8-4693bae31a71",
+      "url": "https://www.ft.com/content/45383d86-33c4-4d99-86e5-5e058d3567c1",
+      "publishedAt": "2026-11-15 19:31:11+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "07e32b31-ec1d-4989-a45b-1458ea3c101e",
+      "url": "https://www.space.com/space-exploration/launches-spacecraft/ula-vulcan-centaur-return-to-flight-amazon-leo-internet-satellite-launch",
+      "publishedAt": "2026-11-15 20:37:28+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 1695652,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "c3f9e0af-fa36-4841-ab94-f06d0461e67a",
+      "url": "https://baron.by.dai.studio/",
+      "publishedAt": "2026-11-15 20:20:05+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 12363,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 173,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "8b9d85de-2de5-4cdc-a469-58ad3e8da7cd",
+      "url": "https://www.nytimes.com/2026/11/15/science/birdbrain-crows-birds-research-decision.html",
+      "publishedAt": "2026-11-15 17:53:31+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 292465,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "86bb52f0-ee0a-44a1-8d9a-c7478986a13d",
+      "url": "https://www.reuters.com/business/aerospace-defense/us-rocket-fails-after-launch-payload-amazon-internet-satellites-destroyed-2026-11-15/",
+      "publishedAt": "2026-11-15 21:38:11+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 401",
+      "afterChars": 0
+    },
+    {
+      "id": "e34feea7-428c-4a3b-9dbf-60b02320e075",
+      "url": "https://ductus.sorenblank.com/",
+      "publishedAt": "2026-11-15 19:42:13+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 41761,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 159,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "bd2fc31c-752f-4a08-9c52-f54928d68fa6",
+      "url": "https://harpers.org/archive/2023/12/the-hofmann-wobble-wikipedia-and-the-problem-of-historical-memory/",
+      "publishedAt": "2026-11-15 22:26:33+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 156356,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "cac4366d-58b8-4bc8-8d4f-fd2d9726b774",
+      "url": "https://wreg.com/news/chemical-spills-into-drainage-ditch-at-spacexai-in-southaven/",
+      "publishedAt": "2026-11-15 23:12:38+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "33d22e85-83b8-44fe-8f52-149575d0e7e9",
+      "url": "https://www.youtube.com/watch?v=7_JF3etiAv8",
+      "publishedAt": "2026-11-15 18:23:21+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 1432012,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 160,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "b3d78ea9-3189-4a95-941b-6a42a1b93df0",
+      "url": "https://lastcomplication.com/",
+      "publishedAt": "2026-11-15 22:48:52+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 712593,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "d230cfed-dde3-4586-b375-35678cd3e448",
+      "url": "https://tangled.org/nvim-mini.org/mini.nvim",
+      "publishedAt": "2026-11-15 23:55:41+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 247063,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 86,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "8a5c6c85-ec32-41d0-99cc-a405d62c53f8",
+      "url": "https://www1.wdr.de/nrw/rheinland/rhein-erft-kreis/technischer-defekt-chlor-phantasialand-100.html",
+      "publishedAt": "2026-11-15 18:36:10+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 63855,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "e28d5dac-6028-4449-b9b5-f2dd0e1b0ed0",
+      "url": "https://www.hntrends.com/2026/november.html",
+      "publishedAt": "2026-11-16 01:31:30+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 24432,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 186,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "42205073-4f45-4c86-94b5-fec984a160e1",
+      "url": "https://www.colesgroup.com.au/updates/",
+      "publishedAt": "2026-11-16 01:14:35+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 84398,
+      "description": true,
+      "jsonld": false,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "b02bead2-480f-4275-9469-806f80932e03",
+      "url": "https://pub.cba.mit.edu/863.26/site/",
+      "publishedAt": "2026-11-16 05:50:37+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 5587,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "52fabd0f-1766-44a9-b012-67b2d99f6681",
+      "url": "https://www.youtube.com/watch?v=ZVmRe8OVZtE",
+      "publishedAt": "2026-11-15 22:07:08+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 1410340,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 160,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "c80412f9-0124-49d1-87fb-2c646f602601",
+      "url": "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1154101",
+      "publishedAt": "2026-11-16 04:53:06+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 289547,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "055036ee-7b5f-4076-ac48-65674cde5131",
+      "url": "http://groundworkcollaborative.org/news/amazons-decoy-deals-groundwork-investigation-reveals-nearly-1-in-3-black-friday-and-cyber-monday-deals-advertised-by-amazon-offered-no-savings-to-shoppers-nearly-1-in-10-w/",
+      "publishedAt": "2026-11-16 13:39:07+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "access-policy-excluded",
+      "error": "Error: Use a public HTTPS feed URL without credentials or a custom port",
+      "afterChars": 0
+    },
+    {
+      "id": "c428369b-7882-4efd-87ff-c5eb408ce09e",
+      "url": "https://www.cnn.com/2026/11/15/politics/army-soldier-whistleblower-complaint",
+      "publishedAt": "2026-11-16 14:17:53+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "24859290-79bc-47a4-91fc-b9bdb767c8a2",
+      "url": "https://www.monirbounadi.com/Bounadi_JMP.pdf",
+      "publishedAt": "2026-11-16 11:03:16+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "unsupported-format-size",
+      "error": "Error: Response exceeds 3 MB",
+      "afterChars": 0
+    },
+    {
+      "id": "e972779c-bf1c-4f33-ba97-9f0ce71f053f",
+      "url": "https://openai.com/index/introducing-chatgpt-wallet/",
+      "publishedAt": "2026-11-16 15:17:56+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "3d439138-13b7-462d-add7-4186c091505c",
+      "url": "https://www.wired.com/story/nvidia-was-already-in-trouble-before-the-jensen-huang-mess/",
+      "publishedAt": "2026-11-16 15:24:09+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 1272909,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "ebd65527-0768-44ce-a54f-e6f4fa245203",
+      "url": "https://jolt-lang.net/",
+      "publishedAt": "2026-11-16 16:23:01+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 14778,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 148,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "95d44ce7-800e-41ef-819f-47aa0ea513f6",
+      "url": "https://qwen.ai/blog?id=qwen4-max",
+      "publishedAt": "2026-11-16 02:14:44+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 87955,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 184,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "8ac03f23-3384-4079-9fab-1552ce4042ac",
+      "url": "https://apnews.com/article/bank-outage-chase-wells-fargo-truist-50fee2693c22f597fa6ca51a97ef2cda",
+      "publishedAt": "2026-11-16 18:31:30+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "81195f8c-5c41-42ff-a63d-4bd4c7615e91",
+      "url": "https://www.wired.com/story/data-centers-use-more-electricity-than-michigan/",
+      "publishedAt": "2026-11-16 18:04:55+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 1248658,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "0dea8c51-6ef2-489d-8ea4-a2abe385d1e6",
+      "url": "https://www.theregister.com/saas/2026/11/16/microsoft-blames-monster-email-outage-on-software-defect-introduced-in-july-fix/5310026",
+      "publishedAt": "2026-11-16 13:18:22+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 181245,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "03432aec-c385-4e94-bd89-eb3c8a89b949",
+      "url": "https://www.bugmenot.com/",
+      "publishedAt": "2026-11-16 21:32:17+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 5621,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "0f280a3f-9295-48b2-ab08-721193965ffa",
+      "url": "https://www.fox5dc.com/news/amtrak-service-stopped-washington-dc-track-hold",
+      "publishedAt": "2026-11-16 20:57:25+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1178,
+      "bytes": 158571,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1178,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "16cfa785-71ad-4364-bfc8-eb867501cae5",
+      "url": "https://www.cs.cmu.edu/learn/",
+      "publishedAt": "2026-11-16 20:43:36+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 60219,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 133,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+      "url": "https://www.reuters.com/world/china/jensen-huang-discusses-comeback-nvidia-ceo-with-allies-ft-reports-2026-11-15/",
+      "publishedAt": "2026-11-15 23:24:53+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 401",
+      "afterChars": 0
+    },
+    {
+      "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+      "url": "https://www.newsweek.com/us-expected-to-block-killer-robot-treaty-talks-12722369",
+      "publishedAt": "2026-11-16 22:57:49+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 394702,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "161d2a45-ceae-4646-bd4e-c4d5fad1cef8",
+      "url": "https://wine-assembly.berrry.app/",
+      "publishedAt": "2026-11-17 01:50:54+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 183806,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 238,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "c5738dcb-9a4e-4ab5-99f4-d7bcf56a97f1",
+      "url": "https://cwtractors.com/",
+      "publishedAt": "2026-11-17 01:31:35+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 16879,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "0ee4c7a8-e01e-4900-9396-d30954a0689f",
+      "url": "https://studio.sinapsdata.com.br/",
+      "publishedAt": "2026-11-17 02:12:13+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 743,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "bb91fbce-5f93-4efc-9c54-f5c4dd84d480",
+      "url": "https://retrocomputing.stackexchange.com/questions/11765",
+      "publishedAt": "2026-11-15 21:27:29+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "b207ff75-d2b9-4dc0-b877-45c927ad752a",
+      "url": "https://twitter.com/id_aa_carmack/status/2122478083319992513",
+      "publishedAt": "2026-11-17 00:16:24+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 171103,
+      "description": true,
+      "jsonld": false,
+      "cause": "access-policy-excluded",
+      "afterChars": 0
+    },
+    {
+      "id": "fae614b1-7da3-488d-9bcb-0fd5be3ca7a2",
+      "url": "https://visualbasic.world/",
+      "publishedAt": "2026-11-15 23:08:30+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 1225,
+      "description": true,
+      "jsonld": false,
+      "cause": "js-shell",
+      "afterChars": 74,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "a8550117-0531-4206-a81d-442f5b3c3396",
+      "url": "https://www.nytimes.com/2026/11/17/upshot/school-phone-bans-study-scores.html",
+      "publishedAt": "2026-11-17 11:45:51+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "5a6dd643-fd6a-499c-94b5-cc71a67d12bf",
+      "url": "https://openai.com/index/strengthening-online-child-safety/",
+      "publishedAt": "2026-11-16 18:12:48+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 437243,
+      "description": true,
+      "jsonld": false,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "9ef27207-2a71-42af-b5fb-c4c4bb03a8e3",
+      "url": "https://turbo51.com/compiler-design/tpc16-turbo-pascal-compiler-written-in-turbo-pascal",
+      "publishedAt": "2026-11-15 18:40:57+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 30517,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 114,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "04b37a53-a928-4278-a8e5-e9f97a7ea364",
+      "url": "https://apnews.com/article/united-airlines-outage-5a5e5f75bb07f11ffb8750901f0076ff",
+      "publishedAt": "2026-11-16 22:22:18+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "e4d8d8e2-20f4-455e-9947-87d65ed7b70c",
+      "url": "https://www.scmp.com/tech/big-tech/article/3374774/baidu-xiaomi-ceos-warn-growing-gap-between-ai-hype-and-returns",
+      "publishedAt": "2026-11-17 14:19:59+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "9d7a5555-02e3-4b04-a102-bc2612d09c1c",
+      "url": "https://alloyhtml.com/example.html",
+      "publishedAt": "2026-11-17 15:07:09+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 352,
+      "bytes": 60641,
+      "description": true,
+      "jsonld": false,
+      "cause": "currently-extractable",
+      "afterChars": 352,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "52a1a6fc-d2c9-4f44-bf5b-daef1b161c55",
+      "url": "https://thehill.com/policy/defense/6224597-pentagon-fails-ninth-audit/",
+      "publishedAt": "2026-11-17 15:02:53+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "a40c8401-11a3-4919-8a7d-ee3c685f8a83",
+      "url": "https://openai.com/index/our-first-phase-of-embedded-assessments/",
+      "publishedAt": "2026-11-16 16:07:20+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 423341,
+      "description": true,
+      "jsonld": false,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "a110e183-03d9-49e4-a87b-c346e67cfd38",
+      "url": "https://egm.dev/",
+      "publishedAt": "2026-11-16 08:23:28+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1114,
+      "bytes": 34819,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1114,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "6a4ec62c-137b-4df3-b580-efd390c3f412",
+      "url": "https://nitter.cf/kevinnbass/status/2099621874279817638",
+      "publishedAt": "2026-11-17 12:21:57+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 624,
+      "bytes": 206927,
+      "description": true,
+      "jsonld": false,
+      "cause": "access-policy-excluded",
+      "afterChars": 0
+    },
+    {
+      "id": "a8fbc39f-72f1-45ef-999d-c1ff5e7cb88a",
+      "url": "https://www.cnbc.com/2026/11/17/nvidia-jensen-huang-statement.html",
+      "publishedAt": "2026-11-17 16:40:38+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 823552,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "0cbbe778-ea0e-4445-abd4-9d1c9579d088",
+      "url": "https://www.businessinsider.com/charles-scwab-website-outage-reports-2026-11",
+      "publishedAt": "2026-11-17 16:05:42+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 370560,
+      "description": true,
+      "jsonld": true,
+      "cause": "paywall-login",
+      "afterChars": 0
+    },
+    {
+      "id": "058a69ba-5781-4737-a196-8f1c5059d276",
+      "url": "https://twitter.com/JensenHuang/status/2122726005219737649",
+      "publishedAt": "2026-11-17 16:23:55+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 161957,
+      "description": true,
+      "jsonld": false,
+      "cause": "access-policy-excluded",
+      "afterChars": 0
+    },
+    {
+      "id": "65df3e8e-f4fb-44d7-81c1-3ce424ee1492",
+      "url": "https://downdetector.com/status/apple-support/",
+      "publishedAt": "2026-11-17 17:47:14+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "58fae3ab-a6a7-4b07-8492-a068433d8168",
+      "url": "https://www.nationalgeographic.com/travel/article/explore-folklore-in-malta-witches-vampires-ancient-aliens",
+      "publishedAt": "2026-11-15 18:02:35+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 425189,
+      "description": true,
+      "jsonld": true,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "02227846-9f49-436e-9a34-938e5e714d17",
+      "url": "https://www.ft.com/content/dbde7a30-548c-4f9d-a4be-7898a0c24dcf",
+      "publishedAt": "2026-11-17 17:12:06+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "7a10a9aa-3c38-4900-8880-fedf8f6303c3",
+      "url": "https://developer.apple.com/system-status/",
+      "publishedAt": "2026-11-17 17:47:14+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 98836,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "b95beafa-4cd7-49af-9fff-8cc1fa44c375",
+      "url": "https://openai.com/index/advancing-computer-use-for-healthcare-teams/",
+      "publishedAt": "2026-11-17 18:26:05+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 1500,
+      "bytes": 465414,
+      "description": false,
+      "jsonld": false,
+      "cause": "currently-extractable",
+      "afterChars": 1500,
+      "recoveredBy": "existing-body"
+    },
+    {
+      "id": "a165a3be-ad84-41f0-95bf-501460deedb5",
+      "url": "https://browser.engineering/",
+      "publishedAt": "2026-11-17 20:01:35+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 7761,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "c9852b9f-b6ce-4b2f-849c-ebeed2009a30",
+      "url": "https://github.com/microsoft/onnxruntime",
+      "publishedAt": "2026-11-17 23:18:49+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 404",
+      "afterChars": 0
+    },
+    {
+      "id": "9707f0a9-046d-4551-8580-9750d3900d66",
+      "url": "https://hy.tencent.ai/research/hy4-flash",
+      "publishedAt": "2026-11-17 21:06:08+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 6519,
+      "description": false,
+      "jsonld": false,
+      "cause": "js-shell",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "496431ba-8811-4bc8-be64-7d5a618a7d56",
+      "url": "https://www.everycrsreport.com/files/2026-10-14_IN12747_fcb1389788aa7b9102b795882af042e85d20532c.pdf",
+      "publishedAt": "2026-11-18 03:37:35+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 457814,
+      "description": false,
+      "jsonld": false,
+      "cause": "unsupported-format-size",
+      "afterChars": 0
+    },
+    {
+      "id": "fe0d5f3a-201e-46e7-a1eb-e85016b65ffc",
+      "url": "https://reddit.com/r/recruitinghell/comments/1xyr6ml/interviewed_at_a_yc_startup_spent_30_hours/",
+      "publishedAt": "2026-11-18 05:11:30+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "access-policy-excluded",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "5d450457-b77a-48c1-b3ce-50db7b3f9017",
+      "url": "http://xinmingtu.cn/blog/2026/claude-opus-5-5-protein-sequences/",
+      "publishedAt": "2026-11-18 03:47:43+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "access-policy-excluded",
+      "error": "Error: Use a public HTTPS feed URL without credentials or a custom port",
+      "afterChars": 0
+    },
+    {
+      "id": "2e27c5ca-c995-4f77-8646-a94e99e018b4",
+      "url": "https://social.anoxinon.de/@codebergstatus/117636437840688845",
+      "publishedAt": "2026-11-18 10:02:17+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 55535,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 440,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "e302e47a-42d2-4f4d-8059-bbb6d217b15d",
+      "url": "https://xenodium.com/my-emacs-31-contributions",
+      "publishedAt": "2026-11-16 14:26:10+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 12558,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 153,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "7ff79d8c-bd19-40d0-a94c-9a0ddc83cf9f",
+      "url": "https://www.sas.upenn.edu/~jesusfv/Peer_Review.pdf",
+      "publishedAt": "2026-11-18 13:51:03+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "9cbc8e0e-c59c-4854-a1a4-f586083740f6",
+      "url": "https://www.cam.ac.uk/news/cambridge-dictionary-reveals-word-of-the-year-2026",
+      "publishedAt": "2026-11-18 14:43:52+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 126727,
+      "description": true,
+      "jsonld": true,
+      "cause": "no-extractable-prose",
+      "afterChars": 290,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "a169c2d8-d386-4611-a3b7-51d14651bfe5",
+      "url": "https://pikuma.com/blog/history-of-x86-4004-to-486",
+      "publishedAt": "2026-11-18 14:47:53+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 60380,
+      "description": true,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 178,
+      "recoveredBy": "description"
+    },
+    {
+      "id": "3f01125b-053c-4c58-9c42-452997aee377",
+      "url": "https://www.inside-db.com/",
+      "publishedAt": "2026-11-18 15:38:33+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 1123,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "ac31634e-02ad-4ec3-8118-df9f0677ff00",
+      "url": "https://sam.gov/workspace/contract/opp/8948e8601e964c6aba9c801eee16b1be/view",
+      "publishedAt": "2026-11-18 15:35:44+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "chars": 0,
+      "bytes": 41847,
+      "description": false,
+      "jsonld": false,
+      "cause": "no-extractable-prose",
+      "afterChars": 0,
+      "recoveredBy": null
+    },
+    {
+      "id": "bd69d325-729e-4ebc-ae91-d395a5711509",
+      "url": "https://www.reuters.com/technology/highly-classified-us-national-security-communications-network-is-down-cnn-2026-11-17/",
+      "publishedAt": "2026-11-17 15:50:48+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 401",
+      "afterChars": 0
+    },
+    {
+      "id": "d6d7fb7c-785f-4b14-a95f-4c2ac550c1ee",
+      "url": "https://www.nytimes.com/2026/11/06/science/ai-exponential-time-hypothesis.html",
+      "publishedAt": "2026-11-17 15:33:48+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    },
+    {
+      "id": "b2fbb69c-fc3e-4711-84f8-cbb699c2e974",
+      "url": "https://apnews.com/article/south-korea-exam-cheating-ai-college-e25b5612dbf4bd09fdf9197254c4547e",
+      "publishedAt": "2026-11-17 14:00:47+00",
+      "source": "hn",
+      "kind": "hn",
+      "topic": "Tech & AI",
+      "cause": "http-error-block",
+      "error": "Error: HTTP 403",
+      "afterChars": 0
+    }
+  ],
+  "cohort": [
+    {
+      "id": "be2e1fb9-471e-4ffb-ae09-0a6c32c6295c",
+      "source": "verge",
+      "publishedAt": "2026-11-15 17:00:00+00",
+      "beforeChars": 1342,
+      "afterChars": 1342
+    },
+    {
+      "id": "4716391e-a334-4c97-aa91-76b6c30c737f",
+      "source": "verge",
+      "publishedAt": "2026-11-15 16:59:16+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "33d22e85-83b8-44fe-8f52-149575d0e7e9",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:23:21+00",
+      "beforeChars": 0,
+      "afterChars": 160
+    },
+    {
+      "id": "8b9d85de-2de5-4cdc-a469-58ad3e8da7cd",
+      "source": "hn",
+      "publishedAt": "2026-11-15 17:53:31+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "715e4bcc-6528-45b0-bfb7-edc505dd8f47",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:36:40+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "8a5c6c85-ec32-41d0-99cc-a405d62c53f8",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:36:10+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "a0a0340b-c1ce-46c8-a831-2ea082a93b42",
+      "source": "verge",
+      "publishedAt": "2026-11-15 19:15:43+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "61feb0de-5fc2-465f-84b5-8e8b124bc1a9",
+      "source": "hn",
+      "publishedAt": "2026-11-15 17:22:32+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "55a479fc-0580-4657-94c5-443aff653bc0",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:46:02+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "e3e841bc-44f5-4f1c-936c-09375da95a71",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:39:46+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "7ff802f8-095e-4324-bdf8-4693bae31a71",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:31:11+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "a20988ab-637e-426e-99fa-6516a30bc8e5",
+      "source": "verge",
+      "publishedAt": "2026-11-15 20:43:49+00",
+      "beforeChars": 645,
+      "afterChars": 645
+    },
+    {
+      "id": "1d425619-537c-4614-8300-c0b8fc176291",
+      "source": "hn",
+      "publishedAt": "2026-11-15 21:10:39+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "6fa2b624-fe02-4b3b-8a32-898f953f4691",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:26:22+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "07e32b31-ec1d-4989-a45b-1458ea3c101e",
+      "source": "hn",
+      "publishedAt": "2026-11-15 20:37:28+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "894419f5-5dc4-4625-b563-1a95d1bee97d",
+      "source": "verge",
+      "publishedAt": "2026-11-15 21:05:02+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "c3f9e0af-fa36-4841-ab94-f06d0461e67a",
+      "source": "hn",
+      "publishedAt": "2026-11-15 20:20:05+00",
+      "beforeChars": 0,
+      "afterChars": 173
+    },
+    {
+      "id": "e34feea7-428c-4a3b-9dbf-60b02320e075",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:42:13+00",
+      "beforeChars": 0,
+      "afterChars": 159
+    },
+    {
+      "id": "47838e25-509a-453b-920b-2a41d7c54307",
+      "source": "hn",
+      "publishedAt": "2026-11-15 20:08:16+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "73a83c30-800f-4bf8-a0bf-8ab8daa485d6",
+      "source": "verge",
+      "publishedAt": "2026-11-15 21:49:22+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "d8de76b3-97c9-47e9-b63e-ba4a052459eb",
+      "source": "hn",
+      "publishedAt": "2026-11-15 22:11:43+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "86bb52f0-ee0a-44a1-8d9a-c7478986a13d",
+      "source": "hn",
+      "publishedAt": "2026-11-15 21:38:11+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "ca9d1817-c006-4961-aaea-56dbc6490b93",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:00:11+00",
+      "beforeChars": 1149,
+      "afterChars": 1149
+    },
+    {
+      "id": "bd2fc31c-752f-4a08-9c52-f54928d68fa6",
+      "source": "hn",
+      "publishedAt": "2026-11-15 22:26:33+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "cac4366d-58b8-4bc8-8d4f-fd2d9726b774",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:12:38+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "b3d78ea9-3189-4a95-941b-6a42a1b93df0",
+      "source": "hn",
+      "publishedAt": "2026-11-15 22:48:52+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:24:53+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "d230cfed-dde3-4586-b375-35678cd3e448",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:55:41+00",
+      "beforeChars": 0,
+      "afterChars": 86
+    },
+    {
+      "id": "3156958a-4923-4096-ae1b-4324f95a84b1",
+      "source": "hn",
+      "publishedAt": "2026-11-15 19:49:28+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "4532717c-443e-4263-97d2-d2926a22787a",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:55:55+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "e3169d46-6216-44b1-ad87-6ca3a84454a6",
+      "source": "hn",
+      "publishedAt": "2026-11-16 00:21:54+00",
+      "beforeChars": 968,
+      "afterChars": 968
+    },
+    {
+      "id": "42205073-4f45-4c86-94b5-fec984a160e1",
+      "source": "hn",
+      "publishedAt": "2026-11-16 01:14:35+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "52fabd0f-1766-44a9-b012-67b2d99f6681",
+      "source": "hn",
+      "publishedAt": "2026-11-15 22:07:08+00",
+      "beforeChars": 0,
+      "afterChars": 160
+    },
+    {
+      "id": "e639db89-6a4e-4c4c-9c02-e68208648822",
+      "source": "verge",
+      "publishedAt": "2026-11-16 01:26:56+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "afe96a9d-ba74-46ff-a6a3-d39cea8d1a76",
+      "source": "hn",
+      "publishedAt": "2026-11-16 02:04:48+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "e28d5dac-6028-4449-b9b5-f2dd0e1b0ed0",
+      "source": "hn",
+      "publishedAt": "2026-11-16 01:31:30+00",
+      "beforeChars": 0,
+      "afterChars": 186
+    },
+    {
+      "id": "95d44ce7-800e-41ef-819f-47aa0ea513f6",
+      "source": "hn",
+      "publishedAt": "2026-11-16 02:14:44+00",
+      "beforeChars": 0,
+      "afterChars": 184
+    },
+    {
+      "id": "df95a056-ab58-4fc8-bc4a-d56b73b9bf68",
+      "source": "hn",
+      "publishedAt": "2026-11-16 02:53:30+00",
+      "beforeChars": 1064,
+      "afterChars": 1064
+    },
+    {
+      "id": "83b5e13b-a653-4952-b0cb-96a374e0c351",
+      "source": "hn",
+      "publishedAt": "2026-11-16 04:37:03+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b02bead2-480f-4275-9469-806f80932e03",
+      "source": "hn",
+      "publishedAt": "2026-11-16 05:50:37+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "c80412f9-0124-49d1-87fb-2c646f602601",
+      "source": "hn",
+      "publishedAt": "2026-11-16 04:53:06+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "8944da6f-f086-4fd4-9ace-12ceaff59733",
+      "source": "hn",
+      "publishedAt": "2026-11-16 07:38:19+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "24859290-79bc-47a4-91fc-b9bdb767c8a2",
+      "source": "hn",
+      "publishedAt": "2026-11-16 11:03:16+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "6ea61714-0140-490c-a1d8-c818ce84623d",
+      "source": "verge",
+      "publishedAt": "2026-11-16 11:00:00+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "6766f4b4-6a7b-4a66-92c7-b5cc3918449f",
+      "source": "hn",
+      "publishedAt": "2026-11-16 11:00:02+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "02479ca0-7c8b-4087-b4f3-73cf7b13e6a7",
+      "source": "hn",
+      "publishedAt": "2026-11-16 09:19:38+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a58c247c-1f3b-4eac-8b95-7740633a95ba",
+      "source": "hn",
+      "publishedAt": "2026-11-16 11:39:31+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "278d3c2a-80c0-4f4d-a436-8deebb64e6c5",
+      "source": "verge",
+      "publishedAt": "2026-11-16 12:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "47c96b03-66c0-460c-9331-91768de600fd",
+      "source": "hn",
+      "publishedAt": "2026-11-16 08:00:13+00",
+      "beforeChars": 1493,
+      "afterChars": 1493
+    },
+    {
+      "id": "96f2d7ae-e75c-4bc9-8c08-cc3813b6deef",
+      "source": "verge",
+      "publishedAt": "2026-11-16 13:00:00+00",
+      "beforeChars": 651,
+      "afterChars": 651
+    },
+    {
+      "id": "374e1a05-9a95-4acb-a7e4-835fb9df499e",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:51:38+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "055036ee-7b5f-4076-ac48-65674cde5131",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:39:07+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "e9cb754d-0452-4151-a561-64c132073607",
+      "source": "verge",
+      "publishedAt": "2026-11-16 14:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "7cf1cd6b-14ef-4ff2-850e-3c15097573e3",
+      "source": "verge",
+      "publishedAt": "2026-11-16 14:00:00+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "c428369b-7882-4efd-87ff-c5eb408ce09e",
+      "source": "hn",
+      "publishedAt": "2026-11-16 14:17:53+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "8b5605e6-0643-49b0-953e-c217ceb13752",
+      "source": "verge",
+      "publishedAt": "2026-11-16 14:45:56+00",
+      "beforeChars": 646,
+      "afterChars": 646
+    },
+    {
+      "id": "50382f2e-e07a-457a-b105-1efd40177085",
+      "source": "verge",
+      "publishedAt": "2026-11-16 14:43:48+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "70800dd5-f7b9-46c9-9499-340f2335876b",
+      "source": "hn",
+      "publishedAt": "2026-11-16 14:14:51+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b0d04fe5-5100-47c5-9c89-04439f18b3cd",
+      "source": "verge",
+      "publishedAt": "2026-11-16 15:19:34+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "e972779c-bf1c-4f33-ba97-9f0ce71f053f",
+      "source": "hn",
+      "publishedAt": "2026-11-16 15:17:56+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "1f813e8a-39c8-4d90-9f1b-40868486ac45",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:21:53+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "3d439138-13b7-462d-add7-4186c091505c",
+      "source": "hn",
+      "publishedAt": "2026-11-16 15:24:09+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "f2bc8095-5ac9-41d8-a909-300b631124b9",
+      "source": "verge",
+      "publishedAt": "2026-11-16 16:00:14+00",
+      "beforeChars": 643,
+      "afterChars": 643
+    },
+    {
+      "id": "ba10b906-102c-4b0f-9e21-8a2621592168",
+      "source": "verge",
+      "publishedAt": "2026-11-16 16:00:00+00",
+      "beforeChars": 1498,
+      "afterChars": 1498
+    },
+    {
+      "id": "42b9fabf-f91f-4865-8696-8723e3c19eef",
+      "source": "hn",
+      "publishedAt": "2026-11-16 14:15:31+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "931a6cdb-342a-4236-ac20-e2450f9c0b00",
+      "source": "verge",
+      "publishedAt": "2026-11-16 16:48:01+00",
+      "beforeChars": 1493,
+      "afterChars": 1493
+    },
+    {
+      "id": "5cb3922d-25b7-46cb-abac-049ac09d8823",
+      "source": "verge",
+      "publishedAt": "2026-11-16 16:39:36+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "df361975-9f39-4129-aa53-3dc643ce9cc2",
+      "source": "hn",
+      "publishedAt": "2026-11-16 15:59:48+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a4de3c5d-2bb9-41f9-ade6-6337243ed1ff",
+      "source": "hn",
+      "publishedAt": "2026-11-16 17:27:46+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "d7880d01-13d1-438e-b56e-67ef4c2e1d0d",
+      "source": "hn",
+      "publishedAt": "2026-11-16 16:53:39+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "0224e4cf-98a2-434d-aba7-50b49495de94",
+      "source": "hn",
+      "publishedAt": "2026-11-16 18:17:17+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "bb2c8e7a-d7bd-446e-908c-d37c9d02acd6",
+      "source": "hn",
+      "publishedAt": "2026-11-16 17:34:41+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "add8f207-18a1-49fa-b554-fda84ead03e8",
+      "source": "hn",
+      "publishedAt": "2026-11-16 17:52:23+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "063141ac-d866-4b36-b66c-904c09f93058",
+      "source": "hn",
+      "publishedAt": "2026-11-16 17:20:28+00",
+      "beforeChars": 411,
+      "afterChars": 411
+    },
+    {
+      "id": "ebd65527-0768-44ce-a54f-e6f4fa245203",
+      "source": "hn",
+      "publishedAt": "2026-11-16 16:23:01+00",
+      "beforeChars": 0,
+      "afterChars": 148
+    },
+    {
+      "id": "5ae6043d-7bac-43ba-a732-60d320591288",
+      "source": "hn",
+      "publishedAt": "2026-11-16 14:38:54+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "f9ea7442-f906-469b-b4f0-b209d5b32c21",
+      "source": "hn",
+      "publishedAt": "2026-11-16 16:23:22+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "181599d4-6322-474a-b830-0336a5d7a5f0",
+      "source": "hn",
+      "publishedAt": "2026-11-16 18:08:04+00",
+      "beforeChars": 1157,
+      "afterChars": 1157
+    },
+    {
+      "id": "5a6dd643-fd6a-499c-94b5-cc71a67d12bf",
+      "source": "hn",
+      "publishedAt": "2026-11-16 18:12:48+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "81195f8c-5c41-42ff-a63d-4bd4c7615e91",
+      "source": "hn",
+      "publishedAt": "2026-11-16 18:04:55+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "7234bfd2-c8f2-467d-9f3c-1545f49c356d",
+      "source": "verge",
+      "publishedAt": "2026-11-16 18:44:16+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "19a32292-d734-4411-8665-a6b72f3a5abe",
+      "source": "verge",
+      "publishedAt": "2026-11-16 18:43:35+00",
+      "beforeChars": 647,
+      "afterChars": 647
+    },
+    {
+      "id": "f69bc64e-cc30-4a6b-b6e6-3f0fb901f4fa",
+      "source": "verge",
+      "publishedAt": "2026-11-16 18:29:55+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "8ac03f23-3384-4079-9fab-1552ce4042ac",
+      "source": "hn",
+      "publishedAt": "2026-11-16 18:31:30+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "3b573991-73a9-49b8-998b-a0248c0c7457",
+      "source": "verge",
+      "publishedAt": "2026-11-16 19:24:40+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "2c3fdaaf-6b62-409b-863a-af6e520f964b",
+      "source": "verge",
+      "publishedAt": "2026-11-16 19:23:45+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "6ff6bb0d-02cb-414e-b7e8-a2de3e0dfd4b",
+      "source": "hn",
+      "publishedAt": "2026-11-16 19:29:17+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a031a95f-020c-4d80-bae4-1114c974b22a",
+      "source": "hn",
+      "publishedAt": "2026-11-16 07:55:10+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a40c8401-11a3-4919-8a7d-ee3c685f8a83",
+      "source": "hn",
+      "publishedAt": "2026-11-16 16:07:20+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "0dea8c51-6ef2-489d-8ea4-a2abe385d1e6",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:18:22+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "8ff2955b-1fc0-4119-b1b8-46b5079dccda",
+      "source": "verge",
+      "publishedAt": "2026-11-16 19:50:47+00",
+      "beforeChars": 1499,
+      "afterChars": 1499
+    },
+    {
+      "id": "054dd78d-e8b1-4559-b7a6-481235468045",
+      "source": "verge",
+      "publishedAt": "2026-11-16 19:49:12+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "98e430a2-f5fa-4d8c-99f4-4791bc3541e8",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:29:48+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "56315201-50ca-4e25-ae71-9d5900834d57",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:38:55+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "7fb3869b-7dee-42d1-9aa4-925117450cf3",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:16:50+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "19eb70d3-a4fe-481d-b050-e2fac250488f",
+      "source": "verge",
+      "publishedAt": "2026-11-16 20:36:14+00",
+      "beforeChars": 931,
+      "afterChars": 931
+    },
+    {
+      "id": "2b234dfc-a30d-4dc5-9f01-c5635da9eea3",
+      "source": "verge",
+      "publishedAt": "2026-11-16 20:29:37+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "46e11a2f-960d-4569-aa07-55796a4a655f",
+      "source": "verge",
+      "publishedAt": "2026-11-16 20:27:58+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "fc6a655a-2284-4c05-93d2-9aeaedf5372b",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:07:43+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b84b6da6-15b6-4961-be06-3313d13cc0d1",
+      "source": "verge",
+      "publishedAt": "2026-11-16 20:46:01+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "82ccc5d9-33f9-46b3-bddc-96254046c2fe",
+      "source": "verge",
+      "publishedAt": "2026-11-16 20:41:28+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "03432aec-c385-4e94-bd89-eb3c8a89b949",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:32:17+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "b2f648dd-bb11-4c26-b528-70f92025c263",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:47:19+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "7d73f8e1-a25c-489f-8e09-6c647a1d2f02",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:22:18+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "0f280a3f-9295-48b2-ab08-721193965ffa",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:57:25+00",
+      "beforeChars": 0,
+      "afterChars": 1178
+    },
+    {
+      "id": "16cfa785-71ad-4364-bfc8-eb867501cae5",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:43:36+00",
+      "beforeChars": 0,
+      "afterChars": 133
+    },
+    {
+      "id": "c2e91f6e-e6c3-4ea2-9ac3-1bb4b1c125bd",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:08:38+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "f64d60e4-0610-4459-bfe1-d9a009c85e2c",
+      "source": "verge",
+      "publishedAt": "2026-11-16 21:41:57+00",
+      "beforeChars": 651,
+      "afterChars": 651
+    },
+    {
+      "id": "b898431b-d693-4255-ac38-b2fb3b26b6a4",
+      "source": "hn",
+      "publishedAt": "2026-11-16 22:19:23+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "c977e628-6847-47c4-a258-a71d4baa8eff",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:20:37+00",
+      "beforeChars": 542,
+      "afterChars": 542
+    },
+    {
+      "id": "99178648-2e1c-4e8b-9b14-01a506ca8e54",
+      "source": "hn",
+      "publishedAt": "2026-11-16 22:14:38+00",
+      "beforeChars": 45,
+      "afterChars": 45
+    },
+    {
+      "id": "04b37a53-a928-4278-a8e5-e9f97a7ea364",
+      "source": "hn",
+      "publishedAt": "2026-11-16 22:22:18+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "07644d29-5b46-4205-8918-14d0fca8f99a",
+      "source": "verge",
+      "publishedAt": "2026-11-16 22:54:59+00",
+      "beforeChars": 647,
+      "afterChars": 647
+    },
+    {
+      "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+      "source": "hn",
+      "publishedAt": "2026-11-16 21:08:38+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "9d0c0082-f800-4bb5-a7c4-03322b395ad7",
+      "source": "hn",
+      "publishedAt": "2026-11-16 22:58:20+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "744d6bcc-471f-435a-97f2-a8d2450f9605",
+      "source": "verge",
+      "publishedAt": "2026-11-16 23:17:34+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "d3f84161-82b6-4e5b-b0cb-62992c9472db",
+      "source": "hn",
+      "publishedAt": "2026-11-16 22:57:49+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "5a518090-e7b0-4c0a-a8f7-3e3008ee50c3",
+      "source": "hn",
+      "publishedAt": "2026-11-16 23:25:41+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "fa052ce8-7059-49db-884b-95f89c9c0450",
+      "source": "verge",
+      "publishedAt": "2026-11-16 23:35:58+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "b9ae4414-ffff-4a1e-857b-818681b30f56",
+      "source": "hn",
+      "publishedAt": "2026-11-16 12:06:46+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "6dd747a4-42dd-4e74-ada5-1f804a7bfa0c",
+      "source": "hn",
+      "publishedAt": "2026-11-17 01:18:56+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "161d2a45-ceae-4646-bd4e-c4d5fad1cef8",
+      "source": "hn",
+      "publishedAt": "2026-11-17 01:50:54+00",
+      "beforeChars": 0,
+      "afterChars": 238
+    },
+    {
+      "id": "c5738dcb-9a4e-4ab5-99f4-d7bcf56a97f1",
+      "source": "hn",
+      "publishedAt": "2026-11-17 01:31:35+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "564f994f-911b-43b7-80cd-7e9536fb56ee",
+      "source": "hn",
+      "publishedAt": "2026-11-17 02:13:41+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "0ee4c7a8-e01e-4900-9396-d30954a0689f",
+      "source": "hn",
+      "publishedAt": "2026-11-17 02:12:13+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "6b5b2eeb-c4ad-4612-8647-186a405e1dfa",
+      "source": "hn",
+      "publishedAt": "2026-11-17 02:17:04+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "15982e73-97a0-428a-bd98-c87438f9ae38",
+      "source": "hn",
+      "publishedAt": "2026-11-16 06:29:54+00",
+      "beforeChars": 706,
+      "afterChars": 706
+    },
+    {
+      "id": "bb91fbce-5f93-4efc-9c54-f5c4dd84d480",
+      "source": "hn",
+      "publishedAt": "2026-11-15 21:27:29+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "04390666-431a-4197-ae2b-16802de59bc1",
+      "source": "hn",
+      "publishedAt": "2026-11-16 20:27:58+00",
+      "beforeChars": 686,
+      "afterChars": 686
+    },
+    {
+      "id": "b207ff75-d2b9-4dc0-b877-45c927ad752a",
+      "source": "hn",
+      "publishedAt": "2026-11-17 00:16:24+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "fc75eed0-0ac9-4d43-8668-96caa3ca94cc",
+      "source": "hn",
+      "publishedAt": "2026-11-16 07:33:51+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "1e877675-6446-46c4-8281-6c48c4d01c6e",
+      "source": "hn",
+      "publishedAt": "2026-11-16 00:38:12+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "542b2a8d-fae9-4aa7-a278-92e4aee93231",
+      "source": "hn",
+      "publishedAt": "2026-11-16 01:05:22+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b45238df-483a-4cc3-abef-1467171c3635",
+      "source": "hn",
+      "publishedAt": "2026-11-15 17:34:22+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "fae614b1-7da3-488d-9bcb-0fd5be3ca7a2",
+      "source": "hn",
+      "publishedAt": "2026-11-15 23:08:30+00",
+      "beforeChars": 0,
+      "afterChars": 74
+    },
+    {
+      "id": "1f4a5def-0ddd-416f-bf1d-55745900fbd9",
+      "source": "hn",
+      "publishedAt": "2026-11-17 10:20:40+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a8550117-0531-4206-a81d-442f5b3c3396",
+      "source": "hn",
+      "publishedAt": "2026-11-17 11:45:51+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "9ef27207-2a71-42af-b5fb-c4c4bb03a8e3",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:40:57+00",
+      "beforeChars": 0,
+      "afterChars": 114
+    },
+    {
+      "id": "377236ff-dca0-4e29-bebc-54c960bdc849",
+      "source": "hn",
+      "publishedAt": "2026-11-17 11:39:20+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "7bb36612-50cb-4edf-98b9-b29479a2e1b5",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:46:12+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "6a4ec62c-137b-4df3-b580-efd390c3f412",
+      "source": "hn",
+      "publishedAt": "2026-11-17 12:21:57+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "38e4ec30-2f87-46d9-8f9f-d39aebe8eff0",
+      "source": "verge",
+      "publishedAt": "2026-11-17 13:00:00+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "1d47ea3b-13ed-448b-8200-38d83729d755",
+      "source": "verge",
+      "publishedAt": "2026-11-17 13:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "e8446e8a-6aef-4cbf-9bf1-edb61ee7abca",
+      "source": "verge",
+      "publishedAt": "2026-11-17 13:46:02+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "bf1f85e5-554c-473b-8d34-686b9d485f3b",
+      "source": "hn",
+      "publishedAt": "2026-11-16 15:02:20+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b2fbb69c-fc3e-4711-84f8-cbb699c2e974",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:00:47+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "ea826e1d-dbe7-43bb-a20b-d6aa45ddac1d",
+      "source": "hn",
+      "publishedAt": "2026-11-16 09:17:37+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "cdb8bd92-c155-4e13-8ead-1f771fe99104",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:45:36+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "e4d8d8e2-20f4-455e-9947-87d65ed7b70c",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:19:59+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "476b04b6-e565-4b23-987c-62fe1718e799",
+      "source": "verge",
+      "publishedAt": "2026-11-17 14:49:21+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "923713c8-3be3-4c7c-9ef1-5c6316a1603e",
+      "source": "verge",
+      "publishedAt": "2026-11-17 14:28:24+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "15b805d6-cdca-4197-98e0-cd7b9f9e21d0",
+      "source": "verge",
+      "publishedAt": "2026-11-17 14:25:07+00",
+      "beforeChars": 1497,
+      "afterChars": 1497
+    },
+    {
+      "id": "a4f50003-4c2c-4426-956f-d3a0c9bcc22b",
+      "source": "verge",
+      "publishedAt": "2026-11-17 14:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "9d7a5555-02e3-4b04-a102-bc2612d09c1c",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:07:09+00",
+      "beforeChars": 0,
+      "afterChars": 352
+    },
+    {
+      "id": "add880ae-9218-42b7-a33b-6821a0945145",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:20:32+00",
+      "beforeChars": 902,
+      "afterChars": 902
+    },
+    {
+      "id": "52a1a6fc-d2c9-4f44-bf5b-daef1b161c55",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:02:53+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "38929cc6-dee3-4af7-9349-6318683992d3",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:53:43+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "d6d7fb7c-785f-4b14-a95f-4c2ac550c1ee",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:33:48+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "b002141d-9d6e-4ab0-af9b-bee7a744ab7d",
+      "source": "verge",
+      "publishedAt": "2026-11-17 15:04:20+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "dc86f60e-f40c-4247-bfbf-f4096cfedbfb",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:38:28+00",
+      "beforeChars": 63,
+      "afterChars": 63
+    },
+    {
+      "id": "a110e183-03d9-49e4-a87b-c346e67cfd38",
+      "source": "hn",
+      "publishedAt": "2026-11-16 08:23:28+00",
+      "beforeChars": 0,
+      "afterChars": 1114
+    },
+    {
+      "id": "b53cc8bc-e135-4420-92d3-70a53e66e37d",
+      "source": "verge",
+      "publishedAt": "2026-11-17 16:19:03+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "1b7eda80-bbc0-455d-ae3e-2691c0ffb666",
+      "source": "verge",
+      "publishedAt": "2026-11-17 16:13:18+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "533f9325-7bd0-4711-8fbf-9b4de5b5a0f8",
+      "source": "verge",
+      "publishedAt": "2026-11-17 16:09:57+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "0af09ea0-73d6-4e84-a4cd-1149d90d3eef",
+      "source": "verge",
+      "publishedAt": "2026-11-17 16:00:00+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "c4a4fd0b-224d-4587-b5e3-18a4ae3f66a8",
+      "source": "verge",
+      "publishedAt": "2026-11-17 16:00:00+00",
+      "beforeChars": 1275,
+      "afterChars": 1275
+    },
+    {
+      "id": "a27ef03e-b112-40d6-bdb2-5864e883ab0d",
+      "source": "verge",
+      "publishedAt": "2026-11-17 15:35:32+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "a8fbc39f-72f1-45ef-999d-c1ff5e7cb88a",
+      "source": "hn",
+      "publishedAt": "2026-11-17 16:40:38+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "bd69d325-729e-4ebc-ae91-d395a5711509",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:50:48+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "65f77605-78de-42eb-8c31-8a90651641d1",
+      "source": "hn",
+      "publishedAt": "2026-11-17 15:33:15+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "9e95ef40-df95-4843-917d-fed17892c980",
+      "source": "hn",
+      "publishedAt": "2026-11-17 16:01:04+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "1bb5aecf-c448-4e2c-afe2-fac60bb962b4",
+      "source": "hn",
+      "publishedAt": "2026-11-16 13:25:17+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "6fa6383f-2fc5-4198-be19-64b923e40898",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:13:57+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "0cbbe778-ea0e-4445-abd4-9d1c9579d088",
+      "source": "hn",
+      "publishedAt": "2026-11-17 16:05:42+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "b34f9242-4bc4-47ab-b09c-6a9daf3a89f5",
+      "source": "verge",
+      "publishedAt": "2026-11-17 17:00:00+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "8b3b9f7c-355c-4380-b75d-5f3d8cc5b502",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:46:43+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "058a69ba-5781-4737-a196-8f1c5059d276",
+      "source": "hn",
+      "publishedAt": "2026-11-17 16:23:55+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "2fb55b1c-9684-445c-9d07-96c17f77d9ed",
+      "source": "verge",
+      "publishedAt": "2026-11-17 17:50:22+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "6301d5c3-237c-415e-92f8-631da86e85c8",
+      "source": "verge",
+      "publishedAt": "2026-11-17 17:41:22+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "65df3e8e-f4fb-44d7-81c1-3ce424ee1492",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:47:14+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "0a086f2f-94ab-40d8-836c-33d7fc895969",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:45:39+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "58fae3ab-a6a7-4b07-8492-a068433d8168",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:02:35+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "f1c633b9-be79-4948-a353-f2981f504c3f",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:25:13+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "02227846-9f49-436e-9a34-938e5e714d17",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:12:06+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "fe4faa8d-9364-427e-b9f5-c82ab0d75d2d",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:49:01+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "cb11d49f-2d7e-46e4-87cc-04a8817a0427",
+      "source": "verge",
+      "publishedAt": "2026-11-17 18:33:02+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "db9aa6d1-f99a-459f-80c9-b61f5c4d679c",
+      "source": "verge",
+      "publishedAt": "2026-11-17 18:30:03+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "7a10a9aa-3c38-4900-8880-fedf8f6303c3",
+      "source": "hn",
+      "publishedAt": "2026-11-17 17:47:14+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "ae36a387-bd61-45f8-bd0f-93aed8c1b231",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:31:25+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "28c76764-2643-49db-9c72-41f7f3d80135",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:56:17+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "86c66b26-8154-4109-9a07-4422aa390c83",
+      "source": "hn",
+      "publishedAt": "2026-11-17 19:01:43+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "b95beafa-4cd7-49af-9fff-8cc1fa44c375",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:26:05+00",
+      "beforeChars": 0,
+      "afterChars": 1500
+    },
+    {
+      "id": "23bfebb8-7840-4c2e-8b69-92ac479149b9",
+      "source": "verge",
+      "publishedAt": "2026-11-17 19:19:10+00",
+      "beforeChars": 1498,
+      "afterChars": 1498
+    },
+    {
+      "id": "c6e01ed4-8702-40d8-8237-d1f5ba7e1c9f",
+      "source": "verge",
+      "publishedAt": "2026-11-17 18:58:01+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "52e1e75b-6500-452f-90a3-214829bf9d64",
+      "source": "hn",
+      "publishedAt": "2026-11-17 19:25:27+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "68f95cc6-6e49-4fc9-aa77-c444f074ee8d",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:34:10+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "dd81ef2a-8d99-4c15-b07c-4df0f4cd37da",
+      "source": "hn",
+      "publishedAt": "2026-11-17 19:50:40+00",
+      "beforeChars": 991,
+      "afterChars": 991
+    },
+    {
+      "id": "13119c47-3616-43c8-845d-67fb5d5c2d88",
+      "source": "verge",
+      "publishedAt": "2026-11-17 19:38:42+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "5b3512d7-1d33-474c-9d7b-c09bbf40f4c2",
+      "source": "verge",
+      "publishedAt": "2026-11-17 19:38:05+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "a165a3be-ad84-41f0-95bf-501460deedb5",
+      "source": "hn",
+      "publishedAt": "2026-11-17 20:01:35+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "a89d476c-3aba-4a1a-bfe3-aae4a5171e92",
+      "source": "hn",
+      "publishedAt": "2026-11-17 20:47:36+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "f66d43d6-c027-41c4-bf13-8ca18b3ee132",
+      "source": "verge",
+      "publishedAt": "2026-11-17 20:30:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "8243949e-1a0a-4432-9ce3-82da92577a7d",
+      "source": "hn",
+      "publishedAt": "2026-11-17 14:48:03+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "c0fe2700-9668-4942-a596-660a48e7412a",
+      "source": "hn",
+      "publishedAt": "2026-11-17 21:11:28+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "44775fa3-1e2d-447f-90b8-9914b2780ae5",
+      "source": "hn",
+      "publishedAt": "2026-11-17 19:46:57+00",
+      "beforeChars": 1194,
+      "afterChars": 1194
+    },
+    {
+      "id": "3c0db4ff-5345-46b6-894e-53d59a0228a9",
+      "source": "verge",
+      "publishedAt": "2026-11-17 21:00:55+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "f7374fcb-1f56-4209-b279-c8db724f82bc",
+      "source": "verge",
+      "publishedAt": "2026-11-17 20:46:31+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "1694ef3d-6bf5-4256-9e66-e2a52b345cb9",
+      "source": "verge",
+      "publishedAt": "2026-11-17 21:46:20+00",
+      "beforeChars": 1092,
+      "afterChars": 1092
+    },
+    {
+      "id": "7523c7c4-01fe-48bc-b3b2-09b858bec170",
+      "source": "verge",
+      "publishedAt": "2026-11-17 21:40:59+00",
+      "beforeChars": 646,
+      "afterChars": 646
+    },
+    {
+      "id": "059a7959-a912-44a1-b057-b92a4bc844b8",
+      "source": "verge",
+      "publishedAt": "2026-11-17 21:38:08+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "0db7a937-5e75-403c-83c1-e1f89647afec",
+      "source": "hn",
+      "publishedAt": "2026-11-17 18:16:18+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "5b6afb75-5b4b-48c0-b615-f05af2deec72",
+      "source": "hn",
+      "publishedAt": "2026-11-17 22:13:34+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "55462f05-8531-45ab-9c6c-296aa768ec5f",
+      "source": "verge",
+      "publishedAt": "2026-11-17 22:25:41+00",
+      "beforeChars": 647,
+      "afterChars": 647
+    },
+    {
+      "id": "ae24798a-1bf0-4e43-bf15-ab4b2ed0d07a",
+      "source": "verge",
+      "publishedAt": "2026-11-17 22:05:05+00",
+      "beforeChars": 648,
+      "afterChars": 648
+    },
+    {
+      "id": "93d49093-b5ab-4aa9-8c7b-a446ff927c5f",
+      "source": "verge",
+      "publishedAt": "2026-11-17 22:38:41+00",
+      "beforeChars": 647,
+      "afterChars": 647
+    },
+    {
+      "id": "7af176e9-f33b-47bb-b1dd-24330b32f0d6",
+      "source": "verge",
+      "publishedAt": "2026-11-17 22:32:50+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "f949c6c0-cc92-43d5-a4c1-b03c05b98cd1",
+      "source": "hn",
+      "publishedAt": "2026-11-17 22:17:18+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "14d13174-1de8-4849-86b2-782462cce594",
+      "source": "hn",
+      "publishedAt": "2026-11-17 21:16:12+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "cbc2196f-2188-4c24-bd70-084680cdc5df",
+      "source": "hn",
+      "publishedAt": "2026-11-17 23:32:58+00",
+      "beforeChars": 681,
+      "afterChars": 681
+    },
+    {
+      "id": "c9852b9f-b6ce-4b2f-849c-ebeed2009a30",
+      "source": "hn",
+      "publishedAt": "2026-11-17 23:18:49+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "9707f0a9-046d-4551-8580-9750d3900d66",
+      "source": "hn",
+      "publishedAt": "2026-11-17 21:06:08+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "2023e327-d25f-4bfe-b59b-32d7f9100988",
+      "source": "verge",
+      "publishedAt": "2026-11-17 23:41:18+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "012c76c0-9cf0-491a-9be8-2472bbc370e4",
+      "source": "hn",
+      "publishedAt": "2026-11-18 00:17:58+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "89c2ebcb-e41c-4823-95df-a3c190ff1b3f",
+      "source": "hn",
+      "publishedAt": "2026-11-18 00:51:45+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "c5f2c1f5-37d4-463d-b0e7-3e9a89af8444",
+      "source": "hn",
+      "publishedAt": "2026-11-18 00:56:23+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "82f6fb08-6275-4b8a-9b29-b6a6b1ec4afb",
+      "source": "hn",
+      "publishedAt": "2026-11-18 03:36:12+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "496431ba-8811-4bc8-be64-7d5a618a7d56",
+      "source": "hn",
+      "publishedAt": "2026-11-18 03:37:35+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "a07d91af-063a-4060-854d-fcefe790856e",
+      "source": "hn",
+      "publishedAt": "2026-11-18 04:14:04+00",
+      "beforeChars": 360,
+      "afterChars": 360
+    },
+    {
+      "id": "fe0d5f3a-201e-46e7-a1eb-e85016b65ffc",
+      "source": "hn",
+      "publishedAt": "2026-11-18 05:11:30+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "477f1283-cee7-4c4f-ba69-757c3e583a1e",
+      "source": "hn",
+      "publishedAt": "2026-11-18 05:35:02+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "5d450457-b77a-48c1-b3ce-50db7b3f9017",
+      "source": "hn",
+      "publishedAt": "2026-11-18 03:47:43+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "1b3ef0a0-2871-477a-9602-4e118517e601",
+      "source": "hn",
+      "publishedAt": "2026-11-18 06:47:26+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "cd3e8834-d4bc-4ce3-af8d-37fa5bd42ce7",
+      "source": "hn",
+      "publishedAt": "2026-11-18 07:10:46+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "ade2ae3d-2d26-4fad-9863-bdd4de0bbe9c",
+      "source": "hn",
+      "publishedAt": "2026-11-18 08:17:44+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "2e27c5ca-c995-4f77-8646-a94e99e018b4",
+      "source": "hn",
+      "publishedAt": "2026-11-18 10:02:17+00",
+      "beforeChars": 0,
+      "afterChars": 440
+    },
+    {
+      "id": "601f2ef2-5f1c-4199-aec4-a9a3a728af6d",
+      "source": "hn",
+      "publishedAt": "2026-11-18 09:29:32+00",
+      "beforeChars": 1365,
+      "afterChars": 1365
+    },
+    {
+      "id": "e302e47a-42d2-4f4d-8059-bbb6d217b15d",
+      "source": "hn",
+      "publishedAt": "2026-11-16 14:26:10+00",
+      "beforeChars": 0,
+      "afterChars": 153
+    },
+    {
+      "id": "d06ee49d-6638-4cf8-a00a-7dca512b4196",
+      "source": "verge",
+      "publishedAt": "2026-11-18 11:06:16+00",
+      "beforeChars": 1358,
+      "afterChars": 1358
+    },
+    {
+      "id": "8ed9d8d9-3eea-4c93-aec4-48aace3809f2",
+      "source": "verge",
+      "publishedAt": "2026-11-18 11:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "ab9ccfae-8dbe-4170-b6e6-8b9234cf3110",
+      "source": "verge",
+      "publishedAt": "2026-11-18 11:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "9a9e6584-5923-472f-82a0-8d5a19948baa",
+      "source": "hn",
+      "publishedAt": "2026-11-18 11:45:02+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "9051e1b8-eefd-4d56-9bbf-1d2e6717b83c",
+      "source": "verge",
+      "publishedAt": "2026-11-18 11:16:53+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "63d95f7e-3016-43a2-81fc-6f5c2c4b7659",
+      "source": "verge",
+      "publishedAt": "2026-11-18 12:03:36+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "bb5ea923-28d3-4261-b4ac-dab14029ffc4",
+      "source": "hn",
+      "publishedAt": "2026-11-15 18:06:13+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "0788fe53-0eb5-4e3b-83ee-e485b9d26b46",
+      "source": "hn",
+      "publishedAt": "2026-11-18 11:11:53+00",
+      "beforeChars": 175,
+      "afterChars": 175
+    },
+    {
+      "id": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
+      "source": "verge",
+      "publishedAt": "2026-11-18 13:01:05+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "b81f2c7c-09fc-4eee-af3f-d5181df887e8",
+      "source": "hn",
+      "publishedAt": "2026-11-18 13:18:02+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "7ff79d8c-bd19-40d0-a94c-9a0ddc83cf9f",
+      "source": "hn",
+      "publishedAt": "2026-11-18 13:51:03+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "f5f9652b-d56e-4ddf-be5f-81b9110ceaeb",
+      "source": "verge",
+      "publishedAt": "2026-11-18 14:00:00+00",
+      "beforeChars": 1499,
+      "afterChars": 1499
+    },
+    {
+      "id": "149feb6d-144f-4c31-a441-ab12848bb110",
+      "source": "verge",
+      "publishedAt": "2026-11-18 14:00:00+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "9cbc8e0e-c59c-4854-a1a4-f586083740f6",
+      "source": "hn",
+      "publishedAt": "2026-11-18 14:43:52+00",
+      "beforeChars": 0,
+      "afterChars": 290
+    },
+    {
+      "id": "af72e432-80fb-4e76-a1f7-969ef431c59d",
+      "source": "verge",
+      "publishedAt": "2026-11-18 14:59:05+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    },
+    {
+      "id": "44252cda-1ed8-4550-9561-8f36cd069e9e",
+      "source": "verge",
+      "publishedAt": "2026-11-18 14:56:43+00",
+      "beforeChars": 649,
+      "afterChars": 649
+    },
+    {
+      "id": "74f5976b-b422-4336-ac04-553d800a96be",
+      "source": "hn",
+      "publishedAt": "2026-11-18 14:03:37+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "a169c2d8-d386-4611-a3b7-51d14651bfe5",
+      "source": "hn",
+      "publishedAt": "2026-11-18 14:47:53+00",
+      "beforeChars": 0,
+      "afterChars": 178
+    },
+    {
+      "id": "6ba0eade-555e-4899-b554-744cf8f80a06",
+      "source": "hn",
+      "publishedAt": "2026-11-18 14:44:33+00",
+      "beforeChars": 187,
+      "afterChars": 187
+    },
+    {
+      "id": "6dfb290e-d412-448a-a486-6d7e14a6b5e1",
+      "source": "verge",
+      "publishedAt": "2026-11-18 15:00:00+00",
+      "beforeChars": 642,
+      "afterChars": 642
+    },
+    {
+      "id": "d4362e07-0b49-446b-8a1b-d3c6e864611b",
+      "source": "hn",
+      "publishedAt": "2026-11-18 15:19:55+00",
+      "beforeChars": 1500,
+      "afterChars": 1500
+    },
+    {
+      "id": "3f01125b-053c-4c58-9c42-452997aee377",
+      "source": "hn",
+      "publishedAt": "2026-11-18 15:38:33+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "ac31634e-02ad-4ec3-8118-df9f0677ff00",
+      "source": "hn",
+      "publishedAt": "2026-11-18 15:35:44+00",
+      "beforeChars": 0,
+      "afterChars": 0
+    },
+    {
+      "id": "d85e48b4-92ae-4c18-8994-5ec900f8f00b",
+      "source": "verge",
+      "publishedAt": "2026-11-18 15:44:02+00",
+      "beforeChars": 650,
+      "afterChars": 650
+    }
+  ]
+}

@@ -171,3 +171,16 @@
 - Verification: targeted editor 43/43; pnpm format, pnpm lint:fix, pnpm check (1,121 unit/330 integration passes, four expected skips), pnpm build and handbook check (19 pages/21 diagrams/39 tables) pass; /tmp/2769-*.log.
 - Rebuilt API/worker restarted healthy; /healthz database/Redis pass, alerts clear. No UI/schema/source changes; Nov 18 immutable edition retained.
 - Next: natural scheduled NBA acceptance; resume item 67 three-day cause table/general excerpt fix/backfill while awaiting it. Destructoid remains blocked.
+
+## 2026-11-18: iteration 2770 — one general Tech excerpt fix and bounded backfill
+
+- Clean main at 441df87d; no inherited work. Alerts clear; health, 14 services and 38 monitored sources healthy; digest queue zero failures.
+- Item 67 one-time three-day saved pool: 261 candidates/74 blanks. Largest non-block cause unsupported body layouts 25/74 (33.78%); full cause table and cohort receipt in docs/edition-reviews/2026-11-18-tech-blank-causes.*.
+- General document-head description fallback follows existing body extraction; minimum 60/max 1,500 characters, entity decoding and body priority verified. No publisher list, grouping changes or paid calls.
+- Initial audit inadvertently requested HN-linked X/mirror/Reddit pages, violating source-access rules. Those responses excluded; HN now rejects those publisher fetches, with adapter regression coverage. No repeat or bypass.
+- One bounded blank-only backfill filled 34 (18 existing body/16 descriptions); saved blanks 74/261 (28.35%) → 40/261 (15.33%). Exact rereads pass for all 261, including 187 unchanged nonblank controls. Immutable edition untouched.
+- Actual data commands: pnpm exec tsx /tmp/2770-measure.ts, /tmp/2770-probe.ts, /tmp/2770-backfill.ts --apply, /tmp/2770-verify.ts; no live LLM calls.
+- Verification: targeted publisher tests 34/34, pnpm format, pnpm lint:fix, pnpm check (1,123 unit/330 integration passes, four expected skips), pnpm build and affected handbook check pass; logs /tmp/2770-*.log.
+- Rebuilt API/worker restarted active; /healthz database/Redis pass. Supported local probe /tmp/2770-live.ts confirms latest cd357e84 remains 25 stories/19 posts/five topics and five content groups. Bare localhost API requests correctly reject missing visitor identity; direct VM HTTPS connection unavailable this run. No UI change.
+- Metrics query API timed out with a slow-query backlog during checks. One sudo systemctl restart obs-metrics.service restored responsive queries/all eight scrape targets healthy at 16:41:41; limits unchanged. At 16:42:10, zero firing/five pending scrape alerts awaited evaluation.
+- Next: stop recovery work; check next scheduled Tech section once alongside NBA natural acceptance. Publisher blocks recorded; Destructoid remains paused.

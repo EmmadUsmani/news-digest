@@ -7,6 +7,7 @@ import type {
   Source,
   SourcePort,
 } from '../domain/ports';
+import { publisherPageAllowed } from '../domain/publisher-page';
 import { extractXLinks } from '../domain/x-links';
 import { publisherExcerpt } from './publisher-excerpt';
 export class HackerNewsAdapter implements SourcePort {
@@ -31,6 +32,7 @@ export class HackerNewsAdapter implements SourcePort {
       if (
         !excerpt &&
         item.url &&
+        publisherPageAllowed(url) &&
         new URL(url).hostname !== 'news.ycombinator.com'
       ) {
         try {
