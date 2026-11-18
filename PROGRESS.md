@@ -164,3 +164,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (1,131 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2781-*.log.
 - Rebuilt API/worker/docs restarted active; post-restart health, alerts and /healthz pass. Exact saved Gaming fixture reread passes; edition unchanged, five topics/25 stories/19 posts.
 - Next: scheduled NBA editing and Tech/World/U.S./Gaming selection acceptance. Account @PS_Support_US authenticity remains unestablished; do not label it official or spoofed from its name alone.
+
+## 2026-11-18: iteration 2782 — complete fallback excerpt endings
+
+- Clean main at 4d9d2b50; no inherited work. Initial alerts/health clear; monitored sources healthy, Destructoid paused; disk 70%.
+- Owner value: NBA fallback ended in dangling “AP…” and “during Sunday’s…”; readers now get complete trailing sentences where substantial reporting remains.
+- Reader-only projection uses sentence boundaries for ellipsis-marked source excerpts, retaining at least half the saved text and the omission marker. Long single sentences remain unchanged; AI summaries and stored evidence untouched.
+- Exact saved Warriors/Hawks excerpts retained in an offline fixture. Warriors photo-caption prose remains; this does not fix NBA AI editing or claim caption cleanup. Scheduled NBA acceptance remains pending.
+- Updated affected handbook page, TASKS and item 42 ack; no provider, prompt, budget, source or edition mutation; no paid calls.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,132 unit/330 integration passes, four expected skips), pnpm build and scoped check-handbook.ts pass. Handbook initially exceeded 100 lines by one; shortened affected prose and rechecked. Logs /tmp/2782-*.log.
+- node /tmp/2782-browser.cjs: both exact NBA endings, source continuation destinations/focus, no page errors/overflow at 320/390/1440px in light/dark pass. Inspected two saved docs/screenshots/fallback-sentences-*.png cards; widget requests intentionally blocked.
+- API/worker/docs rebuilt and restarted; health, /healthz and alerts clear. Exact stored excerpts reread unchanged. Next: scheduled NBA and Tech/World/U.S./Gaming acceptance; Destructoid access and @PS_Support_US authenticity remain unresolved.

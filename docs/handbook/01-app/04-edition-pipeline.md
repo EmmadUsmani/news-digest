@@ -65,8 +65,8 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   topic uses non-AI ranking. The edition still publishes, and the snapshot
   records why. Reader stories show the saved article text when no AI summary
   exists, with no mode label. New fallback excerpts stop at a word boundary
-  within 600 characters and mark omitted text with an ellipsis. The reader hides a terminal “The post … appeared
-  first on …” credit when it matches the story title; saved source text stays intact.
+  within 600 characters and mark omitted text with an ellipsis; reader excerpts prefer complete sentences.
+  The reader hides a terminal “The post … appeared first on …” credit matching the story title; saved text stays intact.
 - **Tech story evidence:** each editor candidate includes its representative and up to
   two reports from the same cluster, preferring direct publisher excerpts over
   Google News snippets, with separate publisher names.

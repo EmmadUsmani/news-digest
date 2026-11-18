@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { type DigestPreview } from '@digest/contracts';
@@ -326,4 +327,48 @@ void test('reader collapses duplicate Google News wrappers but preserves separat
   );
   assert.equal(articles[0].url, report.url);
   assert.equal(JSON.stringify(saved), before);
+});
+
+void test('reader fallback ends saved NBA excerpts at complete sentences without altering evidence or AI summaries', () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/nba-fallback-excerpts-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as { stories: { title: string; excerpt: string }[] };
+  const saved = structuredClone(snapshot);
+  const story = saved.topics[0].stories[0];
+  story.summary = undefined;
+  const expectedEnds = [
+    'Monday, Nov. 16, 2026. …',
+    "It's unlikely we see Newell again this season. …",
+  ];
+  for (const [index, recorded] of fixture.stories.entries()) {
+    Object.assign(story, recorded);
+    const before = JSON.stringify(saved);
+    const projected = readerEdition(saved).topics[0].stories[0].summary;
+    assert.ok(projected.endsWith(expectedEnds[index]), projected);
+    assert.ok(recorded.excerpt.startsWith(projected.slice(0, -2)));
+    assert.ok(projected.length >= recorded.excerpt.length / 2);
+    assert.equal(JSON.stringify(saved), before);
+  }
+  for (const excerpt of [
+    'Complete source sentence. More reporting follows.',
+    'A short sentence. ' + 'long unfinished clause '.repeat(25) + '…',
+    'An unsplit sentence with no complete boundary…',
+    'A complete quotation says “More reporting follows.”…',
+    'No change for a source using three dots...',
+  ]) {
+    story.excerpt = excerpt;
+    assert.equal(readerEdition(saved).topics[0].stories[0].summary, excerpt);
+  }
+  story.excerpt = fixture.stories[0].excerpt;
+  story.summary = story.excerpt;
+  assert.equal(
+    readerEdition(saved).topics[0].stories[0].summary,
+    story.summary,
+  );
 });

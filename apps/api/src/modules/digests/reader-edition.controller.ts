@@ -19,7 +19,25 @@ import {
 
 import { PreviewRepository } from './domain/preview.repository';
 
+function completeExcerpt(excerpt: string) {
+  if (!excerpt.endsWith('…')) return excerpt;
+  const text = excerpt.slice(0, -1);
+  let boundary = 0;
+  for (const sentence of new Intl.Segmenter('en', {
+    granularity: 'sentence',
+  }).segment(text)) {
+    const end = sentence.index + sentence.segment.trimEnd().length;
+    if (/[.!?]["'”’)]*$/.test(sentence.segment.trimEnd())) boundary = end;
+  }
+  // Keep substantial reporting; a single long sentence still uses the saved
+  // word-boundary excerpt. Preserve the ellipsis as the omission marker.
+  return boundary >= text.length / 2 && boundary < text.length
+    ? text.slice(0, boundary) + ' …'
+    : excerpt;
+}
+
 function readerExcerpt(title: string, excerpt: string) {
+  excerpt = completeExcerpt(excerpt);
   const marker = `The post ${title} appeared first on `;
   const start = excerpt.lastIndexOf(marker);
   if (start <= 0) return excerpt;
