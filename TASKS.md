@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: 2673 connects validated grouping and the bounded two-event admission policy to publication behind default-off `TECH_STORY_ADMISSION=1`. Recorded 40-article/21-event control and real consumer transport pass; failed grouping/triage keeps baseline. Production remains off. 2675 saves private admission decisions (including fallback) for direct scheduled review; public responses omit them. Next: pre-noon activation decision, then natural scheduled reader acceptance. Boundaries remain provisional. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: 2676 enables `TECH_STORY_ADMISSION=1` on this VM before the protected window, following recorded policy/publication/fallback verification and private receipts. Existing pool, one grouping call, providers and budgets unchanged. Next: Nov 18 natural scheduled review of reserved/displaced events, evidence depth and final reader summaries; disable flag first on regression. Boundaries and reader improvement remain unaccepted. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2676: Activate bounded Tech admission for the next scheduled edition; retain immediate flag rollback and private decision receipts.
 
 - [x] 2675: Preserve private Tech admission reservations, displacements and scores through publication; public reader projection omits the receipt. Switch remains off.
 

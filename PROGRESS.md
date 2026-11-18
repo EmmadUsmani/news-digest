@@ -152,3 +152,14 @@
 - Due metrics checkpoint: 24 healthy rules/six queries ≤0.719 s; three 00:02 slow queries and +4,631 memory-high events keep resource acceptance open. No retuning; next ≥01:25 UTC. /tmp/2675-summary.json.
 - Verification: pnpm format/lint:fix/check pass: 1,087 unit and 330 integration tests/four expected skips; isolated harness rebuilt API. Active sources healthy; digest queue zero failures. API/worker restart after commit/push.
 - Next: pre-noon Tech activation decision, natural scheduled reader acceptance; metrics ≥01:25 UTC.
+
+## 2026-11-18: iteration 2676 — activate bounded Tech admission
+
+- Clean main at 2b2c17a4; no inherited work. Alerts clear; health database/Redis pass, services/sources/jobs checks pass; disk 73%. Metrics checkpoint is not due until ≥01:25 UTC.
+- Owner value: important Tech reporting with supplied text can now survive recency/HN ranking into the editor's ten candidates. Existing saved review identifies this admission bottleneck.
+- Enabled TECH_STORY_ADMISSION=1 in the private VM environment for the next natural edition; no inference call, new source, provider, prompt, pool or budget change. Two reserved events/eight usual-ranking places; invalid grouping or triage retains baseline.
+- Recorded activation rationale and rollback in docs/RANKING.md; updated pipeline handbook and TASKS. Natural grouping boundaries, evidence depth and final summaries remain unaccepted pending Nov 18 publication. Disable the flag first if the new path regresses.
+- Handbook check initially caught the 100-line limit; shortened the affected paragraph and reran successfully (19 pages/39 tables). Initial jobs probe used an unsupported queue name; unfiltered supported jobs --check passes.
+- Live reader returns Nov 17 five topics/25 stories/20 posts; no immutable edition rewritten. No UI or diagram change, so no screenshot change.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2676-{format,lint,check,handbook,services,sources,jobs}.log and reader.json. Final format/lint also pass.
+- API/worker restart after commit/push loads the flag; next: Nov 18 natural scheduled reader acceptance, metrics ≥01:25 UTC.

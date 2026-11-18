@@ -3400,3 +3400,22 @@ fallback decisions are retained too; disabled and non-Tech paths add no receipt.
 Public reader contracts omit the receipt. This supplies the natural-edition
 review with the policy's actual decision instead of a later reconstruction.
 The switch remains off; activation and scheduled reader acceptance remain next.
+
+## Tech activation decision (iteration 2676)
+
+Enable `TECH_STORY_ADMISSION=1` on this VM before the November 18 edition.
+The saved November 17 review identifies the reader problem: substantive scored
+reports survive the forty-article shortlist but lose admission to recency and
+HN engagement before editing. The bounded policy reserves at most two events
+by scored importance/relevance and leaves eight places to the usual ranking.
+The existing recorded policy, publication consumer, fallback and private receipt
+checks support this controlled activation. The grouping call count, pool,
+providers and budget caps stay unchanged; activation makes no inference call.
+
+This is a prospective scheduled trial, not acceptance of the provisional cached
+grouping boundaries or proof of better prose. Review November 18 private
+receipts against prepared evidence and published Tech stories: grouping/triage
+status, reserved and displaced IDs, admitted evidence depth, repetition and
+summary support. If publication fails or the new choices regress, set the flag
+to `0` and restart API/worker outside the protected deployment window (or as
+a breakage repair). Existing immutable editions remain unchanged.

@@ -73,7 +73,7 @@ Collection does not fetch linked article pages.
   Cited reports are copied into the immutable edition with the same bounded text.
   The optional `TECH_STORY_ADMISSION=1` switch reserves two of the ten editor
   candidates for the highest-importance scored events after successful grouping;
-  it defaults off. Failed grouping or triage keeps the usual ranking.
+  Enabled on this VM; failed grouping or triage keeps the usual ranking.
   Private snapshots retain the prepared editor candidate prompt, including
   unselected reports, for later review. Enabled Tech admission also retains its
   reserved, displaced and admitted event IDs and reservation scores. Public
