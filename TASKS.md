@@ -9,6 +9,8 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 ## Open work
 
+- [ ] STEERING 67 (owner update during 2760): after breakages and the 16:00 UTC hold, measure saved Tech blanks over three days by cause once; implement one general fix for the largest non-block cause and one bounded blank-only backfill. No per-publisher fixes or hand-picked row recovery. Nov 18 acceptance above is historical, not completion of item 67.
+
 - [ ] Destructoid access blocked (2601): official feed returns Cloudflare HTTP 403; collection paused, 304 observations retained. Resume only after documented publisher access is available; no bypass or replacement source. Other 37 active sources healthy.
 
 - [x] STEERING 65 complete (2582): natural Nov 17 04:40 UTC retention succeeded; 55 expired sessions / 41,185,972 bytes deleted, tmpfiles completed, disk 63%, alerts clear. Nov 18 04:40 UTC also succeeded: 163 files / 89,331,829 bytes; next Nov 19 04:40 UTC. Supervisor log pruning remains lead-owned.

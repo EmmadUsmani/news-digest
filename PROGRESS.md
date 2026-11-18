@@ -202,3 +202,5 @@
 - Health, 14 services and 38 monitored sources pass; Destructoid inactive, digest queue zero failures. Transient metrics scrape alert at 15:07 recovered unaided; all targets up and alerts clear at 15:07:43.
 - Verification: pnpm format, pnpm lint:fix and full pnpm check pass: 1,120 unit/330 integration passes, four expected skips. Logs /tmp/2760-{format,lint,check}.log. No runtime changes require rebuild/restart; hold retained.
 - Next: NBA validation-response recovery and offline reproduction after 16:00 UTC; no separate review commit for this edition.
+- Initial push rejected (remote advanced to owner b5449b18). Merged without rewriting history; preserved owner item 67 and lead-owned file unchanged, resolving only appended steering text.
+- New item 67 replaces Tech recovery: one three-day cause table/general fix/bounded backfill after 16:00 and NBA breakage; recorded in TASKS. Prior item 66 daily acceptance does not complete item 67.
