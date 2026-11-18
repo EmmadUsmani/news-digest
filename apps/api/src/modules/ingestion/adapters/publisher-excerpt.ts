@@ -14,7 +14,9 @@ export function publisherExcerpt(html: string): string {
     const abstract = researchAbstract(clean);
     if (abstract) return abstract;
   }
-  const main = /<main\b[^>]*>([\s\S]*?)<\/main\s*>/i.exec(clean)?.[1];
+  const main =
+    /<main\b[^>]*>([\s\S]*?)<\/main\s*>/i.exec(clean)?.[1] ??
+    landmarkReporting(clean);
   // Some publisher blogs use main instead of article. Require their page
   // heading and take only the reporting after it, excluding opening chrome.
   const reporting =
@@ -151,4 +153,13 @@ function templateReporting(html: string): string | undefined {
       ),
   );
   return body ? serialize(body) : undefined;
+}
+
+/** ARIA main landmarks carry the same reporting scope as native main. */
+function landmarkReporting(html: string): string | undefined {
+  if (!html.includes('role')) return undefined;
+  const main = find(parseFragment(html), (node) =>
+    node.attrs.some((attr) => attr.name === 'role' && attr.value === 'main'),
+  );
+  return main ? serialize(main) : undefined;
 }

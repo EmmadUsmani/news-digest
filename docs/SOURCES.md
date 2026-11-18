@@ -7,6 +7,11 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 
 # Content source inventory
 
+Nov 18 (2690): HN publisher enrichment recognizes ARIA main landmarks with a
+page heading. Apple’s ordinary HTTP 200 support page now supplies its macOS
+27.3 permissions guidance; one saved blank candidate gained 1,500 characters.
+No source, access method or budget change. Scheduled acceptance remains pending.
+
 Nov 18 (2683): HN publisher enrichment now reads scoped MediaWiki prose, excluding
 tables and citation markers. Two saved empty Tech candidates gained excerpts:
 ArchiveTeam Apple Discussions 681 characters; Consumer Rights ID.me 1,500.

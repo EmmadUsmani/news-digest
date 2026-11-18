@@ -169,3 +169,13 @@
 - Updated source inventory/tasks; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,103 unit/330 integration tests, four expected skips); exact database reread passes 3/3. Logs /tmp/2689-*.log. Commit/push and API/worker restart follow.
 - Next: natural Nov 18 Tech share/depth acceptance after 15:00 UTC; retention at 04:40 UTC.
+
+## 2026-11-18: iteration 2690 — collect ARIA main publisher evidence
+
+- Clean main at 441d72b2; no inherited work. Alerts clear and health passes; outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
+- Continued thin Tech evidence repair: Apple support HTTP 200 contains permission guidance in a role=main div, which native article/main extraction missed.
+- Recognize ARIA main landmarks with the existing heading requirement; surrounding prose excluded and article precedence retained. Recorded Apple paragraphs and scope/precedence checks pass 17/17.
+- Blank-only Apple candidate repair 0 → 1,500 characters; exact stored ID/text reread passes. Retains macOS 27.3 folder/app choices and broad-access risks. Receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; local /tmp/2690-saved.json.
+- Source inventory and affected handbook updated; no schema/UI/diagram change. Affected handbook passes (19-page inventory/one diagram/39 tables). Build passes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2690-*.log. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. API/worker restart and health check follow commit/push.
+- Next: natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC; retention at 04:40 UTC.

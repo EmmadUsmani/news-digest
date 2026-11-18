@@ -278,3 +278,41 @@ void test('template prose requires article scope, heading and exact body markers
     `${reporting} Article wins.`,
   );
 });
+
+void test('recorded Apple main landmark retains permission guidance', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-apple-permissions.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^Starting in macOS 27.3/);
+  assert.match(excerpt, /backup apps, disk cleaners/);
+  assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
+});
+
+void test('main landmark requires its own heading and excludes surrounding prose', () => {
+  assert.equal(
+    publisherExcerpt(
+      `<p>${reporting}</p><div role="main"><p>${reporting}</p></div><h1>Outside</h1>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<div role="main-extra"><h1>Page</h1><p>${reporting}</p></div>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<p>${'Outside '.repeat(20)}</p><div role="main"><p>${'Opening '.repeat(20)}</p><h1>Page</h1><div><p>${reporting}</p></div><footer><p>${reporting}</p></footer></div><p>${reporting}</p>`,
+    ),
+    reporting,
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<div role="main"><h1>Page</h1><p>${'Other '.repeat(20)}</p></div><article><p>${reporting}</p></article>`,
+    ),
+    reporting,
+  );
+});

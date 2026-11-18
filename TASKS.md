@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2690: Collect ARIA main publisher reporting; Apple permissions candidate repaired 0 → 1,500 characters, exact stored text verified.
+
 - [x] 2689: Recovered three blank saved Tech excerpts (4,500 characters): Windows telemetry, Spamhaus guidance and historical Krebs context; exact stored text verified.
 
 - [x] 2688: Recognize explicit article-template prose; Claude verification candidate repaired 0 → 1,500 characters, exact stored text verified.

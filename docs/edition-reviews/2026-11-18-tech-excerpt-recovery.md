@@ -77,3 +77,17 @@ The Krebs excerpt retains its historical framing; it is not new reporting.
 Apple’s Full Disk Access support page returned HTTP 200 but no scoped prose;
 its saved excerpt remains blank. No blocks were bypassed, no paid calls were
 made, and no edition was changed. Natural acceptance remains after 15:00 UTC.
+
+## ARIA main collection repair — iteration 2690
+
+Apple’s support page uses a div with `role="main"`, rather than a native main
+or article. Collection now reads that landmark with the same heading requirement
+and paragraph filters as main. Surrounding prose and navigation stay excluded.
+
+The previously fetched ordinary HTTP 200 page at
+[Apple permissions](https://support.apple.com/en-us/149699) now yields 1,500
+characters: macOS 27.3 folder/app choices, permission risks and backup/security
+app context. Saved ID `6b5b2eeb-c4ad-4612-8647-186a405e1dfa` changed from blank
+to that exact excerpt; an independent database reread matches ID and full text.
+Recorded publisher paragraphs and landmark boundary/precedence tests pass.
+No edition regeneration, paid calls or budget changes; scheduled acceptance pending.
