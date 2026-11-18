@@ -424,7 +424,7 @@ void test('recorded Verge opening figure supplies its missing lead image', async
   assert.doesNotMatch(item.excerpt, /Image: CMF by Nothing/);
 });
 
-void test('feed opening photo captions do not displace reporting', () => {
+void test('feed photo captions do not displace reporting', () => {
   const item = (body: string) =>
     parseFeed(`<rss><channel><item><title>Airport report</title>
     <link>https://example.com/airport</link><pubDate>2026-11-14T00:00:00Z</pubDate>
@@ -438,8 +438,8 @@ void test('feed opening photo captions do not displace reporting', () => {
   );
   assert.equal(item(figure).excerpt, 'Publisher teaser.');
   assert.equal(item(figure).imageUrl, 'https://example.com/photo.jpg');
-  // Later captions, caption-like prose and reporting inside a figure survive.
-  assert.match(item('<p>Reporting.</p>' + figure).excerpt, /Planes on June 3/);
+  // Inline photo-only figures are omitted; ordinary prose and mixed figures survive.
+  assert.equal(item('<p>Reporting.</p>' + figure).excerpt, 'Reporting.');
   assert.equal(
     item('<p>Photo: Agency reported the closure.</p>').excerpt,
     'Photo: Agency reported the closure.',

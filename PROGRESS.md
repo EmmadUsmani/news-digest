@@ -175,3 +175,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (1,132 unit/330 integration passes, four expected skips), pnpm build and scoped check-handbook.ts pass. Handbook initially exceeded 100 lines by one; shortened affected prose and rechecked. Logs /tmp/2782-*.log.
 - node /tmp/2782-browser.cjs: both exact NBA endings, source continuation destinations/focus, no page errors/overflow at 320/390/1440px in light/dark pass. Inspected two saved docs/screenshots/fallback-sentences-*.png cards; widget requests intentionally blocked.
 - API/worker/docs rebuilt and restarted; health, /healthz and alerts clear. Exact stored excerpts reread unchanged. Next: scheduled NBA and Tech/World/U.S./Gaming acceptance; Destructoid access and @PS_Support_US authenticity remain unresolved.
+
+## 2026-11-18: iteration 2783 — keep inline photo captions out of feed reporting
+
+- Clean main at d2a7a53d; no inherited work. Initial alerts/health clear; Destructoid remains paused.
+- Owner value: saved NBA fallback mixes photo captions into reporting, displacing useful prose. Live Yahoo NBA markup confirms image-and-caption-only figures can occur mid-article; opening-only cleanup misses them.
+- Feed collection now omits those figures anywhere before excerpt truncation; mixed figures containing reporting remain. Lead image/destination selection unchanged. No publisher-specific recovery, backfill, stored-edition mutation, paid call or prompt change.
+- Recorded Nov 18 Yahoo feed fixture: actual old/new parser comparison removes Getty Images caption, retains 1,496-character excerpt length, lead image and URL, and fits later reporting. Generic controls preserve mixed figures and ordinary credit mentions. New collection behavior, not a claim that today's immutable NBA text was repaired.
+- Verification: pnpm format/lint:fix, typecheck, boundaries, 1,134 unit tests, build and scoped handbook check pass. Initial integration run has one stale inline-caption expectation (329 pass/four skips); updated expectation and targeted rerun pass. Fresh full isolated integration rerun passes 330 tests/four expected skips; final spacing target, API rebuild and changed-file lint pass. Logs /tmp/2783-*.log.
+- API/worker/docs rebuilt and restarted. Startup retry /healthz, obs health and alerts pass; exact saved Warriors/Hawks excerpts reread unchanged. No UI change or new screenshot.
+- Updated TASKS, affected data-model handbook, SOURCES and item 42 ack. Next: scheduled NBA AI editing and Tech/World/U.S./Gaming acceptance; Destructoid access and @PS_Support_US authenticity remain unresolved.

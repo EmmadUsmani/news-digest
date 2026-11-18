@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2783: Feed collection removes inline image-and-caption-only figures before excerpt truncation; recorded Yahoo NBA caption disappears and more reporting fits, with image/destination retained. Stored editions unchanged; scheduled NBA AI acceptance pending.
+
 - [x] 2782: Reader fallback drops unfinished trailing sentences when substantial source text remains; exact saved Warriors/Hawks cases retain omission marks and original links. Saved evidence and AI summaries unchanged; NBA AI acceptance remains pending.
 
 - [x] 2781: X bylines expose the verified embed’s account handle beside its display name, so the saved “PlayStation Support US” post visibly identifies `@PS_Support_US`. All 11 live saved X identities/profile destinations verified at 320/390/1440px in both themes; source authenticity remains unestablished.

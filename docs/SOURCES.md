@@ -3892,3 +3892,5 @@ All contain standalone text and official API count observations. NBA shares
 one Lakers game with two X picks; queries and source gates remain unchanged.
 [Text review and receipt](edition-reviews/2026-11-18-bluesky-selection.md).
 The complete Nov 18 UTC collection-day review remains pending.
+
+NBA feed cleanup (2026-11-18, iteration 2783): recorded Yahoo inline image-and-caption-only figures are omitted from excerpt text before truncation; lead photos and article destinations remain. Mixed figures containing reporting remain intact. Existing editions are immutable.

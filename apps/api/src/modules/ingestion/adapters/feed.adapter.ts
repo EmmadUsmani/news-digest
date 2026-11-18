@@ -157,11 +157,11 @@ function excerpt(value: unknown, articleUrl: string): string {
       /<figcaption\b[^>]*>\s*Screenshot(?: and remix)? by Destructoid\s*<\/figcaption\s*>/gi,
       ' ',
     )
-    // An opening image caption describes the photo, not the article event.
-    // Require the image/caption-only figure so other reporting stays intact.
+    // Image-only figures describe photos, not the surrounding article event.
+    // Remove inline figures too; retain mixed figures containing reporting.
     .replace(
-      /^\s*<figure\b[^>]*>\s*<img\b[^>]*>\s*<figcaption\b[^>]*>[\s\S]*?<\/figcaption>\s*<\/figure>/i,
-      '',
+      /<figure\b[^>]*>\s*<img\b[^>]*>\s*<figcaption\b[^>]*>(?:(?!<\/?figure\b)[\s\S])*?<\/figcaption>\s*<\/figure>/gi,
+      ' ',
     )
     .replace(
       /<div\s+id=["']hype-desk-root["']\s*>\s*<\/div>\s*window\.HYPE_DESK_CONFIG\s*=\s*\{[^<>]*\};\s*$/,
