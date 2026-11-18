@@ -481,6 +481,12 @@ export class PostgresPreviewRepository
                       end,
                       runId,
                     });
+                if (admission?.decision) {
+                  editorial.storyAdmission = {
+                    ...admission.decision,
+                    admitted: admission.ranked.map((event) => event.id),
+                  };
+                }
                 const matches = admission?.matches;
                 const ranked =
                   paired?.ranked.get(topic.id) ?? admission!.ranked;

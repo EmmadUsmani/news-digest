@@ -75,7 +75,9 @@ Collection does not fetch linked article pages.
   candidates for the highest-importance scored events after successful grouping;
   it defaults off. Failed grouping or triage keeps the usual ranking.
   Private snapshots retain the prepared editor candidate prompt, including
-  unselected reports, for later review. Public reader responses omit it.
+  unselected reports, for later review. Enabled Tech admission also retains its
+  reserved, displaced and admitted event IDs and reservation scores. Public
+  reader responses omit these private review fields.
 - **Story composition:** the editor keeps separate developments in separate
   stories. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.

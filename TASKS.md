@@ -26,7 +26,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2671: 24 healthy rules/six passing queries (≤0.436 s); 68 small merges/1,774,326 rows since prior checkpoint, no new big merge or admission/failure events. +2,005 memory-high events; resource acceptance remains open. Next check ≥00:20 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#twenty-second-nov-17-recovery-checkpoint-iteration-2671).
+- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2675: 24 healthy rules/six passing queries (≤0.719 s); 77 small merges/5,414,176 rows, no new big merge or admission/failure events. +4,631 memory-high events and three 00:02 slow queries keep resource acceptance open. Next check ≥01:25 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#first-nov-18-recovery-checkpoint-iteration-2675).
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: 2673 connects validated grouping and the bounded two-event admission policy to publication behind default-off `TECH_STORY_ADMISSION=1`. Recorded 40-article/21-event control and real consumer transport pass; failed grouping/triage keeps baseline. Production remains off. Next: pre-noon activation decision, then natural scheduled reader acceptance. Boundaries remain provisional. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: 2673 connects validated grouping and the bounded two-event admission policy to publication behind default-off `TECH_STORY_ADMISSION=1`. Recorded 40-article/21-event control and real consumer transport pass; failed grouping/triage keeps baseline. Production remains off. 2675 saves private admission decisions (including fallback) for direct scheduled review; public responses omit them. Next: pre-noon activation decision, then natural scheduled reader acceptance. Boundaries remain provisional. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2675: Preserve private Tech admission reservations, displacements and scores through publication; public reader projection omits the receipt. Switch remains off.
 
 - [x] 2674: Completed Nov 17 Bluesky day retention, fixed-cutoff supply comparison and 25-text reader review; collection accepted, quality mixed, queries unchanged.
 

@@ -3390,3 +3390,13 @@ validated/unavailable grouping through the real publication consumer. These
 checks use fixtures and fake ports. They do not accept the recorded boundaries
 or establish improvement in a natural edition. Activation and scheduled reader
 acceptance remain open; no prompts, providers, caps or production flags changed.
+
+## Private Tech admission receipt (iteration 2675)
+
+Publication now retains the enabled Tech admission decision in the private
+edition snapshot: status/reason, admitted/reserved/displaced event IDs and each
+reservation's scored member, importance, relevance and baseline rank. Baseline
+fallback decisions are retained too; disabled and non-Tech paths add no receipt.
+Public reader contracts omit the receipt. This supplies the natural-edition
+review with the policy's actual decision instead of a later reconstruction.
+The switch remains off; activation and scheduled reader acceptance remain next.

@@ -140,3 +140,15 @@
 - Live reader probe returns five topics/25 stories/20 posts using an explicit public probe address after the shared loopback address hit its rate limit.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips. Isolated harness rebuilt API. Receipts /tmp/2674-{format,lint,check}.log; API/worker restart after push.
 - Next: metrics recovery checkpoint ≥00:20 UTC; Tech activation assessment before noon; November 18 scheduled publication and social quality review.
+
+## 2026-11-18: iteration 2675 — preserve Tech admission decisions
+
+- Clean main at a0417261; no inherited work. Initial alerts clear; local health database/Redis pass.
+- Owner value: the next Tech admission review can read actual reserved/displaced events rather than reconstructing the decision after publication.
+- Enabled Tech now saves status/reason, admitted/reserved/displaced IDs and scored reservation members/baseline ranks in the private edition snapshot. Disabled/non-Tech paths remain receipt-free.
+- Extended publication and public-read tests to verify evaluated/fallback receipts survive schema parsing and public reader responses omit them. No migration, UI, source, provider, prompt or budget change; switch remains off.
+- Updated the pipeline handbook, ranking notes and TASKS. Handbook check passes: 19 pages/39 tables. No diagram changed.
+- Direct targeted invocation was refused by the DB isolation guard; reran through the supported full isolated check instead. Receipts: /tmp/2675-{targeted,format,lint,check,handbook}.log.
+- Due metrics checkpoint: 24 healthy rules/six queries ≤0.719 s; three 00:02 slow queries and +4,631 memory-high events keep resource acceptance open. No retuning; next ≥01:25 UTC. /tmp/2675-summary.json.
+- Verification: pnpm format/lint:fix/check pass: 1,087 unit and 330 integration tests/four expected skips; isolated harness rebuilt API. Active sources healthy; digest queue zero failures. API/worker restart after commit/push.
+- Next: pre-noon Tech activation decision, natural scheduled reader acceptance; metrics ≥01:25 UTC.

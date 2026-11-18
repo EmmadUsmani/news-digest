@@ -288,6 +288,24 @@ export const digestPreviewSchema = z.object({
           reason: z.string(),
           brief: z.array(z.string()),
           candidatePrompt: z.string().max(100000).optional(),
+          storyAdmission: z
+            .object({
+              status: z.enum(['baseline', 'evaluated']),
+              reason: z.string(),
+              admitted: z.array(z.string()),
+              reserved: z.array(z.string()),
+              displaced: z.array(z.string()),
+              reservations: z.array(
+                z.object({
+                  eventId: z.string(),
+                  memberId: z.string(),
+                  importance: z.number(),
+                  relevance: z.number(),
+                  baselineRank: z.number().int().nullable(),
+                }),
+              ),
+            })
+            .optional(),
           triage: z.array(
             z.object({
               id: z.string(),

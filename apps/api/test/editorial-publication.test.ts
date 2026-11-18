@@ -562,6 +562,23 @@ void test('Tech admission runtime switch reaches explicit grouping through produ
         admission,
       });
       const topic = snapshot.topics[0];
+      const receipt = topic.editorial?.storyAdmission;
+      assert.ok(receipt);
+      assert.equal(
+        receipt.status,
+        admission === 'validated' ? 'evaluated' : 'baseline',
+      );
+      assert.equal(
+        receipt.reason,
+        admission === 'validated' ? 'validated-inputs' : 'grouping-unavailable',
+      );
+      assert.ok(receipt.admitted.includes(topic.stories[0].id));
+      assert.equal(receipt.reserved.length, admission === 'validated' ? 1 : 0);
+      assert.deepEqual(receipt.displaced, []);
+      assert.equal(
+        JSON.stringify(readerEdition(snapshot)).includes('storyAdmission'),
+        false,
+      );
       assert.equal(topic.editorial?.mode, 'ai');
       assert.equal(topic.stories.length, 1);
       assert.equal(

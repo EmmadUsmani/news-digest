@@ -29,6 +29,14 @@ const snapshot: DigestPreview = {
         triage: [],
         unscoredIds: [],
         candidatePrompt: 'private-prepared-candidates',
+        storyAdmission: {
+          status: 'evaluated',
+          reason: 'private-admission',
+          admitted: ['private-event'],
+          reserved: ['private-event'],
+          displaced: ['private-displaced'],
+          reservations: [],
+        },
       },
     },
   ],
@@ -75,7 +83,7 @@ void test('prepared preview reads force published storage and expose only reader
   assert.deepEqual(await reads.find(id), latest);
   assert.doesNotMatch(
     JSON.stringify([history, latest]),
-    /private-|candidateCount|method|topicModes|candidatePrompt/,
+    /private-|candidateCount|method|topicModes|candidatePrompt|storyAdmission/,
   );
   await assert.rejects(reads.find('missing'), NotFoundException);
   assert.deepEqual(calls, [

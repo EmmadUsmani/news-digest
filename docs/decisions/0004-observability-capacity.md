@@ -1999,3 +1999,21 @@ or provider calls. Receipts: `/tmp/2671-{metrics.jsonl,metrics-error.log,summary
 commands `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60` and
 `python3 /tmp/2671-summarize.py` (three samples; queue/process/evaluator/OOM
 counters asserted unchanged; admission-limit increment zero).
+
+### First Nov 18 recovery checkpoint (iteration 2675)
+
+00:20:36–00:22:37 UTC: three read-only samples show 24 healthy rules and
+six uncached expected-series queries in ≤0.719 s. Since 23:16:04, small merges
+increased 77 / 5,414,176 rows; big merges stayed unchanged. Admission-limit,
+queue-timeout, process-start, evaluator error/missed and max/OOM/kill counters
+stayed unchanged; NRestarts=0. Memory-high increased 4,631 (185 while sampling);
+ending memory 82,141,184 bytes, lifetime peak 93,683,712. Disk 74%.
+
+Three new slow queries (6.301/7.399/18.413 s) occurred at 00:02 during the
+previous iteration, with metrics/worker scrape deadlines. The checkpoint's
+initial unchanged-slow-query assertion correctly failed; the journal explains
+the increment and the final summary reports it explicitly. Current probes and
+rules pass, but resource acceptance remains open. Retain CPU 2% / MemoryHigh
+88 MiB / MemoryMax 112 MiB; no restart, forced merge or retuning. Next short
+checkpoint ≥01:25 UTC. Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 2 60`
+and `python3 /tmp/2675-summarize.py`; receipts `/tmp/2675-{metrics.jsonl,summary.json}`.
