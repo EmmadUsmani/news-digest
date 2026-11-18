@@ -310,3 +310,17 @@ essay; legal allegations and union positions remain attributed. The veteran
 account explicitly retains its December 2006 historical warning. Saved receipt:
 `/tmp/2703-saved.json`. No code change, paid calls or edition regeneration.
 Scheduled Nov 18 candidate-share/depth acceptance remains after 15:00 UTC.
+
+## Essay and chess-project context — iteration 2704
+
+Ordinary shared-client HTTP 200 responses and deployed extraction recovered
+[Nations Must Die](https://marvindanig.com/blog/nations-must-die/) and
+[Golden Board](https://artemlegotin.com/golden-board/). Both saved HN candidates
+changed from 0 to 1,500 characters; independent exact ID/full-text rereads
+pass (3,000 characters, `/tmp/2704-saved.json`). The former is the author's
+political argument; the latter describes a 512 KiB binary chess-teaching message.
+
+The email-pitches page returns HTTP 200 but lacks the extractor's scoped title
+structure and remains empty. The HTTP-only Groundwork URL was refused locally
+by the HTTPS-only client; no publisher request or bypass. No extraction change,
+paid call or edition regeneration. Scheduled depth acceptance remains pending.

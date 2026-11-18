@@ -144,3 +144,13 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration passes, four expected skips. Logs /tmp/2703-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2704 — recover essay and chess-project context
+
+- Clean main at da5cc2d6; no inherited work. Alerts/health/services/sources pass; digest queue has no failures. No paid calls or budget/provider changes.
+- Read public Tech: Apple/China summaries remain thin. Ordinary shared-client HTTP 200 responses and deployed extraction recover Nations Must Die and Golden Board.
+- Two blank-only saved writes 0 → 1,500 characters each; independent exact ID/full-text rereads pass 2/2 (3,000 characters), /tmp/2704-saved.json. All extracted text reviewed.
+- Political argument stays attributed; Golden Board describes the binary chess-message project. Email-pitches page lacks scoped title and stays empty; HTTP-only Groundwork URL refused locally without a publisher request.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated; no code/schema/UI/handbook change or edition regeneration.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration tests pass, four expected skips. Logs /tmp/2704-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

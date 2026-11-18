@@ -3678,3 +3678,9 @@ Iteration 2703: deployed publisher extraction recovered five more blank saved HN
 excerpts (6,706 characters) from ordinary HTTP 200 pages; exact rereads pass.
 Historical and opinion context retains attribution.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#more-accessible-publisher-context--iteration-2703).
+
+Iteration 2704: deployed extraction recovered two blank saved HN excerpts
+(Nations Must Die and Golden Board), 1,500 characters each; independent exact
+rereads pass. Email-pitches page remains unscoped; HTTP-only Groundwork URL
+refused locally without a request.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#essay-and-chess-project-context--iteration-2704).
