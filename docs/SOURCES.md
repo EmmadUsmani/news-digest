@@ -3763,3 +3763,9 @@ excerpts for a WebKit promise bug explanation and a Lovable security investigati
 (3,000 characters). Exact ID/full-text rereads pass 2/2; investigator findings
 retain attribution. No source or collection behavior changed.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#webkit-promises-and-lovable-investigation--iteration-2718).
+
+Iteration 2719: ordinary HTTP 200 publisher pages recovered blank saved HN
+excerpts for Google Research teamwork, EFF ambient privacy analysis and DocSpring
+infrastructure experience (4,500 characters). Exact ID/full-text rereads pass 3/3.
+No source or collection behavior changed.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#research-privacy-and-infrastructure-context--iteration-2719).

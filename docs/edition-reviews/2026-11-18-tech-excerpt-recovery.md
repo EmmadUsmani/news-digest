@@ -557,3 +557,15 @@ Space-data-center and self-booting ZIP pages returned HTTP 200 but no supported
 scoped excerpt and remain blank. No source, collection behavior, paid call,
 budget or immutable edition changed. Scheduled Tech share/depth acceptance
 remains pending after 15:00 UTC.
+
+## Research, privacy and infrastructure context — iteration 2719
+
+Ordinary shared-client HTTP 200 publisher responses recovered three blank saved
+HN excerpts: [Google Research teamwork](https://research.google/blog/advancing-science-engineering-with-antigravitys-teamwork-feature/),
+[EFF ambient privacy analysis](https://www.eff.org/deeplinks/2026/11/tech-companies-are-trying-shift-entire-concept-privacy-again)
+and [DocSpring infrastructure experience](https://docspring.com/blog/posts/eight-years-running-docspring-convox/).
+Each changed from zero to 1,500 characters. Complete extracted passages were
+reviewed before blank-only writes; exact stored-ID/full-text rereads pass 3/3
+(`/tmp/2719-saved.json`). Research outcomes, privacy analysis and operational
+experience remain attributed to their publishers. No extraction behavior, source,
+budget or immutable edition changed. Scheduled Tech acceptance remains pending.
