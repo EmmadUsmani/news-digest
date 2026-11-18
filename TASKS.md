@@ -11,7 +11,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 
 - [ ] Destructoid access blocked (2601): official feed returns Cloudflare HTTP 403; collection paused, 304 observations retained. Resume only after documented publisher access is available; no bypass or replacement source. Other 37 active sources healthy.
 
-- [x] STEERING 65 complete (2582): natural Nov 17 04:40 UTC retention succeeded; 55 expired sessions / 41,185,972 bytes deleted, tmpfiles completed, disk 63%, alerts clear. Next run Nov 18 04:40 UTC; supervisor log pruning remains lead-owned.
+- [x] STEERING 65 complete (2582): natural Nov 17 04:40 UTC retention succeeded; 55 expired sessions / 41,185,972 bytes deleted, tmpfiles completed, disk 63%, alerts clear. Nov 18 04:40 UTC also succeeded: 163 files / 89,331,829 bytes; next Nov 19 04:40 UTC. Supervisor log pruning remains lead-owned.
 
 Details and original evidence links: [2455 handoff archive](docs/progress-archive/2026-11-16-task-detail-2455.md). Item order is unchanged.
 
@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth / STEERING 66: publisher article/main, MediaWiki, abstract and microformats extraction deployed (2681–2685). 2686–2695 recover 28 more blank HN candidates (40,444 characters), including explicit article-template collection; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 17 baseline 171/200 empty; scheduled Nov 18 share/depth acceptance pending. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [ ] Tech depth / STEERING 66: publisher article/main, MediaWiki, abstract and microformats extraction deployed (2681–2685). 2686–2696 recover 31 more blank HN candidates (44,944 characters), including explicit article-template collection; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 17 baseline 171/200 empty; scheduled Nov 18 share/depth acceptance pending. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2696: Recovered DNS, Windows Hello research and reuse-essay excerpts (4,500 characters); exact saved text verified, scheduled acceptance pending.
 
 - [x] 2695: Recovered Harmonic Rust verification and Cornell solar research excerpts (3,000 characters); exact saved text verified, scheduled acceptance pending.
 

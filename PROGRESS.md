@@ -139,3 +139,15 @@
 - Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks updated; no application/schema/UI/handbook behavior change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2695-*.log. Commit/push and API/worker restart follow checks.
 - Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
+
+## 2026-11-18: iteration 2696 — recover DNS, security and reuse evidence
+
+- Clean main at 5deec8a9; no inherited work. App health/source/job checks pass; no paid calls, budget/provider changes or edition regeneration.
+- Pending metrics scrape alert triggered incident inspection: process active, NRestarts=0, memory below 112 MiB; slow queries/scrapes observed, health and metrics HTTP answer. Metrics-store alert cleared; app-api scrape pending afterward. No metrics restart or retuning.
+- Read signed-out public Tech: thin summaries remain. Three blank saved HN candidates recovered through deployed collection: S2 DNS, Windows Hello RPMC abstract and Arcentry reuse essay.
+- Ordinary shared-client HTTP 200; blank-only 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 total), /tmp/2696-saved.json; receipt in docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
+- First-party/research claims retain attribution; physical-access findings are not remote attacks, and essay banking teams are fictional. No extraction/schema/UI/handbook change.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks updated. Both pending scrape alerts cleared by 04:39:48 UTC without intervention; app metrics HTTP 200 in 0.010 s.
+- Natural 04:40 UTC retention succeeds, exit 0: 163 expired session files / 89,331,829 bytes deleted; tmpfiles completes with seven unavailable pipe notices ignored. Disk 74%; protected paths untouched, next run Nov 19.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2696-*.log. pnpm build passes; commit/push and API-worker restart follow.
+- Next: natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC; retention Nov 19 04:40 UTC.

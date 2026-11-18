@@ -178,3 +178,22 @@ research context, not a newly published November study. Jolt returned HTTP 200
 but lacks a scoped article/main body and stays blank. No access workaround,
 paid call, edition regeneration or budget change. The public Tech edition still
 has thin summaries; scheduled candidate-share/depth acceptance remains pending.
+
+## DNS, hardware security and reuse evidence — iteration 2696
+
+Three ordinary shared-client HTTP 200 responses recovered blank saved HN
+excerpts using the deployed extractor. Blank-only updates and independent exact
+ID/text rereads pass for all three: 0 → 1,500 characters each, 4,500 total.
+
+| Candidate                                                           | Retained detail                                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [S2 authoritative DNS](https://s2.dev/blog/dns-server)              | First-party basin namespaces, immediate resolution needs and reported Route53 update limits |
+| [Windows Hello research](https://arxiv.org/abs/2611.18126)          | Authors' physical-access RPMC analysis and claimed firmware TPM rollback demonstrations     |
+| [Do Repeat Yourself](https://arcentry.com/blog/do-repeat-yourself/) | Fictional banking-team example introducing the author's software-reuse argument             |
+
+S2's operational claims remain attributed to S2. The security abstract describes
+research claims requiring physical hardware access, not a remotely exploitable
+PIN attack. The essay's Megabank teams are illustrative characters, not reported
+company events. No budgets, extraction behavior or immutable editions changed.
+Public HTTPS reader still shows thin Tech summaries; natural scheduled
+candidate-share/depth acceptance remains pending after 15:00 UTC.

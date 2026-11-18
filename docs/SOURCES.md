@@ -3632,3 +3632,9 @@ Iteration 2695 recovered blank Harmonic Rust verification and Cornell solar-graz
 HN excerpts through ordinary HTTP 200 publisher pages: 3,000 characters,
 exact saved text verified. Jolt returned HTTP 200 without scoped reporting;
 left blank. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-verification-and-solar-research--iteration-2695).
+
+Iteration 2696 recovered three blank saved HN excerpts (4,500 characters) from
+S2's DNS account, the Windows Hello RPMC abstract and Arcentry's reuse essay;
+all ordinary HTTP 200, exact saved text verified. First-party/research claims
+and the essay's fictional scenario retain their provenance.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#dns-hardware-security-and-reuse-evidence--iteration-2696).
