@@ -14,8 +14,17 @@ export class SharedHttpClient implements HttpPort {
   private readonly next = new Map<string, number>();
   private readonly cache = new Map<string, { until: number; body: string }>();
   private readonly locks = new Map<string, Promise<unknown>>();
-  async get(url: string, redirects = 0): Promise<string> {
+  async get(url: string, allowUrl?: (url: string) => boolean): Promise<string> {
+    return this.getFollowingRedirects(url, 0, allowUrl);
+  }
+  private async getFollowingRedirects(
+    url: string,
+    redirects: number,
+    allowUrl?: (url: string) => boolean,
+  ): Promise<string> {
     url = publicFeedUrl(url);
+    if (allowUrl && !allowUrl(url))
+      throw new Error('URL rejected by access policy');
     const host = new URL(url).host;
     const previous = this.locks.get(host) ?? Promise.resolve();
     const request = previous.catch(() => {}).then(() => this.fetch(url, host));
@@ -23,7 +32,7 @@ export class SharedHttpClient implements HttpPort {
     const result = await request;
     if (typeof result === 'string') return result;
     if (redirects >= 4) throw new Error('Invalid feed redirect');
-    return this.get(result.redirect, redirects + 1);
+    return this.getFollowingRedirects(result.redirect, redirects + 1, allowUrl);
   }
   private async fetch(
     url: string,

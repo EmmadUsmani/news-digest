@@ -36,7 +36,9 @@ export class HackerNewsAdapter implements SourcePort {
         new URL(url).hostname !== 'news.ycombinator.com'
       ) {
         try {
-          excerpt = publisherExcerpt(await this.http.get(url));
+          excerpt = publisherExcerpt(
+            await this.http.get(url, publisherPageAllowed),
+          );
         } catch {
           // A blocked/unavailable publisher must not discard a valid HN story.
         }

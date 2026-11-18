@@ -184,3 +184,14 @@
 - Rebuilt API/worker restarted active; /healthz database/Redis pass. Supported local probe /tmp/2770-live.ts confirms latest cd357e84 remains 25 stories/19 posts/five topics and five content groups. Bare localhost API requests correctly reject missing visitor identity; direct VM HTTPS connection unavailable this run. No UI change.
 - Metrics query API timed out with a slow-query backlog during checks. One sudo systemctl restart obs-metrics.service restored responsive queries/all eight scrape targets healthy at 16:41:41; limits unchanged. At 16:42:10, zero firing/five pending scrape alerts awaited evaluation.
 - Next: stop recovery work; check next scheduled Tech section once alongside NBA natural acceptance. Publisher blocks recorded; Destructoid remains paused.
+
+## 2026-11-18: iteration 2771 — preserve HN publisher access restrictions through redirects
+
+- Clean main at 2915a059; no inherited work. Initial alerts clear; health, 14 services and 38 monitored sources healthy.
+- Owner-visible value: ordinary HN publisher redirects cannot turn excerpt collection into prohibited X, Nitter or Reddit scraping. Found the initial-link guard was lost when SharedHttpClient followed redirects.
+- HttpPort accepts an optional request access policy; shared HTTP checks every destination before transport or cache reuse. HN passes its existing publisher policy; other callers retain existing behavior.
+- Offline regressions reject three social redirect targets without requesting them, reject policy-forbidden cache reuse, allow ordinary publisher redirects, and assert HN passes the policy. No external test traffic.
+- Updated affected handbook/source inventory and stale NBA handoff. No excerpt recovery, saved-content writes, paid calls, budget changes or new source.
+- Verification: pnpm format, pnpm lint:fix, targeted tests 37/37, pnpm check (1,124 unit/330 integration passes, four expected skips), pnpm build and affected handbook check pass; logs /tmp/2771-*.log.
+- Rebuilt API/worker/docs restarted active; pnpm obs health passes database/Redis, alerts clear. pnpm exec tsx /tmp/2770-live.ts confirms unchanged latest cd357e84: five topics/25 stories/19 posts and five live content groups. No UI change.
+- Next: next scheduled NBA and Tech acceptance together in the daily review; stop recovery work. Destructoid publisher access remains blocked.

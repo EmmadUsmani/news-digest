@@ -18,7 +18,7 @@ export interface ContentItem {
   xLinks?: import('./x-links').XLink[];
 }
 export interface HttpPort {
-  get(url: string): Promise<string>;
+  get(url: string, allowUrl?: (url: string) => boolean): Promise<string>;
 }
 export interface SourcePort {
   collect(source: Source): Promise<ContentItem[]>;

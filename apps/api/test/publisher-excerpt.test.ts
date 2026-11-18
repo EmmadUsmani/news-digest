@@ -109,7 +109,7 @@ void test('HN publisher enrichment preserves submission text and tolerates publi
   ]) {
     const calls: string[] = [];
     const adapter = new HackerNewsAdapter({
-      get: async (url) => {
+      get: async (url, allowUrl) => {
         calls.push(url);
         if (url.endsWith('topstories.json')) return '[1]';
         if (url.endsWith('/1.json'))
@@ -123,6 +123,7 @@ void test('HN publisher enrichment preserves submission text and tolerates publi
             time: 1700000000,
             text: mode === 'submission' ? reporting : undefined,
           });
+        assert.equal(allowUrl, publisherPageAllowed);
         if (mode === 'blocked') throw new Error('HTTP 403');
         if (mode === 'social') assert.fail('X page must never be requested');
         if (mode === 'metadata')

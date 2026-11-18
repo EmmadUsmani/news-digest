@@ -252,3 +252,70 @@ void test('shared HTTP distinguishes official X embeds and HN without exposing p
     requestMock.mock.restore();
   }
 });
+
+void test('per-request access policy rejects redirected publisher targets before transport or cache reuse', async () => {
+  const { publisherPageAllowed } =
+    await import('../src/modules/ingestion/domain/publisher-page');
+  const attempted: string[] = [];
+  let destination = 'https://x.com/reporter/status/123';
+  const requestMock = mock.method(
+    https,
+    'request',
+    (url: string, _options: unknown, callback: (response: unknown) => void) => {
+      attempted.push(url);
+      const redirect = new URL(url).hostname === 'publisher.org';
+      const req = new EventEmitter();
+      Object.assign(req, {
+        end: () =>
+          queueMicrotask(() =>
+            callback(
+              Object.assign(Readable.from([Buffer.from('saved body')]), {
+                statusCode: redirect ? 302 : 200,
+                headers: redirect ? { location: destination } : {},
+              }),
+            ),
+          ),
+      });
+      return req;
+    },
+  );
+  try {
+    for (const target of [
+      'https://x.com/reporter/status/123',
+      'https://old.reddit.com/r/technology/123',
+      'https://nitter.net/reporter/status/123',
+    ]) {
+      destination = target;
+      attempted.length = 0;
+      await assert.rejects(
+        new SharedHttpClient().get(
+          'https://publisher.org/story',
+          publisherPageAllowed,
+        ),
+        /access policy/,
+      );
+      assert.deepEqual(attempted, ['https://publisher.org/story']);
+    }
+    // A cached response obtained by another authorized route cannot bypass policy.
+    const client = new SharedHttpClient();
+    await client.get('https://publish.twitter.com/oembed');
+    const count = attempted.length;
+    await assert.rejects(
+      client.get('https://publish.twitter.com/oembed', publisherPageAllowed),
+      /access policy/,
+    );
+    assert.equal(attempted.length, count);
+    destination = 'https://reporting.org/story';
+    attempted.length = 0;
+    assert.equal(
+      await new SharedHttpClient().get(
+        'https://publisher.org/story',
+        publisherPageAllowed,
+      ),
+      'saved body',
+    );
+    assert.deepEqual(attempted, ['https://publisher.org/story', destination]);
+  } finally {
+    requestMock.mock.restore();
+  }
+});

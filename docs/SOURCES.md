@@ -10,7 +10,8 @@ configuration changes. [Evidence](edition-reviews/2026-11-12-bluesky-pool.md#eff
 Nov 18 (2770): **live** — general HN description fallback deployed for pages
 without supported body prose. One three-day saved-pool backfill filled 34 blank
 excerpts (18 existing body, 16 metadata); blanks 74/261 → 40/261. HN publisher
-enrichment now excludes X, Nitter and Reddit links. No new source or bypass.
+enrichment now excludes X, Nitter and Reddit links. Iteration 2771 applies the
+same restriction to every redirect destination before transport or cache reuse. No new source or bypass.
 [Cause table and receipt](edition-reviews/2026-11-18-tech-blank-causes.md).
 
 Nov 18 (2690): HN publisher enrichment recognizes ARIA main landmarks with a
