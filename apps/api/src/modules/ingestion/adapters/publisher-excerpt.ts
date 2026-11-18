@@ -21,6 +21,7 @@ export function publisherExcerpt(html: string): string {
     article ??
     mediaWikiReporting(clean) ??
     microformatReporting(clean) ??
+    templateReporting(clean) ??
     (main && /<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1]);
   if (!reporting) return '';
   const paragraphs = [...reporting.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)]
@@ -128,4 +129,26 @@ function microformatReporting(html: string): string | undefined {
     ),
   );
   return content ? serialize(content) : undefined;
+}
+
+/** Explicit article templates separate their prose body from related posts. */
+function templateReporting(html: string): string | undefined {
+  if (!html.includes('data-tpl')) return undefined;
+  const article = find(parseFragment(html), (node) =>
+    node.attrs.some(
+      (attr) => attr.name === 'data-tpl' && attr.value === 'article',
+    ),
+  );
+  if (!article || !find(article, (node) => node.tagName === 'h1'))
+    return undefined;
+  const body = find(
+    article,
+    (node) =>
+      node.attrs.some((attr) => attr.name === 'id' && attr.value === 'body') &&
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'class' && attr.value.split(/\s+/).includes('prose'),
+      ),
+  );
+  return body ? serialize(body) : undefined;
 }

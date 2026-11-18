@@ -242,3 +242,39 @@ void test('recorded Purism microformat retains announcement reporting', async ()
   assert.match(excerpt, /RISC-V/);
   assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
 });
+
+void test('recorded article template retains verification evidence without related posts', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-verification.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^On the Claude Code team/);
+  assert.match(excerpt, /improved task success by up to 10 points/);
+  assert.doesNotMatch(excerpt, /Related posts promotion/);
+  assert.equal(excerpt.length, 1500);
+});
+
+void test('template prose requires article scope, heading and exact body markers', () => {
+  const body = `<div class="extra prose" id="body"><section><p>${reporting}</p></section></div>`;
+  const template = `<div data-tpl="article"><h1>Report</h1>${body}<section><p>${'Related posts promotion. '.repeat(6)}</p></section></div>`;
+  assert.equal(publisherExcerpt(template), reporting);
+  for (const changed of [
+    template.replace('data-tpl="article"', 'data-tpl="index"'),
+    template.replace('<h1>Report</h1>', ''),
+    template.replace('id="body"', 'id="sidebar"'),
+    template.replace('extra prose', 'prose-preview'),
+  ]) {
+    assert.equal(publisherExcerpt(changed), '');
+  }
+  assert.equal(
+    publisherExcerpt(`<div data-tpl="article"><h1>Report</h1></div>${body}`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `${template}<article><p>${reporting} Article wins.</p></article>`,
+    ),
+    `${reporting} Article wins.`,
+  );
+});

@@ -34,8 +34,8 @@ Feed excerpts use explicit RSS/Atom article content before descriptions or
 summaries, falling back when content is blank. Text stays capped at 1,500
 characters, with an ellipsis when shortened and whole words where possible.
 Verge ad configuration and GameSpot navigation are removed before excerpting.
-Hacker News submissions without text fetch publisher article/main, named research
-abstracts, e-content bodies or MediaWiki prose (1,500 characters), excluding footers.
+Hacker News fetches article/main, abstract, e-content, article-template or MediaWiki
+prose for submissions without text (1,500 characters), excluding footers.
 
 ## The steps in one line each
 

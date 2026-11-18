@@ -149,3 +149,13 @@
 - Updated source inventory/tasks; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,101 unit/330 integration tests, four expected skips). Handbook passes (19 pages/39 tables). Logs /tmp/2687-*.log. Commit/push and API/worker restart follow.
 - Next: natural Nov 18 Tech candidate-share and reader-depth acceptance after 15:00 UTC; retention at 04:40 UTC. Existing edition remains immutable.
+
+## 2026-11-18: iteration 2688 — collect explicit article-template evidence
+
+- Clean main at 9f9eb9ac; no inherited work. Alerts clear, health and source/job checks pass; outside protected hours. No paid calls, budget/provider/flag changes or edition regeneration.
+- Read current public Tech: Apple/China remain one sentence and Optimizely remains an HN allegation. Found another collection cause: Claude.dev verification reporting is in a data-tpl article with a named prose body, unsupported by the extractor.
+- Added scoped article-template extraction requiring its heading and exact body/prose markers. Related posts, outside prose and partial class matches excluded; existing article precedence and 1,500-character cap retained.
+- Fresh shared-client HTTP 200 returns 105,652 bytes; blank saved candidate repaired 0 → 1,500 characters. Exact ID/text reread passes. Receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; local /tmp/2688-saved.json.
+- Recorded publisher paragraphs and layout/precedence cases pass 15/15. Source inventory and affected handbook page updated; no schema/UI/diagram change. Public HTTPS Chromium reader passes five topics/25 stories/20 posts.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,103 unit/330 integration tests, four expected skips). Affected-page handbook passes (19-page inventory/one diagram/39 tables); first full attempt hit HTTP 429, owner-services retry caught a 101-line page, shortened and passed. Logs /tmp/2688-*.log.
+- Next: natural Nov 18 Tech share/depth acceptance after 15:00 UTC; retention at 04:40 UTC. Commit/push and API/worker restart follow successful checks.

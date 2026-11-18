@@ -1,0 +1,68 @@
+<div data-tpl="article">
+  <h1>How the Claude Code team thinks about verification</h1>
+  <div class="prose" id="body">
+    <section
+      class="art-section"
+      data-reveal=""
+      style="--reveal-delay: 0.1s"
+      id="how-the-claude-code-team-thinks-about-verification-s0"
+    >
+      <p>
+        On the Claude Code team, the vast majority of our code (~90%) is written
+        and
+        <a href="https://claude.dev/blog/solving-code-review-at-anthropic/"
+          >reviewed by Claude</a
+        >. At this scale, how we equip our agents to verify their work with
+        evidence becomes extremely important.
+      </p>
+      <p>
+        Verification loops are the building block that lets you delegate more
+        work to Claude. Without them, you can really only run one or two Claudes
+        at a time, because you have to check everything yourself. With them, you
+        can run dozens or hundreds in parallel.
+      </p>
+      <p>
+        That’s because giving agents a
+        <a
+          href="https://claude.com/blog/building-verification-loops-in-claude-code-with-skills"
+          >way to verify their output</a
+        >
+        is an effective way to improve quality. In internal testing around
+        structured file generation, having a separate grader check Claude’s work
+        against a rubric
+        <a href="https://claude.com/blog/claude-managed-agents"
+          >improved task success by up to 10 points</a
+        >
+        over a standard prompting loop, with the largest gains on the hardest
+        problems.
+      </p>
+      <p>
+        What was once expensive to verify (tests, benchmarks, specs, real
+        end-to-end runs) is now cheap to request from an agent. Like code,
+        agents can quickly generate tests, benchmarks, and specs. And once
+        generated, these tests and benchmarks run as software so they can be run
+        frequently without using many additional tokens.
+      </p>
+      <p>
+        You can also close the verification loop by using the results to improve
+        the agent’s performance on that task. For example, if an agent
+        repeatedly fails a test that checks logs for user data, you can create a
+        hook or a more explicit rule in your CLAUDE.md to avoid future issues.
+        This (mostly) stops issues from happening again.
+      </p>
+      <p>
+        So if verification is critical to producing quality code at a high
+        velocity, what types of tests should you use and how should you apply
+        them across your pipeline? This article answers those questions and also
+        shares the process used by the Claude Code team.
+      </p>
+    </section>
+  </div>
+  <section>
+    <p>
+      Related posts promotion. Related posts promotion. Related posts promotion.
+      Related posts promotion. Related posts promotion. Related posts promotion.
+      Related posts promotion. Related posts promotion.
+    </p>
+  </section>
+</div>

@@ -45,3 +45,18 @@ extractor; both remain empty. No access workaround or edition regeneration.
 The latest public Tech section still includes one-sentence Apple/China summaries
 and the Optimizely HN allegation; these repairs enrich the next candidate pool,
 not that immutable edition. Natural share/depth acceptance remains pending.
+
+## Article-template collection repair — iteration 2688
+
+The Claude.dev verification post uses `data-tpl="article"` with a heading and a
+nested `#body.prose`, rather than article/main. Collection now recognizes that
+explicit structure and reads only its body, excluding related posts.
+
+| Candidate                                                                                               | Before | After | Retained detail                                                      |
+| ------------------------------------------------------------------------------------------------------- | -----: | ----: | -------------------------------------------------------------------- |
+| [Claude Code verification](https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/) |      0 | 1,500 | Verification loops, separate grading and reported task-success gains |
+
+An ordinary shared-client HTTP 200 returned 105,652 bytes. Blank-only update of
+stored ID `1f4a5def-0ddd-416f-bf1d-55745900fbd9` was reread and matched exactly.
+The previous edition stays unchanged; natural candidate-share/depth acceptance
+remains after 15:00 UTC. No paid calls, access workaround or budget change.

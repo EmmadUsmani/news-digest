@@ -3552,7 +3552,7 @@ paragraphs within an HTML article, or after the page heading inside main, are
 retained (1,500-character cap); navigation,
 scripts and page headers/footers are removed. Existing submission text wins.
 Blocked pages are not bypassed and do not discard the HN item. Pages without
-an article or a main section with a heading remain empty; no comments or
+a recognized reporting container remain empty; no comments or
 title-only substitute is used.
 
 Live Nov 18 verification collected 20 HN stories: saved excerpts rose from 2/19
@@ -3590,3 +3590,9 @@ Tencent Hy4 Flash returns only an application shell; no reporting was retained.
 Iteration 2687 recovered four additional blank saved HN excerpts (5,402
 characters): Mem shutdown, lend workflow and two opinion posts. Exact stored
 text verified; collection behavior unchanged. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#additional-saved-candidates--iteration-2687).
+
+Iteration 2688 supports explicit `data-tpl="article"` templates with a heading
+and a `#body.prose` container. Claude.dev’s verification post returns shared-client
+HTTP 200; its saved empty excerpt now contains 1,500 characters of verification
+reporting. Related posts stay outside the selected body. Exact saved text verified;
+recorded fixture tests remain offline. Scheduled Tech acceptance is pending.
