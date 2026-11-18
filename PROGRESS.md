@@ -141,3 +141,14 @@
 - Verification: targeted grouping evaluation tests 20/20; pnpm exec tsx /tmp/2779-live.ts matches both live groups and all ten IDs/URLs/titles to the fixture.
 - pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,130 unit/330 integration tests, four expected skips. Logs /tmp/2779-{format,lint,check,build}.log.
 - Rebuilt API/worker/docs restarted active; post-restart health, alerts and /healthz pass; saved reader unchanged. Next: scheduled NBA editing and U.S./Tech/World acceptance; independent grouping labels/semantic evaluation still open. No paid calls.
+
+## 2026-11-18: iteration 2780 — compare every topic’s social picks with selected stories
+
+- Clean main at 8e670ae2; no inherited work. Initial alerts/health/38 monitored sources healthy; Destructoid remains paused.
+- Reader weakness: Gaming repeats WoW’s 15-year weekly-player milestone in both a selected story and Holly Longdale’s X post, consuming another slot with the same news.
+- Removed the topic whitelist from bounded selected-story context. Gaming, World and future topics now receive the existing comparison in both initial X and later Bluesky selection; guidance and story-evidence boundaries unchanged.
+- Exact saved Gaming milestone story/post and distinct CONTROL Resonant nomination retained. Both offline model/platform routes verify context transport and cache reuse; hand-authored outputs do not establish semantic compliance. Scheduled acceptance remains open.
+- No prompt, model/provider, cap or published-edition change; no UI change, publisher requests or paid calls. Updated TASKS/RANKING and affected handbook page.
+- Verification: targeted tests 27/27; pnpm format, pnpm lint:fix, pnpm check (1,131 unit/330 integration passes, four expected skips), pnpm build and scoped handbook check pass. Logs /tmp/2780-{format,lint,check,build,handbook}.log.
+- Rebuilt API/worker/docs restarted active. Immediate health probe raced startup; retry health/alerts and /healthz pass. Exact live fixture reread passes; saved edition remains cd357e84, five topics/25 stories/19 posts.
+- Next: one scheduled daily review checks NBA editing and Tech/World/U.S./Gaming selection acceptance; independent grouping evaluation remains open. No further prompt stacking or per-publisher recovery.

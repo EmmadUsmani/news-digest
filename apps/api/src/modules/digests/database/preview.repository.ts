@@ -604,7 +604,7 @@ export class PostgresPreviewRepository
                   )
                 : [];
             postCandidates.push(...redditPosts);
-            const coveredStories = socialStoryContext(topic.name, stories);
+            const coveredStories = socialStoryContext(stories);
             const postSelection = await editTopicPosts(
               editorialServices,
               {

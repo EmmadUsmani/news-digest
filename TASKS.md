@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2780: saved Gaming WoW milestone repeats its selected story; selected-story comparison now reaches every topic, removing the topic whitelist in both social routes. Exact milestone/distinct nomination controls pass offline; scheduled selection acceptance pending.
+
 - [x] 2778: Nov 18 U.S. Peltola Bluesky post repeats a selected story because story comparison was limited to Tech/NBA. U.S. now receives the same bounded context in both social routes; saved overlap/distinct stock-trading control and both model routes pass offline. Natural selection acceptance pending.
 
 - [x] 2777: saved World E1 significance implies sanctions influenced the delay despite the supplied diplomatic denial. Shared editor guidance preserves material denials across summary/significance/brief and distinguishes chronology from causation; exact saved evidence and complete-denial control pass both offline model routes. Scheduled semantic acceptance pending.

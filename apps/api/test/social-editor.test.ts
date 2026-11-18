@@ -1075,7 +1075,7 @@ void test('saved U.S. election overlap and distinct stock-trading post receive s
     ),
   );
   const usTopic = { ...topic, id: 'us', name: 'U.S. news & politics' };
-  const covered = socialStoryContext(usTopic.name, [saved.story])!;
+  const covered = socialStoryContext([saved.story]);
   assert.equal(covered.length, 1);
   for (const platform of ['x', 'bluesky'] as const) {
     for (const refuse of [[], ['claude-sonnet-5-5']]) {
@@ -1119,6 +1119,74 @@ void test('saved U.S. election overlap and distinct stock-trading post receive s
       assert.match(h.calls[0].instructions, /distinct substantive development/);
       assert.deepEqual(
         await h.editor.edit(usTopic, input, 2, 'us-cached', [], covered),
+        result,
+      );
+      assert.equal(h.calls.length, 1);
+    }
+  }
+});
+
+void test('saved Gaming milestone overlap and distinct nomination receive selected stories on both model and platform routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/gaming-social-story-overlap-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const gamingTopic = { ...topic, id: 'gaming', name: 'Gaming' };
+  const covered = socialStoryContext([saved.story]);
+  for (const platform of ['x', 'bluesky'] as const) {
+    for (const refuse of [[], ['claude-sonnet-5-5']]) {
+      // Hand-authored output verifies context transport, not model compliance.
+      const h = harness(
+        [
+          {
+            posts: [
+              {
+                id: 'distinct',
+                whyItMatters: '',
+                rationale:
+                  'CONTROL Resonant has been nominated in six categories in The Game Awards, including Game of the Year.',
+              },
+            ],
+          },
+        ],
+        refuse,
+      );
+      const input = [
+        { ...candidates[0], ...saved.overlappingPost, id: 'overlap', platform },
+        { ...candidates[0], ...saved.distinctPost, id: 'distinct', platform },
+      ];
+      const result = await h.editor.edit(
+        gamingTopic,
+        input,
+        2,
+        'gaming-overlap',
+        [],
+        covered,
+      );
+      assert.deepEqual(
+        result?.posts.map((p) => p.id),
+        ['distinct'],
+      );
+      const prompt = JSON.parse(h.calls[0].prompt);
+      assert.deepEqual(prompt.coveredStories, covered);
+      assert.equal(prompt.candidates[0].text, saved.overlappingPost.text);
+      assert.equal(prompt.candidates[1].text, saved.distinctPost.text);
+      assert.match(h.calls[0].instructions, /comparison context only/);
+      assert.match(h.calls[0].instructions, /distinct substantive development/);
+      assert.deepEqual(
+        await h.editor.edit(
+          gamingTopic,
+          input,
+          2,
+          'gaming-cached',
+          [],
+          covered,
+        ),
         result,
       );
       assert.equal(h.calls.length, 1);

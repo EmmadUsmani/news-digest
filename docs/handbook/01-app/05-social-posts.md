@@ -41,7 +41,7 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech, NBA and U.S. X selection also compare selected news: overlapping posts need a distinct development or original contribution. NBA game results, overtime reactions,
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. All topics’ X selections also compare selected news: overlapping posts need a distinct development or original contribution. NBA game results, overtime reactions,
 streaks and player stat lines share one game slot; separate contracts, consequential
 trades and serious injuries can qualify on their own supplied news. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
 
@@ -67,7 +67,7 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   fills the topic's remaining post slots, with one qualifying Bluesky post
   allowed to replace the last-ranked X pick. It skips posts that repeat an X moment; extra awards for the same winning work at
   one ceremony add detail, while separate releases can qualify. Link lists and URL slugs
-  alone supply no news. Tech, NBA and U.S. compare selected news stories too: overlapping posts
+  alone supply no news. All topics compare selected news stories too: overlapping posts
   need a distinct development or original contribution.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.

@@ -3538,3 +3538,18 @@ membership retains all positives without cross-event merges across 34 sampled
 orders; broad merge and all-separate controls fail their respective labels.
 These agent labels test membership evaluation, not the semantic model. Production
 grouping, prompts and the published edition are unchanged.
+
+## All-topic story/post comparison (iteration 2780)
+
+The Nov 18 Gaming story and Holly Longdale X post both report WoW’s highest
+weekly player count in 15 years. Gaming was excluded from selected-story
+comparison, as was World. Removed that topic whitelist: every topic now supplies
+the same bounded ten titles/summaries to both X and Bluesky selection. The
+existing distinct-development guidance and source-evidence separation apply.
+
+`gaming-social-story-overlap-2026-11-18.json` retains the exact saved milestone
+story/post and the distinct CONTROL Resonant nomination. Offline Sonnet/Haiku
+and X/Bluesky route checks verify context transport and validated cache reuse.
+Hand-authored outputs establish neither semantic compliance nor natural
+selection acceptance; check the next scheduled edition. No paid replay, prompt
+change, budget change or published-edition mutation.
