@@ -3710,3 +3710,9 @@ recover three saved blank HN README excerpts: OpenTodo, VennDB and WINUDF
 (4,493 characters). Blank-only writes and independent exact rereads pass.
 No new source, paid call or regeneration.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#task-database-and-legacy-driver-context--iteration-2709).
+
+Iteration 2710: ordinary RansomNews HTTP 200 and deployed extraction recovered
+one blank saved HN excerpt about Bitly link hijacks (1,500 characters).
+Publisher's November 15 updates retain attribution; exact saved ID/text verified.
+No source added, paid call or edition regeneration.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#bitly-link-hijack-reporting--iteration-2710).

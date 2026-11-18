@@ -205,3 +205,13 @@
 - Public HTTPS Chromium reader passes with 25 stories; recovery receipt/sources/tasks updated. No handbook behavior change.
 - Verification: pnpm format, pnpm lint:fix and pnpm build pass; pnpm check passes: 1,113 unit/330 integration tests, four expected skips. Logs /tmp/2709-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2710 — recover Bitly incident reporting
+
+- Clean main at b8275be3; no inherited work. Alerts/health/services/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Public HTTPS Chromium reader passes with 25 stories; Tech Apple/China summaries remain thin. Recovered another blank saved HN candidate using deployed extraction.
+- Ordinary RansomNews HTTP 200: Bitly link-hijack report 0 → 1,500 characters. Complete excerpt reviewed before blank-only write; independent exact ID/full-text reread passes (/tmp/2710-saved.json).
+- Attributed Bitly confirmation and dated link checks are November 15 updates, not a new November 18 incident. Jolt and HN Trends stay blank without scoped reporting.
+- No code/schema/UI changes, paid calls, provider/budget changes or edition regeneration. Recovery receipt/sources/tasks updated; no handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,113 unit/330 integration tests, four expected skips. Logs /tmp/2710-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

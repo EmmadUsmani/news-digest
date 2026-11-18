@@ -402,3 +402,16 @@ characters; PostgreSQL counts VennDB's emoji as one character). README features,
 benchmark claims and release notes remain project assertions. No collection
 code change, paid calls or edition regeneration. Public Tech still has thin
 Apple/China summaries; scheduled Nov 18 share/depth acceptance remains pending.
+
+## Bitly link-hijack reporting — iteration 2710
+
+Ordinary shared-client HTTP 200 and deployed extraction recovered the saved
+[RansomNews report](https://ransomnews.com/burger-king-tweet-bitly-link-hijack-2026/)
+`d8de76b3-97c9-47e9-b63e-ba4a052459eb`: 0 → 1,500 characters.
+The complete excerpt was reviewed before a blank-only update; independent
+exact ID/full-text reread passes (`/tmp/2710-saved.json`). Reporting includes
+Bitly's attributed confirmation, suspended accounts and dated link checks.
+These are the publisher's November 15 updates, not a fresh November 18 incident.
+Jolt lacks scoped reporting; HN Trends also returns no extractable reporting.
+No collection code change, paid call or edition regeneration. Public Tech
+still has thin summaries; scheduled share/depth acceptance remains pending.
