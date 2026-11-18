@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2727: Recover saved Qwen conversation-state experiment and AI coding opinion publisher context (3,000 characters); blank-only writes and exact ID/full-text rereads pass 2/2.
+
 - [x] 2726: Collect title-matched book chapters from their introduction; 3D modeller excerpt 0 → 1,500 characters, exact ID/full-text reread passes.
 
 - [x] 2725: Recover saved Lonewolf 0.3 release notes and Zig/C systems-programming opinion (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.

@@ -218,3 +218,16 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix` and handbook check pass (19 pages/39 tables); `pnpm check` passes: 1,117 unit/330 integration tests, four expected skips. Logs `/tmp/2726-*.log`.
 - No paid calls, cap changes or edition regeneration. Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
 - Commit/push and API/worker restart follow final formatting/lint; post-restart health and public-reader output will be retained in `/tmp/2726-post-reader.log`.
+
+## 2026-11-18: iteration 2727 — recover conversation visualization and AI opinion
+
+- Clean main at 7e8e222b; no inherited work. Alerts/health and source snapshot pass; scheduled digest zero failures, next 15:00 UTC.
+- Public Chromium reader renders five topics/25 stories; Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered saved Qwen conversation-state experiment and AI coding opinion excerpts (3,000 characters).
+- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2727-saved.json`). Author experiment/opinion attribution retained.
+- Quanta extraction includes a promotional lead-in; left unchanged rather than storing it in this step.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,117 unit/330 integration tests, four expected skips. Logs `/tmp/2727-*.log`.
+- Handbook rendered 19 pages/21 diagrams then schema read hit HTTP 429; filtered retry passes 19 pages/39 tables after restart. No handbook changes.
+- API/worker restarted; health database/Redis pass; public Chromium reader still renders five topics/25 stories. Commit/push follow final formatting/linting.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

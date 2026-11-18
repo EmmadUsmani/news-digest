@@ -660,3 +660,17 @@ Saved item `9a3525bb-d20b-4a54-8ebc-62d730092325`: 0 → 1,500 characters.
 Exact stored-ID/full-text reread passes (`/tmp/2726-saved.json`). Regression
 covers promotion/bio/footnote exclusion and missing/mismatched chapter markers.
 No paid calls, budget changes or edition regeneration.
+
+## Conversation visualization and AI coding opinion — iteration 2727
+
+Ordinary shared-client HTTP 200 responses recovered blank saved HN excerpts
+for [Qwen conversation visualization](https://operator0x.com/field-notes/qwen-conversation-state-space/)
+and [AI coding opinion](https://coyotetracks.org/blog/right-amount-of-ai/).
+Each changed from zero to 1,500 characters. Complete passages reviewed before
+blank-only writes; exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2727-saved.json`). The first describes the author's Qwen3-1.7B
+last-layer visualization of 900 English conversations; the second remains
+personal opinion about AI-assisted software. Quanta's accessible page yields
+a promotional lead-in and was left unchanged in this step.
+No collection behavior, paid call, budget or immutable edition changed.
+Scheduled Tech depth acceptance remains pending after 15:00 UTC.
