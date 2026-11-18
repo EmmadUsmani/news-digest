@@ -76,7 +76,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v12/);
+  assert.match(h.calls[0].instructions, /Social editor v13/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -1191,5 +1191,56 @@ void test('saved Gaming milestone overlap and distinct nomination receive select
       );
       assert.equal(h.calls.length, 1);
     }
+  }
+});
+
+void test('saved clipped X posts retain visible evidence and request clipping is explicit on both routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        '../../../docs/edition-reviews/2026-11-18-bluesky-selection.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  );
+  const texts = saved.topics
+    .flatMap((t: { otherPostTexts: { text: string }[] }) => t.otherPostTexts)
+    .map((p: { text: string }) => p.text)
+    .filter((text: string) => /… pic\.twitter/.test(text));
+  assert.equal(texts.length, 2);
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    const h = harness([{ posts: [] }], refuse);
+    const input = [
+      ...texts,
+      'A complete reported opening. ' + 'Additional context. '.repeat(100),
+    ].map((text, i) => ({
+      ...candidates[0],
+      id: `clip${i}`,
+      platform: 'x' as const,
+      text,
+    }));
+    await h.editor.edit(topic, input, 3, 'clipped');
+    const wire = JSON.parse(h.calls[0].prompt).candidates;
+    assert.deepEqual(
+      wire.slice(0, 2).map((c: { text: string }) => c.text),
+      texts,
+    );
+    assert.ok(wire.slice(0, 2).every((c: object) => !('textTruncated' in c)));
+    assert.equal(wire[2].text.length, 1200);
+    assert.equal(wire[2].textTruncated, true);
+    assert.equal(input[2].text.length > 1200, true);
+    assert.match(
+      h.calls[0].instructions,
+      /never complete the missing claim, quotation or qualification/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /complete substantive opening can qualify/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /Do not infer what follows a trailing negation/,
+    );
   }
 });

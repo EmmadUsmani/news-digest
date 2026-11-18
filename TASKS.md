@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2784: Social editor treats clipped quotations/claims as incomplete evidence and marks request-shortened candidate text explicitly; two exact saved X texts and a long control pass offline Sonnet/Haiku transport checks. Full stored/display text retained; scheduled semantic acceptance pending.
+
 - [x] 2783: Feed collection removes inline image-and-caption-only figures before excerpt truncation; recorded Yahoo NBA caption disappears and more reporting fits, with image/destination retained. Stored editions unchanged; scheduled NBA AI acceptance pending.
 
 - [x] 2782: Reader fallback drops unfinished trailing sentences when substantial source text remains; exact saved Warriors/Hawks cases retain omission marks and original links. Saved evidence and AI summaries unchanged; NBA AI acceptance remains pending.

@@ -185,3 +185,14 @@
 - Verification: pnpm format/lint:fix, typecheck, boundaries, 1,134 unit tests, build and scoped handbook check pass. Initial integration run has one stale inline-caption expectation (329 pass/four skips); updated expectation and targeted rerun pass. Fresh full isolated integration rerun passes 330 tests/four expected skips; final spacing target, API rebuild and changed-file lint pass. Logs /tmp/2783-*.log.
 - API/worker/docs rebuilt and restarted. Startup retry /healthz, obs health and alerts pass; exact saved Warriors/Hawks excerpts reread unchanged. No UI change or new screenshot.
 - Updated TASKS, affected data-model handbook, SOURCES and item 42 ack. Next: scheduled NBA AI editing and Tech/World/U.S./Gaming acceptance; Destructoid access and @PS_Support_US authenticity remain unresolved.
+
+## 2026-11-18: iteration 2784 — make clipped social evidence explicit
+
+- Clean main at 2fca20b1; no inherited work. Initial alerts and /healthz clear; monitored sources healthy, Destructoid paused.
+- Owner value: saved Curry/Thune X posts end mid-quotation or after a negation; an editor must judge the visible development without completing missing claims. Request text also silently cut at 1,200 characters.
+- Social editor v13 explicitly preserves attribution/uncertainty and permits substantive complete openings, while refusing to infer missing endings. Request-shortened candidates now carry textTruncated; full stored/display text retained.
+- Offline exact saved pair and long synthetic control pass transport checks through Sonnet and capped Haiku (27 targeted tests). Scripted outputs do not prove semantic improvement; next scheduled selection acceptance pending.
+- Updated TASKS, RANKING, affected social handbook and item 42 ack. No paid calls, provider/budget changes, source changes or immutable-edition mutation; no UI change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,135 unit/330 integration passes, four expected skips), pnpm build, scoped check-handbook.ts and git diff --check pass. Logs /tmp/2784-*.log; no diagram/UI changes.
+- Rebuilt API/worker/docs restarted active; first immediate health probe hit startup, retry pnpm obs health --check and /healthz pass; alerts clear. Sources check healthy (38 monitored including inactive Destructoid); digest queue zero failures, next scheduled Nov 19 15:00 UTC.
+- Next: scheduled NBA editing and Tech/World/U.S./Gaming/social selection acceptance. Destructoid access and @PS_Support_US authenticity remain unresolved.

@@ -1556,6 +1556,8 @@ changed, and why a reader would notice. The ack reports the same in one line.
 **Limits:** no new spend, vendors or product features. Budgets, the
 13:00–16:00 UTC window and edition protection still apply.
 
+ack: 2026-11-18 item 42 — iteration 2784: saved Curry/Thune X text ends mid-quotation or after a negation. Social editor now explicitly judges complete visible claims and never completes missing endings; request-capped text is marked. Full reader text retained; offline transport passes both model routes, scheduled semantic acceptance pending.
+
 ack: 2026-11-18 item 42 — iteration 2783: NBA feed prose includes inline photo captions, displacing reporting. Collection now omits image-and-caption-only figures anywhere in the article; recorded live Yahoo comparison retains lead image and destination while replacing caption space with reporting. Stored edition unchanged.
 
 ack: 2026-11-18 item 42 — iteration 2782: saved NBA fallback excerpts ended in dangling “AP…” and “during Sunday’s…”. Reader fallback now prefers a complete sentence when substantial reporting remains, keeping the omission mark and original destination; saved evidence and AI text unchanged.

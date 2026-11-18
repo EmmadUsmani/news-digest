@@ -3553,3 +3553,18 @@ and X/Bluesky route checks verify context transport and validated cache reuse.
 Hand-authored outputs establish neither semantic compliance nor natural
 selection acceptance; check the next scheduled edition. No paid replay, prompt
 change, budget change or published-edition mutation.
+
+## Clipped social evidence (iteration 2784)
+
+The Nov 18 Curry and Thune X texts end mid-quotation or after a negation,
+followed by media links. Social editor v13 explicitly treats these endings as
+incomplete evidence, preserving a substantive complete opening when available.
+It must not infer missing claims, qualifications or quotation endings. The
+existing 1,200-character request cap now marks shortened candidates with
+`textTruncated: true`; full stored/display text is unchanged.
+
+Offline tests transport both exact saved texts unchanged through Sonnet and
+budget-fallback Haiku, check explicit marking of a longer synthetic control,
+and verify guidance reaches both routes. Scripted empty outputs do not prove
+semantic selection quality. Scheduled acceptance remains pending; no paid
+replay, budget change or edition mutation.
