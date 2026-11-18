@@ -2,60 +2,7 @@
 
 [Iterations 2717–2720](docs/progress-archive/2026-11-18-iterations-2717-2720.md).
 
-## 2026-11-18: iteration 2721 — recover offline music, remote editor and lighting context
-
-- Clean main at 77eb5be0; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
-- Read public Tech: Apple and China summaries remain thin; natural depth acceptance remains pending.
-- Ordinary shared-client HTTP 200 publisher responses recovered blank offline music-player, FreeBSD Zed and room-lighting HN excerpts (1,500 characters each).
-- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 3/3 (`/tmp/2721-saved.json`). Personal experience retains author attribution.
-- No code/schema/UI, paid calls, budget changes or edition regeneration. Sources/receipt/tasks updated; archived progress entries 2700–2709 to keep orientation small.
-- Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm build` passes. `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2721-*.log`. Commit/push and API/worker restart follow checks.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2722 — recover smartwatch and JEPA research context
-
-- Clean main at e39fac06; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
-- Owner value: two more real Tech candidates now carry publisher evidence for deeper scheduled summaries.
-- Public Chromium reader shows five topics/25 stories; Apple and China summaries remain thin, scheduled acceptance pending.
-- Ordinary shared-client HTTP 200 responses recovered Cornell smartwatch research and JEPA experiment excerpts (1,500 characters each).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2722-saved.json`). Clipboard-security URL returned 404; unchanged.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2722-*.log`. Commit/push and API/worker restart follow checks.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2723 — recover shell queues, placenta and search-join context
-
-- Clean main at a8157650; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
-- Read public Tech in Chromium: Apple and China summaries remain thin; five topics/25 stories render.
-- Ordinary shared-client HTTP 200 publisher responses recovered three blank saved HN excerpts (4,500 characters).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 3/3 (`/tmp/2723-saved.json`). Mouse species and vendor benchmark attribution preserved.
-- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2723-*.log`. Commit/push and API/worker restart follow checks.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2724 — recover Haskell technical-vision context
-
-- Clean main at 8af340dd; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
-- Read public Tech in Chromium using public DNS resolution: five topics/25 stories; Apple and China summaries remain thin. VM-local hostname resolves to the VM rather than HTTPS proxy.
-- Ordinary shared-client HTTP 200 recovered the blank Haskell technical-vision HN excerpt (1,500 characters), scoped to its opening announcement.
-- Complete passage reviewed before blank-only write; exact stored-ID/full-text reread passes 1/1 (`/tmp/2724-saved.json`).
-- Z80 page has only 221 extracted characters; unchanged. Semicircle packing has matching title but unrelated GPU contest prose in publisher body/metadata; rejected and left blank.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2724-*.log`. Commit/push and API/worker restart follow checks.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
-
-## 2026-11-18: iteration 2725 — recover federation release and Zig/C context
-
-- Clean main at 47dab16e; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
-- Owner value: two more saved Tech candidates now provide publisher evidence for deeper scheduled summaries.
-- Public Chromium reader renders 25 stories; published Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered Lonewolf 0.3 release notes and Zig/C opinion excerpts (3,000 characters).
-- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2725-saved.json`). Pre-1.0 limitations and author opinion preserved.
-- 3D modeller chapter returns HTTP 200 but uses sibling titlebox/banner/body containers; extractor returns empty. Left blank; future scoped-container support is available work.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Handbook check passes (19 pages/39 tables). Logs `/tmp/2725-*.log`.
-- API/worker restarted; health database/Redis pass; public Chromium reader renders 25 stories after restart. Commit/push follow final formatting and linting.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+[Iterations 2721–2725](docs/progress-archive/2026-11-18-iterations-2721-2725.md).
 
 ## 2026-11-18: iteration 2726 — collect scoped book-chapter evidence
 
@@ -204,3 +151,13 @@
 - Next: NBA validation-response recovery and offline reproduction after 16:00 UTC; no separate review commit for this edition.
 - Initial push rejected (remote advanced to owner b5449b18). Merged without rewriting history; preserved owner item 67 and lead-owned file unchanged, resolving only appended steering text.
 - New item 67 replaces Tech recovery: one three-day cause table/general fix/bounded backfill after 16:00 and NBA breakage; recorded in TASKS. Prior item 66 daily acceptance does not complete item 67.
+
+## 2026-11-18: iteration 2768 — reproduce NBA validation exhaustion offline
+
+- Clean main at 23b577a4; no inherited work. Initial alert snapshot clear; previous metrics/backup alerts resolved without intervention. Health passes; 14 services/38 monitored sources healthy.
+- After 16:00 UTC, recovered all four exact private NBA request/response artifacts from Nov 18. No provider, cache, ledger, database or publication writes.
+- `pnpm exec tsx /tmp/2768-nba-diagnosis.ts` asserts retained-response count and reproduces recorded first field/category 4/4 using production absence guard; seven failed story fields found.
+- Sonnet initial: supported Brown injury paraphrase in significance violates complete-negative-sentence rule. Remaining attempts: Curry negative headline paraphrases; three summaries also shorten/change the full source sentence.
+- Edition review records exact wording, source sentence, and next bounded regression work. Guard/prompt unchanged; no paid replay, budget change, generation or deployment.
+- Verification: `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,120 unit/330 integration passes, four expected skips; logs `/tmp/2768-{format,lint,check}.log`. Documentation-only; no rebuild/restart needed, running app unchanged.
+- Next: pin retained NBA failures and verify bounded correction before Tech item 67 cause table/general fix/backfill. Destructoid remains blocked; no access workarounds.
