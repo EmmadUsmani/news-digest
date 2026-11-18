@@ -71,6 +71,9 @@ Collection does not fetch linked article pages.
   two reports from the same cluster, preferring direct publisher excerpts over
   Google News snippets, with separate publisher names.
   Cited reports are copied into the immutable edition with the same bounded text.
+  The optional `TECH_STORY_ADMISSION=1` switch reserves two of the ten editor
+  candidates for the highest-importance scored events after successful grouping;
+  it defaults off. Failed grouping or triage keeps the usual ranking.
   Private snapshots retain the prepared editor candidate prompt, including
   unselected reports, for later review. Public reader responses omit it.
 - **Story composition:** the editor keeps separate developments in separate

@@ -58,6 +58,7 @@ async function harness(
     disabled?: boolean;
     supporting?: boolean;
     grouping?: boolean;
+    admission?: 'validated' | 'unavailable';
     tech?: boolean;
     politics?: boolean;
     hardExcluded?: boolean;
@@ -76,6 +77,8 @@ async function harness(
   const repository = new PostgresPreviewRepository();
   await repository.db.end();
   const stored: unknown[] = [];
+  let preparedGroupingCalls = 0;
+  let legacyGroupingCalls = 0;
   let editors = 0;
   let releaseEditors: () => void = () => {};
   const editorsReady = new Promise<void>((resolve) => {
@@ -249,6 +252,12 @@ async function harness(
                 )
               : options.grouping || options.politics
                 ? {
+                    async groupWithResult() {
+                      preparedGroupingCalls++;
+                      return options.admission === 'validated'
+                        ? { status: 'validated', groups: [[id, support.id]] }
+                        : { status: 'unavailable', reason: 'no-result' };
+                    },
                     async assignTopics(scopes: { id: string }[]) {
                       return [
                         { topicId: scopes[0].id, ids: [support.id] },
@@ -260,6 +269,7 @@ async function harness(
                       items: { id: string }[],
                       runId: string,
                     ) {
+                      legacyGroupingCalls++;
                       assert.equal(items.length, 2);
                       assert.ok(runId);
                       return [items.map((item) => item.id)];
@@ -275,7 +285,10 @@ async function harness(
                 }
                 assert.equal(
                   shortlist.length,
-                  options.supporting && !options.grouping && !options.politics
+                  options.admission === 'unavailable' ||
+                    (options.supporting &&
+                      !options.grouping &&
+                      !options.politics)
                     ? 2
                     : 1,
                   'Semantic relevance recovers lexical false negatives',
@@ -287,7 +300,11 @@ async function harness(
                     ? (shortlist[0] as { clusterEvidence: { id: string }[] })
                         .clusterEvidence
                     : null;
-                  if (options.tech) assert.equal(members?.length, 2);
+                  if (options.tech)
+                    assert.equal(
+                      members?.length,
+                      options.admission === 'unavailable' ? 1 : 2,
+                    );
                   return {
                     ...edit,
                     stories: [
@@ -352,6 +369,10 @@ async function harness(
     ),
   );
   assert.deepEqual(stored, [snapshot]);
+  if (options.admission) {
+    assert.equal(preparedGroupingCalls, 1);
+    assert.equal(legacyGroupingCalls, 0);
+  }
   assert.ok(calls.includes('COMMIT'));
   return snapshot;
 }
@@ -526,6 +547,31 @@ void test('production publication withholds politics stories on ownership/triage
           topic.editorial?.reason?.includes('ownership unavailable'),
       ),
     );
+  }
+});
+
+void test('Tech admission runtime switch reaches explicit grouping through production publication', async () => {
+  const previous = process.env.TECH_STORY_ADMISSION;
+  process.env.TECH_STORY_ADMISSION = '1';
+  try {
+    for (const admission of ['validated', 'unavailable'] as const) {
+      const snapshot = await harness({
+        supporting: true,
+        grouping: true,
+        tech: true,
+        admission,
+      });
+      const topic = snapshot.topics[0];
+      assert.equal(topic.editorial?.mode, 'ai');
+      assert.equal(topic.stories.length, 1);
+      assert.equal(
+        topic.stories[0].coverage.length,
+        admission === 'validated' ? 2 : 1,
+      );
+    }
+  } finally {
+    if (previous === undefined) delete process.env.TECH_STORY_ADMISSION;
+    else process.env.TECH_STORY_ADMISSION = previous;
   }
 });
 

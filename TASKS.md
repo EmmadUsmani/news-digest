@@ -52,7 +52,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: Nov 17 four selected evidence sets empty; existing non-lead evidence transport passes (2638). 2640 recorded offline reservation control covers all 40 eligible articles/21 events: California/Google enter, Windows retained, exactly two displacements; original representatives/coverage preserved. 2644 real ranking/editor transport passes; source-text events rise 1→2, Google/China remain headline-only. Cached boundaries remain provisional. 2654 adds explicit curation grouping status: validated empty membership differs from unavailable/refused/invalid output; legacy publication behavior retained. 2656 adds isolated shortlist preparation; 2657 verifies its validated/unavailable status through recorded admission and editor evidence, with baseline fallback on unavailable grouping; publication is unchanged. 2662 verifies the real budgeted grouping chain: validated membership/empty results survive cache with denied fresh budget; refusal/invalid membership keep baseline admission. 2663 moves the unchanged bounded admission policy into the dependency-free digest domain; recorded controls import that same policy. Next: connect preparation/default-off runtime Tech switch in the next pre-noon deployment window, then natural scheduled acceptance. No admission change. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] Tech depth: 2673 connects validated grouping and the bounded two-event admission policy to publication behind default-off `TECH_STORY_ADMISSION=1`. Recorded 40-article/21-event control and real consumer transport pass; failed grouping/triage keeps baseline. Production remains off. Next: pre-noon activation decision, then natural scheduled reader acceptance. Boundaries remain provisional. See docs/RANKING.md and [detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -64,56 +64,6 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
-- [x] 2672: All 59 original reports beneath 25 published stories preserve saved headlines, destinations, timestamps and publisher labels; expanded lists and keyboard toggles pass 12 reader combinations. No transport defect. [Review](docs/edition-reviews/2026-11-17.md#expanded-original-coverage--iteration-2672).
+- [x] 2673: Connected the Tech admission policy to publication behind a default-off switch; recorded 40-article control and real publication transport cover validated grouping and fallback. Production admission remains unchanged.
 
-- [x] 2671: Due metrics checkpoint passes all rule/query/failure assertions; continued reclaim keeps resource acceptance open, limits unchanged.
-
-- [x] 2670: Saved all 45 real Nov 17 stories/posts; exact bookmark copies, eight explanations and edition fragments pass 12 reader combinations; keyboard removal retains focus. No defect or runtime change. [Review](docs/edition-reviews/2026-11-17.md#saved-item-reader-acceptance--iteration-2670).
-
-- [x] 2669: Preserved the natural 22:54 UTC Bluesky collection; 23 consecutive successful hours/115 matching topic counts, 24-hour windows and expected World rotation verified. Final hour/full-day review pending.
-
-- [x] 2668: Preserved two additional natural Bluesky hourly results before shared retention; all 22 hours/110 topic counts and expected World queries verified. Full-day review remains due after midnight.
-
-- [x] 2667: Accounted for all ten natural U.S. X triage candidates; four qualify, one selected. Omitted qualifiers supply endorsement, unnamed allegation or promotion; no demonstrated stronger qualifying omission, gates retained.
-
-- [x] 2666: Reviewed five natural Bluesky picks against 25 fixed-end candidate texts; retained evidence identifies U.S. standalone-detail weakness and supports keeping selection gates. Full UTC-day review remains due after midnight.
-
-- [x] 2665: Twelve read-only metrics samples through 22:10 UTC pass rule/query/failure checks; continued reclaim keeps resource acceptance open, limits unchanged.
-
-- [x] 2664: Recorded Tech evidence requires explicit triage status; failed/incomplete runs preserve baseline editor evidence with full, partial or empty scores. Runtime unchanged.
-
-- [x] 2663: Promoted the verified bounded Tech admission policy into the digest domain; recorded controls use it directly, with no publication consumer or flag change.
-
-- [x] 2662: Real budgeted grouping reaches recorded Tech admission/evidence; validated cache survives refused fresh budget, invalid/refused grouping keeps baseline. Seven offline controls pass.
-
-- [x] 2661: Google Colab's saved Tech post separates its glued hashtag from the t.co destination; original text and ordinary URL fragments preserved, four reader browser combinations pass.
-
-- [x] 2660: Eight read-only metrics samples through 21:06 UTC pass rule/query/failure checks; continued reclaim keeps resource acceptance open, limits unchanged.
-
-- [x] 2659: Completed Nov 17 NBA original-text/context review: four distinct self-explanatory posts, no supported extra note needed; public-reader transport verified at mobile/desktop in both themes.
-
-- [x] 2658: Preserved the first 20 Nov 17 Bluesky hourly results before shared queue retention; all 100 topic counts match submissions and expected World rotation. Final four hours remain open.
-
-- [x] 2657: Connected prepared grouping to the recorded-only Tech evidence bridge; validated membership preserves the reservation result and unavailable grouping keeps baseline evidence without reservations.
-
-- [x] 2656: Prepared explicit grouping status and membership for the future Tech admission consumer; four offline tests pass, no publication consumer connected.
-
-- [x] 2655: Six read-only metrics recovery samples through 20:01 UTC pass rule/query/failure checks; continued memory reclaim keeps resource acceptance open, limits unchanged.
-
-- [x] 2654: Curation grouping exposes validated/unavailable status without changing publication membership, prompts, calls or budgets; 25 targeted grouping tests pass.
-
-- [x] 2653: Expanded post explanations keep 12px margins at enlarged text; eight real notes remain usable across 18 mobile/desktop, theme and text-size combinations.
-
-- [x] 2652: Removed 68 lines of unused legacy headline/status CSS; archived older completed-task markers. Active reader layout unchanged.
-
-- [x] 2651: Story summary spacing stays at 12px with enlarged text; all 25 published summaries retain enlarged type and usable source links across mobile/desktop, light/dark and 100–300% text.
-
-- [x] 2650: Natural 28-million-row metrics merge verified against prior memory baseline; no new admission/failure events, continued reclaim keeps resource acceptance open.
-
-- [x] 2649: Mobile contents links keep keyboard focus outlines inside the scroll area; real published content passes forward/backward focus and story navigation in 12 browser combinations.
-
-- [x] 2648: Desktop contents links keep their complete keyboard focus outline inside the scroll panel; real published content passes forward/backward focus and story navigation in 12 browser combinations.
-
-- [x] 2647: Long mobile topic chips wrap within their scroll area at enlarged text; keyboard focus reveals the full chip without moving the edition. All five live topics pass 12 browser combinations.
-
-[Earlier completed steps](docs/progress-archive/2026-11-17-completed-tasks-2624-2646.md).
+[Earlier completed steps](docs/progress-archive/2026-11-18-completed-tasks-2647-2672.md).

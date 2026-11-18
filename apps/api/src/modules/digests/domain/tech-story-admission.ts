@@ -1,4 +1,4 @@
-// Bounded Tech admission policy. No publication consumer is connected yet.
+// Bounded Tech admission policy; publication opt-in defaults off.
 export interface AdmissionEvent {
   id: string;
   coverage: readonly { id: string }[];

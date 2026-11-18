@@ -3368,3 +3368,25 @@ validated grouping and a full score set are available. Partial and empty score
 sets also preserve that baseline. The complete-triage control still makes its
 two recorded displacements. This is offline verification; runtime wiring and
 publication behavior are unchanged.
+
+## Default-off Tech publication consumer (iteration 2673)
+
+Publication now uses `storyAdmission` for topics outside the joint World/U.S.
+path. With `TECH_STORY_ADMISSION` absent or different from `1`, or for a
+non-Tech topic, it calls the existing grouping method and ranks the same ten
+events. The switch is not enabled in production.
+
+When enabled for Tech, one explicit-status grouping call replaces the legacy
+call, using the same forty-article pool, run ID, cache and budget. All grouped
+events reach the existing bounded policy; its two reservations preserve event
+representatives, coverage and relative ranking. Unavailable/invalid grouping or
+failed/incomplete triage retains baseline admission. The editor and unedited
+source-excerpt fallback still receive the same grouping matcher.
+
+The recorded forty-article/twenty-one-event control matches the recorded bridge
+exactly, including its two displacements. Tests also distinguish validated empty
+grouping from unavailable output, preserve disabled/non-Tech behavior, and run
+validated/unavailable grouping through the real publication consumer. These
+checks use fixtures and fake ports. They do not accept the recorded boundaries
+or establish improvement in a natural edition. Activation and scheduled reader
+acceptance remain open; no prompts, providers, caps or production flags changed.

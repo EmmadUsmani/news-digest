@@ -183,3 +183,15 @@
 - Evidence: node /tmp/2672-verify.cjs; /tmp/2672-browser.log and /tmp/2672-{services,sources,jobs}.log. First browser attempt needed to wait for the asynchronous details-toggle accessible label; corrected probe waits for it.
 - Verification: pnpm format/lint:fix pass; pnpm check passed typecheck/lint/format/boundaries and 1,083 unit tests, then ended with signal 15 during integration without a failed assertion. Standalone pnpm test:integration passes 329 tests/four expected skips and rebuilds API. API/worker restart after push.
 - Next: final Bluesky/full-day review after midnight; metrics ≥00:20 UTC; Tech runtime wiring before noon. Do not repeat completed coverage transport review absent a reader regression.
+
+## 2026-11-18: iteration 2673 — connect default-off Tech admission
+
+- Clean main at 16c4be47; no inherited work. Alerts clear, 14 monitored services/active sources healthy, health database/Redis pass; disk 73%.
+- Reader value: the prepared two-event reservation can now reach Tech's editor, while the default-off switch protects the existing edition.
+- Added the publication consumer and `TECH_STORY_ADMISSION=1` opt-in; production remains off. Disabled/non-Tech paths preserve the legacy grouping call and exact ten-event ranking.
+- Enabled Tech uses one explicit-status grouping call with the same pool/cache/budget; validated grouping reaches the shared policy. Invalid/unavailable grouping or unsuccessful triage retains baseline. Representatives, coverage and ranking order survive.
+- Recorded 40-article/21-event control matches the evidence bridge, including two displacements; real publication consumer accepts validated grouping and preserves unavailable fallback. No live inference, prompt, provider, cap or source change.
+- Updated the pipeline handbook and ranking notes; archived older completed-task markers to keep orientation shorter. No UI or diagram change.
+- Targeted verification: 22 policy/preparation/evidence/consumer tests and 16 publication tests pass; handbook check passes (19 pages, 39 tables).
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2673-{targeted,publication,handbook,check-final}.log. Initial check exposed an unused rank import, removed before rerun. API/worker restart in the pre-noon window after push.
+- Final Bluesky 23:54 UTC result preserved in /tmp/2673-bluesky-jobs.json; combined with the tracked prior 23 hours, all 24 jobs succeeded. Full-day review remains next. Metrics ≥00:20 UTC; consider Tech activation before noon, then scheduled acceptance.

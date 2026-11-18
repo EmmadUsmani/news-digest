@@ -49,12 +49,12 @@ import {
 } from '../adapters/digest-notifications';
 import { observeEdition } from '../adapters/edition-logging';
 import { editorEvidence } from '../application/editor-evidence';
-import { groupShortlist } from '../application/group-shortlist';
 import { parallelTopics } from '../application/parallel-topics';
 import {
   politicsStories,
   politicsTopicIds,
 } from '../application/politics-stories';
+import { storyAdmission } from '../application/story-admission';
 import { articleTriageInput } from '../domain/article-triage-input';
 import { DigestNotifications } from '../domain/digest-published';
 import { newEditionPublication } from '../domain/edition-publication';
@@ -68,7 +68,7 @@ import {
   type ReportEditionProgress,
 } from '../domain/preview.repository';
 import { qualityRejection } from '../domain/quality';
-import { rank, rankFallback } from '../domain/rank';
+import { rankFallback } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 import { socialStoryContext } from '../domain/social-story-context';
 import { usesTechEditorialContext } from '../domain/tech-editorial-context';
@@ -467,17 +467,23 @@ export class PostgresPreviewRepository
                   40,
                 );
                 await topicStage(topic.id, 'editing');
-                const matches = paired?.ranked.has(topic.id)
+                const admission = paired?.ranked.has(topic.id)
                   ? undefined
-                  : await groupShortlist(
-                      editorialServices.grouping,
-                      topic.id,
+                  : await storyAdmission({
+                      grouping: editorialServices.grouping,
+                      topicId: topic.id,
+                      tech: usesTechEditorialContext(topic.name),
+                      enabled: process.env.TECH_STORY_ADMISSION === '1',
                       shortlist,
+                      scores: triage.scores,
+                      triage: triage.failures?.length ? 'failed' : 'complete',
+                      start,
+                      end,
                       runId,
-                    );
+                    });
+                const matches = admission?.matches;
                 const ranked =
-                  paired?.ranked.get(topic.id) ??
-                  rank(shortlist, start, end, 10, matches);
+                  paired?.ranked.get(topic.id) ?? admission!.ranked;
                 const evidence = editorEvidence(
                   ranked,
                   candidates,

@@ -20,7 +20,7 @@ type PreparedGrouping = {
   matches: (a: Candidate, b: Candidate) => boolean;
 } & ({ status: 'validated'; groups: string[][] } | { status: 'unavailable' });
 
-// Prepared for future admission consumers; publication still uses groupShortlist.
+// Explicit grouping status for opt-in admission consumers.
 export async function prepareStoryGrouping(
   grouping: GroupingResultPort | null,
   topicId: string,
