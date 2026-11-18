@@ -1,7 +1,5 @@
 # Social posts
 
-Each topic shows X and Bluesky posts next to its stories. X is the #1 source; Reddit is parked.
-
 ## How X posts are found
 
 There are two ways in. Both feed one pool of **candidate posts**, and a post
@@ -43,7 +41,9 @@ flowchart LR
   show spend, new verified posts and outside-list authors by topic/search type.
   Daily evidence includes billing, execution, tool inputs and provider status.
 
-Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech and NBA X selection also compare selected news: overlapping posts need a distinct development or original contribution. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
+Final X selection receives unverified counts, observation time and media-link presence; growth and media contents stay unknown. Tech and NBA X selection also compare selected news: overlapping posts need a distinct development or original contribution. NBA game results, overtime reactions,
+streaks and player stat lines share one game slot; separate contracts, consequential
+trades and serious injuries can qualify on their own supplied news. Non-English posts get concise English context preserving attribution and uncertainty. Gaming reader notes and selection reasons check explicit English/French month dates and ISO dates against the selected post’s own prose.
 
 X triage receives a separate evidence field with publication time, valid report observation time, author, reported likes/reposts/replies/views (labelled as
 unverified hints), and whether the verified text includes a media link. Missing
@@ -71,15 +71,14 @@ counts and media stay unknown; a link supplies no evidence of media contents.
   need a distinct development or original contribution.
 - **Saved selection evidence:** new editions retain each topic’s open slots,
   observations read, shortlisted candidates, picks and selection result.
-  Results separate budget refusal, editing failure and unknown causes; valid picks survive invalid siblings.
 - **Inspect outcomes:** open **Admin → Editions → a saved edition** for each
   topic’s result and slot/candidate/pick counts.
 - **Controls:** `BLUESKY_EDITIONS_ENABLED=0` turns inclusion off.
   `BLUESKY_RESERVED_SLOT_ENABLED=1` holds one slot, replacing the last-ranked X
   pick only when Bluesky qualifies. Enabled on this VM; unset defaults off. Saved evidence records
-  held slots and replaced X IDs; open-slot counts include holds; totals stay within budget.
+  held slots and replaced X IDs; totals stay within budget.
 
-## Verification and safety
+## Safety
 
 - **Official only:** X uses official oEmbed and embeds; Bluesky uses its API.
   X selection excludes known spoof source `@TheNBACentel` by official author URL.

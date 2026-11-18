@@ -163,3 +163,15 @@
 - Full check: 1,125 unit/330 integration passes, four expected skips. No external test traffic, paid calls, content writes, budget changes or UI changes.
 - Live probe /tmp/2770-live.ts: unchanged cd357e84, five topics/25 stories/19 posts/five content groups. Rebuilt API/worker and docs refreshed; health/alerts clear.
 - Next: fix same-game comparison at X and cross-platform selection with distinct-development controls, then natural scheduled acceptance; NBA/Tech morning acceptance still pending.
+
+## 2026-11-18: iteration 2774 — clarify NBA same-game social selection
+
+- Clean main at efdb38e0; no inherited work. Alerts/health/14 services/38 monitored sources healthy; Destructoid remains paused.
+- Fix published NBA repetition: shared social editor v12 treats same-game result/overtime/streak/stat lines as one development at initial X and later cross-platform selection; prefer a standalone representative and allow fewer posts.
+- Do not infer game identity from shared player/team names; separate contract, consequential trade and serious injury developments remain eligible. No author exclusions, budget changes or paid calls.
+- Saved exact X texts now exercise the first pass as well as Bluesky comparison on both routes; distinct trade-completion control retained. Hand-authored responses test transport, not semantic model compliance.
+- Updated ranking reference, affected owner handbook and TASKS handoff. Natural scheduled NBA selection and NBA/Tech morning acceptance remain open.
+- Targeted social-editor tests 24/24 pass. Initial edit accidentally touched a regex; corrected before checks. Handbook length check caught 104 lines; shortened page, recheck passes.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,125 unit/330 integration passes, four expected skips), pnpm build and affected handbook check pass; logs /tmp/2774-*.log. Offline comparison retains four exact texts/all 16 subsets.
+- Rebuilt API/worker active; initial immediate health probe raced startup, subsequent health passes. Alerts clear; live probe confirms unchanged cd357e84: five topics/25 stories/19 posts/five content groups. No UI change.
+- Next: scheduled NBA same-game selection plus NBA editing/Tech acceptance; no paid replay. Destructoid publisher access remains blocked.

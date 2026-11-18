@@ -75,7 +75,7 @@ void test('social editor preserves post identity, isolates purpose and reuses ca
   assert.equal(h.calls.length, 1);
   assert.equal(h.calls[0].purpose, 'social-editor-v2');
   assert.match(h.calls[0].instructions, /Never infer virality/);
-  assert.match(h.calls[0].instructions, /Social editor v11/);
+  assert.match(h.calls[0].instructions, /Social editor v12/);
   assert.match(
     h.calls[0].instructions,
     /essential news appears only in an unseen/,
@@ -711,6 +711,11 @@ void test('saved airline overlap receives bounded story context without licensin
       saved.post.text,
     );
     assert.match(h.calls[0].instructions, /comparison context only/);
+    assert.match(h.calls[0].instructions, /consequential trade/);
+    assert.match(
+      h.calls[0].instructions,
+      /shared players or teams alone are not grounds to reject it/,
+    );
     assert.match(h.calls[0].instructions, /original contribution/);
     assert.equal(
       (
@@ -791,6 +796,11 @@ void test('NBA comparison context reaches both model routes and preserves a dist
       input[0].text,
     );
     assert.match(h.calls[0].instructions, /comparison context only/);
+    assert.match(h.calls[0].instructions, /consequential trade/);
+    assert.match(
+      h.calls[0].instructions,
+      /shared players or teams alone are not grounds to reject it/,
+    );
     // Synthetic decision tests transport, not future semantic model compliance.
   }
 });
@@ -840,6 +850,60 @@ void test('saved NBA game repetition can be declined with all preceding X texts 
     assert.equal(request.candidates[0].author, nba.posts[0].author);
     assert.equal(request.budget, 2);
     assert.match(h.calls[0].instructions, /Return fewer than the budget/);
+    assert.match(
+      h.calls[0].instructions,
+      /Extra statistics alone do not justify another slot/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /do not invent a shared game identity/,
+    );
+    // Exercise the earlier X-only pass too: later Bluesky cannot remove X picks.
+    const first = harness(
+      [
+        {
+          posts: [
+            {
+              id: 'x1',
+              whyItMatters: '',
+              rationale: 'Lakers have won nine straight games.',
+            },
+          ],
+        },
+      ],
+      refuse,
+    );
+    const xCandidates = preceding.map((entry, index) => ({
+      ...candidates[0],
+      ...entry,
+      id: `x${index}`,
+      publishedAt: nba.posts[0].publishedAt,
+    }));
+    const xResult = await first.editor.edit(
+      { ...topic, name: 'NBA' },
+      xCandidates,
+      3,
+      'saved-nba-x-comparison',
+    );
+    assert.deepEqual(
+      xResult?.posts.map((entry) => entry.id),
+      ['x1'],
+    );
+    assert.deepEqual(
+      JSON.parse(first.calls[0].prompt).candidates.map(
+        (entry: { text: string }) => entry.text,
+      ),
+      preceding.map((entry) => entry.text),
+    );
+    assert.match(
+      first.calls[0].instructions,
+      /within the first X selection as well as against alreadySelected/,
+    );
+    assert.match(first.calls[0].instructions, /vague overtime teaser/);
+    assert.match(
+      first.calls[0].instructions,
+      /separately reported contract decision/,
+    );
   }
 });
 

@@ -3446,3 +3446,15 @@ hashes and all 16 subsets. Saved editor transport passes both model routes
 with a simulated refusal; no semantic model-compliance claim. X-first selection
 locks earlier picks before Bluesky can decline additions, so a Bluesky-only
 change cannot remove the two earlier X game posts. Production remains unchanged.
+
+## Nov 18 NBA game comparison guidance (iteration 2774)
+
+Social editor v12 explicitly compares same-game result, overtime, streak and
+stat-line detail as one development, at both the initial X pass and the later
+Bluesky pass. Extra statistics alone do not earn a slot. Supplied context must
+establish overlap; player/team names alone do not establish game identity.
+Distinct contracts, consequential trades and serious injuries remain eligible.
+Saved exact X texts and the Bluesky candidate exercise both model routes with
+hand-authored selections; the trade-completion control remains eligible. These
+checks prove prompt transport and response handling, not model judgment.
+Natural scheduled selection acceptance remains open; no paid replay was run.
