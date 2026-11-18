@@ -3822,3 +3822,9 @@ Iteration 2728: saved HTTP 200 Quanta origins-of-life page now supplies scoped
 selectable reporting rather than promotion; blank HN excerpt recovered to
 1,261 characters and exact stored-ID/full-text reread passes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#sectioned-magazine-reporting--iteration-2728).
+
+Iteration 2729: ordinary HTTP 200 publisher responses recovered blank saved HN
+excerpts for Microsoft FORGE Rust memory-safety research and Brave’s agentic
+search-payment announcement (3,000 characters). Exact ID/full-text rereads
+pass 2/2; collection behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-memory-safety-and-brave-announcement--iteration-2729).

@@ -132,3 +132,14 @@
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,118 unit/330 integration tests, four expected skips. Build and filtered handbook check pass (19 pages/39 tables); logs `/tmp/2728-*.log`.
 - API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories. Older progress/completed task markers archived to shorten orientation files.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2729 — recover Rust research and Brave announcement
+
+- Clean main at b4685a24; no inherited work. Alerts/health and all 38 sources pass; digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
+- Public Chromium reader renders five topics/25 stories; Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Microsoft FORGE Rust memory-safety research and Brave’s agentic search-payment announcement (3,000 characters).
+- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2729-saved.json`). Accessible PostScript page has no recognized reporting container; left blank.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; `pnpm check` passes: 1,118 unit/330 integration tests, four expected skips. Logs `/tmp/2729-*.log`.
+- API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. PostScript extraction candidate retained at `/tmp/2729-postscript.html`.

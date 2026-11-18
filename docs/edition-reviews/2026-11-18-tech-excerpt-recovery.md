@@ -687,3 +687,16 @@ and full-text reread passes (`/tmp/2728-saved.json`). Regression covers missing
 markers and exclusion of promotion, captions and related stories.
 No new external request, paid call, budget change or edition regeneration.
 Scheduled Tech share/depth acceptance remains pending after 15:00 UTC.
+
+## Rust memory safety and Brave announcement — iteration 2729
+
+Ordinary shared-client HTTP 200 responses recovered blank saved HN excerpts
+for [Microsoft FORGE’s Rust standard-library research](https://forge-blog.github.io/posts/rust-std-memory-safety/)
+and [Brave’s agentic search-payment announcement](https://brave.com/blog/search-api-agentic-payments/).
+Each changed from zero to 1,500 characters. Complete passages reviewed before
+blank-only writes; exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2729-saved.json`). The first attributes the vulnerability findings to
+Microsoft’s research; the second describes Brave’s own product announcement.
+The accessible PostScript interpreter page yields no recognized reporting
+container and remains blank. No collection behavior, paid call, budget or
+immutable edition changed. Scheduled Tech depth acceptance remains pending.

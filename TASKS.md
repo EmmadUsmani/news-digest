@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2729: Recover saved Rust memory-safety research and Brave search-payment announcement excerpts (3,000 characters); blank-only writes and exact ID/full-text rereads pass 2/2.
+
 - [x] 2728: Scope sectioned magazine reporting; Quanta saved excerpt 0 → 1,261 characters without promotion/captions, exact stored-ID/full-text reread passes.
 
 - [x] 2727: Recover saved Qwen conversation-state experiment and AI coding opinion publisher context (3,000 characters); blank-only writes and exact ID/full-text rereads pass 2/2.
