@@ -3799,3 +3799,10 @@ Haskell technical-vision HN excerpt (1,500 characters). Exact stored-ID/full-tex
 reread passes. Semicircle packing rejected for unrelated extracted prose;
 collection behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#haskell-technical-vision--iteration-2724).
+
+Iteration 2725: ordinary HTTP 200 publisher responses recovered blank saved HN
+excerpts for Lonewolf 0.3 federation and a Zig/C systems-programming opinion
+(3,000 characters). Exact stored-ID/full-text rereads pass 2/2. The 3D modeller
+chapter lacks a recognized reporting container and remains blank; collection
+behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#lonewolf-federation-and-zigc-opinion--iteration-2725).

@@ -631,3 +631,18 @@ packing returns a matching document title but extracts unrelated GPU writing
 competition prose; it remains blank rather than storing mismatched evidence.
 No collection behavior, source, budget or immutable edition changed. Scheduled
 Tech depth acceptance remains pending after 15:00 UTC.
+
+## Lonewolf federation and Zig/C opinion — iteration 2725
+
+Ordinary shared-client HTTP 200 publisher responses recovered two blank saved
+HN excerpts (3,000 characters):
+
+| Publisher                                                                                   | Saved evidence                                                                                                        |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [Lonewolf 0.3](https://github.com/lonewolf-im/lonewolf/releases/tag/v0.3.0)                 | Federation, certificate authentication, direct TLS and extension support; pre-1.0/single-node limitations retained    |
+| [Why Zig over C](https://www.mtsoukalos.eu/2026/11/why-zig-over-c-for-systems-programming/) | Author's personal language tradeoffs, C interoperability and resource cleanup; opinion rather than benchmark evidence |
+
+Both complete extracted passages were reviewed before blank-only writes; exact
+stored-ID/full-text rereads pass 2/2 (`/tmp/2725-saved.json`). The 3D modeller
+chapter returns HTTP 200 but has no recognized reporting container; left blank.
+Collection behavior, paid generation and the published edition are unchanged.

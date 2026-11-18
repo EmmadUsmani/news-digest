@@ -194,3 +194,16 @@
 - No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
 - Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2724-*.log`. Commit/push and API/worker restart follow checks.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2725 — recover federation release and Zig/C context
+
+- Clean main at 47dab16e; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
+- Owner value: two more saved Tech candidates now provide publisher evidence for deeper scheduled summaries.
+- Public Chromium reader renders 25 stories; published Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered Lonewolf 0.3 release notes and Zig/C opinion excerpts (3,000 characters).
+- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2725-saved.json`). Pre-1.0 limitations and author opinion preserved.
+- 3D modeller chapter returns HTTP 200 but uses sibling titlebox/banner/body containers; extractor returns empty. Left blank; future scoped-container support is available work.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Handbook check passes (19 pages/39 tables). Logs `/tmp/2725-*.log`.
+- API/worker restarted; health database/Redis pass; public Chromium reader renders 25 stories after restart. Commit/push follow final formatting and linting.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
