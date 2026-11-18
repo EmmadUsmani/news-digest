@@ -166,3 +166,13 @@
 - No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/recovery receipt/tasks updated; older progress/completed markers archived. No handbook behavior change.
 - Public HTTPS Chromium reader passes with 25 stories. `pnpm format`, `pnpm lint:fix` and `pnpm build` pass; `pnpm check` passes: 1,113 unit/330 integration tests, four expected skips. Commit/push and API/worker restart follow checks. Logs `/tmp/2712-*.log`.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2713 — collect AsciiDoc publisher evidence
+
+- Clean main at 13efda50; no inherited work. Alerts/health/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Public HTTPS Chromium reader renders 25 stories; Tech Apple/China summaries remain thin. Missing evidence remains the reader-facing weakness.
+- Fixed a collection cause: NetBSD guide HTTP 200 used an unsupported AsciiDoc content body. Recognized generator plus matching document heading now scopes prose without contents/footer.
+- NetBSD excerpt 0 → 1,500 characters; existing extraction also recovers Emacs-browser and AI/open-source commentary. Full excerpts reviewed; three blank-only writes/exact ID/full-text rereads pass (4,500 characters, `/tmp/2713-saved.json`).
+- Author opinion/legal arguments retain attribution. No paid calls, budget changes or edition regeneration. Sources, receipt, tasks and affected handbook page updated.
+- `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` and handbook check pass: 1,114 unit/330 integration tests, four expected skips. Targeted extraction 26/26; public reader 25 stories. Logs `/tmp/2713-*.log`. Commit/push and API/worker restart follow checks.
+- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

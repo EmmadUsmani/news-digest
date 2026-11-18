@@ -3727,3 +3727,10 @@ HN excerpts for outside-Steam sales, Japan’s Hometown Tax (2018) and Clice v1.
 (4,500 characters). Exact ID/full-text rereads pass; historic and author-claim
 framing retained. Scheduled acceptance pending.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#direct-sales-tax-and-c-context--iteration-2712).
+
+Iteration 2713: ordinary HTTP 200 NetBSD guide exposed an unsupported AsciiDoc
+body layout. Collection now scopes recognized, title-matched AsciiDoc documents
+to their content body, excluding table of contents and footer. Blank saved
+NetBSD, Emacs-browser and AI/open-source excerpts recovered 0 → 1,500 characters
+each; exact ID/full-text rereads pass 3/3. Author opinions retain attribution.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#asciidoc-collection-and-publisher-context--iteration-2713).

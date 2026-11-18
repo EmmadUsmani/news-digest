@@ -43,6 +43,7 @@ export function publisherExcerpt(html: string): string {
     microformatReporting(clean) ??
     wordpressReporting(clean) ??
     templateReporting(clean) ??
+    asciiDocReporting(clean, title) ??
     (main &&
       (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
         (matchingHeaderTitle ? main : matchingMainHeading(main, title))));
@@ -185,6 +186,37 @@ function microformatReporting(html: string): string | undefined {
       (attr) =>
         attr.name === 'class' && attr.value.split(/\s+/).includes('e-content'),
     ),
+  );
+  return content ? serialize(content) : undefined;
+}
+
+/** AsciiDoc separates its document header, content and footer by stable IDs. */
+function asciiDocReporting(html: string, title?: string): string | undefined {
+  if (!title || !html.includes('AsciiDoc')) return undefined;
+  const root = parseFragment(html);
+  const attr = (node: Element, name: string) =>
+    node.attrs.find((entry) => entry.name === name)?.value;
+  const generator = find(
+    root,
+    (node) =>
+      node.tagName === 'meta' &&
+      attr(node, 'name') === 'generator' &&
+      /^AsciiDoc(?:tor)?(?:\s|$)/.test(attr(node, 'content') ?? ''),
+  );
+  const header = find(
+    root,
+    (node) => node.tagName === 'div' && attr(node, 'id') === 'header',
+  );
+  const heading = header && find(header, (node) => node.tagName === 'h1');
+  if (
+    !generator ||
+    !heading ||
+    plainText(decodeHTML(serialize(heading))) !== plainText(decodeHTML(title))
+  )
+    return undefined;
+  const content = find(
+    root,
+    (node) => node.tagName === 'div' && attr(node, 'id') === 'content',
   );
   return content ? serialize(content) : undefined;
 }

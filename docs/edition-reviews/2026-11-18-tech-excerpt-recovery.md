@@ -450,3 +450,24 @@ three rows (4,500 characters; `/tmp/2712-saved.json`).
 The tax essay remains historical commentary; Clice stability claims remain
 author assertions. No edition regeneration, paid calls, budget or collection
 behavior changes. Natural Tech share/depth acceptance remains after 15:00 UTC.
+
+## AsciiDoc collection and publisher context — iteration 2713
+
+NetBSD’s guide returned ordinary HTTP 200 but saved no excerpt: its AsciiDoc
+body uses a content div, without article/main landmarks. Collection now reads
+that body only for a recognized generator and a document header matching the
+page title. Navigation and footer prose stay outside the excerpt. The guide
+now yields 1,500 characters of threat-model and operating-system context.
+
+Three blank saved HN candidates were recovered (4,500 characters):
+
+| Candidate                                                                                   | Before | After |
+| ------------------------------------------------------------------------------------------- | -----: | ----: |
+| [NetBSD disk encryption](https://netbsd.org/~nia/disk-encrypt/)                             |      0 | 1,500 |
+| [Emacs as a browser](https://joshblais.com/blog/emacs-as-my-browser/)                       |      0 | 1,500 |
+| [AI-generated code and open source](https://jakub.jankiewicz.org/blog/ai-code-open-source/) |      0 | 1,500 |
+
+Complete excerpts reviewed before blank-only writes; independent exact ID/text
+rereads pass 3/3 (`/tmp/2713-saved.json`). Emacs usability claims and the
+open-source licensing argument remain author opinions, not established legal
+findings. No paid calls or regeneration; scheduled acceptance remains pending.

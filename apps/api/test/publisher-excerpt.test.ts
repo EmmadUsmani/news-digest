@@ -483,3 +483,23 @@ void test('recorded publisher h3 main page recovers the launch-pitch account', a
   );
   assert.ok(!excerpt.includes('Peter Van Dijck · Nov 16'));
 });
+
+void test('AsciiDoc guides retain document prose without table of contents or footer', () => {
+  const document = `<meta name="generator" content="AsciiDoc 10.2.1">
+    <title>Disk encryption on NetBSD - achieving secrecy</title>
+    <div id="header"><h1>Disk encryption on NetBSD - achieving secrecy</h1>
+    <div id="toc"><p>${'Contents navigation '.repeat(8)}</p></div></div>
+    <div id="content"><div class="sect1"><h2>Threat models</h2>
+    <div class="sectionbody"><div class="paragraph"><p>${reporting}</p></div></div></div></div>
+    <div id="footer"><p>${'Generated footer '.repeat(8)}</p></div>`;
+  assert.equal(publisherExcerpt(document), reporting);
+  for (const changed of [
+    document.replace('AsciiDoc 10.2.1', 'Unrelated generator'),
+    document.replace(
+      '<h1>Disk encryption on NetBSD - achieving secrecy</h1>',
+      '<h1>Other document</h1>',
+    ),
+    document.replace('id="content"', 'id="other"'),
+  ])
+    assert.equal(publisherExcerpt(changed), '');
+});
