@@ -134,3 +134,13 @@
 - Public HTTPS reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration tests pass, four expected skips. Logs /tmp/2702-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2703 — recover five more publisher excerpts
+
+- Clean main at 69c5f6c8; no inherited work. Alerts/health/services/source checks pass; digest queue has no failures. No paid calls or budget/provider changes.
+- Read latest public Tech; summaries remain thin in places. Deployed extractor recovered chemistry, Heat copyright dispute, game-workers manifesto, bacterial imaging and historical veteran context.
+- Five ordinary shared-client HTTP 200 pages; blank-only saved updates 0 → 6,706 characters total. All extracted text reviewed; independent ID/full-text rereads pass 5/5 (/tmp/2703-saved.json).
+- Legal allegations/union positions remain attributed; December 2006 veteran context retains its historical warning. No code/schema/UI/handbook changes or edition regeneration.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration passes, four expected skips. Logs /tmp/2703-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

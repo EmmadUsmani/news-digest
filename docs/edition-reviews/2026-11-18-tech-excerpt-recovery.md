@@ -291,3 +291,22 @@ characters; an independent exact ID/full-text reread passes. The excerpt carries
 the author's CEO-transition claim and management argument, not independent
 confirmation. No new publisher request, paid call or edition regeneration.
 Scheduled Nov 18 candidate-share/depth acceptance remains pending.
+
+## More accessible publisher context — iteration 2703
+
+Ordinary shared-client HTTP 200 responses and deployed extraction recovered five
+blank saved HN candidates, with independent ID/full-text rereads passing 5/5:
+
+| Publisher page                                                                                                        | Before | After |
+| --------------------------------------------------------------------------------------------------------------------- | -----: | ----: |
+| [Chemistry is Actually Geometry](https://chillphysicsenjoyer.substack.com/p/chemistry-is-actually-geometry)           |      0 | 1,500 |
+| [Heat copyright dispute](https://copyrightlately.com/michael-mann-heat-copyright-termination/)                        |      0 | 1,500 |
+| [Game workers AI manifesto](https://www.gameworkers.co.uk/ai-manifesto/)                                              |      0 | 1,500 |
+| [Bacterial pole imaging](https://nautil.us/check-out-the-first-photos-of-the-poles-of-a-rod-shaped-bacterium-1286664) |      0 | 1,500 |
+| [Atomic Nuked Veteran](https://www.armscontrolwonk.com/archive/201309/atomic-nuked-veteran/)                          |      0 |   706 |
+
+Read all extracted text before blank-only writes. Chemistry is an explanatory
+essay; legal allegations and union positions remain attributed. The veteran
+account explicitly retains its December 2006 historical warning. Saved receipt:
+`/tmp/2703-saved.json`. No code change, paid calls or edition regeneration.
+Scheduled Nov 18 candidate-share/depth acceptance remains after 15:00 UTC.

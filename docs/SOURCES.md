@@ -3673,3 +3673,8 @@ Iteration 2702 adds legacy WordPress hentry/bookmark/entry extraction. The saved
 Steve Blank Nvidia candidate now has 1,500 characters instead of zero, with exact
 stored-text verification; publisher claims remain source-attributed. Metadata and
 comments are excluded. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#legacy-wordpress-entry-bodies--iteration-2702).
+
+Iteration 2703: deployed publisher extraction recovered five more blank saved HN
+excerpts (6,706 characters) from ordinary HTTP 200 pages; exact rereads pass.
+Historical and opinion context retains attribution.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#more-accessible-publisher-context--iteration-2703).
