@@ -338,3 +338,20 @@ Saved candidate `6766f4b4-6a7b-4a66-92c7-b5cc3918449f` changed from 0 to
 passes (`/tmp/2705-saved.json`). The author describes unsolicited automated
 pitches after a launch; quoted sales claims remain attributed. No new publisher
 request, paid call or edition regeneration. Scheduled Tech acceptance is pending.
+
+## Archive and compiler context — iteration 2706
+
+Ordinary shared-client HTTP 200 responses and deployed extraction recovered
+two saved blank HN excerpts:
+
+| Publisher page                                                                                     | Saved candidate                        | Before → after       |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------- | -------------------- |
+| [Salon preservation](https://blog.archive.org/2026/11/12/preserving-30-years-of-salon-journalism/) | `ca9d1817-c006-4961-aaea-56dbc6490b93` | 0 → 1,149 characters |
+| [Nimony](https://nimony.org/)                                                                      | `542b2a8d-fae9-4aa7-a278-92e4aee93231` | 0 → 1,500 characters |
+
+Reviewed both complete excerpts before blank-only writes. Independent exact
+ID/full-text rereads pass 2/2 (`/tmp/2706-saved.json`): 2,649 characters.
+Archive counts and compiler capabilities remain publisher claims. EGM returned
+HTTP 200 but mixes product explanation with demonstration text; no saved update.
+No code change, paid call or edition regeneration. Public Tech still has thin
+Apple/China summaries; scheduled Nov 18 share/depth acceptance remains pending.

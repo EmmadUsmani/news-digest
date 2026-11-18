@@ -3689,3 +3689,8 @@ Iteration 2705: lower-level main headings matching the document title now identi
 publisher reporting. Saved email-pitches candidate recovered 0 → 1,500 characters;
 recorded HTTP 200 fixture and title-mismatch checks cover the collection gap.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#lower-level-main-heading--iteration-2705).
+
+Iteration 2706: deployed extraction recovered blank saved Salon-preservation and
+Nimony HN excerpts (2,649 characters); exact ID/full-text rereads pass. EGM's
+demo-mixed extraction remains unsaved.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#archive-and-compiler-context--iteration-2706).

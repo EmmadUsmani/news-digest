@@ -164,3 +164,13 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated; no schema/UI/handbook flow change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2705-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2706 — recover archive and compiler context
+
+- Clean main at 79a249fc; no inherited work. Alerts, health, sources and digest queue pass; zero failed digest jobs, next run 15:00 UTC.
+- Reader weakness: public Tech Apple/China summaries remain thin. Owner benefit: two more real publisher excerpts are available for scheduled selection and deeper summaries.
+- Ordinary shared-client HTTP 200 responses and deployed extraction recover Salon-preservation (1,149) and Nimony (1,500); blank-only writes and independent exact ID/full-text rereads pass 2/2 (2,649 characters), /tmp/2706-saved.json.
+- Reviewed full text before saving; archive counts/compiler capabilities remain publisher claims. EGM demo-mixed text stays unsaved. No code/schema/UI changes, paid calls, provider/budget changes or edition regeneration.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts; sources/tasks/recovery receipt updated.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2706-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
