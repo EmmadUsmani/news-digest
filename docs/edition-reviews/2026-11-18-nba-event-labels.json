@@ -1,0 +1,39 @@
+{
+  "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+  "basis": "Manual editorial labels for saved publication context, not independently verified event identity or model predictions. The game grouping follows the publication review; the short X texts alone do not establish opponent/date.",
+  "posts": [
+    {
+      "id": "curry-contract",
+      "author": "nuel",
+      "textSha256": "6116191bd5e125ae7e96086483cfd29c41461c3fea8c5b7d415ad4d9e2115857",
+      "event": "curry-contract-report",
+      "standalone": true,
+      "reason": "Separate attributed report about Curry’s possible last contract; retain uncertainty and Stephen A. Smith attribution."
+    },
+    {
+      "id": "lakers-streak",
+      "author": "Hoop Central",
+      "textSha256": "b0bc24ace7a769921ec79ca00c6bf9693585651a20b5c010a35b4d89d3028e5b",
+      "event": "lakers-game",
+      "standalone": true,
+      "reason": "Concrete nine-game streak result, though the opponent/date are absent from this text."
+    },
+    {
+      "id": "grimes-ot",
+      "author": "Underdog NBA",
+      "textSha256": "65901f3c80d27ebec0d2188b20efaaa4ce12918c0ef63ff1d2647368bd14183c",
+      "event": "lakers-game",
+      "standalone": false,
+      "reason": "Overtime teaser has no score, opponent or game result in its own prose; do not reconstruct the clip."
+    },
+    {
+      "id": "lakers-duo",
+      "author": "nbastat.bsky.social",
+      "textSha256": "174e9cc85a4d250cb6d3a797128fe51b0b34f56eb5fc98d833deb2aef09ac615",
+      "event": "lakers-game",
+      "standalone": true,
+      "reason": "Concrete combined stat line, attributed to OptaSports; preferred game representative for this labeled comparison, not an independently verified record."
+    }
+  ],
+  "preferred": ["curry-contract", "lakers-duo"]
+}

@@ -795,6 +795,54 @@ void test('NBA comparison context reaches both model routes and preserves a dist
   }
 });
 
+void test('saved NBA game repetition can be declined with all preceding X texts on both routes', async () => {
+  const saved = JSON.parse(
+    readFileSync(
+      new URL(
+        '../../../docs/edition-reviews/2026-11-18-bluesky-selection.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    topics: {
+      topic: string;
+      posts: { author: string; text: string; publishedAt: string }[];
+      otherPostTexts: { author: string; text: string }[];
+    }[];
+  };
+  const nba = saved.topics.find((entry) => entry.topic === 'NBA');
+  assert.ok(nba);
+  const preceding = nba.otherPostTexts.map((entry) => ({
+    ...entry,
+    platform: 'x' as const,
+  }));
+  for (const refuse of [[], ['claude-sonnet-5-5']]) {
+    // Hand-authored refusal tests request/response transport, not model judgment.
+    const h = harness([{ posts: [] }], refuse);
+    const result = await h.editor.edit(
+      { ...topic, name: 'NBA' },
+      [
+        {
+          ...candidates[0],
+          ...nba.posts[0],
+          platform: 'bluesky',
+        },
+      ],
+      2,
+      'saved-nba-game-comparison',
+      preceding,
+    );
+    assert.deepEqual(result?.posts, []);
+    const request = JSON.parse(h.calls[0].prompt);
+    assert.deepEqual(request.alreadySelected, preceding);
+    assert.equal(request.candidates[0].text, nba.posts[0].text);
+    assert.equal(request.candidates[0].author, nba.posts[0].author);
+    assert.equal(request.budget, 2);
+    assert.match(h.calls[0].instructions, /Return fewer than the budget/);
+  }
+});
+
 void test('saved French clip reaches both editor routes with source-bound English context', async () => {
   const saved = JSON.parse(
     readFileSync(

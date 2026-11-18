@@ -3431,3 +3431,18 @@ three positives. Together with the Nov 16 separate-forecast negative case, this
 protects useful shared-estimate coverage from a blanket GTA split. These are
 agent labels, not independent annotation or a semantic-model evaluation.
 Production grouping, prompts, providers and budgets are unchanged.
+
+## Nov 18 NBA post event breadth (iteration 2773)
+
+[Offline comparison](edition-reviews/2026-11-18-nba-event-comparison.md) pins
+four saved publication texts and explicit manual labels. The four published
+slots represent two labeled developments; either standalone game representative
+plus the attributed Curry contract report preserves that breadth in two slots.
+The overtime teaser lacks a supplied result. These contextual game labels do
+not independently verify event identity or the record claim.
+
+`pnpm exec tsx scripts/evaluate-saved-nba-event-breadth.ts` checks exact text
+hashes and all 16 subsets. Saved editor transport passes both model routes
+with a simulated refusal; no semantic model-compliance claim. X-first selection
+locks earlier picks before Bluesky can decline additions, so a Bluesky-only
+change cannot remove the two earlier X game posts. Production remains unchanged.

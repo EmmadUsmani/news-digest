@@ -151,3 +151,15 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check pass (1,124 unit/330 integration passes, four expected skips). First check stopped on new archive formatting; fixed and reran successfully. Logs /tmp/2772-*.log.
 - pnpm obs health/services --check/sources --check pass; /tmp/2770-live.ts confirms unchanged latest edition: five topics/25 stories/19 posts. Docs-only change; no app rebuild or browser check needed.
 - Archived iterations 2726–2730 to keep PROGRESS.md small. Docs service refreshed after commit; app runtime unchanged. Destructoid remains blocked.
+
+## 2026-11-18: iteration 2773 — compare saved NBA social event breadth offline
+
+- Clean main at 7846a292; no inherited work. Alerts/health/14 services/38 monitored sources healthy; Destructoid remains paused.
+- Reader weakness: four NBA post slots include three contextual Lakers-game picks, one only an overtime teaser. Manual comparison retains two labeled developments in two standalone slots, without padding.
+- Retained explicit editorial labels, attribution/uncertainty and exact text hashes; offline script checks four matches/all 16 subsets. Game identity is contextual, not independently verified from the short X texts.
+- Cause: saved editor reason rewards extra game detail; X-first selection locks picks before Bluesky additions. Declining Bluesky alone cannot consolidate earlier X repeats. No author/team exclusion or production rule changed.
+- Saved-text regression passes all three preceding X texts and the Bluesky candidate to both model routes; simulated empty selection is accepted. Transport evidence only, not semantic model acceptance.
+- Verification: pnpm exec tsx scripts/evaluate-saved-nba-event-breadth.ts passes; targeted social-editor tests 24/24. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; detailed logs /tmp/2773-*.log.
+- Full check: 1,125 unit/330 integration passes, four expected skips. No external test traffic, paid calls, content writes, budget changes or UI changes.
+- Live probe /tmp/2770-live.ts: unchanged cd357e84, five topics/25 stories/19 posts/five content groups. Rebuilt API/worker and docs refreshed; health/alerts clear.
+- Next: fix same-game comparison at X and cross-platform selection with distinct-development controls, then natural scheduled acceptance; NBA/Tech morning acceptance still pending.
