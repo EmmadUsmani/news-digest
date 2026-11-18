@@ -3793,3 +3793,9 @@ HN excerpts: concurrent shell queues, Caltech placenta research and ParadeDB
 search joins (4,500 characters). Exact stored-ID/full-text rereads pass 3/3;
 collection behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#shell-queues-placenta-research-and-search-joins--iteration-2723).
+
+Iteration 2724: ordinary HTTP 200 publisher response recovered the blank saved
+Haskell technical-vision HN excerpt (1,500 characters). Exact stored-ID/full-text
+reread passes. Semicircle packing rejected for unrelated extracted prose;
+collection behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#haskell-technical-vision--iteration-2724).

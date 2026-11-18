@@ -618,3 +618,16 @@ writes; exact stored-ID/full-text rereads pass 3/3 (`/tmp/2723-saved.json`).
 The mouse-embryo findings retain their species context; benchmark results remain
 the vendor's claims. No collection behavior, source, paid call, budget or
 immutable edition changed. Scheduled Tech depth acceptance remains pending.
+
+## Haskell technical vision — iteration 2724
+
+An ordinary shared-client HTTP 200 response recovered the saved HN candidate
+[Haskell technical vision](https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078)
+from zero to 1,500 characters. The complete opening-post excerpt was reviewed
+before a blank-only write; exact stored-ID/full-text reread passes 1/1
+(`/tmp/2724-saved.json`). The committee's aspirations remain attributed claims.
+The Z80 book page yields only 221 characters and remains unchanged. Semicircle
+packing returns a matching document title but extracts unrelated GPU writing
+competition prose; it remains blank rather than storing mismatched evidence.
+No collection behavior, source, budget or immutable edition changed. Scheduled
+Tech depth acceptance remains pending after 15:00 UTC.

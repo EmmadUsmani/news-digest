@@ -183,3 +183,14 @@
 - No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
 - Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2723-*.log`. Commit/push and API/worker restart follow checks.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2724 — recover Haskell technical-vision context
+
+- Clean main at 8af340dd; no inherited work. Alerts/health and active sources pass; scheduled digest has zero failed jobs, next run 15:00 UTC.
+- Read public Tech in Chromium using public DNS resolution: five topics/25 stories; Apple and China summaries remain thin. VM-local hostname resolves to the VM rather than HTTPS proxy.
+- Ordinary shared-client HTTP 200 recovered the blank Haskell technical-vision HN excerpt (1,500 characters), scoped to its opening announcement.
+- Complete passage reviewed before blank-only write; exact stored-ID/full-text reread passes 1/1 (`/tmp/2724-saved.json`).
+- Z80 page has only 221 extracted characters; unchanged. Semicircle packing has matching title but unrelated GPU contest prose in publisher body/metadata; rejected and left blank.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2724-*.log`. Commit/push and API/worker restart follow checks.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

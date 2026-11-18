@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2724: Recover Haskell technical-vision announcement excerpt (1,500 characters); blank-only write and exact stored-ID/full-text reread pass. Semicircle packing rejected because extraction returns unrelated prose.
+
 - [x] 2723: Recover saved shell-command queues, Caltech placenta research and ParadeDB search-join publisher context (4,500 characters); blank-only writes and exact stored-ID/full-text rereads pass 3/3.
 
 - [x] 2722: Recover saved Cornell smartwatch research and JEPA experiment publisher context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
