@@ -20,8 +20,10 @@ Review: [docs/edition-reviews/2026-11-16.md](../../edition-reviews/2026-11-16.md
 
 1. Nov 17 edition: World and U.S. both AI-edited again (day 2 of 3 for U.S.
    acceptance); Gaming and U.S. social counts.
-2. Tech summary depth: steered Nov 18 as item 66 (also stops routine metrics
-   checkpoint commits). Check that the agent's acks report excerpt share before
-   and after, and that guarding commits fall below about a third.
+2. Tech summary depth: item 66 (Nov 18) stopped routine checkpoints, but 32 of
+   51 commits since were per-publisher "Recover saved" fixes. Steered item 67
+   (Nov 18): one cause table, one general fix, one backfill. Check the ack has
+   the cause table and the no-excerpt share before (171 of 200 on Nov 17) and
+   after, and that "Recover saved" commits stop.
 
 **Watching:** speed target of 60 seconds is unmet, and low priority.

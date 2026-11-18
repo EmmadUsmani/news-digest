@@ -27,9 +27,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    edition review.
 4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
 5. Then X search and Bluesky tuning (items 39, 34, 40, 41).
-6. Tech summary depth runs alongside line 1 (item 66): read Tech as a reader
-   and fix thin summaries at their cause (item 59). Routine metrics
-   checkpoint commits stop.
+6. Tech summary depth runs alongside line 1 (items 66, 67): one cause table
+   and one general excerpt fix, no more per-publisher recovery commits.
+   Routine metrics checkpoint commits stop.
 7. Then item 38's list for choosing meaningful work. Item 42 says what to do
    first. Item 43 says what not to do.
 
@@ -3059,6 +3059,53 @@ it once in `NEEDS_FROM_HUMAN.md` and go to the next candidate. No bypasses.
 **Done when:** the next scheduled Tech section has a clearly higher share of
 candidates with excerpts, or the blocking cause is named with evidence. Ack
 with the share before and after, and the commit.
+
+**Limits:** AI budget unchanged. Not between 13:00 and 16:00 UTC. Protect the
+morning edition.
+
+_Item 67 replaces the Tech summary part of this item: stop per-publisher recovery and do one general fix._
+
+## 67. NOW: replace per-publisher excerpt fixes with one general fix (2026-11-18)
+
+**Why:** item 66 asked for the cause of thin Tech summaries. Since then about
+32 of 51 commits (Nov 18, 07:00–13:00 UTC) are "Recover saved … publisher
+context": one site or a handful of rows at a time, in a 539-line
+`publisher-excerpt.ts`. The latest recovery notes show 12 rows fixed, but the
+share of candidates with no excerpt hasn't been reported since 171 of 200
+(Nov 17). Fixing one site per iteration can't keep up with new sites.
+
+**Priority:** replaces the Tech part of item 66. Same place in Current order
+(line 6). Never ahead of a breakage or the morning edition.
+
+**What to do:**
+
+1. Stop per-publisher and per-row recovery commits now. No new
+   "Recover saved …" commits and no hand-picked row backfills.
+2. Measure once, on saved Tech candidates from the last 3 days: count those
+   with no excerpt, grouped by cause (HTTP error or block, 200 but no
+   extractable prose, JS-only shell, paywall or login, adapter never fetched
+   it, such as feeds or items beyond the first 20 in `hn.adapter.ts`). Save
+   the table in `docs/edition-reviews/` and give the counts in the ack.
+3. Pick the largest cause that isn't a publisher block. Fix it with one
+   general mechanism, not a site list. Candidates to consider, if the data
+   supports them: fall back to the page's own description metadata or
+   structured article data when no body prose is found; reuse the feed's own
+   summary text; fetch for every candidate that reaches triage, not only the
+   first few. Add a regression test that covers the cause, not one site.
+4. Backfill saved candidates once with the same code path, blank excerpts
+   only, in one bounded run. Report the share before and after.
+
+**What not to do:** no hand-written wording rules for grouping. No access
+workarounds for blocked publishers (record each cause once in
+`NEEDS_FROM_HUMAN.md`). No new paid services. Don't raise budgets.
+
+**Stop:** one measurement and one general fix. If the largest non-block cause
+is under 10% of the blanks, say so in the ack and go back to item 38's list;
+don't keep chasing a long tail.
+
+**Done when:** the ack gives the cause table, the general fix commit, and the
+no-excerpt share before and after on saved Tech candidates. Then the next
+scheduled Tech section is checked once in the daily review.
 
 **Limits:** AI budget unchanged. Not between 13:00 and 16:00 UTC. Protect the
 morning edition.
