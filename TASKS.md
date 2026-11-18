@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2737: Recover saved Darling development update and software-team experience context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
+
 - [x] 2736: Recover saved stellar radio-pulse discovery and software-correctness context (3,000 characters); blank-only writes and exact stored-ID/full-text rereads pass 2/2.
 
 - [x] 2735: Fix title-matched blog article-body extraction; CPython/yk saved excerpt 0 → 1,500 characters, exact stored-text verification and scoped regression tests pass.

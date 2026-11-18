@@ -3871,3 +3871,9 @@ context for Curtin's stellar radio-pulse discovery and the Correctness and
 Complexity essay (3,000 characters); exact stored-text rereads pass 2/2.
 Possible Futures list context was incomplete and remains unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#stellar-discovery-and-software-correctness--iteration-2736).
+
+Iteration 2737: ordinary HTTP 200 publisher fetches recovered blank saved HN
+context for Darling's development update and a software-team experience essay
+(3,000 characters); exact stored-text rereads pass 2/2. Lean Grimoire returned
+200 without extracted prose; unchanged. No source configuration changes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#darling-and-software-team-experience--iteration-2737).

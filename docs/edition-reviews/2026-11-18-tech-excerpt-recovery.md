@@ -794,3 +794,16 @@ rereads pass 2/2 (`/tmp/2736-saved.json`). Possible Futures returned HTTP 200
 but its extracted passage skips list context and remains unchanged. No code,
 paid calls, budget changes or edition regeneration. Scheduled Tech acceptance
 remains pending.
+
+## Darling and software-team experience — iteration 2737
+
+Ordinary shared-client HTTP 200 responses recovered two blank saved HN
+excerpts, each from zero to 1,500 characters:
+
+- [Darling development update](https://blog.darlinghq.org/2026/11/08/development-update-q4-2026/): AI-assisted contribution policy, project capacity and macOS compatibility constraints.
+- [Bad ideas that aren't bad anymore](https://devonestes.com/bad-ideas-that-arent-bad-anymore): the author's changing software-team experience and reconsideration of code-review practice.
+
+Full passages reviewed before blank-only writes; exact stored-ID/full-text
+rereads pass 2/2 (`/tmp/2737-saved.json`). Lean Grimoire returned HTTP 200 but
+no extracted prose and remains unchanged. No code, paid calls, budget changes
+or edition regeneration. Scheduled Tech acceptance remains pending.

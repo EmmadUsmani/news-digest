@@ -178,3 +178,15 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check`, and `pnpm exec tsx scripts/check-handbook.ts` pass: 1,120 unit/330 integration passes, four expected skips; 19 handbook pages/21 diagrams checked. Logs `/tmp/2736-*.log`.
 - API/worker restarted before freeze; initial request preceded readiness, retry health passes database/Redis. Post-restart public Chromium reader five topics/25 stories; alerts clear. Older progress entries archived to keep handoff small.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2737 — recover Darling and software-team context
+
+- Clean main at 43b1efa2; no inherited work. Alerts/health clear; all 38 monitored sources healthy. Digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
+- Public Chromium reader shows five topics/25 stories; scheduled Tech depth acceptance stays pending.
+- Ordinary shared-client HTTP 200 fetches recovered Darling's development update and the software-team experience essay: zero to 1,500 characters each. Full passages reviewed before blank-only writes.
+- `pnpm exec tsx /tmp/2737-verify.ts` passes exact stored-ID/full-text reread 2/2; receipt `/tmp/2737-saved.json`. Lean Grimoire HTTP 200 yields no extracted prose and remains unchanged.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass. Full `pnpm check` passes: 1,120 unit/330 integration tests, four expected skips; logs `/tmp/2737-*.log`.
+- Handbook check initially hit HTTP 429 through the app; documented `--owner-services` retry passes 19 pages/21 diagrams/39 tables.
+- API/worker restarted at 12:57 UTC before freeze; readiness retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
