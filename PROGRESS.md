@@ -28,52 +28,7 @@
 
 [Iterations 2665–2672](docs/progress-archive/2026-11-18-iterations-2665-2672.md)
 
-## 2026-11-18: iteration 2673 — connect default-off Tech admission
-
-- Clean main at 16c4be47; no inherited work. Alerts clear, 14 monitored services/active sources healthy, health database/Redis pass; disk 73%.
-- Reader value: the prepared two-event reservation can now reach Tech's editor, while the default-off switch protects the existing edition.
-- Added the publication consumer and `TECH_STORY_ADMISSION=1` opt-in; production remains off. Disabled/non-Tech paths preserve the legacy grouping call and exact ten-event ranking.
-- Enabled Tech uses one explicit-status grouping call with the same pool/cache/budget; validated grouping reaches the shared policy. Invalid/unavailable grouping or unsuccessful triage retains baseline. Representatives, coverage and ranking order survive.
-- Recorded 40-article/21-event control matches the evidence bridge, including two displacements; real publication consumer accepts validated grouping and preserves unavailable fallback. No live inference, prompt, provider, cap or source change.
-- Updated the pipeline handbook and ranking notes; archived older completed-task markers to keep orientation shorter. No UI or diagram change.
-- Targeted verification: 22 policy/preparation/evidence/consumer tests and 16 publication tests pass; handbook check passes (19 pages, 39 tables).
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2673-{targeted,publication,handbook,check-final}.log. Initial check exposed an unused rank import, removed before rerun. API/worker restart in the pre-noon window after push.
-- Final Bluesky 23:54 UTC result preserved in /tmp/2673-bluesky-jobs.json; combined with the tracked prior 23 hours, all 24 jobs succeeded. Full-day review remains next. Metrics ≥00:20 UTC; consider Tech activation before noon, then scheduled acceptance.
-
-## 2026-11-18: iteration 2674 — complete November 17 Bluesky day
-
-- Clean main at 7699d51c; no inherited work. Initial pending worker/metrics scrape alerts cleared on recheck; 14 monitored services healthy, active sources returning content, health database/Redis pass; disk 73%. Destructoid remains paused.
-- Merged the retained final hour from 2673 by job ID: 24 successful hours/120 positive matched topic counts, exact World rotation and 24-hour windows. Preserved complete results in the tracked day archive.
-- Fixed-cutoff stored-observation read: distinct posts Tech 49/NBA 49/Gaming 68/World 149/U.S. 51, with no capped reads. Compared against November 16 and read all 25 strongest safe texts.
-- Gaming's increased supply still has lexical noise; NBA includes satire/thin links; Tech lacks top-five launches/demos; World repeats Kerch; U.S. mixes reporting leads and commentary. Retain queries, rotation, cadence, budgets and gates; quality acceptance stays open.
-- Updated the full-day review and TASKS; no runtime, UI, source, provider or budget change. Existing builds retained; no handbook/screenshot change needed.
-- Evidence: /tmp/2674-{coverage.json,services.log,sources.log,jobs.log,edition.json}; tracked complete jobs/coverage linked from review. Assertions cover all hours, counts, topics, windows, World queries and five uncapped reads.
-- Live reader probe returns five topics/25 stories/20 posts using an explicit public probe address after the shared loopback address hit its rate limit.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips. Isolated harness rebuilt API. Receipts /tmp/2674-{format,lint,check}.log; API/worker restart after push.
-- Next: metrics recovery checkpoint ≥00:20 UTC; Tech activation assessment before noon; November 18 scheduled publication and social quality review.
-
-## 2026-11-18: iteration 2675 — preserve Tech admission decisions
-
-- Clean main at a0417261; no inherited work. Initial alerts clear; local health database/Redis pass.
-- Owner value: the next Tech admission review can read actual reserved/displaced events rather than reconstructing the decision after publication.
-- Enabled Tech now saves status/reason, admitted/reserved/displaced IDs and scored reservation members/baseline ranks in the private edition snapshot. Disabled/non-Tech paths remain receipt-free.
-- Extended publication and public-read tests to verify evaluated/fallback receipts survive schema parsing and public reader responses omit them. No migration, UI, source, provider, prompt or budget change; switch remains off.
-- Updated the pipeline handbook, ranking notes and TASKS. Handbook check passes: 19 pages/39 tables. No diagram changed.
-- Direct targeted invocation was refused by the DB isolation guard; reran through the supported full isolated check instead. Receipts: /tmp/2675-{targeted,format,lint,check,handbook}.log.
-- Due metrics checkpoint: 24 healthy rules/six queries ≤0.719 s; three 00:02 slow queries and +4,631 memory-high events keep resource acceptance open. No retuning; next ≥01:25 UTC. /tmp/2675-summary.json.
-- Verification: pnpm format/lint:fix/check pass: 1,087 unit and 330 integration tests/four expected skips; isolated harness rebuilt API. Active sources healthy; digest queue zero failures. API/worker restart after commit/push.
-- Next: pre-noon Tech activation decision, natural scheduled reader acceptance; metrics ≥01:25 UTC.
-
-## 2026-11-18: iteration 2676 — activate bounded Tech admission
-
-- Clean main at 2b2c17a4; no inherited work. Alerts clear; health database/Redis pass, services/sources/jobs checks pass; disk 73%. Metrics checkpoint is not due until ≥01:25 UTC.
-- Owner value: important Tech reporting with supplied text can now survive recency/HN ranking into the editor's ten candidates. Existing saved review identifies this admission bottleneck.
-- Enabled TECH_STORY_ADMISSION=1 in the private VM environment for the next natural edition; no inference call, new source, provider, prompt, pool or budget change. Two reserved events/eight usual-ranking places; invalid grouping or triage retains baseline.
-- Recorded activation rationale and rollback in docs/RANKING.md; updated pipeline handbook and TASKS. Natural grouping boundaries, evidence depth and final summaries remain unaccepted pending Nov 18 publication. Disable the flag first if the new path regresses.
-- Handbook check initially caught the 100-line limit; shortened the affected paragraph and reran successfully (19 pages/39 tables). Initial jobs probe used an unsupported queue name; unfiltered supported jobs --check passes.
-- Live reader returns Nov 17 five topics/25 stories/20 posts; no immutable edition rewritten. No UI or diagram change, so no screenshot change.
-- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2676-{format,lint,check,handbook,services,sources,jobs}.log and reader.json. Final format/lint also pass.
-- API/worker restart after commit/push loads the flag; next: Nov 18 natural scheduled reader acceptance, metrics ≥01:25 UTC.
+[Iterations 2673–2676](docs/progress-archive/2026-11-18-iterations-2673-2676.md)
 
 ## 2026-11-18: iteration 2677 — review published grouping provenance
 
@@ -174,3 +129,12 @@
 - Build passes. Signed-out public HTTPS Chromium reader returns five topics/25 stories/20 posts. Local health, active sources and job checks pass. Direct VM DNS path failed; public DNS resolved Chromium check passes, as in prior iteration.
 - Verification: pnpm format and pnpm lint:fix pass; full pnpm check passes (1,101 unit/330 integration tests, four expected skips). Logs /tmp/2685-{format,lint,check,build,handbook,reader,fetch}.log.
 - Next: natural Nov 18 Tech candidate-share and summary-depth acceptance after 15:00 UTC; scheduled edition unchanged. Commit/push and API/worker restart follow successful checks.
+
+## 2026-11-18: iteration 2686 — backfill readable saved Tech reporting
+
+- Clean main at d1c0ee82; no inherited work. Alerts clear and health passes; outside protected hours. No paid calls, flag/budget/provider changes or edition regeneration.
+- Read current public Tech: the Optimizely story still cites only an HN allegation. Eight existing empty HN candidates already yield publisher prose with the deployed extractor; collection changes alone had not enriched these stored rows.
+- Backfilled only blank excerpts after shared-client HTTP 200 fetches and passage review: Human.md, PostHog decision models, Apple outage, US machine tools, Optimizely malware, Antfly licensing, Java4Shell and open-source operations. All eight 0 → 1,500 characters; exact saved IDs/text verified, 12,000 characters total.
+- Durable URL/before/after receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; full local receipt /tmp/2686-saved.json. Tencent returns an application shell with no reporting; left empty. Previously named blocks not retried; no X/mirror fetches.
+- Updated source inventory/tasks; archived progress 2673–2676 to keep orientation small. No application/schema/UI/handbook behavior change. Scheduled candidate-share and reader-depth acceptance remains after 15:00 UTC.
+- Verification: exact database reread passes (8/8); signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,101 unit/330 integration tests, four expected skips. Handbook passes (19 pages/39 tables); logs /tmp/2686-*.log. Commit/push and API/worker restart follow.

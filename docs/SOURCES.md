@@ -3580,3 +3580,9 @@ empty candidate now retains 1,500 characters of announcement reporting. Extracti
 stays inside the exact class container and preserves article precedence; a
 recorded fixture covers this layout. Receipt: `/tmp/2685-saved.json`. Scheduled
 Tech acceptance remains pending.
+
+Iteration 2686 backfilled eight saved empty HN candidates using the deployed
+extractor and normal shared-client HTTP 200 responses (1,500 characters each).
+These include PostHog decision models, Apple service outages and the Optimizely
+supply-chain attack. [Saved-candidate receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md).
+Tencent Hy4 Flash returns only an application shell; no reporting was retained.
