@@ -1,9 +1,11 @@
-// Read-only production evidence: GETs and ledger SELECTs; no jobs or inference.
+// Read-only local production evidence; no jobs or inference.
+// Public HTTP projections intentionally omit the private timing/provenance fields.
 import { digestPreviewSchema, operationsStatusSchema } from '@digest/contracts';
 
 import { database } from '../apps/api/src/libs/db/connections';
 import { readEditionCost } from '../apps/api/src/modules/curation/database/edition-cost.reader';
-import { localAdminFetch } from './lib/local-admin-fetch';
+import { PostgresPreviewRepository } from '../apps/api/src/modules/digests/database/preview.repository';
+import { OperationsStatus } from '../apps/api/src/modules/operations/adapters/operations.status';
 import {
   collectTimingEvidence,
   scheduledTiming,
@@ -12,21 +14,13 @@ import {
   timingOptions,
 } from './lib/scheduled-timing';
 
-async function read(path: string) {
-  const response = await localAdminFetch(`http://127.0.0.1:8000${path}`, {
-    signal: AbortSignal.timeout(15_000),
-  });
-  if (!response.ok) throw new Error(`Read failed: ${response.status}`);
-  return response.json() as Promise<unknown>;
-}
-
 async function main() {
   const options = timingOptions(process.argv.slice(2));
   const db = database();
+  const operations = new OperationsStatus();
+  const previews = new PostgresPreviewRepository();
   try {
-    const status = operationsStatusSchema.parse(
-      await read('/api/admin/status'),
-    );
+    const status = operationsStatusSchema.parse(await operations.read());
     const queue = status.queues.find((q) => q.name === 'digest-generation');
     if (!queue?.available) throw new Error('Digest queue unavailable');
     const evidence = timingEvidence(queue.runs, options);
@@ -34,9 +28,7 @@ async function main() {
       evidence.completed,
       async (run) => {
         const edition = digestPreviewSchema.parse(
-          await read(
-            `/api/admin/digest-previews/${encodeURIComponent(run.editionId!)}`,
-          ),
+          await previews.find(run.editionId!),
         );
         return {
           jobId: run.id,
@@ -124,7 +116,11 @@ async function main() {
       }),
     );
   } finally {
-    await db.end();
+    await Promise.allSettled([
+      db.end(),
+      operations.onModuleDestroy(),
+      previews.onModuleDestroy(),
+    ]);
   }
 }
 

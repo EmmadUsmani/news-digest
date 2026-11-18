@@ -184,3 +184,14 @@
 - No production grouping, prompt, source, provider, budget, UI or flag change; Tech admission stays enabled for natural scheduled acceptance. No handbook or screenshot change needed.
 - Verification: targeted grouping suite passes 19 tests; pnpm format/lint:fix/check pass, 1,088 unit and 330 integration tests/four expected skips. Isolated harness rebuilt API. Receipts: /tmp/2678-{targeted,format,lint,check}.log.
 - Next: natural Nov 18 Tech admission/reader review, 04:40 retention, metrics ≥01:25 UTC. API/worker restart after push.
+
+## 2026-11-18: iteration 2679 — restore scheduled timing evidence in public mode
+
+- Clean main at 99a14fc0; no inherited work. Alerts clear; health database/Redis pass; services/sources/jobs checks pass. Destructoid remains deliberately paused.
+- Owner value: the next morning review can measure real worker latency and inspect saved editorial/social evidence instead of losing the report to the public status projection.
+- Reproduced `Edition timing report unavailable`: the private status schema rejects deliberately omitted public fields. Reporter now reads existing local OperationsStatus and saved-preview adapters, closing their DB/Redis resources afterward.
+- No public API expansion, inference, jobs, provider/budget/source/flag/UI changes. Updated the affected operations handbook; no diagram or screenshot change needed.
+- Live read-only report passes for the latest three scheduled editions, all five topics/edition ledgers, zero unavailable runs. Nov 17 retained worker attempt 247.549 s; scheduled completion delay 247.632 s. Immutable publication timestamps remain distinct.
+- Signed-out HTTPS scheduled reader passes: five topics/25 stories/20 posts. Public status still omits job runs and model details. Handbook check passes (19 pages/39 tables). Receipts /tmp/2679-{timing,history,reader}.json and handbook.log.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,088 unit tests/330 integration tests, four expected skips; isolated harness rebuilt API. Logs /tmp/2679-{format,lint,check}.log.
+- API/worker restart after commit/push; next: metrics ≥01:25 UTC, 04:40 retention, natural Nov 18 Tech admission and reader review.

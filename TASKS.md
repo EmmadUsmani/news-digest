@@ -64,6 +64,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2679: Restore local edition timing report in public mode; Nov 17 retained worker duration 247.549 s, five topics and edition ledger available.
+
 - [x] 2678: Add exact-capture GTA shared-estimate grouping control; all three pairs/six orders retain supported coverage, blanket split misses three positives.
 
 - [x] 2677: Review all twelve Nov 17 published multi-report groups against 45 captured member texts; preserve shared-estimate GTA evidence and five unresolved groups.
