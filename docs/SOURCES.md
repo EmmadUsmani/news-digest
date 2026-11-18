@@ -3884,3 +3884,11 @@ context for Darling's development update and a software-team experience essay
 (3,000 characters); exact stored-text rereads pass 2/2. Lean Grimoire returned
 200 without extracted prose; unchanged. No source configuration changes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#darling-and-software-team-experience--iteration-2737).
+
+### Nov 18 published Bluesky selection — iteration 2772
+
+Eight saved picks: Tech 1, NBA 1, Gaming 2, World 2, U.S. 2.
+All contain standalone text and official API count observations. NBA shares
+one Lakers game with two X picks; queries and source gates remain unchanged.
+[Text review and receipt](edition-reviews/2026-11-18-bluesky-selection.md).
+The complete Nov 18 UTC collection-day review remains pending.

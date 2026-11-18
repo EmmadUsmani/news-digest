@@ -4,62 +4,7 @@
 
 [Iterations 2721–2725](docs/progress-archive/2026-11-18-iterations-2721-2725.md).
 
-## 2026-11-18: iteration 2726 — collect scoped book-chapter evidence
-
-- Clean main at 4bc73d2f; no inherited work. Alerts/health pass; source snapshot healthy, digest queue zero failures/next 15:00 UTC.
-- Read public Tech in Chromium: five topics/25 stories; Apple/China remain thin pending scheduled acceptance.
-- Fixed collection for title-matched book chapters with sibling prose: begin at introduction, omit promotion/author biography, stop before footnotes/page chrome.
-- Saved 3D modeller excerpt 0 → 1,500 characters; exact stored-ID/full-text reread passes (`/tmp/2726-saved.json`). Publisher HTTP 200 page from prior iteration; no new external request required.
-- Extractor regression passes 29/29, including title/marker rejection and banner/bio/footnote exclusion. Handbook behavior/source receipt updated; no schema/UI change.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix` and handbook check pass (19 pages/39 tables); `pnpm check` passes: 1,117 unit/330 integration tests, four expected skips. Logs `/tmp/2726-*.log`.
-- No paid calls, cap changes or edition regeneration. Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-- Commit/push and API/worker restart follow final formatting/lint; post-restart health and public-reader output will be retained in `/tmp/2726-post-reader.log`.
-
-## 2026-11-18: iteration 2727 — recover conversation visualization and AI opinion
-
-- Clean main at 7e8e222b; no inherited work. Alerts/health and source snapshot pass; scheduled digest zero failures, next 15:00 UTC.
-- Public Chromium reader renders five topics/25 stories; Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered saved Qwen conversation-state experiment and AI coding opinion excerpts (3,000 characters).
-- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2727-saved.json`). Author experiment/opinion attribution retained.
-- Quanta extraction includes a promotional lead-in; left unchanged rather than storing it in this step.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,117 unit/330 integration tests, four expected skips. Logs `/tmp/2727-*.log`.
-- Handbook rendered 19 pages/21 diagrams then schema read hit HTTP 429; filtered retry passes 19 pages/39 tables after restart. No handbook changes.
-- API/worker restarted; health database/Redis pass; public Chromium reader still renders five topics/25 stories. Commit/push follow final formatting/linting.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2728 — scope sectioned magazine reporting
-
-- Clean main at dd3d93cc; no inherited work. Alerts/health and source snapshot pass; digest queue zero failures, next 15:00 UTC.
-- Public Chromium reader renders five topics/25 stories; Tech still thin pending scheduled acceptance.
-- Fixed sectioned magazine extraction: headed post body plus selectable prose sections; surrounding promotion/captions/related stories excluded.
-- Saved Quanta origins-of-life excerpt 0 → 1,261 characters from previous HTTP 200 page; full passage reviewed, blank-only write and exact stored-ID/full-text reread pass (`/tmp/2728-saved.json`).
-- Targeted extractor tests pass 30/30; source receipt and affected handbook page updated. No new external fetch, paid call, cap change or edition regeneration.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,118 unit/330 integration tests, four expected skips. Build and filtered handbook check pass (19 pages/39 tables); logs `/tmp/2728-*.log`.
-- API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories. Older progress/completed task markers archived to shorten orientation files.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
-
-## 2026-11-18: iteration 2729 — recover Rust research and Brave announcement
-
-- Clean main at b4685a24; no inherited work. Alerts/health and all 38 sources pass; digest queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
-- Public Chromium reader renders five topics/25 stories; Tech remains thin pending scheduled acceptance.
-- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Microsoft FORGE Rust memory-safety research and Brave’s agentic search-payment announcement (3,000 characters).
-- Full passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2729-saved.json`). Accessible PostScript page has no recognized reporting container; left blank.
-- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
-- `pnpm build`, `pnpm format`, `pnpm lint:fix` pass; `pnpm check` passes: 1,118 unit/330 integration tests, four expected skips. Logs `/tmp/2729-*.log`.
-- API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. PostScript extraction candidate retained at `/tmp/2729-postscript.html`.
-
-## 2026-11-18: iteration 2730 — collect bare-document tutorial prose
-
-- Clean main at 783fdbf1; no inherited work. `pnpm obs alerts`, `/healthz` and sources pass (38 healthy); digest queue zero failures, next 15:00 UTC; historical ingestion/social failures unchanged.
-- Public Chromium reader shows five topics/25 stories; Tech still thin pending scheduled acceptance.
-- Fixed missing collection for minimal documents: consecutive opening paragraphs after a sole top-level heading, stopping at other elements; navigation/multiple headings/widgets rejected.
-- Saved PostScript tutorial excerpt 0 → 717 characters from iteration 2729’s HTTP 200 page; full passage reviewed, blank-only write and exact ID/full-text reread pass (`/tmp/2730-saved.json`). No new external fetch or paid call.
-- `pnpm exec tsx --test apps/api/test/publisher-excerpt.test.ts` passes 31/31; sources/receipt/affected handbook page updated. No schema/UI, cap or edition-generation changes.
-- `pnpm build` and filtered `check-handbook.ts edition-pipeline` pass (19 pages/39 tables); API/worker restarted, health database/Redis pass; public Chromium reader five topics/25 stories after restart.
-- `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2730-*.log`; post-restart alerts clear.
-- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+[Iterations 2726–2730](docs/progress-archive/2026-11-18-iterations-2726-2730.md).
 
 ## 2026-11-18: iteration 2731 — recover Coway and GPU-forensics context
 
@@ -195,3 +140,14 @@
 - Verification: pnpm format, pnpm lint:fix, targeted tests 37/37, pnpm check (1,124 unit/330 integration passes, four expected skips), pnpm build and affected handbook check pass; logs /tmp/2771-*.log.
 - Rebuilt API/worker/docs restarted active; pnpm obs health passes database/Redis, alerts clear. pnpm exec tsx /tmp/2770-live.ts confirms unchanged latest cd357e84: five topics/25 stories/19 posts and five live content groups. No UI change.
 - Next: next scheduled NBA and Tech acceptance together in the daily review; stop recovery work. Destructoid publisher access remains blocked.
+
+## 2026-11-18: iteration 2772 — review published Bluesky text and event breadth
+
+- Clean main at dcc7da5a; no inherited work. Alerts/health/services/sources clear; next NBA/Tech acceptance awaits scheduled publication.
+- Owner-visible value: identify where today's social slots repeat one event instead of adding breadth, using actual saved publication text.
+- Read all eight Bluesky picks with story titles and X texts; retained exact texts/counts/editor reasons in docs/edition-reviews/2026-11-18-bluesky-selection.*. Receipt comparison passes 8/8.
+- NBA uses three slots for one Lakers game; editor explicitly rewards added stat detail. Next: offline event-level comparison before changing selection. Gaming different-work nominations do not prove same-winning-work-rule failure.
+- All eight have standalone text; U.S. has two concrete picks. Complete Nov 18 UTC collection review remains pending. No queries, source gates, prompts, budgets, content writes or paid calls changed.
+- Verification: pnpm format, pnpm lint:fix, pnpm check pass (1,124 unit/330 integration passes, four expected skips). First check stopped on new archive formatting; fixed and reran successfully. Logs /tmp/2772-*.log.
+- pnpm obs health/services --check/sources --check pass; /tmp/2770-live.ts confirms unchanged latest edition: five topics/25 stories/19 posts. Docs-only change; no app rebuild or browser check needed.
+- Archived iterations 2726–2730 to keep PROGRESS.md small. Docs service refreshed after commit; app runtime unchanged. Destructoid remains blocked.

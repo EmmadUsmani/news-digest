@@ -1,0 +1,223 @@
+{
+  "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+  "topics": [
+    {
+      "topic": "Tech & AI",
+      "storyTitles": [
+        "Quad9 to stop serving France after court fine over pirate-streaming domain blocking",
+        "Java4Shell disclosure details critical RCE flaw in OpenJDK Base64 decoder",
+        "Nvidia stops shipping licensed Hopper AI chips to China, interim CEO says",
+        "Randomized experiment finds Google AI Overviews cut clicks to websites by about 40%",
+        "Harvard working paper finds AI coding agents shift bottleneck to code review"
+      ],
+      "posts": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Awnovqylk7dhhl4otvtjp5mch/post/3n2l6xlegqs2x",
+          "author": "chrisdeleon.bsky.social",
+          "text": "while unreal and unity's workflows and engine teams have been leaning more into AI usage meanwhile in addition to godot's contributor policy https://godotengine.org/article/contribution-policy-2026/ they clarified an already strict rule to keep AI out of the forum, reddit, discord and youtube\nhttps://forum.godotengine.org/guidelines",
+          "publishedAt": "2026-11-18T08:59:38.290Z",
+          "observedAt": "2026-11-18T14:54:44.063Z",
+          "metrics": {
+            "likes": 259,
+            "replies": 0,
+            "reposts": 90
+          },
+          "editorReason": "Editor: Concrete policy development for game-engine builders: the post says Godot clarified a strict rule keeping AI-generated content out of its forum, Reddit, Discord and YouTube, in addition to its contributor policy. It contrasts this with Unreal and Unity leaning more into AI."
+        }
+      ],
+      "otherPostTexts": [
+        {
+          "author": "Joe Weisenthal",
+          "text": "\"Advanced artificial intelligence models in simulated scenarios regularly misidentified civilians, ambulances, surrendering soldiers and a school in Iran as military targets...\" \"Claude Opus 5.5, targeted the school more often than any other...\" pic.twitter.com/sUhVzgjTWS"
+        },
+        {
+          "author": "Stitch",
+          "text": "Introducing Stitch AI: put agents to work, native inside the Stitch operating system. Stitch AI fetches data, runs tasks and changes configuration across the platform, under the bank’s own permissions and regulatory constraints. pic.twitter.com/xIjAQ5UoAU"
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "storyTitles": [
+        "LeBron James passes Jason Kidd for third on NBA assists list as Sixers reach 12-3",
+        "Short-handed Pistons end Spurs’ 12-game streak as Harper limps off with groin injury",
+        "Jaylen Brown Out Wednesday With Hamstring Strain",
+        "Warriors changes coming after second straight blowout loss without Steph Curry",
+        "Rough Hawks injury news: CJ McCollum out 4 weeks (calf strain), Asa Newell likely out for season (toe)"
+      ],
+      "posts": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Afqsmj7o5mbb7n7oav2kkjuid/post/3n2lckid4sk2n",
+          "author": "nbastat.bsky.social",
+          "text": "Luka Dončić & Quentin Grimes for the Lakers last night:\n\n83 points\n15 threes made\n12 rebounds\n10 assists\n\nNo other teammate duo in NBA history has combined to reach those marks in a game.\n\n(via OptaSports)\n#NBA",
+          "publishedAt": "2026-11-18T10:03:53.852Z",
+          "observedAt": "2026-11-18T14:54:47.030Z",
+          "metrics": {
+            "likes": 9,
+            "replies": 1,
+            "reposts": 2
+          },
+          "editorReason": "Editor: Specific stat line (83 points, 15 threes, 12 rebounds, 10 assists) for Dončić and Grimes, attributed to OptaSports as unmatched by any teammate duo. It adds a concrete performance record beyond the already-selected Lakers streak and Grimes OT posts."
+        }
+      ],
+      "otherPostTexts": [
+        {
+          "author": "nuel",
+          "text": "Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news makes me sad.\" \"He's a… pic.twitter.com/GA6URToEEU"
+        },
+        {
+          "author": "Hoop Central",
+          "text": "BREAKING: THE LAKERS HAVE WON 9 STRAIGHT GAMES CONTENDERS. 🔥🔥🔥 pic.twitter.com/5gIizKlwjU"
+        },
+        {
+          "author": "Underdog NBA",
+          "text": "GRIMES SENDS IT TO OT pic.twitter.com/GXk6V5Bbbj"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "storyTitles": [
+        "GTA 6 launches to universal critical acclaim; Take-Two shares jump in pre-market trading",
+        "Firaxis lays off about 60 employees, a third of its workforce",
+        "Build a Rocket Boy plans litigation against alleged \"saboteurs\" to recoup £61.7m debt",
+        "WoW: Forever hits record launch numbers, with more weekly players than in 15 years",
+        "Zelda: Ocarina of Time remake is the best-selling physical game in the US for 2026"
+      ],
+      "posts": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3An63mepo7bg7ggrjgzha3gmbq/post/3n2jw42ptg227",
+          "author": "ponett.dog",
+          "text": "gta6 being nominated for game of the year (and every other major category) and voting opening before it's even out really is the most game awards moment of all time",
+          "publishedAt": "2026-11-17T20:48:25.200Z",
+          "observedAt": "2026-11-18T14:54:48.032Z",
+          "metrics": {
+            "likes": 1192,
+            "replies": 5,
+            "reposts": 287
+          },
+          "editorReason": "Editor: The post says GTA 6 was nominated for Game of the Year and every other major category, and that voting opened before release. That is a concrete awards development, stated more fully than the other GTA 6 posts."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4nci4ly3xu3nau7hzr373bte/post/3n2jmghnumr2m",
+          "author": "remedygames.com",
+          "text": "CONTROL Resonant has been nominated in six categories in The Game Awards, including Game of the Year.\n\nThank you so much for the honor! If you enjoyed your time with the game, please consider voting for us: http://thegameawards.com\n\n#CONTROLResonant ",
+          "publishedAt": "2026-11-17T17:55:15.355Z",
+          "observedAt": "2026-11-18T14:54:48.032Z",
+          "metrics": {
+            "likes": 727,
+            "replies": 21,
+            "reposts": 134
+          },
+          "editorReason": "Editor: Remedy's own account says CONTROL Resonant was nominated in six Game Awards categories, including Game of the Year. It is a firsthand, concrete nomination for a different game from the GTA 6 and Resident Evil items."
+        }
+      ],
+      "otherPostTexts": [
+        {
+          "author": "PlayStation Support US",
+          "text": "Sony Interactive has issued a PS5 system software update that is required before playing Grand Theft Auto VI. Players should download this update prior to midnight on November 19 so that they’re ready to play on launch day, November 19."
+        },
+        {
+          "author": "Holly Longdale",
+          "text": "Another fun statistic for you! #WoWForever has more people playing weekly than we've seen in World of Warcraft in 15 years! Thank you all for joining us in Azeroth. We're doing this together, for Forever! 💙♾️"
+        },
+        {
+          "author": "DiscussingFilm",
+          "text": "The Game Awards Nominations - Best Performance: • Angela Sant’Albano - ‘Resident Evil: Requiem’ • Liam McIntyre, ‘Wolverine’ • Manni L. Perez, ‘GTA 6’ • Patrick Gibson, ‘007: First Light’ • Rahul Kohli, ‘Saros’ See the full nominees list: pic.twitter.com/W0IrARtWwB"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "storyTitles": [
+        "Trump shakes hands with Putin and Xi ahead of China summit",
+        "Analysts warn US-Iran 'status quo' could break out into war",
+        "Israel begins operation in central Gaza as Palestinians flee refugee camp",
+        "Ukraine hit Crimean bridge in two waves of strikes after weeks-long operation",
+        "Israel delays building contracts for E1 West Bank settlement after UK sanctions"
+      ],
+      "posts": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Ayazbevg3wkzp5llnzb44tqgh/post/3n2lliylqgc22",
+          "author": "kyivindependent.com",
+          "text": "⚡️️ European Commission approves proposal to provide additional $49.5 billion to Ukraine.\n\nThe European Commission on Nov. 18 approved a set of legislative proposals to provide up to €45 billion ($49.5 billion) in additional financial support to Ukraine in 2027.",
+          "publishedAt": "2026-11-18T12:44:07.494Z",
+          "observedAt": "2026-11-18T13:54:52.075Z",
+          "metrics": {
+            "likes": 258,
+            "replies": 6,
+            "reposts": 55
+          },
+          "editorReason": "Editor: Concrete, consequential diplomacy and finance: the European Commission approved proposals for up to €45 billion ($49.5 billion) in additional Ukraine support in 2027. It is the later, approval-stage version of the EU funding story, so it beats the earlier 'exclusive' post."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3A4aqzua5vsewimmusg66fyajl/post/3n2liomgias2f",
+          "author": "noelreports.com",
+          "text": "The Kremlin says Putin briefed Xi Jinping on the war in Ukraine. Peskov confirmed Ukraine will dominate Putin's discussions with Trump and Xi at the summit in China. A formal Putin-Trump meeting now appears unlikely, while work continues on a joint trilateral statement. #Ukraine",
+          "publishedAt": "2026-11-18T11:53:34.839Z",
+          "observedAt": "2026-11-18T13:54:52.075Z",
+          "metrics": {
+            "likes": 107,
+            "replies": 35,
+            "reposts": 28
+          },
+          "editorReason": "Editor: Reports Kremlin statements on the China summit: Putin briefed Xi on Ukraine, Peskov said Ukraine will dominate the talks, a formal Putin-Trump meeting looks unlikely, and a trilateral statement is being worked on. Relevant to US foreign policy and great-power diplomacy."
+        }
+      ],
+      "otherPostTexts": [
+        {
+          "author": "Ministry of Defence 🇬🇧",
+          "text": "This winter, more than 1,000 air defence missiles and over a dozen air defence radars will be delivered to Ukraine as part of a £240 million package. This vital equipment will help strengthen Ukraine's air defences and protect against Russia's relentless attacks."
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "storyTitles": [
+        "Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan",
+        "Republicans could expedite bill to make big oil immune to lawsuits, warn experts",
+        "US loses long-held measles elimination status, according to PAHO declaration",
+        "Florida labels CAIR a terrorist organization, prompting lawsuit from CAIR-Florida",
+        "White House withdraws nomination of Heidi Overton to lead FDA"
+      ],
+      "posts": [
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Atzu3epnnjzjnoqycxrlf45hf/post/3n2km6msps52r",
+          "author": "jimlokay.com",
+          "text": "BREAKING: Mary Peltola wins election to the U.S. Senate from Alaska, projects the AP. Her win will give Democrats 56 seats in the new Congress.",
+          "publishedAt": "2026-11-18T03:23:33.574Z",
+          "observedAt": "2026-11-18T14:54:53.043Z",
+          "metrics": {
+            "likes": 393,
+            "replies": 6,
+            "reposts": 42
+          },
+          "editorReason": "Editor: Concrete election result: the AP projects Mary Peltola won the Alaska Senate race, which would give Democrats 56 seats in the new Congress."
+        },
+        {
+          "url": "https://bsky.app/profile/did%3Aplc%3Audnac33pmf2iwcblpeai5a5p/post/3n2lpe2ddlk2i",
+          "author": "iwillnotbesilenced.bsky.social",
+          "text": "Dan Koh: Congress Shouldn't Be a Get Rich Scheme!\n\nPublic service is supposed to serve the people, not politicians' stock portfolios.\nDan Koh says he is joining 50 incoming Democrats in demanding a ban on stock trading by members of Congress.",
+          "publishedAt": "2026-11-18T13:52:56.511Z",
+          "observedAt": "2026-11-18T14:54:52.047Z",
+          "metrics": {
+            "likes": 1203,
+            "replies": 39,
+            "reposts": 370
+          },
+          "editorReason": "Editor: Most concrete of the congressional stock-trading ban posts: Dan Koh says he is joining 50 incoming Democrats in demanding a ban. The other posts on this push are repeats and were left out."
+        }
+      ],
+      "otherPostTexts": [
+        {
+          "author": "Eric Daugherty",
+          "text": "🚨 JUST IN: Senate Leader John Thune says there's a LOT he wants to get done, but DEMOCRATS are holding it up, so he can't \"FUNDING the government...Defense Authorization, FISA, Farm Bill, a WHOLE bunch of things require cooperation by Democrats, which at this point, DOESN'T… pic.twitter.com/jDel0epr8N"
+        },
+        {
+          "author": "Max Cohen",
+          "text": "Jeffries calls for Trump admin to host a bicameral briefing on the recent Microsoft outage, FAA ground stop and NSA server issue"
+        }
+      ]
+    }
+  ]
+}
