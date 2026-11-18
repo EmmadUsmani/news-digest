@@ -3612,3 +3612,8 @@ Iteration 2691 recovered two blank saved Optimizely HN candidates from Report UR
 and the OptimJack investigator (ordinary HTTP 200, 3,000 characters total).
 The deployed extractor already supports both; exact saved text rereads pass.
 [Recovery receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#optimizely-publisher-evidence--iteration-2691).
+
+Iteration 2692 recovered blank OpenCode Browse and Three.js lighting-pipeline HN
+excerpts through the deployed extractor (ordinary HTTP 200; 2,042 characters).
+Exact saved ID/text rereads pass. Web Browser Engineering returns HTTP 200 but
+no scoped excerpt; left blank. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#browser-tooling-and-rendering-evidence--iteration-2692).

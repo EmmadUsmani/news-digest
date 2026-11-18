@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2692: Recovered blank OpenCode Browse and Three.js lighting excerpts (2,042 characters); exact stored text verified, scheduled acceptance pending.
+
 - [x] 2691: Recovered two blank Optimizely publisher excerpts (3,000 characters); exact stored text verified, scheduled Tech acceptance pending.
 
 - [x] 2690: Collect ARIA main publisher reporting; Apple permissions candidate repaired 0 → 1,500 characters, exact stored text verified.

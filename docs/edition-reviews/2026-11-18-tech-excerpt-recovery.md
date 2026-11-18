@@ -109,3 +109,20 @@ The accounts differ in scope and remain attributed publisher claims, not an
 independent confirmation of every affected site. Report URI also promotes its
 own product. No paid calls, generation, budget or collection behavior change.
 The immutable edition is unchanged; natural scheduled acceptance remains pending.
+
+## Browser tooling and rendering evidence — iteration 2692
+
+Two ordinary shared-client HTTP 200 responses yielded publisher prose with the
+deployed extractor. Blank-only saved updates and independent exact ID/text
+rereads pass for both candidates (2,042 characters total).
+
+| Candidate                                                                                         | Before | After | Retained detail                                                   |
+| ------------------------------------------------------------------------------------------------- | -----: | ----: | ----------------------------------------------------------------- |
+| [OpenCode Browse](https://opencode.ai/product/browse)                                             |      0 |   542 | MCP/Chromium workflow, existing sessions and human handoff        |
+| [Three.js lighting pipeline](https://ben3d.ca/blog/building-the-aaa-lighting-pipeline-in-threejs) |      0 | 1,500 | Cache setup, screen-space rendering gaps and proposed integration |
+
+OpenCode is first-party product description; the lighting article distinguishes
+proposals from integrated functionality. Neither is independent validation.
+Web Browser Engineering returned HTTP 200 but no scoped excerpt and stays blank.
+No extraction behavior, budgets or editions changed; no paid calls or bypasses.
+Natural scheduled Tech acceptance remains pending after 15:00 UTC.
