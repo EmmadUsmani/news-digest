@@ -131,3 +131,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,091 unit/330 integration tests, four expected skips; targeted 3/3 and handbook 19 pages/39 tables pass. Initial format check caught newly added fixtures/tests; final check is green. Logs /tmp/2681-*.log.
 - All 14 monitored services, active sources and job checks pass. Commit/push followed by API/worker restart; no inherited work or paid replay.
 - Next: natural Nov 18 Tech candidate share and summary-depth acceptance after 15:00 UTC; item 66 stays open. Pages without usable article markup remain empty.
+
+## 2026-11-18: iteration 2682 — retain reporting from publisher main sections
+
+- Clean main at 3562a070; no inherited work. Alerts clear and health passes; outside protected hours. Owner-visible value: richer Tech evidence from readable publisher pages previously saved empty.
+- Cerebras announcement uses main rather than article. Extractor now accepts paragraphs after a heading within main, preserving article precedence and excluding navigation/scripts/header/footer. No body-wide fallback or blocked-access workaround.
+- Live collection: 10/19 existing candidates had excerpts; final 12/20 batch has excerpts. Cerebras and Revscope existing empty rows gained 1,500-character reporting excerpts, including architecture/capacity and experiment details. Receipts /tmp/2682-{live-final,final-excerpts}.json.
+- Inspection found a link-only jQuery release paragraph in the initial batch; exclude URL-only paragraphs and cleared only that exact newly stored link. No paid calls, model/provider/budget/flag changes.
+- Added recorded Cerebras main excerpt plus heading/chrome/precedence/link-only tests; targeted 6/6 pass. Updated sources and pipeline handbook; no diagram/schema/UI changes.
+- Signed-out public HTTPS reader returns five topics/25 stories/20 posts. All 14 monitored services, sources and job checks pass. Scheduled Tech share/depth acceptance remains after 15:00 UTC.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,094 unit/330 integration tests, four expected skips. Logs /tmp/2682-{format,lint,check,build}.log. Initial formatter rejected the truncated HTML fixture; retained original heading/paragraph tags with layout wrappers omitted, then reran successfully.
+- Handbook initially exceeded its line limit; shortened affected explanation and page check passes (19 pages/39 tables). Final format/lint pass. Commit/push followed by API/worker restart; next: natural Nov 18 Tech share and depth acceptance after 15:00 UTC.

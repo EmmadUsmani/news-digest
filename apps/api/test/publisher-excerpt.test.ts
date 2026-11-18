@@ -68,3 +68,47 @@ void test('recorded Java4Shell publisher paragraphs retain reporting detail', as
   assert.match(excerpt, /Java/);
   assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
 });
+
+void test('main reporting requires a page heading and excludes surrounding chrome', () => {
+  const main = `<p>${'Outside promotion '.repeat(6)}</p><main><p>${'Opening promotion '.repeat(6)}</p><h1>Inference release</h1><nav><p>${'Navigation '.repeat(10)}</p></nav><p>${reporting}</p><footer><p>${'Footer promotion '.repeat(6)}</p></footer></main>`;
+  assert.equal(publisherExcerpt(main), reporting);
+  assert.equal(
+    publisherExcerpt(
+      `<h1>Outside heading</h1><main><p>${reporting}</p></main>`,
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(`<main><h1>Page</h1></main><p>${reporting}</p>`),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(
+      `<main><h1>Page</h1><p>${reporting}</p></main><article><p>${reporting} Article wins.</p></article>`,
+    ),
+    `${reporting} Article wins.`,
+  );
+});
+
+void test('recorded Cerebras main reporting retains architecture and capacity detail', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-cerebras.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^We’ve deployed Cerebras/);
+  assert.match(excerpt, /GPUs handle prompt processing/);
+  assert.match(excerpt, /five times more tokens per megawatt/);
+  assert.ok(excerpt.length > 500 && excerpt.length <= 1500);
+});
+
+void test('a release page containing only a link is not reporting evidence', () => {
+  const url =
+    'https://blog.jquery.com/2026/11/17/jquery-4-1-0-and-3-8-0-released-passing-the-torch/';
+  assert.equal(
+    publisherExcerpt(
+      `<main><h1>Release</h1><p><a href="${url}">${url}</a></p></main>`,
+    ),
+    '',
+  );
+});

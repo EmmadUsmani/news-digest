@@ -3541,11 +3541,20 @@ and review the full UTC day after midnight. No new collection or model calls.
 
 Link submissions without HN text now fetch their linked publisher page using
 the shared rate-limited, cached, public-address-validated HTTP client. Only
-paragraphs within an HTML article are retained (1,500-character cap); navigation,
+paragraphs within an HTML article, or after the page heading inside main, are
+retained (1,500-character cap); navigation,
 scripts and page headers/footers are removed. Existing submission text wins.
 Blocked pages are not bypassed and do not discard the HN item. Pages without
-an article element remain empty; no comments or title-only substitute is used.
+an article or a main section with a heading remain empty; no comments or
+title-only substitute is used.
 
 Live Nov 18 verification collected 20 HN stories: saved excerpts rose from 2/19
 previously stored candidates to 10/20 collected candidates, enriching eight empty
 rows. Receipt: `/tmp/2681-live.json`. Scheduled Tech acceptance remains pending.
+
+Iteration 2682 also supports publisher main sections with a page heading. In a
+20-story live batch, ten of 19 saved candidates already had excerpts; after
+collection, 12 of 20 have excerpts. Cerebras and Revscope gained 1,500-character
+reporting excerpts. A link-only jQuery release paragraph was excluded and its
+newly stored text cleared. Receipt: `/tmp/2682-live-final.json` records the final
+batch after link-only cleanup. Scheduled acceptance is pending.
