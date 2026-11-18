@@ -3781,3 +3781,9 @@ HN excerpts: offline music-player development, FreeBSD Zed remote editing and
 room lighting (1,500 characters each). Exact stored-ID/full-text rereads pass
 3/3. Personal experience retains author attribution; collection behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#offline-music-freebsd-remote-editing-and-lighting--iteration-2721).
+
+Iteration 2722: ordinary HTTP 200 publisher pages recovered blank saved HN
+excerpts for Cornell smartwatch research and JEPA experiments (3,000 characters).
+Exact stored-ID/full-text rereads pass 2/2. Clipboard-security URL returned 404
+and remains blank; collection behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#smartwatch-research-and-jepa-experiments--iteration-2722).

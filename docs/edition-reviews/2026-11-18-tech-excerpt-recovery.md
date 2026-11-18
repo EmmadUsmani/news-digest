@@ -594,3 +594,15 @@ blank-only writes; independent exact stored-ID/full-text rereads pass 3/3
 (`/tmp/2721-saved.json`). Personal experience and measured lighting results
 remain the authors' accounts. No extraction behavior, source, paid call, budget
 or immutable edition changed. Scheduled Tech depth acceptance remains pending.
+
+## Smartwatch research and JEPA experiments — iteration 2722
+
+Ordinary shared-client HTTP 200 publisher responses recovered blank saved HN
+excerpts for [Cornell's smartwatch body tracking](https://news.cornell.edu/stories/2026/11/researchers-track-whole-body-movement-just-smartwatch)
+and [JEPA world-model experiments](https://haddyalchaer.com/jepa). Each changed
+from zero to 1,500 characters. Complete passages reviewed before blank-only
+writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2722-saved.json`).
+Research claims and experiment results remain attributed to their authors.
+The saved clipboard-security publisher URL returned HTTP 404 and remains blank.
+No collection behavior, source, budget or immutable edition changed. Scheduled
+Tech depth acceptance remains pending after 15:00 UTC.
