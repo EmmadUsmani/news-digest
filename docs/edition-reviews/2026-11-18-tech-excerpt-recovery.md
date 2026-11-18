@@ -369,3 +369,18 @@ claims remain publisher assertions. No code change, paid call or regeneration.
 Web Browser Engineering is an unscoped book index and stays blank; jQuery
 release was not fetched. Public Tech still has thin Apple/China summaries.
 Scheduled Nov 18 Tech share/depth acceptance remains pending.
+
+## Release-note lists — iteration 2708
+
+The previously saved ordinary HTTP 200 [jQuery 4.1.0 release page](https://github.com/jquery/jquery/releases/tag/4.1.0)
+contains changelog lists, which paragraph-only extraction missed. Collection now
+reads paragraphs and list entries within the named Markdown release body under
+a headed main, excluding surrounding repository UI and link-only paragraphs.
+A reduced recorded fixture covers the real structure and missing-marker controls.
+
+Saved candidate `dd81ef2a-8d99-4c15-b07c-4df0f4cd37da` changed from 0 to
+991 characters using a blank-only write. Complete excerpt reviewed; independent
+exact ID/full-text reread passes (`/tmp/2708-saved.json`). Saved text includes
+transport callbacks, selector changes and XML support; release claims remain
+attributed to the project. No new publisher request, paid call or regeneration.
+Scheduled Nov 18 Tech share/depth acceptance remains pending.

@@ -184,3 +184,14 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts; sources/tasks/recovery receipt updated. Public job state filtering is unavailable as designed; queue counts confirm no failures.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2707-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2708 — collect publisher release-note lists
+
+- Clean main at f208bd61; no inherited work. Alerts/health/services/active sources pass; digest queue zero failures, next run 15:00 UTC.
+- Public Tech Apple/China summaries remain thin. Found a collection cause: jQuery release reporting uses lists, missed by paragraph-only extraction.
+- Scoped GitHub Markdown release bodies now supply paragraphs/list entries; surrounding repository chrome and bare links excluded. Reduced recorded HTTP 200 fixture and missing-marker controls pass (25 extraction tests).
+- Saved candidate dd81ef2a blank-only write 0 → 991 characters; complete excerpt reviewed and independent exact ID/full-text reread passes (/tmp/2708-saved.json).
+- No new publisher request, paid call, provider/budget change or edition regeneration. Source receipt/tasks/affected handbook updated; handbook check passes.
+- Public HTTPS Chromium reader passes with 25 stories; VM hostname resolves locally, so browser uses public DNS address without changing host/DNS settings. No UI change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,113 unit/330 integration tests pass, four expected skips. Logs /tmp/2708-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

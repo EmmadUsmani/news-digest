@@ -24,6 +24,8 @@ export function publisherExcerpt(html: string): string {
     /<(script|style|nav|aside|header|footer)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
     '',
   );
+  const release = releaseNotes(clean);
+  if (release) return release;
   const article = /<article\b[^>]*>([\s\S]*?)<\/article\s*>/i.exec(clean)?.[1];
   if (!article) {
     const abstract = researchAbstract(clean);
@@ -92,6 +94,41 @@ function mediaWikiReporting(html: string): string | undefined {
 
 type Node = DefaultTreeAdapterMap['node'];
 type Element = DefaultTreeAdapterMap['element'];
+
+/** GitHub release bodies contain changelog lists rather than article prose. */
+function releaseNotes(html: string): string {
+  if (!html.includes('body-content')) return '';
+  const main = find(parseFragment(html), (node) => node.tagName === 'main');
+  if (!main || !find(main, (node) => node.tagName === 'h1')) return '';
+  const body = find(
+    main,
+    (node) =>
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'data-test-selector' && attr.value === 'body-content',
+      ) &&
+      node.attrs.some(
+        (attr) =>
+          attr.name === 'class' &&
+          attr.value.split(/\s+/).includes('markdown-body'),
+      ),
+  );
+  if (!body) return '';
+  const blocks: string[] = [];
+  function collect(node: Node): void {
+    if (!('childNodes' in node)) return;
+    if ('tagName' in node && ['p', 'li'].includes(node.tagName)) {
+      const text = plainText(decodeHTML(serialize(node)));
+      if (text.length >= 60 && !/^https?:\/\/\S+$/i.test(text))
+        blocks.push(text);
+      return;
+    }
+    node.childNodes.forEach(collect);
+  }
+  collect(body);
+  return plainText(blocks.join(' '));
+}
+
 function find(
   node: Node,
   matches: (element: Element) => boolean,

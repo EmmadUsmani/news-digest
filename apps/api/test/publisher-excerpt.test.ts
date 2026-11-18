@@ -8,6 +8,30 @@ import { publisherExcerpt } from '../src/modules/ingestion/adapters/publisher-ex
 const reporting =
   'The researchers released a new model and published the evaluation results alongside its training code.';
 const html = `<nav><p>${'Navigation '.repeat(10)}</p></nav><article><header><p>${'Subscribe '.repeat(10)}</p></header><script><p>${reporting}</p></script><p>${reporting}</p><p>Second paragraph explains the measured results &amp; limitations of this released model.</p></article>`;
+void test('recorded release lists provide evidence without repository chrome or bare links', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-jquery-release.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /^Support an alternative completeCallback API/);
+  assert.match(excerpt, /querySelectorAll/);
+  assert.match(excerpt, /Use createElementNS to support XML documents/);
+  assert.doesNotMatch(
+    excerpt,
+    /Outside navigation|Unrelated repository|https:/,
+  );
+  assert.ok(excerpt.length > 300 && excerpt.length <= 1500);
+  for (const changed of [
+    html.replace('data-test-selector="body-content"', ''),
+    html.replace('markdown-body', 'other-body'),
+  ]) {
+    assert.doesNotMatch(
+      publisherExcerpt(changed),
+      /completeCallback|querySelectorAll|createElementNS/,
+    );
+  }
+});
 void test('publisher excerpt selects bounded article reporting and excludes page chrome', () => {
   assert.equal(
     publisherExcerpt(html),

@@ -3699,3 +3699,8 @@ Iteration 2707: ordinary HTTP 200 GitHub page and deployed extraction recover th
 blank saved Sutra-OS HN excerpt (1,500 characters); exact ID/full-text reread passes.
 Project capabilities and historical claims remain attributed to its README.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#ontology-project-context--iteration-2707).
+
+Iteration 2708: collect scoped GitHub release-note paragraphs and changelog lists,
+excluding repository chrome and bare links. Saved jQuery 4.1.0 HN candidate
+recovered 0 → 991 characters; exact ID/full-text reread passes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#release-note-lists--iteration-2708).
