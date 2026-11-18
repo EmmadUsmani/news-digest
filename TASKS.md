@@ -23,7 +23,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 56/57: Nov 15 World/U.S. scope/event review passes (2412), IDs disjoint. Nov 16 World AI recovery and disjoint selected/coverage IDs accepted (2516); three consecutive successful scheduled editions remain open. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-4).
 
-- [ ] Metrics-store: retain CPU 2%/88 MiB high/112 MiB max. 2680: 24 healthy rules/22 passing queries (≤1.890 s); 68 small merges/1,638,424 rows, no new big merge, slow query or timeout. One admission-limit event and +1,368 memory-high events keep resource acceptance open. Next check ≥02:30 UTC Nov 18. [Evidence](docs/decisions/0004-observability-capacity.md#second-nov-18-recovery-checkpoint-iteration-2680).
+- [ ] Metrics-store: CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB; item 66 permits checks only on alerts, restart or memory above max.
 
 - [ ] STEERING 34: keyword X ON, semantic OFF. Nov 15 World: 13 scored/four qualifying/three selected, no stronger scored alternative; verified metrics unknown. NBA no Murray repetition; Nov 16 selected spoof-source absence accepted (2516). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-6).
 
@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth: 2676 enables `TECH_STORY_ADMISSION=1` on this VM before the protected window, following recorded policy/publication/fallback verification and private receipts. Existing pool, one grouping call, providers and budgets unchanged. Next: Nov 18 natural scheduled review of reserved/displaced events, evidence depth and final reader summaries; disable flag first on regression. Boundaries and reader improvement remain unaccepted. See docs/RANKING.md.
+- [ ] Tech depth / STEERING 66: fix why Tech candidates have no saved excerpts (Nov 17: 171/200 empty). HN adapter stores only optional item.text; inspect saved source attribution, then fix collection/fetch/storage and show before/after saved candidates. Existing admission flag remains enabled for the Nov 18 natural edition, with rollback on regression. No grouping wording rules, budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 

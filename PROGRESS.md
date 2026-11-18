@@ -117,4 +117,5 @@
 - Signed-out HTTPS latest passes five topics/25 stories/20 posts; certificate checks retained with the existing public DNS override. No inference, source/query/provider/budget/flag/UI change, or metrics restart/retuning.
 - Archived progress iterations 2665–2672 and older scheduled/completed task detail to keep handoffs small; updated capacity evidence and the task checkpoint. No handbook, schema metadata or screenshot change needed.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,088 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Receipts /tmp/2680-{format,lint,check,metrics.jsonl,summary.json,reader.json}; summary assertions pass.
-- API/worker restart after commit/push; next metrics ≥02:30 UTC, retention 04:40 UTC, natural Tech admission and daily reader review after 15:00 UTC.
+- Initial push rejected: owner commit a20e05b0 added item 66 during verification. Merged without rewriting history; routine metrics checks stop, TASKS retains limits only. This checkpoint was committed before the newer instruction arrived.
+- API/worker restart after merge/push; next: fix missing Tech excerpts under item 66, retention 04:40 UTC, natural admission and the single daily reader review after 15:00 UTC.

@@ -27,8 +27,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    edition review.
 4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
 5. Then X search and Bluesky tuning (items 39, 34, 40, 41).
-6. Then Tech summary depth: read Tech as a reader and fix thin summaries at
-   their cause (item 59).
+6. Tech summary depth runs alongside line 1 (item 66): read Tech as a reader
+   and fix thin summaries at their cause (item 59). Routine metrics
+   checkpoint commits stop.
 7. Then item 38's list for choosing meaningful work. Item 42 says what to do
    first. Item 43 says what not to do.
 
@@ -3023,3 +3024,41 @@ alone as before. Item 65 is complete once the 04:40 UTC timer run is recorded.
 ack: 2026-11-16 item 65 partial — iteration 2535 installs daily 04:40 UTC session/tmp retention through VM setup. First run: sessions 1,070,725,657 bytes and /tmp 1,652,054,192 bytes smaller (logical sizes), filesystem 72%→61%; newest session, recent files, locked files and sockets protected. Prior unused-data/journal cleanup is b2be7a38 (79%→72%). Agent-control remains untouched under the explicit run prohibition, recorded in NEEDS_FROM_HUMAN.md; item stays open for that conflict.
 
 ack: 2026-11-17 item 65 complete — iteration 2582 records the natural 04:40:03–04:40:04 UTC timer run: Result=success, ExecMainStatus=0; 55 expired session files / 41,185,972 bytes deleted; tmpfiles completed (five unavailable pipe notices ignored), next timer Nov 18 04:40 UTC. Disk 63% before/after, alerts clear. Initial deployment at iteration 2535 freed sessions 1,070,725,657 bytes and tmp 1,652,054,192 logical bytes, disk 72%→61%; prior b2be7a38 unused-data/journal cleanup 79%→72%. Supervisor log pruning remains lead-owned, deployed 05beb1da; protected paths untouched.
+
+## 66. NOW: stop routine checkpoint commits; fix thin Tech summaries (2026-11-18)
+
+**Why:** 34 of the last 59 commits (Nov 17 13:00 to Nov 18 01:00 UTC) were
+guarding or re-checking: metrics checkpoints, provenance reviews, repeated
+verification. Tech summaries are still thin: the Nov 17 review found 171 of
+200 eligible Tech candidates with no saved excerpt, and the cause has been
+traced several times without a fix (item 59).
+
+**Priority:** Current order line 6 moves up to run alongside line 1, but never
+ahead of an actual breakage or protecting the morning edition.
+
+**What to do:**
+
+1. Metrics-store checkpoints: do one only when an alert fires, the metrics
+   store restarts, or memory passes the max limit (112 MiB). Otherwise record
+   nothing. Don't commit a checkpoint just because a "next check" time has
+   passed. Reduce the `TASKS.md` metrics line to one line with the limits.
+2. Daily edition review stays, but one review commit per edition. Don't add
+   separate provenance or coverage reviews of the same edition.
+3. Use the freed iterations on Tech summary depth. Read the latest Tech
+   section as a reader. Find why candidates have no saved excerpt (collection,
+   fetch or storage), fix that cause, and show the before and after on
+   saved Tech candidates.
+
+**What not to do:** no hand-written wording rules for grouping. Don't polish
+screens already accepted. Don't raise budgets. Don't turn off an alert to
+save commits.
+
+**Stop:** if the cause is a publisher block (like the Destructoid 403), record
+it once in `NEEDS_FROM_HUMAN.md` and go to the next candidate. No bypasses.
+
+**Done when:** the next scheduled Tech section has a clearly higher share of
+candidates with excerpts, or the blocking cause is named with evidence. Ack
+with the share before and after, and the commit.
+
+**Limits:** AI budget unchanged. Not between 13:00 and 16:00 UTC. Protect the
+morning edition.

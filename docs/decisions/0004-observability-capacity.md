@@ -2034,5 +2034,5 @@ pass; signed-out public HTTPS serves five topics/25 stories/20 posts.
 Retain CPU 2% / MemoryHigh 88 MiB / MemoryMax 112 MiB. Admission pressure
 and continued reclaim keep resource acceptance open; no new comparable big
 merge occurred. No restart of metrics, forced merge, query tuning or provider
-calls. Next short checkpoint ≥02:30 UTC. Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 10 60` and `python3 /tmp/2680-summarize.py`;
+calls. Owner item 66, merged after this collection, stops routine future checkpoints. Commands: `pnpm exec tsx scripts/sample-metrics-recovery.ts 10 60` and `python3 /tmp/2680-summarize.py`;
 receipts `/tmp/2680-{metrics.jsonl,metrics-error.log,summary.json,reader.json}`.
