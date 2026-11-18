@@ -3859,3 +3859,9 @@ stored-ID/full-text verification. Faraday-cage and CPython/Yk pages returned
 200 but no extracted prose and remain unchanged. No source configuration or
 paid calls changed.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#interview-changes--iteration-2734).
+
+Iteration 2735: fixed HN publisher extraction for title-matched blog headings
+with explicit article-body containers; recent-post sidebars remain excluded.
+The saved CPython/yk candidate now has 1,500 characters instead of zero;
+blank-only write and exact stored-text reread pass. No source or budget changes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#cpython-article-body--iteration-2735).

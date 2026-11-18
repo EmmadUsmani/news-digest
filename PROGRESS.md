@@ -197,3 +197,14 @@
 - `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2734-*.log`.
 - API/worker restarted; immediate health request preceded readiness, retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window. Consider safe prose scoping for the two unextracted pages outside that window.
+
+## 2026-11-18: iteration 2735 — collect identified blog article bodies
+
+- Clean main at 8f8aa243; no inherited work. Alerts and health clear; scheduled digest queue zero failures, next 15:00 UTC. Historical queue failures unchanged.
+- Latest public Tech remains thin; Chromium reader shows five topics/25 stories. Scheduled acceptance stays pending.
+- Fixed the actual CPython/yk HTTP 200 extraction failure: title-matched identified blog headings can scope explicit article-body divs without sibling recent-post lists.
+- Saved candidate f04942be-5434-4836-8507-4c2e3e20a72a: 0 → 1,500 characters. Reviewed full passage; blank-only write and exact stored-ID/full-text reread pass (`pnpm exec tsx /tmp/2735-verify.ts`).
+- Targeted `pnpm exec tsx --test apps/api/test/publisher-excerpt.test.ts`: 32/32 pass, including mismatched-title, missing-identity and unrelated-container controls.
+- Source receipt, handbook and tasks updated; no paid calls, cap changes or edition regeneration.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` and `pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline` pass: 1,120 unit/330 integration passes, four expected skips. Logs `/tmp/2735-*.log`.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

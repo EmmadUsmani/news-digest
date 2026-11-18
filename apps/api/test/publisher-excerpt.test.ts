@@ -601,3 +601,16 @@ void test('bare documents provide consecutive opening prose without later sectio
   ])
     assert.equal(publisherExcerpt(changed), '');
 });
+
+void test('identified blog article bodies exclude sibling recent posts and require their title', () => {
+  const noise = 'Other recent posts and subscription information. '.repeat(3);
+  const page = `<title>Author: Compiler experiment</title><div class="body"><h1 id="title">Compiler experiment</h1><div id="article-other-blogs"><p>${noise}</p></div><div id="article-body"><p>${reporting}</p></div><p>${noise}</p></div>`;
+  assert.equal(publisherExcerpt(page), reporting);
+  for (const changed of [
+    page.replace('Author: Compiler experiment', 'Author: Different article'),
+    page.replace('id="title"', 'id="other"'),
+    page.replace('id="article-body"', 'id="other-body"'),
+    `<title>Author: Compiler experiment</title><div><h1 id="title">Compiler experiment</h1></div><div id="article-body"><p>${reporting}</p></div>`,
+  ])
+    assert.equal(publisherExcerpt(changed), '');
+});

@@ -767,3 +767,16 @@ goals and trials emphasizing design and verification. Faraday-cage and
 CPython/Yk pages returned HTTP 200 but no extracted prose; both remain
 unchanged. No collection behavior, paid call, budget or immutable edition
 changed. Scheduled Tech depth acceptance remains pending.
+
+## CPython article body — iteration 2735
+
+[Adapting CPython for yk](https://tratt.net/laurie/blog/2026/adapting_cpython_for_yk.html)
+returned HTTP 200 but stored no excerpt because its older blog template uses
+an explicit `article-body` div rather than article/main. Extraction now requires
+an identified heading matching the document title and searches only its parent
+for the article body; sibling recent-post lists stay excluded.
+The saved candidate f04942be-5434-4836-8507-4c2e3e20a72a changed from zero to
+1,500 characters after review, explaining interpreter adaptation and initial
+performance results. Blank-only write and exact ID/full-text reread pass
+(`/tmp/2735-saved.json`). Scoped-template regression tests pass; no paid calls,
+budget changes or edition regeneration. Scheduled Tech acceptance remains pending.

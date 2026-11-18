@@ -50,6 +50,7 @@ export function publisherExcerpt(html: string): string {
     microformatReporting(clean) ??
     wordpressReporting(clean) ??
     templateReporting(clean) ??
+    identifiedArticleReporting(clean, title) ??
     asciiDocReporting(clean, title) ??
     chapterReporting(clean, title) ??
     titledColumnReporting(clean, title) ??
@@ -398,6 +399,41 @@ function templateReporting(html: string): string | undefined {
       node.attrs.some(
         (attr) =>
           attr.name === 'class' && attr.value.split(/\s+/).includes('prose'),
+      ),
+  );
+  return body ? serialize(body) : undefined;
+}
+
+/** Older blog templates identify the title and prose separately from sidebars. */
+function identifiedArticleReporting(
+  html: string,
+  title: string | undefined,
+): string | undefined {
+  if (!title || !html.includes('article-body')) return undefined;
+  const root = parseFragment(html);
+  const heading = find(
+    root,
+    (node) =>
+      node.tagName === 'h1' &&
+      node.attrs.some((attr) => attr.name === 'id' && attr.value === 'title'),
+  );
+  if (!heading) return undefined;
+  const headingText = plainText(decodeHTML(serialize(heading)));
+  const documentTitle = plainText(decodeHTML(title));
+  if (
+    !headingText ||
+    !(
+      documentTitle === headingText ||
+      documentTitle.endsWith(`: ${headingText}`)
+    )
+  )
+    return undefined;
+  const body = find(
+    heading.parentNode ?? root,
+    (node) =>
+      node.tagName === 'div' &&
+      node.attrs.some(
+        (attr) => attr.name === 'id' && attr.value === 'article-body',
       ),
   );
   return body ? serialize(body) : undefined;
