@@ -60,3 +60,20 @@ An ordinary shared-client HTTP 200 returned 105,652 bytes. Blank-only update of
 stored ID `1f4a5def-0ddd-416f-bf1d-55745900fbd9` was reread and matched exactly.
 The previous edition stays unchanged; natural candidate-share/depth acceptance
 remains after 15:00 UTC. No paid calls, access workaround or budget change.
+
+## Additional saved reporting — iteration 2689
+
+Three ordinary shared-client HTTP 200 responses yielded reporting with the
+unchanged deployed extractor. Blank-only updates were reread by ID and exact
+text: three rows, 4,500 characters total.
+
+| Candidate                                                                                                       | Before | After | Retained detail                                                            |
+| --------------------------------------------------------------------------------------------------------------- | -----: | ----: | -------------------------------------------------------------------------- |
+| [Windows coding-agent telemetry](https://xusheng.dev/posts/windows-coding-agent-telemetry/)                     |      0 | 1,500 | Author’s binary investigation, local recording and diagnostic upload claim |
+| [Spamhaus sender guidelines](https://www.spamhaus.org/sender-guidelines/)                                       |      0 | 1,500 | November rollout, HELO and forward-confirmed reverse DNS requirements      |
+| [Krebs security careers (2012)](https://krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/) |      0 | 1,500 | Historical interview introduction and password-security context            |
+
+The Krebs excerpt retains its historical framing; it is not new reporting.
+Apple’s Full Disk Access support page returned HTTP 200 but no scoped prose;
+its saved excerpt remains blank. No blocks were bypassed, no paid calls were
+made, and no edition was changed. Natural acceptance remains after 15:00 UTC.

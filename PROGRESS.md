@@ -159,3 +159,13 @@
 - Recorded publisher paragraphs and layout/precedence cases pass 15/15. Source inventory and affected handbook page updated; no schema/UI/diagram change. Public HTTPS Chromium reader passes five topics/25 stories/20 posts.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,103 unit/330 integration tests, four expected skips). Affected-page handbook passes (19-page inventory/one diagram/39 tables); first full attempt hit HTTP 429, owner-services retry caught a 101-line page, shortened and passed. Logs /tmp/2688-*.log.
 - Next: natural Nov 18 Tech share/depth acceptance after 15:00 UTC; retention at 04:40 UTC. Commit/push and API/worker restart follow successful checks.
+
+## 2026-11-18: iteration 2689 — recover telemetry and sender-guidance evidence
+
+- Clean main at fb2c6991; no inherited work. Alerts clear and health passes; outside protected hours. No paid calls, budget/provider/flag changes or edition regeneration.
+- Continued the latest reader finding: Apple/China summaries remain thin and Optimizely relies on an HN allegation. Three more blank saved HN candidates yield publisher prose with the deployed extractor.
+- Shared-client HTTP 200 passages reviewed and blank-only updates verified by exact stored ID/text: Windows coding-agent telemetry, Spamhaus sender guidelines and historical Krebs security interview context; 0 → 1,500 each, 4,500 characters total. Receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; full local /tmp/2689-saved.json.
+- Apple Full Disk Access support page returns HTTP 200 but no scoped prose; left blank. No blocked publisher retries, access bypasses or X/mirror fetches. Existing edition stays immutable.
+- Updated source inventory/tasks; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,103 unit/330 integration tests, four expected skips); exact database reread passes 3/3. Logs /tmp/2689-*.log. Commit/push and API/worker restart follow.
+- Next: natural Nov 18 Tech share/depth acceptance after 15:00 UTC; retention at 04:40 UTC.

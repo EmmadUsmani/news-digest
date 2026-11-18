@@ -3596,3 +3596,9 @@ and a `#body.prose` container. Claude.dev’s verification post returns shared-c
 HTTP 200; its saved empty excerpt now contains 1,500 characters of verification
 reporting. Related posts stay outside the selected body. Exact saved text verified;
 recorded fixture tests remain offline. Scheduled Tech acceptance is pending.
+
+Iteration 2689 recovered three further blank saved HN excerpts with the deployed
+extractor: Windows coding-agent telemetry, Spamhaus sender guidance and a
+historical Krebs interview introduction (4,500 characters; exact reread passes).
+Apple’s Full Disk Access support page returned HTTP 200 but no scoped prose.
+[Recovery receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md#additional-saved-reporting--iteration-2689).
