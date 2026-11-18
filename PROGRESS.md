@@ -109,3 +109,13 @@
 - Web Browser Engineering HTTP 200 yields no scoped prose and stays blank. No access bypasses. Existing immutable edition unchanged; source inventory/tasks updated, no application/schema/UI/handbook behavior change.
 - Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips); logs /tmp/2692-*.log. Archived iterations 2677–2684 to keep this file small. Commit/push and API/worker restart follow.
 - Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
+
+## 2026-11-18: iteration 2693 — recover Rust and HTTP/3 publisher evidence
+
+- Clean main at 1b78aba5; no inherited work. Alerts clear, health passes, source/job checks pass; outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
+- Latest public Tech still has four thin summaries; existing edition remains immutable. Continued collection repair using deployed extraction on three blank saved HN candidates: Rust developer essay, HTTP/3 tutorial and Jiff 1.0 announcement.
+- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact ID/text rereads pass 3/3 (4,500 characters); local /tmp/2693-saved.json, receipt in docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
+- Personal experience, first-party tutorial promotion and release/adoption claims retain attribution. jQuery GitHub release has only a bare publisher link and stays blank; no scope expansion or bypass.
+- Source inventory/tasks updated; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2693-*.log. Commit/push and API/worker restart follow.
+- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.

@@ -3617,3 +3617,8 @@ Iteration 2692 recovered blank OpenCode Browse and Three.js lighting-pipeline HN
 excerpts through the deployed extractor (ordinary HTTP 200; 2,042 characters).
 Exact saved ID/text rereads pass. Web Browser Engineering returns HTTP 200 but
 no scoped excerpt; left blank. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#browser-tooling-and-rendering-evidence--iteration-2692).
+
+Iteration 2693 recovered blank Rust developer essay, HTTP/3 tutorial and Jiff 1.0
+HN excerpts through the deployed extractor: HTTP 200, 4,500 characters, exact
+stored text verified. GitHub jQuery release has only a bare link and stays blank.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-and-http3-evidence--iteration-2693).

@@ -126,3 +126,21 @@ proposals from integrated functionality. Neither is independent validation.
 Web Browser Engineering returned HTTP 200 but no scoped excerpt and stays blank.
 No extraction behavior, budgets or editions changed; no paid calls or bypasses.
 Natural scheduled Tech acceptance remains pending after 15:00 UTC.
+
+## Rust and HTTP/3 evidence — iteration 2693
+
+Three ordinary shared-client HTTP 200 responses yielded scoped publisher prose
+with the deployed extractor. Blank-only updates and independent exact ID/text
+rereads pass: three candidates, 1,500 characters each (4,500 total).
+
+| Candidate                                                                                            | Saved ID                             | Retained detail                                   |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------- |
+| [Rust developer essay](https://blog.startifact.com/posts/how-rust-changed-me/)                       | 7fb3869b-7dee-42d1-9aa4-925117450cf3 | Author experience, product and sum types          |
+| [HTTP/3 interception](https://interceptsuite.com/blog/intercept-http3-traffic-quic-qpack-explained/) | 6ff6bb0d-02cb-414e-b7e8-a2de3e0dfd4b | QUIC/UDP transport, QPACK and extension workflow  |
+| [Jiff 1.0](https://burntsushi.net/jiff/)                                                             | d7880d01-13d1-438e-b56e-67ef4c2e1d0d | Time zones, adoption and API stability commitment |
+
+The essay is personal experience; the tutorial includes first-party product
+promotion; Jiff adoption and commitments remain author claims. The jQuery
+GitHub release returned HTTP 200 but only a bare publisher link, so stays blank.
+No extraction behavior, budgets or immutable editions changed; no paid calls.
+Natural scheduled Tech acceptance remains pending after 15:00 UTC.
