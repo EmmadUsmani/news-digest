@@ -349,3 +349,22 @@ void test('recorded publisher headers retain identity and notification reporting
     assert.doesNotMatch(excerpt, /<h1|<header/);
   }
 });
+
+void test('WordPress article bodies recover Lean reporting without comments', async () => {
+  const html = await readFile(
+    'apps/api/test/fixtures/hn-publisher-lean.html',
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(html);
+  assert.match(excerpt, /interpret claims/);
+  assert.match(excerpt, /722 mathematics papers/);
+  assert.doesNotMatch(excerpt, /Comment text/);
+  assert.equal(
+    publisherExcerpt(html.replace('class="hentry"', 'class="archive"')),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(html.replace('class="entry-title"', 'class="other"')),
+    '',
+  );
+});

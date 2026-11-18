@@ -3653,3 +3653,8 @@ a historical ThinkPad support account, and Linebender's squircle explainer.
 Ordinary shared-client HTTP 200; three exact stored-text rereads, 4,500 characters.
 Lean/Astra pages return 200 without scoped excerpts and remain blank.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#security-research-and-technical-context--iteration-2698).
+
+Iteration 2699 adds scoped WordPress entry-content extraction within a titled
+hentry. The previously blank Lean interpretation article now has 1,500 saved
+characters, with an exact independent reread; comments are excluded.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#wordpress-article-bodies--iteration-2699).

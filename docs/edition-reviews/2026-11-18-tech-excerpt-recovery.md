@@ -238,3 +238,17 @@ Lean and Astra testing pages returned HTTP 200 but no scoped excerpt; left blank
 No access workaround, paid call, extraction change or edition regeneration.
 Public HTTPS Chromium reader passes five topics/25 stories/20 posts; current
 Tech remains thin. Scheduled candidate-share/depth acceptance is pending.
+
+## WordPress article bodies — iteration 2699
+
+The Lean publisher page returned HTTP 200 but used an h2 entry-title and a
+WordPress entry-content body, so the h1-based main fallback saved nothing.
+The collector now recognizes entry-content within a titled hentry. Comments
+and adjacent navigation remain outside the body; unscoped/archive containers
+remain rejected. A reduced recorded fixture covers the real layout.
+
+The saved [Lean interpretation article](https://xenaproject.wordpress.com/2026/11/12/and-the-proof-is-checked-in-lean/)
+changed from 0 to 1,500 characters; independent ID/text reread passes. The opening
+retains the author's distinction between proof checking and checking what was
+formalized; it does not establish that the referenced repositories fail checks.
+Immutable editions and budgets unchanged; scheduled depth acceptance pending.

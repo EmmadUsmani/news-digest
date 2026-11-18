@@ -171,3 +171,12 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/receipt updated; no application/schema/UI/handbook change, paid calls, budget changes or edition regeneration.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,107 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2698-*.log. Commit/push and API/worker restart follow checks.
 - Next: natural Nov 18 Tech candidate-share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC.
+
+## 2026-11-18: iteration 2699 — recognize WordPress reporting bodies
+
+- Clean main at ed77a745; no inherited work. Alerts/health/sources pass; API and worker active. No paid calls, budget/provider changes or edition regeneration.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts; Tech still thin. Found collection cause: Lean page uses h2 entry-title and entry-content, missed by h1 main fallback.
+- Added titled-hentry WordPress body extraction, with reduced recorded fixture and regression checks excluding comments and unscoped containers. No schema/UI/handbook change.
+- Lean candidate blank-only update 0 → 1,500 characters; independent exact ID/text reread passes (/tmp/2699-saved.json). Author's proof-interpretation cautions remain attributed.
+- Sources/tasks/recovery receipt updated. Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,108 unit and 330 integration tests pass, four expected skips. Logs /tmp/2699-*.log.
+- Commit/push and API/worker restart follow successful checks; scheduled Tech share/depth acceptance remains due after 15:00 UTC. Protect 13:00–16:00 deployment window.

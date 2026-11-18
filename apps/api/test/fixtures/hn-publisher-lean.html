@@ -1,0 +1,41 @@
+<div role="main">
+  <div class="hentry">
+    <h2 class="entry-title">“…and the proof is checked in Lean”</h2>
+    <div class="entry-content">
+      <p class="wp-block-paragraph">
+        This post is an attempt to explain in simple terms how to interpret
+        claims of the form &#8220;this theorem is correct because it was checked
+        in Lean&#8221;. The summary is: there is an important signal that can be
+        extracted from Lean code, but if this code is AI-generated then you need
+        to do some tests first. We explain the tests, and note that in many
+        cases (such as the OpenAI theorem dump) these tests have not yet been
+        systematically done.
+      </p>
+      <p class="wp-block-paragraph">
+        Last month&#8217;s
+        <a href="https://github.com/openai/math">theorem dump by OpenAI</a>
+        consisted of 722 mathematics papers, around 45% of which came with some
+        Lean code. Three of the (non-Leanified) papers have since been retracted
+        because of a sign error. Some people might say &#8220;well, the papers
+        that come with Lean code are definitely correct because that&#8217;s how
+        Lean works&#8221;. Others might say &#8220;well Lean had a
+        <a
+          href="https://leodemoura.github.io/blog/2026-8-1-postmortem-for-kernel-soundness-bug-14576/"
+          target="_blank"
+          rel="noopener"
+          >soundness bug</a
+        >
+        and could well have more, and AIs will reward hack, so Lean verification
+        doesn&#8217;t tell us much at all&#8221;. The truth, unsurprisingly, is
+        more subtle, and this post is an attempt to explain it.
+      </p>
+    </div>
+  </div>
+  <div id="comments">
+    <p>
+      Comment text must never become evidence. Comment Comment Comment Comment
+      Comment Comment Comment Comment Comment Comment Comment Comment Comment
+      Comment Comment Comment Comment Comment Comment Comment
+    </p>
+  </div>
+</div>

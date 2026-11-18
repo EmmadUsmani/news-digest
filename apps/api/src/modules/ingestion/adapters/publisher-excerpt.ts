@@ -30,6 +30,7 @@ export function publisherExcerpt(html: string): string {
     article ??
     mediaWikiReporting(clean) ??
     microformatReporting(clean) ??
+    wordpressReporting(clean) ??
     templateReporting(clean) ??
     (main && /<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1]);
   if (!reporting) return '';
@@ -169,4 +170,25 @@ function landmarkReporting(html: string): string | undefined {
     node.attrs.some((attr) => attr.name === 'role' && attr.value === 'main'),
   );
   return main ? serialize(main) : undefined;
+}
+
+/** WordPress hentry scopes the article body separately from comments and links. */
+function wordpressReporting(html: string): string | undefined {
+  if (!html.includes('entry-content')) return undefined;
+  const hasClass = (node: Element, name: string) =>
+    node.attrs.some(
+      (attr) => attr.name === 'class' && attr.value.split(/\s+/).includes(name),
+    );
+  const entry = find(parseFragment(html), (node) => hasClass(node, 'hentry'));
+  if (
+    !entry ||
+    !find(
+      entry,
+      (node) =>
+        ['h1', 'h2'].includes(node.tagName) && hasClass(node, 'entry-title'),
+    )
+  )
+    return undefined;
+  const body = find(entry, (node) => hasClass(node, 'entry-content'));
+  return body ? serialize(body) : undefined;
 }
