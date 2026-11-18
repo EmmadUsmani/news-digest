@@ -3062,3 +3062,5 @@ with the share before and after, and the commit.
 
 **Limits:** AI budget unchanged. Not between 13:00 and 16:00 UTC. Protect the
 morning edition.
+
+ack: 2026-11-18 item 66 natural acceptance — iteration 2760: collection repairs through a4d8547f and enabled admission reach the scheduled edition. Prospective Tech excerpts rise from 29/200 (14.5%) to 56/200 (28%); selected nonempty evidence rises from 1/5 to 5/5, with materially deeper reader summaries. docs/edition-reviews/2026-11-18.md records the share and reading. Separate NBA non-AI regression remains open; no deploy/restart or paid replay during the hold.

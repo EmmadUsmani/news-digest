@@ -5,7 +5,7 @@ Fix failures first. STEERING Current order wins. Complete pre-compaction detail 
 ## Next scheduled acceptance
 
 - Nov 17 scheduled public edition accepted (2632): `6216cb7a`, five AI story sections/25 stories/20 posts; World Haiku, others Sonnet, no unscored stories. World/U.S. coverage disjoint; NBA spoof absent. Tech four empty evidence sets; admission enabled for Nov 18. [Review](docs/edition-reviews/2026-11-17.md).
-- Next: natural Nov 18 Tech admission and reader review after 15:00 UTC; protect 13:00–16:00 UTC. No paid replay or cap changes. [Prior acceptance and completed detail](docs/progress-archive/2026-11-18-task-handoff-2680.md).
+- Nov 18 review (2760): public delivery passes, Tech saved text 56/200 (28%) vs 29/200; selected evidence 5/5 vs 1/5. **NBA non-AI fallback fails editorial acceptance** after four absence-validation rejections. Next: offline NBA response/guard diagnosis after 16:00 UTC; no paid replay or cap changes. [Review](docs/edition-reviews/2026-11-18.md). [Prior acceptance and completed detail](docs/progress-archive/2026-11-18-task-handoff-2680.md).
 
 ## Open work
 
@@ -17,7 +17,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [x] STEERING 63/64 complete (2516): Nov 16 scheduled public HTTPS publication and signed-out desktop/mobile reader accepted; latest/direct/history agree. Deployment, `/db/`, handbook and direct admin page previously accepted. Public mode/sharing retained. [Review](docs/edition-reviews/2026-11-16.md#scheduled-public-acceptance--iteration-2516).
 
-- [ ] BREAKAGE: World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku traced to Sonnet schema/absence rejection, not admission refusal (2633); rejected text unavailable. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
+- [ ] BREAKAGE: Nov 18 NBA unedited fallback (2760): Sonnet/Haiku initial+repair rejected as unsupported-absence/negative-word; Sonnet whyItMatters then three headlines. Diagnose retained wording offline after 16:00; no speculative guard relaxation. [Review](docs/edition-reviews/2026-11-18.md). World fallback repairs naturally accepted Nov 16 (2516); all five topics Sonnet/zero unscored. NBA exact spoof-source exclusion naturally absent in selections. Nov 17 Tech 4/5 selected evidence sets empty; World Haiku traced to Sonnet schema/absence rejection, not admission refusal (2633); rejected text unavailable. No generation change without new evidence. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-2).
 
 - [ ] Morning admission: bounded Sonnet settlement deployed; caps unchanged; Nov 16 all-five-topic Sonnet admission passes (2516); 2517 settlement $0.500315/56 successful calls, zero holds; Nov 17 worker 247.524 s still misses speed target (2633). [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-3).
 
@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth / STEERING 66: publisher article/main, MediaWiki, abstract, microformats and AsciiDoc extraction deployed (2681–2685). 2686–2704 recover 49 more blank HN candidates (71,150 characters), including explicit article-template collection; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 17 baseline 171/200 empty; scheduled Nov 18 share/depth acceptance pending. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [x] Tech depth / STEERING 66 natural acceptance (2760): Nov 18 prospective text 56/200 (28%) vs Nov 17 29/200 (14.5%); selected evidence 5/5 vs 1/5, reader summaries materially deeper. [Review](docs/edition-reviews/2026-11-18.md). Collection work: publisher article/main, MediaWiki, abstract, microformats and AsciiDoc extraction deployed (2681–2685). 2686–2704 recover 49 more blank HN candidates (71,150 characters), including explicit article-template collection; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 18 baseline 144/200 empty; admission naturally exercised. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 

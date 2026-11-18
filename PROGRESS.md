@@ -190,3 +190,15 @@
 - Handbook check initially hit HTTP 429 through the app; documented `--owner-services` retry passes 19 pages/21 diagrams/39 tables.
 - API/worker restarted at 12:57 UTC before freeze; readiness retry passes database/Redis. Post-restart Chromium reader five topics/25 stories; alerts clear.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2760 — scheduled edition review, Tech recovery and NBA regression
+
+- Clean main at a4d8547f; no inherited work. Read-only review during 13:00–16:00 deployment hold; no restart, inference, generation or budget changes.
+- Scheduled cd357e84 published 15:04:15.539 UTC: 25 stories/19 posts. Public HTTPS latest/direct/history and signed-out desktop/mobile pass; screenshots inspected.
+- Tech prospective saved text 56/200 (28%) vs 29/200 (14.5%); all 5/5 selected evidence sets nonempty vs 1/5. Reader summaries materially deeper; item 66 natural acceptance acked.
+- Editorial gate correctly fails NBA non-AI fallback. Sonnet initial whyItMatters, then Sonnet repair/Haiku initial+repair headlines reject unsupported-absence/negative-word. Rejected wording absent from validation logs; offline diagnosis next after 16:00, no speculative guard relaxation.
+- World Sonnet recovery, World/U.S. disjoint IDs, zero unscored candidates and NBA spoof absence checked; remaining content limitations in docs/edition-reviews/2026-11-18.md.
+- Timing reporter: worker 255.561 s, $0.546124/59 successful provider calls, zero failed/unresolved calls/holds. Provider success includes validation-rejected responses.
+- Health, 14 services and 38 monitored sources pass; Destructoid inactive, digest queue zero failures. Transient metrics scrape alert at 15:07 recovered unaided; all targets up and alerts clear at 15:07:43.
+- Verification: pnpm format, pnpm lint:fix and full pnpm check pass: 1,120 unit/330 integration passes, four expected skips. Logs /tmp/2760-{format,lint,check}.log. No runtime changes require rebuild/restart; hold retained.
+- Next: NBA validation-response recovery and offline reproduction after 16:00 UTC; no separate review commit for this edition.
