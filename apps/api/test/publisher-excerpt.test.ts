@@ -550,3 +550,25 @@ void test('title-matched legacy columns exclude previous entries, nested widgets
     /Nested widget|Previous entry/,
   );
 });
+
+void test('title-matched book chapters start at introduction and stop before footnotes', () => {
+  const chapter = `<title>500 Lines or LessA 3D Modeller</title>
+    <div class="titlebox"><h1>500 Lines or Less<br>A 3D Modeller</h1></div>
+    <div class="banner"><p>${'Unrelated promotion '.repeat(8)}</p></div>
+    <p>${'Author biography '.repeat(8)}</p><h2 id="introduction">Introduction</h2>
+    <p>${reporting}</p><div class="footnotes"><p>${'Unrelated footnote '.repeat(8)}</p></div>`;
+  assert.equal(publisherExcerpt(chapter), reporting);
+  assert.equal(
+    publisherExcerpt(
+      chapter.replace(
+        'LessA 3D Modeller</title>',
+        'LessAnother Chapter</title>',
+      ),
+    ),
+    '',
+  );
+  assert.equal(
+    publisherExcerpt(chapter.replace('id="introduction"', 'id="other"')),
+    '',
+  );
+});

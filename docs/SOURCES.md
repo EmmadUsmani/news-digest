@@ -3806,3 +3806,8 @@ excerpts for Lonewolf 0.3 federation and a Zig/C systems-programming opinion
 chapter lacks a recognized reporting container and remains blank; collection
 behavior unchanged.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#lonewolf-federation-and-zigc-opinion--iteration-2725).
+
+Iteration 2726: title-matched book chapters now supply prose beginning at the
+introduction, excluding author bios, banners and footnotes. Saved 3D modeller
+HN excerpt recovered from 0 to 1,500 characters; exact ID/full-text reread passes.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#book-chapter-collection--iteration-2726).

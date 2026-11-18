@@ -646,3 +646,17 @@ Both complete extracted passages were reviewed before blank-only writes; exact
 stored-ID/full-text rereads pass 2/2 (`/tmp/2725-saved.json`). The 3D modeller
 chapter returns HTTP 200 but has no recognized reporting container; left blank.
 Collection behavior, paid generation and the published edition are unchanged.
+
+## Book chapter collection — iteration 2726
+
+The ordinary HTTP 200 [3D modeller chapter](https://aosabook.org/en/500L/a-3d-modeller.html)
+uses a titlebox, promotional banner, author bio and sibling chapter paragraphs.
+Collection now requires a matching document/chapter title and a sibling
+introduction heading, starts after that heading, and stops before footnotes
+or page chrome. The saved excerpt now describes CAD representation, display
+and interaction rather than the author or book promotion.
+
+Saved item `9a3525bb-d20b-4a54-8ebc-62d730092325`: 0 → 1,500 characters.
+Exact stored-ID/full-text reread passes (`/tmp/2726-saved.json`). Regression
+covers promotion/bio/footnote exclusion and missing/mismatched chapter markers.
+No paid calls, budget changes or edition regeneration.

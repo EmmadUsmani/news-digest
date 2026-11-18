@@ -1,5 +1,10 @@
 import { decodeHTML } from 'entities';
-import { type DefaultTreeAdapterMap, parseFragment, serialize } from 'parse5';
+import {
+  type DefaultTreeAdapterMap,
+  parseFragment,
+  serialize,
+  serializeOuter,
+} from 'parse5';
 
 import { plainText } from '../domain/normalize';
 
@@ -45,6 +50,7 @@ export function publisherExcerpt(html: string): string {
     wordpressReporting(clean) ??
     templateReporting(clean) ??
     asciiDocReporting(clean, title) ??
+    chapterReporting(clean, title) ??
     titledColumnReporting(clean, title) ??
     (main &&
       (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
@@ -220,6 +226,54 @@ function discourseReporting(html: string): string | undefined {
       ),
   );
   return body ? serialize(body) : undefined;
+}
+
+/** Book chapters can place prose directly after a title box and banner. */
+function chapterReporting(html: string, title?: string): string | undefined {
+  if (!title || !html.includes('titlebox')) return undefined;
+  const root = parseFragment(html);
+  const hasClass = (node: Element, name: string) =>
+    node.attrs.some(
+      (attr) => attr.name === 'class' && attr.value.split(/\s+/).includes(name),
+    );
+  const box = find(
+    root,
+    (node) => node.tagName === 'div' && hasClass(node, 'titlebox'),
+  );
+  const heading = box && find(box, (node) => node.tagName === 'h1');
+  const normalize = (text: string) =>
+    plainText(decodeHTML(text)).replace(/\s+/g, '');
+  if (!box || !heading || normalize(serialize(heading)) !== normalize(title))
+    return undefined;
+  // Require the chapter introduction as a direct sibling: skip author bios,
+  // promotion and title chrome; stop before footnotes or another page section.
+  const siblings =
+    box.parentNode && 'childNodes' in box.parentNode
+      ? box.parentNode.childNodes
+      : [];
+  const start = siblings.findIndex(
+    (node, index) =>
+      index > siblings.indexOf(box) &&
+      'tagName' in node &&
+      node.tagName === 'h2' &&
+      node.attrs.some(
+        (attr) => attr.name === 'id' && attr.value === 'introduction',
+      ),
+  );
+  if (start < 0) return undefined;
+  let reporting = '';
+  for (const node of siblings.slice(start + 1)) {
+    if (
+      'tagName' in node &&
+      (['nav', 'aside', 'footer'].includes(node.tagName) ||
+        ['footnotes', 'banner', 'titlebox'].some((name) =>
+          hasClass(node, name),
+        ))
+    )
+      break;
+    if ('tagName' in node) reporting += serializeOuter(node);
+  }
+  return reporting;
 }
 
 /** AsciiDoc separates its document header, content and footer by stable IDs. */

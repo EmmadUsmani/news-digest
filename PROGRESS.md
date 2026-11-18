@@ -207,3 +207,14 @@
 - Verification: `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,116 unit/330 integration tests, four expected skips. Handbook check passes (19 pages/39 tables). Logs `/tmp/2725-*.log`.
 - API/worker restarted; health database/Redis pass; public Chromium reader renders 25 stories after restart. Commit/push follow final formatting and linting.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2726 — collect scoped book-chapter evidence
+
+- Clean main at 4bc73d2f; no inherited work. Alerts/health pass; source snapshot healthy, digest queue zero failures/next 15:00 UTC.
+- Read public Tech in Chromium: five topics/25 stories; Apple/China remain thin pending scheduled acceptance.
+- Fixed collection for title-matched book chapters with sibling prose: begin at introduction, omit promotion/author biography, stop before footnotes/page chrome.
+- Saved 3D modeller excerpt 0 → 1,500 characters; exact stored-ID/full-text reread passes (`/tmp/2726-saved.json`). Publisher HTTP 200 page from prior iteration; no new external request required.
+- Extractor regression passes 29/29, including title/marker rejection and banner/bio/footnote exclusion. Handbook behavior/source receipt updated; no schema/UI change.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix` and handbook check pass (19 pages/39 tables); `pnpm check` passes: 1,117 unit/330 integration tests, four expected skips. Logs `/tmp/2726-*.log`.
+- No paid calls, cap changes or edition regeneration. Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+- Commit/push and API/worker restart follow final formatting/lint; post-restart health and public-reader output will be retained in `/tmp/2726-post-reader.log`.
