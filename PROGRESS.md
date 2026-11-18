@@ -154,3 +154,13 @@
 - Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated; no code/schema/UI/handbook change or edition regeneration.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,110 unit/330 integration tests pass, four expected skips. Logs /tmp/2704-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2705 — recover lower-level publisher main headings
+
+- Clean main at 5eb3bfa1; no inherited work. Alerts/health/services/sources pass; digest queue has zero failures.
+- Read public Tech: Apple summary remains thin. Fixed accessible email-pitches page collection gap: h2/h3 main headings now require matching document titles; opening chrome excluded.
+- Reduced recorded HTTP 200 fixture and missing/mismatched-title tests pass (24 extraction tests); no new publisher request, paid calls, budget/provider changes or edition regeneration.
+- Saved candidate 6766f4b4 blank-only write 0 → 1,500 characters; independent exact ID/full-text reread passes (/tmp/2705-saved.json). Sales claims remain attributed.
+- Public HTTPS Chromium reader passes five topics/25 stories/20 posts. Sources/tasks/recovery receipt updated; no schema/UI/handbook flow change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,112 unit/330 integration tests pass, four expected skips. Logs /tmp/2705-*.log. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

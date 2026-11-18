@@ -425,3 +425,37 @@ void test('legacy WordPress bookmark headings scope entry prose without metadata
     '',
   );
 });
+
+void test('lower-level main titles require document-title agreement', () => {
+  const title = 'Show HN -&gt; a ton of automated email pitches';
+  for (const level of [2, 3]) {
+    const page = `<title>${title} - Publisher</title><nav><p>${reporting}</p></nav><main><p>Opening chrome should never become reporting even when it is long enough.</p><h${level}>${title}</h${level}><p>${reporting}</p></main><footer><p>${reporting}</p></footer>`;
+    assert.equal(publisherExcerpt(page), reporting);
+    assert.equal(
+      publisherExcerpt(
+        page.replace(
+          `<title>${title} - Publisher</title>`,
+          '<title>Unrelated directory</title>',
+        ),
+      ),
+      '',
+    );
+    assert.equal(
+      publisherExcerpt(page.replace(`<title>${title} - Publisher</title>`, '')),
+      '',
+    );
+  }
+});
+
+void test('recorded publisher h3 main page recovers the launch-pitch account', async () => {
+  const page = await readFile(
+    new URL('./fixtures/publisher-pitches-2026-11-18.html', import.meta.url),
+    'utf8',
+  );
+  const excerpt = publisherExcerpt(page);
+  assert.ok(excerpt.startsWith('I posted Airdash on Show HN last week.'));
+  assert.ok(
+    excerpt.includes('Seven of the 17 are launch boards and directories'),
+  );
+  assert.ok(!excerpt.includes('Peter Van Dijck · Nov 16'));
+});

@@ -324,3 +324,17 @@ The email-pitches page returns HTTP 200 but lacks the extractor's scoped title
 structure and remains empty. The HTTP-only Groundwork URL was refused locally
 by the HTTPS-only client; no publisher request or bypass. No extraction change,
 paid call or edition regeneration. Scheduled depth acceptance remains pending.
+
+## Lower-level main heading — iteration 2705
+
+The saved HTTP 200 [email-pitches page](https://petervandijck.com/post/pbrgs-ev0bc)
+uses an h3 title within main. Collection now recognizes h2/h3 headings when
+their text matches the document title, allowing a publisher-name suffix.
+Opening chrome stays excluded; unrelated or missing document titles fail closed.
+A reduced recorded fixture and mismatch tests cover this structure.
+
+Saved candidate `6766f4b4-6a7b-4a66-92c7-b5cc3918449f` changed from 0 to
+1,500 characters with a blank-only write; independent exact ID/full-text reread
+passes (`/tmp/2705-saved.json`). The author describes unsolicited automated
+pitches after a launch; quoted sales claims remain attributed. No new publisher
+request, paid call or edition regeneration. Scheduled Tech acceptance is pending.

@@ -3684,3 +3684,8 @@ Iteration 2704: deployed extraction recovered two blank saved HN excerpts
 rereads pass. Email-pitches page remains unscoped; HTTP-only Groundwork URL
 refused locally without a request.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#essay-and-chess-project-context--iteration-2704).
+
+Iteration 2705: lower-level main headings matching the document title now identify
+publisher reporting. Saved email-pitches candidate recovered 0 → 1,500 characters;
+recorded HTTP 200 fixture and title-mismatch checks cover the collection gap.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#lower-level-main-heading--iteration-2705).

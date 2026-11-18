@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2705: Match lower-level publisher main headings to document titles; saved launch-pitches candidate recovered 0 → 1,500 characters, exact reread passes.
+
 - [x] 2704: Recover two saved publisher excerpts with deployed extraction; exact blank-only updates verified (3,000 characters).
 
 - [x] 2703: Recover five saved publisher excerpts with deployed extraction; exact blank-only updates verified (6,706 characters).

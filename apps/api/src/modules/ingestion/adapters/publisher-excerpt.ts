@@ -43,7 +43,7 @@ export function publisherExcerpt(html: string): string {
     templateReporting(clean) ??
     (main &&
       (/<h1\b[^>]*>[\s\S]*?<\/h1\s*>([\s\S]*)/i.exec(main)?.[1] ??
-        (matchingHeaderTitle ? main : undefined)));
+        (matchingHeaderTitle ? main : matchingMainHeading(main, title))));
   if (!reporting) return '';
   const paragraphs = [...reporting.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p\s*>/gi)]
     .map((match) => plainText(decodeHTML(match[1])))
@@ -217,4 +217,22 @@ function wordpressReporting(html: string): string | undefined {
     find(entry, (node) => hasClass(node, 'entry-content')) ??
     find(entry, (node) => hasClass(node, 'entry'));
   return body ? serialize(body) : undefined;
+}
+
+/** Lower-level page headings need a matching document title to identify prose. */
+function matchingMainHeading(
+  main: string,
+  title: string | undefined,
+): string | undefined {
+  if (!title) return undefined;
+  const heading = /<h([23])\b[^>]*>([\s\S]*?)<\/h\1\s*>([\s\S]*)/i.exec(main);
+  if (!heading) return undefined;
+  const text = plainText(decodeHTML(heading[2]));
+  const documentTitle = plainText(decodeHTML(title));
+  return text.length >= 12 &&
+    (documentTitle === text ||
+      documentTitle.startsWith(`${text} - `) ||
+      documentTitle.startsWith(`${text} | `))
+    ? heading[3]
+    : undefined;
 }
