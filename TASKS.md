@@ -49,7 +49,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 24/25: O1–O10 done except O8 unknown; O11 deferred. Stop CLI/dashboard refinements; retain limits. Grafana capacity excluded from public launch. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-17).
 
-- [ ] Tech depth / STEERING 66: publisher article/main, MediaWiki, abstract and microformats extraction deployed (2681–2685). 2686 backfills eight more saved empty HN candidates with 1,500 characters each; [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 17 baseline 171/200 empty; scheduled Nov 18 share/depth acceptance pending. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
+- [ ] Tech depth / STEERING 66: publisher article/main, MediaWiki, abstract and microformats extraction deployed (2681–2685). 2686–2687 backfill twelve more blank HN candidates (17,402 characters); [receipt](docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md). Nov 17 baseline 171/200 empty; scheduled Nov 18 share/depth acceptance pending. Known publisher blocks named in NEEDS_FROM_HUMAN.md; Tencent application shell stays empty. Admission flag enabled with rollback on regression; no budget increases or 13:00–16:00 deployment. See docs/RANKING.md.
 
 - [ ] Gaming same-ceremony repetition: v9 deployed; Nov 14 separate developments leave winning-work/ceremony duplicate challenge unexercised. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-19).
 
@@ -60,6 +60,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2687: Recovered four saved Tech excerpts (5,402 characters), including Mem shutdown and lend workflow; exact stored text verified.
 
 - [x] 2686: Recovered eight saved Tech excerpts (12,000 characters) using deployed extraction; scheduled acceptance pending.
 

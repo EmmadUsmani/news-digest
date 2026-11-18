@@ -24,3 +24,24 @@ was regenerated or altered. Scheduled Tech depth acceptance remains after
 Tencent Hy4 Flash returned HTTP 200 but only an application shell with no
 reporting paragraphs; its excerpt remains empty. Previously named access blocks
 were not retried, and no X pages or unofficial mirrors were requested.
+
+## Additional saved candidates — iteration 2687
+
+Four further blank saved candidates were recovered from ordinary shared-client
+HTTP 200 publisher responses using the unchanged deployed extractor.
+
+| Candidate                                                                                           | Before | After | Retained detail                                                            |
+| --------------------------------------------------------------------------------------------------- | -----: | ----: | -------------------------------------------------------------------------- |
+| [Loopholes Are for Assholes](https://actsofvolition.com/2026/11/loopholes-are-for-assholes/)        |      0 |   902 | Author’s argument about universalizing behavior                            |
+| [My Empire of Dirt](https://geohot.github.io//blog/jekyll/update/2026/11/17/my-empire-of-dirt.html) |      0 | 1,500 | Author’s criticism of AI power concentration, retained as opinion          |
+| [Mem shutdown](https://get.mem.ai/blog/mem-is-shutting-down)                                        |      0 | 1,500 | January 15 shutdown, December 18 read-only transition, billing and exports |
+| [Running agents with lend](https://blog.antonio.cx/running-agents-with-lend)                        |      0 | 1,500 | Remote agents, local credentials and approval workflow                     |
+
+Exact stored IDs and text were reread successfully: four rows, 5,402 characters.
+Only blank excerpts changed. Claude.dev’s verification post and the Browser
+Engineering landing page returned HTTP 200 but no scoped reporting with this
+extractor; both remain empty. No access workaround or edition regeneration.
+
+The latest public Tech section still includes one-sentence Apple/China summaries
+and the Optimizely HN allegation; these repairs enrich the next candidate pool,
+not that immutable edition. Natural share/depth acceptance remains pending.

@@ -138,3 +138,14 @@
 - Durable URL/before/after receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; full local receipt /tmp/2686-saved.json. Tencent returns an application shell with no reporting; left empty. Previously named blocks not retried; no X/mirror fetches.
 - Updated source inventory/tasks; archived progress 2673–2676 to keep orientation small. No application/schema/UI/handbook behavior change. Scheduled candidate-share and reader-depth acceptance remains after 15:00 UTC.
 - Verification: exact database reread passes (8/8); signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,101 unit/330 integration tests, four expected skips. Handbook passes (19 pages/39 tables); logs /tmp/2686-*.log. Commit/push and API/worker restart follow.
+
+## 2026-11-18: iteration 2687 — recover shutdown and agent-workflow evidence
+
+- Clean main at 0a6b6e27; no inherited work. Alerts clear, health passes; outside protected hours. No paid calls, budget/provider/flag changes or edition regeneration.
+- Read latest public Tech: Apple/China remain one-sentence summaries and Optimizely remains an HN allegation. Continued repairing blank saved candidate evidence for the next edition.
+- Shared-client HTTP 200 pages recovered four blank candidates using the deployed extractor: Mem shutdown, lend workflow and two opinion posts. Mem retains shutdown/read-only dates, billing and export instructions; lend retains remote-agent/local-credential context.
+- Conditional blank-only updates added 5,402 characters; exact IDs/text reread passes 4/4. Receipt: docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md; local full text /tmp/2687-saved.json.
+- Claude.dev verification and Browser Engineering landing page yield no scoped prose; left empty. Named publisher blocks not retried; no bypass or X/mirror fetches.
+- Updated source inventory/tasks; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,101 unit/330 integration tests, four expected skips). Handbook passes (19 pages/39 tables). Logs /tmp/2687-*.log. Commit/push and API/worker restart follow.
+- Next: natural Nov 18 Tech candidate-share and reader-depth acceptance after 15:00 UTC; retention at 04:40 UTC. Existing edition remains immutable.

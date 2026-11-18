@@ -3586,3 +3586,7 @@ extractor and normal shared-client HTTP 200 responses (1,500 characters each).
 These include PostHog decision models, Apple service outages and the Optimizely
 supply-chain attack. [Saved-candidate receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md).
 Tencent Hy4 Flash returns only an application shell; no reporting was retained.
+
+Iteration 2687 recovered four additional blank saved HN excerpts (5,402
+characters): Mem shutdown, lend workflow and two opinion posts. Exact stored
+text verified; collection behavior unchanged. [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#additional-saved-candidates--iteration-2687).
