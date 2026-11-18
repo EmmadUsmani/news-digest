@@ -28,7 +28,7 @@ flowchart LR
 When every article has a triage score but the editor fails, the fallback keeps
 the shortlist in importance order and shows source excerpts. Incomplete triage
 uses the ordinary relevance and recency fallback. Both omit articles without source
-text, so a topic can have fewer stories. Neither fallback writes a brief.
+text, so a topic can have fewer stories. Neither fallback writes a brief. Tech research summaries retain central counterfindings and supplied publication status alongside gains, using complete attributed source sentences for negative findings.
 
 Feed excerpts use explicit RSS/Atom article content before descriptions or
 summaries, falling back when content is blank. Text stays capped at 1,500

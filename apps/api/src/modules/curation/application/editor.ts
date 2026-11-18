@@ -44,6 +44,9 @@ NBA injury and availability reports: state only the supplied injury, status and 
 When a negative-word headline would paraphrase a source (for example, a win "without" starters), use a supported positive headline about the win and put the complete attributed source sentence in the summary if that detail matters. Preserve the existing verbatim absence rule in every field.
 For injury headlines, prefer the supplied injury and its reported consequence in positive wording. In summaries, copy a negative source sentence through its final punctuation: a trailing health concern, attribution or uncertainty clause is part of that sentence and must stay. Do not replace that clause with "per the report" or stop after the injury. In whyItMatters and rationale, use supported positive facts such as the injury and supplied scoring average; do not introduce a new "will be without" paraphrase. Apply this check again to every field after repairing another field.`;
 
+const techInstructions = `
+Tech research summaries: preserve central countervailing findings and supplied publication status alongside headline gains. More code produced must not stand in for more finished work when the supplied study distinguishes them. Do not infer peer review or its absence. When an important finding or qualification contains negative language, retain its complete supplied source sentence verbatim, including attribution and scope; do not shorten it into a new absence claim or silently drop the finding to avoid validation. Prefer supported positive headlines and significance, leaving the complete qualified finding in the summary.`;
+
 const gamingInstructions = `
 Gaming response size: return one complete JSON object without Markdown fences or surrounding commentary. Keep summaries to 2–3 concise supported sentences (one for thin evidence), significance and rationale to one short sentence each, and brief bullets concise. The character limits are ceilings, not targets. Avoid repeating the same facts in the rationale; use it only to explain selection. Preserve necessary attribution, uncertainty and qualifications even when shortening. Never cut off a sentence or JSON value to fit; finish every field and close the object within the existing output budget.`;
 const briefInstructions = `
@@ -84,6 +87,9 @@ export class ShortlistEditor {
       return { brief: [], stories: [], model: 'none' };
     const isNba = topic.name.trim().toLowerCase() === 'nba';
     const isGaming = topic.name.trim().toLowerCase() === 'gaming';
+    const isTech = ['tech', 'tech & ai'].includes(
+      topic.name.trim().toLowerCase(),
+    );
     const ids = new Set(candidates.map((c) => c.id));
     // Supplemental reports are evidence, never independently selectable stories.
     const evidence = candidates.flatMap((candidate) => {
@@ -208,6 +214,7 @@ export class ShortlistEditor {
           : '') +
         (isNba ? nbaInstructions : '') +
         (isGaming ? gamingInstructions : '') +
+        (isTech ? techInstructions : '') +
         briefInstructions +
         [...validationHints].join('');
       // Oversized evidence must use the existing source-excerpt fallback,

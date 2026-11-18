@@ -3458,3 +3458,19 @@ Saved exact X texts and the Bluesky candidate exercise both model routes with
 hand-authored selections; the trade-completion control remains eligible. These
 checks prove prompt transport and response handling, not model judgment.
 Natural scheduled selection acceptance remains open; no paid replay was run.
+
+## Iteration 2775: retain Tech study counterfindings
+
+The Nov 18 coding-agent story retained code-volume and review-time increases,
+but dropped unchanged finished work and supplied publication status. Retained
+Sonnet initial output contains both, paraphrased into negative sentences rejected
+by the unchanged absence guard. Its repair removes those qualifications; both
+Sonnet attempts also fail on Nvidia quotation/paraphrase, so this change does
+not establish Sonnet recovery. Diagnosis: `/tmp/2775-tech-diagnosis.json`.
+
+Tech editor guidance now asks for central counterfindings and supplied publication
+status alongside gains, using complete attributed source sentences for negative
+findings. The saved study fixture reproduces the rejected paraphrase and retains
+both complete source sentences through Sonnet and Haiku transport offline.
+Responses are hand-authored controls, not semantic model acceptance. The next
+scheduled daily review must assess retention; no paid replay or guard change.

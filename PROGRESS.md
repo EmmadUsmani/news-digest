@@ -175,3 +175,14 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (1,125 unit/330 integration passes, four expected skips), pnpm build and affected handbook check pass; logs /tmp/2774-*.log. Offline comparison retains four exact texts/all 16 subsets.
 - Rebuilt API/worker active; initial immediate health probe raced startup, subsequent health passes. Alerts clear; live probe confirms unchanged cd357e84: five topics/25 stories/19 posts/five content groups. No UI change.
 - Next: scheduled NBA same-game selection plus NBA editing/Tech acceptance; no paid replay. Destructoid publisher access remains blocked.
+
+## 2026-11-18: iteration 2775 — retain Tech study counterfindings
+
+- Clean main at ea9c5a98; no inherited work. Alerts/health/14 services/38 monitored sources healthy; Destructoid remains paused.
+- Reader value: the coding-agent story should retain unchanged finished work and supplied publication status alongside more code and slower review.
+- Read retained Tech rejection: Sonnet initial paraphrases both qualifications into negative sentences; repair drops them. Nvidia negative quotation/paraphrase independently rejects both attempts; no claim of Sonnet recovery.
+- Tech-only guidance preserves central counterfindings/status with complete attributed source sentences. Shared absence guard, providers, models, budgets and published snapshot unchanged; no paid calls.
+- Saved study regression reproduces rejected paraphrase; complete source-sentence control passes both offline editor routes. Hand-authored responses establish transport/validation, not semantic model acceptance.
+- Updated ranking reference, affected owner handbook and TASKS. Initial handbook addition exceeded 100 lines; shortened and recheck passes. Initial test omitted required sources; corrected before checks.
+- Verification: targeted regression passes; pnpm format, pnpm lint:fix, pnpm check and pnpm build; logs /tmp/2775-*.log. Full check passes: 1,126 unit/330 integration tests, four expected skips.
+- Live read confirms unchanged cd357e84: five topics/25 stories/19 posts/five content groups. No UI change; next scheduled daily review checks Tech qualifications plus NBA acceptance. Destructoid access blocked.
