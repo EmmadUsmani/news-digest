@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2717: Recover positional-embeddings tutorial and L3Harris ground-stop statement publisher context (2,136 characters); blank-only writes and exact stored ID/full-text rereads pass 2/2.
+
 - [x] 2716: Collect title-matched legacy blog columns; historical Turbo Pascal excerpt 0 → 939 characters. Agent commentary recovered 0 → 1,500; exact saved ID/full-text rereads pass 2/2.
 
 - [x] 2715: Scope Discourse publisher evidence to the opening post; Tor announcement recovered 0 → 968 characters without reader replies. Exact saved ID/full-text verification and regression pass.

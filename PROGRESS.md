@@ -208,3 +208,14 @@
 - Turbo51 HTTP 200 remains blank without supported reporting scope. No paid calls, budget changes or regeneration. Sources/receipt/tasks/pipeline handbook updated; diagram unchanged.
 - Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm format`, `pnpm lint:fix`, build and handbook checks pass. `pnpm check` passes: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2716-*.log`. Commit/push and API/worker restart follow checks.
 - Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2717 — recover tutorial and ground-stop context
+
+- Clean main at 130aa4c1; no inherited work. Pending worker restart/scrape alerts cleared naturally; metrics endpoint and health pass. All active sources healthy; digest-generation zero failures, next run 15:00 UTC.
+- Read public Tech: Apple and China summaries remain one sentence; saved publisher evidence still supports the scheduled depth acceptance.
+- Ordinary shared-client HTTP 200 pages recovered blank positional-embeddings tutorial and L3Harris ground-stop statement excerpts (1,500/636 characters).
+- Complete excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 2/2 (`/tmp/2717-saved.json`). L3Harris claims retain attribution.
+- Kiri left unchanged because extracted text includes sample benchmark language. Constrained-programming HTTP 200 lacks supported extraction scope and remains blank.
+- No code/schema/UI changes, paid calls, budget changes or edition regeneration. Sources/recovery receipt/tasks updated; handbook behavior unchanged.
+- Verification: public HTTPS Chromium reader five topics/25 stories; `pnpm format`, `pnpm lint:fix`, `pnpm check`, `pnpm build` all pass: 1,116 unit/330 integration tests, four expected skips. Logs `/tmp/2717-*.log`.
+- Next: natural Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

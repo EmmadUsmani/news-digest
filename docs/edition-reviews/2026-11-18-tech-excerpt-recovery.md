@@ -525,3 +525,20 @@ Full excerpts reviewed before blank-only writes; independent exact ID/full-text
 rereads pass 2/2 (2,439 characters, `/tmp/2716-saved.json`). Turbo51 also returned
 HTTP 200 but has no supported reporting scope and remains blank. No paid calls,
 cap changes or edition regeneration; scheduled Tech acceptance remains pending.
+
+## Positional embeddings and ground-stop statement — iteration 2717
+
+Ordinary shared-client HTTP 200 publisher responses and the deployed extractor
+recovered two blank saved HN candidates:
+
+| Candidate                                                                                                           | Before | After | Retained detail                                                    |
+| ------------------------------------------------------------------------------------------------------------------- | -----: | ----: | ------------------------------------------------------------------ |
+| [Positional embeddings](https://magazine.sebastianraschka.com/p/understanding-positional-embeddings)                |      0 | 1,500 | Tutorial scope, RoPE and architecture choices                      |
+| [L3Harris statement](https://www.l3harris.com/newsroom/press-release/2026/11/l3harris-statement-nov-13-ground-stop) |      0 |   636 | Company-reported conversion progress and FAA investigation support |
+
+Both complete excerpts were reviewed before blank-only writes; independent exact
+stored-ID/full-text rereads pass (2,136 characters). Company claims retain
+attribution. Kiri's extracted passage includes sample benchmark language and was
+left unchanged. The constrained-programming page returned HTTP 200 but no
+supported scoped excerpt; it also remains blank. No source, extraction behavior,
+budget or immutable edition changed. Scheduled Tech acceptance remains pending.

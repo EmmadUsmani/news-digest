@@ -3751,3 +3751,9 @@ Turbo Pascal size comparisons (2011) and AI-agent author commentary (2,439
 characters). Collection now supports title-matched legacy blog columns, stopping
 before subsequent sections/widgets. Exact ID/full-text rereads pass 2/2.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#legacy-blog-columns-and-agent-commentary--iteration-2716).
+
+Iteration 2717: ordinary HTTP 200 publisher pages recovered blank saved HN
+excerpts for a positional-embeddings tutorial and L3Harris's ground-stop statement
+(2,136 characters). Exact ID/full-text rereads pass 2/2; company claims retain
+attribution. No source or collection behavior changed.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#positional-embeddings-and-ground-stop-statement--iteration-2717).
