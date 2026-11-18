@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2694: Recovered software reliability and TRMNL Frame publisher excerpts (3,000 characters); exact saved text verified, scheduled acceptance pending.
+
 - [x] 2693: Recovered three blank Rust/HTTP3/Jiff publisher excerpts (4,500 characters); exact stored text verified, scheduled acceptance pending.
 
 - [x] 2692: Recovered blank OpenCode Browse and Three.js lighting excerpts (2,042 characters); exact stored text verified, scheduled acceptance pending.

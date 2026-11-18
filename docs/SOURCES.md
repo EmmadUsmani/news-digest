@@ -3622,3 +3622,8 @@ Iteration 2693 recovered blank Rust developer essay, HTTP/3 tutorial and Jiff 1.
 HN excerpts through the deployed extractor: HTTP 200, 4,500 characters, exact
 stored text verified. GitHub jQuery release has only a bare link and stays blank.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#rust-and-http3-evidence--iteration-2693).
+
+Iteration 2694 recovered blank software reliability and TRMNL Frame HN excerpts
+through the deployed extractor: ordinary HTTP 200, 3,000 characters, exact saved
+ID/text verified. CMU course page yields no scoped prose and stays blank.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#software-reliability-and-display-evidence--iteration-2694).

@@ -119,3 +119,13 @@
 - Source inventory/tasks updated; no application/schema/UI/handbook behavior change. Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts.
 - Verification: pnpm format, pnpm lint:fix and pnpm check pass (1,105 unit/330 integration tests, four expected skips); pnpm build passes. Logs /tmp/2693-*.log. Commit/push and API/worker restart follow.
 - Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.
+
+## 2026-11-18: iteration 2694 — recover reliability and display publisher evidence
+
+- Clean main at 58b7272b; no inherited work. Alerts clear; health/source/job checks pass, outside protected hours. No paid calls, provider/budget/flag changes or edition regeneration.
+- Read current public Tech: four summaries still thin; immutable edition unchanged. Two saved blank HN candidates now retain publisher prose through deployed extraction: software reliability essay and TRMNL Frame announcement.
+- Ordinary shared-client HTTP 200; blank-only updates 0 → 1,500 characters each. Independent exact saved ID/text rereads pass 2/2 (3,000 characters); /tmp/2694-saved.json and docs/edition-reviews/2026-11-18-tech-excerpt-recovery.md.
+- Essay claims remain attributed opinion; first-party delivery dates remain plans. CMU course page HTTP 200 yields no scoped excerpt and stays blank; no bypass or scope expansion.
+- Signed-out public HTTPS Chromium reader passes five topics/25 stories/20 posts. Source inventory/tasks updated; no application/schema/UI/handbook behavior change.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass (1,105 unit/330 integration tests, four expected skips). Logs /tmp/2694-*.log. Commit/push and API/worker restart follow checks.
+- Next: retention at 04:40 UTC; natural Nov 18 Tech candidate-share/reader-depth acceptance after 15:00 UTC.

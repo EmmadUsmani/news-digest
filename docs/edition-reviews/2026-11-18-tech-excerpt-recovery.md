@@ -144,3 +144,20 @@ promotion; Jiff adoption and commitments remain author claims. The jQuery
 GitHub release returned HTTP 200 but only a bare publisher link, so stays blank.
 No extraction behavior, budgets or immutable editions changed; no paid calls.
 Natural scheduled Tech acceptance remains pending after 15:00 UTC.
+
+## Software reliability and display evidence — iteration 2694
+
+Two ordinary shared-client HTTP 200 responses yielded scoped publisher prose
+through the deployed extractor. Blank-only updates and independent exact ID/text
+rereads pass: two candidates, 1,500 characters each (3,000 total).
+
+| Candidate                                                                                                             | Saved ID                             | Retained detail                                                             |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------- |
+| [Software reliability essay](https://www.breck-mckye.com/blog/2026/11/software-is-breaking-down-at-a-systemic-level/) | 0224e4cf-98a2-434d-aba7-50b49495de94 | Author's outage examples and argument about AI and software practices       |
+| [TRMNL Frame announcement](https://trmnl.com/blog/introducing-frame)                                                  | f9ea7442-f906-469b-b4f0-b209d5b32c21 | First-party 31.5-inch color ePaper preorders, batch size and delivery plans |
+
+The essay's outage and vulnerability claims remain attributed opinion, not
+independent incident verification. TRMNL's intended delivery dates are plans.
+CMU's course page returned HTTP 200 but no scoped excerpt and stays blank.
+No extraction behavior, budgets or immutable editions changed; no paid calls.
+Natural scheduled Tech acceptance remains pending after 15:00 UTC.
