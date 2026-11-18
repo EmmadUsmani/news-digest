@@ -717,3 +717,16 @@ motivation and the tutorial's simplified PostScript subset. No reference list
 or code is included. The complete 717-character passage was reviewed before a
 blank-only write. Exact stored ID/full-text reread passes 1/1
 (`/tmp/2730-saved.json`). No new external fetch or paid call.
+
+## Coway reverse engineering and GPU forensics — iteration 2731
+
+Ordinary shared-client HTTP 200 responses recovered blank saved HN excerpts
+for [Coway air-purifier reverse engineering](https://scottjg.com/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/)
+and [AI-model checkpoint forensics](https://unemploymentlabs.com/checkpoint-forensics).
+Each changed from zero to 1,500 characters. Complete passages reviewed before
+blank-only writes; exact stored-ID/full-text rereads pass 2/2
+(`/tmp/2731-saved.json`). The first supplies the author's home-automation
+motivation; the second attributes GPU fingerprint findings and limitations to
+the report's authors, including that initialization evidence does not prove
+training hardware. No collection behavior, paid call, budget or immutable
+edition changed. Scheduled Tech depth acceptance remains pending.

@@ -154,3 +154,14 @@
 - `pnpm build` and filtered `check-handbook.ts edition-pipeline` pass (19 pages/39 tables); API/worker restarted, health database/Redis pass; public Chromium reader five topics/25 stories after restart.
 - `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2730-*.log`; post-restart alerts clear.
 - Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.
+
+## 2026-11-18: iteration 2731 — recover Coway and GPU-forensics context
+
+- Clean main at d2a35ca4; no inherited work. Alerts/health clear, sources healthy; digest-generation queue zero failures, next 15:00 UTC. Historical ingestion/social failures unchanged.
+- Public Chromium reader shows five topics/25 stories; Tech remains thin pending scheduled acceptance.
+- Ordinary shared-client HTTP 200 recovered blank saved HN excerpts for Coway reverse engineering and AI-model checkpoint forensics (3,000 characters).
+- Complete passages reviewed before blank-only writes; exact stored-ID/full-text rereads pass 2/2 (`/tmp/2731-saved.json`). GPU initialization/training limitation preserved in source context.
+- No code/schema/UI changes, paid calls, cap changes or edition regeneration. Sources/receipt/tasks updated; handbook behavior unchanged.
+- `pnpm build`, `pnpm format`, `pnpm lint:fix`, `pnpm check` pass: 1,119 unit/330 integration tests, four expected skips. Logs `/tmp/2731-*.log`.
+- API/worker restarted; health database/Redis pass; post-restart public Chromium reader five topics/25 stories and alerts clear.
+- Next: scheduled Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 deployment window.

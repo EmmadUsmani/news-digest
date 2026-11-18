@@ -3834,3 +3834,9 @@ top-level heading, stopping at the first other element. The previously fetched
 HTTP 200 PostScript tutorial supplies 717 characters to its blank saved HN
 candidate; exact ID/full-text reread passes.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#bare-document-tutorial--iteration-2730).
+
+Iteration 2731: ordinary HTTP 200 publisher responses recovered blank saved HN
+excerpts for Coway air-purifier reverse engineering and AI-model checkpoint
+forensics (3,000 characters). Exact ID/full-text rereads pass 2/2; collection
+behavior unchanged.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#coway-reverse-engineering-and-gpu-forensics--iteration-2731).
