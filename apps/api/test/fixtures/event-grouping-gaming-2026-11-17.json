@@ -1,0 +1,62 @@
+{
+  "provenance": "Nov 17 scheduled edition 6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e. Exact candidates from the ordinary pre-publication loader capture, matched by ID, URL and excerpt to docs/edition-reviews/2026-11-17-grouping.json. Agent-reviewed same-estimate labels, not independent annotation or a replay of historical model inputs. Offline only; never seed production.",
+  "topic": "Gaming",
+  "windowStart": "2026-11-16T15:00:00.000Z",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "candidates": [
+    {
+      "id": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+      "title": "As GTA 6 finally nears release, analysts estimate Rockstar has already made $1.45 billion",
+      "url": "https://www.gamesradar.com/games/grand-theft-auto/as-gta-6-finally-nears-release-analysts-estimate-rockstar-has-already-made-usd1-45-billion-helped-by-nearly-90-percent-of-fans-buying-the-controversial-usd100-ultimate-edition/",
+      "sources": ["GamesRadar+"],
+      "publishedAt": "2026-11-17T12:59:12.000Z",
+      "points": 0,
+      "excerpt": "GTA 6 isn't even out yet, but it's been estimated that Rockstar's next game has already surpassed $1.45 billion in revenue, with almost 15 million copies sold via pre-orders. That's according to market intelligence firm Sensor Tower, whose latest sales tracker estimates \u2013 updated yesterday \u2013 continue to put PS5 pre-orders well ahead of Xbox Series X|S, with sales for Sony's console thought to account for 74% of the lot, at 11.13 million copies. Between both platforms, Sensor Tower estimates 14.94 million units have been sold. What's more, as of November 10, Sensor Tower estimated that a whopping 87% of all GTA 6 pre-orders were for the more expensive Ultimate Edition. As a reminder of the different GTA 6 versions, the Standard Edition is $80, while the Ultimate Edition comes in at $100, the price everyone was so worried about before pre-orders were announced. For your extra $20, you get some unique cars and several exclusive shops, among other things \u2013 I imagine those shops may have been the selling point for many, given that you're literally missing out on content otherwise. To an extent, I'd imagine a bit of a 'go big or go home' mindset might apply here, too. After all, we've been waiting 13 years since the last game in the series, so a lot of people are just going to want the, well, ultimate experience. It's this sort of thinking that could get you to spend $400 on a box of mostly expensive tat, though, so be careful with that. Anyway, there was never any doubt GTA 6\u2026"
+    },
+    {
+      "id": "d78c49f7-1259-4206-900a-bc164416be87",
+      "title": "Sensor Tower: GTA 6 pre-orders exceed $1.4bn, with 87% for the Ultimate Edition",
+      "url": "https://www.gamesindustry.biz/sensor-tower-gta-6-pre-orders-exceed-14bn-with-87-for-the-ultimate-edition",
+      "sources": ["GamesIndustry.biz"],
+      "publishedAt": "2026-11-17T01:00:00.000Z",
+      "points": 0,
+      "excerpt": "Sensor Tower estimates Grand Theft Auto 6 has generated over $1.4 billion in pre-order revenue, with 87% of orders for the Ultimate Edition. Read more"
+    },
+    {
+      "id": "7f440bee-373a-4cb7-8417-261571a93b67",
+      "title": "GTA 6 is Close to 15 Million Sold and $1.5 Billion Revenue \u2013 Rumor",
+      "url": "https://gamingbolt.com/gta-6-is-close-to-15-million-sold-and-1-5-billion-revenue-rumor",
+      "sources": ["GamingBolt"],
+      "publishedAt": "2026-11-16T17:00:24.000Z",
+      "points": 0,
+      "excerpt": "Only days after analyst firm Sensor Tower estimated over 10 million sales for Grand Theft Auto 6, a new milestone has reportedly been reached. Rockstar Games\u2019 open-world behemoth, launching on November 19th for Xbox Series X/S and PS5, has allegedly neared 15 million sales. It\u2019s currently estimated at 14.94 million units sold, with PlayStation dominating again at 11.13 million sales while Xbox is at 3.81 million. Total revenue has seemingly topped $1.45 billion, with $1.08 billion for PS5 and $368 million for Xbox. Of course, these are estimates, as Rockstar and Take-Two have not offered any official sales figures heading into launch. The most we\u2019ve heard from the latter is that pre-orders are \u201cfar in excess\u201d of its expectations, though it promises to share more once the game is out there. Nevertheless, if these are close to the real total, Grand Theft Auto 6 may be close to breaking even on its reported $2 billion+ budget from launch itself. Marketing and distribution wouldn\u2019t be included, but it\u2019s still an incredible achievement, displacing its predecessor\u2019s $800 million launch sales without breaking a sweat. Once it\u2019s finally out there for all and sundry to play after years of waiting, what\u2019s next for Rockstar Games? Thankfully, we won\u2019t have to wait long to find out, per Take-Two CEO Strauss Zelnick, so stay tuned."
+    }
+  ],
+  "publishedGroups": [
+    [
+      "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+      "d78c49f7-1259-4206-900a-bc164416be87",
+      "7f440bee-373a-4cb7-8417-261571a93b67"
+    ]
+  ],
+  "pairs": [
+    {
+      "left": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+      "right": "d78c49f7-1259-4206-900a-bc164416be87",
+      "sameEvent": true,
+      "reason": "Both attribute the same GTA 6 pre-order estimate to Sensor Tower; shared estimate rather than merely shared launch context."
+    },
+    {
+      "left": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+      "right": "7f440bee-373a-4cb7-8417-261571a93b67",
+      "sameEvent": true,
+      "reason": "Both attribute the same GTA 6 pre-order estimate to Sensor Tower; shared estimate rather than merely shared launch context."
+    },
+    {
+      "left": "d78c49f7-1259-4206-900a-bc164416be87",
+      "right": "7f440bee-373a-4cb7-8417-261571a93b67",
+      "sameEvent": true,
+      "reason": "Both attribute the same GTA 6 pre-order estimate to Sensor Tower; shared estimate rather than merely shared launch context."
+    }
+  ]
+}

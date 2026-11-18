@@ -9,6 +9,47 @@ import {
 } from '../scripts/evaluate-event-grouping';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
+void test('published GTA Sensor Tower estimate retains all three reports across every order', () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      join(__dirname, 'fixtures/event-grouping-gaming-2026-11-17.json'),
+      'utf8',
+    ),
+  ) as {
+    candidates: Candidate[];
+    publishedGroups: string[][];
+    pairs: { left: string; right: string; sameEvent: boolean }[];
+  };
+  assert.equal(fixture.candidates.length, 3);
+  assert.equal(
+    new Set(fixture.candidates.map((candidate) => candidate.id)).size,
+    3,
+  );
+  assert.equal(fixture.pairs.length, 3);
+  for (const candidate of fixture.candidates) {
+    assert.match(candidate.excerpt, /Sensor Tower/i);
+  }
+  const published = evaluateClusterMembership(
+    fixture.candidates,
+    fixture.pairs,
+    (a, b) =>
+      fixture.publishedGroups.some(
+        (group) => group.includes(a.id) && group.includes(b.id),
+      ),
+  );
+  assert.equal(published.clusters, 1);
+  assert.equal(published.truePositives, 3);
+  assert.equal(published.falsePositives, 0);
+  assert.equal(published.missedPositivePairs, 0);
+  assert.equal(published.unlabeledMergedPairs, 0);
+  assert.equal(published.permutationCheck.orders, 6);
+  assert.equal(published.permutationCheck.orderSensitivePairs, 0);
+  assert.equal(published.permutationCheck.minMatchedPositivePairs, 3);
+  const separate = evaluateClusterMembership(fixture.candidates, fixture.pairs);
+  assert.equal(separate.clusters, 3);
+  assert.equal(separate.missedPositivePairs, 3);
+});
+
 void test('published Nvidia follow-up stays together without absorbing separate chip policy', () => {
   const fixture = JSON.parse(
     readFileSync(

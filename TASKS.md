@@ -42,7 +42,7 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 - [ ] STEERING 28 incremental triage OFF: reserve-safe pools/cutoffs/draining verified; only 2/65 early fingerprints compatible. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-12).
 
-- [ ] M5 grouping: published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2556 extends the Helix control to affordability/neural rendering; all ten five-article pairs labeled, correct split/merge passes all 120 orders. 2554 adds Nvidia comeback/fallout positive and separate chip-policy negatives; all three pairs/six orders pass supported membership. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
+- [ ] M5 grouping: 2678 adds Nov 17 shared Sensor Tower estimate positive control (three pairs/six orders), contrasting Nov 16 separate forecasts. published Nov 16 GTA pair is an offline negative case (2539); merged membership fails/separate control passes. 2556 extends the Helix control to affordability/neural rendering; all ten five-article pairs labeled, correct split/merge passes all 120 orders. 2554 adds Nvidia comeback/fallout positive and separate chip-policy negatives; all three pairs/six orders pass supported membership. Independent labels and semantic evaluation open. [Detail](docs/progress-archive/2026-11-16-task-detail-2541.md#open-work).
 
 - [ ] STEERING 4: fake/replay LlmPort/ledger implemented; saved NBA repair passes isolated publication/public-reader transport. No live tests or paid replay. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-14).
 
@@ -63,6 +63,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 - [ ] Gaming English context: v11/date guard deployed. Nov 14 source-bound English notes; translation/date challenge unexercised, natural absence-rationale repair succeeded. [Detail](docs/progress-archive/2026-11-16-task-detail-2455.md#open-item-22).
 
 ## Latest completed steps
+
+- [x] 2678: Add exact-capture GTA shared-estimate grouping control; all three pairs/six orders retain supported coverage, blanket split misses three positives.
 
 - [x] 2677: Review all twelve Nov 17 published multi-report groups against 45 captured member texts; preserve shared-estimate GTA evidence and five unresolved groups.
 

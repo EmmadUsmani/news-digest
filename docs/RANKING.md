@@ -3419,3 +3419,15 @@ status, reserved and displaced IDs, admitted evidence depth, repetition and
 summary support. If publication fails or the new choices regress, set the flag
 to `0` and restart API/worker outside the protected deployment window (or as
 a breakage repair). Existing immutable editions remain unchanged.
+
+## Nov 17 shared GTA estimate control (iteration 2678)
+
+The three published Sensor Tower reports now have an offline positive membership
+control in `event-grouping-gaming-2026-11-17.json`. Exact candidate metadata and
+excerpts match the ordinary pre-publication capture and saved grouping review.
+All three pairs describe the same attributed estimate; all six input orders
+retain one cluster and three positive pairs. Separating every report misses
+three positives. Together with the Nov 16 separate-forecast negative case, this
+protects useful shared-estimate coverage from a blanket GTA split. These are
+agent labels, not independent annotation or a semantic-model evaluation.
+Production grouping, prompts, providers and budgets are unchanged.

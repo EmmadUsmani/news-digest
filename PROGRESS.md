@@ -175,3 +175,12 @@
 - No model call, publisher fetch, source/provider/budget/flag change or UI change. No handbook or screenshot update needed. Tech admission remains enabled pending natural scheduled acceptance.
 - Verification: pnpm format/lint:fix/check pass: 1,087 unit/330 integration tests, four expected skips; isolated harness rebuilt API. Assertions cover unique members, group/assessment counts and public projection. Receipts /tmp/2677-{format,lint,check,services,sources,jobs}.log.
 - Next: natural Nov 18 admission/reader review and 04:40 retention; metrics ≥01:25 UTC. API/worker restart after push.
+
+## 2026-11-18: iteration 2678 — retain shared-estimate GTA coverage
+
+- Clean main at fb6c665e; no inherited work. Alerts clear; health database/Redis pass, 14 monitored services and active sources/jobs checks pass; disk 73%. Metrics checkpoint not yet due (≥01:25 UTC).
+- Reader weakness: Nov 16 merged separate forecasts, but splitting all GTA coverage would also discard Nov 17's supported shared Sensor Tower estimate. Added the latter as a positive offline membership control.
+- Three exact pre-publication candidates match saved reviewed IDs, URLs and excerpts; three agent-labeled positive pairs pass all six orders. Separate-all control misses three positives. Independent labels/semantic evaluation remain open.
+- No production grouping, prompt, source, provider, budget, UI or flag change; Tech admission stays enabled for natural scheduled acceptance. No handbook or screenshot change needed.
+- Verification: targeted grouping suite passes 19 tests; pnpm format/lint:fix/check pass, 1,088 unit and 330 integration tests/four expected skips. Isolated harness rebuilt API. Receipts: /tmp/2678-{targeted,format,lint,check}.log.
+- Next: natural Nov 18 Tech admission/reader review, 04:40 retention, metrics ≥01:25 UTC. API/worker restart after push.
