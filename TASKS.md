@@ -61,6 +61,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 2711: Recover firmware, Protomaps and Mosquitto publisher context (4,500 characters); three blank-only writes and exact ID/full-text rereads pass.
+
 - [x] 2710: Recover saved Bitly link-hijack publisher reporting (1,500 characters); blank-only write and independent exact ID/full-text reread pass.
 
 - [x] 2709: Recover OpenTodo, VennDB and WINUDF publisher README excerpts (4,493 characters); blank-only writes and exact ID/full-text rereads pass.

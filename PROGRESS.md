@@ -215,3 +215,13 @@
 - No code/schema/UI changes, paid calls, provider/budget changes or edition regeneration. Recovery receipt/sources/tasks updated; no handbook behavior change.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,113 unit/330 integration tests, four expected skips. Logs /tmp/2710-*.log. Commit/push and API/worker restart follow checks.
 - Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.
+
+## 2026-11-18: iteration 2711 — recover firmware, map and MQTT context
+
+- Clean main at 447b22af; no inherited work. Alerts/health pass; digest queue has zero failures, next run 15:00 UTC.
+- Public HTTPS Chromium reader renders 25 stories. Continued Tech collection recovery while scheduled depth acceptance waits.
+- Ordinary shared-client HTTP 200 responses recover three blank saved HN excerpts: hackable firmware, Protomaps and Mosquitto (4,500 characters).
+- Full excerpts reviewed before blank-only writes; independent exact ID/full-text rereads pass 3/3 (`/tmp/2711-saved.json`). Turbo Pascal remains blank without scoped prose.
+- Opinion, dated pricing and project setup instructions retain publisher attribution. No code/schema/UI changes, paid calls, budget changes or regeneration.
+- Recovery receipt/sources/tasks updated; no handbook behavior change. `pnpm format`, `pnpm lint:fix`, `pnpm build` pass; `pnpm check` passes: 1,113 unit/330 integration tests, four expected skips; logs `/tmp/2711-*.log`. Commit/push and API/worker restart follow checks.
+- Next: scheduled Nov 18 Tech share/depth acceptance after 15:00 UTC; protect 13:00–16:00 UTC deployment window.

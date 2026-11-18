@@ -415,3 +415,21 @@ These are the publisher's November 15 updates, not a fresh November 18 incident.
 Jolt lacks scoped reporting; HN Trends also returns no extractable reporting.
 No collection code change, paid call or edition regeneration. Public Tech
 still has thin summaries; scheduled share/depth acceptance remains pending.
+
+## Firmware, maps and MQTT context — iteration 2711
+
+Ordinary shared-client HTTP 200 responses and deployed extraction recovered
+three saved blank HN excerpts (1,500 characters each):
+
+| Publisher                                                                                                                                    | Saved candidate                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| [https://geoffstearns.com/blog/your-agent-will-pick-the-hackable-one/](https://geoffstearns.com/blog/your-agent-will-pick-the-hackable-one/) | `1d425619-537c-4614-8300-c0b8fc176291` |
+| [https://bruceroettgers.eu/blog/protomaps/](https://bruceroettgers.eu/blog/protomaps/)                                                       | `6fa2b624-fe02-4b3b-8a32-898f953f4691` |
+| [https://github.com/eclipse-mosquitto/mosquitto](https://github.com/eclipse-mosquitto/mosquitto)                                             | `715e4bcc-6528-45b0-bfb7-edc505dd8f47` |
+
+Complete excerpts reviewed before blank-only writes; independent exact
+ID/full-text rereads pass 3/3 (`/tmp/2711-saved.json`). Firmware predictions
+remain author opinion, map prices remain dated publisher claims, and Mosquitto
+setup guidance remains project documentation. Turbo Pascal stays blank without
+scoped extractable prose. No collection code change, paid call or regeneration.
+Scheduled Tech share/depth acceptance remains pending.

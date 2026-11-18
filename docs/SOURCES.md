@@ -3716,3 +3716,8 @@ one blank saved HN excerpt about Bitly link hijacks (1,500 characters).
 Publisher's November 15 updates retain attribution; exact saved ID/text verified.
 No source added, paid call or edition regeneration.
 [Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#bitly-link-hijack-reporting--iteration-2710).
+
+Iteration 2711: ordinary publisher HTTP 200 responses recovered blank saved
+HN excerpts for hackable firmware, Protomaps and Mosquitto (4,500 characters).
+Blank-only writes and independent exact ID/text rereads pass; no source added.
+[Receipt](edition-reviews/2026-11-18-tech-excerpt-recovery.md#firmware-maps-and-mqtt-context--iteration-2711).
