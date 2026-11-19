@@ -1,4 +1,40 @@
 November 13 discovery trace (2146): World currently searches its display name
+
+## Missed-story reference lists — November 19, 2026
+
+STEERING 68 uses these free RSS lists as review references, separate from
+production collection. They do not change ingestion, scoring or editor inputs.
+
+| Topic                 | Reference lists                                                                                                   |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Tech & AI             | [Techmeme](https://www.techmeme.com/feed.xml), [The Verge](https://www.theverge.com/rss/index.xml)                |
+| NBA                   | [CBS NBA](https://www.cbssports.com/rss/headlines/nba/), [Yahoo NBA](https://sports.yahoo.com/nba/rss/)           |
+| Gaming                | [GamesIndustry.biz](https://www.gamesindustry.biz/feed), [Eurogamer](https://www.eurogamer.net/feed)              |
+| World news & politics | [BBC World](https://feeds.bbci.co.uk/news/world/rss.xml), [Guardian World](https://www.theguardian.com/world/rss) |
+| U.S. news & politics  | [NPR Politics](https://feeds.npr.org/1014/rss.xml), [Guardian US](https://www.theguardian.com/us-news/rss)        |
+
+Capture with `pnpm exec tsx scripts/capture-reference-stories.ts START END OUTPUT_FILE`.
+The explicit command makes ten bounded feed requests through the existing HTTP
+client and feed parser; it uses no database, LLM or paid API. It saves dated
+headlines, links and available excerpts in the half-open edition window, plus
+observation times and per-feed errors. Output must be a new file. Each feed is
+limited to the existing parser's first 60 entries; this is a rolling observation,
+not a reconstructed historical top list. Preserve an early capture and capture
+again immediately after publication to reduce loss from rolling feeds.
+
+These publishers already appear in collection, so this first reference set can
+expose selection misses but cannot fully test independent collection coverage.
+Techmeme adds a separate curated Tech list. Publisher feeds are not ranked lists:
+read for topic relevance and importance, deduplicate events with existing
+clustering/embedding similarity, and exclude filler before computing recall.
+Do not treat all feed entries or exact URL mismatches as missed events.
+
+The daily review's **Missed** section records important matched/total events per
+topic, each real miss and its saved-data cause (never collected, not shortlisted,
+editor dropped, or wrongly withheld/merged). Report unavailable reference data
+explicitly. No recall is claimed before importance and event matching are done.
+After three scheduled reviews, measure the largest root-cause fix on saved pools.
+
 `World news & politics`; Tech/Gaming fall back to `AI`/`game`. Historical Nov 12
 observations contain only 46/52/51 distinct posts respectively. Effective
 queries now appear in the read-only report and match the collector offline.

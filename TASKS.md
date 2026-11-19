@@ -11,6 +11,10 @@ Full historical evidence: [2785 handoff](docs/progress-archive/2026-11-18-open-t
 
 ## Open work
 
+- [ ] STEERING 68: reference lists selected for all five topics in docs/SOURCES.md; explicit free `scripts/capture-reference-stories.ts` captures dated evidence without DB/model calls (2875). Ten feeds pass live; early Nov 19 window capture `/tmp/2875-reference-stories.json` has 166 entries (not importance-labelled or event-deduplicated). Capture again after 15:00 publication, match with existing clustering/embeddings, and add Missed recall/causes within the daily review. Three reviews then one measured root-cause fix remain open.
+- [ ] STEERING 69: while higher work waits, grow labelled events and evaluate one story/post event budget on saved Nov 12–18 editions; at most one evaluation commit/day, no paid replay or tuning to agent labels.
+- [ ] STEERING 70: reader features approved; follow docs/reader-features-plan.md order after higher priorities, one live real-edition acceptance before next feature.
+
 - [ ] STEERING 67 (2770): one-time three-day cause table/general description fallback/bounded backfill complete. Unsupported layouts largest non-block cause 25/74 (33.78%); saved Tech blanks 74/261 (28.35%) → 40/261 (15.33%), 34 exact verified updates. No further recovery work; next scheduled Tech section checked once in daily review. [Cause table/receipt](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
 
 - [ ] Destructoid access blocked (2601): official feed returns Cloudflare HTTP 403; collection paused, 304 observations retained. Resume only after documented publisher access is available; no bypass or replacement source. Other 37 active sources healthy.

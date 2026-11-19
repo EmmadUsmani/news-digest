@@ -99,3 +99,14 @@
 - Verification: nine targeted reader projection tests, pnpm format/lint:fix, build, scoped handbook check and git diff --check pass. Full pnpm check passes: 1,137 unit and 330 integration tests, four expected skips; logs /tmp/2786-*.log.
 - API/worker/docs rebuilt and restarted; /healthz, obs health and alerts clear. Updated TASKS, affected pipeline handbook and item 42 ack.
 - Next: scheduled NBA/Tech/World/U.S./Gaming acceptance. Earlier E1 denial fix already awaits scheduled evidence; no duplicate prompt change. Destructoid access and @PS_Support_US authenticity unresolved.
+
+## 2026-11-19: iteration 2875 — prepare missed-story reference captures
+
+- Clean main at abc77550; no inherited work. Owner added STEERING 68–70; followed new line-2 missed-story priority rather than waiting for scheduled acceptance.
+- Alerts clear; health/DB/Redis and 14 services pass; 38 sources healthy (Destructoid paused). Digest-generation queue has zero failures, next Nov 19 15:00 UTC. Initial console invocation was interactive; corrected to obs sources. Initial queue alias digest was invalid; actual queue is digest-generation.
+- Selected two free reference feeds/topic in SOURCES, reusing existing sources and Techmeme; documented importance filtering, semantic event matching, rolling-feed limits and same-review Missed section. No scoring/source configuration change.
+- Added explicit capture-reference-stories.ts: ten bounded existing HTTP/parser requests, half-open window filtering, timestamps, per-feed failures and exclusive output creation; no DB, model, embedding or paid API calls.
+- Live early capture /tmp/2875-reference-stories.json: all ten feeds pass, 166 dated entries (Tech 25/NBA 55/Gaming 14/World 44/U.S. 28), not importance-labelled/deduplicated. Exact reread verifies dates/links/titles. Invalid arguments fail before network. No recall or historical completeness claimed.
+- Added open tasks for 68–70. Next: capture after publication, use existing clustering/embeddings and editorial judgement, record recall/miss causes in daily review; three editions then one measured root-cause fix. Scheduled NBA/Tech acceptance remains pending.
+- Verification: pnpm format, pnpm lint:fix, standalone script tsc, full pnpm check (1,137 unit/330 integration passes, four expected skips), pnpm build, check-handbook.ts (19 pages/21 diagrams/39 tables) and git diff --check pass. Logs /tmp/2875-*.log. No UI change or paid replay.
+- Rebuilt API/worker/docs restarted active; immediate health probe hit startup, retry obs health --check passes. Alerts clear, digest queue zero failures; next edition 15:00 UTC.

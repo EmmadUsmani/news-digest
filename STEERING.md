@@ -3180,6 +3180,8 @@ fix is deployed. The ack gives recall per topic before and after the fix.
 **Limits:** no new spend or vendors. No deploys between 13:00 and 16:00 UTC.
 Protect the morning edition.
 
+ack: 2026-11-19 (2875) — selected two free reference feeds per topic in docs/SOURCES.md and added scripts/capture-reference-stories.ts for dated, window-filtered observations without DB/model calls. Ten feeds pass live; early Nov 19 window contains 166 entries before importance/event review. Daily Missed recall and causes remain pending publication; three reviews and a measured root-cause fix remain open. No scoring changes or paid replay.
+
 ## 69. Use waiting time for evaluation; count stories and posts per event (2026-11-19)
 
 **Why:** after its last commit at 20:12 UTC on Nov 18, the agent ran more than
