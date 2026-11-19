@@ -54,7 +54,10 @@ export function traceReferenceStories(
     windowStart: edition.windowStart,
     windowEnd: edition.windowEnd,
     capturedAt: capture.capturedAt,
-    windowEnded: Date.parse(capture.capturedAt) >= end,
+    windowEnded:
+      Date.parse(capture.capturedAt) >= end &&
+      capture.feeds.length > 0 &&
+      capture.feeds.every((feed) => Date.parse(feed.observedAt) >= end),
     purpose:
       'Saved selected-cluster URL trace; unresolved entries require event and importance review, not automatic misses or recall',
     feeds: capture.feeds.map((feed) => {
@@ -64,12 +67,14 @@ export function traceReferenceStories(
           topic: feed.topic,
           name: feed.name,
           observedAt: feed.observedAt,
+          windowEnded: Date.parse(feed.observedAt) >= end,
           error: feed.error ?? 'Missing stories',
         };
       return {
         topic: feed.topic,
         name: feed.name,
         observedAt: feed.observedAt,
+        windowEnded: Date.parse(feed.observedAt) >= end,
         topicAvailable: !!topic,
         stories: feed.stories.map((reference) => {
           const date = Date.parse(reference.publishedAt);

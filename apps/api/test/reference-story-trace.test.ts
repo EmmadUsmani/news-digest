@@ -165,3 +165,48 @@ void test('reference trace refuses mismatched windows, out-of-window entries and
     /Invalid reference URL/,
   );
 });
+
+void test('reference trace retains early observations when capture crosses window end', () => {
+  const late = '2026-11-18T15:01:00Z';
+  const mixed = {
+    ...capture,
+    capturedAt: late,
+    windowEnded: true,
+    feeds: [
+      capture.feeds[0],
+      { ...capture.feeds[0], name: 'Later', observedAt: late },
+    ],
+  };
+  const report = traceReferenceStories(mixed, edition);
+  assert.equal(report.windowEnded, false);
+  assert.deepEqual(
+    report.feeds.map((feed) => feed.windowEnded),
+    [false, true],
+  );
+  assert.equal(
+    traceReferenceStories({ ...mixed, feeds: [mixed.feeds[1]] }, edition)
+      .windowEnded,
+    true,
+  );
+  assert.equal(
+    traceReferenceStories({ ...mixed, feeds: [] }, edition).windowEnded,
+    false,
+  );
+  const failed = traceReferenceStories(
+    {
+      ...mixed,
+      feeds: [
+        {
+          topic: 'Gaming',
+          name: 'Unavailable',
+          observedAt: date,
+          error: 'HTTP 503',
+        },
+      ],
+    },
+    edition,
+  );
+  assert.equal(failed.windowEnded, false);
+  assert.equal(failed.feeds[0].windowEnded, false);
+  assert.equal(failed.feeds[0].error, 'HTTP 503');
+});

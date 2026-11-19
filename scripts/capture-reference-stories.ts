@@ -102,7 +102,7 @@ async function main() {
         start: new Date(from).toISOString(),
         end: new Date(to).toISOString(),
         capturedAt: new Date().toISOString(),
-        windowEnded: to <= Date.now(),
+        windowEnded: feeds.every((feed) => Date.parse(feed.observedAt) >= to),
         feeds,
       },
       null,

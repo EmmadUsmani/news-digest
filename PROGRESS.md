@@ -152,3 +152,11 @@
 - Two targeted tests pass (coverage/normalization, cross-topic isolation, unchanged inputs, failure preservation, window/credential refusals); synthetic CLI transport/permissions/overwrite checks pass. Actual early Nov 19 capture against saved Nov 18 edition refuses on window mismatch; no semantic recall claimed.
 - pnpm format/lint:fix and full pnpm check pass: 1,199 unit / 332 integration, four expected skips. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2906-*.log. TASKS and docs/SOURCES.md updated; no UI/handbook behavior change.
 - Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; developing semantic review/runtime admission remain open. Commit/push and API/worker/docs restart follow verification.
+
+## 2026-11-19: iteration 2907 — retain early reference-feed observations
+
+- Clean main at ad4dd107; no inherited work. Alerts/health pass; sources healthy, digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
+- Corrected reference capture/trace windowEnded: every feed must have started observation after the window closes. A capture finishing after closing cannot promote earlier feed observations; trace reports each feed separately, including failures. Empty traces never imply post-window coverage.
+- Three targeted offline tests pass, including mixed early/late observations, all-late observations, empty captures and preserved early feed errors. No provider calls or production editorial changes.
+- TASKS and docs/SOURCES.md updated. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; event matching and importance review remain required before recall.
+- Verification: pnpm format/lint:fix and full pnpm check pass (1,200 unit / 332 integration, four expected skips); pnpm build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2907-*.log. Final diff check, commit/push and API/worker/docs restart follow; health/alerts rechecked after restart.

@@ -21,6 +21,9 @@ observation times and per-feed errors. Output must be a new file. Each feed is
 limited to the existing parser's first 60 entries; this is a rolling observation,
 not a reconstructed historical top list. Preserve an early capture and capture
 again immediately after publication to reduce loss from rolling feeds.
+`windowEnded` requires every feed observation to start after the window closes;
+the trace also marks each feed separately, so a capture crossing the closing time
+keeps its early observations visible. Failed feeds remain unavailable evidence.
 
 Trace the saved reader edition with `pnpm exec tsx apps/api/scripts/trace-reference-stories.ts capture.json reader.json output.json`.
 The windows must match. This offline report locates reference URLs in the topic’s
