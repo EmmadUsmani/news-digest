@@ -348,3 +348,9 @@ relationship to the later resignation; it is not labelled a match.
 - Inactive selected enrichment now returns a reason for non-AI/empty selection, empty history, excess history capacity, unavailable matching, ambiguous or missing evidence, no validated links and refused rewrite. Capacity is checked before matching dispatch; no history is truncated.
 - Existing offline orchestration controls now assert each refusal reason, exact original-array preservation, no calls for preflight refusal and a single atomic rewrite refusal. Matching failures remain grouped with no validated links; no semantic success is inferred.
 - Generation remains unwired. No providers, UI, sources, schema or runtime budget changes. Semantic review, whole-edition ledger admission and real-edition acceptance remain open.
+
+## Iteration 2992 — rewrite budget lifecycle composition
+
+- Exercised selected enrichment through the real BudgetedLlm with a scripted provider and in-memory ledger. Six scenarios cover refused reservation, successful rewrite, malformed JSON, uncertain transport failure, provider spend limit and expired execution. All failures preserve the accepted array; the success retains unmatched stories.
+- Asserted exact request attribution and conservative reservation calculation; successful and malformed responses settle actual usage. Uncertain transport retains its hold, provider-limit failure releases it, and refused/expired work makes no provider dispatch. Repairs are disabled in this test composition, so no scenario retries.
+- This verifies rewrite-stage wrapper composition only. Matching is scripted; database transactions, shared whole-edition obligations, semantic quality and production activation remain unverified. No runtime changes or provider calls.

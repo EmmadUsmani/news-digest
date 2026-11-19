@@ -172,3 +172,12 @@
 - Live latest remains 7a747d9c, five topics/25 real stories. Initial private job-state filter unsupported in public mode; queue-count probe succeeds.
 - pnpm format, pnpm lint:fix and full pnpm check pass: 1,214 unit tests, 332 integration passes/four expected skips. Targeted log /tmp/2991-target.log; full logs /tmp/2991-{format,lint,check,build}.log.
 - pnpm build and final diff check pass. Commit/push and API/worker restart follow. Next: complete semantic/whole-edition admission; Nov 20–22 daily missed-event recall reviews.
+
+## 2026-11-19: iteration 2992 — developing rewrite budget lifecycle
+
+- Clean main at df5a98d1; no inherited work. Alerts clear; health database/Redis pass, 14 monitored services and 38 source checks healthy, disk 61%. Digest-generation has zero failures; next edition Nov 20 15:00 UTC.
+- Added six offline selected-enrichment scenarios using the real BudgetedLlm, scripted provider and in-memory ledger: reservation refusal, success, malformed JSON, uncertain transport, provider limit and expired execution.
+- Exact attribution/reservation bounds, actual-usage settlement, uncertain-hold retention, provider-limit release and no-dispatch refusals pass. Failures preserve the accepted array; repair disabled, no retries.
+- This establishes rewrite-stage composition only, not transactional DB/whole-edition admission or semantic quality. Production remains inactive; no provider calls or runtime/UI/source/schema/handbook changes. Updated TASKS and developing evidence.
+- Targeted test passes (3 tests); pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,215 unit tests, 332 integration passes/four expected skips. Logs /tmp/2992-{target,format,lint,check,build}.log; final diff check passes.
+- Live latest 7a747d9c retains five topics/25 real stories. Commit/push and API/worker restart follow. Next: semantic review and whole-edition admission; Nov 20–22 recall reviews.
